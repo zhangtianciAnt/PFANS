@@ -32,6 +32,7 @@
 <script>
     import EasyNormalTable from '@/components/EasyNormalTable';
     import moment from 'moment';
+    import {Message} from "element-ui";
     import {getDepartmentById, getUserInfo} from '@/utils/customize';
     import json2csv from 'json2csv';
     export default {
@@ -154,18 +155,38 @@
                                 fix: false,
                                 filter: true,
                             }, {
-                                code: 'lastmonth',
-                                label: 'label.PFANS2005FORMVIEW_LASTMONTHPAYMENT',
+                                code: 'lastmonthbasic',
+                                label: 'label.PFANS2005FORMVIEW_LASTMONTHPAYMENTMONEY',
+                                width: 150,
+                                fix: false,
+                                filter: true,
+                            },{
+                                code: 'lastmonthduty',
+                                label: 'label.PFANS2005FORMVIEW_LASTMONTHPAYMENTMONEYTO',
+                                width: 150,
+                                fix: false,
+                                filter: true,
+                            },
+                            {
+                                code: 'thisbasic',
+                                label: 'label.PFANS2005FORMVIEW_MONTHPAYMENTMONEY',
                                 width: 150,
                                 fix: false,
                                 filter: true,
                             }, {
-                                code: 'thismonth',
-                                label: 'label.PFANS2005FORMVIEW_MONTHPAYMENT',
+                                code: 'thismonthduty',
+                                label: 'label.PFANS2005FORMVIEW_MONTHPAYMENTMONEYTO',
                                 width: 150,
                                 fix: false,
                                 filter: true,
                             }, {
+                                code: 'rnbasesalary',
+                                label: 'label.PFANS2006VIEW_RNBASESALARY',
+                                width: 150,
+                                fix: false,
+                                filter: true,
+                            },
+                            {
                                 code: 'birthrest',
                                 label: 'label.PFANS2006VIEW_BIRTHREST',
                                 width: 250,
@@ -219,22 +240,8 @@
                                 filter: true,
                             },
                             {
-                                code: 'telephonesubsidy',
-                                label: 'label.PFANS2006VIEW_TELEPHONE',
-                                width: 150,
-                                fix: false,
-                                filter: true,
-                            },
-                            {
-                                code: 'housingsubsidy',
-                                label: 'label.PFANS2006VIEW_RESIDENTIAL',
-                                width: 150,
-                                fix: false,
-                                filter: true,
-                            },
-                            {
-                                code: 'lunchsubsidy',
-                                label: 'label.PFANS2006VIEW_AFTERNOON',
+                                code: 'ykbz',
+                                label: 'label.PFANS2006VIEW_YKBT',
                                 width: 150,
                                 fix: false,
                                 filter: true,
@@ -257,20 +264,6 @@
                                 code: 'total1',
                                 label: 'label.PFANS2006VIEW_SUBTOTAL1',
                                 width: 190,
-                                fix: false,
-                                filter: true,
-                            },
-                            {
-                                code: 'traffic',
-                                label: 'label.PFANS2006VIEW_TRANSPORTATION',
-                                width: 150,
-                                fix: false,
-                                filter: true,
-                            },
-                            {
-                                code: 'washingtheory',
-                                label: 'label.PFANS2006VIEW_WOMANWASHING',
-                                width: 150,
                                 fix: false,
                                 filter: true,
                             },
@@ -714,10 +707,10 @@
                         this.selectedlist = this.$refs.roletable.selectedList;
                         let heads = [
                              this.$t('label.PFANS2006VIEW_PENSION')
-                            ,this.$t('label.PFANS2006VIEW_MEDICALAA'), this.$t('label.PFANS2005FORMVIEW_HOUSINGFUNDBASE'), this.$t('label.PFANS2005FORMVIEW_LASTMONTHPAYMENT'), this.$t('label.PFANS2005FORMVIEW_MONTHPAYMENT'), this.$t('label.PFANS2006VIEW_BIRTHREST')
+                            ,this.$t('label.PFANS2006VIEW_MEDICALAA'), this.$t('label.PFANS2005FORMVIEW_HOUSINGFUNDBASE'), this.$t('label.PFANS2005FORMVIEW_LASTMONTHPAYMENTMONEY'), this.$t('label.PFANS2005FORMVIEW_LASTMONTHPAYMENTMONEYTO'), this.$t('label.PFANS2005FORMVIEW_MONTHPAYMENTMONEY'), this.$t('label.PFANS2005FORMVIEW_MONTHPAYMENTMONEYTO'),this.$t('label.PFANS2006VIEW_RNBASESALARY'), this.$t('label.PFANS2006VIEW_BIRTHREST')
                             ,this.$t('label.PFANS2005FORMVIEW_MONTHLYPOSTALTEMPORARY'), this.$t('label.PFANS2005FORMVIEW_GDURATIONTIME'), this.$t('label.PFANS2005FORMVIEW_ABSENCETIME'), this.$t('label.PFANS2005FORMVIEW_ABSENCEOFWORK'), this.$t('label.PFANS2006VIEW_BASICSALARY')
-                            ,this.$t('label.PFANS2006VIEW_REIMBURSEMENT'), this.$t('label.PFANS2006VIEW_TELEPHONE'), this.$t('label.PFANS2006VIEW_RESIDENTIAL'), this.$t('label.PFANS2006VIEW_AFTERNOON'), this.$t('label.PFANS2006VIEW_KASUKE')
-                            ,this.$t('label.PFANS2006VIEW_OTHER1'), this.$t('label.PFANS2006VIEW_SUBTOTAL1'), this.$t('label.PFANS2006VIEW_TRANSPORTATION'), this.$t('label.PFANS2006VIEW_WOMANWASHING'), this.$t('label.PFANS2006VIEW_OTHER2')
+                            ,this.$t('label.PFANS2006VIEW_REIMBURSEMENT'), this.$t('label.PFANS2006VIEW_YKBT'), this.$t('label.PFANS2006VIEW_KASUKE')
+                            ,this.$t('label.PFANS2006VIEW_OTHER1'), this.$t('label.PFANS2006VIEW_SUBTOTAL1'), this.$t('label.PFANS2006VIEW_OTHER2')
                             ,this.$t('label.PFANS2006VIEW_MONTHLYBONUS'), this.$t('label.PFANS2006VIEW_OTHER3'), this.$t('label.PFANS2006VIEW_SUBTOTAL2'), this.$t('label.PFANS2006VIEW_INDUSTRY'), this.$t('label.PFANS2006VIEW_HEATING')
                             ,this.$t('label.PFANS2006VIEW_OLONECHILD'), this.$t('label.PFANS2006VIEW_SUBTOTAL3'), this.$t('label.PFANS2006VIEW_ARSENAL'), this.$t('label.PFANS2006VIEW_OLD'), this.$t('label.PFANS2006VIEW_MEDICAL')
                             ,this.$t('label.PFANS2006VIEW_UNEMPLOYMENT'), this.$t('label.PFANS2006VIEW_SOCIALSECURITY'), this.$t('label.PFANS2006VIEW_PUBLICMONEY'), this.$t('label.PFANS2006VIEW_SECURITYMON'), this.$t('label.PFANS2006VIEW_EXCLUSIVE')
@@ -727,10 +720,10 @@
                             ,this.$t('label.PFANS2005FORMVIEW_COMBIRTHINSURANCE'), this.$t('label.PFANS2005FORMVIEW_HEATINGCOST'), this.$t('label.PFANS2005FORMVIEW_HOUSINGPROVIDENTFUND'), this.$t('label.PFANS2005FORMVIEW_TOTAL'), this.$t('label.PFANS2005FORMVIEW_LABORUNIONFUNDBASE')
                             ,this.$t('label.PFANS2009VIEW_INDUSTRIALPARTY'), this.$t('label.PFANS2005FORMVIEW_TOTALWAGES'), this.$t('label.PFANS2005FORMVIEW_GAUGE'), this.$t('label.PFANS2005FORMVIEW_TOTALGAUGE'), this.$t('label.PFANS2005FORMVIEW_OTHER6')];
 
-                        let filterVal = ['pension', 'medical', 'accumulation', 'lastmonth'
-                            ,'thismonth', 'birthrest', 'thismonthbasic', 'shortillness', 'owediligence', 'owingcontrol', 'actualamount'
-                            ,'supplement', 'telephonesubsidy', 'housingsubsidy', 'lunchsubsidy', 'overtimesubsidy', 'other1', 'total1'
-                            ,'traffic', 'washingtheory', 'other2', 'appreciation', 'other3', 'total2', 'taxestotal'
+                        let filterVal = ['pension', 'medical', 'accumulation', 'lastmonthbasic', 'lastmonthduty', 'thisbasic', 'thismonthduty', 'rnbasesalary'
+                            , 'birthrest', 'thismonthbasic', 'shortillness', 'owediligence', 'owingcontrol', 'actualamount'
+                            ,'supplement', 'ykbz', 'overtimesubsidy', 'other1', 'total1'
+                            , 'other2', 'appreciation', 'other3', 'total2', 'taxestotal'
                             ,'heating', 'onlychildmoney', 'total3', 'totalwages', 'endowmentinsurance', 'medicalinsurance', 'unemploymentinsurance'
                             ,'socialinsurance', 'accumulationfund', 'disciplinarycontrol', 'thismonthterm', 'thismonthadditional', 'thismonthdutyfree'
                             ,'lastdutyfree', 'housingmoneys', 'other4', 'other5', 'shouldwages', 'shouldcumulative', 'shouldpaytaxes'
@@ -745,64 +738,63 @@
                                 [heads[0]]: obj.pension,
                                 [heads[1]]: obj.medical,
                                 [heads[2]]: obj.accumulation,
-                                [heads[3]]: obj.lastmonth,
-                                [heads[4]]: obj.thismonth,
-                                [heads[5]]: obj.birthrest,
-                                [heads[6]]: obj.thismonthbasic,
-                                [heads[7]]: obj.shortillness,
-                                [heads[8]]: obj.owediligence,
-                                [heads[9]]: obj.owingcontrol,
-                                [heads[10]]: obj.actualamount,
-                                [heads[11]]: obj.supplement,
-                                [heads[12]]: obj.telephonesubsidy,
-                                [heads[13]]: obj.housingsubsidy,
-                                [heads[14]]: obj.lunchsubsidy,
-                                [heads[15]]: obj.overtimesubsidy,
-                                [heads[16]]: obj.other1,
-                                [heads[17]]: obj.total1,
-                                [heads[18]]: obj.traffic,
-                                [heads[19]]: obj.washingtheory,
-                                [heads[20]]: obj.other2,
-                                [heads[21]]: obj.appreciation,
-                                [heads[22]]: obj.other3,
-                                [heads[23]]: obj.total2,
-                                [heads[24]]: obj.taxestotal,
-                                [heads[25]]: obj.heating,
-                                [heads[26]]: obj.onlychildmoney,
-                                [heads[27]]: obj.total3,
-                                [heads[28]]: obj.totalwages,
-                                [heads[29]]: obj.endowmentinsurance,
-                                [heads[30]]: obj.medicalinsurance,
-                                [heads[31]]: obj.unemploymentinsurance,
-                                [heads[32]]: obj.socialinsurance,
-                                [heads[33]]: obj.accumulationfund,
-                                [heads[34]]: obj.disciplinarycontrol,
-                                [heads[35]]: obj.thismonthterm,
-                                [heads[36]]: obj.thismonthadditional,
-                                [heads[37]]: obj.thismonthdutyfree,
-                                [heads[38]]: obj.lastdutyfree,
-                                [heads[39]]: obj.housingmoneys,
-                                [heads[40]]: obj.other4,
-                                [heads[41]]: obj.other5,
-                                [heads[42]]: obj.shouldwages,
-                                [heads[43]]: obj.shouldcumulative,
-                                [heads[44]]: obj.shouldpaytaxes,
-                                [heads[45]]: obj.thismonthadjustment,
-                                [heads[46]]: obj.realwages,
-                                [heads[47]]: obj.comendowmentinsurance,
-                                [heads[48]]: obj.commedicalinsurance,
-                                [heads[49]]: obj.comunemploymentinsurance,
-                                [heads[50]]: obj.cominjuryinsurance,
-                                [heads[51]]: obj.combirthinsurance,
-                                [heads[52]]: obj.comheating,
-                                [heads[53]]: obj.comaccumulationfund,
-                                [heads[54]]: obj.total,
-                                [heads[55]]: obj.labourunionbase,
-                                [heads[56]]: obj.labourunionfunds,
-                                [heads[57]]: obj.comtotalwages,
-                                [heads[58]]: obj.bonusmoney,
-                                [heads[59]]: obj.totalbonus,
-                                [heads[60]]: obj.other6,
+                                [heads[3]]: obj.lastmonthbasic,
+                                [heads[4]]: obj.lastmonthduty,
+                                [heads[5]]: obj.thisbasic,
+                                [heads[6]]: obj.thismonthduty,
+                                [heads[7]]: obj.rnbasesalary,
+                                [heads[8]]: obj.birthrest,
+                                [heads[9]]: obj.thismonthbasic,
+                                [heads[10]]: obj.shortillness,
+                                [heads[11]]: obj.owediligence,
+                                [heads[12]]: obj.owingcontrol,
+                                [heads[13]]: obj.actualamount,
+                                [heads[14]]: obj.supplement,
+                                [heads[15]]: obj.ykbz,
+                                [heads[16]]: obj.overtimesubsidy,
+                                [heads[17]]: obj.other1,
+                                [heads[18]]: obj.total1,
+                                [heads[19]]: obj.other2,
+                                [heads[20]]: obj.appreciation,
+                                [heads[21]]: obj.other3,
+                                [heads[22]]: obj.total2,
+                                [heads[23]]: obj.taxestotal,
+                                [heads[24]]: obj.heating,
+                                [heads[25]]: obj.onlychildmoney,
+                                [heads[26]]: obj.total3,
+                                [heads[27]]: obj.totalwages,
+                                [heads[28]]: obj.endowmentinsurance,
+                                [heads[29]]: obj.medicalinsurance,
+                                [heads[30]]: obj.unemploymentinsurance,
+                                [heads[31]]: obj.socialinsurance,
+                                [heads[32]]: obj.accumulationfund,
+                                [heads[33]]: obj.disciplinarycontrol,
+                                [heads[34]]: obj.thismonthterm,
+                                [heads[35]]: obj.thismonthadditional,
+                                [heads[36]]: obj.thismonthdutyfree,
+                                [heads[37]]: obj.lastdutyfree,
+                                [heads[38]]: obj.housingmoneys,
+                                [heads[39]]: obj.other4,
+                                [heads[40]]: obj.other5,
+                                [heads[41]]: obj.shouldwages,
+                                [heads[42]]: obj.shouldcumulative,
+                                [heads[43]]: obj.shouldpaytaxes,
+                                [heads[44]]: obj.thismonthadjustment,
+                                [heads[45]]: obj.realwages,
+                                [heads[46]]: obj.comendowmentinsurance,
+                                [heads[47]]: obj.commedicalinsurance,
+                                [heads[48]]: obj.comunemploymentinsurance,
+                                [heads[49]]: obj.cominjuryinsurance,
+                                [heads[50]]: obj.combirthinsurance,
+                                [heads[51]]: obj.comheating,
+                                [heads[52]]: obj.comaccumulationfund,
+                                [heads[53]]: obj.total,
+                                [heads[54]]: obj.labourunionbase,
+                                [heads[55]]: obj.labourunionfunds,
+                                [heads[56]]: obj.comtotalwages,
+                                [heads[57]]: obj.bonusmoney,
+                                [heads[58]]: obj.totalbonus,
+                                [heads[59]]: obj.other6,
                             });
                         }
                         const result = json2csv.parse(csvData, {
@@ -891,8 +883,11 @@
                                     pension: this.data[i].pension,
                                     medical: this.data[i].medical,
                                     accumulation: this.data[i].accumulation,
-                                    lastmonth: this.data[i].lastmonth,
-                                    thismonth: this.data[i].thismonth,
+                                    lastmonthbasic: this.data[i].lastmonthbasic,
+                                    lastmonthduty: this.data[i].lastmonthduty,
+                                    thisbasic: this.data[i].thisbasic,
+                                    thismonthduty: this.data[i].thismonthduty,
+                                    rnbasesalary: this.data[i].rnbasesalary,
                                     birthrest: this.data[i].birthrest,
                                     thismonthbasic: this.data[i].thismonthbasic,
                                     shortillness: this.data[i].shortillness,
@@ -900,14 +895,10 @@
                                     owingcontrol: this.data[i].owingcontrol,
                                     actualamount: this.data[i].actualamount,
                                     supplement: this.data[i].supplement,
-                                    telephonesubsidy: this.data[i].telephonesubsidy,
-                                    housingsubsidy: this.data[i].housingsubsidy,
-                                    lunchsubsidy: this.data[i].lunchsubsidy,
+                                    ykbz: this.data[i].ykbz,
                                     overtimesubsidy: this.data[i].overtimesubsidy,
                                     other1: this.data[i].other1,
                                     total1: this.data[i].total1,
-                                    traffic: this.data[i].traffic,
-                                    washingtheory: this.data[i].washingtheory,
                                     other2: this.data[i].other2,
                                     appreciation: this.data[i].appreciation,
                                     other3: this.data[i].other3,
@@ -989,10 +980,8 @@
             getTaxestotal() {
                 this.loading = true;
                 this.$store
-                    .dispatch('PFANS2006Store/getTaxestotal', {})
+                    .dispatch('PFANS2006Store/getwagesList', {})
                     .then(response => {
-                        let tabledata = [];
-                        let sumber = 0;
                         for (let j = 0; j < response.length; j++) {
                             response[j].rowindex = j + 1;
                             if (response[j].giving_id !== null && response[j].giving_id !== "") {

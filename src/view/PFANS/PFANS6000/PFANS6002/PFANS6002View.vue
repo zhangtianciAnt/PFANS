@@ -329,7 +329,6 @@
                 if (val === 'import') {
                     this.daoru = true;
                 } else if (val === 'export') {
-                  debugger
                     this.selectedlist = this.$refs.roletable.selectedList;
                     import('@/vendor/Export2Excel').then(excel => {
                         const tHeader = [

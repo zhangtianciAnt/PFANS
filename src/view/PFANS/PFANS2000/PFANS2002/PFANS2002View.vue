@@ -127,9 +127,9 @@
           this.data = response;
           for (let j = 0; j < this.data.length; j++) {
             let interview = "";
-            if (this.data[j].center_id) this.data[j].center = getOrgInfo(this.data[j].center_id).companyname;
-            if (this.data[j].group_id) this.data[j].group = getOrgInfo(this.data[j].group_id).companyname;
-            if (this.data[j].team_id) this.data[j].team = getOrgInfo(this.data[j].team_id).departmentname;
+            if (getOrgInfo(this.data[j].center_id)) this.data[j].center = getOrgInfo(this.data[j].center_id).companyname;
+            if (getOrgInfo(this.data[j].group_id)) this.data[j].group = getOrgInfo(this.data[j].group_id).companyname;
+            if (getOrgInfo(this.data[j].team_id)) this.data[j].team = getOrgInfo(this.data[j].team_id).departmentname;
               if (response[j].education1 !== null && response[j].education1 !== "") {
                   let letStage = getDictionaryInfo(response[j].education1);
                   if (letStage != null) {

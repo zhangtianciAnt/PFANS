@@ -76,7 +76,7 @@
         .then(response => {
           for (let j = 0; j < response.length; j++) {
             if (response[j].user_id !== null && response[j].user_id !== "") {
-              debugger
+
               let rst = getUserInfo(response[j].user_id);
               if (rst) {
                 response[j].user_id = rst.userinfo.customername;

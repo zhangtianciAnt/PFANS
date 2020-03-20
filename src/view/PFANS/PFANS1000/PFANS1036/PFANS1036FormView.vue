@@ -1742,7 +1742,6 @@
         this.$store
           .dispatch('PFANS1036Store/selectById', {'businessplanid': this.$route.params._id})
           .then(response => {
-            debugger
               this.form = response;
               this.equipment_newyear = JSON.parse(this.form.equipment_newyear);
               this.equipment_lastyear = JSON.parse(this.form.equipment_lastyear);
@@ -1849,22 +1848,59 @@
     },
     computed:{
         tableSZTotal:function(){
-        if(this.sumA2.length > 0){
-          this.tableK[0].number1 = Number(this.sumA2[2]||0) + Number(this.sumA2[4]||0) + Number(this.sumA2[6]||0);
-          this.tableK[0].money1 = Number(this.sumA2[3]||0) + Number(this.sumA2[5]||0) + Number(this.sumA2[7]||0);
-          this.tableK[0].number2 = Number(this.sumA2[8]||0) + Number(this.sumA2[10]||0) + Number(this.sumA2[12]||0);
-          this.tableK[0].money2 = Number(this.sumA2[9]||0) + Number(this.sumA2[11]||0) + Number(this.sumA2[13]||0);
-          this.tableK[0].numberfirst = Number(this.sumA2[14]||0);
-          this.tableK[0].moneyfirst = Number(this.sumA1[15]||0);
-          this.tableK[0].number3 = Number(this.sumA2[16]||0) + Number(this.sumA2[18]||0) + Number(this.sumA2[20]||0);
-          this.tableK[0].money3 = Number(this.sumA2[17]||0) + Number(this.sumA2[19]||0) + Number(this.sumA2[21]||0);
-          this.tableK[0].number4 = Number(this.sumA2[22]||0) + Number(this.sumA2[24]||0) + Number(this.sumA2[26]||0);
-          this.tableK[0].money4 = Number(this.sumA2[23]||0) + Number(this.sumA2[25]||0) + Number(this.sumA2[27]||0);
-          this.tableK[0].numbersecond = Number(this.sumA2[28]||0);
-          this.tableK[0].moneysecond = Number(this.sumA1[29]||0);
-          this.tableK[0].numbertotal = Number(this.sumA2[30]||0);
-          this.tableK[0].moneytotal = Number(this.sumA1[31]||0);
-        }
+          if(this.sumA1.length > 0){
+            this.tableK[0].number1 = 0;
+            this.tableK[0].money1 = Number(this.sumA1[2]||0) + Number(this.sumA1[3]||0) + Number(this.sumA1[4]||0);
+            this.tableK[0].number2 = 0;
+            this.tableK[0].money2 = Number(this.sumA1[5]||0) + Number(this.sumA1[6]||0) + Number(this.sumA1[7]||0);
+            this.tableK[0].numberfirst = 0;
+            this.tableK[0].moneyfirst = Number(this.tableK[0].money1) + Number(this.tableK[0].money2);
+            this.tableK[0].number3 = 0;
+            this.tableK[0].money3 = Number(this.sumA1[9]||0) + Number(this.sumA1[10]||0) + Number(this.sumA1[11]||0);
+            this.tableK[0].number4 = 0;
+            this.tableK[0].money4 = Number(this.sumA1[12]||0) + Number(this.sumA1[13]||0) + Number(this.sumA1[14]||0);
+            this.tableK[0].numbersecond = 0;
+            this.tableK[0].moneysecond = Number(this.tableK[0].money3) + Number(this.tableK[0].money4);
+            this.tableK[0].numbertotal =  0;
+            this.tableK[0].moneytotal = Number(this.tableK[0].moneyfirst) + Number(this.tableK[0].moneysecond);
+          }
+          ["sumA2","sumB1","sumB2","sumB3","sumC1"].forEach(
+            (val,index) => {
+              if(this[val].length > 0){
+                this.tableK[index + 1].number1 = Number(this[val][2]||0) + Number(this[val][4]||0) + Number(this[val][6]||0);
+                this.tableK[index + 1].money1 = Number(this[val][3]||0) + Number(this[val][5]||0) + Number(this[val][7]||0);
+                this.tableK[index + 1].number2 = Number(this[val][8]||0) + Number(this[val][10]||0) + Number(this[val][12]||0);
+                this.tableK[index + 1].money2 = Number(this[val][9]||0) + Number(this[val][11]||0) + Number(this[val][13]||0);
+                this.tableK[index + 1].numberfirst = Number(this.tableK[index + 1].number1) + Number(this.tableK[index + 1].number2);
+                this.tableK[index + 1].moneyfirst = Number(this.tableK[index + 1].money1) + Number(this.tableK[index + 1].money2);
+                this.tableK[index + 1].number3 = Number(this[val][16]||0) + Number(this[val][18]||0) + Number(this[val][20]||0);
+                this.tableK[index + 1].money3 = Number(this[val][17]||0) + Number(this[val][19]||0) + Number(this[val][21]||0);
+                this.tableK[index + 1].number4 = Number(this[val][22]||0) + Number(this[val][24]||0) + Number(this[val][26]||0);
+                this.tableK[index + 1].money4 = Number(this[val][23]||0) + Number(this[val][25]||0) + Number(this[val][27]||0);
+                this.tableK[index + 1].numbersecond = Number(this.tableK[index + 1].number3) + Number(this.tableK[index + 1].number4);
+                this.tableK[index + 1].moneysecond = Number(this.tableK[index + 1].money3) + Number(this.tableK[index + 1].money4);
+                this.tableK[index + 1].numbertotal =  Number(this.tableK[index + 1].numberfirst) + Number(this.tableK[index + 1].numbersecond);
+                this.tableK[index + 1].moneytotal = Number(this.tableK[index + 1].moneyfirst) + Number(this.tableK[index + 1].moneysecond);
+              }
+            }
+          )
+
+          // if(this.sumB1.length > 0){
+          //   this.tableK[2].number1 = Number(this.sumB1[2]||0) + Number(this.sumB1[4]||0) + Number(this.sumB1[6]||0);
+          //   this.tableK[2].money1 = Number(this.sumB1[3]||0) + Number(this.sumB1[5]||0) + Number(this.sumB1[7]||0);
+          //   this.tableK[2].number2 = Number(this.sumB1[8]||0) + Number(this.sumB1[10]||0) + Number(this.sumB1[12]||0);
+          //   this.tableK[2].money2 = Number(this.sumB1[9]||0) + Number(this.sumB1[11]||0) + Number(this.sumB1[13]||0);
+          //   this.tableK[2].numberfirst = Number(this.sumB1[14]||0);
+          //   this.tableK[2].moneyfirst = Number(this.sumB1[15]||0);
+          //   this.tableK[2].number3 = Number(this.sumB1[16]||0) + Number(this.sumB1[18]||0) + Number(this.sumB1[20]||0);
+          //   this.tableK[2].money3 = Number(this.sumB1[17]||0) + Number(this.sumB1[19]||0) + Number(this.sumB1[21]||0);
+          //   this.tableK[2].number4 = Number(this.sumB1[22]||0) + Number(this.sumB1[24]||0) + Number(this.sumB1[26]||0);
+          //   this.tableK[2].money4 = Number(this.sumB1[23]||0) + Number(this.sumB1[25]||0) + Number(this.sumB1[27]||0);
+          //   this.tableK[2].numbersecond = Number(this.sumB1[28]||0);
+          //   this.tableK[2].moneysecond = Number(this.sumB1[29]||0);
+          //   this.tableK[2].numbertotal = Number(this.sumB1[30]||0);
+          //   this.tableK[2].moneytotal = Number(this.sumB1[31]||0);
+          // }
         return this.tableK;
       }
     },
@@ -2551,7 +2587,6 @@
           });
         }
         if (val === 'save') {
-          debugger
               this.form.equipment_newyear = JSON.stringify(this.equipment_newyear);
               this.form.equipment_lastyear = JSON.stringify(this.equipment_lastyear);
               this.form.assets_newyear = JSON.stringify(this.assets_newyear);

@@ -759,7 +759,7 @@
       },
       paramsTitle() {
         this.$router.push({
-          name: 'PFANS1001FormView',
+          name: 'PFANS1037FormView',
           params: {
             title: 7,
           },
