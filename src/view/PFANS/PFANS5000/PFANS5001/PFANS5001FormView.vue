@@ -1562,10 +1562,39 @@
 
                         //项目体制
                         if (response.projectsystem.length > 0) {
-                            let tablec = [];
-                            let tableb = [];
+                            let tablec = [
+                                {
+                                    projectsystem_id: '',
+                                    companyprojects_id: '',
+                                    type: '0',
+                                    number: '',
+                                    company: '',
+                                    name: '',
+                                    position: '',
+                                    admissiontime: '',
+                                    exittime: '',
+                                    rowindex: '',
+                                },
+                            ];
+                            let tableb = [
+                                {
+                                    projectsystem_id: '',
+                                    companyprojects_id: '',
+                                    type: '1',
+                                    number: '',
+                                    company: '',
+                                    name: '',
+                                    position: '',
+                                    admissiontime: '',
+                                    exittime: '',
+                                    rowindex: '',
+                                },
+                            ];
+                            let flag1 = false;
+                            let flag2 = false;
                             for (var i = 0; i < response.projectsystem.length; i++) {
                                 if (response.projectsystem[i].type === '0') {
+                                    flag1 = true;
                                     tableb.push({
                                         name: response.projectsystem[i].projectsystem_id,
                                         companyprojects_id: response.projectsystem[i].companyprojects_id,
@@ -1579,6 +1608,7 @@
                                         rowindex: response.projectsystem[i].rowindex,
                                     });
                                 } else if (response.projectsystem[i].type === '1') {
+                                    flag2 = true;
                                     tablec.push({
                                         name: response.projectsystem[i].projectsystem_id,
                                         companyprojects_id: response.projectsystem[i].companyprojects_id,
@@ -1593,9 +1623,45 @@
                                     });
                                 }
                             }
+                            if(flag1){
+                                tableb.shift();
+                            }
+                            if(flag2){
+                                tablec.shift();
+                            }
                             this.tableB = tableb;
                             this.tableC = tablec;
                         }
+                        /*else{
+                            this.tableB = [
+                                {
+                                    projectsystem_id: '',
+                                    companyprojects_id: '',
+                                    type: '0',
+                                    number: '',
+                                    company: '',
+                                    name: '',
+                                    position: '',
+                                    admissiontime: '',
+                                    exittime: '',
+                                    rowindex: '',
+                                },
+                            ];
+                            this.tableC = [
+                                {
+                                    projectsystem_id: '',
+                                    companyprojects_id: '',
+                                    type: '1',
+                                    number: '',
+                                    company: '',
+                                    name: '',
+                                    position: '',
+                                    admissiontime: '',
+                                    exittime: '',
+                                    rowindex: '',
+                                },
+                            ];
+                        }*/
                         //项目合同
                         if (response.projectcontract.length > 0) {
                             let tabled = [];
