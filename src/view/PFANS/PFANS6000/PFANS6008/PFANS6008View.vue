@@ -655,7 +655,7 @@
           }
         ],
         buttonList: [
-          {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
+//          {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
           {'key': 'export', 'name': 'button.export', 'disabled': false, 'icon': 'el-icon-download'}
         ],
         rowid: '',
@@ -664,7 +664,24 @@
       };
     },
     mounted() {
-      this.init();
+      this.loading = true;
+      this.$store
+        .dispatch('PFANS6008Store/insertCoststatistics')
+        .then(response => {
+          this.init();
+          this.loading = false;
+        })
+        .catch(error => {
+          this.loading = false;
+        })
+      .catch(error => {
+        Message({
+          message: error,
+          type: 'error',
+          duration: 5 * 1000
+        });
+        this.loading = false;
+      })
     },
     methods: {
       init() {
@@ -673,13 +690,13 @@
           .dispatch('PFANS6008Store/getCostList')
           .then(response => {
             for (let j = 0; j < response.length; j++) {
-              if(response[j].bpname !== null && response[j].bpname !== "") {
+              if (response[j].bpname !== null && response[j].bpname !== "") {
                 let user = getCooperinterviewList(response[j].bpname);
                 if (user) {
                   response[j].bpname = user.expname;
                 }
               }
-              if(response[j].bpcompany !== null && response[j].bpcompany !== "") {
+              if (response[j].bpcompany !== null && response[j].bpcompany !== "") {
                 let supplierInfor = getSupplierinfor(response[j].bpcompany);
                 if (supplierInfor) {
                   response[j].bpcompany = supplierInfor.supchinese;
@@ -695,23 +712,10 @@
               type: 'error',
               duration: 5 * 1000
             });
-            this.loading = false
-          })
+            this.loading = false;
+        })
       },
       buttonClick(val) {
-        // todo 先用查看按钮做生成数据，之后再删除
-        if(val === 'view') {
-          this.loading = true;
-          this.$store
-            .dispatch('PFANS6008Store/insertCoststatistics')
-            .then(response => {
-              this.loading = false;
-            })
-            .catch(error => {
-              this.loading = false
-            })
-        }
-
         if (val === 'export') {
           this.selectedlist = this.$refs.roletable.selectedList;
           if(this.selectedlist.length === 0){

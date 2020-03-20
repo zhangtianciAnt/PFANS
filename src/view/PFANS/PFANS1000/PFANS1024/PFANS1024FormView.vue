@@ -51,7 +51,7 @@
             </el-form-item>
             <el-form-item :label="$t('label.group')" :label-width="formLabelWidth" prop="group">
               <org :orglist="grouporglist" orgtype="2" style="width: 20vw" @getOrgids="getGroupId"
-                   :disabled="!disabled2"></org>
+                   :disabled="!disabled2" @change="getGroupId1"></org>
             </el-form-item>
             <!--<el-form-item :label="$t('label.PFANS1024VIEW_SIDEGROUP')" :label-width="formLabelWidth">
               <dicselect :code="code10"
@@ -1325,6 +1325,15 @@
                     this.groupinfo = [val, group.companyen, group.orgname, group.companyname];
                 }
             },
+          getGroupId1(val){
+            this.grouporglist = val;
+            this.form.group_id = val;
+            if (this.form.group_id === "") {
+              this.errorgroup = this.$t("normal.error_08") + "group";
+            } else {
+              this.errorgroup = "";
+            }
+          },
             getSidegroup(val) {
                 this.form.sidegroup = val;
             },

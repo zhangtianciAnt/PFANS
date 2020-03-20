@@ -343,13 +343,9 @@
                     }
                   }
                 }
-
-
-
                 tempdata.push(temp);
               }
             });
-            debugger
             this.menudata = tempdata;
             if (this.menudata && this.menudata.length > 0) {
               this.vactiveIndex = this.menudata[0].children[0].children[0].menuurl;
