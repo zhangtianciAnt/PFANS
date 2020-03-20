@@ -96,3 +96,11 @@ export function getCompanyProject(data) {
   })
 }
 
+export function crAccount(data) {
+  return request({
+    url: 'expatriatesinfor/crAccount',
+    method: 'post',
+    data: data,
+  })
+}
+
