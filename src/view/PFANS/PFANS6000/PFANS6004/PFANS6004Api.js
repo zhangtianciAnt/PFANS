@@ -9,13 +9,6 @@ export function getexpatriatesinfor(data) {
   })
 }
 
-export function getexpatriates(data) {
-  return request({
-    url: 'expatriatesinfor/getexpatriates',
-    method: 'get',
-    params: data
-  })
-}
 
 export function getexpatriatesinforthisyear(data) {
   return request({

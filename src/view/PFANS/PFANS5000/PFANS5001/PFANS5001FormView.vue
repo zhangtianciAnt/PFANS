@@ -4,6 +4,7 @@
       :buttonList="buttonList"
       :title="title"
       @buttonClick="buttonClick"
+      :canStart="canStart"
       @end="end"
       @start="start"
       @workflowState="workflowState"
@@ -986,10 +987,8 @@
                             prop="tools"
                           >
                             <el-checkbox-group v-model="checkList" :disabled="!disable">
-                              <el-checkbox label="SVN"></el-checkbox>
-                              <el-checkbox label="redmine"></el-checkbox>
-                              <el-checkbox label="gitlab"></el-checkbox>
-                              <el-checkbox label="其他"></el-checkbox>
+                                <el-checkbox v-for="(item,index) in checkboxs" :key="index" :label="item.value1"></el-checkbox>
+
                             </el-checkbox-group>
                           </el-form-item>
                         </template>
@@ -1131,9 +1130,10 @@
                 gridData1: [],
                 gridData2: [],
                 gridData3: [],
-                disable: false,
+                disable: true,
                 customerinfor: [],
                 checkList: [],
+                checkboxs: [],
                 expatriates: [],
                 disabled: true,
                 error: '',
@@ -1490,6 +1490,7 @@
                 result1: '',
                 fileList: [],
                 upload: uploadUrl(),
+                canStart: false,
             };
         },
         mounted() {
@@ -1504,9 +1505,11 @@
             } = this.$route.params._org);
         }
           let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PP018');
+
           for(let i = 0; i < dic.length; i++){
-            this.checkList = dic[i].code;
+            this.checkboxs.push(dic[i]);
           }
+
             this.getexpatriatesinfor();
             this.getcustomerinfor();
             this.getcontract();
@@ -1631,6 +1634,9 @@
                                 }
                             }
                         }
+                        if (this.form.status === '4') {
+                            this.disabled = true;
+                        }
                         this.loading = false;
                     })
                     .catch(error => {
@@ -1671,12 +1677,13 @@
         },
 
         created() {
-            this.disable = this.$route.params.disabled;
-            if (this.disable) {
+            this.disabled = this.$route.params.disabled;
+            if (this.disabled) {
                 this.buttonList = [
                     {
                         key: 'save',
                         name: 'button.save',
+                        disabled: false,
                     },
                 ];
             }

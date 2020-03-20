@@ -5,9 +5,9 @@ const PFANS6005Store = {
   state: {},
   mutations: {},
   actions: {
-    getpriceset() {
+    getpriceset({ commit }, data) {
       return new Promise((resolve, reject) => {
-        getpriceset().then(response => {
+        getpriceset(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -18,7 +18,6 @@ const PFANS6005Store = {
         })
       })
     },
-
     updatepriceset({commit}, data) {
       return new Promise((resolve, reject) => {
         updatepriceset(data).then(response => {

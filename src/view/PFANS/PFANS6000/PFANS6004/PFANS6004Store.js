@@ -8,7 +8,6 @@ import {
   getSupplierNameList,
   download,
   getCompanyProject,
-  getexpatriates,
   crAccount
 } from './PFANS6004Api'
 
@@ -31,19 +30,7 @@ const PFANS6004Store = {
         })
       })
     },
-    getexpatriates() {
-      return new Promise((resolve, reject) => {
-        getexpatriates().then(response => {
-          if (response.code === 0) {
-            resolve(response.data);
-          } else {
-            reject(response.message)
-          }
-        }).catch(error => {
-          reject(error);
-        })
-      })
-    },
+
     getexpatriatesinforthisyear() {
       return new Promise((resolve, reject) => {
         getexpatriatesinforthisyear().then(response => {
