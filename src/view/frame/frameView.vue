@@ -325,10 +325,10 @@
                       for(let index2 = 0 ;index2<menu.children[index1].children.length;index2++){
                         if (response.menuids.indexOf(menu.children[index1].children[index2]._id) > -1) {
                           if(menu.children[index1].children[index2].children.length > 0){
-                            temp.children[temp.children.length - 1].push([]);
+                            temp.children[temp.children.length - 1].children.push([]);
                             Object.assign(temp.children[temp.children.length - 1].children[temp.children[temp.children.length - 1].children.length - 1], menu.children[index1].children[index2])
                             this.$set(temp.children[temp.children.length - 1].children[temp.children[temp.children.length - 1].children.length - 1], "children", []);
-                            for(let index3 = 0 ;index3<menu.children[index1].children[index2].length;index3++){
+                            for(let index3 = 0 ;index3<menu.children[index1].children[index2].children.length;index3++){
                               if (response.menuids.indexOf(menu.children[index1].children[index2].children[index3]._id) > -1) {
                                 temp.children[temp.children.length - 1].children[temp.children[temp.children.length - 1].children.length - 1].children.push(menu.children[index1].children[index2].children[index3]);
                               }
@@ -349,6 +349,7 @@
                 tempdata.push(temp);
               }
             });
+            debugger
             this.menudata = tempdata;
             if (this.menudata && this.menudata.length > 0) {
               this.vactiveIndex = this.menudata[0].children[0].children[0].menuurl;
