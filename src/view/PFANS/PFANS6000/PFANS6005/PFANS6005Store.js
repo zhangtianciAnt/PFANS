@@ -1,5 +1,4 @@
 import {getpriceset, updatepriceset,} from './PFANS6005Api'
-import {gettlist} from "../../PFANS5000/PFANS5008/PFANS5008Api";
 
 const PFANS6005Store = {
   namespaced: true,

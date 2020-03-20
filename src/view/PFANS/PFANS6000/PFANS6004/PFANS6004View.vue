@@ -187,8 +187,9 @@
       getexpatriatesinfor() {
         this.loading = true;
         this.$store
-          .dispatch('PFANS6004Store/getexpatriates')
+          .dispatch('PFANS6004Store/getexpatriatesinfor')
           .then(response => {
+            let tabledate = [];
             for (let j = 0; j < response.length; j++) {
               if (response[j].supplierinfor_id !== null && response[j].supplierinfor_id !== '') {
                 let supplierInfor = getSupplierinfor(response[j].supplierinfor_id);
@@ -238,20 +239,27 @@
                   response[j].technology = technology.value1;
                 }
               }
-              if (response[j].technology !== null && response[j].technology !== '') {
-                let technology = getDictionaryInfo(response[j].technology);
-                if (technology != null) {
-                  response[j].technology = technology.value1;
-                }
-              }
               if (response[j].rn !== null && response[j].rn !== '') {
                 let rn = getDictionaryInfo(response[j].rn);
                 if (rn != null) {
                   response[j].rn = rn.value1;
                 }
               }
+              if (response[j].whetherentry == "BP006001") {
+                tabledate.push({
+                  suppliername: response[j].suppliername,
+                  expname: response[j].expname,
+                  group_id: response[j].group_id,
+                  sex: response[j].sex,
+                  age: response[j].age,
+                  education: response[j].education,
+                  graduateschool: response[j].graduateschool,
+                  technology: response[j].technology,
+                  rn: response[j].rn,
+                })
+              }
             }
-            this.data = response;
+            this.data = tabledate;
             this.loading = false;
           })
           .catch(error => {
