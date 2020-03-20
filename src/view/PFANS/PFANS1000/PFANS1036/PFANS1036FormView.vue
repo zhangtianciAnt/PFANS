@@ -1411,7 +1411,7 @@
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_PL')" style="margin-top: 2%" name="seventh">
               <div class="test">
-                    <el-table :data="tableP" header-cell-class-name="sub_bg_color_blue" :span-method="objectSpanMethod"  height="800" :cell-class-name="rowClass">
+                    <el-table :data="tableP" header-cell-class-name="sub_bg_color_blue" :span-method="objectSpanMethod"  height="800" :row-class-name="rowClass">
                           <el-table-column prop="name" :formatter="formatterDir" align="center" width="70" fixed>
                       </el-table-column>
                           <el-table-column :label="$t('label.PFANS1036FORMVIEW_CONTENT')" align="center" width="250" prop="name1" :formatter="formatterDir" fixed>
@@ -1423,7 +1423,7 @@
                           <el-table-column :label="$t('label.PFANS1036FORMVIEW_PLAN')" align="center" width="110" prop="money4">
                             <template slot-scope="scope">
                             <el-input-number :precision="2"  size="small" v-model="scope.row.money4" :controls="false"  :min="0"  style="width:5vw" v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)" @change="computedSum"></el-input-number>
-                              <span :style="{color:(Number(scope.row.money4) > 0?'red':'black')}" v-else>{{scope.row.money4}}</span>
+                              <span v-else>{{scope.row.money4}}</span>
                             </template>
                           </el-table-column>
                           <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center"  width="110" prop="actual4">
@@ -2148,7 +2148,6 @@
         }
         this.tableP[50]["money6"] = ((Number(this.tableP[43]["money4"]) + Number(this.tableP[43]["money5"]) + Number(this.tableP[43]["money6"]))/(Number(this.tableP[5]["money4"]) + Number(this.tableP[5]["money5"]) + Number(this.tableP[5]["money6"]))).toFixed(2);
 
-
       },
       getTravel(val){
         this.travel = val;
@@ -2177,34 +2176,13 @@
       getSumA2(val){
         this.sumA2 =  val;
       },
-      rowClass({ row, column, rowIndex, columnIndex }){
-            if (rowIndex === 6) {
-               return  '#74979c';
-          } else if ( [43,47,48,49,50].includes(rowIndex)) {
-            return {
-              background: '#dc9986'
-            }
-          } else if ([44,45,46].includes(rowIndex)) {
-            return {
-              background: '#8bbba5'
-            }
-          } else if (rowIndex === 51) {
-            return {
-              backgroundColor: '#de7557'
-            }
-          } else if (rowIndex === 54) {
-            return {
-              background: '#e6d67d'
-            }
-          } else if (rowIndex === 58) {
-            return {
-              background: '#729d71'
-            }
-          } else {
-            return {
-              background: '#7084a4'
-            };
+      rowClass({row, rowIndex}){
+          if ([3,4,5,13,20,26,30,41].includes(rowIndex)) {
+            return  'row1';
           }
+       else if ([42].includes(rowIndex)) {
+          return  'row2';
+        }
       },
       objectSpanMethod({ row, column, rowIndex, columnIndex }) {
         if (columnIndex === 0) {
@@ -2591,9 +2569,8 @@
               this.form.tableO3 = JSON.stringify(this.tableO3);
               this.form.tableO = JSON.stringify(this.tableO);
               if (this.$route.params._id) {
-                this.baseInfo.businessplan.businessplanid = this.$route.params._id;
                 this.$store
-                  .dispatch('PFANS1036Store/updateBusinessplan', this.baseInfo)
+                  .dispatch('PFANS1036Store/updateBusinessplan', this.form)
                   .then(response => {
                     this.data = response;
                     this.loading = false;
@@ -2756,7 +2733,18 @@
     }
   };
 </script>
+
+
 <style rel="stylesheet/scss" lang="scss">
+
+  .el-table .row1 {
+    color: #6d9fd1;
+  }
+
+  .el-table .row2 {
+    color: red;
+  }
+
   .el-table {
     overflow-x: auto;
   }
