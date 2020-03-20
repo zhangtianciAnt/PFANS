@@ -282,6 +282,7 @@
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS5001FORMVIEW_TOOLSTYPE')" prop="toolstype">
                     <el-switch
+                      :disabled="!disable"
                       active-color="#13ce66"
                       inactive-color="#13ce66"
                       active-value="1"
@@ -1515,6 +1516,7 @@
             this.getcontract();
             if (this.$route.params._id) {
                 this.Numbers = 0;
+                this.disable = this.$route.params.disabled;
                 this.loading = true;
                 this.$store
                     .dispatch('PFANS5001Store/selectById', {companyprojectsid: this.$route.params._id})
