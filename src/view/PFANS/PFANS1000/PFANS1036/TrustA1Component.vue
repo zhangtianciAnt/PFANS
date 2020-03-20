@@ -2,7 +2,7 @@
   <el-table :data="tableTrustA1" :summary-method="getSummaries" show-summary stripe
             header-cell-class-name="sub_bg_color_blue">
     <el-table-column>
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_CLUBNAME')" align="center" width="110" prop="name1" :formatter="formatterDir">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_CLUBNAME')" align="center" width="200" prop="name1" :formatter="formatterDir">
       </el-table-column>
     </el-table-column>
     <el-table-column>
