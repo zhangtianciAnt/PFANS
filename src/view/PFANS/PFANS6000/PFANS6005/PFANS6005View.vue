@@ -121,7 +121,7 @@
             if(response[j].user_id !== null && response[j].user_id !== ""){
               let userInfo = getCooperinterviewList(response[j].user_id);
               if(userInfo){
-                response[j].user_id = userInfo.coopername;
+                response[j].user_id = userInfo.expname;
               }
             }
             // 技術スキル

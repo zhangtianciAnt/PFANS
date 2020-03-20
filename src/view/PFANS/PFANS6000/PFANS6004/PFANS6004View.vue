@@ -193,7 +193,7 @@
               if (response[j].expname !== null && response[j].expname !== '') {
                 let expname = getCooperinterviewList(response[j].expname);
                 if (expname) {
-                  response[j].expname = expname.coopername;
+                  response[j].expname = expname.expname;
                 }
               }
               if (response[j].group_id !== null && response[j].group_id !== '') {

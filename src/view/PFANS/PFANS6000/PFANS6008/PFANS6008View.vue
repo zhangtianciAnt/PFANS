@@ -676,7 +676,7 @@
               if(response[j].bpname !== null && response[j].bpname !== "") {
                 let user = getCooperinterviewList(response[j].bpname);
                 if (user) {
-                  response[j].bpname = user.coopername;
+                  response[j].bpname = user.expname;
                 }
               }
               if(response[j].bpcompany !== null && response[j].bpcompany !== "") {
