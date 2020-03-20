@@ -13,6 +13,13 @@ export function getOvertimeOne(data) {
     data: data
   })
 }
+export function getDataList() {
+  return request({
+    url: 'punchcardrecord/getDataList',
+    method: 'post',
+  })
+}
+
 export function updateOvertime(data) {
   return request({
     url: 'overtime/update',
