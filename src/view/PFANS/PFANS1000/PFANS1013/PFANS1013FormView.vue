@@ -696,6 +696,18 @@
                         </el-input-number>
                       </template>
                     </el-table-column>
+                    <el-table-column :label="$t('label.PFANS1012VIEW_CURRENCY')" align="center"
+                                     prop="accommodationallowance"
+                                     v-if="this.form.type === '0'? false : true" width="200">
+                      <template slot-scope="scope">
+                        <dicselect :code="code3"
+                                   :data="scope.row.accommodationallowance"
+                                   :disabled="!disable"
+                                   :multiple="multiple"
+                                   :no="scope.row">
+                        </dicselect>
+                      </template>
+                    </el-table-column>
                     <el-table-column :label="$t('label.PFANS1012VIEW_FOREIGNCURRENCY')" align="center"
                                      prop="foreigncurrency"
                                      v-if="showforeigncurrency" width="200">
@@ -893,7 +905,7 @@
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1013FORMVIEW_TRAVELALLOWANCE')" align="center"
-                                     prop="travelallowance" width="200">
+                                     prop="rmb" width="200">
                       <template slot-scope="scope">
                         <el-input-number
                           :disabled="scope.row.accountcode === 'PJ119001' || 'PJ132001' ? false : true"
@@ -902,7 +914,7 @@
                           :precision="2"
                           controls-position="right"
                           style="width: 100%"
-                          v-model="scope.row.travelallowance"
+                          v-model="scope.row.rmb"
                           @change="changelowance(scope.row)"
                         ></el-input-number>
                       </template>
@@ -1052,6 +1064,18 @@
                           style="width: 100%"
                           v-model="scope.row.taxes">
                         </el-input-number>
+                      </template>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.PFANS1012VIEW_CURRENCY')" align="center"
+                                     prop="accommodationallowance"
+                                     v-if="this.form.type === '0'? false : true" width="200">
+                      <template slot-scope="scope">
+                        <dicselect :code="code3"
+                                   :data="scope.row.accommodationallowance"
+                                   :disabled="!disable"
+                                   :multiple="multiple"
+                                   :no="scope.row">
+                        </dicselect>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1012VIEW_FOREIGNCURRENCY')" align="center"
@@ -1290,6 +1314,7 @@
           rmb: '',
           taxrate: '',
           foreigncurrency: '',
+          accommodationallowance: '',
           annexno: '',
           rowindex: '',
         }],
@@ -1310,7 +1335,7 @@
           facilityname: '',
           accommodationallowance: '',
           accommodation: '',
-          travelallowance: '',
+          rmb: '',
           travel: '',
           annexno: '',
           rowindex: '',
@@ -1336,7 +1361,7 @@
             facilityname: '',
             accommodationallowance: '',
             accommodation: '',
-            travelallowance: '',
+            rmb: '',
             travel: '',
             annexno: '',
             rowindex: '',
@@ -1362,6 +1387,7 @@
           foreigncurrency: '',
           annexno: '',
           taxes: '',
+          accommodationallowance: '',
           rowindex: '',
         }],
         rules: {
@@ -1719,7 +1745,7 @@
           facilityname: '',
           accommodationallowance: '',
           accommodation: '',
-          travelallowance: '',
+          rmb: '',
           travel: '',
           annexno: '',
           rowindex: '',
@@ -1745,7 +1771,7 @@
             facilityname: '',
             accommodationallowance: '',
             accommodation: '',
-            travelallowance: '',
+            rmb: '',
             travel: '',
             annexno: '',
             rowindex: '',
@@ -1848,6 +1874,7 @@
             startingpoint: '',
             rmb: '',
             taxrate: '',
+            accommodationallowance: '',
             foreigncurrency: '',
             annexno: '',
             rowindex: '',
@@ -1871,7 +1898,7 @@
             facilityname: '',
             accommodationallowance: '',
             accommodation: '',
-            travelallowance: '',
+            rmb: '',
             travel: '',
             annexno: '',
           }];
@@ -1892,6 +1919,7 @@
             budgetcoding: '',
             foreigncurrency: '',
             annexno: '',
+            accommodationallowance: '',
           }];
         }
       },
@@ -1944,6 +1972,7 @@
           startingpoint: '',
           rmb: '',
           taxrate: '',
+          accommodationallowance: '',
           foreigncurrency: '',
           annexno: '',
           rowindex: '',
@@ -1974,7 +2003,7 @@
           facilityname: '',
           accommodationallowance: '',
           accommodation: '',
-          travelallowance: '',
+          rmb: '',
           travel: '',
           // relatives: '',
           // traintick: 0,
@@ -2005,6 +2034,7 @@
           foreigncurrency: '',
           annexno: '',
           taxes: '',
+          accommodationallowance: '',
           rowindex: '',
         });
       },
@@ -2318,7 +2348,7 @@
               if (row.city !== '') {
                 if (row.city === this.$t('label.PFANS1013FORMVIEW_BEIJING') || row.city === this.$t('label.PFANS1013FORMVIEW_SHANGHAI')
                   || row.city === this.$t('label.PFANS1013FORMVIEW_GUANGZHOU') || row.city === this.$t('label.PFANS1013FORMVIEW_SHENZHEN')) {
-                  if (row.travelallowance / diffDate > jpregion1) {
+                  if (row.rmb / diffDate > jpregion1) {
                     Message({
                       message: this.$t('label.PFANS1013FORMVIEW_RMBLIMIT'),
                       type: 'error',
@@ -2326,7 +2356,7 @@
                     });
                   }
                 } else {
-                  if (row.travelallowance / diffDate > jpregion2) {
+                  if (row.rmb / diffDate > jpregion2) {
                     Message({
                       message: this.$t('label.PFANS1013FORMVIEW_RMBLIMIT'),
                       type: 'error',
@@ -2339,7 +2369,7 @@
               if (row.city !== '') {
                 if (row.city === this.$t('label.PFANS1013FORMVIEW_BEIJING') || row.city === this.$t('label.PFANS1013FORMVIEW_SHANGHAI')
                   || row.city === this.$t('label.PFANS1013FORMVIEW_GUANGZHOU') || row.city === this.$t('label.PFANS1013FORMVIEW_SHENZHEN')) {
-                  if (row.travelallowance / diffDate > jpregion8) {
+                  if (row.rmb / diffDate > jpregion8) {
                     Message({
                       message: this.$t('label.PFANS1013FORMVIEW_RMBLIMIT'),
                       type: 'error',
@@ -2347,7 +2377,7 @@
                     });
                   }
                 } else {
-                  if (row.travelallowance / diffDate > jpregion9) {
+                  if (row.rmb / diffDate > jpregion9) {
                     Message({
                       message: this.$t('label.PFANS1013FORMVIEW_RMBLIMIT'),
                       type: 'error',
@@ -2358,9 +2388,9 @@
               }
             }
           } else if (this.Redirict === '0' ? (row.accountcode === 'PJ132005') : (row.accountcode === 'PJ119005')) {
-            row.travelallowance = 150 * diffDate;
+            row.rmb = 150 * diffDate;
           } else if (this.Redirict === '0' ? (row.accountcode === 'PJ132006') : (row.accountcode === 'PJ119006')) {
-            row.travelallowance = Number(row.travelallowance + 100) * diffDate;
+            row.rmb = Number(row.rmb + 100) * diffDate;
           }
         } else if (this.form.type === '1') {
           var accfig;
@@ -2432,7 +2462,7 @@
             }
             if (accfig !== '' && accfig !== undefined && row.travel !== '' && row.travel !== undefined) {
               // row.travel = Number(jpvalueflg) * diffDate;
-              row.travelallowance = row.travel / accfig;
+              row.rmb = row.travel / accfig;
             }
           } else if (this.Redirict === '0' ? (row.accountcode === 'PJ132005') : (row.accountcode === 'PJ119005')) {
             if (this.rank === 'PJ016003') {
@@ -2441,12 +2471,12 @@
               jpvalueflg2 = Number(jpregion12);
             }
             if (jpvalueflg2 !== '' && jpvalueflg2 !== undefined) {
-              row.travelallowance = Number(jpvalueflg2) * diffDate;
+              row.rmb = Number(jpvalueflg2) * diffDate;
               // row.travelallowance = row.travel * accfig;
             }
           } else if (this.Redirict === '0' ? (row.accountcode === 'PJ132006') : (row.accountcode === 'PJ119006')) {
             if (jpvalueflg2 !== '' && jpvalueflg2 !== undefined) {
-              row.travelallowance = Number(jpvalueflg2 + 100) * diffDate;
+              row.rmb = Number(jpvalueflg2 + 100) * diffDate;
             }
             // row.travelallowance = row.travel * accfig;
           }
@@ -2583,7 +2613,7 @@
         this.getTravel(newValue);
         for (let j = 0; j < this.tableF.length; j++) {
           if (newValue.invoicenumber === this.tableF[j].invoicenumber) {
-            if (newValue.travelallowance !== '') {
+            if (newValue.rmb !== '') {
               if (this.tableF[j].taxrate !== '') {
                 if (this.tableF[j].taxrate === 'PJ071001') {
                   this.taxrateValue = '0.03';
@@ -2595,7 +2625,7 @@
                   this.taxrateValue = '0.13';
                 }
                 taxratevalue = 1 + Number(this.taxrateValue);
-                newValue.taxes = (newValue.travelallowance / (taxratevalue) * this.taxrateValue);
+                newValue.taxes = (newValue.rmb / (taxratevalue) * this.taxrateValue);
               }
             }
           }
@@ -2652,7 +2682,8 @@
               for (let i = 0; i < this.tableT.length; i++) {
                 if (this.tableT[i].trafficdate !== '' || this.tableT[i].region !== '' || this.tableT[i].vehicle !== '' || this.tableT[i].startingpoint !== ''
                   || this.tableT[i].rmb > 0 || this.tableT[i].foreigncurrency > 0 || this.tableT[i].annexno !== ''
-                  || this.tableT[i].invoicenumber !== '' || this.tableT[i].departmentname !== '' || this.tableT[i].budgetcoding !== '' || this.tableT[i].taxes !== '' || this.tableT[i].costitem !== '') {
+                  || this.tableT[i].invoicenumber !== '' || this.tableT[i].departmentname !== '' || this.tableT[i].budgetcoding !== ''
+                  || this.tableT[i].taxes !== '' || this.tableT[i].accommodationallowance !== '' || this.tableT[i].costitem !== '') {
                   this.baseInfo.trafficdetails.push(
                     {
                       trafficdetails_id: this.tableT[i].trafficdetails_id,
@@ -2668,6 +2699,7 @@
                       taxes: this.tableT[i].taxes,
                       costitem: this.tableT[i].costitem,
                       taxrate: this.tableT[i].taxrate,
+                      accommodationallowance: this.tableT[i].accommodationallowance,
                       region: this.tableT[i].region,
                       vehicle: this.tableT[i].vehicle,
                       startingpoint: this.tableT[i].startingpoint,
@@ -2681,7 +2713,7 @@
               for (let i = 0; i < this.tableA.length; i++) {
                 if (this.tableA[i].accommodationdate !== '' || this.tableA[i].activitycontent !== '' || this.tableA[i].region !== ''
                   || this.tableA[i].movementtime !== '' || this.tableA[i].city !== '' || this.tableA[i].facilitytype !== '' || this.tableA[i].facilityname !== '' || this.tableA[i].accommodationallowance > 0
-                  || this.tableA[i].accommodation > 0 || this.tableA[i].travelallowance > 0 || this.tableA[i].travel > 0
+                  || this.tableA[i].accommodation > 0 || this.tableA[i].rmb > 0 || this.tableA[i].travel > 0
                   || this.tableA[i].annexno !== ''
                   || this.tableA[i].invoicenumber !== '' || this.tableA[i].departmentname !== '' || this.tableA[i].taxes !== '' || this.tableA[i].costitem !== '') {
                   this.baseInfo.accommodationdetails.push(
@@ -2701,7 +2733,7 @@
                       facilityname: this.tableA[i].facilityname,
                       accommodationallowance: this.tableA[i].accommodationallowance,
                       accommodation: this.tableA[i].accommodation,
-                      travelallowance: this.tableA[i].travelallowance,
+                      rmb: this.tableA[i].rmb,
                       travel: this.tableA[i].travel,
                       invoicenumber: this.tableA[i].invoicenumber,
                       departmentname: this.tableA[i].departmentname,
@@ -2715,7 +2747,8 @@
               for (let i = 0; i < this.tableR.length; i++) {
                 if (this.tableR[i].otherdetailsdate !== '' || this.tableR[i].costitem !== '' || this.tableR[i].remarks !== ''
                   || this.tableR[i].rmb > 0 || this.tableR[i].foreigncurrency > 0 || this.tableR[i].annexno !== ''
-                  || this.tableR[i].invoicenumber !== '' || this.tableR[i].departmentname !== '' || this.tableR[i].budgetcoding !== '' || this.tableR[i].subjectnumber !== '' || this.tableR[i].remarks !== '' || this.tableR[i].taxes !== '') {
+                  || this.tableR[i].invoicenumber !== '' || this.tableR[i].departmentname !== '' || this.tableR[i].budgetcoding !== ''
+                  || this.tableR[i].subjectnumber !== '' || this.tableR[i].accommodationallowance !== '' || this.tableR[i].remarks !== '' || this.tableR[i].taxes !== '') {
                   this.baseInfo.otherdetails.push(
                     {
                       otherdetails_id: this.tableR[i].otherdetails_id,
@@ -2727,6 +2760,7 @@
                       rmb: this.tableR[i].rmb,
                       budgetcoding: this.tableR[i].budgetcoding,
                       subjectnumber: this.tableR[i].subjectnumber,
+                      accommodationallowance: this.tableR[i].accommodationallowance,
                       remarks: this.tableR[i].remarks,
                       invoicenumber: this.tableR[i].invoicenumber,
                       departmentname: this.tableR[i].departmentname,
@@ -2779,7 +2813,8 @@
                 for (let i = 0; i < this.tableT.length; i++) {
                   if (this.tableT[i].trafficdate !== '' || this.tableT[i].region !== '' || this.tableT[i].vehicle !== '' || this.tableT[i].startingpoint !== ''
                     || this.tableT[i].rmb > 0 || this.tableT[i].foreigncurrency > 0 || this.tableT[i].annexno !== ''
-                    || this.tableT[i].invoicenumber !== '' || this.tableT[i].departmentname !== '' || this.tableT[i].budgetcoding !== '' || this.tableT[i].taxes !== '' || this.tableT[i].costitem !== '') {
+                    || this.tableT[i].invoicenumber !== '' || this.tableT[i].departmentname !== '' || this.tableT[i].budgetcoding !== ''
+                    || this.tableT[i].taxes !== '' || this.tableT[i].accommodationallowance !== '' || this.tableT[i].costitem !== '') {
                     if (this.tableT[i].invoicenumber == this.tableF[j].invoicenumber) {
                       if (this.tableT[i].rmb != '0') {
                         summoneyT += this.tableT[i].rmb;
@@ -2791,12 +2826,12 @@
                 for (let i = 0; i < this.tableA.length; i++) {
                   if (this.tableA[i].accommodationdate !== '' || this.tableA[i].activitycontent !== '' || this.tableA[i].region !== ''
                     || this.tableA[i].movementtime !== '' || this.tableA[i].city !== '' || this.tableA[i].facilitytype !== '' || this.tableA[i].facilityname !== '' || this.tableA[i].accommodationallowance > 0
-                    || this.tableA[i].accommodation > 0 || this.tableA[i].travelallowance > 0 || this.tableA[i].travel > 0
+                    || this.tableA[i].accommodation > 0 || this.tableA[i].rmb > 0 || this.tableA[i].travel > 0
                     || this.tableA[i].annexno !== ''
                     || this.tableA[i].invoicenumber !== '' || this.tableA[i].departmentname !== '' || this.tableA[i].taxes !== '' || this.tableA[i].costitem !== '') {
                     if (this.tableA[i].invoicenumber == this.tableF[j].invoicenumber) {
-                      if (this.tableA[i].travelallowance != '0') {
-                        summoney += this.tableA[i].travelallowance;
+                      if (this.tableA[i].rmb != '0') {
+                        summoney += this.tableA[i].rmb;
 
                       }
                     }
@@ -2805,7 +2840,8 @@
                 for (let i = 0; i < this.tableR.length; i++) {
                   if (this.tableR[i].otherdetailsdate !== '' || this.tableR[i].costitem !== '' || this.tableR[i].remarks !== ''
                     || this.tableR[i].rmb > 0 || this.tableR[i].foreigncurrency > 0 || this.tableR[i].annexno !== ''
-                    || this.tableR[i].invoicenumber !== '' || this.tableR[i].departmentname !== '' || this.tableR[i].budgetcoding !== '' || this.tableR[i].subjectnumber !== '' || this.tableR[i].remarks !== '' || this.tableR[i].taxes !== '') {
+                    || this.tableR[i].invoicenumber !== '' || this.tableR[i].departmentname !== '' || this.tableR[i].accommodationallowance !== ''
+                    || this.tableR[i].budgetcoding !== '' || this.tableR[i].subjectnumber !== '' || this.tableR[i].remarks !== '' || this.tableR[i].taxes !== '') {
                     if (this.tableR[i].invoicenumber == this.tableF[j].invoicenumber) {
                       if (this.tableR[i].rmb != '0') {
                         sumMoney += this.tableR[i].rmb;

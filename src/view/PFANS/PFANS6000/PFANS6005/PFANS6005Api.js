@@ -4,18 +4,9 @@ export function getpriceset(data) {
   return request({
     url: 'priceset/list',
     method: 'get',
-    params: data
+    data: data
   })
 }
-
-// export function getvariousfundsApplyOne(data) {
-//   return request({
-//     url: 'variousfunds/one',
-//     method: 'post',
-//     data: data
-//   })
-// }
-
 export function updatepriceset(data) {
   return request({
     url: 'priceset/update',

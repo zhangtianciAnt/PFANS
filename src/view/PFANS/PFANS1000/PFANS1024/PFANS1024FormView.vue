@@ -53,14 +53,46 @@
               <org :orglist="grouporglist" orgtype="2" style="width: 20vw" @getOrgids="getGroupId"
                    :disabled="!disabled2"></org>
             </el-form-item>
-            <el-form-item :label="$t('label.PFANS1024VIEW_SIDEGROUP')" :label-width="formLabelWidth">
+            <!--<el-form-item :label="$t('label.PFANS1024VIEW_SIDEGROUP')" :label-width="formLabelWidth">
               <dicselect :code="code10"
                          :data="form.sidegroup"
                          @change="getSidegroup"
                          style="width: 20vw"
                          :disabled="!disabled2">
               </dicselect>
-            </el-form-item>
+            </el-form-item>-->
+
+              <!--<user :disabled="!disabled" :no="scope.row" :error="errorcusto" :selectType="selectType" :userlist="scope.row.custojapanese"-->
+              <!--@getUserids="getCusto" style="width: 10.15rem"></user>-->
+              <el-form-item :label="$t('label.PFANS1024VIEW_CUSTOMERNAME')+'('+$t('label.PFANS1024VIEW_JAPANESE')+')'" :label-width="formLabelWidth">
+                <div class="" style="width: 20vw">
+                  <el-input class="content bg"
+                            v-model="form.custojapanese">
+                    <el-button :disabled="!disabled" size="small" slot="append" icon="el-icon-search"
+                               @click="handleClickE()"></el-button>
+                  </el-input>
+                </div>
+              </el-form-item>
+              <el-dialog :visible.sync="dialogVisibleE"
+                         top="8vh"
+                         append-to-body>
+                <el-table :data="dataA" :row-key="rowid" @row-click="rowClickE" max-height="400" ref="roletableA"
+                          v-loading='loading'>
+                  <el-table-column property="supchinese" :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')"
+                                   width="120"></el-table-column>
+                  <el-table-column property="liableperson" :label="$t('label.ASSETS1002VIEW_USERID')"
+                                   width="120"></el-table-column>
+                  <el-table-column property="prochinese" :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')"
+                                   width="120"></el-table-column>
+                  <el-table-column property="protelephone" :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')"
+                                   width="120"></el-table-column>
+                  <el-table-column property="commontperson" :label="$t('label.PFANS6002VIEW_COMMONTPERSON')"
+                                   width="120"></el-table-column>
+                  <el-table-column property="comtelephone" :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')"
+                                   width="120"></el-table-column>
+                </el-table>
+              </el-dialog>
+
             <div class="dialog-footer" align="center">
               <el-button @click="dialogFormVisible = false" v-if="show1">
                   <span style="margin-right: 86%;" @click="click">{{$t('label.PFANS1026FORMVIEW_CONTRACTNUMBER')}}
@@ -202,48 +234,25 @@
                 </el-form-item>
               </template>
             </el-table-column>
+
+<!--取引先会社名-->
             <el-table-column :label="$t('label.PFANS1024VIEW_CUSTOMERNAME')" align="center" width="120">
               <el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="custojapanese"
                                width="200" :error="errorcusto">
                 <template slot-scope="scope">
-                  <!--<user :disabled="!disabled" :no="scope.row" :error="errorcusto" :selectType="selectType" :userlist="scope.row.custojapanese"-->
-                  <!--@getUserids="getCusto" style="width: 10.15rem"></user>-->
                   <el-form-item :prop="'tabledata.' + scope.$index + '.custojapanese'" :rules='rules.custojapanese'>
                     <div class="">
-                      <el-input class="content bg"
-                                :disabled="true"
-                                v-model="scope.row.custojapanese">
-                        <el-button :disabled="!disabled" size="small" slot="append" icon="el-icon-search"
-                                   @click="handleClickA(scope.row)"></el-button>
+                      <el-input :disabled="true" v-model="scope.row.custojapanese">
                       </el-input>
                     </div>
                   </el-form-item>
-                  <el-dialog :visible.sync="dialogVisibleA"
-                             top="8vh"
-                             append-to-body>
-                    <el-table :data="dataA" :row-key="rowid" @row-click="rowClick" max-height="400" ref="roletableA"
-                              v-loading='loading'>
-                      <el-table-column property="supchinese" :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')"
-                                       width="120"></el-table-column>
-                      <el-table-column property="liableperson" :label="$t('label.ASSETS1002VIEW_USERID')"
-                                       width="120"></el-table-column>
-                      <el-table-column property="prochinese" :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')"
-                                       width="120"></el-table-column>
-                      <el-table-column property="protelephone" :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')"
-                                       width="120"></el-table-column>
-                      <el-table-column property="commontperson" :label="$t('label.PFANS6002VIEW_COMMONTPERSON')"
-                                       width="120"></el-table-column>
-                      <el-table-column property="comtelephone" :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')"
-                                       width="120"></el-table-column>
-                    </el-table>
-                  </el-dialog>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_ENGLISH')" align="center" prop="custoenglish"
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.custoenglish'" :rules='rules.custoenglish'>
-                    <el-input :disabled="!disabled" v-model="scope.row.custoenglish">
+                    <el-input :disabled="true" v-model="scope.row.custoenglish">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -253,7 +262,7 @@
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.custoabbreviation'"
                                 :rules='rules.custoabbreviation'>
-                    <el-input :disabled="!disabled" v-model="scope.row.custoabbreviation">
+                    <el-input :disabled="true" v-model="scope.row.custoabbreviation">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -262,7 +271,7 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.custochinese'" :rules="rules.custochinese">
-                    <el-input :disabled="!disabled" v-model="scope.row.custochinese">
+                    <el-input :disabled="true" v-model="scope.row.custochinese">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -273,7 +282,7 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.placejapanese'" :rules='rules.placejapanese'>
-                    <el-input :disabled="!disabled" v-model="scope.row.placejapanese">
+                    <el-input :disabled="true" v-model="scope.row.placejapanese">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -282,7 +291,7 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.placeenglish'" :rules='rules.placeenglish'>
-                    <el-input :disabled="!disabled" v-model="scope.row.placeenglish">
+                    <el-input :disabled="true" v-model="scope.row.placeenglish">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -291,7 +300,7 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.placechinese'" :rules='rules.placechinese'>
-                    <el-input :disabled="!disabled" v-model="scope.row.placechinese">
+                    <el-input :disabled="true" v-model="scope.row.placechinese">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -302,7 +311,7 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.responjapanese'">
-                    <el-input :disabled="!disabled" v-model="scope.row.responjapanese">
+                    <el-input :disabled="true" v-model="scope.row.responjapanese">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -311,7 +320,7 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.responerglish'" :rules='rules.responerglish'>
-                    <el-input :disabled="!disabled" v-model="scope.row.responerglish">
+                    <el-input :disabled="true" v-model="scope.row.responerglish">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -319,7 +328,7 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_PHONE')" align="center" prop="responphone" width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.responphone'" :rules='rules.responphone'>
-                    <el-input :disabled="!disabled" v-model="scope.row.responphone">
+                    <el-input :disabled="true" v-model="scope.row.responphone">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -327,7 +336,7 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_EMAIL')" align="center" prop="responemail" width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.responemail'">
-                    <el-input :disabled="!disabled" v-model="scope.row.responemail">
+                    <el-input :disabled="true" v-model="scope.row.responemail">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -396,7 +405,7 @@
                 </el-dialog>
               </template>
             </el-table-column>
-            <el-table-column :label="$t('label.PFANS1024VIEW_PAPERCONTRACT')" align="center" prop="papercontract"
+            <!--<el-table-column :label="$t('label.PFANS1024VIEW_PAPERCONTRACT')" align="center" prop="papercontract"
                              width="120">
               <template slot-scope="scope">
                 <el-form-item>
@@ -404,7 +413,7 @@
                   </el-input>
                 </el-form-item>
               </template>
-            </el-table-column>
+            </el-table-column>-->
             <el-table-column :label="$t('label.PFANS1024VIEW_TEMA')" align="center" prop="theme" width="200">
               <template slot-scope="scope">
                 <el-form-item prop="theme">
@@ -754,6 +763,7 @@
                 letcontractnumber: '',
                 letcontracttype: '',
                 dialogFormVisible: false,
+                dialogVisibleE: false,
                 formLabelWidth: '120px',
                 multiple: false,
                 index: "",
@@ -915,6 +925,19 @@
                     supportdate: '',
                     claimamount: '',
                     tableclaimtype: []
+                },
+                formcustomer: {
+                    custojapanese: '',
+                    custoenglish: '',
+                    custoabbreviation: '',
+                    custochinese: '',
+                    placejapanese: '',
+                    placeenglish: '',
+                    placechinese: '',
+                    responjapanese: '',
+                    responerglish: '',
+                    responphone: '',
+                    responemail: ''
                 },
                 tabledata: [],
                 tableclaimtype: [],
@@ -1099,9 +1122,30 @@
                 this.dialogVisibleA = false;
                 this.loading = false;
             },
+            handleClickE(){
+                this.dialogVisibleE = true;
+            },
             handleClickB(row) {
                 this.recordDataB = row;
                 this.dialogVisibleB = true;
+            },
+            rowClickE(row){//333
+                this.form.custojapanese = row.supjapanese;
+
+                this.formcustomer.custojapanese = row.supjapanese;
+                this.formcustomer.custoenglish = row.supenglish;
+                this.formcustomer.custoabbreviation = row.abbreviation;
+                this.formcustomer.custochinese = row.supchinese;
+
+                this.formcustomer.placejapanese = row.addjapanese;
+                this.formcustomer.placeenglish = row.addenglish;
+                this.formcustomer.placechinese = row.addchinese;
+
+                this.formcustomer.responjapanese = row.projapanese;
+                this.formcustomer.responerglish = row.proenglish;
+                this.formcustomer.responphone = row.protelephone;
+                this.formcustomer.responemail = row.protemail;
+                this.dialogVisibleE = false;
             },
             rowClickB(row) {
                 this.recordDataB.theme = row.theme;
@@ -1393,6 +1437,22 @@
                     olddata.state = this.$t("label.PFANS8008FORMVIEW_EFFECTIVE");
                     this.form.tabledata.push(olddata)
                 } else {
+
+
+                    // this.formcustomer.custojapanese = row.supjapanese;
+                    // this.formcustomer.custoenglish = row.supenglish;
+                    // this.formcustomer.custoabbreviation = row.abbreviation;
+                    // this.formcustomer.custochinese = row.supchinese;
+                    //
+                    // this.formcustomer.placejapanese = row.addjapanese;
+                    // this.formcustomer.placeenglish = row.addenglish;
+                    // this.formcustomer.placechinese = row.addchinese;
+                    //
+                    // this.formcustomer.responjapanese = row.projapanese;
+                    // this.formcustomer.responerglish = row.proenglish;
+                    // this.formcustomer.responphone = row.protelephone;
+                    // this.formcustomer.responemail = row.protemail;
+
                     let o = {
                         contractapplication_id: '',
                         careeryear: this.form.applicationdate,
@@ -1416,17 +1476,17 @@
                         currencyposition: '',
                         supportdate: '',
                         contractdate: [],
-                        custojapanese: '',
-                        custoenglish: '',
-                        custoabbreviation: '',
-                        custochinese: '',
-                        placejapanese: '',
-                        placeenglish: '',
-                        placechinese: '',
-                        responjapanese: '',
-                        responerglish: '',
-                        responphone: '',
-                        responemail: '',
+                        custojapanese: this.formcustomer.custojapanese,
+                        custoenglish: this.formcustomer.custoenglish,
+                        custoabbreviation: this.formcustomer.custoabbreviation,
+                        custochinese: this.formcustomer.custochinese,
+                        placejapanese: this.formcustomer.placejapanese,
+                        placeenglish: this.formcustomer.placeenglish,
+                        placechinese: this.formcustomer.placechinese,
+                        responjapanese: this.formcustomer.responjapanese,
+                        responerglish: this.formcustomer.responerglish,
+                        responphone: this.formcustomer.responphone,
+                        responemail: this.formcustomer.responemail,
                         conjapanese: '',
                         conenglish: '',
                         conchinese: '',
@@ -1457,7 +1517,7 @@
                 });
             },
             //契約番号做成
-            click() {
+            click() {//111
                 if (this.$route.params._id) {
                     this.handleClick();
                 } else {
@@ -1482,7 +1542,7 @@
                     }
                 }
             },
-            handleClick() {
+            handleClick() {//222
                 //請求方式
                 let letclaimtype = '';
                 let letbook = '';
