@@ -13,6 +13,7 @@
             :label="$t('label.PFANS1038VIEW_REALISTIC')"
             name="first"
           >
+<!--            111-->
             <el-table
               :data="tableData"
               border stripe
@@ -53,7 +54,7 @@
                 <template slot-scope="scope">
                   <el-select size="small"
                              v-model="scope.row.nextyear"
-                             :disabled="!disabled"
+                             :disabled="disabled"
                              :placeholder="$t('normal.error_09')">
                     <el-option
                       v-for="item in options"
@@ -73,6 +74,7 @@
               </el-table-column>
             </el-table>
           </el-tab-pane>
+
           <el-tab-pane :label="$t('label.PFANS1038VIEW_NEWHIRES')" name="second">
             <el-table
               :data="newTableData"
@@ -92,7 +94,7 @@
                 v-if="this.$route.params.type === 0 ? false : true"
                 align="center">
                 <template slot-scope="scope">
-                  <el-select size="small" v-model="scope.row.supchinese" :disabled="!disabled"
+                  <el-select size="small" v-model="scope.row.supchinese" :disabled="disabled"
                              :placeholder="$t('normal.error_09')">
                     <el-option
                       v-for="item in externalOption"
@@ -109,7 +111,7 @@
                 width="180"
                 align="center">
                 <template slot-scope="scope">
-                  <el-input size="small" v-model="scope.row.name" :disabled="!disabled"></el-input>
+                  <el-input size="small" v-model="scope.row.name" :disabled="disabled"></el-input>
                 </template>
               </el-table-column>
               <el-table-column
@@ -140,7 +142,7 @@
                 align="center"
               >
                 <template slot-scope="scope">
-                  <el-select size="small" v-model="scope.row.nextyear" :disabled="!disabled"
+                  <el-select size="small" v-model="scope.row.nextyear" :disabled="disabled"
                              :placeholder="$t('normal.error_09')">
                     <el-option
                       v-for="item in options"
@@ -162,11 +164,10 @@
                     v-model="scope.row.entermouth"
                     type="month"
                     style="width:10vw"
-                    :disabled="!disabled"
+                    :disabled="disabled"
                     size="small"
                     v-if="!scope.row.isoutside">
                   </el-date-picker>
-                  <span v-else>{{scope.row.entermouth}}</span>
                 </template>
               </el-table-column>
               <el-table-column
@@ -178,7 +179,7 @@
                 <template slot-scope="scope">
                   <el-switch
                     v-model="scope.row.isoutside"
-                    :disabled="!disabled"
+                    :disabled="disabled"
                     @change="val => changeOption(val,scope.row)">
                   </el-switch>
                 </template>
@@ -189,7 +190,7 @@
                     @click.native.prevent="deleteRow(scope.$index, newTableData)"
                     type="danger"
                     size="small"
-                    :disabled="!disabled"
+                    :disabled="disabled"
                     plain
                   >{{$t('button.delete')}}
                   </el-button>
@@ -197,7 +198,7 @@
                     @click="addRow"
                     type="primary"
                     size="small"
-                    :disabled="!disabled"
+                    :disabled="disabled"
                     plain
                   >{{$t('button.insert')}}
                   </el-button>
