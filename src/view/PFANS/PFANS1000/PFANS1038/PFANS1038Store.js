@@ -19,7 +19,6 @@ const PFANS1038Store = {
       })
     },
     getExpatriatesinfor({ commit },id) {
-      debugger
       return new Promise((resolve, reject) => {
         getExpatriatesinfor(id).then(response => {
           if (response.code === 0) {

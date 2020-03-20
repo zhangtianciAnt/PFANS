@@ -391,7 +391,7 @@
           },
         ],
         buttonList: [
-          {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
+//          {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
           {'key': 'export', 'name': 'button.export', 'disabled': false, 'icon': 'el-icon-download'}
         ],
         yearLabel: this.$t('label.PFANS6009VIEW_YEARLABEL'),
@@ -560,7 +560,6 @@
         this.$store
           .dispatch('PFANS6009Store/getCostList')
           .then(response => {
-
             var tableData = response.company;
             var tripData = response.trip;
             var assetData = response.asset;
@@ -585,8 +584,8 @@
                 key_hour = "totalmanhours";
               }
               for (var j = 0; j < tableData.length; j++) {
-                total_manhour += parseFloat(tableData[j][key_hour]).toFixed(2);
-                total_cost += parseFloat(tableData[j][key_cost]).toFixed(2);
+                total_manhour += parseFloat(tableData[j][key_hour]);
+                total_cost += parseFloat(tableData[j][key_cost]);
               }
               addLine1[key_hour] = parseFloat(total_manhour).toFixed(2);
               addLine1[key_cost] = parseFloat(total_cost).toFixed(2);
@@ -678,8 +677,8 @@
                 key_hour = "totalmanhours";
               }
               for (var j = 0; j < tableData.length; j++) {
-                total_manhour = (parseFloat(total_manhour) + parseFloat(tableData[j][key_hour])).toFixed(2);
-                total_cost = (parseFloat(total_cost) + parseFloat(tableData[j][key_cost])).toFixed(2);
+                total_manhour = parseFloat(total_manhour) + parseFloat(tableData[j][key_hour]);
+                total_cost = parseFloat(total_cost) + parseFloat(tableData[j][key_cost]);
               }
               addLine1[key_hour] = parseFloat(total_manhour).toFixed(2);
               addLine1[key_cost] = parseFloat(total_cost).toFixed(2);
