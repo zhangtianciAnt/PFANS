@@ -3,7 +3,10 @@
     <EasyNormalContainer :buttonList="buttonList"
                          @buttonClick="buttonClick"
                          ref="container"
-                         v-loading="loading">
+                         v-loading="loading"
+                         @workflowState="workflowState"
+                         @start="start"
+                         @end="end">
       <div slot="customize">
         <el-tabs type="border-card" v-model="activeName">
           <el-tab-pane :label="title" name="first">
@@ -912,7 +915,23 @@
             item.thirdmonth = item.commentaryresult;
           }
         }
-      }
+      },
+      start() {
+        this.data.status = "2";
+        this.buttonClick();
+      },
+      end() {
+        this.data.status = "4";
+        this.buttonClick();
+      },
+      workflowState(val) {
+        if (val.state === "1") {
+          this.data.status = "3";
+        } else if (val.state === "2") {
+          this.data.status = "4";
+        }
+        this.buttonClick();
+      },
     },
     watch: {
       data1: {

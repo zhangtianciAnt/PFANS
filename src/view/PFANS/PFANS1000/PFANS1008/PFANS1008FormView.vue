@@ -267,19 +267,6 @@
             }
 
         };
-        var validateTel = (rule, value, callback) => {
-            this.regExp =/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{0,20}$/
-            if (this.form.insidenumber !== null && this.form.insidenumber !== '') {
-                if (!this.regExp.test(value)) {
-                    callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS3001VIEW_EXTENSIONNUMBER')));
-                } else {
-                    callback();
-                }
-            } else {
-                callback();
-            }
-
-        };
       var ferrycenterId = (rule, value, callback) => {
         if (!this.form.ferrycenter_id || this.form.ferrycenter_id === "") {
           callback(new Error(this.$t("normal.error_08") + "center"));
@@ -396,7 +383,8 @@
             ],
             insidenumber: [
                 {
-                    validator: validateTel,
+                    required: true,
+                    message: this.$t('normal.error_08') + this.$t('label.PFANS3001VIEW_EXTENSIONNUMBER'),
                     trigger: 'change'
                 },
             ],

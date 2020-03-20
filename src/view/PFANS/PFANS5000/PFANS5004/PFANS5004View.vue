@@ -8,7 +8,7 @@
         <el-option :label="$t(title2)" value="2"></el-option>
       </el-select>
     </EasyNormalTable>
-    <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data2" :rowid="row_id" :title="title2"
+    <EasyNormalTable :buttonList="buttonList1" :columns="columns1" :data="data2" :rowid="row_id" :title="title2"
                      @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading"
                      v-show="!showTable1">
       <el-select @change="changed" slot="customize" v-model="region">
@@ -45,13 +45,6 @@
             contractstatus1: this.$t('label.PFANS5009FORMVIEW_CONTRACTSTATUS1'),
             contractstatus2: this.$t('label.PFANS5009FORMVIEW_CONTRACTSTATUS2'),
             columns:[
-              // {
-              //   code: 'numbers',
-              //   label: 'label.PFANS5009VIEW_PROJECTNO',
-              //   width: 120,
-              //   fix: false,
-              //   filter: true,
-              // },
                 {
                     code: 'numbers',
                     label: 'label.PFANS5009VIEW_PROJECTNO',
@@ -111,11 +104,68 @@
                 filter: true,
               },
             ],
+            columns1:[
+                {
+                    code: 'numbers',
+                    label: 'label.PFANS5009VIEW_PROJECTNO',
+                    width: 110,
+                    fix: false,
+                    filter: true,
+                },
+              {
+                code: 'project_name',
+                label: 'label.PFANS5004VIEW_PROJECTNAMW',
+                width: 120,
+                fix: false,
+                filter: true
+              },
+              /*阶段信息*/
+              {
+                code: 'phase',
+                label: 'label.PFANS5009VIEW_PHASE',
+                width: 120,
+                fix: false,
+                filter: true
+              },
+              {
+                code: 'productstatus',
+                label: 'label.PFANS5009VIEW_PRODUCTSTATUS',
+                width: 130,
+                fix: false,
+                filter: true
+              },
+              {
+                code: 'estimatedwork',
+                label: 'label.PFANS5009VIEW_ESTIMATEDWORK',
+                width: 120,
+                fix: false,
+                filter: true
+              },
+              {
+                code: 'actualwork',
+                label: 'label.PFANS5009VIEW_ACTUALWORK',
+                width: 120,
+                fix: false,
+                filter: true
+              },
+              /*合同状态*/
+              {
+                code: 'contractstatus',
+                label: 'label.PFANS5009VIEW_STATUS',
+                width: 150,
+                fix: false,
+                filter: true,
+              }
+            ],
             buttonList: [
               {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
               {'key': 'update', 'name': 'button.update', 'disabled': false, "icon": 'el-icon-edit'}
             ],
+            buttonList1: [
+              {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
+            ],
             rowid: '',
+            show: true,
             row_id: 'companyprojects_id'
           }
       },

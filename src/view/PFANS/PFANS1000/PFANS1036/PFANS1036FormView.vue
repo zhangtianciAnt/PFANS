@@ -1411,7 +1411,7 @@
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_PL')" style="margin-top: 2%" name="seventh">
               <div class="test">
-                    <el-table :data="tableP" header-cell-class-name="sub_bg_color_blue" stripe :span-method="objectSpanMethod" :row-style="changeColor" height="800">
+                    <el-table :data="tableP" header-cell-class-name="sub_bg_color_blue" :span-method="objectSpanMethod"  height="800" :cell-class-name="rowClass">
                           <el-table-column prop="name" :formatter="formatterDir" align="center" width="70" fixed>
                       </el-table-column>
                           <el-table-column :label="$t('label.PFANS1036FORMVIEW_CONTENT')" align="center" width="250" prop="name1" :formatter="formatterDir" fixed>
@@ -1702,17 +1702,18 @@
         ,{name1:this.$t('label.PFANS1036FORMVIEW_TAB1VALUE4')},{name1:"PJ073001"},{name1:"-"},{name1:"-"},{name1:"-"},{name1:"-"},{name1:"PJ073002"},{name1:"-"},{name1:"PJ073"},{name1:"PJ074001"},{name1:"PJ074002"},{name1:"PJ074003"},
             {name1:"PJ074004"},{name1:"PJ074005"},{name1:"PJ074006"},{name1:"PJ074"},{name1:"PJ075001"},{name1:"PJ075002"},{name1:"PJ075003"},{name1:"PJ075004"},{name1:"PJ075005"},
             {name1:"PJ075"},{name1:"PJ076001"},{name1:"PJ076002"},{name1:"PJ076003"},{name1:"PJ076"},{name1:"PJ077001"},{name1:"PJ077002"},{name1:"PJ077003"},{name1:"PJ077004"},{name1:"PJ077005"},
-            {name1:"PJ077006"},{name1:"PJ077007"},{name1:"PJ077008"},{name1:"PJ077009"},{name1:"PJ077010"},{name1:"PJ077"},{name1:this.$t('label.PFANS2005FORMVIEW_TOTAL')},{},{name1:this.$t('label.PFANS1036FORMVIEW_TAB3VALUE2')}
-            ,{name1:this.$t('label.PFANS1036FORMVIEW_TAB3VALUE3')},{name1:this.$t('label.PFANS1036FORMVIEW_TAB3VALUE4')},{},{},{},{},{name1:this.$t('label.PFANS1036FORMVIEW_TAB8VALUE2')},
+            {name1:"PJ077006"},{name1:"PJ077007"},{name1:"PJ077008"},{name1:"PJ077009"},{name1:"PJ077010",type:40},{name1:"PJ077"},{name1:this.$t('label.PFANS2005FORMVIEW_TOTAL')},{},{name1:this.$t('label.PFANS1036FORMVIEW_TAB3VALUE2'),type:44}
+            ,{name1:this.$t('label.PFANS1036FORMVIEW_TAB3VALUE3'),type:45},{name1:this.$t('label.PFANS1036FORMVIEW_TAB3VALUE4')},{},{type:48},{},{},{name1:this.$t('label.PFANS1036FORMVIEW_TAB8VALUE2')},
             {name1:this.$t('label.PFANS1036FORMVIEW_TAB8VALUE3')},{name1:this.$t('label.PFANS1036FORMVIEW_TAB8VALUE4')},
-            {name1:this.$t('label.PFANS1036FORMVIEW_TAB9VALUE2')},{name1:this.$t('label.PFANS1036FORMVIEW_TAB9VALUE3')},{name1:this.$t('label.PFANS1036FORMVIEW_TAB9VALUE4')},{name1:this.$t('label.PFANS1036FORMVIEW_TAB9VALUE5')},
+            {name1:this.$t('label.PFANS1036FORMVIEW_TAB9VALUE2'),type:54},{name1:this.$t('label.PFANS1036FORMVIEW_TAB9VALUE3'),type:55},{name1:this.$t('label.PFANS1036FORMVIEW_TAB9VALUE4'),type:56},{name1:this.$t('label.PFANS1036FORMVIEW_TAB9VALUE5'),type:57},
             {name1:this.$t('label.PFANS1036FORMVIEW_TAB10VALUE2')},{name1:this.$t('label.PFANS1036FORMVIEW_TAB10VALUE3')},{name1:this.$t('label.PFANS1036FORMVIEW_TAB10VALUE4')},{name1:this.$t('label.PFANS1036FORMVIEW_TAB10VALUE5')},{name1:this.$t('label.PFANS1036FORMVIEW_TAB10VALUE6')},{name1:this.$t('label.PFANS1036FORMVIEW_TAB10VALUE9')}
             ],
         baseInfo: {},
         form: {
-          centerid: '',
-          groupid: '',
+          center_id: '',
+          group_id: '',
           user_id: '',
+          year:'',
         },
         rules: {
           user_id: [{
@@ -1734,17 +1735,36 @@
       this.disable = this.$route.params.disabled;
     },
     mounted(){
-     let year = moment().subtract(3,'months').year();
+      this.form.year = moment().subtract(3,'months').year();
+      let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
       this.loading = true;
       if (this.$route.params._id) {
         this.$store
           .dispatch('PFANS1036Store/selectById', {'businessplanid': this.$route.params._id})
           .then(response => {
+            debugger
               this.form = response;
               this.equipment_newyear = JSON.parse(this.form.equipment_newyear);
               this.equipment_lastyear = JSON.parse(this.form.equipment_lastyear);
               this.assets_newyear = JSON.parse(this.form.assets_newyear);
               this.assets_lastyear = JSON.parse(this.form.assets_lastyear);
+              let table_p = JSON.parse(this.form.tableP);
+              this.form.business = JSON.parse(this.form.business);
+              this.groupA1 = JSON.parse(this.form.groupA1);
+              this.groupA2 = JSON.parse(this.form.groupA2);
+              this.groupB1 = JSON.parse(this.form.groupB1);
+              this.groupB2 = JSON.parse(this.form.groupB2);
+              this.groupB3 = JSON.parse(this.form.groupB3);
+              this.groupC = JSON.parse(this.form.groupC);
+              this.tableO1 = JSON.parse(this.form.tableO1);
+              this.tableO2 = JSON.parse(this.form.tableO2);
+              this.tableO3 = JSON.parse(this.form.tableO3);
+              this.tableO = JSON.parse(this.form.tableO);
+              table_p.forEach(
+                val => {
+                  this.tableP[val.type] = val;
+                }
+              )
             this.loading = false;
           })
           .catch(error => {
@@ -1756,8 +1776,6 @@
             this.loading = false;
           });
       } else {
-        this.userlist = this.$store.getters.userinfo.userid;
-
         if(this.$store.getters.orgGroupList.length > 0 ){
           this.groupA2 = this.$store.getters.orgGroupList.map(
             group => {
@@ -1770,23 +1788,28 @@
             }
           );
         }
-        if (this.userlist !== null && this.userlist !== '') {
-          let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-          this.form.centerid = rst.centerNmae||"";
           this.form.center_id = rst.centerId||"";
-          this.form.groupid = rst.groupNmae||"";
           this.form.group_id = rst.groupId||"";
           this.form.user_id = this.$store.getters.userinfo.userid;
           this.getGroupB1(this.form.group_id);
-        }
       }
         this.$store
-          .dispatch('PFANS1036Store/getPersonPlan', {'groupid':this.form.group_id,'year':year})
+          .dispatch('PFANS1036Store/getPersonPlan', {'groupid':rst.groupId,'year':this.form.year})
         .then( response => {
           if(response[0])  this.tableC = JSON.parse(response[0]);
           if(response[1])  this.tableD = JSON.parse(response[1]);
           if(response[2]) this.tableA = [JSON.parse(response[2])];
           if(response[2])  this.tableB = [JSON.parse(response[2])];
+           let actual = JSON.parse(response[3]);
+           console.log(this.tableP)
+           actual.forEach(
+             val => {
+                if(val.code === "PJ111001"){
+                     Object.assign(this.tableP[11],val)
+                }
+             }
+           )
+          console.log(this.tableP)
             this.loading = false;
           })
           .catch(error => {
@@ -1922,24 +1945,31 @@
             }
           })
         for(let i = 0; i < this.arr.length ; i++){
+          this.tableP[51]["actual" + this.arr[i]] = this.tableP[51]["actual" + this.arr[i]] || "0.00";
           if(this.sumB2.length > 0){
             if(i<=5){
               this.tableP[51]["money" + this.arr[i]] = Number(this.sumB2[ 2 * i + 2 ]||0).toFixed(2);
             }else{
               this.tableP[51]["money" + this.arr[i]] = Number(this.sumB2[ 2 * i + 4 ]||0).toFixed(2);
             }
-          } if(this.sumB1.length > 0){
+          }
+          this.tableP[52]["actual" + this.arr[i]] = this.tableP[52]["actual" + this.arr[i]] || "0.00";
+          if(this.sumB1.length > 0){
             if(i<=5){
               this.tableP[52]["money" + this.arr[i]] = Number(this.sumB1[ 2 * i + 2 ]||0).toFixed(2);
             }else{
               this.tableP[52]["money" + this.arr[i]] = Number(this.sumB1[ 2 * i + 4 ]||0).toFixed(2);
             }
           }
+          this.tableP[53]["actual" + this.arr[i]] = this.tableP[53]["actual" + this.arr[i]] || "0.00";
           if(this.tableA.length > 0){
             this.tableP[53]["money" + this.arr[i]] = Number(this.tableA[0][ "amount" + this.arr[i] ]||0).toFixed(2);
           }else{
             this.tableP[53]["money" + this.arr[i]] = "0.00";
           }
+          this.tableP[0]["actual" + this.arr[i]] = this.tableP[0]["actual" + this.arr[i]] || "0.00";
+          this.tableP[1]["actual" + this.arr[i]] = this.tableP[1]["actual" + this.arr[i]] || "0.00";
+          this.tableP[2]["actual" + this.arr[i]] = this.tableP[2]["actual" + this.arr[i]] || "0.00";
           if(this.groupA1.length > 0){
             this.tableP[0]["money" + this.arr[i]] = Number(this.groupA1[0]["money" + this.arr[i]]||0).toFixed(2);
             this.tableP[1]["money" + this.arr[i]] = Number(this.groupA1[1]["money" + this.arr[i]]||0).toFixed(2);
@@ -1949,6 +1979,7 @@
             this.tableP[1]["money" + this.arr[i]] = "0.00";
             this.tableP[2]["money" + this.arr[i]] = "0.00";
           }
+          this.tableP[3]["actual" + this.arr[i]] = this.tableP[3]["actual" + this.arr[i]] || "0.00";
           if(this.sumA2.length > 0){
             if(i<=5){
               this.tableP[3]["money" + this.arr[i]] = Number(this.sumA2[3 + 2 * i ]||0).toFixed(2);
@@ -1959,6 +1990,7 @@
             this.tableP[3]["money" + this.arr[i]] = "0.00";
           }
           this.tableP[4]["money" + this.arr[i]] = (Number(this.tableP[0]["money" + this.arr[i]]) + Number(this.tableP[1]["money" + this.arr[i]]) +  Number(this.tableP[2]["money" + this.arr[i]]) + Number(this.tableP[3]["money" + this.arr[i]])).toFixed(2);
+          this.tableP[4]["actual" + this.arr[i]] = (Number(this.tableP[0]["actual" + this.arr[i]]) + Number(this.tableP[1]["actual" + this.arr[i]]) +  Number(this.tableP[2]["actual" + this.arr[i]]) + Number(this.tableP[3]["actual" + this.arr[i]])).toFixed(2);
           this.tableP[5]["money" + this.arr[i]] = (Number(this.tableP[4]["money" + this.arr[i]]) - (Number(this.tableP[1]["money" + this.arr[i]]) * Number(getDictionaryInfo("PJ086002").value2) + Number(this.tableP[2]["money" + this.arr[i]]) * Number(getDictionaryInfo("PJ086003").value2))).toFixed(2);
 
           if(this.tableB.length > 0){
@@ -1967,9 +1999,13 @@
             this.tableP[6]["money" + this.arr[i]] = "0.00";
           }
           this.tableP[7]["money" + this.arr[i]] = "0.00";
+          this.tableP[7]["actual" + this.arr[i]] = "0.00";
+          this.tableP[8]["actual" + this.arr[i]] = "0.00";
           this.tableP[8]["money" + this.arr[i]] = "0.00";
           this.tableP[9]["money" + this.arr[i]] = "0.00";
+          this.tableP[9]["actual" + this.arr[i]] = "0.00";
           this.tableP[10]["money" + this.arr[i]] = "0.00";
+          this.tableP[10]["actual" + this.arr[i]] = "0.00";
           if(i === 0){
             this.tableP[11]["money" + this.arr[i]]  = (Number(getDictionaryInfo("PJ109001").value2) * Number(this.tableP[53]["money" + this.arr[i]])).toFixed(2);
           }else{
@@ -1980,6 +2016,7 @@
              }
           }
           this.tableP[12]["money" + this.arr[i]] = "0.00";
+          this.tableP[12]["actual" + this.arr[i]] = "0.00";
           this.tableP[13]["money" + this.arr[i]] = (Number(this.tableP[6]["money" + this.arr[i]]) + Number(this.tableP[11]["money" + this.arr[i]])).toFixed(2);
           if(this.assets1.length > 0){
             this.tableP[14]["money" + this.arr[i]] = (Number(this.assets1[0]["money" + this.arr[i]]||0)).toFixed(2);
@@ -2038,7 +2075,6 @@
           this.tableP[36]["money" + this.arr[i]] = Number(tableOtotal5["money" + this.arr[i]]||0).toFixed(2);
           this.tableP[37]["money" + this.arr[i]] = Number(tableOtotal6["money" + this.arr[i]]||0).toFixed(2);
           this.tableP[38]["money" + this.arr[i]] = Number(_tableO2["money" + this.arr[i]]||0).toFixed(2);
-          debugger
           this.tableP[39]["money" + this.arr[i]] = (0 - Number(this.tableP[13]["money" + this.arr[i]]) - Number(this.tableP[20]["money" + this.arr[i]]) - Number(this.tableP[26]["money" + this.arr[i]]) + Number(this.tableP[31]["money" + this.arr[i]]) + Number(this.tableP[32]["money" + this.arr[i]]) +
           Number(this.tableP[33]["money" + this.arr[i]]) + Number(this.tableP[34]["money" + this.arr[i]]) + Number(this.tableP[35]["money" + this.arr[i]]) +Number(this.tableP[36]["money" + this.arr[i]]) +Number(this.tableP[37]["money" + this.arr[i]]) + Number(this.tableP[38]["money" + this.arr[i]]) + Number(this.tableP[5]["money" + this.arr[i]])*0.75).toFixed(2);
 
@@ -2083,6 +2119,8 @@
             this.tableP[63]["money" + this.arr[i]] = "0%"
           }
         }
+        this.tableP[50]["money6"] = ((Number(this.tableP[43]["money4"]) + Number(this.tableP[43]["money5"]) + Number(this.tableP[43]["money6"]))/(Number(this.tableP[5]["money4"]) + Number(this.tableP[5]["money5"]) + Number(this.tableP[5]["money6"]))).toFixed(2);
+
 
       },
       getTravel(val){
@@ -2112,23 +2150,16 @@
       getSumA2(val){
         this.sumA2 =  val;
       },
-      changeColor({ row, column, rowIndex, columnIndex }){
-        if (columnIndex === 1) {
-          if (rowIndex === 0) {
-            return {
-              backgroundColor: 'red'
-            };
-          } else if (rowIndex === 6) {
-            return {
-              backgroundColor: '#74979c'
-            }
+      rowClass({ row, column, rowIndex, columnIndex }){
+            if (rowIndex === 6) {
+               return  '#74979c';
           } else if ( [43,47,48,49,50].includes(rowIndex)) {
             return {
-              backgroundColor: '#dc9986'
+              background: '#dc9986'
             }
           } else if ([44,45,46].includes(rowIndex)) {
             return {
-              backgroundColor: '#8bbba5'
+              background: '#8bbba5'
             }
           } else if (rowIndex === 51) {
             return {
@@ -2136,18 +2167,17 @@
             }
           } else if (rowIndex === 54) {
             return {
-              backgroundColor: '#e6d67d'
+              background: '#e6d67d'
             }
           } else if (rowIndex === 58) {
             return {
-              backgroundColor: '#729d71'
+              background: '#729d71'
             }
           } else {
             return {
-              backgroundColor: '#7084a4'
+              background: '#7084a4'
             };
           }
-        }
       },
       objectSpanMethod({ row, column, rowIndex, columnIndex }) {
         if (columnIndex === 0) {
@@ -2192,7 +2222,8 @@
               colspan: 0
             };
           }
-        }else if(columnIndex === 1){
+        }
+        else if(columnIndex === 1){
          if ( [43,47,48,49,50].includes(rowIndex)) {
             return {
               rowspan: 0,
@@ -2515,11 +2546,23 @@
           });
         }
         if (val === 'save') {
-              this.form.user_id = this.userlist;
+          debugger
               this.form.equipment_newyear = JSON.stringify(this.equipment_newyear);
               this.form.equipment_lastyear = JSON.stringify(this.equipment_lastyear);
               this.form.assets_newyear = JSON.stringify(this.assets_newyear);
               this.form.assets_lastyear = JSON.stringify(this.assets_lastyear);
+              this.form.tableP = JSON.stringify([this.tableP[40],this.tableP[44],this.tableP[45],this.tableP[48],this.tableP[54],this.tableP[55],this.tableP[56],this.tableP[57]]);
+              this.form.business = JSON.stringify(this.business);
+              this.form.groupA1 = JSON.stringify(this.groupA1);
+              this.form.groupA2 = JSON.stringify(this.groupA2);
+              this.form.groupB1 = JSON.stringify(this.groupB1);
+              this.form.groupB2 = JSON.stringify(this.groupB2);
+              this.form.groupB3 = JSON.stringify(this.groupB3);
+              this.form.groupC = JSON.stringify(this.groupC);
+              this.form.tableO1 = JSON.stringify(this.tableO1);
+              this.form.tableO2 = JSON.stringify(this.tableO2);
+              this.form.tableO3 = JSON.stringify(this.tableO3);
+              this.form.tableO = JSON.stringify(this.tableO);
               if (this.$route.params._id) {
                 this.baseInfo.businessplan.businessplanid = this.$route.params._id;
                 this.$store

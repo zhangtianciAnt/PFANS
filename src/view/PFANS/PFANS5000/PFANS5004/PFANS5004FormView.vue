@@ -2,7 +2,7 @@
   <div>
     <EasyNormalContainer
       :buttonList="buttonList"
-      :title="title"
+      :title="titles"
       @buttonClick="buttonClick"
       @end="end"
       @start="start"
@@ -368,7 +368,7 @@
                 }],
                 data: [],
                 loading: false,
-                title: "title.PFANS5004VIEW",
+                titles: this.$route.params.type === 1 ? "title.PFANS5004VIEW" : "title.PFANS5004VIEW2",
                 rules: {
                     assetaddress: [{
                         required: true,
@@ -411,6 +411,15 @@
                 this.$store
                     .dispatch("PFANS5001Store/selectById", {companyprojectsid: this.$route.params._id})
                     .then(response => {
+                      // if(this.region === '2'){
+                      //   if (this.$i18n) {
+                      //     this.title = this.$t('title.PFANS5004VIEW2');
+                      //   }
+                      // }else{
+                      //   if (this.$i18n) {
+                      //     this.title = this.$t('title.PFANS5004VIEW');
+                      //   }
+                      // }
                         this.form = response.companyprojects;
                         this.userlist = this.form.managerid;
                         /*阶段信息*/
@@ -444,11 +453,15 @@
                             this.source = response.projectsystem;
                             for (var i = 0; i < this.source.length; i++) {
                                 if (this.source[i].type === '0') {
+                                  if (this.$i18n) {
                                     this.source[i].type = this.$t('label.PFANS5004VIEW_STAFF');
+                                  }
                                     let lst = getUserInfo(this.source[i].name);
                                     this.source[i].name = lst.userinfo.customername;
                                 } else {
+                                  if (this.$i18n) {
                                     this.source[i].type = this.$t('label.PFANS5004VIEW_ASSIST');
+                                  }
                                 }
                             }
                         }
@@ -493,9 +506,11 @@
                     this.form.managerid === "" ||
                     val === "undefined"
                 ) {
+                  if (this.$i18n) {
                     this.errorManager =
-                        this.$t("normal.error_08") +
-                        this.$t("label.PFANS5001FORMVIEW_MANAGERID");
+                      this.$t("normal.error_08") +
+                      this.$t("label.PFANS5001FORMVIEW_MANAGERID");
+                  }
                 } else {
                     this.errorManager = "";
                 }

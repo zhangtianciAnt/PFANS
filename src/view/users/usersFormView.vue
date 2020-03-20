@@ -627,7 +627,12 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERVIEW_POST')" prop="post">
-                    <el-input class="width" v-model="form.post" style="width:20vw"></el-input>
+                    <dicselect
+                      :code="code1"
+                      :data="form.post"
+                      @change="changePost"
+                      style="width:20vw">
+                    </dicselect>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -1424,6 +1429,7 @@
 
       return {
         code: "",
+        code1: 'PJ105',
         occupationtypecode:"",
         occupationtypedis:true,
         display: true,
@@ -2088,6 +2094,9 @@
         ) {
           this.activeName = "five";
         }
+      },
+      changePost(val) {
+        this.form.post = val;
       },
       deleteRow(index, rows) {
         if (rows.length > 1) {

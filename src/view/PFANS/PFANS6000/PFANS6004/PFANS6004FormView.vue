@@ -127,11 +127,13 @@
             <!--            職務-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANSUSERVIEW_POST')" prop="post">
-                <el-input
+                <dicselect
                   :disabled="!disabled"
-                  style="width:20vw"
-                  v-model="form.post">
-                </el-input>
+                  :code="code15"
+                  :data="form.post"
+                  @change="changePost"
+                  style="width:20vw">
+                </dicselect>
               </el-form-item>
             </el-col>
 
@@ -504,6 +506,7 @@
         code9: 'BP011',
         //業務影響
         code10: 'BP010',
+        code15: 'PJ105',
         //作业形态
         code20: 'BP024',
         //作业分类
@@ -522,7 +525,7 @@
           post: [
             {
               required: true,
-              message: this.$t('normal.error_08') + this.$t('label.PFANSUSERVIEW_POST'),
+              message: this.$t('normal.error_09') + this.$t('label.PFANSUSERVIEW_POST'),
               trigger: 'blur',
             }],
           // 性别
@@ -764,14 +767,11 @@
       changecountermeasure(val) {
         this.form.countermeasure = val;
       },
+      changePost(val) {
+        this.form.post = val;
+      },
       changeexitreason(val) {
         this.form.exitreason = val;
-      },
-      handleCurrentChange(val) {
-        this.currentRow = val;
-      },
-      handleCurrentChange1(val) {
-        this.currentRow1 = val;
       },
       getGroupId(val) {
         this.form.group_id = val;
