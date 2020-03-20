@@ -51,7 +51,10 @@
                 align="center"
               >
                 <template slot-scope="scope">
-                  <el-select size="small" v-model="scope.row.nextyear" :placeholder="$t('normal.error_09')">
+                  <el-select size="small"
+                             v-model="scope.row.nextyear"
+                             :disabled="!disabled"
+                             :placeholder="$t('normal.error_09')">
                     <el-option
                       v-for="item in options"
                       :key="item.value"
@@ -89,7 +92,8 @@
                 v-if="this.$route.params.type === 0 ? false : true"
                 align="center">
                 <template slot-scope="scope">
-                  <el-select size="small" v-model="scope.row.supchinese" :placeholder="$t('normal.error_09')">
+                  <el-select size="small" v-model="scope.row.supchinese" :disabled="!disabled"
+                             :placeholder="$t('normal.error_09')">
                     <el-option
                       v-for="item in externalOption"
                       :key="item.supplierinfor_id"
@@ -105,7 +109,7 @@
                 width="180"
                 align="center">
                 <template slot-scope="scope">
-                  <el-input size="small" v-model="scope.row.name"></el-input>
+                  <el-input size="small" v-model="scope.row.name" :disabled="!disabled"></el-input>
                 </template>
               </el-table-column>
               <el-table-column
@@ -136,7 +140,8 @@
                 align="center"
               >
                 <template slot-scope="scope">
-                  <el-select size="small" v-model="scope.row.nextyear" :placeholder="$t('normal.error_09')">
+                  <el-select size="small" v-model="scope.row.nextyear" :disabled="!disabled"
+                             :placeholder="$t('normal.error_09')">
                     <el-option
                       v-for="item in options"
                       :key="item.value"
@@ -157,6 +162,7 @@
                     v-model="scope.row.entermouth"
                     type="month"
                     style="width:10vw"
+                    :disabled="!disabled"
                     size="small"
                     v-if="!scope.row.isoutside">
                   </el-date-picker>
@@ -172,6 +178,7 @@
                 <template slot-scope="scope">
                   <el-switch
                     v-model="scope.row.isoutside"
+                    :disabled="!disabled"
                     @change="val => changeOption(val,scope.row)">
                   </el-switch>
                 </template>
@@ -182,6 +189,7 @@
                     @click.native.prevent="deleteRow(scope.$index, newTableData)"
                     type="danger"
                     size="small"
+                    :disabled="!disabled"
                     plain
                   >{{$t('button.delete')}}
                   </el-button>
@@ -189,6 +197,7 @@
                     @click="addRow"
                     type="primary"
                     size="small"
+                    :disabled="!disabled"
                     plain
                   >{{$t('button.insert')}}
                   </el-button>
@@ -216,6 +225,7 @@
     },
     data() {
       return {
+        disabled: "true",
         options: [{
           value: 'PR021001',
           label: 'R3'

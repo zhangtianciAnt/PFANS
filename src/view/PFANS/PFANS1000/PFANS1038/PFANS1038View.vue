@@ -167,7 +167,7 @@
             name: "PFANS1038FormView",
             params: {
               _id: this.id,
-              disabled: false,
+              disabled: true,
               type: this.activeName === "first" ? 0 : 1
             }
           });
@@ -184,7 +184,7 @@
             name: "PFANS1038FormView",
             params: {
               _id: this.id,
-              disabled: true,
+              disabled: false,
               type: this.activeName === "first" ? 0 : 1
             }
           });
@@ -193,7 +193,7 @@
             name: "PFANS1038FormView",
             params: {
               _id: "",
-              disabled: false,
+              disabled: true,
               type: this.activeName === "first" ? 0 : 1
             }
           });
