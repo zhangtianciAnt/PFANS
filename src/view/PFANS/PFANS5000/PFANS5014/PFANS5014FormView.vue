@@ -409,7 +409,6 @@
             };
         },
         mounted() {
-            debugger
             if (this.$route.params._id) {
                 this.loading = true;
                 this.$store
