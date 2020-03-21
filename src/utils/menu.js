@@ -365,118 +365,6 @@ export function menu() {
                   ]
                 },
                 {
-                  '_id': 'PFANS1016',
-                  'name': 'menu.PFANS1016',
-                  'menuvisible': false,
-                  'menuurl': '/PFANS1016View',
-                  'menuicon': '',
-                  'children': [],
-                  'actions': [
-                    {"_id": "PFANS1016_read", "actiontype": "0", "name": 'button.view', "auth": 4},
-                    {"_id": "PFANS1016_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
-                    {"_id": "PFANS1016_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
-                    {"_id": "PFANS1016_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
-                  ]
-                },
-                {
-                  '_id': 'PFANS1017',
-                  'name': 'menu.PFANS1017',
-                  'menuvisible': false,
-                  'menuurl': '/PFANS1017View',
-                  'menuicon': '',
-                  'children': [],
-                  'actions': [
-                    {"_id": "PFANS1017_read", "actiontype": "0", "name": 'button.view', "auth": 4},
-                    {"_id": "PFANS1017_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
-                    {"_id": "PFANS1017_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
-                    {"_id": "PFANS1017_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
-                  ]
-                },
-                {
-                  '_id': 'PFANS1018',
-                  'name': 'menu.PFANS1018',
-                  'menuvisible': false,
-                  'menuurl': '/PFANS1018View',
-                  'menuicon': '',
-                  'children': [],
-                  'actions': [
-                    {"_id": "PFANS1018_read", "actiontype": "0", "name": 'button.view', "auth": 4},
-                    {"_id": "PFANS1018_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
-                    {"_id": "PFANS1018_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
-                    {"_id": "PFANS1018_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
-                  ]
-                },
-                {
-                  '_id': 'PFANS1019',
-                  'name': 'menu.PFANS1019',
-                  'menuvisible': false,
-                  'menuurl': '/PFANS1019View',
-                  'menuicon': '',
-                  'children': [],
-                  'actions': [
-                    {"_id": "PFANS1019_read", "actiontype": "0", "name": 'button.view', "auth": 4},
-                    {"_id": "PFANS1019_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
-                    {"_id": "PFANS1019_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
-                    {"_id": "PFANS1019_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
-                  ]
-                },
-                {
-                  '_id': 'PFANS1020',
-                  'name': 'menu.PFANS1020',
-                  'menuvisible': false,
-                  'menuurl': '/PFANS1020View',
-                  'menuicon': '',
-                  'children': [],
-                  'actions': [
-                    {"_id": "PFANS1020_read", "actiontype": "0", "name": 'button.view', "auth": 4},
-                    {"_id": "PFANS1020_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
-                    {"_id": "PFANS1020_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
-                    {"_id": "PFANS1020_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
-                  ]
-                },
-                {
-                  '_id': 'PFANS1021',
-                  'name': 'menu.PFANS1021',
-                  'menuvisible': false,
-                  'menuurl': '/PFANS1021View',
-                  'menuicon': '',
-                  'children': [],
-                  'actions': [
-                    {"_id": "PFANS1021_read", "actiontype": "0", "name": 'button.view', "auth": 4},
-                    {"_id": "PFANS1021_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
-                    {"_id": "PFANS1021_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
-                    {"_id": "PFANS1021_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
-                  ]
-                },
-                {
-                  '_id': 'PFANS1022',
-                  'name': 'menu.PFANS1022',
-                  'menuvisible': false,
-                  'menuurl': '/PFANS1022View',
-                  'menuicon': '',
-                  'children': [],
-                  'actions': [
-                    {"_id": "PFANS1022_read", "actiontype": "0", "name": 'button.view', "auth": 4},
-                    {"_id": "PFANS1022_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
-                    {"_id": "PFANS1022_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
-                    {"_id": "PFANS1022_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
-                  ]
-                },
-                {
-                  '_id': 'PFANS1023',
-                  'name': 'menu.PFANS1023',
-                  'menuvisible': false,
-                  'menuurl': '/PFANS1023View',
-                  'menuicon': '',
-                  'children': [],
-                  'actions': [
-                    {"_id": "PFANS1023_read", "actiontype": "0", "name": 'button.view', "auth": 4},
-                    {"_id": "PFANS1023_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
-                    {"_id": "PFANS1023_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
-                    {"_id": "PFANS1023_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
-                  ]
-                },
-                {
                   '_id': 'PFANS1034',
                   'name': 'menu.PFANS1034',
                   'menuvisible': false,
@@ -794,7 +682,119 @@ export function menu() {
                     {"_id": "PFANS1015_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
                     {"_id": "PFANS1015_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
                   ]
-                }
+                },
+                {
+                  '_id': 'PFANS1016',
+                  'name': 'menu.PFANS1016',
+                  'menuvisible': false,
+                  'menuurl': '/PFANS1016View',
+                  'menuicon': '',
+                  'children': [],
+                  'actions': [
+                    {"_id": "PFANS1016_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                    {"_id": "PFANS1016_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                    {"_id": "PFANS1016_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                    {"_id": "PFANS1016_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+                  ]
+                },
+                {
+                  '_id': 'PFANS1017',
+                  'name': 'menu.PFANS1017',
+                  'menuvisible': false,
+                  'menuurl': '/PFANS1017View',
+                  'menuicon': '',
+                  'children': [],
+                  'actions': [
+                    {"_id": "PFANS1017_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                    {"_id": "PFANS1017_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                    {"_id": "PFANS1017_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                    {"_id": "PFANS1017_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+                  ]
+                },
+                {
+                  '_id': 'PFANS1018',
+                  'name': 'menu.PFANS1018',
+                  'menuvisible': false,
+                  'menuurl': '/PFANS1018View',
+                  'menuicon': '',
+                  'children': [],
+                  'actions': [
+                    {"_id": "PFANS1018_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                    {"_id": "PFANS1018_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                    {"_id": "PFANS1018_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                    {"_id": "PFANS1018_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+                  ]
+                },
+                {
+                  '_id': 'PFANS1019',
+                  'name': 'menu.PFANS1019',
+                  'menuvisible': false,
+                  'menuurl': '/PFANS1019View',
+                  'menuicon': '',
+                  'children': [],
+                  'actions': [
+                    {"_id": "PFANS1019_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                    {"_id": "PFANS1019_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                    {"_id": "PFANS1019_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                    {"_id": "PFANS1019_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+                  ]
+                },
+                {
+                  '_id': 'PFANS1020',
+                  'name': 'menu.PFANS1020',
+                  'menuvisible': false,
+                  'menuurl': '/PFANS1020View',
+                  'menuicon': '',
+                  'children': [],
+                  'actions': [
+                    {"_id": "PFANS1020_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                    {"_id": "PFANS1020_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                    {"_id": "PFANS1020_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                    {"_id": "PFANS1020_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+                  ]
+                },
+                {
+                  '_id': 'PFANS1021',
+                  'name': 'menu.PFANS1021',
+                  'menuvisible': false,
+                  'menuurl': '/PFANS1021View',
+                  'menuicon': '',
+                  'children': [],
+                  'actions': [
+                    {"_id": "PFANS1021_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                    {"_id": "PFANS1021_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                    {"_id": "PFANS1021_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                    {"_id": "PFANS1021_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+                  ]
+                },
+                {
+                  '_id': 'PFANS1022',
+                  'name': 'menu.PFANS1022',
+                  'menuvisible': false,
+                  'menuurl': '/PFANS1022View',
+                  'menuicon': '',
+                  'children': [],
+                  'actions': [
+                    {"_id": "PFANS1022_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                    {"_id": "PFANS1022_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                    {"_id": "PFANS1022_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                    {"_id": "PFANS1022_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+                  ]
+                },
+                {
+                  '_id': 'PFANS1023',
+                  'name': 'menu.PFANS1023',
+                  'menuvisible': false,
+                  'menuurl': '/PFANS1023View',
+                  'menuicon': '',
+                  'children': [],
+                  'actions': [
+                    {"_id": "PFANS1023_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                    {"_id": "PFANS1023_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                    {"_id": "PFANS1023_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                    {"_id": "PFANS1023_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+                  ]
+                },
               ]
             }
           ]
