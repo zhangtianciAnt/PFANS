@@ -82,7 +82,7 @@
                       <el-col :span="8">
                         <el-form-item :label="$t('label.PFANS5009FORMVIEW_ACTUALENDTIME')" prop="enddate">
                           <el-date-picker
-                            :disabled="false"
+                            :disabled=this.flags
                             style="width: 20vw"
                             type="date"
                             v-model="form.nowdate"
@@ -331,6 +331,7 @@
         },
         data() {
             return {
+                flags:false,
                 disabled: true,
                 activeName: "first",
                 errorManager: "",
@@ -408,6 +409,7 @@
             };
         },
         mounted() {
+            debugger
             if (this.$route.params._id) {
                 this.loading = true;
                 this.$store
@@ -415,7 +417,11 @@
                     .then(response => {
 
                         if(response.comproject.nowdate != null){
+                            if(response.comproject.status === '9' || response.comproject.status === '7'){
+                                this.flags = true
+                            }
                             this.form = response.comproject;
+
                         }else {
                             this.form = response.comproject;
                             this.form.nowdate = moment(new Date()).format('YYYY-MM-DD');
