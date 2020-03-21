@@ -217,15 +217,18 @@
                       }
                     }
                     let letError = getDictionaryInfo(this.selectedlist[i].currency);
-                    if (letError != null) {
-                      if (letError.value1 == this.$t("label.PFANS1012VIEW_USD")) {
-                        this.selectedlist[i].currencyrate = letError.value1;
-                        response[m].currency = this.$t("label.PFANS1012FORMVIEW_USDA");
-                      } else if (letError.value1 == null) {
-                        this.selectedlist[i].currencyrate = '';
-                        response[m].currency = this.$t("label.PFANS1012FORMVIEW_CNY");
+                      if (letError != null) {
+                          if (letError.value1 == this.$t("label.PFANS1012VIEW_USD")) {
+                              this.selectedlist[i].currencyrate = letError.value1;
+                              response[m].currency = this.$t("label.PFANS1012FORMVIEW_USDA");
+                          } else  {
+                              this.selectedlist[i].currencyrate = '';
+                              response[m].currency = this.$t("label.PFANS1012FORMVIEW_CNY");
+                          }
+                      }else {
+                          this.selectedlist[i].currencyrate = '';
+                          response[m].currency = this.$t("label.PFANS1012FORMVIEW_CNY");
                       }
-                    }
                     if (response[m].invoicedate !== null && response[m].invoicedate !== "") {
                       let date;
                       let invoiceDate = moment(response[m].invoicedate).format("MM");
@@ -254,6 +257,7 @@
                       } else if (invoiceDate == '12') {
                         date = 'Dec'
                       }
+                      
                       let invoiceDat = moment(response[m].invoicedate).format("DD");
                       let invoicedat = moment(response[m].invoicedate).format("YYYY");
                       response[m].invoicedate = invoiceDat + date + invoicedat;
