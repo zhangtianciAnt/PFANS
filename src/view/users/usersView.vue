@@ -28,6 +28,8 @@
           <el-date-picker unlink-panels
                           class="bigWidth"
                           v-model="workinghours"
+                          style="margin-right:1vw"
+                          slot="customize"
                           type="daterange"
                           :end-placeholder="$t('label.enddate')"
                           :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
