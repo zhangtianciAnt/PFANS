@@ -348,7 +348,16 @@
             });
             this.menudata = tempdata;
             if (this.menudata && this.menudata.length > 0) {
-              this.vactiveIndex = this.menudata[0].children[0].children[0].menuurl;
+              if(this.menudata[0].children.length > 0){
+                if(this.menudata[0].children[0].children.length > 0){
+                  this.vactiveIndex = this.menudata[0].children[0].children[0].menuurl;
+                }else{
+                  this.vactiveIndex = this.menudata[0].children[0].menuurl;
+                }
+              }else{
+                this.vactiveIndex = this.menudata[0].menuurl;
+              }
+
               this.$store.commit("global/SET_CURRENTURL", this.vactiveIndex);
             }
 
