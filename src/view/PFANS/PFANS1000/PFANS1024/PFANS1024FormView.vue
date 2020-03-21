@@ -6,19 +6,19 @@
                          ref="container"
                          v-loading="loading">
       <div slot="customize">
-        <el-form :model="form" :rules="rules" label-position="top" label-width="6vw" ref="refform" style="padding: 2vw">
-          <el-dialog :title="$t('button.application')" :visible.sync="dialogFormVisible">
+        <el-form :model="form1" :rules="rules1" label-position="top" label-width="6vw" ref="refform1" style="padding: 2vw">
+          <el-dialog :title="$t('button.application')" :visible.sync="dialogVisibleC">
             <el-form-item :label="$t('label.PFANS1024VIEW_NUMBER')" :label-width="formLabelWidth">
               <dicselect
                 :code="code"
-                :data="form.claimtype"
+                :data="form1.claimtype"
                 :multiple="multiple"
                 @change="getnumber"
                 style="width: 20vw">
               </dicselect>
             </el-form-item>
             <el-form-item :label="$t('label.PFANS1024VIEW_ORIGINALCONTRACT')" :label-width="formLabelWidth">
-              <el-input v-model="form.contractnumber" style="width: 20vw" :disabled="!disabled1"></el-input>
+              <el-input v-model="form1.contractnumber" style="width: 20vw" :disabled="!disabled1"></el-input>
               <el-checkbox
                 v-if="checkeddisplay"
                 v-model="checked"
@@ -29,7 +29,7 @@
             </el-form-item>
             <el-form-item :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')" :label-width="formLabelWidth">
               <dicselect :code="code2"
-                         :data="form.contracttype"
+                         :data="form1.contracttype"
                          @change="getcontracttype"
                          style="width: 20vw"
                          :disabled="!disabled2">
@@ -37,21 +37,27 @@
             </el-form-item>
             <el-form-item :label="$t('label.PFANS1024VIEW_CAREERYEAR')" :label-width="formLabelWidth">
               <dicselect :code="code3"
-                         :data="form.applicationdate"
+                         :data="form1.applicationdate"
                          @change="getcareeryear1"
                          style="width: 20vw"
                          :disabled="!disabled2">
               </dicselect>
               <dicselect :code="code4"
-                         :data="form.entrycondition"
+                         :data="form1.entrycondition"
                          @change="getcareeryear2"
                          style="width: 20vw"
                          :disabled="!disabled2">
               </dicselect>
             </el-form-item>
-            <el-form-item :label="$t('label.group')" :label-width="formLabelWidth" :rules='rules.group_id' prop="group_id">
-              <org :orglist="grouporglist" orgtype="2" style="width: 20vw" @getOrgids="getGroupId"
-                   :disabled="!disabled2" @change="getGroupId1"></org>
+            <el-form-item :label="$t('label.group')" :label-width="formLabelWidth" prop="grouporglist" :error="errorgroup">
+              <org
+                :orglist="form1.grouporglist"
+                orgtype="1"
+                :error="errorgroup"
+                style="width: 20vw"
+                @getOrgids="getGroupId"
+                :disabled="!disabled2"
+                ></org>
             </el-form-item>
             <!--<el-form-item :label="$t('label.PFANS1024VIEW_SIDEGROUP')" :label-width="formLabelWidth">
               <dicselect :code="code10"
@@ -62,48 +68,51 @@
               </dicselect>
             </el-form-item>-->
 
-              <!--<user :disabled="!disabled" :no="scope.row" :error="errorcusto" :selectType="selectType" :userlist="scope.row.custojapanese"-->
-              <!--@getUserids="getCusto" style="width: 10.15rem"></user>-->
-              <el-form-item :label="$t('label.PFANS1024VIEW_CUSTOMERNAME')+'('+$t('label.PFANS1024VIEW_JAPANESE')+')'" :label-width="formLabelWidth">
-                <div class="" style="width: 20vw">
-                  <el-input class="content bg"
-                            v-model="form.custojapanese">
-                    <el-button :disabled="!disabled" size="small" slot="append" icon="el-icon-search"
-                               @click="handleClickE()"></el-button>
-                  </el-input>
-                </div>
-              </el-form-item>
-              <el-dialog :visible.sync="dialogVisibleE"
-                         top="8vh"
-                         append-to-body>
-                <el-table :data="dataA" :row-key="rowid" @row-click="rowClickE" max-height="400" ref="roletableA"
-                          v-loading='loading'>
-                  <el-table-column property="supchinese" :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')"
-                                   width="120"></el-table-column>
-                  <el-table-column property="liableperson" :label="$t('label.ASSETS1002VIEW_USERID')"
-                                   width="120"></el-table-column>
-                  <el-table-column property="prochinese" :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')"
-                                   width="120"></el-table-column>
-                  <el-table-column property="protelephone" :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')"
-                                   width="120"></el-table-column>
-                  <el-table-column property="commontperson" :label="$t('label.PFANS6002VIEW_COMMONTPERSON')"
-                                   width="120"></el-table-column>
-                  <el-table-column property="comtelephone" :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')"
-                                   width="120"></el-table-column>
-                </el-table>
-              </el-dialog>
+            <!--<user :disabled="!disabled" :no="scope.row" :error="errorcusto" :selectType="selectType" :userlist="scope.row.custojapanese"-->
+            <!--@getUserids="getCusto" style="width: 10.15rem"></user>-->
+            <el-form-item :label="$t('label.PFANS1024VIEW_CUSTOMERNAME')+'('+$t('label.PFANS1024VIEW_JAPANESE')+')'" :label-width="formLabelWidth" prop="custojapanese">
+              <div class="" style="width: 20vw">
+                <el-input class="content bg"
+                          v-model="form1.custojapanese">
+                  <el-button :disabled="!disabled2" size="small" slot="append" icon="el-icon-search"
+                             @click="handleClickE()"></el-button>
+                </el-input>
+              </div>
+            </el-form-item>
+            <el-dialog :visible.sync="dialogVisibleE"
+                       top="8vh"
+                       append-to-body>
+              <el-table :data="dataA" :row-key="rowid" @row-click="rowClickE" max-height="400" ref="roletableA"
+                        v-loading='loading'>
+                <el-table-column property="supchinese" :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')"
+                                 width="120"></el-table-column>
+                <el-table-column property="liableperson" :label="$t('label.ASSETS1002VIEW_USERID')"
+                                 width="120"></el-table-column>
+                <el-table-column property="prochinese" :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')"
+                                 width="120"></el-table-column>
+                <el-table-column property="protelephone" :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')"
+                                 width="120"></el-table-column>
+                <el-table-column property="commontperson" :label="$t('label.PFANS6002VIEW_COMMONTPERSON')"
+                                 width="120"></el-table-column>
+                <el-table-column property="comtelephone" :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')"
+                                 width="120"></el-table-column>
+              </el-table>
+            </el-dialog>
 
             <div class="dialog-footer" align="center">
-              <el-button @click="dialogFormVisible = false" v-if="show1">
+              <!--@click="dialogFormVisible = false"-->
+              <el-button v-if="show1">
                   <span style="margin-right: 86%;" @click="click">{{$t('label.PFANS1026FORMVIEW_CONTRACTNUMBER')}}
                   </span>
               </el-button>
-              <el-button @click="dialogFormVisible = false" v-if="show2">
+              <el-button @click="dialogVisibleB = false" v-if="show2">
                   <span style="margin-right: 86%;">{{$t('label.PFANS1026FORMVIEW_ABANDONED')}}
                   </span>
               </el-button>
             </div>
           </el-dialog>
+        </el-form>
+        <el-form :model="form" :rules="rules" label-position="top" label-width="6vw" ref="refform" style="padding: 2vw">
           <el-dialog :visible.sync="dialogBook" width="30%">
             <div class="dialog-footer" align="center">
               <el-row style=" margin-bottom: 20px;">
@@ -737,14 +746,15 @@
                 }
             };
           var groupId = (rule, value, callback) => {
-            if (!this.form.group_id || this.form.group_id === "") {
-              callback(new Error(this.$t("normal.error_08") + "group"));
-              this.error = this.$t("normal.error_08") + "group";
+            if (!this.form1.grouporglist || this.form1.grouporglist === "") {
+                callback(new Error(this.$t("normal.error_08") + "group"));
+                this.errorgroup = this.$t("normal.error_08") + "group";
             } else {
               callback();
             }
           };
             return {
+                error: '',
                 errordepartment:'',
                 makeintoBaseInfo: {},
                 titleType: '',
@@ -764,6 +774,7 @@
                 letcontracttype: '',
                 dialogFormVisible: false,
                 dialogVisibleE: false,
+                dialogVisibleC: false,
                 formLabelWidth: '120px',
                 multiple: false,
                 index: "",
@@ -785,6 +796,24 @@
                     'save': ['contractnumber'],
                     'makeinto': ['contractnumber'],
                     '7': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'contractdate', 'currencyposition', 'claimamount', 'deliverydate'],
+                },
+                rules1: {
+                    grouporglist: [
+                        {
+                            required: true,
+                            validator: groupId,
+                            trigger: 'blur',
+                        },
+                    ],
+                    custojapanese: [
+                        {
+                            required: true,
+                            message:
+                                this.$t('normal.error_08') +
+                                this.$t('label.PFANS1024VIEW_CUSTOMERNAME'),
+                            trigger: 'change',
+                        },
+                    ]
                 },
                 rules: {
                   group_id: [
@@ -889,6 +918,15 @@
                         disabled: false,
                     },
                 ],
+                form1: {
+                    claimtype: '',
+                    contractnumber: '',
+                    contracttype: '',
+                    applicationdate: '',
+                    entrycondition: '',
+                    grouporglist: '',
+                    custojapanese: ''
+                },
                 form: {
                     tabledata: [],
                     tabledata2: undefined,
@@ -994,6 +1032,8 @@
                                 this.form.applicationdate = contractapplication[i].careeryear;
                                 //上下期
                                 this.form.entrycondition = contractapplication[i].periods;
+
+                                this.form1.custojapanese = contractapplication[i].custojapanese;
                                 //グループ
                                 this.getGroupId(contractapplication[i].group_id);
                                 //先方组織
@@ -1130,7 +1170,7 @@
                 this.dialogVisibleB = true;
             },
             rowClickE(row){//333
-                this.form.custojapanese = row.supjapanese;
+                this.form1.custojapanese = row.supjapanese;
 
                 this.formcustomer.custojapanese = row.supjapanese;
                 this.formcustomer.custoenglish = row.supenglish;
@@ -1319,21 +1359,52 @@
                     })
             },
             getGroupId(val) {
+                this.form1.grouporglist = val;
                 this.grouporglist = val;
                 let group = getOrgInfo(val);
                 if (group) {
                     this.groupinfo = [val, group.companyen, group.orgname, group.companyname];
                 }
+                if (!val || this.form1.grouporglist === "") {
+                    this.errorgroup = this.$t("normal.error_08") + "group";
+                } else {
+                    this.errorgroup = "";
+                }
             },
-          getGroupId1(val){
-            this.grouporglist = val;
-            this.form.group_id = val;
-            if (this.form.group_id === "") {
-              this.errorgroup = this.$t("normal.error_08") + "group";
-            } else {
-              this.errorgroup = "";
-            }
-          },
+            getOrgInformation(id) {
+                let org = {};
+                let treeCom = this.$store.getters.orgs;
+
+                if (id && treeCom.getNode(id)) {
+                    let node = id;
+                    let type = treeCom.getNode(id).data.type || 0;
+                    for (let index = parseInt(type); index >= 1; index--) {
+                        if (parseInt(type) === index && ![1, 2].includes(parseInt(type))) {
+                            org.teamname = treeCom.getNode(node).data.departmentname;
+                            org.teamid = treeCom.getNode(node).data._id;
+                        }
+                        if (index === 2) {
+                            org.groupname = treeCom.getNode(node).data.departmentname;
+                            org.groupid = treeCom.getNode(node).data._id;
+                            org.budgetunit = treeCom.getNode(node).data.encoding;
+                        }
+                        if (index === 1) {
+                            org.centername = treeCom.getNode(node).data.companyname;
+                            org.centerid = treeCom.getNode(node).data._id;
+                        }
+                        node = treeCom.getNode(node).parent.data._id;
+                    }
+                    ({
+                        centername: this.form.centername,
+                        groupname: this.form.groupname,
+                        teamname: this.form.teamname,
+                        centerid: this.form.centerid,
+                        groupid: this.form.groupid,
+                        teamid: this.form.teamid,
+                        budgetunit: this.form.budgetunit
+                    } = org);
+                }
+            },
             getSidegroup(val) {
                 this.form.sidegroup = val;
             },
@@ -1511,13 +1582,19 @@
             },
             //契約番号做成
             click() {//111
-
-                this.$refs['refform'].validate(valid => {
+                this.$refs['refform1'].validate(valid => {
                     if (valid) {
                         console.log(valid);
+                        this.form.claimtype = this.form1.claimtype;
+                        this.form.contractnumber = this.form1.contractnumber;
+                        this.form.contracttype = this.form1.contracttype;
+                        this.form.applicationdate = this.form1.applicationdate;
+                        this.form.entrycondition = this.form1.entrycondition;
+                        this.form.custojapanese = this.form1.custojapanese;
                         if (this.$route.params._id) {
                             this.handleClick();
                         } else {
+                            console.log('meiyou xinjian');
                             if (this.form.tabledata.length > 0) {
                                 this.$confirm(this.$t('normal.confirm_iscontinue'), this.$t('normal.info'), {
                                     confirmButtonText: this.$t('button.confirm'),
@@ -1527,19 +1604,22 @@
                                     this.form.tabledata = [];
                                     this.form.tableclaimtype = [];
                                     this.handleClick();
+                                    this.dialogVisibleC = false;
                                 }).catch(() => {
                                     this.$message({
                                         type: 'info',
                                         message: this.$t('label.PFANS1026FORMVIEW_YQXSC'),
                                     });
-                                    this.dialogFormVisible = false;
+
                                 });
                             } else {
                                 this.handleClick();
+                                this.dialogVisibleC = false;
                             }
                         }
                     }else{
-                        this.dialogFormVisible = true;
+                        console.log('验证未通过');
+                        this.dialogVisibleC = true;
                     }
                 });
             },
@@ -1874,14 +1954,19 @@
                 if (val === "application") {
                     this.display = true;
                     this.checkeddisplay = true;
-                    this.dialogFormVisible = true;
+                    this.dialogVisibleC = true;
                     this.show1 = true;
                     this.show2 = false;
                     if (!this.$route.params._id) {
-                        this.form.claimtype = 'HT001001';
+                        /*this.form.claimtype = 'HT001001';
                         this.form.contracttype = 'HT014001';
                         this.form.applicationdate = 'HT007001';
-                        this.form.entrycondition = 'HT003001';
+                        this.form.entrycondition = 'HT003001';*/
+
+                        this.form1.claimtype = 'HT001001';
+                        this.form1.contracttype = 'HT014001';
+                        this.form1.applicationdate = 'HT007001';
+                        this.form1.entrycondition = 'HT003001';
                     } else {
                         this.getChecked(true);
                     }
