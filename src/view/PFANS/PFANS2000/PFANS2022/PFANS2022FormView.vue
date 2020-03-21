@@ -53,7 +53,7 @@
                 <dicselect
                   :code="code1"
                   :data="form.twoclass"
-                  :disabled="!disable"
+                  :disabled="!disabled"
                   :multiple="multiple"
                   @change="gettwoclass"
                   style="width: 20vw">
@@ -118,7 +118,7 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2022VIEW_NOMINEERELATIONSHIP')" label-width="5rem" v-show="show1" prop="nomineerelationship">
-                <el-input :disabled="!disabled" maxlength='20' style="width: 11rem;padding-left:3rem"
+                <el-input :disabled="!disabled" maxlength='20' style="width: 20vw"
                           v-model="form.nomineerelationship"></el-input>
               </el-form-item>
             </el-col>
@@ -361,7 +361,6 @@
                         this.form = response;
                         this.userlist = this.form.user_id;
                         this.nomineeslist = this.form.nominees;
-
                         if (this.form.firstclass === 'PR024004') {
                             this.show2 = true;
                             this.rules.weddingday[0].required = false;
@@ -426,6 +425,7 @@
                             this.form.amoutmoney = 0;
                             this.form.experience = this.$t('label.PFANS2022VIEW_UNFILLED');
                         }
+                      this.getfirstclass(this.form.firstclass)
                         if (this.form.uploadfile != "") {
                             let uploadfile = this.form.uploadfile.split(";");
                             for (var i = 0; i < uploadfile.length; i++) {
