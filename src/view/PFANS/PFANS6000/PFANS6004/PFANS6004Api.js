@@ -9,6 +9,13 @@ export function getexpatriatesinfor(data) {
   })
 }
 
+export function getWithoutAuth(data) {
+  return request({
+    url: 'expatriatesinfor/getWithoutAuth',
+    method: 'get',
+    params: data
+  })
+}
 
 export function getexpatriatesinforthisyear(data) {
   return request({
