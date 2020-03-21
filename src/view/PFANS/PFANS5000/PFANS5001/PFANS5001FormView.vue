@@ -1423,17 +1423,17 @@
                   centername: "",
                   groupname: "",
                   teamname: "",
-                    center_id: '',
-                    group_id: '',
-                    team_id: '',
-                    project_name: '',
-                    project_namejp: '',
-                    leaderid: '',
-                    managerid: '',
-                    projecttype: '',
-                    field: '',
-                    languages: '',
-                    startdate: '',
+                  center_id: '',
+                  group_id: '',
+                  team_id: '',
+                  project_name: '',
+                  project_namejp: '',
+                  leaderid: '',
+                  managerid: '',
+                  projecttype: '',
+                  field: '',
+                  languages: '',
+                  startdate: '',
                     // 事业国别
                     country: '',
                     //车载
@@ -1822,7 +1822,7 @@
             },
 
             getCenterId(val) {
-              this.getOrgInformation(val);
+              this.form.center_id = val;
               if (!val || this.form.center_id === "") {
                 this.errorcenter = this.$t("normal.error_08") + "center";
               } else {
