@@ -1735,8 +1735,6 @@
       this.disable = this.$route.params.disabled;
     },
     mounted(){
-      this.form.year = moment().subtract(3,'months').year();
-      let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
       this.loading = true;
       if (this.$route.params._id) {
         this.$store
@@ -1775,7 +1773,11 @@
             });
             this.loading = false;
           });
+        debugger
+        this.getPersonTable(this.$route.params.groupid,this.$route.params.year);
       } else {
+        this.form.year = moment().subtract(3,'months').year();
+        let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
         if(this.$store.getters.orgGroupList.length > 0 ){
           this.groupA2 = this.$store.getters.orgGroupList.map(
             group => {
@@ -1792,60 +1794,8 @@
           this.form.group_id = rst.groupId||"";
           this.form.user_id = this.$store.getters.userinfo.userid;
           this.getGroupB1(this.form.group_id);
+          this.getPersonTable(rst.groupId,this.form.year);
       }
-        this.$store
-          .dispatch('PFANS1036Store/getPersonPlan', {'groupid':rst.groupId,'year':this.form.year})
-        .then( response => {
-          if(response[0])  this.tableC = JSON.parse(response[0]);
-          if(response[1])  this.tableD = JSON.parse(response[1]);
-          if(response[2]) this.tableA = [JSON.parse(response[2])];
-          if(response[2])  this.tableB = [JSON.parse(response[2])];
-           let actual = JSON.parse(response[3]);
-           console.log(this.tableP)
-           actual.forEach(
-             val => {
-                if(val.code === "PJ111001"){
-                     Object.assign(this.tableP[11],val)
-                }else if(val.code === "PJ111002"){
-                     Object.assign(this.tableP[16],val)
-                }else if(val.code === "PJ111003"){
-                      Object.assign(this.tableP[17],val)
-                }else if(val.code === "PJ111004"){
-                     Object.assign(this.tableP[18],val)
-                }else if(val.code === "PJ111005"){
-                     Object.assign(this.tableP[19],val)
-                }else if(val.code === "PJ111006"){
-                      Object.assign(this.tableP[21],val)
-                }else if(val.code === "PJ111007"){
-                      Object.assign(this.tableP[31],val)
-                }else if(val.code === "PJ111008"){
-                     Object.assign(this.tableP[32],val)
-                }else if(val.code === "PJ111009"){
-                  Object.assign(this.tableP[33],val)
-                }else if(val.code === "PJ111010"){
-                  Object.assign(this.tableP[34],val)
-                }else if(val.code === "PJ111011"){
-                  Object.assign(this.tableP[35],val)
-                }else if(val.code === "PJ111012"){
-                  Object.assign(this.tableP[36],val)
-                }else if(val.code === "PJ111013"){
-                  Object.assign(this.tableP[37],val)
-                }else if(val.code === "PJ111014"){
-                  Object.assign(this.tableP[38],val)
-                }
-             }
-           )
-          console.log(this.tableP)
-            this.loading = false;
-          })
-          .catch(error => {
-            Message({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            this.loading = false;
-          });
     },
     computed:{
         tableSZTotal:function(){
@@ -1907,6 +1857,78 @@
       }
     },
     methods: {
+      getPersonTable(groupid,year){
+        this.$store
+          .dispatch('PFANS1036Store/getPersonPlan', {'groupid':groupid,'year':year})
+          .then( response => {
+            if(response[0])  this.tableC = JSON.parse(response[0]);
+            if(response[1])  this.tableD = JSON.parse(response[1]);
+            if(response[2]) this.tableA = [JSON.parse(response[2])];
+            if(response[2])  this.tableB = [JSON.parse(response[2])];
+            let actual = JSON.parse(response[3]);
+            console.log(this.tableP)
+            actual.forEach(
+              val => {
+                if(val.code === "PJ111001"){
+                  Object.assign(this.tableP[11],val)
+                }else if(val.code === "PJ111002"){
+                  Object.assign(this.tableP[16],val)
+                }else if(val.code === "PJ111003"){
+                  Object.assign(this.tableP[17],val)
+                }else if(val.code === "PJ111004"){
+                  Object.assign(this.tableP[18],val)
+                }else if(val.code === "PJ111005"){
+                  Object.assign(this.tableP[19],val)
+                }else if(val.code === "PJ111006"){
+                  Object.assign(this.tableP[21],val)
+                }else if(val.code === "PJ111007"){
+                  Object.assign(this.tableP[31],val)
+                }else if(val.code === "PJ111008"){
+                  Object.assign(this.tableP[32],val)
+                }else if(val.code === "PJ111009"){
+                  Object.assign(this.tableP[33],val)
+                }else if(val.code === "PJ111010"){
+                  Object.assign(this.tableP[34],val)
+                }else if(val.code === "PJ111011"){
+                  Object.assign(this.tableP[35],val)
+                }else if(val.code === "PJ111012"){
+                  Object.assign(this.tableP[36],val)
+                }else if(val.code === "PJ111013"){
+                  Object.assign(this.tableP[37],val)
+                }else if(val.code === "PJ111014"){
+                  Object.assign(this.tableP[38],val)
+                }else if(val.code === "HT008006"){
+                  Object.assign(this.tableP[0],val)
+                }else if(val.code === "HT008007"){
+                  Object.assign(this.tableP[1],val)
+                }else if(val.code === "HT008008"){
+                  Object.assign(this.tableP[2],val)
+                }else if(val.code === "neibu"){
+                  Object.assign(this.tableP[3],val);
+                  Object.assign(this.tableP[23],val);
+                }else if(val.code === "neibuhetong"){
+                  Object.assign(this.tableP[24],val)
+                }else if(val.code === "worktime"){
+                  Object.assign(this.tableP[51],val)
+                }else if(val.code === "worktime0"){
+                  Object.assign(this.tableP[52],val)
+                }else if(val.code === "worktime1"){
+                  Object.assign(this.tableP[53],val)
+                }
+              }
+            )
+            console.log(this.tableP)
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
       computedSum(){
         let tableOTotal = {};
         let tableOTotal1 = {};
@@ -2056,7 +2078,9 @@
           this.tableP[4]["money" + this.arr[i]] = (Number(this.tableP[0]["money" + this.arr[i]]) + Number(this.tableP[1]["money" + this.arr[i]]) +  Number(this.tableP[2]["money" + this.arr[i]]) + Number(this.tableP[3]["money" + this.arr[i]])).toFixed(2);
           this.tableP[4]["actual" + this.arr[i]] = (Number(this.tableP[0]["actual" + this.arr[i]]) + Number(this.tableP[1]["actual" + this.arr[i]]) +  Number(this.tableP[2]["actual" + this.arr[i]]) + Number(this.tableP[3]["actual" + this.arr[i]])).toFixed(2);
           this.tableP[5]["money" + this.arr[i]] = (Number(this.tableP[4]["money" + this.arr[i]]) - (Number(this.tableP[1]["money" + this.arr[i]]) * Number(getDictionaryInfo("PJ086002").value2) + Number(this.tableP[2]["money" + this.arr[i]]) * Number(getDictionaryInfo("PJ086003").value2))).toFixed(2);
+          this.tableP[5]["actual" + this.arr[i]] = (Number(this.tableP[4]["actual" + this.arr[i]]) - (Number(this.tableP[1]["actual" + this.arr[i]]) * Number(getDictionaryInfo("PJ086002").value2) + Number(this.tableP[2]["actual" + this.arr[i]]) * Number(getDictionaryInfo("PJ086003").value2))).toFixed(2);
 
+          this.tableP[6]["actual" + this.arr[i]] = this.tableP[6]["actual" + this.arr[i]] || "0.00";
           if(this.tableB.length > 0){
               this.tableP[6]["money" + this.arr[i]] = ((Number(this.tableB[0]["pay" + this.arr[i]]) + Number(this.tableB[0]["giving" + this.arr[i]]))/1000).toFixed(2);
           } else {
@@ -2070,6 +2094,7 @@
           this.tableP[9]["actual" + this.arr[i]] = "0.00";
           this.tableP[10]["money" + this.arr[i]] = "0.00";
           this.tableP[10]["actual" + this.arr[i]] = "0.00";
+          this.tableP[11]["actual" + this.arr[i]] = "0.00";
           if(i === 0){
             this.tableP[11]["money" + this.arr[i]]  = (Number(getDictionaryInfo("PJ109001").value2) * Number(this.tableP[53]["money" + this.arr[i]])).toFixed(2);
           }else{
@@ -2081,22 +2106,31 @@
           }
           this.tableP[12]["money" + this.arr[i]] = "0.00";
           this.tableP[12]["actual" + this.arr[i]] = "0.00";
+          this.tableP[13]["actual" + this.arr[i]] = (Number(this.tableP[6]["actual" + this.arr[i]]) + Number(this.tableP[11]["actual" + this.arr[i]])).toFixed(2);
           this.tableP[13]["money" + this.arr[i]] = (Number(this.tableP[6]["money" + this.arr[i]]) + Number(this.tableP[11]["money" + this.arr[i]])).toFixed(2);
+          this.tableP[14]["actual" + this.arr[i]] = this.tableP[14]["actual" + this.arr[i]] || "0.00";
           if(this.assets1.length > 0){
             this.tableP[14]["money" + this.arr[i]] = (Number(this.assets1[0]["money" + this.arr[i]]||0)).toFixed(2);
           }else{
             this.tableP[14]["money" + this.arr[i]] = "0.00";
           }
+          this.tableP[15]["actual" + this.arr[i]] = this.tableP[15]["actual" + this.arr[i]] || "0.00";
           if(this.assets2.length > 0){
             this.tableP[15]["money" + this.arr[i]] = (Number(this.assets2[0]["money" + this.arr[i]]||0)).toFixed(2);
           }else{
             this.tableP[15]["money" + this.arr[i]] = "0.00";
           }
+          this.tableP[16]["actual" + this.arr[i]] = this.tableP[16]["actual" + this.arr[i]] || "0.00";
           this.tableP[16]["money" + this.arr[i]] =  Number(tableOTotal["money" + this.arr[i]]||0).toFixed(2);
+          this.tableP[17]["actual" + this.arr[i]] = this.tableP[17]["actual" + this.arr[i]] || "0.00";
           this.tableP[17]["money" + this.arr[i]] =  Number(tableOTotal1["money" + this.arr[i]]||0).toFixed(2);
+          this.tableP[18]["actual" + this.arr[i]] = this.tableP[18]["actual" + this.arr[i]] || "0.00";
           this.tableP[18]["money" + this.arr[i]] =  Number(tableOTotal2["money" + this.arr[i]]||0).toFixed(2);
+          this.tableP[19]["actual" + this.arr[i]] = this.tableP[19]["actual" + this.arr[i]] || "0.00";
           this.tableP[19]["money" + this.arr[i]] =  Number(tableOTotal3["money" + this.arr[i]]||0).toFixed(2);
           this.tableP[20]["money" + this.arr[i]] = (Number(this.tableP[14]["money" + this.arr[i]]) + Number(this.tableP[15]["money" + this.arr[i]]) + Number(this.tableP[16]["money" + this.arr[i]])+ Number(this.tableP[17]["money" + this.arr[i]])+ Number(this.tableP[18]["money" + this.arr[i]])+ Number(this.tableP[19]["money" + this.arr[i]])).toFixed(2);
+          this.tableP[20]["actual" + this.arr[i]] = (Number(this.tableP[14]["actual" + this.arr[i]]) + Number(this.tableP[15]["actual" + this.arr[i]]) + Number(this.tableP[16]["actual" + this.arr[i]])+ Number(this.tableP[17]["actual" + this.arr[i]])+ Number(this.tableP[18]["actual" + this.arr[i]])+ Number(this.tableP[19]["actual" + this.arr[i]])).toFixed(2);
+          this.tableP[21]["actual" + this.arr[i]] = this.tableP[21]["actual" + this.arr[i]] || "0.00";
           if(this.sumC1.length > 0){
             if(i<=5){
               this.tableP[21]["money" + this.arr[i]] = Number(this.sumC1[3 + 2 * i ]||0).toFixed(2);
@@ -2107,6 +2141,8 @@
             this.tableP[21]["money" + this.arr[i]] = "0.00";
           }
           this.tableP[22]["money" + this.arr[i]] = "0.00";
+          this.tableP[22]["actual" + this.arr[i]] = "0.00";
+          this.tableP[23]["actual" + this.arr[i]] = this.tableP[23]["actual" + this.arr[i]] || "0.00";
           if(this.sumB3.length > 0){
             if(i<=5){
               this.tableP[23]["money" + this.arr[i]] = Number(this.sumB3[3 + 2 * i ]||0).toFixed(2);
@@ -2116,6 +2152,7 @@
           }else{
             this.tableP[23]["money" + this.arr[i]] = "0.00";
           }
+          this.tableP[24]["actual" + this.arr[i]] = this.tableP[24]["actual" + this.arr[i]] || "0.00";
           if(this.sumB1.length > 0 && this.sumB2.length > 0){
             if(i<=5){
               this.tableP[24]["money" + this.arr[i]] = (Number(this.sumB1[3 + 2 * i ]||0) + Number(this.sumB2[3 + 2 * i ]||0)).toFixed(2)
@@ -2125,21 +2162,35 @@
           }else{
             this.tableP[24]["money" + this.arr[i]] = "0.00";
           }
-
+          this.tableP[25]["actual" + this.arr[i]] = "0.00";
           this.tableP[25]["money" + this.arr[i]] = "0.00";
           this.tableP[26]["money" + this.arr[i]] = (Number(this.tableP[21]["money" + this.arr[i]]) + Number(this.tableP[22]["money" + this.arr[i]]) + Number(this.tableP[23]["money" + this.arr[i]])+ Number(this.tableP[24]["money" + this.arr[i]])+ Number(this.tableP[25]["money" + this.arr[i]])).toFixed(2);
+          this.tableP[26]["actual" + this.arr[i]] = (Number(this.tableP[21]["actual" + this.arr[i]]) + Number(this.tableP[22]["actual" + this.arr[i]]) + Number(this.tableP[23]["actual" + this.arr[i]])+ Number(this.tableP[24]["actual" + this.arr[i]])+ Number(this.tableP[25]["actual" + this.arr[i]])).toFixed(2);
           this.tableP[27]["money" + this.arr[i]] = (Number(getDictionaryInfo("PJ110001").value2) * Number(this.tableP[51]["money" + this.arr[i]]) + Number(getDictionaryInfo("PJ110002").value2) * Number(this.tableP[52]["money" + this.arr[i]]) + Number(getDictionaryInfo("PJ110003").value2) * Number(this.tableP[53]["money" + this.arr[i]])).toFixed(2);
+          this.tableP[27]["actual" + this.arr[i]] = (Number(getDictionaryInfo("PJ110001").value2) * Number(this.tableP[51]["actual" + this.arr[i]]) + Number(getDictionaryInfo("PJ110002").value2) * Number(this.tableP[52]["actual" + this.arr[i]]) + Number(getDictionaryInfo("PJ110003").value2) * Number(this.tableP[53]["actual" + this.arr[i]])).toFixed(2);
           this.tableP[28]["money" + this.arr[i]] = "0.00";
+          this.tableP[28]["actual" + this.arr[i]] = "0.00";
           this.tableP[29]["money" + this.arr[i]] = "0.00";
+          this.tableP[29]["actual" + this.arr[i]] = "0.00";
           this.tableP[30]["money" + this.arr[i]] = this.tableP[27]["money" + this.arr[i]];
+          this.tableP[30]["actual" + this.arr[i]] = this.tableP[27]["money" + this.arr[i]];
           this.tableP[31]["money" + this.arr[i]] = Number(tableOTotal4["money" + this.arr[i]]||0).toFixed(2);
+          this.tableP[31]["actual" + this.arr[i]] = this.tableP[31]["actual" + this.arr[i]] || "0.00";
           this.tableP[32]["money" + this.arr[i]] = Number(_travel["money" + this.arr[i]]||0).toFixed(2);
+          this.tableP[32]["actual" + this.arr[i]] = this.tableP[32]["actual" + this.arr[i]] || "0.00";
           this.tableP[33]["money" + this.arr[i]] = Number(_tableO3["money" + this.arr[i]]||0).toFixed(2);
+          this.tableP[33]["actual" + this.arr[i]] = this.tableP[33]["actual" + this.arr[i]] || "0.00";
           this.tableP[34]["money" + this.arr[i]] = Number(tableOtotal7["money" + this.arr[i]]||0).toFixed(2);
+          this.tableP[34]["actual" + this.arr[i]] = this.tableP[34]["actual" + this.arr[i]] || "0.00";
           this.tableP[35]["money" + this.arr[i]] = Number(_tableO1["money" + this.arr[i]]||0).toFixed(2);
+          this.tableP[35]["actual" + this.arr[i]] = this.tableP[35]["actual" + this.arr[i]] || "0.00";
           this.tableP[36]["money" + this.arr[i]] = Number(tableOtotal5["money" + this.arr[i]]||0).toFixed(2);
+          this.tableP[36]["actual" + this.arr[i]] = this.tableP[36]["actual" + this.arr[i]] || "0.00";
           this.tableP[37]["money" + this.arr[i]] = Number(tableOtotal6["money" + this.arr[i]]||0).toFixed(2);
+          this.tableP[37]["actual" + this.arr[i]] = this.tableP[37]["actual" + this.arr[i]] || "0.00";
           this.tableP[38]["money" + this.arr[i]] = Number(_tableO2["money" + this.arr[i]]||0).toFixed(2);
+          this.tableP[38]["actual" + this.arr[i]] = this.tableP[38]["actual" + this.arr[i]] || "0.00";
+
           this.tableP[39]["money" + this.arr[i]] = (0 - Number(this.tableP[13]["money" + this.arr[i]]) - Number(this.tableP[20]["money" + this.arr[i]]) - Number(this.tableP[26]["money" + this.arr[i]]) + Number(this.tableP[31]["money" + this.arr[i]]) + Number(this.tableP[32]["money" + this.arr[i]]) +
           Number(this.tableP[33]["money" + this.arr[i]]) + Number(this.tableP[34]["money" + this.arr[i]]) + Number(this.tableP[35]["money" + this.arr[i]]) +Number(this.tableP[36]["money" + this.arr[i]]) +Number(this.tableP[37]["money" + this.arr[i]]) + Number(this.tableP[38]["money" + this.arr[i]]) + Number(this.tableP[5]["money" + this.arr[i]])*0.75).toFixed(2);
 
@@ -2185,6 +2236,7 @@
           }
         }
         this.tableP[50]["money6"] = ((Number(this.tableP[43]["money4"]) + Number(this.tableP[43]["money5"]) + Number(this.tableP[43]["money6"]))/(Number(this.tableP[5]["money4"]) + Number(this.tableP[5]["money5"]) + Number(this.tableP[5]["money6"]))).toFixed(2);
+
 
       },
       getTravel(val){

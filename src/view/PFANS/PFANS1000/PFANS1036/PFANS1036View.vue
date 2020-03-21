@@ -102,9 +102,13 @@
     },
     methods: {
       rowClick(row) {
+        debugger
         this.rowid = row.businessplanid;
+        this.year = row.year;
+        this.groupid = row.group_id;
       },
       buttonClick(val) {
+        debugger
         this.$store.commit('global/SET_HISTORYURL', this.$route.path)
         if (val === "view") {
           if (this.rowid === '') {
@@ -119,10 +123,13 @@
             name: 'PFANS1036FormView',
             params: {
               _id: this.rowid,
+              year: this.year,
+              groupid:this.groupid,
               disabled: false
             }
           })
         } else if (val === "insert") {
+          this.loading = true;
           this.$router.push({
             name: 'PFANS1036FormView',
             params: {
@@ -143,6 +150,8 @@
             name: 'PFANS1036FormView',
             params: {
               _id: this.rowid,
+              year: this.year,
+              groupid:this.groupid,
               disabled: true
             }
           })
