@@ -341,7 +341,7 @@
                 source: [{
                     projectsystem_id: '',
                     companyprojects_id: '',
-                    type: '',
+                    type: ' ',
                     number: '',
                     company: '',
                     name: '',
@@ -458,10 +458,12 @@
                                   }
                                     let lst = getUserInfo(this.source[i].name);
                                     this.source[i].name = lst.userinfo.customername;
-                                } else {
+                                } else if (this.source[i].type === '1') {
                                   if (this.$i18n) {
                                     this.source[i].type = this.$t('label.PFANS5004VIEW_ASSIST');
                                   }
+                                } else {
+                                  this.source[i].type = " ";
                                 }
                             }
                         }

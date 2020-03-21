@@ -2286,7 +2286,6 @@
         this.getTravel(row);
       },
       // changeAccdate(val, row) {
-      //   debugger;
       //   row.accommodationdate = val;
       //   var diffDate1 = moment(row.accommodationdate[1]).diff(moment(row.accommodationdate[0]), 'days');
       //   alert(diffDate1);

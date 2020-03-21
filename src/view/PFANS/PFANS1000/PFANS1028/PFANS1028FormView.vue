@@ -30,12 +30,15 @@
                       <el-input :disabled="true" style="width:20vw" v-model="form.gfjudgeno"></el-input>
                     </el-form-item>
                   </el-col>
-                </el-row>
-                <el-row>
                   <el-col :span="8">
                     <!--取契约番号-->
                     <el-form-item :label="$t('label.PFANS1028VIEW_JAPANNO')">
                       <el-input :disabled="true" style="width:20vw" v-model="form.contractnumber"></el-input>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1028VIEW_JUDGENO')">
+                      <el-input :disabled="true" style="width:20vw" v-model="form.jxjudgeno"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -49,8 +52,6 @@
                       <el-input :disabled="true" style="width:20vw" v-model="form.custoenglish"></el-input>
                     </el-form-item>
                   </el-col>
-                </el-row>
-                <el-row>
                   <el-col :span="8">
                     <!--写达到TO-->
                     <el-form-item :label="$t('label.PFANS1028VIEW_COUNTRY')">
@@ -146,16 +147,16 @@
                     <el-form-item
                       :label="$t('label.PFANS1028VIEW_POSSIBLE')" prop="possible">
                       <el-checkbox-group v-model="checkList" :disabled="!disable">
-                        <el-checkbox label="書類提供"></el-checkbox>
-                        <el-checkbox label="ソフトウェア提供"></el-checkbox>
-                        <el-checkbox label="E-MAIL"></el-checkbox>
-                        <el-checkbox label="サーバー"></el-checkbox>
-                        <el-checkbox label="技術討論・会議(NDA内)"></el-checkbox>
-                        <el-checkbox label="委託元国と"></el-checkbox>
-                        <el-checkbox label="その他の国へ"></el-checkbox>
-                        <el-checkbox label="海外発表、海外展示"></el-checkbox>
-                        <el-checkbox label="委託元国へ"></el-checkbox>
-                        <el-checkbox label="その他"></el-checkbox>
+                        <el-checkbox label="lable.PFANS1028VIEW_BOOKS"></el-checkbox>
+                        <el-checkbox label="label.PFANS1028VIEW_SOFTWARE"></el-checkbox>
+                        <el-checkbox label="label.PFANS1028VIEW_MAIL"></el-checkbox>
+                        <el-checkbox label="label.PFANS1028VIEW_SERVER"></el-checkbox>
+                        <el-checkbox label="label.PFANS1028VIEW_MEETING"></el-checkbox>
+                        <el-checkbox label="label.PFANS1028VIEW_COUNTRY2"></el-checkbox>
+                        <el-checkbox label="label.PFANS1028VIEW_OTHERC2"></el-checkbox>
+                        <el-checkbox label="label.PFANS1028VIEW_OVERSEA"></el-checkbox>
+                        <el-checkbox label="label.PFANS1028VIEW_COUNTRY3"></el-checkbox>
+                        <el-checkbox label="label.PFANS1028VIEW_OTHER"></el-checkbox>
                       </el-checkbox-group>
                     </el-form-item>
                   </el-col>
@@ -167,8 +168,6 @@
                       <span class="collapse_Title">{{$t('label.PFANS1028VIEW_DETERMINE')}}</span>
                     </template>
                     <el-row>
-
-
                       <!--判断联动-->
                       <el-col :span="12">
                         <el-form-item :label="$t('label.PFANS1028VIEW_OUTPUTLIMIT2')">
@@ -494,7 +493,6 @@
                 </el-collapse>
               </div>
             </el-tab-pane>
-
             <el-tab-pane :label="$t('label.PFANS1028VIEW_OUTPUTLIMIT')" name="second">
               <div>
                 <el-row>
@@ -515,8 +513,6 @@
                       <el-input :disabled="!disable" style="width:20vw" v-model="form.janame"></el-input>
                     </el-form-item>
                   </el-col>
-                </el-row>
-                <el-row>
                   <el-col :span="8">
                     <el-form-item  :label="$t('label.PFANS1028VIEW_ORGANIZATION')">
                       <el-input style="width:20vw" v-model="form.deployment" :disabled="true"></el-input>
@@ -535,7 +531,6 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-
                 <div>
                   <el-tabs type="border-card" v-model="activeName2">
                     <el-tab-pane :label="$t('label.PFANS1028VIEW_COMMUNICATION')" name="first">
@@ -605,7 +600,6 @@
                           </el-table-column>
                         </el-table>
                       </el-row>
-
                     </el-tab-pane>
                     <el-tab-pane :label="$t('label.PFANS1028VIEW_DELIVERY')" name="second">
                       <el-row>
@@ -850,11 +844,8 @@
                         </el-col>
                       </el-row>
                     </el-tab-pane>
-
                   </el-tabs>
                 </div>
-
-
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1028VIEW_OUTPUTSUPPLIE')" name="third">
@@ -873,8 +864,6 @@
                         <el-input :disabled="true" style="width:20vw" v-model="form.contractnumber"></el-input>
                       </el-form-item>
                     </el-col>
-                  </el-row>
-                  <el-row>
                     <el-col :span="12">
                       <!--带出PJ名-->
                       <el-form-item :label="$t('label.PFANS1028VIEW_NAME')">
@@ -886,8 +875,6 @@
                         <el-input :disabled="!disable" style="width:20vw" v-model="form.export"></el-input>
                       </el-form-item>
                     </el-col>
-                  </el-row>
-                  <el-row>
                     <el-col :span="12">
                       <el-form-item :label="$t('label.PFANS1028VIEW_ORGANIZATION')">
                         <el-input :disabled="true" style="width:20vw" v-model="form.deployment"></el-input>
@@ -1237,13 +1224,9 @@
                       </el-form-item>
                     </el-col>
                   </el-row>
-
                 </el-tab-pane>
-
               </el-tabs>
-
             </el-tab-pane>
-
           </el-tabs>
         </el-form>
       </div>
@@ -1257,7 +1240,6 @@
   import moment from 'moment';
   import {getDictionaryInfo} from '@/utils/customize';
   import dicselect from '../../../components/dicselect';
-
 
   export default {
     name: 'PFANS1028FormView',
@@ -1570,7 +1552,7 @@
             grade: 'X',
             technicalname: '',
             judgment1: '2',
-            points: '　(2) 低雑音増幅技術',
+            points: this.$t('label.PFANS1028VIEW_POINTS99'),
             judgment2: '2',
           },
           {
@@ -1578,7 +1560,7 @@
             grade: 'X',
             technicalname: '',
             judgment1: '2',
-            points: '　(3) 高感度および耐通信妨害技術',
+            points: this.$t('label.PFANS1028VIEW_POINTS98'),
             judgment2: '2',
           },
           {
@@ -1592,7 +1574,7 @@
           {
             technicalnumber: '04',
             grade: 'X',
-            technicalname: '衛星応用技術',
+            technicalname: this.$t('label.PFANS1028VIEW_DETECHNICALNAME5'),
             judgment1: '2',
             points: this.$t('label.PFANS1028VIEW_POINTS38'),
             judgment2: '2',
@@ -1602,7 +1584,7 @@
             grade: 'X',
             technicalname: '',
             judgment1: '2',
-            points: '②出場信号迅速取得ユニットの信号取得方法、回路構造と専用チップ',
+            points: this.$t('label.PFANS1028VIEW_POINTS97'),
             judgment2: '2',
           },
           {
@@ -1610,7 +1592,7 @@
             grade: 'X',
             technicalname: '',
             judgment1: '2',
-            points: '③システムの情報伝送体制、デバッグ方式、幀構造',
+            points: this.$t('label.PFANS1028VIEW_POINTS96'),
             judgment2: '2',
           },
           {
@@ -1628,8 +1610,7 @@
             grade: 'J',
             technicalname: this.$t('label.PFANS1028VIEW_COTECHNICALNAME1'),
             judgment1: '2',
-            points: '耐放射技術、工程\n' +
-              '　(1) 耐静電気≧2,500V、耐瞬時線量率＞1×1011rad(Si)-sのCMOS/SOS[Si-on Sapphire/補完型金属酸化物半導体]部品の製造技術',
+            points: this.$t('label.PFANS1028VIEW_POINTS95'),
             judgment2: '2',
           },
           {
@@ -1637,7 +1618,7 @@
             grade: 'J',
             technicalname: '',
             judgment1: '2',
-            points: '　(2) 耐静電気≧3,000V、耐瞬時線量率1×1011rad(Si)-sの双電極部品製造技術',
+            points: this.$t('label.PFANS1028VIEW_POINTS94'),
             judgment2: '2',
           },
           {
@@ -1645,7 +1626,7 @@
             grade: 'J',
             technicalname: this.$t('label.PFANS1028VIEW_COTECHNICALNAME2'),
             judgment1: '2',
-            points: '遠隔操作型核武装偵察ロボット製造技術',
+            points: this.$t('label.PFANS1028VIEW_POINTS2'),
             judgment2: '2',
           },
           {
@@ -1653,8 +1634,7 @@
             grade: 'X',
             technicalname: this.$t('label.PFANS1028VIEW_COTECHNICALNAME3'),
             judgment1: '2',
-            points: '1. 広帯域小型化セパレータ製造技術\n' +
-              '　(1) 超倍周波数広帯域[相対周波数帯域幅≧70%]小型化セパレータ設計および製造工程',
+            points: this.$t('label.PFANS1028VIEW_POINTS93'),
             judgment2: '2',
           },
           {
@@ -1662,7 +1642,7 @@
             grade: 'X',
             technicalname: '',
             judgment1: '2',
-            points: '　(2) 極狭ferromagnetic共振線幅△H＜2エルステッドのフェライト材料調剤および調製工程',
+            points: this.$t('label.PFANS1028VIEW_POINTS92'),
             judgment2: '2',
           },
           {
@@ -1670,7 +1650,7 @@
             grade: 'X',
             technicalname: '',
             judgment1: '2',
-            points: '　(3) 超広域帯[相対周波数帯域幅≧70%]整合技術および広域温度[－55℃～＋125℃]補償技術',
+            points: this.$t('label.PFANS1028VIEW_POINTS91'),
             judgment2: '2',
           },
           {
@@ -1678,7 +1658,7 @@
             grade: 'X',
             technicalname: '',
             judgment1: '2',
-            points: '2. 広帯域[2～8GHz]懸架配線式周波数分割器設計技術及び製造工程',
+            points: this.$t('label.PFANS1028VIEW_POINTS4'),
             judgment2: '2',
           },
           {
@@ -1686,8 +1666,7 @@
             grade: 'X',
             technicalname: '',
             judgment1: '2',
-            points: '3. 圧電ジャイロスコープセンサー製造技術\n' +
-              '　(1) サポートシステムの設計、製造工程',
+            points: this.$t('label.PFANS1028VIEW_POINTS90'),
             judgment2: '2',
           },
           {
@@ -1695,7 +1674,7 @@
             grade: 'X',
             technicalname: '',
             judgment1: '2',
-            points: '　(2) 圧電トランスデューサの貼付工程',
+            points: this.$t('label.PFANS1028VIEW_POINTS89'),
             judgment2: '2',
           },
           {
@@ -1703,7 +1682,7 @@
             grade: 'X',
             technicalname: '',
             judgment1: '2',
-            points: '　(3) 金属振動子の構造設計、工程および熱処理技術',
+            points: this.$t('label.PFANS1028VIEW_POINTS88'),
             judgment2: '2',
           },
           {
@@ -1711,7 +1690,7 @@
             grade: 'X',
             technicalname: '',
             judgment1: '2',
-            points: '　(4) 0校正システム構造設計および組立技術',
+            points: this.$t('label.PFANS1028VIEW_POINTS87'),
             judgment2: '2',
           },
           {
@@ -1719,7 +1698,7 @@
             grade: 'X',
             technicalname: '',
             judgment1: '2',
-            points: '　(5) 0校正信号処理技術',
+            points: this.$t('label.PFANS1028VIEW_POINTS86'),
             judgment2: '2',
           },
           {
@@ -1727,8 +1706,7 @@
             grade: 'X',
             technicalname: '',
             judgment1: '2',
-            points: '4. 声表面波部品設計技術\n' +
-              '　(1) 声表面波フィルター(周波数＞2GHz、帯域外抑制＞70dB、挿入損失＜1.5dB)',
+            points: this.$t('label.PFANS1028VIEW_POINTS85'),
             judgment2: '2',
           },
           {
@@ -1736,7 +1714,7 @@
             grade: 'X',
             technicalname: '',
             judgment1: '2',
-            points: '　(2) 声表面波タップ型遅延線(ビット数＞1023ビット、動作周波数＞600MHz)',
+            points: this.$t('label.PFANS1028VIEW_POINTS84'),
             judgment2: '2',
           },
           {
@@ -1744,7 +1722,7 @@
             grade: 'X',
             technicalname: '',
             judgment1: '2',
-            points: '　(3) 声表面波コンボルバー(ビット数＞1023ビット、動作周波数＞600 MHz)',
+            points: this.$t('label.PFANS1028VIEW_POINTS83'),
             judgment2: '2',
           },
           {
@@ -1752,7 +1730,7 @@
             grade: 'X',
             technicalname: '',
             judgment1: '2',
-            points: '　(4) 声表面波固定遅延線(周波数＞2GHz、遅延時間＞300μs)',
+            points: this.$t('label.PFANS1028VIEW_POINTS82'),
             judgment2: '2',
           },
           {
@@ -1760,7 +1738,7 @@
             grade: 'X',
             technicalname: '',
             judgment1: '2',
-            points: '　(5) 声表面波分散型遅延線(周波数＞500MHz、時帯積＞10,000、サイドローブ抑制＞32dB)',
+            points: this.$t('label.PFANS1028VIEW_POINTS81'),
             judgment2: '2',
           },
           {
@@ -1768,7 +1746,7 @@
             grade: 'X',
             technicalname: '',
             judgment1: '2',
-            points: '　(6) 声表面波パルス圧縮線(サイドローブ抑制＞32dB、2ステップ雑音信号シミュレーション計算技術、副ローブ抑制総合補償方法、位相誤差補償技術)',
+            points: this.$t('label.PFANS1028VIEW_POINTS80'),
             judgment2: '2',
           },
           {
@@ -1776,8 +1754,7 @@
             grade: 'X',
             technicalname: '',
             judgment1: '2',
-            points: '5. 声表面波部品製造技術\n' +
-              '　(1) 組合技術',
+            points: this.$t('label.PFANS1028VIEW_POINTS79'),
             judgment2: '2',
           },
           {
@@ -1785,7 +1762,7 @@
             grade: 'X',
             technicalname: '',
             judgment1: '2',
-            points: '　(2) 整合技術',
+            points: this.$t('label.PFANS1028VIEW_POINTS78'),
             judgment2: '2',
           },
           {
@@ -1793,7 +1770,7 @@
             grade: 'X',
             technicalname: '',
             judgment1: '2',
-            points: '　(3) 大面積[220mm×20mm]フォトエッチング技術',
+            points: this.$t('label.PFANS1028VIEW_POINTS77'),
             judgment2: '2',
           },
           {
@@ -1801,7 +1778,7 @@
             grade: 'X',
             technicalname: '',
             judgment1: '2',
-            points: '6. 定在波加速管耐エコー電子ガン設計および製造技術',
+            points: this.$t('label.PFANS1028VIEW_POINTS8'),
             judgment2: '2',
           },
           {
@@ -1809,7 +1786,7 @@
             grade: 'X',
             technicalname: '',
             judgment1: '2',
-            points: '7. マルチビーム・クライストロン(klystron)設計および結像技術',
+            points: this.$t('label.PFANS1028VIEW_POINTS9'),
             judgment2: '2',
           },
           {
@@ -1817,7 +1794,7 @@
             grade: 'X',
             technicalname: '',
             judgment1: '2',
-            points: '8. イオンビーム処理改善グリッド電子発射技術',
+            points: this.$t('label.PFANS1028VIEW_POINTS10'),
             judgment2: '2',
           },
 
@@ -1827,8 +1804,7 @@
             grade: 'X',
             technicalname: this.$t('label.PFANS1028VIEW_COTECHNICALNAME4'),
             judgment1: '2',
-            points: '1. 中心錐形溝状フォトゲート電極の大出力光制御双方向サイリスタ\n' +
-              '　(1) Cr-Ni-Ag金属遮断層焼結技術',
+            points: this.$t('label.PFANS1028VIEW_POINTS76'),
             judgment2: '2',
           },
           {
@@ -1836,7 +1812,7 @@
             grade: 'X',
             technicalname: '',
             judgment1: '2',
-            points: '　(2) SiO2およびSi3N4絶縁膜ゲート電極形成工程',
+            points: this.$t('label.PFANS1028VIEW_POINTS75'),
             judgment2: '2',
           },
           {
@@ -1844,7 +1820,7 @@
             grade: 'X',
             technicalname: '',
             judgment1: '2',
-            points: '2. 導電抵抗＜2Ωのダイオード製造技術',
+            points: this.$t('label.PFANS1028VIEW_POINTS12'),
             judgment2: '2',
           },
           {
@@ -1852,7 +1828,7 @@
             grade: 'X',
             technicalname: '',
             judgment1: '2',
-            points: '3. 単結晶発光スクリーン用原材料配合技術およびエピタキシー技術',
+            points: this.$t('label.PFANS1028VIEW_POINTS13'),
             judgment2: '2',
           },
           {
@@ -1860,7 +1836,7 @@
             grade: 'X',
             technicalname: this.$t('label.PFANS1028VIEW_COTECHNICALNAME5'),
             judgment1: '2',
-            points: '1. 電子陽電子衝突型加速器スペクトル計用ホールプローブの設計製造及び標準化技術',
+            points: this.$t('label.PFANS1028VIEW_POINTS14'),
             judgment2: '2',
           },
           {
@@ -1868,7 +1844,7 @@
             grade: 'X',
             technicalname: '',
             judgment1: '2',
-            points: '2. ファーフィールド渦電流検査プローブの設計および製造技術',
+            points: this.$t('label.PFANS1028VIEW_POINTS15'),
             judgment2: '2',
           },
 
@@ -1877,8 +1853,7 @@
             grade: 'X',
             technicalname: this.$t('label.PFANS1028VIEW_COTECHNICALNAME6'),
             judgment1: '2',
-            points: '1. 高出力[100MW級]マイクロ波技術\n' +
-              '　(1) パルスパワー技術および重電子ビーム加速技術',
+            points: this.$t('label.PFANS1028VIEW_POINTS74'),
             judgment2: '2',
           },
           {
@@ -1886,7 +1861,7 @@
             grade: 'X',
             technicalname: '',
             judgment1: '2',
-            points: '　(2) 爆発性電磁圧縮技術',
+            points: this.$t('label.PFANS1028VIEW_POINTS73'),
             judgment2: '2',
           },
           {
@@ -1894,8 +1869,7 @@
             grade: 'X',
             technicalname: this.$t('label.PFANS1028VIEW_COTECHNICALNAME7'),
             judgment1: '2',
-            points: '1. 二酸化炭素レーザー伝送光ファイバー製造技術\n' +
-              '　(1) 10.6μm光損失＜1dB/mのガラス光ファイバーの成分および調製技術',
+            points: this.$t('label.PFANS1028VIEW_POINTS72'),
             judgment2: '2',
           },
           {
@@ -1903,7 +1877,7 @@
             grade: 'X',
             technicalname: '',
             judgment1: '2',
-            points: '　(2) 10.6μm光損失＜0.5dB/mのクリスタル 光ファイバー調製技術',
+            points: this.$t('label.PFANS1028VIEW_POINTS71'),
             judgment2: '2',
           },
           {
@@ -1911,7 +1885,7 @@
             grade: 'X',
             technicalname: '',
             judgment1: '2',
-            points: '　(3) 10.6μm光損失＜1dB/mの空芯光ファイバーの材料および調製技術',
+            points: this.$t('label.PFANS1028VIEW_POINTS71'),
             judgment2: '2',
           },
           {
@@ -1919,7 +1893,7 @@
             grade: 'X',
             technicalname: '',
             judgment1: '2',
-            points: '2. 二重るつぼの製造および20孔るつぼ光学ガラスファイバー技術',
+            points: this.$t('label.PFANS1028VIEW_POINTS18'),
             judgment2: '2',
           },
           {
@@ -1927,7 +1901,7 @@
             grade: 'X',
             technicalname: '',
             judgment1: '2',
-            points: '3. 光ファイバー被覆ライン技術の工程パラメータ',
+            points: this.$t('label.PFANS1028VIEW_POINTS19'),
             judgment2: '2',
           },
           {
@@ -1935,7 +1909,7 @@
             grade: 'X',
             technicalname: '',
             judgment1: '2',
-            points: '4. プログラマブル・デジタル・ロックイン周波数合成技術、DDS+PLL周波数ホッピング信号源',
+            points: this.$t('label.PFANS1028VIEW_POINTS20'),
             judgment2: '2',
           },
 
@@ -1944,8 +1918,7 @@
             grade: 'X',
             technicalname: this.$t('label.PFANS1028VIEW_COTECHNICALNAME8'),
             judgment1: '2',
-            points: '1. スーパーコンピュータ[演算回数≧1300億回]製造技術\n' +
-              '　(1) 全体設計技術',
+            points: this.$t('label.PFANS1028VIEW_POINTS69'),
             judgment2: '2',
           },
           {
@@ -1953,7 +1926,7 @@
             grade: 'X',
             technicalname: '',
             judgment1: '2',
-            points: '　(2) 本体、操作システム技術',
+            points: this.$t('label.PFANS1028VIEW_POINTS68'),
             judgment2: '2',
           },
           {
@@ -1961,7 +1934,7 @@
             grade: 'X',
             technicalname: '',
             judgment1: '2',
-            points: '　(3) 本体、補助機、外付け設備の製造および開発技術',
+            points: this.$t('label.PFANS1028VIEW_POINTS67'),
             judgment2: '2',
           },
           {
@@ -1969,7 +1942,7 @@
             grade: 'X',
             technicalname: '',
             judgment1: '2',
-            points: '2. パラレルコンピュータ マルチポートメモリー 高速通信メカニズムを実現する技術',
+            points: this.$t('label.PFANS1028VIEW_POINTS22'),
             judgment2: '2',
           },
           {
@@ -1977,7 +1950,7 @@
             grade: 'X',
             technicalname: '',
             judgment1: '2',
-            points: '3. パラレルコンピュータ 全対称型マルチプロセッサーの母線および中断制御の設計技術',
+            points: this.$t('label.PFANS1028VIEW_POINTS23'),
             judgment2: '2',
           },
           {
@@ -1985,8 +1958,7 @@
             grade: 'X',
             technicalname: this.$t('label.PFANS1028VIEW_COTECHNICALNAME9'),
             judgment1: '2',
-            points: '1. アンテナアレイ技術\n' +
-              '　(1) 1オクターブを超える広帯域[中心周波数≧100%]アンテナアレイ',
+            points: this.$t('label.PFANS1028VIEW_POINTS100'),
             judgment2: '2',
           },
           {
@@ -1994,7 +1966,7 @@
             grade: 'X',
             technicalname: '',
             judgment1: '2',
-            points: '　(2) 広帯域[Cバンド＞800MHz]給電部精密加工工程',
+            points: this.$t('label.PFANS1028VIEW_POINTS101'),
             judgment2: '2',
           },
           {
@@ -2002,7 +1974,7 @@
             grade: 'X',
             technicalname: '',
             judgment1: '2',
-            points: '2. マイクロ波直接変調周波数逓減ロックイン・ソリッドソース加工工程技術',
+            points: this.$t('label.PFANS1028VIEW_POINTS25'),
             judgment2: '2',
           },
           {
@@ -2010,7 +1982,7 @@
             grade: 'X',
             technicalname: '',
             judgment1: '2',
-            points: '3. 周波数帯域幅＞100MHz、ダイナミックレンジ＞90dBの集積音声-光ヘテロダイン (heterodyne)受信技術',
+            points: this.$t('label.PFANS1028VIEW_POINTS26'),
             judgment2: '2',
           },
           {
@@ -2018,7 +1990,7 @@
             grade: 'X',
             technicalname: '',
             judgment1: '2',
-            points: '4. C/Noが46dB.Hzを下回るCDMA突発信号スピードキャッチ技術',
+            points: this.$t('label.PFANS1028VIEW_POINTS27'),
             judgment2: '2',
           },
           {
@@ -2026,7 +1998,7 @@
             grade: 'X',
             technicalname: this.$t('label.PFANS1028VIEW_COTECHNICALNAME10'),
             judgment1: '2',
-            points: '海底オートマティックまたは半オートマティックロボット製造技術および制御技術',
+            points: this.$t('label.PFANS1028VIEW_POINTS28'),
             judgment2: '2',
           },
         ],
@@ -2154,9 +2126,8 @@
           },
           {
             japno: '17',
-            tradename: 'ロボットまたは"端末機"',
-            summary: '(一)国家安全標準によって設計し、高エネルギーダイナマイト処理に専用（例えば、高エネルギーダイナマイト電気法規標称値を満たす）；或は\n' +
-              '(二）輻射を抵抗するために設計．性能が下がらずに、輻射＞5×104Gy｢5×1000000Gy｣を抵抗できる．',
+            tradename: this.$t('label.PFANS1028VIEW_TRADENAME17'),
+            summary: this.$t('label.PFANS1028VIEW_SUMMARY17'),
             judgment1: '2',
             payment: '8479509010',
             bit: '台',
@@ -2164,8 +2135,8 @@
           },
           {
             japno: '18',
-            tradename: 'ロボットまたは"端末機"用に設計された制御機器',
-            summary: '核両用品及び関連技術輸出規制リストの工業設備に記述されている｢ロボット｣或は｢エンドエフェクター｣のために設計された制御機器',
+            tradename: this.$t('label.PFANS1028VIEW_POINTS102'),
+            summary: this.$t('label.PFANS1028VIEW_POINTS103'),
             judgment1: '2',
             payment: '8537109021',
             bit: '',
@@ -2173,17 +2144,17 @@
           },
           {
             japno: '19',
-            tradename: 'ロボットまたは"端末機"用に設計されたソフトウェア',
-            summary: '核両用品及び関連技術輸出規制リストの工業設備に記述されている｢ロボット｣或は｢エンドエフェクター｣のために設計されたソフトウェア',
+            tradename: this.$t('label.PFANS1028VIEW_TRADENAME19'),
+            summary: this.$t('label.PFANS1028VIEW_POINTS104'),
             judgment1: '2',
             payment: '',
-            bit: '個/kg',
+            bit: this.$t('label.PFANS1028VIEW_POINTS105'),
             judgment2: '2',
           },
           {
             japno: '24',
-            tradename: '電子工学機器の制御用に設計されたソフトウェア',
-            summary: '｢フィードバック又は閉ループ制御技術とデジタル制御装置を使用する電動式の振動試験システム｣に記述されている制御システムと同時に使用或は｢試験部品を支える基盤構造と電子工学機器｣に記述されている制御電子学装置のために設計されたソフトウェア',
+            tradename: this.$t('label.PFANS1028VIEW_TRADENAME24'),
+            summary: this.$t('label.PFANS1028VIEW_SUMMARY24'),
             judgment1: '2',
             payment: '',
             bit: '',
@@ -2191,9 +2162,8 @@
           },
           {
             japno: '29',
-            tradename: '真空炉、冶金用雰囲気溶解炉並びに鋳造用炉のために配置された\n' +
-              'コンピューター制御システム及び監視システム用に設計されたソフトウェア',
-            summary: '核両用品及び関連技術輸出規制リストに記述されている真空炉、冶金用雰囲気溶解炉並びに鋳造用炉のために配置されたコンピューター制御システム及び監視システム用に設計されたソフトウェア',
+            tradename: this.$t('label.PFANS1028VIEW_TRADENAME29'),
+            summary: this.$t('label.PFANS1028VIEW_SUMMARY29'),
             judgment1: '2',
             payment: '',
             bit: '',
@@ -2201,8 +2171,8 @@
           },
           {
             japno: '35',
-            tradename: 'アイソスタチックプレス用に設計された制御機器のために設計されたソフトウェア',
-            summary: '核両用品及び関連技術輸出規制リストに記述されているアイソスタチックプレス用に設計された制御機器のために設計されたソフトウェア',
+            tradename: this.$t('label.PFANS1028VIEW_TRADENAME35'),
+            summary: this.$t('label.PFANS1028VIEW_SUMMARY35'),
             judgment1: '2',
             payment: '',
             bit: '',
@@ -2570,7 +2540,6 @@
             let serdate = repair.slice(0, 10);
             let serdate1 = repair.slice(repair.length - 10);
             this.form.claimdatetime = [serdate, serdate1];
-
             this.grouporglist = this.form.deployment;
             if (this.form.limitcommunt !== '' && this.form.limitcommunt !== null) {
               for (let i = 0; i < JSON.parse(response.limitcommunt).length; i++) {
@@ -2644,15 +2613,15 @@
               }
             }
 
-            if (this.form.lijudegresult && this.form.lijudegresult.split(',').length > 0) {
-              let item = [];
-              for (let i of this.form.lijudegresult.split(',')) {
-                item.push(i);
-              }
-              this.form.lijudegresult = item;
-            } else {
-              this.form.lijudegresult = [];
-            }
+            // if (this.form.lijudegresult && this.form.lijudegresult.split(',').length > 0) {
+            //   let item = [];
+            //   for (let i of this.form.lijudegresult.split(',')) {
+            //     item.push(i);
+            //   }
+            //   this.form.lijudegresult = item;
+            // } else {
+            //   this.form.lijudegresult = [];
+            // }
             this.loading = false;
           })
           .catch(error => {
@@ -3052,7 +3021,6 @@
     watch: {
       tableIndustrial: {
         handler(val) {
-
           for (let item of val) {
             if (item.judgment1 && item.judgment1 === '2') {
               this.radioSujud.tableIndustrial = '2';
@@ -3069,7 +3037,6 @@
       },
       tableElectronic: {
         handler(val) {
-
           for (let item of val) {
             if (item.judgment1 && item.judgment1 === '2') {
               this.radioSujud.tableElectronic = '2';
@@ -3086,7 +3053,6 @@
       },
       tableCon: {
         handler(val) {
-
           for (let item of val) {
             if (item.judgment1 && item.judgment1 === '2') {
               this.radioSujud.tableCon = '2';
@@ -3103,7 +3069,6 @@
       },
       tableSof: {
         handler(val) {
-
           for (let item of val) {
             if (item.judgment1 && item.judgment1 === '2') {
               this.radioSujud.tableSof = '2';

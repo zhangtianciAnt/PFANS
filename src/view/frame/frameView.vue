@@ -343,16 +343,21 @@
                     }
                   }
                 }
-
-
-
                 tempdata.push(temp);
               }
             });
-            debugger
             this.menudata = tempdata;
             if (this.menudata && this.menudata.length > 0) {
-              this.vactiveIndex = this.menudata[0].children[0].children[0].menuurl;
+              if(this.menudata[0].children.length > 0){
+                if(this.menudata[0].children[0].children.length > 0){
+                  this.vactiveIndex = this.menudata[0].children[0].children[0].menuurl;
+                }else{
+                  this.vactiveIndex = this.menudata[0].children[0].menuurl;
+                }
+              }else{
+                this.vactiveIndex = this.menudata[0].menuurl;
+              }
+
               this.$store.commit("global/SET_CURRENTURL", this.vactiveIndex);
             }
 
@@ -501,7 +506,7 @@
       },
       //协力人员
       getCooperinterviewList() {
-          this.$store.dispatch('PFANS6004Store/getexpatriatesinfor').then(response => {
+          this.$store.dispatch('PFANS6004Store/getWithoutAuth').then(response => {
               this.$store.commit("global/SET_COOPERINTERVIEWLIST", response);
           }).catch(err => {
               Message({

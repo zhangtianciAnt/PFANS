@@ -1463,7 +1463,7 @@
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_LASTNAME')"
                   align="center"
-                  prop="user_id"
+                  prop="user_name"
                   width="160%"
                 ></el-table-column>
                 <!--              // Todo By Skaixx At 2020/3/18 :  欠勤画面变更时需要调用后台接口-->
@@ -1562,6 +1562,7 @@
                   >
                     <template slot-scope="scope">
                       <el-input
+                        onkeyup="value=value.replace(/[^\d.]/g,'')"
                         v-model="scope.row.thisdiligencetry"
                         @change="thisMonthLacktimeChange(scope.row)"
                       ></el-input>
@@ -1577,6 +1578,7 @@
                   >
                     <template slot-scope="scope">
                       <el-input
+                        onkeyup="value=value.replace(/[^\d.]/g,'')"
                         v-model="scope.row.thisshortdeficiencytry"
                         @change="thisMonthLacktimeChange(scope.row)"
                       ></el-input>
@@ -1592,6 +1594,7 @@
                   >
                     <template slot-scope="scope">
                       <el-input
+                        onkeyup="value=value.replace(/[^\d.]/g,'')"
                         v-model="scope.row.thischronicdeficiencytry"
                         @change="thisMonthLacktimeChange(scope.row)"
                       ></el-input>
@@ -1607,6 +1610,7 @@
                   >
                     <template slot-scope="scope">
                       <el-input
+                        onkeyup="value=value.replace(/[^\d.]/g,'')"
                         v-model="scope.row.thisdiligenceformal"
                         @change="thisMonthLacktimeChange(scope.row)"
                       ></el-input>
@@ -1622,6 +1626,7 @@
                   >
                     <template slot-scope="scope">
                       <el-input
+                        onkeyup="value=value.replace(/[^\d.]/g,'')"
                         v-model="scope.row.thisshortdeficiencyformal"
                         @change="thisMonthLacktimeChange(scope.row)"
                       ></el-input>
@@ -1637,6 +1642,7 @@
                   >
                     <template slot-scope="scope">
                       <el-input
+                        onkeyup="value=value.replace(/[^\d.]/g,'')"
                         v-model="scope.row.thischronicdeficiencyformal"
                         @change="thisMonthLacktimeChange(scope.row)"
                       ></el-input>
@@ -1797,6 +1803,7 @@
                   >
                     <template slot-scope="scope">
                       <el-input
+                        onkeyup="value=value.replace(/[^\d.]/g,'')"
                         v-model="scope.row.thisweekdays"
                         @change="thisMonthOvertimeChange(scope.row)"
                       ></el-input>
@@ -1810,6 +1817,7 @@
                   >
                     <template slot-scope="scope">
                       <el-input
+                        onkeyup="value=value.replace(/[^\d.]/g,'')"
                         v-model="scope.row.thisrestDay"
                         @change="thisMonthOvertimeChange(scope.row)"
                       ></el-input>
@@ -1823,6 +1831,7 @@
                   >
                     <template slot-scope="scope">
                       <el-input
+                        onkeyup="value=value.replace(/[^\d.]/g,'')"
                         v-model="scope.row.thislegal"
                         @change="thisMonthOvertimeChange(scope.row)"
                       ></el-input>
@@ -1836,6 +1845,7 @@
                   >
                     <template slot-scope="scope">
                       <el-input
+                        onkeyup="value=value.replace(/[^\d.]/g,'')"
                         v-model="scope.row.thisreplace"
                         @change="thisMonthOvertimeChange(scope.row)"
                       ></el-input>
@@ -1849,6 +1859,7 @@
                   >
                     <template slot-scope="scope">
                       <el-input
+                        onkeyup="value=value.replace(/[^\d.]/g,'')"
                         v-model="scope.row.thisreplace3"
                         @change="thisMonthOvertimeChange(scope.row)"
                       ></el-input>
@@ -3288,7 +3299,7 @@
               for (let j = 0; j < response.lackattendance.length; j++) {
                 let user = getUserInfo(response.lackattendance[j].user_id);
                 if (user) {
-                  response.lackattendance[j].user_id = getUserInfo(
+                  response.lackattendance[j].user_name = getUserInfo(
                     response.lackattendance[j].user_id
                   ).userinfo.customername;
                 }
