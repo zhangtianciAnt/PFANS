@@ -80,12 +80,12 @@
                         </el-form-item>
                       </el-col>
                       <el-col :span="8">
-                        <el-form-item :label="$t('label.PFANS5001FORMVIEW_ENDDATE')" prop="enddate">
+                        <el-form-item :label="$t('label.PFANS5009FORMVIEW_ACTUALENDTIME')" prop="enddate">
                           <el-date-picker
-                            :disabled="true"
+                            :disabled=this.flags
                             style="width: 20vw"
                             type="date"
-                            v-model="form.enddate"
+                            v-model="form.nowdate"
                           ></el-date-picker>
                         </el-form-item>
                       </el-col>
@@ -318,6 +318,7 @@
     import {Message} from "element-ui";
     import user from "../../../components/user.vue";
     import org from "../../../components/org";
+    import moment from "moment";
 
     export default {
         name: "PFANS5004FormView",
@@ -330,6 +331,7 @@
         },
         data() {
             return {
+                flags:false,
                 disabled: true,
                 activeName: "first",
                 errorManager: "",
@@ -384,6 +386,7 @@
                     field: "",
                     startdate: "",
                     enddate: "",
+                    nowdate: "",
                     assetaddress: '',
                     instructions: '',
                     exprence: '',
@@ -411,7 +414,20 @@
                 this.$store
                     .dispatch("PFANS5013Store/selectById", {comproject_id: this.$route.params._id})
                     .then(response => {
-                        this.form = response.comproject;
+
+                        if(response.comproject.nowdate != null){
+                            if(response.comproject.status === '9' || response.comproject.status === '7'){
+                                this.flags = true
+                            }
+                            this.form = response.comproject;
+
+                        }else {
+                            this.form = response.comproject;
+                            this.form.nowdate = moment(new Date()).format('YYYY-MM-DD');
+                        }
+
+
+
                         this.userlist = this.form.leaderid;
                         /*阶段信息*/
                         if (response.stageinformation.length > 0) {
@@ -613,7 +629,7 @@
                         if (this.$route.params._id) {
                             this.baseInfo.comproject.comproject_id = this.$route.params._id;
                             this.$store
-                                .dispatch("PFANS5001Store/update", this.baseInfo)
+                                .dispatch("PFANS5013Store/update", this.baseInfo)
                                 .then(response => {
                                     this.data = response;
                                     this.loading = false;

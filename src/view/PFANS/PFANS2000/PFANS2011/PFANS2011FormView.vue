@@ -629,7 +629,6 @@
                 });
             },
             workflowState(val) {
-                debugger
                 var status;
                 if (val.state === "1") {
                     if (val.workflowCode === "W0001") {

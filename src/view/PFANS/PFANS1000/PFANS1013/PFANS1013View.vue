@@ -272,10 +272,15 @@
                       }
                     }
                     let letError = getDictionaryInfo(this.selectedlist[i].currency);
-                    if (letError.value1 == this.$t("label.PFANS1012VIEW_USD")) {
-                      this.selectedlist[i].currencyrate = letError.value1;
-                      response[m].currency = this.$t("label.PFANS1012FORMVIEW_USDA");
-                    } else if (letError.value1 == null) {
+                    if (letError != null) {
+                      if (letError.value1 == this.$t("label.PFANS1012VIEW_USD")) {
+                        this.selectedlist[i].currencyrate = letError.value1;
+                        response[m].currency = this.$t("label.PFANS1012FORMVIEW_USDA");
+                      } else  {
+                        this.selectedlist[i].currencyrate = '';
+                        response[m].currency = this.$t("label.PFANS1012FORMVIEW_CNY");
+                      }
+                    }else {
                       this.selectedlist[i].currencyrate = '';
                       response[m].currency = this.$t("label.PFANS1012FORMVIEW_CNY");
                     }
@@ -397,7 +402,6 @@
                 paymentmethods: '',
                 type: '',
               });
-              debugger;
               this.startoptionvalue = this.travelcostvalue.concat(this.startoption);
               console.log("this.startoptionvalue", this.startoptionvalue);
               let csvData = [];

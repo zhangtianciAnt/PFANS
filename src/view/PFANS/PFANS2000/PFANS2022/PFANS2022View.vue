@@ -150,6 +150,7 @@
                 type: 'info',
               duration: 2 * 1000
             });
+
             return;
           }
           this.$router.push({

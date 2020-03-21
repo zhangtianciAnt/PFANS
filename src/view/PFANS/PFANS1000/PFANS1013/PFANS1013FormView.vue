@@ -268,16 +268,19 @@
                           <template slot-scope="scope">
                             <el-input-number :max="9999999" :min="0" :no="scope.row"
                                              :precision="2" :step="1" @change="changeamount(scope.row)"
-                                             controls-position="right" style="width: 100%" v-model="scope.row.exchangerate">
+                                             controls-position="right" style="width: 100%"
+                                             v-model="scope.row.exchangerate">
                             </el-input-number>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1013FORMVIEW_EXCHANGERMB')" align="center" prop="exchangermb"
+                        <el-table-column :label="$t('label.PFANS1013FORMVIEW_EXCHANGERMB')" align="center"
+                                         prop="exchangermb"
                                          width="180">
                           <template slot-scope="scope">
                             <el-input-number :max="9999999" :min="0" :no="scope.row"
                                              :precision="2" :step="1"
-                                             controls-position="right" style="width: 100%" v-model="scope.row.exchangermb">
+                                             controls-position="right" style="width: 100%"
+                                             v-model="scope.row.exchangermb">
                             </el-input-number>
                           </template>
                         </el-table-column>
@@ -341,7 +344,8 @@
                           <template slot-scope="scope">
                             <el-input-number :max="9999999" :min="0" :no="scope.row"
                                              :precision="2" :step="1" @change="changeSum(scope.row)"
-                                             controls-position="right" style="width: 100%" v-model="scope.row.invoiceamount">
+                                             controls-position="right" style="width: 100%"
+                                             v-model="scope.row.invoiceamount">
                             </el-input-number>
                           </template>
                         </el-table-column>
@@ -356,7 +360,8 @@
                             </dicselect>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1012FORMVIEW_EXCLUDINGTAX')" align="center" prop="debitamount"
+                        <el-table-column :label="$t('label.PFANS1012FORMVIEW_EXCLUDINGTAX')" align="center"
+                                         prop="debitamount"
                                          width="150">
                           <template slot-scope="scope">
                             <el-input-number
@@ -372,7 +377,8 @@
                             </el-input-number>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1012FORMVIEW_FACETAX')" align="center" prop="creditamount"
+                        <el-table-column :label="$t('label.PFANS1012FORMVIEW_FACETAX')" align="center"
+                                         prop="creditamount"
                                          width="150">
                           <template slot-scope="scope">
                             <el-input-number
@@ -412,168 +418,6 @@
                     </el-collapse-item>
                   </el-collapse>
                 </el-row>
-<!--                <el-row>-->
-<!--                  <el-collapse>-->
-<!--                    <el-collapse-item>-->
-<!--                      <template slot="title">-->
-<!--                        <span class="collapse_Title">{{$t('label.PFANS1012FORMVIEW_SUBTOTAL')}}</span>-->
-<!--                      </template>-->
-<!--                      <el-col :span="24">-->
-<!--                        <el-table :data="tableData"-->
-<!--                                  :summary-method="getDsummaries"-->
-<!--                                  border-->
-<!--                                  header-cell-class-name="sub_bg_color_blue"-->
-<!--                                  show-summary-->
-<!--                                  stripe style="width: 46vw"-->
-<!--                                  v-if="showdata">-->
-<!--                          <el-table-column :label="$t('label.PFANS1013FORMVIEW_COSTITEM')" align="center">-->
-<!--                            <template slot-scope="scope">-->
-<!--                              <dicselect :code="code14"-->
-<!--                                         :data="scope.row.costitem"-->
-<!--                                         :disabled="!disable"-->
-<!--                                         :multiple="multiple"-->
-<!--                                         :no="scope.row"-->
-<!--                                         @change="getcostitem">-->
-<!--                              </dicselect>-->
-<!--                            </template>-->
-<!--                          </el-table-column>-->
-<!--                          <el-table-column :label="$t('label.PFANS1012FORMVIEW_TAXES')" align="center" prop="taxes"-->
-<!--                                           width="200">-->
-<!--                            <template slot-scope="scope">-->
-<!--                              <el-input-number-->
-<!--                                :disabled="true"-->
-<!--                                :precision="2"-->
-<!--                                controls-position="right"-->
-<!--                                style="width: 100%"-->
-<!--                                v-model="scope.row.taxes">-->
-<!--                              </el-input-number>-->
-<!--                            </template>-->
-<!--                          </el-table-column>-->
-<!--                          <el-table-column :label="$t('label.PFANS1013FORMVIEW_RMB')" align="center" prop="rmb">-->
-<!--                            <template slot-scope="scope">-->
-<!--                              <el-input-number-->
-<!--                                :disabled="true"-->
-<!--                                :precision="2"-->
-<!--                                @change="getValue"-->
-<!--                                controls-position="right"-->
-<!--                                style="width: 100%"-->
-<!--                                v-model="scope.row.rmb">-->
-<!--                              </el-input-number>-->
-<!--                            </template>-->
-<!--                          </el-table-column>-->
-<!--                        </el-table>-->
-<!--                      </el-col>-->
-<!--                      <el-row>-->
-<!--                        <el-col :span="24">-->
-<!--                          <el-table :data="tableData2"-->
-<!--                                    :summary-method="getsummaries"-->
-<!--                                    border-->
-<!--                                    header-cell-class-name="sub_bg_color_blue"-->
-<!--                                    show-summary-->
-<!--                                    stripe style="width: 70vw"-->
-<!--                                    v-if="showdata2">-->
-<!--                            <el-table-column :label="$t('label.PFANS1013FORMVIEW_COSTITEM')" align="center" width="200">-->
-<!--                              <template slot-scope="scope">-->
-<!--                                <dicselect :code="code14"-->
-<!--                                           :data="scope.row.costitem"-->
-<!--                                           :disabled="!disable"-->
-<!--                                           :multiple="multiple"-->
-<!--                                           :no="scope.row"-->
-<!--                                           @change="getcostitem">-->
-<!--                                </dicselect>-->
-<!--                              </template>-->
-<!--                            </el-table-column>-->
-<!--                            <el-table-column :label="$t('label.PFANS1013VIEW_RATECURRENCY')" align="center"-->
-<!--                                             prop="ratecurrency"-->
-<!--                                             width="200">-->
-<!--                              <template slot-scope="scope">-->
-<!--                                <el-input-number-->
-<!--                                  :disabled="true"-->
-<!--                                  :no="scope.row"-->
-<!--                                  :precision="2"-->
-<!--                                  @change="getValue2"-->
-<!--                                  controls-position="right"-->
-<!--                                  style="width: 100%"-->
-<!--                                  v-model="scope.row.ratecurrency">-->
-<!--                                </el-input-number>-->
-<!--                              </template>-->
-<!--                            </el-table-column>-->
-<!--                            <el-table-column :label="$t('label.PFANS1013VIEW_USDCURRENCY')" align="center"-->
-<!--                                             prop="usdcurrency"-->
-<!--                                             width="200">-->
-<!--                              <template slot-scope="scope">-->
-<!--                                <el-input-number-->
-<!--                                  :disabled="true"-->
-<!--                                  :no="scope.row"-->
-<!--                                  :precision="2"-->
-<!--                                  @change="getValue2"-->
-<!--                                  controls-position="right"-->
-<!--                                  style="width: 100%"-->
-<!--                                  v-model="scope.row.usdcurrency">-->
-<!--                                </el-input-number>-->
-<!--                              </template>-->
-<!--                            </el-table-column>-->
-<!--                            <el-table-column :label="$t('label.PFANS1013VIEW_JPYCURRENCY')" align="center"-->
-<!--                                             prop="jpycurrency"-->
-<!--                                             width="200">-->
-<!--                              <template slot-scope="scope">-->
-<!--                                <el-input-number-->
-<!--                                  :disabled="true"-->
-<!--                                  :no="scope.row"-->
-<!--                                  :precision="2"-->
-<!--                                  @change="getValue2"-->
-<!--                                  controls-position="right"-->
-<!--                                  style="width: 100%"-->
-<!--                                  v-model="scope.row.jpycurrency">-->
-<!--                                </el-input-number>-->
-<!--                              </template>-->
-<!--                            </el-table-column>-->
-<!--                            <el-table-column :label="$t('label.PFANS1013FORMVIEW_RMB')" align="center" prop="rmb"-->
-<!--                                             width="200">-->
-<!--                              <template slot-scope="scope">-->
-<!--                                <el-input-number-->
-<!--                                  :disabled="true"-->
-<!--                                  :no="scope.row"-->
-<!--                                  :precision="2"-->
-<!--                                  @change="getValue2"-->
-<!--                                  controls-position="right"-->
-<!--                                  style="width: 100%"-->
-<!--                                  v-model="scope.row.rmb">-->
-<!--                                </el-input-number>-->
-<!--                              </template>-->
-<!--                            </el-table-column>-->
-<!--                            <el-table-column :label="$t('label.PFANS1012FORMVIEW_TAXES')" align="center" prop="taxes"-->
-<!--                                             width="200">-->
-<!--                              <template slot-scope="scope">-->
-<!--                                <el-input-number-->
-<!--                                  :disabled="true"-->
-<!--                                  :precision="2"-->
-<!--                                  controls-position="right"-->
-<!--                                  style="width: 100%"-->
-<!--                                  v-model="scope.row.taxes">-->
-<!--                                </el-input-number>-->
-<!--                              </template>-->
-<!--                            </el-table-column>-->
-<!--                            <el-table-column :label="$t('label.PFANS1013FORMVIEW_TOTAL')" align="center" prop="total"-->
-<!--                                             width="200">-->
-<!--                              <template slot-scope="scope">-->
-<!--                                <el-input-number-->
-<!--                                  :disabled="true"-->
-<!--                                  :no="scope.row"-->
-<!--                                  :precision="2"-->
-<!--                                  @change="getValue2"-->
-<!--                                  controls-position="right"-->
-<!--                                  style="width: 100%"-->
-<!--                                  v-model="scope.row.total">-->
-<!--                                </el-input-number>-->
-<!--                              </template>-->
-<!--                            </el-table-column>-->
-<!--                          </el-table>-->
-<!--                        </el-col>-->
-<!--                      </el-row>-->
-<!--                    </el-collapse-item>-->
-<!--                  </el-collapse>-->
-<!--                </el-row>-->
               </div>
             </el-tab-pane>
             <!--            第二页-->
@@ -704,7 +548,8 @@
                                    :data="scope.row.accommodationallowance"
                                    :disabled="!disable"
                                    :multiple="multiple"
-                                   :no="scope.row">
+                                   :no="scope.row"
+                                   @change="changeAcc">
                         </dicselect>
                       </template>
                     </el-table-column>
@@ -718,7 +563,7 @@
                           :min="0"
                           :no="scope.row"
                           :precision="2"
-                          @change="changeForeigncurrency(scope.row)"
+                          @change="changefore(scope.row)"
                           controls-position="right"
                           style="width: 100%"
                           v-model="scope.row.foreigncurrency"
@@ -770,11 +615,11 @@
                                         :end-placeholder="$t('label.enddate')"
                                         :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
                                         :start-placeholder="$t('label.startdate')"
+                                        @change="getTravel(scope.row)"
                                         class="bigWidth"
                                         type="daterange"
                                         unlink-panels
                                         v-model="scope.row.accommodationdate"
-                                        @change="getTravel(scope.row)"
                         ></el-date-picker>
                       </template>
                     </el-table-column>
@@ -883,9 +728,10 @@
                       <template slot-scope="scope">
                         <dicselect :code="code3"
                                    :data="scope.row.accommodationallowance"
-                                   :disabled="!disable"
+                                   :disabled="scope.row.accountcode === 'PJ132005' ? true : false"
                                    :multiple="multiple"
-                                   :no="scope.row">
+                                   :no="scope.row"
+                                   @change="getAccommodation">
                         </dicselect>
                       </template>
                     </el-table-column>
@@ -893,14 +739,14 @@
                                      v-if="this.form.type === '0'? false : true" width="200">
                       <template slot-scope="scope">
                         <el-input-number
-                          :disabled="!disable"
+                          :disabled="scope.row.accountcode === 'PJ132005' ? true : false"
                           :max="1000000000"
                           :min="0"
                           :precision="2"
+                          @change="getTravel(scope.row)"
                           controls-position="right"
                           style="width: 100%"
                           v-model="scope.row.travel"
-                          @change="changeTravel(scope.row)"
                         ></el-input-number>
                       </template>
                     </el-table-column>
@@ -908,14 +754,14 @@
                                      prop="rmb" width="200">
                       <template slot-scope="scope">
                         <el-input-number
-                          :disabled="scope.row.accountcode === 'PJ119001' || 'PJ132001' ? false : true"
+                          :disabled="scope.row.accountcode === 'PJ132005' ? true : false"
                           :max="1000000000"
                           :min="0"
                           :precision="2"
+                          @change="changelowance(scope.row)"
                           controls-position="right"
                           style="width: 100%"
                           v-model="scope.row.rmb"
-                          @change="changelowance(scope.row)"
                         ></el-input-number>
                       </template>
                     </el-table-column>
@@ -1074,7 +920,8 @@
                                    :data="scope.row.accommodationallowance"
                                    :disabled="!disable"
                                    :multiple="multiple"
-                                   :no="scope.row">
+                                   :no="scope.row"
+                                   @change="changeAcc">
                         </dicselect>
                       </template>
                     </el-table-column>
@@ -1088,7 +935,7 @@
                           :min="0"
                           :no="scope.row"
                           :precision="2"
-                          @change="changeForeigncurrency(scope.row)"
+                          @change="changefore(scope.row)"
                           controls-position="right"
                           style="width: 100%"
                           v-model="scope.row.foreigncurrency"
@@ -1174,9 +1021,6 @@
         activeName: 'first',
         loading: false,
         disabled: false,
-        // disaccommod: false,
-        // showtick: true,
-        // checkStatus: false,
         tableTValue: '',
         tableAValue: '',
         tableRValue: '',
@@ -1341,8 +1185,6 @@
           rowindex: '',
           taxes: '',
           costitem: '',
-          // disaccommod: false,
-          // showtick: true,
         },
           {
             evectionid: '',
@@ -1367,8 +1209,6 @@
             rowindex: '',
             taxes: '',
             costitem: '',
-            // disaccommod: false,
-            // showtick: true,
           }],
         tableR: [{
           evectionid: '',
@@ -1415,34 +1255,15 @@
         code1: 'PG002',
         code3: 'PJ003',
         code4: 'PJ024',
-        // code5: 'PJ025',
-        // code6: 'PJ026',
-        // code7: 'PJ027',
-        // code8: 'PJ020',
         code9: 'PJ017',
         code10: 'PJ035',
-        // code11: 'PJ036',
         code12: 'PJ068',
         code13: 'PJ071',
-        // code14: 'PJ126',
         code15: 'PJ083',
-        // code16: 'PJ084',
-        // code17: 'PJ085',
-        // code18: 'PJ057',
-        // code19: 'PJ003',
         code20: this.Redirict == '0' ? 'PJ119' : 'PJ132',
         multiple: false,
-        // show1: true,
         show2: false,
-        // show: false,
-        // showrow: true,
-        // showrow2: false,
-        // showrow3: true,
-        // showrow4: false,
-        // showAinner: true,
         showAout: false,
-        // showdata: true,
-        // showdata2: true,
         showforeigncurrency: false,
         canStart: false,
         rank: '',
@@ -1483,19 +1304,12 @@
                     this.tableA[i].showAinner = true;
                     this.tableA[i].showAout = true;
                     this.showrow3 = true;
-                    // this.showrow4 = true;
-                    // this.tableA[i].vehicleon = this.tableA[i].vehicle;
                     this.showrow = true;
                     this.showrow2 = true;
-                    // this.tableA[i].facilitytypeon = this.tableA[i].facilitytype;
-                    // this.tableA[i].showtick = true;
-                    // this.tableA[i].disaccommod = true;
                   } else if (this.form.type === '1') {
                     this.tableA[i].showAinner = true;
                     this.tableA[i].showAout = true;
                     this.showrow3 = true;
-                    // this.showrow4 = true;
-                    // this.tableA[i].vehiclein = this.tableA[i].vehicle;
                     this.showrow = true;
                     this.showrow2 = true;
                     this.tableA[i].facilitytypein = this.tableA[i].facilitytype;
@@ -1506,42 +1320,19 @@
                     this.tableA[i].showAinner = true;
                     this.tableA[i].showAout = false;
                     this.showrow3 = true;
-                    // this.showrow4 = false;
-                    // this.tableA[i].vehicleon = this.tableA[i].vehicle;
                     this.showrow = true;
                     this.showrow2 = false;
-                    // this.tableA[i].facilitytypeon = this.tableA[i].facilitytype;
-                    // if (this.tableA[i].vehicleon === 'PJ025004') {
-                    //   this.tableA[i].showtick = false;
-                    //   this.tableA[i].disaccommod = true;
-                    // } else if (this.tableA[i].vehicleon === 'PJ025001' || this.tableA[i].vehicleon === 'PJ025002' || this.tableA[i].vehicleon === 'PJ025003') {
-                    //   this.tableA[i].showtick = true;
-                    //   this.tableA[i].disaccommod = false;
-                    // }
                   } else if (this.form.type === '1') {
                     this.tableA[i].showAinner = false;
                     this.tableA[i].showAout = true;
                     this.showrow3 = false;
-                    // this.showrow4 = true;
-                    // this.tableA[i].vehiclein = this.tableA[i].vehicle;
                     this.showrow = false;
                     this.showrow2 = true;
-                    // this.tableA[i].facilitytypein = this.tableA[i].facilitytype;
                   }
                 }
               }
             }
             if (response.otherdetails.length > 0) {
-              // for (let i = 0; i < response.otherdetails.length; i++) {
-              //   this.orglist = response.otherdetails[i].departmentname;
-              //   if (response.otherdetails[i].costitem === 'PJ057001') {
-              //     this.checkStatus = true;
-              //   } else if (response.otherdetails[i].costitem === 'PJ057015') {
-              //     this.checkStatus = true;
-              //   } else if (response.otherdetails[i].costitem === 'PJ057016') {
-              //     this.checkStatus = true;
-              //   }
-              // }
               this.tableR = response.otherdetails;
             }
             if (response.currencyexchanges.length > 0) {
@@ -1552,26 +1343,16 @@
             }
             if (this.form.type === '0') {
               this.getBusInside();
-              // this.showdata = true;
-              // this.showdata2 = false;
-              // this.showAinner = true;
               this.showAout = false;
               this.show = true;
               this.show2 = false;
-              // this.showdata = true;
-              // this.showdata2 = false;
-              // this.showAinner = true;
               this.showAout = false;
               this.showforeigncurrency = false;
               this.showrow = true;
               this.showrow3 = true;
               this.showrow2 = false;
-              this.showrow4 = false;
             } else {
               this.getBusOuter();
-              // this.showdata = false;
-              // this.showdata2 = true;
-              // this.showAinner = false;
               this.showAout = true;
               this.show = false;
               this.show2 = true;
@@ -1579,7 +1360,6 @@
               this.showrow = false;
               this.showrow2 = true;
               this.showrow3 = false;
-              // this.showrow4 = true;
             }
             this.userlist = this.form.userid;
             this.baseInfo.evection = JSON.parse(JSON.stringify(this.form));
@@ -1608,14 +1388,8 @@
           this.form.userid = this.$store.getters.userinfo.userid;
         }
         if (this.form.type === '0') {
-          // this.showdata = true;
-          // this.showdata2 = false;
-          // this.showAinner = true;
           this.showAout = false;
         } else {
-          // this.showdata = false;
-          // this.showdata2 = true;
-          // this.showAinner = false;
           this.showAout = true;
         }
       }
@@ -1635,6 +1409,7 @@
         }
       },
       getLoanapp() {
+        this.loading = true;
         this.$store
           .dispatch('PFANS1013Store/getLoanApplication')
           .then(response => {
@@ -1647,9 +1422,19 @@
                 });
               }
             }
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
           });
       },
       getBusOuter() {
+        this.loading = true;
         this.$store
           .dispatch('PFANS1013Store/getdate')
           .then(response => {
@@ -1668,9 +1453,19 @@
                 });
               }
             }
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
           });
       },
       getBusInside() {
+        this.loading = true;
         this.$store
           .dispatch('PFANS1013Store/getdate')
           .then(response => {
@@ -1687,6 +1482,15 @@
                 });
               }
             }
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
           });
       },
       getCompanyProjectList() {
@@ -1751,8 +1555,6 @@
           rowindex: '',
           taxes: '',
           costitem: '',
-          // disaccommod: false,
-          // showtick: true,
         },
           {
             evectionid: '',
@@ -1777,8 +1579,6 @@
             rowindex: '',
             taxes: '',
             costitem: '',
-            // disaccommod: false,
-            // showtick: true,
           }],
           this.activeName = 'first',
           this.form.type = val;
@@ -1792,13 +1592,9 @@
           this.form.datenumber = '';
           this.show = true;
           this.show2 = false;
-          // this.showdata = true;
-          // this.showdata2 = false;
-          // this.showAinner = true;
           this.showAout = false;
           this.showforeigncurrency = false;
           this.showrow3 = true;
-          // this.showrow4 = false;
           this.showrow = true;
           this.showrow2 = false;
         } else {
@@ -1810,13 +1606,9 @@
           this.form.datenumber = '';
           this.show = false;
           this.show2 = true;
-          // this.showdata = false;
-          // this.showdata2 = true;
-          // this.showAinner = false;
           this.showAout = true;
           this.showforeigncurrency = true;
           this.showrow3 = false;
-          // this.showrow4 = true;
           this.showrow = false;
           this.showrow2 = true;
         }
@@ -1841,9 +1633,9 @@
       getPaymentinvoicetype(val, row) {
         row.invoicetype = val;
       },
-      changeamount(row){
-        if(row.amount !== '' && row.exchangerate > 0){
-          row.exchangermb = row.amount / row.exchangerate;
+      changeamount(row) {
+        if (row.amount !== '' && row.exchangerate > 0) {
+          row.exchangermb = row.amount * row.exchangerate;
         } else {
           row.exchangermb = 0.00;
         }
@@ -1989,30 +1781,20 @@
           activitycontent: '',
           plsummary: this.$t('label.PFANS1013FORMVIEW_PLSUMMARY'),
           accountcode: '',
-          // vehicle: '',
-          // vehicleon: '',
-          // vehiclein: '',
-          // movementtime: '',
           budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
           subjectnumber: '',
           city: '',
           region: '',
           facilitytype: '',
-          // facilitytypeon: '',
-          // facilitytypein: '',
           facilityname: '',
           accommodationallowance: '',
           accommodation: '',
           rmb: '',
           travel: '',
-          // relatives: '',
-          // traintick: 0,
           annexno: '',
           rowindex: '',
           taxes: '',
           costitem: '',
-          // disaccommod: false,
-          // showtick: true,
         });
       },
       addRow4() {
@@ -2103,10 +1885,7 @@
             sums[index] = '--';
           }
         });
-        // this.getforeign(sums);
         this.getMoney(sums);
-        // this.getValue(sums);
-        // this.getValue2(sums);
         return sums;
       },
       changebusiness(val) {
@@ -2118,14 +1897,14 @@
             let cityinfo = getDictionaryInfo(this.relations[i].city);
             if (cityinfo) {
               this.form.place = cityinfo.value1;
-              this.tableA[0].region = cityinfo.value1;
-              this.tableA[1].region = cityinfo.value1;
-              if(cityinfo.code === 'PJ017001' || cityinfo.code === 'PJ017002'){
+              this.tableA[0].region = cityinfo.code;
+              this.tableA[1].region = cityinfo.code;
+              if (cityinfo.code === 'PJ017001' || cityinfo.code === 'PJ017002') {
                 this.tableA[0].accommodationallowance = 'PJ003002';
-                this.tableA[1].accommodationallowance = 'PJ003002';
-              } else if(cityinfo.code === 'PJ017003' || cityinfo.code === 'PJ017004'){
+                // this.tableA[1].accommodationallowance = 'PJ003002';
+              } else if (cityinfo.code === 'PJ017003' || cityinfo.code === 'PJ017004') {
                 this.tableA[0].accommodationallowance = 'PJ003001';
-                this.tableA[1].accommodationallowance = 'PJ003001';
+                // this.tableA[1].accommodationallowance = 'PJ003001';
               }
             }
             this.rank = this.relations[i].level;
@@ -2220,34 +1999,6 @@
         this.tableRValue = sums;
         return sums;
       },
-      getDsummaries(param) {
-        const {columns, data} = param;
-        const sums = [];
-        columns.forEach((column, index) => {
-          if (index === 0) {
-            sums[index] = this.$t('label.PFANS1012VIEW_ACCOUNT');
-            return;
-          }
-          const values = data.map(item => Number(item[column.property]));
-          if (!values.every(value => isNaN(value))) {
-            sums[index] = values.reduce((prev, curr) => {
-              const value = Number(curr);
-              if (!isNaN(value)) {
-                return prev + curr;
-              } else {
-                return prev;
-              }
-            }, 0);
-            if (index === 1) {
-              sums[index] = Math.round((sums[index]) * 100) / 100;
-            }
-          } else {
-            sums[index] = '--';
-          }
-        });
-        this.tableDValue = sums;
-        return sums;
-      },
       getsummaries(param) {
         const {columns, data} = param;
         const sums = [];
@@ -2281,17 +2032,6 @@
       getvehicle(val, row) {
         row.vehicle = val;
       },
-      changeTravel(val, row) {
-        row.travel = val;
-        this.getTravel(row);
-      },
-      // changeAccdate(val, row) {
-      //   debugger;
-      //   row.accommodationdate = val;
-      //   var diffDate1 = moment(row.accommodationdate[1]).diff(moment(row.accommodationdate[0]), 'days');
-      //   alert(diffDate1);
-      //   this.getTravel(row);
-      // },
       getexitarea(val, row) {
         row.region = val;
         this.getTravel(row);
@@ -2303,12 +2043,7 @@
       getCity(row) {
         this.getTravel(row);
       },
-      getcostitem(val, row) {
-        row.costitem = val;
-        this.getTravel(row);
-      },
       getTravel(row) {
-        var jpvalueflg;
         var jpvalueflg2;
         var jpregion1;
         var jpregion2;
@@ -2340,8 +2075,10 @@
           jpregion11 = jpregioninfo2.value5;
           jpregion12 = jpregioninfo2.value8;
         }
-        // var diffDate = moment(this.form.enddate).diff(moment(this.form.startdate), 'days');
         var diffDate = moment(row.accommodationdate[1]).diff(moment(row.accommodationdate[0]), 'days');
+        if (diffDate === 0) {
+          diffDate = 1;
+        }
         if (this.form.type === '0') {
           if (this.Redirict === '0' ? (row.accountcode === 'PJ132001') : (row.accountcode === 'PJ119001')) {
             if (row.facilitytype === 'PJ035001') {
@@ -2394,30 +2131,22 @@
           }
         } else if (this.form.type === '1') {
           var accfig;
-          var regionflg;
-          if(row.region === 'PJ017001' || row.region === 'PJ017002'){
-            regionflg = 'PJ003002'
-          } else if(row.region === 'PJ017003' || row.region === 'PJ017004'){
-            regionflg = 'PJ003001'
-          }
-          let accinfo = getDictionaryInfo(regionflg);
+          let accinfo = getDictionaryInfo(row.accommodationallowance);
           if (accinfo) {
             accfig = accinfo.value2;
           }
           if (this.Redirict === '0' ? (row.accountcode === 'PJ132001') : (row.accountcode === 'PJ119001')) {
             if (row.facilitytype === 'PJ035001') {
               if (row.region === 'PJ017001') {
-                if(row.travel / diffDate > jpregion3){
+                if (row.travel / diffDate > jpregion3) {
                   Message({
                     message: this.$t('label.PFANS1013FORMVIEW_CURRENCYLIMIT'),
                     type: 'error',
                     duration: 5 * 1000,
                   });
                 }
-                // row.travel = Number(jpvalueflg) * diffDate;
-                // jpvalueflg = jpregion3;
               } else if (row.region === 'PJ017002') {
-                if(row.travel / diffDate > jpregion4){
+                if (row.travel / diffDate > jpregion4) {
                   Message({
                     message: this.$t('label.PFANS1013FORMVIEW_CURRENCYLIMIT'),
                     type: 'error',
@@ -2425,7 +2154,7 @@
                   });
                 }
               } else if (row.region === 'PJ017003') {
-                if(row.travel / diffDate > jpregion5){
+                if (row.travel / diffDate > jpregion5) {
                   Message({
                     message: this.$t('label.PFANS1013FORMVIEW_CURRENCYLIMIT'),
                     type: 'error',
@@ -2433,7 +2162,7 @@
                   });
                 }
               } else if (row.region === 'PJ017004') {
-                if(row.travel / diffDate > jpregion6){
+                if (row.travel / diffDate > jpregion6) {
                   Message({
                     message: this.$t('label.PFANS1013FORMVIEW_CURRENCYLIMIT'),
                     type: 'error',
@@ -2443,7 +2172,7 @@
               }
             } else if (row.facilitytype === 'PJ035002') {
               if (row.region === 'PJ017001') {
-                if(row.travel / diffDate > jpregion10){
+                if (row.travel / diffDate > jpregion10) {
                   Message({
                     message: this.$t('label.PFANS1013FORMVIEW_CURRENCYLIMIT'),
                     type: 'error',
@@ -2451,7 +2180,7 @@
                   });
                 }
               } else if (row.region === 'PJ017002') {
-                if(row.travel / diffDate > jpregion11){
+                if (row.travel / diffDate > jpregion11) {
                   Message({
                     message: this.$t('label.PFANS1013FORMVIEW_CURRENCYLIMIT'),
                     type: 'error',
@@ -2461,8 +2190,7 @@
               }
             }
             if (accfig !== '' && accfig !== undefined && row.travel !== '' && row.travel !== undefined) {
-              // row.travel = Number(jpvalueflg) * diffDate;
-              row.rmb = row.travel / accfig;
+              row.rmb = (row.travel * Number(accfig)).toFixed(4);
             }
           } else if (this.Redirict === '0' ? (row.accountcode === 'PJ132005') : (row.accountcode === 'PJ119005')) {
             if (this.rank === 'PJ016003') {
@@ -2472,126 +2200,21 @@
             }
             if (jpvalueflg2 !== '' && jpvalueflg2 !== undefined) {
               row.rmb = Number(jpvalueflg2) * diffDate;
-              // row.travelallowance = row.travel * accfig;
             }
           } else if (this.Redirict === '0' ? (row.accountcode === 'PJ132006') : (row.accountcode === 'PJ119006')) {
             if (jpvalueflg2 !== '' && jpvalueflg2 !== undefined) {
               row.rmb = Number(jpvalueflg2 + 100) * diffDate;
             }
-            // row.travelallowance = row.travel * accfig;
           }
-          // var varbusiness;
-          // if (this.rank === 'PJ016001') {
-          //   let businessdic = getDictionaryInfode(row.region, this.$t('label.PFANS1013FORMVIEW_R7DOW'), row.facilitytypein);
-          //   if (businessdic) {
-          //     varbusiness = businessdic.value4;
-          //   }
-          // } else if (this.rank === 'PJ016002') {
-          //   let businessdic = getDictionaryInfode(row.region, this.$t('label.PFANS1013FORMVIEW_R8UP'), row.facilitytypein);
-          //   if (businessdic) {
-          //     varbusiness = businessdic.value4;
-          //   }
-          // } else if (this.rank === 'PJ016002') {
-          //   let businessdic = getDictionaryInfode(row.region, this.$t('label.PFANS1013FORMVIEW_CHUXIANGZHE'), row.facilitytypein);
-          //   if (businessdic) {
-          //     varbusiness = businessdic.value4;
-          //   }
-          // }
-          // var vartravel = 0;
-          // if (varbusiness !== '' && varbusiness !== undefined) {
-          //   vartravel = Number(varbusiness);
-          // }
-          // row.travel = varbusiness;
         }
       },
-      // getforeign(sums) {
-      //   if (this.form.type === '0') {
-      //     this.form.totalcurrency = null;
-      //   }
-      //   if (this.form.type === '1') {
-      //     this.form.totalcurrency = sums[5] + this.tableAValue[11] + this.tableAValue[12] + this.tableAValue[13] + this.tableRValue[4];
-      //   }
-      // },
       getMoney(sums) {
         if (this.form.type === '0') {
-          this.form.totalpay = sums[10] + this.tableRValue[9] + this.tableAValue[11]
+          this.form.totalpay = sums[10] + this.tableRValue[9] + this.tableAValue[11];
         } else if (this.form.type === '1') {
           this.form.totalpay = sums[10] + this.tableRValue[9] + this.tableAValue[13];
         }
         this.form.balance = this.form.loanamount - this.form.totalpay;
-      },
-      // getValue(sums) {
-      //   this.tableData[0].rmb = sums[9];
-      //   this.tableData[1].rmb = this.tableAValue[10];
-      //   this.tableData[2].rmb = this.tableAValue[11] + this.tableAValue[12] + this.tableAValue[13];
-      //   if (this.accountcodeValue !== '') {
-      //     this.tableData[3].rmb = this.tableRValue[8];
-      //   } else {
-      //     this.tableData[3].rmb = this.tableRValue[7];
-      //   }
-      //
-      // },
-      // getValue2(sums) {
-      //   this.tableData2[0].rmb = sums[9];
-      //   this.tableData2[1].rmb = this.tableAValue[11];
-      //   if (this.accountcodeValue !== '') {
-      //     this.tableData2[3].rmb = this.tableRValue[8];
-      //   } else {
-      //     this.tableData2[3].rmb = this.tableRValue[7];
-      //   }
-      //   for (var i = 0; i < this.tableData2.length; i++) {
-      //     this.tableData2[i].total = this.tableData2[i].rmb;
-      //   }
-      //   if (this.form.currency === 'PJ003001') {
-      //     this.tableData2[0].usdcurrency = sums[10];
-      //     this.tableData2[1].usdcurrency = this.tableAValue[11];
-      //     this.tableData2[2].usdcurrency = this.tableAValue[12] + this.tableAValue[13];
-      //     if (this.accountcodeValue !== '') {
-      //       this.tableData2[3].usdcurrency = this.tableRValue[9];
-      //     } else {
-      //       this.tableData2[3].usdcurrency = this.tableRValue[8];
-      //     }
-      //     for (var i = 0; i < this.tableData2.length; i++) {
-      //       this.tableData2[i].jpycurrency = '';
-      //       this.tableData2[i].ratecurrency = '';
-      //       this.tableData2[i].total = this.tableData2[i].usdcurrency * this.form.dollarfxrate + this.tableData2[i].rmb;
-      //     }
-      //   } else if (this.form.currency === 'PJ003002') {
-      //     this.tableData2[0].jpycurrency = sums[10];
-      //     this.tableData2[1].jpycurrency = this.tableAValue[11];
-      //     this.tableData2[2].jpycurrency = this.tableAValue[12] + this.tableAValue[13];
-      //     if (this.accountcodeValue !== '') {
-      //       this.tableData2[3].jpycurrency = this.tableRValue[9];
-      //     } else {
-      //       this.tableData2[3].jpycurrency = this.tableRValue[8];
-      //     }
-      //     for (var i = 0; i < this.tableData2.length; i++) {
-      //       this.tableData2[i].usdcurrency = '';
-      //       this.tableData2[i].ratecurrency = '';
-      //       this.tableData2[i].total = this.tableData2[i].jpycurrency * this.form.jpyfxrate + this.tableData2[i].rmb;
-      //     }
-      //   } else if (this.form.currency === 'PJ003003') {
-      //     this.tableData2[0].ratecurrency = sums[10];
-      //     this.tableData2[1].ratecurrency = this.tableAValue[11];
-      //     this.tableData2[2].ratecurrency = this.tableAValue[12] + this.tableAValue[13];
-      //     if (this.accountcodeValue !== '') {
-      //       this.tableData2[3].ratecurrency = this.tableRValue[9];
-      //     } else {
-      //       this.tableData2[3].ratecurrency = this.tableRValue[8];
-      //     }
-      //     for (var i = 0; i < this.tableData2.length; i++) {
-      //       this.tableData2[i].total = this.tableData2[i].ratecurrency * this.form.otherfxrate + this.tableData2[i].rmb;
-      //       this.tableData2[i].usdcurrency = '';
-      //       this.tableData2[i].jpycurrency = '';
-      //     }
-      //   }
-      // },
-        getcurrency(val,row) {
-        row.currency = val;
-        let curinfo = getDictionaryInfo(val);
-        if(curinfo){
-          row.currencyexchangerate = curinfo.value2;
-        }
       },
       workflowState(val) {
         if (val.state === '1') {
@@ -2650,21 +2273,29 @@
             }
           }
         }
-        if (newValue.rmb > 0) {
-          newValue.foreigncurrency = '';
-          newValue.display = false;
-          this.$nextTick(() => {
-            newValue.display = true;
-          });
+      },
+      getcurrency(val, row) {
+        row.currency = val;
+        let curinfo = getDictionaryInfo(val);
+        if (curinfo) {
+          row.currencyexchangerate = curinfo.value2;
         }
       },
-      changeForeigncurrency(newValue) {
-        if (newValue.foreigncurrency > 0) {
-          newValue.rmb = '';
-          newValue.display = false;
-          this.$nextTick(() => {
-            newValue.display = true;
-          });
+      changeAcc(val, row) {
+        row.accommodationallowance = val;
+        let accinfo = getDictionaryInfo(val);
+        if (accinfo) {
+          row.rmb = row.foreigncurrency * accinfo.value2;
+        }
+      },
+      getAccommodation(val, row) {
+        row.accommodationallowance = val;
+        this.getTravel(row);
+      },
+      changefore(val, row) {
+        let accinfo = getDictionaryInfo(val.accommodationallowance);
+        if (accinfo) {
+          val.rmb = val.foreigncurrency * accinfo.value2;
         }
       },
       buttonClick(val) {

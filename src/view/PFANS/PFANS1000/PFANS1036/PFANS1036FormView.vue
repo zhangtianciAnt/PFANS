@@ -1740,7 +1740,6 @@
         this.$store
           .dispatch('PFANS1036Store/selectById', {'businessplanid': this.$route.params._id})
           .then(response => {
-            debugger
               this.form = response;
               this.equipment_newyear = JSON.parse(this.form.equipment_newyear);
               this.equipment_lastyear = JSON.parse(this.form.equipment_lastyear);
@@ -1817,7 +1816,6 @@
           }
           ["sumA2","sumB1","sumB2","sumB3","sumC1"].forEach(
             (val,index) => {
-              debugger
               if(this[val].length > 0){
                 this.tableK[index + 1].number1 = Number(this[val][2]||0) + Number(this[val][4]||0) + Number(this[val][6]||0);
                 this.tableK[index + 1].money1 = Number(this[val][3]||0) + Number(this[val][5]||0) + Number(this[val][7]||0);
@@ -2641,7 +2639,6 @@
           });
         }
         if (val === 'save') {
-          debugger
               this.form.equipment_newyear = JSON.stringify(this.equipment_newyear);
               this.form.equipment_lastyear = JSON.stringify(this.equipment_lastyear);
               this.form.assets_newyear = JSON.stringify(this.assets_newyear);

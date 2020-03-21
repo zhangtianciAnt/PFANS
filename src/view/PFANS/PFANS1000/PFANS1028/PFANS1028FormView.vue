@@ -3021,7 +3021,6 @@
     watch: {
       tableIndustrial: {
         handler(val) {
-          debugger
           for (let item of val) {
             if (item.judgment1 && item.judgment1 === '2') {
               this.radioSujud.tableIndustrial = '2';
