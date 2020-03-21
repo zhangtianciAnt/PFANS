@@ -49,9 +49,9 @@
                          :disabled="!disabled2">
               </dicselect>
             </el-form-item>
-            <el-form-item :label="$t('label.group')" :label-width="formLabelWidth" prop="group">
+            <el-form-item :label="$t('label.group')" :label-width="formLabelWidth" :rules='rules.group_id' prop="group_id">
               <org :orglist="grouporglist" orgtype="2" style="width: 20vw" @getOrgids="getGroupId"
-                   :disabled="!disabled2"></org>
+                   :disabled="!disabled2" @change="getGroupId1"></org>
             </el-form-item>
             <!--<el-form-item :label="$t('label.PFANS1024VIEW_SIDEGROUP')" :label-width="formLabelWidth">
               <dicselect :code="code10"
@@ -787,7 +787,7 @@
                     '7': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'contractdate', 'currencyposition', 'claimamount', 'deliverydate'],
                 },
                 rules: {
-                  group: [
+                  group_id: [
                     {
                       required: true,
                       validator: groupId,
@@ -1325,6 +1325,15 @@
                     this.groupinfo = [val, group.companyen, group.orgname, group.companyname];
                 }
             },
+          getGroupId1(val){
+            this.grouporglist = val;
+            this.form.group_id = val;
+            if (this.form.group_id === "") {
+              this.errorgroup = this.$t("normal.error_08") + "group";
+            } else {
+              this.errorgroup = "";
+            }
+          },
             getSidegroup(val) {
                 this.form.sidegroup = val;
             },
@@ -1437,22 +1446,6 @@
                     olddata.state = this.$t("label.PFANS8008FORMVIEW_EFFECTIVE");
                     this.form.tabledata.push(olddata)
                 } else {
-
-
-                    // this.formcustomer.custojapanese = row.supjapanese;
-                    // this.formcustomer.custoenglish = row.supenglish;
-                    // this.formcustomer.custoabbreviation = row.abbreviation;
-                    // this.formcustomer.custochinese = row.supchinese;
-                    //
-                    // this.formcustomer.placejapanese = row.addjapanese;
-                    // this.formcustomer.placeenglish = row.addenglish;
-                    // this.formcustomer.placechinese = row.addchinese;
-                    //
-                    // this.formcustomer.responjapanese = row.projapanese;
-                    // this.formcustomer.responerglish = row.proenglish;
-                    // this.formcustomer.responphone = row.protelephone;
-                    // this.formcustomer.responemail = row.protemail;
-
                     let o = {
                         contractapplication_id: '',
                         careeryear: this.form.applicationdate,
@@ -1518,29 +1511,37 @@
             },
             //契約番号做成
             click() {//111
-                if (this.$route.params._id) {
-                    this.handleClick();
-                } else {
-                    if (this.form.tabledata.length > 0) {
-                        this.$confirm(this.$t('normal.confirm_iscontinue'), this.$t('normal.info'), {
-                            confirmButtonText: this.$t('button.confirm'),
-                            cancelButtonText: this.$t('button.cancel'),
-                            type: 'warning'
-                        }).then(() => {
-                            this.form.tabledata = [];
-                            this.form.tableclaimtype = [];
+
+                this.$refs['refform'].validate(valid => {
+                    if (valid) {
+                        console.log(valid);
+                        if (this.$route.params._id) {
                             this.handleClick();
-                        }).catch(() => {
-                            this.$message({
-                                type: 'info',
-                                message: this.$t('label.PFANS1026FORMVIEW_YQXSC'),
-                            });
-                            this.dialogFormVisible = false;
-                        });
-                    } else {
-                        this.handleClick();
+                        } else {
+                            if (this.form.tabledata.length > 0) {
+                                this.$confirm(this.$t('normal.confirm_iscontinue'), this.$t('normal.info'), {
+                                    confirmButtonText: this.$t('button.confirm'),
+                                    cancelButtonText: this.$t('button.cancel'),
+                                    type: 'warning'
+                                }).then(() => {
+                                    this.form.tabledata = [];
+                                    this.form.tableclaimtype = [];
+                                    this.handleClick();
+                                }).catch(() => {
+                                    this.$message({
+                                        type: 'info',
+                                        message: this.$t('label.PFANS1026FORMVIEW_YQXSC'),
+                                    });
+                                    this.dialogFormVisible = false;
+                                });
+                            } else {
+                                this.handleClick();
+                            }
+                        }
+                    }else{
+                        this.dialogFormVisible = true;
                     }
-                }
+                });
             },
             handleClick() {//222
                 //請求方式
@@ -1904,6 +1905,7 @@
                 let rowCount = that.form.tabledata.length || 0;
                 let rowCount2 = that.form.tableclaimtype.length || 0;
                 let myRule = this.ruleSet[type] || [];
+
                 console.log("vrules", myRule);
                 if (myRule.length <= 0) {
                     cb(true);

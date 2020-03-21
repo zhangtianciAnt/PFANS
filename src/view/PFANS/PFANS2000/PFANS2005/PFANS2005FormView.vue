@@ -1454,7 +1454,6 @@
                 show-summary
                 header-cell-class-name="sub_bg_color_blue"
                 border
-                loading="qqLoading"
               >
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_NO')"
@@ -1464,7 +1463,7 @@
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_LASTNAME')"
                   align="center"
-                  prop="user_id"
+                  prop="user_name"
                   width="160%"
                 ></el-table-column>
                 <!--              // Todo By Skaixx At 2020/3/18 :  欠勤画面变更时需要调用后台接口-->
@@ -1563,6 +1562,7 @@
                   >
                     <template slot-scope="scope">
                       <el-input
+                        onkeyup="value=value.replace(/[^\d.]/g,'')"
                         v-model="scope.row.thisdiligencetry"
                         @change="thisMonthLacktimeChange(scope.row)"
                       ></el-input>
@@ -1578,6 +1578,7 @@
                   >
                     <template slot-scope="scope">
                       <el-input
+                        onkeyup="value=value.replace(/[^\d.]/g,'')"
                         v-model="scope.row.thisshortdeficiencytry"
                         @change="thisMonthLacktimeChange(scope.row)"
                       ></el-input>
@@ -1593,6 +1594,7 @@
                   >
                     <template slot-scope="scope">
                       <el-input
+                        onkeyup="value=value.replace(/[^\d.]/g,'')"
                         v-model="scope.row.thischronicdeficiencytry"
                         @change="thisMonthLacktimeChange(scope.row)"
                       ></el-input>
@@ -1608,6 +1610,7 @@
                   >
                     <template slot-scope="scope">
                       <el-input
+                        onkeyup="value=value.replace(/[^\d.]/g,'')"
                         v-model="scope.row.thisdiligenceformal"
                         @change="thisMonthLacktimeChange(scope.row)"
                       ></el-input>
@@ -1623,6 +1626,7 @@
                   >
                     <template slot-scope="scope">
                       <el-input
+                        onkeyup="value=value.replace(/[^\d.]/g,'')"
                         v-model="scope.row.thisshortdeficiencyformal"
                         @change="thisMonthLacktimeChange(scope.row)"
                       ></el-input>
@@ -1638,6 +1642,7 @@
                   >
                     <template slot-scope="scope">
                       <el-input
+                        onkeyup="value=value.replace(/[^\d.]/g,'')"
                         v-model="scope.row.thischronicdeficiencyformal"
                         @change="thisMonthLacktimeChange(scope.row)"
                       ></el-input>
@@ -1732,7 +1737,6 @@
                 show-summary
                 header-cell-class-name="sub_bg_color_blue"
                 border
-                laoding="cyLoading"
               >
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_NO')"
@@ -1799,6 +1803,7 @@
                   >
                     <template slot-scope="scope">
                       <el-input
+                        onkeyup="value=value.replace(/[^\d.]/g,'')"
                         v-model="scope.row.thisweekdays"
                         @change="thisMonthOvertimeChange(scope.row)"
                       ></el-input>
@@ -1812,6 +1817,7 @@
                   >
                     <template slot-scope="scope">
                       <el-input
+                        onkeyup="value=value.replace(/[^\d.]/g,'')"
                         v-model="scope.row.thisrestDay"
                         @change="thisMonthOvertimeChange(scope.row)"
                       ></el-input>
@@ -1825,6 +1831,7 @@
                   >
                     <template slot-scope="scope">
                       <el-input
+                        onkeyup="value=value.replace(/[^\d.]/g,'')"
                         v-model="scope.row.thislegal"
                         @change="thisMonthOvertimeChange(scope.row)"
                       ></el-input>
@@ -1838,6 +1845,7 @@
                   >
                     <template slot-scope="scope">
                       <el-input
+                        onkeyup="value=value.replace(/[^\d.]/g,'')"
                         v-model="scope.row.thisreplace"
                         @change="thisMonthOvertimeChange(scope.row)"
                       ></el-input>
@@ -1851,6 +1859,7 @@
                   >
                     <template slot-scope="scope">
                       <el-input
+                        onkeyup="value=value.replace(/[^\d.]/g,'')"
                         v-model="scope.row.thisreplace3"
                         @change="thisMonthOvertimeChange(scope.row)"
                       ></el-input>
@@ -3259,8 +3268,6 @@
           }
         ],
         baseInfo: {},
-        qqLoading: false,
-        cyLoading: false,
         givingVo: {}
       };
     },
@@ -3292,7 +3299,7 @@
               for (let j = 0; j < response.lackattendance.length; j++) {
                 let user = getUserInfo(response.lackattendance[j].user_id);
                 if (user) {
-                  response.lackattendance[j].user_id = getUserInfo(
+                  response.lackattendance[j].user_name = getUserInfo(
                     response.lackattendance[j].user_id
                   ).userinfo.customername;
                 }
@@ -4406,14 +4413,14 @@
             sums[index] = this.$t("label.PFANS2005FORMVIEW_HJ");
             return;
           }
-          const values = data.map(item => Number(item[column.property]));
+          const values = data.map(item => parseFloat(item[column.property]));
           if (!values.every(value => isNaN(value))) {
             sums[index] = values.reduce((prev, curr) => {
-              const value = Number(curr);
+              const value = parseFloat(curr);
               if (!isNaN(value)) {
-                return prev + curr;
+                return (parseFloat(prev) + parseFloat(curr)).toFixed(2);
               } else {
-                return prev;
+                return parseFloat(prev).toFixed(2);
               }
             }, 0);
             sums[index] += " ";
@@ -4827,16 +4834,16 @@
         this.givingVo.residual = [];
         this.givingVo.residual.push(val);
         this.givingVo.base = this.totaldataBase;
-        this.cyLoading = true;
+        this.loading = true;
         this.$store
           .dispatch("PFANS2005Store/thisMonthOvertimeChange", this.givingVo)
           .then(response => {
             console.log("this.tableCY.find(item => item.rowindex === val.rowindex)", this.tableCY.find(item => item.rowindex === val.rowindex));
             this.tableCY.find(item => item.rowindex === val.rowindex).thistotaly = response.thistotaly;
-            this.cyLoading = false;
+            this.loading = false;
           })
           .catch(err => {
-            this.cyLoading = false;
+            this.loading = false;
             Message({
               message: err,
               type: "error",
@@ -4849,15 +4856,15 @@
         this.givingVo.lackattendance = [];
         this.givingVo.lackattendance.push(val);
         this.givingVo.base = this.totaldataBase;
-        this.qqLoading = true;
+        this.loading = true;
         this.$store
           .dispatch("PFANS2005Store/thisMonthLacktimeChange", this.givingVo)
           .then(response => {
             this.tableQQ.find(item => item.rowindex === val.rowindex).thistotal = response.thistotal;
-            this.cyLoading = false;
+            this.loading = false;
           })
           .catch(err => {
-            this.cyLoading = false;
+            this.loading = false;
             Message({
               message: err,
               type: "error",

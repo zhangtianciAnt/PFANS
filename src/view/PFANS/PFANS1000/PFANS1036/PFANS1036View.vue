@@ -26,7 +26,7 @@
         columns: [
           {
             code: 'year',
-            label: 'label.FANS1036FORMVIEW_BUSINESSYEAR',
+            label: 'label.PFANS1036FORMVIEW_BUSINESSYEAR',
             width: 150,
             fix: false,
             filter: true
@@ -76,7 +76,7 @@
         .then(response => {
           for (let j = 0; j < response.length; j++) {
             if (response[j].user_id !== null && response[j].user_id !== "") {
-              debugger
+
               let rst = getUserInfo(response[j].user_id);
               if (rst) {
                 response[j].user_id = rst.userinfo.customername;

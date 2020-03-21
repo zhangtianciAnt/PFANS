@@ -172,6 +172,7 @@
           {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
           {'key': 'import', 'name': 'button.import', 'disabled': false, icon: 'el-icon-upload2'},
           {'key': 'export', 'name': 'button.export', 'disabled': false, icon: 'el-icon-download'},
+          {'key': 'crAccount', 'name': 'button.crAccount', 'disabled': false, icon: 'el-icon-user'},
           // {'key': 'export2', 'name': 'button.download2', 'disabled': false, icon: 'el-icon-download'},
         ],
         rowid: '',
@@ -187,8 +188,9 @@
       getexpatriatesinfor() {
         this.loading = true;
         this.$store
-          .dispatch('PFANS6004Store/getexpatriates')
+          .dispatch('PFANS6004Store/getexpatriatesinfor')
           .then(response => {
+            let tabledate = [];
             for (let j = 0; j < response.length; j++) {
               if (response[j].supplierinfor_id !== null && response[j].supplierinfor_id !== '') {
                 let supplierInfor = getSupplierinfor(response[j].supplierinfor_id);
@@ -238,20 +240,27 @@
                   response[j].technology = technology.value1;
                 }
               }
-              if (response[j].technology !== null && response[j].technology !== '') {
-                let technology = getDictionaryInfo(response[j].technology);
-                if (technology != null) {
-                  response[j].technology = technology.value1;
-                }
-              }
               if (response[j].rn !== null && response[j].rn !== '') {
                 let rn = getDictionaryInfo(response[j].rn);
                 if (rn != null) {
                   response[j].rn = rn.value1;
                 }
               }
+              if (response[j].whetherentry == "BP006001") {
+                tabledate.push({
+                  suppliername: response[j].suppliername,
+                  expname: response[j].expname,
+                  group_id: response[j].group_id,
+                  sex: response[j].sex,
+                  age: response[j].age,
+                  education: response[j].education,
+                  graduateschool: response[j].graduateschool,
+                  technology: response[j].technology,
+                  rn: response[j].rn,
+                })
+              }
             }
-            this.data = response;
+            this.data = tabledate;
             this.loading = false;
           })
           .catch(error => {
@@ -451,6 +460,30 @@
               disabled: true,
             },
           });
+        }
+        if(val === 'crAccount'){
+          this.loading = true;
+          this.$store
+            .dispatch('PFANS6004Store/crAccount', this.$refs.roletable.selectedList)
+            .then(response => {
+
+              this.$refs.roletable.$refs.eltable.clearSelection();
+              Message({
+                message: this.$t('normal.success_02'),
+                type: 'success',
+                duration: 5 * 1000,
+              });
+
+              this.loading = false;
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
         }
       },
     },

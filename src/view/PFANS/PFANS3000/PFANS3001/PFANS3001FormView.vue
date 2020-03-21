@@ -469,6 +469,7 @@
             key: 'save',
             name: 'button.save',
             icon: 'el-icon-check',
+            disabled: false,
           },
         ];
       }
@@ -496,6 +497,9 @@
             this.userlist = this.form.user_id;
             if (this.form.status === '2') {
               this.disable = false;
+            }
+            if (this.form.status === '4') {
+              this.disabled = true;
             }
             this.loading = false;
           })

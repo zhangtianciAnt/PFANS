@@ -282,6 +282,7 @@
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS5001FORMVIEW_TOOLSTYPE')" prop="toolstype">
                     <el-switch
+                      :disabled="!disable"
                       active-color="#13ce66"
                       inactive-color="#13ce66"
                       active-value="1"
@@ -1130,7 +1131,7 @@
                 gridData1: [],
                 gridData2: [],
                 gridData3: [],
-                disable: false,
+                disable: true,
                 customerinfor: [],
                 checkList: [],
                 checkboxs: [],
@@ -1515,6 +1516,7 @@
             this.getcontract();
             if (this.$route.params._id) {
                 this.Numbers = 0;
+                this.disable = this.$route.params.disabled;
                 this.loading = true;
                 this.$store
                     .dispatch('PFANS5001Store/selectById', {companyprojectsid: this.$route.params._id})
@@ -1560,10 +1562,39 @@
 
                         //项目体制
                         if (response.projectsystem.length > 0) {
-                            let tablec = [];
-                            let tableb = [];
+                            let tablec = [
+                                {
+                                    projectsystem_id: '',
+                                    companyprojects_id: '',
+                                    type: '0',
+                                    number: '',
+                                    company: '',
+                                    name: '',
+                                    position: '',
+                                    admissiontime: '',
+                                    exittime: '',
+                                    rowindex: '',
+                                },
+                            ];
+                            let tableb = [
+                                {
+                                    projectsystem_id: '',
+                                    companyprojects_id: '',
+                                    type: '1',
+                                    number: '',
+                                    company: '',
+                                    name: '',
+                                    position: '',
+                                    admissiontime: '',
+                                    exittime: '',
+                                    rowindex: '',
+                                },
+                            ];
+                            let flag1 = false;
+                            let flag2 = false;
                             for (var i = 0; i < response.projectsystem.length; i++) {
                                 if (response.projectsystem[i].type === '0') {
+                                    flag1 = true;
                                     tableb.push({
                                         name: response.projectsystem[i].projectsystem_id,
                                         companyprojects_id: response.projectsystem[i].companyprojects_id,
@@ -1577,6 +1608,7 @@
                                         rowindex: response.projectsystem[i].rowindex,
                                     });
                                 } else if (response.projectsystem[i].type === '1') {
+                                    flag2 = true;
                                     tablec.push({
                                         name: response.projectsystem[i].projectsystem_id,
                                         companyprojects_id: response.projectsystem[i].companyprojects_id,
@@ -1591,9 +1623,45 @@
                                     });
                                 }
                             }
+                            if(flag1){
+                                tableb.shift();
+                            }
+                            if(flag2){
+                                tablec.shift();
+                            }
                             this.tableB = tableb;
                             this.tableC = tablec;
                         }
+                        /*else{
+                            this.tableB = [
+                                {
+                                    projectsystem_id: '',
+                                    companyprojects_id: '',
+                                    type: '0',
+                                    number: '',
+                                    company: '',
+                                    name: '',
+                                    position: '',
+                                    admissiontime: '',
+                                    exittime: '',
+                                    rowindex: '',
+                                },
+                            ];
+                            this.tableC = [
+                                {
+                                    projectsystem_id: '',
+                                    companyprojects_id: '',
+                                    type: '1',
+                                    number: '',
+                                    company: '',
+                                    name: '',
+                                    position: '',
+                                    admissiontime: '',
+                                    exittime: '',
+                                    rowindex: '',
+                                },
+                            ];
+                        }*/
                         //项目合同
                         if (response.projectcontract.length > 0) {
                             let tabled = [];
@@ -1634,8 +1702,8 @@
                                 }
                             }
                         }
-                        if (this.form.status === '2') {
-                            this.disable = false;
+                        if (this.form.status === '4') {
+                            this.disabled = true;
                         }
                         this.loading = false;
                     })
@@ -1677,12 +1745,13 @@
         },
 
         created() {
-            this.disable = this.$route.params.disabled;
-            if (this.disable) {
+            this.disabled = this.$route.params.disabled;
+            if (this.disabled) {
                 this.buttonList = [
                     {
                         key: 'save',
                         name: 'button.save',
+                        disabled: false,
                     },
                 ];
             }

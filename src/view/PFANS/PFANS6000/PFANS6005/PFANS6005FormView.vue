@@ -764,42 +764,39 @@
                         console.log("aaa", this.tableData)
                         this.loading = false;
                     })
-                    .catch(error => {
-                        Message({
-                            message: error,
-                            type: 'error',
-                            duration: 5 * 1000
-                        });
-                        this.loading = false;
-                    })
-            },
-            updatepriceset() {
-                this.loading = true;
-                this.$store
-                    .dispatch('PFANS6005Store/updatepriceset', this.multipleSelection)
-                    .then(response => {
-                        Message({
-                            message: this.$t("normal.success_02"),
-                            type: "success",
-                            duration: 5 * 1000
-                        });
-                        this.data = response;
-                        this.loading = false;
-                        this.getpriceset();
-                    })
-                    .catch(error => {
-                        Message({
-                            message: error,
-                            type: 'error',
-                            duration: 5 * 1000,
-                        });
-                        this.loading = false;
+                  .catch(error => {
+                    Message({
+                      message: error,
+                      type: 'error',
+                      duration: 5 * 1000
                     });
+                    this.loading = false;
+                  })
             },
-            buttonClick(val) {
-                if (val === 'save') {
-                    this.updatepriceset();
-                    this.getpriceset();
+          buttonClick(val) {
+            if (val === 'save') {
+              this.loading = true;
+              this.$store
+                .dispatch('PFANS6005Store/updatepriceset', this.multipleSelection)
+                .then(response => {
+                  Message({
+                    message: this.$t("normal.success_02"),
+                    type: "success",
+                    duration: 5 * 1000
+                  });
+                  this.data = response;
+                  this.loading = false;
+                  this.getpriceset();
+                })
+                .catch(error => {
+                  Message({
+                    message: error,
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  this.loading = false;
+                });
+              this.getpriceset();
                 }
             },
             changetechnical(val, index) {

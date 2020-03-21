@@ -8,10 +8,13 @@ export function getTaxestotalList(data) {
     params: data,
   });
 }
-
-
-
-
+export function getwagesList(data) {
+  return request({
+    url: 'Getwages/getwagesList',
+    method: 'post',
+    data: data
+  })
+}
 
 export function getBonusList(data) {
   return request({
