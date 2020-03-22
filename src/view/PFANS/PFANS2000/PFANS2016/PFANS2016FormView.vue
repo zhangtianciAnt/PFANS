@@ -613,6 +613,15 @@
                         message: this.$t('normal.error_09') + this.$t('label.PFANS2016FORMVIEW_ERRORTYPE'),
                         trigger: 'change',
                     }],
+                    cause: [
+                        {
+                            required: true,
+                            message:
+                                this.$t("normal.error_08") +
+                                this.$t("label.cause"),
+                            trigger: "change"
+                        }
+                    ],
                     lengthtime: [{
                         required: true,
                         validator: validateLength,
