@@ -66,12 +66,12 @@
                 ></el-input-number>
               </el-form-item>
             </el-col>
-            <el-col :span="8" v-show="form.errortype != 'PR013001' && form.errortype != 'PR013005' && form.errortype != 'PR013006'">
-              <el-form-item :label="$t('label.PFANS2016FORMVIEW_RELENGTHTIME')" label-width="9rem" prop="relengthtime">
-                <el-input :disabled="true"
-                          style="width:20vw" v-model="form.relengthtime"></el-input>
-              </el-form-item>
-            </el-col>
+<!--            <el-col :span="8" v-show="form.errortype != 'PR013001' && form.errortype != 'PR013005' && form.errortype != 'PR013006'">-->
+<!--              <el-form-item :label="$t('label.PFANS2016FORMVIEW_RELENGTHTIME')" label-width="9rem" prop="relengthtime">-->
+<!--                <el-input :disabled="true"-->
+<!--                          style="width:20vw" v-model="form.relengthtime"></el-input>-->
+<!--              </el-form-item>-->
+<!--            </el-col>-->
             <el-col :span="8" v-show="form.errortype == 'PR013005' || form.errortype == 'PR013006'">
               <el-form-item :label="$t('label.PFANS2016FORMVIEW_LENGTHTIME')" label-width="9rem" prop="lengthtime" >
                 <el-select v-model="form.lengthtime"
@@ -108,17 +108,17 @@
                                 style="width:20vw" type="date" v-model="form.occurrencedate"></el-date-picker>
               </el-form-item>
             </el-col>
-            <el-col :span="8" v-if="form.errortype != 'PR013001'&&form.errortype != 'PR013005'&&form.errortype != 'PR013006'">
-              <el-form-item :error="errorstarttime" :label="$t('label.start')" prop="periodstart">
-                <el-time-picker
-                  :disabled="!disable"
-                  @change="change"
-                  format='HH:mm'
-                  style="width:20vw"
-                  v-model="form.periodstart">
-                </el-time-picker>
-              </el-form-item>
-            </el-col>
+<!--            <el-col :span="8" v-if="form.errortype != 'PR013001'&&form.errortype != 'PR013005'&&form.errortype != 'PR013006'">-->
+<!--              <el-form-item :error="errorstarttime" :label="$t('label.start')" prop="periodstart">-->
+<!--                <el-time-picker-->
+<!--                  :disabled="!disable"-->
+<!--                  @change="change"-->
+<!--                  format='HH:mm'-->
+<!--                  style="width:20vw"-->
+<!--                  v-model="form.periodstart">-->
+<!--                </el-time-picker>-->
+<!--              </el-form-item>-->
+<!--            </el-col>-->
             <el-col :span="8" v-show="showWeekend">
               <el-form-item :label="$t('label.PFANS2016FORMVIEW_RELATION')" prop="relation">
                 <el-select
@@ -145,16 +145,16 @@
               </el-form-item>
             </el-col>
 
-            <el-col :span="8" v-if="form.errortype != 'PR013001'&&form.errortype != 'PR013005'&&form.errortype != 'PR013006'">
-              <el-form-item :error="errorendtime" :label="$t('label.end')" prop="periodend">
-                <el-time-picker
-                  :disabled="!disable"
-                  @change="change"
-                  format='HH:mm'
-                  style="width:20vw" v-model="form.periodend">
-                </el-time-picker>
-              </el-form-item>
-            </el-col>
+<!--            <el-col :span="8" v-if="form.errortype != 'PR013001'&&form.errortype != 'PR013005'&&form.errortype != 'PR013006'">-->
+<!--              <el-form-item :error="errorendtime" :label="$t('label.end')" prop="periodend">-->
+<!--                <el-time-picker-->
+<!--                  :disabled="!disable"-->
+<!--                  @change="change"-->
+<!--                  format='HH:mm'-->
+<!--                  style="width:20vw" v-model="form.periodend">-->
+<!--                </el-time-picker>-->
+<!--              </el-form-item>-->
+<!--            </el-col>-->
           </el-row>
           <el-row
             v-if="(form.errortype != 'PR013005' && form.errortype != 'PR013006') && (form.status === '4' || form.status === '5' || form.status === '6' || form.status === '7') ">
@@ -644,11 +644,15 @@
                 lunchbreakE: '',
                 dateInfo: [],
                 Todaysum: [],
+                Todaysums: [],
                 reList: [],
                 relist: [],
+                sickleave: '',
+                parent: '',
             };
         },
         mounted() {
+          this.getSickleave();
             this.getAttendance();
             this.getDay();
             if (this.$route.params._id) {
@@ -705,7 +709,6 @@
                     this.form.groupid = lst.groupNmae;
                     this.form.teamid = lst.teamNmae;
                     this.form.user_id = this.$store.getters.userinfo.userid;
-                    console.log("bbb",this.form.user_id)
                 }
                 this.getOvertimelist();
             }
@@ -733,17 +736,84 @@
                 }
             },
             getTime(val) {
-                let sum = 0;
+              debugger;
+              let sum = 0;
+              var diffDate = moment(this.form.finisheddate).diff(moment(this.form.occurrencedate), 'days');
+              if(this.form.errortype === 'PR013001' || this.form.errortype === 'PR013008' || this.form.errortype === 'PR013016'
+                || this.form.errortype === 'PR013017' || this.form.errortype === 'PR013018' || this.form.errortype === 'PR013019'
+                || this.form.errortype === 'PR013014'){
+                if(this.form.errortype === 'PR013014'){
+                  if(diffDate > 2 - this.parent){
+                    Message({
+                      message:  this.$t("本年度的家长会次数已经用完"),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                  }
+                  if(val > 4){
+                    Message({
+                      message:  this.$t("家长会一次只能申请四个小时"),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                  }
+                }
+                if(this.form.errortype === 'PR013016' || this.form.errortype === 'PR013017' && this.$store.getters.userinfo.sex !== 'PR019001'){
+                  Message({
+                    message:  this.$t("只能是女性填写"),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                }
                 for (let i = 0; i < this.relist.length; i++) {
-                    sum = sum + 1;
+                  sum = sum + 1;
                 }
                 if (sum * 8 < val) {
-                    Message({
-                        message:  this.$t("外出时间不正确请重新填写"),
+                  Message({
+                    message:  this.$t("请填写有效的时间"),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                }
+              } else if(this.form.errortype === 'PR013009' || this.form.errortype === 'PR013010' || this.form.errortype === 'PR013011'
+                || this.form.errortype === 'PR013012' || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015'
+                || this.form.errortype === 'PR013004'){
+                debugger;
+                if(this.form.errortype === 'PR013009'){
+                    if(diffDate > 30 - this.sickleave){
+                      Message({
+                        message:  this.$t("短病假不足，请申请长病假"),
                         type: 'error',
                         duration: 5 * 1000,
+                      });
+                    }
+                }
+                if(this.form.errortype === 'PR013012' && this.$store.getters.userinfo.sex !== 'PR019001'){
+                    Message({
+                      message:  this.$t("只能是女性填写"),
+                      type: 'error',
+                      duration: 5 * 1000,
                     });
                 }
+                if(this.form.errortype === 'PR013013' && this.$store.getters.userinfo.sex !== 'PR019002'){
+                    Message({
+                      message:  this.$t("只能是男性填写"),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                }
+                for (let i = 0; i < diffDate + 1; i++) {
+                  sum = sum + 1;
+                }
+                if (sum * 8 < val) {
+                  Message({
+                    message:  this.$t("请填写有效的时间"),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                }
+              }
+
             },
             getarrDate() {
                 var getDate = function (str) {
@@ -816,6 +886,40 @@
                         this.loading = false;
                     })
             },
+          getSickleave() {
+            this.loading = true;
+            this.$store
+              .dispatch('PFANS2016Store/getSickleave', {'userid': this.$store.getters.userinfo.userid})
+              .then(response => {
+                this.sickleave = response;
+                this.loading = false;
+              })
+              .catch(error => {
+                Message({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000
+                });
+                this.loading = false;
+              })
+          },
+          selectAbNormalParent() {
+            this.loading = true;
+            this.$store
+              .dispatch('PFANS2016Store/selectAbNormalParent', {'userid': this.$store.getters.userinfo.userid})
+              .then(response => {
+                this.parent = response.length;
+                this.loading = false;
+              })
+              .catch(error => {
+                Message({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000
+                });
+                this.loading = false;
+              })
+          },
             clearValidate(prop) {
                 this.$refs["ruleForm"].fields.forEach((e) => {
                     if (prop.includes(e.prop)) {

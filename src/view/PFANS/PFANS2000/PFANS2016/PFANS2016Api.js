@@ -54,3 +54,20 @@ export function cklength(data) {
     data: data
   })
 }
+
+
+export function getSickleave(data) {
+  return request({
+    url: 'abNormal/getSickleave',
+    method: 'get',
+    params: data
+  })
+}
+
+export function selectAbNormalParent(data) {
+  return request({
+    url: 'abNormal/selectAbNormalParent',
+    method: 'get',
+    params: data
+  })
+}
