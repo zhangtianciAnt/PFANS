@@ -119,8 +119,8 @@
                 response[j].requirements = letRequirements.value1;
               }
             }
-            if (response[j].application_date !== null && response[j].application_date !== "") {
-              response[j].application_date = moment(response[j].application_date).format("YYYY-MM-DD");
+            if (response[j].applicationtime !== null && response[j].applicationtime !== "") {
+              response[j].applicationtime = moment(response[j].applicationtime).format("YYYY-MM-DD");
             }
           }
           this.data = response;
