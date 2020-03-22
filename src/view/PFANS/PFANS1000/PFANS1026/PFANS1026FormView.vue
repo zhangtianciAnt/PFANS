@@ -6,20 +6,20 @@
                          v-loading="loading"
                          :buttonList="buttonList">
       <div slot="customize">
-        <el-form :model="form" label-width="8vw" label-position="top" style="padding: 2vw"
-                 ref="refform">
+        <el-form :model="form1" :rules="rules1" label-width="8vw" label-position="top" style="padding: 2vw"
+                 ref="refform1">
           <el-dialog :title="$t('button.application')" :visible.sync="dialogFormVisible">
             <el-form-item :label="$t('label.PFANS1024VIEW_NUMBER')" :label-width="formLabelWidth" v-if="display">
               <dicselect
                 :code="code"
-                :data="form.claimtype"
+                :data="form1.claimtype"
                 :multiple="multiple"
                 @change="getnumber"
                 style="width: 20vw">
               </dicselect>
             </el-form-item>
             <el-form-item :label="$t('label.PFANS1024VIEW_ORIGINALCONTRACT')" :label-width="formLabelWidth">
-              <el-input v-model="form.contractnumber" style="width: 20vw" :disabled="!disabled1"></el-input>
+              <el-input v-model="form1.contractnumber" style="width: 20vw" :disabled="!disabled1"></el-input>
               <el-checkbox
                 v-if="checkeddisplay"
                 v-model="checked"
@@ -30,7 +30,7 @@
             </el-form-item>
             <el-form-item :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')" :label-width="formLabelWidth">
               <dicselect :code="code2"
-                         :data="form.contracttype"
+                         :data="form1.contracttype"
                          @change="getcontracttype"
                          style="width: 20vw"
                          :disabled="!disabled2">
@@ -38,21 +38,26 @@
             </el-form-item>
             <el-form-item :label="$t('label.PFANS1024VIEW_CAREERYEAR')" :label-width="formLabelWidth">
               <dicselect :code="code3"
-                         :data="form.applicationdate"
+                         :data="form1.applicationdate"
                          @change="getcareeryear1"
                          style="width: 20vw"
                          :disabled="!disabled2">
               </dicselect>
               <dicselect :code="code4"
-                         :data="form.entrycondition"
+                         :data="form1.entrycondition"
                          @change="getcareeryear2"
                          style="width: 20vw"
                          :disabled="!disabled2">
               </dicselect>
             </el-form-item>
-            <el-form-item :label="$t('label.group')" :label-width="formLabelWidth" prop="group">
-              <org :orglist="grouporglist" orgtype="2" style="width: 20vw" @getOrgids="getGroupId"
-                   :disabled="!disabled2" @change="getGroupId1"></org>
+            <el-form-item :label="$t('label.group')" :label-width="formLabelWidth" prop="grouporglist" :error="errorgroup">
+              <org :orglist="form1.grouporglist"
+                   orgtype="2"
+                   style="width: 20vw"
+                   :error="errorgroup"
+                   @getOrgids="getGroupId"
+                   :disabled="!disabled2"
+                  ></org>
             </el-form-item>
             <div class="dialog-footer" align="center">
               <el-button @click="click" v-if="show1">
@@ -65,6 +70,12 @@
               </el-button>
             </div>
           </el-dialog>
+
+        </el-form>
+
+        <el-form :model="form" label-width="8vw" label-position="top" style="padding: 2vw"
+                 ref="refform">
+
           <el-dialog :visible.sync="dialogBook" width="30%">
             <div class="dialog-footer" align="center">
               <el-row style=" margin-bottom: 20px;">
@@ -386,7 +397,7 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.custoenglish'" :rules='rules.custoenglish'>
-                    <el-input :disabled="!disabled" v-model="scope.row.custoenglish">
+                    <el-input :disabled="true" v-model="scope.row.custoenglish">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -396,7 +407,7 @@
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.custoabbreviation'"
                                 :rules='rules.custoabbreviation'>
-                    <el-input :disabled="!disabled" v-model="scope.row.custoabbreviation">
+                    <el-input :disabled="true" v-model="scope.row.custoabbreviation">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -405,7 +416,7 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.custochinese'" :rules="rules.custochinese">
-                    <el-input :disabled="!disabled" v-model="scope.row.custochinese">
+                    <el-input :disabled="true" v-model="scope.row.custochinese">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -440,7 +451,7 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.placejapanese'" :rules='rules.placejapanese'>
-                    <el-input :disabled="!disabled" v-model="scope.row.placejapanese">
+                    <el-input :disabled="true" v-model="scope.row.placejapanese">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -449,7 +460,7 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.placeenglish'" :rules='rules.placeenglish'>
-                    <el-input :disabled="!disabled" v-model="scope.row.placeenglish">
+                    <el-input :disabled="true" v-model="scope.row.placeenglish">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -458,7 +469,7 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.placechinese'" :rules='rules.placechinese'>
-                    <el-input :disabled="!disabled" v-model="scope.row.placechinese">
+                    <el-input :disabled="true" v-model="scope.row.placechinese">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -469,7 +480,7 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.responjapanese'">
-                    <el-input :disabled="!disabled" v-model="scope.row.responjapanese">
+                    <el-input :disabled="true" v-model="scope.row.responjapanese">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -478,7 +489,7 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.responerglish'" :rules='rules.responerglish'>
-                    <el-input :disabled="!disabled" v-model="scope.row.responerglish">
+                    <el-input :disabled="true" v-model="scope.row.responerglish">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -486,7 +497,7 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_PHONE')" align="center" prop="responphone" width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.responphone'" :rules='rules.responphone'>
-                    <el-input :disabled="!disabled" v-model="scope.row.responphone">
+                    <el-input :disabled="true" v-model="scope.row.responphone">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -494,7 +505,7 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_EMAIL')" align="center" prop="responemail" width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.responemail'">
-                    <el-input :disabled="!disabled" v-model="scope.row.responemail">
+                    <el-input :disabled="true" v-model="scope.row.responemail">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -722,7 +733,7 @@
                     value.map(function (item) {
                         if (item === '') {
                             callback(new Error(this.$t('label.PFANS1026FORMVIEW_KFQQSJ')));
-                            return
+
                         }
                     });
                     callback();
@@ -857,7 +868,7 @@
                     value.map(function (item) {
                         if (item === '') {
                             callback(new Error(this.$t('label.PFANS1026FORMVIEW_XMZW')));
-                            return
+
                         }
                     });
                     callback();
@@ -904,14 +915,14 @@
                     callback();
                 }
             };
-          var groupId = (rule, value, callback) => {
-            if (!this.form.group_id || this.form.group_id === "") {
-              callback(new Error(this.$t("normal.error_08") + "group"));
-              this.error = this.$t("normal.error_08") + "group";
-            } else {
-              callback();
-            }
-          };
+            var groupId = (rule, value, callback) => {
+                if (!this.form1.grouporglist || this.form1.grouporglist === "") {
+                    callback(new Error(this.$t("normal.error_08") + "group"));
+                    this.errorgroup = this.$t("normal.error_08") + "group";
+                } else {
+                    callback();
+                }
+            };
             return {
                 makeintoBaseInfo: {},
                 titleType: '',
@@ -998,14 +1009,23 @@
                     '61': ['custoenglish', 'businesscode', 'placeenglish', 'responerglish', 'claimdatetime', 'currencyposition', 'claimamount', 'deliveryfinshdate', 'placechinese', 'responphone'],
                     '62': ['custoenglish', 'businesscode', 'placeenglish', 'responerglish', 'claimdatetime', 'currencyposition', 'claimamount', 'deliveryfinshdate', 'placechinese', 'responphone'],
                 },
+                rules1: {
+                    grouporglist:[
+                        {
+                            required: true,
+                            validator: groupId,
+                            trigger: "blur"
+                        }
+                    ]
+                },
                 rules: {
-                  group: [
+                  /*group: [
                     {
                       required: true,
                       validator: groupId,
                       trigger: "change"
                     }
-                  ],
+                  ],*/
                     deployment: [
                         {validator: validateDeployment}
                     ],
@@ -1103,6 +1123,14 @@
                         disabled: false,
                     },
                 ],
+                form1: {
+                    claimtype: '',
+                    contractnumber: '',
+                    contracttype: '',
+                    applicationdate: '',
+                    entrycondition: '',
+                    grouporglist: ''
+                },
                 form: {
                     tabledata: [],
                     tabledata2: undefined,
@@ -1457,10 +1485,16 @@
                     })
             },
             getGroupId(val) {
+                this.form1.grouporglist = val;
                 this.grouporglist = val;
                 let group = getOrgInfo(val);
                 if (group) {
                     this.groupinfo = [val, group.companyen, group.orgname, group.companyname];
+                }
+                if (!val || this.form1.grouporglist === "") {
+                    this.errorgroup = this.$t("normal.error_08") + "group";
+                } else {
+                    this.errorgroup = "";
                 }
             },
           getGroupId1(val){
@@ -1498,7 +1532,7 @@
             getChecked(val) {
                 this.checked = val;
                 if (val === true) {
-                    this.form.contractnumber = this.letcontractnumber
+                    this.form.contractnumber = this.letcontractnumber;
                     this.disabled1 = true;
                     this.disabled2 = false;
                 } else {
@@ -1706,29 +1740,38 @@
             },
             //契約番号做成
             click() {
-                if (this.$route.params._id) {
-                    this.handleClick();
-                } else {
-                    if (this.form.tabledata.length > 0) {
-                        this.$confirm(this.$t('normal.confirm_iscontinue'), this.$t('normal.info'), {
-                            confirmButtonText: this.$t('button.confirm'),
-                            cancelButtonText: this.$t('button.cancel'),
-                            type: 'warning'
-                        }).then(() => {
-                            this.form.tabledata = [];
-                            this.form.tableclaimtype = [];
+
+                this.$refs['refform1'].validate(valid => {
+                    if (valid) {
+                        this.form.claimtype = this.form1.claimtype;
+                        this.form.contractnumber = this.form1.contractnumber;
+                        this.form.contracttype = this.form1.contracttype;
+                        this.form.applicationdate = this.form1.applicationdate;
+                        this.form.entrycondition = this.form1.entrycondition;
+                        if (this.$route.params._id) {
                             this.handleClick();
-                        }).catch(() => {
-                            this.$message({
-                                type: 'info',
-                                message: this.$t('label.PFANS1026FORMVIEW_YQXSC'),
-                            });
-                            this.dialogFormVisible = false;
-                        });
-                    } else {
-                        this.handleClick();
-                    }
-                }
+                        } else {
+                            if (this.form.tabledata.length > 0) {
+                                this.$confirm(this.$t('normal.confirm_iscontinue'), this.$t('normal.info'), {
+                                    confirmButtonText: this.$t('button.confirm'),
+                                    cancelButtonText: this.$t('button.cancel'),
+                                    type: 'warning'
+                                }).then(() => {
+                                    this.form.tabledata = [];
+                                    this.form.tableclaimtype = [];
+                                    this.handleClick();
+                                }).catch(() => {
+                                    this.$message({
+                                        type: 'info',
+                                        message: this.$t('label.PFANS1026FORMVIEW_YQXSC'),
+                                    });
+                                    this.dialogFormVisible = false;
+                                });
+                            } else {
+                                this.handleClick();
+                            }
+                        }
+                    }});
             },
             handleClick() {
                 this.loading = true;
@@ -1883,7 +1926,7 @@
                         duration: 5 * 1000
                     });
                     this.loading = false;
-                    this.dialogBook = false
+                    this.dialogBook = false;
                     return;
                 }
                 this.$store.dispatch('PFANS1026Store/existCheck', {contractNumber: contractNumber})
@@ -2121,7 +2164,7 @@
                             this.disabledCount6 = true;
                             this.disabledCount7 = true;
                             this.loading = false;
-                            return
+
                         } else if (response.count1 > 0 && response.count2 === 0) {
                             this.disabledCount1 = false;
                             this.disabledCount2 = false;
@@ -2131,7 +2174,7 @@
                             this.disabledCount6 = true;
                             this.disabledCount7 = true;
                             this.loading = false;
-                            return
+
                         } else if (response.count1 > 0 && response.count2 > 0 && response.count3 === 0) {
                             this.disabledCount1 = false;
                             this.disabledCount2 = false;
@@ -2141,7 +2184,7 @@
                             this.disabledCount6 = true;
                             this.disabledCount7 = true;
                             this.loading = false;
-                            return
+
                         } else if (response.count1 > 0 && response.count2 > 0 && response.count3 > 0 && response.count4 === 0) {
                             this.disabledCount1 = false;
                             this.disabledCount2 = false;
@@ -2151,7 +2194,7 @@
                             this.disabledCount6 = true;
                             this.disabledCount7 = true;
                             this.loading = false;
-                            return
+
                         } else if (response.count1 > 0 && response.count2 > 0 && response.count3 > 0 && response.count4 > 0 && response.count5 === 0) {
                             this.disabledCount1 = false;
                             this.disabledCount2 = false;
@@ -2161,7 +2204,7 @@
                             this.disabledCount6 = true;
                             this.disabledCount7 = true;
                             this.loading = false;
-                            return
+
                         } else if (response.count1 > 0 && response.count2 > 0 && response.count3 > 0 && response.count4 > 0 && response.count5 > 0 && response.count6 === 0) {
                             this.disabledCount1 = false;
                             this.disabledCount2 = false;
@@ -2171,7 +2214,7 @@
                             this.disabledCount6 = false;
                             this.disabledCount7 = true;
                             this.loading = false;
-                            return
+
                         } else if (response.count1 > 0 && response.count2 > 0 && response.count3 > 0 && response.count4 > 0 && response.count5 > 0 && response.count6 > 0 && response.count7 === 0) {
                             this.disabledCount1 = false;
                             this.disabledCount2 = false;
@@ -2181,7 +2224,7 @@
                             this.disabledCount6 = false;
                             this.disabledCount7 = false;
                             this.loading = false;
-                            return
+
                         }
                     })
                     .catch(error => {

@@ -86,6 +86,8 @@
                         v-loading='loading'>
                 <el-table-column property="supchinese" :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')"
                                  width="120"></el-table-column>
+                <el-table-column property="suppliercode" :label="$t('label.PFANS6003FORMVIEW_VENDORNUM')"
+                                 width="120"></el-table-column>
                 <el-table-column property="liableperson" :label="$t('label.ASSETS1002VIEW_USERID')"
                                  width="120"></el-table-column>
                 <el-table-column property="prochinese" :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')"
@@ -925,7 +927,8 @@
                     applicationdate: '',
                     entrycondition: '',
                     grouporglist: '',
-                    custojapanese: ''
+                    custojapanese: '',
+                    suppliercode: ''
                 },
                 form: {
                     tabledata: [],
@@ -1150,6 +1153,7 @@
                 this.recordData.custoenglish = row.supenglish;
                 this.recordData.custoabbreviation = row.abbreviation;
                 this.recordData.custochinese = row.supchinese;
+                this.recordData.suppliercode = row.suppliercode;
 
                 this.recordData.placejapanese = row.addjapanese;
                 this.recordData.placeenglish = row.addenglish;
@@ -1176,6 +1180,7 @@
                 this.formcustomer.custoenglish = row.supenglish;
                 this.formcustomer.custoabbreviation = row.abbreviation;
                 this.formcustomer.custochinese = row.supchinese;
+                this.formcustomer.suppliercode = row.suppliercode;
 
                 this.formcustomer.placejapanese = row.addjapanese;
                 this.formcustomer.placeenglish = row.addenglish;
@@ -1650,12 +1655,8 @@
                     this.contracttype = letabbreviation.value1;
                     abbreviation = letabbreviation.value2;
                 }
-                //先方組織名
-                let sidegroup = '';
-                let letsidegroup = getDictionaryInfo(this.form.sidegroup);
-                if (letsidegroup != null) {
-                    sidegroup = letsidegroup.value2;
-                }
+                //先方組織名编码
+                let sidegroup = this.formcustomer.suppliercode;
                 //事業年度
                 let applicationdate = '';
                 let letapplicationdate = getDictionaryInfo(this.form.applicationdate);
