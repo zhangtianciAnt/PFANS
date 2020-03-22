@@ -730,6 +730,13 @@
         if (Array.isArray(value)) {
           if (value.length == 0) {
             callback(new Error(this.$t('label.PFANS1026FORMVIEW_KFQQSJ')));
+            Message({
+              message: this.$t('PFANS1024VIEW_REQUIRED'),
+              type: 'success',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+            this.dialogBook = false;
             return;
           }
           value.map(function(item) {
@@ -751,6 +758,13 @@
       var validateCurrencyposition = (rule, value, callback) => {
         if (value === '') {
           callback(new Error(this.$t('label.PFANS1026FORMVIEW_THDW')));
+          Message({
+            message: this.$t('PFANS1024VIEW_REQUIRED'),
+            type: 'success',
+            duration: 5 * 1000,
+          });
+          this.loading = false;
+          this.dialogBook = false;
         } else {
           callback();
         }
@@ -758,6 +772,13 @@
       var validateLoadingjudge = (rule, value, callback) => {
         if (value === '') {
           callback(new Error(this.$t('label.PFANS1026FORMVIEW_CHPDSSZ')));
+          Message({
+            message: this.$t('PFANS1024VIEW_REQUIRED'),
+            type: 'success',
+            duration: 5 * 1000,
+          });
+          this.loading = false;
+          this.dialogBook = false;
         } else {
           callback();
         }
@@ -772,6 +793,13 @@
       var validateCustojapanese = (rule, value, callback) => {
         if (value === '') {
           callback(new Error(this.$t('label.PFANS1026FORMVIEW_QYXHSMHW')));
+          Message({
+            message: this.$t('PFANS1024VIEW_REQUIRED'),
+            type: 'success',
+            duration: 5 * 1000,
+          });
+          this.loading = false;
+          this.dialogBook = false;
         } else {
           callback();
         }
@@ -793,6 +821,13 @@
       var validateCustochinese = (rule, value, callback) => {
         if (value === '') {
           callback(new Error(this.$t('label.PFANS1026FORMVIEW_QYXHSMZWM')));
+          Message({
+            message: this.$t('PFANS1024VIEW_REQUIRED'),
+            type: 'success',
+            duration: 5 * 1000,
+          });
+          this.loading = false;
+          this.dialogBook = false;
         } else {
           callback();
         }
@@ -814,6 +849,13 @@
       var validatePlacejapanese = (rule, value, callback) => {
         if (value === '') {
           callback(new Error(this.$t('label.PFANS1026FORMVIEW_ZSRW')));
+          Message({
+            message: this.$t('PFANS1024VIEW_REQUIRED'),
+            type: 'success',
+            duration: 5 * 1000,
+          });
+          this.loading = false;
+          this.dialogBook = false;
         } else {
           callback();
         }
@@ -828,6 +870,13 @@
       var validatePlacechinese = (rule, value, callback) => {
         if (value === '') {
           callback(new Error(this.$t('label.PFANS1026FORMVIEW_ZSZW')));
+          Message({
+            message: this.$t('PFANS1024VIEW_REQUIRED'),
+            type: 'success',
+            duration: 5 * 1000,
+          });
+          this.loading = false;
+          this.dialogBook = false;
         } else {
           callback();
         }
