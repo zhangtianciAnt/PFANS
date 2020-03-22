@@ -738,7 +738,6 @@
                     this.form.groupid = lst.groupNmae;
                     this.form.teamid = lst.teamNmae;
                     this.form.user_id = this.$store.getters.userinfo.userid;
-                    console.log("bbb",this.form.user_id)
                 }
                 this.getOvertimelist();
             }
@@ -770,7 +769,6 @@
 
           },
           getTime(val) {
-            debugger;
             let sum = 0;
             var diffDate = moment(this.form.finisheddate).diff(moment(this.form.occurrencedate), 'days');
             if (this.form.errortype === 'PR013001' || this.form.errortype === 'PR013008' || this.form.errortype === 'PR013016'
@@ -792,7 +790,7 @@
                   });
                 }
               }
-              if (this.form.errortype === 'PR013016' || this.form.errortype === 'PR013017' && this.$store.getters.userinfo.sex !== 'PR019001') {
+              if (this.form.errortype === 'PR013016' || this.form.errortype === 'PR013017' && this.$store.getters.userinfo.sex !== 'PR019002') {
                 Message({
                   message: this.$t('只能是女性填写'),
                   type: 'error',
@@ -812,7 +810,6 @@
             } else if (this.form.errortype === 'PR013009' || this.form.errortype === 'PR013010' || this.form.errortype === 'PR013011'
               || this.form.errortype === 'PR013012' || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015'
               || this.form.errortype === 'PR013004') {
-              debugger;
               if (this.form.errortype === 'PR013009') {
                 if (diffDate > 30 - this.sickleave) {
                   Message({
@@ -822,14 +819,14 @@
                   });
                 }
               }
-              if (this.form.errortype === 'PR013012' && this.$store.getters.userinfo.sex !== 'PR019001') {
+              if (this.form.errortype === 'PR013012' && this.$store.getters.userinfo.sex !== 'PR019002') {
                 Message({
                   message: this.$t('只能是女性填写'),
                   type: 'error',
                   duration: 5 * 1000,
                 });
               }
-              if (this.form.errortype === 'PR013013' && this.$store.getters.userinfo.sex !== 'PR019002') {
+              if (this.form.errortype === 'PR013013' && this.$store.getters.userinfo.sex !== 'PR019001') {
                 Message({
                   message: this.$t('只能是男性填写'),
                   type: 'error',
@@ -984,7 +981,6 @@
                                     }
                                 }
                             }
-                            console.log("aaa",letrelation)
                         }
                         if (letrelation.length > 0) {
                             this.options = letrelation;
