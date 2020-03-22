@@ -311,7 +311,7 @@
           workplace: '',
           applicationtime: moment(new Date()).format("YYYY-MM-DD"),
           viewproject: '',
-          recruitmentroute: '',
+          recruitmentroute: [],
           other: '',
           jobdemand: '',
           needtotravel: '',
