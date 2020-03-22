@@ -74,7 +74,7 @@
                   <el-form-item :label="$t('label.PFANS2001VIEW_RECRUITMENTROUTE')" prop="recruitmentroute">
                     <dicselect
                       :code="code"
-                      :data="form.recruitmentroute"
+                      :data="recruitmentroute"
                       :disabled="!disabled"
                       :multiple="multiple1"
                       :selectType="selectType1"
@@ -314,7 +314,7 @@
                     workplace: '',
                     applicationtime: moment(new Date()).format("YYYY-MM-DD"),
                     viewproject: '',
-                    recruitmentroute: [],
+                    recruitmentroute: '',
                     other: '',
                     jobdemand: '',
                     needtotravel: '',
@@ -455,12 +455,12 @@
                         this.grouporglist = this.form.group_id;
                         this.teamorglist = this.form.team_id;
                         if (response.recruitmentroute !== '') {
-                            this.form.recruitmentroute = response.recruitmentroute.split(",");
+                            this.recruitmentroute = response.recruitmentroute.split(",");
                         } else {
-                            this.form.recruitmentroute = [];
+                            this.recruitmentroute = [];
                         }
 
-                        if (this.form.recruitmentroute === 'PR027004') {
+                        if (this.recruitmentroute.includes('PR027004')) {
                             this.show1 = true;
                         }
                         if (this.form.requirements === 'PR032005') {
@@ -573,12 +573,17 @@
             },
 
             getRecruitmentroute(val) {
-                this.form.recruitmentroute = val;
+                this.recruitmentroute = val;
                 this.show1 = false;
-                for (let i = 0; i < val.length; i++) {
-                    if (val[i] === 'PR027004') {
+                /*for (let i = 0; i <  this.recruitmentroute.length; i++) {
+                    if ( this.recruitmentroute[i] === 'PR027004') {
                         this.show1 = true;
                     }
+                }*/
+                if(this.recruitmentroute.includes('PR027004')){
+                    this.show1 = true;
+                }else{
+                    this.form.other = '';
                 }
             },
             getJobdemand(val) {
@@ -657,7 +662,7 @@
                 this.checkRequire();
                 this.$refs["refform"].validate(valid => {
                     if (valid) {
-                        this.form.recruitmentroute = this.form.recruitmentroute.join(",");
+                        this.form.recruitmentroute = this.recruitmentroute.join(",");
                         if (this.$route.params._id) {
                             this.form.recruitid = this.$route.params._id;
                             this.form.center_id = this.centerorglist;
