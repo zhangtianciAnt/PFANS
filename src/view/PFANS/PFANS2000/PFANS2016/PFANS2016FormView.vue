@@ -52,7 +52,8 @@
                 </dicselect>
               </el-form-item>
             </el-col>
-            <el-col :span="8" v-show="form.errortype != 'PR013005' && form.errortype != 'PR013006'">
+            <el-col :span="8"
+                    v-show="form.errortype != 'PR013005' && form.errortype != 'PR013006'&& form.errortype != 'PR013007'">
               <el-form-item :label="$t('label.PFANS2016FORMVIEW_LENGTHTIME')" label-width="9rem" prop="lengthtime">
                 <el-input-number
                   :disabled="false"
@@ -66,14 +67,16 @@
                 ></el-input-number>
               </el-form-item>
             </el-col>
-            <el-col :span="8" v-show="form.errortype != 'PR013001' && form.errortype != 'PR013005' && form.errortype != 'PR013006'">
+            <el-col :span="8"
+                    v-show="form.errortype != 'PR013001' && form.errortype != 'PR013005' && form.errortype != 'PR013006'&& form.errortype != 'PR013007'">
               <el-form-item :label="$t('label.PFANS2016FORMVIEW_RELENGTHTIME')" label-width="9rem" prop="relengthtime">
                 <el-input :disabled="true"
                           style="width:20vw" v-model="form.relengthtime"></el-input>
               </el-form-item>
             </el-col>
-            <el-col :span="8" v-show="form.errortype == 'PR013005' || form.errortype == 'PR013006'">
-              <el-form-item :label="$t('label.PFANS2016FORMVIEW_LENGTHTIME')" label-width="9rem" prop="lengthtime" >
+            <el-col :span="8"
+                    v-show="(form.errortype == 'PR013005' || form.errortype == 'PR013006'|| form.errortype == 'PR013007') && form.status != '4' && form.status != '5' && form.status != '6' && form.status != '7'&& form.status != '8'">
+              <el-form-item :label="$t('label.PFANS2016FORMVIEW_XJTYPE')" label-width="9rem" prop="lengthtime">
                 <el-select v-model="form.lengthtime"
                            :disabled="!disable" @change="handleClick">
                   <el-option
@@ -87,9 +90,10 @@
               </el-form-item>
             </el-col>
             <el-col :span="8"
-                    v-show="(form.errortype == 'PR013005' || form.errortype == 'PR013006') && (form.status === '4' || form.status === '5' || form.status === '6' || form.status === '7')">
+                    v-show="(form.errortype == 'PR013005' || form.errortype == 'PR013006'|| form.errortype == 'PR013007') && (form.status === '4' || form.status === '5' || form.status === '6' || form.status === '7')">
               <el-form-item :label="$t('label.PFANS2016FORMVIEW_RELENGTHTIME')" label-width="9rem" prop="relengthtime">
-                <el-select v-model="form.relengthtime" :disabled="form.status === '5' || form.status === '7'">
+                <el-select @change="handleclick" v-model="form.relengthtime"
+                           :disabled="form.status === '5' || form.status === '7'">
                   <el-option
                     :key="item.value"
                     :label="item.label"
@@ -102,13 +106,15 @@
             </el-col>
           </el-row>
           <el-row>
-            <el-col :span="8">
+            <el-col :span="8"
+                    v-if="form.status != '4' && form.status != '5' && form.status != '6' && form.status != '7'">
               <el-form-item :label="$t('label.startdate')" prop="occurrencedate">
                 <el-date-picker :disabled="!disable" @change="change"
                                 style="width:20vw" type="date" v-model="form.occurrencedate"></el-date-picker>
               </el-form-item>
             </el-col>
-            <el-col :span="8" v-if="form.errortype != 'PR013001'&&form.errortype != 'PR013005'&&form.errortype != 'PR013006'">
+            <el-col :span="8"
+                    v-if="form.errortype != 'PR013001'&&form.errortype != 'PR013005'&&form.errortype != 'PR013006'&&form.errortype != 'PR013007'">
               <el-form-item :error="errorstarttime" :label="$t('label.start')" prop="periodstart">
                 <el-time-picker
                   :disabled="!disable"
@@ -138,14 +144,16 @@
             </el-col>
           </el-row>
           <el-row >
-            <el-col :span="8" v-if="this.typecheck!='1'&&this.typecheck!='2'">
+            <el-col :span="8"
+                    v-if="this.typecheck!='1'&&this.typecheck!='2'&&form.status != '4' && form.status != '5' && form.status != '6' && form.status != '7' ">
               <el-form-item :label="$t('label.enddate')" prop="finisheddate">
                 <el-date-picker :disabled="!disable" @change="change"
                                 style="width:20vw" type="date" v-model="form.finisheddate"></el-date-picker>
               </el-form-item>
             </el-col>
 
-            <el-col :span="8" v-if="form.errortype != 'PR013001'&&form.errortype != 'PR013005'&&form.errortype != 'PR013006'">
+            <el-col :span="8"
+                    v-if="form.errortype != 'PR013001'&&form.errortype != 'PR013005'&&form.errortype != 'PR013006'&&form.errortype != 'PR013007'">
               <el-form-item :error="errorendtime" :label="$t('label.end')" prop="periodend">
                 <el-time-picker
                   :disabled="!disable"
@@ -164,7 +172,8 @@
                                 style="width:20vw" type="date" v-model="form.reoccurrencedate"></el-date-picker>
               </el-form-item>
             </el-col>
-            <el-col :span="8">
+            <el-col :span="8"
+                    v-if="form.errortype != 'PR013001'&&form.errortype != 'PR013005'&&form.errortype != 'PR013006'&&form.errortype != 'PR013007'">
               <el-form-item :error="reerrorstarttime" :label="$t('label.restart')" prop="reperiodstart">
                 <el-time-picker
                   :disabled="form.status === '5' || form.status === '7'"
@@ -195,13 +204,14 @@
           </el-row>
           <el-row
             v-if="(form.errortype != 'PR013005' && form.errortype != 'PR013006') && (form.status === '4' || form.status === '5' || form.status === '6' || form.status === '7') ">
-            <el-col :span="8">
+            <el-col :span="8" v-if="this.typecheck!='1'&&this.typecheck!='2'">
               <el-form-item :label="$t('label.reenddate')" prop="refinisheddate">
                 <el-date-picker @change="rechange" :disabled="form.status === '5' || form.status === '7'"
                                 style="width:20vw" type="date" v-model="form.refinisheddate"></el-date-picker>
               </el-form-item>
             </el-col>
-            <el-col :span="8">
+            <el-col :span="8"
+                    v-if="form.errortype != 'PR013001'&&form.errortype != 'PR013005'&&form.errortype != 'PR013006'&&form.errortype != 'PR013007'">
               <el-form-item :error="reerrorendtime" :label="$t('label.reend')" prop="reperiodend">
                 <el-time-picker
                   :disabled="form.status === '5' || form.status === '7'"
@@ -473,6 +483,7 @@
                             lengthtime: this.form.lengthtime,
                         })
                         .then(response => {
+                            this.checkDate = response.dat;
                             if (response.can === "no") {
                                 callback(this.$t('normal.error_norestdays'));
                             } else {
@@ -512,10 +523,12 @@
 
             };
             return {
+                relistTwo: '',
                 workflowCode: "W0003",
                 canStart: true,
                 loading: false,
                 errort: '',
+                checkDate: '',
                 errorendtime: '',
                 reerrorendtime: '',
                 errorstarttime: '',
@@ -551,6 +564,8 @@
                     relengthtime: '0',
                     occurrencedate: moment(new Date()).format('YYYY-MM-DD'),
                     finisheddate: moment(new Date()).format('YYYY-MM-DD'),
+                    reoccurrencedate: moment(new Date()).format('YYYY-MM-DD'),
+                    refinisheddate: moment(new Date()).format('YYYY-MM-DD'),
                     relation: '',
                     hospital: '',
                     edate: '',
@@ -637,7 +652,7 @@
                 fileList: [],
                 upload: uploadUrl(),
                 workshift: '',
-                typecheck: '',
+                typecheck: '0',
                 timeSum: '',
                 closingtime: '',
                 lunchbreakS: '',
@@ -661,6 +676,21 @@
                         this.relation = this.form.relation;
                         if (this.form.status === '2' || this.form.status === '4') {
                             this.disable = false;
+                        }
+                        if (this.form.errortype == 'PR013006') {
+                            this.options1 = [{
+                                value: '0',
+                                label: '全天'
+                            }];
+                        }
+                        if (this.form.errortype == 'PR013007') {
+                            this.options1 = [{
+                                value: '1',
+                                label: '上午'
+                            }, {
+                                value: '2',
+                                label: '下午'
+                            }];
                         }
                         this.getOvertimelist();
                         if (this.form.uploadfile != "") {
@@ -705,7 +735,6 @@
                     this.form.groupid = lst.groupNmae;
                     this.form.teamid = lst.teamNmae;
                     this.form.user_id = this.$store.getters.userinfo.userid;
-                    console.log("bbb",this.form.user_id)
                 }
                 this.getOvertimelist();
             }
@@ -728,9 +757,13 @@
                 this.typecheck = val;
                 this.form.occurrencedate=moment(new Date()).format('YYYY-MM-DD');
                 this.form.finisheddate=moment(new Date()).format('YYYY-MM-DD');
-                if(this.typecheck=='1'||this.typecheck=='2' ){
-                    this.timeSum = 1;
-                }
+
+            },
+            handleclick(val) {
+                this.typecheck = val;
+                this.form.reoccurrencedate = moment(new Date()).format('YYYY-MM-DD');
+                this.form.refinisheddate = moment(new Date()).format('YYYY-MM-DD');
+
             },
             getTime(val) {
                 let sum = 0;
@@ -739,7 +772,7 @@
                 }
                 if (sum * 8 < val) {
                     Message({
-                        message:  this.$t("外出时间不正确请重新填写"),
+                        message: this.$t("label.PFANS2016FORMVIEW_WCCHECKTYPE"),
                         type: 'error',
                         duration: 5 * 1000,
                     });
@@ -754,35 +787,37 @@
                     tempDate.setDate(list[2]);
                     return tempDate;
                 };
-                var date1 = getDate(moment(this.form.occurrencedate).format("YYYY-MM-DD"));
-                var date2 = getDate(moment(this.form.finisheddate).format("YYYY-MM-DD"));
-                if (date1 > date2) {
-                    var tempDate = date1;
-                    date1 = date2;
-                    date2 = tempDate;
-                }
-                date1.setDate(date1.getDate() + 1);
-                var dateArr = [];
-                var i = 0;
-                while (!(date1.getFullYear() == date2.getFullYear()
-                    && date1.getMonth() == date2.getMonth() && date1.getDate() == date2
-                        .getDate())) {
-                    var dayStr = date1.getDate().toString();
-                    if (dayStr.length == 1) {
-                        dayStr = "0" + dayStr;
+                if (this.form.occurrencedate != null && this.form.finisheddate != null) {
+                    var date1 = getDate(moment(this.form.occurrencedate).format("YYYY-MM-DD"));
+                    var date2 = getDate(moment(this.form.finisheddate).format("YYYY-MM-DD"));
+                    if (date1 > date2) {
+                        var tempDate = date1;
+                        date1 = date2;
+                        date2 = tempDate;
                     }
-                    var monthStr = (date1.getMonth() + 1).toString();
-                    if (monthStr.length == 1) {
-                        monthStr = "0" + monthStr;
-                    }
-                    dateArr[i] = date1.getFullYear() + "-" + monthStr + "-"
-                        + dayStr;
-                    i++;
                     date1.setDate(date1.getDate() + 1);
+                    var dateArr = [];
+                    var i = 0;
+                    while (!(date1.getFullYear() == date2.getFullYear()
+                        && date1.getMonth() == date2.getMonth() && date1.getDate() == date2
+                            .getDate())) {
+                        var dayStr = date1.getDate().toString();
+                        if (dayStr.length == 1) {
+                            dayStr = "0" + dayStr;
+                        }
+                        var monthStr = (date1.getMonth() + 1).toString();
+                        if (monthStr.length == 1) {
+                            monthStr = "0" + monthStr;
+                        }
+                        dateArr[i] = date1.getFullYear() + "-" + monthStr + "-"
+                            + dayStr;
+                        i++;
+                        date1.setDate(date1.getDate() + 1);
+                    }
+                    dateArr.splice(0, 0, moment(this.form.occurrencedate).format("YYYY-MM-DD"));
+                    dateArr.push(moment(this.form.finisheddate).format("YYYY-MM-DD"));
+                    this.Todaysum = dateArr;
                 }
-                dateArr.splice(0, 0, moment(this.form.occurrencedate).format("YYYY-MM-DD"));
-                dateArr.push(moment(this.form.finisheddate).format("YYYY-MM-DD"));
-                this.Todaysum = dateArr;
             },
             getDay() {
                 this.$store
@@ -844,7 +879,6 @@
                                     }
                                 }
                             }
-                            console.log("aaa",letrelation)
                         }
                         if (letrelation.length > 0) {
                             this.options = letrelation;
@@ -894,15 +928,19 @@
                         }
                     }
                 }
-                debugger
-                if(this.typecheck=='0'||this.typecheck=='1'||this.typecheck=='2' ){
-                    let time =0;
-                  for(let d = 0;d<this.relist.length;d++){
-                      time=time+1;
-                  }
-                  this.timeSum = time*8;
-                }else {
-                    debugger
+                if (this.typecheck == '0') {
+                    let time = 0;
+                    for (let d = 0; d < this.relist.length; d++) {
+                        time = time + 1;
+                    }
+                    if (this.checkDate < time) {
+                        Message({
+                            message: this.$t("label.PFANS2016FORMVIEW_YJCHECKEROR"),
+                            type: 'error',
+                            duration: 5 * 1000,
+                        });
+                    }
+                } else {
                     if (this.form.occurrencedate !== '' && this.form.finisheddate !== '') {
                         if (moment(this.form.occurrencedate).format('YYYY-MM-DD') < moment(this.form.finisheddate).format('YYYY-MM-DD')) {
                             var beginHours;
@@ -1017,19 +1055,152 @@
                 }
             },
             rechange() {
-                if (this.form.reoccurrencedate !== '' && this.form.refinisheddate !== '') {
-                    if (moment(this.form.reoccurrencedate).format('YYYY-MM-DD') < moment(this.form.refinisheddate).format('YYYY-MM-DD')) {
-                        var beginHours;
-                        var endHours;
-                        var time;
-                        var beginDay = moment(this.form.reoccurrencedate).format('YYYY-MM-DD');
-                        var endDay = moment(this.form.refinisheddate).format('YYYY-MM-DD');
-                        var dayBegin = new Date(beginDay);
-                        var dayEnd = new Date(endDay);
-                        var daysDiff = dayEnd.getTime() - dayBegin.getTime();
-                        var dayDiff = Math.floor(daysDiff / (24 * 3600 * 1000));
-                        if (dayDiff - 1 > 0) {
-                            dayDiff = (dayDiff - 1) * 8;
+                var getDate = function (str) {
+                    var tempDate = new Date();
+                    var list = str.split("-");
+                    tempDate.setFullYear(list[0]);
+                    tempDate.setMonth(list[1] - 1);
+                    tempDate.setDate(list[2]);
+                    return tempDate;
+                };
+                if (this.form.reoccurrencedate != null && this.form.refinisheddate != null) {
+                    var date1 = getDate(moment(this.form.reoccurrencedate).format("YYYY-MM-DD"));
+                    var date2 = getDate(moment(this.form.refinisheddate).format("YYYY-MM-DD"));
+                    if (date1 > date2) {
+                        var tempDate = date1;
+                        date1 = date2;
+                        date2 = tempDate;
+                    }
+                    date1.setDate(date1.getDate() + 1);
+                    var dateArr = [];
+                    var i = 0;
+                    while (!(date1.getFullYear() == date2.getFullYear()
+                        && date1.getMonth() == date2.getMonth() && date1.getDate() == date2
+                            .getDate())) {
+                        var dayStr = date1.getDate().toString();
+                        if (dayStr.length == 1) {
+                            dayStr = "0" + dayStr;
+                        }
+                        var monthStr = (date1.getMonth() + 1).toString();
+                        if (monthStr.length == 1) {
+                            monthStr = "0" + monthStr;
+                        }
+                        dateArr[i] = date1.getFullYear() + "-" + monthStr + "-"
+                            + dayStr;
+                        i++;
+                        date1.setDate(date1.getDate() + 1);
+                    }
+                    dateArr.splice(0, 0, moment(this.form.reoccurrencedate).format("YYYY-MM-DD"));
+                    dateArr.push(moment(this.form.refinisheddate).format("YYYY-MM-DD"));
+                    this.Todaysum = dateArr;
+                }
+                for (let i = 0; i < this.Todaysum.length; i++) {
+                    var date = getDate(this.Todaysum[i]);
+                    if (date.getDay() == 6) {
+                        this.Todaysum.splice(i, 1)
+                    }
+                    this.reList = this.Todaysum
+                }
+                for (let j = 0; j < this.reList.length; j++) {
+                    var data = getDate(this.reList[j]);
+                    if (data.getDay() == 0) {
+                        this.reList.splice(j, 1)
+                    }
+                    this.relistTwo = this.reList
+                }
+                for (let a = 0; a < this.relistTwo.length; a++) {
+                    for (let b = 0; b < this.dateInfo.length; b++) {
+                        if (this.dateInfo[b].dateflg == this.relistTwo[a] && this.dateInfo[b].type != '4') {
+                            this.relistTwo.splice(a, 1)
+                        }
+                    }
+                }
+                if (this.typecheck == '0') {
+                    let timere = 0;
+                    for (let d = 0; d < this.relistTwo.length; d++) {
+                        timere = timere + 1;
+                    }
+                    if (this.checkDate < timere) {
+                        Message({
+                            message: this.$t("label.PFANS2016FORMVIEW_SJCHECKEROR"),
+                            type: 'error',
+                            duration: 5 * 1000,
+                        });
+                    }
+                } else {
+                    if (this.form.reoccurrencedate !== '' && this.form.refinisheddate !== '') {
+                        if (moment(this.form.reoccurrencedate).format('YYYY-MM-DD') < moment(this.form.refinisheddate).format('YYYY-MM-DD')) {
+                            var beginHours;
+                            var endHours;
+                            var time;
+                            var beginDay = moment(this.form.reoccurrencedate).format('YYYY-MM-DD');
+                            var endDay = moment(this.form.refinisheddate).format('YYYY-MM-DD');
+                            var dayBegin = new Date(beginDay);
+                            var dayEnd = new Date(endDay);
+                            var daysDiff = dayEnd.getTime() - dayBegin.getTime();
+                            var dayDiff = Math.floor(daysDiff / (24 * 3600 * 1000));
+                            if (dayDiff - 1 > 0) {
+                                dayDiff = (dayDiff - 1) * 8;
+                                var dayBegin = new Date(this.form.reperiodstart);
+                                var dayEnd = new Date(this.form.reperiodend);
+                                var timeUp = Number(this.workshift.replace(':', '.'));         //上班时间
+                                var timeDown = Number(this.closingtime.replace(':', '.'));     //下班时间
+                                var lunchflgS = Number(this.lunchbreakS.replace(':', '.'));    //午休开始时间
+                                var lunchflgE = Number(this.lunchbreakE.replace(':', '.'));    //午休结束时间
+                                var beginTime = dayBegin.getHours() + dayBegin.getMinutes() / 60;
+                                if (beginTime <= lunchflgE) {
+                                    beginHours = (lunchflgS - beginTime) + (timeDown - lunchflgE);
+                                } else {
+                                    beginHours = timeDown - beginTime;
+                                }
+                                if (beginHours > 8) {
+                                    beginHours = 8;
+                                }
+                                var endTime = dayEnd.getHours() + dayEnd.getMinutes() / 60;
+                                if (endTime >= lunchflgS) {
+                                    endHours = (endTime - lunchflgE) + (lunchflgS - timeUp);
+                                } else {
+                                    endHours = endTime - timeUp;
+                                }
+                                if (endHours > 8) {
+                                    endHours = 8;
+                                }
+                                var time = beginTime + endTime;
+                                if (this.$i18n) {
+                                    this.form.relengthtime = parseFloat(dayDiff + time).toFixed(1);
+                                }
+                            } else {
+                                var dayBegin = new Date(this.form.reperiodstart);
+                                var dayEnd = new Date(this.form.reperiodend);
+                                var timeUp = Number(this.workshift.replace(':', '.'));         //上班时间
+                                var timeDown = Number(this.closingtime.replace(':', '.'));     //下班时间
+                                var lunchflgS = Number(this.lunchbreakS.replace(':', '.'));    //午休开始时间
+                                var lunchflgE = Number(this.lunchbreakE.replace(':', '.'));    //午休结束时间
+                                var beginTime = dayBegin.getHours() + dayBegin.getMinutes() / 60;
+                                if (beginTime <= lunchflgE) {
+                                    beginHours = (lunchflgS - beginTime) + (timeDown - lunchflgE);
+                                } else {
+                                    beginHours = timeDown - beginTime;
+                                }
+                                if (beginHours > 8) {
+                                    beginHours = 8;
+                                }
+                                var endTime = dayEnd.getHours() + dayEnd.getMinutes() / 60;
+                                if (endTime >= lunchflgS) {
+                                    endHours = (endTime - lunchflgE) + (lunchflgS - timeUp);
+                                } else {
+                                    endHours = endTime - timeUp;
+                                }
+                                if (endHours > 8) {
+                                    endHours = 8;
+                                }
+                                time = beginTime + endTime;
+                                if (this.$i18n) {
+                                    this.form.relengthtime = parseFloat(time).toFixed(1);
+                                }
+                            }
+                        } else if (moment(this.form.reoccurrencedate).format('YYYY-MM-DD') === moment(this.form.refinisheddate).format('YYYY-MM-DD')) {
+                            var time;
                             var dayBegin = new Date(this.form.reperiodstart);
                             var dayEnd = new Date(this.form.reperiodend);
                             var timeUp = Number(this.workshift.replace(':', '.'));         //上班时间
@@ -1037,90 +1208,31 @@
                             var lunchflgS = Number(this.lunchbreakS.replace(':', '.'));    //午休开始时间
                             var lunchflgE = Number(this.lunchbreakE.replace(':', '.'));    //午休结束时间
                             var beginTime = dayBegin.getHours() + dayBegin.getMinutes() / 60;
-                            if (beginTime <= lunchflgE) {
-                                beginHours = (lunchflgS - beginTime) + (timeDown - lunchflgE);
-                            } else {
-                                beginHours = timeDown - beginTime;
-                            }
-                            if (beginHours > 8) {
-                                beginHours = 8;
-                            }
                             var endTime = dayEnd.getHours() + dayEnd.getMinutes() / 60;
-                            if (endTime >= lunchflgS) {
-                                endHours = (endTime - lunchflgE) + (lunchflgS - timeUp);
-                            } else {
-                                endHours = endTime - timeUp;
-                            }
-                            if (endHours > 8) {
-                                endHours = 8;
-                            }
-                            var time = beginTime + endTime;
-                            if (this.$i18n) {
-                                this.form.relengthtime = parseFloat(dayDiff + time).toFixed(1);
-                            }
-                        } else {
-                            var dayBegin = new Date(this.form.reperiodstart);
-                            var dayEnd = new Date(this.form.reperiodend);
-                            var timeUp = Number(this.workshift.replace(':', '.'));         //上班时间
-                            var timeDown = Number(this.closingtime.replace(':', '.'));     //下班时间
-                            var lunchflgS = Number(this.lunchbreakS.replace(':', '.'));    //午休开始时间
-                            var lunchflgE = Number(this.lunchbreakE.replace(':', '.'));    //午休结束时间
-                            var beginTime = dayBegin.getHours() + dayBegin.getMinutes() / 60;
-                            if (beginTime <= lunchflgE) {
-                                beginHours = (lunchflgS - beginTime) + (timeDown - lunchflgE);
-                            } else {
-                                beginHours = timeDown - beginTime;
-                            }
-                            if (beginHours > 8) {
-                                beginHours = 8;
-                            }
-                            var endTime = dayEnd.getHours() + dayEnd.getMinutes() / 60;
-                            if (endTime >= lunchflgS) {
-                                endHours = (endTime - lunchflgE) + (lunchflgS - timeUp);
-                            } else {
-                                endHours = endTime - timeUp;
-                            }
-                            if (endHours > 8) {
-                                endHours = 8;
-                            }
-                            time = beginTime + endTime;
-                            if (this.$i18n) {
-                                this.form.relengthtime = parseFloat(time).toFixed(1);
-                            }
-                        }
-                    } else if (moment(this.form.reoccurrencedate).format('YYYY-MM-DD') === moment(this.form.refinisheddate).format('YYYY-MM-DD')) {
-                        var time;
-                        var dayBegin = new Date(this.form.reperiodstart);
-                        var dayEnd = new Date(this.form.reperiodend);
-                        var timeUp = Number(this.workshift.replace(':', '.'));         //上班时间
-                        var timeDown = Number(this.closingtime.replace(':', '.'));     //下班时间
-                        var lunchflgS = Number(this.lunchbreakS.replace(':', '.'));    //午休开始时间
-                        var lunchflgE = Number(this.lunchbreakE.replace(':', '.'));    //午休结束时间
-                        var beginTime = dayBegin.getHours() + dayBegin.getMinutes() / 60;
-                        var endTime = dayEnd.getHours() + dayEnd.getMinutes() / 60;
-                        if ((endTime <= lunchflgS && beginTime <= timeUp) || (beginTime >= lunchflgE && endTime <= timeDown)) {
-                            time = endTime - beginTime;
-                        } else if (endTime >= lunchflgS && endTime <= lunchflgE) {
-                            time = lunchflgS - beginTime;
-                        } else if (endTime >= lunchflgE && beginTime <= lunchflgS) {
-                            time = (lunchflgS - beginTime) + (endTime - lunchflgE);
-                        } else if (beginTime >= lunchflgE && beginTime <= timeDown) {
-                            time = (lunchflgS - beginTime) + (endTime - lunchflgE);
-                        } else {
-                            this.form.relengthtime = '0';
-                        }
-                        if (this.$i18n && time !== "") {
-                            if (time > 8) {
-                                time = 8;
-                            }
-                            if (time > 0) {
-                                this.form.relengthtime = parseFloat(time).toFixed(1);
+                            if ((endTime <= lunchflgS && beginTime <= timeUp) || (beginTime >= lunchflgE && endTime <= timeDown)) {
+                                time = endTime - beginTime;
+                            } else if (endTime >= lunchflgS && endTime <= lunchflgE) {
+                                time = lunchflgS - beginTime;
+                            } else if (endTime >= lunchflgE && beginTime <= lunchflgS) {
+                                time = (lunchflgS - beginTime) + (endTime - lunchflgE);
+                            } else if (beginTime >= lunchflgE && beginTime <= timeDown) {
+                                time = (lunchflgS - beginTime) + (endTime - lunchflgE);
                             } else {
                                 this.form.relengthtime = '0';
                             }
+                            if (this.$i18n && time !== "") {
+                                if (time > 8) {
+                                    time = 8;
+                                }
+                                if (time > 0) {
+                                    this.form.relengthtime = parseFloat(time).toFixed(1);
+                                } else {
+                                    this.form.relengthtime = '0';
+                                }
+                            }
+                        } else {
+                            this.form.relengthtime = '';
                         }
-                    } else {
-                        this.form.relengthtime = '';
                     }
                 }
             },
@@ -1153,9 +1265,19 @@
                 } else if (val === 'PR013005') {
                     this.typecheck = 0;
                 } else if (val === 'PR013006') {
-                    this.typecheck = 0;
+                    this.options1 = [{
+                        value: '0',
+                        label: '全天'
+                    }];
                 } else if (val === 'PR013007') {
-                    this.showWeekend = true;
+                    this.options1 = [{
+                        value: '1',
+                        label: '上午'
+                    }, {
+                        value: '2',
+                        label: '下午'
+                    }];
+                    this.showWeekend = false;
                 } else if (val === 'PR013009') {
                     this.showVacation = true;
                 } else if (val === 'PR013010') {
@@ -1269,13 +1391,23 @@
                         let letoccurrencedate = moment(this.form.occurrencedate).format('YYYY-MM-DD');
                         let letfinisheddate = moment(this.form.finisheddate).format('YYYY-MM-DD');
                         this.form.periodstart = letoccurrencedate.replace(letnewdate, letoccurrencedate);
-                        this.form.periodend = letfinisheddate.replace(letnewdate, letfinisheddate);
-                        debugger
-                        if(this.timeSum!=''){
-                            this.lengthtime =this.timeSum;
-                            console("aaa",this.lengthtime)
+                        if (this.typecheck == '0') {
+                            if (this.relist.length != '0') {
+                                let time = 0;
+                                for (let d = 0; d < this.relist.length; d++) {
+                                    time = time + 1;
+                                }
+                                this.form.lengthtime = time;
+                            }
+                            if (this.relistTwo.length != '0') {
+                                let timere = 0;
+                                for (let d = 0; d < this.relistTwo.length; d++) {
+                                    timere = timere + 1;
+                                }
+                                this.form.relengthtime = timere;
+                            }
                         }
-                        debugger
+                        this.form.periodend = letfinisheddate.replace(letnewdate, letfinisheddate);
                         this.form.relation = letrelation.substring(1, letrelation.length);
                         if (this.$route.params._id) {
                             this.form.abnormalid = this.$route.params._id;
