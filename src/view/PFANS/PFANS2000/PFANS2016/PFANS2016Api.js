@@ -23,7 +23,13 @@ export function updatePfans2016(data) {
     data: data
   })
 }
-
+export function updateNewUser(data) {
+  return request({
+    url: 'abNormal/update',
+    method: 'post',
+    data: data
+  })
+}
 export function getFpans2016List() {
   return request({
     url: 'abNormal/list',
