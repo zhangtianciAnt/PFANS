@@ -2169,7 +2169,7 @@ module.exports = {
     PFANS2016FORMVIEW_WCCHECKTYPE: '外出时间不正确请重新填写',
     PFANS2016FORMVIEW_YJCHECKEROR: '预计年假休息时间与实际年假休息时间不符',
     PFANS2016FORMVIEW_SJCHECKEROR: '实际年假休息时间与实际年假休息时间不符',
-    PFANS2016FORMVIEW_RELENGTHTIMETO: '实际时间长度',
+    PFANS2016FORMVIEW_RELENGTHTIMETO: '实际时间长度总计（h）',
     PFANS2017VIEW_START: '首次打卡',
     PFANS2017VIEW_END: '末次打卡',
     PFANS2017VIEW_CUHS: '导入错误行数',
