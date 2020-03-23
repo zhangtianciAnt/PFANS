@@ -616,7 +616,7 @@
                                          width="150">
                           <template slot-scope="scope">
                             <el-input-number
-                              :disabled="!disable"
+                              :disabled="!disablecheck"
                               :max="1000000000"
                               :min="0"
                               :precision="2"
@@ -818,7 +818,7 @@
                                          width="150">
                           <template slot-scope="scope">
                             <el-input-number
-                              :disabled="!disable"
+                              :disabled="!disablecheck"
                               :max="1000000000"
                               :min="0"
                               :precision="2"
@@ -1019,7 +1019,7 @@
                                          width="150">
                           <template slot-scope="scope">
                             <el-input-number
-                              :disabled="!disable"
+                              :disabled="!disablecheck"
                               :max="1000000000"
                               :min="0"
                               :precision="2"
@@ -1268,6 +1268,7 @@
                 }
             };
             return {
+                disablecheck: false,
                 optionsdate: [],
                 tormbT: '',
                 Redirict: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).redirict,
@@ -1548,6 +1549,7 @@
             }
             this.IDname = this.$route.params._id
             if (this.IDname) {
+                this.disablecheck = true;
                 this.loading = true;
                 this.$store
                     .dispatch('PFANS1012Store/selectById', {'publicexpenseid': this.$route.params._id})
@@ -2206,7 +2208,7 @@
                     .dispatch('PFANS5008Store/getCompanyProjectList', {})
                     .then(response => {
                         const data = [];
-                        
+
                         for (let i = 0; i < response.length; i++) {
                             if (response[i].status == '4' || response[i].status == '6' || response[i].status == '7') {
                                 data.push({
@@ -2352,6 +2354,15 @@
                     row.facetax = '';
                 } else {
                     row.facetax = row.invoiceamount - row.excludingtax;
+                }
+                for (let j = 0; j < this.tableF.length; j++) {
+                 if(this.tableF[j].invoiceamount!=0.0){
+                     this.disablecheck =true;
+                     break
+                 }else{
+                     this.disablecheck =false;
+                     continue
+                 }
                 }
             },
             getUserids(val) {
