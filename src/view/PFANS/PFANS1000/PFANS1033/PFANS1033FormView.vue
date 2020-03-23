@@ -533,6 +533,14 @@
                 callback();
             }
         };
+          var checkApplicationdate =(rule, value, callback) => {
+              if (!this.form1.applicationdate || this.form1.applicationdate === '' || !this.form1.entrycondition || this.form1.entrycondition === '') {
+                  callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1024VIEW_CAREERYEAR')));
+                  this.errorapplicationdate = this.$t('normal.error_09') + this.$t('label.PFANS1024VIEW_CAREERYEAR');
+              } else {
+                  callback();
+              }
+          };
         return{
           titleType:'',
           titleType1:this.$t('label.PFANS1033VIEW_VERIFICATION'),
@@ -562,6 +570,9 @@
           grouporglist1: '',
           groupinfo:[],
           errorgroup: '',
+            errorclaimtype: '',
+            errorcontracttype: '',
+            errorapplicationdate: '',
           errorcusto: "",
           erroruser: "",
           errorcontractnumber: "",
@@ -652,7 +663,7 @@
 //            },
           ],
             form1: {
-                claimtype: 'HT001001',
+                claimtype: '',
                 contractnumber: '',
                 contracttype: '',
                 applicationdate: '',
@@ -663,7 +674,7 @@
             },
           form: {
               contractnumber: '',
-              claimtype: 'HT001001',
+              claimtype: '',
               contracttype: '',
               applicationdate: '',
               entrycondition: '',
@@ -1098,16 +1109,16 @@
               row.entrustednumber = val;
           },
           getcontracttype(val){
-          this.form.contracttype=val;
+          this.form1.contracttype=val;
         },
           getEntrycondition(val,row){
               row.entrycondition = val;
           },
           getcareeryear1(val){
-              this.form.applicationdate = val;
+              this.form1.applicationdate = val;
           },
           getcareeryear2(val){
-              this.form.entrycondition = val;
+              this.form1.entrycondition = val;
           },
           getCurrencyposition(val, row){
               row.currencyposition = val;

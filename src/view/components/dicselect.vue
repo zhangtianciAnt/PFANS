@@ -1,5 +1,7 @@
 <template>
-  <el-select :disabled="disabled" :loading="loading" :multiple="multiple" @change="change" filterable v-model="value" :size="size">
+  <el-select :disabled="disabled" :loading="loading" :multiple="multiple"
+             ref="sel"
+             @change="change" filterable v-model="value" :size="size">
     <el-option
       :key="item.code"
       :label="item.value1"
@@ -10,9 +12,8 @@
 </template>
 
 <script>
-  import {Message} from 'element-ui'
 
-  export default {
+    export default {
     name: 'dicselect',
     data() {
       return {
@@ -90,22 +91,12 @@
       data(val) {
         if (val) {
           this.value = this.data;
+        } else {
+            this.value = '';
         }
       },
       code(val) {
         if (val) {
-          // this.$store
-          //   .dispatch('dictionaryStore/getForSelect', {'code': val})
-          //   .then(response => {
-          //     this.options = response
-          //   })
-          //   .catch(error => {
-          //     Message({
-          //       message: error,
-          //       type: 'error',
-          //       duration: 5 * 1000
-          //     })
-          //   })
           this.options=[];
           let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === val);
           for(let item of dic){

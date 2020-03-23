@@ -923,6 +923,14 @@
           callback();
         }
       };
+        var checkApplicationdate =(rule, value, callback) => {
+            if (!this.form1.applicationdate || this.form1.applicationdate === '' || !this.form1.entrycondition || this.form1.entrycondition === '') {
+                callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1024VIEW_CAREERYEAR')));
+                this.errorapplicationdate = this.$t('normal.error_09') + this.$t('label.PFANS1024VIEW_CAREERYEAR');
+            } else {
+                callback();
+            }
+        };
       return {
         makeintoBaseInfo: {},
         titleType: '',
@@ -972,6 +980,9 @@
         grouporglist: '',
         groupinfo: ['', '', '', ''],
         errorgroup: '',
+          errorclaimtype: '',
+          errorcontracttype: '',
+          errorapplicationdate: '',
         maketype: '',
         letcontractnumber: '',
         contractnumbercount: '',
@@ -1569,13 +1580,13 @@
         }
       },
       getcontracttype(val) {
-        this.form.contracttype = val;
+        this.form1.contracttype = val;
       },
       getcareeryear1(val) {
-        this.form.applicationdate = val;
+        this.form1.applicationdate = val;
       },
       getcareeryear2(val) {
-        this.form.entrycondition = val;
+        this.form1.entrycondition = val;
       },
       getVarto(val, row) {
         row.varto = val;
