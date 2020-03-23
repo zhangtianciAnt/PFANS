@@ -115,18 +115,24 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.budgetunit')" prop="budgetunit">
-                      <dicselect
-                        :code="code1"
-                        :data="form.budgetunit"
-                        :disabled="!disable"
-                        :multiple="multiple"
-                        @change="getbudgetunit"
-                        style="width:20vw"
-                      >
-                      </dicselect>
+                    <el-form-item :label="$t('label.PFANS1012VIEW_PERSONALCODE')">
+                      <el-input :disabled="true" style="width: 20vw" v-model="form.personalcode">
+                      </el-input>
                     </el-form-item>
                   </el-col>
+<!--                  <el-col :span="8">-->
+<!--                    <el-form-item :label="$t('label.budgetunit')" prop="budgetunit">-->
+<!--                      <dicselect-->
+<!--                        :code="code1"-->
+<!--                        :data="form.budgetunit"-->
+<!--                        :disabled="!disable"-->
+<!--                        :multiple="multiple"-->
+<!--                        @change="getbudgetunit"-->
+<!--                        style="width:20vw"-->
+<!--                      >-->
+<!--                      </dicselect>-->
+<!--                    </el-form-item>-->
+<!--                  </el-col>-->
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1013FORMVIEW_LOAN')">
                       <el-select :disabled="!disable" @change="change2" style="width:20vw" v-model="form.loan">
@@ -218,12 +224,6 @@
                     <el-form-item :label="$t('label.PFANS1012VIEW_REIMBURSEMENTDATE')">
                       <el-date-picker :disabled="!disable" style="width:20vw" v-model="form.reimbursementdate">
                       </el-date-picker>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012VIEW_PERSONALCODE')">
-                      <el-input :disabled="true" style="width: 20vw" v-model="form.personalcode">
-                      </el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -1099,7 +1099,7 @@
           startdate: '',
           enddate: '',
           datenumber: '',
-          budgetunit: '',
+          // budgetunit: '',
           loan: '',
           loanamount: '',
           currency: '',
@@ -1246,11 +1246,11 @@
             message: this.$t('normal.error_09') + this.$t('label.PFANS1013VIEW_RELATION'),
             trigger: 'change',
           }],
-          budgetunit: [{
-            required: true,
-            message: this.$t('normal.error_09') + this.$t('label.budgetunit'),
-            trigger: 'change',
-          }],
+          // budgetunit: [{
+          //   required: true,
+          //   message: this.$t('normal.error_09') + this.$t('label.budgetunit'),
+          //   trigger: 'change',
+          // }],
         },
         code1: 'PG002',
         code3: 'PG019',
@@ -1649,9 +1649,9 @@
           row.facetax = row.invoiceamount - row.excludingtax;
         }
       },
-      getbudgetunit(val) {
-        this.form.budgetunit = val;
-      },
+      // getbudgetunit(val) {
+      //   this.form.budgetunit = val;
+      // },
       deleteRow(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
