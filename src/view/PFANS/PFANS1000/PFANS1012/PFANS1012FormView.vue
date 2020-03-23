@@ -39,14 +39,9 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.budgetunit')" prop="budgetunit">
-                      <dicselect :code="code1"
-                                 :data="form.budgetunit"
-                                 :disabled="!disable"
-                                 :multiple="multiple"
-                                 style="width:20vw"
-                                 @change="getBudge">
-                      </dicselect>
+                    <el-form-item :label="$t('label.PFANS1012VIEW_REIMBURSEMENTDATE')" prop="application_date">
+                      <el-date-picker :disabled="!disable" style="width:20vw" v-model="form.reimbursementdate">
+                      </el-date-picker>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -66,12 +61,6 @@
                     <el-form-item :label="$t('label.PFANS1012VIEW_ACCOUNTNUMBER')" prop="account_number">
                       <el-input :disabled="!disable" maxlength="20" style="width:20vw"
                                 v-model="form.accountnumber"></el-input>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012VIEW_REIMBURSEMENTDATE')" prop="application_date">
-                      <el-date-picker :disabled="!disable" style="width:20vw" v-model="form.reimbursementdate">
-                      </el-date-picker>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -1398,7 +1387,6 @@
                     teamid: '',
                     user_id: '',
                     telephone: '',
-                    budgetunit: '',
                     moduleid: '',
                     accountnumber: '',
                     reimbursementdate: moment(new Date()).format('YYYY-MM-DD'),
@@ -1438,11 +1426,6 @@
                     }],
                     telephone: [{
                         validator: checktele,
-                        trigger: 'change',
-                    }],
-                    budgetunit: [{
-                        required: true,
-                        message: this.$t('normal.error_09') + this.$t('label.budgetunit'),
                         trigger: 'change',
                     }],
                     paymentmethod: [{
@@ -1502,7 +1485,6 @@
                     }],
                 },
                 IDname: '',
-                code1: 'PG002',
                 code2: 'PJ002',
                 code3: 'PJ004',
                 code4: 'PG019',
@@ -2465,9 +2447,6 @@
                     this.form.receivables = '';
                     this.form.loan = '';
                 }
-            },
-            getBudge(val) {
-                this.form.budgetunit = val;
             },
             getmodule(val) {
                 this.form.moduleid = val;
