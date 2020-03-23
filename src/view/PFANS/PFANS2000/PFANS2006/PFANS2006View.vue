@@ -1,21 +1,22 @@
 <template>
   <div>
-    <el-date-picker unlink-panels
-                    class="bigWidth"
-                    v-model="workinghours"
-                    type="daterange"
-                    :end-placeholder="$t('label.enddate')"
-                    :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
-                    :start-placeholder="$t('label.startdate')"
-                    @change="clickdata"
-    ></el-date-picker>
+
 
     <EasyNormalTable :buttonList="buttonList" @buttonClick="buttonClick" :columns="columns1" :data="data" :title="title" v-loading="loading"
                      v-show="showTable1" ref="roletable" :showSelection="isShow">
-      <el-select @change="changed" slot="customize" v-model="region">
-        <el-option :label="$t('label.PFANS2006VIEW_WAGES')" value="1"></el-option>
-        <el-option :label="$t('label.PFANS2006VIEW_BONUS')" value="2"></el-option>
-      </el-select>
+        <el-select @change="changed"  v-model="region" slot="customize">
+          <el-option :label="$t('label.PFANS2006VIEW_WAGES')" value="1"></el-option>
+          <el-option :label="$t('label.PFANS2006VIEW_BONUS')" value="2"></el-option>
+        </el-select>
+        <el-date-picker unlink-panels slot="customize"
+                        class="bigWidth"
+                        v-model="workinghours"
+                        type="daterange"
+                        :end-placeholder="$t('label.enddate')"
+                        :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
+                        :start-placeholder="$t('label.startdate')"
+                        @change="clickdata"
+        ></el-date-picker>
     </EasyNormalTable>
 
     <EasyNormalTable :buttonList="buttonList" @buttonClick="buttonClick" :columns="columns2" :data="datatada" :title="title" v-loading="loading"
@@ -24,6 +25,15 @@
         <el-option :label="$t('label.PFANS2006VIEW_WAGES')" value="1"></el-option>
         <el-option :label="$t('label.PFANS2006VIEW_BONUS')" value="2"></el-option>
       </el-select>
+      <el-date-picker unlink-panels slot="customize"
+                      class="bigWidth"
+                      v-model="workinghours"
+                      type="daterange"
+                      :end-placeholder="$t('label.enddate')"
+                      :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
+                      :start-placeholder="$t('label.startdate')"
+                      @change="clickdata"
+      ></el-date-picker>
     </EasyNormalTable>
 
   </div>
