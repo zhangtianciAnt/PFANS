@@ -211,7 +211,7 @@
                         if (this.changeType(value) === data.type && moment(this.form.reserveovertimedate).format("YYYY-MM-DD") === moment(data.workingdate).format("YYYY-MM-DD")) {
                             bool = true;
                         }
-                    })
+                    });
                     if (bool) {
                         callback();
                     } else {
@@ -374,6 +374,15 @@
                             trigger: "change"
                         }
                     ],
+                    cause: [
+                        {
+                            required: true,
+                            message:
+                                this.$t("normal.error_08") +
+                                this.$t("label.cause"),
+                            trigger: "change"
+                        }
+                    ],
                     actualovertime: [
                         {
                             required: false,
@@ -492,7 +501,7 @@
                 let sum = val * 60;
                 let hours = Math.floor(sum / 60);
                 let minute = sum % 60;
-                let sumTime = hours * 100 + minute
+                let sumTime = hours * 100 + minute;
                 let starttime = this.closingtimeend.replace(":", "");
                 let endtime = moment(this.timeend).format("HHmm");
                 if (Number(starttime) + sumTime > endtime) {

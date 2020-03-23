@@ -58,7 +58,24 @@
               </el-form-item>
             </el-col>
           </el-row>
+              <el-row>
+                <!--            人员规模-->
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS6002VIEW_PERSCALE')" prop="perscale">
+                    <dicselect
+                      :code="code1"
+                      :data="form.perscale"
+                      :disabled="!disabled"
+                      :multiple="multiple"
+                      @change="changeperscale"
+                      style="width:20vw">
+                    </dicselect>
+                  </el-form-item>
+                </el-col>
+              </el-row>
             </el-collapse-item>
+
+
           </el-collapse>
           <!--            第三行-->
           <el-collapse>
@@ -172,19 +189,7 @@
           </el-row>
           <!--          第九行-->
           <el-row>
-            <!--            人员规模-->
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS6002VIEW_PERSCALE')" prop="perscale">
-                <dicselect
-                  :code="code1"
-                  :data="form.perscale"
-                  :disabled="!disabled"
-                  :multiple="multiple"
-                  @change="changeperscale"
-                  style="width:20vw">
-                </dicselect>
-              </el-form-item>
-            </el-col>
+
             <!--            网址-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6002FORMVIEW_WEBSITE')">
