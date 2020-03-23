@@ -442,7 +442,6 @@
           this.form.centerid = rst.centerId;
           this.form.groupid = rst.groupId;
         }
-        debugger
         let error = 0;
         let error1 = 0;
         let error2 = 0;
