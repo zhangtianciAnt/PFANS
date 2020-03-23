@@ -1432,7 +1432,6 @@
       },
       getnumber(val) {
         this.form1.claimtype = val;
-        console.log(this.form1.claimtype);
       },
       getChecked(val) {
         this.checked = val;

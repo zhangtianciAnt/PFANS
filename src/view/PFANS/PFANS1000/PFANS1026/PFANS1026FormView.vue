@@ -1526,7 +1526,7 @@
         }
       },
       getnumber(val) {
-        this.form.claimtype = val;
+        this.form1.claimtype = val;
       },
       //本来契約
       getChecked(val) {
