@@ -29,7 +29,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.judgement')" v-show="showdata ">
+              <el-form-item :label="$t('label.judgement')" v-show="showdata">
                 <el-select @change="change" @remove-tag="getAward" multiple clearable v-model="form.judgement"
                            style="width: 20vw">
                   <el-option
@@ -98,8 +98,10 @@
                         this.getValue(this.form.type);
                         if (this.form.type === 'PJ001001') {
                             this.show = false;
+                            this.showdata = false;
                         } else if (this.form.type === 'PJ001002') {
                             this.show = true;
+                            this.showdata = true;
                         }
                         this.loading = false
                     })
@@ -192,9 +194,11 @@
                 }
             },
             getValue(val) {
+                this.options=[];
                 this.form.type = val;
                 if (val === 'PJ001001') {
                     this.show = false;
+                    this.showdata = false;
                     this.buttonList[0].disabled = false;
                 } else if (val === 'PJ001002') {
                     this.buttonList[0].disabled = true;

@@ -1109,7 +1109,7 @@
           jpyfxrate: '',
           dollarfxrate: '',
           otherfxrate: '',
-          usexchangerate: getDictionaryInfo('PJ003001').value2,
+          usexchangerate: getDictionaryInfo('PG019001').value2,
           reimbursementdate: moment(new Date()).format('YYYY-MM-DD'),
           personalcode: getUserInfo(this.$store.getters.userinfo.userid).userinfo.personalcode,
         },
@@ -1253,7 +1253,7 @@
           }],
         },
         code1: 'PG002',
-        code3: 'PJ003',
+        code3: 'PG019',
         code4: 'PJ024',
         code9: 'PJ017',
         code10: 'PJ035',
@@ -1522,13 +1522,15 @@
         let group = getOrgInfo(orglist);
         if (group) {
           this.Redirict = group.redirict;
+          row.budgetcoding = group.encoding;
           if (group.redirict === '0') {
             this.code20 = 'PJ119';
           } else if (group.redirict === '1') {
             this.code20 = 'PJ132';
           }
-          this.companyen = group.companyen;
-          row.budgetcoding = group.encoding;
+        }
+        if(!orglist){
+          row.budgetcoding = '';
         }
       },
       gettype(val) {
@@ -1900,11 +1902,11 @@
               this.tableA[0].region = cityinfo.code;
               this.tableA[1].region = cityinfo.code;
               if (cityinfo.code === 'PJ017001' || cityinfo.code === 'PJ017002') {
-                this.tableA[0].accommodationallowance = 'PJ003002';
-                // this.tableA[1].accommodationallowance = 'PJ003002';
+                this.tableA[0].accommodationallowance = 'PG019002';
+                // this.tableA[1].accommodationallowance = 'PG019002';
               } else if (cityinfo.code === 'PJ017003' || cityinfo.code === 'PJ017004') {
-                this.tableA[0].accommodationallowance = 'PJ003001';
-                // this.tableA[1].accommodationallowance = 'PJ003001';
+                this.tableA[0].accommodationallowance = 'PG019001';
+                // this.tableA[1].accommodationallowance = 'PG019001';
               }
             }
             this.rank = this.relations[i].level;
@@ -2326,7 +2328,7 @@
                       accountcode: this.tableT[i].accountcode,
                       subjectnumber: this.tableT[i].subjectnumber,
                       departmentname: this.tableT[i].departmentname,
-                      budgetcoding: this.tableT[i].departmentname,
+                      budgetcoding: this.tableT[i].budgetcoding,
                       taxes: this.tableT[i].taxes,
                       costitem: this.tableT[i].costitem,
                       taxrate: this.tableT[i].taxrate,
@@ -2493,6 +2495,7 @@
                 }
               }
               if (error == '0') {
+                this.loading = true;
                 if (this.$route.params._id) {
                   this.baseInfo.evection.evectionid = this.$route.params._id;
                   this.$store
@@ -2520,6 +2523,7 @@
                       this.loading = false;
                     });
                 } else {
+                  this.loading = true;
                   this.form.user_id = this.userlist;
                   this.$store
                     .dispatch('PFANS1013Store/create', this.baseInfo)
