@@ -229,19 +229,6 @@
             }
 
         };
-        var validateTel = (rule, value, callback) => {
-            this.regExp =/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{0,20}$/
-            if (this.form.extension !== null && this.form.extension !== '') {
-                if (!this.regExp.test(value)) {
-                    callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS3001VIEW_EXTENSIONNUMBER')));
-                } else {
-                    callback();
-                }
-            } else {
-                callback();
-            }
-
-        };
         var checkentrymanager = (rule, value, callback) => {
             if(!value || value === ''){
                 this.errorentrymanager = this.$t('normal.error_09') + this.$t('label.PFANS1021FORMVIEW_ENTRYMANAGER');
@@ -334,7 +321,8 @@
             ],
             extension: [
                 {
-                    validator: validateTel,
+                    required: true,
+                    message: this.$t('normal.error_08') + this.$t('label.PFANS3001VIEW_EXTENSIONNUMBER'),
                     trigger: 'change'
                 },
             ],

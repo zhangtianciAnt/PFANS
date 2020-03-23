@@ -9,9 +9,9 @@ export function getexpatriatesinfor(data) {
   })
 }
 
-export function getexpatriates(data) {
+export function getWithoutAuth(data) {
   return request({
-    url: 'expatriatesinfor/getexpatriates',
+    url: 'expatriatesinfor/getWithoutAuth',
     method: 'get',
     params: data
   })
@@ -93,6 +93,14 @@ export function getCompanyProject(data) {
     url: 'companyprojects/getCompanyProject',
     method: 'get',
     params: data,
+  })
+}
+
+export function crAccount(data) {
+  return request({
+    url: 'expatriatesinfor/crAccount',
+    method: 'post',
+    data: data,
   })
 }
 

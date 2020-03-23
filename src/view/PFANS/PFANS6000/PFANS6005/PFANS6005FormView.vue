@@ -4,10 +4,12 @@
                          :noback="noback"
                          ref="container" v-loading="loading">
       <div slot="customize">
-        <el-form :model="form" label-position="top" label-width="8vw" ref="reff" >
+        <el-form :model="form" label-position="top" label-width="8vw" ref="reff">
           <el-form-item>
-            <el-table :data="tableData" border stripe :header-cell-style="getRowClass" style="width: 100%;padding-top: 10px" height="400"
-                      tooltip-effect="dark" @selection-change="handleSelectionChange" header-cell-class-name="sub_bg_color_blue"
+            <el-table :data="tableData" border stripe :header-cell-style="getRowClass"
+                      style="width: 100%;padding-top: 10px" height="400"
+                      tooltip-effect="dark" @selection-change="handleSelectionChange"
+                      header-cell-class-name="sub_bg_color_blue"
             >
               <!--checkbox-->
               <el-table-column
@@ -30,7 +32,7 @@
                   <el-input
                     :no="scope.row"
                     :disabled="!disabled"
-                    v-model="scope.row.user_id"
+                    v-model="scope.row.expname"
                     style="width: 100%">
                   </el-input>
                 </template>
@@ -518,10 +520,9 @@
     import dicselect from '../../../components/dicselect.vue';
     import {Message} from 'element-ui';
     import user from '../../../components/user.vue';
-    import {getOrgInfoByUserId} from '@/utils/customize';
+    import {getDictionaryInfo} from '@/utils/customize';
     import {validateEmail} from '@/utils/validate';
     import moment from 'moment';
-    import {getDictionaryInfo, getStatus, getUserInfo, getCooperinterviewList} from '@/utils/customize';
 
     export default {
         name: "PFANS6005FormView",
@@ -541,40 +542,40 @@
                 row: '',
                 arr: [],//二维数组初始化变量服务于更改和计算
                 tableData: [
-                //   {
-                //     pricesetid: '',
-                //     user_id: '',
-                //     graduation: '',
-                //     company: '',
-                //     assesstime: '',
-                //     technical: '',
-                //     technology: '',
-                //     management: '',
-                //     value: '',
-                //     fieldskills: '',
-                //     field: '',
-                //     language: '',
-                //     languagevalue: '',
-                //     workskills: '',
-                //     service: '',
-                //     evaluation: '',
-                //     rvicevalue: '',
-                //     psdcdscale: '',
-                //     scalevalue: '',
-                //     contribution: '',
-                //     coefficient: '',
-                //     staffpsdcdrank: '',
-                //     rankvalue: '',
-                //     butionevaluation: '',
-                //     butioncoefficient: '',
-                //     unitprice: '',
-                //     totalunit: '',
-                //     common: '',
-                //     psdcdrank: '',
-                //     remarks: '',
-                //     yearunit: '',
-                //     year: '',
-                // }
+                    //   {
+                    //     pricesetid: '',
+                    //     user_id: '',
+                    //     graduation: '',
+                    //     company: '',
+                    //     assesstime: '',
+                    //     technical: '',
+                    //     technology: '',
+                    //     management: '',
+                    //     value: '',
+                    //     fieldskills: '',
+                    //     field: '',
+                    //     language: '',
+                    //     languagevalue: '',
+                    //     workskills: '',
+                    //     service: '',
+                    //     evaluation: '',
+                    //     rvicevalue: '',
+                    //     psdcdscale: '',
+                    //     scalevalue: '',
+                    //     contribution: '',
+                    //     coefficient: '',
+                    //     staffpsdcdrank: '',
+                    //     rankvalue: '',
+                    //     butionevaluation: '',
+                    //     butioncoefficient: '',
+                    //     unitprice: '',
+                    //     totalunit: '',
+                    //     common: '',
+                    //     psdcdrank: '',
+                    //     remarks: '',
+                    //     yearunit: '',
+                    //     year: '',
+                    // }
                 ],
                 form: {
                     //   pricesetid: '',
@@ -653,6 +654,42 @@
 
         methods: {
             handleSelectionChange(val) {
+                // const data = [];
+                // for (let i = 0; i < val.length; i++) {
+                //     data.push({
+                //         user_id:val[i].expname,
+                //         graduation:val[i].graduation,
+                //         company:val[i].company,
+                //         assesstime:val[i].assesstime,
+                //         technical:val[i].technical,
+                //         technology:val[i].technology,
+                //         priceset_id:val[i].priceset_id,
+                //         management:val[i].management,
+                //         value:val[i].value,
+                //         fieldskills:val[i].fieldskills,
+                //         field:val[i].field,
+                //         language:val[i].language,
+                //         languagevalue:val[i].languagevalue,
+                //         workskills:val[i].workskills,
+                //         service:val[i].service,
+                //         evaluation:val[i].evaluation,
+                //         rvicevalue:val[i].rvicevalue,
+                //         psdcdscale:val[i].psdcdscale,
+                //         scalevalue:val[i].scalevalue,
+                //         contribution:val[i].contribution,
+                //         coefficient:val[i].coefficient,
+                //         staffpsdcdrank:val[i].staffpsdcdrank,
+                //         rankvalue:val[i].rankvalue,
+                //         butionevaluation:val[i].butionevaluation,
+                //         butioncoefficient:val[i].butioncoefficient,
+                //         unitprice:val[i].unitprice,
+                //         totalunit:val[i].totalunit,
+                //         common:val[i].common,
+                //         psdcdrank:val[i].psdcdrank,PFANSUSERFORMVIEW_EXTENSION
+                //         remarks:val[i].remarks,
+                //         yearunit:val[i].yearunit,
+                //     });
+                // }
                 this.multipleSelection = val;
             },
             countTotalunit(index) {
@@ -691,16 +728,16 @@
                         'border-right': '1px solid #73CC73',
                     };
                 }
-              if (column.level === 1 && columnIndex >= 0 && columnIndex < 26) {
+                if (column.level === 1 && columnIndex >= 0 && columnIndex < 26) {
                     return {
                         color: 'white',
                         background: '#005BAA !important',
                     };
-                }else{
-                  return {
-                    color: 'black',
-                    background: 'white !important',
-                  };
+                } else {
+                    return {
+                        color: 'black',
+                        background: 'white !important',
+                    };
                 }
             },
             getpriceset() {
@@ -709,14 +746,7 @@
                     .dispatch('PFANS6005Store/getpriceset', {})
                     .then(response => {
                         for (let j = 0; j < response.length; j++) {
-                            console.log("aaaa" + response[j].user_id)
                             response[j].assesstime = moment(new Date()).format("YYYY-MM-DD HH:mm:ss");
-                            if (response[j].user_id !== null && response[j].user_id !== "") {
-                                let cooperInfo = getCooperinterviewList(response[j].user_id);
-                                if (cooperInfo) {
-                                    response[j].user_id = cooperInfo.expname;
-                                }
-                            }
                             this.arr[j] = [];
                             this.arr[j][0] = parseInt(response[j].technology == null ? 0 : response[j].technology)
                             this.arr[j][1] = parseInt(response[j].value == null ? 0 : response[j].value)
@@ -731,44 +761,42 @@
                             this.arr[j][10] = parseInt(response[j].unitprice == null ? 0 : response[j].unitprice)
                         }
                         this.tableData = response;
+                        console.log("aaa", this.tableData)
                         this.loading = false;
                     })
-                    .catch(error => {
-                        Message({
-                            message: error,
-                            type: 'error',
-                            duration: 5 * 1000
-                        });
-                        this.loading = false;
-                    })
-            },
-            updatepriceset() {
-                this.loading = true;
-                this.$store
-                    .dispatch('PFANS6005Store/updatepriceset', this.multipleSelection)
-                    .then(response => {
-                        Message({
-                            message: this.$t("normal.success_02"),
-                            type: "success",
-                            duration: 5 * 1000
-                        });
-                        this.data = response;
-                        this.loading = false;
-                        this.getpriceset();
-                    })
-                    .catch(error => {
-                        Message({
-                            message: error,
-                            type: 'error',
-                            duration: 5 * 1000,
-                        });
-                        this.loading = false;
+                  .catch(error => {
+                    Message({
+                      message: error,
+                      type: 'error',
+                      duration: 5 * 1000
                     });
+                    this.loading = false;
+                  })
             },
-            buttonClick(val) {
-                if (val === 'save') {
-                    this.updatepriceset();
-                    this.getpriceset();
+          buttonClick(val) {
+            if (val === 'save') {
+              this.loading = true;
+              this.$store
+                .dispatch('PFANS6005Store/updatepriceset', this.multipleSelection)
+                .then(response => {
+                  Message({
+                    message: this.$t("normal.success_02"),
+                    type: "success",
+                    duration: 5 * 1000
+                  });
+                  this.data = response;
+                  this.loading = false;
+                  this.getpriceset();
+                })
+                .catch(error => {
+                  Message({
+                    message: error,
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  this.loading = false;
+                });
+              this.getpriceset();
                 }
             },
             changetechnical(val, index) {

@@ -4,6 +4,7 @@
       :buttonList="buttonList"
       :title="title"
       @buttonClick="buttonClick"
+      :canStart="canStart"
       @end="end"
       @start="start"
       @workflowState="workflowState"
@@ -281,6 +282,7 @@
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS5001FORMVIEW_TOOLSTYPE')" prop="toolstype">
                     <el-switch
+                      :disabled="!disable"
                       active-color="#13ce66"
                       inactive-color="#13ce66"
                       active-value="1"
@@ -986,10 +988,8 @@
                             prop="tools"
                           >
                             <el-checkbox-group v-model="checkList" :disabled="!disable">
-                              <el-checkbox label="SVN"></el-checkbox>
-                              <el-checkbox label="redmine"></el-checkbox>
-                              <el-checkbox label="gitlab"></el-checkbox>
-                              <el-checkbox label="其他"></el-checkbox>
+                                <el-checkbox v-for="(item,index) in checkboxs" :key="index" :label="item.value1"></el-checkbox>
+
                             </el-checkbox-group>
                           </el-form-item>
                         </template>
@@ -1131,9 +1131,10 @@
                 gridData1: [],
                 gridData2: [],
                 gridData3: [],
-                disable: false,
+                disable: true,
                 customerinfor: [],
                 checkList: [],
+                checkboxs: [],
                 expatriates: [],
                 disabled: true,
                 error: '',
@@ -1413,7 +1414,7 @@
                     {
                       required: true,
                       validator: centerId,
-                      trigger: "blur"
+                      trigger: "change"
                     }
                   ],
                 },
@@ -1422,17 +1423,17 @@
                   centername: "",
                   groupname: "",
                   teamname: "",
-                    center_id: '',
-                    group_id: '',
-                    team_id: '',
-                    project_name: '',
-                    project_namejp: '',
-                    leaderid: '',
-                    managerid: '',
-                    projecttype: '',
-                    field: '',
-                    languages: '',
-                    startdate: '',
+                  center_id: '',
+                  group_id: '',
+                  team_id: '',
+                  project_name: '',
+                  project_namejp: '',
+                  leaderid: '',
+                  managerid: '',
+                  projecttype: '',
+                  field: '',
+                  languages: '',
+                  startdate: '',
                     // 事业国别
                     country: '',
                     //车载
@@ -1473,10 +1474,10 @@
                 code: 'PP012',
                 code1: 'PP013',
                 code2: 'PP001',
-                code3: 'PP002',
+                code3: 'PJ063',
                 code4: 'PP014',
                 code5: 'PP015',
-                code6: 'PP017',
+                code6: 'PJ141',
                 code7: 'PP016',
                 code8: 'PP018',
                 showrow: true,
@@ -1490,6 +1491,7 @@
                 result1: '',
                 fileList: [],
                 upload: uploadUrl(),
+                canStart: false,
             };
         },
         mounted() {
@@ -1504,14 +1506,17 @@
             } = this.$route.params._org);
         }
           let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PP018');
+
           for(let i = 0; i < dic.length; i++){
-            this.checkList = dic[i].code;
+            this.checkboxs.push(dic[i]);
           }
+
             this.getexpatriatesinfor();
             this.getcustomerinfor();
             this.getcontract();
             if (this.$route.params._id) {
                 this.Numbers = 0;
+                this.disable = this.$route.params.disabled;
                 this.loading = true;
                 this.$store
                     .dispatch('PFANS5001Store/selectById', {companyprojectsid: this.$route.params._id})
@@ -1557,10 +1562,39 @@
 
                         //项目体制
                         if (response.projectsystem.length > 0) {
-                            let tablec = [];
-                            let tableb = [];
+                            let tablec = [
+                                {
+                                    projectsystem_id: '',
+                                    companyprojects_id: '',
+                                    type: '0',
+                                    number: '',
+                                    company: '',
+                                    name: '',
+                                    position: '',
+                                    admissiontime: '',
+                                    exittime: '',
+                                    rowindex: '',
+                                },
+                            ];
+                            let tableb = [
+                                {
+                                    projectsystem_id: '',
+                                    companyprojects_id: '',
+                                    type: '1',
+                                    number: '',
+                                    company: '',
+                                    name: '',
+                                    position: '',
+                                    admissiontime: '',
+                                    exittime: '',
+                                    rowindex: '',
+                                },
+                            ];
+                            let flag1 = false;
+                            let flag2 = false;
                             for (var i = 0; i < response.projectsystem.length; i++) {
                                 if (response.projectsystem[i].type === '0') {
+                                    flag1 = true;
                                     tableb.push({
                                         name: response.projectsystem[i].projectsystem_id,
                                         companyprojects_id: response.projectsystem[i].companyprojects_id,
@@ -1574,6 +1608,7 @@
                                         rowindex: response.projectsystem[i].rowindex,
                                     });
                                 } else if (response.projectsystem[i].type === '1') {
+                                    flag2 = true;
                                     tablec.push({
                                         name: response.projectsystem[i].projectsystem_id,
                                         companyprojects_id: response.projectsystem[i].companyprojects_id,
@@ -1588,9 +1623,45 @@
                                     });
                                 }
                             }
+                            if(flag1){
+                                tableb.shift();
+                            }
+                            if(flag2){
+                                tablec.shift();
+                            }
                             this.tableB = tableb;
                             this.tableC = tablec;
                         }
+                        /*else{
+                            this.tableB = [
+                                {
+                                    projectsystem_id: '',
+                                    companyprojects_id: '',
+                                    type: '0',
+                                    number: '',
+                                    company: '',
+                                    name: '',
+                                    position: '',
+                                    admissiontime: '',
+                                    exittime: '',
+                                    rowindex: '',
+                                },
+                            ];
+                            this.tableC = [
+                                {
+                                    projectsystem_id: '',
+                                    companyprojects_id: '',
+                                    type: '1',
+                                    number: '',
+                                    company: '',
+                                    name: '',
+                                    position: '',
+                                    admissiontime: '',
+                                    exittime: '',
+                                    rowindex: '',
+                                },
+                            ];
+                        }*/
                         //项目合同
                         if (response.projectcontract.length > 0) {
                             let tabled = [];
@@ -1630,6 +1701,9 @@
                                     }
                                 }
                             }
+                        }
+                        if (this.form.status === '4') {
+                            this.disabled = true;
                         }
                         this.loading = false;
                     })
@@ -1671,12 +1745,13 @@
         },
 
         created() {
-            this.disable = this.$route.params.disabled;
-            if (this.disable) {
+            this.disabled = this.$route.params.disabled;
+            if (this.disabled) {
                 this.buttonList = [
                     {
                         key: 'save',
                         name: 'button.save',
+                        disabled: false,
                     },
                 ];
             }
@@ -1747,7 +1822,7 @@
             },
 
             getCenterId(val) {
-              this.getOrgInformation(val);
+              this.form.center_id = val;
               if (!val || this.form.center_id === "") {
                 this.errorcenter = this.$t("normal.error_08") + "center";
               } else {
@@ -2415,15 +2490,35 @@
                                 error = error + 1;
                             }
                         }
-                        if (error != 0 && this.form.toolstype !== '1') {
-                            this.loading = false;
-                            Message({
-                                message: this.$t('normal.error_08') +
-                                    this.$t('label.PFANS5001FORMVIEW_CONTRACT'),
-                                type: 'error',
-                                duration: 5 * 1000,
-                            });
-                        } else if (this.$route.params._id) {
+                        let error1 = 0;
+                        let error2 = 0;
+                        for (let i = 0; i < this.tableB.length; i++) {
+                            if (this.tableB[i].name == '' && this.tableB[i].admissiontime == '' && this.tableB[i].exittime == '') {
+                              error1 = error1 + 1;
+                          }
+                        }
+                        for (let i = 0; i < this.tableC.length; i++) {
+                            if (this.tableC[i].name == '' && this.tableC[i].admissiontime == '' && this.tableC[i].exittime == '') {
+                              error2 = error2 + 1;
+                          }
+                        }
+                        if (error1 != 0 && error2 != 0) {
+                          this.loading = false;
+                          Message({
+                            message: this.$t('normal.error_08') +
+                              this.$t('label.PFANS5001FORMVIEW_SYSTEM'),
+                            type: 'error',
+                            duration: 5 * 1000,
+                          });
+                        } else if (error != 0 && this.form.toolstype !== '1') {
+                        this.loading = false;
+                        Message({
+                          message: this.$t('normal.error_08') +
+                            this.$t('label.PFANS5001FORMVIEW_CONTRACT'),
+                          type: 'error',
+                          duration: 5 * 1000,
+                        });
+                      } else if (this.$route.params._id) {
                             this.baseInfo.companyprojects.companyprojects_id = this.$route.params._id;
                             this.form.center_id = this.centerorglist;
                             this.form.group_id = this.grouporglist;

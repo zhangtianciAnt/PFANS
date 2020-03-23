@@ -23,7 +23,13 @@ export function updatePfans2016(data) {
     data: data
   })
 }
-
+export function updateNewUser(data) {
+  return request({
+    url: 'abNormal/update',
+    method: 'post',
+    data: data
+  })
+}
 export function getFpans2016List() {
   return request({
     url: 'abNormal/list',
@@ -52,5 +58,22 @@ export function cklength(data) {
     url: 'abNormal/cklength',
     method: 'post',
     data: data
+  })
+}
+
+
+export function getSickleave(data) {
+  return request({
+    url: 'abNormal/getSickleave',
+    method: 'get',
+    params: data
+  })
+}
+
+export function selectAbNormalParent(data) {
+  return request({
+    url: 'abNormal/selectAbNormalParent',
+    method: 'get',
+    params: data
   })
 }

@@ -1,7 +1,7 @@
 <template>
-  <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id" :title="title"
-                   ref="roletable" :showSelection="isShow"
-                   @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
+  <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id" :showSelection="isShow"
+                   :title="title" @buttonClick="buttonClick"
+                   @rowClick="rowClick" ref="roletable" v-loading="loading">
   </EasyNormalTable>
 
 </template>
@@ -9,10 +9,10 @@
 <script>
     import EasyNormalTable from '@/components/EasyNormalTable'
     import {Message} from 'element-ui'
-    import {getDictionaryInfo, getStatus, getUserInfo} from '@/utils/customize'
-    import json2csv from 'json2csv';
+    import {getDictionaryInfo, getStatus, getUserInfo, getOrgInfoByUserId} from '@/utils/customize'
     import moment from "moment";
 
+    const {Parser} = require('json2csv');
     export default {
         name: "PFANS1012View",
         components: {
@@ -103,11 +103,12 @@
                             if (rst) {
                                 response[j].user_id = rst.userinfo.customername;
                             }
-                            response[j].center_name = response[j].centerid;
-                            response[j].group_name = response[j].centerid;
-                            response[j].team_name = response[j].centerid;
-
-
+                            let nameflg = getOrgInfoByUserId(response[j].userid);
+                            if (nameflg) {
+                                response[j].center_name = nameflg.centerNmae;
+                                response[j].group_name = nameflg.groupNmae;
+                                response[j].team_name = nameflg.teamNmae;
+                            }
                             if (response[j].status !== null && response[j].status !== "") {
                                 response[j].status = getStatus(response[j].status);
                             }
@@ -186,6 +187,9 @@
                         }
                     })
                 } else if (val === 'export') {
+                    this.startoptionvalue = [];
+                    this.totalcostvalue = [];
+                    this.startoption = [];
                     this.selectedList = {};
                     this.selectedList.totalcost = [];
                     this.selectedlist = this.$refs.roletable.selectedList;
@@ -214,16 +218,6 @@
                                                 this.selectedlist[i].paymentmethod = this.$t("label.PFANS1012VIEW_OFFICE")
                                             } else if (this.selectedlist[i].paymentmethod === '') {
                                                 this.selectedlist[i].paymentmethod = ''
-                                            }
-                                        }
-                                        let letError = getDictionaryInfo(this.selectedlist[i].currency);
-                                        if (letError != null) {
-                                            if (letError.value1 == this.$t("label.PFANS1012VIEW_USD")) {
-                                                this.selectedlist[i].currencyrate = letError.value1;
-                                                response[m].currency = this.$t("label.PFANS1012FORMVIEW_USDA");
-                                            } else if (letError.value1 == null) {
-                                                this.selectedlist[i].currencyrate = ''
-                                                response[m].currency = this.$t("label.PFANS1012FORMVIEW_CNY");
                                             }
                                         }
                                         if (response[m].invoicedate !== null && response[m].invoicedate !== "") {
@@ -256,7 +250,7 @@
                                             }
                                             let invoiceDat = moment(response[m].invoicedate).format("DD");
                                             let invoicedat = moment(response[m].invoicedate).format("YYYY");
-                                            response[m].invoicedate = invoiceDat+date+invoicedat;
+                                            response[m].invoicedate = invoiceDat + date + invoicedat;
                                         }
                                         if (response[m].conditiondate !== null && response[m].conditiondate !== "") {
                                             let Date;
@@ -288,7 +282,7 @@
                                             }
                                             let conditionDat = moment(response[m].invoicedate).format("DD");
                                             let conditiondat = moment(response[m].invoicedate).format("YYYY");
-                                            response[m].conditiondate = conditionDat+Date+conditiondat;
+                                            response[m].conditiondate = conditionDat + Date + conditiondat;
                                         }
                                         invoiceamountvalue += parseFloat(response[m].lineamount);
                                         this.totalcostvalue.push({
@@ -303,7 +297,7 @@
                                             currency: response[m].currency,
                                             invoiceamount: response[m].invoiceamount,
                                             lineamount: response[m].lineamount,
-                                            currencyrate: this.selectedlist[i].currencyrate,
+                                            currencyrate: response[m].exchangerate,
                                             companysegment: '01',
                                             budgetcoding: response[m].budgetcoding,
                                             subjectnumber: response[m].subjectnumber,
@@ -343,44 +337,43 @@
                                 source: '',
                                 paymentmethods: '',
                                 type: '',
-                            })
+                            });
                             this.startoptionvalue = this.totalcostvalue.concat(this.startoption);
                             let csvData = [];
                             for (let i = 0; i < this.startoptionvalue.length; i++) {
                                 let obj = this.startoptionvalue[i];
                                 csvData.push({
-                                    [[0]]: obj.invoicenumber,
-                                    [[1]]: obj.number,
-                                    [[2]]: obj.invoicetype,
-                                    [[3]]: obj.rowtype,
-                                    [[4]]: obj.invoicedate,
-                                    [[5]]: obj.conditiondate,
-                                    [[6]]: obj.vendorcode,
-                                    [[7]]: obj.paymentmethod,
-                                    [[8]]: obj.currency,
-                                    [[9]]: obj.invoiceamount,
-                                    [[10]]: obj.lineamount,
-                                    [[11]]: obj.currencyrate,
-                                    [[12]]: obj.companysegment,
-                                    [[13]]: obj.budgetcoding,
-                                    [[14]]: obj.subjectnumber,
-                                    [[15]]: obj.productsegment,
-                                    [[16]]: obj.vatnumber,
-                                    [[17]]: obj.taxCode,
-                                    [[18]]: obj.paymentterms,
-                                    [[19]]: obj.remark,
-                                    [[20]]: obj.source,
-                                    [[21]]: obj.paymentmethods,
-                                    [[22]]: obj.type,
+                                    invoicenumber: obj.invoicenumber,
+                                    number: obj.number,
+                                    invoicetype: obj.invoicetype,
+                                    rowtype: obj.rowtype,
+                                    invoicedate: obj.invoicedate,
+                                    conditiondate: obj.conditiondate,
+                                    vendorcode: obj.vendorcode,
+                                    paymentmethod: obj.paymentmethod,
+                                    currency: obj.currency,
+                                    invoiceamount: obj.invoiceamount,
+                                    lineamount: obj.lineamount,
+                                    currencyrate: obj.currencyrate,
+                                    companysegment: obj.companysegment,
+                                    budgetcoding: obj.budgetcoding,
+                                    subjectnumber: obj.subjectnumber,
+                                    productsegment: obj.productsegment,
+                                    vatnumber: obj.vatnumber,
+                                    taxCode: obj.taxCode,
+                                    paymentterms: obj.paymentterms,
+                                    remark: obj.remark,
+                                    source: obj.source,
+                                    paymentmethods: obj.paymentmethods,
+                                    type: obj.type,
                                 })
                             }
                             let filterVal = ['invoicenumber', 'number', 'invoicetype', 'rowtype', 'invoicedate', 'conditiondate', 'vendorcode', 'paymentmethod', 'currency',
                                 'invoiceamount', 'lineamount', 'currencyrate', 'companysegment', 'budgetcoding', 'subjectnumber',
                                 , 'productsegment', 'vatnumber', 'taxCode', 'paymentterms', 'remark', 'source', 'paymentmethods', 'type'];
-                            const result = json2csv.parse(csvData, {
-                                excelStrings: true
-                            });
-                            let aaa = result.substring(220);
+                            const parser = new Parser({header: false});
+                            const result = parser.parse(csvData);
+                            let aaa = result;
                             let csvContent = "data:text/csv;charset=utf-8,\uFEFF" + aaa;
                             const link = document.createElement("a");
                             link.href = csvContent;

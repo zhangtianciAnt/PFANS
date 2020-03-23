@@ -26,7 +26,7 @@
         columns: [
           {
             code: 'year',
-            label: 'label.FANS1036FORMVIEW_BUSINESSYEAR',
+            label: 'label.PFANS1036FORMVIEW_BUSINESSYEAR',
             width: 150,
             fix: false,
             filter: true
@@ -76,7 +76,7 @@
         .then(response => {
           for (let j = 0; j < response.length; j++) {
             if (response[j].user_id !== null && response[j].user_id !== "") {
-              debugger
+
               let rst = getUserInfo(response[j].user_id);
               if (rst) {
                 response[j].user_id = rst.userinfo.customername;
@@ -102,9 +102,13 @@
     },
     methods: {
       rowClick(row) {
+        debugger
         this.rowid = row.businessplanid;
+        this.year = row.year;
+        this.groupid = row.group_id;
       },
       buttonClick(val) {
+        debugger
         this.$store.commit('global/SET_HISTORYURL', this.$route.path)
         if (val === "view") {
           if (this.rowid === '') {
@@ -119,10 +123,13 @@
             name: 'PFANS1036FormView',
             params: {
               _id: this.rowid,
+              year: this.year,
+              groupid:this.groupid,
               disabled: false
             }
           })
         } else if (val === "insert") {
+          this.loading = true;
           this.$router.push({
             name: 'PFANS1036FormView',
             params: {
@@ -143,6 +150,8 @@
             name: 'PFANS1036FormView',
             params: {
               _id: this.rowid,
+              year: this.year,
+              groupid:this.groupid,
               disabled: true
             }
           })

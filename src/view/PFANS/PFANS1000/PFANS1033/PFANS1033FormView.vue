@@ -6,8 +6,118 @@
                         ref="container"
                          v-loading="loading">
       <div slot="customize" >
+        <el-form :model="form1" :rules="rules1" label-position="top" label-width="6vw" ref="refform1" style="padding: 2vw">
+          <el-dialog :title="$t('button.application')" :visible.sync="dialogVisibleC">
+            <el-form-item :label="$t('label.PFANS1024VIEW_NUMBER')" :label-width="formLabelWidth" :error="errorclaimtype" prop="claimtype">
+              <dicselect
+                :code="code"
+                :data="form1.claimtype"
+                :multiple="multiple"
+                @change="getnumber"
+                style="width: 20vw">
+              </dicselect>
+            </el-form-item>
+            <el-form-item :label="$t('label.PFANS1024VIEW_ORIGINALCONTRACT')" :label-width="formLabelWidth">
+              <el-input v-model="form1.contractnumber" style="width: 20vw" :disabled="!disabled1"></el-input>
+              <el-checkbox
+                v-if="checkeddisplay"
+                v-model="checked"
+                disabled
+                @change="getChecked"
+              >{{$t('label.PFANS1024VIEW_LETTERS')}}
+              </el-checkbox>
+            </el-form-item>
+            <el-form-item :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')" :label-width="formLabelWidth" :error="errorcontracttype" prop="contracttype">
+              <dicselect :code="code2"
+                         :data="form1.contracttype"
+                         @change="getcontracttype"
+                         style="width: 20vw"
+                         :disabled="!disabled2">
+              </dicselect>
+            </el-form-item>
+            <el-form-item :label="$t('label.PFANS1024VIEW_CAREERYEAR')" :label-width="formLabelWidth" :error="errorapplicationdate" prop="applicationdate">
+              <dicselect :code="code3"
+                         :data="form1.applicationdate"
+                         @change="getcareeryear1"
+                         style="width: 20vw"
+                         :disabled="!disabled2">
+              </dicselect>
+              <dicselect :code="code4"
+                         :data="form1.entrycondition"
+                         @change="getcareeryear2"
+                         style="width: 20vw"
+                         :disabled="!disabled2">
+              </dicselect>
+            </el-form-item>
+            <el-form-item :label="$t('label.group')" :label-width="formLabelWidth" prop="grouporglist"
+                          :error="errorgroup">
+              <org
+                :orglist="form1.grouporglist"
+                orgtype="2"
+                :error="errorgroup"
+                style="width: 20vw"
+                @getOrgids="getGroupId"
+                :disabled="!disabled2"
+              ></org>
+            </el-form-item>
+            <!--<el-form-item :label="$t('label.PFANS1024VIEW_SIDEGROUP')" :label-width="formLabelWidth">
+              <dicselect :code="code10"
+                         :data="form.sidegroup"
+                         @change="getSidegroup"
+                         style="width: 20vw"
+                         :disabled="!disabled2">
+              </dicselect>
+            </el-form-item>-->
+
+            <!--<user :disabled="!disabled" :no="scope.row" :error="errorcusto" :selectType="selectType" :userlist="scope.row.custojapanese"-->
+            <!--@getUserids="getCusto" style="width: 10.15rem"></user>-->
+            <el-form-item :label="$t('label.PFANS1024VIEW_CUSTOMERNAME')+'('+$t('label.PFANS1024VIEW_JAPANESE')+')'"
+                          :label-width="formLabelWidth" prop="custojapanese">
+              <div class="" style="width: 20vw">
+                <el-input class="content bg"
+                          v-model="form1.custojapanese">
+                  <el-button :disabled="!disabled2" size="small" slot="append" icon="el-icon-search"
+                             @click="handleClickE()"></el-button>
+                </el-input>
+              </div>
+            </el-form-item>
+            <el-dialog :visible.sync="dialogVisibleE"
+                       top="8vh"
+                       append-to-body>
+              <el-table :data="dataA" :row-key="rowid" @row-click="rowClickE" max-height="400" ref="roletableA"
+                        v-loading='loading'>
+                <el-table-column property="supchinese" :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')"
+                                 width="120"></el-table-column>
+                <el-table-column property="suppliercode" :label="$t('label.PFANS6003FORMVIEW_VENDORNUM')"
+                                 width="120"></el-table-column>
+                <el-table-column property="liableperson" :label="$t('label.ASSETS1002VIEW_USERID')"
+                                 width="120"></el-table-column>
+                <el-table-column property="prochinese" :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')"
+                                 width="120"></el-table-column>
+                <el-table-column property="protelephone" :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')"
+                                 width="120"></el-table-column>
+                <el-table-column property="commontperson" :label="$t('label.PFANS6002VIEW_COMMONTPERSON')"
+                                 width="120"></el-table-column>
+                <el-table-column property="comtelephone" :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')"
+                                 width="120"></el-table-column>
+              </el-table>
+            </el-dialog>
+
+            <div class="dialog-footer" align="center">
+              <!--@click="dialogFormVisible = false"-->
+              <el-button v-if="show1">
+                  <span style="margin-right: 86%;" @click="click">{{$t('label.PFANS1026FORMVIEW_CONTRACTNUMBER')}}
+                  </span>
+              </el-button>
+              <el-button @click="dialogVisibleB = false" v-if="show2">
+                  <span style="margin-right: 86%;">{{$t('label.PFANS1026FORMVIEW_ABANDONED')}}
+                  </span>
+              </el-button>
+            </div>
+          </el-dialog>
+        </el-form>
         <el-form :model="form" :rules="rules" label-position="top" label-width="6vw" ref="refform" style="padding: 2vw">
-          <el-dialog :title="$t('button.application')"  :visible.sync="dialogFormVisible">
+          <!--<el-dialog :title="$t('button.application')"  :visible.sync="dialogFormVisible">
             <el-form-item  :label="$t('label.PFANS1024VIEW_NUMBER')" :label-width="formLabelWidth">
               <dicselect
                 :code="code"
@@ -64,7 +174,7 @@
                   </span>
               </el-button>
             </div>
-          </el-dialog>
+          </el-dialog>-->
           <span>{{this.titleType}}</span>
           <el-table :data="tablefourth" stripe header-cell-class-name="sub_bg_color_grey height" :header-cell-style="getRowClass4">
                 <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" prop="content" type="index" width="50"></el-table-column>
@@ -416,13 +526,21 @@
         },
       data(){
         var groupId = (rule, value, callback) => {
-          if (!this.form.group_id || this.form.group_id === "") {
-            callback(new Error(this.$t("normal.error_08") + "group"));
-            this.error = this.$t("normal.error_08") + "group";
-          } else {
-            callback();
-          }
+            if (!this.form1.grouporglist || this.form1.grouporglist === '') {
+                callback(new Error(this.$t('normal.error_08') + 'group'));
+                this.errorgroup = this.$t('normal.error_08') + 'group';
+            } else {
+                callback();
+            }
         };
+          var checkApplicationdate =(rule, value, callback) => {
+              if (!this.form1.applicationdate || this.form1.applicationdate === '' || !this.form1.entrycondition || this.form1.entrycondition === '') {
+                  callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1024VIEW_CAREERYEAR')));
+                  this.errorapplicationdate = this.$t('normal.error_09') + this.$t('label.PFANS1024VIEW_CAREERYEAR');
+              } else {
+                  callback();
+              }
+          };
         return{
           titleType:'',
           titleType1:this.$t('label.PFANS1033VIEW_VERIFICATION'),
@@ -452,10 +570,15 @@
           grouporglist1: '',
           groupinfo:[],
           errorgroup: '',
+            errorclaimtype: '',
+            errorcontracttype: '',
+            errorapplicationdate: '',
           errorcusto: "",
           erroruser: "",
           errorcontractnumber: "",
           loading: false,
+          dialogVisibleC: false,
+          dialogVisibleE: false,
           title: "title.PFANS1024VIEW",
           activeName: '',
           disabled: true,
@@ -463,6 +586,51 @@
           disabled2: true,
           disabled3: false,
           disabled4: false,
+            rules1: {
+                claimtype: [
+                    {
+                        required: true,
+                        message:
+                            this.$t('normal.error_09') +
+                            this.$t('label.PFANS1024VIEW_NUMBER'),
+                        trigger: 'change',
+                    },
+                ],
+
+                contracttype: [
+                    {
+                        required: true,
+                        message:
+                            this.$t('normal.error_09') +
+                            this.$t('label.PFANS1024VIEW_CONTRACTTYPE'),
+                        trigger: 'change',
+                    },
+                ],
+
+                applicationdate: [
+                    {
+                        required: true,
+                        validator: checkApplicationdate,
+                        trigger: 'change',
+                    },
+                ],
+                grouporglist: [
+                    {
+                        required: true,
+                        validator: groupId,
+                        trigger: 'blur',
+                    },
+                ],
+                custojapanese: [
+                    {
+                        required: true,
+                        message:
+                            this.$t('normal.error_08') +
+                            this.$t('label.PFANS1024VIEW_CUSTOMERNAME'),
+                        trigger: 'change',
+                    },
+                ],
+            },
           rules: {
             group: [
               {
@@ -494,15 +662,38 @@
 //              disabled: false,
 //            },
           ],
+            form1: {
+                claimtype: '',
+                contractnumber: '',
+                contracttype: '',
+                applicationdate: '',
+                entrycondition: '',
+                grouporglist: '',
+                custojapanese: '',
+                suppliercode: '',
+            },
           form: {
               contractnumber: '',
-              claimtype: 'HT001001',
+              claimtype: '',
               contracttype: '',
               applicationdate: '',
               entrycondition: '',
               group_id: '',
               maketype: '',
           },
+            formcustomer: {
+                custojapanese: '',
+                custoenglish: '',
+                custoabbreviation: '',
+                custochinese: '',
+                placejapanese: '',
+                placeenglish: '',
+                placechinese: '',
+                responjapanese: '',
+                responerglish: '',
+                responphone: '',
+                responemail: '',
+            },
           formLabelWidth: '120px',
             tableclaimtype: [],
             tablefirst: [],
@@ -842,7 +1033,7 @@
                   letcontractnumber.push(tabledata[i].contractnumber);
                 }
               }
-              var arr= new Array();
+              var arr= [];
               let o;
               for(var i = 0; i < letcontractnumber.length; i++){
                 if(arr.indexOf(letcontractnumber[i]) == -1){
@@ -864,11 +1055,17 @@
             })
         },
           getGroupId(val) {
-            this.grouporglist = val;
+              this.form1.grouporglist = val;
+              this.grouporglist = val;
             let group = getOrgInfo(val);
             if(group){
               this.groupinfo = [val,group.companyen,group.orgname,group.companyname];
             }
+              if (!val || this.form1.grouporglist === '') {
+                  this.errorgroup = this.$t('normal.error_08') + 'group';
+              } else {
+                  this.errorgroup = '';
+              }
           },
           getGroupId1(val) {
           this.grouporglist1 = val;
@@ -894,12 +1091,12 @@
               }
             },
           getnumber(val){
-            this.form.claimtype=val;
+            this.form1.claimtype=val;
             },
           getChecked(val){
             this.checked = val;
             if(val === true){
-              this.form.contractnumber = this.letcontractnumber
+              this.form.contractnumber = this.letcontractnumber;
               this.disabled1 = true;
               this.disabled2 = false;
             }else{
@@ -912,16 +1109,16 @@
               row.entrustednumber = val;
           },
           getcontracttype(val){
-          this.form.contracttype=val;
+          this.form1.contracttype=val;
         },
           getEntrycondition(val,row){
               row.entrycondition = val;
           },
           getcareeryear1(val){
-              this.form.applicationdate = val;
+              this.form1.applicationdate = val;
           },
           getcareeryear2(val){
-              this.form.entrycondition = val;
+              this.form1.entrycondition = val;
           },
           getCurrencyposition(val, row){
               row.currencyposition = val;
@@ -1007,17 +1204,17 @@
                   currencyposition: '',
                   supportdate: '',
                   contractdate: [],
-                  custojapanese: '',
-                  custoenglish: '',
-                  custoabbreviation: '',
-                  custochinese: '',
-                  placejapanese: '',
-                  placeenglish: '',
-                  placechinese: '',
-                  responjapanese: '',
-                  responerglish: '',
-                  responphone: '',
-                  responemail: '',
+                  custojapanese: this.formcustomer.custojapanese,
+                  custoenglish: this.formcustomer.custoenglish,
+                  custoabbreviation: this.formcustomer.custoabbreviation,
+                  custochinese: this.formcustomer.custochinese,
+                  placejapanese: this.formcustomer.placejapanese,
+                  placeenglish: this.formcustomer.placeenglish,
+                  placechinese: this.formcustomer.placechinese,
+                  responjapanese: this.formcustomer.responjapanese,
+                  responerglish: this.formcustomer.responerglish,
+                  responphone: this.formcustomer.responphone,
+                  responemail: this.formcustomer.responemail,
                   conjapanese: '',
                   conenglish: '',
                   conchinese: '',
@@ -1045,103 +1242,138 @@
               rowindex:'',
             });
           },
-          //契約番号做成
+          handleClickE() {
+              //this.form.claimtype = this.form1.claimtype;
+              this.dialogVisibleE = true;
+          },
+          rowClickE(row) {//333
+              this.form1.custojapanese = row.supjapanese;
+
+              this.formcustomer.custojapanese = row.supjapanese;
+              this.formcustomer.custoenglish = row.supenglish;
+              this.formcustomer.custoabbreviation = row.abbreviation;
+              this.formcustomer.custochinese = row.supchinese;
+              this.formcustomer.suppliercode = row.suppliercode;
+
+              this.formcustomer.placejapanese = row.addjapanese;
+              this.formcustomer.placeenglish = row.addenglish;
+              this.formcustomer.placechinese = row.addchinese;
+
+              this.formcustomer.responjapanese = row.projapanese;
+              this.formcustomer.responerglish = row.proenglish;
+              this.formcustomer.responphone = row.protelephone;
+              this.formcustomer.responemail = row.protemail;
+              this.dialogVisibleE = false;
+          },
+          //契約番号做成111
           click() {
-              //請求方式
-              let letclaimtype = '';
-              let letbook = '';
-              //覚書
-              if(this.checked){
-                letclaimtype = this.$t("label.PFANS1024VIEW_LETTERS");
-                let letcontractnumber = this.form.contractnumber.split("-");
-                if(letcontractnumber.length > 1){
-                  letbook = '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + (parseInt(letcontractnumber[1].substring(1,letcontractnumber[1].length)) + 1).toString();
-                }
-                else{
-                  letbook = '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + '1';
-                }
-                this.contractnumbercount = this.form.contractnumber.substr(10,4).replace("0","").replace("0","").replace("0","");
-              }
-              let letclaimtypeone = letclaimtype + this.$t("label.PFANS1026FORMVIEW_ONE");
-              let letclaimtypetwo = letclaimtype + this.$t("label.PFANS1026FORMVIEW_TWO");
-              let letclaimtypethree = letclaimtype + this.$t("label.PFANS1026FORMVIEW_THREE");
-              let letclaimtypefour = letclaimtype + this.$t("label.PFANS1026FORMVIEW_FOUR");
-              //契約種類简称
-              let abbreviation = '';
-              let letabbreviation = getDictionaryInfo(this.form.contracttype);
-              if (letabbreviation != null) {
-                //契約種類
-                this.contracttype = letabbreviation.value1;
-                abbreviation = letabbreviation.value2;
-              }
-              //事業年度
-              let applicationdate = '';
-              let letapplicationdate = getDictionaryInfo(this.form.applicationdate);
-              if (letapplicationdate != null) {
-                applicationdate = letapplicationdate.value2;
-              }
-              //上下期
-              let entrycondition = '';
-              let letentrycondition = getDictionaryInfo(this.form.entrycondition);
-              if (letentrycondition != null) {
-                entrycondition = letentrycondition.value2;
-              }
-              //契約書番号(契約種類 + 事業年度 + 上下期 + 社内組織番号)
-              //通し番号
-              let number = '01';
-              if(this.contractnumbercount.toString().length === 1){
-                number = '0' + this.contractnumbercount
-              }
-              else if(this.contractnumbercount.toString().length === 2){
-                number = this.contractnumbercount
-              }
-              if(this.checked){
-                  this.letcontractnumber = this.form.contractnumber.split("-")[0] + letbook;
-              }
-              else{
-                  this.letcontractnumber = abbreviation + applicationdate + entrycondition + this.groupinfo[2] + '0000' + number + letbook;
-              }
+              this.$refs['refform1'].validate(valid => {
+                  if (valid) {
 
-              this.tableclaimtype = [];
-              if(this.form.claimtype === "HT001001"){
-                this.addRowclaimtype();
-                this.tableclaimtype[0].claimtype = letclaimtypeone;
-              }
-              else if(this.form.claimtype === "HT001002"){
-                this.addRowclaimtype();
-                this.addRowclaimtype();
-                this.tableclaimtype[0].claimtype = letclaimtypeone;
-                this.tableclaimtype[1].claimtype = letclaimtypetwo;
+                      this.form.claimtype = this.form1.claimtype;
+                      this.form.contractnumber = this.form1.contractnumber;
+                      this.form.contracttype = this.form1.contracttype;
+                      this.form.applicationdate = this.form1.applicationdate;
+                      this.form.entrycondition = this.form1.entrycondition;
+                      //請求方式
+                      let letclaimtype = '';
+                      let letbook = '';
+                      //覚書
+                      if(this.checked){
+                          letclaimtype = this.$t("label.PFANS1024VIEW_LETTERS");
+                          let letcontractnumber = this.form.contractnumber.split("-");
+                          if(letcontractnumber.length > 1){
+                              letbook = '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + (parseInt(letcontractnumber[1].substring(1,letcontractnumber[1].length)) + 1).toString();
+                          }
+                          else{
+                              letbook = '-' + this.$t("label.PFANS1024VIEW_LETTERS").substring(0,1) + '1';
+                          }
+                          this.contractnumbercount = this.form.contractnumber.substr(10,4).replace("0","").replace("0","").replace("0","");
+                      }
+                      let letclaimtypeone = letclaimtype + this.$t("label.PFANS1026FORMVIEW_ONE");
+                      let letclaimtypetwo = letclaimtype + this.$t("label.PFANS1026FORMVIEW_TWO");
+                      let letclaimtypethree = letclaimtype + this.$t("label.PFANS1026FORMVIEW_THREE");
+                      let letclaimtypefour = letclaimtype + this.$t("label.PFANS1026FORMVIEW_FOUR");
+                      //契約種類简称
+                      let abbreviation = '';
+                      let letabbreviation = getDictionaryInfo(this.form.contracttype);
+                      if (letabbreviation != null) {
+                          //契約種類
+                          this.contracttype = letabbreviation.value1;
+                          abbreviation = letabbreviation.value2;
+                      }
+                      //事業年度
+                      let applicationdate = '';
+                      let letapplicationdate = getDictionaryInfo(this.form.applicationdate);
+                      if (letapplicationdate != null) {
+                          applicationdate = letapplicationdate.value2;
+                      }
+                      //上下期
+                      let entrycondition = '';
+                      let letentrycondition = getDictionaryInfo(this.form.entrycondition);
+                      if (letentrycondition != null) {
+                          entrycondition = letentrycondition.value2;
+                      }
+                      //契約書番号(契約種類 + 事業年度 + 上下期 + 社内組織番号)
+                      //通し番号
+                      let number = '01';
+                      if(this.contractnumbercount.toString().length === 1){
+                          number = '0' + this.contractnumbercount
+                      }
+                      else if(this.contractnumbercount.toString().length === 2){
+                          number = this.contractnumbercount
+                      }
+                      if(this.checked){
+                          this.letcontractnumber = this.form.contractnumber.split("-")[0] + letbook;
+                      }
+                      else{
+                          this.letcontractnumber = abbreviation + applicationdate + entrycondition + this.groupinfo[2] + '0000' + number + letbook;
+                      }
 
-              }
-              else if(this.form.claimtype === "HT001003"){
-                this.addRowclaimtype();
-                this.addRowclaimtype();
-                this.addRowclaimtype();
-                this.tableclaimtype[0].claimtype = letclaimtypeone;
-                this.tableclaimtype[1].claimtype = letclaimtypetwo;
-                this.tableclaimtype[2].claimtype = letclaimtypethree;
+                      this.tableclaimtype = [];
+                      if(this.form.claimtype === "HT001001"){
+                          this.addRowclaimtype();
+                          this.tableclaimtype[0].claimtype = letclaimtypeone;
+                      }
+                      else if(this.form.claimtype === "HT001002"){
+                          this.addRowclaimtype();
+                          this.addRowclaimtype();
+                          this.tableclaimtype[0].claimtype = letclaimtypeone;
+                          this.tableclaimtype[1].claimtype = letclaimtypetwo;
 
-              }
-              else if(this.form.claimtype === "HT001004"){
-                this.addRowclaimtype();
-                this.addRowclaimtype();
-                this.addRowclaimtype();
-                this.addRowclaimtype();
-                this.tableclaimtype[0].claimtype = letclaimtypeone;
-                this.tableclaimtype[1].claimtype = letclaimtypetwo;
-                this.tableclaimtype[2].claimtype = letclaimtypethree;
-                this.tableclaimtype[3].claimtype = letclaimtypefour;
-              }
+                      }
+                      else if(this.form.claimtype === "HT001003"){
+                          this.addRowclaimtype();
+                          this.addRowclaimtype();
+                          this.addRowclaimtype();
+                          this.tableclaimtype[0].claimtype = letclaimtypeone;
+                          this.tableclaimtype[1].claimtype = letclaimtypetwo;
+                          this.tableclaimtype[2].claimtype = letclaimtypethree;
 
-              if(this.checked){
-                for (let i = 0; i < this.tablefourth.length; i++) {
-                  this.tablefourth[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID")
-                }
-              }
-              this.addRowfourth();
-              this.getChecked(false);
-              this.dialogFormVisible = false;
+                      }
+                      else if(this.form.claimtype === "HT001004"){
+                          this.addRowclaimtype();
+                          this.addRowclaimtype();
+                          this.addRowclaimtype();
+                          this.addRowclaimtype();
+                          this.tableclaimtype[0].claimtype = letclaimtypeone;
+                          this.tableclaimtype[1].claimtype = letclaimtypetwo;
+                          this.tableclaimtype[2].claimtype = letclaimtypethree;
+                          this.tableclaimtype[3].claimtype = letclaimtypefour;
+                      }
+
+                      if(this.checked){
+                          for (let i = 0; i < this.tablefourth.length; i++) {
+                              this.tablefourth[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID")
+                          }
+                      }
+                      this.addRowfourth();
+                      this.getChecked(false);
+                      this.dialogVisibleC = false;
+                  }else{
+                      this.dialogVisibleC = true;
+                  }
+              });
           },
           //契約番号廃棄
           clickDiscard(){
@@ -1170,7 +1402,7 @@
 
             for (let i = 0; i < tabledata.length; i++) {
               tabledata[i].contractdate = this.getcontractdate(tabledata[i].contractdate);
-              tabledata[i].contracttype = this.form.contracttype
+              tabledata[i].contracttype = this.form.contracttype;
               if (this.form.contracttype === 'HT015001') {
                 tabledata[i].maketype = '1';
               } else if (this.form.contracttype === 'HT015002') {
@@ -1241,6 +1473,7 @@
                 this.dialogFormVisible = true;
                 this.show1 = true;
                 this.show2 = false;
+                this.dialogVisibleC = true;
                 if(!this.$route.params._id){
                     this.form.claimtype = 'HT001001';
                     this.form.contracttype = 'HT015001';
@@ -1252,7 +1485,7 @@
             }
             if (val === "cancellation") {
                 for (let i = 0; i < this.tablefourth.length; i++) {
-                  this.tablefourth[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID")
+                  this.tablefourth[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID");
                   this.tablefourth[i].entrycondition = 'HT004001';
                 }
                 this.handleSave();
