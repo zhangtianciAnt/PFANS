@@ -157,7 +157,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1004VIEW_AMOUNT')" prop="money">
-                <el-input-number v-model="form.money" controls-position="right" style="width:20vw" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
+                <el-input-number v-model="money" controls-position="right" style="width:20vw" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -474,8 +474,10 @@
         this.$store
           .dispatch('PFANS1004Store/getJudgementOne', {"judgementid": this.$route.params._id})
           .then(response => {
-            this.form = response;
+            if(response){
+            this.form = response.judgement;
             this.userlist = this.form.user_id;
+            this.getDecisive(this.form.decisive);
             if (this.form.careerplan === '1') {
               this.show = true;
                 this.rules.businessplantype[0].required = true;
@@ -515,6 +517,7 @@
                       }
                   }
               }
+            }
             this.loading = false;
           })
           .catch(error => {
@@ -594,6 +597,13 @@
             this.rules.period[0].required = false;
         }
     },
+
+    computed:{
+         money:function () {
+               this.form.money = Number(this.form.unitprice) * Number(this.form.numbers);
+               return this.form.money;
+         }
+    },
     methods: {
       getUserids(val) {
         this.userlist = val;
@@ -639,6 +649,7 @@
         }
       },
         getDecisive(val) {
+        debugger
             this.form.decisive = val;
             let dictionaryInfo = getDictionaryInfo(val);
             if (val === "PJ011001") {
@@ -784,6 +795,8 @@
         });
       },
       buttonClick(val) {
+      let JudgementVo = {};
+      JudgementVo.judgement = this.form;
         if (val === 'back') {
           this.paramsTitle();
         } else {
@@ -834,7 +847,7 @@
               if (this.$route.params._id) {
                 this.form.judgementid = this.$route.params._id;
                 this.$store
-                  .dispatch('PFANS1004Store/updateJudgement', this.form)
+                  .dispatch('PFANS1004Store/updateJudgement', JudgementVo)
                   .then(response => {
                     this.data = response;
                     this.loading = false;
@@ -858,7 +871,7 @@
 
               } else {
                 this.$store
-                  .dispatch('PFANS1004Store/createJudgement', this.form)
+                  .dispatch('PFANS1004Store/createJudgement', JudgementVo)
                   .then(response => {
                     this.data = response;
                     this.loading = false;
