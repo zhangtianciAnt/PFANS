@@ -549,7 +549,7 @@
                       <template slot-scope="scope">
                         <dicselect :code="code3"
                                    :data="scope.row.currency"
-                                   v-if="scope.row.invoicenumber === this.$t('label.PFANS1012FORMVIEW_NOMONEY') || scope.row.invoicenumber === ''"
+                                   v-if="scope.row.invoicenumber === $t('label.PFANS1012FORMVIEW_NOMONEY') || scope.row.invoicenumber === ''"
                                    :disabled="false"
                                    :multiple="multiple"
                                    :no="scope.row"
@@ -557,7 +557,7 @@
                         </dicselect>
                         <dicselect :code="code3"
                                    :data="scope.row.currency"
-                                   v-if="scope.row.invoicenumber !== this.$t('label.PFANS1012FORMVIEW_NOMONEY') && scope.row.invoicenumber !== ''"
+                                   v-if="scope.row.invoicenumber !== $t('label.PFANS1012FORMVIEW_NOMONEY') && scope.row.invoicenumber !== ''"
                                    :disabled="true"
                                    :multiple="multiple"
                                    :no="scope.row"
@@ -570,7 +570,7 @@
                                      v-if="showforeigncurrency" width="200">
                       <template slot-scope="scope">
                         <el-input-number
-                          v-if="scope.row.invoicenumber === this.$t('label.PFANS1012FORMVIEW_NOMONEY') || scope.row.invoicenumber === ''"
+                          v-if="scope.row.invoicenumber === $t('label.PFANS1012FORMVIEW_NOMONEY') || scope.row.invoicenumber === ''"
                           :disabled="false"
                           :max="1000000000"
                           :min="0"
@@ -582,7 +582,7 @@
                           v-model="scope.row.foreigncurrency"
                         ></el-input-number>
                         <el-input-number
-                          v-if="scope.row.invoicenumber !== this.$t('label.PFANS1012FORMVIEW_NOMONEY') && scope.row.invoicenumber !== ''"
+                          v-if="scope.row.invoicenumber !== $t('label.PFANS1012FORMVIEW_NOMONEY') && scope.row.invoicenumber !== ''"
                           :disabled="true"
                           :max="1000000000"
                           :min="0"
@@ -943,7 +943,7 @@
                       <template slot-scope="scope">
                         <dicselect :code="code3"
                                    :data="scope.row.currency"
-                                   v-if="scope.row.invoicenumber === this.$t('label.PFANS1012FORMVIEW_NOMONEY') || scope.row.invoicenumber === ''"
+                                   v-if="scope.row.invoicenumber === $t('label.PFANS1012FORMVIEW_NOMONEY') || scope.row.invoicenumber === ''"
                                    :disabled="false"
                                    :multiple="multiple"
                                    :no="scope.row"
@@ -951,7 +951,7 @@
                         </dicselect>
                         <dicselect :code="code3"
                                    :data="scope.row.currency"
-                                   v-if="scope.row.invoicenumber !== this.$t('label.PFANS1012FORMVIEW_NOMONEY') && scope.row.invoicenumber !== ''"
+                                   v-if="scope.row.invoicenumber !== $t('label.PFANS1012FORMVIEW_NOMONEY') && scope.row.invoicenumber !== ''"
                                    :disabled="true"
                                    :multiple="multiple"
                                    :no="scope.row"
