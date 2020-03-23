@@ -8,7 +8,7 @@
       <div slot="customize" >
         <el-form :model="form1" :rules="rules1" label-position="top" label-width="6vw" ref="refform1" style="padding: 2vw">
           <el-dialog :title="$t('button.application')" :visible.sync="dialogVisibleC">
-            <el-form-item :label="$t('label.PFANS1024VIEW_NUMBER')" :label-width="formLabelWidth">
+            <el-form-item :label="$t('label.PFANS1024VIEW_NUMBER')" :label-width="formLabelWidth" :error="errorclaimtype" prop="claimtype">
               <dicselect
                 :code="code"
                 :data="form1.claimtype"
@@ -27,7 +27,7 @@
               >{{$t('label.PFANS1024VIEW_LETTERS')}}
               </el-checkbox>
             </el-form-item>
-            <el-form-item :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')" :label-width="formLabelWidth">
+            <el-form-item :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')" :label-width="formLabelWidth" :error="errorcontracttype" prop="contracttype">
               <dicselect :code="code2"
                          :data="form1.contracttype"
                          @change="getcontracttype"
@@ -35,7 +35,7 @@
                          :disabled="!disabled2">
               </dicselect>
             </el-form-item>
-            <el-form-item :label="$t('label.PFANS1024VIEW_CAREERYEAR')" :label-width="formLabelWidth">
+            <el-form-item :label="$t('label.PFANS1024VIEW_CAREERYEAR')" :label-width="formLabelWidth" :error="errorapplicationdate" prop="applicationdate">
               <dicselect :code="code3"
                          :data="form1.applicationdate"
                          @change="getcareeryear1"
@@ -526,12 +526,12 @@
         },
       data(){
         var groupId = (rule, value, callback) => {
-          if (!this.form.group_id || this.form.group_id === "") {
-            callback(new Error(this.$t("normal.error_08") + "group"));
-            this.errorgroup = this.$t("normal.error_08") + "group";
-          } else {
-            callback();
-          }
+            if (!this.form1.grouporglist || this.form1.grouporglist === '') {
+                callback(new Error(this.$t('normal.error_08') + 'group'));
+                this.errorgroup = this.$t('normal.error_08') + 'group';
+            } else {
+                callback();
+            }
         };
         return{
           titleType:'',
@@ -576,6 +576,33 @@
           disabled3: false,
           disabled4: false,
             rules1: {
+                claimtype: [
+                    {
+                        required: true,
+                        message:
+                            this.$t('normal.error_09') +
+                            this.$t('label.PFANS1024VIEW_NUMBER'),
+                        trigger: 'change',
+                    },
+                ],
+
+                contracttype: [
+                    {
+                        required: true,
+                        message:
+                            this.$t('normal.error_09') +
+                            this.$t('label.PFANS1024VIEW_CONTRACTTYPE'),
+                        trigger: 'change',
+                    },
+                ],
+
+                applicationdate: [
+                    {
+                        required: true,
+                        validator: checkApplicationdate,
+                        trigger: 'change',
+                    },
+                ],
                 grouporglist: [
                     {
                         required: true,
@@ -1017,11 +1044,17 @@
             })
         },
           getGroupId(val) {
-            this.grouporglist = val;
+              this.form1.grouporglist = val;
+              this.grouporglist = val;
             let group = getOrgInfo(val);
             if(group){
               this.groupinfo = [val,group.companyen,group.orgname,group.companyname];
             }
+              if (!val || this.form1.grouporglist === '') {
+                  this.errorgroup = this.$t('normal.error_08') + 'group';
+              } else {
+                  this.errorgroup = '';
+              }
           },
           getGroupId1(val) {
           this.grouporglist1 = val;
@@ -1047,7 +1080,7 @@
               }
             },
           getnumber(val){
-            this.form.claimtype=val;
+            this.form1.claimtype=val;
             },
           getChecked(val){
             this.checked = val;
@@ -1225,6 +1258,7 @@
           click() {
               this.$refs['refform1'].validate(valid => {
                   if (valid) {
+
                       this.form.claimtype = this.form1.claimtype;
                       this.form.contractnumber = this.form1.contractnumber;
                       this.form.contracttype = this.form1.contracttype;
@@ -1428,7 +1462,7 @@
                 this.dialogFormVisible = true;
                 this.show1 = true;
                 this.show2 = false;
-                dialogVisibleC = true;
+                this.dialogVisibleC = true;
                 if(!this.$route.params._id){
                     this.form.claimtype = 'HT001001';
                     this.form.contracttype = 'HT015001';

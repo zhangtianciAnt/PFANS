@@ -61,7 +61,8 @@ const global = {
                         centername: infos[i].orgs[j].companyname,
                         groupid: infos[i].orgs[j].orgs[x]._id,
                         groupname: infos[i].orgs[j].orgs[x].companyname,
-                        companyen: infos[i].orgs[j].orgs[x].companyen
+                        companyen: infos[i].orgs[j].orgs[x].companyen,
+                        encoding: infos[i].orgs[j].orgs[x].encoding,
                       });
                     }
                   }

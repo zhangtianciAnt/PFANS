@@ -605,7 +605,7 @@
                                          width="150">
                           <template slot-scope="scope">
                             <el-input-number
-                              :disabled="!disablecheck"
+                              :disabled="disablecheck"
                               :max="1000000000"
                               :min="0"
                               :precision="2"
@@ -807,7 +807,7 @@
                                          width="150">
                           <template slot-scope="scope">
                             <el-input-number
-                              :disabled="!disablecheck"
+                              :disabled="disablecheck"
                               :max="1000000000"
                               :min="0"
                               :precision="2"
@@ -1008,7 +1008,7 @@
                                          width="150">
                           <template slot-scope="scope">
                             <el-input-number
-                              :disabled="!disablecheck"
+                              :disabled="disablecheck"
                               :max="1000000000"
                               :min="0"
                               :precision="2"
@@ -2339,7 +2339,7 @@
                     row.facetax = row.invoiceamount - row.excludingtax;
                 }
                 for (let j = 0; j < this.tableF.length; j++) {
-                 if(this.tableF[j].invoiceamount!=0.0){
+                 if(this.tableF[j].invoiceamount!=0){
                      this.disablecheck =true;
                      break
                  }else{
@@ -2348,6 +2348,7 @@
                  }
 
                 }
+
             },
             getUserids(val) {
                 this.form.code = getUserInfo(val).userinfo.personalcode;
