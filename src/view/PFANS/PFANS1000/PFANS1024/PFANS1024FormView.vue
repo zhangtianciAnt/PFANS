@@ -563,14 +563,6 @@
         if (Array.isArray(value)) {
           if (value.length == 0) {
             callback(new Error(this.$t('label.PFANS1026FORMVIEW_KFQQSJ')));
-            Message({
-              message: this.$t('PFANS1024VIEW_REQUIRED'),
-              type: 'success',
-              duration: 5 * 1000,
-            });
-            this.loading = false;
-            this.dialogBook = false;
-            return;
           }
           value.map(function(item) {
             if (item === '') {
@@ -591,13 +583,6 @@
         if (value === '') {
           // 333
           callback(new Error(this.$t('label.PFANS1026FORMVIEW_THDW')));
-          Message({
-            message: this.$t('PFANS1024VIEW_REQUIRED'),
-            type: 'success',
-            duration: 5 * 1000,
-          });
-          this.loading = false;
-          this.dialogBook = false;
         } else {
           callback();
         }
@@ -734,14 +719,6 @@
       var validateDeliverydate = (rule, value, callback) => {
         if (!value) {
           callback(new Error(this.$t('label.PFANS1026FORMVIEW_NPYDR')));
-          //333
-          Message({
-            message: this.$t('PFANS1024VIEW_REQUIRED'),
-            type: 'success',
-            duration: 8 * 1300,
-          });
-          this.loading = false;
-          this.dialogBook = false;
         } else {
           callback();
         }
@@ -1339,19 +1316,6 @@
         this.recordDataD = row;
         this.dialogVisibleD = true;
       },
-      // checkRequired(){
-      //   //444
-      //   debugger
-      //   if(this.validateCurrencyposition(value) === "" || this.validateDeliverydate(value) === "" || this.validateContractdate(value.length) === 0){
-      //     Message({
-      //       message: this.$t('PFANS1024VIEW_REQUIRED'),
-      //       type: 'success',
-      //       duration: 5 * 1000,
-      //     });
-      //     this.loading = false;
-      //     this.dialogBook = false;
-      //   }
-      // },
       rowClickD(row) {
         this.recordDataD.entrustednumber = row.contractnumber;
         this.dialogVisibleD = false;
@@ -1791,6 +1755,14 @@
           this.loading = false;
           this.dialogBook = false;
           return;
+        } else if (this.form.tabledata.currencyposition == undefined || this.form.tabledata.contractdate == undefined || this.form.tableclaimtype.deliverydate == undefined) {
+          Message({
+            message: this.$t('label.PFANS1024VIEW_CONTR'),
+            type: 'error',
+            duration: 5 * 1000,
+          });
+          this.loading = false;
+          this.dialogBook = false;
         }
         this.$store.dispatch('PFANS1026Store/existCheck', {contractNumber: contractNumber})
           .then(response => {
@@ -1978,6 +1950,25 @@
             } else {
               this.disabledCount7 = true;
             }
+            // let error = 0;
+            // for (let i = 0; i < this.form.tabledata.length; i++) {
+            //   if (this.form.tabledata.currencyposition == undefined || this.form.tabledata.contractdate == undefined) {
+            //     error = error + 1;
+            //   }
+            // }
+            // for (let i = 0; i < this.form.tableclaimtype.length; i++) {
+            //   if (this.form.tableclaimtype.deliverydate == undefined) {
+            //     error = error + 1;
+            //   }
+            // }
+            // if (error != 0) {
+            //   Message({
+            //     message: this.$t('normal.error_08') +
+            //       this.$t('label.PFANS1024VIEW_CONTR'),
+            //     type: 'error',
+            //     duration: 5 * 1000,
+            //   });
+            // }
             this.loading = false;
           })
           .catch(error => {
