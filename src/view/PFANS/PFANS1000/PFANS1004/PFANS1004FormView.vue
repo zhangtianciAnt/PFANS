@@ -328,8 +328,8 @@
             equipment:'',
             uploadfile: '',
         },
-          code: 'PJ142',
-          code1: 'PR003',
+          code: 'PJ138',
+          code1: 'PJ139',
           code2: 'PJ010',
           code3: 'PJ013',
           code4: 'PJ011',
@@ -486,6 +486,7 @@
             this.form = response.judgement;
             this.userlist = this.form.user_id;
             this.getDecisive(this.form.decisive);
+            this.getBusinessplantype(this.form.businessplantype);
             if (this.form.careerplan === '1') {
               this.show = true;
                 this.rules.businessplantype[0].required = true;
@@ -629,19 +630,22 @@
       },
       getBusinessplantype(val) {
         this.form.businessplantype = val;
-        if (val === "PR002005") {
+        if (val === "PJ138006") {
           this.show1 = true;
           this.rules.classificationtype[0].required = true;
-        }else if (val === "PR002001") {
+        }else if (val === "PJ138001") {
           this.show1 = false;
           this.rules.classificationtype[0].required = false;
-        }else if (val === "PR002002") {
+        }else if (val === "PJ138002") {
           this.show1 = false;
           this.rules.classificationtype[0].required = false;
-        }else if (val === "PR002003") {
+        }else if (val === "PJ138003") {
           this.show1 = false;
           this.rules.classificationtype[0].required = false;
-        }else if (val === "PR002004") {
+        }else if (val === "PJ138004") {
+          this.show1 = false;
+          this.rules.classificationtype[0].required = false;
+        }else if (val === "PJ138005") {
           this.show1 = false;
           this.rules.classificationtype[0].required = false;
         }

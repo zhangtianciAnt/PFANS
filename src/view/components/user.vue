@@ -152,22 +152,25 @@
           this.tableData = this.$store.state.memberSet.tabledata;
         } else {
           let td = [];
-          let len = this.tableData.length;
+          if(this.tableData){
+            let len = this.tableData.length;
 
-          for (let i = 0; i < len; i++) {
-            let has = false;
-            let name = this.tableData[i]["username"];
-            if (
-              name != null &&
-              -1 != name.toString().search(val)
-            ) {
-              has = true;
-            }
+            for (let i = 0; i < len; i++) {
+              let has = false;
+              let name = this.tableData[i]["username"];
+              if (
+                name != null &&
+                -1 != name.toString().search(val)
+              ) {
+                has = true;
+              }
 
-            if (has) {
-              td.push(this.tableData[i]);
+              if (has) {
+                td.push(this.tableData[i]);
+              }
             }
           }
+
 
           this.tableData = td;
         }
@@ -178,10 +181,13 @@
         this.multipleSelection.splice(this.multipleSelection.indexOf(item), 1);
 
         this.userids = "";
-        for (let i = 0; i < this.multipleSelection.length; i++) {
-          this.userids += this.multipleSelection[i].userid + ",";
+        if(this.multipleSelection){
+          for (let i = 0; i < this.multipleSelection.length; i++) {
+            this.userids += this.multipleSelection[i].userid + ",";
+          }
         }
-        if (this.userids.length > 0) {
+
+        if (this.userids && this.userids.length > 0) {
           this.userids = this.userids.substr(0, this.userids.length - 1);
         }
 
@@ -241,7 +247,7 @@
         }
         this.$store.dispatch('usersStore/getUserTableList', params).then(response => {
           let _tableList = [];
-          if(response.length > 0) {
+          if(response && response.length > 0) {
             response.map((d)=>{
               let o = {};
               Object.assign(o, d.userinfo, d);
@@ -251,12 +257,15 @@
 
             for(var j = 0; j< _tableList.length; j++) {
               let result = "";
-              for(var i = 0; i< _tableList[j].departmentid.length; i++) {
-                let departName = this.getDepartmentNameById(_tableList[j].departmentid[i]);
-                if ( departName !== "" ) {
-                  result += departName + ',';
+              if(_tableList[j].departmentid){
+                for(var i = 0; i< _tableList[j].departmentid.length; i++) {
+                  let departName = this.getDepartmentNameById(_tableList[j].departmentid[i]);
+                  if ( departName !== "" ) {
+                    result += departName + ',';
+                  }
                 }
               }
+
               result = result.substring(0, result.lastIndexOf(','));
               _tableList[j].departmentname = result;
               _tableList[j].status === "0" ? _tableList[j].statusname = "启用" : _tableList[j].statusname = "禁用";
@@ -294,10 +303,13 @@
         }
         this.multipleSelection = val;
         this.userids = "";
-        for (let i = 0; i < this.multipleSelection.length; i++) {
-          this.userids += this.multipleSelection[i].userid + ",";
+        if(this.multipleSelection){
+          for (let i = 0; i < this.multipleSelection.length; i++) {
+            this.userids += this.multipleSelection[i].userid + ",";
+          }
         }
-        if (this.userids.length > 0) {
+
+        if (this.userids && this.userids.length > 0) {
           this.userids = this.userids.substr(0, this.userids.length - 1);
         }
 
