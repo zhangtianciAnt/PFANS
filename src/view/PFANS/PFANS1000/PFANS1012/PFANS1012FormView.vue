@@ -2402,6 +2402,7 @@
                     this.error = '';
                 }
             },
+
             workflowState(val) {
                 if (val.state === '1') {
                     this.form.status = '3';

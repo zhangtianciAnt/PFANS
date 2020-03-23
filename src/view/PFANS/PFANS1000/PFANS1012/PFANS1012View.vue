@@ -9,7 +9,7 @@
 <script>
     import EasyNormalTable from '@/components/EasyNormalTable'
     import {Message} from 'element-ui'
-    import {getDictionaryInfo, getStatus, getUserInfo,getOrgInfoByUserId} from '@/utils/customize'
+    import {getDictionaryInfo, getStatus, getUserInfo, getOrgInfoByUserId} from '@/utils/customize'
     import moment from "moment";
 
     const {Parser} = require('json2csv');
