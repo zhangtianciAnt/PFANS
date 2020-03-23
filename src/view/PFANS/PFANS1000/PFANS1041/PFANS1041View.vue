@@ -39,7 +39,7 @@
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1039FORMVIEW_ENTRUSTGROUP')" align="center" width="230">
                     <template slot-scope="scope">
-                      <org :disabled="false" :no="scope.row" :orglist="scope.row.entrustgroupid" @getOrgids="getEntrustgroupId"
+                      <org :disabled="disabled" :no="scope.row" :orglist="scope.row.entrustgroupid" @getOrgids="getEntrustgroupId"
                            orgtype="2" style="width:13vw"></org>
                     </template>
                   </el-table-column>
@@ -392,7 +392,7 @@
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1039FORMVIEW_ENTRUSTGROUP')" align="center" width="230">
                     <template slot-scope="scope">
-                      <org :disabled="false" :no="scope.row" :orglist="scope.row.entrustgroupid" @getOrgids="getEntrustgroupId"
+                      <org :disabled="gettrue(scope.row)" :no="scope.row" :orglist="scope.row.entrustgroupid" @getOrgids="getEntrustgroupId"
                            orgtype="2" style="width:13vw"></org>
                     </template>
                   </el-table-column>
