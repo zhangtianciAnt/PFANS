@@ -54,7 +54,7 @@
                           :error="errorgroup">
               <org
                 :orglist="form1.grouporglist"
-                orgtype="1"
+                orgtype="2"
                 :error="errorgroup"
                 style="width: 20vw"
                 @getOrgids="getGroupId"
@@ -1193,7 +1193,9 @@
         this.dialogVisibleA = false;
         this.loading = false;
       },
+        //
       handleClickE() {
+        this.form.claimtype = this.form1.claimtype;
         this.dialogVisibleE = true;
       },
       handleClickB(row) {
@@ -1465,7 +1467,8 @@
         }
       },
       getnumber(val) {
-        this.form.claimtype = val;
+        this.form1.claimtype = val;
+        console.log(this.form1.claimtype);
       },
       getChecked(val) {
         this.checked = val;
@@ -1731,6 +1734,7 @@
         }
         this.addRowdata(isClone);
         this.form.tableclaimtype = [];
+        console.log("this.form.claimtype: "+this.form.claimtype);
         if (this.form.claimtype === 'HT001001') {
           this.addRowclaimtype();
           this.form.tableclaimtype[0].claimtype = letclaimtypeone;
