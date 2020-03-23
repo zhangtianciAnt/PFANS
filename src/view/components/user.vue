@@ -131,8 +131,8 @@
         }
       },
       userlist(val) {
+        this.multipleSelection = [];
         if (val) {
-          this.multipleSelection = [];
           for (let i = 0; i < val.split(",").length; i++) {
             if (val.split(",")[i] !== "") {
               let user = getUserInfo(val.split(",")[i]);

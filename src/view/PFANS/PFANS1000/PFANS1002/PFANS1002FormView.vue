@@ -162,7 +162,7 @@
                 </el-row>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1002VIEW_LEVEL')" prop="level">
+                    <el-form-item :label="$t('label.PFANS1002VIEW_LEVEL')">
                       <dicselect
                         :code="code1"
                         :data="form.level"
@@ -175,7 +175,7 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1002VIEW_ABROADBUSINESS')" prop="abroadbusiness">
+                    <el-form-item :label="$t('label.PFANS1002VIEW_ABROADBUSINESS')">
                       <el-switch
                         :disabled="!disable"
                         active-value="1"
@@ -952,13 +952,13 @@
                             trigger: 'blur',
                         },
                     ],
-                    level: [
+                    /*level: [
                         {
                             required: true,
                             message: this.$t('normal.error_09') + this.$t('label.PFANS1002VIEW_LEVEL'),
                             trigger: 'change',
                         },
-                    ],
+                    ],*/
                     condominiumcompany: [
                         {
                             required: true,
@@ -996,11 +996,11 @@
                         },
                         {validator: validateenddate1, trigger: 'blur'},
                     ],
-                    abroadbusiness: [
+                    /*abroadbusiness: [
                         {
                             required: true,
                         },
-                    ],
+                    ],*/
                     objectivetype: [
                         {
                             required: true,

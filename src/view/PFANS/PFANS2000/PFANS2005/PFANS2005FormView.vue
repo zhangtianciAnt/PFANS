@@ -1658,7 +1658,7 @@
                   >
                     <template
                       slot-scope="scope"
-                    >{{parseFloat(scope.row.thisdiligencetry) + parseFloat(scope.row.thisdiligenceformal)}}
+                    >{{(parseFloat(scope.row.thisdiligencetry) + parseFloat(scope.row.thisdiligenceformal)).toFixed(2)}}
                     </template>
                   </el-table-column>
                   <!--                  endregion-->
@@ -1671,7 +1671,8 @@
                   >
                     <template
                       slot-scope="scope"
-                    >{{parseFloat(scope.row.thisshortdeficiencytry) + parseFloat(scope.row.thisshortdeficiencyformal)}}
+                    >{{(parseFloat(scope.row.thisshortdeficiencytry) +
+                      parseFloat(scope.row.thisshortdeficiencyformal)).toFixed(2)}}
                     </template>
                   </el-table-column>
                   <!--                  endregion-->
@@ -1683,8 +1684,8 @@
                     width="150%"
                   >
                     <template slot-scope="scope">
-                      {{parseFloat(scope.row.thischronicdeficiencytry) +
-                      parseFloat(scope.row.thischronicdeficiencyformal)}}
+                      {{(parseFloat(scope.row.thischronicdeficiencytry) +
+                      parseFloat(scope.row.thischronicdeficiencyformal)).toFixed(2)}}
                     </template>
                   </el-table-column>
                   <!--                  endregion-->
@@ -1872,9 +1873,9 @@
                     width="110%"
                   >
                     <template slot-scope="scope">
-                      {{parseFloat(scope.row.thisweekdays) + parseFloat(scope.row.thisrestDay) +
+                      {{(parseFloat(scope.row.thisweekdays) + parseFloat(scope.row.thisrestDay) +
                       parseFloat(scope.row.thislegal) + parseFloat(scope.row.thisreplace) +
-                      parseFloat(scope.row.thisreplace3)}}
+                      parseFloat(scope.row.thisreplace3)).toFixed(2)}}
                     </template>
                   </el-table-column>
                   <el-table-column
@@ -2747,75 +2748,75 @@
         totaldataimprot: [],
         listQuery: {
           page: 1,
-          limit: 5
+          limit: 20
         },
         listQueryListQT1Woman: {
           page: 1,
-          limit: 5
+          limit: 20
         },
         listQueryListQT1Man: {
           page: 1,
-          limit: 5
+          limit: 20
         },
         listQueryListYDSY: {
           page: 1,
-          limit: 5
+          limit: 20
         },
         listQueryListZHSR: {
           page: 1,
-          limit: 5
+          limit: 20
         },
         listQueryListZXKC: {
           page: 1,
-          limit: 5
+          limit: 20
         },
         listQueryListFJKC: {
           page: 1,
-          limit: 5
+          limit: 20
         },
         listQueryListMS: {
           page: 1,
-          limit: 5
+          limit: 20
         },
         listQueryListLJSJ: {
           page: 1,
-          limit: 5
+          limit: 20
         },
         listQueryListGRDB: {
           page: 1,
-          limit: 5
+          limit: 20
         },
         listQueryListQT2: {
           page: 1,
-          limit: 5
+          limit: 20
         },
         listQueryListQT4: {
           page: 1,
-          limit: 5
+          limit: 20
         },
         listQueryListQT5: {
           page: 1,
-          limit: 5
+          limit: 20
         },
         listQueryListRZ: {
           page: 1,
-          limit: 5
+          limit: 20
         },
         listQueryListTZ: {
           page: 1,
-          limit: 5
+          limit: 20
         },
         listQueryListQQ: {
           page: 1,
-          limit: 5
+          limit: 20
         },
         listQueryListCY: {
           page: 1,
-          limit: 5
+          limit: 20
         },
         listQueryListJS: {
           page: 1,
-          limit: 5
+          limit: 20
         },
         menuList: [
           {value: "1", label: 1},
@@ -3305,6 +3306,14 @@
                 }
                 let obj = {};
                 obj.user_id = response.lackattendance[j].user_id;
+                obj.user_name = response.lackattendance[j].user_name;
+
+                obj.lastdiligencetry = response.lackattendance[j].lastdiligencetry;
+                obj.lastshortdeficiencytry = response.lackattendance[j].lastshortdeficiencytry;
+                obj.lastchronicdeficiencytry = response.lackattendance[j].lastchronicdeficiencytry;
+                obj.lastdiligenceformal = response.lackattendance[j].lastdiligenceformal;
+                obj.lastshortdeficiencyformal = response.lackattendance[j].lastshortdeficiencyformal;
+                obj.lastchronicdeficiencyformal = response.lackattendance[j].lastchronicdeficiencyformal;
                 obj.lastdiligence = response.lackattendance[j].lastdiligence;
                 obj.lastshortdeficiency =
                   response.lackattendance[j].lastshortdeficiency;
@@ -3312,6 +3321,12 @@
                   response.lackattendance[j].lastchronicdeficiency;
                 obj.lasttotal = response.lackattendance[j].lasttotal;
                 obj.thisdiligence = response.lackattendance[j].thisdiligence;
+                obj.thisdiligencetry = response.lackattendance[j].thisdiligencetry;
+                obj.thisshortdeficiencytry = response.lackattendance[j].thisshortdeficiencytry;
+                obj.thischronicdeficiencytry = response.lackattendance[j].thischronicdeficiencytry;
+                obj.thisdiligenceformal = response.lackattendance[j].thisdiligenceformal;
+                obj.thisshortdeficiencyformal = response.lackattendance[j].thisshortdeficiencyformal;
+                obj.thischronicdeficiencyformal = response.lackattendance[j].thischronicdeficiencyformal;
                 obj.thisshortdeficiency =
                   response.lackattendance[j].thisshortdeficiency;
                 obj.thischronicdeficiency =

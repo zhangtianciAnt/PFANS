@@ -257,7 +257,6 @@
                       } else if (invoiceDate == '12') {
                         date = 'Dec'
                       }
-                      
                       let invoiceDat = moment(response[m].invoicedate).format("DD");
                       let invoicedat = moment(response[m].invoicedate).format("YYYY");
                       response[m].invoicedate = invoiceDat + date + invoicedat;

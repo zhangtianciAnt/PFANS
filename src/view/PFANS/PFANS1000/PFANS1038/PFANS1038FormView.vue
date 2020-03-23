@@ -442,7 +442,99 @@
           this.form.centerid = rst.centerId;
           this.form.groupid = rst.groupId;
         }
-        if (!this.$route.params._id) {
+        let error = 0;
+        let error1 = 0;
+        let error2 = 0;
+        let error3 = 0;
+        let error4 = 0;
+        // let error5 = 0;
+        // let error6 = 0;
+        // let error7 = 0;
+        if(this.$route.params.type === 0){
+        for (let i = 0; i < this.tableData.length; i++) {
+          if (this.tableData[i].nextyear == undefined) {
+            error = error + 1;
+          }
+        }
+        for (let i = 0; i < this.newTableData.length; i++) {
+          if (this.newTableData[i].name !== null && this.newTableData[i].nextyear === undefined && this.newTableData[i].entermouth !== null) {
+            error1 = error1 + 1;
+          }
+        }
+        for (let i = 0; i < this.newTableData.length; i++) {
+          if (this.newTableData[i].name !== null && this.newTableData[i].nextyear !== undefined && this.newTableData[i].entermouth == null) {
+            error2 = error2 + 1;
+          }
+        }
+        for (let i = 0; i < this.newTableData.length; i++) {
+          if (this.newTableData[i].name == null && this.newTableData[i].nextyear !== undefined && this.newTableData[i].entermouth !== null) {
+            error3 = error3 + 1;
+          }
+        }
+      }
+        if(this.$route.params.type !== 0){
+          for (let i = 0; i < this.newTableData.length; i++) {
+            if(this.newTableData[i].supchinese == undefined && this.newTableData[i].name !== null){
+              error4 = error4 + 1;
+            }
+          }
+          for (let i = 0; i < this.newTableData.length; i++) {
+            if (this.newTableData[i].name !== null && this.newTableData[i].nextyear === undefined) {
+              error1 = error1 + 1;
+            }
+          }
+          for (let i = 0; i < this.newTableData.length; i++) {
+            if(this.newTableData[i].name !== null && this.newTableData[i].entermouth == null){
+              error2 = error2 + 1;
+            }
+          }
+          for (let i = 0; i < this.newTableData.length; i++) {
+            if(this.newTableData[i].supchinese !== undefined && this.newTableData[i].name == null && this.newTableData[i].nextyear !== undefined && this.newTableData[i].entermouth !== null){
+              error3 = error3 + 1;
+            }
+          }
+        }
+       if (error != 0) {
+          Message({
+            message: this.$t('normal.error_08') +
+              this.$t('label.PFANS1038VIEW_REALISTIC')+
+              this.$t('label.PFANS1038VIEW_NEWHIRES2'),
+            type: 'error',
+            duration: 5 * 1000,
+          });
+        } else if (error3 != 0) {
+          Message({
+            message: this.$t('normal.error_08') +
+              this.$t('label.PFANS1038VIEW_NEWHIRES') +
+              this.$t('label.PFANS1038VIEW_MEMBER'),
+            type: 'error',
+            duration: 5 * 1000,
+          });
+        } else if (error1 != 0) {
+         Message({
+           message: this.$t('normal.error_08') +
+             this.$t('label.PFANS1038VIEW_NEWHIRES') +
+             this.$t('label.PFANS1038VIEW_NEWHIRES2'),
+           type: 'error',
+           duration: 5 * 1000,
+         });
+       } else if (error2 != 0) {
+         Message({
+           message: this.$t('normal.error_08') +
+             this.$t('label.PFANS1038VIEW_NEWHIRES') +
+             this.$t('label.PFANS1038VIEW_ADOPTED'),
+           type: 'error',
+           duration: 5 * 1000,
+         });
+       }else if (error4 != 0) {
+         Message({
+           message: this.$t('normal.error_08') +
+             this.$t('label.PFANS1038VIEW_NEWHIRES') +
+             this.$t('label.PFANS1038VIEW_STATIONED'),
+           type: 'error',
+           duration: 5 * 1000,
+         });
+       } else if (!this.$route.params._id) {
           this.loading = true;
           this.$store
             .dispatch("PFANS1038Store/insert", this.form)
