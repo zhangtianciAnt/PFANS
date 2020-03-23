@@ -136,9 +136,9 @@
                     },
                 ],
                 buttonList: [
-                    {'key': 'import', 'name': 'button.import', 'disabled': false, icon: 'el-icon-upload2'},
+                    //{'key': 'import', 'name': 'button.import', 'disabled': false, icon: 'el-icon-upload2'},
                     {'key': 'export', 'name': 'button.export', 'disabled': false, icon: 'el-icon-download'},
-                    {'key': 'export2', 'name': 'button.download2', 'disabled': false, icon: 'el-icon-download'}
+                    //{'key': 'export2', 'name': 'button.download2', 'disabled': false, icon: 'el-icon-download'}
                 ],
                 isShow: true,
             };
@@ -261,10 +261,11 @@
                 }))
             },
             buttonClick(val) {
-                if (val === 'import') {
-                    this.daoru = true;
-                    this.clear(false);
-                } else if (val === 'export') {
+                // if (val === 'import') {
+                //     this.daoru = true;
+                //     this.clear(false);
+                // } else
+                  if (val === 'export') {
                     this.selectedlist = this.$refs.roletable.selectedList;
                     import('@/vendor/Export2Excel').then(excel => {
                         const tHeader = [this.$t('label.user_name'), this.$t('label.center'), this.$t('label.group'), this.$t('label.team'), this.$t('label.date'), this.$t('label.PFANS2017VIEW_START'), this.$t('label.PFANS2017VIEW_END')];
@@ -273,22 +274,23 @@
                         const data = this.formatJson(filterVal, list);
                         excel.export_json_to_excel(tHeader, data, this.$t('menu.PFANS2017'));
                     })
-                }else if('export2' === val){
-                  this.loading = true;
-                  this.$store
-                    .dispatch('PFANS2017Store/download', {})
-                    .then(response => {
-                      this.loading = false;
-                    })
-                    .catch(error => {
-                      Message({
-                        message: error,
-                        type: 'error',
-                        duration: 5 * 1000
-                      });
-                      this.loading = false;
-                    })
                 }
+                //   else if('export2' === val){
+                //   this.loading = true;
+                //   this.$store
+                //     .dispatch('PFANS2017Store/download', {})
+                //     .then(response => {
+                //       this.loading = false;
+                //     })
+                //     .catch(error => {
+                //       Message({
+                //         message: error,
+                //         type: 'error',
+                //         duration: 5 * 1000
+                //       });
+                //       this.loading = false;
+                //     })
+                // }
             }
         }
     }
