@@ -1335,22 +1335,16 @@
                   width="150%"
                 ></el-table-column>
                 <el-table-column
-                  :label="$t('label.PFANS2006VIEW_AFTERNOON')"
+                  :label="$t('label.PFANS2005FORMVIEW_SUBSIDIZE')"
                   align="center"
                   prop="lunch"
-                  width="150%"
-                ></el-table-column>
-                <el-table-column
-                  :label="$t('label.PFANS2006VIEW_TRANSPORTATION')"
-                  align="center"
-                  prop="traffic"
                   width="150%"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS3007VIEW_REMARKS')"
                   align="center"
                   prop="remarks"
-                  width="150%"
+                  width="200%"
                 ></el-table-column>
               </el-table>
               <div class="pagination-container" style="padding-top: 2rem">
@@ -1384,12 +1378,13 @@
                   :label="$t('label.PFANS2006VIEW_NO')"
                   align="center"
                   prop="rowindex"
+                  width="150%"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_LASTNAME')"
                   align="center"
                   prop="user_id"
-                  width="160%"
+                  width="200%"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2005FORMVIEW_RETIREMENTDATE')"
@@ -1410,22 +1405,15 @@
                   width="150%"
                 ></el-table-column>
                 <el-table-column
-                  :label="$t('label.PFANS2006VIEW_AFTERNOON')"
+                  :label="$t('label.PFANS2005FORMVIEW_SUBSIDIZE')"
                   align="center"
                   prop="lunch"
-                  width="150%"
-                ></el-table-column>
-                <el-table-column
-                  :label="$t('label.PFANS2006VIEW_TRANSPORTATION')"
-                  align="center"
-                  prop="traffic"
                   width="150%"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS3007VIEW_REMARKS')"
                   align="center"
                   prop="remarks"
-                  width="150%"
                 ></el-table-column>
               </el-table>
               <div class="pagination-container" style="padding-top: 2rem">

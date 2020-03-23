@@ -572,8 +572,13 @@ export default {
                 : (_tableList[j].statusname = this.$t(
                 "label.PFANSUSERVIEW_FORBIDDEN"
                 ));
+              if (_tableList[j].post && getDictionaryInfo(
+                _tableList[j].post))
+                _tableList[j].post = getDictionaryInfo(
+                  _tableList[j].post
+                ).value1;
               if (_tableList[j].rank && getDictionaryInfo(
-                  _tableList[j].rank))
+                _tableList[j].rank))
                 _tableList[j].rank = getDictionaryInfo(
                   _tableList[j].rank
                 ).value1;
