@@ -38,17 +38,20 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.center')">
-                      <el-input :disabled="true" style="width:20vw" v-model="form.centerid"></el-input>
+                      <el-input :disabled="true" style="width:20vw" v-model="centername"></el-input>
+                      <el-input v-show="false" style="width:20vw" v-model="form.centerid">222</el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.group')">
-                      <el-input :disabled="true" style="width:20vw" v-model="form.groupid"></el-input>
+                      <el-input :disabled="true" style="width:20vw" v-model="groupname"></el-input>
+                      <el-input v-show="false" style="width:20vw" v-model="form.groupid">222</el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.team')">
-                      <el-input :disabled="true" style="width:20vw" v-model="form.teamid"></el-input>
+                      <el-input :disabled="true" style="width:20vw" v-model="teamname"></el-input>
+                      <el-input v-show="false" style="width:20vw" v-model="form.teamid">222</el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -115,18 +118,24 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.budgetunit')" prop="budgetunit">
-                      <dicselect
-                        :code="code1"
-                        :data="form.budgetunit"
-                        :disabled="!disable"
-                        :multiple="multiple"
-                        @change="getbudgetunit"
-                        style="width:20vw"
-                      >
-                      </dicselect>
+                    <el-form-item :label="$t('label.PFANS1012VIEW_PERSONALCODE')">
+                      <el-input :disabled="true" style="width: 20vw" v-model="form.personalcode">
+                      </el-input>
                     </el-form-item>
                   </el-col>
+<!--                  <el-col :span="8">-->
+<!--                    <el-form-item :label="$t('label.budgetunit')" prop="budgetunit">-->
+<!--                      <dicselect-->
+<!--                        :code="code1"-->
+<!--                        :data="form.budgetunit"-->
+<!--                        :disabled="!disable"-->
+<!--                        :multiple="multiple"-->
+<!--                        @change="getbudgetunit"-->
+<!--                        style="width:20vw"-->
+<!--                      >-->
+<!--                      </dicselect>-->
+<!--                    </el-form-item>-->
+<!--                  </el-col>-->
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1013FORMVIEW_LOAN')">
                       <el-select :disabled="!disable" @change="change2" style="width:20vw" v-model="form.loan">
@@ -218,12 +227,6 @@
                     <el-form-item :label="$t('label.PFANS1012VIEW_REIMBURSEMENTDATE')">
                       <el-date-picker :disabled="!disable" style="width:20vw" v-model="form.reimbursementdate">
                       </el-date-picker>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012VIEW_PERSONALCODE')">
-                      <el-input :disabled="true" style="width: 20vw" v-model="form.personalcode">
-                      </el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -435,7 +438,7 @@
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1012FORMVIEW_INVOICEN')" align="center" width="150">
                       <template slot-scope="scope">
-                        <el-select style="width: 100%" v-model="scope.row.invoicenumber">
+                        <el-select style="width: 100%"  v-model="scope.row.invoicenumber">
                           <el-option
                             :key="item.value"
                             :label="item.lable"
@@ -546,7 +549,16 @@
                       <template slot-scope="scope">
                         <dicselect :code="code3"
                                    :data="scope.row.currency"
-                                   :disabled="!disable"
+                                   v-if="scope.row.invoicenumber === this.$t('label.PFANS1012FORMVIEW_NOMONEY') || scope.row.invoicenumber === ''"
+                                   :disabled="false"
+                                   :multiple="multiple"
+                                   :no="scope.row"
+                                   @change="changeAcc">
+                        </dicselect>
+                        <dicselect :code="code3"
+                                   :data="scope.row.currency"
+                                   v-if="scope.row.invoicenumber !== this.$t('label.PFANS1012FORMVIEW_NOMONEY') && scope.row.invoicenumber !== ''"
+                                   :disabled="true"
                                    :multiple="multiple"
                                    :no="scope.row"
                                    @change="changeAcc">
@@ -558,7 +570,20 @@
                                      v-if="showforeigncurrency" width="200">
                       <template slot-scope="scope">
                         <el-input-number
-                          :disabled="!disable"
+                          v-if="scope.row.invoicenumber === this.$t('label.PFANS1012FORMVIEW_NOMONEY') || scope.row.invoicenumber === ''"
+                          :disabled="false"
+                          :max="1000000000"
+                          :min="0"
+                          :no="scope.row"
+                          :precision="2"
+                          @change="changefore(scope.row)"
+                          controls-position="right"
+                          style="width: 100%"
+                          v-model="scope.row.foreigncurrency"
+                        ></el-input-number>
+                        <el-input-number
+                          v-if="scope.row.invoicenumber !== this.$t('label.PFANS1012FORMVIEW_NOMONEY') && scope.row.invoicenumber !== ''"
+                          :disabled="true"
                           :max="1000000000"
                           :min="0"
                           :no="scope.row"
@@ -918,7 +943,16 @@
                       <template slot-scope="scope">
                         <dicselect :code="code3"
                                    :data="scope.row.currency"
-                                   :disabled="!disable"
+                                   v-if="scope.row.invoicenumber === this.$t('label.PFANS1012FORMVIEW_NOMONEY') || scope.row.invoicenumber === ''"
+                                   :disabled="false"
+                                   :multiple="multiple"
+                                   :no="scope.row"
+                                   @change="changeAcc">
+                        </dicselect>
+                        <dicselect :code="code3"
+                                   :data="scope.row.currency"
+                                   v-if="scope.row.invoicenumber !== this.$t('label.PFANS1012FORMVIEW_NOMONEY') && scope.row.invoicenumber !== ''"
+                                   :disabled="true"
                                    :multiple="multiple"
                                    :no="scope.row"
                                    @change="changeAcc">
@@ -1006,6 +1040,9 @@
         }
       };
       return {
+        centername: '',
+        groupname: '',
+        teamname: '',
         optionsdate: [{value: '0000000000', lable: this.$t('label.PFANS1012FROMVIEW_COMMON')}],
         error: '',
         week: '',
@@ -1089,9 +1126,9 @@
           abroadbusiness: '',
           project_id: '',
           type: '0',
-          center_id: '',
-          group_id: '',
-          team_id: '',
+          centerid: '',
+          groupid: '',
+          teamid: '',
           userid: '',
           telephone: '',
           business_id: '',
@@ -1099,7 +1136,7 @@
           startdate: '',
           enddate: '',
           datenumber: '',
-          budgetunit: '',
+          // budgetunit: '',
           loan: '',
           loanamount: '',
           currency: '',
@@ -1246,11 +1283,11 @@
             message: this.$t('normal.error_09') + this.$t('label.PFANS1013VIEW_RELATION'),
             trigger: 'change',
           }],
-          budgetunit: [{
-            required: true,
-            message: this.$t('normal.error_09') + this.$t('label.budgetunit'),
-            trigger: 'change',
-          }],
+          // budgetunit: [{
+          //   required: true,
+          //   message: this.$t('normal.error_09') + this.$t('label.budgetunit'),
+          //   trigger: 'change',
+          // }],
         },
         code1: 'PG002',
         code3: 'PG019',
@@ -1284,6 +1321,10 @@
         this.$store
           .dispatch('PFANS1013Store/selectById', {'evectionid': this.$route.params._id})
           .then(response => {
+            let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+            this.centername = lst.centerNmae;
+            this.groupname = lst.groupNmae;
+            this.teamname = lst.teamNmae;
             this.form = response.evection;
             if (response.trafficdetails.length > 0) {
               this.tableT = response.trafficdetails;
@@ -1381,10 +1422,12 @@
         this.userlist = this.$store.getters.userinfo.userid;
         if (this.userlist !== null && this.userlist !== '') {
           let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-          var groupid = lst.groupId;
-          this.form.centerid = lst.centerNmae;
-          this.form.groupid = lst.groupNmae;
-          this.form.teamid = lst.teamNmae;
+          this.centername = lst.centerNmae;
+          this.groupname = lst.groupNmae;
+          this.teamname = lst.teamNmae;
+          this.form.centerid = lst.centerId;
+          this.form.groupid = lst.groupId;
+          this.form.teamid = lst.teamId;
           this.form.userid = this.$store.getters.userinfo.userid;
         }
         if (this.form.type === '0') {
@@ -1620,9 +1663,12 @@
         this.form.personalcode = getUserInfo(val).userinfo.personalcode;
         this.userlist = val;
         let lst = getOrgInfoByUserId(val);
-        this.form.centerid = lst.centerNmae;
-        this.form.groupid = lst.groupNmae;
-        this.form.teamid = lst.teamNmae;
+        this.centername = lst.centerNmae;
+        this.groupname = lst.groupNmae;
+        this.teamname = lst.teamNmae;
+        this.form.centerid = lst.centerId;
+        this.form.groupid = lst.groupId;
+        this.form.teamid = lst.teamId;
         if (!this.form.userid || this.form.userid === '' || typeof val === 'undefined') {
           this.error = this.$t('normal.error_09') + this.$t('label.applicant');
         } else {
@@ -1649,9 +1695,9 @@
           row.facetax = row.invoiceamount - row.excludingtax;
         }
       },
-      getbudgetunit(val) {
-        this.form.budgetunit = val;
-      },
+      // getbudgetunit(val) {
+      //   this.form.budgetunit = val;
+      // },
       deleteRow(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);

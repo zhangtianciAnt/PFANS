@@ -17,7 +17,7 @@
 <script>
   import EasyNormalTable from '@/components/EasyNormalTable'
   import {Message} from 'element-ui'
-  import {getDictionaryInfo, getStatus, getUserInfo} from '@/utils/customize'
+  import {getDictionaryInfo, getStatus, getUserInfo,getOrgInfoByUserId} from '@/utils/customize'
   import moment from "moment";
 
   const {Parser} = require('json2csv');
@@ -152,9 +152,15 @@
             if (user) {
               response[j].applicant = user.userinfo.customername;
             }
-            response[j].centername = response[j].centerid;
-            response[j].groupname = response[j].groupid;
-            response[j].teamname = response[j].teamid;
+            let nameflg = getOrgInfoByUserId(response[j].userid);
+            if (nameflg) {
+              response[j].centername = nameflg.centerNmae;
+              response[j].groupname = nameflg.groupNmae;
+                response[j].teamname = nameflg.teamNmae;
+            }
+            // response[j].centername = response[j].centerid;
+            // response[j].groupname = response[j].groupid;
+            // response[j].teamname = response[j].teamid;
             if (response[j].budgetunit !== null && response[j].budgetunit !== "") {
               let letBudgetunit = getDictionaryInfo(response[j].budgetunit);
               if (letBudgetunit != null) {
