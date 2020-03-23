@@ -1522,13 +1522,15 @@
         let group = getOrgInfo(orglist);
         if (group) {
           this.Redirict = group.redirict;
+          row.budgetcoding = group.encoding;
           if (group.redirict === '0') {
             this.code20 = 'PJ119';
           } else if (group.redirict === '1') {
             this.code20 = 'PJ132';
           }
-          this.companyen = group.companyen;
-          row.budgetcoding = group.encoding;
+        }
+        if(!orglist){
+          row.budgetcoding = '';
         }
       },
       gettype(val) {
@@ -2326,7 +2328,7 @@
                       accountcode: this.tableT[i].accountcode,
                       subjectnumber: this.tableT[i].subjectnumber,
                       departmentname: this.tableT[i].departmentname,
-                      budgetcoding: this.tableT[i].departmentname,
+                      budgetcoding: this.tableT[i].budgetcoding,
                       taxes: this.tableT[i].taxes,
                       costitem: this.tableT[i].costitem,
                       taxrate: this.tableT[i].taxrate,
