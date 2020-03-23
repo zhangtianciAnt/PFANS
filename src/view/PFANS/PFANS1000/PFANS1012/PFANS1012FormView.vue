@@ -11,17 +11,20 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.center')">
-                      <el-input :disabled="true" style="width:20vw" v-model="form.centerid"></el-input>
+                      <el-input :disabled="true" style="width:20vw" v-model="centerid"></el-input>
+                      <el-input v-show='false' :disabled="true" style="width:20vw" v-model="form.centerid"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.group')">
-                      <el-input :disabled="true" style="width:20vw" v-model="form.groupid"></el-input>
+                      <el-input :disabled="true" style="width:20vw" v-model="groupid"></el-input>
+                      <el-input v-show='false' :disabled="true" style="width:20vw" v-model="form.groupid"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.team')">
-                      <el-input :disabled="true" style="width:20vw" v-model="form.teamid"></el-input>
+                      <el-input :disabled="true" style="width:20vw" v-model="teamid"></el-input>
+                      <el-input v-show='false' :disabled="true" style="width:20vw" v-model="form.teamid"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -63,6 +66,18 @@
                                 v-model="form.accountnumber"></el-input>
                     </el-form-item>
                   </el-col>
+                    <el-col :span="8">
+                      <el-form-item :label="$t('label.PFANS5004VIEW_PROJECTNAMW')">
+                        <el-select v-model="form.project_id" :disabled="!disable" style="width: 20vw" clearable>
+                          <el-option
+                            v-for="item in optionsdate"
+                            :key="item.value"
+                            :label="item.lable"
+                            :value="item.value">
+                          </el-option>
+                        </el-select>
+                      </el-form-item>
+                    </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
@@ -124,20 +139,6 @@
                                  @change="getPayment"
                                  style="width:20vw">
                       </dicselect>
-                    </el-form-item>
-                  </el-col>
-                </el-row>
-                <el-row>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS5004VIEW_PROJECTNAMW')">
-                      <el-select v-model="form.project_id" :disabled="!disable" style="width: 20vw" clearable>
-                        <el-option
-                          v-for="item in optionsdate"
-                          :key="item.value"
-                          :label="item.lable"
-                          :value="item.value">
-                        </el-option>
-                      </el-select>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -1257,6 +1258,9 @@
                 }
             };
             return {
+                centerid: '',
+                groupid: '',
+                teamid: '',
                 disablecheck: false,
                 optionsdate: [],
                 tormbT: '',
@@ -1537,6 +1541,10 @@
                     .dispatch('PFANS1012Store/selectById', {'publicexpenseid': this.$route.params._id})
                     .then(response => {
                         this.form = response.publicexpense;
+                        let rst = getOrgInfoByUserId(response[0].publicexpense.user_id);
+                        this.centerid = rst.centerNmae;
+                        this.groupid= rst.groupNmae;
+                        this.teamid= rst.teamNmae;
                         if (response.invoice.length > 0) {
                             this.tableF = response.invoice;
                             this.checkoptionsdata()
@@ -2119,10 +2127,13 @@
                 this.userlist = this.$store.getters.userinfo.userid;
                 if (this.userlist !== null && this.userlist !== '') {
                     let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+                    this.centerid = rst.centerNmae;
+                    this.groupid= rst.groupNmae;
+                    this.teamid= rst.teamNmae;
                     var groupid = rst.groupId;
-                    this.form.centerid = rst.centerNmae;
-                    this.form.groupid = rst.groupNmae;
-                    this.form.teamid = rst.teamNmae;
+                    this.form.centerid = rst.centerId;
+                    this.form.groupid = rst.groupId;
+                    this.form.teamid = rst.teamId;
                     this.form.user_id = this.$store.getters.userinfo.userid;
                 }
                 this.jude = this.$route.params._name;
@@ -2339,6 +2350,7 @@
                 }
                 for (let j = 0; j < this.tableF.length; j++) {
                  if(this.tableF[j].invoiceamount!=0){
+                     this.form.tormb = '';
                      this.disablecheck =true;
                      break
                  }else{
@@ -2347,6 +2359,30 @@
                  }
 
                 }
+                for(let j = 0; j < this.tableT.length; j++){
+                    this.tableT[j].foreigncurrency = '';
+                    this.tableT[j].currencyrate = '';
+                    this.tableT[j].tormb = '';
+                    this.tableT[j].currency = '';
+                    this.form.tormb = '';
+                    this.disa = true;
+                }
+                for(let j = 0; j < this.tableP.length; j++){
+                    this.tableP[j].foreigncurrency = '';
+                    this.tableP[j].currencyrate = '';
+                    this.tableP[j].tormb = '';
+                    this.tableP[j].currency = '';
+                    this.form.tormb = '';
+                    this.disa = true;
+                }
+                for(let j = 0; j < this.tableR.length; j++){
+                    this.tableR[j].foreigncurrency = '';
+                    this.tableR[j].currencyrate = '';
+                    this.tableR[j].tormb = '';
+                    this.tableR[j].currency = '';
+                    this.form.tormb = '';
+                    this.disa = true;
+                }
 
             },
             getUserids(val) {
@@ -2354,9 +2390,12 @@
                 this.userlist = val;
                 this.form.user_id = val;
                 let rst = getOrgInfoByUserId(val);
-                this.form.centerid = rst.centerNmae;
-                this.form.groupid = rst.groupNmae;
-                this.form.teamid = rst.teamNmae;
+                this.centerid = rst.centerNmae;
+                this.groupid = rst.groupNmae;
+                this.teamid = rst.teamNmae;
+                this.form.centerid = rst.centerId;
+                this.form.groupid = rst.groupId;
+                this.form.teamid = rst.teamId;
                 if (!this.form.user_id || this.form.user_id === '' || typeof val == 'undefined') {
                     this.error = this.$t('normal.error_08') + this.$t('label.applicant');
                 } else {

@@ -9,7 +9,7 @@
 <script>
     import EasyNormalTable from '@/components/EasyNormalTable'
     import {Message} from 'element-ui'
-    import {getDictionaryInfo, getStatus, getUserInfo} from '@/utils/customize'
+    import {getDictionaryInfo, getStatus, getUserInfo,getOrgInfoByUserId} from '@/utils/customize'
     import moment from "moment";
 
     const {Parser} = require('json2csv');
@@ -103,11 +103,12 @@
                             if (rst) {
                                 response[j].user_id = rst.userinfo.customername;
                             }
-                            response[j].center_name = response[j].centerid;
-                            response[j].group_name = response[j].centerid;
-                            response[j].team_name = response[j].centerid;
-
-
+                            let nameflg = getOrgInfoByUserId(response[j].userid);
+                            if (nameflg) {
+                                response[j].center_name = nameflg.centerNmae;
+                                response[j].group_name = nameflg.groupNmae;
+                                response[j].team_name = nameflg.teamNmae;
+                            }
                             if (response[j].status !== null && response[j].status !== "") {
                                 response[j].status = getStatus(response[j].status);
                             }
