@@ -3832,7 +3832,7 @@
                   }
                 }
               }
-              this.tableJS = response.base;
+              // this.tableJS = response.base;
               this.totaldataBase = response.base;
               this.listBase = 1;
               this.getList();
