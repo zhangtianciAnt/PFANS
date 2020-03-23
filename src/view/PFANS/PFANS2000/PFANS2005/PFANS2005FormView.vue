@@ -1466,7 +1466,6 @@
                   prop="user_name"
                   width="160%"
                 ></el-table-column>
-                <!--              // Todo By Skaixx At 2020/3/18 :  欠勤画面变更时需要调用后台接口-->
                 <!--                region 先月欠勤-->
                 <el-table-column :label="$t('label.PFANS2005FORMVIEW_XYQQ')" align="center">
                   <!--                  region 欠勤-试用（H）-->
@@ -1656,10 +1655,7 @@
                     prop="thisdiligence"
                     width="150%"
                   >
-                    <template
-                      slot-scope="scope"
-                    >{{(parseFloat(scope.row.thisdiligencetry) + parseFloat(scope.row.thisdiligenceformal)).toFixed(2)}}
-                    </template>
+                    <!--                    // Todo By Skaixx At 2020/3/23 :  -->
                   </el-table-column>
                   <!--                  endregion-->
                   <!--                  region 短病欠（H）-->
@@ -1669,10 +1665,11 @@
                     prop="thisshortdeficiency"
                     width="150%"
                   >
+                    <!--                    // Todo By Skaixx At 2020/3/23 :  -->
                     <template
                       slot-scope="scope"
-                    >{{(parseFloat(scope.row.thisshortdeficiencytry) +
-                      parseFloat(scope.row.thisshortdeficiencyformal)).toFixed(2)}}
+                    >{{setScale2(parseFloat(scope.row.thisshortdeficiencytry) +
+                      parseFloat(scope.row.thisshortdeficiencyformal))}}
                     </template>
                   </el-table-column>
                   <!--                  endregion-->
@@ -1683,9 +1680,10 @@
                     prop="thischronicdeficiency"
                     width="150%"
                   >
+                    <!--                    // Todo By Skaixx At 2020/3/23 :  -->
                     <template slot-scope="scope">
-                      {{(parseFloat(scope.row.thischronicdeficiencytry) +
-                      parseFloat(scope.row.thischronicdeficiencyformal)).toFixed(2)}}
+                      {{setScale2(parseFloat(scope.row.thischronicdeficiencytry) +
+                      parseFloat(scope.row.thischronicdeficiencyformal))}}
                     </template>
                   </el-table-column>
                   <!--                  endregion-->
@@ -1795,7 +1793,6 @@
                   ></el-table-column>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS2005FORMVIEW_JYCY')" align="center">
-                  <!--                  // Todo By Skaixx At 2020/3/18 : 残业画面变更时需要调用后台接口 -->
                   <el-table-column
                     :label="$t('label.PFANS2005FORMVIEW_PRJB')"
                     align="center"
@@ -1872,10 +1869,11 @@
                     prop="thistotalh"
                     width="110%"
                   >
+                    <!--                    // Todo By Skaixx At 2020/3/23 :  -->
                     <template slot-scope="scope">
-                      {{(parseFloat(scope.row.thisweekdays) + parseFloat(scope.row.thisrestDay) +
+                      {{setScale2(parseFloat(scope.row.thisweekdays) + parseFloat(scope.row.thisrestDay) +
                       parseFloat(scope.row.thislegal) + parseFloat(scope.row.thisreplace) +
-                      parseFloat(scope.row.thisreplace3)).toFixed(2)}}
+                      parseFloat(scope.row.thisreplace3))}}
                     </template>
                   </el-table-column>
                   <el-table-column
@@ -3308,30 +3306,30 @@
                 obj.user_id = response.lackattendance[j].user_id;
                 obj.user_name = response.lackattendance[j].user_name;
 
-                obj.lastdiligencetry = response.lackattendance[j].lastdiligencetry;
-                obj.lastshortdeficiencytry = response.lackattendance[j].lastshortdeficiencytry;
-                obj.lastchronicdeficiencytry = response.lackattendance[j].lastchronicdeficiencytry;
-                obj.lastdiligenceformal = response.lackattendance[j].lastdiligenceformal;
-                obj.lastshortdeficiencyformal = response.lackattendance[j].lastshortdeficiencyformal;
-                obj.lastchronicdeficiencyformal = response.lackattendance[j].lastchronicdeficiencyformal;
-                obj.lastdiligence = response.lackattendance[j].lastdiligence;
+                obj.lastdiligencetry = this.setScale2(response.lackattendance[j].lastdiligencetry);
+                obj.lastshortdeficiencytry = this.setScale2(response.lackattendance[j].lastshortdeficiencytry);
+                obj.lastchronicdeficiencytry = this.setScale2(response.lackattendance[j].lastchronicdeficiencytry);
+                obj.lastdiligenceformal = this.setScale2(response.lackattendance[j].lastdiligenceformal);
+                obj.lastshortdeficiencyformal = this.setScale2(response.lackattendance[j].lastshortdeficiencyformal);
+                obj.lastchronicdeficiencyformal = this.setScale2(response.lackattendance[j].lastchronicdeficiencyformal);
+                obj.lastdiligence = this.setScale2(response.lackattendance[j].lastdiligence);
                 obj.lastshortdeficiency =
-                  response.lackattendance[j].lastshortdeficiency;
+                  this.setScale2(response.lackattendance[j].lastshortdeficiency);
                 obj.lastchronicdeficiency =
-                  response.lackattendance[j].lastchronicdeficiency;
-                obj.lasttotal = response.lackattendance[j].lasttotal;
-                obj.thisdiligence = response.lackattendance[j].thisdiligence;
-                obj.thisdiligencetry = response.lackattendance[j].thisdiligencetry;
-                obj.thisshortdeficiencytry = response.lackattendance[j].thisshortdeficiencytry;
-                obj.thischronicdeficiencytry = response.lackattendance[j].thischronicdeficiencytry;
-                obj.thisdiligenceformal = response.lackattendance[j].thisdiligenceformal;
-                obj.thisshortdeficiencyformal = response.lackattendance[j].thisshortdeficiencyformal;
-                obj.thischronicdeficiencyformal = response.lackattendance[j].thischronicdeficiencyformal;
+                  this.setScale2(response.lackattendance[j].lastchronicdeficiency);
+                obj.lasttotal = this.setScale2(response.lackattendance[j].lasttotal);
+                obj.thisdiligence = this.setScale2(response.lackattendance[j].thisdiligence);
+                obj.thisdiligencetry = this.setScale2(response.lackattendance[j].thisdiligencetry);
+                obj.thisshortdeficiencytry = this.setScale2(response.lackattendance[j].thisshortdeficiencytry);
+                obj.thischronicdeficiencytry = this.setScale2(response.lackattendance[j].thischronicdeficiencytry);
+                obj.thisdiligenceformal = this.setScale2(response.lackattendance[j].thisdiligenceformal);
+                obj.thisshortdeficiencyformal = this.setScale2(response.lackattendance[j].thisshortdeficiencyformal);
+                obj.thischronicdeficiencyformal = this.setScale2(response.lackattendance[j].thischronicdeficiencyformal);
                 obj.thisshortdeficiency =
-                  response.lackattendance[j].thisshortdeficiency;
+                  this.setScale2(response.lackattendance[j].thisshortdeficiency);
                 obj.thischronicdeficiency =
-                  response.lackattendance[j].thischronicdeficiency;
-                obj.thistotal = response.lackattendance[j].thistotal;
+                  this.setScale2(response.lackattendance[j].thischronicdeficiency);
+                obj.thistotal = this.setScale2(response.lackattendance[j].thistotal);
                 obj.remarks = response.lackattendance[j].remarks;
                 obj.give = response.lackattendance[j].give;
                 obj.kcjl =
@@ -3370,27 +3368,27 @@
                   ).userinfo.customername;
                 }
                 obj.rn = response.residual[j].rn;
-                obj.lastweekdays = response.residual[j].lastweekdays;
-                obj.lastlatenight = response.residual[j].lastlatenight;
-                obj.lastrestDay = response.residual[j].lastrestDay;
-                obj.lastrestlatenight = response.residual[j].lastrestlatenight;
-                obj.lastlegal = response.residual[j].lastlegal;
-                obj.lastlegallatenight = response.residual[j].lastlegallatenight;
-                obj.lastreplace = response.residual[j].lastreplace;
-                obj.lasttotalh = response.residual[j].lasttotalh;
-                obj.lasttotaly = response.residual[j].lasttotaly;
-                obj.thisweekdays = response.residual[j].thisweekdays;
-                obj.thislatenight = response.residual[j].thislatenight;
-                obj.thisrestDay = response.residual[j].thisrestDay;
-                obj.thisrestlatenight = response.residual[j].thisrestlatenight;
-                obj.thislegal = response.residual[j].thislegal;
-                obj.thislegallatenight = response.residual[j].thislegallatenight;
-                obj.thisreplace = response.residual[j].thisreplace;
-                obj.thisreplace3 = response.residual[j].thisreplace3;
-                obj.thistotalh = response.residual[j].thistotalh;
-                obj.thistotaly = response.residual[j].thistotaly;
+                obj.lastweekdays = this.setScale2(response.residual[j].lastweekdays);
+                obj.lastlatenight = this.setScale2(response.residual[j].lastlatenight);
+                obj.lastrestDay = this.setScale2(response.residual[j].lastrestDay);
+                obj.lastrestlatenight = this.setScale2(response.residual[j].lastrestlatenight);
+                obj.lastlegal = this.setScale2(response.residual[j].lastlegal);
+                obj.lastlegallatenight = this.setScale2(response.residual[j].lastlegallatenight);
+                obj.lastreplace = this.setScale2(response.residual[j].lastreplace);
+                obj.lasttotalh = this.setScale2(response.residual[j].lasttotalh);
+                obj.lasttotaly = this.setScale2(response.residual[j].lasttotaly);
+                obj.thisweekdays = this.setScale2(response.residual[j].thisweekdays);
+                obj.thislatenight = this.setScale2(response.residual[j].thislatenight);
+                obj.thisrestDay = this.setScale2(response.residual[j].thisrestDay);
+                obj.thisrestlatenight = this.setScale2(response.residual[j].thisrestlatenight);
+                obj.thislegal = this.setScale2(response.residual[j].thislegal);
+                obj.thislegallatenight = this.setScale2(response.residual[j].thislegallatenight);
+                obj.thisreplace = this.setScale2(response.residual[j].thisreplace);
+                obj.thisreplace3 = this.setScale2(response.residual[j].thisreplace3);
+                obj.thistotalh = this.setScale2(response.residual[j].thistotalh);
+                obj.thistotaly = this.setScale2(response.residual[j].thistotaly);
                 obj.remarks = response.residual[j].remarks;
-                obj.subsidy = response.residual[j].subsidy;
+                obj.subsidy = this.setScale2(response.residual[j].subsidy);
                 datalistcy[j] = obj;
                 this.tableCY = datalistcy;
                 this.totaldataCY = datalistcy;
@@ -3739,7 +3737,6 @@
               this.getList();
             }
             // endregion
-            // Todo By Skaixx At 2020/3/19 :  备份基数表数据
             for (let j = 0; j < response.base.length; j++) {
               if (response.base[j].type === "1") {
                 response.base[j].type = this.$t("label.PFANS2005FORMVIEW_SFRZ");
@@ -4433,9 +4430,9 @@
             sums[index] = values.reduce((prev, curr) => {
               const value = parseFloat(curr);
               if (!isNaN(value)) {
-                return (parseFloat(prev) + parseFloat(curr)).toFixed(2);
+                return this.setScale2(parseFloat(prev) + parseFloat(curr));
               } else {
-                return parseFloat(prev).toFixed(2);
+                return this.setScale2(prev);
               }
             }, 0);
             sums[index] += " ";
@@ -4846,6 +4843,13 @@
       },
       //本月加班数据变更时，重新计算加班费合计
       thisMonthOvertimeChange(val) {
+        // 合计（H）
+        this.tableCY.find(item => item.rowindex === val.rowindex).thistotalh = this.setScale2(parseFloat(val.thisweekdays)
+          + parseFloat(val.thisrestDay)
+          + parseFloat(val.thislegal)
+          + parseFloat(val.thisreplace)
+          + parseFloat(val.thisreplace3));
+
         this.givingVo.residual = [];
         this.givingVo.residual.push(val);
         this.givingVo.base = this.totaldataBase;
@@ -4853,8 +4857,7 @@
         this.$store
           .dispatch("PFANS2005Store/thisMonthOvertimeChange", this.givingVo)
           .then(response => {
-            console.log("this.tableCY.find(item => item.rowindex === val.rowindex)", this.tableCY.find(item => item.rowindex === val.rowindex));
-            this.tableCY.find(item => item.rowindex === val.rowindex).thistotaly = response.thistotaly;
+            this.tableCY.find(item => item.rowindex === val.rowindex).thistotaly = this.setScale2(response.thistotaly);
             this.loading = false;
           })
           .catch(err => {
@@ -4868,6 +4871,12 @@
       },
       //本月欠勤数据变更时，重新计算欠勤费合计
       thisMonthLacktimeChange(val) {
+        // 欠勤
+        this.tableQQ.find(item => item.rowindex === val.rowindex).thisdiligence = this.setScale2(parseFloat(val.thisdiligencetry) + parseFloat(val.thisdiligenceformal));
+        // 短病欠
+        this.tableQQ.find(item => item.rowindex === val.rowindex).thisshortdeficiency = this.setScale2(parseFloat(val.thisshortdeficiencytry) + parseFloat(val.thisshortdeficiencyformal));
+        // 长病欠
+        this.tableQQ.find(item => item.rowindex === val.rowindex).thischronicdeficiency = this.setScale2(parseFloat(val.thischronicdeficiencytry) + parseFloat(val.thischronicdeficiencyformal));
         this.givingVo.lackattendance = [];
         this.givingVo.lackattendance.push(val);
         this.givingVo.base = this.totaldataBase;
@@ -4875,7 +4884,7 @@
         this.$store
           .dispatch("PFANS2005Store/thisMonthLacktimeChange", this.givingVo)
           .then(response => {
-            this.tableQQ.find(item => item.rowindex === val.rowindex).thistotal = response.thistotal;
+            this.tableQQ.find(item => item.rowindex === val.rowindex).thistotal = this.setScale2(response.thistotal);
             this.loading = false;
           })
           .catch(err => {
@@ -4886,6 +4895,14 @@
               duration: 5 * 1000
             });
           });
+      },
+      //数值小数位数控制
+      setScale2(val) {
+        if (val) {
+          return Math.round(val * 100) / 100;
+        } else {
+          return 0;
+        }
       }
     }
   };
