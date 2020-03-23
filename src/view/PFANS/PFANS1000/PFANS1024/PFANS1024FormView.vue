@@ -1432,7 +1432,6 @@
       },
       getnumber(val) {
         this.form1.claimtype = val;
-        console.log(this.form1.claimtype);
       },
       getChecked(val) {
         this.checked = val;
@@ -1761,7 +1760,7 @@
           return;
         } else if (this.form.tabledata.currencyposition == undefined || this.form.tabledata.contractdate == undefined || this.form.tableclaimtype.deliverydate == undefined) {
           Message({
-            message: this.$t('label.PFANS1024VIEW_CONTR'),
+            message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_CONTR'),
             type: 'error',
             duration: 5 * 1000,
           });
