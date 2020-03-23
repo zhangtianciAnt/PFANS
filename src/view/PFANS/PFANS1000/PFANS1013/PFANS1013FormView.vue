@@ -38,17 +38,20 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.center')">
-                      <el-input :disabled="true" style="width:20vw" v-model="form.centerid"></el-input>
+                      <el-input :disabled="true" style="width:20vw" v-model="centername"></el-input>
+                      <el-input v-show="false" style="width:20vw" v-model="form.centerid">222</el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.group')">
-                      <el-input :disabled="true" style="width:20vw" v-model="form.groupid"></el-input>
+                      <el-input :disabled="true" style="width:20vw" v-model="groupname"></el-input>
+                      <el-input v-show="false" style="width:20vw" v-model="form.groupid">222</el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.team')">
-                      <el-input :disabled="true" style="width:20vw" v-model="form.teamid"></el-input>
+                      <el-input :disabled="true" style="width:20vw" v-model="teamname"></el-input>
+                      <el-input v-show="false" style="width:20vw" v-model="form.teamid">222</el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -1037,6 +1040,9 @@
         }
       };
       return {
+        centername: '',
+        groupname: '',
+        teamname: '',
         optionsdate: [{value: '0000000000', lable: this.$t('label.PFANS1012FROMVIEW_COMMON')}],
         error: '',
         week: '',
@@ -1120,9 +1126,9 @@
           abroadbusiness: '',
           project_id: '',
           type: '0',
-          center_id: '',
-          group_id: '',
-          team_id: '',
+          centerid: '',
+          groupid: '',
+          teamid: '',
           userid: '',
           telephone: '',
           business_id: '',
@@ -1315,6 +1321,10 @@
         this.$store
           .dispatch('PFANS1013Store/selectById', {'evectionid': this.$route.params._id})
           .then(response => {
+            let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+            this.centername = lst.centerNmae;
+            this.groupname = lst.groupNmae;
+            this.teamname = lst.teamNmae;
             this.form = response.evection;
             if (response.trafficdetails.length > 0) {
               this.tableT = response.trafficdetails;
@@ -1412,10 +1422,12 @@
         this.userlist = this.$store.getters.userinfo.userid;
         if (this.userlist !== null && this.userlist !== '') {
           let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-          var groupid = lst.groupId;
-          this.form.centerid = lst.centerNmae;
-          this.form.groupid = lst.groupNmae;
-          this.form.teamid = lst.teamNmae;
+          this.centername = lst.centerNmae;
+          this.groupname = lst.groupNmae;
+          this.teamname = lst.teamNmae;
+          this.form.centerid = lst.centerId;
+          this.form.groupid = lst.groupId;
+          this.form.teamid = lst.teamId;
           this.form.userid = this.$store.getters.userinfo.userid;
         }
         if (this.form.type === '0') {
@@ -1651,9 +1663,12 @@
         this.form.personalcode = getUserInfo(val).userinfo.personalcode;
         this.userlist = val;
         let lst = getOrgInfoByUserId(val);
-        this.form.centerid = lst.centerNmae;
-        this.form.groupid = lst.groupNmae;
-        this.form.teamid = lst.teamNmae;
+        this.centername = lst.centerNmae;
+        this.groupname = lst.groupNmae;
+        this.teamname = lst.teamNmae;
+        this.form.centerid = lst.centerId;
+        this.form.groupid = lst.groupId;
+        this.form.teamid = lst.teamId;
         if (!this.form.userid || this.form.userid === '' || typeof val === 'undefined') {
           this.error = this.$t('normal.error_09') + this.$t('label.applicant');
         } else {
