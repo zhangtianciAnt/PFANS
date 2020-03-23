@@ -743,7 +743,7 @@
                           :max="1000000000"
                           :min="0"
                           :precision="2"
-                          @change="getTravel(scope.row)"
+                          @change="changeTravel(scope.row)"
                           controls-position="right"
                           style="width: 100%"
                           v-model="scope.row.travel"
@@ -2191,9 +2191,9 @@
                 }
               }
             }
-            if (accfig !== '' && accfig !== undefined && row.travel !== '' && row.travel !== undefined) {
-              row.rmb = (row.travel * Number(accfig)).toFixed(4);
-            }
+            // if (accfig !== '' && accfig !== undefined && row.travel !== '' && row.travel !== undefined) {
+            //   row.rmb = (row.travel * Number(accfig)).toFixed(4);
+            // }
           } else if (this.Redirict === '0' ? (row.accountcode === 'PJ132005') : (row.accountcode === 'PJ119005')) {
             if (this.rank === 'PJ016003') {
               jpvalueflg2 = Number(jpregion12) + 100;
@@ -2234,7 +2234,13 @@
         this.form.status = '0';
         this.buttonClick('save');
       },
+      changeTravel(val){
+        debugger;
+        val.rmb = '';
+        this.getTravel(val);
+      },
       changelowance(newValue) {
+        newValue.travel = '';
         this.getTravel(newValue);
         for (let j = 0; j < this.tableF.length; j++) {
           if (newValue.invoicenumber === this.tableF[j].invoicenumber) {
@@ -2257,6 +2263,7 @@
         }
       },
       changeRMB(newValue) {
+        newValue.foreigncurrency = '';
         for (let j = 0; j < this.tableF.length; j++) {
           if (newValue.invoicenumber === this.tableF[j].invoicenumber) {
             if (newValue.rmb !== '') {
@@ -2285,20 +2292,21 @@
       },
       changeAcc(val, row) {
         row.currency = val;
-        let accinfo = getDictionaryInfo(val);
-        if (accinfo) {
-          row.rmb = row.foreigncurrency * accinfo.value2;
-        }
+        // let accinfo = getDictionaryInfo(val);
+        // if (accinfo) {
+        //   row.rmb = row.foreigncurrency * accinfo.value2;
+        // }
       },
       getAccommodation(val, row) {
         row.currency = val;
         this.getTravel(row);
       },
       changefore(val, row) {
-        let accinfo = getDictionaryInfo(val.currency);
-        if (accinfo) {
-          val.rmb = val.foreigncurrency * accinfo.value2;
-        }
+        val.rmb = '';
+        // let accinfo = getDictionaryInfo(val.currency);
+        // if (accinfo) {
+        //   val.rmb = val.foreigncurrency * accinfo.value2;
+        // }
       },
       buttonClick(val) {
         if (val === 'save') {
@@ -2312,11 +2320,21 @@
               this.baseInfo.otherdetails = [];
               this.baseInfo.invoice = [];
               this.baseInfo.currencyexchanges = [];
+              var errorflg = 0;
               for (let i = 0; i < this.tableT.length; i++) {
                 if (this.tableT[i].trafficdate !== '' || this.tableT[i].region !== '' || this.tableT[i].vehicle !== '' || this.tableT[i].startingpoint !== ''
                   || this.tableT[i].rmb > 0 || this.tableT[i].foreigncurrency > 0 || this.tableT[i].annexno !== ''
                   || this.tableT[i].invoicenumber !== '' || this.tableT[i].departmentname !== '' || this.tableT[i].budgetcoding !== ''
                   || this.tableT[i].taxes !== '' || this.tableT[i].currency !== '' || this.tableT[i].costitem !== '') {
+                  if(this.tableT[i].rmb + this.tableT[i].foreigncurrency <= 0){
+                    Message({
+                      message: this.$t('label.PFANS1012VIEW_TRAFFIC') + this.$t('label.PFANS1013FORMVIEW_ERRORINFO'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    errorflg += 1;
+                    break;
+                  }
                   this.baseInfo.trafficdetails.push(
                     {
                       trafficdetails_id: this.tableT[i].trafficdetails_id,
@@ -2343,12 +2361,24 @@
                   );
                 }
               }
+              if(errorflg === 1){
+                return;
+              }
               for (let i = 0; i < this.tableA.length; i++) {
                 if (this.tableA[i].accommodationdate !== '' || this.tableA[i].activitycontent !== '' || this.tableA[i].region !== ''
                   || this.tableA[i].movementtime !== '' || this.tableA[i].city !== '' || this.tableA[i].facilitytype !== '' || this.tableA[i].facilityname !== '' || this.tableA[i].currency > 0
                   || this.tableA[i].accommodation > 0 || this.tableA[i].rmb > 0 || this.tableA[i].travel > 0
                   || this.tableA[i].annexno !== ''
                   || this.tableA[i].invoicenumber !== '' || this.tableA[i].departmentname !== '' || this.tableA[i].taxes !== '' || this.tableA[i].costitem !== '') {
+                  if(this.tableA[i].rmb + this.tableA[i].travel <= 0){
+                    Message({
+                      message: this.$t('label.PFANS1013VIEW_ACCOMMODATION') + this.$t('label.PFANS1013FORMVIEW_ERRORINFO'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    errorflg += 1;
+                    break;
+                  }
                   this.baseInfo.accommodationdetails.push(
                     {
                       accommodationdetails_id: this.tableA[i].accommodationdetails_id,
@@ -2377,11 +2407,23 @@
                   );
                 }
               }
+              if(errorflg === 1){
+                return;
+              }
               for (let i = 0; i < this.tableR.length; i++) {
                 if (this.tableR[i].otherdetailsdate !== '' || this.tableR[i].costitem !== '' || this.tableR[i].remarks !== ''
                   || this.tableR[i].rmb > 0 || this.tableR[i].foreigncurrency > 0 || this.tableR[i].annexno !== ''
                   || this.tableR[i].invoicenumber !== '' || this.tableR[i].departmentname !== '' || this.tableR[i].budgetcoding !== ''
                   || this.tableR[i].subjectnumber !== '' || this.tableR[i].currency !== '' || this.tableR[i].remarks !== '' || this.tableR[i].taxes !== '') {
+                  if(this.tableR[i].rmb + this.tableR[i].foreigncurrency <= 0){
+                    Message({
+                      message: this.$t('label.PFANS1012VIEW_OTHER') + this.$t('label.PFANS1013FORMVIEW_ERRORINFO'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    errorflg += 1;
+                    break;
+                  }
                   this.baseInfo.otherdetails.push(
                     {
                       otherdetails_id: this.tableR[i].otherdetails_id,
@@ -2403,6 +2445,9 @@
                     },
                   );
                 }
+              }
+              if(errorflg === 1){
+                return;
               }
               for (let i = 0; i < this.tableW.length; i++) {
                 if (this.tableW[i].currency !== '' || this.tableW[i].amount > 0 || this.tableW[i].exchangerate > 0
