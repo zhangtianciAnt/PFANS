@@ -1937,7 +1937,7 @@
           && this.form.placejapanese == ''
           && this.form.placechinese == '') {
           Message({
-            message: this.$t('label.PFANS1024VIEW_CONTR'),
+            message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_CONTR'),
             type: 'error',
             duration: 5 * 1000,
           });
