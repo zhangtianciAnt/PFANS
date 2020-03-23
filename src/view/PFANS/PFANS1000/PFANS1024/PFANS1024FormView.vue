@@ -9,7 +9,7 @@
         <el-form :model="form1" :rules="rules1" label-position="top" label-width="6vw" ref="refform1"
                  style="padding: 2vw">
           <el-dialog :title="$t('button.application')" :visible.sync="dialogVisibleC">
-            <el-form-item :label="$t('label.PFANS1024VIEW_NUMBER')" :label-width="formLabelWidth">
+            <el-form-item :label="$t('label.PFANS1024VIEW_NUMBER')" :label-width="formLabelWidth" :error="errorclaimtype" prop="claimtype">
               <dicselect
                 :code="code"
                 :data="form1.claimtype"
@@ -28,7 +28,7 @@
               >{{$t('label.PFANS1024VIEW_LETTERS')}}
               </el-checkbox>
             </el-form-item>
-            <el-form-item :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')" :label-width="formLabelWidth">
+            <el-form-item :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')" :label-width="formLabelWidth" :error="errorcontracttype" prop="contracttype">
               <dicselect :code="code2"
                          :data="form1.contracttype"
                          @change="getcontracttype"
@@ -36,7 +36,7 @@
                          :disabled="!disabled2">
               </dicselect>
             </el-form-item>
-            <el-form-item :label="$t('label.PFANS1024VIEW_CAREERYEAR')" :label-width="formLabelWidth">
+            <el-form-item :label="$t('label.PFANS1024VIEW_CAREERYEAR')" :label-width="formLabelWidth" :error="errorapplicationdate" prop="applicationdate">
               <dicselect :code="code3"
                          :data="form1.applicationdate"
                          @change="getcareeryear1"
@@ -50,7 +50,7 @@
                          :disabled="!disabled2">
               </dicselect>
             </el-form-item>
-            <el-form-item :label="$t('label.group')" :label-width="formLabelWidth" prop="grouporglist"
+            <el-form-item :label="$t('label.group')" :label-width="formLabelWidth"  prop="grouporglist"
                           :error="errorgroup">
               <org
                 :orglist="form1.grouporglist"
@@ -291,6 +291,7 @@
                 </template>
               </el-table-column>
             </el-table-column>
+            <!--222-->
             <el-table-column :label="$t('label.PFANS1024VIEW_CUSTOMERPLACE')" align="center" width="120">
               <el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="placejapanese"
                                width="200">
@@ -759,6 +760,14 @@
           callback();
         }
       };
+      var checkApplicationdate =(rule, value, callback) => {
+          if (!this.form1.applicationdate || this.form1.applicationdate === '' || !this.form1.entrycondition || this.form1.entrycondition === '') {
+              callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1024VIEW_CAREERYEAR')));
+              this.errorapplicationdate = this.$t('normal.error_09') + this.$t('label.PFANS1024VIEW_CAREERYEAR');
+          } else {
+              callback();
+          }
+      };
       return {
         error: '',
         errordepartment: '',
@@ -790,6 +799,9 @@
         errorcusto: '',
         erroruser: '',
         errorcontractnumber: '',
+          errorclaimtype: '',
+          errorcontracttype: '',
+          errorapplicationdate: '',
         loading: false,
         title: 'title.PFANS1024VIEW',
         activeName: '',
@@ -804,6 +816,33 @@
           '7': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'contractdate', 'currencyposition', 'claimamount', 'deliverydate'],
         },
         rules1: {
+            claimtype: [
+                {
+                    required: true,
+                    message:
+                        this.$t('normal.error_09') +
+                        this.$t('label.PFANS1024VIEW_NUMBER'),
+                    trigger: 'change',
+                },
+            ],
+
+            contracttype: [
+                {
+                    required: true,
+                    message:
+                        this.$t('normal.error_09') +
+                        this.$t('label.PFANS1024VIEW_CONTRACTTYPE'),
+                    trigger: 'change',
+                },
+            ],
+
+            applicationdate: [
+                {
+                    required: true,
+                    validator: checkApplicationdate,
+                    trigger: 'change',
+                },
+            ],
           grouporglist: [
             {
               required: true,
@@ -819,6 +858,7 @@
                 this.$t('label.PFANS1024VIEW_CUSTOMERNAME'),
               trigger: 'change',
             },
+
           ],
         },
         rules: {
@@ -1188,7 +1228,13 @@
         this.formcustomer.custochinese = row.supchinese;
         this.formcustomer.suppliercode = row.suppliercode;
 
-        this.formcustomer.placejapanese = row.addjapanese;
+        console.log('addjapanese'+row.addjapanese);
+        if(!row.addjapanese){
+            this.formcustomer.placejapanese = row.addchinese;
+        }else{
+            this.formcustomer.placejapanese = row.addjapanese;
+        }
+
         this.formcustomer.placeenglish = row.addenglish;
         this.formcustomer.placechinese = row.addchinese;
 
@@ -1302,6 +1348,7 @@
                 }
               }
             }
+
             this.dataA = response;
             this.loading = false;
           })
@@ -1449,16 +1496,16 @@
         row.entrustednumber = val;
       },
       getcontracttype(val) {
-        this.form.contracttype = val;
+        this.form1.contracttype = val;
       },
       getEntrycondition(val, row) {
         row.entrycondition = val;
       },
       getcareeryear1(val) {
-        this.form.applicationdate = val;
+        this.form1.applicationdate = val;
       },
       getcareeryear2(val) {
-        this.form.entrycondition = val;
+        this.form1.entrycondition = val;
       },
       getCurrencyposition(val, row) {
         row.currencyposition = val;
@@ -1991,15 +2038,11 @@
           this.show1 = true;
           this.show2 = false;
           if (!this.$route.params._id) {
-            /*this.form.claimtype = 'HT001001';
-            this.form.contracttype = 'HT014001';
-            this.form.applicationdate = 'HT007001';
-            this.form.entrycondition = 'HT003001';*/
 
-            this.form1.claimtype = 'HT001001';
+            /*this.form1.claimtype = 'HT001001';
             this.form1.contracttype = 'HT014001';
             this.form1.applicationdate = 'HT007001';
-            this.form1.entrycondition = 'HT003001';
+            this.form1.entrycondition = 'HT003001';*/
           } else {
             this.getChecked(true);
           }
