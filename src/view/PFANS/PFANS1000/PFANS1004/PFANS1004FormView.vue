@@ -147,22 +147,22 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.numbers')" prop="numbers">
-                <el-input-number v-model="form.numbers" controls-position="right" style="width:20vw" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
+                <el-input-number v-model="form.numbers" controls-position="right" style="width:20vw" :disabled="!disabled" :min="0" :max="1000000000" :precision="2" @change="changeTotal"></el-input-number>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1004VIEW_UNITPRICE')" prop="unitprice">
-                <el-input-number v-model="form.unitprice" controls-position="right" style="width:20vw"  :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
+                <el-input-number v-model="form.unitprice" controls-position="right" style="width:20vw"  :disabled="!disabled" :min="0" :max="1000000000" :precision="2" @change="changeTotal"></el-input-number>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1004VIEW_AMOUNT')" prop="money">
-                <el-input-number v-model="money" controls-position="right" style="width:20vw" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
+                <el-input-number v-model="form.money" :controls="false" style="width:20vw" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1004VIEW_THISPROJECT')" prop="thisproject" label-width="7rem">
-                <el-input v-model="form.thisproject" :disabled="!disabled" style="width: 20vw;" maxlength='20'></el-input>
+                <el-input v-model="form.thisproject" :disabled="true" style="width: 20vw;" maxlength='20'></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -282,6 +282,14 @@
                 callback();
             }
         };
+
+      var CheckGiven = (rule, value, callback) => {
+          if (Number(this.form.amounttobegiven) > Number(this.form.businessplanbalance)) {
+            callback(new Error(this.$t('label.PFANS1004VIEW_AMOUNTTOBEGIVEN') + this.$t('normal.error_checkTime2') + this.$t('label.PFANS1004VIEW_BUSINESSPLANBALANCE')));
+          } else {
+            callback();
+          }
+      };
       return {
         userlist: "",
         loading: false,
@@ -320,7 +328,7 @@
             equipment:'',
             uploadfile: '',
         },
-          code: 'PR002',
+          code: 'PJ142',
           code1: 'PR003',
           code2: 'PJ010',
           code3: 'PJ013',
@@ -353,8 +361,8 @@
             {
               required: true,
               message: this.$t('normal.error_08') + this.$t('label.PFANS1004VIEW_AMOUNTTOBEGIVEN'),
-              trigger: 'change'
             },
+            {validator: CheckGiven, trigger: 'change'}
           ],
           gist: [
             {
@@ -529,6 +537,7 @@
             this.loading = false;
           })
       } else {
+        debugger
         this.userlist = this.$store.getters.userinfo.userid;
         if (this.userlist !== null && this.userlist !== '') {
         let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
@@ -536,6 +545,10 @@
         this.form.group_id = lst.groupNmae;
         this.form.team_id = lst.teamNmae;
         this.form.user_id = this.$store.getters.userinfo.userid;
+        if(this.$store.getters.orgGroupList.length > 0){
+        let group = this.$store.getters.orgGroupList.filter( val => val.groupid === lst.groupId)
+          this.form.thisproject = group[0].encoding;
+        }
         }
         this.loading = false;
       }
@@ -596,13 +609,6 @@
             this.rules.enddate[0].required = false;
             this.rules.period[0].required = false;
         }
-    },
-
-    computed:{
-         money:function () {
-               this.form.money = Number(this.form.unitprice) * Number(this.form.numbers);
-               return this.form.money;
-         }
     },
     methods: {
       getUserids(val) {
@@ -793,6 +799,9 @@
             title: 4,
           },
         });
+      },
+      changeTotal(val){
+        this.form.money = Number(this.form.unitprice) * Number(this.form.numbers);
       },
       buttonClick(val) {
       let JudgementVo = {};
