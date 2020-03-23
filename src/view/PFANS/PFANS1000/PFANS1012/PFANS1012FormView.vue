@@ -1565,85 +1565,85 @@
                                     if (this.tableT[i].plsummary == 'PJ111001') {
                                         let letErrortype = getDictionaryInfo(this.tableT[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableT[i].accountcode = letErrortype.value1;
+                                            this.tableT[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = 'PJ112';
                                     } else if (this.tableT[i].plsummary === 'PJ111002') {
                                         let letErrortype = getDictionaryInfo(this.tableT[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableT[i].accountcode = letErrortype.value1;
+                                            this.tableT[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = 'PJ113';
                                     } else if (this.tableT[i].plsummary === 'PJ111003') {
                                         let letErrortype = getDictionaryInfo(this.tableT[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableT[i].accountcode = letErrortype.value1;
+                                            this.tableT[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = 'PJ114';
                                     } else if (this.tableT[i].plsummary === 'PJ111004') {
                                         let letErrortype = getDictionaryInfo(this.tableT[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableT[i].accountcode = letErrortype.value1;
+                                            this.tableT[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = '';
                                     } else if (this.tableT[i].plsummary === 'PJ111005') {
                                         let letErrortype = getDictionaryInfo(this.tableT[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableT[i].accountcode = letErrortype.value1;
+                                            this.tableT[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = 'PJ116';
                                     } else if (this.tableT[i].plsummary === 'PJ111006') {
                                         let letErrortype = getDictionaryInfo(this.tableT[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableT[i].accountcode = letErrortype.value1;
+                                            this.tableT[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = 'PJ117';
                                     } else if (this.tableT[i].plsummary === 'PJ111007') {
                                         let letErrortype = getDictionaryInfo(this.tableT[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableT[i].accountcode = letErrortype.value1;
+                                            this.tableT[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = 'PJ118';
                                     } else if (this.tableT[i].plsummary === 'PJ111008') {
                                         let letErrortype = getDictionaryInfo(this.tableT[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableT[i].accountcode = letErrortype.value1;
+                                            this.tableT[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = 'PJ119';
                                     } else if (this.tableT[i].plsummary === 'PJ111009') {
                                         let letErrortype = getDictionaryInfo(this.tableT[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableT[i].accountcode = letErrortype.value1;
+                                            this.tableT[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = 'PJ120';
                                     } else if (this.tableT[i].plsummary === 'PJ111010') {
                                         let letErrortype = getDictionaryInfo(this.tableT[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableT[i].accountcode = letErrortype.value1;
+                                            this.tableT[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = 'PJ121';
                                     } else if (this.tableT[i].plsummary === 'PJ111011') {
                                         let letErrortype = getDictionaryInfo(this.tableT[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableT[i].accountcode = letErrortype.value1;
+                                            this.tableT[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = 'PJ122';
                                     } else if (this.tableT[i].plsummary === 'PJ111012') {
                                         let letErrortype = getDictionaryInfo(this.tableT[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableT[i].accountcode = letErrortype.value1;
+                                            this.tableT[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = 'PJ123';
                                     } else if (this.tableT[i].plsummary === 'PJ111013') {
                                         let letErrortype = getDictionaryInfo(this.tableT[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableT[i].accountcode = letErrortype.value1;
+                                            this.tableT[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = '';
                                     } else if (this.tableT[i].plsummary === 'PJ111014') {
                                         let letErrortype = getDictionaryInfo(this.tableT[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableT[i].accountcode = letErrortype.value1;
+                                            this.tableT[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = 'PJ125';
                                     }
@@ -1651,85 +1651,85 @@
                                     if (this.tableT[i].plsummary == 'PJ111001') {
                                         let letErrortype = getDictionaryInfo(this.tableT[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableT[i].accountcode = letErrortype.value1;
+                                            this.tableT[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = 'PJ127';
                                     } else if (this.tableT[i].plsummary === 'PJ111002') {
                                         let letErrortype = getDictionaryInfo(this.tableT[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableT[i].accountcode = letErrortype.value1;
+                                            this.tableT[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = 'PJ128';
                                     } else if (this.tableT[i].plsummary === 'PJ111003') {
                                         let letErrortype = getDictionaryInfo(this.tableT[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableT[i].accountcode = letErrortype.value1;
+                                            this.tableT[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = 'PJ129';
                                     } else if (this.tableT[i].plsummary === 'PJ111004') {
                                         let letErrortype = getDictionaryInfo(this.tableT[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableT[i].accountcode = letErrortype.value1;
+                                            this.tableT[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = 'PJ115';
                                     } else if (this.tableT[i].plsummary === 'PJ111005') {
                                         let letErrortype = getDictionaryInfo(this.tableT[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableT[i].accountcode = letErrortype.value1;
+                                            this.tableT[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = 'PJ130';
                                     } else if (this.tableT[i].plsummary === 'PJ111006') {
                                         let letErrortype = getDictionaryInfo(this.tableT[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableT[i].accountcode = letErrortype.value1;
+                                            this.tableT[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = '';
                                     } else if (this.tableT[i].plsummary === 'PJ111007') {
                                         let letErrortype = getDictionaryInfo(this.tableT[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableT[i].accountcode = letErrortype.value1;
+                                            this.tableT[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = 'PJ131';
                                     } else if (this.tableT[i].plsummary === 'PJ111008') {
                                         let letErrortype = getDictionaryInfo(this.tableT[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableT[i].accountcode = letErrortype.value1;
+                                            this.tableT[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = 'PJ132';
                                     } else if (this.tableT[i].plsummary === 'PJ111009') {
                                         let letErrortype = getDictionaryInfo(this.tableT[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableT[i].accountcode = letErrortype.value1;
+                                            this.tableT[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = 'PJ133';
                                     } else if (this.tableT[i].plsummary === 'PJ111010') {
                                         let letErrortype = getDictionaryInfo(this.tableT[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableT[i].accountcode = letErrortype.value1;
+                                            this.tableT[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = 'PJ134';
                                     } else if (this.tableT[i].plsummary === 'PJ111011') {
                                         let letErrortype = getDictionaryInfo(this.tableT[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableT[i].accountcode = letErrortype.value1;
+                                            this.tableT[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = 'PJ135';
                                     } else if (this.tableT[i].plsummary === 'PJ111012') {
                                         let letErrortype = getDictionaryInfo(this.tableT[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableT[i].accountcode = letErrortype.value1;
+                                            this.tableT[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = 'PJ136';
                                     } else if (this.tableT[i].plsummary === 'PJ111013') {
                                         let letErrortype = getDictionaryInfo(this.tableT[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableT[i].accountcode = letErrortype.value1;
+                                            this.tableT[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = 'PJ124';
                                     } else if (this.tableT[i].plsummary === 'PJ111014') {
                                         let letErrortype = getDictionaryInfo(this.tableT[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableT[i].accountcode = letErrortype.value1;
+                                            this.tableT[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = 'PJ137';
                                     }
@@ -1744,85 +1744,85 @@
                                     if (this.tableP[i].plsummary == 'PJ111001') {
                                         let letErrortype = getDictionaryInfo(this.tableP[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableP[i].accountcode = letErrortype.value1;
+                                            this.tableP[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = 'PJ112';
                                     } else if (this.tableP[i].plsummary === 'PJ111002') {
                                         let letErrortype = getDictionaryInfo(this.tableP[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableP[i].accountcode = letErrortype.value1;
+                                            this.tableP[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = 'PJ113';
                                     } else if (this.tableP[i].plsummary === 'PJ111003') {
                                         let letErrortype = getDictionaryInfo(this.tableP[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableP[i].accountcode = letErrortype.value1;
+                                            this.tableP[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = 'PJ114';
                                     } else if (this.tableP[i].plsummary === 'PJ111004') {
                                         let letErrortype = getDictionaryInfo(this.tableP[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableP[i].accountcode = letErrortype.value1;
+                                            this.tableP[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = '';
                                     } else if (this.tableP[i].plsummary === 'PJ111005') {
                                         let letErrortype = getDictionaryInfo(this.tableP[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableP[i].accountcode = letErrortype.value1;
+                                            this.tableP[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = 'PJ116';
                                     } else if (this.tableP[i].plsummary === 'PJ111006') {
                                         let letErrortype = getDictionaryInfo(this.tableP[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableP[i].accountcode = letErrortype.value1;
+                                            this.tableP[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = 'PJ117';
                                     } else if (this.tableP[i].plsummary === 'PJ111007') {
                                         let letErrortype = getDictionaryInfo(this.tableP[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableP[i].accountcode = letErrortype.value1;
+                                            this.tableP[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = 'PJ118';
                                     } else if (this.tableP[i].plsummary === 'PJ111008') {
                                         let letErrortype = getDictionaryInfo(this.tableP[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableP[i].accountcode = letErrortype.value1;
+                                            this.tableP[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = 'PJ119';
                                     } else if (this.tableP[i].plsummary === 'PJ111009') {
                                         let letErrortype = getDictionaryInfo(this.tableP[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableP[i].accountcode = letErrortype.value1;
+                                            this.tableP[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = 'PJ120';
                                     } else if (this.tableP[i].plsummary === 'PJ111010') {
                                         let letErrortype = getDictionaryInfo(this.tableP[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableP[i].accountcode = letErrortype.value1;
+                                            this.tableP[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = 'PJ121';
                                     } else if (this.tableP[i].plsummary === 'PJ111011') {
                                         let letErrortype = getDictionaryInfo(this.tableP[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableP[i].accountcode = letErrortype.value1;
+                                            this.tableP[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = 'PJ122';
                                     } else if (this.tableP[i].plsummary === 'PJ111012') {
                                         let letErrortype = getDictionaryInfo(this.tableP[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableP[i].accountcode = letErrortype.value1;
+                                            this.tableP[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = 'PJ123';
                                     } else if (this.tableP[i].plsummary === 'PJ111013') {
                                         let letErrortype = getDictionaryInfo(this.tableP[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableP[i].accountcode = letErrortype.value1;
+                                            this.tableP[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = '';
                                     } else if (this.tableP[i].plsummary === 'PJ111014') {
                                         let letErrortype = getDictionaryInfo(this.tableP[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableP[i].accountcode = letErrortype.value1;
+                                            this.tableP[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = 'PJ125';
                                     }
@@ -1830,85 +1830,85 @@
                                     if (this.tableP[i].plsummary == 'PJ111001') {
                                         let letErrortype = getDictionaryInfo(this.tableP[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableP[i].accountcode = letErrortype.value1;
+                                            this.tableP[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = 'PJ127';
                                     } else if (this.tableP[i].plsummary === 'PJ111002') {
                                         let letErrortype = getDictionaryInfo(this.tableP[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableP[i].accountcode = letErrortype.value1;
+                                            this.tableP[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = 'PJ128';
                                     } else if (this.tableP[i].plsummary === 'PJ111003') {
                                         let letErrortype = getDictionaryInfo(this.tableP[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableP[i].accountcode = letErrortype.value1;
+                                            this.tableP[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = 'PJ129';
                                     } else if (this.tableP[i].plsummary === 'PJ111004') {
                                         let letErrortype = getDictionaryInfo(this.tableP[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableP[i].accountcode = letErrortype.value1;
+                                            this.tableP[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = 'PJ115';
                                     } else if (this.tableP[i].plsummary === 'PJ111005') {
                                         let letErrortype = getDictionaryInfo(this.tableP[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableP[i].accountcode = letErrortype.value1;
+                                            this.tableP[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = 'PJ130';
                                     } else if (this.tableP[i].plsummary === 'PJ111006') {
                                         let letErrortype = getDictionaryInfo(this.tableP[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableP[i].accountcode = letErrortype.value1;
+                                            this.tableP[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = '';
                                     } else if (this.tableP[i].plsummary === 'PJ111007') {
                                         let letErrortype = getDictionaryInfo(this.tableP[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableP[i].accountcode = letErrortype.value1;
+                                            this.tableP[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = 'PJ131';
                                     } else if (this.tableP[i].plsummary === 'PJ111008') {
                                         let letErrortype = getDictionaryInfo(this.tableP[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableP[i].accountcode = letErrortype.value1;
+                                            this.tableP[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = 'PJ132';
                                     } else if (this.tableP[i].plsummary === 'PJ111009') {
                                         let letErrortype = getDictionaryInfo(this.tableP[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableP[i].accountcode = letErrortype.value1;
+                                            this.tableP[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = 'PJ133';
                                     } else if (this.tableP[i].plsummary === 'PJ111010') {
                                         let letErrortype = getDictionaryInfo(this.tableP[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableP[i].accountcode = letErrortype.value1;
+                                            this.tableP[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = 'PJ134';
                                     } else if (this.tableP[i].plsummary === 'PJ111011') {
                                         let letErrortype = getDictionaryInfo(this.tableP[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableP[i].accountcode = letErrortype.value1;
+                                            this.tableP[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = 'PJ135';
                                     } else if (this.tableP[i].plsummary === 'PJ111012') {
                                         let letErrortype = getDictionaryInfo(this.tableP[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableP[i].accountcode = letErrortype.value1;
+                                            this.tableP[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = 'PJ136';
                                     } else if (this.tableP[i].plsummary === 'PJ111013') {
                                         let letErrortype = getDictionaryInfo(this.tableP[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableP[i].accountcode = letErrortype.value1;
+                                            this.tableP[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = 'PJ124';
                                     } else if (this.tableP[i].plsummary === 'PJ111014') {
                                         let letErrortype = getDictionaryInfo(this.tableP[i].accountcode);
                                         if (letErrortype != null) {
-                                            this.tableP[i].accountcode = letErrortype.value1;
+                                            this.tableP[i].accountcode = letErrortype.code;
                                         }
                                         this.code16 = 'PJ137';
                                     }
@@ -1922,85 +1922,85 @@
                                         if (this.tableR[i].plsummary == 'PJ111001') {
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
-                                                this.tableR[i].accountcode = letErrortype.value1;
+                                                this.tableR[i].accountcode = letErrortype.code;
                                             }
                                             this.code16 = 'PJ112';
                                         } else if (this.tableR[i].plsummary === 'PJ111002') {
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
-                                                this.tableR[i].accountcode = letErrortype.value1;
+                                                this.tableR[i].accountcode = letErrortype.code;
                                             }
                                             this.code16 = 'PJ113';
                                         } else if (this.tableR[i].plsummary === 'PJ111003') {
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
-                                                this.tableR[i].accountcode = letErrortype.value1;
+                                                this.tableR[i].accountcode = letErrortype.code;
                                             }
                                             this.code16 = 'PJ114';
                                         } else if (this.tableR[i].plsummary === 'PJ111004') {
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
-                                                this.tableR[i].accountcode = letErrortype.value1;
+                                                this.tableR[i].accountcode = letErrortype.code;
                                             }
                                             this.code16 = '';
                                         } else if (this.tableR[i].plsummary === 'PJ111005') {
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
-                                                this.tableR[i].accountcode = letErrortype.value1;
+                                                this.tableR[i].accountcode = letErrortype.code;
                                             }
                                             this.code16 = 'PJ116';
                                         } else if (this.tableR[i].plsummary === 'PJ111006') {
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
-                                                this.tableR[i].accountcode = letErrortype.value1;
+                                                this.tableR[i].accountcode = letErrortype.code;
                                             }
                                             this.code16 = 'PJ117';
                                         } else if (this.tableR[i].plsummary === 'PJ111007') {
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
-                                                this.tableR[i].accountcode = letErrortype.value1;
+                                                this.tableR[i].accountcode = letErrortype.code;
                                             }
                                             this.code16 = 'PJ118';
                                         } else if (this.tableR[i].plsummary === 'PJ111008') {
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
-                                                this.tableR[i].accountcode = letErrortype.value1;
+                                                this.tableR[i].accountcode = letErrortype.code;
                                             }
                                             this.code16 = 'PJ119';
                                         } else if (this.tableR[i].plsummary === 'PJ111009') {
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
-                                                this.tableR[i].accountcode = letErrortype.value1;
+                                                this.tableR[i].accountcode = letErrortype.code;
                                             }
                                             this.code16 = 'PJ120';
                                         } else if (this.tableR[i].plsummary === 'PJ111010') {
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
-                                                this.tableR[i].accountcode = letErrortype.value1;
+                                                this.tableR[i].accountcode = letErrortype.code;
                                             }
                                             this.code16 = 'PJ121';
                                         } else if (this.tableR[i].plsummary === 'PJ111011') {
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
-                                                this.tableR[i].accountcode = letErrortype.value1;
+                                                this.tableR[i].accountcode = letErrortype.code;
                                             }
                                             this.code16 = 'PJ122';
                                         } else if (this.tableR[i].plsummary === 'PJ111012') {
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
-                                                this.tableR[i].accountcode = letErrortype.value1;
+                                                this.tableR[i].accountcode = letErrortype.code;
                                             }
                                             this.code16 = 'PJ123';
                                         } else if (this.tableR[i].plsummary === 'PJ111013') {
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
-                                                this.tableR[i].accountcode = letErrortype.value1;
+                                                this.tableR[i].accountcode = letErrortype.code;
                                             }
                                             this.code16 = '';
                                         } else if (this.tableR[i].plsummary === 'PJ111014') {
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
-                                                this.tableR[i].accountcode = letErrortype.value1;
+                                                this.tableR[i].accountcode = letErrortype.code;
                                             }
                                             this.code16 = 'PJ125';
                                         }
@@ -2008,85 +2008,85 @@
                                         if (this.tableR[i].plsummary == 'PJ111001') {
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
-                                                this.tableR[i].accountcode = letErrortype.value1;
+                                                this.tableR[i].accountcode = letErrortype.code;
                                             }
                                             this.code16 = 'PJ127';
                                         } else if (this.tableR[i].plsummary === 'PJ111002') {
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
-                                                this.tableR[i].accountcode = letErrortype.value1;
+                                                this.tableR[i].accountcode = letErrortype.code;
                                             }
                                             this.code16 = 'PJ128';
                                         } else if (this.tableR[i].plsummary === 'PJ111003') {
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
-                                                this.tableR[i].accountcode = letErrortype.value1;
+                                                this.tableR[i].accountcode = letErrortype.code;
                                             }
                                             this.code16 = 'PJ129';
                                         } else if (this.tableR[i].plsummary === 'PJ111004') {
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
-                                                this.tableR[i].accountcode = letErrortype.value1;
+                                                this.tableR[i].accountcode = letErrortype.code;
                                             }
                                             this.code16 = 'PJ115';
                                         } else if (this.tableR[i].plsummary === 'PJ111005') {
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
-                                                this.tableR[i].accountcode = letErrortype.value1;
+                                                this.tableR[i].accountcode = letErrortype.code;
                                             }
                                             this.code16 = 'PJ130';
                                         } else if (this.tableR[i].plsummary === 'PJ111006') {
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
-                                                this.tableR[i].accountcode = letErrortype.value1;
+                                                this.tableR[i].accountcode = letErrortype.code;
                                             }
                                             this.code16 = '';
                                         } else if (this.tableR[i].plsummary === 'PJ111007') {
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
-                                                this.tableR[i].accountcode = letErrortype.value1;
+                                                this.tableR[i].accountcode = letErrortype.code;
                                             }
                                             this.code16 = 'PJ131';
                                         } else if (this.tableR[i].plsummary === 'PJ111008') {
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
-                                                this.tableR[i].accountcode = letErrortype.value1;
+                                                this.tableR[i].accountcode = letErrortype.code;
                                             }
                                             this.code16 = 'PJ132';
                                         } else if (this.tableR[i].plsummary === 'PJ111009') {
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
-                                                this.tableR[i].accountcode = letErrortype.value1;
+                                                this.tableR[i].accountcode = letErrortype.code;
                                             }
                                             this.code16 = 'PJ133';
                                         } else if (this.tableR[i].plsummary === 'PJ111010') {
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
-                                                this.tableR[i].accountcode = letErrortype.value1;
+                                                this.tableR[i].accountcode = letErrortype.code;
                                             }
                                             this.code16 = 'PJ134';
                                         } else if (this.tableR[i].plsummary === 'PJ111011') {
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
-                                                this.tableR[i].accountcode = letErrortype.value1;
+                                                this.tableR[i].accountcode = letErrortype.code;
                                             }
                                             this.code16 = 'PJ135';
                                         } else if (this.tableR[i].plsummary === 'PJ111012') {
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
-                                                this.tableR[i].accountcode = letErrortype.value1;
+                                                this.tableR[i].accountcode = letErrortype.code;
                                             }
                                             this.code16 = 'PJ136';
                                         } else if (this.tableR[i].plsummary === 'PJ111013') {
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
-                                                this.tableR[i].accountcode = letErrortype.value1;
+                                                this.tableR[i].accountcode = letErrortype.code;
                                             }
                                             this.code16 = 'PJ124';
                                         } else if (this.tableR[i].plsummary === 'PJ111014') {
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
-                                                this.tableR[i].accountcode = letErrortype.value1;
+                                                this.tableR[i].accountcode = letErrortype.code;
                                             }
                                             this.code16 = 'PJ137';
                                         }
@@ -2206,6 +2206,7 @@
                     .dispatch('PFANS5008Store/getCompanyProjectList', {})
                     .then(response => {
                         const data = [];
+                        
                         for (let i = 0; i < response.length; i++) {
                             if (response[i].status == '4' || response[i].status == '6' || response[i].status == '7') {
                                 data.push({
