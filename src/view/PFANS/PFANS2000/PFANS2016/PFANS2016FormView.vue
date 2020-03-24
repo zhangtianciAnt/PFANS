@@ -88,7 +88,7 @@
             <el-col :span="8"
                     v-show="(form.errortype == 'PR013005'|| form.errortype == 'PR013007') && form.status != '4' && form.status != '5' && form.status != '6' && form.status != '7'&& form.status != '8'">
               <el-form-item :label="$t('label.PFANS2016FORMVIEW_XJTYPE')" label-width="9rem" prop="lengthtime">
-                <el-select v-model="form.vacationtype"
+                <el-select v-model="form.vacationtype" style="width: 20vw"
                            :disabled="!disable" @change="handleClick">
                   <el-option
                     :key="item.value"
@@ -103,10 +103,9 @@
             <el-col :span="8"
                     v-show="(form.errortype == 'PR013005' || form.errortype == 'PR013007') && (form.status === '4' || form.status === '5' || form.status === '6' || form.status === '7')">
               <el-form-item :label="$t('label.PFANS2016FORMVIEW_RELENGTHTIME')" label-width="9rem" prop="relengthtime">
-                <el-select @change="handleclick" v-model="form.revacationtype"
+                <el-select @change="handleclick" v-model="form.revacationtype" style="width: 20vw"
                            :disabled="form.status === '5' || form.status === '7'">
                   <el-option
-                    
                     :key="item.value"
                     :label="item.label"
                     :value="item.value"
@@ -718,17 +717,6 @@
                         }
                         if (this.form.status === '2' || this.form.status === '4') {
                             this.disable = false;
-                        }
-                        if (this.form.errortype == 'PR013007') {
-                            this.form.vacationtype ='1';
-                            this.form.revacationtype ='1';
-                            this.options1 = [{
-                                value: '1',
-                                label: this.$t('label.PFANS2016FORMVIEW_SHANGWU')
-                            }, {
-                                value: '2',
-                                label: this.$t('label.PFANS2016FORMVIEW_XIAWU')
-                            }];
                         }
                         this.getOvertimelist();
                         if (this.form.uploadfile != "") {
@@ -1434,31 +1422,12 @@
                     this.checkfinisheddate = true;
                     this.showFemale = false;
                     this.typecheck = 0;
-                    this.options1 = [{
-                        value: '0',
-                        label: this.$t('label.PFANS2016FORMVIEW_QUANTIAN')
-                    }, {
-                        value: '1',
-                        label: this.$t('label.PFANS2016FORMVIEW_SHANGWU')
-                    }, {
-                        value: '2',
-                        label: this.$t('label.PFANS2016FORMVIEW_XIAWU')
-                    }];
                 } else if (val === 'PR013006') {
                     this.checkfinisheddate = true;
                     this.showFemale = false;
                 } else if (val === 'PR013007') {
-                    this.form.vacationtype ='1';
-                    this.form.revacationtype ='1';
                     this.showFemale = false;
-                    this.checkfinisheddate = false;
-                    this.options1 = [{
-                        value: '1',
-                        label: this.$t('label.PFANS2016FORMVIEW_SHANGWU')
-                    }, {
-                        value: '2',
-                        label: this.$t('label.PFANS2016FORMVIEW_XIAWU')
-                    }];
+                    this.checkfinisheddate = true;
                     this.showWeekend = false;
                 } else if (val === 'PR013009') {
                     this.checkfinisheddate = true;
