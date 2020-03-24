@@ -109,6 +109,7 @@
         },
         methods: {
             changedata(val) {
+
                 this.showdata = true;
                 let user_id = this.$store.getters.userinfo.userid;
                 if (val == '1') {
@@ -117,8 +118,9 @@
                     this.$store
                         .dispatch('PFANS1012Store/selectJudgement', {})
                         .then(response => {
+                            debugger
                             for (let i = 0; i < response.length; i++) {
-                                if (user_id === response[i].user_id && response[i].letequipment == '1') {
+                                if (user_id === response[i].user_id && response[i].equipment == '1') {
                                     if (response[i].createon !== null && response[i].createon !== "") {
                                         response[i].createon = moment(response[i].createon).format("YYYY-MM-DD");
                                     }
