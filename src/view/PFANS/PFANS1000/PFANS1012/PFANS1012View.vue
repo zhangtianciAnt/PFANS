@@ -60,13 +60,6 @@
                         filter: true
                     },
                     {
-                        code: 'budgetunit',
-                        label: 'label.budgetunit',
-                        width: 170,
-                        fix: false,
-                        filter: true
-                    },
-                    {
                         code: 'moneys',
                         label: 'label.PFANS1012VIEW_MONEY',
                         width: 110,

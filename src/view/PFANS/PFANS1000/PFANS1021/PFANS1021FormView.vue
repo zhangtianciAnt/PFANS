@@ -129,32 +129,32 @@
                   </dicselect>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS1021FORMVIEW_FBBUILDING')" align="center" prop="fbbuilding"  width="200">
-                <template slot-scope="scope">
-                  <dicselect
-                    :no="scope.row"
-                    :code="code2"
-                    :data="scope.row.fbbuilding"
-                    :multiple="multiple"
-                    @change="getFbbuilding"
-                    style="width: 11rem"
-                    :disabled="!disabled">
-                  </dicselect>
-                </template>
-              </el-table-column>
-              <el-table-column :label="$t('label.PFANS1021FORMVIEW_SHOWROOM')" align="center" prop="fbbuilding"  width="200">
-                <template slot-scope="scope">
-                  <dicselect
-                    :no="scope.row"
-                    :code="code2"
-                    :data="scope.row.showroom"
-                    :multiple="multiple"
-                    @change="getshowroom"
-                    style="width: 11rem"
-                    :disabled="!disabled">
-                  </dicselect>
-                </template>
-              </el-table-column>
+<!--              <el-table-column :label="$t('label.PFANS1021FORMVIEW_FBBUILDING')" align="center" prop="fbbuilding"  width="200">-->
+<!--                <template slot-scope="scope">-->
+<!--                  <dicselect-->
+<!--                    :no="scope.row"-->
+<!--                    :code="code2"-->
+<!--                    :data="scope.row.fbbuilding"-->
+<!--                    :multiple="multiple"-->
+<!--                    @change="getFbbuilding"-->
+<!--                    style="width: 11rem"-->
+<!--                    :disabled="!disabled">-->
+<!--                  </dicselect>-->
+<!--                </template>-->
+<!--              </el-table-column>-->
+<!--              <el-table-column :label="$t('label.PFANS1021FORMVIEW_SHOWROOM')" align="center" prop="fbbuilding"  width="200">-->
+<!--                <template slot-scope="scope">-->
+<!--                  <dicselect-->
+<!--                    :no="scope.row"-->
+<!--                    :code="code2"-->
+<!--                    :data="scope.row.showroom"-->
+<!--                    :multiple="multiple"-->
+<!--                    @change="getshowroom"-->
+<!--                    style="width: 11rem"-->
+<!--                    :disabled="!disabled">-->
+<!--                  </dicselect>-->
+<!--                </template>-->
+<!--              </el-table-column>-->
               <el-table-column :label="$t('label.PFANS1021FORMVIEW_ENTRYMANAGER')" align="center" prop="entrymanager" :error="errorentrymanager" width="200">
                 <template slot-scope="scope">
                   <user :disabled="!disabled" :error="errorentrymanager" :no="scope.row" :selectType="selectType" :userlist="scope.row.entrymanager"
@@ -293,7 +293,7 @@
           ],
           code: 'PJ029',
           code1: 'PJ030',
-          code2: 'PJ031',
+          // code2: 'PJ031',
           disabled: false,
           disabled1: false,
           menuList: [],
