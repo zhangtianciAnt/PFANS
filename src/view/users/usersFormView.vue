@@ -1429,7 +1429,7 @@
 
       return {
         code: "",
-        code1: 'PJ105',
+        code1: 'PG021',
         occupationtypecode:"",
         occupationtypedis:true,
         display: true,
