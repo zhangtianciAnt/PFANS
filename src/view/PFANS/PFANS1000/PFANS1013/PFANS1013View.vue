@@ -247,6 +247,9 @@
             }
           })
         } else if (val === 'export') {
+          this.startoptionvalue = [];
+          this.travelcostvalue = [];
+          this.startoption = [];
           this.selectedList = {};
           this.selectedList.travelcost = [];
           this.selectedlist = this.$refs.roletable.selectedList;
@@ -396,7 +399,6 @@
                 type: '',
               });
               this.startoptionvalue = this.travelcostvalue.concat(this.startoption);
-              console.log("this.startoptionvalue", this.startoptionvalue);
               let csvData = [];
               for (let i = 0; i < this.startoptionvalue.length; i++) {
                 let obj = this.startoptionvalue[i];

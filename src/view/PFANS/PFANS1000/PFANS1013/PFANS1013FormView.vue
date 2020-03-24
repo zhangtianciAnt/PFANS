@@ -2270,6 +2270,7 @@
         newValue.travel = '';
         this.getTravel(newValue);
         for (let j = 0; j < this.tableF.length; j++) {
+            let Taxratevalue=0;
           if (newValue.invoicenumber === this.tableF[j].invoicenumber) {
             if (newValue.rmb !== '') {
               if (this.tableF[j].taxrate !== '') {
@@ -2282,8 +2283,8 @@
                 } else if (this.tableF[j].taxrate === 'PJ071004') {
                   this.taxrateValue = '0.13';
                 }
-                taxratevalue = 1 + Number(this.taxrateValue);
-                newValue.taxes = (newValue.rmb / (taxratevalue) * this.taxrateValue);
+                Taxratevalue = 1 + Number(this.taxrateValue);
+                newValue.taxes = (newValue.rmb / (Taxratevalue) * this.taxrateValue);
               }
             }
           }
