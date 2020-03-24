@@ -2267,6 +2267,7 @@
         this.getTravel(val);
       },
       changelowance(newValue) {
+
         newValue.travel = '';
         this.getTravel(newValue);
         for (let j = 0; j < this.tableF.length; j++) {

@@ -268,6 +268,7 @@
               for (let m = 0; m < response.length; m++) {
                 sum = sum + 1;
                 for (let i = 0; i < this.selectedlist.length; i++) {
+
                   if (response[m].evectionid == this.selectedlist[i].evectionid) {
                     let letErrortype = getDictionaryInfo(this.selectedlist[i].paymentmethod);
                     if (letErrortype != null) {
