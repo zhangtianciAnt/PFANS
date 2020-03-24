@@ -1118,6 +1118,7 @@
   </div>
 </template>
 
+
 <script>
     import EasyNormalContainer from '@/components/EasyNormalContainer';
     import user from '../../../components/user.vue';
