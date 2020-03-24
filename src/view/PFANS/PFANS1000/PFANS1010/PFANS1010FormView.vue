@@ -184,15 +184,9 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.budgetunit')" prop="budgetunit">
-                <dicselect
-                  :code="code1"
-                  :data="form.budgetunit"
-                  :disabled="!disable"
-                  :multiple="multiple"
-                  style="width:20vw"
-                  @change="getbudgetunit">
-                </dicselect>
+              <el-form-item :label="$t('label.budgetunit')" >
+                <el-input :disabled="true"  style="width:20vw"
+                          v-model="form.budgetunit"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -223,7 +217,7 @@
   import dicselect from '../../../components/dicselect.vue';
   import {Message} from 'element-ui';
   import user from '../../../components/user.vue';
-  import {getOrgInfoByUserId} from '@/utils/customize';
+  import {getOrgInfoByUserId,getOrgInfo} from '@/utils/customize';
   import moment from 'moment';
 
   export default {
@@ -275,7 +269,7 @@
           company: '',
           moneys: '',
           percapita: '',
-          budgetunit: '',
+          budgetunit: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
           objective: '',
           place: '',
           nodeList: [],
@@ -430,9 +424,6 @@
         } else {
           this.error = '';
         }
-      },
-      getbudgetunit(val) {
-        this.form.budgetunit = val;
       },
       workflowState(val) {
         if (val.state === '1') {
