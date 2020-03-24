@@ -185,14 +185,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.budgetunit')" prop="budgetunit">
-                <dicselect
-                  :code="code1"
-                  :data="form.budgetunit"
-                  :disabled="!disable"
-                  :multiple="multiple"
-                  style="width:20vw"
-                  @change="getbudgetunit">
-                </dicselect>
+                <el-input :disabled="true" style="width:20vw" v-model="form.budgetunit" maxlength='50'></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -380,6 +373,10 @@
           this.form.center_id = lst.centerNmae;
           this.form.group_id = lst.groupNmae;
           this.form.team_id = lst.teamNmae;
+          if(this.$store.getters.orgGroupList.length > 0){
+            let group = this.$store.getters.orgGroupList.filter( val => val.groupid === lst.groupId)
+            this.form.budgetunit = group[0].encoding;
+          }
         }
       }
     },
