@@ -277,19 +277,6 @@
                         this.selectedlist[i].paymentmethod = ''
                       }
                     }
-                    let letError = getDictionaryInfo(this.selectedlist[i].currency);
-                    if (letError != null) {
-                      if (letError.value1 == this.$t("label.PFANS1012VIEW_USD")) {
-                        this.selectedlist[i].currencyrate = letError.value1;
-                        response[m].currency = this.$t("label.PFANS1012FORMVIEW_USDA");
-                      } else  {
-                        this.selectedlist[i].currencyrate = '';
-                        response[m].currency = this.$t("label.PFANS1012FORMVIEW_CNY");
-                      }
-                    }else {
-                      this.selectedlist[i].currencyrate = '';
-                      response[m].currency = this.$t("label.PFANS1012FORMVIEW_CNY");
-                    }
                     if (response[m].invoicedate !== null && response[m].invoicedate !== "") {
                       let date;
                       let invoiceDate = moment(response[m].invoicedate).format("MM");
@@ -367,7 +354,7 @@
                       currency: response[m].currency,
                       invoiceamount: response[m].invoiceamount,
                       lineamount: response[m].lineamount,
-                      currencyrate: this.selectedlist[i].currencyrate,
+                      currencyrate: response[m].exchangerate,
                       companysegment: '01',
                       budgetcoding: response[m].budgetcoding,
                       subjectnumber: response[m].subjectnumber,
