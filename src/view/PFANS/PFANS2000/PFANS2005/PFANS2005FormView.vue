@@ -3318,6 +3318,7 @@
                   +response.lackattendance[j].lasttotal +
                   +response.lackattendance[j].thistotal;
                 obj.rowindex = j + 1;
+                obj.lackattendance_id = response.lackattendance[j].lackattendance_id;
                 datalistqq[j] = obj;
                 this.tableQQ = datalistqq;
                 this.totaldataQQ = datalistqq;
@@ -3371,6 +3372,7 @@
                 obj.thistotaly = this.setScale2(response.residual[j].thistotaly);
                 obj.remarks = response.residual[j].remarks;
                 obj.subsidy = this.setScale2(response.residual[j].subsidy);
+                obj.residual_id = response.residual[j].residual_id;
                 datalistcy[j] = obj;
                 this.tableCY = datalistcy;
                 this.totaldataCY = datalistcy;
@@ -4378,7 +4380,7 @@
         ) {
           this.buttonList[1].disabled = true;
         }
-        if (tab.index === "16" || tab.index === "2" || tab.index === "3") {
+        if (tab.index === "16" || tab.index === "2" || tab.index === "3"|| tab.index === "8"|| tab.index === "9") {
           this.buttonList[0].disabled = false;
         } else if (
           tab.index === "0" ||
@@ -4386,8 +4388,6 @@
           tab.index === "5" ||
           tab.index === "6" ||
           tab.index === "7" ||
-          tab.index === "8" ||
-          tab.index === "9" ||
           tab.index === "10" ||
           tab.index === "11" ||
           tab.index === "12" ||
@@ -4798,6 +4798,10 @@
                 reason: this.tableGRDB[i].reason
               });
             }
+          } else if (this.tab === "8") {
+            this.baseInfo.lackattendance = this.totaldataQQ;
+          } else if (this.tab === "9") {
+            this.baseInfo.residual = this.totaldataCY;
           }
           this.$store
             .dispatch("PFANS2005Store/save", this.baseInfo)
