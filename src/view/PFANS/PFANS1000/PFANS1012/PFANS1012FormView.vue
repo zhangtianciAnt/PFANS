@@ -1118,6 +1118,7 @@
   </div>
 </template>
 
+
 <script>
     import EasyNormalContainer from '@/components/EasyNormalContainer';
     import user from '../../../components/user.vue';
@@ -1543,6 +1544,10 @@
                         if (response.trafficdetails.length > 0) {
                             this.tableT = response.trafficdetails;
                             for (var i = 0; i < this.tableT.length; i++) {
+                                if(this.tableT[i].foreigncurrency > 0){
+                                    this.disa = false;
+                                    this.disablecheck = false;
+                                }
                                 this.orglist = this.tableT[i].departmentname;
                                 if (this.Redirict == '0') {
                                     if (this.tableT[i].plsummary == 'PJ111001') {
@@ -1723,6 +1728,10 @@
                             this.tableP = response.purchasedetails;
                             for (var i = 0; i < this.tableP.length; i++) {
                                 this.orglist = this.tableP[i].departmentname;
+                                if(this.tableP[i].foreigncurrency > 0){
+                                    this.disa = false;
+                                    this.disablecheck = false;
+                                }
                                 if (this.Redirict == '0') {
                                     if (this.tableP[i].plsummary == 'PJ111001') {
                                         let letErrortype = getDictionaryInfo(this.tableP[i].accountcode);
@@ -1901,6 +1910,10 @@
                                 this.tableR = response.otherdetails;
                                 for (let i = 0; i < this.tableR.length; i++) {
                                     this.orglist = this.tableR[i].departmentname;
+                                    if(this.tableR[i].foreigncurrency > 0){
+                                        this.disa = false;
+                                        this.disablecheck = false;
+                                    }
                                     if (this.Redirict == '0') {
                                         if (this.tableR[i].plsummary == 'PJ111001') {
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
@@ -2191,7 +2204,6 @@
                     .dispatch('PFANS5008Store/getCompanyProjectList', {})
                     .then(response => {
                         const data = [];
-
                         for (let i = 0; i < response.length; i++) {
                             if (response[i].status == '4' || response[i].status == '6' || response[i].status == '7') {
                                 data.push({
@@ -2521,9 +2533,9 @@
                         }
                     }
                     if (error == '0') {
-                        if (this.tableP.length > 1) {
+                        if (this.tableP.length > 0) {
                             for (let i = 0; i < this.tableP.length; i++) {
-                                if (this.tableR[0].currency != '') {
+                                if (this.tableR[0].currency != '' && this.tableP[0].currency != '' ) {
                                     for (let j = 0; j < this.tableR.length; j++) {
                                         if (this.tableP[i].currency != this.tableR[j].currency) {
                                             error = error + 1
@@ -2541,9 +2553,9 @@
                         }
                     }
                     if (error == '0') {
-                        if (this.tableR.length > 1) {
+                        if (this.tableR.length > 0) {
                             for (let i = 0; i < this.tableR.length; i++) {
-                                if (this.tableP[0].currency != '') {
+                                if (this.tableP[0].currency != ''&&this.tableR[0].currency != '') {
                                     for (let j = 0; j < this.tableP.length; j++) {
                                         if (this.tableR[i].currency != this.tableP[j].currency) {
                                             error = error + 1

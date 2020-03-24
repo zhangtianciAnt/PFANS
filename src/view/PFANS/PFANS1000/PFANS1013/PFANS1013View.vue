@@ -67,13 +67,13 @@
             fix: false,
             filter: true
           },
-          {
-            code: 'budgetunit',
-            label: 'label.budgetunit',
-            width: 130,
-            fix: false,
-            filter: true
-          },
+          // {
+          //   code: 'budgetunit',
+          //   label: 'label.budgetunit',
+          //   width: 130,
+          //   fix: false,
+          //   filter: true
+          // },
           {
             code: 'telephone',
             label: 'label.PFANS1013VIEW_TELEPHONE',
@@ -161,12 +161,12 @@
             // response[j].centername = response[j].centerid;
             // response[j].groupname = response[j].groupid;
             // response[j].teamname = response[j].teamid;
-            if (response[j].budgetunit !== null && response[j].budgetunit !== "") {
-              let letBudgetunit = getDictionaryInfo(response[j].budgetunit);
-              if (letBudgetunit != null) {
-                response[j].budgetunit = letBudgetunit.value1;
-              }
-            }
+            // if (response[j].budgetunit !== null && response[j].budgetunit !== "") {
+            //   let letBudgetunit = getDictionaryInfo(response[j].budgetunit);
+            //   if (letBudgetunit != null) {
+            //     response[j].budgetunit = letBudgetunit.value1;
+            //   }
+            // }
             if (response[j].startdate !== null && response[j].startdate !== "") {
               response[j].startdate = moment(response[j].startdate).format("YYYY-MM-DD");
             }
@@ -374,7 +374,6 @@
                   }
                 }
               }
-
               this.startoption.push({
                 invoicenumber: 'LAST',
                 number: '9999',

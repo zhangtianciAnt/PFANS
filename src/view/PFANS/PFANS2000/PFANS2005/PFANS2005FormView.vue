@@ -3318,6 +3318,7 @@
                   +response.lackattendance[j].lasttotal +
                   +response.lackattendance[j].thistotal;
                 obj.rowindex = j + 1;
+                obj.lackattendance_id = response.lackattendance[j].lackattendance_id;
                 datalistqq[j] = obj;
                 this.tableQQ = datalistqq;
                 this.totaldataQQ = datalistqq;
@@ -3371,6 +3372,7 @@
                 obj.thistotaly = this.setScale2(response.residual[j].thistotaly);
                 obj.remarks = response.residual[j].remarks;
                 obj.subsidy = this.setScale2(response.residual[j].subsidy);
+                obj.residual_id = response.residual[j].residual_id;
                 datalistcy[j] = obj;
                 this.tableCY = datalistcy;
                 this.totaldataCY = datalistcy;
@@ -4378,7 +4380,7 @@
         ) {
           this.buttonList[1].disabled = true;
         }
-        if (tab.index === "16" || tab.index === "2" || tab.index === "3") {
+        if (tab.index === "16" || tab.index === "2" || tab.index === "3"|| tab.index === "8"|| tab.index === "9") {
           this.buttonList[0].disabled = false;
         } else if (
           tab.index === "0" ||
@@ -4386,8 +4388,6 @@
           tab.index === "5" ||
           tab.index === "6" ||
           tab.index === "7" ||
-          tab.index === "8" ||
-          tab.index === "9" ||
           tab.index === "10" ||
           tab.index === "11" ||
           tab.index === "12" ||
@@ -4407,7 +4407,7 @@
             sums[index] = this.$t("label.PFANS2005FORMVIEW_HJ");
             return;
           }
-          const values = data.map(item => parseFloat(item[column.property]));
+          const values = data.map(item => Number(item[column.property]));
           if (!values.every(value => isNaN(value))) {
             sums[index] = values.reduce((prev, curr) => {
               const value = parseFloat(curr);
@@ -4776,28 +4776,22 @@
           this.baseInfo.contrast = [];
           this.baseInfo.otherTwo = [];
           if (this.tab === "2") {
-            for (let i = 0; i < this.tableQT1Woman.length; i++) {
-              this.baseInfo.otherOne.push({
-                otherone_id: this.tableQT1Woman[i].otherone_id,
-                basedata: this.tableQT1Woman[i].basedata
-              });
-            }
+            //其他1去掉基数对象 不需要保存-lxx
+            // for (let i = 0; i < this.tableQT1Woman.length; i++) {
+            //   this.baseInfo.otherOne.push({
+            //     otherone_id: this.tableQT1Woman[i].otherone_id,
+            //     basedata: this.tableQT1Woman[i].basedata
+            //   });
+            // }
+            //其他1去掉基数对象 不需要保存-lxx
           } else if (this.tab === "3") {
-            for (let i = 0; i < this.tableQT2.length; i++) {
-              this.baseInfo.otherTwo.push({
-                othertwo_id: this.tableQT2[i].othertwo_id,
-                rootknot: this.tableQT2[i].rootknot,
-                moneys: this.tableQT2[i].moneys,
-                giving_id: this.tableQT2[i].giving_id
-              });
-            }
+            this.baseInfo.otherTwo = this.totaldataQT2
           } else if (this.tab === "16") {
-            for (let i = 0; i < this.tableGRDB.length; i++) {
-              this.baseInfo.contrast.push({
-                contrast_id: this.tableGRDB[i].contrast_id,
-                reason: this.tableGRDB[i].reason
-              });
-            }
+            this.baseInfo.contrast = this.totaldataContrast
+          } else if (this.tab === "8") {
+            this.baseInfo.lackattendance = this.totaldataQQ;
+          } else if (this.tab === "9") {
+            this.baseInfo.residual = this.totaldataCY;
           }
           this.$store
             .dispatch("PFANS2005Store/save", this.baseInfo)

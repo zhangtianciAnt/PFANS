@@ -9,7 +9,7 @@
 <script>
     import EasyNormalTable from '@/components/EasyNormalTable'
     import {Message} from 'element-ui'
-    import {getDictionaryInfo, getStatus, getUserInfo, getOrgInfoByUserId} from '@/utils/customize'
+    import {getDictionaryInfo, getOrgInfoByUserId, getStatus, getUserInfo} from '@/utils/customize'
     import moment from "moment";
 
     const {Parser} = require('json2csv');
@@ -179,6 +179,7 @@
                             disabled: true
                         }
                     })
+
                 } else if (val === 'export') {
                     this.startoptionvalue = [];
                     this.totalcostvalue = [];
@@ -195,186 +196,203 @@
                     this.$store
                         .dispatch('PFANS1012Store/gettotalcost', this.selectedList)
                         .then(response => {
-                            this.selectedlist = this.$refs.roletable.selectedList;
-                            let sum = 0;
-                            let invoiceamountvalue = 0;
-                            for (let m = 0; m < response.length; m++) {
-                                sum = sum + 1;
-                                for (let i = 0; i < this.selectedlist.length; i++) {
-                                    if (response[m].publicexpenseid == this.selectedlist[i].publicexpenseid) {
-                                        let letErrortype = getDictionaryInfo(this.selectedlist[i].paymentmethod);
-                                        if (letErrortype != null) {
-                                            this.selectedlist[i].paymentmethod = letErrortype.value1;
-                                            if (this.selectedlist[i].paymentmethod === this.$t("label.PFANS1012VIEW_ONLINEPAYMENT") || this.selectedlist[i].paymentmethod === this.$t("label.PFANS1012VIEW_TRANSFERCHECK")) {
-                                                this.selectedlist[i].paymentmethod = this.$t("label.PFANS1012VIEW_COST")
-                                            } else if (this.selectedlist[i].paymentmethod === this.$t("label.PFANS1012VIEW_PPAYMENT")) {
-                                                this.selectedlist[i].paymentmethod = this.$t("label.PFANS1012VIEW_OFFICE")
-                                            } else if (this.selectedlist[i].paymentmethod === '') {
-                                                this.selectedlist[i].paymentmethod = ''
+                            let error = 0;
+                            for (let k = 0; k < response.length; k++) {
+                                for (let n = 1; n < response.length; n++) {
+                                    if (response[k].currency != response[n].currency) {
+                                        error = error + 1
+                                        Message({
+                                            message: this.$t('label.PFANS1002FORMVIEW_CURRENCYCHECK'),
+                                            type: 'error',
+                                            duration: 5 * 1000
+                                        });
+                                    }
+                                    break
+                                }
+                                break
+                            }
+                            if (error == 0) {
+                                this.selectedlist = this.$refs.roletable.selectedList;
+                                let sum = 0;
+                                let invoiceamountvalue = 0;
+                                for (let m = 0; m < response.length; m++) {
+                                    sum = sum + 1;
+                                    for (let i = 0; i < this.selectedlist.length; i++) {
+                                        if (response[m].publicexpenseid == this.selectedlist[i].publicexpenseid) {
+                                            let letErrortype = getDictionaryInfo(this.selectedlist[i].paymentmethod);
+                                            if (letErrortype != null) {
+                                                this.selectedlist[i].paymentmethod = letErrortype.value1;
+                                                if (this.selectedlist[i].paymentmethod === this.$t("label.PFANS1012VIEW_ONLINEPAYMENT") || this.selectedlist[i].paymentmethod === this.$t("label.PFANS1012VIEW_TRANSFERCHECK")) {
+                                                    this.selectedlist[i].paymentmethod = this.$t("label.PFANS1012VIEW_COST")
+                                                } else if (this.selectedlist[i].paymentmethod === this.$t("label.PFANS1012VIEW_PPAYMENT")) {
+                                                    this.selectedlist[i].paymentmethod = this.$t("label.PFANS1012VIEW_OFFICE")
+                                                } else if (this.selectedlist[i].paymentmethod === '') {
+                                                    this.selectedlist[i].paymentmethod = ''
+                                                }
                                             }
-                                        }
-                                        if (response[m].invoicedate !== null && response[m].invoicedate !== "") {
-                                            let date;
-                                            let invoiceDate = moment(response[m].invoicedate).format("MM");
-                                            if (invoiceDate == '01') {
-                                                date = 'Jan'
-                                            } else if (invoiceDate == '02') {
-                                                date = 'Feb'
-                                            } else if (invoiceDate == '03') {
-                                                date = 'Mar'
-                                            } else if (invoiceDate == '04') {
-                                                date = 'Apr'
-                                            } else if (invoiceDate == '05') {
-                                                date = 'May'
-                                            } else if (invoiceDate == '06') {
-                                                date = 'June'
-                                            } else if (invoiceDate == '07') {
-                                                date = 'July'
-                                            } else if (invoiceDate == '08') {
-                                                date = 'Aug'
-                                            } else if (invoiceDate == '09') {
-                                                date = 'Sept'
-                                            } else if (invoiceDate == '10') {
-                                                date = 'Oct'
-                                            } else if (invoiceDate == '11') {
-                                                date = 'Nov'
-                                            } else if (invoiceDate == '12') {
-                                                date = 'Dec'
+                                            if (response[m].invoicedate !== null && response[m].invoicedate !== "") {
+                                                let date;
+                                                let invoiceDate = moment(response[m].invoicedate).format("MM");
+                                                if (invoiceDate == '01') {
+                                                    date = 'Jan'
+                                                } else if (invoiceDate == '02') {
+                                                    date = 'Feb'
+                                                } else if (invoiceDate == '03') {
+                                                    date = 'Mar'
+                                                } else if (invoiceDate == '04') {
+                                                    date = 'Apr'
+                                                } else if (invoiceDate == '05') {
+                                                    date = 'May'
+                                                } else if (invoiceDate == '06') {
+                                                    date = 'June'
+                                                } else if (invoiceDate == '07') {
+                                                    date = 'July'
+                                                } else if (invoiceDate == '08') {
+                                                    date = 'Aug'
+                                                } else if (invoiceDate == '09') {
+                                                    date = 'Sept'
+                                                } else if (invoiceDate == '10') {
+                                                    date = 'Oct'
+                                                } else if (invoiceDate == '11') {
+                                                    date = 'Nov'
+                                                } else if (invoiceDate == '12') {
+                                                    date = 'Dec'
+                                                }
+                                                let invoiceDat = moment(response[m].invoicedate).format("DD");
+                                                let invoicedat = moment(response[m].invoicedate).format("YYYY");
+                                                response[m].invoicedate = invoiceDat + date + invoicedat;
                                             }
-                                            let invoiceDat = moment(response[m].invoicedate).format("DD");
-                                            let invoicedat = moment(response[m].invoicedate).format("YYYY");
-                                            response[m].invoicedate = invoiceDat + date + invoicedat;
-                                        }
-                                        if (response[m].conditiondate !== null && response[m].conditiondate !== "") {
-                                            let Date;
-                                            let conditionDate = moment(response[m].conditiondate).format("MM");
-                                            if (conditionDate == '01') {
-                                                Date = 'Jan'
-                                            } else if (conditionDate == '02') {
-                                                Date = 'Feb'
-                                            } else if (conditionDate == '03') {
-                                                Date = 'Mar'
-                                            } else if (conditionDate == '04') {
-                                                Date = 'Apr'
-                                            } else if (conditionDate == '05') {
-                                                Date = 'May'
-                                            } else if (conditionDate == '06') {
-                                                Date = 'June'
-                                            } else if (conditionDate == '07') {
-                                                Date = 'July'
-                                            } else if (conditionDate == '08') {
-                                                Date = 'Aug'
-                                            } else if (conditionDate == '09') {
-                                                Date = 'Sept'
-                                            } else if (conditionDate == '10') {
-                                                Date = 'Oct'
-                                            } else if (conditionDate == '11') {
-                                                Date = 'Nov'
-                                            } else if (conditionDate == '12') {
-                                                Date = 'Dec'
+                                            if (response[m].conditiondate !== null && response[m].conditiondate !== "") {
+                                                let Date;
+                                                let conditionDate = moment(response[m].conditiondate).format("MM");
+                                                if (conditionDate == '01') {
+                                                    Date = 'Jan'
+                                                } else if (conditionDate == '02') {
+                                                    Date = 'Feb'
+                                                } else if (conditionDate == '03') {
+                                                    Date = 'Mar'
+                                                } else if (conditionDate == '04') {
+                                                    Date = 'Apr'
+                                                } else if (conditionDate == '05') {
+                                                    Date = 'May'
+                                                } else if (conditionDate == '06') {
+                                                    Date = 'June'
+                                                } else if (conditionDate == '07') {
+                                                    Date = 'July'
+                                                } else if (conditionDate == '08') {
+                                                    Date = 'Aug'
+                                                } else if (conditionDate == '09') {
+                                                    Date = 'Sept'
+                                                } else if (conditionDate == '10') {
+                                                    Date = 'Oct'
+                                                } else if (conditionDate == '11') {
+                                                    Date = 'Nov'
+                                                } else if (conditionDate == '12') {
+                                                    Date = 'Dec'
+                                                }
+                                                let conditionDat = moment(response[m].invoicedate).format("DD");
+                                                let conditiondat = moment(response[m].invoicedate).format("YYYY");
+                                                response[m].conditiondate = conditionDat + Date + conditiondat;
                                             }
-                                            let conditionDat = moment(response[m].invoicedate).format("DD");
-                                            let conditiondat = moment(response[m].invoicedate).format("YYYY");
-                                            response[m].conditiondate = conditionDat + Date + conditiondat;
+                                            invoiceamountvalue += parseFloat(response[m].lineamount);
+                                            this.totalcostvalue.push({
+                                                invoicenumber: response[m].invoicenumber,
+                                                number: response[m].number,
+                                                invoicetype: 'STANDARD',
+                                                rowtype: 'ITEM',
+                                                invoicedate: response[m].invoicedate,
+                                                conditiondate: response[m].conditiondate,
+                                                vendorcode: response[m].vendorcode,
+                                                paymentmethod: this.selectedlist[i].paymentmethod,
+                                                currency: response[m].currency,
+                                                invoiceamount: response[m].invoiceamount,
+                                                lineamount: response[m].lineamount,
+                                                currencyrate: response[m].exchangerate,
+                                                companysegment: '01',
+                                                budgetcoding: response[m].budgetcoding,
+                                                subjectnumber: response[m].subjectnumber,
+                                                productsegment: '00000',
+                                                vatnumber: '',
+                                                taxCode: '0%',
+                                                paymentterms: '00/00/00',
+                                                remark: response[m].remark,
+                                                source: 'OPEN_IF',
+                                                paymentmethods: 'WIRE',
+                                                type: ',',
+                                            })
                                         }
-                                        invoiceamountvalue += parseFloat(response[m].lineamount);
-                                        this.totalcostvalue.push({
-                                            invoicenumber: response[m].invoicenumber,
-                                            number: response[m].number,
-                                            invoicetype: 'STANDARD',
-                                            rowtype: 'ITEM',
-                                            invoicedate: response[m].invoicedate,
-                                            conditiondate: response[m].conditiondate,
-                                            vendorcode: response[m].vendorcode,
-                                            paymentmethod: this.selectedlist[i].paymentmethod,
-                                            currency: response[m].currency,
-                                            invoiceamount: response[m].invoiceamount,
-                                            lineamount: response[m].lineamount,
-                                            currencyrate: response[m].exchangerate,
-                                            companysegment: '01',
-                                            budgetcoding: response[m].budgetcoding,
-                                            subjectnumber: response[m].subjectnumber,
-                                            productsegment: '00000',
-                                            vatnumber: '',
-                                            taxCode: '0%',
-                                            paymentterms: '00/00/00',
-                                            remark: response[m].remark,
-                                            source: 'OPEN_IF',
-                                            paymentmethods: 'WIRE',
-                                            type: ',',
-                                        })
                                     }
                                 }
+                                this.startoption.push({
+                                    invoicenumber: 'LAST',
+                                    number: '9999',
+                                    invoicetype: '',
+                                    rowtype: '',
+                                    invoicedate: '',
+                                    conditiondate: '',
+                                    vendorcode: '',
+                                    paymentmethod: '',
+                                    currency: '',
+                                    invoiceamount: sum + 1,
+                                    lineamount: invoiceamountvalue,
+                                    currencyrate: '',
+                                    companysegment: '',
+                                    budgetcoding: '',
+                                    subjectnumber: '',
+                                    productsegment: '',
+                                    vatnumber: '',
+                                    taxCode: '',
+                                    paymentterms: '',
+                                    remark: '',
+                                    source: '',
+                                    paymentmethods: '',
+                                    type: '',
+                                });
+                                this.startoptionvalue = this.totalcostvalue.concat(this.startoption);
+                                let csvData = [];
+                                for (let i = 0; i < this.startoptionvalue.length; i++) {
+                                    let obj = this.startoptionvalue[i];
+                                    csvData.push({
+                                        invoicenumber: obj.invoicenumber,
+                                        number: obj.number,
+                                        invoicetype: obj.invoicetype,
+                                        rowtype: obj.rowtype,
+                                        invoicedate: obj.invoicedate,
+                                        conditiondate: obj.conditiondate,
+                                        vendorcode: obj.vendorcode,
+                                        paymentmethod: obj.paymentmethod,
+                                        currency: obj.currency,
+                                        invoiceamount: obj.invoiceamount,
+                                        lineamount: obj.lineamount,
+                                        currencyrate: obj.currencyrate,
+                                        companysegment: obj.companysegment,
+                                        budgetcoding: obj.budgetcoding,
+                                        subjectnumber: obj.subjectnumber,
+                                        productsegment: obj.productsegment,
+                                        vatnumber: obj.vatnumber,
+                                        taxCode: obj.taxCode,
+                                        paymentterms: obj.paymentterms,
+                                        remark: obj.remark,
+                                        source: obj.source,
+                                        paymentmethods: obj.paymentmethods,
+                                        type: obj.type,
+                                    })
+                                }
+                                
+                                let filterVal = ['invoicenumber', 'number', 'invoicetype', 'rowtype', 'invoicedate', 'conditiondate', 'vendorcode', 'paymentmethod', 'currency',
+                                    'invoiceamount', 'lineamount', 'currencyrate', 'companysegment', 'budgetcoding', 'subjectnumber',
+                                    , 'productsegment', 'vatnumber', 'taxCode', 'paymentterms', 'remark', 'source', 'paymentmethods', 'type'];
+                                const parser = new Parser({header: false});
+                                const result = parser.parse(csvData);
+                                let aaa = result;
+                                let csvContent = "data:text/csv;charset=utf-8,\uFEFF" + aaa;
+                                const link = document.createElement("a");
+                                link.href = csvContent;
+                                link.download = this.$t('AP') + this.$t('title.PFANS1012VIEW') + '.csv';
+                                document.body.appendChild(link);
+                                link.click();
+                                document.body.removeChild(link);
                             }
-
-                            this.startoption.push({
-                                invoicenumber: 'LAST',
-                                number: '9999',
-                                invoicetype: '',
-                                rowtype: '',
-                                invoicedate: '',
-                                conditiondate: '',
-                                vendorcode: '',
-                                paymentmethod: '',
-                                currency: '',
-                                invoiceamount: sum+1,
-                                lineamount: invoiceamountvalue,
-                                currencyrate: '',
-                                companysegment: '',
-                                budgetcoding: '',
-                                subjectnumber: '',
-                                productsegment: '',
-                                vatnumber: '',
-                                taxCode: '',
-                                paymentterms: '',
-                                remark: '',
-                                source: '',
-                                paymentmethods: '',
-                                type: '',
-                            });
-                            this.startoptionvalue = this.totalcostvalue.concat(this.startoption);
-                            let csvData = [];
-                            for (let i = 0; i < this.startoptionvalue.length; i++) {
-                                let obj = this.startoptionvalue[i];
-                                csvData.push({
-                                    invoicenumber: obj.invoicenumber,
-                                    number: obj.number,
-                                    invoicetype: obj.invoicetype,
-                                    rowtype: obj.rowtype,
-                                    invoicedate: obj.invoicedate,
-                                    conditiondate: obj.conditiondate,
-                                    vendorcode: obj.vendorcode,
-                                    paymentmethod: obj.paymentmethod,
-                                    currency: obj.currency,
-                                    invoiceamount: obj.invoiceamount,
-                                    lineamount: obj.lineamount,
-                                    currencyrate: obj.currencyrate,
-                                    companysegment: obj.companysegment,
-                                    budgetcoding: obj.budgetcoding,
-                                    subjectnumber: obj.subjectnumber,
-                                    productsegment: obj.productsegment,
-                                    vatnumber: obj.vatnumber,
-                                    taxCode: obj.taxCode,
-                                    paymentterms: obj.paymentterms,
-                                    remark: obj.remark,
-                                    source: obj.source,
-                                    paymentmethods: obj.paymentmethods,
-                                    type: obj.type,
-                                })
-                            }
-                            let filterVal = ['invoicenumber', 'number', 'invoicetype', 'rowtype', 'invoicedate', 'conditiondate', 'vendorcode', 'paymentmethod', 'currency',
-                                'invoiceamount', 'lineamount', 'currencyrate', 'companysegment', 'budgetcoding', 'subjectnumber',
-                                , 'productsegment', 'vatnumber', 'taxCode', 'paymentterms', 'remark', 'source', 'paymentmethods', 'type'];
-                            const parser = new Parser({header: false});
-                            const result = parser.parse(csvData);
-                            let aaa = result;
-                            let csvContent = "data:text/csv;charset=utf-8,\uFEFF" + aaa;
-                            const link = document.createElement("a");
-                            link.href = csvContent;
-                            link.download = this.$t('AP') + this.$t('title.PFANS1012VIEW') + '.csv';
-                            document.body.appendChild(link);
-                            link.click();
-                            document.body.removeChild(link);
                             this.loading = false;
                         })
                         .catch(error => {
