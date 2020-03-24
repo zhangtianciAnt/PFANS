@@ -27,7 +27,7 @@
                 <el-col :span="8">
                   <el-form-item :label="$t('label.sex')" prop="sex">
                     <dicselect
-                      code="PR019"
+                      code="PG020"
                       @change="changesex"
                       :data="form.sex"
                       style="width:20vw"
