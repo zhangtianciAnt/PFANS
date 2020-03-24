@@ -9,7 +9,7 @@
         <el-form :model="form1" :rules="rules1" label-width="8vw" label-position="top" style="padding: 2vw"
                  ref="refform1">
           <el-dialog :title="$t('button.application')" :visible.sync="dialogFormVisible">
-            <el-form-item :label="$t('label.PFANS1024VIEW_NUMBER')" :label-width="formLabelWidth" v-if="display">
+            <el-form-item :label="$t('label.PFANS1024VIEW_NUMBER')" :label-width="formLabelWidth" v-if="display" :error="errorclaimtype" prop="claimtype">
               <dicselect
                 :code="code"
                 :data="form1.claimtype"
@@ -28,7 +28,7 @@
               >{{$t('label.PFANS1024VIEW_LETTERS')}}
               </el-checkbox>
             </el-form-item>
-            <el-form-item :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')" :label-width="formLabelWidth">
+            <el-form-item :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')" :label-width="formLabelWidth" :error="errorcontracttype" prop="contracttype">
               <dicselect :code="code2"
                          :data="form1.contracttype"
                          @change="getcontracttype"
@@ -36,7 +36,7 @@
                          :disabled="!disabled2">
               </dicselect>
             </el-form-item>
-            <el-form-item :label="$t('label.PFANS1024VIEW_CAREERYEAR')" :label-width="formLabelWidth">
+            <el-form-item :label="$t('label.PFANS1024VIEW_CAREERYEAR')" :label-width="formLabelWidth" :error="errorapplicationdate" prop="applicationdate">
               <dicselect :code="code3"
                          :data="form1.applicationdate"
                          @change="getcareeryear1"
@@ -923,6 +923,14 @@
           callback();
         }
       };
+        var checkApplicationdate =(rule, value, callback) => {
+            if (!this.form1.applicationdate || this.form1.applicationdate === '' || !this.form1.entrycondition || this.form1.entrycondition === '') {
+                callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1024VIEW_CAREERYEAR')));
+                this.errorapplicationdate = this.$t('normal.error_09') + this.$t('label.PFANS1024VIEW_CAREERYEAR');
+            } else {
+                callback();
+            }
+        };
       return {
         makeintoBaseInfo: {},
         titleType: '',
@@ -972,6 +980,9 @@
         grouporglist: '',
         groupinfo: ['', '', '', ''],
         errorgroup: '',
+          errorclaimtype: '',
+          errorcontracttype: '',
+          errorapplicationdate: '',
         maketype: '',
         letcontractnumber: '',
         contractnumbercount: '',
@@ -1010,6 +1021,33 @@
           '62': ['custoenglish', 'businesscode', 'placeenglish', 'responerglish', 'claimdatetime', 'currencyposition', 'claimamount', 'deliveryfinshdate', 'placechinese', 'responphone'],
         },
         rules1: {
+            claimtype: [
+                {
+                    required: true,
+                    message:
+                        this.$t('normal.error_09') +
+                        this.$t('label.PFANS1024VIEW_NUMBER'),
+                    trigger: 'change',
+                },
+            ],
+
+            contracttype: [
+                {
+                    required: true,
+                    message:
+                        this.$t('normal.error_09') +
+                        this.$t('label.PFANS1024VIEW_CONTRACTTYPE'),
+                    trigger: 'change',
+                },
+            ],
+
+            applicationdate: [
+                {
+                    required: true,
+                    validator: checkApplicationdate,
+                    trigger: 'change',
+                },
+            ],
           grouporglist: [
             {
               required: true,
@@ -1542,13 +1580,13 @@
         }
       },
       getcontracttype(val) {
-        this.form.contracttype = val;
+        this.form1.contracttype = val;
       },
       getcareeryear1(val) {
-        this.form.applicationdate = val;
+        this.form1.applicationdate = val;
       },
       getcareeryear2(val) {
-        this.form.entrycondition = val;
+        this.form1.entrycondition = val;
       },
       getVarto(val, row) {
         row.varto = val;

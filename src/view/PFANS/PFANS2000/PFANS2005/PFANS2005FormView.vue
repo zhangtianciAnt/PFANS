@@ -1335,22 +1335,16 @@
                   width="150%"
                 ></el-table-column>
                 <el-table-column
-                  :label="$t('label.PFANS2006VIEW_AFTERNOON')"
+                  :label="$t('label.PFANS2005FORMVIEW_SUBSIDIZE')"
                   align="center"
                   prop="lunch"
-                  width="150%"
-                ></el-table-column>
-                <el-table-column
-                  :label="$t('label.PFANS2006VIEW_TRANSPORTATION')"
-                  align="center"
-                  prop="traffic"
                   width="150%"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS3007VIEW_REMARKS')"
                   align="center"
                   prop="remarks"
-                  width="150%"
+                  width="200%"
                 ></el-table-column>
               </el-table>
               <div class="pagination-container" style="padding-top: 2rem">
@@ -1384,12 +1378,13 @@
                   :label="$t('label.PFANS2006VIEW_NO')"
                   align="center"
                   prop="rowindex"
+                  width="150%"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_LASTNAME')"
                   align="center"
                   prop="user_id"
-                  width="160%"
+                  width="200%"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2005FORMVIEW_RETIREMENTDATE')"
@@ -1410,22 +1405,15 @@
                   width="150%"
                 ></el-table-column>
                 <el-table-column
-                  :label="$t('label.PFANS2006VIEW_AFTERNOON')"
+                  :label="$t('label.PFANS2005FORMVIEW_SUBSIDIZE')"
                   align="center"
                   prop="lunch"
-                  width="150%"
-                ></el-table-column>
-                <el-table-column
-                  :label="$t('label.PFANS2006VIEW_TRANSPORTATION')"
-                  align="center"
-                  prop="traffic"
                   width="150%"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS3007VIEW_REMARKS')"
                   align="center"
                   prop="remarks"
-                  width="150%"
                 ></el-table-column>
               </el-table>
               <div class="pagination-container" style="padding-top: 2rem">
@@ -4851,7 +4839,9 @@
         this.$store
           .dispatch("PFANS2005Store/thisMonthOvertimeChange", this.givingVo)
           .then(response => {
-            this.tableCY.find(item => item.rowindex === val.rowindex).thistotaly = this.setScale2(response.thistotaly);
+            if (this.tableCY.find(item => item.rowindex === val.rowindex)) {
+              this.tableCY.find(item => item.rowindex === val.rowindex).thistotaly = this.setScale2(response.thistotaly);
+            }
             this.loading = false;
           })
           .catch(err => {
@@ -4878,7 +4868,9 @@
         this.$store
           .dispatch("PFANS2005Store/thisMonthLacktimeChange", this.givingVo)
           .then(response => {
-            this.tableQQ.find(item => item.rowindex === val.rowindex).thistotal = this.setScale2(response.thistotal);
+            if (this.tableQQ.find(item => item.rowindex === val.rowindex)) {
+              this.tableQQ.find(item => item.rowindex === val.rowindex).thistotal = this.setScale2(response.thistotal);
+            }
             this.loading = false;
           })
           .catch(err => {
