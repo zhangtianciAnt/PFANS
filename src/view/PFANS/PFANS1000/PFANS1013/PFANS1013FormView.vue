@@ -519,7 +519,7 @@
                     <el-table-column :label="$t('label.PFANS1012VIEW_RMB')" align="center" prop="rmb" width="200">
                       <template slot-scope="scope">
                         <el-input-number
-                          :disabled="scope.row.currency !== 'PG019003' ? true : false"
+                          :disabled="scope.row.currency === 'PG019003' || scope.row.currency === '' ? false : true"
                           :max="1000000000"
                           :min="0"
                           :no="scope.row"
@@ -757,7 +757,7 @@
                                      prop="rmb" width="200">
                       <template slot-scope="scope">
                         <el-input-number
-                          :disabled="scope.row.currency === 'PG019003' && (scope.row.accountcode !== 'PJ132005' && scope.row.accountcode !== 'PJ132006') ? false : true"
+                          :disabled="(scope.row.currency === 'PG019003' || scope.row.currency === '') && (scope.row.accountcode !== 'PJ132005' && scope.row.accountcode !== 'PJ132006') ? false : true"
                           :max="1000000000" :min="0"
                           :precision="2"
                           @change="changelowance(scope.row)"
@@ -891,7 +891,7 @@
                     <el-table-column :label="$t('label.PFANS1012VIEW_RMB')" align="center" prop="rmb" width="200">
                       <template slot-scope="scope">
                         <el-input-number
-                          :disabled="scope.row.currency !== 'PG019003' ? true : false"
+                          :disabled="scope.row.currency === 'PG019003' || scope.row.currency === '' ? false : true"
                           :max="1000000000"
                           :min="0"
                           :precision="2"
