@@ -1542,7 +1542,6 @@
                 this.$store
                     .dispatch('PFANS1012Store/selectById', {'publicexpenseid': this.$route.params._id})
                     .then(response => {
-
                         this.form = response.publicexpense;
                         let rst = getOrgInfoByUserId(response.publicexpense.user_id);
                         this.centerid = rst.centerNmae;

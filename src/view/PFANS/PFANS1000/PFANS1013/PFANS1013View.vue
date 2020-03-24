@@ -374,6 +374,7 @@
                   }
                 }
               }
+
               this.startoption.push({
                 invoicenumber: 'LAST',
                 number: '9999',
