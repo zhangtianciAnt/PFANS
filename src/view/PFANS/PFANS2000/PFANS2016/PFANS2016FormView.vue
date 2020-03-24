@@ -91,6 +91,7 @@
                 <el-select v-model="form.vacationtype" style="width: 20vw"
                            :disabled="!disable" @change="handleClick">
                   <el-option
+                    
                     :key="item.value"
                     :label="item.label"
                     :value="item.value"
