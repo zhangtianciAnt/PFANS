@@ -1543,7 +1543,7 @@
                     .dispatch('PFANS1012Store/selectById', {'publicexpenseid': this.$route.params._id})
                     .then(response => {
                         this.form = response.publicexpense;
-                        let rst = getOrgInfoByUserId(response[0].publicexpense.user_id);
+                        let rst = getOrgInfoByUserId(response.publicexpense.user_id);
                         this.centerid = rst.centerNmae;
                         this.groupid= rst.groupNmae;
                         this.teamid= rst.teamNmae;
@@ -2089,7 +2089,6 @@
                             }
                         }
                         this.userlist = this.form.user_id;
-
                         this.baseInfo.publicexpense = JSON.parse(JSON.stringify(this.form));
                         this.baseInfo.trafficdetails = JSON.parse(JSON.stringify(this.tableT));
                         this.baseInfo.purchasedetails = JSON.parse(JSON.stringify(this.tableP));
@@ -3057,14 +3056,15 @@
                     this.$refs['reff'].validate(valid => {
                         if (valid) {
                             this.baseInfo = {};
-                            this.form.user_id = this.userlist;
-                            this.form.moneys = Math.round((this.form.rmbexpenditure + this.form.tormb) * 100) / 100;
-                            this.form.reimbursementdate = moment(this.form.reimbursementdate).format('YYYY-MM-DD');
-                            this.baseInfo.publicexpense = JSON.parse(JSON.stringify(this.form));
+                            this.baseInfo.publicexpense= [];
                             this.baseInfo.trafficdetails = [];
                             this.baseInfo.purchasedetails = [];
                             this.baseInfo.otherdetails = [];
                             this.baseInfo.invoice = [];
+                            this.form.user_id = this.userlist;
+                            this.form.moneys = Math.round((this.form.rmbexpenditure + this.form.tormb) * 100) / 100;
+                            this.form.reimbursementdate = moment(this.form.reimbursementdate).format('YYYY-MM-DD');
+                            this.baseInfo.publicexpense = JSON.parse(JSON.stringify(this.form));
                             let sum = 0;
                             for (let i = 0; i < this.tableF.length; i++) {
                                 sum += this.tableF[i].invoiceamount;
