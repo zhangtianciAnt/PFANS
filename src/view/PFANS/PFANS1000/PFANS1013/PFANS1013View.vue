@@ -384,7 +384,7 @@
                 vendorcode: '',
                 paymentmethod: '',
                 currency: '',
-                invoiceamount: sum,
+                invoiceamount: sum+1,
                 lineamount: invoiceamountvalue,
                 currencyrate: '',
                 companysegment: '',
