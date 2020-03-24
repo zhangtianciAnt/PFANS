@@ -2702,17 +2702,7 @@
     },
     data() {
       return {
-        tableData: [
-          {
-            no: 1
-          },
-          {
-            no: 2
-          },
-          {
-            no: 3
-          }
-        ],
+        tableData: [],
         totaldataFJKC: [],
         totaldataQQ: [],
         totaldataCY: [],
@@ -3280,6 +3270,10 @@
             let datalistljsj = [];
             let datalistms = [];
             let datalistzhsr = [];
+
+            this.tableData=response.wagesList;
+
+
             // region 欠勤 By SKAIXX
             // 添加非空判断 By SKAIXX
             if (response.lackattendance) {
@@ -3324,6 +3318,7 @@
                   +response.lackattendance[j].lasttotal +
                   +response.lackattendance[j].thistotal;
                 obj.rowindex = j + 1;
+                obj.lackattendance_id = response.lackattendance[j].lackattendance_id;
                 datalistqq[j] = obj;
                 this.tableQQ = datalistqq;
                 this.totaldataQQ = datalistqq;
@@ -3377,6 +3372,7 @@
                 obj.thistotaly = this.setScale2(response.residual[j].thistotaly);
                 obj.remarks = response.residual[j].remarks;
                 obj.subsidy = this.setScale2(response.residual[j].subsidy);
+                obj.residual_id = response.residual[j].residual_id;
                 datalistcy[j] = obj;
                 this.tableCY = datalistcy;
                 this.totaldataCY = datalistcy;
@@ -4384,7 +4380,7 @@
         ) {
           this.buttonList[1].disabled = true;
         }
-        if (tab.index === "16" || tab.index === "2" || tab.index === "3") {
+        if (tab.index === "16" || tab.index === "2" || tab.index === "3"|| tab.index === "8"|| tab.index === "9") {
           this.buttonList[0].disabled = false;
         } else if (
           tab.index === "0" ||
@@ -4392,8 +4388,6 @@
           tab.index === "5" ||
           tab.index === "6" ||
           tab.index === "7" ||
-          tab.index === "8" ||
-          tab.index === "9" ||
           tab.index === "10" ||
           tab.index === "11" ||
           tab.index === "12" ||
@@ -4804,6 +4798,10 @@
                 reason: this.tableGRDB[i].reason
               });
             }
+          } else if (this.tab === "8") {
+            this.baseInfo.lackattendance = this.totaldataQQ;
+          } else if (this.tab === "9") {
+            this.baseInfo.residual = this.totaldataCY;
           }
           this.$store
             .dispatch("PFANS2005Store/save", this.baseInfo)
@@ -4845,7 +4843,9 @@
         this.$store
           .dispatch("PFANS2005Store/thisMonthOvertimeChange", this.givingVo)
           .then(response => {
-            this.tableCY.find(item => item.rowindex === val.rowindex).thistotaly = this.setScale2(response.thistotaly);
+            if (this.tableCY.find(item => item.rowindex === val.rowindex)) {
+              this.tableCY.find(item => item.rowindex === val.rowindex).thistotaly = this.setScale2(response.thistotaly);
+            }
             this.loading = false;
           })
           .catch(err => {
@@ -4872,7 +4872,9 @@
         this.$store
           .dispatch("PFANS2005Store/thisMonthLacktimeChange", this.givingVo)
           .then(response => {
-            this.tableQQ.find(item => item.rowindex === val.rowindex).thistotal = this.setScale2(response.thistotal);
+            if (this.tableQQ.find(item => item.rowindex === val.rowindex)) {
+              this.tableQQ.find(item => item.rowindex === val.rowindex).thistotal = this.setScale2(response.thistotal);
+            }
             this.loading = false;
           })
           .catch(err => {

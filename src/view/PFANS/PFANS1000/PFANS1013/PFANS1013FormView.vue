@@ -270,7 +270,7 @@
                         <el-table-column :label="$t('label.PFANS1013FORMVIEW_EXCHANGERATE')" align="center" width="180">
                           <template slot-scope="scope">
                             <el-input-number :max="9999999" :min="0" :no="scope.row"
-                                             :precision="2" :step="1" @change="changeamount(scope.row)"
+                                             :step="0.0001" @change="changeamount(scope.row)"
                                              controls-position="right" style="width: 100%"
                                              v-model="scope.row.exchangerate">
                             </el-input-number>
@@ -438,7 +438,7 @@
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1012FORMVIEW_INVOICEN')" align="center" width="150">
                       <template slot-scope="scope">
-                        <el-select style="width: 100%" @change="changeInvoice(scope.row)" v-model="scope.row.invoicenumber">
+                        <el-select style="width: 100%" v-model="scope.row.invoicenumber">
                           <el-option
                             :key="item.value"
                             :label="item.lable"
@@ -519,7 +519,7 @@
                     <el-table-column :label="$t('label.PFANS1012VIEW_RMB')" align="center" prop="rmb" width="200">
                       <template slot-scope="scope">
                         <el-input-number
-                          :disabled="!disable"
+                          :disabled="scope.row.currency !== 'PG019003' ? true : false"
                           :max="1000000000"
                           :min="0"
                           :no="scope.row"
@@ -549,7 +549,7 @@
                       <template slot-scope="scope">
                         <dicselect :code="code3"
                                    :data="scope.row.currency"
-                                   :disabled="scope.row.invoicenumber === $t('label.PFANS1012FORMVIEW_NOMONEY') || scope.row.invoicenumber === '' ? false : true"
+                                   :disabled="!disable"
                                    :multiple="multiple"
                                    :no="scope.row"
                                    @change="changeAcc">
@@ -561,7 +561,7 @@
                                      v-if="showforeigncurrency" width="200">
                       <template slot-scope="scope">
                         <el-input-number
-                          :disabled="scope.row.invoicenumber === $t('label.PFANS1012FORMVIEW_NOMONEY') || scope.row.invoicenumber === '' ? false : true"
+                          :disabled="!disable"
                           :max="1000000000"
                           :min="0"
                           :no="scope.row"
@@ -628,7 +628,7 @@
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1012FORMVIEW_INVOICEN')" align="center" width="150">
                       <template slot-scope="scope">
-                        <el-select style="width: 100%" @change="changeInvoice(scope.row)" v-model="scope.row.invoicenumber">
+                        <el-select style="width: 100%" v-model="scope.row.invoicenumber">
                           <el-option
                             :key="item.value"
                             :label="item.lable"
@@ -731,7 +731,7 @@
                       <template slot-scope="scope">
                         <dicselect :code="code3"
                                    :data="scope.row.currency"
-                                   :disabled="(scope.row.invoicenumber === $t('label.PFANS1012FORMVIEW_NOMONEY') || scope.row.invoicenumber === '') && (scope.row.accountcode !== 'PJ132005' && scope.row.accountcode !== 'PJ132006') ? false : true"
+                                   :disabled="scope.row.accountcode !== 'PJ132005' && scope.row.accountcode !== 'PJ132006' ? false : true"
                                    :multiple="multiple"
                                    :no="scope.row"
                                    @change="getAccommodation">
@@ -742,7 +742,7 @@
                                      v-if="this.form.type === '0'? false : true" width="200">
                       <template slot-scope="scope">
                         <el-input-number
-                          :disabled="(scope.row.invoicenumber === $t('label.PFANS1012FORMVIEW_NOMONEY') || scope.row.invoicenumber === '') && (scope.row.accountcode !== 'PJ132005' && scope.row.accountcode !== 'PJ132006') ? false : true"
+                          :disabled="scope.row.accountcode !== 'PJ132005' && scope.row.accountcode !== 'PJ132006' ? false : true"
                           :max="1000000000"
                           :min="0"
                           :precision="2"
@@ -757,9 +757,8 @@
                                      prop="rmb" width="200">
                       <template slot-scope="scope">
                         <el-input-number
-                          :disabled="scope.row.accountcode !== 'PJ132005' && scope.row.accountcode !== 'PJ132006' ? false : true"
-                          :max="1000000000"
-                          :min="0"
+                          :disabled="scope.row.currency === 'PG019003' && (scope.row.accountcode !== 'PJ132005' && scope.row.accountcode !== 'PJ132006') ? false : true"
+                          :max="1000000000" :min="0"
                           :precision="2"
                           @change="changelowance(scope.row)"
                           controls-position="right"
@@ -827,7 +826,7 @@
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1012FORMVIEW_INVOICEN')" align="center" width="150">
                       <template slot-scope="scope">
-                        <el-select style="width: 100%" @change="changeInvoice(scope.row)" v-model="scope.row.invoicenumber">
+                        <el-select style="width: 100%" v-model="scope.row.invoicenumber">
                           <el-option
                             :key="item.value"
                             :label="item.lable"
@@ -892,7 +891,7 @@
                     <el-table-column :label="$t('label.PFANS1012VIEW_RMB')" align="center" prop="rmb" width="200">
                       <template slot-scope="scope">
                         <el-input-number
-                          :disabled="!disable"
+                          :disabled="scope.row.currency !== 'PG019003' ? true : false"
                           :max="1000000000"
                           :min="0"
                           :precision="2"
@@ -921,7 +920,7 @@
                       <template slot-scope="scope">
                         <dicselect :code="code3"
                                    :data="scope.row.currency"
-                                   :disabled="scope.row.invoicenumber === $t('label.PFANS1012FORMVIEW_NOMONEY') || scope.row.invoicenumber === '' ? false : true"
+                                   :disabled="!disable"
                                    :multiple="multiple"
                                    :no="scope.row"
                                    @change="changeAcc">
@@ -933,7 +932,7 @@
                                      v-if="showforeigncurrency" width="200">
                       <template slot-scope="scope">
                         <el-input-number
-                          :disabled="scope.row.invoicenumber === $t('label.PFANS1012FORMVIEW_NOMONEY') || scope.row.invoicenumber === '' ? false : true"
+                          :disabled="!disable"
                           :max="1000000000"
                           :min="0"
                           :no="scope.row"
@@ -1290,7 +1289,7 @@
         this.$store
           .dispatch('PFANS1013Store/selectById', {'evectionid': this.$route.params._id})
           .then(response => {
-            let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+            let lst = getOrgInfoByUserId(response.evection.userid);
             this.centername = lst.centerNmae;
             this.groupname = lst.groupNmae;
             this.teamname = lst.teamNmae;
@@ -1415,11 +1414,11 @@
     methods: {
       getcode(val, row) {
         row.accountcode = val;
-        if(val === 'PJ132005' || val === 'PJ132006' || val === 'PJ119005' || val === 'PJ119006'){
-          row.currency = 'PG019003';
-        } else {
-          row.currency = '';
-        }
+        // if(val === 'PJ132005' || val === 'PJ132006' || val === 'PJ119005' || val === 'PJ119006'){
+        //   row.currency = 'PG019003';
+        // } else {
+        //   row.currency = '';
+        // }
         let dic = getDictionaryInfo(val);
         if (dic) {
           row.subjectnumber = dic.value2;
@@ -1534,14 +1533,14 @@
             this.loading = false;
           });
       },
-      changeInvoice(val, row){
-        if(val.invoicenumber !== this.$t('label.PFANS1012FORMVIEW_NOMONEY')){
-          val.currency = 'PG019003';
-          val.foreigncurrency = 0;
-        } else{
-          val.currency = '';
-        }
-      },
+      // changeInvoice(val, row){
+      //   if(val.invoicenumber !== this.$t('label.PFANS1012FORMVIEW_NOMONEY')){
+      //     val.currency = 'PG019003';
+      //     val.foreigncurrency = 0;
+      //   } else{
+      //     val.currency = '';
+      //   }
+      // },
       getGroupId(orglist, row) {
         row.departmentname = orglist;
         let group = getOrgInfo(orglist);
@@ -1915,6 +1914,7 @@
             sums[index] = '--';
           }
         });
+        debugger;
         this.getMoney(sums);
         return sums;
       },
@@ -2219,9 +2219,9 @@
                 }
               }
             }
-            // if (accfig !== '' && accfig !== undefined && row.travel !== '' && row.travel !== undefined) {
-            //   row.rmb = (row.travel * Number(accfig)).toFixed(4);
-            // }
+            if (accfig !== '' && accfig !== undefined && row.travel !== '' && row.travel !== undefined) {
+              row.rmb = (row.travel * Number(accfig)).toFixed(4);
+            }
           } else if (this.Redirict === '0' ? (row.accountcode === 'PJ132005') : (row.accountcode === 'PJ119005')) {
             if (this.rank === 'PJ016003') {
               jpvalueflg2 = Number(jpregion12) + 100;
@@ -2238,11 +2238,11 @@
           }
         }
       },
-      getMoney(sums) {
+      getMoney(sums){
         if (this.form.type === '0') {
-          this.form.totalpay = sums[10] + this.tableRValue[9] + this.tableAValue[11];
+          this.form.totalpay = sums[10] + this.tableAValue[11] + this.tableRValue[9];
         } else if (this.form.type === '1') {
-          this.form.totalpay = sums[10] + this.tableRValue[9] + this.tableAValue[13];
+          this.form.totalpay = sums[10] + this.tableAValue[13] + this.tableRValue[9];
         }
         this.form.balance = this.form.loanamount - this.form.totalpay;
       },
@@ -2270,6 +2270,7 @@
         newValue.travel = '';
         this.getTravel(newValue);
         for (let j = 0; j < this.tableF.length; j++) {
+            let Taxratevalue=0;
           if (newValue.invoicenumber === this.tableF[j].invoicenumber) {
             if (newValue.rmb !== '') {
               if (this.tableF[j].taxrate !== '') {
@@ -2282,8 +2283,8 @@
                 } else if (this.tableF[j].taxrate === 'PJ071004') {
                   this.taxrateValue = '0.13';
                 }
-                taxratevalue = 1 + Number(this.taxrateValue);
-                newValue.taxes = (newValue.rmb / (taxratevalue) * this.taxrateValue);
+                Taxratevalue = 1 + Number(this.taxrateValue);
+                newValue.taxes = (newValue.rmb / (Taxratevalue) * this.taxrateValue);
               }
             }
           }
@@ -2292,6 +2293,7 @@
       changeRMB(newValue) {
         newValue.foreigncurrency = '';
         for (let j = 0; j < this.tableF.length; j++) {
+          let taxratevalue = 0;
           if (newValue.invoicenumber === this.tableF[j].invoicenumber) {
             if (newValue.rmb !== '') {
               if (this.tableF[j].taxrate !== '') {
@@ -2304,7 +2306,8 @@
                 } else if (this.tableF[j].taxrate === 'PJ071004') {
                   this.taxrateValue = '0.13';
                 }
-                newValue.taxes = newValue.rmb - (newValue.rmb * this.taxrateValue);
+                  taxratevalue = 1 + Number(this.taxrateValue);
+                  newValue.taxes = (newValue.rmb / (taxratevalue) * this.taxrateValue)
               }
             }
           }
@@ -2319,21 +2322,21 @@
       },
       changeAcc(val, row) {
         row.currency = val;
-        // let accinfo = getDictionaryInfo(val);
-        // if (accinfo) {
-        //   row.rmb = row.foreigncurrency * accinfo.value2;
-        // }
+        let accinfo = getDictionaryInfo(val);
+        if (accinfo) {
+          row.rmb = row.foreigncurrency * accinfo.value2;
+        }
       },
       getAccommodation(val, row) {
         row.currency = val;
         this.getTravel(row);
       },
       changefore(val, row) {
-        val.rmb = '';
-        // let accinfo = getDictionaryInfo(val.currency);
-        // if (accinfo) {
-        //   val.rmb = val.foreigncurrency * accinfo.value2;
-        // }
+        // val.rmb = '';
+        let accinfo = getDictionaryInfo(val.currency);
+        if (accinfo) {
+          val.rmb = val.foreigncurrency * accinfo.value2;
+        }
       },
       buttonClick(val) {
         if (val === 'save') {

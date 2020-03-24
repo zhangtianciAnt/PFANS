@@ -106,6 +106,7 @@
                 <el-select @change="handleclick" v-model="form.revacationtype"
                            :disabled="form.status === '5' || form.status === '7'">
                   <el-option
+                    
                     :key="item.value"
                     :label="item.label"
                     :value="item.value"
