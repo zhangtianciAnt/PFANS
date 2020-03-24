@@ -2155,9 +2155,9 @@
               }
             }
           } else if (this.Redirict === '0' ? (row.accountcode === 'PJ132005') : (row.accountcode === 'PJ119005')) {
-            row.rmb = 150 * diffDate;
+            row.rmb = (150 * diffDate).toFixed(2);
           } else if (this.Redirict === '0' ? (row.accountcode === 'PJ132006') : (row.accountcode === 'PJ119006')) {
-            row.rmb = Number(row.rmb + 100) * diffDate;
+            row.rmb = (Number(row.rmb + 100) * diffDate).toFixed(2);
           }
         } else if (this.form.type === '1') {
           var accfig;
@@ -2220,7 +2220,7 @@
               }
             }
             if (accfig !== '' && accfig !== undefined && row.travel !== '' && row.travel !== undefined) {
-              row.rmb = (row.travel * Number(accfig)).toFixed(4);
+              row.rmb = (row.travel * Number(accfig)).toFixed(2);
             }
           } else if (this.Redirict === '0' ? (row.accountcode === 'PJ132005') : (row.accountcode === 'PJ119005')) {
             if (this.rank === 'PJ016003') {
@@ -2229,11 +2229,11 @@
               jpvalueflg2 = Number(jpregion12);
             }
             if (jpvalueflg2 !== '' && jpvalueflg2 !== undefined) {
-              row.rmb = Number(jpvalueflg2) * diffDate;
+              row.rmb = (Number(jpvalueflg2) * diffDate).toFixed(2);
             }
           } else if (this.Redirict === '0' ? (row.accountcode === 'PJ132006') : (row.accountcode === 'PJ119006')) {
             if (jpvalueflg2 !== '' && jpvalueflg2 !== undefined) {
-              row.rmb = Number(jpvalueflg2 + 100) * diffDate;
+              row.rmb = (Number(jpvalueflg2 + 100) * diffDate).toFixed(2);
             }
           }
         }
@@ -2324,7 +2324,7 @@
         row.currency = val;
         let accinfo = getDictionaryInfo(val);
         if (accinfo) {
-          row.rmb = row.foreigncurrency * accinfo.value2;
+          row.rmb = (row.foreigncurrency * accinfo.value2).toFixed(2);
         }
       },
       getAccommodation(val, row) {
@@ -2335,7 +2335,7 @@
         // val.rmb = '';
         let accinfo = getDictionaryInfo(val.currency);
         if (accinfo) {
-          val.rmb = val.foreigncurrency * accinfo.value2;
+          val.rmb = (val.foreigncurrency * accinfo.value2).toFixed(2);
         }
       },
       buttonClick(val) {
