@@ -345,7 +345,7 @@
                       let conditiondat = moment(response[m].invoicedate).format("YYYY");
                       response[m].conditiondate = conditionDat + Date + conditiondat;
                     }
-                    invoiceamountvalue += parseFloat(response[m].lineamount).toFixed(2);
+                    invoiceamountvalue += parseFloat(response[m].lineamount);
                     this.travelcostvalue.push({
                       invoicenumber: response[m].invoicenumber,
                       number: response[m].number,
@@ -356,7 +356,7 @@
                       vendorcode: response[m].vendorcode,
                       paymentmethod: this.selectedlist[i].paymentmethod,
                       currency: response[m].currency,
-                      invoiceamount: parseFloat(response[m].invoiceamount).toFixed(2),
+                      invoiceamount: response[m].invoiceamount,
                       lineamount: response[m].lineamount,
                       currencyrate: response[m].exchangerate,
                       companysegment: '01',
@@ -374,7 +374,6 @@
                   }
                 }
               }
-
               this.startoption.push({
                 invoicenumber: 'LAST',
                 number: '9999',
