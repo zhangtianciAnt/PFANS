@@ -1981,6 +1981,7 @@
           });
           this.loading = false;
           this.dialogBook = false;
+          return;
         }
         this.$store.dispatch('PFANS1026Store/existCheck', {contractNumber: contractNumber})
           .then(response => {
