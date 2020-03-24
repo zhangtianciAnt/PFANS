@@ -284,11 +284,15 @@
         };
 
       var CheckGiven = (rule, value, callback) => {
+        if(this.form.careerplan === 0){
           if (Number(this.form.amounttobegiven) > Number(this.form.businessplanbalance)) {
             callback(new Error(this.$t('label.PFANS1004VIEW_AMOUNTTOBEGIVEN') + this.$t('normal.error_checkTime2') + this.$t('label.PFANS1004VIEW_BUSINESSPLANBALANCE')));
           } else {
             callback();
           }
+        }else{
+          callback();
+        }
       };
       return {
         userlist: "",

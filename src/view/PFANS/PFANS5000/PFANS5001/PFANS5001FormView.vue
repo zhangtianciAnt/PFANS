@@ -2098,7 +2098,7 @@
                 this.buttonClick('update');
             },
             end() {
-                this.form.status = '0';
+                this.form.status = '4';
                 this.buttonClick('update');
             },
             fileError(err, file, fileList) {

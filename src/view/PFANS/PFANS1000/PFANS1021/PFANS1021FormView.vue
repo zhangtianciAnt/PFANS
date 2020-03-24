@@ -101,13 +101,13 @@
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1021FORMVIEW_PHONENUMBER')" align="center" prop="phonenumber"  width="200">
                 <template slot-scope="scope">
-                  <el-input :disabled="!disabled" :no="scope.row" maxlength="20" v-model="scope.row.phonenumber">
+                  <el-input :disabled="true" :no="scope.row" maxlength="20" v-model="scope.row.phonenumber">
                   </el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.email')" align="center" prop="emaildetail"  width="200">
                 <template slot-scope="scope">
-                  <el-input :disabled="!disabled" :no="scope.row" maxlength="20" v-model="scope.row.emaildetail">
+                  <el-input :disabled="true" :no="scope.row" maxlength="20" v-model="scope.row.emaildetail">
                   </el-input>
                 </template>
               </el-table-column>
@@ -194,7 +194,7 @@
   import dicselect from "../../../components/dicselect.vue";
   import user from "../../../components/user.vue";
   import { Message } from 'element-ui'
-  import {getOrgInfoByUserId} from '@/utils/customize';
+  import {getOrgInfoByUserId,getUserInfo} from '@/utils/customize';
   import org from "../../../components/org";
   import {validateEmail} from '@/utils/validate';
   import moment from "moment";
@@ -395,6 +395,12 @@
               this.form.team_id = lst.teamNmae;
               this.form.user_id = this.$store.getters.userinfo.userid;
           }
+        if (this.userlist !== null && this.userlist !== '') {
+          let lst1 = getUserInfo(this.$store.getters.userinfo.userid);
+          this.form.phonenumber = lst1.userinfo.mobilenumber;
+          this.form.emaildetail = lst1.userinfo.email;
+          this.form.user_id = this.$store.getters.userinfo.userid;
+        }
         this.loading = false;
       }
     },
@@ -426,11 +432,15 @@
            }
         },
         getUserids1(val,row) {
+          debugger
             row.title = val;
             let lst = getOrgInfoByUserId(val);
+            let lst1 = getUserInfo(val);
             row.detailcenter_id = lst.centerNmae;
             row.detailgroup_id = lst.groupNmae;
             row.detailteam_id = lst.teamNmae;
+            row.phonenumber = lst1.userinfo.mobilenumber;
+            row.emaildetail = lst1.userinfo.email;
             if (!row.title || row.title === '' || val === "undefined") {
                 row.errortitle = this.$t('normal.error_09') + this.$t('label.applicant');
             } else {
@@ -517,7 +527,6 @@
       buttonClick(val) {
           this.$refs["refform"].validate(valid => {
             if (valid) {
-              this.loading = true;
               this.baseInfo = {};
               this.form.application = moment(this.form.application).format('YYYY-MM-DD');
               this.baseInfo.security = JSON.parse(JSON.stringify(this.form));
@@ -545,34 +554,61 @@
                         );
                     }
                 }
-              if (this.$route.params._id) {
-                this.baseInfo.securityid = this.$route.params._id;
-                this.$store
-                  .dispatch('PFANS1021Store/update', this.baseInfo)
-                  .then(response => {
-                    this.data = response;
-                    this.loading = false;
-                      if(val !== "update") {
-                          Message({
-                              message: this.$t("normal.success_02"),
-                              type: 'success',
-                              duration: 5 * 1000
-                          });
-                          if (this.$store.getters.historyUrl) {
-                              this.$router.push(this.$store.getters.historyUrl);
-                          }
-                      }
-                  })
-                  .catch(error => {
-                    Message({
-                      message: error,
-                      type: 'error',
-                      duration: 5 * 1000
-                    });
-                    this.loading = false;
-                  })
-
-              } else {
+              debugger;
+              let error = 0;
+              let error1 = 0;
+              let error2 = 0;
+              let error3 = 0;
+              for (let i = 0; i < this.tableD.length; i++) {
+                if (this.tableD[i].title == "") {
+                  error = error + 1;
+                }
+              }
+              for (let i = 0; i < this.tableD.length; i++) {
+                if (this.tableD[i].fabuilding == "") {
+                  error1 = error1 + 1;
+                }
+              }
+              for (let i = 0; i < this.tableD.length; i++) {
+                if (this.tableD[i].entrymanager == "") {
+                  error2 = error2 + 1;
+                }
+              }
+              for (let i = 0; i < this.tableD.length; i++) {
+                if (this.tableD[i].startdate == "") {
+                  error3 = error3 + 1;
+                }
+              }
+              if (error != 0) {
+                Message({
+                  message: this.$t('normal.error_08') +
+                    this.$t('label.applicant'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+              } else if (error3 != 0) {
+                Message({
+                  message: this.$t('normal.error_08') +
+                    this.$t('label.PFANS1021FORMVIEW_STARTDATE'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+              } else if (error1 != 0) {
+                Message({
+                  message: this.$t('normal.error_08') +
+                    this.$t('label.PFANS1021FORMVIEW_FABUILDING'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+              } else if (error2 != 0) {
+                Message({
+                  message: this.$t('normal.error_08') +
+                    this.$t('label.PFANS1021FORMVIEW_ENTRYMANAGER'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+              } else if (!this.$route.params._id){
+                this.loading = true;
                 this.$store
                   .dispatch('PFANS1021Store/insert', this.baseInfo)
                   .then(response => {
@@ -595,7 +631,35 @@
                     });
                     this.loading = false;
                   })
+              } else {
+                this.baseInfo.securityid = this.$route.params._id;
+                this.$store
+                  .dispatch('PFANS1021Store/update', this.baseInfo)
+                  .then(response => {
+                    this.data = response;
+                    this.loading = false;
+                    if(val !== "update") {
+                      Message({
+                        message: this.$t("normal.success_02"),
+                        type: 'success',
+                        duration: 5 * 1000
+                      });
+                      if (this.$store.getters.historyUrl) {
+                        this.$router.push(this.$store.getters.historyUrl);
+                      }
+                    }
+                  })
+                  .catch(error => {
+                    Message({
+                      message: error,
+                      type: 'error',
+                      duration: 5 * 1000
+                    });
+                    this.loading = false;
+                  })
+
               }
+
             }
           });
       }
