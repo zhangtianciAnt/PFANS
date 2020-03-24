@@ -4407,7 +4407,7 @@
             sums[index] = this.$t("label.PFANS2005FORMVIEW_HJ");
             return;
           }
-          const values = data.map(item => parseFloat(item[column.property]));
+          const values = data.map(item => Number(item[column.property]));
           if (!values.every(value => isNaN(value))) {
             sums[index] = values.reduce((prev, curr) => {
               const value = parseFloat(curr);
