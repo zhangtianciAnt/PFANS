@@ -1298,12 +1298,6 @@
                         disabled: false,
                         icon: 'el-icon-check',
                     },
-                    {
-                        'key': 'export',
-                        'name': 'button.export',
-                        disabled: false,
-                        icon: 'el-icon-download',
-                    },
                 ],
                 tableT: [{
                     publicexpenseid: '',
@@ -1530,11 +1524,6 @@
             this.getsupplierinfor();
             this.getCompanyProjectList();
             this.checkoptionsdata();
-            if (this.$route.params._type === 'PJ001001') {
-                this.buttonList[1].disabled = false;
-            } else if (this.$route.params._type === 'PJ001002') {
-                this.buttonList[1].disabled = true;
-            }
             this.IDname = this.$route.params._id
             if (this.IDname) {
                 this.disablecheck = true;
@@ -2970,32 +2959,6 @@
                 this.tormbT = Number(this.tormbT) + newValue.tormb;
                 this.form.tormb = this.tormbT;
             },
-            // 判断是否IE??器
-            MyBrowserIsIE() {
-                let isIE = false;
-                if (
-                    navigator.userAgent.indexOf('compatible') > -1 &&
-                    navigator.userAgent.indexOf('MSIE') > -1
-                ) {
-                    // ie??器
-                    isIE = true;
-                }
-                if (navigator.userAgent.indexOf('Trident') > -1) {
-                    // edge ??器
-                    isIE = true;
-                }
-                return isIE;
-            },
-            formatJson(filterVal, jsonData) {
-                return jsonData.map(v => filterVal.map(j => {
-                    if (j === 'timestamp') {
-                        return parseTime(v[j]);
-                    } else {
-                        return v[j];
-                    }
-                }));
-            },
-
             handleClickChange(val) {
                 this.currentRow = val.suppliername;
                 this.currentRow1 = val.payeename;
@@ -3295,60 +3258,6 @@
                         }
 
                     });
-                } else if (val === 'export') {
-                    let heads = [this.$t('label.date'), this.$t('label.PFANS1012FORMVIEW_INVOICEN'), this.$t('label.PFANS1012FORMVIEW_PL'), this.$t('label.PFANS1012FORMVIEW_ACCOUNT'), this.$t('label.PFANS1012FORMVIEW_DEPARTMENT'), this.$t('label.PFANS1012VIEW_REGION'), this.$t('label.PFANS1012VIEW_VEHICLE'),
-                        this.$t('label.PFANS1012VIEW_STARTINGPOINT'), this.$t('label.PFANS1012VIEW_RMB'),
-                        this.$t('label.PFANS1012VIEW_FOREIGNCURRENCY'), this.$t('label.PFANS1012FORMVIEW_TAXES'), this.$t('label.PFANS1012VIEW_ANNEXNO')];
-                    let filterVal = ['trafficdate', 'invoicenumber', 'plsummary', 'accountcode', 'departmentname', 'region', 'vehicle', 'startingpoint', 'rmb', 'foreigncurrency', 'taxes', 'annexno'];
-                    let csvData = [];
-                    var tableTdata = this.tableT;
-                    for (let i = 0; i < tableTdata.length; i++) {
-                        if (tableTdata[i].plsummary !== null && tableTdata[i].plsummary !== '') {
-                            let letErrortype = getDictionaryInfo(tableTdata[i].plsummary);
-                            if (letErrortype != null) {
-                                tableTdata[i].plsummary = letErrortype.value1;
-                            }
-                        }
-                        if (tableTdata[i].accountcode !== null && tableTdata[i].accountcode !== '') {
-                            let letErrortype = getDictionaryInfo(tableTdata[i].accountcode);
-                            if (letErrortype != null) {
-                                tableTdata[i].accountcode = letErrortype.value1;
-                            }
-                        }
-                        if (tableTdata[i].departmentname !== null && tableTdata[i].departmentname !== '') {
-                            let lettype = getOrgInfo(tableTdata[i].departmentname);
-                            if (lettype != null) {
-                                tableTdata[i].departmentname = lettype.departmentname;
-                            }
-                        }
-                        let obj = tableTdata[i];
-                        csvData.push({
-
-                            [heads[0]]: obj.trafficdate,
-                            [heads[1]]: obj.invoicenumber,
-                            [heads[2]]: obj.plsummary,
-                            [heads[3]]: obj.accountcode,
-                            [heads[4]]: obj.departmentname,
-                            [heads[5]]: obj.region,
-                            [heads[6]]: obj.vehicle,
-                            [heads[7]]: obj.startingpoint,
-                            [heads[8]]: obj.rmb,
-                            [heads[9]]: obj.foreigncurrency,
-                            [heads[10]]: obj.taxes,
-                            [heads[11]]: obj.annexno,
-
-                        });
-                    }
-                    const result = json2csv.parse(csvData, {
-                        excelStrings: true,
-                    });
-                    let csvContent = 'data:text/csv;charset=utf-8,\uFEFF' + result;
-                    const link = document.createElement('a');
-                    link.href = csvContent;
-                    link.download = this.$t('label.PFANS1012VIEW_TRAFFIC') + '.csv';
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
                 }
             },
         },
