@@ -118,6 +118,14 @@
                   ccitem => {
                     if (!ccitem.children || ccitem.children.length === 0) {
                       this.menuList.push(ccitem)
+                    } else {
+                      ccitem.children.map(
+                        cccitem => {
+                          if (!cccitem.children || cccitem.children.length === 0) {
+                            this.menuList.push(cccitem)
+                          }
+                        }
+                      )
                     }
                   }
                 )

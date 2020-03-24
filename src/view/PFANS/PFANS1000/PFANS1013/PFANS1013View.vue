@@ -67,13 +67,13 @@
             fix: false,
             filter: true
           },
-          {
-            code: 'budgetunit',
-            label: 'label.budgetunit',
-            width: 130,
-            fix: false,
-            filter: true
-          },
+          // {
+          //   code: 'budgetunit',
+          //   label: 'label.budgetunit',
+          //   width: 130,
+          //   fix: false,
+          //   filter: true
+          // },
           {
             code: 'telephone',
             label: 'label.PFANS1013VIEW_TELEPHONE',
@@ -161,12 +161,12 @@
             // response[j].centername = response[j].centerid;
             // response[j].groupname = response[j].groupid;
             // response[j].teamname = response[j].teamid;
-            if (response[j].budgetunit !== null && response[j].budgetunit !== "") {
-              let letBudgetunit = getDictionaryInfo(response[j].budgetunit);
-              if (letBudgetunit != null) {
-                response[j].budgetunit = letBudgetunit.value1;
-              }
-            }
+            // if (response[j].budgetunit !== null && response[j].budgetunit !== "") {
+            //   let letBudgetunit = getDictionaryInfo(response[j].budgetunit);
+            //   if (letBudgetunit != null) {
+            //     response[j].budgetunit = letBudgetunit.value1;
+            //   }
+            // }
             if (response[j].startdate !== null && response[j].startdate !== "") {
               response[j].startdate = moment(response[j].startdate).format("YYYY-MM-DD");
             }
@@ -247,6 +247,9 @@
             }
           })
         } else if (val === 'export') {
+          this.startoptionvalue = [];
+          this.travelcostvalue = [];
+          this.startoption = [];
           this.selectedList = {};
           this.selectedList.travelcost = [];
           this.selectedlist = this.$refs.roletable.selectedList;
@@ -265,6 +268,7 @@
               for (let m = 0; m < response.length; m++) {
                 sum = sum + 1;
                 for (let i = 0; i < this.selectedlist.length; i++) {
+
                   if (response[m].evectionid == this.selectedlist[i].evectionid) {
                     let letErrortype = getDictionaryInfo(this.selectedlist[i].paymentmethod);
                     if (letErrortype != null) {
@@ -380,7 +384,7 @@
                 vendorcode: '',
                 paymentmethod: '',
                 currency: '',
-                invoiceamount: sum,
+                invoiceamount: sum+1,
                 lineamount: invoiceamountvalue,
                 currencyrate: '',
                 companysegment: '',
@@ -396,7 +400,6 @@
                 type: '',
               });
               this.startoptionvalue = this.travelcostvalue.concat(this.startoption);
-              console.log("this.startoptionvalue", this.startoptionvalue);
               let csvData = [];
               for (let i = 0; i < this.startoptionvalue.length; i++) {
                 let obj = this.startoptionvalue[i];

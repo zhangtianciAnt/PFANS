@@ -1118,6 +1118,7 @@
   </div>
 </template>
 
+
 <script>
     import EasyNormalContainer from '@/components/EasyNormalContainer';
     import user from '../../../components/user.vue';
@@ -1297,12 +1298,6 @@
                         name: 'button.save',
                         disabled: false,
                         icon: 'el-icon-check',
-                    },
-                    {
-                        'key': 'export',
-                        'name': 'button.export',
-                        disabled: false,
-                        icon: 'el-icon-download',
                     },
                 ],
                 tableT: [{
@@ -1530,11 +1525,6 @@
             this.getsupplierinfor();
             this.getCompanyProjectList();
             this.checkoptionsdata();
-            if (this.$route.params._type === 'PJ001001') {
-                this.buttonList[1].disabled = false;
-            } else if (this.$route.params._type === 'PJ001002') {
-                this.buttonList[1].disabled = true;
-            }
             this.IDname = this.$route.params._id
             if (this.IDname) {
                 this.disablecheck = true;
@@ -1543,7 +1533,7 @@
                     .dispatch('PFANS1012Store/selectById', {'publicexpenseid': this.$route.params._id})
                     .then(response => {
                         this.form = response.publicexpense;
-                        let rst = getOrgInfoByUserId(response[0].publicexpense.user_id);
+                        let rst = getOrgInfoByUserId(response.publicexpense.user_id);
                         this.centerid = rst.centerNmae;
                         this.groupid= rst.groupNmae;
                         this.teamid= rst.teamNmae;
@@ -1554,6 +1544,10 @@
                         if (response.trafficdetails.length > 0) {
                             this.tableT = response.trafficdetails;
                             for (var i = 0; i < this.tableT.length; i++) {
+                                if(this.tableT[i].foreigncurrency > 0){
+                                    this.disa = false;
+                                    this.disablecheck = false;
+                                }
                                 this.orglist = this.tableT[i].departmentname;
                                 if (this.Redirict == '0') {
                                     if (this.tableT[i].plsummary == 'PJ111001') {
@@ -1734,6 +1728,10 @@
                             this.tableP = response.purchasedetails;
                             for (var i = 0; i < this.tableP.length; i++) {
                                 this.orglist = this.tableP[i].departmentname;
+                                if(this.tableP[i].foreigncurrency > 0){
+                                    this.disa = false;
+                                    this.disablecheck = false;
+                                }
                                 if (this.Redirict == '0') {
                                     if (this.tableP[i].plsummary == 'PJ111001') {
                                         let letErrortype = getDictionaryInfo(this.tableP[i].accountcode);
@@ -1912,6 +1910,10 @@
                                 this.tableR = response.otherdetails;
                                 for (let i = 0; i < this.tableR.length; i++) {
                                     this.orglist = this.tableR[i].departmentname;
+                                    if(this.tableR[i].foreigncurrency > 0){
+                                        this.disa = false;
+                                        this.disablecheck = false;
+                                    }
                                     if (this.Redirict == '0') {
                                         if (this.tableR[i].plsummary == 'PJ111001') {
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
@@ -2089,7 +2091,6 @@
                             }
                         }
                         this.userlist = this.form.user_id;
-
                         this.baseInfo.publicexpense = JSON.parse(JSON.stringify(this.form));
                         this.baseInfo.trafficdetails = JSON.parse(JSON.stringify(this.tableT));
                         this.baseInfo.purchasedetails = JSON.parse(JSON.stringify(this.tableP));
@@ -2203,7 +2204,6 @@
                     .dispatch('PFANS5008Store/getCompanyProjectList', {})
                     .then(response => {
                         const data = [];
-
                         for (let i = 0; i < response.length; i++) {
                             if (response[i].status == '4' || response[i].status == '6' || response[i].status == '7') {
                                 data.push({
@@ -2533,9 +2533,9 @@
                         }
                     }
                     if (error == '0') {
-                        if (this.tableP.length > 1) {
+                        if (this.tableP.length > 0) {
                             for (let i = 0; i < this.tableP.length; i++) {
-                                if (this.tableR[0].currency != '') {
+                                if (this.tableR[0].currency != '' && this.tableP[0].currency != '' ) {
                                     for (let j = 0; j < this.tableR.length; j++) {
                                         if (this.tableP[i].currency != this.tableR[j].currency) {
                                             error = error + 1
@@ -2553,9 +2553,9 @@
                         }
                     }
                     if (error == '0') {
-                        if (this.tableR.length > 1) {
+                        if (this.tableR.length > 0) {
                             for (let i = 0; i < this.tableR.length; i++) {
-                                if (this.tableP[0].currency != '') {
+                                if (this.tableP[0].currency != ''&&this.tableR[0].currency != '') {
                                     for (let j = 0; j < this.tableP.length; j++) {
                                         if (this.tableR[i].currency != this.tableP[j].currency) {
                                             error = error + 1
@@ -2971,32 +2971,6 @@
                 this.tormbT = Number(this.tormbT) + newValue.tormb;
                 this.form.tormb = this.tormbT;
             },
-            // 判断是否IE??器
-            MyBrowserIsIE() {
-                let isIE = false;
-                if (
-                    navigator.userAgent.indexOf('compatible') > -1 &&
-                    navigator.userAgent.indexOf('MSIE') > -1
-                ) {
-                    // ie??器
-                    isIE = true;
-                }
-                if (navigator.userAgent.indexOf('Trident') > -1) {
-                    // edge ??器
-                    isIE = true;
-                }
-                return isIE;
-            },
-            formatJson(filterVal, jsonData) {
-                return jsonData.map(v => filterVal.map(j => {
-                    if (j === 'timestamp') {
-                        return parseTime(v[j]);
-                    } else {
-                        return v[j];
-                    }
-                }));
-            },
-
             handleClickChange(val) {
                 this.currentRow = val.suppliername;
                 this.currentRow1 = val.payeename;
@@ -3057,14 +3031,15 @@
                     this.$refs['reff'].validate(valid => {
                         if (valid) {
                             this.baseInfo = {};
-                            this.form.user_id = this.userlist;
-                            this.form.moneys = Math.round((this.form.rmbexpenditure + this.form.tormb) * 100) / 100;
-                            this.form.reimbursementdate = moment(this.form.reimbursementdate).format('YYYY-MM-DD');
-                            this.baseInfo.publicexpense = JSON.parse(JSON.stringify(this.form));
+                            this.baseInfo.publicexpense= [];
                             this.baseInfo.trafficdetails = [];
                             this.baseInfo.purchasedetails = [];
                             this.baseInfo.otherdetails = [];
                             this.baseInfo.invoice = [];
+                            this.form.user_id = this.userlist;
+                            this.form.moneys = Math.round((this.form.rmbexpenditure + this.form.tormb) * 100) / 100;
+                            this.form.reimbursementdate = moment(this.form.reimbursementdate).format('YYYY-MM-DD');
+                            this.baseInfo.publicexpense = JSON.parse(JSON.stringify(this.form));
                             let sum = 0;
                             for (let i = 0; i < this.tableF.length; i++) {
                                 sum += this.tableF[i].invoiceamount;
@@ -3295,60 +3270,6 @@
                         }
 
                     });
-                } else if (val === 'export') {
-                    let heads = [this.$t('label.date'), this.$t('label.PFANS1012FORMVIEW_INVOICEN'), this.$t('label.PFANS1012FORMVIEW_PL'), this.$t('label.PFANS1012FORMVIEW_ACCOUNT'), this.$t('label.PFANS1012FORMVIEW_DEPARTMENT'), this.$t('label.PFANS1012VIEW_REGION'), this.$t('label.PFANS1012VIEW_VEHICLE'),
-                        this.$t('label.PFANS1012VIEW_STARTINGPOINT'), this.$t('label.PFANS1012VIEW_RMB'),
-                        this.$t('label.PFANS1012VIEW_FOREIGNCURRENCY'), this.$t('label.PFANS1012FORMVIEW_TAXES'), this.$t('label.PFANS1012VIEW_ANNEXNO')];
-                    let filterVal = ['trafficdate', 'invoicenumber', 'plsummary', 'accountcode', 'departmentname', 'region', 'vehicle', 'startingpoint', 'rmb', 'foreigncurrency', 'taxes', 'annexno'];
-                    let csvData = [];
-                    var tableTdata = this.tableT;
-                    for (let i = 0; i < tableTdata.length; i++) {
-                        if (tableTdata[i].plsummary !== null && tableTdata[i].plsummary !== '') {
-                            let letErrortype = getDictionaryInfo(tableTdata[i].plsummary);
-                            if (letErrortype != null) {
-                                tableTdata[i].plsummary = letErrortype.value1;
-                            }
-                        }
-                        if (tableTdata[i].accountcode !== null && tableTdata[i].accountcode !== '') {
-                            let letErrortype = getDictionaryInfo(tableTdata[i].accountcode);
-                            if (letErrortype != null) {
-                                tableTdata[i].accountcode = letErrortype.value1;
-                            }
-                        }
-                        if (tableTdata[i].departmentname !== null && tableTdata[i].departmentname !== '') {
-                            let lettype = getOrgInfo(tableTdata[i].departmentname);
-                            if (lettype != null) {
-                                tableTdata[i].departmentname = lettype.departmentname;
-                            }
-                        }
-                        let obj = tableTdata[i];
-                        csvData.push({
-
-                            [heads[0]]: obj.trafficdate,
-                            [heads[1]]: obj.invoicenumber,
-                            [heads[2]]: obj.plsummary,
-                            [heads[3]]: obj.accountcode,
-                            [heads[4]]: obj.departmentname,
-                            [heads[5]]: obj.region,
-                            [heads[6]]: obj.vehicle,
-                            [heads[7]]: obj.startingpoint,
-                            [heads[8]]: obj.rmb,
-                            [heads[9]]: obj.foreigncurrency,
-                            [heads[10]]: obj.taxes,
-                            [heads[11]]: obj.annexno,
-
-                        });
-                    }
-                    const result = json2csv.parse(csvData, {
-                        excelStrings: true,
-                    });
-                    let csvContent = 'data:text/csv;charset=utf-8,\uFEFF' + result;
-                    const link = document.createElement('a');
-                    link.href = csvContent;
-                    link.download = this.$t('label.PFANS1012VIEW_TRAFFIC') + '.csv';
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
                 }
             },
         },

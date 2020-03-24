@@ -743,7 +743,7 @@
             getpriceset() {
                 this.loading = true;
                 this.$store
-                    .dispatch('PFANS6005Store/getpriceset', {})
+                  .dispatch('PFANS6005Store/getPricesetList')
                     .then(response => {
                         for (let j = 0; j < response.length; j++) {
                             response[j].assesstime = moment(new Date()).format("YYYY-MM-DD HH:mm:ss");

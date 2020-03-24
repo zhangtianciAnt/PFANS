@@ -57,6 +57,7 @@
               <el-form-item :label="$t('label.PFANS2016FORMVIEW_LENGTHTIME')" label-width="9rem" prop="lengthtime">
                 <el-input-number
                   :disabled="false"
+                  step-strictly
                   :max="1000000000"
                   :min="0"
                   :precision="2"
@@ -74,6 +75,7 @@
                             prop="relengthtime">
                 <el-input-number
                   :disabled="false"
+                  step-strictly
                   :max="1000000000"
                   :min="0"
                   :precision="2"
@@ -88,9 +90,10 @@
             <el-col :span="8"
                     v-show="(form.errortype == 'PR013005'|| form.errortype == 'PR013007') && form.status != '4' && form.status != '5' && form.status != '6' && form.status != '7'&& form.status != '8'">
               <el-form-item :label="$t('label.PFANS2016FORMVIEW_XJTYPE')" label-width="9rem" prop="lengthtime">
-                <el-select v-model="form.vacationtype"
+                <el-select v-model="form.vacationtype" style="width: 20vw"
                            :disabled="!disable" @change="handleClick">
                   <el-option
+
                     :key="item.value"
                     :label="item.label"
                     :value="item.value"
@@ -103,7 +106,7 @@
             <el-col :span="8"
                     v-show="(form.errortype == 'PR013005' || form.errortype == 'PR013007') && (form.status === '4' || form.status === '5' || form.status === '6' || form.status === '7')">
               <el-form-item :label="$t('label.PFANS2016FORMVIEW_RELENGTHTIME')" label-width="9rem" prop="relengthtime">
-                <el-select @change="handleclick" v-model="form.revacationtype"
+                <el-select @change="handleclick" v-model="form.revacationtype" style="width: 20vw"
                            :disabled="form.status === '5' || form.status === '7'">
                   <el-option
                     :key="item.value"
@@ -124,18 +127,18 @@
                                 style="width:20vw" type="date" v-model="form.occurrencedate"></el-date-picker>
               </el-form-item>
             </el-col>
-            <el-col :span="8"
-                    v-if="form.errortype != 'PR013001'&&form.errortype != 'PR013005'&&form.errortype != 'PR013006'&&form.errortype != 'PR013007'">
-              <el-form-item :error="errorstarttime" :label="$t('label.start')" prop="periodstart">
-                <el-time-picker
-                  :disabled="!disable"
-                  @change="change"
-                  format='HH:mm'
-                  style="width:20vw"
-                  v-model="form.periodstart">
-                </el-time-picker>
-              </el-form-item>
-            </el-col>
+<!--            <el-col :span="8"-->
+<!--                    v-if="form.errortype != 'PR013001'&&form.errortype != 'PR013005'&&form.errortype != 'PR013006'&&form.errortype != 'PR013007'">-->
+<!--              <el-form-item :error="errorstarttime" :label="$t('label.start')" prop="periodstart">-->
+<!--                <el-time-picker-->
+<!--                  :disabled="!disable"-->
+<!--                  @change="change"-->
+<!--                  format='HH:mm'-->
+<!--                  style="width:20vw"-->
+<!--                  v-model="form.periodstart">-->
+<!--                </el-time-picker>-->
+<!--              </el-form-item>-->
+<!--            </el-col>-->
             <el-col :span="8" v-show="showWeekend">
               <el-form-item :label="$t('label.PFANS2016FORMVIEW_RELATION')" prop="relation">
                 <el-select
@@ -163,17 +166,17 @@
               </el-form-item>
             </el-col>
 
-            <el-col :span="8"
-                    v-if="form.errortype != 'PR013001'&&form.errortype != 'PR013005'&&form.errortype != 'PR013006'&&form.errortype != 'PR013007'">
-              <el-form-item :error="errorendtime" :label="$t('label.end')" prop="periodend">
-                <el-time-picker
-                  :disabled="!disable"
-                  @change="change"
-                  format='HH:mm'
-                  style="width:20vw" v-model="form.periodend">
-                </el-time-picker>
-              </el-form-item>
-            </el-col>
+<!--            <el-col :span="8"-->
+<!--                    v-if="form.errortype != 'PR013001'&&form.errortype != 'PR013005'&&form.errortype != 'PR013006'&&form.errortype != 'PR013007'">-->
+<!--              <el-form-item :error="errorendtime" :label="$t('label.end')" prop="periodend">-->
+<!--                <el-time-picker-->
+<!--                  :disabled="!disable"-->
+<!--                  @change="change"-->
+<!--                  format='HH:mm'-->
+<!--                  style="width:20vw" v-model="form.periodend">-->
+<!--                </el-time-picker>-->
+<!--              </el-form-item>-->
+<!--            </el-col>-->
           </el-row>
           <el-row
             v-if="form.status === '4' || form.status === '5' || form.status === '6' || form.status === '7' ">
@@ -183,18 +186,18 @@
                                 style="width:20vw" type="date" v-model="form.reoccurrencedate"></el-date-picker>
               </el-form-item>
             </el-col>
-            <el-col :span="8"
-                    v-if="form.errortype != 'PR013001'&&form.errortype != 'PR013005'&&form.errortype != 'PR013006'&&form.errortype != 'PR013007'">
-              <el-form-item :error="reerrorstarttime" :label="$t('label.restart')" prop="reperiodstart">
-                <el-time-picker
-                  :disabled="form.status === '5' || form.status === '7'"
-                  @change="rechange"
-                  format='HH:mm'
-                  style="width:20vw"
-                  v-model="form.reperiodstart">
-                </el-time-picker>
-              </el-form-item>
-            </el-col>
+<!--            <el-col :span="8"-->
+<!--                    v-if="form.errortype != 'PR013001'&&form.errortype != 'PR013005'&&form.errortype != 'PR013006'&&form.errortype != 'PR013007'">-->
+<!--              <el-form-item :error="reerrorstarttime" :label="$t('label.restart')" prop="reperiodstart">-->
+<!--                <el-time-picker-->
+<!--                  :disabled="form.status === '5' || form.status === '7'"-->
+<!--                  @change="rechange"-->
+<!--                  format='HH:mm'-->
+<!--                  style="width:20vw"-->
+<!--                  v-model="form.reperiodstart">-->
+<!--                </el-time-picker>-->
+<!--              </el-form-item>-->
+<!--            </el-col>-->
             <el-col :span="8" v-show="showWeekend">
               <el-form-item :label="$t('label.PFANS2016FORMVIEW_RELATION')" prop="relation">
                 <el-select
@@ -221,17 +224,17 @@
                                 style="width:20vw" type="date" v-model="form.refinisheddate"></el-date-picker>
               </el-form-item>
             </el-col>
-            <el-col :span="8"
-                    v-if="form.errortype != 'PR013001'&&form.errortype != 'PR013005'&&form.errortype != 'PR013006'&&form.errortype != 'PR013007'">
-              <el-form-item :error="reerrorendtime" :label="$t('label.reend')" prop="reperiodend">
-                <el-time-picker
-                  :disabled="form.status === '5' || form.status === '7'"
-                  @change="rechange"
-                  format='HH:mm'
-                  style="width:20vw" v-model="form.reperiodend">
-                </el-time-picker>
-              </el-form-item>
-            </el-col>
+<!--            <el-col :span="8"-->
+<!--                    v-if="form.errortype != 'PR013001'&&form.errortype != 'PR013005'&&form.errortype != 'PR013006'&&form.errortype != 'PR013007'">-->
+<!--              <el-form-item :error="reerrorendtime" :label="$t('label.reend')" prop="reperiodend">-->
+<!--                <el-time-picker-->
+<!--                  :disabled="form.status === '5' || form.status === '7'"-->
+<!--                  @change="rechange"-->
+<!--                  format='HH:mm'-->
+<!--                  style="width:20vw" v-model="form.reperiodend">-->
+<!--                </el-time-picker>-->
+<!--              </el-form-item>-->
+<!--            </el-col>-->
           </el-row>
           <el-row v-show="showFemale">
             <el-col :span="8">
@@ -339,88 +342,84 @@
                     callback();
                 }
             };
-            var validateEndtime = (rule, value, callback) => {
-                if (this.form.periodend !== null && this.form.periodend !== '') {
-                    if ((moment(this.form.finisheddate).format('YYYY-MM-DD') === moment(this.form.occurrencedate).format('YYYY-MM-DD') && moment(value).format('HH:mm') < moment(this.form.periodstart).format('HH:mm'))
-                        || (moment(this.form.finisheddate).format('YYYY-MM-DD') < moment(this.form.occurrencedate).format('YYYY-MM-DD'))) {
-                        callback(new Error(this.$t('label.end') + this.$t('normal.error_checkTime1') + this.$t('label.start')));
-                        this.errorendtime = this.$t('label.end') + this.$t('normal.error_checkTime1') + this.$t('label.start');
-                    } else {
-                        this.clearValidate(['periodstart', 'occurrencedate', 'finisheddate']);
-                        callback();
-                        this.errorendtime = '';
-                    }
-                } else {
-                    this.clearValidate(['periodstart', 'occurrencedate', 'periodend']);
-                    callback();
-                    this.errorendtime = '';
-                }
-            };
-            var revalidateEndtime = (rule, value, callback) => {
-                if (this.form.reperiodend !== null && this.form.reperiodend !== '') {
-                    if ((moment(this.form.refinisheddate).format('YYYY-MM-DD') === moment(this.form.reoccurrencedate).format('YYYY-MM-DD') && moment(value).format('HH:mm') < moment(this.form.reperiodstart).format('HH:mm'))
-                        || (moment(this.form.refinisheddate).format('YYYY-MM-DD') < moment(this.form.reoccurrencedate).format('YYYY-MM-DD'))) {
-                        callback(new Error(this.$t('label.reend') + this.$t('normal.error_checkTime1') + this.$t('label.restart')));
-                        this.reerrorendtime = this.$t('label.reend') + this.$t('normal.error_checkTime1') + this.$t('label.restart');
-                    } else {
-                        this.clearValidate(['reperiodstart', 'reoccurrencedate', 'refinisheddate']);
-                        callback();
-                        this.reerrorendtime = '';
-                    }
-                } else {
-                    this.clearValidate(['reperiodstart', 'reoccurrencedate', 'reperiodend']);
-                    callback();
-                    this.reerrorendtime = '';
-                }
-            };
-            var validateStarttime = (rule, value, callback) => {
-                if (this.form.periodstart !== null && this.form.periodstart !== '') {
-                    if ((moment(this.form.finisheddate).format('YYYY-MM-DD') === moment(this.form.occurrencedate).format('YYYY-MM-DD') && moment(value).format('HH:mm') > moment(this.form.periodend).format('HH:mm'))
-                        || (moment(this.form.finisheddate).format('YYYY-MM-DD') < moment(this.form.occurrencedate).format('YYYY-MM-DD'))
-                    ) {
-                        callback(new Error(this.$t('label.start') + this.$t('normal.error_checkTime2') + this.$t('label.end')));
-                        this.errorstarttime = this.$t('label.start') + this.$t('normal.error_checkTime2') + this.$t('label.end');
-
-                    } else {
-                        callback();
-                        this.clearValidate(['periodend', 'occurrencedate', 'periodstart']);
-                        this.errorstarttime = '';
-                    }
-                } else {
-                    callback();
-                    this.clearValidate(['periodend', 'occurrencedate', 'periodstart']);
-                    this.errorstarttime = '';
-                }
-            };
-            var revalidateStarttime = (rule, value, callback) => {
-                if (this.form.reperiodstart !== null && this.form.reperiodstart !== '') {
-                    if ((moment(this.form.refinisheddate).format('YYYY-MM-DD') === moment(this.form.reoccurrencedate).format('YYYY-MM-DD') && moment(value).format('HH:mm') > moment(this.form.reperiodend).format('HH:mm'))
-                        || (moment(this.form.refinisheddate).format('YYYY-MM-DD') < moment(this.form.reoccurrencedate).format('YYYY-MM-DD'))
-                    ) {
-                        callback(new Error(this.$t('label.restart') + this.$t('normal.error_checkTime2') + this.$t('label.reend')));
-                        this.reerrorstarttime = this.$t('label.restart') + this.$t('normal.error_checkTime2') + this.$t('label.reend');
-
-                    } else {
-                        callback();
-                        this.clearValidate(['reperiodend', 'reoccurrencedate', 'reperiodstart']);
-                        this.reerrorstarttime = '';
-                    }
-                } else {
-                    callback();
-                    this.clearValidate(['reperiodend', 'reoccurrencedate', 'reperiodstart']);
-                    this.reerrorstarttime = '';
-                }
-            };
+            // var validateEndtime = (rule, value, callback) => {
+            //     if (this.form.periodend !== null && this.form.periodend !== '') {
+            //         if ((moment(this.form.finisheddate).format('YYYY-MM-DD') === moment(this.form.occurrencedate).format('YYYY-MM-DD') && moment(value).format('HH:mm') < moment(this.form.periodstart).format('HH:mm'))
+            //             || (moment(this.form.finisheddate).format('YYYY-MM-DD') < moment(this.form.occurrencedate).format('YYYY-MM-DD'))) {
+            //             callback(new Error(this.$t('label.end') + this.$t('normal.error_checkTime1') + this.$t('label.start')));
+            //             this.errorendtime = this.$t('label.end') + this.$t('normal.error_checkTime1') + this.$t('label.start');
+            //         } else {
+            //             this.clearValidate(['periodstart', 'occurrencedate', 'finisheddate']);
+            //             callback();
+            //             this.errorendtime = '';
+            //         }
+            //     } else {
+            //         this.clearValidate(['periodstart', 'occurrencedate', 'periodend']);
+            //         callback();
+            //         this.errorendtime = '';
+            //     }
+            // };
+            // var revalidateEndtime = (rule, value, callback) => {
+            //     if (this.form.reperiodend !== null && this.form.reperiodend !== '') {
+            //         if ((moment(this.form.refinisheddate).format('YYYY-MM-DD') === moment(this.form.reoccurrencedate).format('YYYY-MM-DD') && moment(value).format('HH:mm') < moment(this.form.reperiodstart).format('HH:mm'))
+            //             || (moment(this.form.refinisheddate).format('YYYY-MM-DD') < moment(this.form.reoccurrencedate).format('YYYY-MM-DD'))) {
+            //             callback(new Error(this.$t('label.reend') + this.$t('normal.error_checkTime1') + this.$t('label.restart')));
+            //             this.reerrorendtime = this.$t('label.reend') + this.$t('normal.error_checkTime1') + this.$t('label.restart');
+            //         } else {
+            //             this.clearValidate(['reperiodstart', 'reoccurrencedate', 'refinisheddate']);
+            //             callback();
+            //             this.reerrorendtime = '';
+            //         }
+            //     } else {
+            //         this.clearValidate(['reperiodstart', 'reoccurrencedate', 'reperiodend']);
+            //         callback();
+            //         this.reerrorendtime = '';
+            //     }
+            // };
+            // var validateStarttime = (rule, value, callback) => {
+            //     if (this.form.periodstart !== null && this.form.periodstart !== '') {
+            //         if ((moment(this.form.finisheddate).format('YYYY-MM-DD') === moment(this.form.occurrencedate).format('YYYY-MM-DD') && moment(value).format('HH:mm') > moment(this.form.periodend).format('HH:mm'))
+            //             || (moment(this.form.finisheddate).format('YYYY-MM-DD') < moment(this.form.occurrencedate).format('YYYY-MM-DD'))
+            //         ) {
+            //             callback(new Error(this.$t('label.start') + this.$t('normal.error_checkTime2') + this.$t('label.end')));
+            //             this.errorstarttime = this.$t('label.start') + this.$t('normal.error_checkTime2') + this.$t('label.end');
+            //
+            //         } else {
+            //             callback();
+            //             this.clearValidate(['periodend', 'occurrencedate', 'periodstart']);
+            //             this.errorstarttime = '';
+            //         }
+            //     } else {
+            //         callback();
+            //         this.clearValidate(['periodend', 'occurrencedate', 'periodstart']);
+            //         this.errorstarttime = '';
+            //     }
+            // };
+            // var revalidateStarttime = (rule, value, callback) => {
+            //     if (this.form.reperiodstart !== null && this.form.reperiodstart !== '') {
+            //         if ((moment(this.form.refinisheddate).format('YYYY-MM-DD') === moment(this.form.reoccurrencedate).format('YYYY-MM-DD') && moment(value).format('HH:mm') > moment(this.form.reperiodend).format('HH:mm'))
+            //             || (moment(this.form.refinisheddate).format('YYYY-MM-DD') < moment(this.form.reoccurrencedate).format('YYYY-MM-DD'))
+            //         ) {
+            //             callback(new Error(this.$t('label.restart') + this.$t('normal.error_checkTime2') + this.$t('label.reend')));
+            //             this.reerrorstarttime = this.$t('label.restart') + this.$t('normal.error_checkTime2') + this.$t('label.reend');
+            //
+            //         } else {
+            //             callback();
+            //             this.clearValidate(['reperiodend', 'reoccurrencedate', 'reperiodstart']);
+            //             this.reerrorstarttime = '';
+            //         }
+            //     } else {
+            //         callback();
+            //         this.clearValidate(['reperiodend', 'reoccurrencedate', 'reperiodstart']);
+            //         this.reerrorstarttime = '';
+            //     }
+            // };
             var validateEnddate = (rule, value, callback) => {
                 if (this.form.finisheddate !== null && this.form.finisheddate !== '') {
                     if (moment(value).format('YYYY-MM-DD') < moment(this.form.occurrencedate).format('YYYY-MM-DD')) {
                         callback(new Error(this.$t('label.enddate') + this.$t('normal.error_checkTime1') + this.$t('label.startdate')));
                     } else {
-                        if (moment(value).format('YYYY-MM-DD') === moment(this.form.occurrencedate).format('YYYY-MM-DD') && (this.form.periodstart !== '' && this.form.periodend)) {
-                            if (this.form.periodstart > this.form.periodend) {
-                                callback(new Error(this.$t('label.startdate') + this.$t('normal.error_checkTime2') + this.$t('label.enddate')));
-                                return;
-                            }
+                        if (moment(value).format('YYYY-MM-DD') === moment(this.form.occurrencedate).format('YYYY-MM-DD')) {
                         }
                         callback();
                         this.clearValidate(['occurrencedate', 'periodend', 'periodstart']);
@@ -435,12 +434,6 @@
                     if (moment(value).format('YYYY-MM-DD') < moment(this.form.reoccurrencedate).format('YYYY-MM-DD')) {
                         callback(new Error(this.$t('label.reenddate') + this.$t('normal.error_checkTime1') + this.$t('label.restartdate')));
                     } else {
-                        if (moment(value).format('YYYY-MM-DD') === moment(this.form.reoccurrencedate).format('YYYY-MM-DD') && (this.form.reperiodstart !== '' && this.form.reperiodend)) {
-                            if (this.form.reperiodstart > this.form.reperiodend) {
-                                callback(new Error(this.$t('label.restartdate') + this.$t('normal.error_checkTime2') + this.$t('label.reenddate')));
-                                return;
-                            }
-                        }
                         callback();
                         this.clearValidate(['reoccurrencedate', 'reperiodend', 'reperiodstart']);
                     }
@@ -454,11 +447,6 @@
                     if (moment(value).format('YYYY-MM-DD') > moment(this.form.finisheddate).format('YYYY-MM-DD')) {
                         callback(new Error(this.$t('label.startdate') + this.$t('normal.error_checkTime2') + this.$t('label.enddate')));
                     } else {
-                        if (moment(value).format('YYYY-MM-DD') === moment(this.form.finisheddate).format('YYYY-MM-DD') && (this.form.periodstart !== '' && this.form.periodend)) {
-                            if (this.form.periodstart > this.form.periodend) {
-                                callback(new Error(this.$t('label.startdate') + this.$t('normal.error_checkTime2') + this.$t('label.enddate')));
-                            }
-                        }
                         callback();
                         this.clearValidate(['finisheddate', 'periodend', 'periodstart']);
                     }
@@ -472,11 +460,6 @@
                     if (moment(value).format('YYYY-MM-DD') > moment(this.form.refinisheddate).format('YYYY-MM-DD')) {
                         callback(new Error(this.$t('label.restartdate') + this.$t('normal.error_checkTime2') + this.$t('label.reenddate')));
                     } else {
-                        if (moment(value).format('YYYY-MM-DD') === moment(this.form.refinisheddate).format('YYYY-MM-DD') && (this.form.reperiodstart !== '' && this.form.reperiodend)) {
-                            if (this.form.reperiodstart > this.form.reperiodend) {
-                                callback(new Error(this.$t('label.restartdate') + this.$t('normal.error_checkTime2') + this.$t('label.reenddate')));
-                            }
-                        }
                         callback();
                         this.clearValidate(['refinisheddate', 'reperiodend', 'reperiodstart']);
                     }
@@ -601,8 +584,8 @@
                     hospital: '',
                     edate: '',
                     enclosureexplain: '',
-                    periodstart: '',
-                    periodend: '',
+                    // periodstart: '',
+                    // periodend: '',
                     uploadfile: '',
                     cause: '',
                     status: '',
@@ -629,26 +612,26 @@
                         trigger: 'change',
                     },
                         {validator: validateEnddate, trigger: 'change'}],
-                    periodstart: [{
-                        required: true,
-                        message: this.$t('normal.error_09') + this.$t('label.start'),
-                        trigger: 'change',
-                    },
-                        {validator: validateStarttime, trigger: 'change'}],
-                    periodend: [{
-                        required: true,
-                        message: this.$t('normal.error_09') + this.$t('label.end'),
-                        trigger: 'change',
-                    },
-                        {validator: validateEndtime, trigger: 'change'}],
+                    // periodstart: [{
+                    //     required: true,
+                    //     message: this.$t('normal.error_09') + this.$t('label.start'),
+                    //     trigger: 'change',
+                    // },
+                    //     {validator: validateStarttime, trigger: 'change'}],
+                    // periodend: [{
+                    //     required: true,
+                    //     message: this.$t('normal.error_09') + this.$t('label.end'),
+                    //     trigger: 'change',
+                    // },
+                    //     {validator: validateEndtime, trigger: 'change'}],
                     reoccurrencedate: [,
                         {validator: revalidateStartdate, trigger: 'change'}],
                     refinisheddate: [
                         {validator: revalidateEnddate, trigger: 'change'}],
-                    reperiodstart: [
-                        {validator: revalidateStarttime, trigger: 'change'}],
-                    reperiodend: [
-                        {validator: revalidateEndtime, trigger: 'change'}],
+                    // reperiodstart: [
+                    //     {validator: revalidateStarttime, trigger: 'change'}],
+                    // reperiodend: [
+                    //     {validator: revalidateEndtime, trigger: 'change'}],
                     applicationdate: [{
                         required: true,
                         message: this.$t('normal.error_09') + this.$t('label.application_date'),
@@ -717,17 +700,6 @@
                         }
                         if (this.form.status === '2' || this.form.status === '4') {
                             this.disable = false;
-                        }
-                        if (this.form.errortype == 'PR013007') {
-                            this.form.vacationtype ='1';
-                            this.form.revacationtype ='1';
-                            this.options1 = [{
-                                value: '1',
-                                label: this.$t('label.PFANS2016FORMVIEW_SHANGWU')
-                            }, {
-                                value: '2',
-                                label: this.$t('label.PFANS2016FORMVIEW_XIAWU')
-                            }];
                         }
                         this.getOvertimelist();
                         if (this.form.uploadfile != "") {
@@ -1106,119 +1078,120 @@
                             duration: 5 * 1000,
                         });
                     }
-                } else {
-                    if (this.form.occurrencedate !== '' && this.form.finisheddate !== '') {
-                        if (moment(this.form.occurrencedate).format('YYYY-MM-DD') < moment(this.form.finisheddate).format('YYYY-MM-DD')) {
-                            var beginHours;
-                            var endHours;
-                            var time;
-                            var beginDay = moment(this.form.occurrencedate).format('YYYY-MM-DD');
-                            var endDay = moment(this.form.finisheddate).format('YYYY-MM-DD');
-                            var dayBegin = new Date(beginDay);
-                            var dayEnd = new Date(endDay);
-                            var daysDiff = dayEnd.getTime() - dayBegin.getTime();
-                            var dayDiff = Math.floor(daysDiff / (24 * 3600 * 1000));
-                            if (dayDiff - 1 > 0) {
-                                dayDiff = (dayDiff - 1) * 8;
-                                var hoursBegin = new Date(this.form.periodstart);
-                                var hoursEnd = new Date(this.form.periodend);
-                                var timeUp = Number(this.workshift.replace(':', '.'));         //上班时间
-                                var timeDown = Number(this.closingtime.replace(':', '.'));     //下班时间
-                                var lunchflgS = Number(this.lunchbreakS.replace(':', '.'));    //午休开始时间
-                                var lunchflgE = Number(this.lunchbreakE.replace(':', '.'));    //午休结束时间
-                                var beginTime = hoursBegin.getHours() + hoursBegin.getMinutes() / 60;  //申请开始时间
-                                if (beginTime <= lunchflgE) {
-                                    beginHours = (lunchflgS - beginTime) + (timeDown - lunchflgE);
-                                } else {
-                                    beginHours = timeDown - beginTime;
-                                }
-                                if (beginHours > 8) {
-                                    beginHours = 8;
-                                }
-                                var endTime = hoursEnd.getHours() + hoursEnd.getMinutes() / 60;  //申请结束时间
-                                if (endTime >= lunchflgS) {
-                                    endHours = (endTime - lunchflgE) + (lunchflgS - timeUp);
-                                } else {
-                                    endHours = endTime - timeUp;
-                                }
-                                if (endHours > 8) {
-                                    endHours = 8;
-                                }
-                                time = beginHours + endHours;
-                                if (this.$i18n) {
-                                    if (this.form.periodstart !== '' && this.form.periodend !== '') {
-                                        this.form.lengthtime = parseFloat(dayDiff + time).toFixed(1);
-                                    } else {
-                                        this.form.lengthtime = parseFloat(dayDiff).toFixed(1);
-                                    }
-
-                                }
-                            } else {
-                                var dayBegin = new Date(this.form.periodstart);
-                                var dayEnd = new Date(this.form.periodend);
-                                var timeUp = Number(this.workshift.replace(':', '.'));         //上班时间
-                                var timeDown = Number(this.closingtime.replace(':', '.'));     //下班时间
-                                var lunchflgS = Number(this.lunchbreakS.replace(':', '.'));    //午休开始时间
-                                var lunchflgE = Number(this.lunchbreakE.replace(':', '.'));    //午休结束时间
-                                var beginTime = dayBegin.getHours() + dayBegin.getMinutes() / 60;
-                                if (beginTime <= lunchflgE) {
-                                    beginHours = (lunchflgS - beginTime) + (timeDown - lunchflgE);
-                                } else {
-                                    beginHours = timeDown - beginTime;
-                                }
-                                if (beginHours > 8) {
-                                    beginHours = 8;
-                                }
-                                var endTime = dayEnd.getHours() + dayEnd.getMinutes() / 60;
-                                if (endTime >= lunchflgS) {
-                                    endHours = (endTime - lunchflgE) + (lunchflgS - timeUp);
-                                } else {
-                                    endHours = endTime - timeUp;
-                                }
-                                if (endHours > 8) {
-                                    endHours = 8;
-                                }
-                                time = beginHours + endHours;
-                                if (this.$i18n) {
-                                    this.form.lengthtime = parseFloat(time).toFixed(1);
-                                }
-                            }
-                        } else if (moment(this.form.occurrencedate).format('YYYY-MM-DD') === moment(this.form.finisheddate).format('YYYY-MM-DD')) {
-                            var time;
-                            var dayBegin = new Date(this.form.periodstart);
-                            var dayEnd = new Date(this.form.periodend);
-                            var timeUp = Number(this.workshift.replace(':', '.'));         //上班时间
-                            var timeDown = Number(this.closingtime.replace(':', '.'));     //下班时间
-                            var lunchflgS = Number(this.lunchbreakS.replace(':', '.'));    //午休开始时间
-                            var lunchflgE = Number(this.lunchbreakE.replace(':', '.'));    //午休结束时间
-                            var beginTime = dayBegin.getHours() + dayBegin.getMinutes() / 60;     //申请开始时间
-                            var endTime = dayEnd.getHours() + dayEnd.getMinutes() / 60;           //申请结束时间
-                            if ((endTime <= lunchflgS && beginTime <= timeUp) || (beginTime >= lunchflgE && endTime <= timeDown)) {
-                                time = endTime - beginTime;
-                            } else if (endTime >= lunchflgS && endTime <= lunchflgE) {
-                                time = lunchflgS - beginTime;
-                            } else if (endTime >= lunchflgE && beginTime <= lunchflgS) {
-                                time = (lunchflgS - beginTime) + (endTime - lunchflgE);
-                            } else if (beginTime >= lunchflgE && beginTime <= timeDown) {
-                                time = (lunchflgS - beginTime) + (endTime - lunchflgE);
-                            } else {
-                                this.form.lengthtime = '0';
-                            }
-                            if (this.$i18n && time !== "") {
-                                if (time > 8) {
-                                    time = 8;
-                                }
-                                if (time > 0) {
-                                    this.form.lengthtime = parseFloat(time).toFixed(1);
-                                } else {
-                                    this.form.lengthtime = '0';
-                                }
-                            }
-                        } else {
-                            this.form.lengthtime = '0';
-                        }
-                    }
                 }
+                // else {
+                //     if (this.form.occurrencedate !== '' && this.form.finisheddate !== '') {
+                //         if (moment(this.form.occurrencedate).format('YYYY-MM-DD') < moment(this.form.finisheddate).format('YYYY-MM-DD')) {
+                //             var beginHours;
+                //             var endHours;
+                //             var time;
+                //             var beginDay = moment(this.form.occurrencedate).format('YYYY-MM-DD');
+                //             var endDay = moment(this.form.finisheddate).format('YYYY-MM-DD');
+                //             var dayBegin = new Date(beginDay);
+                //             var dayEnd = new Date(endDay);
+                //             var daysDiff = dayEnd.getTime() - dayBegin.getTime();
+                //             var dayDiff = Math.floor(daysDiff / (24 * 3600 * 1000));
+                //             if (dayDiff - 1 > 0) {
+                //                 dayDiff = (dayDiff - 1) * 8;
+                //                 var hoursBegin = new Date(this.form.periodstart);
+                //                 var hoursEnd = new Date(this.form.periodend);
+                //                 var timeUp = Number(this.workshift.replace(':', '.'));         //上班时间
+                //                 var timeDown = Number(this.closingtime.replace(':', '.'));     //下班时间
+                //                 var lunchflgS = Number(this.lunchbreakS.replace(':', '.'));    //午休开始时间
+                //                 var lunchflgE = Number(this.lunchbreakE.replace(':', '.'));    //午休结束时间
+                //                 var beginTime = hoursBegin.getHours() + hoursBegin.getMinutes() / 60;  //申请开始时间
+                //                 if (beginTime <= lunchflgE) {
+                //                     beginHours = (lunchflgS - beginTime) + (timeDown - lunchflgE);
+                //                 } else {
+                //                     beginHours = timeDown - beginTime;
+                //                 }
+                //                 if (beginHours > 8) {
+                //                     beginHours = 8;
+                //                 }
+                //                 var endTime = hoursEnd.getHours() + hoursEnd.getMinutes() / 60;  //申请结束时间
+                //                 if (endTime >= lunchflgS) {
+                //                     endHours = (endTime - lunchflgE) + (lunchflgS - timeUp);
+                //                 } else {
+                //                     endHours = endTime - timeUp;
+                //                 }
+                //                 if (endHours > 8) {
+                //                     endHours = 8;
+                //                 }
+                //                 time = beginHours + endHours;
+                //                 if (this.$i18n) {
+                //                     if (this.form.periodstart !== '' && this.form.periodend !== '') {
+                //                         this.form.lengthtime = parseFloat(dayDiff + time).toFixed(1);
+                //                     } else {
+                //                         this.form.lengthtime = parseFloat(dayDiff).toFixed(1);
+                //                     }
+                //
+                //                 }
+                //             } else {
+                //                 var dayBegin = new Date(this.form.periodstart);
+                //                 var dayEnd = new Date(this.form.periodend);
+                //                 var timeUp = Number(this.workshift.replace(':', '.'));         //上班时间
+                //                 var timeDown = Number(this.closingtime.replace(':', '.'));     //下班时间
+                //                 var lunchflgS = Number(this.lunchbreakS.replace(':', '.'));    //午休开始时间
+                //                 var lunchflgE = Number(this.lunchbreakE.replace(':', '.'));    //午休结束时间
+                //                 var beginTime = dayBegin.getHours() + dayBegin.getMinutes() / 60;
+                //                 if (beginTime <= lunchflgE) {
+                //                     beginHours = (lunchflgS - beginTime) + (timeDown - lunchflgE);
+                //                 } else {
+                //                     beginHours = timeDown - beginTime;
+                //                 }
+                //                 if (beginHours > 8) {
+                //                     beginHours = 8;
+                //                 }
+                //                 var endTime = dayEnd.getHours() + dayEnd.getMinutes() / 60;
+                //                 if (endTime >= lunchflgS) {
+                //                     endHours = (endTime - lunchflgE) + (lunchflgS - timeUp);
+                //                 } else {
+                //                     endHours = endTime - timeUp;
+                //                 }
+                //                 if (endHours > 8) {
+                //                     endHours = 8;
+                //                 }
+                //                 time = beginHours + endHours;
+                //                 if (this.$i18n) {
+                //                     this.form.lengthtime = parseFloat(time).toFixed(1);
+                //                 }
+                //             }
+                //         } else if (moment(this.form.occurrencedate).format('YYYY-MM-DD') === moment(this.form.finisheddate).format('YYYY-MM-DD')) {
+                //             var time;
+                //             var dayBegin = new Date(this.form.periodstart);
+                //             var dayEnd = new Date(this.form.periodend);
+                //             var timeUp = Number(this.workshift.replace(':', '.'));         //上班时间
+                //             var timeDown = Number(this.closingtime.replace(':', '.'));     //下班时间
+                //             var lunchflgS = Number(this.lunchbreakS.replace(':', '.'));    //午休开始时间
+                //             var lunchflgE = Number(this.lunchbreakE.replace(':', '.'));    //午休结束时间
+                //             var beginTime = dayBegin.getHours() + dayBegin.getMinutes() / 60;     //申请开始时间
+                //             var endTime = dayEnd.getHours() + dayEnd.getMinutes() / 60;           //申请结束时间
+                //             if ((endTime <= lunchflgS && beginTime <= timeUp) || (beginTime >= lunchflgE && endTime <= timeDown)) {
+                //                 time = endTime - beginTime;
+                //             } else if (endTime >= lunchflgS && endTime <= lunchflgE) {
+                //                 time = lunchflgS - beginTime;
+                //             } else if (endTime >= lunchflgE && beginTime <= lunchflgS) {
+                //                 time = (lunchflgS - beginTime) + (endTime - lunchflgE);
+                //             } else if (beginTime >= lunchflgE && beginTime <= timeDown) {
+                //                 time = (lunchflgS - beginTime) + (endTime - lunchflgE);
+                //             } else {
+                //                 this.form.lengthtime = '0';
+                //             }
+                //             if (this.$i18n && time !== "") {
+                //                 if (time > 8) {
+                //                     time = 8;
+                //                 }
+                //                 if (time > 0) {
+                //                     this.form.lengthtime = parseFloat(time).toFixed(1);
+                //                 } else {
+                //                     this.form.lengthtime = '0';
+                //                 }
+                //             }
+                //         } else {
+                //             this.form.lengthtime = '0';
+                //         }
+                //     }
+                // }
             },
             rechange() {
                 var getDate = function (str) {
@@ -1293,114 +1266,115 @@
                             duration: 5 * 1000,
                         });
                     }
-                } else {
-                    if (this.form.reoccurrencedate !== '' && this.form.refinisheddate !== '') {
-                        if (moment(this.form.reoccurrencedate).format('YYYY-MM-DD') < moment(this.form.refinisheddate).format('YYYY-MM-DD')) {
-                            var beginHours;
-                            var endHours;
-                            var time;
-                            var beginDay = moment(this.form.reoccurrencedate).format('YYYY-MM-DD');
-                            var endDay = moment(this.form.refinisheddate).format('YYYY-MM-DD');
-                            var dayBegin = new Date(beginDay);
-                            var dayEnd = new Date(endDay);
-                            var daysDiff = dayEnd.getTime() - dayBegin.getTime();
-                            var dayDiff = Math.floor(daysDiff / (24 * 3600 * 1000));
-                            if (dayDiff - 1 > 0) {
-                                dayDiff = (dayDiff - 1) * 8;
-                                var dayBegin = new Date(this.form.reperiodstart);
-                                var dayEnd = new Date(this.form.reperiodend);
-                                var timeUp = Number(this.workshift.replace(':', '.'));         //上班时间
-                                var timeDown = Number(this.closingtime.replace(':', '.'));     //下班时间
-                                var lunchflgS = Number(this.lunchbreakS.replace(':', '.'));    //午休开始时间
-                                var lunchflgE = Number(this.lunchbreakE.replace(':', '.'));    //午休结束时间
-                                var beginTime = dayBegin.getHours() + dayBegin.getMinutes() / 60;
-                                if (beginTime <= lunchflgE) {
-                                    beginHours = (lunchflgS - beginTime) + (timeDown - lunchflgE);
-                                } else {
-                                    beginHours = timeDown - beginTime;
-                                }
-                                if (beginHours > 8) {
-                                    beginHours = 8;
-                                }
-                                var endTime = dayEnd.getHours() + dayEnd.getMinutes() / 60;
-                                if (endTime >= lunchflgS) {
-                                    endHours = (endTime - lunchflgE) + (lunchflgS - timeUp);
-                                } else {
-                                    endHours = endTime - timeUp;
-                                }
-                                if (endHours > 8) {
-                                    endHours = 8;
-                                }
-                                var time = beginTime + endTime;
-                                if (this.$i18n) {
-                                    this.form.relengthtime = parseFloat(dayDiff + time).toFixed(1);
-                                }
-                            } else {
-                                var dayBegin = new Date(this.form.reperiodstart);
-                                var dayEnd = new Date(this.form.reperiodend);
-                                var timeUp = Number(this.workshift.replace(':', '.'));         //上班时间
-                                var timeDown = Number(this.closingtime.replace(':', '.'));     //下班时间
-                                var lunchflgS = Number(this.lunchbreakS.replace(':', '.'));    //午休开始时间
-                                var lunchflgE = Number(this.lunchbreakE.replace(':', '.'));    //午休结束时间
-                                var beginTime = dayBegin.getHours() + dayBegin.getMinutes() / 60;
-                                if (beginTime <= lunchflgE) {
-                                    beginHours = (lunchflgS - beginTime) + (timeDown - lunchflgE);
-                                } else {
-                                    beginHours = timeDown - beginTime;
-                                }
-                                if (beginHours > 8) {
-                                    beginHours = 8;
-                                }
-                                var endTime = dayEnd.getHours() + dayEnd.getMinutes() / 60;
-                                if (endTime >= lunchflgS) {
-                                    endHours = (endTime - lunchflgE) + (lunchflgS - timeUp);
-                                } else {
-                                    endHours = endTime - timeUp;
-                                }
-                                if (endHours > 8) {
-                                    endHours = 8;
-                                }
-                                time = beginTime + endTime;
-                                if (this.$i18n) {
-                                    this.form.relengthtime = parseFloat(time).toFixed(1);
-                                }
-                            }
-                        } else if (moment(this.form.reoccurrencedate).format('YYYY-MM-DD') === moment(this.form.refinisheddate).format('YYYY-MM-DD')) {
-                            var time;
-                            var dayBegin = new Date(this.form.reperiodstart);
-                            var dayEnd = new Date(this.form.reperiodend);
-                            var timeUp = Number(this.workshift.replace(':', '.'));         //上班时间
-                            var timeDown = Number(this.closingtime.replace(':', '.'));     //下班时间
-                            var lunchflgS = Number(this.lunchbreakS.replace(':', '.'));    //午休开始时间
-                            var lunchflgE = Number(this.lunchbreakE.replace(':', '.'));    //午休结束时间
-                            var beginTime = dayBegin.getHours() + dayBegin.getMinutes() / 60;
-                            var endTime = dayEnd.getHours() + dayEnd.getMinutes() / 60;
-                            if ((endTime <= lunchflgS && beginTime <= timeUp) || (beginTime >= lunchflgE && endTime <= timeDown)) {
-                                time = endTime - beginTime;
-                            } else if (endTime >= lunchflgS && endTime <= lunchflgE) {
-                                time = lunchflgS - beginTime;
-                            } else if (endTime >= lunchflgE && beginTime <= lunchflgS) {
-                                time = (lunchflgS - beginTime) + (endTime - lunchflgE);
-                            } else if (beginTime >= lunchflgE && beginTime <= timeDown) {
-                                time = (lunchflgS - beginTime) + (endTime - lunchflgE);
-                            } else {
-                                this.form.relengthtime = '0';
-                            }
-                            if (this.$i18n && time !== "") {
-                                if (time > 8) {
-                                    time = 8;
-                                }
-                                if (time > 0) {
-                                    this.form.relengthtime = parseFloat(time).toFixed(1);
-                                } else {
-                                    this.form.relengthtime = '0';
-                                }
-                            }
-                        } else {
-                            this.form.relengthtime = '';
-                        }
-                    }
                 }
+                // else {
+                //     if (this.form.reoccurrencedate !== '' && this.form.refinisheddate !== '') {
+                //         if (moment(this.form.reoccurrencedate).format('YYYY-MM-DD') < moment(this.form.refinisheddate).format('YYYY-MM-DD')) {
+                //             var beginHours;
+                //             var endHours;
+                //             var time;
+                //             var beginDay = moment(this.form.reoccurrencedate).format('YYYY-MM-DD');
+                //             var endDay = moment(this.form.refinisheddate).format('YYYY-MM-DD');
+                //             var dayBegin = new Date(beginDay);
+                //             var dayEnd = new Date(endDay);
+                //             var daysDiff = dayEnd.getTime() - dayBegin.getTime();
+                //             var dayDiff = Math.floor(daysDiff / (24 * 3600 * 1000));
+                //             if (dayDiff - 1 > 0) {
+                //                 dayDiff = (dayDiff - 1) * 8;
+                //                 var dayBegin = new Date(this.form.reperiodstart);
+                //                 var dayEnd = new Date(this.form.reperiodend);
+                //                 var timeUp = Number(this.workshift.replace(':', '.'));         //上班时间
+                //                 var timeDown = Number(this.closingtime.replace(':', '.'));     //下班时间
+                //                 var lunchflgS = Number(this.lunchbreakS.replace(':', '.'));    //午休开始时间
+                //                 var lunchflgE = Number(this.lunchbreakE.replace(':', '.'));    //午休结束时间
+                //                 var beginTime = dayBegin.getHours() + dayBegin.getMinutes() / 60;
+                //                 if (beginTime <= lunchflgE) {
+                //                     beginHours = (lunchflgS - beginTime) + (timeDown - lunchflgE);
+                //                 } else {
+                //                     beginHours = timeDown - beginTime;
+                //                 }
+                //                 if (beginHours > 8) {
+                //                     beginHours = 8;
+                //                 }
+                //                 var endTime = dayEnd.getHours() + dayEnd.getMinutes() / 60;
+                //                 if (endTime >= lunchflgS) {
+                //                     endHours = (endTime - lunchflgE) + (lunchflgS - timeUp);
+                //                 } else {
+                //                     endHours = endTime - timeUp;
+                //                 }
+                //                 if (endHours > 8) {
+                //                     endHours = 8;
+                //                 }
+                //                 var time = beginTime + endTime;
+                //                 if (this.$i18n) {
+                //                     this.form.relengthtime = parseFloat(dayDiff + time).toFixed(1);
+                //                 }
+                //             } else {
+                //                 var dayBegin = new Date(this.form.reperiodstart);
+                //                 var dayEnd = new Date(this.form.reperiodend);
+                //                 var timeUp = Number(this.workshift.replace(':', '.'));         //上班时间
+                //                 var timeDown = Number(this.closingtime.replace(':', '.'));     //下班时间
+                //                 var lunchflgS = Number(this.lunchbreakS.replace(':', '.'));    //午休开始时间
+                //                 var lunchflgE = Number(this.lunchbreakE.replace(':', '.'));    //午休结束时间
+                //                 var beginTime = dayBegin.getHours() + dayBegin.getMinutes() / 60;
+                //                 if (beginTime <= lunchflgE) {
+                //                     beginHours = (lunchflgS - beginTime) + (timeDown - lunchflgE);
+                //                 } else {
+                //                     beginHours = timeDown - beginTime;
+                //                 }
+                //                 if (beginHours > 8) {
+                //                     beginHours = 8;
+                //                 }
+                //                 var endTime = dayEnd.getHours() + dayEnd.getMinutes() / 60;
+                //                 if (endTime >= lunchflgS) {
+                //                     endHours = (endTime - lunchflgE) + (lunchflgS - timeUp);
+                //                 } else {
+                //                     endHours = endTime - timeUp;
+                //                 }
+                //                 if (endHours > 8) {
+                //                     endHours = 8;
+                //                 }
+                //                 time = beginTime + endTime;
+                //                 if (this.$i18n) {
+                //                     this.form.relengthtime = parseFloat(time).toFixed(1);
+                //                 }
+                //             }
+                //         } else if (moment(this.form.reoccurrencedate).format('YYYY-MM-DD') === moment(this.form.refinisheddate).format('YYYY-MM-DD')) {
+                //             var time;
+                //             var dayBegin = new Date(this.form.reperiodstart);
+                //             var dayEnd = new Date(this.form.reperiodend);
+                //             var timeUp = Number(this.workshift.replace(':', '.'));         //上班时间
+                //             var timeDown = Number(this.closingtime.replace(':', '.'));     //下班时间
+                //             var lunchflgS = Number(this.lunchbreakS.replace(':', '.'));    //午休开始时间
+                //             var lunchflgE = Number(this.lunchbreakE.replace(':', '.'));    //午休结束时间
+                //             var beginTime = dayBegin.getHours() + dayBegin.getMinutes() / 60;
+                //             var endTime = dayEnd.getHours() + dayEnd.getMinutes() / 60;
+                //             if ((endTime <= lunchflgS && beginTime <= timeUp) || (beginTime >= lunchflgE && endTime <= timeDown)) {
+                //                 time = endTime - beginTime;
+                //             } else if (endTime >= lunchflgS && endTime <= lunchflgE) {
+                //                 time = lunchflgS - beginTime;
+                //             } else if (endTime >= lunchflgE && beginTime <= lunchflgS) {
+                //                 time = (lunchflgS - beginTime) + (endTime - lunchflgE);
+                //             } else if (beginTime >= lunchflgE && beginTime <= timeDown) {
+                //                 time = (lunchflgS - beginTime) + (endTime - lunchflgE);
+                //             } else {
+                //                 this.form.relengthtime = '0';
+                //             }
+                //             if (this.$i18n && time !== "") {
+                //                 if (time > 8) {
+                //                     time = 8;
+                //                 }
+                //                 if (time > 0) {
+                //                     this.form.relengthtime = parseFloat(time).toFixed(1);
+                //                 } else {
+                //                     this.form.relengthtime = '0';
+                //                 }
+                //             }
+                //         } else {
+                //             this.form.relengthtime = '';
+                //         }
+                //     }
+                // }
             },
             getUserids(val) {
                 if (val === "undefined") {
@@ -1433,31 +1407,12 @@
                     this.checkfinisheddate = true;
                     this.showFemale = false;
                     this.typecheck = 0;
-                    this.options1 = [{
-                        value: '0',
-                        label: this.$t('label.PFANS2016FORMVIEW_QUANTIAN')
-                    }, {
-                        value: '1',
-                        label: this.$t('label.PFANS2016FORMVIEW_SHANGWU')
-                    }, {
-                        value: '2',
-                        label: this.$t('label.PFANS2016FORMVIEW_XIAWU')
-                    }];
                 } else if (val === 'PR013006') {
                     this.checkfinisheddate = true;
                     this.showFemale = false;
                 } else if (val === 'PR013007') {
-                    this.form.vacationtype ='1';
-                    this.form.revacationtype ='1';
                     this.showFemale = false;
-                    this.checkfinisheddate = false;
-                    this.options1 = [{
-                        value: '1',
-                        label: this.$t('label.PFANS2016FORMVIEW_SHANGWU')
-                    }, {
-                        value: '2',
-                        label: this.$t('label.PFANS2016FORMVIEW_XIAWU')
-                    }];
+                    this.checkfinisheddate = true;
                     this.showWeekend = false;
                 } else if (val === 'PR013009') {
                     this.checkfinisheddate = true;
@@ -1582,7 +1537,7 @@
                         let letfinisheddate = moment(this.form.finisheddate).format('YYYY-MM-DD');
                         let letoccurrencedateTo = moment(this.form.reoccurrencedate).format('YYYY-MM-DD');
                         let letfinisheddateTo = moment(this.form.refinisheddate).format('YYYY-MM-DD');
-                        this.form.periodstart = letoccurrencedate.replace(letnewdate, letoccurrencedate);
+                        // this.form.periodstart = letoccurrencedate.replace(letnewdate, letoccurrencedate);
                         if (this.typecheck == '0') {
                             if (letoccurrencedate == letfinisheddate) {
                                 this.form.lengthtime = 8;
@@ -1611,7 +1566,7 @@
                         if (this.checkTimeLenght = 8) {
                             this.form.relengthtime = 4;
                         }
-                        this.form.periodend = letfinisheddate.replace(letnewdate, letfinisheddate);
+                        // this.form.periodend = letfinisheddate.replace(letnewdate, letfinisheddate);
                         this.form.relation = letrelation.substring(1, letrelation.length);
                         if (this.$route.params._id) {
                             this.form.abnormalid = this.$route.params._id;
