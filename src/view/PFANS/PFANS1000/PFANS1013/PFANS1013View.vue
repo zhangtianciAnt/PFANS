@@ -374,6 +374,7 @@
                   }
                 }
               }
+
               this.startoption.push({
                 invoicenumber: 'LAST',
                 number: '9999',
@@ -384,7 +385,7 @@
                 vendorcode: '',
                 paymentmethod: '',
                 currency: '',
-                invoiceamount: sum,
+                invoiceamount: sum+1,
                 lineamount: invoiceamountvalue,
                 currencyrate: '',
                 companysegment: '',
