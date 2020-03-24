@@ -7,6 +7,15 @@ export function getpriceset(data) {
     data: data
   })
 }
+
+export function getPricesetList(data) {
+  return request({
+    url: 'priceset/get',
+    method: 'get',
+    data: data
+  })
+}
+
 export function updatepriceset(data) {
   return request({
     url: 'priceset/update',
