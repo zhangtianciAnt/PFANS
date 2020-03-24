@@ -247,6 +247,9 @@
             }
           })
         } else if (val === 'export') {
+          this.startoptionvalue = [];
+          this.travelcostvalue = [];
+          this.startoption = [];
           this.selectedList = {};
           this.selectedList.travelcost = [];
           this.selectedlist = this.$refs.roletable.selectedList;
@@ -265,6 +268,7 @@
               for (let m = 0; m < response.length; m++) {
                 sum = sum + 1;
                 for (let i = 0; i < this.selectedlist.length; i++) {
+
                   if (response[m].evectionid == this.selectedlist[i].evectionid) {
                     let letErrortype = getDictionaryInfo(this.selectedlist[i].paymentmethod);
                     if (letErrortype != null) {
@@ -370,6 +374,7 @@
                   }
                 }
               }
+
               this.startoption.push({
                 invoicenumber: 'LAST',
                 number: '9999',
@@ -380,7 +385,7 @@
                 vendorcode: '',
                 paymentmethod: '',
                 currency: '',
-                invoiceamount: sum,
+                invoiceamount: sum+1,
                 lineamount: invoiceamountvalue,
                 currencyrate: '',
                 companysegment: '',
@@ -396,7 +401,6 @@
                 type: '',
               });
               this.startoptionvalue = this.travelcostvalue.concat(this.startoption);
-              console.log("this.startoptionvalue", this.startoptionvalue);
               let csvData = [];
               for (let i = 0; i < this.startoptionvalue.length; i++) {
                 let obj = this.startoptionvalue[i];

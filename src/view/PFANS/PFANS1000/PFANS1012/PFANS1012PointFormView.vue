@@ -212,7 +212,6 @@
                         name: 'PFANS1012FormView',
                         params: {
                             _name: this.vote,
-                            _type: this.form.type,
                             disabled: true
                         }
                     })

@@ -93,14 +93,14 @@
                     for (let j = 0; j < response.length; j++) {
                         if (response[j].user_id !== null && response[j].user_id !== "") {
                             let rst = getUserInfo(response[j].user_id);
-                            if (rst) {
-                                response[j].user_id = rst.userinfo.customername;
-                            }
-                            let nameflg = getOrgInfoByUserId(response[j].userid);
+                            let nameflg = getOrgInfoByUserId(response[j].user_id);
                             if (nameflg) {
                                 response[j].center_name = nameflg.centerNmae;
                                 response[j].group_name = nameflg.groupNmae;
                                 response[j].team_name = nameflg.teamNmae;
+                            }
+                            if (rst) {
+                                response[j].user_id = rst.userinfo.customername;
                             }
                             if (response[j].status !== null && response[j].status !== "") {
                                 response[j].status = getStatus(response[j].status);
@@ -306,6 +306,7 @@
                                     }
                                 }
                             }
+
                             this.startoption.push({
                                 invoicenumber: 'LAST',
                                 number: '9999',
@@ -316,7 +317,7 @@
                                 vendorcode: '',
                                 paymentmethod: '',
                                 currency: '',
-                                invoiceamount: sum,
+                                invoiceamount: sum+1,
                                 lineamount: invoiceamountvalue,
                                 currencyrate: '',
                                 companysegment: '',

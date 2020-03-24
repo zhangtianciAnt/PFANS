@@ -2702,17 +2702,7 @@
     },
     data() {
       return {
-        tableData: [
-          {
-            no: 1
-          },
-          {
-            no: 2
-          },
-          {
-            no: 3
-          }
-        ],
+        tableData: [],
         totaldataFJKC: [],
         totaldataQQ: [],
         totaldataCY: [],
@@ -3280,6 +3270,10 @@
             let datalistljsj = [];
             let datalistms = [];
             let datalistzhsr = [];
+
+            this.tableData=response.wagesList;
+
+
             // region 欠勤 By SKAIXX
             // 添加非空判断 By SKAIXX
             if (response.lackattendance) {
@@ -4845,7 +4839,9 @@
         this.$store
           .dispatch("PFANS2005Store/thisMonthOvertimeChange", this.givingVo)
           .then(response => {
-            this.tableCY.find(item => item.rowindex === val.rowindex).thistotaly = this.setScale2(response.thistotaly);
+            if (this.tableCY.find(item => item.rowindex === val.rowindex)) {
+              this.tableCY.find(item => item.rowindex === val.rowindex).thistotaly = this.setScale2(response.thistotaly);
+            }
             this.loading = false;
           })
           .catch(err => {
@@ -4872,7 +4868,9 @@
         this.$store
           .dispatch("PFANS2005Store/thisMonthLacktimeChange", this.givingVo)
           .then(response => {
-            this.tableQQ.find(item => item.rowindex === val.rowindex).thistotal = this.setScale2(response.thistotal);
+            if (this.tableQQ.find(item => item.rowindex === val.rowindex)) {
+              this.tableQQ.find(item => item.rowindex === val.rowindex).thistotal = this.setScale2(response.thistotal);
+            }
             this.loading = false;
           })
           .catch(err => {
