@@ -179,6 +179,7 @@
                             disabled: true
                         }
                     })
+
                 } else if (val === 'export') {
                     this.startoptionvalue = [];
                     this.totalcostvalue = [];

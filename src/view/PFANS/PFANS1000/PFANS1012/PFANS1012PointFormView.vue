@@ -109,6 +109,7 @@
         },
         methods: {
             changedata(val) {
+
                 this.showdata = true;
                 let user_id = this.$store.getters.userinfo.userid;
                 if (val == '1') {
