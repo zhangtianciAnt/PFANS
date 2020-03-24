@@ -4776,28 +4776,18 @@
           this.baseInfo.contrast = [];
           this.baseInfo.otherTwo = [];
           if (this.tab === "2") {
-            for (let i = 0; i < this.tableQT1Woman.length; i++) {
-              this.baseInfo.otherOne.push({
-                otherone_id: this.tableQT1Woman[i].otherone_id,
-                basedata: this.tableQT1Woman[i].basedata
-              });
-            }
+            //其他1去掉基数对象 不需要保存-lxx
+            // for (let i = 0; i < this.tableQT1Woman.length; i++) {
+            //   this.baseInfo.otherOne.push({
+            //     otherone_id: this.tableQT1Woman[i].otherone_id,
+            //     basedata: this.tableQT1Woman[i].basedata
+            //   });
+            // }
+            //其他1去掉基数对象 不需要保存-lxx
           } else if (this.tab === "3") {
-            for (let i = 0; i < this.tableQT2.length; i++) {
-              this.baseInfo.otherTwo.push({
-                othertwo_id: this.tableQT2[i].othertwo_id,
-                rootknot: this.tableQT2[i].rootknot,
-                moneys: this.tableQT2[i].moneys,
-                giving_id: this.tableQT2[i].giving_id
-              });
-            }
+            this.baseInfo.otherTwo = this.totaldataQT2
           } else if (this.tab === "16") {
-            for (let i = 0; i < this.tableGRDB.length; i++) {
-              this.baseInfo.contrast.push({
-                contrast_id: this.tableGRDB[i].contrast_id,
-                reason: this.tableGRDB[i].reason
-              });
-            }
+            this.baseInfo.contrast = this.totaldataContrast
           } else if (this.tab === "8") {
             this.baseInfo.lackattendance = this.totaldataQQ;
           } else if (this.tab === "9") {
