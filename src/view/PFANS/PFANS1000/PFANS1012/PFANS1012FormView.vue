@@ -621,6 +621,7 @@
                                          width="150">
                           <template slot-scope="scope">
                             <dicselect :code="code4"
+                                       clearable
                                        :data="scope.row.currency"
                                        :multiple="multiple"
                                        :no="scope.row"
@@ -823,6 +824,7 @@
                                          width="150">
                           <template slot-scope="scope">
                             <dicselect :code="code4"
+                                       clearable
                                        :data="scope.row.currency"
                                        :multiple="multiple"
                                        :no="scope.row"
@@ -913,7 +915,7 @@
                   </template>
                   <el-row>
                     <el-col :span="24">
-                      <el-table :data="tableR" :summary-method="getRsummaries"
+                      <el-table :data="tableR" :summary-method="getRsummaries" ref="tableR"
                                 header-cell-class-name="sub_bg_color_blue"
                                 show-summary stripe border style="width: 70vw">
                         <el-table-column :label="$t('label.date')" align="center" width="150">

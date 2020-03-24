@@ -80,6 +80,8 @@
                         ></el-input>
                       </el-form-item>
                     </el-col>
+                  </el-row>
+                  <el-row>
                     <el-col :span="8">
                       <el-form-item
                         :error="errorLeader"
@@ -96,8 +98,6 @@
                         ></user>
                       </el-form-item>
                     </el-col>
-                  </el-row>
-                  <el-row>
                     <el-col :span="8">
                       <el-form-item
                         :error="errorManager"
@@ -114,6 +114,18 @@
                         ></user>
                       </el-form-item>
                     </el-col>
+                    <el-col :span="8">
+                      <el-form-item :label="$t('label.PFANS5001FORMVIEW_LANGUAGE')" prop="languages">
+                        <el-input
+                          :disabled="!disable"
+                          maxlength="20"
+                          style="width: 20vw"
+                          v-model="form.languages"
+                        ></el-input>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+                  <el-row>
                     <el-col :span="8">
                       <el-form-item
                         :label="$t('label.PFANS5001FORMVIEW_PROJECTTYPE')"
@@ -144,8 +156,6 @@
                         ></dicselect>
                       </el-form-item>
                     </el-col>
-                  </el-row>
-                  <el-row>
                     <el-col :span="8">
                       <el-form-item
                         :label="$t('label.PFANS5001FORMVIEW_COUNTRY')"
@@ -158,6 +168,40 @@
                           :multiple="multiple"
                           style="width: 20vw"
                           @change="getcountry"
+                        ></dicselect>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+                  <el-row>
+                    <!-- //委托元（在华）-->
+                    <el-col :span="8">
+                      <el-form-item
+                        :label="$t('label.PFANS5001FORMVIEW_CHENTRUST')"
+                        prop="chentrust"
+                      >
+                        <dicselect
+                          :code="code9"
+                          :data="form.chentrust"
+                          :disabled="!disable"
+                          :multiple="multiple"
+                          style="width: 20vw"
+                          @change="getchentrust"
+                        ></dicselect>
+                      </el-form-item>
+                    </el-col>
+                    <!-- //委托元（在华以外）-->
+                    <el-col :span="8">
+                      <el-form-item
+                        :label="$t('label.PFANS5001FORMVIEW_OUENTRUST')"
+                        prop="ouentrust"
+                      >
+                        <dicselect
+                          :code="code10"
+                          :data="form.ouentrust"
+                          :disabled="!disable"
+                          :multiple="multiple"
+                          style="width: 20vw"
+                          @change="getouentrust"
                         ></dicselect>
                       </el-form-item>
                     </el-col>
@@ -174,16 +218,6 @@
                           style="width: 20vw"
                           @change="getcaron"
                         ></dicselect>
-                      </el-form-item>
-                    </el-col>
-                    <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS5001FORMVIEW_LANGUAGE')" prop="languages">
-                        <el-input
-                          :disabled="!disable"
-                          maxlength="20"
-                          style="width: 20vw"
-                          v-model="form.languages"
-                        ></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -1410,6 +1444,22 @@
                             trigger: 'blur',
                         },
                     ],
+                    // 委託元（在華）
+                    chentrust: [
+                        {
+                            required: true,
+                            message: this.$t('normal.error_08') + this.$t('label.user_name'),
+                            trigger: 'blur',
+                        },
+                    ],
+                    // 委託元（在華以外）
+                    ouentrust: [
+                        {
+                            required: true,
+                            message: this.$t('normal.error_08') + this.$t('label.user_name'),
+                            trigger: 'blur',
+                        },
+                    ],
                   center_id: [
                     {
                       required: true,
@@ -1440,6 +1490,10 @@
                     caron: '',
                     // 委托元
                     entrust: '',
+                    //委托元（在华）
+                    chentrust: '',
+                    //委托元（在华以外）
+                    ouentrust: '',
                     enddate: '',
                     work: '',
                     deadline: '',
@@ -1478,15 +1532,14 @@
                 code4: 'PP014',
                 code5: 'PP015',
                 code6: 'PJ141',
-                code7: 'PP016',
+                code7: 'PP021',
                 code8: 'PP018',
+                code9: 'PP019',
+                code10: 'PP023',
                 showrow: true,
                 showrow1: false,
                 showrow2: false,
                 showrow3: false,
-                // code7: "PP014",
-                // code8: "PP015",
-                // code9:"PR021",
                 result: '',
                 result1: '',
                 fileList: [],
@@ -1974,6 +2027,12 @@
             },
             getcaron(val1) {
                 this.form.caron = val1;
+            },
+            getchentrust(val1) {
+                this.form.chentrust = val1;
+            },
+            getouentrust(val1) {
+                this.form.ouentrust = val1;
             },
             // gettechnological(val1) {
             //   this.form.technological = val1;

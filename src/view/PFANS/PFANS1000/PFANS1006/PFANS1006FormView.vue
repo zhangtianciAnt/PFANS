@@ -42,17 +42,17 @@
             </el-col>
           </el-row>
           <el-row>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.budgetunit')" prop="budgetunit">
-                <dicselect :code="code1"
-                           :data="form.budgetunit"
-                           :disabled="!disable"
-                           :multiple="multiple"
-                           @change="getbudgetunit"
-                           style="width:20vw">
-                </dicselect>
-              </el-form-item>
-            </el-col>
+<!--            <el-col :span="8">-->
+<!--              <el-form-item :label="$t('label.budgetunit')" prop="budgetunit">-->
+<!--                <dicselect :code="code1"-->
+<!--                           :data="form.budgetunit"-->
+<!--                           :disabled="!disable"-->
+<!--                           :multiple="multiple"-->
+<!--                           @change="getbudgetunit"-->
+<!--                           style="width:20vw">-->
+<!--                </dicselect>-->
+<!--              </el-form-item>-->
+<!--            </el-col>-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1012VIEW_MODULE')">
                 <dicselect :code="code2"
@@ -387,7 +387,7 @@
         },
         code1: 'PG001',
         code2: 'PJ002',
-        code3: 'PJ014',
+        code3: 'PG019',
         code4: 'PJ015',
         show1: false,
         show2: false,
@@ -405,11 +405,11 @@
             message: this.$t('normal.error_08') + this.$t('label.PFANS1012VIEW_TELEPHONE'),
             trigger: 'blur',
           }],
-          budgetunit: [{
-            required: true,
-            message: this.$t('normal.error_09') + this.$t('label.budgetunit'),
-            trigger: 'change',
-          }],
+          // budgetunit: [{
+          //   required: true,
+          //   message: this.$t('normal.error_09') + this.$t('label.budgetunit'),
+          //   trigger: 'change',
+          // }],
           accountnumber: [{
             required: true,
             message: this.$t('normal.error_08') + this.$t('label.PFANS1012VIEW_ACCOUNTNUMBER'),
@@ -555,9 +555,9 @@
           this.error = '';
         }
       },
-      getbudgetunit(val) {
-        this.form.budgetunit = val;
-      },
+      // getbudgetunit(val) {
+      //   this.form.budgetunit = val;
+      // },
       getmodule(val) {
         this.form.moduleid = val;
       },
