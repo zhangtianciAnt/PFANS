@@ -204,10 +204,15 @@
                       </el-select>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8" v-show="show2">
-                    <el-form-item :label="$t('label.PFANS1002VIEW_LEVEL')">
-                      <el-input :disabled="true" style="width: 20vw" v-model="form.level">
-                      </el-input>
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1002VIEW_EXTERNAL')" prop="external">
+                      <el-switch
+                        :disabled="true"
+                        v-model="form.external"
+                        active-value="1"
+                        inactive-value="0"
+                      >
+                      </el-switch>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8" v-show="show2">
@@ -227,6 +232,12 @@
                     <el-form-item :label="$t('label.PFANS1012VIEW_REIMBURSEMENTDATE')">
                       <el-date-picker :disabled="!disable" style="width:20vw" v-model="form.reimbursementdate">
                       </el-date-picker>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8" v-show="show2">
+                    <el-form-item :label="$t('label.PFANS1002VIEW_LEVEL')">
+                      <el-input :disabled="true" style="width: 20vw" v-model="form.level">
+                      </el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -1090,6 +1101,7 @@
         ],
         baseInfo: {},
         form: {
+          external: '',
           level: '',
           abroadbusiness: '',
           project_id: '',
@@ -1460,6 +1472,7 @@
                   value: response[i].business_id,
                   label: this.$t('menu.PFANS1002') + '_' + moment(response[i].createon).format('YYYY-MM-DD'),
                   abroadbusiness: response[i].abroadbusiness,
+                  external: response[i].external,
                   city: response[i].region,
                   startdate: response[i].startdate,
                   enddate: response[i].enddate,
@@ -1495,6 +1508,7 @@
                   enddate: response[i].enddate,
                   businesstype: response[i].businesstype,
                   datenumber: response[i].datenumber,
+                  external: response[i].external,
                 });
               }
             }
@@ -1943,6 +1957,7 @@
               this.form.level = dict.value1;
             }
             this.form.abroadbusiness = this.relations[i].abroadbusiness;
+            this.form.external = this.relations[i].external;
             this.form.startdate = this.relations[i].startdate;
             this.form.enddate = this.relations[i].enddate;
             this.form.datenumber = this.relations[i].datenumber;
