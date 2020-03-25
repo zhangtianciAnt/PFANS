@@ -2264,15 +2264,15 @@
           if (newValue.invoicenumber === this.tableF[j].invoicenumber) {
             if (newValue.rmb !== '') {
               if (this.tableF[j].taxrate !== '') {
-                if (this.tableF[j].taxrate === 'PJ071001') {
-                  this.taxrateValue = '0.03';
-                } else if (this.tableF[j].taxrate === 'PJ071002') {
-                  this.taxrateValue = '0.06';
-                } else if (this.tableF[j].taxrate === 'PJ071003') {
-                  this.taxrateValue = '0.09';
-                } else if (this.tableF[j].taxrate === 'PJ071004') {
-                  this.taxrateValue = '0.13';
-                }
+                  if (this.tableF[j].taxrate == 'PJ071001') {
+                      this.taxrateValue = getDictionaryInfo('PJ071001').value1
+                  } else if (this.tableF[j].taxrate == 'PJ071002') {
+                      this.taxrateValue =getDictionaryInfo('PJ071002').value1
+                  } else if (this.tableF[j].taxrate == 'PJ071003') {
+                      this.taxrateValue = getDictionaryInfo('PJ071003').value1
+                  } else if (this.tableF[j].taxrate == 'PJ071004') {
+                      this.taxrateValue = getDictionaryInfo('PJ071004').value1
+                  }
                 Taxratevalue = 1 + Number(this.taxrateValue);
                 newValue.taxes = ((newValue.rmb / (Taxratevalue) * this.taxrateValue)).toFixed(2);
               }
