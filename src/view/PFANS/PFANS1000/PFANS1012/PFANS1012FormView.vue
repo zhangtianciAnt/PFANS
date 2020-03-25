@@ -1276,7 +1276,7 @@
                 disablecheck: false,
                 optionsdate: [],
                 tormbT: '',
-                Redirict: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).redirict,
+                Redirict:  getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).redirict ,
                 startoption: [{value: '0000000000', lable: this.$t('label.PFANS1012FROMVIEW_COMMON')}],
                 search: '',
                 companyen: '',

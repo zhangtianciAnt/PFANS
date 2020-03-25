@@ -11,19 +11,19 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.center')" prop="centerid">
                 <el-input :disabled="true" style="width:20vw" v-model="centerid"></el-input>
-                <el-input :disabled="false" style="width:20vw" v-model="form.centerid"></el-input>
+                <el-input v-show='false' :disabled="false" style="width:20vw" v-model="form.centerid"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.group')" prop="groupid">
                 <el-input :disabled="true" style="width:20vw" v-model="groupid"></el-input>
-                <el-input :disabled="false" style="width:20vw" v-model="form.groupid"></el-input>
+                <el-input  v-show='false':disabled="false" style="width:20vw" v-model="form.groupid"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.team')" prop="teamid">
                 <el-input :disabled="true" style="width:20vw" v-model="teamid"></el-input>
-                <el-input :disabled="false" style="width:20vw" v-model="form.teamid"></el-input>
+                <el-input v-show='false'  :disabled="false" style="width:20vw" v-model="form.teamid"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -849,12 +849,14 @@
                     for (let i = 0; i < this.relist.length; i++) {
                         sum = sum + 1;
                     }
-                    if (sum * 8 < val) {
-                        Message({
-                            message: this.$t("label.PFANS2016FORMVIEW_WCCHECKTYPE"),
-                            type: 'error',
-                            duration: 5 * 1000,
-                        });
+                    if(this.form.errortype=='PR013001'){
+                        if (sum * 8 < val) {
+                            Message({
+                                message: this.$t("label.PFANS2016FORMVIEW_WCCHECKTYPE"),
+                                type: 'error',
+                                duration: 5 * 1000,
+                            });
+                        }
                     }
                 } else if (this.form.errortype === 'PR013009' || this.form.errortype === 'PR013010' || this.form.errortype === 'PR013011'
                     || this.form.errortype === 'PR013012' || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015'

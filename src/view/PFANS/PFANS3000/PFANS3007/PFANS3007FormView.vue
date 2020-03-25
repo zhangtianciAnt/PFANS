@@ -18,19 +18,19 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.center')">
                 <el-input :disabled="true" style="width:20vw" v-model="centerid"></el-input>
-                <el-input :disabled="false" style="width:20vw" v-model="form.centerid"></el-input>
+                <el-input  v-show='false' :disabled="false" style="width:20vw" v-model="form.centerid"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.group')">
                 <el-input :disabled="false" style="width:20vw" v-model="groupid"></el-input>
-                <el-input :disabled="true" style="width:20vw" v-model="form.groupid"></el-input>
+                <el-input  v-show='false' :disabled="true" style="width:20vw" v-model="form.groupid"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.team')">
                 <el-input :disabled="false" style="width:20vw" v-model="teamid"></el-input>
-                <el-input :disabled="true" style="width:20vw" v-model="form.teamid"></el-input>
+                <el-input  v-show='false' :disabled="true" style="width:20vw" v-model="form.teamid"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
