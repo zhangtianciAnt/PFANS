@@ -109,16 +109,15 @@
         },
         methods: {
             changedata(val) {
-
                 this.showdata = true;
                 let user_id = this.$store.getters.userinfo.userid;
                 if (val == '1') {
+                    this.form.judgement = ''
                     this.options = [];
                     this.loading = true;
                     this.$store
                         .dispatch('PFANS1012Store/selectJudgement', {})
                         .then(response => {
-                            debugger
                             for (let i = 0; i < response.length; i++) {
                                 if (user_id === response[i].user_id && response[i].equipment == '0') {
                                     if (response[i].createon !== null && response[i].createon !== "") {
@@ -133,6 +132,7 @@
                             this.loading = false;
                         })
                 } else if (val == '2') {
+                    this.form.judgement = ''
                     this.options = [];
                     this.loading = true;
                     this.$store
@@ -153,6 +153,7 @@
                             }
                         })
                 } else if (val == '3') {
+                    this.form.judgement = ''
                     this.options = [];
                     this.loading = true;
                     this.$store
