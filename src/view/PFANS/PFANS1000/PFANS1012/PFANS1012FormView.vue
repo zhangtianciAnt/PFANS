@@ -2151,7 +2151,6 @@
                     this.centerid = rst.centerNmae;
                     this.groupid= rst.groupNmae;
                     this.teamid= rst.teamNmae;
-                    var groupid = rst.groupId;
                     this.form.centerid = rst.centerId;
                     this.form.groupid = rst.groupId;
                     this.form.teamid = rst.teamId;

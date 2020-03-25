@@ -95,6 +95,12 @@
             for (let j = 0; j < response.length; j++) {
               response[j].status = getStatus(response[j].status);
               let user = getUserInfo(response[j].user_id);
+                let nameflg = getOrgInfoByUserId(response[j].user_id);
+                if (nameflg) {
+                    response[j].center_name = nameflg.centerNmae;
+                    response[j].group_name = nameflg.groupNmae;
+                    response[j].team_name = nameflg.teamNmae;
+                }
               if (user) {
                 response[j].user_id = getUserInfo(response[j].user_id).userinfo.customername;
               }

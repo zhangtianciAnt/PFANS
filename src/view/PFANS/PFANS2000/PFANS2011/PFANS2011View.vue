@@ -15,7 +15,7 @@
 <script>
     import EasyNormalTable from "@/components/EasyNormalTable";
     import {Message} from 'element-ui'
-    import {getDictionaryInfo, getStatus, getUserInfo} from "../../../../utils/customize";
+    import {getDictionaryInfo, getStatus, getUserInfo,getOrgInfoByUserId} from "../../../../utils/customize";
 
     let moment = require("moment");
 
@@ -159,13 +159,16 @@
                             }
                         }
                         let user = getUserInfo(response[j].userid);
+                        let nameflg = getOrgInfoByUserId(response[j].userid);
+                        if (nameflg) {
+                            response[j].center_name = nameflg.centerNmae;
+                            response[j].group_name = nameflg.groupNmae;
+                            response[j].team_name = nameflg.teamNmae;
+                        }
                         if (user)
                         {
                             response[j].username = user.userinfo.customername;
                         }
-                        response[j].centername = response[j].centerid;
-                        response[j].groupname = response[j].groupid;
-                        response[j].teamname = response[j].teamid;
                     }
                     this.data = response;
                     this.loading = false;
