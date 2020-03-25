@@ -4004,9 +4004,9 @@
                 this.getList();
               }
             }
+            this.loading = false;
             //endregion
           });
-        this.loading = false;
       },
       UploadUrlfjkc: function () {
         return (
@@ -4381,42 +4381,38 @@
         }
         this.loading = false;
       },
-      tabInfoSave(){
-        this.loading = true;
-          this.baseInfo = {};
-          this.baseInfo.strFlg = this.tab;
-          this.baseInfo.otherOne = [];
-          this.baseInfo.contrast = [];
-          this.baseInfo.otherTwo = [];
-          if (this.tab === "2") {
-            //其他1去掉基数对象 不需要保存-lxx
-            // for (let i = 0; i < this.tableQT1Woman.length; i++) {
-            //   this.baseInfo.otherOne.push({
-            //     otherone_id: this.tableQT1Woman[i].otherone_id,
-            //     basedata: this.tableQT1Woman[i].basedata
-            //   });
-            // }
-            //其他1去掉基数对象 不需要保存-lxx
-          } else if (this.tab === "3") {
-            this.baseInfo.otherTwo = this.totaldataQT2
-          } else if (this.tab === "16") {
-            this.baseInfo.contrast = this.totaldataContrast
-          } else if (this.tab === "8") {
-            this.baseInfo.lackattendance = this.totaldataQQ;
-          } else if (this.tab === "9") {
-            this.baseInfo.residual = this.totaldataCY;
-          }
-          if(this.tab === "3" || this.tab === "16" || this.tab === "8" || this.tab === "9"){
-this.$store
+      tabInfoSave() {
+        this.baseInfo = {};
+        this.baseInfo.strFlg = this.tab;
+        this.baseInfo.otherOne = [];
+        this.baseInfo.contrast = [];
+        this.baseInfo.otherTwo = [];
+        if (this.tab === "2") {
+          //其他1去掉基数对象 不需要保存-lxx
+          // for (let i = 0; i < this.tableQT1Woman.length; i++) {
+          //   this.baseInfo.otherOne.push({
+          //     otherone_id: this.tableQT1Woman[i].otherone_id,
+          //     basedata: this.tableQT1Woman[i].basedata
+          //   });
+          // }
+          //其他1去掉基数对象 不需要保存-lxx
+        } else if (this.tab === "3") {
+          this.baseInfo.otherTwo = this.totaldataQT2
+        } else if (this.tab === "16") {
+          this.baseInfo.contrast = this.totaldataContrast
+        } else if (this.tab === "8") {
+          this.baseInfo.lackattendance = this.totaldataQQ;
+        } else if (this.tab === "9") {
+          this.baseInfo.residual = this.totaldataCY;
+        }
+        if (this.tab === "3" || this.tab === "16" || this.tab === "8" || this.tab === "9") {
+          console.log("this.totaldataQQ", this.totaldataQQ);
+          this.loading = true;
+          this.$store
             .dispatch("PFANS2005Store/save", this.baseInfo)
             .then(response => {
               this.data = response;
               this.loading = false;
-              Message({
-                message: this.$t("normal.success_02"),
-                type: "success",
-                duration: 5 * 1000
-              });
             })
             .catch(error => {
               Message({
@@ -4426,7 +4422,7 @@ this.$store
               });
               this.loading = false;
             });
-          }
+        }
       },
       handleClick(tab, event) {
         //调用保存-lxx
