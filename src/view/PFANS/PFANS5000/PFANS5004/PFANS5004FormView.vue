@@ -79,14 +79,20 @@
                           ></el-date-picker>
                         </el-form-item>
                       </el-col>
+<!--                      <el-col :span="8">-->
+<!--                        <el-form-item :label="$t('label.PFANS5001FORMVIEW_ENDDATE')" prop="endtime">-->
+<!--                          <el-date-picker-->
+<!--                            :disabled="!disable"-->
+<!--                            style="width: 20vw"-->
+<!--                            type="date"-->
+<!--                            v-model="form.endtime"-->
+<!--                          ></el-date-picker>-->
+<!--                        </el-form-item>-->
+<!--                      </el-col>-->
                       <el-col :span="8">
-                        <el-form-item :label="$t('label.PFANS5001FORMVIEW_ENDDATE')" prop="enddate">
-                          <el-date-picker
-                            :disabled="true"
-                            style="width: 20vw"
-                            type="date"
-                            v-model="form.enddate"
-                          ></el-date-picker>
+                        <el-form-item :label="$t('label.PFANS5001FORMVIEW_ENDDATE')" prop="endtime">
+                          <el-date-picker :disabled="!disable" style="width:20vw" type="date"
+                                          v-model="form.endtime"></el-date-picker>
                         </el-form-item>
                       </el-col>
                     </el-row>
@@ -312,353 +318,353 @@
   </div>
 </template>
 <script>
-    import EasyNormalContainer from "@/components/EasyNormalContainer";
-    import dicselect from "../../../components/dicselect.vue";
-    import {getDictionaryInfo, getOrgInfoByUserId, getUserInfo, uploadUrl} from "@/utils/customize";
-    import {Message} from "element-ui";
-    import user from "../../../components/user.vue";
-    import org from "../../../components/org";
+  import EasyNormalContainer from "@/components/EasyNormalContainer";
+  import dicselect from "../../../components/dicselect.vue";
+  import {getDictionaryInfo, getOrgInfoByUserId, getUserInfo, uploadUrl} from "@/utils/customize";
+  import {Message} from "element-ui";
+  import user from "../../../components/user.vue";
+  import org from "../../../components/org";
+  import moment from "moment";
 
-    export default {
-        name: "PFANS5004FormView",
-        components: {
-            dicselect,
-            EasyNormalContainer,
-            getOrgInfoByUserId,
-            user,
-            org
+  export default {
+    name: "PFANS5004FormView",
+    components: {
+      dicselect,
+      EasyNormalContainer,
+      getOrgInfoByUserId,
+      user,
+      org
+    },
+    data() {
+      return {
+        disabled: true,
+        activeName: "first",
+        errorManager: "",
+        userlist: "",
+        buttonList: [{
+          key: "save",
+          name: "button.save"
+        }],
+        source: [{
+          projectsystem_id: '',
+          companyprojects_id: '',
+          type: '',
+          number: '',
+          company: '',
+          name: '',
+          position: '',
+          admissiontime: '',
+          exittime: '',
+          rowindex: '',
+        }],
+        stage: [{
+          stageinformation_id: "",
+          companyprojects_id: "",
+          phase: "",
+          stageproduct: "",
+          estimatedwork: "",
+          estimatedstarttime: "",
+          estimatedendtime: "",
+          remarks: "",
+          actualwork: "",
+          productstatus: "",
+          actualstarttime: "",
+          actualendtime: "",
+          product: "",
+          rowindex: '',
+        }],
+        data: [],
+        loading: false,
+        titles: this.$route.params.type === 1 ? "title.PFANS5004VIEW" : "title.PFANS5004VIEW2",
+        rules: {
+          assetaddress: [{
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.PFANS5004VIEW_ASSETADDRESS'),
+            trigger: 'blur',
+          }]
         },
-        data() {
-            return {
-                disabled: true,
-                activeName: "first",
-                errorManager: "",
-                userlist: "",
-                buttonList: [{
-                    key: "save",
-                    name: "button.save"
-                }],
-                source: [{
-                    projectsystem_id: '',
-                    companyprojects_id: '',
-                    type: ' ',
-                    number: '',
-                    company: '',
-                    name: '',
-                    position: '',
-                    admissiontime: '',
-                    exittime: '',
-                    rowindex: '',
-                }],
-                stage: [{
-                    stageinformation_id: "",
-                    companyprojects_id: "",
-                    phase: "",
-                    stageproduct: "",
-                    estimatedwork: "",
-                    estimatedstarttime: "",
-                    estimatedendtime: "",
-                    remarks: "",
-                    actualwork: "",
-                    productstatus: "",
-                    actualstarttime: "",
-                    actualendtime: "",
-                    product: "",
-                    rowindex: '',
-                }],
-                data: [],
-                loading: false,
-                titles: this.$route.params.type === 1 ? "title.PFANS5004VIEW" : "title.PFANS5004VIEW2",
-                rules: {
-                    assetaddress: [{
-                        required: true,
-                        message: this.$t('normal.error_08') + this.$t('label.PFANS5004VIEW_ASSETADDRESS'),
-                        trigger: 'blur',
-                    }]
-                },
-                baseInfo: {},
-                form: {
-                    project_name: "",
-                    managerid: "",
-                    projecttype: "",
-                    field: "",
-                    startdate: "",
-                    enddate: "",
-                    assetaddress: '',
-                    instructions: '',
-                    exprence: '',
-                    advise: '',
-                    note: '',
-                    message: '',
-                    uploadfile: '',
+        baseInfo: {},
+        form: {
+          project_name: "",
+          managerid: "",
+          projecttype: "",
+          field: "",
+          startdate: "",
+          endtime: moment(new Date()).format("YYYY-MM-DD"),
+          assetaddress: '',
+          instructions: '',
+          exprence: '',
+          advise: '',
+          note: '',
+          message: '',
+          uploadfile: '',
 
-                },
-                code1: 'PP012',
-                code2: "PP001",
-                code3: "PP002",
-                code5: 'PP013',
-                code6: 'PP014',
-                code4: 'PP015',
-                multiple: false,
-                canStart: false,
-                fileList: [],
-                upload: uploadUrl()
-            };
         },
-        mounted() {
-            if (this.$route.params._id) {
-                this.loading = true;
-                this.$store
-                    .dispatch("PFANS5001Store/selectById", {companyprojectsid: this.$route.params._id})
-                    .then(response => {
-                      // if(this.region === '2'){
-                      //   if (this.$i18n) {
-                      //     this.title = this.$t('title.PFANS5004VIEW2');
-                      //   }
-                      // }else{
-                      //   if (this.$i18n) {
-                      //     this.title = this.$t('title.PFANS5004VIEW');
-                      //   }
-                      // }
-                        this.form = response.companyprojects;
-                        this.userlist = this.form.managerid;
-                        /*阶段信息*/
-                        if (response.stageinformation.length > 0) {
-                            let tablestage = [];
-                            for (var j = 0; j < response.stageinformation.length; j++) {
-                                if (response.stageinformation[j].stageproduct !== null && response.stageinformation[j].stageproduct !== "") {
-                                    let letErrortype = getDictionaryInfo(response.stageinformation[j].stageproduct);
-                                    if (letErrortype != null) {
-                                        response.stageinformation[j].stageproduct = letErrortype.value1;
-                                    }
-                                }
-                                tablestage.push({
-                                    phase: response.stageinformation[j].phase,
-                                    stageproduct: response.stageinformation[j].stageproduct,
-                                    estimatedwork: response.stageinformation[j].estimatedwork,
-                                    estimatedstarttime: response.stageinformation[j].estimatedstarttime,
-                                    estimatedendtime: response.stageinformation[j].estimatedendtime,
-                                    remarks: response.stageinformation[j].remarks,
-                                    actualwork: response.stageinformation[j].actualwork,
-                                    productstatus: response.stageinformation[j].productstatus,
-                                    actualstarttime: response.stageinformation[j].actualstarttime,
-                                    actualendtime: response.stageinformation[j].actualendtime,
-                                    product: response.stageinformation[j].product,
-                                })
-                            }
-                            this.stage = tablestage;
-                        }
-                        /*项目资源*///项目体制
-                        if (response.projectsystem.length > 0) {
-                            this.source = response.projectsystem;
-                            for (var i = 0; i < this.source.length; i++) {
-                                if (this.source[i].type === '0') {
-                                  if (this.$i18n) {
-                                    this.source[i].type = this.$t('label.PFANS5004VIEW_STAFF');
-                                  }
-                                    let lst = getUserInfo(this.source[i].name);
-                                    this.source[i].name = lst.userinfo.customername;
-                                } else if (this.source[i].type === '1') {
-                                  if (this.$i18n) {
-                                    this.source[i].type = this.$t('label.PFANS5004VIEW_ASSIST');
-                                  }
-                                } else {
-                                  this.source[i].type = " ";
-                                }
-                            }
-                        }
-                        if (this.form.uploadfile != null) {
-                            if (this.form.uploadfile != "") {
-                                let uploadfile = this.form.uploadfile.split(";");
-                                for (var i = 0; i < uploadfile.length; i++) {
-                                    if (uploadfile[i].split(",")[0] != "") {
-                                        let o = {};
-                                        o.name = uploadfile[i].split(",")[0];
-                                        o.url = uploadfile[i].split(",")[1];
-                                        this.fileList.push(o)
-                                    }
-                                }
-                            }
-                        }
-                        this.loading = false;
-                    })
-                    .catch(error => {
-                        Message({
-                            message: error,
-                            type: "error",
-                            duration: 5 * 1000
-                        });
-
-                        this.loading = false;
-                    });
-            }
-        },
-        created() {
-            if (!this.$route.params.disabled) {
-                this.buttonList = [];
-            }
-            this.disable = this.$route.params.disabled;
-        },
-        methods: {
-            getUserids(val) {
-                this.userlist = val;
-                this.form.managerid = val;
-                if (
-                    !this.form.managerid ||
-                    this.form.managerid === "" ||
-                    val === "undefined"
-                ) {
-                  if (this.$i18n) {
-                    this.errorManager =
-                      this.$t("normal.error_08") +
-                      this.$t("label.PFANS5001FORMVIEW_MANAGERID");
+        code1: 'PP012',
+        code2: "PP001",
+        code3: "PP002",
+        code5: 'PP013',
+        code6: 'PP014',
+        code4: 'PP015',
+        multiple: false,
+        canStart: false,
+        fileList: [],
+        upload: uploadUrl()
+      };
+    },
+    mounted() {
+      if (this.$route.params._id) {
+        this.loading = true;
+        this.$store
+          .dispatch("PFANS5001Store/selectById", {companyprojectsid: this.$route.params._id})
+          .then(response => {
+            // if(this.region === '2'){
+            //   if (this.$i18n) {
+            //     this.title = this.$t('title.PFANS5004VIEW2');
+            //   }
+            // }else{
+            //   if (this.$i18n) {
+            //     this.title = this.$t('title.PFANS5004VIEW');
+            //   }
+            // }
+            this.form = response.companyprojects;
+            this.userlist = this.form.managerid;
+            /*阶段信息*/
+            if (response.stageinformation.length > 0) {
+              let tablestage = [];
+              for (var j = 0; j < response.stageinformation.length; j++) {
+                if (response.stageinformation[j].stageproduct !== null && response.stageinformation[j].stageproduct !== "") {
+                  let letErrortype = getDictionaryInfo(response.stageinformation[j].stageproduct);
+                  if (letErrortype != null) {
+                    response.stageinformation[j].stageproduct = letErrortype.value1;
                   }
+                }
+                tablestage.push({
+                  phase: response.stageinformation[j].phase,
+                  stageproduct: response.stageinformation[j].stageproduct,
+                  estimatedwork: response.stageinformation[j].estimatedwork,
+                  estimatedstarttime: response.stageinformation[j].estimatedstarttime,
+                  estimatedendtime: response.stageinformation[j].estimatedendtime,
+                  remarks: response.stageinformation[j].remarks,
+                  actualwork: response.stageinformation[j].actualwork,
+                  productstatus: response.stageinformation[j].productstatus,
+                  actualstarttime: response.stageinformation[j].actualstarttime,
+                  actualendtime: response.stageinformation[j].actualendtime,
+                  product: response.stageinformation[j].product,
+                })
+              }
+              this.stage = tablestage;
+            }
+            /*项目资源*///项目体制
+            if (response.projectsystem.length > 0) {
+              this.source = response.projectsystem;
+              for (var i = 0; i < this.source.length; i++) {
+                if (this.source[i].type === '0') {
+                  if (this.$i18n) {
+                    this.source[i].type = this.$t('label.PFANS5004VIEW_STAFF');
+                  }
+                  let lst = getUserInfo(this.source[i].name);
+                  this.source[i].name = lst.userinfo.customername;
                 } else {
-                    this.errorManager = "";
+                  if (this.$i18n) {
+                    this.source[i].type = this.$t('label.PFANS5004VIEW_ASSIST');
+                  }
                 }
-            },
-            workflowState(val) {
-                if (val.state === "1") {
-                    this.form.status = "8";
-                } else if (val.state === "2") {
-                    this.form.status = "9";
+              }
+            }
+            if (this.form.uploadfile != null) {
+              if (this.form.uploadfile != "") {
+                let uploadfile = this.form.uploadfile.split(";");
+                for (var i = 0; i < uploadfile.length; i++) {
+                  if (uploadfile[i].split(",")[0] != "") {
+                    let o = {};
+                    o.name = uploadfile[i].split(",")[0];
+                    o.url = uploadfile[i].split(",")[1];
+                    this.fileList.push(o)
+                  }
                 }
-                this.buttonClick("update");
-            },
-            start() {
-                this.form.status = "7";
-                this.buttonClick("update");
-            },
-            end() {
-                this.form.status = "0";
-                this.buttonClick("update");
-            },
-            fileError(err, file, fileList) {
-                Message({
-                    message: this.$t("normal.error_04"),
+              }
+            }
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: "error",
+              duration: 5 * 1000
+            });
+
+            this.loading = false;
+          });
+      }
+    },
+    created() {
+      if (!this.$route.params.disabled) {
+        this.buttonList = [];
+      }
+      this.disable = this.$route.params.disabled;
+    },
+    methods: {
+      getUserids(val) {
+        this.userlist = val;
+        this.form.managerid = val;
+        if (
+          !this.form.managerid ||
+          this.form.managerid === "" ||
+          val === "undefined"
+        ) {
+          if (this.$i18n) {
+            this.errorManager =
+              this.$t("normal.error_08") +
+              this.$t("label.PFANS5001FORMVIEW_MANAGERID");
+          }
+        } else {
+          this.errorManager = "";
+        }
+      },
+      workflowState(val) {
+        if (val.state === "1") {
+          this.form.status = "8";
+        } else if (val.state === "2") {
+          this.form.status = "9";
+        }
+        this.buttonClick("update");
+      },
+      start() {
+        this.form.status = "7";
+        this.buttonClick("update");
+      },
+      end() {
+        this.form.status = "0";
+        this.buttonClick("update");
+      },
+      fileError(err, file, fileList) {
+        Message({
+          message: this.$t("normal.error_04"),
+          type: "error",
+          duration: 5 * 1000
+        });
+      },
+      fileRemove(file, fileList) {
+        this.fileList = [];
+        this.form.uploadfile = "";
+        for (var item of fileList) {
+          let o = {};
+          o.name = item.name;
+          o.url = item.url;
+          this.fileList.push(o);
+          this.form.uploadfile += item.name + "," + item.url + ";";
+        }
+      },
+      fileDownload(file) {
+        if (file.url) {
+          var url = downLoadUrl(file.url);
+          window.open(url);
+        }
+      },
+      fileSuccess(response, file, fileList) {
+        this.fileList = [];
+        this.form.uploadfile = "";
+        for (var item of fileList) {
+          let o = {};
+          o.name = item.name;
+          if (!item.url) {
+            o.url = item.response.info;
+          } else {
+            o.url = item.url;
+          }
+          this.fileList.push(o);
+          this.form.uploadfile += o.name + "," + o.url + ";";
+        }
+      },
+      buttonClick(val) {
+        this.$refs["reff"].validate(valid => {
+          if (valid) {
+            this.loading = true;
+            this.form.endtime = moment(this.form.endtime).format('YYYY-MM-DD');
+            this.baseInfo = {};
+            this.baseInfo.companyprojects = JSON.parse(JSON.stringify(this.form));
+            this.baseInfo.stageinformation = [];
+            this.baseInfo.projectsystem = [];
+            //项目计划
+            for (let i = 0; i < this.stage.length; i++) {
+              if (
+                this.stage[i].phase !== '' ||
+                this.stage[i].stageproduct !== '' ||
+                this.stage[i].estimatedwork !== '' ||
+                this.stage[i].estimatedstarttime !== '' ||
+                this.stage[i].estimatedendtime !== '' ||
+                this.stage[i].remarks !== '' ||
+                this.stage[i].actualwork !== '' ||
+                this.stage[i].productstatus !== '' ||
+                this.stage[i].actualstarttime !== '' ||
+                this.stage[i].actualendtime !== '' ||
+                this.stage[i].product !== ''
+              ) {
+                this.baseInfo.stageinformation.push({
+                  phase: this.stage[i].phase,
+                  stageproduct: this.stage[i].stageproduct,
+                  estimatedwork: this.stage[i].estimatedwork,
+                  estimatedstarttime: this.stage[i].estimatedstarttime,
+                  estimatedendtime: this.stage[i].estimatedendtime,
+                  remarks: this.stage[i].remarks,
+                  actualwork: this.stage[i].actualwork,
+                  productstatus: this.stage[i].productstatus,
+                  actualstarttime: this.stage[i].actualstarttime,
+                  actualendtime: this.stage[i].actualendtime,
+                  product: this.stage[i].product,
+                });
+              }
+            }
+            for (let i = 0; i < this.source.length; i++) {
+              if (
+                this.source[i].number !== '' ||
+                this.source[i].name !== '' ||
+                this.source[i].admissiontime !== '' ||
+                this.source[i].exittime !== ''
+              ) {
+                this.baseInfo.projectsystem.push({
+                  number: this.source[i].number,
+                  name: this.source[i].name,
+                  type: this.source[i].type,
+                  position: this.source[i].position,
+                  admissiontime: this.source[i].admissiontime,
+                  exittime: this.source[i].exittime,
+                });
+              }
+            }
+            if (this.$route.params._id) {
+              this.baseInfo.companyprojects.companyprojects_id = this.$route.params._id;
+              this.$store
+                .dispatch("PFANS5001Store/update", this.baseInfo)
+                .then(response => {
+                  this.data = response;
+                  this.loading = false;
+                  if (val !== "update") {
+                    Message({
+                      message: this.$t("normal.success_02"),
+                      type: "success",
+                      duration: 5 * 1000
+                    });
+                    if (this.$store.getters.historyUrl) {
+                      this.$router.push(this.$store.getters.historyUrl);
+                    }
+                  }
+                })
+                .catch(error => {
+                  Message({
+                    message: error,
                     type: "error",
                     duration: 5 * 1000
-                });
-            },
-            fileRemove(file, fileList) {
-                this.fileList = [];
-                this.form.uploadfile = "";
-                for (var item of fileList) {
-                    let o = {};
-                    o.name = item.name;
-                    o.url = item.url;
-                    this.fileList.push(o);
-                    this.form.uploadfile += item.name + "," + item.url + ";";
-                }
-            },
-            fileDownload(file) {
-                if (file.url) {
-                    var url = downLoadUrl(file.url);
-                    window.open(url);
-                }
-            },
-            fileSuccess(response, file, fileList) {
-                this.fileList = [];
-                this.form.uploadfile = "";
-                for (var item of fileList) {
-                    let o = {};
-                    o.name = item.name;
-                    if (!item.url) {
-                        o.url = item.response.info;
-                    } else {
-                        o.url = item.url;
-                    }
-                    this.fileList.push(o);
-                    this.form.uploadfile += o.name + "," + o.url + ";";
-                }
-            },
-            buttonClick(val) {
-                this.$refs["reff"].validate(valid => {
-                    if (valid) {
-                        this.loading = true;
-                        this.baseInfo = {};
-                        this.baseInfo.companyprojects = JSON.parse(JSON.stringify(this.form));
-                        this.baseInfo.stageinformation = [];
-                        this.baseInfo.projectsystem = [];
-                        //项目计划
-                        for (let i = 0; i < this.stage.length; i++) {
-                            if (
-                                this.stage[i].phase !== '' ||
-                                this.stage[i].stageproduct !== '' ||
-                                this.stage[i].estimatedwork !== '' ||
-                                this.stage[i].estimatedstarttime !== '' ||
-                                this.stage[i].estimatedendtime !== '' ||
-                                this.stage[i].remarks !== '' ||
-                                this.stage[i].actualwork !== '' ||
-                                this.stage[i].productstatus !== '' ||
-                                this.stage[i].actualstarttime !== '' ||
-                                this.stage[i].actualendtime !== '' ||
-                                this.stage[i].product !== ''
-                            ) {
-                                this.baseInfo.stageinformation.push({
-                                    phase: this.stage[i].phase,
-                                    stageproduct: this.stage[i].stageproduct,
-                                    estimatedwork: this.stage[i].estimatedwork,
-                                    estimatedstarttime: this.stage[i].estimatedstarttime,
-                                    estimatedendtime: this.stage[i].estimatedendtime,
-                                    remarks: this.stage[i].remarks,
-                                    actualwork: this.stage[i].actualwork,
-                                    productstatus: this.stage[i].productstatus,
-                                    actualstarttime: this.stage[i].actualstarttime,
-                                    actualendtime: this.stage[i].actualendtime,
-                                    product: this.stage[i].product,
-                                });
-                            }
-                        }
-                        for (let i = 0; i < this.source.length; i++) {
-                            if (
-                                this.source[i].number !== '' ||
-                                this.source[i].name !== '' ||
-                                this.source[i].admissiontime !== '' ||
-                                this.source[i].exittime !== ''
-                            ) {
-                                this.baseInfo.projectsystem.push({
-                                    number: this.source[i].number,
-                                    name: this.source[i].name,
-                                    type: this.source[i].type,
-                                    position: this.source[i].position,
-                                    admissiontime: this.source[i].admissiontime,
-                                    exittime: this.source[i].exittime,
-                                });
-                            }
-                        }
-                        if (this.$route.params._id) {
-                            this.baseInfo.companyprojects.companyprojects_id = this.$route.params._id;
-                            this.$store
-                                .dispatch("PFANS5001Store/update", this.baseInfo)
-                                .then(response => {
-                                    this.data = response;
-                                    this.loading = false;
-                                    if (val !== "update") {
-                                        Message({
-                                            message: this.$t("normal.success_02"),
-                                            type: "success",
-                                            duration: 5 * 1000
-                                        });
-                                        if (this.$store.getters.historyUrl) {
-                                            this.$router.push(this.$store.getters.historyUrl);
-                                        }
-                                    }
-                                })
-                                .catch(error => {
-                                    Message({
-                                        message: error,
-                                        type: "error",
-                                        duration: 5 * 1000
-                                    });
-                                    this.loading = false;
-                                });
-                        }
-                    }
+                  });
+                  this.loading = false;
                 });
             }
-        }
-    };
+          }
+        });
+      }
+    }
+  };
 </script>
 <style rel="stylesheet/scss" lang="scss">
   .el-table {

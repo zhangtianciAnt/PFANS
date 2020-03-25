@@ -184,9 +184,8 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.budgetunit')" >
-                <el-input :disabled="true"  style="width:20vw"
-                          v-model="form.budgetunit"></el-input>
+              <el-form-item :label="$t('label.budgetunit')" prop="budgetunit">
+                <el-input :disabled="true" style="width:20vw" v-model="form.budgetunit" maxlength='50'></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -217,7 +216,7 @@
   import dicselect from '../../../components/dicselect.vue';
   import {Message} from 'element-ui';
   import user from '../../../components/user.vue';
-  import {getOrgInfoByUserId,getOrgInfo} from '@/utils/customize';
+  import {getOrgInfoByUserId} from '@/utils/customize';
   import moment from 'moment';
 
   export default {
@@ -269,7 +268,7 @@
           company: '',
           moneys: '',
           percapita: '',
-          budgetunit: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
+          budgetunit: '',
           objective: '',
           place: '',
           nodeList: [],
@@ -374,6 +373,10 @@
           this.form.center_id = lst.centerNmae;
           this.form.group_id = lst.groupNmae;
           this.form.team_id = lst.teamNmae;
+          if(this.$store.getters.orgGroupList.length > 0){
+            let group = this.$store.getters.orgGroupList.filter( val => val.groupid === lst.groupId)
+            this.form.budgetunit = group[0].encoding;
+          }
         }
       }
     },
@@ -424,6 +427,9 @@
         } else {
           this.error = '';
         }
+      },
+      getbudgetunit(val) {
+        this.form.budgetunit = val;
       },
       workflowState(val) {
         if (val.state === '1') {
