@@ -2633,7 +2633,7 @@
               }
               if(this.baseInfo.trafficdetails.length === 0 && this.baseInfo.accommodationdetails.length === 0 && this.baseInfo.otherdetails.length === 0){
                 Message({
-                  message: this.$t('您未填写明细信息，请填写完再进行提交'),
+                  message: this.$t('label.PFANS1013FORMVIEW_ERRORINFO'),
                   type: 'error',
                   duration: 5 * 1000,
                 });
@@ -2642,7 +2642,7 @@
               } else {
                 if(errorInfoFLG === 0 && this.baseInfo.trafficdetails.length !== 0){
                   Message({
-                    message: this.$t('交通费用明细信息不完整，请填写完再进行提交'),
+                    message: this.$t('label.PFANS1013FORMVIEW_ERRORINFOT'),
                     type: 'error',
                     duration: 5 * 1000,
                   });
@@ -2650,7 +2650,7 @@
                 }
                 if(errorInfoFLG2 === 0 && this.baseInfo.accommodationdetails.length !== 0){
                   Message({
-                    message: this.$t('住宿费明细信息不完整，请填写完再进行提交'),
+                    message: this.$t('label.PFANS1013FORMVIEW_ERRORINFOA'),
                     type: 'error',
                     duration: 5 * 1000,
                   });
@@ -2658,7 +2658,7 @@
                 }
                 if(errorInfoFLG3 === 0 && this.baseInfo.otherdetails.length !== 0){
                   Message({
-                    message: this.$t('其他费用明细信息不完整，请填写完再进行提交'),
+                    message: this.$t('label.PFANS1013FORMVIEW_ERRORINFOR'),
                     type: 'error',
                     duration: 5 * 1000,
                   });
