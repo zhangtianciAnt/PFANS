@@ -2969,13 +2969,11 @@
                                     this.taxrateValue = '0.13'
                                 }
                                 taxratevalue = 1 + Number(this.taxrateValue);
-                                newValue.taxes = (newValue.rmb / (taxratevalue) * this.taxrateValue)
+                                newValue.taxes = parseFloat((newValue.rmb / (taxratevalue) * this.taxrateValue)).toFixed(2)
                             }
                         }
                     }
                 }
-
-
                 if (newValue.rmb > 0) {
                     newValue.foreigncurrency = '';
                     newValue.currencyrate = '';
