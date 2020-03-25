@@ -8,7 +8,7 @@
     import EasyNormalTable from "@/components/EasyNormalTable";
     import {Message} from 'element-ui';
     import moment from "moment";
-    import {getDictionaryInfo, getStatus, getUserInfo} from '@/utils/customize';
+    import {getDictionaryInfo, getStatus, getUserInfo,getOrgInfoByUserId} from '@/utils/customize';
 
     export default {
         name: 'PFANS2016View',
@@ -112,17 +112,19 @@
                           response[j].lengthtime = parseFloat(response[j].lengthtime/8).toFixed(1) + this.$t('label.PFANS2016FORMVIEW_DAYS');
                         }
                       }else{
-                        response[j].lengthtime = response[j].lengthtime ==='0'?'全天':(response[j].lengthtime ==='1'?"上午":"下午");
+                        response[j].lengthtime = response[j].lengthtime ==='8'?this.$t('label.PFANS2016FORMVIEW_QUANTIAN'):(response[j].lengthtime ==='4'?this.$t('label.PFANS2016FORMVIEW_SHANGWU'):this.$t('label.PFANS2016FORMVIEW_XIAWU'));
                       }
 
                         let user = getUserInfo(response[j].user_id);
+                        let nameflg = getOrgInfoByUserId(response[j].user_id);
+                        if (nameflg) {
+                            response[j].centername = nameflg.centerNmae;
+                            response[j].groupname = nameflg.groupNmae;
+                            response[j].teamname = nameflg.teamNmae;
+                        }
                         if (user) {
                             response[j].username = user.userinfo.customername;
                         }
-                        response[j].centername = response[j].centerid;
-                        response[j].groupname = response[j].groupid;
-                        response[j].teamname = response[j].teamid;
-
                         if (response[j].status !== null && response[j].status !== "") {
                             response[j].status = getStatus(response[j].status);
                         }

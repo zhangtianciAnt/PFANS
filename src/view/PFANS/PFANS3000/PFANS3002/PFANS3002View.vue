@@ -17,7 +17,7 @@
 <script>
     import EasyNormalTable from "@/components/EasyNormalTable";
     import {Message} from 'element-ui'
-    import {getUserInfo} from "../../../../utils/customize";
+    import {getUserInfo,getOrgInfoByUserId} from "../../../../utils/customize";
     import moment from "moment";
 
     export default {
@@ -172,6 +172,12 @@
                             response[j].checkout = moment(response[j].checkout).format("YYYY-MM-DD");
                         }
                         let user = getUserInfo(response[j].userid)
+                        let nameflg = getOrgInfoByUserId(response[j].userid);
+                        if (nameflg) {
+                            response[j].center_name = nameflg.centerNmae;
+                            response[j].group_name = nameflg.groupNmae;
+                            response[j].team_name = nameflg.teamNmae;
+                        }
                         if (user) {
                             response[j].applicant = user.userinfo.customername;
                         }

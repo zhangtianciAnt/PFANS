@@ -6,21 +6,24 @@
                          :workflowCode="workflowCode">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="ruleForm"
-                 style="padding: 2vw">
+                 style="padding: 3vw">
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.center')" prop="centerid">
-                <el-input :disabled="true" style="width:20vw" v-model="form.centerid"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="centerid"></el-input>
+                <el-input v-show='false' :disabled="false" style="width:20vw" v-model="form.centerid"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.group')" prop="groupid">
-                <el-input :disabled="true" style="width:20vw" v-model="form.groupid"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="groupid"></el-input>
+                <el-input v-show='false' :disabled="false" style="width:20vw" v-model="form.groupid"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.team')" prop="teamid">
-                <el-input :disabled="true" style="width:20vw" v-model="form.teamid"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="teamid"></el-input>
+                <el-input v-show='false' :disabled="false" style="width:20vw" v-model="form.teamid"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -93,7 +96,6 @@
                 <el-select v-model="form.vacationtype" style="width: 20vw"
                            :disabled="!disable" @change="handleClick">
                   <el-option
-
                     :key="item.value"
                     :label="item.label"
                     :value="item.value"
@@ -127,18 +129,18 @@
                                 style="width:20vw" type="date" v-model="form.occurrencedate"></el-date-picker>
               </el-form-item>
             </el-col>
-<!--            <el-col :span="8"-->
-<!--                    v-if="form.errortype != 'PR013001'&&form.errortype != 'PR013005'&&form.errortype != 'PR013006'&&form.errortype != 'PR013007'">-->
-<!--              <el-form-item :error="errorstarttime" :label="$t('label.start')" prop="periodstart">-->
-<!--                <el-time-picker-->
-<!--                  :disabled="!disable"-->
-<!--                  @change="change"-->
-<!--                  format='HH:mm'-->
-<!--                  style="width:20vw"-->
-<!--                  v-model="form.periodstart">-->
-<!--                </el-time-picker>-->
-<!--              </el-form-item>-->
-<!--            </el-col>-->
+            <!--            <el-col :span="8"-->
+            <!--                    v-if="form.errortype != 'PR013001'&&form.errortype != 'PR013005'&&form.errortype != 'PR013006'&&form.errortype != 'PR013007'">-->
+            <!--              <el-form-item :error="errorstarttime" :label="$t('label.start')" prop="periodstart">-->
+            <!--                <el-time-picker-->
+            <!--                  :disabled="!disable"-->
+            <!--                  @change="change"-->
+            <!--                  format='HH:mm'-->
+            <!--                  style="width:20vw"-->
+            <!--                  v-model="form.periodstart">-->
+            <!--                </el-time-picker>-->
+            <!--              </el-form-item>-->
+            <!--            </el-col>-->
             <el-col :span="8" v-show="showWeekend">
               <el-form-item :label="$t('label.PFANS2016FORMVIEW_RELATION')" prop="relation">
                 <el-select
@@ -166,17 +168,17 @@
               </el-form-item>
             </el-col>
 
-<!--            <el-col :span="8"-->
-<!--                    v-if="form.errortype != 'PR013001'&&form.errortype != 'PR013005'&&form.errortype != 'PR013006'&&form.errortype != 'PR013007'">-->
-<!--              <el-form-item :error="errorendtime" :label="$t('label.end')" prop="periodend">-->
-<!--                <el-time-picker-->
-<!--                  :disabled="!disable"-->
-<!--                  @change="change"-->
-<!--                  format='HH:mm'-->
-<!--                  style="width:20vw" v-model="form.periodend">-->
-<!--                </el-time-picker>-->
-<!--              </el-form-item>-->
-<!--            </el-col>-->
+            <!--            <el-col :span="8"-->
+            <!--                    v-if="form.errortype != 'PR013001'&&form.errortype != 'PR013005'&&form.errortype != 'PR013006'&&form.errortype != 'PR013007'">-->
+            <!--              <el-form-item :error="errorendtime" :label="$t('label.end')" prop="periodend">-->
+            <!--                <el-time-picker-->
+            <!--                  :disabled="!disable"-->
+            <!--                  @change="change"-->
+            <!--                  format='HH:mm'-->
+            <!--                  style="width:20vw" v-model="form.periodend">-->
+            <!--                </el-time-picker>-->
+            <!--              </el-form-item>-->
+            <!--            </el-col>-->
           </el-row>
           <el-row
             v-if="form.status === '4' || form.status === '5' || form.status === '6' || form.status === '7' ">
@@ -186,18 +188,18 @@
                                 style="width:20vw" type="date" v-model="form.reoccurrencedate"></el-date-picker>
               </el-form-item>
             </el-col>
-<!--            <el-col :span="8"-->
-<!--                    v-if="form.errortype != 'PR013001'&&form.errortype != 'PR013005'&&form.errortype != 'PR013006'&&form.errortype != 'PR013007'">-->
-<!--              <el-form-item :error="reerrorstarttime" :label="$t('label.restart')" prop="reperiodstart">-->
-<!--                <el-time-picker-->
-<!--                  :disabled="form.status === '5' || form.status === '7'"-->
-<!--                  @change="rechange"-->
-<!--                  format='HH:mm'-->
-<!--                  style="width:20vw"-->
-<!--                  v-model="form.reperiodstart">-->
-<!--                </el-time-picker>-->
-<!--              </el-form-item>-->
-<!--            </el-col>-->
+            <!--            <el-col :span="8"-->
+            <!--                    v-if="form.errortype != 'PR013001'&&form.errortype != 'PR013005'&&form.errortype != 'PR013006'&&form.errortype != 'PR013007'">-->
+            <!--              <el-form-item :error="reerrorstarttime" :label="$t('label.restart')" prop="reperiodstart">-->
+            <!--                <el-time-picker-->
+            <!--                  :disabled="form.status === '5' || form.status === '7'"-->
+            <!--                  @change="rechange"-->
+            <!--                  format='HH:mm'-->
+            <!--                  style="width:20vw"-->
+            <!--                  v-model="form.reperiodstart">-->
+            <!--                </el-time-picker>-->
+            <!--              </el-form-item>-->
+            <!--            </el-col>-->
             <el-col :span="8" v-show="showWeekend">
               <el-form-item :label="$t('label.PFANS2016FORMVIEW_RELATION')" prop="relation">
                 <el-select
@@ -224,17 +226,17 @@
                                 style="width:20vw" type="date" v-model="form.refinisheddate"></el-date-picker>
               </el-form-item>
             </el-col>
-<!--            <el-col :span="8"-->
-<!--                    v-if="form.errortype != 'PR013001'&&form.errortype != 'PR013005'&&form.errortype != 'PR013006'&&form.errortype != 'PR013007'">-->
-<!--              <el-form-item :error="reerrorendtime" :label="$t('label.reend')" prop="reperiodend">-->
-<!--                <el-time-picker-->
-<!--                  :disabled="form.status === '5' || form.status === '7'"-->
-<!--                  @change="rechange"-->
-<!--                  format='HH:mm'-->
-<!--                  style="width:20vw" v-model="form.reperiodend">-->
-<!--                </el-time-picker>-->
-<!--              </el-form-item>-->
-<!--            </el-col>-->
+            <!--            <el-col :span="8"-->
+            <!--                    v-if="form.errortype != 'PR013001'&&form.errortype != 'PR013005'&&form.errortype != 'PR013006'&&form.errortype != 'PR013007'">-->
+            <!--              <el-form-item :error="reerrorendtime" :label="$t('label.reend')" prop="reperiodend">-->
+            <!--                <el-time-picker-->
+            <!--                  :disabled="form.status === '5' || form.status === '7'"-->
+            <!--                  @change="rechange"-->
+            <!--                  format='HH:mm'-->
+            <!--                  style="width:20vw" v-model="form.reperiodend">-->
+            <!--                </el-time-picker>-->
+            <!--              </el-form-item>-->
+            <!--            </el-col>-->
           </el-row>
           <el-row v-show="showFemale">
             <el-col :span="8">
@@ -533,6 +535,9 @@
                 }
             };
             return {
+                centerid: '',
+                groupid: '',
+                teamid: '',
                 checkBox: '',
                 checkfinisheddate: true,
                 relistTwo: '',
@@ -693,6 +698,12 @@
                     .dispatch('PFANS2016Store/getPfans2016One', {'abnormalid': this.$route.params._id})
                     .then(response => {
                         this.form = response;
+                        let rst = getOrgInfoByUserId(response.user_id);
+                        if (rst) {
+                            this.centerid = rst.centerNmae;
+                            this.groupid = rst.groupNmae;
+                            this.teamid = rst.teamNmae;
+                        }
                         this.userlist = this.form.user_id;
                         this.relation = this.form.relation;
                         if (this.form.status != '4' || this.form.status != '5' || this.form.status != '6' || this.form.status != '7') {
@@ -739,10 +750,15 @@
             } else {
                 this.userlist = this.$store.getters.userinfo.userid;
                 if (this.userlist !== null && this.userlist !== '') {
-                    let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-                    this.form.centerid = lst.centerNmae;
-                    this.form.groupid = lst.groupNmae;
-                    this.form.teamid = lst.teamNmae;
+                    let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+                    if (rst) {
+                        this.centerid = rst.centerNmae;
+                        this.groupid = rst.groupNmae;
+                        this.teamid = rst.teamNmae;
+                        this.form.centerid = rst.centerId;
+                        this.form.groupid = rst.groupId;
+                        this.form.teamid = rst.teamId;
+                    }
                     this.form.user_id = this.$store.getters.userinfo.userid;
                 }
                 this.getOvertimelist();
@@ -763,24 +779,24 @@
         },
         methods: {
             handleClick(val) {
-                this.form.vacationtype =val
+                this.form.vacationtype = val
                 this.typecheck = val;
                 if (val == '1' || val == '2') {
                     this.checkfinisheddate = false;
                     this.checkTimelenght = 4;
-                }else if (val == '0') {
+                } else if (val == '0') {
                     this.checkfinisheddate = true;
                 }
                 this.form.occurrencedate = moment(new Date()).format('YYYY-MM-DD');
                 this.form.finisheddate = moment(new Date()).format('YYYY-MM-DD');
             },
             handleclick(val) {
-                this.form.revacationtype =val
+                this.form.revacationtype = val
                 this.typecheck = val;
                 if (val == '1' || val == '2') {
                     this.checkfinisheddate = false;
                     this.checkTimeLenght = 8;
-                }else if (val == '0') {
+                } else if (val == '0') {
                     this.checkfinisheddate = true;
                 }
                 this.form.reoccurrencedate = moment(new Date()).format('YYYY-MM-DD');
@@ -836,12 +852,24 @@
                     for (let i = 0; i < this.relist.length; i++) {
                         sum = sum + 1;
                     }
-                    if (sum * 8 < val) {
-                        Message({
-                            message: this.$t("label.PFANS2016FORMVIEW_WCCHECKTYPE"),
-                            type: 'error',
-                            duration: 5 * 1000,
-                        });
+                    if (this.form.errortype == 'PR013001') {
+                        if (moment(this.form.occurrencedate).format('YYYY-MM-DD') === moment(this.form.finisheddate).format('YYYY-MM-DD')) {
+                            if (8 < val) {
+                                Message({
+                                    message: this.$t("label.PFANS2016FORMVIEW_WCCHECKTYPE"),
+                                    type: 'error',
+                                    duration: 5 * 1000,
+                                });
+                            }
+                        } else {
+                            if (sum * 8 < val) {
+                                Message({
+                                    message: this.$t("label.PFANS2016FORMVIEW_WCCHECKTYPE"),
+                                    type: 'error',
+                                    duration: 5 * 1000,
+                                });
+                            }
+                        }
                     }
                 } else if (this.form.errortype === 'PR013009' || this.form.errortype === 'PR013010' || this.form.errortype === 'PR013011'
                     || this.form.errortype === 'PR013012' || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015'
@@ -1382,10 +1410,22 @@
                     return
                 }
                 this.form.user_id = val;
-                let lst = getOrgInfoByUserId(val);
-                this.form.centerid = lst.centerNmae;
-                this.form.groupid = lst.groupNmae;
-                this.form.teamid = lst.teamNmae;
+                let rst = getOrgInfoByUserId(val);
+                if (rst) {
+                    this.centerid = rst.centerNmae;
+                    this.groupid = rst.groupNmae;
+                    this.teamid = rst.teamNmae;
+                    this.form.centerid = rst.centerId;
+                    this.form.groupid = rst.groupId;
+                    this.form.teamid = rst.teamId;
+                } else {
+                    this.centerid = '';
+                    this.groupid = '';
+                    this.teamid = '';
+                    this.form.centerid = '';
+                    this.form.teamid = '';
+                    this.form.groupid = '';
+                }
                 if (!this.form.user_id || this.form.user_id === '' || val === "undefined") {
                     this.error = this.$t('normal.error_08') + this.$t('label.applicant');
                 } else {

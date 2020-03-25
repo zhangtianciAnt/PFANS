@@ -107,10 +107,13 @@
     },
     watch: {
       activeIndex(val){
-        this.$nextTick(function () {
-          this.Index = val;
-          this.$router.push(val);
-        });
+        debugger
+        this.Index = val;
+        this.$router.push(val);
+        // this.$nextTick(function () {
+        //   this.Index = val;
+        //   this.$router.push(val);
+        // });
       }
     }
   };
@@ -127,9 +130,9 @@
     margin: 0 auto;
     text-align: center;
   }
-  .el-menu-item{
-    height: 38px;
-    line-height: 38px;
+  /deep/ .el-menu-item{
+    height: 38px !important;
+    line-height: 38px !important;
     min-width: 120px;
     max-width: 200px;
     overflow-x: hidden;

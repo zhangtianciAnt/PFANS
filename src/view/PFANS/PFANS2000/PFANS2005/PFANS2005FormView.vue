@@ -898,7 +898,14 @@
                     >
                       <template slot-scope="scope">
                         <div v-if="scope.row.type === '0'">{{scope.row.moneys}}</div>
-                        <el-input v-if="scope.row.type === '1'" v-model="scope.row.moneys"></el-input>
+                        <el-input-number
+                          v-if="scope.row.type === '1'"
+                          v-model="scope.row.moneys"
+                          controls-position="right"
+                          :min="0"
+                          size="mini"
+                          style="width:7rem"
+                        ></el-input-number>
                       </template>
                     </el-table-column>
                     <el-table-column
@@ -1548,11 +1555,14 @@
                     width="150%"
                   >
                     <template slot-scope="scope">
-                      <el-input
-                        onkeyup="value=value.replace(/[^\d.]/g,'')"
+                      <el-input-number
                         v-model="scope.row.thisdiligencetry"
+                        controls-position="right"
                         @change="thisMonthLacktimeChange(scope.row)"
-                      ></el-input>
+                        :min="0"
+                        size="mini"
+                        style="width:7rem"
+                      ></el-input-number>
                     </template>
                   </el-table-column>
                   <!--                  endregion-->
@@ -1564,11 +1574,14 @@
                     width="150%"
                   >
                     <template slot-scope="scope">
-                      <el-input
-                        onkeyup="value=value.replace(/[^\d.]/g,'')"
+                      <el-input-number
                         v-model="scope.row.thisshortdeficiencytry"
+                        controls-position="right"
                         @change="thisMonthLacktimeChange(scope.row)"
-                      ></el-input>
+                        :min="0"
+                        size="mini"
+                        style="width:7rem"
+                      ></el-input-number>
                     </template>
                   </el-table-column>
                   <!--                  endregion-->
@@ -1580,11 +1593,14 @@
                     width="150%"
                   >
                     <template slot-scope="scope">
-                      <el-input
-                        onkeyup="value=value.replace(/[^\d.]/g,'')"
+                      <el-input-number
                         v-model="scope.row.thischronicdeficiencytry"
+                        controls-position="right"
                         @change="thisMonthLacktimeChange(scope.row)"
-                      ></el-input>
+                        :min="0"
+                        size="mini"
+                        style="width:7rem"
+                      ></el-input-number>
                     </template>
                   </el-table-column>
                   <!--                  endregion-->
@@ -1596,11 +1612,14 @@
                     width="150%"
                   >
                     <template slot-scope="scope">
-                      <el-input
-                        onkeyup="value=value.replace(/[^\d.]/g,'')"
+                      <el-input-number
                         v-model="scope.row.thisdiligenceformal"
+                        controls-position="right"
                         @change="thisMonthLacktimeChange(scope.row)"
-                      ></el-input>
+                        :min="0"
+                        size="mini"
+                        style="width:7rem"
+                      ></el-input-number>
                     </template>
                   </el-table-column>
                   <!--                  endregion-->
@@ -1612,11 +1631,14 @@
                     width="150%"
                   >
                     <template slot-scope="scope">
-                      <el-input
-                        onkeyup="value=value.replace(/[^\d.]/g,'')"
+                      <el-input-number
                         v-model="scope.row.thisshortdeficiencyformal"
+                        controls-position="right"
                         @change="thisMonthLacktimeChange(scope.row)"
-                      ></el-input>
+                        :min="0"
+                        size="mini"
+                        style="width:7rem"
+                      ></el-input-number>
                     </template>
                   </el-table-column>
                   <!--                  endregion-->
@@ -1628,11 +1650,14 @@
                     width="150%"
                   >
                     <template slot-scope="scope">
-                      <el-input
-                        onkeyup="value=value.replace(/[^\d.]/g,'')"
+                      <el-input-number
                         v-model="scope.row.thischronicdeficiencyformal"
+                        controls-position="right"
                         @change="thisMonthLacktimeChange(scope.row)"
-                      ></el-input>
+                        :min="0"
+                        size="mini"
+                        style="width:7rem"
+                      ></el-input-number>
                     </template>
                   </el-table-column>
                   <!--                  endregion-->
@@ -1643,7 +1668,6 @@
                     prop="thisdiligence"
                     width="150%"
                   >
-                    <!--                    // Todo By Skaixx At 2020/3/23 :  -->
                   </el-table-column>
                   <!--                  endregion-->
                   <!--                  region 短病欠（H）-->
@@ -1653,7 +1677,6 @@
                     prop="thisshortdeficiency"
                     width="150%"
                   >
-                    <!--                    // Todo By Skaixx At 2020/3/23 :  -->
                     <template
                       slot-scope="scope"
                     >{{setScale2(parseFloat(scope.row.thisshortdeficiencytry) +
@@ -1668,7 +1691,6 @@
                     prop="thischronicdeficiency"
                     width="150%"
                   >
-                    <!--                    // Todo By Skaixx At 2020/3/23 :  -->
                     <template slot-scope="scope">
                       {{setScale2(parseFloat(scope.row.thischronicdeficiencytry) +
                       parseFloat(scope.row.thischronicdeficiencyformal))}}
@@ -1694,9 +1716,10 @@
                 <el-table-column
                   :label="$t('label.PFANS2005FORMVIEW_KCJL')"
                   align="center"
-                  prop="kcjl"
+                  prop="give"
                   width="120%"
-                ></el-table-column>
+                >
+                </el-table-column>
               </el-table>
               <div class="pagination-container" style="padding-top: 2rem">
                 <el-pagination
@@ -1788,11 +1811,14 @@
                     width="150%"
                   >
                     <template slot-scope="scope">
-                      <el-input
-                        onkeyup="value=value.replace(/[^\d.]/g,'')"
+                      <el-input-number
                         v-model="scope.row.thisweekdays"
+                        controls-position="right"
                         @change="thisMonthOvertimeChange(scope.row)"
-                      ></el-input>
+                        :min="0"
+                        size="mini"
+                        style="width:7rem"
+                      ></el-input-number>
                     </template>
                   </el-table-column>
                   <el-table-column
@@ -1802,11 +1828,14 @@
                     width="150%"
                   >
                     <template slot-scope="scope">
-                      <el-input
-                        onkeyup="value=value.replace(/[^\d.]/g,'')"
+                      <el-input-number
                         v-model="scope.row.thisrestDay"
+                        controls-position="right"
                         @change="thisMonthOvertimeChange(scope.row)"
-                      ></el-input>
+                        :min="0"
+                        size="mini"
+                        style="width:7rem"
+                      ></el-input-number>
                     </template>
                   </el-table-column>
                   <el-table-column
@@ -1816,11 +1845,14 @@
                     width="150%"
                   >
                     <template slot-scope="scope">
-                      <el-input
-                        onkeyup="value=value.replace(/[^\d.]/g,'')"
+                      <el-input-number
                         v-model="scope.row.thislegal"
+                        controls-position="right"
                         @change="thisMonthOvertimeChange(scope.row)"
-                      ></el-input>
+                        :min="0"
+                        size="mini"
+                        style="width:7rem"
+                      ></el-input-number>
                     </template>
                   </el-table-column>
                   <el-table-column
@@ -1830,11 +1862,14 @@
                     width="150%"
                   >
                     <template slot-scope="scope">
-                      <el-input
-                        onkeyup="value=value.replace(/[^\d.]/g,'')"
+                      <el-input-number
                         v-model="scope.row.thisreplace"
+                        controls-position="right"
                         @change="thisMonthOvertimeChange(scope.row)"
-                      ></el-input>
+                        :min="0"
+                        size="mini"
+                        style="width:7rem"
+                      ></el-input-number>
                     </template>
                   </el-table-column>
                   <el-table-column
@@ -1844,11 +1879,14 @@
                     width="150%"
                   >
                     <template slot-scope="scope">
-                      <el-input
-                        onkeyup="value=value.replace(/[^\d.]/g,'')"
+                      <el-input-number
                         v-model="scope.row.thisreplace3"
+                        controls-position="right"
                         @change="thisMonthOvertimeChange(scope.row)"
-                      ></el-input>
+                        :min="0"
+                        size="mini"
+                        style="width:7rem"
+                      ></el-input-number>
                     </template>
                   </el-table-column>
                   <el-table-column
@@ -1857,7 +1895,6 @@
                     prop="thistotalh"
                     width="110%"
                   >
-                    <!--                    // Todo By Skaixx At 2020/3/23 :  -->
                     <template slot-scope="scope">
                       {{setScale2(parseFloat(scope.row.thisweekdays) + parseFloat(scope.row.thisrestDay) +
                       parseFloat(scope.row.thislegal) + parseFloat(scope.row.thisreplace) +
@@ -3271,7 +3308,7 @@
             let datalistms = [];
             let datalistzhsr = [];
 
-            this.tableData=response.wagesList;
+            this.tableData = response.wagesList;
 
 
             // region 欠勤 By SKAIXX
@@ -3314,9 +3351,6 @@
                 obj.thistotal = this.setScale2(response.lackattendance[j].thistotal);
                 obj.remarks = response.lackattendance[j].remarks;
                 obj.give = response.lackattendance[j].give;
-                obj.kcjl =
-                  +response.lackattendance[j].lasttotal +
-                  +response.lackattendance[j].thistotal;
                 obj.rowindex = j + 1;
                 obj.lackattendance_id = response.lackattendance[j].lackattendance_id;
                 datalistqq[j] = obj;
@@ -3977,9 +4011,9 @@
                 this.getList();
               }
             }
+            this.loading = false;
             //endregion
           });
-        this.loading = false;
       },
       UploadUrlfjkc: function () {
         return (
@@ -4354,7 +4388,57 @@
         }
         this.loading = false;
       },
+      tabInfoSave() {
+        this.baseInfo = {};
+        this.baseInfo.strFlg = this.tab;
+        this.baseInfo.otherOne = [];
+        this.baseInfo.contrast = [];
+        this.baseInfo.otherTwo = [];
+        if (this.tab === "2") {
+          //其他1去掉基数对象 不需要保存-lxx
+          // for (let i = 0; i < this.tableQT1Woman.length; i++) {
+          //   this.baseInfo.otherOne.push({
+          //     otherone_id: this.tableQT1Woman[i].otherone_id,
+          //     basedata: this.tableQT1Woman[i].basedata
+          //   });
+          // }
+          //其他1去掉基数对象 不需要保存-lxx
+        } else if (this.tab === "3") {
+          this.baseInfo.otherTwo = this.totaldataQT2
+        } else if (this.tab === "16") {
+          this.baseInfo.contrast = this.totaldataContrast
+        } else if (this.tab === "8") {
+          this.baseInfo.lackattendance = this.totaldataQQ;
+        } else if (this.tab === "9") {
+          this.baseInfo.residual = this.totaldataCY;
+        } else if (this.tab === "6") {
+          this.baseInfo.entryVo = this.totaldataRZ;
+        } else if (this.tab === "7") {
+          this.baseInfo.retireVo = this.totaldataTZ;
+        }
+        if (this.tab === "3" || this.tab === "16" || this.tab === "8" || this.tab === "9" || this.tab === "6" || this.tab === "7") {
+          console.log("this.totaldataQQ", this.totaldataQQ);
+          this.loading = true;
+          this.$store
+            .dispatch("PFANS2005Store/save", this.baseInfo)
+            .then(response => {
+              this.data = response;
+              this.loading = false;
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: "error",
+                duration: 5 * 1000
+              });
+              this.loading = false;
+            });
+        }
+      },
       handleClick(tab, event) {
+        //调用保存-lxx
+        this.tabInfoSave();
+        //调用保存-lxx
         this.tab = tab.index;
         if (
           tab.index === "3" ||
@@ -4380,7 +4464,7 @@
         ) {
           this.buttonList[1].disabled = true;
         }
-        if (tab.index === "16" || tab.index === "2" || tab.index === "3"|| tab.index === "8"|| tab.index === "9") {
+        if (tab.index === "16" || tab.index === "2" || tab.index === "3" || tab.index === "8" || tab.index === "9") {
           this.buttonList[0].disabled = false;
         } else if (
           tab.index === "0" ||
@@ -4769,52 +4853,6 @@
               });
           }
         } else if (val === "save") {
-          this.loading = true;
-          this.baseInfo = {};
-          this.baseInfo.strFlg = this.tab;
-          this.baseInfo.otherOne = [];
-          this.baseInfo.contrast = [];
-          this.baseInfo.otherTwo = [];
-          if (this.tab === "2") {
-            //其他1去掉基数对象 不需要保存-lxx
-            // for (let i = 0; i < this.tableQT1Woman.length; i++) {
-            //   this.baseInfo.otherOne.push({
-            //     otherone_id: this.tableQT1Woman[i].otherone_id,
-            //     basedata: this.tableQT1Woman[i].basedata
-            //   });
-            // }
-            //其他1去掉基数对象 不需要保存-lxx
-          } else if (this.tab === "3") {
-            this.baseInfo.otherTwo = this.totaldataQT2
-          } else if (this.tab === "16") {
-            this.baseInfo.contrast = this.totaldataContrast
-          } else if (this.tab === "8") {
-            this.baseInfo.lackattendance = this.totaldataQQ;
-          } else if (this.tab === "9") {
-            this.baseInfo.residual = this.totaldataCY;
-          }
-          this.$store
-            .dispatch("PFANS2005Store/save", this.baseInfo)
-            .then(response => {
-              this.data = response;
-              this.loading = false;
-              Message({
-                message: this.$t("normal.success_02"),
-                type: "success",
-                duration: 5 * 1000
-              });
-              if (this.$store.getters.historyUrl) {
-                this.$router.push(this.$store.getters.historyUrl);
-              }
-            })
-            .catch(error => {
-              Message({
-                message: error,
-                type: "error",
-                duration: 5 * 1000
-              });
-              this.loading = false;
-            });
         }
       },
       //本月加班数据变更时，重新计算加班费合计
@@ -4835,6 +4873,7 @@
           .then(response => {
             if (this.tableCY.find(item => item.rowindex === val.rowindex)) {
               this.tableCY.find(item => item.rowindex === val.rowindex).thistotaly = this.setScale2(response.thistotaly);
+              this.tableCY.find(item => item.rowindex === val.rowindex).subsidy = this.setScale2(response.subsidy);
             }
             this.loading = false;
           })
@@ -4864,6 +4903,7 @@
           .then(response => {
             if (this.tableQQ.find(item => item.rowindex === val.rowindex)) {
               this.tableQQ.find(item => item.rowindex === val.rowindex).thistotal = this.setScale2(response.thistotal);
+              this.tableQQ.find(item => item.rowindex === val.rowindex).give = this.setScale2(response.give);
             }
             this.loading = false;
           })

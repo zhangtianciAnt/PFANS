@@ -8,7 +8,7 @@
   import EasyNormalTable from '@/components/EasyNormalTable'
   import {Message} from 'element-ui'
   import moment from 'moment'
-  import {getStatus, getUserInfo,getDictionaryInfo} from '@/utils/customize'
+  import {getStatus, getUserInfo,getDictionaryInfo,getOrgInfoByUserId} from '@/utils/customize'
 
   export default {
     name: "PFANS2026View",
@@ -109,15 +109,15 @@
           for (let j = 0; j < response.length; j++) {
             if (response[j].user_id !== null && response[j].user_id !== "") {
               let rst = getUserInfo(response[j].user_id);
+                let nameflg = getOrgInfoByUserId(response[j].user_id);
+                if (nameflg) {
+                    response[j].center_name = nameflg.centerNmae;
+                    response[j].group_name = nameflg.groupNmae;
+                    response[j].team_name = nameflg.teamNmae;
+                }
               if (rst) {
                 response[j].user_id = getUserInfo(response[j].user_id).userinfo.customername;
               }
-             response[j].center_name = response[j].center_id;
-              response[j].group_name = response[j].group_id;
-              response[j].team_name = response[j].team_id;
-
-
-
               if (response[j].status !== null && response[j].status !== "") {
                 response[j].status = getStatus(response[j].status);
               }

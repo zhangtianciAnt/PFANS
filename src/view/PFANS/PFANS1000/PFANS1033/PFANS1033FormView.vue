@@ -17,7 +17,7 @@
                 style="width: 20vw">
               </dicselect>
             </el-form-item>
-            <el-form-item :label="$t('label.PFANS1024VIEW_ORIGINALCONTRACT')" :label-width="formLabelWidth">
+            <el-form-item :label="$t('label.PFANS1024VIEW_ORIGINALCONTRACT')" :label-width="formLabelWidth" v-show="show3">
               <el-input v-model="form1.contractnumber" style="width: 20vw" :disabled="!disabled1"></el-input>
               <el-checkbox
                 v-if="checkeddisplay"
@@ -258,7 +258,7 @@
                 <!-- 111111!-->
                 <el-table-column :label="$t('label.PFANS1024VIEW_CURRENCYPOSITION')" align="center" prop="currencyposition"  width="200">
                   <template slot-scope="scope">
-                    <dicselect
+                    <!--<dicselect
                       :code="code9"
                       :data="scope.row.currencyposition"
                       :no="scope.row"
@@ -266,7 +266,12 @@
                       @change="getCurrencyposition"
                       style="width: 11rem"
                       :disabled="!disabled">
-                    </dicselect>
+                    </dicselect>-->
+                    <el-select :no="scope.row" v-model="scope.row.currencyposition" @change="(val)=>{getCurrencyposition(val,scope.row)}" style="width: 11rem" :disabled="!disabled">
+                      <el-option v-for="(item,index) in options" :key="index" v-model="item.value">
+                        {{item.value}}
+                      </el-option>
+                    </el-select>
                   </template>
                 </el-table-column>
                 <!--<el-table-column :label="$t('label.PFANS1024VIEW_SUPPORTDATE')" align="center" prop="supportdate"  width="200">-->
@@ -565,6 +570,7 @@
           letcontracttype: '',
           dialogFormVisible: false,
           multiple: false,
+           show3: false,
           index: "",
           grouporglist: '',
           grouporglist1: '',
@@ -581,6 +587,7 @@
           dialogVisibleE: false,
           title: "title.PFANS1024VIEW",
           activeName: '',
+            options: [],
           disabled: true,
           disabled1: false,
           disabled2: true,
@@ -611,7 +618,7 @@
                     {
                         required: true,
                         validator: checkApplicationdate,
-                        trigger: 'change',
+                        trigger: 'submit',
                     },
                 ],
                 grouporglist: [
@@ -734,6 +741,16 @@
       },
       mounted(){
           this.contractnumbercount = this.$route.params.contractnumbercount;
+          let option1 = {};
+          option1.name = getDictionaryInfo('PG019001').value1;
+          option1.code = 'PG019003';
+          option1.value = getDictionaryInfo('PG019001').value4;
+          let option2 = {};
+          option2.name = getDictionaryInfo('PG019003').value1;
+          option2.code = 'PG019003';
+          option2.value = getDictionaryInfo('PG019003').value4;
+          this.options.push(option1);
+          this.options.push(option2);
           if (this.$route.params._id) {
               this.loading = true;
               this.$store
@@ -743,6 +760,12 @@
                     let contractnumbercount = response.contractnumbercount;
                     if (contractapplication.length > 0) {
                         for (let i = 0; i < contractapplication.length; i++) {
+                            this.show3 = true;
+                            this.form1.claimtype = contractapplication[i].claimtype;
+                            this.form1.contractnumber = contractapplication[i].contractnumber;
+                            this.form1.contracttype = contractapplication[i].contracttype;
+                            this.form1.applicationdate = contractapplication[i].careeryear;
+                            this.form1.custojapanese = contractapplication[i].custojapanese;
                               this.maketype = contractapplication[i].maketype;
                               //契約書番号
                               this.letcontractnumber = contractapplication[i].contractnumber;
@@ -1116,9 +1139,15 @@
           },
           getcareeryear1(val){
               this.form1.applicationdate = val;
+              if(this.form1.entrycondition){
+                  this.errorapplicationdate = '';
+              }
           },
           getcareeryear2(val){
               this.form1.entrycondition = val;
+              if(this.form1.applicationdate){
+                  this.errorapplicationdate = '';
+              }
           },
           getCurrencyposition(val, row){
               row.currencyposition = val;
@@ -1196,7 +1225,7 @@
                   contractnumber: this.letcontractnumber,
                   entrycondition: '',
                   entrypayment: '',
-                  claimtype: '',
+                  claimtype: this.form1.claimtype,
                   deliverydate: '',
                   completiondate: '',
                   claimdate: moment(new Date()).format("YYYY-MM-DD"),

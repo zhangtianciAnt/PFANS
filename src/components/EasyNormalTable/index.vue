@@ -1,5 +1,5 @@
 <template>
-  <div class="EasyNormalTable" element-loading-spinner="el-icon-loading" style="min-height: 100%">
+  <div class="EasyNormalTable" element-loading-spinner="el-icon-loading" style="height: calc(100vh - 60px - 2rem)">
     <el-card class="box-card">
       <div class="clearfix" slot="header" style="height: 20px" v-if="buttonShow">
         <easy-button-bar :data="buttonList" :systembutton="systembutton" @buttonClick="buttonClick"></easy-button-bar>
@@ -192,7 +192,7 @@
           Object.keys(this.filterlist).map(key => {
             if (this.filterlist[key].length > 0) {
               this.filterlist[key].map(filter => {
-                if (item[key] === filter || item[key].indexOf(filter) >= 0) {
+                if (item[key] === filter) {
                   has++
                 }
               })

@@ -331,6 +331,7 @@
             reasonsforquotation: '',
             equipment:'',
             uploadfile: '',
+            number: '',
         },
           code: 'PJ138',
           code1: 'PJ139',

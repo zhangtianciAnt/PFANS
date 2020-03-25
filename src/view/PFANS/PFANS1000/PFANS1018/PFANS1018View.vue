@@ -78,6 +78,12 @@
                         response[j].team_id = lst.teamNmae;
                         response[j].status = getStatus(response[j].status);
                         let user = getUserInfo(response[j].user_id);
+                        let nameflg = getOrgInfoByUserId(response[j].user_id);
+                        if (nameflg) {
+                            response[j].appcenter_id = nameflg.centerNmae;
+                            response[j].appgroup_id = nameflg.groupNmae;
+                            response[j].appteam_id = nameflg.teamNmae;
+                        }
                         if (user) {
                             response[j].user_id = getUserInfo(response[j].user_id).userinfo.customername;
                         }
