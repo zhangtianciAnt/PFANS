@@ -1074,7 +1074,6 @@
     mounted() {
       this.contractnumbercount = this.$route.params.contractnumbercount;
       let option1 = {};
-      debugger;
         option1.name = getDictionaryInfo('PG019001').value1;
         option1.code = 'PG019003';
         option1.value = getDictionaryInfo('PG019001').value4;

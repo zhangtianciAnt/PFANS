@@ -14,17 +14,20 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.center')">
-                    <el-input v-model="form.center_id" :disabled="true" style="width: 20vw" maxlength='36'></el-input>
+                    <el-input :disabled="true" style="width:20vw" v-model="centerid"></el-input>
+                    <el-input   v-show='false' v-model="form.center_id" :disabled="false" style="width: 20vw" maxlength='36'></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.group')">
-                    <el-input v-model="form.group_id" :disabled="true" style="width: 20vw" maxlength='36'></el-input>
+                    <el-input :disabled="true" style="width:20vw" v-model="groupid"></el-input>
+                    <el-input  v-show='false' v-model="form.group_id" :disabled="false" style="width: 20vw" maxlength='36'></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.team')">
-                    <el-input v-model="form.team_id" :disabled="true" style="width: 20vw" maxlength='36'></el-input>
+                    <el-input :disabled="true" style="width:20vw" v-model="teamid"></el-input>
+                    <el-input v-show='false'  v-model="form.team_id" :disabled="false" style="width: 20vw" maxlength='36'></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -215,6 +218,9 @@
         }
       };
       return {
+        centerid: '',
+        groupid: '',
+        teamid: '',
         checked1: false,
         checked2: false,
         checked3: false,
@@ -325,6 +331,10 @@
           .dispatch('PFANS1023Store/getConfidentialOne', {'confidentialid': this.$route.params._id})
           .then(response => {
             this.form = response;
+            let rst = getOrgInfoByUserId(response.user_id);
+            this.centerid = rst.centerNmae;
+            this.groupid= rst.groupNmae;
+            this.teamid= rst.teamNmae;
             this.userlist = this.form.user_id;
             if (this.form.compatibleseal === '1') {
               this.radio = 1;
@@ -385,10 +395,13 @@
       } else {
         this.userlist = this.$store.getters.userinfo.userid;
         if (this.userlist !== null && this.userlist !== '') {
-          let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-          this.form.center_id = lst.centerNmae;
-          this.form.group_id = lst.groupNmae;
-          this.form.team_id = lst.teamNmae;
+          let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+          this.centerid = rst.centerNmae;
+          this.groupid= rst.groupNmae;
+          this.teamid= rst.teamNmae;
+          this.form.center_id = rst.centerId;
+          this.form.group_id = rst.groupId;
+          this.form.team_id = rst.teamId;
           this.form.user_id = this.$store.getters.userinfo.userid;
         }
         this.loading = false;
@@ -411,10 +424,13 @@
       getUserids(val) {
         this.userlist = val;
         this.form.user_id = val;
-        let lst = getOrgInfoByUserId(val);
-        this.form.center_id = lst.centerNmae;
-        this.form.group_id = lst.groupNmae;
-        this.form.team_id = lst.teamNmae;
+        let rst = getOrgInfoByUserId(val);
+        this.centerid = rst.centerNmae;
+        this.groupid = rst.groupNmae;
+        this.teamid = rst.teamNmae;
+        this.form.center_id = rst.centerId;
+        this.form.group_id = rst.groupId;
+        this.form.team_id = rst.teamId;
         if (!this.form.user_id || this.form.user_id === '' || val === 'undefined') {
           this.erroruser = this.$t('normal.error_09') + this.$t('label.applicant');
         } else {

@@ -1276,7 +1276,7 @@
                 disablecheck: false,
                 optionsdate: [],
                 tormbT: '',
-                Redirict: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).redirict,
+                Redirict:  getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).redirict ,
                 startoption: [{value: '0000000000', lable: this.$t('label.PFANS1012FROMVIEW_COMMON')}],
                 search: '',
                 companyen: '',
@@ -2151,7 +2151,6 @@
                     this.centerid = rst.centerNmae;
                     this.groupid= rst.groupNmae;
                     this.teamid= rst.teamNmae;
-                    var groupid = rst.groupId;
                     this.form.centerid = rst.centerId;
                     this.form.groupid = rst.groupId;
                     this.form.teamid = rst.teamId;

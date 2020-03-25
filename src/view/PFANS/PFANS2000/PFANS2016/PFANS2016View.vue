@@ -8,7 +8,7 @@
     import EasyNormalTable from "@/components/EasyNormalTable";
     import {Message} from 'element-ui';
     import moment from "moment";
-    import {getDictionaryInfo, getStatus, getUserInfo} from '@/utils/customize';
+    import {getDictionaryInfo, getStatus, getUserInfo,getOrgInfoByUserId} from '@/utils/customize';
 
     export default {
         name: 'PFANS2016View',
@@ -116,13 +116,15 @@
                       }
 
                         let user = getUserInfo(response[j].user_id);
+                        let nameflg = getOrgInfoByUserId(response[j].user_id);
+                        if (nameflg) {
+                            response[j].centername = nameflg.centerNmae;
+                            response[j].groupname = nameflg.groupNmae;
+                            response[j].teamname = nameflg.teamNmae;
+                        }
                         if (user) {
                             response[j].username = user.userinfo.customername;
                         }
-                        response[j].centername = response[j].centerid;
-                        response[j].groupname = response[j].groupid;
-                        response[j].teamname = response[j].teamid;
-
                         if (response[j].status !== null && response[j].status !== "") {
                             response[j].status = getStatus(response[j].status);
                         }
