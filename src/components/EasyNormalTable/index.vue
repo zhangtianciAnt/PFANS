@@ -1,5 +1,5 @@
 <template>
-  <div class="EasyNormalTable" element-loading-spinner="el-icon-loading" style="min-height: 100%">
+  <div class="EasyNormalTable" element-loading-spinner="el-icon-loading" style="height: calc(100vh - 60px - 2rem)">
     <el-card class="box-card">
       <div class="clearfix" slot="header" style="height: 20px" v-if="buttonShow">
         <easy-button-bar :data="buttonList" :systembutton="systembutton" @buttonClick="buttonClick"></easy-button-bar>
