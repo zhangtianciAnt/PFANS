@@ -18,7 +18,7 @@
                 style="width: 20vw">
               </dicselect>
             </el-form-item>
-            <el-form-item :label="$t('label.PFANS1024VIEW_ORIGINALCONTRACT')" :label-width="formLabelWidth">
+            <el-form-item :label="$t('label.PFANS1024VIEW_ORIGINALCONTRACT')" :label-width="formLabelWidth" v-show="show3">
               <el-input v-model="form1.contractnumber" style="width: 20vw" :disabled="!disabled1"></el-input>
               <el-checkbox
                 v-if="checkeddisplay"
@@ -302,7 +302,7 @@
                              width="200">
               <template slot-scope="scope">
                 <el-form-item :prop="'tabledata.' + scope.$index + '.currencyposition'" :rules='rules.currencyposition'>
-                  <dicselect
+                  <!--<dicselect
                     :code="code9"
                     :data="scope.row.currencyposition"
                     :no="scope.row"
@@ -310,7 +310,12 @@
                     @change="getCurrencyposition"
                     style="width: 11rem"
                     :disabled="!disabled">
-                  </dicselect>
+                  </dicselect>-->
+                  <el-select :no="scope.row" v-model="scope.row.currencyposition" @change="(val)=>{getCurrencyposition(val,scope.row)}" style="width: 11rem" :disabled="!disabled">
+                    <el-option v-for="(item,index) in options" :key="index" v-model="item.value">
+                      {{item.value}}
+                    </el-option>
+                  </el-select>
                 </el-form-item>
               </template>
             </el-table-column>
@@ -1005,6 +1010,7 @@
         disabled2: true,
         disabled3: false,
         disabled4: false,
+          options: [],
         multiple: false,
         rowindex: '',
         ruleSet: {
@@ -1045,7 +1051,7 @@
                 {
                     required: true,
                     validator: checkApplicationdate,
-                    trigger: 'change',
+                    trigger: 'submit',
                 },
             ],
           grouporglist: [
@@ -1229,6 +1235,7 @@
         code11: 'HT013',
         show1: true,
         show2: false,
+          show3:false,
         tableB: [],
         tableC: [],
         showTable1: true,
@@ -1248,6 +1255,16 @@
     },
     mounted() {
       this.contractnumbercount = this.$route.params.contractnumbercount;
+        let option1 = {};
+        option1.name = getDictionaryInfo('PG019001').value1;
+        option1.code = 'PG019003';
+        option1.value = getDictionaryInfo('PG019001').value4;
+        let option2 = {};
+        option2.name = getDictionaryInfo('PG019003').value1;
+        option2.code = 'PG019003';
+        option2.value = getDictionaryInfo('PG019003').value4;
+        this.options.push(option1);
+        this.options.push(option2);
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
@@ -1257,7 +1274,13 @@
             let contractnumbercount = response.contractnumbercount;
             if (contractapplication.length > 0) {
               for (let i = 0; i < contractapplication.length; i++) {
+                  this.show3 = true;
                 this.maketype = contractapplication[i].maketype;
+                  this.form1.claimtype = contractapplication[i].claimtype;
+                  this.form1.contractnumber = contractapplication[i].contractnumber;
+                  this.form1.contracttype = contractapplication[i].contracttype;
+                  this.form1.applicationdate = contractapplication[i].careeryear;
+                  this.form1.custojapanese = contractapplication[i].custojapanese;
                 //契約書番号
                 this.letcontractnumber = contractapplication[i].contractnumber;
                 //契約種類
@@ -1584,9 +1607,15 @@
       },
       getcareeryear1(val) {
         this.form1.applicationdate = val;
+          if(this.form1.entrycondition){
+              this.errorapplicationdate = '';
+          }
       },
       getcareeryear2(val) {
         this.form1.entrycondition = val;
+          if(this.form1.applicationdate){
+              this.errorapplicationdate = '';
+          }
       },
       getVarto(val, row) {
         row.varto = val;
@@ -1724,6 +1753,7 @@
             contractnumber: this.letcontractnumber,
             entrycondition: 'HT004002',
             entrypayment: '',
+            claimtype: this.form1.claimtype,
             deliverycondition: '',
             delivery: '',
             claimcondition: '',
