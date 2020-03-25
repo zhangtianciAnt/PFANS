@@ -899,6 +899,16 @@
       },
       buttonClick(val) {
         if (val === 'save') {
+          // if(this.multipleSelection.length = 0){
+          //   Message({
+          //     message: this.$t('normal.info_01'),
+          //     type: 'info',
+          //     duration: 2 * 1000
+          //   });
+          //   return;
+          // }
+          console.log(this.multipleSelection)
+          console.log(this.multipleSelection.length)
           this.loading = true;
           this.$store
             .dispatch('PFANS6006Store/updateDeleginformation', this.multipleSelection)
