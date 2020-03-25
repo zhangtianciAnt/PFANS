@@ -849,12 +849,14 @@
                     for (let i = 0; i < this.relist.length; i++) {
                         sum = sum + 1;
                     }
-                    if (sum * 8 < val) {
-                        Message({
-                            message: this.$t("label.PFANS2016FORMVIEW_WCCHECKTYPE"),
-                            type: 'error',
-                            duration: 5 * 1000,
-                        });
+                    if(this.form.errortype=='PR013001'){
+                        if (sum * 8 < val) {
+                            Message({
+                                message: this.$t("label.PFANS2016FORMVIEW_WCCHECKTYPE"),
+                                type: 'error',
+                                duration: 5 * 1000,
+                            });
+                        }
                     }
                 } else if (this.form.errortype === 'PR013009' || this.form.errortype === 'PR013010' || this.form.errortype === 'PR013011'
                     || this.form.errortype === 'PR013012' || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015'
