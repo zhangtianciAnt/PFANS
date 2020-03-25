@@ -2991,13 +2991,13 @@
                         if (newValue.rmb != '') {
                             if (this.tableF[j].taxrate != '') {
                                 if (this.tableF[j].taxrate == 'PJ071001') {
-                                    this.taxrateValue = '0.03'
+                                    this.taxrateValue = getDictionaryInfo('PJ071001').value1
                                 } else if (this.tableF[j].taxrate == 'PJ071002') {
-                                    this.taxrateValue = '0.06'
+                                    this.taxrateValue =getDictionaryInfo('PJ071002').value1
                                 } else if (this.tableF[j].taxrate == 'PJ071003') {
-                                    this.taxrateValue = '0.09'
+                                    this.taxrateValue = getDictionaryInfo('PJ071003').value1
                                 } else if (this.tableF[j].taxrate == 'PJ071004') {
-                                    this.taxrateValue = '0.13'
+                                    this.taxrateValue = getDictionaryInfo('PJ071004').value1
                                 }
                                 taxratevalue = 1 + Number(this.taxrateValue);
                                 newValue.taxes = parseFloat((newValue.rmb / (taxratevalue) * this.taxrateValue)).toFixed(2)
