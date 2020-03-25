@@ -1309,6 +1309,8 @@
                         icon: 'el-icon-check',
                     },
                 ],
+                checkCode2: '',
+                budgetcodingcheck: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
                 tableT: [{
                     publicexpenseid: '',
                     trafficdetails_id: '',
@@ -2241,6 +2243,9 @@
                     });
             },
             getGroupId(orglist, row,) {
+                if(orglist==''){
+                    row.budgetcoding = '';
+                }
                 this.Redirict = '',
                     row.departmentname = orglist;
                 let group = getOrgInfo(orglist);
@@ -2249,6 +2254,8 @@
                     this.Redirict = group.redirict;
                     row.budgetcoding = group.encoding;
                 }
+
+                this.budgetcodingcheck =  row.budgetcoding
             },
             getplsummary(val, row) {
                 row.accountcode = '',
@@ -2345,14 +2352,21 @@
 
             },
             clickdata(row){
-                row.subjectnumber = this.checkcode;
-                row.budgetcoding = '000000';
+                if(row.servicehours == null){
+                    row.budgetcoding = this.budgetcodingcheck;
+                    row.subjectnumber = this.checkCode2;
+                }else{
+                    this.budgetcodingcheck =  row.budgetcoding;
+                    row.subjectnumber = this.checkcode;
+                    row.budgetcoding = '000000';
+                }
             },
             getcode(val, row) {
                 row.accountcode = val;
                 let dic = getDictionaryInfo(val);
                 if (dic) {
                     row.subjectnumber = dic.value2;
+                    this.checkCode2 =  dic.value2
                     this.checkCode1 = dic.value3
                     if(dic.value3 == 1){
                         this.checktime = true;

@@ -94,6 +94,7 @@ export default {
   },
   data() {
     return {
+      TABLEList: [],
       totaldata: [],
       cuowu: '',
       working: '',
@@ -265,25 +266,45 @@ export default {
           this.starttime =  this.working.substring(0,10),
           this.endTime = this.working.substring(13,23)
           let tabledate = [];
-          if (this.tableList != '') {
-              for (let i = 0; i < this.tableList.length; i++) {
-                  if (this.starttime < this.tableList[i].enterday && this.tableList[i].enterday < this.endTime) {
+          let tabledata = [];
+          if (this.TABLEList != ''){
+          if(this.starttime == '' && this.endTime == ''){
+              for (let i = 0; i < this.TABLEList.length; i++) {
+                  tabledata.push({
+                      customername: this.TABLEList[i].customername,
+                      jobnumber: this.TABLEList[i].jobnumber,
+                      centername: this.TABLEList[i].centername,
+                      groupname: this.TABLEList[i].groupname,
+                      teamname: this.TABLEList[i].teamname,
+                      enterday: this.TABLEList[i].enterday,
+                      post: this.TABLEList[i].post,
+                      rank: this.TABLEList[i].rank,
+                      sex: this.TABLEList[i].sex,
+                      budgetunit: this.TABLEList[i].budgetunit,
+                      birthday: this.TABLEList[i].birthday,
+                  })
+              }
+              this.tableList = tabledata
+          }else {
+              for (let i = 0; i < this.TABLEList.length; i++) {
+                  if (this.starttime < this.TABLEList[i].enterday && this.TABLEList[i].enterday < this.endTime) {
                       tabledate.push({
-                          customername: this.tableList[i].customername,
-                          jobnumber: this.tableList[i].jobnumber,
-                          centername: this.tableList[i].centername,
-                          groupname: this.tableList[i].groupname,
-                          teamname: this.tableList[i].teamname,
-                          enterday: this.tableList[i].enterday,
-                          post: this.tableList[i].post,
-                          rank: this.tableList[i].rank,
-                          sex: this.tableList[i].sex,
-                          budgetunit: this.tableList[i].budgetunit,
-                          birthday: this.tableList[i].birthday,
+                          customername: this.TABLEList[i].customername,
+                          jobnumber: this.TABLEList[i].jobnumber,
+                          centername: this.TABLEList[i].centername,
+                          groupname: this.TABLEList[i].groupname,
+                          teamname: this.TABLEList[i].teamname,
+                          enterday: this.TABLEList[i].enterday,
+                          post: this.TABLEList[i].post,
+                          rank: this.TABLEList[i].rank,
+                          sex: this.TABLEList[i].sex,
+                          budgetunit: this.TABLEList[i].budgetunit,
+                          birthday: this.TABLEList[i].birthday,
                       })
                   }
               }
               this.tableList = tabledate
+          }
           }
       },
     handleChange(file, fileList) {
@@ -478,6 +499,7 @@ export default {
             }
           }
           this.tableList = _tableList;
+          this.TABLEList = _tableList;
           this.loading = false;
         })
         .catch(err => {
@@ -604,6 +626,7 @@ export default {
             }
           }
           this.tableList = _tableList;
+          this.TABLEList = _tableList;
           this.loading = false;
         })
         .catch(err => {
