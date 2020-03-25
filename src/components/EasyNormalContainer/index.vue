@@ -1,6 +1,6 @@
 <template>
 
-  <div element-loading-spinner="el-icon-loading" style="min-height: 100%;max-height: 600px">
+  <div element-loading-spinner="el-icon-loading" style="height: calc(100vh - 60px - 3rem)">
     <el-card class="box-card">
       <!--<el-card class="box-card">-->
       <div element-loading-spinner="el-icon-loading" slot="header" class="clearfix" style="height: 20px" v-loading="vloading">

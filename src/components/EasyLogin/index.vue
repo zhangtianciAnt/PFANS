@@ -146,6 +146,7 @@ export default {
     handleLogin() {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
+          this.loading = true;
           this.$store
             .dispatch("registerStore/Login", this.loginForm)
             .then(response => {
@@ -155,6 +156,7 @@ export default {
 
             })
             .catch(error => {
+              this.loading = false;
               Message({
                 message: error, //error.message,
                 type: "error",
@@ -162,6 +164,7 @@ export default {
               });
             });
         } else {
+          this.loading = false;
           return false;
         }
       });

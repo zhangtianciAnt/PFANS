@@ -3,12 +3,12 @@
     <EasyNormalContainer v-loading="loading" :title="title" ref="container" :noback="noback"
     >
       <div slot="customize">
-        <el-container style="margin-top: 1rem">
+        <el-container style="margin-top: 2rem">
           <el-aside style="width: 80%;">
             <el-row>
               <el-col :span="6">
                 <full-calendar :dayRender="dayRender" :defaultDate="defaultDate4" :first-day="firstDay" :header='header'
-                               weekMode="fixed"
+                               weekMode="fixed" style="padding: 5px"
                                :locale='locale' :plugins="calendarPlugins" :showNonCurrentDates="showNonCurrentDates"
                                @dateClick="handleDateClick"
                                defaultView="dayGridMonth"
@@ -16,7 +16,7 @@
               </el-col>
               <el-col :span="6">
                 <full-calendar :dayRender="dayRender" :defaultDate="defaultDate5" :first-day="firstDay" :header='header'
-                               weekMode="fixed"
+                               weekMode="fixed" style="padding: 5px"
                                :locale='locale' :plugins="calendarPlugins" :showNonCurrentDates="showNonCurrentDates"
                                @dateClick="handleDateClick"
                                defaultView="dayGridMonth"
@@ -24,7 +24,7 @@
               </el-col>
               <el-col :span="6">
                 <full-calendar :dayRender="dayRender" :defaultDate="defaultDate6" :first-day="firstDay" :header='header'
-                               weekMode="fixed"
+                               weekMode="fixed" style="padding: 5px"
                                :locale='locale' :plugins="calendarPlugins" :showNonCurrentDates="showNonCurrentDates"
                                @dateClick="handleDateClick"
                                defaultView="dayGridMonth"
@@ -32,7 +32,7 @@
               </el-col>
               <el-col :span="6">
                 <full-calendar :dayRender="dayRender" :defaultDate="defaultDate7" :first-day="firstDay" :header='header'
-                               weekMode="fixed"
+                               weekMode="fixed" style="padding: 5px"
                                :locale='locale' :plugins="calendarPlugins" :showNonCurrentDates="showNonCurrentDates"
                                @dateClick="handleDateClick"
                                defaultView="dayGridMonth"
@@ -42,7 +42,7 @@
             <el-row>
               <el-col :span="6">
                 <full-calendar :dayRender="dayRender" :defaultDate="defaultDate8" :first-day="firstDay" :header='header'
-                               weekMode="fixed"
+                               weekMode="fixed" style="padding: 5px"
                                :locale='locale' :plugins="calendarPlugins" :showNonCurrentDates="showNonCurrentDates"
                                @dateClick="handleDateClick"
                                defaultView="dayGridMonth"
@@ -50,7 +50,7 @@
               </el-col>
               <el-col :span="6">
                 <full-calendar :dayRender="dayRender" :defaultDate="defaultDate9" :first-day="firstDay" :header='header'
-                               weekMode="fixed"
+                               weekMode="fixed" style="padding: 5px"
                                :locale='locale' :plugins="calendarPlugins" :showNonCurrentDates="showNonCurrentDates"
                                @dateClick="handleDateClick"
                                defaultView="dayGridMonth"
@@ -58,7 +58,7 @@
               </el-col>
               <el-col :span="6">
                 <full-calendar :dayRender="dayRender" :defaultDate="defaultDate10" :first-day="firstDay"
-                               :header='header'
+                               :header='header' style="padding: 5px"
                                weekMode="fixed"
                                :locale='locale' :plugins="calendarPlugins" :showNonCurrentDates="showNonCurrentDates"
                                @dateClick="handleDateClick"
@@ -67,7 +67,7 @@
               </el-col>
               <el-col :span="6">
                 <full-calendar :dayRender="dayRender" :defaultDate="defaultDate11" :first-day="firstDay"
-                               :header='header'
+                               :header='header' style="padding: 5px"
                                weekMode="fixed"
                                :locale='locale' :plugins="calendarPlugins" :showNonCurrentDates="showNonCurrentDates"
                                @dateClick="handleDateClick"
@@ -78,7 +78,7 @@
             <el-row>
               <el-col :span="6">
                 <full-calendar :dayRender="dayRender" :defaultDate="defaultDate12" :first-day="firstDay"
-                               :header='header'
+                               :header='header' style="padding: 5px"
                                weekMode="fixed"
                                :locale='locale' :plugins="calendarPlugins" :showNonCurrentDates="showNonCurrentDates"
                                @dateClick="handleDateClick"
@@ -87,7 +87,7 @@
               </el-col>
               <el-col :span="6">
                 <full-calendar :dayRender="dayRender" :defaultDate="defaultDate1" :first-day="firstDay"
-                               :header='header' weekMode="fixed"
+                               :header='header' weekMode="fixed" style="padding: 5px"
                                :locale='locale' :plugins="calendarPlugins" :showNonCurrentDates="showNonCurrentDates"
                                @dateClick="handleDateClick"
                                defaultView="dayGridMonth"
@@ -95,7 +95,7 @@
               </el-col>
               <el-col :span="6">
                 <full-calendar :dayRender="dayRender" :defaultDate="defaultDate2" :first-day="firstDay"
-                               :header='header' weekMode="fixed"
+                               :header='header' weekMode="fixed" style="padding: 5px"
                                :locale='locale' :plugins="calendarPlugins" :showNonCurrentDates="showNonCurrentDates"
                                @dateClick="handleDateClick"
                                defaultView="dayGridMonth"
@@ -103,7 +103,7 @@
               </el-col>
               <el-col :span="6">
                 <full-calendar :dayRender="dayRender" :defaultDate="defaultDate3" :first-day="firstDay"
-                               :header='header' weekMode="fixed"
+                               :header='header' weekMode="fixed" style="padding: 5px"
                                :locale='locale' :plugins="calendarPlugins" :showNonCurrentDates="showNonCurrentDates"
                                @dateClick="handleDateClick"
                                defaultView="dayGridMonth"

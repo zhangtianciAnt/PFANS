@@ -147,9 +147,9 @@
       },
       rowClick(row) {
         if (this.$route.params.title === 1) {
-          this.rowid = row.businessid;
+          this.rowid = row.business_id;
         } else if (this.$route.params.title === 2) {
-            this.rowid = row.businessid;
+          this.rowid = row.business_id;
         } else if (this.$route.params.title === 3) {
           this.rowid = row.judgementid;
         } else if (this.$route.params.title === 4) {

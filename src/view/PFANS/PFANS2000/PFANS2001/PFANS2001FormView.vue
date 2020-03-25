@@ -724,6 +724,12 @@
                                     this.loading = false;
                                 })
                         }
+                    }else{
+                      Message({
+                        message: this.$t("normal.error_12"),
+                        type: 'error',
+                        duration: 5 * 1000
+                      });
                     }
                 });
             }
