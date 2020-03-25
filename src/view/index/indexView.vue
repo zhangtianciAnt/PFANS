@@ -31,7 +31,7 @@
               </el-col>
             </el-row>
             <el-divider></el-divider>
-            <el-row style="height:190px;max-height: 190px;overflow: hidden">
+            <el-row style="height:170px;max-height: 170px;overflow: hidden">
               <el-table :show-header=false
                 :data="DataList2" @row-click="rowclickDataList2">
                 <el-table-column
@@ -334,8 +334,9 @@
   }
 
   .fc-toolbar.fc-header-toolbar {
-    margin-bottom: 1.5em;
+    /*margin-bottom: 1.5em;*/
     /*background-color: rgb(153, 0, 0);*/
+    font-size: 0.6em;
     background-color: #005BAA;
   }
 
@@ -351,7 +352,7 @@
   }
 
   .fc-toolbar.fc-header-toolbar {
-    margin-bottom: 0.2em;
+    margin-bottom: 0em !important;
     /*background-color: rgb(153, 0, 0);*/
     background-color: #005BAA;
   }
@@ -361,8 +362,9 @@
   }
 
   .fc-ltr .fc-dayGrid-view .fc-day-top .fc-day-number {
-    float: left;
+    float: left !important;
     width: 2.5rem;
+    font-size: 0.6em;
   }
 
   .fc-toolbar h2 {
