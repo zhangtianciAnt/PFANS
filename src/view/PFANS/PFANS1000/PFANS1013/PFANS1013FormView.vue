@@ -1052,7 +1052,6 @@
         baseInfo: {},
         encoding:'',
         groupId:'',
-        personalcode: '',
         form: {
           external: '',
           level: '',
@@ -1356,7 +1355,6 @@
           });
       } else {
         if(getUserInfo(this.$store.getters.userinfo.userid)){
-          // this.personalcode = getUserInfo(this.$store.getters.userinfo.userid).userinfo.personalcode;
           this.form.personalcode = getUserInfo(this.$store.getters.userinfo.userid).userinfo.personalcode;
         }
         if(getOrgInfoByUserId(this.$store.getters.userinfo.userid)){
@@ -2633,7 +2631,6 @@
                   return;
                 }
               }
-              debugger;
               if(this.baseInfo.trafficdetails.length === 0 && this.baseInfo.accommodationdetails.length === 0 && this.baseInfo.otherdetails.length === 0){
                 Message({
                   message: this.$t('您未填写明细信息，请填写完再进行提交'),
