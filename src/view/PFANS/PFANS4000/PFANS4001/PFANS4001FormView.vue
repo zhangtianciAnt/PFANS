@@ -8,17 +8,20 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.center')" prop="centerid">
-                <el-input :disabled="true" style="width:20vw" v-model="form.centerid"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="centerid"></el-input>
+                <el-input v-show='false' :disabled="true" style="width:20vw" v-model="form.centerid"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.group')" prop="groupid">
-                <el-input :disabled="true" style="width:20vw" v-model="form.groupid"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="groupid"></el-input>
+                <el-input v-show='false' :disabled="true" style="width:20vw" v-model="form.groupid"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.team')" prop="teamid">
-                <el-input :disabled="true" style="width:20vw" v-model="form.teamid"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="teamid"></el-input>
+                <el-input v-show='false' :disabled="true" style="width:20vw" v-model="form.teamid"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -146,6 +149,9 @@
         }
       };
       return {
+          centerid: '',
+          groupid: '',
+          teamid: '',
         error: '',
         loading: false,
         disable: false,
@@ -237,6 +243,12 @@
           .dispatch('PFANS4001Store/getPfans4001One', {'sealid': this.$route.params._id})
           .then(response => {
             this.form = response;
+              let rst = getOrgInfoByUserId(response.userid);
+              if(rst){
+                  this.centerid = rst.centerNmae;
+                  this.groupid= rst.groupNmae;
+                  this.teamid= rst.teamNmae;
+              }
             this.userlist = this.form.userid;
             if (this.form.status === '2') {
               this.disable = false;
@@ -254,10 +266,15 @@
       } else {
         this.userlist = this.$store.getters.userinfo.userid;
         if (this.userlist !== null && this.userlist !== '') {
-          let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-          this.form.centerid = lst.centerNmae;
-          this.form.groupid = lst.groupNmae;
-          this.form.teamid = lst.teamNmae;
+          let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+            if(rst) {
+                this.centerid = rst.centerNmae;
+                this.groupid= rst.groupNmae;
+                this.teamid= rst.teamNmae;
+                this.form.centerid = rst.centerId;
+                this.form.groupid = rst.groupId;
+                this.form.teamid = rst.teamId;
+            }
           this.form.userid = this.$store.getters.userinfo.userid;
         }
       }
@@ -287,10 +304,22 @@
       getUserids(val) {
         this.form.userid = val;
         this.userlist = val;
-        let lst = getOrgInfoByUserId(val);
-        this.form.centerid = lst.centerNmae;
-        this.form.groupid = lst.groupNmae;
-        this.form.teamid = lst.teamNmae;
+        let rst = getOrgInfoByUserId(val);
+          if(rst){
+              this.centerid = rst.centerNmae;
+              this.groupid = rst.groupNmae;
+              this.teamid = rst.teamNmae;
+              this.form.centerid = rst.centerId;
+              this.form.groupid = rst.groupId;
+              this.form.teamid = rst.teamId;
+          }else{
+              this.centerid =  '';
+              this.groupid =  '';
+              this.teamid =  '';
+              this.form.centerid = '';
+              this.form.groupid =  '';
+              this.form.teamid =  '';
+          }
         if (!this.form.userid || this.form.userid === '' || val === "undefined") {
           this.error = this.$t('normal.error_08') + this.$t('label.applicant');
         } else {

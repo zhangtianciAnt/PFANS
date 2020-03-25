@@ -192,7 +192,7 @@
           Object.keys(this.filterlist).map(key => {
             if (this.filterlist[key].length > 0) {
               this.filterlist[key].map(filter => {
-                if (item[key] === filter || item[key].indexOf(filter) >= 0) {
+                if (item[key] === filter) {
                   has++
                 }
               })

@@ -12,17 +12,20 @@
                   <el-row>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.center')">
-                        <el-input :disabled="true" style="width: 20vw" v-model="form.center_id"></el-input>
+                        <el-input :disabled="true" style="width:20vw" v-model="centerid"></el-input>
+                        <el-input v-show='false' :disabled="true" style="width: 20vw" v-model="form.center_id"></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.group')">
-                        <el-input :disabled="true" style="width: 20vw" v-model="form.group_id"></el-input>
+                        <el-input :disabled="true" style="width:20vw" v-model="groupid"></el-input>
+                        <el-input v-show='false' :disabled="true" style="width: 20vw" v-model="form.group_id"></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.team')">
-                        <el-input :disabled="true" style="width: 20vw" v-model="form.team_id"></el-input>
+                        <el-input :disabled="true" style="width:20vw" v-model="teamid"></el-input>
+                        <el-input v-show='false' :disabled="true" style="width: 20vw" v-model="form.team_id"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -229,6 +232,9 @@
                 }
             };
             return {
+                centerid: '',
+                groupid: '',
+                teamid: '',
                 aaaaaa: "W0036",
                 error: "",
                 selectType: "Single",
@@ -309,6 +315,12 @@
                     .dispatch('PFANS2023Store/getDataOne', {"goalmanagement_id": this.$route.params._id})
                     .then(response => {
                         this.form = response;
+                        let rst = getOrgInfoByUserId(response.user_id);
+                        if(rst){
+                            this.centerid = rst.centerNmae;
+                            this.groupid= rst.groupNmae;
+                            this.teamid= rst.teamNmae;
+                        }
                         this.userlist = this.form.user_id;
                         if (this.form.stage === '0' && this.form.status === '0') {
                             this.aaaaaa = 'W0036';
@@ -461,10 +473,15 @@
             } else {
                 this.userlist = this.$store.getters.userinfo.userid;
                 if (this.userlist !== null && this.userlist !== "") {
-                    let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-                    this.form.center_id = lst.centerNmae;
-                    this.form.group_id = lst.groupNmae;
-                    this.form.team_id = lst.teamNmae;
+                    let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+                    if(rst) {
+                        this.centerid = rst.centerNmae;
+                        this.groupid= rst.groupNmae;
+                        this.teamid= rst.teamNmae;
+                        this.form.center_id = rst.centerId;
+                        this.form.group_id = rst.groupId;
+                        this.form.team_id = rst.teamId;
+                    }
                     this.form.user_id = this.$store.getters.userinfo.userid;
                     this.disableyear = true;
                     this.disablesep = false;
@@ -488,6 +505,22 @@
         methods: {
             getUserids(val) {
                 this.form.user_id = val;
+                let rst = getOrgInfoByUserId(val);
+                if(rst){
+                    this.centerid = rst.centerNmae;
+                    this.groupid = rst.groupNmae;
+                    this.teamid = rst.teamNmae;
+                    this.form.center_id = rst.centerId;
+                    this.form.group_id = rst.groupId;
+                    this.form.team_id = rst.teamId;
+                }else{
+                    this.centerid =  '';
+                    this.groupid =  '';
+                    this.teamid =  '';
+                    this.form.center_id = '';
+                    this.form.group_id =  '';
+                    this.form.team_id =  '';
+                }
                 if (!this.form.user_id || this.form.user_id === '' || val === "undefined") {
                     this.error = this.$t('normal.error_08') + this.$t('label.user_name');
                 } else {

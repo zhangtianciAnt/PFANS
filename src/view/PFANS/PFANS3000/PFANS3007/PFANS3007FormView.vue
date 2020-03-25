@@ -698,9 +698,11 @@
                     .then(response => {
                         this.form = response.japancondominium;
                         let rst = getOrgInfoByUserId(response.japancondominium.userid);
-                        this.centerid = rst.centerNmae;
-                        this.groupid= rst.groupNmae;
-                        this.teamid= rst.teamNmae;
+                        if(rst){
+                            this.centerid = rst.centerNmae;
+                            this.groupid= rst.groupNmae;
+                            this.teamid= rst.teamNmae;
+                        }
                         if (response.usecoupon.length > 0) {
                             if (this.form.condominiumcompany === "PR007001") {
                                 this.tableD2 = response.usecoupon;
@@ -823,12 +825,14 @@
                 this.userlist = this.$store.getters.userinfo.userid;
                 if (this.userlist !== null && this.userlist !== '') {
                     let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-                    this.centerid = rst.centerNmae;
-                    this.groupid= rst.groupNmae;
-                    this.teamid= rst.teamNmae;
-                    this.form.centerid = rst.centerId;
-                    this.form.groupid = rst.groupId;
-                    this.form.teamid = rst.teamId;
+                    if(rst) {
+                        this.centerid = rst.centerNmae;
+                        this.groupid = rst.groupNmae;
+                        this.teamid = rst.teamNmae;
+                        this.form.centerid = rst.centerId;
+                        this.form.groupid = rst.groupId;
+                        this.form.teamid = rst.teamId;
+                    }
                     this.form.userid = this.$store.getters.userinfo.userid;
                 }
             }
@@ -844,12 +848,21 @@
                 this.form.userid = val;
                 this.userlist = val;
                 let rst = getOrgInfoByUserId(val);
-                this.centerid = rst.centerNmae;
-                this.groupid = rst.groupNmae;
-                this.teamid = rst.teamNmae;
-                this.form.centerid = rst.centerId;
-                this.form.groupid = rst.groupId;
-                this.form.teamid = rst.teamId;
+                if(rst) {
+                    this.centerid = rst.centerNmae;
+                    this.groupid = rst.groupNmae;
+                    this.teamid = rst.teamNmae;
+                    this.form.centerid = rst.centerId;
+                    this.form.groupid = rst.groupId;
+                    this.form.teamid = rst.teamId;
+                } else{
+                    this.centerid =  '';
+                    this.groupid =  '';
+                    this.teamid =  '';
+                    this.form.centerid = '';
+                    this.form.teamid =  '';
+                    this.form.groupid =  '';
+                }
                 if (!this.form.userid || this.form.userid === '' || val === "undefined") {
                     this.error = this.$t('normal.error_09') + this.$t('label.applicant');
                 } else {
