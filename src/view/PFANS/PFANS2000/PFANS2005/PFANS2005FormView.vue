@@ -898,7 +898,14 @@
                     >
                       <template slot-scope="scope">
                         <div v-if="scope.row.type === '0'">{{scope.row.moneys}}</div>
-                        <el-input v-if="scope.row.type === '1'" v-model="scope.row.moneys"></el-input>
+                        <el-input-number
+                          v-if="scope.row.type === '1'"
+                          v-model="scope.row.moneys"
+                          controls-position="right"
+                          :min="0"
+                          size="mini"
+                          style="width:7rem"
+                        ></el-input-number>
                       </template>
                     </el-table-column>
                     <el-table-column

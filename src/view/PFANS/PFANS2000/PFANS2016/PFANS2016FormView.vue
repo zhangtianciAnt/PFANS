@@ -10,17 +10,20 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.center')" prop="centerid">
-                <el-input :disabled="true" style="width:20vw" v-model="form.centerid"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="centerid"></el-input>
+                <el-input :disabled="false" style="width:20vw" v-model="form.centerid"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.group')" prop="groupid">
-                <el-input :disabled="true" style="width:20vw" v-model="form.groupid"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="groupid"></el-input>
+                <el-input :disabled="false" style="width:20vw" v-model="form.groupid"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.team')" prop="teamid">
-                <el-input :disabled="true" style="width:20vw" v-model="form.teamid"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="teamid"></el-input>
+                <el-input :disabled="false" style="width:20vw" v-model="form.teamid"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -533,6 +536,9 @@
                 }
             };
             return {
+                centerid: '',
+                groupid: '',
+                teamid: '',
                 checkBox: '',
                 checkfinisheddate: true,
                 relistTwo: '',
@@ -693,6 +699,10 @@
                     .dispatch('PFANS2016Store/getPfans2016One', {'abnormalid': this.$route.params._id})
                     .then(response => {
                         this.form = response;
+                        let rst = getOrgInfoByUserId(response.user_id);
+                        this.centerid = rst.centerNmae;
+                        this.groupid= rst.groupNmae;
+                        this.teamid= rst.teamNmae;
                         this.userlist = this.form.user_id;
                         this.relation = this.form.relation;
                         if (this.form.status != '4' || this.form.status != '5' || this.form.status != '6' || this.form.status != '7') {
@@ -739,10 +749,13 @@
             } else {
                 this.userlist = this.$store.getters.userinfo.userid;
                 if (this.userlist !== null && this.userlist !== '') {
-                    let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-                    this.form.centerid = lst.centerNmae;
-                    this.form.groupid = lst.groupNmae;
-                    this.form.teamid = lst.teamNmae;
+                    let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+                    this.centerid = rst.centerNmae;
+                    this.groupid= rst.groupNmae;
+                    this.teamid= rst.teamNmae;
+                    this.form.centerid = rst.centerId;
+                    this.form.groupid = rst.groupId;
+                    this.form.teamid = rst.teamId;
                     this.form.user_id = this.$store.getters.userinfo.userid;
                 }
                 this.getOvertimelist();
@@ -1382,10 +1395,13 @@
                     return
                 }
                 this.form.user_id = val;
-                let lst = getOrgInfoByUserId(val);
-                this.form.centerid = lst.centerNmae;
-                this.form.groupid = lst.groupNmae;
-                this.form.teamid = lst.teamNmae;
+                let rst = getOrgInfoByUserId(val);
+                this.centerid = rst.centerNmae;
+                this.groupid = rst.groupNmae;
+                this.teamid = rst.teamNmae;
+                this.form.centerid = rst.centerId;
+                this.form.groupid = rst.groupId;
+                this.form.teamid = rst.teamId;
                 if (!this.form.user_id || this.form.user_id === '' || val === "undefined") {
                     this.error = this.$t('normal.error_08') + this.$t('label.applicant');
                 } else {
