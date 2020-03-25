@@ -2217,6 +2217,7 @@
                 row.vehicle = val;
             },
             getCompanyProjectList() {
+
                 this.loading = true;
                 this.$store
                     .dispatch('PFANS5008Store/getCompanyProjectList', {})

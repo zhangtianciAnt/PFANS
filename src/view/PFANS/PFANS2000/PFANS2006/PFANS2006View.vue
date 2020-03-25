@@ -812,6 +812,7 @@
                                 [heads[59]]: obj.other6,
                             });
                         }
+
                         const result = json2csv.parse(csvData, {
                             excelStrings: true,
                         });
