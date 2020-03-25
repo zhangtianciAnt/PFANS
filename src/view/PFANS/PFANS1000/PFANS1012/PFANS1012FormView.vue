@@ -2564,6 +2564,7 @@
             getmodule(val) {
                 this.form.moduleid = val;
             },
+
             getCurrency(val, row) {
                 row.currency = val;
                 let error = 0;
