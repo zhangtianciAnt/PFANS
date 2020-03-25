@@ -352,7 +352,7 @@
   }
 
   .fc-toolbar.fc-header-toolbar {
-    margin-bottom: 0.2em;
+    margin-bottom: 0em !important;
     /*background-color: rgb(153, 0, 0);*/
     background-color: #005BAA;
   }
@@ -362,9 +362,9 @@
   }
 
   .fc-ltr .fc-dayGrid-view .fc-day-top .fc-day-number {
-    float: left;
+    float: left !important;
     width: 2.5rem;
-    font-size: 0.4em;
+    font-size: 0.6em;
   }
 
   .fc-toolbar h2 {
