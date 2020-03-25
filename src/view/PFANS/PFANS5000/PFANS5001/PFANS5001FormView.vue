@@ -1388,7 +1388,7 @@
                             required: true,
                             message:
                                 this.$t('normal.error_08') +
-                                this.$t('label.PFANS5001FORMVIEW_BRIEFINTRODUCTION'),
+                                this.$t('label.PFANS5001FORMVIEW_LANGUAGE'),
                             trigger: 'blur',
                         },
                     ],
@@ -1398,7 +1398,7 @@
                             required: true,
                             message:
                                 this.$t('normal.error_08') +
-                                this.$t('label.PFANS5001FORMVIEW_BRIEFINTRODUCTION'),
+                                this.$t('label.PFANS5005VIEW_WORK'),
                             trigger: 'blur',
                         },
                     ],
@@ -1408,7 +1408,7 @@
                             required: true,
                             message:
                                 this.$t('normal.error_08') +
-                                this.$t('label.PFANS5001FORMVIEW_BRIEFINTRODUCTION'),
+                                this.$t('label.PFANS5009FORMVIEW_DEADLINE'),
                             trigger: 'blur',
                         },
                     ],
@@ -1432,7 +1432,7 @@
                     country: [
                         {
                             required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.user_name'),
+                            message: this.$t('normal.error_08') + this.$t('label.PFANS5001FORMVIEW_COUNTRY'),
                             trigger: 'blur',
                         },
                     ],
@@ -1440,7 +1440,7 @@
                     caron: [
                         {
                             required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.user_name'),
+                            message: this.$t('normal.error_08') + this.$t('label.PFANS5001FORMVIEW_CARON'),
                             trigger: 'blur',
                         },
                     ],
@@ -1448,7 +1448,7 @@
                     chentrust: [
                         {
                             required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.user_name'),
+                            message: this.$t('normal.error_08') + this.$t('label.PFANS5001FORMVIEW_CHENTRUST'),
                             trigger: 'blur',
                         },
                     ],
@@ -1456,7 +1456,7 @@
                     ouentrust: [
                         {
                             required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.user_name'),
+                            message: this.$t('normal.error_08') + this.$t('label.PFANS5001FORMVIEW_OUENTRUST'),
                             trigger: 'blur',
                         },
                     ],
