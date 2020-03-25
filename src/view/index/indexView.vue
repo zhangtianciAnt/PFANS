@@ -31,7 +31,7 @@
               </el-col>
             </el-row>
             <el-divider></el-divider>
-            <el-row style="height:180px;max-height: 180px;overflow: hidden">
+            <el-row style="height:185px;max-height: 185px;overflow: hidden">
               <el-table :show-header=false
                 :data="DataList2" @row-click="rowclickDataList2">
                 <el-table-column
