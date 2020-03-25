@@ -4381,7 +4381,58 @@
         }
         this.loading = false;
       },
+      tabInfoSave(){
+        this.loading = true;
+          this.baseInfo = {};
+          this.baseInfo.strFlg = this.tab;
+          this.baseInfo.otherOne = [];
+          this.baseInfo.contrast = [];
+          this.baseInfo.otherTwo = [];
+          if (this.tab === "2") {
+            //其他1去掉基数对象 不需要保存-lxx
+            // for (let i = 0; i < this.tableQT1Woman.length; i++) {
+            //   this.baseInfo.otherOne.push({
+            //     otherone_id: this.tableQT1Woman[i].otherone_id,
+            //     basedata: this.tableQT1Woman[i].basedata
+            //   });
+            // }
+            //其他1去掉基数对象 不需要保存-lxx
+          } else if (this.tab === "3") {
+            this.baseInfo.otherTwo = this.totaldataQT2
+          } else if (this.tab === "16") {
+            this.baseInfo.contrast = this.totaldataContrast
+          } else if (this.tab === "8") {
+            this.baseInfo.lackattendance = this.totaldataQQ;
+          } else if (this.tab === "9") {
+            this.baseInfo.residual = this.totaldataCY;
+          }
+          this.$store
+            .dispatch("PFANS2005Store/save", this.baseInfo)
+            .then(response => {
+              this.data = response;
+              this.loading = false;
+              Message({
+                message: this.$t("normal.success_02"),
+                type: "success",
+                duration: 5 * 1000
+              });
+              if (this.$store.getters.historyUrl) {
+                this.$router.push(this.$store.getters.historyUrl);
+              }
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: "error",
+                duration: 5 * 1000
+              });
+              this.loading = false;
+            });
+      },
       handleClick(tab, event) {
+        //调用保存-lxx
+        this.tabInfoSave()
+        //调用保存-lxx
         this.tab = tab.index;
         if (
           tab.index === "3" ||
@@ -4796,52 +4847,6 @@
               });
           }
         } else if (val === "save") {
-          this.loading = true;
-          this.baseInfo = {};
-          this.baseInfo.strFlg = this.tab;
-          this.baseInfo.otherOne = [];
-          this.baseInfo.contrast = [];
-          this.baseInfo.otherTwo = [];
-          if (this.tab === "2") {
-            //其他1去掉基数对象 不需要保存-lxx
-            // for (let i = 0; i < this.tableQT1Woman.length; i++) {
-            //   this.baseInfo.otherOne.push({
-            //     otherone_id: this.tableQT1Woman[i].otherone_id,
-            //     basedata: this.tableQT1Woman[i].basedata
-            //   });
-            // }
-            //其他1去掉基数对象 不需要保存-lxx
-          } else if (this.tab === "3") {
-            this.baseInfo.otherTwo = this.totaldataQT2
-          } else if (this.tab === "16") {
-            this.baseInfo.contrast = this.totaldataContrast
-          } else if (this.tab === "8") {
-            this.baseInfo.lackattendance = this.totaldataQQ;
-          } else if (this.tab === "9") {
-            this.baseInfo.residual = this.totaldataCY;
-          }
-          this.$store
-            .dispatch("PFANS2005Store/save", this.baseInfo)
-            .then(response => {
-              this.data = response;
-              this.loading = false;
-              Message({
-                message: this.$t("normal.success_02"),
-                type: "success",
-                duration: 5 * 1000
-              });
-              if (this.$store.getters.historyUrl) {
-                this.$router.push(this.$store.getters.historyUrl);
-              }
-            })
-            .catch(error => {
-              Message({
-                message: error,
-                type: "error",
-                duration: 5 * 1000
-              });
-              this.loading = false;
-            });
         }
       },
       //本月加班数据变更时，重新计算加班费合计
