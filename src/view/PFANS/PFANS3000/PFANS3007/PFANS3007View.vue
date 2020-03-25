@@ -15,7 +15,7 @@
 <script>
   import EasyNormalTable from '@/components/EasyNormalTable';
   import {Message} from 'element-ui';
-  import {getDictionaryInfo, getStatus, getUserInfo} from '../../../../utils/customize';
+  import {getDictionaryInfo, getStatus, getUserInfo,getOrgInfoByUserId} from '../../../../utils/customize';
 
   let moment = require('moment');
 
@@ -238,12 +238,15 @@
             }
             if (response[j].user_id !== null && response[j].user_id !== '') {
               let user = getUserInfo(response[j].userid);
+                let nameflg = getOrgInfoByUserId(response[j].userid);
+                if (nameflg) {
+                    response[j].centername = nameflg.centerNmae;
+                    response[j].groupname = nameflg.groupNmae;
+                    response[j].teamname = nameflg.teamNmae;
+                }
               if (user) {
                 response[j].applicant = user.userinfo.customername;
               }
-              response[j].centername = response[j].centerid;
-              response[j].groupname = response[j].groupid;
-              response[j].teamname = response[j].teamid;
             }
             if (response[j].contractstartdate !== null && response[j].contractstartdate !== '') {
               response[j].contractstartdate = moment(response[j].contractstartdate).format('YYYY-MM-DD');

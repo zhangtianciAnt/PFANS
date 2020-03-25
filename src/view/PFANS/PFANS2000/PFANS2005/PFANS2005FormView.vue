@@ -898,7 +898,14 @@
                     >
                       <template slot-scope="scope">
                         <div v-if="scope.row.type === '0'">{{scope.row.moneys}}</div>
-                        <el-input v-if="scope.row.type === '1'" v-model="scope.row.moneys"></el-input>
+                        <el-input-number
+                          v-if="scope.row.type === '1'"
+                          v-model="scope.row.moneys"
+                          controls-position="right"
+                          :min="0"
+                          size="mini"
+                          style="width:7rem"
+                        ></el-input-number>
                       </template>
                     </el-table-column>
                     <el-table-column
@@ -4404,8 +4411,12 @@
           this.baseInfo.lackattendance = this.totaldataQQ;
         } else if (this.tab === "9") {
           this.baseInfo.residual = this.totaldataCY;
+        } else if (this.tab === "6") {
+          this.baseInfo.entryVo = this.totaldataRZ;
+        } else if (this.tab === "7") {
+          this.baseInfo.retireVo = this.totaldataTZ;
         }
-        if (this.tab === "3" || this.tab === "16" || this.tab === "8" || this.tab === "9") {
+        if (this.tab === "3" || this.tab === "16" || this.tab === "8" || this.tab === "9" || this.tab === "6" || this.tab === "7") {
           console.log("this.totaldataQQ", this.totaldataQQ);
           this.loading = true;
           this.$store
@@ -4426,7 +4437,7 @@
       },
       handleClick(tab, event) {
         //调用保存-lxx
-        this.tabInfoSave()
+        this.tabInfoSave();
         //调用保存-lxx
         this.tab = tab.index;
         if (
