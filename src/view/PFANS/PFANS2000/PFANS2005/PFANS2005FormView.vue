@@ -4406,7 +4406,8 @@
           } else if (this.tab === "9") {
             this.baseInfo.residual = this.totaldataCY;
           }
-          this.$store
+          if(this.tab === "3" || this.tab === "16" || this.tab === "8" || this.tab === "9"){
+this.$store
             .dispatch("PFANS2005Store/save", this.baseInfo)
             .then(response => {
               this.data = response;
@@ -4416,9 +4417,6 @@
                 type: "success",
                 duration: 5 * 1000
               });
-              if (this.$store.getters.historyUrl) {
-                this.$router.push(this.$store.getters.historyUrl);
-              }
             })
             .catch(error => {
               Message({
@@ -4428,6 +4426,7 @@
               });
               this.loading = false;
             });
+          }
       },
       handleClick(tab, event) {
         //调用保存-lxx
