@@ -1272,11 +1272,12 @@
                 checktime: false,
                 centerid: '',
                 groupid: '',
+                groupId: '',
                 teamid: '',
                 disablecheck: false,
                 optionsdate: [],
                 tormbT: '',
-                Redirict:  getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).redirict ,
+                Redirict: '' ,
                 startoption: [{value: '0000000000', lable: this.$t('label.PFANS1012FROMVIEW_COMMON')}],
                 search: '',
                 companyen: '',
@@ -1310,7 +1311,7 @@
                     },
                 ],
                 checkCode2: '',
-                budgetcodingcheck: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
+                budgetcodingcheck: '',
                 tableT: [{
                     publicexpenseid: '',
                     trafficdetails_id: '',
@@ -1321,8 +1322,8 @@
                     tormb: '',
                     plsummary: '',
                     taxes: '',
-                    departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
-                    budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
+                    departmentname: '',
+                    budgetcoding: '',
                     subjectnumber: '',
                     region: '',
                     accountcode: '',
@@ -1349,8 +1350,8 @@
                     purchasedetails_id: '',
                     invoicenumber: '',
                     taxes: '',
-                    departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
-                    budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
+                    departmentname: '',
+                    budgetcoding:'',
                     purchasedetailsdate: '',
                     plsummary: '',
                     procurementdetails: '',
@@ -1377,14 +1378,14 @@
                     costitem: '',
                     plsummary: '',
                     servicehours: '',
-                    departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
+                    departmentname: '',
                     accountcode: '',
                     subjectnumber: '',
                     currency: '',
                     currencyrate: '',
                     tormb: '',
                     remarks: '',
-                    budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
+                    budgetcoding: '',
                     rmb: '',
                     foreigncurrency: '',
                     taxes: '',
@@ -1413,7 +1414,7 @@
                     payeecode: '',
                     payeebankaccountnumber: '',
                     payeebankaccount: '',
-                    code: getUserInfo(this.$store.getters.userinfo.userid).userinfo.personalcode,
+                    code:'',
                     type: '',
                     judgement: '',
                     judgement_name: '',
@@ -2147,6 +2148,23 @@
                         this.loading = false;
                     });
             } else {
+
+                if(getUserInfo(this.$store.getters.userinfo.userid)){
+                    this.form.code = getUserInfo(this.$store.getters.userinfo.userid).userinfo.personalcode;
+                }
+                if(getOrgInfoByUserId(this.$store.getters.userinfo.userid)){
+                    this.groupId = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
+                    this.tableT[0].departmentname = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
+                    this.tableP[0].departmentname = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
+                    this.tableR[0].departmentname = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
+                    if(getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)){
+                        this.budgetcodingcheck = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
+                        this.tableT[0].budgetcoding = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
+                        this.tableP[0].budgetcoding = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
+                        this.tableR[0].budgetcoding = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
+                        this.Redirict = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).redirict;
+                    }
+                }
                 this.userlist = this.$store.getters.userinfo.userid;
                 if (this.userlist !== null && this.userlist !== '') {
                     let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
@@ -2546,6 +2564,7 @@
             getmodule(val) {
                 this.form.moduleid = val;
             },
+
             getCurrency(val, row) {
                 row.currency = val;
                 let error = 0;
@@ -2769,8 +2788,8 @@
                     currency: '',
                     currencyrate: '',
                     tormb: '',
-                    departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
-                    budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
+                    departmentname: this.groupId,
+                    budgetcoding:  this.budgetcodingcheck,
                     subjectnumber: '',
                     plsummary: '',
                     region: '',
@@ -2805,8 +2824,8 @@
                     publicexpenseid: '',
                     purchasedetails_id: '',
                     invoicenumber: '',
-                    departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
-                    budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
+                    departmentname: this.groupId,
+                    budgetcoding:  this.budgetcodingcheck,
                     purchasedetailsdate: '',
                     procurementdetails: '',
                     accountcode: '',
@@ -2838,11 +2857,11 @@
                     currency: '',
                     currencyrate: '',
                     tormb: '',
-                    departmentname: getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId,
+                    departmentname: this.groupId,
                     accountcode: '',
                     plsummary: '',
                     subjectnumber: '',
-                    budgetcoding: getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding,
+                    budgetcoding:  this.budgetcodingcheck,
                     remarks: '',
                     rmb: '',
                     foreigncurrency: '',
@@ -2972,13 +2991,13 @@
                         if (newValue.rmb != '') {
                             if (this.tableF[j].taxrate != '') {
                                 if (this.tableF[j].taxrate == 'PJ071001') {
-                                    this.taxrateValue = '0.03'
+                                    this.taxrateValue = getDictionaryInfo('PJ071001').value1
                                 } else if (this.tableF[j].taxrate == 'PJ071002') {
-                                    this.taxrateValue = '0.06'
+                                    this.taxrateValue =getDictionaryInfo('PJ071002').value1
                                 } else if (this.tableF[j].taxrate == 'PJ071003') {
-                                    this.taxrateValue = '0.09'
+                                    this.taxrateValue = getDictionaryInfo('PJ071003').value1
                                 } else if (this.tableF[j].taxrate == 'PJ071004') {
-                                    this.taxrateValue = '0.13'
+                                    this.taxrateValue = getDictionaryInfo('PJ071004').value1
                                 }
                                 taxratevalue = 1 + Number(this.taxrateValue);
                                 newValue.taxes = parseFloat((newValue.rmb / (taxratevalue) * this.taxrateValue)).toFixed(2)
