@@ -427,9 +427,11 @@
                     .then(response => {
                         this.form = response;
                         let rst = getOrgInfoByUserId(response.userid);
-                        this.centerid = rst.centerNmae;
-                        this.groupid= rst.groupNmae;
-                        this.teamid= rst.teamNmae;
+                        if(rst){
+                            this.centerid = rst.centerNmae;
+                            this.groupid= rst.groupNmae;
+                            this.teamid= rst.teamNmae;
+                        }
                         this.loading = false;
                         this.userlist = this.form.userid;
                         if (
@@ -485,12 +487,14 @@
                 this.userlist = this.$store.getters.userinfo.userid;
                 if (this.userlist !== null && this.userlist !== "") {
                     let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-                    this.centerid = lst.centerNmae;
-                    this.groupid= lst.groupNmae;
-                    this.teamid= lst.teamNmae;
-                    this.form.centerid = lst.centerId;
-                    this.form.groupid = lst.groupId;
-                    this.form.teamid = lst.teamId;
+                    if(lst) {
+                        this.centerid = lst.centerNmae;
+                        this.groupid = lst.groupNmae;
+                        this.teamid = lst.teamNmae;
+                        this.form.centerid = lst.centerId;
+                        this.form.groupid = lst.groupId;
+                        this.form.teamid = lst.teamId;
+                    }
                     this.form.userid = this.$store.getters.userinfo.userid;
                 }
             }
@@ -688,12 +692,22 @@
                 this.form.userid = val;
                 this.userlist = val;
                 let lst = getOrgInfoByUserId(val);
-                this.centerid = lst.centerNmae;
-                this.groupid = lst.groupNmae;
-                this.teamid = lst.teamNmae;
-                this.form.centerid = lst.centerId;
-                this.form.groupid = lst.groupId;
-                this.form.teamid = lst.teamId;
+                if(lst) {
+                    this.centerid = lst.centerNmae;
+                    this.groupid = lst.groupNmae;
+                    this.teamid = lst.teamNmae;
+                    this.form.centerid = lst.centerId;
+                    this.form.groupid = lst.groupId;
+                    this.form.teamid = lst.teamId;
+                }
+                else{
+                    this.centerid =  '';
+                    this.groupid =  '';
+                    this.teamid =  '';
+                    this.form.centerid = '';
+                    this.form.teamid =  '';
+                    this.form.groupid =  '';
+                }
                 if (!this.form.userid || this.form.userid === "" || val === "undefined") {
                     this.error = this.$t("normal.error_09") + this.$t("label.applicant");
                 } else {

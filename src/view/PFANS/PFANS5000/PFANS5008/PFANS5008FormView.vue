@@ -690,7 +690,6 @@
             const data = [];
             for (let i = 0; i < response.length; i++) {
                 if(response[i].status=='5'||response[i].status=='6'||response[i].status=='4'){
-                    
                     data.push({
                         key: response[i].companyprojects_id,
                         label: response[i].project_name,

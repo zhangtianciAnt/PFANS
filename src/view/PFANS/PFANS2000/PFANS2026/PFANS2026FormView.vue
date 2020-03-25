@@ -612,9 +612,11 @@
           .then(response => {
             this.form = response.staffexitprocedure;
             let rst = getOrgInfoByUserId(response.staffexitprocedure.user_id);
-            this.centerid = rst.centerNmae;
-            this.groupid= rst.groupNmae;
-            this.teamid= rst.teamNmae;
+              if(rst){
+                  this.centerid = rst.centerNmae;
+                  this.groupid= rst.groupNmae;
+                  this.teamid= rst.teamNmae;
+              }
             if (response.citation.length > 0) {
               this.tableD = response.citation
             }
@@ -741,12 +743,14 @@
         this.userlist = this.$store.getters.userinfo.userid;
         if (this.userlist !== null && this.userlist !== "") {
           let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-          this.centerid = rst.centerNmae;
-          this.groupid= rst.groupNmae;
-          this.teamid= rst.teamNmae;
-          this.form.center_id = rst.centerId;
-          this.form.group_id = rst.groupId;
-          this.form.team_id = rst.teamId;
+            if(rst) {
+                this.centerid = rst.centerNmae;
+                this.groupid = rst.groupNmae;
+                this.teamid = rst.teamNmae;
+                this.form.center_id = rst.centerId;
+                this.form.group_id = rst.groupId;
+                this.form.team_id = rst.teamId;
+            }
           let lst = getUserInfo(this.$store.getters.userinfo.userid);
           if (lst) {
             this.form.sex = lst.userinfo.sex ;
