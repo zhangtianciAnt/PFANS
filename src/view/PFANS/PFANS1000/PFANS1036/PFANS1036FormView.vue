@@ -9,7 +9,7 @@
     >
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" employedref="refform"
-                 style="padding: 2vw">
+                 style="padding: 1.5vw">
           <el-row v-show="false">
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1036FORMVIEW_CENTER')">
@@ -28,12 +28,14 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <div style="padding-bottom: 1%;">
+          <div style="padding-bottom: 0.5%;padding-left: 73%">
+            <el-divider direction="vertical"></el-divider>
             <span style="color:#f47f31">{{this.form.year + " " + this.$t('label.PFANS1036FORMVIEW_BUSINESSYEAR')}}</span>
             <el-divider direction="vertical"></el-divider>
-            <span style="color:#f47f31">{{this.org[0].redirict === 0 ? this.$t('label.PFANS1036FORMVIEW_ZJJJDEPARTMENT') : this.$t('PFANS1036FORMVIEW_JJDEPARTMENT')}}</span>
+            <span style="color:#f47f31">{{(this.org.redirict === 0 ? this.$t('label.PFANS1036FORMVIEW_ZJJJDEPARTMENT') : this.$t('label.PFANS1036FORMVIEW_JJDEPARTMENT'))||""}}</span>
             <el-divider direction="vertical"></el-divider>
-            <span style="color:#f47f31">{{this.org[0].companyen}}</span>
+            <span style="color:#f47f31">{{(this.org.companyen)||""}}</span>
+            <el-divider direction="vertical"></el-divider>
           </div>
           <el-tabs v-model="activeName" type="border-card">
             <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_PERSONNELPLAN')" style="margin-top: 2%" name="first">
@@ -1793,7 +1795,7 @@
           this.getPersonTable(rst.groupId,this.form.year);
       }
       debugger
-      this.org = this.$store.getters.orgGroupList.filter(val => val.groupid === this.form.group_id);
+      this.org = this.$store.getters.orgGroupList.filter(val => val.groupid === this.form.group_id)[0];
     },
     computed:{
         tableSZTotal:function(){
