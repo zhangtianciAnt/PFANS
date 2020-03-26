@@ -3786,7 +3786,7 @@
               }
               if (response.base[j].sex !== null && response.base[j].sex !== "") {
                 if (this.$i18n) {
-                  if (response.base[j].sex === "0") {
+                  if (response.base[j].sex === "PR019001") {
                     response.base[j].sex = this.$t("label.PFANS2002FORMVIEW_BOY");
                   } else {
                     response.base[j].sex = this.$t(
