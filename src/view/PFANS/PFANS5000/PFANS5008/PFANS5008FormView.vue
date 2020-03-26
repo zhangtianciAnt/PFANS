@@ -660,6 +660,7 @@
                   this.$store
                     .dispatch('PFANS5008Store/getProjectList', {})
                     .then(response => {
+
                         this.optionsdata = [];
                         const vote = [];
                         let user_id = this.$store.getters.userinfo.userid;

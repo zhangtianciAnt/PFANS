@@ -2241,6 +2241,7 @@
                 this.$store
                     .dispatch('PFANS5008Store/getCompanyProjectList', {})
                     .then(response => {
+
                         for (let i = 0; i < response.length; i++) {
                             if (response[i].status == '4' || response[i].status == '6' || response[i].status == '7') {
                                 this.optionsdate.push({
