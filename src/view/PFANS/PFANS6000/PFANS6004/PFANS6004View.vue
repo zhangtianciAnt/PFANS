@@ -248,6 +248,7 @@
               }
               if (response[j].whetherentry == "BP006001") {
                 tabledate.push({
+                  expatriatesinfor_id: response[j].expatriatesinfor_id,
                   suppliername: response[j].suppliername,
                   expname: response[j].expname,
                   group_id: response[j].group_id,
@@ -448,6 +449,7 @@
             name: 'PFANS6004FormView',
             params: {
               _id: this.rowid,
+              _name: this.rowname,
               disabled: false,
             },
           });

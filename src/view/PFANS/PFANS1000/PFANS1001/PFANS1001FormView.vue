@@ -79,7 +79,6 @@
           let businesstype = {'businesstype': '0'};
           this.dispatchparameter('PFANS1001Store/getBusiness',businesstype);
         } else if (val === 2) {
-          alert("111" + this.row)
             this.row = "businessid";
             this.title = 'title.PFANS1035VIEW';
             let businesstype = {'businesstype': '1'};
@@ -147,10 +146,9 @@
       },
       rowClick(row) {
         if (this.$route.params.title === 1) {
-          this.rowid = row.businessid;
+          this.rowid = row.business_id;
         } else if (this.$route.params.title === 2) {
-          this.rowid = row.businessid;
-          alert("222" + this.rowid)
+          this.rowid = row.business_id;
         } else if (this.$route.params.title === 3) {
           this.rowid = row.judgementid;
         } else if (this.$route.params.title === 4) {

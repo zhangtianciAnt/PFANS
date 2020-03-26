@@ -322,7 +322,7 @@
           remarks: '',
         },
 
-        code1: 'BP001',
+        code1: 'PG020',
 
         code2: 'PR022',
 

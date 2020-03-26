@@ -756,6 +756,7 @@
         this.$store
           .dispatch('PFANS6006Store/getYears', {'year': this.year})
           .then(response => {
+            console.log(response)
               let tabledate = [];
             for (let j = 0; j < response.length; j++) {
               if (response[j].managerid !== null && response[j].managerid !== '') {
@@ -818,7 +819,22 @@
                   response[j].countermeasure = letStage.value1;
                 }
               }
-              if (response[j].venuetarget == "是") {
+              if (response[j].distriobjects !== null && response[j].distriobjects !== '') {
+                if (response[j].distriobjects = 0) {
+                  response[j].distriobjects = "是";
+                } else if (response[j].distriobjects = 1) {
+                  response[j].distriobjects = "否";
+                }
+              }
+              if (response[j].venuetarget !== null && response[j].venuetarget !== '') {
+                if (response[j].venuetarget = 0) {
+                  response[j].venuetarget = "是";
+                } else if (response[j].venuetarget = 1) {
+                  response[j].venuetarget = "否";
+                }
+              }
+
+              if (response[j].venuetarget == 0) {
                 let arr = [
                   response[j].april,
                   response[j].may,
@@ -899,16 +915,6 @@
       },
       buttonClick(val) {
         if (val === 'save') {
-          // if(this.multipleSelection.length = 0){
-          //   Message({
-          //     message: this.$t('normal.info_01'),
-          //     type: 'info',
-          //     duration: 2 * 1000
-          //   });
-          //   return;
-          // }
-          console.log(this.multipleSelection)
-          console.log(this.multipleSelection.length)
           this.loading = true;
           this.$store
             .dispatch('PFANS6006Store/updateDeleginformation', this.multipleSelection)
