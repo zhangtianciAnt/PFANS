@@ -6,8 +6,7 @@
                          ref="container"
                          v-loading="loading">
       <div slot="customize">
-        <el-form :model="form1" :rules="rules1" label-position="top" label-width="6vw" ref="refform1"
-                 style="padding: 2vw">
+        <el-form :model="form1" :rules="rules1" label-position="top" label-width="6vw" ref="refform1">
           <el-dialog :title="$t('button.application')" :visible.sync="dialogVisibleC">
             <el-form-item :label="$t('label.PFANS1024VIEW_NUMBER')" :label-width="formLabelWidth" :error="errorclaimtype" prop="claimtype">
               <dicselect
@@ -770,7 +769,8 @@
         }
       };
       var checkApplicationdate =(rule, value, callback) => {
-          if (!this.form1.applicationdate || this.form1.applicationdate === '' || !this.form1.entrycondition || this.form1.entrycondition === '') {
+//          if (!this.form1.applicationdate || this.form1.applicationdate === '' || !this.form1.entrycondition || this.form1.entrycondition === '') {
+          if (value === '') {
               callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1024VIEW_CAREERYEAR')));
               this.errorapplicationdate = this.$t('normal.error_09') + this.$t('label.PFANS1024VIEW_CAREERYEAR');
           } else {
@@ -1854,15 +1854,6 @@
           this.loading = false;
           this.dialogBook = false;
           return;
-        } else if (this.form.tabledata.currencyposition == undefined || this.form.tabledata.contractdate == undefined || this.form.tableclaimtype.deliverydate == undefined) {
-          Message({
-            message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_CONTR'),
-            type: 'error',
-            duration: 5 * 1000,
-          });
-          this.loading = false;
-          this.dialogBook = false;
-          return;
         }
         this.$store.dispatch('PFANS1026Store/existCheck', {contractNumber: contractNumber})
           .then(response => {
@@ -2113,6 +2104,7 @@
       },
       validateByType: function(type, cb) {
         let that = this;
+        let countIndex = 0;
         let rowCount = that.form.tabledata.length || 0;
         let rowCount2 = that.form.tableclaimtype.length || 0;
         let myRule = this.ruleSet[type] || [];
@@ -2132,6 +2124,9 @@
               var itIndex = dataName + '.' + k + '.' + item;
               let pro = new Promise(function(resolve, reject) {
                 that.$refs['refform'].validateField(itIndex, function(msg) {
+                  if(msg != ""){
+                    countIndex++;
+                  }
                   resolve(msg);
                 });
               });
@@ -2141,6 +2136,9 @@
             var itIndex = dataName + '.' + (rowCount - 1) + '.' + item;
             let pro = new Promise(function(resolve, reject) {
               that.$refs['refform'].validateField(itIndex, function(msg) {
+                if(msg != ""){
+                  countIndex++;
+                }
                 resolve(msg);
               });
             });
@@ -2161,7 +2159,13 @@
           });
           cb(isOk);
         });
-
+        if(countIndex > 0){
+          Message({
+            message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_CONTR'),
+            type: 'error',
+            duration: 5 * 1000,
+          });
+        }
       },
     },
   };
