@@ -1741,6 +1741,7 @@
           .dispatch('PFANS1036Store/selectById', {'businessplanid': this.$route.params._id})
           .then(response => {
               this.form = response;
+              this.org = this.$store.getters.orgGroupList.filter(val => val.groupid === this.form.group_id)[0];
               this.equipment_newyear = JSON.parse(this.form.equipment_newyear);
               this.equipment_lastyear = JSON.parse(this.form.equipment_lastyear);
               this.assets_newyear = JSON.parse(this.form.assets_newyear);
@@ -1791,11 +1792,10 @@
           this.form.center_id = rst.centerId||"";
           this.form.group_id = rst.groupId||"";
           this.form.user_id = this.$store.getters.userinfo.userid;
+          this.org = this.$store.getters.orgGroupList.filter(val => val.groupid === this.form.group_id)[0];
           this.getGroupB1(this.form.group_id);
           this.getPersonTable(rst.groupId,this.form.year);
       }
-      debugger
-      this.org = this.$store.getters.orgGroupList.filter(val => val.groupid === this.form.group_id)[0];
     },
     computed:{
         tableSZTotal:function(){
