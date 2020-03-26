@@ -63,28 +63,16 @@
                     align="center"
                     width="160">
                     <template slot-scope="scope">
-                      <el-input
-                        :disabled="!disabled"
-                        :no="scope.row"
-                        style="width: 100%"
-                        v-model="scope.row.project_name">
-                      </el-input>
+                      <span>{{scope.row.pj}}</span>
                     </template>
                   </el-table-column>
 
-                  <el-table-column
-                    :label="$t('共通PJ（研修会议等）')"
-                    align="center"
-                    width="160">
-                    <template slot-scope="scope">
-                      <el-input
-                        :disabled="!disabled"
-                        :no="scope.row"
-                        style="width: 100%"
-                        v-model="scope.row.managerid">
-                      </el-input>
-                    </template>
-                  </el-table-column>
+<!--                  <el-table-column-->
+<!--                    :label="$t('共通PJ（研修会议等）')"-->
+<!--                    align="center"-->
+<!--                    width="160">-->
+
+<!--                  </el-table-column>-->
                 </el-table-column>
 
                   <el-table-column
@@ -96,41 +84,31 @@
                       align="center"
                       width="110">
                       <template slot-scope="scope">
-                        <el-input
-                          :disabled="!disabled"
-                          :no="scope.row"
-                          style="width: 100%"
-                          v-model="scope.row.project_name">
-                        </el-input>
+                        <span>{{scope.row.outst1}}</span>
                       </template>
+
                     </el-table-column>
 
                     <el-table-column
                       :label="$t('税金')"
                       align="center"
                       width="110">
+
                       <template slot-scope="scope">
-                        <el-input
-                          :disabled="!disabled"
-                          :no="scope.row"
-                          style="width: 100%"
-                          v-model="scope.row.project_name">
-                        </el-input>
+                        <span>{{scope.row.tax}}</span>
                       </template>
+
                     </el-table-column>
 
                     <el-table-column
                       :label="$t('内部受託')"
                       align="center"
                       width="110">
+
                       <template slot-scope="scope">
-                        <el-input
-                          :disabled="!disabled"
-                          :no="scope.row"
-                          style="width: 100%"
-                          v-model="scope.row.project_name">
-                        </el-input>
+                        <span>{{scope.row.inst}}</span>
                       </template>
+
                     </el-table-column>
 
                     <el-table-column
@@ -138,17 +116,12 @@
                       align="center"
                       width="110">
                       <template slot-scope="scope">
-                        <el-input
-                          :disabled="!disabled"
-                          :no="scope.row"
-                          style="width: 100%"
-                          v-model="scope.row.project_name">
-                        </el-input>
+                        <span>{{scope.row.intotal}}</span>
                       </template>
                     </el-table-column>
                   </el-table-column>
 
-                  <!--                BP名前-->
+
                   <el-table-column
                     :label="$t('支出')"
                     align="center">
@@ -157,14 +130,11 @@
                       :label="$t('社員工数')"
                       align="center"
                       width="110">
+
                       <template slot-scope="scope">
-                        <el-input
-                          :disabled="!disabled"
-                          :no="scope.row"
-                          style="width: 100%"
-                          v-model="scope.row.project_name">
-                        </el-input>
+                        <span>{{scope.row.emhours}}</span>
                       </template>
+
                     </el-table-column>
 
                     <el-table-column
@@ -172,27 +142,20 @@
                       align="center"
                       width="110">
                       <template slot-scope="scope">
-                        <el-input
-                          :disabled="!disabled"
-                          :no="scope.row"
-                          style="width: 100%"
-                          v-model="scope.row.project_name">
-                        </el-input>
+                        <span>{{scope.row.outhours}}</span>
                       </template>
+
                     </el-table-column>
 
                     <el-table-column
                       :label="$t('人件費')"
                       align="center"
                       width="110">
+
                       <template slot-scope="scope">
-                        <el-input
-                          :disabled="!disabled"
-                          :no="scope.row"
-                          style="width: 100%"
-                          v-model="scope.row.project_name">
-                        </el-input>
+                        <span>{{scope.row.peocost}}</span>
                       </template>
+
                     </el-table-column>
 
                     <el-table-column
@@ -200,13 +163,9 @@
                       align="center"
                       width="110">
                       <template slot-scope="scope">
-                        <el-input
-                          :disabled="!disabled"
-                          :no="scope.row"
-                          style="width: 100%"
-                          v-model="scope.row.project_name">
-                        </el-input>
+                        <span>{{scope.row.outcost}}</span>
                       </template>
+
                     </el-table-column>
 
                     <el-table-column
@@ -214,56 +173,33 @@
                       align="center"
                       width="110">
                       <template slot-scope="scope">
-                        <el-input
-                          :disabled="!disabled"
-                          :no="scope.row"
-                          style="width: 100%"
-                          v-model="scope.row.project_name">
-                        </el-input>
+                        <span>{{scope.row.inwetuo}}</span>
                       </template>
+
                     </el-table-column>
 
                     <el-table-column
                       :label="$t('研究材料費')"
                       align="center"
                       width="110">
+
                       <template slot-scope="scope">
-                        <el-input
-                          :disabled="!disabled"
-                          :no="scope.row"
-                          style="width: 100%"
-                          v-model="scope.row.project_name">
-                        </el-input>
+                        <span>{{scope.row.researchcost}}</span>
                       </template>
+
                     </el-table-column>
 
                     <el-table-column
                       :label="$t('部門共通按分（A是共通费用）')"
                       align="center"
                       width="200">
+
                       <template slot-scope="scope">
-                        <el-input
-                          :disabled="!disabled"
-                          :no="scope.row"
-                          style="width: 100%"
-                          v-model="scope.row.project_name">
-                        </el-input>
+                        <span>{{scope.row.departmentcom}}</span>
                       </template>
+
                     </el-table-column>
 
-                    <el-table-column
-                      :label="$t('研究材料費')"
-                      align="center"
-                      width="110">
-                      <template slot-scope="scope">
-                        <el-input
-                          :disabled="!disabled"
-                          :no="scope.row"
-                          style="width: 100%"
-                          v-model="scope.row.project_name">
-                        </el-input>
-                      </template>
-                    </el-table-column>
 
                     <el-table-column
                       :label="$t('部門共通費用')"
@@ -274,12 +210,7 @@
                         align="center"
                         width="110">
                         <template slot-scope="scope">
-                          <el-input
-                            :disabled="!disabled"
-                            :no="scope.row"
-                            style="width: 100%"
-                            v-model="scope.row.project_name">
-                          </el-input>
+                          <span>{{scope.row.yuanqincost}}</span>
                         </template>
                       </el-table-column>
 
@@ -287,70 +218,45 @@
                         :label="$t('旅費')"
                         align="center"
                         width="110">
+
                         <template slot-scope="scope">
-                          <el-input
-                            :disabled="!disabled"
-                            :no="scope.row"
-                            style="width: 100%"
-                            v-model="scope.row.project_name">
-                          </el-input>
+                          <span>{{scope.row.travalcost}}</span>
                         </template>
+
                       </el-table-column>
 
-                      <el-table-column
-                        :label="$t('原動費')"
-                        align="center"
-                        width="110">
-                        <template slot-scope="scope">
-                          <el-input
-                            :disabled="!disabled"
-                            :no="scope.row"
-                            style="width: 100%"
-                            v-model="scope.row.project_name">
-                          </el-input>
-                        </template>
-                      </el-table-column>
 
                       <el-table-column
                         :label="$t('消耗費')"
                         align="center"
                         width="110">
+
                         <template slot-scope="scope">
-                          <el-input
-                            :disabled="!disabled"
-                            :no="scope.row"
-                            style="width: 100%"
-                            v-model="scope.row.project_name">
-                          </el-input>
+                          <span>{{scope.row.concost}}</span>
                         </template>
+
                       </el-table-column>
 
                       <el-table-column
                         :label="$t('通信費')"
                         align="center"
                         width="110">
+
                         <template slot-scope="scope">
-                          <el-input
-                            :disabled="!disabled"
-                            :no="scope.row"
-                            style="width: 100%"
-                            v-model="scope.row.project_name">
-                          </el-input>
+                          <span>{{scope.row.callcost}}</span>
                         </template>
+
                       </el-table-column>
 
                       <el-table-column
                         :label="$t('ブランド料')"
                         align="center"
                         width="110">
+
                         <template slot-scope="scope">
-                          <el-input
-                            :disabled="!disabled"
-                            :no="scope.row"
-                            style="width: 100%"
-                            v-model="scope.row.project_name">
-                          </el-input>
+                          <span>{{scope.row.brandcost}}</span>
                         </template>
+
                       </el-table-column>
 
                       <el-table-column
@@ -358,27 +264,20 @@
                         align="center"
                         width="110">
                         <template slot-scope="scope">
-                          <el-input
-                            :disabled="!disabled"
-                            :no="scope.row"
-                            style="width: 100%"
-                            v-model="scope.row.project_name">
-                          </el-input>
+                          <span>{{scope.row.rent}}</span>
                         </template>
+
                       </el-table-column>
 
                       <el-table-column
                         :label="$t('その他')"
                         align="center"
                         width="110">
+
                         <template slot-scope="scope">
-                          <el-input
-                            :disabled="!disabled"
-                            :no="scope.row"
-                            style="width: 100%"
-                            v-model="scope.row.project_name">
-                          </el-input>
+                          <span>{{scope.row.other}}</span>
                         </template>
+
                       </el-table-column>
 
                       <el-table-column
@@ -386,12 +285,7 @@
                         align="center"
                         width="170">
                         <template slot-scope="scope">
-                          <el-input
-                            :disabled="!disabled"
-                            :no="scope.row"
-                            style="width: 100%"
-                            v-model="scope.row.project_name">
-                          </el-input>
+                          <span>{{scope.row.departmenttotal}}</span>
                         </template>
                       </el-table-column>
                     </el-table-column>
@@ -400,28 +294,22 @@
                       :label="$t('配賦費用')"
                       align="center"
                       width="110">
+
                       <template slot-scope="scope">
-                        <el-input
-                          :disabled="!disabled"
-                          :no="scope.row"
-                          style="width: 100%"
-                          v-model="scope.row.project_name">
-                        </el-input>
+                        <span>{{scope.row.allocation}}</span>
                       </template>
+
                     </el-table-column>
 
                     <el-table-column
                       :label="$t('支出合計')"
                       align="center"
                       width="110">
+
                       <template slot-scope="scope">
-                        <el-input
-                          :disabled="!disabled"
-                          :no="scope.row"
-                          style="width: 100%"
-                          v-model="scope.row.project_name">
-                        </el-input>
+                        <span>{{scope.row.costtotal}}</span>
                       </template>
+
                     </el-table-column>
                   </el-table-column>
 
@@ -434,14 +322,11 @@
                     :label="$t('仕掛品処理')"
                     align="center"
                     width="110">
+
                     <template slot-scope="scope">
-                      <el-input
-                        :disabled="!disabled"
-                        :no="scope.row"
-                        style="width: 100%"
-                        v-model="scope.row.project_name">
-                      </el-input>
+                      <span>{{scope.row.process}}</span>
                     </template>
+
                   </el-table-column>
 
                 </el-table-column>
@@ -455,12 +340,7 @@
                     align="center"
                     width="110">
                     <template slot-scope="scope">
-                      <el-input
-                        :disabled="!disabled"
-                        :no="scope.row"
-                        style="width: 100%"
-                        v-model="scope.row.project_name">
-                      </el-input>
+                      <span>{{scope.row.marginal}}</span>
                     </template>
                   </el-table-column>
 
@@ -469,12 +349,7 @@
                     align="center"
                     width="110">
                     <template slot-scope="scope">
-                      <el-input
-                        :disabled="!disabled"
-                        :no="scope.row"
-                        style="width: 100%"
-                        v-model="scope.row.project_name">
-                      </el-input>
+                      <span>{{scope.row.Operating}}</span>
                     </template>
                   </el-table-column>
                 </el-table-column>
@@ -489,14 +364,14 @@
 </template>
 
 <script>
-  import EasyNormalContainer from "@/components/EasyNormalContainer";
-  import moment from "moment";
-  import {Message} from 'element-ui';
-  import user from "../../../components/user.vue";
-  import {getDictionaryInfo, getSupplierinfor, getUserInfo} from '../../../../utils/customize';
-  import org from '../../../components/org';
+    import EasyNormalContainer from "@/components/EasyNormalContainer";
+    import moment from "moment";
+    import {Message} from 'element-ui';
+    import user from "../../../components/user.vue";
+    import org from '../../../components/org';
+    import {getOrgInfo,getDictionaryInfo,getUserInfo,getSupplierinfor,getStatus} from '@/utils/customize';
 
-  export default {
+    export default {
     name: "PFANS1042View",
     components: {
       EasyNormalContainer,
@@ -571,38 +446,7 @@
 
           },
 
-        tableData: [{
-          type: '',
-          project_name: '',
-          managerid: '',
-          expname: '',
-          suppliernameid: '',
-          admissiontime: '',
-          exitime: '',
-          operationform: '',
-          jobclassification: '',
-          distriobjects: '',
-          venuetarget: '',
-          january: '',
-          february: '',
-          march: '',
-          april: '',
-          may: '',
-          june: '',
-          july: '',
-          august: '',
-          september: '',
-          october: '',
-          november: '',
-          december: '',
-          monthlength: '',
-          remarks: '',
-          alltechnology: '',
-          sitevaluation: '',
-          exitreason: '',
-          businessimpact: '',
-          countermeasure: '',
-        }],
+        tableData: [],
         data: [],
         multipleSelection: [],
         userlist: "",
@@ -618,27 +462,20 @@
         ],
       };
     },
+      mounted() {
+          // this.getList();
+      },
     methods: {
         changeRegion(val){
-            debugger
             this.form.region = val;
-            if(this.form.group_id !="" && this.form.group_id!=null && this.form.year !="" && this.form.year!=null){
-                if(this.form.year){
-                    if(val){
-
-                    }
-                }
-
+            if (this.form.group_id && this.form.year && this.form.region) {
+                this.getList(this.form.group_id, this.form.year, this.form.region)
             }else {
                 if (!this.form.group_id || this.form.group_id === '' || !this.form.year || this.form.year === '') {
-                    if(this.form.group_id){
-                        this.erroryear = this.$t('normal.error_08') + this.$t('label.PFANS1036FORMVIEW_BUSINESSYEAR');
-                    }
-                    if(this.form.year){
+                    if (!this.form.group_id) {
                         this.errorgroup = this.$t('normal.error_08') + this.$t('label.PFANS1039FORMVIEW_GROUP');
                     }
-                    else{
-                        this.errorgroup = this.$t('normal.error_08') + this.$t('label.PFANS1039FORMVIEW_GROUP');
+                    if (!this.form.year) {
                         this.erroryear = this.$t('normal.error_08') + this.$t('label.PFANS1036FORMVIEW_BUSINESSYEAR');
                     }
 
@@ -652,23 +489,19 @@
         changeYear(val){
             debugger
             this.form.year = moment(val).format("YYYY");
-            if(this.form.group_id !="" && this.form.group_id!=null){
+            if (this.form.group_id && this.form.region) {
                 if(val){
-
+                    // this.getList(this.form.group_id,this.form.year,this.form.region)
+                    console.log("changeYear")
                 }
             }else {
                 if (!this.form.group_id || this.form.group_id === '' || val === 'undefined' || !this.form.region || this.form.region === '') {
-                    if(this.form.group_id){
-                        this.errormonth = this.$t('normal.error_09') + this.$t('label.PFANS5009FORMVIEW_MONTH');
-                    }
-                    if(this.form.region){
+                    if (!this.form.group_id) {
                         this.errorgroup = this.$t('normal.error_08') + this.$t('label.PFANS1039FORMVIEW_GROUP');
                     }
-                    else {
-                        this.errorgroup = this.$t('normal.error_08') + this.$t('label.PFANS1039FORMVIEW_GROUP');
+                    if (!this.form.region) {
                         this.errormonth = this.$t('normal.error_09') + this.$t('label.PFANS5009FORMVIEW_MONTH');
                     }
-
                 } else {
                     this.errorgroup = '';
                 }
@@ -685,14 +518,18 @@
             } else {
                 this.errorgroup = '';
             }
-
-            if(this.form.year!=null && this.form.year!="" || this.form.region!=null && this.form.region!=""){
-                if(this.form.group_id){
-
-                }
+            if (this.form.year && this.form.region && this.form.group_id) {
+                // this.getList(this.form.group_id,this.form.year,this.form.region)
+                console.log("getGroupId")
             }else{
-                this.erroryear = this.$t('normal.error_08') + this.$t('label.PFANS1036FORMVIEW_BUSINESSYEAR');
-                this.errormonth = this.$t('normal.error_09') + this.$t('label.PFANS5009FORMVIEW_MONTH');
+                // this.erroryear = this.$t('normal.error_08') + this.$t('label.PFANS1036FORMVIEW_BUSINESSYEAR');
+                // this.errormonth = this.$t('normal.error_09') + this.$t('label.PFANS5009FORMVIEW_MONTH');
+                if (!this.form.region) {
+                    this.errormonth = this.$t('normal.error_09') + this.$t('label.PFANS5009FORMVIEW_MONTH');
+                }
+                if (!this.form.year) {
+                    this.erroryear = this.$t('normal.error_08') + this.$t('label.PFANS1036FORMVIEW_BUSINESSYEAR');
+                }
 
             }
 
@@ -736,127 +573,91 @@
         },
 
 
-      getList() {
+        getList(groupid, year, month) {
         this.loading = true;
         this.$store
-          .dispatch('PFANS6006Store/getYears', {'year': this.year})
+            .dispatch('PFANS1042Store/getPltab', {'groupid': groupid, 'year': year, 'month': month})
           .then(response => {
+              console.log("response", response);
               let tabledate = [];
-            for (let j = 0; j < response.length; j++) {
-              if (response[j].managerid !== null && response[j].managerid !== '') {
-                let rst = getUserInfo(response[j].managerid)
-                if (rst) {
-                  response[j].managerid = rst.userinfo.customername;
-                }
+              let date1 = getDictionaryInfo('PJ086002').value2;
+              let date2 = getDictionaryInfo('PJ086003').value2;
+
+              let wai =  getDictionaryInfo('PJ110001').value2;//0.4
+              let nei =  getDictionaryInfo('PJ110002').value2;//1
+              let she =  getDictionaryInfo('PJ110003').value2;//3
+
+
+              let sum = 0;
+
+              for (let j = 0; j < response.length; j++) {
+                  sum += Number(response[j].emhours)
               }
-              if (response[j].supplierinfor_id !== null && response[j].supplierinfor_id !== '') {
-                let supplierInfo = getSupplierinfor(response[j].supplierinfor_id);
-                if (supplierInfo) {
-                  response[j].suppliernameid = supplierInfo.supchinese;
-                }
-              }
-              if (response[j].admissiontime !== null && response[j].admissiontime !== '') {
-                response[j].admissiontime = moment(response[j].admissiontime).format('YYYY-MM-DD');
-              }
-              if (response[j].exitime !== null && response[j].exitime !== '') {
-                response[j].exitime = moment(response[j].exitime).format('YYYY-MM-DD');
-              }
-              if (response[j].jobclassification !== null && response[j].jobclassification !== '') {
-                let letStage = getDictionaryInfo(response[j].jobclassification);
-                if (letStage != null) {
-                  response[j].jobclassification = letStage.value1;
-                }
-              }
-              if (response[j].operationform !== null && response[j].operationform !== '') {
-                let letStage = getDictionaryInfo(response[j].operationform);
-                if (letStage != null) {
-                  response[j].operationform = letStage.value1;
-                }
-              }
-              if (response[j].alltechnology !== null && response[j].alltechnology !== '') {
-                let letStage = getDictionaryInfo(response[j].alltechnology);
-                if (letStage != null) {
-                  response[j].alltechnology = letStage.value1;
-                }
-              }
-              if (response[j].sitevaluation !== null && response[j].sitevaluation !== '') {
-                let letStage = getDictionaryInfo(response[j].sitevaluation);
-                if (letStage != null) {
-                  response[j].sitevaluation = letStage.value1;
-                }
-              }
-              if (response[j].exitreason !== null && response[j].exitreason !== '') {
-                let letStage = getDictionaryInfo(response[j].exitreason);
-                if (letStage != null) {
-                  response[j].exitreason = letStage.value1;
-                }
-              }
-              if (response[j].businessimpact !== null && response[j].businessimpact !== '') {
-                let letStage = getDictionaryInfo(response[j].businessimpact);
-                if (letStage != null) {
-                  response[j].businessimpact = letStage.value1;
-                }
-              }
-              if (response[j].countermeasure !== null && response[j].countermeasure !== '') {
-                let letStage = getDictionaryInfo(response[j].countermeasure);
-                if (letStage != null) {
-                  response[j].countermeasure = letStage.value1;
-                }
-              }
-              if (response[j].venuetarget == "是") {
-                let arr = [
-                  response[j].april,
-                  response[j].may,
-                  response[j].june,
-                  response[j].july,
-                  response[j].august,
-                  response[j].september,
-                  response[j].october,
-                  response[j].november,
-                  response[j].december,
-                  response[j].january,
-                  response[j].february,
-                  response[j].march
-                ];
-                var h = 0;
-                for (let i = 0; i < arr.length; i++) {
-                  if (arr[i] != null && arr[i] != "0.00" && arr[i] != "0") {
-                    h++;
+
+              for (let j = 0; j < response.length; j++) {
+//外部受託-
+                  response[j].outst1 = Number(response[j].outst1) + Number(response[j].outst2) + Number(response[j].outst3);
+//税金-
+                  response[j].tax = ((Number(response[j].outst2) / ((1 + date1) * date1))) + ((Number(response[j].outst3) / ((1 + date2) * date2)))
+//収入合計
+                  response[j].intotal =  response[j].outst1 + response[j].tax + Number(response[j].inst)
+
+                  console.log("sum",sum)
+                  if (sum == 0) {
+                      response[j].peocost = 0;
+                      response[j].outcost = 0;
+                      response[j].departmentcom = 0;
+                      response[j].allocation = 0;
+                  } else {
+//人件费计算（給料）
+                      response[j].peocost = Number(response[j].emhours) / Number(sum) * Number(response[j].peocost);
+//外注費计算
+                      response[j].outcost = Number(response[j].emhours) / Number(sum) * Number(response[j].outcost);
+//部門共通按分
+                      response[j].departmentcom = Number(response[j].emhours) / Number(sum) * Number(response[j].departmenttotal);
+//配賦費用
+                      response[j].allocation = Number(response[j].emhours) / Number(sum) * (Number(response[j].emhours) * she + Number(response[j].outhours) * nei + Number(response[j].outhours) * wai)
                   }
-                }
-                response[j].monthlength = h;
-              }
-                tabledate.push({
-                    type: 0,
-                    project_name: response[j].project_name,
-                    managerid: response[j].managerid,
-                    expname: response[j].expname,
-                    suppliernameid: response[j].suppliernameid,
-                    admissiontime: response[j].admissiontime,
-                    exitime: response[j].exitime,
-                    operationform: response[j].operationform,
-                    jobclassification: response[j].jobclassification,
-                    distriobjects: response[j].distriobjects,
-                    venuetarget: response[j].venuetarget,
-                    january: response[j].january,
-                    february: response[j].february,
-                    march: response[j].march,
-                    april: response[j].april,
-                    may: response[j].may,
-                    june: response[j].june,
-                    july: response[j].july,
-                    august: response[j].august,
-                    september: response[j].september,
-                    october: response[j].october,
-                    november: response[j].november,
-                    december: response[j].december,
-                    monthlength: response[j].monthlength,
-                    remarks: response[j].remarks,
-                    alltechnology: response[j].alltechnology,
-                    sitevaluation: response[j].sitevaluation,
-                    exitreason: response[j].exitreason,
-                    businessimpact:response[j].businessimpact,
-                    countermeasure: response[j].countermeasure,
+// 部門共通費用合計
+                  response[j].departmenttotal = Number(response[j].yuanqincost) + Number(response[j].travalcost) + Number(response[j].concost) + Number(response[j].callcost) + Number(response[j].brandcost) + Number(response[j].rent) + Number(response[j].other);
+//支出合計
+                  response[j].costtotal = response[j].peocost + response[j].outcost + Number(response[j].inwetuo) + Number(response[j].researchcost) + response[j].departmentcom
+                      + Number(response[j].yuanqincost) + Number(response[j].travalcost) + Number(response[j].concost) + Number(response[j].callcost) + Number(response[j].brandcost)
+                      + Number(response[j].rent) + Number(response[j].other) + Number(response[j].concost) + response[j].departmenttotal + response[j].allocation
+//仕掛品処理
+                  response[j].process = "支出-收入"
+//限界利益
+                  response[j].marginal = (response[j].inst + response[j].outst1) - (response[j].peocost + response[j].outcost)
+//営業利益
+//                   response[j].Operating = response[j].marginal
+                  tabledate.push({
+                      pj: response[j].pj,
+                      outst1: response[j].outst1,
+                      outst2: response[j].outst2,
+                      outst3: response[j].outst3,
+                      tax: response[j].tax,
+                      inst: response[j].inst,
+                      intotal: response[j].intotal,
+                      emhours: response[j].emhours,
+                      outhours: response[j].outhours,
+                      peocost: response[j].peocost,
+                      outcost: response[j].outcost,
+                      inwetuo: response[j].inwetuo,
+                      researchcost: response[j].researchcost,
+                      departmentcom: response[j].departmentcom,
+                      yuanqincost: response[j].yuanqincost,
+                      travalcost: response[j].travalcost,
+                      concost: response[j].concost,
+                      callcost: response[j].callcost,
+                      brandcost: response[j].brandcost,
+                      rent: response[j].rent,
+                      other: response[j].other,
+                      departmenttotal: response[j].departmenttotal,
+                      allocation: response[j].allocation,
+                      costtotal: response[j].costtotal,
+                      process: response[j].process,
+                      marginal: response[j].marginal,
+                      Operating: response[j].Operating,
                 })
             }
 
@@ -875,78 +676,42 @@
       handleRowClick(row) {
          row.type='1'
       },
-      yearChange(value) {
-        this.year = moment(value).format('YYYY');
-        this.getList();
-      },
+
       handleSelectionChange(val) {
         this.multipleSelection = val;
       },
       buttonClick(val) {
-        if (val === 'save') {
-          this.loading = true;
-          this.$store
-            .dispatch('PFANS6006Store/updateDeleginformation', this.multipleSelection)
-            .then(response => {
-              this.data = response;
-              this.getList(this.year);
-              Message({
-                message: this.$t("normal.success_02"),
-                type: "success",
-                duration: 5 * 1000
-              });
-              this.$router.push({
-                name: 'PFANS6006View',
-              });
-              this.loading = false;
-            })
-            .catch(error => {
-              Message({
-                message: error,
-                type: 'error',
-                duration: 5 * 1000,
-              });
-              this.loading = false;
-            });
-        }
-      },
-      getRowClass({row, column, rowIndex, columnIndex}) {
-        if (column.level === 2 && columnIndex >= 0 && columnIndex < 10) {
-          return {
-            color: 'white',
-            background: '#99CCFF !important',
-            'border-bottom': '1px solid #99CCFF',
-            'border-right': '1px solid #73B9FF',
-          };
-        }
-        if (column.level === 2 && columnIndex >= 4 && columnIndex < 24) {
-          return {
-            color: 'white',
-            background: '#99CC99 !important',
-            'border-bottom': '1px solid #99CCFF',
-            'border-right': '1px solid #73CC73',
-          };
-        }
-        if (column.level === 2 && columnIndex >= 24 && columnIndex < 29) {
-          return {
-            color: 'white',
-            background: '#99CCFF',
-            'border-bottom': '1px solid #99CCFF',
-            'border-right': '1px solid #73CC73',
-          };
-        }
-        if (column.level === 1 && columnIndex >= 0 && columnIndex < 25) {
-          return {
-            color: 'white',
-            background: '#005BAA !important',
-          };
-        }
+        // if (val === 'save') {
+        //   this.loading = true;
+        //   this.$store
+        //     .dispatch('PFANS6006Store/updateDeleginformation', this.multipleSelection)
+        //     .then(response => {
+        //       this.data = response;
+        //       this.getList(this.year);
+        //       Message({
+        //         message: this.$t("normal.success_02"),
+        //         type: "success",
+        //         duration: 5 * 1000
+        //       });
+        //       this.$router.push({
+        //         name: 'PFANS6006View',
+        //       });
+        //       this.loading = false;
+        //     })
+        //     .catch(error => {
+        //       Message({
+        //         message: error,
+        //         type: 'error',
+        //         duration: 5 * 1000,
+        //       });
+        //       this.loading = false;
+        //     });
+        // }
       },
 
+
     },
-    mounted() {
-      // this.getList();
-    },
+
   }
 </script>
 
