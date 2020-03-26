@@ -305,17 +305,17 @@
           callback();
         }
       };
-      var validatePass3 = (rule, value, callback) => {
-        if (this.form.overtimetype === 'PR001002') {
-          if (!value || value === '' || value < '8') {
-            callback(new Error(this.$t('normal.error_greaterequal')));
-          } else {
-            callback();
-          }
-        } else {
-          callback();
-        }
-      };
+      // var validatePass3 = (rule, value, callback) => {
+      //   if (this.form.overtimetype === 'PR001002') {
+      //     if (!value || value === '' || value < '8') {
+      //       callback(new Error(this.$t('normal.error_greaterequal')));
+      //     } else {
+      //       callback();
+      //     }
+      //   } else {
+      //     callback();
+      //   }
+      // };
       return {
         centerid: '',
         groupid: '',
@@ -379,7 +379,7 @@
               required: true,
               message:
                 this.$t('normal.error_09') +
-                this.$t('label.PFANS2011VIEW_RESERVEOVERTIME'),
+                this.$t('label.·'),
               trigger: 'change',
             },
           ],
@@ -402,10 +402,10 @@
                 this.$t('label.PFANS2011VIEW_RESERVEOVER'),
               trigger: 'change',
             },
-            {
-              validator: validatePass3,
-              trigger: 'change',
-            },
+            // {
+            //   validator: validatePass3,
+            //   trigger: 'change',
+            // },
           ],
           cause: [
             {
