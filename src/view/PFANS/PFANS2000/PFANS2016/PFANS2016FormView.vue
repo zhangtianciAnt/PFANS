@@ -852,7 +852,7 @@
                             });
                             return;
                         }
-                    } else if (this.form.errortype === 'PR013016' && this.$store.getters.userinfo.userinfo.sex !== 'PR019002') {
+                    } else if (this.form.errortype === 'PR013016' && this.$store.getters.userinfo.userinfo.sex !== 'PG020002') {
                         Message({
                             message: this.$t('label.PFANS2016FORMVIEW_WOMENCHECK'),
                             type: 'error',
@@ -1422,7 +1422,7 @@
             },
             changeTime() {
                 let diffDate = moment(this.form.finisheddate).diff(moment(this.form.occurrencedate), 'days') + 1;
-                if (this.form.errortype === 'PR013012' || this.form.errortype === 'PR013021' && this.$store.getters.userinfo.userinfo.sex !== 'PR019002') {
+                if (this.form.errortype === 'PR013012' || this.form.errortype === 'PR013021' && this.$store.getters.userinfo.userinfo.sex !== 'PG020002') {
                     Message({
                         message: this.$t('label.PFANS2016FORMVIEW_WOMENCHECK'),
                         type: 'error',
@@ -1430,7 +1430,7 @@
                     });
                     return;
                 } else if (this.form.errortype === 'PR013013') {
-                    if (this.$store.getters.userinfo.userinfo.sex !== 'PR019001') {
+                    if (this.$store.getters.userinfo.userinfo.sex !== 'PG020001') {
                         Message({
                             message: this.$t('label.PFANS2016FORMVIEW_MENCHECK'),
                             type: 'error',
