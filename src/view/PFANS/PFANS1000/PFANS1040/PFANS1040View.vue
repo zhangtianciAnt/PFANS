@@ -59,7 +59,7 @@
                       <dicselect
                         :code="code4"
                         :data="scope.row.kind"
-                        :disabled="disabled"
+                        :disabled="true"
                         :no="scope.row"
                         @change="getkind"
                       ></dicselect>
@@ -406,7 +406,7 @@
                       <dicselect
                         :code="code4"
                         :data="scope.row.kind"
-                        :disabled="gettrue(scope.row)"
+                        :disabled="true"
                         :no="scope.row"
                         @change="getkind"
                       ></dicselect>
@@ -778,7 +778,7 @@
             theme: '',
             groupid: this.groupId,
             teamid: '',
-            kind: '',
+            kind: 'PJ064001',
             contractform: '',
             currencytype: '',
             commission: '',
@@ -1000,7 +1000,7 @@
           theme: '',
           groupid: this.groupId,
           teamid: '',
-          kind: '',
+          kind: 'PJ064001',
           contractform: '',
           currencytype: '',
           commission: '',
@@ -1047,7 +1047,7 @@
           theme: '',
           groupid: this.groupId,
           teamid: '',
-          kind: '',
+          kind: 'PJ064001',
           contractform: '',
           currencytype: '',
           commission: '',
