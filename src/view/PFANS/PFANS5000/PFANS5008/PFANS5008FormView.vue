@@ -198,6 +198,7 @@
         transferData: [],
         transfer: [],
         optionsdata: [],
+        startoption: [{value: 'PP024001', lable: this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')}],
         optionsdate: [],
         optiondate: [],
         buttonList: [],
@@ -293,7 +294,9 @@
                   obj.start_time = response[k].time_start;
                   obj.work_phase = response[k].work_phase;
                   obj.behavior_breakdown = response[k].behavior_breakdown;
-                  obj.project_id = response[k].project_id;
+                  if(response[k].project_id ==='PP024001'){
+                      obj.project_id =  this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')
+                  }
                   this.xsTable = true;
                   obj.logmanagementid = response[k].logmanagement_id;
                   datalist[k] = obj;
@@ -360,7 +363,9 @@
                         obj.start_time = response[k].time_start;
                         obj.work_phase = response[k].work_phase;
                         obj.behavior_breakdown = response[k].behavior_breakdown;
-                        obj.project_id = response[k].project_id;
+                          if(response[k].project_id ==='PP024001'){
+                              obj.project_id =  this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')
+                          }
                         this.xsTable = true;
                         obj.logmanagementid = response[k].logmanagement_id;
                         datalist[k] = obj;
@@ -381,15 +386,17 @@
         .dispatch('PFANS5008Store/getProjectList', {})
         .then(response => {
           this.optionsdata = [];
+            const vote = [];
           let user_id = this.$store.getters.userinfo.userid;
           for (let i = 0; i < response.length; i++) {
             if (user_id === response[i].user_id) {
-              var vote = {};
-              vote.value = response[i].project_id,
-                vote.lable = response[i].project_name,
-                this.optionsdata.push(vote);
+                vote.push({
+                    value: response[i].project_id,
+                    lable: response[i].project_name,
+                });
             }
           }
+          this.optionsdata = vote.concat(this.startoption);
           this.loading = false;
         })
         .catch(error => {
@@ -446,7 +453,9 @@
                           obj.start_time = response[k].time_start;
                           obj.work_phase = response[k].work_phase;
                           obj.behavior_breakdown = response[k].behavior_breakdown;
-                          obj.project_id = response[k].project_id;
+                            if(response[k].project_id ==='PP024001'){
+                                obj.project_id =  this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')
+                            }
                           this.xsTable = true;
                           obj.logmanagementid = response[k].logmanagement_id;
                           datalist[k] = obj;
@@ -497,7 +506,9 @@
                                         obj.start_time = response[k].time_start;
                                         obj.work_phase = response[k].work_phase;
                                         obj.behavior_breakdown = response[k].behavior_breakdown;
-                                        obj.project_id = response[k].project_id;
+                                        if(response[k].project_id ==='PP024001'){
+                                            obj.project_id =  this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')
+                                        }
                                         this.xsTable = true;
                                         obj.logmanagementid = response[k].logmanagement_id;
                                         datalist[k] = obj;
@@ -554,7 +565,9 @@
                 obj.start_time = response[k].time_start;
                 obj.work_phase = response[k].work_phase;
                 obj.behavior_breakdown = response[k].behavior_breakdown;
-                obj.project_id = response[k].project_id;
+                  if(response[k].project_id ==='PP024001'){
+                      obj.project_id =  this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')
+                  }
                 this.xsTable = true;
                 obj.logmanagementid = response[k].logmanagement_id;
                 datalist[k] = obj;
@@ -697,7 +710,6 @@
                 }
             }
             this.transfer = data;
-            console.log("aaa",this.transfer)
             this.loading = false;
           })
           .catch(error => {
@@ -747,7 +759,9 @@
                   obj.start_time = response[k].time_start;
                   obj.work_phase = response[k].work_phase;
                   obj.behavior_breakdown = response[k].behavior_breakdown;
-                  obj.project_id = response[k].project_id;
+                    if(response[k].project_id ==='PP024001'){
+                        obj.project_id =  this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')
+                    }
                   this.xsTable = true;
                   obj.logmanagementid = response[k].logmanagement_id;
                   datalist[k] = obj;
@@ -800,7 +814,9 @@
                             obj.start_time = response[k].time_start;
                             obj.work_phase = response[k].work_phase;
                             obj.behavior_breakdown = response[k].behavior_breakdown;
-                            obj.project_id = response[k].project_id;
+                              if(response[k].project_id ==='PP024001'){
+                                  obj.project_id =  this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')
+                              }
                             this.xsTable = true;
                             obj.logmanagementid = response[k].logmanagement_id;
                             datalist[k] = obj;
@@ -862,7 +878,9 @@
                             obj.start_time = response[k].time_start;
                             obj.work_phase = response[k].work_phase;
                             obj.behavior_breakdown = response[k].behavior_breakdown;
-                            obj.project_id = response[k].project_id;
+                              if(response[k].project_id ==='PP024001'){
+                                  obj.project_id =  this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')
+                              }
                             this.xsTable = true;
                             obj.logmanagementid = response[k].logmanagement_id;
                             datalist[k] = obj;
@@ -942,7 +960,9 @@
                       obj.start_time = response[k].time_start;
                       obj.work_phase = response[k].work_phase;
                       obj.behavior_breakdown = response[k].behavior_breakdown;
-                      obj.project_id = response[k].project_id;
+                        if(response[k].project_id ==='PP024001'){
+                            obj.project_id =  this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')
+                        }
                       this.xsTable = true;
                       obj.logmanagementid = response[k].logmanagement_id;
                       datalist[k] = obj;
