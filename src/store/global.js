@@ -63,6 +63,7 @@ const global = {
                         groupname: infos[i].orgs[j].orgs[x].companyname,
                         companyen: infos[i].orgs[j].orgs[x].companyen,
                         encoding: infos[i].orgs[j].orgs[x].encoding,
+                        redirict:infos[i].orgs[j].orgs[x].redirict
                       });
                     }
                   }
