@@ -486,9 +486,10 @@
         this.$store
           .dispatch('PFANS1004Store/getJudgementOne', {"judgementid": this.$route.params._id})
           .then(response => {
+              debugger
             if(response){
-            this.form = response.judgement;
-                let rst = getOrgInfoByUserId(response.judgement.user_id);
+            this.form = response;
+                let rst = getOrgInfoByUserId(response.user_id);
                 if(rst){
                     this.centerid = rst.centerNmae;
                     this.groupid= rst.groupNmae;
@@ -832,8 +833,8 @@
         this.form.money = Number(this.form.unitprice) * Number(this.form.numbers);
       },
       buttonClick(val) {
-      let Judgement = {};
-      Judgement.judgement = this.form;
+      let judgement = {};
+      judgement = this.form;
         if (val === 'back') {
           this.paramsTitle();
         } else {
@@ -884,7 +885,7 @@
               if (this.$route.params._id) {
                 this.form.judgementid = this.$route.params._id;
                 this.$store
-                  .dispatch('PFANS1004Store/updateJudgement', Judgement)
+                  .dispatch('PFANS1004Store/updateJudgement', judgement)
                   .then(response => {
                     this.data = response;
                     this.loading = false;
@@ -908,7 +909,7 @@
 
               } else {
                 this.$store
-                  .dispatch('PFANS1004Store/createJudgement', Judgement)
+                  .dispatch('PFANS1004Store/createJudgement', judgement)
                   .then(response => {
                     this.data = response;
                     this.loading = false;
