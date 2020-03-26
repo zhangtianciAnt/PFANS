@@ -875,7 +875,7 @@
               if (this.$route.params._id) {
                 this.form.judgementid = this.$route.params._id;
                 this.$store
-                  .dispatch('PFANS1003Store/updateJudgement', this.baseInfo)
+                  .dispatch('PFANS1003Store/updateUnusedevice', this.baseInfo)
                   .then(response => {
                     this.data = response;
                     this.loading = false;
@@ -899,7 +899,7 @@
 
               } else {
                 this.$store
-                  .dispatch('PFANS1003Store/createJudgement', this.baseInfo)
+                  .dispatch('PFANS1003Store/createUnusedevice', this.baseInfo)
                   .then(response => {
                     this.data = response;
                     this.loading = false;

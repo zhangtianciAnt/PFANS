@@ -28,6 +28,13 @@
               </el-form-item>
             </el-col>
           </el-row>
+          <div style="padding-bottom: 1%;">
+            <span style="color:#f47f31">{{this.form.year + " " + this.$t('label.PFANS1036FORMVIEW_BUSINESSYEAR')}}</span>
+            <el-divider direction="vertical"></el-divider>
+            <span style="color:#f47f31">{{this.org[0].redirict === 0 ? this.$t('label.PFANS1036FORMVIEW_ZJJJDEPARTMENT') : this.$t('PFANS1036FORMVIEW_JJDEPARTMENT')}}</span>
+            <el-divider direction="vertical"></el-divider>
+            <span style="color:#f47f31">{{this.org[0].companyen}}</span>
+          </div>
           <el-tabs v-model="activeName" type="border-card">
             <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_PERSONNELPLAN')" style="margin-top: 2%" name="first">
               <div>
@@ -1632,6 +1639,7 @@
         }
       };
       return {
+        org:[],
         month:"",
         arr:[4,5,6,7,8,9,10,11,12,1,2,3],
         groupA1:[],
@@ -1762,7 +1770,6 @@
             });
             this.loading = false;
           });
-        debugger
         this.getPersonTable(this.$route.params.groupid,this.$route.params.year);
       } else {
         this.form.year = moment().subtract(3,'months').year();
@@ -1785,6 +1792,8 @@
           this.getGroupB1(this.form.group_id);
           this.getPersonTable(rst.groupId,this.form.year);
       }
+      debugger
+      this.org = this.$store.getters.orgGroupList.filter(val => val.groupid === this.form.group_id);
     },
     computed:{
         tableSZTotal:function(){
@@ -2209,7 +2218,6 @@
             }
           )
         }
-        debugger
         if((Number(this.tableP[5]["actual4"]) + Number(this.tableP[5]["actual5"]) + Number(this.tableP[5]["actual6"])) !== 0){
           this.$set(this.tableP[50],"actual6", ((Number(this.tableP[43]["actual4"]) + Number(this.tableP[43]["actual5"]) + Number(this.tableP[43]["actual6"]))/(Number(this.tableP[5]["actual4"]) + Number(this.tableP[5]["actual5"]) + Number(this.tableP[5]["actual6"]))).toFixed(2));
         }else{
@@ -2265,7 +2273,7 @@
         this.sumA2 =  val;
       },
       rowClass({row, rowIndex}){
-          if ([3,4,5,13,20,26,30,41].includes(rowIndex)) {
+          if ([4,5,13,20,26,30,41].includes(rowIndex)) {
             return  'row1';
           }
        else if ([42].includes(rowIndex)) {

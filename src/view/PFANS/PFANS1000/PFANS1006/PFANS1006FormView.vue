@@ -45,17 +45,11 @@
             </el-col>
           </el-row>
           <el-row>
-<!--            <el-col :span="8">-->
-<!--              <el-form-item :label="$t('label.budgetunit')" prop="budgetunit">-->
-<!--                <dicselect :code="code1"-->
-<!--                           :data="form.budgetunit"-->
-<!--                           :disabled="!disable"-->
-<!--                           :multiple="multiple"-->
-<!--                           @change="getbudgetunit"-->
-<!--                           style="width:20vw">-->
-<!--                </dicselect>-->
-<!--              </el-form-item>-->
-<!--            </el-col>-->
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS1012FORMVIEW_BUDGET')" >
+                <el-input :disabled="true" style="width:20vw" v-model="form.budgetunit" maxlength='50'></el-input>
+              </el-form-item>
+            </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1012VIEW_MODULE')">
                 <dicselect :code="code2"
@@ -237,7 +231,7 @@
   import dicselect from '../../../components/dicselect.vue';
   import {Message} from 'element-ui';
   import user from '../../../components/user.vue';
-  import {getOrgInfoByUserId} from '@/utils/customize';
+  import {getOrgInfoByUserId,getOrgInfo} from '@/utils/customize';
   import moment from 'moment';
   import png11 from '@/assets/png/11.png';
   import {validateNumber} from '@/utils/validate';
@@ -411,11 +405,6 @@
             message: this.$t('normal.error_08') + this.$t('label.PFANS1012VIEW_TELEPHONE'),
             trigger: 'blur',
           }],
-          // budgetunit: [{
-          //   required: true,
-          //   message: this.$t('normal.error_09') + this.$t('label.budgetunit'),
-          //   trigger: 'change',
-          // }],
           accountnumber: [{
             required: true,
             message: this.$t('normal.error_08') + this.$t('label.PFANS1012VIEW_ACCOUNTNUMBER'),
@@ -547,6 +536,9 @@
         this.userlist = this.$store.getters.userinfo.userid;
         if (this.userlist !== null && this.userlist !== '') {
           this.form.user_id = this.$store.getters.userinfo.userid;
+            if(getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)){
+                this.form.budgetunit = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
+            }
           let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
             if(rst) {
                 this.centerid = rst.centerNmae;
@@ -562,7 +554,10 @@
     methods: {
       getUserids(val) {
         this.form.user_id = val;
-        let rst = getOrgInfoByUserId(val);
+        let rst = getOrgInfoByUserId(val)
+          if(getOrgInfo(getOrgInfoByUserId(val).groupId)){
+              this.form.budgetunit = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
+          }
           if(rst){
               this.centerid = rst.centerNmae;
               this.groupid = rst.groupNmae;
@@ -584,9 +579,6 @@
           this.error = '';
         }
       },
-      // getbudgetunit(val) {
-      //   this.form.budgetunit = val;
-      // },
       getmodule(val) {
         this.form.moduleid = val;
       },

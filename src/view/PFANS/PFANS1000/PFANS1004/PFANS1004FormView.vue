@@ -487,8 +487,8 @@
           .dispatch('PFANS1004Store/getJudgementOne', {"judgementid": this.$route.params._id})
           .then(response => {
             if(response){
-            this.form = response.judgement;
-                let rst = getOrgInfoByUserId(response.judgement.user_id);
+            this.form = response;
+                let rst = getOrgInfoByUserId(response.user_id);
                 if(rst){
                     this.centerid = rst.centerNmae;
                     this.groupid= rst.groupNmae;
@@ -551,7 +551,11 @@
       } else {
         this.userlist = this.$store.getters.userinfo.userid;
         if (this.userlist !== null && this.userlist !== '') {
-        let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+            this.form.user_id = this.$store.getters.userinfo.userid;
+            if(getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)){
+                this.form.budgetunit = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
+            }
+            let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
             if(rst) {
                 this.centerid = rst.centerNmae;
                 this.groupid= rst.groupNmae;
@@ -628,6 +632,9 @@
         this.userlist = val;
         this.form.user_id = val;
         let rst = getOrgInfoByUserId(val);
+          if(getOrgInfo(getOrgInfoByUserId(val).groupId)){
+              this.form.budgetunit = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
+          }
           if(rst){
               this.centerid = rst.centerNmae;
               this.groupid = rst.groupNmae;
@@ -832,8 +839,8 @@
         this.form.money = Number(this.form.unitprice) * Number(this.form.numbers);
       },
       buttonClick(val) {
-      let Judgement = {};
-      Judgement.judgement = this.form;
+      let judgement = {};
+      judgement = this.form;
         if (val === 'back') {
           this.paramsTitle();
         } else {
@@ -884,7 +891,7 @@
               if (this.$route.params._id) {
                 this.form.judgementid = this.$route.params._id;
                 this.$store
-                  .dispatch('PFANS1004Store/updateJudgement', Judgement)
+                  .dispatch('PFANS1004Store/updateJudgement', judgement)
                   .then(response => {
                     this.data = response;
                     this.loading = false;
@@ -908,7 +915,7 @@
 
               } else {
                 this.$store
-                  .dispatch('PFANS1004Store/createJudgement', Judgement)
+                  .dispatch('PFANS1004Store/createJudgement', judgement)
                   .then(response => {
                     this.data = response;
                     this.loading = false;
