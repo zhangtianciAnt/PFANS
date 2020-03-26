@@ -804,6 +804,13 @@
                   })
               }
             }
+            else{
+                Message({
+                    message: this.$t("normal.error_12"),
+                    type: 'error',
+                    duration: 5 * 1000
+                });
+            }
           });
         } else if (val === 'generate') {
           this.loading = true;
