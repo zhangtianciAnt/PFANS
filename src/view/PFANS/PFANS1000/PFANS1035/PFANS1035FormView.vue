@@ -523,10 +523,10 @@
         disabled: false,
         code1: 'PJ018',
         code2: 'PG002',
-        code3: 'PR002',
+        code3: 'PJ138',
         code4: 'PR003',
         code5: 'PJ019',
-        code6: 'PJ020',
+        code6: 'PJ035',
         code7: 'PJ036',
         multiple: false,
         search: '',
@@ -666,7 +666,7 @@
           ],
           budgetunit: [
             {
-              required: true,
+              required: false,
               message: this.$t('normal.error_09') + this.$t('label.budgetunit'),
               trigger: 'change',
             },
