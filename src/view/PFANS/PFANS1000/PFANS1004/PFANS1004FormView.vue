@@ -410,13 +410,13 @@
               trigger: 'change'
             },
           ],
-          thisproject: [
-            {
-              required: true,
-              message: this.$t('normal.error_08') + this.$t('label.PFANS1004VIEW_THISPROJECT'),
-              trigger: 'change'
-            },
-          ],
+//          thisproject: [
+//            {
+//              required: true,
+//              message: this.$t('normal.error_08') + this.$t('label.PFANS1004VIEW_THISPROJECT'),
+//              trigger: 'change'
+//            },
+//          ],
           businessplantype: [
             {
               required:  false,
@@ -500,6 +500,7 @@
                     this.centerid = rst.centerNmae;
                     this.groupid= rst.groupNmae;
                     this.teamid= rst.teamNmae;
+                    this.form.thisproject = rst.personalcode;
                 }
             this.userlist = this.form.user_id;
             this.getDecisive(this.form.decisive);
@@ -565,12 +566,13 @@
                 this.form.center_id = rst.centerId;
                 this.form.group_id = rst.groupId;
                 this.form.team_id = rst.teamId;
+                this.form.thisproject = rst.personalcode;
             }
         this.form.user_id = this.$store.getters.userinfo.userid;
-        if(this.$store.getters.orgGroupList.length > 0){
-        let group = this.$store.getters.orgGroupList.filter( val => val.groupid === lst.groupId)
-          this.form.thisproject = group[0].encoding;
-        }
+//        if(this.$store.getters.orgGroupList.length > 0){
+//        let group = this.$store.getters.orgGroupList.filter( val => val.groupid === lst.groupId)
+//          this.form.thisproject = group[0].encoding;
+//        }
         }
         this.loading = false;
       }
