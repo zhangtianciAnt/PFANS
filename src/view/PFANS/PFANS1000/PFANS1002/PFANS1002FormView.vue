@@ -268,16 +268,8 @@
               <div>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.budgetunit')" prop="budgetunit">
-                      <dicselect
-                        :code="code4"
-                        :data="form.budgetunit"
-                        :disabled="!disable"
-                        :multiple="multiple"
-                        @change="getbudgetunit"
-                        style="width: 20vw"
-                      >
-                      </dicselect>
+                    <el-form-item :label="$t('label.PFANS1012FORMVIEW_BUDGET')" >
+                      <el-input :disabled="true" style="width:20vw" v-model="form.budgetunit" maxlength='50'></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -727,7 +719,7 @@
     import user from '../../../components/user.vue';
     import {Message} from 'element-ui';
     import moment from 'moment';
-    import {getOrgInfoByUserId} from '@/utils/customize';
+    import {getOrgInfoByUserId,getOrgInfo} from '@/utils/customize';
     import dicselect from '../../../components/dicselect';
     import {getDictionaryInfo} from '../../../../utils/customize';
 
@@ -812,31 +804,31 @@
                 teamid: '',
                 disable: false,
                 error: '',
-                selectType: 'Single',
-                title: 'title.PFANS1002VIEW',
-                userlist: '',
-                activeName: 'first',
-                loading: false,
-                disabled: false,
-                code1: 'PJ016',
-                code2: 'PJ017',
-                code3: 'PJ018',
-                code4: 'PG002',
-                code5: 'PR002',
-                code6: 'PR003',
-                code7: 'PG019',
-                code8: 'PJ019',
-                code9: 'PJ020',
-                code10: 'PJ021',
-                code11: 'PJ022',
-                code12: 'PJ023',
-                multiple: false,
-                search: '',
-                gridData: [],
-                dialogTableVisible: false,
-                form: {
-                    center_id: '',
-                    group_id: '',
+              selectType: 'Single',
+              title: 'title.PFANS1002VIEW',
+              userlist: '',
+              activeName: 'first',
+              loading: false,
+              disabled: false,
+              code1: 'PJ016',
+              code2: 'PJ017',
+              code3: 'PJ018',
+              code4: 'PG002',
+              code5: 'PJ138',
+              code6: 'PR003',
+              code7: 'PG019',
+              code8: 'PJ019',
+              code9: 'PJ035',
+              code10: 'PJ021',
+              code11: 'PJ022',
+              code12: 'PJ023',
+              multiple: false,
+              search: '',
+              gridData: [],
+              dialogTableVisible: false,
+              form: {
+                center_id: '',
+                group_id: '',
                     team_id: '',
                     user_id: '',
                     applicationdate: moment(new Date()).format('YYYY-MM-DD'),
@@ -1005,13 +997,6 @@
                             required: true,
                             message: this.$t('normal.error_08') + this.$t('label.PFANS1002VIEW_DETAILS'),
                             trigger: 'blur',
-                        },
-                    ],
-                    budgetunit: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_09') + this.$t('label.budgetunit'),
-                            trigger: 'change',
                         },
                     ],
                     plantype: [
@@ -1344,6 +1329,9 @@
                 this.userlist = this.$store.getters.userinfo.userid;
                 if (this.userlist !== null && this.userlist !== '') {
                     let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+                    if(getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)){
+                        this.form.budgetunit = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
+                    }
                     if(rst) {
                         this.centerid = rst.centerNmae;
                         this.groupid= rst.groupNmae;
@@ -1466,6 +1454,9 @@
                 this.form.user_id = val;
                 this.userlist = val;
                 let rst = getOrgInfoByUserId(val);
+                if(getOrgInfo(getOrgInfoByUserId(val).groupId)){
+                    this.form.budgetunit = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
+                }
                 if(rst){
                     this.centerid = rst.centerNmae;
                     this.groupid = rst.groupNmae;
@@ -1503,9 +1494,6 @@
                     this.rules.objectivetypeother[0].required = false;
                     this.form.objectivetypeother = null;
                 }
-            },
-            getbudgetunit(val) {
-                this.form.budgetunit = val;
             },
             getplan1(val) {
                 this.form.plan = val;
