@@ -56,10 +56,10 @@
                         style="width: 100%">
 
                 <el-table-column
-                  :label="$t('費用種別')"
+                  :label="$t('label.PFANS1042FORMVIEW_MONERTYPE')"
                   align="center">
                   <el-table-column
-                    :label="$t('詳細')"
+                    :label="$t('label.PFANS1042FORMVIEW_DETAILS')"
                     align="center"
                     width="160">
                     <template slot-scope="scope">
@@ -76,11 +76,11 @@
                 </el-table-column>
 
                   <el-table-column
-                    :label="$t('収入')"
+                    :label="$t('label.PFANS1042FORMVIEW_INCOME')"
                     align="center">
 
                     <el-table-column
-                      :label="$t('外部受託')"
+                      :label="$t('label.PFANS1042FORMVIEW_OUTST')"
                       align="center"
                       width="110">
                       <template slot-scope="scope">
@@ -90,7 +90,7 @@
                     </el-table-column>
 
                     <el-table-column
-                      :label="$t('税金')"
+                      :label="$t('label.PFANS1042FORMVIEW_TAX')"
                       align="center"
                       width="110">
 
@@ -101,7 +101,7 @@
                     </el-table-column>
 
                     <el-table-column
-                      :label="$t('内部受託')"
+                      :label="$t('label.PFANS1042FORMVIEW_INST')"
                       align="center"
                       width="110">
 
@@ -112,7 +112,7 @@
                     </el-table-column>
 
                     <el-table-column
-                      :label="$t('収入合計')"
+                      :label="$t('label.PFANS1042FORMVIEW_INTOTAL')"
                       align="center"
                       width="110">
                       <template slot-scope="scope">
@@ -123,11 +123,11 @@
 
 
                   <el-table-column
-                    :label="$t('支出')"
+                    :label="$t('label.PFANS1042FORMVIEW_EXPENDITURE')"
                     align="center">
 
                     <el-table-column
-                      :label="$t('社員工数')"
+                      :label="$t('label.PFANS1042FORMVIEW_EMHOURS')"
                       align="center"
                       width="110">
 
@@ -138,7 +138,7 @@
                     </el-table-column>
 
                     <el-table-column
-                      :label="$t('外注工数')"
+                      :label="$t('label.PFANS1042FORMVIEW_OUTHOURS')"
                       align="center"
                       width="110">
                       <template slot-scope="scope">
@@ -148,7 +148,7 @@
                     </el-table-column>
 
                     <el-table-column
-                      :label="$t('人件費')"
+                      :label="$t('label.PFANS1042FORMVIEW_PEOCOST')"
                       align="center"
                       width="110">
 
@@ -159,7 +159,7 @@
                     </el-table-column>
 
                     <el-table-column
-                      :label="$t('外注費')"
+                      :label="$t('label.PFANS1042FORMVIEW_OUTCOST')"
                       align="center"
                       width="110">
                       <template slot-scope="scope">
@@ -169,7 +169,7 @@
                     </el-table-column>
 
                     <el-table-column
-                      :label="$t('内部委託')"
+                      :label="$t('label.PFANS1042FORMVIEW_INWEITUO')"
                       align="center"
                       width="110">
                       <template slot-scope="scope">
@@ -179,7 +179,7 @@
                     </el-table-column>
 
                     <el-table-column
-                      :label="$t('研究材料費')"
+                      :label="$t('label.PFANS1042FORMVIEW_RESEARCHCOST')"
                       align="center"
                       width="110">
 
@@ -190,7 +190,7 @@
                     </el-table-column>
 
                     <el-table-column
-                      :label="$t('部門共通按分（A是共通费用）')"
+                      :label="$t('label.PFANS1042FORMVIEW_DEPARTMENTCOST')"
                       align="center"
                       width="200">
 
@@ -202,11 +202,11 @@
 
 
                     <el-table-column
-                      :label="$t('部門共通費用')"
+                      :label="$t('label.PFANS1042FORMVIEW_DEPARTCOMCOST')"
                       align="center">
 
                       <el-table-column
-                        :label="$t('原動費')"
+                        :label="$t('label.PFANS1042FORMVIEW_YUANQINCOST')"
                         align="center"
                         width="110">
                         <template slot-scope="scope">
@@ -215,7 +215,7 @@
                       </el-table-column>
 
                       <el-table-column
-                        :label="$t('旅費')"
+                        :label="$t('label.PFANS1042FORMVIEW_TRAVALCOST')"
                         align="center"
                         width="110">
 
@@ -227,7 +227,7 @@
 
 
                       <el-table-column
-                        :label="$t('消耗費')"
+                        :label="$t('label.PFANS1042FORMVIEW_CONCOST')"
                         align="center"
                         width="110">
 
@@ -238,7 +238,7 @@
                       </el-table-column>
 
                       <el-table-column
-                        :label="$t('通信費')"
+                        :label="$t('label.PFANS1042FORMVIEW_CALLCOST')"
                         align="center"
                         width="110">
 
@@ -249,7 +249,7 @@
                       </el-table-column>
 
                       <el-table-column
-                        :label="$t('ブランド料')"
+                        :label="$t('label.PFANS1042FORMVIEW_BRANDCOST')"
                         align="center"
                         width="110">
 
@@ -260,7 +260,7 @@
                       </el-table-column>
 
                       <el-table-column
-                        :label="$t('家賃')"
+                        :label="$t('label.PFANS1042FORMVIEW_RENT')"
                         align="center"
                         width="110">
                         <template slot-scope="scope">
@@ -270,7 +270,7 @@
                       </el-table-column>
 
                       <el-table-column
-                        :label="$t('その他')"
+                        :label="$t('label.PFANS1042FORMVIEW_OTHER')"
                         align="center"
                         width="110">
 
@@ -281,7 +281,7 @@
                       </el-table-column>
 
                       <el-table-column
-                        :label="$t('部門共通費用合計')"
+                        :label="$t('label.PFANS1042FORMVIEW_DEPARTMENTTOTAL')"
                         align="center"
                         width="170">
                         <template slot-scope="scope">
@@ -291,7 +291,7 @@
                     </el-table-column>
 
                     <el-table-column
-                      :label="$t('配賦費用')"
+                      :label="$t('label.PFANS1042FORMVIEW_ALLOCATION')"
                       align="center"
                       width="110">
 
@@ -302,7 +302,7 @@
                     </el-table-column>
 
                     <el-table-column
-                      :label="$t('支出合計')"
+                      :label="$t('label.PFANS1042FORMVIEW_COSTTOTAL')"
                       align="center"
                       width="110">
 
@@ -315,11 +315,11 @@
 
 
                 <el-table-column
-                  :label="$t('仕掛品')"
+                  :label="$t('label.PFANS1042FORMVIEW_PRO')"
                   align="center">
 
                   <el-table-column
-                    :label="$t('仕掛品処理')"
+                    :label="$t('label.PFANS1042FORMVIEW_PEOCESS')"
                     align="center"
                     width="110">
 
@@ -332,11 +332,11 @@
                 </el-table-column>
 
                 <el-table-column
-                  :label="$t('利益')"
+                  :label="$t('label.PFANS1042FORMVIEW_PROFIT')"
                   align="center">
 
                   <el-table-column
-                    :label="$t('限界利益')"
+                    :label="$t('label.PFANS1042FORMVIEW_ARGINAL')"
                     align="center"
                     width="110">
                     <template slot-scope="scope">
@@ -345,7 +345,7 @@
                   </el-table-column>
 
                   <el-table-column
-                    :label="$t('営業利益')"
+                    :label="$t('label.PFANS1042FORMVIEW_OPERATION')"
                     align="center"
                     width="110">
                     <template slot-scope="scope">
@@ -510,9 +510,9 @@
         },
 
         getGroupId(val) {
-            debugger
             this.form.group_id = val
             this.getOrgInformation(val);
+            // this.form.group_id = '807C39FFD200D8A9826FD14AF50B5D112468'
             if (!this.form.group_id || this.form.group_id === '' || val === 'undefined') {
                 this.errorgroup = this.$t('normal.error_08') + this.$t('label.PFANS1039FORMVIEW_GROUP');
             } else {
@@ -616,7 +616,7 @@
 //部門共通按分
                       response[j].departmentcom = Number(response[j].emhours) / Number(sum) * Number(response[j].departmenttotal);
 //配賦費用
-                      response[j].allocation = Number(response[j].emhours) / Number(sum) * (Number(response[j].emhours) * she + Number(response[j].outhours) * nei + Number(response[j].outhours) * wai)
+                      response[j].allocation = (Number(response[j].emhours) / Number(sum)) * ((Number(response[j].emhours) * she * 1000 + Number(response[j].outhours) * nei * 1000 + Number(response[j].outhours) * wai * 1000))
                   }
 // 部門共通費用合計
                   response[j].departmenttotal = Number(response[j].yuanqincost) + Number(response[j].travalcost) + Number(response[j].concost) + Number(response[j].callcost) + Number(response[j].brandcost) + Number(response[j].rent) + Number(response[j].other);
@@ -625,7 +625,7 @@
                       + Number(response[j].yuanqincost) + Number(response[j].travalcost) + Number(response[j].concost) + Number(response[j].callcost) + Number(response[j].brandcost)
                       + Number(response[j].rent) + Number(response[j].other) + Number(response[j].concost) + response[j].departmenttotal + response[j].allocation
 //仕掛品処理
-                  response[j].process = "支出-收入"
+                  response[j].process = this.$t('label.PFANS1042FORMVIEW_OUTANDIN')
 //限界利益
                   response[j].marginal = (response[j].inst + response[j].outst1) - (response[j].peocost + response[j].outcost)
 //営業利益
