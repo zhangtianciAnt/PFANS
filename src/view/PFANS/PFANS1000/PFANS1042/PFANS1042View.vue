@@ -32,27 +32,27 @@
                 <el-form-item :label="$t('label.PFANS5009FORMVIEW_MONTH')" :error="errormonth" prop="month">
                   <div class="block">
                     <el-select v-model="form.region"  @change="changeRegion">
-                      <el-option label="1月" value="1"></el-option>
-                      <el-option label="2月" value="2"></el-option>
-                      <el-option label="3月" value="3"></el-option>
-                      <el-option label="4月" value="4"></el-option>
-                      <el-option label="5月" value="5"></el-option>
-                      <el-option label="6月" value="6"></el-option>
-                      <el-option label="7月" value="7"></el-option>
-                      <el-option label="8月" value="8"></el-option>
-                      <el-option label="9月" value="9"></el-option>
-                      <el-option label="10月" value="10"></el-option>
-                      <el-option label="11月" value="11"></el-option>
-                      <el-option label="12月" value="12"></el-option>
+                      <el-option :label="$t('label.January')" value="1"></el-option>
+                      <el-option :label="$t('label.February')" value="2"></el-option>
+                      <el-option :label="$t('label.March')" value="3"></el-option>
+                      <el-option :label="$t('label.April')" value="4"></el-option>
+                      <el-option :label="$t('label.May')" value="5"></el-option>
+                      <el-option :label="$t('label.June')" value="6"></el-option>
+                      <el-option :label="$t('label.July')" value="7"></el-option>
+                      <el-option :label="$t('label.August')" value="8"></el-option>
+                      <el-option :label="$t('label.September')" value="9"></el-option>
+                      <el-option :label="$t('label.October')" value="10"></el-option>
+                      <el-option :label="$t('label.November')" value="11"></el-option>
+                      <el-option :label="$t('label.December')" value="12"></el-option>
                     </el-select>
                   </div>
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row style="padding-top: 30px">
-              <el-table :data="tableData"  border
+              <el-table :data="tableData" @selection-change="handleSelectionChange()"
                         header-cell-class-name="sub_bg_color_blue" stripe height="400"
-                        @selection-change="handleSelectionChange()" @row-click="handleRowClick"
+                        border
                         style="width: 100%">
 
                 <el-table-column
@@ -67,12 +67,15 @@
                     </template>
                   </el-table-column>
 
-<!--                  <el-table-column-->
-<!--                    :label="$t('共通PJ（研修会议等）')"-->
-<!--                    align="center"-->
-<!--                    width="160">-->
+                  <el-table-column
+                    :label="$t('label.PFANS1042FORMVIEW_COMMONPJ')"
+                    align="center"
+                    width="160">
+                    <template slot-scope="scope">
+                      <span>{{scope.row.pj1}}</span>
+                    </template>
 
-<!--                  </el-table-column>-->
+                  </el-table-column>
                 </el-table-column>
 
                   <el-table-column
@@ -369,7 +372,7 @@
     import {Message} from 'element-ui';
     import user from "../../../components/user.vue";
     import org from '../../../components/org';
-    import {getOrgInfo,getDictionaryInfo,getUserInfo,getSupplierinfor,getStatus} from '@/utils/customize';
+    import {getDictionaryInfo} from '@/utils/customize';
 
     export default {
     name: "PFANS1042View",
@@ -380,7 +383,6 @@
     },
     data() {
         var years = (rule, value, callback) => {
-            debugger
             if (!this.form.year || this.form.year === '' || this.form.year === 'undefined') {
                 callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS1036FORMVIEW_BUSINESSYEAR')));
                 this.error = this.$t('normal.error_08') + this.$t('label.PFANS1036FORMVIEW_BUSINESSYEAR');
@@ -487,12 +489,10 @@
         },
 
         changeYear(val){
-            debugger
             this.form.year = moment(val).format("YYYY");
             if (this.form.group_id && this.form.region) {
                 if(val){
-                    // this.getList(this.form.group_id,this.form.year,this.form.region)
-                    console.log("changeYear")
+                    this.getList(this.form.group_id, this.form.year, this.form.region)
                 }
             }else {
                 if (!this.form.group_id || this.form.group_id === '' || val === 'undefined' || !this.form.region || this.form.region === '') {
@@ -512,15 +512,14 @@
         getGroupId(val) {
             this.form.group_id = val
             this.getOrgInformation(val);
-            // this.form.group_id = '807C39FFD200D8A9826FD14AF50B5D112468'
+            // this.form.group_id = '807C39FFD200D8A9826FD14AF50B5D112468';
             if (!this.form.group_id || this.form.group_id === '' || val === 'undefined') {
                 this.errorgroup = this.$t('normal.error_08') + this.$t('label.PFANS1039FORMVIEW_GROUP');
             } else {
                 this.errorgroup = '';
             }
             if (this.form.year && this.form.region && this.form.group_id) {
-                // this.getList(this.form.group_id,this.form.year,this.form.region)
-                console.log("getGroupId")
+                this.getList(this.form.group_id, this.form.year, this.form.region)
             }else{
                 // this.erroryear = this.$t('normal.error_08') + this.$t('label.PFANS1036FORMVIEW_BUSINESSYEAR');
                 // this.errormonth = this.$t('normal.error_09') + this.$t('label.PFANS5009FORMVIEW_MONTH');
@@ -578,7 +577,7 @@
         this.$store
             .dispatch('PFANS1042Store/getPltab', {'groupid': groupid, 'year': year, 'month': month})
           .then(response => {
-              console.log("response", response);
+              console.log("response",response)
               let tabledate = [];
               let date1 = getDictionaryInfo('PJ086002').value2;
               let date2 = getDictionaryInfo('PJ086003').value2;
@@ -586,7 +585,7 @@
               let wai =  getDictionaryInfo('PJ110001').value2;//0.4
               let nei =  getDictionaryInfo('PJ110002').value2;//1
               let she =  getDictionaryInfo('PJ110003').value2;//3
-
+              let aaa = getDictionaryInfo('PP024001').value1;
 
               let sum = 0;
 
@@ -595,6 +594,10 @@
               }
 
               for (let j = 0; j < response.length; j++) {
+//共通PJ（研修会议等）
+                  if (response[j].pj == null) {
+                      response[j].pj1 = aaa
+                  }
 //外部受託-
                   response[j].outst1 = Number(response[j].outst1) + Number(response[j].outst2) + Number(response[j].outst3);
 //税金-
@@ -602,7 +605,6 @@
 //収入合計
                   response[j].intotal =  response[j].outst1 + response[j].tax + Number(response[j].inst)
 
-                  console.log("sum",sum)
                   if (sum == 0) {
                       response[j].peocost = 0;
                       response[j].outcost = 0;
@@ -627,10 +629,13 @@
 //仕掛品処理
                   response[j].process = this.$t('label.PFANS1042FORMVIEW_OUTANDIN')
 //限界利益
-                  response[j].marginal = (response[j].inst + response[j].outst1) - (response[j].peocost + response[j].outcost)
-//営業利益
-//                   response[j].Operating = response[j].marginal
+                  response[j].marginal = (response[j].inst + response[j].outst1) - (response[j].peocost + response[j].outcost + response[j].researchcost);
+//営業利益 = 限界利益 - 所有和项目有关的费用
+                  response[j].Operating = response[j].marginal - response[j].costtotal;
+
+
                   tabledate.push({
+                      pj1: response[j].pj1,
                       pj: response[j].pj,
                       outst1: response[j].outst1,
                       outst2: response[j].outst2,
@@ -673,9 +678,7 @@
             this.loading = false;
           })
       },
-      handleRowClick(row) {
-         row.type='1'
-      },
+
 
       handleSelectionChange(val) {
         this.multipleSelection = val;

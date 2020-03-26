@@ -410,13 +410,6 @@
               trigger: 'change'
             },
           ],
-//          thisproject: [
-//            {
-//              required: true,
-//              message: this.$t('normal.error_08') + this.$t('label.PFANS1004VIEW_THISPROJECT'),
-//              trigger: 'change'
-//            },
-//          ],
           businessplantype: [
             {
               required:  false,
@@ -494,8 +487,8 @@
           .dispatch('PFANS1004Store/getJudgementOne', {"judgementid": this.$route.params._id})
           .then(response => {
             if(response){
-            this.form = response.judgement;
-                let rst = getOrgInfoByUserId(response.judgement.user_id);
+            this.form = response;
+                let rst = getOrgInfoByUserId(response.user_id);
                 if(rst){
                     this.centerid = rst.centerNmae;
                     this.groupid= rst.groupNmae;
@@ -558,21 +551,21 @@
       } else {
         this.userlist = this.$store.getters.userinfo.userid;
         if (this.userlist !== null && this.userlist !== '') {
-        let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-          if (rst) {
-            this.centerid = rst.centerNmae;
-            this.groupid = rst.groupNmae;
-            this.teamid = rst.teamNmae;
-            this.form.center_id = rst.centerId;
-            this.form.group_id = rst.groupId;
-            this.form.team_id = rst.teamId;
-            this.form.thisproject = rst.personalcode;
-          }
-          this.form.user_id = this.$store.getters.userinfo.userid;
-          if (this.$store.getters.orgGroupList.length > 0) {
-            let group = this.$store.getters.orgGroupList.filter(val => val.groupid === rst.groupId)
-            this.form.thisproject = group[0].encoding;
-          }
+            this.form.user_id = this.$store.getters.userinfo.userid;
+            if(getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)){
+                this.form.budgetunit = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
+            }
+            let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+            if(rst) {
+                this.centerid = rst.centerNmae;
+                this.groupid= rst.groupNmae;
+                this.teamid= rst.teamNmae;
+                this.form.center_id = rst.centerId;
+                this.form.group_id = rst.groupId;
+                this.form.team_id = rst.teamId;
+                this.form.thisproject = rst.personalcode;
+            }
+        this.form.user_id = this.$store.getters.userinfo.userid;
         }
         this.loading = false;
       }
@@ -639,6 +632,9 @@
         this.userlist = val;
         this.form.user_id = val;
         let rst = getOrgInfoByUserId(val);
+          if(getOrgInfo(getOrgInfoByUserId(val).groupId)){
+              this.form.budgetunit = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
+          }
           if(rst){
               this.centerid = rst.centerNmae;
               this.groupid = rst.groupNmae;
@@ -843,8 +839,8 @@
         this.form.money = Number(this.form.unitprice) * Number(this.form.numbers);
       },
       buttonClick(val) {
-      let JudgementVo = {};
-      JudgementVo.judgement = this.form;
+      let judgement = {};
+      judgement = this.form;
         if (val === 'back') {
           this.paramsTitle();
         } else {
@@ -895,7 +891,7 @@
               if (this.$route.params._id) {
                 this.form.judgementid = this.$route.params._id;
                 this.$store
-                  .dispatch('PFANS1004Store/updateJudgement', JudgementVo)
+                  .dispatch('PFANS1004Store/updateJudgement', judgement)
                   .then(response => {
                     this.data = response;
                     this.loading = false;
@@ -919,7 +915,7 @@
 
               } else {
                 this.$store
-                  .dispatch('PFANS1004Store/createJudgement', JudgementVo)
+                  .dispatch('PFANS1004Store/createJudgement', judgement)
                   .then(response => {
                     this.data = response;
                     this.loading = false;

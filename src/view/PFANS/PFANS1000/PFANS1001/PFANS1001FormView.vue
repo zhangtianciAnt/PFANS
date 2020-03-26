@@ -133,6 +133,12 @@
       },
       setuser(response) {
         for (let j = 0; j < response.length; j++) {
+            let nameflg = getOrgInfoByUserId(response[j].user_id);
+            if (nameflg) {
+                response[j].center_id = nameflg.centerNmae;
+                response[j].group_id = nameflg.groupNmae;
+                response[j].team_id = nameflg.teamNmae;
+            }
           let user = getUserInfo(response[j].user_id);
           if (user) {
             response[j].user_id = getUserInfo(response[j].user_id).userinfo.customername;

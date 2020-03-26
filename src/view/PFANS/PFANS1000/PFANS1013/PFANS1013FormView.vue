@@ -1029,7 +1029,7 @@
         centername: '',
         groupname: '',
         teamname: '',
-        optionsdate: [{value: '0000000000', lable: this.$t('label.PFANS1012FROMVIEW_COMMON')}],
+        optionsdate: [{value: 'PP024001', lable: this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')}],
         error: '',
         week: '',
         tableList: [],
@@ -1503,6 +1503,7 @@
         this.$store
           .dispatch('PFANS5008Store/getCompanyProjectList', {})
           .then(response => {
+
             for (let i = 0; i < response.length; i++) {
               if (response[i].status == '4' || response[i].status == '6' || response[i].status == '7') {
                 this.optionsdate.push({
@@ -2101,7 +2102,8 @@
           diffDate = 1;
         }
         if (this.form.type === '0') {
-          if (this.Redirict === '0' ? (row.accountcode === 'PJ132001') : (row.accountcode === 'PJ119001') && this.form.external === '0') {
+          //境内无规定外费用的场合，住宿标准check
+          if (this.Redirict === '0' ? (row.accountcode === 'PJ132001') : (row.accountcode === 'PJ119001') && this.form.external === '1') {
             if (row.facilitytype === 'PJ035001') {
               if (row.city !== '') {
                 if (row.city === 'PJ036001' || row.city === 'PJ036002' || row.city === 'PJ036003' || row.city === 'PJ036004') {
@@ -2143,9 +2145,9 @@
                 }
             }
           } else if (this.Redirict === '0' ? (row.accountcode === 'PJ132005') : (row.accountcode === 'PJ119005')) {
-            row.rmb = (150 * diffDate).toFixed(2);
+            row.rmb = (150 * diffDate + 1).toFixed(2);
           } else if (this.Redirict === '0' ? (row.accountcode === 'PJ132006') : (row.accountcode === 'PJ119006')) {
-            row.rmb = (Number(row.rmb + 100) * diffDate).toFixed(2);
+            row.rmb = (Number(row.rmb + 100) * (diffDate + 1)).toFixed(2);
           }
           }
         } else if (this.form.type === '1') {
@@ -2154,7 +2156,8 @@
           if (accinfo) {
             accfig = accinfo.value2;
           }
-          if (this.Redirict === '0' ? (row.accountcode === 'PJ132001') : (row.accountcode === 'PJ119001') && this.form.external === '0') {
+          //境外无规定外费用的场合，住宿标准check
+          if (this.Redirict === '0' ? (row.accountcode === 'PJ132001') : (row.accountcode === 'PJ119001') && this.form.external === '1') {
             if (row.facilitytype === 'PJ035001') {
               if (row.region === 'PJ017001') {
                 if (row.travel / diffDate > jpregion3) {
@@ -2218,11 +2221,11 @@
               jpvalueflg2 = Number(jpregion12);
             }
             if (jpvalueflg2 !== '' && jpvalueflg2 !== undefined) {
-              row.rmb = (Number(jpvalueflg2) * diffDate).toFixed(2);
+              row.rmb = (Number(jpvalueflg2) * (diffDate + 1)).toFixed(2);
             }
           } else if (this.Redirict === '0' ? (row.accountcode === 'PJ132006') : (row.accountcode === 'PJ119006')) {
             if (jpvalueflg2 !== '' && jpvalueflg2 !== undefined) {
-              row.rmb = (Number(jpvalueflg2 + 100) * diffDate).toFixed(2);
+              row.rmb = (Number(jpvalueflg2 + 100) * (diffDate + 1)).toFixed(2);
             }
           }
         }

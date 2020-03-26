@@ -56,16 +56,8 @@
           </el-row>
           <el-row >
             <el-col :span="8">
-              <el-form-item :label="$t('label.budgetunit')" prop="budgetunit">
-                <dicselect
-                  :code="code"
-                  :data="form.budgetunit"
-                  :disabled="!disable"
-                  :multiple="multiple"
-                  @change="getbudgetunit"
-                  style="width:20vw"
-                >
-                </dicselect>
+              <el-form-item :label="$t('label.PFANS1012FORMVIEW_BUDGET')" >
+                <el-input :disabled="true" style="width:20vw" v-model="form.budgetunit" maxlength='50'></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -398,7 +390,7 @@
     import moment from "moment";
     import {Message} from 'element-ui';
     import user from "../../../components/user.vue";
-    import {getDictionaryInfo, getOrgInfoByUserId} from '@/utils/customize';
+    import {getDictionaryInfo, getOrgInfoByUserId,getOrgInfo} from '@/utils/customize';
 
     export default {
         name: "PFANS3007FormView",
@@ -599,11 +591,6 @@
                     userid: [{
                         required: true,
                         validator: validateUserid,
-                        trigger: 'change'
-                    }],
-                    budgetunit: [{
-                        required: true,
-                        message: this.$t('normal.error_09') + this.$t('label.budgetunit'),
                         trigger: 'change'
                     }],
                     businesscity: [{
@@ -825,6 +812,9 @@
                 this.userlist = this.$store.getters.userinfo.userid;
                 if (this.userlist !== null && this.userlist !== '') {
                     let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+                    if(getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)){
+                        this.form.budgetunit = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
+                    }
                     if(rst) {
                         this.centerid = rst.centerNmae;
                         this.groupid = rst.groupNmae;
@@ -848,6 +838,9 @@
                 this.form.userid = val;
                 this.userlist = val;
                 let rst = getOrgInfoByUserId(val);
+                if(getOrgInfo(getOrgInfoByUserId(val).groupId)){
+                    this.form.budgetunit = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
+                }
                 if(rst) {
                     this.centerid = rst.centerNmae;
                     this.groupid = rst.groupNmae;
@@ -915,9 +908,6 @@
                     this.form.moneys = (this.moneys2) - (this.form.usemoney);
                     this.form.paymoney = this.form.totalcost - this.form.usemoney - (this.tableD3[0].copunvalue) * (this.tableD3[0].copunusenumber) - (this.tableD3[1].copunvalue) * (this.tableD3[1].copunusenumber) - (this.tableD3[2].copunvalue) * (this.tableD3[2].copunusenumber)
                 }
-            },
-            getbudgetunit(val) {
-                this.form.budgetunit = val;
             },
             getcondominiumcompany(val) {
                 this.form.condominiumcompany = val;

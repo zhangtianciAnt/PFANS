@@ -1,8 +1,8 @@
 import {
-  getJudgement,
-  getJudgementOne,
-  updateJudgement,
-  createJudgement,
+  getUnusedevice,
+  getUnusedeviceOne,
+  updateUnusedevice,
+  createUnusedevice,
 } from './PFANS1003Api'
 
 const PFANS1003Store = {
@@ -10,9 +10,9 @@ const PFANS1003Store = {
   state: {},
   mutations: {},
   actions: {
-    getJudgement() {
+    getUnusedevice() {
       return new Promise((resolve, reject) => {
-        getJudgement().then(response => {
+        getUnusedevice().then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -23,9 +23,9 @@ const PFANS1003Store = {
         })
       })
     },
-    getJudgementOne({ commit },data) {
+    getUnusedeviceOne({ commit },data) {
       return new Promise((resolve, reject) => {
-        getJudgementOne(data).then(response => {
+        getUnusedeviceOne(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -36,9 +36,9 @@ const PFANS1003Store = {
         })
       })
     },
-    updateJudgement({ commit },data) {
+    updateUnusedevice({ commit },data) {
       return new Promise((resolve, reject) => {
-        updateJudgement(data).then(response => {
+        updateUnusedevice(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -49,9 +49,9 @@ const PFANS1003Store = {
         })
       })
     },
-    createJudgement({ commit },data) {
+    createUnusedevice({ commit },data) {
       return new Promise((resolve, reject) => {
-        createJudgement(data).then(response => {
+        createUnusedevice(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
