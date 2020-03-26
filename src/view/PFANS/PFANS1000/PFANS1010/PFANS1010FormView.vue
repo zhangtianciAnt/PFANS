@@ -15,19 +15,19 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.center')">
                 <el-input :disabled="true" style="width:20vw" v-model="centerid"></el-input>
-                <el-input :disabled="true" style="width:20vw" v-model="form.center_id"></el-input>
+                <el-input v-show='false' :disabled="true" style="width:20vw" v-model="form.center_id"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.group')">
                 <el-input :disabled="true" style="width:20vw" v-model="groupid"></el-input>
-                <el-input :disabled="true" style="width:20vw" v-model="form.group_id"></el-input>
+                <el-input v-show='false' :disabled="true" style="width:20vw" v-model="form.group_id"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.team')">
                 <el-input :disabled="true" style="width:20vw" v-model="teamid"></el-input>
-                <el-input :disabled="true" style="width:20vw" v-model="form.team_id"></el-input>
+                <el-input v-show='false' :disabled="true" style="width:20vw" v-model="form.team_id"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -187,7 +187,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.budgetunit')" prop="budgetunit">
+              <el-form-item :label="$t('label.PFANS1012FORMVIEW_BUDGET')">
                 <el-input :disabled="true" style="width:20vw" v-model="form.budgetunit" maxlength='50'></el-input>
               </el-form-item>
             </el-col>
@@ -219,7 +219,7 @@
   import dicselect from '../../../components/dicselect.vue';
   import {Message} from 'element-ui';
   import user from '../../../components/user.vue';
-  import {getOrgInfoByUserId} from '@/utils/customize';
+  import {getOrgInfoByUserId,getOrgInfo} from '@/utils/customize';
   import moment from 'moment';
 
   export default {
@@ -308,11 +308,6 @@
             message: this.$t('normal.error_08') + this.$t('label.PFANS1010FORMVIEW_PERCAPITA'),
             trigger: 'change',
           }],
-          budgetunit: [{
-            required: true,
-            message: this.$t('normal.error_09') + this.$t('label.budgetunit'),
-            trigger: 'change',
-          }],
         },
         canStart: false,
       };
@@ -390,10 +385,9 @@
                 this.form.group_id = rst.groupId;
                 this.form.team_id = rst.teamId;
             }
-          if(this.$store.getters.orgGroupList.length > 0){
-            let group = this.$store.getters.orgGroupList.filter( val => val.groupid === lst.groupId)
-            this.form.budgetunit = group[0].encoding;
-          }
+            if(getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)){
+                this.form.budgetunit = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
+            }
         }
       }
     },
@@ -436,6 +430,9 @@
         this.form.user_id = val;
         this.userlist = val;
         let rst = getOrgInfoByUserId(val);
+          if(getOrgInfo(getOrgInfoByUserId(val).groupId)){
+              this.form.budgetunit = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
+          }
           if(rst){
               this.centerid = rst.centerNmae;
               this.groupid = rst.groupNmae;
@@ -456,9 +453,6 @@
         } else {
           this.error = '';
         }
-      },
-      getbudgetunit(val) {
-        this.form.budgetunit = val;
       },
       workflowState(val) {
         if (val.state === '1') {

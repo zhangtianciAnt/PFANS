@@ -107,7 +107,6 @@
     },
     watch: {
       activeIndex(val){
-        debugger
         this.Index = val;
         this.$router.push(val);
         // this.$nextTick(function () {

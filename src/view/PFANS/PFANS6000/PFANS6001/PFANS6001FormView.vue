@@ -322,7 +322,7 @@
           remarks: '',
         },
 
-        code1: 'BP001',
+        code1: 'PG020',
 
         code2: 'PR022',
 
@@ -417,13 +417,13 @@
             },
           ],
 
-          result: [
-            {
-              required: true,
-              message: this.$t('normal.error_09') + this.$t('label.PFANS6001VIEW_RESULT'),
-              trigger: 'change',
-            },
-          ],
+            result: [
+              {
+                required: true,
+                message: this.$t('normal.error_09') + this.$t('label.PFANS6001VIEW_RESULT'),
+                trigger: 'change',
+              },
+            ],
 
           technology: [
             {

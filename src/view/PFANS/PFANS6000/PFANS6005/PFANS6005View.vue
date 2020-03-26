@@ -114,7 +114,7 @@
     mounted() {
       this.loading = true;
       this.$store
-        .dispatch('PFANS6005Store/getpriceset', {})
+        .dispatch('PFANS6005Store/getPricesetList', {})
         .then(response => {
           console.log(response)
           for (let j = 0; j < response.length; j++) {

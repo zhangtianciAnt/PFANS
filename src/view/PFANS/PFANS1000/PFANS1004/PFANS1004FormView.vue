@@ -410,13 +410,6 @@
               trigger: 'change'
             },
           ],
-//          thisproject: [
-//            {
-//              required: true,
-//              message: this.$t('normal.error_08') + this.$t('label.PFANS1004VIEW_THISPROJECT'),
-//              trigger: 'change'
-//            },
-//          ],
           businessplantype: [
             {
               required:  false,
@@ -569,10 +562,6 @@
                 this.form.thisproject = rst.personalcode;
             }
         this.form.user_id = this.$store.getters.userinfo.userid;
-//        if(this.$store.getters.orgGroupList.length > 0){
-//        let group = this.$store.getters.orgGroupList.filter( val => val.groupid === lst.groupId)
-//          this.form.thisproject = group[0].encoding;
-//        }
         }
         this.loading = false;
       }
@@ -843,8 +832,8 @@
         this.form.money = Number(this.form.unitprice) * Number(this.form.numbers);
       },
       buttonClick(val) {
-      let JudgementVo = {};
-      JudgementVo.judgement = this.form;
+      let Judgement = {};
+      Judgement.judgement = this.form;
         if (val === 'back') {
           this.paramsTitle();
         } else {
@@ -895,7 +884,7 @@
               if (this.$route.params._id) {
                 this.form.judgementid = this.$route.params._id;
                 this.$store
-                  .dispatch('PFANS1004Store/updateJudgement', JudgementVo)
+                  .dispatch('PFANS1004Store/updateJudgement', Judgement)
                   .then(response => {
                     this.data = response;
                     this.loading = false;
@@ -919,7 +908,7 @@
 
               } else {
                 this.$store
-                  .dispatch('PFANS1004Store/createJudgement', JudgementVo)
+                  .dispatch('PFANS1004Store/createJudgement', Judgement)
                   .then(response => {
                     this.data = response;
                     this.loading = false;

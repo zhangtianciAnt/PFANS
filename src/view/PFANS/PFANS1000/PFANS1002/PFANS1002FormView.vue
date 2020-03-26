@@ -384,27 +384,8 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1002VIEW_DOLLARFXRATE')" prop="dollarfxrate" v-if="show4">
-                      <el-input :disabled="true" style="width: 20vw" v-model="form.dollarfxrate"></el-input>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1002VIEW_JPYFXRATE')" prop="jpyfxrate" v-if="show5">
-                      <el-input :disabled="true" style="width: 20vw" v-model="form.jpyfxrate"></el-input>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1002VIEW_OTHERFXRATE')" prop="otherfxrate" v-if="show6">
-                      <el-input-number
-                        :disabled="!disable"
-                        :max="99999"
-                        :min="0"
-                        :step="0.01"
-                        controls-position="right"
-                        style="width: 20vw"
-                        v-model="form.otherfxrate"
-                        @change="getotherfxrate">
-                      </el-input-number>
+                    <el-form-item :label="$t('label.PFANS1012VIEW_CURRENCYRATE')" v-if="show4">
+                      <el-input :disabled="true" style="width: 20vw" v-model="form.otherfxrate"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -831,31 +812,31 @@
                 teamid: '',
                 disable: false,
                 error: '',
-                selectType: 'Single',
-                title: 'title.PFANS1002VIEW',
-                userlist: '',
-                activeName: 'first',
-                loading: false,
-                disabled: false,
-                code1: 'PJ016',
-                code2: 'PJ017',
-                code3: 'PJ018',
-                code4: 'PG002',
-                code5: 'PR002',
-                code6: 'PR003',
-                code7: 'PJ003',
-                code8: 'PJ019',
-                code9: 'PJ020',
-                code10: 'PJ021',
-                code11: 'PJ022',
-                code12: 'PJ023',
-                multiple: false,
-                search: '',
-                gridData: [],
-                dialogTableVisible: false,
-                form: {
-                    center_id: '',
-                    group_id: '',
+              selectType: 'Single',
+              title: 'title.PFANS1002VIEW',
+              userlist: '',
+              activeName: 'first',
+              loading: false,
+              disabled: false,
+              code1: 'PJ016',
+              code2: 'PJ017',
+              code3: 'PJ018',
+              code4: 'PG002',
+              code5: 'PJ138',
+              code6: 'PR003',
+              code7: 'PG019',
+              code8: 'PJ019',
+              code9: 'PJ035',
+              code10: 'PJ021',
+              code11: 'PJ022',
+              code12: 'PJ023',
+              multiple: false,
+              search: '',
+              gridData: [],
+              dialogTableVisible: false,
+              form: {
+                center_id: '',
+                group_id: '',
                     team_id: '',
                     user_id: '',
                     applicationdate: moment(new Date()).format('YYYY-MM-DD'),
@@ -881,8 +862,6 @@
                     moneys: '',
                     foreigncurrency: '',
                     currency: '',
-                    dollarfxrate: '',
-                    jpyfxrate: '',
                     otherfxrate: '',
                     bookingday: '',
                     actuarialdate: '',
@@ -1029,11 +1008,11 @@
                         },
                     ],
                     budgetunit: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_09') + this.$t('label.budgetunit'),
-                            trigger: 'change',
-                        },
+                      {
+                        required: false,
+                        message: this.$t('normal.error_09') + this.$t('label.budgetunit'),
+                        trigger: 'change',
+                      },
                     ],
                     plantype: [
                         {
@@ -1075,13 +1054,6 @@
                             required: true,
                             message: this.$t('normal.error_09') + this.$t('label.PFANS1002VIEW_CURRENCY'),
                             trigger: 'change',
-                        },
-                    ],
-                    otherfxrate: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS1002VIEW_OTHERFXRATE'),
-                            trigger: 'blur',
                         },
                     ],
                     bookingday: [
@@ -1258,8 +1230,6 @@
                 show2: false,
                 show3: false,
                 show4: false,
-                show5: false,
-                show6: false,
                 show7: false,
                 show8: false,
                 show9: false,
@@ -1321,22 +1291,20 @@
                         } else {
                             this.show3 = false;
                         }
-                        if (this.form.currency === 'PJ003001') {
+                        if (this.form.currency === 'PG019001') {
                             this.show4 = true;
-                            this.show5 = false;
-                            this.show6 = false;
-                            this.form.dollarfxrate = getDictionaryInfo(this.form.currency).value2;
+                            this.form.otherfxrate = getDictionaryInfo(this.form.currency).value2;
                         }
-                        if (this.form.currency === 'PJ003002') {
-                            this.show4 = false;
-                            this.show5 = true;
-                            this.show6 = false;
-                            this.form.jpyfxrate = getDictionaryInfo(this.form.currency).value2;
+                        if (this.form.currency === 'PG019002') {
+                            this.show4 = true;
+                            this.form.otherfxrate = getDictionaryInfo(this.form.currency).value2;
                         }
-                        if (this.form.currency === 'PJ003003') {
-                            this.show4 = false;
-                            this.show5 = false;
-                            this.show6 = true;
+                        if (this.form.currency === 'PG019003') {
+                            this.show4 = true;
+                            this.form.otherfxrate = getDictionaryInfo(this.form.currency).value2;
+                        }
+                        if (this.form.currency === 'PG019004') {
+                            this.show4 = true;
                             this.form.otherfxrate = getDictionaryInfo(this.form.currency).value2;
                         }
                         if (this.form.provision === '1') {
@@ -1421,11 +1389,13 @@
                             ) ||
                             !this.form.balance)
                     ) ||
-                    this.form.currency === 'PJ003001' && (
-                        !this.form.dollarfxrate) ||
-                    !this.form.currency === 'PJ003002' && (
-                        !this.form.jpyfxrate) ||
-                    !this.form.currency === 'PJ003003' && (
+                    this.form.currency === 'PG019001' && (
+                        !this.form.otherfxrate) ||
+                    !this.form.currency === 'PG019002' && (
+                        !this.form.otherfxrate) ||
+                    !this.form.currency === 'PG019003' && (
+                        !this.form.otherfxrate) ||
+                    !this.form.currency === 'PG019004' && (
                         !this.form.otherfxrate) ||
                     !this.form.bookingday ||
                     !this.form.actuarialdate ||
@@ -1565,59 +1535,51 @@
             getforeigncurrency(val) {
                 this.form.foreigncurrency = val;
                 if (this.form.foreigncurrency != null && this.form.foreigncurrency !== '') {
-                    if (this.form.currency === 'PJ003001') {
-                        this.form.moneys = Math.round((val * this.form.dollarfxrate) * 10) / 10;
-                    }
-                    if (this.form.currency === 'PJ003002') {
-                        this.form.moneys = Math.round((val * this.form.jpyfxrate) * 10) / 10;
-                    }
-                    if (this.form.currency === 'PJ003003') {
+                    if (this.form.currency === 'PG019001') {
                         this.form.moneys = Math.round((val * this.form.otherfxrate) * 10) / 10;
                     }
-                }
-            },
-            getotherfxrate(val) {
-                this.form.otherfxrate = val;
-                if (this.form.foreigncurrency != null && this.form.foreigncurrency !== '') {
-                    if (this.form.currency === 'PJ003003') {
-                        this.form.moneys = Math.round((this.form.foreigncurrency * this.form.otherfxrate) * 10) / 10;
+                    if (this.form.currency === 'PG019002') {
+                        this.form.moneys = Math.round((val * this.form.otherfxrate) * 10) / 10;
+                    }
+                    if (this.form.currency === 'PG019003') {
+                        this.form.moneys = Math.round((val * this.form.otherfxrate) * 10) / 10;
+                    }
+                    if (this.form.currency === 'PG019004') {
+                        this.form.moneys = Math.round((val * this.form.otherfxrate) * 10) / 10;
                     }
                 }
             },
             getCurrency(val) {
                 this.form.currency = val;
-                if (val === 'PJ003001') {
+                if (val === 'PG019001') {
                     let dictionaryInfo = getDictionaryInfo(val);
                     if (dictionaryInfo) {
                         this.show4 = true;
-                        this.show5 = false;
-                        this.show6 = false;
-                        this.form.dollarfxrate = dictionaryInfo.value2;
-                        this.form.jpyfxrate = null;
-                        this.form.otherfxrate = null;
-                        this.form.moneys = Math.round((this.form.foreigncurrency * this.form.dollarfxrate) * 10) / 10;
+                        this.form.otherfxrate = dictionaryInfo.value2;
+                        this.form.moneys = Math.round((this.form.foreigncurrency * this.form.otherfxrate) * 10) / 10;
                     }
                 }
-                if (val === 'PJ003002') {
+                if (val === 'PG019002') {
                     let dictionaryInfo = getDictionaryInfo(val);
                     if (dictionaryInfo) {
-                        this.show4 = false;
-                        this.show5 = true;
-                        this.show6 = false;
-                        this.form.dollarfxrate = null;
-                        this.form.jpyfxrate = dictionaryInfo.value2;
-                        this.form.otherfxrate = null;
-                        this.form.moneys = Math.round((this.form.foreigncurrency * this.form.jpyfxrate) * 10) / 10;
+                        this.show4 = true;
+                        this.form.otherfxrate = dictionaryInfo.value2;
+                        this.form.moneys = Math.round((this.form.foreigncurrency * this.form.otherfxrate) * 10) / 10;
                     }
                 }
-                if (val === 'PJ003003') {
+                if (val === 'PG019003') {
                     let dictionaryInfo = getDictionaryInfo(val);
                     if (dictionaryInfo) {
-                        this.show4 = false;
-                        this.show5 = false;
-                        this.show6 = true;
-                        this.form.dollarfxrate = null;
-                        this.form.jpyfxrate = null;
+                        this.show4 = true;
+                        this.form.otherfxrate = dictionaryInfo.value2;
+                        this.form.moneys = Math.round((this.form.foreigncurrency * this.form.otherfxrate) * 10) / 10;
+                    }
+                }
+                if (val === 'PG019004') {
+                    let dictionaryInfo = getDictionaryInfo(val);
+                    if (dictionaryInfo) {
+                        this.show4 = true;
+                        this.form.otherfxrate = dictionaryInfo.value2;
                         this.form.moneys = Math.round((this.form.foreigncurrency * this.form.otherfxrate) * 10) / 10;
                     }
                 }
