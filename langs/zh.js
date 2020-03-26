@@ -889,6 +889,8 @@ module.exports = {
     PFANS1013FORMVIEW_ERRORINFOT: '交通费用明细信息不完整，请填写完再进行提交',
     PFANS1013FORMVIEW_ERRORINFOA: '住宿费明细信息不完整，请填写完再进行提交',
     PFANS1013FORMVIEW_ERRORINFOR: '其他费用明细信息不完整，请填写完再进行提交',
+    PFANS1013FORMVIEW_RMBLIMIT: '输入人民币金额已经超过上限',
+    PFANS1013FORMVIEW_CURRENCYLIMIT: '输入外币金额已经超过上限',
     PFANS1034VIEW_FILENAME: '文件名称',
     PFANS1034VIEW_FILESIZE: '大小',
     PFANS1034VIEW_UPDATEDATE: '上传时间',

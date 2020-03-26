@@ -599,16 +599,18 @@
               this.$store
                 .dispatch('PFANS5008Store/getProjectList', {})
                 .then(response => {
-                  this.optionsdata = [];
-                  let user_id = this.$store.getters.userinfo.userid;
-                  for (let i = 0; i < response.length; i++) {
-                    if (user_id === response[i].user_id) {
-                      var vote = {};
-                      vote.value = response[i].project_id,
-                        vote.lable = response[i].project_name,
-                        this.optionsdata.push(vote);
+                    this.optionsdata = [];
+                    const vote = [];
+                    let user_id = this.$store.getters.userinfo.userid;
+                    for (let i = 0; i < response.length; i++) {
+                        if (user_id === response[i].user_id) {
+                            vote.push({
+                                value: response[i].project_id,
+                                lable: response[i].project_name,
+                            });
+                        }
                     }
-                  }
+                    this.optionsdata = vote.concat(this.startoption);
                   this.loading = false;
                 })
                 .catch(error => {
@@ -658,16 +660,19 @@
                   this.$store
                     .dispatch('PFANS5008Store/getProjectList', {})
                     .then(response => {
-                      this.optionsdata = [];
-                      let user_id = this.$store.getters.userinfo.userid;
-                      for (let i = 0; i < response.length; i++) {
-                        if (user_id === response[i].user_id) {
-                          var vote = {};
-                          vote.value = response[i].project_id,
-                            vote.lable = response[i].project_name,
-                            this.optionsdata.push(vote);
+
+                        this.optionsdata = [];
+                        const vote = [];
+                        let user_id = this.$store.getters.userinfo.userid;
+                        for (let i = 0; i < response.length; i++) {
+                            if (user_id === response[i].user_id) {
+                                vote.push({
+                                    value: response[i].project_id,
+                                    lable: response[i].project_name,
+                                });
+                            }
                         }
-                      }
+                        this.optionsdata = vote.concat(this.startoption);
                       this.loading = false;
                     })
                     .catch(error => {
@@ -900,6 +905,13 @@
                     this.loading = false;
                   });
               }
+            }
+            else{
+                Message({
+                    message: this.$t("normal.error_12"),
+                    type: 'error',
+                    duration: 5 * 1000
+                });
             }
           });
         }

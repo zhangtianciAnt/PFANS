@@ -237,9 +237,9 @@
                         border
                         show-summary
                         header-cell-class-name="sub_bg_color_blue" stripe>
-                <el-table-column :label="$t('label.PFANS1025VIEW_BUDGETCODE')" align="center" width="150">
+                <el-table-column :label="$t('label.PFANS1012FORMVIEW_BUDGET')" align="center" width="150">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disable" maxlength="20" style="width: 100%" v-model="scope.row.budgetcode"
+                    <el-input :disabled="true" maxlength="20" style="width: 100%" v-model="scope.row.budgetcode"
                               v-if="scope.row.rowindex !== '999'">
                     </el-input>
                     <div v-else>{{scope.row.budgetcode}}</div>
@@ -556,7 +556,7 @@
   import dicselect from '../../../components/dicselect';
   import moment from "moment";
   import org from "../../../components/org";
-  import {getDictionaryInfo,getUserInfo} from '@/utils/customize';
+  import {getDictionaryInfo,getUserInfo,getOrgInfo} from '@/utils/customize';
 
   import project from '../../../components/project';
 
@@ -1213,6 +1213,10 @@
       },
       getGroupId(orglist,row) {
         row.depart=orglist;
+          let group = getOrgInfo(orglist);
+          if (group) {
+              row.budgetcode = group.encoding;
+          }
       },
       workflowState(val) {
         if (val.state === '1') {
@@ -1361,6 +1365,13 @@
                     this.loading=false;
                   })
               }
+            }
+            else{
+                Message({
+                    message: this.$t("normal.error_12"),
+                    type: 'error',
+                    duration: 5 * 1000
+                });
             }
           });
         } else if (val === 'generate') {
