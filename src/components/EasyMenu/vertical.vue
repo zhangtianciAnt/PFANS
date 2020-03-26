@@ -107,10 +107,13 @@
     },
     watch: {
       activeIndex(val){
-        this.$nextTick(function () {
-          this.Index = val;
-          this.$router.push(val);
-        });
+        debugger
+        this.Index = val;
+        this.$router.push(val);
+        // this.$nextTick(function () {
+        //   this.Index = val;
+        //   this.$router.push(val);
+        // });
       }
     }
   };

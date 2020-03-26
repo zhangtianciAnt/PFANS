@@ -74,12 +74,7 @@
                 title: '',
                 letcode: '',
                 disable: false,
-                buttonList: [{
-                    key: "save",
-                    name: "button.save",
-                    disabled: false,
-                    icon: "el-icon-check"
-                }],
+                buttonList: [],
                 tableD: [
                     {
                         code: "",
@@ -109,17 +104,17 @@
             };
         },
         mounted() {
-            this.disable = this.$route.params.disabled;
-            if (this.disable) {
-                this.buttonList = [
-                    {
-                        key: "save",
-                        name: "button.save",
-                        disabled: false,
-                        icon: "el-icon-check"
-                    }
-                ];
-            }
+            // this.disable = this.$route.params.disabled;
+            // if (this.disable) {
+            //     this.buttonList = [
+            //         {
+            //             key: "save",
+            //             name: "button.save",
+            //             disabled: false,
+            //             icon: "el-icon-check"
+            //         }
+            //     ];
+            // }
             if (this.$route.params.code) {
                 this.data = [];
                 this.loading = true;
@@ -134,6 +129,19 @@
                     });
             }
         },
+      created() {
+        this.disabled = this.$route.params.disabled;
+        if (this.disabled) {
+          this.buttonList = [
+            {
+              key: "save",
+              name: "button.save",
+              disabled: false,
+              icon: "el-icon-check"
+            }
+          ];
+        }
+      },
         methods: {
             deleteRow(index, rows) {
                 if (rows.length > 1) {

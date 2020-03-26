@@ -112,7 +112,7 @@
                           response[j].lengthtime = parseFloat(response[j].lengthtime/8).toFixed(1) + this.$t('label.PFANS2016FORMVIEW_DAYS');
                         }
                       }else{
-                        response[j].lengthtime = response[j].lengthtime ==='0'?'全天':(response[j].lengthtime ==='1'?"上午":"下午");
+                        response[j].lengthtime = response[j].lengthtime ==='8'?this.$t('label.PFANS2016FORMVIEW_QUANTIAN'):(response[j].lengthtime ==='4'?this.$t('label.PFANS2016FORMVIEW_SHANGWU'):this.$t('label.PFANS2016FORMVIEW_XIAWU'));
                       }
 
                         let user = getUserInfo(response[j].user_id);

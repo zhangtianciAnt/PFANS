@@ -11,6 +11,7 @@
           <el-dialog :title="$t('button.application')" :visible.sync="dialogVisibleC">
             <el-form-item :label="$t('label.PFANS1024VIEW_NUMBER')" :label-width="formLabelWidth" :error="errorclaimtype" prop="claimtype">
               <dicselect
+                :disabled="!disabled2"
                 :code="code"
                 :data="form1.claimtype"
                 :multiple="multiple"
@@ -18,8 +19,8 @@
                 style="width: 20vw">
               </dicselect>
             </el-form-item>
-            <el-form-item :label="$t('label.PFANS1024VIEW_ORIGINALCONTRACT')" :label-width="formLabelWidth">
-              <el-input v-model="form1.contractnumber" style="width: 20vw" :disabled="!disabled1"></el-input>
+            <el-form-item :label="$t('label.PFANS1024VIEW_ORIGINALCONTRACT')" :label-width="formLabelWidth" v-show="show3">
+              <el-input v-model="form1.contractnumber" style="width: 20vw" :disabled="!disabled2"></el-input>
               <el-checkbox
                 v-if="checkeddisplay"
                 v-model="checked"
@@ -76,7 +77,7 @@
                           :label-width="formLabelWidth" prop="custojapanese">
               <div class="" style="width: 20vw">
                 <el-input class="content bg"
-                          v-model="form1.custojapanese">
+                          v-model="form1.custojapanese" :disabled="!disabled2">
                   <el-button :disabled="!disabled2" size="small" slot="append" icon="el-icon-search"
                              @click="handleClickE()"></el-button>
                 </el-input>
@@ -157,7 +158,7 @@
                              :error="erroruser">
               <template slot-scope="scope">
                 <el-form-item :prop="'tabledata.' + scope.$index + '.user_id'" :rules='rules.applicant'>
-                  <user :disabled="!disabled" :no="scope.row" :error="erroruser" :selectType="selectType"
+                  <user :disabled="!disabled3" :no="scope.row" :error="erroruser" :selectType="selectType"
                         :userlist="scope.row.user_id"
                         @getUserids="getUserids" style="width: 10.15rem"></user>
                 </el-form-item>
@@ -219,8 +220,9 @@
             <el-table-column :label="$t('label.PFANS1024VIEW_CURRENCYPOSITION')" align="center" prop="currencyposition"
                              width="200">
               <template slot-scope="scope">
+                <!--code9-->
                 <el-form-item :prop="'tabledata.' + scope.$index + '.currencyposition'" :rules='rules.currencyposition'>
-                  <dicselect
+                  <!--<dicselect
                     :code="code9"
                     :data="scope.row.currencyposition"
                     :no="scope.row"
@@ -228,7 +230,12 @@
                     @change="getCurrencyposition"
                     style="width: 11rem"
                     :disabled="!disabled">
-                  </dicselect>
+                  </dicselect>-->
+                  <el-select :no="scope.row" v-model="scope.row.currencyposition" @change="(val)=>{getCurrencyposition(val,scope.row)}" style="width: 11rem" :disabled="!disabled">
+                    <el-option v-for="(item,index) in options" :key="index" v-model="item.value">
+                      {{item.value}}
+                    </el-option>
+                  </el-select>
                 </el-form-item>
               </template>
             </el-table-column>
@@ -537,7 +544,7 @@
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import {Message} from 'element-ui';
   import dicselect from '../../../components/dicselect';
-  import {getDictionaryInfo, getOrgInfo, getStatus, getSupplierinfor, getUserInfo} from '@/utils/customize';
+  import {getDictionaryInfo, getOrgInfo,getOrgInfoByUserId, getStatus, getSupplierinfor, getUserInfo} from '@/utils/customize';
   import user from '../../../components/user.vue';
   import org from '../../../components/org';
   import project from '../../../components/project';
@@ -551,6 +558,8 @@
       user,
       org,
       project,
+      getOrgInfoByUserId,
+
     },
     data() {
       var validateDeployment = (rule, value, callback) => {
@@ -782,6 +791,7 @@
         checkeddisplay: true,
         dialogBook: false,
         display: true,
+        options: [],
         contractnumbercount: '',
         maketype: '',
         selectType: 'Single',
@@ -793,6 +803,7 @@
         formLabelWidth: '120px',
         multiple: false,
         index: '',
+          user_id: '',
         grouporglist: '',
         groupinfo: ['', '', '', ''],
         errorgroup: '',
@@ -838,9 +849,9 @@
 
             applicationdate: [
                 {
-                    required: false,
+                    required: true,
                     validator: checkApplicationdate,
-                    trigger: 'change',
+                    trigger: 'submit',
                 },
             ],
           grouporglist: [
@@ -1039,6 +1050,7 @@
         code10: 'HT017',
         show1: true,
         show2: false,
+        show3:false,
         tableB: [],
         tableC: [],
         tableD: [],
@@ -1061,6 +1073,16 @@
     },
     mounted() {
       this.contractnumbercount = this.$route.params.contractnumbercount;
+      let option1 = {};
+        option1.name = getDictionaryInfo('PG019001').value1;
+        option1.code = 'PG019003';
+        option1.value = getDictionaryInfo('PG019001').value4;
+      let option2 = {};
+        option2.name = getDictionaryInfo('PG019003').value1;
+        option2.code = 'PG019003';
+        option2.value = getDictionaryInfo('PG019003').value4;
+        this.options.push(option1);
+        this.options.push(option2);
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
@@ -1070,16 +1092,25 @@
             let contractnumbercount = response.contractnumbercount;
             if (contractapplication.length > 0) {
               for (let i = 0; i < contractapplication.length; i++) {
-                this.form1.claimtype = contractapplication[i].claimtype;
+                 /* //555 this.currencyposition
+                let currencyposition =  contractapplication[i].currencyposition;
+                this.currencyposition = currencyposition === 'PG019001'?'USB$':'￥';*/
                 this.maketype = contractapplication[i].maketype;
+
+                  this.form1.claimtype = contractapplication[i].claimtype;
                 //契約書番号
                 this.letcontractnumber = contractapplication[i].contractnumber;
+                this.show3 = true;
+                this.form1.contractnumber = contractapplication[i].contractnumber;
                 //契約種類
                 this.form.contracttype = contractapplication[i].contracttype;
+                  this.form1.contracttype = contractapplication[i].contracttype;
                 //事業年度
                 this.form.applicationdate = contractapplication[i].careeryear;
+                  this.form1.applicationdate = contractapplication[i].careeryear;
                 //上下期
                 this.form.entrycondition = contractapplication[i].periods;
+                  this.form1.entrycondition = contractapplication[i].periods;
 
                 this.form1.custojapanese = contractapplication[i].custojapanese;
                 //グループ
@@ -1131,6 +1162,14 @@
             this.loading = false;
           });
       }
+      //333
+        let userid = this.$store.getters.userinfo.userid;
+        if (userid !== null && userid !== '') {
+            let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+            this.form1.grouporglist = lst.groupId;
+            this.getGroupId(this.form1.grouporglist);
+        }
+
       //get customer
       this.getsupplierinfor();
       //テーマ
@@ -1229,7 +1268,7 @@
         this.formcustomer.custochinese = row.supchinese;
         this.formcustomer.suppliercode = row.suppliercode;
 
-        console.log('addjapanese'+row.addjapanese);
+
         if(!row.addjapanese){
             this.formcustomer.placejapanese = row.addchinese;
         }else{
@@ -1504,12 +1543,20 @@
       },
       getcareeryear1(val) {
         this.form1.applicationdate = val;
+        if(this.form1.entrycondition){
+            this.errorapplicationdate = '';
+        }
       },
       getcareeryear2(val) {
         this.form1.entrycondition = val;
+          if(this.form1.applicationdate){
+              this.errorapplicationdate = '';
+          }
       },
       getCurrencyposition(val, row) {
-        row.currencyposition = val;
+
+            row.currencyposition = val;
+
       },
       getcareeryear(val) {
         this.form.career = val;
@@ -1591,7 +1638,7 @@
             contractnumber: this.letcontractnumber,
             entrycondition: '',
             entrypayment: '',
-            claimtype: '',
+            claimtype: this.form1.claimtype,
             deliverydate: '',
             completiondate: '',
             claimdate: moment(new Date()).format('YYYY-MM-DD'),
@@ -1641,7 +1688,7 @@
       },
       //契約番号做成
       click() {//111
-        this.rules1.applicationdate.required = true;
+
         this.$refs['refform1'].validate(valid => {
           if (valid) {
             this.form.claimtype = this.form1.claimtype;
@@ -1746,7 +1793,7 @@
         }
         this.addRowdata(isClone);
         this.form.tableclaimtype = [];
-        console.log("this.form.claimtype: "+this.form.claimtype);
+
         if (this.form.claimtype === 'HT001001') {
           this.addRowclaimtype();
           this.form.tableclaimtype[0].claimtype = letclaimtypeone;
@@ -1815,6 +1862,7 @@
           });
           this.loading = false;
           this.dialogBook = false;
+          return;
         }
         this.$store.dispatch('PFANS1026Store/existCheck', {contractNumber: contractNumber})
           .then(response => {

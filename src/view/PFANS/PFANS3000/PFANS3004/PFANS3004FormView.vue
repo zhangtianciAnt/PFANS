@@ -18,19 +18,19 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.center')" prop="centerid">
                 <el-input :disabled="false" style="width:20vw" v-model="centerid"></el-input>
-                <el-input :disabled="true" style="width:20vw" v-model="form.centerid"></el-input>
+                <el-input  v-show='false' :disabled="true" style="width:20vw" v-model="form.centerid"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.group')" prop="groupid">
                 <el-input :disabled="false" style="width:20vw" v-model="groupid"></el-input>
-                <el-input :disabled="true" style="width:20vw" v-model="form.groupid"></el-input>
+                <el-input  v-show='false' :disabled="true" style="width:20vw" v-model="form.groupid"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.team')" prop="teamid">
                 <el-input :disabled="false" style="width:20vw" v-model="teamid"></el-input>
-                <el-input :disabled="true" style="width:20vw" v-model="form.teamid"></el-input>
+                <el-input  v-show='false' :disabled="true" style="width:20vw" v-model="form.teamid"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -223,9 +223,11 @@
           .then(response => {
             this.form = response;
             let rst = getOrgInfoByUserId(response.userid);
-            this.centerid = rst.centerNmae;
-            this.groupid= rst.groupNmae;
-            this.teamid= rst.teamNmae;
+              if(rst){
+                  this.centerid = rst.centerNmae;
+                  this.groupid= rst.groupNmae;
+                  this.teamid= rst.teamNmae;
+              }
             this.userlist = this.form.userid;
             if (this.form.status === '2') {
               this.disable = false;
@@ -247,12 +249,14 @@
         this.userlist = this.$store.getters.userinfo.userid;
         if (this.userlist !== null && this.userlist !== '') {
           let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-            this.centerid = rst.centerNmae;
-            this.groupid= rst.groupNmae;
-            this.teamid= rst.teamNmae;
-            this.form.centerid = rst.centerId;
-            this.form.groupid = rst.groupId;
-            this.form.teamid = rst.teamId;
+            if(rst) {
+                this.centerid = rst.centerNmae;
+                this.groupid = rst.groupNmae;
+                this.teamid = rst.teamNmae;
+                this.form.centerid = rst.centerId;
+                this.form.groupid = rst.groupId;
+                this.form.teamid = rst.teamId;
+            }
           this.form.userid = this.$store.getters.userinfo.userid;
         }
       }
@@ -291,12 +295,21 @@
         this.form.userid = val;
         this.userlist = val;
         let rst = getOrgInfoByUserId(val);
-        this.centerid = rst.centerNmae;
-        this.groupid = rst.groupNmae;
-        this.teamid = rst.teamNmae;
-        this.form.centerid = rst.centerId;
-        this.form.groupid = rst.groupId;
-        this.form.teamid = rst.teamId;
+          if(rst) {
+              this.centerid = rst.centerNmae;
+              this.groupid = rst.groupNmae;
+              this.teamid = rst.teamNmae;
+              this.form.centerid = rst.centerId;
+              this.form.groupid = rst.groupId;
+              this.form.teamid = rst.teamId;
+          } else{
+              this.centerid =  '';
+              this.groupid =  '';
+              this.teamid =  '';
+              this.form.centerid = '';
+              this.form.teamid =  '';
+              this.form.groupid =  '';
+          }
         if (!this.form.userid || this.form.userid === '' || val === "undefined") {
           this.error = this.$t('normal.error_09') + this.$t('label.applicant');
         } else {

@@ -6,7 +6,7 @@
 
 <script>
     import EasyNormalTable from "@/components/EasyNormalTable";
-    import {getDictionaryInfo, getStatus, getUserInfo} from '@/utils/customize';
+    import {getDictionaryInfo, getStatus, getUserInfo,getOrgInfoByUserId} from '@/utils/customize';
     import {Message} from 'element-ui';
     import moment from "moment";
 
@@ -105,12 +105,15 @@
                     for (let j = 0; j < response.length; j++) {
                         if (response[j].user_id !== null && response[j].user_id !== "") {
                             let user = getUserInfo(response[j].user_id);
+                            let nameflg = getOrgInfoByUserId(response[j].user_id);
+                            if (nameflg) {
+                                response[j].center_name = nameflg.centerNmae;
+                                response[j].group_name = nameflg.groupNmae;
+                                response[j].team_name = nameflg.teamNmae;
+                            }
                             if (user) {
                                 response[j].user_name = user.userinfo.customername;
                             }
-                            response[j].center_name = response[j].center_id;
-                            response[j].group_name = response[j].group_id;
-                            response[j].team_name = response[j].team_id;
                         }
                         if (response[j].status !== null && response[j].status !== "") {
                             response[j].status = getStatus(response[j].status);
