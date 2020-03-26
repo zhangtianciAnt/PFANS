@@ -511,8 +511,8 @@
             this.loading = false;
           });
       } else {
-        this.ageflg = this.$store.getters.userinfo.age;
-        this.sexflg = this.$store.getters.userinfo.sex;
+        this.ageflg = this.$store.getters.userinfo.userinfo.age;
+        this.sexflg = this.$store.getters.userinfo.userinfo.sex;
         this.userlist = this.$store.getters.userinfo.userid;
         if (this.userlist !== null && this.userlist !== '') {
           let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
