@@ -78,7 +78,7 @@
                     <el-table-column
                       prop="sociology"
                       :label="$t('label.PFANS2006VIEW_SOCIETY')"
-                      width="150"
+                      width="200"
                       align="center"
                     ></el-table-column>
                     <el-table-column
@@ -3785,15 +3785,13 @@
                 ).format("YYYY-MM-DD");
               }
               if (response.base[j].sex !== null && response.base[j].sex !== "") {
-                if (this.$i18n) {
-                  if (response.base[j].sex === "PR019001") {
+                if (response.base[j].sex === "PR019001") {
                     response.base[j].sex = this.$t("label.PFANS2002FORMVIEW_BOY");
                   } else {
                     response.base[j].sex = this.$t(
                       "label.PFANS2002FORMVIEW_GRIL"
                     );
                   }
-                }
               }
               if (
                 response.base[j].registered !== null &&
