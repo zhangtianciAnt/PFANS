@@ -74,15 +74,9 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.budgetunit')" prop="budgetnumber">
-                <dicselect
-                  :code="code"
-                  :data="form.budgetnumber"
-                  :disabled="!disable"
-                  :multiple="multiple"
-                  @change="changebudgetnumber"
-                  style="width:20vw">
-                </dicselect>
+              <el-form-item :label="$t('label.PFANS1012FORMVIEW_BUDGET')">
+                <el-input :disabled="true" maxlength="20" style="width:20vw"
+                          v-model="form.budgetnumber"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -322,7 +316,7 @@
   import PFANS3005View from '../PFANS3005/PFANS3005View.vue';
   import {Message} from 'element-ui';
   import user from '../../../components/user.vue';
-  import {getOrgInfoByUserId} from '@/utils/customize';
+  import {getOrgInfoByUserId,getOrgInfo} from '@/utils/customize';
   import moment from 'moment';
   import dicselect from '../../../components/dicselect.vue';
 
@@ -424,11 +418,6 @@
           user_id: [{
             required: true,
             validator: checkuser,
-            trigger: 'change',
-          }],
-          budgetnumber: [{
-            required: true,
-            message: this.$t('normal.error_08') + this.$t('label.budgetunit'),
             trigger: 'change',
           }],
           application_date: [
@@ -599,6 +588,9 @@
         this.userlist = this.$store.getters.userinfo.userid;
         if (this.userlist !== null && this.userlist !== '') {
           let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+            if(getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)){
+                this.form.budgetnumber = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
+            }
           if(rst) {
               this.centerid = rst.centerNmae;
               this.groupid = rst.groupNmae;
@@ -644,6 +636,9 @@
         this.form.user_id = val;
         this.userlist = val;
         let rst = getOrgInfoByUserId(val);
+          if(getOrgInfo(getOrgInfoByUserId(val).groupId)){
+              this.form.budgetnumber = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
+          }
         if(rst) {
             this.centerid = rst.centerNmae;
             this.groupid = rst.groupNmae;
@@ -715,9 +710,6 @@
       },
       getClassificationtype(val) {
         this.form.classificationtype = val;
-      },
-      changebudgetnumber(val) {
-        this.form.budgetnumber = val;
       },
       getprocurementproject(val) {
         this.form.procurementproject = val;
