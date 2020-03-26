@@ -70,17 +70,16 @@
     },
     mounted() {
       this.getCompanyProjectList(this.$route.params.title);
-
     },
     methods: {
       getCompanyProjectList(val) {
         if (val === 1) {
-          this.row = 'businessid';
+          this.row = "businessid";
           this.title = 'title.PFANS1002VIEW';
           let businesstype = {'businesstype': '0'};
           this.dispatchparameter('PFANS1001Store/getBusiness',businesstype);
         } else if (val === 2) {
-            this.row = 'businessid';
+            this.row = "businessid";
             this.title = 'title.PFANS1035VIEW';
             let businesstype = {'businesstype': '1'};
             this.dispatchparameter('PFANS1001Store/getBusiness',businesstype);

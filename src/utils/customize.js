@@ -234,6 +234,7 @@ export function getOrgInfoByUserId(userid) {
     orgs.groupId = userinfo.userinfo.groupid;
     orgs.teamNmae = userinfo.userinfo.teamname;
     orgs.teamId = userinfo.userinfo.teamid;
+    orgs.personalcode = userinfo.userinfo.personalcode;
   }
   return orgs;
 }
