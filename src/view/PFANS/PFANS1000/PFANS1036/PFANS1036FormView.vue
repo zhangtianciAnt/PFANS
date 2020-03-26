@@ -1427,7 +1427,7 @@
                           </el-table-column>
                           <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center"  width="110" prop="actual4">
                             <template slot-scope="scope">
-                              <el-input-number :precision="2" size="small" v-model="scope.row.actual4" :controls="false"  :min="0"  style="width:5vw" v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)"></el-input-number>
+                              <el-input-number :precision="2" size="small" v-model="scope.row.actual4" :controls="false"  :min="0"  style="width:5vw" v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)" @change="computedSum"></el-input-number>
                               <span  v-else>{{scope.row.actual4}}</span>
                             </template>
                           </el-table-column>
@@ -1435,13 +1435,13 @@
                         <el-table-column :label="$t('label.May')" align="center" width="110">
                           <el-table-column :label="$t('label.PFANS1036FORMVIEW_PLAN')" align="center" width="110" prop="money5">
                             <template slot-scope="scope">
-                            <el-input-number :precision="2" size="small" v-model="scope.row.money5" :controls="false"  :min="0"  style="width:5vw" v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)"></el-input-number>
+                            <el-input-number :precision="2" size="small" v-model="scope.row.money5" :controls="false"  :min="0"  style="width:5vw" v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)" @change="computedSum"></el-input-number>
                             <span v-else>{{scope.row.money5}}</span>
                             </template>
                           </el-table-column>
                           <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center" width="110" prop="actual5">
                             <template slot-scope="scope">
-                              <el-input-number :precision="2" size="small" v-model="scope.row.actual5" :controls="false"  :min="0"  style="width:5vw" v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)"></el-input-number>
+                              <el-input-number :precision="2" size="small" v-model="scope.row.actual5" :controls="false"  :min="0"  style="width:5vw" v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)" @change="computedSum"></el-input-number>
                               <span v-else>{{scope.row.actual5}}</span>
                             </template>
                           </el-table-column>
@@ -1449,13 +1449,13 @@
                         <el-table-column :label="$t('label.June')" align="center" width="110">
                           <el-table-column :label="$t('label.PFANS1036FORMVIEW_PLAN')" align="center" width="110" prop="money6">
                             <template slot-scope="scope">
-                            <el-input-number :precision="2" size="small" v-model="scope.row.money6" :controls="false"  :min="0"  style="width:5vw" v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)"></el-input-number>
+                            <el-input-number :precision="2" size="small" v-model="scope.row.money6" :controls="false"  :min="0"  style="width:5vw" v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)" @change="computedSum"></el-input-number>
                             <span v-else>{{scope.row.money6}}</span>
                             </template>
                           </el-table-column>
                           <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center" width="110" prop="actual6">
                             <template slot-scope="scope">
-                              <el-input-number :precision="2" size="small" v-model="scope.row.actual6" :controls="false"  :min="0"  style="width:5vw" v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)"></el-input-number>
+                              <el-input-number :precision="2" size="small" v-model="scope.row.actual6" :controls="false"  :min="0"  style="width:5vw" v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)" @change="computedSum"></el-input-number>
                               <span v-else>{{scope.row.actual6}}</span>
                             </template>
                           </el-table-column>
@@ -1463,13 +1463,13 @@
                         <el-table-column :label="$t('label.July')" align="center" width="110">
                           <el-table-column :label="$t('label.PFANS1036FORMVIEW_PLAN')" align="center" width="110" prop="money7">
                             <template slot-scope="scope">
-                            <el-input-number :precision="2" size="small" v-model="scope.row.money7" :controls="false"  :min="0"  style="width:5vw" v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)"></el-input-number>
+                            <el-input-number :precision="2" size="small" v-model="scope.row.money7" :controls="false"  :min="0"  style="width:5vw" v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)" @change="computedSum"></el-input-number>
                             <span v-else>{{scope.row.money7}}</span>
                             </template>
                           </el-table-column>
                           <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center" width="110" prop="actual7">
                             <template slot-scope="scope">
-                              <el-input-number :precision="2" size="small" v-model="scope.row.actual7" :controls="false"  :min="0"  style="width:5vw" v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)"></el-input-number>
+                              <el-input-number :precision="2" size="small" v-model="scope.row.actual7" :controls="false"  :min="0"  style="width:5vw" v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)" @change="computedSum"></el-input-number>
                               <span v-else>{{scope.row.actual7}}</span>
                             </template>
                           </el-table-column>
@@ -1477,13 +1477,13 @@
                         <el-table-column :label="$t('label.August')" align="center" width="110">
                           <el-table-column :label="$t('label.PFANS1036FORMVIEW_PLAN')" align="center" width="110" prop="money8">
                             <template slot-scope="scope">
-                            <el-input-number :precision="2" size="small" v-model="scope.row.money8" :controls="false"  :min="0"  style="width:5vw" v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)"></el-input-number>
+                            <el-input-number :precision="2" size="small" v-model="scope.row.money8" :controls="false"  :min="0"  style="width:5vw" v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)" @change="computedSum"></el-input-number>
                             <span v-else>{{scope.row.money8}}</span>
                             </template>
                           </el-table-column>
                           <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center" width="110" prop="actual8">
                             <template slot-scope="scope">
-                              <el-input-number :precision="2" size="small" v-model="scope.row.actual8" :controls="false"  :min="0"  style="width:5vw" v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)"></el-input-number>
+                              <el-input-number :precision="2" size="small" v-model="scope.row.actual8" :controls="false"  :min="0"  style="width:5vw" v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)" @change="computedSum"></el-input-number>
                               <span v-else>{{scope.row.actual8}}</span>
                             </template>
                           </el-table-column>
@@ -1491,13 +1491,13 @@
                         <el-table-column :label="$t('label.September')" align="center" width="110">
                           <el-table-column :label="$t('label.PFANS1036FORMVIEW_PLAN')" align="center" width="110" prop="money9">
                             <template slot-scope="scope">
-                            <el-input-number :precision="2" size="small" v-model="scope.row.money9" :controls="false"  :min="0"  style="width:5vw" v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)"></el-input-number>
+                            <el-input-number :precision="2" size="small" v-model="scope.row.money9" :controls="false"  :min="0"  style="width:5vw" v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)" @change="computedSum"></el-input-number>
                             <span v-else>{{scope.row.money9}}</span>
                             </template>
                           </el-table-column>
                           <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center" width="110" prop="actual9">
                             <template slot-scope="scope">
-                              <el-input-number :precision="2" size="small" v-model="scope.row.actual9" :controls="false"  :min="0"  style="width:5vw" v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)"></el-input-number>
+                              <el-input-number :precision="2" size="small" v-model="scope.row.actual9" :controls="false"  :min="0"  style="width:5vw" v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)" @change="computedSum"></el-input-number>
                               <span v-else>{{scope.row.actual9}}</span>
                             </template>
                           </el-table-column>
@@ -1507,13 +1507,13 @@
                         <el-table-column :label="$t('label.October')" align="center" width="110">
                           <el-table-column :label="$t('label.PFANS1036FORMVIEW_PLAN')" align="center" width="110" prop="money10">
                             <template slot-scope="scope">
-                            <el-input-number :precision="2" size="small" v-model="scope.row.money10" :controls="false"  :min="0"  style="width:5vw" v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)"></el-input-number>
+                            <el-input-number :precision="2" size="small" v-model="scope.row.money10" :controls="false"  :min="0"  style="width:5vw" v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)" @change="computedSum"></el-input-number>
                             <span v-else>{{scope.row.money10}}</span>
                             </template>
                           </el-table-column>
                           <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center" width="110" prop="actual10">
                             <template slot-scope="scope">
-                              <el-input-number :precision="2" size="small" v-model="scope.row.actual10" :controls="false"  :min="0"  style="width:5vw" v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)"></el-input-number>
+                              <el-input-number :precision="2" size="small" v-model="scope.row.actual10" :controls="false"  :min="0"  style="width:5vw" v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)" @change="computedSum"></el-input-number>
                               <span v-else>{{scope.row.actual10}}</span>
                             </template>
                           </el-table-column>
@@ -1521,13 +1521,13 @@
                         <el-table-column :label="$t('label.November')" align="center" width="110">
                           <el-table-column :label="$t('label.PFANS1036FORMVIEW_PLAN')" align="center" width="110" prop="money11">
                             <template slot-scope="scope">
-                            <el-input-number :precision="2" size="small" v-model="scope.row.money11" :controls="false"  :min="0"  style="width:5vw" v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)"></el-input-number>
+                            <el-input-number :precision="2" size="small" v-model="scope.row.money11" :controls="false"  :min="0"  style="width:5vw" v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)" @change="computedSum"></el-input-number>
                             <span v-else>{{scope.row.money11}}</span>
                             </template>
                           </el-table-column>
                           <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center" width="110" prop="actual11">
                             <template slot-scope="scope">
-                              <el-input-number :precision="2" size="small" v-model="scope.row.actual11" :controls="false"  :min="0"  style="width:5vw" v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)"></el-input-number>
+                              <el-input-number :precision="2" size="small" v-model="scope.row.actual11" :controls="false"  :min="0"  style="width:5vw" v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)" @change="computedSum"></el-input-number>
                               <span v-else>{{scope.row.actual11}}</span>
                             </template>
                           </el-table-column>
@@ -1535,13 +1535,13 @@
                         <el-table-column :label="$t('label.December')" align="center" width="110">
                           <el-table-column :label="$t('label.PFANS1036FORMVIEW_PLAN')" align="center" width="110" prop="money12">
                             <template slot-scope="scope">
-                            <el-input-number :precision="2" size="small" v-model="scope.row.money12" :controls="false"  :min="0"  style="width:5vw" v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)"></el-input-number>
+                            <el-input-number :precision="2" size="small" v-model="scope.row.money12" :controls="false"  :min="0"  style="width:5vw" v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)" @change="computedSum"></el-input-number>
                             <span v-else>{{scope.row.money12}}</span>
                             </template>
                           </el-table-column>
                           <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center" width="110" prop="actual12">
                             <template slot-scope="scope">
-                              <el-input-number :precision="2" size="small" v-model="scope.row.actual12" :controls="false"  :min="0"  style="width:5vw" v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)"></el-input-number>
+                              <el-input-number :precision="2" size="small" v-model="scope.row.actual12" :controls="false"  :min="0"  style="width:5vw" v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)" @change="computedSum"></el-input-number>
                               <span v-else>{{scope.row.actual12}}</span>
                             </template>
                           </el-table-column>
@@ -1549,13 +1549,13 @@
                         <el-table-column :label="$t('label.January')" align="center" width="110">
                           <el-table-column :label="$t('label.PFANS1036FORMVIEW_PLAN')" align="center" width="110" prop="money1">
                             <template slot-scope="scope">
-                            <el-input-number :precision="2" size="small" v-model="scope.row.money1" :controls="false"  :min="0"  style="width:5vw" v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)"></el-input-number>
+                            <el-input-number :precision="2" size="small" v-model="scope.row.money1" :controls="false"  :min="0"  style="width:5vw" v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)" @change="computedSum"></el-input-number>
                             <span v-else>{{scope.row.money1}}</span>
                             </template>
                           </el-table-column>
                           <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center" width="110" prop="actual1">
                             <template slot-scope="scope">
-                              <el-input-number :precision="2" size="small" v-model="scope.row.actual1" :controls="false"  :min="0"  style="width:5vw" v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)"></el-input-number>
+                              <el-input-number :precision="2" size="small" v-model="scope.row.actual1" :controls="false"  :min="0"  style="width:5vw" v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)" @change="computedSum"></el-input-number>
                               <span v-else>{{scope.row.actual1}}</span>
                             </template>
                           </el-table-column>
@@ -1563,13 +1563,13 @@
                         <el-table-column :label="$t('label.February')" align="center" width="110">
                           <el-table-column :label="$t('label.PFANS1036FORMVIEW_PLAN')" align="center" width="110" prop="money2">
                             <template slot-scope="scope">
-                            <el-input-number :precision="2" size="small" v-model="scope.row.money2" :controls="false"  :min="0"  style="width:5vw" v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)"></el-input-number>
+                            <el-input-number :precision="2" size="small" v-model="scope.row.money2" :controls="false"  :min="0"  style="width:5vw" v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)" @change="computedSum"></el-input-number>
                             <span v-else>{{scope.row.money2}}</span>
                             </template>
                           </el-table-column>
                           <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center" width="110" prop="actual2">
                             <template slot-scope="scope">
-                              <el-input-number :precision="2" size="small" v-model="scope.row.actual2" :controls="false"  :min="0"  style="width:5vw" v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)"></el-input-number>
+                              <el-input-number :precision="2" size="small" v-model="scope.row.actual2" :controls="false"  :min="0"  style="width:5vw" v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)" @change="computedSum"></el-input-number>
                               <span v-else>{{scope.row.actual2}}</span>
                             </template>
                           </el-table-column>
@@ -1577,24 +1577,15 @@
                         <el-table-column :label="$t('label.March')" align="center" width="110">
                           <el-table-column :label="$t('label.PFANS1036FORMVIEW_PLAN')" align="center" width="110" prop="money3">
                             <template slot-scope="scope">
-                            <el-input-number :precision="2" size="small" v-model="scope.row.money3" :controls="false"  :min="0"  style="width:5vw" v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)"></el-input-number>
+                            <el-input-number :precision="2" size="small" v-model="scope.row.money3" :controls="false"  :min="0"  style="width:5vw" v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)" @change="computedSum"></el-input-number>
                             <span v-else>{{scope.row.money3}}</span>
                             </template>
                           </el-table-column>
                           <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center" width="110" prop="actual3">
                             <template slot-scope="scope">
-                              <el-input-number :precision="2" size="small" v-model="scope.row.actual3" :controls="false"  :min="0"  style="width:5vw" v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)"></el-input-number>
+                              <el-input-number :precision="2" size="small" v-model="scope.row.actual3" :controls="false"  :min="0"  style="width:5vw" v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)" @change="computedSum"></el-input-number>
                               <span v-else>{{scope.row.actual3}}</span>
                             </template>
-                          </el-table-column>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.totalyear')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_TOTAL')" align="center" width="110">
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_PLAN')" align="center" width="110">
-                          </el-table-column>
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_ACHIEVEMENTS')" align="center"
-                                           width="110">
                           </el-table-column>
                         </el-table-column>
                       </el-table-column>
@@ -2170,53 +2161,80 @@
           this.$set(this.tableP[37],"actual" + this.arr[i], this.tableP[37]["actual" + this.arr[i]] || "0.00");
           this.$set(this.tableP[38],"money" + this.arr[i], Number(_tableO2["money" + this.arr[i]]||0).toFixed(2));
           this.$set(this.tableP[38],"actual" + this.arr[i], this.tableP[38]["actual" + this.arr[i]] || "0.00");
+          ["money","actual"].forEach(
+            val => {
+              this.$set(this.tableP[39],val + this.arr[i], (0 - Number(this.tableP[13][val + this.arr[i]]) - Number(this.tableP[20][val + this.arr[i]]) - Number(this.tableP[26][val + this.arr[i]]) + Number(this.tableP[31][val + this.arr[i]]) + Number(this.tableP[32][val + this.arr[i]]) +
+                Number(this.tableP[33][val + this.arr[i]]) + Number(this.tableP[34][val + this.arr[i]]) + Number(this.tableP[35][val + this.arr[i]]) +Number(this.tableP[36][val + this.arr[i]]) +Number(this.tableP[37][val + this.arr[i]]) + Number(this.tableP[38][val + this.arr[i]]) + Number(this.tableP[5][val + this.arr[i]])*0.75).toFixed(2));
 
-          this.$set(this.tableP[39],"money" + this.arr[i], (0 - Number(this.tableP[13]["money" + this.arr[i]]) - Number(this.tableP[20]["money" + this.arr[i]]) - Number(this.tableP[26]["money" + this.arr[i]]) + Number(this.tableP[31]["money" + this.arr[i]]) + Number(this.tableP[32]["money" + this.arr[i]]) +
-          Number(this.tableP[33]["money" + this.arr[i]]) + Number(this.tableP[34]["money" + this.arr[i]]) + Number(this.tableP[35]["money" + this.arr[i]]) +Number(this.tableP[36]["money" + this.arr[i]]) +Number(this.tableP[37]["money" + this.arr[i]]) + Number(this.tableP[38]["money" + this.arr[i]]) + Number(this.tableP[5]["money" + this.arr[i]])*0.75).toFixed(2));
+              this.$set(this.tableP[41],val + this.arr[i],(Number(this.tableP[31][val + this.arr[i]]) + Number(this.tableP[32][val + this.arr[i]]) +
+                Number(this.tableP[33][val + this.arr[i]]) + Number(this.tableP[34][val + this.arr[i]]) + Number(this.tableP[35][val + this.arr[i]]) +Number(this.tableP[36][val + this.arr[i]]) +Number(this.tableP[37][val + this.arr[i]]) + Number(this.tableP[38][val + this.arr[i]]) + Number(this.tableP[39][val + this.arr[i]]) + Number(this.tableP[40][val + this.arr[i]]||0)).toFixed(2));
+              this.$set(this.tableP[42],val + this.arr[i],(Number(this.tableP[13][val + this.arr[i]]) + Number(this.tableP[20][val + this.arr[i]]) + Number(this.tableP[26][val + this.arr[i]]) + Number(this.tableP[30][val + this.arr[i]]) + Number(this.tableP[41][val + this.arr[i]])).toFixed(2)); //合计
 
-          this.$set(this.tableP[41],"money" + this.arr[i],(Number(this.tableP[31]["money" + this.arr[i]]) + Number(this.tableP[32]["money" + this.arr[i]]) +
-            Number(this.tableP[33]["money" + this.arr[i]]) + Number(this.tableP[34]["money" + this.arr[i]]) + Number(this.tableP[35]["money" + this.arr[i]]) +Number(this.tableP[36]["money" + this.arr[i]]) +Number(this.tableP[37]["money" + this.arr[i]]) + Number(this.tableP[38]["money" + this.arr[i]]) + Number(this.tableP[39]["money" + this.arr[i]]) + Number(this.tableP[40]["money" + this.arr[i]]||0)).toFixed(2));
-          this.$set(this.tableP[42],"money" + this.arr[i],(Number(this.tableP[13]["money" + this.arr[i]]) + Number(this.tableP[20]["money" + this.arr[i]]) + Number(this.tableP[26]["money" + this.arr[i]]) + Number(this.tableP[30]["money" + this.arr[i]]) + Number(this.tableP[41]["money" + this.arr[i]])).toFixed(2)); //合计
+              this.$set(this.tableP[43],val + this.arr[i], (Number(this.tableP[5][val + this.arr[i]]) - Number(this.tableP[42][val + this.arr[i]])).toFixed(2));
+              this.$set(this.tableP[46],val + this.arr[i], (Number(this.tableP[44][val + this.arr[i]]||0) + Number(this.tableP[45][val + this.arr[i]]||0)).toFixed(2));
+              this.$set(this.tableP[47],val + this.arr[i],(Number(this.tableP[43][val + this.arr[i]]||0) - Number(this.tableP[46][val + this.arr[i]]||0)).toFixed(2));
+              this.$set(this.tableP[49],val + this.arr[i], (Number(this.tableP[47][val + this.arr[i]]) - Number(this.tableP[48][val + this.arr[i]]||0)).toFixed(2));
 
-          this.$set(this.tableP[43],"money" + this.arr[i], (Number(this.tableP[5]["money" + this.arr[i]]) - Number(this.tableP[42]["money" + this.arr[i]])).toFixed(2));
-          this.$set(this.tableP[46],"money" + this.arr[i], (Number(this.tableP[44]["money" + this.arr[i]]||0) + Number(this.tableP[45]["money" + this.arr[i]]||0)).toFixed(2));
-          this.$set(this.tableP[47],"money" + this.arr[i],(Number(this.tableP[43]["money" + this.arr[i]]||0) - Number(this.tableP[46]["money" + this.arr[i]]||0)).toFixed(2));
-          this.$set(this.tableP[49],"money" + this.arr[i], (Number(this.tableP[47]["money" + this.arr[i]]) - Number(this.tableP[48]["money" + this.arr[i]]||0)).toFixed(2));
+              if(Number(this.tableP[51][val + this.arr[i]]||0) + Number(this.tableP[52][val + this.arr[i]]||0) > 0){
+                this.$set(this.tableP[58],val + this.arr[i], Math.round(Number(this.tableP[54][val + this.arr[i]]||0)/(Number(this.tableP[51][val + this.arr[i]]||0) + Number(this.tableP[52][val + this.arr[i]]||0))* 100) + "%");
+              }else{
+                this.$set(this.tableP[58],val + this.arr[i], "0%");
+              }
 
-          if(Number(this.tableP[51]["money" + this.arr[i]]||0) + Number(this.tableP[52]["money" + this.arr[i]]||0) > 0){
-            this.$set(this.tableP[58],"money" + this.arr[i], Math.round(Number(this.tableP[54]["money" + this.arr[i]]||0)/(Number(this.tableP[51]["money" + this.arr[i]]||0) + Number(this.tableP[52]["money" + this.arr[i]]||0))* 100) + "%");
-          }else{
-            this.$set(this.tableP[58],"money" + this.arr[i], "0%");
-          }
-
-          if(Number(this.tableP[51]["money" + this.arr[i]]||0) + Number(this.tableP[52]["money" + this.arr[i]]||0) > 0){
-            this.$set(this.tableP[59],"money" + this.arr[i], Math.round(Number(this.tableP[55]["money" + this.arr[i]]||0)/(Number(this.tableP[51]["money" + this.arr[i]]||0) + Number(this.tableP[52]["money" + this.arr[i]]||0))* 100) + "%");
-          }else{
-            this.$set(this.tableP[59],"money" + this.arr[i], "0%");
-          }
-          if(Number(this.tableP[53]["money" + this.arr[i]]) > 0){
-            this.$set(this.tableP[60],"money" + this.arr[i], Math.round(Number(this.tableP[56]["money" + this.arr[i]]||0)/Number(this.tableP[53]["money" + this.arr[i]])* 100) + "%");
-          }else{
-            this.$set(this.tableP[60],"money" + this.arr[i], "0%");
-          }
-          if(Number(this.tableP[53]["money" + this.arr[i]]) > 0){
-            this.$set(this.tableP[61],"money" + this.arr[i], Math.round(Number(this.tableP[57]["money" + this.arr[i]]||0)/Number(this.tableP[53]["money" + this.arr[i]])* 100) + "%");
-          }else{
-            this.$set(this.tableP[61],"money" + this.arr[i], "0%");
-          }
-          if(Number(this.tableP[51]["money" + this.arr[i]]||0) + Number(this.tableP[52]["money" + this.arr[i]]) + Number(this.tableP[53]["money" + this.arr[i]]||0) > 0){
-            this.$set(this.tableP[62],"money" + this.arr[i], Math.round((Number(this.tableP[57]["money" + this.arr[i]]||0) + Number(this.tableP[54]["money" + this.arr[i]]||0))/(Number(this.tableP[51]["money" + this.arr[i]]||0) + Number(this.tableP[52]["money" + this.arr[i]]) + Number(this.tableP[53]["money" + this.arr[i]]||0))* 100) + "%");
-          }else{
-            this.$set(this.tableP[62],"money" + this.arr[i], "0%");
-          }
-          if(Number(this.tableP[51]["money" + this.arr[i]]||0) + Number(this.tableP[52]["money" + this.arr[i]]) + Number(this.tableP[53]["money" + this.arr[i]]||0) > 0){
-            this.$set(this.tableP[63],"money" + this.arr[i], Math.round((Number(this.tableP[57]["money" + this.arr[i]]||0) + Number(this.tableP[55]["money" + this.arr[i]]||0))/(Number(this.tableP[51]["money" + this.arr[i]]||0) + Number(this.tableP[52]["money" + this.arr[i]]) + Number(this.tableP[53]["money" + this.arr[i]]||0))* 100) + "%");
-          }else{
-            this.$set(this.tableP[63],"money" + this.arr[i], "0%");
-          }
+              if(Number(this.tableP[51][val + this.arr[i]]||0) + Number(this.tableP[52][val + this.arr[i]]||0) > 0){
+                this.$set(this.tableP[59],val + this.arr[i], Math.round(Number(this.tableP[55][val + this.arr[i]]||0)/(Number(this.tableP[51][val + this.arr[i]]||0) + Number(this.tableP[52][val + this.arr[i]]||0))* 100) + "%");
+              }else{
+                this.$set(this.tableP[59],val + this.arr[i], "0%");
+              }
+              if(Number(this.tableP[53][val + this.arr[i]]) > 0){
+                this.$set(this.tableP[60],val + this.arr[i], Math.round(Number(this.tableP[56][val + this.arr[i]]||0)/Number(this.tableP[53][val + this.arr[i]])* 100) + "%");
+              }else{
+                this.$set(this.tableP[60],val + this.arr[i], "0%");
+              }
+              if(Number(this.tableP[53][val + this.arr[i]]) > 0){
+                this.$set(this.tableP[61],val + this.arr[i], Math.round(Number(this.tableP[57][val + this.arr[i]]||0)/Number(this.tableP[53][val + this.arr[i]])* 100) + "%");
+              }else{
+                this.$set(this.tableP[61],val + this.arr[i], "0%");
+              }
+              if(Number(this.tableP[51][val + this.arr[i]]||0) + Number(this.tableP[52][val + this.arr[i]]) + Number(this.tableP[53][val + this.arr[i]]||0) > 0){
+                this.$set(this.tableP[62],val + this.arr[i], Math.round((Number(this.tableP[57][val + this.arr[i]]||0) + Number(this.tableP[54][val + this.arr[i]]||0))/(Number(this.tableP[51][val + this.arr[i]]||0) + Number(this.tableP[52][val + this.arr[i]]) + Number(this.tableP[53][val + this.arr[i]]||0))* 100) + "%");
+              }else{
+                this.$set(this.tableP[62],val + this.arr[i], "0%");
+              }
+              if(Number(this.tableP[51][val + this.arr[i]]||0) + Number(this.tableP[52][val + this.arr[i]]) + Number(this.tableP[53][val + this.arr[i]]||0) > 0){
+                this.$set(this.tableP[63],val + this.arr[i], Math.round((Number(this.tableP[57][val + this.arr[i]]||0) + Number(this.tableP[55][val + this.arr[i]]||0))/(Number(this.tableP[51][val + this.arr[i]]||0) + Number(this.tableP[52][val + this.arr[i]]) + Number(this.tableP[53][val + this.arr[i]]||0))* 100) + "%");
+              }else{
+                this.$set(this.tableP[63],val + this.arr[i], "0%");
+              }
+            }
+          )
         }
-        this.$set(this.tableP[50],"money6", ((Number(this.tableP[43]["money4"]) + Number(this.tableP[43]["money5"]) + Number(this.tableP[43]["money6"]))/(Number(this.tableP[5]["money4"]) + Number(this.tableP[5]["money5"]) + Number(this.tableP[5]["money6"]))).toFixed(2));
+        debugger
+        if((Number(this.tableP[5]["actual4"]) + Number(this.tableP[5]["actual5"]) + Number(this.tableP[5]["actual6"])) !== 0){
+          this.$set(this.tableP[50],"actual6", ((Number(this.tableP[43]["actual4"]) + Number(this.tableP[43]["actual5"]) + Number(this.tableP[43]["actual6"]))/(Number(this.tableP[5]["actual4"]) + Number(this.tableP[5]["actual5"]) + Number(this.tableP[5]["actual6"]))).toFixed(2));
+        }else{
+          this.$set(this.tableP[50],"actual6","0.00");
+        }
+        if((Number(this.tableP[5]["actual7"]) + Number(this.tableP[5]["actual8"]) + Number(this.tableP[5]["actual9"])) !== 0){
+          this.$set(this.tableP[50],"actual9", ((Number(this.tableP[43]["actual7"]) + Number(this.tableP[43]["actual8"]) + Number(this.tableP[43]["actual9"]))/(Number(this.tableP[5]["actual7"]) + Number(this.tableP[5]["actual8"]) + Number(this.tableP[5]["actual9"]))).toFixed(2));
+        }else{
+          this.$set(this.tableP[50],"actual9","0.00");
+        }
+        if((Number(this.tableP[5]["actual10"]) + Number(this.tableP[5]["actual11"]) + Number(this.tableP[5]["actual12"])) !==  0){
+          this.$set(this.tableP[50],"actual12", ((Number(this.tableP[43]["actual10"]) + Number(this.tableP[43]["actual11"]) + Number(this.tableP[43]["actual12"]))/(Number(this.tableP[5]["actual10"]) + Number(this.tableP[5]["actual11"]) + Number(this.tableP[5]["actual12"]))).toFixed(2));
+        }else{
+          this.$set(this.tableP[50],"actual12","0.00");
+        }
+        if((Number(this.tableP[5]["actual1"]) + Number(this.tableP[5]["actual2"]) + Number(this.tableP[5]["actual3"])) !== 0){
+          this.$set(this.tableP[50],"actual3", ((Number(this.tableP[43]["actual1"]) + Number(this.tableP[43]["actual2"]) + Number(this.tableP[43]["actual3"]))/(Number(this.tableP[5]["actual1"]) + Number(this.tableP[5]["actual2"]) + Number(this.tableP[5]["actual3"]))).toFixed(2));
+        }else{
+          this.$set(this.tableP[50],"actual3","0.00");
+        }
 
+        this.$set(this.tableP[50],"money6", ((Number(this.tableP[43]["money4"]) + Number(this.tableP[43]["money5"]) + Number(this.tableP[43]["money6"]))/(Number(this.tableP[5]["money4"]) + Number(this.tableP[5]["money5"]) + Number(this.tableP[5]["money6"]))).toFixed(2));
+        this.$set(this.tableP[50],"money9", ((Number(this.tableP[43]["money7"]) + Number(this.tableP[43]["money8"]) + Number(this.tableP[43]["money9"]))/(Number(this.tableP[5]["money7"]) + Number(this.tableP[5]["money8"]) + Number(this.tableP[5]["money9"]))).toFixed(2));
+        this.$set(this.tableP[50],"money12", ((Number(this.tableP[43]["money10"]) + Number(this.tableP[43]["money11"]) + Number(this.tableP[43]["money12"]))/(Number(this.tableP[5]["money10"]) + Number(this.tableP[5]["money11"]) + Number(this.tableP[5]["money12"]))).toFixed(2));
+        this.$set(this.tableP[50],"money3", ((Number(this.tableP[43]["money1"]) + Number(this.tableP[43]["money2"]) + Number(this.tableP[43]["money3"]))/(Number(this.tableP[5]["money1"]) + Number(this.tableP[5]["money2"]) + Number(this.tableP[5]["money3"]))).toFixed(2));
 
       },
       getTravel(val){
