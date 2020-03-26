@@ -9,7 +9,7 @@
     >
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" employedref="refform"
-                 style="padding: 2vw">
+                 style="padding: 1.5vw">
           <el-row v-show="false">
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1036FORMVIEW_CENTER')">
@@ -28,12 +28,14 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <div style="padding-bottom: 1%;">
+          <div style="padding-bottom: 0.5%;padding-left: 73%">
+            <el-divider direction="vertical"></el-divider>
             <span style="color:#f47f31">{{this.form.year + " " + this.$t('label.PFANS1036FORMVIEW_BUSINESSYEAR')}}</span>
             <el-divider direction="vertical"></el-divider>
-            <span style="color:#f47f31">{{this.org[0].redirict === 0 ? this.$t('label.PFANS1036FORMVIEW_ZJJJDEPARTMENT') : this.$t('PFANS1036FORMVIEW_JJDEPARTMENT')}}</span>
+            <span style="color:#f47f31">{{(this.org.redirict === 0 ? this.$t('label.PFANS1036FORMVIEW_ZJJJDEPARTMENT') : this.$t('label.PFANS1036FORMVIEW_JJDEPARTMENT'))||""}}</span>
             <el-divider direction="vertical"></el-divider>
-            <span style="color:#f47f31">{{this.org[0].companyen}}</span>
+            <span style="color:#f47f31">{{(this.org.companyen)||""}}</span>
+            <el-divider direction="vertical"></el-divider>
           </div>
           <el-tabs v-model="activeName" type="border-card">
             <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_PERSONNELPLAN')" style="margin-top: 2%" name="first">
@@ -1739,6 +1741,7 @@
           .dispatch('PFANS1036Store/selectById', {'businessplanid': this.$route.params._id})
           .then(response => {
               this.form = response;
+              this.org = this.$store.getters.orgGroupList.filter(val => val.groupid === this.form.group_id)[0];
               this.equipment_newyear = JSON.parse(this.form.equipment_newyear);
               this.equipment_lastyear = JSON.parse(this.form.equipment_lastyear);
               this.assets_newyear = JSON.parse(this.form.assets_newyear);
@@ -1789,11 +1792,10 @@
           this.form.center_id = rst.centerId||"";
           this.form.group_id = rst.groupId||"";
           this.form.user_id = this.$store.getters.userinfo.userid;
+          this.org = this.$store.getters.orgGroupList.filter(val => val.groupid === this.form.group_id)[0];
           this.getGroupB1(this.form.group_id);
           this.getPersonTable(rst.groupId,this.form.year);
       }
-      debugger
-      this.org = this.$store.getters.orgGroupList.filter(val => val.groupid === this.form.group_id);
     },
     computed:{
         tableSZTotal:function(){

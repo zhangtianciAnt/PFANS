@@ -6,8 +6,7 @@
                          v-loading="loading"
                          :buttonList="buttonList">
       <div slot="customize">
-        <el-form :model="form1" :rules="rules1" label-width="8vw" label-position="top" style="padding: 2vw"
-                 ref="refform1">
+        <el-form :model="form1" :rules="rules1" label-width="8vw" label-position="top" ref="refform1">
           <el-dialog :title="$t('button.application')" :visible.sync="dialogFormVisible">
             <el-form-item :label="$t('label.PFANS1024VIEW_NUMBER')" :label-width="formLabelWidth" v-if="display" :error="errorclaimtype" prop="claimtype">
               <dicselect
@@ -1675,7 +1674,7 @@
             'border-right': '1px solid #73B9FF',
           };
         }
-        if (column.level === 2 && columnIndex >= 2 && columnIndex < 3) {
+        if (column.level === 2 && columnIndex >= 2 && columnIndex <= 3) {
           return {
             color: 'white',
             background: '#99CC99',
@@ -1683,7 +1682,7 @@
             'border-right': '1px solid #73CC73',
           };
         }
-        if (column.level === 2 && columnIndex >= 3 && columnIndex < 8) {
+        if (column.level === 2 && columnIndex > 3 && columnIndex <= 6) {
           return {
             color: 'white',
             background: '#CC99FF',
@@ -1691,7 +1690,7 @@
             'border-bottom': '1px solid #99CCFF',
           };
         }
-        if (column.level === 2 && columnIndex >= 8 && columnIndex < 11) {
+        if (column.level === 2 && columnIndex >= 7 && columnIndex < 11) {
           return {
             color: 'white',
             background: '#CC9999',
