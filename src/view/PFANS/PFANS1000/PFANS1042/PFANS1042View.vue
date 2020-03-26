@@ -68,7 +68,7 @@
                   </el-table-column>
 
                   <el-table-column
-                    :label="$t('共通PJ（研修会议等）')"
+                    :label="$t('label.PFANS1042FORMVIEW_COMMONPJ')"
                     align="center"
                     width="160">
                     <template slot-scope="scope">
