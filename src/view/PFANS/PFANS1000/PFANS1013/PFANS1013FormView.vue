@@ -1029,7 +1029,7 @@
         centername: '',
         groupname: '',
         teamname: '',
-        optionsdate: [{value: '0000000000', lable: this.$t('label.PFANS1012FROMVIEW_COMMON')}],
+        optionsdate: [{value: 'PP024001', lable: this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')}],
         error: '',
         week: '',
         tableList: [],
