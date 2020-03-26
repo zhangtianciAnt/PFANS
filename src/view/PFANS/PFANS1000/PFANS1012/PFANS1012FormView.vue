@@ -1275,10 +1275,9 @@
                 groupId: '',
                 teamid: '',
                 disablecheck: false,
-                optionsdate: [],
+                optionsdate: [{value: 'PP024001', lable: this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')}],
                 tormbT: '',
                 Redirict: '' ,
-                startoption: [{value: '0000000000', lable: this.$t('label.PFANS1012FROMVIEW_COMMON')}],
                 search: '',
                 companyen: '',
                 taxrateValue: '',
@@ -2238,21 +2237,19 @@
                 row.vehicle = val;
             },
             getCompanyProjectList() {
-
                 this.loading = true;
                 this.$store
                     .dispatch('PFANS5008Store/getCompanyProjectList', {})
                     .then(response => {
-                        const data = [];
+
                         for (let i = 0; i < response.length; i++) {
                             if (response[i].status == '4' || response[i].status == '6' || response[i].status == '7') {
-                                data.push({
+                                this.optionsdate.push({
                                     value: response[i].companyprojects_id,
                                     lable: response[i].project_name,
                                 });
                             }
                         }
-                        this.optionsdate = data.concat(this.startoption);
                         this.loading = false;
                     })
                     .catch(error => {
@@ -3344,6 +3341,13 @@
                                 }
                             }
 
+                        }
+                        else{
+                            Message({
+                                message: this.$t("normal.error_12"),
+                                type: 'error',
+                                duration: 5 * 1000
+                            });
                         }
 
                     });

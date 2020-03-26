@@ -1029,7 +1029,7 @@
         centername: '',
         groupname: '',
         teamname: '',
-        optionsdate: [{value: '0000000000', lable: this.$t('label.PFANS1012FROMVIEW_COMMON')}],
+        optionsdate: [{value: 'PP024001', lable: this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')}],
         error: '',
         week: '',
         tableList: [],
@@ -1503,6 +1503,7 @@
         this.$store
           .dispatch('PFANS5008Store/getCompanyProjectList', {})
           .then(response => {
+
             for (let i = 0; i < response.length; i++) {
               if (response[i].status == '4' || response[i].status == '6' || response[i].status == '7') {
                 this.optionsdate.push({
@@ -2720,6 +2721,13 @@
                     });
                 }
               }
+            }
+            else{
+                Message({
+                    message: this.$t("normal.error_12"),
+                    type: 'error',
+                    duration: 5 * 1000
+                });
             }
           });
         }

@@ -59,7 +59,8 @@
                     v-show="(form.errortype != 'PR013005' && form.errortype != 'PR013007') && form.status != '4' && form.status != '5' && form.status != '6' && form.status != '7'&& form.status != '8'">
               <el-form-item :label="$t('label.PFANS2016FORMVIEW_LENGTHTIME')" label-width="9rem" prop="lengthtime">
                 <el-input-number
-                  :disabled="false"
+                  :disabled="form.errortype === 'PR013021' || form.errortype === 'PR013012' || form.errortype === 'PR013013' || form.errortype === 'PR013011'
+                    || form.errortype === 'PR013015' || form.errortype === 'PR013017' || form.errortype === 'PR013020' ? true : false"
                   step-strictly
                   :max="1000000000"
                   :min="0"
@@ -108,7 +109,7 @@
             <el-col :span="8"
                     v-show="(form.errortype == 'PR013005' || form.errortype == 'PR013007') && (form.status === '4' || form.status === '5' || form.status === '6' || form.status === '7')">
               <el-form-item :label="$t('label.PFANS2016FORMVIEW_RELENGTHTIME')" label-width="9rem" prop="relengthtime">
-                <el-select @change="handleclick" v-model="form.revacationtype" style="width: 20vw"
+                <el-select @change="rehandleClick" v-model="form.revacationtype" style="width: 20vw"
                            :disabled="form.status === '5' || form.status === '7'">
                   <el-option
                     :key="item.value"
@@ -238,7 +239,7 @@
             <!--              </el-form-item>-->
             <!--            </el-col>-->
           </el-row>
-          <el-row v-show="showFemale">
+          <el-row v-show="form.errortype == 'PR013016' ? true : false">
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2016FORMVIEW_HOSPITAL')" prop="hospital">
                 <el-input maxlength="50" style="width:20vw" v-model="form.hospital"></el-input>
@@ -323,7 +324,7 @@
                 }
             };
             var validatePass = (rule, value, callback) => {
-                if (this.showFemale) {
+                if (form.errortype == 'PR013017') {
                     if (value) {
                         callback();
                     } else {
@@ -334,7 +335,7 @@
                 }
             };
             var validatePass2 = (rule, value, callback) => {
-                if (this.showFemale) {
+                if (form.errortype == 'PR013017') {
                     if (value) {
                         callback();
                     } else {
@@ -541,7 +542,7 @@
                 checkBox: '',
                 checkfinisheddate: true,
                 relistTwo: '',
-                workflowCode: "W0003",
+                workflowCode: 'W0003',
                 canStart: true,
                 loading: false,
                 errort: '',
@@ -554,16 +555,16 @@
                 value: [],
                 options1: [{
                     value: '0',
-                    label: this.$t('label.PFANS2016FORMVIEW_QUANTIAN')
+                    label: this.$t('label.PFANS2016FORMVIEW_QUANTIAN'),
                 }, {
                     value: '1',
-                    label: this.$t('label.PFANS2016FORMVIEW_SHANGWU')
+                    label: this.$t('label.PFANS2016FORMVIEW_SHANGWU'),
                 }, {
                     value: '2',
-                    label: this.$t('label.PFANS2016FORMVIEW_XIAWU')
+                    label: this.$t('label.PFANS2016FORMVIEW_XIAWU'),
                 }],
                 showVacation: false,
-                showFemale: false,
+                // showFemale: false,
                 showWeekend: false,
                 error: '',
                 selectType: 'Single',
@@ -583,8 +584,8 @@
                     relengthtime: '0',
                     occurrencedate: moment(new Date()).format('YYYY-MM-DD'),
                     finisheddate: moment(new Date()).format('YYYY-MM-DD'),
-                    reoccurrencedate: moment(new Date()).format('YYYY-MM-DD'),
-                    refinisheddate: moment(new Date()).format('YYYY-MM-DD'),
+                    reoccurrencedate: '',
+                    refinisheddate: '',
                     relation: '',
                     hospital: '',
                     edate: '',
@@ -651,10 +652,10 @@
                         {
                             required: true,
                             message:
-                                this.$t("normal.error_08") +
-                                this.$t("label.cause"),
-                            trigger: "change"
-                        }
+                                this.$t('normal.error_08') +
+                                this.$t('label.cause'),
+                            trigger: 'change',
+                        },
                     ],
                     lengthtime: [{
                         required: true,
@@ -685,6 +686,8 @@
                 parent: '',
                 checkTimelenght: '',
                 checkTimeLenght: '',
+                enterday: '',
+                marryday: '',
             };
         },
         mounted() {
@@ -713,14 +716,14 @@
                             this.disable = false;
                         }
                         this.getOvertimelist();
-                        if (this.form.uploadfile != "") {
-                            let uploadfile = this.form.uploadfile.split(";");
+                        if (this.form.uploadfile != '') {
+                            let uploadfile = this.form.uploadfile.split(';');
                             for (var i = 0; i < uploadfile.length; i++) {
-                                if (uploadfile[i].split(",")[0] != "") {
+                                if (uploadfile[i].split(',')[0] != '') {
                                     let o = {};
-                                    o.name = uploadfile[i].split(",")[0];
-                                    o.url = uploadfile[i].split(",")[1];
-                                    this.fileList.push(o)
+                                    o.name = uploadfile[i].split(',')[0];
+                                    o.url = uploadfile[i].split(',')[1];
+                                    this.fileList.push(o);
                                 }
                             }
                         }
@@ -749,6 +752,8 @@
 
             } else {
                 this.userlist = this.$store.getters.userinfo.userid;
+                this.enterday = moment(this.$store.getters.userinfo.userinfo.enterday).format('YYYY-MM-DD');
+                this.marryday = moment(this.$store.getters.userinfo.userinfo.marryday).format('YYYY-MM-DD');
                 if (this.userlist !== null && this.userlist !== '') {
                     let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
                     if (rst) {
@@ -779,60 +784,65 @@
         },
         methods: {
             handleClick(val) {
-                this.form.vacationtype = val
+                this.form.vacationtype = val;
                 this.typecheck = val;
                 if (val == '1' || val == '2') {
                     this.checkfinisheddate = false;
                     this.checkTimelenght = 4;
+                    this.form.occurrencedate = moment(new Date()).format('YYYY-MM-DD');
+                    this.form.finisheddate = '';
                 } else if (val == '0') {
                     this.checkfinisheddate = true;
+                    this.form.finisheddate = moment(new Date()).format('YYYY-MM-DD');
                 }
-                this.form.occurrencedate = moment(new Date()).format('YYYY-MM-DD');
-                this.form.finisheddate = moment(new Date()).format('YYYY-MM-DD');
             },
-            handleclick(val) {
-                this.form.revacationtype = val
+            rehandleClick(val) {
+                this.form.revacationtype = val;
                 this.typecheck = val;
                 if (val == '1' || val == '2') {
-                    this.checkfinisheddate = false;
+                    this.form.reoccurrencedate = moment(new Date()).format('YYYY-MM-DD');
+                    this.form.refinisheddate = '';
                     this.checkTimeLenght = 8;
                 } else if (val == '0') {
-                    this.checkfinisheddate = true;
+                    this.form.reoccurrencedate = moment(new Date()).format('YYYY-MM-DD');
+                    this.form.refinisheddate = moment(new Date()).format('YYYY-MM-DD');
                 }
-                this.form.reoccurrencedate = moment(new Date()).format('YYYY-MM-DD');
-                this.form.refinisheddate = moment(new Date()).format('YYYY-MM-DD');
             },
             getreTime(val) {
                 if (this.checkDate < val) {
                     Message({
-                        message: this.$t("label.PFANS2016FORMVIEW_YJCHECKEROR"),
+                        message: this.$t('label.PFANS2016FORMVIEW_YJCHECKEROR'),
                         type: 'error',
                         duration: 5 * 1000,
                     });
+                    return;
                 }
             },
             getTime(val) {
                 if (this.form.errortype == 'PR013006') {
                     if (this.checkDate < val) {
                         Message({
-                            message: this.$t("label.PFANS2016FORMVIEW_YJCHECKEROR"),
+                            message: this.$t('label.PFANS2016FORMVIEW_YJCHECKEROR'),
                             type: 'error',
                             duration: 5 * 1000,
                         });
+                        return;
                     }
                 }
                 let sum = 0;
-                var diffDate = moment(this.form.finisheddate).diff(moment(this.form.occurrencedate), 'days');
                 if (this.form.errortype === 'PR013001' || this.form.errortype === 'PR013008' || this.form.errortype === 'PR013016'
-                    || this.form.errortype === 'PR013017' || this.form.errortype === 'PR013018' || this.form.errortype === 'PR013019'
-                    || this.form.errortype === 'PR013014') {
+                    || this.form.errortype === 'PR013018' || this.form.errortype === 'PR013019' || this.form.errortype === 'PR013014') {
+                    for (let i = 0; i < this.relist.length; i++) {
+                        sum = sum + 1;
+                    }
                     if (this.form.errortype === 'PR013014') {
-                        if (diffDate > 2 - this.parent) {
+                        if (2 - this.parent <= 0) {
                             Message({
                                 message: this.$t('label.PFANS2016FORMVIEW_BJDJZHCHECK'),
                                 type: 'error',
                                 duration: 5 * 1000,
                             });
+                            return;
                         }
                         if (val > 4) {
                             Message({
@@ -840,40 +850,26 @@
                                 type: 'error',
                                 duration: 5 * 1000,
                             });
+                            return;
                         }
-                    }
-                    if (this.form.errortype === 'PR013016' || this.form.errortype === 'PR013017' && this.$store.getters.userinfo.sex !== 'PR019002') {
+                    } else if (this.form.errortype === 'PR013016' && this.$store.getters.userinfo.userinfo.sex !== 'PR019002') {
                         Message({
                             message: this.$t('label.PFANS2016FORMVIEW_WOMENCHECK'),
                             type: 'error',
                             duration: 5 * 1000,
                         });
+                        return;
                     }
-                    for (let i = 0; i < this.relist.length; i++) {
-                        sum = sum + 1;
+                    if (sum * 8 < val) {
+                        Message({
+                            message: this.$t('label.PFANS2016FORMVIEW_TIMENOCHECK'),
+                            type: 'error',
+                            duration: 5 * 1000,
+                        });
+                        return;
                     }
-                    if (this.form.errortype == 'PR013001') {
-                        if (moment(this.form.occurrencedate).format('YYYY-MM-DD') === moment(this.form.finisheddate).format('YYYY-MM-DD')) {
-                            if (8 < val) {
-                                Message({
-                                    message: this.$t("label.PFANS2016FORMVIEW_WCCHECKTYPE"),
-                                    type: 'error',
-                                    duration: 5 * 1000,
-                                });
-                            }
-                        } else {
-                            if (sum * 8 < val) {
-                                Message({
-                                    message: this.$t("label.PFANS2016FORMVIEW_WCCHECKTYPE"),
-                                    type: 'error',
-                                    duration: 5 * 1000,
-                                });
-                            }
-                        }
-                    }
-                } else if (this.form.errortype === 'PR013009' || this.form.errortype === 'PR013010' || this.form.errortype === 'PR013011'
-                    || this.form.errortype === 'PR013012' || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015'
-                    || this.form.errortype === 'PR013004') {
+                } else if (this.form.errortype === 'PR013009' || this.form.errortype === 'PR013010') {
+                    let diffDate = moment(this.form.finisheddate).diff(moment(this.form.occurrencedate), 'days') + 1;
                     if (this.form.errortype === 'PR013009') {
                         if (diffDate > 30 - this.sickleave) {
                             Message({
@@ -881,23 +877,10 @@
                                 type: 'error',
                                 duration: 5 * 1000,
                             });
+                            return;
                         }
                     }
-                    if (this.form.errortype === 'PR013012' && this.$store.getters.userinfo.sex !== 'PR019002') {
-                        Message({
-                            message: this.$t('label.PFANS2016FORMVIEW_WOMENCHECK'),
-                            type: 'error',
-                            duration: 5 * 1000,
-                        });
-                    }
-                    if (this.form.errortype === 'PR013013' && this.$store.getters.userinfo.sex !== 'PR019001') {
-                        Message({
-                            message: this.$t('label.PFANS2016FORMVIEW_MENCHECK'),
-                            type: 'error',
-                            duration: 5 * 1000,
-                        });
-                    }
-                    for (let i = 0; i < diffDate + 1; i++) {
+                    for (let i = 0; i < diffDate; i++) {
                         sum = sum + 1;
                     }
                     if (sum * 8 < val) {
@@ -906,22 +889,23 @@
                             type: 'error',
                             duration: 5 * 1000,
                         });
+                        return;
                     }
                 }
 
             },
             getarrDate() {
-                var getDate = function (str) {
+                var getDate = function(str) {
                     var tempDate = new Date();
-                    var list = str.split("-");
+                    var list = str.split('-');
                     tempDate.setFullYear(list[0]);
                     tempDate.setMonth(list[1] - 1);
                     tempDate.setDate(list[2]);
                     return tempDate;
                 };
                 if (this.form.occurrencedate != null && this.form.finisheddate != null) {
-                    var date1 = getDate(moment(this.form.occurrencedate).format("YYYY-MM-DD"));
-                    var date2 = getDate(moment(this.form.finisheddate).format("YYYY-MM-DD"));
+                    var date1 = getDate(moment(this.form.occurrencedate).format('YYYY-MM-DD'));
+                    var date2 = getDate(moment(this.form.finisheddate).format('YYYY-MM-DD'));
                     if (date1 > date2) {
                         var tempDate = date1;
                         date1 = date2;
@@ -935,19 +919,19 @@
                             .getDate())) {
                         var dayStr = date1.getDate().toString();
                         if (dayStr.length == 1) {
-                            dayStr = "0" + dayStr;
+                            dayStr = '0' + dayStr;
                         }
                         var monthStr = (date1.getMonth() + 1).toString();
                         if (monthStr.length == 1) {
-                            monthStr = "0" + monthStr;
+                            monthStr = '0' + monthStr;
                         }
-                        dateArr[i] = date1.getFullYear() + "-" + monthStr + "-"
+                        dateArr[i] = date1.getFullYear() + '-' + monthStr + '-'
                             + dayStr;
                         i++;
                         date1.setDate(date1.getDate() + 1);
                     }
-                    dateArr.splice(0, 0, moment(this.form.occurrencedate).format("YYYY-MM-DD"));
-                    dateArr.push(moment(this.form.finisheddate).format("YYYY-MM-DD"));
+                    dateArr.splice(0, 0, moment(this.form.occurrencedate).format('YYYY-MM-DD'));
+                    dateArr.push(moment(this.form.finisheddate).format('YYYY-MM-DD'));
                     this.Todaysum = dateArr;
                 }
             },
@@ -958,10 +942,10 @@
                         for (let i = 0; i < response.length; i++) {
                             this.dateInfo.push({
                                 dateflg: moment(response[i].workingdate).format('YYYY-MM-DD'),
-                                type: response[i].type
+                                type: response[i].type,
                             });
                         }
-                    })
+                    });
             },
             getAttendance() {
                 this.loading = true;
@@ -978,10 +962,10 @@
                         Message({
                             message: error,
                             type: 'error',
-                            duration: 5 * 1000
+                            duration: 5 * 1000,
                         });
                         this.loading = false;
-                    })
+                    });
             },
             getSickleave() {
                 this.loading = true;
@@ -1018,7 +1002,7 @@
                     });
             },
             clearValidate(prop) {
-                this.$refs["ruleForm"].fields.forEach((e) => {
+                this.$refs['ruleForm'].fields.forEach((e) => {
                     if (prop.includes(e.prop)) {
                         e.clearValidate();
                     }
@@ -1064,10 +1048,11 @@
                     });
             },
             change() {
+                this.changeTime();
                 this.getarrDate();
-                var getDate = function (str) {
+                var getDate = function(str) {
                     var tempDate = new Date();
-                    var list = str.split("-");
+                    var list = str.split('-');
                     tempDate.setFullYear(list[0]);
                     tempDate.setMonth(list[1] - 1);
                     tempDate.setDate(list[2]);
@@ -1076,21 +1061,21 @@
                 for (let i = 0; i < this.Todaysum.length; i++) {
                     var date = getDate(this.Todaysum[i]);
                     if (date.getDay() == 6) {
-                        this.Todaysum.splice(i, 1)
+                        this.Todaysum.splice(i, 1);
                     }
-                    this.reList = this.Todaysum
+                    this.reList = this.Todaysum;
                 }
                 for (let j = 0; j < this.reList.length; j++) {
                     var data = getDate(this.reList[j]);
                     if (data.getDay() == 0) {
-                        this.reList.splice(j, 1)
+                        this.reList.splice(j, 1);
                     }
-                    this.relist = this.reList
+                    this.relist = this.reList;
                 }
                 for (let a = 0; a < this.relist.length; a++) {
                     for (let b = 0; b < this.dateInfo.length; b++) {
                         if (this.dateInfo[b].dateflg == this.relist[a] && this.dateInfo[b].type != '4') {
-                            this.relist.splice(a, 1)
+                            this.relist.splice(a, 1);
                         }
                     }
                 }
@@ -1101,10 +1086,11 @@
                     }
                     if (this.checkDate < time) {
                         Message({
-                            message: this.$t("label.PFANS2016FORMVIEW_YJCHECKEROR"),
+                            message: this.$t('label.PFANS2016FORMVIEW_YJCHECKEROR'),
                             type: 'error',
                             duration: 5 * 1000,
                         });
+                        return;
                     }
                 }
                 // else {
@@ -1222,17 +1208,17 @@
                 // }
             },
             rechange() {
-                var getDate = function (str) {
+                var getDate = function(str) {
                     var tempDate = new Date();
-                    var list = str.split("-");
+                    var list = str.split('-');
                     tempDate.setFullYear(list[0]);
                     tempDate.setMonth(list[1] - 1);
                     tempDate.setDate(list[2]);
                     return tempDate;
                 };
                 if (this.form.reoccurrencedate != null && this.form.refinisheddate != null) {
-                    var date1 = getDate(moment(this.form.reoccurrencedate).format("YYYY-MM-DD"));
-                    var date2 = getDate(moment(this.form.refinisheddate).format("YYYY-MM-DD"));
+                    var date1 = getDate(moment(this.form.reoccurrencedate).format('YYYY-MM-DD'));
+                    var date2 = getDate(moment(this.form.refinisheddate).format('YYYY-MM-DD'));
                     if (date1 > date2) {
                         var tempDate = date1;
                         date1 = date2;
@@ -1246,39 +1232,39 @@
                             .getDate())) {
                         var dayStr = date1.getDate().toString();
                         if (dayStr.length == 1) {
-                            dayStr = "0" + dayStr;
+                            dayStr = '0' + dayStr;
                         }
                         var monthStr = (date1.getMonth() + 1).toString();
                         if (monthStr.length == 1) {
-                            monthStr = "0" + monthStr;
+                            monthStr = '0' + monthStr;
                         }
-                        dateArr[i] = date1.getFullYear() + "-" + monthStr + "-"
+                        dateArr[i] = date1.getFullYear() + '-' + monthStr + '-'
                             + dayStr;
                         i++;
                         date1.setDate(date1.getDate() + 1);
                     }
-                    dateArr.splice(0, 0, moment(this.form.reoccurrencedate).format("YYYY-MM-DD"));
-                    dateArr.push(moment(this.form.refinisheddate).format("YYYY-MM-DD"));
+                    dateArr.splice(0, 0, moment(this.form.reoccurrencedate).format('YYYY-MM-DD'));
+                    dateArr.push(moment(this.form.refinisheddate).format('YYYY-MM-DD'));
                     this.Todaysum = dateArr;
                 }
                 for (let i = 0; i < this.Todaysum.length; i++) {
                     var date = getDate(this.Todaysum[i]);
                     if (date.getDay() == 6) {
-                        this.Todaysum.splice(i, 1)
+                        this.Todaysum.splice(i, 1);
                     }
-                    this.reList = this.Todaysum
+                    this.reList = this.Todaysum;
                 }
                 for (let j = 0; j < this.reList.length; j++) {
                     var data = getDate(this.reList[j]);
                     if (data.getDay() == 0) {
-                        this.reList.splice(j, 1)
+                        this.reList.splice(j, 1);
                     }
-                    this.relistTwo = this.reList
+                    this.relistTwo = this.reList;
                 }
                 for (let a = 0; a < this.relistTwo.length; a++) {
                     for (let b = 0; b < this.dateInfo.length; b++) {
                         if (this.dateInfo[b].dateflg == this.relistTwo[a] && this.dateInfo[b].type != '4') {
-                            this.relistTwo.splice(a, 1)
+                            this.relistTwo.splice(a, 1);
                         }
                     }
                 }
@@ -1289,10 +1275,11 @@
                     }
                     if (this.checkDate < timere) {
                         Message({
-                            message: this.$t("label.PFANS2016FORMVIEW_SJCHECKEROR"),
+                            message: this.$t('label.PFANS2016FORMVIEW_SJCHECKEROR'),
                             type: 'error',
                             duration: 5 * 1000,
                         });
+                        return;
                     }
                 }
                 // else {
@@ -1405,9 +1392,9 @@
                 // }
             },
             getUserids(val) {
-                if (val === "undefined") {
-                    this.userlist = "1";
-                    return
+                if (val === 'undefined') {
+                    this.userlist = '1';
+                    return;
                 }
                 this.form.user_id = val;
                 let rst = getOrgInfoByUserId(val);
@@ -1426,12 +1413,69 @@
                     this.form.teamid = '';
                     this.form.groupid = '';
                 }
-                if (!this.form.user_id || this.form.user_id === '' || val === "undefined") {
+                if (!this.form.user_id || this.form.user_id === '' || val === 'undefined') {
                     this.error = this.$t('normal.error_08') + this.$t('label.applicant');
                 } else {
                     this.error = '';
                 }
 
+            },
+            changeTime() {
+                let diffDate = moment(this.form.finisheddate).diff(moment(this.form.occurrencedate), 'days') + 1;
+                if (this.form.errortype === 'PR013012' || this.form.errortype === 'PR013021' && this.$store.getters.userinfo.userinfo.sex !== 'PR019002') {
+                    Message({
+                        message: this.$t('label.PFANS2016FORMVIEW_WOMENCHECK'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                    });
+                    return;
+                } else if (this.form.errortype === 'PR013013') {
+                    if (this.$store.getters.userinfo.userinfo.sex !== 'PR019001') {
+                        Message({
+                            message: this.$t('label.PFANS2016FORMVIEW_MENCHECK'),
+                            type: 'error',
+                            duration: 5 * 1000,
+                        });
+                        return;
+                    }
+                    if (this.enterday < '2012-08-31') {
+                        //2012年8月31号之前入职的员工除外
+                        Message({
+                            message: this.$t('label.PFANS2016FORMVIEW_ERRORENTERDAY'),
+                            type: 'error',
+                            duration: 5 * 1000,
+                        });
+                        return;
+                    }
+                }
+                if (this.form.errortype === 'PR013011') {
+                    var aa = moment(new Date()).format('YYYY-MM-DD');
+                    var sDate1 = Date.parse(aa);
+                    var sDate2 = Date.parse(this.marryday);
+                    var dateSpan = sDate2 - sDate1;
+                    var dateSpan = Math.abs(dateSpan);
+                    var iDays = Math.floor(dateSpan / (24 * 3600 * 1000));
+                    if (iDays > 365) {
+                        Message({
+                            message: this.$t('label.PFANS2016FORMVIEW_ERRORMARRYDAY'),
+                            type: 'error',
+                            duration: 5 * 1000,
+                        });
+                        return;
+                    }
+                    if (diffDate > 15) {
+                        Message({
+                            message: this.$t('label.PFANS2016FORMVIEW_ERRORMARRYDAYS'),
+                            type: 'error',
+                            duration: 5 * 1000,
+                        });
+                        return;
+                    }
+                }
+                if (this.form.errortype === 'PR013011' || this.form.errortype === 'PR013012' || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015'
+                    || this.form.errortype === 'PR013021' || this.form.errortype === 'PR013020' || this.form.errortype === 'PR013017') {
+                    this.form.lengthtime = diffDate * 8;
+                }
             },
             getErrorType(val) {
                 this.typecheck = '';
@@ -1440,18 +1484,18 @@
                     this.form.enclosureexplain = dictionaryInfo.value2;
                 }
                 this.form.errortype = val;
-                if (val === 'PR013004') {
+                if (val === 'PR013021') {
                     this.checkfinisheddate = true;
-                    this.showFemale = true;
+                    // this.showFemale = true;
                 } else if (val === 'PR013005') {
                     this.checkfinisheddate = true;
-                    this.showFemale = false;
+                    // this.showFemale = false;
                     this.typecheck = 0;
                 } else if (val === 'PR013006') {
                     this.checkfinisheddate = true;
-                    this.showFemale = false;
+                    // this.showFemale = false;
                 } else if (val === 'PR013007') {
-                    this.showFemale = false;
+                    // this.showFemale = false;
                     this.checkfinisheddate = true;
                     this.showWeekend = false;
                 } else if (val === 'PR013009') {
@@ -1480,66 +1524,67 @@
                     this.showVacation = true;
                 } else {
                     this.checkfinisheddate = true;
-                    this.showFemale = false;
+                    // this.showFemale = false;
                     this.showWeekend = false;
                     this.showVacation = false;
                 }
                 if (val == 'PR013005' || val == 'PR013006') {
-                    this.form.lengthtime = "0";
-                    this.form.relengthtime = "0";
+                    this.form.lengthtime = '0';
+                    this.form.relengthtime = '0';
                 }
-                this.$refs.ruleForm.validateField("lengthtime");
+                this.$refs.ruleForm.validateField('lengthtime');
+                this.changeTime();
             },
             workflowState(val) {
-                if (val.state === "1") {
-                    if (val.workflowCode === "W0003") {
+                if (val.state === '1') {
+                    if (val.workflowCode === 'W0003') {
                         this.form.status = '3';
-                    } else if (val.workflowCode === "W0056") {
+                    } else if (val.workflowCode === 'W0056') {
                         this.form.status = '6';
                     }
-                } else if (val.state === "2") {
-                    if (val.workflowCode === "W0003") {
+                } else if (val.state === '2') {
+                    if (val.workflowCode === 'W0003') {
                         this.form.status = '4';
-                    } else if (val.workflowCode === "W0056") {
+                    } else if (val.workflowCode === 'W0056') {
                         this.form.status = '7';
                         this.canStart = false;
                     }
                 }
-                this.buttonClick("update");
+                this.buttonClick('update');
             },
             start() {
-                if (this.form.status === "4" || this.form.status === "6") {
+                if (this.form.status === '4' || this.form.status === '6') {
                     this.form.status = '5';
 
                 } else {
                     this.form.status = '2';
                 }
-                this.buttonClick("update");
+                this.buttonClick('update');
             },
             end() {
-                if (this.form.status === "5") {
-                    var status = "4";
+                if (this.form.status === '5') {
+                    var status = '4';
                 } else {
-                    var status = "0";
+                    var status = '0';
                 }
-                this.buttonClick("update");
+                this.buttonClick('update');
             },
             fileError(err, file, fileList) {
                 Message({
-                    message: this.$t("normal.error_04"),
+                    message: this.$t('normal.error_04'),
                     type: 'error',
-                    duration: 5 * 1000
+                    duration: 5 * 1000,
                 });
             },
             fileRemove(file, fileList) {
                 this.fileList = [];
-                this.form.uploadfile = "";
+                this.form.uploadfile = '';
                 for (var item of fileList) {
                     let o = {};
                     o.name = item.name;
                     o.url = item.url;
                     this.fileList.push(o);
-                    this.form.uploadfile += item.name + "," + item.url + ";"
+                    this.form.uploadfile += item.name + ',' + item.url + ';';
                 }
             },
             fileDownload(file) {
@@ -1551,7 +1596,7 @@
             },
             fileSuccess(response, file, fileList) {
                 this.fileList = [];
-                this.form.uploadfile = "";
+                this.form.uploadfile = '';
                 for (var item of fileList) {
                     let o = {};
                     o.name = item.name;
@@ -1561,7 +1606,7 @@
                         o.url = item.url;
                     }
                     this.fileList.push(o);
-                    this.form.uploadfile += o.name + "," + o.url + ";"
+                    this.form.uploadfile += o.name + ',' + o.url + ';';
                 }
             },
             buttonClick(val) {
@@ -1577,35 +1622,29 @@
                         let letfinisheddate = moment(this.form.finisheddate).format('YYYY-MM-DD');
                         let letoccurrencedateTo = moment(this.form.reoccurrencedate).format('YYYY-MM-DD');
                         let letfinisheddateTo = moment(this.form.refinisheddate).format('YYYY-MM-DD');
-                        // this.form.periodstart = letoccurrencedate.replace(letnewdate, letoccurrencedate);
-                        if (this.typecheck == '0') {
-                            if (letoccurrencedate == letfinisheddate) {
-                                this.form.lengthtime = 8;
+                        if (letoccurrencedate == letfinisheddate) {
+                            this.form.lengthtime = 8;
+                        } else if (this.relist.length != '0') {
+                            let time = 0;
+                            for (let d = 0; d < this.relist.length; d++) {
+                                time = time + 1;
                             }
-                            if (letoccurrencedateTo == letfinisheddateTo) {
-                                this.form.lengthtime = 8;
-                            }
-                            if (this.relist.length != '0') {
-                                let time = 0;
-                                for (let d = 0; d < this.relist.length; d++) {
-                                    time = time + 1;
-                                }
-                                this.form.lengthtime = time * 8;
-                            }
-                            if (this.relistTwo.length != '0') {
-                                let timere = 0;
-                                for (let d = 0; d < this.relistTwo.length; d++) {
-                                    timere = timere + 1;
-                                }
-                                this.form.relengthtime = timere * 8;
-                            }
-                        }
-                        if (this.checkTimelenght = 4) {
+                            this.form.lengthtime = time * 8;
+                        } else {
                             this.form.lengthtime = 4;
                         }
-                        if (this.checkTimeLenght = 8) {
+                        if (letoccurrencedateTo == letfinisheddateTo && letoccurrencedateTo != 'Invalid date' ) {
+                            this.form.relengthtime = 8;
+                        } else if (this.relistTwo.length != '0') {
+                            let timere = 0;
+                            for (let d = 0; d < this.relistTwo.length; d++) {
+                                timere = timere + 1;
+                            }
+                            this.form.relengthtime = timere * 8;
+                        } else if(letoccurrencedateTo != 'Invalid date'){
                             this.form.relengthtime = 4;
                         }
+
                         // this.form.periodend = letfinisheddate.replace(letnewdate, letfinisheddate);
                         this.form.relation = letrelation.substring(1, letrelation.length);
                         if (this.$route.params._id) {
@@ -1620,7 +1659,7 @@
                                     // }
                                     // else{
                                     this.data = response;
-                                    if (val !== "update") {
+                                    if (val !== 'update') {
                                         Message({
                                             message: this.$t('normal.success_02'),
                                             type: 'success',
