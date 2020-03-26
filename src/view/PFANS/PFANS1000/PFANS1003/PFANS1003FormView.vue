@@ -237,7 +237,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1004VIEW_THISPROJECT')" prop="thisproject">
-                <el-input v-model="form.thisproject" :disabled="!disabled" style="width: 20vw" maxlength='20'></el-input>
+                <el-input v-model="form.thisproject" :disabled="true" style="width: 20vw" maxlength='20'></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -480,13 +480,6 @@
               trigger: 'change'
             },
           ],
-          thisproject: [
-            {
-              required: true,
-              message: this.$t('normal.error_08') + this.$t('label.PFANS1004VIEW_THISPROJECT'),
-              trigger: 'change'
-            },
-          ],
           businessplantype: [
             {
               required:  false,
@@ -538,6 +531,7 @@
                   this.centerid = rst.centerNmae;
                   this.groupid= rst.groupNmae;
                   this.teamid= rst.teamNmae;
+                  this.form.thisproject = rst.personalcode;
               }
             this.userlist = this.form.user_id;
             if(response.unusedevice.length > 0){
@@ -618,6 +612,7 @@
                 this.form.center_id = rst.centerId;
                 this.form.group_id = rst.groupId;
                 this.form.team_id = rst.teamId;
+                this.form.thisproject = rst.personalcode;
             }
           this.form.user_id = this.$store.getters.userinfo.userid;
         }
@@ -880,7 +875,7 @@
               if (this.$route.params._id) {
                 this.form.judgementid = this.$route.params._id;
                 this.$store
-                  .dispatch('PFANS1003Store/updateJudgement', this.baseInfo)
+                  .dispatch('PFANS1003Store/updateUnusedevice', this.baseInfo)
                   .then(response => {
                     this.data = response;
                     this.loading = false;
@@ -904,7 +899,7 @@
 
               } else {
                 this.$store
-                  .dispatch('PFANS1003Store/createJudgement', this.baseInfo)
+                  .dispatch('PFANS1003Store/createUnusedevice', this.baseInfo)
                   .then(response => {
                     this.data = response;
                     this.loading = false;

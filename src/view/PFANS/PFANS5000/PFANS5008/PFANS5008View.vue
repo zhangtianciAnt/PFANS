@@ -267,6 +267,9 @@
                                             if (this.transferData[i].key === response[j].project_id) {
                                                 response[j].project_id = this.transferData[i].label;
                                             }
+                                            if(response[j].project_id ==='PP024001'){
+                                                response[j].project_id =  this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')
+                                            }
                                         }
                                         let lst = getOrgInfoByUserId(response[j].createby);
                                         let user = getUserInfo(response[j].createby)

@@ -70,17 +70,16 @@
     },
     mounted() {
       this.getCompanyProjectList(this.$route.params.title);
-
     },
     methods: {
       getCompanyProjectList(val) {
         if (val === 1) {
-          this.row = 'businessid';
+          this.row = "businessid";
           this.title = 'title.PFANS1002VIEW';
           let businesstype = {'businesstype': '0'};
           this.dispatchparameter('PFANS1001Store/getBusiness',businesstype);
         } else if (val === 2) {
-            this.row = 'businessid';
+            this.row = "businessid";
             this.title = 'title.PFANS1035VIEW';
             let businesstype = {'businesstype': '1'};
             this.dispatchparameter('PFANS1001Store/getBusiness',businesstype);
@@ -134,6 +133,12 @@
       },
       setuser(response) {
         for (let j = 0; j < response.length; j++) {
+            let nameflg = getOrgInfoByUserId(response[j].user_id);
+            if (nameflg) {
+                response[j].center_id = nameflg.centerNmae;
+                response[j].group_id = nameflg.groupNmae;
+                response[j].team_id = nameflg.teamNmae;
+            }
           let user = getUserInfo(response[j].user_id);
           if (user) {
             response[j].user_id = getUserInfo(response[j].user_id).userinfo.customername;
