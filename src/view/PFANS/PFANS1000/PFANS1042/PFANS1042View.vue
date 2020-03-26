@@ -510,9 +510,9 @@
         },
 
         getGroupId(val) {
-            // this.form.group_id = val
+            this.form.group_id = val
             this.getOrgInformation(val);
-            this.form.group_id = '807C39FFD200D8A9826FD14AF50B5D112468';
+            // this.form.group_id = '807C39FFD200D8A9826FD14AF50B5D112468';
             if (!this.form.group_id || this.form.group_id === '' || val === 'undefined') {
                 this.errorgroup = this.$t('normal.error_08') + this.$t('label.PFANS1039FORMVIEW_GROUP');
             } else {
