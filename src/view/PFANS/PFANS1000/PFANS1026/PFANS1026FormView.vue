@@ -929,7 +929,7 @@
         }
       };
         var checkApplicationdate =(rule, value, callback) => {
-            if (!this.form1.applicationdate || this.form1.applicationdate === '' || !this.form1.entrycondition || this.form1.entrycondition === '') {
+            if (value === '') {
                 callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1024VIEW_CAREERYEAR')));
                 this.errorapplicationdate = this.$t('normal.error_09') + this.$t('label.PFANS1024VIEW_CAREERYEAR');
             } else {
@@ -1997,22 +1997,23 @@
           this.loading = false;
           this.dialogBook = false;
           return;
-        } else if (this.form.loadingjudge == ''
-          || this.form.currencyposition == ''
-          || this.form.claimdatetime.length == 0
-          || this.form.custojapanese == ''
-          || this.form.custochinese == ''
-          || this.form.placejapanese == ''
-          || this.form.placechinese == '') {
-          Message({
-            message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_CONTR'),
-            type: 'error',
-            duration: 5 * 1000,
-          });
-          this.loading = false;
-          this.dialogBook = false;
-          return;
         }
+//        else if (this.form.loadingjudge == ''
+//          || this.form.currencyposition == ''
+//          || this.form.claimdatetime.length == 0
+//          || this.form.custojapanese == ''
+//          || this.form.custochinese == ''
+//          || this.form.placejapanese == ''
+//          || this.form.placechinese == '') {
+//          Message({
+//            message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_CONTR'),
+//            type: 'error',
+//            duration: 5 * 1000,
+//          });
+//          this.loading = false;
+//          this.dialogBook = false;
+//          return;
+//        }
         this.$store.dispatch('PFANS1026Store/existCheck', {contractNumber: contractNumber})
           .then(response => {
             let s = 'count' + index;
@@ -2360,6 +2361,7 @@
       },
       validateByType: function(type, cb) {
         let that = this;
+        let countIndex = 0;
         if (type == 6) {
           if (this.maketype === '1' || this.maketype === '2' || this.maketype === '3' || this.maketype === '4') {
             if (this.form.tabledata[this.form.tabledata.length - 1].currencyposition === 'HT006001') {
@@ -2389,6 +2391,9 @@
               console.log('va', itIndex);
               let pro = new Promise(function(resolve, reject) {
                 that.$refs['refform'].validateField(itIndex, function(msg) {
+                  if(msg != ""){
+                    countIndex++;
+                  }
                   resolve(msg);
                 });
               });
@@ -2399,6 +2404,9 @@
             console.log('va', itIndex);
             let pro = new Promise(function(resolve, reject) {
               that.$refs['refform'].validateField(itIndex, function(msg) {
+                if(msg != ""){
+                  countIndex++;
+                }
                 resolve(msg);
               });
             });
@@ -2422,6 +2430,13 @@
           cb(isOk);
         });
 
+        if(countIndex > 0){
+          Message({
+            message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_CONTR'),
+            type: 'error',
+            duration: 5 * 1000,
+          });
+        }
       },
     },
   };
