@@ -32,7 +32,7 @@
             <el-divider direction="vertical"></el-divider>
             <span style="color:#f47f31">{{this.form.year + " " + this.$t('label.PFANS1036FORMVIEW_BUSINESSYEAR')}}</span>
             <el-divider direction="vertical"></el-divider>
-            <span style="color:#f47f31">{{(this.org.redirict === 0 ? this.$t('label.PFANS1036FORMVIEW_ZJJJDEPARTMENT') : this.$t('label.PFANS1036FORMVIEW_JJDEPARTMENT'))||""}}</span>
+            <span style="color:#f47f31">{{(this.org.redirict === "0" ? this.$t('label.PFANS1036FORMVIEW_ZJJJDEPARTMENT') : this.$t('label.PFANS1036FORMVIEW_JJDEPARTMENT'))||""}}</span>
             <el-divider direction="vertical"></el-divider>
             <span style="color:#f47f31">{{(this.org.companyen)||""}}</span>
             <el-divider direction="vertical"></el-divider>
