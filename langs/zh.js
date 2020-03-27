@@ -69,7 +69,8 @@ module.exports = {
     exportQingQiuShu_GuoNei: '请求书生成',
     exportJianJiShu: '报价书',
     exportNaPinShu_ShouTuo: '纳品书生成',
-    crAccount:"创建账号"
+    crAccount:"创建外协STAFF账号",
+    crAccount2:"创建外协员工账号"
   },
   table: {
     detail: '一览',
@@ -578,6 +579,7 @@ module.exports = {
     PFANS1002VIEW_TRAVELSTARTDATE2: '出差开始时间（移動記載必要）',
     PFANS1002VIEW_TRAVELENDDATE2: '出差结束时间（移動記載必要）',
     PFANS1002FORMVIEW_CURRENCYCHECK: '币种不一致，请重新选择',
+    PFANS1002FROMVIEW_SFGDZC: '是否固定资产',
     PFANS1004VIEW_ADDBOOK: '附件',
     PFANS1004VIEW_INVESTIGATOR: '起案者内线',
     PFANS1004VIEW_FILENAME: '件名',
@@ -815,6 +817,7 @@ module.exports = {
     PFANS1012FORMVIEW_PL: 'PL摘要内容',
     PFANS1012FORMVIEW_CHECKMESSAGE: '外币币种选择应一致，请重新选择',
     PFANS1012FORMVIEW_FWTIME: '服务时间',
+    PFANS1012FORMVIEW_XHPFCHECK: '消耗品費',
     PFANS1013VIEW_TOTAL: '精算合计',
     PFANS1013VIEW_TRAFFIC: '交通费明细',
     PFANS1013VIEW_ACCOMMODATION: '住宿费明细',
@@ -2236,6 +2239,12 @@ module.exports = {
     PFANS2016FORMVIEW_ERRORENTERDAY: '2012年8月31号之前入职的员工不可以申请！',
     PFANS2016FORMVIEW_ERRORMARRYDAY: '结婚登记日期在一年以内才可申请！',
     PFANS2016FORMVIEW_ERRORMARRYDAYS: '婚假最多可以休15天！',
+    PFANS2016FORMVIEW_WAICHUTIMENOCHECK: '外出时间与实际时间不匹配，请重新填写',
+    PFANS2016FORMVIEW_SHIXIUTIMENOCHECK: '事休时间与实际时间不匹配，请重新填写',
+    PFANS2016FORMVIEW_RENSHENTIMENOCHECK: '妊娠檢查休暇时间与实际时间不匹配，请重新填写',
+    PFANS2016FORMVIEW_LAOYANTIMENOCHECK: '労災休暇时间与实际时间不匹配，请重新填写',
+    PFANS2016FORMVIEW_XIUJIATIMENOCHECK: '休暇时间与实际时间不匹配，请重新填写',
+    PFANS2016FORMVIEW_FATHERTIMENOCHECK: '家长会假时间与实际时间不匹配，请重新填写',
     PFANS2017VIEW_START: '首次打卡',
     PFANS2017VIEW_END: '末次打卡',
     PFANS2017VIEW_CUHS: '导入错误行数',

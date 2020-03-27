@@ -163,7 +163,7 @@
         loading: false,
         disabled: true,
         code1: 'HT008',
-        code2: 'HT006',
+        code2: 'PG019',
         error: '',
         form: {
           contractnumber: '',

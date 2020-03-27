@@ -1229,7 +1229,7 @@
         code6: 'HT009',
         code7: 'HT010',
         code8: 'HT011',
-        code9: 'HT006',
+        code9: 'PG019',
         code10: 'HT012',
         code11: 'HT013',
         show1: true,
@@ -2370,7 +2370,7 @@
         let countIndex = 0;
         if (type == 6) {
           if (this.maketype === '1' || this.maketype === '2' || this.maketype === '3' || this.maketype === '4') {
-            if (this.form.tabledata[this.form.tabledata.length - 1].currencyposition === 'HT006001') {
+            if (this.form.tabledata[this.form.tabledata.length - 1].currencyposition === 'PG019003') {
               type = '61';
             } else {
               type = '62';

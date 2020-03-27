@@ -123,6 +123,14 @@
                           v-model="form.protemail"></el-input>
               </el-form-item>
             </el-col>
+            <!--        事业场编码-->
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS1024VIEW_BUSINESSCODE')" prop="shiyecode">
+                <el-input :disabled="!disabled" style="width:20vw"
+                          v-model="form.shiyecode"></el-input>
+              </el-form-item>
+            </el-col>
+
           </el-row>
             </el-collapse-item>
           </el-collapse>
@@ -306,6 +314,7 @@
                     remarks: '',
                     uploadfile: '',
                   thecompany: '',
+                    shiyecode:'',
                 },
                 //人员规模
                 code1: 'BP007',
@@ -360,14 +369,14 @@
                     // 中文(项目联络人)
                     prochinese: [
                         {
-                            required: true,
+                            required: false,
                             message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_CHINESE'),
                             trigger: 'change'
                         }],
                     // 日文(项目联络人)
                     projapanese: [
                         {
-                            required: true,
+                            required: false,
                             message: this.$t('normal.error_08') + this.$t('label.PFANS6002FORMVIEW_JAPANESE'),
                             trigger: 'change'
                         },
@@ -375,7 +384,7 @@
                     // 英文(项目联络人)
                     proenglish: [
                         {
-                            required: true,
+                            required: false,
                             message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_ENGLISH'),
                             trigger: 'change'
                         },
@@ -383,7 +392,7 @@
                     // 联系电话
                     protelephone: [
                         {
-                            required: true,
+                            required: false,
                             message: this.$t('normal.error_08') + this.$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION'),
                             trigger: 'blur'
                         },
@@ -391,7 +400,7 @@
                     // 邮箱地址
                     protemail: [
                         {
-                            required: true,
+                            required: false,
                             message: this.$t('normal.error_08') + this.$t('label.PFANSUSERFORMVIEW_EMAILADDRESS'),
                             trigger: 'blur'
                         },

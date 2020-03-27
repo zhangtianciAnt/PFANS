@@ -1,32 +1,32 @@
 import request from '../../../../utils/request'
 
-export function getUnusedevice(data) {
+export function getJudgement(data) {
   return request({
-    url: 'unusedevice/get',
+    url: 'judgement/get',
     method: 'get',
     data: data
   })
 }
 
-export function getUnusedeviceOne(data) {
+export function getJudgementOne(data) {
   return request({
-    url: 'unusedevice/one',
+    url: 'judgement/one',
     method: 'post',
     data: data
   })
 }
 
-export function updateUnusedevice(data) {
+export function updateJudgement(data) {
   return request({
-    url: 'unusedevice/update',
+    url: 'judgement/update',
     method: 'post',
     data: data
   })
 }
 
-export function createUnusedevice(data) {
+export function createJudgement(data) {
   return request({
-    url: 'unusedevice/create',
+    url: 'judgement/create',
     method: 'post',
     data: data
   })
