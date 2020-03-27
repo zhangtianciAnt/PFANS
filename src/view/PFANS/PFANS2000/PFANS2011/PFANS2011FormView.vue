@@ -76,7 +76,7 @@
                 >
                   <div class="block">
                     <el-date-picker
-                      :disabled="form.overtimetype === 'PR001007' || form.overtimetype === 'PR001008' ? true : false"
+                      :disabled="showovertimetype"
                       @change="changeReserveovertimedate"
                       style="width:20vw"
                       type="date"
@@ -123,11 +123,11 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2011VIEW_RESERVEOVER')" prop="reserveovertime">
                 <el-input-number
-                  :disabled="form.overtimelength === '' ? false : true"
+                  :disabled="showovertimelength"
                   :max="24"
                   :min="0"
                   :precision="2"
-                  :step="0.1"
+                  :step="0.25"
                   @change="change2"
                   controls-position="right"
                   style="width:20vw"
@@ -142,7 +142,7 @@
                   :max="24"
                   :min="0"
                   :precision="2"
-                  :step="0.1"
+                  :step="0.25"
                   @change="getTime"
                   controls-position="right"
                   style="width:20vw"
@@ -227,11 +227,21 @@
       var HolidayCheck = (rule, value, callback) => {
         if (['PR001004', 'PR001005', 'PR001003'].includes(value) && this.form.reserveovertimedate && !this.$route.params._id) {
           let bool = false;
-          this.dataList.forEach(data => {
-            if (this.changeType(value) === data.type && moment(this.form.reserveovertimedate).format('YYYY-MM-DD') === moment(data.workingdate).format('YYYY-MM-DD')) {
-              bool = true;
+          for(let i = 0; i < this.dataList.length; i++){
+            if(moment(this.form.reserveovertimedate).format('YYYY-MM-DD') === moment(this.dataList[i].workingdate).format('YYYY-MM-DD')){
+              if (this.changeType(value) === data.type) {
+                bool = true;
+                break;
+              }
             }
-          });
+          }
+          // this.dataList.forEach(data => {
+          //   if(moment(this.form.reserveovertimedate).format('YYYY-MM-DD') === moment(data.workingdate).format('YYYY-MM-DD')){
+          //     if (this.changeType(value) === data.type) {
+          //       bool = true;
+          //     }
+          //   }
+          // });
           if (bool) {
             callback();
           } else {
@@ -317,6 +327,8 @@
       //   }
       // };
       return {
+        showovertimelength: false,
+        showovertimetype: false,
         centerid: '',
         groupid: '',
         teamid: '',
@@ -497,9 +509,13 @@
             } else if (this.form.status === '7') {
               this.workflowCode = 'W0040';
               this.canStart = false;
-              this.disable = true;
-              this.disactualovertime = true;
+              this.disable = false;
+              this.disactualovertime = false;
             }
+            if(!this.disable)(
+              this.showovertimelength = true,
+              this.showovertimetype = true
+            )
             this.loading = false;
           })
           .catch(error => {
@@ -664,6 +680,7 @@
         }
       },
       changeType(type) {
+        debugger;
         switch (type) {
           case 'PR001003':
             type = '1';
@@ -679,7 +696,9 @@
       },
       getWorkingday() {
         this.$store.dispatch('PFANS2011Store/getList', {}).then(response => {
+          debugger;
           this.dataList = response;
+          console.log("111"+this.dataList);
           this.$store.commit('global/SET_DAYS', response);
         });
       },
@@ -743,7 +762,9 @@
         }
       },
       handleclick(val) {
-        debugger;
+        if(val !== ''){
+          this.showovertimelength = true;
+        }
         if (val === '0') {
           this.form.reserveovertime = '8';
         } else if (val === '1') {
@@ -751,6 +772,7 @@
         }
       },
       change(val) {
+        this.showovertimetype = false;
         let dateMonth = new Date();
         this.form.overtimelength = '';
         this.form.overtimetype = val;
@@ -764,6 +786,7 @@
           this.form.actualsubstitutiondate = null;
         }
         if (val === 'PR001008') {
+          this.showovertimetype = true;
           this.form.overtimelength = this.options1[1].label;
           this.form.reserveovertime = '4';
           this.form.reserveovertimedate = dateMonth.getFullYear() + '-' + '03' + '-' + '08';
@@ -776,6 +799,7 @@
           }
         }
         if (val === 'PR001007') {
+          this.showovertimetype = true;
           this.form.overtimelength = this.options1[1].label;
           this.form.reserveovertime = '4';
           this.form.reserveovertimedate = dateMonth.getFullYear() + '-' + '05' + '-' + '04';
@@ -814,9 +838,11 @@
               this.form.reservesubstitutiondate = null;
               this.form.actualsubstitutiondate = null;
             } else {
-              this.form.reservesubstitutiondate = moment(
-                this.form.reservesubstitutiondate,
-              ).format('YYYY-MM-DD');
+              if(this.form.reservesubstitutiondate != null){
+                this.form.reservesubstitutiondate = moment(
+                  this.form.reservesubstitutiondate,
+                ).format('YYYY-MM-DD');
+              }
               if (this.form.actualsubstitutiondate != null) {
                 this.form.actualsubstitutiondate = moment(
                   this.form.actualsubstitutiondate,
