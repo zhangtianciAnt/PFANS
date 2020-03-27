@@ -81,7 +81,7 @@
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1025VIEW_CURRENCYFORMAT')" prop="currencyposition">
                     <dicselect
-                      code="HT006"
+                      code="PG019"
                       :data="form.currencyposition"
                       style="width: 20vw"
                       :disabled="!disabled1">
@@ -592,7 +592,7 @@
                 qualifications: '',
                 fileList: [],
                 code: 'HT008',
-                code1: 'HT006',
+                code1: 'PG019',
             };
         },
         mounted() {
