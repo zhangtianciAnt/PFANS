@@ -2152,9 +2152,20 @@
           }
         } else if (this.form.type === '1') {
           var accfig;
+          var firstBusinessflg;
+          var firstBusiNum;
           let accinfo = getDictionaryInfo(row.currency);
           if (accinfo) {
             accfig = accinfo.value2;
+          }
+          let firstBusiness = getDictionaryInfo('PR062001');
+          if(firstBusiness){
+            firstBusinessflg = firstBusiness.value1;
+          }
+          if(firstBusinessflg !== '' && firstBusinessflg !== undefined){
+            firstBusiNum = Number(firstBusinessflg);
+          } else {
+            firstBusiNum = 0;
           }
           //境外无规定外费用的场合，住宿标准check
           if (this.Redirict === '0' ? (row.accountcode === 'PJ132001') : (row.accountcode === 'PJ119001') && this.form.external === '1') {
@@ -2216,16 +2227,16 @@
             }
           } else if (this.Redirict === '0' ? (row.accountcode === 'PJ132005') : (row.accountcode === 'PJ119005')) {
             if (this.rank === 'PJ016003') {
-              jpvalueflg2 = Number(jpregion12) + 100;
+                jpvalueflg2 = Number(jpregion12) + 100 + firstBusiNum;
             } else {
-              jpvalueflg2 = Number(jpregion12);
+              jpvalueflg2 = Number(jpregion12) + firstBusiNum;
             }
             if (jpvalueflg2 !== '' && jpvalueflg2 !== undefined) {
-              row.rmb = (Number(jpvalueflg2) * (diffDate + 1)).toFixed(2);
+              row.rmb = (Number(jpvalueflg2) * (diffDate + 1) + firstBusiNum).toFixed(2);
             }
           } else if (this.Redirict === '0' ? (row.accountcode === 'PJ132006') : (row.accountcode === 'PJ119006')) {
             if (jpvalueflg2 !== '' && jpvalueflg2 !== undefined) {
-              row.rmb = (Number(jpvalueflg2 + 100) * (diffDate + 1)).toFixed(2);
+              row.rmb = (Number(jpvalueflg2 + 100) * (diffDate + 1) + firstBusiNum).toFixed(2);
             }
           }
         }

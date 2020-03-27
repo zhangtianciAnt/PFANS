@@ -839,6 +839,21 @@
             if (valid) {
                 this.loading = true;
                 this.baseInfo = {};
+                if (this.form.careerplan === '0') {
+                  this.form.businessplantype = "";
+                  this.form.businessplanbalance = "";
+                  this.form.classificationtype = "";
+                  this.rules.businessplantype[0].required = false;
+                }
+                if (this.form.salequotation === 'PJ013001') {
+                  this.form.reasonsforquotation = "";
+                }
+                if (this.form.salequotation === 'PJ013003') {
+                  this.form.reasonsforquotation = "";
+                }
+                this.form.scheduleddate = moment(this.form.scheduleddate).format('YYYY-MM-DD');
+                this.form.equipment = "1";
+                this.form.freedevice = this.radio1;
                 this.baseInfo.judgement = JSON.parse(JSON.stringify(this.form));
                 this.baseInfo.unusedevice = [];
               //设备
@@ -857,21 +872,7 @@
                   });
                 }
               }
-                if (this.form.careerplan === '0') {
-                    this.form.businessplantype = "";
-                    this.form.businessplanbalance = "";
-                    this.form.classificationtype = "";
-                    this.rules.businessplantype[0].required = false;
-                }
-              if (this.form.salequotation === 'PJ013001') {
-                this.form.reasonsforquotation = "";
-              }
-              if (this.form.salequotation === 'PJ013003') {
-                this.form.reasonsforquotation = "";
-              }
-              this.form.scheduleddate = moment(this.form.scheduleddate).format('YYYY-MM-DD');
-              this.form.equipment = "1";
-              this.form.freedevice = this.radio1;
+
               if (this.$route.params._id) {
                 this.form.judgementid = this.$route.params._id;
                 this.$store
