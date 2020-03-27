@@ -125,9 +125,9 @@
             </el-col>
             <!--        事业场编码-->
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1024VIEW_BUSINESSCODE')" prop="shiyecode">
+              <el-form-item :label="$t('label.PFANS1024VIEW_BUSINESSCODE')" prop="causecode">
                 <el-input :disabled="!disabled" style="width:20vw"
-                          v-model="form.shiyecode"></el-input>
+                          v-model="form.causecode"></el-input>
               </el-form-item>
             </el-col>
 
@@ -314,7 +314,7 @@
                     remarks: '',
                     uploadfile: '',
                   thecompany: '',
-                    shiyecode:'',
+                    causecode:'',
                 },
                 //人员规模
                 code1: 'BP007',
