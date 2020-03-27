@@ -222,7 +222,8 @@
           </el-row>
           <el-row
             v-if="form.status === '4' || form.status === '5' || form.status === '6' || form.status === '7'">
-            <el-col :span="8" v-if="form.errortype != 'PR013001'&&form.errortype != 'PR013007'&&this.typecheck!='1'&&this.typecheck!='2'">
+            <el-col :span="8"
+                    v-if="form.errortype != 'PR013001'&&form.errortype != 'PR013007'&&this.typecheck!='1'&&this.typecheck!='2'">
               <el-form-item :label="$t('label.reenddate')" prop="refinisheddate">
                 <el-date-picker @change="rechange" :disabled="form.status === '5' || form.status === '7' "
                                 style="width:20vw" type="date" v-model="form.refinisheddate"></el-date-picker>
@@ -542,6 +543,7 @@
                 groupid: '',
                 teamid: '',
                 checkBox: '',
+                errorcheck: 1,
                 checkfinisheddate: true,
                 relistTwo: '',
                 workflowCode: 'W0003',
@@ -819,18 +821,22 @@
                 }
             },
             getreTime(val) {
-                if (this.checkDate < val) {
-                    Message({
-                        message: this.$t('label.PFANS2016FORMVIEW_YJCHECKEROR'),
-                        type: 'error',
-                        duration: 5 * 1000,
-                    });
-                    return;
+                if (this.form.errortype == 'PR013005') {
+                    if (this.checkDate < val) {
+                        this.errorcheck = 2;
+                        Message({
+                            message: this.$t('label.PFANS2016FORMVIEW_YJCHECKEROR'),
+                            type: 'error',
+                            duration: 5 * 1000,
+                        });
+                        return;
+                    }
                 }
             },
             getTime(val) {
                 if (this.form.errortype == 'PR013006') {
                     if (this.checkDate < val) {
+                        this.errorcheck = 2;
                         Message({
                             message: this.$t('label.PFANS2016FORMVIEW_YJCHECKEROR'),
                             type: 'error',
@@ -850,6 +856,7 @@
                     }
                     if (this.form.errortype === 'PR013014') {
                         if (2 - this.parent <= 0) {
+                            this.errorcheck = 2;
                             Message({
                                 message: this.$t('label.PFANS2016FORMVIEW_BJDJZHCHECK'),
                                 type: 'error',
@@ -858,6 +865,7 @@
                             return;
                         }
                         if (val > 4) {
+                            this.errorcheck = 2;
                             Message({
                                 message: this.$t('label.PFANS2016FORMVIEW_BJDJZCHECK'),
                                 type: 'error',
@@ -866,6 +874,7 @@
                             return;
                         }
                     } else if (this.form.errortype === 'PR013016' && this.$store.getters.userinfo.userinfo.sex !== 'PR019002') {
+                        this.errorcheck = 2;
                         Message({
                             message: this.$t('label.PFANS2016FORMVIEW_WOMENCHECK'),
                             type: 'error',
@@ -875,6 +884,7 @@
                     }
                     if (this.form.errortype === 'PR013001') {
                         if (8 < val) {
+                            this.errorcheck = 2;
                             Message({
                                 message: this.$t('label.PFANS2016FORMVIEW_WAICHUTIMENOCHECK'),
                                 type: 'error',
@@ -884,6 +894,7 @@
                         }
                     } else if (this.form.errortype === 'PR013008') {
                         if (sum * 8 < val) {
+                            this.errorcheck = 2;
                             Message({
                                 message: this.$t('label.PFANS2016FORMVIEW_SHIXIUTIMENOCHECK'),
                                 type: 'error',
@@ -893,6 +904,7 @@
                         }
                     } else if (this.form.errortype === 'PR013016') {
                         if (sum * 8 < val) {
+                            this.errorcheck = 2;
                             Message({
                                 message: this.$t('label.PFANS2016FORMVIEW_RENSHENTIMENOCHECK'),
                                 type: 'error',
@@ -902,6 +914,7 @@
                         }
                     } else if (this.form.errortype === 'PR013018') {
                         if (sum * 8 < val) {
+                            this.errorcheck = 2;
                             Message({
                                 message: this.$t('label.PFANS2016FORMVIEW_LAOYANTIMENOCHECK'),
                                 type: 'error',
@@ -911,6 +924,7 @@
                         }
                     } else if (this.form.errortype === 'PR013019') {
                         if (sum * 8 < val) {
+                            this.errorcheck = 2;
                             Message({
                                 message: this.$t('label.PFANS2016FORMVIEW_XIUJIATIMENOCHECK'),
                                 type: 'error',
@@ -920,6 +934,7 @@
                         }
                     } else if (this.form.errortype === 'PR013014') {
                         if (sum * 8 < val) {
+                            this.errorcheck = 2;
                             Message({
                                 message: this.$t('label.PFANS2016FORMVIEW_FATHERTIMENOCHECK'),
                                 type: 'error',
@@ -932,6 +947,7 @@
                     let diffDate = moment(this.form.finisheddate).diff(moment(this.form.occurrencedate), 'days') + 1;
                     if (this.form.errortype === 'PR013009') {
                         if (diffDate > 30 - this.sickleave) {
+                            this.errorcheck = 2;
                             Message({
                                 message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
                                 type: 'error',
@@ -944,6 +960,7 @@
                         sum = sum + 1;
                     }
                     if (sum * 8 < val) {
+                        this.errorcheck = 2;
                         Message({
                             message: this.$t('label.PFANS2016FORMVIEW_TIMENOCHECK'),
                             type: 'error',
@@ -1147,6 +1164,7 @@
                         time = time + 1;
                     }
                     if (this.checkDate < time) {
+                        this.errorcheck = 2;
                         Message({
                             message: this.$t('label.PFANS2016FORMVIEW_YJCHECKEROR'),
                             type: 'error',
@@ -1341,6 +1359,7 @@
                         timere = timere + 1;
                     }
                     if (this.checkDate < timere) {
+                        this.errorcheck = 2;
                         Message({
                             message: this.$t('label.PFANS2016FORMVIEW_SJCHECKEROR'),
                             type: 'error',
@@ -1490,6 +1509,7 @@
             changeTime() {
                 let diffDate = moment(this.form.finisheddate).diff(moment(this.form.occurrencedate), 'days') + 1;
                 if (this.form.errortype === 'PR013012' || this.form.errortype === 'PR013021' && this.$store.getters.userinfo.userinfo.sex !== 'PG020002') {
+                    this.error = 1;
                     Message({
                         message: this.$t('label.PFANS2016FORMVIEW_WOMENCHECK'),
                         type: 'error',
@@ -1498,6 +1518,7 @@
                     return;
                 } else if (this.form.errortype === 'PR013013') {
                     if (this.$store.getters.userinfo.userinfo.sex !== 'PG020001') {
+                        this.error = 1;
                         Message({
                             message: this.$t('label.PFANS2016FORMVIEW_MENCHECK'),
                             type: 'error',
@@ -1506,7 +1527,7 @@
                         return;
                     }
                     if (this.enterday < '2012-08-31') {
-                        //2012年8月31号之前入职的员工除外
+                        this.error = 1;
                         Message({
                             message: this.$t('label.PFANS2016FORMVIEW_ERRORENTERDAY'),
                             type: 'error',
@@ -1523,6 +1544,7 @@
                     var dateSpan = Math.abs(dateSpan);
                     var iDays = Math.floor(dateSpan / (24 * 3600 * 1000));
                     if (iDays > 365) {
+                        this.error = 1;
                         Message({
                             message: this.$t('label.PFANS2016FORMVIEW_ERRORMARRYDAY'),
                             type: 'error',
@@ -1531,6 +1553,7 @@
                         return;
                     }
                     if (diffDate > 15) {
+                        this.error = 1;
                         Message({
                             message: this.$t('label.PFANS2016FORMVIEW_ERRORMARRYDAYS'),
                             type: 'error',
@@ -1717,64 +1740,72 @@
                         }
                         // this.form.periodend = letfinisheddate.replace(letnewdate, letfinisheddate);
                         this.form.relation = letrelation.substring(1, letrelation.length);
-                        if (this.$route.params._id) {
-                            this.form.abnormalid = this.$route.params._id;
-                            this.loading = true;
-                            this.$store
-                                .dispatch('PFANS2016Store/updatePfans2016', this.form)
-                                .then(response => {
-                                    this.loading = false;
-                                    // if(response === 'PR013005'){
-                                    //     this.errort = this.$t('normal.ERROR_RETIRE');
-                                    // }
-                                    // else{
-                                    this.data = response;
-                                    if (val !== 'update') {
+                        if (this.errorcheck == 1) {
+                            if (this.$route.params._id) {
+                                this.form.abnormalid = this.$route.params._id;
+                                this.loading = true;
+                                this.$store
+                                    .dispatch('PFANS2016Store/updatePfans2016', this.form)
+                                    .then(response => {
+                                        this.loading = false;
+                                        // if(response === 'PR013005'){
+                                        //     this.errort = this.$t('normal.ERROR_RETIRE');
+                                        // }
+                                        // else{
+                                        this.data = response;
+                                        if (val !== 'update') {
+                                            Message({
+                                                message: this.$t('normal.success_02'),
+                                                type: 'success',
+                                                duration: 5 * 1000,
+                                            });
+                                            if (this.$store.getters.historyUrl) {
+                                                this.$router.push(this.$store.getters.historyUrl);
+                                            }
+                                        }
+                                        // }
+
+                                    })
+                                    .catch(error => {
                                         Message({
-                                            message: this.$t('normal.success_02'),
+                                            message: error,
+                                            type: 'error',
+                                            duration: 5 * 1000,
+                                        });
+                                        this.loading = false;
+                                    });
+                            } else {
+                                this.loading = true;
+                                this.$store
+                                    .dispatch('PFANS2016Store/createPfans2016', this.form)
+                                    .then(response => {
+                                        this.data = response;
+                                        this.loading = false;
+                                        Message({
+                                            message: this.$t('normal.success_01'),
                                             type: 'success',
                                             duration: 5 * 1000,
                                         });
                                         if (this.$store.getters.historyUrl) {
                                             this.$router.push(this.$store.getters.historyUrl);
                                         }
-                                    }
-                                    // }
-
-                                })
-                                .catch(error => {
-                                    Message({
-                                        message: error,
-                                        type: 'error',
-                                        duration: 5 * 1000,
+                                    })
+                                    .catch(error => {
+                                        Message({
+                                            message: error,
+                                            type: 'error',
+                                            duration: 5 * 1000,
+                                        });
+                                        this.loading = false;
                                     });
-                                    this.loading = false;
-                                });
-                        } else {
-                            this.loading = true;
-                            this.$store
-                                .dispatch('PFANS2016Store/createPfans2016', this.form)
-                                .then(response => {
-                                    this.data = response;
-                                    this.loading = false;
-                                    Message({
-                                        message: this.$t('normal.success_01'),
-                                        type: 'success',
-                                        duration: 5 * 1000,
-                                    });
-                                    if (this.$store.getters.historyUrl) {
-                                        this.$router.push(this.$store.getters.historyUrl);
-                                    }
-                                })
-                                .catch(error => {
-                                    Message({
-                                        message: error,
-                                        type: 'error',
-                                        duration: 5 * 1000,
-                                    });
-                                    this.loading = false;
-                                });
+                            }
                         }
+                    }else{
+                        Message({
+                            message: this.$t("normal.error_12"),
+                            type: 'error',
+                            duration: 5 * 1000
+                        });
                     }
                 });
             },
