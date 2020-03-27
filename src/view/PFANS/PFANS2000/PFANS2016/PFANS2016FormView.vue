@@ -1359,13 +1359,15 @@
                         timere = timere + 1;
                     }
                     if (this.checkDate < timere) {
-                        this.errorcheck = 2;
-                        Message({
-                            message: this.$t('label.PFANS2016FORMVIEW_SJCHECKEROR'),
-                            type: 'error',
-                            duration: 5 * 1000,
-                        });
-                        return;
+                        if (this.form.errortype === 'PR013005') {
+                            this.errorcheck = 2;
+                            Message({
+                                message: this.$t('label.PFANS2016FORMVIEW_SJCHECKEROR'),
+                                type: 'error',
+                                duration: 5 * 1000,
+                            });
+                            return;
+                        }
                     }
                 }
                 // else {
@@ -1800,12 +1802,20 @@
                                     });
                             }
                         }
-                    }else{
+                    } else {
                         Message({
                             message: this.$t("normal.error_12"),
                             type: 'error',
                             duration: 5 * 1000
                         });
+                    }
+                    if (this.errorcheck != 1) {
+                        Message({
+                            message: this.$t("label.PFANS2016FORMVIEW_DATACHECK"),
+                            type: 'error',
+                            duration: 5 * 1000
+                        });
+                        this.errorcheck = 1;
                     }
                 });
             },
