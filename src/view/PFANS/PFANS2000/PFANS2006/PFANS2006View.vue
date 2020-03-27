@@ -719,6 +719,14 @@
             buttonClick(val) {
                 if (val === 'export') {
                     if (this.Taxestotal === 1) {
+                      if(this.$refs.roletable.selectedList.length === 0){
+                        Message({
+                          message: this.$t('normal.info_01'),
+                          type: 'info',
+                          duration: 2 * 1000
+                        });
+                        return;
+                      }
                         this.selectedlist = this.$refs.roletable.selectedList;
                         let heads = [
                             this.$t('label.PFANS2006VIEW_PENSION')
@@ -824,6 +832,14 @@
                         link.click();
                         document.body.removeChild(link);
                     } else if (this.Bonus === 1) {
+                      if(this.$refs.rolet.selectedList.length === 0){
+                        Message({
+                          message: this.$t('normal.info_01'),
+                          type: 'info',
+                          duration: 2 * 1000
+                        });
+                        return;
+                      }
                         this.selectedList = this.$refs.rolet.selectedList;
                         let heads = [this.$t('label.PFANS2007VIEW_YEAR'), this.$t('label.PFANS2007VIEW_NAME'), this.$t('label.PFANS2007VIEW_GOLDLEAF'), this.$t('label.PFANS2007VIEW_TAXMETHOD'), this.$t('label.PFANS2007VIEW_COMBINEDTAX'), this.$t('label.PFANS2007VIEW_KOZO'), this.$t('label.PFANS2007VIEW_TAX'),
                             this.$t('label.PFANS2006VIEW_MONTHLYAVERAGE'), this.$t('label.PFANS2007VIEW_CASH'),
