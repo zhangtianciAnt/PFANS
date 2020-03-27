@@ -69,7 +69,8 @@ module.exports = {
     exportQingQiuShu_GuoNei: '请求书生成',
     exportJianJiShu: '报价书',
     exportNaPinShu_ShouTuo: '纳品书生成',
-    crAccount:"创建账号"
+    crAccount:"创建外协STAFF账号",
+    crAccount2:"创建外协员工账号"
   },
   table: {
     detail: '一览',
