@@ -222,7 +222,7 @@
           </el-row>
           <el-row
             v-if="form.status === '4' || form.status === '5' || form.status === '6' || form.status === '7'">
-            <el-col :span="8" v-if="form.errortype != 'PR013007'&&this.typecheck!='1'&&this.typecheck!='2'">
+            <el-col :span="8" v-if="form.errortype != 'PR013001'&&form.errortype != 'PR013007'&&this.typecheck!='1'&&this.typecheck!='2'">
               <el-form-item :label="$t('label.reenddate')" prop="refinisheddate">
                 <el-date-picker @change="rechange" :disabled="form.status === '5' || form.status === '7' "
                                 style="width:20vw" type="date" v-model="form.refinisheddate"></el-date-picker>
@@ -874,7 +874,7 @@
                         return;
                     }
                     if (this.form.errortype === 'PR013001') {
-                        if (sum * 8 < val) {
+                        if (8 < val) {
                             Message({
                                 message: this.$t('label.PFANS2016FORMVIEW_WAICHUTIMENOCHECK'),
                                 type: 'error',
@@ -1551,7 +1551,9 @@
                     this.form.enclosureexplain = dictionaryInfo.value2;
                 }
                 this.form.errortype = val;
-                if (val === 'PR013021') {
+                if (val === 'PR013001') {
+                    this.checkfinisheddate = false;
+                } else if (val === 'PR013021') {
                     this.checkfinisheddate = true;
                     // this.showFemale = true;
                 } else if (val === 'PR013005') {
@@ -1689,29 +1691,30 @@
                         let letfinisheddate = moment(this.form.finisheddate).format('YYYY-MM-DD');
                         let letoccurrencedateTo = moment(this.form.reoccurrencedate).format('YYYY-MM-DD');
                         let letfinisheddateTo = moment(this.form.refinisheddate).format('YYYY-MM-DD');
-                        if (letoccurrencedate == letfinisheddate) {
-                            this.form.lengthtime = 8;
-                        } else if (this.relist.length != '0') {
-                            let time = 0;
-                            for (let d = 0; d < this.relist.length; d++) {
-                                time = time + 1;
+                        if (this.form.errortype === 'PR013005' || this.form.errortype === 'PR013006') {
+                            if (letoccurrencedate == letfinisheddate) {
+                                this.form.lengthtime = 8;
+                            } else if (this.relist.length != '0') {
+                                let time = 0;
+                                for (let d = 0; d < this.relist.length; d++) {
+                                    time = time + 1;
+                                }
+                                this.form.lengthtime = time * 8;
+                            } else {
+                                this.form.lengthtime = 4;
                             }
-                            this.form.lengthtime = time * 8;
-                        } else {
-                            this.form.lengthtime = 4;
-                        }
-                        if (letoccurrencedateTo == letfinisheddateTo && letoccurrencedateTo != 'Invalid date') {
-                            this.form.relengthtime = 8;
-                        } else if (this.relistTwo.length != '0') {
-                            let timere = 0;
-                            for (let d = 0; d < this.relistTwo.length; d++) {
-                                timere = timere + 1;
+                            if (letoccurrencedateTo == letfinisheddateTo && letoccurrencedateTo != 'Invalid date') {
+                                this.form.relengthtime = 8;
+                            } else if (this.relistTwo.length != '0') {
+                                let timere = 0;
+                                for (let d = 0; d < this.relistTwo.length; d++) {
+                                    timere = timere + 1;
+                                }
+                                this.form.relengthtime = timere * 8;
+                            } else if (letoccurrencedateTo != 'Invalid date') {
+                                this.form.relengthtime = 4;
                             }
-                            this.form.relengthtime = timere * 8;
-                        } else if (letoccurrencedateTo != 'Invalid date') {
-                            this.form.relengthtime = 4;
                         }
-
                         // this.form.periodend = letfinisheddate.replace(letnewdate, letfinisheddate);
                         this.form.relation = letrelation.substring(1, letrelation.length);
                         if (this.$route.params._id) {
