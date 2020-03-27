@@ -75,8 +75,8 @@
           //   filter: true
           // },
           {
-            code: 'telephone',
-            label: 'label.PFANS1013VIEW_TELEPHONE',
+            code: 'type',
+            label: 'label.PFANS1013VIEW_TYPE',
             width: 90,
             fix: false,
             filter: true
@@ -97,13 +97,13 @@
             filter: true
 
           },
-          {
-            code: 'balance',
-            label: 'label.PFANS1013VIEW_BALANCE',
-            width: 100,
-            fix: false,
-            filter: true
-          },
+          // {
+          //   code: 'balance',
+          //   label: 'label.PFANS1013VIEW_BALANCE',
+          //   width: 100,
+          //   fix: false,
+          //   filter: true
+          // },
           {
             code: 'status',
             label: 'label.approval_status',
@@ -167,6 +167,13 @@
             //     response[j].budgetunit = letBudgetunit.value1;
             //   }
             // }
+            if (response[j].type !== null && response[j].type !== "") {
+              if(response[j].type === '0'){
+                response[j].type = this.$t('label.PFANS1013VIEW_TYPEON');
+              } else if(response[j].type === '1'){
+                response[j].type = this.$t('label.PFANS1013VIEW_TYPEOFF');
+              }
+            }
             if (response[j].startdate !== null && response[j].startdate !== "") {
               response[j].startdate = moment(response[j].startdate).format("YYYY-MM-DD");
             }
