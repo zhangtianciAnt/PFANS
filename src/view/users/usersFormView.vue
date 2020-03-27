@@ -128,12 +128,17 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_CHILDREN')">
-                    <el-date-picker
+                    <!--<el-date-picker-->
+                      <!--v-model="form.children"-->
+                      <!--type="date"-->
+                      <!--:placeholder="$t('label.PFANSUSERFORMVIEW_SELECTIONDATE')"-->
+                      <!--style="width:20vw"-->
+                    <!--&gt;</el-date-picker>-->
+                    <el-switch
                       v-model="form.children"
-                      type="date"
-                      :placeholder="$t('label.PFANSUSERFORMVIEW_SELECTIONDATE')"
-                      style="width:20vw"
-                    ></el-date-picker>
+                      active-value="1"
+                      inactive-value="0">
+                    </el-switch>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
