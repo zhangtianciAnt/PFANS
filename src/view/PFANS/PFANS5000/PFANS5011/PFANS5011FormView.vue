@@ -240,7 +240,6 @@
       selectData(val){
           this.getDateinitial(val);
           let info = {project_id: this.$route.params._id,starttime: this.starttime,endtime: this.endtime}
-          console.log("aaa",info)
           if (this.$route.params._id) {
             this.loading = true;
             this.$store
