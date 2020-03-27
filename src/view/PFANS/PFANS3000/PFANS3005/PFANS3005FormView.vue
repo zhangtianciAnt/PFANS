@@ -403,7 +403,6 @@
           application_date: moment(new Date()).format('YYYY-MM-DD'),
           nodeList: [],
         },
-        code: 'PG001',
         code1: 'PR002',
         code2: 'PR003',
         code3: 'PJ005',
