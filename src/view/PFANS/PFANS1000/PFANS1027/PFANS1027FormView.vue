@@ -70,12 +70,12 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1025VIEW_OPENINGDATE')" prop="startdate">
-                    <el-date-picker :disabled="!disabled1" type="date" v-model="form.startdate" style="width: 18rem" ></el-date-picker>
+                    <el-date-picker :disabled="!disabled1" type="date" v-model="form.startdate" style="width: 20vw" ></el-date-picker>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1025VIEW_ENDDATE')" prop="enddate">
-                    <el-date-picker :disabled="!disabled1" type="date" v-model="form.enddate" style="width: 18rem" ></el-date-picker>
+                    <el-date-picker :disabled="!disabled1" type="date" v-model="form.enddate" style="width: 20vw" ></el-date-picker>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -582,12 +582,7 @@
                 name: 'button.save',
                 disabled: false,
                 icon: 'el-icon-check',
-              },
-                {
-                  key: 'export1',
-                  name: 'button.exportJianJiShu',
-                  disabled: false,
-                },],
+              }],
                 canStart: false,
                 qualifications: '',
                 fileList: [],
@@ -699,7 +694,12 @@
         },
         created(){
           if (!this.$route.params.disabled) {
-            this.buttonList = [];
+            this.buttonList = [
+              {
+                key: 'export1',
+                name: 'button.exportJianJiShu',
+                disabled: false,
+              }];
             this.disabled = false;
           }
             this.disable = this.$route.params.disabled;

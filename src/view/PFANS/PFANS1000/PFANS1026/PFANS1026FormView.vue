@@ -1369,7 +1369,7 @@
       getProjectList() {
         this.loading = true;
         this.$store
-          .dispatch('PFANS5009Store/getSiteList', {})
+          .dispatch('PFANS5009Store/getSiteList2', {})
           .then(response => {
             this.projectResult = response.filter(value => {
               return value.status === '4';
@@ -1480,7 +1480,7 @@
       getcustomerinfor() {
         this.loading = true;
         this.$store
-          .dispatch('PFANS6002Store/getcustomerinfor')
+          .dispatch('PFANS6002Store/getcustomerinfor2')
           .then(response => {
             for (let j = 0; j < response.length; j++) {
               if (response[j].custchinese !== null && response[j].custchinese !== '') {

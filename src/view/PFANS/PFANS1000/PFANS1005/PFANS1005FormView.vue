@@ -41,8 +41,8 @@
           </el-row>
           <el-row >
             <el-col :span="24">
-            <el-table :data="tableD" header-cell-class-name="sub_bg_color_blue" border stripe style="width: 73vw">
-              <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" type="index">
+            <el-table :data="tableD" header-cell-class-name="sub_bg_color_blue" border stripe style="width: 73vw" :summary-method="getSummaries" show-summary>
+              <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" type="index" width="80">
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1005VIEW_ITEM')" align="center" prop="projects">
                 <template slot-scope="scope">
@@ -131,6 +131,7 @@
         }
       };
       return {
+        sumTotal:[],
         centerid: '',
         groupid: '',
         teamid: '',
@@ -236,6 +237,33 @@
       }
     },
     methods: {
+      getSummaries(param) {
+        const { columns, data } = param;
+        const sums = [];
+        columns.forEach((column, index) => {
+          debugger
+          if (index === 0) {
+            sums[index] = this.$t('label.PFANS1012VIEW_ACCOUNT');
+            return;
+          } else if ([1,5].includes(index)) {
+            sums[index] = "-";
+            return;
+          }
+          const values = data.map(item => Number(item[column.property]));
+          if (!values.every(value => isNaN(value))) {
+            sums[index] = values.reduce((prev, curr) => {
+              const value = Number(curr);
+              if (!isNaN(value)) {
+                return prev + curr;
+              } else {
+                return prev;
+              }
+            }, 0);
+          }
+        });
+        this.sumTotal = sums;
+        return sums;
+    },
       changeSum(row) {
        row.amount = row.unitprice * row.numbers;
       },
@@ -318,6 +346,11 @@
         if (val === 'back') {
           this.paramsTitle();
         } else {
+          debugger
+            if(Number(this.sumTotal[4]) > 1000){
+              this.$message.error(this.$t('label.PFANS1005FORMVIEW_ERROR'));
+              return;
+          }
           this.$refs['ruleForm'].validate(valid => {
             if (valid) {
               this.loading = true;

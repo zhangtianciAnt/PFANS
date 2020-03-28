@@ -1,5 +1,6 @@
 import {
   getsupplierinfor,
+  getsupplierinfor2,
   getsupplierinforApplyOne,
   updatesupplierinforApply,
   createsupplierinforApply,
@@ -15,6 +16,19 @@ const PFANS6003Store = {
     getsupplierinfor() {
       return new Promise((resolve, reject) => {
         getsupplierinfor().then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    getsupplierinfor2() {
+      return new Promise((resolve, reject) => {
+        getsupplierinfor2().then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {

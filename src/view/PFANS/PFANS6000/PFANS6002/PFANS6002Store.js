@@ -1,5 +1,6 @@
 import {
   getcustomerinfor,
+  getcustomerinfor2,
   getcustomerinforApplyOne,
   updatecustomerinforApply,
   createcustomerinforApply,
@@ -14,6 +15,19 @@ const PFANS6002Store = {
     getcustomerinfor() {
       return new Promise((resolve, reject) => {
         getcustomerinfor().then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    getcustomerinfor2() {
+      return new Promise((resolve, reject) => {
+        getcustomerinfor2().then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {

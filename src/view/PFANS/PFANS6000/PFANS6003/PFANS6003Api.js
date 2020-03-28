@@ -9,6 +9,14 @@ export function getsupplierinfor(data) {
   })
 }
 
+export function getsupplierinfor2(data) {
+  return request({
+    url: 'supplierinfor/getWithoutAuth',
+    method: 'get',
+    params: data
+  })
+}
+
 export function getsupplierinforApplyOne(data) {
   return request({
     url: 'supplierinfor/one',

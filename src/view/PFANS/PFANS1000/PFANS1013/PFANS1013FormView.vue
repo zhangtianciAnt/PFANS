@@ -85,7 +85,12 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1002VIEW_REGION')">
-                      <el-input :disabled="true" maxlength="20" style="width:20vw" v-model="form.place"></el-input>
+                      <dicselect
+                        :data="form.place"
+                        :disabled="true"
+                        code="PJ036"
+                        style="width: 20vw">
+                      </dicselect>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -1249,6 +1254,7 @@
       this.getLoanapp();
       this.getCompanyProjectList();
       this.checkOption();
+      debugger
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
@@ -1441,9 +1447,11 @@
         this.$store
           .dispatch('PFANS1013Store/getdate')
           .then(response => {
+            debugger
             for (let i = 0; i < response.length; i++) {
               if (response[i].user_id === this.$store.getters.userinfo.userid && response[i].businesstype === '0') {
                 this.relations.push({
+                  place: response[i].city,
                   value: response[i].business_id,
                   label: this.$t('menu.PFANS1002') + '_' + moment(response[i].createon).format('YYYY-MM-DD'),
                   abroadbusiness: response[i].abroadbusiness,
@@ -1473,9 +1481,11 @@
         this.$store
           .dispatch('PFANS1013Store/getdate')
           .then(response => {
+            debugger
             for (let i = 0; i < response.length; i++) {
               if (response[i].user_id === this.$store.getters.userinfo.userid && response[i].businesstype === '1') {
                 this.relations.push({
+                  place: response[i].city,
                   value: response[i].business_id,
                   label: this.$t('menu.PFANS1035') + '_' + moment(response[i].createon).format('YYYY-MM-DD'),
                   city: response[i].region,
@@ -1932,6 +1942,7 @@
             if (dict) {
               this.form.level = dict.value1;
             }
+            this.form.place = this.relations[i].place;
             this.form.abroadbusiness = this.relations[i].abroadbusiness;
             this.form.external = this.relations[i].external;
             this.form.startdate = this.relations[i].startdate;
