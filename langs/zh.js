@@ -1128,6 +1128,8 @@ module.exports = {
     PFANS1026FORMVIEW_QXSCZQSCDQYS: '请先删除之前生成的契约书',
     PFANS1026FORMVIEW_DDZYW: ' 请输入担当者英文',
     PFANS1026FORMVIEW_DDZZW: ' 请输入担当者中文',
+    PFANS1026FORMVIEW_QYHW: '请输入契約概要和文',
+    PFANS1026FORMVIEW_QYZW: '请输入契約概要中文',
     PFANS1027VIEW_DETAILS: '报价详细',
     PFANS1027VIEW_SYSTEM: '開発体制',
     PFANS1027VIEW_ESTIMATION: '見積根拠',
