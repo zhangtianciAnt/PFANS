@@ -72,6 +72,15 @@
                     </dicselect>
                   </el-form-item>
                 </el-col>
+
+                <!--        事业场编码-->
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1024VIEW_BUSINESSCODE')" prop="causecode">
+                    <el-input :disabled="!disabled" style="width:20vw"
+                              v-model="form.causecode"></el-input>
+                  </el-form-item>
+                </el-col>
+
               </el-row>
             </el-collapse-item>
 
@@ -123,13 +132,7 @@
                           v-model="form.protemail"></el-input>
               </el-form-item>
             </el-col>
-            <!--        事业场编码-->
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1024VIEW_BUSINESSCODE')" prop="causecode">
-                <el-input :disabled="!disabled" style="width:20vw"
-                          v-model="form.causecode"></el-input>
-              </el-form-item>
-            </el-col>
+
 
           </el-row>
             </el-collapse-item>
