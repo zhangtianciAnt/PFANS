@@ -268,7 +268,10 @@
                                                 response[j].project_id = this.transferData[i].label;
                                             }
                                             if(response[j].project_id ==='PP024001'){
+                                              if (this.$i18n){
+
                                                 response[j].project_id =  this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')
+                                              }
                                             }
                                         }
                                         let lst = getOrgInfoByUserId(response[j].createby);

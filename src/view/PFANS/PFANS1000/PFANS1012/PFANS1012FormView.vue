@@ -2833,7 +2833,7 @@
             getsupplierinfor() {
                 this.loading = true;
                 this.$store
-                    .dispatch('PFANS6003Store/getsupplierinfor')
+                    .dispatch('PFANS6003Store/getsupplierinfor2')
                     .then(response => {
                         this.gridData = [];
                         for (let i = 0; i < response.length; i++) {
