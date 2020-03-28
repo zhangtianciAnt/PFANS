@@ -1429,7 +1429,7 @@
             getProjectNames() {
                 this.loading = true;
                 this.$store
-                    .dispatch('PFANS5001Store/getFpans5001List', {})
+                    .dispatch('PFANS5001Store/getFpans5001List2', {})
                     .then(response => {
                         this.gridData = [];
                         for (let i = 0; i < response.length; i++) {
