@@ -638,7 +638,7 @@
             getCompanyProjectList() {
                 this.loading = true;
                 this.$store
-                    .dispatch('PFANS2001Store/getCompanyProjectList', {})
+                    .dispatch('PFANS5008Store/getCompanyProjectList', {})
                     .then(response => {
                         this.optionsdata = [];
                         for (let i = 0; i < response.length; i++) {
