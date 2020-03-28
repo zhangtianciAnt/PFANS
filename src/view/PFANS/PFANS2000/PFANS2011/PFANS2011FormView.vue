@@ -227,21 +227,21 @@
       var HolidayCheck = (rule, value, callback) => {
         if (['PR001004', 'PR001005', 'PR001003'].includes(value) && this.form.reserveovertimedate && !this.$route.params._id) {
           let bool = false;
-          for(let i = 0; i < this.dataList.length; i++){
-            if(moment(this.form.reserveovertimedate).format('YYYY-MM-DD') === moment(this.dataList[i].workingdate).format('YYYY-MM-DD')){
-              if (this.changeType(value) === data.type) {
-                bool = true;
-                break;
-              }
-            }
-          }
-          // this.dataList.forEach(data => {
-          //   if(moment(this.form.reserveovertimedate).format('YYYY-MM-DD') === moment(data.workingdate).format('YYYY-MM-DD')){
+          // for(let i = 0; i < this.dataList.length; i++){
+          //   if(moment(this.form.reserveovertimedate).format('YYYY-MM-DD') === moment(this.dataList[i].workingdate).format('YYYY-MM-DD')){
           //     if (this.changeType(value) === data.type) {
           //       bool = true;
+          //       break;
           //     }
           //   }
-          // });
+          // }
+          this.dataList.forEach(data => {
+            if(moment(this.form.reserveovertimedate).format('YYYY-MM-DD') === moment(data.workingdate).format('YYYY-MM-DD')){
+              if (this.changeType(value) === data.type) {
+                bool = true;
+              }
+            }
+          });
           if (bool) {
             callback();
           } else {
