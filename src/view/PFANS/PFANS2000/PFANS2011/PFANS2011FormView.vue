@@ -391,7 +391,7 @@
               required: true,
               message:
                 this.$t('normal.error_09') +
-                this.$t('label.·'),
+                this.$t('label.PFANS2011VIEW_RESERVEOVERTIME'),
               trigger: 'change',
             },
           ],
