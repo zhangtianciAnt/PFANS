@@ -126,7 +126,21 @@ export function menu() {
                     {"_id": "PFANS1041_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
                     {"_id": "PFANS1041_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
                   ]
-                }
+                },
+                {
+                  '_id': 'PFANS1042',
+                  'name': 'menu.PFANS1042',
+                  'menuvisible': true,
+                  'menuurl': '/PFANS1042View',
+                  'menuicon': '',
+                  'children': [],
+                  'actions': [
+                    {"_id": "PFANS1042_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                    {"_id": "PFANS1042_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                    {"_id": "PFANS1042_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                    {"_id": "PFANS1042_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+                  ]
+                },
               ]
             },
             // {
@@ -625,29 +639,30 @@ export function menu() {
                 // },
               ]
             },
-            {
-              '_id': 'SOFTASSETMANAG',
-              'name': 'menu.SOFTASSETMANAG',
-              'menuvisible': true,
-              'menuurl': '',
-              'menuicon': '',
-              'children': [
-                {
-                  '_id': 'ASSETS1034,',
-                  'name': 'menu.PFANS1034',
-                  'menuvisible': true,
-                  'menuurl': '/PFANS1034View',
-                  'menuicon': '',
-                  'children': [],
-                  'actions': [
-                    {"_id": "ASSETS1034_read", "actiontype": "0", "name": 'button.view', "auth": 4},
-                    {"_id": "ASSETS1034_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
-                    {"_id": "ASSETS1034_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
-                    {"_id": "ASSETS1034_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
-                  ]
-                },
-              ]
-            },
+            // {
+            //   '_id': 'SOFTASSETMANAG',
+            //   'name': 'menu.SOFTASSETMANAG',
+            //   'menuvisible': true,
+            //   'menuurl': '',
+            //   'menuicon': '',
+            //   'children': [
+            //     {
+            //       '_id': 'ASSETS1034,',
+            //       'name': 'menu.PFANS1034',
+            //       'menuvisible': true,
+            //       'menuurl': '/PFANS1034View',
+            //       'menuicon': '',
+            //       'children': [],
+            //       'actions': [
+            //         {"_id": "ASSETS1034_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+            //         {"_id": "ASSETS1034_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+            //         {"_id": "ASSETS1034_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+            //         {"_id": "ASSETS1034_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+            //       ]
+            //     },
+            //   ]
+            // },
+            //3.28 gbb
             {
               '_id': 'ITSECURITYMANAGEMENT',
               'name': 'menu.ITSECURITYMANAGEMENT',
@@ -957,20 +972,20 @@ export function menu() {
                     {"_id": "PFANS2013_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
                   ]
                 },
-                {
-                  '_id': 'PFANS2014',
-                  'name': 'menu.PFANS2014',
-                  'menuvisible': true,
-                  'menuurl': '/PFANS2014View',
-                  'menuicon': '',
-                  'children': [],
-                  'actions': [
-                    {"_id": "PFANS2014_read", "actiontype": "0", "name": 'button.view', "auth": 4},
-                    {"_id": "PFANS2014_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
-                    {"_id": "PFANS2014_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
-                    {"_id": "PFANS2014_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
-                  ]
-                },
+                // {
+                //   '_id': 'PFANS2014',
+                //   'name': 'menu.PFANS2014',
+                //   'menuvisible': true,
+                //   'menuurl': '/PFANS2014View',
+                //   'menuicon': '',
+                //   'children': [],
+                //   'actions': [
+                //     {"_id": "PFANS2014_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                //     {"_id": "PFANS2014_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                //     {"_id": "PFANS2014_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                //     {"_id": "PFANS2014_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+                //   ]
+                // },
                 {
                   '_id': 'PFANS2016',
                   'name': 'menu.PFANS2016',
@@ -1221,20 +1236,21 @@ export function menu() {
                     {"_id": "PFANS2007_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
                   ]
                 },
-                {
-                  '_id': 'PFANS2009',
-                  'name': 'menu.PFANS2009',
-                  'menuvisible': true,
-                  'menuurl': '/PFANS2009View',
-                  'menuicon': '',
-                  'children': [],
-                  'actions': [
-                    {"_id": "PFANS2009_read", "actiontype": "0", "name": 'button.view', "auth": 4},
-                    {"_id": "PFANS2009_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
-                    {"_id": "PFANS2009_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
-                    {"_id": "PFANS2009_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
-                  ]
-                },
+                // {
+                //   '_id': 'PFANS2009',
+                //   'name': 'menu.PFANS2009',
+                //   'menuvisible': true,
+                //   'menuurl': '/PFANS2009View',
+                //   'menuicon': '',
+                //   'children': [],
+                //   'actions': [
+                //     {"_id": "PFANS2009_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                //     {"_id": "PFANS2009_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                //     {"_id": "PFANS2009_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                //     {"_id": "PFANS2009_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+                //   ]
+                // },
+                //3.28 gbb
               ]
             },
           ]

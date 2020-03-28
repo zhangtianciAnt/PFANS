@@ -186,6 +186,14 @@
                     this.startoption = [];
                     this.selectedList = {};
                     this.selectedList.totalcost = [];
+                  if(this.$refs.roletable.selectedList.length === 0){
+                    Message({
+                      message: this.$t('normal.info_01'),
+                      type: 'info',
+                      duration: 2 * 1000
+                    });
+                    return;
+                  }
                     this.selectedlist = this.$refs.roletable.selectedList;
                     for (let i = 0; i < this.selectedlist.length; i++) {
                         this.selectedList.totalcost.push({
@@ -378,7 +386,7 @@
                                         type: obj.type,
                                     })
                                 }
-                                
+
                                 let filterVal = ['invoicenumber', 'number', 'invoicetype', 'rowtype', 'invoicedate', 'conditiondate', 'vendorcode', 'paymentmethod', 'currency',
                                     'invoiceamount', 'lineamount', 'currencyrate', 'companysegment', 'budgetcoding', 'subjectnumber',
                                     , 'productsegment', 'vatnumber', 'taxCode', 'paymentterms', 'remark', 'source', 'paymentmethods', 'type'];

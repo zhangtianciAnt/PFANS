@@ -42,16 +42,9 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.budgetunit')" prop="company">
-                <dicselect
-                  :code="code"
-                  :data="form.company"
-                  :disabled="!disable"
-                  :multiple="multiple"
-                  @change="change"
-                  style="width:20vw"
-                >
-                </dicselect>
+              <el-form-item :label="$t('label.PFANS1012FORMVIEW_BUDGET')">
+                <el-input :disabled="true" maxlength="20" style="width:20vw"
+                          v-model="form.company"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -124,7 +117,7 @@
   import moment from "moment";
   import {Message} from 'element-ui';
   import user from "../../../components/user.vue";
-  import {getOrgInfoByUserId} from '@/utils/customize'
+  import {getOrgInfoByUserId,getOrgInfo} from '@/utils/customize'
 
   export default {
     name: "PFANS3004FormView",
@@ -174,11 +167,6 @@
           userid: [{
             required: true,
             validator: validateUserid,
-            trigger: 'change'
-          }],
-          company: [{
-            required: true,
-            message: this.$t('normal.error_08') + this.$t('label.budgetunit'),
             trigger: 'change'
           }],
           applicationdate: [{
@@ -249,6 +237,9 @@
         this.userlist = this.$store.getters.userinfo.userid;
         if (this.userlist !== null && this.userlist !== '') {
           let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+            if(getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)){
+                this.form.company = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
+            }
             if(rst) {
                 this.centerid = rst.centerNmae;
                 this.groupid = rst.groupNmae;
@@ -295,6 +286,9 @@
         this.form.userid = val;
         this.userlist = val;
         let rst = getOrgInfoByUserId(val);
+          if(getOrgInfo(getOrgInfoByUserId(val).groupId)){
+              this.form.company = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
+          }
           if(rst) {
               this.centerid = rst.centerNmae;
               this.groupid = rst.groupNmae;
@@ -315,9 +309,6 @@
         } else {
           this.error = "";
         }
-      },
-      change(val) {
-        this.form.company = val;
       },
       change2(val) {
         this.form.stationerytype = val;
@@ -380,6 +371,13 @@
                   this.loading = false;
                 })
             }
+          }
+          else{
+              Message({
+                  message: this.$t("normal.error_12"),
+                  type: 'error',
+                  duration: 5 * 1000
+              });
           }
         });
       }

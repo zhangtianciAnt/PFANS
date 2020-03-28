@@ -6,8 +6,7 @@
                          ref="container"
                          v-loading="loading">
       <div slot="customize">
-        <el-form :model="form1" :rules="rules1" label-position="top" label-width="6vw" ref="refform1"
-                 style="padding: 2vw">
+        <el-form :model="form1" :rules="rules1" label-position="top" label-width="6vw" ref="refform1">
           <el-dialog :title="$t('button.application')" :visible.sync="dialogVisibleC">
             <el-form-item :label="$t('label.PFANS1024VIEW_NUMBER')" :label-width="formLabelWidth" :error="errorclaimtype" prop="claimtype">
               <dicselect
@@ -770,7 +769,8 @@
         }
       };
       var checkApplicationdate =(rule, value, callback) => {
-          if (!this.form1.applicationdate || this.form1.applicationdate === '' || !this.form1.entrycondition || this.form1.entrycondition === '') {
+//          if (!this.form1.applicationdate || this.form1.applicationdate === '' || !this.form1.entrycondition || this.form1.entrycondition === '') {
+          if (value === '') {
               callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1024VIEW_CAREERYEAR')));
               this.errorapplicationdate = this.$t('normal.error_09') + this.$t('label.PFANS1024VIEW_CAREERYEAR');
           } else {
@@ -1046,7 +1046,7 @@
         code6: 'HT009',
         code7: 'HT010',
         code8: 'HT011',
-        code9: 'HT006',
+        code9: 'PG019',
         code10: 'HT017',
         show1: true,
         show2: false,
@@ -1336,7 +1336,7 @@
       getsupplierinfor() {
         this.loading = true;
         this.$store
-          .dispatch('PFANS6003Store/getsupplierinfor')
+          .dispatch('PFANS6003Store/getsupplierinfor2')
           .then(response => {
             for (let j = 0; j < response.length; j++) {
               if (response[j].supplierinfor_id !== null && response[j].supplierinfor_id !== '') {
@@ -1724,6 +1724,11 @@
             }
           } else {
             this.dialogVisibleC = true;
+              Message({
+                  message: this.$t("normal.error_12"),
+                  type: 'error',
+                  duration: 5 * 1000
+              });
           }
         });
       },
@@ -1849,15 +1854,6 @@
           Message({
             message: this.$t('label.PFANS1026FORMVIEW_QXSQFH'),
             type: 'success',
-            duration: 5 * 1000,
-          });
-          this.loading = false;
-          this.dialogBook = false;
-          return;
-        } else if (this.form.tabledata.currencyposition == undefined || this.form.tabledata.contractdate == undefined || this.form.tableclaimtype.deliverydate == undefined) {
-          Message({
-            message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_CONTR'),
-            type: 'error',
             duration: 5 * 1000,
           });
           this.loading = false;
@@ -2113,6 +2109,7 @@
       },
       validateByType: function(type, cb) {
         let that = this;
+        let countIndex = 0;
         let rowCount = that.form.tabledata.length || 0;
         let rowCount2 = that.form.tableclaimtype.length || 0;
         let myRule = this.ruleSet[type] || [];
@@ -2132,6 +2129,9 @@
               var itIndex = dataName + '.' + k + '.' + item;
               let pro = new Promise(function(resolve, reject) {
                 that.$refs['refform'].validateField(itIndex, function(msg) {
+                  if(msg != ""){
+                    countIndex++;
+                  }
                   resolve(msg);
                 });
               });
@@ -2141,6 +2141,9 @@
             var itIndex = dataName + '.' + (rowCount - 1) + '.' + item;
             let pro = new Promise(function(resolve, reject) {
               that.$refs['refform'].validateField(itIndex, function(msg) {
+                if(msg != ""){
+                  countIndex++;
+                }
                 resolve(msg);
               });
             });
@@ -2161,7 +2164,13 @@
           });
           cb(isOk);
         });
-
+        if(countIndex > 0){
+          Message({
+            message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_CONTR'),
+            type: 'error',
+            duration: 5 * 1000,
+          });
+        }
       },
     },
   };

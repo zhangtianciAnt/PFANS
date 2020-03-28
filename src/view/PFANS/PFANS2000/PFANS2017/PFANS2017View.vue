@@ -1,6 +1,6 @@
 <template>
   <div>
-    <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" ref="roletable"
+    <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" ref="roletable" @rowClick="rowClick"
                      :title="title" @buttonClick="buttonClick" v-loading="loading" :showSelection="isShow">
     </EasyNormalTable>
     <el-dialog :visible.sync="daoru" width="50%">
@@ -81,6 +81,8 @@
                 Message: false,
                 cuowu: '',
                 downloadLoading: false,
+                punchcardrecord_date: '',
+                jobnumber: '',
                 loading: false,
                 title: "title.PFANS2017VIEW",
                 data: [],
@@ -138,7 +140,8 @@
                 buttonList: [
                     {'key': 'import', 'name': 'button.import', 'disabled': false, icon: 'el-icon-upload2'},
                     {'key': 'export', 'name': 'button.export', 'disabled': false, icon: 'el-icon-download'},
-                    {'key': 'export2', 'name': 'button.download2', 'disabled': false, icon: 'el-icon-download'}
+                    {'key': 'export2', 'name': 'button.download2', 'disabled': false, icon: 'el-icon-download'},
+                    {'key': 'detail', 'name': 'label.PFANS2017VIEW_DETAIL', 'disabled': false, icon: 'el-icon-s-grid'}
                 ],
                 isShow: true,
             };
@@ -147,6 +150,10 @@
             this.getFpans2017List();
         },
         methods: {
+            rowClick(row) {
+                this.jobnumber = row.jobnumber;
+                this.punchcardrecord_date = row.punchcardrecord_date;
+            },
             getFpans2017List() {
                 this.loading = true;
                 this.$store
@@ -261,11 +268,19 @@
                 }))
             },
             buttonClick(val) {
-                if (val === 'import') {
-                    this.daoru = true;
-                    this.clear(false);
-                } else
+                // if (val === 'import') {
+                //     this.daoru = true;
+                //     this.clear(false);
+                // } else
                   if (val === 'export') {
+                    if(this.$refs.roletable.selectedList.length === 0){
+                      Message({
+                        message: this.$t('normal.info_01'),
+                        type: 'info',
+                        duration: 2 * 1000
+                      });
+                      return;
+                    }
                     this.selectedlist = this.$refs.roletable.selectedList;
                     import('@/vendor/Export2Excel').then(excel => {
                         const tHeader = [this.$t('label.user_name'), this.$t('label.center'), this.$t('label.group'), this.$t('label.team'), this.$t('label.date'), this.$t('label.PFANS2017VIEW_START'), this.$t('label.PFANS2017VIEW_END')];
@@ -275,22 +290,41 @@
                         excel.export_json_to_excel(tHeader, data, this.$t('menu.PFANS2017'));
                     })
                 }
-                  else if('export2' === val){
-                  this.loading = true;
-                  this.$store
-                    .dispatch('PFANS2017Store/download', {})
-                    .then(response => {
-                      this.loading = false;
-                    })
-                    .catch(error => {
-                      Message({
-                        message: error,
-                        type: 'error',
-                        duration: 5 * 1000
-                      });
-                      this.loading = false;
+                if (val === 'detail') {
+                    if (this.jobnumber === '') {
+                        Message({
+                            message: this.$t('normal.info_01'),
+                            type: 'info',
+                            duration: 2 * 1000
+                        });
+                        return;
+                    }
+                    this.$store.commit('global/SET_HISTORYURL', this.$route.path);
+                    this.$router.push({
+                        name: 'PFANS2017FormView',
+                        params: {
+                            jobnumber: this.jobnumber,
+                            punchcardrecord_date: this.punchcardrecord_date,
+                        }
                     })
                 }
+
+                //   else if('export2' === val){
+                //   this.loading = true;
+                //   this.$store
+                //     .dispatch('PFANS2017Store/download', {})
+                //     .then(response => {
+                //       this.loading = false;
+                //     })
+                //     .catch(error => {
+                //       Message({
+                //         message: error,
+                //         type: 'error',
+                //         duration: 5 * 1000
+                //       });
+                //       this.loading = false;
+                //     })
+                // }
             }
         }
     }

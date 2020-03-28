@@ -245,6 +245,7 @@
             this.$store
               .dispatch('PFANS5001Store/getTimestart', info)
               .then(response => {
+                debugger
                 this.Datatable = [];
                 for(let i = 0; i < response.length; i ++){
                   let letinitial = [

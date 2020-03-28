@@ -1,6 +1,6 @@
 <template>
   <EasyNormalTable :title="title" :columns="columns" :data="data" :rowid="row" :buttonList="buttonList"
-                   @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" :showSelection="isShow" :showIndex="isShow">
+                   @buttonClick="buttonClick" @handleSelectionChange="handleSelectionChange" @rowClick="rowClick" v-loading="loading" :showSelection="isShow" :showIndex="isShow">
   </EasyNormalTable>
 </template>
 
@@ -127,7 +127,11 @@
           })
     },
     methods: {
+      handleSelectionChange(val){
+        this.selectedlist = val;
+      },
       rowClick(row) {
+        debugger
         this.rowid = row.quotationid;
       },
       buttonClick(val) {
@@ -167,9 +171,10 @@
           })
         }
         if (val === 'export') {
+          debugger
           this.loading = true;
           this.$store
-            .dispatch('PFANS1027Store/downLoad', this.form)
+            .dispatch('PFANS1027Store/downLoad', this.selectedlist[0])
             .then(response => {
               this.loading = false;
             })

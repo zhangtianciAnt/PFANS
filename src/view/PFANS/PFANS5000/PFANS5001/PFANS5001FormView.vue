@@ -1153,7 +1153,8 @@
                 claimdate: '',
                 supportdate: '',
                 claimamount:0
-              }],//内采合同
+              }],
+                //内采合同
                 // centerorglist: '',
                 // grouporglist: '',
                 // teamorglist: '',
@@ -1484,6 +1485,7 @@
                   field: '',
                   languages: '',
                   startdate: '',
+                  toolstype: '',
                     // 事业国别
                     country: '',
                     //车载
@@ -2462,6 +2464,28 @@
                             }
                         }
                         this.form.manmonth = manMonth;
+                        if(this.form.toolstype === '0'){
+                          this.form.toolsorgs = ' ';
+                          this.tableclaimtype = [{
+                            claimtype: '',
+                            deliverydate: '',
+                            completiondate: '',
+                            claimdate: '',
+                            supportdate: '',
+                            claimamount: '',
+                          }];
+                        }
+                        if(this.form.toolstype === '1'){
+                          this.form.entrust = ' ';
+                          this.form.deployment = ' ';
+                          this.form.behalf = ' ';
+                          this.form.intelligence = ' ';
+                            this.tableD = [{
+                            contract: '',
+                            theme: '',
+                            workinghours: '',
+                          }];
+                      }
                         this.baseInfo.companyprojects = JSON.parse(JSON.stringify(this.form));
                         this.baseInfo.stageinformation = [];
                         this.baseInfo.projectsystem = [];
@@ -2551,6 +2575,7 @@
                         }
                         let error1 = 0;
                         let error2 = 0;
+                        let error3 = 0;
                         for (let i = 0; i < this.tableB.length; i++) {
                             if (this.tableB[i].name == '' && this.tableB[i].admissiontime == '' && this.tableB[i].exittime == '') {
                               error1 = error1 + 1;
@@ -2561,6 +2586,11 @@
                               error2 = error2 + 1;
                           }
                         }
+                      for (let i = 0; i < this.tableclaimtype.length; i++) {
+                        if (this.tableclaimtype[i].claimtype == '' || this.tableclaimtype[i].deliverydate == '' || this.tableclaimtype[i].completiondate == '' || this.tableclaimtype[i].claimdate == '' || this.tableclaimtype[i].supportdate == '' || this.tableclaimtype[i].claimamount == '') {
+                          error3 = error3 + 1;
+                        }
+                      }
                         if (error1 != 0 && error2 != 0) {
                           this.loading = false;
                           Message({
@@ -2577,7 +2607,16 @@
                           type: 'error',
                           duration: 5 * 1000,
                         });
-                      } else if (this.$route.params._id) {
+                      } else if (error3 != 0 && this.form.toolstype !== '0') {
+                          this.loading = false;
+                          Message({
+                            message: this.$t('normal.error_08') +
+                              this.$t('label.PFANS5001FORMVIEW_CONTRACT') +
+                              this.$t('label.PFANS1024VIEW_CONTR'),
+                            type: 'error',
+                            duration: 5 * 1000,
+                          });
+                        } else if (this.$route.params._id) {
                             this.baseInfo.companyprojects.companyprojects_id = this.$route.params._id;
                             this.form.center_id = this.centerorglist;
                             this.form.group_id = this.grouporglist;
@@ -2629,6 +2668,13 @@
                                     this.loading = false;
                                 });
                         }
+                    }
+                    else{
+                        Message({
+                            message: this.$t("normal.error_12"),
+                            type: 'error',
+                            duration: 5 * 1000
+                        });
                     }
                 });
             },

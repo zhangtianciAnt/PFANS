@@ -267,6 +267,12 @@
                                             if (this.transferData[i].key === response[j].project_id) {
                                                 response[j].project_id = this.transferData[i].label;
                                             }
+                                            if(response[j].project_id ==='PP024001'){
+                                              if (this.$i18n){
+
+                                                response[j].project_id =  this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')
+                                              }
+                                            }
                                         }
                                         let lst = getOrgInfoByUserId(response[j].createby);
                                         let user = getUserInfo(response[j].createby)
@@ -363,6 +369,14 @@
                         }
                     });
                 } else if (val === 'export') {
+                  if(this.$refs.roletable.selectedList.length === 0){
+                    Message({
+                      message: this.$t('normal.info_01'),
+                      type: 'info',
+                      duration: 2 * 1000
+                    });
+                    return;
+                  }
                     this.selectedlist = this.$refs.roletable.selectedList;
                     import('@/vendor/Export2Excel').then(excel => {
                         const tHeader = [this.$t('label.user_name'), this.$t('label.center'),  this.$t('label.group'),  this.$t('label.team'), this.$t('label.PFANS5008VIEW_PROGRAM'), this.$t('label.PFANS5008VIEW_RIQI'), this.$t('label.PFANS5008FORMVIEW_SC'),this.$t('label.PFANS5008VIEW_GZBZ')];

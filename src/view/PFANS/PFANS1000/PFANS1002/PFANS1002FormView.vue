@@ -20,17 +20,20 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.center')">
-                      <el-input :disabled="true" style="width: 20vw" v-model="form.center_id"></el-input>
+                      <el-input :disabled="true" style="width:20vw" v-model="centerid"></el-input>
+                      <el-input v-show='false' :disabled="true" style="width: 20vw" v-model="form.center_id"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.group')">
-                      <el-input :disabled="true" style="width: 20vw" v-model="form.group_id"></el-input>
+                      <el-input :disabled="true" style="width:20vw" v-model="groupid"></el-input>
+                      <el-input v-show='false' :disabled="true" style="width: 20vw" v-model="form.group_id"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.team')">
-                      <el-input :disabled="true" style="width: 20vw" v-model="form.team_id"></el-input>
+                      <el-input :disabled="true" style="width:20vw" v-model="teamid"></el-input>
+                      <el-input v-show='false' :disabled="true" style="width: 20vw" v-model="form.team_id"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -265,16 +268,8 @@
               <div>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.budgetunit')" prop="budgetunit">
-                      <dicselect
-                        :code="code4"
-                        :data="form.budgetunit"
-                        :disabled="!disable"
-                        :multiple="multiple"
-                        @change="getbudgetunit"
-                        style="width: 20vw"
-                      >
-                      </dicselect>
+                    <el-form-item :label="$t('label.PFANS1012FORMVIEW_BUDGET')" >
+                      <el-input :disabled="true" style="width:20vw" v-model="form.budgetunit" maxlength='50'></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -381,27 +376,8 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1002VIEW_DOLLARFXRATE')" prop="dollarfxrate" v-if="show4">
-                      <el-input :disabled="true" style="width: 20vw" v-model="form.dollarfxrate"></el-input>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1002VIEW_JPYFXRATE')" prop="jpyfxrate" v-if="show5">
-                      <el-input :disabled="true" style="width: 20vw" v-model="form.jpyfxrate"></el-input>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1002VIEW_OTHERFXRATE')" prop="otherfxrate" v-if="show6">
-                      <el-input-number
-                        :disabled="!disable"
-                        :max="99999"
-                        :min="0"
-                        :step="0.01"
-                        controls-position="right"
-                        style="width: 20vw"
-                        v-model="form.otherfxrate"
-                        @change="getotherfxrate">
-                      </el-input-number>
+                    <el-form-item :label="$t('label.PFANS1012VIEW_CURRENCYRATE')" v-if="show4">
+                      <el-input :disabled="true" style="width: 20vw" v-model="form.otherfxrate"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -743,7 +719,7 @@
     import user from '../../../components/user.vue';
     import {Message} from 'element-ui';
     import moment from 'moment';
-    import {getOrgInfoByUserId} from '@/utils/customize';
+    import {getOrgInfoByUserId,getOrgInfo} from '@/utils/customize';
     import dicselect from '../../../components/dicselect';
     import {getDictionaryInfo} from '../../../../utils/customize';
 
@@ -823,33 +799,36 @@
                 callback();
             };
             return {
+                centerid: '',
+                groupid: '',
+                teamid: '',
                 disable: false,
                 error: '',
-                selectType: 'Single',
-                title: 'title.PFANS1002VIEW',
-                userlist: '',
-                activeName: 'first',
-                loading: false,
-                disabled: false,
-                code1: 'PJ016',
-                code2: 'PJ017',
-                code3: 'PJ018',
-                code4: 'PG002',
-                code5: 'PR002',
-                code6: 'PR003',
-                code7: 'PJ003',
-                code8: 'PJ019',
-                code9: 'PJ020',
-                code10: 'PJ021',
-                code11: 'PJ022',
-                code12: 'PJ023',
-                multiple: false,
-                search: '',
-                gridData: [],
-                dialogTableVisible: false,
-                form: {
-                    center_id: '',
-                    group_id: '',
+              selectType: 'Single',
+              title: 'title.PFANS1002VIEW',
+              userlist: '',
+              activeName: 'first',
+              loading: false,
+              disabled: false,
+              code1: 'PJ016',
+              code2: 'PJ017',
+              code3: 'PJ018',
+              code4: 'PG002',
+              code5: 'PJ138',
+              code6: 'PR003',
+              code7: 'PG019',
+              code8: 'PJ019',
+              code9: 'PJ035',
+              code10: 'PJ021',
+              code11: 'PJ022',
+              code12: 'PJ023',
+              multiple: false,
+              search: '',
+              gridData: [],
+              dialogTableVisible: false,
+              form: {
+                center_id: '',
+                group_id: '',
                     team_id: '',
                     user_id: '',
                     applicationdate: moment(new Date()).format('YYYY-MM-DD'),
@@ -875,8 +854,6 @@
                     moneys: '',
                     foreigncurrency: '',
                     currency: '',
-                    dollarfxrate: '',
-                    jpyfxrate: '',
                     otherfxrate: '',
                     bookingday: '',
                     actuarialdate: '',
@@ -1022,13 +999,6 @@
                             trigger: 'blur',
                         },
                     ],
-                    budgetunit: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_09') + this.$t('label.budgetunit'),
-                            trigger: 'change',
-                        },
-                    ],
                     plantype: [
                         {
                             required: true,
@@ -1069,13 +1039,6 @@
                             required: true,
                             message: this.$t('normal.error_09') + this.$t('label.PFANS1002VIEW_CURRENCY'),
                             trigger: 'change',
-                        },
-                    ],
-                    otherfxrate: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS1002VIEW_OTHERFXRATE'),
-                            trigger: 'blur',
                         },
                     ],
                     bookingday: [
@@ -1252,8 +1215,6 @@
                 show2: false,
                 show3: false,
                 show4: false,
-                show5: false,
-                show6: false,
                 show7: false,
                 show8: false,
                 show9: false,
@@ -1273,6 +1234,12 @@
                             return;
                         }
                         this.form = response.business;
+                        let rst = getOrgInfoByUserId(response.business.user_id);
+                        if(rst){
+                            this.centerid = rst.centerNmae;
+                            this.groupid= rst.groupNmae;
+                            this.teamid= rst.teamNmae;
+                        }
                         if (response.travelcontent.length > 0) {
                             this.tablePD = [];
                             for(let i = 0;i< response.travelcontent.length;i++){
@@ -1309,22 +1276,20 @@
                         } else {
                             this.show3 = false;
                         }
-                        if (this.form.currency === 'PJ003001') {
+                        if (this.form.currency === 'PG019001') {
                             this.show4 = true;
-                            this.show5 = false;
-                            this.show6 = false;
-                            this.form.dollarfxrate = getDictionaryInfo(this.form.currency).value2;
+                            this.form.otherfxrate = getDictionaryInfo(this.form.currency).value2;
                         }
-                        if (this.form.currency === 'PJ003002') {
-                            this.show4 = false;
-                            this.show5 = true;
-                            this.show6 = false;
-                            this.form.jpyfxrate = getDictionaryInfo(this.form.currency).value2;
+                        if (this.form.currency === 'PG019002') {
+                            this.show4 = true;
+                            this.form.otherfxrate = getDictionaryInfo(this.form.currency).value2;
                         }
-                        if (this.form.currency === 'PJ003003') {
-                            this.show4 = false;
-                            this.show5 = false;
-                            this.show6 = true;
+                        if (this.form.currency === 'PG019003') {
+                            this.show4 = true;
+                            this.form.otherfxrate = getDictionaryInfo(this.form.currency).value2;
+                        }
+                        if (this.form.currency === 'PG019004') {
+                            this.show4 = true;
                             this.form.otherfxrate = getDictionaryInfo(this.form.currency).value2;
                         }
                         if (this.form.provision === '1') {
@@ -1363,10 +1328,18 @@
             } else {
                 this.userlist = this.$store.getters.userinfo.userid;
                 if (this.userlist !== null && this.userlist !== '') {
-                    let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-                    this.form.center_id = lst.centerNmae;
-                    this.form.group_id = lst.groupNmae;
-                    this.form.team_id = lst.teamNmae;
+                    let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+                    if(getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)){
+                        this.form.budgetunit = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
+                    }
+                    if(rst) {
+                        this.centerid = rst.centerNmae;
+                        this.groupid= rst.groupNmae;
+                        this.teamid= rst.teamNmae;
+                        this.form.center_id = rst.centerId;
+                        this.form.group_id = rst.groupId;
+                        this.form.team_id = rst.teamId;
+                    }
                     this.form.user_id = this.$store.getters.userinfo.userid;
                 }
             }
@@ -1404,11 +1377,13 @@
                             ) ||
                             !this.form.balance)
                     ) ||
-                    this.form.currency === 'PJ003001' && (
-                        !this.form.dollarfxrate) ||
-                    !this.form.currency === 'PJ003002' && (
-                        !this.form.jpyfxrate) ||
-                    !this.form.currency === 'PJ003003' && (
+                    this.form.currency === 'PG019001' && (
+                        !this.form.otherfxrate) ||
+                    !this.form.currency === 'PG019002' && (
+                        !this.form.otherfxrate) ||
+                    !this.form.currency === 'PG019003' && (
+                        !this.form.otherfxrate) ||
+                    !this.form.currency === 'PG019004' && (
                         !this.form.otherfxrate) ||
                     !this.form.bookingday ||
                     !this.form.actuarialdate ||
@@ -1478,10 +1453,25 @@
             getUserids(val) {
                 this.form.user_id = val;
                 this.userlist = val;
-                let lst = getOrgInfoByUserId(val);
-                this.form.center_id = lst.centerNmae;
-                this.form.group_id = lst.groupNmae;
-                this.form.team_id = lst.teamNmae;
+                let rst = getOrgInfoByUserId(val);
+                if(getOrgInfo(getOrgInfoByUserId(val).groupId)){
+                    this.form.budgetunit = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
+                }
+                if(rst){
+                    this.centerid = rst.centerNmae;
+                    this.groupid = rst.groupNmae;
+                    this.teamid = rst.teamNmae;
+                    this.form.center_id = rst.centerId;
+                    this.form.group_id = rst.groupId;
+                    this.form.team_id = rst.teamId;
+                }else{
+                    this.centerid =  '';
+                    this.groupid =  '';
+                    this.teamid =  '';
+                    this.form.center_id = '';
+                    this.form.group_id =  '';
+                    this.form.team_id =  '';
+                }
                 if (!this.form.user_id || this.form.user_id === '' || val === 'undefined') {
                     this.error = this.$t('normal.error_09') + this.$t('label.applicant');
                 } else {
@@ -1504,9 +1494,6 @@
                     this.rules.objectivetypeother[0].required = false;
                     this.form.objectivetypeother = null;
                 }
-            },
-            getbudgetunit(val) {
-                this.form.budgetunit = val;
             },
             getplan1(val) {
                 this.form.plan = val;
@@ -1536,59 +1523,51 @@
             getforeigncurrency(val) {
                 this.form.foreigncurrency = val;
                 if (this.form.foreigncurrency != null && this.form.foreigncurrency !== '') {
-                    if (this.form.currency === 'PJ003001') {
-                        this.form.moneys = Math.round((val * this.form.dollarfxrate) * 10) / 10;
-                    }
-                    if (this.form.currency === 'PJ003002') {
-                        this.form.moneys = Math.round((val * this.form.jpyfxrate) * 10) / 10;
-                    }
-                    if (this.form.currency === 'PJ003003') {
+                    if (this.form.currency === 'PG019001') {
                         this.form.moneys = Math.round((val * this.form.otherfxrate) * 10) / 10;
                     }
-                }
-            },
-            getotherfxrate(val) {
-                this.form.otherfxrate = val;
-                if (this.form.foreigncurrency != null && this.form.foreigncurrency !== '') {
-                    if (this.form.currency === 'PJ003003') {
-                        this.form.moneys = Math.round((this.form.foreigncurrency * this.form.otherfxrate) * 10) / 10;
+                    if (this.form.currency === 'PG019002') {
+                        this.form.moneys = Math.round((val * this.form.otherfxrate) * 10) / 10;
+                    }
+                    if (this.form.currency === 'PG019003') {
+                        this.form.moneys = Math.round((val * this.form.otherfxrate) * 10) / 10;
+                    }
+                    if (this.form.currency === 'PG019004') {
+                        this.form.moneys = Math.round((val * this.form.otherfxrate) * 10) / 10;
                     }
                 }
             },
             getCurrency(val) {
                 this.form.currency = val;
-                if (val === 'PJ003001') {
+                if (val === 'PG019001') {
                     let dictionaryInfo = getDictionaryInfo(val);
                     if (dictionaryInfo) {
                         this.show4 = true;
-                        this.show5 = false;
-                        this.show6 = false;
-                        this.form.dollarfxrate = dictionaryInfo.value2;
-                        this.form.jpyfxrate = null;
-                        this.form.otherfxrate = null;
-                        this.form.moneys = Math.round((this.form.foreigncurrency * this.form.dollarfxrate) * 10) / 10;
+                        this.form.otherfxrate = dictionaryInfo.value2;
+                        this.form.moneys = Math.round((this.form.foreigncurrency * this.form.otherfxrate) * 10) / 10;
                     }
                 }
-                if (val === 'PJ003002') {
+                if (val === 'PG019002') {
                     let dictionaryInfo = getDictionaryInfo(val);
                     if (dictionaryInfo) {
-                        this.show4 = false;
-                        this.show5 = true;
-                        this.show6 = false;
-                        this.form.dollarfxrate = null;
-                        this.form.jpyfxrate = dictionaryInfo.value2;
-                        this.form.otherfxrate = null;
-                        this.form.moneys = Math.round((this.form.foreigncurrency * this.form.jpyfxrate) * 10) / 10;
+                        this.show4 = true;
+                        this.form.otherfxrate = dictionaryInfo.value2;
+                        this.form.moneys = Math.round((this.form.foreigncurrency * this.form.otherfxrate) * 10) / 10;
                     }
                 }
-                if (val === 'PJ003003') {
+                if (val === 'PG019003') {
                     let dictionaryInfo = getDictionaryInfo(val);
                     if (dictionaryInfo) {
-                        this.show4 = false;
-                        this.show5 = false;
-                        this.show6 = true;
-                        this.form.dollarfxrate = null;
-                        this.form.jpyfxrate = null;
+                        this.show4 = true;
+                        this.form.otherfxrate = dictionaryInfo.value2;
+                        this.form.moneys = Math.round((this.form.foreigncurrency * this.form.otherfxrate) * 10) / 10;
+                    }
+                }
+                if (val === 'PG019004') {
+                    let dictionaryInfo = getDictionaryInfo(val);
+                    if (dictionaryInfo) {
+                        this.show4 = true;
+                        this.form.otherfxrate = dictionaryInfo.value2;
                         this.form.moneys = Math.round((this.form.foreigncurrency * this.form.otherfxrate) * 10) / 10;
                     }
                 }
@@ -1763,6 +1742,13 @@
                                         this.loading = false;
                                     });
                             }
+                        }
+                        else{
+                            Message({
+                                message: this.$t("normal.error_12"),
+                                type: 'error',
+                                duration: 5 * 1000
+                            });
                         }
                     });
                 }

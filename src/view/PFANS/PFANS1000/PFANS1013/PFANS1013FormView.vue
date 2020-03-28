@@ -1029,7 +1029,7 @@
         centername: '',
         groupname: '',
         teamname: '',
-        optionsdate: [{value: '0000000000', lable: this.$t('label.PFANS1012FROMVIEW_COMMON')}],
+        optionsdate: [{value: 'PP024001', lable: this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')}],
         error: '',
         week: '',
         tableList: [],
@@ -1112,7 +1112,7 @@
           budgetcoding: this.encoding,
           evectionid: '',
           trafficdetails_id: '',
-          publicexpenseid: '',
+          // publicexpenseid: '',
           trafficdate: '',
           plsummary: this.$t('label.PFANS1013FORMVIEW_PLSUMMARY'),
           accountcode: '',
@@ -1120,12 +1120,12 @@
           invoicenumber: '',
           departmentname: '',
           taxes: '',
-          costitem: '',
+          // costitem: '',
           region: '',
           vehicle: '',
           startingpoint: '',
           rmb: '',
-          taxrate: '',
+          // taxrate: '',
           foreigncurrency: '',
           currency: '',
           annexno: '',
@@ -1147,13 +1147,13 @@
           facilitytype: '',
           facilityname: '',
           currency: '',
-          accommodation: '',
+          // accommodation: '',
           rmb: '',
           travel: '',
           annexno: '',
           rowindex: '',
           taxes: '',
-          costitem: '',
+          // costitem: '',
         },
           {
             evectionid: '',
@@ -1171,13 +1171,13 @@
             facilitytype: '',
             facilityname: '',
             currency: '',
-            accommodation: '',
+            // accommodation: '',
             rmb: '',
             travel: '',
             annexno: '',
             rowindex: '',
             taxes: '',
-            costitem: '',
+            // costitem: '',
           }],
         tableR: [{
           evectionid: '',
@@ -1189,10 +1189,10 @@
           plsummary: this.$t('label.PFANS1013FORMVIEW_PLSUMMARY'),
           accountcode: '',
           departmentname: '',
-          costitem: '',
+          // costitem: '',
           remarks: '',
           rmb: '',
-          taxrate: '',
+          // taxrate: '',
           foreigncurrency: '',
           annexno: '',
           taxes: '',
@@ -1503,6 +1503,7 @@
         this.$store
           .dispatch('PFANS5008Store/getCompanyProjectList', {})
           .then(response => {
+
             for (let i = 0; i < response.length; i++) {
               if (response[i].status == '4' || response[i].status == '6' || response[i].status == '7') {
                 this.optionsdate.push({
@@ -1563,13 +1564,13 @@
           facilitytype: '',
           facilityname: '',
           currency: '',
-          accommodation: '',
+          // accommodation: '',
           rmb: '',
           travel: '',
           annexno: '',
           rowindex: '',
           taxes: '',
-          costitem: '',
+          // costitem: '',
         },
           {
             evectionid: '',
@@ -1587,13 +1588,13 @@
             facilitytype: '',
             facilityname: '',
             currency: '',
-            accommodation: '',
+            // accommodation: '',
             rmb: '',
             travel: '',
             annexno: '',
             rowindex: '',
             taxes: '',
-            costitem: '',
+            // costitem: '',
           }],
           this.activeName = 'first',
           this.form.type = val;
@@ -1680,12 +1681,12 @@
             invoicenumber: '',
             departmentname: '',
             taxes: '',
-            costitem: '',
+            // costitem: '',
             region: '',
             vehicle: '',
             startingpoint: '',
             rmb: '',
-            taxrate: '',
+            // taxrate: '',
             currency: '',
             foreigncurrency: '',
             annexno: '',
@@ -1709,7 +1710,7 @@
             facilitytype: '',
             facilityname: '',
             currency: '',
-            accommodation: '',
+            // accommodation: '',
             rmb: '',
             travel: '',
             annexno: '',
@@ -1722,7 +1723,7 @@
         } else {
           this.tableR = [{
             otherdetailsdate: '',
-            costitem: '',
+            // costitem: '',
             plsummary: '',
             accountcode: '',
             rmb: '',
@@ -1778,12 +1779,12 @@
           subjectnumber: '',
           departmentname: this.groupId,
           taxes: '',
-          costitem: '',
+          // costitem: '',
           region: '',
           vehicle: '',
           startingpoint: '',
           rmb: '',
-          taxrate: '',
+          // taxrate: '',
           currency: '',
           foreigncurrency: '',
           annexno: '',
@@ -1808,13 +1809,13 @@
           facilitytype: '',
           facilityname: '',
           currency: '',
-          accommodation: '',
+          // accommodation: '',
           rmb: '',
           travel: '',
           annexno: '',
           rowindex: '',
           taxes: '',
-          costitem: '',
+          // costitem: '',
         });
       },
       addRow4() {
@@ -1827,12 +1828,11 @@
           plsummary: this.$t('label.PFANS1013FORMVIEW_PLSUMMARY'),
           accountcode: '',
           subjectnumber: '',
-
           departmentname: this.groupId,
-          costitem: '',
+          // costitem: '',
           remarks: '',
           rmb: '',
-          taxrate: '',
+          // taxrate: '',
           foreigncurrency: '',
           annexno: '',
           taxes: '',
@@ -2102,7 +2102,8 @@
           diffDate = 1;
         }
         if (this.form.type === '0') {
-          if (this.Redirict === '0' ? (row.accountcode === 'PJ132001') : (row.accountcode === 'PJ119001') && this.form.external === '0') {
+          //境内无规定外费用的场合，住宿标准check
+          if (this.Redirict === '0' ? (row.accountcode === 'PJ132001') : (row.accountcode === 'PJ119001') && this.form.external === '1') {
             if (row.facilitytype === 'PJ035001') {
               if (row.city !== '') {
                 if (row.city === 'PJ036001' || row.city === 'PJ036002' || row.city === 'PJ036003' || row.city === 'PJ036004') {
@@ -2144,18 +2145,30 @@
                 }
             }
           } else if (this.Redirict === '0' ? (row.accountcode === 'PJ132005') : (row.accountcode === 'PJ119005')) {
-            row.rmb = (150 * diffDate).toFixed(2);
+            row.rmb = (150 * diffDate + 1).toFixed(2);
           } else if (this.Redirict === '0' ? (row.accountcode === 'PJ132006') : (row.accountcode === 'PJ119006')) {
-            row.rmb = (Number(row.rmb + 100) * diffDate).toFixed(2);
+            row.rmb = (Number(row.rmb + 100) * (diffDate + 1)).toFixed(2);
           }
           }
         } else if (this.form.type === '1') {
           var accfig;
+          var firstBusinessflg;
+          var firstBusiNum;
           let accinfo = getDictionaryInfo(row.currency);
           if (accinfo) {
             accfig = accinfo.value2;
           }
-          if (this.Redirict === '0' ? (row.accountcode === 'PJ132001') : (row.accountcode === 'PJ119001') && this.form.external === '0') {
+          let firstBusiness = getDictionaryInfo('PR062001');
+          if(firstBusiness){
+            firstBusinessflg = firstBusiness.value1;
+          }
+          if(firstBusinessflg !== '' && firstBusinessflg !== undefined){
+            firstBusiNum = Number(firstBusinessflg);
+          } else {
+            firstBusiNum = 0;
+          }
+          //境外无规定外费用的场合，住宿标准check
+          if (this.Redirict === '0' ? (row.accountcode === 'PJ132001') : (row.accountcode === 'PJ119001') && this.form.external === '1') {
             if (row.facilitytype === 'PJ035001') {
               if (row.region === 'PJ017001') {
                 if (row.travel / diffDate > jpregion3) {
@@ -2214,16 +2227,16 @@
             }
           } else if (this.Redirict === '0' ? (row.accountcode === 'PJ132005') : (row.accountcode === 'PJ119005')) {
             if (this.rank === 'PJ016003') {
-              jpvalueflg2 = Number(jpregion12) + 100;
+                jpvalueflg2 = Number(jpregion12) + 100 + firstBusiNum;
             } else {
-              jpvalueflg2 = Number(jpregion12);
+              jpvalueflg2 = Number(jpregion12) + firstBusiNum;
             }
             if (jpvalueflg2 !== '' && jpvalueflg2 !== undefined) {
-              row.rmb = (Number(jpvalueflg2) * diffDate).toFixed(2);
+              row.rmb = (Number(jpvalueflg2) * (diffDate + 1) + firstBusiNum).toFixed(2);
             }
           } else if (this.Redirict === '0' ? (row.accountcode === 'PJ132006') : (row.accountcode === 'PJ119006')) {
             if (jpvalueflg2 !== '' && jpvalueflg2 !== undefined) {
-              row.rmb = (Number(jpvalueflg2 + 100) * diffDate).toFixed(2);
+              row.rmb = (Number(jpvalueflg2 + 100) * (diffDate + 1) + firstBusiNum).toFixed(2);
             }
           }
         }
@@ -2495,7 +2508,7 @@
                         activitycontent: this.tableA[i].activitycontent,
                         region: this.tableA[i].region,
                         //境内
-                        city: this.tableA[i].city,
+                        // city: this.tableA[i].city,
                         facilitytype: this.tableA[i].facilitytype,
                         facilityname: this.tableA[i].facilityname,
                         currency: this.tableA[i].currency,
@@ -2582,10 +2595,10 @@
                 let sumMoney = 0;
                 let sumout = 0;
                 for (let i = 0; i < this.tableT.length; i++) {
-                  if (this.tableT[i].trafficdate !== '' || this.tableT[i].region !== '' || this.tableT[i].vehicle !== '' || this.tableT[i].startingpoint !== ''
-                    || this.tableT[i].rmb > 0 || this.tableT[i].foreigncurrency > 0 || this.tableT[i].annexno !== ''
-                    || this.tableT[i].invoicenumber !== '' || this.tableT[i].departmentname !== '' || this.tableT[i].budgetcoding !== ''
-                    || this.tableT[i].taxes !== '' || this.tableT[i].currency !== '' || this.tableT[i].costitem !== '') {
+                  if (this.tableT[i].trafficdate !== '' || this.tableT[i].invoicenumber !== '' || this.tableT[i].departmentname !== '' || this.tableT[i].budgetcoding !== ''
+                    || this.tableT[i].rmb > 0 || this.tableT[i].foreigncurrency > 0 || this.tableT[i].annexno !== '' || this.tableT[i].plsummary !== ''
+                    || this.tableT[i].accountcode !== '' || this.tableT[i].subjectnumber !== '' || this.tableT[i].region !== ''|| this.tableT[i].vehicle !== ''
+                    || this.tableT[i].taxes >= 0 || this.tableT[i].startingpoint !== '' || this.tableT[i].currency !== '') {
                     if (this.tableT[i].invoicenumber == this.tableF[j].invoicenumber) {
                       if (this.tableT[i].rmb != '0') {
                         summoneyT += this.tableT[i].rmb;
@@ -2594,11 +2607,10 @@
                   }
                 }
                 for (let i = 0; i < this.tableA.length; i++) {
-                  if (this.tableA[i].accommodationdate !== '' || this.tableA[i].activitycontent !== '' || this.tableA[i].region !== ''
-                    || this.tableA[i].movementtime !== '' || this.tableA[i].city !== '' || this.tableA[i].facilitytype !== '' || this.tableA[i].facilityname !== '' || this.tableA[i].currency > 0
-                    || this.tableA[i].accommodation > 0 || this.tableA[i].rmb > 0 || this.tableA[i].travel > 0
-                    || this.tableA[i].annexno !== ''
-                    || this.tableA[i].invoicenumber !== '' || this.tableA[i].departmentname !== '' || this.tableA[i].taxes !== '' || this.tableA[i].costitem !== '') {
+                  if (this.tableA[i].accommodationdate !== '' || this.tableA[i].invoicenumber !== '' || this.tableA[i].departmentname !== ''
+                    || this.tableA[i].budgetcoding !== '' || this.tableA[i].plsummary !== '' || this.tableA[i].accountcode !== '' || this.tableA[i].subjectnumber !== ''
+                    || this.tableA[i].taxes >= 0 || this.tableA[i].rmb > 0 || this.tableA[i].travel > 0 || this.tableA[i].activitycontent !== ''|| this.tableA[i].currency !== ''
+                    || this.tableA[i].region !== '' || this.tableA[i].facilitytype !== '' || this.tableA[i].facilityname !== '' || this.tableA[i].annexno !== '') {
                     if (this.tableA[i].invoicenumber == this.tableF[j].invoicenumber) {
                       if (this.tableA[i].rmb != '0') {
                         summoney += this.tableA[i].rmb;
@@ -2608,10 +2620,10 @@
                   }
                 }
                 for (let i = 0; i < this.tableR.length; i++) {
-                  if (this.tableR[i].otherdetailsdate !== '' || this.tableR[i].costitem !== '' || this.tableR[i].remarks !== ''
-                    || this.tableR[i].rmb > 0 || this.tableR[i].foreigncurrency > 0 || this.tableR[i].annexno !== ''
-                    || this.tableR[i].invoicenumber !== '' || this.tableR[i].departmentname !== '' || this.tableR[i].currency !== ''
-                    || this.tableR[i].budgetcoding !== '' || this.tableR[i].subjectnumber !== '' || this.tableR[i].remarks !== '' || this.tableR[i].taxes !== '') {
+                  if (this.tableR[i].otherdetailsdate !== '' || this.tableR[i].accountcode !== '' || this.tableR[i].region !== ''
+                    || this.tableR[i].rmb > 0 || this.tableR[i].foreigncurrency > 0 || this.tableR[i].annexno !== '' || this.tableR[i].plsummary !== ''
+                    || this.tableR[i].invoicenumber !== '' || this.tableR[i].departmentname !== '' || this.tableR[i].budgetcoding !== ''
+                    || this.tableR[i].subjectnumber !== '' || this.tableR[i].currency !== '' || this.tableR[i].remarks !== '' || this.tableR[i].taxes >=0) {
                     if (this.tableR[i].invoicenumber == this.tableF[j].invoicenumber) {
                       if (this.tableR[i].rmb != '0') {
                         sumMoney += this.tableR[i].rmb;
@@ -2720,6 +2732,13 @@
                     });
                 }
               }
+            }
+            else{
+                Message({
+                    message: this.$t("normal.error_12"),
+                    type: 'error',
+                    duration: 5 * 1000
+                });
             }
           });
         }

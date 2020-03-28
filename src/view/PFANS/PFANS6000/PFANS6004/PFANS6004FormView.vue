@@ -11,7 +11,7 @@
             <el-col :span="8">
               <el-form-item :error="errorexpname" :label="$t('label.user_name')"
                             prop="expname">
-                <el-input :disabled="!disabled" maxlength='36' style="width: 20vw"
+                <el-input :disabled="true" maxlength='36' style="width: 20vw"
                           v-model="form.expname"></el-input>
               </el-form-item>
             </el-col>
@@ -487,7 +487,7 @@
           mintime: '',
         }],
         //性别
-        code1: 'BP001',
+        code1: 'PG020',
         //学历
         code2: 'PR022',
         // 面试结果
@@ -506,7 +506,7 @@
         code9: 'BP011',
         //業務影響
         code10: 'BP010',
-        code15: 'PJ105',
+        code15: 'PG021',
         //作业形态
         code20: 'BP024',
         //作业分类
@@ -927,6 +927,13 @@
                   this.loading = false;
                 });
             }
+          }
+          else{
+              Message({
+                  message: this.$t("normal.error_12"),
+                  type: 'error',
+                  duration: 5 * 1000
+              });
           }
         });
       },

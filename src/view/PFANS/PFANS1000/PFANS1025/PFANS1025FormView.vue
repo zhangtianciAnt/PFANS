@@ -285,9 +285,9 @@
                         border
                         show-summary
                         header-cell-class-name="sub_bg_color_blue" stripe>
-                <el-table-column :label="$t('label.PFANS1025VIEW_BUDGETCODE')" align="center" width="150">
+                <el-table-column :label="$t('label.PFANS1012FORMVIEW_BUDGET')" align="center" width="150">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disable" maxlength="20" style="width: 100%" v-model="scope.row.budgetcode">
+                    <el-input :disabled="true" maxlength="20" style="width: 100%" v-model="scope.row.budgetcode">
                     </el-input>
                   </template>
                 </el-table-column>
@@ -432,7 +432,7 @@
   import moment from "moment";
   import org from "../../../components/org";
   import project from '../../../components/project';
-  import {getDictionaryInfo,getUserInfo} from '@/utils/customize';
+  import {getDictionaryInfo,getUserInfo,getOrgInfo,getOrgInfoByUserId} from '@/utils/customize';
 
   export default {
     name: "PFANS1025FormView",
@@ -454,13 +454,14 @@
         }
       };
       return {
+        budgetcodingcheck:'',
         activeName: 'first',
         disabled: true,
         error: '',
         userlist: '',
         code1: 'HT008',
         code2: 'HT005',
-        code3: 'HT006',
+        code3: 'PG019',
         code4: 'HT018',
         errorgroup:'',
         selectType: "Single",
@@ -537,6 +538,10 @@
           .dispatch('PFANS1025Store/selectById', {'award_id': this.$route.params._id})
           .then(response => {
             this.form = response.award;
+            if(getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)){
+                  this.budgetcodingcheck = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
+              }
+            console.log("aaa",this.budgetcodingcheck)
             this.form.draftingdate = moment(new Date()).format('YYYY-MM-DD');
             var myDate = new Date();
             myDate.setDate(myDate.getDate() + 2);
@@ -651,6 +656,10 @@
       },
       getGroupId(orglist,row) {
         row.depart=orglist;
+          let group = getOrgInfo(orglist);
+          if (group) {
+              row.budgetcode = group.encoding;
+          }
       },
       workflowState(val) {
         if (val.state === '1') {
@@ -673,7 +682,7 @@
           rows.splice(index, 1);
         } else {
           this.tableT = [{
-            budgetcode: '',
+            budgetcode:'',
             depart: '',
             member: '',
             community: '',
@@ -794,6 +803,13 @@
                     this.loading=false;
                   })
               }
+            }
+            else{
+                Message({
+                    message: this.$t("normal.error_12"),
+                    type: 'error',
+                    duration: 5 * 1000
+                });
             }
           });
         } else if (val === 'generate') {

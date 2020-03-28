@@ -6,8 +6,7 @@
                          v-loading="loading"
                          :buttonList="buttonList">
       <div slot="customize">
-        <el-form :model="form1" :rules="rules1" label-width="8vw" label-position="top" style="padding: 2vw"
-                 ref="refform1">
+        <el-form :model="form1" :rules="rules1" label-width="8vw" label-position="top" ref="refform1">
           <el-dialog :title="$t('button.application')" :visible.sync="dialogFormVisible">
             <el-form-item :label="$t('label.PFANS1024VIEW_NUMBER')" :label-width="formLabelWidth" v-if="display" :error="errorclaimtype" prop="claimtype">
               <dicselect
@@ -929,7 +928,7 @@
         }
       };
         var checkApplicationdate =(rule, value, callback) => {
-            if (!this.form1.applicationdate || this.form1.applicationdate === '' || !this.form1.entrycondition || this.form1.entrycondition === '') {
+            if (value === '') {
                 callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1024VIEW_CAREERYEAR')));
                 this.errorapplicationdate = this.$t('normal.error_09') + this.$t('label.PFANS1024VIEW_CAREERYEAR');
             } else {
@@ -1230,7 +1229,7 @@
         code6: 'HT009',
         code7: 'HT010',
         code8: 'HT011',
-        code9: 'HT006',
+        code9: 'PG019',
         code10: 'HT012',
         code11: 'HT013',
         show1: true,
@@ -1675,7 +1674,7 @@
             'border-right': '1px solid #73B9FF',
           };
         }
-        if (column.level === 2 && columnIndex >= 2 && columnIndex < 3) {
+        if (column.level === 2 && columnIndex >= 2 && columnIndex <= 3) {
           return {
             color: 'white',
             background: '#99CC99',
@@ -1683,7 +1682,7 @@
             'border-right': '1px solid #73CC73',
           };
         }
-        if (column.level === 2 && columnIndex >= 3 && columnIndex < 8) {
+        if (column.level === 2 && columnIndex > 3 && columnIndex <= 6) {
           return {
             color: 'white',
             background: '#CC99FF',
@@ -1691,7 +1690,7 @@
             'border-bottom': '1px solid #99CCFF',
           };
         }
-        if (column.level === 2 && columnIndex >= 8 && columnIndex < 11) {
+        if (column.level === 2 && columnIndex >= 7 && columnIndex < 11) {
           return {
             color: 'white',
             background: '#CC9999',
@@ -1839,6 +1838,13 @@
                 this.handleClick();
               }
             }
+          }
+          else{
+              Message({
+                  message: this.$t("normal.error_12"),
+                  type: 'error',
+                  duration: 5 * 1000
+              });
           }
         });
       },
@@ -1997,22 +2003,23 @@
           this.loading = false;
           this.dialogBook = false;
           return;
-        } else if (this.form.loadingjudge == ''
-          || this.form.currencyposition == ''
-          || this.form.claimdatetime.length == 0
-          || this.form.custojapanese == ''
-          || this.form.custochinese == ''
-          || this.form.placejapanese == ''
-          || this.form.placechinese == '') {
-          Message({
-            message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_CONTR'),
-            type: 'error',
-            duration: 5 * 1000,
-          });
-          this.loading = false;
-          this.dialogBook = false;
-          return;
         }
+//        else if (this.form.loadingjudge == ''
+//          || this.form.currencyposition == ''
+//          || this.form.claimdatetime.length == 0
+//          || this.form.custojapanese == ''
+//          || this.form.custochinese == ''
+//          || this.form.placejapanese == ''
+//          || this.form.placechinese == '') {
+//          Message({
+//            message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_CONTR'),
+//            type: 'error',
+//            duration: 5 * 1000,
+//          });
+//          this.loading = false;
+//          this.dialogBook = false;
+//          return;
+//        }
         this.$store.dispatch('PFANS1026Store/existCheck', {contractNumber: contractNumber})
           .then(response => {
             let s = 'count' + index;
@@ -2360,9 +2367,10 @@
       },
       validateByType: function(type, cb) {
         let that = this;
+        let countIndex = 0;
         if (type == 6) {
           if (this.maketype === '1' || this.maketype === '2' || this.maketype === '3' || this.maketype === '4') {
-            if (this.form.tabledata[this.form.tabledata.length - 1].currencyposition === 'HT006001') {
+            if (this.form.tabledata[this.form.tabledata.length - 1].currencyposition === 'PG019003') {
               type = '61';
             } else {
               type = '62';
@@ -2389,6 +2397,9 @@
               console.log('va', itIndex);
               let pro = new Promise(function(resolve, reject) {
                 that.$refs['refform'].validateField(itIndex, function(msg) {
+                  if(msg != ""){
+                    countIndex++;
+                  }
                   resolve(msg);
                 });
               });
@@ -2399,6 +2410,9 @@
             console.log('va', itIndex);
             let pro = new Promise(function(resolve, reject) {
               that.$refs['refform'].validateField(itIndex, function(msg) {
+                if(msg != ""){
+                  countIndex++;
+                }
                 resolve(msg);
               });
             });
@@ -2422,6 +2436,13 @@
           cb(isOk);
         });
 
+        if(countIndex > 0){
+          Message({
+            message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_CONTR'),
+            type: 'error',
+            duration: 5 * 1000,
+          });
+        }
       },
     },
   };

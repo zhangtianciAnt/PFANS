@@ -716,7 +716,7 @@
             code6: 'HT009',
             code7: 'HT010',
             code8: 'HT011',
-            code9: 'HT006',
+            code9: 'PG019',
             show1: true,
             show2: false,
           tableB:[],
@@ -958,7 +958,7 @@
         getsupplierinfor() {
           this.loading = true;
           this.$store
-            .dispatch('PFANS6003Store/getsupplierinfor')
+            .dispatch('PFANS6003Store/getsupplierinfor2')
             .then(response => {
               for (let j = 0; j < response.length; j++) {
                 if (response[j].supplierinfor_id !== null && response[j].supplierinfor_id !== "") {
@@ -1400,6 +1400,11 @@
                       this.getChecked(false);
                       this.dialogVisibleC = false;
                   }else{
+                      Message({
+                          message: this.$t("normal.error_12"),
+                          type: 'error',
+                          duration: 5 * 1000
+                      });
                       this.dialogVisibleC = true;
                   }
               });

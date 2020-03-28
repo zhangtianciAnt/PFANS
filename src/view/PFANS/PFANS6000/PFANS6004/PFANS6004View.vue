@@ -173,6 +173,7 @@
           {'key': 'import', 'name': 'button.import', 'disabled': false, icon: 'el-icon-upload2'},
           {'key': 'export', 'name': 'button.export', 'disabled': false, icon: 'el-icon-download'},
           {'key': 'crAccount', 'name': 'button.crAccount', 'disabled': false, icon: 'el-icon-user'},
+          {'key': 'crAccount2', 'name': 'button.crAccount2', 'disabled': false, icon: 'el-icon-user'},
           // {'key': 'export2', 'name': 'button.download2', 'disabled': false, icon: 'el-icon-download'},
         ],
         rowid: '',
@@ -248,6 +249,7 @@
               }
               if (response[j].whetherentry == "BP006001") {
                 tabledate.push({
+                  expatriatesinfor_id: response[j].expatriatesinfor_id,
                   suppliername: response[j].suppliername,
                   expname: response[j].expname,
                   group_id: response[j].group_id,
@@ -359,6 +361,14 @@
         if (val === 'import') {
           this.daoru = true;
         } else if (val === 'export') {
+          if(this.$refs.roletable.selectedList.length === 0){
+            Message({
+              message: this.$t('normal.info_01'),
+              type: 'info',
+              duration: 2 * 1000
+            });
+            return;
+          }
           this.selectedlist = this.$refs.roletable.selectedList;
           import('@/vendor/Export2Excel').then(excel => {
             const tHeader = [
@@ -448,6 +458,7 @@
             name: 'PFANS6004FormView',
             params: {
               _id: this.rowid,
+              _name: this.rowname,
               disabled: false,
             },
           });

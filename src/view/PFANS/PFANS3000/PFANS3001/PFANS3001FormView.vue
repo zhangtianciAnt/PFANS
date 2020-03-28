@@ -41,15 +41,9 @@
                 </el-form-item>
               </el-col>
               <el-col :span="8">
-                <el-form-item :label="$t('label.budgetunit')" prop="budgetnumber">
-                  <dicselect
-                    :code="code"
-                    :data="form.budgetnumber"
-                    :disabled="!disable"
-                    :multiple="multiple"
-                    @change="getBudgetnumber"
-                    style="width:20vw">
-                  </dicselect>
+                <el-form-item :label="$t('label.PFANS1012FORMVIEW_BUDGET')" >
+                  <el-input :disabled="true" maxlength="20" style="width:20vw"
+                            v-model="form.budgetnumber"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -371,11 +365,6 @@
             message: this.$t('normal.error_08') + this.$t('label.PFANS3001FORMVIEW_ROMANID'),
             trigger: 'blur',
           }],
-          budgetnumber: [{
-            required: true,
-            message: this.$t('normal.error_09') + this.$t('label.budgetunit'),
-            trigger: 'change',
-          }],
           extensionnumber: [{
             required: true,
             message: this.$t('normal.error_08') + this.$t('label.PFANS3001VIEW_EXTENSIONNUMBER'),
@@ -541,9 +530,6 @@
       }
     },
     methods: {
-      getBudgetnumber(val) {
-        this.form.budgetnumber = val;
-      },
       handleClick(tab, event) {
         if (tab.name === 'first') {
           this.showDomestic = true;
@@ -662,6 +648,13 @@
                   this.loading = false;
                 });
             }
+          }
+          else{
+              Message({
+                  message: this.$t("normal.error_12"),
+                  type: 'error',
+                  duration: 5 * 1000
+              });
           }
         });
       },
