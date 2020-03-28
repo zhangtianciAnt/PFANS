@@ -44,10 +44,16 @@
             <el-table :data="tableD" header-cell-class-name="sub_bg_color_blue" border stripe style="width: 73vw" :summary-method="getSummaries" show-summary>
               <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" type="index" width="80">
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS1005VIEW_ITEM')" align="center" prop="projects">
+              <el-table-column :label="$t('label.PFANS1005VIEW_ITEM')" align="center" prop="projects" width="150">
                 <template slot-scope="scope">
-                  <el-input :disabled="!disable" maxlength="50" v-model="scope.row.projects">
-                  </el-input>
+                  <el-select v-model="scope.row.projects" clearable placeholder="请选择">
+                    <el-option
+                      v-for="item in options"
+                      :key="item.companyprojects_id"
+                      :label="item.project_name"
+                      :value="item.companyprojects_id">
+                    </el-option>
+                  </el-select>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1005VIEW_UNITPRICE')" align="center" prop="unitprice" width="200">
@@ -72,7 +78,7 @@
                   </el-input-number>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS2026FORMVIEW_REMARKS')" align="center" prop="remarks">
+              <el-table-column :label="$t('label.PFANS2026FORMVIEW_REMARKS')" align="center" prop="remarks" >
                 <template slot-scope="scope">
                   <el-input :disabled="!disable" v-model="scope.row.remarks">
                   </el-input>
@@ -131,6 +137,7 @@
         }
       };
       return {
+        options:[],
         sumTotal:[],
         centerid: '',
         groupid: '',
@@ -235,13 +242,17 @@
           this.form.user_id = this.$store.getters.userinfo.userid;
         }
       }
+      this.$store
+        .dispatch('PFANS5001Store/getFpans5001List', {'status': '4'})
+        .then(response => {
+          this.options = response;
+        })
     },
     methods: {
       getSummaries(param) {
         const { columns, data } = param;
         const sums = [];
         columns.forEach((column, index) => {
-          debugger
           if (index === 0) {
             sums[index] = this.$t('label.PFANS1012VIEW_ACCOUNT');
             return;
