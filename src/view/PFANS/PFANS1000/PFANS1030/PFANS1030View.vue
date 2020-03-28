@@ -65,7 +65,7 @@
             filter: true
           },
           {
-            code: 'pjnamejapanese',
+            code: 'pjnamechinese',
             label: 'label.PFANS1025VIEW_PJNAME',
             width: 120,
             fix: false,
@@ -98,47 +98,92 @@
           {'key': 'update', 'name': 'button.update', 'disabled': false, "icon": 'el-icon-edit'}
         ],
         rowid: '',
-        row_id: 'award_id'
+        row_id: 'award_id',
+        pjnameflg: []
       }
     },
     mounted() {
-      this.loading = true;
-      this.$store
-        .dispatch('PFANS1025Store/get', {'maketype':'4'})
-        .then(response => {
-          for (let j = 0; j < response.length; j++) {
-            if (response[j].award_id !== null && response[j].award_id !== "") {
-
-              if (response[j].contracttype !== null && response[j].contracttype !== "") {
-                let letContracttype = getDictionaryInfo(response[j].contracttype);
-                if (letContracttype != null) {
-                  response[j].contracttype = letContracttype.value1;
-                }
-              }
-              if (response[j].currencyposition !== null && response[j].currencyposition !== "") {
-                let letCurrencyposition = getDictionaryInfo(response[j].currencyposition);
-                if (letCurrencyposition != null) {
-                  response[j].currencyposition = letCurrencyposition.value1;
-                }
-              }
-              if (response[j].status !== null && response[j].status !== "") {
-                response[j].status = getStatus(response[j].status);
-              }
-            }
-          }
-          this.data = response;
-          this.loading = false;
-        })
-        .catch(error => {
-          Message({
-            message: error,
-            type: 'error',
-            duration: 5 * 1000
-          });
-          this.loading = false;
-        })
+      this.getPjanme();
     },
     methods: {
+      getPjanme(){
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS5001Store/getFpans5001List', {})
+          .then(response => {
+            for (let j = 0; j < response.length; j++) {
+              this.pjnameflg.push({
+                pjcode: response[j].companyprojects_id,
+                pjname: response[j].project_name,
+              });
+            }
+            this.$store
+              .dispatch('PFANS1025Store/get', {'maketype':'4'})
+              .then(response => {
+                for (let j = 0; j < response.length; j++) {
+                  if (response[j].award_id !== null && response[j].award_id !== "") {
+
+                    if (response[j].contracttype !== null && response[j].contracttype !== "") {
+                      let letContracttype = getDictionaryInfo(response[j].contracttype);
+                      if (letContracttype != null) {
+                        response[j].contracttype = letContracttype.value1;
+                      }
+                    }
+                    if (response[j].currencyposition !== null && response[j].currencyposition !== "") {
+                      let letCurrencyposition = getDictionaryInfo(response[j].currencyposition);
+                      if (letCurrencyposition != null) {
+                        response[j].currencyposition = letCurrencyposition.value1;
+                      }
+                    }
+                    if (response[j].status !== null && response[j].status !== "") {
+                      response[j].status = getStatus(response[j].status);
+                    }
+                    if (response[j].pjnamechinese !== null && response[j].pjnamechinese !== "") {
+                      if(response[j].pjnamechinese.split(",").length > 1){
+                        let aa = [];
+                        let bb = '';
+                        aa = response[j].pjnamechinese.split(",");
+                        for(let i = 1; i < aa.length; i++){
+                          for(let j = 1; j < this.pjnameflg.length; j++){
+                            if(aa[i] === this.pjnameflg[j].pjcode){
+                              bb = bb + this.pjnameflg[j].pjname +',';
+                            }
+                          }
+                        }
+                        if(bb !== '' && bb !== undefined){
+                          response[j].pjnamechinese = bb.substring(0,bb.length - 1);
+                        }
+                      } else {
+                        for(let i = 1; i < this.pjnameflg.length; i++){
+                          if(this.pjnameflg[i].pjcode === response[j].pjnamechinese){
+                            response[j].pjnamechinese = this.pjnameflg[i].pjname;
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+                this.data = response;
+                this.loading = false;
+              })
+              .catch(error => {
+                Message({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000
+                });
+                this.loading = false;
+              })
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000
+            });
+            this.loading = false;
+          })
+      },
       rowClick(row) {
         this.rowid = row.award_id;
       },
