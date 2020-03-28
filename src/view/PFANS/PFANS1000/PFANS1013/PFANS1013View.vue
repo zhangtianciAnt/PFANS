@@ -17,7 +17,7 @@
 <script>
   import EasyNormalTable from '@/components/EasyNormalTable'
   import {Message} from 'element-ui'
-  import {getDictionaryInfo, getStatus, getUserInfo,getOrgInfoByUserId} from '@/utils/customize'
+  import {getDictionaryInfo, getOrgInfoByUserId, getStatus, getUserInfo} from '@/utils/customize'
   import moment from "moment";
 
   const {Parser} = require('json2csv');
@@ -156,7 +156,7 @@
             if (nameflg) {
               response[j].centername = nameflg.centerNmae;
               response[j].groupname = nameflg.groupNmae;
-                response[j].teamname = nameflg.teamNmae;
+              response[j].teamname = nameflg.teamNmae;
             }
             // response[j].centername = response[j].centerid;
             // response[j].groupname = response[j].groupid;
@@ -168,10 +168,16 @@
             //   }
             // }
             if (response[j].type !== null && response[j].type !== "") {
-              if(response[j].type === '0'){
-                response[j].type = this.$t('label.PFANS1013VIEW_TYPEON');
-              } else if(response[j].type === '1'){
-                response[j].type = this.$t('label.PFANS1013VIEW_TYPEOFF');
+              if (response[j].type === '0') {
+                if (this.$i18n) {
+
+                  response[j].type = this.$t('label.PFANS1013VIEW_TYPEON');
+                }
+              } else if (response[j].type === '1') {
+                if (this.$i18n) {
+
+                  response[j].type = this.$t('label.PFANS1013VIEW_TYPEOFF');
+                }
               }
             }
             if (response[j].startdate !== null && response[j].startdate !== "") {
@@ -259,7 +265,7 @@
           this.startoption = [];
           this.selectedList = {};
           this.selectedList.travelcost = [];
-          if(this.$refs.roletable.selectedList.length === 0){
+          if (this.$refs.roletable.selectedList.length === 0) {
             Message({
               message: this.$t('normal.info_01'),
               type: 'info',
@@ -399,7 +405,7 @@
                 vendorcode: '',
                 paymentmethod: '',
                 currency: '',
-                invoiceamount: sum+1,
+                invoiceamount: sum + 1,
                 lineamount: invoiceamountvalue,
                 currencyrate: '',
                 companysegment: '',
