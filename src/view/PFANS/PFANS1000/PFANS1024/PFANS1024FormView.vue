@@ -368,7 +368,7 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.conjapanese'" :rules='rules.conjapanese'>
-                    <el-input :disabled="!disabled4" v-model="scope.row.conjapanese">
+                    <el-input  v-model="scope.row.conjapanese">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -376,7 +376,7 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_ENGLISH')" align="center" prop="conenglish" width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.conenglish'">
-                    <el-input :disabled="!disabled4" v-model="scope.row.conenglish">
+                    <el-input  v-model="scope.row.conenglish">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -384,10 +384,12 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center" prop="conchinese" width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.conchinese'" :rules='rules.conchinese'>
-                    <project style="width: 100%" :data="scope.row.conchinese" :no="scope.row" :multiple="true"
-                             v-model="scope.row.conchinese"
-                             @change="changePro" :disabled="!disabled">
-                    </project>
+<!--                    <project style="width: 100%" :data="scope.row.conchinese" :no="scope.row" :multiple="true"-->
+<!--                             v-model="scope.row.conchinese"-->
+<!--                             @change="changePro" :disabled="!disabled">-->
+<!--                    </project>-->
+                    <el-input  v-model="scope.row.conchinese">
+                    </el-input>
                   </el-form-item>
                 </template>
               </el-table-column>
@@ -691,14 +693,14 @@
       };
       var validateConjapanese = (rule, value, callback) => {
         if (value === '') {
-          callback(new Error(this.$t('label.PFANS1026FORMVIEW_XMHW')));
+          callback(new Error(this.$t('label.PFANS1026FORMVIEW_QYHW')));
         } else {
           callback();
         }
       };
       var validateConenglish = (rule, value, callback) => {
         if (value === '') {
-          callback(new Error(this.$t('label.PFANS1026FORMVIEW_XMHW')));
+          callback(new Error(this.$t('label.PFANS1026FORMVIEW_QYHW')));
         } else {
           callback();
         }
@@ -707,12 +709,12 @@
         debugger;
         if (Array.isArray(value)) {
           if (value.length == 0) {
-            callback(new Error(this.$t('label.PFANS1026FORMVIEW_XMHW')));
+            callback(new Error(this.$t('label.PFANS1026FORMVIEW_QYZW')));
             return;
           }
           value.map(function(item) {
             if (item === '') {
-              callback(new Error(this.$t('label.PFANS1026FORMVIEW_XMHW')));
+              callback(new Error(this.$t('label.PFANS1026FORMVIEW_QYZW')));
 
             }
           });
@@ -824,7 +826,7 @@
         ruleSet: {
           'save': ['contractnumber'],
           'makeinto': ['contractnumber'],
-          '7': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'contractdate', 'currencyposition', 'claimamount', 'deliverydate'],
+          '7': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'contractdate', 'currencyposition', 'claimamount', 'deliverydate','conchinese','conjapanese'],
         },
         rules1: {
             claimtype: [
@@ -2108,6 +2110,7 @@
         }
       },
       validateByType: function(type, cb) {
+        debugger
         let that = this;
         let countIndex = 0;
         let rowCount = that.form.tabledata.length || 0;
@@ -2120,6 +2123,7 @@
         this.$refs['refform'].clearValidate();
         let pros = [];
         myRule.forEach(function(item, index, array) {
+          debugger
           let dataName = 'tabledata';
           let maxCount = rowCount;
           if (['deliverydate', 'completiondate', 'claimdate', 'supportdate', 'claimamount'].indexOf(item) >= 0) {
