@@ -2117,7 +2117,7 @@ module.exports = {
     PFANS2006VIEW_ANNUAL: '年間累計税金（先月まで）',
     PFANS2006VIEW_ONLYTAX: '只纳税',
     PFANS2006VIEW_RESIDENTIALTAX: '住房公积金应纳税',
-    PFANS2006VIEW_COMPANYBOSS: '其他4公司负担社保（24元）',
+    PFANS2006VIEW_COMPANYBOSS: '其他4公司负担社保',
     PFANS2006VIEW_OTHER5: '其他5（保険:福祉)',
     PFANS2006VIEW_RESPONSIBLE: '当月应发工资（工资总额(纳税+免税)+只納税）',
     PFANS2006VIEW_CUMULATIVE: '累计应发工资（含当月）',
