@@ -2343,7 +2343,7 @@
             getexpatriatesinfor() {
                 this.loading = true;
                 this.$store
-                    .dispatch('PFANS6004Store/getexpatriatesinfor', {})
+                    .dispatch('PFANS6004Store/getWithoutAuth', {})
                     .then(response => {
                         this.gridData1 = [];
                         for (let i = 0; i < response.length; i++) {

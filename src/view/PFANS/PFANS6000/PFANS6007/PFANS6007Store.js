@@ -76,19 +76,19 @@ const PFANS6007Store = {
         })
       })
     },
-    getexpatriatesinfor() {
-      return new Promise((resolve, reject) => {
-        getexpatriatesinfor().then(response => {
-          if (response.code === 0) {
-            resolve(response.data);
-          } else {
-            reject(response.message)
-          }
-        }).catch(error => {
-          reject(error);
-        })
-      })
-    },
+    // getexpatriatesinfor() {
+    //   return new Promise((resolve, reject) => {
+    //     getexpatriatesinfor().then(response => {
+    //       if (response.code === 0) {
+    //         resolve(response.data);
+    //       } else {
+    //         reject(response.message)
+    //       }
+    //     }).catch(error => {
+    //       reject(error);
+    //     })
+    //   })
+    // },
   }
 };
 
