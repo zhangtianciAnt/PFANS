@@ -52,6 +52,7 @@
         </el-row>
       </el-col>
     </el-row>
+    <!--<el-row v-if="Object.keys(userinfo).length > 0">-->
     <el-row>
       <el-col :span="24" style="padding: 5px">
         <el-card class="box-card" shadow="hover">
@@ -149,6 +150,7 @@
     name: 'indexView',
     data() {
       return {
+        userinfo:{},
         png1:png1,
         png2:png2,
         png3:png3,
@@ -310,8 +312,44 @@
             });
           });
       },
+      //获取个人信息
+      InitUser() {
+        this.$store
+          .dispatch("personalCenterStore/getPersonalCenter")
+          .then(response => {
+            this.custominfo = response.customerInfo;
+            if (response.customerInfo) {
+              this.userinfo = response.customerInfo;
+              this.$store.commit(
+                "global/SET_USERINFO",
+                response.customerInfo
+              );
+            }
+
+            let roles = response.userAccount.roles; //系统角色
+            let rolename = "";
+            if (roles && roles.length > 0) {
+              roles.map(item => {
+                rolename = rolename + item.rolename + ",";
+              });
+              if (rolename.endsWith(",")) {
+                rolename = rolename.substring(0, rolename.length - 2);
+              }
+            }
+            this.avatarDep = rolename;
+          })
+          .catch(err => {
+            Message({
+              message: err,
+              type: "error",
+              duration: 5 * 1000
+            });
+          });
+      },
     },
     mounted() {
+      //获取个人信息
+      this.InitUser();
       this.$store.commit('global/SET_HISTORYURL', this.$route.path);
       this.getMessageData();
       this.getGSDT();

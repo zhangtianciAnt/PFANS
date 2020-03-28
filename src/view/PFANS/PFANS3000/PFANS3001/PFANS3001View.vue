@@ -219,10 +219,16 @@
               response[j].status = getStatus(response[j].status);
             }
             if (response[j].ticketstype === 'first') {
-              response[j].ticketstype = this.$t('label.PFANS3001FORMVIEW_DOMESTIC');
+              if (this.$i18n){
+                response[j].ticketstype = this.$t('label.PFANS3001FORMVIEW_DOMESTIC');
+              }
+
               response[j].idcard = response[j].idcard;
             } else {
-              response[j].ticketstype = this.$t('label.PFANS3001FORMVIEW_FOREIGN');
+              if (this.$i18n){
+                response[j].ticketstype = this.$t('label.PFANS3001FORMVIEW_FOREIGN');
+              }
+
               response[j].idcard = response[j].passport + '、' + moment(response[j].effectivedate).format('YYYY-MM-DD');
             }
             if (response[j].tripstart !== null && response[j].tripstart !== '' && response[j].tripend !== null && response[j].tripend !== '') {
