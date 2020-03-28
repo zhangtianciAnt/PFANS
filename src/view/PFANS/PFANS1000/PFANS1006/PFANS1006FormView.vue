@@ -244,17 +244,6 @@
       user,
     },
     data() {
-      var checkaccountnumber = (rule, value, callback) => {
-        if (this.form.accountnumber !== null && this.form.accountnumber !== '') {
-          if (!validateNumber(value)) {
-            callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS1012VIEW_ACCOUNTNUMBER')));
-          } else {
-            callback();
-          }
-        } else {
-          callback();
-        }
-      };
       var validatePayeecode = (rule, value, callback) => {
         this.regExp = /^[A-Za-z0-9]+$/;
         if (this.form.payeecode !== null && this.form.payeecode !== '') {
@@ -405,13 +394,6 @@
             message: this.$t('normal.error_08') + this.$t('label.PFANS1012VIEW_TELEPHONE'),
             trigger: 'blur',
           }],
-          accountnumber: [{
-            required: true,
-            message: this.$t('normal.error_08') + this.$t('label.PFANS1012VIEW_ACCOUNTNUMBER'),
-            trigger: 'blur',
-          },
-            {validator: checkaccountnumber, trigger: 'blur'},
-          ],
           reimbursement: [{
             required: true,
             message: this.$t('normal.error_09') + this.$t('label.PFANS1006FORMVIEW_REIMBURSEMENT'),
