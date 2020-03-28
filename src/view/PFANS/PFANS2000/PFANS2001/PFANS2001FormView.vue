@@ -304,7 +304,7 @@
                     needtotravel: '',
                     demandlevel: '',
                     suggestedsalary: '',
-                    turningday: moment(new Date()).format("YYYY-MM-DD"),
+                    turningday: '',
                     afterturningpositiv: '',
                     expectedarrivaltime: moment(new Date()).format("YYYY-MM-DD"),
                     skilllevel: '',
@@ -653,7 +653,6 @@
                             this.form.group_id = this.grouporglist;
                             this.form.team_id = this.teamorglist;
                             this.form.applicationtime = moment(this.form.applicationtime).format('YYYY-MM-DD');
-                            this.form.turningday = moment(this.form.turningday).format('YYYY-MM-DD');
                             this.form.expectedarrivaltime = moment(this.form.expectedarrivaltime).format('YYYY-MM-DD');
                             this.loading = true;
                             this.$store
@@ -680,10 +679,8 @@
                                     });
                                     this.loading = false;
                                 })
-
                         } else {
                             this.form.application_date = moment(this.form.application_date).format('YYYY-MM-DD');
-                            this.form.turningday = moment(this.form.turningday).format('YYYY-MM-DD');
                             this.form.expectedarrivaltime = moment(this.form.expectedarrivaltime).format('YYYY-MM-DD');
                             this.$store
                                 .dispatch('PFANS2001Store/createRecruit', this.form)
