@@ -455,7 +455,7 @@
   import user from '../../../components/user.vue';
   import {Message} from 'element-ui';
   import moment from 'moment';
-  import {getOrgInfoByUserId,getOrgInfo} from '@/utils/customize';
+  import {getOrgInfoByUserId,getOrgInfo,getDictionaryInfo} from '@/utils/customize';
   import dicselect from '../../../components/dicselect';
 
   export default {
@@ -1074,7 +1074,7 @@
             date.push(this.form.startdate);
             this.tablePD[0].duringdate = date;
             this.tablePD[0].place = this.$t('label.PFANS1035FORMVIEW_MOBILE');
-            this.tablePD[1].place = this.form.city;
+            this.tablePD[1].place =  getDictionaryInfo(this.form.city).value1;
             this.tablePD[2].place = this.$t('label.PFANS1035FORMVIEW_MOBILE');
 
             let date1 = [];

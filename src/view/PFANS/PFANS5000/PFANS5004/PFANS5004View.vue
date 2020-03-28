@@ -190,11 +190,13 @@
                         }
                     }
                     if (response[j].contractstatus !== null && response[j].contractstatus !== "") {
-                        if(response[j].contractstatus === "0") {
+                        if (response[j].contractstatus === "0") {
                             response[j].contractstatus = this.contractstatus0
-                        }else if(response[j].contractstatus === "1"){
+                        } else if (response[j].contractstatus === "1") {
                             response[j].contractstatus = this.contractstatus1
-                        }else {
+                        } else if (response[j].contractstatus === "3") {
+                            response[j].contractstatus = this.contractstatus3
+                        } else {
                             response[j].contractstatus = this.contractstatus2
                         }
                     }
