@@ -680,7 +680,6 @@
         }
       },
       changeType(type) {
-        debugger;
         switch (type) {
           case 'PR001003':
             type = '1';
@@ -696,9 +695,7 @@
       },
       getWorkingday() {
         this.$store.dispatch('PFANS2011Store/getList', {}).then(response => {
-          debugger;
           this.dataList = response;
-          console.log("111"+this.dataList);
           this.$store.commit('global/SET_DAYS', response);
         });
       },
