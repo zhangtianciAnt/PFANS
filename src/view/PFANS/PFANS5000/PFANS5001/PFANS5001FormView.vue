@@ -1855,7 +1855,7 @@
             getcustomerinfor() {
                 this.loading = true;
                 this.$store
-                    .dispatch('PFANS6002Store/getcustomerinfor', {})
+                    .dispatch('PFANS6002Store/getcustomerinfor2', {})
                     .then(response => {
                         this.gridData2 = [];
                         for (let i = 0; i < response.length; i++) {
