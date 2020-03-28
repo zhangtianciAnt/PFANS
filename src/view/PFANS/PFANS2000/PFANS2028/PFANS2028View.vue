@@ -21,7 +21,7 @@
     import EasyNormalTable from '@/components/EasyNormalTable';
     import moment from 'moment';
     import {getStatus, getUserInfo,getCooperinterviewList,getDepartmentById} from '@/utils/customize';
-
+    import {Message} from 'element-ui'
     export default {
         name: 'PFANS2028View',
         components: {

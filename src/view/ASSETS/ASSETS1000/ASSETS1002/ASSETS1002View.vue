@@ -74,13 +74,16 @@
           .dispatch('ASSETS1002Store/getInventoryplan', {})
           .then(response => {
             for(let j = 0; j < response.length; j++){
-              if(response[j].status === "0"){
-                response[j].status = this.$t('label.node_step4');
-              } else if(response[j].status === "2"){
-                response[j].status = this.$t('button.end');
-              } else if(response[j].status === "3"){
-                response[j].status = this.$t('button.trash');
+              if (this.$i18n){
+                if(response[j].status === "0"){
+                  response[j].status = this.$t('label.node_step4');
+                } else if(response[j].status === "2"){
+                  response[j].status = this.$t('button.end');
+                } else if(response[j].status === "3"){
+                  response[j].status = this.$t('button.trash');
+                }
               }
+
             }
             this.data = response;
             this.loading = false;
