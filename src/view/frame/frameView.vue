@@ -240,39 +240,7 @@
             });
           });
       },
-      //获取个人信息
-      InitUser() {
-        this.$store
-          .dispatch("personalCenterStore/getPersonalCenter")
-          .then(response => {
-            this.custominfo = response.customerInfo;
-            if (response.customerInfo) {
-              this.$store.commit(
-                "global/SET_USERINFO",
-                response.customerInfo
-              );
-            }
 
-            let roles = response.userAccount.roles; //系统角色
-            let rolename = "";
-            if (roles && roles.length > 0) {
-              roles.map(item => {
-                rolename = rolename + item.rolename + ",";
-              });
-              if (rolename.endsWith(",")) {
-                rolename = rolename.substring(0, rolename.length - 2);
-              }
-            }
-            this.avatarDep = rolename;
-          })
-          .catch(err => {
-            Message({
-              message: err,
-              type: "error",
-              duration: 5 * 1000
-            });
-          });
-      },
       //格式化列表字段
       formatter(row, column) {
         //标题
@@ -547,8 +515,7 @@
       this.handleSelect("homePage");
       //获取消息
       this.getMessageData();
-      //获取个人信息
-      this.InitUser();
+
 
       this.getUserList();
       this.getOrgList();

@@ -53,7 +53,7 @@
       }
 
       this.$store
-        .dispatch('PFANS5009Store/getSiteList', {})
+        .dispatch('PFANS5009Store/getSiteList2', {})
         .then(response => {
           var result = response.filter(value => {
             return value.status === "4";

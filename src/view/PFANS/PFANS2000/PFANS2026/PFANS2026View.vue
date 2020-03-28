@@ -133,15 +133,17 @@
                   response[j].sex = letsex.value1;
                 }
               }
-              if(response[j].stage!==null&&response[j].stage!==""){
-                if(response[j].stage=='0'){
-                  response[j].stage=this.$t('label.PFANS2026VIEW');
-                }else if(response[j].stage=='1'){
-                  response[j].stage=this.$t('label.PFANS2026VIEW_RIGHT');
-                }else if(response[j].stage=='2'){
-                  response[j].stage=this.$t('label.PFANS2026VIEW_DATA');
-                }else {
-                  response[j].stage=this.$t('label.PFANS2026VIEW_OUT');
+              if (this.$i18n){
+                if(response[j].stage!==null&&response[j].stage!==""){
+                  if(response[j].stage=='0'){
+                    response[j].stage=this.$t('label.PFANS2026VIEW');
+                  }else if(response[j].stage=='1'){
+                    response[j].stage=this.$t('label.PFANS2026VIEW_RIGHT');
+                  }else if(response[j].stage=='2'){
+                    response[j].stage=this.$t('label.PFANS2026VIEW_DATA');
+                  }else {
+                    response[j].stage=this.$t('label.PFANS2026VIEW_OUT');
+                  }
                 }
               }
             }
