@@ -41,6 +41,14 @@ export function getFpans5001List(data) {
   })
 }
 
+export function getFpans5001List2(data) {
+  return request({
+    url: 'companyprojects/list2',
+    method: 'post',
+    data: data
+  })
+}
+
 export function getcustomer(data) {
   return request({
     url: 'companyprojects/getcustomer',

@@ -9,6 +9,15 @@ export function getcustomerinfor(data) {
   })
 }
 
+export function getcustomerinfor2(data) {
+  return request({
+    url: 'customerinfor/get2',
+    method: 'get',
+    params: data
+  })
+}
+
+
 export function getcustomerinforApplyOne(data) {
   return request({
     url: 'customerinfor/one',
