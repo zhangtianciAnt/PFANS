@@ -17,7 +17,7 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1024VIEW_CONTRACTNUMBER')">
-                      <el-input  :disabled="true"style="width:11rem" v-model="form.contractnumber"></el-input>
+                      <el-input  :disabled="true"style="width:20vw" v-model="form.contractnumber"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -224,13 +224,18 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1004VIEW_CAREERPLAN')"   prop="careerplan">
-                      <dicselect :code="code4"
-                                 :data="form.plan"
-                                 :disabled="!disable"
-                                 :multiple="multiple"
-                                 @change="getplan"
-                                 style="width:20vw">
-                      </dicselect>
+                      <el-select @change="changePlan" style="width: 20vw" v-model="form.plan">
+                        <el-option :label="$t('label.PFANS1004VIEW_INSIDE')" :value="$t('label.PFANS1004VIEW_INSIDE')"></el-option>
+                        <el-option :label="$t('label.PFANS1004VIEW_OUTER')" :value="$t('label.PFANS1004VIEW_OUTER')"></el-option>
+                      </el-select>
+
+<!--                      <dicselect :code="code4"-->
+<!--                                 :data="form.plan"-->
+<!--                                 :disabled="!disable"-->
+<!--                                 :multiple="multiple"-->
+<!--                                 @change="getplan"-->
+<!--                                 style="width:20vw">-->
+<!--                      </dicselect>-->
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -370,7 +375,7 @@
                 <el-table-column :label="$t('label.PFANS1025VIEW_WORKNUMBER')" align="center" prop="worknumber" width="150">
                   <template slot-scope="scope">
                     <el-input-number
-                      :disabled="!disable"
+                      :disabled="true"
                       :max="1000000000"
                       :min="0"
                       :no="scope.row"
@@ -384,7 +389,7 @@
                 <el-table-column :label="$t('label.PFANS1025VIEW_AWARDMONEY')" align="center" prop="awardmoney" width="150">
                   <template slot-scope="scope">
                     <el-input-number
-                      :disabled="!disable"
+                      :disabled="true"
                       :max="1000000000"
                       :min="0"
                       :no="scope.row"
@@ -743,6 +748,9 @@
           }
         });
         return sums;
+      },
+      changePlan(val){
+        this.form.plan = val;
       },
       buttonClick(val) {
         this.form.maketype='7',
