@@ -2168,7 +2168,7 @@
           });
           cb(isOk);
         });
-        if(countIndex > 0){
+        if(countIndex > 0 && type !== "save"){
           Message({
             message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_CONTR'),
             type: 'error',
