@@ -27,7 +27,7 @@ const PFANS6002Store = {
     },
     getcustomerinfor2() {
       return new Promise((resolve, reject) => {
-        getcustomerinfor().then(response => {
+        getcustomerinfor2().then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {

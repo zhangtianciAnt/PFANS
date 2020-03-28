@@ -189,7 +189,7 @@
       getexpatriatesinfor() {
         this.loading = true;
         this.$store
-          .dispatch('PFANS6004Store/getexpatriatesinfor')
+          .dispatch('PFANS6004Store/getWithoutAuth')
           .then(response => {
             let tabledate = [];
             for (let j = 0; j < response.length; j++) {

@@ -612,7 +612,7 @@
         multiple: false,
         search: '',
         result: '',
-          code_sex: 'BP001',
+          code_sex: 'PG020',
         gridData: [],
         num: 0,
         activeName: 'first',
@@ -761,12 +761,15 @@
         this.$store
           .dispatch('PFANS2002Store/getNameList', {})
           .then(response => {
+            debugger
             this.gridData = [];
             for (let i = 0; i < response.length; i++) {
               var vote = {};
               this.result = response;
               vote.name = response[i].name;
+              if(getDictionaryInfo(response[i].sex)){
               vote.sex = getDictionaryInfo(response[i].sex).value1;
+              }
               vote.birthday = moment(response[i].birthday).format('YYYY-MM-DD');
               this.gridData.push(vote);
             }

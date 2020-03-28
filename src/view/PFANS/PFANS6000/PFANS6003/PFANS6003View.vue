@@ -174,12 +174,6 @@
                     .dispatch('PFANS6003Store/getsupplierinfor')
                     .then(response => {
                         for (let j = 0; j < response.length; j++) {
-                            if (response[j].supplierinfor_id !== null && response[j].supplierinfor_id !== "") {
-                                let supplierInfo = getSupplierinfor(response[j].supplierinfor_id);
-                                if (supplierInfo) {
-                                    response[j].supchinese = supplierInfo.supchinese;
-                                }
-                            }
                             if (response[j].liableperson !== null && response[j].liableperson !== "") {
                                 let liableperson = getUserInfo(response[j].liableperson);
                                 if (liableperson) {

@@ -147,23 +147,7 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS2001VIEW_SKILLLEVEL')">
-                    <dicselect
-                      :code="code6"
-                      :data="form.skilllevel"
-                      :disabled="!disabled"
-                      :multiple="multiple"
-                      @change="getSkilllevel"
-                      style="width:9.5vw">
-                    </dicselect>
-                    <span>~</span>
-                    <dicselect
-                      :code="code6"
-                      :data="form.afterturningpositiv"
-                      :disabled="!disabled"
-                      :multiple="multiple"
-                      @change="getAftert"
-                      style="width:9.5vw">
-                    </dicselect>
+                    <el-input :disabled="!disabled" maxlength='20' style="width:20vw" v-model="form.skilllevel"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -638,7 +622,7 @@
             getCompanyProjectList() {
                 this.loading = true;
                 this.$store
-                    .dispatch('PFANS2001Store/getCompanyProjectList', {})
+                    .dispatch('PFANS5008Store/getCompanyProjectList', {})
                     .then(response => {
                         this.optionsdata = [];
                         for (let i = 0; i < response.length; i++) {

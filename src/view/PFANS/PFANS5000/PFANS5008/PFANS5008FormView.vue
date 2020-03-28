@@ -237,7 +237,7 @@
         code2: 'PP008',
         multiple2: false,
         data2: '',
-        code3: 'PP009',
+        code3: '',
         multiple3: false,
         data3: '',
         activeName: 'first',
@@ -937,6 +937,15 @@
       },
       JDjobs(value1) {
         this.companyform.work_phase = value1;
+        if(value1 === 'PP008001'){
+            this.code3 = 'PP009'
+        }else if(value1 === 'PP008002'){
+            this.code3 = 'PP010'
+        }else if(value1 === 'PP008003'){
+            this.code3 = 'PP025'
+        }else if(value1 === 'PP008004'){
+            this.code3 = 'PP011'
+        }
       },
       XWXF(value3) {
         this.companyform.behavior_breakdown = value3;

@@ -3,27 +3,29 @@
     <EasyNormalContainer ref="container" :title="title" @buttonClick="buttonClick" v-loading="loading" :buttonList="buttonList"
                          @workflowState="workflowState" :canStart="canStart" @start="start" @end="end">
       <div slot="customize">
-        <el-form :model="form" label-width="8vw" label-position="top" style="padding: 2vw" :rules="rules"
+        <el-form :model="form" label-width="8vw" label-position="top" style="padding: 3vw" :rules="rules"
                  ref="refform">
           <el-row>
             <el-col :span="8">
               <el-form-item  :label="$t('label.center')">
                 <el-input :disabled="true" style="width:20vw" v-model="centerid"></el-input>
-                <el-input  v-show='false' v-model="form.center_id" :disabled="true" style="width:20vw" maxlength='36'></el-input>
+                <el-input  v-show='false' v-model="form.center_id" :disabled="true"  maxlength='36'></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.group')">
                 <el-input :disabled="true" style="width:20vw" v-model="groupid"></el-input>
-                <el-input  v-show='false' v-model="form.group_id" :disabled="true" style="width:20vw" maxlength='36'></el-input>
+                <el-input  v-show='false' v-model="form.group_id" :disabled="true"  maxlength='36'></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.team')" prop="team_id">
                 <el-input :disabled="true" style="width:20vw" v-model="teamid"></el-input>
-                <el-input  v-show='false' v-model="form.team_id" :disabled="true" style="width:20vw" maxlength='36'></el-input>
+                <el-input  v-show='false' v-model="form.team_id" :disabled="true"  maxlength='36'></el-input>
               </el-form-item>
             </el-col>
+          </el-row>
+          <el-row>
             <el-col :span="8">
               <el-form-item :error="error"  :label="$t('label.applicant')" prop="user_id">
                 <user :disabled="!disabled" :error="error" :selectType="selectType" :userlist="userlist"
@@ -160,7 +162,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1004VIEW_AMOUNT')" prop="money">
-                <el-input-number v-model="form.money" :controls="false" style="width:20vw" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
+                <el-input-number v-model="form.money" :controls="false" style="width:20vw" :disabled="true" :min="0" :max="1000000000" :precision="2"></el-input-number>
               </el-form-item>
             </el-col>
             <el-col :span="8">

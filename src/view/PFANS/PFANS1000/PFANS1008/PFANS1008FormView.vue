@@ -266,7 +266,7 @@
       var ferrycenterId = (rule, value, callback) => {
         if (!this.form.ferrycenter_id || this.form.ferrycenter_id === "") {
           callback(new Error(this.$t("normal.error_08") + "center"));
-          this.error = this.$t("normal.error_08") + "center";
+          this.errorferrycenter = this.$t("normal.error_08") + "center";
         } else {
           callback();
         }
@@ -274,7 +274,7 @@
       var tubecenterId = (rule, value, callback) => {
         if (!this.form.tubecenter_id || this.form.tubecenter_id === "") {
           callback(new Error(this.$t("normal.error_08") + "center"));
-          this.error = this.$t("normal.error_08") + "center";
+          this.errortubecenter = this.$t("normal.error_08") + "center";
         } else {
           callback();
         }

@@ -39,11 +39,11 @@ export function createvariousfundsApply(data) {
     data: data
   })
 }
-
-export function getexpatriatesinfor(data) {
-  return request({
-    url: 'expatriatesinfor/get',
-    method: 'get',
-    params: data
-  })
-}
+//
+// export function getexpatriatesinfor(data) {
+//   return request({
+//     url: 'expatriatesinfor/get',
+//     method: 'get',
+//     params: data
+//   })
+// }
