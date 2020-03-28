@@ -592,7 +592,7 @@
             getexpatriatesinfor() {
                 this.loading = true;
                 this.$store
-                    .dispatch('PFANS6004Store/getexpatriatesinfor', {})
+                    .dispatch('PFANS6004Store/getWithoutAuth', {})
                     .then(response => {
                         let _tableList = response;
                         for (let j = 0; j < _tableList.length; j++) {
