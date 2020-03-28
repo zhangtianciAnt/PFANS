@@ -700,7 +700,7 @@
       };
       var validateConenglish = (rule, value, callback) => {
         if (value === '') {
-          callback(new Error(this.$t('label.PFANS1026FORMVIEW_QYHW')));
+          callback(new Error(this.$t('label.PFANS1026FORMVIEW_DDZYW')));
         } else {
           callback();
         }
@@ -721,7 +721,7 @@
           callback();
         } else {
           if (value === '' && value != null && value != undefined) {
-            callback(new Error(this.$t('label.PFANS1026FORMVIEW_XMHW')));
+            callback(new Error(this.$t('label.PFANS1026FORMVIEW_QYZW')));
           } else {
             callback();
           }
