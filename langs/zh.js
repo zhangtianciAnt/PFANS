@@ -70,7 +70,8 @@ module.exports = {
     exportJianJiShu: '报价书',
     exportNaPinShu_ShouTuo: '纳品书生成',
     crAccount:"创建外协STAFF账号",
-    crAccount2:"创建外协员工账号"
+    crAccount2:"创建外协员工账号",
+    detailed:"详细记录",
   },
   table: {
     detail: '一览',
@@ -340,6 +341,7 @@ module.exports = {
     PFANS2015VIEW: '外出申请',
     PFANS2016VIEW: '考勤异常申请',
     PFANS2017VIEW: '打卡记录',
+    PFANS2017FROMVIEW: '打卡记录详细',
     PFANS2018VIEW: '考勤设置',
     PFANS2019VIEW: '女性三期申请',
     PFANS2020VIEW: '不定时考勤人员名单',
@@ -2257,7 +2259,9 @@ module.exports = {
     PFANS2017VIEW_BAN: '板',
     PFANS2017VIEW_ERROR: '导入错误信息',
     PFANS2017VIEW_DKSJ: '打卡时间',
-    PFANS2017VIEW_DETAIL: '查看详细记录',
+    PFANS2017VIEW_EVENTNO: '进出状态',
+    PFANS2017VIEW_ENTER: '进门',
+    PFANS2017VIEW_OUT: '出门',
     PFANS2018VIEW_WORKSHIFT: '上班时间',
     PFANS2018VIEW_WORKSHIFTSTART: '上班时间开始',
     PFANS2018VIEW_WORKSHIFTEND: '上班时间结束',
