@@ -4,7 +4,6 @@ import {
   updateRecruit,
   createRecruit,
   getForSelect,
-  getCompanyProjectList,
   } from './PFANS2001Api'
 
   const PFANS2001Store = {
@@ -54,19 +53,6 @@ import {
       createRecruit({ commit },data) {
         return new Promise((resolve, reject) => {
           createRecruit(data).then(response => {
-            if (response.code === 0) {
-              resolve(response.data);
-            } else {
-              reject(response.message)
-            }
-          }).catch(error => {
-            reject(error);
-          })
-        })
-      },
-      getCompanyProjectList({ commit }, data) {
-        return new Promise((resolve, reject) => {
-          getCompanyProjectList(data).then(response => {
             if (response.code === 0) {
               resolve(response.data);
             } else {
