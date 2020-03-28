@@ -124,19 +124,13 @@
                 </el-input>
               </el-form-item>
             </el-col>
-            <!--            職務-->
+            <!--            邮箱-->
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANSUSERVIEW_POST')" prop="post">
-                <dicselect
-                  :disabled="!disabled"
-                  :code="code15"
-                  :data="form.post"
-                  @change="changePost"
-                  style="width:20vw">
-                </dicselect>
+              <el-form-item :label="$t('label.PFANSUSERFORMVIEW_EMAILADDRESS')" prop="email">
+                <el-input :disabled="!disabled" style="width:20vw"
+                          v-model="form.email"></el-input>
               </el-form-item>
             </el-col>
-
           </el-row>
           <!--          第五行-->
           <el-row>
@@ -176,6 +170,20 @@
                   type="date"
                   v-model="form.admissiontime">
                 </el-date-picker>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <!--            職務-->
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANSUSERVIEW_POST')" prop="post">
+                <dicselect
+                  :disabled="!disabled"
+                  :code="code15"
+                  :data="form.post"
+                  @change="changePost"
+                  style="width:20vw">
+                </dicselect>
               </el-form-item>
             </el-col>
           </el-row>
@@ -356,6 +364,7 @@
     getorgGroupList
   } from '../../../../utils/customize';
   import org from '../../../components/org';
+  import {validateEmail} from "../../../../utils/validate";
 
   export default {
     name: 'PFANS6004FormView',
@@ -432,6 +441,17 @@
           this.errorexitime = '';
         }
       };
+      var checkemail = (rule, value, callback) => {
+        if (this.form.email !== null && this.form.email !== '') {
+          if (!validateEmail(value)) {
+            callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.email')));
+          } else {
+            callback();
+          }
+        } else {
+          callback();
+        }
+      };
       return {
         loading: false,
         selectType: 'Single',
@@ -464,6 +484,7 @@
           education: '',
           graduation_year: '',
           technology: '',
+          email: '',
           rn: '',
           operationform: '',
           jobclassification: '',
@@ -544,6 +565,13 @@
               trigger: 'change',
             },
           ],
+          email: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANSUSERFORMVIEW_EMAILADDRESS'),
+              trigger: 'blur'
+            },
+            {validator: checkemail, trigger: 'blur'}],
           // 编号
           number: [
             {

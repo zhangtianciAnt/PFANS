@@ -401,7 +401,7 @@
                 this.$store
                     .dispatch('PFANS1017Store/selectById', {'psdcd_id': this.$route.params._id})
                     .then(response => {
-                        let rst = getOrgInfoByUserId(response.user_id);
+                        let rst = getOrgInfoByUserId(response.psdcd.user_id);
                         if (rst) {
                             this.centerid = rst.centerNmae;
                             this.groupid = rst.groupNmae;

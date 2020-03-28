@@ -147,23 +147,7 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS2001VIEW_SKILLLEVEL')">
-                    <dicselect
-                      :code="code6"
-                      :data="form.skilllevel"
-                      :disabled="!disabled"
-                      :multiple="multiple"
-                      @change="getSkilllevel"
-                      style="width:9.5vw">
-                    </dicselect>
-                    <span>~</span>
-                    <dicselect
-                      :code="code6"
-                      :data="form.afterturningpositiv"
-                      :disabled="!disabled"
-                      :multiple="multiple"
-                      @change="getAftert"
-                      style="width:9.5vw">
-                    </dicselect>
+                    <el-input :disabled="!disabled" maxlength='20' style="width:20vw" v-model="form.skilllevel"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -320,7 +304,7 @@
                     needtotravel: '',
                     demandlevel: '',
                     suggestedsalary: '',
-                    turningday: moment(new Date()).format("YYYY-MM-DD"),
+                    turningday: '',
                     afterturningpositiv: '',
                     expectedarrivaltime: moment(new Date()).format("YYYY-MM-DD"),
                     skilllevel: '',
@@ -669,7 +653,6 @@
                             this.form.group_id = this.grouporglist;
                             this.form.team_id = this.teamorglist;
                             this.form.applicationtime = moment(this.form.applicationtime).format('YYYY-MM-DD');
-                            this.form.turningday = moment(this.form.turningday).format('YYYY-MM-DD');
                             this.form.expectedarrivaltime = moment(this.form.expectedarrivaltime).format('YYYY-MM-DD');
                             this.loading = true;
                             this.$store
@@ -696,10 +679,8 @@
                                     });
                                     this.loading = false;
                                 })
-
                         } else {
                             this.form.application_date = moment(this.form.application_date).format('YYYY-MM-DD');
-                            this.form.turningday = moment(this.form.turningday).format('YYYY-MM-DD');
                             this.form.expectedarrivaltime = moment(this.form.expectedarrivaltime).format('YYYY-MM-DD');
                             this.$store
                                 .dispatch('PFANS2001Store/createRecruit', this.form)

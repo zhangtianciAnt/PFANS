@@ -6,6 +6,7 @@
       :title="title"
       @buttonClick="buttonClick"
       ref="container"
+      @end="end" @start="start" @workflowState="workflowState"
     >
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" employedref="refform"
@@ -574,16 +575,16 @@
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_EQUIPMENTINVESTMENT')" style="margin-top: 2%" name="second">
               <div>
-                <AssetsComponent :tableNewYear="assets_newyear" :tableLastYear="assets_lastyear" @assets="Assets"></AssetsComponent>
+                <AssetsComponent :disabled="!disable" :tableNewYear="assets_newyear" :tableLastYear="assets_lastyear" @assets="Assets"></AssetsComponent>
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_SOFTWAREINVESTMENT')" style="margin-top: 2%" name="third">
               <div>
-                <AssetsComponent :tableNewYear="equipment_newyear" :tableLastYear="equipment_lastyear" @assets="Assets1"></AssetsComponent>
+                <AssetsComponent :disabled="!disable" :tableNewYear="equipment_newyear" :tableLastYear="equipment_lastyear" @assets="Assets1"></AssetsComponent>
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_TRAVELEXPENSES')" style="margin-top: 2%" name="forth">
-                <BussinessComponent :tableBusiness="business" @travel="getTravel"></BussinessComponent>
+                <BussinessComponent :disabled="!disable" :tableBusiness="business" @travel="getTravel"></BussinessComponent>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_PROJECTPLAN')" style="margin-top: 2%" name="fifth">
               <div>
@@ -639,10 +640,10 @@
                     </el-table>
                   </el-tab-pane>
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_A1')" name="sixth">
-                    <TrustA1Component :tableTrustA1="groupA1" @sum="getSumA1"></TrustA1Component>
+                    <TrustA1Component :disabled="!disable" :tableTrustA1="groupA1" @sum="getSumA1"></TrustA1Component>
                   </el-tab-pane>
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_A2')" name="seventh">
-                    <TrustComponent :tableTrust="groupA2" @sum="getSumA2"></TrustComponent>
+                    <TrustComponent :disabled="!disable" :tableTrust="groupA2" @sum="getSumA2"></TrustComponent>
                   </el-tab-pane>
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_B1')" name="second">
                     <TrustComponent :tableTrust="groupB1" @sum="getSumB1" :disabled="true"></TrustComponent>
@@ -651,10 +652,10 @@
                     <TrustComponent :tableTrust="groupB2" @sum="getSumB2" :disabled="true"></TrustComponent>
                   </el-tab-pane>
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_B3')" name="forth">
-                    <TrustComponent :tableTrust="groupB3" @sum="getSumB3"></TrustComponent>
+                    <TrustComponent :disabled="!disable" :tableTrust="groupB3" @sum="getSumB3"></TrustComponent>
                   </el-tab-pane>
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_B4')" name="fifth">
-                    <TrustComponent :tableTrust="groupC" @sum="getSumC"></TrustComponent>
+                    <TrustComponent :disabled="!disable" :tableTrust="groupC" @sum="getSumC"></TrustComponent>
                   </el-tab-pane>
                 </el-tabs>
               </div>
@@ -1839,6 +1840,22 @@
       }
     },
     methods: {
+        workflowState(val) {
+            if (val.state === '1') {
+                this.form.status = '3';
+            } else if (val.state === '2') {
+                this.form.status = '4';
+            }
+            this.buttonClick('save');
+        },
+        start() {
+            this.form.status = '2';
+            this.buttonClick('save');
+        },
+        end() {
+            this.form.status = '0';
+            this.buttonClick('save');
+        },
       getPersonTable(groupid,year){
         this.$store
           .dispatch('PFANS1036Store/getPersonPlan', {'groupid':groupid,'year':year})

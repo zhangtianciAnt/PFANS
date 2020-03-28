@@ -1312,9 +1312,6 @@
                         } else {
                             this.show10 = false;
                         }
-                        if (this.form.status === '2') {
-                            this.disable = false;
-                        }
                         this.loading = false;
                     })
                     .catch(error => {
