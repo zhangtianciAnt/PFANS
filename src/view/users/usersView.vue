@@ -370,8 +370,16 @@ export default {
       }))
     },
     buttonClick(val) {
-          
+
       if (val === 'export') {
+        if(this.$refs.roletable.selectedList.length === 0){
+          Message({
+            message: this.$t('normal.info_01'),
+            type: 'info',
+            duration: 2 * 1000
+          });
+          return;
+        }
         this.selectedlist = this.$refs.roletable.selectedList;
         import('@/vendor/Export2Excel').then(excel => {
           const tHeader = [this.$t('label.user_name'), this.$t('label.PFANSUSERFORMVIEW_ADFIELD'),  this.$t('label.PFANS2002VIEW_BIRTHDAY'),  this.$t('label.PFANSUSERVIEW_NATIONALITY'), this.$t('label.PFANSUSERFORMVIEW_NATION'), this.$t('label.PFANSUSERFORMVIEW_REGISTER'), this.$t('label.PFANSUSERFORMVIEW_ADDRESS'),this.$t('label.PFANSUSERFORMVIEW_GRADUATION'),this.$t('label.PFANSUSERFORMVIEW_SPECIALTY')];

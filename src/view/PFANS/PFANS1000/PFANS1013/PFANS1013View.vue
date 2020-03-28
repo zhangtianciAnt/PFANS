@@ -259,6 +259,14 @@
           this.startoption = [];
           this.selectedList = {};
           this.selectedList.travelcost = [];
+          if(this.$refs.roletable.selectedList.length === 0){
+            Message({
+              message: this.$t('normal.info_01'),
+              type: 'info',
+              duration: 2 * 1000
+            });
+            return;
+          }
           this.selectedlist = this.$refs.roletable.selectedList;
           for (let i = 0; i < this.selectedlist.length; i++) {
             this.selectedList.travelcost.push({
