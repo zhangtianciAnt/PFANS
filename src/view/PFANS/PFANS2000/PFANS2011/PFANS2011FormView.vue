@@ -770,6 +770,7 @@
       },
       change(val) {
         this.showovertimetype = false;
+        this.showovertimelength = false;
         let dateMonth = new Date();
         this.form.overtimelength = '';
         this.form.overtimetype = val;
@@ -784,6 +785,7 @@
         }
         if (val === 'PR001008') {
           this.showovertimetype = true;
+          this.showovertimelength = true;
           this.form.overtimelength = this.options1[1].label;
           this.form.reserveovertime = '4';
           this.form.reserveovertimedate = dateMonth.getFullYear() + '-' + '03' + '-' + '08';
@@ -797,6 +799,7 @@
         }
         if (val === 'PR001007') {
           this.showovertimetype = true;
+          this.showovertimelength = true;
           this.form.overtimelength = this.options1[1].label;
           this.form.reserveovertime = '4';
           this.form.reserveovertimedate = dateMonth.getFullYear() + '-' + '05' + '-' + '04';
