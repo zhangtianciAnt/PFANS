@@ -368,7 +368,7 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.conjapanese'" :rules='rules.conjapanese'>
-                    <el-input  v-model="scope.row.conjapanese" disabled="disabled4">
+                    <el-input  v-model="scope.row.conjapanese" :disabled="disabled4">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -376,7 +376,7 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_ENGLISH')" align="center" prop="conenglish" width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.conenglish'">
-                    <el-input  v-model="scope.row.conenglish" disabled="disabled4">
+                    <el-input  v-model="scope.row.conenglish" :disabled="disabled4">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -388,7 +388,7 @@
 <!--                             v-model="scope.row.conchinese"-->
 <!--                             @change="changePro" :disabled="!disabled">-->
 <!--                    </project>-->
-                    <el-input  v-model="scope.row.conchinese" disabled="disabled4">
+                    <el-input  v-model="scope.row.conchinese" :disabled="disabled4">
                     </el-input>
                   </el-form-item>
                 </template>
