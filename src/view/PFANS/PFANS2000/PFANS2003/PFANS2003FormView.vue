@@ -400,7 +400,7 @@
           nodeList: [],
         },
         List: '',
-        code1: 'PR019',
+        code1: 'PG020',
         code2: 'PR020',
         code3: 'PR022',
         code4: 'PR021',
@@ -676,6 +676,13 @@
                   this.loading = false;
                 });
             }
+          }
+          else{
+              Message({
+                  message: this.$t("normal.error_12"),
+                  type: 'error',
+                  duration: 5 * 1000
+              });
           }
         });
       },

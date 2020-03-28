@@ -1137,14 +1137,16 @@
                 this.getdata("",this.months);
               }
               this.loading = false;
-              // Message({
-              //   message: this.$t('normal.success_03'),
-              //   type: 'success',
-              //   duration: 5 * 1000,
-              // });
-              // this.$router.push({
-              //   name: 'PFANS1041View',
-              // });
+              if (val !== 'update') {
+                Message({
+                  message: this.$t('normal.success_03'),
+                  type: 'success',
+                  duration: 5 * 1000,
+                });
+              }
+              this.$router.push({
+                name: 'PFANS1041View',
+              });
             })
               .catch(error => {
                 Message({
@@ -1153,6 +1155,13 @@
                   duration: 5 * 1000,
                 });
                 this.loading = false;
+              });
+          }
+          else{
+              Message({
+                  message: this.$t("normal.error_12"),
+                  type: 'error',
+                  duration: 5 * 1000
               });
           }
         });

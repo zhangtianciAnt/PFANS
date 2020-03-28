@@ -285,6 +285,13 @@
           )
         }else{
           // this.$refs.start.startWorkflow = false;
+          if(this.workflowlist.length === 0){
+            this.$message({
+              message: this.$t('normal.error_13'),
+              type: 'error'
+            });
+            return;
+          }
           this.$refs.start.selectId = this.workflowlist[0].workflowid;
           this.$refs.start.selectWorkflowstep(
             this.workflowlist[0].workflowid

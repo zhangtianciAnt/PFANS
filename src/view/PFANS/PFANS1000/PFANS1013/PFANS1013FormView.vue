@@ -85,7 +85,12 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1002VIEW_REGION')">
-                      <el-input :disabled="true" maxlength="20" style="width:20vw" v-model="form.place"></el-input>
+                      <dicselect
+                        :data="form.place"
+                        :disabled="true"
+                        code="PJ036"
+                        style="width: 20vw">
+                      </dicselect>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -1029,7 +1034,7 @@
         centername: '',
         groupname: '',
         teamname: '',
-        optionsdate: [{value: '0000000000', lable: this.$t('label.PFANS1012FROMVIEW_COMMON')}],
+        optionsdate: [{value: 'PP024001', lable: this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')}],
         error: '',
         week: '',
         tableList: [],
@@ -1249,6 +1254,7 @@
       this.getLoanapp();
       this.getCompanyProjectList();
       this.checkOption();
+      debugger
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
@@ -1441,9 +1447,11 @@
         this.$store
           .dispatch('PFANS1013Store/getdate')
           .then(response => {
+            debugger
             for (let i = 0; i < response.length; i++) {
               if (response[i].user_id === this.$store.getters.userinfo.userid && response[i].businesstype === '0') {
                 this.relations.push({
+                  place: response[i].city,
                   value: response[i].business_id,
                   label: this.$t('menu.PFANS1002') + '_' + moment(response[i].createon).format('YYYY-MM-DD'),
                   abroadbusiness: response[i].abroadbusiness,
@@ -1473,9 +1481,11 @@
         this.$store
           .dispatch('PFANS1013Store/getdate')
           .then(response => {
+            debugger
             for (let i = 0; i < response.length; i++) {
               if (response[i].user_id === this.$store.getters.userinfo.userid && response[i].businesstype === '1') {
                 this.relations.push({
+                  place: response[i].city,
                   value: response[i].business_id,
                   label: this.$t('menu.PFANS1035') + '_' + moment(response[i].createon).format('YYYY-MM-DD'),
                   city: response[i].region,
@@ -1503,6 +1513,7 @@
         this.$store
           .dispatch('PFANS5008Store/getCompanyProjectList', {})
           .then(response => {
+
             for (let i = 0; i < response.length; i++) {
               if (response[i].status == '4' || response[i].status == '6' || response[i].status == '7') {
                 this.optionsdate.push({
@@ -1931,6 +1942,7 @@
             if (dict) {
               this.form.level = dict.value1;
             }
+            this.form.place = this.relations[i].place;
             this.form.abroadbusiness = this.relations[i].abroadbusiness;
             this.form.external = this.relations[i].external;
             this.form.startdate = this.relations[i].startdate;
@@ -2151,9 +2163,20 @@
           }
         } else if (this.form.type === '1') {
           var accfig;
+          var firstBusinessflg;
+          var firstBusiNum;
           let accinfo = getDictionaryInfo(row.currency);
           if (accinfo) {
             accfig = accinfo.value2;
+          }
+          let firstBusiness = getDictionaryInfo('PR062001');
+          if(firstBusiness){
+            firstBusinessflg = firstBusiness.value1;
+          }
+          if(firstBusinessflg !== '' && firstBusinessflg !== undefined){
+            firstBusiNum = Number(firstBusinessflg);
+          } else {
+            firstBusiNum = 0;
           }
           //境外无规定外费用的场合，住宿标准check
           if (this.Redirict === '0' ? (row.accountcode === 'PJ132001') : (row.accountcode === 'PJ119001') && this.form.external === '1') {
@@ -2215,16 +2238,16 @@
             }
           } else if (this.Redirict === '0' ? (row.accountcode === 'PJ132005') : (row.accountcode === 'PJ119005')) {
             if (this.rank === 'PJ016003') {
-              jpvalueflg2 = Number(jpregion12) + 100;
+                jpvalueflg2 = Number(jpregion12) + 100 + firstBusiNum;
             } else {
-              jpvalueflg2 = Number(jpregion12);
+              jpvalueflg2 = Number(jpregion12) + firstBusiNum;
             }
             if (jpvalueflg2 !== '' && jpvalueflg2 !== undefined) {
-              row.rmb = (Number(jpvalueflg2) * (diffDate + 1)).toFixed(2);
+              row.rmb = (Number(jpvalueflg2) * (diffDate + 1) + firstBusiNum).toFixed(2);
             }
           } else if (this.Redirict === '0' ? (row.accountcode === 'PJ132006') : (row.accountcode === 'PJ119006')) {
             if (jpvalueflg2 !== '' && jpvalueflg2 !== undefined) {
-              row.rmb = (Number(jpvalueflg2 + 100) * (diffDate + 1)).toFixed(2);
+              row.rmb = (Number(jpvalueflg2 + 100) * (diffDate + 1) + firstBusiNum).toFixed(2);
             }
           }
         }
@@ -2720,6 +2743,13 @@
                     });
                 }
               }
+            }
+            else{
+                Message({
+                    message: this.$t("normal.error_12"),
+                    type: 'error',
+                    duration: 5 * 1000
+                });
             }
           });
         }

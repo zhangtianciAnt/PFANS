@@ -96,7 +96,7 @@
                   <el-row>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS2023FORMVIEW_INTERVIEWRESULTSYEAR')" >
-                        <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disableyear"
+                        <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!sysyear"
                                   maxlength="50" style="width: 70vw;" type="textarea"
                                   v-model="form.interview_results_year"></el-input>
                       </el-form-item>
@@ -129,7 +129,7 @@
                                   style="width: 70vw;" type="textarea" v-model="form.business_results_sep"></el-input>
                       </el-form-item>
                       <el-form-item :label="$t('label.PFANS2023FORMVIEW_INTERVIEWRESULTSSEP')" >
-                        <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disablesep" maxlength="50"
+                        <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!esep" maxlength="50"
                                   style="width: 70vw;" type="textarea" v-model="form.interview_results_sep"></el-input>
                       </el-form-item>
                     </el-col>
@@ -161,7 +161,7 @@
                                   style="width: 70vw;" type="textarea" v-model="form.interview_results_dec"></el-input>
                       </el-form-item>
                       <el-form-item :label="$t('label.PFANS2023FORMVIEW_INTERVIEWRESULTSDEC')" >
-                        <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disabledec" maxlength="50"
+                        <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!dec" maxlength="50"
                                   style="width: 70vw;" type="textarea" v-model="form.business_results_dec"></el-input>
                       </el-form-item>
                     </el-col>
@@ -193,7 +193,7 @@
                                   style="width: 70vw;" type="textarea" v-model="form.business_results_mar"></el-input>
                       </el-form-item>
                       <el-form-item :label="$t('label.PFANS2023FORMVIEW_INTERVIEWRESULTSMAR')" >
-                        <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disablemar" maxlength="50"
+                        <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!mar" maxlength="50"
                                   sstyle="width: 70vw;" type="textarea" v-model="form.interview_results_mar"></el-input>
                       </el-form-item>
                     </el-col>
@@ -302,9 +302,13 @@
                 multiple: false,
                 disable: false,
                 disableyear: false,
+                sysyear:false,
                 disablesep: false,
+                esep:false,
                 disabledec: false,
+                dec: false,
                 disablemar: false,
+                mar: false,
                 canStart: true,
             }
         },
@@ -322,6 +326,7 @@
                             this.teamid= rst.teamNmae;
                         }
                         this.userlist = this.form.user_id;
+                        debugger
                         if (this.form.stage === '0' && this.form.status === '0') {
                             this.aaaaaa = 'W0036';
                             this.canStart = true;
@@ -359,7 +364,9 @@
                             this.canStart = true;
                             this.disable = false;
                             this.disableyear = false;
+                            this.sysyear = true;
                             this.disablesep = true;
+                            this.esep = true;
                             this.disabledec = false;
                             this.disablemar = false;
                         } else if (this.form.stage === '1' && this.form.status === '2') {
@@ -392,6 +399,8 @@
                             this.disable = false;
                             this.disableyear = false;
                             this.disablesep = false;
+                            this.sysyear = false;
+                            this.esep = true;
                             this.disabledec = true;
                             this.disablemar = false;
                         } else if (this.form.stage === '2' && this.form.status === '2') {
@@ -399,9 +408,13 @@
                             this.canStart = false;
                             this.disable = false;
                             this.disableyear = false;
+                            this.sysyear = false;
                             this.disablesep = false;
+                            this.esep = false;
                             this.disabledec = false;
+                            this.dec = false;
                             this.disablemar = false;
+                            this.mar = false;
                         } else if (this.form.stage === '2' && this.form.status === '3') {
                             this.aaaaaa = 'W0038';
                             this.canStart = true;
@@ -423,17 +436,25 @@
                             this.canStart = true;
                             this.disable = false;
                             this.disableyear = false;
+                            this.sysyear = false;
                             this.disablesep = false;
+                            this.esep = false;
                             this.disabledec = false;
+                            this.dec = true;
                             this.disablemar = true;
+                            this.mar = true;
                         } else if (this.form.stage === '3' && this.form.status === '2') {
                             this.aaaaaa = 'W0039';
                             this.canStart = false;
                             this.disable = false;
                             this.disableyear = false;
+                            this.sysyear = false;
                             this.disablesep = false;
+                            this.esep = false;
                             this.disabledec = false;
+                            this.dec = false;
                             this.disablemar = false;
+                            this.mar = false;
                         } else if (this.form.stage === '3' && this.form.status === '3') {
                             this.aaaaaa = 'W0039';
                             this.canStart = true;
@@ -450,6 +471,7 @@
                             this.disablesep = false;
                             this.disabledec = false;
                             this.disablemar = false;
+                            this.mar = true;
 
                         }
                         if (!this.$route.params.disabled) {
@@ -618,6 +640,13 @@
                                         this.loading = false;
                                     })
                             }
+                        }
+                        else{
+                            Message({
+                                message: this.$t("normal.error_12"),
+                                type: 'error',
+                                duration: 5 * 1000
+                            });
                         }
                     })
                 }

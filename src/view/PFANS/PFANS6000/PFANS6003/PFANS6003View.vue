@@ -174,12 +174,6 @@
                     .dispatch('PFANS6003Store/getsupplierinfor')
                     .then(response => {
                         for (let j = 0; j < response.length; j++) {
-                            if (response[j].supplierinfor_id !== null && response[j].supplierinfor_id !== "") {
-                                let supplierInfo = getSupplierinfor(response[j].supplierinfor_id);
-                                if (supplierInfo) {
-                                    response[j].supchinese = supplierInfo.supchinese;
-                                }
-                            }
                             if (response[j].liableperson !== null && response[j].liableperson !== "") {
                                 let liableperson = getUserInfo(response[j].liableperson);
                                 if (liableperson) {
@@ -321,6 +315,14 @@
                 if (val === 'import') {
                     this.daoru = true;
                 } else if (val === 'export') {
+                  if(this.$refs.roletable.selectedList.length === 0){
+                    Message({
+                      message: this.$t('normal.info_01'),
+                      type: 'info',
+                      duration: 2 * 1000
+                    });
+                    return;
+                  }
                     this.selectedlist = this.$refs.roletable.selectedList;
                     import('@/vendor/Export2Excel').then(excel => {
                         const tHeader = [

@@ -1262,7 +1262,7 @@
             getcustomerinfor() {
                 this.loading = true;
                 this.$store
-                    .dispatch('PFANS6002Store/getcustomerinfor', {})
+                    .dispatch('PFANS6002Store/getcustomerinfor2', {})
                     .then(response => {
                         this.gridData2 = [];
                         for (let i = 0; i < response.length; i++) {
@@ -1717,7 +1717,7 @@
             getexpatriatesinfor() {
                 this.loading = true;
                 this.$store
-                    .dispatch('PFANS6004Store/getexpatriatesinfor', {})
+                    .dispatch('PFANS6004Store/getWithoutAuth', {})
                     .then(response => {
                         this.gridData1 = [];
                         for (let i = 0; i < response.length; i++) {
@@ -1983,6 +1983,13 @@
                                 });
 
                     }
+                    }
+                    else{
+                        Message({
+                            message: this.$t("normal.error_12"),
+                            type: 'error',
+                            duration: 5 * 1000
+                        });
                     }
                 });
             },

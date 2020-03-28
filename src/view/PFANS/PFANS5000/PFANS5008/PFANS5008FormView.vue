@@ -10,7 +10,7 @@
               <el-aside style="width: 58%;height: 40rem">
                 <el-tabs type="border-card">
                 <el-row>
-                  <el-col :span="11">
+                  <el-col :span="12">
                     <el-form-item :label="$t('label.PFANS5008VIEW_RIQI')" prop="log_date">
                       <el-date-picker
                         @change="clickdata"
@@ -22,7 +22,7 @@
                       </el-date-picker>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="10">
+                  <el-col :span="12">
                     <el-form-item :label="$t('label.PFANS5008FORMVIEW_SC')" prop="time_start">
                       <el-input-number v-model="companyform.time_start" :disabled="!disable" controls-position="right"
                                        :precision="2" :step="0.5" :min="0" :max="24" style="width: 16vw"
@@ -33,8 +33,8 @@
                 <el-row>
                   <div v-show="isShow">
                     <el-col :span="6">
-                      <el-form-item :label="$t('label.PFANS5008VIEW_XZPROGRAM')" prop="project_id">
-                        <el-select v-model="companyform.project_id" :disabled="!disable" style="width: 16vw" clearable >
+                      <el-form-item :label="$t('label.PFANS5008VIEW_XZPROGRAM')">
+                        <el-select :disabled="!disable" style="width: 16vw" clearable @change="getProject">
                           <el-option
                             v-for="item in optionsdata"
                             :key="item.value"
@@ -44,7 +44,7 @@
                         </el-select>
                       </el-form-item>
                     </el-col>
-                    <el-col :span="10">
+                    <el-col :span="18">
                       <el-form-item>
                         <el-link style="width: 9rem;color: #005baa;margin-left: 7vw;font-weight: 700" target="_blank"
                                  :underline="false"
@@ -77,7 +77,12 @@
                   </div>
                 </el-row>
                 <el-row>
-                  <el-col :span="11">
+                  <el-col :span="12">
+                    <el-form-item :label="$t('label.PFANS5008VIEW_PROGRAMNAME')" style="width:17vw" prop="project_name">
+                      {{companyform.project_name}}
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="12">
                     <el-form-item :label="$t('label.PFANS5008VIEW_JDJOBS')" style="width:17vw" prop="work_phase">
                       <dicselect
                         :disabled="!disable"
@@ -89,28 +94,33 @@
                       </dicselect>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="10">
-                    <el-form-item :label="$t('label.PFANS5008VIEW_XWXF')" style="width:  17vw"
-                                  prop="behavior_breakdown">
-                      <dicselect
-                        :disabled="!disable"
-                        :code="code3"
-                        :multiple="multiple3"
-                        :data="companyform.behavior_breakdown"
-                        @change="XWXF"
-                        style="width: 16vw">
-                      </dicselect>
-                    </el-form-item>
-                  </el-col>
+
                 </el-row>
-                <el-form-item label="WBS_ID" style="width: 81.8%" prop="wbs_id">
-                  <el-input
-                    type="textarea"
-                    :rows="2"
-                    v-model="companyform.wbs_id" :disabled="!disable"
-                    style="width: 36vw">
-                  </el-input>
-                </el-form-item>
+                  <el-row>
+                    <el-col :span="12">
+                      <el-form-item :label="$t('label.PFANS5008VIEW_XWXF')" style="width:  17vw"
+                                    prop="behavior_breakdown">
+                        <dicselect
+                          :disabled="!disable"
+                          :code="code3"
+                          :multiple="multiple3"
+                          :data="companyform.behavior_breakdown"
+                          @change="XWXF"
+                          style="width: 16vw">
+                        </dicselect>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                      <el-form-item label="WBS_ID" style="width:  17vw" prop="wbs_id">
+                        <el-input
+                          :rows="2"
+                          v-model="companyform.wbs_id" :disabled="!disable"
+                          style="width: 16vw">
+                        </el-input>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+
                 <el-form-item :label="$t('label.PFANS5008VIEW_GZBZ')" style="width: 81.8%" prop="work_memo">
                   <el-input
                     type="textarea"
@@ -227,7 +237,7 @@
         code2: 'PP008',
         multiple2: false,
         data2: '',
-        code3: 'PP009',
+        code3: '',
         multiple3: false,
         data3: '',
         activeName: 'first',
@@ -525,6 +535,15 @@
       }
     },
     methods: {
+      getProject(val){
+        this.companyform.project_id = val;
+        for(let item of this.optionsdata){
+          if(item.value === val){
+            this.companyform.project_name = item.lable;
+            return;
+          }
+        }
+      },
       rowclick(row, event, column) {
         this.row = row.logmanagementid;
         this.loading = true;
@@ -599,16 +618,18 @@
               this.$store
                 .dispatch('PFANS5008Store/getProjectList', {})
                 .then(response => {
-                  this.optionsdata = [];
-                  let user_id = this.$store.getters.userinfo.userid;
-                  for (let i = 0; i < response.length; i++) {
-                    if (user_id === response[i].user_id) {
-                      var vote = {};
-                      vote.value = response[i].project_id,
-                        vote.lable = response[i].project_name,
-                        this.optionsdata.push(vote);
+                    this.optionsdata = [];
+                    const vote = [];
+                    let user_id = this.$store.getters.userinfo.userid;
+                    for (let i = 0; i < response.length; i++) {
+                        if (user_id === response[i].user_id) {
+                            vote.push({
+                                value: response[i].project_id,
+                                lable: response[i].project_name,
+                            });
+                        }
                     }
-                  }
+                    this.optionsdata = vote.concat(this.startoption);
                   this.loading = false;
                 })
                 .catch(error => {
@@ -658,16 +679,19 @@
                   this.$store
                     .dispatch('PFANS5008Store/getProjectList', {})
                     .then(response => {
-                      this.optionsdata = [];
-                      let user_id = this.$store.getters.userinfo.userid;
-                      for (let i = 0; i < response.length; i++) {
-                        if (user_id === response[i].user_id) {
-                          var vote = {};
-                          vote.value = response[i].project_id,
-                            vote.lable = response[i].project_name,
-                            this.optionsdata.push(vote);
+
+                        this.optionsdata = [];
+                        const vote = [];
+                        let user_id = this.$store.getters.userinfo.userid;
+                        for (let i = 0; i < response.length; i++) {
+                            if (user_id === response[i].user_id) {
+                                vote.push({
+                                    value: response[i].project_id,
+                                    lable: response[i].project_name,
+                                });
+                            }
                         }
-                      }
+                        this.optionsdata = vote.concat(this.startoption);
                       this.loading = false;
                     })
                     .catch(error => {
@@ -901,11 +925,27 @@
                   });
               }
             }
+            else{
+                Message({
+                    message: this.$t("normal.error_12"),
+                    type: 'error',
+                    duration: 5 * 1000
+                });
+            }
           });
         }
       },
       JDjobs(value1) {
         this.companyform.work_phase = value1;
+        if(value1 === 'PP008001'){
+            this.code3 = 'PP009'
+        }else if(value1 === 'PP008002'){
+            this.code3 = 'PP010'
+        }else if(value1 === 'PP008003'){
+            this.code3 = 'PP025'
+        }else if(value1 === 'PP008004'){
+            this.code3 = 'PP011'
+        }
       },
       XWXF(value3) {
         this.companyform.behavior_breakdown = value3;

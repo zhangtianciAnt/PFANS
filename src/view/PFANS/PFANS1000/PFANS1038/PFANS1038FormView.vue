@@ -467,7 +467,7 @@
           }
         }
         for (let i = 0; i < this.newTableData.length; i++) {
-          if (this.newTableData[i].name == null && this.newTableData[i].nextyear !== undefined && this.newTableData[i].entermouth !== null) {
+          if (this.newTableData[i].name == '' || (this.newTableData[i].name == null && this.newTableData[i].nextyear !== undefined && this.newTableData[i].entermouth !== null)) {
             error3 = error3 + 1;
           }
         }

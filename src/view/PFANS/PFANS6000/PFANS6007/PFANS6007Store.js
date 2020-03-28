@@ -4,7 +4,6 @@ import {
   getPjnameList,
   getvariousfundsApplyOne,
   updatevariousfundsApply,
-  getFpans5001List,
   getexpatriatesinfor,
 } from './PFANS6007Api'
 const PFANS6007Store = {
@@ -77,32 +76,19 @@ const PFANS6007Store = {
         })
       })
     },
-    getFpans5001List({commit}, data) {
-      return new Promise((resolve, reject) => {
-        getFpans5001List(data).then(response => {
-          if (response.code === 0) {
-            resolve(response.data);
-          } else {
-            reject(response.message)
-          }
-        }).catch(error => {
-          reject(error);
-        })
-      })
-    },
-    getexpatriatesinfor() {
-      return new Promise((resolve, reject) => {
-        getexpatriatesinfor().then(response => {
-          if (response.code === 0) {
-            resolve(response.data);
-          } else {
-            reject(response.message)
-          }
-        }).catch(error => {
-          reject(error);
-        })
-      })
-    },
+    // getexpatriatesinfor() {
+    //   return new Promise((resolve, reject) => {
+    //     getexpatriatesinfor().then(response => {
+    //       if (response.code === 0) {
+    //         resolve(response.data);
+    //       } else {
+    //         reject(response.message)
+    //       }
+    //     }).catch(error => {
+    //       reject(error);
+    //     })
+    //   })
+    // },
   }
 };
 

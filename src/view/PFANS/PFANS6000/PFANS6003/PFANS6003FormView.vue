@@ -75,12 +75,12 @@
                   </el-form-item>
                 </el-col>
                 <!--                  收款方编码-->
-                <el-col :span="8">
+                <!--<el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1012VIEW_FOREIGNPAYEECODE')" prop="vendornum">
                     <el-input :disabled="!disabled" maxlength="20" style="width:20vw" type="email"
                               v-model="form.vendornum"></el-input>
                   </el-form-item>
-                </el-col>
+                </el-col>-->
                 <!--                  收款方银行账号-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1012VIEW_PAYEEBANKNUMBER')"
@@ -89,9 +89,7 @@
                               v-model="form.payeebankaccountnumber"></el-input>
                   </el-form-item>
                 </el-col>
-              </el-row>
-              <!--                收款方开户行-->
-              <el-row>
+                <!--                收款方开户行-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1012VIEW_PAYEEBANKACCOUNT')"
                                 prop="payeebankaccount">
@@ -100,6 +98,16 @@
                   </el-form-item>
                 </el-col>
               </el-row>
+              <!--                收款方开户行-->
+             <!-- <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1012VIEW_PAYEEBANKACCOUNT')"
+                                prop="payeebankaccount">
+                    <el-input :disabled="!disabled" maxlength="20" style="width:20vw"
+                              v-model="form.payeebankaccount"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>-->
             </el-collapse-item>
           </el-collapse>
 
@@ -345,7 +353,7 @@
           remarks: '',
           uploadfile: '',
           payeename: '',
-          vendornum: '',
+          /*vendornum: '',*/
           payeebankaccountnumber: '',
           payeebankaccount: '',
           suppliercode:'',
@@ -492,13 +500,13 @@
               trigger: 'blur',
             },
           ],
-          vendornum: [
+          /*vendornum: [
             {
               required: true,
               message: this.$t('normal.error_08') + this.$t('label.PFANS1012VIEW_FOREIGNPAYEECODE'),
               trigger: 'blur',
             },
-          ],
+          ],*/
           payeebankaccountnumber: [
             {
               required: true,
@@ -668,6 +676,13 @@
                   this.loading = false;
                 });
             }
+          }
+          else{
+              Message({
+                  message: this.$t("normal.error_12"),
+                  type: 'error',
+                  duration: 5 * 1000
+              });
           }
         });
       },

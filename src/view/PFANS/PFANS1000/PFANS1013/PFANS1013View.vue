@@ -17,7 +17,7 @@
 <script>
   import EasyNormalTable from '@/components/EasyNormalTable'
   import {Message} from 'element-ui'
-  import {getDictionaryInfo, getStatus, getUserInfo,getOrgInfoByUserId} from '@/utils/customize'
+  import {getDictionaryInfo, getOrgInfoByUserId, getStatus, getUserInfo} from '@/utils/customize'
   import moment from "moment";
 
   const {Parser} = require('json2csv');
@@ -75,8 +75,8 @@
           //   filter: true
           // },
           {
-            code: 'telephone',
-            label: 'label.PFANS1013VIEW_TELEPHONE',
+            code: 'type',
+            label: 'label.PFANS1013VIEW_TYPE',
             width: 90,
             fix: false,
             filter: true
@@ -97,13 +97,13 @@
             filter: true
 
           },
-          {
-            code: 'balance',
-            label: 'label.PFANS1013VIEW_BALANCE',
-            width: 100,
-            fix: false,
-            filter: true
-          },
+          // {
+          //   code: 'balance',
+          //   label: 'label.PFANS1013VIEW_BALANCE',
+          //   width: 100,
+          //   fix: false,
+          //   filter: true
+          // },
           {
             code: 'status',
             label: 'label.approval_status',
@@ -156,7 +156,7 @@
             if (nameflg) {
               response[j].centername = nameflg.centerNmae;
               response[j].groupname = nameflg.groupNmae;
-                response[j].teamname = nameflg.teamNmae;
+              response[j].teamname = nameflg.teamNmae;
             }
             // response[j].centername = response[j].centerid;
             // response[j].groupname = response[j].groupid;
@@ -167,6 +167,19 @@
             //     response[j].budgetunit = letBudgetunit.value1;
             //   }
             // }
+            if (response[j].type !== null && response[j].type !== "") {
+              if (response[j].type === '0') {
+                if (this.$i18n) {
+
+                  response[j].type = this.$t('label.PFANS1013VIEW_TYPEON');
+                }
+              } else if (response[j].type === '1') {
+                if (this.$i18n) {
+
+                  response[j].type = this.$t('label.PFANS1013VIEW_TYPEOFF');
+                }
+              }
+            }
             if (response[j].startdate !== null && response[j].startdate !== "") {
               response[j].startdate = moment(response[j].startdate).format("YYYY-MM-DD");
             }
@@ -252,6 +265,14 @@
           this.startoption = [];
           this.selectedList = {};
           this.selectedList.travelcost = [];
+          if (this.$refs.roletable.selectedList.length === 0) {
+            Message({
+              message: this.$t('normal.info_01'),
+              type: 'info',
+              duration: 2 * 1000
+            });
+            return;
+          }
           this.selectedlist = this.$refs.roletable.selectedList;
           for (let i = 0; i < this.selectedlist.length; i++) {
             this.selectedList.travelcost.push({
@@ -268,7 +289,6 @@
               for (let m = 0; m < response.length; m++) {
                 sum = sum + 1;
                 for (let i = 0; i < this.selectedlist.length; i++) {
-
                   if (response[m].evectionid == this.selectedlist[i].evectionid) {
                     let letErrortype = getDictionaryInfo(this.selectedlist[i].paymentmethod);
                     if (letErrortype != null) {
@@ -384,7 +404,7 @@
                 vendorcode: '',
                 paymentmethod: '',
                 currency: '',
-                invoiceamount: sum+1,
+                invoiceamount: sum + 1,
                 lineamount: invoiceamountvalue,
                 currencyrate: '',
                 companysegment: '',

@@ -368,7 +368,7 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.conjapanese'" :rules='rules.conjapanese'>
-                    <el-input :disabled="!disabled4" v-model="scope.row.conjapanese">
+                    <el-input  v-model="scope.row.conjapanese" :disabled="disabled4">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -376,7 +376,7 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_ENGLISH')" align="center" prop="conenglish" width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.conenglish'">
-                    <el-input :disabled="!disabled4" v-model="scope.row.conenglish">
+                    <el-input  v-model="scope.row.conenglish" :disabled="disabled4">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -384,10 +384,12 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center" prop="conchinese" width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.conchinese'" :rules='rules.conchinese'>
-                    <project style="width: 100%" :data="scope.row.conchinese" :no="scope.row" :multiple="true"
-                             v-model="scope.row.conchinese"
-                             @change="changePro" :disabled="!disabled">
-                    </project>
+<!--                    <project style="width: 100%" :data="scope.row.conchinese" :no="scope.row" :multiple="true"-->
+<!--                             v-model="scope.row.conchinese"-->
+<!--                             @change="changePro" :disabled="!disabled">-->
+<!--                    </project>-->
+                    <el-input  v-model="scope.row.conchinese" :disabled="disabled4">
+                    </el-input>
                   </el-form-item>
                 </template>
               </el-table-column>
@@ -691,14 +693,14 @@
       };
       var validateConjapanese = (rule, value, callback) => {
         if (value === '') {
-          callback(new Error(this.$t('label.PFANS1026FORMVIEW_XMHW')));
+          callback(new Error(this.$t('label.PFANS1026FORMVIEW_QYHW')));
         } else {
           callback();
         }
       };
       var validateConenglish = (rule, value, callback) => {
         if (value === '') {
-          callback(new Error(this.$t('label.PFANS1026FORMVIEW_XMHW')));
+          callback(new Error(this.$t('label.PFANS1026FORMVIEW_DDZYW')));
         } else {
           callback();
         }
@@ -707,19 +709,19 @@
         debugger;
         if (Array.isArray(value)) {
           if (value.length == 0) {
-            callback(new Error(this.$t('label.PFANS1026FORMVIEW_XMHW')));
+            callback(new Error(this.$t('label.PFANS1026FORMVIEW_QYZW')));
             return;
           }
           value.map(function(item) {
             if (item === '') {
-              callback(new Error(this.$t('label.PFANS1026FORMVIEW_XMHW')));
+              callback(new Error(this.$t('label.PFANS1026FORMVIEW_QYZW')));
 
             }
           });
           callback();
         } else {
           if (value === '' && value != null && value != undefined) {
-            callback(new Error(this.$t('label.PFANS1026FORMVIEW_XMHW')));
+            callback(new Error(this.$t('label.PFANS1026FORMVIEW_QYZW')));
           } else {
             callback();
           }
@@ -824,7 +826,7 @@
         ruleSet: {
           'save': ['contractnumber'],
           'makeinto': ['contractnumber'],
-          '7': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'contractdate', 'currencyposition', 'claimamount', 'deliverydate'],
+          '7': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'contractdate', 'currencyposition', 'claimamount', 'deliverydate','conchinese','conjapanese'],
         },
         rules1: {
             claimtype: [
@@ -1046,7 +1048,7 @@
         code6: 'HT009',
         code7: 'HT010',
         code8: 'HT011',
-        code9: 'HT006',
+        code9: 'PG019',
         code10: 'HT017',
         show1: true,
         show2: false,
@@ -1193,7 +1195,7 @@
       getProjectList() {
         this.loading = true;
         this.$store
-          .dispatch('PFANS5009Store/getSiteList', {})
+          .dispatch('PFANS5009Store/getSiteList2', {})
           .then(response => {
             this.projectResult = response.filter(value => {
               return value.status === '4';
@@ -1336,7 +1338,7 @@
       getsupplierinfor() {
         this.loading = true;
         this.$store
-          .dispatch('PFANS6003Store/getsupplierinfor')
+          .dispatch('PFANS6003Store/getsupplierinfor2')
           .then(response => {
             for (let j = 0; j < response.length; j++) {
               if (response[j].supplierinfor_id !== null && response[j].supplierinfor_id !== '') {
@@ -1724,6 +1726,11 @@
             }
           } else {
             this.dialogVisibleC = true;
+              Message({
+                  message: this.$t("normal.error_12"),
+                  type: 'error',
+                  duration: 5 * 1000
+              });
           }
         });
       },
@@ -2103,6 +2110,7 @@
         }
       },
       validateByType: function(type, cb) {
+        debugger
         let that = this;
         let countIndex = 0;
         let rowCount = that.form.tabledata.length || 0;
@@ -2115,6 +2123,7 @@
         this.$refs['refform'].clearValidate();
         let pros = [];
         myRule.forEach(function(item, index, array) {
+          debugger
           let dataName = 'tabledata';
           let maxCount = rowCount;
           if (['deliverydate', 'completiondate', 'claimdate', 'supportdate', 'claimamount'].indexOf(item) >= 0) {
@@ -2159,7 +2168,7 @@
           });
           cb(isOk);
         });
-        if(countIndex > 0){
+        if(countIndex > 0 && type !== "save"){
           Message({
             message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_CONTR'),
             type: 'error',

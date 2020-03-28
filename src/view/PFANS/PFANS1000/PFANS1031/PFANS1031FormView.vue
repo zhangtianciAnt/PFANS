@@ -177,6 +177,7 @@
   import user from '../../../components/user.vue';
   import {getUserInfo} from '@/utils/customize';
   import dicselect from '../../../components/dicselect.vue';
+  import moment from 'moment';
 
   export default {
     name: 'PFANS1031FormView',
@@ -224,7 +225,7 @@
         },
         code1: 'HT008',
         code2: 'PJ081',
-        code3: 'HT006',
+        code3: 'PG019',
         code4: 'HT012',
         code5: 'PJ082',
         disabled: true,

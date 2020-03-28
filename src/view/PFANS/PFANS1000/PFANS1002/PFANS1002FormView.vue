@@ -1312,9 +1312,6 @@
                         } else {
                             this.show10 = false;
                         }
-                        if (this.form.status === '2') {
-                            this.disable = false;
-                        }
                         this.loading = false;
                     })
                     .catch(error => {
@@ -1429,7 +1426,7 @@
             getProjectNames() {
                 this.loading = true;
                 this.$store
-                    .dispatch('PFANS5001Store/getFpans5001List', {})
+                    .dispatch('PFANS5001Store/getFpans5001List2', {})
                     .then(response => {
                         this.gridData = [];
                         for (let i = 0; i < response.length; i++) {
@@ -1742,6 +1739,13 @@
                                         this.loading = false;
                                     });
                             }
+                        }
+                        else{
+                            Message({
+                                message: this.$t("normal.error_12"),
+                                type: 'error',
+                                duration: 5 * 1000
+                            });
                         }
                     });
                 }

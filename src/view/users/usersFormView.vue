@@ -128,12 +128,11 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_CHILDREN')">
-                    <el-date-picker
+                    <el-switch
                       v-model="form.children"
-                      type="date"
-                      :placeholder="$t('label.PFANSUSERFORMVIEW_SELECTIONDATE')"
-                      style="width:20vw"
-                    ></el-date-picker>
+                      active-value="1"
+                      inactive-value="0">
+                    </el-switch>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -2487,6 +2486,11 @@
 
 
           } else {
+              Message({
+                  message: this.$t("normal.error_12"),
+                  type: 'error',
+                  duration: 5 * 1000
+              });
             this.loading = false;
           }
         });

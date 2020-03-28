@@ -737,7 +737,7 @@
         userlist: '',
         code1: 'HT008',
         code2: 'HT005',
-        code3: 'HT006',
+        code3: 'PG019',
         code4: 'HT018',
         sumAwardmoney: '',
         errorgroup:'',
@@ -1161,7 +1161,7 @@
         row.projects = val;
       },
       sumAward(){
-        if(this.form.contracttype === "HT006002"){
+        if(this.form.contracttype === "PG019001"){
           this.form.sarmb = this.from.exchangerate * this.sumAwardmoney;
         } else {
           this.form.sarmb = this.sumAwardmoney;
@@ -1170,7 +1170,7 @@
       changeSum(row) {
         row.worknumber = row.member + row.outsource;
         row.awardmoney = row.member * row.community + row.outsource * row.outcommunity;
-        if(this.form.contracttype === "HT006002"){
+        if(this.form.contracttype === "PG019001"){
           this.form.sarmb = this.from.exchangerate * this.sumAwardmoney;
         } else {
           this.form.sarmb = this.sumAwardmoney;
@@ -1190,7 +1190,7 @@
       },
       getcontracttype(val){
         this.form.contracttype=val;
-        if(val === "HT006002"){
+        if(val === "PG019001"){
           this.form.sarmb = this.from.exchangerate * this.sumAwardmoney;
         } else {
           this.form.sarmb = this.sumAwardmoney;
@@ -1365,6 +1365,13 @@
                     this.loading=false;
                   })
               }
+            }
+            else{
+                Message({
+                    message: this.$t("normal.error_12"),
+                    type: 'error',
+                    duration: 5 * 1000
+                });
             }
           });
         } else if (val === 'generate') {

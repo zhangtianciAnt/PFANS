@@ -3,7 +3,7 @@
     <EasyNormalContainer ref="container" :title="title" @buttonClick="buttonClick" v-loading="loading" :buttonList="buttonList"
                          @workflowState="workflowState" :canStart="canStart" @start="start" @end="end">
       <div slot="customize">
-        <el-form :model="form" label-width="8vw" label-position="top" style="padding: 2vw" :rules="rules"
+        <el-form :model="form" label-width="8vw" label-position="top" style="padding: 3vw" :rules="rules"
                  ref="refform">
           <el-row>
             <el-col :span="8">
@@ -839,6 +839,21 @@
             if (valid) {
                 this.loading = true;
                 this.baseInfo = {};
+                if (this.form.careerplan === '0') {
+                  this.form.businessplantype = "";
+                  this.form.businessplanbalance = "";
+                  this.form.classificationtype = "";
+                  this.rules.businessplantype[0].required = false;
+                }
+                if (this.form.salequotation === 'PJ013001') {
+                  this.form.reasonsforquotation = "";
+                }
+                if (this.form.salequotation === 'PJ013003') {
+                  this.form.reasonsforquotation = "";
+                }
+                this.form.scheduleddate = moment(this.form.scheduleddate).format('YYYY-MM-DD');
+                this.form.equipment = "1";
+                this.form.freedevice = this.radio1;
                 this.baseInfo.judgement = JSON.parse(JSON.stringify(this.form));
                 this.baseInfo.unusedevice = [];
               //设备
@@ -857,25 +872,11 @@
                   });
                 }
               }
-                if (this.form.careerplan === '0') {
-                    this.form.businessplantype = "";
-                    this.form.businessplanbalance = "";
-                    this.form.classificationtype = "";
-                    this.rules.businessplantype[0].required = false;
-                }
-              if (this.form.salequotation === 'PJ013001') {
-                this.form.reasonsforquotation = "";
-              }
-              if (this.form.salequotation === 'PJ013003') {
-                this.form.reasonsforquotation = "";
-              }
-              this.form.scheduleddate = moment(this.form.scheduleddate).format('YYYY-MM-DD');
-              this.form.equipment = "1";
-              this.form.freedevice = this.radio1;
+
               if (this.$route.params._id) {
                 this.form.judgementid = this.$route.params._id;
                 this.$store
-                  .dispatch('PFANS1003Store/updateUnusedevice', this.baseInfo)
+                  .dispatch('PFANS1003Store/updateJudgement', this.baseInfo)
                   .then(response => {
                     this.data = response;
                     this.loading = false;
@@ -899,7 +900,7 @@
 
               } else {
                 this.$store
-                  .dispatch('PFANS1003Store/createUnusedevice', this.baseInfo)
+                  .dispatch('PFANS1003Store/createJudgement', this.baseInfo)
                   .then(response => {
                     this.data = response;
                     this.loading = false;

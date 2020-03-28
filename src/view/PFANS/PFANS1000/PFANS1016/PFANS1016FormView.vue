@@ -443,11 +443,12 @@
         this.$store
           .dispatch('PFANS1016Store/selectById', {"routing_id": this.$route.params._id})
           .then(response => {
+            debugger
             if (this.form.status === '2') {
               this.disable = false;
             }
             this.userlist = response.user_id;
-            let rst = getOrgInfoByUserId(response.user_id);
+            let rst = getOrgInfoByUserId(response.routing.user_id);
               if(rst){
                   this.centerid = rst.centerNmae;
                   this.groupid= rst.groupNmae;
@@ -685,6 +686,13 @@
                     this.loading = false
                   })
               }
+            }
+            else{
+                Message({
+                    message: this.$t("normal.error_12"),
+                    type: 'error',
+                    duration: 5 * 1000
+                });
             }
           });
         }

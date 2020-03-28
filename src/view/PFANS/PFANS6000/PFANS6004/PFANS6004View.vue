@@ -173,6 +173,7 @@
           {'key': 'import', 'name': 'button.import', 'disabled': false, icon: 'el-icon-upload2'},
           {'key': 'export', 'name': 'button.export', 'disabled': false, icon: 'el-icon-download'},
           {'key': 'crAccount', 'name': 'button.crAccount', 'disabled': false, icon: 'el-icon-user'},
+          {'key': 'crAccount2', 'name': 'button.crAccount2', 'disabled': false, icon: 'el-icon-user'},
           // {'key': 'export2', 'name': 'button.download2', 'disabled': false, icon: 'el-icon-download'},
         ],
         rowid: '',
@@ -188,7 +189,7 @@
       getexpatriatesinfor() {
         this.loading = true;
         this.$store
-          .dispatch('PFANS6004Store/getexpatriatesinfor')
+          .dispatch('PFANS6004Store/getWithoutAuth')
           .then(response => {
             let tabledate = [];
             for (let j = 0; j < response.length; j++) {
@@ -360,6 +361,14 @@
         if (val === 'import') {
           this.daoru = true;
         } else if (val === 'export') {
+          if(this.$refs.roletable.selectedList.length === 0){
+            Message({
+              message: this.$t('normal.info_01'),
+              type: 'info',
+              duration: 2 * 1000
+            });
+            return;
+          }
           this.selectedlist = this.$refs.roletable.selectedList;
           import('@/vendor/Export2Excel').then(excel => {
             const tHeader = [
