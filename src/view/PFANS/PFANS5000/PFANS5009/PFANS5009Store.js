@@ -3,6 +3,7 @@ import {
   update,
   insert,
   getSiteList,
+  getSiteList2,
   } from './PFANS5009Api'
 
   const PFANS5009Store = {
@@ -26,6 +27,19 @@ import {
       getSiteList({commit},data) {
         return new Promise((resolve, reject) => {
           getSiteList().then(response => {
+            if (response.code === 0) {
+              resolve(response.data);
+            } else {
+              reject(response.message)
+            }
+          }).catch(error => {
+            reject(error);
+          })
+        })
+      },
+      getSiteList2({commit},data) {
+        return new Promise((resolve, reject) => {
+          getSiteList2().then(response => {
             if (response.code === 0) {
               resolve(response.data);
             } else {

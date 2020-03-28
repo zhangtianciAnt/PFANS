@@ -7,14 +7,6 @@ export function getRecruit() {
   })
 }
 
-export function getCompanyProjectList(data) {
-  return request({
-    url: 'logmanagement/getCompanyProjectList',
-    method: 'POST',
-    data: data
-  })
-}
-
 export function getRecruitOne(data) {
   return request({
     url: 'recruit/one',
