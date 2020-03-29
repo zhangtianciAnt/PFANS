@@ -54,19 +54,16 @@
         methods: {
             getPunchcardrecorddetail() {
                 let parameter = {
-                    jobnumber:this.$route.params.jobnumber
+                    jobnumber:this.$route.params.jobnumber,
+                    punchcardrecord_date:this.$route.params.punchcardrecord_date,
                 }
-                // let parameter = {
-                //     jobnumber:this.$route.params.jobnumber,
-                //     punchcardrecord_date:this.$route.params.punchcardrecord_date,
-                // }
                 this.loading = true;
                 this.$store
-                    .dispatch('PFANS2017Store/getgetDetail', parameter)
+                    .dispatch('PFANS2017Store/getPunDetail', parameter)
                     .then(response => {
                         for (let i = 0; i < response.length; i++) {
                             if (this.$i18n) {
-                                if (response[i].eventno === '0') {
+                                if (response[i].eventno === '1') {
                                     //进门
                                     response[i].eventno = this.$t('label.PFANS2017VIEW_ENTER');
                                 }
@@ -90,6 +87,12 @@
                     })
             },
             buttonClick(val) {
+                this.$store.commit('global/SET_HISTORYURL', this.$route.path)
+                if (val === 'back') {
+                    this.$router.push({
+                        name: 'PFANS2017View',
+                    });
+                }
             }
         }
     }

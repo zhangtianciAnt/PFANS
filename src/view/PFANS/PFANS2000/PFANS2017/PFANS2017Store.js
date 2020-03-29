@@ -1,4 +1,4 @@
-import {getFpans2017List, download,getgetDetail} from './PFANS2017Api'
+import {getFpans2017List, download,getPunDetail} from './PFANS2017Api'
 
 const PFANS2017Store = {
   namespaced: true,
@@ -30,9 +30,9 @@ const PFANS2017Store = {
       })
     },
     //获取打卡详细
-    getgetDetail({commit}, data) {
+    getPunDetail({commit}, data) {
       return new Promise((resolve, reject) => {
-        getgetDetail(data).then(response => {
+        getPunDetail(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {

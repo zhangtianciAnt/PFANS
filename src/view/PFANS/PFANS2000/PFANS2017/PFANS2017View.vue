@@ -268,6 +268,7 @@
                 }))
             },
             buttonClick(val) {
+                this.$store.commit('global/SET_HISTORYURL', this.$route.path);
                 // if (val === 'import') {
                 //     this.daoru = true;
                 //     this.clear(false);
@@ -299,7 +300,6 @@
                         });
                         return;
                     }
-                    this.$store.commit('global/SET_HISTORYURL', this.$route.path);
                     this.$router.push({
                         name: 'PFANS2017FormView',
                         params: {

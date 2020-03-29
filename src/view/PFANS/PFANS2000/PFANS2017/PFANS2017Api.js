@@ -18,9 +18,9 @@ export function download(data) {
   })
 }
 //获取打卡详细
-export function getgetDetail(data) {
+export function getPunDetail(data) {
   return request({
-    url: 'punchcardrecord/getDetail',
+    url: 'punchcardrecord/getPunDetail',
     method: 'post',
     data: data
   })
