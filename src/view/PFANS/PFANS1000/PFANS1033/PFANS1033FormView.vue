@@ -387,7 +387,7 @@
                 <el-table-column :label="$t('label.PFANS1024VIEW_CONTRACT2')" align="center" width="120">
                   <el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="conjapanese" width="200">
                     <template slot-scope="scope">
-                      <el-input :disabled="!disabled4" v-model="scope.row.conjapanese">
+                      <el-input :disabled="!disabled" v-model="scope.row.conjapanese">
                       </el-input>
                     </template>
                   </el-table-column>
@@ -399,9 +399,10 @@
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center"  prop="conchinese" width="200">
                     <template slot-scope="scope">
-                      <project style="width: 100%" :data="scope.row.conchinese" :no="scope.row" :multiple="true" v-model="scope.row.conchinese"
-                               @change="changePro" :disabled="!disabled">
-                      </project>
+<!--                      <project style="width: 100%" :data="scope.row.conchinese" :no="scope.row" :multiple="true" v-model="scope.row.conchinese"-->
+<!--                               @change="changePro" :disabled="!disabled">-->
+<!--                      </project>-->
+                      <el-input  v-model="scope.row.conchinese" :disabled="!disabled"></el-input>
                     </template>
                   </el-table-column>
                 </el-table-column>
