@@ -755,10 +755,10 @@
                             this.workflowCode = 'W0003';
                             this.canStart = true;
                         } else if (this.form.status === '4') {
-                            this.workflowCode = 'W0060';
+                            this.workflowCode = 'W0056';
                             this.canStart = true;
                         } else if (this.form.status === '7') {
-                            this.workflowCode = 'W0060';
+                            this.workflowCode = 'W0056';
                             this.canStart = false;
                         }
                         this.loading = false;
@@ -1705,13 +1705,13 @@
                 if (val.state === '1') {
                     if (val.workflowCode === 'W0003') {
                         this.form.status = '3';
-                    } else if (val.workflowCode === 'W0060') {
+                    } else if (val.workflowCode === 'W0056') {
                         this.form.status = '6';
                     }
                 } else if (val.state === '2') {
                     if (val.workflowCode === 'W0003') {
                         this.form.status = '4';
-                    } else if (val.workflowCode === 'W0060') {
+                    } else if (val.workflowCode === 'W0056') {
                         this.form.status = '7';
                         this.canStart = false;
                     }
