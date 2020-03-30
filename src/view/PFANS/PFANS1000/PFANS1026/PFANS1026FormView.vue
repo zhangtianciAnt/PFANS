@@ -383,15 +383,6 @@
               </template>
             </el-table-column>
             <el-table-column :label="$t('label.PFANS1024VIEW_CONTRACT2')" align="center">
-              <el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="conjapanese"
-                               width="200">
-                <template slot-scope="scope">
-                  <el-form-item :prop="'tabledata.' + scope.$index + '.conjapanese'" :rules='rules.conjapanese'>
-                    <el-input :disabled="!disabled4" v-model="scope.row.conjapanese">
-                    </el-input>
-                  </el-form-item>
-                </template>
-              </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center" prop="conchinese" width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.conchinese'" :rules='rules.conchinese'>
@@ -399,6 +390,15 @@
                              v-model="scope.row.conchinese"
                              @change="changePro" :disabled="!disabled">
                     </project>
+                  </el-form-item>
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="conjapanese"
+                               width="200">
+                <template slot-scope="scope">
+                  <el-form-item :prop="'tabledata.' + scope.$index + '.conjapanese'" :rules='rules.conjapanese'>
+                    <el-input :disabled="!disabled4" v-model="scope.row.conjapanese">
+                    </el-input>
                   </el-form-item>
                 </template>
               </el-table-column>
