@@ -1523,7 +1523,6 @@
                 code4: 'PG019',
                 code5: 'PJ005',
                 code9: 'PJ068',
-                code10: 'PJ057',
                 code11: '',
                 code13: 'PJ071',
                 code14: 'PJ083',
@@ -2209,7 +2208,10 @@
 
             },
             getUserids(val) {
+                debugger
                 this.form.code = getUserInfo(val).userinfo.personalcode;
+                console.log("aaa",this.form.code)
+                console.log("bbb",getUserInfo(val).userinfo)
                 this.userlist = val;
                 this.form.user_id = val;
                 let rst = getOrgInfoByUserId(val);
