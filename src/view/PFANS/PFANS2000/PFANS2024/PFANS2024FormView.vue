@@ -419,6 +419,11 @@
             }
         },
         methods: {
+          checkRequire(){
+            if(!this.form.user_id || !this.form.skilllevel || !this.form.business){
+              this.activeName = 'first';
+            }
+          },
           setdisabled(val){
             if(this.$route.params.disabled){
               this.disabled = val;
@@ -479,6 +484,7 @@
             },
 
             buttonClick(val) {
+            this.checkRequire();
                     this.$refs["ruleForm"].validate(valid => {
                         if (valid) {
                             this.form.staff = "";

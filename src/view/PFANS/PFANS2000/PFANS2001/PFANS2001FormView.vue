@@ -213,7 +213,7 @@
                     <el-col :span="24">
                       <el-form-item :label="$t('label.PFANS2001VIEW_OTHERREQUIREMENTS')"
                                     prop="otherrequirements">
-                        <el-input :disabled="!disabled" :rows="3" style="width:70vw" type="textarea"
+                        <el-input :disabled="!disabled" :rows="3" style="width:68vw" type="textarea"
                                   v-model="form.otherrequirements"></el-input>
                       </el-form-item>
                     </el-col>
@@ -224,7 +224,7 @@
                     <span class="collapse_Title">{{$t('label.PFANS2001VIEW_RESPONSIBILITIES')}}</span>
                   </template>
                   <el-row>
-                    <el-input :disabled="!disabled" style="width:70vw" type="textarea"
+                    <el-input :disabled="!disabled" style="width:68vw" type="textarea"
                               v-model="form.responsibilities"></el-input>
                   </el-row>
                 </el-collapse-item>
@@ -484,7 +484,7 @@
             checkRequire() {
                 if (
                     !this.form.center_id ||
-                    !this.form.group_id ||
+                   /* !this.form.group_id ||*/
                     !this.form.postname ||
                     !this.form.peoplerequired ||
                     !this.form.workplace ||
