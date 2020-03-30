@@ -16,7 +16,7 @@
       <div align="right" class="filter-container">
         <span class="Title_front main_color" style="float:left">{{$t(title)}}</span>
       </div>
-      <slot name="customize"></slot>
+      <slot name="customize" ref="customize"></slot>
     </el-card>
   </div>
 
@@ -104,11 +104,13 @@
         if (!this.canStartWorkflowVal && this.canViewWorkflowVal && this.enableSave) {
           for (var i = 1; i < this.buttons.length; i++) {
             this.buttons[i].disabled = true
+            this.$emit('disabled', false);
           }
         } else {
           for (var i = 0; i < this.enabled.length; i++) {
             this.buttons[i].disabled = this.enabled[i]
           }
+          this.$emit('disabled', true);
         }
       },
       canViewWorkflow(val) {
@@ -116,11 +118,13 @@
         if (!this.canStartWorkflowVal && this.canViewWorkflowVal && this.enableSave) {
           for (var i = 1; i < this.buttons.length; i++) {
             this.buttons[i].disabled = true
+            this.$emit('disabled', false);
           }
         } else {
           for (var i = 0; i < this.enabled.length; i++) {
             this.buttons[i].disabled = this.enabled[i]
           }
+          this.$emit('disabled', true);
         }
       }
     },

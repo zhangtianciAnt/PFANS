@@ -14,7 +14,7 @@
         </div>
       </div>
       <div>
-        <div @click="submitForm('CT')" class="m-content">
+        <div @click="submitForm('HT')" class="m-content">
           <el-col :span="18">
             <div style="width: 150px; margin-left: 8px; text-overflow: ellipsis; overflow: hidden;
                           float: left; padding: 10px 0px; height: 50px; line-height: 18px;">{{$t('menu.CONTRACT')}}

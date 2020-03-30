@@ -1,7 +1,7 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick"
-                         :noback="noback"
+                         :noback="noback" @disabled="setdisabled"
                          ref="container" v-loading="loading">
       <div slot="customize">
         <el-form :model="form" label-position="top" label-width="8vw" ref="reff">
@@ -653,6 +653,11 @@
         },
 
         methods: {
+          setdisabled(val){
+            if(this.$route.params.disabled){
+              this.disabled = val;
+            }
+          },
             handleSelectionChange(val) {
                 // const data = [];
                 // for (let i = 0; i < val.length; i++) {

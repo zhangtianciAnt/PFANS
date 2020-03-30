@@ -2,7 +2,7 @@
   <div style="min-height: 100%">
     <EasyNormalContainer
       v-loading="loading">
-      <div slot="customize">
+      <div slot="customize" @disabled="setdisabled">
         <div v-html="this.form.richtext" style="overflow: auto"/>
       </div>
     </EasyNormalContainer>

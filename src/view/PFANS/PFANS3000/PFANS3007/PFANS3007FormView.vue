@@ -5,7 +5,7 @@
       :canStart="canStart"
       v-loading="loading"
       :title="title"
-      @buttonClick="buttonClick"
+      @buttonClick="buttonClick" @disabled="setdisabled"
       @end="end"
       @start="start"
       @workflowState="workflowState"
@@ -834,6 +834,11 @@
             this.disable = this.$route.params.disabled;
         },
         methods: {
+          setdisabled(val){
+            if(this.$route.params.disabled){
+              this.disabled = val;
+            }
+          },
             getUserids(val) {
                 this.form.userid = val;
                 this.userlist = val;

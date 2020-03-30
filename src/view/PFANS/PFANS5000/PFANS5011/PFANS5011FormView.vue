@@ -2,7 +2,7 @@
   <div>
     <EasyNormalContainer
       :buttonList="buttonList"
-      :title="title"
+      :title="title" @disabled="setdisabled"
       :noback="false"
       @buttonClick="buttonClick"
       v-loading="loading">
@@ -202,6 +202,11 @@
       };
     },
     methods: {
+      setdisabled(val){
+        if(this.$route.params.disabled){
+          this.disabled = val;
+        }
+      },
       handleSelectionChange(val) {
         this.multipleSelection = val;
       },
