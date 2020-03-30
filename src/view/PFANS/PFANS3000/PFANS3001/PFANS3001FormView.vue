@@ -187,6 +187,7 @@
   import {getOrgInfoByUserId} from '@/utils/customize';
   import {isvalidPhone, idcardNumber, telephoneNumber} from '@/utils/validate';
   import moment from 'moment';
+  import {getOrgInfo} from "../../../../utils/customize";
 
   export default {
     name: 'PFANS3001FormView',
@@ -470,7 +471,6 @@
       }
     },
     mounted() {
-      debugger
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
@@ -525,6 +525,7 @@
                 this.form.center_id = rst.centerId;
                 this.form.group_id = rst.groupId;
                 this.form.team_id = rst.teamId;
+              this.form.budgetnumber = getOrgInfo(rst.groupId).encoding;
             }
           this.form.user_id = this.$store.getters.userinfo.userid;
         }

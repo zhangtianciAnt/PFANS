@@ -341,7 +341,7 @@
                     uploadfile: '',
                     number: '',
                 },
-                code: 'PJ138',
+                code: 'PR002',
                 code1: 'PJ139',
                 code2: 'PJ010',
                 code3: 'PJ013',
