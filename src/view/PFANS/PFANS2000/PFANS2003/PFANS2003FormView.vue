@@ -1,7 +1,7 @@
 <template>
   <div style="min-height: 100%">`
     <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick"
-                         ref="container" v-loading="loading">
+                         ref="container" v-loading="loading" @disabled="setdisabled">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
                  style="padding:2vw" type="border-card">
@@ -541,6 +541,11 @@
       }
     },
     methods: {
+      setdisabled(val){
+        if(this.$route.params.disabled){
+          this.disabled = val;
+        }
+      },
       getInterviewDep(val) {
         this.form.interviewdep = val;
         if (!this.form.interviewdep || this.form.interviewdep === '' || val === 'undefined') {

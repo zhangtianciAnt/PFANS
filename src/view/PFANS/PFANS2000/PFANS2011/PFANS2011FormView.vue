@@ -8,7 +8,7 @@
       @buttonClick="buttonClick"
       @end="end"
       @start="start"
-      @workflowState="workflowState"
+      @workflowState="workflowState" @disabled="setdisabled"
       ref="container"
       v-loading="loading"
     >
@@ -559,6 +559,11 @@
       }
     },
     methods: {
+      setdisabled(val){
+        if(this.$route.params.disabled){
+          this.disabled = val;
+        }
+      },
       getTime(val) {
         let sum = val * 60;
         let hours = Math.floor(sum / 60);

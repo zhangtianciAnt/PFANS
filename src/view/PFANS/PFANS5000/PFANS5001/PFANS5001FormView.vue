@@ -6,7 +6,7 @@
       @buttonClick="buttonClick"
       :canStart="canStart"
       @end="end"
-      @start="start"
+      @start="start" @disabled="setdisabled"
       @workflowState="workflowState"
       ref="container"
       v-loading="loading">
@@ -1812,6 +1812,11 @@
             }
         },
         methods: {
+          setdisabled(val){
+            if(this.$route.params.disabled){
+              this.disabled = val;
+            }
+          },
           setToolsorgs(val){
             this.form.toolsorgs = val;
           },

@@ -1,7 +1,7 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" v-loading="loading" :title="title" @buttonClick="buttonClick"
-                         @end="end" @start="start" @workflowState="workflowState" ref="container">
+                         @end="end" @start="start" @workflowState="workflowState" ref="container" @disabled="setdisabled">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="ruleForm"
                  style="padding: 2vw">
@@ -292,6 +292,11 @@
       }
     },
     methods: {
+      setdisabled(val){
+        if(this.$route.params.disabled){
+          this.disabled = val;
+        }
+      },
       wjlx(value1) {
         this.form.filetype = value1;
       },
