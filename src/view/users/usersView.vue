@@ -237,12 +237,12 @@ export default {
         //   disabled: false,
         //   icon: 'el-icon-download'
         // },
-        // {
-        //   key: 'export',
-        //   name: 'button.export',
-        //   disabled: false,
-        //   icon: 'el-icon-upload2'
-        // },
+        {
+          key: 'export',
+          name: 'button.export',
+          disabled: false,
+          icon: 'el-icon-upload2'
+        },
       ],
       departmentname: "",
       loading: false,
