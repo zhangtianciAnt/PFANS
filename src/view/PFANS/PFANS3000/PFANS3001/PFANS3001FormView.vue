@@ -6,8 +6,8 @@
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="ruleForm"
                  style="padding: 2vw">
           <el-tabs @tab-click="handleClick" v-model="form.ticketstype" type="border-card">
-            <el-tab-pane :label="$t('label.PFANS3001FORMVIEW_DOMESTIC')" name="first" value="1"></el-tab-pane>
-            <el-tab-pane :label="$t('label.PFANS3001FORMVIEW_FOREIGN')" name="second" value="2"></el-tab-pane>
+            <el-tab-pane :label="$t('label.PFANS3001FORMVIEW_DOMESTIC')" name="first" value="1" :disabled="this.$route.params._id !== '' && this.form.ticketstype === 'second'"></el-tab-pane>
+            <el-tab-pane :label="$t('label.PFANS3001FORMVIEW_FOREIGN')" name="second" value="2" :disabled="this.$route.params._id !== '' && this.form.ticketstype === 'first'"></el-tab-pane>
             <el-row>
               <el-col :span="8">
                 <el-form-item :label="$t('label.center')">
@@ -470,6 +470,7 @@
       }
     },
     mounted() {
+      debugger
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
