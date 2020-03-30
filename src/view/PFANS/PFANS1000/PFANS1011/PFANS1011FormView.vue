@@ -611,6 +611,28 @@
       }
     },
     methods: {
+      checkRequire(){
+        if(!this.form.user_id || !this.form.user || !this.form.interviewday){
+          this.activeName = 'first';
+        }else if(!this.form.name ||
+        !this.form.shank ||
+        !this.form.address ||
+        !this.form.phonenumber ||
+        !this.form.domei ||
+        !this.form.businessplace ||
+        !this.form.deploy ||
+        !this.form.responsibleperson ||
+        !this.form.specialclass ||
+        !this.form.phone ||
+        !this.form.email ||
+        !this.form.special ||
+        !this.form.phonenum ||
+        !this.form.mail ||
+        !this.form.actasaperson
+        ){
+          this.activeName = 'third';
+        }
+      },
       getUserids(val) {
         this.form.user_id = val;
         let rst = getUserInfo(val);
@@ -681,6 +703,7 @@
         if (val === 'back') {
           this.paramsTitle();
         } else {
+          this.checkRequire();
           this.$refs['refform'].validate(valid => {
             if (valid) {
               this.loading = true;
