@@ -1360,6 +1360,10 @@
             this.loading = false;
           });
       } else {
+          let num = getUserInfo(this.$store.getters.userinfo.userid).userinfo.extension;
+          if(num){
+              this.form.telephone = num
+          }
         if(getUserInfo(this.$store.getters.userinfo.userid)){
           this.form.personalcode = getUserInfo(this.$store.getters.userinfo.userid).userinfo.personalcode;
         }

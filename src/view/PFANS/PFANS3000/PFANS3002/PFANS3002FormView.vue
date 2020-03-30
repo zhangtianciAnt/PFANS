@@ -3,7 +3,7 @@
     <EasyNormalContainer
       :buttonList="buttonList"
       v-loading="loading"
-      :title="title"
+      :title="title" @disabled="setdisabled"
       @buttonClick="buttonClick"
       ref="container"
     >
@@ -295,6 +295,11 @@
             }
         },
         methods: {
+          setdisabled(val){
+            if(this.$route.params.disabled){
+              this.disabled = val;
+            }
+          },
             getUserids(val) {
                 this.form.userid = val;
                 this.userlist = val;

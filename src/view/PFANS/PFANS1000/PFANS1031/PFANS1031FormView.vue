@@ -239,7 +239,7 @@
         this.buttonList=[
           {
             key: 'export1',
-            name: 'button.exportNaPinShu_ShouTuo',
+            name: 'button.generate',
             disabled: false,
           }
         ];

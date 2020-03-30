@@ -1,6 +1,6 @@
 <template>
   <div style="min-height: 100%">
-    <EasyNormalContainer :buttonList="buttonList" v-loading="loading" :title="title" @buttonClick="buttonClick"
+    <EasyNormalContainer :buttonList="buttonList" v-loading="loading" :title="title" @buttonClick="buttonClick" @disabled="setdisabled"
                          @end="end" @start="start" @workflowState="workflowState" ref="container">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="ruleForm"
@@ -530,6 +530,11 @@
       }
     },
     methods: {
+      setdisabled(val){
+        if(this.$route.params.disabled){
+          this.disabled = val;
+        }
+      },
       handleClick(tab, event) {
         if (tab.name === 'first') {
           this.showDomestic = true;

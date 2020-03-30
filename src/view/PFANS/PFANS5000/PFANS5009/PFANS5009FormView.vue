@@ -2,7 +2,7 @@
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :canStart="canStart" :title="title" @buttonClick="buttonClick"
                          ref="container" v-loading="loading"  @end="end"
-                         @start="start"
+                         @start="start" @disabled="setdisabled"
                          @workflowState="workflowState">
 
       <div slot="customize">
@@ -1213,6 +1213,11 @@
       }
     },
     methods: {
+      setdisabled(val){
+        if(this.$route.params.disabled){
+          this.disabled = val;
+        }
+      },
       workflowState(val) {
         if (val.state === "1") {
           this.form.status = "6";

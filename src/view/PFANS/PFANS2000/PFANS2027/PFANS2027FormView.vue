@@ -4,7 +4,7 @@
                          @buttonClick="buttonClick"
                          ref="container"
                          v-loading="loading"
-                         @workflowState="workflowState"
+                         @workflowState="workflowState" @disabled="setdisabled"
                          @start="start"
                          @end="end">
       <div slot="customize">
@@ -712,6 +712,11 @@
         });
     },
     methods: {
+      setdisabled(val){
+        if(this.$route.params.disabled){
+          this.disabled = val;
+        }
+      },
       formatter(row, column) {
         if (column.property === "title3") {
           if (row.code) {

@@ -4,7 +4,7 @@
       :buttonList="buttonList"
       :title="titles"
       @buttonClick="buttonClick"
-      @end="end"
+      @end="end" @disabled="setdisabled"
       @start="start"
       @workflowState="workflowState"
       ref="container"
@@ -505,6 +505,11 @@
       this.disable = this.$route.params.disabled;
     },
     methods: {
+      setdisabled(val){
+        if(this.$route.params.disabled){
+          this.disabled = val;
+        }
+      },
       getUserids(val) {
         this.userlist = val;
         this.form.managerid = val;

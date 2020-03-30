@@ -9,7 +9,7 @@
       ref="loginForm"
       label-position="left"
       class="sub_login_color_blue"
-      style="height: 100%;background:rgba(0,91,170,0.4)"
+      style="height: 100%;background:rgba(0,62,154,0.6)"
 
     >
       <div>
@@ -53,7 +53,7 @@
 
       <el-button
         type="primary"
-        style="width:80%;margin-top:40px;font-size:18px"
+        style="width:80%;margin-top:40px;font-size:18px;background-color: #1a50f1"
         :loading="loading"
         @click="handleLogin"
         @keyup.enter.native="handleLogin"

@@ -1523,7 +1523,6 @@
                 code4: 'PG019',
                 code5: 'PJ005',
                 code9: 'PJ068',
-                code10: 'PJ057',
                 code11: '',
                 code13: 'PJ071',
                 code14: 'PJ083',
@@ -1894,6 +1893,10 @@
             } else {
                 if (getUserInfo(this.$store.getters.userinfo.userid)) {
                     this.form.code = getUserInfo(this.$store.getters.userinfo.userid).userinfo.personalcode;
+                    let num = getUserInfo(this.$store.getters.userinfo.userid).userinfo.extension;
+                    if(num){
+                        this.form.telephone = num
+                    }
                 }
                 if (getOrgInfoByUserId(this.$store.getters.userinfo.userid)) {
                     this.groupId = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
@@ -2209,10 +2212,18 @@
 
             },
             getUserids(val) {
+                debugger
                 this.form.code = getUserInfo(val).userinfo.personalcode;
+                console.log("aaa",this.form.code)
+                console.log("bbb",getUserInfo(val).userinfo)
                 this.userlist = val;
                 this.form.user_id = val;
                 let rst = getOrgInfoByUserId(val);
+                let num = getUserInfo(val).userinfo.extension;
+                console.log("num",num)
+                if(num){
+                    this.form.telephone = num;
+                }
                 if (rst) {
                     this.centerid = rst.centerNmae;
                     this.groupid = rst.groupNmae;

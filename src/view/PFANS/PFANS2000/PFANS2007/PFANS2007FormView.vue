@@ -1,7 +1,7 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick"
-                          ref="container" v-loading="loading" :noback="noback">
+                          ref="container" v-loading="loading" :noback="noback" @disabled="setdisabled">
       <div slot="customize">
         <el-form :model="form" label-position="top" label-width="8vw" ref="refform"
                  style="padding: 2vw">
@@ -239,6 +239,11 @@
           this.getList(this.years);
         },
         methods: {
+          setdisabled(val){
+            if(this.$route.params.disabled){
+              this.disabled = val;
+            }
+          },
           yearChange(value){
             this.years = moment(value).format('YYYY');
             this.getList(this.years);

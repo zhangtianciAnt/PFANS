@@ -1,7 +1,7 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" v-loading="loading" :title="title" @buttonClick="buttonClick"
-                         ref="container">
+                         ref="container" @disabled="setdisabled">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="Form"
                  style="padding: 2vw">
@@ -451,6 +451,11 @@
       }
     },
     methods: {
+      setdisabled(val){
+        if(this.$route.params.disabled){
+          this.disabled = val;
+        }
+      },
       buttonClick(val) {
         this.$refs['Form'].validate(valid => {
           if (valid) {
