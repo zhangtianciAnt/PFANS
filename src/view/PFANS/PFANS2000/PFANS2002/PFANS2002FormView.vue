@@ -598,7 +598,7 @@
         multiple: false,
         search: '',
         result: '',
-          code_sex: 'PG020',
+          code_sex: 'PR019',
         gridData: [],
         num: 0,
         activeName: 'first',
