@@ -123,6 +123,7 @@
               <el-form-item :label="$t('label.PFANS2011VIEW_RESERVEOVER')" prop="reserveovertime">
                 <el-input-number
                   :disabled="showovertimelength"
+                  tep-strictly
                   :max="24"
                   :min="0"
                   :precision="2"
@@ -138,6 +139,7 @@
               <el-form-item :label="$t('label.PFANS2011VIEW_ACTUALOVER')" prop="actualovertime">
                 <el-input-number
                   :disabled="!disactualovertime"
+                  tep-strictly
                   :max="24"
                   :min="0"
                   :precision="2"
@@ -224,6 +226,11 @@
     },
     data() {
       var HolidayCheck = (rule, value, callback) => {
+        if (!value || value === '' || value === 'undefined') {
+          callback(
+            new Error(this.$t('normal.error_09') + this.$t('label.PFANS2011VIEW_TYPE')),
+          );
+        }
         if (['PR001004', 'PR001005', 'PR001003'].includes(value) && this.form.reserveovertimedate && !this.$route.params._id) {
           let bool = false;
           // for(let i = 0; i < this.dataList.length; i++){
@@ -398,12 +405,13 @@
             {
               required: true,
               validator: HolidayCheck,
+              trigger: 'change',
               // message:  this.$t("normal.error_09") + this.$t("label.PFANS2011VIEW_TYPE"),
             },
-            {
-              validator: HolidayCheck,
-              trigger: 'change',
-            },
+            // {
+            //   validator: HolidayCheck,
+            //   trigger: 'change',
+            // },
           ],
           reserveovertime: [
             {
@@ -729,7 +737,7 @@
             this.form.status = '2';
         }
         this.buttonClick('update');
-        
+
       },
       end() {
         if (this.form.status === '5') {

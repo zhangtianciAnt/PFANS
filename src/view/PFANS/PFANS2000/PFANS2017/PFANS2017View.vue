@@ -138,9 +138,9 @@
                     },
                 ],
                 buttonList: [
-                    {'key': 'import', 'name': 'button.import', 'disabled': false, icon: 'el-icon-upload2'},
+                    // {'key': 'import', 'name': 'button.import', 'disabled': false, icon: 'el-icon-upload2'},
                     {'key': 'export', 'name': 'button.export', 'disabled': false, icon: 'el-icon-download'},
-                    {'key': 'export2', 'name': 'button.download2', 'disabled': false, icon: 'el-icon-download'},
+                    // {'key': 'export2', 'name': 'button.download2', 'disabled': false, icon: 'el-icon-download'},
                     {'key': 'detail', 'name': 'button.detailed', 'disabled': false, icon: 'el-icon-s-grid'}
                 ],
                 isShow: true,
