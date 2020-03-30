@@ -1586,6 +1586,7 @@
                 }
             },
             getErrorType(val) {
+                this.form.lengthtime=''
                 this.typecheck = '';
                 let dictionaryInfo = getDictionaryInfo(val);
                 if (dictionaryInfo) {
