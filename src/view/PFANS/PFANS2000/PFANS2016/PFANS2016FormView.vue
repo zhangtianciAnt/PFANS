@@ -1538,7 +1538,7 @@
             },
             changeTime() {
                 let diffDate = moment(this.form.finisheddate).diff(moment(this.form.occurrencedate), 'days') + 1;
-                if (this.form.errortype === 'PR013012' || this.form.errortype === 'PR013021' && this.$store.getters.userinfo.userinfo.sex !== 'PG020002') {
+                if (this.form.errortype === 'PR013012' || this.form.errortype === 'PR013021' && this.$store.getters.userinfo.userinfo.sex !== 'PR019002') {
                     this.error = 1;
                     Message({
                         message: this.$t('label.PFANS2016FORMVIEW_WOMENCHECK'),
@@ -1547,7 +1547,7 @@
                     });
                     return;
                 } else if (this.form.errortype === 'PR013013') {
-                    if (this.$store.getters.userinfo.userinfo.sex !== 'PG020001') {
+                    if (this.$store.getters.userinfo.userinfo.sex !== 'PR019001') {
                         this.error = 1;
                         Message({
                             message: this.$t('label.PFANS2016FORMVIEW_MENCHECK'),

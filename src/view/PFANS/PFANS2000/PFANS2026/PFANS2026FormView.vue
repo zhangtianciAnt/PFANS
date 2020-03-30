@@ -561,7 +561,7 @@
         },
         code1: 'PR012',
         code2: 'PR022',
-        code3:'PG020',
+        code3:'PR019',
         disable: false,
         disable1: false,
         disable2: false,
