@@ -1894,6 +1894,10 @@
             } else {
                 if (getUserInfo(this.$store.getters.userinfo.userid)) {
                     this.form.code = getUserInfo(this.$store.getters.userinfo.userid).userinfo.personalcode;
+                    let num = getUserInfo(this.$store.getters.userinfo.userid).userinfo.extension;
+                    if(num){
+                        this.form.telephone = num
+                    }
                 }
                 if (getOrgInfoByUserId(this.$store.getters.userinfo.userid)) {
                     this.groupId = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
@@ -2213,6 +2217,11 @@
                 this.userlist = val;
                 this.form.user_id = val;
                 let rst = getOrgInfoByUserId(val);
+                let num = getUserInfo(val).userinfo.extension;
+                console.log("num",num)
+                if(num){
+                    this.form.telephone = num;
+                }
                 if (rst) {
                     this.centerid = rst.centerNmae;
                     this.groupid = rst.groupNmae;
