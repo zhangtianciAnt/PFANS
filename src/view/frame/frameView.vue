@@ -40,7 +40,7 @@
         <el-col :span="21">
           <el-main class="sub_bg_color_grey" style="padding: 1rem;overflow-x: hidden">
             <!--<transition name="el-fade-in">-->
-            <router-view/>
+            <router-view @changeMenu="changeMenu"/>
             <!--</transition>-->
           </el-main>
         </el-col>
@@ -340,6 +340,12 @@
         this.vactiveIndex = appid;
         this.$store.commit("global/SET_CURRENTURL", appid);
         this.$store.commit("global/SET_WORKFLOWURL", appid);
+      },
+      changeMenu(){
+        this.vactiveIndex = this.$router.currentRoute.path;
+        this.$store.commit("global/SET_CURRENTURL", this.$router.path);
+        this.$store.commit("global/SET_WORKFLOWURL", this.$router.path);
+
       },
       //连接websocket--获取重复登录
       loginconnect() {
