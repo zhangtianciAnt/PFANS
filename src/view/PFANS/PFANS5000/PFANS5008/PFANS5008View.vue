@@ -45,6 +45,26 @@
         </div>
       </div>
     </el-dialog>
+    <el-dialog :visible.sync="pop_download" width="50%" destroy-on-close>
+      <el-table
+        :data="downtypes"
+        style="width: 100%">
+        <el-table-column
+          prop="name"
+          :label="$t('label.ASSETS1001VIEW_FILENAME')"
+        >
+        </el-table-column>
+
+        <el-table-column :label="$t('label.operation')">
+          <template slot-scope="scope">
+            <el-button
+              size="mini"
+              @click="handleDownload(scope.row)"
+            >{{$t('button.download2')}}</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -60,6 +80,7 @@
         },
         data() {
             return {
+                pop_download: false,
                 totaldata: [],
                 listQuery: {
                     page: 1,
@@ -161,7 +182,8 @@
                     {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
                     {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
                     {'key': 'import', 'name': 'button.import', 'disabled': false,icon: 'el-icon-download'},
-                    {'key': 'export', 'name': 'button.export', 'disabled': false, icon: 'el-icon-upload2'}
+                    {'key': 'export', 'name': 'button.export', 'disabled': false, icon: 'el-icon-upload2'},
+                    {'key': 'export2', 'name': 'button.download2', 'disabled': false, 'icon': 'el-icon-download'},
                 ],
                 row: '',
                 rowid: 'logmanagement_id',
@@ -171,7 +193,30 @@
             this.getProjectList();
             this.$store.commit('global/SET_OPERATEID', '');
         },
+        computed: {
+            downtypes(){
+                return [
+                    {name: this.$t('menu.PFANS5008'), type: 0}
+                ]
+            }
+        },
         methods: {
+            handleDownload(row) {
+                this.loading = true;
+                this.$store
+                    .dispatch('PFANS5008Store/downloadList', {'type': row.type})
+                    .then(response => {
+                        this.loading = false;
+                    })
+                    .catch(error => {
+                        Message({
+                            message: error,
+                            type: 'error',
+                            duration: 5 * 1000
+                        });
+                        this.loading = false;
+                    })
+            },
             handleSizeChange(val) {
                 this.listQuery.limit = val
                 this.getList()
@@ -269,7 +314,6 @@
                                             }
                                             if(response[j].project_id ==='PP024001'){
                                               if (this.$i18n){
-
                                                 response[j].project_id =  this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')
                                               }
                                             }
@@ -368,7 +412,9 @@
                             disabled: true
                         }
                     });
-                } else if (val === 'export') {
+                }else if (val === 'export2') {
+                    this.pop_download = true;
+                }else if (val === 'export') {
                   if(this.$refs.roletable.selectedList.length === 0){
                     Message({
                       message: this.$t('normal.info_01'),
