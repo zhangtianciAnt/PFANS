@@ -427,6 +427,7 @@
             //     this.title = this.$t('title.PFANS5004VIEW');
             //   }
             // }
+              response.companyprojects.endtime = new Date()
             this.form = response.companyprojects;
             this.userlist = this.form.managerid;
             /*阶段信息*/

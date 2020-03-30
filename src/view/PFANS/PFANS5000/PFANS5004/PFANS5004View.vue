@@ -176,7 +176,13 @@
           .then(response => {
             if(response.length > 0) {
                 for (let j = 0; j < response.length; j++) {
-                  response[j].status = getStatus(response[j] .status);
+                  if(response[j].status==='4'){
+                      response[j].status = this.$t('label.PFANS5004VIEW_OVERTIME')
+                  }else  if(response[j].status==='7'){
+                      response[j].status = this.$t('label.node_step4')
+                  }else  if(response[j].status==='8'){
+                      response[j].status = this.$t('label.node_step2')
+                  }
                     if (response[j].phase !== null && response[j].phase !== "") {
                         let letPhase = getDictionaryInfo(response[j].phase);
                         if (letPhase != null) {
