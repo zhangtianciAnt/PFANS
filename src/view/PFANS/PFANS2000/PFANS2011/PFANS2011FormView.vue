@@ -712,22 +712,21 @@
         });
       },
       workflowState(val) {
-        var status;
         if (val.state === '1') {
           if (val.workflowCode === 'W0001') {
-            status = '3';
+              this.form.status = '3';
           } else if (val.workflowCode === 'W0040') {
-            status = '6';
+              this.form.status = '6';
           }
         } else if (val.state === '2') {
           if (val.workflowCode === 'W0001') {
-            status = '4';
+              this.form.status = '4';
           } else if (val.workflowCode === 'W0040') {
-            status = '7';
+              this.form.status = '7';
             this.canStart = false;
           }
         }
-        this.buttonClick('update', status);
+        this.buttonClick('update');
       },
       start() {
 
@@ -839,7 +838,7 @@
           this.form.actualsubstitutiondate = null;
         }
       },
-      buttonClick(val, status) {
+      buttonClick(val) {
         this.$refs['refform'].validate(valid => {
           if (valid) {
             if (this.form.overtimetype === 'PR001008' && this.sexflg !== 'PR019002') {
@@ -882,9 +881,6 @@
               }
             }
             if (this.$route.params._id) {
-              if (status != undefined) {
-                this.form.status = status;
-              }
               this.$store
                 .dispatch('PFANS2011Store/updateOvertime', this.form)
                 .then(response => {
