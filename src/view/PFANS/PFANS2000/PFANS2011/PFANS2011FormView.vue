@@ -723,19 +723,19 @@
       },
       start() {
         if (this.form.status === '4' || this.form.status === '6') {
-          var status = '5';
+            this.form.status = '5';
         } else {
-          var status = '2';
+            this.form.status = '2';
         }
-        this.buttonClick('update', status);
+        this.buttonClick('update');
       },
       end() {
         if (this.form.status === '5') {
-          var status = '4';
+            this.form.status = '4';
         } else {
-          var status = '0';
+            this.form.status = '0';
         }
-        this.buttonClick('update', status);
+        this.buttonClick('update');
       },
       getUserids(val) {
         this.form.userid = val;
