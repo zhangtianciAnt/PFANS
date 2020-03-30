@@ -683,7 +683,7 @@
                 contractnumber: '',
                 contracttype: '',
                 applicationdate: '',
-                entrycondition: '',
+                entrycondition: 'HT003001',
                 grouporglist: '',
                 custojapanese: this.$t('label.PFANS1033FORMVIEW_FIXED'),
                 suppliercode: '',
