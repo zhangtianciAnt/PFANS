@@ -240,12 +240,14 @@
           this.$router.push({
             name: 'PFANS8002View',
           });
+        this.$emit("changeMenu")
           // }
       },
       Clickckgd() {
         this.$router.push({
           name: 'PFANS8003View'
         });
+        this.$emit("changeMenu")
       },
       rowclickDataList2(row, event, column) {
         this._id = row.informationid;
@@ -257,6 +259,7 @@
             readonly: 1,
           },
         });
+        this.$emit("changeMenu")
       },
       handleDateClick: function (info) {
         this.day = moment(info.date).format('YYYY-MM-DD');
@@ -267,6 +270,7 @@
             disabled: true,
           },
         });
+        this.$emit("changeMenu")
       },
       getGSDT() {
         this.$store.dispatch('PFANS8008Store/getInformation').then(response => {
