@@ -1255,7 +1255,7 @@
                             <dicselect
                               :data="scope.row.type"
                               @change="changeType"
-                              code="PJ102"
+                              code="PJ111"
                               style="width:7vw"
                               :no="scope.row"
                               size="small"
