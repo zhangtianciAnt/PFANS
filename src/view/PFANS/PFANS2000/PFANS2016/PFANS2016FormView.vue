@@ -751,6 +751,16 @@
                                 }
                             }
                         }
+                        if (this.form.status === '0') {
+                            this.workflowCode = 'W0003';
+                            this.canStart = true;
+                        } else if (this.form.status === '4') {
+                            this.workflowCode = 'W0058';
+                            this.canStart = true;
+                        } else if (this.form.status === '7') {
+                            this.workflowCode = 'W0058';
+                            this.canStart = false;
+                        }
                         this.loading = false;
 
                     })
@@ -762,17 +772,6 @@
                         });
                         this.loading = false;
                     });
-
-                if (this.form.status === '0') {
-                    this.workflowCode = 'W0003';
-                    this.canStart = true;
-                } else if (this.form.status === '4') {
-                    this.workflowCode = 'W0056';
-                    this.canStart = true;
-                } else if (this.form.status === '7') {
-                    this.workflowCode = 'W0040';
-                    this.canStart = false;
-                }
 
             } else {
                 this.userlist = this.$store.getters.userinfo.userid;
@@ -1706,13 +1705,13 @@
                 if (val.state === '1') {
                     if (val.workflowCode === 'W0003') {
                         this.form.status = '3';
-                    } else if (val.workflowCode === 'W0056') {
+                    } else if (val.workflowCode === 'W0058') {
                         this.form.status = '6';
                     }
                 } else if (val.state === '2') {
                     if (val.workflowCode === 'W0003') {
                         this.form.status = '4';
-                    } else if (val.workflowCode === 'W0056') {
+                    } else if (val.workflowCode === 'W0058') {
                         this.form.status = '7';
                         this.canStart = false;
                     }

@@ -25,6 +25,8 @@
                 <el-input  v-show='false' v-model="form.team_id" :disabled="false" style="width: 20vw" maxlength='36'></el-input>
               </el-form-item>
             </el-col>
+          </el-row>
+          <el-row>
             <el-col :span="8">
               <el-form-item :error="erroruser" :label="$t('label.applicant')" prop="user_id">
                 <user :disabled="!disabled" :error="erroruser" :selectType="selectType" :userlist="userlist"
@@ -42,9 +44,11 @@
                                 style="width: 20vw"></el-date-picker>
               </el-form-item>
             </el-col>
-            <el-col >
+          </el-row>
+          <el-row>
+            <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1018FORMVIEW_INSIDENUMBER')" prop="extension">
-                <el-input :disabled="!disabled" style="width: 71.4vw"
+                <el-input :disabled="!disabled" style="width: 20vw"
                           v-model="form.extension"></el-input>
               </el-form-item>
             </el-col>

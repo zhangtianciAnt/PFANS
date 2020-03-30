@@ -323,7 +323,8 @@
                           <!--                              </el-input>-->
                           <!--                            </template>-->
                           <!--                          </el-table-column>-->
-                          <!--                    姓名-->
+                          <!--      222              姓名-->
+
                           <el-table-column
                             :label="$t('label.PFANSUSERFORMVIEW_CUSTOMERNAME')"
                             align="center"
@@ -1036,6 +1037,7 @@
                 status:'',
             };
         },
+
         mounted() {
           if (this.$route.params._org) {
             ({
@@ -1104,8 +1106,11 @@
                         if (response.prosystem.length > 0) {
                             let tablec = [];
                             let tableb = [];
+                            let flag1 = false;
+                            let flag2 = false;
                             for (var i = 0; i < response.prosystem.length; i++) {
                                 if (response.prosystem[i].type === '0') {
+                                  flag1 = true;
                                     tableb.push({
                                         name: response.prosystem[i].prosystem,
                                         comproject_id: response.prosystem[i].comproject_id,
@@ -1119,6 +1124,7 @@
                                         rowindex: response.prosystem[i].rowindex,
                                     });
                                 } else if (response.prosystem[i].type === '1') {
+                                  flag2 = true;
                                     tablec.push({
                                         name: response.prosystem[i].prosystem,
                                         comproject_id: response.prosystem[i].comproject_id,
@@ -1133,8 +1139,43 @@
                                     });
                                 }
                             }
-                            this.tableB = tableb;
+                            if(!flag1){
+                              this.tableB = [
+                                {
+                                  prosystem_id: '',
+                                  comproject_id: '',
+                                  type: '0',
+                                  number: '',
+                                  company: '',
+                                  name: '',
+                                  position: '',
+                                  admissiontime: '',
+                                  exittime: '',
+                                  rowindex: '',
+                                }
+                              ]
+                            }else{
+                              this.tableB = tableb;
+                            }
+
+                          if(!flag2){
+                            this.tableC = [
+                              {
+                                prosystem_id: '',
+                                comproject_id: '',
+                                type: '1',
+                                number: '',
+                                company: '',
+                                name: '',
+                                position: '',
+                                admissiontime: '',
+                                exittime: '',
+                                rowindex: '',
+                              },
+                            ]
+                          }else{
                             this.tableC = tablec;
+                          }
                         }
                         //项目合同
                         if (response.projectcontract.length > 0) {
@@ -1438,6 +1479,10 @@
                     row.number = lst.userinfo.jobnumber;
                     let lst1 = getOrgInfoByUserId(row.name);
                     row.company = lst1.groupNmae;
+                }else{
+                    row.position = '';
+                    row.number = '';
+                    row.company = '';
                 }
             },
             // getdepartmentid(val1) {

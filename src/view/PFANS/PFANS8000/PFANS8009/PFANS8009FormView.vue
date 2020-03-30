@@ -165,7 +165,6 @@
                     .then(response => {
                         if (response.length > 0) {
                             this.letcode = response[response.length - 1].code;
-                            alert(this.letcode);
                             this.tableD = response;
                         }
                         this.loading = false;

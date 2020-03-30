@@ -712,22 +712,21 @@
         });
       },
       workflowState(val) {
-        var status;
         if (val.state === '1') {
           if (val.workflowCode === 'W0001') {
-            status = '3';
+              this.form.status = '3';
           } else if (val.workflowCode === 'W0040') {
-            status = '6';
+              this.form.status = '6';
           }
         } else if (val.state === '2') {
           if (val.workflowCode === 'W0001') {
-            status = '4';
+              this.form.status = '4';
           } else if (val.workflowCode === 'W0040') {
-            status = '7';
+              this.form.status = '7';
             this.canStart = false;
           }
         }
-        this.buttonClick('update', status);
+        this.buttonClick('update');
       },
       start() {
 
@@ -809,6 +808,7 @@
               type: 'error',
               duration: 5 * 1000,
             });
+            return;
           }
         }
         if (val === 'PR001007') {
@@ -823,6 +823,7 @@
               type: 'error',
               duration: 5 * 1000,
             });
+            return;
           }
         }
       },
@@ -837,9 +838,25 @@
           this.form.actualsubstitutiondate = null;
         }
       },
-      buttonClick(val, status) {
+      buttonClick(val) {
         this.$refs['refform'].validate(valid => {
           if (valid) {
+            if (this.form.overtimetype === 'PR001008' && this.sexflg !== 'PR019002') {
+              Message({
+                message: this.$t('label.PFANS2011FROMVIEW_ERRORINFOS'),
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              return;
+            }
+            if (this.form.overtimetype === 'PR001007' && Number(this.ageflg) > 28) {
+              Message({
+                message: this.$t('label.PFANS2011FROMVIEW_ERRORINFOW'),
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              return;
+            }
             this.loading = true;
             this.form.userid = this.userlist;
             this.form.applicationdate = moment(this.form.applicationdate).format(
@@ -864,9 +881,6 @@
               }
             }
             if (this.$route.params._id) {
-              if (status != undefined) {
-                this.form.status = status;
-              }
               this.$store
                 .dispatch('PFANS2011Store/updateOvertime', this.form)
                 .then(response => {

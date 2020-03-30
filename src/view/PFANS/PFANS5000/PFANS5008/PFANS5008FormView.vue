@@ -62,6 +62,12 @@
                         </el-dialog>
                       </el-form-item>
                     </el-col>
+                    <el-col :span="12">
+                      <el-form-item :label="$t('label.PFANS5008VIEW_PROGRAMNAME')" style="width:17vw"
+                                    prop="project_name">
+                        {{companyform.project_name}}
+                      </el-form-item>
+                    </el-col>
                   </el-row>
                   <el-row>
                     <div v-show="isShow">
@@ -74,12 +80,6 @@
                             :value="item.value">
                           </el-option>
                         </el-select>
-                      </el-col>
-                      <el-col :span="12">
-                        <el-form-item :label="$t('label.PFANS5008VIEW_PROGRAMNAME')" style="width:17vw"
-                                      prop="project_name">
-                          {{companyform.project_name}}
-                        </el-form-item>
                       </el-col>
                     </div>
                   </el-row>
@@ -466,6 +466,9 @@
                     .dispatch('PFANS5008Store/getDataOne', {'logmanagement_id': this.$route.params._id})
                     .then(response => {
                         this.data = response;
+                        if(response.confirmstatus=='1'){
+                            this.disable = false;
+                        }
                         if (this.data.has_project === '01') {
                             this.companyform = this.data;
                             this.$store

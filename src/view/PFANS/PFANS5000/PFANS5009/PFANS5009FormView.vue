@@ -39,13 +39,13 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS5009FORMVIEW_NAME1')" prop="project_name">
-                    <el-input :disabled="!disabled" maxlength='20' style="width:20vw"
+                    <el-input :disabled="true" maxlength='20' style="width:20vw"
                               v-model="form.project_name"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS5009FORMVIEW_NAME2')" prop="project_namejp">
-                    <el-input :disabled="!disabled" maxlength='5' style="width:20vw"
+                    <el-input :disabled="true" maxlength='5' style="width:20vw"
                               v-model="form.project_namejp"></el-input>
                   </el-form-item>
                 </el-col>
@@ -339,7 +339,7 @@
                       <!--                社内-->
                       <el-tab-pane :label="$t('label.PFANS5001FORMVIEW_INCOMMUNITY')" name="first">
                         <el-table :data="tableB" stripe border header-cell-class-name="sub_bg_color_blue"
-                                  style="width: 80vw">
+                                  :cell-class-name="setPl" style="width: 80vw">
                           <!--                      编号-->
                           <el-table-column
                             :label="$t('label.PFANS5001FORMVIEW_NUMBERS')"
@@ -967,8 +967,8 @@
         code3: 'PP014',
         code4: 'PP015',
         code5: 'PP012',
-        code6: 'PP017',
-        code7: 'PP016',
+        code6: 'PJ141',
+        code7: 'PP021',
         showrow: true,
         showrow1: false,
         showrow2: false,
@@ -1127,9 +1127,10 @@
             }
             if (response.projectsystem.length > 0) {
               //项目体制
+              this.tableB = [];
+              this.tableC = [];
               for (var i = 0; i < response.projectsystem.length; i++) {
                 if (response.projectsystem[i].type === '0') {
-                  this.tableB = [];
                   let o = {};
                   o.name = response.projectsystem[i].projectsystem_id;
                   o.companyprojects_id = response.projectsystem[i].companyprojects_id;
@@ -1143,7 +1144,6 @@
                   o.rowindex = response.projectsystem[i].rowindex;
                   this.tableB.push(o);
                 } else {
-                  this.tableC = [];
                   let o = {};
                   o.name = response.projectsystem[i].projectsystem_id;
                   o.companyprojects_id = response.projectsystem[i].companyprojects_id;
@@ -1213,6 +1213,11 @@
       }
     },
     methods: {
+      setPl({row, column, rowIndex, columnIndex}){
+        if(row.position.toUpperCase() === 'PL'){
+          return 'PlStyles';
+        }
+      },
       checkRequire(){
         if(!this.form.center_id ||
           !this.form.group_id ||
@@ -1633,5 +1638,8 @@
 
   .el-table__footer-wrapper tbody td, .el-table__header-wrapper tbody td {
     color: blue;
+  }
+  .PlStyles{
+    background-color: #005BAA !important;
   }
 </style>
