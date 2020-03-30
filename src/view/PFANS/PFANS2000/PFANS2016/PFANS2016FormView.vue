@@ -705,13 +705,14 @@
                     .dispatch('PFANS2016Store/getPfans2016One', {'abnormalid': this.$route.params._id})
                     .then(response => {
                         this.form = response;
-
                         if(this.form.refinisheddate == null||this.form.reoccurrencedate== null ){
                             if (this.form.status === '4') {
                                 this.form.reoccurrencedate = response.occurrencedate
                                 this.form.refinisheddate = response.finisheddate
                                 this.form.relengthtime = response.lengthtime
-                                if (moment(this.form.refinisheddate).format('YYYY-MM-DD') != moment(this.form.reoccurrencedate).format('YYYY-MM-DD')) {
+                                if(this.form.errortype === 'PR013001'){
+                                    this.checkrelengthtime = false;
+                                }else if (moment(this.form.refinisheddate).format('YYYY-MM-DD') != moment(this.form.reoccurrencedate).format('YYYY-MM-DD')) {
                                     this.checkrelengthtime = true;
                                 }
                             }
@@ -719,7 +720,9 @@
                         if (moment(this.form.occurrencedate).format('YYYY-MM-DD') != moment(this.form.finisheddate).format('YYYY-MM-DD')) {
                             this.checklengthtime= true;
                         }
-                        if (moment(this.form.refinisheddate).format('YYYY-MM-DD') != moment(this.form.reoccurrencedate).format('YYYY-MM-DD')) {
+                        if(this.form.errortype === 'PR013001'){
+                            this.checkrelengthtime = false;
+                        }else if (moment(this.form.refinisheddate).format('YYYY-MM-DD') != moment(this.form.reoccurrencedate).format('YYYY-MM-DD')) {
                             this.checkrelengthtime = true;
                         }
                         let rst = getOrgInfoByUserId(response.user_id);
@@ -1140,39 +1143,44 @@
                     });
             },
             change() {
+                if(this.form.errortype === 'PR013001'){
+                    this.checklengthtime= false
+                }
                 if (moment(this.form.occurrencedate).format('YYYY-MM-DD') === moment(this.form.finisheddate).format('YYYY-MM-DD')) {
                     this.checklengthtime= false;
                 }
-                if (moment(this.form.occurrencedate).format('YYYY-MM-DD') != moment(this.form.finisheddate).format('YYYY-MM-DD')) {
-                    this.checklengthtime= true;
-                    this.changeTime();
-                    this.getarrDate();
-                    var getDate = function (str) {
-                        var tempDate = new Date();
-                        var list = str.split('-');
-                        tempDate.setFullYear(list[0]);
-                        tempDate.setMonth(list[1] - 1);
-                        tempDate.setDate(list[2]);
-                        return tempDate;
-                    };
-                    for (let i = 0; i < this.Todaysum.length; i++) {
-                        var date = getDate(this.Todaysum[i]);
-                        if (date.getDay() == 6) {
-                            this.Todaysum.splice(i, 1);
+                if(this.form.errortype != 'PR013001'){
+                    if (moment(this.form.occurrencedate).format('YYYY-MM-DD') != moment(this.form.finisheddate).format('YYYY-MM-DD')) {
+                        this.checklengthtime= true;
+                        this.changeTime();
+                        this.getarrDate();
+                        var getDate = function (str) {
+                            var tempDate = new Date();
+                            var list = str.split('-');
+                            tempDate.setFullYear(list[0]);
+                            tempDate.setMonth(list[1] - 1);
+                            tempDate.setDate(list[2]);
+                            return tempDate;
+                        };
+                        for (let i = 0; i < this.Todaysum.length; i++) {
+                            var date = getDate(this.Todaysum[i]);
+                            if (date.getDay() == 6) {
+                                this.Todaysum.splice(i, 1);
+                            }
+                            this.reList = this.Todaysum;
                         }
-                        this.reList = this.Todaysum;
-                    }
-                    for (let j = 0; j < this.reList.length; j++) {
-                        var data = getDate(this.reList[j]);
-                        if (data.getDay() == 0) {
-                            this.reList.splice(j, 1);
+                        for (let j = 0; j < this.reList.length; j++) {
+                            var data = getDate(this.reList[j]);
+                            if (data.getDay() == 0) {
+                                this.reList.splice(j, 1);
+                            }
+                            this.relist = this.reList;
                         }
-                        this.relist = this.reList;
-                    }
-                    for (let a = 0; a < this.relist.length; a++) {
-                        for (let b = 0; b < this.dateInfo.length; b++) {
-                            if (this.dateInfo[b].dateflg == this.relist[a] && this.dateInfo[b].type != '4') {
-                                this.relist.splice(a, 1);
+                        for (let a = 0; a < this.relist.length; a++) {
+                            for (let b = 0; b < this.dateInfo.length; b++) {
+                                if (this.dateInfo[b].dateflg == this.relist[a] && this.dateInfo[b].type != '4') {
+                                    this.relist.splice(a, 1);
+                                }
                             }
                         }
                     }
@@ -1315,6 +1323,9 @@
                 // }
             },
             rechange() {
+                if(this.form.errortype === 'PR013001'){
+                    this.checkrelengthtime= false
+                }
                 var getDate = function (str) {
                     var tempDate = new Date();
                     var list = str.split('-');
@@ -1323,59 +1334,61 @@
                     tempDate.setDate(list[2]);
                     return tempDate;
                 };
-                if (this.form.reoccurrencedate != null && this.form.refinisheddate != null) {
-                    if (moment(this.form.reoccurrencedate).format('YYYY-MM-DD') === moment(this.form.refinisheddate).format('YYYY-MM-DD')) {
-                        this.checkrelengthtime = false;
-                    } else {
-                        this.checkrelengthtime = true;
-                        var date1 = getDate(moment(this.form.reoccurrencedate).format('YYYY-MM-DD'));
-                        var date2 = getDate(moment(this.form.refinisheddate).format('YYYY-MM-DD'));
-                        if (date1 > date2) {
-                            var tempDate = date1;
-                            date1 = date2;
-                            date2 = tempDate;
-                        }
-                        date1.setDate(date1.getDate() + 1);
-                        var dateArr = [];
-                        var i = 0;
-                        while (!(date1.getFullYear() == date2.getFullYear()
-                            && date1.getMonth() == date2.getMonth() && date1.getDate() == date2
-                                .getDate())) {
-                            var dayStr = date1.getDate().toString();
-                            if (dayStr.length == 1) {
-                                dayStr = '0' + dayStr;
+                if(this.form.errortype != 'PR013001') {
+                    if (this.form.reoccurrencedate != null && this.form.refinisheddate != null) {
+                        if (moment(this.form.reoccurrencedate).format('YYYY-MM-DD') === moment(this.form.refinisheddate).format('YYYY-MM-DD')) {
+                            this.checkrelengthtime = false;
+                        } else {
+                            this.checkrelengthtime = true;
+                            var date1 = getDate(moment(this.form.reoccurrencedate).format('YYYY-MM-DD'));
+                            var date2 = getDate(moment(this.form.refinisheddate).format('YYYY-MM-DD'));
+                            if (date1 > date2) {
+                                var tempDate = date1;
+                                date1 = date2;
+                                date2 = tempDate;
                             }
-                            var monthStr = (date1.getMonth() + 1).toString();
-                            if (monthStr.length == 1) {
-                                monthStr = '0' + monthStr;
-                            }
-                            dateArr[i] = date1.getFullYear() + '-' + monthStr + '-'
-                                + dayStr;
-                            i++;
                             date1.setDate(date1.getDate() + 1);
+                            var dateArr = [];
+                            var i = 0;
+                            while (!(date1.getFullYear() == date2.getFullYear()
+                                && date1.getMonth() == date2.getMonth() && date1.getDate() == date2
+                                    .getDate())) {
+                                var dayStr = date1.getDate().toString();
+                                if (dayStr.length == 1) {
+                                    dayStr = '0' + dayStr;
+                                }
+                                var monthStr = (date1.getMonth() + 1).toString();
+                                if (monthStr.length == 1) {
+                                    monthStr = '0' + monthStr;
+                                }
+                                dateArr[i] = date1.getFullYear() + '-' + monthStr + '-'
+                                    + dayStr;
+                                i++;
+                                date1.setDate(date1.getDate() + 1);
+                            }
+                            dateArr.splice(0, 0, moment(this.form.reoccurrencedate).format('YYYY-MM-DD'));
+                            dateArr.push(moment(this.form.refinisheddate).format('YYYY-MM-DD'));
+                            this.Todaysum = dateArr;
                         }
-                        dateArr.splice(0, 0, moment(this.form.reoccurrencedate).format('YYYY-MM-DD'));
-                        dateArr.push(moment(this.form.refinisheddate).format('YYYY-MM-DD'));
-                        this.Todaysum = dateArr;
-                    }
-                    for (let i = 0; i < this.Todaysum.length; i++) {
-                        var date = getDate(this.Todaysum[i]);
-                        if (date.getDay() == 6) {
-                            this.Todaysum.splice(i, 1);
+                        for (let i = 0; i < this.Todaysum.length; i++) {
+                            var date = getDate(this.Todaysum[i]);
+                            if (date.getDay() == 6) {
+                                this.Todaysum.splice(i, 1);
+                            }
+                            this.reList = this.Todaysum;
                         }
-                        this.reList = this.Todaysum;
-                    }
-                    for (let j = 0; j < this.reList.length; j++) {
-                        var data = getDate(this.reList[j]);
-                        if (data.getDay() == 0) {
-                            this.reList.splice(j, 1);
+                        for (let j = 0; j < this.reList.length; j++) {
+                            var data = getDate(this.reList[j]);
+                            if (data.getDay() == 0) {
+                                this.reList.splice(j, 1);
+                            }
+                            this.relistTwo = this.reList;
                         }
-                        this.relistTwo = this.reList;
-                    }
-                    for (let a = 0; a < this.relistTwo.length; a++) {
-                        for (let b = 0; b < this.dateInfo.length; b++) {
-                            if (this.dateInfo[b].dateflg == this.relistTwo[a] && this.dateInfo[b].type != '4') {
-                                this.relistTwo.splice(a, 1);
+                        for (let a = 0; a < this.relistTwo.length; a++) {
+                            for (let b = 0; b < this.dateInfo.length; b++) {
+                                if (this.dateInfo[b].dateflg == this.relistTwo[a] && this.dateInfo[b].type != '4') {
+                                    this.relistTwo.splice(a, 1);
+                                }
                             }
                         }
                     }

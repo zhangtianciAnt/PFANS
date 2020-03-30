@@ -12,7 +12,7 @@
       @end="end"
     >
       <div slot="customize">
-        <el-form :model="form" label-width="8vw" label-position="top" :rules="rules" style="padding: 2vw"
+        <el-form :model="form" label-width="8vw" label-position="top" :rules="rules" style="padding: 3vw"
                  ref="refform">
           <el-row >
             <el-col :span="8">
