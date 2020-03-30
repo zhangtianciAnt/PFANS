@@ -114,9 +114,9 @@
                      orgtype="2" style="width:20vw"></org>
               </el-form-item>
             </el-col>
-            <!--            编号-->
+            <!--            编号变更卡号-->
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS5001FORMVIEW_NUMBERS')" prop="number">
+              <el-form-item :label="$t('label.PFANSUSERFORMVIEW_JOBNUMBER')" prop="number">
                 <el-input
                   :disabled="!disabled"
                   style="width:20vw"

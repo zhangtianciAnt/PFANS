@@ -5,7 +5,7 @@
       :canStart="canStart"
       v-loading="loading"
       :title="title"
-      @buttonClick="buttonClick"
+      @buttonClick="buttonClick" @disabled="setdisabled"
       @end="end"
       @start="start"
       @workflowState="workflowState"
@@ -468,6 +468,11 @@
       }
     },
     methods: {
+      setdisabled(val){
+        if(this.$route.params.disabled){
+          this.disabled = val;
+        }
+      },
       downLoad(val){
         if(val === '1'){
             this.$confirm('是否立即下载接机提示牌?', '提示', {

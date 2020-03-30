@@ -1,7 +1,7 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick" @end="end"
-                         :canStart="canStart"
+                         :canStart="canStart" @disabled="setdisabled"
                          @start="start" @workflowState="workflowState" ref="container" v-loading="loading"
                          :workflowCode="workflowCode">
       <div slot="customize">
@@ -795,6 +795,11 @@
             }
         },
         methods: {
+          setdisabled(val){
+            if(this.$route.params.disabled){
+              this.disabled = val;
+            }
+          },
             handleClick(val) {
                 this.form.vacationtype = val;
                 this.typecheck = val;

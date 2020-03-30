@@ -4,6 +4,7 @@
     ref="container"
     :buttonList="buttonList"
     @buttonClick="buttonClick"
+    @disabled="setdisabled"
   >
 
   </EasyNormalContainer>
@@ -46,6 +47,11 @@ export default {
   created() {
   },
   methods: {
+    setdisabled(val){
+      if(this.$route.params.disabled){
+        this.disabled = val;
+      }
+    },
     change: val => {
       console.log(val);
     },

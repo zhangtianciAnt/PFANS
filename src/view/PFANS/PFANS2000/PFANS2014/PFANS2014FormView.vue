@@ -2,7 +2,7 @@
   <div style="min-height: 100%">`
     <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick" ref="container"
                          @workflowState="workflowState" v-loading="loading"
-                         :canStart="canStart" @start="start" @end="end">
+                         :canStart="canStart" @start="start" @end="end" @disabled="setdisabled">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
                  style="padding:2vw">
@@ -268,6 +268,11 @@
       }
     },
     methods: {
+      setdisabled(val){
+        if(this.$route.params.disabled){
+          this.disabled = val;
+        }
+      },
       getUserids(val) {
         this.form.user_id = val;
         let rst = getOrgInfoByUserId(val);

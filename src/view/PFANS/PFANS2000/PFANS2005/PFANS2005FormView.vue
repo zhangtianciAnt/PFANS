@@ -4,7 +4,7 @@
       :buttonList="buttonList"
       @buttonClick="buttonClick"
       ref="container"
-      v-loading="loading"
+      v-loading="loading" @disabled="setdisabled"
     >
       <div slot="customize">
         <el-form label-position="top" label-width="8vw" ref="form">
@@ -3287,6 +3287,11 @@ export default {
     this.getListdata();
   },
   methods: {
+    setdisabled(val){
+      if(this.$route.params.disabled){
+        this.disabled = val;
+      }
+    },
     getListdata() {
       this.loading = true;
       this.$store

@@ -2,7 +2,7 @@
   <div>
     <EasyNormalContainer :buttonList="buttonList" :canStart="canStart" :title="title" :workflowCode="aaaaaa"
                          @buttonClick="buttonClick" @end="end" @start="start" @workflowState="workflowState"
-                         ref="container" v-loading="loading">
+                         ref="container" v-loading="loading" @disabled="setdisabled">
       <div slot="customize">
         <el-form :model="form" label-position="top" label-width="8vw" ref="form" style="padding: 2vw">
           <el-tabs v-model="activeName" type="border-card">
@@ -525,6 +525,11 @@
             }
         },
         methods: {
+          setdisabled(val){
+            if(this.$route.params.disabled){
+              this.disabled = val;
+            }
+          },
             getUserids(val) {
                 this.form.user_id = val;
                 let rst = getOrgInfoByUserId(val);

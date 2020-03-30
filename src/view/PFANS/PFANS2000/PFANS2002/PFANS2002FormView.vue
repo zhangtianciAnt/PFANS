@@ -7,6 +7,7 @@
     @start="start"
     @workflowState="workflowState"
     ref="container"
+    @disabled="setdisabled"
     v-loading="loading"
   >
     <div slot="customize" style="margin-top:2vw">
@@ -756,6 +757,11 @@
     },
 
     methods: {
+      setdisabled(val){
+        if(this.$route.params.disabled){
+          this.disabled = val;
+        }
+      },
       getNameList() {
         this.loading = true;
         this.$store

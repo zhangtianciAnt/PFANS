@@ -314,6 +314,22 @@
       },
 
       buttonClick(val) {
+        if(this.multipleSelection === undefined){
+            Message({
+                message: this.$t('normal.info_01'),
+                type: 'info',
+                duration: 2 * 1000
+            });
+            return;
+        }
+        if(this.multipleSelection.length === 0){
+            Message({
+                message: this.$t('normal.info_01'),
+                type: 'info',
+                duration: 2 * 1000
+            });
+            return;
+        }
         this.baseInfo = {};
         this.baseInfo.logmanagement = [];
         if(val === 'recognition'){
