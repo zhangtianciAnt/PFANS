@@ -103,6 +103,7 @@
   import EasyNormalTable from '@/components/EasyNormalTable';
   import {Message} from 'element-ui';
   import {getSupplierinfor} from '@/utils/customize';
+  import moment from 'moment';
 
   export default {
     name: 'PFANS6009View',
@@ -419,18 +420,37 @@
     },
     mounted() {
       // TAB1
+//      for (var i = 0; i < this.array.length; i++) {
+//        this.columns[i + 1].label = this.array[i];
+//      }
+
+      let year = moment().subtract(3,'months').year();
       for (var i = 0; i < this.array.length; i++) {
-        this.columns[i + 1].label = this.array[i];
+        if(i <=8) {
+          this.columns[i + 1].label = this.array[i].replace("0000", year).replace("Y", this.yearLabel).replace("M", this.monthLabel);
+        }else{
+          this.columns[i + 1].label = this.array[i].replace("0000", year + 1).replace("Y", this.yearLabel).replace("M", this.monthLabel);;
+        }
       }
+
 
       // TAB2
       this.columnsB = JSON.parse(JSON.stringify(this.columns));
       for (var i = 0; i < this.array1.length; i++) {
-        this.columnsB[i + 1].label = this.array1[i];
+//        this.columnsB[i + 1].label = this.array1[i];
         for (var j = 0; j < this.arrayB.length; j++) {
           this.columnsB[i + 1].child[j].label = this.arrayB[j];
         }
       }
+
+      for (var i = 1; i <= 12; i++) {
+        if(i <=9) {
+          this.columnsB[i].label = this.array1[i - 1].replace("0000", year);
+        }else {
+          this.columnsB[i].label = this.array1[i - 1].replace("0000", year + 1);
+        }
+      }
+
 
       this.columnsB[13].child[0].label = this.arrayB[0];
       this.columnsB[13].child[1].label = this.arrayB[1];
@@ -438,10 +458,19 @@
       // TAB3
       this.columnsC = JSON.parse(JSON.stringify(this.columns));
       for (var i = 0; i < this.array1.length; i++) {
-        this.columnsC[i + 1].label = this.array1[i];
+//        this.columnsC[i + 1].label = this.array1[i];
         this.columnsC[i + 1].child.splice(1, 1);
         this.columnsC[i + 1].child[0].label = this.number;
       }
+
+      for (var i = 1; i <= 12; i++) {
+        if(i <= 9) {
+          this.columnsC[i].label = this.array1[i - 1].replace("0000", year);
+        }else {
+          this.columnsC[i].label = this.array1[i - 1].replace("0000", year + 1);
+        }
+      }
+
 
       this.columnsC[13].child.splice(1, 1);
       this.columnsC[13].child[0].label = this.number;
@@ -609,14 +638,14 @@
             for (var p = 0; p <= 4; p++) {
               tableData.push(Object.assign(arrayAdate[p], {bpcompany: this.arryaLabels[p]}));
             }
-            var year = response.year;
-            for (var i = 0; i < this.array.length; i++) {
-              if(i <=8) {
-                this.columns[i + 1].label = this.array[i].replace("0000", year[0]).replace("Y", this.yearLabel).replace("M", this.monthLabel);
-              }else{
-                this.columns[i + 1].label = this.array[i].replace("0000", year[1]).replace("Y", this.yearLabel).replace("M", this.monthLabel);;
-              }
-            }
+//            var year = response.year;
+//            for (var i = 0; i < this.array.length; i++) {
+//              if(i <=8) {
+//                this.columns[i + 1].label = this.array[i].replace("0000", year[0]).replace("Y", this.yearLabel).replace("M", this.monthLabel);
+//              }else{
+//                this.columns[i + 1].label = this.array[i].replace("0000", year[1]).replace("Y", this.yearLabel).replace("M", this.monthLabel);;
+//              }
+//            }
 
             this.tableA = tableData;
             this.loading = false;
@@ -685,14 +714,13 @@
             }
             arrayAdate.push(addLine1);
             tableData.push(Object.assign(arrayAdate[0], {bpcompany: this.arryaLabels[0]}));
-
-            for (var i = 1; i <= 12; i++) {
-              if(i <=9) {
-                this.columnsB[i].label = this.array1[i - 1].replace("0000", year[0]);
-              }else {
-                this.columnsB[i].label = this.array1[i - 1].replace("0000", year[1]);
-              }
-            }
+//            for (var i = 1; i <= 12; i++) {
+//              if(i <=9) {
+//                this.columnsB[i].label = this.array1[i - 1].replace("0000", year[0]);
+//              }else {
+//                this.columnsB[i].label = this.array1[i - 1].replace("0000", year[1]);
+//              }
+//            }
 
             this.tableB = tableData;
             this.loading = false;
@@ -757,14 +785,13 @@
               }
               data["totalmanhours"] = parseFloat(totalManhour);
             });
-
-            for (var i = 1; i <= 12; i++) {
-              if(i <= 9) {
-                this.columnsC[i].label = this.array1[i - 1].replace("0000", year[0]);
-              }else {
-                this.columnsC[i].label = this.array1[i - 1].replace("0000", year[1]);
-              }
-            }
+//            for (var i = 1; i <= 12; i++) {
+//              if(i <= 9) {
+//                this.columnsC[i].label = this.array1[i - 1].replace("0000", year[0]);
+//              }else {
+//                this.columnsC[i].label = this.array1[i - 1].replace("0000", year[1]);
+//              }
+//            }
 
             this.tableC = tableC;
             this.loading = false;
