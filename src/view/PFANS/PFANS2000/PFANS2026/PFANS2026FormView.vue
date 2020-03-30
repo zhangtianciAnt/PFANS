@@ -30,7 +30,7 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :error="error" :label="$t('label.user_name')" prop="user_id">
-                    <user :disabled="!disable" :error="error" :selectType="selectType" :userlist="userlist"
+                    <user :disabled="true" :error="error" :selectType="selectType" :userlist="userlist"
                           @getUserids="getUserids" style="width:20vw" v-model="form.user_id"></user>
                   </el-form-item>
                 </el-col>
@@ -130,9 +130,9 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item :error="error" :label="$t('label.user_name')">
+                  <el-form-item :error="error" :label="$t('label.user_name')" >
                     <user :disabled="true" :error="error" :selectType="selectType" :userlist="userlist"
-                          @getUserids="getUserids" style="width:20vw" v-model="form.user_id"></user>
+                          @getUserids="getUserids" style="width:20vw" v-model="form.user_id" ></user>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
