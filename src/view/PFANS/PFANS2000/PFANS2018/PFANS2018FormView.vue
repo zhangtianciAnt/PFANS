@@ -4,7 +4,7 @@
                          ref="container" @disabled="setdisabled">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="Form"
-                 style="padding: 2vw">
+                 style="padding: 3vw">
           <el-row>
             <el-col :span="12">
               <el-form-item :label="$t('label.PFANS2018VIEW_WORKSHIFT')" prop="workshift_start">
