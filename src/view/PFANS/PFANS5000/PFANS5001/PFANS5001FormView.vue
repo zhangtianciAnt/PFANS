@@ -551,7 +551,7 @@
                       <!--                社内-->
                       <el-tab-pane :label="$t('label.PFANS5001FORMVIEW_INCOMMUNITY')" name="first">
                         <el-table :data="tableB" stripe border header-cell-class-name="sub_bg_color_blue"
-                                  style="width: 80vw">
+                                  style="width: 80vw" :cell-class-name="setPl">
                           <!--                      编号-->
                           <el-table-column
                             :label="$t('label.PFANS5001FORMVIEW_NUMBERS')"
@@ -604,7 +604,7 @@
                             <template slot-scope="scope">
                               <el-input
                                 :no="scope.row"
-                                :disabled="true"
+                                :disabled="scope.$index == 0"
                                 v-model="scope.row.position"
                                 style="width: 100%">
                               </el-input>
@@ -647,7 +647,7 @@
                               <el-button
                                 :disabled="!disable"
                                 @click.native.prevent="deleteRow1(scope.$index, tableB)"
-                                plain
+                                plain  v-show="scope.$index != 0"
                                 size="small"
                                 type="danger"
                               >{{$t('button.delete')}}
@@ -655,7 +655,7 @@
                               <el-button
                                 :disabled="!disable"
                                 @click="addRow1()"
-                                plain
+                                plain  v-show="scope.$index != 0"
                                 size="small"
                                 type="primary"
                               >{{$t('button.insert')}}
@@ -1231,11 +1231,22 @@
                         number: '',
                         company: '',
                         name: '',
-                        position: '',
+                        position: 'PL',
                         admissiontime: '',
                         exittime: '',
                         rowindex: '',
-                    },
+                    }, {
+                    projectsystem_id: '',
+                    companyprojects_id: '',
+                    type: '0',
+                    number: '',
+                    company: '',
+                    name: '',
+                    position: '',
+                    admissiontime: '',
+                    exittime: '',
+                    rowindex: '',
+                  },
                 ],
                 //项目体制(外协)
                 tableC: [
@@ -1829,6 +1840,12 @@
             }
         },
         methods: {
+          setPl({row, column, rowIndex, columnIndex}){
+            debugger
+            if(row.position.toUpperCase() === 'PL'){
+              return 'PlStyle';
+            }
+          },
           checkRequire(){
             if(!this.form.group_id ||
             !this.form.center_id ||
@@ -2065,7 +2082,7 @@
                 row.name = userlist;
                 if (row.name != null && row.name !== '') {
                     let lst = getUserInfo(row.name);
-                    row.position = lst.userinfo.post;
+                    // row.position = lst.userinfo.post;
                     row.number = lst.userinfo.jobnumber;
                     let lst1 = getOrgInfoByUserId(row.name);
                     row.company = lst1.groupNmae;
@@ -2262,21 +2279,8 @@
                 });
             },
             deleteRow1(index, rows) {
-                if (rows.length > 1) {
+                if (rows.length > 2) {
                     rows.splice(index, 1);
-                } else {
-                    this.tableB = [{
-                        projectsystem_id: '',
-                        companyprojects_id: '',
-                        type: '0',
-                        number: '',
-                        company: '',
-                        name: '',
-                        position: '',
-                        admissiontime: '',
-                        exittime: '',
-                        rowindex: '',
-                    }];
                 }
             },
             //项目体制(外协)
@@ -2754,5 +2758,8 @@
       background: white;
       border-width: 1px;
     }
+  }
+  .PlStyle{
+    background-color: #005BAA !important;
   }
 </style>
