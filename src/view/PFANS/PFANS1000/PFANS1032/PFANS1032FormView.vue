@@ -218,7 +218,7 @@
         this.buttonList = [
           {
             key: 'export1',
-            name: 'button.exportQingQiuShu_GuoNei',
+            name: 'button.generate',
             disabled: false,
           },
         ];

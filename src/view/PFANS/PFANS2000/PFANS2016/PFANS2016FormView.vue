@@ -59,8 +59,7 @@
                     v-show="(form.errortype != 'PR013005' && form.errortype != 'PR013007') && form.status != '4' && form.status != '5' && form.status != '6' && form.status != '7'&& form.status != '8'">
               <el-form-item :label="$t('label.PFANS2016FORMVIEW_LENGTHTIME')" label-width="9rem" prop="lengthtime">
                 <el-input-number
-                  :disabled="form.errortype === 'PR013021' || form.errortype === 'PR013012' || form.errortype === 'PR013013' || form.errortype === 'PR013011'
-                    || form.errortype === 'PR013015' || form.errortype === 'PR013017' || form.errortype === 'PR013020' ? true : false"
+                  :disabled="checklengthtime"
                   step-strictly
                   :max="1000000000"
                   :min="0"
@@ -142,23 +141,23 @@
             <!--                </el-time-picker>-->
             <!--              </el-form-item>-->
             <!--            </el-col>-->
-            <el-col :span="8" v-show="showWeekend">
-              <el-form-item :label="$t('label.PFANS2016FORMVIEW_RELATION')" prop="relation">
-                <el-select
-                  allow-create
-                  default-first-option
-                  filterable
-                  multiple
-                  v-model="form.relation">
-                  <el-option
-                    :key="item.overtimeid"
-                    :label="item.reserveovertimedate+'-'+item.overtimetype"
-                    :value="item.overtimeid"
-                    v-for="item in options">
-                  </el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
+            <!--            <el-col :span="8" v-show="showWeekend">-->
+            <!--              <el-form-item :label="$t('label.PFANS2016FORMVIEW_RELATION')" prop="relation">-->
+            <!--                <el-select-->
+            <!--                  allow-create-->
+            <!--                  default-first-option-->
+            <!--                  filterable-->
+            <!--                  multiple-->
+            <!--                  v-model="form.relation">-->
+            <!--                  <el-option-->
+            <!--                    :key="item.overtimeid"-->
+            <!--                    :label="item.reserveovertimedate+'-'+item.overtimetype"-->
+            <!--                    :value="item.overtimeid"-->
+            <!--                    v-for="item in options">-->
+            <!--                  </el-option>-->
+            <!--                </el-select>-->
+            <!--              </el-form-item>-->
+            <!--            </el-col>-->
           </el-row>
           <el-row>
             <el-col :span="8"
@@ -202,23 +201,23 @@
             <!--                </el-time-picker>-->
             <!--              </el-form-item>-->
             <!--            </el-col>-->
-            <el-col :span="8" v-show="showWeekend">
-              <el-form-item :label="$t('label.PFANS2016FORMVIEW_RELATION')" prop="relation">
-                <el-select
-                  allow-create
-                  default-first-option
-                  filterable
-                  multiple
-                  v-model="form.relation">
-                  <el-option
-                    :key="item.overtimeid"
-                    :label="item.reserveovertimedate+'-'+item.overtimetype"
-                    :value="item.overtimeid"
-                    v-for="item in options">
-                  </el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
+            <!--            <el-col :span="8" v-show="showWeekend">-->
+            <!--              <el-form-item :label="$t('label.PFANS2016FORMVIEW_RELATION')" prop="relation">-->
+            <!--                <el-select-->
+            <!--                  allow-create-->
+            <!--                  default-first-option-->
+            <!--                  filterable-->
+            <!--                  multiple-->
+            <!--                  v-model="form.relation">-->
+            <!--                  <el-option-->
+            <!--                    :key="item.overtimeid"-->
+            <!--                    :label="item.reserveovertimedate+'-'+item.overtimetype"-->
+            <!--                    :value="item.overtimeid"-->
+            <!--                    v-for="item in options">-->
+            <!--                  </el-option>-->
+            <!--                </el-select>-->
+            <!--              </el-form-item>-->
+            <!--            </el-col>-->
           </el-row>
           <el-row
             v-if="form.status === '4' || form.status === '5' || form.status === '6' || form.status === '7'">
@@ -538,6 +537,7 @@
                 }
             };
             return {
+                checklengthtime: false,
                 checkrelengthtime: false,
                 centerid: '',
                 groupid: '',
@@ -590,7 +590,7 @@
                     finisheddate: moment(new Date()).format('YYYY-MM-DD'),
                     reoccurrencedate: '',
                     refinisheddate: '',
-                    relation: '',
+                    // relation: '',
                     hospital: '',
                     edate: '',
                     enclosureexplain: '',
@@ -603,7 +603,7 @@
                 code: 'PR013',
                 multiple: false,
                 disable: true,
-                relation: '',
+                // relation: '',
                 rules: {
                     user_id: [{
                         required: true,
@@ -713,6 +713,9 @@
                                 this.checkrelengthtime = true;
                             }
                         }
+                        if (moment(this.form.occurrencedate).format('YYYY-MM-DD') != moment(this.form.finisheddate).format('YYYY-MM-DD')) {
+                            this.checklengthtime= true;
+                        }
                         let rst = getOrgInfoByUserId(response.user_id);
                         if (rst) {
                             this.centerid = rst.centerNmae;
@@ -720,7 +723,7 @@
                             this.teamid = rst.teamNmae;
                         }
                         this.userlist = this.form.user_id;
-                        this.relation = this.form.relation;
+                        // this.relation = this.form.relation;
                         if (this.form.status != '4' || this.form.status != '5' || this.form.status != '6' || this.form.status != '7') {
                             this.checkfinisheddate = false;
                         }
@@ -795,11 +798,11 @@
             }
         },
         methods: {
-          setdisabled(val){
-            if(this.$route.params.disabled){
-              this.disabled = val;
-            }
-          },
+            setdisabled(val){
+                if(this.$route.params.disabled){
+                    this.disabled = val;
+                }
+            },
             handleClick(val) {
                 this.form.vacationtype = val;
                 this.typecheck = val;
@@ -1091,33 +1094,36 @@
                 });
             },
             getOvertimelist() {
+                debugger
                 this.loading = true;
                 this.$store
                     .dispatch('PFANS2016Store/getOvertimelist', {userid: this.userlist, actualsubstitutiondate: null})
                     .then(response => {
-                        let letrelation = [];
+                        debugger
+                        // console.log("aaa",this.relation)
+                        // let letrelation = [];
                         for (let j = 0; j < response.length; j++) {
                             response[j].reserveovertimedate = moment(response[j].reserveovertimedate).format('YYYY-MM-DD');
                             let getOvertimetype = getDictionaryInfo(response[j].overtimetype);
                             if (getOvertimetype !== null && getOvertimetype.code === 'PR013002') {
                                 response[j].overtimetype = getOvertimetype.value1;
                             }
-                            if (this.relation) {
-                                this.showWeekend = true;
-                                let a = this.relation.split(',');
-                                for (let i = 0; i < a.length; i++) {
-                                    if (a[i] === response[j].overtimeid) {
-                                        letrelation.push(response[j]);
-                                    }
-                                }
-                            }
+                            // if (this.relation) {
+                            //     this.showWeekend = true;
+                            //     let a = this.relation.split(',');
+                            //     for (let i = 0; i < a.length; i++) {
+                            //         if (a[i] === response[j].overtimeid) {
+                            //             letrelation.push(response[j]);
+                            //         }
+                            //     }
+                            // }
                         }
-                        if (letrelation.length > 0) {
-                            this.options = letrelation;
-                            this.form.relation = this.options;
-                        } else {
-                            this.options = response;
-                        }
+                        // if (letrelation.length > 0) {
+                        //     this.options = letrelation;
+                        //     this.form.relation = this.options;
+                        // } else {
+                        //     this.options = response;
+                        // }
                         this.loading = false;
                     })
                     .catch(error => {
@@ -1130,7 +1136,11 @@
                     });
             },
             change() {
+                if (moment(this.form.occurrencedate).format('YYYY-MM-DD') === moment(this.form.finisheddate).format('YYYY-MM-DD')) {
+                    this.checklengthtime= false;
+                }
                 if (moment(this.form.occurrencedate).format('YYYY-MM-DD') != moment(this.form.finisheddate).format('YYYY-MM-DD')) {
+                    this.checklengthtime= true;
                     this.changeTime();
                     this.getarrDate();
                     var getDate = function (str) {
@@ -1163,12 +1173,14 @@
                         }
                     }
                 }
+
                 if (this.typecheck == '0') {
                     let time = 0;
                     for (let d = 0; d < this.relist.length; d++) {
                         time = time + 1;
                     }
-                    if (this.checkDate < time) {
+                    this.form.lengthtime = time*8 ;
+                    if (this.checkDate < time && this.form.errortype === 'PR013005' ) {
                         this.errorcheck = 2;
                         Message({
                             message: this.$t('label.PFANS2016FORMVIEW_YJCHECKEROR'),
@@ -1177,6 +1189,12 @@
                         });
                         return;
                     }
+                }else{
+                    let time = 0;
+                    for (let d = 0; d < this.relist.length; d++) {
+                        time = time + 1;
+                    }
+                    this.form.lengthtime = time*8 ;
                 }
                 // else {
                 //     if (this.form.occurrencedate !== '' && this.form.finisheddate !== '') {
@@ -1575,6 +1593,7 @@
                 }
             },
             getErrorType(val) {
+                this.form.lengthtime=''
                 this.typecheck = '';
                 let dictionaryInfo = getDictionaryInfo(val);
                 if (dictionaryInfo) {
@@ -1582,46 +1601,60 @@
                 }
                 this.form.errortype = val;
                 if (val === 'PR013001') {
+                    this.checklengthtime= false;
                     this.checkfinisheddate = false;
                 } else if (val === 'PR013021') {
+                    this.checklengthtime= true;
                     this.checkfinisheddate = true;
                     // this.showFemale = true;
                 } else if (val === 'PR013005') {
+                    this.checklengthtime= false;
                     this.checkfinisheddate = true;
                     // this.showFemale = false;
                     this.typecheck = 0;
                 } else if (val === 'PR013006') {
+                    this.checklengthtime= false;
                     this.checkfinisheddate = true;
                     // this.showFemale = false;
                 } else if (val === 'PR013007') {
+                    this.checklengthtime= false;
                     // this.showFemale = false;
                     this.checkfinisheddate = true;
                     this.showWeekend = false;
                 } else if (val === 'PR013009') {
+                    this.checklengthtime= false;
                     this.checkfinisheddate = true;
                     this.showVacation = true;
                 } else if (val === 'PR013010') {
+                    this.checklengthtime= false;
                     this.checkfinisheddate = true;
                     this.showVacation = true;
                 } else if (val === 'PR013011') {
+                    this.checklengthtime= true;
                     this.checkfinisheddate = true;
                     this.showVacation = true;
                 } else if (val === 'PR013012') {
+                    this.checklengthtime= true;
                     this.checkfinisheddate = true;
                     this.showVacation = true;
                 } else if (val === 'PR013013') {
+                    this.checklengthtime= true;
                     this.checkfinisheddate = true;
                     this.showVacation = true;
                 } else if (val === 'PR013015') {
+                    this.checklengthtime= true;
                     this.checkfinisheddate = true;
                     this.showVacation = true;
                 } else if (val === 'PR013016') {
+                    this.checklengthtime= false;
                     this.checkfinisheddate = true;
                     this.showVacation = true;
                 } else if (val === 'PR013017') {
+                    this.checklengthtime= true;
                     this.checkfinisheddate = true;
                     this.showVacation = true;
                 } else {
+                    this.checklengthtime= true;
                     this.checkfinisheddate = true;
                     // this.showFemale = false;
                     this.showWeekend = false;
@@ -1662,9 +1695,9 @@
             },
             end() {
                 if (this.form.status === '5') {
-                    var status = '4';
+                    this.form.status = '4';
                 } else {
-                    var status = '0';
+                    this.form.status = '0';
                 }
                 this.buttonClick('update');
             },
@@ -1713,9 +1746,9 @@
                     if (valid) {
                         this.errort = '';
                         let letrelation = '';
-                        for (let j = 0; j < this.form.relation.length; j++) {
-                            letrelation = letrelation + ',' + this.form.relation[j];
-                        }
+                        // for (let j = 0; j < this.form.relation.length; j++) {
+                        //     letrelation = letrelation + ',' + this.form.relation[j];
+                        // }
                         let letnewdate = moment(new Date()).format('YYYY-MM-DD');
                         let letoccurrencedate = moment(this.form.occurrencedate).format('YYYY-MM-DD');
                         let letfinisheddate = moment(this.form.finisheddate).format('YYYY-MM-DD');
@@ -1746,7 +1779,7 @@
                             }
                         }
                         // this.form.periodend = letfinisheddate.replace(letnewdate, letfinisheddate);
-                        this.form.relation = letrelation.substring(1, letrelation.length);
+                        // this.form.relation = letrelation.substring(1, letrelation.length);
                         if (this.errorcheck == 1) {
                             if (this.$route.params._id) {
                                 this.form.abnormalid = this.$route.params._id;

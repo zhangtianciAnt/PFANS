@@ -31,7 +31,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1004VIEW_INVESTIGATOR')" prop="investigator">
+              <el-form-item :label="$t('label.PFANS1012VIEW_TELEPHONE')" prop="investigator">
                 <el-input v-model="form.investigator" :disabled="!disabled" style="width:20vw" maxlength='20'></el-input>
               </el-form-item>
             </el-col>
@@ -312,7 +312,7 @@
   import dicselect from "../../../components/dicselect.vue";
   import user from "../../../components/user.vue";
   import { Message } from 'element-ui'
-  import {downLoadUrl,getOrgInfoByUserId, uploadUrl} from '@/utils/customize';
+  import {downLoadUrl,getOrgInfoByUserId, uploadUrl,getUserInfo} from '@/utils/customize';
   import moment from "moment";
 
   export default {
@@ -603,6 +603,10 @@
           this.form.gist = this.$t('label.PFANS1004VIEW_FREEBORROWINGGIST');
         }
           this.userlist = this.$store.getters.userinfo.userid;
+          let num = getUserInfo(this.$store.getters.userinfo.userid).userinfo.extension;
+          if(num){
+              this.form.investigator = num;
+          }
         if (this.userlist !== null && this.userlist !== '') {
           let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
             if(rst) {
