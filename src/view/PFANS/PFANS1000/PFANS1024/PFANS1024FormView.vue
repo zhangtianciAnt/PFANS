@@ -1030,7 +1030,7 @@
           contractnumber: '',
           contracttype: '',
           applicationdate: '',
-          entrycondition: '',
+          entrycondition: 'HT003001',
           grouporglist: '',
           custojapanese: '',
           suppliercode: '',

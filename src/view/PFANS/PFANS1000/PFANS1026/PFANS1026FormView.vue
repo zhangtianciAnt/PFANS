@@ -1219,7 +1219,7 @@
           contractnumber: '',
           contracttype: '',
           applicationdate: '',
-          entrycondition: '',
+          entrycondition: 'HT003001',
           grouporglist: '',
         },
         form: {
