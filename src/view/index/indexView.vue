@@ -317,7 +317,6 @@
         this.$store
           .dispatch("personalCenterStore/getPersonalCenter")
           .then(response => {
-            debugger
             this.custominfo = response.customerInfo;
             if (response.customerInfo) {
               this.userinfo = response.customerInfo;
