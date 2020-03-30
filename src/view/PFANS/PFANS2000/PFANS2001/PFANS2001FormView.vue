@@ -322,7 +322,6 @@
                 code3: 'PR030',
                 code4: 'PR031',
                 code5: 'PR032',
-                code6: 'PR052',
                 disabled: true,
                 menuList: [],
                 rules: {

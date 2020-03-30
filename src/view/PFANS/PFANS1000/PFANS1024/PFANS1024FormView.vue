@@ -272,7 +272,7 @@
                            append-to-body>
                   <div>
                     <el-select @change="changed" v-model="region">
-                      <el-option :label="$t(titleB)" value="1"></el-option>
+<!--                      <el-option :label="$t(titleB)" value="1"></el-option>-->
                       <el-option :label="$t(titleC)" value="2"></el-option>
                     </el-select>
                     <el-table :data="tableB" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA"
@@ -503,7 +503,7 @@
                            append-to-body>
                   <div>
                     <el-select @change="changed" v-model="region">
-                      <el-option :label="$t(titleB)" value="1"></el-option>
+<!--                      <el-option :label="$t(titleB)" value="1"></el-option>-->
                       <el-option :label="$t(titleC)" value="2"></el-option>
                     </el-select>
                     <el-table :data="tableB" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA"
@@ -1030,7 +1030,7 @@
           contractnumber: '',
           contracttype: '',
           applicationdate: '',
-          entrycondition: '',
+          entrycondition: 'HT003001',
           grouporglist: '',
           custojapanese: '',
           suppliercode: '',
@@ -1104,7 +1104,8 @@
         tableB: [],
         tableC: [],
         tableD: [],
-        showTable1: true,
+        showTable1: false,
+          // showTable1: true,
         dialogVisibleB: false,
         titleA: 'title.PFANS6002VIEW',
         dialogVisibleA: false,
@@ -1113,7 +1114,7 @@
         dataA: [],
         recordData: [],
         recordDataB: [],
-        region: '1',
+        region: '2',
         titleB: 'menu.PFANS1040',
         titleC: 'menu.PFANS1041',
         projectResult: [],

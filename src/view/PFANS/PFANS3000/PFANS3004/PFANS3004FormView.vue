@@ -13,23 +13,23 @@
     >
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
-                 style="padding: 2vw">
+                 style="padding: 3vw">
           <el-row >
             <el-col :span="8">
               <el-form-item :label="$t('label.center')" prop="centerid">
-                <el-input :disabled="false" style="width:20vw" v-model="centerid"></el-input>
+                <el-input :disabled="disable2" style="width:20vw" v-model="centerid"></el-input>
                 <el-input  v-show='false' :disabled="true" style="width:20vw" v-model="form.centerid"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.group')" prop="groupid">
-                <el-input :disabled="false" style="width:20vw" v-model="groupid"></el-input>
+                <el-input :disabled="disable2" style="width:20vw" v-model="groupid"></el-input>
                 <el-input  v-show='false' :disabled="true" style="width:20vw" v-model="form.groupid"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.team')" prop="teamid">
-                <el-input :disabled="false" style="width:20vw" v-model="teamid"></el-input>
+                <el-input :disabled="disable2" style="width:20vw" v-model="teamid"></el-input>
                 <el-input  v-show='false' :disabled="true" style="width:20vw" v-model="form.teamid"></el-input>
               </el-form-item>
             </el-col>
@@ -201,6 +201,7 @@
         code2: 'PR004',
         multiple: false,
         disable: false,
+        disable2: true,
       };
     },
     mounted() {
@@ -260,7 +261,7 @@
             key: "save",
             name: "button.save",
             icon: "el-icon-check",
-            disabled: "false"
+            disabled: false
           }
         ];
       }

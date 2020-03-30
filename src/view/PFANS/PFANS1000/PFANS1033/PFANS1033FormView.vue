@@ -308,7 +308,7 @@
                   <div>
                     <el-select @change="changed" v-model="region">
                       <el-option :label="$t(titleB)" value="1"></el-option>
-                      <el-option :label="$t(titleC)" value="2"></el-option>
+<!--                      <el-option :label="$t(titleC)" value="2"></el-option>-->
                     </el-select>
                     <el-table :data="tableB" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA" width="100%" v-loading='loading' v-show="showTable1">
                       <el-table-column property="theme" :label="$t('label.PFANS1039FORMVIEW_THEME')" width="180"></el-table-column>
@@ -683,7 +683,7 @@
                 contractnumber: '',
                 contracttype: '',
                 applicationdate: '',
-                entrycondition: '',
+                entrycondition: 'HT003001',
                 grouporglist: '',
                 custojapanese: this.$t('label.PFANS1033FORMVIEW_FIXED'),
                 suppliercode: '',
@@ -883,11 +883,11 @@
           row.conjapanese = nameJA.substring(0, nameJA.length -1);
         },
         changed() {
-          if (this.region === '2') {
-            this.showTable1 = false;
-          } else if (this.region === '1') {
-            this.showTable1 = true;
-          }
+          // if (this.region === '2') {
+          //   this.showTable1 = false;
+          // } else if (this.region === '1') {
+          //   this.showTable1 = true;
+          // }
         },
         handleClickA(row){
           this.recordData = row;
