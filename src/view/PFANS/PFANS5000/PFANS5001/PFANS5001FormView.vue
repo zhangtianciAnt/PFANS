@@ -1829,6 +1829,32 @@
             }
         },
         methods: {
+          checkRequire(){
+            if(!this.form.group_id ||
+            !this.form.center_id ||
+            !this.form.project_name ||
+            !this.form.project_namejp ||
+            !this.form.leaderid ||
+            !this.form.managerid ||
+            !this.form.languages ||
+            !this.form.projecttype ||
+            !this.form.field ||
+            !this.form.country ||
+            !this.form.chentrust ||
+            !this.form.ouentrust ||
+            !this.form.caron ||
+            !this.form.startdate ||
+            !this.form.enddate ||
+            !this.form.work ||
+            !this.form.deadline
+            ){
+              this.activeName = 'first';
+            }else if(!this.tableB[0].name && !this.tableC[0].name){
+              this.activeName = 'fourth';
+            }else if(!this.tableD[0].projectcontract_id){
+              this.activeName = 'fifth';
+            }
+          },
           setdisabled(val){
             if(this.$route.params.disabled){
               this.disabled = val;
@@ -2478,6 +2504,7 @@
             buttonClick(val) {
                 this.form.leaderid = this.userlist;
                 this.form.managerid = this.userlist1;
+                this.checkRequire();
                 this.$refs['from1'].validate(valid => {
                     if (valid) {
                         this.loading = true;
