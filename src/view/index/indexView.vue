@@ -52,7 +52,7 @@
         </el-row>
       </el-col>
     </el-row>
-    <el-row v-if="Object.keys(userinfo).length > 0">
+    <el-row v-show="Object.keys(userinfo).length > 0">
       <el-col :span="24" style="padding: 5px">
         <el-card class="box-card" shadow="hover">
           <span style="padding: 0 0 0 1rem;color: #5d9cec;font-size: 0.85rem">{{$t('label.INDEX_KJFW')}}</span>
