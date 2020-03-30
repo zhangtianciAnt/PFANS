@@ -1,4 +1,5 @@
 import request from '../../../../utils/request'
+import requestDownload from "../../../../utils/requestDownload";
 
 
 //创建流程
@@ -7,6 +8,15 @@ export function createNewUser(data) {
     url: 'logmanagement/createNewUser',
     method: 'post',
     data: data
+  })
+}
+
+export function downloadList(data) {
+  return requestDownload({
+    url: 'logmanagement/download',
+    method: 'get',
+    params: data,
+    responseType: 'blob'
   })
 }
 

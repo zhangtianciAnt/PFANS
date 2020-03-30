@@ -355,7 +355,7 @@
                           </el-table-column>
                           <!--                入场时间-->
                           <el-table-column
-                            :label="$t('label.PFANS6004FORMVIEW_ADMISSIONTIME')"
+                            :label="$t('label.PFANS5001FORMVIEW_ADMISSIONTIME')"
                             align="center"
                             prop="admissiontime"
                             width="180">
@@ -371,7 +371,7 @@
                           </el-table-column>
                           <!--                退场时间-->
                           <el-table-column
-                            :label="$t('label.PFANS6004FORMVIEW_EXITIME')"
+                            :label="$t('label.PFANS5001FORMVIEW_EXITIME')"
                             align="center"
                             prop="exittime"
                             width="180">
@@ -1032,6 +1032,8 @@
                 result1: '',
                 fileList: [],
                 upload: uploadUrl(),
+                stage:'',
+                status:'',
             };
         },
         mounted() {
@@ -1214,6 +1216,7 @@
                     {
                         key: 'save',
                         name: 'button.save',
+                        disabled: false,
                     },
                 ];
             }
@@ -1934,6 +1937,12 @@
                         //         duration: 5 * 1000,
                         //     });
                         // }
+                        // if(this.form.status === '2'){
+                        //     this.disable = false
+                        // }else {
+                        //     this.disable = true
+                        // }
+
                          if (this.$route.params._id) {
                             this.baseInfo.comproject.comproject_id = this.$route.params._id;
                             this.form.center_id = this.centerorglist;
