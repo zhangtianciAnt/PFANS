@@ -500,7 +500,7 @@ export default {
                 _tableList[j].birthday = moment(_tableList[j].birthday).format(
                   "YYYY-MM-DD"
                 );
-                 if (_tableList[j].sex === "PR019001"){
+                 if (_tableList[j].sex === "PG020001"){
                        _tableList[j].sex = this.$t("label.PFANS2002FORMVIEW_BOY");
                 }else{
                       _tableList[j].sex =  this.$t("label.PFANS2002FORMVIEW_GRIL");
@@ -621,7 +621,7 @@ export default {
                 _tableList[j].birthday = moment(_tableList[j].birthday).format(
                   "YYYY-MM-DD"
                 );
-              if (_tableList[j].sex === "PR019001"){
+              if (_tableList[j].sex === "PG020001"){
                 _tableList[j].sex = this.$t("label.PFANS2002FORMVIEW_BOY");
               }else{
                 _tableList[j].sex =  this.$t("label.PFANS2002FORMVIEW_GRIL");

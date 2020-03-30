@@ -887,7 +887,7 @@
                             });
                             return;
                         }
-                    } else if (this.form.errortype === 'PR013016' && this.$store.getters.userinfo.userinfo.sex !== 'PR019002') {
+                    } else if (this.form.errortype === 'PR013016' && this.$store.getters.userinfo.userinfo.sex !== 'PG020002') {
                         this.errorcheck = 2;
                         Message({
                             message: this.$t('label.PFANS2016FORMVIEW_WOMENCHECK'),
