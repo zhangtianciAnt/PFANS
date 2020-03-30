@@ -496,6 +496,30 @@
               this.loading = false;
             });
         }
+        if(val === 'crAccount2'){
+          this.loading = true;
+          this.$store
+            .dispatch('PFANS6004Store/crAccount2', this.$refs.roletable.selectedList)
+            .then(response => {
+
+              this.$refs.roletable.$refs.eltable.clearSelection();
+              Message({
+                message: this.$t('normal.success_02'),
+                type: 'success',
+                duration: 5 * 1000,
+              });
+
+              this.loading = false;
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
+        }
       },
     },
   };

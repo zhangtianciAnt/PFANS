@@ -104,3 +104,11 @@ export function crAccount(data) {
   })
 }
 
+export function crAccount2(data) {
+  return request({
+    url: 'expatriatesinfor/crAccount2',
+    method: 'post',
+    data: data,
+  })
+}
+
