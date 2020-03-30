@@ -1219,7 +1219,7 @@ module.exports = {
     PFANS1028VIEW_OUTPUTSUPPLIE: '両用品及び技術の輸出入許可証管理リスト',
     PFANS1028VIEW_OUTPUTMANAGEMENT: '輸出管理 該非判定・輸出决裁書 <ﾌﾟﾛｼﾞｪｸﾄ一括判定用>',
     PFANS1028VIEW_REQUIREMENTS1: '顧客：松下Ｇ.',
-    PFANS1028VIEW_REQUIREMENTS2: '用途：民生用途（研究開発等）→両方あてはまる場合、非該当.',
+    PFANS1028VIEW_REQUIREMENTS2: '用途：民生用途（研究開発等）',
     PFANS1028VIEW_REQUIREMENTS3: '顧客：非松下Ｇ→客観要件審査へ(ﾁｪｯｸｼｰﾄ添付).',
     PFANS1028VIEW_NOT: '非該当',
     PFANS1028VIEW_YES: '該当',
