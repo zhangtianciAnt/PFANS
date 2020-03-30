@@ -17,9 +17,8 @@
           :model="form"
           :rules="rules"
           label-position="top"
-          label-width="8vw"
           ref="refform"
-          style="padding: 2vw"
+          style="padding: 3vw"
         >
           <el-row>
             <el-col :span="8">
