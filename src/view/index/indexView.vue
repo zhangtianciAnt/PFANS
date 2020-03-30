@@ -229,6 +229,7 @@
             name: 'PFANS2022View',
           });
         }
+        this.$emit("changeMenu")
       },
       clickDSP() {
         // if(this.DSPSX==='0'){
