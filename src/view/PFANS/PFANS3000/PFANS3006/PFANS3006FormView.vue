@@ -13,7 +13,7 @@
     >
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw"
-                 ref="refform" style="padding: 2vw">
+                 ref="refform" style="padding: 3vw">
           <el-row >
             <!--1-->
             <el-col :span="8">
@@ -394,6 +394,7 @@
         code2: 'PR006',
         multiple: false,
         disable: false,
+        disable2: false,
         erroruser: '',
       };
     },
@@ -413,7 +414,9 @@
             this.loading = false;
             this.userlist = this.form.userid;
             if (this.form.status === '2') {
-              this.disable = false;
+              this.disable2 = false;
+            }else if(this.form.status === '4'){
+              this.disable2 = true;
             }
             if(this.form.fellowmembers == 1){
                 this.show=false;
@@ -462,7 +465,8 @@
           {
             key: "save",
             name: "button.save",
-            icon: "el-icon-check"
+            icon: "el-icon-check",
+            disabled: this.disable2
           }
         ];
       }
