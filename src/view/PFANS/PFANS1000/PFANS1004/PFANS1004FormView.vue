@@ -93,14 +93,14 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1004VIEW_BUSINESSPLANBALANCE')" prop="businessplanbalance" v-show="show">
-                <el-input-number v-model="form.businessplanbalance" @change="moneyDiff()" controls-position="right" style="width:20vw" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
+                <el-input-number v-model="form.businessplanbalance" @change="moneyDiff" controls-position="right" style="width:20vw" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1004VIEW_AMOUNTTOBEGIVEN')" prop="amounttobegiven">
-                <el-input-number v-model="form.amounttobegiven" @change="moneyDiff()" controls-position="right" style="width:20vw" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
+                <el-input-number v-model="form.amounttobegiven" @change="moneyDiff" controls-position="right" style="width:20vw" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
               </el-form-item>
             </el-col>
           </el-row>
@@ -776,10 +776,10 @@
                 if (val === '1') {
                     this.show = true;
                     this.show1 = false;
-                    // if(this.form.businessplantype === 'PR002005'){
-                    //     this.show1 = true;
-                    //     this.rules.classificationtype[0].required = true;
-                    // }
+                    if(this.form.businessplantype === 'PR002005'){
+                        this.show1 = true;
+                        this.rules.classificationtype[0].required = true;
+                    }
                     this.rules.businessplantype[0].required = true;
                     this.rules.businessplanbalance[0].required = true;
                 }else {
