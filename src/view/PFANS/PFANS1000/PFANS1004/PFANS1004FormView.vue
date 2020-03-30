@@ -349,7 +349,7 @@
                     uploadfile: '',
                     number: '',
                 },
-                code: 'PJ138',
+                code: 'PR002',
                 code1: 'PJ139',
                 code2: 'PJ010',
                 code3: 'PJ013',
@@ -676,22 +676,22 @@
             },
             getBusinessplantype(val) {
                 this.form.businessplantype = val;
-                if (val === "PJ138006") {
+                if (val === "PR002006") {
                     this.show1 = true;
                     this.rules.classificationtype[0].required = true;
-                }else if (val === "PJ138001") {
+                }else if (val === "PR002001") {
                     this.show1 = false;
                     this.rules.classificationtype[0].required = false;
-                }else if (val === "PJ138002") {
+                }else if (val === "PR002002") {
                     this.show1 = false;
                     this.rules.classificationtype[0].required = false;
-                }else if (val === "PJ138003") {
+                }else if (val === "PR002003") {
                     this.show1 = false;
                     this.rules.classificationtype[0].required = false;
-                }else if (val === "PJ138004") {
+                }else if (val === "PR002004") {
                     this.show1 = false;
                     this.rules.classificationtype[0].required = false;
-                }else if (val === "PJ138005") {
+                }else if (val === "PR002005") {
                     this.show1 = false;
                     this.rules.classificationtype[0].required = false;
                 }
