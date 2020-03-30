@@ -1213,6 +1213,24 @@
       }
     },
     methods: {
+      checkRequire(){
+        if(!this.form.center_id ||
+          !this.form.group_id ||
+          !this.form.project_name ||
+        !this.form.project_namejp ||
+        !this.form.leaderid ||
+        !this.form.managerid ||
+        !this.form.projecttype ||
+        !this.form.field ||
+        !this.form.languages ||
+        !this.form.startdate ||
+        !this.form.enddate ||
+        !this.form.work ||
+        !this.form.deadline
+      ){
+          this.activeName = 'first';
+        }
+      },
       setdisabled(val){
         if(this.$route.params.disabled){
           this.disabled = val;
@@ -1509,6 +1527,7 @@
       buttonClick(val) {
         this.form.leaderid = this.userlist;
         this.form.managerid = this.userlist1;
+        this.checkRequire();
         this.$refs['refform'].validate(valid => {
           if (valid) {
             this.loading = true;

@@ -30,7 +30,7 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :error="error" :label="$t('label.user_name')" prop="user_id">
-                    <user :disabled="!disable" :error="error" :selectType="selectType" :userlist="userlist"
+                    <user :disabled="true" :error="error" :selectType="selectType" :userlist="userlist"
                           @getUserids="getUserids" style="width:20vw" v-model="form.user_id"></user>
                   </el-form-item>
                 </el-col>
@@ -130,9 +130,9 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item :error="error" :label="$t('label.user_name')">
+                  <el-form-item :error="error" :label="$t('label.user_name')" >
                     <user :disabled="true" :error="error" :selectType="selectType" :userlist="userlist"
-                          @getUserids="getUserids" style="width:20vw" v-model="form.user_id"></user>
+                          @getUserids="getUserids" style="width:20vw" v-model="form.user_id" ></user>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -561,7 +561,7 @@
         },
         code1: 'PR012',
         code2: 'PR022',
-        code3:'PG020',
+        code3:'PR019',
         disable: false,
         disable1: false,
         disable2: false,
@@ -683,6 +683,13 @@
       this.disable = this.$route.params.disabled;
     },
     methods: {
+      checkRequire(){
+        if(!this.form.user_id || !this.form.sex || !this.form.hope_exit_date || !this.form.reason){
+          this.activeName = 'first';
+        }else if(!this.form.reporterlist){
+          this.activeName = 'fourth';
+        }
+      },
         getDisablemethod(){
             debugger
             if (this.form.stage === '0' && this.form.status === '0') {
@@ -896,6 +903,7 @@
         });
       },
       buttonClick(val) {
+        this.checkRequire();
         this.$refs['reff'].validate(valid => {
           if (valid) {
               debugger
