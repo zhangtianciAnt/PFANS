@@ -167,13 +167,13 @@
       let user = getUserInfo(this.form.user_id);
       //获取本用户的职位
       let postcode = user.userinfo.post;
-      if (postcode === 'PJ105005') {
+      if (postcode === 'PG021005') {
         this.form.evaluatenum = 'PJ104001';
       }
-      if (postcode === 'PJ105003') {
+      if (postcode === 'PG021003') {
         this.form.evaluatenum = 'PJ104002';
       }
-      if (postcode === 'PJ105002') {
+      if (postcode === 'PG021002') {
         this.form.evaluatenum = 'PJ104003';
       }
 

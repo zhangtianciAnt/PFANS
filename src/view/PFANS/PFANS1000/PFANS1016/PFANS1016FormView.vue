@@ -120,8 +120,7 @@
                   style="width:20vw"
                   :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
                   :start-placeholder="$t('label.startdate')"
-                  :end-placeholder="$t('label.enddate')"
-                  :picker-options="pickerOptions">
+                  :end-placeholder="$t('label.enddate')">
                 </el-date-picker>
               </el-form-item>
             </el-col>
@@ -315,33 +314,6 @@
         centerid: '',
         groupid: '',
         teamid: '',
-        pickerOptions: {
-          shortcuts: [{
-            text: this.$t('label.PFANS1016FORMVIEW_WEEKEND'),
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-              picker.$emit('pick', [start, end]);
-            }
-          }, {
-            text:this.$t('label.PFANS1016FORMVIEW_MONTH'),
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-              picker.$emit('pick', [start, end]);
-            }
-          }, {
-            text:this.$t('label.PFANS1016FORMVIEW_THREEMONTH'),
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-              picker.$emit('pick', [start, end]);
-            }
-          }]
-        },
         buttonList: [],
         baseInfo: {},
         loading: false,

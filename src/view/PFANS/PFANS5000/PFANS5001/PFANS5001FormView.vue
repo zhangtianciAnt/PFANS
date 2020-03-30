@@ -552,20 +552,20 @@
                       <el-tab-pane :label="$t('label.PFANS5001FORMVIEW_INCOMMUNITY')" name="first">
                         <el-table :data="tableB" stripe border header-cell-class-name="sub_bg_color_blue"
                                   style="width: 80vw" :cell-class-name="setPl">
-                          <!--                      编号-->
-                          <el-table-column
-                            :label="$t('label.PFANS5001FORMVIEW_NUMBERS')"
-                            align="center"
-                            width="130">
-                            <template slot-scope="scope">
-                              <el-input
-                                :no="scope.row"
-                                :disabled="true"
-                                v-model="scope.row.number"
-                                style="width: 100%">
-                              </el-input>
-                            </template>
-                          </el-table-column>
+                          <!--                       编号-->
+                          <!--<el-table-column-->
+                            <!--:label="$t('label.PFANS5001FORMVIEW_NUMBERS')"-->
+                            <!--align="center"-->
+                            <!--width="130">-->
+                            <!--<template slot-scope="scope">-->
+                              <!--<el-input-->
+                                <!--:no="scope.row"-->
+                                <!--:disabled="true"-->
+                                <!--v-model="scope.row.number"-->
+                                <!--style="width: 100%">-->
+                              <!--</el-input>-->
+                            <!--</template>-->
+                          <!--</el-table-column>-->
                           <!--                          &lt;!&ndash;             センター         &ndash;&gt;-->
                           <!--                          <el-table-column-->
                           <!--                            :label="$t('label.center')"-->
@@ -670,19 +670,19 @@
                         <el-table :data="tableC" stripe border header-cell-class-name="sub_bg_color_blue"
                                   style="width: 80vw">
                           <!--                      编号-->
-                          <el-table-column
-                            :label="$t('label.PFANS5001FORMVIEW_NUMBERS')"
-                            align="center"
-                            width="110">
-                            <template slot-scope="scope">
-                              <el-input
-                                :no="scope.row"
-                                :disabled="true"
-                                v-model="scope.row.number"
-                                style="width: 100%">
-                              </el-input>
-                            </template>
-                          </el-table-column>
+                          <!--<el-table-column-->
+                            <!--:label="$t('label.PFANS5001FORMVIEW_NUMBERS')"-->
+                            <!--align="center"-->
+                            <!--width="110">-->
+                            <!--<template slot-scope="scope">-->
+                              <!--<el-input-->
+                                <!--:no="scope.row"-->
+                                <!--:disabled="true"-->
+                                <!--v-model="scope.row.number"-->
+                                <!--style="width: 100%">-->
+                              <!--</el-input>-->
+                            <!--</template>-->
+                          <!--</el-table-column>-->
                           <!--                      协力公司-->
                           <el-table-column
                             :label="$t('label.PFANS5001FORMVIEW_COOPERATIONCOMPANY')"
