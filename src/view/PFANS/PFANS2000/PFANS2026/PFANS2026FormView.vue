@@ -683,6 +683,13 @@
       this.disable = this.$route.params.disabled;
     },
     methods: {
+      checkRequire(){
+        if(!this.form.user_id || !this.form.sex || !this.form.hope_exit_date || !this.form.reason){
+          this.activeName = 'first';
+        }else if(!this.form.reporterlist){
+          this.activeName = 'fourth';
+        }
+      },
         getDisablemethod(){
             debugger
             if (this.form.stage === '0' && this.form.status === '0') {
@@ -896,6 +903,7 @@
         });
       },
       buttonClick(val) {
+        this.checkRequire();
         this.$refs['reff'].validate(valid => {
           if (valid) {
               debugger

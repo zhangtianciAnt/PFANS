@@ -35,7 +35,7 @@
                     <el-col :span="8">
                       <el-form-item :error="error" :label="$t('label.user_name')" prop="user_id">
                         <user :disabled="!disable" :error="error" :selectType="selectType"
-                              :userlist="userlist" @getUserids="getUserids" style="width: 20vw""></user>
+                              :userlist="userlist" @getUserids="getUserids" style="width: 20vw"></user>
                       </el-form-item>
                     </el-col>
                     <el-col :span="8">
@@ -525,6 +525,11 @@
             }
         },
         methods: {
+          checkRequire(){
+            if(!this.form.user_id || !this.form.skill_rank || !this.form.role){
+                this.activeName = 'first';
+            }
+          },
           setdisabled(val){
             if(this.$route.params.disabled){
               this.disabled = val;
@@ -575,6 +580,7 @@
           },
             buttonClick(val) {
                 if (val === 'save') {
+                  this.checkRequire();
                     this.$refs["ruleForm"].validate(valid => {
                         if (valid) {
                             if (this.form.stage === '0' && this.form.status === '4' && val !== 'update') {
