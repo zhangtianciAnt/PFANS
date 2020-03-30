@@ -287,7 +287,7 @@ export default {
               this.tableList = tabledata
           }else {
               for (let i = 0; i < this.TABLEList.length; i++) {
-                  if (this.starttime < this.TABLEList[i].enterday && this.TABLEList[i].enterday < this.endTime) {
+                  if (this.starttime <= this.TABLEList[i].enterday && this.TABLEList[i].enterday <= this.endTime) {
                       tabledate.push({
                           customername: this.TABLEList[i].customername,
                           jobnumber: this.TABLEList[i].jobnumber,

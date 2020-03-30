@@ -7,7 +7,8 @@ import {
   getDataOne,
   createProject,
   deletePersonal,
-  gettlist
+  gettlist,
+  downloadList
 } from './PFANS5008Api'
 const PFANS5008Store = {
   namespaced: true,
@@ -25,6 +26,15 @@ const PFANS5008Store = {
           } else {
             reject(response.message)
           }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    downloadList({commit}, data) {
+      return new Promise((resolve, reject) => {
+        downloadList(data).then(response => {
+          resolve(response);
         }).catch(error => {
           reject(error);
         })
