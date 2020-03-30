@@ -506,6 +506,11 @@
       this.disable = this.$route.params.disabled;
     },
     methods: {
+      checkRequire(){
+        if(!this.form.assetaddress){
+          this.activeName = 'first';
+        }
+      },
       setdisabled(val){
         if(this.$route.params.disabled){
           this.disabled = val;
@@ -584,7 +589,7 @@
         }
       },
       buttonClick(val) {
-        debugger
+        this.checkRequire();
         this.$refs["reff"].validate(valid => {
           if (valid) {
             this.loading = true;
