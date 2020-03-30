@@ -9,7 +9,7 @@
           <el-table-column>
             <el-table-column :label="$t('label.PFANS1036FORMVIEW_UNITPRICETHOUSAND')" align="center" width="120" prop="prices">
               <template slot-scope="scope">
-                <el-input-number :disabled="!disable" size="small" v-model="scope.row.prices" controls-position="right" @change="handleChange(scope.row)"  :min="0"  style="width:6vw"></el-input-number>
+                <el-input-number :disabled="!disabled" size="small" v-model="scope.row.prices" controls-position="right" @change="handleChange(scope.row)"  :min="0"  style="width:6vw"></el-input-number>
               </template>
             </el-table-column>
           </el-table-column>
@@ -20,7 +20,7 @@
         <el-table-column :label="$t('label.April')" align="center" width="110">
           <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBERGS')" align="center" width="110" prop="number4">
             <template slot-scope="scope">
-              <el-input-number :disabled="!disable" size="small" v-model="scope.row.number4" controls-position="right" @change="handleChange(scope.row,4)"  :min="0"  style="width:6vw"></el-input-number>
+              <el-input-number :disabled="!disabled" size="small" v-model="scope.row.number4" controls-position="right" @change="handleChange(scope.row,4)"  :min="0"  style="width:6vw"></el-input-number>
             </template>
           </el-table-column>
           <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="110" prop="money4">
@@ -32,7 +32,7 @@
         <el-table-column :label="$t('label.May')" align="center" width="110">
           <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBERGS')" align="center" width="110" prop="number5">
             <template slot-scope="scope">
-              <el-input-number :disabled="!disable" size="small" v-model="scope.row.number5" controls-position="right"  @change="handleChange(scope.row,5)" :min="0"  style="width:6vw"></el-input-number>
+              <el-input-number :disabled="!disabled" size="small" v-model="scope.row.number5" controls-position="right"  @change="handleChange(scope.row,5)" :min="0"  style="width:6vw"></el-input-number>
             </template>
           </el-table-column>
           <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="110" prop="money5">
@@ -44,7 +44,7 @@
         <el-table-column :label="$t('label.June')" align="center" width="110">
           <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBERGS')" align="center" width="110" prop="number6">
             <template slot-scope="scope">
-              <el-input-number :disabled="!disable" size="small" v-model="scope.row.number6" controls-position="right" @change="handleChange(scope.row,6)"  :min="0"  style="width:6vw"></el-input-number>
+              <el-input-number :disabled="!disabled" size="small" v-model="scope.row.number6" controls-position="right" @change="handleChange(scope.row,6)"  :min="0"  style="width:6vw"></el-input-number>
             </template>
           </el-table-column>
           <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="110" prop="money6">
@@ -56,7 +56,7 @@
         <el-table-column :label="$t('label.July')" align="center" width="110">
           <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBERGS')" align="center" width="110" prop="number7">
             <template slot-scope="scope">
-              <el-input-number :disabled="!disable" size="small" v-model="scope.row.number7" controls-position="right" @change="handleChange(scope.row,7)" :min="0"  style="width:6vw"></el-input-number>
+              <el-input-number :disabled="!disabled" size="small" v-model="scope.row.number7" controls-position="right" @change="handleChange(scope.row,7)" :min="0"  style="width:6vw"></el-input-number>
             </template>
           </el-table-column>
           <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="110" prop="money7">
@@ -68,7 +68,7 @@
         <el-table-column :label="$t('label.August')" align="center" width="110">
           <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBERGS')" align="center" width="110" prop="number8">
             <template slot-scope="scope">
-              <el-input-number :disabled="!disable" size="small" v-model="scope.row.number8" controls-position="right"  @change="handleChange(scope.row,8)" :min="0"  style="width:6vw"></el-input-number>
+              <el-input-number :disabled="!disabled" size="small" v-model="scope.row.number8" controls-position="right"  @change="handleChange(scope.row,8)" :min="0"  style="width:6vw"></el-input-number>
             </template>
           </el-table-column>
           <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="110" prop="money8">
@@ -80,7 +80,7 @@
         <el-table-column :label="$t('label.September')" align="center" width="110">
           <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBERGS')" align="center" width="110" prop="number9">
             <template slot-scope="scope">
-              <el-input-number :disabled="!disable" size="small" v-model="scope.row.number9" controls-position="right"  @change="handleChange(scope.row,9)" :min="0"  style="width:6vw"></el-input-number>
+              <el-input-number :disabled="!disabled" size="small" v-model="scope.row.number9" controls-position="right"  @change="handleChange(scope.row,9)" :min="0"  style="width:6vw"></el-input-number>
             </template>
           </el-table-column>
           <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="110" prop="money9">
@@ -104,7 +104,7 @@
         <el-table-column :label="$t('label.October')" align="center" width="110">
           <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBERGS')" align="center" width="110" prop="number10">
             <template slot-scope="scope">
-              <el-input-number :disabled="!disable" size="small" v-model="scope.row.number10" controls-position="right"  @change="handleChange(scope.row,10)" :min="0"  style="width:6vw"></el-input-number>
+              <el-input-number :disabled="!disabled" size="small" v-model="scope.row.number10" controls-position="right"  @change="handleChange(scope.row,10)" :min="0"  style="width:6vw"></el-input-number>
             </template>
           </el-table-column>
           <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="110" prop="money10">
@@ -116,7 +116,7 @@
         <el-table-column :label="$t('label.November')" align="center" width="110">
           <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBERGS')" align="center" width="110" prop="number11">
             <template slot-scope="scope">
-              <el-input-number :disabled="!disable" size="small" v-model="scope.row.number11" controls-position="right"  @change="handleChange(scope.row,11)" :min="0"  style="width:6vw"></el-input-number>
+              <el-input-number :disabled="!disabled" size="small" v-model="scope.row.number11" controls-position="right"  @change="handleChange(scope.row,11)" :min="0"  style="width:6vw"></el-input-number>
             </template>
           </el-table-column>
           <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="110" prop="money11">
@@ -128,7 +128,7 @@
         <el-table-column :label="$t('label.December')" align="center" width="110">
           <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBERGS')" align="center" width="110" prop="number12">
             <template slot-scope="scope">
-              <el-input-number :disabled="!disable" size="small" v-model="scope.row.number12" controls-position="right"  @change="handleChange(scope.row,12)" :min="0" style="width:6vw"></el-input-number>
+              <el-input-number :disabled="!disabled" size="small" v-model="scope.row.number12" controls-position="right"  @change="handleChange(scope.row,12)" :min="0" style="width:6vw"></el-input-number>
             </template>
           </el-table-column>
           <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="110" prop="money12">
@@ -140,7 +140,7 @@
         <el-table-column :label="$t('label.January')" align="center" width="110">
           <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBERGS')" align="center" width="110" prop="number1">
             <template slot-scope="scope">
-              <el-input-number :disabled="!disable" size="small" v-model="scope.row.number1" controls-position="right"  @change="handleChange(scope.row,1)" :min="0"  style="width:6vw"></el-input-number>
+              <el-input-number :disabled="!disabled" size="small" v-model="scope.row.number1" controls-position="right"  @change="handleChange(scope.row,1)" :min="0"  style="width:6vw"></el-input-number>
             </template>
           </el-table-column>
           <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="110" prop="money1">
@@ -152,7 +152,7 @@
         <el-table-column :label="$t('label.February')" align="center" width="110">
           <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBERGS')" align="center" width="110" prop="number2">
             <template slot-scope="scope">
-              <el-input-number :disabled="!disable" size="small" v-model="scope.row.number2" controls-position="right"  @change="handleChange(scope.row,2)" :min="0"  style="width:6vw"></el-input-number>
+              <el-input-number :disabled="!disabled" size="small" v-model="scope.row.number2" controls-position="right"  @change="handleChange(scope.row,2)" :min="0"  style="width:6vw"></el-input-number>
             </template>
           </el-table-column>
           <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="110" prop="money2">
@@ -164,7 +164,7 @@
         <el-table-column :label="$t('label.March')" align="center" width="110">
           <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBERGS')" align="center" width="110" prop="number3">
             <template slot-scope="scope">
-              <el-input-number :disabled="!disable" size="small" v-model="scope.row.number3" controls-position="right" @change="handleChange(scope.row,3)"  :min="0"  style="width:6vw"></el-input-number>
+              <el-input-number :disabled="!disabled" size="small" v-model="scope.row.number3" controls-position="right" @change="handleChange(scope.row,3)"  :min="0"  style="width:6vw"></el-input-number>
             </template>
           </el-table-column>
           <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="110" prop="money3">

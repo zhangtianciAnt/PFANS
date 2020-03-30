@@ -575,16 +575,16 @@
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_EQUIPMENTINVESTMENT')" style="margin-top: 2%" name="second">
               <div>
-                <AssetsComponent :disabled="!disable" :tableNewYear="assets_newyear" :tableLastYear="assets_lastyear" @assets="Assets"></AssetsComponent>
+                <AssetsComponent  :tableNewYear="assets_newyear" :tableLastYear="assets_lastyear" @assets="Assets"></AssetsComponent>
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_SOFTWAREINVESTMENT')" style="margin-top: 2%" name="third">
               <div>
-                <AssetsComponent :disabled="!disable" :tableNewYear="equipment_newyear" :tableLastYear="equipment_lastyear" @assets="Assets1"></AssetsComponent>
+                <AssetsComponent  :tableNewYear="equipment_newyear" :tableLastYear="equipment_lastyear" @assets="Assets1"></AssetsComponent>
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_TRAVELEXPENSES')" style="margin-top: 2%" name="forth">
-                <BussinessComponent :disabled="!disable" :tableBusiness="business" @travel="getTravel"></BussinessComponent>
+                <BussinessComponent  :tableBusiness="business" @travel="getTravel"></BussinessComponent>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_PROJECTPLAN')" style="margin-top: 2%" name="fifth">
               <div>
@@ -686,7 +686,7 @@
                                            v-model="scope.row.price"></el-input-number>
                         </template>
                       </el-table-column>
-                      <el-table-column  :label="$t('label.PFANS1036FORMVIEW_TYPE')" align="center" width="135" prop="type">
+                      <el-table-column  :label="$t('label.PFANS1002VIEW_PLANTYPE')" align="center" width="135" prop="type">
                         <template slot-scope="scope">
                           <dicselect
                             :data="scope.row.type"
@@ -874,7 +874,7 @@
                                            v-model="scope.row.price"></el-input-number>
                         </template>
                       </el-table-column>
-                      <el-table-column  :label="$t('label.PFANS1036FORMVIEW_TYPE')" align="center" width="135" prop="type">
+                      <el-table-column  :label="$t('label.PFANS1002VIEW_PLANTYPE')" align="center" width="135" prop="type">
                         <template slot-scope="scope">
                           <dicselect
                             :data="scope.row.type"
@@ -1062,7 +1062,7 @@
                                            v-model="scope.row.price"></el-input-number>
                         </template>
                       </el-table-column>
-                      <el-table-column  :label="$t('label.PFANS1036FORMVIEW_TYPE')" align="center" width="135" prop="type">
+                      <el-table-column  :label="$t('label.PFANS1002VIEW_PLANTYPE')" align="center" width="135" prop="type">
                         <template slot-scope="scope">
                           <dicselect
                             :data="scope.row.type"
@@ -1250,7 +1250,7 @@
                                          v-model="scope.row.price"></el-input-number>
                       </template>
                     </el-table-column>
-                    <el-table-column  :label="$t('label.PFANS1036FORMVIEW_TYPE')" align="center" width="135" prop="type">
+                    <el-table-column  :label="$t('label.PFANS1002VIEW_PLANTYPE')" align="center" width="135" prop="type">
                           <template slot-scope="scope">
                             <dicselect
                               :data="scope.row.type"
