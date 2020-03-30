@@ -106,6 +106,7 @@
                         }else if(tabledata[i].state === '0'){
                             tabledata[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID");
                         }
+
                     }
                     var arr= new Array();
                     let o;

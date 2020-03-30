@@ -1538,6 +1538,7 @@
                 }
             }
             if (val === "cancellation") {
+
                 for (let i = 0; i < this.tablefourth.length; i++) {
                   this.tablefourth[i].state = '0';
                   this.tablefourth[i].entrycondition = 'HT004001';

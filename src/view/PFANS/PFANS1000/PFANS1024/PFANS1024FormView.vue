@@ -1952,6 +1952,7 @@
       //保存
       handleSave(value) {
         let baseInfo = {};
+
         baseInfo.contractapplication = [];
         baseInfo.contractnumbercount = [];
         for (let i = 0; i < this.form.tabledata.length; i++) {

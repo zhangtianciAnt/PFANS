@@ -98,6 +98,7 @@
                                 tabledata[i].contracttype = letContracttype.value1;
                             }
                         }
+
                         if(tabledata[i].contractnumber != ""){
                             letcontractnumber.push(tabledata[i].contractnumber);
                         }

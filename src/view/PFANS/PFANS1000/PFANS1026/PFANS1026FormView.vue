@@ -1956,6 +1956,7 @@
         let isClone = false;
         if (this.checked) {
           for (let i = 0; i < this.form.tabledata.length; i++) {
+
             this.form.tabledata[i].state = '0';
             if (this.form.tabledata[0].deliverycondition == 'HT009002') {
               isClone = true;
