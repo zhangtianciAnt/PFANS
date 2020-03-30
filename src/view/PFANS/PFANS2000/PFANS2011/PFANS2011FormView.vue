@@ -793,7 +793,7 @@
           this.form.overtimelength = this.options1[1].label;
           this.form.reserveovertime = '4';
           this.form.reserveovertimedate = dateMonth.getFullYear() + '-' + '03' + '-' + '08';
-          if (this.sexflg !== 'PG020002') {
+          if (this.sexflg !== 'PR019002') {
             Message({
               message: this.$t('label.PFANS2011FROMVIEW_ERRORINFOS'),
               type: 'error',
