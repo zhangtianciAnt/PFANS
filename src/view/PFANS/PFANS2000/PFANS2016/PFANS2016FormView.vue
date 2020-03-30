@@ -1173,6 +1173,7 @@
                         }
                     }
                 }
+
                 if (this.typecheck == '0') {
                     let time = 0;
                     for (let d = 0; d < this.relist.length; d++) {
@@ -1188,6 +1189,12 @@
                         });
                         return;
                     }
+                }else{
+                    let time = 0;
+                    for (let d = 0; d < this.relist.length; d++) {
+                        time = time + 1;
+                    }
+                    this.form.lengthtime = time*8 ;
                 }
                 // else {
                 //     if (this.form.occurrencedate !== '' && this.form.finisheddate !== '') {
