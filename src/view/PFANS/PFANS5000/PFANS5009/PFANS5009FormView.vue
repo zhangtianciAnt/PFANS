@@ -39,13 +39,13 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS5009FORMVIEW_NAME1')" prop="project_name">
-                    <el-input :disabled="!disabled" maxlength='20' style="width:20vw"
+                    <el-input :disabled="true" maxlength='20' style="width:20vw"
                               v-model="form.project_name"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS5009FORMVIEW_NAME2')" prop="project_namejp">
-                    <el-input :disabled="!disabled" maxlength='5' style="width:20vw"
+                    <el-input :disabled="true" maxlength='5' style="width:20vw"
                               v-model="form.project_namejp"></el-input>
                   </el-form-item>
                 </el-col>
@@ -967,8 +967,8 @@
         code3: 'PP014',
         code4: 'PP015',
         code5: 'PP012',
-        code6: 'PP017',
-        code7: 'PP016',
+        code6: 'PJ141',
+        code7: 'PP021',
         showrow: true,
         showrow1: false,
         showrow2: false,
