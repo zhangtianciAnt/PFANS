@@ -718,7 +718,7 @@
       },
       getBusinessplantype(val) {
         this.form.businessplantype = val;
-        if (val === "PR002005") {
+        if (val === "PR002006") {
           this.show1 = true;
           this.rules.classificationtype[0].required = true;
         }else if (val === "PR002001") {
@@ -731,6 +731,9 @@
           this.show1 = false;
           this.rules.classificationtype[0].required = false;
         }else if (val === "PR002004") {
+          this.show1 = false;
+          this.rules.classificationtype[0].required = false;
+        }else if (val === "PR002005") {
           this.show1 = false;
           this.rules.classificationtype[0].required = false;
         }
