@@ -722,6 +722,7 @@
         this.buttonClick('update', status);
       },
       start() {
+          
         if (this.form.status === '4' || this.form.status === '6') {
             this.form.status = '5';
         } else {
