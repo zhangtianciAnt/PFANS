@@ -93,14 +93,14 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1004VIEW_BUSINESSPLANBALANCE')" prop="businessplanbalance" v-show="show">
-                <el-input-number v-model="form.businessplanbalance" @change="moneyDiff()" controls-position="right" style="width:20vw" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
+                <el-input-number v-model="form.businessplanbalance" @change="moneyDiff" controls-position="right" style="width:20vw" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1004VIEW_AMOUNTTOBEGIVEN')" prop="amounttobegiven">
-                <el-input-number v-model="form.amounttobegiven" @change="moneyDiff()" controls-position="right" style="width:20vw" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
+                <el-input-number v-model="form.amounttobegiven" @change="moneyDiff" controls-position="right" style="width:20vw" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
               </el-form-item>
             </el-col>
           </el-row>
@@ -349,7 +349,7 @@
                     uploadfile: '',
                     number: '',
                 },
-                code: 'PJ138',
+                code: 'PR002',
                 code1: 'PJ139',
                 code2: 'PJ010',
                 code3: 'PJ013',
@@ -676,22 +676,22 @@
             },
             getBusinessplantype(val) {
                 this.form.businessplantype = val;
-                if (val === "PJ138006") {
+                if (val === "PR002006") {
                     this.show1 = true;
                     this.rules.classificationtype[0].required = true;
-                }else if (val === "PJ138001") {
+                }else if (val === "PR002001") {
                     this.show1 = false;
                     this.rules.classificationtype[0].required = false;
-                }else if (val === "PJ138002") {
+                }else if (val === "PR002002") {
                     this.show1 = false;
                     this.rules.classificationtype[0].required = false;
-                }else if (val === "PJ138003") {
+                }else if (val === "PR002003") {
                     this.show1 = false;
                     this.rules.classificationtype[0].required = false;
-                }else if (val === "PJ138004") {
+                }else if (val === "PR002004") {
                     this.show1 = false;
                     this.rules.classificationtype[0].required = false;
-                }else if (val === "PJ138005") {
+                }else if (val === "PR002005") {
                     this.show1 = false;
                     this.rules.classificationtype[0].required = false;
                 }
@@ -776,10 +776,10 @@
                 if (val === '1') {
                     this.show = true;
                     this.show1 = false;
-                    // if(this.form.businessplantype === 'PR002005'){
-                    //     this.show1 = true;
-                    //     this.rules.classificationtype[0].required = true;
-                    // }
+                    if(this.form.businessplantype === 'PR002005'){
+                        this.show1 = true;
+                        this.rules.classificationtype[0].required = true;
+                    }
                     this.rules.businessplantype[0].required = true;
                     this.rules.businessplanbalance[0].required = true;
                 }else {

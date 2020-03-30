@@ -137,13 +137,13 @@
               {
                 code: 'manhour4',
                 label: 'label.PFANS6009VIEW_MANHOUR',
-                width: 50,
+                width: 100,
                 fix: false,
               },
               {
                 code: 'cost4',
                 label: 'label.PFANS6009VIEW_COST',
-                width: 50,
+                width: 100,
                 fix: false,
               }
             ],
@@ -157,13 +157,13 @@
               {
                 code: 'manhour5',
                 label: 'label.PFANS6009VIEW_MANHOUR',
-                width: 50,
+                width: 100,
                 fix: false,
               },
               {
                 code: 'cost5',
                 label: 'label.PFANS6009VIEW_COST',
-                width: 50,
+                width: 100,
                 fix: false,
               }
             ],
@@ -177,13 +177,13 @@
               {
                 code: 'manhour6',
                 label: 'label.PFANS6009VIEW_MANHOUR',
-                width: 50,
+                width: 100,
                 fix: false,
               },
               {
                 code: 'cost6',
                 label: 'label.PFANS6009VIEW_COST',
-                width: 50,
+                width: 100,
                 fix: false,
               }
             ],
@@ -197,13 +197,13 @@
               {
                 code: 'manhour7',
                 label: 'label.PFANS6009VIEW_MANHOUR',
-                width: 50,
+                width: 100,
                 fix: false,
               },
               {
                 code: 'cost7',
                 label: 'label.PFANS6009VIEW_COST',
-                width: 50,
+                width: 100,
                 fix: false,
               }
             ],
@@ -217,13 +217,13 @@
               {
                 code: 'manhour8',
                 label: 'label.PFANS6009VIEW_MANHOUR',
-                width: 50,
+                width: 100,
                 fix: false,
               },
               {
                 code: 'cost8',
                 label: 'label.PFANS6009VIEW_COST',
-                width: 50,
+                width: 100,
                 fix: false,
               }
             ],
@@ -237,13 +237,13 @@
               {
                 code: 'manhour9',
                 label: 'label.PFANS6009VIEW_MANHOUR',
-                width: 50,
+                width: 100,
                 fix: false,
               },
               {
                 code: 'cost9',
                 label: 'label.PFANS6009VIEW_COST',
-                width: 50,
+                width: 100,
                 fix: false,
               }
             ],
@@ -257,13 +257,13 @@
               {
                 code: 'manhour10',
                 label: 'label.PFANS6009VIEW_MANHOUR',
-                width: 50,
+                width: 100,
                 fix: false,
               },
               {
                 code: 'cost10',
                 label: 'label.PFANS6009VIEW_COST',
-                width: 50,
+                width: 100,
                 fix: false,
               }
             ],
@@ -277,13 +277,13 @@
               {
                 code: 'manhour11',
                 label: 'label.PFANS6009VIEW_MANHOUR',
-                width: 50,
+                width: 100,
                 fix: false,
               },
               {
                 code: 'cost11',
                 label: 'label.PFANS6009VIEW_COST',
-                width: 50,
+                width: 100,
                 fix: false,
               }
             ],
@@ -297,13 +297,13 @@
               {
                 code: 'manhour12',
                 label: 'label.PFANS6009VIEW_MANHOUR',
-                width: 50,
+                width: 100,
                 fix: false,
               },
               {
                 code: 'cost12',
                 label: 'label.PFANS6009VIEW_COST',
-                width: 50,
+                width: 100,
                 fix: false,
               }
             ],
@@ -317,13 +317,13 @@
               {
                 code: 'manhour1',
                 label: 'label.PFANS6009VIEW_MANHOUR',
-                width: 50,
+                width: 100,
                 fix: false,
               },
               {
                 code: 'cost1',
                 label: 'label.PFANS6009VIEW_COST',
-                width: 50,
+                width: 100,
                 fix: false,
               }
             ],
@@ -337,13 +337,13 @@
               {
                 code: 'manhour2',
                 label: 'label.PFANS6009VIEW_MANHOUR',
-                width: 50,
+                width: 100,
                 fix: false,
               },
               {
                 code: 'cost2',
                 label: 'label.PFANS6009VIEW_COST',
-                width: 50,
+                width: 100,
                 fix: false,
               }
             ],
@@ -357,13 +357,13 @@
               {
                 code: 'manhour3',
                 label: 'label.PFANS6009VIEW_MANHOUR',
-                width: 50,
+                width: 100,
                 fix: false,
               },
               {
                 code: 'cost3',
                 label: 'label.PFANS6009VIEW_COST',
-                width: 50,
+                width: 100,
                 fix: false,
               }
             ],
@@ -377,13 +377,13 @@
               {
                 code: 'totalmanhours',
                 label: 'label.PFANS6009VIEW_MANHOUR',
-                width: 50,
+                width: 100,
                 fix: false,
               },
               {
                 code: 'totalcost',
                 label: 'label.PFANS6009VIEW_COST',
-                width: 50,
+                width: 100,
                 fix: false,
               }
             ],

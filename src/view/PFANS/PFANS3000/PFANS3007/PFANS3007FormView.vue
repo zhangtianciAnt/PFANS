@@ -13,7 +13,7 @@
     >
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
-                 style="padding:2vw">
+                 style="padding:3vw">
           <el-row >
             <el-col :span="8">
               <el-form-item :label="$t('label.center')">
@@ -23,13 +23,13 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.group')">
-                <el-input :disabled="false" style="width:20vw" v-model="groupid"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="groupid"></el-input>
                 <el-input  v-show='false' :disabled="true" style="width:20vw" v-model="form.groupid"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.team')">
-                <el-input :disabled="false" style="width:20vw" v-model="teamid"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="teamid"></el-input>
                 <el-input  v-show='false' :disabled="true" style="width:20vw" v-model="form.teamid"></el-input>
               </el-form-item>
             </el-col>
