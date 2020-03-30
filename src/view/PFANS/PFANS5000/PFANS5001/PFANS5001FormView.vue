@@ -610,9 +610,9 @@
                               </el-input>
                             </template>
                           </el-table-column>
-                          <!--                入场时间-->
+                          <!--                进组时间-->
                           <el-table-column
-                            :label="$t('label.PFANS6004FORMVIEW_ADMISSIONTIME')"
+                            :label="$t('label.PFANS5001FORMVIEW_ADMISSIONTIME')"
                             align="center"
                             prop="admissiontime"
                             width="180">
@@ -626,9 +626,9 @@
                               </el-date-picker>
                             </template>
                           </el-table-column>
-                          <!--                退场时间-->
+                          <!--                退出时间-->
                           <el-table-column
-                            :label="$t('label.PFANS6004FORMVIEW_EXITIME')"
+                            :label="$t('label.PFANS5001FORMVIEW_EXITIME')"
                             align="center"
                             prop="exittime"
                             width="180">
