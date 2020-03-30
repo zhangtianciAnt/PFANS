@@ -722,13 +722,14 @@
         this.buttonClick('update', status);
       },
       start() {
-          
+
         if (this.form.status === '4' || this.form.status === '6') {
             this.form.status = '5';
         } else {
             this.form.status = '2';
         }
         this.buttonClick('update');
+        
       },
       end() {
         if (this.form.status === '5') {
