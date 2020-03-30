@@ -672,15 +672,15 @@
         } else if (val.state === '2') {
           this.form.status = '4';
         }
-        this.buttonClick("save");
+        this.buttonClick("update");
       },
       start() {
         this.form.status = '2';
-        this.buttonClick("save");
+        this.buttonClick("update");
       },
       end() {
         this.form.status = '0';
-        this.buttonClick("save");
+        this.buttonClick("update");
       },
       deleteRow(index, rows) {
         if (rows.length > 1) {
@@ -780,7 +780,7 @@
             })
           }
         }
-        if(val==="save"){
+        if(this.$route.params.disabled){
           this.$refs["reff"].validate(valid =>{
             if(valid){
               this.loading = true;
@@ -820,7 +820,7 @@
                 });
             }
           });
-        } else if (val === 'generate') {
+        } else {
           this.loading = true;
           let user = getUserInfo(this.form.user_id);
           if (user) {

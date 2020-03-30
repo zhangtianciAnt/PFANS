@@ -1,7 +1,7 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :canStart="canStart" :title="title" :workflowCode="right"
-                         @buttonClick="buttonClick"
+                         @buttonClick="buttonClick" @disabled="setdisabled"
                          @end="end" @start="start" @workflowState="workflowState" ref="container" v-loading="loading">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
@@ -773,6 +773,11 @@
       this.disable = this.$route.params.disabled;
     },
     methods: {
+      setdisabled(val){
+        if(this.$route.params.disabled){
+          this.disabled = val;
+        }
+      },
       getUserids(val) {
         this.userlist = val;
         this.form.user_id = val;

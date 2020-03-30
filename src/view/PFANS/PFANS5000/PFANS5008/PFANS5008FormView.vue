@@ -1,6 +1,6 @@
 <template>
   <div style="min-height: 100%">
-    <EasyNormalContainer ref="container" :title="title" @buttonClick="buttonClick" :buttonList="buttonList"
+    <EasyNormalContainer ref="container" :title="title" @buttonClick="buttonClick" :buttonList="buttonList" @disabled="setdisabled"
                          v-loading="loading">
       <div slot="customize" style="margin-top: 4rem;">
         <el-form ref="form" label-width="8vw" label-position="top" style="padding: 2vw">
@@ -535,6 +535,11 @@
       }
     },
     methods: {
+      setdisabled(val){
+        if(this.$route.params.disabled){
+          this.disabled = val;
+        }
+      },
       getProject(val){
         this.companyform.project_id = val;
         for(let item of this.optionsdata){

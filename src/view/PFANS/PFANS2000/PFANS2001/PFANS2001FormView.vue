@@ -1,7 +1,7 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :canStart="canStart" :title="title" @buttonClick="buttonClick"
-                         @end="end"
+                         @end="end" @disabled="setdisabled"
                          @start="start" @workflowState="workflowState" ref="container" v-loading="loading">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
@@ -476,6 +476,11 @@
             }
         },
         methods: {
+          setdisabled(val){
+            if(this.$route.params.disabled){
+              this.disabled = val;
+            }
+          },
             checkRequire() {
                 if (
                     !this.form.center_id ||

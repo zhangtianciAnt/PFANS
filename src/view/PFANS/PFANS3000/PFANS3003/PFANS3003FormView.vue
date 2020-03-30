@@ -5,7 +5,7 @@
       :title="title"
       v-loading="loading"
       @buttonClick="buttonClick"
-      :buttonList="buttonList"
+      :buttonList="buttonList" @disabled="setdisabled"
       @workflowState="workflowState"
       :canStart="canStart"
       @start="start"
@@ -366,6 +366,11 @@
       }
     },
     methods: {
+      setdisabled(val){
+        if(this.$route.params.disabled){
+          this.disabled = val;
+        }
+      },
       workflowState(val) {
         if (val.state === '1') {
           this.form.status = '3';
