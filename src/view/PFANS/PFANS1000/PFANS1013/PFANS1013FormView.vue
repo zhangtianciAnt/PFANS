@@ -63,7 +63,7 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1013VIEW_TELEPHONE')" prop="telephone">
+                    <el-form-item :label="$t('label.PFANS1012VIEW_TELEPHONE')" prop="telephone">
                       <el-input :disabled="!disable" maxlength="20" style="width:20vw"
                                 v-model="form.telephone"></el-input>
                     </el-form-item>
