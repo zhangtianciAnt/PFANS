@@ -74,10 +74,9 @@
             <el-form-item :label="$t('label.PFANS1024VIEW_CUSTOMERNAME')+'('+$t('label.PFANS1024VIEW_JAPANESE')+')'"
                           :label-width="formLabelWidth" prop="custojapanese">
               <div class="" style="width: 20vw">
-                <el-input class="content bg"
-                          v-model="form1.custojapanese">
-                  <el-button :disabled="!disabled2" size="small" slot="append" icon="el-icon-search"
-                             @click="handleClickE()"></el-button>
+                <el-input class="content bg" v-model="form1.custojapanese" :disabled="true">
+<!--                  <el-button :disabled="!disabled2" size="small" slot="append" icon="el-icon-search"-->
+<!--                             @click="handleClickE()"></el-button>-->
                 </el-input>
               </div>
             </el-form-item>
@@ -341,7 +340,7 @@
                         <el-input class="content bg"
                                   :disabled="true"
                                   v-model="scope.row.custojapanese">
-                          <el-button :disabled="!disabled" size="small" slot="append" icon="el-icon-search" @click="handleClickA(scope.row)"></el-button>
+                          <el-button :disabled="true" size="small" slot="append" icon="el-icon-search" @click="handleClickA(scope.row)"></el-button>
                         </el-input>
                       </div>
                       <el-dialog :visible.sync="dialogVisibleA"
@@ -686,7 +685,7 @@
                 applicationdate: '',
                 entrycondition: '',
                 grouporglist: '',
-                custojapanese: '',
+                custojapanese: this.$t('label.PFANS1033FORMVIEW_FIXED'),
                 suppliercode: '',
             },
           form: {
@@ -701,7 +700,7 @@
             formcustomer: {
                 custojapanese: '',
                 custoenglish: '',
-                custoabbreviation: '',
+                custoabbreviation: this.$t('label.PFANS1033FORMVIEW_FIXED'),
                 custochinese: '',
                 placejapanese: '',
                 placeenglish: '',
@@ -775,7 +774,7 @@
                             this.form1.contractnumber = contractapplication[i].contractnumber;
                             this.form1.contracttype = contractapplication[i].contracttype;
                             this.form1.applicationdate = contractapplication[i].careeryear;
-                            this.form1.custojapanese = contractapplication[i].custojapanese;
+                            // this.form1.custojapanese = contractapplication[i].custojapanese;
                               this.maketype = contractapplication[i].maketype;
                               //契約書番号
                               this.letcontractnumber = contractapplication[i].contractnumber;
@@ -1282,12 +1281,12 @@
               rowindex:'',
             });
           },
-          handleClickE() {
-              //this.form.claimtype = this.form1.claimtype;
-              this.dialogVisibleE = true;
-          },
+          // handleClickE() {
+          //     //this.form.claimtype = this.form1.claimtype;
+          //     this.dialogVisibleE = true;
+          // },
           rowClickE(row) {//333
-              this.form1.custojapanese = row.supjapanese;
+              // this.form1.custojapanese = row.supjapanese;
 
               this.formcustomer.custojapanese = row.supjapanese;
               this.formcustomer.custoenglish = row.supenglish;
