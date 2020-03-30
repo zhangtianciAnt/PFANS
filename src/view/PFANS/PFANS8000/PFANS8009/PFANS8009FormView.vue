@@ -2,7 +2,7 @@
   <div>
     <EasyNormalContainer
       :buttonList="buttonList"
-      :title="title"
+      :title="title" @disabled="setdisabled"
       @buttonClick="buttonClick"
       ref="container"
       v-loading="loading"
@@ -143,6 +143,11 @@
         }
       },
         methods: {
+          setdisabled(val){
+            if(this.$route.params.disabled){
+              this.disabled = val;
+            }
+          },
             deleteRow(index, rows) {
                 if (rows.length > 1) {
                     rows.splice(index, 1);

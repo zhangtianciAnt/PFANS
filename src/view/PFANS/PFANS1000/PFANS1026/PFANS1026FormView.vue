@@ -639,6 +639,45 @@
             <!--</el-table-column>-->
             <!--</el-table-column>-->
 
+            <el-table-column :label="$t('label.PFANS1024VIEW_TEMA')" align="center" prop="theme" width="200">
+              <template slot-scope="scope">
+                <el-form-item prop="theme">
+                  <div class="">
+                    <el-input class="content bg"
+                              :disabled="true"
+                              v-model="scope.row.theme">
+                      <el-button :disabled="!disabled" size="small" slot="append" icon="el-icon-search"
+                                 @click="handleClickB(scope.row)"></el-button>
+                    </el-input>
+                  </div>
+                </el-form-item>
+                <el-dialog :visible.sync="dialogVisibleB"
+                           top="8vh"
+                           width="30%"
+                           append-to-body>
+                  <div>
+                    <el-select @change="changed" v-model="region">
+                      <el-option :label="$t(titleB)" value="1"></el-option>
+                      <el-option :label="$t(titleC)" value="2"></el-option>
+                    </el-select>
+                    <el-table :data="tableB" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA"
+                              width="100%" v-loading='loading' v-show="showTable1">
+                      <el-table-column property="theme" :label="$t('label.PFANS1039FORMVIEW_THEME')"
+                                       width="180"></el-table-column>
+                      <el-table-column property="months" :label="$t('label.PFANS1024VIEW_TIME')"
+                                       width="180"></el-table-column>
+                    </el-table>
+                    <el-table :data="tableC" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA"
+                              width="100%" v-loading='loading' v-show="!showTable1">
+                      <el-table-column property="theme" :label="$t('label.PFANS1039FORMVIEW_THEME')"
+                                       width="180"></el-table-column>
+                      <el-table-column property="months" :label="$t('label.PFANS1024VIEW_TIME')"
+                                       width="180"></el-table-column>
+                    </el-table>
+                  </div>
+                </el-dialog>
+              </template>
+            </el-table-column>
 
             <el-table-column :label="$t('label.PFANS1024VIEW_STATE')" align="center" prop="state">
             </el-table-column>

@@ -4,7 +4,7 @@
       :buttonList="buttonList"
       :title="title"
       @buttonClick="buttonClick"
-      @end="end"
+      @end="end" @disabled="setdisabled"
       @start="start"
       @workflowState="workflowState"
       ref="container"
@@ -1219,6 +1219,11 @@
             }
         },
         methods: {
+          setdisabled(val){
+            if(this.$route.params.disabled){
+              this.disabled = val;
+            }
+          },
           setToolsorgs(val){
             this.form.toolsorgs = val;
           },
