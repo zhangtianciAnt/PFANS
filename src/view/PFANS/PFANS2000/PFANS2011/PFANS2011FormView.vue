@@ -809,6 +809,7 @@
               type: 'error',
               duration: 5 * 1000,
             });
+            return;
           }
         }
         if (val === 'PR001007') {
@@ -823,6 +824,7 @@
               type: 'error',
               duration: 5 * 1000,
             });
+            return;
           }
         }
       },
@@ -840,6 +842,22 @@
       buttonClick(val, status) {
         this.$refs['refform'].validate(valid => {
           if (valid) {
+            if (this.form.overtimetype === 'PR001008' && this.sexflg !== 'PR019002') {
+              Message({
+                message: this.$t('label.PFANS2011FROMVIEW_ERRORINFOS'),
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              return;
+            }
+            if (this.form.overtimetype === 'PR001007' && Number(this.ageflg) > 28) {
+              Message({
+                message: this.$t('label.PFANS2011FROMVIEW_ERRORINFOW'),
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              return;
+            }
             this.loading = true;
             this.form.userid = this.userlist;
             this.form.applicationdate = moment(this.form.applicationdate).format(
