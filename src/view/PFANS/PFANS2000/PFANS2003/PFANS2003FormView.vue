@@ -4,7 +4,7 @@
                          ref="container" v-loading="loading" @disabled="setdisabled">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
-                 style="padding:2vw" type="border-card">
+                 style="padding:3vw" type="border-card">
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.user_name')" prop="name">
