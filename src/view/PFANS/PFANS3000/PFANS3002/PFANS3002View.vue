@@ -174,16 +174,13 @@
                         let user = getUserInfo(response[j].userid)
                         let nameflg = getOrgInfoByUserId(response[j].userid);
                         if (nameflg) {
-                            response[j].center_name = nameflg.centerNmae;
-                            response[j].group_name = nameflg.groupNmae;
-                            response[j].team_name = nameflg.teamNmae;
+                            response[j].centername = nameflg.centerNmae;
+                            response[j].groupname = nameflg.groupNmae;
+                            response[j].teamname = nameflg.teamNmae;
                         }
                         if (user) {
                             response[j].applicant = user.userinfo.customername;
                         }
-                        response[j].centername = response[j].centerid;
-                        response[j].groupname = response[j].groupid;
-                        response[j].teamname = response[j].teamid;
                         if (response[j].smoke !== null && response[j].smoke !== "") {
                             if (this.$i18n) {
                                 response[j].smoke = response[j].smoke === "1" ? this.$t('label.yes') : this.$t('label.no');
