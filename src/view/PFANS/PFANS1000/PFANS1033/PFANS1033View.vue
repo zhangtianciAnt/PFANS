@@ -98,9 +98,15 @@
                             if (letContracttype != null) {
                                 tabledata[i].contracttype = letContracttype.value1;
                             }
+                            
                         }
                         if(tabledata[i].contractnumber != ""){
                             letcontractnumber.push(tabledata[i].contractnumber);
+                        }
+                        if(tabledata[i].state === '1'){
+                            tabledata[i].state = this.$t("label.PFANS8008FORMVIEW_EFFECTIVE");
+                        }else if(tabledata[i].state === '0'){
+                            tabledata[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID");
                         }
                     }
                     var arr= new Array();

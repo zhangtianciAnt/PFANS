@@ -1454,6 +1454,7 @@
             tabledata = this.tablefourth;
 
             for (let i = 0; i < tabledata.length; i++) {
+              tabledata[i].state = '1'
               tabledata[i].contractdate = this.getcontractdate(tabledata[i].contractdate);
               tabledata[i].contracttype = this.form.contracttype;
               if (this.form.contracttype === 'HT015001') {
@@ -1537,8 +1538,9 @@
                 }
             }
             if (val === "cancellation") {
+
                 for (let i = 0; i < this.tablefourth.length; i++) {
-                  this.tablefourth[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID");
+                  this.tablefourth[i].state = '0';
                   this.tablefourth[i].entrycondition = 'HT004001';
                 }
                 this.handleSave();
