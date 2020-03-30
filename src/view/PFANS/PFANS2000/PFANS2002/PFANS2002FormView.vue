@@ -83,6 +83,7 @@
                     :data="form.sex"
                     :disabled="disabled"
                     :code="code_sex"
+                    @change="changeSex"
                     :multiple="multiple"
                     style="width: 20vw">
                   </dicselect>
@@ -434,7 +435,7 @@
 
           <el-tab-pane
             :label="$t('label.PFANS2002FORMVIEW_ATTACH')"
-            name="fouth"
+            name="fourth"
             style="padding-top:1%"
           >
             <el-row>
@@ -572,29 +573,13 @@
           return callback();
         }
       };
-      // var validexpected = (rule, value, callback) => {
-      //   if (this.form.expectedtime !== '' && this.form.expectedtime !== null && this.form.intime !== '' && this.form.intime !== null) {
-      //     if (moment(this.form.intime).format('YYYY-MM-DD') >moment(this.form.expectedtime).format('YYYY-MM-DD')) {
-      //       callback(new Error(this.$t('label.PFANS2002FORMVIEW_EXPECTEDTIME')+this.$t('normal.error_checkTime1')+this.$t('label.PFANS2002FORMVIEW_INTIME')));
-      //     }
-      //   }
-      //   callback();
-      // };
-      //
-      // var validentrytime = (rule, value, callback) => {
-      //   if (this.form.entrytime !== '' && this.form.entrytime !== null && this.form.intime !== '' && this.form.intime !== null) {
-      //     if (moment(this.form.intime).format('YYYY-MM-DD') >moment(this.form.entrytime).format('YYYY-MM-DD')) {
-      //       return  callback(new Error(this.$t('label.PFANS2026VIEW_ENTRYTIME')+this.$t('normal.error_checkTime1')+this.$t('label.PFANS2002FORMVIEW_INTIME')));
-      //     }
-      //   }
-      //   callback();
-      // };
       var centerId = (rule, value, callback) => {
-        if (!this.form.center_id || this.form.center_id === "") {
-          callback(new Error(this.$t("normal.error_08") + "center"));
-          this.error = this.$t("normal.error_08") + "center";
+        if (!value || value === '' || value === 'undefined') {
+          this.errorcenter = this.$t('normal.error_09') + this.$t('label.PFANS5012VIEW_CENTER');
+          return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS5012VIEW_CENTER')));
         } else {
-          callback();
+          this.errorcenter = '';
+          return callback();
         }
       };
 
@@ -694,12 +679,12 @@
         fileList: [],
         upload: uploadUrl(),
         rules: {
-          name: [{required: true, validator: checkname, trigger: 'blur'}],
-          sex: [{required: true, message: this.$t('normal.error_08')}],
+          name: [{required: true, validator: checkname, trigger: 'change'}],
+          sex: [{required: true, message: this.$t('normal.error_08'),trigger: 'change'}],
           birthday: [{required: true, message: this.$t('normal.error_08')}],
-          education: [{required: true, message: this.$t('normal.error_08')}],
-          specialty: [{required: true, message: this.$t('normal.error_08')}],
-          quityear: [{required: true, message: this.$t('normal.error_08')}],
+          // education: [{required: true, message: this.$t('normal.error_08')}],
+          // specialty: [{required: true, message: this.$t('normal.error_08')}],
+          // quityear: [{required: true, message: this.$t('normal.error_08')}],
           // expectedtime: [{required: true, validator: validexpected, trigger: 'change'}],
           intime: [
             {
@@ -714,13 +699,7 @@
             //   validator: validentrytime,trigger:'change'
             // }
           ],
-          center_id: [
-            {
-              required: true,
-              validator: centerId,
-              trigger: "blur"
-            }
-          ],
+          center_id: [{required: true, validator: centerId, trigger: "blur"}],
           // entrytime: [{required: true, validator: validentrytime,trigger:'change'}],
         },
       };
@@ -757,17 +736,28 @@
     },
 
     methods: {
+      checkRequire(){
+        if(!this.form.name || !this.form.sex || !this.form.birthday){
+          this.activeName = 'first';
+        }else if(!this.form.intime){
+          this.activeName = 'third';
+        }else if(!this.form.center_id){
+          this.activeName = 'fourth';
+        }
+      },
       setdisabled(val){
         if(this.$route.params.disabled){
           this.disabled = val;
         }
+      },
+      changeSex(val){
+        this.form.sex = val;
       },
       getNameList() {
         this.loading = true;
         this.$store
           .dispatch('PFANS2002Store/getNameList', {})
           .then(response => {
-            debugger
             this.gridData = [];
             for (let i = 0; i < response.length; i++) {
               var vote = {};
@@ -846,8 +836,10 @@
         this.form.name = val;
         this.form.sex = lst;
         this.form.birthday = lst2;
+        this.errorname = '';
       },
       handleClickChange(val) {
+        this.form.name = val.name;
         this.currentRow = val.name;
         this.currentRow2 = val.sex;
         this.currentRow3 = val.birthday;
@@ -1092,6 +1084,7 @@
       },
 
       buttonClick(val) {
+        this.checkRequire();
         this.$refs['form'].validate(valid => {
           if (valid) {
             this.loading = true;
@@ -1156,7 +1149,6 @@
                 });
             }
           } else {
-            this.activeName = 'first';
               Message({
                   message: this.$t("normal.error_12"),
                   type: 'error',
