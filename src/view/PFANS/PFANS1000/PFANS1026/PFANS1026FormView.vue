@@ -1956,7 +1956,7 @@
         let isClone = false;
         if (this.checked) {
           for (let i = 0; i < this.form.tabledata.length; i++) {
-            this.form.tabledata[i].state = this.$t('label.PFANS8008FORMVIEW_INVALID');
+            this.form.tabledata[i].state = '0';
             if (this.form.tabledata[0].deliverycondition == 'HT009002') {
               isClone = true;
             }
@@ -2167,6 +2167,7 @@
               let claimnumber = this.form.tabledata[i].contractnumber + '-' + (j + 1);
               this.form.tableclaimtype[j].claimnumber = claimnumber;
             }
+            o.state='1';
             o.claimamount = letclaimamount;
           }
           if (Array.isArray(this.form.tabledata[i].conchinese)) {
