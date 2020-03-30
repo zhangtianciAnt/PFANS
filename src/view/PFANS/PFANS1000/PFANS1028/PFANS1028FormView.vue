@@ -147,14 +147,14 @@
                     <el-form-item
                       :label="$t('label.PFANS1028VIEW_POSSIBLE')" prop="possible">
                       <el-checkbox-group v-model="checkList" :disabled="!disable">
-                        <el-checkbox label="lable.PFANS1028VIEW_BOOKS"></el-checkbox>
-                        <el-checkbox label="label.PFANS1028VIEW_SOFTWARE"></el-checkbox>
-                        <el-checkbox label="label.PFANS1028VIEW_MAIL"></el-checkbox>
-                        <el-checkbox label="label.PFANS1028VIEW_SERVER"></el-checkbox>
-                        <el-checkbox label="label.PFANS1028VIEW_MEETING"></el-checkbox>
-                        <el-checkbox label="label.PFANS1028VIEW_COUNTRY2"></el-checkbox>
-                        <el-checkbox label="label.PFANS1028VIEW_OTHERC2"></el-checkbox>
-                        <el-checkbox label="label.PFANS1028VIEW_OVERSEA"></el-checkbox>
+                        <el-checkbox :label="$t('lable.PFANS1028VIEW_BOOKS')"></el-checkbox>
+                        <el-checkbox :label="$t('lable.PFANS1028VIEW_SOFTWARE')"></el-checkbox>
+                        <el-checkbox :label="$t('lable.PFANS1028VIEW_MAIL')"></el-checkbox>
+                        <el-checkbox :label="$t('lable.PFANS1028VIEW_SERVER')"></el-checkbox>
+                        <el-checkbox :label="$t('lable.PFANS1028VIEW_MEETING')"></el-checkbox>
+                        <el-checkbox :label="$t('lable.PFANS1028VIEW_COUNTRY2')"></el-checkbox>
+                        <el-checkbox :label="$t('lable.PFANS1028VIEW_OTHERC2')"></el-checkbox>
+                        <el-checkbox :label="$t('lable.PFANS1028VIEW_OVERSEA')"></el-checkbox>
                         <el-checkbox label="label.PFANS1028VIEW_COUNTRY3"></el-checkbox>
                         <el-checkbox label="label.PFANS1028VIEW_OTHER"></el-checkbox>
                       </el-checkbox-group>

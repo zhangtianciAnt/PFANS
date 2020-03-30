@@ -1145,6 +1145,14 @@
               callback();
             }
           };
+          var groupId = (rule, value, callback) => {
+            if (!this.form.group_id || this.form.group_id === "") {
+              callback(new Error(this.$t("normal.error_08") + "group"));
+              this.error = this.$t("normal.error_08") + "group";
+            } else {
+              callback();
+            }
+          };
             return {
               tableclaimtype:[{
                 claimtype: '',
@@ -1160,6 +1168,7 @@
                 // teamorglist: '',
                 errorcenter: '',
                 errorgroup: '',
+                errorgroup1: '',
                 errorexpname: '',
                 search: '',
                 Numbers: '',
@@ -1465,6 +1474,13 @@
                     {
                       required: true,
                       validator: centerId,
+                      trigger: "change"
+                    }
+                  ],
+                  group_id: [
+                    {
+                      required: true,
+                      validator: groupId,
                       trigger: "change"
                     }
                   ],
@@ -1803,11 +1819,12 @@
             this.disabled = this.$route.params.disabled;
             if (this.disabled) {
                 this.buttonList = [
-                    {
-                        key: 'save',
-                        name: 'button.save',
-                        disabled: false,
-                    },
+                  {
+                    key: 'save',
+                    name: 'button.save',
+                    disabled: false,
+                    icon: 'el-icon-check',
+                  },
                 ];
             }
         },
@@ -1905,6 +1922,14 @@
                 this.errorgroup = "";
               }
             },
+          getGroupId(val) {
+            this.getOrgInformation(val);
+            if (this.form.group_id === "") {
+              this.errorgroup1 = this.$t("normal.error_08") + "group";
+            } else {
+              this.errorgroup1 = "";
+            }
+          },
           getOrgInformation(id) {
             let org = {};
             let treeCom = this.$store.getters.orgs;

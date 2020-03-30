@@ -70,14 +70,14 @@
               {
                 code: 'productstatus',
                 label: 'label.PFANS5009VIEW_PRODUCTSTATUS',
-                width: 130,
+                width: 150,
                 fix: false,
                 filter: true
               },
               {
                 code: 'estimatedwork',
                 label: 'label.PFANS5009VIEW_ESTIMATEDWORK',
-                width: 120,
+                width: 150,
                 fix: false,
                 filter: true
               },
@@ -176,6 +176,7 @@
           .then(response => {
             if(response.length > 0) {
                 for (let j = 0; j < response.length; j++) {
+                  response[j].status = getStatus(response[j] .status);
                     if (response[j].phase !== null && response[j].phase !== "") {
                         let letPhase = getDictionaryInfo(response[j].phase);
                         if (letPhase != null) {
@@ -200,7 +201,6 @@
                             response[j].contractstatus = this.contractstatus2
                         }
                     }
-                    response[j] .status = getStatus(response[j] .status);
                 }
             }
 

@@ -102,6 +102,7 @@
                 .dispatch('PFANS5001Store/getFpans5001List', {})
                 //根据user_id取组织架构和user_name
                 .then(response => {
+                    this.data = response.filter(val =>  Number(val.status) < 7 );
                     for (let j = 0; j < response.length; j++) {
                         if(response[j].createby !== null && response[j].createby !== "") {
                             let user = getUserInfo(response[j].createby);
@@ -125,6 +126,9 @@
                         }
                         //状态
                         response[j] .status = getStatus(response[j] .status);
+                        // if(response[j].status === "7" || response[j].status === "8" || response[j].status === "9"){
+                        //
+                        // }
                         // 开始时间
                         if (response[j].startdate !== null && response[j].startdate !== "") {
                             response[j].startdate = moment(response[j].startdate).format("YYYY-MM-DD");
@@ -138,7 +142,6 @@
                             response[j].createon = moment(response[j].createon).format("YYYY-MM-DD");
                         }
                     }
-                    this.data = response;
                     this.loading = false;
                 })
                 .catch(error => {
