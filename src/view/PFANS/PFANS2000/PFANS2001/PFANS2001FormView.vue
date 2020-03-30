@@ -484,7 +484,7 @@
             checkRequire() {
                 if (
                     !this.form.center_id ||
-                    !this.form.group_id ||
+                   /* !this.form.group_id ||*/
                     !this.form.postname ||
                     !this.form.peoplerequired ||
                     !this.form.workplace ||
