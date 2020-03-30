@@ -324,6 +324,13 @@
       }
     },
     methods: {
+      checkRequire() {
+        for(let i = 0 ;i < this.tableData.length; i++){
+          if(this.tableData[i].nextyear === undefined){
+            this.activeName = "first";
+          }
+        }
+      },
       getCustomerInfo(id) {
         this.$store
           .dispatch('PFANS1038Store/getCustomerInfo', id)
@@ -434,6 +441,7 @@
         }
       },
       buttonClick(val) {
+        this.checkRequire();
         this.form.employed = JSON.stringify(this.tableData);
         this.form.newentry = JSON.stringify(this.newTableData);
         this.form.type = this.$route.params.type;

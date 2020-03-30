@@ -705,16 +705,22 @@
                     .dispatch('PFANS2016Store/getPfans2016One', {'abnormalid': this.$route.params._id})
                     .then(response => {
                         this.form = response;
-                        if (this.form.status === '4') {
-                            this.form.reoccurrencedate = response.occurrencedate
-                            this.form.refinisheddate = response.finisheddate
-                            this.form.relengthtime = response.lengthtime
-                            if (moment(this.form.refinisheddate).format('YYYY-MM-DD') != moment(this.form.reoccurrencedate).format('YYYY-MM-DD')) {
-                                this.checkrelengthtime = true;
+
+                        if(this.form.refinisheddate == null||this.form.reoccurrencedate== null ){
+                            if (this.form.status === '4') {
+                                this.form.reoccurrencedate = response.occurrencedate
+                                this.form.refinisheddate = response.finisheddate
+                                this.form.relengthtime = response.lengthtime
+                                if (moment(this.form.refinisheddate).format('YYYY-MM-DD') != moment(this.form.reoccurrencedate).format('YYYY-MM-DD')) {
+                                    this.checkrelengthtime = true;
+                                }
                             }
                         }
                         if (moment(this.form.occurrencedate).format('YYYY-MM-DD') != moment(this.form.finisheddate).format('YYYY-MM-DD')) {
                             this.checklengthtime= true;
+                        }
+                        if (moment(this.form.refinisheddate).format('YYYY-MM-DD') != moment(this.form.reoccurrencedate).format('YYYY-MM-DD')) {
+                            this.checkrelengthtime = true;
                         }
                         let rst = getOrgInfoByUserId(response.user_id);
                         if (rst) {
@@ -724,7 +730,7 @@
                         }
                         this.userlist = this.form.user_id;
                         // this.relation = this.form.relation;
-                        if (this.form.status != '4' || this.form.status != '5' || this.form.status != '6' || this.form.status != '7') {
+                        if (this.form.status == '4' || this.form.status == '5' || this.form.status == '6' || this.form.status == '7') {
                             this.checkfinisheddate = false;
                         }
                         if (this.form.status === '2' || this.form.status === '4') {
@@ -1094,12 +1100,10 @@
                 });
             },
             getOvertimelist() {
-                debugger
                 this.loading = true;
                 this.$store
                     .dispatch('PFANS2016Store/getOvertimelist', {userid: this.userlist, actualsubstitutiondate: null})
                     .then(response => {
-                        debugger
                         // console.log("aaa",this.relation)
                         // let letrelation = [];
                         for (let j = 0; j < response.length; j++) {
@@ -1323,6 +1327,7 @@
                     if (moment(this.form.reoccurrencedate).format('YYYY-MM-DD') === moment(this.form.refinisheddate).format('YYYY-MM-DD')) {
                         this.checkrelengthtime = false;
                     } else {
+                        this.checkrelengthtime = true;
                         var date1 = getDate(moment(this.form.reoccurrencedate).format('YYYY-MM-DD'));
                         var date2 = getDate(moment(this.form.refinisheddate).format('YYYY-MM-DD'));
                         if (date1 > date2) {
@@ -1375,12 +1380,12 @@
                         }
                     }
                 }
-
                 if (this.typecheck == '0') {
                     let timere = 0;
                     for (let d = 0; d < this.relistTwo.length; d++) {
                         timere = timere + 1;
                     }
+                    this.form.relengthtime = timere*8
                     if (this.checkDate < timere) {
                         if (this.form.errortype === 'PR013005') {
                             this.errorcheck = 2;
@@ -1601,59 +1606,76 @@
                 }
                 this.form.errortype = val;
                 if (val === 'PR013001') {
+                    this.checkrelengthtime= false;
                     this.checklengthtime= false;
                     this.checkfinisheddate = false;
                 } else if (val === 'PR013021') {
+                    this.checkrelengthtime= true;
                     this.checklengthtime= true;
                     this.checkfinisheddate = true;
                     // this.showFemale = true;
                 } else if (val === 'PR013005') {
+                    this.checkrelengthtime= false;
                     this.checklengthtime= false;
                     this.checkfinisheddate = true;
                     // this.showFemale = false;
                     this.typecheck = 0;
                 } else if (val === 'PR013006') {
+                    this.checkrelengthtime= false;
                     this.checklengthtime= false;
                     this.checkfinisheddate = true;
                     // this.showFemale = false;
                 } else if (val === 'PR013007') {
+                    this.checkrelengthtime= false;
                     this.checklengthtime= false;
                     // this.showFemale = false;
                     this.checkfinisheddate = true;
                     this.showWeekend = false;
-                } else if (val === 'PR013009') {
+                } else if (val === 'PR013008') {
+                    this.checkrelengthtime= false;
+                    this.checklengthtime= false;
+                }else if (val === 'PR013009') {
+                    this.checkrelengthtime= false;
                     this.checklengthtime= false;
                     this.checkfinisheddate = true;
                     this.showVacation = true;
                 } else if (val === 'PR013010') {
+                    this.checkrelengthtime= false;
                     this.checklengthtime= false;
                     this.checkfinisheddate = true;
                     this.showVacation = true;
                 } else if (val === 'PR013011') {
+                    this.checkrelengthtime= true;
                     this.checklengthtime= true;
                     this.checkfinisheddate = true;
                     this.showVacation = true;
                 } else if (val === 'PR013012') {
+                    this.checkrelengthtime= true;
                     this.checklengthtime= true;
                     this.checkfinisheddate = true;
                     this.showVacation = true;
                 } else if (val === 'PR013013') {
+                    this.checkrelengthtime= true;
                     this.checklengthtime= true;
                     this.checkfinisheddate = true;
                     this.showVacation = true;
                 } else if (val === 'PR013015') {
+                    this.checkrelengthtime= true;
                     this.checklengthtime= true;
                     this.checkfinisheddate = true;
                     this.showVacation = true;
                 } else if (val === 'PR013016') {
+                    this.checkrelengthtime= false;
                     this.checklengthtime= false;
                     this.checkfinisheddate = true;
                     this.showVacation = true;
                 } else if (val === 'PR013017') {
+                    this.checkrelengthtime= true;
                     this.checklengthtime= true;
                     this.checkfinisheddate = true;
                     this.showVacation = true;
                 } else {
+                    this.checkrelengthtime= true;
                     this.checklengthtime= true;
                     this.checkfinisheddate = true;
                     // this.showFemale = false;

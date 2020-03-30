@@ -1352,7 +1352,7 @@
                 if (
                     !this.form.user_id ||
                     !this.form.applicationdate ||
-                    !this.form.level ||
+                    /*!this.form.level ||*/
                     !this.form.condominiumcompany ||
                     !this.form.region ||
                     !this.form.city ||

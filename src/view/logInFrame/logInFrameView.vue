@@ -16,7 +16,7 @@
   .login-container {
     height: 100%;
     width: 100%;
-    background: url("../../assets/png/login.png") center center no-repeat;
+    background: url("../../assets/jpg/panasonic_logo.jpg") center center no-repeat;
     background-size: cover;
     top: 0;
     bottom: 0;

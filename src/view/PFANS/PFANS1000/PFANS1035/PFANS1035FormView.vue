@@ -616,7 +616,7 @@
             {
               required: true,
               message: this.$t('normal.error_08') + this.$t('label.PFANS1002VIEW_CITY2'),
-              trigger: 'blur',
+              trigger: 'change',
             },
           ],
           startdate: [
