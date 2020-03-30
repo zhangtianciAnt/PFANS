@@ -35,7 +35,7 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.sex')">
+                  <el-form-item :label="$t('label.sex')" prop="sex">
                     <dicselect :code="code3"
                                :data="form.sex"
                                :disabled="true"
@@ -136,7 +136,7 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.sex')">
+                  <el-form-item :label="$t('label.sex')" prop="sex">
                     <dicselect :code="code3"
                                :data="form.sex"
                                :disabled="true"
@@ -574,6 +574,11 @@
           }],
           fixed_phone: [{
             validator: checkphone, trigger: 'change',
+          }],
+          sex: [{
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.sex'),
+            trigger: 'change',
           }],
           email: [
             {
