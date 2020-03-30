@@ -818,8 +818,6 @@
           },
         ],
         baseInfo: [],
-        code1: 'PJ061',
-        code2: 'PJ062',
         code3: 'PJ063',
         code4: 'PJ064',
         code5: 'PJ065',
