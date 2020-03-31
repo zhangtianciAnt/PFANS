@@ -44,7 +44,7 @@
             <el-col :span="8">
               <el-form-item :error="error" :label="$t('label.applicant')" prop="userid">
                 <user
-                  :disabled="!disable"
+                  :disabled="true"
                   :error="error"
                   :selectType="selectType"
                   :userlist="userlist"

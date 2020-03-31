@@ -118,6 +118,7 @@
           </el-dialog>
         </el-form>
         <el-form :model="form" :rules="rules" label-position="top" label-width="6vw" ref="refform" style="padding: 2vw">
+          <!--书类作成弹出框-->
           <el-dialog :visible.sync="dialogBook" width="30%">
             <div class="dialog-footer" align="center">
               <el-row style=" margin-bottom: 20px;">
@@ -231,7 +232,7 @@
                     :disabled="!disabled">
                   </dicselect>-->
                   <el-select :no="scope.row" v-model="scope.row.currencyposition" @change="(val)=>{getCurrencyposition(val,scope.row)}" style="width: 11rem" :disabled="!disabled">
-                    <el-option v-for="(item,index) in options" :key="index" v-model="item.value">
+                    <el-option v-for="(item,index) in options" :key="index" :value="item.value">
                       {{item.value}}
                     </el-option>
                   </el-select>
@@ -272,7 +273,7 @@
                            append-to-body>
                   <div>
                     <el-select @change="changed" v-model="region">
-<!--                      <el-option :label="$t(titleB)" value="1"></el-option>-->
+                      <el-option :label="$t(titleB)" value="1"></el-option>
                       <el-option :label="$t(titleC)" value="2"></el-option>
                     </el-select>
                     <el-table :data="tableB" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA"
@@ -503,7 +504,7 @@
                            append-to-body>
                   <div>
                     <el-select @change="changed" v-model="region">
-<!--                      <el-option :label="$t(titleB)" value="1"></el-option>-->
+                      <el-option :label="$t(titleB)" value="1"></el-option>
                       <el-option :label="$t(titleC)" value="2"></el-option>
                     </el-select>
                     <el-table :data="tableB" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA"
@@ -529,14 +530,16 @@
           </el-table>
           <el-table :data="form.tableclaimtype" stripe header-cell-class-name="sub_bg_color_grey height"
                     :header-cell-style="getRowClass1" style="padding-top: 2vw">
+            <!--111-->
             <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMTYPE')" align="center" prop="claimtype" width="130">
               <template slot-scope="scope">
-                <el-form-item>
+                <el-form-item :prop="'tableclaimtype.' + scope.$index + '.claimtype'" :rules='rules.claimtype'>
                   <el-input :disabled="!disabled3" v-model="scope.row.claimtype">
                   </el-input>
                 </el-form-item>
               </template>
             </el-table-column>
+            <!--222-->
             <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYDATE')" align="center" prop="deliverydate"
                              width="170">
               <template slot-scope="scope">
@@ -782,6 +785,14 @@
           callback();
         }
       };
+      /*333*/
+      var validateClaimtype = (rule, value, callback) => {
+        if (!value) {
+          callback(new Error(this.$t('label.PFANS1024VIEW_CLAIMTYPE')));
+        } else {
+          callback();
+        }
+      };
       var validateCompletiondate = (rule, value, callback) => {
         if (!value) {
           callback(new Error(this.$t('label.PFANS1026FORMVIEW_JSWLR')));
@@ -874,7 +885,7 @@
         ruleSet: {
           'save': ['contractnumber'],
           'makeinto': ['contractnumber'],
-          '7': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'contractdate', 'currencyposition', 'claimamount', 'deliverydate','conchinese','conjapanese'],
+          '7': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'contractdate', 'currencyposition', 'claimamount', 'deliverydate','claimtype','completiondate','claimdate','supportdate','conchinese','conjapanese'],
         },
         rules1: {
             claimtype: [
@@ -990,6 +1001,9 @@
           deliverydate: [
             {validator: validateDeliverydate},
           ],
+          claimtype:[
+            {validator: validateClaimtype},
+          ],
           completiondate: [
             {validator: validateCompletiondate},
           ],
@@ -1104,8 +1118,7 @@
         tableB: [],
         tableC: [],
         tableD: [],
-        showTable1: false,
-          // showTable1: true,
+        showTable1: true,
         dialogVisibleB: false,
         titleA: 'title.PFANS6002VIEW',
         dialogVisibleA: false,
@@ -1114,7 +1127,7 @@
         dataA: [],
         recordData: [],
         recordDataB: [],
-        region: '2',
+        region: '1',
         titleB: 'menu.PFANS1040',
         titleC: 'menu.PFANS1041',
         projectResult: [],
@@ -1126,7 +1139,7 @@
       this.contractnumbercount = this.$route.params.contractnumbercount;
       let option1 = {};
         option1.name = getDictionaryInfo('PG019001').value1;
-        option1.code = 'PG019003';
+        option1.code = 'PG019001';
         option1.value = getDictionaryInfo('PG019001').value4;
       let option2 = {};
         option2.name = getDictionaryInfo('PG019003').value1;
@@ -1146,6 +1159,9 @@
                  /* //555 this.currencyposition
                 let currencyposition =  contractapplication[i].currencyposition;
                 this.currencyposition = currencyposition === 'PG019001'?'USB$':'￥';*/
+                 if(contractapplication[i].currencyposition !== '' && contractapplication[i].currencyposition !== null){
+                   contractapplication[i].currencyposition = getDictionaryInfo(contractapplication[i].currencyposition).value4;
+                 }
                 this.maketype = contractapplication[i].maketype;
 
                   this.form1.claimtype = contractapplication[i].claimtype;
@@ -1784,7 +1800,7 @@
           }
         });
       },
-      handleClick() {//222
+      handleClick() {
         //請求方式
         let letclaimtype = '';
         let letbook = '';
@@ -1912,6 +1928,7 @@
           this.dialogBook = false;
           return;
         }
+        /*判断是否已经生产决裁书*/
         this.$store.dispatch('PFANS1026Store/existCheck', {contractNumber: contractNumber})
           .then(response => {
             let s = 'count' + index;
@@ -1959,6 +1976,13 @@
         for (let i = 0; i < this.form.tabledata.length; i++) {
           let o = {};
           Object.assign(o, this.form.tabledata[i]);
+          if(this.form.tabledata[i].currencyposition !== '' && this.form.tabledata[i].currencyposition !== null){
+            for(let k = 0;k < this.options.length;k++){
+              if(this.form.tabledata[i].currencyposition === this.options[k].value){
+                o.currencyposition = this.options[k].code;
+              }
+            }
+          }
           o.contractdate = this.getcontractdate(this.form.tabledata[i].contractdate);
           this.form.tabledata[i].contracttype = this.form.contracttype;
           o.contracttype = this.form.tabledata[i].contracttype;
@@ -2178,7 +2202,7 @@
           debugger
           let dataName = 'tabledata';
           let maxCount = rowCount;
-          if (['deliverydate', 'completiondate', 'claimdate', 'supportdate', 'claimamount'].indexOf(item) >= 0) {
+          if (['deliverydate', 'completiondate', 'claimdate', 'supportdate', 'claimamount','claimtype'].indexOf(item) >= 0) {
             dataName = 'tableclaimtype';
             maxCount = rowCount2;
             for (var k = 0; k < maxCount; k++) {

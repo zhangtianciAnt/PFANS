@@ -28,7 +28,7 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :error="error" :label="$t('label.applicant')" prop="userid">
-                <user :disabled="!disable" :error="error" :selectType="selectType" :userlist="userlist"
+                <user :disabled="true" :error="error" :selectType="selectType" :userlist="userlist"
                       @getUserids="getUserids" style="width:20vw"></user>
               </el-form-item>
             </el-col>
@@ -82,14 +82,16 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS4001FORMVIRW_KH')" prop="client">
-                <dicselect
-                  :disabled="!disable"
-                  :code="code3"
-                  :multiple="multiple3"
-                  :data="form.client"
-                  style="width:20vw"
-                  @change="kh">
-                </dicselect>
+<!--                <dicselect-->
+<!--                  :disabled="!disable"-->
+<!--                  :code="code3"-->
+<!--                  :multiple="multiple3"-->
+<!--                  :data="form.client"-->
+<!--                  style="width:20vw"-->
+<!--                  @change="kh">-->
+<!--                </dicselect>-->
+                <el-input v-model="form.client" :disabled="!disable" style="width:20vw" maxlength='20'></el-input>
+
               </el-form-item>
             </el-col>
           </el-row>

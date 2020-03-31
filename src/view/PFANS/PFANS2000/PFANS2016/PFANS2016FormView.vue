@@ -30,7 +30,7 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :error="error" :label="$t('label.applicant')" prop="user_id">
-                <user :disabled="!disable" :error="error" :selectType="selectType" :userlist="userlist"
+                <user :disabled="true" :error="error" :selectType="selectType" :userlist="userlist"
                       @getUserids="getUserids" style="width: 20vw"></user>
               </el-form-item>
             </el-col>
@@ -755,10 +755,10 @@
                             this.workflowCode = 'W0003';
                             this.canStart = true;
                         } else if (this.form.status === '4') {
-                            this.workflowCode = 'W0058';
+                            this.workflowCode = 'W0056';
                             this.canStart = true;
                         } else if (this.form.status === '7') {
-                            this.workflowCode = 'W0058';
+                            this.workflowCode = 'W0056';
                             this.canStart = false;
                         }
                         this.loading = false;
@@ -1705,13 +1705,13 @@
                 if (val.state === '1') {
                     if (val.workflowCode === 'W0003') {
                         this.form.status = '3';
-                    } else if (val.workflowCode === 'W0058') {
+                    } else if (val.workflowCode === 'W0056') {
                         this.form.status = '6';
                     }
                 } else if (val.state === '2') {
                     if (val.workflowCode === 'W0003') {
                         this.form.status = '4';
-                    } else if (val.workflowCode === 'W0058') {
+                    } else if (val.workflowCode === 'W0056') {
                         this.form.status = '7';
                         this.canStart = false;
                     }
