@@ -479,7 +479,7 @@
                              width="200">
               <template slot-scope="scope">
                 <el-form-item :prop="'tabledata.' + scope.$index + '.businesscode'" :rules='rules.businesscode'>
-                  <el-input :disabled="!disabled" style="width: 11rem" v-model="scope.row.businesscode">
+                  <el-input :disabled="true" style="width: 11rem" v-model="scope.row.businesscode">
                   </el-input>
                 </el-form-item>
               </template>
