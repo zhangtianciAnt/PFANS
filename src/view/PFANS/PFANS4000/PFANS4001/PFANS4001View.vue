@@ -92,7 +92,7 @@
               .then(response => {
                   for (let j = 0; j < response.length; j++) {
                       let user = getUserInfo(response[j].userid);
-                      let nameflg = getOrgInfoByUserId(response[j].user_id);
+                      let nameflg = getOrgInfoByUserId(response[j].userid);
                       if (nameflg) {
                           response[j].centername = nameflg.centerNmae;
                           response[j].groupname = nameflg.groupNmae;
