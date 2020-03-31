@@ -567,7 +567,7 @@
               this.show4 = false;
               this.radio1 = 2;
             }
-            if (this.form.businessplantype === 'PR002005') {
+            if (this.form.businessplantype === 'PR002006') {
               this.show1 = true;
             }
             if (this.form.salequotation === 'PJ013001') {

@@ -364,7 +364,7 @@
                                     <el-input
                                       v-model="search"
                                       size="mini"
-                                      placeholder="请输入供应商关键字搜索"/>
+                                      placeholder="请输入委托元关键字搜索"/>
                                   </template>
                                 </el-table-column>
                               </el-table>
@@ -880,7 +880,7 @@
                                         <el-input
                                           v-model="search"
                                           size="mini"
-                                          placeholder="请输入姓名关键字搜索"/>
+                                          placeholder="请输入合同关键字搜索"/>
                                       </template>
                                     </el-table-column>
                                   </el-table>
@@ -1841,7 +1841,6 @@
         },
         methods: {
           setPl({row, column, rowIndex, columnIndex}){
-            debugger
             if(row.position.toUpperCase() === 'PL'){
               return 'PlStyle';
             }
