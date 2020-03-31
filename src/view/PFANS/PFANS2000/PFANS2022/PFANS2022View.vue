@@ -29,7 +29,7 @@
             filter: true,
           },
           {
-            code: 'center_id',
+            code: 'center_name',
             label: 'label.center',
             width: 120,
             fix: false,
