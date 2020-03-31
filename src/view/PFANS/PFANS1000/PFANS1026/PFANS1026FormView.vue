@@ -1316,7 +1316,7 @@
                     contractapplication[i].conchinese = conchinese;
                   }
                 }
-                console.log(contractapplication[i]);
+
                 let o = Object.assign({}, contractapplication[i]);
                 this.form.tabledata.push(o);
 //                                this.tabledata.push(o);
@@ -1430,6 +1430,7 @@
         this.recordData.responerglish = row.proenglish;
         this.recordData.responphone = row.protelephone;
         this.recordData.responemail = row.protemail;
+        this.recordData.businesscode = row.causecode;
         this.dialogVisibleA = false;
         this.loading = false;
       },
@@ -1490,6 +1491,7 @@
         this.$store
           .dispatch('PFANS6002Store/getcustomerinfor2')
           .then(response => {
+              console.log("response",response)
             for (let j = 0; j < response.length; j++) {
               if (response[j].custchinese !== null && response[j].custchinese !== '') {
                 let custchinese = getUserInfo(response[j].custchinese);
@@ -2390,7 +2392,6 @@
         let rowCount = that.form.tabledata.length || 0;
         let rowCount2 = that.form.tableclaimtype.length || 0;
         let myRule = this.ruleSet[type] || [];
-        console.log('vrules', myRule);
         if (myRule.length <= 0) {
           cb(true);
         }
@@ -2404,7 +2405,6 @@
             maxCount = rowCount2;
             for (var k = 0; k < maxCount; k++) {
               var itIndex = dataName + '.' + k + '.' + item;
-              console.log('va', itIndex);
               let pro = new Promise(function(resolve, reject) {
                 that.$refs['refform'].validateField(itIndex, function(msg) {
                   if(msg != ""){
@@ -2417,7 +2417,6 @@
             }
           } else if (rowCount > 0) {
             var itIndex = dataName + '.' + (rowCount - 1) + '.' + item;
-            console.log('va', itIndex);
             let pro = new Promise(function(resolve, reject) {
               that.$refs['refform'].validateField(itIndex, function(msg) {
                 if(msg != ""){
@@ -2435,14 +2434,14 @@
           return;
         }
         Promise.all(pros).then(function(values) {
-          console.log('va result ', values);
+
           let isOk = true;
           values.forEach(function(val) {
             if (val != undefined && val != '') {
               isOk = false;
             }
           });
-          console.log('cb result', isOk);
+
           cb(isOk);
         });
         if(countIndex > 0){
