@@ -198,6 +198,12 @@
                       width="150"
                       align="center"
                     ></el-table-column>
+                    <el-table-column
+                      prop="ykbz"
+                      :label="$t('label.PFANS2006VIEW_YKBZ')"
+                      width="150"
+                      align="center"
+                    ></el-table-column>
                     <!-- <el-table-column
                       prop="other1"
                       :label="$t('label.PFANS2006VIEW_OTHER1')"
@@ -3620,15 +3626,13 @@ export default {
               ) {
                 if (this.$i18n) {
                   if (response.base[j].sex === "PR019001") {
-                    if (response.base[j].sex === "PR019001") {
-                      response.base[j].sex = this.$t(
-                        "label.PFANS2002FORMVIEW_BOY"
-                      );
-                    } else {
-                      response.base[j].sex = this.$t(
-                        "label.PFANS2002FORMVIEW_GRIL"
-                      );
-                    }
+                    response.base[j].sex = this.$t(
+                      "label.PFANS2002FORMVIEW_BOY"
+                    );
+                  } else {
+                    response.base[j].sex = this.$t(
+                      "label.PFANS2002FORMVIEW_GRIL"
+                    );
                   }
                 }
 
