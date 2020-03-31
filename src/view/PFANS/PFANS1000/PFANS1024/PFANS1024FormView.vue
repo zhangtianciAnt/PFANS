@@ -1852,7 +1852,16 @@
         if (this.checked) {
           this.letcontractnumber = this.form.contractnumber.split('-')[0] + letbook;
         } else {
-          this.letcontractnumber = abbreviation + applicationdate + entrycondition + this.groupinfo[2] + sidegroup + number + letbook;
+          if(abbreviation !== '' && applicationdate !== '' && entrycondition!== '' && sidegroup!== '' && this.groupinfo[2] !== null){
+            this.letcontractnumber = abbreviation + applicationdate + entrycondition + this.groupinfo[2] + sidegroup + number + letbook;
+          } else {
+            Message({
+              message: this.$t("normal.error_14"),
+              type: 'error',
+              duration: 5 * 1000
+            });
+            return;
+          }
         }
         //纳品进步状况=纳品作成完了，如果生成觉书，要在觉书那条把原来的copy过来。
         let isClone = false;

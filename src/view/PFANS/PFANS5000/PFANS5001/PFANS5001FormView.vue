@@ -1841,7 +1841,6 @@
         },
         methods: {
           setPl({row, column, rowIndex, columnIndex}){
-            debugger
             if(row.position.toUpperCase() === 'PL'){
               return 'PlStyle';
             }
