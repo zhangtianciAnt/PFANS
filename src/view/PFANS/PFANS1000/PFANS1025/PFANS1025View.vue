@@ -79,13 +79,13 @@
             filter: true
           },
 
-          {
+         /* {
             code: 'deliverydate',
             label: 'label.PFANS1024VIEW_DELIVERYDATE',
             width: 150,
             fix: false,
             filter: true
-          },
+          },*/
           {
             code: 'currencyposition',
             label: 'label.PFANS1025VIEW_CURRENCYFORMAT',

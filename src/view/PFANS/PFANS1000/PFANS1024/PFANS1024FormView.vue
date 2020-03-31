@@ -537,6 +537,7 @@
                 </el-form-item>
               </template>
             </el-table-column>
+            <!--222-->
             <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYDATE')" align="center" prop="deliverydate"
                              width="170">
               <template slot-scope="scope">
@@ -874,7 +875,7 @@
         ruleSet: {
           'save': ['contractnumber'],
           'makeinto': ['contractnumber'],
-          '7': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'contractdate', 'currencyposition', 'claimamount', 'deliverydate','conchinese','conjapanese'],
+          '7': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'contractdate', 'currencyposition', 'claimamount','claimtype', 'deliverydate','completiondate','claimdate','supportdate','conchinese','conjapanese'],
         },
         rules1: {
             claimtype: [
@@ -1899,7 +1900,7 @@
         this.dialogFormVisible = false;
       },
       //存在check222
-      existCheck(contractNumber, index) {
+      existCheck(contractNumber, index) {//7
         // this.checkRequired()
         this.loading = true;
         if (contractNumber == null || contractNumber == undefined || contractNumber == '') {
@@ -1914,10 +1915,10 @@
         }
         this.$store.dispatch('PFANS1026Store/existCheck', {contractNumber: contractNumber})
           .then(response => {
-            let s = 'count' + index;
+            let s = 'count' + index;   //count7
             if (response[s] > 0) {
               Message({
-                message: this.$t('label.PFANS1026FORMVIEW_QXSCZQSCDQYS'),
+                message: this.$t('label.PFANS1026FORMVIEW_QXSCZQSCDQYS'),//请先删除之前生成的契约书
                 type: 'success',
                 duration: 5 * 1000,
               });
@@ -1991,9 +1992,7 @@
         if (value === 'makeinto') {
           this.handleIndexDisabled();
         } else {
-
           this.handleSaveContract(value, baseInfo);
-
         }
       },
       //contractapplication save
@@ -2094,6 +2093,7 @@
         this.loading = true;
         this.$store.dispatch('PFANS1026Store/existCheck', {contractNumber: this.letcontractnumber})
           .then(response => {
+            /*333*/
             this.dialogBook = true;
             if (response.count7 === 0) {
               this.disabledCount7 = false;
@@ -2161,6 +2161,7 @@
           this.handleSave('makeinto');
         }
       },
+      /*444*/
       validateByType: function(type, cb) {
         debugger
         let that = this;
