@@ -102,14 +102,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.budgetunit')" prop="tubebudgetunit" >
-                <dicselect
-                  :code="code1"
-                  :data="form.tubebudgetunit"
-                  :multiple="multiple"
-                  @change="getTubebudgetunit"
-                  style="width:20vw"
-                  :disabled="!disabled">
-                </dicselect>
+                <el-input :disabled="!disabled" style="width:20vw" v-model="form.tubebudgetunit" maxlength='50'></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -802,7 +795,17 @@
               });
           }
       }
-    }
+    },
+    // watch: {
+    //   'form.ferrygroupname': {
+    //     handler: function () {
+    //       debugger
+    //       if(this.form.ferrygroup_id){
+    //        this.form.tubebudgetunit =  getOrgInfo(getOrgInfoByUserId(this.form.ferrygroup_id)).encoding;
+    //       }
+    //     },
+    //   }
+    // }
   }
 </script>
 
