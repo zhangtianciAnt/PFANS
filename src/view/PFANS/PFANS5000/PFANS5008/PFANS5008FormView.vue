@@ -324,7 +324,10 @@
                                     let obj = {};
                                     obj.start_time = response[k].time_start;
                                     obj.work_phase = response[k].work_phase;
-                                    obj.behavior_breakdown = getDictionaryInfo(response[k].behavior_breakdown).value1;
+                                    let letErrortypecheck = getDictionaryInfo(response[k].behavior_breakdown);
+                                    if(letErrortypecheck != null){
+                                        obj.behavior_breakdown = letErrortypecheck.value1;
+                                    }
                                     if (response[k].project_id === 'PP024001') {
                                         obj.project_id = this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')
                                     } else {
@@ -414,7 +417,10 @@
                                                 let obj = {};
                                                 obj.start_time = response[k].time_start;
                                                 obj.work_phase = response[k].work_phase;
-                                                obj.behavior_breakdown = getDictionaryInfo(response[k].behavior_breakdown).value1;
+                                                let letErrortypecheck = getDictionaryInfo(response[k].behavior_breakdown);
+                                                if(letErrortypecheck != null){
+                                                    obj.behavior_breakdown = letErrortypecheck.value1;
+                                                }
                                                 if (response[k].project_id === 'PP024001') {
                                                     obj.project_id = this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')
                                                 } else {
@@ -528,7 +534,10 @@
                                                     let obj = {};
                                                     obj.start_time = response[k].time_start;
                                                     obj.work_phase = response[k].work_phase;
-                                                    obj.behavior_breakdown = getDictionaryInfo(response[k].behavior_breakdown).value1;
+                                                    let letErrortypecheck = getDictionaryInfo(response[k].behavior_breakdown);
+                                                    if(letErrortypecheck != null){
+                                                        obj.behavior_breakdown = letErrortypecheck.value1;
+                                                    }
                                                     if (response[k].project_id === 'PP024001') {
                                                         obj.project_id = this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')
                                                     } else {
@@ -602,7 +611,10 @@
                                                     let obj = {};
                                                     obj.start_time = response[k].time_start;
                                                     obj.work_phase = response[k].work_phase;
-                                                    obj.behavior_breakdown = getDictionaryInfo(response[k].behavior_breakdown).value1;
+                                                    let letErrortypecheck = getDictionaryInfo(response[k].behavior_breakdown);
+                                                    if(letErrortypecheck != null){
+                                                        obj.behavior_breakdown = letErrortypecheck.value1;
+                                                    }
                                                     if (response[k].project_id === 'PP024001') {
                                                         obj.project_id = this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')
                                                     } else {
@@ -748,7 +760,10 @@
                                 let obj = {};
                                 obj.start_time = response[k].time_start;
                                 obj.work_phase = response[k].work_phase;
-                                obj.behavior_breakdown = getDictionaryInfo(response[k].behavior_breakdown).value1;
+                                let letErrortypecheck = getDictionaryInfo(response[k].behavior_breakdown);
+                                if(letErrortypecheck != null){
+                                    obj.behavior_breakdown = letErrortypecheck.value1;
+                                }
                                 if (response[k].project_id === 'PP024001') {
                                     obj.project_id = this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')
                                 } else {
@@ -968,7 +983,10 @@
                                     let obj = {};
                                     obj.start_time = response[k].time_start;
                                     obj.work_phase = response[k].work_phase;
-                                    obj.behavior_breakdown = getDictionaryInfo(response[k].behavior_breakdown).value1;
+                                    let letErrortypecheck = getDictionaryInfo(response[k].behavior_breakdown);
+                                    if(letErrortypecheck != null){
+                                        obj.behavior_breakdown = letErrortypecheck.value1;
+                                    }
                                     if (response[k].project_id === 'PP024001') {
                                         obj.project_id = this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')
                                     } else {
@@ -1044,7 +1062,10 @@
                                                         let obj = {};
                                                         obj.start_time = response[k].time_start;
                                                         obj.work_phase = response[k].work_phase;
-                                                        obj.behavior_breakdown = getDictionaryInfo(response[k].behavior_breakdown).value1;
+                                                        let letErrortypecheck = getDictionaryInfo(response[k].behavior_breakdown);
+                                                        if(letErrortypecheck != null){
+                                                            obj.behavior_breakdown = letErrortypecheck.value1;
+                                                        }
                                                         if (response[k].project_id === 'PP024001') {
                                                             obj.project_id = this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')
                                                         } else {
@@ -1129,7 +1150,10 @@
                                                         let obj = {};
                                                         obj.start_time = response[k].time_start;
                                                         obj.work_phase = response[k].work_phase;
-                                                        obj.behavior_breakdown = getDictionaryInfo(response[k].behavior_breakdown).value1;
+                                                        let letErrortypecheck = getDictionaryInfo(response[k].behavior_breakdown);
+                                                        if(letErrortypecheck != null){
+                                                            obj.behavior_breakdown = letErrortypecheck.value1;
+                                                        }
                                                         if (response[k].project_id === 'PP024001') {
                                                             obj.project_id = this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')
                                                         } else {
@@ -1247,7 +1271,10 @@
                                             let obj = {};
                                             obj.start_time = response[k].time_start;
                                             obj.work_phase = response[k].work_phase;
-                                            obj.behavior_breakdown = getDictionaryInfo(response[k].behavior_breakdown).value1;
+                                            let letErrortypecheck = getDictionaryInfo(response[k].behavior_breakdown);
+                                            if(letErrortypecheck != null){
+                                                obj.behavior_breakdown = letErrortypecheck.value1;
+                                            }
                                             if (response[k].project_id === 'PP024001') {
                                                 obj.project_id = this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')
                                             } else {
