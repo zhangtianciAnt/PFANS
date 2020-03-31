@@ -53,6 +53,7 @@
               >
                 <template slot-scope="scope">
                   <el-select size="small"
+                             clearable
                              v-model="scope.row.nextyear"
                              :disabled="disabled"
                              :placeholder="$t('normal.error_09')">
@@ -94,7 +95,7 @@
                 v-if="this.$route.params.type === 0 ? false : true"
                 align="center">
                 <template slot-scope="scope">
-                  <el-select size="small" v-model="scope.row.supchinese" :disabled="disabled"
+                  <el-select clearable  size="small" v-model="scope.row.supchinese" :disabled="disabled"
                              :placeholder="$t('normal.error_09')">
                     <el-option
                       v-for="item in externalOption"
@@ -121,6 +122,7 @@
                 align="center">
                 <template slot-scope="scope">
                   <el-select
+                    clearable
                     size="small"
                     v-model="scope.row.thisyear"
                     :placeholder="$t('normal.error_09')"
@@ -142,7 +144,7 @@
                 align="center"
               >
                 <template slot-scope="scope">
-                  <el-select size="small" v-model="scope.row.nextyear" :disabled="disabled"
+                  <el-select clearable size="small" v-model="scope.row.nextyear" :disabled="disabled"
                              :placeholder="$t('normal.error_09')">
                     <el-option
                       v-for="item in options"
@@ -276,7 +278,7 @@
         }],
         loading: false,
         externalOption: "",
-        newTableData: [{"isoutside": false, "entermouth": null}],
+        newTableData: [{"name":"","isoutside": false, "entermouth": null}],
         tableData: [],
         activeName: "first",
         buttonList: [],
@@ -324,6 +326,13 @@
       }
     },
     methods: {
+      checkRequire() {
+        for(let i = 0 ;i < this.tableData.length; i++){
+          if(this.tableData[i].nextyear === undefined){
+            this.activeName = "first";
+          }
+        }
+      },
       getCustomerInfo(id) {
         this.$store
           .dispatch('PFANS1038Store/getCustomerInfo', id)
@@ -398,7 +407,7 @@
           });
       },
       formatterDic(row, column) {
-        if (column.property === "thisyear" && this.$route.params.type === 0) {
+        if (column.property === "thisyear") {
           if (row[column.property]) {
             let dic = getDictionaryInfo(row[column.property]);
             return dic === null ? "-" : dic.value1;
@@ -422,7 +431,7 @@
         }
       },
       addRow() {
-        this.newTableData.push({"isoutside": false, "entermouth": null});
+        this.newTableData.push({"name":"","isoutside": false, "entermouth": null});
       },
       changeOption(val, row) {
         if (val) {
@@ -434,6 +443,7 @@
         }
       },
       buttonClick(val) {
+        this.checkRequire();
         this.form.employed = JSON.stringify(this.tableData);
         this.form.newentry = JSON.stringify(this.newTableData);
         this.form.type = this.$route.params.type;
@@ -442,99 +452,54 @@
           this.form.centerid = rst.centerId;
           this.form.groupid = rst.groupId;
         }
-        let error = 0;
-        let error1 = 0;
-        let error2 = 0;
-        let error3 = 0;
-        let error4 = 0;
-        // let error5 = 0;
-        // let error6 = 0;
-        // let error7 = 0;
+        debugger
+        let error = false;
+        let error1 = false;
         if(this.$route.params.type === 0){
         for (let i = 0; i < this.tableData.length; i++) {
           if (this.tableData[i].nextyear == undefined) {
-            error = error + 1;
+            error = true;
           }
         }
         for (let i = 0; i < this.newTableData.length; i++) {
-          if (this.newTableData[i].name !== null && this.newTableData[i].nextyear === undefined && this.newTableData[i].entermouth !== null) {
-            error1 = error1 + 1;
-          }
-        }
-        for (let i = 0; i < this.newTableData.length; i++) {
-          if (this.newTableData[i].name !== null && this.newTableData[i].nextyear !== undefined && this.newTableData[i].entermouth == null) {
-            error2 = error2 + 1;
-          }
-        }
-        for (let i = 0; i < this.newTableData.length; i++) {
-          if (this.newTableData[i].name == '' || (this.newTableData[i].name == null && this.newTableData[i].nextyear !== undefined && this.newTableData[i].entermouth !== null)) {
-            error3 = error3 + 1;
-          }
+          if (this.newTableData[i].name !== ""){
+             if(this.newTableData[i].nextyear === undefined || this.newTableData[i].nextyear === "" || this.newTableData[i].entermouth == "" || this.newTableData[i].entermouth == undefined){
+               error1 = true;
+             }
+           }
         }
       }
         if(this.$route.params.type !== 0){
-          for (let i = 0; i < this.newTableData.length; i++) {
-            if(this.newTableData[i].supchinese == undefined && this.newTableData[i].name !== null){
-              error4 = error4 + 1;
+          for (let i = 0; i < this.tableData.length; i++) {
+            if(this.tableData[i].nextyear == undefined){
+              error = true;
             }
           }
           for (let i = 0; i < this.newTableData.length; i++) {
-            if (this.newTableData[i].name !== null && this.newTableData[i].nextyear === undefined) {
-              error1 = error1 + 1;
-            }
-          }
-          for (let i = 0; i < this.newTableData.length; i++) {
-            if(this.newTableData[i].name !== null && this.newTableData[i].entermouth == null){
-              error2 = error2 + 1;
-            }
-          }
-          for (let i = 0; i < this.newTableData.length; i++) {
-            if(this.newTableData[i].supchinese !== undefined && this.newTableData[i].name == null && this.newTableData[i].nextyear !== undefined && this.newTableData[i].entermouth !== null){
-              error3 = error3 + 1;
+            if (this.newTableData[i].name !== ""){
+              if(this.newTableData[i].nextyear === undefined || this.newTableData[i].nextyear === "" || this.newTableData[i].entermouth == "" || this.newTableData[i].entermouth == undefined || this.newTableData[i].supchinese == ""){
+                error1 = true;
+              }
             }
           }
         }
-       if (error != 0) {
-          Message({
-            message: this.$t('normal.error_08') +
-              this.$t('label.PFANS1038VIEW_REALISTIC')+
-              this.$t('label.PFANS1038VIEW_NEWHIRES2'),
-            type: 'error',
-            duration: 5 * 1000,
-          });
-        } else if (error3 != 0) {
-          Message({
-            message: this.$t('normal.error_08') +
-              this.$t('label.PFANS1038VIEW_NEWHIRES') +
-              this.$t('label.PFANS1038VIEW_MEMBER'),
-            type: 'error',
-            duration: 5 * 1000,
-          });
-        } else if (error1 != 0) {
+
+      if (error) {
          Message({
            message: this.$t('normal.error_08') +
-             this.$t('label.PFANS1038VIEW_NEWHIRES') +
+             this.$t('label.PFANS1038VIEW_REALISTIC') +
              this.$t('label.PFANS1038VIEW_NEWHIRES2'),
            type: 'error',
            duration: 5 * 1000,
          });
-       } else if (error2 != 0) {
-         Message({
-           message: this.$t('normal.error_08') +
-             this.$t('label.PFANS1038VIEW_NEWHIRES') +
-             this.$t('label.PFANS1038VIEW_ADOPTED'),
-           type: 'error',
-           duration: 5 * 1000,
-         });
-       }else if (error4 != 0) {
-         Message({
-           message: this.$t('normal.error_08') +
-             this.$t('label.PFANS1038VIEW_NEWHIRES') +
-             this.$t('label.PFANS1038VIEW_STATIONED'),
-           type: 'error',
-           duration: 5 * 1000,
-         });
-       } else if (!this.$route.params._id) {
+       }else if(error1){
+        Message({
+          message: this.$t('label.FANS1038VIEW_INFORMATIONSUCCESS'),
+          type: 'error',
+          duration: 5 * 1000,
+        });
+      }
+      else if (!this.$route.params._id) {
           this.loading = true;
           this.$store
             .dispatch("PFANS1038Store/insert", this.form)

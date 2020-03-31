@@ -3,13 +3,13 @@
     <EasyNormalContainer
       :buttonList="buttonList"
       v-loading="loading"
-      :title="title"
+      :title="title" @disabled="setdisabled"
       @buttonClick="buttonClick"
       ref="container"
     >
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
-                 style="padding: 2vw">
+                 style="padding: 3vw">
           <el-row >
             <el-col :span="8">
               <el-form-item :label="$t('label.center')">
@@ -295,6 +295,11 @@
             }
         },
         methods: {
+          setdisabled(val){
+            if(this.$route.params.disabled){
+              this.disabled = val;
+            }
+          },
             getUserids(val) {
                 this.form.userid = val;
                 this.userlist = val;

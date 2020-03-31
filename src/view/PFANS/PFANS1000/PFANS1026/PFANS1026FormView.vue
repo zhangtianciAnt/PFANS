@@ -211,6 +211,54 @@
                 </el-form-item>
               </template>
             </el-table-column>
+            <el-table-column :label="$t('label.PFANS1024VIEW_TEMA')" align="center" prop="theme" width="200">
+              <template slot-scope="scope">
+                <el-form-item prop="theme">
+                  <div class="">
+                    <el-input class="content bg"
+                              :disabled="true"
+                              v-model="scope.row.theme">
+                      <el-button :disabled="!disabled" size="small" slot="append" icon="el-icon-search"
+                                 @click="handleClickB(scope.row)"></el-button>
+                    </el-input>
+                  </div>
+                </el-form-item>
+                <el-dialog :visible.sync="dialogVisibleB"
+                           top="8vh"
+                           width="30%"
+                           append-to-body>
+                  <div>
+                    <el-select @change="changed" v-model="region">
+                      <el-option :label="$t(titleB)" value="1"></el-option>
+<!--                      <el-option :label="$t(titleC)" value="2"></el-option>-->
+                    </el-select>
+                    <el-table :data="tableB" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA"
+                              width="100%" v-loading='loading' v-show="showTable1">
+                      <el-table-column property="theme" :label="$t('label.PFANS1039FORMVIEW_THEME')"
+                                       width="180"></el-table-column>
+                      <el-table-column property="months" :label="$t('label.PFANS1024VIEW_TIME')"
+                                       width="180"></el-table-column>
+                    </el-table>
+                    <el-table :data="tableC" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA"
+                              width="100%" v-loading='loading' v-show="!showTable1">
+                      <el-table-column property="theme" :label="$t('label.PFANS1039FORMVIEW_THEME')"
+                                       width="180"></el-table-column>
+                      <el-table-column property="months" :label="$t('label.PFANS1024VIEW_TIME')"
+                                       width="180"></el-table-column>
+                    </el-table>
+                  </div>
+                </el-dialog>
+              </template>
+            </el-table-column>
+            <el-table-column :label="$t('label.PFANS1024VIEW_EXTENSIONDATE')" align="center" prop="extensiondate"
+                             width="200">
+              <template slot-scope="scope">
+                <el-form-item :prop="'tabledata.' + scope.$index + '.extensiondate'">
+                  <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.extensiondate"
+                                  style="width: 11rem"></el-date-picker>
+                </el-form-item>
+              </template>
+            </el-table-column>
             <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYCONDITION')" align="center">
               <el-table-column :label="$t('label.PFANS1026VIEW_SITUATION')" align="center" prop="deliverycondition"
                                width="200">
@@ -301,7 +349,7 @@
                              width="200">
               <template slot-scope="scope">
                 <el-form-item :prop="'tabledata.' + scope.$index + '.currencyposition'" :rules='rules.currencyposition'>
-                  <!--<dicselect
+                  <dicselect
                     :code="code9"
                     :data="scope.row.currencyposition"
                     :no="scope.row"
@@ -309,12 +357,12 @@
                     @change="getCurrencyposition"
                     style="width: 11rem"
                     :disabled="!disabled">
-                  </dicselect>-->
-                  <el-select :no="scope.row" v-model="scope.row.currencyposition" @change="(val)=>{getCurrencyposition(val,scope.row)}" style="width: 11rem" :disabled="!disabled">
-                    <el-option v-for="(item,index) in options" :key="index" v-model="item.value">
-                      {{item.value}}
-                    </el-option>
-                  </el-select>
+                  </dicselect>
+<!--                  <el-select :no="scope.row" v-model="scope.row.currencyposition" @change="(val)=>{getCurrencyposition(val,scope.row)}" style="width: 11rem" :disabled="!disabled">-->
+<!--                    <el-option v-for="(item,index) in options" :key="index" v-model="item.value">-->
+<!--                      {{item.value}}-->
+<!--                    </el-option>-->
+<!--                  </el-select>-->
                 </el-form-item>
               </template>
             </el-table-column>
@@ -335,15 +383,6 @@
               </template>
             </el-table-column>
             <el-table-column :label="$t('label.PFANS1024VIEW_CONTRACT2')" align="center">
-              <el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="conjapanese"
-                               width="200">
-                <template slot-scope="scope">
-                  <el-form-item :prop="'tabledata.' + scope.$index + '.conjapanese'" :rules='rules.conjapanese'>
-                    <el-input :disabled="!disabled4" v-model="scope.row.conjapanese">
-                    </el-input>
-                  </el-form-item>
-                </template>
-              </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center" prop="conchinese" width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.conchinese'" :rules='rules.conchinese'>
@@ -351,6 +390,15 @@
                              v-model="scope.row.conchinese"
                              @change="changePro" :disabled="!disabled">
                     </project>
+                  </el-form-item>
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="conjapanese"
+                               width="200">
+                <template slot-scope="scope">
+                  <el-form-item :prop="'tabledata.' + scope.$index + '.conjapanese'" :rules='rules.conjapanese'>
+                    <el-input :disabled="!disabled4" v-model="scope.row.conjapanese">
+                    </el-input>
                   </el-form-item>
                 </template>
               </el-table-column>
@@ -431,7 +479,7 @@
                              width="200">
               <template slot-scope="scope">
                 <el-form-item :prop="'tabledata.' + scope.$index + '.businesscode'" :rules='rules.businesscode'>
-                  <el-input :disabled="!disabled" style="width: 11rem" v-model="scope.row.businesscode">
+                  <el-input :disabled="true" style="width: 11rem" v-model="scope.row.businesscode">
                   </el-input>
                 </el-form-item>
               </template>
@@ -590,47 +638,6 @@
             <!--</template>-->
             <!--</el-table-column>-->
             <!--</el-table-column>-->
-
-            <el-table-column :label="$t('label.PFANS1024VIEW_TEMA')" align="center" prop="theme" width="200">
-              <template slot-scope="scope">
-                <el-form-item prop="theme">
-                  <div class="">
-                    <el-input class="content bg"
-                              :disabled="true"
-                              v-model="scope.row.theme">
-                      <el-button :disabled="!disabled" size="small" slot="append" icon="el-icon-search"
-                                 @click="handleClickB(scope.row)"></el-button>
-                    </el-input>
-                  </div>
-                </el-form-item>
-                <el-dialog :visible.sync="dialogVisibleB"
-                           top="8vh"
-                           width="30%"
-                           append-to-body>
-                  <div>
-                    <el-select @change="changed" v-model="region">
-                      <el-option :label="$t(titleB)" value="1"></el-option>
-                      <el-option :label="$t(titleC)" value="2"></el-option>
-                    </el-select>
-                    <el-table :data="tableB" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA"
-                              width="100%" v-loading='loading' v-show="showTable1">
-                      <el-table-column property="theme" :label="$t('label.PFANS1039FORMVIEW_THEME')"
-                                       width="180"></el-table-column>
-                      <el-table-column property="months" :label="$t('label.PFANS1024VIEW_TIME')"
-                                       width="180"></el-table-column>
-                    </el-table>
-                    <el-table :data="tableC" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA"
-                              width="100%" v-loading='loading' v-show="!showTable1">
-                      <el-table-column property="theme" :label="$t('label.PFANS1039FORMVIEW_THEME')"
-                                       width="180"></el-table-column>
-                      <el-table-column property="months" :label="$t('label.PFANS1024VIEW_TIME')"
-                                       width="180"></el-table-column>
-                    </el-table>
-                  </div>
-                </el-dialog>
-              </template>
-            </el-table-column>
-
             <el-table-column :label="$t('label.PFANS1024VIEW_STATE')" align="center" prop="state">
             </el-table-column>
           </el-table>
@@ -709,6 +716,7 @@
   import project from '../../../components/project';
   import ElInput from '../../../../../node_modules/element-ui/packages/input/src/input.vue';
   import ElFormItem from '../../../../../node_modules/element-ui/packages/form/src/form-item.vue';
+  import {save} from '../../PFANS2000/PFANS2005/PFANS2005Api';
 
   export default {
     name: 'PFANS1026View',
@@ -1009,7 +1017,7 @@
         disabled2: true,
         disabled3: false,
         disabled4: false,
-          options: [],
+          // options: [],
         multiple: false,
         rowindex: '',
         ruleSet: {
@@ -1171,7 +1179,7 @@
           contractnumber: '',
           contracttype: '',
           applicationdate: '',
-          entrycondition: '',
+          entrycondition: 'HT003001',
           grouporglist: '',
         },
         form: {
@@ -1254,16 +1262,16 @@
     },
     mounted() {
       this.contractnumbercount = this.$route.params.contractnumbercount;
-        let option1 = {};
-        option1.name = getDictionaryInfo('PG019001').value1;
-        option1.code = 'PG019003';
-        option1.value = getDictionaryInfo('PG019001').value4;
-        let option2 = {};
-        option2.name = getDictionaryInfo('PG019003').value1;
-        option2.code = 'PG019003';
-        option2.value = getDictionaryInfo('PG019003').value4;
-        this.options.push(option1);
-        this.options.push(option2);
+        // let option1 = {};
+        // option1.name = getDictionaryInfo('PG019001').value1;
+        // option1.code = 'PG019003';
+        // option1.value = getDictionaryInfo('PG019001').value4;
+        // let option2 = {};
+        // option2.name = getDictionaryInfo('PG019003').value1;
+        // option2.code = 'PG019003';
+        // option2.value = getDictionaryInfo('PG019003').value4;
+        // this.options.push(option1);
+        // this.options.push(option2);
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
@@ -1308,7 +1316,7 @@
                     contractapplication[i].conchinese = conchinese;
                   }
                 }
-                console.log(contractapplication[i]);
+
                 let o = Object.assign({}, contractapplication[i]);
                 this.form.tabledata.push(o);
 //                                this.tabledata.push(o);
@@ -1397,11 +1405,11 @@
         row.conjapanese = nameJA.substring(0, nameJA.length - 1);
       },
       changed() {
-        if (this.region === '2') {
-          this.showTable1 = false;
-        } else if (this.region === '1') {
-          this.showTable1 = true;
-        }
+        // if (this.region === '2') {
+        //   this.showTable1 = false;
+        // } else if (this.region === '1') {
+        //   this.showTable1 = true;
+        // }
       },
       handleClickA(row) {
         this.recordData = row;
@@ -1422,6 +1430,7 @@
         this.recordData.responerglish = row.proenglish;
         this.recordData.responphone = row.protelephone;
         this.recordData.responemail = row.protemail;
+        this.recordData.businesscode = row.causecode;
         this.dialogVisibleA = false;
         this.loading = false;
       },
@@ -1482,6 +1491,7 @@
         this.$store
           .dispatch('PFANS6002Store/getcustomerinfor2')
           .then(response => {
+              console.log("response",response)
             for (let j = 0; j < response.length; j++) {
               if (response[j].custchinese !== null && response[j].custchinese !== '') {
                 let custchinese = getUserInfo(response[j].custchinese);
@@ -1752,6 +1762,7 @@
             contractnumber: this.letcontractnumber,
             entrycondition: 'HT004002',
             entrypayment: '',
+            extensiondate: '',
             claimtype: this.form1.claimtype,
             deliverycondition: '',
             delivery: '',
@@ -1907,7 +1918,8 @@
         let isClone = false;
         if (this.checked) {
           for (let i = 0; i < this.form.tabledata.length; i++) {
-            this.form.tabledata[i].state = this.$t('label.PFANS8008FORMVIEW_INVALID');
+
+            this.form.tabledata[i].state = '0';
             if (this.form.tabledata[0].deliverycondition == 'HT009002') {
               isClone = true;
             }
@@ -2026,7 +2038,7 @@
             if (response[s] > 0) {
               Message({
                 message: this.$t('label.PFANS1026FORMVIEW_QXSCZQSCDQYS'),
-                type: 'success',
+                type: 'error',
                 duration: 5 * 1000,
               });
             } else {
@@ -2118,6 +2130,7 @@
               let claimnumber = this.form.tabledata[i].contractnumber + '-' + (j + 1);
               this.form.tableclaimtype[j].claimnumber = claimnumber;
             }
+            o.state='1';
             o.claimamount = letclaimamount;
           }
           if (Array.isArray(this.form.tabledata[i].conchinese)) {
@@ -2361,7 +2374,6 @@
           this.handleSave('save');
         }
         if (val === 'makeinto') {
-          console.log('aaa', this.letcontractnumber);
           this.handleSave('makeinto');
         }
       },
@@ -2380,7 +2392,6 @@
         let rowCount = that.form.tabledata.length || 0;
         let rowCount2 = that.form.tableclaimtype.length || 0;
         let myRule = this.ruleSet[type] || [];
-        console.log('vrules', myRule);
         if (myRule.length <= 0) {
           cb(true);
         }
@@ -2394,7 +2405,6 @@
             maxCount = rowCount2;
             for (var k = 0; k < maxCount; k++) {
               var itIndex = dataName + '.' + k + '.' + item;
-              console.log('va', itIndex);
               let pro = new Promise(function(resolve, reject) {
                 that.$refs['refform'].validateField(itIndex, function(msg) {
                   if(msg != ""){
@@ -2407,7 +2417,6 @@
             }
           } else if (rowCount > 0) {
             var itIndex = dataName + '.' + (rowCount - 1) + '.' + item;
-            console.log('va', itIndex);
             let pro = new Promise(function(resolve, reject) {
               that.$refs['refform'].validateField(itIndex, function(msg) {
                 if(msg != ""){
@@ -2425,17 +2434,16 @@
           return;
         }
         Promise.all(pros).then(function(values) {
-          console.log('va result ', values);
+
           let isOk = true;
           values.forEach(function(val) {
             if (val != undefined && val != '') {
               isOk = false;
             }
           });
-          console.log('cb result', isOk);
+
           cb(isOk);
         });
-
         if(countIndex > 0){
           Message({
             message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_CONTR'),

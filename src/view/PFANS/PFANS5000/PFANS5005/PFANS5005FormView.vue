@@ -5,7 +5,7 @@
       :title="title"
       @buttonClick="buttonClick"
       @end="end"
-      @start="start"
+      @start="start" @disabled="setdisabled"
       @workflowState="workflowState"
       ref="container"
       v-loading="loading"
@@ -391,7 +391,7 @@
         },
         code1: 'PP012',
         code2: "PP001",
-        code3: "PP002",
+        code3: "PJ063",
         code5: 'PP013',
         code6: 'PP014',
         code4: 'PP015',
@@ -461,6 +461,11 @@
       this.disable = this.$route.params.disabled;
     },
     methods: {
+      setdisabled(val){
+        if(this.$route.params.disabled){
+          this.disabled = val;
+        }
+      },
       getUserids(val) {
         this.userlist = val;
         this.form.managerid = val;

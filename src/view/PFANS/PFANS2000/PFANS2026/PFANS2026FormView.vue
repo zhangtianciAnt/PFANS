@@ -30,12 +30,12 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :error="error" :label="$t('label.user_name')" prop="user_id">
-                    <user :disabled="!disable" :error="error" :selectType="selectType" :userlist="userlist"
+                    <user :disabled="true" :error="error" :selectType="selectType" :userlist="userlist"
                           @getUserids="getUserids" style="width:20vw" v-model="form.user_id"></user>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.sex')">
+                  <el-form-item :label="$t('label.sex')" prop="sex">
                     <dicselect :code="code3"
                                :data="form.sex"
                                :disabled="true"
@@ -130,13 +130,13 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item :error="error" :label="$t('label.user_name')">
+                  <el-form-item :error="error" :label="$t('label.user_name')" >
                     <user :disabled="true" :error="error" :selectType="selectType" :userlist="userlist"
-                          @getUserids="getUserids" style="width:20vw" v-model="form.user_id"></user>
+                          @getUserids="getUserids" style="width:20vw" v-model="form.user_id" ></user>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.sex')">
+                  <el-form-item :label="$t('label.sex')" prop="sex">
                     <dicselect :code="code3"
                                :data="form.sex"
                                :disabled="true"
@@ -172,11 +172,11 @@
                     prop="confirmdata"
                     width="450">
                   </el-table-column>
-                  <el-table-column
-                    :label="$t('label.PFANS2026FORMVIEW_CONFIRMMARK')"
-                    align="center"
-                    prop="confirmmark">
-                  </el-table-column>
+<!--                  <el-table-column-->
+<!--                    :label="$t('label.PFANS2026FORMVIEW_CONFIRMMARK')"-->
+<!--                    align="center"-->
+<!--                    prop="confirmmark">-->
+<!--                  </el-table-column>-->
                   <el-table-column
                     :label="$t('label.date')"
                     align="center"
@@ -352,6 +352,7 @@
   import {getOrgInfoByUserId, getUserInfo} from '@/utils/customize';
   import {isvalidPhone, telephoneNumber} from '@/utils/validate';
   import dicselect from '../../../components/dicselect';
+  import {getDictionaryInfo} from '../../../../utils/customize';
 
 
   export default {
@@ -574,6 +575,11 @@
           fixed_phone: [{
             validator: checkphone, trigger: 'change',
           }],
+          sex: [{
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.sex'),
+            trigger: 'change',
+          }],
           email: [
             {
               type: "email",
@@ -596,7 +602,8 @@
             trigger: 'change',
           }],
           reporterlist: [{
-            required: this.disable2,
+            // required: this.disable2,
+              required: true,
             validator: checkrep,
             trigger: 'change'
           }],
@@ -615,6 +622,7 @@
               if(rst){
                   this.centerid = rst.centerNmae;
                   this.groupid= rst.groupNmae;
+                  this.form.group_id = rst.groupNmae
                   this.teamid= rst.teamNmae;
               }
             if (response.citation.length > 0) {
@@ -624,106 +632,8 @@
             this.reporterlist = this.form.reporter;
             this.baseInfo.staffexitprocedure = JSON.parse(JSON.stringify(this.form));
             this.baseInfo.citation = JSON.parse(JSON.stringify(this.tableD));
-            if (this.form.stage === '0' && this.form.status === '0') {
-              this.right = 'W0033';
-              this.canStart = true;
-              this.disable = true;
-              this.disable1 = false;
-              this.disable2 = false;
-            } else if (this.form.stage === '0' && this.form.status === '2') {
-              this.right = 'W0033';
-              this.canStart = false;
-              this.disable = false;
-              this.disable1 = false;
-              this.disable2 = false;
-            } else if (this.form.stage === '0' && this.form.status === '3') {
-              this.right = 'W0033';
-              this.canStart = true;
-              this.disable = true;
-              this.disable1 = false;
-              this.disable2 = false;
-            } else if (this.form.stage === '0' && this.form.status === '4') {
-              this.right = 'W0033';
-              this.canStart = true;
-              this.disable = false;
-              this.disable1 = false;
-              this.disable2 = false;
-            } else if (this.form.stage === '1' && this.form.status === '0') {
-
-              this.right = 'W0045';
-              this.canStart = true;
-              this.disable = false;
-              this.disable1 = false;
-              this.disable2 = false;
-            } else if (this.form.stage === '1' && this.form.status === '2') {
-              this.right = 'W0045';
-              this.canStart = false;
-              this.disable = false;
-              this.disable1 = false;
-              this.disable2 = false;
-            } else if (this.form.stage === '1' && this.form.status === '3') {
-              this.right = 'W0045';
-              this.canStart = true;
-              this.disable = false;
-              this.disable1 = false;
-              this.disable2 = false;
-            } else if (this.form.stage === '1' && this.form.status === '4') {
-              this.right = 'W0045';
-              this.canStart = true;
-              this.disable = false;
-              this.disable1 = true;
-              this.disable2 = false;
-            } else if (this.form.stage === '2' && this.form.status === '0') {
-              this.right = 'W0046';
-              this.canStart = true;
-              this.disable = false;
-              this.disable1 = true;
-              this.disable2 = false;
-              this.form.delivery_sheet_date=moment(new Date()).format('YYYY-MM-DD');
-            } else if (this.form.stage === '2' && this.form.status === '2') {
-              this.right = 'W0046';
-              this.canStart = false;
-              this.disable = false;
-              this.disable1 = false;
-              this.disable2 = false;
-            } else if (this.form.stage === '2' && this.form.status === '3') {
-              this.right = 'W0046';
-              this.canStart = true;
-              this.disable = false;
-              this.disable1 = true;
-              this.disable2 = false;
-            } else if (this.form.stage === '2' && this.form.status === '4') {
-              this.right = 'W0046';
-              this.canStart = true;
-              this.disable = false;
-              this.disable1 = false;
-              this.disable2 = true;
-            } else if (this.form.stage === '3' && this.form.status === '0') {
-              this.right = 'W0047';
-              this.canStart = true;
-              this.disable = false;
-              this.disable1 = false;
-              this.disable2 = true;
-              this.form.report_date=moment(new Date()).format('YYYY-MM-DD');
-            } else if (this.form.stage === '3' && this.form.status === '2') {
-              this.right = 'W0047';
-              this.canStart = false;
-              this.disable = false;
-              this.disable1 = false;
-              this.disable2 = false;
-            } else if (this.form.stage === '3' && this.form.status === '3') {
-              this.right = 'W0047';
-              this.canStart = true;
-              this.disable = false;
-              this.disable1 = false;
-              this.disable2 = true;
-            } else if (this.form.stage === '3' && this.form.status === '4') {
-              this.right = 'W0047';
-              this.canStart = false;
-              this.disable = false;
-              this.disable1 = false;
-              this.disable2 = false;
-            }
+            debugger
+            this.getDisablemethod();
             if (!this.$route.params.disabled) {
               this.disable = this.$route.params.disabled;
               this.disable1 = this.$route.params.disabled;
@@ -773,6 +683,123 @@
       this.disable = this.$route.params.disabled;
     },
     methods: {
+      checkRequire(){
+        if(!this.form.user_id || !this.form.sex || !this.form.hope_exit_date || !this.form.reason){
+          this.activeName = 'first';
+        }else if(!this.form.reporterlist){
+          this.activeName = 'fourth';
+        }
+      },
+        getDisablemethod(){
+            debugger
+            if (this.form.stage === '0' && this.form.status === '0') {
+                this.right = 'W0033';
+                this.canStart = true;
+                this.disable = true;
+                this.disable1 = false;
+                this.disable2 = false;
+            } else if (this.form.stage === '0' && this.form.status === '2') {
+                this.right = 'W0033';
+                this.canStart = false;
+                this.disable = false;
+                this.disable1 = false;
+                this.disable2 = false;
+            } else if (this.form.stage === '0' && this.form.status === '3') {
+                this.right = 'W0033';
+                this.canStart = true;
+                this.disable = true;
+                this.disable1 = false;
+                this.disable2 = false;
+            } else if (this.form.stage === '0' && this.form.status === '4') {
+                this.right = 'W0033';
+                this.canStart = true;
+                this.disable = false;
+                this.disable1 = false;
+                this.disable2 = false;
+            } else if (this.form.stage === '1' && this.form.status === '0') {
+
+                this.right = 'W0045';
+                this.canStart = true;
+                this.disable = false;
+                this.disable1 = false;
+                this.disable2 = false;
+            } else if (this.form.stage === '1' && this.form.status === '2') {
+                this.right = 'W0045';
+                this.canStart = false;
+                this.disable = false;
+                this.disable1 = false;
+                this.disable2 = false;
+            } else if (this.form.stage === '1' && this.form.status === '3') {
+                this.right = 'W0045';
+                this.canStart = true;
+                this.disable = false;
+                this.disable1 = false;
+                this.disable2 = false;
+            } else if (this.form.stage === '1' && this.form.status === '4') {
+                this.right = 'W0045';
+                this.canStart = true;
+                this.disable = false;
+                this.disable1 = true;
+                this.disable2 = false;
+            } else if (this.form.stage === '2' && this.form.status === '0') {
+                this.right = 'W0046';
+                this.canStart = true;
+                this.disable = false;
+                this.disable1 = true;
+                this.disable2 = false;
+                this.form.delivery_sheet_date=moment(new Date()).format('YYYY-MM-DD');
+            } else if (this.form.stage === '2' && this.form.status === '2') {
+                this.right = 'W0046';
+                this.canStart = false;
+                this.disable = false;
+                this.disable1 = false;
+                this.disable2 = false;
+            } else if (this.form.stage === '2' && this.form.status === '3') {
+                this.right = 'W0046';
+                this.canStart = true;
+                this.disable = false;
+                this.disable1 = true;
+                this.disable2 = false;
+            } else if (this.form.stage === '2' && this.form.status === '4') {
+                // this.right = 'W0046';
+                // this.right = '';
+                // this.canStart = false;
+                this.right = 'W0047';
+                this.canStart = true;
+                this.disable = false;
+                this.disable1 = false;
+                this.disable2 = true;
+                this.errorreporter = this.$t('normal.error_08') + this.$t('label.PFANS2026VIEW_REPORTER');
+
+            } else if (this.form.stage === '3' && this.form.status === '0') {
+                this.right = 'W0047';
+                this.canStart = true;
+                this.disable = false;
+                this.disable1 = false;
+                this.disable2 = true;
+                this.form.report_date=moment(new Date()).format('YYYY-MM-DD');
+
+            } else if (this.form.stage === '3' && this.form.status === '2') {
+                this.right = 'W0047';
+                this.canStart = false;
+                this.disable = false;
+                this.disable1 = false;
+                this.disable2 = false;
+            } else if (this.form.stage === '3' && this.form.status === '3') {
+                this.right = 'W0047';
+                this.canStart = true;
+                this.disable = false;
+                this.disable1 = false;
+                this.disable2 = true;
+            } else if (this.form.stage === '3' && this.form.status === '4') {
+                this.right = 'W0047';
+                this.canStart = false;
+                this.disable = false;
+                this.disable1 = false;
+                this.disable2 = false;
+            }
+        },
+
       getUserids(val) {
         this.userlist = val;
         this.form.user_id = val;
@@ -837,6 +864,7 @@
         this.form.sex=val;
       },
       workflowState(val) {
+
         if (val.state === '1') {
           this.form.status = '3';
         } else if (val.state === '2') {
@@ -845,8 +873,8 @@
         this.buttonClick("update");
       },
       start() {
-        this.form.status = '2';
-        this.buttonClick("update");
+            this.form.status = '2';
+            this.buttonClick("update");
       },
       end() {
         this.form.status = '0';
@@ -875,24 +903,31 @@
         });
       },
       buttonClick(val) {
+        this.checkRequire();
         this.$refs['reff'].validate(valid => {
           if (valid) {
-            if (this.form.stage === '0' && this.form.status === '4' && val !== 'update') {
+              debugger
+              console.log("val",val)
+              console.log("this.form.stage",this.form.stage)
+              console.log("this.form.status",this.form.status)
+            if (this.form.stage === '0' && this.form.status === '4' ) {
               if (this.form.user_id !== null && this.form.user_id !== '') {
                 this.form.stage = '1';
                 this.form.status = '0';
               }
-            } else if (this.form.stage === '1' && this.form.status === '4' && val !== 'update') {
-              if (this.form.jpwork_delivery !== null && this.form.jpwork_delivery !== '') {
+            } else if (this.form.stage === '1' && this.form.status === '4' ) {
+
                 this.form.stage = '2';
                 this.form.status = '0';
-              }
-            } else if (this.form.stage === '2' && this.form.status === '4' && val !== 'update') {
+
+            } else if (this.form.stage === '2' && this.form.status === '4' ) {
+                console.log("this.form.reporter",this.form.reporter)
               if (this.form.reporter !== null && this.form.reporter !== '') {
                 this.form.stage = '3';
                 this.form.status = '0';
               }
             }
+              this.getDisablemethod();
             this.loading = true;
             this.baseInfo = {};
             this.form.user_id = this.userlist;

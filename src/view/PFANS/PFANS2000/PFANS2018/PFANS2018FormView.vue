@@ -1,10 +1,10 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" v-loading="loading" :title="title" @buttonClick="buttonClick"
-                         ref="container">
+                         ref="container" @disabled="setdisabled">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="Form"
-                 style="padding: 2vw">
+                 style="padding: 3vw">
           <el-row>
             <el-col :span="12">
               <el-form-item :label="$t('label.PFANS2018VIEW_WORKSHIFT')" prop="workshift_start">
@@ -451,6 +451,11 @@
       }
     },
     methods: {
+      setdisabled(val){
+        if(this.$route.params.disabled){
+          this.disabled = val;
+        }
+      },
       buttonClick(val) {
         this.$refs['Form'].validate(valid => {
           if (valid) {

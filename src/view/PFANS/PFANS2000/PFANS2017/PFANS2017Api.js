@@ -17,6 +17,14 @@ export function download(data) {
     responseType: 'blob'
   })
 }
+//获取打卡详细
+export function getPunDetail(data) {
+  return request({
+    url: 'punchcardrecord/getPunDetail',
+    method: 'post',
+    data: data
+  })
+}
 
 
 

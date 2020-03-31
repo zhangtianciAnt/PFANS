@@ -31,7 +31,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1004VIEW_INVESTIGATOR')" prop="investigator">
+              <el-form-item :label="$t('label.PFANS1012VIEW_TELEPHONE')" prop="investigator">
                 <el-input v-model="form.investigator" :disabled="!disabled" style="width:20vw" maxlength='20'></el-input>
               </el-form-item>
             </el-col>
@@ -90,14 +90,14 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1004VIEW_BUSINESSPLANBALANCE')" prop="businessplanbalance" v-show="show">
-                <el-input-number v-model="form.businessplanbalance" controls-position="right" style="width:20vw" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
+                <el-input-number v-model="form.businessplanbalance" @change="moneyDiff" controls-position="right" style="width:20vw" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1004VIEW_AMOUNTTOBEGIVEN')" prop="amounttobegiven">
-                <el-input-number v-model="form.amounttobegiven" controls-position="right" style="width:20vw" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
+                <el-input-number v-model="form.amounttobegiven" @change="moneyDiff" controls-position="right" style="width:20vw" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
               </el-form-item>
             </el-col>
           </el-row>
@@ -153,6 +153,7 @@
                       style="width:12vw"
                       :disabled="!disabled"
                       :min="0" :max="1000000000"
+                      @change="changeSum(scope.row)"
                       :precision="2"></el-input-number>
                   </template>
                 </el-table-column>
@@ -166,6 +167,7 @@
                       style="width:12vw"
                       :disabled="!disabled"
                       :min="0" :max="1000000000"
+                      @change="changeSum(scope.row)"
                       :precision="2"></el-input-number>
                   </template>
                 </el-table-column>
@@ -177,7 +179,7 @@
                       v-model="scope.row.price"
                       controls-position="right"
                       style="width:12vw"
-                      :disabled="!disabled"
+                      :disabled="true"
                       :min="0" :max="1000000000"
                       :precision="2"></el-input-number>
                   </template>
@@ -236,13 +238,21 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1004VIEW_THISPROJECT')" prop="thisproject">
+              <el-form-item :label="$t('label.PFANS1012FORMVIEW_BUDGET')" prop="thisproject">
                 <el-input v-model="form.thisproject" :disabled="true" style="width: 20vw" maxlength='20'></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1004VIEW_SETTINGPLACE')">
-                <el-input v-model="form.settingplace" :disabled="!disabled" style="width: 20vw" maxlength='20'></el-input>
+                <dicselect
+                  :code="code4"
+                  :data="form.settingplace"
+                  :multiple="multiple"
+                  @change="getSettingplace"
+                  style="width:20vw"
+                  :disabled="!disabled">
+                </dicselect>
+<!--                <el-input v-model="form.settingplace" :disabled="!disabled" style="width: 20vw" maxlength='20'></el-input>-->
               </el-form-item>
             </el-col>
           </el-row>
@@ -312,7 +322,7 @@
   import dicselect from "../../../components/dicselect.vue";
   import user from "../../../components/user.vue";
   import { Message } from 'element-ui'
-  import {downLoadUrl,getOrgInfoByUserId, uploadUrl} from '@/utils/customize';
+  import {downLoadUrl,getOrgInfoByUserId, uploadUrl,getUserInfo} from '@/utils/customize';
   import moment from "moment";
 
   export default {
@@ -408,6 +418,7 @@
         code1: 'PR003',
         code2: 'PJ010',
         code3: 'PJ013',
+        code4: 'PJ030',
         disabled: true,
         menuList: [],
         rules: {
@@ -603,6 +614,10 @@
           this.form.gist = this.$t('label.PFANS1004VIEW_FREEBORROWINGGIST');
         }
           this.userlist = this.$store.getters.userinfo.userid;
+          let num = getUserInfo(this.$store.getters.userinfo.userid).userinfo.extension;
+          if(num){
+              this.form.investigator = num;
+          }
         if (this.userlist !== null && this.userlist !== '') {
           let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
             if(rst) {
@@ -633,7 +648,19 @@
       }
     },
     methods: {
-
+      changeSum(row){
+        row.price = row.unitprice * row.quantity;
+      },
+      getSettingplace(val){
+        this.form.settingplace = val;
+      },
+      moneyDiff(){
+        if(this.form.businessplanbalance > 0 && this.form.businessplanbalance < this.form.amounttobegiven){
+          this.show = false;
+          this.form.careerplan = '0';
+          this.form.amounttobegiven = 0;
+        }
+      },
       //设备
       addRow() {
         this.tableA.push({
@@ -691,7 +718,7 @@
       },
       getBusinessplantype(val) {
         this.form.businessplantype = val;
-        if (val === "PR002005") {
+        if (val === "PR002006") {
           this.show1 = true;
           this.rules.classificationtype[0].required = true;
         }else if (val === "PR002001") {
@@ -704,6 +731,9 @@
           this.show1 = false;
           this.rules.classificationtype[0].required = false;
         }else if (val === "PR002004") {
+          this.show1 = false;
+          this.rules.classificationtype[0].required = false;
+        }else if (val === "PR002005") {
           this.show1 = false;
           this.rules.classificationtype[0].required = false;
         }
@@ -728,6 +758,8 @@
       },
       radiochange(val){
           this.form.careerplan = val;
+          this.form.businessplantype = '';
+          this.form.businessplanbalance = 0;
           if (val === '0'){
               this.show = false;
               this.show1 = false;
@@ -920,6 +952,13 @@
                     this.loading = false;
                   })
               }
+            }
+            else{
+                Message({
+                    message: this.$t("normal.error_12"),
+                    type: 'error',
+                    duration: 5 * 1000
+                });
             }
           });
         }

@@ -138,10 +138,10 @@
                     },
                 ],
                 buttonList: [
-                    {'key': 'import', 'name': 'button.import', 'disabled': false, icon: 'el-icon-upload2'},
+                    // {'key': 'import', 'name': 'button.import', 'disabled': false, icon: 'el-icon-upload2'},
                     {'key': 'export', 'name': 'button.export', 'disabled': false, icon: 'el-icon-download'},
-                    {'key': 'export2', 'name': 'button.download2', 'disabled': false, icon: 'el-icon-download'},
-                    {'key': 'detail', 'name': 'label.PFANS2017VIEW_DETAIL', 'disabled': false, icon: 'el-icon-s-grid'}
+                    // {'key': 'export2', 'name': 'button.download2', 'disabled': false, icon: 'el-icon-download'},
+                    {'key': 'detail', 'name': 'button.detailed', 'disabled': false, icon: 'el-icon-s-grid'}
                 ],
                 isShow: true,
             };
@@ -268,6 +268,7 @@
                 }))
             },
             buttonClick(val) {
+                this.$store.commit('global/SET_HISTORYURL', this.$route.path);
                 // if (val === 'import') {
                 //     this.daoru = true;
                 //     this.clear(false);
@@ -299,7 +300,6 @@
                         });
                         return;
                     }
-                    this.$store.commit('global/SET_HISTORYURL', this.$route.path);
                     this.$router.push({
                         name: 'PFANS2017FormView',
                         params: {

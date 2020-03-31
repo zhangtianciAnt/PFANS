@@ -4,7 +4,7 @@
       :buttonList="buttonList"
       :title="title"
       @buttonClick="buttonClick"
-      @end="end"
+      @end="end" @disabled="setdisabled"
       @start="start"
       @workflowState="workflowState"
       ref="container"
@@ -323,7 +323,8 @@
                           <!--                              </el-input>-->
                           <!--                            </template>-->
                           <!--                          </el-table-column>-->
-                          <!--                    姓名-->
+                          <!--      222              姓名-->
+
                           <el-table-column
                             :label="$t('label.PFANSUSERFORMVIEW_CUSTOMERNAME')"
                             align="center"
@@ -355,7 +356,7 @@
                           </el-table-column>
                           <!--                入场时间-->
                           <el-table-column
-                            :label="$t('label.PFANS6004FORMVIEW_ADMISSIONTIME')"
+                            :label="$t('label.PFANS5001FORMVIEW_ADMISSIONTIME')"
                             align="center"
                             prop="admissiontime"
                             width="180">
@@ -371,7 +372,7 @@
                           </el-table-column>
                           <!--                退场时间-->
                           <el-table-column
-                            :label="$t('label.PFANS6004FORMVIEW_EXITIME')"
+                            :label="$t('label.PFANS5001FORMVIEW_EXITIME')"
                             align="center"
                             prop="exittime"
                             width="180">
@@ -1015,7 +1016,7 @@
                 code: 'PP012',
                 code1: 'PP013',
                 code2: 'PP001',
-                code3: 'PP002',
+                //code3: 'PJ063',
                 code4: 'PP014',
                 code5: 'PP015',
                 code6: 'PP017',
@@ -1032,8 +1033,11 @@
                 result1: '',
                 fileList: [],
                 upload: uploadUrl(),
+                stage:'',
+                status:'',
             };
         },
+
         mounted() {
           if (this.$route.params._org) {
             ({
@@ -1102,8 +1106,11 @@
                         if (response.prosystem.length > 0) {
                             let tablec = [];
                             let tableb = [];
+                            let flag1 = false;
+                            let flag2 = false;
                             for (var i = 0; i < response.prosystem.length; i++) {
                                 if (response.prosystem[i].type === '0') {
+                                  flag1 = true;
                                     tableb.push({
                                         name: response.prosystem[i].prosystem,
                                         comproject_id: response.prosystem[i].comproject_id,
@@ -1117,6 +1124,7 @@
                                         rowindex: response.prosystem[i].rowindex,
                                     });
                                 } else if (response.prosystem[i].type === '1') {
+                                  flag2 = true;
                                     tablec.push({
                                         name: response.prosystem[i].prosystem,
                                         comproject_id: response.prosystem[i].comproject_id,
@@ -1131,8 +1139,43 @@
                                     });
                                 }
                             }
-                            this.tableB = tableb;
+                            if(!flag1){
+                              this.tableB = [
+                                {
+                                  prosystem_id: '',
+                                  comproject_id: '',
+                                  type: '0',
+                                  number: '',
+                                  company: '',
+                                  name: '',
+                                  position: '',
+                                  admissiontime: '',
+                                  exittime: '',
+                                  rowindex: '',
+                                }
+                              ]
+                            }else{
+                              this.tableB = tableb;
+                            }
+
+                          if(!flag2){
+                            this.tableC = [
+                              {
+                                prosystem_id: '',
+                                comproject_id: '',
+                                type: '1',
+                                number: '',
+                                company: '',
+                                name: '',
+                                position: '',
+                                admissiontime: '',
+                                exittime: '',
+                                rowindex: '',
+                              },
+                            ]
+                          }else{
                             this.tableC = tablec;
+                          }
                         }
                         //项目合同
                         if (response.projectcontract.length > 0) {
@@ -1214,11 +1257,27 @@
                     {
                         key: 'save',
                         name: 'button.save',
+                        disabled: false,
                     },
                 ];
             }
         },
         methods: {
+          checkRequire(){
+            if(!this.form.project_name ||
+              !this.form.project_namejp ||
+              !this.form.userlist ||
+            !this.form.projecttype ||
+            !this.form.startdate ||
+            !this.form.enddate){
+              this.activeName = 'first';
+            }
+          },
+          setdisabled(val){
+            if(this.$route.params.disabled){
+              this.disabled = val;
+            }
+          },
           setToolsorgs(val){
             this.form.toolsorgs = val;
           },
@@ -1420,6 +1479,10 @@
                     row.number = lst.userinfo.jobnumber;
                     let lst1 = getOrgInfoByUserId(row.name);
                     row.company = lst1.groupNmae;
+                }else{
+                    row.position = '';
+                    row.number = '';
+                    row.company = '';
                 }
             },
             // getdepartmentid(val1) {
@@ -1822,6 +1885,7 @@
             buttonClick(val) {
                 this.form.leaderid = this.userlist;
                 this.form.managerid = this.userlist1;
+                this.checkRequire();
                 this.$refs['from1'].validate(valid => {
                     if (valid) {
                         this.loading = true;
@@ -1929,6 +1993,12 @@
                         //         duration: 5 * 1000,
                         //     });
                         // }
+                        // if(this.form.status === '2'){
+                        //     this.disable = false
+                        // }else {
+                        //     this.disable = true
+                        // }
+
                          if (this.$route.params._id) {
                             this.baseInfo.comproject.comproject_id = this.$route.params._id;
                             this.form.center_id = this.centerorglist;

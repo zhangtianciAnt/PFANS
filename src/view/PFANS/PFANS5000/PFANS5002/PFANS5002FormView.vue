@@ -1,4 +1,4 @@
-phase<template>
+<template>
   <div>
     <EasyNormalContainer
       :buttonList="buttonList"
@@ -6,7 +6,7 @@ phase<template>
       @buttonClick="buttonClick"
       @end="end"
       @start="start"
-      @workflowState="workflowState"
+      @workflowState="workflowState" @disabled="setdisabled"
       ref="container"
       v-loading="loading"
     >
@@ -1192,7 +1192,7 @@ phase<template>
         code: 'PP012',
         code1: 'PP013',
         code2: 'PP001',
-        code3: 'PP002',
+        code3: 'PJ063',
         code4: "PP014",
         code5: "PP015",
         showrow: true,
@@ -1329,6 +1329,11 @@ phase<template>
       }
     },
     methods: {
+      setdisabled(val){
+        if(this.$route.params.disabled){
+          this.disabled = val;
+        }
+      },
       getCenterId(val) {
         this.form.center_id = val;
         this.centerorglist = val;

@@ -27,7 +27,7 @@
                 <el-col :span="8">
                   <el-form-item :label="$t('label.sex')" prop="sex">
                     <dicselect
-                      code="PG020"
+                      code="PR019"
                       @change="changesex"
                       :data="form.sex"
                       style="width:20vw"
@@ -1806,7 +1806,7 @@
                 message:
                     this.$t("normal.error_08") +
                     this.$t("label.type"),
-                trigger: "blur"
+                trigger: "change"
             }
           ],
           rank: [
@@ -1815,7 +1815,7 @@
                 message:
                     this.$t("normal.error_08") +
                     this.$t("label.PFANSUSERFORMVIEW_RANK"),
-                trigger: "blur"
+                trigger: "change"
             }
           ],
           occupationtype: [
@@ -1824,7 +1824,7 @@
                 message:
                     this.$t("normal.error_08") +
                     this.$t("label.PFANSUSERFORMVIEW_OCCUPATIONTYPE"),
-                trigger: "blur"
+                trigger: "change"
             }
           ],
           post: [
@@ -1832,7 +1832,7 @@
               required: true,
               message:
                 this.$t("normal.error_08") + this.$t("label.PFANSUSERVIEW_POST"),
-              trigger: "blur"
+              trigger: "change"
             }
           ],
           laborcontractday: [

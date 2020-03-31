@@ -1,13 +1,13 @@
 <template>
   <div style="min-height: 100%">
-    <EasyNormalContainer :buttonList="buttonList" v-loading="loading" :title="title" @buttonClick="buttonClick"
+    <EasyNormalContainer :buttonList="buttonList" v-loading="loading" :title="title" @buttonClick="buttonClick" @disabled="setdisabled"
                          @end="end" @start="start" @workflowState="workflowState" ref="container">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="ruleForm"
                  style="padding: 2vw">
           <el-tabs @tab-click="handleClick" v-model="form.ticketstype" type="border-card">
-            <el-tab-pane :label="$t('label.PFANS3001FORMVIEW_DOMESTIC')" name="first" value="1"></el-tab-pane>
-            <el-tab-pane :label="$t('label.PFANS3001FORMVIEW_FOREIGN')" name="second" value="2"></el-tab-pane>
+            <el-tab-pane :label="$t('label.PFANS3001FORMVIEW_DOMESTIC')" name="first" value="1" :disabled="this.$route.params._id !== '' && this.form.ticketstype === 'second'"></el-tab-pane>
+            <el-tab-pane :label="$t('label.PFANS3001FORMVIEW_FOREIGN')" name="second" value="2" :disabled="this.$route.params._id !== '' && this.form.ticketstype === 'first'"></el-tab-pane>
             <el-row>
               <el-col :span="8">
                 <el-form-item :label="$t('label.center')">
@@ -187,6 +187,7 @@
   import {getOrgInfoByUserId} from '@/utils/customize';
   import {isvalidPhone, idcardNumber, telephoneNumber} from '@/utils/validate';
   import moment from 'moment';
+  import {getOrgInfo} from "../../../../utils/customize";
 
   export default {
     name: 'PFANS3001FormView',
@@ -524,12 +525,18 @@
                 this.form.center_id = rst.centerId;
                 this.form.group_id = rst.groupId;
                 this.form.team_id = rst.teamId;
+              this.form.budgetnumber = getOrgInfo(rst.groupId).encoding;
             }
           this.form.user_id = this.$store.getters.userinfo.userid;
         }
       }
     },
     methods: {
+      setdisabled(val){
+        if(this.$route.params.disabled){
+          this.disabled = val;
+        }
+      },
       handleClick(tab, event) {
         if (tab.name === 'first') {
           this.showDomestic = true;

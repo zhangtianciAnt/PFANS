@@ -6,7 +6,7 @@
       @buttonClick="buttonClick"
       :canStart="canStart"
       @end="end"
-      @start="start"
+      @start="start" @disabled="setdisabled"
       @workflowState="workflowState"
       ref="container"
       v-loading="loading">
@@ -551,21 +551,21 @@
                       <!--                社内-->
                       <el-tab-pane :label="$t('label.PFANS5001FORMVIEW_INCOMMUNITY')" name="first">
                         <el-table :data="tableB" stripe border header-cell-class-name="sub_bg_color_blue"
-                                  style="width: 80vw">
-                          <!--                      编号-->
-                          <el-table-column
-                            :label="$t('label.PFANS5001FORMVIEW_NUMBERS')"
-                            align="center"
-                            width="130">
-                            <template slot-scope="scope">
-                              <el-input
-                                :no="scope.row"
-                                :disabled="true"
-                                v-model="scope.row.number"
-                                style="width: 100%">
-                              </el-input>
-                            </template>
-                          </el-table-column>
+                                  style="width: 80vw" :cell-class-name="setPl">
+                          <!--                       编号-->
+                          <!--<el-table-column-->
+                            <!--:label="$t('label.PFANS5001FORMVIEW_NUMBERS')"-->
+                            <!--align="center"-->
+                            <!--width="130">-->
+                            <!--<template slot-scope="scope">-->
+                              <!--<el-input-->
+                                <!--:no="scope.row"-->
+                                <!--:disabled="true"-->
+                                <!--v-model="scope.row.number"-->
+                                <!--style="width: 100%">-->
+                              <!--</el-input>-->
+                            <!--</template>-->
+                          <!--</el-table-column>-->
                           <!--                          &lt;!&ndash;             センター         &ndash;&gt;-->
                           <!--                          <el-table-column-->
                           <!--                            :label="$t('label.center')"-->
@@ -604,15 +604,15 @@
                             <template slot-scope="scope">
                               <el-input
                                 :no="scope.row"
-                                :disabled="true"
+                                :disabled="scope.$index == 0"
                                 v-model="scope.row.position"
                                 style="width: 100%">
                               </el-input>
                             </template>
                           </el-table-column>
-                          <!--                入场时间-->
+                          <!--                进组时间-->
                           <el-table-column
-                            :label="$t('label.PFANS6004FORMVIEW_ADMISSIONTIME')"
+                            :label="$t('label.PFANS5001FORMVIEW_ADMISSIONTIME')"
                             align="center"
                             prop="admissiontime"
                             width="180">
@@ -626,9 +626,9 @@
                               </el-date-picker>
                             </template>
                           </el-table-column>
-                          <!--                退场时间-->
+                          <!--                退出时间-->
                           <el-table-column
-                            :label="$t('label.PFANS6004FORMVIEW_EXITIME')"
+                            :label="$t('label.PFANS5001FORMVIEW_EXITIME')"
                             align="center"
                             prop="exittime"
                             width="180">
@@ -647,7 +647,7 @@
                               <el-button
                                 :disabled="!disable"
                                 @click.native.prevent="deleteRow1(scope.$index, tableB)"
-                                plain
+                                plain  v-show="scope.$index != 0"
                                 size="small"
                                 type="danger"
                               >{{$t('button.delete')}}
@@ -655,7 +655,7 @@
                               <el-button
                                 :disabled="!disable"
                                 @click="addRow1()"
-                                plain
+                                plain  v-show="scope.$index != 0"
                                 size="small"
                                 type="primary"
                               >{{$t('button.insert')}}
@@ -670,19 +670,19 @@
                         <el-table :data="tableC" stripe border header-cell-class-name="sub_bg_color_blue"
                                   style="width: 80vw">
                           <!--                      编号-->
-                          <el-table-column
-                            :label="$t('label.PFANS5001FORMVIEW_NUMBERS')"
-                            align="center"
-                            width="110">
-                            <template slot-scope="scope">
-                              <el-input
-                                :no="scope.row"
-                                :disabled="true"
-                                v-model="scope.row.number"
-                                style="width: 100%">
-                              </el-input>
-                            </template>
-                          </el-table-column>
+                          <!--<el-table-column-->
+                            <!--:label="$t('label.PFANS5001FORMVIEW_NUMBERS')"-->
+                            <!--align="center"-->
+                            <!--width="110">-->
+                            <!--<template slot-scope="scope">-->
+                              <!--<el-input-->
+                                <!--:no="scope.row"-->
+                                <!--:disabled="true"-->
+                                <!--v-model="scope.row.number"-->
+                                <!--style="width: 100%">-->
+                              <!--</el-input>-->
+                            <!--</template>-->
+                          <!--</el-table-column>-->
                           <!--                      协力公司-->
                           <el-table-column
                             :label="$t('label.PFANS5001FORMVIEW_COOPERATIONCOMPANY')"
@@ -1145,6 +1145,14 @@
               callback();
             }
           };
+          var groupId = (rule, value, callback) => {
+            if (!this.form.group_id || this.form.group_id === "") {
+              callback(new Error(this.$t("normal.error_08") + "group"));
+              this.error = this.$t("normal.error_08") + "group";
+            } else {
+              callback();
+            }
+          };
             return {
               tableclaimtype:[{
                 claimtype: '',
@@ -1160,6 +1168,7 @@
                 // teamorglist: '',
                 errorcenter: '',
                 errorgroup: '',
+                errorgroup1: '',
                 errorexpname: '',
                 search: '',
                 Numbers: '',
@@ -1222,11 +1231,22 @@
                         number: '',
                         company: '',
                         name: '',
-                        position: '',
+                        position: 'PL',
                         admissiontime: '',
                         exittime: '',
                         rowindex: '',
-                    },
+                    }, {
+                    projectsystem_id: '',
+                    companyprojects_id: '',
+                    type: '0',
+                    number: '',
+                    company: '',
+                    name: '',
+                    position: '',
+                    admissiontime: '',
+                    exittime: '',
+                    rowindex: '',
+                  },
                 ],
                 //项目体制(外协)
                 tableC: [
@@ -1465,6 +1485,13 @@
                     {
                       required: true,
                       validator: centerId,
+                      trigger: "change"
+                    }
+                  ],
+                  group_id: [
+                    {
+                      required: true,
+                      validator: groupId,
                       trigger: "change"
                     }
                   ],
@@ -1803,15 +1830,53 @@
             this.disabled = this.$route.params.disabled;
             if (this.disabled) {
                 this.buttonList = [
-                    {
-                        key: 'save',
-                        name: 'button.save',
-                        disabled: false,
-                    },
+                  {
+                    key: 'save',
+                    name: 'button.save',
+                    disabled: false,
+                    icon: 'el-icon-check',
+                  },
                 ];
             }
         },
         methods: {
+          setPl({row, column, rowIndex, columnIndex}){
+            debugger
+            if(row.position.toUpperCase() === 'PL'){
+              return 'PlStyle';
+            }
+          },
+          checkRequire(){
+            if(!this.form.group_id ||
+            !this.form.center_id ||
+            !this.form.project_name ||
+            !this.form.project_namejp ||
+            !this.form.leaderid ||
+            !this.form.managerid ||
+            !this.form.languages ||
+            !this.form.projecttype ||
+            !this.form.field ||
+            !this.form.country ||
+            !this.form.chentrust ||
+            !this.form.ouentrust ||
+            !this.form.caron ||
+            !this.form.startdate ||
+            !this.form.enddate ||
+            !this.form.work ||
+            !this.form.deadline
+            ){
+              this.activeName = 'first';
+            }else if(!this.tableB[0].name && !this.tableC[0].name){
+              this.activeName = 'fourth';
+            }else if(!this.tableD[0].projectcontract_id){
+              this.activeName = 'fifth';
+            }
+          },
+          setdisabled(val){
+            if(this.$route.params.disabled){
+              this.disabled = val;
+            }
+          },
           setToolsorgs(val){
             this.form.toolsorgs = val;
           },
@@ -1900,6 +1965,14 @@
                 this.errorgroup = "";
               }
             },
+          getGroupId(val) {
+            this.getOrgInformation(val);
+            if (this.form.group_id === "") {
+              this.errorgroup1 = this.$t("normal.error_08") + "group";
+            } else {
+              this.errorgroup1 = "";
+            }
+          },
           getOrgInformation(id) {
             let org = {};
             let treeCom = this.$store.getters.orgs;
@@ -2009,7 +2082,7 @@
                 row.name = userlist;
                 if (row.name != null && row.name !== '') {
                     let lst = getUserInfo(row.name);
-                    row.position = lst.userinfo.post;
+                    // row.position = lst.userinfo.post;
                     row.number = lst.userinfo.jobnumber;
                     let lst1 = getOrgInfoByUserId(row.name);
                     row.company = lst1.groupNmae;
@@ -2206,21 +2279,8 @@
                 });
             },
             deleteRow1(index, rows) {
-                if (rows.length > 1) {
+                if (rows.length > 2) {
                     rows.splice(index, 1);
-                } else {
-                    this.tableB = [{
-                        projectsystem_id: '',
-                        companyprojects_id: '',
-                        type: '0',
-                        number: '',
-                        company: '',
-                        name: '',
-                        position: '',
-                        admissiontime: '',
-                        exittime: '',
-                        rowindex: '',
-                    }];
                 }
             },
             //项目体制(外协)
@@ -2448,6 +2508,7 @@
             buttonClick(val) {
                 this.form.leaderid = this.userlist;
                 this.form.managerid = this.userlist1;
+                this.checkRequire();
                 this.$refs['from1'].validate(valid => {
                     if (valid) {
                         this.loading = true;
@@ -2697,5 +2758,8 @@
       background: white;
       border-width: 1px;
     }
+  }
+  .PlStyle{
+    background-color: #005BAA !important;
   }
 </style>

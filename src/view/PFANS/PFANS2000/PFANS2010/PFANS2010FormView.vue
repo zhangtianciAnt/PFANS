@@ -7,7 +7,8 @@
                      :rowid="row_id"
                      @rowClick="rowClick"
                      @buttonClick="buttonClick"
-                     v-loading="loading">
+                     v-loading="loading"
+                     @disabled="setdisabled">
     </EasyNormalTable>
   </div>
 </template>
@@ -193,6 +194,11 @@
             };
         },
         methods: {
+          setdisabled(val){
+            if(this.$route.params.disabled){
+              this.disabled = val;
+            }
+          },
             rowClick(row) {
                 this.rowid = row.attendanceid;
                 this.form.attendanceid = row.attendanceid;

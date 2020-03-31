@@ -52,8 +52,7 @@
         </el-row>
       </el-col>
     </el-row>
-    <!--<el-row v-if="Object.keys(userinfo).length > 0">-->
-    <el-row>
+    <el-row v-show="Object.keys(userinfo).length > 0">
       <el-col :span="24" style="padding: 5px">
         <el-card class="box-card" shadow="hover">
           <span style="padding: 0 0 0 1rem;color: #5d9cec;font-size: 0.85rem">{{$t('label.INDEX_KJFW')}}</span>
@@ -230,6 +229,7 @@
             name: 'PFANS2022View',
           });
         }
+        this.$emit("changeMenu")
       },
       clickDSP() {
         // if(this.DSPSX==='0'){
@@ -240,12 +240,14 @@
           this.$router.push({
             name: 'PFANS8002View',
           });
+        this.$emit("changeMenu")
           // }
       },
       Clickckgd() {
         this.$router.push({
           name: 'PFANS8003View'
         });
+        this.$emit("changeMenu")
       },
       rowclickDataList2(row, event, column) {
         this._id = row.informationid;
@@ -257,6 +259,7 @@
             readonly: 1,
           },
         });
+        this.$emit("changeMenu")
       },
       handleDateClick: function (info) {
         this.day = moment(info.date).format('YYYY-MM-DD');
@@ -267,6 +270,7 @@
             disabled: true,
           },
         });
+        this.$emit("changeMenu")
       },
       getGSDT() {
         this.$store.dispatch('PFANS8008Store/getInformation').then(response => {

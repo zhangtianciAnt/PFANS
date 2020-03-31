@@ -1,7 +1,7 @@
 <template>
   <EasyNormalContainer
     :buttonList="buttonList"
-    :title="titles"
+    :title="titles" @disabled="setdisabled"
     @buttonClick="buttonClick"
     ref="container"
     v-loading="loading"
@@ -86,6 +86,11 @@
       }
     },
     methods: {
+      setdisabled(val){
+        if(this.$route.params.disabled){
+          this.disabled = val;
+        }
+      },
       getOneInformation(information) {
         this.loading = true;
         this.$store

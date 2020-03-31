@@ -77,7 +77,7 @@
           {
             code: 'type',
             label: 'label.PFANS1013VIEW_TYPE',
-            width: 90,
+            width: 120,
             fix: false,
             filter: true
           },

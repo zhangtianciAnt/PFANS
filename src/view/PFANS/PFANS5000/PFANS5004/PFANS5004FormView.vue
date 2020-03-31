@@ -4,7 +4,7 @@
       :buttonList="buttonList"
       :title="titles"
       @buttonClick="buttonClick"
-      @end="end"
+      @end="end" @disabled="setdisabled"
       @start="start"
       @workflowState="workflowState"
       ref="container"
@@ -90,7 +90,7 @@
 <!--                        </el-form-item>-->
 <!--                      </el-col>-->
                       <el-col :span="8">
-                        <el-form-item :label="$t('label.PFANS5001FORMVIEW_ENDDATE')" prop="endtime">
+                        <el-form-item :label="$t('label.PFANS5004VIEW_TIME')" prop="endtime">
                           <el-date-picker :disabled="!disable" style="width:20vw" type="date"
                                           v-model="form.endtime"></el-date-picker>
                         </el-form-item>
@@ -219,8 +219,6 @@
                 </el-table-column>
               </el-table>
             </el-tab-pane>
-
-
             <el-tab-pane :label="$t('label.PFANS5004VIEW_STAGENEWS')" name="third">
               <el-form-item>
                 <el-row>
@@ -343,7 +341,9 @@
         userlist: "",
         buttonList: [{
           key: "save",
-          name: "button.save"
+          name: "button.save",
+          disabled: false,
+          icon: 'el-icon-check',
         }],
         source: [{
           projectsystem_id: '',
@@ -402,7 +402,7 @@
         },
         code1: 'PP012',
         code2: "PP001",
-        code3: "PP002",
+        code3: "PJ063",
         code5: 'PP013',
         code6: 'PP014',
         code4: 'PP015',
@@ -427,6 +427,7 @@
             //     this.title = this.$t('title.PFANS5004VIEW');
             //   }
             // }
+              response.companyprojects.endtime = new Date()
             this.form = response.companyprojects;
             this.userlist = this.form.managerid;
             /*阶段信息*/
@@ -505,6 +506,16 @@
       this.disable = this.$route.params.disabled;
     },
     methods: {
+      checkRequire(){
+        if(!this.form.assetaddress){
+          this.activeName = 'first';
+        }
+      },
+      setdisabled(val){
+        if(this.$route.params.disabled){
+          this.disabled = val;
+        }
+      },
       getUserids(val) {
         this.userlist = val;
         this.form.managerid = val;
@@ -578,10 +589,11 @@
         }
       },
       buttonClick(val) {
+        this.checkRequire();
         this.$refs["reff"].validate(valid => {
           if (valid) {
             this.loading = true;
-            this.form.endtime = moment(this.form.endtime).format('YYYY-MM-DD');
+            // this.form.endtime = moment(this.form.endtime).format('YYYY-MM-DD');
             this.baseInfo = {};
             this.baseInfo.companyprojects = JSON.parse(JSON.stringify(this.form));
             this.baseInfo.stageinformation = [];

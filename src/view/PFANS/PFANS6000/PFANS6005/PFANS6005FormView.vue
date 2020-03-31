@@ -1,7 +1,7 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick"
-                         :noback="noback"
+                         :noback="noback" @disabled="setdisabled"
                          ref="container" v-loading="loading">
       <div slot="customize">
         <el-form :model="form" label-position="top" label-width="8vw" ref="reff">
@@ -653,6 +653,11 @@
         },
 
         methods: {
+          setdisabled(val){
+            if(this.$route.params.disabled){
+              this.disabled = val;
+            }
+          },
             handleSelectionChange(val) {
                 // const data = [];
                 // for (let i = 0; i < val.length; i++) {
@@ -775,28 +780,37 @@
             },
           buttonClick(val) {
             if (val === 'save') {
-              this.loading = true;
-              this.$store
-                .dispatch('PFANS6005Store/updatepriceset', this.multipleSelection)
-                .then(response => {
-                  Message({
-                    message: this.$t("normal.success_02"),
-                    type: "success",
-                    duration: 5 * 1000
-                  });
-                  this.data = response;
-                  this.loading = false;
-                  this.getpriceset();
-                })
-                .catch(error => {
-                  Message({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  this.loading = false;
-                });
-              this.getpriceset();
+                if(this.multipleSelection){
+                    this.loading = true;
+                    this.$store
+                        .dispatch('PFANS6005Store/updatepriceset', this.multipleSelection)
+                        .then(response => {
+                            Message({
+                                message: this.$t("normal.success_02"),
+                                type: "success",
+                                duration: 5 * 1000
+                            });
+                            this.data = response;
+                            this.loading = false;
+                            this.getpriceset();
+                        })
+                        .catch(error => {
+                            Message({
+                                message: error,
+                                type: 'error',
+                                duration: 5 * 1000,
+                            });
+                            this.loading = false;
+                        });
+                    this.getpriceset();
+                }else {
+                    Message({
+                        message: this.$t("normal.info_01"),
+                        type: 'error',
+                        duration: 5 * 1000,
+                    });
+                }
+
                 }
             },
             changetechnical(val, index) {

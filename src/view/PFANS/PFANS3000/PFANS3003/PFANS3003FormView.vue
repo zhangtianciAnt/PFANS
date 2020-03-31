@@ -5,14 +5,14 @@
       :title="title"
       v-loading="loading"
       @buttonClick="buttonClick"
-      :buttonList="buttonList"
+      :buttonList="buttonList" @disabled="setdisabled"
       @workflowState="workflowState"
       :canStart="canStart"
       @start="start"
       @end="end"
     >
       <div slot="customize">
-        <el-form :model="form" label-width="8vw" label-position="top" :rules="rules" style="padding: 2vw"
+        <el-form :model="form" label-width="8vw" label-position="top" :rules="rules" style="padding: 3vw"
                  ref="refform">
           <el-row >
             <el-col :span="8">
@@ -366,6 +366,11 @@
       }
     },
     methods: {
+      setdisabled(val){
+        if(this.$route.params.disabled){
+          this.disabled = val;
+        }
+      },
       workflowState(val) {
         if (val.state === '1') {
           this.form.status = '3';

@@ -74,10 +74,9 @@
             <el-form-item :label="$t('label.PFANS1024VIEW_CUSTOMERNAME')+'('+$t('label.PFANS1024VIEW_JAPANESE')+')'"
                           :label-width="formLabelWidth" prop="custojapanese">
               <div class="" style="width: 20vw">
-                <el-input class="content bg"
-                          v-model="form1.custojapanese">
-                  <el-button :disabled="!disabled2" size="small" slot="append" icon="el-icon-search"
-                             @click="handleClickE()"></el-button>
+                <el-input class="content bg" v-model="form1.custojapanese" :disabled="true">
+<!--                  <el-button :disabled="!disabled2" size="small" slot="append" icon="el-icon-search"-->
+<!--                             @click="handleClickE()"></el-button>-->
                 </el-input>
               </div>
             </el-form-item>
@@ -293,6 +292,45 @@
                     ></el-date-picker>
                   </template>
                 </el-table-column>
+                <el-table-column :label="$t('label.PFANS1024VIEW_TEMA')" align="center" prop="theme" width="200">
+              <template slot-scope="scope">
+                <div class="">
+                  <el-input class="content bg"
+                            :disabled="true"
+                            v-model="scope.row.theme">
+                    <el-button :disabled="!disabled" size="small" slot="append" icon="el-icon-search" @click="handleClickB(scope.row)"></el-button>
+                  </el-input>
+                </div>
+                <el-dialog :visible.sync="dialogVisibleB"
+                           top="8vh"
+                           width="30%"
+                           append-to-body>
+                  <div>
+                    <el-select @change="changed" v-model="region">
+                      <el-option :label="$t(titleB)" value="1"></el-option>
+<!--                      <el-option :label="$t(titleC)" value="2"></el-option>-->
+                    </el-select>
+                    <el-table :data="tableB" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA" width="100%" v-loading='loading' v-show="showTable1">
+                      <el-table-column property="theme" :label="$t('label.PFANS1039FORMVIEW_THEME')" width="180"></el-table-column>
+                      <el-table-column property="months" :label="$t('label.PFANS1024VIEW_TIME')" width="180"></el-table-column>
+                    </el-table>
+                    <el-table :data="tableC" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA" width="100%" v-loading='loading' v-show="!showTable1">
+                      <el-table-column property="theme" :label="$t('label.PFANS1039FORMVIEW_THEME')" width="180"></el-table-column>
+                      <el-table-column property="months" :label="$t('label.PFANS1024VIEW_TIME')" width="180"></el-table-column>
+                    </el-table>
+                  </div>
+                </el-dialog>
+              </template>
+            </el-table-column>
+                <el-table-column :label="$t('label.PFANS1024VIEW_EXTENSIONDATE')" align="center" prop="extensiondate"
+                             width="200">
+              <template slot-scope="scope">
+                <el-form-item :prop="'tabledata.' + scope.$index + '.extensiondate'">
+                  <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.extensiondate"
+                                  style="width: 11rem"></el-date-picker>
+                </el-form-item>
+              </template>
+            </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_CUSTOMERNAME')" align="center" width="120">
                   <el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="custojapanese" width="200" :error="errorcusto">
                     <template slot-scope="scope">
@@ -302,7 +340,7 @@
                         <el-input class="content bg"
                                   :disabled="true"
                                   v-model="scope.row.custojapanese">
-                          <el-button :disabled="!disabled" size="small" slot="append" icon="el-icon-search" @click="handleClickA(scope.row)"></el-button>
+                          <el-button :disabled="true" size="small" slot="append" icon="el-icon-search" @click="handleClickA(scope.row)"></el-button>
                         </el-input>
                       </div>
                       <el-dialog :visible.sync="dialogVisibleA"
@@ -321,19 +359,19 @@
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1024VIEW_ENGLISH')" align="center"  prop="custoenglish" width="200">
                     <template slot-scope="scope">
-                      <el-input :disabled="!disabled" v-model="scope.row.custoenglish">
+                      <el-input :disabled="true" v-model="scope.row.custoenglish">
                       </el-input>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1024VIEW_ABBREVIATION')" align="center"  prop="custoabbreviation" width="200">
                     <template slot-scope="scope">
-                      <el-input :disabled="!disabled" v-model="scope.row.custoabbreviation">
+                      <el-input :disabled="true" v-model="scope.row.custoabbreviation">
                       </el-input>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center"  prop="custochinese" width="200">
                     <template slot-scope="scope">
-                      <el-input :disabled="!disabled" v-model="scope.row.custochinese">
+                      <el-input :disabled="true" v-model="scope.row.custochinese">
                       </el-input>
                     </template>
                   </el-table-column>
@@ -341,19 +379,19 @@
                 <el-table-column :label="$t('label.PFANS1024VIEW_CUSTOMERPLACE')" align="center" width="120">
                   <el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="placejapanese" width="200">
                     <template slot-scope="scope">
-                      <el-input :disabled="!disabled" v-model="scope.row.placejapanese">
+                      <el-input :disabled="true" v-model="scope.row.placejapanese">
                       </el-input>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1024VIEW_ENGLISH')" align="center"  prop="placeenglish" width="200">
                     <template slot-scope="scope">
-                      <el-input :disabled="!disabled" v-model="scope.row.placeenglish">
+                      <el-input :disabled="true" v-model="scope.row.placeenglish">
                       </el-input>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center"  prop="placechinese" width="200">
                     <template slot-scope="scope">
-                      <el-input :disabled="!disabled" v-model="scope.row.placechinese">
+                      <el-input :disabled="true" v-model="scope.row.placechinese">
                       </el-input>
                     </template>
                   </el-table-column>
@@ -361,25 +399,25 @@
                 <el-table-column :label="$t('label.PFANS1024VIEW_RESPON')" align="center" width="120">
                   <el-table-column :label="$t('label.PFANS1024VIEW_BEFOREJAPANESE')" align="center" prop="responjapanese" width="200">
                     <template slot-scope="scope">
-                      <el-input :disabled="!disabled" v-model="scope.row.responjapanese">
+                      <el-input :disabled="true" v-model="scope.row.responjapanese">
                       </el-input>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1024VIEW_BEFOREENGLISH')" align="center"  prop="responerglish" width="200">
                     <template slot-scope="scope">
-                      <el-input :disabled="!disabled" v-model="scope.row.responerglish">
+                      <el-input :disabled="true" v-model="scope.row.responerglish">
                       </el-input>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1024VIEW_PHONE')" align="center"  prop="responphone" width="200">
                     <template slot-scope="scope">
-                      <el-input :disabled="!disabled" v-model="scope.row.responphone">
+                      <el-input :disabled="true" v-model="scope.row.responphone">
                       </el-input>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1024VIEW_EMAIL')" align="center"  prop="responemail" width="200">
                     <template slot-scope="scope">
-                      <el-input :disabled="!disabled" v-model="scope.row.responemail">
+                      <el-input :disabled="true" v-model="scope.row.responemail">
                       </el-input>
                     </template>
                   </el-table-column>
@@ -435,36 +473,6 @@
                   <template slot-scope="scope">
                     <el-input   v-model="scope.row.papercontract" :disabled="!disabled">
                     </el-input>
-                  </template>
-                </el-table-column>
-                <el-table-column :label="$t('label.PFANS1024VIEW_TEMA')" align="center" prop="theme" width="200">
-                  <template slot-scope="scope">
-                    <div class="">
-                      <el-input class="content bg"
-                                :disabled="true"
-                                v-model="scope.row.theme">
-                        <el-button :disabled="!disabled" size="small" slot="append" icon="el-icon-search" @click="handleClickB(scope.row)"></el-button>
-                      </el-input>
-                    </div>
-                    <el-dialog :visible.sync="dialogVisibleB"
-                               top="8vh"
-                               width="30%"
-                               append-to-body>
-                      <div>
-                        <el-select @change="changed" v-model="region">
-                          <el-option :label="$t(titleB)" value="1"></el-option>
-                          <el-option :label="$t(titleC)" value="2"></el-option>
-                        </el-select>
-                        <el-table :data="tableB" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA" width="100%" v-loading='loading' v-show="showTable1">
-                          <el-table-column property="theme" :label="$t('label.PFANS1039FORMVIEW_THEME')" width="180"></el-table-column>
-                          <el-table-column property="months" :label="$t('label.PFANS1024VIEW_TIME')" width="180"></el-table-column>
-                        </el-table>
-                        <el-table :data="tableC" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA" width="100%" v-loading='loading' v-show="!showTable1">
-                          <el-table-column property="theme" :label="$t('label.PFANS1039FORMVIEW_THEME')" width="180"></el-table-column>
-                          <el-table-column property="months" :label="$t('label.PFANS1024VIEW_TIME')" width="180"></el-table-column>
-                        </el-table>
-                      </div>
-                    </el-dialog>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1024VIEW_STATE')" align="center"  prop="state" width="200">
@@ -675,9 +683,9 @@
                 contractnumber: '',
                 contracttype: '',
                 applicationdate: '',
-                entrycondition: '',
+                entrycondition: 'HT003001',
                 grouporglist: '',
-                custojapanese: '',
+                custojapanese: this.$t('label.PFANS1033FORMVIEW_FIXED'),
                 suppliercode: '',
             },
           form: {
@@ -692,7 +700,7 @@
             formcustomer: {
                 custojapanese: '',
                 custoenglish: '',
-                custoabbreviation: '',
+                custoabbreviation: this.$t('label.PFANS1033FORMVIEW_FIXED'),
                 custochinese: '',
                 placejapanese: '',
                 placeenglish: '',
@@ -766,7 +774,7 @@
                             this.form1.contractnumber = contractapplication[i].contractnumber;
                             this.form1.contracttype = contractapplication[i].contracttype;
                             this.form1.applicationdate = contractapplication[i].careeryear;
-                            this.form1.custojapanese = contractapplication[i].custojapanese;
+                            // this.form1.custojapanese = contractapplication[i].custojapanese;
                               this.maketype = contractapplication[i].maketype;
                               //契約書番号
                               this.letcontractnumber = contractapplication[i].contractnumber;
@@ -875,11 +883,11 @@
           row.conjapanese = nameJA.substring(0, nameJA.length -1);
         },
         changed() {
-          if (this.region === '2') {
-            this.showTable1 = false;
-          } else if (this.region === '1') {
-            this.showTable1 = true;
-          }
+          // if (this.region === '2') {
+          //   this.showTable1 = false;
+          // } else if (this.region === '1') {
+          //   this.showTable1 = true;
+          // }
         },
         handleClickA(row){
           this.recordData = row;
@@ -1233,6 +1241,7 @@
                   claimamount: '',
                   currencyposition: '',
                   supportdate: '',
+                  extensiondate: '',
                   contractdate: [],
                   custojapanese: this.formcustomer.custojapanese,
                   custoenglish: this.formcustomer.custoenglish,
@@ -1272,12 +1281,12 @@
               rowindex:'',
             });
           },
-          handleClickE() {
-              //this.form.claimtype = this.form1.claimtype;
-              this.dialogVisibleE = true;
-          },
+          // handleClickE() {
+          //     //this.form.claimtype = this.form1.claimtype;
+          //     this.dialogVisibleE = true;
+          // },
           rowClickE(row) {//333
-              this.form1.custojapanese = row.supjapanese;
+              // this.form1.custojapanese = row.supjapanese;
 
               this.formcustomer.custojapanese = row.supjapanese;
               this.formcustomer.custoenglish = row.supenglish;
@@ -1299,7 +1308,6 @@
           click() {
               this.$refs['refform1'].validate(valid => {
                   if (valid) {
-
                       this.form.claimtype = this.form1.claimtype;
                       this.form.contractnumber = this.form1.contractnumber;
                       this.form.contracttype = this.form1.contracttype;
@@ -1357,7 +1365,17 @@
                           this.letcontractnumber = this.form.contractnumber.split("-")[0] + letbook;
                       }
                       else{
+                        if(abbreviation !== '' && applicationdate !== '' && entrycondition!== '' && this.groupinfo[2] !== null){
                           this.letcontractnumber = abbreviation + applicationdate + entrycondition + this.groupinfo[2] + '0000' + number + letbook;
+                        } else {
+                          Message({
+                            message: this.$t("normal.error_14"),
+                            type: 'error',
+                            duration: 5 * 1000
+                          });
+                          return;
+                        }
+
                       }
 
                       this.tableclaimtype = [];
@@ -1436,6 +1454,7 @@
             tabledata = this.tablefourth;
 
             for (let i = 0; i < tabledata.length; i++) {
+              tabledata[i].state = '1'
               tabledata[i].contractdate = this.getcontractdate(tabledata[i].contractdate);
               tabledata[i].contracttype = this.form.contracttype;
               if (this.form.contracttype === 'HT015001') {
@@ -1519,8 +1538,9 @@
                 }
             }
             if (val === "cancellation") {
+
                 for (let i = 0; i < this.tablefourth.length; i++) {
-                  this.tablefourth[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID");
+                  this.tablefourth[i].state = '0';
                   this.tablefourth[i].entrycondition = 'HT004001';
                 }
                 this.handleSave();

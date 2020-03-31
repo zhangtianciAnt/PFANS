@@ -3,7 +3,7 @@
     <EasyNormalContainer
       :buttonList="buttonList"
       :title="title"
-      :noback="false"
+      :noback="false" @disabled="setdisabled"
       @buttonClick="buttonClick"
       v-loading="loading">
 
@@ -201,6 +201,11 @@
       };
     },
     methods: {
+      setdisabled(val){
+        if(this.$route.params.disabled){
+          this.disabled = val;
+        }
+      },
       handleSelectionChange(val) {
         this.multipleSelection = val;
       },
@@ -211,6 +216,7 @@
       },
 
       getDateinitial(value){
+        let dateTime = new Date(value);
         //周
         var week = value.getDay();
         //返回date是一周中的某一天
@@ -226,14 +232,17 @@
         var sunday = new Date(monday.getTime() + (6 * this.millisecond));
         this.starttime = moment(monday).format('YYYY-MM-DD')
         this.endtime = moment(sunday).format('YYYY-MM-DD');
-        let months = moment(monday).format('M') + this.$t("label.month");
-        this.day1 = months + moment(monday).format('D') + this.$t("label.day");
-        this.day2 = months + (monday.getDate() + 1) + this.$t("label.day");
-        this.day3 = months + (monday.getDate() + 2) + this.$t("label.day");
-        this.day4 = months + (monday.getDate() + 3) + this.$t("label.day");
-        this.day5 = months + (monday.getDate() + 4) + this.$t("label.day");
-        this.day6 = months + (monday.getDate() + 5) + this.$t("label.day");
-        this.day7 = months + (monday.getDate() + 6) + this.$t("label.day");
+        //星期一
+        this.day1 = moment(dateTime.setDate(dateTime.getDate())).format('M' + this.$t("label.month") + 'D' + this.$t("label.day"));
+        //星期二
+        this.day2 = moment(dateTime.setDate(dateTime.getDate() + 1)).format('M' + this.$t("label.month") + 'D' + this.$t("label.day"));
+        this.day3 = moment(dateTime.setDate(dateTime.getDate() + 1)).format('M' + this.$t("label.month") + 'D' + this.$t("label.day"));
+        this.day4 = moment(dateTime.setDate(dateTime.getDate() + 1)).format('M' + this.$t("label.month") + 'D' + this.$t("label.day"));
+        this.day5 = moment(dateTime.setDate(dateTime.getDate() + 1)).format('M' + this.$t("label.month") + 'D' + this.$t("label.day"));
+        //星期六
+        this.day6 = moment(dateTime.setDate(dateTime.getDate() + 1)).format('M' + this.$t("label.month") + 'D' + this.$t("label.day"));
+        //星期日
+        this.day7 = moment(dateTime.setDate(dateTime.getDate() + 1)).format('M' + this.$t("label.month") + 'D' + this.$t("label.day"));
       },
 
       selectData(val){
@@ -314,6 +323,22 @@
       },
 
       buttonClick(val) {
+        if(this.multipleSelection === undefined){
+            Message({
+                message: this.$t('normal.info_01'),
+                type: 'info',
+                duration: 2 * 1000
+            });
+            return;
+        }
+        if(this.multipleSelection.length === 0){
+            Message({
+                message: this.$t('normal.info_01'),
+                type: 'info',
+                duration: 2 * 1000
+            });
+            return;
+        }
         this.baseInfo = {};
         this.baseInfo.logmanagement = [];
         if(val === 'recognition'){

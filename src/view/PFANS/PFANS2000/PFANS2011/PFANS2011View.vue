@@ -161,9 +161,9 @@
                         let user = getUserInfo(response[j].userid);
                         let nameflg = getOrgInfoByUserId(response[j].userid);
                         if (nameflg) {
-                            response[j].center_name = nameflg.centerNmae;
-                            response[j].group_name = nameflg.groupNmae;
-                            response[j].team_name = nameflg.teamNmae;
+                            response[j].centername = nameflg.centerNmae;
+                            response[j].groupname = nameflg.groupNmae;
+                            response[j].teamname = nameflg.teamNmae;
                         }
                         if (user)
                         {

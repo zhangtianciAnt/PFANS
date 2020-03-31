@@ -254,6 +254,54 @@
                 </el-form-item>
               </template>
             </el-table-column>
+            <el-table-column :label="$t('label.PFANS1024VIEW_TEMA')" align="center" prop="theme" width="200">
+              <template slot-scope="scope">
+                <el-form-item prop="theme">
+                  <div class="">
+                    <el-input class="content bg"
+                              :disabled="true"
+                              v-model="scope.row.theme">
+                      <el-button :disabled="!disabled" size="small" slot="append" icon="el-icon-search"
+                                 @click="handleClickB(scope.row)"></el-button>
+                    </el-input>
+                  </div>
+                </el-form-item>
+                <el-dialog :visible.sync="dialogVisibleB"
+                           top="8vh"
+                           width="30%"
+                           append-to-body>
+                  <div>
+                    <el-select @change="changed" v-model="region">
+<!--                      <el-option :label="$t(titleB)" value="1"></el-option>-->
+                      <el-option :label="$t(titleC)" value="2"></el-option>
+                    </el-select>
+                    <el-table :data="tableB" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA"
+                              width="100%" v-loading='loading' v-show="showTable1">
+                      <el-table-column property="theme" :label="$t('label.PFANS1039FORMVIEW_THEME')"
+                                       width="180"></el-table-column>
+                      <el-table-column property="months" :label="$t('label.PFANS1024VIEW_TIME')"
+                                       width="180"></el-table-column>
+                    </el-table>
+                    <el-table :data="tableC" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA"
+                              width="100%" v-loading='loading' v-show="!showTable1">
+                      <el-table-column property="theme" :label="$t('label.PFANS1039FORMVIEW_THEME')"
+                                       width="180"></el-table-column>
+                      <el-table-column property="months" :label="$t('label.PFANS1024VIEW_TIME')"
+                                       width="180"></el-table-column>
+                    </el-table>
+                  </div>
+                </el-dialog>
+              </template>
+            </el-table-column>
+            <el-table-column :label="$t('label.PFANS1024VIEW_EXTENSIONDATE')" align="center" prop="extensiondate"
+                             width="200">
+              <template slot-scope="scope">
+                <el-form-item :prop="'tabledata.' + scope.$index + '.extensiondate'">
+                  <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.extensiondate"
+                                  style="width: 11rem"></el-date-picker>
+                </el-form-item>
+              </template>
+            </el-table-column>
 
             <!--取引先会社名-->
             <el-table-column :label="$t('label.PFANS1024VIEW_CUSTOMERNAME')" align="center" width="120">
@@ -455,7 +503,7 @@
                            append-to-body>
                   <div>
                     <el-select @change="changed" v-model="region">
-                      <el-option :label="$t(titleB)" value="1"></el-option>
+<!--                      <el-option :label="$t(titleB)" value="1"></el-option>-->
                       <el-option :label="$t(titleC)" value="2"></el-option>
                     </el-select>
                     <el-table :data="tableB" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA"
@@ -489,6 +537,7 @@
                 </el-form-item>
               </template>
             </el-table-column>
+            <!--222-->
             <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYDATE')" align="center" prop="deliverydate"
                              width="170">
               <template slot-scope="scope">
@@ -826,7 +875,7 @@
         ruleSet: {
           'save': ['contractnumber'],
           'makeinto': ['contractnumber'],
-          '7': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'contractdate', 'currencyposition', 'claimamount', 'deliverydate','conchinese','conjapanese'],
+          '7': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'contractdate', 'currencyposition', 'claimamount','claimtype', 'deliverydate','completiondate','claimdate','supportdate','conchinese','conjapanese'],
         },
         rules1: {
             claimtype: [
@@ -982,7 +1031,7 @@
           contractnumber: '',
           contracttype: '',
           applicationdate: '',
-          entrycondition: '',
+          entrycondition: 'HT003001',
           grouporglist: '',
           custojapanese: '',
           suppliercode: '',
@@ -1056,7 +1105,8 @@
         tableB: [],
         tableC: [],
         tableD: [],
-        showTable1: true,
+        showTable1: false,
+          // showTable1: true,
         dialogVisibleB: false,
         titleA: 'title.PFANS6002VIEW',
         dialogVisibleA: false,
@@ -1065,7 +1115,7 @@
         dataA: [],
         recordData: [],
         recordDataB: [],
-        region: '1',
+        region: '2',
         titleB: 'menu.PFANS1040',
         titleC: 'menu.PFANS1041',
         projectResult: [],
@@ -1640,6 +1690,7 @@
             contractnumber: this.letcontractnumber,
             entrycondition: '',
             entrypayment: '',
+            extensiondate: '',
             claimtype: this.form1.claimtype,
             deliverydate: '',
             completiondate: '',
@@ -1849,7 +1900,7 @@
         this.dialogFormVisible = false;
       },
       //存在check222
-      existCheck(contractNumber, index) {
+      existCheck(contractNumber, index) {//7
         // this.checkRequired()
         this.loading = true;
         if (contractNumber == null || contractNumber == undefined || contractNumber == '') {
@@ -1864,10 +1915,10 @@
         }
         this.$store.dispatch('PFANS1026Store/existCheck', {contractNumber: contractNumber})
           .then(response => {
-            let s = 'count' + index;
+            let s = 'count' + index;   //count7
             if (response[s] > 0) {
               Message({
-                message: this.$t('label.PFANS1026FORMVIEW_QXSCZQSCDQYS'),
+                message: this.$t('label.PFANS1026FORMVIEW_QXSCZQSCDQYS'),//请先删除之前生成的契约书
                 type: 'success',
                 duration: 5 * 1000,
               });
@@ -1903,6 +1954,7 @@
       //保存
       handleSave(value) {
         let baseInfo = {};
+
         baseInfo.contractapplication = [];
         baseInfo.contractnumbercount = [];
         for (let i = 0; i < this.form.tabledata.length; i++) {
@@ -1925,6 +1977,7 @@
             for (let j = 0; j < this.form.tableclaimtype.length; j++) {
               letclaimamount = letclaimamount + Number(this.form.tableclaimtype[j].claimamount);
             }
+            o.state = '1';
             o.claimamount = letclaimamount;
           }
           if (Array.isArray(this.form.tabledata[i].conchinese)) {
@@ -1939,9 +1992,7 @@
         if (value === 'makeinto') {
           this.handleIndexDisabled();
         } else {
-
           this.handleSaveContract(value, baseInfo);
-
         }
       },
       //contractapplication save
@@ -2042,6 +2093,7 @@
         this.loading = true;
         this.$store.dispatch('PFANS1026Store/existCheck', {contractNumber: this.letcontractnumber})
           .then(response => {
+            /*333*/
             this.dialogBook = true;
             if (response.count7 === 0) {
               this.disabledCount7 = false;
@@ -2097,7 +2149,7 @@
         }
         if (val === 'cancellation') {
           for (let i = 0; i < this.form.tabledata.length; i++) {
-            this.form.tabledata[i].state = this.$t('label.PFANS8008FORMVIEW_INVALID');
+            this.form.tabledata[i].state = '0';
             this.form.tabledata[i].entrycondition = 'HT004001';
           }
           this.handleSave('cancellation');
@@ -2109,6 +2161,7 @@
           this.handleSave('makeinto');
         }
       },
+      /*444*/
       validateByType: function(type, cb) {
         debugger
         let that = this;

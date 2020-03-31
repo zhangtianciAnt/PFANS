@@ -2,7 +2,7 @@
   <div>
     <EasyNormalContainer
       :buttonList="buttonList"
-      :title="title"
+      :title="title" @disabled="setdisabled"
       @buttonClick="buttonClick"
       ref="container"
       v-loading="loading"
@@ -12,21 +12,63 @@
           <el-row>
             <el-form-item :label="$t(this.$route.params.codename)">
               <el-table :data="tableD" header-cell-class-name="sub_bg_color_blue" border stripe>
-                <el-table-column :label="$t('label.PFANS8009VIEW_CODE')" align="center" fixed width="340">
+                <el-table-column :label="$t('label.PFANS8009VIEW_CODE')" align="center" fixed width="130">
                   <template slot-scope="scope">
                     <el-input :disabled="true" v-model="scope.row.code">
                     </el-input>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS8009VIEW_VALUE1')" align="center" width="340">
+                <el-table-column :label="$t('label.PFANS8009VIEW_VALUE1')" align="center" width="200">
                   <template slot-scope="scope">
                     <el-input :disabled="!disable" v-model="scope.row.value1">
                     </el-input>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS8009VIEW_VALUE2')" align="center" width="300">
+                <el-table-column :label="$t('label.PFANS8009VIEW_VALUE2')" align="center" width="200">
                   <template slot-scope="scope">
                     <el-input :disabled="!disable" v-model="scope.row.value2">
+                    </el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS8009VIEW_VALUE3')" align="center" width="200">
+                  <template slot-scope="scope">
+                    <el-input :disabled="!disable" v-model="scope.row.value3">
+                    </el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS8009VIEW_VALUE4')" align="center" width="200">
+                  <template slot-scope="scope">
+                    <el-input :disabled="!disable" v-model="scope.row.value4">
+                    </el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS8009VIEW_VALUE5')" align="center" width="200">
+                  <template slot-scope="scope">
+                    <el-input :disabled="!disable" v-model="scope.row.value5">
+                    </el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS8009VIEW_VALUE6')" align="center" width="200">
+                  <template slot-scope="scope">
+                    <el-input :disabled="!disable" v-model="scope.row.value6">
+                    </el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS8009VIEW_VALUE7')" align="center" width="200">
+                  <template slot-scope="scope">
+                    <el-input :disabled="!disable" v-model="scope.row.value7">
+                    </el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS8009VIEW_VALUE8')" align="center" width="200">
+                  <template slot-scope="scope">
+                    <el-input :disabled="!disable" v-model="scope.row.value8">
+                    </el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS8009VIEW_VALUE9')" align="center" width="200">
+                  <template slot-scope="scope">
+                    <el-input :disabled="!disable" v-model="scope.row.value9">
                     </el-input>
                   </template>
                 </el-table-column>
@@ -104,17 +146,17 @@
             };
         },
         mounted() {
-            // this.disable = this.$route.params.disabled;
-            // if (this.disable) {
-            //     this.buttonList = [
-            //         {
-            //             key: "save",
-            //             name: "button.save",
-            //             disabled: false,
-            //             icon: "el-icon-check"
-            //         }
-            //     ];
-            // }
+            this.disable = this.$route.params.disabled;
+            if (this.disable) {
+                this.buttonList = [
+                    {
+                        key: "save",
+                        name: "button.save",
+                        disabled: false,
+                        icon: "el-icon-check"
+                    }
+                ];
+            }
             if (this.$route.params.code) {
                 this.data = [];
                 this.loading = true;
@@ -122,7 +164,7 @@
                     .dispatch('PFANS8009Store/getDictionary', {"pcode": this.$route.params.code})
                     .then(response => {
                         if (response.length > 0) {
-                            this.letcode = response[0].code;
+                            this.letcode = response[response.length - 1].code;
                             this.tableD = response;
                         }
                         this.loading = false;
@@ -143,6 +185,11 @@
         }
       },
         methods: {
+          setdisabled(val){
+            if(this.$route.params.disabled){
+              this.disabled = val;
+            }
+          },
             deleteRow(index, rows) {
                 if (rows.length > 1) {
                     rows.splice(index, 1);

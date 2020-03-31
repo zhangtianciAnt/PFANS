@@ -1,7 +1,7 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick" ref="container"
-                         v-loading="loading">
+                         v-loading="loading" @disabled="setdisabled">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
                  style="padding: 2vw">
@@ -114,9 +114,9 @@
                      orgtype="2" style="width:20vw"></org>
               </el-form-item>
             </el-col>
-            <!--            编号-->
+            <!--            编号变更卡号-->
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS5001FORMVIEW_NUMBERS')" prop="number">
+              <el-form-item :label="$t('label.PFANSUSERFORMVIEW_JOBNUMBER')" prop="number">
                 <el-input
                   :disabled="!disabled"
                   style="width:20vw"
@@ -508,7 +508,7 @@
           mintime: '',
         }],
         //性别
-        code1: 'PG020',
+        code1: 'PR019',
         //学历
         code2: 'PR022',
         // 面试结果
@@ -765,6 +765,11 @@
       }
     },
     methods: {
+      setdisabled(val){
+        if(this.$route.params.disabled){
+          this.disabled = val;
+        }
+      },
       changesex(val) {
         this.form.sex = val;
       },

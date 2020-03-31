@@ -147,10 +147,12 @@
             });
             return;
           }
-
           let name = this.row.url.replace("/", "");
           this._id = this.row.dataid;
-          this.workflowurl = this.row.workflowurl.replace("/", "");
+          //流程之外的代办判断
+          if(this.row.workflowurl != null){
+              this.workflowurl = this.row.workflowurl.replace("/", "");
+          }
           this.$store.commit('global/SET_OPERATEID', this._id);
           this.$store.commit('global/SET_WORKFLOWURL', "/"+ this.workflowurl);
           this.$router.push({

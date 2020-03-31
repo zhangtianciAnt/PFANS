@@ -8,7 +8,7 @@
       @buttonClick="buttonClick"
       @end="end"
       @start="start"
-      @workflowState="workflowState"
+      @workflowState="workflowState" @disabled="setdisabled"
       ref="container"
       v-loading="loading"
     >
@@ -17,9 +17,8 @@
           :model="form"
           :rules="rules"
           label-position="top"
-          label-width="8vw"
           ref="refform"
-          style="padding: 2vw"
+          style="padding: 3vw"
         >
           <el-row>
             <el-col :span="8">
@@ -124,6 +123,7 @@
               <el-form-item :label="$t('label.PFANS2011VIEW_RESERVEOVER')" prop="reserveovertime">
                 <el-input-number
                   :disabled="showovertimelength"
+                  tep-strictly
                   :max="24"
                   :min="0"
                   :precision="2"
@@ -139,6 +139,7 @@
               <el-form-item :label="$t('label.PFANS2011VIEW_ACTUALOVER')" prop="actualovertime">
                 <el-input-number
                   :disabled="!disactualovertime"
+                  tep-strictly
                   :max="24"
                   :min="0"
                   :precision="2"
@@ -225,6 +226,11 @@
     },
     data() {
       var HolidayCheck = (rule, value, callback) => {
+        if (!value || value === '' || value === 'undefined') {
+          callback(
+            new Error(this.$t('normal.error_09') + this.$t('label.PFANS2011VIEW_TYPE')),
+          );
+        }
         if (['PR001004', 'PR001005', 'PR001003'].includes(value) && this.form.reserveovertimedate && !this.$route.params._id) {
           let bool = false;
           // for(let i = 0; i < this.dataList.length; i++){
@@ -399,12 +405,13 @@
             {
               required: true,
               validator: HolidayCheck,
+              trigger: 'change',
               // message:  this.$t("normal.error_09") + this.$t("label.PFANS2011VIEW_TYPE"),
             },
-            {
-              validator: HolidayCheck,
-              trigger: 'change',
-            },
+            // {
+            //   validator: HolidayCheck,
+            //   trigger: 'change',
+            // },
           ],
           reserveovertime: [
             {
@@ -559,6 +566,11 @@
       }
     },
     methods: {
+      setdisabled(val){
+        if(this.$route.params.disabled){
+          this.disabled = val;
+        }
+      },
       getTime(val) {
         let sum = val * 60;
         let hours = Math.floor(sum / 60);
@@ -700,38 +712,39 @@
         });
       },
       workflowState(val) {
-        var status;
         if (val.state === '1') {
           if (val.workflowCode === 'W0001') {
-            status = '3';
+              this.form.status = '3';
           } else if (val.workflowCode === 'W0040') {
-            status = '6';
+              this.form.status = '6';
           }
         } else if (val.state === '2') {
           if (val.workflowCode === 'W0001') {
-            status = '4';
+              this.form.status = '4';
           } else if (val.workflowCode === 'W0040') {
-            status = '7';
+              this.form.status = '7';
             this.canStart = false;
           }
         }
-        this.buttonClick('update', status);
+        this.buttonClick('update');
       },
       start() {
+
         if (this.form.status === '4' || this.form.status === '6') {
-          var status = '5';
+            this.form.status = '5';
         } else {
-          var status = '2';
+            this.form.status = '2';
         }
-        this.buttonClick('update', status);
+        this.buttonClick('update');
+
       },
       end() {
         if (this.form.status === '5') {
-          var status = '4';
+            this.form.status = '4';
         } else {
-          var status = '0';
+            this.form.status = '0';
         }
-        this.buttonClick('update', status);
+        this.buttonClick('update');
       },
       getUserids(val) {
         this.form.userid = val;
@@ -789,12 +802,13 @@
           this.form.overtimelength = this.options1[1].label;
           this.form.reserveovertime = '4';
           this.form.reserveovertimedate = dateMonth.getFullYear() + '-' + '03' + '-' + '08';
-          if (this.sexflg !== 'PG020002') {
+          if (this.sexflg !== 'PR019002') {
             Message({
               message: this.$t('label.PFANS2011FROMVIEW_ERRORINFOS'),
               type: 'error',
               duration: 5 * 1000,
             });
+            return;
           }
         }
         if (val === 'PR001007') {
@@ -809,6 +823,7 @@
               type: 'error',
               duration: 5 * 1000,
             });
+            return;
           }
         }
       },
@@ -823,9 +838,25 @@
           this.form.actualsubstitutiondate = null;
         }
       },
-      buttonClick(val, status) {
+      buttonClick(val) {
         this.$refs['refform'].validate(valid => {
           if (valid) {
+            if (this.form.overtimetype === 'PR001008' && this.sexflg !== 'PR019002') {
+              Message({
+                message: this.$t('label.PFANS2011FROMVIEW_ERRORINFOS'),
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              return;
+            }
+            if (this.form.overtimetype === 'PR001007' && Number(this.ageflg) > 28) {
+              Message({
+                message: this.$t('label.PFANS2011FROMVIEW_ERRORINFOW'),
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              return;
+            }
             this.loading = true;
             this.form.userid = this.userlist;
             this.form.applicationdate = moment(this.form.applicationdate).format(
@@ -850,9 +881,6 @@
               }
             }
             if (this.$route.params._id) {
-              if (status != undefined) {
-                this.form.status = status;
-              }
               this.$store
                 .dispatch('PFANS2011Store/updateOvertime', this.form)
                 .then(response => {

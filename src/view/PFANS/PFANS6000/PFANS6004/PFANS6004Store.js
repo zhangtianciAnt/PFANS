@@ -9,6 +9,7 @@ import {
   download,
   getCompanyProject,
   crAccount,
+  crAccount2,
   getWithoutAuth
 } from './PFANS6004Api'
 
@@ -154,6 +155,20 @@ const PFANS6004Store = {
     crAccount({commit},data) {
       return new Promise((resolve, reject) => {
         crAccount(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+
+    crAccount2({commit},data) {
+      return new Promise((resolve, reject) => {
+        crAccount2(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {

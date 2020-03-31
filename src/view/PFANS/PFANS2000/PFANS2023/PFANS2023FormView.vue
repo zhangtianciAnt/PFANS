@@ -2,7 +2,7 @@
   <div>
     <EasyNormalContainer :buttonList="buttonList" :canStart="canStart" :title="title" :workflowCode="aaaaaa"
                          @buttonClick="buttonClick" @end="end" @start="start" @workflowState="workflowState"
-                         ref="container" v-loading="loading">
+                         ref="container" v-loading="loading" @disabled="setdisabled">
       <div slot="customize">
         <el-form :model="form" label-position="top" label-width="8vw" ref="form" style="padding: 2vw">
           <el-tabs v-model="activeName" type="border-card">
@@ -35,7 +35,7 @@
                     <el-col :span="8">
                       <el-form-item :error="error" :label="$t('label.user_name')" prop="user_id">
                         <user :disabled="!disable" :error="error" :selectType="selectType"
-                              :userlist="userlist" @getUserids="getUserids" style="width: 20vw""></user>
+                              :userlist="userlist" @getUserids="getUserids" style="width: 20vw"></user>
                       </el-form-item>
                     </el-col>
                     <el-col :span="8">
@@ -194,7 +194,7 @@
                       </el-form-item>
                       <el-form-item :label="$t('label.PFANS2023FORMVIEW_INTERVIEWRESULTSMAR')" >
                         <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!mar" maxlength="50"
-                                  sstyle="width: 70vw;" type="textarea" v-model="form.interview_results_mar"></el-input>
+                                  style="width: 70vw;" type="textarea" v-model="form.interview_results_mar"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -327,153 +327,7 @@
                         }
                         this.userlist = this.form.user_id;
                         debugger
-                        if (this.form.stage === '0' && this.form.status === '0') {
-                            this.aaaaaa = 'W0036';
-                            this.canStart = true;
-                            this.disable = true;
-                            this.disableyear = true;
-                            this.disablesep = false;
-                            this.disabledec = false;
-                            this.disablemar = false;
-                        } else if (this.form.stage === '0' && this.form.status === '2') {
-                            this.aaaaaa = 'W0036';
-                            this.canStart = false;
-                            this.disable = false;
-                            this.disableyear = false;
-                            this.disablesep = false;
-                            this.disabledec = false;
-                            this.disablemar = false;
-                        } else if (this.form.stage === '0' && this.form.status === '3') {
-                            this.aaaaaa = 'W0036';
-                            this.canStart = true;
-                            this.disable = true;
-                            this.disableyear = true;
-                            this.disablesep = false;
-                            this.disabledec = false;
-                            this.disablemar = false;
-                        } else if (this.form.stage === '0' && this.form.status === '4') {
-                            this.aaaaaa = 'W0036';
-                            this.disable = false;
-                            this.disableyear = false;
-                            this.disablesep = true;
-                            this.disabledec = false;
-                            this.disablemar = false;
-                            this.canStart = true;
-                        } else if (this.form.stage === '1' && this.form.status === '0') {
-                            this.aaaaaa = 'W0037';
-                            this.canStart = true;
-                            this.disable = false;
-                            this.disableyear = false;
-                            this.sysyear = true;
-                            this.disablesep = true;
-                            this.esep = true;
-                            this.disabledec = false;
-                            this.disablemar = false;
-                        } else if (this.form.stage === '1' && this.form.status === '2') {
-                            this.aaaaaa = 'W0037';
-                            this.canStart = false;
-                            this.disable = false;
-                            this.disableyear = false;
-                            this.disablesep = false;
-                            this.disabledec = false;
-                            this.disablemar = false;
-                        } else if (this.form.stage === '1' && this.form.status === '3') {
-                            this.aaaaaa = 'W0037';
-                            this.canStart = true;
-                            this.disable = false;
-                            this.disableyear = false;
-                            this.disablesep = true;
-                            this.disabledec = false;
-                            this.disablemar = false;
-                        } else if (this.form.stage === '1' && this.form.status === '4') {
-                            this.aaaaaa = 'W0037';
-                            this.canStart = true;
-                            this.disable = false;
-                            this.disableyear = false;
-                            this.disablesep = false;
-                            this.disabledec = true;
-                            this.disablemar = false;
-                        } else if (this.form.stage === '2' && this.form.status === '0') {
-                            this.aaaaaa = 'W0038';
-                            this.canStart = true;
-                            this.disable = false;
-                            this.disableyear = false;
-                            this.disablesep = false;
-                            this.sysyear = false;
-                            this.esep = true;
-                            this.disabledec = true;
-                            this.disablemar = false;
-                        } else if (this.form.stage === '2' && this.form.status === '2') {
-                            this.aaaaaa = 'W0038';
-                            this.canStart = false;
-                            this.disable = false;
-                            this.disableyear = false;
-                            this.sysyear = false;
-                            this.disablesep = false;
-                            this.esep = false;
-                            this.disabledec = false;
-                            this.dec = false;
-                            this.disablemar = false;
-                            this.mar = false;
-                        } else if (this.form.stage === '2' && this.form.status === '3') {
-                            this.aaaaaa = 'W0038';
-                            this.canStart = true;
-                            this.disable = false;
-                            this.disableyear = false;
-                            this.disablesep = false;
-                            this.disabledec = true;
-                            this.disablemar = false;
-                        } else if (this.form.stage === '2' && this.form.status === '4') {
-                            this.aaaaaa = 'W0038';
-                            this.canStart = true;
-                            this.disable = false;
-                            this.disableyear = false;
-                            this.disablesep = false;
-                            this.disabledec = false;
-                            this.disablemar = true;
-                        } else if (this.form.stage === '3' && this.form.status === '0') {
-                            this.aaaaaa = 'W0039';
-                            this.canStart = true;
-                            this.disable = false;
-                            this.disableyear = false;
-                            this.sysyear = false;
-                            this.disablesep = false;
-                            this.esep = false;
-                            this.disabledec = false;
-                            this.dec = true;
-                            this.disablemar = true;
-                            this.mar = true;
-                        } else if (this.form.stage === '3' && this.form.status === '2') {
-                            this.aaaaaa = 'W0039';
-                            this.canStart = false;
-                            this.disable = false;
-                            this.disableyear = false;
-                            this.sysyear = false;
-                            this.disablesep = false;
-                            this.esep = false;
-                            this.disabledec = false;
-                            this.dec = false;
-                            this.disablemar = false;
-                            this.mar = false;
-                        } else if (this.form.stage === '3' && this.form.status === '3') {
-                            this.aaaaaa = 'W0039';
-                            this.canStart = true;
-                            this.disable = false;
-                            this.disableyear = false;
-                            this.disablesep = false;
-                            this.disabledec = false;
-                            this.disablemar = true;
-                        } else if (this.form.stage === '3' && this.form.status === '4') {
-                            this.aaaaaa = 'W0039';
-                            this.canStart = true;
-                            this.disable = false;
-                            this.disableyear = false;
-                            this.disablesep = false;
-                            this.disabledec = false;
-                            this.disablemar = false;
-                            this.mar = true;
-
-                        }
+                        this.useDisable();
                         if (!this.$route.params.disabled) {
                             this.disable = this.$route.params.disabled;
                             this.disableyear = this.$route.params.disabled;
@@ -525,6 +379,171 @@
             }
         },
         methods: {
+            useDisable(){
+                debugger
+                if (this.form.stage === '0' && this.form.status === '0') {
+                    this.aaaaaa = 'W0036';
+                    this.canStart = true;
+                    this.disable = true;
+                    this.disableyear = true;
+                    this.sysyear = true;
+                    this.disablesep = false;
+                    this.disabledec = false;
+                    this.disablemar = false;
+                } else if (this.form.stage === '0' && this.form.status === '2') {
+                    this.aaaaaa = 'W0036';
+                    this.canStart = false;
+                    this.disable = false;
+                    this.disableyear = false;
+                    this.disablesep = false;
+                    this.disabledec = false;
+                    this.disablemar = false;
+                } else if (this.form.stage === '0' && this.form.status === '3') {
+                    this.aaaaaa = 'W0036';
+                    this.canStart = true;
+                    this.disable = true;
+                    this.disableyear = true;
+                    this.disablesep = false;
+                    this.disabledec = false;
+                    this.disablemar = false;
+                } else if (this.form.stage === '0' && this.form.status === '4') {
+                    this.aaaaaa = 'W0036';
+                    this.disable = false;
+                    this.disableyear = false;
+                    this.disablesep = true;
+                    this.disabledec = false;
+                    this.disablemar = false;
+                    this.canStart = true;
+                } else if (this.form.stage === '1' && this.form.status === '0') {
+                    this.aaaaaa = 'W0037';
+                    this.canStart = true;
+                    this.disable = false;
+                    this.disableyear = false;
+                    this.sysyear = true;
+                    this.disablesep = true;
+                    this.esep = true;
+                    this.disabledec = false;
+                    this.disablemar = false;
+                } else if (this.form.stage === '1' && this.form.status === '2') {
+                    this.aaaaaa = 'W0037';
+                    this.canStart = false;
+                    this.disable = false;
+                    this.disableyear = false;
+                    this.sysyear = false;
+                    this.disablesep = false;
+                    this.esep = false;
+                    this.disabledec = false;
+                    this.disablemar = false;
+                } else if (this.form.stage === '1' && this.form.status === '3') {
+                    this.aaaaaa = 'W0037';
+                    this.canStart = true;
+                    this.disable = false;
+                    this.disableyear = false;
+                    this.disablesep = true;
+                    this.disabledec = false;
+                    this.disablemar = false;
+                } else if (this.form.stage === '1' && this.form.status === '4') {
+                    this.aaaaaa = 'W0037';
+                    this.canStart = true;
+                    this.disable = false;
+                    this.disableyear = false;
+                    this.disablesep = false;
+                    this.disabledec = true;
+                    this.disablemar = false;
+                } else if (this.form.stage === '2' && this.form.status === '0') {
+                    this.aaaaaa = 'W0038';
+                    this.canStart = true;
+                    this.disable = false;
+                    this.disableyear = false;
+                    this.disablesep = false;
+                    this.sysyear = false;
+                    this.esep = true;
+                    this.disabledec = true;
+                    this.dec = true;
+                    this.disablemar = false;
+                } else if (this.form.stage === '2' && this.form.status === '2') {
+                    this.aaaaaa = 'W0038';
+                    this.canStart = false;
+                    this.disable = false;
+                    this.disableyear = false;
+                    this.sysyear = false;
+                    this.disablesep = false;
+                    this.esep = false;
+                    this.disabledec = false;
+                    this.dec = false;
+                    this.disablemar = false;
+                    this.mar = false;
+                } else if (this.form.stage === '2' && this.form.status === '3') {
+                    this.aaaaaa = 'W0038';
+                    this.canStart = true;
+                    this.disable = false;
+                    this.disableyear = false;
+                    this.disablesep = false;
+                    this.disabledec = true;
+                    this.disablemar = false;
+                } else if (this.form.stage === '2' && this.form.status === '4') {
+                    this.aaaaaa = 'W0038';
+                    this.canStart = true;
+                    this.disable = false;
+                    this.disableyear = false;
+                    this.disablesep = false;
+                    this.disabledec = false;
+                    this.disablemar = true;
+                } else if (this.form.stage === '3' && this.form.status === '0') {
+                    this.aaaaaa = 'W0039';
+                    this.canStart = true;
+                    this.disable = false;
+                    this.disableyear = false;
+                    this.sysyear = false;
+                    this.disablesep = false;
+                    this.esep = false;
+                    this.disabledec = false;
+                    this.dec = true;
+                    this.disablemar = true;
+                    this.mar = true;
+                } else if (this.form.stage === '3' && this.form.status === '2') {
+                    this.aaaaaa = 'W0039';
+                    this.canStart = false;
+                    this.disable = false;
+                    this.disableyear = false;
+                    this.sysyear = false;
+                    this.disablesep = false;
+                    this.esep = false;
+                    this.disabledec = false;
+                    this.dec = false;
+                    this.disablemar = false;
+                    this.mar = false;
+                } else if (this.form.stage === '3' && this.form.status === '3') {
+                    this.aaaaaa = 'W0039';
+                    this.canStart = true;
+                    this.disable = false;
+                    this.disableyear = false;
+                    this.disablesep = false;
+                    this.disabledec = false;
+                    this.disablemar = true;
+                } else if (this.form.stage === '3' && this.form.status === '4') {
+                    this.aaaaaa = 'W0039';
+                    this.canStart = true;
+                    this.disable = false;
+                    this.disableyear = false;
+                    this.disablesep = false;
+                    this.disabledec = false;
+                    this.disablemar = false;
+                    this.mar = true;
+
+                }
+            },
+
+          checkRequire(){
+            if(!this.form.user_id || !this.form.skill_rank || !this.form.role){
+                this.activeName = 'first';
+            }
+          },
+          setdisabled(val){
+            if(this.$route.params.disabled){
+              this.disabled = val;
+            }
+          },
             getUserids(val) {
                 this.form.user_id = val;
                 let rst = getOrgInfoByUserId(val);
@@ -558,31 +577,32 @@
             } else if (val.state === '2') {
               this.form.status = '4';
             }
-            this.buttonClick("save");
+            this.buttonClick("update");
           },
           start() {
             this.form.status = '2';
-            this.buttonClick("save");
+            this.buttonClick("update");
           },
           end() {
             this.form.status = '0';
-            this.buttonClick("save");
+            this.buttonClick("update");
           },
             buttonClick(val) {
-                if (val === 'save') {
+                if (val === 'update') {
+                  this.checkRequire();
                     this.$refs["ruleForm"].validate(valid => {
                         if (valid) {
-                            if (this.form.stage === '0' && this.form.status === '4' && val !== 'update') {
+                            if (this.form.stage === '0' && this.form.status === '4' && val !== 'save') {
                               if (this.form.user_id !== null && this.form.user_id !== '') {
                                 this.form.stage = '1';
                                 this.form.status = '0';
                               }
-                            } else if (this.form.stage === '1' && this.form.status === '4' && val !== 'update') {
+                            } else if (this.form.stage === '1' && this.form.status === '4' && val !== 'save') {
                               if (this.form.user_id !== null && this.form.user_id !== '') {
                                 this.form.stage = '2';
                                 this.form.status = '0';
                                 }
-                            } else if (this.form.stage === '2' && this.form.status === '4' && val !== 'update') {
+                            } else if (this.form.stage === '2' && this.form.status === '4' && val !== 'save') {
                               if (this.form.user_id !== null && this.form.user_id !== '') {
                                 this.form.stage = '3';
                                 this.form.status = '0';
@@ -602,9 +622,10 @@
                                                 type: 'success',
                                                 duration: 5 * 1000
                                             });
-                                            if (this.$store.getters.historyUrl) {
-                                                this.$router.push(this.$store.getters.historyUrl);
-                                            }}
+                                            // if (this.$store.getters.historyUrl) {
+                                            //     this.$router.push(this.$store.getters.historyUrl);
+                                            // }
+                                        }
                                     })
                                     .catch(error => {
                                         Message({
@@ -614,8 +635,10 @@
                                         });
                                         this.loading = false;
                                     })
+                                this.useDisable();
 
-                            } else {
+                            }
+                            else {
                                 this.loading = true;
                                 this.$store
                                     .dispatch('PFANS2023Store/createPfans2023', this.form)
@@ -649,6 +672,75 @@
                             });
                         }
                     })
+                }
+                else{
+                        this.checkRequire();
+                        this.$refs["ruleForm"].validate(valid => {
+                            if (valid) {
+                                if (this.$route.params._id) {
+                                    this.form.goalmanagement_id = this.$route.params._id;
+                                    this.loading = true;
+                                    this.$store
+                                        .dispatch('PFANS2023Store/updatePfans2023', this.form)
+                                        .then(response => {
+                                            this.data = response;
+                                            this.loading = false;
+                                            if(val !== "update"){
+                                                Message({
+                                                    message: this.$t("normal.success_02"),
+                                                    type: 'success',
+                                                    duration: 5 * 1000
+                                                });
+                                                if (this.$store.getters.historyUrl) {
+                                                    this.$router.push(this.$store.getters.historyUrl);
+                                                }
+                                            }
+                                        })
+                                        .catch(error => {
+                                            Message({
+                                                message: error,
+                                                type: 'error',
+                                                duration: 5 * 1000
+                                            });
+                                            this.loading = false;
+                                        })
+
+                                }
+                                else {
+                                    this.loading = true;
+                                    this.$store
+                                        .dispatch('PFANS2023Store/createPfans2023', this.form)
+                                        .then(response => {
+                                            this.data = response;
+                                            Message({
+                                                message: this.$t("normal.success_01"),
+                                                type: 'success',
+                                                duration: 5 * 1000
+                                            });
+                                            this.loading = false;
+                                            if (this.$store.getters.historyUrl) {
+                                                this.$router.push(this.$store.getters.historyUrl);
+                                            }
+                                        })
+                                        .catch(error => {
+                                            Message({
+                                                message: error,
+                                                type: 'error',
+                                                duration: 5 * 1000
+                                            });
+                                            this.loading = false;
+                                        })
+                                }
+                            }
+                            else{
+                                Message({
+                                    message: this.$t("normal.error_12"),
+                                    type: 'error',
+                                    duration: 5 * 1000
+                                });
+                            }
+                        })
+
                 }
             },
         }

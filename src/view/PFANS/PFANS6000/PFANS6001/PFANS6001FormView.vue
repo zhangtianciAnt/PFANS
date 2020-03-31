@@ -1,7 +1,7 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick" ref="container"
-                         v-loading="loading">
+                         v-loading="loading" @disabled="setdisabled">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
                  style="padding: 2vw">
@@ -322,7 +322,7 @@
           remarks: '',
         },
 
-        code1: 'PG020',
+        code1: 'PR019',
 
         code2: 'PR022',
 
@@ -487,6 +487,11 @@
     },
 
     methods: {
+      setdisabled(val){
+        if(this.$route.params.disabled){
+          this.disabled = val;
+        }
+      },
       getInterviewDep(val) {
         this.form.interviewdep = val;
         if (!this.form.interviewdep || this.form.interviewdep === '' || val === 'undefined') {

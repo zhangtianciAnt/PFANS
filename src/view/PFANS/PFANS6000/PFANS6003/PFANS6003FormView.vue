@@ -1,7 +1,7 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick" ref="container"
-                         v-loading="loading">
+                         v-loading="loading" @disabled="setdisabled">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
                  style="padding: 2vw">
@@ -50,13 +50,16 @@
                               v-model="form.liableperson"></el-input>
                   </el-form-item>
                 </el-col>
-                <!--            供应商编码-->
+
+                <!--           供应商编码（合同用）-->
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS6003FORMVIEW_VENDORNUM')" prop="suppliercode">
+                  <el-form-item :label="$t('label.PFANS6003FORMVIEW_VENDORNUM')" prop="vendorcode">
                     <el-input :disabled="!disabled" style="width:20vw"
-                              v-model="form.suppliercode"></el-input>
+                              v-model="form.vendorcode"></el-input>
                   </el-form-item>
                 </el-col>
+
+
               </el-row>
             </el-collapse-item>
           </el-collapse>
@@ -95,6 +98,15 @@
                                 prop="payeebankaccount">
                     <el-input :disabled="!disabled" maxlength="20" style="width:20vw"
                               v-model="form.payeebankaccount"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <!--           收款方编码-->
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1012VIEW_FOREIGNPAYEECODE')" prop="suppliercode">
+                    <el-input :disabled="!disabled" style="width:20vw"
+                              v-model="form.suppliercode"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -357,6 +369,7 @@
           payeebankaccountnumber: '',
           payeebankaccount: '',
           suppliercode:'',
+          vendorcode:'',
         },
         //人员规模
         code1: 'BP007',
@@ -400,14 +413,22 @@
               trigger: 'change',
             },
           ],
-            // 供应商编码
+            // 收款方编码
             suppliercode: [
                 {
                     required: true,
-                    message: this.$t('normal.error_08') + this.$t('label.PFANS6003FORMVIEW_VENDORNUM'),
+                    message: this.$t('normal.error_08') + this.$t('label.PFANS1012VIEW_FOREIGNPAYEECODE'),
                     trigger: 'change',
                 },
             ],
+          // 供应商编码（合同用）
+          vendorcode: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS6003FORMVIEW_VENDORNUM'),
+              trigger: 'change',
+            },
+          ],
           // 中文(项目联络人)
           prochinese: [
             {
@@ -578,6 +599,11 @@
       }
     },
     methods: {
+      setdisabled(val){
+        if(this.$route.params.disabled){
+          this.disabled = val;
+        }
+      },
       changeperscale(val) {
         this.form.perscale = val;
       },

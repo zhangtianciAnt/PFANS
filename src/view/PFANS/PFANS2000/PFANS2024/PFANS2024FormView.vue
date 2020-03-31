@@ -1,7 +1,7 @@
 <template>
   <div>
     <EasyNormalContainer :buttonList="buttonList" :canStart="canStart" :title="title" @buttonClick="buttonClick"
-                         @end="end" @start="start" @workflowState="workflowState" ref="container" v-loading="loading">
+                         @end="end" @start="start" @workflowState="workflowState" ref="container" v-loading="loading" @disabled="setdisabled">
       <div slot="customize">
         <el-form :model="form" label-position="top" label-width="8vw" ref="form" style="padding: 2vw">
           <el-tabs v-model="activeName" type="border-card">
@@ -419,6 +419,16 @@
             }
         },
         methods: {
+          checkRequire(){
+            if(!this.form.user_id || !this.form.skilllevel || !this.form.business){
+              this.activeName = 'first';
+            }
+          },
+          setdisabled(val){
+            if(this.$route.params.disabled){
+              this.disabled = val;
+            }
+          },
             getUserids(val) {
                 this.userlist = val;
                 this.form.user_id = val;
@@ -474,6 +484,7 @@
             },
 
             buttonClick(val) {
+            this.checkRequire();
                     this.$refs["ruleForm"].validate(valid => {
                         if (valid) {
                             this.form.staff = "";

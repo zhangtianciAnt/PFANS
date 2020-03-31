@@ -1,7 +1,7 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" v-loading="loading" :title="title" @buttonClick="buttonClick"
-                         @end="end" @start="start" @workflowState="workflowState" ref="container">
+                         @end="end" @start="start" @workflowState="workflowState" ref="container" @disabled="setdisabled">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="ruleForm"
                  style="padding: 2vw">
@@ -82,14 +82,16 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS4001FORMVIRW_KH')" prop="client">
-                <dicselect
-                  :disabled="!disable"
-                  :code="code3"
-                  :multiple="multiple3"
-                  :data="form.client"
-                  style="width:20vw"
-                  @change="kh">
-                </dicselect>
+<!--                <dicselect-->
+<!--                  :disabled="!disable"-->
+<!--                  :code="code3"-->
+<!--                  :multiple="multiple3"-->
+<!--                  :data="form.client"-->
+<!--                  style="width:20vw"-->
+<!--                  @change="kh">-->
+<!--                </dicselect>-->
+                <el-input v-model="form.client" :disabled="!disable" style="width:20vw" maxlength='20'></el-input>
+
               </el-form-item>
             </el-col>
           </el-row>
@@ -292,6 +294,11 @@
       }
     },
     methods: {
+      setdisabled(val){
+        if(this.$route.params.disabled){
+          this.disabled = val;
+        }
+      },
       wjlx(value1) {
         this.form.filetype = value1;
       },

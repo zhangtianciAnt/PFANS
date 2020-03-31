@@ -33,7 +33,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1004VIEW_INVESTIGATOR')" prop="investigator">
+              <el-form-item :label="$t('label.PFANS1012VIEW_TELEPHONE')" prop="investigator">
                 <el-input v-model="form.investigator" :disabled="!disabled" style="width:20vw" maxlength='20'></el-input>
               </el-form-item>
             </el-col>
@@ -93,14 +93,14 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1004VIEW_BUSINESSPLANBALANCE')" prop="businessplanbalance" v-show="show">
-                <el-input-number v-model="form.businessplanbalance" controls-position="right" style="width:20vw" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
+                <el-input-number v-model="form.businessplanbalance" @change="moneyDiff" controls-position="right" style="width:20vw" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1004VIEW_AMOUNTTOBEGIVEN')" prop="amounttobegiven">
-                <el-input-number v-model="form.amounttobegiven" controls-position="right" style="width:20vw" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
+                <el-input-number v-model="form.amounttobegiven" @change="moneyDiff" controls-position="right" style="width:20vw" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
               </el-form-item>
             </el-col>
           </el-row>
@@ -166,13 +166,21 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1004VIEW_THISPROJECT')" prop="thisproject" label-width="7rem">
+              <el-form-item :label="$t('label.PFANS1012FORMVIEW_BUDGET')" prop="thisproject" label-width="7rem">
                 <el-input v-model="form.thisproject" :disabled="true" style="width: 20vw;" maxlength='20'></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1004VIEW_SETTINGPLACE')" label-width="6rem">
-                <el-input v-model="form.settingplace" :disabled="!disabled" style="width: 20vw;" maxlength='20'></el-input>
+                <dicselect
+                  :code="code5"
+                  :data="form.settingplace"
+                  :multiple="multiple"
+                  @change="getSettingplace"
+                  style="width:20vw"
+                  :disabled="!disabled">
+                </dicselect>
+<!--                <el-input v-model="form.settingplace" :disabled="!disabled" style="width: 20vw;" maxlength='20'></el-input>-->
               </el-form-item>
             </el-col>
           </el-row>
@@ -242,7 +250,7 @@
     import dicselect from "../../../components/dicselect.vue";
     import user from "../../../components/user.vue";
     import { Message } from 'element-ui'
-    import {getOrgInfoByUserId} from '@/utils/customize';
+    import {getOrgInfoByUserId,getUserInfo} from '@/utils/customize';
     import {downLoadUrl,getDictionaryInfo, uploadUrl} from '@/utils/customize';
     import moment from "moment";
 
@@ -341,11 +349,12 @@
                     uploadfile: '',
                     number: '',
                 },
-                code: 'PJ138',
-                code1: 'PJ139',
+                code: 'PR002',
+                code1: 'PR003',
                 code2: 'PJ010',
                 code3: 'PJ013',
                 code4: 'PJ011',
+                code5: 'PJ030',
                 disabled: true,
                 menuList: [],
                 rules: {
@@ -552,6 +561,10 @@
                     })
             } else {
                 this.userlist = this.$store.getters.userinfo.userid;
+                let num = getUserInfo(this.$store.getters.userinfo.userid).userinfo.extension;
+                if(num){
+                    this.form.investigator = num;
+                }
                 if (this.userlist !== null && this.userlist !== '') {
                     let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
                     if(rst) {
@@ -626,6 +639,13 @@
             }
         },
         methods: {
+          moneyDiff(){
+            if(this.form.businessplanbalance > 0 && this.form.businessplanbalance < this.form.amounttobegiven){
+              this.show = false;
+              this.form.careerplan = '0';
+              this.form.amounttobegiven = 0;
+            }
+          },
             getUserids(val) {
                 this.userlist = val;
                 this.form.user_id = val;
@@ -656,22 +676,22 @@
             },
             getBusinessplantype(val) {
                 this.form.businessplantype = val;
-                if (val === "PJ138006") {
+                if (val === "PR002006") {
                     this.show1 = true;
                     this.rules.classificationtype[0].required = true;
-                }else if (val === "PJ138001") {
+                }else if (val === "PR002001") {
                     this.show1 = false;
                     this.rules.classificationtype[0].required = false;
-                }else if (val === "PJ138002") {
+                }else if (val === "PR002002") {
                     this.show1 = false;
                     this.rules.classificationtype[0].required = false;
-                }else if (val === "PJ138003") {
+                }else if (val === "PR002003") {
                     this.show1 = false;
                     this.rules.classificationtype[0].required = false;
-                }else if (val === "PJ138004") {
+                }else if (val === "PR002004") {
                     this.show1 = false;
                     this.rules.classificationtype[0].required = false;
-                }else if (val === "PJ138005") {
+                }else if (val === "PR002005") {
                     this.show1 = false;
                     this.rules.classificationtype[0].required = false;
                 }
@@ -684,8 +704,10 @@
                     this.show3 = false;
                 }
             },
+          getSettingplace(val){
+            this.form.settingplace = val;
+          },
             getDecisive(val) {
-                debugger
                 this.form.decisive = val;
                 let dictionaryInfo = getDictionaryInfo(val);
                 if (val === "PJ011001") {
@@ -749,6 +771,8 @@
             },
             radiochange(val){
                 this.form.careerplan = val;
+                this.form.businessplantype = '';
+                this.form.businessplanbalance = 0;
                 if (val === '1') {
                     this.show = true;
                     this.show1 = false;
@@ -930,6 +954,13 @@
                                         this.loading = false;
                                     })
                             }
+                        }
+                        else{
+                            Message({
+                                message: this.$t("normal.error_12"),
+                                type: 'error',
+                                duration: 5 * 1000
+                            });
                         }
                     });
                 }

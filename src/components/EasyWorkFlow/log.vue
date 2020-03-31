@@ -78,9 +78,7 @@
               this.$store
                 .dispatch('EasyWorkflowStore/ViewWorkflow2', this.workflow)
                 .then(response => {
-                  debugger
                   if (response && response.code === 0) {
-                    debugger
                     this.logDetail2 = response.data
                     this.logDetail2.map(item => {
                       if (item.sdata && item.sdata != '') {

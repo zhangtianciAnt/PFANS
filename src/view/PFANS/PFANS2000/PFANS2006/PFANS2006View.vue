@@ -981,7 +981,7 @@
             let tabledate = [];
             if (this.DATA != '') {
               for (let i = 0; i < this.DATA.length; i++) {
-                if (this.starttime < this.DATA[i].workdate && this.DATA[i].workdate < this.endTime) {
+                if (this.starttime <= this.DATA[i].workdate && this.DATA[i].workdate <= this.endTime) {
                   tabledate.push({
                     rowindex: this.DATA[i].rowindex,
                     department_id: this.DATA[i].department_id,

@@ -1,11 +1,11 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick" ref="container"
-                         @workflowState="workflowState" v-loading="loading"
+                         @workflowState="workflowState" v-loading="loading" @disabled="setdisabled"
                          :canStart="canStart" @start="start" @end="end">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
-                 style="padding:2vw">
+                 style="padding:3vw">
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.center')">
@@ -628,6 +628,11 @@
       }
     },
     methods: {
+      setdisabled(val){
+        if(this.$route.params.disabled){
+          this.disabled = val;
+        }
+      },
       changeSum() {
         this.form.totalamount = this.form.quantity * this.form.unitprice;
       },

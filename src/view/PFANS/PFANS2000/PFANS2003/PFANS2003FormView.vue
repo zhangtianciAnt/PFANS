@@ -1,10 +1,10 @@
 <template>
   <div style="min-height: 100%">`
     <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick"
-                         ref="container" v-loading="loading">
+                         ref="container" v-loading="loading" @disabled="setdisabled">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
-                 style="padding:2vw" type="border-card">
+                 style="padding:3vw" type="border-card">
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.user_name')" prop="name">
@@ -400,7 +400,7 @@
           nodeList: [],
         },
         List: '',
-        code1: 'PG020',
+        code1: 'PR019',
         code2: 'PR020',
         code3: 'PR022',
         code4: 'PR021',
@@ -541,6 +541,11 @@
       }
     },
     methods: {
+      setdisabled(val){
+        if(this.$route.params.disabled){
+          this.disabled = val;
+        }
+      },
       getInterviewDep(val) {
         this.form.interviewdep = val;
         if (!this.form.interviewdep || this.form.interviewdep === '' || val === 'undefined') {

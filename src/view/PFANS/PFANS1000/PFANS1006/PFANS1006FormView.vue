@@ -231,7 +231,7 @@
   import dicselect from '../../../components/dicselect.vue';
   import {Message} from 'element-ui';
   import user from '../../../components/user.vue';
-  import {getOrgInfoByUserId,getOrgInfo} from '@/utils/customize';
+  import {getOrgInfoByUserId,getOrgInfo,getUserInfo} from '@/utils/customize';
   import moment from 'moment';
   import png11 from '@/assets/png/11.png';
   import {validateNumber} from '@/utils/validate';
@@ -516,6 +516,10 @@
           });
       } else {
         this.userlist = this.$store.getters.userinfo.userid;
+          let num = getUserInfo(this.$store.getters.userinfo.userid).userinfo.extension;
+          if(num){
+              this.form.telephone = num;
+          }
         if (this.userlist !== null && this.userlist !== '') {
           this.form.user_id = this.$store.getters.userinfo.userid;
             if(getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)){
@@ -709,6 +713,13 @@
                     this.loading = false;
                   });
               }
+            }
+            else{
+                Message({
+                    message: this.$t("normal.error_12"),
+                    type: 'error',
+                    duration: 5 * 1000
+                });
             }
           });
         }
