@@ -86,7 +86,7 @@
                                       <el-input
                                         v-model="search"
                                         size="mini"
-                                        placeholder="请输入供应商关键字搜索"/>
+                                        placeholder="请输入项目名称关键字搜索"/>
                                     </template>
                                   </el-table-column>
                                 </el-table>
