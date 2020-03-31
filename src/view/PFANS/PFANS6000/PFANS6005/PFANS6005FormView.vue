@@ -780,28 +780,37 @@
             },
           buttonClick(val) {
             if (val === 'save') {
-              this.loading = true;
-              this.$store
-                .dispatch('PFANS6005Store/updatepriceset', this.multipleSelection)
-                .then(response => {
-                  Message({
-                    message: this.$t("normal.success_02"),
-                    type: "success",
-                    duration: 5 * 1000
-                  });
-                  this.data = response;
-                  this.loading = false;
-                  this.getpriceset();
-                })
-                .catch(error => {
-                  Message({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  this.loading = false;
-                });
-              this.getpriceset();
+                if(this.multipleSelection){
+                    this.loading = true;
+                    this.$store
+                        .dispatch('PFANS6005Store/updatepriceset', this.multipleSelection)
+                        .then(response => {
+                            Message({
+                                message: this.$t("normal.success_02"),
+                                type: "success",
+                                duration: 5 * 1000
+                            });
+                            this.data = response;
+                            this.loading = false;
+                            this.getpriceset();
+                        })
+                        .catch(error => {
+                            Message({
+                                message: error,
+                                type: 'error',
+                                duration: 5 * 1000,
+                            });
+                            this.loading = false;
+                        });
+                    this.getpriceset();
+                }else {
+                    Message({
+                        message: this.$t("normal.info_01"),
+                        type: 'error',
+                        duration: 5 * 1000,
+                    });
+                }
+
                 }
             },
             changetechnical(val, index) {
