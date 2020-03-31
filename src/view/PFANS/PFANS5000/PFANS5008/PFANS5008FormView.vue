@@ -261,10 +261,12 @@
                 {
                     key: 'btnSave',
                     name: 'button.confirm',
+                    disabled: false,
                 },
                 {
                     key: 'mingtian',
                     name: 'button.mingtian',
+                    disabled: false,
                 },
             ];
             this.loading = true;
@@ -352,10 +354,12 @@
                         {
                             key: 'btnSave',
                             name: 'button.confirm',
+                            disabled: false,
                         },
                         {
                             key: 'mingtian',
                             name: 'button.mingtian',
+                            disabled: false,
                         },
                     ];
                     this.loading = true;
@@ -474,7 +478,10 @@
                     .then(response => {
                         this.data = response;
                         if (response.confirmstatus == '1') {
+                            this.buttonList[0].disabled = true;
+                            this.buttonList[1].disabled = true;
                             this.disable = false;
+
                         }
                         if (this.data.has_project === '01') {
                             this.companyform = this.data;
