@@ -46,7 +46,7 @@
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1005VIEW_ITEM')" align="center" prop="projects" width="150">
                   <template slot-scope="scope">
-                    <el-select v-model="scope.row.projects" clearable placeholder="请选择">
+                    <el-select v-model="scope.row.projects" clearable :placeholder="$t('normal.error_09')">
                       <el-option
                         v-for="item in options"
                         :key="item.companyprojects_id"
