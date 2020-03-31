@@ -481,7 +481,6 @@
                             this.buttonList[0].disabled = true;
                             this.buttonList[1].disabled = true;
                             this.disable = false;
-
                         }
                         if (this.data.has_project === '01') {
                             this.companyform = this.data;
@@ -665,7 +664,7 @@
                             for (let k = 0; k < response.length; k++) {
                                 if (val === response[k].companyprojects_ID) {
                                     if (response[k].estimatedendtime != null) {
-                                        if (moment(this.companyform.log_date).format('YYYY-MM-DD') > moment(this.companyform.log_date).format('YYYY-MM-DD') && moment(this.companyform.log_date).format('YYYY-MM-DD') > moment(this.companyform.log_date).format('YYYY-MM-DD')) {
+                                        if (moment(this.companyform.log_date).format('YYYY-MM-DD') < moment(response[k].estimatedstarttime).format('YYYY-MM-DD') && moment(this.companyform.log_date).format('YYYY-MM-DD') > moment(response[k].estimatedendtime).format('YYYY-MM-DD')) {
                                             Message({
                                                 message: this.$t('label.PFANS5008FORMVIEW_RIZHICHECKL'),
                                                 type: 'error',
@@ -798,6 +797,7 @@
                 }
             },
             submitForm(determine) {
+                debugger
                 if (this.determine.project_id == '') {
                     this.$store
                         .dispatch('PFANS5008Store/deletePersonal', {
@@ -868,7 +868,6 @@
                                     this.$store
                                         .dispatch('PFANS5008Store/getProjectList', {})
                                         .then(response => {
-
                                             this.optionsdata = [];
                                             const vote = [];
                                             let user_id = this.$store.getters.userinfo.userid;
