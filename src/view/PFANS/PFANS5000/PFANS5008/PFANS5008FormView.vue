@@ -643,9 +643,8 @@
                     this.$store
                         .dispatch('PFANS5008Store/getListcheck', this.companyform)
                         .then(response => {
-                            debugger
                             for (let k = 0; k < response.length; k++) {
-                                if (val === response[k].companyprojects_id) {
+                                if (val === response[k].companyprojects_ID) {
                                     if (response[k].estimatedendtime != null) {
                                         if (moment(this.companyform.log_date).format('YYYY-MM-DD') > moment(this.companyform.log_date).format('YYYY-MM-DD') && moment(this.companyform.log_date).format('YYYY-MM-DD') > moment(this.companyform.log_date).format('YYYY-MM-DD')) {
                                             Message({
@@ -660,7 +659,7 @@
                                         if (response[k].extensiondate != null) {
                                             if (moment(this.companyform.log_date).format('YYYY-MM-DD') > moment(response[k].extensiondate).format('YYYY-MM-DD')) {
                                                 Message({
-                                                    message: this.$t('normal.PFANS5008FORMVIEW_RIZHICHECKL'),
+                                                    message: this.$t('label.PFANS5008FORMVIEW_RIZHICHECKL'),
                                                     type: 'error',
                                                     duration: 5 * 1000,
                                                 });
@@ -669,14 +668,13 @@
                                         } else {
                                             if (moment(this.companyform.log_date).format('YYYY-MM-DD') > moment(response[k].claimdatetime).format('YYYY-MM-DD')) {
                                                 Message({
-                                                    message: this.$t('normal.PFANS5008FORMVIEW_RIZHICHECKL'),
+                                                    message: this.$t('label.PFANS5008FORMVIEW_RIZHICHECKL'),
                                                     type: 'error',
                                                     duration: 5 * 1000,
                                                 });
                                                 break;
                                             }
                                         }
-
                                     }
                                 }
                             }
