@@ -1219,6 +1219,7 @@
                 } else {
                     this.Riqickeck = true;
                 }
+
                 this.xsTable = false;
                 this.loading = true;
                 this.$store
