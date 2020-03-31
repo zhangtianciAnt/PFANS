@@ -1209,6 +1209,11 @@
                 this.companyform.behavior_breakdown = value3;
             },
             clickdata() {
+             this.companyform.time_start = '';
+                                this.companyform.wbs_id = '';
+                                this.companyform.behavior_breakdown = '';
+                                this.companyform.work_phase = '';
+                                this.companyform.work_memo = '';
                 if (this.companyform.log_date == null) {
                     this.Riqickeck = false;
                 } else {
