@@ -34,7 +34,7 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :error="error" :label="$t('label.applicant')" prop="user_id">
-                <user :disabled="!disable" :error="error" :selectType="selectType" :userlist="userlist"
+                <user :disabled="true" :error="error" :selectType="selectType" :userlist="userlist"
                       @getUserids="getUserids" style="width:20vw" v-model="form.user_id"></user>
               </el-form-item>
             </el-col>
