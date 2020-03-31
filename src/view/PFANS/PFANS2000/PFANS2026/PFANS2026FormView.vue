@@ -632,7 +632,6 @@
             this.reporterlist = this.form.reporter;
             this.baseInfo.staffexitprocedure = JSON.parse(JSON.stringify(this.form));
             this.baseInfo.citation = JSON.parse(JSON.stringify(this.tableD));
-            debugger
             this.getDisablemethod();
             if (!this.$route.params.disabled) {
               this.disable = this.$route.params.disabled;
@@ -691,7 +690,7 @@
         }
       },
         getDisablemethod(){
-            debugger
+
             if (this.form.stage === '0' && this.form.status === '0') {
                 this.right = 'W0033';
                 this.canStart = true;
@@ -906,7 +905,7 @@
         this.checkRequire();
         this.$refs['reff'].validate(valid => {
           if (valid) {
-              debugger
+
               console.log("val",val)
               console.log("this.form.stage",this.form.stage)
               console.log("this.form.status",this.form.status)
