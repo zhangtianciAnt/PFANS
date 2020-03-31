@@ -11,6 +11,14 @@ export function createNewUser(data) {
   })
 }
 
+export function getListcheck(data) {
+  return request({
+    url: 'logmanagement/getListcheck',
+    method: 'post',
+    data: data
+  })
+}
+
 export function downloadList(data) {
   return requestDownload({
     url: 'logmanagement/download',
