@@ -232,7 +232,7 @@
                     :disabled="!disabled">
                   </dicselect>-->
                   <el-select :no="scope.row" v-model="scope.row.currencyposition" @change="(val)=>{getCurrencyposition(val,scope.row)}" style="width: 11rem" :disabled="!disabled">
-                    <el-option v-for="(item,index) in options" :key="index" v-model="item.value">
+                    <el-option v-for="(item,index) in options" :key="index" :value="item.value">
                       {{item.value}}
                     </el-option>
                   </el-select>
@@ -885,7 +885,7 @@
         ruleSet: {
           'save': ['contractnumber'],
           'makeinto': ['contractnumber'],
-          '7': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'contractdate', 'currencyposition', 'claimamount', 'deliverydate','conchinese','conjapanese'],
+          '7': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'contractdate', 'currencyposition', 'claimamount', 'deliverydate','claimtype','completiondate','claimdate','supportdate','conchinese','conjapanese'],
         },
         rules1: {
             claimtype: [
@@ -1139,7 +1139,7 @@
       this.contractnumbercount = this.$route.params.contractnumbercount;
       let option1 = {};
         option1.name = getDictionaryInfo('PG019001').value1;
-        option1.code = 'PG019003';
+        option1.code = 'PG019001';
         option1.value = getDictionaryInfo('PG019001').value4;
       let option2 = {};
         option2.name = getDictionaryInfo('PG019003').value1;
@@ -1159,6 +1159,9 @@
                  /* //555 this.currencyposition
                 let currencyposition =  contractapplication[i].currencyposition;
                 this.currencyposition = currencyposition === 'PG019001'?'USB$':'￥';*/
+                 if(contractapplication[i].currencyposition !== '' && contractapplication[i].currencyposition !== null){
+                   contractapplication[i].currencyposition = getDictionaryInfo(contractapplication[i].currencyposition).value4;
+                 }
                 this.maketype = contractapplication[i].maketype;
 
                   this.form1.claimtype = contractapplication[i].claimtype;
@@ -1973,6 +1976,13 @@
         for (let i = 0; i < this.form.tabledata.length; i++) {
           let o = {};
           Object.assign(o, this.form.tabledata[i]);
+          if(this.form.tabledata[i].currencyposition !== '' && this.form.tabledata[i].currencyposition !== null){
+            for(let k = 0;k < this.options.length;k++){
+              if(this.form.tabledata[i].currencyposition === this.options[k].value){
+                o.currencyposition = this.options[k].code;
+              }
+            }
+          }
           o.contractdate = this.getcontractdate(this.form.tabledata[i].contractdate);
           this.form.tabledata[i].contracttype = this.form.contracttype;
           o.contracttype = this.form.tabledata[i].contracttype;
@@ -2192,7 +2202,7 @@
           debugger
           let dataName = 'tabledata';
           let maxCount = rowCount;
-          if (['deliverydate', 'completiondate', 'claimdate', 'supportdate', 'claimamount'].indexOf(item) >= 0) {
+          if (['deliverydate', 'completiondate', 'claimdate', 'supportdate', 'claimamount','claimtype'].indexOf(item) >= 0) {
             dataName = 'tableclaimtype';
             maxCount = rowCount2;
             for (var k = 0; k < maxCount; k++) {
