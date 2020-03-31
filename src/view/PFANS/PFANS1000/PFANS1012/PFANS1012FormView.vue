@@ -2263,6 +2263,7 @@
                 this.buttonClick('save');
             },
             getPayment(val) {
+                debugger
                 this.form.paymentmethod = val;
                 if (val === 'PJ004001') {
                     this.show1 = true;
@@ -2270,65 +2271,65 @@
                     this.show3 = false;
                     this.show4 = false;
                     this.show5 = false;
-                    this.form.code = '';
-                    this.form.accountnumber = '';
-                    this.form.receivables = '';
-                    this.form.loan = '';
-                    this.form.fullname = '';
+                    // this.form.code = '';
+                    // this.form.accountnumber = '';
+                    // this.form.receivables = '';
+                    // this.form.loan = '';
+                    // this.form.fullname = '';
                 } else if (val === 'PJ004002') {
                     this.show1 = false;
                     this.show2 = true;
                     this.show3 = false;
                     this.show4 = false;
                     this.show5 = false;
-                    this.form.payeename = '';
-                    this.form.payeecode = '';
-                    this.form.payeebankaccountnumber = '';
-                    this.form.payeebankaccount = '';
-                    this.form.receivables = '';
-                    this.form.loan = '';
-                    this.form.fullname = '';
-                    this.form.suppliername = ' ';
+                    // this.form.payeename = '';
+                    // this.form.payeecode = '';
+                    // this.form.payeebankaccountnumber = '';
+                    // this.form.payeebankaccount = '';
+                    // this.form.receivables = '';
+                    // this.form.loan = '';
+                    // this.form.fullname = '';
+                    // this.form.suppliername = ' ';
                 } else if (val === 'PJ004003') {
                     this.show1 = false;
                     this.show2 = false;
                     this.show3 = true;
                     this.show4 = false;
                     this.show5 = false;
-                    this.form.payeename = '';
-                    this.form.payeecode = '';
-                    this.form.payeebankaccountnumber = '';
-                    this.form.payeebankaccount = '';
-                    this.form.code = '';
-                    this.form.loan = '';
-                    this.form.fullname = '';
+                    // this.form.payeename = '';
+                    // this.form.payeecode = '';
+                    // this.form.payeebankaccountnumber = '';
+                    // this.form.payeebankaccount = '';
+                    // this.form.code = '';
+                    // this.form.loan = '';
+                    // this.form.fullname = '';
                 } else if (val === 'PJ004004') {
                     this.show1 = false;
                     this.show2 = false;
                     this.show3 = false;
                     this.show4 = true;
                     this.show5 = false;
-                    this.form.payeename = '';
-                    this.form.payeecode = '';
-                    this.form.payeebankaccountnumber = '';
-                    this.form.payeebankaccount = '';
-                    this.form.code = '';
-                    this.form.receivables = '';
-                    this.form.fullname = '';
-                    this.form.suppliername = ' ';
+                    // this.form.payeename = '';
+                    // this.form.payeecode = '';
+                    // this.form.payeebankaccountnumber = '';
+                    // this.form.payeebankaccount = '';
+                    // this.form.code = '';
+                    // this.form.receivables = '';
+                    // this.form.fullname = '';
+                    // this.form.suppliername = ' ';
                 } else {
                     this.show1 = false;
                     this.show2 = false;
                     this.show3 = false;
                     this.show4 = false;
                     this.show5 = true;
-                    this.form.payeename = '';
-                    this.form.payeecode = '';
-                    this.form.payeebankaccountnumber = '';
-                    this.form.payeebankaccount = '';
-                    this.form.code = '';
-                    this.form.receivables = '';
-                    this.form.loan = '';
+                    // this.form.payeename = '';
+                    // this.form.payeecode = '';
+                    // this.form.payeebankaccountnumber = '';
+                    // this.form.payeebankaccount = '';
+                    // this.form.code = '';
+                    // this.form.receivables = '';
+                    // this.form.loan = '';
                 }
             },
             getmodule(val) {

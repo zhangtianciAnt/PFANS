@@ -34,7 +34,7 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :error="error" :label="$t('label.applicant')" prop="user_id">
-                <user :disabled="!disable" :error="error" :selectType="selectType" :userlist="userlist"
+                <user :disabled="true" :error="error" :selectType="selectType" :userlist="userlist"
                       @getUserids="getUserids" style="width:20vw" v-model="form.user_id"></user>
               </el-form-item>
             </el-col>
@@ -51,7 +51,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1012VIEW_MODULE')">
+              <el-form-item :label="$t('label.PFANS1012VIEW_MODULE')" v-show=flag>
                 <dicselect :code="code2"
                            :data="form.moduleid"
                            :disabled="!disable"
@@ -62,7 +62,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1012VIEW_ACCOUNTNUMBER')" prop="accountnumber">
+              <el-form-item :label="$t('label.PFANS1012VIEW_ACCOUNTNUMBER')" prop="accountnumber" v-show=flag>
                 <el-input :disabled="!disable" maxlength="20" style="width:20vw"
                           v-model="form.accountnumber"></el-input>
               </el-form-item>
@@ -330,6 +330,7 @@
         }
       };
       return {
+          flag:false,
           centerid: '',
           groupid: '',
           teamid: '',
@@ -483,6 +484,13 @@
       }
     },
     mounted() {
+
+        let userid = this.$store.getters.userinfo.userid;
+        let groupid = getUserInfo(userid).userinfo.groupid;
+        if(groupid === '91B253A1C605E9CA814462FB4C4D2605F43F'){
+            this.flag = true;
+        }
+
       if (this.$route.params._id) {
         this.loading = true;
         this.$store

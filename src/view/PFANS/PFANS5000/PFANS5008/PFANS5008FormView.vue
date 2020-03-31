@@ -34,7 +34,7 @@
                   <el-row>
                     <el-col :span="12">
                       <el-form-item>
-                        <el-link  target="_blank"
+                        <el-link target="_blank"
                                  :underline="false"
                                  @click="program=true" type="primary" :disabled="!disable">
                           <span>{{$t('label.PFANS5008FORMVIEW_BIANJI')}}</span>
@@ -72,7 +72,8 @@
                   <el-row>
                     <div v-show="isShow">
                       <el-col :span="12">
-                        <el-select v-model="companyform.project_id" :disabled="!disable" style="width: 16vw" clearable @change="getProject">
+                        <el-select v-model="companyform.project_id" :disabled="!disable" style="width: 16vw" clearable
+                                   @change="getProject">
                           <el-option
                             v-for="item in optionsdata"
                             :key="item.value"
@@ -260,10 +261,12 @@
                 {
                     key: 'btnSave',
                     name: 'button.confirm',
+                    disabled: false,
                 },
                 {
                     key: 'mingtian',
                     name: 'button.mingtian',
+                    disabled: false,
                 },
             ];
             this.loading = true;
@@ -323,10 +326,13 @@
                                     let obj = {};
                                     obj.start_time = response[k].time_start;
                                     obj.work_phase = response[k].work_phase;
-                                    obj.behavior_breakdown = getDictionaryInfo(response[k].behavior_breakdown).value1;
+                                    let letErrortypecheck = getDictionaryInfo(response[k].behavior_breakdown);
+                                    if(letErrortypecheck != null){
+                                        obj.behavior_breakdown = letErrortypecheck.value1;
+                                    }
                                     if (response[k].project_id === 'PP024001') {
                                         obj.project_id = this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')
-                                    }else{
+                                    } else {
                                         obj.project_id = response[k].project_id;
                                     }
                                     this.xsTable = true;
@@ -348,10 +354,12 @@
                         {
                             key: 'btnSave',
                             name: 'button.confirm',
+                            disabled: false,
                         },
                         {
                             key: 'mingtian',
                             name: 'button.mingtian',
+                            disabled: false,
                         },
                     ];
                     this.loading = true;
@@ -413,10 +421,13 @@
                                                 let obj = {};
                                                 obj.start_time = response[k].time_start;
                                                 obj.work_phase = response[k].work_phase;
-                                                obj.behavior_breakdown = getDictionaryInfo(response[k].behavior_breakdown).value1;
+                                                let letErrortypecheck = getDictionaryInfo(response[k].behavior_breakdown);
+                                                if(letErrortypecheck != null){
+                                                    obj.behavior_breakdown = letErrortypecheck.value1;
+                                                }
                                                 if (response[k].project_id === 'PP024001') {
                                                     obj.project_id = this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')
-                                                }else{
+                                                } else {
                                                     obj.project_id = response[k].project_id;
                                                 }
                                                 this.xsTable = true;
@@ -466,8 +477,11 @@
                     .dispatch('PFANS5008Store/getDataOne', {'logmanagement_id': this.$route.params._id})
                     .then(response => {
                         this.data = response;
-                        if(response.confirmstatus=='1'){
+                        if (response.confirmstatus == '1') {
+                            this.buttonList[0].disabled = true;
+                            this.buttonList[1].disabled = true;
                             this.disable = false;
+
                         }
                         if (this.data.has_project === '01') {
                             this.companyform = this.data;
@@ -527,10 +541,13 @@
                                                     let obj = {};
                                                     obj.start_time = response[k].time_start;
                                                     obj.work_phase = response[k].work_phase;
-                                                    obj.behavior_breakdown = getDictionaryInfo(response[k].behavior_breakdown).value1;
+                                                    let letErrortypecheck = getDictionaryInfo(response[k].behavior_breakdown);
+                                                    if(letErrortypecheck != null){
+                                                        obj.behavior_breakdown = letErrortypecheck.value1;
+                                                    }
                                                     if (response[k].project_id === 'PP024001') {
                                                         obj.project_id = this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')
-                                                    } else{
+                                                    } else {
                                                         obj.project_id = response[k].project_id;
                                                     }
                                                     this.xsTable = true;
@@ -601,10 +618,13 @@
                                                     let obj = {};
                                                     obj.start_time = response[k].time_start;
                                                     obj.work_phase = response[k].work_phase;
-                                                    obj.behavior_breakdown = getDictionaryInfo(response[k].behavior_breakdown).value1;
+                                                    let letErrortypecheck = getDictionaryInfo(response[k].behavior_breakdown);
+                                                    if(letErrortypecheck != null){
+                                                        obj.behavior_breakdown = letErrortypecheck.value1;
+                                                    }
                                                     if (response[k].project_id === 'PP024001') {
                                                         obj.project_id = this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')
-                                                    }else{
+                                                    } else {
                                                         obj.project_id = response[k].project_id;
                                                     }
                                                     this.xsTable = true;
@@ -635,6 +655,59 @@
                     }
                 }
                 this.companyform.project_id = this.companyform.project_name;
+                if (val != 'PP024001') {
+                    this.form = {};
+                    this.form.log_date = moment(this.companyform.log_date).format('YYYY-MM-DD')
+                    this.loading = true;
+                    this.$store
+                        .dispatch('PFANS5008Store/getListcheck', this.companyform)
+                        .then(response => {
+                            for (let k = 0; k < response.length; k++) {
+                                if (val === response[k].companyprojects_ID) {
+                                    if (response[k].estimatedendtime != null) {
+                                        if (moment(this.companyform.log_date).format('YYYY-MM-DD') > moment(this.companyform.log_date).format('YYYY-MM-DD') && moment(this.companyform.log_date).format('YYYY-MM-DD') > moment(this.companyform.log_date).format('YYYY-MM-DD')) {
+                                            Message({
+                                                message: this.$t('label.PFANS5008FORMVIEW_RIZHICHECKL'),
+                                                type: 'error',
+                                                duration: 5 * 1000,
+                                            });
+                                            break;
+                                        }
+                                        break;
+                                    } else {
+                                        if (response[k].extensiondate != null) {
+                                            if (moment(this.companyform.log_date).format('YYYY-MM-DD') > moment(response[k].extensiondate).format('YYYY-MM-DD')) {
+                                                Message({
+                                                    message: this.$t('label.PFANS5008FORMVIEW_RIZHICHECKL'),
+                                                    type: 'error',
+                                                    duration: 5 * 1000,
+                                                });
+                                                break;
+                                            }
+                                        } else {
+                                            if (moment(this.companyform.log_date).format('YYYY-MM-DD') > moment(response[k].claimdatetime).format('YYYY-MM-DD')) {
+                                                Message({
+                                                    message: this.$t('label.PFANS5008FORMVIEW_RIZHICHECKL'),
+                                                    type: 'error',
+                                                    duration: 5 * 1000,
+                                                });
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            this.loading = false;
+                        })
+                        .catch(error => {
+                            Message({
+                                message: error,
+                                type: 'error',
+                                duration: 5 * 1000,
+                            });
+                            this.loading = false;
+                        });
+                }
             },
             rowclick(row, event, column) {
                 this.row = row.logmanagementid;
@@ -694,10 +767,13 @@
                                 let obj = {};
                                 obj.start_time = response[k].time_start;
                                 obj.work_phase = response[k].work_phase;
-                                obj.behavior_breakdown = getDictionaryInfo(response[k].behavior_breakdown).value1;
+                                let letErrortypecheck = getDictionaryInfo(response[k].behavior_breakdown);
+                                if(letErrortypecheck != null){
+                                    obj.behavior_breakdown = letErrortypecheck.value1;
+                                }
                                 if (response[k].project_id === 'PP024001') {
                                     obj.project_id = this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')
-                                }else{
+                                } else {
                                     obj.project_id = response[k].project_id;
                                 }
                                 this.xsTable = true;
@@ -914,10 +990,13 @@
                                     let obj = {};
                                     obj.start_time = response[k].time_start;
                                     obj.work_phase = response[k].work_phase;
-                                    obj.behavior_breakdown = getDictionaryInfo(response[k].behavior_breakdown).value1;
+                                    let letErrortypecheck = getDictionaryInfo(response[k].behavior_breakdown);
+                                    if(letErrortypecheck != null){
+                                        obj.behavior_breakdown = letErrortypecheck.value1;
+                                    }
                                     if (response[k].project_id === 'PP024001') {
                                         obj.project_id = this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')
-                                    }else{
+                                    } else {
                                         obj.project_id = response[k].project_id;
                                     }
                                     this.xsTable = true;
@@ -990,10 +1069,13 @@
                                                         let obj = {};
                                                         obj.start_time = response[k].time_start;
                                                         obj.work_phase = response[k].work_phase;
-                                                        obj.behavior_breakdown = getDictionaryInfo(response[k].behavior_breakdown).value1;
+                                                        let letErrortypecheck = getDictionaryInfo(response[k].behavior_breakdown);
+                                                        if(letErrortypecheck != null){
+                                                            obj.behavior_breakdown = letErrortypecheck.value1;
+                                                        }
                                                         if (response[k].project_id === 'PP024001') {
                                                             obj.project_id = this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')
-                                                        }else{
+                                                        } else {
                                                             obj.project_id = response[k].project_id;
                                                         }
                                                         this.xsTable = true;
@@ -1075,10 +1157,13 @@
                                                         let obj = {};
                                                         obj.start_time = response[k].time_start;
                                                         obj.work_phase = response[k].work_phase;
-                                                        obj.behavior_breakdown = getDictionaryInfo(response[k].behavior_breakdown).value1;
+                                                        let letErrortypecheck = getDictionaryInfo(response[k].behavior_breakdown);
+                                                        if(letErrortypecheck != null){
+                                                            obj.behavior_breakdown = letErrortypecheck.value1;
+                                                        }
                                                         if (response[k].project_id === 'PP024001') {
                                                             obj.project_id = this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')
-                                                        }else{
+                                                        } else {
                                                             obj.project_id = response[k].project_id;
                                                         }
                                                         this.xsTable = true;
@@ -1193,10 +1278,13 @@
                                             let obj = {};
                                             obj.start_time = response[k].time_start;
                                             obj.work_phase = response[k].work_phase;
-                                            obj.behavior_breakdown = getDictionaryInfo(response[k].behavior_breakdown).value1;
+                                            let letErrortypecheck = getDictionaryInfo(response[k].behavior_breakdown);
+                                            if(letErrortypecheck != null){
+                                                obj.behavior_breakdown = letErrortypecheck.value1;
+                                            }
                                             if (response[k].project_id === 'PP024001') {
                                                 obj.project_id = this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')
-                                            }else{
+                                            } else {
                                                 obj.project_id = response[k].project_id;
                                             }
                                             this.xsTable = true;

@@ -217,7 +217,6 @@
       },
 
       getDateinitial(value){
-        let dateTime = new Date(value);
         //周
         var week = value.getDay();
         //返回date是一周中的某一天
@@ -234,16 +233,16 @@
         this.starttime = moment(monday).format('YYYY-MM-DD')
         this.endtime = moment(sunday).format('YYYY-MM-DD');
         //星期一
-        this.day1 = moment(dateTime.setDate(dateTime.getDate())).format('M' + this.$t("label.month") + 'D' + this.$t("label.day"));
+        this.day1 = moment(monday.setDate(monday.getDate())).format('M' + this.$t("label.month") + 'D' + this.$t("label.day"));
         //星期二
-        this.day2 = moment(dateTime.setDate(dateTime.getDate() + 1)).format('M' + this.$t("label.month") + 'D' + this.$t("label.day"));
-        this.day3 = moment(dateTime.setDate(dateTime.getDate() + 1)).format('M' + this.$t("label.month") + 'D' + this.$t("label.day"));
-        this.day4 = moment(dateTime.setDate(dateTime.getDate() + 1)).format('M' + this.$t("label.month") + 'D' + this.$t("label.day"));
-        this.day5 = moment(dateTime.setDate(dateTime.getDate() + 1)).format('M' + this.$t("label.month") + 'D' + this.$t("label.day"));
+        this.day2 = moment(monday.setDate(monday.getDate() + 1)).format('M' + this.$t("label.month") + 'D' + this.$t("label.day"));
+        this.day3 = moment(monday.setDate(monday.getDate() + 1)).format('M' + this.$t("label.month") + 'D' + this.$t("label.day"));
+        this.day4 = moment(monday.setDate(monday.getDate() + 1)).format('M' + this.$t("label.month") + 'D' + this.$t("label.day"));
+        this.day5 = moment(monday.setDate(monday.getDate() + 1)).format('M' + this.$t("label.month") + 'D' + this.$t("label.day"));
         //星期六
-        this.day6 = moment(dateTime.setDate(dateTime.getDate() + 1)).format('M' + this.$t("label.month") + 'D' + this.$t("label.day"));
+        this.day6 = moment(monday.setDate(monday.getDate() + 1)).format('M' + this.$t("label.month") + 'D' + this.$t("label.day"));
         //星期日
-        this.day7 = moment(dateTime.setDate(dateTime.getDate() + 1)).format('M' + this.$t("label.month") + 'D' + this.$t("label.day"));
+        this.day7 = moment(monday.setDate(monday.getDate() + 1)).format('M' + this.$t("label.month") + 'D' + this.$t("label.day"));
       },
 
       selectData(val){
