@@ -1776,7 +1776,7 @@
           });
         this.getPersonTable(this.$route.params.groupid,this.$route.params.year);
       } else {
-        this.form.year = moment().subtract(3,'months').year();
+        this.form.year = moment().subtract(3,'months').year()  + 1;
         let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
         if(this.$store.getters.orgGroupList.length > 0 ){
           this.groupA2 = this.$store.getters.orgGroupList.map(
@@ -1790,12 +1790,13 @@
             }
           );
         }
+        debugger
           this.form.center_id = rst.centerId||"";
           this.form.group_id = rst.groupId||"";
           this.form.user_id = this.$store.getters.userinfo.userid;
           this.org = this.$store.getters.orgGroupList.filter(val => val.groupid === this.form.group_id)[0];
-          this.getGroupB1(this.form.group_id);
-          this.getPersonTable(rst.groupId,this.form.year);
+         if(this.form.group_id) this.getGroupB1(this.form.group_id);
+         if(this.form.group_id) this.getPersonTable(rst.groupId,this.form.year);
       }
     },
     computed:{

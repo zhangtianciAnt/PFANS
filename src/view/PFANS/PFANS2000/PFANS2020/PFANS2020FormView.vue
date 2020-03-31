@@ -8,7 +8,7 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :error="error" :label="$t('label.user_name')" prop="user_name">
-                <user :disabled="!disable" :error="error" :selectType="selectType" :userlist="userlist"
+                <user :disabled="true" :error="error" :selectType="selectType" :userlist="userlist"
                       @getUserids="getUserids" style="width: 20vw"></user>
               </el-form-item>
             </el-col>

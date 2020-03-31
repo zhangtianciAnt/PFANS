@@ -123,7 +123,7 @@
                   <el-table :data="tableS"  header-cell-class-name="sub_bg_color_blue" stripe border style="width: 70vw">
                     <el-table-column :label="$t('label.PFANS1024VIEW_NUMBER')" align="center" width="150">
                       <template slot-scope="scope">
-                        <el-input :disabled="!disable" maxlength="20" style="width: 100%" v-model="scope.row.claimtype">
+                        <el-input :disabled="true" maxlength="20" style="width: 100%" v-model="scope.row.claimtype">
                         </el-input>
                       </template>
                     </el-table-column>
@@ -158,7 +158,7 @@
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1025VIEW_SECONDDETAILS')" name="second">
               <div>
-                <el-row></el-row>
+
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1008FORMVIEW_INITIATOR')" :error="error" prop="user_id">
@@ -224,10 +224,18 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1004VIEW_CAREERPLAN')"   prop="careerplan">
-                      <el-select @change="changePlan" style="width: 20vw" v-model="form.plan">
+                      <span>{{$t('label.PFANS1004VIEW_INSIDE')}}</span>
+                      <el-switch
+                        :disabled="!disable"
+                        v-model="form.plan"
+                        active-value="1"
+                        inactive-value="0">
+                      </el-switch>
+                      <span>{{$t('label.PFANS1004VIEW_OUTER')}}</span>
+                     <!-- <el-select @change="changePlan" style="width: 20vw" v-model="form.plan">
                         <el-option :label="$t('label.PFANS1004VIEW_INSIDE')" :value="$t('label.PFANS1004VIEW_INSIDE')"></el-option>
                         <el-option :label="$t('label.PFANS1004VIEW_OUTER')" :value="$t('label.PFANS1004VIEW_OUTER')"></el-option>
-                      </el-select>
+                      </el-select>-->
 
 <!--                      <dicselect :code="code4"-->
 <!--                                 :data="form.plan"-->
@@ -272,11 +280,11 @@
                       <el-input  :disabled="!disable" style="width:20vw" v-model="form.valuationnumber"></el-input>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8">
+                  <!--<el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1025VIEW_CONTRACTNUMBER')">
                       <el-input  :disabled="!disable" style="width:20vw" v-model="form.contractnumber"></el-input>
                     </el-form-item>
-                  </el-col>
+                  </el-col>-->
                 </el-row>
                 <el-row>
                   <el-col :span="8">
@@ -546,6 +554,11 @@
             if(getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)){
                   this.budgetcodingcheck = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
               }
+            if(this.$store.getters.userinfo.userid){
+              debugger;
+              console.log(getUserInfo(this.$store.getters.userinfo.userid).userinfo);
+              this.form.telephone = getUserInfo(this.$store.getters.userinfo.userid).userinfo.phone;
+            }
             console.log("aaa",this.budgetcodingcheck)
             this.form.draftingdate = moment(new Date()).format('YYYY-MM-DD');
             var myDate = new Date();

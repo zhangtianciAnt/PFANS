@@ -66,28 +66,28 @@
                 fix: false,
                 filter: true
               },
-              /*阶段信息*/
-              // {
-              //   code: 'phase',
-              //   label: 'label.PFANS5009VIEW_PHASE',
-              //   width: 120,
-              //   fix: false,
-              //   filter: true
-              // },
-              // {
-              //   code: 'productstatus',
-              //   label: 'label.PFANS5009VIEW_PRODUCTSTATUS',
-              //   width: 130,
-              //   fix: false,
-              //   filter: true
-              // },
-              // {
-              //   code: 'estimatedwork',
-              //   label: 'label.PFANS5009VIEW_ESTIMATEDWORK',
-              //   width: 120,
-              //   fix: false,
-              //   filter: true
-              // },
+              /*项目负责人*/
+              {
+                code: 'leaderid',
+                label: 'label.PFANS5001FORMVIEW_LEADERID',
+                width: 120,
+                fix: false,
+                filter: true
+              },
+              {
+                code: 'startdate',
+                label: 'label.PFANS5001FORMVIEW_STARTDATE',
+                width: 130,
+                fix: false,
+                filter: true
+              },
+              {
+                code: 'nowdate',
+                label: 'label.PFANS5009FORMVIEW_ACTUALENDTIME',
+                width: 120,
+                fix: false,
+                filter: true
+              },
               // {
               //   code: 'actualwork',
               //   label: 'label.PFANS5009VIEW_ACTUALWORK',
@@ -103,13 +103,13 @@
               //   fix: false,
               //   filter: true,
               // },
-              {
-                code: 'status',
-                label: 'label.approval_status',
-                width: 150,
-                fix: false,
-                filter: true,
-              },
+              // {
+              //   code: 'status',
+              //   label: 'label.approval_status',
+              //   width: 150,
+              //   fix: false,
+              //   filter: true,
+              // },
             ],
             buttonList: [
               {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
@@ -125,7 +125,23 @@
           .dispatch('PFANS5013Store/getList2', {flag: "0"})
           .then(response => {
             if(response.length > 0) {
+                console.log("response",response)
                 for (let j = 0; j < response.length; j++) {
+                    if(response[j].leaderid !== null && response[j].leaderid !== ""){
+                        let letUser = getUserInfo(response[j].leaderid);
+                        if (letUser != null) {
+                            response[j].leaderid = letUser.userinfo.customername;
+                        }
+                    }
+
+                    if(response[j].startdate !== null && response[j].startdate !== ""){
+                        response[j].startdate = moment(response[j].startdate).format('YYYY-MM-DD');
+                    }
+
+                    if(response[j].nowdate !== null && response[j].nowdate !== ""){
+                        response[j].nowdate = moment(response[j].nowdate).format('YYYY-MM-DD');
+                    }
+
                     if (response[j].phase !== null && response[j].phase !== "") {
                         let letPhase = getDictionaryInfo(response[j].phase);
                         if (letPhase != null) {
@@ -169,6 +185,22 @@
           .then(response => {
             if (response.length > 0) {
                 for (let j = 0; j < response.length; j++) {
+
+                    if(response[j].leaderid !== null && response[j].leaderid !== ""){
+                        let letUser = getUserInfo(response[j].leaderid);
+                        if (letUser != null) {
+                            response[j].leaderid = letUser.userinfo.customername;
+                        }
+                    }
+
+                    if(response[j].startdate !== null && response[j].startdate !== ""){
+                        response[j].startdate = moment(response[j].startdate).format('YYYY-MM-DD');
+                    }
+
+                    if(response[j].nowdate !== null && response[j].nowdate !== ""){
+                        response[j].nowdate = moment(response[j].nowdate).format('YYYY-MM-DD');
+                    }
+
                     if (response[j].phase !== null && response[j].phase !== "") {
                         let letPhase = getDictionaryInfo(response[j].phase);
                         if (letPhase != null) {
@@ -233,7 +265,8 @@
               name: 'PFANS5014FormView',
               params: {
                 _id: this.rowid,
-                disabled: true
+                disabled: true,
+                _region:this.region,
               }
             })
           }
@@ -250,7 +283,9 @@
               name: 'PFANS5014FormView',
               params: {
                 _id: this.rowid,
-                disabled: false
+                  _flg:'1',
+                disabled: false,
+                _region:this.region,
               }
             })
           }
