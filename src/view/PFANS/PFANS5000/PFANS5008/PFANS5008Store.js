@@ -8,7 +8,8 @@ import {
   createProject,
   deletePersonal,
   gettlist,
-  downloadList
+  downloadList,
+  getListcheck
 } from './PFANS5008Api'
 const PFANS5008Store = {
   namespaced: true,
@@ -31,10 +32,15 @@ const PFANS5008Store = {
         })
       })
     },
-    downloadList({commit}, data) {
+
+    getListcheck({commit}, data) {
       return new Promise((resolve, reject) => {
-        downloadList(data).then(response => {
-          resolve(response);
+        getListcheck(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
         }).catch(error => {
           reject(error);
         })
@@ -48,6 +54,15 @@ const PFANS5008Store = {
           } else {
             reject(response.message)
           }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    downloadList({commit}, data) {
+      return new Promise((resolve, reject) => {
+        downloadList(data).then(response => {
+          resolve(response);
         }).catch(error => {
           reject(error);
         })
