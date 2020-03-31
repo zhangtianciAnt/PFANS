@@ -797,7 +797,6 @@
                 }
             },
             submitForm(determine) {
-                debugger
                 if (this.determine.project_id == '') {
                     this.$store
                         .dispatch('PFANS5008Store/deletePersonal', {
