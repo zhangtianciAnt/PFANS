@@ -370,7 +370,7 @@
                 }],
                 data: [],
                 loading: false,
-                title: "title.PFANS5004VIEW",
+                title: this.$route.params._region === '1' ? "title.PFANS5004VIEW" : "title.PFANS5004VIEW2",
                 rules: {
                     assetaddress: [{
                         required: true,
@@ -409,6 +409,13 @@
             };
         },
         mounted() {
+
+            console.log("this.$route.params._flg",this.$route.params._flg)
+
+            if(this.$route.params._flg){
+                this.flags = true
+            }
+
             if (this.$route.params._id) {
                 this.loading = true;
                 this.$store
@@ -417,7 +424,7 @@
 
                         if(response.comproject.nowdate != null){
                             if(response.comproject.status === '9' || response.comproject.status === '7'){
-                                this.flags = true
+                                // this.flags = true
                             }
                             this.form = response.comproject;
 
