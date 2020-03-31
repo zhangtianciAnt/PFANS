@@ -29,7 +29,7 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :error="erroruser" :label="$t('label.applicant')" prop="user_id">
-                <user :disabled="!disable" :error="erroruser" :selectType="selectType" :userlist="userlist"
+                <user :disabled="true" :error="erroruser" :selectType="selectType" :userlist="userlist"
                       @getUserids="getUserids" style="width: 20vw"></user>
               </el-form-item>
             </el-col>

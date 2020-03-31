@@ -53,9 +53,9 @@
 
                 <!--           供应商编码（合同用）-->
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS6003FORMVIEW_VENDORNUM')" prop="vendorcode">
+                  <el-form-item :label="$t('label.PFANS6003FORMVIEW_VENDORNUM')" prop="suppliercode">
                     <el-input :disabled="!disabled" style="width:20vw"
-                              v-model="form.vendorcode"></el-input>
+                              v-model="form.suppliercode"></el-input>
                   </el-form-item>
                 </el-col>
 
@@ -369,7 +369,7 @@
           payeebankaccountnumber: '',
           payeebankaccount: '',
           suppliercode:'',
-          vendorcode:'',
+          // vendorcode:'',
         },
         //人员规模
         code1: 'BP007',
@@ -422,11 +422,11 @@
                 },
             ],
           // 供应商编码（合同用）
-          vendorcode: [
+            suppliercode: [
             {
               required: true,
               message: this.$t('normal.error_08') + this.$t('label.PFANS6003FORMVIEW_VENDORNUM'),
-              trigger: 'change',
+              trigger: 'blur',
             },
           ],
           // 中文(项目联络人)

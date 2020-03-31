@@ -27,7 +27,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :error="error_userids" :label="$t('label.applicant')" prop="user_id">
-                <user :disabled="!disabled" :error="error_userids" :selectType="selectType" :userlist="userlist"
+                <user :disabled="true" :error="error_userids" :selectType="selectType" :userlist="userlist"
                       @getUserids="getUserids" style="width: 19.7vw"></user>
               </el-form-item>
             </el-col>

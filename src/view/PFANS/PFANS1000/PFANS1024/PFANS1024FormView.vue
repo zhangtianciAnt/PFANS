@@ -229,7 +229,7 @@
                     @change="getCurrencyposition"
                     style="width: 11rem"
                     :disabled="!disabled">
-                  </dicselect>-->
+                  </dicselect>111-->
                   <el-select :no="scope.row" v-model="scope.row.currencyposition" @change="(val)=>{getCurrencyposition(val,scope.row)}" style="width: 11rem" :disabled="!disabled">
                     <el-option v-for="(item,index) in options" :key="index" v-model="item.value">
                       {{item.value}}
@@ -1127,7 +1127,7 @@
       this.contractnumbercount = this.$route.params.contractnumbercount;
       let option1 = {};
         option1.name = getDictionaryInfo('PG019001').value1;
-        option1.code = 'PG019003';
+        option1.code = 'PG019001';
         option1.value = getDictionaryInfo('PG019001').value4;
       let option2 = {};
         option2.name = getDictionaryInfo('PG019003').value1;
@@ -1144,9 +1144,7 @@
             let contractnumbercount = response.contractnumbercount;
             if (contractapplication.length > 0) {
               for (let i = 0; i < contractapplication.length; i++) {
-                 /* //555 this.currencyposition
-                let currencyposition =  contractapplication[i].currencyposition;
-                this.currencyposition = currencyposition === 'PG019001'?'USB$':'￥';*/
+                contractapplication[i].currencyposition = getDictionaryInfo(contractapplication[i].currencyposition).value4;
                 this.maketype = contractapplication[i].maketype;
 
                   this.form1.claimtype = contractapplication[i].claimtype;
@@ -1606,9 +1604,7 @@
           }
       },
       getCurrencyposition(val, row) {
-
             row.currencyposition = val;
-
       },
       getcareeryear(val) {
         this.form.career = val;
@@ -1740,7 +1736,7 @@
         });
       },
       //契約番号做成
-      click() {//111
+      click() {
 
         this.$refs['refform1'].validate(valid => {
           if (valid) {
@@ -1960,6 +1956,11 @@
         for (let i = 0; i < this.form.tabledata.length; i++) {
           let o = {};
           Object.assign(o, this.form.tabledata[i]);
+          for(let k = 0 ;k < this.options.length;k++){
+            if(this.form.tabledata[i].currencyposition === this.options[k].value){
+              o.currencyposition = this.options[k].code;
+            }
+          }
           o.contractdate = this.getcontractdate(this.form.tabledata[i].contractdate);
           this.form.tabledata[i].contracttype = this.form.contracttype;
           o.contracttype = this.form.tabledata[i].contracttype;
