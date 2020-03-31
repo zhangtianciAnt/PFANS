@@ -4,7 +4,8 @@
       :buttonList="buttonList"
       @buttonClick="buttonClick"
       ref="container"
-      v-loading="loading" @disabled="setdisabled"
+      v-loading="loading"
+      @disabled="setdisabled"
     >
       <div slot="customize">
         <el-form label-position="top" label-width="8vw" ref="form">
@@ -123,6 +124,7 @@
                       width="150"
                       align="center"
                     ></el-table-column>
+                    <el-table-column prop="rnbasesalary" label="RN" width="150" align="center"></el-table-column>
                     <el-table-column
                       prop="birthrest"
                       :label="$t('label.PFANS2005FORMVIEW_BIRTHDAYREST')"
@@ -245,7 +247,17 @@
                       :label="$t('label.PFANS2006VIEW_OTHER3')"
                       width="150"
                       align="center"
-                    ></el-table-column>
+                    >
+                      <template slot-scope="scope">
+                        <el-input-number
+                          v-model="scope.row.other3"
+                          controls-position="right"
+                          :min="0"
+                          size="mini"
+                          style="width:7rem"
+                        ></el-input-number>
+                      </template>
+                    </el-table-column>
                     <el-table-column
                       prop="total2"
                       :label="$t('label.PFANS2006VIEW_SUBTOTAL2')"
@@ -542,7 +554,17 @@
                     :label="$t('label.PFANS2005FORMVIEW_OTHER6')"
                     width="150"
                     align="center"
-                  ></el-table-column>
+                  >
+                    <template slot-scope="scope">
+                      <el-input-number
+                        v-model="scope.row.other6"
+                        controls-position="right"
+                        :min="0"
+                        size="mini"
+                        style="width:7rem"
+                      ></el-input-number>
+                    </template>
+                  </el-table-column>
                 </el-table>
               </div>
             </el-tab-pane>
@@ -3293,8 +3315,8 @@ export default {
     this.getListdata();
   },
   methods: {
-    setdisabled(val){
-      if(this.$route.params.disabled){
+    setdisabled(val) {
+      if (this.$route.params.disabled) {
         this.disabled = val;
       }
     },
@@ -3320,7 +3342,7 @@ export default {
             item.no = index + 1;
             item.workdate = moment(item.workdate).format("YYYY-MM-DD");
             item.sex = item.sex === "PR019001" ? "男" : "女";
-            item.onlychild = item.onlychild === "1" ? "是" : "否";
+            item.onlychild = item.onlychild === "1" ? "是" : "-";
             item.type =
               item.type === "1"
                 ? "入職"
@@ -3329,8 +3351,8 @@ export default {
                 : item.type === "4"
                 ? "退職"
                 : "-";
-            item.sociology = item.sociology === "1" ? "是" : "否";
-            item.registered = item.registered === "1" ? "是" : "否";
+            item.sociology = item.sociology === "1" ? "是" : "-";
+            item.registered = item.registered === "1" ? "是" : "-";
           });
           this.tableData = response.wagesList;
           // region 欠勤 By SKAIXX
