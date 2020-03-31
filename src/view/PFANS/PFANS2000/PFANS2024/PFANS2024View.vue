@@ -24,7 +24,7 @@
                 // 列属性
                 columns: [
                     {
-                        code: 'graduationyear',
+                        code: 'contract',
                         label: 'label.PFANS2023VIEW_YEARS',
                         width: 90,
                         fix: false,
@@ -133,8 +133,11 @@
                         if (response[j].entryyear !== null && response[j].entryyear !== "") {
                             response[j].entryyear = moment(response[j].entryyear).format("YYYY-MM-DD");
                         }
-                        if (response[j].graduationyear !== null && response[j].graduationyear !== "") {
-                            response[j].graduationyear = moment(response[j].graduationyear).format("YYYY");
+                        // if (response[j].graduationyear !== null && response[j].graduationyear !== "") {
+                        //     response[j].graduationyear = moment(response[j].graduationyear).format("YYYY");
+                        // }
+                        if (response[j].contract !== null && response[j].contract !== "") {
+                            response[j].contract = moment(response[j].contract).format("YYYY");
                         }
                     }
                     this.data = response;
