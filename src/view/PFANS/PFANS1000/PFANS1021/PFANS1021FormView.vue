@@ -239,7 +239,7 @@
 
         };
         var checkeFabuilding = (rule, value, callback) => {
-            if(!value || value === '' || value === " "){
+            if(!value || value === ''){
                 this.errorFabuilding = this.$t('normal.error_09') + this.$t('label.PFANS1021FORMVIEW_FABUILDING');
                 return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1021FORMVIEW_FABUILDING')));
             }else{
@@ -314,7 +314,7 @@
               phonenumber: '',
               emaildetail: '',
               startdate: '',
-              fabuilding: ' ',
+              fabuilding: '',
               // fbbuilding: ' ',
               // showroom: ' ',
               entrymanager: '',
