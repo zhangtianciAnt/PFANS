@@ -106,61 +106,110 @@
           {'key': 'update', 'name': 'button.update', 'disabled': false, "icon": 'el-icon-edit'}
         ],
         rowid: '',
-        row_id: 'nonjudgment_id'
+        row_id: 'nonjudgment_id',
+        janameflg: [],
       }
     },
     mounted() {
-      this.loading = true;
-      this.$store
-        .dispatch('PFANS1028Store/get',{})
-        .then(response => {
-          for (let j = 0; j < response.length; j++){
-            if(response[j].requirements !== null && response[j].requirements !== ""){
-              if(this.$i18n){
-                if(response[j].requirements === "0"){
-                  response[j].requirements = this.$t('label.PFANS1028VIEW_NOT');
-                } else {
-                  response[j].requirements = this.$t('label.PFANS1028VIEW_YES');
-                }
-              }
-
-            }
-            if(response[j].review !== null && response[j].review !== ""){
-              if(this.$i18n){
-                if(response[j].review === "2"){
-                  response[j].review = this.$t('label.PFANS1028VIEW_NOPANASG');
-                } else {
-                  response[j].review = this.$t('label.PFANS1028VIEW_PANASG');
-                }
-              }
-
-            }
-            if (response[j].varto !== null && response[j].varto !== "") {
-              let letContracttype = getDictionaryInfo(response[j].varto);
-              if (letContracttype != null) {
-                response[j].varto = letContracttype.value1;
-              }
-            }
-            if (response[j].contractnumber !== null && response[j].contractnumber !== "") {
-              response[j].gfjudgeno='GF-'+response[j].contractnumber;
-            }
-            if (response[j].status !== null && response[j].status !== "") {
-              response[j].status = getStatus(response[j].status);
-            }
-          }
-          this.data = response;
-          this.loading = false;
-        })
-        .catch(error => {
-          Message({
-            message: error,
-            type: 'error',
-            duration: 5 * 1000
-          });
-          this.loading = false;
-        })
+      this.getJaname();
     },
     methods: {
+      getJaname(){
+        debugger
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS5001Store/getFpans5001List', {})
+          .then(response => {
+            for (let j = 0; j < response.length; j++) {
+              this.janameflg.push({
+                pjcode: response[j].companyprojects_id,
+                pjname: response[j].project_name,
+              });
+            }
+            this.$store
+              .dispatch('PFANS1028Store/get', {})
+              .then(response => {
+                for (let j = 0; j < response.length; j++) {
+                  if (response[j].requirements !== null && response[j].requirements !== "") {
+                    if (this.$i18n) {
+                      if (response[j].requirements === "0") {
+                        response[j].requirements = this.$t('label.PFANS1028VIEW_NOT');
+                      } else {
+                        response[j].requirements = this.$t('label.PFANS1028VIEW_YES');
+                      }
+                    }
+
+                  }
+                  if (response[j].review !== null && response[j].review !== "") {
+                    if (this.$i18n) {
+                      if (response[j].review === "2") {
+                        response[j].review = this.$t('label.PFANS1028VIEW_NOPANASG');
+                      } else {
+                        response[j].review = this.$t('label.PFANS1028VIEW_PANASG');
+                      }
+                    }
+
+                  }
+                  if (response[j].varto !== null && response[j].varto !== "") {
+                    let letContracttype = getDictionaryInfo(response[j].varto);
+                    if (letContracttype != null) {
+                      response[j].varto = letContracttype.value1;
+                    }
+                  }
+                  if (response[j].contractnumber !== null && response[j].contractnumber !== "") {
+                    response[j].gfjudgeno = 'GF-' + response[j].contractnumber;
+                  }
+                  if (response[j].status !== null && response[j].status !== "") {
+                    response[j].status = getStatus(response[j].status);
+                  }
+                  debugger;
+                  console.log("this.janameflg",this.janameflg)
+                  if (response[j].janame !== null && response[j].janame !== "") {
+                    if (response[j].janame.split(",").length > 1) {
+                      let aa = [];
+                      let bb = '';
+                      aa = response[j].janame.split(",");
+                      console.log("aa",aa)
+                      for (let i = 0; i < aa.length; i++) {
+                        for (let j = 0; j < this.janameflg.length; j++) {
+                          if (aa[i] === this.janameflg[j].pjcode) {
+                            bb = bb + this.janameflg[j].pjname + ',';
+                          }
+                        }
+                      }
+                      if (bb !== '' && bb !== undefined) {
+                        response[j].janame = bb.substring(0, bb.length - 1);
+                      }
+                    } else {
+                      for (let i = 1; i < this.janameflg.length; i++) {
+                        if (this.janameflg[i].pjcode === response[j].janame) {
+                          response[j].janame = this.janameflg[i].pjname;
+                        }
+                      }
+                    }
+                  }
+                }
+                this.data = response;
+                this.loading = false;
+              })
+              .catch(error => {
+                Message({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000
+                });
+                this.loading = false;
+              })
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000
+            });
+            this.loading = false;
+          })
+      },
       rowClick(row) {
         this.rowid = row.nonjudgment_id;
       },

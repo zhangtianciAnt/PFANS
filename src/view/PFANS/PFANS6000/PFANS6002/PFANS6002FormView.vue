@@ -395,7 +395,7 @@
                     // 联系电话
                     protelephone: [
                         {
-                            required: false,
+                            required: true,
                             message: this.$t('normal.error_08') + this.$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION'),
                             trigger: 'blur'
                         },
@@ -403,7 +403,7 @@
                     // 邮箱地址
                     protemail: [
                         {
-                            required: false,
+                            required: true,
                             message: this.$t('normal.error_08') + this.$t('label.PFANSUSERFORMVIEW_EMAILADDRESS'),
                             trigger: 'blur'
                         },
@@ -462,6 +462,35 @@
                             trigger: 'change'
                         },
                     ],
+                  // 事业场编码
+                  causecode: [
+                    {
+                      required: true,
+                      message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_BUSINESSCODE'),
+                      trigger: 'change'
+                    },
+                  ],
+                  prochinese: [
+                    {
+                      required: true,
+                      message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_CHINESE'),
+                      trigger: 'change'
+                    },
+                  ],
+                  projapanese: [
+                    {
+                      required: true,
+                      message: this.$t('normal.error_08') + this.$t('label.PFANS6002FORMVIEW_JAPANESE'),
+                      trigger: 'change'
+                    },
+                  ],
+                  proenglish: [
+                    {
+                      required: true,
+                      message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_ENGLISH'),
+                      trigger: 'change'
+                    },
+                  ],
                 },
                 fileList: [],
                 upload: uploadUrl(),

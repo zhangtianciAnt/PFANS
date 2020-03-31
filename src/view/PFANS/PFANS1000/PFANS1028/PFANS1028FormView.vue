@@ -44,7 +44,7 @@
                   <el-col :span="8">
                     <!--带出PJ名-->
                     <el-form-item :label="$t('label.PFANS1028VIEW_NAME')">
-                      <el-input :disabled="!disable" style="width:20vw" v-model="form.janame"></el-input>
+                      <el-input :disabled="true" style="width:20vw" v-model="form.janame"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -77,7 +77,7 @@
                       <!--                        </el-checkbox-group>-->
                       <el-row>
                         <el-col :span="4">
-                          <el-checkbox :disabled="disabled1" @change="getChecked1" style="margin-left: 50px"
+                          <el-checkbox :disabled="disabled1" @change="getChecked1"
                                        v-model="checked1">
                             <p>{{$t('label.PFANS1028VIEW_REQUIREMENTS1')}}</p>
                           </el-checkbox>
@@ -90,7 +90,7 @@
                       </el-row>
                       <el-row>
                         <el-col :span="8">
-                          <el-checkbox :disabled="disabled2" @change="getChecked2" style="margin-left: 50px"
+                          <el-checkbox :disabled="disabled2" @change="getChecked2"
                                        v-model="checked2">
                             <p>{{$t('label.PFANS1028VIEW_REQUIREMENTS2')}}</p>
                           </el-checkbox>
@@ -146,18 +146,93 @@
                   <el-col :span="24">
                     <el-form-item
                       :label="$t('label.PFANS1028VIEW_POSSIBLE')" prop="possible">
-                      <el-checkbox-group v-model="checkList" :disabled="!disable">
-                        <el-checkbox :label="$t('lable.PFANS1028VIEW_BOOKS')"></el-checkbox>
-                        <el-checkbox :label="$t('lable.PFANS1028VIEW_SOFTWARE')"></el-checkbox>
-                        <el-checkbox :label="$t('lable.PFANS1028VIEW_MAIL')"></el-checkbox>
-                        <el-checkbox :label="$t('lable.PFANS1028VIEW_SERVER')"></el-checkbox>
-                        <el-checkbox :label="$t('lable.PFANS1028VIEW_MEETING')"></el-checkbox>
-                        <el-checkbox :label="$t('lable.PFANS1028VIEW_COUNTRY2')"></el-checkbox>
-                        <el-checkbox :label="$t('lable.PFANS1028VIEW_OTHERC2')"></el-checkbox>
-                        <el-checkbox :label="$t('lable.PFANS1028VIEW_OVERSEA')"></el-checkbox>
-                        <el-checkbox label="label.PFANS1028VIEW_COUNTRY3"></el-checkbox>
-                        <el-checkbox label="label.PFANS1028VIEW_OTHER"></el-checkbox>
-                      </el-checkbox-group>
+                        <el-row>
+                          <el-col :span="6">
+                            <el-form-item>
+                              <el-checkbox :disabled="!disable" v-model="form.other1" ><p>{{$t('label.PFANS1028VIEW_BOOKS')}}</p></el-checkbox>
+                            </el-form-item>
+                          </el-col>
+                          <el-col :span="6">
+                            <el-form-item>
+                              <el-checkbox :disabled="!disable" v-model="form.other2"><p>{{$t('label.PFANS1028VIEW_SOFTWARE')}}</p></el-checkbox>
+                            </el-form-item>
+                          </el-col>
+                          <el-col :span="6">
+                            <el-form-item>
+                              <el-checkbox :disabled="!disable" v-model="form.other3"><p>{{$t('label.PFANS1028VIEW_MAIL')}}</p></el-checkbox>
+                            </el-form-item>
+                          </el-col>
+                          <el-col :span="6">
+                            <el-form-item>
+                              <el-checkbox :disabled="!disable" v-model="form.other4"><p>{{$t('label.PFANS1028VIEW_SERVER')}}</p></el-checkbox>
+                            </el-form-item>
+                          </el-col>
+                        </el-row>
+                        <el-row>
+                          <el-col :span="6">
+                            <el-form-item>
+                          <el-checkbox :disabled="!disable" @change="getChecked8" v-model="form.other5"><p>{{$t('label.PFANS1028VIEW_MEETING')}}</p></el-checkbox>
+                            </el-form-item>
+                          </el-col>
+                          <el-col :span="6" v-show="show1">
+                            <el-form-item>
+                              <el-checkbox :disabled="!disable" @change="getChecked9" v-model="form.other6"><p>{{$t('label.PFANS1028VIEW_COUNTRY2')}}</p></el-checkbox>
+                            </el-form-item>
+                          </el-col>
+                          <el-col :span="6" v-show="show1">
+                            <el-form-item>
+                              <el-checkbox :disabled="!disable" @change="getChecked10" v-model="form.other7"><p>{{$t('label.PFANS1028VIEW_OTHERC2')}}</p></el-checkbox>
+                            </el-form-item>
+                          </el-col>
+                        </el-row>
+                      <el-row>
+                        <el-col :span="24" v-show="show3">
+                          <el-form-item :label="$t('label.PFANS1028VIEW_POINTS106')">
+                            <el-input :disabled="!disable" style="width: 70vw" type="textarea"
+                                      v-model="form.oreason"></el-input>
+                          </el-form-item>
+                        </el-col>
+                      </el-row>
+                        <el-row>
+                          <el-col :span="6">
+                            <el-form-item>
+                              <el-checkbox :disabled="!disable" @change="getChecked11" v-model="form.other8"><p>{{$t('label.PFANS1028VIEW_OVERSEA')}}</p></el-checkbox>
+                            </el-form-item>
+                          </el-col>
+                          <el-col :span="6" v-show="show2">
+                            <el-form-item>
+                              <el-checkbox :disabled="!disable" @change="getChecked12" v-model="form.other9"><p>{{$t('label.PFANS1028VIEW_COUNTRY3')}}</p></el-checkbox>
+                            </el-form-item>
+                          </el-col>
+                          <el-col :span="6" v-show="show2">
+                            <el-form-item>
+                              <el-checkbox :disabled="!disable" @change="getChecked13" v-model="form.other10"><p>{{$t('label.PFANS1028VIEW_OTHERC2')}}</p></el-checkbox>
+                            </el-form-item>
+                          </el-col>
+                        </el-row>
+                      <el-row>
+                        <el-col :span="24" v-show="show4">
+                          <el-form-item :label="$t('label.PFANS1028VIEW_POINTS106')">
+                            <el-input :disabled="!disable" style="width: 70vw" type="textarea"
+                                      v-model="form.othreason"></el-input>
+                          </el-form-item>
+                        </el-col>
+                      </el-row>
+                        <el-row>
+                          <el-col :span="6">
+                            <el-form-item>
+                          <el-checkbox :disabled="!disable" @change="getChecked14" v-model="form.other11"><p>{{$t('label.PFANS1028VIEW_OTHER')}}</p></el-checkbox>
+                            </el-form-item>
+                          </el-col>
+                        </el-row>
+                      <el-row>
+                        <el-col :span="24" v-show="show5">
+                          <el-form-item :label="$t('label.PFANS1028VIEW_POINTS106')">
+                            <el-input :disabled="!disable" style="width: 70vw" type="textarea"
+                                      v-model="form.otherreason"></el-input>
+                          </el-form-item>
+                        </el-col>
+                      </el-row>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -169,35 +244,49 @@
                     </template>
                     <el-row>
                       <!--判断联动-->
+                      <el-col>
+                        <el-form-item :label="$t('label.PFANS1028VIEW_OUTPUTLIMIT2')"></el-form-item>
+                      </el-col>
+                      <el-col :span="24">
+                        <el-form-item :label="$t('label.PFANS1028VIEW_JUDGENO')" style="margin-left: 50px">
+                          <el-input :disabled="true" style="width: 20vw ; margin-left: 1px" v-model="form.jxjudgeno"></el-input>
+                        </el-form-item>
+                      </el-col>
                       <el-col :span="12">
-                        <el-form-item :label="$t('label.PFANS1028VIEW_OUTPUTLIMIT2')">
+                        <el-form-item>
                           <el-radio
                             :disabled="!disable"
                             label="0"
                             v-model="form.outputlimit2"
+                            @change="getRadio2"
+                            style="margin-left: 50px"
                           >{{this.$t('label.PFANS1028VIEW_PROHIBITED')}}
                           </el-radio>
                           <el-radio
                             :disabled="!disable"
                             label="1"
                             v-model="form.outputlimit2"
+                            @change="getRadio2"
+                            style="margin-left: 50px"
                           >{{this.$t('label.PFANS1028VIEW_LIMITATION')}}
                           </el-radio>
                         </el-form-item>
                       </el-col>
+                    </el-row>
+                    <el-row>
                       <el-col :span="12">
-                        <el-form-item :label="$t('label.PFANS1028VIEW_REASON')">
-                          <el-input :disabled="!disable" style="width:20vw" v-model="form.reason"></el-input>
+                        <el-form-item :label="$t('label.PFANS1028VIEW_REASON')" style="margin-left: 50px">
+                          <el-input :disabled="!disable" style="width:20vw ; margin-left: 1px" v-model="form.reason"></el-input>
                         </el-form-item>
                       </el-col>
                     </el-row>
                     <el-row>
-                      <el-col :span="24">
-                        <el-form-item :label="$t('label.PFANS1028VIEW_RESTRICTED')">
-                        </el-form-item>
-                      </el-col>
-                      <el-col :span="12">
-                        <el-form-item :label="$t('label.PFANS1028VIEW_WEAPON')">
+<!--                      <el-col :span="24" v-show="show8">-->
+<!--                        <el-form-item :label="$t('label.PFANS1028VIEW_RESTRICTED')" style="margin-left: 80px">-->
+<!--                        </el-form-item>-->
+<!--                      </el-col>-->
+                      <el-col :span="12" v-show="show8">
+                        <el-form-item :label="$t('label.PFANS1028VIEW_WEAPON')" style="margin-left: 80px">
                           <el-radio
                             :disabled="!disable"
                             label="0"
@@ -214,15 +303,15 @@
                           </el-radio>
                         </el-form-item>
                       </el-col>
-                      <el-col :span="12">
+                      <el-col :span="12" v-show="show8">
                         <el-form-item :label="$t('label.PFANS1028VIEW_RESON')">
                           <el-input :disabled="!disable" style="width:20vw" v-model="form.weaponreson"></el-input>
                         </el-form-item>
                       </el-col>
                     </el-row>
                     <el-row>
-                      <el-col :span="12">
-                        <el-form-item :label="$t('label.PFANS1028VIEW_WORD')">
+                      <el-col :span="12" v-show="show8">
+                        <el-form-item :label="$t('label.PFANS1028VIEW_WORD')" style="margin-left: 80px">
                           <el-radio
                             :disabled="!disable"
                             label="0"
@@ -239,15 +328,15 @@
                           </el-radio>
                         </el-form-item>
                       </el-col>
-                      <el-col :span="12">
+                      <el-col :span="12" v-show="show8">
                         <el-form-item :label="$t('label.PFANS1028VIEW_RESON')">
                           <el-input :disabled="!disable" style="width:20vw" v-model="form.wordreson"></el-input>
                         </el-form-item>
                       </el-col>
                     </el-row>
                     <el-row>
-                      <el-col :span="12">
-                        <el-form-item :label="$t('label.PFANS1028VIEW_SPECIFI')">
+                      <el-col :span="12" v-show="show8">
+                        <el-form-item :label="$t('label.PFANS1028VIEW_SPECIFI')" style="margin-left: 80px">
                           <el-radio
                             :disabled="!disable"
                             label="0"
@@ -264,7 +353,7 @@
                           </el-radio>
                         </el-form-item>
                       </el-col>
-                      <el-col :span="12">
+                      <el-col :span="12" v-show="show8">
                         <el-form-item :label="$t('label.PFANS1028VIEW_RESON')">
                           <el-input :disabled="!disable" style="width:20vw" v-model="form.specifireson"></el-input>
                         </el-form-item>
@@ -275,14 +364,21 @@
                         :disabled="!disable"
                         label="0"
                         v-model="form.restricted"
+                        v-show="show8"
+                        style="margin-left: 80px"
                       >{{this.$t('label.PFANS1028VIEW_NOTALL')}}
                       </el-radio>
                       <el-radio
                         :disabled="!disable"
                         label="1"
                         v-model="form.restricted"
+                        v-show="show8"
+                        style="margin-left: 80px"
                       >{{this.$t('label.PFANS1028VIEW_POSSCAN')}}
                       </el-radio>
+                    </el-row>
+                    <el-row>
+                      <el-form-item></el-form-item>
                     </el-row>
                     <el-row>
                       <el-col :span="12">
@@ -290,19 +386,29 @@
                           :disabled="!disable"
                           label="0"
                           v-model="form.regulation"
+                          style="margin-left: 50px"
                         >{{this.$t('label.PFANS1028VIEW_RULES1')}}
                         </el-radio>
                         <el-radio
                           :disabled="!disable"
                           label="1"
                           v-model="form.regulation"
+                          style="margin-left: 50px"
                         >{{this.$t('label.PFANS1028VIEW_RULES2')}}
                         </el-radio>
                       </el-col>
                     </el-row>
                     <el-row>
-                      <el-col :span="12">
-                        <el-form-item :label="$t('label.PFANS1028VIEW_MANAGEMENT2')">
+                      <el-col>
+                        <el-form-item :label="$t('label.PFANS1028VIEW_MANAGEMENT2')"></el-form-item>
+                      </el-col>
+                      <el-col :span="24">
+                        <el-form-item :label="$t('label.PFANS1028VIEW_JUDGENO')" style="margin-left: 50px">
+                          <el-input :disabled="true" style="width: 20vw ; margin-left: 1px" v-model="form.lyjudgeno"></el-input>
+                        </el-form-item>
+                      </el-col>
+                      <el-col :span="12" style="margin-left: 50px">
+                        <el-form-item>
                           <el-radio
                             :disabled="!disable"
                             label="0"
@@ -323,9 +429,11 @@
                           </el-radio>
                         </el-form-item>
                       </el-col>
+                    </el-row>
+                    <el-row>
                       <el-col :span="12">
-                        <el-form-item :label="$t('label.PFANS1028VIEW_REASON')">
-                          <el-input :disabled="!disable" style="width:20vw" v-model="form.mareason"></el-input>
+                        <el-form-item :label="$t('label.PFANS1028VIEW_REASON')" style="margin-left: 50px">
+                          <el-input :disabled="!disable" style="width:20vw ; margin-left: 1px" v-model="form.mareason"></el-input>
                         </el-form-item>
                       </el-col>
                     </el-row>
@@ -336,18 +444,21 @@
                             :disabled="!disable"
                             label="0"
                             v-model="form.management3"
+                            style="margin-left: 50px"
                           >{{this.$t('label.PFANS1028VIEW_YES')}}
                           </el-radio>
                           <el-radio
                             :disabled="!disable"
                             label="1"
                             v-model="form.management3"
+                            style="margin-left: 50px"
                           >{{this.$t('label.PFANS1028VIEW_NOT')}}
                           </el-radio>
                           <el-radio
                             :disabled="!disable"
                             label="3"
                             v-model="form.management3"
+                            style="margin-left: 50px"
                           >{{this.$t('label.PFANS1028VIEW_ELEPHANTS')}}
                           </el-radio>
                         </el-form-item>
@@ -367,36 +478,44 @@
                             :disabled="!disable"
                             label="0"
                             v-model="form.management4"
+                            @change="getRadio"
+                            style="margin-left: 50px"
                           >{{this.$t('label.PFANS1028VIEW_YES2')}}
                           </el-radio>
                           <el-radio
                             :disabled="!disable"
                             label="1"
                             v-model="form.management4"
+                            @change="getRadio"
+                            style="margin-left: 50px"
                           >{{this.$t('label.PFANS1028VIEW_NOT')}}
                           </el-radio>
                           <el-radio
                             :disabled="!disable"
                             label="3"
                             v-model="form.management4"
+                            @change="getRadio"
+                            style="margin-left: 50px"
                           >{{this.$t('label.PFANS1028VIEW_ELEPHANTS2')}}
                           </el-radio>
                         </el-form-item>
                       </el-col>
                     </el-row>
                     <el-row>
-                      <el-col :span="24">
+                      <el-col :span="24" v-show="show6">
                         <el-form-item :label="$t('label.PFANS1028VIEW_JUDGED')">
                           <el-radio
                             :disabled="!disable"
                             label="0"
                             v-model="form.judged"
+                            style="margin-left: 50px"
                           >{{this.$t('label.PFANS1028VIEW_YES3')}}
                           </el-radio>
                           <el-radio
                             :disabled="!disable"
                             label="1"
                             v-model="form.judged"
+                            style="margin-left: 50px"
                           >{{this.$t('label.PFANS1028VIEW_NOT')}}
                           </el-radio>
                         </el-form-item>
@@ -412,32 +531,47 @@
                     <el-row>
                       <el-col :span="24">
                         <el-form-item :label="$t('label.PFANS1028VIEW_AMERICANTECHNOLOGY')">
-                          <el-radio
-                            :disabled="!disable"
-                            label="0"
-                            v-model="form.americantechnology"
-                            @change="getradio"
-                          >{{this.$t('label.PFANS1028VIEW_JANO')}}
-                          </el-radio>
-                          <el-radio
-                            :disabled="!disable"
-                            label="1"
-                            v-model="form.americantechnology"
-                            @change="getradio"
-                          >{{this.$t('label.PFANS1028VIEW_JANOJUDGE')}}
-                          </el-radio>
-                          <el-radio
-                            :disabled="!disabled4"
-                            label="0"
-                            v-model="form.americantechno"
-                          >{{this.$t('label.PFANS1028VIEW_NOT')}}
-                          </el-radio>
-                          <el-radio
-                            :disabled="!disabled4"
-                            label="1"
-                            v-model="form.americantechno"
-                          >{{this.$t('label.PFANS1028VIEW_OUGHT')}}
-                          </el-radio>
+                          <el-row>
+                            <el-radio
+                              :disabled="!disable"
+                              label="0"
+                              v-model="form.americantechnology"
+                              @change="getradio"
+                              style="margin-left: 50px"
+                            >{{this.$t('label.PFANS1028VIEW_JANO')}}
+                            </el-radio>
+                            <el-radio
+                              :disabled="!disable"
+                              label="1"
+                              v-model="form.americantechnology"
+                              @change="getradio"
+                              style="margin-left: 50px"
+                            >{{this.$t('label.PFANS1028VIEW_JANOJUDGE')}}
+                            </el-radio>
+                          </el-row>
+                          <el-row>
+                            <el-radio
+                              :disabled="!disabled4"
+                              label="0"
+                              v-model="form.americantechno"
+                              @change="getRadio1"
+                              style="margin-left: 50px"
+                            >{{this.$t('label.PFANS1028VIEW_NOT')}}
+                            </el-radio>
+                            <el-radio
+                              :disabled="!disabled4"
+                              label="1"
+                              v-model="form.americantechno"
+                              @change="getRadio1"
+                              style="margin-left: 50px"
+                            >{{this.$t('label.PFANS1028VIEW_OUGHT')}}
+                            </el-radio>
+                          </el-row>
+                        </el-form-item>
+                      </el-col>
+                      <el-col :span="8" v-show="show7">
+                        <el-form-item :label="$t('label.PFANS1028VIEW_POINTS107')" style="margin-left: 200px">
+                          <el-input :disabled="!disable" style="width: 20vw ; margin-left: 1px" v-model="form.eccnjudgeno"></el-input>
                         </el-form-item>
                       </el-col>
                     </el-row>
@@ -462,12 +596,14 @@
                             :disabled="!disable"
                             label="0"
                             v-model="form.exportlicense"
+                            style="margin-left: 50px"
                           >{{this.$t('label.PFANS1028VIEW_NECESSARY')}}
                           </el-radio>
                           <el-radio
                             :disabled="!disable"
                             label="1"
                             v-model="form.exportlicense"
+                            style="margin-left: 50px"
                           >{{this.$t('label.PFANS1028VIEW_UNNECESSARY')}}
                           </el-radio>
                         </el-form-item>
@@ -478,12 +614,14 @@
                             :disabled="!disable"
                             label="0"
                             v-model="form.decresult"
+                            style="margin-left: 50px"
                           >{{this.$t('label.PFANS1028VIEW_CANOUTPUT')}}
                           </el-radio>
                           <el-radio
                             :disabled="!disable"
                             label="1"
                             v-model="form.decresult"
+                            style="margin-left: 50px"
                           >{{this.$t('label.PFANS1028VIEW_NOTOUTPUT')}}
                           </el-radio>
                         </el-form-item>
@@ -555,7 +693,7 @@
                           </el-table-column>
                           <el-table-column :label="$t('label.PFANS1028VIEW_TECHNICALNAME')" align="left"
                                            prop="technicalname"
-                                           width="280">
+                                           width="240">
                             <!--<template slot-scope="scope">-->
                             <!--<el-input :disabled="true" maxlength="20" style="width: 100%"-->
                             <!--v-model="scope.row.technicalname"></el-input>-->
@@ -623,7 +761,7 @@
                           </el-table-column>
                           <el-table-column :label="$t('label.PFANS1028VIEW_TECHNICALNAME')" align="left"
                                            prop="technicalname"
-                                           width="280">
+                                           width="240">
                             <!--<template slot-scope="scope">-->
                             <!--<el-input :disabled="!disable" maxlength="20" style="width: 100%"-->
                             <!--v-model="scope.row.technicalname"></el-input>-->
@@ -677,7 +815,7 @@
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1028VIEW_TECHNICALNAME')" align="left"
                                          prop="technicalname"
-                                         width="280">
+                                         width="240">
                           <!--<template slot-scope="scope">-->
                           <!--<el-input :disabled="!disable" maxlength="20" style="width: 100%"-->
                           <!--v-model="scope.row.technicalname"></el-input>-->
@@ -730,7 +868,7 @@
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1028VIEW_TECHNICALNAME')" align="left"
                                          prop="technicalname"
-                                         width="280">
+                                         width="240">
                           <!--<template slot-scope="scope">-->
                           <!--<el-input :disabled="!disable" maxlength="20" style="width: 100%"-->
                           <!--v-model="scope.row.technicalname"></el-input>-->
@@ -783,7 +921,7 @@
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1028VIEW_TECHNICALNAME')" align="left"
                                          prop="technicalname"
-                                         width="280">
+                                         width="240">
                           <!--<template slot-scope="scope">-->
                           <!--<el-input :disabled="!disable" maxlength="20" style="width: 100%"-->
                           <!--v-model="scope.row.technicalname"></el-input>-->
@@ -1265,16 +1403,29 @@
         checked1: false,
         checked2: false,
         checked3: false,
+        checked4: false,
         disabled1: false,
         disabled2: false,
         disabled3: false,
         disabled4: false,
+        disabled5: true,
+        disabled6: true,
+        disabled7: true,
+        disabled8: true,
+        show1: false,
+        show2: false,
+        show3: false,
+        show4: false,
+        show5: false,
+        show6: false,
+        show7: false,
+        show8: false,
         activeName: 'first',
         activeName2: 'first',
         activeName3: 'first',
         disabled: true,
         options: [],
-        checkList: [],
+        // checkList: [],
         code1: 'HT012',
         loading: false,
         title: 'title.PFANS1028VIEW',
@@ -1293,7 +1444,7 @@
         arrSOF: [],
         form: {
           decisionnumber: '',
-          career: '',
+          career: this.$t('PSDCD'),
           deployment: '',
           contractnumber: '',
           janame: '',
@@ -1337,11 +1488,26 @@
           suppliecom: '',
           suppliesof: '',
           sujudegresult: '2',
-          lijudegresult: ['4'],
+          lijudegresult: [''],
           jxjudgeno:'',
           gfjudgeno:'',
           lyjudgeno:'',
           americantechno:'',
+          other1: false,
+          other2: false,
+          other3: false,
+          other4: false,
+          other5: false,
+          other6: false,
+          other7: false,
+          other8: false,
+          other9: false,
+          other10: false,
+          other11: false,
+          oreason: '',
+          othreason: '',
+          otherreason: '',
+          eccnjudgeno: '',
         },
         tableComputers: [
           {
@@ -2511,6 +2677,16 @@
             this.form.jxjudgeno='JX-'+response.contractnumber;
             this.form.lyjudgeno='LY-'+response.contractnumber;
              this.form.today=moment(new Date()).format('YYYY-MM-DD');
+            if(this.form.outputlimit2 === '1'){
+              this.show8 = true;
+            }else{
+              this.show8 = false;
+            }
+            if(this.form.americantechno === '1'){
+              this.show7 = true;
+            }else{
+              this.show7 = false;
+            }
             if(this.form.americantechnology === '0'){
               this.disabled4 = true;
             }else{
@@ -2521,9 +2697,6 @@
              } else {
                this.form.restricted = '1';
              }
-            if (this.form.possible !== '') {
-              this.checkList = JSON.parse(this.form.possible);
-            }
             if (this.form.review !== '' && this.form.review !== null) {
               if (this.form.review === '2') {
                 this.checked3 = true;
@@ -2534,6 +2707,101 @@
                 this.checked2 = true;
               } else if (this.form.review === '4') {
                 this.checked2 = true;
+              }
+            }
+            if(this.form.management4 === '0'){
+              this.show6 = true;
+            }else{
+              this.show6 = false;
+            }
+            // if (this.form.possible !== '') {
+            //   this.checkList = JSON.parse(this.form.possible);
+            // }
+            if(this.form.other1 !== '' && this.form.other1 !== null){
+              if(this.form.other1 === 'true'){
+                this.form.other1 = true;
+              } else {
+                this.form.other1 = false;
+              }
+            }
+            if(this.form.other2 !== '' && this.form.other2 !== null){
+              if(this.form.other2 === 'true'){
+                this.form.other2 = true;
+              } else {
+                this.form.other2 = false;
+              }
+            }
+            if(this.form.other3 !== '' && this.form.other3 !== null){
+              if(this.form.other3 === 'true'){
+                this.form.other3 = true;
+              } else {
+                this.form.other3 = false;
+              }
+            }
+            if(this.form.other4 !== '' && this.form.other4 !== null){
+              if(this.form.other4 === 'true'){
+                this.form.other4 = true;
+              } else {
+                this.form.other4 = false;
+              }
+            }
+            if(this.form.other5 !== '' && this.form.other5 !== null){
+              if(this.form.other5 === 'true'){
+                this.form.other5 = true;
+                this.show1 = true;
+              } else {
+                this.form.other5 = false;
+                this.show1 = false;
+              }
+            }
+            if(this.form.other6 !== '' && this.form.other6 !== null){
+              if(this.form.other6 === 'true'){
+                this.form.other6 = true;
+              } else {
+                this.form.other6 = false;
+              }
+            }
+            if(this.form.other7 !== '' && this.form.other7 !== null){
+              if(this.form.other7 === 'true'){
+                this.form.other7 = true;
+                this.show3 = true;
+              } else {
+                this.form.other7 = false;
+                this.show3 = false;
+              }
+            }
+            if(this.form.other8 !== '' && this.form.other8 !== null){
+              if(this.form.other8 === 'true'){
+                this.form.other8 = true;
+                this.show2 = true;
+              } else {
+                this.form.other8 = false;
+                this.show2 = false;
+              }
+            }
+            if(this.form.other9 !== '' && this.form.other9 !== null){
+              if(this.form.other9 === 'true'){
+                this.form.other9 = true;
+              } else {
+                this.form.other9 = false;
+              }
+            }
+            if(this.form.other10 !== '' && this.form.other10 !== null){
+              if(this.form.other10 === 'true'){
+                this.form.other10 = true;
+                this.show4 = true;
+              } else {
+                this.form.other10 = false;
+                this.show4 = false;
+              }
+            }
+            if(this.form.other11 !== '' && this.form.other11 !== null){
+              if(this.form.other11 === 'true'){
+                this.form.other11 = true;
+                this.show5 = true;
+              } else {
+                this.form.other11 = false;
+                this.show5 = false;
               }
             }
             let repair = response.claimdatetime;
@@ -2649,7 +2917,9 @@
         if(this.form.americantechnology === '0'){
           this.disabled4 = true;
         }else{
-          this.disabled4 = false
+          this.form.americantechno = '';
+          this.disabled4 = false;
+          this.show7 = false;
         }
       },
       getvalue(val){
@@ -2838,17 +3108,21 @@
       },
       getChecked1(val) {
         this.checked1 = val;
-        if (val === true) {
+        if(val === true && this.checked2 === true){
+          if(this.checked2 === true){
+            this.form.review = '3';
+            this.form.requirements = '1';
+          }
+        } else if (val === true) {
           this.disabled2 = false;
           this.checked3 = false;
           this.form.review = '1';
-          this.form.requirements='1'
-        } else {
+          this.form.requirements='0'
+        } else if(val === false){
           this.checked1 = false;
-          this.checked2 = false;
           this.checked3 = false;
           this.form.review = '';
-          this.form.requirements='0';
+          this.form.requirements='1';
           this.form.requirements='';
         }
       },
@@ -2872,17 +3146,105 @@
         if (val === true) {
           if (this.form.review === '1') {
             this.form.review = '3';
-            this.form.requirements='0'
-          } else {
-            this.form.review = '4';
+            this.form.requirements='1'
           }
         } else if(val===false || this.checked1===true){
           this.form.review='1';
-          this.form.requirements='1';
+          this.form.requirements='0';
+        }else if(val===true || this.checked1===false){
+          this.form.review = '3';
+          this.form.requirements='0';
         }else if(val===false || this.checked1===false){
           this.form.review = '';
           this.form.requirements='0';
-          this.form.requirements='';
+        }
+      },
+      getChecked4(val){
+        this.form.judgment1 = val;
+        // if(val === true){
+        //   this.form.judgment1 = '1';
+        // } else if(val === false){
+        //   this.form.judgment1 = '0';
+        // }
+      },
+      getChecked8(val){
+        this.form.other5 = val;
+        if(val === true){
+          this.show1 = true;
+        } else {
+          this.show1 = false;
+          this.show3 = false
+        }
+      },
+      getChecked9(val){
+        this.form.other6 = val;
+        if(val === true){
+          this.form.other7 = false;
+        }
+      },
+      getChecked10(val){
+        this.form.other7 = val;
+        if(val === true){
+          this.form.other6 = false;
+          this.show3 = true;
+        }else{
+          this.show3 = false;
+        }
+      },
+      getChecked11(val){
+        this.form.other8 = val;
+        if(val === true){
+          this.show2 = true;
+        } else {
+          this.show2 = false;
+          this.show4 = false;
+        }
+      },
+      getChecked12(val){
+        this.form.other9 = val;
+        if(val === true){
+          this.form.other10 = false;
+        }
+      },
+      getChecked13(val){
+        this.form.other10 = val;
+        if(val === true){
+          this.form.other9 = false;
+          this.show4 = true;
+        }else{
+          this.show4 = false;
+        }
+      },
+      getChecked14(val){
+        this.form.other11 = val;
+        if(val === true){
+          this.show5 = true;
+        }else{
+          this.show5 = false;
+        }
+      },
+      getRadio(val){//americantechno
+        this.form.management4 = val;
+        if(this.form.management4 === '0'){
+          this.show6 = true;
+        }else{
+          this.show6 = false;
+        }
+      },
+      getRadio1(val){
+        this.form.americantechno = val;
+        if(this.form.americantechno === '1'){
+          this.show7 = true;
+        }else{
+          this.show7 = false;
+        }
+      },
+      getRadio2(val){
+        this.form.outputlimit2 = val;
+        if(this.form.outputlimit2 === '1'){
+          this.show8 = true;
+        }else{
+          this.show8 = false;
         }
       },
       workflowState(val) {
@@ -2907,10 +3269,45 @@
           this.$refs['reff'].validate(valid => {
             if (valid) {
               this.loading = true;
-              if (JSON.stringify(this.checkList) !== '[]') {
-                this.form.possible = JSON.stringify(this.checkList);
-              } else {
-                this.form.possible = '';
+              // if (JSON.stringify(this.checkList) !== '[]') {
+              //   this.form.possible = JSON.stringify(this.checkList);
+              // } else {
+              //   this.form.possible = '';
+              // }
+              if(this.form.americantechnology === '1'){
+                this.form.americantechno = '';
+                this.form.eccnjudgeno = '';
+              }
+              if(this.form.outputlimit2 === '0'){
+                this.form.weapon = '';
+                this.form.weaponreson = '';
+                this.form.word = '';
+                this.form.wordreson = '';
+                this.form.restricted = '';
+                this.form.specifireson = '';
+                this.form.specifi = '';
+              }
+              if(this.form.management4 === '1' || this.form.management4 === '3'){
+                this.form.judged = '';
+              }
+              if(this.form.other5 === false){
+                this.form.other6 = '';
+                this.form.other7 = '';
+                this.form.oreason = '';
+              }
+              if(this.form.other7 === false){
+                this.form.oreason = '';
+              }
+              if(this.form.other8 === false){
+                this.form.other9 = '';
+                this.form.other10 = '';
+                this.form.othreason = '';
+              }
+              if(this.form.other10 === false){
+                this.form.othreason = '';
+              }
+              if(this.form.other11 === false){
+                this.form.otherreason = '';
               }
               //通信デバイス、コンピューター及び電子デバイス製造
               for (let i = 0; i < this.tableCommun.length; i++) {
@@ -2972,10 +3369,12 @@
                 });
               }
               let lijudegresult = '';
+              if(this.form.lijudegresult!==null){
               for (let item of this.form.lijudegresult) {
                 lijudegresult += item + ",";
-              }
+                }
               lijudegresult = lijudegresult.substr(0, lijudegresult.length - 1);
+              }
               this.form.lijudegresult = lijudegresult;
               this.form.limitcommunt = JSON.stringify(this.arrJud);
               this.form.limitdelivery = JSON.stringify(this.arrdel);
