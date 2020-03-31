@@ -314,7 +314,7 @@
               phonenumber: '',
               emaildetail: '',
               startdate: '',
-              fabuilding: ' ',
+              fabuilding: '',
               // fbbuilding: ' ',
               // showroom: ' ',
               entrymanager: '',
