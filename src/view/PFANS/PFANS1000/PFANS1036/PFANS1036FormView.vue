@@ -1776,7 +1776,7 @@
           });
         this.getPersonTable(this.$route.params.groupid,this.$route.params.year);
       } else {
-        this.form.year = moment().subtract(3,'months').year();
+        this.form.year = moment().subtract(3,'months').year()  + 1;
         let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
         if(this.$store.getters.orgGroupList.length > 0 ){
           this.groupA2 = this.$store.getters.orgGroupList.map(
