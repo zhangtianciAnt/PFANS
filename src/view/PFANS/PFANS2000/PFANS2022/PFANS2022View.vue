@@ -36,14 +36,14 @@
             filter: true,
           },
           {
-            code: 'group_id',
+            code: 'group_name',
             label: 'label.group',
             width: 120,
             fix: false,
             filter: true,
           },
           {
-            code: 'team_id',
+            code: 'team_name',
             label: 'label.team',
             width: 100,
             fix: false,
