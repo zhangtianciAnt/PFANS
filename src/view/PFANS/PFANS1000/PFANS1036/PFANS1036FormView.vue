@@ -1790,12 +1790,13 @@
             }
           );
         }
+        debugger
           this.form.center_id = rst.centerId||"";
           this.form.group_id = rst.groupId||"";
           this.form.user_id = this.$store.getters.userinfo.userid;
           this.org = this.$store.getters.orgGroupList.filter(val => val.groupid === this.form.group_id)[0];
-          this.getGroupB1(this.form.group_id);
-          this.getPersonTable(rst.groupId,this.form.year);
+         if(this.form.group_id) this.getGroupB1(this.form.group_id);
+         if(this.form.group_id) this.getPersonTable(rst.groupId,this.form.year);
       }
     },
     computed:{
