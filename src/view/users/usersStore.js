@@ -52,7 +52,7 @@ const usersStore = {
     },
     getUserTableList2({ commit }, params) {
       return new Promise((resolve, reject) => {
-        getUserTableList(params).then(response => {
+        getUserTableList2(params).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {

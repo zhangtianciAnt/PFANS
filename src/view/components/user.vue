@@ -245,7 +245,7 @@
           orgid: data._id,
           orgtype: data.type
         }
-        this.$store.dispatch('usersStore/getUserTableList', params).then(response => {
+        this.$store.dispatch('usersStore/getUserTableList2', params).then(response => {
           let _tableList = [];
           if(response && response.length > 0) {
             response.map((d)=>{
