@@ -357,6 +357,8 @@
                             this.$t('label.PFANS6002VIEW_ADDRESSJ'),
                             this.$t('label.PFANS6002VIEW_ADDRESSE'),
                             this.$t('label.PFANS6002VIEW_PERSCALE'),
+                          this.$t('label.PFANS6003FORMVIEW_THECOMPANY'),
+                          this.$t('label.PFANS1024VIEW_BUSINESSCODE'),
                         ];
                         const filterVal = [
                             'custchinese',
@@ -376,6 +378,9 @@
                             'addjapanese',
                             'addenglish',
                             'perscale',
+                          'thecompany',
+                          'causecode'
+
                         ];
                         const list = this.selectedlist;
                         const data = this.formatJson(filterVal, list);

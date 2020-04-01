@@ -71,6 +71,26 @@
             </div>
           </div>
         </el-dialog>
+        <el-dialog :visible.sync="pop_download" width="50%" destroy-on-close>
+          <el-table
+            :data="downtypes"
+            style="width: 100%">
+            <el-table-column
+              prop="name"
+              :label="$t('label.ASSETS1001VIEW_FILENAME')"
+            >
+            </el-table-column>
+
+            <el-table-column :label="$t('label.operation')">
+              <template slot-scope="scope">
+                <el-button
+                  size="mini"
+                  @click="handleDownload(scope.row)"
+                >{{$t('button.download2')}}</el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+        </el-dialog>
       </el-main>
     </el-container>
   </div>
@@ -104,6 +124,7 @@ export default {
       daoru: false,
       successCount: 0,
       errorCount: 0,
+      pop_download: false,
       authHeader: {'x-auth-token': getToken()},
       postAction: process.env.BASE_API + '/user/importUser',
       resultShow: false,
@@ -231,17 +252,23 @@ export default {
           disabled: true,
           icon: "el-icon-edit"
         },
-        // {
-        //   key: 'import',
-        //   name: 'button.import',
-        //   disabled: false,
-        //   icon: 'el-icon-download'
-        // },
+        {
+          key: 'import',
+          name: 'button.import',
+          disabled: false,
+          icon: 'el-icon-download'
+        },
         {
           key: 'export',
           name: 'button.export',
           disabled: false,
           icon: 'el-icon-upload2'
+        },
+        {
+          key: 'export2',
+          name: 'button.download2',
+          disabled: false,
+          icon: 'el-icon-download'
         },
       ],
       departmentname: "",
@@ -250,6 +277,22 @@ export default {
     };
   },
   methods: {
+    handleDownload(row) {
+      this.loading = true;
+      this.$store
+        .dispatch('usersStore/download', {'type': row.type})
+        .then(response => {
+          this.loading = false;
+        })
+        .catch(error => {
+          Message({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000
+          });
+          this.loading = false;
+        })
+    },
       getworkinghours(workinghours) {
           if (workinghours != null) {
               if (workinghours.length > 0) {
@@ -393,6 +436,9 @@ export default {
       this.daoru = true;
       this.clear(false);
     }
+      if (val === 'export2') {
+        this.pop_download = true;
+      }
       this.$store.commit("global/SET_HISTORYURL", this.$route.path);
       if (val === "new") {
         this.$router.push({
@@ -596,13 +642,16 @@ export default {
                 result = result.substring(0, result.lastIndexOf(","));
                 _tableList[j].departmentname = result;
               }
-              _tableList[j].status === "0"
-                ? (_tableList[j].statusname = this.$t(
-                "label.PFANSUSERVIEW_ENABLE"
-                ))
-                : (_tableList[j].statusname = this.$t(
-                "label.PFANSUSERVIEW_FORBIDDEN"
-                ));
+              if (this.$i18n){
+                _tableList[j].status === "0"
+                  ? (_tableList[j].statusname = this.$t(
+                  "label.PFANSUSERVIEW_ENABLE"
+                  ))
+                  : (_tableList[j].statusname = this.$t(
+                  "label.PFANSUSERVIEW_FORBIDDEN"
+                  ));
+              }
+
               if (_tableList[j].post && getDictionaryInfo(
                 _tableList[j].post))
                 _tableList[j].post = getDictionaryInfo(
@@ -621,11 +670,14 @@ export default {
                 _tableList[j].birthday = moment(_tableList[j].birthday).format(
                   "YYYY-MM-DD"
                 );
-              if (_tableList[j].sex === "PR019001"){
-                _tableList[j].sex = this.$t("label.PFANS2002FORMVIEW_BOY");
-              }else{
-                _tableList[j].sex =  this.$t("label.PFANS2002FORMVIEW_GRIL");
+              if (this.$i18n){
+                if (_tableList[j].sex === "PR019001"){
+                  _tableList[j].sex = this.$t("label.PFANS2002FORMVIEW_BOY");
+                }else{
+                  _tableList[j].sex =  this.$t("label.PFANS2002FORMVIEW_GRIL");
+                }
               }
+
               if (_tableList[j].budgetunit!== null && _tableList[j].budgetunit !== "") {
                 let letbudge = getDictionaryInfo(_tableList[j].budgetunit);
                 if (letbudge) {
@@ -707,7 +759,14 @@ export default {
           "usersStore/SET_ORGS",
           this.$refs.treeCom.$refs.treeCom
         );
-  }
+  },
+  computed: {
+    downtypes(){
+      return [
+        {name: this.$t('menu.user'), type: 0}
+      ]
+    }
+  },
 };
 </script>
 

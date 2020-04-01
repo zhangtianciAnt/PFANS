@@ -151,11 +151,11 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row>
-            <el-col :span="10">
-              <div class="sub_color_red">{{$t('label.PFANS1018FORMVIEW_LEVELBUTTOM')}}</div>
-            </el-col>
-          </el-row>
+<!--          <el-row>-->
+<!--            <el-col :span="10">-->
+<!--              <div class="sub_color_red">{{$t('label.PFANS1018FORMVIEW_LEVELBUTTOM')}}</div>-->
+<!--            </el-col>-->
+<!--          </el-row>-->
             </el-collapse-item>
           </el-collapse>
         </el-form>

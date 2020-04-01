@@ -278,6 +278,19 @@ export function getCooperinterviewList(cooperuserid) {
   return info
 }
 
+export function getCooperinterviewListByAccount(accountid) {
+  let info = null;
+  if (store.getters.cooperinterviewList && store.getters.cooperinterviewList.length > 0) {
+    for (let cooperinterview of store.getters.cooperinterviewList) {
+      if (cooperinterview.account === accountid) {
+        info = cooperinterview;
+        break
+      }
+    }
+  }
+  return info
+}
+
 export function getorgGroupList(groupid) {
   let info = null;
   if (store.getters.orgGroupList && store.getters.orgGroupList.length > 0) {

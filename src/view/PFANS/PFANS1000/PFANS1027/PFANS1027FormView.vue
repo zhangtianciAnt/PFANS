@@ -293,7 +293,7 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1027FORMVIEW_SYSTEM')" prop="system">
-                    <el-input v-model="form.system" type="textarea" :rows="3" :disabled="!disabled" style="width: 70vw"></el-input>
+                    <el-input v-model="form.system" type="textarea" :rows="3" :disabled="!disabled" style="width: 71vw"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>

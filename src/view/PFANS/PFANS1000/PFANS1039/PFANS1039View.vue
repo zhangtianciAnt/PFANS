@@ -25,6 +25,21 @@
           </el-col>
         </div>
       </div>
+
+      <div>
+        <div @click="submitForm(3)" class="m-content">
+          <el-col :span="18">
+            <div style="width: 150px; margin-left: 8px; text-overflow: ellipsis; overflow: hidden;
+                          float: left; padding: 10px 0px; height: 50px; line-height: 18px;">{{$t('theme管理')}}
+            </div>
+          </el-col>
+          <el-col :span="6" class="m-div">
+            <img :src="png3" class="m-img">
+          </el-col>
+        </div>
+      </div>
+
+
     </el-card>
   </div>
 </template>
@@ -32,6 +47,7 @@
   import EasyNormalTable from '@/components/EasyNormalTable';
   import png1 from "@/assets/png/12.png";
   import png2 from "@/assets/png/13.png";
+  import png10 from "@/assets/png/10.png";
   import moment from "moment";
   export default {
     name: 'PFANS1039View',
@@ -45,7 +61,8 @@
           type: String,
         },
         png1: png1,
-        png2: png2
+        png2: png2,
+        png3: png10
       };
     },
     mounted() {
@@ -72,6 +89,15 @@
               _id: this.years
             },
           });
+        }else if (val === 3) {
+            this.$store.commit("global/SET_WORKFLOWURL", "/PFANS1041View");
+            this.$router.push({
+                name: 'PFANS1043View',
+                params: {
+                    title: val,
+                    _id: this.years
+                },
+            });
         }
       },
     },

@@ -5,6 +5,7 @@ const getters = {
   operateId: state => state.global.operateId,
   currentUrl: state => state.global.currentUrl,
   userinfo: state => state.global.userinfo,
+  useraccount: state => state.global.useraccount,
   userList: state => state.global.userList,
   workflowUrl: state => state.global.workflowUrl,
   orgList: state => state.global.orgList,

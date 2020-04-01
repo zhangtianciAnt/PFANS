@@ -71,7 +71,7 @@
                 <img :src="png2" style="width: 50%" @click="submitForm(2)">
               </el-row>
               <el-row style="text-align: center">
-                <span style="font-size: 0.85rem">{{$t('title.PFANS2005VIEW')}}</span>
+                <span style="font-size: 0.85rem">{{$t('title.PFANS2006VIEW')}}</span>
               </el-row>
             </el-col>
             <el-col :span="3"  style="cursor: pointer">
@@ -196,7 +196,7 @@
         }
         if (val === 2) {
           this.$router.push({
-            name: 'PFANS2005View',
+            name: 'PFANS2028View',
           });
         }
         if (val === 3) {
@@ -330,6 +330,12 @@
               );
             }
 
+            if(response.userAccount){
+              this.$store.commit(
+                "global/SET_USERACCOUNT",
+                response.userAccount
+              );
+            }
             let roles = response.userAccount.roles; //系统角色
             let rolename = "";
             if (roles && roles.length > 0) {
