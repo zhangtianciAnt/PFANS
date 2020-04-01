@@ -13,7 +13,7 @@
                   <el-dropdown-menu slot="dropdown">
                     <router-link to="/PFANS8001View"><el-dropdown-item icon="el-icon-edit">{{$t('title.PFANS8001VIEW')}}</el-dropdown-item></router-link>
                     <router-link to="/PFANS8002View"><el-dropdown-item icon="el-icon-bell">{{$t('notice.name')}}</el-dropdown-item></router-link>
-                    <router-link to="/usersFormViewByPerson"><el-dropdown-item icon="el-icon-user">{{$t('help.name')}}</el-dropdown-item></router-link>
+                    <router-link to="/usersFormViewByPerson" v-show="Object.keys(userinfo).length > 0"><el-dropdown-item icon="el-icon-user">{{$t('help.name')}}</el-dropdown-item></router-link>
                     <router-link to="/"><el-dropdown-item icon="el-icon-switch-button">{{$t('logout.name')}}</el-dropdown-item></router-link>
                   </el-dropdown-menu>
                 </EasyAvatar>
@@ -41,7 +41,7 @@
         <el-col :span="21">
           <el-main class="sub_bg_color_grey" style="padding: 1rem;overflow-x: hidden">
             <!--<transition name="el-fade-in">-->
-            <router-view @changeMenu="changeMenu"/>
+            <router-view @changeMenu="changeMenu" @showPersonCenter="showPersonCenter"/>
             <!--</transition>-->
           </el-main>
         </el-col>
@@ -103,6 +103,7 @@
     },
     data() {
       return {
+        userinfo:{},
         menuLoading: false,
         userPage: "/personalCenter",
         defaultcount: 0, //消息条数
@@ -154,14 +155,6 @@
       };
     },
     methods: {
-      toPersonCenter(){
-        this.$router.push({
-          name: 'usersFormViewByPerson',
-          params: {
-            _id: this.$store.getters.userid
-          }
-        })
-      },
       //消息列表按钮事件
       buttonClick(val) {
         if (val === "update") {
@@ -350,6 +343,9 @@
         this.vactiveIndex = appid;
         this.$store.commit("global/SET_CURRENTURL", appid);
         this.$store.commit("global/SET_WORKFLOWURL", appid);
+      },
+      showPersonCenter(){
+        this.userinfo = this.$store.getters.userinfo;
       },
       changeMenu(){
         this.vactiveIndex = this.$router.currentRoute.path;
