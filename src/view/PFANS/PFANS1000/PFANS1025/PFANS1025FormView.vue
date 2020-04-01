@@ -92,12 +92,12 @@
                       </el-date-picker>
                     </el-form-item>
                   </el-col>
-<!--                  <el-col :span="8">-->
-<!--                    <el-form-item :label="$t('label.PFANS1024VIEW_DELIVERYDATE')">-->
-<!--                      <el-date-picker :disabled="true" style="width:20vw" v-model="form.deliverydate">-->
-<!--                      </el-date-picker>-->
-<!--                    </el-form-item>-->
-<!--                  </el-col>-->
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1024VIEW_DELIVERYDATE')">
+                      <el-date-picker :disabled="true" style="width:20vw" v-model="form.deliverydate">
+                      </el-date-picker>
+                    </el-form-item>
+                  </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
@@ -168,7 +168,7 @@
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1025VIEW_TELEPHONE')" prop="telephone">
-                      <el-input  :disabled="!disable" style="width:20vw" v-model="form.telephone"></el-input>
+                      <el-input  :disabled="true" style="width:20vw" v-model="form.telephone"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -535,11 +535,11 @@
             validator: checkuser,
             trigger: 'change'
           }],
-          telephone: [{
-            required: true,
-            message: this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS1012VIEW_TELEPHONE'),
-            trigger: 'change'
-          }],
+          // telephone: [{
+          //   required: true,
+          //   message: this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS1012VIEW_TELEPHONE'),
+          //   trigger: 'change'
+          // }],
         },
         buttonList: []
       }
@@ -550,15 +550,14 @@
         this.$store
           .dispatch('PFANS1025Store/selectById', {'award_id': this.$route.params._id})
           .then(response => {
+            debugger
             this.form = response.award;
             if(getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)){
                   this.budgetcodingcheck = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
               }
             if(this.$store.getters.userinfo.userid){
-              debugger;
-              this.form.telephone = getUserInfo(this.$store.getters.userinfo.userid).userinfo.phone;
+              this.form.telephone = getUserInfo(this.$store.getters.userinfo.userid).userinfo.extension;
             }
-            console.log("aaa",this.budgetcodingcheck)
             this.form.draftingdate = moment(new Date()).format('YYYY-MM-DD');
             var myDate = new Date();
             myDate.setDate(myDate.getDate() + 2);
@@ -614,6 +613,15 @@
             this.loading = false;
           });
       }
+      // else {
+      //   this.userlist = this.$store.getters.userinfo.userid;
+      //   if (this.userlist !== null && this.userlist !== '') {
+      //     let lst = getUserInfo(this.$store.getters.userinfo.userid);
+      //     if (lst) {
+      //       this.form.telephone = lst.userinfo.extension;
+      //     }
+      //   }
+      // }
     },
     created(){
       if(!this.$route.params.disabled){

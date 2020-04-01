@@ -148,8 +148,8 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1025VIEW_TELEPHONE')" :error="errortelephone" prop="telephone">
-                      <el-input  :disabled="!disable" style="width:20vw" v-model="form.telephone"></el-input>
+                    <el-form-item :label="$t('label.PFANS1025VIEW_TELEPHONE')" prop="telephone">
+                      <el-input  :disabled="true" style="width:20vw" v-model="form.telephone"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -719,21 +719,20 @@
         activeName: 'first',
         disabled: true,
         errorcustojapanese: '',
-          errorcustochinese: '',
-          errorplacejapanese: '',
-          errorplacechinese: '',
-          errordeployment: '',
-          errorpjnamejapanese: '',
-          errorpjnamechinese: '',
-          error: '',
-          errorcurrencyposition: '',
-          errorclaimamount: '',
-          errorclaimdatetimeStart: '',
-          errorclaimdatetimeEnd: '',
-          errortelephone: '',
-          errorplan:'',
-          errorvaluation:'',
-          errorindividual:'',
+        errorcustochinese: '',
+        errorplacejapanese: '',
+        errorplacechinese: '',
+        errordeployment: '',
+        errorpjnamejapanese: '',
+        errorpjnamechinese: '',
+        error: '',
+        errorcurrencyposition: '',
+        errorclaimamount: '',
+        errorclaimdatetimeStart: '',
+        errorclaimdatetimeEnd: '',
+        errorplan:'',
+        errorvaluation:'',
+        errorindividual:'',
         userlist: '',
         code1: 'HT008',
         code2: 'HT005',
@@ -927,11 +926,11 @@
             validator: checkuser,
             trigger: 'change'
           }],
-          telephone: [{
-            required: true,
-            message: this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS1012VIEW_TELEPHONE'),
-            trigger: 'change'
-          }],
+          // telephone: [{
+          //   required: true,
+          //   message: this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS1012VIEW_TELEPHONE'),
+          //   trigger: 'change'
+          // }],
           custojapanese: [{
                 required: true,
                 validator: checkcustojapanese,
@@ -1020,7 +1019,9 @@
                 this.form.custojapanese = letUser.userinfo.customername;
               }
             }
-
+            if(this.$store.getters.userinfo.userid){
+              this.form.telephone = getUserInfo(this.$store.getters.userinfo.userid).userinfo.extension;
+            }
             this.form.draftingdate = moment(new Date()).format('YYYY-MM-DD');
             var myDate = new Date();
             myDate.setDate(myDate.getDate() + 2);
