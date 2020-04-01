@@ -6,7 +6,8 @@ import {
   mobileCheck,
   disableUser,
   getRoleList,
-  setRoleToUser
+  setRoleToUser,
+  download
 } from './usersApi'
 
 const usersStore = {
@@ -126,6 +127,15 @@ const usersStore = {
           } else {
             reject(response.message)
           }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    download({commit}, data) {
+      return new Promise((resolve, reject) => {
+        download(data).then(response => {
+          resolve(response);
         }).catch(error => {
           reject(error);
         })
