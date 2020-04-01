@@ -32,45 +32,38 @@
                     </el-col>
                   </el-row>
                   <el-row>
-                    <el-col :span="12">
-                      <el-form-item>
-                        <el-link target="_blank"
-                                 :underline="false"
-                                 @click="program=true" type="primary" :disabled="!disable">
-                          <span>{{$t('label.PFANS5008FORMVIEW_BIANJI')}}</span>
-                        </el-link>
-                        <el-dialog :visible.sync="program" width="50%">
-                          <table border="0" cellspacing="0" cellpadding="0" width="800rem">
-                            <div style="text-align: center">
-                              <el-transfer
-                                style="text-align: left; display: inline-block"
-                                @change="handleChange"
-                                v-model="determine.project_name"
-                                :titles="[$t('label.PFANS5008FORMVIEW_BMXM'),$t('label.PFANS5008FORMVIEW_GRXM')]"
-                                :button-texts="[$t('label.PFANS5008FORMVIEW_LEFT'),$t('label.PFANS5008FORMVIEW_RIGHT')]"
-                                :format="{noChecked: '${total}',hasChecked: '${checked}/${total}'}"
-                                :data="transfer"
-
-                              >
-                              </el-transfer>
-                              <el-form-item>
-                                <el-button type="primary" @click="submitForm(determine)">{{$t('button.confirm')}}
-                                </el-button>
-                              </el-form-item>
-                            </div>
-                          </table>
-                        </el-dialog>
-                      </el-form-item>
-                    </el-col>
-                    <el-col :span="12">
-                      <el-form-item :label="$t('label.PFANS5008VIEW_PROGRAMNAME')" style="width:17vw"
-                                    prop="project_name">
-                      </el-form-item>
-                    </el-col>
-                  </el-row>
-                  <el-row>
                     <div v-show="isShow">
                       <el-col :span="12">
+
+
+                        <el-form-item>
+                          <el-link target="_blank"
+                                   :underline="false"
+                                   @click="program=true" type="primary" :disabled="!disable">
+                            <span>{{$t('label.PFANS5008FORMVIEW_BIANJI')}}</span>
+                          </el-link>
+                          <el-dialog :visible.sync="program" width="50%">
+                            <table border="0" cellspacing="0" cellpadding="0" width="810rem" style="margin-left: 3vw">
+                              <div>
+                                <el-transfer
+                                  style="text-align: left; display: inline-block"
+                                  @change="handleChange"
+                                  v-model="determine.project_name"
+                                  :titles="[$t('label.PFANS5008FORMVIEW_BMXM'),$t('label.PFANS5008FORMVIEW_GRXM')]"
+                                  :button-texts="[$t('label.PFANS5008FORMVIEW_LEFT'),$t('label.PFANS5008FORMVIEW_RIGHT')]"
+                                  :format="{noChecked: '${total}',hasChecked: '${checked}/${total}'}"
+                                  :data="transfer"
+
+                                >
+                                </el-transfer>
+                                <el-form-item style="margin-left:18.5vw">
+                                  <el-button type="primary" @click="submitForm(determine)">{{$t('button.confirm')}}
+                                  </el-button>
+                                </el-form-item>
+                              </div>
+                            </table>
+                          </el-dialog>
+                        </el-form-item>
                         <el-select v-model="companyform.project_id" :disabled="!disable" style="width: 16vw" clearable
                                    @change="getProject">
                           <el-option
@@ -82,6 +75,9 @@
                         </el-select>
                       </el-col>
                       <el-col :span="12">
+                        <el-form-item :label="$t('label.PFANS5008VIEW_PROGRAMNAME')" style="width:17vw"
+                                      prop="project_name">
+                        </el-form-item>
                         {{companyform.project_name}}
                       </el-col>
                     </div>
@@ -446,7 +442,13 @@
             }
         },
         mounted() {
+            this.companyform.work_phase = 'PP008004',
+            this.code3 = 'PP011',
             this.getCompanyProjectList();
+            if(this.companyform.project_id){
+                this.companyform.work_phase = '';
+            }
+
             this.loading = true;
             this.$store
                 .dispatch('PFANS5008Store/getProjectList', {})
@@ -650,6 +652,10 @@
                 }
             },
             getProject(val) {
+                if(val){
+                    this.companyform.work_phase = ''
+                    this.code3 = '0'
+                }
                 for (let item of this.optionsdata) {
                     if (item.value === val) {
                         this.companyform.project_name = item.lable;
