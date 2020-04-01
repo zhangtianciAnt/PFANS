@@ -119,11 +119,6 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1032FORMVIEW_CLAIMTYPE')">
-                <el-input :disabled="true" maxlength="20" style="width:20vw" v-model="form.claimtype"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1025VIEW_CURRENCYFORMAT')">
                 <dicselect :code="code2"
                            :data="form.currencyposition"
@@ -132,6 +127,8 @@
                 </dicselect>
               </el-form-item>
             </el-col>
+            </el-row>
+            <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1024VIEW_REMARKS')">
                 <el-input :disabled="true" type="textarea" :rows="3" style="width:71vw" v-model="form.remarks"></el-input>

@@ -4,7 +4,7 @@
                          v-loading="loading">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw"
-                 ref="ruleForm" style="padding: 2vw">
+                 ref="ruleForm" style="padding: 3vw">
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.ASSETS1001VIEW_TYPEASSETS')" prop="typeassets">

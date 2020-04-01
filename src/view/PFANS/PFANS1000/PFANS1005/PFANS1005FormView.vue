@@ -4,7 +4,7 @@
                          @end="end" @start="start" @workflowState="workflowState" ref="container">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="ruleForm"
-                 style="padding: 2vw">
+                 style="padding: 3vw">
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.center')" prop="centerid">
