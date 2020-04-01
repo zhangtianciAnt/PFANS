@@ -442,14 +442,14 @@
           })
       } else {
           this.userlist = this.$store.getters.userinfo.userid;
-          if (this.userlist !== null && this.userlist !== '') {
+          if (this.userlist !== null && this.userlist !== ''&& this.userlist === "undefined") {
               let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
               this.form.center_id = lst.centerNmae;
               this.form.group_id = lst.groupNmae;
               this.form.team_id = lst.teamNmae;
               this.form.user_id = this.$store.getters.userinfo.userid;
           }
-        if (this.userlist !== null && this.userlist !== '') {
+        if (this.userlist !== null && this.userlist !== ''&& this.userlist === "undefined") {
           let lst1 = getUserInfo(this.$store.getters.userinfo.userid);
           this.form.phonenumber = lst1.userinfo.mobilenumber;
           this.form.emaildetail = lst1.userinfo.email;
