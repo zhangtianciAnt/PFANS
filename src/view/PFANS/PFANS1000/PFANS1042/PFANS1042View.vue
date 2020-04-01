@@ -629,6 +629,7 @@
                       + Number(response[j].rent) + Number(response[j].other) + Number(response[j].concost) + response[j].departmenttotal + response[j].allocation
 //仕掛品処理
 //                   response[j].process = this.$t('label.PFANS1042FORMVIEW_OUTANDIN')
+
                   response[j].process = response[j].costtotal - response[j].intotal
 //限界利益
                   response[j].marginal = (response[j].inst + response[j].outst1) - (response[j].peocost + response[j].outcost + response[j].researchcost);
