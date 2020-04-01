@@ -225,12 +225,12 @@ export default {
           disabled: true,
           icon: "el-icon-edit"
         },
-        {
-          key: "disableUser",
-          name: this.$t("label.PFANSUSERVIEW_STATUSNAME"),
-          disabled: true,
-          icon: "el-icon-edit"
-        },
+        // {
+        //   key: "disableUser",
+        //   name: this.$t("label.PFANSUSERVIEW_STATUSNAME"),
+        //   disabled: true,
+        //   icon: "el-icon-edit"
+        // },
         // {
         //   key: 'import',
         //   name: 'button.import',

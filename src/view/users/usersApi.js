@@ -27,6 +27,13 @@ export function getById(params) {
   })
 }
 
+export function getme() {
+  return request({
+    url: 'user/getme',
+    method: 'get'
+  })
+}
+
 // 手机号重复验证
 export function mobileCheck(params) {
   return request({
