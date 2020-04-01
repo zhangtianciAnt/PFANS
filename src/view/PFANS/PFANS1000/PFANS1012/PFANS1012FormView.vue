@@ -2823,7 +2823,7 @@
             handleClickChange(val) {
                 this.currentRow = val.suppliername;
                 this.currentRow1 = val.payeename;
-                this.currentRow2 = val.vendornum;
+                this.currentRow2 = val.payeecode;
                 this.currentRow3 = val.payeebankaccountnumber;
                 this.currentRow4 = val.payeebankaccount;
             },
@@ -2852,7 +2852,7 @@
                             var vote = {};
                             vote.suppliername = response[i].supchinese;
                             vote.payeename = response[i].payeename;
-                            vote.vendornum = response[i].vendornum;
+                            vote.payeecode = response[i].payeecode;
                             vote.payeebankaccountnumber = response[i].payeebankaccountnumber;
                             vote.payeebankaccount = response[i].payeebankaccount;
                             this.gridData.push(vote);
