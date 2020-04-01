@@ -17,7 +17,7 @@
             <el-table
               :data="tableData"
               border stripe
-              :style="{width:(this.$route.params.type === 0?'800px':'995px'),marginLeft:(this.$route.params.type === 0?'11%':'6%'),marginTop: '1%'}"
+              :style="{width:(this.$route.params.type === 0?'621px':'801px'),marginLeft:(this.$route.params.type === 0?'11%':'6%'),marginTop: '1%'}"
               header-cell-class-name="sub_bg_color_blue">
               <el-table-column
                 label="No."
@@ -71,6 +71,7 @@
                 :label="$t('label.PFANS1038VIEW_ADOPTED')"
                 width="195"
                 align="center"
+                v-if="show"
                 :formatter="formatterDic">
               </el-table-column>
             </el-table>
@@ -80,7 +81,7 @@
             <el-table
               :data="newTableData"
               border stripe
-              :style="{width:(this.$route.params.type === 0?'70.1vw':'80.1vw'),marginLeft:(this.$route.params.type === 0?'5%':'0%'),marginTop: '1%'}"
+              :style="{width:(this.$route.params.type === 0?'46vw':'64vw'),marginLeft:(this.$route.params.type === 0?'5%':'0%'),marginTop: '1%'}"
               header-cell-class-name="sub_bg_color_blue">
               <el-table-column
                 label="No."
@@ -110,7 +111,8 @@
                 prop="name"
                 :label="$t('label.PFANS1038VIEW_MEMBER')"
                 width="180"
-                align="center">
+                align="center"
+                v-if="show1">
                 <template slot-scope="scope">
                   <el-input size="small" v-model="scope.row.name" :disabled="disabled"></el-input>
                 </template>
@@ -119,7 +121,8 @@
                 prop="thisyear"
                 :label="getThisYearLevel"
                 width="180"
-                align="center">
+                align="center"
+                v-if="show1">
                 <template slot-scope="scope">
                   <el-select
                     clearable
@@ -282,6 +285,8 @@
         tableData: [],
         activeName: "first",
         buttonList: [],
+        show: false,
+        show1: false,
         titles: this.$route.params.type === 0 ? "label.PFANS1038VIEW_MEMBERSHIP" : "label.PFANS1038VIEW_OUTOFHOME",
         form: {
           years: ""
@@ -314,7 +319,13 @@
       }
     },
     mounted() {
+      debugger
       this.getExternal();
+      if(this.$route.params.type === 0){
+        this.show = false;
+      }else if(this.$route.params.type !== 0){
+        this.show = false;
+      }
       if (this.$route.params._id) {
         this.getOne(this.$route.params._id);
       } else {
@@ -392,8 +403,8 @@
           .dispatch("PFANS1038Store/getOne", id)
           .then(response => {
             this.loading = false;
+            debugger
             this.form = response;
-            console.log(JSON.parse(this.form.employed));
             this.tableData = JSON.parse(this.form.employed);
             this.newTableData = JSON.parse(this.form.newentry);
           })
@@ -462,11 +473,9 @@
           }
         }
         for (let i = 0; i < this.newTableData.length; i++) {
-          if (this.newTableData[i].name !== ""){
-             if(this.newTableData[i].nextyear === undefined || this.newTableData[i].nextyear === "" || this.newTableData[i].entermouth == "" || this.newTableData[i].entermouth == undefined){
+             if(this.newTableData[i].nextyear === undefined || this.newTableData[i].nextyear === "" || this.newTableData[i].entermouth === "" || this.newTableData[i].entermouth === undefined){
                error1 = true;
              }
-           }
         }
       }
         if(this.$route.params.type !== 0){
@@ -476,11 +485,9 @@
             }
           }
           for (let i = 0; i < this.newTableData.length; i++) {
-            if (this.newTableData[i].name !== ""){
-              if(this.newTableData[i].nextyear === undefined || this.newTableData[i].nextyear === "" || this.newTableData[i].entermouth == "" || this.newTableData[i].entermouth == undefined || this.newTableData[i].supchinese == ""){
+              if(this.newTableData[i].nextyear === undefined || this.newTableData[i].nextyear === "" || this.newTableData[i].entermouth === "" || this.newTableData[i].entermouth === undefined || this.newTableData[i].supchinese === ""){
                 error1 = true;
               }
-            }
           }
         }
 

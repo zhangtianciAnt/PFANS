@@ -211,8 +211,8 @@
       };
       var validateUserid = (rule, value, callback) => {
         if (!value || value === '' || value ==="undefined") {
-          callback(new Error(this.$t('normal.error_08') + this.$t('label.applicant')));
-          this.error = this.$t('normal.error_08') + this.$t('label.applicant');
+          callback(new Error(this.$t('normal.error_09') + this.$t('label.applicant')));
+          this.error = this.$t('normal.error_09') + this.$t('label.applicant');
         } else {
           callback();
           this.error = '';
@@ -359,7 +359,7 @@
           user_id: [{
             required: true,
             validator: validateUserid,
-            trigger: 'blur',
+            trigger: 'change',
           }],
           romanid: [{
             required: true,

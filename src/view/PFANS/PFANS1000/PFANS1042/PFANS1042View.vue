@@ -67,15 +67,15 @@
                     </template>
                   </el-table-column>
 
-                  <el-table-column
-                    :label="$t('label.PFANS1042FORMVIEW_COMMONPJ')"
-                    align="center"
-                    width="160">
-                    <template slot-scope="scope">
-                      <span>{{scope.row.pj1}}</span>
-                    </template>
+<!--                  <el-table-column-->
+<!--                    :label="$t('label.PFANS1042FORMVIEW_COMMONPJ')"-->
+<!--                    align="center"-->
+<!--                    width="160">-->
+<!--                    <template slot-scope="scope">-->
+<!--                      <span>{{scope.row.pj1}}</span>-->
+<!--                    </template>-->
 
-                  </el-table-column>
+<!--                  </el-table-column>-->
                 </el-table-column>
 
                   <el-table-column
@@ -195,7 +195,7 @@
                     <el-table-column
                       :label="$t('label.PFANS1042FORMVIEW_DEPARTMENTCOST')"
                       align="center"
-                      width="200">
+                      width="110">
 
                       <template slot-scope="scope">
                         <span>{{scope.row.departmentcom}}</span>
@@ -596,7 +596,8 @@
               for (let j = 0; j < response.length; j++) {
 //共通PJ（研修会议等）
                   if (response[j].pj == null) {
-                      response[j].pj1 = aaa
+                      // response[j].pj1 = aaa
+                      response[j].pj = aaa
                   }
 //外部受託-
                   response[j].outst1 = Number(response[j].outst1) + Number(response[j].outst2) + Number(response[j].outst3);
@@ -627,7 +628,9 @@
                       + Number(response[j].yuanqincost) + Number(response[j].travalcost) + Number(response[j].concost) + Number(response[j].callcost) + Number(response[j].brandcost)
                       + Number(response[j].rent) + Number(response[j].other) + Number(response[j].concost) + response[j].departmenttotal + response[j].allocation
 //仕掛品処理
-                  response[j].process = this.$t('label.PFANS1042FORMVIEW_OUTANDIN')
+//                   response[j].process = this.$t('label.PFANS1042FORMVIEW_OUTANDIN')
+
+                  response[j].process = response[j].costtotal - response[j].intotal
 //限界利益
                   response[j].marginal = (response[j].inst + response[j].outst1) - (response[j].peocost + response[j].outcost + response[j].researchcost);
 //営業利益 = 限界利益 - 所有和项目有关的费用
