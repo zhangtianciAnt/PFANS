@@ -20,6 +20,7 @@ const global = {
     supplierinforList:[],
     orgId:"",
     userTableList:[],
+    useraccount:"",
   },
   mutations: {
     SET_HISTORYURL(state, url) {
@@ -94,6 +95,9 @@ const global = {
     },
     SET_USERTABLELIST(state, userTableList) {
       state.userTableList = userTableList
+    },
+    SET_USERACCOUNT(state, useraccount) {
+      state.useraccount = useraccount
     },
   }
 }

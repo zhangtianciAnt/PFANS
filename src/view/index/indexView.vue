@@ -330,6 +330,12 @@
               );
             }
 
+            if(response.userAccount){
+              this.$store.commit(
+                "global/SET_USERACCOUNT",
+                response.userAccount
+              );
+            }
             let roles = response.userAccount.roles; //系统角色
             let rolename = "";
             if (roles && roles.length > 0) {
