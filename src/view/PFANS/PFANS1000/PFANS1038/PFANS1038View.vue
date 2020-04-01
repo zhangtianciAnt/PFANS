@@ -35,7 +35,7 @@
 <script>
   import EasyNormalTable from '@/components/EasyNormalTable';
   import {Message} from "element-ui";
-  import {getUserInfo} from "../../../../utils/customize";
+  import {getUserInfo} from '@/utils/customize'
   import moment from "moment";
 
   export default {
@@ -112,6 +112,16 @@
       }
     },
     mounted() {
+      if(this.$store.getters.userinfo.userid) {
+        let group = getUserInfo(this.$store.getters.userinfo.userid);
+        if (group.userinfo.groupid === "") {
+          this.buttonList[1].disabled = true;
+          this.buttonList[2].disabled = true;
+        } else {
+          this.buttonList[1].disabled = false;
+          this.buttonList[2].disabled = false;
+        }
+      }
       this.loading = true;
       this.$store
         .dispatch("PFANS1038Store/getAll")
@@ -134,7 +144,7 @@
                   outdata.push(res);
                 }
               }
-            )
+            );
             this.data = data;
             this.outdata = outdata;
           }
