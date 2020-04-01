@@ -1,7 +1,7 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer ref="container" :title="title" @buttonClick="buttonClick" v-loading="loading"
-                         :buttonList="buttonList"
+                         :buttonList="buttonList"  :workflowCode="workflowCode"
                          @workflowState="workflowState" :canStart="canStart" @start="start" @end="end">
       <div slot="customize">
         <el-form :model="form" label-width="8vw" label-position="top" style="padding: 2vw" :rules="rules"
@@ -218,6 +218,7 @@
         }
       };
       return {
+        workflowCode: '',
         centerid: '',
         groupid: '',
         teamid: '',
@@ -359,6 +360,11 @@
               this.checked2 = true;
               this.disabled2 = true;
             }
+              if(this.form.machinemedia == 'PJ028001'){
+                  this.workflowCode = 'W0058';
+              }else{
+                  this.workflowCode = 'W0030';
+              }
             if (this.form.information === '') {
               this.checked3 = false;
             } else {
@@ -451,6 +457,11 @@
         }
       },
       getMachinemedia(val) {
+          if(val == 'PJ028001'){
+              this.workflowCode = 'W0058';
+          }else{
+              this.workflowCode = 'W0030';
+          }
         this.form.machinemedia = val;
       },
       getFabuilding(val) {
