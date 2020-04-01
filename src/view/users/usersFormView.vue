@@ -553,7 +553,12 @@
                       selectType="Single"
                       @getOrgids="getCenterid"
                     ></org>
+                    <el-button
+                      type="text"
+                    >{{$t('label.INDEX_GD')}}
+                    </el-button>
                   </el-form-item>
+
                 </el-col>
               </el-row>
               <el-row>

@@ -596,13 +596,16 @@ export default {
                 result = result.substring(0, result.lastIndexOf(","));
                 _tableList[j].departmentname = result;
               }
-              _tableList[j].status === "0"
-                ? (_tableList[j].statusname = this.$t(
-                "label.PFANSUSERVIEW_ENABLE"
-                ))
-                : (_tableList[j].statusname = this.$t(
-                "label.PFANSUSERVIEW_FORBIDDEN"
-                ));
+              if (this.$i18n){
+                _tableList[j].status === "0"
+                  ? (_tableList[j].statusname = this.$t(
+                  "label.PFANSUSERVIEW_ENABLE"
+                  ))
+                  : (_tableList[j].statusname = this.$t(
+                  "label.PFANSUSERVIEW_FORBIDDEN"
+                  ));
+              }
+
               if (_tableList[j].post && getDictionaryInfo(
                 _tableList[j].post))
                 _tableList[j].post = getDictionaryInfo(
@@ -621,11 +624,14 @@ export default {
                 _tableList[j].birthday = moment(_tableList[j].birthday).format(
                   "YYYY-MM-DD"
                 );
-              if (_tableList[j].sex === "PR019001"){
-                _tableList[j].sex = this.$t("label.PFANS2002FORMVIEW_BOY");
-              }else{
-                _tableList[j].sex =  this.$t("label.PFANS2002FORMVIEW_GRIL");
+              if (this.$i18n){
+                if (_tableList[j].sex === "PR019001"){
+                  _tableList[j].sex = this.$t("label.PFANS2002FORMVIEW_BOY");
+                }else{
+                  _tableList[j].sex =  this.$t("label.PFANS2002FORMVIEW_GRIL");
+                }
               }
+
               if (_tableList[j].budgetunit!== null && _tableList[j].budgetunit !== "") {
                 let letbudge = getDictionaryInfo(_tableList[j].budgetunit);
                 if (letbudge) {
