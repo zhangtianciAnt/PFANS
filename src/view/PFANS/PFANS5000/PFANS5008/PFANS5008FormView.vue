@@ -703,8 +703,8 @@
                         this.loading = false;
                     });
             }
-            this.companyform.work_phase = 'PP008004',
-                this.code3 = 'PP011'
+            // this.companyform.work_phase = 'PP008004',
+            //     this.code3 = 'PP011'
         },
         methods: {
             setdisabled(val) {
