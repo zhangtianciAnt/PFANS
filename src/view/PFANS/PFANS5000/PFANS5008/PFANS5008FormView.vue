@@ -444,7 +444,13 @@
             }
         },
         mounted() {
+            this.companyform.work_phase = 'PP008004',
+            this.code3 = 'PP011',
             this.getCompanyProjectList();
+            if(this.companyform.project_id){
+                this.companyform.work_phase = '';
+            }
+
             this.loading = true;
             this.$store
                 .dispatch('PFANS5008Store/getProjectList', {})
@@ -648,6 +654,10 @@
                 }
             },
             getProject(val) {
+                if(val){
+                    this.companyform.work_phase = ''
+                    this.code3 = '0'
+                }
                 for (let item of this.optionsdata) {
                     if (item.value === val) {
                         this.companyform.project_name = item.lable;
