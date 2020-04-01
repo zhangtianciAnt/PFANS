@@ -7,6 +7,7 @@ import {
   disableUser,
   getRoleList,
   setRoleToUser,
+  getUserTableList2,
   download
 } from './usersApi'
 
@@ -37,6 +38,19 @@ const usersStore = {
     },
     // 根据orgid获取用户列表
     getUserTableList({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        getUserTableList(params).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    getUserTableList2({ commit }, params) {
       return new Promise((resolve, reject) => {
         getUserTableList(params).then(response => {
           if (response.code === 0) {
