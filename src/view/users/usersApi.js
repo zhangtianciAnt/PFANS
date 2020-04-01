@@ -1,4 +1,5 @@
 import request from '../../utils/request'
+import requestDownload from '../../utils/requestDownload';
 
 // 保存/更新 用户
 export function userSave(data) {
@@ -60,5 +61,15 @@ export function setRoleToUser(data) {
     url: 'user/setRoleToUser',
     method: 'post',
     data: data
+  })
+}
+
+//下载模板
+export function download(data) {
+  return requestDownload({
+    url: 'user/download',
+    method: 'get',
+    params: data,
+    responseType: 'blob'
   })
 }
