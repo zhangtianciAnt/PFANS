@@ -92,12 +92,12 @@
                       </el-date-picker>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1024VIEW_DELIVERYDATE')">
-                      <el-date-picker :disabled="true" style="width:20vw" v-model="form.deliverydate">
-                      </el-date-picker>
-                    </el-form-item>
-                  </el-col>
+<!--                  <el-col :span="8">-->
+<!--                    <el-form-item :label="$t('label.PFANS1024VIEW_DELIVERYDATE')">-->
+<!--                      <el-date-picker :disabled="true" style="width:20vw" v-model="form.deliverydate">-->
+<!--                      </el-date-picker>-->
+<!--                    </el-form-item>-->
+<!--                  </el-col>-->
                 </el-row>
                 <el-row>
                   <el-col :span="8">
@@ -556,7 +556,6 @@
               }
             if(this.$store.getters.userinfo.userid){
               debugger;
-              console.log(getUserInfo(this.$store.getters.userinfo.userid).userinfo);
               this.form.telephone = getUserInfo(this.$store.getters.userinfo.userid).userinfo.phone;
             }
             console.log("aaa",this.budgetcodingcheck)
