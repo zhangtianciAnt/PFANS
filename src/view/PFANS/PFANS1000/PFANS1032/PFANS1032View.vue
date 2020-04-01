@@ -70,13 +70,6 @@
             fix: false,
             filter: true
           },
-          {
-            code: 'claimtype',
-            label: 'label.PFANS1032FORMVIEW_CLAIMTYPE',
-            width: 150,
-            fix: false,
-            filter: true
-          },
           // {
           //   code: 'openingdate',
           //   label: 'label.PFANS1025VIEW_OPENINGDATE',

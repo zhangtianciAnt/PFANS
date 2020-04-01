@@ -494,7 +494,7 @@
          });
        }else if(error1){
         Message({
-          message: this.$t('label.FANS1038VIEW_INFORMATIONSUCCESS'),
+          message: this.$t('label.PFANS1038VIEW_INFORMATIONSUCCESS'),
           type: 'error',
           duration: 5 * 1000,
         });
