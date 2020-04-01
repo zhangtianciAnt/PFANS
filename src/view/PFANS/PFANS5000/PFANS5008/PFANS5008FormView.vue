@@ -65,7 +65,6 @@
                     <el-col :span="12">
                       <el-form-item :label="$t('label.PFANS5008VIEW_PROGRAMNAME')" style="width:17vw"
                                     prop="project_name">
-                        {{companyform.project_name}}
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -81,6 +80,9 @@
                             :value="item.value">
                           </el-option>
                         </el-select>
+                      </el-col>
+                      <el-col :span="12">
+                        {{companyform.project_name}}
                       </el-col>
                     </div>
                   </el-row>
@@ -327,7 +329,7 @@
                                     obj.start_time = response[k].time_start;
                                     obj.work_phase = response[k].work_phase;
                                     let letErrortypecheck = getDictionaryInfo(response[k].behavior_breakdown);
-                                    if(letErrortypecheck != null){
+                                    if (letErrortypecheck != null) {
                                         obj.behavior_breakdown = letErrortypecheck.value1;
                                     }
                                     if (response[k].project_id === 'PP024001') {
@@ -422,7 +424,7 @@
                                                 obj.start_time = response[k].time_start;
                                                 obj.work_phase = response[k].work_phase;
                                                 let letErrortypecheck = getDictionaryInfo(response[k].behavior_breakdown);
-                                                if(letErrortypecheck != null){
+                                                if (letErrortypecheck != null) {
                                                     obj.behavior_breakdown = letErrortypecheck.value1;
                                                 }
                                                 if (response[k].project_id === 'PP024001') {
@@ -547,7 +549,7 @@
                                                     obj.start_time = response[k].time_start;
                                                     obj.work_phase = response[k].work_phase;
                                                     let letErrortypecheck = getDictionaryInfo(response[k].behavior_breakdown);
-                                                    if(letErrortypecheck != null){
+                                                    if (letErrortypecheck != null) {
                                                         obj.behavior_breakdown = letErrortypecheck.value1;
                                                     }
                                                     if (response[k].project_id === 'PP024001') {
@@ -624,7 +626,7 @@
                                                     obj.start_time = response[k].time_start;
                                                     obj.work_phase = response[k].work_phase;
                                                     let letErrortypecheck = getDictionaryInfo(response[k].behavior_breakdown);
-                                                    if(letErrortypecheck != null){
+                                                    if (letErrortypecheck != null) {
                                                         obj.behavior_breakdown = letErrortypecheck.value1;
                                                     }
                                                     if (response[k].project_id === 'PP024001') {
@@ -777,7 +779,7 @@
                                 obj.start_time = response[k].time_start;
                                 obj.work_phase = response[k].work_phase;
                                 let letErrortypecheck = getDictionaryInfo(response[k].behavior_breakdown);
-                                if(letErrortypecheck != null){
+                                if (letErrortypecheck != null) {
                                     obj.behavior_breakdown = letErrortypecheck.value1;
                                 }
                                 if (response[k].project_id === 'PP024001') {
@@ -999,7 +1001,7 @@
                                     obj.start_time = response[k].time_start;
                                     obj.work_phase = response[k].work_phase;
                                     let letErrortypecheck = getDictionaryInfo(response[k].behavior_breakdown);
-                                    if(letErrortypecheck != null){
+                                    if (letErrortypecheck != null) {
                                         obj.behavior_breakdown = letErrortypecheck.value1;
                                     }
                                     if (response[k].project_id === 'PP024001') {
@@ -1078,7 +1080,7 @@
                                                         obj.start_time = response[k].time_start;
                                                         obj.work_phase = response[k].work_phase;
                                                         let letErrortypecheck = getDictionaryInfo(response[k].behavior_breakdown);
-                                                        if(letErrortypecheck != null){
+                                                        if (letErrortypecheck != null) {
                                                             obj.behavior_breakdown = letErrortypecheck.value1;
                                                         }
                                                         if (response[k].project_id === 'PP024001') {
@@ -1166,7 +1168,7 @@
                                                         obj.start_time = response[k].time_start;
                                                         obj.work_phase = response[k].work_phase;
                                                         let letErrortypecheck = getDictionaryInfo(response[k].behavior_breakdown);
-                                                        if(letErrortypecheck != null){
+                                                        if (letErrortypecheck != null) {
                                                             obj.behavior_breakdown = letErrortypecheck.value1;
                                                         }
                                                         if (response[k].project_id === 'PP024001') {
@@ -1219,11 +1221,11 @@
                 this.companyform.behavior_breakdown = value3;
             },
             clickdata() {
-             this.companyform.time_start = '';
-             this.companyform.wbs_id = '';
-             this.companyform.behavior_breakdown = '';
-             this.companyform.work_phase = '';
-             this.companyform.work_memo = '';
+                this.companyform.time_start = '';
+                this.companyform.wbs_id = '';
+                this.companyform.behavior_breakdown = '';
+                this.companyform.work_phase = '';
+                this.companyform.work_memo = '';
                 if (this.companyform.log_date == null) {
                     this.Riqickeck = false;
                 } else {
@@ -1293,7 +1295,7 @@
                                             obj.start_time = response[k].time_start;
                                             obj.work_phase = response[k].work_phase;
                                             let letErrortypecheck = getDictionaryInfo(response[k].behavior_breakdown);
-                                            if(letErrortypecheck != null){
+                                            if (letErrortypecheck != null) {
                                                 obj.behavior_breakdown = letErrortypecheck.value1;
                                             }
                                             if (response[k].project_id === 'PP024001') {
