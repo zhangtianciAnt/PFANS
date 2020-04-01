@@ -837,7 +837,8 @@
                           style="width: 90vw" v-show="form.toolstype === '0' || !form.toolstype">
                   <el-table-column
                     :label="$t('label.PFANS5009FORMVIEW_CONTRACT')"
-                    align="center">
+                    align="center"
+                    width="220%">
                     <template slot-scope="scope">
                       <el-col :span="8">
                         <div class="dpSupIndex" style="width:14vw">
@@ -852,14 +853,13 @@
                                        append-to-body>
                               <div style="text-align: center">
                                 <el-row style="text-align: center;height: 90%;overflow: hidden">
-
                                   <el-table
                                     :data="gridData3.filter(data => !search || data.contract.toLowerCase().includes(search.toLowerCase()))"
                                     height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
                                     @row-click="handleClickChange2">
                                     <el-table-column property="contract"
                                                      :label="$t('label.PFANS1032FORMVIEW_CONTRACTNUMBER')"
-                                                     width="100"></el-table-column>
+                                                     width="120"></el-table-column>
                                     <el-table-column property="deployment" :label="$t('label.group')"
                                                      width="100"></el-table-column>
                                     <el-table-column property="contracttype"
@@ -868,12 +868,9 @@
                                     <el-table-column property="applicationdate"
                                                      :label="$t('label.PFANS1024VIEW_APPLICATIONDATE')"
                                                      width="100"></el-table-column>
-                                    <el-table-column property="state"
-                                                     :label="$t('label.approval_status')"
-                                                     width="100"></el-table-column>
                                     <el-table-column property="claimdatetime"
                                                      :label="$t('label.PFANS1024VIEW_CLAIMDATETIME')"
-                                                     width="100"></el-table-column>
+                                                     width="200"></el-table-column>
                                     <el-table-column
                                       align="right" width="230">
                                       <template slot="header" slot-scope="scope">
@@ -1893,7 +1890,10 @@
                                 let claimdatetime = response.contractapplication[i].claimdatetime;
                                 let claimdatetim = claimdatetime.slice(0, 10);
                                 let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
-                                response.contractapplication[i].claimdatetime = [claimdatetim, claimdatetime1];
+                                response.contractapplication[i].claimdatetime = [claimdatetim+"~"+claimdatetime1];
+
+                                response.contractapplication[i].entrypayment = [claimdatetim,claimdatetime1];
+
                             }
                             var vote2 = {};
                             vote2.contract = response.contractapplication[i].contractnumber;
@@ -1902,8 +1902,10 @@
                             vote2.applicationdate = moment(response.contractapplication[i].applicationdate).format('YYYY-MM-DD');
                             vote2.state = response.contractapplication[i].state;
                             vote2.claimdatetime= response.contractapplication[i].claimdatetime;
+                            vote2.entrypayment= response.contractapplication[i].entrypayment;
                             vote2.theme= response.contractapplication[i].theme;
                             this.gridData3.push(vote2);
+                            console.log("aaa",this.gridData3)
                         }
                         this.loading = false;
                     })
@@ -1915,6 +1917,11 @@
                         });
                         this.loading = false;
                     });
+
+
+
+
+
             },
             getcustomerinfor() {
                 this.loading = true;
@@ -2068,7 +2075,7 @@
             handleClickChange2(val) {
                 this.currentRow = val.contract;
                 this.themeRow= val.theme;
-                this.workinghoursRow= val.claimdatetime;
+                this.workinghoursRow= val.entrypayment;
                 this.getCompanyprojects();
             },
             submit2(row) {
