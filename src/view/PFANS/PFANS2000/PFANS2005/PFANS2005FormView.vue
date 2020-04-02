@@ -13,7 +13,7 @@
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_GZ')" name="first">
               <div id="app">
                 <el-table
-                  :data="tableData"
+                  :data="tableWages"
                   stripe
                   border
                   header-cell-class-name="sub_bg_color_blue"
@@ -147,7 +147,7 @@
                       :label="$t('label.PFANS2005FORMVIEW_MONTHPAYMENT')"
                       width="150"
                       align="center"
-                    ></el-table-column> -->
+                    ></el-table-column>-->
                     <el-table-column prop="rnbasesalary" label="RN" width="150" align="center"></el-table-column>
                     <el-table-column
                       prop="birthrest"
@@ -199,7 +199,7 @@
                       :label="$t('label.PFANS2006VIEW_BASICSALARY')"
                       width="150"
                       align="center"
-                    ></el-table-column> -->
+                    ></el-table-column>-->
                     <el-table-column
                       prop="thismonthbasicgei"
                       :label="$t('label.PFANS2006VIEW_THISMONTHBASICGEI')"
@@ -615,23 +615,23 @@
                   </el-table-column>
                 </el-table>
                 <div class="pagination-container" style="padding-top: 2rem">
-                <el-pagination
-                  :current-page.sync="listQueryListJS.page"
-                  :page-size="listQueryListJS.limit"
-                  :page-sizes="[5,10,20,30,50]"
-                  :total="totalBase"
-                  @current-change="handleCurrentChangeJS"
-                  @size-change="handleSizeChangeJS"
-                  layout="slot,sizes, ->,prev, pager, next, jumper"
-                >
-                  <slot>
-                    <span
-                      class="front Content_front"
-                      style="padding-right: 0.5rem;font-weight: 400"
-                    >{{$t('table.pagesize')}}</span>
-                  </slot>
-                </el-pagination>
-              </div>
+                  <el-pagination
+                    :current-page.sync="listQueryListWages.page"
+                    :page-size="listQueryListWages.limit"
+                    :page-sizes="[5,10,20,30,50]"
+                    :total="total_wages"
+                    @current-change="handleCurrentChangeWages"
+                    @size-change="handleSizeChangeWages"
+                    layout="slot,sizes, ->,prev, pager, next, jumper"
+                  >
+                    <slot>
+                      <span
+                        class="front Content_front"
+                        style="padding-right: 0.5rem;font-weight: 400"
+                      >{{$t('table.pagesize')}}</span>
+                    </slot>
+                  </el-pagination>
+                </div>
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_JS')" name="second">
@@ -2829,7 +2829,7 @@ export default {
   },
   data() {
     return {
-      tableData: [],
+      tableData: [],  //zong
       totaldataFJKC: [],
       totaldataQQ: [],
       totaldataCY: [],
@@ -2921,6 +2921,10 @@ export default {
         page: 1,
         limit: 20
       },
+      listQueryListWages: {
+        page: 1,
+        limit: 20
+      },
       menuList: [
         { value: "1", label: 1 },
         { value: "2", label: 2 }
@@ -2937,6 +2941,7 @@ export default {
       totalRZ: 0,
       totalTZ: 0,
       totalBase: 0,
+      total_wages: 0, // changdu
       totalDutyfreeVo: 0,
       totalAccumulatedTax: 0,
       totalContrast: 0,
@@ -3079,6 +3084,7 @@ export default {
       ],
       OTherTwo: {},
       tableJS: [],
+      tableWages:[],  // jiequ
       tableQT5: [],
       tableRZ: [],
       tableTZ: [],
@@ -3144,7 +3150,8 @@ export default {
             item.sociology = item.sociology === "1" ? "是" : "-";
             item.registered = item.registered === "1" ? "是" : "-";
           });
-          this.tableData = response.wagesList;
+          this.totaldata = response.wagesList;
+          this.getList()
           // region 欠勤 By SKAIXX
           // 添加非空判断 By SKAIXX
           if (response.lackattendance) {
@@ -4003,7 +4010,7 @@ export default {
       this.getList();
     },
     handleCurrentChangeLJSJ(val) {
-      console.log("handleCurrentChangeLJSJ",val)
+      console.log("handleCurrentChangeLJSJ", val);
       this.listQueryListLJSJ.page = val;
       this.getList();
     },
@@ -4087,6 +4094,14 @@ export default {
       this.listQueryListQT1Man.page = val;
       this.getList();
     },
+    handleCurrentChangeWages(val){
+      this.listQueryListWages.limit = val;
+      this.getList();
+    },
+    handleSizeChangeWages(val) {
+      this.listQueryListWages.limit = val;
+      this.getList();
+    },
     handleSizeChangeJS(val) {
       this.listQueryListJS.limit = val;
       this.getList();
@@ -4106,6 +4121,14 @@ export default {
     getList() {
       this.loading = true;
       if (this.tab === "0") {
+        let start =
+          (this.listQueryListWages.page - 1) * this.listQueryListWages.limit;
+        let end = this.listQueryListWages.page * this.listQueryListWages.limit;
+        if (this.totaldata) {
+          let pListBase = this.totaldata.slice(start, end);
+          this.tableWages = pListBase;
+          this.total_wages = this.totaldata.length;
+        }
       }
       if (this.listBase === 1 || this.tab === "1") {
         let start =
