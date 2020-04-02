@@ -137,7 +137,7 @@
                         filter: true
                     },
                     {
-                        code: 'wordtime',
+                        code: 'worktime',
                         label: 'label.PFANS2017VIEW_COUNTTIME',
                         width: 140,
                         fix: false,
@@ -186,6 +186,12 @@
                             }
                             if (response[j].time_end !== null && response[j].time_end !== "") {
                                 response[j].time_end = moment(response[j].time_end).format("HH:mm");
+                            }
+                            if(response[j].worktime === "0.00"){
+                                response[j].worktime = "";
+                            }
+                            if(response[j].absenteeismam === "0.00"){
+                                response[j].absenteeismam = "";
                             }
                         }
                         this.data = response;
