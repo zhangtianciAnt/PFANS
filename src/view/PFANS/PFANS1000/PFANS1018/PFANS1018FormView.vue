@@ -60,7 +60,7 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.application')">
-                <el-date-picker :disabled="!disabled" style="width: 20vw"type="date"
+                <el-date-picker :disabled="true" style="width: 20vw"type="date"
                                 v-model="form.payment"></el-date-picker>
               </el-form-item>
             </el-col>

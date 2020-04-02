@@ -74,7 +74,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.application')" prop="payment">
-                <el-date-picker :disabled="!disable"
+                <el-date-picker :disabled="true"
                                 style="width:20vw"
                                 type="date"
                                 v-model="form.payment"
