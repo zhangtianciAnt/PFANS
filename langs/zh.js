@@ -72,6 +72,7 @@ module.exports = {
     crAccount:"创建外协STAFF账号",
     crAccount2:"创建外协员工账号",
     detailed:"详细记录",
+    today: '今日考勤',
   },
   table: {
     detail: '一览',
@@ -2288,6 +2289,7 @@ module.exports = {
     PFANS2017VIEW_EVENTNO: '进出状态',
     PFANS2017VIEW_ENTER: '进门',
     PFANS2017VIEW_OUT: '出门',
+    PFANS2017VIEW_COUNTTIME: '外出合计时间',
     PFANS2018VIEW_WORKSHIFT: '上班时间',
     PFANS2018VIEW_WORKSHIFTSTART: '上班时间开始',
     PFANS2018VIEW_WORKSHIFTEND: '上班时间结束',
