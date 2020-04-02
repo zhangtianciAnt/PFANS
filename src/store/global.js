@@ -21,6 +21,7 @@ const global = {
     orgId:"",
     userTableList:[],
     useraccount:"",
+    operateOwner:"",
   },
   mutations: {
     SET_HISTORYURL(state, url) {
@@ -98,6 +99,9 @@ const global = {
     },
     SET_USERACCOUNT(state, useraccount) {
       state.useraccount = useraccount
+    },
+    SET_OPERATEOWNER(state, operateOwner) {
+      state.operateOwner = operateOwner
     },
   }
 }

@@ -18,6 +18,7 @@ const getters = {
   orgId: state => state.global.orgId,
   orgCenterList: state => state.global.orgCenterList,
   orgGroupList: state => state.global.orgGroupList,
+  operateOwner: state => state.global.operateOwner,
 }
 
 export default getters
