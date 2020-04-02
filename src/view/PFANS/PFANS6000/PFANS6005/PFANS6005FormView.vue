@@ -32,7 +32,7 @@
                   <el-input
                     :no="scope.row"
                     :disabled="!disabled"
-                    v-model="scope.row.expname"
+                    v-model="scope.row.user_id"
                     style="width: 100%">
                   </el-input>
                 </template>
@@ -523,6 +523,7 @@
     import {getDictionaryInfo, getOrgInfoByUserId} from '@/utils/customize';
     import {validateEmail} from '@/utils/validate';
     import moment from 'moment';
+    import { getUserInfo } from "../../../../utils/customize";
 
     export default {
         name: "PFANS6005FormView",
@@ -775,6 +776,10 @@
                   .dispatch('PFANS6005Store/getPricesetList')
                     .then(response => {
                         for (let j = 0; j < response.length; j++) {
+                            let user = getUserInfo(response[j].user_id);
+                            if (user) {
+                                response[j].user_id = getUserInfo(response[j].user_id).userinfo.customername;
+                            }
                             response[j].assesstime = moment(new Date()).format("YYYY-MM-DD HH:mm:ss");
                             this.arr[j] = [];
                             this.arr[j][0] = parseInt(response[j].technology == null ? 0 : response[j].technology);

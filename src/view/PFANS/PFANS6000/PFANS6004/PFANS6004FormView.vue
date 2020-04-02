@@ -4,7 +4,7 @@
                          v-loading="loading" @disabled="setdisabled">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
-                 style="padding: 2vw">
+                 style="padding: 3vw">
           <!--            第一行-->
           <el-row>
             <!--            姓名-->

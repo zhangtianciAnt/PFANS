@@ -3509,427 +3509,417 @@ export default {
               this.ListOtherOne = 2;
               this.getList();
             }
-            for (let a = 0; a < response.otherTwo.length; a++) {
-              let user = getUserInfo(response.otherTwo[a].user_id);
+          }
+          for (let a = 0; a < response.otherTwo.length; a++) {
+            let user = getUserInfo(response.otherTwo[a].user_id);
+            if (user) {
+              response.otherTwo[a].user_id = getUserInfo(
+                response.otherTwo[a].user_id
+              ).userinfo.customername;
+            }
+            if (
+              response.otherTwo[a].rootknot !== null &&
+              response.otherTwo[a].rootknot !== ""
+            ) {
+              let letErrortype = getDictionaryInfo(
+                response.otherTwo[a].rootknot
+              );
+              if (letErrortype != null) {
+                response.otherTwo[a].rootknot = letErrortype.value1;
+              }
+            }
+            let Obj = {};
+            Obj.othertwo_id = response.otherTwo[a].othertwo_id;
+            Obj.user_id = response.otherTwo[a].user_id;
+            Obj.moneys = response.otherTwo[a].moneys;
+            Obj.rootknot = response.otherTwo[a].rootknot;
+            Obj.type = response.otherTwo[a].type;
+            Obj.giving_id = response.otherTwo[a].giving_id;
+            Obj.rowindex = a + 1;
+            datalist[a] = Obj;
+            this.tableQT2 = datalist;
+            this.totaldataQT2 = datalist;
+            this.ListQt2 = 3;
+            this.getList();
+          }
+          // region 月度赏与 By SKAIXX
+          // 添加非空判断 By SKAIXX
+          if (response.appreciation) {
+            for (let j = 0; j < response.appreciation.length; j++) {
+              let user = getUserInfo(response.appreciation[j].user_id);
               if (user) {
-                response.otherTwo[a].user_id = getUserInfo(
-                  response.otherTwo[a].user_id
+                response.appreciation[j].user_id = getUserInfo(
+                  response.appreciation[j].user_id
                 ).userinfo.customername;
               }
-              if (
-                response.otherTwo[a].rootknot !== null &&
-                response.otherTwo[a].rootknot !== ""
-              ) {
-                let letErrortype = getDictionaryInfo(
-                  response.otherTwo[a].rootknot
-                );
-                if (letErrortype != null) {
-                  response.otherTwo[a].rootknot = letErrortype.value1;
-                }
-              }
-              let Obj = {};
-              Obj.othertwo_id = response.otherTwo[a].othertwo_id;
-              Obj.user_id = response.otherTwo[a].user_id;
-              Obj.moneys = response.otherTwo[a].moneys;
-              Obj.rootknot = response.otherTwo[a].rootknot;
-              Obj.type = response.otherTwo[a].type;
-              Obj.giving_id = response.otherTwo[a].giving_id;
-              Obj.rowindex = a + 1;
-              datalist[a] = Obj;
-              this.tableQT2 = datalist;
-              this.totaldataQT2 = datalist;
-              this.ListQt2 = 3;
+              this.tableYDSY = response.appreciation;
+              this.totaldataYDSY = response.appreciation;
+              this.ListYDSY = 10;
               this.getList();
             }
-            // region 月度赏与 By SKAIXX
-            // 添加非空判断 By SKAIXX
-            if (response.appreciation) {
-              for (let j = 0; j < response.appreciation.length; j++) {
-                let user = getUserInfo(response.appreciation[j].user_id);
-                if (user) {
-                  response.appreciation[j].user_id = getUserInfo(
-                    response.appreciation[j].user_id
-                  ).userinfo.customername;
-                }
-                this.tableYDSY = response.appreciation;
-                this.totaldataYDSY = response.appreciation;
-                this.ListYDSY = 10;
-                this.getList();
-              }
-            }
-            // endregion
+          }
+          // endregion
 
-            for (let j = 0; j < response.otherFour.length; j++) {
-              let user = getUserInfo(response.otherFour[j].user_id);
+          for (let j = 0; j < response.otherFour.length; j++) {
+            let user = getUserInfo(response.otherFour[j].user_id);
+            if (user) {
+              response.otherFour[j].user_id = getUserInfo(
+                response.otherFour[j].user_id
+              ).userinfo.customername;
+            }
+            this.tableQT4 = response.otherFour;
+            this.totaldataQT4 = response.otherFour;
+            this.ListQT4 = 4;
+            this.getList();
+          }
+
+          // region 附加控除 By SKAIXX
+          // 添加非空判断 By SKAIXX
+          if (response.addiTional) {
+            for (let j = 0; j < response.addiTional.length; j++) {
+              let user = getUserInfo(response.addiTional[j].user_id);
               if (user) {
-                response.otherFour[j].user_id = getUserInfo(
-                  response.otherFour[j].user_id
+                response.addiTional[j].user_id = getUserInfo(
+                  response.addiTional[j].user_id
                 ).userinfo.customername;
               }
-              this.tableQT4 = response.otherFour;
-              this.totaldataQT4 = response.otherFour;
-              this.ListQT4 = 4;
+              this.tableFJKC = response.addiTional;
+              this.totaldataFJKC = response.addiTional;
+              this.ListFJKC = 13;
               this.getList();
             }
+          }
+          // endregion
 
-            // region 附加控除 By SKAIXX
-            // 添加非空判断 By SKAIXX
-            if (response.addiTional) {
-              for (let j = 0; j < response.addiTional.length; j++) {
-                let user = getUserInfo(response.addiTional[j].user_id);
-                if (user) {
-                  response.addiTional[j].user_id = getUserInfo(
-                    response.addiTional[j].user_id
-                  ).userinfo.customername;
-                }
-                this.tableFJKC = response.addiTional;
-                this.totaldataFJKC = response.addiTional;
-                this.ListFJKC = 13;
-                this.getList();
+          for (let j = 0; j < response.otherFive.length; j++) {
+            let user = getUserInfo(response.otherFive[j].user_id);
+            if (user) {
+              response.otherFive[j].user_id = getUserInfo(
+                response.otherFive[j].user_id
+              ).userinfo.customername;
+            }
+            this.tableQT5 = response.otherFive;
+            this.totaldataQT5 = response.otherFive;
+            this.ListQt5 = 5;
+            this.getList();
+          }
+
+          // region 入职和离职处理 By Myt
+          // 入职
+          for (let j = 0; j < response.entryVo.length; j++) {
+            let user = getUserInfo(response.entryVo[j].user_id);
+            if (user) {
+              response.entryVo[j].user_id = getUserInfo(
+                response.entryVo[j].user_id
+              ).userinfo.customername;
+            }
+            if (
+              response.entryVo[j].worddate !== null &&
+              response.entryVo[j].worddate !== ""
+            ) {
+              response.entryVo[j].worddate = moment(
+                response.entryVo[j].worddate
+              ).format("YYYY-MM-DD");
+            }
+            if (
+              response.entryVo[j].startdate !== null &&
+              response.entryVo[j].startdate !== ""
+            ) {
+              response.entryVo[j].startdate = moment(
+                response.entryVo[j].startdate
+              ).format("YYYY-MM-DD");
+            }
+            this.tableRZ = response.entryVo;
+            this.totaldataRZ = response.entryVo;
+            this.ListRZ = 6;
+            this.getList();
+          }
+          // 上月年月和今月年月赋值
+          this.yearOfLastMonth = response.yearOfLastMonth;
+          this.monthOfLastMonth = response.monthOfLastMonth;
+          this.yearOfThisMonth = response.yearOfThisMonth;
+          this.monthOfThisMonth = response.monthOfThisMonth;
+
+          // 退职
+          for (let j = 0; j < response.retireVo.length; j++) {
+            let user = getUserInfo(response.retireVo[j].user_id);
+            if (user) {
+              response.retireVo[j].user_id = getUserInfo(
+                response.retireVo[j].user_id
+              ).userinfo.customername;
+            }
+            if (
+              response.retireVo[j].retiredate !== null &&
+              response.retireVo[j].retiredate !== ""
+            ) {
+              response.retireVo[j].retiredate = moment(
+                response.retireVo[j].retiredate
+              ).format("YYYY-MM-DD");
+            }
+            this.tableTZ = response.retireVo;
+            this.totaldataTZ = response.retireVo;
+            this.ListTZ = 6;
+            this.getList();
+          }
+          // endregion
+          for (let j = 0; j < response.base.length; j++) {
+            if (response.base[j].type === "1") {
+              response.base[j].type = this.$t("label.PFANS2005FORMVIEW_SFRZ");
+            } else if (response.base[j].type === "4") {
+              response.base[j].type = this.$t("label.PFANS2005FORMVIEW_SFTZ");
+            } else if (response.base[j].type === "2") {
+              response.base[j].type = this.$t("label.PFANS2005FORMVIEW_NSFCX");
+            } else if (response.base[j].type === "3") {
+              response.base[j].type = this.$t("label.PFANS2005FORMVIEW_NVSFCX");
+            }
+            let user = getUserInfo(response.base[j].user_id);
+            if (user) {
+              response.base[j].user_name = user.userinfo.customername;
+              response.base[j].department_id = user.userinfo.centername;
+            }
+            if (response.base[j].rn !== null && response.base[j].rn !== "") {
+              let letErrortype = getDictionaryInfo(response.base[j].rn);
+              if (letErrortype != null) {
+                response.base[j].rnname = letErrortype.value1;
               }
             }
-            // endregion
-
-            for (let j = 0; j < response.otherFive.length; j++) {
-              let user = getUserInfo(response.otherFive[j].user_id);
+            if (
+              response.base[j].workdate !== null &&
+              response.base[j].workdate !== ""
+            ) {
+              response.base[j].workdate = moment(
+                response.base[j].workdate
+              ).format("YYYY-MM-DD");
+            }
+            if (response.base[j].sex !== null && response.base[j].sex !== "") {
+              if (this.$i18n) {
+                if (response.base[j].sex === "PR019001") {
+                  response.base[j].sex = this.$t("label.PFANS2002FORMVIEW_BOY");
+                } else {
+                  response.base[j].sex = this.$t(
+                    "label.PFANS2002FORMVIEW_GRIL"
+                  );
+                }
+              }
+            }
+            if (
+              response.base[j].registered !== null &&
+              response.base[j].registered !== ""
+            ) {
+              if (this.$i18n) {
+                if (response.base[j].registered === "1") {
+                  response.base[j].registered = this.$t("label.yes");
+                } else {
+                  response.base[j].registered = this.$t("label.no");
+                }
+              }
+            }
+            if (
+              response.base[j].bonus !== null &&
+              response.base[j].bonus !== ""
+            ) {
+              if (this.$i18n) {
+                if (response.base[j].bonus === "1") {
+                  response.base[j].bonus = this.$t(
+                    "label.PFANSUSERFORMVIEW_NEWSTAFF"
+                  );
+                } else {
+                  response.base[j].bonus = this.$t(
+                    "label.PFANSUSERFORMVIEW_OLDSTAFF"
+                  );
+                }
+              }
+            }
+            if (
+              response.base[j].onlychild !== null &&
+              response.base[j].onlychild !== ""
+            ) {
+              if (this.$i18n) {
+                if (response.base[j].onlychild === "1") {
+                  response.base[j].onlychild = this.$t("label.yes");
+                } else {
+                  response.base[j].onlychild = this.$t("label.no");
+                }
+              }
+            }
+            if (
+              response.base[j].sociology !== null &&
+              response.base[j].sociology !== ""
+            ) {
+              if (this.$i18n) {
+                if (response.base[j].sociology === "1") {
+                  response.base[j].sociology = this.$t("label.yes");
+                } else {
+                  response.base[j].sociology = this.$t("label.no");
+                }
+              }
+            }
+            // this.tableJS = response.base;
+            this.totaldataBase = response.base;
+            this.listBase = 1;
+            this.getList();
+          }
+          for (let j = 0; j < response.contrast.length; j++) {
+            let user = getUserInfo(response.contrast[j].user_id);
+            if (user) {
+              response.contrast[j].user_id = user.userinfo.customername;
+              response.contrast[j].department_id = user.userinfo.centername;
+            }
+            let obj = {};
+            obj.contrast_id = response.contrast[j].contrast_id;
+            obj.department_id = response.contrast[j].department_id;
+            obj.user_id = response.contrast[j].user_id;
+            obj.thismonth = response.contrast[j].thismonth;
+            obj.lastmonth = response.contrast[j].lastmonth;
+            obj.reason = response.contrast[j].reason;
+            obj.rowindex = response.contrast[j].rowindex;
+            if (
+              response.contrast[j].thismonth != null &&
+              response.contrast[j].lastmonth != null
+            ) {
+              obj.difference =
+                response.contrast[j].lastmonth - response.contrast[j].thismonth;
+            }
+            datalistgrdb[j] = obj;
+            this.tableGRDB = datalistgrdb;
+            this.totaldataContrast = datalistgrdb;
+            this.listContrast = 16;
+            this.getList();
+          }
+          // region 累计税金 By SKAIXX
+          // 添加非空判断 By SKAIXX
+          if (response.accumulatedTaxVo) {
+            for (let j = 0; j < response.accumulatedTaxVo.length; j++) {
+              let user = getUserInfo(response.accumulatedTaxVo[j].user_id);
               if (user) {
-                response.otherFive[j].user_id = getUserInfo(
-                  response.otherFive[j].user_id
+                response.accumulatedTaxVo[j].user_id = getUserInfo(
+                  response.accumulatedTaxVo[j].user_id
                 ).userinfo.customername;
-              }
-              this.tableQT5 = response.otherFive;
-              this.totaldataQT5 = response.otherFive;
-              this.ListQt5 = 5;
-              this.getList();
-            }
-
-            // region 入职和离职处理 By Myt
-            // 入职
-            for (let j = 0; j < response.entryVo.length; j++) {
-              let user = getUserInfo(response.entryVo[j].user_id);
-              if (user) {
-                response.entryVo[j].user_id = getUserInfo(
-                  response.entryVo[j].user_id
-                ).userinfo.customername;
-              }
-              if (
-                response.entryVo[j].worddate !== null &&
-                response.entryVo[j].worddate !== ""
-              ) {
-                response.entryVo[j].worddate = moment(
-                  response.entryVo[j].worddate
-                ).format("YYYY-MM-DD");
-              }
-              if (
-                response.entryVo[j].startdate !== null &&
-                response.entryVo[j].startdate !== ""
-              ) {
-                response.entryVo[j].startdate = moment(
-                  response.entryVo[j].startdate
-                ).format("YYYY-MM-DD");
-              }
-              this.tableRZ = response.entryVo;
-              this.totaldataRZ = response.entryVo;
-              this.ListRZ = 6;
-              this.getList();
-            }
-            // 上月年月和今月年月赋值
-            this.yearOfLastMonth = response.yearOfLastMonth;
-            this.monthOfLastMonth = response.monthOfLastMonth;
-            this.yearOfThisMonth = response.yearOfThisMonth;
-            this.monthOfThisMonth = response.monthOfThisMonth;
-
-            // 退职
-            for (let j = 0; j < response.retireVo.length; j++) {
-              let user = getUserInfo(response.retireVo[j].user_id);
-              if (user) {
-                response.retireVo[j].user_id = getUserInfo(
-                  response.retireVo[j].user_id
-                ).userinfo.customername;
-              }
-              if (
-                response.retireVo[j].retiredate !== null &&
-                response.retireVo[j].retiredate !== ""
-              ) {
-                response.retireVo[j].retiredate = moment(
-                  response.retireVo[j].retiredate
-                ).format("YYYY-MM-DD");
-              }
-              this.tableTZ = response.retireVo;
-              this.totaldataTZ = response.retireVo;
-              this.ListTZ = 6;
-              this.getList();
-            }
-            // endregion
-            for (let j = 0; j < response.base.length; j++) {
-              if (response.base[j].type === "1") {
-                response.base[j].type = this.$t("label.PFANS2005FORMVIEW_SFRZ");
-              } else if (response.base[j].type === "4") {
-                response.base[j].type = this.$t("label.PFANS2005FORMVIEW_SFTZ");
-              } else if (response.base[j].type === "2") {
-                response.base[j].type = this.$t(
-                  "label.PFANS2005FORMVIEW_NSFCX"
-                );
-              } else if (response.base[j].type === "3") {
-                response.base[j].type = this.$t(
-                  "label.PFANS2005FORMVIEW_NVSFCX"
-                );
-              }
-              let user = getUserInfo(response.base[j].user_id);
-              if (user) {
-                response.base[j].user_name = user.userinfo.customername;
-                response.base[j].department_id = user.userinfo.centername;
-              }
-              if (response.base[j].rn !== null && response.base[j].rn !== "") {
-                let letErrortype = getDictionaryInfo(response.base[j].rn);
-                if (letErrortype != null) {
-                  response.base[j].rnname = letErrortype.value1;
-                }
-              }
-              if (
-                response.base[j].workdate !== null &&
-                response.base[j].workdate !== ""
-              ) {
-                response.base[j].workdate = moment(
-                  response.base[j].workdate
-                ).format("YYYY-MM-DD");
-              }
-              if (
-                response.base[j].sex !== null &&
-                response.base[j].sex !== ""
-              ) {
-                if (this.$i18n) {
-                  if (response.base[j].sex === "PR019001") {
-                    response.base[j].sex = this.$t(
-                      "label.PFANS2002FORMVIEW_BOY"
-                    );
-                  } else {
-                    response.base[j].sex = this.$t(
-                      "label.PFANS2002FORMVIEW_GRIL"
-                    );
-                  }
-                }
-              }
-              if (
-                response.base[j].registered !== null &&
-                response.base[j].registered !== ""
-              ) {
-                if (this.$i18n) {
-                  if (response.base[j].registered === "1") {
-                    response.base[j].registered = this.$t("label.yes");
-                  } else {
-                    response.base[j].registered = this.$t("label.no");
-                  }
-                }
-              }
-              if (
-                response.base[j].bonus !== null &&
-                response.base[j].bonus !== ""
-              ) {
-                if (this.$i18n) {
-                  if (response.base[j].bonus === "1") {
-                    response.base[j].bonus = this.$t(
-                      "label.PFANSUSERFORMVIEW_NEWSTAFF"
-                    );
-                  } else {
-                    response.base[j].bonus = this.$t(
-                      "label.PFANSUSERFORMVIEW_OLDSTAFF"
-                    );
-                  }
-                }
-              }
-              if (
-                response.base[j].onlychild !== null &&
-                response.base[j].onlychild !== ""
-              ) {
-                if (this.$i18n) {
-                  if (response.base[j].onlychild === "1") {
-                    response.base[j].onlychild = this.$t("label.yes");
-                  } else {
-                    response.base[j].onlychild = this.$t("label.no");
-                  }
-                }
-              }
-              if (
-                response.base[j].sociology !== null &&
-                response.base[j].sociology !== ""
-              ) {
-                if (this.$i18n) {
-                  if (response.base[j].sociology === "1") {
-                    response.base[j].sociology = this.$t("label.yes");
-                  } else {
-                    response.base[j].sociology = this.$t("label.no");
-                  }
-                }
-              }
-              // this.tableJS = response.base;
-              this.totaldataBase = response.base;
-              this.listBase = 1;
-              this.getList();
-            }
-            for (let j = 0; j < response.contrast.length; j++) {
-              let user = getUserInfo(response.contrast[j].user_id);
-              if (user) {
-                response.contrast[j].user_id = user.userinfo.customername;
-                response.contrast[j].department_id = user.userinfo.centername;
               }
               let obj = {};
-              obj.contrast_id = response.contrast[j].contrast_id;
-              obj.department_id = response.contrast[j].department_id;
-              obj.user_id = response.contrast[j].user_id;
-              obj.thismonth = response.contrast[j].thismonth;
-              obj.lastmonth = response.contrast[j].lastmonth;
-              obj.reason = response.contrast[j].reason;
-              obj.rowindex = response.contrast[j].rowindex;
-              if (
-                response.contrast[j].thismonth != null &&
-                response.contrast[j].lastmonth != null
-              ) {
-                obj.difference =
-                  response.contrast[j].lastmonth -
-                  response.contrast[j].thismonth;
-              }
-              datalistgrdb[j] = obj;
-              this.tableGRDB = datalistgrdb;
-              this.totaldataContrast = datalistgrdb;
-              this.listContrast = 16;
+              obj.rowindex = j + 1;
+              obj.user_id = response.accumulatedTaxVo[j].user_id;
+              obj.january = response.accumulatedTaxVo[j].january;
+              obj.february = response.accumulatedTaxVo[j].february;
+              obj.march = response.accumulatedTaxVo[j].march;
+              obj.april = response.accumulatedTaxVo[j].april;
+              obj.may = response.accumulatedTaxVo[j].may;
+              obj.june = response.accumulatedTaxVo[j].june;
+              obj.july = response.accumulatedTaxVo[j].july;
+              obj.august = response.accumulatedTaxVo[j].august;
+              obj.september = response.accumulatedTaxVo[j].september;
+              obj.october = response.accumulatedTaxVo[j].october;
+              obj.november = response.accumulatedTaxVo[j].november;
+              obj.december = response.accumulatedTaxVo[j].december;
+              obj.sumThis = response.accumulatedTaxVo[j].sumThis;
+              obj.shouldwages = response.accumulatedTaxVo[j].shouldwages;
+              obj.shouldtax = response.accumulatedTaxVo[j].shouldtax;
+              obj.balance = response.accumulatedTaxVo[j].balance;
+              datalistljsj[j] = obj;
+              this.tableLJSJ = datalistljsj;
+              this.totaldataAccumulatedTax = datalistljsj;
+              this.listAccumulatedTax = 15;
               this.getList();
             }
-            // region 累计税金 By SKAIXX
-            // 添加非空判断 By SKAIXX
-            if (response.accumulatedTaxVo) {
-              for (let j = 0; j < response.accumulatedTaxVo.length; j++) {
-                let user = getUserInfo(response.accumulatedTaxVo[j].user_id);
-                if (user) {
-                  response.accumulatedTaxVo[j].user_id = getUserInfo(
-                    response.accumulatedTaxVo[j].user_id
-                  ).userinfo.customername;
-                }
-                let obj = {};
-                obj.rowindex = j + 1;
-                obj.user_id = response.accumulatedTaxVo[j].user_id;
-                obj.january = response.accumulatedTaxVo[j].january;
-                obj.february = response.accumulatedTaxVo[j].february;
-                obj.march = response.accumulatedTaxVo[j].march;
-                obj.april = response.accumulatedTaxVo[j].april;
-                obj.may = response.accumulatedTaxVo[j].may;
-                obj.june = response.accumulatedTaxVo[j].june;
-                obj.july = response.accumulatedTaxVo[j].july;
-                obj.august = response.accumulatedTaxVo[j].august;
-                obj.september = response.accumulatedTaxVo[j].september;
-                obj.october = response.accumulatedTaxVo[j].october;
-                obj.november = response.accumulatedTaxVo[j].november;
-                obj.december = response.accumulatedTaxVo[j].december;
-                obj.sumThis = response.accumulatedTaxVo[j].sumThis;
-                obj.shouldwages = response.accumulatedTaxVo[j].shouldwages;
-                obj.shouldtax = response.accumulatedTaxVo[j].shouldtax;
-                obj.balance = response.accumulatedTaxVo[j].balance;
-                datalistljsj[j] = obj;
-                this.tableLJSJ = datalistljsj;
-                this.totaldataAccumulatedTax = datalistljsj;
-                this.listAccumulatedTax = 15;
-                this.getList();
-              }
-            }
-            // endregion
-            // region 免税 By SKAIXX
-            // 添加非空判断 By SKAIXX
-            if (response.dutyfreeVo) {
-              for (let j = 0; j < response.dutyfreeVo.length; j++) {
-                let user = getUserInfo(response.dutyfreeVo[j].user_id);
-                if (user) {
-                  response.dutyfreeVo[j].user_id = getUserInfo(
-                    response.dutyfreeVo[j].user_id
-                  ).userinfo.customername;
-                }
-                let obj = {};
-                obj.rowindex = j + 1;
-                obj.user_id = response.dutyfreeVo[j].user_id;
-                obj.january = response.dutyfreeVo[j].january;
-                obj.february = response.dutyfreeVo[j].february;
-                obj.march = response.dutyfreeVo[j].march;
-                obj.april = response.dutyfreeVo[j].april;
-                obj.may = response.dutyfreeVo[j].may;
-                obj.june = response.dutyfreeVo[j].june;
-                obj.july = response.dutyfreeVo[j].july;
-                obj.august = response.dutyfreeVo[j].august;
-                obj.september = response.dutyfreeVo[j].september;
-                obj.october = response.dutyfreeVo[j].october;
-                obj.november = response.dutyfreeVo[j].november;
-                obj.december = response.dutyfreeVo[j].december;
-                obj.total = response.dutyfreeVo[j].total;
-                datalistms[j] = obj;
-                this.tableMS = datalistms;
-                this.totaldataDutyfreeVo = datalistms;
-                this.listDutyfreeVo = 14;
-                this.getList();
-              }
-            }
-            // endregion
-            //region  综合收入 By SKAIXX
-            // 添加非空判断 By SKAIXX
-            if (response.comprehensiveVo) {
-              for (let j = 0; j < response.comprehensiveVo.length; j++) {
-                let user = getUserInfo(response.comprehensiveVo[j].user_id);
-                if (user) {
-                  response.comprehensiveVo[j].user_id = getUserInfo(
-                    response.comprehensiveVo[j].user_id
-                  ).userinfo.customername;
-                }
-                let obj = {};
-                obj.rowindex = j + 1;
-                obj.user_id = response.comprehensiveVo[j].user_id;
-                obj.totalbonus1 = response.comprehensiveVo[j].totalbonus1;
-                obj.month1wages = response.comprehensiveVo[j].month1wages;
-                obj.month1appreciation =
-                  response.comprehensiveVo[j].month1appreciation;
-                obj.month2wages = response.comprehensiveVo[j].month2wages;
-                obj.month2appreciation =
-                  response.comprehensiveVo[j].month2appreciation;
-                obj.month3wages = response.comprehensiveVo[j].month3wages;
-                obj.month3appreciation =
-                  response.comprehensiveVo[j].month3appreciation;
-                obj.month4wages = response.comprehensiveVo[j].month4wages;
-                obj.month4appreciation =
-                  response.comprehensiveVo[j].month4appreciation;
-                obj.month5wages = response.comprehensiveVo[j].month5wages;
-                obj.month5appreciation =
-                  response.comprehensiveVo[j].month5appreciation;
-                obj.month6wages = response.comprehensiveVo[j].month6wages;
-                obj.month6appreciation =
-                  response.comprehensiveVo[j].month6appreciation;
-                obj.month7wages = response.comprehensiveVo[j].month7wages;
-                obj.month7appreciation =
-                  response.comprehensiveVo[j].month7appreciation;
-                obj.month8wages = response.comprehensiveVo[j].month8wages;
-                obj.month8appreciation =
-                  response.comprehensiveVo[j].month8appreciation;
-                obj.month9wages = response.comprehensiveVo[j].month9wages;
-                obj.month9appreciation =
-                  response.comprehensiveVo[j].month9appreciation;
-                obj.month10wages = response.comprehensiveVo[j].month10wages;
-                obj.month10appreciation =
-                  response.comprehensiveVo[j].month10appreciation;
-                obj.month11wages = response.comprehensiveVo[j].month11wages;
-                obj.month11appreciation =
-                  response.comprehensiveVo[j].month11appreciation;
-                obj.month12wages = response.comprehensiveVo[j].month12wages;
-                obj.month12appreciation =
-                  response.comprehensiveVo[j].month12appreciation;
-                obj.appreciationtotal =
-                  response.comprehensiveVo[j].appreciationtotal;
-                obj.totalwithout12 = response.comprehensiveVo[j].totalwithout12;
-                obj.totalwithin12 = response.comprehensiveVo[j].totalwithin12;
-                datalistzhsr[j] = obj;
-                this.tableZHSR = datalistzhsr;
-                this.totaldataZHSR = datalistzhsr;
-                this.ListZHSR = 11;
-                this.getList();
-              }
-            }
-            this.loading = false;
-            //endregion
           }
+          // endregion
+          // region 免税 By SKAIXX
+          // 添加非空判断 By SKAIXX
+          if (response.dutyfreeVo) {
+            for (let j = 0; j < response.dutyfreeVo.length; j++) {
+              let user = getUserInfo(response.dutyfreeVo[j].user_id);
+              if (user) {
+                response.dutyfreeVo[j].user_id = getUserInfo(
+                  response.dutyfreeVo[j].user_id
+                ).userinfo.customername;
+              }
+              let obj = {};
+              obj.rowindex = j + 1;
+              obj.user_id = response.dutyfreeVo[j].user_id;
+              obj.january = response.dutyfreeVo[j].january;
+              obj.february = response.dutyfreeVo[j].february;
+              obj.march = response.dutyfreeVo[j].march;
+              obj.april = response.dutyfreeVo[j].april;
+              obj.may = response.dutyfreeVo[j].may;
+              obj.june = response.dutyfreeVo[j].june;
+              obj.july = response.dutyfreeVo[j].july;
+              obj.august = response.dutyfreeVo[j].august;
+              obj.september = response.dutyfreeVo[j].september;
+              obj.october = response.dutyfreeVo[j].october;
+              obj.november = response.dutyfreeVo[j].november;
+              obj.december = response.dutyfreeVo[j].december;
+              obj.total = response.dutyfreeVo[j].total;
+              datalistms[j] = obj;
+              this.tableMS = datalistms;
+              this.totaldataDutyfreeVo = datalistms;
+              this.listDutyfreeVo = 14;
+              this.getList();
+            }
+          }
+          // endregion
+          //region  综合收入 By SKAIXX
+          // 添加非空判断 By SKAIXX
+          if (response.comprehensiveVo) {
+            for (let j = 0; j < response.comprehensiveVo.length; j++) {
+              let user = getUserInfo(response.comprehensiveVo[j].user_id);
+              if (user) {
+                response.comprehensiveVo[j].user_id = getUserInfo(
+                  response.comprehensiveVo[j].user_id
+                ).userinfo.customername;
+              }
+              let obj = {};
+              obj.rowindex = j + 1;
+              obj.user_id = response.comprehensiveVo[j].user_id;
+              obj.totalbonus1 = response.comprehensiveVo[j].totalbonus1;
+              obj.month1wages = response.comprehensiveVo[j].month1wages;
+              obj.month1appreciation =
+                response.comprehensiveVo[j].month1appreciation;
+              obj.month2wages = response.comprehensiveVo[j].month2wages;
+              obj.month2appreciation =
+                response.comprehensiveVo[j].month2appreciation;
+              obj.month3wages = response.comprehensiveVo[j].month3wages;
+              obj.month3appreciation =
+                response.comprehensiveVo[j].month3appreciation;
+              obj.month4wages = response.comprehensiveVo[j].month4wages;
+              obj.month4appreciation =
+                response.comprehensiveVo[j].month4appreciation;
+              obj.month5wages = response.comprehensiveVo[j].month5wages;
+              obj.month5appreciation =
+                response.comprehensiveVo[j].month5appreciation;
+              obj.month6wages = response.comprehensiveVo[j].month6wages;
+              obj.month6appreciation =
+                response.comprehensiveVo[j].month6appreciation;
+              obj.month7wages = response.comprehensiveVo[j].month7wages;
+              obj.month7appreciation =
+                response.comprehensiveVo[j].month7appreciation;
+              obj.month8wages = response.comprehensiveVo[j].month8wages;
+              obj.month8appreciation =
+                response.comprehensiveVo[j].month8appreciation;
+              obj.month9wages = response.comprehensiveVo[j].month9wages;
+              obj.month9appreciation =
+                response.comprehensiveVo[j].month9appreciation;
+              obj.month10wages = response.comprehensiveVo[j].month10wages;
+              obj.month10appreciation =
+                response.comprehensiveVo[j].month10appreciation;
+              obj.month11wages = response.comprehensiveVo[j].month11wages;
+              obj.month11appreciation =
+                response.comprehensiveVo[j].month11appreciation;
+              obj.month12wages = response.comprehensiveVo[j].month12wages;
+              obj.month12appreciation =
+                response.comprehensiveVo[j].month12appreciation;
+              obj.appreciationtotal =
+                response.comprehensiveVo[j].appreciationtotal;
+              obj.totalwithout12 = response.comprehensiveVo[j].totalwithout12;
+              obj.totalwithin12 = response.comprehensiveVo[j].totalwithin12;
+              datalistzhsr[j] = obj;
+              this.tableZHSR = datalistzhsr;
+              this.totaldataZHSR = datalistzhsr;
+              this.ListZHSR = 11;
+              this.getList();
+            }
+          }
+          this.loading = false;
+          //endregion
         });
     },
     UploadUrlfjkc: function() {
