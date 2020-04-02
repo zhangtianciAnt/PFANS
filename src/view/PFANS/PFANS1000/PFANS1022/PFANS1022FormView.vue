@@ -4,7 +4,7 @@
                          :buttonList="buttonList"
                          @workflowState="workflowState" :canStart="canStart" @start="start" @end="end">
       <div slot="customize">
-        <el-form :model="form" label-width="8vw" label-position="top" style="padding: 2vw" :rules="rules"
+        <el-form :model="form" label-width="8vw" label-position="top" style="padding: 3vw" :rules="rules"
                  ref="refform">
           <el-row>
             <el-col :span="8">
