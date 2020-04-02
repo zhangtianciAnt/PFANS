@@ -118,21 +118,35 @@
                     {
                         code: 'punchcardrecord_date',
                         label: 'label.date',
-                        width: 130,
+                        width: 110,
                         fix: false,
                         filter: true
                     },
                     {
                         code: 'time_start',
                         label: 'label.PFANS2017VIEW_START',
-                        width: 130,
+                        width: 110,
                         fix: false,
                         filter: true
                     },
                     {
                         code: 'time_end',
                         label: 'label.PFANS2017VIEW_END',
-                        width: 130,
+                        width: 110,
+                        fix: false,
+                        filter: true
+                    },
+                    {
+                        code: 'wordtime',
+                        label: 'label.PFANS2017VIEW_COUNTTIME',
+                        width: 140,
+                        fix: false,
+                        filter: true
+                    },
+                    {
+                        code: 'absenteeismam',
+                        label: 'label.PFANS2017VIEW_ABSENTEEISMAM',
+                        width: 140,
                         fix: false,
                         filter: true
                     },
