@@ -2258,6 +2258,10 @@ module.exports = {
     PFANS2016FORMVIEW_XJTYPE: '休假类型',
     PFANS2016FORMVIEW_WCCHECKTYPE: '外出时间不正确请重新填写',
     PFANS2016FORMVIEW_YJCHECKEROR: '预计年假休息时间与实际年假休息时间不符',
+    PFANS2016FORMVIEW_CHECKDAIXIUBANRI: '半日代休时，须满足上午四小时出勤工作或下午四小时出勤工作',
+    PFANS2016FORMVIEW_TISHICHECKERROR: '①员工生育时享受产前产后连续98天产假，其中产前可以休假15天；难产增加产假15天；生育多胞胎时，每多生育一个婴儿，增加产假15天。产假期间包括公休日。\n' +
+      '②已婚女员工怀孕生育符合生育保险政策和国家和省人口与计划生育政策要求的子女时，可以享受本条第1款规定的产假以外的产假60天（包括公休日）。',
+    PFANS2016FORMVIEW_DATACHECK: '预计代修休息时间与实际代修休息时间不符',
     PFANS2016FORMVIEW_SJCHECKEROR: '实际年假休息时间与实际年假休息时间不符',
     PFANS2016FORMVIEW_RELENGTHTIMETO: '实际时间长度总计（h）',
     PFANS2016FORMVIEW_BJDJZHCHECK: '本年度的家长会次数已经用完',

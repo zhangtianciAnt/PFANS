@@ -121,6 +121,9 @@
               </el-form-item>
             </el-col>
           </el-row>
+          <div class="sub_color_red" v-if="checkerrortishi">
+            {{$t('label.PFANS2016FORMVIEW_TISHICHECKERROR')}}
+          </div>
           <el-row>
             <el-col :span="8"
                     v-if="form.status != '4' && form.status != '5' && form.status != '6' && form.status != '7'">
@@ -537,6 +540,7 @@
                 }
             };
             return {
+                checkerrortishi: false,
                 checklengthtime: false,
                 checkrelengthtime: false,
                 centerid: '',
@@ -819,6 +823,11 @@
                 this.form.vacationtype = val;
                 this.typecheck = val;
                 if (val == '1' || val == '2') {
+                    Message({
+                        message: this.$t('label.PFANS2016FORMVIEW_CHECKDAIXIUBANRI'),
+                        type: 'success',
+                        duration: 5 * 1000,
+                    });
                     this.checkfinisheddate = false;
                     this.checkTimelenght = 4;
                     this.form.occurrencedate = moment(new Date()).format('YYYY-MM-DD');
@@ -832,6 +841,11 @@
                 this.form.revacationtype = val;
                 this.typecheck = val;
                 if (val == '1' || val == '2') {
+                    Message({
+                        message: this.$t('label.PFANS2016FORMVIEW_CHECKDAIXIUBANRI'),
+                        type: 'success',
+                        duration: 5 * 1000,
+                    });
                     this.form.reoccurrencedate = moment(new Date()).format('YYYY-MM-DD');
                     this.form.refinisheddate = '';
                     this.checkTimeLenght = 8;
@@ -845,8 +859,8 @@
                     if (this.checkDate < val) {
                         this.errorcheck = 2;
                         Message({
-                            message: this.$t('label.PFANS2016FORMVIEW_YJCHECKEROR'),
-                            type: 'error',
+                            message: this.$t('label.PFANS2016FORMVIEW_CHECKDAIXIUBANRI'),
+                            type: 'success',
                             duration: 5 * 1000,
                         });
                         return;
@@ -858,7 +872,7 @@
                     if (this.checkDate < val) {
                         this.errorcheck = 2;
                         Message({
-                            message: this.$t('label.PFANS2016FORMVIEW_YJCHECKEROR'),
+                            message: this.$t('label.PFANS2016FORMVIEW_DATACHECK'),
                             type: 'error',
                             duration: 5 * 1000,
                         });
@@ -1528,65 +1542,72 @@
                 }
                 this.form.errortype = val;
                 if (val === 'PR013001') {
+                    this.checkerrortishi = false;
                     this.checkrelengthtime = false;
                     this.checklengthtime = false;
                     this.checkfinisheddate = false;
                 } else if (val === 'PR013021') {
+                    this.checkerrortishi = false;
                     this.checkrelengthtime = true;
                     this.checklengthtime = true;
                     this.checkfinisheddate = true;
                     // this.showFemale = true;
                 } else if (val === 'PR013005') {
+                    this.checkerrortishi = false;
                     this.checkrelengthtime = false;
                     this.checklengthtime = false;
                     this.checkfinisheddate = true;
                     // this.showFemale = false;
                     this.typecheck = 0;
                 } else if (val === 'PR013006') {
+                    this.checkerrortishi = false;
                     this.checkrelengthtime = false;
                     this.checklengthtime = false;
                     this.checkfinisheddate = true;
                     // this.showFemale = false;
                 } else if (val === 'PR013007') {
+                    this.checkerrortishi = false;
                     this.checkrelengthtime = false;
                     this.checklengthtime = false;
                     // this.showFemale = false;
                     this.checkfinisheddate = true;
                     this.showWeekend = false;
                 } else if (val === 'PR013008') {
+                    this.checkerrortishi = false;
                     this.checkrelengthtime = false;
                     this.checklengthtime = false;
                 } else if (val === 'PR013009') {
+                    this.checkerrortishi = false;
                     this.checkrelengthtime = false;
                     this.checklengthtime = false;
                     this.checkfinisheddate = true;
                     this.showVacation = true;
                 } else if (val === 'PR013010') {
+                    this.checkerrortishi = false;
                     this.checkrelengthtime = false;
                     this.checklengthtime = false;
                     this.checkfinisheddate = true;
                     this.showVacation = true;
                 } else if (val === 'PR013011') {
+                    this.checkerrortishi = false;
                     this.checkrelengthtime = true;
                     this.checklengthtime = true;
                     this.checkfinisheddate = true;
                     this.showVacation = true;
                 } else if (val === 'PR013012') {
+                    this.checkerrortishi = true;
                     this.checkrelengthtime = true;
                     this.checklengthtime = true;
                     this.checkfinisheddate = true;
                     this.showVacation = true;
                 } else if (val === 'PR013013') {
+                    this.checkerrortishi = false;
                     this.checkrelengthtime = true;
                     this.checklengthtime = true;
                     this.checkfinisheddate = true;
                     this.showVacation = true;
-                } else if (val === 'PR013013') {
-                    this.checkrelengthtime = true;
-                    this.checklengthtime = true;
-                    this.checkfinisheddate = true;
-                    this.showVacation = true;
-                } else if (val === 'PR013014') {
+                }  else if (val === 'PR013014') {
+                    this.checkerrortishi = false;
                     this.checkrelengthtime = true;
                     this.checklengthtime = true;
                     this.checkfinisheddate = false;
@@ -1594,16 +1615,19 @@
                     this.showVacation = false;
 
                 } else if (val === 'PR013016') {
+                    this.checkerrortishi = false;
                     this.checkrelengthtime = false;
                     this.checklengthtime = false;
                     this.checkfinisheddate = true;
                     this.showVacation = true;
                 } else if (val === 'PR013017') {
+                    this.checkerrortishi = false;
                     this.checkrelengthtime = true;
                     this.checklengthtime = true;
                     this.checkfinisheddate = true;
                     this.showVacation = true;
                 } else {
+                    this.checkerrortishi = false;
                     this.checkrelengthtime = true;
                     this.checklengthtime = true;
                     this.checkfinisheddate = true;
