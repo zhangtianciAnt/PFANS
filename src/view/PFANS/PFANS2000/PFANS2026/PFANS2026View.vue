@@ -115,6 +115,10 @@
                     response[j].group_name = nameflg.groupNmae;
                     response[j].team_name = nameflg.teamNmae;
                 }
+              let postinfo = getDictionaryInfo(response[j].position);
+              if(postinfo){
+                response[j].position = postinfo.value1;
+              }
               if (rst) {
                 response[j].user_id = getUserInfo(response[j].user_id).userinfo.customername;
               }

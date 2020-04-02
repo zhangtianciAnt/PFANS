@@ -730,8 +730,11 @@
       }
       this.getNameList();
       if (this.$route.params._id) {
-       this.getOne(this.$route.params._id);
-
+        this.getOne(this.$route.params._id);
+        // if (this.form.status === '4') {
+        //   this.canStart = false;
+        //   this.disabled = true;
+        // }
       }
     },
 

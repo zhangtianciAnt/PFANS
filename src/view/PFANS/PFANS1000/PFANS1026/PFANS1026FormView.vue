@@ -1278,6 +1278,7 @@
         this.$store
           .dispatch('PFANS1026Store/get', {'contractnumber': this.$route.params._id})
           .then(response => {
+            debugger
             let contractapplication = response.contractapplication;
             let contractnumbercount = response.contractnumbercount;
             if (contractapplication.length > 0) {
@@ -1286,7 +1287,7 @@
                   contractapplication[i].currencyposition = getDictionaryInfo(contractapplication[i].currencyposition).value4;
                 }
                   this.show3 = true;
-                this.maketype = contractapplication[i].maketype;
+                  this.maketype = contractapplication[i].maketype;
                   this.form1.claimtype = contractapplication[i].claimtype;
                   this.form1.contractnumber = contractapplication[i].contractnumber;
                   this.form1.contracttype = contractapplication[i].contracttype;

@@ -13,7 +13,7 @@
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_GZ')" name="first">
               <div style="height: 400px;width: 100%">
                 <pl-table
-                  :datas="tableWages"
+                  :datas="totaldata"
                   :element-loading-text="$t('normal.waiting')"
                   header-cell-class-name="sub_bg_color_blue"
                   header-row-class-name="height"
@@ -625,7 +625,7 @@
                   </pl-table-column>
                 </pl-table>
               </div>
-              <div class="pagination-container" style="padding-top: 2rem">
+              <!-- <div class="pagination-container" style="padding-top: 2rem">
                 <el-pagination
                   :current-page.sync="listQueryListWages.page"
                   :page-size="listQueryListWages.limit"
@@ -642,7 +642,7 @@
                     >{{$t('table.pagesize')}}</span>
                   </slot>
                 </el-pagination>
-              </div>
+              </div> -->
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_JS')" name="second">
               <el-table

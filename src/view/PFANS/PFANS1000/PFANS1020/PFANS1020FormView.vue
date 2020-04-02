@@ -174,7 +174,7 @@
                   outsidedetailid: '',
                   outsideid: '',
                   username:'',
-                  rank:'　',
+                  rank:'',
                   mailaddress:'',
                   reason:'',
               },
@@ -332,7 +332,7 @@
                         outsidedetailid: '',
                         outsideid: '',
                         username:'',
-                        rank:'　',
+                        rank:'',
                         mailaddress:'',
                         reason:'',
                     },
@@ -344,7 +344,7 @@
                 outsidedetailid: '',
                 outsideid: '',
                 username:'',
-                rank:'　',
+                rank:'',
                 mailaddress:'',
                 reason:'',
             });
@@ -357,7 +357,7 @@
               this.baseInfo.outside = JSON.parse(JSON.stringify(this.form));
               this.baseInfo.outsidedetail = [];
                 for (let i = 0; i < this.tableD.length; i++) {
-                    if (this.tableD[i].username.trim() === '' || this.tableD[i].rank !== '' || this.tableD[i].mailaddress !== '' ||
+                    if (this.tableD[i].username !== '' || this.tableD[i].rank !== '' || this.tableD[i].mailaddress !== '' ||
                         this.tableD[i].reason !== '') {
                         this.baseInfo.outsidedetail.push(
                             {
