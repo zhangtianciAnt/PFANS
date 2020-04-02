@@ -1787,6 +1787,9 @@
                         let letfinisheddate = moment(this.form.finisheddate).format('YYYY-MM-DD');
                         let letoccurrencedateTo = moment(this.form.reoccurrencedate).format('YYYY-MM-DD');
                         let letfinisheddateTo = moment(this.form.refinisheddate).format('YYYY-MM-DD');
+                        if (this.form.errortype === 'PR013001' ) {
+                            this.form.finisheddate = this.form.occurrencedate
+                        }
                         if (this.form.errortype === 'PR013005' || this.form.errortype === 'PR013006') {
                             if (letoccurrencedate == letfinisheddate) {
                                 this.form.lengthtime = 8;
