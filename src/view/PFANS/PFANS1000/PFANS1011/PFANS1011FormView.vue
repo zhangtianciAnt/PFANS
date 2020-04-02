@@ -86,31 +86,37 @@
                 <!--                  1-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1011VIEW_INFORMATIONPC')" label-width="24vw">
+                    <span style="margin-right: 1vw ">{{$t('label.no')}}</span>`
                     <el-switch :disabled="!disable"
                                v-model="form.informationpc"
                                active-value="0"
                                inactive-value="1"
                     ></el-switch>
+                    <span style="margin-left: 1vw ">{{$t('label.yes')}}</span>
                   </el-form-item>
                 </el-col>
                 <!--                2-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1011VIEW_INFORMATIONNO')" label-width="24vw">
+                    <span style="margin-right: 1vw ">{{$t('label.no')}}</span>`
                     <el-switch :disabled="!disable"
                                v-model="form.informationno"
                                active-value="0"
                                inactive-value="1"
                     ></el-switch>
+                    <span style="margin-left: 1vw ">{{$t('label.yes')}}</span>
                   </el-form-item>
                 </el-col>
                 <!--                3-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1011VIEW_MANAGEMENT')" label-width="23vw">
+                    <span style="margin-right: 1vw ">{{$t('label.no')}}</span>`
                     <el-switch :disabled="!disable"
                                v-model="form.management"
                                active-value="0"
                                inactive-value="1"
                     ></el-switch>
+                    <span style="margin-left: 1vw ">{{$t('label.yes')}}</span>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -118,31 +124,37 @@
 <!--                4-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1011VIEW_HEALTHOFMEMBERS')" label-width="23vw">
+                    <span style="margin-right: 1vw ">{{$t('label.no')}}</span>`
                     <el-switch :disabled="!disable"
                                v-model="form.healthofmembers"
                                active-value="0"
                                inactive-value="1"
                     ></el-switch>
+                    <span style="margin-left: 1vw ">{{$t('label.yes')}}</span>
                   </el-form-item>
                 </el-col>
 <!--                5-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1011VIEW_CUSTOMERS')" label-width="24vw">
+                    <span style="margin-right: 1vw ">{{$t('label.no')}}</span>`
                     <el-switch :disabled="!disable"
                                v-model="form.customers"
                                active-value="0"
                                inactive-value="1"
                     ></el-switch>
+                    <span style="margin-left: 1vw ">{{$t('label.yes')}}</span>
                   </el-form-item>
                 </el-col>
 <!--                6-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1011VIEW_OBJECTCHINA')" label-width="23vw">
+                    <span style="margin-right: 1vw ">{{$t('label.no')}}</span>`
                     <el-switch :disabled="!disable"
                                v-model="form.objectchina"
                                active-value="0"
                                inactive-value="1"
                     ></el-switch>
+                    <span style="margin-left: 1vw ">{{$t('label.yes')}}</span>
                   </el-form-item>
                 </el-col>
               </el-row>

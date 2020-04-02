@@ -195,12 +195,14 @@
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1025VIEW_EXTRINSIC')">
+                      <span style="margin-right: 1rem ">{{$t('label.no')}}</span>
                       <el-switch
                         :disabled="!disable"
                         v-model="form.extrinsic"
                         active-value="1"
                         inactive-value="0">
                       </el-switch>
+                      <span style="margin-left: 1rem ">{{$t('label.yes')}}</span>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">

@@ -53,7 +53,7 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_AGE')">
-                    <el-input class="width" v-model="form.age" disabled style="width:20vw"></el-input>
+                    <el-input class="width" v-model="age" disabled style="width:20vw"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -128,11 +128,13 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_CHILDREN')">
+                    <span style="margin-right: 1vw ">{{$t('label.no')}}</span>`
                     <el-switch
                       v-model="form.children"
                       active-value="1"
                       inactive-value="0">
                     </el-switch>
+                    <span style="margin-left: 1vw ">{{$t('label.yes')}}</span>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -1457,6 +1459,7 @@
       };
 
       return {
+          age: "",
         code: "",
         code1: 'PG021',
         occupationtypecode:"",
@@ -1569,7 +1572,6 @@
           sex: "",
           adfield: "",
           birthday: "",
-          age: "",
           nationality: "",
           nation: "",
           register: "",
@@ -2015,16 +2017,16 @@
         }
       };
     },
-    computed: {
-      birthday: {
-        get() {
-          return this.form.birthday;
-        },
-        set(val) {
-          this.form.birthday = val;
-        }
-      }
-    },
+    // computed: {
+    //   birthday: {
+    //     get() {
+    //       return this.form.birthday;
+    //     },
+    //     set(val) {
+    //       this.form.birthday = val;
+    //     }
+    //   }
+    // },
     watch: {
       form:{
         handler: function() {
@@ -2042,14 +2044,14 @@
           });
         }
       },
-      birthday(val) {
-        if (val) {
-          this.form.age =
-            moment().format("YYYY") - moment(val).format("YYYY") > 0
-              ? moment().format("YYYY") - moment(val).format("YYYY")
-              : 0;
-        }
-      }
+      // birthday(val) {
+      //   if (val) {
+      //     this.age =
+      //       moment().format("YYYY") - moment(val).format("YYYY") > 0
+      //         ? moment().format("YYYY") - moment(val).format("YYYY")
+      //         : 0;
+      //   }
+      // }
     },
     mounted() {
       this.form.staffexitprocedure;
@@ -2325,6 +2327,19 @@
           .dispatch("usersStore/getById", params)
           .then(response => {
             this.form = response.customerInfo.userinfo;
+            debugger
+              let birthdays = new Date(response.customerInfo.userinfo.birthday.replace(/-/g, "/"));
+              let d = new Date();
+              let age = 0;
+              let agenew = 0;
+              age = d.getFullYear() - birthdays.getFullYear()
+              if (d.getMonth() > birthdays.getMonth() || (d.getMonth() == birthdays.getMonth() && d.getDate() > birthdays.getDate())) {
+                  agenew = age + 1;
+              } else {
+                  agenew = age;
+              }
+              this.age = agenew;
+              console.log("aaa",this.age)
             this.status = response.customerInfo.status;
             this.userInfo.userAccount = response.userAccount;
             this.userInfo.customerInfo = response.customerInfo;

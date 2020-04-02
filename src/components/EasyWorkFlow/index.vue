@@ -123,30 +123,30 @@
                 }
                 this.workflowlist = workflows;
                 if (response.data.can === "0") {
-                  // if(this.$store.getters.operateOwner && this.$store.getters.userinfo.userid && (
-                  //   this.$store.getters.operateOwner === this.$store.getters.userinfo.userid
-                  // )){
+                  if(this.$store.getters.operateOwner && this.$store.getters.userinfo.userid && (
+                    this.$store.getters.operateOwner === this.$store.getters.userinfo.userid
+                  )){
                     this.canStartWorkflow = true;
                     this.$emit('canStartWorkflow', true)
-                  // }else{
-                  //   this.canStartWorkflow = false;
-                  //   this.$emit('canStartWorkflow', false)
-                  // }
+                  }else{
+                    this.canStartWorkflow = false;
+                    this.$emit('canStartWorkflow', false)
+                  }
                 } else {
                   if (response.data.can === "1") {
                     this.canStartWorkflow = false;
                     this.$emit('canStartWorkflow', false)
                   } else {
                     if (this.canStart && response.data.can === "2") {
-                      // if(this.$store.getters.operateOwner && this.$store.getters.userinfo.userid && (
-                      //   this.$store.getters.operateOwner === this.$store.getters.userinfo.userid
-                      // )){
+                      if(this.$store.getters.operateOwner && this.$store.getters.userinfo.userid && (
+                        this.$store.getters.operateOwner === this.$store.getters.userinfo.userid
+                      )){
                         this.canStartWorkflow = true;
                         this.$emit('canStartWorkflow', true)
-                      // }else{
-                      //   this.canStartWorkflow = false;
-                      //   this.$emit('canStartWorkflow', false)
-                      // }
+                      }else{
+                        this.canStartWorkflow = false;
+                        this.$emit('canStartWorkflow', false)
+                      }
                     } else {
                       this.canStartWorkflow = false;
                       this.$emit('canStartWorkflow', false)

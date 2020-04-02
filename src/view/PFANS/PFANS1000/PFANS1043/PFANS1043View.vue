@@ -60,7 +60,6 @@
         },
         data() {
             return {
-                pop_download: false,
                 totaldata: [],
                 listQuery: {
                     page: 1,

@@ -172,17 +172,23 @@
                   <el-row>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS2002FORMVIEW_RESUME')">
+                        <span style="margin-right: 1rem ">{{$t('label.PFANSUSERFORMVIEW_NO')}}</span>
                         <el-switch :disabled="disabled" v-model="form.resume"></el-switch>
+                        <span style="margin-left: 1rem ">{{$t('label.PFANSUSERFORMVIEW_YES')}}</span>
                       </el-form-item>
                     </el-col>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS2002FORMVIEW_IDENTITY')">
+                        <span style="margin-right: 1rem ">{{$t('label.PFANSUSERFORMVIEW_NO')}}</span>
                         <el-switch :disabled="disabled" v-model="form.identity"></el-switch>
+                        <span style="margin-left: 1rem ">{{$t('label.PFANSUSERFORMVIEW_YES')}}</span>
                       </el-form-item>
                     </el-col>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS2002FORMVIEW_DIPLOMA')">
+                        <span style="margin-right: 1rem ">{{$t('label.PFANSUSERFORMVIEW_NO')}}</span>
                         <el-switch :disabled="disabled" v-model="form.diploma"></el-switch>
+                        <span style="margin-left: 1rem ">{{$t('label.PFANSUSERFORMVIEW_YES')}}</span>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -190,17 +196,23 @@
                   <el-row>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS2002FORMVIEW_EXPERIENCE')">
+                        <span style="margin-right: 1rem ">{{$t('label.PFANSUSERFORMVIEW_NO')}}</span>
                         <el-switch :disabled="disabled" v-model="form.experience"></el-switch>
+                        <span style="margin-left: 1rem ">{{$t('label.PFANSUSERFORMVIEW_YES')}}</span>
                       </el-form-item>
                     </el-col>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS2002FORMVIEW_ENTRY')">
+                        <span style="margin-right: 1rem ">{{$t('label.PFANSUSERFORMVIEW_NO')}}</span>
                         <el-switch :disabled="disabled" v-model="form.entry"></el-switch>
+                        <span style="margin-left: 1rem ">{{$t('label.PFANSUSERFORMVIEW_YES')}}</span>
                       </el-form-item>
                     </el-col>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS2002FORMVIEW_REPORT')">
+                        <span style="margin-right: 1rem ">{{$t('label.PFANSUSERFORMVIEW_NO')}}</span>
                         <el-switch :disabled="disabled" v-model="form.report"></el-switch>
+                        <span style="margin-left: 1rem ">{{$t('label.PFANSUSERFORMVIEW_YES')}}</span>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -208,12 +220,16 @@
                   <el-row>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS2002FORMVIEW_OTHER1_1')">
+                        <span style="margin-right: 1rem ">{{$t('label.PFANSUSERFORMVIEW_NO')}}</span>
                         <el-switch :disabled="disabled" v-model="form.other1"></el-switch>
+                        <span style="margin-left: 1rem ">{{$t('label.PFANSUSERFORMVIEW_YES')}}</span>
                       </el-form-item>
                     </el-col>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS2002FORMVIEW_OTHER2_1')">
+                        <span style="margin-right: 1rem ">{{$t('label.PFANSUSERFORMVIEW_NO')}}</span>
                         <el-switch :disabled="disabled" v-model="form.other2"></el-switch>
+                        <span style="margin-left: 1rem ">{{$t('label.PFANSUSERFORMVIEW_YES')}}</span>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -283,12 +299,16 @@
                   <el-row>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS2002FORMVIEW_TICKET')">
+                        <span style="margin-right: 1rem ">{{$t('label.PFANSUSERFORMVIEW_NO')}}</span>
                         <el-switch :disabled="disabled" v-model="form.ticket"></el-switch>
+                        <span style="margin-left: 1rem ">{{$t('label.PFANSUSERFORMVIEW_YES')}}</span>
                       </el-form-item>
                     </el-col>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS2002FORMVIEW_HEALTH')">
+                        <span style="margin-right: 1rem ">{{$t('label.PFANSUSERFORMVIEW_NO')}}</span>
                         <el-switch :disabled="disabled" v-model="form.health"></el-switch>
+                        <span style="margin-left: 1rem ">{{$t('label.PFANSUSERFORMVIEW_YES')}}</span>
                       </el-form-item>
                     </el-col>
                   </el-row>
