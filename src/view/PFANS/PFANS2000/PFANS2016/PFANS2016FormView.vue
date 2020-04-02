@@ -29,8 +29,8 @@
           </el-row>
           <el-row>
             <el-col :span="8">
-              <el-form-item :error="error" :label="$t('label.applicant')" prop="user_id">
-                <user :disabled="true" :error="error" :selectType="selectType" :userlist="userlist"
+              <el-form-item :error="erroruser" :label="$t('label.applicant')" prop="user_id">
+                <user :disabled="true" :error="erroruser" :selectType="selectType" :userlist="userlist"
                       @getUserids="getUserids" style="width: 20vw"></user>
               </el-form-item>
             </el-col>
@@ -318,10 +318,10 @@
             var validateUserid = (rule, value, callback) => {
                 if (!value || value === '' || value === 'undefined') {
                     callback(new Error(this.$t('normal.error_08') + this.$t('label.applicant')));
-                    this.error = this.$t('normal.error_08') + this.$t('label.applicant');
+                    this.erroruser = this.$t('normal.error_08') + this.$t('label.applicant');
                 } else {
                     callback();
-                    this.error = '';
+                    this.erroruser = '';
                 }
             };
             var validatePass = (rule, value, callback) => {
@@ -570,7 +570,7 @@
                 showVacation: false,
                 // showFemale: false,
                 showWeekend: false,
-                error: '',
+                erroruser: '',
                 selectType: 'Single',
                 userlist: '',
                 title: 'title.exception_application',
@@ -890,13 +890,15 @@
                             return;
                         }
                     } else if (this.form.errortype === 'PR013016' && this.$store.getters.userinfo.userinfo.sex !== 'PR019002') {
-                        this.errorcheck = 2;
-                        Message({
-                            message: this.$t('label.PFANS2016FORMVIEW_WOMENCHECK'),
-                            type: 'error',
-                            duration: 5 * 1000,
-                        });
-                        return;
+                        if (this.$store.getters.userinfo.userinfo.sex !== 'PR019002') {
+                            this.errorcheck = 2;
+                            Message({
+                                message: this.$t('label.PFANS2016FORMVIEW_WOMENCHECK'),
+                                type: 'error',
+                                duration: 5 * 1000,
+                            });
+                            return;
+                        }
                     }
                     if (this.form.errortype === 'PR013001') {
                         if (8 < val) {
@@ -1106,8 +1108,6 @@
                 this.$store
                     .dispatch('PFANS2016Store/getOvertimelist', {userid: this.userlist, actualsubstitutiondate: null})
                     .then(response => {
-                        // console.log("aaa",this.relation)
-                        // let letrelation = [];
                         for (let j = 0; j < response.length; j++) {
                             response[j].reserveovertimedate = moment(response[j].reserveovertimedate).format('YYYY-MM-DD');
                             let getOvertimetype = getDictionaryInfo(response[j].overtimetype);
@@ -1542,22 +1542,24 @@
                     this.form.groupid = '';
                 }
                 if (!this.form.user_id || this.form.user_id === '' || val === 'undefined') {
-                    this.error = this.$t('normal.error_08') + this.$t('label.applicant');
+                    this.erroruser = this.$t('normal.error_08') + this.$t('label.applicant');
                 } else {
-                    this.error = '';
+                    this.erroruser = '';
                 }
 
             },
             changeTime() {
                 let diffDate = moment(this.form.finisheddate).diff(moment(this.form.occurrencedate), 'days') + 1;
                 if (this.form.errortype === 'PR013012' || this.form.errortype === 'PR013021' && this.$store.getters.userinfo.userinfo.sex !== 'PR019002') {
-                    this.error = 1;
-                    Message({
-                        message: this.$t('label.PFANS2016FORMVIEW_WOMENCHECK'),
-                        type: 'error',
-                        duration: 5 * 1000,
-                    });
-                    return;
+                    if (this.$store.getters.userinfo.userinfo.sex !== 'PR019002') {
+                        this.error = 1;
+                        Message({
+                            message: this.$t('label.PFANS2016FORMVIEW_WOMENCHECK'),
+                            type: 'error',
+                            duration: 5 * 1000,
+                        });
+                        return;
+                    }
                 } else if (this.form.errortype === 'PR013013') {
                     if (this.$store.getters.userinfo.userinfo.sex !== 'PR019001') {
                         this.error = 1;
