@@ -11,20 +11,30 @@
         <el-form label-position="top" label-width="8vw" ref="form">
           <el-tabs @tab-click="handleClick" v-model="activeName" type="border-card">
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_GZ')" name="first">
-              <div id="app">
-                <el-table
-                  :data="tableData"
+              <div style="height: 400px;width: 100%">
+                <pl-table
+                  :datas="tableWages"
+                  :element-loading-text="$t('normal.waiting')"
+                  header-cell-class-name="sub_bg_color_blue"
+                  header-row-class-name="height"
+                  :pagination-show= false
+                  :height-change= false
+                  highlight-current-row
+                  ref="eltable"
                   stripe
                   border
-                  header-cell-class-name="sub_bg_color_blue"
+                  use-virtual
+                  big-data-checkbox
+                  style="width: 100%"
+                  cell-class-name="row_height_left"
+                  :row-height="40"
                 >
-                  <!--                  :header-cell-style="getRowClass"-->
-                  <el-table-column
+                  <pl-table-column
                     prop="basicinfor1"
                     :label="$t('label.PFANS2006VIEW_BASICINFOR1')"
                     align="center"
                   >
-                    <el-table-column
+                    <pl-table-column
                       prop="no"
                       :label="$t('label.PFANS2006VIEW_NO')"
                       width="50"
@@ -33,216 +43,258 @@
                       <template slot-scope="scope">
                         <span style="color:blue">{{ scope.row.no }}</span>
                       </template>
-                    </el-table-column>
-                    <el-table-column
+                    </pl-table-column>
+                    <pl-table-column
                       prop="department_name"
                       :label="$t('label.PFANS2006VIEW_CLUB')"
                       width="250"
                       align="center"
-                    ></el-table-column>
-                    <el-table-column
+                    ></pl-table-column>
+                    <pl-table-column
                       prop="user_name"
                       :label="$t('label.PFANS2006VIEW_LASTNAME')"
                       width="150"
                       align="center"
-                    ></el-table-column>
-                    <el-table-column
+                    ></pl-table-column>
+                    <pl-table-column
                       prop="workdate"
                       :label="$t('label.PFANS2006VIEW_JOINED')"
                       width="150"
                       align="center"
-                    ></el-table-column>
-                    <el-table-column
+                    ></pl-table-column>
+                    <pl-table-column
                       prop="sex"
                       :label="$t('label.PFANS2006VIEW_SEX')"
                       width="150"
                       align="center"
-                    ></el-table-column>
-                    <el-table-column
+                    ></pl-table-column>
+                    <pl-table-column
                       prop="onlychild"
                       :label="$t('label.PFANS2006VIEW_SINGLECHILD')"
                       width="150"
                       align="center"
-                    ></el-table-column>
-                    <el-table-column
+                    ></pl-table-column>
+                    <pl-table-column
                       prop="type"
                       :label="$t('label.PFANS2006VIEW_ENTRYTYPE')"
                       width="150"
                       align="center"
-                    ></el-table-column>
-                    <el-table-column
+                    ></pl-table-column>
+                    <pl-table-column
                       prop="bonus"
                       :label="$t('label.PFANS2006VIEW_SCHOLARSHIP')"
                       width="150"
                       align="center"
-                    ></el-table-column>
-                    <el-table-column
+                    ></pl-table-column>
+                    <pl-table-column
                       prop="sociology"
                       :label="$t('label.PFANS2006VIEW_SOCIETY')"
                       width="200"
                       align="center"
-                    ></el-table-column>
-                    <el-table-column
+                    ></pl-table-column>
+                    <pl-table-column
                       prop="registered"
                       :label="$t('label.PFANS2006VIEW_REGISTER')"
                       width="150"
                       align="center"
-                    ></el-table-column>
-                  </el-table-column>
+                    ></pl-table-column>
+                  </pl-table-column>
 
-                  <el-table-column
+                  <pl-table-column
                     :label="$t('label.PFANS2005FORMVIEW_BASICINFOR2')"
                     align="center"
                   >
-                    <el-table-column
+                    <pl-table-column
                       prop="pension"
                       :label="$t('label.PFANS2005FORMVIEW_PENSIONBASE')"
                       width="270"
                       align="center"
-                    ></el-table-column>
-                    <el-table-column
+                    ></pl-table-column>
+                    <pl-table-column
                       prop="medical"
                       :label="$t('label.PFANS2005FORMVIEW_MEDICALCARE')"
                       width="150"
                       align="center"
-                    ></el-table-column>
-                    <el-table-column
+                    ></pl-table-column>
+                    <pl-table-column
                       prop="accumulation"
                       :label="$t('label.PFANS2005FORMVIEW_HOUSINGFUNDBASE')"
                       width="150"
                       align="center"
-                    ></el-table-column>
-                    <el-table-column
+                    ></pl-table-column>
+                    <pl-table-column
+                      prop="lastmonthbasic"
+                      :label="$t('label.PFANS2005FORMVIEW_LASTMONTHBASIC')"
+                      width="150"
+                      align="center"
+                    ></pl-table-column>
+                    <pl-table-column
+                      prop="lastmonthduty"
+                      :label="$t('label.PFANS2005FORMVIEW_LASTMONTHDUTY')"
+                      width="150"
+                      align="center"
+                    ></pl-table-column>
+                    <pl-table-column
+                      prop="basethismonthbasic"
+                      :label="$t('label.PFANS2005FORMVIEW_BASETHISMONTHBASIC')"
+                      width="150"
+                      align="center"
+                    ></pl-table-column>
+                    <pl-table-column
+                      prop="thismonthduty"
+                      :label="$t('label.PFANS2005FORMVIEW_THISMONTHDUTY')"
+                      width="150"
+                      align="center"
+                    ></pl-table-column>
+                    <!-- <pl-table-column
                       prop="lastmonth"
                       :label="$t('label.PFANS2005FORMVIEW_LASTMONTHPAYMENT')"
                       width="150"
                       align="center"
-                    ></el-table-column>
-                    <el-table-column
+                    ></pl-table-column>
+                    <pl-table-column
                       prop="thismonth"
                       :label="$t('label.PFANS2005FORMVIEW_MONTHPAYMENT')"
                       width="150"
                       align="center"
-                    ></el-table-column>
-                    <el-table-column prop="rnbasesalary" label="RN" width="150" align="center"></el-table-column>
-                    <el-table-column
+                    ></pl-table-column>-->
+                    <pl-table-column prop="rnbasesalary" label="RN" width="150" align="center"></pl-table-column>
+                    <pl-table-column
                       prop="birthrest"
                       :label="$t('label.PFANS2005FORMVIEW_BIRTHDAYREST')"
                       width="200"
                       align="center"
-                    ></el-table-column>
-                    <el-table-column
+                    ></pl-table-column>
+                    <pl-table-column
+                      prop="thismonthbasicbasic"
+                      :label="$t('label.PFANS2006VIEW_THISMONTHBASICBASIC')"
+                      width="200"
+                      align="center"
+                    ></pl-table-column>
+                    <pl-table-column
                       prop="thismonthbasic"
                       :label="$t('label.PFANS2005FORMVIEW_MONTHLYPOSTALTEMPORARY')"
                       width="200"
                       align="center"
-                    ></el-table-column>
-                    <el-table-column
+                    ></pl-table-column>
+                    <pl-table-column
                       prop="shortillness"
                       :label="$t('label.PFANS2005FORMVIEW_SHORTDURATIONTIME')"
                       width="150"
                       align="center"
-                    ></el-table-column>
-                    <el-table-column
+                    ></pl-table-column>
+                    <pl-table-column
                       prop="longillness"
                       :label="$t('label.PFANS2005FORMVIEW_LONGDURATIONTIME')"
                       width="150"
                       align="center"
-                    ></el-table-column>
-                    <el-table-column
+                    ></pl-table-column>
+                    <pl-table-column
                       prop="owediligence"
                       :label="$t('label.PFANS2005FORMVIEW_ABSENCETIME')"
                       width="150"
                       align="center"
-                    ></el-table-column>
-                    <el-table-column
+                    ></pl-table-column>
+                    <pl-table-column
                       prop="owingcontrol"
                       :label="$t('label.PFANS2005FORMVIEW_ABSENCEOFWORK')"
                       width="150"
                       align="center"
-                    ></el-table-column>
-                  </el-table-column>
+                    ></pl-table-column>
+                  </pl-table-column>
 
-                  <el-table-column :label="$t('label.PFANS2006VIEW_TAX')" align="center">
-                    <el-table-column
+                  <pl-table-column :label="$t('label.PFANS2006VIEW_TAX')" align="center">
+                    <!-- <pl-table-column
                       prop="actualamount"
                       :label="$t('label.PFANS2006VIEW_BASICSALARY')"
                       width="150"
                       align="center"
-                    ></el-table-column>
-                    <!-- <el-table-column
+                    ></pl-table-column>-->
+                    <pl-table-column
+                      prop="thismonthbasicgei"
+                      :label="$t('label.PFANS2006VIEW_THISMONTHBASICGEI')"
+                      width="150"
+                      align="center"
+                    ></pl-table-column>
+                    <pl-table-column
+                      prop="thismonthdutygei"
+                      :label="$t('label.PFANS2006VIEW_THISMONTHDUTYGEI')"
+                      width="150"
+                      align="center"
+                    ></pl-table-column>
+                    <!-- <pl-table-column
                       prop="supplement"
                       :label="$t('label.PFANS2006VIEW_REIMBURSEMENT')"
                       width="200"
                       align="center"
-                    ></el-table-column>-->
-                    <!-- <el-table-column
+                    ></pl-table-column>-->
+                    <!-- <pl-table-column
                       prop="telephonesubsidy"
                       :label="$t('label.PFANS2006VIEW_TELEPHONE')"
                       width="150"
                       align="center"
-                    ></el-table-column>-->
-                    <!-- <el-table-column
+                    ></pl-table-column>-->
+                    <!-- <pl-table-column
                       prop="housingsubsidy"
                       :label="$t('label.PFANS2006VIEW_RESIDENTIAL')"
                       width="150"
                       align="center"
-                    ></el-table-column>-->
-                    <!-- <el-table-column
+                    ></pl-table-column>-->
+                    <!-- <pl-table-column
                       prop="lunchsubsidy"
                       :label="$t('label.PFANS2006VIEW_AFTERNOON')"
                       width="150"
                       align="center"
-                    ></el-table-column>-->
-                    <el-table-column
+                    ></pl-table-column>-->
+                    <pl-table-column
                       prop="overtimesubsidy"
                       :label="$t('label.PFANS2006VIEW_KASUKE')"
                       width="150"
                       align="center"
-                    ></el-table-column>
-                    <el-table-column
+                    ></pl-table-column>
+                    <pl-table-column
                       prop="ykbz"
                       :label="$t('label.PFANS2006VIEW_YKBZ')"
                       width="150"
                       align="center"
-                    ></el-table-column>
-                    <!-- <el-table-column
+                    ></pl-table-column>
+                    <!-- <pl-table-column
                       prop="other1"
                       :label="$t('label.PFANS2006VIEW_OTHER1')"
                       width="150"
                       align="center"
-                    ></el-table-column>-->
-                    <el-table-column
+                    ></pl-table-column>-->
+                    <pl-table-column
                       prop="total1"
                       :label="$t('label.PFANS2006VIEW_SUBTOTAL1')"
                       width="150"
                       align="center"
-                    ></el-table-column>
-                    <!-- <el-table-column
+                    ></pl-table-column>
+                    <!-- <pl-table-column
                       prop="traffic"
                       :label="$t('label.PFANS2006VIEW_TRANSPORTATION')"
                       width="150"
                       align="center"
-                    ></el-table-column>-->
-                    <!-- <el-table-column
+                    ></pl-table-column>-->
+                    <!-- <pl-table-column
                       prop="washingtheory"
                       :label="$t('label.PFANS2006VIEW_WOMANWASHING')"
                       width="150"
                       align="center"
-                    ></el-table-column>-->
-                    <el-table-column
+                    ></pl-table-column>-->
+                    <pl-table-column
                       prop="other2"
                       :label="$t('label.PFANS2006VIEW_OTHER2')"
                       width="150"
                       align="center"
-                    ></el-table-column>
-                    <el-table-column
+                    ></pl-table-column>
+                    <pl-table-column
                       prop="appreciation"
                       :label="$t('label.PFANS2006VIEW_MONTHLYBONUS')"
                       width="150"
                       align="center"
-                    ></el-table-column>
-                    <el-table-column
+                    ></pl-table-column>
+                    <pl-table-column
                       prop="other3"
                       :label="$t('label.PFANS2006VIEW_OTHER3')"
                       width="150"
@@ -257,78 +309,78 @@
                           style="width:7rem"
                         ></el-input-number>
                       </template>
-                    </el-table-column>
-                    <el-table-column
+                    </pl-table-column>
+                    <pl-table-column
                       prop="total2"
                       :label="$t('label.PFANS2006VIEW_SUBTOTAL2')"
                       width="150"
                       align="center"
-                    ></el-table-column>
-                  </el-table-column>
+                    ></pl-table-column>
+                  </pl-table-column>
 
-                  <el-table-column
+                  <pl-table-column
                     prop="taxestotal"
                     :label="$t('label.PFANS2006VIEW_INDUSTRY')"
                     width="150"
                     align="center"
-                  ></el-table-column>
+                  ></pl-table-column>
 
-                  <el-table-column :label="$t('label.PFANS2005FORMVIEW_MS')" align="center">
-                    <el-table-column
+                  <pl-table-column :label="$t('label.PFANS2005FORMVIEW_MS')" align="center">
+                    <pl-table-column
                       prop="heating"
                       :label="$t('label.PFANS2006VIEW_HEATING')"
                       width="150"
                       align="center"
-                    ></el-table-column>
-                    <el-table-column
+                    ></pl-table-column>
+                    <pl-table-column
                       prop="onlychildmoney"
                       :label="$t('label.PFANS2006VIEW_OLONECHILD')"
                       width="150"
                       align="center"
-                    ></el-table-column>
-                    <el-table-column
+                    ></pl-table-column>
+                    <pl-table-column
                       prop="total3"
                       :label="$t('label.PFANS2006VIEW_SUBTOTAL3')"
                       width="150"
                       align="center"
-                    ></el-table-column>
-                  </el-table-column>
+                    ></pl-table-column>
+                  </pl-table-column>
 
-                  <el-table-column
+                  <pl-table-column
                     prop="totalwages"
                     :label="$t('label.PFANS2006VIEW_ARSENAL')"
                     width="150"
                     align="center"
-                  ></el-table-column>
+                  ></pl-table-column>
 
-                  <el-table-column :label="$t('label.PFANS2006VIEW_SECURITY')" align="center">
-                    <el-table-column
+                  <pl-table-column :label="$t('label.PFANS2006VIEW_SECURITY')" align="center">
+                    <pl-table-column
                       prop="endowmentinsurance"
                       :label="$t('label.PFANS2006VIEW_OLD')"
                       width="150"
                       align="center"
-                    ></el-table-column>
-                    <el-table-column
+                    ></pl-table-column>
+                    <pl-table-column
                       prop="medicalinsurance"
                       :label="$t('label.PFANS2006VIEW_MEDICAL')"
                       width="150"
                       align="center"
-                    ></el-table-column>
-                    <el-table-column
+                    ></pl-table-column>
+                    <pl-table-column
                       prop="unemploymentinsurance"
                       :label="$t('label.PFANS2006VIEW_UNEMPLOYMENT')"
                       width="150"
                       align="center"
-                    ></el-table-column>
-                  </el-table-column>
+                    ></pl-table-column>
+                  </pl-table-column>
 
-                  <el-table-column
+                  <pl-table-column
                     prop="socialinsurance"
                     :label="$t('label.PFANS2006VIEW_SOCIALSECURITY')"
                     width="150"
                     align="center"
-                  ></el-table-column>
-                  <el-table-column
+                  ></pl-table-column>
+                  <pl-table-column
                     prop="adjustment"
                     :label="$t('label.PFANS2005FORMVIEW_ADJUSTMENTNUMBER')"
                     width="150"
@@ -343,90 +395,90 @@
                         style="width:7rem"
                       ></el-input-number>
                     </template>
-                  </el-table-column>
-                  <el-table-column
+                  </pl-table-column>
+                  <pl-table-column
                     prop="accumulationfund"
                     :label="$t('label.PFANS2006VIEW_PUBLICMONEY')"
                     width="150"
                     align="center"
-                  ></el-table-column>
-                  <el-table-column
+                  ></pl-table-column>
+                  <pl-table-column
                     prop="disciplinarycontrol"
                     :label="$t('label.PFANS2006VIEW_SECURITYMON')"
                     width="150"
                     align="center"
-                  ></el-table-column>
-                  <el-table-column
+                  ></pl-table-column>
+                  <pl-table-column
                     prop="thismonthterm"
                     :label="$t('label.PFANS2006VIEW_EXCLUSIVE')"
                     width="150"
                     align="center"
-                  ></el-table-column>
-                  <el-table-column
+                  ></pl-table-column>
+                  <pl-table-column
                     prop="thismonthadditional"
                     :label="$t('label.PFANS2006VIEW_ACCUMULATED')"
                     width="150"
                     align="center"
-                  ></el-table-column>
-                  <el-table-column
+                  ></pl-table-column>
+                  <pl-table-column
                     prop="thismonthdutyfree"
                     :label="$t('label.PFANS2006VIEW_UNACCUMULATED')"
                     width="150"
                     align="center"
-                  ></el-table-column>
-                  <el-table-column
+                  ></pl-table-column>
+                  <pl-table-column
                     prop="lastdutyfree"
                     :label="$t('label.PFANS2006VIEW_ANNUAL')"
                     width="150"
                     align="center"
-                  ></el-table-column>
+                  ></pl-table-column>
 
-                  <el-table-column :label="$t('label.PFANS2006VIEW_ONLYTAX')" align="center">
-                    <el-table-column
+                  <pl-table-column :label="$t('label.PFANS2006VIEW_ONLYTAX')" align="center">
+                    <pl-table-column
                       prop="housingmoneys"
                       :label="$t('label.PFANS2006VIEW_RESIDENTIALTAX')"
                       width="150"
                       align="center"
-                    ></el-table-column>
-                    <el-table-column
+                    ></pl-table-column>
+                    <pl-table-column
                       prop="other4"
                       :label="$t('label.PFANS2006VIEW_COMPANYBOSS')"
                       width="230"
                       align="center"
-                    ></el-table-column>
-                    <el-table-column
+                    ></pl-table-column>
+                    <pl-table-column
                       prop="other5"
                       :label="$t('label.PFANS2006VIEW_OTHER5')"
                       width="150"
                       align="center"
-                    ></el-table-column>
-                  </el-table-column>
+                    ></pl-table-column>
+                  </pl-table-column>
 
-                  <el-table-column
+                  <pl-table-column
                     prop="shouldwages"
                     :label="$t('label.PFANS2006VIEW_RESPONSIBLE')"
                     width="150"
                     align="center"
-                  ></el-table-column>
-                  <el-table-column
+                  ></pl-table-column>
+                  <pl-table-column
                     prop="shouldcumulative"
                     :label="$t('label.PFANS2006VIEW_CUMULATIVE')"
                     width="150"
                     align="center"
-                  ></el-table-column>
-                  <el-table-column
+                  ></pl-table-column>
+                  <pl-table-column
                     prop="shouldpaytaxes"
                     :label="$t('label.PFANS2006VIEW_INCOME')"
                     width="150"
                     align="center"
-                  ></el-table-column>
-                  <el-table-column
+                  ></pl-table-column>
+                  <pl-table-column
                     prop="thismonthadjustment"
                     :label="$t('label.PFANS2006VIEW_THISMONTH')"
                     width="150"
                     align="center"
-                  ></el-table-column>
-                  <el-table-column
+                  ></pl-table-column>
+                  <pl-table-column
                     prop="thisadjustment"
                     :label="$t('label.PFANS2005FORMVIEW_ADJUSTMENTNUMBER')"
                     width="150"
@@ -441,69 +493,69 @@
                         style="width:7rem"
                       ></el-input-number>
                     </template>
-                  </el-table-column>
-                  <el-table-column
+                  </pl-table-column>
+                  <pl-table-column
                     prop="realwages"
                     :label="$t('label.PFANS2006VIEW_ACTUAL')"
                     width="150"
                     align="center"
-                  ></el-table-column>
+                  ></pl-table-column>
 
-                  <el-table-column
+                  <pl-table-column
                     :label="$t('label.PFANS2005FORMVIEW_COMPANYSUPPORT')"
                     align="center"
                   >
-                    <el-table-column
+                    <pl-table-column
                       prop="comendowmentinsurance"
                       :label="$t('label.PFANS2006VIEW_OLD')"
                       width="150"
                       align="center"
-                    ></el-table-column>
-                    <el-table-column
+                    ></pl-table-column>
+                    <pl-table-column
                       prop="commedicalinsurance"
                       :label="$t('label.PFANS2006VIEW_MEDICAL')"
                       width="150"
                       align="center"
-                    ></el-table-column>
-                    <el-table-column
+                    ></pl-table-column>
+                    <pl-table-column
                       prop="comunemploymentinsurance"
                       :label="$t('label.PFANS2006VIEW_UNEMPLOYMENT')"
                       width="150"
                       align="center"
-                    ></el-table-column>
-                    <el-table-column
+                    ></pl-table-column>
+                    <pl-table-column
                       prop="cominjuryinsurance"
                       :label="$t('label.PFANS2005FORMVIEW_EMPLOYMENTINJURYINSURANCE')"
                       width="150"
                       align="center"
-                    ></el-table-column>
-                    <el-table-column
+                    ></pl-table-column>
+                    <pl-table-column
                       prop="combirthinsurance"
                       :label="$t('label.PFANS2005FORMVIEW_COMBIRTHINSURANCE')"
                       width="150"
                       align="center"
-                    ></el-table-column>
-                    <el-table-column
+                    ></pl-table-column>
+                    <pl-table-column
                       prop="comheating"
                       :label="$t('label.PFANS2005FORMVIEW_HEATINGCOST')"
                       width="150"
                       align="center"
-                    ></el-table-column>
-                    <el-table-column
+                    ></pl-table-column>
+                    <pl-table-column
                       prop="comaccumulationfund"
                       :label="$t('label.PFANS2005FORMVIEW_HOUSINGPROVIDENTFUND')"
                       width="150"
                       align="center"
-                    ></el-table-column>
-                    <el-table-column
+                    ></pl-table-column>
+                    <pl-table-column
                       prop="total"
                       :label="$t('label.PFANS2005FORMVIEW_TOTAL')"
                       width="150"
                       align="center"
-                    ></el-table-column>
-                  </el-table-column>
+                    ></pl-table-column>
+                  </pl-table-column>
 
-                  <el-table-column
+                  <pl-table-column
                     prop="totaladjustment"
                     :label="$t('label.PFANS2005FORMVIEW_ADJUSTMENTNUMBER')"
                     width="150"
@@ -518,38 +570,44 @@
                         style="width:7rem"
                       ></el-input-number>
                     </template>
-                  </el-table-column>
-                  <el-table-column
+                  </pl-table-column>
+                  <pl-table-column
                     prop="labourunionbase"
                     :label="$t('label.PFANS2005FORMVIEW_LABORUNIONFUNDBASE')"
                     width="150"
                     align="center"
-                  ></el-table-column>
-                  <el-table-column
+                  ></pl-table-column>
+                  <pl-table-column
                     prop="labourunionfunds"
                     :label="$t('label.PFANS2009VIEW_INDUSTRIALPARTY')"
                     width="150"
                     align="center"
-                  ></el-table-column>
-                  <el-table-column
+                  ></pl-table-column>
+                  <pl-table-column
                     prop="comtotalwages"
                     :label="$t('label.PFANS2005FORMVIEW_TOTALWAGES')"
                     width="150"
                     align="center"
-                  ></el-table-column>
-                  <el-table-column
+                  ></pl-table-column>
+                  <pl-table-column
+                    prop="njjy"
+                    :label="$t('label.PFANS2005FORMVIEW_NJJY')"
+                    width="150"
+                    align="center"
+                  ></pl-table-column>
+                  <pl-table-column
                     prop="bonusmoney"
                     :label="$t('label.PFANS2005FORMVIEW_GAUGE')"
                     width="150"
                     align="center"
-                  ></el-table-column>
-                  <el-table-column
+                  ></pl-table-column>
+                  <pl-table-column
                     prop="totalbonus"
                     :label="$t('label.PFANS2005FORMVIEW_TOTALGAUGE')"
                     width="150"
                     align="center"
-                  ></el-table-column>
-                  <el-table-column
+                  ></pl-table-column>
+                  <pl-table-column
                     prop="other6"
                     :label="$t('label.PFANS2005FORMVIEW_OTHER6')"
                     width="150"
@@ -564,8 +622,26 @@
                         style="width:7rem"
                       ></el-input-number>
                     </template>
-                  </el-table-column>
-                </el-table>
+                  </pl-table-column>
+                </pl-table>
+              </div>
+              <div class="pagination-container" style="padding-top: 2rem">
+                <el-pagination
+                  :current-page.sync="listQueryListWages.page"
+                  :page-size="listQueryListWages.limit"
+                  :page-sizes="[5,10,20,30,50]"
+                  :total="total_wages"
+                  @current-change="handleCurrentChangeWages"
+                  @size-change="handleSizeChangeWages"
+                  layout="slot,sizes, ->,prev, pager, next, jumper"
+                >
+                  <slot>
+                    <span
+                      class="front Content_front"
+                      style="padding-right: 0.5rem;font-weight: 400"
+                    >{{$t('table.pagesize')}}</span>
+                  </slot>
+                </el-pagination>
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_JS')" name="second">
@@ -1320,6 +1396,7 @@
                   :label="$t('label.PFANS2006VIEW_NO')"
                   align="center"
                   prop="rowindex"
+                  width="150%"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_LASTNAME')"
@@ -1379,8 +1456,11 @@
                   :label="$t('label.PFANS3007VIEW_REMARKS')"
                   align="center"
                   prop="remarks"
-                  width="200%"
-                ></el-table-column>
+                >
+                <template slot-scope="scope">
+                  <el-input v-model="scope.row.remarks"></el-input>
+                </template>
+                </el-table-column>
               </el-table>
               <div class="pagination-container" style="padding-top: 2rem">
                 <el-pagination
@@ -1419,37 +1499,41 @@
                   :label="$t('label.PFANS2006VIEW_LASTNAME')"
                   align="center"
                   prop="user_id"
-                  width="200%"
+                  width="250%"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2005FORMVIEW_RETIREMENTDATE')"
                   align="center"
                   prop="retiredate"
-                  width="150%"
+                  width="250%"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2005FORMVIEW_ATTENDANCE')"
                   align="center"
                   prop="attendance"
-                  width="150%"
+                  width="250%"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANSUSERFORMVIEW_SALARY')"
                   align="center"
                   prop="give"
-                  width="150%"
+                  width="250%"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2005FORMVIEW_SUBSIDIZE')"
                   align="center"
                   prop="lunch"
-                  width="150%"
+                  width="250%"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS3007VIEW_REMARKS')"
                   align="center"
                   prop="remarks"
-                ></el-table-column>
+                >
+                  <template slot-scope="scope">
+                    <el-input v-model="scope.row.remarks"></el-input>
+                  </template>
+                </el-table-column>
               </el-table>
               <div class="pagination-container" style="padding-top: 2rem">
                 <el-pagination
@@ -2763,7 +2847,7 @@ export default {
   },
   data() {
     return {
-      tableData: [],
+      tableData: [], //zong
       totaldataFJKC: [],
       totaldataQQ: [],
       totaldataCY: [],
@@ -2855,6 +2939,10 @@ export default {
         page: 1,
         limit: 20
       },
+      listQueryListWages: {
+        page: 1,
+        limit: 20
+      },
       menuList: [
         { value: "1", label: 1 },
         { value: "2", label: 2 }
@@ -2871,6 +2959,7 @@ export default {
       totalRZ: 0,
       totalTZ: 0,
       totalBase: 0,
+      total_wages: 0, // changdu
       totalDutyfreeVo: 0,
       totalAccumulatedTax: 0,
       totalContrast: 0,
@@ -2887,6 +2976,7 @@ export default {
       ListRZ: "",
       ListTZ: "",
       listBase: "",
+      listWages: "",
       listAccumulatedTax: "",
       listDutyfreeVo: "",
       listContrast: "",
@@ -3011,300 +3101,25 @@ export default {
           icon: "el-icon-download"
         }
       ],
-      OTherTwo: {
-        giving_id: "",
-        type: ""
-      },
-      tableJS: [
-        {
-          rowindex: "",
-          department_id: "",
-          user_id: "",
-          rn: "",
-          sex: "",
-          onlychil: "",
-          type: "",
-          bonus: "",
-          sociology: "",
-          registered: "",
-          lastmonth: "",
-          lastmonthbasic: "",
-          lastmonthduty: "",
-          thismonthbasic: "",
-          thismonthduty: "",
-          thismonth: "",
-          pension: "",
-          medical: "",
-          accumulation: "",
-          heating: "",
-          workdate: ""
-        }
-      ],
-      tableQT5: [
-        {
-          rowindex: "",
-          department_id: "",
-          user_id: "",
-          medicalinsurance: "",
-          accident: "",
-          physical: "",
-          welfaretotal: "",
-          labourunion: "",
-          annualmeeting: "",
-          travel: "",
-          total: "",
-          remarks: ""
-        }
-      ],
-      tableRZ: [
-        {
-          rowindex: "",
-          user_id: "",
-          lastmouth: "",
-          thismouth: "",
-          worddate: "",
-          startdate: "",
-          attendance: "",
-          trial: "",
-          give: "",
-          lunch: "",
-          traffic: "",
-          remarks: ""
-        }
-      ],
-      tableTZ: [
-        {
-          rowindex: "",
-          user_id: "",
-          retiredate: "",
-          attendance: "",
-          give: "",
-          lunch: "",
-          traffic: "",
-          remarks: ""
-        }
-      ],
-      tableQT1Woman: [
-        {
-          otherone_id: "",
-          giving_id: "",
-          rowindex: "",
-          department_id: "",
-          user_id: "",
-          sex: "",
-          workdate: "",
-          reststart: "",
-          restend: "",
-          attendance: "",
-          other1: "",
-          basedata: ""
-        }
-      ],
-      tableQT1Man: [
-        {
-          rowindex: "",
-          department_id: "",
-          user_id: "",
-          sex: "",
-          workdate: "",
-          startdate: "",
-          enddate: "",
-          vacation: "",
-          handsupport: ""
-        }
-      ],
-      tableQT2: [
-        {
-          giving_id: "",
-          othertwo_id: "",
-          rowindex: "",
-          user_id: "",
-          moneys: "",
-          rootknot: ""
-        }
-      ],
-      tableYDSY: [
-        {
-          rowindex: "",
-          user_id: "",
-          commentary: "",
-          amount: "",
-          other1: "",
-          other2: "",
-          other3: "",
-          other4: "",
-          other5: ""
-        }
-      ],
-      tableQT4: [
-        {
-          otherfour_id: "",
-          giving_id: "",
-          department_id: "",
-          user_id: "",
-          socialsecurity: "",
-          total: "",
-          remarks: "",
-          rowindex: "",
-          jobnumber: ""
-        }
-      ],
-      tableFJKC: [
-        {
-          user_id: "",
-          childreneducation: "",
-          housing: "",
-          rent: "",
-          support: "",
-          education: "",
-          total: ""
-        }
-      ],
-      tableZHSR: [
-        {
-          rowindex: "",
-          user_id: "",
-          month1wages: "",
-          month1appreciation: "",
-          month2wages: "",
-          month2appreciation: "",
-          month3wages: "",
-          month3appreciation: "",
-          month4wages: "",
-          month4appreciation: "",
-          month5wages: "",
-          month5appreciation: "",
-          month6wages: "",
-          month6appreciation: "",
-          month7wages: "",
-          month7appreciation: "",
-          month8wages: "",
-          month8appreciation: "",
-          month9wages: "",
-          month9appreciation: "",
-          month10wages: "",
-          month10appreciation: "",
-          month11wages: "",
-          month11appreciation: "",
-          month12wages: "",
-          month12appreciation: ""
-        }
-      ],
-      tableMS: [
-        {
-          rowindex: "",
-          user_id: "",
-          january: "",
-          february: "",
-          march: "",
-          april: "",
-          may: "",
-          june: "",
-          july: "",
-          august: "",
-          september: "",
-          october: "",
-          november: "",
-          december: "",
-          total: ""
-        }
-      ],
-      tableZXKC: [
-        {
-          number: "",
-          user_id: "",
-          january: "",
-          february: "",
-          march: "",
-          april: "",
-          may: "",
-          june: "",
-          july: "",
-          august: "",
-          september: "",
-          october: "",
-          november: "",
-          december: "",
-          total: ""
-        }
-      ],
-      tableQQ: [
-        {
-          user_id: "",
-          lastdiligence: "",
-          lastshortdeficiency: "",
-          lastchronicdeficiency: "",
-          lasttotal: "",
-          thisdiligence: "",
-          thisshortdeficiency: "",
-          thischronicdeficiency: "",
-          thistotal: "",
-          remarks: "",
-          give: "",
-          rowindex: ""
-        }
-      ],
-      tableCY: [
-        {
-          rowindex: "",
-          user_id: "",
-          rn: "",
-          lastweekdays: "",
-          lastlatenight: "",
-          lastrestDay: "",
-          lastrestlatenight: "",
-          lastlegal: "",
-          lastlegallatenight: "",
-          lastreplace: "",
-          lasttotalh: "",
-          lasttotaly: "",
-          thisweekdays: "",
-          thislatenight: "",
-          thisrestDay: "",
-          thisrestlatenight: "",
-          thislegal: "",
-          thislegallatenight: "",
-          thisreplace: "",
-          thisreplace3: "",
-          thistotalh: "",
-          thistotaly: "",
-          remarks: "",
-          subsidy: ""
-        }
-      ],
-      tableLJSJ: [
-        {
-          rowindex: "",
-          user_id: "",
-          january: "",
-          february: "",
-          march: "",
-          april: "",
-          may: "",
-          june: "",
-          july: "",
-          august: "",
-          september: "",
-          october: "",
-          november: "",
-          december: "",
-          sumThis: "",
-          shouldwages: "",
-          balance: ""
-        }
-      ],
-      tableGRDB: [
-        {
-          contrast_id: "",
-          rowindex: "",
-          department_id: "",
-          user_id: "",
-          thismonth: "",
-          lastmonth: "",
-          difference: "",
-          reason: ""
-        }
-      ],
+      OTherTwo: {},
+      tableJS: [],
+      tableWages: [], // jiequ
+      tableQT5: [],
+      tableRZ: [],
+      tableTZ: [],
+      tableQT1Woman: [],
+      tableQT1Man: [],
+      tableQT2: [],
+      tableYDSY: [],
+      tableQT4: [],
+      tableFJKC: [],
+      tableZHSR: [],
+      tableMS: [],
+      tableZXKC: [],
+      tableQQ: [],
+      tableCY: [],
+      tableLJSJ: [],
+      tableGRDB: [],
       baseInfo: {},
       givingVo: {}
     };
@@ -3354,7 +3169,9 @@ export default {
             item.sociology = item.sociology === "1" ? "是" : "-";
             item.registered = item.registered === "1" ? "是" : "-";
           });
-          this.tableData = response.wagesList;
+          this.totaldata = response.wagesList;
+          this.listWages = 0;
+          this.getList();
           // region 欠勤 By SKAIXX
           // 添加非空判断 By SKAIXX
           if (response.lackattendance) {
@@ -3710,427 +3527,418 @@ export default {
               this.ListOtherOne = 2;
               this.getList();
             }
-            for (let a = 0; a < response.otherTwo.length; a++) {
-              let user = getUserInfo(response.otherTwo[a].user_id);
+          }
+          for (let a = 0; a < response.otherTwo.length; a++) {
+            let user = getUserInfo(response.otherTwo[a].user_id);
+            if (user) {
+              response.otherTwo[a].user_id = getUserInfo(
+                response.otherTwo[a].user_id
+              ).userinfo.customername;
+            }
+            if (
+              response.otherTwo[a].rootknot !== null &&
+              response.otherTwo[a].rootknot !== ""
+            ) {
+              let letErrortype = getDictionaryInfo(
+                response.otherTwo[a].rootknot
+              );
+              if (letErrortype != null) {
+                response.otherTwo[a].rootknot = letErrortype.value1;
+              }
+            }
+            let Obj = {};
+            Obj.othertwo_id = response.otherTwo[a].othertwo_id;
+            Obj.user_id = response.otherTwo[a].user_id;
+            Obj.moneys = response.otherTwo[a].moneys;
+            Obj.rootknot = response.otherTwo[a].rootknot;
+            Obj.type = response.otherTwo[a].type;
+            Obj.giving_id = response.otherTwo[a].giving_id;
+            Obj.rowindex = a + 1;
+            datalist[a] = Obj;
+            this.tableQT2 = datalist;
+            this.totaldataQT2 = datalist;
+            this.ListQt2 = 3;
+            this.getList();
+          }
+          // region 月度赏与 By SKAIXX
+          // 添加非空判断 By SKAIXX
+          if (response.appreciation) {
+            for (let j = 0; j < response.appreciation.length; j++) {
+              let user = getUserInfo(response.appreciation[j].user_id);
               if (user) {
-                response.otherTwo[a].user_id = getUserInfo(
-                  response.otherTwo[a].user_id
+                response.appreciation[j].user_id = getUserInfo(
+                  response.appreciation[j].user_id
                 ).userinfo.customername;
               }
-              if (
-                response.otherTwo[a].rootknot !== null &&
-                response.otherTwo[a].rootknot !== ""
-              ) {
-                let letErrortype = getDictionaryInfo(
-                  response.otherTwo[a].rootknot
-                );
-                if (letErrortype != null) {
-                  response.otherTwo[a].rootknot = letErrortype.value1;
-                }
-              }
-              let Obj = {};
-              Obj.othertwo_id = response.otherTwo[a].othertwo_id;
-              Obj.user_id = response.otherTwo[a].user_id;
-              Obj.moneys = response.otherTwo[a].moneys;
-              Obj.rootknot = response.otherTwo[a].rootknot;
-              Obj.type = response.otherTwo[a].type;
-              Obj.giving_id = response.otherTwo[a].giving_id;
-              Obj.rowindex = a + 1;
-              datalist[a] = Obj;
-              this.tableQT2 = datalist;
-              this.totaldataQT2 = datalist;
-              this.ListQt2 = 3;
+              this.tableYDSY = response.appreciation;
+              this.totaldataYDSY = response.appreciation;
+              this.ListYDSY = 10;
               this.getList();
             }
-            // region 月度赏与 By SKAIXX
-            // 添加非空判断 By SKAIXX
-            if (response.appreciation) {
-              for (let j = 0; j < response.appreciation.length; j++) {
-                let user = getUserInfo(response.appreciation[j].user_id);
-                if (user) {
-                  response.appreciation[j].user_id = getUserInfo(
-                    response.appreciation[j].user_id
-                  ).userinfo.customername;
-                }
-                this.tableYDSY = response.appreciation;
-                this.totaldataYDSY = response.appreciation;
-                this.ListYDSY = 10;
-                this.getList();
-              }
-            }
-            // endregion
+          }
+          // endregion
 
-            for (let j = 0; j < response.otherFour.length; j++) {
-              let user = getUserInfo(response.otherFour[j].user_id);
+          for (let j = 0; j < response.otherFour.length; j++) {
+            let user = getUserInfo(response.otherFour[j].user_id);
+            if (user) {
+              response.otherFour[j].user_id = getUserInfo(
+                response.otherFour[j].user_id
+              ).userinfo.customername;
+            }
+            this.tableQT4 = response.otherFour;
+            this.totaldataQT4 = response.otherFour;
+            this.ListQT4 = 4;
+            this.getList();
+          }
+
+          // region 附加控除 By SKAIXX
+          // 添加非空判断 By SKAIXX
+          if (response.addiTional) {
+            for (let j = 0; j < response.addiTional.length; j++) {
+              let user = getUserInfo(response.addiTional[j].user_id);
               if (user) {
-                response.otherFour[j].user_id = getUserInfo(
-                  response.otherFour[j].user_id
+                response.addiTional[j].user_id = getUserInfo(
+                  response.addiTional[j].user_id
                 ).userinfo.customername;
               }
-              this.tableQT4 = response.otherFour;
-              this.totaldataQT4 = response.otherFour;
-              this.ListQT4 = 4;
+              this.tableFJKC = response.addiTional;
+              this.totaldataFJKC = response.addiTional;
+              this.ListFJKC = 13;
               this.getList();
             }
+          }
+          // endregion
 
-            // region 附加控除 By SKAIXX
-            // 添加非空判断 By SKAIXX
-            if (response.addiTional) {
-              for (let j = 0; j < response.addiTional.length; j++) {
-                let user = getUserInfo(response.addiTional[j].user_id);
-                if (user) {
-                  response.addiTional[j].user_id = getUserInfo(
-                    response.addiTional[j].user_id
-                  ).userinfo.customername;
-                }
-                this.tableFJKC = response.addiTional;
-                this.totaldataFJKC = response.addiTional;
-                this.ListFJKC = 13;
-                this.getList();
+          for (let j = 0; j < response.otherFive.length; j++) {
+            let user = getUserInfo(response.otherFive[j].user_id);
+            if (user) {
+              response.otherFive[j].user_id = getUserInfo(
+                response.otherFive[j].user_id
+              ).userinfo.customername;
+            }
+            this.tableQT5 = response.otherFive;
+            this.totaldataQT5 = response.otherFive;
+            this.ListQt5 = 5;
+            this.getList();
+          }
+
+          // region 入职和离职处理 By Myt
+          // 入职
+          for (let j = 0; j < response.entryVo.length; j++) {
+            let user = getUserInfo(response.entryVo[j].user_id);
+            if (user) {
+              response.entryVo[j].user_id = getUserInfo(
+                response.entryVo[j].user_id
+              ).userinfo.customername;
+            }
+            if (
+              response.entryVo[j].worddate !== null &&
+              response.entryVo[j].worddate !== ""
+            ) {
+              response.entryVo[j].worddate = moment(
+                response.entryVo[j].worddate
+              ).format("YYYY-MM-DD");
+            }
+            if (
+              response.entryVo[j].startdate !== null &&
+              response.entryVo[j].startdate !== ""
+            ) {
+              response.entryVo[j].startdate = moment(
+                response.entryVo[j].startdate
+              ).format("YYYY-MM-DD");
+            }
+            this.tableRZ = response.entryVo;
+            this.totaldataRZ = response.entryVo;
+            this.ListRZ = 6;
+            this.getList();
+          }
+          // 上月年月和今月年月赋值
+          this.yearOfLastMonth = response.yearOfLastMonth;
+          this.monthOfLastMonth = response.monthOfLastMonth;
+          this.yearOfThisMonth = response.yearOfThisMonth;
+          this.monthOfThisMonth = response.monthOfThisMonth;
+
+          // 退职
+          for (let j = 0; j < response.retireVo.length; j++) {
+            let user = getUserInfo(response.retireVo[j].user_id);
+            if (user) {
+              response.retireVo[j].user_id = getUserInfo(
+                response.retireVo[j].user_id
+              ).userinfo.customername;
+            }
+            if (
+              response.retireVo[j].retiredate !== null &&
+              response.retireVo[j].retiredate !== ""
+            ) {
+              response.retireVo[j].retiredate = moment(
+                response.retireVo[j].retiredate
+              ).format("YYYY-MM-DD");
+            }
+            this.tableTZ = response.retireVo;
+            this.totaldataTZ = response.retireVo;
+            this.ListTZ = 6;
+            this.getList();
+          }
+          // endregion
+          for (let j = 0; j < response.base.length; j++) {
+            if (response.base[j].type === "1") {
+              console.log(this.$t("label.PFANS2005FORMVIEW_SFRZ"))
+              response.base[j].type = this.$t("label.PFANS2005FORMVIEW_SFRZ");
+            } else if (response.base[j].type === "4") {
+              response.base[j].type = this.$t("label.PFANS2005FORMVIEW_SFTZ");
+            } else if (response.base[j].type === "2") {
+              response.base[j].type = this.$t("label.PFANS2005FORMVIEW_NSFCX");
+            } else if (response.base[j].type === "3") {
+              response.base[j].type = this.$t("label.PFANS2005FORMVIEW_NVSFCX");
+            }
+            let user = getUserInfo(response.base[j].user_id);
+            if (user) {
+              response.base[j].user_name = user.userinfo.customername;
+              response.base[j].department_id = user.userinfo.centername;
+            }
+            if (response.base[j].rn !== null && response.base[j].rn !== "") {
+              let letErrortype = getDictionaryInfo(response.base[j].rn);
+              if (letErrortype != null) {
+                response.base[j].rnname = letErrortype.value1;
               }
             }
-            // endregion
-
-            for (let j = 0; j < response.otherFive.length; j++) {
-              let user = getUserInfo(response.otherFive[j].user_id);
+            if (
+              response.base[j].workdate !== null &&
+              response.base[j].workdate !== ""
+            ) {
+              response.base[j].workdate = moment(
+                response.base[j].workdate
+              ).format("YYYY-MM-DD");
+            }
+            if (response.base[j].sex !== null && response.base[j].sex !== "") {
+              if (this.$i18n) {
+                if (response.base[j].sex === "PR019001") {
+                  response.base[j].sex = this.$t("label.PFANS2002FORMVIEW_BOY");
+                } else {
+                  response.base[j].sex = this.$t(
+                    "label.PFANS2002FORMVIEW_GRIL"
+                  );
+                }
+              }
+            }
+            if (
+              response.base[j].registered !== null &&
+              response.base[j].registered !== ""
+            ) {
+              if (this.$i18n) {
+                if (response.base[j].registered === "1") {
+                  response.base[j].registered = this.$t("label.yes");
+                } else {
+                  response.base[j].registered = this.$t("label.no");
+                }
+              }
+            }
+            if (
+              response.base[j].bonus !== null &&
+              response.base[j].bonus !== ""
+            ) {
+              if (this.$i18n) {
+                if (response.base[j].bonus === "1") {
+                  response.base[j].bonus = this.$t(
+                    "label.PFANSUSERFORMVIEW_NEWSTAFF"
+                  );
+                } else {
+                  response.base[j].bonus = this.$t(
+                    "label.PFANSUSERFORMVIEW_OLDSTAFF"
+                  );
+                }
+              }
+            }
+            if (
+              response.base[j].onlychild !== null &&
+              response.base[j].onlychild !== ""
+            ) {
+              if (this.$i18n) {
+                if (response.base[j].onlychild === "1") {
+                  response.base[j].onlychild = this.$t("label.yes");
+                } else {
+                  response.base[j].onlychild = this.$t("label.no");
+                }
+              }
+            }
+            if (
+              response.base[j].sociology !== null &&
+              response.base[j].sociology !== ""
+            ) {
+              if (this.$i18n) {
+                if (response.base[j].sociology === "1") {
+                  response.base[j].sociology = this.$t("label.yes");
+                } else {
+                  response.base[j].sociology = this.$t("label.no");
+                }
+              }
+            }
+            // this.tableJS = response.base;
+            this.totaldataBase = response.base;
+            this.listBase = 1;
+            this.getList();
+          }
+          for (let j = 0; j < response.contrast.length; j++) {
+            let user = getUserInfo(response.contrast[j].user_id);
+            if (user) {
+              response.contrast[j].user_id = user.userinfo.customername;
+              response.contrast[j].department_id = user.userinfo.centername;
+            }
+            let obj = {};
+            obj.contrast_id = response.contrast[j].contrast_id;
+            obj.department_id = response.contrast[j].department_id;
+            obj.user_id = response.contrast[j].user_id;
+            obj.thismonth = response.contrast[j].thismonth;
+            obj.lastmonth = response.contrast[j].lastmonth;
+            obj.reason = response.contrast[j].reason;
+            obj.rowindex = response.contrast[j].rowindex;
+            if (
+              response.contrast[j].thismonth != null &&
+              response.contrast[j].lastmonth != null
+            ) {
+              obj.difference =
+                response.contrast[j].lastmonth - response.contrast[j].thismonth;
+            }
+            datalistgrdb[j] = obj;
+            this.tableGRDB = datalistgrdb;
+            this.totaldataContrast = datalistgrdb;
+            this.listContrast = 16;
+            this.getList();
+          }
+          // region 累计税金 By SKAIXX
+          // 添加非空判断 By SKAIXX
+          if (response.accumulatedTaxVo) {
+            for (let j = 0; j < response.accumulatedTaxVo.length; j++) {
+              let user = getUserInfo(response.accumulatedTaxVo[j].user_id);
               if (user) {
-                response.otherFive[j].user_id = getUserInfo(
-                  response.otherFive[j].user_id
+                response.accumulatedTaxVo[j].user_id = getUserInfo(
+                  response.accumulatedTaxVo[j].user_id
                 ).userinfo.customername;
-              }
-              this.tableQT5 = response.otherFive;
-              this.totaldataQT5 = response.otherFive;
-              this.ListQt5 = 5;
-              this.getList();
-            }
-
-            // region 入职和离职处理 By Myt
-            // 入职
-            for (let j = 0; j < response.entryVo.length; j++) {
-              let user = getUserInfo(response.entryVo[j].user_id);
-              if (user) {
-                response.entryVo[j].user_id = getUserInfo(
-                  response.entryVo[j].user_id
-                ).userinfo.customername;
-              }
-              if (
-                response.entryVo[j].worddate !== null &&
-                response.entryVo[j].worddate !== ""
-              ) {
-                response.entryVo[j].worddate = moment(
-                  response.entryVo[j].worddate
-                ).format("YYYY-MM-DD");
-              }
-              if (
-                response.entryVo[j].startdate !== null &&
-                response.entryVo[j].startdate !== ""
-              ) {
-                response.entryVo[j].startdate = moment(
-                  response.entryVo[j].startdate
-                ).format("YYYY-MM-DD");
-              }
-              this.tableRZ = response.entryVo;
-              this.totaldataRZ = response.entryVo;
-              this.ListRZ = 6;
-              this.getList();
-            }
-            // 上月年月和今月年月赋值
-            this.yearOfLastMonth = response.yearOfLastMonth;
-            this.monthOfLastMonth = response.monthOfLastMonth;
-            this.yearOfThisMonth = response.yearOfThisMonth;
-            this.monthOfThisMonth = response.monthOfThisMonth;
-
-            // 退职
-            for (let j = 0; j < response.retireVo.length; j++) {
-              let user = getUserInfo(response.retireVo[j].user_id);
-              if (user) {
-                response.retireVo[j].user_id = getUserInfo(
-                  response.retireVo[j].user_id
-                ).userinfo.customername;
-              }
-              if (
-                response.retireVo[j].retiredate !== null &&
-                response.retireVo[j].retiredate !== ""
-              ) {
-                response.retireVo[j].retiredate = moment(
-                  response.retireVo[j].retiredate
-                ).format("YYYY-MM-DD");
-              }
-              this.tableTZ = response.retireVo;
-              this.totaldataTZ = response.retireVo;
-              this.ListTZ = 6;
-              this.getList();
-            }
-            // endregion
-            for (let j = 0; j < response.base.length; j++) {
-              if (response.base[j].type === "1") {
-                response.base[j].type = this.$t("label.PFANS2005FORMVIEW_SFRZ");
-              } else if (response.base[j].type === "4") {
-                response.base[j].type = this.$t("label.PFANS2005FORMVIEW_SFTZ");
-              } else if (response.base[j].type === "2") {
-                response.base[j].type = this.$t(
-                  "label.PFANS2005FORMVIEW_NSFCX"
-                );
-              } else if (response.base[j].type === "3") {
-                response.base[j].type = this.$t(
-                  "label.PFANS2005FORMVIEW_NVSFCX"
-                );
-              }
-              let user = getUserInfo(response.base[j].user_id);
-              if (user) {
-                response.base[j].user_name = user.userinfo.customername;
-                response.base[j].department_id = user.userinfo.centername;
-              }
-              if (response.base[j].rn !== null && response.base[j].rn !== "") {
-                let letErrortype = getDictionaryInfo(response.base[j].rn);
-                if (letErrortype != null) {
-                  response.base[j].rnname = letErrortype.value1;
-                }
-              }
-              if (
-                response.base[j].workdate !== null &&
-                response.base[j].workdate !== ""
-              ) {
-                response.base[j].workdate = moment(
-                  response.base[j].workdate
-                ).format("YYYY-MM-DD");
-              }
-              if (
-                response.base[j].sex !== null &&
-                response.base[j].sex !== ""
-              ) {
-                if (this.$i18n) {
-                  if (response.base[j].sex === "PR019001") {
-                    response.base[j].sex = this.$t(
-                      "label.PFANS2002FORMVIEW_BOY"
-                    );
-                  } else {
-                    response.base[j].sex = this.$t(
-                      "label.PFANS2002FORMVIEW_GRIL"
-                    );
-                  }
-                }
-              }
-              if (
-                response.base[j].registered !== null &&
-                response.base[j].registered !== ""
-              ) {
-                if (this.$i18n) {
-                  if (response.base[j].registered === "1") {
-                    response.base[j].registered = this.$t("label.yes");
-                  } else {
-                    response.base[j].registered = this.$t("label.no");
-                  }
-                }
-              }
-              if (
-                response.base[j].bonus !== null &&
-                response.base[j].bonus !== ""
-              ) {
-                if (this.$i18n) {
-                  if (response.base[j].bonus === "1") {
-                    response.base[j].bonus = this.$t(
-                      "label.PFANSUSERFORMVIEW_NEWSTAFF"
-                    );
-                  } else {
-                    response.base[j].bonus = this.$t(
-                      "label.PFANSUSERFORMVIEW_OLDSTAFF"
-                    );
-                  }
-                }
-              }
-              if (
-                response.base[j].onlychild !== null &&
-                response.base[j].onlychild !== ""
-              ) {
-                if (this.$i18n) {
-                  if (response.base[j].onlychild === "1") {
-                    response.base[j].onlychild = this.$t("label.yes");
-                  } else {
-                    response.base[j].onlychild = this.$t("label.no");
-                  }
-                }
-              }
-              if (
-                response.base[j].sociology !== null &&
-                response.base[j].sociology !== ""
-              ) {
-                if (this.$i18n) {
-                  if (response.base[j].sociology === "1") {
-                    response.base[j].sociology = this.$t("label.yes");
-                  } else {
-                    response.base[j].sociology = this.$t("label.no");
-                  }
-                }
-              }
-              // this.tableJS = response.base;
-              this.totaldataBase = response.base;
-              this.listBase = 1;
-              this.getList();
-            }
-            for (let j = 0; j < response.contrast.length; j++) {
-              let user = getUserInfo(response.contrast[j].user_id);
-              if (user) {
-                response.contrast[j].user_id = user.userinfo.customername;
-                response.contrast[j].department_id = user.userinfo.centername;
               }
               let obj = {};
-              obj.contrast_id = response.contrast[j].contrast_id;
-              obj.department_id = response.contrast[j].department_id;
-              obj.user_id = response.contrast[j].user_id;
-              obj.thismonth = response.contrast[j].thismonth;
-              obj.lastmonth = response.contrast[j].lastmonth;
-              obj.reason = response.contrast[j].reason;
-              obj.rowindex = response.contrast[j].rowindex;
-              if (
-                response.contrast[j].thismonth != null &&
-                response.contrast[j].lastmonth != null
-              ) {
-                obj.difference =
-                  response.contrast[j].lastmonth -
-                  response.contrast[j].thismonth;
-              }
-              datalistgrdb[j] = obj;
-              this.tableGRDB = datalistgrdb;
-              this.totaldataContrast = datalistgrdb;
-              this.listContrast = 16;
+              obj.rowindex = j + 1;
+              obj.user_id = response.accumulatedTaxVo[j].user_id;
+              obj.january = response.accumulatedTaxVo[j].january;
+              obj.february = response.accumulatedTaxVo[j].february;
+              obj.march = response.accumulatedTaxVo[j].march;
+              obj.april = response.accumulatedTaxVo[j].april;
+              obj.may = response.accumulatedTaxVo[j].may;
+              obj.june = response.accumulatedTaxVo[j].june;
+              obj.july = response.accumulatedTaxVo[j].july;
+              obj.august = response.accumulatedTaxVo[j].august;
+              obj.september = response.accumulatedTaxVo[j].september;
+              obj.october = response.accumulatedTaxVo[j].october;
+              obj.november = response.accumulatedTaxVo[j].november;
+              obj.december = response.accumulatedTaxVo[j].december;
+              obj.sumThis = response.accumulatedTaxVo[j].sumThis;
+              obj.shouldwages = response.accumulatedTaxVo[j].shouldwages;
+              obj.shouldtax = response.accumulatedTaxVo[j].shouldtax;
+              obj.balance = response.accumulatedTaxVo[j].balance;
+              datalistljsj[j] = obj;
+              this.tableLJSJ = datalistljsj;
+              this.totaldataAccumulatedTax = datalistljsj;
+              this.listAccumulatedTax = 15;
               this.getList();
             }
-            // region 累计税金 By SKAIXX
-            // 添加非空判断 By SKAIXX
-            if (response.accumulatedTaxVo) {
-              for (let j = 0; j < response.accumulatedTaxVo.length; j++) {
-                let user = getUserInfo(response.accumulatedTaxVo[j].user_id);
-                if (user) {
-                  response.accumulatedTaxVo[j].user_id = getUserInfo(
-                    response.accumulatedTaxVo[j].user_id
-                  ).userinfo.customername;
-                }
-                let obj = {};
-                obj.rowindex = j + 1;
-                obj.user_id = response.accumulatedTaxVo[j].user_id;
-                obj.january = response.accumulatedTaxVo[j].january;
-                obj.february = response.accumulatedTaxVo[j].february;
-                obj.march = response.accumulatedTaxVo[j].march;
-                obj.april = response.accumulatedTaxVo[j].april;
-                obj.may = response.accumulatedTaxVo[j].may;
-                obj.june = response.accumulatedTaxVo[j].june;
-                obj.july = response.accumulatedTaxVo[j].july;
-                obj.august = response.accumulatedTaxVo[j].august;
-                obj.september = response.accumulatedTaxVo[j].september;
-                obj.october = response.accumulatedTaxVo[j].october;
-                obj.november = response.accumulatedTaxVo[j].november;
-                obj.december = response.accumulatedTaxVo[j].december;
-                obj.sumThis = response.accumulatedTaxVo[j].sumThis;
-                obj.shouldwages = response.accumulatedTaxVo[j].shouldwages;
-                obj.shouldtax = response.accumulatedTaxVo[j].shouldtax;
-                obj.balance = response.accumulatedTaxVo[j].balance;
-                datalistljsj[j] = obj;
-                this.tableLJSJ = datalistljsj;
-                this.totaldataAccumulatedTax = datalistljsj;
-                this.listAccumulatedTax = 15;
-                this.getList();
-              }
-            }
-            // endregion
-            // region 免税 By SKAIXX
-            // 添加非空判断 By SKAIXX
-            if (response.dutyfreeVo) {
-              for (let j = 0; j < response.dutyfreeVo.length; j++) {
-                let user = getUserInfo(response.dutyfreeVo[j].user_id);
-                if (user) {
-                  response.dutyfreeVo[j].user_id = getUserInfo(
-                    response.dutyfreeVo[j].user_id
-                  ).userinfo.customername;
-                }
-                let obj = {};
-                obj.rowindex = j + 1;
-                obj.user_id = response.dutyfreeVo[j].user_id;
-                obj.january = response.dutyfreeVo[j].january;
-                obj.february = response.dutyfreeVo[j].february;
-                obj.march = response.dutyfreeVo[j].march;
-                obj.april = response.dutyfreeVo[j].april;
-                obj.may = response.dutyfreeVo[j].may;
-                obj.june = response.dutyfreeVo[j].june;
-                obj.july = response.dutyfreeVo[j].july;
-                obj.august = response.dutyfreeVo[j].august;
-                obj.september = response.dutyfreeVo[j].september;
-                obj.october = response.dutyfreeVo[j].october;
-                obj.november = response.dutyfreeVo[j].november;
-                obj.december = response.dutyfreeVo[j].december;
-                obj.total = response.dutyfreeVo[j].total;
-                datalistms[j] = obj;
-                this.tableMS = datalistms;
-                this.totaldataDutyfreeVo = datalistms;
-                this.listDutyfreeVo = 14;
-                this.getList();
-              }
-            }
-            // endregion
-            //region  综合收入 By SKAIXX
-            // 添加非空判断 By SKAIXX
-            if (response.comprehensiveVo) {
-              for (let j = 0; j < response.comprehensiveVo.length; j++) {
-                let user = getUserInfo(response.comprehensiveVo[j].user_id);
-                if (user) {
-                  response.comprehensiveVo[j].user_id = getUserInfo(
-                    response.comprehensiveVo[j].user_id
-                  ).userinfo.customername;
-                }
-                let obj = {};
-                obj.rowindex = j + 1;
-                obj.user_id = response.comprehensiveVo[j].user_id;
-                obj.totalbonus1 = response.comprehensiveVo[j].totalbonus1;
-                obj.month1wages = response.comprehensiveVo[j].month1wages;
-                obj.month1appreciation =
-                  response.comprehensiveVo[j].month1appreciation;
-                obj.month2wages = response.comprehensiveVo[j].month2wages;
-                obj.month2appreciation =
-                  response.comprehensiveVo[j].month2appreciation;
-                obj.month3wages = response.comprehensiveVo[j].month3wages;
-                obj.month3appreciation =
-                  response.comprehensiveVo[j].month3appreciation;
-                obj.month4wages = response.comprehensiveVo[j].month4wages;
-                obj.month4appreciation =
-                  response.comprehensiveVo[j].month4appreciation;
-                obj.month5wages = response.comprehensiveVo[j].month5wages;
-                obj.month5appreciation =
-                  response.comprehensiveVo[j].month5appreciation;
-                obj.month6wages = response.comprehensiveVo[j].month6wages;
-                obj.month6appreciation =
-                  response.comprehensiveVo[j].month6appreciation;
-                obj.month7wages = response.comprehensiveVo[j].month7wages;
-                obj.month7appreciation =
-                  response.comprehensiveVo[j].month7appreciation;
-                obj.month8wages = response.comprehensiveVo[j].month8wages;
-                obj.month8appreciation =
-                  response.comprehensiveVo[j].month8appreciation;
-                obj.month9wages = response.comprehensiveVo[j].month9wages;
-                obj.month9appreciation =
-                  response.comprehensiveVo[j].month9appreciation;
-                obj.month10wages = response.comprehensiveVo[j].month10wages;
-                obj.month10appreciation =
-                  response.comprehensiveVo[j].month10appreciation;
-                obj.month11wages = response.comprehensiveVo[j].month11wages;
-                obj.month11appreciation =
-                  response.comprehensiveVo[j].month11appreciation;
-                obj.month12wages = response.comprehensiveVo[j].month12wages;
-                obj.month12appreciation =
-                  response.comprehensiveVo[j].month12appreciation;
-                obj.appreciationtotal =
-                  response.comprehensiveVo[j].appreciationtotal;
-                obj.totalwithout12 = response.comprehensiveVo[j].totalwithout12;
-                obj.totalwithin12 = response.comprehensiveVo[j].totalwithin12;
-                datalistzhsr[j] = obj;
-                this.tableZHSR = datalistzhsr;
-                this.totaldataZHSR = datalistzhsr;
-                this.ListZHSR = 11;
-                this.getList();
-              }
-            }
-            this.loading = false;
-            //endregion
           }
+          // endregion
+          // region 免税 By SKAIXX
+          // 添加非空判断 By SKAIXX
+          if (response.dutyfreeVo) {
+            for (let j = 0; j < response.dutyfreeVo.length; j++) {
+              let user = getUserInfo(response.dutyfreeVo[j].user_id);
+              if (user) {
+                response.dutyfreeVo[j].user_id = getUserInfo(
+                  response.dutyfreeVo[j].user_id
+                ).userinfo.customername;
+              }
+              let obj = {};
+              obj.rowindex = j + 1;
+              obj.user_id = response.dutyfreeVo[j].user_id;
+              obj.january = response.dutyfreeVo[j].january;
+              obj.february = response.dutyfreeVo[j].february;
+              obj.march = response.dutyfreeVo[j].march;
+              obj.april = response.dutyfreeVo[j].april;
+              obj.may = response.dutyfreeVo[j].may;
+              obj.june = response.dutyfreeVo[j].june;
+              obj.july = response.dutyfreeVo[j].july;
+              obj.august = response.dutyfreeVo[j].august;
+              obj.september = response.dutyfreeVo[j].september;
+              obj.october = response.dutyfreeVo[j].october;
+              obj.november = response.dutyfreeVo[j].november;
+              obj.december = response.dutyfreeVo[j].december;
+              obj.total = response.dutyfreeVo[j].total;
+              datalistms[j] = obj;
+              this.tableMS = datalistms;
+              this.totaldataDutyfreeVo = datalistms;
+              this.listDutyfreeVo = 14;
+              this.getList();
+            }
+          }
+          // endregion
+          //region  综合收入 By SKAIXX
+          // 添加非空判断 By SKAIXX
+          if (response.comprehensiveVo) {
+            for (let j = 0; j < response.comprehensiveVo.length; j++) {
+              let user = getUserInfo(response.comprehensiveVo[j].user_id);
+              if (user) {
+                response.comprehensiveVo[j].user_id = getUserInfo(
+                  response.comprehensiveVo[j].user_id
+                ).userinfo.customername;
+              }
+              let obj = {};
+              obj.rowindex = j + 1;
+              obj.user_id = response.comprehensiveVo[j].user_id;
+              obj.totalbonus1 = response.comprehensiveVo[j].totalbonus1;
+              obj.month1wages = response.comprehensiveVo[j].month1wages;
+              obj.month1appreciation =
+                response.comprehensiveVo[j].month1appreciation;
+              obj.month2wages = response.comprehensiveVo[j].month2wages;
+              obj.month2appreciation =
+                response.comprehensiveVo[j].month2appreciation;
+              obj.month3wages = response.comprehensiveVo[j].month3wages;
+              obj.month3appreciation =
+                response.comprehensiveVo[j].month3appreciation;
+              obj.month4wages = response.comprehensiveVo[j].month4wages;
+              obj.month4appreciation =
+                response.comprehensiveVo[j].month4appreciation;
+              obj.month5wages = response.comprehensiveVo[j].month5wages;
+              obj.month5appreciation =
+                response.comprehensiveVo[j].month5appreciation;
+              obj.month6wages = response.comprehensiveVo[j].month6wages;
+              obj.month6appreciation =
+                response.comprehensiveVo[j].month6appreciation;
+              obj.month7wages = response.comprehensiveVo[j].month7wages;
+              obj.month7appreciation =
+                response.comprehensiveVo[j].month7appreciation;
+              obj.month8wages = response.comprehensiveVo[j].month8wages;
+              obj.month8appreciation =
+                response.comprehensiveVo[j].month8appreciation;
+              obj.month9wages = response.comprehensiveVo[j].month9wages;
+              obj.month9appreciation =
+                response.comprehensiveVo[j].month9appreciation;
+              obj.month10wages = response.comprehensiveVo[j].month10wages;
+              obj.month10appreciation =
+                response.comprehensiveVo[j].month10appreciation;
+              obj.month11wages = response.comprehensiveVo[j].month11wages;
+              obj.month11appreciation =
+                response.comprehensiveVo[j].month11appreciation;
+              obj.month12wages = response.comprehensiveVo[j].month12wages;
+              obj.month12appreciation =
+                response.comprehensiveVo[j].month12appreciation;
+              obj.appreciationtotal =
+                response.comprehensiveVo[j].appreciationtotal;
+              obj.totalwithout12 = response.comprehensiveVo[j].totalwithout12;
+              obj.totalwithin12 = response.comprehensiveVo[j].totalwithin12;
+              datalistzhsr[j] = obj;
+              this.tableZHSR = datalistzhsr;
+              this.totaldataZHSR = datalistzhsr;
+              this.ListZHSR = 11;
+              this.getList();
+            }
+          }
+          this.loading = false;
+          //endregion
         });
     },
     UploadUrlfjkc: function() {
@@ -4213,6 +4021,7 @@ export default {
       this.getList();
     },
     handleCurrentChangeLJSJ(val) {
+      console.log("handleCurrentChangeLJSJ", val);
       this.listQueryListLJSJ.page = val;
       this.getList();
     },
@@ -4296,6 +4105,14 @@ export default {
       this.listQueryListQT1Man.page = val;
       this.getList();
     },
+    handleCurrentChangeWages(val) {
+      this.listQueryListWages.page = val;
+      this.getList();
+    },
+    handleSizeChangeWages(val) {
+      this.listQueryListWages.limit = val;
+      this.getList();
+    },
     handleSizeChangeJS(val) {
       this.listQueryListJS.limit = val;
       this.getList();
@@ -4314,7 +4131,15 @@ export default {
     },
     getList() {
       this.loading = true;
-      if (this.tab === "0") {
+      if (this.listWages === 0 || this.tab === "0") {
+        let start =
+          (this.listQueryListWages.page - 1) * this.listQueryListWages.limit;
+        let end = this.listQueryListWages.page * this.listQueryListWages.limit;
+        if (this.totaldata) {
+          let pListBase = this.totaldata.slice(start, end);
+          this.tableWages = pListBase;
+          this.total_wages = this.totaldata.length;
+        }
       }
       if (this.listBase === 1 || this.tab === "1") {
         let start =

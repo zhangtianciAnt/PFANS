@@ -391,6 +391,7 @@
     import {Message} from 'element-ui';
     import user from "../../../components/user.vue";
     import {getDictionaryInfo, getOrgInfoByUserId,getOrgInfo} from '@/utils/customize';
+    import {getUserInfo} from "../../../../utils/customize";
 
     export default {
         name: "PFANS3007FormView",
@@ -812,8 +813,12 @@
                 this.userlist = this.$store.getters.userinfo.userid;
                 if (this.userlist !== null && this.userlist !== '') {
                     let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-                    if(getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)){
-                        this.form.budgetunit = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
+                    // if(getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)){
+                    //     this.form.budgetunit = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
+                    // }
+                    let budgetunit = getUserInfo(this.$store.getters.userinfo.userid).userinfo.budgetunit
+                    if(budgetunit){
+                        this.form.budgetunit = budgetunit
                     }
                     if(rst) {
                         this.centerid = rst.centerNmae;

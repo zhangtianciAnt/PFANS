@@ -106,7 +106,7 @@ import { Message } from "element-ui";
 import moment from "moment";
 
 export default {
-  name: "usersView",
+  name: "usersView2",
   components: {
     EasyTree,
     EasyButtonBar,
@@ -228,12 +228,12 @@ export default {
         children: "orgs"
       },
       buttonList: [
-        {
-          key: "new",
-          name: this.$t("label.PFANSUSERVIEW_NEWUSER"),
-          disabled: false,
-          icon: "el-icon-plus"
-        },
+        // {
+        //   key: "new",
+        //   name: this.$t("label.PFANSUSERVIEW_NEWUSER"),
+        //   disabled: false,
+        //   icon: "el-icon-plus"
+        // },
         // {
         //   key: "setRole",
         //   name: this.$t("label.PFANSUSERVIEW_SETTINGROLES"),
@@ -242,7 +242,7 @@ export default {
         // },
         {
           key: "update",
-          name: this.$t("label.PFANSUSERVIEW_EDITUSER"),
+          name: this.$t("button.view"),
           disabled: true,
           icon: "el-icon-edit"
         },
@@ -252,24 +252,24 @@ export default {
         //   disabled: true,
         //   icon: "el-icon-edit"
         // },
-        {
-          key: 'import',
-          name: 'button.import',
-          disabled: false,
-          icon: 'el-icon-download'
-        },
-        {
-          key: 'export',
-          name: 'button.export',
-          disabled: false,
-          icon: 'el-icon-upload2'
-        },
-        {
-          key: 'export2',
-          name: 'button.download2',
-          disabled: false,
-          icon: 'el-icon-download'
-        },
+        // {
+        //   key: 'import',
+        //   name: 'button.import',
+        //   disabled: false,
+        //   icon: 'el-icon-download'
+        // },
+        // {
+        //   key: 'export',
+        //   name: 'button.export',
+        //   disabled: false,
+        //   icon: 'el-icon-upload2'
+        // },
+        // {
+        //   key: 'export2',
+        //   name: 'button.download2',
+        //   disabled: false,
+        //   icon: 'el-icon-download'
+        // },
       ],
       departmentname: "",
       loading: false,
@@ -456,7 +456,7 @@ export default {
         });
       } else if (val === "update") {
         this.$router.push({
-          name: "usersFormView",
+          name: "OnlyusersFormView",
           params: {
             _id: this.rowData.userid
           }
@@ -569,14 +569,10 @@ export default {
     rowClick(row) {
       if (row) {
         this.rowData = row;
-        this.buttonList[1].disabled = false;
-        this.buttonList[2].disabled = false;
-        this.buttonList[3].disabled = false;
+        this.buttonList[0].disabled = false;
       } else {
         this.rowData = {};
-        this.buttonList[1].disabled = true;
-        this.buttonList[2].disabled = true;
-        this.buttonList[3].disabled = true;
+        this.buttonList[0].disabled = true;
       }
     },
     buildDepartmentData(data) {

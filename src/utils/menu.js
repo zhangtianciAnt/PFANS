@@ -822,8 +822,22 @@ export function menu() {
               ]
             },
             {
+              '_id': 'use2r2',
+              'name': 'menu.user2',
+              'menuvisible': true,
+              'menuurl': '/OnlyusersView',
+              'menuicon': '',
+              'children': [],
+              'actions': [
+                {"_id": "user_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                {"_id": "user_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                {"_id": "user_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                {"_id": "user_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+              ]
+            },
+            {
               '_id': 'PERSONNEL',
-              'name': 'menu.PERSONNEL',
+              'name': 'menu.PERSONNELINOUT',
               'menuvisible': true,
               'menuurl': '',
               'menuicon': '',

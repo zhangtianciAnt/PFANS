@@ -212,7 +212,8 @@
     import user from "../../../components/user.vue";
     import dicselect from "../../../components/dicselect.vue";
     import {Message} from 'element-ui';
-    import {getOrgInfoByUserId} from '@/utils/customize'
+    import {getOrgInfoByUserId,getUserInfo} from '@/utils/customize'
+    import {getDictionaryInfo} from '../../../../utils/customize';
 
     export default {
         name: 'PFANS2023FormView',
@@ -298,7 +299,8 @@
                     business_results_mar: '',
                     interview_results_mar: '',
                 },
-                code: 'PR015',
+                // code: 'PR015',
+                code: 'PR021',
                 multiple: false,
                 disable: false,
                 disableyear: false,
@@ -325,6 +327,8 @@
                             this.groupid= rst.groupNmae;
                             this.teamid= rst.teamNmae;
                         }
+                        let rank = getUserInfo(response.user_id).userinfo.rank;
+                        this.form.skill_rank = rank
                         this.userlist = this.form.user_id;
                         debugger
                         this.useDisable();
@@ -358,6 +362,8 @@
                         this.form.group_id = rst.groupId;
                         this.form.team_id = rst.teamId;
                     }
+                    let rank = getUserInfo(this.$store.getters.userinfo.userid).userinfo.rank;
+                    this.form.skill_rank = rank
                     this.form.user_id = this.$store.getters.userinfo.userid;
                     this.disableyear = true;
                     this.disablesep = false;

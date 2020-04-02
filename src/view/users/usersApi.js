@@ -19,12 +19,27 @@ export function getUserTableList(params) {
   })
 }
 
+export function getUserTableList2(params) {
+  return request({
+    url: 'user/getAccountCustomer2',
+    method: 'get',
+    params: params
+  })
+}
+
 // 根据userid获取该用户的详细信息
 export function getById(params) {
   return request({
     url: 'user/getAccountCustomerById',
     method: 'get',
     params: params
+  })
+}
+
+export function getme() {
+  return request({
+    url: 'user/getme',
+    method: 'get'
   })
 }
 

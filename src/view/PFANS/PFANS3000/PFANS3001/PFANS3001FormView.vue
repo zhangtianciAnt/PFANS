@@ -188,6 +188,7 @@
   import {isvalidPhone, idcardNumber, telephoneNumber} from '@/utils/validate';
   import moment from 'moment';
   import {getOrgInfo} from "../../../../utils/customize";
+  import {getUserInfo} from "../../../../utils/customize";
 
   export default {
     name: 'PFANS3001FormView',
@@ -513,7 +514,8 @@
             });
             this.loading = false;
           });
-      } else {
+      }
+      else {
         this.showDomestic = true;
         this.userlist = this.$store.getters.userinfo.userid;
         if (this.userlist !== null && this.userlist !== '') {
@@ -525,7 +527,13 @@
                 this.form.center_id = rst.centerId;
                 this.form.group_id = rst.groupId;
                 this.form.team_id = rst.teamId;
-              this.form.budgetnumber = getOrgInfo(rst.groupId).encoding;
+                // if(rst.groupId){
+                //     this.form.budgetnumber = getOrgInfo(rst.groupId).encoding;
+                // }
+                let budgetunit = getUserInfo(this.$store.getters.userinfo.userid).userinfo.budgetunit
+                if(budgetunit){
+                    this.form.budgetnumber = budgetunit
+                }
             }
           this.form.user_id = this.$store.getters.userinfo.userid;
         }

@@ -2537,16 +2537,17 @@
             deleteRow7(index, rows) {
                 if (rows.length > 1) {
                     rows.splice(index, 1);
-                } else {
-                    this.tableF.push({
-                        invoicenumber: '',
-                        invoicetype: '',
-                        invoiceamount: '',
-                        taxrate: '',
-                        excludingtax: '',
-                        facetax: '',
-                    });
                 }
+                // else {
+                //     this.tableF.push({
+                //         invoicenumber: '',
+                //         invoicetype: '',
+                //         invoiceamount: '',
+                //         taxrate: '',
+                //         excludingtax: '',
+                //         facetax: '',
+                //     });
+                // }
                 this.checkoptionsdata()
             },
             addRow() {

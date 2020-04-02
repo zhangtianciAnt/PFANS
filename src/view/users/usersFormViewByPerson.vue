@@ -1094,44 +1094,20 @@
                             <!--width="130"-->
                             <!--&gt;</el-table-column>-->
                             <el-table-column
-                              align="center"
-                              :label="$t('label.PFANSUSERFORMVIEW_BEFORE')"
-                              width="130"
-                            >
-<!--                              <template slot-scope="scope">-->
-<!--                                <span style="color:#d16765">{{ scope.row.after }}</span>-->
-<!--                              </template>-->
-                              <el-table-column
-                                property="after"
-                                align="center"
-                                :label="$t('label.PFANSUSERFORMVIEW_BASIC')"
-                                width="100"
-                              >
-                                <template slot-scope="scope">
-                                  <span style="color:#d16765">{{ scope.row.after }}</span>
-                                </template>
-                              </el-table-column>
-                              <el-table-column
-                                property="before"
-                                align="center"
-                                :label="$t('label.PFANSUSERFORMVIEW_DUTY')"
-                                width="100"
-                              >
-                                <template slot-scope="scope">
-                                  <span style="color:#d16765">{{ scope.row.before }}</span>
-                                </template>
-                              </el-table-column>
-                            </el-table-column>
-                            <el-table-column
+                              property="after"
                               align="center"
                               :label="$t('label.PFANSUSERFORMVIEW_AFTER')"
-                              width="200"
+                              width="130"
                             >
+                              <template slot-scope="scope">
+                                <span style="color:#d16765">{{ scope.row.after }}</span>
+                              </template>
+                            </el-table-column>
                             <el-table-column
                               property="basic"
                               align="center"
                               :label="$t('label.PFANSUSERFORMVIEW_BASIC')"
-                              width="100"
+                              width="130"
                             >
                               <template slot-scope="scope">
                                 <span style="color:#d16765">{{ scope.row.basic }}</span>
@@ -1141,12 +1117,11 @@
                               property="duty"
                               align="center"
                               :label="$t('label.PFANSUSERFORMVIEW_DUTY')"
-                              width="100"
+                              width="130"
                             >
                               <template slot-scope="scope">
                                 <span style="color:#d16765">{{ scope.row.duty }}</span>
                               </template>
-                            </el-table-column>
                             </el-table-column>
                             <el-table-column
                               property="remark"
@@ -1403,7 +1378,7 @@
   import moment from "moment";
 
   export default {
-    name: "usersFormView",
+    name: "usersFormViewByPerson",
     components: {
       EasyNormalContainer,
       org,
@@ -1643,11 +1618,6 @@
         isEdit: false,
         status: "0",
         buttonList: [
-          {key: "userSave", name: this.$t("button.save")},
-          // {
-          //   key: "userSaveToRole",
-          //   name: this.$t("label.PFANSUSERFORMVIEW_SAVEANDROLE")
-          // }
         ],
         rules: {
           adfield: [
@@ -2028,7 +1998,7 @@
     watch: {
       form:{
         handler: function() {
-            this.form.salary = this.form.duty + this.form.basic;
+          this.form.salary = this.form.duty + this.form.basic;
         },
         deep: true
       },
@@ -2065,9 +2035,9 @@
         } = this.$route.params._org);
       }
 
-      if (this.$route.params._id) {
-        this.getById(this.$route.params._id);
-      }
+      // if (this.$route.params._id) {
+        this.getById();
+      // }
     },
     methods: {
       checkRequire() {
@@ -2316,14 +2286,12 @@
           } = org);
         }
       },
-      getById(_id) {
+      getById() {
         this.loading = true;
-        let params = {
-          userid: _id
-        };
         this.$store
-          .dispatch("usersStore/getById", params)
+          .dispatch("usersStore/getme")
           .then(response => {
+            debugger
             this.form = response.customerInfo.userinfo;
             this.status = response.customerInfo.status;
             this.userInfo.userAccount = response.userAccount;

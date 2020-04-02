@@ -1403,7 +1403,7 @@
   import moment from "moment";
 
   export default {
-    name: "usersFormView",
+    name: "usersFormView2",
     components: {
       EasyNormalContainer,
       org,
@@ -1643,7 +1643,7 @@
         isEdit: false,
         status: "0",
         buttonList: [
-          {key: "userSave", name: this.$t("button.save")},
+          // {key: "userSave", name: this.$t("button.save")},
           // {
           //   key: "userSaveToRole",
           //   name: this.$t("label.PFANSUSERFORMVIEW_SAVEANDROLE")
