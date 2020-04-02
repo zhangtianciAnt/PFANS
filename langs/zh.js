@@ -830,6 +830,7 @@ module.exports = {
     PFANS1012FORMVIEW_XHPFCHECK: '消耗品費',
     PFANS1013VIEW_TOTAL: '精算合计',
     PFANS1013VIEW_TRAFFIC: '交通费明细',
+    PFANS1017VIEW_MINGXI: '明细',
     PFANS1013VIEW_ACCOMMODATION: '住宿费明细',
     PFANS1013VIEW_OTHER: '其他费用（会议费/签证费/保险、税）',
     PFANS1013VIEW_RELATION: '出差申请关联',

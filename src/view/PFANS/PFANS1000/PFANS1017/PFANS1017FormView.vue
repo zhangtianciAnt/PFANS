@@ -63,7 +63,7 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.application')" prop="application">
-                <el-date-picker :disabled="!disable"
+                <el-date-picker :disabled="true"
                                 style="width:20vw"
                                 type="date"
                                 v-model="form.application"
@@ -104,7 +104,7 @@
           </el-row>
           <el-row>
             <el-col :span="30">
-              <div class="sub_color_blue">{{$t('label.PFANS1017FORMVIEW_NEW')}}</div>
+              <div class="sub_color_blue">{{$t('label.PFANS1017VIEW_MINGXI')}}</div>
             </el-col>
           </el-row>
           <el-row style="padding-top:1.5rem">
