@@ -1386,6 +1386,7 @@
                   :label="$t('label.PFANS2006VIEW_NO')"
                   align="center"
                   prop="rowindex"
+                  width="150%"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_LASTNAME')"
@@ -1445,8 +1446,11 @@
                   :label="$t('label.PFANS3007VIEW_REMARKS')"
                   align="center"
                   prop="remarks"
-                  width="200%"
-                ></el-table-column>
+                >
+                <template slot-scope="scope">
+                  <el-input v-model="scope.row.remarks"></el-input>
+                </template>
+                </el-table-column>
               </el-table>
               <div class="pagination-container" style="padding-top: 2rem">
                 <el-pagination
@@ -1485,37 +1489,41 @@
                   :label="$t('label.PFANS2006VIEW_LASTNAME')"
                   align="center"
                   prop="user_id"
-                  width="200%"
+                  width="250%"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2005FORMVIEW_RETIREMENTDATE')"
                   align="center"
                   prop="retiredate"
-                  width="150%"
+                  width="250%"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2005FORMVIEW_ATTENDANCE')"
                   align="center"
                   prop="attendance"
-                  width="150%"
+                  width="250%"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANSUSERFORMVIEW_SALARY')"
                   align="center"
                   prop="give"
-                  width="150%"
+                  width="250%"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2005FORMVIEW_SUBSIDIZE')"
                   align="center"
                   prop="lunch"
-                  width="150%"
+                  width="250%"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS3007VIEW_REMARKS')"
                   align="center"
                   prop="remarks"
-                ></el-table-column>
+                >
+                  <template slot-scope="scope">
+                    <el-input v-model="scope.row.remarks"></el-input>
+                  </template>
+                </el-table-column>
               </el-table>
               <div class="pagination-container" style="padding-top: 2rem">
                 <el-pagination
