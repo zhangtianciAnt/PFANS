@@ -319,7 +319,6 @@
       }
     },
     mounted() {
-      debugger
       this.getExternal();
       if(this.$route.params.type === 0){
         this.show = false;
@@ -403,7 +402,6 @@
           .dispatch("PFANS1038Store/getOne", id)
           .then(response => {
             this.loading = false;
-            debugger
             this.form = response;
             this.tableData = JSON.parse(this.form.employed);
             this.newTableData = JSON.parse(this.form.newentry);
@@ -463,7 +461,6 @@
           this.form.centerid = rst.centerId;
           this.form.groupid = rst.groupId;
         }
-        debugger
         let error = false;
         let error1 = false;
         if(this.$route.params.type === 0){
