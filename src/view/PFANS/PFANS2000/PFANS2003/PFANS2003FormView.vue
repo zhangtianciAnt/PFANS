@@ -152,6 +152,15 @@
               </el-form-item>
             </el-col>
           </el-row>
+            <el-row>
+              <el-col :span="8">
+                <el-form-item  :label="$t('label.PFANS2002FORMVIEW_OTHER3')"
+                               v-show="show3">
+                  <el-input :disabled="!disable"
+                            style="width:72vw" v-model="form.other" type="textarea"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')" prop="contactinformation">
@@ -234,7 +243,7 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2003FORMVIEW_RESULTSHOWS')">
-                <el-input :disabled="!disable" style="width:72vw" type="textarea"
+                <el-input :disabled="!disable"  style="width:72vw"type="textarea"
                           v-model="form.resultshows"></el-input>
               </el-form-item>
             </el-col>
@@ -389,6 +398,7 @@
           network: '',
           school: '',
           supplement: '',
+          other: '',
           rn: '',
           contactinformation: '',
           email: '',
@@ -512,6 +522,7 @@
             if (this.form.source === 'PR020001') {
               this.show1 = true;
               this.show2 = false;
+              this.show3 = false;
               this.rules.member[0].required = true;
               this.error = '';
               this.rules.network[0].required = false;
@@ -519,7 +530,15 @@
             if (this.form.source === 'PR020002') {
               this.show1 = false;
               this.show2 = true;
+              this.show3 = false;
               this.rules.network[0].required = true;
+              this.rules.member[0].required = false;
+            }
+            if (this.form.source === 'PR020003') {
+              this.show1 = false;
+              this.show2 = false;
+              this.show3 = true;
+              this.rules.network[0].required = false;
               this.rules.member[0].required = false;
             }
             this.modelwhetherentry = this.form.whetherentry;
@@ -584,13 +603,21 @@
         if (val === 'PR020001') {
           this.show1 = true;
           this.show2 = false;
+          this.show3 = false;
           this.rules.member[0].required = true;
           this.error = '';
           this.rules.network[0].required = false;
         } else if (val === 'PR020002') {
           this.show1 = false;
           this.show2 = true;
+          this.show3 = false;
           this.rules.network[0].required = true;
+          this.rules.member[0].required = false;
+        }else if(val === 'PR020003'){
+          this.show1 = false;
+          this.show2 = false;
+          this.show3 = true;
+          this.rules.network[0].required = false;
           this.rules.member[0].required = false;
         }
       },
