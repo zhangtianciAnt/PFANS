@@ -293,11 +293,9 @@
             this.loading = false;
           });
       } else {
-          debugger
         this.userlist = this.$store.getters.userinfo.userid;
         if (this.userlist !== null && this.userlist !== '') {
           this.form.user_id = this.$store.getters.userinfo.userid;
-          debugger
           let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
           if(rst) {
               this.centerid = rst.centerNmae;
