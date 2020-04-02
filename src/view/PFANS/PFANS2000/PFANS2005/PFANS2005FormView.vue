@@ -2829,7 +2829,7 @@ export default {
   },
   data() {
     return {
-      tableData: [],  //zong
+      tableData: [], //zong
       totaldataFJKC: [],
       totaldataQQ: [],
       totaldataCY: [],
@@ -2958,6 +2958,7 @@ export default {
       ListRZ: "",
       ListTZ: "",
       listBase: "",
+      listWages: "",
       listAccumulatedTax: "",
       listDutyfreeVo: "",
       listContrast: "",
@@ -3084,7 +3085,7 @@ export default {
       ],
       OTherTwo: {},
       tableJS: [],
-      tableWages:[],  // jiequ
+      tableWages: [], // jiequ
       tableQT5: [],
       tableRZ: [],
       tableTZ: [],
@@ -3151,7 +3152,8 @@ export default {
             item.registered = item.registered === "1" ? "是" : "-";
           });
           this.totaldata = response.wagesList;
-          this.getList()
+          this.listWages = 0;
+          this.getList();
           // region 欠勤 By SKAIXX
           // 添加非空判断 By SKAIXX
           if (response.lackattendance) {
@@ -4094,8 +4096,8 @@ export default {
       this.listQueryListQT1Man.page = val;
       this.getList();
     },
-    handleCurrentChangeWages(val){
-      this.listQueryListWages.limit = val;
+    handleCurrentChangeWages(val) {
+      this.listQueryListWages.page = val;
       this.getList();
     },
     handleSizeChangeWages(val) {
@@ -4120,7 +4122,7 @@ export default {
     },
     getList() {
       this.loading = true;
-      if (this.tab === "0") {
+      if (this.listWages === 0 || this.tab === "0") {
         let start =
           (this.listQueryListWages.page - 1) * this.listQueryListWages.limit;
         let end = this.listQueryListWages.page * this.listQueryListWages.limit;
