@@ -11,14 +11,14 @@
         <el-form label-position="top" label-width="8vw" ref="form">
           <el-tabs @tab-click="handleClick" v-model="activeName" type="border-card">
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_GZ')" name="first">
-              <div style="height: 400px;width: 100%">
+              <div style="height: calc(100vh - 230px - 2rem);width: 100%">
                 <pl-table
                   :datas="totaldata"
                   :element-loading-text="$t('normal.waiting')"
                   header-cell-class-name="sub_bg_color_blue"
                   header-row-class-name="height"
-                  :pagination-show= false
-                  :height-change= false
+                  :pagination-show="false"
+                  :height-change="false"
                   highlight-current-row
                   ref="eltable"
                   stripe
@@ -47,7 +47,7 @@
                     <pl-table-column
                       prop="department_name"
                       :label="$t('label.PFANS2006VIEW_CLUB')"
-                      width="250"
+                      width="300"
                       align="center"
                     ></pl-table-column>
                     <pl-table-column
@@ -65,19 +65,19 @@
                     <pl-table-column
                       prop="sex"
                       :label="$t('label.PFANS2006VIEW_SEX')"
-                      width="150"
+                      width="70"
                       align="center"
                     ></pl-table-column>
                     <pl-table-column
                       prop="onlychild"
                       :label="$t('label.PFANS2006VIEW_SINGLECHILD')"
-                      width="150"
+                      width="120"
                       align="center"
                     ></pl-table-column>
                     <pl-table-column
                       prop="type"
                       :label="$t('label.PFANS2006VIEW_ENTRYTYPE')"
-                      width="150"
+                      width="130"
                       align="center"
                     ></pl-table-column>
                     <pl-table-column
@@ -89,13 +89,13 @@
                     <pl-table-column
                       prop="sociology"
                       :label="$t('label.PFANS2006VIEW_SOCIETY')"
-                      width="200"
+                      width="150"
                       align="center"
                     ></pl-table-column>
                     <pl-table-column
                       prop="registered"
                       :label="$t('label.PFANS2006VIEW_REGISTER')"
-                      width="150"
+                      width="100"
                       align="center"
                     ></pl-table-column>
                   </pl-table-column>
@@ -107,7 +107,7 @@
                     <pl-table-column
                       prop="pension"
                       :label="$t('label.PFANS2005FORMVIEW_PENSIONBASE')"
-                      width="270"
+                      width="220"
                       align="center"
                     ></pl-table-column>
                     <pl-table-column
@@ -642,7 +642,7 @@
                     >{{$t('table.pagesize')}}</span>
                   </slot>
                 </el-pagination>
-              </div> -->
+              </div>-->
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_JS')" name="second">
               <el-table
@@ -1457,9 +1457,9 @@
                   align="center"
                   prop="remarks"
                 >
-                <template slot-scope="scope">
-                  <el-input v-model="scope.row.remarks"></el-input>
-                </template>
+                  <template slot-scope="scope">
+                    <el-input v-model="scope.row.remarks"></el-input>
+                  </template>
                 </el-table-column>
               </el-table>
               <div class="pagination-container" style="padding-top: 2rem">
@@ -3128,8 +3128,21 @@ export default {
   mounted() {
     this.Giving = this.$route.params._id;
     this.getListdata();
+    // todo By Skaixx : 添加滚动条滑动监听事件
+    // let element = this.$refs['BasfTable'];
+    // element.$el.addEventListener("scroll", this.handleScroll, true);
+    const dom = this.$refs["eltable"].$el;
+    dom.addEventListener("scroll", this.handleScroll, true);
   },
   methods: {
+    // todo by skaixx : 滚动条滑动handeler
+    handleScroll(e) {
+      let parentNode = e.srcElement;
+      // parentNode.scrollTop += 53;
+      console.log("scroll top:  " + parentNode.scrollTop + "px"); //当前DIV滚动条距离顶部的高度
+      // 当前页面第一行显示的No
+      console.log("当前页面显示的第一行为：");
+    },
     setdisabled(val) {
       if (this.$route.params.disabled) {
         this.disabled = val;
@@ -3172,6 +3185,11 @@ export default {
           this.totaldata = response.wagesList;
           this.listWages = 0;
           this.getList();
+          // todo By Skaixx: 定位测试
+          const name = "祖成玉";
+          const location =
+            this.totaldata.find(item => item.user_name === name).no * 40;
+
           // region 欠勤 By SKAIXX
           // 添加非空判断 By SKAIXX
           if (response.lackattendance) {
@@ -3251,6 +3269,7 @@ export default {
               obj.rowindex = j + 1;
               obj.lackattendance_id =
                 response.lackattendance[j].lackattendance_id;
+              obj.isDirty = false;
               datalistqq[j] = obj;
               this.tableQQ = datalistqq;
               this.totaldataQQ = datalistqq;
@@ -3331,6 +3350,7 @@ export default {
               obj.remarks = response.residual[j].remarks;
               obj.subsidy = this.setScale2(response.residual[j].subsidy);
               obj.residual_id = response.residual[j].residual_id;
+              obj.isDirty = false;
               datalistcy[j] = obj;
               this.tableCY = datalistcy;
               this.totaldataCY = datalistcy;
@@ -3682,7 +3702,7 @@ export default {
           // endregion
           for (let j = 0; j < response.base.length; j++) {
             if (response.base[j].type === "1") {
-              console.log(this.$t("label.PFANS2005FORMVIEW_SFRZ"))
+              console.log(this.$t("label.PFANS2005FORMVIEW_SFRZ"));
               response.base[j].type = this.$t("label.PFANS2005FORMVIEW_SFRZ");
             } else if (response.base[j].type === "4") {
               response.base[j].type = this.$t("label.PFANS2005FORMVIEW_SFTZ");
@@ -3939,6 +3959,15 @@ export default {
           }
           this.loading = false;
           //endregion
+
+          // TODO By Skaixx : 设置滚动条
+          console.log("Start setting", location);
+          this.$nextTick(() => {
+            this.$refs[
+              "eltable"
+            ].$el.children[0].children[0].children[2].scrollTop = location;
+          });
+          console.log("End setting");
         });
     },
     UploadUrlfjkc: function() {
@@ -4672,7 +4701,7 @@ export default {
           parseFloat(val.thisreplace) +
           parseFloat(val.thisreplace3)
       );
-
+      val.isDirty = true;
       this.givingVo.residual = [];
       this.givingVo.residual.push(val);
       this.givingVo.base = this.totaldataBase;
@@ -4722,6 +4751,7 @@ export default {
           parseFloat(val.thischronicdeficiencyformal)
       );
       this.givingVo.lackattendance = [];
+      val.isDirty = true;
       this.givingVo.lackattendance.push(val);
       this.givingVo.base = this.totaldataBase;
       this.loading = true;
