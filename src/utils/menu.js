@@ -837,7 +837,7 @@ export function menu() {
             },
             {
               '_id': 'PERSONNEL',
-              'name': 'menu.PERSONNEL',
+              'name': 'menu.PERSONNELINOUT',
               'menuvisible': true,
               'menuurl': '',
               'menuicon': '',
