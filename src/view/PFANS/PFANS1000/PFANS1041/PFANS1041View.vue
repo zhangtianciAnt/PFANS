@@ -82,15 +82,20 @@
                       ></dicselect>
                     </template>
                   </el-table-column>
-                  <el-table-column :label="$t('label.PFANS1039FORMVIEW_CURRENCYTYPE')" align="center" width="150">
+                  <el-table-column :label="$t('label.PFANS1039FORMVIEW_CURRENCYTYPE')" align="center" width="200">
                     <template slot-scope="scope">
-                      <dicselect
-                        :code="code6"
-                        :data="scope.row.currencytype"
-                        :disabled="disabled"
-                        :no="scope.row"
-                        @change="getcurrencytype"
-                      ></dicselect>
+<!--                      <dicselect-->
+<!--                        :code="code6"-->
+<!--                        :data="scope.row.currencytype"-->
+<!--                        :disabled="disabled"-->
+<!--                        :no="scope.row"-->
+<!--                        @change="getcurrencytype"-->
+<!--                      ></dicselect>-->
+                      <el-select :no="scope.row" v-model="scope.row.currencytype" @change="(val)=>{getcurrencytype(val,scope.row)}" style="width: 11rem" :disabled="disabled">
+                        <el-option v-for="(item,index) in options" :key="index" :value="item.value">
+                          {{item.value}}
+                        </el-option>
+                      </el-select>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1039FORMVIEW_COMMISSION')" align="center" width="150">
@@ -435,15 +440,20 @@
                       ></dicselect>
                     </template>
                   </el-table-column>
-                  <el-table-column :label="$t('label.PFANS1039FORMVIEW_CURRENCYTYPE')" align="center" width="150">
+                  <el-table-column :label="$t('label.PFANS1039FORMVIEW_CURRENCYTYPE')" align="center" width="200">
                     <template slot-scope="scope">
-                      <dicselect
-                        :code="code6"
-                        :data="scope.row.currencytype"
-                        :disabled="gettrue(scope.row)"
-                        :no="scope.row"
-                        @change="getcurrencytype"
-                      ></dicselect>
+<!--                      <dicselect-->
+<!--                        :code="code6"-->
+<!--                        :data="scope.row.currencytype"-->
+<!--                        :disabled="gettrue(scope.row)"-->
+<!--                        :no="scope.row"-->
+<!--                        @change="getcurrencytype"-->
+<!--                      ></dicselect>-->
+                      <el-select :no="scope.row" v-model="scope.row.currencytype" @change="(val)=>{getcurrencytype(val,scope.row)}" style="width: 11rem" :disabled="disabled">
+                        <el-option v-for="(item,index) in options" :key="index" :value="item.value">
+                          {{item.value}}
+                        </el-option>
+                      </el-select>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1039FORMVIEW_COMMISSION')" align="center" width="150">
@@ -733,7 +743,7 @@
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import {Message} from 'element-ui';
   import dicselect from '../../../components/dicselect';
-  import {getOrgInfoByUserId} from '@/utils/customize';
+  import {getOrgInfoByUserId, getDictionaryInfo} from '@/utils/customize';
   import org from "../../../components/org";
   import moment from "moment";
   import EasyWorkFlow from '@/components/EasyWorkFlow'
@@ -748,6 +758,7 @@
     },
     data() {
       return {
+        options: [],
         loadingflg: '0',
         months: moment(new Date()).format("YYYY-MM"),
         years: this.$route.params._id,
@@ -836,14 +847,23 @@
         code3: 'PJ063',
         code4: 'PJ064',
         code5: 'PJ065',
-        code6: 'PJ066',
-        code7: 'PJ067',
+        code7: ' ',
         canStart: false,
       };
     },
     mounted() {
       let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
       this.groupId = lst.groupId;
+      let option1 = {};
+      option1.name = getDictionaryInfo('PG019001').value1;
+      option1.code = 'PG019001';
+      option1.value = getDictionaryInfo('PG019001').value4;
+      let option2 = {};
+      option2.name = getDictionaryInfo('PG019003').value1;
+      option2.code = 'PG019003';
+      option2.value = getDictionaryInfo('PG019003').value4;
+      this.options.push(option1);
+      this.options.push(option2);
       this.tableA[0].groupid = this.groupId;
       this.getdata(this.years,"");
     },
@@ -868,6 +888,12 @@
         this.$store
           .dispatch('PFANS1040Store/get', datainfo)
           .then(response => {
+            let con = response;
+            for (let i = 0; i < con.length; i++) {
+              if (con[i].currencytype !== '' && con[i].currencytype !== null) {
+                con[i].currencytype = getDictionaryInfo(con[i].currencytype).value4;
+              }
+            }
             if (response.length > 0) {
               if(year != ''){
                   this.tableA = response;
@@ -1111,7 +1137,18 @@
         else{
           this.baseInfo = this.tableB;
         }
+        let baseInfo = {};
+        baseInfo.contracttheme = [];
         for(let i = 0; i < this.baseInfo.length; i++){
+          let o = {};
+          Object.assign(o, this.baseInfo[i]);
+          if(this.baseInfo[i].currencytype !== '' && this.baseInfo[i].currencytype !== null){
+            for(let k = 0;k < this.options.length;k++){
+              if(this.baseInfo[i].currencytype === this.options[k].value){
+                o.currencytype = this.options[k].code;
+              }
+            }
+          }
           if(this.activeName === 'second'){
             this.baseInfo[i].months = moment(this.months).format('YYYY-MM');
             this.baseInfo[i].type = '4';
