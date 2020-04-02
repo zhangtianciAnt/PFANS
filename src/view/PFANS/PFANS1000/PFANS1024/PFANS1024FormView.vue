@@ -1790,6 +1790,14 @@
         }
         //先方組織名编码
         let sidegroup = this.formcustomer.suppliercode;
+        if(sidegroup === '' || sidegroup === undefined){
+          Message({
+            message: this.$t("normal.error_15"),
+            type: 'error',
+            duration: 5 * 1000
+          });
+          return;
+        }
         //事業年度
         let applicationdate = '';
         let letapplicationdate = getDictionaryInfo(this.form.applicationdate);
@@ -1813,7 +1821,7 @@
         if (this.checked) {
           this.letcontractnumber = this.form.contractnumber.split('-')[0] + letbook;
         } else {
-          if(abbreviation !== '' && applicationdate !== '' && entrycondition!== '' && sidegroup!== '' && this.groupinfo[2] !== null){
+          if(this.groupinfo[2] !== null){
             this.letcontractnumber = abbreviation + applicationdate + entrycondition + this.groupinfo[2] + sidegroup + number + letbook;
           } else {
             Message({

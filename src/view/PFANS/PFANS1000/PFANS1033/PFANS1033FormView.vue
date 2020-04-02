@@ -1365,7 +1365,7 @@
                           this.letcontractnumber = this.form.contractnumber.split("-")[0] + letbook;
                       }
                       else{
-                        if(abbreviation !== '' && applicationdate !== '' && entrycondition!== '' && this.groupinfo[2] !== null){
+                        if(this.groupinfo[2] !== null){
                           this.letcontractnumber = abbreviation + applicationdate + entrycondition + this.groupinfo[2] + '0000' + number + letbook;
                         } else {
                           Message({

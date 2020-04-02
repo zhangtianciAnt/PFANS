@@ -134,7 +134,8 @@ module.exports = {
     error_nosent: '未发送',
     confirm_iscontinue: '之前创建这条将要被删除, 是否继续?',
     error_norestdays: '剩余休假天数不足！',
-    error_14: '契約番号作成失败！',
+    error_14: '契約番号作成失败！先方組織名编码不能为空',
+    error_15: '契約番号作成失败！请选择有效的group',
   },
   menu: {
     homePageManagement: '首页',
