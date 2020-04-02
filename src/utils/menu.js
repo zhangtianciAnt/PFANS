@@ -822,10 +822,10 @@ export function menu() {
               ]
             },
             {
-              '_id': 'user',
+              '_id': 'use2r2',
               'name': 'menu.user2',
               'menuvisible': true,
-              'menuurl': '/usersView2',
+              'menuurl': '/OnlyusersView',
               'menuicon': '',
               'children': [],
               'actions': [

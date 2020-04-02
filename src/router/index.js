@@ -13,6 +13,8 @@ import roleFormView from '@/view/role/roleFormView.vue'
 import personalCenterView from '@/view/personalCenter/personalCenterView.vue'
 import usersView from '@/view/users/usersView.vue'
 import usersFormView from '@/view/users/usersFormView.vue'
+import usersView2 from '@/view/users/usersView2.vue'
+import usersFormView2 from '@/view/users/usersFormView2.vue'
 import usersToRoleView from '@/view/users/usersToRoleView.vue'
 import { getToken } from '@/utils/auth'
 import workflowView from '@/view/workflow/workflowView.vue'
@@ -277,7 +279,7 @@ const routes = [
       },
       {
         path: '/OnlyusersFormView',
-        name: 'usersFormView2',
+        name: 'OnlyusersFormView',
         component: usersFormView2
       },
       {

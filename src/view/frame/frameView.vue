@@ -425,7 +425,7 @@
         let params = {
           orgtype: "1"
         };
-        this.$store.dispatch('usersStore/getUserTableList2', params).then(response => {
+        this.$store.dispatch('usersStore/getUserTableList', params).then(response => {
           this.$store.commit("global/SET_USERLIST", response);
         }).catch(err => {
           Message({

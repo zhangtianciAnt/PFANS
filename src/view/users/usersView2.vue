@@ -242,7 +242,7 @@ export default {
         // },
         {
           key: "update",
-          name: this.$t("label.PFANSUSERVIEW_EDITUSER"),
+          name: this.$t("button.view"),
           disabled: true,
           icon: "el-icon-edit"
         },
@@ -456,7 +456,7 @@ export default {
         });
       } else if (val === "update") {
         this.$router.push({
-          name: "usersFormView",
+          name: "OnlyusersFormView",
           params: {
             _id: this.rowData.userid
           }
@@ -569,14 +569,10 @@ export default {
     rowClick(row) {
       if (row) {
         this.rowData = row;
-        this.buttonList[1].disabled = false;
-        this.buttonList[2].disabled = false;
-        this.buttonList[3].disabled = false;
+        this.buttonList[0].disabled = false;
       } else {
         this.rowData = {};
-        this.buttonList[1].disabled = true;
-        this.buttonList[2].disabled = true;
-        this.buttonList[3].disabled = true;
+        this.buttonList[0].disabled = true;
       }
     },
     buildDepartmentData(data) {
