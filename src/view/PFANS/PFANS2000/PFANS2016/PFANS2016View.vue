@@ -107,13 +107,13 @@
                 .dispatch('PFANS2016Store/getFpans2016List', {})
                 .then(response => {
                     for (let j = 0; j < response.length; j++) {
-                      if(response[j].errortype != 'PR013005' && response[j].errortype != 'PR013006'){
+                      if(response[j].errortype != 'PR013005' && response[j].errortype != 'PR013007'){
                         if (this.$i18n) {
-                          response[j].lengthtime = parseFloat(response[j].lengthtime/8).toFixed(1) + this.$t('label.PFANS2016FORMVIEW_DAYS');
+                          response[j].lengthtime = response[j].lengthtime + this.$t('label.hours');
                         }
                       }else{
                         if (this.$i18n){
-                          response[j].lengthtime = response[j].lengthtime ==='8'?this.$t('label.PFANS2016FORMVIEW_QUANTIAN'):(response[j].lengthtime ==='4'?this.$t('label.PFANS2016FORMVIEW_SHANGWU'):this.$t('label.PFANS2016FORMVIEW_XIAWU'));
+                          response[j].lengthtime = response[j].lengthtime ==='8'?this.$t('label.PFANS2016FORMVIEW_QUANTIAN'):this.$t('label.PFANS2011FROMVIEW_HALFDATE')
                         }
 
                       }

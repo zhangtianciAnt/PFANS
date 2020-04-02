@@ -328,6 +328,7 @@
                 "global/SET_USERINFO",
                 response.customerInfo
               );
+              this.$emit('showPersonCenter')
             }
 
             if(response.userAccount){

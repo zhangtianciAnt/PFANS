@@ -520,7 +520,7 @@
     import dicselect from '../../../components/dicselect.vue';
     import {Message} from 'element-ui';
     import user from '../../../components/user.vue';
-    import {getDictionaryInfo} from '@/utils/customize';
+    import {getDictionaryInfo, getOrgInfoByUserId} from '@/utils/customize';
     import {validateEmail} from '@/utils/validate';
     import moment from 'moment';
 
@@ -536,7 +536,6 @@
             return {
                 noback: true,
                 loading: false,
-                buttonList: [],
                 baseInfo: {},
                 scope: '',
                 row: '',
@@ -635,7 +634,16 @@
             };
         },
         mounted() {
-            this.getpriceset();
+          if (this.$route.params._id) {
+            this.getpriceset(this.$route.params._id);
+          } else {
+            this.userlist = this.$store.getters.userinfo.userid;
+            if (this.userlist !== null && this.userlist !== '') {
+              let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+              // this.$route.params.type === 0 ? this.getCustomerInfo(rst.groupId || "") : this.getExpatriatesinfor(rst.groupId || "");
+              this.getExpatriatesinfor(rst.groupId || "");
+            }
+          }
         },
         created() {
             // this.disabled = this.$route.params.disabled;
@@ -657,6 +665,22 @@
             if(this.$route.params.disabled){
               this.disabled = val;
             }
+          },
+          getExpatriatesinfor(id) {
+            this.$store
+              .dispatch('PFANS1038Store/getExpatriatesinfor', id)
+              .then(response => {
+                if (response.length > 0) {
+                  this.tableData = response;
+                }
+              })
+              .catch(error => {
+                Message({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000
+                });
+              })
           },
             handleSelectionChange(val) {
                 // const data = [];
@@ -753,20 +777,19 @@
                         for (let j = 0; j < response.length; j++) {
                             response[j].assesstime = moment(new Date()).format("YYYY-MM-DD HH:mm:ss");
                             this.arr[j] = [];
-                            this.arr[j][0] = parseInt(response[j].technology == null ? 0 : response[j].technology)
-                            this.arr[j][1] = parseInt(response[j].value == null ? 0 : response[j].value)
-                            this.arr[j][2] = parseInt(response[j].field == null ? 0 : response[j].field)
-                            this.arr[j][3] = parseInt(response[j].languagevalue == null ? 0 : response[j].languagevalue)
-                            this.arr[j][4] = parseInt(response[j].service == null ? 0 : response[j].service)
-                            this.arr[j][5] = parseInt(response[j].rvicevalue == null ? 0 : response[j].rvicevalue)
-                            this.arr[j][6] = parseInt(response[j].scalevalue == null ? 0 : response[j].scalevalue)
-                            this.arr[j][7] = parseFloat(response[j].coefficient == null ? 0 : response[j].coefficient)
-                            this.arr[j][8] = parseInt(response[j].rankvalue == null ? 0 : response[j].rankvalue)
-                            this.arr[j][9] = parseFloat(response[j].butioncoefficient == null ? 0 : response[j].butioncoefficient)
-                            this.arr[j][10] = parseInt(response[j].unitprice == null ? 0 : response[j].unitprice)
+                            this.arr[j][0] = parseInt(response[j].technology == null ? 0 : response[j].technology);
+                            this.arr[j][1] = parseInt(response[j].value == null ? 0 : response[j].value);
+                            this.arr[j][2] = parseInt(response[j].field == null ? 0 : response[j].field);
+                            this.arr[j][3] = parseInt(response[j].languagevalue == null ? 0 : response[j].languagevalue);
+                            this.arr[j][4] = parseInt(response[j].service == null ? 0 : response[j].service);
+                            this.arr[j][5] = parseInt(response[j].rvicevalue == null ? 0 : response[j].rvicevalue);
+                            this.arr[j][6] = parseInt(response[j].scalevalue == null ? 0 : response[j].scalevalue);
+                            this.arr[j][7] = parseFloat(response[j].coefficient == null ? 0 : response[j].coefficient);
+                            this.arr[j][8] = parseInt(response[j].rankvalue == null ? 0 : response[j].rankvalue);
+                            this.arr[j][9] = parseFloat(response[j].butioncoefficient == null ? 0 : response[j].butioncoefficient);
+                            this.arr[j][10] = parseInt(response[j].unitprice == null ? 0 : response[j].unitprice);
                         }
                         this.tableData = response;
-                        console.log("aaa", this.tableData)
                         this.loading = false;
                     })
                   .catch(error => {

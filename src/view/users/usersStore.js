@@ -2,10 +2,12 @@ import {
   userSave,
   getUserTableList,
   getById,
+  getme,
   mobileCheck,
   disableUser,
   getRoleList,
   setRoleToUser,
+  getUserTableList2,
   download
 } from './usersApi'
 
@@ -48,10 +50,36 @@ const usersStore = {
         })
       })
     },
+    getUserTableList2({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        getUserTableList2(params).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
     // 根据userid获取该用户的详细信息
     getById({ commit }, params) {
       return new Promise((resolve, reject) => {
         getById(params).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    getme({ commit }) {
+      return new Promise((resolve, reject) => {
+        getme().then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {

@@ -137,17 +137,19 @@
           <el-row style="padding-top:1.5rem" >
             <el-col :span="24">
             <el-table :data="tableT" stripe border header-cell-class-name="sub_bg_color_blue" style="width: 72vw">
-              <el-table-column :label="$t('label.PFANS1016FORMVIEW_sourceipgroup')" align="center"  width="150">
+              <el-table-column :label="$t('label.PFANS1016FORMVIEW_sourceipgroup')" align="center"  width="200">
                 <template slot-scope="scope">
-                  <dicselect
-                    :no="scope.row"
-                    :code="code3"
-                    :data="scope.row.sourceipgroup"
-                    :disabled="!disable"
-                    :multiple="multiple"
-                    @change="changesourceipgroup"
-                    style="width: 100%"
-                  ></dicselect>
+<!--                  <dicselect-->
+<!--                    :no="scope.row"-->
+<!--                    :code="code3"-->
+<!--                    :data="scope.row.sourceipgroup"-->
+<!--                    :disabled="!disable"-->
+<!--                    :multiple="multiple"-->
+<!--                    @change="changesourceipgroup"-->
+<!--                    style="width: 100%"-->
+<!--                  ></dicselect>-->
+                  <org :disabled="false" :no="scope.row" :orglist="scope.row.sourceipgroup" @getOrgids="getTgroup"
+                       orgtype="2" style="width:10vw"></org>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1016FORMVIEW_SOURCEIPADDRESS')" align="center"  width="300">
@@ -186,17 +188,19 @@
                   ></dicselect>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS1016FORMVIEW_DESTINATIONIPGROUP')" align="center"  width="150">
+              <el-table-column :label="$t('label.PFANS1016FORMVIEW_DESTINATIONIPGROUP')" align="center"  width="200">
                 <template slot-scope="scope">
-                  <dicselect
-                    :no="scope.row"
-                    :code="code3"
-                    :data="scope.row.destinationipgroup"
-                    :disabled="!disable"
-                    :multiple="multiple"
-                    @change="changedestinationipgroup"
-                    style="width: 100%"
-                  ></dicselect>
+<!--                  <dicselect-->
+<!--                    :no="scope.row"-->
+<!--                    :code="code3"-->
+<!--                    :data="scope.row.destinationipgroup"-->
+<!--                    :disabled="!disable"-->
+<!--                    :multiple="multiple"-->
+<!--                    @change="changedestinationipgroup"-->
+<!--                    style="width: 100%"-->
+<!--                  ></dicselect>-->
+                  <org :disabled="false" :no="scope.row" :orglist="scope.row.destinationipgroup" @getOrgids="getWTgroup"
+                       orgtype="2" style="width:10vw"></org>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1016FORMVIEW_DESTINATIONIPADDRESS')" align="center"  width="300">
@@ -278,6 +282,7 @@
   import dicselect from "../../../components/dicselect.vue";
   import {Message} from 'element-ui'
   import user from "../../../components/user.vue";
+  import org from "../../../components/org";
   import {getOrgInfoByUserId} from '@/utils/customize'
   import {telephoneNumber,validateEmail} from '@/utils/validate';
   import moment from "moment";
@@ -287,6 +292,7 @@
     components: {
       EasyNormalContainer,
       dicselect,
+      org,
       user
     },
     data() {
@@ -311,6 +317,7 @@
         }
       };
       return {
+          errorgroup:'',
         centerid: '',
         groupid: '',
         teamid: '',
@@ -342,6 +349,7 @@
         tableT: [{
           routingdetail_id: '',
           sourceipgroup: '',
+          tgroup: '',
           sourceipaddresstest: '',
           sourceipaddress: '',
           communication: '',
@@ -463,6 +471,14 @@
       }
     },
     methods: {
+
+        getTgroup(val, row){
+            row.sourceipgroup = val;
+
+        },
+        getWTgroup(val, row){
+            row.destinationipgroup = val;
+        },
       addSourceipaddress(index, rows){
         if(rows[index].sourceipaddress === ""){
           rows[index].sourceipaddress = rows[index].sourceipaddresstest;
