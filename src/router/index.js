@@ -193,6 +193,8 @@ import ASSETS1002View from '@/view/ASSETS/ASSETS1000/ASSETS1002/ASSETS1002View.v
 import ASSETS1002FormView from '@/view/ASSETS/ASSETS1000/ASSETS1002/ASSETS1002FormView.vue'
 import ASSETS1002ExportFormView from '@/view/ASSETS/ASSETS1000/ASSETS1002/ASSETS1002ExportFormView.vue'
 import ASSETS1003View from '@/view/ASSETS/ASSETS1000/ASSETS1003/ASSETS1003View.vue'
+import usersFormViewByPerson from '@/view/users/usersFormViewByPerson.vue'
+
 Vue.use(Router);
 
 const routes = [
@@ -267,6 +269,11 @@ const routes = [
         path: '/usersFormView',
         name: 'usersFormView',
         component: usersFormView
+      },
+      {
+        path: '/usersFormViewByPerson',
+        name: 'usersFormViewByPerson',
+        component: usersFormViewByPerson
       },
       {
         path: '/usersToRoleView',

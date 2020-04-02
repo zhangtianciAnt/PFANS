@@ -234,24 +234,24 @@ export default {
           disabled: false,
           icon: "el-icon-plus"
         },
-        {
-          key: "setRole",
-          name: this.$t("label.PFANSUSERVIEW_SETTINGROLES"),
-          disabled: true,
-          icon: "el-icon-plus"
-        },
+        // {
+        //   key: "setRole",
+        //   name: this.$t("label.PFANSUSERVIEW_SETTINGROLES"),
+        //   disabled: true,
+        //   icon: "el-icon-plus"
+        // },
         {
           key: "update",
           name: this.$t("label.PFANSUSERVIEW_EDITUSER"),
           disabled: true,
           icon: "el-icon-edit"
         },
-        {
-          key: "disableUser",
-          name: this.$t("label.PFANSUSERVIEW_STATUSNAME"),
-          disabled: true,
-          icon: "el-icon-edit"
-        },
+        // {
+        //   key: "disableUser",
+        //   name: this.$t("label.PFANSUSERVIEW_STATUSNAME"),
+        //   disabled: true,
+        //   icon: "el-icon-edit"
+        // },
         {
           key: 'import',
           name: 'button.import',

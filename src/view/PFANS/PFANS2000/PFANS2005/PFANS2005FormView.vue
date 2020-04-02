@@ -113,6 +113,30 @@
                       align="center"
                     ></el-table-column>
                     <el-table-column
+                      prop="lastmonthbasic"
+                      :label="$t('label.PFANS2005FORMVIEW_LASTMONTHBASIC')"
+                      width="150"
+                      align="center"
+                    ></el-table-column>
+                    <el-table-column
+                      prop="lastmonthduty"
+                      :label="$t('label.PFANS2005FORMVIEW_LASTMONTHDUTY')"
+                      width="150"
+                      align="center"
+                    ></el-table-column>
+                    <el-table-column
+                      prop="basethismonthbasic"
+                      :label="$t('label.PFANS2005FORMVIEW_BASETHISMONTHBASIC')"
+                      width="150"
+                      align="center"
+                    ></el-table-column>
+                    <el-table-column
+                      prop="thismonthduty"
+                      :label="$t('label.PFANS2005FORMVIEW_THISMONTHDUTY')"
+                      width="150"
+                      align="center"
+                    ></el-table-column>
+                    <!-- <el-table-column
                       prop="lastmonth"
                       :label="$t('label.PFANS2005FORMVIEW_LASTMONTHPAYMENT')"
                       width="150"
@@ -123,11 +147,17 @@
                       :label="$t('label.PFANS2005FORMVIEW_MONTHPAYMENT')"
                       width="150"
                       align="center"
-                    ></el-table-column>
+                    ></el-table-column> -->
                     <el-table-column prop="rnbasesalary" label="RN" width="150" align="center"></el-table-column>
                     <el-table-column
                       prop="birthrest"
                       :label="$t('label.PFANS2005FORMVIEW_BIRTHDAYREST')"
+                      width="200"
+                      align="center"
+                    ></el-table-column>
+                    <el-table-column
+                      prop="thismonthbasicbasic"
+                      :label="$t('label.PFANS2006VIEW_THISMONTHBASICBASIC')"
                       width="200"
                       align="center"
                     ></el-table-column>
@@ -164,9 +194,21 @@
                   </el-table-column>
 
                   <el-table-column :label="$t('label.PFANS2006VIEW_TAX')" align="center">
-                    <el-table-column
+                    <!-- <el-table-column
                       prop="actualamount"
                       :label="$t('label.PFANS2006VIEW_BASICSALARY')"
+                      width="150"
+                      align="center"
+                    ></el-table-column> -->
+                    <el-table-column
+                      prop="thismonthbasicgei"
+                      :label="$t('label.PFANS2006VIEW_THISMONTHBASICGEI')"
+                      width="150"
+                      align="center"
+                    ></el-table-column>
+                    <el-table-column
+                      prop="thismonthdutygei"
+                      :label="$t('label.PFANS2006VIEW_THISMONTHDUTYGEI')"
                       width="150"
                       align="center"
                     ></el-table-column>
@@ -538,6 +580,12 @@
                     align="center"
                   ></el-table-column>
                   <el-table-column
+                    prop="njjy"
+                    :label="$t('label.PFANS2005FORMVIEW_NJJY')"
+                    width="150"
+                    align="center"
+                  ></el-table-column>
+                  <el-table-column
                     prop="bonusmoney"
                     :label="$t('label.PFANS2005FORMVIEW_GAUGE')"
                     width="150"
@@ -566,6 +614,24 @@
                     </template>
                   </el-table-column>
                 </el-table>
+                <div class="pagination-container" style="padding-top: 2rem">
+                <el-pagination
+                  :current-page.sync="listQueryListJS.page"
+                  :page-size="listQueryListJS.limit"
+                  :page-sizes="[5,10,20,30,50]"
+                  :total="totalBase"
+                  @current-change="handleCurrentChangeJS"
+                  @size-change="handleSizeChangeJS"
+                  layout="slot,sizes, ->,prev, pager, next, jumper"
+                >
+                  <slot>
+                    <span
+                      class="front Content_front"
+                      style="padding-right: 0.5rem;font-weight: 400"
+                    >{{$t('table.pagesize')}}</span>
+                  </slot>
+                </el-pagination>
+              </div>
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_JS')" name="second">
@@ -3011,300 +3077,24 @@ export default {
           icon: "el-icon-download"
         }
       ],
-      OTherTwo: {
-        giving_id: "",
-        type: ""
-      },
-      tableJS: [
-        {
-          rowindex: "",
-          department_id: "",
-          user_id: "",
-          rn: "",
-          sex: "",
-          onlychil: "",
-          type: "",
-          bonus: "",
-          sociology: "",
-          registered: "",
-          lastmonth: "",
-          lastmonthbasic: "",
-          lastmonthduty: "",
-          thismonthbasic: "",
-          thismonthduty: "",
-          thismonth: "",
-          pension: "",
-          medical: "",
-          accumulation: "",
-          heating: "",
-          workdate: ""
-        }
-      ],
-      tableQT5: [
-        {
-          rowindex: "",
-          department_id: "",
-          user_id: "",
-          medicalinsurance: "",
-          accident: "",
-          physical: "",
-          welfaretotal: "",
-          labourunion: "",
-          annualmeeting: "",
-          travel: "",
-          total: "",
-          remarks: ""
-        }
-      ],
-      tableRZ: [
-        {
-          rowindex: "",
-          user_id: "",
-          lastmouth: "",
-          thismouth: "",
-          worddate: "",
-          startdate: "",
-          attendance: "",
-          trial: "",
-          give: "",
-          lunch: "",
-          traffic: "",
-          remarks: ""
-        }
-      ],
-      tableTZ: [
-        {
-          rowindex: "",
-          user_id: "",
-          retiredate: "",
-          attendance: "",
-          give: "",
-          lunch: "",
-          traffic: "",
-          remarks: ""
-        }
-      ],
-      tableQT1Woman: [
-        {
-          otherone_id: "",
-          giving_id: "",
-          rowindex: "",
-          department_id: "",
-          user_id: "",
-          sex: "",
-          workdate: "",
-          reststart: "",
-          restend: "",
-          attendance: "",
-          other1: "",
-          basedata: ""
-        }
-      ],
-      tableQT1Man: [
-        {
-          rowindex: "",
-          department_id: "",
-          user_id: "",
-          sex: "",
-          workdate: "",
-          startdate: "",
-          enddate: "",
-          vacation: "",
-          handsupport: ""
-        }
-      ],
-      tableQT2: [
-        {
-          giving_id: "",
-          othertwo_id: "",
-          rowindex: "",
-          user_id: "",
-          moneys: "",
-          rootknot: ""
-        }
-      ],
-      tableYDSY: [
-        {
-          rowindex: "",
-          user_id: "",
-          commentary: "",
-          amount: "",
-          other1: "",
-          other2: "",
-          other3: "",
-          other4: "",
-          other5: ""
-        }
-      ],
-      tableQT4: [
-        {
-          otherfour_id: "",
-          giving_id: "",
-          department_id: "",
-          user_id: "",
-          socialsecurity: "",
-          total: "",
-          remarks: "",
-          rowindex: "",
-          jobnumber: ""
-        }
-      ],
-      tableFJKC: [
-        {
-          user_id: "",
-          childreneducation: "",
-          housing: "",
-          rent: "",
-          support: "",
-          education: "",
-          total: ""
-        }
-      ],
-      tableZHSR: [
-        {
-          rowindex: "",
-          user_id: "",
-          month1wages: "",
-          month1appreciation: "",
-          month2wages: "",
-          month2appreciation: "",
-          month3wages: "",
-          month3appreciation: "",
-          month4wages: "",
-          month4appreciation: "",
-          month5wages: "",
-          month5appreciation: "",
-          month6wages: "",
-          month6appreciation: "",
-          month7wages: "",
-          month7appreciation: "",
-          month8wages: "",
-          month8appreciation: "",
-          month9wages: "",
-          month9appreciation: "",
-          month10wages: "",
-          month10appreciation: "",
-          month11wages: "",
-          month11appreciation: "",
-          month12wages: "",
-          month12appreciation: ""
-        }
-      ],
-      tableMS: [
-        {
-          rowindex: "",
-          user_id: "",
-          january: "",
-          february: "",
-          march: "",
-          april: "",
-          may: "",
-          june: "",
-          july: "",
-          august: "",
-          september: "",
-          october: "",
-          november: "",
-          december: "",
-          total: ""
-        }
-      ],
-      tableZXKC: [
-        {
-          number: "",
-          user_id: "",
-          january: "",
-          february: "",
-          march: "",
-          april: "",
-          may: "",
-          june: "",
-          july: "",
-          august: "",
-          september: "",
-          october: "",
-          november: "",
-          december: "",
-          total: ""
-        }
-      ],
-      tableQQ: [
-        {
-          user_id: "",
-          lastdiligence: "",
-          lastshortdeficiency: "",
-          lastchronicdeficiency: "",
-          lasttotal: "",
-          thisdiligence: "",
-          thisshortdeficiency: "",
-          thischronicdeficiency: "",
-          thistotal: "",
-          remarks: "",
-          give: "",
-          rowindex: ""
-        }
-      ],
-      tableCY: [
-        {
-          rowindex: "",
-          user_id: "",
-          rn: "",
-          lastweekdays: "",
-          lastlatenight: "",
-          lastrestDay: "",
-          lastrestlatenight: "",
-          lastlegal: "",
-          lastlegallatenight: "",
-          lastreplace: "",
-          lasttotalh: "",
-          lasttotaly: "",
-          thisweekdays: "",
-          thislatenight: "",
-          thisrestDay: "",
-          thisrestlatenight: "",
-          thislegal: "",
-          thislegallatenight: "",
-          thisreplace: "",
-          thisreplace3: "",
-          thistotalh: "",
-          thistotaly: "",
-          remarks: "",
-          subsidy: ""
-        }
-      ],
-      tableLJSJ: [
-        {
-          rowindex: "",
-          user_id: "",
-          january: "",
-          february: "",
-          march: "",
-          april: "",
-          may: "",
-          june: "",
-          july: "",
-          august: "",
-          september: "",
-          october: "",
-          november: "",
-          december: "",
-          sumThis: "",
-          shouldwages: "",
-          balance: ""
-        }
-      ],
-      tableGRDB: [
-        {
-          contrast_id: "",
-          rowindex: "",
-          department_id: "",
-          user_id: "",
-          thismonth: "",
-          lastmonth: "",
-          difference: "",
-          reason: ""
-        }
-      ],
+      OTherTwo: {},
+      tableJS: [],
+      tableQT5: [],
+      tableRZ: [],
+      tableTZ: [],
+      tableQT1Woman: [],
+      tableQT1Man: [],
+      tableQT2: [],
+      tableYDSY: [],
+      tableQT4: [],
+      tableFJKC: [],
+      tableZHSR: [],
+      tableMS: [],
+      tableZXKC: [],
+      tableQQ: [],
+      tableCY: [],
+      tableLJSJ: [],
+      tableGRDB: [],
       baseInfo: {},
       givingVo: {}
     };
@@ -4213,6 +4003,7 @@ export default {
       this.getList();
     },
     handleCurrentChangeLJSJ(val) {
+      console.log("handleCurrentChangeLJSJ",val)
       this.listQueryListLJSJ.page = val;
       this.getList();
     },
