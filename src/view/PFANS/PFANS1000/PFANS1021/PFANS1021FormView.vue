@@ -3,7 +3,7 @@
     <EasyNormalContainer ref="container" :title="title" @buttonClick="buttonClick" v-loading="loading" :buttonList="buttonList"
                          @workflowState="workflowState" :canStart="canStart" @start="start" @end="end">
       <div slot="customize">
-        <el-form :model="form" label-width="8vw" label-position="top" style="padding: 2vw" :rules="rules"
+        <el-form :model="form" label-width="8vw" label-position="top" style="padding: 3vw" :rules="rules"
                  ref="refform">
           <el-row>
             <el-col :span="8">
@@ -426,6 +426,12 @@
           .dispatch('PFANS1021Store/selectById', {"securityid": this.$route.params._id})
           .then(response => {
               this.form = response.security;
+              let rst = getOrgInfoByUserId(response.holiday.user_id);
+              if(rst){
+                  this.center_id = rst.centerNmae;
+                  this.group_id= rst.groupNmae;
+                  this.team_id= rst.teamNmae;
+              }
               if (response.securitydetail.length > 0) {
                   this.form.tableD = response.securitydetail;
               }
@@ -442,14 +448,14 @@
           })
       } else {
           this.userlist = this.$store.getters.userinfo.userid;
-          if (this.userlist !== null && this.userlist !== ''&& this.userlist === "undefined") {
+          if (this.userlist !== null && this.userlist !== '') {
               let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
               this.form.center_id = lst.centerNmae;
               this.form.group_id = lst.groupNmae;
               this.form.team_id = lst.teamNmae;
               this.form.user_id = this.$store.getters.userinfo.userid;
           }
-        if (this.userlist !== null && this.userlist !== ''&& this.userlist === "undefined") {
+        if (this.userlist !== null && this.userlist !== '') {
           let lst1 = getUserInfo(this.$store.getters.userinfo.userid);
           this.form.phonenumber = lst1.userinfo.mobilenumber;
           this.form.emaildetail = lst1.userinfo.email;
