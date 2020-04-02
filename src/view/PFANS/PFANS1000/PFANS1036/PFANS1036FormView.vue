@@ -1980,51 +1980,51 @@
         )
         this.tableO.forEach(
           val => {
-            if(val.type === "PJ102012"){
+            if(val.type === "PJ111012"){
               for(let i = 1; i<= 12; i++){
                 tableOTotal["money" + i] = Number(tableOTotal["money" + i]||0) + Number(val["money" + i]||0);
               }
-            } if(val.type === "PJ102008"){
+            } if(val.type === "PJ111008"){
               for(let i = 1; i<= 12; i++){
                 tableOTotal1["money" + i] = Number(tableOTotal1["money" + i]||0) + Number(val["money" + i]||0);
               }
-            }if(val.type === "PJ102006"){
+            }if(val.type === "PJ111006"){
               for(let i = 1; i<= 12; i++){
                 tableOTotal2["money" + i] = Number(tableOTotal2["money" + i]||0) + Number(val["money" + i]||0);
               }
-            }if(val.type === "PJ102003"){
+            }if(val.type === "PJ111003"){
               for(let i = 1; i<= 12; i++){
                 tableOTotal3["money" + i] = Number(tableOTotal3["money" + i]||0) + Number(val["money" + i]||0);
               }
-            }if(val.type === "PJ102007"){
+            }if(val.type === "PJ111007"){
               for(let i = 1; i<= 12; i++){
                 tableOTotal4["money" + i] = Number(tableOTotal4["money" + i]||0) + Number(val["money" + i]||0);
               }
-            }if(val.type === "PJ102009"){
+            }if(val.type === "PJ111009"){
               for(let i = 1; i<= 12; i++){
                 tableOtotal5["money" + i] = Number(tableOtotal5["money" + i]||0) + Number(val["money" + i]||0);
               }
-            }if(val.type === "PJ102010"){
+            }if(val.type === "PJ111010"){
               for(let i = 1; i<= 12; i++){
                 tableOtotal6["money" + i] = Number(tableOtotal6["money" + i]||0) + Number(val["money" + i]||0);
               }
-            }if(val.type === "PJ102001"){ //消耗品费
+            }if(val.type === "PJ111001"){ //消耗品费
               for(let i = 1; i<= 12; i++){
                 tableOtotal7["money" + i] = Number(tableOtotal7["money" + i]||0) + Number(val["money" + i]||0);
               }
-            }if(val.type === "PJ102011"){
+            }if(val.type === "PJ111011"){
               for(let i = 1; i<= 12; i++){
                 _tableO1["money" + i] = Number(_tableO1["money" + i]||0) + Number(val["money" + i]||0);
               }
-            }if(val.type === "PJ102005"){
+            }if(val.type === "PJ111005"){
               for(let i = 1; i<= 12; i++){
                 _tableO3["money" + i] = Number(_tableO3["money" + i]||0) + Number(val["money" + i]||0);
               }
-            }if(val.type === "PJ102002"){
+            }if(val.type === "PJ111002"){
               for(let i = 1; i<= 12; i++){
                 _travel["money" + i] = Number(_travel["money" + i]||0) + Number(val["money" + i]||0);
               }
-            }if(val.type === "PJ102004"){
+            }if(val.type === "PJ111004"){
               for(let i = 1; i<= 12; i++){
                 _tableO2["money" + i] = Number(_tableO2["money" + i]||0) + Number(val["money" + i]||0);
               }
