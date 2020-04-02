@@ -3664,6 +3664,7 @@ export default {
           // endregion
           for (let j = 0; j < response.base.length; j++) {
             if (response.base[j].type === "1") {
+              console.log(this.$t("label.PFANS2005FORMVIEW_SFRZ"))
               response.base[j].type = this.$t("label.PFANS2005FORMVIEW_SFRZ");
             } else if (response.base[j].type === "4") {
               response.base[j].type = this.$t("label.PFANS2005FORMVIEW_SFTZ");
