@@ -1644,10 +1644,10 @@
         status: "0",
         buttonList: [
           {key: "userSave", name: this.$t("button.save")},
-          {
-            key: "userSaveToRole",
-            name: this.$t("label.PFANSUSERFORMVIEW_SAVEANDROLE")
-          }
+          // {
+          //   key: "userSaveToRole",
+          //   name: this.$t("label.PFANSUSERFORMVIEW_SAVEANDROLE")
+          // }
         ],
         rules: {
           adfield: [
