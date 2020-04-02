@@ -309,9 +309,9 @@
       // 行点击
       rowClick(row) {
         this.$store.commit('global/SET_OPERATEID', row[this.rowid]);
-        // if(row.owner){
-        //   this.$store.commit('global/SET_OPERATEOWNER', row.owner);
-        // }
+        if(row.owner){
+          this.$store.commit('global/SET_OPERATEOWNER', row.owner);
+        }
         this.$refs.workflow.isViewWorkflow();
 
         // this.$store
