@@ -271,6 +271,16 @@ const routes = [
         component: usersFormView
       },
       {
+        path: '/OnlyusersView',
+        name: 'usersView2',
+        component: usersView2
+      },
+      {
+        path: '/OnlyusersFormView',
+        name: 'usersFormView2',
+        component: usersFormView2
+      },
+      {
         path: '/usersFormViewByPerson',
         name: 'usersFormViewByPerson',
         component: usersFormViewByPerson
