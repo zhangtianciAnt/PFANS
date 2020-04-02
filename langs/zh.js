@@ -141,6 +141,7 @@ module.exports = {
     orgSetting: '组织架构设置',
     org: '组织架构',
     user: '用户管理',
+    user2: '人员信息',
     authority: '系统权限设置',
     role: '角色权限',
     workflowManagement: '流程设置',
@@ -2046,7 +2047,7 @@ module.exports = {
     PFANS2005FORMVIEW_LASTMONTHDUTY: '上月职责工资',
     PFANS2005FORMVIEW_BASETHISMONTHBASIC: '本月基本工资',
     PFANS2005FORMVIEW_THISMONTHDUTY: '本月职责工资',
-    
+
     PFANS2005FORMVIEW_LASTMONTHPAYMENT: '上月基本給',
     PFANS2005FORMVIEW_MONTHPAYMENT: '本月基本給',
     PFANS2005FORMVIEW_BIRTHDAYREST: '产休出勤日数(陪护休假日数)',

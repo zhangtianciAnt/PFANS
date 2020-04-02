@@ -33,184 +33,206 @@
   </div>
 </template>
 <script>
-  import EasyNormalTable from '@/components/EasyNormalTable';
-  import {Message} from "element-ui";
-  import {getUserInfo} from '@/utils/customize'
-  import moment from "moment";
+    import EasyNormalTable from '@/components/EasyNormalTable';
+    import {Message} from "element-ui";
+    import {getUserInfo} from '@/utils/customize'
+    import moment from "moment";
 
-  export default {
-    name: 'PFANS1037View',
-    components: {
-      EasyNormalTable,
-    },
-    data() {
-      return {
-        data:[],
-        outdata:[],
-        loading:false,
-        rowid:"personnelplanid",
-        buttonList: [
-          {
-            key: "view",
-            name: "button.view",
-            disabled: false,
-            icon: "el-icon-search"
-          },
-          {
-            key: "new",
-            name: "button.insert",
-            disabled: false,
-            icon: "el-icon-plus"
-          },
-          {
-            key: "update",
-            name: "button.update",
-            disabled: false,
-            icon: "el-icon-edit"
-          }
-        ],
-        activeName:"first",
-        titleIn: this.$t("label.PFANS1038VIEW_MEMBERSHIP"),
-        titleOut: this.$t("label.PFANS1038VIEW_OUTOFHOME"),
-        columns: [
-          {
-            code: "years",
-            label: "label.PFANS2023VIEW_YEARS",
-            width: 150,
-            fix: false,
-            filter: true
-          },
-          {
-            code: "center",
-            label: "label.center",
-            width: 200,
-            fix: false,
-            filter: true
-          },
-          {
-            code: "department",
-            label: "label.ASSETS1001VIEW_USEDEPARTMENT",
-            width: 150,
-            fix: false,
-            filter: true
-          },
-          {
-            code: "createby",
-            label: "label.PFANS8008VIEW_CREATEBY",
-            width: 200,
-            fix: false,
-            filter: true
-          },
-          {
-            code: "createon",
-            label: "label.information_start",
-            width: 200,
-            fix: false,
-            filter: true
-          }
-        ]
-      }
-    },
-    mounted() {
-      if(this.$store.getters.userinfo.userid) {
-        let group = getUserInfo(this.$store.getters.userinfo.userid);
-        if (group.userinfo.groupid === "") {
-          this.buttonList[1].disabled = true;
-          this.buttonList[2].disabled = true;
-        } else {
-          this.buttonList[1].disabled = false;
-          this.buttonList[2].disabled = false;
-        }
-      }
-      this.loading = true;
-      this.$store
-        .dispatch("PFANS1038Store/getAll")
-        .then(response => {
-          this.loading = false;
-          let userinfo = "";
-          let data = [];
-          let outdata = [];
-          if(response.length > 0){
-            response.forEach(
-              res => {
-                userinfo = getUserInfo(res.createby).userinfo;
-                res.createby  = userinfo.customername;
-                res.center = userinfo.centername;
-                res.department = userinfo.groupname||"";
-                res.createon =  moment(res.createon).format("YYYY-MM-DD");
-                if(res.type === 0){
-                  data.push(res);
-                }else{
-                  outdata.push(res);
+    export default {
+        name: 'PFANS1037View',
+        components: {
+            EasyNormalTable,
+        },
+        data() {
+            return {
+                data: [],
+                outdata: [],
+                loading: false,
+                rowid: "personnelplanid",
+                buttonList: [
+                    {
+                        key: "view",
+                        name: "button.view",
+                        disabled: false,
+                        icon: "el-icon-search"
+                    },
+                    {
+                        key: "new",
+                        name: "button.insert",
+                        disabled: false,
+                        icon: "el-icon-plus"
+                    },
+                    {
+                        key: "update",
+                        name: "button.update",
+                        disabled: false,
+                        icon: "el-icon-edit"
+                    }
+                ],
+                activeName: "first",
+                titleIn: this.$t("label.PFANS1038VIEW_MEMBERSHIP"),
+                titleOut: this.$t("label.PFANS1038VIEW_OUTOFHOME"),
+                columns: [
+                    {
+                        code: "years",
+                        label: "label.PFANS2023VIEW_YEARS",
+                        width: 150,
+                        fix: false,
+                        filter: true
+                    },
+                    {
+                        code: "center",
+                        label: "label.center",
+                        width: 200,
+                        fix: false,
+                        filter: true
+                    },
+                    {
+                        code: "department",
+                        label: "label.ASSETS1001VIEW_USEDEPARTMENT",
+                        width: 150,
+                        fix: false,
+                        filter: true
+                    },
+                    {
+                        code: "createby",
+                        label: "label.PFANS8008VIEW_CREATEBY",
+                        width: 200,
+                        fix: false,
+                        filter: true
+                    },
+                    {
+                        code: "createon",
+                        label: "label.information_start",
+                        width: 200,
+                        fix: false,
+                        filter: true
+                    }
+                ]
+            }
+        },
+        mounted() {
+            if (this.$store.getters.userinfo.userid) {
+                let group = getUserInfo(this.$store.getters.userinfo.userid);
+                if (group.userinfo.groupid === "" || group.userinfo.groupid ===null ) {
+                    this.buttonList[1].disabled = true;
+                    this.buttonList[2].disabled = true;
+                } else {
+                    this.buttonList[1].disabled = false;
+                    this.buttonList[2].disabled = false;
                 }
-              }
-            );
-            this.data = data;
-            this.outdata = outdata;
-          }
-        })
-        .catch(err => {
-          this.loading = false;
-          Message({
-            message: err,
-            type: "error",
-            duration: 5 * 1000
-          });
-        });
-    },
-    methods: {
-      rowClick(row) {
-        this.id = row.personnelplanid;
-      },
-      buttonClick(val) {
-        this.$store.commit("global/SET_HISTORYURL", this.$route.path);
-        if ("update" === val) {
-          if (!this.id) {
-            Message({
-              message: this.$t("normal.info_01"),
-              type: 'info',
-              duration: 2 * 1000
-            });
-            return;
-          }
-          this.$router.push({
-            name: "PFANS1038FormView",
-            params: {
-              _id: this.id,
-              disabled: false,
-              type: this.activeName === "first" ? 0 : 1
             }
-          });
-        } else if ("view" === val) {
-          if (!this.id) {
-            Message({
-              message: this.$t("normal.info_01"),
-              type: 'info',
-              duration: 2 * 1000
-            });
-            return;
-          }
-          this.$router.push({
-            name: "PFANS1038FormView",
-            params: {
-              _id: this.id,
-              disabled: true,
-              type: this.activeName === "first" ? 0 : 1
+            this.loading = true;
+            this.$store
+                .dispatch("PFANS1038Store/getAll")
+                .then(response => {
+                    this.loading = false;
+                    let userinfo = "";
+                    let data = [];
+                    let outdata = [];
+                    if (response.length > 0) {
+                        response.forEach(
+                            res => {
+                                let group = getUserInfo(this.$store.getters.userinfo.userid);
+                                if (group.userinfo.groupid === "" || group.userinfo.groupid ===null) {
+                                    if (group.userinfo.centerid == res.centerid) {
+                                        if (getUserInfo(res.createby)) {
+                                            userinfo = getUserInfo(res.createby).userinfo;
+                                        }
+                                        res.createby = userinfo.customername;
+                                        res.center = userinfo.centername;
+                                        res.department = userinfo.groupname || "";
+                                        res.createon = moment(res.createon).format("YYYY-MM-DD");
+                                        if (res.type === 0) {
+                                            data.push(res);
+                                        } else {
+                                            outdata.push(res);
+                                        }
+                                    }
+                                } else {
+                                    if (group.userinfo.groupid == res.groupid) {
+                                        if (getUserInfo(res.createby)) {
+                                            userinfo = getUserInfo(res.createby).userinfo;
+                                        }
+                                        res.createby = userinfo.customername;
+                                        res.center = userinfo.centername;
+                                        res.department = userinfo.groupname || "";
+                                        res.createon = moment(res.createon).format("YYYY-MM-DD");
+                                        if (res.type === 0) {
+                                            data.push(res);
+                                        } else {
+                                            outdata.push(res);
+                                        }
+                                    }
+                                }
+                            }
+                        );
+                        this.data = data;
+                        this.outdata = outdata;
+                    }
+                })
+                .catch(err => {
+                    this.loading = false;
+                    Message({
+                        message: err,
+                        type: "error",
+                        duration: 5 * 1000
+                    });
+                });
+        },
+        methods: {
+            rowClick(row) {
+                this.id = row.personnelplanid;
+            },
+            buttonClick(val) {
+                this.$store.commit("global/SET_HISTORYURL", this.$route.path);
+                if ("update" === val) {
+                    if (!this.id) {
+                        Message({
+                            message: this.$t("normal.info_01"),
+                            type: 'info',
+                            duration: 2 * 1000
+                        });
+                        return;
+                    }
+                    this.$router.push({
+                        name: "PFANS1038FormView",
+                        params: {
+                            _id: this.id,
+                            disabled: false,
+                            type: this.activeName === "first" ? 0 : 1
+                        }
+                    });
+                } else if ("view" === val) {
+                    if (!this.id) {
+                        Message({
+                            message: this.$t("normal.info_01"),
+                            type: 'info',
+                            duration: 2 * 1000
+                        });
+                        return;
+                    }
+                    this.$router.push({
+                        name: "PFANS1038FormView",
+                        params: {
+                            _id: this.id,
+                            disabled: true,
+                            type: this.activeName === "first" ? 0 : 1
+                        }
+                    });
+                } else if ("new" === val) {
+                    this.$router.push({
+                        name: "PFANS1038FormView",
+                        params: {
+                            _id: "",
+                            disabled: false,
+                            type: this.activeName === "first" ? 0 : 1
+                        }
+                    });
+                }
             }
-          });
-        } else if ("new" === val) {
-          this.$router.push({
-            name: "PFANS1038FormView",
-            params: {
-              _id: "",
-              disabled: false,
-              type: this.activeName === "first" ? 0 : 1
-            }
-          });
         }
-      }
-    }
-  };
+    };
 </script>
 <style lang="scss">
 
