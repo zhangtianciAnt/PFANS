@@ -141,7 +141,7 @@ module.exports = {
     orgSetting: '组织架构设置',
     org: '组织架构',
     user: '用户管理',
-    user2: '用户管理（查看）',
+    user2: '人员信息',
     authority: '系统权限设置',
     role: '角色权限',
     workflowManagement: '流程设置',
