@@ -23,3 +23,13 @@ export function updatepriceset(data) {
     data: data
   })
 }
+
+export function getExpatriatesinfor(id) {
+  return request({
+    url: 'personnelplan/getexpatriatesinfor',
+    method: 'get',
+    params: {
+      groupid:id
+    }
+  })
+}
