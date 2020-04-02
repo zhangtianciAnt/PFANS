@@ -664,7 +664,11 @@
           if (lst) {
             this.form.sex = lst.userinfo.sex ;
             this.form.educational_background = lst.userinfo.educational;
-            this.form.position = lst.userinfo.post;
+            let postinfo = getDictionaryInfo(lst.userinfo.post);
+            if(postinfo){
+              this.form.position = postinfo.value1;
+            }
+            // this.form.position = lst.userinfo.post;
             this.form.entry_time = lst.userinfo.enterday;
           }
           this.form.user_id = this.$store.getters.userinfo.userid;
