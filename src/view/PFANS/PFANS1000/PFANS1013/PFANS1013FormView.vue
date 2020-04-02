@@ -1254,7 +1254,6 @@
       this.getLoanapp();
       this.getCompanyProjectList();
       this.checkOption();
-      debugger
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
@@ -1359,7 +1358,8 @@
             });
             this.loading = false;
           });
-      } else {
+      }
+      else {
           let num = getUserInfo(this.$store.getters.userinfo.userid).userinfo.extension;
           if(num){
               this.form.telephone = num
@@ -1754,22 +1754,24 @@
       deleteRow5(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
-        } else {
-          this.tableF.push({
-            invoicenumber: '',
-            invoicetype: '',
-            invoiceamount: '',
-            taxrate: '',
-            excludingtax: '',
-            facetax: '',
-          });
         }
+        // else {
+        //   this.tableF.push({
+        //     invoicenumber: '',
+        //     invoicetype: '',
+        //     invoiceamount: '',
+        //     taxrate: '',
+        //     excludingtax: '',
+        //     facetax: '',
+        //   });
+        // }
         this.checkOption();
       },
       deleteRow6(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
-        } else {
+        }
+        else {
           this.tableW = [{
             evectionid: '',
             currencyexchangeid: '',

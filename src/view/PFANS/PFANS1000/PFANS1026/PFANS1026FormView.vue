@@ -349,20 +349,20 @@
                              width="200">
               <template slot-scope="scope">
                 <el-form-item :prop="'tabledata.' + scope.$index + '.currencyposition'" :rules='rules.currencyposition'>
-                  <dicselect
-                    :code="code9"
-                    :data="scope.row.currencyposition"
-                    :no="scope.row"
-                    :multiple="multiple"
-                    @change="getCurrencyposition"
-                    style="width: 11rem"
-                    :disabled="!disabled">
-                  </dicselect>
-<!--                  <el-select :no="scope.row" v-model="scope.row.currencyposition" @change="(val)=>{getCurrencyposition(val,scope.row)}" style="width: 11rem" :disabled="!disabled">-->
-<!--                    <el-option v-for="(item,index) in options" :key="index" v-model="item.value">-->
-<!--                      {{item.value}}-->
-<!--                    </el-option>-->
-<!--                  </el-select>-->
+<!--                  <dicselect-->
+<!--                    :code="code9"-->
+<!--                    :data="scope.row.currencyposition"-->
+<!--                    :no="scope.row"-->
+<!--                    :multiple="multiple"-->
+<!--                    @change="getCurrencyposition"-->
+<!--                    style="width: 11rem"-->
+<!--                    :disabled="!disabled">-->
+<!--                  </dicselect>-->
+                  <el-select :no="scope.row" v-model="scope.row.currencyposition" @change="(val)=>{getCurrencyposition(val,scope.row)}" style="width: 11rem" :disabled="!disabled">
+                    <el-option v-for="(item,index) in options" :key="index" :value="item.value">
+                      {{item.value}}
+                    </el-option>
+                  </el-select>
                 </el-form-item>
               </template>
             </el-table-column>
@@ -955,6 +955,7 @@
         titleType7: this.$t('label.PFANS1026VIEW_DOMESTICSERVICE'),
         titleType8: this.$t('label.PFANS1026VIEW_TRUST'),
         titleType9: this.$t('label.PFANS1026VIEW_SELL'),
+        options: [],
         activeDisabledArrays: [
           {disabled: true},
           {disabled: true},
@@ -1262,16 +1263,16 @@
     },
     mounted() {
       this.contractnumbercount = this.$route.params.contractnumbercount;
-        // let option1 = {};
-        // option1.name = getDictionaryInfo('PG019001').value1;
-        // option1.code = 'PG019003';
-        // option1.value = getDictionaryInfo('PG019001').value4;
-        // let option2 = {};
-        // option2.name = getDictionaryInfo('PG019003').value1;
-        // option2.code = 'PG019003';
-        // option2.value = getDictionaryInfo('PG019003').value4;
-        // this.options.push(option1);
-        // this.options.push(option2);
+        let option1 = {};
+        option1.name = getDictionaryInfo('PG019001').value1;
+        option1.code = 'PG019001';
+        option1.value = getDictionaryInfo('PG019001').value4;
+        let option2 = {};
+        option2.name = getDictionaryInfo('PG019003').value1;
+        option2.code = 'PG019003';
+        option2.value = getDictionaryInfo('PG019003').value4;
+        this.options.push(option1);
+        this.options.push(option2);
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
@@ -1281,6 +1282,9 @@
             let contractnumbercount = response.contractnumbercount;
             if (contractapplication.length > 0) {
               for (let i = 0; i < contractapplication.length; i++) {
+                if(contractapplication[i].currencyposition !== '' && contractapplication[i].currencyposition !== null){
+                  contractapplication[i].currencyposition = getDictionaryInfo(contractapplication[i].currencyposition).value4;
+                }
                   this.show3 = true;
                 this.maketype = contractapplication[i].maketype;
                   this.form1.claimtype = contractapplication[i].claimtype;
@@ -2091,6 +2095,13 @@
         for (let i = 0; i < this.form.tabledata.length; i++) {
           let o = {};
           Object.assign(o, this.form.tabledata[i]);
+          if(this.form.tabledata[i].currencyposition !== '' && this.form.tabledata[i].currencyposition !== null){
+            for(let k = 0;k < this.options.length;k++){
+              if(this.form.tabledata[i].currencyposition === this.options[k].value){
+                o.currencyposition = this.options[k].code;
+              }
+            }
+          }
           o.claimdatetime = this.getclaimdatetime(this.form.tabledata[i].claimdatetime);
           this.form.tabledata[i].contracttype = this.form.contracttype;
           o.contracttype = this.form.tabledata[i].contracttype;

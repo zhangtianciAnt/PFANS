@@ -1963,14 +1963,14 @@
                 this.errorgroup = "";
               }
             },
-            getTeamId(val) {
-              this.getOrgInformation(val);
-              if (this.form.center_id === "") {
-                this.errorgroup = this.$t("normal.error_08") + "center";
-              } else {
-                this.errorgroup = "";
-              }
-            },
+            // getTeamId(val) {
+            //   this.getOrgInformation(val);
+            //   if (this.form.center_id === "") {
+            //     this.errorgroup = this.$t("normal.error_08") + "center";
+            //   } else {
+            //     this.errorgroup = "";
+            //   }
+            // },
           getGroupId(val) {
             this.getOrgInformation(val);
             if (this.form.group_id === "") {
