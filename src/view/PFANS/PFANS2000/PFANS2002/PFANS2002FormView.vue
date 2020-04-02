@@ -3,6 +3,7 @@
     :buttonList="buttonList"
     :title="titles"
     @buttonClick="buttonClick"
+    :canStart="canStart"
     @end="end"
     @start="start"
     @workflowState="workflowState"
@@ -586,6 +587,7 @@
       return {
         errorcenter: '',
         errorgroup: '',
+        canStart: false,
         loading: false,
         display: false,
         disabled: false,
@@ -730,8 +732,11 @@
       }
       this.getNameList();
       if (this.$route.params._id) {
-       this.getOne(this.$route.params._id);
-
+        this.getOne(this.$route.params._id);
+        if (this.form.status === '4') {
+          this.canStart = false;
+          this.disabled = true;
+        }
       }
     },
 
