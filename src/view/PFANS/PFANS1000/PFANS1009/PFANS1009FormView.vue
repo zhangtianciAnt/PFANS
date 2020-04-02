@@ -59,22 +59,24 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1009FORMVIEW_INSTALLSOFTWARE')" v-show="show">
+                <span style="margin-right: 1vw ">{{$t('label.no')}}</span>`
                 <el-switch :disabled="!disable"
-                           style="width:20vw"
                            v-model="installsoftware"
                            active-value="0"
                            inactive-value="1"
                 ></el-switch>
+                <span style="margin-left: 1vw ">{{$t('label.yes')}}</span>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1009FORMVIEW_SUITABLEBRINGOUT')" v-show="show">
+                <span style="margin-right: 1vw ">{{$t('label.no')}}</span>`
                 <el-switch :disabled="!disable"
-                           style="width:20vw"
                            v-model="suitablebringout"
                            active-value="0"
                            inactive-value="1"
                 ></el-switch>
+                <span style="margin-left: 1vw ">{{$t('label.yes')}}</span>
               </el-form-item>
             </el-col>
           </el-row>
@@ -129,6 +131,7 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1009FORMVIEW_DUTYFREEINPUT')" prop="dutyfreeinput">
+                <span style="margin-right: 1vw ">{{$t('label.PFANSUSERFORMVIEW_NO')}}</span>`
                 <el-switch
                   :disabled="!disable"
                   v-model="form.dutyfreeinput"
@@ -136,6 +139,7 @@
                   inactive-value="0"
                   @change="radiochange">
                 </el-switch>
+                <span style="margin-left: 1vw ">{{$t('label.PFANSUSERFORMVIEW_YES')}}</span>
               </el-form-item>
             </el-col>
             <el-col :span="8">
