@@ -513,7 +513,8 @@
             });
             this.loading = false;
           });
-      } else {
+      }
+      else {
         this.showDomestic = true;
         this.userlist = this.$store.getters.userinfo.userid;
         if (this.userlist !== null && this.userlist !== '') {
@@ -525,7 +526,9 @@
                 this.form.center_id = rst.centerId;
                 this.form.group_id = rst.groupId;
                 this.form.team_id = rst.teamId;
-              this.form.budgetnumber = getOrgInfo(rst.groupId).encoding;
+                if(rst.groupId){
+                    this.form.budgetnumber = getOrgInfo(rst.groupId).encoding;
+                }
             }
           this.form.user_id = this.$store.getters.userinfo.userid;
         }
