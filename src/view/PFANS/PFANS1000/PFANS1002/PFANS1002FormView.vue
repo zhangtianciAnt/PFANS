@@ -220,7 +220,7 @@
                 <el-row>
                   <el-col :span="24">
                     <el-form-item prop="details">
-                      <el-input :disabled="!disable" style="width: 70vw" type="textarea"
+                      <el-input :disabled="!disable" style="width: 70vw" type="textarea" :rows="3"
                                 v-model="form.details"></el-input>
                     </el-form-item>
                   </el-col>
@@ -712,7 +712,7 @@
                 <el-row>
                   <el-col :span="24">
                     <el-form-item :label="$t('label.PFANS1002VIEW_OTHEREXPLANATION1')" prop="otherexplanation">
-                      <el-input :disabled="!disable" style="width: 70vw" type="textarea"
+                      <el-input :disabled="!disable" style="width: 70vw" type="textarea" :rows = "3"
                                 v-model="form.otherexplanation"></el-input>
                     </el-form-item>
                   </el-col>
