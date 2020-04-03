@@ -56,7 +56,7 @@
                    style="width: 20vw"
                    :error="errorgroup"
                    @getOrgids="getGroupId"
-                   :disabled="true"
+                   :disabled="checkGroupId"
               ></org>
             </el-form-item>
             <div class="dialog-footer" align="center">
@@ -946,6 +946,7 @@
             }
         };
       return {
+        checkGroupId: false,
         makeintoBaseInfo: {},
         titleType: '',
         titleType1: this.$t('label.PFANS1026VIEW_OVERSEAS'),
@@ -1359,8 +1360,13 @@
       let userid = this.$store.getters.userinfo.userid;
       if (userid !== null && userid !== '') {
         let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-        this.form1.grouporglist = lst.groupId;
-        this.getGroupId(this.form1.grouporglist);
+        if(lst !== null && lst !== ''){
+          this.form1.grouporglist = lst.groupId;
+          this.getGroupId(this.form1.grouporglist);
+          this.checkGroupId = true;
+        }else{
+          this.checkGroupId = false;
+        }
       }
       //get customer
       this.getcustomerinfor();

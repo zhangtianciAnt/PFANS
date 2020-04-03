@@ -57,7 +57,7 @@
                 :error="errorgroup"
                 style="width: 20vw"
                 @getOrgids="getGroupId"
-                :disabled="true"
+                :disabled="checkGroupId"
               ></org>
             </el-form-item>
             <!--<el-form-item :label="$t('label.PFANS1024VIEW_SIDEGROUP')" :label-width="formLabelWidth">
@@ -556,6 +556,7 @@
               }
           };
         return{
+          checkGroupId: false,
           titleType:'',
           titleType1:this.$t('label.PFANS1033VIEW_VERIFICATION'),
           titleType2:this.$t('label.PFANS1033VIEW_KEEPITSECRET'),
@@ -834,8 +835,13 @@
         let userid = this.$store.getters.userinfo.userid;
         if (userid !== null && userid !== '') {
           let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-          this.form1.grouporglist = lst.groupId;
-          this.getGroupId(this.form1.grouporglist);
+          if(lst !== null && lst !== ''){
+            this.form1.grouporglist = lst.groupId;
+            this.getGroupId(this.form1.grouporglist);
+            this.checkGroupId = true;
+          }else{
+            this.checkGroupId = false;
+          }
         }
         //get customer
         this.getsupplierinfor();
