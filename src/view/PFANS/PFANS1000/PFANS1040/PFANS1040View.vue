@@ -78,13 +78,13 @@
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1039FORMVIEW_CURRENCYTYPE')" align="center" width="200">
                     <template slot-scope="scope">
-<!--                      <dicselect-->
-<!--                        :code="code6"-->
-<!--                        :data="scope.row.currencytype"-->
-<!--                        :disabled="disabled"-->
-<!--                        :no="scope.row"-->
-<!--                        @change="getcurrencytype"-->
-<!--                      ></dicselect>-->
+                      <!--                      <dicselect-->
+                      <!--                        :code="code6"-->
+                      <!--                        :data="scope.row.currencytype"-->
+                      <!--                        :disabled="disabled"-->
+                      <!--                        :no="scope.row"-->
+                      <!--                        @change="getcurrencytype"-->
+                      <!--                      ></dicselect>-->
                       <el-select :no="scope.row" v-model="scope.row.currencytype" @change="(val)=>{getcurrencytype(val,scope.row)}" style="width: 11rem" :disabled="disabled">
                         <el-option v-for="(item,index) in options" :key="index" :value="item.value">
                           {{item.value}}
@@ -92,18 +92,53 @@
                       </el-select>
                     </template>
                   </el-table-column>
-                  <el-table-column :label="$t('label.PFANS1039FORMVIEW_COMMISSION')" align="center" width="150">
+                  <!--                  <el-table-column :label="$t('label.PFANS1039FORMVIEW_COMMISSION')" align="center" width="150">-->
+                  <!--                    <template slot-scope="scope">-->
+                  <!--                      <dicselect-->
+                  <!--                        :code="code7"-->
+                  <!--                        :data="scope.row.commission"-->
+                  <!--                        :disabled="disabled"-->
+                  <!--                        :no="scope.row"-->
+                  <!--                        @change="getcommission"-->
+                  <!--                      ></dicselect>-->
+                  <!--                    </template>-->
+                  <!--                  </el-table-column>-->
+                  <el-table-column :label="$t('label.PFANS1039FORMVIEW_COMMISSION')" align="center" width="200" :error="errorcusto">
                     <template slot-scope="scope">
-                      <dicselect
-                        :code="code7"
-                        :data="scope.row.commission"
-                        :disabled="disabled"
-                        :no="scope.row"
-                        @change="getcommission"
-                      ></dicselect>
+                      <el-form-item>
+                        <div class="">
+                          <el-input class="content bg"
+                                    :disabled="true"
+                                    v-if="show"
+                                    v-model="scope.row.commission">
+                            <el-button :disabled="disabled" size="small" slot="append" icon="el-icon-search"
+                                       @click="handleClickA(scope.row)"></el-button>
+                          </el-input>
+                          <el-input :disabled="disabled" maxlength="20" style="width: 100%"
+                                    v-model="scope.row.commission" v-if="show1"></el-input>
+                          <el-input :disabled="disabled" maxlength="20" style="width: 100%"
+                                    v-model="scope.row.commission" v-if="show2"></el-input>
+                        </div>
+                      </el-form-item>
+                      <el-dialog :visible.sync="dialogVisibleA"
+                                 top="8vh"
+                                 append-to-body>
+                        <el-table :data="dataA" :row-key="rowid" @row-click="rowClick" max-height="400" ref="roletableA"
+                                  v-loading='loading'>
+                          <el-table-column property="custchinese" :label="$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')"
+                                           width="120"></el-table-column>
+                          <el-table-column property="thecompany" :label="$t('label.PFANS6003FORMVIEW_THECOMPANY')"
+                                           width="120"></el-table-column>
+                          <el-table-column property="liableperson" :label="$t('label.ASSETS1002VIEW_USERID')"
+                                           width="120"></el-table-column>
+                          <el-table-column property="prochinese" :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')"
+                                           width="120"></el-table-column>
+                          <el-table-column property="protelephone" :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')"
+                                           width="120"></el-table-column>
+                        </el-table>
+                      </el-dialog>
                     </template>
                   </el-table-column>
-
                   <el-table-column :label="$t('label.PFANS1039FORMVIEW_19January')" align="center" width="150">
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
                       <template slot-scope="scope">
@@ -430,13 +465,13 @@
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1039FORMVIEW_CURRENCYTYPE')" align="center" width="200">
                     <template slot-scope="scope">
-<!--                      <dicselect-->
-<!--                        :code="code6"-->
-<!--                        :data="scope.row.currencytype"-->
-<!--                        :disabled="gettrue(scope.row)"-->
-<!--                        :no="scope.row"-->
-<!--                        @change="getcurrencytype"-->
-<!--                      ></dicselect>-->
+                      <!--                      <dicselect-->
+                      <!--                        :code="code6"-->
+                      <!--                        :data="scope.row.currencytype"-->
+                      <!--                        :disabled="gettrue(scope.row)"-->
+                      <!--                        :no="scope.row"-->
+                      <!--                        @change="getcurrencytype"-->
+                      <!--                      ></dicselect>-->
                       <el-select :no="scope.row" v-model="scope.row.currencytype" @change="(val)=>{getcurrencytype(val,scope.row)}" style="width: 11rem" :disabled="disabled">
                         <el-option v-for="(item,index) in options" :key="index" :value="item.value">
                           {{item.value}}
@@ -444,18 +479,49 @@
                       </el-select>
                     </template>
                   </el-table-column>
-                  <el-table-column :label="$t('label.PFANS1039FORMVIEW_COMMISSION')" align="center" width="150">
+                  <!--                  <el-table-column :label="$t('label.PFANS1039FORMVIEW_COMMISSION')" align="center" width="150">-->
+                  <!--                    <template slot-scope="scope">-->
+                  <!--                      <dicselect-->
+                  <!--                        :code="code7"-->
+                  <!--                        :data="scope.row.commission"-->
+                  <!--                        :disabled="gettrue(scope.row)"-->
+                  <!--                        :no="scope.row"-->
+                  <!--                        @change="getcommission"-->
+                  <!--                      ></dicselect>-->
+                  <!--                    </template>-->
+                  <!--                  </el-table-column>-->
+                  <el-table-column :label="$t('label.PFANS1039FORMVIEW_COMMISSION')" align="center" width="200" :error="errorcusto">
                     <template slot-scope="scope">
-                      <dicselect
-                        :code="code7"
-                        :data="scope.row.commission"
-                        :disabled="gettrue(scope.row)"
-                        :no="scope.row"
-                        @change="getcommission"
-                      ></dicselect>
+                      <el-form-item>
+                        <div class="">
+                          <el-input class="content bg"
+                                    :disabled="true"
+                                    v-if="show"
+                                    v-model="scope.row.commission">
+                            <el-button :disabled="disabled" size="small" slot="append" icon="el-icon-search"
+                                       @click="handleClickA(scope.row)"></el-button>
+                          </el-input>
+                        </div>
+                      </el-form-item>
+                      <el-dialog :visible.sync="dialogVisibleA"
+                                 top="8vh"
+                                 append-to-body>
+                        <el-table :data="dataA" :row-key="rowid" @row-click="rowClick" max-height="400" ref="roletableA"
+                                  v-loading='loading'>
+                          <el-table-column property="custchinese" :label="$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')"
+                                           width="120"></el-table-column>
+                          <el-table-column property="thecompany" :label="$t('label.PFANS6003FORMVIEW_THECOMPANY')"
+                                           width="120"></el-table-column>
+                          <el-table-column property="liableperson" :label="$t('label.ASSETS1002VIEW_USERID')"
+                                           width="120"></el-table-column>
+                          <el-table-column property="prochinese" :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')"
+                                           width="120"></el-table-column>
+                          <el-table-column property="protelephone" :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')"
+                                           width="120"></el-table-column>
+                        </el-table>
+                      </el-dialog>
                     </template>
                   </el-table-column>
-
                   <el-table-column :label="$t('label.PFANS1039FORMVIEW_19January')" align="center" width="150">
                     <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNEL')" align="center" width="150">
                       <template slot-scope="scope">
@@ -746,8 +812,17 @@
     },
     data() {
       return {
+        errorcusto: '',
         options: [],
         loadingflg: '0',
+        dialogVisibleA: false,
+        recordData: [],
+        dataA: [],
+        rowid: '',
+        show: false,
+        show1: false,
+        show2: false,
+        rowA: 'customerinfor_id',
         months: moment(new Date()).format("YYYY-MM"),
         years: this.$route.params._id,
         title: 'title.PFANS1040VIEW',
@@ -849,6 +924,19 @@
       option2.value = getDictionaryInfo('PG019003').value4;
       this.options.push(option1);
       this.options.push(option2);
+      if(this.code5 === 'PJ065001'){
+        this.show = true;
+        this.show1 = false;
+        this.show2 = false;
+      } else if(this.code5 === 'PJ065002'){
+        this.show = false;
+        this.show1 = true;
+        this.show2 = false;
+      } else if(this.code5 === 'PJ065003'){
+        this.show = false;
+        this.show1 = false;
+        this.show2 = true;
+      }
       this.tableA[0].groupid = this.groupId;
       this.getdata(this.years,"");
     },
@@ -880,46 +968,59 @@
                 con[i].currencytype = getDictionaryInfo(con[i].currencytype).value4;
               }
             }
+            // if(this.code5 === 'PJ065001'){
+            //   this.show = true;
+            //   this.show1 = false;
+            //   this.show2 = false;
+            // } else if(this.code5 === 'PJ065002'){
+            //   this.show = false;
+            //   this.show1 = true;
+            //   this.show2 = false;
+            // } else if(this.code5 === 'PJ065003'){
+            //   this.show = false;
+            //   this.show1 = false;
+            //   this.show2 = true;
+            // }
             if (response.length > 0) {
               if(year != ''){
-                  this.tableA = response;
-                  if(this.tableA[0].status != '0'){
-                      this.disabled = true;
-                  }
+                this.tableA = response;
+                if(this.tableA[0].status != '0'){
+                  this.disabled = true;
+                }
               }
               else{
-                  this.tableB = [];
-                  this.tableB = response;
-                  var monthCurrent = Number(month.substr(5,2));//Number(moment(new Date()).format('MM'));
-                  for (var j = 0; j < 12; j++) {
-                    if (j > monthCurrent - 3) {
-                      this.arrays[j].disabled = false;
-                    }
+                this.tableB = [];
+                this.tableB = response;
+                var monthCurrent = Number(month.substr(5,2));//Number(moment(new Date()).format('MM'));
+                for (var j = 0; j < 12; j++) {
+                  if (j > monthCurrent - 3) {
+                    this.arrays[j].disabled = false;
                   }
+                }
               }
             }
             else{
-                if(year != ''){
-                    this.tableA = [];
-                    if(year === moment(new Date()).format('YYYY')){
-                      this.addRowA();
-                    }
+              if(year != ''){
+                this.tableA = [];
+                if(year === moment(new Date()).format('YYYY')){
+                  this.addRowA();
                 }
-                else{
-                    this.tableB = [];
-                    if(this.tableA.length > 0){
-                      if(this.tableA[0].status === '4' && this.tableA[0].years === month.substring(0,4)){
-                        this.disabled = true;
-                        this.tableB = this.tableA;
-                        var monthCurrent = Number(month.substr(5,2));
-                        for (var i = 0; i < 12; i++) {
-                          if (i > monthCurrent - 5) {
-                            this.arrays[i].disabled = false;
-                          }
-                        }
+              }
+              else{
+                this.tableB = [];
+                if(this.tableA.length > 0){
+                  if(this.tableA[0].status === '4' && this.tableA[0].years === month.substring(0,4)){
+                    this.disabled = true;
+                    this.tableB = this.tableA;
+                    var monthCurrent = Number(month.substr(5,2));
+                    for (var i = 0; i < 12; i++) {
+                      if (i > monthCurrent - 5) {
+                        this.arrays[i].disabled = false;
                       }
                     }
+                  }
                 }
+              }
             }
             // if(this.loadingflg === '1'){
             //     this.loading = false;
@@ -934,6 +1035,16 @@
             });
             this.loading = false;
           });
+      },
+      handleClickA(row) {
+        this.recordData = row;
+        this.dialogVisibleA = true;
+      },
+      rowClick(row) {
+        this.loading = true;
+        this.recordData.commission = row.custjapanese;
+        this.dialogVisibleA = false;
+        this.loading = false;
       },
       getcenter(val, row) {
         row.center = val;
@@ -957,6 +1068,19 @@
       },
       getcontractform(val, row) {
         row.contractform = val;
+        if(val === 'PJ065001'){
+          this.show = true;
+          this.show1 = false;
+          this.show2 = false;
+        } else if(val === 'PJ065002'){
+          this.show = false;
+          this.show1 = true;
+          this.show2 = false;
+        } else if(val === 'PJ065003'){
+          this.show = false;
+          this.show1 = false;
+          this.show2 = true;
+        }
       },
       getcurrencytype(val, row) {
         row.currencytype = val;
@@ -997,20 +1121,20 @@
       },
       //el-tabsClick
       handleClick(tab, event) {
-          this.loadingflg = '0';
-          this.activeName = tab.name;
-          if (tab.name === 'first') {
-              this.workflowCode = "W0052";
-              this.canStart = false;
-              this.getdata(this.years,"");
+        this.loadingflg = '0';
+        this.activeName = tab.name;
+        if (tab.name === 'first') {
+          this.workflowCode = "W0052";
+          this.canStart = false;
+          this.getdata(this.years,"");
+        }
+        else{
+          if(this.tableA[0].status === '4'){
+            this.workflowCode = "W0053";
+            this.canStart = true;
           }
-          else{
-              if(this.tableA[0].status === '4'){
-                this.workflowCode = "W0053";
-                this.canStart = true;
-              }
-              this.getdata("",this.months);
-          }
+          this.getdata("",this.months);
+        }
 
       },
       monthChange(value){
@@ -1113,7 +1237,7 @@
       },
       buttonClick(val) {//111
         if(this.activeName === 'first'){
-            this.baseInfo = this.tableA;
+          this.baseInfo = this.tableA;
         }
         else{
           this.baseInfo = this.tableB;
@@ -1177,11 +1301,11 @@
               });
           }
           else{
-              Message({
-                  message: this.$t("normal.error_12"),
-                  type: 'error',
-                  duration: 5 * 1000
-              });
+            Message({
+              message: this.$t("normal.error_12"),
+              type: 'error',
+              duration: 5 * 1000
+            });
           }
         });
       },
