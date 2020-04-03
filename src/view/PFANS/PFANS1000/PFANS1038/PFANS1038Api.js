@@ -52,10 +52,9 @@ export function getOne(data) {
     }
   })
 }
-
 export function getAll() {
   return request({
     url: 'personnelplan/getall',
-    method: 'get',
+    method: 'get'
   })
 }

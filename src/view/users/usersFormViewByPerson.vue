@@ -21,12 +21,13 @@
                     :label="$t('label.PFANSUSERFORMVIEW_CUSTOMERNAME')"
                     prop="customername"
                   >
-                    <el-input class="width" v-model="form.customername" maxlength="20" style="width:20vw"></el-input>
+                    <el-input class="width" v-model="form.customername" maxlength="20" style="width:20vw" disabled></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.sex')" prop="sex">
                     <dicselect
+                      disabled
                       code="PR019"
                       @change="changesex"
                       :data="form.sex"
@@ -36,7 +37,7 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_ADFIELD')" prop="adfield">
-                    <el-input class="width" v-model="form.adfield" maxlength="20" style="width:20vw"></el-input>
+                    <el-input class="width" v-model="form.adfield" maxlength="20" style="width:20vw" disabled></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -45,7 +46,7 @@
                   <el-form-item :label="$t('label.PFANSUSERVIEW_BIRTHDAY')" prop="birthday">
                     <el-date-picker
                       v-model="form.birthday"
-                      type="date"
+                      type="date" disabled
                       :placeholder="$t('label.PFANSUSERFORMVIEW_SELECTIONDATE')"
                       style="width:20vw"
                     ></el-date-picker>
@@ -53,48 +54,48 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_AGE')">
-                    <el-input class="width" v-model="form.age" disabled style="width:20vw"></el-input>
+                    <el-input class="width" v-model="age" disabled style="width:20vw" disabled></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERVIEW_NATIONALITY')" prop="nationality">
-                    <el-input class="width" v-model="form.nationality" maxlength="20" style="width:20vw"></el-input>
+                    <el-input class="width" v-model="form.nationality" maxlength="20" style="width:20vw" disabled></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_NATION')" prop="nation">
-                    <el-input class="width" v-model="form.nation" maxlength="20" style="width:20vw"></el-input>
+                    <el-input class="width" v-model="form.nation" maxlength="20" style="width:20vw" disabled></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_REGISTER')" prop="register">
-                    <el-input class="width" v-model="form.register" maxlength="20" style="width:20vw"></el-input>
+                    <el-input class="width" v-model="form.register" maxlength="20" style="width:20vw" disabled></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_IDNUMBER')" prop="idnumber">
-                    <el-input class="width" v-model="form.idnumber" maxlength="18" style="width:20vw"></el-input>
+                    <el-input class="width" v-model="form.idnumber" maxlength="18" style="width:20vw" disabled></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_PASSPORT')">
-                    <el-input class="width" v-model="form.passport" maxlength="10" style="width:20vw"></el-input>
+                    <el-input class="width" v-model="form.passport" maxlength="10" style="width:20vw" disabled></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_SECURITY')">
-                    <el-input class="width" v-model="form.security" maxlength="20" style="width:20vw"></el-input>
+                    <el-input class="width" v-model="form.security" maxlength="20" style="width:20vw" disabled></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_HOUSEFUND')">
-                    <el-input class="width" v-model="form.housefund" maxlength="20" style="width:20vw"></el-input>
+                    <el-input class="width" v-model="form.housefund" maxlength="20" style="width:20vw" disabled></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -103,7 +104,7 @@
                       v-model="form.marital"
                       :placeholder="$t('normal.error_09')"
                       class="width"
-                      style="width:20vw"
+                      style="width:20vw" disabled
                     >
                       <el-option
                         v-for="item in marital_options"
@@ -120,7 +121,7 @@
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_MARRYDAY')">
                     <el-date-picker
                       v-model="form.marryday"
-                      type="date"
+                      type="date" disabled
                       :placeholder="$t('label.PFANSUSERFORMVIEW_SELECTIONDATE')"
                       style="width:20vw"
                     ></el-date-picker>
@@ -128,16 +129,19 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_CHILDREN')">
+                    <span style="margin-right: 1vw ">{{$t('label.no')}}</span>
                     <el-switch
+                    <el-switch disabled
                       v-model="form.children"
                       active-value="1"
                       inactive-value="0">
                     </el-switch>
+                    <span style="margin-left: 1vw ">{{$t('label.yes')}}</span>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_EXPERIENCE')" prop="experience">
-                    <el-select
+                    <el-select disabled
                       v-model="form.experience"
                       :placeholder="$t('normal.error_09')"
                       class="width"
@@ -198,12 +202,12 @@
                     :label="$t('label.PFANSUSERFORMVIEW_EDUCATIONALCALENDAR')"
                     prop="graduation"
                   >
-                    <el-input class="width" v-model="form.graduation" maxlength="20" style="width:20vw"></el-input>
+                    <el-input class="width" v-model="form.graduation" maxlength="20" style="width:20vw" disabled></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_DEGREE')" prop="degree">
-                    <dicselect
+                    <dicselect disabled
                       code="PG018"
                       class="width"
                       style="width:20vw"
@@ -217,7 +221,7 @@
                     :label="$t('label.PFANSUSERFORMVIEW_EDUCATIONAL')"
                     prop="educational"
                   >
-                    <dicselect
+                    <dicselect disabled
                       code="PR022"
                       class="width"
                       style="width:20vw"
@@ -230,7 +234,7 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_SPECIALTY')" prop="specialty">
-                    <el-input class="width" v-model="form.specialty" maxlength="10" style="width:20vw"></el-input>
+                    <el-input class="width" v-model="form.specialty" maxlength="10" style="width:20vw" disabled></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -238,7 +242,7 @@
                     :label="$t('label.PFANSUSERFORMVIEW_GRADUATIONDAY')"
                     prop="graduationday"
                   >
-                    <el-date-picker
+                    <el-date-picker disabled
                       v-model="form.graduationday"
                       type="date"
                       :placeholder="$t('label.PFANSUSERFORMVIEW_SELECTIONDATE')"
@@ -266,7 +270,7 @@
                 >
                   <template slot-scope="scope">
                     <el-date-picker
-                      style="width:100%"
+                      style="width:100%" disabled
                       v-model="scope.row.time"
                       type="daterange"
                       :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
@@ -282,12 +286,12 @@
                   align="center"
                 >
                   <template slot-scope="scope">
-                    <el-input class="width" v-model="scope.row.school" maxlength="20" style="width:100%"></el-input>
+                    <el-input class="width" v-model="scope.row.school" maxlength="20" style="width:100%" disabled></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column prop="notes" :label="$t('label.remarks')" align="center">
                   <template slot-scope="scope">
-                    <el-input class="width" v-model="scope.row.notes" maxlength="50" style="width:100%"></el-input>
+                    <el-input class="width" v-model="scope.row.notes" maxlength="50" style="width:100%" disabled></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.operation')" width="200" align="center">
@@ -296,14 +300,14 @@
                       @click.native.prevent="deleteRow(scope.$index, educationTable)"
                       type="danger"
                       size="small"
-                      plain
+                      plain disabled
                     >{{$t('button.delete')}}
                     </el-button>
                     <el-button
                       @click="addRow('education')"
                       type="primary"
                       size="small"
-                      plain
+                      plain disabled
                     >{{$t('button.insert')}}
                     </el-button>
                   </template>
@@ -325,7 +329,7 @@
               <el-table :data="skillTable" style="width:72vw;margin-top:1%" border header-cell-class-name="sub_bg_color_blue" stripe>
                 <el-table-column prop="name" :label="$t('label.PFANS3004VIEW_NAME')" align="center">
                   <template slot-scope="scope">
-                    <el-input class="width" v-model="scope.row.name" maxlength="20" style="width: 100%"></el-input>
+                    <el-input class="width" v-model="scope.row.name" maxlength="20" style="width: 100%" disabled></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column
@@ -334,12 +338,12 @@
                   align="center"
                 >
                   <template slot-scope="scope">
-                    <el-input class="width" v-model="scope.row.ability" maxlength="20" style="width: 100%"></el-input>
+                    <el-input class="width" v-model="scope.row.ability" maxlength="20" style="width: 100%" disabled></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column prop="notes" :label="$t('label.remarks')" align="center">
                   <template slot-scope="scope">
-                    <el-input class="width" v-model="scope.row.notes" maxlength="50" style="width: 100%"></el-input>
+                    <el-input class="width" v-model="scope.row.notes" maxlength="50" style="width: 100%" disabled></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.operation')" width="200" align="center">
@@ -348,14 +352,14 @@
                       @click.native.prevent="deleteRow(scope.$index, skillTable)"
                       type="danger"
                       size="small"
-                      plain
+                      plain disabled
                     >{{$t('button.delete')}}
                     </el-button>
                     <el-button
                       @click="addRow('skill')"
                       type="primary"
                       size="small"
-                      plain
+                      plain disabled
                     >{{$t('button.insert')}}
                     </el-button>
                   </template>
@@ -379,7 +383,7 @@
                   align="center"
                 >
                   <template slot-scope="scope">
-                    <el-input class="width" v-model="scope.row.programme" maxlength="20" style="width: 100%"></el-input>
+                    <el-input class="width" v-model="scope.row.programme" maxlength="20" style="width: 100%" disabled></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column
@@ -388,12 +392,12 @@
                   align="center"
                 >
                   <template slot-scope="scope">
-                    <el-input class="width" v-model="scope.row.level" maxlength="20" style="width: 100%"></el-input>
+                    <el-input class="width" v-model="scope.row.level" maxlength="20" style="width: 100%" disabled></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column prop="notes" :label="$t('label.remarks')" align="center">
                   <template slot-scope="scope">
-                    <el-input class="width" v-model="scope.row.notes" maxlength="50" style="width: 100%"></el-input>
+                    <el-input class="width" v-model="scope.row.notes" maxlength="50" style="width: 100%" disabled></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.operation')" width="200" align="center">
@@ -402,14 +406,14 @@
                       @click.native.prevent="deleteRow(scope.$index, languageTable)"
                       type="danger"
                       size="small"
-                      plain
+                      plain disabled
                     >{{$t('button.delete')}}
                     </el-button>
                     <el-button
                       @click="addRow('language')"
                       type="primary"
                       size="small"
-                      plain
+                      plain disabled
                     >{{$t('button.insert')}}
                     </el-button>
                   </template>
@@ -430,7 +434,7 @@
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_WORKDAY')" prop="workday">
                     <el-date-picker
                       v-model="form.workday"
-                      type="date"
+                      type="date" disabled
                       :placeholder="$t('label.PFANSUSERFORMVIEW_SELECTIONDATE')"
                       style="width:20vw"
                     ></el-date-picker>
@@ -457,7 +461,7 @@
                   <template slot-scope="scope">
                     <el-date-picker
                       v-model="scope.row.time"
-                      type="daterange"
+                      type="daterange" disabled
                       :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
                       :start-placeholder="$t('label.startdate')"
                       :end-placeholder="$t('label.enddate')"
@@ -472,7 +476,7 @@
                   align="center"
                 >
                   <template slot-scope="scope">
-                    <el-input v-model="scope.row.company" maxlength="20" style="width: 100%"></el-input>
+                    <el-input v-model="scope.row.company" maxlength="20" style="width: 100%" disabled></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column
@@ -481,12 +485,12 @@
                   align="center"
                 >
                   <template slot-scope="scope">
-                    <el-input v-model="scope.row.postion" maxlength="20" style="width: 100%"></el-input>
+                    <el-input v-model="scope.row.postion" maxlength="20" style="width: 100%" disabled></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column prop="notes" :label="$t('label.remarks')" align="center">
                   <template slot-scope="scope">
-                    <el-input v-model="scope.row.notes" maxlength="50" style="width: 100%"></el-input>
+                    <el-input v-model="scope.row.notes" maxlength="50" style="width: 100%" disabled></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.operation')" width="200" align="center">
@@ -495,14 +499,14 @@
                       @click.native.prevent="deleteRow(scope.$index, beforeWorkTable)"
                       type="danger"
                       size="small"
-                      plain
+                      plain disabled
                     >{{$t('button.delete')}}
                     </el-button>
                     <el-button
                       @click="addRow('beforeWork')"
                       type="primary"
                       size="small"
-                      plain
+                      plain disabled
                     >{{$t('button.insert')}}
                     </el-button>
                   </template>
@@ -525,7 +529,7 @@
                     <org
                       :orglist="form.teamid"
                       orgtype="3"
-                      style="width:20vw"
+                      style="width:20vw" disabled
                       selectType="Single"
                       @getOrgids="getTeamid"
                     ></org>
@@ -537,7 +541,7 @@
                     <org
                       :orglist="form.groupid"
                       orgtype="2"
-                      style="width:20vw"
+                      style="width:20vw" disabled
                       selectType="Single"
                       @getOrgids="getGroupid"
                     ></org>
@@ -549,7 +553,7 @@
                       :orglist="form.centerid"
                       orgtype="1"
                       :error="error"
-                      style="width:20vw"
+                      style="width:20vw" disabled
                       selectType="Single"
                       @getOrgids="getCenterid"
                     ></org>
@@ -564,17 +568,17 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_JOBNUMBER')" prop="jobnumber">
-                    <el-input class="width" v-model="form.jobnumber" maxlength="10" style="width:20vw"></el-input>
+                    <el-input class="width" v-model="form.jobnumber" maxlength="10" style="width:20vw" disabled></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.budgetunit')" prop="budgetunit">
-                    <el-input class="width" :disabled="true" v-model="form.budgetunit" maxlength="10" style="width:20vw"></el-input>
+                    <el-input class="width" disabled v-model="form.budgetunit" maxlength="10" style="width:20vw"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1012VIEW_PERSONALCODE')" >
-                    <el-input class="width" v-model="form.personalcode" maxlength="10" style="width:20vw"></el-input>
+                    <el-input class="width" v-model="form.personalcode" maxlength="10" style="width:20vw" disabled></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -585,7 +589,7 @@
                       v-model="form.type"
                       :placeholder="$t('normal.error_09')"
                       class="width"
-                      style="width:20vw"
+                      style="width:20vw" disabled
                       @change="changeRank"
                     >
                       <el-option
@@ -600,13 +604,13 @@
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_RANK')" prop="rank">
                     <dicselect :code="code" class="width" style="width:20vw" :data="form.rank" v-if="display"
-                               @change="getRank"></dicselect>
+                               @change="getRank" disabled></dicselect>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_OCCUPATIONTYPE')" prop="occupationtype">
                     <dicselect :code="occupationtypecode" class="width" style="width:20vw" :data="form.occupationtype"
-                               :disabled="occupationtypedis" v-if="occupationtypedisplay" @change="getOccupationtype"
+                               :disabled="occupationtypedis" v-if="occupationtypedisplay" @change="getOccupationtype" disabled
                     ></dicselect>
                   </el-form-item>
                 </el-col>
@@ -617,7 +621,7 @@
                     <el-select
                       v-model="form.difference"
                       :placeholder="$t('normal.error_09')"
-                      class="width"
+                      class="width" disabled
                       style="width:20vw"
                     >
                       <el-option
@@ -631,7 +635,7 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERVIEW_POST')" prop="post">
-                    <dicselect
+                    <dicselect disabled
                       :code="code1"
                       :data="form.post"
                       @change="changePost"
@@ -643,7 +647,7 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_LABORCONTRACTTYPE')">
-                    <el-select
+                    <el-select disabled
                       v-model="form.laborcontracttype"
                       :placeholder="$t('normal.error_09')"
                       class="width"
@@ -662,7 +666,7 @@
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_FIXEDATE')">
                     <el-date-picker
                       v-model="form.fixedate"
-                      type="date"
+                      type="date" disabled
                       :placeholder="$t('label.PFANSUSERFORMVIEW_SELECTIONDATE')"
                       style="width:20vw"
                     ></el-date-picker>
@@ -675,7 +679,7 @@
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_ENTERDAY')" prop="enterday">
                     <el-date-picker
                       v-model="form.enterday"
-                      type="date"
+                      type="date" disabled
                       :placeholder="$t('label.PFANSUSERFORMVIEW_SELECTIONDATE')"
                       style="width:20vw"
                     ></el-date-picker>
@@ -685,7 +689,7 @@
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_UPGRADED')">
                     <el-date-picker
                       v-model="form.upgraded"
-                      type="date"
+                      type="date" disabled
                       :placeholder="$t('label.PFANSUSERFORMVIEW_SELECTIONDATE')"
                       style="width:20vw"
                     ></el-date-picker>
@@ -698,7 +702,7 @@
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_ENDDATE')">
                     <el-date-picker
                       v-model="form.enddate"
-                      type="date"
+                      type="date" disabled
                       :placeholder="$t('label.PFANSUSERFORMVIEW_SELECTIONDATE')"
                       style="width:20vw"
                     ></el-date-picker>
@@ -816,14 +820,14 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_SEATNUMBER')" prop="seatnumber">
-                    <el-input class="width" v-model="form.seatnumber" maxlength="20" style="width:20vw"></el-input>
+                    <el-input class="width" v-model="form.seatnumber" maxlength="20" style="width:20vw" disabled></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_BASIC')" prop="basic">
                     <el-input-number
                       v-model="form.basic"
-                      :min="0"
+                      :min="0" disabled
                       :precision="2"
                       :step="50"
                       class="width"
@@ -835,7 +839,7 @@
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_DUTY')" prop="duty">
                     <el-input-number
                       v-model="form.duty"
-                      :min="0"
+                      :min="0" disabled
                       :precision="2"
                       :step="50"
                       class="width"
@@ -853,7 +857,7 @@
                   >
                     <el-input-number
                       v-model="form.oldageinsurance"
-                      :min="0"
+                      :min="0" disabled
                       :max="100000"
                       :precision="2"
                       :step="100"
@@ -905,7 +909,7 @@
                           :label="$t('label.PFANS1017FORMVIEW_PREPAREFOR')"
                         >
                           <template slot-scope="scope">
-                            <el-input style="width:20vw" v-model="scope.row.remark" size="mini"></el-input>
+                            <el-input style="width:5vw" v-model="scope.row.remark" size="mini" disabled></el-input>
                           </template>
                         </el-table-column>
                       </el-table>
@@ -924,7 +928,7 @@
                       :min="0"
                       :max="100000"
                       :precision="2"
-                      :step="0.1"
+                      :step="0.1" disabled
                       class="width"
                       style="width:20vw"
                     ></el-input-number>
@@ -973,7 +977,7 @@
                           :label="$t('label.PFANS1017FORMVIEW_PREPAREFOR')"
                         >
                           <template slot-scope="scope">
-                            <el-input style="width:20vw" v-model="scope.row.remark" size="mini"></el-input>
+                            <el-input style="width:5vw" v-model="scope.row.remark" size="mini" disabled></el-input>
                           </template>
                         </el-table-column>
                       </el-table>
@@ -995,7 +999,7 @@
                       :min="0"
                       :max="100000"
                       :precision="2"
-                      :step="0.1"
+                      :step="0.1" disabled
                       class="width"
                       style="width:20vw"
                     ></el-input-number>
@@ -1044,7 +1048,7 @@
                           :label="$t('label.PFANS1017FORMVIEW_PREPAREFOR')"
                         >
                           <template slot-scope="scope">
-                            <el-input style="width:20vw" v-model="scope.row.remark" size="mini"></el-input>
+                            <el-input style="width:5vw" v-model="scope.row.remark" size="mini" disabled></el-input>
                           </template>
                         </el-table-column>
                       </el-table>
@@ -1129,7 +1133,7 @@
                               :label="$t('label.PFANS1017FORMVIEW_PREPAREFOR')"
                             >
                               <template slot-scope="scope">
-                                <el-input style="width:5vw" v-model="scope.row.remark" size="mini"></el-input>
+                                <el-input style="width:5vw" v-model="scope.row.remark" size="mini" disabled></el-input>
                               </template>
                             </el-table-column>
                           </el-table>
@@ -1140,7 +1144,7 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_CAUTION')" label-width="7rem">
-                    <el-input class="width" v-model="form.caution" maxlength="20" style="width:20vw"></el-input>
+                    <el-input class="width" v-model="form.caution" maxlength="20" style="width:20vw" disabled></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -1175,7 +1179,7 @@
                       :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
                       :start-placeholder="$t('label.startdate')"
                       :end-placeholder="$t('label.enddate')"
-                      unlink-panels
+                      unlink-panels disabled
                       style="width: 100%"
                     ></el-date-picker>
                   </template>
@@ -1186,12 +1190,12 @@
                   align="center"
                 >
                   <template slot-scope="scope">
-                    <el-input class="width" v-model="scope.row.programme" maxlength="20" style="width: 100%"></el-input>
+                    <el-input class="width" v-model="scope.row.programme" maxlength="20" style="width: 100%" disabled></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column prop="notes" :label="$t('label.remarks')" align="center">
                   <template slot-scope="scope">
-                    <el-input class="width" v-model="scope.row.notes" maxlength="50" style="width: 100%"></el-input>
+                    <el-input class="width" v-model="scope.row.notes" maxlength="50" style="width: 100%" disabled></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.operation')" width="200" align="center">
@@ -1200,14 +1204,14 @@
                       @click.native.prevent="deleteRow(scope.$index, workAfterTable)"
                       type="danger"
                       size="small"
-                      plain
+                      plain disabled
                     >{{$t('button.delete')}}
                     </el-button>
                     <el-button
                       @click="addRow('workafter')"
                       type="primary"
                       size="small"
-                      plain
+                      plain disabled
                     >{{$t('button.insert')}}
                     </el-button>
                   </template>
@@ -1233,7 +1237,7 @@
                   <template slot-scope="scope">
                     <el-date-picker
                       v-model="scope.row.time"
-                      type="daterange"
+                      type="daterange" disabled
                       :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
                       :start-placeholder="$t('label.startdate')"
                       :end-placeholder="$t('label.enddate')"
@@ -1244,12 +1248,12 @@
                 </el-table-column>
                 <el-table-column prop="programme" :label="$t('label.operation')" align="center">
                   <template slot-scope="scope">
-                    <el-input class="width" v-model="scope.row.programme" maxlength="20" style="width: 100%"></el-input>
+                    <el-input class="width" v-model="scope.row.programme" maxlength="20" style="width: 100%" disabled></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column prop="notes" :label="$t('label.remarks')" align="center">
                   <template slot-scope="scope">
-                    <el-input class="width" v-model="scope.row.notes" maxlength="50" style="width: 100%"></el-input>
+                    <el-input class="width" v-model="scope.row.notes" maxlength="50" style="width: 100%" disabled></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.operation')" width="200" align="center">
@@ -1258,14 +1262,14 @@
                       @click.native.prevent="deleteRow(scope.$index, trainTable)"
                       type="danger"
                       size="small"
-                      plain
+                      plain disabled
                     >{{$t('button.delete')}}
                     </el-button>
                     <el-button
                       @click="addRow('train')"
                       type="primary"
                       size="small"
-                      plain
+                      plain disabled
                     >{{$t('button.insert')}}
                     </el-button>
                   </template>
@@ -1291,7 +1295,7 @@
                   align="center"
                 >
                   <template slot-scope="scope">
-                    <el-input class="width" v-model="scope.row.programme" maxlength="20" style="width: 100%"></el-input>
+                    <el-input class="width" v-model="scope.row.programme" maxlength="20" style="width: 100%" disabled></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column
@@ -1302,7 +1306,7 @@
                   <template slot-scope="scope">
                     <el-date-picker
                       v-model="scope.row._time"
-                      type="date"
+                      type="date" disabled
                       :placeholder="$t('label.PFANSUSERFORMVIEW_SELECTIONDATE')"
                       style="width: 100%"
                     ></el-date-picker>
@@ -1314,7 +1318,7 @@
                   align="center"
                 >
                   <template slot-scope="scope">
-                    <el-input class="width" v-model="scope.row.notes" maxlength="50" style="width: 100%"></el-input>
+                    <el-input class="width" v-model="scope.row.notes" maxlength="50" style="width: 100%" disabled></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.operation')" width="200" align="center">
@@ -1323,14 +1327,14 @@
                       @click.native.prevent="deleteRow(scope.$index, rewardTable)"
                       type="danger"
                       size="small"
-                      plain
+                      plain disabled
                     >{{$t('button.delete')}}
                     </el-button>
                     <el-button
                       @click="addRow('reward')"
                       type="primary"
                       size="small"
-                      plain
+                      plain disabled
                     >{{$t('button.insert')}}
                     </el-button>
                   </template>
@@ -1432,6 +1436,7 @@
       };
 
       return {
+        age: "",
         code: "",
         code1: 'PG021',
         occupationtypecode:"",
@@ -1544,7 +1549,6 @@
           sex: "",
           adfield: "",
           birthday: "",
-          age: "",
           nationality: "",
           nation: "",
           register: "",
@@ -1618,6 +1622,7 @@
         isEdit: false,
         status: "0",
         buttonList: [
+          {key: "userSave", name: this.$t("button.save")},
         ],
         rules: {
           adfield: [
@@ -1986,14 +1991,14 @@
       };
     },
     computed: {
-      birthday: {
-        get() {
-          return this.form.birthday;
-        },
-        set(val) {
-          this.form.birthday = val;
-        }
-      }
+      // birthday: {
+      //   get() {
+      //     return this.form.birthday;
+      //   },
+      //   set(val) {
+      //     this.form.birthday = val;
+      //   }
+      // }
     },
     watch: {
       form:{
@@ -2012,14 +2017,14 @@
           });
         }
       },
-      birthday(val) {
-        if (val) {
-          this.form.age =
-            moment().format("YYYY") - moment(val).format("YYYY") > 0
-              ? moment().format("YYYY") - moment(val).format("YYYY")
-              : 0;
-        }
-      }
+      // birthday(val) {
+      //   if (val) {
+      //     this.form.age =
+      //       moment().format("YYYY") - moment(val).format("YYYY") > 0
+      //         ? moment().format("YYYY") - moment(val).format("YYYY")
+      //         : 0;
+      //   }
+      // }
     },
     mounted() {
       this.form.staffexitprocedure;
@@ -2291,8 +2296,19 @@
         this.$store
           .dispatch("usersStore/getme")
           .then(response => {
-            debugger
             this.form = response.customerInfo.userinfo;
+              let birthdays = new Date(response.customerInfo.userinfo.birthday.replace(/-/g, "/"));
+              let d = new Date();
+              let age = 0;
+              let agenew = 0;
+              age = d.getFullYear() - birthdays.getFullYear()
+              agenew = d.getFullYear() - birthdays.getFullYear()
+              if (d.getMonth() > birthdays.getMonth() || (d.getMonth() == birthdays.getMonth() && d.getDate() > birthdays.getDate())) {
+                  agenew = age;
+              } else {
+                  agenew = age - 1;
+              }
+              this.age = agenew;
             this.status = response.customerInfo.status;
             this.userInfo.userAccount = response.userAccount;
             this.userInfo.customerInfo = response.customerInfo;
@@ -2461,17 +2477,18 @@
             this.$store
               .dispatch("usersStore/userSave", this.userInfo)
               .then(response => {
-                if (btnkey === "userSaveToRole") {
-                  this.userToRoleId = response;
-                } else {
-                  this.$refs.container.buttonClick("back");
-                }
+                // if (btnkey === "userSaveToRole") {
+                //   this.userToRoleId = response;
+                // } else {
+                //   this.$refs.container.buttonClick("back");
+                // }
                 this.loading = false;
                 this.$message({
                   message: this.$t("label.PFANSUSERFORMVIEW_SUBMITSUCCESSFULLY"),
                   type: "success"
                 });
-                this.getUserList();
+                this.activeName = "first";
+                // this.getUserList();
               })
               .catch(err => {
                 Message({
