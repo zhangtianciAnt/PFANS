@@ -260,13 +260,13 @@
                     label: 'R7'
                 }, {
                     value: 'PR021006',
-                    label: 'R8A'
+                    label: 'R8C'
                 }, {
                     value: 'PR021007',
                     label: 'R8B'
                 }, {
                     value: 'PR021008',
-                    label: 'R8C'
+                    label: 'R8A'
                 }, {
                     value: 'PR021009',
                     label: 'R9A'
