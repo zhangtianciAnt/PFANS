@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="height: calc(100vh - 60px - 2rem)">
     <el-row>
       <el-col :span="12" style="padding: 5px">
         <el-row style="height: 120px;max-height: 120px">
@@ -53,6 +53,7 @@
       </el-col>
     </el-row>
     <el-row v-show="Object.keys(userinfo).length > 0">
+      <!--<el-row v-show="false">-->
       <el-col :span="24" style="padding: 5px">
         <el-card class="box-card" shadow="hover">
           <span style="padding: 0 0 0 1rem;color: #5d9cec;font-size: 0.85rem">{{$t('label.INDEX_KJFW')}}</span>
@@ -98,14 +99,14 @@
                 <span style="font-size: 0.85rem">{{$t('title.PFANS5001VIEW')}}</span>
               </el-row>
             </el-col>
-            <el-col :span="3"  style="cursor: pointer">
-              <el-row style="text-align: center">
-                <img :src="png6" style="width: 50%" @click="submitForm(6)">
-              </el-row>
-              <el-row style="text-align: center">
-                <span style="font-size: 0.85rem">{{$t('title.PFANS2020VIEW')}}</span>
-              </el-row>
-            </el-col>
+            <!--<el-col :span="3"  style="cursor: pointer">-->
+              <!--<el-row style="text-align: center">-->
+                <!--<img :src="png6" style="width: 50%" @click="submitForm(6)">-->
+              <!--</el-row>-->
+              <!--<el-row style="text-align: center">-->
+                <!--<span style="font-size: 0.85rem">{{$t('title.PFANS2020VIEW')}}</span>-->
+              <!--</el-row>-->
+            <!--</el-col>-->
             <el-col :span="3"  style="cursor: pointer">
               <el-row style="text-align: center">
                 <img :src="png7" style="width: 50%" @click="submitForm(7)">
@@ -189,46 +190,36 @@
     },
     methods: {
       submitForm(val) {
+        let url="";
         if (val === 1) {
-          this.$router.push({
-            name: 'PFANS5008View',
-          });
+          url ='PFANS5008View'
         }
         if (val === 2) {
-          this.$router.push({
-            name: 'PFANS2028View',
-          });
+          url ='PFANS2028View'
         }
         if (val === 3) {
-          this.$router.push({
-            name: 'PFANS2017View',
-          });
+          url ='PFANS2017View'
         }
         if (val === 4) {
-          this.$router.push({
-            name: 'PFANS4001View',
-          });
+          url ='PFANS4001View'
         }
         if (val === 5) {
-          this.$router.push({
-            name: 'PFANS5001View',
-          });
+          url ='PFANS5001View'
         }
         if (val === 6) {
-          this.$router.push({
-            name: 'PFANS2020View',
-          });
+          url ='PFANS2020View'
         }
         if (val === 7) {
-          this.$router.push({
-            name: 'PFANS2023View',
-          });
+          url ='PFANS2023View'
         }
         if (val === 8) {
-          this.$router.push({
-            name: 'PFANS2022View',
-          });
+          url ='PFANS2022View'
         }
+        this.$store.commit("global/SET_CURRENTURL", url);
+        this.$store.commit("global/SET_WORKFLOWURL", url);
+        this.$router.push({
+          name: url,
+        });
         this.$emit("changeMenu")
       },
       clickDSP() {

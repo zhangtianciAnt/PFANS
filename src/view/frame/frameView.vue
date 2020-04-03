@@ -349,9 +349,6 @@
       },
       changeMenu(){
         this.vactiveIndex = this.$router.currentRoute.path;
-        this.$store.commit("global/SET_CURRENTURL", this.$router.path);
-        this.$store.commit("global/SET_WORKFLOWURL", this.$router.path);
-
       },
       //连接websocket--获取重复登录
       loginconnect() {
