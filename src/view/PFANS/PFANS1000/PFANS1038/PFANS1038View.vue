@@ -114,7 +114,7 @@
         mounted() {
             if (this.$store.getters.userinfo.userid) {
                 let group = getUserInfo(this.$store.getters.userinfo.userid);
-                if (group.userinfo.groupid === "" || group.userinfo.groupid ===null ) {
+                if (group.userinfo.groupid === "" || group.userinfo.groupid === null) {
                     this.buttonList[1].disabled = true;
                     this.buttonList[2].disabled = true;
                 } else {
@@ -133,37 +133,17 @@
                     if (response.length > 0) {
                         response.forEach(
                             res => {
-                                let group = getUserInfo(this.$store.getters.userinfo.userid);
-                                if (group.userinfo.groupid === "" || group.userinfo.groupid ===null) {
-                                    if (group.userinfo.centerid == res.centerid) {
-                                        if (getUserInfo(res.createby)) {
-                                            userinfo = getUserInfo(res.createby).userinfo;
-                                        }
-                                        res.createby = userinfo.customername;
-                                        res.center = userinfo.centername;
-                                        res.department = userinfo.groupname || "";
-                                        res.createon = moment(res.createon).format("YYYY-MM-DD");
-                                        if (res.type === 0) {
-                                            data.push(res);
-                                        } else {
-                                            outdata.push(res);
-                                        }
-                                    }
+                                if (getUserInfo(res.createby)) {
+                                    userinfo = getUserInfo(res.createby).userinfo;
+                                }
+                                res.createby = userinfo.customername;
+                                res.center = userinfo.centername;
+                                res.department = userinfo.groupname || "";
+                                res.createon = moment(res.createon).format("YYYY-MM-DD");
+                                if (res.type === 0) {
+                                    data.push(res);
                                 } else {
-                                    if (group.userinfo.groupid == res.groupid) {
-                                        if (getUserInfo(res.createby)) {
-                                            userinfo = getUserInfo(res.createby).userinfo;
-                                        }
-                                        res.createby = userinfo.customername;
-                                        res.center = userinfo.centername;
-                                        res.department = userinfo.groupname || "";
-                                        res.createon = moment(res.createon).format("YYYY-MM-DD");
-                                        if (res.type === 0) {
-                                            data.push(res);
-                                        } else {
-                                            outdata.push(res);
-                                        }
-                                    }
+                                    outdata.push(res);
                                 }
                             }
                         );

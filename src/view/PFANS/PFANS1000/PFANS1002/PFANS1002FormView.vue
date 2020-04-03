@@ -293,7 +293,7 @@
                 </el-row>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1002VIEW_PLANTYPE')" prop="plantype" v-if="show2">
+                    <el-form-item :label="$t('label.PFANS1004VIEW_BUSINESSPLANTYPE')" prop="plantype" v-if="show2">
                       <dicselect
                         style="width: 20vw"
                         :disabled="!disable"
@@ -826,7 +826,7 @@
               code2: 'PJ017',
               code3: 'PJ018',
               code4: 'PG002',
-              code5: 'PJ138',
+              code5: 'PR002',
               code6: 'PR003',
               code7: 'PG019',
               code8: 'PJ019',
@@ -1283,7 +1283,7 @@
                             this.show2 = false;
                             this.show3 = false;
                         }
-                        if (this.form.plantype === 'PR002005') {
+                        if (this.form.plantype === 'PR002006') {
                             this.show3 = true;
                         } else {
                             this.show3 = false;
@@ -1379,12 +1379,7 @@
                     this.activeName = 'second';
                 } else if (
                     !this.form.budgetunit ||
-                    (this.form.plan === '1' && (
-                            !this.form.plantype ||
-                            (this.form.plantype === 'PR002005' && (
-                                    !this.form.classificationtype)
-                            ) ||
-                            !this.form.balance)
+                    (this.form.plan === '1' && (!this.form.plantype || (this.form.plantype === 'PR002006' && (!this.form.classificationtype)) || !this.form.balance)
                     ) ||
                     this.form.currency === 'PG019001' && (
                         !this.form.otherfxrate) ||
@@ -1518,7 +1513,7 @@
             },
             getplantype(val) {
                 this.form.plantype = val;
-                if (val === 'PR002005') {
+                if (val === 'PR002006') {
                     this.show3 = true;
                 } else {
                     this.show3 = false;

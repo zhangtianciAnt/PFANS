@@ -128,7 +128,7 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_CHILDREN')">
-                    <span style="margin-right: 1vw ">{{$t('label.no')}}</span>`
+                    <span style="margin-right: 1vw ">{{$t('label.no')}}</span>
                     <el-switch
                       v-model="form.children"
                       active-value="1"
