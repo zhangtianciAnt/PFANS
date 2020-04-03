@@ -56,7 +56,7 @@
                    style="width: 20vw"
                    :error="errorgroup"
                    @getOrgids="getGroupId"
-                   :disabled="!disabled2"
+                   :disabled="true"
               ></org>
             </el-form-item>
             <div class="dialog-footer" align="center">
@@ -711,7 +711,7 @@
   import EasyNormalTable from '@/components/EasyNormalTable';
   import {Message} from 'element-ui';
   import dicselect from '../../../components/dicselect';
-  import {getDictionaryInfo, getOrgInfo, getUserInfo} from '@/utils/customize';
+  import {getDictionaryInfo, getOrgInfo, getUserInfo,getOrgInfoByUserId} from '@/utils/customize';
   import user from '../../../components/user.vue';
   import org from '../../../components/org';
   import moment from 'moment';
@@ -1355,6 +1355,12 @@
             });
             this.loading = false;
           });
+      }
+      let userid = this.$store.getters.userinfo.userid;
+      if (userid !== null && userid !== '') {
+        let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+        this.form1.grouporglist = lst.groupId;
+        this.getGroupId(this.form1.grouporglist);
       }
       //get customer
       this.getcustomerinfor();

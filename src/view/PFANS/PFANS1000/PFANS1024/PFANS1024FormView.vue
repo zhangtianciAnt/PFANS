@@ -58,7 +58,7 @@
                 :error="errorgroup"
                 style="width: 20vw"
                 @getOrgids="getGroupId"
-                :disabled="!disabled2"
+                :disabled="true"
               ></org>
             </el-form-item>
             <!--<el-form-item :label="$t('label.PFANS1024VIEW_SIDEGROUP')" :label-width="formLabelWidth">

@@ -57,7 +57,7 @@
                 :error="errorgroup"
                 style="width: 20vw"
                 @getOrgids="getGroupId"
-                :disabled="!disabled2"
+                :disabled="true"
               ></org>
             </el-form-item>
             <!--<el-form-item :label="$t('label.PFANS1024VIEW_SIDEGROUP')" :label-width="formLabelWidth">
@@ -523,7 +523,7 @@
   import EasyNormalContainer from "@/components/EasyNormalContainer";
   import { Message } from 'element-ui'
   import dicselect from "../../../components/dicselect";
-  import {getOrgInfo,getDictionaryInfo,getUserInfo,getSupplierinfor,getStatus} from '@/utils/customize';
+  import {getOrgInfo,getDictionaryInfo,getUserInfo,getSupplierinfor,getStatus,getOrgInfoByUserId} from '@/utils/customize';
   import user from '../../../components/user.vue';
   import org from "../../../components/org";
   import moment from "moment";
@@ -831,6 +831,12 @@
                       this.loading = false
                   })
           }
+        let userid = this.$store.getters.userinfo.userid;
+        if (userid !== null && userid !== '') {
+          let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+          this.form1.grouporglist = lst.groupId;
+          this.getGroupId(this.form1.grouporglist);
+        }
         //get customer
         this.getsupplierinfor();
         //テーマ
