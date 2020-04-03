@@ -138,7 +138,7 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1004VIEW_GIST')" prop="gist">
-                <el-input v-model="form.gist" type="textarea" :rows="15" :disabled="!disabled" :placeholder="$t('label.PFANS1004VIEW_GISTTAB')" style="width: 72vw"></el-input>
+                <tinymce :height="300" :readonly="readonly" id="mytinymce" v-model="form.gist" style="width: 72vw"></tinymce>
               </el-form-item>
             </el-col>
           </el-row>
@@ -249,10 +249,12 @@
     import EasyNormalContainer from "@/components/EasyNormalContainer";
     import dicselect from "../../../components/dicselect.vue";
     import user from "../../../components/user.vue";
+    import tinymce from "./index";
     import { Message } from 'element-ui'
     import {getOrgInfoByUserId,getUserInfo} from '@/utils/customize';
     import {downLoadUrl,getDictionaryInfo, uploadUrl} from '@/utils/customize';
     import moment from "moment";
+
 
     export default {
         name: 'PFANS1004FormView',
@@ -260,7 +262,8 @@
             EasyNormalContainer,
             getOrgInfoByUserId,
             dicselect,
-            user
+            user,
+            tinymce
         },
         data() {
             var checkuser = (rule, value, callback) => {
