@@ -80,7 +80,7 @@
             <div class="dialog-footer" align="center">
               <el-row style=" margin-bottom: 20px;">
                 <el-col :span="24">
-                  <el-button @click="clickData(1)" :disabled=disabledCount1>
+                  <el-button @click="clickData(1)" >
                   <span style="margin-right: 86%;">{{$t('label.PFANS1026FORMVIEW_VALUATION')}}
                   </span>
                   </el-button>
@@ -88,7 +88,7 @@
               </el-row>
               <el-row style=" margin-bottom: 20px;">
                 <el-col :span="24">
-                  <el-button @click="clickData(2)" :disabled=disabledCount2>
+                  <el-button @click="clickData(2)" >
                   <span style="margin-right: 86%;">{{$t('label.PFANS1026FORMVIEW_JUDGMENT')}}
                   </span>
                   </el-button>
@@ -96,7 +96,7 @@
               </el-row>
               <el-row style=" margin-bottom: 20px;">
                 <el-col :span="24">
-                  <el-button @click="clickData(3)" :disabled=disabledCount3>
+                  <el-button @click="clickData(3)" >
                   <span style="margin-right: 86%;">{{$t('label.PFANS1026FORMVIEW_CONTRACT')}}
                   </span>
                   </el-button>
@@ -104,7 +104,7 @@
               </el-row>
               <el-row style=" margin-bottom: 20px;">
                 <el-col :span="24">
-                  <el-button @click="clickData(4)" :disabled=disabledCount4>
+                  <el-button @click="clickData(4)" >
                   <span style="margin-right: 86%;">{{$t('label.PFANS1026FORMVIEW_AWARD')}}
                   </span>
                   </el-button>
@@ -112,7 +112,7 @@
               </el-row>
               <el-row style=" margin-bottom: 20px;">
                 <el-col :span="24">
-                  <el-button @click="clickData(5)" :disabled=disabledCount5>
+                  <el-button @click="clickData(5)" >
                   <span style="margin-right: 86%;">{{$t('label.PFANS1026FORMVIEW_NAPALM')}}
                   </span>
                   </el-button>
@@ -120,7 +120,7 @@
               </el-row>
               <el-row style=" margin-bottom: 20px;">
                 <el-col :span="24">
-                  <el-button @click="clickData(6)" :disabled=disabledCount6>
+                  <el-button @click="clickData(6)" >
                   <span style="margin-right: 86%;">{{$t('label.PFANS1026FORMVIEW_REQUEST')}}
                   </span>
                   </el-button>
@@ -978,12 +978,6 @@
           6: false,
           7: false,
         },
-        disabledCount1: false,
-        disabledCount2: false,
-        disabledCount3: false,
-        disabledCount4: false,
-        disabledCount5: false,
-        disabledCount6: false,
         disabledCount7: false,
         existFlg: true,
         checked: false,
@@ -1280,7 +1274,6 @@
         this.$store
           .dispatch('PFANS1026Store/get', {'contractnumber': this.$route.params._id})
           .then(response => {
-            debugger
             let contractapplication = response.contractapplication;
             let contractnumbercount = response.contractnumbercount;
             if (contractapplication.length > 0) {
@@ -2283,72 +2276,37 @@
 //                    this.$set(this, "disabledCount"+i, i>index);
 //                  }
             if (response.count1 === 0) {
-              this.disabledCount1 = false;
-              this.disabledCount2 = true;
-              this.disabledCount3 = true;
-              this.disabledCount4 = true;
-              this.disabledCount5 = true;
-              this.disabledCount6 = true;
+
               this.disabledCount7 = true;
               this.loading = false;
 
             } else if (response.count1 > 0 && response.count2 === 0) {
-              this.disabledCount1 = false;
-              this.disabledCount2 = false;
-              this.disabledCount3 = true;
-              this.disabledCount4 = true;
-              this.disabledCount5 = true;
-              this.disabledCount6 = true;
+
               this.disabledCount7 = true;
               this.loading = false;
 
             } else if (response.count1 > 0 && response.count2 > 0 && response.count3 === 0) {
-              this.disabledCount1 = false;
-              this.disabledCount2 = false;
-              this.disabledCount3 = false;
-              this.disabledCount4 = true;
-              this.disabledCount5 = true;
-              this.disabledCount6 = true;
+
               this.disabledCount7 = true;
               this.loading = false;
 
             } else if (response.count1 > 0 && response.count2 > 0 && response.count3 > 0 && response.count4 === 0) {
-              this.disabledCount1 = false;
-              this.disabledCount2 = false;
-              this.disabledCount3 = false;
-              this.disabledCount4 = false;
-              this.disabledCount5 = true;
-              this.disabledCount6 = true;
+
               this.disabledCount7 = true;
               this.loading = false;
 
             } else if (response.count1 > 0 && response.count2 > 0 && response.count3 > 0 && response.count4 > 0 && response.count5 === 0) {
-              this.disabledCount1 = false;
-              this.disabledCount2 = false;
-              this.disabledCount3 = false;
-              this.disabledCount4 = false;
-              this.disabledCount5 = false;
-              this.disabledCount6 = true;
+
               this.disabledCount7 = true;
               this.loading = false;
 
             } else if (response.count1 > 0 && response.count2 > 0 && response.count3 > 0 && response.count4 > 0 && response.count5 > 0 && response.count6 === 0) {
-              this.disabledCount1 = false;
-              this.disabledCount2 = false;
-              this.disabledCount3 = false;
-              this.disabledCount4 = false;
-              this.disabledCount5 = false;
-              this.disabledCount6 = false;
+
               this.disabledCount7 = true;
               this.loading = false;
 
             } else if (response.count1 > 0 && response.count2 > 0 && response.count3 > 0 && response.count4 > 0 && response.count5 > 0 && response.count6 > 0 && response.count7 === 0) {
-              this.disabledCount1 = false;
-              this.disabledCount2 = false;
-              this.disabledCount3 = false;
-              this.disabledCount4 = false;
-              this.disabledCount5 = false;
-              this.disabledCount6 = false;
+
               this.disabledCount7 = false;
               this.loading = false;
 
