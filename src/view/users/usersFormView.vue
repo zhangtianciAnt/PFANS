@@ -2656,7 +2656,7 @@
         this.$refs['form'].validate(valid => {
           if (valid) {
             this.userInfo.userAccount.account = this.form.adfield;
-            this.userInfo.userAccount.password = this.form.adfield;
+            // this.userInfo.userAccount.password = this.form.adfield;
             this.userInfo.userAccount.usertype = '0';
             this.userInfo.customerInfo.userinfo = this.form;
             this.Personal();
