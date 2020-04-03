@@ -3,6 +3,7 @@
     :buttonList="buttonList"
     :title="titles"
     @buttonClick="buttonClick"
+    :canStart="canStart"
     @end="end"
     @start="start"
     @workflowState="workflowState"
@@ -695,6 +696,7 @@
           status: '0',
         },
         disable: false,
+        canStart: false,
         buttonList: [],
         fileList: [],
         upload: uploadUrl(),
@@ -732,6 +734,7 @@
           {
             key: 'save',
             name: 'button.save',
+            disabled: false,
             icon: 'el-icon-check',
           },
         ];
@@ -751,10 +754,6 @@
       this.getNameList();
       if (this.$route.params._id) {
         this.getOne(this.$route.params._id);
-        // if (this.form.status === '4') {
-        //   this.canStart = false;
-        //   this.disabled = true;
-        // }
       }
     },
 
@@ -912,6 +911,9 @@
                     this.form.others = '';
                 }
               this.loading = false;
+            }
+            if (this.form.status === '2') {
+              this.disabled = true;
             }
           })
           .catch(error => {
@@ -1152,11 +1154,11 @@
                 .dispatch('PFANS2002Store/update', this.form)
                 .then(response => {
                   this.loading = false;
-                  this.$message({
-                    message: this.$t('normal.success_02'),
-                    type: 'success',
-                  });
                   if (val !== 'update') {
+                    this.$message({
+                      message: this.$t('normal.success_02'),
+                      type: 'success',
+                    });
                     if (this.$store.getters.historyUrl) {
                       this.$router.push(this.$store.getters.historyUrl);
                     }
