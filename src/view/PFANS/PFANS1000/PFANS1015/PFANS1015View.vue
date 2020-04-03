@@ -73,18 +73,18 @@
           </el-col>
         </div>
       </div>
-      <div>
-        <div @click="submitForm(7)" class="m-content">
-          <el-col :span="18">
-            <div style="width: 150px; margin-left: 8px; text-overflow: ellipsis; overflow: hidden;
-                          float: left; padding: 10px 0px; height: 50px; line-height: 18px;">{{$t('menu.PFANS1022')}}
-            </div>
-          </el-col>
-          <el-col :span="6" class="m-div">
-            <img :src="png7" class="m-img">
-          </el-col>
-        </div>
-      </div>
+      <!--<div>-->
+        <!--<div @click="submitForm(7)" class="m-content">-->
+          <!--<el-col :span="18">-->
+            <!--<div style="width: 150px; margin-left: 8px; text-overflow: ellipsis; overflow: hidden;-->
+                          <!--float: left; padding: 10px 0px; height: 50px; line-height: 18px;">{{$t('menu.PFANS1022')}}-->
+            <!--</div>-->
+          <!--</el-col>-->
+          <!--<el-col :span="6" class="m-div">-->
+            <!--<img :src="png7" class="m-img">-->
+          <!--</el-col>-->
+        <!--</div>-->
+      <!--</div>-->
       <div>
         <div @click="submitForm(8)" class="m-content">
           <el-col :span="18">
