@@ -8,7 +8,8 @@
       <div slot="customize">
         <el-form :model="form1" :rules="rules1" label-position="top" label-width="6vw" ref="refform1">
           <el-dialog :title="$t('button.application')" :visible.sync="dialogVisibleC">
-            <el-form-item :label="$t('label.PFANS1024VIEW_NUMBER')" :label-width="formLabelWidth" :error="errorclaimtype" prop="claimtype">
+            <el-form-item :label="$t('label.PFANS1024VIEW_NUMBER')" :label-width="formLabelWidth"
+                          :error="errorclaimtype" prop="claimtype">
               <dicselect
                 :disabled="!disabled2"
                 :code="code"
@@ -18,7 +19,8 @@
                 style="width: 20vw">
               </dicselect>
             </el-form-item>
-            <el-form-item :label="$t('label.PFANS1024VIEW_ORIGINALCONTRACT')" :label-width="formLabelWidth" v-show="show3">
+            <el-form-item :label="$t('label.PFANS1024VIEW_ORIGINALCONTRACT')" :label-width="formLabelWidth"
+                          v-show="show3">
               <el-input v-model="form1.contractnumber" style="width: 20vw" :disabled="!disabled2"></el-input>
               <el-checkbox
                 v-if="checkeddisplay"
@@ -28,7 +30,8 @@
               >{{$t('label.PFANS1024VIEW_LETTERS')}}
               </el-checkbox>
             </el-form-item>
-            <el-form-item :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')" :label-width="formLabelWidth" :error="errorcontracttype" prop="contracttype">
+            <el-form-item :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')" :label-width="formLabelWidth"
+                          :error="errorcontracttype" prop="contracttype">
               <dicselect :code="code2"
                          :data="form1.contracttype"
                          @change="getcontracttype"
@@ -36,7 +39,8 @@
                          :disabled="!disabled2">
               </dicselect>
             </el-form-item>
-            <el-form-item :label="$t('label.PFANS1024VIEW_CAREERYEAR')" :label-width="formLabelWidth" :error="errorapplicationdate" prop="applicationdate">
+            <el-form-item :label="$t('label.PFANS1024VIEW_CAREERYEAR')" :label-width="formLabelWidth"
+                          :error="errorapplicationdate" prop="applicationdate">
               <dicselect :code="code3"
                          :data="form1.applicationdate"
                          @change="getcareeryear1"
@@ -50,7 +54,7 @@
                          :disabled="!disabled2">
               </dicselect>
             </el-form-item>
-            <el-form-item :label="$t('label.group')" :label-width="formLabelWidth"  prop="grouporglist"
+            <el-form-item :label="$t('label.group')" :label-width="formLabelWidth" prop="grouporglist"
                           :error="errorgroup">
               <org
                 :orglist="form1.grouporglist"
@@ -231,7 +235,9 @@
                     style="width: 11rem"
                     :disabled="!disabled">
                   </dicselect>-->
-                  <el-select :no="scope.row" v-model="scope.row.currencyposition" @change="(val)=>{getCurrencyposition(val,scope.row)}" style="width: 11rem" :disabled="!disabled">
+                  <el-select :no="scope.row" v-model="scope.row.currencyposition"
+                             @change="(val)=>{getCurrencyposition(val,scope.row)}" style="width: 11rem"
+                             :disabled="!disabled">
                     <el-option v-for="(item,index) in options" :key="index" :value="item.value">
                       {{item.value}}
                     </el-option>
@@ -417,7 +423,7 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.conjapanese'" :rules='rules.conjapanese'>
-                    <el-input  v-model="scope.row.conjapanese" :disabled="!disabled">
+                    <el-input v-model="scope.row.conjapanese" :disabled="!disabled">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -425,7 +431,7 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_ENGLISH')" align="center" prop="conenglish" width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.conenglish'">
-                    <el-input  v-model="scope.row.conenglish" :disabled="!disabled">
+                    <el-input v-model="scope.row.conenglish" :disabled="!disabled">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -433,11 +439,11 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center" prop="conchinese" width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.conchinese'" :rules='rules.conchinese'>
-<!--                    <project style="width: 100%" :data="scope.row.conchinese" :no="scope.row" :multiple="true"-->
-<!--                             v-model="scope.row.conchinese"-->
-<!--                             @change="changePro" :disabled="!disabled">-->
-<!--                    </project>-->
-                    <el-input  v-model="scope.row.conchinese" :disabled="!disabled">
+                    <!--                    <project style="width: 100%" :data="scope.row.conchinese" :no="scope.row" :multiple="true"-->
+                    <!--                             v-model="scope.row.conchinese"-->
+                    <!--                             @change="changePro" :disabled="!disabled">-->
+                    <!--                    </project>-->
+                    <el-input v-model="scope.row.conchinese" :disabled="!disabled">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -557,7 +563,14 @@
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import {Message} from 'element-ui';
   import dicselect from '../../../components/dicselect';
-  import {getDictionaryInfo, getOrgInfo,getOrgInfoByUserId, getStatus, getSupplierinfor, getUserInfo} from '@/utils/customize';
+  import {
+    getDictionaryInfo,
+    getOrgInfo,
+    getOrgInfoByUserId,
+    getStatus,
+    getSupplierinfor,
+    getUserInfo,
+  } from '@/utils/customize';
   import user from '../../../components/user.vue';
   import org from '../../../components/org';
   import project from '../../../components/project';
@@ -790,14 +803,14 @@
           callback();
         }
       };
-      var checkApplicationdate =(rule, value, callback) => {
+      var checkApplicationdate = (rule, value, callback) => {
 //          if (!this.form1.applicationdate || this.form1.applicationdate === '' || !this.form1.entrycondition || this.form1.entrycondition === '') {
-          if (value === '') {
-              callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1024VIEW_CAREERYEAR')));
-              this.errorapplicationdate = this.$t('normal.error_09') + this.$t('label.PFANS1024VIEW_CAREERYEAR');
-          } else {
-              callback();
-          }
+        if (value === '') {
+          callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1024VIEW_CAREERYEAR')));
+          this.errorapplicationdate = this.$t('normal.error_09') + this.$t('label.PFANS1024VIEW_CAREERYEAR');
+        } else {
+          callback();
+        }
       };
       return {
         checkGroupId: false,
@@ -826,16 +839,16 @@
         formLabelWidth: '120px',
         multiple: false,
         index: '',
-          user_id: '',
+        user_id: '',
         grouporglist: '',
         groupinfo: ['', '', '', ''],
         errorgroup: '',
         errorcusto: '',
         erroruser: '',
         errorcontractnumber: '',
-          errorclaimtype: '',
-          errorcontracttype: '',
-          errorapplicationdate: '',
+        errorclaimtype: '',
+        errorcontracttype: '',
+        errorapplicationdate: '',
         loading: false,
         title: 'title.PFANS1024VIEW',
         activeName: '',
@@ -847,36 +860,36 @@
         ruleSet: {
           'save': ['contractnumber'],
           'makeinto': ['contractnumber'],
-          '7': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'contractdate', 'currencyposition', 'claimamount', 'deliverydate','claimtype','completiondate','claimdate','supportdate','conchinese','conjapanese'],
+          '7': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'contractdate', 'currencyposition', 'claimamount', 'deliverydate', 'claimtype', 'completiondate', 'claimdate', 'supportdate', 'conchinese', 'conjapanese'],
         },
         rules1: {
-            claimtype: [
-                {
-                    required: true,
-                    message:
-                        this.$t('normal.error_09') +
-                        this.$t('label.PFANS1024VIEW_NUMBER'),
-                    trigger: 'change',
-                },
-            ],
+          claimtype: [
+            {
+              required: true,
+              message:
+                this.$t('normal.error_09') +
+                this.$t('label.PFANS1024VIEW_NUMBER'),
+              trigger: 'change',
+            },
+          ],
 
-            contracttype: [
-                {
-                    required: true,
-                    message:
-                        this.$t('normal.error_09') +
-                        this.$t('label.PFANS1024VIEW_CONTRACTTYPE'),
-                    trigger: 'change',
-                },
-            ],
+          contracttype: [
+            {
+              required: true,
+              message:
+                this.$t('normal.error_09') +
+                this.$t('label.PFANS1024VIEW_CONTRACTTYPE'),
+              trigger: 'change',
+            },
+          ],
 
-            applicationdate: [
-                {
-                    required: true,
-                    validator: checkApplicationdate,
-                    trigger: 'submit',
-                },
-            ],
+          applicationdate: [
+            {
+              required: true,
+              validator: checkApplicationdate,
+              trigger: 'submit',
+            },
+          ],
           grouporglist: [
             {
               required: true,
@@ -963,7 +976,7 @@
           deliverydate: [
             {validator: validateDeliverydate},
           ],
-          claimtype:[
+          claimtype: [
             {validator: validateClaimtype},
           ],
           completiondate: [
@@ -1076,7 +1089,7 @@
         code10: 'HT017',
         show1: true,
         show2: false,
-        show3:false,
+        show3: false,
         tableB: [],
         tableC: [],
         tableD: [],
@@ -1100,15 +1113,15 @@
     mounted() {
       this.contractnumbercount = this.$route.params.contractnumbercount;
       let option1 = {};
-        option1.name = getDictionaryInfo('PG019001').value1;
-        option1.code = 'PG019001';
-        option1.value = getDictionaryInfo('PG019001').value4;
+      option1.name = getDictionaryInfo('PG019001').value1;
+      option1.code = 'PG019001';
+      option1.value = getDictionaryInfo('PG019001').value4;
       let option2 = {};
-        option2.name = getDictionaryInfo('PG019003').value1;
-        option2.code = 'PG019003';
-        option2.value = getDictionaryInfo('PG019003').value4;
-        this.options.push(option1);
-        this.options.push(option2);
+      option2.name = getDictionaryInfo('PG019003').value1;
+      option2.code = 'PG019003';
+      option2.value = getDictionaryInfo('PG019003').value4;
+      this.options.push(option1);
+      this.options.push(option2);
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
@@ -1118,28 +1131,28 @@
             let contractnumbercount = response.contractnumbercount;
             if (contractapplication.length > 0) {
               for (let i = 0; i < contractapplication.length; i++) {
-                 /* //555 this.currencyposition
-                let currencyposition =  contractapplication[i].currencyposition;
-                this.currencyposition = currencyposition === 'PG019001'?'USB$':'￥';*/
-                 if(contractapplication[i].currencyposition !== '' && contractapplication[i].currencyposition !== null){
-                   contractapplication[i].currencyposition = getDictionaryInfo(contractapplication[i].currencyposition).value4;
-                 }
+                /* //555 this.currencyposition
+               let currencyposition =  contractapplication[i].currencyposition;
+               this.currencyposition = currencyposition === 'PG019001'?'USB$':'￥';*/
+                if (contractapplication[i].currencyposition !== '' && contractapplication[i].currencyposition !== null) {
+                  contractapplication[i].currencyposition = getDictionaryInfo(contractapplication[i].currencyposition).value4;
+                }
                 this.maketype = contractapplication[i].maketype;
 
-                  this.form1.claimtype = contractapplication[i].claimtype;
+                this.form1.claimtype = contractapplication[i].claimtype;
                 //契約書番号
                 this.letcontractnumber = contractapplication[i].contractnumber;
                 this.show3 = true;
                 this.form1.contractnumber = contractapplication[i].contractnumber;
                 //契約種類
                 this.form.contracttype = contractapplication[i].contracttype;
-                  this.form1.contracttype = contractapplication[i].contracttype;
+                this.form1.contracttype = contractapplication[i].contracttype;
                 //事業年度
                 this.form.applicationdate = contractapplication[i].careeryear;
-                  this.form1.applicationdate = contractapplication[i].careeryear;
+                this.form1.applicationdate = contractapplication[i].careeryear;
                 //上下期
                 this.form.entrycondition = contractapplication[i].periods;
-                  this.form1.entrycondition = contractapplication[i].periods;
+                this.form1.entrycondition = contractapplication[i].periods;
 
                 this.form1.custojapanese = contractapplication[i].custojapanese;
                 //グループ
@@ -1192,17 +1205,17 @@
           });
       }
       //333
-        let userid = this.$store.getters.userinfo.userid;
-        if (userid !== null && userid !== '') {
-            let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-            if(lst !== null && lst !== ''){
-              this.form1.grouporglist = lst.groupId;
-              this.getGroupId(this.form1.grouporglist);
-              this.checkGroupId = true;
-            }else{
-              this.checkGroupId = false;
-            }
+      let userid = this.$store.getters.userinfo.userid;
+      if (userid !== null && userid !== '') {
+        let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+        if (lst !== null && lst !== '') {
+          this.form1.grouporglist = lst.groupId;
+          this.getGroupId(this.form1.grouporglist);
+          this.checkGroupId = true;
+        } else {
+          this.checkGroupId = false;
         }
+      }
 
       //get customer
       this.getsupplierinfor();
@@ -1284,7 +1297,7 @@
         this.dialogVisibleA = false;
         this.loading = false;
       },
-        //
+      //
       handleClickE() {
         this.form.claimtype = this.form1.claimtype;
         this.dialogVisibleE = true;
@@ -1303,10 +1316,10 @@
         this.formcustomer.suppliercode = row.suppliercode;
 
 
-        if(!row.addjapanese){
-            this.formcustomer.placejapanese = row.addchinese;
-        }else{
-            this.formcustomer.placejapanese = row.addjapanese;
+        if (!row.addjapanese) {
+          this.formcustomer.placejapanese = row.addchinese;
+        } else {
+          this.formcustomer.placejapanese = row.addjapanese;
         }
 
         this.formcustomer.placeenglish = row.addenglish;
@@ -1451,22 +1464,24 @@
             let letcontractnumber = [];
             let tabledata = response.contractapplication;
             for (let i = 0; i < tabledata.length; i++) {
-              tabledata[i].status = getStatus(tabledata[i].status);
-              let user = getUserInfo(tabledata[i].user_id);
-              if (user) {
-                tabledata[i].user_id = getUserInfo(tabledata[i].user_id).userinfo.customername;
-              }
-              if (tabledata[i].applicationdate !== null && tabledata[i].applicationdate !== '') {
-                tabledata[i].applicationdate = moment(tabledata[i].applicationdate).format('YYYY-MM-DD');
-              }
-              if (tabledata[i].contracttype !== null && tabledata[i].contracttype !== '') {
-                let letContracttype = getDictionaryInfo(tabledata[i].contracttype);
-                if (letContracttype != null) {
-                  tabledata[i].contracttype = letContracttype.value1;
+              if (tabledata[i].state === '1' || tabledata[i].state === this.$t('label.PFANS8008FORMVIEW_EFFECTIVE')) {
+                tabledata[i].status = getStatus(tabledata[i].status);
+                let user = getUserInfo(tabledata[i].user_id);
+                if (user) {
+                  tabledata[i].user_id = getUserInfo(tabledata[i].user_id).userinfo.customername;
                 }
-              }
-              if (tabledata[i].contractnumber != '') {
-                letcontractnumber.push(tabledata[i].contractnumber);
+                if (tabledata[i].applicationdate !== null && tabledata[i].applicationdate !== '') {
+                  tabledata[i].applicationdate = moment(tabledata[i].applicationdate).format('YYYY-MM-DD');
+                }
+                if (tabledata[i].contracttype !== null && tabledata[i].contracttype !== '') {
+                  let letContracttype = getDictionaryInfo(tabledata[i].contracttype);
+                  if (letContracttype != null) {
+                    tabledata[i].contracttype = letContracttype.value1;
+                  }
+                }
+                if (tabledata[i].contractnumber != '') {
+                  letcontractnumber.push(tabledata[i].contractnumber);
+                }
               }
             }
             var arr = [];
@@ -1577,19 +1592,19 @@
       },
       getcareeryear1(val) {
         this.form1.applicationdate = val;
-        if(this.form1.entrycondition){
-            this.errorapplicationdate = '';
+        if (this.form1.entrycondition) {
+          this.errorapplicationdate = '';
         }
       },
       getcareeryear2(val) {
         this.form1.entrycondition = val;
-          if(this.form1.applicationdate){
-              this.errorapplicationdate = '';
-          }
+        if (this.form1.applicationdate) {
+          this.errorapplicationdate = '';
+        }
       },
       getCurrencyposition(val, row) {
 
-            row.currencyposition = val;
+        row.currencyposition = val;
 
       },
       getcareeryear(val) {
@@ -1759,11 +1774,11 @@
             }
           } else {
             this.dialogVisibleC = true;
-              Message({
-                  message: this.$t("normal.error_12"),
-                  type: 'error',
-                  duration: 5 * 1000
-              });
+            Message({
+              message: this.$t('normal.error_12'),
+              type: 'error',
+              duration: 5 * 1000,
+            });
           }
         });
       },
@@ -1796,11 +1811,11 @@
         }
         //先方組織名编码
         let sidegroup = this.formcustomer.suppliercode;
-        if(sidegroup === '' || sidegroup === undefined){
+        if (sidegroup === '' || sidegroup === undefined) {
           Message({
-            message: this.$t("normal.error_15"),
+            message: this.$t('normal.error_15'),
             type: 'error',
-            duration: 5 * 1000
+            duration: 5 * 1000,
           });
           return;
         }
@@ -1827,13 +1842,13 @@
         if (this.checked) {
           this.letcontractnumber = this.form.contractnumber.split('-')[0] + letbook;
         } else {
-          if(this.groupinfo[2] !== null){
+          if (this.groupinfo[2] !== null) {
             this.letcontractnumber = abbreviation + applicationdate + entrycondition + this.groupinfo[2] + sidegroup + number + letbook;
           } else {
             Message({
-              message: this.$t("normal.error_14"),
+              message: this.$t('normal.error_14'),
               type: 'error',
-              duration: 5 * 1000
+              duration: 5 * 1000,
             });
             return;
           }
@@ -1960,9 +1975,9 @@
         for (let i = 0; i < this.form.tabledata.length; i++) {
           let o = {};
           Object.assign(o, this.form.tabledata[i]);
-          if(this.form.tabledata[i].currencyposition !== '' && this.form.tabledata[i].currencyposition !== null){
-            for(let k = 0;k < this.options.length;k++){
-              if(this.form.tabledata[i].currencyposition === this.options[k].value){
+          if (this.form.tabledata[i].currencyposition !== '' && this.form.tabledata[i].currencyposition !== null) {
+            for (let k = 0; k < this.options.length; k++) {
+              if (this.form.tabledata[i].currencyposition === this.options[k].value) {
                 o.currencyposition = this.options[k].code;
               }
             }
@@ -2170,7 +2185,6 @@
         }
       },
       validateByType: function(type, cb) {
-        debugger
         let that = this;
         let countIndex = 0;
         let rowCount = that.form.tabledata.length || 0;
@@ -2186,14 +2200,14 @@
           debugger
           let dataName = 'tabledata';
           let maxCount = rowCount;
-          if (['deliverydate', 'completiondate', 'claimdate', 'supportdate', 'claimamount','claimtype'].indexOf(item) >= 0) {
+          if (['deliverydate', 'completiondate', 'claimdate', 'supportdate', 'claimamount', 'claimtype'].indexOf(item) >= 0) {
             dataName = 'tableclaimtype';
             maxCount = rowCount2;
             for (var k = 0; k < maxCount; k++) {
               var itIndex = dataName + '.' + k + '.' + item;
               let pro = new Promise(function(resolve, reject) {
                 that.$refs['refform'].validateField(itIndex, function(msg) {
-                  if(msg != ""){
+                  if (msg != '') {
                     countIndex++;
                   }
                   resolve(msg);
@@ -2205,7 +2219,7 @@
             var itIndex = dataName + '.' + (rowCount - 1) + '.' + item;
             let pro = new Promise(function(resolve, reject) {
               that.$refs['refform'].validateField(itIndex, function(msg) {
-                if(msg != ""){
+                if (msg != '') {
                   countIndex++;
                 }
                 resolve(msg);
@@ -2228,7 +2242,7 @@
           });
           cb(isOk);
         });
-        if(countIndex > 0 && type !== "save"){
+        if (countIndex > 0 && type !== 'save') {
           Message({
             message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_CONTR'),
             type: 'error',
