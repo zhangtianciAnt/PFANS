@@ -2179,7 +2179,7 @@
                 this.buttonClick('update');
             },
             end() {
-                this.form.status = '4';
+                this.form.status = '3';
                 this.buttonClick('update');
             },
             fileError(err, file, fileList) {
