@@ -2313,12 +2313,76 @@
             this.userInfo.userAccount = response.userAccount;
             this.userInfo.customerInfo = response.customerInfo;
             this.educationTable = this.userInfo.customerInfo.userinfo.educationTable;
+            if(this.educationTable==null){
+              this.educationTable=[
+                {
+                  time: [],
+                  school: "",
+                  notes: ""
+                }
+              ]
+            }
             this.skillTable = this.userInfo.customerInfo.userinfo.skillTable;
+            if(this.skillTable==null){
+              this.skillTable=[
+                {
+                  name: "",
+                  ability: "",
+                  notes: ""
+                }
+              ]
+            }
             this.languageTable = this.userInfo.customerInfo.userinfo.languageTable;
+            if(this.languageTable==null){
+              this.languageTable= [
+                {
+                  programme: "",
+                  level: "",
+                  notes: ""
+                }
+              ]
+            }
             this.beforeWorkTable = this.userInfo.customerInfo.userinfo.beforeWorkTable;
+            if(this.beforeWorkTable==null){
+              this.beforeWorkTable= [
+                {
+                  time: [],
+                  company: "",
+                  postion: "",
+                  notes: ""
+                }
+              ]
+            }
             this.workAfterTable = this.userInfo.customerInfo.userinfo.workAfterTable;
+            if(this.workAfterTable==null){
+              this.workAfterTable=[
+                {
+                  time: [],
+                  programme: "",
+                  notes: ""
+                }
+              ]
+            }
             this.trainTable = this.userInfo.customerInfo.userinfo.trainTable;
+            if(this.trainTable==null){
+              this.trainTable=[
+                {
+                  time: [],
+                  programme: "",
+                  notes: ""
+                }
+              ]
+            }
             this.rewardTable = this.userInfo.customerInfo.userinfo.rewardTable;
+            if(this.rewardTable==null){
+              this. rewardTable= [
+                {
+                  programme: "",
+                  _time: "",
+                  notes: ""
+                }
+              ]
+            }
             this.gridData = this.userInfo.customerInfo.userinfo.gridData;
             this.oldageData = this.userInfo.customerInfo.userinfo.oldageData;
             this.houseData = this.userInfo.customerInfo.userinfo.houseData;
