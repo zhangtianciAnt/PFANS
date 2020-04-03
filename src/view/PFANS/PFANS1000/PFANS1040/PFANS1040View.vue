@@ -873,6 +873,7 @@
         this.$store
           .dispatch('PFANS1040Store/get', datainfo)
           .then(response => {
+            debugger
             let con = response;
             for (let i = 0; i < con.length; i++) {
               if (con[i].currencytype !== '' && con[i].currencytype !== null) {
