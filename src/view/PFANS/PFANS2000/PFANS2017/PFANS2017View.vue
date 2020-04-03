@@ -1,7 +1,7 @@
 <template>
   <div>
     <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" ref="roletable" @rowClick="rowClick"
-                     :title="title" @buttonClick="buttonClick" v-loading="loading" :showSelection="isShow">
+                     :title="title" @buttonClick="buttonClick" v-loading="loading" :showSelection="isShow" :rowid="rowid">
     </EasyNormalTable>
     <el-dialog :visible.sync="daoru" width="50%">
       <div>
@@ -158,6 +158,7 @@
                     {'key': 'detail', 'name': 'button.detailed', 'disabled': false, icon: 'el-icon-s-grid'}
                 ],
                 isShow: true,
+              rowid:"punchcardrecord_id"
             };
         },
         mounted() {
