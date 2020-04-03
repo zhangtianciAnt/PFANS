@@ -2348,17 +2348,17 @@
                 this.$store
                     .dispatch("usersStore/getById", params)
                     .then(response => {
-                        debugger
                         this.form = response.customerInfo.userinfo;
                         let birthdays = new Date(response.customerInfo.userinfo.birthday.replace(/-/g, "/"));
                         let d = new Date();
                         let age = 0;
                         let agenew = 0;
                         age = d.getFullYear() - birthdays.getFullYear()
+                        agenew = d.getFullYear() - birthdays.getFullYear()
                         if (d.getMonth() > birthdays.getMonth() || (d.getMonth() == birthdays.getMonth() && d.getDate() > birthdays.getDate())) {
-                            agenew = age + 1;
-                        } else {
                             agenew = age;
+                        } else {
+                            agenew = age - 1;
                         }
                         this.age = agenew;
                         this.status = response.customerInfo.status;

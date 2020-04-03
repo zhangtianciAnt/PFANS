@@ -48,8 +48,8 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1019FORMVIEW_DAILYPAYMENT')" prop="dailypayment">
-                <el-date-picker :disabled="!disable"
+              <el-form-item :label="$t('label.application')" prop="dailypayment">
+                <el-date-picker :disabled="true"
                                 style="width:20vw"
                                 type="date"
                                 v-model="form.dailypayment"
@@ -73,10 +73,10 @@
                   </el-input>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS1019FORMVIEW_CUSTOMER')" align="center" width="150">
+              <el-table-column :label="$t('label.PFANS1019FORMVIEW_CUSTOMER')" align="center" width="230">
                 <template slot-scope="scope">
-                  <el-input :no="scope.row" :disabled="!disable" v-model="scope.row.customer" style="width: 100%">
-                  </el-input>
+                  <user :disabled="!disable" :error="errorusername" :no="scope.row" :selectType="selectType" :userlist="scope.row.customer"
+                        @getUserids="getUserids1" style="width: 100%"></user>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1019FORMVIEW_STARTDATE')" align="center" width="160">
@@ -138,7 +138,7 @@
                 <template slot-scope="scope">
                   <dicselect
                     :no="scope.row"
-                    :code="code"
+                    :code="code1"
                     :data="scope.row.softtype"
                     :disabled="!disable"
                     :multiple="multiple"
@@ -201,6 +201,7 @@
         }
       };
       return {
+        errorusername: '',
         centerid: '',
         groupid: '',
         teamid: '',
@@ -246,7 +247,8 @@
           employ: '',
           softtype: '',
         }],
-        code: 'PJ040',
+        code: 'PA006',
+          code1: 'PA005',
       };
     },
     created() {
@@ -268,8 +270,8 @@
         this.$store
           .dispatch('PFANS1019Store/selectById', {'trialsoft_id': this.$route.params._id})
           .then(response => {
-            this.userlist = response.user_id;
-              let rst = getOrgInfoByUserId(response.user_id);
+            this.userlist = response.trialsoft.user_id;
+              let rst = getOrgInfoByUserId(response.trialsoft.user_id);
               if(rst){
                   this.centerid = rst.centerNmae;
                   this.groupid= rst.groupNmae;
@@ -307,6 +309,14 @@
       }
     },
     methods: {
+        getUserids1(val,row) {
+            row.customer = val;
+            if (!row.customer || row.customer === '' || val === "undefined") {
+                row.errorusername = this.$t('normal.error_09') + this.$t('label.applicant');
+            } else {
+                row.errorusername = "";
+            }
+        },
       getUserids(val) {
         this.form.user_id = val;
         let rst = getOrgInfoByUserId(val);

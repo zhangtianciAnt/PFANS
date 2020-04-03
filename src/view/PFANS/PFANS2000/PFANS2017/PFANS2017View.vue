@@ -118,21 +118,35 @@
                     {
                         code: 'punchcardrecord_date',
                         label: 'label.date',
-                        width: 130,
+                        width: 110,
                         fix: false,
                         filter: true
                     },
                     {
                         code: 'time_start',
                         label: 'label.PFANS2017VIEW_START',
-                        width: 130,
+                        width: 110,
                         fix: false,
                         filter: true
                     },
                     {
                         code: 'time_end',
                         label: 'label.PFANS2017VIEW_END',
-                        width: 130,
+                        width: 110,
+                        fix: false,
+                        filter: true
+                    },
+                    {
+                        code: 'worktime',
+                        label: 'label.PFANS2017VIEW_COUNTTIME',
+                        width: 140,
+                        fix: false,
+                        filter: true
+                    },
+                    {
+                        code: 'absenteeismam',
+                        label: 'label.PFANS2017VIEW_ABSENTEEISMAM',
+                        width: 140,
                         fix: false,
                         filter: true
                     },
@@ -172,6 +186,12 @@
                             }
                             if (response[j].time_end !== null && response[j].time_end !== "") {
                                 response[j].time_end = moment(response[j].time_end).format("HH:mm");
+                            }
+                            if(response[j].worktime === "0.00"){
+                                response[j].worktime = "";
+                            }
+                            if(response[j].absenteeismam === "0.00"){
+                                response[j].absenteeismam = "";
                             }
                         }
                         this.data = response;

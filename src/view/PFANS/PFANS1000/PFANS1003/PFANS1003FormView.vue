@@ -51,7 +51,7 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1004VIEW_CAREERPLAN')"   prop="careerplan">
-                <span style="margin-right: 1vw ">{{$t('label.PFANS1004VIEW_OUTER')}}</span>`
+                <span style="margin-right: 1vw ">{{$t('label.PFANS1004VIEW_OUTER')}}</span>
                 <el-switch
                   :disabled="!disabled"
                   v-model="form.careerplan"

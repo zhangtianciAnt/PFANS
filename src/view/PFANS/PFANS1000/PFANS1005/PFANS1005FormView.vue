@@ -34,7 +34,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.application_date')" prop="application_date">
-                <el-date-picker :disabled="!disable" style="width:20vw"
+                <el-date-picker :disabled="true" style="width:20vw"
                                 type="date" v-model="form.application_date"></el-date-picker>
               </el-form-item>
             </el-col>
@@ -255,7 +255,7 @@
                     if (index === 0) {
                         sums[index] = this.$t('label.PFANS1012VIEW_ACCOUNT');
                         return;
-                    } else if ([1,5].includes(index)) {
+                    } else if ([1,2,5].includes(index)) {
                         sums[index] = "-";
                         return;
                     }

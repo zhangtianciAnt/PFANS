@@ -73,9 +73,9 @@
             </el-col>
           </el-row>
           <el-row>
-            <el-col :span="12">
+            <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2003FORMVIEW_WHETHERENTRY')" prop="whetherentry">
-                <span style="margin-right: 1vw ">{{$t('label.no')}}</span>`
+                <span style="margin-right: 1vw ">{{$t('label.no')}}</span>
                 <el-switch :disabled="!disable"
                            @change="changewhetherentry"
                            active-value="0"
@@ -85,9 +85,9 @@
                 <span style="margin-left: 1vw ">{{$t('label.yes')}}</span>
               </el-form-item>
             </el-col>
-            <el-col :span="12">
+            <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2003FORMVIEW_RESULT')">
-                <span style="margin-right: 1vw ">{{$t('label.no')}}</span>`
+                <span style="margin-right: 1vw ">{{$t('label.no')}}</span>
                 <el-switch :disabled="!result1"
                            active-value="0"
                            inactive-value="1"

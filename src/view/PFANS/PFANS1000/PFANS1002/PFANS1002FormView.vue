@@ -179,7 +179,7 @@
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1002VIEW_ABROADBUSINESS')">
-                      <span style="margin-right: 1vw ">{{$t('label.PFANSUSERFORMVIEW_NO')}}</span>`
+                      <span style="margin-right: 1vw ">{{$t('label.no')}}</span>
                       <el-switch
                         :disabled="!disable"
                         active-value="1"
@@ -187,7 +187,7 @@
                         v-model="form.abroadbusiness"
                       >
                       </el-switch>
-                      <span style="margin-left: 1vw ">{{$t('label.PFANSUSERFORMVIEW_YES')}}</span>
+                      <span style="margin-left: 1vw ">{{$t('label.yes')}}</span>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -414,7 +414,7 @@
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1002VIEW_RECRUITMENT')" prop="recruitment">
-                      <span style="margin-right: 1vw ">{{$t('label.no')}}</span>`
+                      <span style="margin-right: 1vw ">{{$t('label.PFANSUSERFORMVIEW_NO')}}</span>
                       <el-switch
                         :disabled="!disable"
                         active-value="1"
@@ -422,7 +422,7 @@
                         v-model="form.recruitment"
                       >
                       </el-switch>
-                      <span style="margin-left: 1vw ">{{$t('label.yes')}}</span>
+                      <span style="margin-left: 1vw ">{{$t('label.PFANSUSERFORMVIEW_YES')}}</span>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -481,7 +481,7 @@
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1002VIEW_ACCOMMODATIONEXPENSES')" prop="accommodationexpenses">
-                      <span style="margin-right: 1vw ">{{$t('label.no')}}</span>`
+                      <span style="margin-right: 1vw ">{{$t('label.no')}}</span>
                       <el-switch
                         :disabled="!disable"
                         active-value="1"
@@ -601,7 +601,7 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1002VIEW_PROVISION')" prop="provision">
-                      <span style="margin-right: 1vw ">{{$t('label.no')}}</span>
+                      <span style="margin-right: 1vw ">{{$t('label.PFANSUSERFORMVIEW_NO')}}</span>
                       <el-switch
                         :disabled="!disable"
                         v-model="form.provision"
@@ -610,7 +610,7 @@
                         @change="getprovision"
                       >
                       </el-switch>
-                      <span style="margin-left: 1vw ">{{$t('label.yes')}}</span>
+                      <span style="margin-left: 1vw ">{{$t('label.PFANSUSERFORMVIEW_YES')}}</span>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -646,7 +646,7 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1002VIEW_PASSENGERS1')" prop="passengers">
-                      <span style="margin-right: 1vw ">{{$t('label.no')}}</span>
+                      <span style="margin-right: 1vw ">{{$t('label.PFANSUSERFORMVIEW_NO')}}</span>
                       <el-switch
                         :disabled="!disable"
                         v-model="form.passengers"
@@ -655,7 +655,7 @@
                         @change="getpassengers1"
                       >
                       </el-switch>
-                      <span style="margin-left: 1vw ">{{$t('label.yes')}}</span>
+                      <span style="margin-left: 1vw ">{{$t('label.PFANSUSERFORMVIEW_YES')}}</span>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -673,7 +673,7 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1002VIEW_EXTERNAL')" prop="external">
-                      <span style="margin-right: 1vw ">{{$t('label.no')}}</span>
+                      <span style="margin-right: 1vw ">{{$t('label.PFANSUSERFORMVIEW_NO')}}</span>
                       <el-switch
                         :disabled="!disable"
                         v-model="form.external"
@@ -682,7 +682,7 @@
                         @change="getexternal"
                       >
                       </el-switch>
-                      <span style="margin-left: 1vw ">{{$t('label.yes')}}</span>
+                      <span style="margin-left: 1vw ">{{$t('label.PFANSUSERFORMVIEW_YES')}}</span>
                     </el-form-item>
                   </el-col>
                   <el-col :span="16">
