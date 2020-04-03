@@ -552,7 +552,6 @@
         this.$store
           .dispatch('PFANS1025Store/selectById', {'award_id': this.$route.params._id})
           .then(response => {
-            debugger
             this.form = response.award;
             if(getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)){
                   this.budgetcodingcheck = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
@@ -569,7 +568,7 @@
               this.form.claimdatetimeEnd = this.form.claimdatetime.slice(this.form.claimdatetime.length-10);
             }
             if (response.awardDetail.length > 0) {
-              this.tableT = response.awardDetail
+              this.tableT = response.awardDetail;
               for (var i = 0; i < this.tableT.length; i++) {
                 this.orglist=this.tableT[i].depart;
               }

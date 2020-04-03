@@ -1,4 +1,4 @@
-import { inserttodo,getList,update } from './PFANS2007Api'
+import { inserttodo,getList,update,download } from './PFANS2007Api'
 
   const PFANS2007Store = {
     namespaced: true,
@@ -13,6 +13,15 @@ import { inserttodo,getList,update } from './PFANS2007Api'
             } else {
               reject(response.message)
             }
+          }).catch(error => {
+            reject(error);
+          })
+        })
+      },
+      download({commit}, data) {
+        return new Promise((resolve, reject) => {
+          download(data).then(response => {
+            resolve(response);
           }).catch(error => {
             reject(error);
           })

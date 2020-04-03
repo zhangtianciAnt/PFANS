@@ -1973,12 +1973,12 @@
           } else if (this.form.contracttype === 'HT014004') {
             o.maketype = '4';
           }
-          if (this.form.tabledata[i].state === this.$t('label.PFANS8008FORMVIEW_EFFECTIVE')) {
+          if (this.form.tabledata[i].state === '1') {
             let letclaimamount = 0;
             for (let j = 0; j < this.form.tableclaimtype.length; j++) {
               letclaimamount = letclaimamount + Number(this.form.tableclaimtype[j].claimamount);
             }
-            o.state = '1';
+            o.state = this.$t('label.PFANS8008FORMVIEW_EFFECTIVE');
             o.claimamount = letclaimamount;
           }
           if (Array.isArray(this.form.tabledata[i].conchinese)) {

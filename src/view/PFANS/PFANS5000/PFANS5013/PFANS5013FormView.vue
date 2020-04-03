@@ -1111,6 +1111,10 @@
                             for (var i = 0; i < response.prosystem.length; i++) {
                                 if (response.prosystem[i].type === '0') {
                                   flag1 = true;
+                                    let position=''
+                                    if(response.prosystem[i].position){
+                                        position = getDictionaryInfo(response.prosystem[i].position).value1
+                                    }
                                     tableb.push({
                                         name: response.prosystem[i].prosystem,
                                         comproject_id: response.prosystem[i].comproject_id,
@@ -1118,13 +1122,18 @@
                                         number: response.prosystem[i].number,
                                         company: response.prosystem[i].company,
                                         name: response.prosystem[i].name,
-                                        position: response.prosystem[i].position,
+                                        // position: response.prosystem[i].position,
+                                        position: position,
                                         admissiontime: response.prosystem[i].admissiontime,
                                         exittime: response.prosystem[i].exittime,
                                         rowindex: response.prosystem[i].rowindex,
                                     });
                                 } else if (response.prosystem[i].type === '1') {
                                   flag2 = true;
+                                  let position=''
+                                  if(response.prosystem[i].position){
+                                      position = getDictionaryInfo(response.prosystem[i].position).value1
+                                  }
                                     tablec.push({
                                         name: response.prosystem[i].prosystem,
                                         comproject_id: response.prosystem[i].comproject_id,
@@ -1132,7 +1141,9 @@
                                         number: response.prosystem[i].number,
                                         company: response.prosystem[i].company,
                                         name: response.prosystem[i].name,
-                                        position: response.prosystem[i].position,
+                                        // position: response.prosystem[i].position,
+                                        position: position,
+
                                         admissiontime: response.prosystem[i].admissiontime,
                                         exittime: response.prosystem[i].exittime,
                                         rowindex: response.prosystem[i].rowindex,

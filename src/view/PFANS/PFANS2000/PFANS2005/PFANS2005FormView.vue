@@ -12,7 +12,7 @@
           <el-tabs @tab-click="handleClick" v-model="activeName" type="border-card">
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_GZ')" name="first">
               <div style="height: calc(100vh - 230px - 2rem);width: 100%">
-                <pl-table
+                <plx-table-grid 
                   :datas="totaldata"
                   :element-loading-text="$t('normal.waiting')"
                   header-cell-class-name="sub_bg_color_blue"
@@ -24,17 +24,16 @@
                   stripe
                   border
                   use-virtual
-                  big-data-checkbox
                   style="width: 100%"
                   cell-class-name="row_height_left"
                   :row-height="40"
                 >
-                  <pl-table-column
+                  <plx-table-column
                     prop="basicinfor1"
                     :label="$t('label.PFANS2006VIEW_BASICINFOR1')"
                     align="center"
                   >
-                    <pl-table-column
+                    <plx-table-column
                       prop="no"
                       :label="$t('label.PFANS2006VIEW_NO')"
                       width="50"
@@ -43,258 +42,258 @@
                       <template slot-scope="scope">
                         <span style="color:blue">{{ scope.row.no }}</span>
                       </template>
-                    </pl-table-column>
-                    <pl-table-column
+                    </plx-table-column>
+                    <plx-table-column
                       prop="department_name"
                       :label="$t('label.PFANS2006VIEW_CLUB')"
                       width="300"
                       align="center"
-                    ></pl-table-column>
-                    <pl-table-column
+                    ></plx-table-column>
+                    <plx-table-column
                       prop="user_name"
                       :label="$t('label.PFANS2006VIEW_LASTNAME')"
                       width="150"
                       align="center"
-                    ></pl-table-column>
-                    <pl-table-column
+                    ></plx-table-column>
+                    <plx-table-column
                       prop="workdate"
                       :label="$t('label.PFANS2006VIEW_JOINED')"
                       width="150"
                       align="center"
-                    ></pl-table-column>
-                    <pl-table-column
+                    ></plx-table-column>
+                    <plx-table-column
                       prop="sex"
                       :label="$t('label.PFANS2006VIEW_SEX')"
                       width="70"
                       align="center"
-                    ></pl-table-column>
-                    <pl-table-column
+                    ></plx-table-column>
+                    <plx-table-column
                       prop="onlychild"
                       :label="$t('label.PFANS2006VIEW_SINGLECHILD')"
                       width="120"
                       align="center"
-                    ></pl-table-column>
-                    <pl-table-column
+                    ></plx-table-column>
+                    <plx-table-column
                       prop="type"
                       :label="$t('label.PFANS2006VIEW_ENTRYTYPE')"
                       width="130"
                       align="center"
-                    ></pl-table-column>
-                    <pl-table-column
+                    ></plx-table-column>
+                    <plx-table-column
                       prop="bonus"
                       :label="$t('label.PFANS2006VIEW_SCHOLARSHIP')"
                       width="150"
                       align="center"
-                    ></pl-table-column>
-                    <pl-table-column
+                    ></plx-table-column>
+                    <plx-table-column
                       prop="sociology"
                       :label="$t('label.PFANS2006VIEW_SOCIETY')"
                       width="150"
                       align="center"
-                    ></pl-table-column>
-                    <pl-table-column
+                    ></plx-table-column>
+                    <plx-table-column
                       prop="registered"
                       :label="$t('label.PFANS2006VIEW_REGISTER')"
                       width="100"
                       align="center"
-                    ></pl-table-column>
-                  </pl-table-column>
+                    ></plx-table-column>
+                  </plx-table-column>
 
-                  <pl-table-column
+                  <plx-table-column
                     :label="$t('label.PFANS2005FORMVIEW_BASICINFOR2')"
                     align="center"
                   >
-                    <pl-table-column
+                    <plx-table-column
                       prop="pension"
                       :label="$t('label.PFANS2005FORMVIEW_PENSIONBASE')"
                       width="220"
                       align="center"
-                    ></pl-table-column>
-                    <pl-table-column
+                    ></plx-table-column>
+                    <plx-table-column
                       prop="medical"
                       :label="$t('label.PFANS2005FORMVIEW_MEDICALCARE')"
                       width="150"
                       align="center"
-                    ></pl-table-column>
-                    <pl-table-column
+                    ></plx-table-column>
+                    <plx-table-column
                       prop="accumulation"
                       :label="$t('label.PFANS2005FORMVIEW_HOUSINGFUNDBASE')"
                       width="150"
                       align="center"
-                    ></pl-table-column>
-                    <pl-table-column
+                    ></plx-table-column>
+                    <plx-table-column
                       prop="lastmonthbasic"
                       :label="$t('label.PFANS2005FORMVIEW_LASTMONTHBASIC')"
                       width="150"
                       align="center"
-                    ></pl-table-column>
-                    <pl-table-column
+                    ></plx-table-column>
+                    <plx-table-column
                       prop="lastmonthduty"
                       :label="$t('label.PFANS2005FORMVIEW_LASTMONTHDUTY')"
                       width="150"
                       align="center"
-                    ></pl-table-column>
-                    <pl-table-column
+                    ></plx-table-column>
+                    <plx-table-column
                       prop="basethismonthbasic"
                       :label="$t('label.PFANS2005FORMVIEW_BASETHISMONTHBASIC')"
                       width="150"
                       align="center"
-                    ></pl-table-column>
-                    <pl-table-column
+                    ></plx-table-column>
+                    <plx-table-column
                       prop="thismonthduty"
                       :label="$t('label.PFANS2005FORMVIEW_THISMONTHDUTY')"
                       width="150"
                       align="center"
-                    ></pl-table-column>
-                    <!-- <pl-table-column
+                    ></plx-table-column>
+                    <!-- <plx-table-column
                       prop="lastmonth"
                       :label="$t('label.PFANS2005FORMVIEW_LASTMONTHPAYMENT')"
                       width="150"
                       align="center"
-                    ></pl-table-column>
-                    <pl-table-column
+                    ></plx-table-column>
+                    <plx-table-column
                       prop="thismonth"
                       :label="$t('label.PFANS2005FORMVIEW_MONTHPAYMENT')"
                       width="150"
                       align="center"
-                    ></pl-table-column>-->
-                    <pl-table-column prop="rnbasesalary" label="RN" width="150" align="center"></pl-table-column>
-                    <pl-table-column
+                    ></plx-table-column>-->
+                    <plx-table-column prop="rnbasesalary" label="RN" width="150" align="center"></plx-table-column>
+                    <plx-table-column
                       prop="birthrest"
                       :label="$t('label.PFANS2005FORMVIEW_BIRTHDAYREST')"
                       width="200"
                       align="center"
-                    ></pl-table-column>
-                    <pl-table-column
+                    ></plx-table-column>
+                    <plx-table-column
                       prop="thismonthbasicbasic"
                       :label="$t('label.PFANS2006VIEW_THISMONTHBASICBASIC')"
                       width="200"
                       align="center"
-                    ></pl-table-column>
-                    <pl-table-column
+                    ></plx-table-column>
+                    <plx-table-column
                       prop="thismonthbasic"
                       :label="$t('label.PFANS2005FORMVIEW_MONTHLYPOSTALTEMPORARY')"
                       width="200"
                       align="center"
-                    ></pl-table-column>
-                    <pl-table-column
+                    ></plx-table-column>
+                    <plx-table-column
                       prop="shortillness"
                       :label="$t('label.PFANS2005FORMVIEW_SHORTDURATIONTIME')"
                       width="150"
                       align="center"
-                    ></pl-table-column>
-                    <pl-table-column
+                    ></plx-table-column>
+                    <plx-table-column
                       prop="longillness"
                       :label="$t('label.PFANS2005FORMVIEW_LONGDURATIONTIME')"
                       width="150"
                       align="center"
-                    ></pl-table-column>
-                    <pl-table-column
+                    ></plx-table-column>
+                    <plx-table-column
                       prop="owediligence"
                       :label="$t('label.PFANS2005FORMVIEW_ABSENCETIME')"
                       width="150"
                       align="center"
-                    ></pl-table-column>
-                    <pl-table-column
+                    ></plx-table-column>
+                    <plx-table-column
                       prop="owingcontrol"
                       :label="$t('label.PFANS2005FORMVIEW_ABSENCEOFWORK')"
                       width="150"
                       align="center"
-                    ></pl-table-column>
-                  </pl-table-column>
+                    ></plx-table-column>
+                  </plx-table-column>
 
-                  <pl-table-column :label="$t('label.PFANS2006VIEW_TAX')" align="center">
-                    <!-- <pl-table-column
+                  <plx-table-column :label="$t('label.PFANS2006VIEW_TAX')" align="center">
+                    <!-- <plx-table-column
                       prop="actualamount"
                       :label="$t('label.PFANS2006VIEW_BASICSALARY')"
                       width="150"
                       align="center"
-                    ></pl-table-column>-->
-                    <pl-table-column
+                    ></plx-table-column>-->
+                    <plx-table-column
                       prop="thismonthbasicgei"
                       :label="$t('label.PFANS2006VIEW_THISMONTHBASICGEI')"
                       width="150"
                       align="center"
-                    ></pl-table-column>
-                    <pl-table-column
+                    ></plx-table-column>
+                    <plx-table-column
                       prop="thismonthdutygei"
                       :label="$t('label.PFANS2006VIEW_THISMONTHDUTYGEI')"
                       width="150"
                       align="center"
-                    ></pl-table-column>
-                    <!-- <pl-table-column
+                    ></plx-table-column>
+                    <!-- <plx-table-column
                       prop="supplement"
                       :label="$t('label.PFANS2006VIEW_REIMBURSEMENT')"
                       width="200"
                       align="center"
-                    ></pl-table-column>-->
-                    <!-- <pl-table-column
+                    ></plx-table-column>-->
+                    <!-- <plx-table-column
                       prop="telephonesubsidy"
                       :label="$t('label.PFANS2006VIEW_TELEPHONE')"
                       width="150"
                       align="center"
-                    ></pl-table-column>-->
-                    <!-- <pl-table-column
+                    ></plx-table-column>-->
+                    <!-- <plx-table-column
                       prop="housingsubsidy"
                       :label="$t('label.PFANS2006VIEW_RESIDENTIAL')"
                       width="150"
                       align="center"
-                    ></pl-table-column>-->
-                    <!-- <pl-table-column
+                    ></plx-table-column>-->
+                    <!-- <plx-table-column
                       prop="lunchsubsidy"
                       :label="$t('label.PFANS2006VIEW_AFTERNOON')"
                       width="150"
                       align="center"
-                    ></pl-table-column>-->
-                    <pl-table-column
+                    ></plx-table-column>-->
+                    <plx-table-column
                       prop="overtimesubsidy"
                       :label="$t('label.PFANS2006VIEW_KASUKE')"
                       width="150"
                       align="center"
-                    ></pl-table-column>
-                    <pl-table-column
+                    ></plx-table-column>
+                    <plx-table-column
                       prop="ykbz"
                       :label="$t('label.PFANS2006VIEW_YKBZ')"
                       width="150"
                       align="center"
-                    ></pl-table-column>
-                    <!-- <pl-table-column
+                    ></plx-table-column>
+                    <!-- <plx-table-column
                       prop="other1"
                       :label="$t('label.PFANS2006VIEW_OTHER1')"
                       width="150"
                       align="center"
-                    ></pl-table-column>-->
-                    <pl-table-column
+                    ></plx-table-column>-->
+                    <plx-table-column
                       prop="total1"
                       :label="$t('label.PFANS2006VIEW_SUBTOTAL1')"
                       width="150"
                       align="center"
-                    ></pl-table-column>
-                    <!-- <pl-table-column
+                    ></plx-table-column>
+                    <!-- <plx-table-column
                       prop="traffic"
                       :label="$t('label.PFANS2006VIEW_TRANSPORTATION')"
                       width="150"
                       align="center"
-                    ></pl-table-column>-->
-                    <!-- <pl-table-column
+                    ></plx-table-column>-->
+                    <!-- <plx-table-column
                       prop="washingtheory"
                       :label="$t('label.PFANS2006VIEW_WOMANWASHING')"
                       width="150"
                       align="center"
-                    ></pl-table-column>-->
-                    <pl-table-column
+                    ></plx-table-column>-->
+                    <plx-table-column
                       prop="other2"
                       :label="$t('label.PFANS2006VIEW_OTHER2')"
                       width="150"
                       align="center"
-                    ></pl-table-column>
-                    <pl-table-column
+                    ></plx-table-column>
+                    <plx-table-column
                       prop="appreciation"
                       :label="$t('label.PFANS2006VIEW_MONTHLYBONUS')"
                       width="150"
                       align="center"
-                    ></pl-table-column>
-                    <pl-table-column
+                    ></plx-table-column>
+                    <plx-table-column
                       prop="other3"
                       :label="$t('label.PFANS2006VIEW_OTHER3')"
                       width="150"
@@ -309,78 +308,78 @@
                           style="width:7rem"
                         ></el-input-number>
                       </template>
-                    </pl-table-column>
-                    <pl-table-column
+                    </plx-table-column>
+                    <plx-table-column
                       prop="total2"
                       :label="$t('label.PFANS2006VIEW_SUBTOTAL2')"
                       width="150"
                       align="center"
-                    ></pl-table-column>
-                  </pl-table-column>
+                    ></plx-table-column>
+                  </plx-table-column>
 
-                  <pl-table-column
+                  <plx-table-column
                     prop="taxestotal"
                     :label="$t('label.PFANS2006VIEW_INDUSTRY')"
                     width="150"
                     align="center"
-                  ></pl-table-column>
+                  ></plx-table-column>
 
-                  <pl-table-column :label="$t('label.PFANS2005FORMVIEW_MS')" align="center">
-                    <pl-table-column
+                  <plx-table-column :label="$t('label.PFANS2005FORMVIEW_MS')" align="center">
+                    <plx-table-column
                       prop="heating"
                       :label="$t('label.PFANS2006VIEW_HEATING')"
                       width="150"
                       align="center"
-                    ></pl-table-column>
-                    <pl-table-column
+                    ></plx-table-column>
+                    <plx-table-column
                       prop="onlychildmoney"
                       :label="$t('label.PFANS2006VIEW_OLONECHILD')"
                       width="150"
                       align="center"
-                    ></pl-table-column>
-                    <pl-table-column
+                    ></plx-table-column>
+                    <plx-table-column
                       prop="total3"
                       :label="$t('label.PFANS2006VIEW_SUBTOTAL3')"
                       width="150"
                       align="center"
-                    ></pl-table-column>
-                  </pl-table-column>
+                    ></plx-table-column>
+                  </plx-table-column>
 
-                  <pl-table-column
+                  <plx-table-column
                     prop="totalwages"
                     :label="$t('label.PFANS2006VIEW_ARSENAL')"
                     width="150"
                     align="center"
-                  ></pl-table-column>
+                  ></plx-table-column>
 
-                  <pl-table-column :label="$t('label.PFANS2006VIEW_SECURITY')" align="center">
-                    <pl-table-column
+                  <plx-table-column :label="$t('label.PFANS2006VIEW_SECURITY')" align="center">
+                    <plx-table-column
                       prop="endowmentinsurance"
                       :label="$t('label.PFANS2006VIEW_OLD')"
                       width="150"
                       align="center"
-                    ></pl-table-column>
-                    <pl-table-column
+                    ></plx-table-column>
+                    <plx-table-column
                       prop="medicalinsurance"
                       :label="$t('label.PFANS2006VIEW_MEDICAL')"
                       width="150"
                       align="center"
-                    ></pl-table-column>
-                    <pl-table-column
+                    ></plx-table-column>
+                    <plx-table-column
                       prop="unemploymentinsurance"
                       :label="$t('label.PFANS2006VIEW_UNEMPLOYMENT')"
                       width="150"
                       align="center"
-                    ></pl-table-column>
-                  </pl-table-column>
+                    ></plx-table-column>
+                  </plx-table-column>
 
-                  <pl-table-column
+                  <plx-table-column
                     prop="socialinsurance"
                     :label="$t('label.PFANS2006VIEW_SOCIALSECURITY')"
                     width="150"
                     align="center"
-                  ></pl-table-column>
-                  <pl-table-column
+                  ></plx-table-column>
+                  <plx-table-column
                     prop="adjustment"
                     :label="$t('label.PFANS2005FORMVIEW_ADJUSTMENTNUMBER')"
                     width="150"
@@ -395,90 +394,90 @@
                         style="width:7rem"
                       ></el-input-number>
                     </template>
-                  </pl-table-column>
-                  <pl-table-column
+                  </plx-table-column>
+                  <plx-table-column
                     prop="accumulationfund"
                     :label="$t('label.PFANS2006VIEW_PUBLICMONEY')"
                     width="150"
                     align="center"
-                  ></pl-table-column>
-                  <pl-table-column
+                  ></plx-table-column>
+                  <plx-table-column
                     prop="disciplinarycontrol"
                     :label="$t('label.PFANS2006VIEW_SECURITYMON')"
                     width="150"
                     align="center"
-                  ></pl-table-column>
-                  <pl-table-column
+                  ></plx-table-column>
+                  <plx-table-column
                     prop="thismonthterm"
                     :label="$t('label.PFANS2006VIEW_EXCLUSIVE')"
                     width="150"
                     align="center"
-                  ></pl-table-column>
-                  <pl-table-column
+                  ></plx-table-column>
+                  <plx-table-column
                     prop="thismonthadditional"
                     :label="$t('label.PFANS2006VIEW_ACCUMULATED')"
                     width="150"
                     align="center"
-                  ></pl-table-column>
-                  <pl-table-column
+                  ></plx-table-column>
+                  <plx-table-column
                     prop="thismonthdutyfree"
                     :label="$t('label.PFANS2006VIEW_UNACCUMULATED')"
                     width="150"
                     align="center"
-                  ></pl-table-column>
-                  <pl-table-column
+                  ></plx-table-column>
+                  <plx-table-column
                     prop="lastdutyfree"
                     :label="$t('label.PFANS2006VIEW_ANNUAL')"
                     width="150"
                     align="center"
-                  ></pl-table-column>
+                  ></plx-table-column>
 
-                  <pl-table-column :label="$t('label.PFANS2006VIEW_ONLYTAX')" align="center">
-                    <pl-table-column
+                  <plx-table-column :label="$t('label.PFANS2006VIEW_ONLYTAX')" align="center">
+                    <plx-table-column
                       prop="housingmoneys"
                       :label="$t('label.PFANS2006VIEW_RESIDENTIALTAX')"
                       width="150"
                       align="center"
-                    ></pl-table-column>
-                    <pl-table-column
+                    ></plx-table-column>
+                    <plx-table-column
                       prop="other4"
                       :label="$t('label.PFANS2006VIEW_COMPANYBOSS')"
                       width="230"
                       align="center"
-                    ></pl-table-column>
-                    <pl-table-column
+                    ></plx-table-column>
+                    <plx-table-column
                       prop="other5"
                       :label="$t('label.PFANS2006VIEW_OTHER5')"
                       width="150"
                       align="center"
-                    ></pl-table-column>
-                  </pl-table-column>
+                    ></plx-table-column>
+                  </plx-table-column>
 
-                  <pl-table-column
+                  <plx-table-column
                     prop="shouldwages"
                     :label="$t('label.PFANS2006VIEW_RESPONSIBLE')"
                     width="150"
                     align="center"
-                  ></pl-table-column>
-                  <pl-table-column
+                  ></plx-table-column>
+                  <plx-table-column
                     prop="shouldcumulative"
                     :label="$t('label.PFANS2006VIEW_CUMULATIVE')"
                     width="150"
                     align="center"
-                  ></pl-table-column>
-                  <pl-table-column
+                  ></plx-table-column>
+                  <plx-table-column
                     prop="shouldpaytaxes"
                     :label="$t('label.PFANS2006VIEW_INCOME')"
                     width="150"
                     align="center"
-                  ></pl-table-column>
-                  <pl-table-column
+                  ></plx-table-column>
+                  <plx-table-column
                     prop="thismonthadjustment"
                     :label="$t('label.PFANS2006VIEW_THISMONTH')"
                     width="150"
                     align="center"
-                  ></pl-table-column>
-                  <pl-table-column
+                  ></plx-table-column>
+                  <plx-table-column
                     prop="thisadjustment"
                     :label="$t('label.PFANS2005FORMVIEW_ADJUSTMENTNUMBER')"
                     width="150"
@@ -493,69 +492,69 @@
                         style="width:7rem"
                       ></el-input-number>
                     </template>
-                  </pl-table-column>
-                  <pl-table-column
+                  </plx-table-column>
+                  <plx-table-column
                     prop="realwages"
                     :label="$t('label.PFANS2006VIEW_ACTUAL')"
                     width="150"
                     align="center"
-                  ></pl-table-column>
+                  ></plx-table-column>
 
-                  <pl-table-column
+                  <plx-table-column
                     :label="$t('label.PFANS2005FORMVIEW_COMPANYSUPPORT')"
                     align="center"
                   >
-                    <pl-table-column
+                    <plx-table-column
                       prop="comendowmentinsurance"
                       :label="$t('label.PFANS2006VIEW_OLD')"
                       width="150"
                       align="center"
-                    ></pl-table-column>
-                    <pl-table-column
+                    ></plx-table-column>
+                    <plx-table-column
                       prop="commedicalinsurance"
                       :label="$t('label.PFANS2006VIEW_MEDICAL')"
                       width="150"
                       align="center"
-                    ></pl-table-column>
-                    <pl-table-column
+                    ></plx-table-column>
+                    <plx-table-column
                       prop="comunemploymentinsurance"
                       :label="$t('label.PFANS2006VIEW_UNEMPLOYMENT')"
                       width="150"
                       align="center"
-                    ></pl-table-column>
-                    <pl-table-column
+                    ></plx-table-column>
+                    <plx-table-column
                       prop="cominjuryinsurance"
                       :label="$t('label.PFANS2005FORMVIEW_EMPLOYMENTINJURYINSURANCE')"
                       width="150"
                       align="center"
-                    ></pl-table-column>
-                    <pl-table-column
+                    ></plx-table-column>
+                    <plx-table-column
                       prop="combirthinsurance"
                       :label="$t('label.PFANS2005FORMVIEW_COMBIRTHINSURANCE')"
                       width="150"
                       align="center"
-                    ></pl-table-column>
-                    <pl-table-column
+                    ></plx-table-column>
+                    <plx-table-column
                       prop="comheating"
                       :label="$t('label.PFANS2005FORMVIEW_HEATINGCOST')"
                       width="150"
                       align="center"
-                    ></pl-table-column>
-                    <pl-table-column
+                    ></plx-table-column>
+                    <plx-table-column
                       prop="comaccumulationfund"
                       :label="$t('label.PFANS2005FORMVIEW_HOUSINGPROVIDENTFUND')"
                       width="150"
                       align="center"
-                    ></pl-table-column>
-                    <pl-table-column
+                    ></plx-table-column>
+                    <plx-table-column
                       prop="total"
                       :label="$t('label.PFANS2005FORMVIEW_TOTAL')"
                       width="150"
                       align="center"
-                    ></pl-table-column>
-                  </pl-table-column>
+                    ></plx-table-column>
+                  </plx-table-column>
 
-                  <pl-table-column
+                  <plx-table-column
                     prop="totaladjustment"
                     :label="$t('label.PFANS2005FORMVIEW_ADJUSTMENTNUMBER')"
                     width="150"
@@ -570,44 +569,44 @@
                         style="width:7rem"
                       ></el-input-number>
                     </template>
-                  </pl-table-column>
-                  <pl-table-column
+                  </plx-table-column>
+                  <plx-table-column
                     prop="labourunionbase"
                     :label="$t('label.PFANS2005FORMVIEW_LABORUNIONFUNDBASE')"
                     width="150"
                     align="center"
-                  ></pl-table-column>
-                  <pl-table-column
+                  ></plx-table-column>
+                  <plx-table-column
                     prop="labourunionfunds"
                     :label="$t('label.PFANS2009VIEW_INDUSTRIALPARTY')"
                     width="150"
                     align="center"
-                  ></pl-table-column>
-                  <pl-table-column
+                  ></plx-table-column>
+                  <plx-table-column
                     prop="comtotalwages"
                     :label="$t('label.PFANS2005FORMVIEW_TOTALWAGES')"
                     width="150"
                     align="center"
-                  ></pl-table-column>
-                  <pl-table-column
+                  ></plx-table-column>
+                  <plx-table-column
                     prop="njjy"
                     :label="$t('label.PFANS2005FORMVIEW_NJJY')"
                     width="150"
                     align="center"
-                  ></pl-table-column>
-                  <pl-table-column
+                  ></plx-table-column>
+                  <plx-table-column
                     prop="bonusmoney"
                     :label="$t('label.PFANS2005FORMVIEW_GAUGE')"
                     width="150"
                     align="center"
-                  ></pl-table-column>
-                  <pl-table-column
+                  ></plx-table-column>
+                  <plx-table-column
                     prop="totalbonus"
                     :label="$t('label.PFANS2005FORMVIEW_TOTALGAUGE')"
                     width="150"
                     align="center"
-                  ></pl-table-column>
-                  <pl-table-column
+                  ></plx-table-column>
+                  <plx-table-column
                     prop="other6"
                     :label="$t('label.PFANS2005FORMVIEW_OTHER6')"
                     width="150"
@@ -622,27 +621,9 @@
                         style="width:7rem"
                       ></el-input-number>
                     </template>
-                  </pl-table-column>
-                </pl-table>
+                  </plx-table-column>
+                </plx-table-grid>
               </div>
-              <!-- <div class="pagination-container" style="padding-top: 2rem">
-                <el-pagination
-                  :current-page.sync="listQueryListWages.page"
-                  :page-size="listQueryListWages.limit"
-                  :page-sizes="[5,10,20,30,50]"
-                  :total="total_wages"
-                  @current-change="handleCurrentChangeWages"
-                  @size-change="handleSizeChangeWages"
-                  layout="slot,sizes, ->,prev, pager, next, jumper"
-                >
-                  <slot>
-                    <span
-                      class="front Content_front"
-                      style="padding-right: 0.5rem;font-weight: 400"
-                    >{{$t('table.pagesize')}}</span>
-                  </slot>
-                </el-pagination>
-              </div>-->
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_JS')" name="second">
               <el-table

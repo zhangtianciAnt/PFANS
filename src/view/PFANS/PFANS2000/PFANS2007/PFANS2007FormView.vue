@@ -39,6 +39,26 @@
           </div>
         </div>
       </el-dialog>
+          <el-dialog :visible.sync="pop_download" width="50%" destroy-on-close>
+            <el-table
+              :data="downtypes"
+              style="width: 100%">
+              <el-table-column
+                prop="name"
+                :label="$t('label.ASSETS1001VIEW_FILENAME')"
+              >
+              </el-table-column>
+
+              <el-table-column :label="$t('label.operation')">
+                <template slot-scope="scope">
+                  <el-button
+                    size="mini"
+                    @click="handleDownload(scope.row)"
+                  >{{$t('button.download2')}}</el-button>
+                </template>
+              </el-table-column>
+            </el-table>
+          </el-dialog>
           <el-row style="padding-bottom: 2%">
             <el-col :span="8">
               <el-date-picker
@@ -180,6 +200,7 @@
                 },
                 total: 0,
                 baseInfo: {},
+                pop_download: false,
                 years: moment(new Date()).format("YYYY"),
                 daoru: false,
                 loading: false,
@@ -229,6 +250,12 @@
                     disabled: false,
                     icon: "el-icon-check"
                   },
+                  {
+                    key: 'export2',
+                    name: 'button.download2',
+                    disabled: false,
+                    icon: 'el-icon-download'
+                  },
                 ],
               rowid: '',
               row : 'bonussend_id'
@@ -238,7 +265,30 @@
           // this.getList();
           this.getList(this.years);
         },
+      computed: {
+        downtypes(){
+          return [
+            {name: this.$t('menu.PFANS2007'), type: 0}
+          ]
+        }
+      },
         methods: {
+          handleDownload(row) {
+            this.loading = true;
+            this.$store
+              .dispatch('PFANS2007Store/download', {'type': row.type})
+              .then(response => {
+                this.loading = false;
+              })
+              .catch(error => {
+                Message({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000
+                });
+                this.loading = false;
+              })
+          },
           setdisabled(val){
             if(this.$route.params.disabled){
               this.disabled = val;
@@ -423,6 +473,9 @@
             buttonClick(val) {
                       if (val === 'save') {
                            this.update();
+                        }
+                      if (val === 'export2') {
+                           this.pop_download = true;
                         }
                       if (val === 'deliver') {
                         this.loading = true;
