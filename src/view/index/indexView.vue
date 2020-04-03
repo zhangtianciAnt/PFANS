@@ -99,14 +99,14 @@
                 <span style="font-size: 0.85rem">{{$t('title.PFANS5001VIEW')}}</span>
               </el-row>
             </el-col>
-            <el-col :span="3"  style="cursor: pointer">
-              <el-row style="text-align: center">
-                <img :src="png6" style="width: 50%" @click="submitForm(6)">
-              </el-row>
-              <el-row style="text-align: center">
-                <span style="font-size: 0.85rem">{{$t('title.PFANS2020VIEW')}}</span>
-              </el-row>
-            </el-col>
+            <!--<el-col :span="3"  style="cursor: pointer">-->
+              <!--<el-row style="text-align: center">-->
+                <!--<img :src="png6" style="width: 50%" @click="submitForm(6)">-->
+              <!--</el-row>-->
+              <!--<el-row style="text-align: center">-->
+                <!--<span style="font-size: 0.85rem">{{$t('title.PFANS2020VIEW')}}</span>-->
+              <!--</el-row>-->
+            <!--</el-col>-->
             <el-col :span="3"  style="cursor: pointer">
               <el-row style="text-align: center">
                 <img :src="png7" style="width: 50%" @click="submitForm(7)">
