@@ -1,5 +1,4 @@
 import {getCustomerInfo,getExpatriatesinfor,getExternal,insert,update,getOne,getAll} from '../PFANS1038/PFANS1038Api';
-
 const PFANS1038Store = {
   namespaced: true,
   state: {},
@@ -85,7 +84,8 @@ const PFANS1038Store = {
           reject(error);
         })
       })
-    },getAll() {
+    },
+    getAll() {
       return new Promise((resolve, reject) => {
         getAll().then(response => {
           if (response.code === 0) {
@@ -94,11 +94,10 @@ const PFANS1038Store = {
             reject(response.message)
           }
         }).catch(error => {
-          console.log(error)
           reject(error);
         })
       })
-    }
+    },
   }
 }
 

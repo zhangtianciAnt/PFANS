@@ -426,7 +426,7 @@
           .dispatch('PFANS1021Store/selectById', {"securityid": this.$route.params._id})
           .then(response => {
               this.form = response.security;
-              let rst = getOrgInfoByUserId(response.holiday.user_id);
+              let rst = getOrgInfoByUserId(response.security.user_id);
               if(rst){
                   this.center_id = rst.centerNmae;
                   this.group_id= rst.groupNmae;

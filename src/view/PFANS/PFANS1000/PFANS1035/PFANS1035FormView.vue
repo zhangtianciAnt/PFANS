@@ -260,7 +260,7 @@
                 </el-row>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1002VIEW_PLANTYPE')" prop="plantype" v-if="show2">
+                    <el-form-item :label="$t('label.PFANS1004VIEW_BUSINESSPLANTYPE')" prop="plantype" v-if="show2">
                       <dicselect
                         style="width:20vw"
                         :disabled="!disable"
@@ -519,7 +519,7 @@
         disabled: false,
         code1: 'PJ018',
         code2: 'PG002',
-        code3: 'PJ138',
+        code3: 'PR002',
         code4: 'PR003',
         code5: 'PJ019',
         code6: 'PJ035',
@@ -810,7 +810,7 @@
               this.show2 = false;
               this.show3 = false;
             }
-            if (this.form.plantype === 'PR002005') {
+            if (this.form.plantype === 'PR002006') {
               this.show3 = true;
             } else {
               this.show3 = false;
@@ -957,7 +957,7 @@
       },
       getplantype(val) {
         this.form.plantype = val;
-        if (val === 'PR002005') {
+        if (val === 'PR002006') {
           this.show3 = true;
         } else {
           this.show3 = false;

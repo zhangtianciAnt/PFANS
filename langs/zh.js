@@ -8,7 +8,7 @@ module.exports = {
     confirmbutton: '登录',
     error_001: '请输入最少6位密码',
     error_002: '请输入密码',
-    error_003: '请输入手机号',
+    error_003: '请输入账号',
     error_004: '格式不正确',
     error_005: '该账号不存在',
   },
