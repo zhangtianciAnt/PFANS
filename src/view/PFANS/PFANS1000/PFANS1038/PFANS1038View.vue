@@ -126,7 +126,6 @@
             this.$store
                 .dispatch("PFANS1038Store/getAll")
                 .then(response => {
-                    debugger
                     this.loading = false;
                     let userinfo = "";
                     let data = [];
