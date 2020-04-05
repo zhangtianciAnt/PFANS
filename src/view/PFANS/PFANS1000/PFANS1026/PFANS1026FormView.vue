@@ -1261,16 +1261,26 @@
     },
     mounted() {
       this.contractnumbercount = this.$route.params.contractnumbercount;
-        let option1 = {};
-        option1.name = getDictionaryInfo('PG019001').value1;
-        option1.code = 'PG019001';
-        option1.value = getDictionaryInfo('PG019001').value4;
-        let option2 = {};
-        option2.name = getDictionaryInfo('PG019003').value1;
-        option2.code = 'PG019003';
-        option2.value = getDictionaryInfo('PG019003').value4;
-        this.options.push(option1);
-        this.options.push(option2);
+      let option1 = {};
+      option1.name = getDictionaryInfo('PG019001').value1;
+      option1.code = 'PG019001';
+      option1.value = getDictionaryInfo('PG019001').value1;
+      let option2 = {};
+      option2.name = getDictionaryInfo('PG019002').value1;
+      option2.code = 'PG019002';
+      option2.value = getDictionaryInfo('PG019002').value1;
+      let option3 = {};
+      option3.name = getDictionaryInfo('PG019003').value1;
+      option3.code = 'PG019003';
+      option3.value = getDictionaryInfo('PG019003').value1;
+      let option4 = {};
+      option4.name = getDictionaryInfo('PG019004').value1;
+      option4.code = 'PG019004';
+      option4.value = getDictionaryInfo('PG019004').value1;
+      this.options.push(option1);
+      this.options.push(option2);
+      this.options.push(option3);
+      this.options.push(option4);
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
@@ -1280,7 +1290,7 @@
             let contractnumbercount = response.contractnumbercount;
             if (contractapplication.length > 0) {
               for (let i = 0; i < contractapplication.length; i++) {
-                if(contractapplication[i].currencyposition !== '' && contractapplication[i].currencyposition !== null){
+                if (contractapplication[i].currencyposition !== '' && contractapplication[i].currencyposition !== null) {
                   contractapplication[i].currencyposition = getDictionaryInfo(contractapplication[i].currencyposition).value4;
                 }
                   this.show3 = true;

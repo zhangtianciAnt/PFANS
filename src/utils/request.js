@@ -15,34 +15,35 @@ service.interceptors.request.use(config => {
   config.headers['locale'] = i18n.locale;
 
   // if (store.getters.currentUrl) {
-
+debugger
   let url = router.currentRoute.fullPath;
+console.log(router.currentRoute)
   if ("PFANS1001FormView" == router.currentRoute.name) {
-    if (router.currentRoute.params.title === '1') {
+    if (router.currentRoute.params.title === 1) {
       url = "/PFANS1002FormView";
-    } else if (router.currentRoute.params.title === '2') {
+    } else if (router.currentRoute.params.title === 2) {
       url = "/PFANS1035FormView";
-    } else if (router.currentRoute.params.title === '3') {
+    } else if (router.currentRoute.params.title === 3) {
       url = "/PFANS1003FormView";
-    } else if (router.currentRoute.params.title === '4') {
+    } else if (router.currentRoute.params.title === 4) {
       url = "/PFANS1004FormView";
-    } else if (router.currentRoute.params.title === '5') {
+    } else if (router.currentRoute.params.title === 5) {
       url = "/PFANS1005FormView";
-    } else if (router.currentRoute.params.title === '6') {
+    } else if (router.currentRoute.params.title === 6) {
       url = "/PFANS1006FormView";
-    } else if (router.currentRoute.params.title === '10') {
+    } else if (router.currentRoute.params.title === 10) {
       url = "/PFANS1010FormView";
-    } else if (router.currentRoute.params.title === '11') {
+    } else if (router.currentRoute.params.title === 11) {
       url = "/PFANS1011FormView";
     }
   }
 
   if ("PFANS1037FormView" == router.currentRoute.name) {
-    if (router.currentRoute.params.title === '7') {
+    if (router.currentRoute.params.title === 7) {
       url = "/PFANS1007FormView";
-    } else if (router.currentRoute.params.title === '8') {
+    } else if (router.currentRoute.params.title === 8) {
       url = "/PFANS1008FormView";
-    } else if (router.currentRoute.params.title === '9') {
+    } else if (router.currentRoute.params.title === 9) {
       url = "/PFANS1009FormView";
     }
   }
