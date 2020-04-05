@@ -12,9 +12,9 @@
       <el-button :disabled="disabled" @click="openDialog" icon="el-icon-search" size="small"></el-button>
       <el-dialog :visible.sync="dialogVisible" center size="50%" top="8vh" lock-scroll append-to-body>
         <el-row style="text-align: center;height: 90%;overflow: hidden">
-        <EasyTree :checktrictly="true" :defaultProps="defaultProps" :defaultlist="data" :renderContent="renderContent"
-                  :showCheckbox="selectType === 'Single'?false:true" :showFilter="false"
-                  @nodeClick="handleClickChange" maxheight="30rem" minheight="80%" ref="treeCom" ></EasyTree>
+          <EasyTree :checktrictly="true" :defaultProps="defaultProps" :defaultlist="data" :renderContent="renderContent"
+                    :showCheckbox="selectType === 'Single'?false:true" :showFilter="false"
+                    @nodeClick="handleClickChange" maxheight="30rem" minheight="80%" ref="treeCom" ></EasyTree>
         </el-row>
         <span slot="footer" class="dialog-footer">
         <el-button :disabled="conConfirm" @click="submit" type="primary">{{$t("button.confirm")}}</el-button>
@@ -55,7 +55,7 @@
       this.data = this.$store.getters.orgList;
       this.orglistids = this.orglist
 
-      if (!this.orglistids && !Array.isArray(this.orglistids)) {
+      if (!Array.isArray(this.orglistids)) {
         this.orglistids = this.orglistids.split(',')
       }
       this.checkedList = this.orglistids;
@@ -92,7 +92,7 @@
       orglist(val){
         if(val || val === ''){
           this.orglistids = val;
-          if (!this.orglistids && !Array.isArray(this.orglistids)) {
+          if (!Array.isArray(this.orglistids)) {
             this.orglistids = this.orglistids.split(',')
           }
           this.checkedList = this.orglistids;
@@ -127,7 +127,7 @@
       openDialog () {
         this.dialogVisible = true
         this.$nextTick(function () {
-          if (!this.orglistids && !Array.isArray(this.orglistids)) {
+          if (!Array.isArray(this.orglistids)) {
             this.orglistids = this.orglistids.split(',')
           }
           this.$refs.treeCom.$refs.treeCom.setCheckedKeys(this.orglistids, true)
