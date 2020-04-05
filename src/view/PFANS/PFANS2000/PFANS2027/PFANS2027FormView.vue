@@ -11,53 +11,64 @@
         <el-tabs type="border-card" v-model="activeName">
           <el-tab-pane :label="title" name="first">
             <el-row>
-              <el-col :span="8">
+              <el-col :span="4">
                 <dicselect
                   :code="code14"
+                  size="mini"
                   @change="changeType"
-                  style="width: 20vw"
                 >
                 </dicselect>
               </el-col>
             </el-row>
-            <el-row style="padding-top: 20px">
-              <el-table :cell-class-name="rowheight" :data="data1" border header-cell-class-name="sub_bg_color_blue"
-                        ref="eltable1" stripe>
-                <el-table-column :label="$t('label.PFANS2027VIEW_NAME')" prop="userName" width="120">
-                </el-table-column>
-                <el-table-column :label="$t('label.PFANS2027VIEW_RN')" prop="rnName" width="120">
-                </el-table-column>
-                <el-table-column :label="$t('label.PFANS2027VIEW_DATE')" prop="enterdayFormat" width="120">
-                </el-table-column>
-                <el-table-column :label="$t('label.PFANS2027VIEW_GROUP2')" prop="groupName" width="120">
-                </el-table-column>
-                <el-table-column :label="$t('label.PFANS2027VIEW_TEAM')" prop="teamName" width="120">
-                </el-table-column>
-                <el-table-column :label="$t('label.PFANS2027VIEW_FORM')" prop="differenceName" width="120">
-                </el-table-column>
-                <el-table-column :label="$t('label.PFANS2027VIEW_GIVE')" prop="salary" width="150">
-                </el-table-column>
-                <el-table-column :label="$t('label.PFANS2027VIEW_ATTENDANCE')" prop="workrate" width="150">
+            <el-row style="padding-top: 10px">
+              <plx-table-grid :cell-class-name="rowheight"
+                              :datas="data1"
+                              border
+                              header-cell-class-name="sub_bg_color_blue"
+                              style="width: 100%;height: calc(100vh - 260px - 2rem)"
+                              ref="eltable1"
+                              stripe
+                              :pagination-show="false"
+                              :height-change="false"
+                              use-virtual
+                              highlight-current-row
+                              :row-height="40"
+              >
+                <plx-table-column :label="$t('label.PFANS2027VIEW_NAME')" prop="userName" width="120">
+                </plx-table-column>
+                <plx-table-column :label="$t('label.PFANS2027VIEW_RN')" prop="rnName" width="120">
+                </plx-table-column>
+                <plx-table-column :label="$t('label.PFANS2027VIEW_DATE')" prop="enterdayFormat" width="120">
+                </plx-table-column>
+                <plx-table-column :label="$t('label.PFANS2027VIEW_GROUP2')" prop="groupName" width="120">
+                </plx-table-column>
+                <plx-table-column :label="$t('label.PFANS2027VIEW_TEAM')" prop="teamName" width="120">
+                </plx-table-column>
+                <plx-table-column :label="$t('label.PFANS2027VIEW_FORM')" prop="differenceName" width="120">
+                </plx-table-column>
+                <plx-table-column :label="$t('label.PFANS2027VIEW_GIVE')" prop="salary" width="150">
+                </plx-table-column>
+                <plx-table-column :label="$t('label.PFANS2027VIEW_ATTENDANCE')" prop="workrate" width="160">
                   <template slot-scope="scope">
                     <el-input-number :max="100" :min="0" :step="5" controls-position="right" size="mini"
                                      v-model="scope.row.workrate" :disabled="!disabled"></el-input-number>
                   </template>
-                </el-table-column>
-                <el-table-column :label="$t('label.PFANS2027VIEW_2018YEAR')" prop="bonussign" width="80">
+                </plx-table-column>
+                <plx-table-column :label="$t('label.PFANS2027VIEW_2018YEAR')" prop="bonussign" width="80">
                   <template slot-scope="scope">
                     <el-input v-model="scope.row.bonussign" size="mini" :disabled="!disabled"></el-input>
                   </template>
-                </el-table-column>
-                <el-table-column :label="$t('label.PFANS2027VIEW_LASTMONTHS')" prop="lastsymbol" width="80">
+                </plx-table-column>
+                <plx-table-column :label="$t('label.PFANS2027VIEW_LASTMONTHS')" prop="lastsymbol" width="80">
                   <template slot-scope="scope">
                     <el-input v-model="scope.row.lastsymbol" size="mini" :disabled="!disabled"></el-input>
                   </template>
-                </el-table-column>
-                <el-table-column :label="$t('label.PFANS2027VIEW_RESULT')">
-                  <el-table-column v-for="(item,index) in data2" v-if="index <= 3 &&
-                  ((ShowType === 'PJ101004' && item.r5 === '1') || (ShowType === 'PJ101003' && (item.r6 === '1' || item.r82 === '1'))
-                  || (ShowType === 'PJ101002' && item.r81 === '1') || (ShowType === 'PJ101001' && item.r83 === '1'))"
-                                   :label="getTableColumnName(item.code)" :key="item.index" width="140">
+                </plx-table-column>
+                <plx-table-column :label="$t('label.PFANS2027VIEW_RESULT')">
+                  <plx-table-column v-for="(item,index) in data2" v-if="index <= 3 &&
+                                  ((ShowType === 'PJ101004' && item.r5 === '1') || (ShowType === 'PJ101003' && (item.r6 === '1' || item.r82 === '1'))
+                                  || (ShowType === 'PJ101002' && item.r81 === '1') || (ShowType === 'PJ101001' && item.r83 === '1'))"
+                                    :label="getTableColumnName(item.code)" :key="item.index" width="140">
                     <template slot-scope="scope">
                       <el-select v-model="scope.row.tatebai" size="mini" v-show="index === 0" :disabled="!disabled">
                         <el-option
@@ -75,7 +86,8 @@
                           v-for="op in optionsScore">
                         </el-option>
                       </el-select>
-                      <el-select v-model="scope.row.organization" size="mini" v-show="index === 2" :disabled="!disabled">
+                      <el-select v-model="scope.row.organization" size="mini" v-show="index === 2"
+                                 :disabled="!disabled">
                         <el-option
                           :key="op.value"
                           :label="op.label"
@@ -92,17 +104,16 @@
                         </el-option>
                       </el-select>
                     </template>
-                  </el-table-column>
-                  <el-table-column :label="$t('label.PFANS1027FORMVIEW_COL5T0')"width="60">
+                  </plx-table-column>
+                  <plx-table-column :label="$t('label.PFANS1027FORMVIEW_COL5T0')" width="60">
                     {{getRate1}}%
-                  </el-table-column>
-                </el-table-column>
-
-                <el-table-column :label="$t('menu.PFANSPJ')">
-                  <el-table-column v-for="(item,index) in data2" v-if="(index > 3  && index<= 7)&&
-                  ((ShowType === 'PJ101004' && item.r5 === '1') || (ShowType === 'PJ101003' && (item.r6 === '1' || item.r82 === '1'))
-                  || (ShowType === 'PJ101002' && item.r81 === '1') || (ShowType === 'PJ101001' && item.r83 === '1'))"
-                                   :label="getTableColumnName(item.code)" :key="item.index" width="180">
+                  </plx-table-column>
+                </plx-table-column>
+                <plx-table-column :label="$t('menu.PFANSPJ')">
+                  <plx-table-column v-for="(item,index) in data2" v-if="(index > 3  && index<= 7)&&
+                                  ((ShowType === 'PJ101004' && item.r5 === '1') || (ShowType === 'PJ101003' && (item.r6 === '1' || item.r82 === '1'))
+                                  || (ShowType === 'PJ101002' && item.r81 === '1') || (ShowType === 'PJ101001' && item.r83 === '1'))"
+                                    :label="getTableColumnName(item.code)" :key="item.index" width="180">
                     <template slot-scope="scope">
                       <el-select v-model="scope.row.manpower" size="mini" v-show="index === 4" :disabled="!disabled">
                         <el-option
@@ -137,17 +148,16 @@
                         </el-option>
                       </el-select>
                     </template>
-                  </el-table-column>
-                  <el-table-column :label="$t('label.PFANS1027FORMVIEW_COL5T0')"width="60">
+                  </plx-table-column>
+                  <plx-table-column :label="$t('label.PFANS1027FORMVIEW_COL5T0')" width="60">
                     {{getRate2}}%
-                  </el-table-column>
-                </el-table-column>
-
-                <el-table-column :label="$t('label.PFANS2027VIEW_MEAN')">
-                  <el-table-column v-for="(item,index) in data2" v-if="(index > 7)&&
-                  ((ShowType === 'PJ101004' && item.r5 === '1') || (ShowType === 'PJ101003' && (item.r6 === '1' || item.r82 === '1'))
-                  || (ShowType === 'PJ101002' && item.r81 === '1') || (ShowType === 'PJ101001' && item.r83 === '1'))"
-                                   :label="getTableColumnName(item.code)" :key="item.index" width="180">
+                  </plx-table-column>
+                </plx-table-column>
+                <plx-table-column :label="$t('label.PFANS2027VIEW_MEAN')">
+                  <plx-table-column v-for="(item,index) in data2" v-if="(index > 7)&&
+                                  ((ShowType === 'PJ101004' && item.r5 === '1') || (ShowType === 'PJ101003' && (item.r6 === '1' || item.r82 === '1'))
+                                  || (ShowType === 'PJ101002' && item.r81 === '1') || (ShowType === 'PJ101001' && item.r83 === '1'))"
+                                    :label="getTableColumnName(item.code)" :key="item.index" width="180">
                     <template slot-scope="scope">
                       <el-select v-model="scope.row.assignment" size="mini" v-show="index === 8" :disabled="!disabled">
                         <el-option
@@ -165,7 +175,8 @@
                           v-for="op in optionsScore">
                         </el-option>
                       </el-select>
-                      <el-select v-model="scope.row.humandevelopment" size="mini" v-show="index === 10" :disabled="!disabled">
+                      <el-select v-model="scope.row.humandevelopment" size="mini" v-show="index === 10"
+                                 :disabled="!disabled">
                         <el-option
                           :key="op.value"
                           :label="op.label"
@@ -173,7 +184,8 @@
                           v-for="op in optionsScore">
                         </el-option>
                       </el-select>
-                      <el-select v-model="scope.row.workattitude" size="mini" v-show="index === 11" :disabled="!disabled">
+                      <el-select v-model="scope.row.workattitude" size="mini" v-show="index === 11"
+                                 :disabled="!disabled">
                         <el-option
                           :key="op.value"
                           :label="op.label"
@@ -182,64 +194,71 @@
                         </el-option>
                       </el-select>
                     </template>
-                  </el-table-column>
-                  <el-table-column :label="$t('label.PFANS1027FORMVIEW_COL5T0')"width="60">
+                  </plx-table-column>
+                  <plx-table-column :label="$t('label.PFANS1027FORMVIEW_COL5T0')" width="60">
                     {{getRate3}}%
-                  </el-table-column>
-                </el-table-column>
-
-                <el-table-column :label="$t('label.PFANS2027VIEW_EVALUATION')">
-                  <el-table-column :label="$t('label.PFANS2027VIEW_COMPOSITESCORES')" prop="overallscore" width="120">
-                  </el-table-column>
-                  <el-table-column :label="$t('label.PFANS2027VIEW_ONE')" :prop="data.evaluatenum === 'PJ104001'?'commentaryresult':''" width="120">
-                  </el-table-column>
-                  <el-table-column :label="$t('label.PFANS2027VIEW_TOW')" :prop="data.evaluatenum === 'PJ104002'?'commentaryresult':''" width="120">
-                  </el-table-column>
-                  <el-table-column :label="$t('label.PFANS2027VIEW_RESULTEVALUATION')" :prop="data.evaluatenum === 'PJ104003'?'commentaryresult':''" width="120">
-                  </el-table-column>
-                </el-table-column>
-                <el-table-column :label="$t('label.PFANS2027VIEW_COMPOSITE1')">
-                  <el-table-column :label="$t('label.PFANS2027VIEW_COMPOSITEEVALUATION')" width="120">
+                  </plx-table-column>
+                </plx-table-column>
+                <plx-table-column :label="$t('label.PFANS2027VIEW_EVALUATION')">
+                  <plx-table-column :label="$t('label.PFANS2027VIEW_COMPOSITESCORES')" prop="overallscore" width="120">
+                  </plx-table-column>
+                  <plx-table-column :label="$t('label.PFANS2027VIEW_ONE')"
+                                    :prop="data.evaluatenum === 'PJ104001'?'commentaryresult':''" width="120">
+                  </plx-table-column>
+                  <plx-table-column :label="$t('label.PFANS2027VIEW_TOW')"
+                                    :prop="data.evaluatenum === 'PJ104002'?'commentaryresult':''" width="120">
+                  </plx-table-column>
+                  <plx-table-column :label="$t('label.PFANS2027VIEW_RESULTEVALUATION')"
+                                    :prop="data.evaluatenum === 'PJ104003'?'commentaryresult':''" width="120">
+                  </plx-table-column>
+                </plx-table-column>
+                <plx-table-column :label="$t('label.PFANS2027VIEW_COMPOSITE1')">
+                  <plx-table-column :label="$t('label.PFANS2027VIEW_COMPOSITEEVALUATION')" width="120">
                     <template slot-scope="scope">
                       <el-input :disabled="!disabled"
-                        type="textarea" size="mini"
-                        v-model="scope.row.comprehensiveone">
+                                type="textarea" size="mini"
+                                v-model="scope.row.comprehensiveone">
                       </el-input>
                     </template>
-                  </el-table-column>
-                </el-table-column>
-                <el-table-column :label="$t('label.PFANS2027VIEW_COMPOSITE2')">
-                  <el-table-column :label="$t('label.PFANS2027VIEW_FIRSTEVALUATION')" width="120">
+                  </plx-table-column>
+                </plx-table-column>
+                <plx-table-column :label="$t('label.PFANS2027VIEW_COMPOSITE2')">
+                  <plx-table-column :label="$t('label.PFANS2027VIEW_FIRSTEVALUATION')" width="120">
                     <template slot-scope="scope">
                       <el-input :disabled="!disabled"
-                        type="textarea" size="mini"
-                        v-model="scope.row.comprehensivetwo">
+                                type="textarea" size="mini"
+                                v-model="scope.row.comprehensivetwo">
                       </el-input>
                     </template>
-                  </el-table-column>
-                </el-table-column>
-                <el-table-column :label="$t('label.PFANS2027VIEW_TITLEWEITIAO')" v-if="data.evaluatenum === 'PJ104003'">
-                  <el-table-column :label="$t('label.January')" width="80">
+                  </plx-table-column>
+                </plx-table-column>
+                <plx-table-column :label="$t('label.PFANS2027VIEW_TITLEWEITIAO')"
+                                  v-if="data.evaluatenum === 'PJ104003'">
+                  <plx-table-column :label="$t('label.January')" width="80">
                     <template slot-scope="scope">
-                      <el-input size="mini" v-model="scope.row.firstmonth" :disabled="data.status != 4 || !disabled"></el-input>
+                      <el-input size="mini" v-model="scope.row.firstmonth"
+                                :disabled="data.status != 4 || !disabled"></el-input>
                     </template>
-                  </el-table-column>
-                  <el-table-column :label="$t('label.February')" width="80">
+                  </plx-table-column>
+                  <plx-table-column :label="$t('label.February')" width="80">
                     <template slot-scope="scope">
-                      <el-input size="mini" v-model="scope.row.secondmonth" :disabled="data.status != 4 || !disabled"></el-input>
+                      <el-input size="mini" v-model="scope.row.secondmonth"
+                                :disabled="data.status != 4 || !disabled"></el-input>
                     </template>
-                  </el-table-column>
-                  <el-table-column :label="$t('label.March')" width="80">
+                  </plx-table-column>
+                  <plx-table-column :label="$t('label.March')" width="80">
                     <template slot-scope="scope">
-                      <el-input size="mini" v-model="scope.row.thirdmonth" :disabled="data.status != 4 || !disabled"></el-input>
+                      <el-input size="mini" v-model="scope.row.thirdmonth"
+                                :disabled="data.status != 4 || !disabled"></el-input>
                     </template>
-                  </el-table-column>
-                </el-table-column>
-              </el-table>
+                  </plx-table-column>
+                </plx-table-column>
+              </plx-table-grid>
             </el-row>
           </el-tab-pane>
           <el-tab-pane :label="title2" name="second">
-            <el-table :cell-class-name="rowheight" :data="data2" :span-method="spanmethod2" border header-cell-class-name="sub_bg_color_blue"
+            <el-table :cell-class-name="rowheight" :data="data2" :span-method="spanmethod2" border
+                      header-cell-class-name="sub_bg_color_blue"
                       ref="eltable2" stripe>
               <el-table-column :label="$t('label.PFANS1027FORMVIEW_COL1')" prop="title1" width="120">
               </el-table-column>
@@ -289,7 +308,8 @@
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1027FORMVIEW_COL5T0')" prop="r5rate" width="150">
                   <template slot-scope="scope">
-                    <el-input-number :max="100" :min="0" :step="5" controls-position="right" size="mini" :disabled="!disabled"
+                    <el-input-number :max="100" :min="0" :step="5" controls-position="right" size="mini"
+                                     :disabled="!disabled"
                                      v-model="scope.row.r5rate"></el-input-number>
                   </template>
                 </el-table-column>
@@ -307,7 +327,8 @@
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1027FORMVIEW_COL5T0')" prop="r6rate" width="150">
                   <template slot-scope="scope">
-                    <el-input-number :max="100" :min="0" :step="5" controls-position="right" size="mini" :disabled="!disabled"
+                    <el-input-number :max="100" :min="0" :step="5" controls-position="right" size="mini"
+                                     :disabled="!disabled"
                                      v-model="scope.row.r6rate"></el-input-number>
                   </template>
                 </el-table-column>
@@ -325,7 +346,8 @@
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1027FORMVIEW_COL5T0')" prop="r81rate" width="150">
                   <template slot-scope="scope">
-                    <el-input-number :max="100" :min="0" :step="5" controls-position="right" size="mini" :disabled="!disabled"
+                    <el-input-number :max="100" :min="0" :step="5" controls-position="right" size="mini"
+                                     :disabled="!disabled"
                                      v-model="scope.row.r81rate"></el-input-number>
                   </template>
                 </el-table-column>
@@ -343,7 +365,8 @@
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1027FORMVIEW_COL5T0')" prop="r82rate" width="150">
                   <template slot-scope="scope">
-                    <el-input-number :max="100" :min="0" :step="5" controls-position="right" size="mini" :disabled="!disabled"
+                    <el-input-number :max="100" :min="0" :step="5" controls-position="right" size="mini"
+                                     :disabled="!disabled"
                                      v-model="scope.row.r82rate"></el-input-number>
                   </template>
                 </el-table-column>
@@ -361,7 +384,8 @@
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1027FORMVIEW_COL5T0')" prop="r83rate" width="150">
                   <template slot-scope="scope">
-                    <el-input-number :max="100" :min="0" :step="5" controls-position="right" size="mini" :disabled="!disabled"
+                    <el-input-number :max="100" :min="0" :step="5" controls-position="right" size="mini"
+                                     :disabled="!disabled"
                                      v-model="scope.row.r83rate"></el-input-number>
                   </template>
                 </el-table-column>
@@ -391,8 +415,8 @@
     },
     data() {
       return {
-        disabled:true,
-        ShowType:"",
+        disabled: true,
+        ShowType: "",
         activeName: 'first',
         title: this.$t("title.PFANS2027VIEW_VIEW"),
         title2: this.$t("title.PFANS2027VIEW_VIEW2"),
@@ -402,7 +426,7 @@
         code14: 'PJ101',
         buttonShow: false,
         titleShow: false,
-        data:[],
+        data: [],
         data1: [],
         data2: [
           {
@@ -608,8 +632,8 @@
             label: "○"
           }
         ],
-        listData1:[],
-        optionsScore:[
+        listData1: [],
+        optionsScore: [
           {
             value: 0,
             label: "0"
@@ -643,9 +667,9 @@
             label: "7"
           },
         ],
-        rate1:0,
-        rate2:0,
-        rate3:0,
+        rate1: 0,
+        rate2: 0,
+        rate3: 0,
       }
     },
     created() {
@@ -668,7 +692,7 @@
         .then(response => {
           this.data = response.lunarbonus;
 
-          if(response.lunarbonus.status === 4){
+          if (response.lunarbonus.status === 4) {
             this.disabled = false;
           }
           if (response.lunarbasic.length > 0) {
@@ -680,21 +704,21 @@
               item.userName = userinfo.userinfo.customername
             }
             let dicinfo = getDictionaryInfo(item.rn)
-            if(dicinfo){
+            if (dicinfo) {
               item.rnName = dicinfo.value1;
             }
             let orgs = getOrgInfo(item.group_id)
-            if(orgs){
+            if (orgs) {
               item.groupName = orgs.companyname
             }
             orgs = getOrgInfo(item.team_id)
-            if(orgs){
+            if (orgs) {
               item.teamName = orgs.companyname
             }
-            if(item.difference === '1'){
-              item.differenceName =this.$t("label.PFANSUSERFORMVIEW_NEWSTAFF");
-            }else if(item.difference === '2'){
-              item.differenceName =this.$t("label.PFANSUSERFORMVIEW_OLDSTAFF");
+            if (item.difference === '1') {
+              item.differenceName = this.$t("label.PFANSUSERFORMVIEW_NEWSTAFF");
+            } else if (item.difference === '2') {
+              item.differenceName = this.$t("label.PFANSUSERFORMVIEW_OLDSTAFF");
             }
 
             item.enterdayFormat = moment(item.enterday).format('YYYY-MM-DD')
@@ -712,8 +736,8 @@
         });
     },
     methods: {
-      setdisabled(val){
-        if(this.$route.params.disabled){
+      setdisabled(val) {
+        if (this.$route.params.disabled) {
           this.disabled = val;
         }
       },
@@ -840,22 +864,22 @@
       },
       changeType(val) {
         this.ShowType = val;
-        if(this.ShowType === 'PJ101004'){
-          this.data1 = this.listData1.filter(item =>(item.rn <= 'PR021003'))
-        }else if(this.ShowType === 'PJ101003'){
-          this.data1 = this.listData1.filter(item =>(
+        if (this.ShowType === 'PJ101004') {
+          this.data1 = this.listData1.filter(item => (item.rn <= 'PR021003'))
+        } else if (this.ShowType === 'PJ101003') {
+          this.data1 = this.listData1.filter(item => (
             item.rn === 'PR021004' || item.rn === 'PR021005' || (item.rn >= 'PR021006' && item.occupationtype === 'PR055001')))
-        }else if(this.ShowType === 'PJ101002'){
-          this.data1 = this.listData1.filter(item =>(item.rn >= 'PR021006' && item.occupationtype === 'PR055002'))
-        }else if(this.ShowType === 'PJ101001'){
-          this.data1 = this.listData1.filter(item =>(item.rn >= 'PR021006' && item.occupationtype === 'PR055003'))
+        } else if (this.ShowType === 'PJ101002') {
+          this.data1 = this.listData1.filter(item => (item.rn >= 'PR021006' && item.occupationtype === 'PR055002'))
+        } else if (this.ShowType === 'PJ101001') {
+          this.data1 = this.listData1.filter(item => (item.rn >= 'PR021006' && item.occupationtype === 'PR055003'))
         }
       },
       buttonClick(val) {
         let form = {
-          lunarbasic : this.data2,
-          lunarbonus : this.data,
-          lunardetail : this.listData1
+          lunarbasic: this.data2,
+          lunarbonus: this.data,
+          lunardetail: this.listData1
         };
         this.loading = true;
         this.$store
@@ -869,7 +893,7 @@
               if (this.$store.getters.historyUrl) {
                 this.$router.push(this.$store.getters.historyUrl);
               }
-          }
+            }
           ).catch(err => {
           this.loading = false;
           Message({
@@ -879,42 +903,42 @@
           });
         });
       },
-      getTableColumnName(val){
+      getTableColumnName(val) {
         let dic = getDictionaryInfo(val)
-        if(dic){
+        if (dic) {
           return dic.value1;
-        }else{
+        } else {
           return "";
         }
 
       },
-      getResult(){
-        for (let item of this.data1 ) {
+      getResult() {
+        for (let item of this.data1) {
           item.overallscore = Math.round(
-            ((Number(item.tatebai) + Number(item.satoshi) + Number(item.organization) + Number(item.systematics)) * this.rate1/100 +
-              (Number(item.manpower) + Number(item.scale) + Number(item.achievement) + Number(item.degree)) * this.rate2/100 +
-              (Number(item.assignment) + Number(item.teamwork) + Number(item.humandevelopment) + Number(item.workattitude)) * this.rate3/100
-            ) * 80 /17);
+            ((Number(item.tatebai) + Number(item.satoshi) + Number(item.organization) + Number(item.systematics)) * this.rate1 / 100 +
+              (Number(item.manpower) + Number(item.scale) + Number(item.achievement) + Number(item.degree)) * this.rate2 / 100 +
+              (Number(item.assignment) + Number(item.teamwork) + Number(item.humandevelopment) + Number(item.workattitude)) * this.rate3 / 100
+            ) * 80 / 17);
 
-          if(item.overallscore < 20){
+          if (item.overallscore < 20) {
             item.commentaryresult = "H";
-          }else if(item.overallscore < 40){
+          } else if (item.overallscore < 40) {
             item.commentaryresult = "G";
-          }else if(item.overallscore < 64){
+          } else if (item.overallscore < 64) {
             item.commentaryresult = "F";
-          }else if(item.overallscore < 72){
+          } else if (item.overallscore < 72) {
             item.commentaryresult = "E";
-          }else if(item.overallscore < 80){
+          } else if (item.overallscore < 80) {
             item.commentaryresult = "D";
-          }else if(item.overallscore < 88){
+          } else if (item.overallscore < 88) {
             item.commentaryresult = "C";
-          }else if(item.overallscore < 104){
+          } else if (item.overallscore < 104) {
             item.commentaryresult = "B";
-          }else {
+          } else {
             item.commentaryresult = "A";
           }
 
-          if(this.data.status != 4){
+          if (this.data.status != 4) {
             item.firstmonth = item.commentaryresult;
             item.secondmonth = item.commentaryresult;
             item.thirdmonth = item.commentaryresult;
@@ -975,27 +999,27 @@
         immediate: true,  //刷新加载 立马触发一次handler
         deep: true  // 可以深度检测到 person 对象的属性值的变化
       },
-      rate1(){
+      rate1() {
         this.getResult();
       },
-      rate2(){
+      rate2() {
         this.getResult();
       },
-      rate3(){
+      rate3() {
         this.getResult();
       }
     },
     computed: {
-      getRate1(){
-        this.rate1 = this.ShowType === 'PJ101004'?this.data2[0].r5rate:(this.ShowType === 'PJ101003'?this.data2[0].r6rate:(this.ShowType === 'PJ101002'?this.data2[0].r81rate:(this.ShowType === 'PJ101001'?this.data2[0].r83rate:0)));
+      getRate1() {
+        this.rate1 = this.ShowType === 'PJ101004' ? this.data2[0].r5rate : (this.ShowType === 'PJ101003' ? this.data2[0].r6rate : (this.ShowType === 'PJ101002' ? this.data2[0].r81rate : (this.ShowType === 'PJ101001' ? this.data2[0].r83rate : 0)));
         return this.rate1;
       },
-      getRate2(){
-        this.rate2 = this.ShowType === 'PJ101004'?this.data2[4].r5rate:(this.ShowType === 'PJ101003'?this.data2[4].r6rate:(this.ShowType === 'PJ101002'?this.data2[4].r81rate:(this.ShowType === 'PJ101001'?this.data2[4].r83rate:0)));
+      getRate2() {
+        this.rate2 = this.ShowType === 'PJ101004' ? this.data2[4].r5rate : (this.ShowType === 'PJ101003' ? this.data2[4].r6rate : (this.ShowType === 'PJ101002' ? this.data2[4].r81rate : (this.ShowType === 'PJ101001' ? this.data2[4].r83rate : 0)));
         return this.rate2;
       },
-      getRate3(){
-        this.rate3 = this.ShowType === 'PJ101004'?this.data2[8].r5rate:(this.ShowType === 'PJ101003'?this.data2[9].r6rate:(this.ShowType === 'PJ101002'?this.data2[10].r81rate:(this.ShowType === 'PJ101001'?this.data2[11].r83rate:0)));
+      getRate3() {
+        this.rate3 = this.ShowType === 'PJ101004' ? this.data2[8].r5rate : (this.ShowType === 'PJ101003' ? this.data2[9].r6rate : (this.ShowType === 'PJ101002' ? this.data2[10].r81rate : (this.ShowType === 'PJ101001' ? this.data2[11].r83rate : 0)));
         return this.rate3;
       },
     }
