@@ -139,9 +139,9 @@
                             response[j].recommenddep = recommenddep.companyname;
                         }
                     }
-                  for (let i = 0; i < response.length; i++) {
-                    response[i].recommenddep = getDepartmentById(response[i].recommenddep);
-                  }
+                  // for (let i = 0; i < response.length; i++) {
+                  //   response[i].recommenddep = getDepartmentById(response[i].recommenddep);
+                  // }
                     this.data = response;
                     this.loading = false
                 })
