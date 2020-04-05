@@ -2212,15 +2212,11 @@
 
             },
             getUserids(val) {
-                debugger
                 this.form.code = getUserInfo(val).userinfo.personalcode;
-                console.log("aaa",this.form.code)
-                console.log("bbb",getUserInfo(val).userinfo)
                 this.userlist = val;
                 this.form.user_id = val;
                 let rst = getOrgInfoByUserId(val);
                 let num = getUserInfo(val).userinfo.extension;
-                console.log("num",num)
                 if(num){
                     this.form.telephone = num;
                 }
@@ -2824,7 +2820,7 @@
             handleClickChange(val) {
                 this.currentRow = val.suppliername;
                 this.currentRow1 = val.payeename;
-                this.currentRow2 = val.payeecode;
+                this.currentRow2 = val.suppliercode;
                 this.currentRow3 = val.payeebankaccountnumber;
                 this.currentRow4 = val.payeebankaccount;
             },
@@ -2853,7 +2849,7 @@
                             var vote = {};
                             vote.suppliername = response[i].supchinese;
                             vote.payeename = response[i].payeename;
-                            vote.payeecode = response[i].payeecode;
+                            vote.suppliercode = response[i].suppliercode;
                             vote.payeebankaccountnumber = response[i].payeebankaccountnumber;
                             vote.payeebankaccount = response[i].payeebankaccount;
                             this.gridData.push(vote);
