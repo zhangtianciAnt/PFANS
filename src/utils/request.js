@@ -16,9 +16,9 @@ service.interceptors.request.use(config => {
   }
   config.headers['locale'] = i18n.locale
 
-  if (store.getters.currentUrl) {
-    config.headers['currentUrl'] = store.getters.currentUrl;
-  }
+  // if (store.getters.currentUrl) {
+    config.headers['currentUrl'] = router.currentRoute.fullPath;
+  // }
   return config
 }, error => {
   console.log(error) // for debug
