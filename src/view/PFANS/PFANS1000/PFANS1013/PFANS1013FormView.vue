@@ -1132,7 +1132,7 @@
           trafficdetails_id: '',
           // publicexpenseid: '',
           trafficdate: '',
-          plsummary: this.$t('label.PFANS1013FORMVIEW_PLSUMMARY'),
+          plsummary: this.plsummaryflg,
           accountcode: '',
           subjectnumber: '',
           invoicenumber: '',
@@ -1154,7 +1154,7 @@
           accommodationdetails_id: '',
           accommodationdate: [],
           invoicenumber: '',
-          plsummary: this.$t('label.PFANS1013FORMVIEW_PLSUMMARY'),
+          plsummary: this.plsummaryflg,
           // accountcode: this.Redirict == '0' ? 'PJ119001' : 'PJ132001',
           budgetcoding: this.encoding,
           subjectnumber: '',
@@ -1178,7 +1178,7 @@
             accommodationdetails_id: '',
             accommodationdate: [],
             invoicenumber: '',
-            plsummary: this.$t('label.PFANS1013FORMVIEW_PLSUMMARY'),
+            plsummary: this.plsummaryflg,
             // accountcode: this.Redirict == '0' ? 'PJ119005' : 'PJ132005',
             budgetcoding: this.encoding,
             subjectnumber: '',
@@ -1260,17 +1260,19 @@
         orglist: '',
         Redirict: '',
         accountcodeflg: '',
-        accountcodeflg1: 'PJ119002',
+        accountcodeflg1: '',
         subjectnumberflg: '',
+        plsummaryflg1: '',
+        plsummaryflg: '',
         optionsdata: [{value: this.$t('label.PFANS1012FORMVIEW_NOMONEY'), label: ''}],
       };
     },
     mounted() {
+      debugger;
       this.getBusInside();
       this.getLoanapp();
       this.getCompanyProjectList();
       this.checkOption();
-      this.Redirict = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).redirict;
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
@@ -1288,6 +1290,13 @@
                 let acinfo = getDictionaryInfo(response.trafficdetails[i].accountcode);
                 if(acinfo){
                   response.trafficdetails[i].accountcode = acinfo.value1;
+                  this.accountcodeflg =  acinfo.value1;
+                  this.subjectnumberflg =  acinfo.value2;
+                }
+                let plsuinfo = getDictionaryInfo(response.trafficdetails[i].plsummary);
+                if(plsuinfo){
+                  response.trafficdetails[i].plsummary = plsuinfo.value1;
+                  this.plsummaryflg = plsuinfo.value1;
                 }
               }
               this.tableT = response.trafficdetails;
@@ -1299,6 +1308,16 @@
                   let starttime = time.slice(0, 10);
                   let endtime = time.slice(time.length - 10);
                   response.accommodationdetails[i].accommodationdate = [starttime, endtime];
+                }
+                let plsuinfo = getDictionaryInfo(response.accommodationdetails[i].plsummary);
+                if(plsuinfo){
+                  response.accommodationdetails[i].plsummary = plsuinfo.value1;
+                  this.plsummaryflg = plsuinfo.value1;
+                }
+                if(getOrgInfoByUserId(this.$store.getters.userinfo.userid)) {
+                  if (getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)) {
+                    this.Redirict = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).redirict;
+                  }
                 }
                 let acinfo = getDictionaryInfo(response.accommodationdetails[i].accountcode);
                 if(acinfo){
@@ -1411,6 +1430,7 @@
             this.tableA[0].budgetcoding = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
             this.tableA[1].budgetcoding = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
             // this.tableR[0].budgetcoding = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
+            this.Redirict = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).redirict;
             if(this.Redirict == '0'){
               this.code20 = 'PJ119'
               this.tableA[0].accountcode = 'PJ119001'
@@ -1437,6 +1457,14 @@
               }
             }
           }
+        }
+        let plsummaryinfo = getDictionaryInfo('PJ111008');
+        if(plsummaryinfo){
+          this.tableA[0].plsummary = plsummaryinfo.value1;
+          this.tableA[1].plsummary = plsummaryinfo.value1;
+          this.tableT[0].plsummary = plsummaryinfo.value1;
+          this.plsummaryflg = plsummaryinfo.value1;
+          this.plsummaryflg1 = plsummaryinfo.code;
         }
         this.userlist = this.$store.getters.userinfo.userid;
         if (this.userlist !== null && this.userlist !== '') {
@@ -1621,7 +1649,7 @@
           accommodationdetails_id: '',
           accommodationdate: [],
           invoicenumber: '',
-          plsummary: this.$t('label.PFANS1013FORMVIEW_PLSUMMARY'),
+          plsummary: this.plsummaryflg,
           accountcode: this.Redirict === '0' ? 'PJ119001' : 'PJ132001',
           budgetcoding: this.encoding,
           subjectnumber: '',
@@ -1645,7 +1673,7 @@
             accommodationdetails_id: '',
             accommodationdate: [],
             invoicenumber: '',
-            plsummary: this.$t('label.PFANS1013FORMVIEW_PLSUMMARY'),
+            plsummary: this.plsummaryflg,
             accountcode: this.Redirict === '0' ? 'PJ119005' : 'PJ132005',
             budgetcoding: this.encoding,
             subjectnumber: '',
@@ -1748,7 +1776,7 @@
             trafficdate: '',
             invoicenumber: '',
             departmentname: '',
-            plsummary: this.$t('label.PFANS1013FORMVIEW_PLSUMMARY'),
+            plsummary: this.plsummaryflg,
             accountcode: this.accountcodeflg,
             subjectnumber: this.subjectnumberflg,
             taxes: '',
@@ -1773,7 +1801,7 @@
             accommodationdate: [],
             activitycontent: ' ',
             budgetcoding: '',
-            plsummary: this.$t('label.PFANS1013FORMVIEW_PLSUMMARY'),
+            plsummary: this.plsummaryflg,
             accountcode: '',
             subjectnumber: '',
             city: '',
@@ -1847,7 +1875,7 @@
           publicexpenseid: '',
           trafficdate: '',
           invoicenumber: '',
-          plsummary: this.$t('label.PFANS1013FORMVIEW_PLSUMMARY'),
+          plsummary: this.plsummaryflg,
           accountcode: this.accountcodeflg,
           subjectnumber: this.subjectnumberflg,
           departmentname: '',
@@ -1873,7 +1901,7 @@
           invoicenumber: '',
           departmentname: this.groupId,
           activitycontent: '',
-          plsummary: this.$t('label.PFANS1013FORMVIEW_PLSUMMARY'),
+          plsummary: this.plsummaryflg,
           accountcode: '',
           budgetcoding: this.encoding,
           subjectnumber: '',
@@ -2063,37 +2091,37 @@
         this.tableAValue = sums;
         return sums;
       },
-      getRsummaries(param) {
-        const {columns, data} = param;
-        const sums = [];
-        columns.forEach((column, index) => {
-          if (index === 0) {
-            sums[index] = this.$t('label.PFANS1012VIEW_ACCOUNT');
-            return;
-          }
-          const values = data.map(item => Number(item[column.property]));
-          if (!values.every(value => isNaN(value))) {
-            sums[index] = values.reduce((prev, curr) => {
-              const value = Number(curr);
-              if (!isNaN(value)) {
-                return prev + curr;
-              } else {
-                return prev;
-              }
-            }, 0);
-            if (index === 3) {
-              sums[index] = Math.round((sums[index]) * 100) / 100;
-            }
-            if (index === 4) {
-              sums[index] = Math.round((sums[index]) * 100) / 100;
-            }
-          } else {
-            sums[index] = '--';
-          }
-        });
-        // this.tableRValue = sums;
-        return sums;
-      },
+      // getRsummaries(param) {
+      //   const {columns, data} = param;
+      //   const sums = [];
+      //   columns.forEach((column, index) => {
+      //     if (index === 0) {
+      //       sums[index] = this.$t('label.PFANS1012VIEW_ACCOUNT');
+      //       return;
+      //     }
+      //     const values = data.map(item => Number(item[column.property]));
+      //     if (!values.every(value => isNaN(value))) {
+      //       sums[index] = values.reduce((prev, curr) => {
+      //         const value = Number(curr);
+      //         if (!isNaN(value)) {
+      //           return prev + curr;
+      //         } else {
+      //           return prev;
+      //         }
+      //       }, 0);
+      //       if (index === 3) {
+      //         sums[index] = Math.round((sums[index]) * 100) / 100;
+      //       }
+      //       if (index === 4) {
+      //         sums[index] = Math.round((sums[index]) * 100) / 100;
+      //       }
+      //     } else {
+      //       sums[index] = '--';
+      //     }
+      //   });
+      //   // this.tableRValue = sums;
+      //   return sums;
+      // },
       getsummaries(param) {
         const {columns, data} = param;
         const sums = [];
@@ -2451,7 +2479,7 @@
                         invoicenumber: this.tableT[i].invoicenumber,
                         departmentname: this.tableT[i].departmentname,
                         budgetcoding: this.tableT[i].budgetcoding,
-                        plsummary: this.tableT[i].plsummary,
+                        plsummary: this.plsummaryflg1,
                         accountcode: this.accountcodeflg1,
                         subjectnumber: this.tableT[i].subjectnumber,
                         region: this.tableT[i].region,
@@ -2483,7 +2511,7 @@
                         invoicenumber: this.tableA[i].invoicenumber,
                         departmentname: this.tableA[i].departmentname,
                         budgetcoding: this.tableA[i].budgetcoding,
-                        plsummary: this.tableA[i].plsummary,
+                        plsummary: this.plsummaryflg1,
                         accountcode: this.tableA[i].accountcode,
                         subjectnumber: this.tableA[i].subjectnumber,
                         activitycontent: this.tableA[i].activitycontent,
@@ -2550,7 +2578,7 @@
                         invoicenumber: this.tableT[i].invoicenumber,
                         departmentname: this.tableT[i].departmentname,
                         budgetcoding: this.tableT[i].budgetcoding,
-                        plsummary: this.tableT[i].plsummary,
+                        plsummary: this.plsummaryflg1,
                         accountcode: this.accountcodeflg1,
                         subjectnumber: this.tableT[i].subjectnumber,
                         region: this.tableT[i].region,
@@ -2582,7 +2610,7 @@
                         invoicenumber: this.tableA[i].invoicenumber,
                         departmentname: this.tableA[i].departmentname,
                         budgetcoding: this.tableA[i].budgetcoding,
-                        plsummary: this.tableA[i].plsummary,
+                        plsummary: this.plsummaryflg1,
                         accountcode: this.tableA[i].accountcode,
                         subjectnumber: this.tableA[i].subjectnumber,
                         activitycontent: this.tableA[i].activitycontent,
