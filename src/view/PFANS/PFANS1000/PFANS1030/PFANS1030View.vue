@@ -110,7 +110,7 @@
       getPjanme() {
         this.loading = true;
         this.$store
-          .dispatch('PFANS1026Store/get', {})
+          .dispatch('PFANS1026Store/get', {'type': '1'})
           .then(response => {
             let data = [];
             for (let i = 0; i < response.contractapplication.length; i++) {
@@ -186,6 +186,7 @@
                               contractnumber: response[j].contractnumber,
                               currencyposition: response[j].currencyposition,
                               claimamount: response[j].claimamount,
+                              award_id: response[j].award_id,
                             });
                           }
                         }
@@ -205,6 +206,7 @@
                             contractnumber: response[m].contractnumber,
                             currencyposition: response[m].currencyposition,
                             claimamount: response[m].claimamount,
+                            award_id: response[m].award_id,
                           });
                         }
                       }

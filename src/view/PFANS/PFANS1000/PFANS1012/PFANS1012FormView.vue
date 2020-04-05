@@ -102,7 +102,7 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012VIEW_CURRENCYEXPENDITURE')">
+                    <el-form-item :label="$t('label.PFANS1012VIEW_CURRENCYEXPENDITURE')" v-if="this.form.type === 'PJ001001'?false:true">
                       <el-input-number
                         :disabled="true"
                         :max="1000000000"
@@ -118,7 +118,7 @@
                 </el-row>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012VIEW_TORMB')">
+                    <el-form-item :label="$t('label.PFANS1012VIEW_TORMB')" v-if="this.form.type === 'PJ001001'?false:true">
                       <el-input-number
                         :disabled="true"
                         :max="1000000000"
@@ -386,10 +386,10 @@
                     </el-input>
                   </el-form-item>
                 </el-row>
-                <el-row>
+                <el-row v-if="this.form.type === 'PJ001001'?false:true">
                   <el-form-item :label="$t('label.PFANS1012FORMVIEW_INVOICEI')">
                     <el-table :data="tableF"
-                              header-cell-class-name="sub_bg_color_blue" stripe border style="width: 70vw">
+                              header-cell-class-name="sub_bg_color_blue" stripe border style="width: 70vw" >
                       <el-table-column :label="$t('label.PFANS1012FORMVIEW_INVOICEN')" align="center" width="200">
                         <template slot-scope="scope">
                           <el-input :disabled="true" style="width: 100%" v-model="scope.row.invoicenumber">
@@ -501,19 +501,6 @@
                                             v-model="scope.row.trafficdate"></el-date-picker>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1012FORMVIEW_INVOICEN')" align="center" width="150">
-                          <template slot-scope="scope">
-                            <el-select style="width: 100%" v-model="scope.row.invoicenumber" clearable
-                                       :disabled="!disable">
-                              <el-option
-                                v-for="item in optionsdata"
-                                :key="item.value"
-                                :label="item.lable"
-                                :value="item.value">
-                              </el-option>
-                            </el-select>
-                          </template>
-                        </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012FORMVIEW_DEPARTMENT')" align="center" width="200">
                           <template slot-scope="scope">
                             <org :orglist="scope.row.departmentname"
@@ -596,79 +583,6 @@
                               style="width: 100%"
                               v-model="scope.row.rmb"
                             ></el-input-number>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1012VIEW_FOREIGNCURRENCY')" align="center"
-                                         prop="foreigncurrency"
-                                         width="150">
-                          <template slot-scope="scope">
-                            <el-input-number
-                              :disabled="disablecheck"
-                              :max="1000000000"
-                              :min="0"
-                              :precision="2"
-                              @change="changeForeigncurrency(scope.row)"
-                              controls-position="right"
-                              style="width: 100%"
-                              v-model="scope.row.foreigncurrency"
-                            ></el-input-number>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1012VIEW_CURRENCY')" align="center"
-                                         width="150">
-                          <template slot-scope="scope">
-                            <dicselect :code="code4"
-                                       clearable
-                                       :data="scope.row.currency"
-                                       :multiple="multiple"
-                                       :no="scope.row"
-                                       :disabled="disa"
-                                       @change="getCurrency"
-                                       style="width: 100%">
-                            </dicselect>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1012VIEW_CURRENCYRATE')" align="center"
-                                         width="150">
-                          <template slot-scope="scope">
-                            <el-input-number
-                              :disabled="!disablecurr"
-                              :max="999999"
-                              :min="0"
-                              :precision="3"
-                              :step="0.01"
-                              @change="getCurrencyrate(scope.row)"
-                              controls-position="right"
-                              style="width: 100%"
-                              v-model="scope.row.currencyrate"
-                            ></el-input-number>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1012VIEW_TORMB')" align="center"
-                                         width="150">
-                          <template slot-scope="scope">
-                            <el-input-number
-                              :disabled="true"
-                              :max="1000000000"
-                              :min="0"
-                              :precision="2"
-                              controls-position="right"
-                              style="width: 100%"
-                              v-model="scope.row.tormb"
-                            ></el-input-number>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1012FORMVIEW_TAXES')" align="center"
-                                         width="150">
-                          <template slot-scope="scope">
-                            <el-input-number
-                              :disabled="true"
-                              :precision="2"
-                              controls-position="right"
-                              style="width: 100%"
-                              @change="changeRMB(scope.row)"
-                              v-model="scope.row.taxes">
-                            </el-input-number>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012VIEW_ANNEXNO')" align="center" width="100">
@@ -1334,12 +1248,7 @@
                     publicexpenseid: '',
                     trafficdetails_id: '',
                     trafficdate: '',
-                    invoicenumber: '',
-                    currency: '',
-                    currencyrate: '',
-                    tormb: '',
                     plsummary: this.$t('label.PFANS1013FORMVIEW_PLSUMMARY'),
-                    taxes: '',
                     departmentname: '',
                     budgetcoding: '',
                     subjectnumber: '',
@@ -1348,7 +1257,6 @@
                     vehicle: '',
                     startingpoint: '',
                     rmb: '',
-                    foreigncurrency: '',
                     annexno: '',
                     rowindex: '',
                     display: true,
@@ -1629,10 +1537,6 @@
                             if (response.trafficdetails.length > 0) {
                                 this.tableT = response.trafficdetails;
                                 for (var i = 0; i < this.tableT.length; i++) {
-                                    if (this.tableT[i].foreigncurrency > 0) {
-                                        this.disa = false;
-                                        this.disablecheck = false;
-                                    }
                                     this.orglist = this.tableT[i].departmentname;
                                 }
                             }
@@ -2042,89 +1946,117 @@
                     if (row.plsummary == 'PJ111001') {
                         row.accountcode = '',
                             this.code16 = 'PJ112';
+                        this.code17 = 'PJ112';
                     } else if (row.plsummary == 'PJ111002') {
                         row.accountcode = '',
                             this.code16 = 'PJ113';
+                        this.code17 = 'PJ113';
                     } else if (row.plsummary == 'PJ111003') {
                         row.accountcode = '',
                             this.code16 = 'PJ114';
+                        this.code17 = 'PJ114';
                     } else if (row.plsummary == 'PJ111004') {
                         row.accountcode = '',
                             this.code16 = '';
+                        this.code17 = '';
                     } else if (row.plsummary == 'PJ111005') {
                         row.accountcode = '',
                             this.code16 = 'PJ116';
+                        this.code17 = 'PJ116';
                     } else if (row.plsummary == 'PJ111006') {
                         row.accountcode = '',
                             this.code16 = 'PJ117';
+                        this.code17 = 'PJ117';
                     } else if (row.plsummary == 'PJ111007') {
                         row.accountcode = '',
                             this.code16 = 'PJ118';
+                        this.code17 = 'PJ118';
                     } else if (row.plsummary == 'PJ111008') {
                         row.accountcode = '',
                             this.code16 = 'PJ119';
+                        this.code17 = 'PJ119';
                     } else if (row.plsummary == 'PJ111009') {
                         row.accountcode = '',
                             this.code16 = 'PJ120';
+                        this.code17 = 'PJ120';
                     } else if (row.plsummary == 'PJ111010') {
                         row.accountcode = '',
                             this.code16 = 'PJ121';
+                        this.code17 = 'PJ121';
                     } else if (row.plsummary == 'PJ111011') {
                         row.accountcode = '',
                             this.code16 = 'PJ122';
+                        this.code17 = 'PJ122';
                     } else if (row.plsummary == 'PJ111012') {
                         row.accountcode = '',
                             this.code16 = 'PJ123';
+                        this.code17 = 'PJ123';
                     } else if (row.plsummary == 'PJ111013') {
                         row.accountcode = '',
                             this.code16 = '';
+                        this.code17 = '';
                     } else if (row.plsummary == 'PJ111014') {
                         row.accountcode = '',
                             this.code16 = 'PJ125';
+                        this.code17 = 'PJ125';
                     }
                 } else if (this.Redirict == '1') {
                     if (row.plsummary == 'PJ111001') {
                         row.accountcode = '',
                             this.code16 = 'PJ127';
+                        this.code17 = 'PJ127';
                     } else if (row.plsummary == 'PJ111002') {
                         row.accountcode = '',
                             this.code16 = 'PJ128';
+                        this.code17 = 'PJ128';
                     } else if (row.plsummary == 'PJ111003') {
                         row.accountcode = '',
                             this.code16 = 'PJ129';
+                        this.code17 = 'PJ129';
                     } else if (row.plsummary == 'PJ111004') {
                         row.accountcode = '',
                             this.code16 = 'PJ115';
+                        this.code17 = 'PJ115';
                     } else if (row.plsummary == 'PJ111005') {
                         row.accountcode = '',
                             this.code16 = 'PJ130';
+                        this.code17 = 'PJ130';
                     } else if (row.plsummary == 'PJ111006') {
                         row.accountcode = '',
                             this.code16 = '';
+                        this.code17 = '';
                     } else if (row.plsummary == 'PJ111007') {
                         row.accountcode = '',
                             this.code16 = 'PJ131';
+                        this.code17 = 'PJ131';
                     } else if (row.plsummary == 'PJ111008') {
                         row.accountcode = '',
                             this.code16 = 'PJ132';
+                        this.code17 = 'PJ132';
                     } else if (row.plsummary == 'PJ111009') {
                         row.accountcode = '',
                             this.code16 = 'PJ133';
+                        this.code17 = 'PJ133';
                     } else if (row.plsummary == 'PJ111010') {
                         row.accountcode = '',
                             this.code16 = 'PJ134';
+                        this.code17 = 'PJ134';
                     } else if (row.plsummary == 'PJ111011') {
                         row.accountcode = '',
                             this.code16 = 'PJ135';
+                        this.code17 = 'PJ135';
                     } else if (row.plsummary == 'PJ111012') {
                         row.accountcode = '',
                             this.code16 = 'PJ136';
+                        this.code17 = 'PJ136';
                     } else if (row.plsummary == 'PJ111013') {
                         row.accountcode = '',
                             this.code16 = 'PJ124';
+                        this.code17 = 'PJ124';
                     } else if (row.plsummary == 'PJ111014') {
                         row.accountcode = '',
                             this.code16 = 'PJ137';
+                        this.code17 = 'PJ137';
                     }
                 }
 
@@ -2186,10 +2118,6 @@
 
                 }
                 for (let j = 0; j < this.tableT.length; j++) {
-                    this.tableT[j].foreigncurrency = '';
-                    this.tableT[j].currencyrate = '';
-                    this.tableT[j].tormb = '';
-                    this.tableT[j].currency = '';
                     this.form.tormb = '';
                     this.disa = true;
                 }
@@ -2259,7 +2187,6 @@
                 this.buttonClick('save');
             },
             getPayment(val) {
-                debugger
                 this.form.paymentmethod = val;
                 if (val === 'PJ004001') {
                     this.show1 = true;
@@ -2335,25 +2262,7 @@
             getCurrency(val, row) {
                 row.currency = val;
                 let error = 0;
-                if (this.form.type === 'PJ001001') {
-                    if (this.tableT.length > 1) {
-                        for (let i = 0; i < this.tableT.length; i++) {
-                            for (let j = 1; j < this.tableT.length; j++) {
-                                if (this.tableT[i].currency != this.tableT[j].currency) {
-                                    error = error + 1
-                                    Message({
-                                        message: this.$t('label.PFANS1012FORMVIEW_CHECKMESSAGE'),
-                                        type: 'error',
-                                        duration: 5 * 1000,
-                                    });
-                                    break;
-                                }
-                                continue
-                            }
-                            break
-                        }
-                    }
-                } else if (this.form.type === 'PJ001002') {
+              if (this.form.type === 'PJ001002') {
                     if (this.tableP.length > 1) {
                         for (let i = 0; i < this.tableP.length; i++) {
                             for (let j = 1; j < this.tableP.length; j++) {
@@ -2461,21 +2370,15 @@
                 } else {
                     this.tableT = [{
                         trafficdate: '',
-                        invoicenumber: '',
                         accountcode: '',
-                        taxes: '',
                         departmentname: '',
                         budgetcoding: '',
                         plsummary: '',
                         region: '',
                         subjectnumber: '',
-                        currency: '',
-                        currencyrate: '',
-                        tormb: '',
                         vehicle: '',
                         startingpoint: '',
                         rmb: '',
-                        foreigncurrency: '',
                         annexno: '',
                     }];
                 }
@@ -2551,12 +2454,7 @@
                     trafficdetails_id: '',
                     publicexpenseid: '',
                     trafficdate: '',
-                    invoicenumber: '',
                     accountcode: this.accoundoptionsdate,
-                    taxes: '',
-                    currency: '',
-                    currencyrate: '',
-                    tormb: '',
                     departmentname: this.groupId,
                     budgetcoding: this.budgetcodingcheck,
                     subjectnumber: '',
@@ -2565,7 +2463,6 @@
                     vehicle: '',
                     startingpoint: '',
                     rmb: '',
-                    foreigncurrency: '',
                     annexno: '',
                     rowindex: '',
                     display: true,
@@ -2738,7 +2635,7 @@
             },
             getMoney(sums) {
                 if (this.form.type === 'PJ001001') {
-                    this.form.rmbexpenditure = sums[10];
+                    this.form.rmbexpenditure = sums[9];
                 } else if (this.checkCode1 == '1') {
                     this.form.rmbexpenditure = this.tablePValue[9] + sums[9];
                 } else {
@@ -2747,7 +2644,7 @@
             },
             getforeigncurrency(sums) {
                 if (this.form.type === 'PJ001001') {
-                    this.form.foreigncurrency = sums[11];
+                    this.form.foreigncurrency = '0';
                 } else if (this.checkCode1 == '1') {
                     this.form.foreigncurrency = this.tablePValue[10] + sums[10];
                 } else {
@@ -2908,28 +2805,22 @@
                             this.invoiceamountsum = sum;
                             if (this.form.type === 'PJ001001') {
                                 for (let i = 0; i < this.tableT.length; i++) {
-                                    if (this.tableT[i].trafficdate !== '' || this.tableT[i].subjectnumber !== '' || this.tableT[i].invoicenumber !== '' || this.tableT[i].departmentname !== '' || this.tableT[i].budgetcoding !== '' || this.tableT[i].region !== '' || this.tableT[i].vehicle !== '' || this.tableT[i].startingpoint !== ''
-                                        || this.tableT[i].rmb > 0 || this.tableT[i].foreigncurrency > 0 || this.tableT[i].annexno !== '') {
+                                    if (this.tableT[i].trafficdate !== '' || this.tableT[i].subjectnumber !== ''|| this.tableT[i].departmentname !== '' || this.tableT[i].budgetcoding !== '' || this.tableT[i].region !== '' || this.tableT[i].vehicle !== '' || this.tableT[i].startingpoint !== ''
+                                        || this.tableT[i].rmb > 0 ||  this.tableT[i].annexno !== '') {
                                         this.baseInfo.trafficdetails.push(
                                             {
                                                 trafficdetails_id: this.tableT[i].trafficdetails_id,
                                                 publicexpenseid: this.tableT[i].publicexpenseid,
                                                 trafficdate: this.tableT[i].trafficdate,
-                                                invoicenumber: this.tableT[i].invoicenumber,
-                                                taxes: this.tableT[i].taxes,
                                                 accountcode: this.tableT[i].accountcode,
                                                 plsummary: this.tableT[i].plsummary,
                                                 departmentname: this.tableT[i].departmentname,
                                                 budgetcoding: this.tableT[i].budgetcoding,
-                                                currency: this.tableT[i].currency,
-                                                currencyrate: this.tableT[i].currencyrate,
-                                                tormb: this.tableT[i].tormb,
                                                 subjectnumber: this.tableT[i].subjectnumber,
                                                 region: this.tableT[i].region,
                                                 vehicle: this.tableT[i].vehicle,
                                                 startingpoint: this.tableT[i].startingpoint,
                                                 rmb: this.tableT[i].rmb,
-                                                foreigncurrency: this.tableT[i].foreigncurrency,
                                                 annexno: this.tableT[i].annexno,
                                             },
                                         );

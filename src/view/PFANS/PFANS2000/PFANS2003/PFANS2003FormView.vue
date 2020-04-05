@@ -8,7 +8,7 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.user_name')" prop="name">
-                <el-input :disabled="!disable" maxlength='20' style="width:20vw" v-model="form.name"></el-input>
+                <el-input :disabled="!disabled" maxlength='20' style="width:20vw" v-model="form.name"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -16,7 +16,7 @@
                 <dicselect
                   :code="code1"
                   :data="form.sex"
-                  :disabled="!disable"
+                  :disabled="!disabled"
                   :multiple="multiple"
                   @change="changesex"
                   style="width:20vw"
@@ -44,7 +44,7 @@
             <el-col :span="8">
               <el-form-item :error="erroracceptdate" :label="$t('label.PFANS2003VIEW_ACCEPTDATE')" prop="accept_date">
                 <el-date-picker
-                  :disabled="!disable"
+                  :disabled="!disabled"
                   style="width:20vw"
                   type="date"
                   v-model="form.accept_date">
@@ -54,7 +54,7 @@
             <el-col :span="8">
               <el-form-item :error="errorinterviewdep" :label="$t('label.PFANS2003FORMVIEW_INTERVIEWDEP')"
                             prop="interviewdep">
-                <org :disabled="!disable" :error="errorinterviewdep"
+                <org :disabled="!disabled" :error="errorinterviewdep"
                      :orglist="form.interviewdep" @getOrgids="getInterviewDep"
                      orgtype="2" style="width:20vw">
                 </org>
@@ -64,7 +64,7 @@
               <el-form-item :error="errorinterviewdate" :label="$t('label.PFANS2003FORMVIEW_INTERVIEWDATE')"
                             prop="interview_date">
                 <el-date-picker
-                  :disabled="!disable"
+                  :disabled="!disabled"
                   style="width:20vw"
                   type="date"
                   v-model="form.interview_date">
@@ -76,7 +76,7 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2003FORMVIEW_WHETHERENTRY')" prop="whetherentry">
                 <span style="margin-right: 1vw ">{{$t('label.no')}}</span>
-                <el-switch :disabled="!disable"
+                <el-switch :disabled="!disabled"
                            @change="changewhetherentry"
                            active-value="0"
                            inactive-value="1"
@@ -102,7 +102,7 @@
               <el-form-item :error="errorrecommenddep" :label="$t('label.PFANS2003VIEW_RECOMMENDDEP')"
                             prop="recommenddep"
                             v-show="show">
-                <org :disabled="!disable"
+                <org :disabled="!disabled"
                      :error="errorrecommenddep"
                      :orglist="form.recommenddep"
                      @getOrgids="getRecommendDep"
@@ -114,7 +114,7 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2003FORMVIEW_RECOMMENDDATE')" prop="recommend_date" v-show="show">
                 <el-date-picker
-                  :disabled="!disable"
+                  :disabled="!disabled"
                   style="width:20vw"
                   type="date"
                   v-model="form.recommend_date">
@@ -128,7 +128,7 @@
                 <dicselect
                   :code="code2"
                   :data="form.source"
-                  :disabled="!disable"
+                  :disabled="!disabled"
                   :multiple="multiple"
                   @change="getsource"
                   style="width:20vw">
@@ -137,7 +137,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :error="error" :label="$t('label.PFANS2003FORMVIEW_MEMBER')" prop="member" v-show="show1">
-                <user :disabled="!disable" :error="error" :selectType="selectType"
+                <user :disabled="!disabled" :error="error" :selectType="selectType"
                       :userlist="userlist"
                       @getUserids="getUserids"
                       style="width:20vw"></user>
@@ -146,7 +146,7 @@
             <el-col :span="8">
               <el-form-item :error="errornetwork" :label="$t('label.PFANS2003FORMVIEW_NETWORK')" prop="network"
                             v-show="show2">
-                <el-input :disabled="!disable" :error="errornetwork"
+                <el-input :disabled="!disabled" :error="errornetwork"
                           maxlength='50'
                           style="width:20vw" v-model="form.network"></el-input>
               </el-form-item>
@@ -156,7 +156,7 @@
               <el-col :span="8">
                 <el-form-item  :label="$t('label.PFANS2002FORMVIEW_OTHER3')"
                                v-show="show3">
-                  <el-input :disabled="!disable"
+                  <el-input :disabled="!disabled"
                             style="width:72vw" v-model="form.other" type="textarea"></el-input>
                 </el-form-item>
               </el-col>
@@ -164,14 +164,14 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')" prop="contactinformation">
-                <el-input :disabled="!disable" maxlength="20" style="width:20vw"
+                <el-input :disabled="!disabled" maxlength="20" style="width:20vw"
                           v-model="form.contactinformation"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.email')" prop="email">
                 <el-input
-                  :disabled="!disable" maxlength="20" style="width:20vw"
+                  :disabled="!disabled" maxlength="20" style="width:20vw"
                   v-model="form.email"></el-input>
               </el-form-item>
             </el-col>
@@ -180,7 +180,7 @@
                 <dicselect
                   :code="code4"
                   :data="form.rn"
-                  :disabled="!disable"
+                  :disabled="!disabled"
                   :multiple="multiple"
                   @change="changern"
                   style="width:20vw">
@@ -191,7 +191,7 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2003VIEW_SCHOOL')">
-                <el-input :disabled="!disable" maxlength='20' style="width:20vw" v-model="form.school"></el-input>
+                <el-input :disabled="!disabled" maxlength='20' style="width:20vw" v-model="form.school"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -199,7 +199,7 @@
                 <dicselect
                   :code="code3"
                   :data="form.supplement"
-                  :disabled="!disable"
+                  :disabled="!disabled"
                   :multiple="multiple"
                   @change="changesupplement"
                   style="width:20vw">
@@ -209,7 +209,7 @@
             <el-col :span="8">
               <el-form-item :label="this.$t('label.PFANS2003FORMVIEW_SALARY') + this.$t('label.yuan')">
                 <el-input-number
-                  :disabled="!disable"
+                  :disabled="!disabled"
                   :max="1000000000"
                   :min="0"
                   :precision="2"
@@ -225,7 +225,7 @@
                 <dicselect
                   :code="code5"
                   :data="form.technology"
-                  :disabled="!disable"
+                  :disabled="!disabled"
                   :multiple="multiple"
                   @change="gettechnology"
                   style="width:20vw">
@@ -234,7 +234,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2003FORMVIEW_SPECIALITY')">
-                <el-input :disabled="!disable" style="width:20vw" v-model="form.speciality"></el-input>
+                <el-input :disabled="!disabled" style="width:20vw" v-model="form.speciality"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -243,7 +243,7 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2003FORMVIEW_RESULTSHOWS')">
-                <el-input :disabled="!disable"  style="width:72vw"type="textarea"
+                <el-input :disabled="!disabled"  style="width:72vw"type="textarea"
                           v-model="form.resultshows"></el-input>
               </el-form-item>
             </el-col>
@@ -251,7 +251,7 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.remarks')">
-                <el-input :disabled="!disable" style="width:72vw" type="textarea" v-model="form.remarks"></el-input>
+                <el-input :disabled="!disabled" style="width:72vw" type="textarea" v-model="form.remarks"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -421,6 +421,7 @@
         result1: false,
         show1: false,
         show2: false,
+        show3: false,
         show: false,
         rules: {
           name: [{
@@ -497,9 +498,9 @@
       };
     },
     created() {
-      this.disable = this.$route.params.disabled;
+      this.disabled = this.$route.params.disabled;
       this.result1 = this.$route.params.disabled;
-      if (this.disable) {
+      if (this.disabled) {
         this.buttonList = [
           {
             key: 'save',

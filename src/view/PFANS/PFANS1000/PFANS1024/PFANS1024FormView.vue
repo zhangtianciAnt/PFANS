@@ -731,7 +731,6 @@
         }
       };
       var validateConchinese = (rule, value, callback) => {
-        debugger;
         if (Array.isArray(value)) {
           if (value.length == 0) {
             callback(new Error(this.$t('label.PFANS1026FORMVIEW_QYZW')));
@@ -2206,7 +2205,6 @@
         this.$refs['refform'].clearValidate();
         let pros = [];
         myRule.forEach(function(item, index, array) {
-          debugger
           let dataName = 'tabledata';
           let maxCount = rowCount;
           if (['deliverydate', 'completiondate', 'claimdate', 'supportdate', 'claimamount', 'claimtype'].indexOf(item) >= 0) {
