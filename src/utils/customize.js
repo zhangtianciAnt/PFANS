@@ -354,3 +354,21 @@ export function downLoadUrl(url) {
   }
   return rst + "&path=" + url;
 }
+
+export function getCurrentRole() {
+
+  if(store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0){
+    for(let rolw of store.getters.useraccount.roles){
+      if(role.description.indexOf("总经理")!= -1){
+        return "1";
+      }else if(role.description.toUpperCase().indexOf("CENTER")!= -1){
+        return "2";
+      }else if(role.description.toUpperCase().indexOf("GM")!= -1){
+        return "3";
+      }else if(role.description.toUpperCase().indexOf("TL")!= -1){
+        return "4";
+      }
+    }
+  }
+  return "5";
+}
