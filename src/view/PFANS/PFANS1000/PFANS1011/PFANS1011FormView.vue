@@ -609,7 +609,7 @@
             }
           let lst = getUserInfo(this.$store.getters.userinfo.userid);
           if (lst) {
-            this.form.serviceposition = lst.userinfo.post;
+            this.form.serviceposition = getDictionaryInfo(lst.userinfo.post).value1;
           }
         }
         this.userelist = this.$store.getters.userinfo.userid;

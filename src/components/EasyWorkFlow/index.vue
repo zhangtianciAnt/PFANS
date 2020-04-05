@@ -66,9 +66,9 @@
       }
     },
     methods: {
-      start() {
+      start(val) {
         this.refresh();
-        this.$emit('start')
+        this.$emit('start',val)
       },
       workflowState(val) {
         this.$emit('workflowState', val)

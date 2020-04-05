@@ -1113,6 +1113,7 @@
         this.$refs['form'].validate(valid => {
           if (valid) {
             this.loading = true;
+            console.log("this.$route.params._id",this.$route.params._id)
             if (!this.$route.params._id) {
               this.changeOption(this.form, 'save');
               this.form.education1 = this.tableData3[0].education;
@@ -1150,6 +1151,17 @@
             } else {
               this.loading = true;
               this.changeOption(this.form, 'save');
+              // zqu start
+              this.form.education1 = this.tableData3[0].education;
+              this.form.quityear1 = this.tableData3[0].quityear;
+              this.form.specialty1 = this.tableData3[0].specialty;
+              this.form.education2 = this.tableData3[1].education;
+              this.form.quityear2 = this.tableData3[1].quityear;
+              this.form.specialty2 = this.tableData3[1].specialty;
+              this.form.education3 = this.tableData3[2].education;
+              this.form.quityear3 = this.tableData3[2].quityear;
+              this.form.specialty3 = this.tableData3[2].specialty;
+              // zqu end
               this.$store
                 .dispatch('PFANS2002Store/update', this.form)
                 .then(response => {

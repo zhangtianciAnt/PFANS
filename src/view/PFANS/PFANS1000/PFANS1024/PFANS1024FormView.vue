@@ -731,7 +731,6 @@
         }
       };
       var validateConchinese = (rule, value, callback) => {
-        debugger;
         if (Array.isArray(value)) {
           if (value.length == 0) {
             callback(new Error(this.$t('label.PFANS1026FORMVIEW_QYZW')));
@@ -1111,17 +1110,26 @@
       };
     },
     mounted() {
-      this.contractnumbercount = this.$route.params.contractnumbercount;
       let option1 = {};
       option1.name = getDictionaryInfo('PG019001').value1;
       option1.code = 'PG019001';
-      option1.value = getDictionaryInfo('PG019001').value4;
+      option1.value = getDictionaryInfo('PG019001').value1;
       let option2 = {};
-      option2.name = getDictionaryInfo('PG019003').value1;
-      option2.code = 'PG019003';
-      option2.value = getDictionaryInfo('PG019003').value4;
+      option2.name = getDictionaryInfo('PG019002').value1;
+      option2.code = 'PG019002';
+      option2.value = getDictionaryInfo('PG019002').value1;
+      let option3 = {};
+      option3.name = getDictionaryInfo('PG019003').value1;
+      option3.code = 'PG019003';
+      option3.value = getDictionaryInfo('PG019003').value1;
+      let option4 = {};
+      option4.name = getDictionaryInfo('PG019004').value1;
+      option4.code = 'PG019004';
+      option4.value = getDictionaryInfo('PG019004').value1;
       this.options.push(option1);
       this.options.push(option2);
+      this.options.push(option3);
+      this.options.push(option4);
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
@@ -2197,7 +2205,6 @@
         this.$refs['refform'].clearValidate();
         let pros = [];
         myRule.forEach(function(item, index, array) {
-          debugger
           let dataName = 'tabledata';
           let maxCount = rowCount;
           if (['deliverydate', 'completiondate', 'claimdate', 'supportdate', 'claimamount', 'claimtype'].indexOf(item) >= 0) {

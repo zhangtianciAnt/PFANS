@@ -5,7 +5,6 @@ import {
   updateexpatriatesinforApply,
   createexpatriatesinforApply,
   updateexpatriatesinfor,
-  getSupplierNameList,
   download,
   getCompanyProject,
   crAccount,
@@ -114,20 +113,6 @@ const PFANS6004Store = {
     //     })
     //   })
     // },
-
-    getSupplierNameList({commit}, data) {
-      return new Promise((resolve, reject) => {
-        getSupplierNameList(data).then(response => {
-          if (response.code === 0) {
-            resolve(response.data);
-          } else {
-            reject(response.message)
-          }
-        }).catch(error => {
-          reject(error);
-        })
-      })
-    },
     download({commit}, data) {
       return new Promise((resolve, reject) => {
         download(data).then(response => {
