@@ -136,12 +136,13 @@
               this.workflowform
             )
             .then(response => {
+              debugger
               if (response && response.code === 0) {
                 this.$message({
                   message: this.$t('normal.success_03'),
                   type: 'success'
                 })
-                this.$emit('start')
+                this.$emit('start',response.data)
                 this.startWorkflow = false
               } else {
                 this.$message({
