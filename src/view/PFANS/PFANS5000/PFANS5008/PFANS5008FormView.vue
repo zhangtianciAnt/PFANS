@@ -714,6 +714,7 @@
       getProject(val) {
         if (val) {
           this.companyform.work_phase = '';
+          this.companyform.behavior_breakdown = '';
           this.code3 = '0';
         }
         for (let item of this.optionsdata) {

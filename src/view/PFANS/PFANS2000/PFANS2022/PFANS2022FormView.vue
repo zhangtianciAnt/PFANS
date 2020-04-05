@@ -71,10 +71,10 @@
                       style="width: 19.7vw" :userlist="nomineeslist"></user>
               </el-form-item>
             </el-col>
+            <!--ADD-ZTC-类别为其他奖励金时增加被推荐人的group-->
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANSUSERFORMVIEW_EXPERIENCE')" v-show="show4">
-                <el-input :disabled="!disabled1" maxlength='20' style="width: 20vw"
-                          v-model="form.experience"></el-input>
+              <el-form-item :label="$t('label.group')" v-if="show1">
+                <el-input :disabled="true" style="width:20vw" v-model="appgroupid"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -84,6 +84,12 @@
             </el-col>
           </el-row>
           <el-row>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANSUSERFORMVIEW_EXPERIENCE')" v-show="show4">
+                <el-input :disabled="!disabled1" maxlength='20' style="width: 20vw"
+                          v-model="form.experience"></el-input>
+              </el-form-item>
+            </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2022VIEW_JOININGDAY')" v-show="show1" prop="joiningday">
                 <el-date-picker :disabled="!disabled" style="width: 20vw" type="date"
@@ -237,6 +243,7 @@
                     team_id: '',
                     center_id: '',
                     group_id: '',
+                    appgroup_id: '',
                     user_id: '',
                     nomineerelationship: '',
                     joiningday: '',
@@ -373,22 +380,25 @@
                             this.groupid= rst.groupNmae;
                             this.teamid= rst.teamNmae;
                         }
-
                       if(this.form.twoclass === 'PR034001'){
                         this.workcode = 'W0066';
                       }else{
                         this.workcode = 'W0031';
                       }
-
                         this.userlist = this.form.user_id;
                         this.nomineeslist = this.form.nominees;
                         if (this.form.firstclass === 'PR024004') {
                             this.show2 = true;
                             this.rules.weddingday[0].required = false;
                         }
+                        // ADD-ZTC-类别为其他奖励金时增加被推荐人的group
                         if (this.form.firstclass === 'PR024003') {
                             this.show1 = true;
                             this.rules.weddingday[0].required = false;
+                            let rst = getOrgInfoByUserId(this.form.nominees);
+                            if(rst){
+                              this.appgroupid = rst.groupNmae;
+                            }
                         }
                         if (this.form.firstclass === 'PR024001') {
                             this.show3 = true;
@@ -541,6 +551,13 @@
                 }else{
                     this.form.amoutmoney = 0;
                     this.form.experience = this.$t('label.PFANS2022VIEW_UNFILLED');
+                }
+              // ADD-ZTC-类别为其他奖励金时增加被推荐人的group
+                let rst = getOrgInfoByUserId(val);
+                if (rst) {
+                  this.appgroupid = rst.groupNmae;
+                } else {
+                  this.appgroupid = '';
                 }
             },
             getfirstclass(val) {

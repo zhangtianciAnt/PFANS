@@ -890,6 +890,11 @@
         this.errorname = '';
 // wxl 4/8 面试官通过选人带出来 start
         this.tableData = this.currentRow4
+       //add-ws-4/16-面试官通过选人带出来如果不存在赋空
+        if(this.tableData===null){
+          this.tableData=''
+        }
+        //add-ws-4/16-面试官通过选人带出来如果不存在赋空
         this.form.adoption = this.currentRow5//招聘途径
         this.changeUsing(this.form.adoption)
         this.form.other3 = this.currentRow6//其他

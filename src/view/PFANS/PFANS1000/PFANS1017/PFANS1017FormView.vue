@@ -179,7 +179,17 @@
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1012FORMVIEW_BUDGET')" align="center" width="150">
                   <template slot-scope="scope">
-                    <el-input :disabled="true" style="width:20vw" v-model="scope.row.budgetunit"></el-input>
+<!--                    <el-input :disabled="true" style="width:20vw" v-model="scope.row.budgetunit"></el-input>-->
+                    <el-select clearable style="width: 20vw" v-model="scope.row.budgetunit" :disabled="!disable"
+                               :placeholder="$t('normal.error_09')">
+                      <el-option
+                        v-for="item in options1"
+                        :key="item.value"
+                        :label="item.lable"
+                        :value="item.value"
+                        @change="getBudgetunit">
+                      </el-option>
+                    </el-select>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1017FORMVIEW_CYBOZU')" align="center" width="150">
@@ -302,6 +312,7 @@
                 }
             };
             return {
+                options1:[],
                 centerid: '',
                 groupid: '',
                 teamid: '',
@@ -416,6 +427,7 @@
                             this.tableT = response.psdcddetail;
                         }
                         this.userlist = this.form.user_id;
+                        this.getBudt(this.userlist);
                         this.loading = false;
                     })
                     .catch(error => {
@@ -431,9 +443,9 @@
                 if (this.userlist !== null && this.userlist !== '') {
                     this.form.user_id = this.$store.getters.userinfo.userid;
                     let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-                    if(getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)){
-                        this.tableT[0].budgetunit = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
-                    }
+                    // if(getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)){
+                    //     this.tableT[0].budgetunit = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
+                    // }
                     if (rst) {
                         this.centerid = rst.centerNmae;
                         this.groupid = rst.groupNmae;
@@ -442,16 +454,35 @@
                         this.form.group_id = rst.groupId;
                         this.form.team_id = rst.teamId;
                     }
+                    this.getBudt(this.form.user_id);
                 }
             }
         },
         methods: {
+            getBudt(val){
+                //ADD_FJL  修改人员预算编码
+                if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
+                    let butinfo = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
+                    let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+                    if(dic.length > 0){
+                        for (let i = 0; i < dic.length; i++) {
+                            if(butinfo === dic[i].value1){
+                                this.options1.push({
+                                    lable: dic[i].value2 +'_'+ dic[i].value3,
+                                    value: dic[i].code,
+                                })
+                            }
+                        }
+                    }
+                }
+                //ADD_FJL  修改人员预算编码
+            },
             getUserids(val) {
                 this.form.user_id = val;
                 let rst = getOrgInfoByUserId(val);
-                if(getOrgInfo(getOrgInfoByUserId(val).groupId)){
-                    this.form.budgetunit = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
-                }
+                // if(getOrgInfo(getOrgInfoByUserId(val).groupId)){
+                //     this.form.budgetunit = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
+                // }
                 if (rst) {
                     this.centerid = rst.centerNmae;
                     this.groupid = rst.groupNmae;
@@ -503,6 +534,9 @@
             },
             changecybozu(val, row) {
                 row.cybozu = val;
+            },
+            getBudgetunit(val, row) {
+                row.budgetunit = val;
             },
             changedomainaccount(val, row) {
                 row.domainaccount = val;
