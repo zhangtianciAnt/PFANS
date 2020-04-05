@@ -55,7 +55,7 @@
       this.data = this.$store.getters.orgList;
       this.orglistids = this.orglist
 
-      if (this.orglistids && !Array.isArray(this.orglistids)) {
+      if (!this.orglistids && !Array.isArray(this.orglistids)) {
         this.orglistids = this.orglistids.split(',')
       }
       this.checkedList = this.orglistids;
@@ -92,7 +92,7 @@
       orglist(val){
         if(val || val === ''){
           this.orglistids = val;
-          if (this.orglistids && !Array.isArray(this.orglistids)) {
+          if (!this.orglistids && !Array.isArray(this.orglistids)) {
             this.orglistids = this.orglistids.split(',')
           }
           this.checkedList = this.orglistids;
@@ -127,7 +127,7 @@
       openDialog () {
         this.dialogVisible = true
         this.$nextTick(function () {
-          if (this.orglistids && !Array.isArray(this.orglistids)) {
+          if (!this.orglistids && !Array.isArray(this.orglistids)) {
             this.orglistids = this.orglistids.split(',')
           }
           this.$refs.treeCom.$refs.treeCom.setCheckedKeys(this.orglistids, true)
