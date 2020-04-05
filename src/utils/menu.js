@@ -22,23 +22,14 @@ export function menu() {
               '_id': 'dashboard',
               'name': 'menu.dashboard',
               'menuvisible': true,
-              'menuurl': '',
+              'menuurl': '/index',
               'menuicon': '',
-              'children': [
-                {
-                  '_id': 'dashboard',
-                  'name': 'menu.dashboard',
-                  'menuvisible': true,
-                  'menuurl': '/index',
-                  'menuicon': '',
-                  'children': [],
-                  'actions': [
-                    {"_id": "dashboard_read", "actiontype": "0", "name": 'button.view', "auth": 4},
-                    {"_id": "dashboard_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
-                    {"_id": "dashboard_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
-                    {"_id": "dashboard_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
-                  ]
-                }
+              'children': [],
+              'actions': [
+                {"_id": "dashboard_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                {"_id": "dashboard_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                {"_id": "dashboard_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                {"_id": "dashboard_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
               ]
             }
           ]

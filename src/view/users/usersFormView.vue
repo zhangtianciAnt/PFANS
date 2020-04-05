@@ -556,7 +556,7 @@
                     ></org>
                   </el-form-item>
                 </el-col>
-                <el-col :span="8">
+                <el-col :span="6">
                   <el-form-item :label="$t('label.center')" prop="centerid" :error="error">
                     <org
                       :orglist="form.centerid"
@@ -566,11 +566,74 @@
                       selectType="Single"
                       @getOrgids="getCenterid"
                     ></org>
-                    <!--<el-button-->
-                    <!--type="text"-->
-                    <!--&gt;{{$t('label.INDEX_GD')}}-->
-                    <!--</el-button>-->
                   </el-form-item>
+                </el-col>
+                <el-col :span="2">
+                  <el-button
+                    type="text" @click="dialogTableVisible5 = true"
+                  >{{$t('label.INDEX_GD')}}
+                  </el-button>
+
+                  <el-dialog
+                    :title="$t('label.PFANSUSERFORMVIEW_OTHERORGS')"
+                    :visible.sync="dialogTableVisible5"
+                    style="padding-top:5px"
+                  >
+                    <el-row>
+                      <el-col :span="24">
+                        <el-table :data="form.otherorgs" stripe>
+                          <el-table-column
+                            property="teamid"
+                            align="center"
+                            :label="$t('label.team')"
+                          >
+                            <template slot-scope="scope">
+                              <org
+                                :orglist="scope.row.teamid"
+                                orgtype="3"
+                                :no="scope.row"
+                                style="width:10vw"
+                                selectType="Single"
+                                @getOrgids="setOrgt"
+                              ></org>
+                            </template>
+                          </el-table-column>
+                          <el-table-column
+                            property="groupid"
+                            align="center"
+                            :label="$t('label.group')"
+                          >
+                            <template slot-scope="scope">
+                              <org
+                                :orglist="scope.row.groupid"
+                                orgtype="2"
+                                :no="scope.row"
+                                style="width:10vw"
+                                selectType="Single"
+                                @getOrgids="setOrgg"
+                              ></org>
+                            </template>
+                          </el-table-column>
+                          <el-table-column
+                            property="centerid"
+                            align="center"
+                            :label="$t('label.center')"
+                          >
+                            <template slot-scope="scope">
+                              <org
+                                :orglist="scope.row.centerid"
+                                orgtype="1"
+                                :no="scope.row"
+                                style="width:10vw"
+                                selectType="Single"
+                                @getOrgids="setOrgc"
+                              ></org>
+                            </template>
+                          </el-table-column>
+                        </el-table>
+                      </el-col>
+                    </el-row>
+                  </el-dialog>
 
                 </el-col>
               </el-row>
@@ -1482,6 +1545,7 @@
       };
 
       return {
+        age:'',
         code: '',
         code1: 'PG021',
         occupationtypecode: '',
@@ -1489,6 +1553,7 @@
         display: true,
         occupationtypedisplay: true,
         oldageData: null,
+        otherOrgs:null,
         houseData: null,
         medicalData: null,
         gridData: null,
@@ -1496,6 +1561,7 @@
         dialogTableVisible2: false,
         dialogTableVisible3: false,
         dialogTableVisible4: false,
+        dialogTableVisible5: false,
         loading: false,
         error: '',
         educationTable: [
@@ -1594,6 +1660,14 @@
           sex: '',
           adfield: '',
           birthday: '',
+          otherorgs:[
+            {
+              centerid:"",
+              groupid:"",
+              teamid:""
+            },
+
+          ],
           // age: "",
           nationality: '',
           nation: '',
@@ -2305,7 +2379,15 @@
           this.error = '';
         }
       },
-
+      setOrgc(val,no) {
+        no.centerid = val;
+      },
+      setOrgg(val,no) {
+        no.groupid = val;
+      },
+      setOrgt(val,no) {
+        no.teamid = val;
+      },
       getOrgInformation(id) {
         let org = {};
         let treeCom = this.$store.getters.orgs;
@@ -2349,6 +2431,14 @@
           .dispatch('usersStore/getById', params)
           .then(response => {
             this.form = response.customerInfo.userinfo;
+            if(!this.form.otherorgs){
+              this.form.otherorgs =[];
+            }
+            this.form.otherorgs.push({
+              centerid:"",
+              groupid:"",
+              teamid:""
+            })
             let birthdays = new Date(response.customerInfo.userinfo.birthday.replace(/-/g, '/'));
             let d = new Date();
             let age = 0;
@@ -2566,7 +2656,7 @@
         this.$refs['form'].validate(valid => {
           if (valid) {
             this.userInfo.userAccount.account = this.form.adfield;
-            this.userInfo.userAccount.password = this.form.adfield;
+            // this.userInfo.userAccount.password = this.form.adfield;
             this.userInfo.userAccount.usertype = '0';
             this.userInfo.customerInfo.userinfo = this.form;
             this.Personal();

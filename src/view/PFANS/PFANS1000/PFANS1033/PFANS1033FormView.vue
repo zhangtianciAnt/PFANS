@@ -57,7 +57,7 @@
                 :error="errorgroup"
                 style="width: 20vw"
                 @getOrgids="getGroupId"
-                :disabled="!disabled2"
+                :disabled="checkGroupId"
               ></org>
             </el-form-item>
             <!--<el-form-item :label="$t('label.PFANS1024VIEW_SIDEGROUP')" :label-width="formLabelWidth">
@@ -523,7 +523,7 @@
   import EasyNormalContainer from "@/components/EasyNormalContainer";
   import { Message } from 'element-ui'
   import dicselect from "../../../components/dicselect";
-  import {getOrgInfo,getDictionaryInfo,getUserInfo,getSupplierinfor,getStatus} from '@/utils/customize';
+  import {getOrgInfo,getDictionaryInfo,getUserInfo,getSupplierinfor,getStatus,getOrgInfoByUserId} from '@/utils/customize';
   import user from '../../../components/user.vue';
   import org from "../../../components/org";
   import moment from "moment";
@@ -556,6 +556,7 @@
               }
           };
         return{
+          checkGroupId: false,
           titleType:'',
           titleType1:this.$t('label.PFANS1033VIEW_VERIFICATION'),
           titleType2:this.$t('label.PFANS1033VIEW_KEEPITSECRET'),
@@ -831,6 +832,17 @@
                       this.loading = false
                   })
           }
+        let userid = this.$store.getters.userinfo.userid;
+        if (userid !== null && userid !== '') {
+          let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+          if(lst !== null && lst !== ''){
+            this.form1.grouporglist = lst.groupId;
+            this.getGroupId(this.form1.grouporglist);
+            this.checkGroupId = true;
+          }else{
+            this.checkGroupId = false;
+          }
+        }
         //get customer
         this.getsupplierinfor();
         //テーマ

@@ -234,24 +234,12 @@ export default {
           disabled: false,
           icon: "el-icon-plus"
         },
-        // {
-        //   key: "setRole",
-        //   name: this.$t("label.PFANSUSERVIEW_SETTINGROLES"),
-        //   disabled: true,
-        //   icon: "el-icon-plus"
-        // },
         {
           key: "update",
           name: this.$t("label.PFANSUSERVIEW_EDITUSER"),
           disabled: true,
           icon: "el-icon-edit"
         },
-        // {
-        //   key: "disableUser",
-        //   name: this.$t("label.PFANSUSERVIEW_STATUSNAME"),
-        //   disabled: true,
-        //   icon: "el-icon-edit"
-        // },
         {
           key: 'import',
           name: 'button.import',
@@ -753,6 +741,46 @@ export default {
     }
   },
   mounted() {
+    if(this.$store.getters.useraccount._id === '5e78b17ef3c8d71e98a2aa30'){
+      this.buttonList = [
+        {
+          key: "new",
+          name: this.$t("label.PFANSUSERVIEW_NEWUSER"),
+          disabled: false,
+          icon: "el-icon-plus"
+        },
+        {
+          key: "setRole",
+          name: this.$t("label.PFANSUSERVIEW_SETTINGROLES"),
+          disabled: false,
+          icon: "el-icon-plus"
+        },
+        {
+          key: "update",
+          name: this.$t("label.PFANSUSERVIEW_EDITUSER"),
+          disabled: true,
+          icon: "el-icon-edit"
+        },
+        {
+          key: 'import',
+          name: 'button.import',
+          disabled: false,
+          icon: 'el-icon-download'
+        },
+        {
+          key: 'export',
+          name: 'button.export',
+          disabled: false,
+          icon: 'el-icon-upload2'
+        },
+        {
+          key: 'export2',
+          name: 'button.download2',
+          disabled: false,
+          icon: 'el-icon-download'
+        },
+      ]
+    }
     this.getInitData();
     this.$store.commit("global/SET_OPERATEID", "");
     this.$store.commit(

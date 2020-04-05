@@ -56,7 +56,7 @@
                    style="width: 20vw"
                    :error="errorgroup"
                    @getOrgids="getGroupId"
-                   :disabled="!disabled2"
+                   :disabled="checkGroupId"
               ></org>
             </el-form-item>
             <div class="dialog-footer" align="center">
@@ -80,7 +80,7 @@
             <div class="dialog-footer" align="center">
               <el-row style=" margin-bottom: 20px;">
                 <el-col :span="24">
-                  <el-button @click="clickData(1)" :disabled=disabledCount1>
+                  <el-button @click="clickData(1)" >
                   <span style="margin-right: 86%;">{{$t('label.PFANS1026FORMVIEW_VALUATION')}}
                   </span>
                   </el-button>
@@ -88,7 +88,7 @@
               </el-row>
               <el-row style=" margin-bottom: 20px;">
                 <el-col :span="24">
-                  <el-button @click="clickData(2)" :disabled=disabledCount2>
+                  <el-button @click="clickData(2)" >
                   <span style="margin-right: 86%;">{{$t('label.PFANS1026FORMVIEW_JUDGMENT')}}
                   </span>
                   </el-button>
@@ -96,7 +96,7 @@
               </el-row>
               <el-row style=" margin-bottom: 20px;">
                 <el-col :span="24">
-                  <el-button @click="clickData(3)" :disabled=disabledCount3>
+                  <el-button @click="clickData(3)" >
                   <span style="margin-right: 86%;">{{$t('label.PFANS1026FORMVIEW_CONTRACT')}}
                   </span>
                   </el-button>
@@ -104,7 +104,7 @@
               </el-row>
               <el-row style=" margin-bottom: 20px;">
                 <el-col :span="24">
-                  <el-button @click="clickData(4)" :disabled=disabledCount4>
+                  <el-button @click="clickData(4)" >
                   <span style="margin-right: 86%;">{{$t('label.PFANS1026FORMVIEW_AWARD')}}
                   </span>
                   </el-button>
@@ -112,7 +112,7 @@
               </el-row>
               <el-row style=" margin-bottom: 20px;">
                 <el-col :span="24">
-                  <el-button @click="clickData(5)" :disabled=disabledCount5>
+                  <el-button @click="clickData(5)" >
                   <span style="margin-right: 86%;">{{$t('label.PFANS1026FORMVIEW_NAPALM')}}
                   </span>
                   </el-button>
@@ -120,7 +120,7 @@
               </el-row>
               <el-row style=" margin-bottom: 20px;">
                 <el-col :span="24">
-                  <el-button @click="clickData(6)" :disabled=disabledCount6>
+                  <el-button @click="clickData(6)" >
                   <span style="margin-right: 86%;">{{$t('label.PFANS1026FORMVIEW_REQUEST')}}
                   </span>
                   </el-button>
@@ -386,10 +386,12 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center" prop="conchinese" width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.conchinese'" :rules='rules.conchinese'>
-                    <project style="width: 100%" :data="scope.row.conchinese" :no="scope.row" :multiple="true"
-                             v-model="scope.row.conchinese"
-                             @change="changePro" :disabled="!disabled">
-                    </project>
+<!--                    <project style="width: 100%" :data="scope.row.conchinese" :no="scope.row" :multiple="true"-->
+<!--                             v-model="scope.row.conchinese"-->
+<!--                             @change="changePro" :disabled="!disabled">-->
+<!--                    </project>-->
+                    <el-input :disabled="!disabled" v-model="scope.row.conchinese">
+                    </el-input>
                   </el-form-item>
                 </template>
               </el-table-column>
@@ -397,7 +399,7 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.conjapanese'" :rules='rules.conjapanese'>
-                    <el-input :disabled="!disabled4" v-model="scope.row.conjapanese">
+                    <el-input :disabled="!disabled" v-model="scope.row.conjapanese">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -709,7 +711,7 @@
   import EasyNormalTable from '@/components/EasyNormalTable';
   import {Message} from 'element-ui';
   import dicselect from '../../../components/dicselect';
-  import {getDictionaryInfo, getOrgInfo, getUserInfo} from '@/utils/customize';
+  import {getDictionaryInfo, getOrgInfo, getUserInfo,getOrgInfoByUserId} from '@/utils/customize';
   import user from '../../../components/user.vue';
   import org from '../../../components/org';
   import moment from 'moment';
@@ -944,6 +946,7 @@
             }
         };
       return {
+        checkGroupId: false,
         makeintoBaseInfo: {},
         titleType: '',
         titleType1: this.$t('label.PFANS1026VIEW_OVERSEAS'),
@@ -976,12 +979,6 @@
           6: false,
           7: false,
         },
-        disabledCount1: false,
-        disabledCount2: false,
-        disabledCount3: false,
-        disabledCount4: false,
-        disabledCount5: false,
-        disabledCount6: false,
         disabledCount7: false,
         existFlg: true,
         checked: false,
@@ -1278,7 +1275,6 @@
         this.$store
           .dispatch('PFANS1026Store/get', {'contractnumber': this.$route.params._id})
           .then(response => {
-            debugger
             let contractapplication = response.contractapplication;
             let contractnumbercount = response.contractnumbercount;
             if (contractapplication.length > 0) {
@@ -1360,6 +1356,17 @@
             });
             this.loading = false;
           });
+      }
+      let userid = this.$store.getters.userinfo.userid;
+      if (userid !== null && userid !== '') {
+        let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+        if(lst !== null && lst !== ''){
+          this.form1.grouporglist = lst.groupId;
+          this.getGroupId(this.form1.grouporglist);
+          this.checkGroupId = true;
+        }else{
+          this.checkGroupId = false;
+        }
       }
       //get customer
       this.getcustomerinfor();
@@ -2142,7 +2149,7 @@
           else if (this.form.contracttype === 'HT008009') {
             o.maketype = '9';
           }
-          if (this.form.tabledata[i].state === this.$t('label.PFANS8008FORMVIEW_EFFECTIVE')) {
+          if (this.form.tabledata[i].state === '1') {
             let letclaimamount = 0;
             for (let j = 0; j < this.form.tableclaimtype.length; j++) {
               letclaimamount = letclaimamount + Number(this.form.tableclaimtype[j].claimamount);
@@ -2151,7 +2158,7 @@
               let claimnumber = this.form.tabledata[i].contractnumber + '-' + (j + 1);
               this.form.tableclaimtype[j].claimnumber = claimnumber;
             }
-            o.state='1';
+            o.state = this.$t('label.PFANS8008FORMVIEW_EFFECTIVE');
             o.claimamount = letclaimamount;
           }
           if (Array.isArray(this.form.tabledata[i].conchinese)) {
@@ -2281,72 +2288,37 @@
 //                    this.$set(this, "disabledCount"+i, i>index);
 //                  }
             if (response.count1 === 0) {
-              this.disabledCount1 = false;
-              this.disabledCount2 = true;
-              this.disabledCount3 = true;
-              this.disabledCount4 = true;
-              this.disabledCount5 = true;
-              this.disabledCount6 = true;
+
               this.disabledCount7 = true;
               this.loading = false;
 
             } else if (response.count1 > 0 && response.count2 === 0) {
-              this.disabledCount1 = false;
-              this.disabledCount2 = false;
-              this.disabledCount3 = true;
-              this.disabledCount4 = true;
-              this.disabledCount5 = true;
-              this.disabledCount6 = true;
+
               this.disabledCount7 = true;
               this.loading = false;
 
             } else if (response.count1 > 0 && response.count2 > 0 && response.count3 === 0) {
-              this.disabledCount1 = false;
-              this.disabledCount2 = false;
-              this.disabledCount3 = false;
-              this.disabledCount4 = true;
-              this.disabledCount5 = true;
-              this.disabledCount6 = true;
+
               this.disabledCount7 = true;
               this.loading = false;
 
             } else if (response.count1 > 0 && response.count2 > 0 && response.count3 > 0 && response.count4 === 0) {
-              this.disabledCount1 = false;
-              this.disabledCount2 = false;
-              this.disabledCount3 = false;
-              this.disabledCount4 = false;
-              this.disabledCount5 = true;
-              this.disabledCount6 = true;
+
               this.disabledCount7 = true;
               this.loading = false;
 
             } else if (response.count1 > 0 && response.count2 > 0 && response.count3 > 0 && response.count4 > 0 && response.count5 === 0) {
-              this.disabledCount1 = false;
-              this.disabledCount2 = false;
-              this.disabledCount3 = false;
-              this.disabledCount4 = false;
-              this.disabledCount5 = false;
-              this.disabledCount6 = true;
+
               this.disabledCount7 = true;
               this.loading = false;
 
             } else if (response.count1 > 0 && response.count2 > 0 && response.count3 > 0 && response.count4 > 0 && response.count5 > 0 && response.count6 === 0) {
-              this.disabledCount1 = false;
-              this.disabledCount2 = false;
-              this.disabledCount3 = false;
-              this.disabledCount4 = false;
-              this.disabledCount5 = false;
-              this.disabledCount6 = false;
+
               this.disabledCount7 = true;
               this.loading = false;
 
             } else if (response.count1 > 0 && response.count2 > 0 && response.count3 > 0 && response.count4 > 0 && response.count5 > 0 && response.count6 > 0 && response.count7 === 0) {
-              this.disabledCount1 = false;
-              this.disabledCount2 = false;
-              this.disabledCount3 = false;
-              this.disabledCount4 = false;
-              this.disabledCount5 = false;
-              this.disabledCount6 = false;
+
               this.disabledCount7 = false;
               this.loading = false;
 
@@ -2465,7 +2437,7 @@
 
           cb(isOk);
         });
-        if(countIndex > 0){
+        if(countIndex > 0  && type !== "save" ){
           Message({
             message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_CONTR'),
             type: 'error',

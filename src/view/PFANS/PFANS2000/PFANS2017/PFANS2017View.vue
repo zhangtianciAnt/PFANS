@@ -1,7 +1,7 @@
 <template>
   <div>
     <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" ref="roletable" @rowClick="rowClick"
-                     :title="title" @buttonClick="buttonClick" v-loading="loading" :showSelection="isShow">
+                     :title="title" @buttonClick="buttonClick" v-loading="loading" :showSelection="isShow" :rowid="rowid">
     </EasyNormalTable>
     <el-dialog :visible.sync="daoru" width="50%">
       <div>
@@ -158,6 +158,7 @@
                     {'key': 'detail', 'name': 'button.detailed', 'disabled': false, icon: 'el-icon-s-grid'}
                 ],
                 isShow: true,
+              rowid:"punchcardrecord_id"
             };
         },
         mounted() {
@@ -186,6 +187,10 @@
                             }
                             if (response[j].time_end !== null && response[j].time_end !== "") {
                                 response[j].time_end = moment(response[j].time_end).format("HH:mm");
+                            }
+                            //系统服务下午四点取得考勤数据时不显示结束时间
+                            if(response[j].punchcardrecord_date === moment(new Date()).format('YYYY-MM-DD')){
+                                response[j].time_end = "";
                             }
                             if(response[j].worktime === "0.00"){
                                 response[j].worktime = "";
