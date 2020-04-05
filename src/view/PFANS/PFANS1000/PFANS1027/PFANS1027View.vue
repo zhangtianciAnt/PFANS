@@ -93,7 +93,7 @@
     mounted() {
       this.loading = true;
       this.$store
-        .dispatch('PFANS1026Store/get', {})
+        .dispatch('PFANS1026Store/get', {'type': '1'})
         .then(response => {
           let data = [];
           for (let i = 0; i < response.contractapplication.length; i++) {
@@ -138,6 +138,7 @@
                       startdate: response[j].startdate,
                       enddate: response[j].enddate,
                       contractnumber: response[j].contractnumber,
+                      quotationid: response[j].quotationid,
                     });
                   }
                 }
@@ -155,6 +156,7 @@
                       startdate: response[m].startdate,
                       enddate: response[m].enddate,
                       contractnumber: response[m].contractnumber,
+                      quotationid: response[m].quotationid,
                     });
                   }
                 }
