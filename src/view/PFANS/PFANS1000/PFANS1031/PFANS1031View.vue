@@ -130,7 +130,7 @@
     mounted() {
       this.loading = true;
       this.$store
-        .dispatch('PFANS1026Store/get', {})
+        .dispatch('PFANS1026Store/get', {'type': '1'})
         .then(response => {
           let data = [];
           for (let i = 0; i < response.contractapplication.length; i++) {
@@ -220,6 +220,7 @@
                       claimnumber: response[j].claimnumber,
                       claimtype: response[j].claimtype,
                       toto: response[j].toto,
+                      napalm_id: response[j].napalm_id,
                     });
                   }
                 }
@@ -242,6 +243,7 @@
                       claimnumber: response[m].claimnumber,
                       claimtype: response[m].claimtype,
                       toto: response[m].toto,
+                      napalm_id: response[m].napalm_id,
                     });
                   }
                 }
