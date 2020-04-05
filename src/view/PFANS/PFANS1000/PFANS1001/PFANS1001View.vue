@@ -142,20 +142,28 @@
     methods: {
       submitForm(val) {
         if (val === 1) {
+          this.$store.commit("global/SET_CURRENTURL", "/PFANS1002FormView");
           this.$store.commit("global/SET_WORKFLOWURL", "/PFANS1002FormView");
         }else if (val === 2) {
+          this.$store.commit("global/SET_CURRENTURL", "/PFANS1035FormView");
             this.$store.commit("global/SET_WORKFLOWURL", "/PFANS1035FormView");
         }else if (val === 3) {
+          this.$store.commit("global/SET_CURRENTURL", "/PFANS1003FormView");
           this.$store.commit("global/SET_WORKFLOWURL", "/PFANS1003FormView");
         } else if (val === 4) {
+          this.$store.commit("global/SET_CURRENTURL", "/PFANS1004FormView");
           this.$store.commit("global/SET_WORKFLOWURL", "/PFANS1004FormView");
         } else if (val === 5) {
+          this.$store.commit("global/SET_CURRENTURL", "/PFANS1005FormView");
           this.$store.commit("global/SET_WORKFLOWURL", "/PFANS1005FormView");
         } else if (val === 6) {
+          this.$store.commit("global/SET_CURRENTURL", "/PFANS1006FormView");
           this.$store.commit("global/SET_WORKFLOWURL", "/PFANS1006FormView");
         } else if (val === 10) {
+          this.$store.commit("global/SET_CURRENTURL", "/PFANS1010FormView");
           this.$store.commit("global/SET_WORKFLOWURL", "/PFANS1010FormView");
         } else if (val === 11) {
+          this.$store.commit("global/SET_CURRENTURL", "/PFANS1011FormView");
           this.$store.commit("global/SET_WORKFLOWURL", "/PFANS1011FormView");
         }
         this.$router.push({
