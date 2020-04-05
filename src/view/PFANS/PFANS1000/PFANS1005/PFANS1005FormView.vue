@@ -310,8 +310,13 @@
                 }
                 this.buttonClick('update');
             },
-            start() {
+            start(val) {
+              debugger
+              if (val.state === '0') {
                 this.form.status = '2';
+              }else if (val.state === '2') {
+                this.form.status = '4';
+              }
                 this.buttonClick('update');
             },
             end() {
