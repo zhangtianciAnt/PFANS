@@ -840,6 +840,7 @@
       };
       var validatePlacechinese = (rule, value, callback) => {
         if (value === '') {
+            callback(new Error(this.$t('label.PFANS1026FORMVIEW_ZSRW')));
         } else {
           callback();
         }
@@ -1360,7 +1361,7 @@
       let userid = this.$store.getters.userinfo.userid;
       if (userid !== null && userid !== '') {
         let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-        if(lst !== null && lst !== ''){
+        if(lst.groupId !== null && lst.groupId !== ''){
           this.form1.grouporglist = lst.groupId;
           this.getGroupId(this.form1.grouporglist);
           this.checkGroupId = true;
@@ -1503,7 +1504,6 @@
         this.$store
           .dispatch('PFANS6002Store/getcustomerinfor2')
           .then(response => {
-              console.log("response",response)
             for (let j = 0; j < response.length; j++) {
               if (response[j].custchinese !== null && response[j].custchinese !== '') {
                 let custchinese = getUserInfo(response[j].custchinese);
@@ -1939,7 +1939,6 @@
         let isClone = false;
         if (this.checked) {
           for (let i = 0; i < this.form.tabledata.length; i++) {
-
             this.form.tabledata[i].state = '0';
             if (this.form.tabledata[0].deliverycondition == 'HT009002') {
               isClone = true;
@@ -2427,7 +2426,6 @@
           return;
         }
         Promise.all(pros).then(function(values) {
-
           let isOk = true;
           values.forEach(function(val) {
             if (val != undefined && val != '') {
