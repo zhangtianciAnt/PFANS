@@ -118,7 +118,7 @@
       getJaname() {
         this.loading = true;
         this.$store
-          .dispatch('PFANS1026Store/get', {})
+          .dispatch('PFANS1026Store/get', {'type': '1'})
           .then(response => {
             let data = [];
             for (let i = 0; i < response.contractapplication.length; i++) {
@@ -212,6 +212,7 @@
                             claimdatetime: response[j].claimdatetime,
                             technical: response[j].technical,
                             contractnumber: response[j].contractnumber,
+                            nonjudgment_id: response[j].nonjudgment_id,
                           });
                         }
                       }
@@ -231,6 +232,7 @@
                             requirements: response[m].requirements,
                             claimdatetime: response[m].claimdatetime,
                             technical: response[m].technical,
+                            nonjudgment_id: response[m].nonjudgment_id,
                           });
                         }
                       }

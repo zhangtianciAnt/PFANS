@@ -103,7 +103,7 @@
     mounted() {
       this.loading = true;
       this.$store
-        .dispatch('PFANS1026Store/get', {})
+        .dispatch('PFANS1026Store/get', {'type': '1'})
         .then(response => {
           let data = [];
           for (let i = 0; i < response.contractapplication.length; i++) {
@@ -138,6 +138,7 @@
                       claimnumber: response[j].claimnumber,
                       deliveryfinshdate: response[j].deliveryfinshdate,
                       contractnumber: response[j].contractnumber,
+                      petition_id: response[j].petition_id,
                     });
                   }
                 }
@@ -154,6 +155,7 @@
                       claimnumber: response[m].claimnumber,
                       deliveryfinshdate: response[m].deliveryfinshdate,
                       contractnumber: response[m].contractnumber,
+                      petition_id: response[m].petition_id,
                     });
                   }
                 }

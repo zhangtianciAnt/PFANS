@@ -76,8 +76,8 @@
       }
     },
     methods: {
-      start() {
-        this.$emit('start')
+      start(val) {
+        this.$emit('start',val)
       },
       end() {
         this.$emit('end')

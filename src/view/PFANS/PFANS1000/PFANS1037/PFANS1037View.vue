@@ -82,10 +82,13 @@
     methods: {
       submitForm(val) {
         if (val === 7) {
+          this.$store.commit("global/SET_CURRENTURL", "/PFANS1007FormView");
           this.$store.commit("global/SET_WORKFLOWURL", "/PFANS1007FormView");
         } else if (val === 8) {
+          this.$store.commit("global/SET_CURRENTURL", "/PFANS1008FormView");
           this.$store.commit("global/SET_WORKFLOWURL", "/PFANS1008FormView");
         } else if (val === 9) {
+          this.$store.commit("global/SET_CURRENTURL", "/PFANS1009FormView");
           this.$store.commit("global/SET_WORKFLOWURL", "/PFANS1009FormView");
         }
         this.$router.push({
