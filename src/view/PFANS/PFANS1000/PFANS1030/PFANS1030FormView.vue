@@ -1106,6 +1106,8 @@
             this.form = response.award;
             if(this.form.status==='4'){
               this.enableSave = true;
+            }else{
+              this.enableSave = false;
             }
             if (response.award.custojapanese !== null && response.award.custojapanese !== '') {
               let letUser = getUserInfo(response.award.custojapanese);
@@ -1290,7 +1292,7 @@
           {
             key: 'generate',
             name: 'button.generate',
-            disabled: false,
+            disabled: true,
           },
         ];
       } else {
@@ -1459,6 +1461,7 @@
           row.depart = orglist;
           //ADD_FJL
           this.options1 = [];
+          row.budgetcode = '';
           let butinfo = getOrgInfo(row.depart).encoding;
               let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
               if(dic.length > 0){

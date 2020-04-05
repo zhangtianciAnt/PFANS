@@ -60,7 +60,8 @@
                                                        v-if="show6"
                                             >
                                             </dicselect>
-                      <el-input :disabled="true" style="width:20vw" v-model="form.moduleid" v-if="show9"></el-input>
+                      <el-input :disabled="true" style="width:20vw"
+                                v-model="form.moduleidApp" v-if="show9"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -490,7 +491,6 @@
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1012FORMVIEW_CHARGED')" name="second">
               <el-collapse>
-                <!--111-->
                 <el-collapse-item v-if="show9">
                   <template slot="title">
                     <span class="collapse_Title">{{$t('label.PFANS1012VIEW_TRAFFIC')}}</span>
@@ -1338,6 +1338,7 @@
                     user_id: '',
                     telephone: '',
                     moduleid: '',
+                  moduleidApp: '',
                     accountnumber: '',
                     reimbursementdate: moment(new Date()).format('YYYY-MM-DD'),
                     moneys: '',
@@ -1551,8 +1552,23 @@
                 this.$store
                     .dispatch('PFANS1012Store/selectById', {'publicexpenseid': this.$route.params._id})
                     .then(response => {
-                            this.form = response.publicexpense;
-                            let rst = getOrgInfoByUserId(response.publicexpense.user_id);
+                      this.form = response.publicexpense;
+                      let rst = getOrgInfoByUserId(response.publicexpense.user_id);
+
+                      if (this.form.moduleid !== null && this.form.moduleid !== "") {
+                        let moduleidinfo = getDictionaryInfo(this.form.projecttype);
+                        if (moduleidinfo) {
+                          this.form.moduleid = moduleidinfo.value1;
+                        }
+
+                      }
+                      // if (this.form.moduleid == 'PJ001001') {
+                      //   let moduleidinfo = getDictionaryInfo(this.form.moduleid);
+                      //   if (moduleidinfo != null) {
+                      //     this.form.moduleid = moduleidinfo.value1;
+                      //   }
+                      //   // moduleid
+                      // }
                             if (rst) {
                                 this.centerid = rst.centerNmae;
                                 this.groupid = rst.groupNmae;
@@ -1800,6 +1816,7 @@
                             } else if (this.form.paymentmethod === 'PJ004005') {
                                 this.show5 = true;
                             }
+                      // 111
                             if (this.form.type === 'PJ001001') {
                                 this.show9 = true;
                                 this.show6 = false;
@@ -1858,7 +1875,10 @@
                     this.show9 = true;
                     this.show6 = false;
                     this.show7 = false;
-                    this.form.moduleid = 'AP';
+                  debugger
+                  this.form.moduleid = 'PJ002001';
+                  this.form.moduleidApp = getDictionaryInfo(this.form.moduleid).value1;
+
                 } else if (this.form.type === 'PJ001002') {
                     this.show9 = false;
                     this.show6 = true;
