@@ -71,14 +71,6 @@ export function createexpatriatesinforApply(data) {
 //   })
 // }
 
-export function getSupplierNameList(data) {
-  return request({
-    url: 'expatriatesinfor/getSupplierNameList',
-    method: 'POST',
-    data: data
-  })
-}
-
 export function download(data) {
   return requestDownload({
     url: 'expatriatesinfor/download',
