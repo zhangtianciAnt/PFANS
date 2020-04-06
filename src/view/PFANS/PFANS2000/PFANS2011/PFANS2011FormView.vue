@@ -65,6 +65,11 @@
                 </div>
               </el-form-item>
             </el-col>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS2011FROMVIEW_OVERTIME')" prop="worktime">
+                <el-input :disabled="true" style="width:20vw" v-model="form.worktime"></el-input>
+              </el-form-item>
+            </el-col>
           </el-row>
           <el-row>
             <el-col :span="8">
@@ -365,6 +370,7 @@
           groupid: '',
           teamid: '',
           userid: '',
+          worktime: '',
           applicationdate: moment(new Date()).format('YYYY-MM-DD'),
           reserveovertimedate: '',
           overtimetype: '',

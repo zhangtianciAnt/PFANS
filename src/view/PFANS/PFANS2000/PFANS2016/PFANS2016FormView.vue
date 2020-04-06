@@ -41,7 +41,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('外出合计时长')" prop="worktime">
+              <el-form-item :label="$t('label.PFANS2017VIEW_COUNTTIME')" prop="worktime">
                 <el-input :disabled="true" style="width:20vw" v-model="form.worktime"></el-input>
               </el-form-item>
             </el-col>
@@ -703,7 +703,6 @@
                 checkTimeLenght: '',
                 enterday: '',
                 marryday: '',
-                worktimeflg: '',
             };
         },
         mounted() {

@@ -3,7 +3,7 @@ let dateMonth = new Date();
 dateMonth.setMonth(dateMonth.getMonth() - 1);
 module.exports = {
   login: {
-    
+
     name: '用户名',
     password: '密码',
     confirmbutton: '登录',
@@ -2236,6 +2236,7 @@ module.exports = {
     PFANS2011FORMVIEW_ERROR3: '加班种类与工作日设定不符',
     PFANS2011FROMVIEW_CHECHERROR: '实际加班時間与打卡时间不符',
     PFANS2011FROMVIEW_HALFDATE: '半天',
+    PFANS2011FROMVIEW_OVERTIME: '加班合计时长',
     PFANS2011FROMVIEW_ERRORINFOS: '三八妇女节应该女性申请',
     PFANS2011FROMVIEW_ERRORINFOW: '五四青年节应该是28周岁以内申请',
     PFANS2013VIEW_LASTYEAR: '上年度',
