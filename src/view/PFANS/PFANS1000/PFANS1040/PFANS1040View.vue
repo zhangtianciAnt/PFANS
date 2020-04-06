@@ -961,13 +961,14 @@
         this.$store
           .dispatch('PFANS1040Store/get', datainfo)
           .then(response => {
-            debugger
-            let con = response;
-            for (let i = 0; i < con.length; i++) {
-              if (con[i].currencytype !== '' && con[i].currencytype !== null) {
-                con[i].currencytype = getDictionaryInfo(con[i].currencytype).value4;
-              }
-            }
+            // debugger
+            // let con = response;
+            // for (let i = 0; i < con.length; i++) {
+            //   if (con[i].currencytype !== '' && con[i].currencytype !== null) {
+            //     debugger;
+            //     con[i].currencytype = getDictionaryInfo(con[i].currencytype).value4;
+            //   }
+            // }
             // if(this.code5 === 'PJ065001'){
             //   this.show = true;
             //   this.show1 = false;
