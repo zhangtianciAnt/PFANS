@@ -1744,35 +1744,6 @@
           rowindex: '',
         });
       },
-      //获取供应商所有合同
-      getcontractnumbercount(custojapanese) {
-          this.loading = true;
-          this.$store
-              .dispatch('PFANS1026Store/getSupplier',{'type': '0','custojapanese': custojapanese})
-              .then(response => {
-                  this.contractnumbercount = response.contractapplication.length + 1;
-                  //通し番号
-                  let number = '01';
-                  if (this.contractnumbercount.toString().length === 1) {
-                      number = '0' + this.contractnumbercount;
-                  } else if (this.contractnumbercount.toString().length === 2) {
-                      number = this.contractnumbercount;
-                  }
-                  if(this.form.tabledata.length > 0){
-                      this.contractnumbercountok = this.form.tabledata[0].contractnumber + number;
-                      this.form.tabledata[0].contractnumber = this.contractnumbercountok;
-                  }
-                  this.loading = false;
-              })
-              .catch(error => {
-                  Message({
-                      message: error,
-                      type: 'error',
-                      duration: 5 * 1000
-                  });
-                  this.loading = false
-              })
-      },
       //契約番号做成
       click() {
         this.$refs['refform1'].validate(valid => {
@@ -1933,10 +1904,6 @@
           this.titleType = this.titleType3;
         } else if (this.form.contracttype === 'HT014004') {
           this.titleType = this.titleType4;
-        }
-        if(!this.checked){
-            //获取供应商所有合同
-            this.getcontractnumbercount(this.form1.custojapanese);
         }
         this.getChecked(false);
         this.dialogFormVisible = false;
