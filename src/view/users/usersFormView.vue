@@ -921,15 +921,15 @@
                   </el-form-item>
                 </el-col>
               </el-row>
-
+              <!-- ADD-LXX -->
               <el-row>
                 <el-col :span="8">
                   <el-form-item
-                    :label="$t('label.PFANSUSERFORMVIEW_OLDAGEINSURANCE')"
-                    prop="oldageinsurance"
+                    :label="$t('label.PFANSUSERFORMVIEW_YANGLAOINSURANCE')"
+                    prop="yanglaoinsurance"
                   >
                     <el-input-number
-                      v-model="form.oldageinsurance"
+                      v-model="form.yanglaoinsurance"
                       :min="0"
                       :max="100000"
                       :precision="2"
@@ -937,58 +937,72 @@
                       class="width"
                       style="width:20vw"
                     ></el-input-number>
-                    <el-button
-                      type="text"
-                      @click="dialogTableVisible2 = true"
-                    >{{$t('label.PFANSUSERFORMVIEW_PERSONAL')}}
-                    </el-button>
-                    <el-dialog
-                      :title="$t('label.PFANSUSERFORMVIEW_OLDAGEINSURANCE') + $t('label.PFANSUSERFORMVIEW_PERSONAL')"
-                      :visible.sync="dialogTableVisible2"
-                      style="padding-top:5px"
-                    >
-                      <el-row>
-                        <el-col :span="24">
-                          <el-table :data="oldageData" stripe>
-                            <el-table-column
-                              property="date"
-                              align="center"
-                              :label="$t('label.PFANSUSERFORMVIEW_TIME')"
-                              width="200"
-                            >
-                              <template slot-scope="scope">
-                                <span style="color:#75a7ef">{{ scope.row.date }}</span>
-                              </template>
-                            </el-table-column>
-                            <el-table-column
-                              property="before"
-                              align="center"
-                              :label="$t('label.PFANSUSERFORMVIEW_BEFORE')"
-                              width="130"
-                            ></el-table-column>
-                            <el-table-column
-                              property="after"
-                              align="center"
-                              :label="$t('label.PFANSUSERFORMVIEW_AFTER')"
-                              width="130"
-                            >
-                              <template slot-scope="scope">
-                                <span style="color:#d16765">{{ scope.row.after }}</span>
-                              </template>
-                            </el-table-column>
-                            <el-table-column
-                              property="remark"
-                              align="center"
-                              :label="$t('label.PFANS1017FORMVIEW_PREPAREFOR')"
-                            >
-                              <template slot-scope="scope">
-                                <el-input style="width:20vw" v-model="scope.row.remark" size="mini"></el-input>
-                              </template>
-                            </el-table-column>
-                          </el-table>
-                        </el-col>
-                      </el-row>
-                    </el-dialog>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item
+                    :label="$t('label.PFANSUSERFORMVIEW_GONGSHANGINSURANCE')"
+                    prop="gongshanginsurance"
+                  >
+                    <el-input-number
+                      v-model="form.gongshanginsurance"
+                      :min="0"
+                      :max="100000"
+                      :precision="2"
+                      :step="100"
+                      class="width"
+                      style="width:20vw"
+                    ></el-input-number>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item
+                    :label="$t('label.PFANSUSERFORMVIEW_SHIYEINSURANCE')"
+                    prop="shiyeinsurance"
+                  >
+                    <el-input-number
+                      v-model="form.shiyeinsurance"
+                      :min="0"
+                      :max="100000"
+                      :precision="2"
+                      :step="100"
+                      class="width"
+                      style="width:20vw"
+                    ></el-input-number>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item
+                    :label="$t('label.PFANSUSERFORMVIEW_YILIAOINSURANCE')"
+                    prop="yiliaoinsurance"
+                  >
+                    <el-input-number
+                      v-model="form.yiliaoinsurance"
+                      :min="0"
+                      :max="100000"
+                      :precision="2"
+                      :step="100"
+                      class="width"
+                      style="width:20vw"
+                    ></el-input-number>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item
+                    :label="$t('label.PFANSUSERFORMVIEW_SHENGYUINSURANCE')"
+                    prop="shengyuinsurance"
+                  >
+                    <el-input-number
+                      v-model="form.shengyuinsurance"
+                      :min="0"
+                      :max="100000"
+                      :precision="2"
+                      :step="100"
+                      class="width"
+                      style="width:20vw"
+                    ></el-input-number>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -1060,9 +1074,82 @@
                   </el-form-item>
                 </el-col>
               </el-row>
-
-              <el-row>
+              <!-- ADD-LXX -->
+              <!-- 暂时注释掉-lxx -->
+              <!-- <el-row>
                 <el-col :span="8">
+                  <el-form-item
+                    :label="$t('label.PFANSUSERFORMVIEW_OLDAGEINSURANCE')"
+                    prop="oldageinsurance"
+                  >
+                    <el-input-number
+                      v-model="form.oldageinsurance"
+                      :min="0"
+                      :max="100000"
+                      :precision="2"
+                      :step="100"
+                      class="width"
+                      style="width:20vw"
+                    ></el-input-number>
+                    <el-button
+                      type="text"
+                      @click="dialogTableVisible2 = true"
+                    >{{$t('label.PFANSUSERFORMVIEW_PERSONAL')}}
+                    </el-button>
+                    <el-dialog
+                      :title="$t('label.PFANSUSERFORMVIEW_OLDAGEINSURANCE') + $t('label.PFANSUSERFORMVIEW_PERSONAL')"
+                      :visible.sync="dialogTableVisible2"
+                      style="padding-top:5px"
+                    >
+                      <el-row>
+                        <el-col :span="24">
+                          <el-table :data="oldageData" stripe>
+                            <el-table-column
+                              property="date"
+                              align="center"
+                              :label="$t('label.PFANSUSERFORMVIEW_TIME')"
+                              width="200"
+                            >
+                              <template slot-scope="scope">
+                                <span style="color:#75a7ef">{{ scope.row.date }}</span>
+                              </template>
+                            </el-table-column>
+                            <el-table-column
+                              property="before"
+                              align="center"
+                              :label="$t('label.PFANSUSERFORMVIEW_BEFORE')"
+                              width="130"
+                            ></el-table-column>
+                            <el-table-column
+                              property="after"
+                              align="center"
+                              :label="$t('label.PFANSUSERFORMVIEW_AFTER')"
+                              width="130"
+                            >
+                              <template slot-scope="scope">
+                                <span style="color:#d16765">{{ scope.row.after }}</span>
+                              </template>
+                            </el-table-column>
+                            <el-table-column
+                              property="remark"
+                              align="center"
+                              :label="$t('label.PFANS1017FORMVIEW_PREPAREFOR')"
+                            >
+                              <template slot-scope="scope">
+                                <el-input style="width:20vw" v-model="scope.row.remark" size="mini"></el-input>
+                              </template>
+                            </el-table-column>
+                          </el-table>
+                        </el-col>
+                      </el-row>
+                    </el-dialog>
+                  </el-form-item>
+                </el-col>
+              </el-row> -->
+              <!-- 暂时注释掉-lxx -->
+              <el-row>
+                <!-- 暂时注释掉-lxx -->
+                <!-- <el-col :span="8">
                   <el-form-item
                     :label="$t('label.PFANSUSERFORMVIEW_MEDICALINSURANCE')"
                     prop="medicalinsurance"
@@ -1129,7 +1216,8 @@
                       </el-row>
                     </el-dialog>
                   </el-form-item>
-                </el-col>
+                </el-col> -->
+                <!-- 暂时注释掉-lxx -->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_SALARY')" prop="salary">
                     <el-input-number
@@ -1727,6 +1815,13 @@
           informationid: '',
           title: '',
           availablestate: '0',
+          // ADD-LXX
+          yanglaoinsurance:'',
+          yiliaoinsurance:'',
+          shiyeinsurance:'',
+          gongshanginsurance:'',
+          shengyuinsurance:'',
+          // ADD-LXX
         },
         disable: false,
         userToRoleId: '',
@@ -2063,15 +2158,17 @@
               trigger: 'blur',
             },
           ],
-          oldageinsurance: [
-            {
-              required: true,
-              message:
-                this.$t('normal.error_08') +
-                this.$t('label.PFANSUSERFORMVIEW_OLDAGEINSURANCE'),
-              trigger: 'blur',
-            },
-          ],
+          // 暂时注释掉-lxx
+          // oldageinsurance: [
+          //   {
+          //     required: true,
+          //     message:
+          //       this.$t('normal.error_08') +
+          //       this.$t('label.PFANSUSERFORMVIEW_OLDAGEINSURANCE'),
+          //     trigger: 'blur',
+          //   },
+          // ],
+          // 暂时注释掉-lxx
           houseinsurance: [
             {
               required: true,
@@ -2081,15 +2178,64 @@
               trigger: 'blur',
             },
           ],
-          medicalinsurance: [
+          // 暂时注释掉-lxx
+          // medicalinsurance: [
+          //   {
+          //     required: true,
+          //     message:
+          //       this.$t('normal.error_08') +
+          //       this.$t('label.PFANSUSERFORMVIEW_MEDICALINSURANCE'),
+          //     trigger: 'blur',
+          //   },
+          // ],
+          // 暂时注释掉-lxx
+          // ADD-LXX
+          yanglaoinsurance: [
             {
               required: true,
               message:
                 this.$t('normal.error_08') +
-                this.$t('label.PFANSUSERFORMVIEW_MEDICALINSURANCE'),
+                this.$t('label.PFANSUSERFORMVIEW_YANGLAOINSURANCE'),
               trigger: 'blur',
             },
           ],
+          yiliaoinsurance: [
+            {
+              required: true,
+              message:
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_YILIAOINSURANCE'),
+              trigger: 'blur',
+            },
+          ],
+          shiyeinsurance: [
+            {
+              required: true,
+              message:
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_SHIYEINSURANCE'),
+              trigger: 'blur',
+            },
+          ],
+          gongshanginsurance: [
+            {
+              required: true,
+              message:
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_GONGSHANGINSURANCE'),
+              trigger: 'blur',
+            },
+          ],
+          shengyuinsurance: [
+            {
+              required: true,
+              message:
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_SHENGYUINSURANCE'),
+              trigger: 'blur',
+            },
+          ],
+          // ADD-LXX
           mobilenumber: [
             {
               required: true,
@@ -2216,9 +2362,20 @@
           !this.form.seatnumber ||
           !this.form.duty ||
           !this.form.basic ||
-          this.form.oldageinsurance === undefined ||
+          // this.form.oldageinsurance === undefined ||
           this.form.houseinsurance === undefined ||
-          this.form.medicalinsurance === undefined
+          // this.form.medicalinsurance === undefined ||
+          // ADD-LXX
+          this.form.yanglaoinsurance === undefined
+          ||
+          this.form.yiliaoinsurance === undefined
+          ||
+          this.form.shiyeinsurance === undefined
+          ||
+          this.form.gongshanginsurance === undefined
+          ||
+          this.form.shengyuinsurance === undefined
+          // ADD-LXX
         ) {
           this.activeName = 'five';
         }
