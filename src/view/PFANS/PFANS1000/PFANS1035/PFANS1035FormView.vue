@@ -59,44 +59,46 @@
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS5009VIEW_PROJECTNAME')" prop="projectname">
                       <div class="dpSupIndex" style="width: 19vw" prop="projectname">
-                        <el-container>
-                          <input class="content bg" v-model="form.projectname"
-                                 :disabled="true"></input>
-                          <el-button :disabled="!disable" icon="el-icon-search" @click="dialogTableVisible = true"
-                                     size="small"></el-button>
-                          <el-dialog :title="$t('label.PFANS5009VIEW_PROJECTNAME')" :visible.sync="dialogTableVisible"
-                                     center size="50%"
-                                     top="8vh" lock-scroll
-                                     append-to-body>
-                            <div style="text-align: center">
-                              <el-row style="text-align: center;height: 90%;overflow: hidden">
-                                <el-table
-                                  :data="gridData.filter(data => !search || data.projectname.toLowerCase().includes(search.toLowerCase()))"
-                                  height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
-                                  @row-click="handleClickChange">
-                                  <el-table-column property="numbers"
-                                                   :label="$t('label.PFANS5004VIEW_PROJECTNUMBER')"
-                                                   width="200"></el-table-column>
-                                  <el-table-column property="projectname"
-                                                   :label="$t('label.PFANS5009VIEW_PROJECTNAME')"
-                                                   width="200"></el-table-column>
-                                  <el-table-column
-                                    align="right" width="230">
-                                    <template slot="header" slot-scope="scope">
-                                      <el-input
-                                        v-model="search"
-                                        size="mini"
-                                        placeholder="请输入项目名称关键字搜索"/>
-                                    </template>
-                                  </el-table-column>
-                                </el-table>
-                              </el-row>
-                              <span slot="footer" class="dialog-footer">
-                          <el-button type="primary" @click="submit">{{$t('button.confirm')}}</el-button>
-                        </span>
-                            </div>
-                          </el-dialog>
-                        </el-container>
+                        <project :data="form.companyprojectsname" :disabled="!disable" @change="change" style="width: 100%">
+                        </project>
+                        <!--<el-container>-->
+                          <!--<input class="content bg" v-model="form.projectname"-->
+                                 <!--:disabled="true"></input>-->
+                          <!--<el-button :disabled="!disable" icon="el-icon-search" @click="dialogTableVisible = true"-->
+                                     <!--size="small"></el-button>-->
+                          <!--<el-dialog :title="$t('label.PFANS5009VIEW_PROJECTNAME')" :visible.sync="dialogTableVisible"-->
+                                     <!--center size="50%"-->
+                                     <!--top="8vh" lock-scroll-->
+                                     <!--append-to-body>-->
+                            <!--<div style="text-align: center">-->
+                              <!--<el-row style="text-align: center;height: 90%;overflow: hidden">-->
+                                <!--<el-table-->
+                                  <!--:data="gridData.filter(data => !search || data.projectname.toLowerCase().includes(search.toLowerCase()))"-->
+                                  <!--height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"-->
+                                  <!--@row-click="handleClickChange">-->
+                                  <!--<el-table-column property="numbers"-->
+                                                   <!--:label="$t('label.PFANS5004VIEW_PROJECTNUMBER')"-->
+                                                   <!--width="200"></el-table-column>-->
+                                  <!--<el-table-column property="projectname"-->
+                                                   <!--:label="$t('label.PFANS5009VIEW_PROJECTNAME')"-->
+                                                   <!--width="200"></el-table-column>-->
+                                  <!--<el-table-column-->
+                                    <!--align="right" width="230">-->
+                                    <!--<template slot="header" slot-scope="scope">-->
+                                      <!--<el-input-->
+                                        <!--v-model="search"-->
+                                        <!--size="mini"-->
+                                        <!--placeholder="请输入项目名称关键字搜索"/>-->
+                                    <!--</template>-->
+                                  <!--</el-table-column>-->
+                                <!--</el-table>-->
+                              <!--</el-row>-->
+                              <!--<span slot="footer" class="dialog-footer">-->
+                          <!--<el-button type="primary" @click="submit">{{$t('button.confirm')}}</el-button>-->
+                        <!--</span>-->
+                            <!--</div>-->
+                          <!--</el-dialog>-->
+                        <!--</el-container>-->
                       </div>
                     </el-form-item>
                   </el-col>
@@ -462,12 +464,14 @@
   import {getOrgInfoByUserId,getOrgInfo,getDictionaryInfo} from '@/utils/customize';
   import dicselect from '../../../components/dicselect';
 
+  import project from '../../../components/project.vue';
   export default {
     name: 'PFANS1035FormView',
     components: {
       dicselect,
       EasyNormalContainer,
       user,
+      project
     },
     data() {
       var validateUserid = (rule, value, callback) => {
@@ -864,6 +868,9 @@
       this.disable = this.$route.params.disabled;
     },
     methods: {
+      change(val) {
+        this.form.companyprojectsname = val;
+      },
       checkRequire() {
         if (
           !this.form.user_id ||
