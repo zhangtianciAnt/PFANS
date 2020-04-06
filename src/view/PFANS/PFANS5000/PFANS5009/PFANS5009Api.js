@@ -31,6 +31,14 @@ export function getSiteList(data) {
   })
 }
 
+export function getSiteList3(data) {
+  return request({
+    url: 'companyprojects/getSiteList3',
+    method: 'get',
+    params: data
+  })
+}
+
 export function getSiteList2(data) {
   return request({
     url: 'companyprojects/getSiteList2',

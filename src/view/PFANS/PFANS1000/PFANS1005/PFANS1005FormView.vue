@@ -242,7 +242,7 @@
                 }
             }
             this.$store
-                .dispatch('PFANS5001Store/getFpans5001List', {'status': '4'})
+                .dispatch('PFANS5009Store/getSiteList3')
                 .then(response => {
                     this.options = response;
                 })

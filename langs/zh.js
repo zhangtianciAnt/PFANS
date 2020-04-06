@@ -40,7 +40,7 @@ module.exports = {
     newTeam: '新建TEAM',
     startWorkflow: '发起审批',
     viewWorkflow: '查看流程',
-    delWorkflow: '撤销流程',
+    delWorkflow: '撤回修改',
     operationWorkflow: '进行审批',
     mingtian: '下一天',
     import: '导入',
@@ -2213,7 +2213,7 @@ module.exports = {
     PFANS2010VIEW_INHUGH: '年休',
     PFANS2010VIEW_DAYOFF: '代休',
     PFANS2010VIEW_MATERNITY: '产休/护理假',
-    PFANS2010VIEW_WELFARE: '福利假期',
+    PFANS2010VIEW_WELFARE: '其他异常',
     PFANS2010VIEW_ABSENCE: '欠勤',
     PFANS2010VIEW_LATE: '迟到',
     PFANS2010VIEW_LEAVEEARLY: '早退',
@@ -3063,6 +3063,11 @@ module.exports = {
     PFANSUSERFORMVIEW_OTHERORGS: '兼职部门',
     PFANSUSERFORMVIEW_HOUSEINSURANCE: '住房公积金缴纳基数',
     PFANSUSERFORMVIEW_MEDICALINSURANCE: '医疗保险基数',
+    // ADD-LXX
+    PFANSUSERFORMVIEW_SHIYEINSURANCE: '失业保险基数',
+    PFANSUSERFORMVIEW_GONGSHANGINSURANCE: '工伤保险基数',
+    PFANSUSERFORMVIEW_SHENGYUINSURANCE: '生育保险基数',
+    // ADD-LXX
     PFANSUSERFORMVIEW_AFTERWORk: '入社后工作经历',
     PFANSUSERFORMVIEW_TRAININGPRACTICE: '培训经历',
     PFANSUSERFORMVIEW_TIME: '时间',
@@ -3165,7 +3170,8 @@ module.exports = {
     ASSETS1003VIEW_FILEADDRESS: '服务器地址',
     //ADD-LXX
     USERSVIEW_ENTER:"在职",
-    USERSVIEW_LEAVE:"离职"
+    USERSVIEW_LEAVE:"离职",
+    PFANS2017VIEW_AFTERNOON: '下午外出时长',
     //ADD-LXX
   },
 };
