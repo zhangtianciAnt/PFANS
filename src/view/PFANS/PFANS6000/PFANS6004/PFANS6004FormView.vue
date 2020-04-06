@@ -715,6 +715,7 @@
         this.$store
           .dispatch('PFANS6004Store/getexpatriatesinforApplyOne', {'expatriatesinfor_id': this.$route.params._id})
           .then(response => {
+
             this.form = response;
               let birthdays = new Date(this.form.birth);
               let d = new Date();

@@ -452,6 +452,7 @@
       };
     },
     mounted() {
+
       this.getSupplierNameList();
       if (this.$route.params._id) {
         this.loading = true;

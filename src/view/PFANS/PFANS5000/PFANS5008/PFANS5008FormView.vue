@@ -288,6 +288,7 @@
                             label: response[i].project_name,
                         });
                     }
+
                     this.transferData = data;
                     this.$store
                         .dispatch('PFANS5008Store/getDataList', {})

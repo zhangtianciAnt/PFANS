@@ -1882,6 +1882,7 @@
                 this.form.toolsorgs = val;
             },
             getcontract() {
+
                 this.contractapplication = {};
                 this.loading = true;
                 this.$store

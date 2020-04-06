@@ -3,6 +3,7 @@ let dateMonth = new Date();
 dateMonth.setMonth(dateMonth.getMonth() - 1);
 module.exports = {
   login: {
+    
     name: '用户名',
     password: '密码',
     confirmbutton: '登录',
