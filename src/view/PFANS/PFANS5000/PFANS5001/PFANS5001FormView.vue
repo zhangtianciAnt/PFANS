@@ -330,7 +330,7 @@
               </el-row>
               <el-row v-show="form.toolstype === '1'">
                 <el-form-item :label="$t('label.PFANS5001FORMVIEW_ENTRUST')" prop="toolsorgs">
-                  <org :disabled="!disable" :orglist="form.toolsorgs" orgtype="3" @getOrgids="setToolsorgs"
+                  <org :disabled="!disable" :orglist="form.toolsorgs" orgtype="2" @getOrgids="setToolsorgs"
                        style="width:20vw"></org>
                 </el-form-item>
               </el-row>
