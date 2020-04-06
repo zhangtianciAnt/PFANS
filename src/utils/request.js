@@ -1,6 +1,9 @@
 import axios from 'axios'
 import router from '../router'
-import {getToken, removeToken} from './auth'
+import {
+  getToken,
+  removeToken
+} from './auth'
 import i18n from '../assets/js/i18n'
 
 const service = axios.create({
@@ -15,9 +18,8 @@ service.interceptors.request.use(config => {
   config.headers['locale'] = i18n.locale;
 
   // if (store.getters.currentUrl) {
-debugger
   let url = router.currentRoute.fullPath;
-console.log(router.currentRoute)
+  console.log(router.currentRoute)
   if ("PFANS1001FormView" == router.currentRoute.name) {
     if (router.currentRoute.params.title === 1) {
       url = "/PFANS1002FormView";
@@ -65,7 +67,9 @@ service.interceptors.response.use(
         if (router.currentRoute.path !== '/') {
           router.replace({
             path: '/',
-            query: {redirect: router.currentRoute.fullPath}
+            query: {
+              redirect: router.currentRoute.fullPath
+            }
           });
           return Promise.reject(i18n.t('normal.error_05'))
         } else {
@@ -79,7 +83,7 @@ service.interceptors.response.use(
     }
   },
   error => {
-    console.log('err' + error);// for debug
+    console.log('err' + error); // for debug
     return Promise.reject(i18n.t('normal.error_07'))
   });
 
