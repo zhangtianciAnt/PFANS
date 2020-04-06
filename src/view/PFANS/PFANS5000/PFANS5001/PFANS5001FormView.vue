@@ -554,17 +554,17 @@
                                   style="width: 80vw" :cell-class-name="setPl">
                           <!--                       编号-->
                           <!--<el-table-column-->
-                            <!--:label="$t('label.PFANS5001FORMVIEW_NUMBERS')"-->
-                            <!--align="center"-->
-                            <!--width="130">-->
-                            <!--<template slot-scope="scope">-->
-                              <!--<el-input-->
-                                <!--:no="scope.row"-->
-                                <!--:disabled="true"-->
-                                <!--v-model="scope.row.number"-->
-                                <!--style="width: 100%">-->
-                              <!--</el-input>-->
-                            <!--</template>-->
+                          <!--:label="$t('label.PFANS5001FORMVIEW_NUMBERS')"-->
+                          <!--align="center"-->
+                          <!--width="130">-->
+                          <!--<template slot-scope="scope">-->
+                          <!--<el-input-->
+                          <!--:no="scope.row"-->
+                          <!--:disabled="true"-->
+                          <!--v-model="scope.row.number"-->
+                          <!--style="width: 100%">-->
+                          <!--</el-input>-->
+                          <!--</template>-->
                           <!--</el-table-column>-->
                           <!--                          &lt;!&ndash;             センター         &ndash;&gt;-->
                           <!--                          <el-table-column-->
@@ -647,7 +647,7 @@
                               <el-button
                                 :disabled="!disable"
                                 @click.native.prevent="deleteRow1(scope.$index, tableB)"
-                                plain  v-show="scope.$index != 0"
+                                plain v-show="scope.$index != 0"
                                 size="small"
                                 type="danger"
                               >{{$t('button.delete')}}
@@ -655,7 +655,7 @@
                               <el-button
                                 :disabled="!disable"
                                 @click="addRow1()"
-                                plain  v-show="scope.$index != 0"
+                                plain v-show="scope.$index != 0"
                                 size="small"
                                 type="primary"
                               >{{$t('button.insert')}}
@@ -671,17 +671,17 @@
                                   style="width: 80vw">
                           <!--                      编号-->
                           <!--<el-table-column-->
-                            <!--:label="$t('label.PFANS5001FORMVIEW_NUMBERS')"-->
-                            <!--align="center"-->
-                            <!--width="110">-->
-                            <!--<template slot-scope="scope">-->
-                              <!--<el-input-->
-                                <!--:no="scope.row"-->
-                                <!--:disabled="true"-->
-                                <!--v-model="scope.row.number"-->
-                                <!--style="width: 100%">-->
-                              <!--</el-input>-->
-                            <!--</template>-->
+                          <!--:label="$t('label.PFANS5001FORMVIEW_NUMBERS')"-->
+                          <!--align="center"-->
+                          <!--width="110">-->
+                          <!--<template slot-scope="scope">-->
+                          <!--<el-input-->
+                          <!--:no="scope.row"-->
+                          <!--:disabled="true"-->
+                          <!--v-model="scope.row.number"-->
+                          <!--style="width: 100%">-->
+                          <!--</el-input>-->
+                          <!--</template>-->
                           <!--</el-table-column>-->
                           <!--                      协力公司-->
                           <el-table-column
@@ -942,44 +942,48 @@
                 </el-table>
                 <el-table :data="tableclaimtype" stripe border header-cell-class-name="sub_bg_color_blue"
                           style="width: 90vw" v-show="form.toolstype === '1'">
-                  <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMTYPE')" align="center" prop="claimtype" width="130">
+                  <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMTYPE')" align="center" prop="claimtype"
+                                   width="130">
                     <template slot-scope="scope">
-                        <el-input :disabled="!disable" v-model="scope.row.claimtype">
-                        </el-input>
+                      <el-input :disabled="!disable" v-model="scope.row.claimtype">
+                      </el-input>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYDATE')" align="center" prop="deliverydate"
                                    width="170">
                     <template slot-scope="scope">
-                        <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.deliverydate"
-                                        style="width: 9.5rem"></el-date-picker>
+                      <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.deliverydate"
+                                      style="width: 9.5rem"></el-date-picker>
                     </template>
                   </el-table-column>
-                  <el-table-column :label="$t('label.PFANS1024VIEW_COMPLETIONDATE')" align="center" prop="completiondate"
+                  <el-table-column :label="$t('label.PFANS1024VIEW_COMPLETIONDATE')" align="center"
+                                   prop="completiondate"
                                    width="170">
                     <template slot-scope="scope">
-                        <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.completiondate"
-                                        style="width: 9.5rem"></el-date-picker>
+                      <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.completiondate"
+                                      style="width: 9.5rem"></el-date-picker>
                     </template>
                   </el-table-column>
-                  <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMDATE')" align="center" prop="claimdate" width="170">
+                  <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMDATE')" align="center" prop="claimdate"
+                                   width="170">
                     <template slot-scope="scope">
-                        <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.claimdate"
-                                        style="width: 9.5rem"></el-date-picker>
+                      <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.claimdate"
+                                      style="width: 9.5rem"></el-date-picker>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1024VIEW_SUPPORTDATE')" align="center" prop="supportdate"
                                    width="170">
                     <template slot-scope="scope">
-                        <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.supportdate"
-                                        style="width: 9.5rem"></el-date-picker>
+                      <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.supportdate"
+                                      style="width: 9.5rem"></el-date-picker>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMAMOUNT')" align="center" prop="claimamount"
                                    width="190">
                     <template slot-scope="scope">
-                        <el-input-number v-model="scope.row.claimamount" controls-position="right" style="width: 11rem"
-                                         :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
+                      <el-input-number v-model="scope.row.claimamount" controls-position="right" style="width: 11rem"
+                                       :disabled="!disabled" :min="0" :max="1000000000"
+                                       :precision="2"></el-input-number>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.operation')" align="center" width="200">
@@ -1019,7 +1023,8 @@
                             prop="tools"
                           >
                             <el-checkbox-group v-model="checkList" :disabled="!disable">
-                                <el-checkbox v-for="(item,index) in checkboxs" :key="index" :label="item.value1"></el-checkbox>
+                              <el-checkbox v-for="(item,index) in checkboxs" :key="index"
+                                           :label="item.value1"></el-checkbox>
 
                             </el-checkbox-group>
                           </el-form-item>
@@ -1134,31 +1139,31 @@
                     callback();
                 }
             };
-          var centerId = (rule, value, callback) => {
-            if (!this.form.center_id || this.form.center_id === "") {
-              callback(new Error(this.$t("normal.error_08") + "center"));
-              this.error = this.$t("normal.error_08") + "center";
-            } else {
-              callback();
-            }
-          };
-          var groupId = (rule, value, callback) => {
-            if (!this.form.group_id || this.form.group_id === "") {
-              callback(new Error(this.$t("normal.error_08") + "group"));
-              this.error = this.$t("normal.error_08") + "group";
-            } else {
-              callback();
-            }
-          };
+            var centerId = (rule, value, callback) => {
+                if (!this.form.center_id || this.form.center_id === "") {
+                    callback(new Error(this.$t("normal.error_08") + "center"));
+                    this.error = this.$t("normal.error_08") + "center";
+                } else {
+                    callback();
+                }
+            };
+            var groupId = (rule, value, callback) => {
+                if (!this.form.group_id || this.form.group_id === "") {
+                    callback(new Error(this.$t("normal.error_08") + "group"));
+                    this.error = this.$t("normal.error_08") + "group";
+                } else {
+                    callback();
+                }
+            };
             return {
-              tableclaimtype:[{
-                claimtype: '',
-                deliverydate: '',
-                completiondate: '',
-                claimdate: '',
-                supportdate: '',
-                claimamount:0
-              }],
+                tableclaimtype: [{
+                    claimtype: '',
+                    deliverydate: '',
+                    completiondate: '',
+                    claimdate: '',
+                    supportdate: '',
+                    claimamount: 0
+                }],
                 //内采合同
                 // centerorglist: '',
                 // grouporglist: '',
@@ -1233,17 +1238,17 @@
                         exittime: '',
                         rowindex: '',
                     }, {
-                    projectsystem_id: '',
-                    companyprojects_id: '',
-                    type: '0',
-                    number: '',
-                    company: '',
-                    name: '',
-                    position: '',
-                    admissiontime: '',
-                    exittime: '',
-                    rowindex: '',
-                  },
+                        projectsystem_id: '',
+                        companyprojects_id: '',
+                        type: '0',
+                        number: '',
+                        company: '',
+                        name: '',
+                        position: '',
+                        admissiontime: '',
+                        exittime: '',
+                        rowindex: '',
+                    },
                 ],
                 //项目体制(外协)
                 tableC: [
@@ -1478,38 +1483,38 @@
                             trigger: 'blur',
                         },
                     ],
-                  center_id: [
-                    {
-                      required: true,
-                      validator: centerId,
-                      trigger: "change"
-                    }
-                  ],
-                  group_id: [
-                    {
-                      required: true,
-                      validator: groupId,
-                      trigger: "change"
-                    }
-                  ],
+                    center_id: [
+                        {
+                            required: true,
+                            validator: centerId,
+                            trigger: "change"
+                        }
+                    ],
+                    group_id: [
+                        {
+                            required: true,
+                            validator: groupId,
+                            trigger: "change"
+                        }
+                    ],
                 },
                 baseInfo: {},
                 form: {
-                  centername: "",
-                  groupname: "",
-                  teamname: "",
-                  center_id: '',
-                  group_id: '',
-                  team_id: '',
-                  project_name: '',
-                  project_namejp: '',
-                  leaderid: '',
-                  managerid: '',
-                  projecttype: '',
-                  field: '',
-                  languages: '',
-                  startdate: '',
-                  toolstype: '',
+                    centername: "",
+                    groupname: "",
+                    teamname: "",
+                    center_id: '',
+                    group_id: '',
+                    team_id: '',
+                    project_name: '',
+                    project_namejp: '',
+                    leaderid: '',
+                    managerid: '',
+                    projecttype: '',
+                    field: '',
+                    languages: '',
+                    startdate: '',
+                    toolstype: '',
                     // 事业国别
                     country: '',
                     //车载
@@ -1574,21 +1579,21 @@
             };
         },
         mounted() {
-          if (this.$route.params._org) {
-            ({
-              centername: this.form.centername,
-              groupname: this.form.groupname,
-              teamname: this.form.teamname,
-              center_id: this.form.center_id,
-              group_id: this.form.group_id,
-              team_id: this.form.team_id
-            } = this.$route.params._org);
-        }
-          let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PP018');
+            if (this.$route.params._org) {
+                ({
+                    centername: this.form.centername,
+                    groupname: this.form.groupname,
+                    teamname: this.form.teamname,
+                    center_id: this.form.center_id,
+                    group_id: this.form.group_id,
+                    team_id: this.form.team_id
+                } = this.$route.params._org);
+            }
+            let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PP018');
 
-          for(let i = 0; i < dic.length; i++){
-            this.checkboxs.push(dic[i]);
-          }
+            for (let i = 0; i < dic.length; i++) {
+                this.checkboxs.push(dic[i]);
+            }
 
             this.getexpatriatesinfor();
             this.getcustomerinfor();
@@ -1613,12 +1618,12 @@
                         if (response.stageinformation.length > 0) {
                             this.tableA = response.stageinformation;
                             for (var i = 0; i < this.tableA.length; i++) {
-                                if (this.tableA[i].phase === ''){
-                                  this.tableA[i].showrow = true;
-                                  this.tableA[i].showrow1 = false;
-                                  this.tableA[i].showrow2 = false;
-                                  this.tableA[i].showrow3 = false;
-                                }else if (this.tableA[i].phase === 'PP012001') {
+                                if (this.tableA[i].phase === '') {
+                                    this.tableA[i].showrow = true;
+                                    this.tableA[i].showrow1 = false;
+                                    this.tableA[i].showrow2 = false;
+                                    this.tableA[i].showrow3 = false;
+                                } else if (this.tableA[i].phase === 'PP012001') {
                                     this.tableA[i].showrow = false;
                                     this.tableA[i].showrow1 = true;
                                     this.tableA[i].showrow2 = false;
@@ -1702,10 +1707,10 @@
                                     });
                                 }
                             }
-                            if(flag1){
+                            if (flag1) {
                                 tableb.shift();
                             }
-                            if(flag2){
+                            if (flag2) {
                                 tablec.shift();
                             }
                             this.tableB = tableb;
@@ -1762,7 +1767,7 @@
                         }
                         //ADD 03-18 ,委托元为内采时，合同可自行添加请求金额
                         if (response.contractnumbercount.length > 0) {
-                          this.tableclaimtype = response.contractnumbercount;
+                            this.tableclaimtype = response.contractnumbercount;
                         }
                         //ADD 03-18 ,委托元为内采时，合同可自行添加请求金额 END
 
@@ -1827,59 +1832,58 @@
             this.disabled = this.$route.params.disabled;
             if (this.disabled) {
                 this.buttonList = [
-                  {
-                    key: 'save',
-                    name: 'button.save',
-                    disabled: false,
-                    icon: 'el-icon-check',
-                  },
+                    {
+                        key: 'save',
+                        name: 'button.save',
+                        disabled: false,
+                        icon: 'el-icon-check',
+                    },
                 ];
             }
         },
         methods: {
-          setPl({row, column, rowIndex, columnIndex}){
-            if(row.position.toUpperCase() === 'PL'){
-              return 'PlStyle';
-            }
-          },
-          checkRequire(){
-            if(!this.form.group_id ||
-            !this.form.center_id ||
-            !this.form.project_name ||
-            !this.form.project_namejp ||
-            !this.form.leaderid ||
-            !this.form.managerid ||
-            !this.form.languages ||
-            !this.form.projecttype ||
-            !this.form.field ||
-            !this.form.country ||
-            !this.form.chentrust ||
-            !this.form.ouentrust ||
-            !this.form.caron ||
-            !this.form.startdate ||
-            !this.form.enddate ||
-            !this.form.work ||
-            !this.form.deadline
-            ){
-              this.activeName = 'first';
-            }else if(!this.tableB[0].name && !this.tableC[0].name){
-              this.activeName = 'fourth';
-            }else if(!this.tableD[0].projectcontract_id){
-              this.activeName = 'fifth';
-            }
-          },
-          setdisabled(val){
-            if(this.$route.params.disabled){
-              this.disabled = val;
-            }
-          },
-          setToolsorgs(val){
-            this.form.toolsorgs = val;
-          },
+            setPl({row, column, rowIndex, columnIndex}) {
+                if (row.position.toUpperCase() === 'PL') {
+                    return 'PlStyle';
+                }
+            },
+            checkRequire() {
+                if (!this.form.group_id ||
+                    !this.form.center_id ||
+                    !this.form.project_name ||
+                    !this.form.project_namejp ||
+                    !this.form.leaderid ||
+                    !this.form.managerid ||
+                    !this.form.languages ||
+                    !this.form.projecttype ||
+                    !this.form.field ||
+                    !this.form.country ||
+                    !this.form.chentrust ||
+                    !this.form.ouentrust ||
+                    !this.form.caron ||
+                    !this.form.startdate ||
+                    !this.form.enddate ||
+                    !this.form.work ||
+                    !this.form.deadline
+                ) {
+                    this.activeName = 'first';
+                } else if (!this.tableB[0].name && !this.tableC[0].name) {
+                    this.activeName = 'fourth';
+                } else if (!this.tableD[0].projectcontract_id) {
+                    this.activeName = 'fifth';
+                }
+            },
+            setdisabled(val) {
+                if (this.$route.params.disabled) {
+                    this.disabled = val;
+                }
+            },
+            setToolsorgs(val) {
+                this.form.toolsorgs = val;
+            },
             getcontract() {
+
                 this.contractapplication = {};
-                this.contractapplication.entrycondition = [];
-                this.contractapplication.entrycondition = 'HT004007';
                 this.loading = true;
                 this.$store
                     .dispatch('PFANS1026Store/get', this.contractapplication)
@@ -1890,9 +1894,9 @@
                                 let claimdatetime = response.contractapplication[i].claimdatetime;
                                 let claimdatetim = claimdatetime.slice(0, 10);
                                 let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
-                                response.contractapplication[i].claimdatetime = [claimdatetim+"~"+claimdatetime1];
+                                response.contractapplication[i].claimdatetime = [claimdatetim + "~" + claimdatetime1];
 
-                                response.contractapplication[i].entrypayment = [claimdatetim,claimdatetime1];
+                                response.contractapplication[i].entrypayment = [claimdatetim, claimdatetime1];
 
                             }
                             var vote2 = {};
@@ -1901,11 +1905,11 @@
                             vote2.contracttype = getDictionaryInfo(response.contractapplication[i].contracttype).value1;
                             vote2.applicationdate = moment(response.contractapplication[i].applicationdate).format('YYYY-MM-DD');
                             vote2.state = response.contractapplication[i].state;
-                            vote2.claimdatetime= response.contractapplication[i].claimdatetime;
-                            vote2.entrypayment= response.contractapplication[i].entrypayment;
-                            vote2.theme= response.contractapplication[i].theme;
+                            vote2.claimdatetime = response.contractapplication[i].claimdatetime;
+                            vote2.entrypayment = response.contractapplication[i].entrypayment;
+                            vote2.theme = response.contractapplication[i].theme;
                             this.gridData3.push(vote2);
-                            console.log("aaa",this.gridData3)
+                            console.log("aaa", this.gridData3)
                         }
                         this.loading = false;
                     })
@@ -1917,9 +1921,6 @@
                         });
                         this.loading = false;
                     });
-
-
-
 
 
             },
@@ -1948,71 +1949,71 @@
             },
 
             getCenterId(val) {
-              this.form.center_id = val;
-              if (!val || this.form.center_id === "") {
-                this.errorcenter = this.$t("normal.error_08") + "center";
-              } else {
-                this.errorcenter = "";
-              }
+                this.form.center_id = val;
+                if (!val || this.form.center_id === "") {
+                    this.errorcenter = this.$t("normal.error_08") + "center";
+                } else {
+                    this.errorcenter = "";
+                }
             },
             getGroupId(val) {
-              this.getOrgInformation(val);
-              if (this.form.center_id === "") {
-                this.errorgroup = this.$t("normal.error_08") + "center";
-              } else {
-                this.errorgroup = "";
-              }
+                this.getOrgInformation(val);
+                if (this.form.center_id === "") {
+                    this.errorgroup = this.$t("normal.error_08") + "center";
+                } else {
+                    this.errorgroup = "";
+                }
             },
             getTeamId(val) {
-              this.getOrgInformation(val);
-              if (this.form.center_id === "") {
-                this.errorgroup = this.$t("normal.error_08") + "center";
-              } else {
-                this.errorgroup = "";
-              }
+                this.getOrgInformation(val);
+                if (this.form.center_id === "") {
+                    this.errorgroup = this.$t("normal.error_08") + "center";
+                } else {
+                    this.errorgroup = "";
+                }
             },
-          getGroupId(val) {
-            this.getOrgInformation(val);
-            if (this.form.group_id === "") {
-              this.errorgroup1 = this.$t("normal.error_08") + "group";
-            } else {
-              this.errorgroup1 = "";
-            }
-          },
-          getOrgInformation(id) {
-            let org = {};
-            let treeCom = this.$store.getters.orgs;
-
-            if (id && treeCom.getNode(id)) {
-              let node = id;
-              let type = treeCom.getNode(id).data.type || 0;
-              for (let index = parseInt(type); index >= 1; index--) {
-                if (parseInt(type) === index && ![1, 2].includes(parseInt(type))) {
-                  org.teamname = treeCom.getNode(node).data.departmentname;
-
-
-                  org.team_id = treeCom.getNode(node).data._id;
+            getGroupId(val) {
+                this.getOrgInformation(val);
+                if (this.form.group_id === "") {
+                    this.errorgroup1 = this.$t("normal.error_08") + "group";
+                } else {
+                    this.errorgroup1 = "";
                 }
-                if (index === 2) {
-                  org.groupname = treeCom.getNode(node).data.departmentname;
-                  org.group_id = treeCom.getNode(node).data._id;
+            },
+            getOrgInformation(id) {
+                let org = {};
+                let treeCom = this.$store.getters.orgs;
+
+                if (id && treeCom.getNode(id)) {
+                    let node = id;
+                    let type = treeCom.getNode(id).data.type || 0;
+                    for (let index = parseInt(type); index >= 1; index--) {
+                        if (parseInt(type) === index && ![1, 2].includes(parseInt(type))) {
+                            org.teamname = treeCom.getNode(node).data.departmentname;
+
+
+                            org.team_id = treeCom.getNode(node).data._id;
+                        }
+                        if (index === 2) {
+                            org.groupname = treeCom.getNode(node).data.departmentname;
+                            org.group_id = treeCom.getNode(node).data._id;
+                        }
+                        if (index === 1) {
+                            org.centername = treeCom.getNode(node).data.companyname;
+                            org.center_id = treeCom.getNode(node).data._id;
+                        }
+                        node = treeCom.getNode(node).parent.data._id;
+                    }
+                    ({
+                        centername: this.form.centername,
+                        groupname: this.form.groupname,
+                        teamname: this.form.teamname,
+                        center_id: this.form.center_id,
+                        group_id: this.form.group_id,
+                        team_id: this.form.team_id,
+                    } = org);
                 }
-                if (index === 1) {
-                  org.centername = treeCom.getNode(node).data.companyname;
-                  org.center_id = treeCom.getNode(node).data._id;
-                }
-                node = treeCom.getNode(node).parent.data._id;
-              }
-              ({
-                centername: this.form.centername,
-                groupname: this.form.groupname,
-                teamname: this.form.teamname,
-                center_id: this.form.center_id,
-                group_id: this.form.group_id,
-                team_id: this.form.team_id,
-              } = org);
-            }
-          },
+            },
 
             getUserids(val) {
                 this.userlist = val;
@@ -2074,9 +2075,8 @@
             //合同
             handleClickChange2(val) {
                 this.currentRow = val.contract;
-                this.themeRow= val.theme;
-                this.workinghoursRow= val.entrypayment;
-                this.getCompanyprojects();
+                this.themeRow = val.theme;
+                this.workinghoursRow = val.entrypayment;
             },
             submit2(row) {
                 row.contract = this.currentRow;
@@ -2351,32 +2351,32 @@
                 }
             },
             //ADD 03-18 ,委托元为内采时，合同可自行添加请求金额
-          addRowClaim() {
-            this.tableclaimtype.push({
-              claimtype: '',
-              deliverydate: '',
-              completiondate: '',
-              claimdate: '',
-              supportdate: '',
-              claimamount: '',
-            });
-          },
-          //合同
-          deleteRowClaim(index, rows) {
-            if (rows.length > 1) {
-              rows.splice(index, 1);
-            } else {
-              this.tableclaimtype = [{
-                claimtype: '',
-                deliverydate: '',
-                completiondate: '',
-                claimdate: '',
-                supportdate: '',
-                claimamount: '',
-              }];
-            }
-          },
-          //ADD 03-18 ,委托元为内采时，合同可自行添加请求金额 END
+            addRowClaim() {
+                this.tableclaimtype.push({
+                    claimtype: '',
+                    deliverydate: '',
+                    completiondate: '',
+                    claimdate: '',
+                    supportdate: '',
+                    claimamount: '',
+                });
+            },
+            //合同
+            deleteRowClaim(index, rows) {
+                if (rows.length > 1) {
+                    rows.splice(index, 1);
+                } else {
+                    this.tableclaimtype = [{
+                        claimtype: '',
+                        deliverydate: '',
+                        completiondate: '',
+                        claimdate: '',
+                        supportdate: '',
+                        claimamount: '',
+                    }];
+                }
+            },
+            //ADD 03-18 ,委托元为内采时，合同可自行添加请求金额 END
             // //计划合计
             // getTsummaries(param) {
             //   const {columns, data} = param;
@@ -2418,8 +2418,8 @@
                             vote1.expname = response[i].expname;
                             vote1.suppliername = response[i].suppliername;
                             vote1.post = response[i].post;
-                          vote1.suppliernameid = response[i].supplierinfor_id;
-                          this.gridData1.push(vote1);
+                            vote1.suppliernameid = response[i].supplierinfor_id;
+                            this.gridData1.push(vote1);
                         }
                         this.centerorglist = this.form.center_id;
                         this.grouporglist = this.form.group_id;
@@ -2476,30 +2476,6 @@
                     this.form.uploadfile += o.name + "," + o.url + ";"
                 }
             },
-            getCompanyprojects() {
-                if (this.Numbers == 1) {
-                    this.$store
-                        .dispatch('PFANS5001Store/getFpans5001List', {})
-                        .then(response => {
-                            let number = 0;
-                            let numbe = 0;
-                            let numbers;
-                            for (let j = 0; j < response.length; j++) {
-                                number = number + 1;
-                            }
-                            numbe = number + 1;
-                            if (numbe.toString().length === 1) {
-                                numbe = '00' + numbe
-                            } else if (numbe.toString().length === 2) {
-                                numbe = '0' + numbe
-                            } else {
-                                numbe = numbe
-                            }
-                            numbers = moment(new Date()).format("YYYY").toString() + numbe;
-                            this.form.numbers = numbers;
-                        })
-                }
-            },
             getworkinghours(workinghours) {
                 if (workinghours != null) {
                     if (workinghours.length > 0) {
@@ -2531,28 +2507,28 @@
                             }
                         }
                         this.form.manmonth = manMonth;
-                        if(this.form.toolstype === '0'){
-                          this.form.toolsorgs = ' ';
-                          this.tableclaimtype = [{
-                            claimtype: '',
-                            deliverydate: '',
-                            completiondate: '',
-                            claimdate: '',
-                            supportdate: '',
-                            claimamount: '',
-                          }];
+                        if (this.form.toolstype === '0') {
+                            this.form.toolsorgs = ' ';
+                            this.tableclaimtype = [{
+                                claimtype: '',
+                                deliverydate: '',
+                                completiondate: '',
+                                claimdate: '',
+                                supportdate: '',
+                                claimamount: '',
+                            }];
                         }
-                        if(this.form.toolstype === '1'){
-                          this.form.entrust = ' ';
-                          this.form.deployment = ' ';
-                          this.form.behalf = ' ';
-                          this.form.intelligence = ' ';
+                        if (this.form.toolstype === '1') {
+                            this.form.entrust = ' ';
+                            this.form.deployment = ' ';
+                            this.form.behalf = ' ';
+                            this.form.intelligence = ' ';
                             this.tableD = [{
-                            contract: '',
-                            theme: '',
-                            workinghours: '',
-                          }];
-                      }
+                                contract: '',
+                                theme: '',
+                                workinghours: '',
+                            }];
+                        }
                         this.baseInfo.companyprojects = JSON.parse(JSON.stringify(this.form));
                         this.baseInfo.stageinformation = [];
                         this.baseInfo.projectsystem = [];
@@ -2578,16 +2554,16 @@
                             }
                         }
                         for (let i = 0; i < this.tableB.length; i++) {
-                          // 社内员工进组时间&退出时间必须Check
-            if ((!this.tableB[i].admissiontime || this.tableB[i].admissiontime === "" || !this.tableB[i].exittime || this.tableB[i].exittime === "") && this.tableB[i].name !== "") {
-                Message({
-                    message: this.$t("normal.error_pfans50011"),
-                    type: "error",
-                    duration: 5 * 1000
-                  });
-                  this.loading = false;
-                  return;
-            }
+                            // 社内员工进组时间&退出时间必须Check
+                            if (!this.tableB[i].admissiontime || this.tableB[i].admissiontime === "" || !this.tableB[i].exittime || this.tableB[i].exittime === "") {
+                                Message({
+                                    message: this.$t("normal.error_pfans50011"),
+                                    type: "error",
+                                    duration: 5 * 1000
+                                });
+                                this.loading = false;
+                                return;
+                            }
                             if (
                                 this.tableB[i].number !== '' ||
                                 this.tableB[i].name !== '' ||
@@ -2606,16 +2582,16 @@
                             }
                         }
                         for (let i = 0; i < this.tableC.length; i++) {
-                          // 外协员工入场时间&离场时间必须Check
-            if ((!this.tableC[i].admissiontime || this.tableC[i].admissiontime === "" || !this.tableC[i].exittime || this.tableC[i].exittime === "") && this.tableC[i].name !== "") {
-                Message({
-                    message: this.$t("normal.error_pfans5001"),
-                    type: "error",
-                    duration: 5 * 1000
-                  });
-                  this.loading = false;
-                  return;
-            }
+                            // 外协员工入场时间&离场时间必须Check
+                            if (!this.tableC[i].admissiontime || this.tableC[i].admissiontime === "" || !this.tableC[i].exittime || this.tableC[i].exittime === "") {
+                                Message({
+                                    message: this.$t("normal.error_pfans5001"),
+                                    type: "error",
+                                    duration: 5 * 1000
+                                });
+                                this.loading = false;
+                                return;
+                            }
                             if (
                                 this.tableC[i].number !== '' ||
                                 this.tableC[i].name !== '' ||
@@ -2650,9 +2626,9 @@
                             }
                         }
 
-                      //ADD 03-18 ,委托元为内采时，合同可自行添加请求金额
-                      this.baseInfo.contractnumbercount = this.tableclaimtype;
-                      //ADD 03-18 ,委托元为内采时，合同可自行添加请求金额 END
+                        //ADD 03-18 ,委托元为内采时，合同可自行添加请求金额
+                        this.baseInfo.contractnumbercount = this.tableclaimtype;
+                        //ADD 03-18 ,委托元为内采时，合同可自行添加请求金额 END
 
                         let error = 0;
                         for (let i = 0; i < this.tableD.length; i++) {
@@ -2663,46 +2639,61 @@
                         let error1 = 0;
                         let error2 = 0;
                         let error3 = 0;
+                        let error4 = 0;
+                        for (let i = 0; i < this.tableA.length; i++) {
+                            if (this.tableA[i].phase == '' && this.tableA[i].estimatedstarttime == '' && this.tableA[i].estimatedendtime == '') {
+                                error4 = error4 + 1;
+                            }
+                        }
+
                         for (let i = 0; i < this.tableB.length; i++) {
                             if (this.tableB[i].name == '' && this.tableB[i].admissiontime == '' && this.tableB[i].exittime == '') {
-                              error1 = error1 + 1;
-                          }
+                                error1 = error1 + 1;
+                            }
                         }
                         for (let i = 0; i < this.tableC.length; i++) {
                             if (this.tableC[i].name == '' && this.tableC[i].admissiontime == '' && this.tableC[i].exittime == '') {
-                              error2 = error2 + 1;
-                          }
+                                error2 = error2 + 1;
+                            }
                         }
-                      for (let i = 0; i < this.tableclaimtype.length; i++) {
-                        if (this.tableclaimtype[i].claimtype == '' || this.tableclaimtype[i].deliverydate == '' || this.tableclaimtype[i].completiondate == '' || this.tableclaimtype[i].claimdate == '' || this.tableclaimtype[i].supportdate == '' || this.tableclaimtype[i].claimamount == '') {
-                          error3 = error3 + 1;
+                        for (let i = 0; i < this.tableclaimtype.length; i++) {
+                            if (this.tableclaimtype[i].claimtype == '' || this.tableclaimtype[i].deliverydate == '' || this.tableclaimtype[i].completiondate == '' || this.tableclaimtype[i].claimdate == '' || this.tableclaimtype[i].supportdate == '' || this.tableclaimtype[i].claimamount == '') {
+                                error3 = error3 + 1;
+                            }
                         }
-                      }
                         if (error1 != 0 && error2 != 0) {
-                          this.loading = false;
-                          Message({
-                            message: this.$t('normal.error_08') +
-                              this.$t('label.PFANS5001FORMVIEW_SYSTEM'),
-                            type: 'error',
-                            duration: 5 * 1000,
-                          });
+                            this.loading = false;
+                            Message({
+                                message: this.$t('normal.error_08') +
+                                    this.$t('label.PFANS5001FORMVIEW_SYSTEM'),
+                                type: 'error',
+                                duration: 5 * 1000,
+                            });
+                        } else if (error4 != 0) {
+                            this.loading = false;
+                            Message({
+                                message: this.$t('normal.error_08') +
+                                    this.$t('label.PFANS5001FORMVIEW_DEVELOPMENTPLAN'),
+                                type: 'error',
+                                duration: 5 * 1000,
+                            });
                         } else if (error != 0 && this.form.toolstype !== '1') {
-                        this.loading = false;
-                        Message({
-                          message: this.$t('normal.error_08') +
-                            this.$t('label.PFANS5001FORMVIEW_CONTRACT'),
-                          type: 'error',
-                          duration: 5 * 1000,
-                        });
-                      } else if (error3 != 0 && this.form.toolstype !== '0') {
-                          this.loading = false;
-                          Message({
-                            message: this.$t('normal.error_08') +
-                              this.$t('label.PFANS5001FORMVIEW_CONTRACT') +
-                              this.$t('label.PFANS1024VIEW_CONTR'),
-                            type: 'error',
-                            duration: 5 * 1000,
-                          });
+                            this.loading = false;
+                            Message({
+                                message: this.$t('normal.error_08') +
+                                    this.$t('label.PFANS5001FORMVIEW_CONTRACT'),
+                                type: 'error',
+                                duration: 5 * 1000,
+                            });
+                        } else if (error3 != 0 && this.form.toolstype !== '0') {
+                            this.loading = false;
+                            Message({
+                                message: this.$t('normal.error_08') +
+                                    this.$t('label.PFANS5001FORMVIEW_CONTRACT') +
+                                    this.$t('label.PFANS1024VIEW_CONTR'),
+                                type: 'error',
+                                duration: 5 * 1000,
+                            });
                         } else if (this.$route.params._id) {
                             this.baseInfo.companyprojects.companyprojects_id = this.$route.params._id;
                             this.form.center_id = this.centerorglist;
@@ -2755,8 +2746,7 @@
                                     this.loading = false;
                                 });
                         }
-                    }
-                    else{
+                    } else {
                         Message({
                             message: this.$t("normal.error_12"),
                             type: 'error',
@@ -2785,7 +2775,8 @@
       border-width: 1px;
     }
   }
-  .PlStyle{
+
+  .PlStyle {
     background-color: #005BAA !important;
   }
 </style>

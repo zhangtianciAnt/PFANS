@@ -218,6 +218,27 @@ export function getOrgInfo(orgid, data) {
   }
 }
 
+export function getDownOrgInfo(orgid, data) {
+  let list = store.getters.orgList;
+  if (data) {
+    list = data;
+  }
+
+  if (list && list.length > 0) {
+    for (let org of list) {
+      if (org._id === orgid) {
+        return org.orgs
+      } else if (org.orgs && org.orgs.length > 0) {
+        var rst = getDownOrgInfo(orgid, org.orgs);
+
+        if (rst) {
+          return rst;
+        }
+      }
+    }
+  }
+}
+
 export function getOrgInfoByUserId(userid) {
   var orgs = {};
   let userinfo = getUserInfo(userid);
@@ -358,7 +379,7 @@ export function downLoadUrl(url) {
 export function getCurrentRole() {
 
   if(store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0){
-    for(let rolw of store.getters.useraccount.roles){
+    for(let role of store.getters.useraccount.roles){
       if(role.description.indexOf("总经理")!= -1){
         return "1";
       }else if(role.description.toUpperCase().indexOf("CENTER")!= -1){

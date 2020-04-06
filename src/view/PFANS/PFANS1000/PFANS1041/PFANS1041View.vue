@@ -889,11 +889,11 @@
           .dispatch('PFANS1040Store/get', datainfo)
           .then(response => {
             let con = response;
-            for (let i = 0; i < con.length; i++) {
-              if (con[i].currencytype !== '' && con[i].currencytype !== null) {
-                con[i].currencytype = getDictionaryInfo(con[i].currencytype).value4;
-              }
-            }
+            // for (let i = 0; i < con.length; i++) {
+            //   if (con[i].currencytype !== '' && con[i].currencytype !== null) {
+            //     con[i].currencytype = getDictionaryInfo(con[i].currencytype).value4;
+            //   }
+            // }
             if (response.length > 0) {
               if(year != ''){
                   this.tableA = response;
