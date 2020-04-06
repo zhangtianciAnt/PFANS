@@ -1,6 +1,11 @@
 <template>
   <div style="min-height: 100%" class="user_view">
-    <el-container class="container" style="width: 100%"  v-loading="loading" element-loading-spinner="el-icon-loading">
+    <el-container
+      class="container"
+      style="width: 100%"
+      v-loading="loading"
+      element-loading-spinner="el-icon-loading"
+    >
       <el-aside width="20rem" style="overflow: hidden" v-show="false">
         <EasyTree
           :defaultlist="data"
@@ -25,16 +30,35 @@
           @rowClick="rowClick"
           :showSelection="isShow"
         >
-          <el-date-picker unlink-panels
-                          class="bigWidth"
-                          v-model="workinghours"
-                          style="margin-right:1vw"
-                          slot="customize"
-                          type="daterange"
-                          :end-placeholder="$t('label.enddate')"
-                          :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
-                          :start-placeholder="$t('label.startdate')"
-                          @change="clickdata"
+          <!-- ADD-LXX -->
+          <el-select
+            v-model="enterOrleave"
+            placeholder="请选择"
+            slot="customize"
+            style="margin-right:1vw"
+            @change="filterInfo"
+            clearable
+          >
+            <el-option
+              v-for="item in optionsForel"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            ></el-option>
+          </el-select>
+          <!-- ADD-LXX -->
+
+          <el-date-picker
+            unlink-panels
+            class="bigWidth"
+            v-model="workinghours"
+            style="margin-right:1vw"
+            slot="customize"
+            type="daterange"
+            :end-placeholder="$t('label.enddate')"
+            :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
+            :start-placeholder="$t('label.startdate')"
+            @change="filterInfo"
           ></el-date-picker>
         </EasyNormalTable>
         <el-dialog :visible.sync="daoru" width="50%">
@@ -47,7 +71,7 @@
                 :on-success="handleSuccess"
                 :before-upload="handleChange"
                 :headers="authHeader"
-                :limit=1
+                :limit="1"
                 :on-remove="this.clear"
                 multiple
               >
@@ -57,36 +81,35 @@
             </div>
             <el-row>
               <span v-if="this.resultShow">{{$t('label.PFANS2005FORMVIEW_CG')}}{{this.successCount}}</span>&nbsp;&nbsp;&nbsp;&nbsp;
-              <span v-if="this.resultShow"
+              <span
+                v-if="this.resultShow"
               >{{$t('label.PFANS2005FORMVIEW_SB')}}{{this.errorCount}}</span>
             </el-row>
             <span v-if="this.Message">{{this.cuowu}}</span>
             <div v-if="this.result">
               <el-table :data="message">
-                <el-table-column :label="$t('label.PFANS2017VIEW_CUHS')" align="center" width="120%" prop="hang">
-                </el-table-column>
-                <el-table-column :label="$t('label.PFANS2017VIEW_ERROR')" align="center" prop="error">
-                </el-table-column>
+                <el-table-column
+                  :label="$t('label.PFANS2017VIEW_CUHS')"
+                  align="center"
+                  width="120%"
+                  prop="hang"
+                ></el-table-column>
+                <el-table-column
+                  :label="$t('label.PFANS2017VIEW_ERROR')"
+                  align="center"
+                  prop="error"
+                ></el-table-column>
               </el-table>
             </div>
           </div>
         </el-dialog>
         <el-dialog :visible.sync="pop_download" width="50%" destroy-on-close>
-          <el-table
-            :data="downtypes"
-            style="width: 100%">
-            <el-table-column
-              prop="name"
-              :label="$t('label.ASSETS1001VIEW_FILENAME')"
-            >
-            </el-table-column>
+          <el-table :data="downtypes" style="width: 100%">
+            <el-table-column prop="name" :label="$t('label.ASSETS1001VIEW_FILENAME')"></el-table-column>
 
             <el-table-column :label="$t('label.operation')">
               <template slot-scope="scope">
-                <el-button
-                  size="mini"
-                  @click="handleDownload(scope.row)"
-                >{{$t('button.download2')}}</el-button>
+                <el-button size="mini" @click="handleDownload(scope.row)">{{$t('button.download2')}}</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -97,7 +120,7 @@
 </template>
 
 <script>
-import {getToken} from '@/utils/auth'
+import { getToken } from "@/utils/auth";
 import EasyTree from "@/components/EasyTree";
 import EasyButtonBar from "@/components/EasyButtonBar";
 import EasyNormalTable from "@/components/EasyNormalTable";
@@ -116,21 +139,21 @@ export default {
     return {
       TABLEList: [],
       totaldata: [],
-      cuowu: '',
-      working: '',
-      workinghours: '',
-      starttime: '',
+      cuowu: "",
+      working: "",
+      workinghours: "",
+      starttime: "",
       endTime: "",
       daoru: false,
       successCount: 0,
       errorCount: 0,
       pop_download: false,
-      authHeader: {'x-auth-token': getToken()},
-      postAction: process.env.BASE_API + '/user/importUser',
+      authHeader: { "x-auth-token": getToken() },
+      postAction: process.env.BASE_API + "/user/importUser",
       resultShow: false,
-      message: [{hang: '', error: '',}],
+      message: [{ hang: "", error: "" }],
       Message: false,
-      addActionUrl: '',
+      addActionUrl: "",
       result: false,
       data: [],
       tableList: [],
@@ -143,7 +166,7 @@ export default {
       selectedlist: [],
       org: {},
       departmentData: {},
-      isShow:true,
+      isShow: true,
       columns: [
         {
           code: "customername",
@@ -241,103 +264,153 @@ export default {
           icon: "el-icon-edit"
         },
         {
-          key: 'import',
-          name: 'button.import',
+          key: "import",
+          name: "button.import",
           disabled: false,
-          icon: 'el-icon-download'
+          icon: "el-icon-download"
         },
         {
-          key: 'export',
-          name: 'button.export',
+          key: "export",
+          name: "button.export",
           disabled: false,
-          icon: 'el-icon-upload2'
+          icon: "el-icon-upload2"
         },
         {
-          key: 'export2',
-          name: 'button.download2',
+          key: "export2",
+          name: "button.download2",
           disabled: false,
-          icon: 'el-icon-download'
-        },
+          icon: "el-icon-download"
+        }
       ],
       departmentname: "",
       loading: false,
-      currentNodeData: {}
+      currentNodeData: {},
+      //ADD-LXX
+      enterOrleave: "",
+      optionsForel: [
+        {
+          value: "0",
+          label: this.$t("label.USERSVIEW_ENTER")
+        },
+        {
+          value: "1",
+          label: this.$t("label.USERSVIEW_LEAVE")
+        }
+      ]
+      //ADD-LXX
     };
   },
   methods: {
+    //ADD-LXX
+    filterInfo() {
+      this.tableList = this.TABLEList.slice(0);
+
+      if (this.TABLEList.length > 0) {
+        //进行在职离职筛选
+        if (this.enterOrleave !== "") {
+          //在职筛选
+          if (this.enterOrleave === "0") {
+            this.tableList = this.tableList.filter(item => {
+              return item.enddate === null || item.enddate === "";
+            });
+          } else {
+            this.tableList = this.tableList.filter(item => {
+              return item.enddate !== null && item.enddate !== "";
+            });
+          }
+        }
+        //进行时间筛选
+        this.working = this.getworkinghours(this.workinghours);
+        (this.starttime = this.working.substring(0, 10)),
+          (this.endTime = this.working.substring(13, 23));
+        if (this.starttime != "" || this.endTime != "") {
+          this.tableList = this.tableList.filter(item => {
+            return this.starttime <= item.enterday && item.enterday <= this.endTime
+          });
+        }
+      }
+    },
+    //ADD-LXX
     handleDownload(row) {
       this.loading = true;
       this.$store
-        .dispatch('usersStore/download', {'type': row.type})
+        .dispatch("usersStore/download", { type: row.type })
         .then(response => {
           this.loading = false;
         })
         .catch(error => {
           Message({
             message: error,
-            type: 'error',
+            type: "error",
             duration: 5 * 1000
           });
           this.loading = false;
-        })
+        });
     },
-      getworkinghours(workinghours) {
-          if (workinghours != null) {
-              if (workinghours.length > 0) {
-                  return moment(workinghours[0]).format('YYYY-MM-DD') + " ~ " + moment(workinghours[1]).format('YYYY-MM-DD');
-              } else {
-                  return '';
-              }
-          } else {
-              return '';
+    getworkinghours(workinghours) {
+      if (workinghours != null) {
+        if (workinghours.length > 0) {
+          return (
+            moment(workinghours[0]).format("YYYY-MM-DD") +
+            " ~ " +
+            moment(workinghours[1]).format("YYYY-MM-DD")
+          );
+        } else {
+          return "";
+        }
+      } else {
+        return "";
+      }
+    },
+    clickdata() {
+      this.working = this.getworkinghours(this.workinghours);
+      (this.starttime = this.working.substring(0, 10)),
+        (this.endTime = this.working.substring(13, 23));
+      let tabledate = [];
+      let tabledata = [];
+      if (this.TABLEList != "") {
+        if (this.starttime == "" && this.endTime == "") {
+          for (let i = 0; i < this.TABLEList.length; i++) {
+            tabledata.push({
+              customername: this.TABLEList[i].customername,
+              jobnumber: this.TABLEList[i].jobnumber,
+              centername: this.TABLEList[i].centername,
+              groupname: this.TABLEList[i].groupname,
+              teamname: this.TABLEList[i].teamname,
+              enterday: this.TABLEList[i].enterday,
+              post: this.TABLEList[i].post,
+              rank: this.TABLEList[i].rank,
+              sex: this.TABLEList[i].sex,
+              budgetunit: this.TABLEList[i].budgetunit,
+              birthday: this.TABLEList[i].birthday
+            });
           }
-      },
-      clickdata() {
-          this.working = this.getworkinghours(this.workinghours);
-          this.starttime =  this.working.substring(0,10),
-          this.endTime = this.working.substring(13,23)
-          let tabledate = [];
-          let tabledata = [];
-          if (this.TABLEList != ''){
-          if(this.starttime == '' && this.endTime == ''){
-              for (let i = 0; i < this.TABLEList.length; i++) {
-                  tabledata.push({
-                      customername: this.TABLEList[i].customername,
-                      jobnumber: this.TABLEList[i].jobnumber,
-                      centername: this.TABLEList[i].centername,
-                      groupname: this.TABLEList[i].groupname,
-                      teamname: this.TABLEList[i].teamname,
-                      enterday: this.TABLEList[i].enterday,
-                      post: this.TABLEList[i].post,
-                      rank: this.TABLEList[i].rank,
-                      sex: this.TABLEList[i].sex,
-                      budgetunit: this.TABLEList[i].budgetunit,
-                      birthday: this.TABLEList[i].birthday,
-                  })
-              }
-              this.tableList = tabledata
-          }else {
-              for (let i = 0; i < this.TABLEList.length; i++) {
-                  if (this.starttime <= this.TABLEList[i].enterday && this.TABLEList[i].enterday <= this.endTime) {
-                      tabledate.push({
-                          customername: this.TABLEList[i].customername,
-                          jobnumber: this.TABLEList[i].jobnumber,
-                          centername: this.TABLEList[i].centername,
-                          groupname: this.TABLEList[i].groupname,
-                          teamname: this.TABLEList[i].teamname,
-                          enterday: this.TABLEList[i].enterday,
-                          post: this.TABLEList[i].post,
-                          rank: this.TABLEList[i].rank,
-                          sex: this.TABLEList[i].sex,
-                          budgetunit: this.TABLEList[i].budgetunit,
-                          birthday: this.TABLEList[i].birthday,
-                      })
-                  }
-              }
-              this.tableList = tabledate
+          this.tableList = tabledata;
+        } else {
+          for (let i = 0; i < this.TABLEList.length; i++) {
+            if (
+              this.starttime <= this.TABLEList[i].enterday &&
+              this.TABLEList[i].enterday <= this.endTime
+            ) {
+              tabledate.push({
+                customername: this.TABLEList[i].customername,
+                jobnumber: this.TABLEList[i].jobnumber,
+                centername: this.TABLEList[i].centername,
+                groupname: this.TABLEList[i].groupname,
+                teamname: this.TABLEList[i].teamname,
+                enterday: this.TABLEList[i].enterday,
+                post: this.TABLEList[i].post,
+                rank: this.TABLEList[i].rank,
+                sex: this.TABLEList[i].sex,
+                budgetunit: this.TABLEList[i].budgetunit,
+                birthday: this.TABLEList[i].birthday
+              });
+            }
           }
-          }
-      },
+          this.tableList = tabledate;
+        }
+      }
+    },
     handleChange(file, fileList) {
       this.clear(true);
     },
@@ -347,7 +420,7 @@ export default {
       this.Message = false;
       this.result = false;
       if (!safe) {
-        if(this.$refs.uploader != undefined){
+        if (this.$refs.uploader != undefined) {
           this.$refs.uploader.clearFiles();
         }
       }
@@ -392,39 +465,60 @@ export default {
       }
     },
     formatJson(filterVal, jsonData) {
-      return jsonData.map(v => filterVal.map(j => {
-        if (j === 'timestamp') {
-          return parseTime(v[j])
-        } else {
-          return v[j]
-        }
-      }))
+      return jsonData.map(v =>
+        filterVal.map(j => {
+          if (j === "timestamp") {
+            return parseTime(v[j]);
+          } else {
+            return v[j];
+          }
+        })
+      );
     },
     buttonClick(val) {
-
-      if (val === 'export') {
-        if(this.$refs.roletable.selectedList.length === 0){
+      if (val === "export") {
+        if (this.$refs.roletable.selectedList.length === 0) {
           Message({
-            message: this.$t('normal.info_01'),
-            type: 'info',
+            message: this.$t("normal.info_01"),
+            type: "info",
             duration: 2 * 1000
           });
           return;
         }
         this.selectedlist = this.$refs.roletable.selectedList;
-        import('@/vendor/Export2Excel').then(excel => {
-          const tHeader = [this.$t('label.user_name'), this.$t('label.PFANSUSERFORMVIEW_ADFIELD'),  this.$t('label.PFANS2002VIEW_BIRTHDAY'),  this.$t('label.PFANSUSERVIEW_NATIONALITY'), this.$t('label.PFANSUSERFORMVIEW_NATION'), this.$t('label.PFANSUSERFORMVIEW_REGISTER'), this.$t('label.PFANSUSERFORMVIEW_ADDRESS'),this.$t('label.PFANSUSERFORMVIEW_GRADUATION'),this.$t('label.PFANSUSERFORMVIEW_SPECIALTY')];
-          const filterVal = ['customername','adfield', 'birthday', 'nationality', 'nation', 'register', 'address', 'graduation', 'specialty'];
+        import("@/vendor/Export2Excel").then(excel => {
+          const tHeader = [
+            this.$t("label.user_name"),
+            this.$t("label.PFANSUSERFORMVIEW_ADFIELD"),
+            this.$t("label.PFANS2002VIEW_BIRTHDAY"),
+            this.$t("label.PFANSUSERVIEW_NATIONALITY"),
+            this.$t("label.PFANSUSERFORMVIEW_NATION"),
+            this.$t("label.PFANSUSERFORMVIEW_REGISTER"),
+            this.$t("label.PFANSUSERFORMVIEW_ADDRESS"),
+            this.$t("label.PFANSUSERFORMVIEW_GRADUATION"),
+            this.$t("label.PFANSUSERFORMVIEW_SPECIALTY")
+          ];
+          const filterVal = [
+            "customername",
+            "adfield",
+            "birthday",
+            "nationality",
+            "nation",
+            "register",
+            "address",
+            "graduation",
+            "specialty"
+          ];
           const list = this.selectedlist;
           const data = this.formatJson(filterVal, list);
-          excel.export_json_to_excel(tHeader, data,  this.$t('menu.PERSONNEL'));
-        })
+          excel.export_json_to_excel(tHeader, data, this.$t("menu.PERSONNEL"));
+        });
       }
-      if (val === 'import') {
-      this.daoru = true;
-      this.clear(false);
-    }
-      if (val === 'export2') {
+      if (val === "import") {
+        this.daoru = true;
+        this.clear(false);
+      }
+      if (val === "export2") {
         this.pop_download = true;
       }
       this.$store.commit("global/SET_HISTORYURL", this.$route.path);
@@ -520,12 +614,14 @@ export default {
                 : (_tableList[j].statusname = this.$t(
                     "label.PFANSUSERVIEW_FORBIDDEN"
                   ));
-              if (_tableList[j].rank && getDictionaryInfo(
-                  _tableList[j].rank.value1)){
+              if (
+                _tableList[j].rank &&
+                getDictionaryInfo(_tableList[j].rank.value1)
+              ) {
                 _tableList[j].rank = getDictionaryInfo(
                   _tableList[j].rank
                 ).value1;
-                }
+              }
               if (_tableList[j].enterday)
                 _tableList[j].enterday = moment(_tableList[j].enterday).format(
                   "YYYY-MM-DD"
@@ -534,11 +630,11 @@ export default {
                 _tableList[j].birthday = moment(_tableList[j].birthday).format(
                   "YYYY-MM-DD"
                 );
-                 if (_tableList[j].sex === "PR019001"){
-                       _tableList[j].sex = this.$t("label.PFANS2002FORMVIEW_BOY");
-                }else{
-                      _tableList[j].sex =  this.$t("label.PFANS2002FORMVIEW_GRIL");
-                }
+              if (_tableList[j].sex === "PR019001") {
+                _tableList[j].sex = this.$t("label.PFANS2002FORMVIEW_BOY");
+              } else {
+                _tableList[j].sex = this.$t("label.PFANS2002FORMVIEW_GRIL");
+              }
             }
           }
           this.tableList = _tableList;
@@ -618,7 +714,7 @@ export default {
             });
             for (var j = 0; j < _tableList.length; j++) {
               let result = "";
-              if(_tableList[j].departmentid != null){
+              if (_tableList[j].departmentid != null) {
                 for (var i = 0; i < _tableList[j].departmentid.length; i++) {
                   let departName = this.getDepartmentNameById(
                     _tableList[j].departmentid[i]
@@ -630,23 +726,21 @@ export default {
                 result = result.substring(0, result.lastIndexOf(","));
                 _tableList[j].departmentname = result;
               }
-              if (this.$i18n){
+              if (this.$i18n) {
                 _tableList[j].status === "0"
                   ? (_tableList[j].statusname = this.$t(
-                  "label.PFANSUSERVIEW_ENABLE"
-                  ))
+                      "label.PFANSUSERVIEW_ENABLE"
+                    ))
                   : (_tableList[j].statusname = this.$t(
-                  "label.PFANSUSERVIEW_FORBIDDEN"
-                  ));
+                      "label.PFANSUSERVIEW_FORBIDDEN"
+                    ));
               }
 
-              if (_tableList[j].post && getDictionaryInfo(
-                _tableList[j].post))
+              if (_tableList[j].post && getDictionaryInfo(_tableList[j].post))
                 _tableList[j].post = getDictionaryInfo(
                   _tableList[j].post
                 ).value1;
-              if (_tableList[j].rank && getDictionaryInfo(
-                _tableList[j].rank))
+              if (_tableList[j].rank && getDictionaryInfo(_tableList[j].rank))
                 _tableList[j].rank = getDictionaryInfo(
                   _tableList[j].rank
                 ).value1;
@@ -658,15 +752,18 @@ export default {
                 _tableList[j].birthday = moment(_tableList[j].birthday).format(
                   "YYYY-MM-DD"
                 );
-              if (this.$i18n){
-                if (_tableList[j].sex === "PR019001"){
+              if (this.$i18n) {
+                if (_tableList[j].sex === "PR019001") {
                   _tableList[j].sex = this.$t("label.PFANS2002FORMVIEW_BOY");
-                }else{
-                  _tableList[j].sex =  this.$t("label.PFANS2002FORMVIEW_GRIL");
+                } else {
+                  _tableList[j].sex = this.$t("label.PFANS2002FORMVIEW_GRIL");
                 }
               }
 
-              if (_tableList[j].budgetunit!== null && _tableList[j].budgetunit !== "") {
+              if (
+                _tableList[j].budgetunit !== null &&
+                _tableList[j].budgetunit !== ""
+              ) {
                 let letbudge = getDictionaryInfo(_tableList[j].budgetunit);
                 if (letbudge) {
                   _tableList[j].budgetunit = letbudge.value1;
@@ -692,8 +789,8 @@ export default {
       let org = {};
       let select = false;
       if (id && this.$refs.treeCom.$refs.treeCom.getNode(id)) {
-        if (this.$refs.treeCom.$refs.treeCom.getNode(id).level === 1){
-             return true;
+        if (this.$refs.treeCom.$refs.treeCom.getNode(id).level === 1) {
+          return true;
         }
         let node = id;
         let type = this.$refs.treeCom.$refs.treeCom.getNode(id).data.type || 0;
@@ -741,7 +838,7 @@ export default {
     }
   },
   mounted() {
-    if(this.$store.getters.useraccount._id === '5e78b17ef3c8d71e98a2aa30'){
+    if (this.$store.getters.useraccount._id === "5e78b17ef3c8d71e98a2aa30") {
       this.buttonList = [
         {
           key: "new",
@@ -762,39 +859,34 @@ export default {
           icon: "el-icon-edit"
         },
         {
-          key: 'import',
-          name: 'button.import',
+          key: "import",
+          name: "button.import",
           disabled: false,
-          icon: 'el-icon-download'
+          icon: "el-icon-download"
         },
         {
-          key: 'export',
-          name: 'button.export',
+          key: "export",
+          name: "button.export",
           disabled: false,
-          icon: 'el-icon-upload2'
+          icon: "el-icon-upload2"
         },
         {
-          key: 'export2',
-          name: 'button.download2',
+          key: "export2",
+          name: "button.download2",
           disabled: false,
-          icon: 'el-icon-download'
-        },
-      ]
+          icon: "el-icon-download"
+        }
+      ];
     }
     this.getInitData();
     this.$store.commit("global/SET_OPERATEID", "");
-    this.$store.commit(
-          "usersStore/SET_ORGS",
-          this.$refs.treeCom.$refs.treeCom
-        );
+    this.$store.commit("usersStore/SET_ORGS", this.$refs.treeCom.$refs.treeCom);
   },
   computed: {
-    downtypes(){
-      return [
-        {name: this.$t('menu.user'), type: 0}
-      ]
+    downtypes() {
+      return [{ name: this.$t("menu.user"), type: 0 }];
     }
-  },
+  }
 };
 </script>
 
