@@ -48,22 +48,23 @@
     },
     mounted() {
       this.loading = true;
-      if ( this.data && this.data!='' ) {
-        this.value = this.data;
-      }
 
       this.$store
-        .dispatch('PFANS5009Store/getSiteList2', {})
+        .dispatch('PFANS5009Store/getSiteList3', {})
         .then(response => {
-          var result = response.filter(value => {
-            return value.status === "4";
-          });
+          var result = response
           for (let item of result) {
             let i = {};
             i.value1 = item.project_name;
             i.code = item.companyprojects_id;
             this.options.push(i);
           }
+
+          if ( this.data && this.data!='' ) {
+            this.value = this.data;
+          }
+
+
           this.loading = false;
         })
         .catch(error => {
@@ -74,6 +75,8 @@
             duration: 5 * 1000
           })
         })
+
+
     },
     methods: {
       change(val) {
