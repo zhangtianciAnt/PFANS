@@ -1,7 +1,7 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer ref="container" :title="title" @buttonClick="buttonClick" v-loading="loading" :buttonList="buttonList"
-                         @workflowState="workflowState" :canStart="canStart" @start="start" @end="end">
+                         @workflowState="workflowState" :canStart="canStart" @start="start" @end="end" :workflowCode="workcode">
       <div slot="customize">
         <el-form :model="form" label-width="8vw" label-position="top" style="padding: 3vw" :rules="rules"
                  ref="refform">
@@ -311,6 +311,7 @@
                 }
             };
             return {
+                workcode:'',
                 centerid: '',
                 groupid: '',
                 teamid: '',
@@ -502,6 +503,11 @@
                     .then(response => {
                         if(response){
                             this.form = response.judgement;
+                            if(response.judgement.businessplanbalance > 20000){
+                                this.workcode = 'W0063'
+                            }else {
+                                this.workcode = 'W0011'
+                            }
                             let rst = getOrgInfoByUserId(response.judgement.user_id);
                             if(rst){
                                 this.centerid = rst.centerNmae;
@@ -582,6 +588,11 @@
                     this.form.user_id = this.$store.getters.userinfo.userid;
                 }
                 this.loading = false;
+            }
+        },
+        computed: {
+            readonly: function() {
+                return this.$route.params.readonly;
             }
         },
         created() {

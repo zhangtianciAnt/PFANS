@@ -32,7 +32,7 @@
             <!--            年龄-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANSUSERFORMVIEW_AGE')">
-                <el-input :disabled="true" style="width:20vw" v-model="form.age"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="age"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -454,6 +454,7 @@
         }
       };
       return {
+        age: '',
         loading: false,
         selectType: 'Single',
         title: 'title.PFANS6004VIEW',
@@ -478,7 +479,6 @@
           number: '',
           post: '',
           contactinformation: '',
-          age: '',
           suppliername: '',
           suppliernameid: '',
           graduateschool: '',
@@ -715,7 +715,20 @@
         this.$store
           .dispatch('PFANS6004Store/getexpatriatesinforApplyOne', {'expatriatesinfor_id': this.$route.params._id})
           .then(response => {
+
             this.form = response;
+              let birthdays = new Date(this.form.birth);
+              let d = new Date();
+              let age = 0;
+              let agenew = 0;
+              age = d.getFullYear() - birthdays.getFullYear();
+              agenew = d.getFullYear() - birthdays.getFullYear();
+              if (d.getMonth() > birthdays.getMonth() || (d.getMonth() == birthdays.getMonth() && d.getDate() > birthdays.getDate())) {
+                  agenew = age;
+              } else {
+                  agenew = age - 1;
+              }
+              this.age = agenew;
             this.form.admissiontime = moment(new Date()).format('YYYY-MM-DD');
             this.grouporglist = this.form.group_id;
             this.loading = false;

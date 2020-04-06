@@ -1847,6 +1847,9 @@
         }
         //先方組織名编码
         let sidegroup = this.formcustomer.suppliercode;
+        if(sidegroup===undefined){
+            this.dialogVisibleC = false;
+        }
         // if (sidegroup === '' || sidegroup === undefined) {
         //   Message({
         //     message: this.$t('normal.error_15'),
