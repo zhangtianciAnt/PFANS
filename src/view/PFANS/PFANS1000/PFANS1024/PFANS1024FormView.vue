@@ -828,6 +828,7 @@
         display: true,
         options: [],
         contractnumbercount: '',
+        contractnumbercountok: '',
         maketype: '',
         selectType: 'Single',
         letcontractnumber: '',
@@ -1501,7 +1502,6 @@
                 this.tableD.push(o);
               }
             }
-//            this.contractnumbercount = (letcontractnumber.length + 1);
             this.loading = false;
           })
           .catch(error => {
@@ -1744,9 +1744,37 @@
           rowindex: '',
         });
       },
+      //获取供应商所有合同
+      getcontractnumbercount(custojapanese) {
+          this.loading = true;
+          this.$store
+              .dispatch('PFANS1026Store/getSupplier',{'type': '0','custojapanese': custojapanese})
+              .then(response => {
+                  this.contractnumbercount = response.contractapplication.length + 1;
+                  //通し番号
+                  let number = '01';
+                  if (this.contractnumbercount.toString().length === 1) {
+                      number = '0' + this.contractnumbercount;
+                  } else if (this.contractnumbercount.toString().length === 2) {
+                      number = this.contractnumbercount;
+                  }
+                  if(this.form.tabledata.length > 0){
+                      this.contractnumbercountok = this.form.tabledata[0].contractnumber + number;
+                      this.form.tabledata[0].contractnumber = this.contractnumbercountok;
+                  }
+                  this.loading = false;
+              })
+              .catch(error => {
+                  Message({
+                      message: error,
+                      type: 'error',
+                      duration: 5 * 1000
+                  });
+                  this.loading = false
+              })
+      },
       //契約番号做成
-      click() {//111
-
+      click() {
         this.$refs['refform1'].validate(valid => {
           if (valid) {
             this.form.claimtype = this.form1.claimtype;
@@ -1819,14 +1847,14 @@
         }
         //先方組織名编码
         let sidegroup = this.formcustomer.suppliercode;
-        if (sidegroup === '' || sidegroup === undefined) {
-          Message({
-            message: this.$t('normal.error_15'),
-            type: 'error',
-            duration: 5 * 1000,
-          });
-          return;
-        }
+        // if (sidegroup === '' || sidegroup === undefined) {
+        //   Message({
+        //     message: this.$t('normal.error_15'),
+        //     type: 'error',
+        //     duration: 5 * 1000,
+        //   });
+        //   return;
+        // }
         //事業年度
         let applicationdate = '';
         let letapplicationdate = getDictionaryInfo(this.form.applicationdate);
@@ -1840,18 +1868,12 @@
           entrycondition = letentrycondition.value2;
         }
         //契約書番号(契約種類 + 事業年度 + 上下期 + 社内組織番号 + 先方番号)
-        //通し番号
-        let number = '01';
-        if (this.contractnumbercount.toString().length === 1) {
-          number = '0' + this.contractnumbercount;
-        } else if (this.contractnumbercount.toString().length === 2) {
-          number = this.contractnumbercount;
-        }
+
         if (this.checked) {
           this.letcontractnumber = this.form.contractnumber.split('-')[0] + letbook;
         } else {
           if (this.groupinfo[2] !== null) {
-            this.letcontractnumber = abbreviation + applicationdate + entrycondition + this.groupinfo[2] + sidegroup + number + letbook;
+              this.letcontractnumber = abbreviation + applicationdate + entrycondition + this.groupinfo[2] + sidegroup + letbook;
           } else {
             Message({
               message: this.$t('normal.error_14'),
@@ -1908,6 +1930,10 @@
           this.titleType = this.titleType3;
         } else if (this.form.contracttype === 'HT014004') {
           this.titleType = this.titleType4;
+        }
+        if(!this.checked){
+            //获取供应商所有合同
+            this.getcontractnumbercount(this.form1.custojapanese);
         }
         this.getChecked(false);
         this.dialogFormVisible = false;
