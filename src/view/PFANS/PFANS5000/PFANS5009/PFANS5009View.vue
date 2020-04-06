@@ -111,7 +111,7 @@
         mounted: function () {
             this.loading = true;
             this.$store
-                .dispatch('PFANS5009Store/getSiteList')
+                .dispatch('PFANS5009Store/getSiteList3')
                 .then(response => {
                     for (let j = 0; j < response.length; j++) {
                         if (response[j].phase !== null && response[j].phase !== "") {
