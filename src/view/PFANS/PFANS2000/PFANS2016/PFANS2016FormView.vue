@@ -37,7 +37,12 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.application_date')" prop="applicationdate">
                 <el-date-picker :disabled="!disable" style="width:20vw" type="date"
-                                v-model="form.applicationdate"></el-date-picker>
+                                v-model="form.applicationdate" @change="changeDate"></el-date-picker>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item :label="$t('外出合计时长')" prop="worktime">
+                <el-input :disabled="true" style="width:20vw" v-model="form.worktime"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -64,7 +69,6 @@
                   :max="1000000000"
                   :min="0"
                   :precision="2"
-                  :step="0.25"
                   controls-position="right"
                   style="width:20vw"
                   @change="getTime"
@@ -82,7 +86,6 @@
                   :max="1000000000"
                   :min="0"
                   :precision="2"
-                  :step="0.25"
                   controls-position="right"
                   style="width:20vw"
                   @change="getreTime"
@@ -589,6 +592,7 @@
                     groupid: '',
                     teamid: '',
                     user_id: '',
+                    worktime: '',
                     applicationdate: moment(new Date()).format('YYYY-MM-DD'),
                     errortype: '',
                     lengthtime: '0',
@@ -699,6 +703,7 @@
                 checkTimeLenght: '',
                 enterday: '',
                 marryday: '',
+                worktimeflg: '',
             };
         },
         mounted() {
@@ -801,6 +806,7 @@
                     this.form.user_id = this.$store.getters.userinfo.userid;
                 }
                 this.getOvertimelist();
+              this.getWorktime();
             }
         },
         created() {
@@ -817,6 +823,33 @@
             }
         },
         methods: {
+          changeDate(val){
+            this.form.applicationdate = val;
+            if(this.form.errortype === 'PR013001'){
+              this.getWorktime();
+            }
+          },
+          getWorktime(){
+            this.loading = true;
+            this.$store
+              .dispatch('PFANS2017Store/getFpans2017List', {})
+              .then(response => {
+                for (let j = 0; j < response.length; j++) {
+                  if(moment(this.form.applicationdate).format("YYYY-MM-DD") === moment(response[j].punchcardrecord_date).format("YYYY-MM-DD") && this.$store.getters.userinfo.userid === response[j].user_id){
+                      this.form.worktime = response[j].worktime;
+                  }
+                  this.loading = false;
+                }
+              })
+              .catch(error => {
+                Message({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000
+                });
+                this.loading = false;
+              })
+          },
             setdisabled(val) {
                 if (this.$route.params.disabled) {
                     this.disabled = val;
@@ -1572,7 +1605,8 @@
                 }
             },
             getErrorType(val) {
-                this.form.lengthtime = ''
+                this.form.worktime = '';
+                this.form.lengthtime = '';
                 this.typecheck = '';
                 let dictionaryInfo = getDictionaryInfo(val);
                 if (dictionaryInfo) {
@@ -1584,6 +1618,7 @@
                     this.checkrelengthtime = false;
                     this.checklengthtime = false;
                     this.checkfinisheddate = false;
+                    this.getWorktime();
                 } else if (val === 'PR013021') {
                     this.checkerrortishi = false;
                     this.checkrelengthtime = true;
