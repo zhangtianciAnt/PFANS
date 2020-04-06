@@ -203,7 +203,7 @@
                             }
                             debugger
                             // ADD-LXX
-                            response[j].afternoon = (parseFloat(response[j].worktime) - parseFloat(response[j].absenteeismam)).toFixed(3)
+                            response[j].afternoon = Number(parseFloat(response[j].worktime) - parseFloat(response[j].absenteeismam)).toFixed(3)
                             if(response[j].afternoon === 0){
                                 response[j].afternoon  = ""
                             }

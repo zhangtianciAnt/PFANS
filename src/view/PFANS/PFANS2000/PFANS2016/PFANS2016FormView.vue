@@ -627,7 +627,8 @@
                         trigger: 'change',
                     },
                         {validator: validateStartdate, trigger: 'change'}],
-                    finisheddate: [{
+                    finisheddate: [
+                      {
                         required: true,
                         message: this.$t('normal.error_09') + this.$t('label.enddate'),
                         trigger: 'change',
@@ -1730,7 +1731,7 @@
                         this.canStart = false;
                     }
                 }
-                this.buttonClick('update');
+                this.buttonClick2('update');
             },
             start() {
                 if (this.form.status === '4' || this.form.status === '6') {
@@ -1738,7 +1739,7 @@
                 } else {
                     this.form.status = '2';
                 }
-                this.buttonClick('update');
+                this.buttonClick2('update');
             },
             end() {
                 if (this.form.status === '5') {
@@ -1746,7 +1747,7 @@
                 } else {
                     this.form.status = '0';
                 }
-                this.buttonClick('update');
+                this.buttonClick2('update');
             },
             fileError(err, file, fileList) {
                 Message({
@@ -1788,7 +1789,7 @@
                     this.form.uploadfile += o.name + ',' + o.url + ';';
                 }
             },
-            buttonClick(val) {
+            buttonClick(val,val2) {
                 this.$refs['ruleForm'].validate(valid => {
                     if (valid) {
                         this.errort = '';
@@ -1920,6 +1921,138 @@
                     }
                 });
             },
+          buttonClick2(val,val2) {
+            // this.$refs['ruleForm'].validate(valid => {
+            //   if (valid) {
+                this.errort = '';
+                let letrelation = '';
+                // for (let j = 0; j < this.form.relation.length; j++) {
+                //     letrelation = letrelation + ',' + this.form.relation[j];
+                // }
+                let letnewdate = moment(new Date()).format('YYYY-MM-DD');
+                let letoccurrencedate = moment(this.form.occurrencedate).format('YYYY-MM-DD');
+                let letfinisheddate = moment(this.form.finisheddate).format('YYYY-MM-DD');
+                let letoccurrencedateTo = moment(this.form.reoccurrencedate).format('YYYY-MM-DD');
+                let letfinisheddateTo = moment(this.form.refinisheddate).format('YYYY-MM-DD');
+                if (this.form.errortype === 'PR013001' || this.form.errortype === 'PR013014') {
+                  this.form.finisheddate = this.form.occurrencedate
+                }
+                if((this.form.errortype != 'PR013005' && this.form.errortype != 'PR013007') && this.form.status != '4' &&
+                  this.form.status != '5' && this.form.status != '6' && this.form.status != '7'&& this.form.status != '8' && this.form.lengthtime <= 0){
+                  Message({
+                    message: this.$t('时间长度应大于0！'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  return;
+                }
+                // if (this.form.errortype === 'PR013014' ) {
+                //     this.form.lengthtime = 4;
+                // }
+                if (this.form.errortype === 'PR013005' || this.form.errortype === 'PR013006') {
+                  if (letoccurrencedate == letfinisheddate) {
+                    this.form.lengthtime = 8;
+                  } else if (this.relist.length != '0') {
+                    let time = 0;
+                    for (let d = 0; d < this.relist.length; d++) {
+                      time = time + 1;
+                    }
+                    this.form.lengthtime = time * 8;
+                  } else {
+                    this.form.lengthtime = 4;
+                  }
+                  if (letoccurrencedateTo == letfinisheddateTo && letoccurrencedateTo != 'Invalid date') {
+                    this.form.relengthtime = 8;
+                  } else if (this.relistTwo.length != '0') {
+                    let timere = 0;
+                    for (let d = 0; d < this.relistTwo.length; d++) {
+                      timere = timere + 1;
+                    }
+                    this.form.relengthtime = timere * 8;
+                  } else if (letoccurrencedateTo != 'Invalid date') {
+                    this.form.relengthtime = 4;
+                  }
+                }
+                // this.form.periodend = letfinisheddate.replace(letnewdate, letfinisheddate);
+                // this.form.relation = letrelation.substring(1, letrelation.length);
+                if (this.errorcheck == 1) {
+                  if (this.$route.params._id) {
+                    this.form.abnormalid = this.$route.params._id;
+                    this.loading = true;
+                    this.$store
+                      .dispatch('PFANS2016Store/updatePfans2016', this.form)
+                      .then(response => {
+                        this.loading = false;
+                        // if(response === 'PR013005'){
+                        //     this.errort = this.$t('normal.ERROR_RETIRE');
+                        // }
+                        // else{
+                        this.data = response;
+                        if (val !== 'update') {
+                          Message({
+                            message: this.$t('normal.success_02'),
+                            type: 'success',
+                            duration: 5 * 1000,
+                          });
+                          if (this.$store.getters.historyUrl) {
+                            this.$router.push(this.$store.getters.historyUrl);
+                          }
+                        }
+                        // }
+
+                      })
+                      .catch(error => {
+                        Message({
+                          message: error,
+                          type: 'error',
+                          duration: 5 * 1000,
+                        });
+                        this.loading = false;
+                      });
+                  } else {
+                    this.loading = true;
+                    this.$store
+                      .dispatch('PFANS2016Store/createPfans2016', this.form)
+                      .then(response => {
+                        this.data = response;
+                        this.loading = false;
+                        Message({
+                          message: this.$t('normal.success_01'),
+                          type: 'success',
+                          duration: 5 * 1000,
+                        });
+                        if (this.$store.getters.historyUrl) {
+                          this.$router.push(this.$store.getters.historyUrl);
+                        }
+                      })
+                      .catch(error => {
+                        Message({
+                          message: error,
+                          type: 'error',
+                          duration: 5 * 1000,
+                        });
+                        this.loading = false;
+                      });
+                  }
+                }
+              // } else {
+              //   Message({
+              //     message: this.$t("normal.error_12"),
+              //     type: 'error',
+              //     duration: 5 * 1000
+              //   });
+              // }
+              if (this.errorcheck != 1) {
+                Message({
+                  message: this.$t("label.PFANS2016FORMVIEW_DATACHECK"),
+                  type: 'error',
+                  duration: 5 * 1000
+                });
+                return;
+                // this.errorcheck = 1;
+              }
+            // });
+          },
         },
     };
 </script>
