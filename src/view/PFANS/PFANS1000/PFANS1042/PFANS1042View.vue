@@ -590,7 +590,7 @@
       //   }
       // },
       changeGroup(val) {
-        debugger;
+
         this.form.group_id = val;
         if (this.form.group_id && this.form.year && this.form.region) {
           this.getList(this.form.group_id, this.form.year, this.form.region);
@@ -610,7 +610,7 @@
 
       },
       getById() {
-        debugger;
+
         this.loading = true;
         let role = getCurrentRole();
         const vote = [];
