@@ -2579,7 +2579,7 @@
                         }
                         for (let i = 0; i < this.tableB.length; i++) {
                           // 社内员工进组时间&退出时间必须Check
-            if (!this.tableB[i].admissiontime || this.tableB[i].admissiontime === "" || !this.tableB[i].exittime || this.tableB[i].exittime === "") {
+            if ((!this.tableB[i].admissiontime || this.tableB[i].admissiontime === "" || !this.tableB[i].exittime || this.tableB[i].exittime === "") && this.tableB[i].name !== "") {
                 Message({
                     message: this.$t("normal.error_pfans50011"),
                     type: "error",
@@ -2607,7 +2607,7 @@
                         }
                         for (let i = 0; i < this.tableC.length; i++) {
                           // 外协员工入场时间&离场时间必须Check
-            if (!this.tableC[i].admissiontime || this.tableC[i].admissiontime === "" || !this.tableC[i].exittime || this.tableC[i].exittime === "") {
+            if ((!this.tableC[i].admissiontime || this.tableC[i].admissiontime === "" || !this.tableC[i].exittime || this.tableC[i].exittime === "") && this.tableC[i].name !== "") {
                 Message({
                     message: this.$t("normal.error_pfans5001"),
                     type: "error",
