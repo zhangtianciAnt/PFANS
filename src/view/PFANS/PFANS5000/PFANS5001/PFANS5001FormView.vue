@@ -1803,6 +1803,13 @@
                 this.Numbers = 1;
                 this.userlist = this.$store.getters.userinfo.userid;
                 this.userlist1 = this.$store.getters.userinfo.userid;
+
+              let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid)
+              if(lst){
+                this.form.team_id = lst.teamId
+                this.form.group_id = lst.groupId
+                this.form.center_id = lst.centerId
+              }
             }
             this.$store
                 .dispatch('PFANS5001Store/getcustomer', {})
