@@ -272,6 +272,17 @@
               duration: 2 * 1000
             });
             return;
+          } else if(this.$refs.roletable.selectedList.length > 0){
+              for(let i = 0; i < this.$refs.roletable.selectedList.length; i++){
+                if(this.$refs.roletable.selectedList[i].status !== this.$t("label.PFANS5004VIEW_OVERTIME")){
+                  Message({
+                    message: this.$t('label.PFANS1013VIEW_EXPORTERRINFO'),
+                    type: 'error',
+                    duration: 2 * 1000
+                  });
+                  return;
+                }
+              }
           }
           this.selectedlist = this.$refs.roletable.selectedList;
           for (let i = 0; i < this.selectedlist.length; i++) {

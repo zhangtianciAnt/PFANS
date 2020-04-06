@@ -844,6 +844,7 @@ module.exports = {
     PFANS1013VIEW_TOTALPAY: '支出总额',
     PFANS1013VIEW_TOTALCURRENCY: '外币总额',
     PFANS1013VIEW_BALANCE: '结余',
+    PFANS1013VIEW_EXPORTERRINFO: '请选择已经审批正常结束的数据进行导出',
     PFANS1013VIEW_JPY: '日元汇率',
     PFANS1013VIEW_USD: '美元汇率',
     PFANS1013VIEW_RATE: '其他外币汇率',
@@ -3162,5 +3163,9 @@ module.exports = {
     ASSETS1002EXPORTFORMVIEW_BARCODE: '条形码',
     ASSETS1002EXPORTFORMVIEW_RESULT: '结果',
     ASSETS1003VIEW_FILEADDRESS: '服务器地址',
+    //ADD-LXX
+    USERSVIEW_ENTER:"在职",
+    USERSVIEW_LEAVE:"离职"
+    //ADD-LXX
   },
 };
