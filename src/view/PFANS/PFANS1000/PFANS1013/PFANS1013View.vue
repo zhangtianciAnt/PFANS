@@ -67,17 +67,17 @@
             fix: false,
             filter: true
           },
-          // {
-          //   code: 'budgetunit',
-          //   label: 'label.budgetunit',
-          //   width: 130,
-          //   fix: false,
-          //   filter: true
-          // },
           {
             code: 'type',
             label: 'label.PFANS1013VIEW_TYPE',
             width: 120,
+            fix: false,
+            filter: true
+          },
+          {
+            code: 'invoiceno',
+            label: 'label.PFANS1013VIEW_REIMNUMBER',
+            width: 130,
             fix: false,
             filter: true
           },
