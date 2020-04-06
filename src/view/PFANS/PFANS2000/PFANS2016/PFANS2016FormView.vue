@@ -1589,6 +1589,7 @@
                     this.checkrelengthtime = true;
                     this.checklengthtime = true;
                     this.checkfinisheddate = true;
+                    this.showVacation = true;
                     // this.showFemale = true;
                 } else if (val === 'PR013005') {
                     this.checkerrortishi = false;
