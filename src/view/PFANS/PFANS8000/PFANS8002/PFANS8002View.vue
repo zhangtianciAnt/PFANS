@@ -37,6 +37,7 @@
   import EasyNormalTable from '@/components/EasyNormalTable';
   import {Message} from 'element-ui';
   import moment from 'moment';
+  import {getUserInfo,getOrgInfoByUserId} from '@/utils/customize';
 
   export default {
     name: "PFANS8002View.vue",
@@ -70,8 +71,15 @@
             filter: true
           },
           {
-            code: 'content',
-            label: 'label.information_content',
+            code: 'initiatorname',
+            label: 'label.applicant',
+            width: 150,
+            fix: false,
+            filter: true
+          },
+          {
+            code: 'group',
+            label: 'label.group',
             width: 150,
             fix: false,
             filter: true
@@ -105,11 +113,34 @@
                   if (response[j].createon !== null && response[j].createon !== '') {
                     response[j].createon = moment(response[j].createon).format('YYYY-MM-DD HH:mm:ss');
                   }
+                  if (response[j].initiator !== null && response[j].initiator !== '') {
+                    let userinfo = getUserInfo(response[j].initiator)
+                    if (userinfo) {
+                      response[j].initiatorname = userinfo.userinfo.customername
+                    }
+
+                    let nameflg = getOrgInfoByUserId(response[j].initiator);
+                    if (nameflg) {
+                      response[j].group = nameflg.groupNmae;
+                    }
+                  }
+
                   this.table = response;
                 }
                 if (response[j].status === '1') {
                   if (response[j].createon !== null && response[j].createon !== '') {
                     response[j].createon = moment(response[j].createon).format('YYYY-MM-DD HH:mm:ss');
+                  }
+                  if (response[j].initiator !== null && response[j].initiator !== '') {
+                    let userinfo = getUserInfo(response[j].initiator)
+                    if (userinfo) {
+                      response[j].initiatorname = userinfo.userinfo.customername
+                    }
+
+                    let nameflg = getOrgInfoByUserId(response[j].initiator);
+                    if (nameflg) {
+                      response[j].group = nameflg.groupNmae;
+                    }
                   }
                   this.table2 = response;
                 }
@@ -154,6 +185,7 @@
               this.workflowurl = this.row.workflowurl.replace("/", "");
           }
           this.$store.commit('global/SET_OPERATEID', this._id);
+          this.$store.commit('global/SET_OPERATEOWNER', this.row.initiator);
           this.$store.commit('global/SET_WORKFLOWURL', "/"+ this.workflowurl);
           this.$router.push({
             name: name,

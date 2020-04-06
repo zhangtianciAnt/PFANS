@@ -40,7 +40,7 @@ module.exports = {
     newTeam: '新建TEAM',
     startWorkflow: '发起审批',
     viewWorkflow: '查看流程',
-    delWorkflow: '撤销流程',
+    delWorkflow: '撤回修改',
     operationWorkflow: '进行审批',
     mingtian: '下一天',
     import: '导入',
