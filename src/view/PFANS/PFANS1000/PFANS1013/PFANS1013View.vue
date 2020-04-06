@@ -67,17 +67,17 @@
             fix: false,
             filter: true
           },
-          // {
-          //   code: 'budgetunit',
-          //   label: 'label.budgetunit',
-          //   width: 130,
-          //   fix: false,
-          //   filter: true
-          // },
           {
             code: 'type',
             label: 'label.PFANS1013VIEW_TYPE',
             width: 120,
+            fix: false,
+            filter: true
+          },
+          {
+            code: 'invoiceno',
+            label: 'label.PFANS1013VIEW_REIMNUMBER',
+            width: 130,
             fix: false,
             filter: true
           },
@@ -272,6 +272,17 @@
               duration: 2 * 1000
             });
             return;
+          } else if(this.$refs.roletable.selectedList.length > 0){
+              for(let i = 0; i < this.$refs.roletable.selectedList.length; i++){
+                if(this.$refs.roletable.selectedList[i].status !== this.$t("label.PFANS5004VIEW_OVERTIME")){
+                  Message({
+                    message: this.$t('label.PFANS1013VIEW_EXPORTERRINFO'),
+                    type: 'error',
+                    duration: 2 * 1000
+                  });
+                  return;
+                }
+              }
           }
           this.selectedlist = this.$refs.roletable.selectedList;
           for (let i = 0; i < this.selectedlist.length; i++) {

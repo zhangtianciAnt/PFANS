@@ -12,9 +12,9 @@
       <el-button :disabled="disabled" @click="openDialog" icon="el-icon-search" size="small"></el-button>
       <el-dialog :visible.sync="dialogVisible" center size="50%" top="8vh" lock-scroll append-to-body>
         <el-row style="text-align: center;height: 90%;overflow: hidden">
-        <EasyTree :checktrictly="true" :defaultProps="defaultProps" :defaultlist="data" :renderContent="renderContent"
-                  :showCheckbox="selectType === 'Single'?false:true" :showFilter="false"
-                  @nodeClick="handleClickChange" maxheight="30rem" minheight="80%" ref="treeCom" ></EasyTree>
+          <EasyTree :checktrictly="true" :defaultProps="defaultProps" :defaultlist="data" :renderContent="renderContent"
+                    :showCheckbox="selectType === 'Single'?false:true" :showFilter="false"
+                    @nodeClick="handleClickChange" maxheight="30rem" minheight="80%" ref="treeCom" ></EasyTree>
         </el-row>
         <span slot="footer" class="dialog-footer">
         <el-button :disabled="conConfirm" @click="submit" type="primary">{{$t("button.confirm")}}</el-button>

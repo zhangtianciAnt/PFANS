@@ -124,6 +124,9 @@
           <div class="sub_color_red" v-if="checkerrortishi">
             {{$t('label.PFANS2016FORMVIEW_TISHICHECKERROR')}}
           </div>
+          <div class="sub_color_red" v-if="form.errortype == 'PR013005' || form.errortype == 'PR013007'">
+            {{$t('label.PFANS2016FORMVIEW_CHECKDAIXIUBANRI')}}
+          </div>
           <el-row>
             <el-col :span="8"
                     v-if="form.status != '4' && form.status != '5' && form.status != '6' && form.status != '7'">
@@ -823,11 +826,11 @@
                 this.form.vacationtype = val;
                 this.typecheck = val;
                 if (val == '1' || val == '2') {
-                    Message({
-                        message: this.$t('label.PFANS2016FORMVIEW_CHECKDAIXIUBANRI'),
-                        type: 'success',
-                        duration: 5 * 1000,
-                    });
+                    // Message({
+                    //     message: this.$t('label.PFANS2016FORMVIEW_CHECKDAIXIUBANRI'),
+                    //     type: 'success',
+                    //     duration: 5 * 1000,
+                    // });
                     this.checkfinisheddate = false;
                     this.checkTimelenght = 4;
                     this.form.occurrencedate = moment(new Date()).format('YYYY-MM-DD');
@@ -864,6 +867,8 @@
                             duration: 5 * 1000,
                         });
                         return;
+                    } else {
+                      this.errorcheck = 1;
                     }
                 }
             },
@@ -877,6 +882,8 @@
                             duration: 5 * 1000,
                         });
                         return;
+                    } else {
+                      this.errorcheck = 1;
                     }
                 }
                 let sum = 0;
@@ -897,6 +904,8 @@
                                 duration: 5 * 1000,
                             });
                             return;
+                        } else {
+                          this.errorcheck = 1;
                         }
                         if (val > 4) {
                             this.errorcheck = 2;
@@ -906,6 +915,8 @@
                                 duration: 5 * 1000,
                             });
                             return;
+                        } else {
+                          this.errorcheck = 1;
                         }
                     } else if (this.form.errortype === 'PR013016' && this.$store.getters.userinfo.userinfo.sex !== 'PR019002') {
                         if (this.$store.getters.userinfo.userinfo.sex !== 'PR019002') {
@@ -916,6 +927,8 @@
                                 duration: 5 * 1000,
                             });
                             return;
+                        } else {
+                          this.errorcheck = 1;
                         }
                     }
                     if (this.form.errortype === 'PR013001') {
@@ -927,8 +940,11 @@
                                 duration: 5 * 1000,
                             });
                             return;
+                        } else {
+                          this.errorcheck = 1;
                         }
-                    } else if (this.form.errortype === 'PR013008') {
+                    }
+                    if (this.form.errortype === 'PR013008') {
                         if (sum * 8 < val) {
                             this.errorcheck = 2;
                             Message({
@@ -937,8 +953,11 @@
                                 duration: 5 * 1000,
                             });
                             return;
+                        } else {
+                          this.errorcheck = 1;
                         }
-                    } else if (this.form.errortype === 'PR013016') {
+                    }
+                    if (this.form.errortype === 'PR013016') {
                         if (sum * 8 < val) {
                             this.errorcheck = 2;
                             Message({
@@ -947,8 +966,11 @@
                                 duration: 5 * 1000,
                             });
                             return;
+                        } else {
+                          this.errorcheck = 1;
                         }
-                    } else if (this.form.errortype === 'PR013018') {
+                    }
+                    if (this.form.errortype === 'PR013018') {
                         if (sum * 8 < val) {
                             this.errorcheck = 2;
                             Message({
@@ -957,8 +979,11 @@
                                 duration: 5 * 1000,
                             });
                             return;
+                        } else {
+                          this.errorcheck = 1;
                         }
-                    } else if (this.form.errortype === 'PR013019') {
+                    }
+                    if (this.form.errortype === 'PR013019') {
                         if (sum * 8 < val) {
                             this.errorcheck = 2;
                             Message({
@@ -967,8 +992,11 @@
                                 duration: 5 * 1000,
                             });
                             return;
+                        } else {
+                          this.errorcheck = 1;
                         }
-                    } else if (this.form.errortype === 'PR013014') {
+                    }
+                    if (this.form.errortype === 'PR013014') {
                         if (sum * 8 < val) {
                             this.errorcheck = 2;
                             Message({
@@ -977,6 +1005,8 @@
                                 duration: 5 * 1000,
                             });
                             return;
+                        } else {
+                          this.errorcheck = 1;
                         }
                     }
                 } else if (this.form.errortype === 'PR013009' || this.form.errortype === 'PR013010') {
@@ -990,6 +1020,8 @@
                                 duration: 5 * 1000,
                             });
                             return;
+                        } else {
+                          this.errorcheck = 1;
                         }
                     }
                     for (let i = 0; i < diffDate; i++) {
@@ -1003,6 +1035,8 @@
                             duration: 5 * 1000,
                         });
                         return;
+                    } else {
+                      this.errorcheck = 1;
                     }
                 }
 
@@ -1160,7 +1194,6 @@
                     });
             },
             change() {
-                debugger
                 if (this.form.errortype === 'PR013001' ) {
                     this.checklengthtime = false
                     this.form.finisheddate = moment(new Date()).add(1, 'y').format("YYYY-MM-DD")
@@ -1223,6 +1256,8 @@
                             duration: 5 * 1000,
                         });
                         return;
+                    } else {
+                      this.errorcheck = 1;
                     }
                 } else {
                     let time = 0;
@@ -1231,9 +1266,9 @@
                     }
                     this.form.lengthtime = time * 8;
                 }
-                if (this.form.errortype === 'PR013014') {
-                    this.form.lengthtime = 4;
-                }
+                // if (this.form.errortype === 'PR013014') {
+                //     this.form.lengthtime = 4;
+                // }
             },
             rechange() {
                 if (this.form.errortype === 'PR013001') {
@@ -1241,7 +1276,7 @@
                     this.form.refinisheddate = moment(new Date()).add(1, 'y').format("YYYY-MM-DD")
                 }
                 if(this.form.errortype === 'PR013014'){
-                    this.checklengthtime = true
+                    // this.checklengthtime = true
                     this.form.refinisheddate = moment(new Date()).add(1, 'y').format("YYYY-MM-DD")
                 }
                 var getDate = function (str) {
@@ -1252,7 +1287,8 @@
                     tempDate.setDate(list[2]);
                     return tempDate;
                 };
-                if (this.form.errortype != 'PR013001' && this.form.errortype != 'PR013014') {
+                // if (this.form.errortype != 'PR013001' && this.form.errortype != 'PR013014') {
+                if (this.form.errortype != 'PR013001') {
                     if (this.form.reoccurrencedate != null && this.form.refinisheddate != null) {
                         if (moment(this.form.reoccurrencedate).format('YYYY-MM-DD') === moment(this.form.refinisheddate).format('YYYY-MM-DD')) {
                             this.checkrelengthtime = false;
@@ -1326,6 +1362,8 @@
                                 duration: 5 * 1000,
                             });
                             return;
+                        } else {
+                          this.errorcheck = 1;
                         }
                     }
                 }
@@ -1437,9 +1475,9 @@
                 //         }
                 //     }
                 // }
-                if (this.form.errortype === 'PR013014') {
-                    this.form.relengthtime = 4;
-                }
+                // if (this.form.errortype === 'PR013014') {
+                //     this.form.relengthtime = 4;
+                // }
             },
             getUserids(val) {
                 if (val === 'undefined') {
@@ -1551,6 +1589,7 @@
                     this.checkrelengthtime = true;
                     this.checklengthtime = true;
                     this.checkfinisheddate = true;
+                    this.showVacation = true;
                     // this.showFemale = true;
                 } else if (val === 'PR013005') {
                     this.checkerrortishi = false;
@@ -1609,7 +1648,7 @@
                 }  else if (val === 'PR013014') {
                     this.checkerrortishi = false;
                     this.checkrelengthtime = true;
-                    this.checklengthtime = true;
+                    this.checklengthtime = false;
                     this.checkfinisheddate = false;
                     this.showWeekend = false;
                     this.showVacation = false;
@@ -1629,7 +1668,7 @@
                 } else {
                     this.checkerrortishi = false;
                     this.checkrelengthtime = true;
-                    this.checklengthtime = true;
+                    this.checklengthtime = false;
                     this.checkfinisheddate = true;
                     // this.showFemale = false;
                     this.showWeekend = false;
@@ -1731,9 +1770,18 @@
                         if (this.form.errortype === 'PR013001' || this.form.errortype === 'PR013014') {
                             this.form.finisheddate = this.form.occurrencedate
                         }
-                        if (this.form.errortype === 'PR013014' ) {
-                            this.form.lengthtime = 4;
+                        if((this.form.errortype != 'PR013005' && this.form.errortype != 'PR013007') && this.form.status != '4' &&
+                          this.form.status != '5' && this.form.status != '6' && this.form.status != '7'&& this.form.status != '8' && this.form.lengthtime <= 0){
+                          Message({
+                            message: this.$t('时间长度应大于0！'),
+                            type: 'error',
+                            duration: 5 * 1000,
+                          });
+                          return;
                         }
+                        // if (this.form.errortype === 'PR013014' ) {
+                        //     this.form.lengthtime = 4;
+                        // }
                         if (this.form.errortype === 'PR013005' || this.form.errortype === 'PR013006') {
                             if (letoccurrencedate == letfinisheddate) {
                                 this.form.lengthtime = 8;
@@ -1833,7 +1881,8 @@
                             type: 'error',
                             duration: 5 * 1000
                         });
-                        this.errorcheck = 1;
+                        return;
+                        // this.errorcheck = 1;
                     }
                 });
             },

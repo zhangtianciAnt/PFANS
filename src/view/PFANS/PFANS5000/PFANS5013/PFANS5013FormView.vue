@@ -479,6 +479,10 @@
                                             <el-table-column property="post"
                                                              :label="$t('label.PFANSUSERVIEW_POST')"
                                                              width="150"></el-table-column>
+<!--                                            <el-table-column property="post"-->
+<!--                                                             v-if="false"-->
+<!--                                                             :label="$t('label.PFANSUSERVIEW_POST')"-->
+<!--                                                             width="150"></el-table-column>-->
                                             <el-table-column
                                               align="right" width="180">
                                               <template slot="header" slot-scope="scope">
@@ -1111,10 +1115,7 @@
                             for (var i = 0; i < response.prosystem.length; i++) {
                                 if (response.prosystem[i].type === '0') {
                                   flag1 = true;
-                                    let position=''
-                                    if(response.prosystem[i].position){
-                                        position = getDictionaryInfo(response.prosystem[i].position).value1
-                                    }
+
                                     tableb.push({
                                         name: response.prosystem[i].prosystem,
                                         comproject_id: response.prosystem[i].comproject_id,
@@ -1122,18 +1123,14 @@
                                         number: response.prosystem[i].number,
                                         company: response.prosystem[i].company,
                                         name: response.prosystem[i].name,
-                                        // position: response.prosystem[i].position,
-                                        position: position,
+                                        position: response.prosystem[i].position,
+                                        // position: position,
                                         admissiontime: response.prosystem[i].admissiontime,
                                         exittime: response.prosystem[i].exittime,
                                         rowindex: response.prosystem[i].rowindex,
                                     });
                                 } else if (response.prosystem[i].type === '1') {
                                   flag2 = true;
-                                  let position=''
-                                  if(response.prosystem[i].position){
-                                      position = getDictionaryInfo(response.prosystem[i].position).value1
-                                  }
                                     tablec.push({
                                         name: response.prosystem[i].prosystem,
                                         comproject_id: response.prosystem[i].comproject_id,
@@ -1141,8 +1138,7 @@
                                         number: response.prosystem[i].number,
                                         company: response.prosystem[i].company,
                                         name: response.prosystem[i].name,
-                                        // position: response.prosystem[i].position,
-                                        position: position,
+                                        position: response.prosystem[i].position,
 
                                         admissiontime: response.prosystem[i].admissiontime,
                                         exittime: response.prosystem[i].exittime,
@@ -1456,7 +1452,11 @@
                 row.number = this.currentRow;
                 row.name = this.currentRow1;
                 row.company = this.currentRow2;
+                // if(this.currentRow3){
+                //     row.position = getDictionaryInfo(this.currentRow3).value1
+                // }
                 row.position = this.currentRow3;
+
                 row.suppliernameid = this.currentRow4;
                 this.dialogTableVisible1 = false;
             },
@@ -1486,7 +1486,9 @@
                 row.name = userlist;
                 if (row.name != null && row.name !== '') {
                     let lst = getUserInfo(row.name);
-                    row.position = lst.userinfo.post;
+                    if(lst.userinfo.post){
+                        row.position = getDictionaryInfo(lst.userinfo.post).value1
+                    }
                     row.number = lst.userinfo.jobnumber;
                     let lst1 = getOrgInfoByUserId(row.name);
                     row.company = lst1.groupNmae;
@@ -1799,7 +1801,10 @@
                             vote1.number = response[i].number;
                             vote1.expname = response[i].expname;
                             vote1.suppliername = response[i].suppliername;
-                            vote1.post = response[i].post;
+                            // vote1.post = response[i].post;
+                            if(response[i].post){
+                                vote1.post = getDictionaryInfo(response[i].post).value1
+                            }
                           vote1.suppliernameid = response[i].supplierinfor_id;
                           this.gridData1.push(vote1);
                         }

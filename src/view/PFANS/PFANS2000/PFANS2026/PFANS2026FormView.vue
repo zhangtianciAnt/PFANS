@@ -824,6 +824,7 @@
             this.form.group_id =  '';
             this.form.team_id =  '';
         }
+        debugger
         if(lst){
             this.form.sex = lst.userinfo.sex ;
             this.form.educational_background = lst.userinfo.educational;
@@ -937,7 +938,9 @@
             this.form.reporter = this.reporterlist;
             this.form.hope_exit_date = moment(this.form.hope_exit_date).format('YYYY-MM-DD');
             this.form.application_date = moment(this.form.application_date).format('YYYY-MM-DD');
-            this.form.entry_time = moment(this.form.entry_time).format('YYYY-MM-DD');
+            if(this.form.entry_time){
+                this.form.entry_time = moment(this.form.entry_time).format('YYYY-MM-DD');
+            }
             this.form.delivery_sheet_date = moment(this.form.delivery_sheet_date).format('YYYY-MM-DD');
             this.form.report_date = moment(this.form.report_date).format('YYYY-MM-DD');
             this.baseInfo.staffexitprocedure = JSON.parse(JSON.stringify(this.form));

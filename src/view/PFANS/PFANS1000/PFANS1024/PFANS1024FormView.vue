@@ -731,7 +731,6 @@
         }
       };
       var validateConchinese = (rule, value, callback) => {
-        debugger;
         if (Array.isArray(value)) {
           if (value.length == 0) {
             callback(new Error(this.$t('label.PFANS1026FORMVIEW_QYZW')));
@@ -829,6 +828,7 @@
         display: true,
         options: [],
         contractnumbercount: '',
+        contractnumbercountok: '',
         maketype: '',
         selectType: 'Single',
         letcontractnumber: '',
@@ -1111,17 +1111,26 @@
       };
     },
     mounted() {
-      this.contractnumbercount = this.$route.params.contractnumbercount;
       let option1 = {};
       option1.name = getDictionaryInfo('PG019001').value1;
       option1.code = 'PG019001';
-      option1.value = getDictionaryInfo('PG019001').value4;
+      option1.value = getDictionaryInfo('PG019001').value1;
       let option2 = {};
-      option2.name = getDictionaryInfo('PG019003').value1;
-      option2.code = 'PG019003';
-      option2.value = getDictionaryInfo('PG019003').value4;
+      option2.name = getDictionaryInfo('PG019002').value1;
+      option2.code = 'PG019002';
+      option2.value = getDictionaryInfo('PG019002').value1;
+      let option3 = {};
+      option3.name = getDictionaryInfo('PG019003').value1;
+      option3.code = 'PG019003';
+      option3.value = getDictionaryInfo('PG019003').value1;
+      let option4 = {};
+      option4.name = getDictionaryInfo('PG019004').value1;
+      option4.code = 'PG019004';
+      option4.value = getDictionaryInfo('PG019004').value1;
       this.options.push(option1);
       this.options.push(option2);
+      this.options.push(option3);
+      this.options.push(option4);
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
@@ -1493,7 +1502,6 @@
                 this.tableD.push(o);
               }
             }
-//            this.contractnumbercount = (letcontractnumber.length + 1);
             this.loading = false;
           })
           .catch(error => {
@@ -1736,9 +1744,37 @@
           rowindex: '',
         });
       },
+      //获取供应商所有合同
+      getcontractnumbercount(custojapanese) {
+          this.loading = true;
+          this.$store
+              .dispatch('PFANS1026Store/getSupplier',{'type': '0','custojapanese': custojapanese})
+              .then(response => {
+                  this.contractnumbercount = response.contractapplication.length + 1;
+                  //通し番号
+                  let number = '01';
+                  if (this.contractnumbercount.toString().length === 1) {
+                      number = '0' + this.contractnumbercount;
+                  } else if (this.contractnumbercount.toString().length === 2) {
+                      number = this.contractnumbercount;
+                  }
+                  if(this.form.tabledata.length > 0){
+                      this.contractnumbercountok = this.form.tabledata[0].contractnumber + number;
+                      this.form.tabledata[0].contractnumber = this.contractnumbercountok;
+                  }
+                  this.loading = false;
+              })
+              .catch(error => {
+                  Message({
+                      message: error,
+                      type: 'error',
+                      duration: 5 * 1000
+                  });
+                  this.loading = false
+              })
+      },
       //契約番号做成
-      click() {//111
-
+      click() {
         this.$refs['refform1'].validate(valid => {
           if (valid) {
             this.form.claimtype = this.form1.claimtype;
@@ -1811,14 +1847,14 @@
         }
         //先方組織名编码
         let sidegroup = this.formcustomer.suppliercode;
-        if (sidegroup === '' || sidegroup === undefined) {
-          Message({
-            message: this.$t('normal.error_15'),
-            type: 'error',
-            duration: 5 * 1000,
-          });
-          return;
-        }
+        // if (sidegroup === '' || sidegroup === undefined) {
+        //   Message({
+        //     message: this.$t('normal.error_15'),
+        //     type: 'error',
+        //     duration: 5 * 1000,
+        //   });
+        //   return;
+        // }
         //事業年度
         let applicationdate = '';
         let letapplicationdate = getDictionaryInfo(this.form.applicationdate);
@@ -1832,18 +1868,12 @@
           entrycondition = letentrycondition.value2;
         }
         //契約書番号(契約種類 + 事業年度 + 上下期 + 社内組織番号 + 先方番号)
-        //通し番号
-        let number = '01';
-        if (this.contractnumbercount.toString().length === 1) {
-          number = '0' + this.contractnumbercount;
-        } else if (this.contractnumbercount.toString().length === 2) {
-          number = this.contractnumbercount;
-        }
+
         if (this.checked) {
           this.letcontractnumber = this.form.contractnumber.split('-')[0] + letbook;
         } else {
           if (this.groupinfo[2] !== null) {
-            this.letcontractnumber = abbreviation + applicationdate + entrycondition + this.groupinfo[2] + sidegroup + number + letbook;
+              this.letcontractnumber = abbreviation + applicationdate + entrycondition + this.groupinfo[2] + sidegroup + letbook;
           } else {
             Message({
               message: this.$t('normal.error_14'),
@@ -1900,6 +1930,10 @@
           this.titleType = this.titleType3;
         } else if (this.form.contracttype === 'HT014004') {
           this.titleType = this.titleType4;
+        }
+        if(!this.checked){
+            //获取供应商所有合同
+            this.getcontractnumbercount(this.form1.custojapanese);
         }
         this.getChecked(false);
         this.dialogFormVisible = false;
@@ -2197,7 +2231,6 @@
         this.$refs['refform'].clearValidate();
         let pros = [];
         myRule.forEach(function(item, index, array) {
-          debugger
           let dataName = 'tabledata';
           let maxCount = rowCount;
           if (['deliverydate', 'completiondate', 'claimdate', 'supportdate', 'claimamount', 'claimtype'].indexOf(item) >= 0) {

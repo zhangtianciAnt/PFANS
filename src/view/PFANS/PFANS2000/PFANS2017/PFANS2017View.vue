@@ -150,6 +150,15 @@
                         fix: false,
                         filter: true
                     },
+                    // ADD-LXX
+                    {
+                        code: 'afternoon',
+                        label: 'label.PFANS2017VIEW_AFTERNOON',
+                        width: 140,
+                        fix: false,
+                        filter: true
+                    },
+                    // ADD-LXX
                 ],
                 buttonList: [
                     // {'key': 'import', 'name': 'button.import', 'disabled': false, icon: 'el-icon-upload2'},
@@ -192,6 +201,13 @@
                             if(response[j].punchcardrecord_date === moment(new Date()).format('YYYY-MM-DD')){
                                 response[j].time_end = "";
                             }
+                            debugger
+                            // ADD-LXX
+                            response[j].afternoon = parseFloat(response[j].worktime) - parseFloat(response[j].absenteeismam)
+                            if(response[j].afternoon === 0){
+                                response[j].afternoon  = ""
+                            }
+                            // ADD-LXX
                             if(response[j].worktime === "0.00"){
                                 response[j].worktime = "";
                             }

@@ -840,6 +840,7 @@
       };
       var validatePlacechinese = (rule, value, callback) => {
         if (value === '') {
+            callback(new Error(this.$t('label.PFANS1026FORMVIEW_ZSRW')));
         } else {
           callback();
         }
@@ -1260,16 +1261,26 @@
     },
     mounted() {
       this.contractnumbercount = this.$route.params.contractnumbercount;
-        let option1 = {};
-        option1.name = getDictionaryInfo('PG019001').value1;
-        option1.code = 'PG019001';
-        option1.value = getDictionaryInfo('PG019001').value4;
-        let option2 = {};
-        option2.name = getDictionaryInfo('PG019003').value1;
-        option2.code = 'PG019003';
-        option2.value = getDictionaryInfo('PG019003').value4;
-        this.options.push(option1);
-        this.options.push(option2);
+      let option1 = {};
+      option1.name = getDictionaryInfo('PG019001').value1;
+      option1.code = 'PG019001';
+      option1.value = getDictionaryInfo('PG019001').value1;
+      let option2 = {};
+      option2.name = getDictionaryInfo('PG019002').value1;
+      option2.code = 'PG019002';
+      option2.value = getDictionaryInfo('PG019002').value1;
+      let option3 = {};
+      option3.name = getDictionaryInfo('PG019003').value1;
+      option3.code = 'PG019003';
+      option3.value = getDictionaryInfo('PG019003').value1;
+      let option4 = {};
+      option4.name = getDictionaryInfo('PG019004').value1;
+      option4.code = 'PG019004';
+      option4.value = getDictionaryInfo('PG019004').value1;
+      this.options.push(option1);
+      this.options.push(option2);
+      this.options.push(option3);
+      this.options.push(option4);
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
@@ -1279,7 +1290,7 @@
             let contractnumbercount = response.contractnumbercount;
             if (contractapplication.length > 0) {
               for (let i = 0; i < contractapplication.length; i++) {
-                if(contractapplication[i].currencyposition !== '' && contractapplication[i].currencyposition !== null){
+                if (contractapplication[i].currencyposition !== '' && contractapplication[i].currencyposition !== null) {
                   contractapplication[i].currencyposition = getDictionaryInfo(contractapplication[i].currencyposition).value4;
                 }
                   this.show3 = true;
@@ -1360,7 +1371,7 @@
       let userid = this.$store.getters.userinfo.userid;
       if (userid !== null && userid !== '') {
         let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-        if(lst !== null && lst !== ''){
+        if(lst.groupId !== null && lst.groupId !== ''){
           this.form1.grouporglist = lst.groupId;
           this.getGroupId(this.form1.grouporglist);
           this.checkGroupId = true;
@@ -1503,7 +1514,6 @@
         this.$store
           .dispatch('PFANS6002Store/getcustomerinfor2')
           .then(response => {
-              console.log("response",response)
             for (let j = 0; j < response.length; j++) {
               if (response[j].custchinese !== null && response[j].custchinese !== '') {
                 let custchinese = getUserInfo(response[j].custchinese);
@@ -1939,7 +1949,6 @@
         let isClone = false;
         if (this.checked) {
           for (let i = 0; i < this.form.tabledata.length; i++) {
-
             this.form.tabledata[i].state = '0';
             if (this.form.tabledata[0].deliverycondition == 'HT009002') {
               isClone = true;
@@ -2427,7 +2436,6 @@
           return;
         }
         Promise.all(pros).then(function(values) {
-
           let isOk = true;
           values.forEach(function(val) {
             if (val != undefined && val != '') {

@@ -1,6 +1,6 @@
 <template>
     <span>
-        <el-button @click="addworkflow" plain size="mini" style="margin-left:10px" type="primary"
+        <el-button @click="addworkflow" plain size="mini" style="margin-left:10px" type="primary" @changeLoading="changeLoading"
                    v-if="canStartWorkflow">{{$t('button.startWorkflow')}}</el-button>
         <el-button :data="OperationWorkflowData" @click="OperationWorkflow" plain size="mini" style="margin-left:10px"
                    type="primary" v-if="canOperationWorkflow">{{$t('button.operationWorkflow')}}</el-button>
@@ -66,9 +66,12 @@
       }
     },
     methods: {
-      start() {
+      changeLoading(val){
+        this.$emit('changeLoading', val);
+      },
+      start(val) {
         this.refresh();
-        this.$emit('start')
+        this.$emit('start',val)
       },
       workflowState(val) {
         this.$emit('workflowState', val)
