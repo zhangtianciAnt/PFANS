@@ -3165,7 +3165,8 @@ module.exports = {
     ASSETS1003VIEW_FILEADDRESS: '服务器地址',
     //ADD-LXX
     USERSVIEW_ENTER:"在职",
-    USERSVIEW_LEAVE:"离职"
+    USERSVIEW_LEAVE:"离职",
+    PFANS2017VIEW_AFTERNOON: '下午外出时长',
     //ADD-LXX
   },
 };
