@@ -49,7 +49,7 @@
 
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANSUSERFORMVIEW_AGE')">
-                <el-input :disabled="true" style="width: 20vw" v-model="form.age"></el-input>
+                <el-input :disabled="true" style="width: 20vw" v-model="age"></el-input>
               </el-form-item>
             </el-col>
 
@@ -290,6 +290,7 @@
         }
       };
       return {
+        age: '',
         loading: false,
         selectType: 'Single',
         title: 'title.PFANS6001VIEW',
@@ -306,7 +307,6 @@
           sex: '',
           contactinformation: '',
           birth: '',
-          age: '',
           supplierinfor_id: '',
           suppliername: '',
           graduateschool: '',
@@ -459,6 +459,18 @@
           .dispatch('PFANS6004Store/getexpatriatesinforApplyOne', {'expatriatesinfor_id': this.$route.params._id})
           .then(response => {
             this.form = response;
+              let birthdays = new Date(this.form.birth);
+              let d = new Date();
+              let age = 0;
+              let agenew = 0;
+              age = d.getFullYear() - birthdays.getFullYear();
+              agenew = d.getFullYear() - birthdays.getFullYear();
+              if (d.getMonth() > birthdays.getMonth() || (d.getMonth() == birthdays.getMonth() && d.getDate() > birthdays.getDate())) {
+                  agenew = age;
+              } else {
+                  agenew = age - 1;
+              }
+              this.age = agenew;
             this.form.interview_date = moment(response.interview_date).format('YYYY-MM-DD');
             this.loading = false;
           })
@@ -528,12 +540,18 @@
         }
       },
       getAge() {
-        let birthdays = new Date(this.form.birth);
-        let d = new Date();
-        let ageD =
-          d.getFullYear() -
-          birthdays.getFullYear();
-        this.form.age = ageD;
+          let birthdays = new Date(this.form.birth);
+          let d = new Date();
+          let age = 0;
+          let agenew = 0;
+          age = d.getFullYear() - birthdays.getFullYear();
+          agenew = d.getFullYear() - birthdays.getFullYear();
+          if (d.getMonth() > birthdays.getMonth() || (d.getMonth() == birthdays.getMonth() && d.getDate() > birthdays.getDate())) {
+              agenew = age;
+          } else {
+              agenew = age - 1;
+          }
+          this.age = agenew;
       },
       submit() {
         let val = this.currentRow;
