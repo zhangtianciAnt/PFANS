@@ -59,6 +59,13 @@
                         fix: false,
                         filter: true
                     },
+                  {
+                    code: 'invoiceno',
+                    label: 'label.PFANS1013VIEW_REIMNUMBER',
+                    width: 130,
+                    fix: false,
+                    filter: true
+                  },
                     {
                         code: 'moneys',
                         label: 'label.PFANS1012VIEW_MONEY',
