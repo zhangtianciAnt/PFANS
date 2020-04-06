@@ -39,11 +39,3 @@ export function existCheck(data) {
     params: data
   })
 }
-
-export function getSupplier(data) {
-  return request({
-    url: 'contractapplication/getSupplier',
-    method: 'get',
-    params: data
-  })
-}
