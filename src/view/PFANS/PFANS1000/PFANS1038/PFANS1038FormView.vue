@@ -379,6 +379,9 @@
                                     };
                                 }
                             )
+                          // for(let i =0;i<this.tableData.length;i++){
+                          //   this.tableData[i].nextyear = this.tableData[i].thisyear;
+                          // }
                         }
                     })
                     .catch(error => {
