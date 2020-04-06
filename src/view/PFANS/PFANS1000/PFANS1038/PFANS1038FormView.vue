@@ -70,7 +70,9 @@
                       v-for="item in options"
                       :key="item.value"
                       :label="item.label"
-                      :value="item.value">
+                      :value="item.value"
+
+                    >
                     </el-option>
                   </el-select>
                 </template>
@@ -289,6 +291,7 @@
                     value: 'PJ053002',
                     label: this.$t("label.PFANS1036FORMVIEW_CHANCELLORDOWN")
                 }],
+
                 loading: false,
                 externalOption: "",
                 newTableData: [{"name": "", "isoutside": false, "entermouth": null}],
@@ -299,21 +302,24 @@
                 show1: false,
                 titles: this.$route.params.type === 0 ? "label.PFANS1038VIEW_MEMBERSHIP" : "label.PFANS1038VIEW_OUTOFHOME",
                 form: {
-                    years: moment(new Date()).format("YYYY"),
+                    //years: parseInt(moment(new Date()).format("YYYY"))+1+ "",
+                  years:parseInt(moment(new Date()).format("MM")) >=  4 ? parseInt(moment(new Date()).format("YYYY"))+1+ "" : moment(new Date()).format("YYYY"),
+                  //,"YYYY-MM-DD").valueOf() >= moment(moment(new Date(),"YYYY") + "04-01").valueOf() ? parseInt(moment(new Date(),"YYYY")) +1+"" : moment(new Date(),"YYYY")+"",
                 }
             };
         },
         computed: {
+
             getThisYearLevel: function () {
-                if (this.form.years) {
-                    return this.form.years + "";
-                } else {
-                    this.form.years = moment().subtract(3, 'M').format('YYYY');
-                    return this.form.years + "";
-                }
+                // if (this.form.years) {
+                     return parseInt(this.form.years)-1 + "";
+                // } else {
+                //     this.form.years = moment().subtract(3, 'M').format('YYYY');
+                //     return parseInt(this.form.years)-1 + "";
+                // }
             },
             getNextYearLevel: function () {
-                return (parseInt(this.getThisYearLevel) + 1) + "";
+                return (parseInt(this.form.years)) + "";
             }
         },
         created() {
@@ -368,7 +374,8 @@
                                     return {
                                         name: res.userinfo.customername,
                                         userid: res.userid,
-                                        thisyear: res.userinfo.rank
+                                        thisyear: res.userinfo.rank,
+                                        nextyear:res.userinfo.rank
                                     };
                                 }
                             )
