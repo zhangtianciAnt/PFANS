@@ -35,7 +35,13 @@ export function downloadList(data) {
       data: data
     })
   }
-
+export function CheckList(data) {s
+  return request({
+    url: 'logmanagement/CheckList',
+    method: 'post',
+    data: data
+  })
+}
   export function gettlist(data) {
     return request({
       url: 'logmanagement/gettlist',

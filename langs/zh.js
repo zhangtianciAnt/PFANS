@@ -2270,7 +2270,7 @@ module.exports = {
     PFANS2016FORMVIEW_CHECKDAIXIUBANRI: '半日代休时，须满足上午四小时出勤工作或下午四小时出勤工作',
     PFANS2016FORMVIEW_TISHICHECKERROR: '①员工生育时享受产前产后连续98天产假，其中产前可以休假15天；难产增加产假15天；生育多胞胎时，每多生育一个婴儿，增加产假15天。产假期间包括公休日。\n' +
       '②已婚女员工怀孕生育符合生育保险政策和国家和省人口与计划生育政策要求的子女时，可以享受本条第1款规定的产假以外的产假60天（包括公休日）。',
-    PFANS2016FORMVIEW_DATACHECK: '预计代修休息时间与实际代修休息时间不符',
+    PFANS2016FORMVIEW_DATACHECK: '预计代休休息时间与实际代休休息时间不符',
     PFANS2016FORMVIEW_SJCHECKEROR: '实际年假休息时间与实际年假休息时间不符',
     PFANS2016FORMVIEW_RELENGTHTIMETO: '实际时间长度总计（h）',
     PFANS2016FORMVIEW_BJDJZHCHECK: '本年度的家长会次数已经用完',
@@ -2751,6 +2751,7 @@ module.exports = {
     PFANS5008FORMVIEW_GZPROGRAM: '工作项目',
     PFANS5008FORMVIEW_BMXM: '所选部门项目列表',
     PFANS5008FORMVIEW_CKECKLOGDATA: '本日暂不可填写日志',
+    PFANS5008FORMVIEW_CKECKLOGDATAERROR: '本日暂不可填写此项目日志',
     PFANS5008FORMVIEW_GRXM: '个人项目列表',
     PFANS5008FORMVIEW_LEFT: '到左边',
     PFANS5008FORMVIEW_RIGHT: '到右边',
