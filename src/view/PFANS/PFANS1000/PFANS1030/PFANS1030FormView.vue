@@ -1046,6 +1046,7 @@
             if (response.staffDetail.length > 0) {
               this.tableD = response.staffDetail
             }
+            let aa = 0
 
             if ( response.numbercounts.length > 0 ) {
               for (let i = 0; i < response.numbercounts.length; i++) {
@@ -1070,8 +1071,13 @@
                 if (supportdate!==""&& supportdate!=null) {
                   response.numbercounts[i].supportdate = moment(supportdate).format('YYYY-MM-DD');
                 }
+                if(response.numbercounts[i].claimamount){
+                    let claimamount = response.numbercounts[i].claimamount
+                    aa = Number(claimamount) + aa;
+                }
               }
             }
+              this.form.claimamount = aa
             this.tableS = response.numbercounts;
             this.userlist = this.form.user_id;
             this.baseInfo.award = JSON.parse(JSON.stringify(this.form));

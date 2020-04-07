@@ -577,6 +577,8 @@
         this.$store
           .dispatch('PFANS1029Store/one', {"contract_id": this.$route.params._id})
           .then(response => {
+              console.log("response",response)
+              let aa = 0;
             for (let i = 0; i < response.numberCount.length; i++) {
               if (response.numberCount[i].currencyposition !== null && response.numberCount[i].currencyposition !== "") {
                 let letCurrencyposition = getDictionaryInfo(response.numberCount[i].currencyposition);
@@ -602,7 +604,14 @@
               if (supportdate!==""&& supportdate!=null) {
                 response.numberCount[i].supportdate = moment(supportdate).format('YYYY-MM-DD');
               }
+              if(response.numberCount[i].claimamount){
+                  let claimamount = response.numberCount[i].claimamount
+                  aa = Number(claimamount) + aa;
+              }
             }
+              this.form2.claimamount = aa
+              console.log("this.form2.claimamount",this.form2.claimamount)
+
 
             if (response.depositjapanese !== null && response.depositjapanese !== "") {
               let letUser = getUserInfo(response.depositjapanese);
