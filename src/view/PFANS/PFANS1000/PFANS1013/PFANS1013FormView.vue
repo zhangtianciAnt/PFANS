@@ -767,7 +767,7 @@
                       <template slot-scope="scope">
                         <dicselect :code="code3"
                                    :data="scope.row.currency"
-                                   :disabled="scope.row.accountcode !== 'PJ132005' && scope.row.accountcode !== 'PJ132006' ? false : true"
+                                   :disabled="(scope.row.accountcode !== 'PJ132005' && scope.row.accountcode !== 'PJ132006') && (scope.row.accountcode !== 'PJ119005' && scope.row.accountcode !== 'PJ119006') ? false : true"
                                    :multiple="multiple"
                                    :no="scope.row"
                                    @change="getAccommodation">
@@ -778,7 +778,7 @@
                                      v-if="this.form.type === '0'? false : true" width="200">
                       <template slot-scope="scope">
                         <el-input-number
-                          :disabled="scope.row.accountcode !== 'PJ132005' && scope.row.accountcode !== 'PJ132006' ? false : true"
+                          :disabled="(scope.row.accountcode !== 'PJ132005' && scope.row.accountcode !== 'PJ132006') && (scope.row.accountcode !== 'PJ119005' && scope.row.accountcode !== 'PJ119006') ? false : true"
                           :max="1000000000"
                           :min="0"
                           :precision="2"
@@ -1268,7 +1268,6 @@
       };
     },
     mounted() {
-      debugger;
       this.getBusInside();
       this.getLoanapp();
       this.getCompanyProjectList();
@@ -1644,54 +1643,54 @@
         }
       },
       gettype(val) {
-        [{
-          evectionid: '',
-          accommodationdetails_id: '',
-          accommodationdate: [],
-          invoicenumber: '',
-          plsummary: this.plsummaryflg,
-          accountcode: this.Redirict === '0' ? 'PJ119001' : 'PJ132001',
-          budgetcoding: this.encoding,
-          subjectnumber: '',
-          departmentname: this.groupId,
-          activitycontent: '',
-          city: '',
-          region: '',
-          facilitytype: '',
-          facilityname: '',
-          currency: '',
-          // accommodation: '',
-          rmb: '',
-          travel: '',
-          annexno: '',
-          rowindex: '',
-          taxes: '',
-          // costitem: '',
-        },
-          {
-            evectionid: '',
-            accommodationdetails_id: '',
-            accommodationdate: [],
-            invoicenumber: '',
-            plsummary: this.plsummaryflg,
-            accountcode: this.Redirict === '0' ? 'PJ119005' : 'PJ132005',
-            budgetcoding: this.encoding,
-            subjectnumber: '',
-            departmentname: this.groupId,
-            activitycontent: '',
-            city: '',
-            region: '',
-            facilitytype: '',
-            facilityname: '',
-            currency: '',
-            // accommodation: '',
-            rmb: '',
-            travel: '',
-            annexno: '',
-            rowindex: '',
-            taxes: '',
-            // costitem: '',
-          }],
+        // [{
+        //   evectionid: '',
+        //   accommodationdetails_id: '',
+        //   accommodationdate: [],
+        //   invoicenumber: '',
+        //   plsummary: this.plsummaryflg,
+        //   accountcode: this.Redirict === '0' ? 'PJ119001' : 'PJ132001',
+        //   budgetcoding: this.encoding,
+        //   subjectnumber: '',
+        //   departmentname: this.groupId,
+        //   activitycontent: '',
+        //   city: '',
+        //   region: '',
+        //   facilitytype: '',
+        //   facilityname: '',
+        //   currency: '',
+        //   // accommodation: '',
+        //   rmb: '',
+        //   travel: '',
+        //   annexno: '',
+        //   rowindex: '',
+        //   taxes: '',
+        //   // costitem: '',
+        // },
+        //   {
+        //     evectionid: '',
+        //     accommodationdetails_id: '',
+        //     accommodationdate: [],
+        //     invoicenumber: '',
+        //     plsummary: this.plsummaryflg,
+        //     accountcode: this.Redirict === '0' ? 'PJ119005' : 'PJ132005',
+        //     budgetcoding: this.encoding,
+        //     subjectnumber: '',
+        //     departmentname: this.groupId,
+        //     activitycontent: '',
+        //     city: '',
+        //     region: '',
+        //     facilitytype: '',
+        //     facilityname: '',
+        //     currency: '',
+        //     // accommodation: '',
+        //     rmb: '',
+        //     travel: '',
+        //     annexno: '',
+        //     rowindex: '',
+        //     taxes: '',
+        //     // costitem: '',
+        //   }],
           this.activeName = 'first',
           this.form.type = val;
         this.relations = [];
@@ -2470,7 +2469,7 @@
                   if (this.tableT[i].trafficdate !== '' && this.tableT[i].invoicenumber !== '' && this.tableT[i].departmentname !== '' && this.tableT[i].budgetcoding !== ''
                     && this.tableT[i].rmb > 0 && this.tableT[i].annexno !== '' && this.tableT[i].plsummary !== ''
                     && this.tableT[i].accountcode !== '' && this.tableT[i].subjectnumber !== '' && this.tableT[i].region !== ''&& this.tableT[i].vehicle !== ''
-                    && this.tableT[i].taxes >= 0 && this.tableT[i].startingpoint !== '') {
+                    && this.tableT[i].startingpoint !== '') {
                     this.baseInfo.trafficdetails.push(
                       {
                         trafficdetails_id: this.tableT[i].trafficdetails_id,
@@ -2501,7 +2500,7 @@
                 for (let i = 0; i < this.tableA.length; i++) {
                   if (this.tableA[i].accommodationdate !== '' && this.tableA[i].invoicenumber !== '' && this.tableA[i].departmentname !== ''
                     && this.tableA[i].budgetcoding !== '' && this.tableA[i].plsummary !== '' && this.tableA[i].accountcode !== '' && this.tableA[i].subjectnumber !== ''
-                    && this.tableA[i].taxes >= 0 && this.tableA[i].rmb > 0 && this.tableA[i].activitycontent !== ''
+                    && this.tableA[i].rmb > 0 && this.tableA[i].activitycontent !== ''
                     && this.tableA[i].city !== '' && this.tableA[i].facilitytype !== '' && this.tableA[i].facilityname !== '' && this.tableA[i].annexno !== '') {
                     this.baseInfo.accommodationdetails.push(
                       {
@@ -2567,9 +2566,10 @@
               } else if(this.form.type === '1'){
                 for (let i = 0; i < this.tableT.length; i++) {
                   if (this.tableT[i].trafficdate !== '' && this.tableT[i].invoicenumber !== '' && this.tableT[i].departmentname !== '' && this.tableT[i].budgetcoding !== ''
-                    && this.tableT[i].rmb > 0 && this.tableT[i].foreigncurrency > 0 && this.tableT[i].annexno !== '' && this.tableT[i].plsummary !== ''
+                    && this.tableT[i].rmb > 0 && this.tableT[i].annexno !== '' && this.tableT[i].plsummary !== ''
                     && this.tableT[i].accountcode !== '' && this.tableT[i].subjectnumber !== '' && this.tableT[i].region !== ''&& this.tableT[i].vehicle !== ''
-                    && this.tableT[i].taxes >= 0 && this.tableT[i].startingpoint !== '' && this.tableT[i].currency !== '') {
+                    && this.tableT[i].startingpoint !== '') {
+                  // && this.tableT[i].foreigncurrency > 0 && this.tableT[i].currency !== ''
                     this.baseInfo.trafficdetails.push(
                       {
                         trafficdetails_id: this.tableT[i].trafficdetails_id,
@@ -2600,7 +2600,7 @@
                 for (let i = 0; i < this.tableA.length; i++) {
                   if (this.tableA[i].accommodationdate !== '' && this.tableA[i].invoicenumber !== '' && this.tableA[i].departmentname !== ''
                     && this.tableA[i].budgetcoding !== '' && this.tableA[i].plsummary !== '' && this.tableA[i].accountcode !== '' && this.tableA[i].subjectnumber !== ''
-                    && this.tableA[i].taxes >= 0 && this.tableA[i].rmb > 0 && this.tableA[i].travel > 0 && this.tableA[i].activitycontent !== ''&& this.tableA[i].currency !== ''
+                    && this.tableA[i].rmb > 0 && this.tableA[i].activitycontent !== ''
                     && this.tableA[i].region !== '' && this.tableA[i].facilitytype !== '' && this.tableA[i].facilityname !== '' && this.tableA[i].annexno !== '') {
                     this.baseInfo.accommodationdetails.push(
                       {
@@ -2751,7 +2751,8 @@
                   return;
                 }
               }
-              if(this.baseInfo.trafficdetails.length === 0 && this.baseInfo.accommodationdetails.length === 0 && this.baseInfo.otherdetails.length === 0){
+              // if(this.baseInfo.trafficdetails.length === 0 && this.baseInfo.accommodationdetails.length === 0 && this.baseInfo.otherdetails.length === 0){
+              if(this.baseInfo.trafficdetails.length === 0 && this.baseInfo.accommodationdetails.length === 0){
                 Message({
                   message: this.$t('label.PFANS1013FORMVIEW_ERRORINFO'),
                   type: 'error',
@@ -2776,14 +2777,14 @@
                   });
                   return;
                 }
-                if(errorInfoFLG3 === 0 && this.baseInfo.otherdetails.length !== 0){
-                  Message({
-                    message: this.$t('label.PFANS1013FORMVIEW_ERRORINFOR'),
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  return;
-                }
+                // if(errorInfoFLG3 === 0 && this.baseInfo.otherdetails.length !== 0){
+                //   Message({
+                //     message: this.$t('label.PFANS1013FORMVIEW_ERRORINFOR'),
+                //     type: 'error',
+                //     duration: 5 * 1000,
+                //   });
+                //   return;
+                // }
               }
               if (errorFLG == '0') {
                 this.loading = true;
