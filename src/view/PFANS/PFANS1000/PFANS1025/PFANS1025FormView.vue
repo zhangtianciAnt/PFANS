@@ -454,482 +454,469 @@
 </template>
 
 <script>
-    import EasyNormalContainer from '@/components/EasyNormalContainer';
-    import user from "../../../components/user.vue";
-    import {Message} from 'element-ui';
-    import dicselect from '../../../components/dicselect';
-    import moment from "moment";
-    import org from "../../../components/org";
-    import project from '../../../components/project';
-    import {getDictionaryInfo, getOrgInfo, getOrgInfoByUserId, getUserInfo} from '@/utils/customize';
+  import EasyNormalContainer from '@/components/EasyNormalContainer';
+  import user from '../../../components/user.vue';
+  import {Message} from 'element-ui';
+  import dicselect from '../../../components/dicselect';
+  import moment from 'moment';
+  import org from '../../../components/org';
+  import project from '../../../components/project';
+  import {getDictionaryInfo, getOrgInfo, getOrgInfoByUserId, getUserInfo} from '@/utils/customize';
 
-    export default {
-        name: "PFANS1025FormView",
-        components: {
-            EasyNormalContainer,
-            user,
-            org,
-            dicselect,
-            project
-        },
-        data() {
-            var checkuser = (rule, value, callback) => {
-                if (!this.form.user_id || this.form.user_id === '' || this.form.user_id === "undefined") {
-                    this.error = this.$t('normal.error_09') + this.$t('label.user_name');
-                    return callback(new Error(this.$t('normal.error_09') + this.$t('label.user_name')));
-                } else {
-                    this.error = "";
-                    return callback();
-                }
-            };
-            return {
-                checkdisable: false,
-                budgetcodingcheck: '',
-                activeName: 'first',
-                disabled: true,
-                error: '',
-                userlist: '',
-                code1: 'HT008',
-                code2: 'HT005',
-                code3: 'PG019',
-                code4: 'HT018',
-                errorgroup: '',
-                selectType: "Single",
-                loading: false,
-                title: "title.PFANS1025VIEW",
-                canStart: false,
-                multiple: false,
-                orglist: '',
-                baseInfo: {},
-                form: {
-                    draftingdate: '',
-                    scheduleddate: '',
-                    contractnumber: '',
-                    contracttype: '',
-                    custojapanese: '',
-                    custochinese: '',
-                    placejapanese: '',
-                    placechinese: '',
-                    deployment: '',
-                    pjnamejapanese: '',
-                    pjnamechinese: '',
-                    claimdatetimeStart: '',
-                    claimdatetimeEnd: '',
-                    deliverydate: '',
-                    currencyposition: '',
-                    claimamount: '',
-                    user_id: '',
-                    extrinsic: '',
-                    equipment: '',
-                    telephone: '',
-                    commdepartment: '',
-                    commission: '',
-                    plan: '',
-                    valuation: '',
-                    individual: '',
-                    plannumber: '',
-                    valuationnumber: '',
-                    remarks: '',
-                    maketype: '',
-                },
-                tableS: [],
-                tableT: [{
-                    budgetcode: this.$t('label.PFANS1025FORMVIEW_CHECKERROR'),
-                    depart: '',
-                    member: '',
-                    community: '',
-                    outsource: '',
-                    outcommunity: '',
-                    worknumber: '',
-                    awardmoney: '',
-                    rowindex: '',
-                }, {
-                    awarddetail_id: '',
-                    award_id: '',
-                    budgetcode: '',
-                    depart: '',
-                    member: '',
-                    community: '',
-                    outsource: '',
-                    outcommunity: '',
-                    worknumber: '',
-                    awardmoney: '',
-                    rowindex: '',
-                }],
-                rules: {
-                    user_id: [{
-                        required: true,
-                        validator: checkuser,
-                        trigger: 'change'
-                    }],
-                    // telephone: [{
-                    //   required: true,
-                    //   message: this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS1012VIEW_TELEPHONE'),
-                    //   trigger: 'change'
-                    // }],
-                },
-                buttonList: []
-            }
-        },
-        mounted() {
-            this.loading = true;
-            if (this.$route.params._id) {
-                this.$store
-                    .dispatch('PFANS1025Store/selectById', {'award_id': this.$route.params._id})
-                    .then(response => {
-                        this.form = response.award;
-                        if (getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)) {
-                            this.budgetcodingcheck = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
-                        }
-                        if (this.$store.getters.userinfo.userid) {
-                            this.form.telephone = getUserInfo(this.$store.getters.userinfo.userid).userinfo.extension;
-                        }
-                        this.form.draftingdate = moment(new Date()).format('YYYY-MM-DD');
-                        var myDate = new Date();
-                        myDate.setDate(myDate.getDate() + 2);
-                        this.form.scheduleddate = moment(myDate).format('YYYY-MM-DD');
-                        if (this.form.claimdatetime !== "" && this.form.claimdatetime !== null) {
-                            this.form.claimdatetimeStart = this.form.claimdatetime.slice(0, 10);
-                            this.form.claimdatetimeEnd = this.form.claimdatetime.slice(this.form.claimdatetime.length - 10);
-                        }
-                        if (response.awardDetail.length > 0) {
-                            let check = 0;
-                            let data = [];
-                            for (let i = 0; i < response.awardDetail.length; i++) {
-                                if (response.awardDetail[i].budgetcode === this.$t('label.PFANS1025FORMVIEW_CHECKERROR')) {
-                                    check = check + 1;
-                                    break
-                                }
-                            }
-                            if (check === 0) {
-                                this.tableT.push({
-                                    budgetcode: this.$t('label.PFANS1025FORMVIEW_CHECKERROR'),
-                                    depart: '',
-                                    member: '',
-                                    community: '',
-                                    outsource: '',
-                                    outcommunity: '',
-                                    worknumber: '',
-                                    awardmoney: '',
-                                    rowindex: '',
-                                })
-                                this.tableT = data.concat(response.awardDetail);
-                            } else {
-                                this.tableT = response.awardDetail;
-                            }
-                            for (var i = 0; i < this.tableT.length; i++) {
-                                this.orglist = this.tableT[i].depart;
-                            }
-                        }
-                        let mamount = 0
-                        if (response.numbercounts.length > 0) {
-
-                            for (let i = 0; i < response.numbercounts.length; i++) {
-                                let letCurrencyposition = getDictionaryInfo(response.numbercounts[i].currencyposition);
-                                if (letCurrencyposition != null) {
-                                    response.numbercounts[i].currencyposition = letCurrencyposition.value1;
-                                }
-                                let deliverydate = response.numbercounts[i].deliverydate;
-                                let completiondate = response.numbercounts[i].completiondate;
-                                let claimdate = response.numbercounts[i].claimdate;
-                                let supportdate = response.numbercounts[i].supportdate
-
-                                if (deliverydate !== "" && deliverydate != null) {
-                                    response.numbercounts[i].deliverydate = moment(deliverydate).format('YYYY-MM-DD');
-                                }
-                                if (completiondate !== "" && completiondate != null) {
-                                    response.numbercounts[i].completiondate = moment(completiondate).format('YYYY-MM-DD');
-                                }
-                                if (claimdate !== "" && claimdate != null) {
-                                    response.numbercounts[i].claimdate = moment(claimdate).format('YYYY-MM-DD');
-                                }
-                                if (supportdate !== "" && supportdate != null) {
-                                    response.numbercounts[i].supportdate = moment(supportdate).format('YYYY-MM-DD');
-                                }
-                                mamount += parseFloat(response.numbercounts[i].claimamount)
-                            }
-                        }
-
-                        this.tableS = response.numbercounts
-                        this.form.claimamount = mamount;
-                        this.userlist = this.form.user_id;
-                        this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
-                        this.baseInfo.awardDetail = JSON.parse(JSON.stringify(this.tableT));
-                        this.baseInfo.groupN = this.$store.getters.orgGroupList;
-                        this.loading = false;
-                    })
-                    .catch(error => {
-                        Message({
-                            message: error,
-                            type: 'error',
-                            duration: 5 * 1000,
-                        });
-                        this.loading = false;
-                    });
-            }
-            // else {
-            //   this.userlist = this.$store.getters.userinfo.userid;
-            //   if (this.userlist !== null && this.userlist !== '') {
-            //     let lst = getUserInfo(this.$store.getters.userinfo.userid);
-            //     if (lst) {
-            //       this.form.telephone = lst.userinfo.extension;
-            //     }
-            //   }
-            // }
-        },
-        created() {
-            if (!this.$route.params.disabled) {
-                this.buttonList = [
-                    {
-                        key: 'generate',
-                        name: 'button.generate',
-                        disabled: false,
-                    }
-                ]
-            } else {
-                this.buttonList = [
-                    {
-                        key: 'save',
-                        name: 'button.save',
-                        disabled: false,
-                        icon: 'el-icon-check',
-                    },
-                ]
-            }
-            this.disable = this.$route.params.disabled;
-        },
-        methods: {
-            changePro(val, row) {
-                row.projects = val;
-            },
-            changeSum(row) {
-                row.worknumber = row.outsource;
-                row.awardmoney = row.outsource * row.outcommunity;
-            },
-            getplan(val) {
-                this.form.plan = val;
-            },
-            getUserids(val) {
-                this.userlist = val;
-                this.form.user_id = val;
-                if (!this.form.user_id || this.form.user_id === '' || typeof val == "undefined") {
-                    this.error = this.$t('normal.error_08') + this.$t('label.user_name');
-                } else {
-                    this.error = '';
-                }
-            },
-            getcontracttype(val) {
-                this.form.contracttype = val;
-            },
-            getcurrencyformat(val) {
-                this.form.currencyposition = val;
-            },
-            getextrinsic(val) {
-                this.form.extrinsic = val;
-            },
-            getvaluation(val) {
-                this.form.valuation = val;
-            },
-            getindividual(val) {
-                this.form.individual = val;
-            },
-            getGroupId(orglist, row) {
-                row.depart = orglist;
-                let group = getOrgInfo(orglist);
-                if (group) {
-                    row.budgetcode = group.encoding;
-                }
-            },
-            workflowState(val) {
-                if (val.state === '1') {
-                    this.form.status = '3';
-                } else if (val.state === '2') {
-                    this.form.status = '4';
-                }
-                this.buttonClick("update");
-            },
-            start() {
-                this.form.status = '2';
-                this.buttonClick("update");
-            },
-            end() {
-                this.form.status = '0';
-                this.buttonClick("update");
-            },
-            deleteRow(index, rows) {
-                if (rows.length > 1) {
-                    rows.splice(index, 1);
-                } else {
-                    this.tableT = [{
-                        budgetcode: '',
-                        depart: '',
-                        member: '',
-                        community: '',
-                        outsource: '',
-                        outcommunity: '',
-                        worknumber: '',
-                        awardmoney: '',
-                    }]
-                }
-            },
-            addRow() {
-                this.tableT.push({
-                    awarddetail_id: '',
-                    award_id: '',
-                    budgetcode: '',
-                    depart: '',
-                    member: '',
-                    community: '',
-                    outsource: '',
-                    outcommunity: '',
-                    worknumber: '',
-                    awardmoney: '',
-                    rowindex: '',
-                })
-            },
-            getTsummaries(param) {
-                const {columns, data} = param;
-                const sums = [];
-                columns.forEach((column, index) => {
-                    if (index === 0) {
-                        sums[index] = this.$t('label.PFANS1012VIEW_ACCOUNT');
-                        return;
-                    }
-                    const values = data.map(item => Number(item[column.property]));
-                    if (!values.every(value => isNaN(value))) {
-                        sums[index] = values.reduce((prev, curr) => {
-                            const value = Number(curr);
-                            if (!isNaN(value)) {
-                                return prev + curr;
-                            } else {
-                                return prev;
-                            }
-                        }, 0);
-                        if (index == 2) {
-                            sums[index] = Math.round((sums[index]) * 100) / 100;
-                        }
-                        if (index == 4) {
-                            sums[index] = Math.round((sums[index]) * 100) / 100;
-                        }
-                        if (index == 6) {
-                            sums[index] = Math.round((sums[index]) * 100) / 100;
-                        }
-                        if (index == 7) {
-                            sums[index] = Math.round((sums[index]) * 100) / 100;
-                        }
-                    } else {
-                        sums[index] = '--'
-                    }
-                });
-                return sums;
-            },
-            changePlan(val) {
-                this.form.plan = val;
-            },
-            buttonClick(val) {
-                this.form.maketype = '7',
-                    this.baseInfo = {};
-                this.form.user_id = this.userlist;
-                if (this.form.claimdatetimeStart !== "" && this.form.claimdatetimeEnd !== "") {
-                    this.form.claimdatetime = moment(this.form.claimdatetimeStart).format('YYYY-MM-DD') + " ~ " + moment(this.form.claimdatetimeEnd).format('YYYY-MM-DD');
-                }
-                this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
-                this.baseInfo.awardDetail = [];
-                let money = 0;
-                for (let i = 0; i < this.tableT.length; i++) {
-                    if (this.tableT[i].budgetcode !== "" || this.tableT[i].depart !== "" || this.tableT[i].member > "0" || this.tableT[i].community > "0"
-                        || this.tableT[i].outsource > "0" || this.tableT[i].outcommunity > "0" || this.tableT[i].worknumber > "0" || this.tableT[i].awardmoney > "0") {
-                        money += parseFloat(this.tableT[i].awardmoney);
-                        this.baseInfo.awardDetail.push({
-                            awarddetail_id: this.tableT[i].awarddetail_id,
-                            award_id: this.tableT[i].award_id,
-                            budgetcode: this.tableT[i].budgetcode,
-                            depart: this.tableT[i].depart,
-                            member: this.tableT[i].member,
-                            projects: this.tableT[i].projects,
-                            community: this.tableT[i].community,
-                            outsource: this.tableT[i].outsource,
-                            outcommunity: this.tableT[i].outcommunity,
-                            worknumber: this.tableT[i].worknumber,
-                            awardmoney: this.tableT[i].awardmoney,
-                            rowindex: this.tableT[i].rowindex,
-                        })
-                    }
-                }
-                let error = 0;
-                if (money != this.form.claimamount) {
-                    error = error + 1;
-                    Message({
-                        message: this.$t('label.PFANS1025FROMVIEW_CHECKAWARDMONEY'),
-                        type: 'error',
-                        duration: 5 * 1000,
-                    });
-                }
-                if (error == '0') {
-                    if (this.$route.params.disabled) {
-                        this.$refs["reff"].validate(valid => {
-                            if (valid) {
-                                this.loading = true;
-                                if (this.$route.params._id) {     //郛冶ｾ�
-                                    this.baseInfo.award.award_id = this.$route.params._id;
-                                    this.$store
-                                        .dispatch('PFANS1025Store/update', this.baseInfo)
-                                        .then(response => {
-                                            this.data = response;
-                                            this.loading = false;
-                                            if (val !== "update") {
-                                                Message({
-                                                    message: this.$t('normal.success_02'),
-                                                    type: 'success',
-                                                    duration: 5 * 1000,
-                                                });
-                                                if (this.$store.getters.historyUrl) {
-                                                    this.$router.push(this.$store.getters.historyUrl);
-                                                }
-                                            }
-                                        })
-                                        .catch(error => {
-                                            Message({
-                                                message: error,
-                                                type: 'error',
-                                                duration: 5 * 1000,
-                                            });
-                                            this.loading = false;
-                                        })
-                                }
-                            } else {
-                                Message({
-                                    message: this.$t("normal.error_12"),
-                                    type: 'error',
-                                    duration: 5 * 1000
-                                });
-                            }
-                        });
-                    } else {
-                        this.loading = true;
-                        let user = getUserInfo(this.form.user_id);
-                        if (user) {
-                            this.form.user_id = user.userinfo.customername;
-                        }
-                        this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
-                        this.$store
-                            .dispatch('PFANS1025Store/generateJxls', this.baseInfo)
-                            .then(response => {
-                                this.loading = false;
-                            })
-                            .catch(error => {
-                                Message({
-                                    message: error,
-                                    type: 'error',
-                                    duration: 5 * 1000,
-                                });
-                                this.loading = false;
-                            })
-                    }
-                }
-            }
+  export default {
+    name: 'PFANS1025FormView',
+    components: {
+      EasyNormalContainer,
+      user,
+      org,
+      dicselect,
+      project,
+    },
+    data() {
+      var checkuser = (rule, value, callback) => {
+        if (!this.form.user_id || this.form.user_id === '' || this.form.user_id === 'undefined') {
+          this.error = this.$t('normal.error_09') + this.$t('label.user_name');
+          return callback(new Error(this.$t('normal.error_09') + this.$t('label.user_name')));
+        } else {
+          this.error = '';
+          return callback();
         }
-    }
+      };
+      return {
+        checkdisable: false,
+        budgetcodingcheck: '',
+        activeName: 'first',
+        disabled: true,
+        error: '',
+        userlist: '',
+        code1: 'HT008',
+        code2: 'HT005',
+        code3: 'PG019',
+        code4: 'HT018',
+        errorgroup: '',
+        selectType: 'Single',
+        loading: false,
+        title: 'title.PFANS1025VIEW',
+        canStart: false,
+        multiple: false,
+        orglist: '',
+        baseInfo: {},
+        form: {
+          draftingdate: '',
+          scheduleddate: '',
+          contractnumber: '',
+          contracttype: '',
+          custojapanese: '',
+          custochinese: '',
+          placejapanese: '',
+          placechinese: '',
+          deployment: '',
+          pjnamejapanese: '',
+          pjnamechinese: '',
+          claimdatetimeStart: '',
+          claimdatetimeEnd: '',
+          deliverydate: '',
+          currencyposition: '',
+          claimamount: '',
+          user_id: '',
+          extrinsic: '',
+          equipment: '',
+          telephone: '',
+          commdepartment: '',
+          commission: '',
+          plan: '',
+          valuation: '',
+          individual: '',
+          plannumber: '',
+          valuationnumber: '',
+          remarks: '',
+          maketype: '',
+        },
+        tableS: [],
+        tableT: [{
+          budgetcode: this.$t('label.PFANS1025FORMVIEW_CHECKERROR'),
+          depart: '',
+          member: '',
+          community: '',
+          outsource: '',
+          outcommunity: '',
+          worknumber: '',
+          awardmoney: '',
+          rowindex: '',
+        }, {
+          awarddetail_id: '',
+          award_id: '',
+          budgetcode: '',
+          depart: '',
+          member: '',
+          community: '',
+          outsource: '',
+          outcommunity: '',
+          worknumber: '',
+          awardmoney: '',
+          rowindex: '',
+        }],
+        rules: {
+          user_id: [{
+            required: true,
+            validator: checkuser,
+            trigger: 'change',
+          }],
+          // telephone: [{
+          //   required: true,
+          //   message: this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS1012VIEW_TELEPHONE'),
+          //   trigger: 'change'
+          // }],
+        },
+        buttonList: [],
+      };
+    },
+    mounted() {
+      this.loading = true;
+      if (this.$route.params._id) {
+        this.$store
+          .dispatch('PFANS1025Store/selectById', {'award_id': this.$route.params._id})
+          .then(response => {
+            this.form = response.award;
+            if (getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)) {
+              this.budgetcodingcheck = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
+            }
+            if (this.$store.getters.userinfo.userid) {
+              this.form.telephone = getUserInfo(this.$store.getters.userinfo.userid).userinfo.extension;
+            }
+            this.form.draftingdate = moment(new Date()).format('YYYY-MM-DD');
+            var myDate = new Date();
+            myDate.setDate(myDate.getDate() + 2);
+            this.form.scheduleddate = moment(myDate).format('YYYY-MM-DD');
+            if (this.form.claimdatetime !== '' && this.form.claimdatetime !== null) {
+              this.form.claimdatetimeStart = this.form.claimdatetime.slice(0, 10);
+              this.form.claimdatetimeEnd = this.form.claimdatetime.slice(this.form.claimdatetime.length - 10);
+            }
+            if (response.awardDetail.length > 0) {
+              let check = 0;
+              let data = [];
+              for (let i = 0; i < response.awardDetail.length; i++) {
+                if (response.awardDetail[i].budgetcode === this.$t('label.PFANS1025FORMVIEW_CHECKERROR')) {
+                  check = check + 1;
+                  break;
+                }
+              }
+              if (check === 0) {
+                this.tableT.push({
+                  budgetcode: this.$t('label.PFANS1025FORMVIEW_CHECKERROR'),
+                  depart: '',
+                  member: '',
+                  community: '',
+                  outsource: '',
+                  outcommunity: '',
+                  worknumber: '',
+                  awardmoney: '',
+                  rowindex: '',
+                });
+                this.tableT = data.concat(response.awardDetail);
+              } else {
+                this.tableT = response.awardDetail;
+              }
+              for (var i = 0; i < this.tableT.length; i++) {
+                this.orglist = this.tableT[i].depart;
+              }
+            }
+            let mamount = 0;
+            if (response.numbercounts.length > 0) {
+
+              for (let i = 0; i < response.numbercounts.length; i++) {
+                let letCurrencyposition = getDictionaryInfo(response.numbercounts[i].currencyposition);
+                if (letCurrencyposition != null) {
+                  response.numbercounts[i].currencyposition = letCurrencyposition.value1;
+                }
+                let deliverydate = response.numbercounts[i].deliverydate;
+                let completiondate = response.numbercounts[i].completiondate;
+                let claimdate = response.numbercounts[i].claimdate;
+                let supportdate = response.numbercounts[i].supportdate;
+
+                if (deliverydate !== '' && deliverydate != null) {
+                  response.numbercounts[i].deliverydate = moment(deliverydate).format('YYYY-MM-DD');
+                }
+                if (completiondate !== '' && completiondate != null) {
+                  response.numbercounts[i].completiondate = moment(completiondate).format('YYYY-MM-DD');
+                }
+                if (claimdate !== '' && claimdate != null) {
+                  response.numbercounts[i].claimdate = moment(claimdate).format('YYYY-MM-DD');
+                }
+                if (supportdate !== '' && supportdate != null) {
+                  response.numbercounts[i].supportdate = moment(supportdate).format('YYYY-MM-DD');
+                }
+                mamount += parseFloat(response.numbercounts[i].claimamount);
+              }
+            }
+
+            this.tableS = response.numbercounts;
+            this.form.claimamount = mamount;
+            this.userlist = this.form.user_id;
+            this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
+            this.baseInfo.awardDetail = JSON.parse(JSON.stringify(this.tableT));
+            this.baseInfo.groupN = this.$store.getters.orgGroupList;
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      }
+      // else {
+      //   this.userlist = this.$store.getters.userinfo.userid;
+      //   if (this.userlist !== null && this.userlist !== '') {
+      //     let lst = getUserInfo(this.$store.getters.userinfo.userid);
+      //     if (lst) {
+      //       this.form.telephone = lst.userinfo.extension;
+      //     }
+      //   }
+      // }
+    },
+    created() {
+      if (!this.$route.params.disabled) {
+        this.buttonList = [
+          {
+            key: 'generate',
+            name: 'button.generate',
+            disabled: false,
+          },
+        ];
+      } else {
+        this.buttonList = [
+          {
+            key: 'save',
+            name: 'button.save',
+            disabled: false,
+            icon: 'el-icon-check',
+          },
+        ];
+      }
+      this.disable = this.$route.params.disabled;
+    },
+    methods: {
+      changePro(val, row) {
+        row.projects = val;
+      },
+      changeSum(row) {
+        row.worknumber = row.outsource;
+        row.awardmoney = row.outsource * row.outcommunity;
+      },
+      getplan(val) {
+        this.form.plan = val;
+      },
+      getUserids(val) {
+        this.userlist = val;
+        this.form.user_id = val;
+        if (!this.form.user_id || this.form.user_id === '' || typeof val == 'undefined') {
+          this.error = this.$t('normal.error_08') + this.$t('label.user_name');
+        } else {
+          this.error = '';
+        }
+      },
+      getcontracttype(val) {
+        this.form.contracttype = val;
+      },
+      getcurrencyformat(val) {
+        this.form.currencyposition = val;
+      },
+      getextrinsic(val) {
+        this.form.extrinsic = val;
+      },
+      getvaluation(val) {
+        this.form.valuation = val;
+      },
+      getindividual(val) {
+        this.form.individual = val;
+      },
+      getGroupId(orglist, row) {
+        row.depart = orglist;
+        let group = getOrgInfo(orglist);
+        if (group) {
+          row.budgetcode = group.encoding;
+        }
+      },
+      workflowState(val) {
+        if (val.state === '1') {
+          this.form.status = '3';
+        } else if (val.state === '2') {
+          this.form.status = '4';
+        }
+        this.buttonClick('update');
+      },
+      start() {
+        this.form.status = '2';
+        this.buttonClick('update');
+      },
+      end() {
+        this.form.status = '0';
+        this.buttonClick('update');
+      },
+      deleteRow(index, rows) {
+        if (rows.length > 1) {
+          rows.splice(index, 1);
+        } else {
+          this.tableT = [{
+            budgetcode: '',
+            depart: '',
+            member: '',
+            community: '',
+            outsource: '',
+            outcommunity: '',
+            worknumber: '',
+            awardmoney: '',
+          }];
+        }
+      },
+      addRow() {
+        this.tableT.push({
+          awarddetail_id: '',
+          award_id: '',
+          budgetcode: '',
+          depart: '',
+          member: '',
+          community: '',
+          outsource: '',
+          outcommunity: '',
+          worknumber: '',
+          awardmoney: '',
+          rowindex: '',
+        });
+      },
+      getTsummaries(param) {
+        const {columns, data} = param;
+        const sums = [];
+        columns.forEach((column, index) => {
+          if (index === 0) {
+            sums[index] = this.$t('label.PFANS1012VIEW_ACCOUNT');
+            return;
+          }
+          const values = data.map(item => Number(item[column.property]));
+          if (!values.every(value => isNaN(value))) {
+            sums[index] = values.reduce((prev, curr) => {
+              const value = Number(curr);
+              if (!isNaN(value)) {
+                return prev + curr;
+              } else {
+                return prev;
+              }
+            }, 0);
+            if (index == 2) {
+              sums[index] = Math.round((sums[index]) * 100) / 100;
+            }
+            if (index == 4) {
+              sums[index] = Math.round((sums[index]) * 100) / 100;
+            }
+            if (index == 6) {
+              sums[index] = Math.round((sums[index]) * 100) / 100;
+            }
+            if (index == 7) {
+              sums[index] = Math.round((sums[index]) * 100) / 100;
+            }
+          } else {
+            sums[index] = '--';
+          }
+        });
+        return sums;
+      },
+      changePlan(val) {
+        this.form.plan = val;
+      },
+      buttonClick(val) {
+        this.form.maketype = '7',
+          this.baseInfo = {};
+        this.form.user_id = this.userlist;
+        if (this.form.claimdatetimeStart !== '' && this.form.claimdatetimeEnd !== '') {
+          this.form.claimdatetime = moment(this.form.claimdatetimeStart).format('YYYY-MM-DD') + ' ~ ' + moment(this.form.claimdatetimeEnd).format('YYYY-MM-DD');
+        }
+        this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
+        this.baseInfo.awardDetail = [];
+        for (let i = 0; i < this.tableT.length; i++) {
+          if (this.tableT[i].budgetcode !== '' || this.tableT[i].depart !== '' || this.tableT[i].member > '0' || this.tableT[i].community > '0'
+            || this.tableT[i].outsource > '0' || this.tableT[i].outcommunity > '0' || this.tableT[i].worknumber > '0' || this.tableT[i].awardmoney > '0') {
+            this.baseInfo.awardDetail.push({
+              awarddetail_id: this.tableT[i].awarddetail_id,
+              award_id: this.tableT[i].award_id,
+              budgetcode: this.tableT[i].budgetcode,
+              depart: this.tableT[i].depart,
+              member: this.tableT[i].member,
+              projects: this.tableT[i].projects,
+              community: this.tableT[i].community,
+              outsource: this.tableT[i].outsource,
+              outcommunity: this.tableT[i].outcommunity,
+              worknumber: this.tableT[i].worknumber,
+              awardmoney: this.tableT[i].awardmoney,
+              rowindex: this.tableT[i].rowindex,
+            });
+          }
+        }
+        if (this.$route.params.disabled) {
+          this.$refs['reff'].validate(valid => {
+            if (valid) {
+              this.loading = true;
+              if (this.$route.params._id) {     //郛冶ｾ�
+                this.baseInfo.award.award_id = this.$route.params._id;
+                this.$store
+                  .dispatch('PFANS1025Store/update', this.baseInfo)
+                  .then(response => {
+                    this.data = response;
+                    this.loading = false;
+                    if (val !== 'update') {
+                      Message({
+                        message: this.$t('normal.success_02'),
+                        type: 'success',
+                        duration: 5 * 1000,
+                      });
+                      if (this.$store.getters.historyUrl) {
+                        this.$router.push(this.$store.getters.historyUrl);
+                      }
+                    }
+                  })
+                  .catch(error => {
+                    Message({
+                      message: error,
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    this.loading = false;
+                  });
+              }
+            } else {
+              Message({
+                message: this.$t('normal.error_12'),
+                type: 'error',
+                duration: 5 * 1000,
+              });
+            }
+          });
+        } else {
+          this.loading = true;
+          let user = getUserInfo(this.form.user_id);
+          if (user) {
+            this.form.user_id = user.userinfo.customername;
+          }
+          this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
+          this.$store
+            .dispatch('PFANS1025Store/generateJxls', this.baseInfo)
+            .then(response => {
+              this.loading = false;
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
+        }
+      },
+    },
+  };
 </script>
 
 <style scoped rel="stylesheet/scss" lang="scss">
