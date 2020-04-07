@@ -225,30 +225,30 @@
                   }
                 }
               }
-              const datatade = [];
-              for (let m = 0; m < response.length; m++) {
-                for (let n = 0; n < datated.length; n++) {
-                  if (datated[n].contractnumber === response[m].contractnumber) {
-                    datatade.push({
-                      contractnumber: response[m].contractnumber,
-                      contracttype: response[m].contracttype,
-                      depositjapanese: response[m].depositjapanese,
-                      entrustment: response[m].entrustment,
-                      deployment: response[m].deployment,
-                      pjnamejapanese: response[m].pjnamejapanese,
-                      openingdate: response[m].openingdate,
-                      enddate: response[m].enddate,
-                      deliveryfinshdate: response[m].deliveryfinshdate,
-                      claimamount: response[m].claimamount,
-                      claimnumber: response[m].claimnumber,
-                      claimtype: response[m].claimtype,
-                      toto: response[m].toto,
-                      napalm_id: response[m].napalm_id,
-                    });
-                  }
-                }
-              }
-              this.data = datatade;
+              // const datatade = [];
+              // for (let m = 0; m < response.length; m++) {
+              //   for (let n = 0; n < datated.length; n++) {
+              //     if (datated[n].contractnumber === response[m].contractnumber) {
+              //       datatade.push({
+              //         contractnumber: response[m].contractnumber,
+              //         contracttype: response[m].contracttype,
+              //         depositjapanese: response[m].depositjapanese,
+              //         entrustment: response[m].entrustment,
+              //         deployment: response[m].deployment,
+              //         pjnamejapanese: response[m].pjnamejapanese,
+              //         openingdate: response[m].openingdate,
+              //         enddate: response[m].enddate,
+              //         deliveryfinshdate: response[m].deliveryfinshdate,
+              //         claimamount: response[m].claimamount,
+              //         claimnumber: response[m].claimnumber,
+              //         claimtype: response[m].claimtype,
+              //         toto: response[m].toto,
+              //         napalm_id: response[m].napalm_id,
+              //       });
+              //     }
+              //   }
+              // }
+              this.data = datated;
               this.loading = false;
             })
             .catch(error => {
