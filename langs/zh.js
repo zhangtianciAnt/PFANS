@@ -2292,6 +2292,7 @@ module.exports = {
     PFANS2016FORMVIEW_XIUJIATIMENOCHECK: '休暇时间与实际时间不匹配，请重新填写',
     PFANS2016FORMVIEW_FATHERTIMENOCHECK: '家长会假时间与实际时间不匹配，请重新填写',
     PFANS2016FORMVIEW_DATACHECK: '数据不正确请重新填写',
+    PFANS2016FORMVIEW_TIMECHECK:'时间长度应大于0！',
     PFANS2017VIEW_START: '首次打卡',
     PFANS2017VIEW_END: '末次打卡',
     PFANS2017VIEW_CUHS: '导入错误行数',
