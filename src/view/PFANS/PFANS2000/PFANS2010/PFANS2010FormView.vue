@@ -7,7 +7,7 @@
                      :rowid="row_id"
                      @rowClick="rowClick"
                      @buttonClick="buttonClick"
-                     v-loading="loading" :rowClassName="rowClassName"
+                     v-loading="loading"
                      @disabled="setdisabled">
     </EasyNormalTable>
   </div>
@@ -260,22 +260,22 @@
                     .dispatch('PFANS2010Store/getAttendancelist', parameter)
                     .then(response => {
 
-                      let res = [];
-                      let start = moment().startOf('month');
-                      let end = moment().endOf('month');
-
-                      for(let day = start;day <= end;day.add(1,'d')){
-                        let daydata = response.filter(item => moment(item.dates).format("YYYY-MM-DD") === moment(day).format("YYYY-MM-DD"))
-                        if(daydata.length > 0){
-                          daydata[0].dates = moment(daydata[0].dates).format("YYYY-MM-DD")
-                          res.push(daydata[0]);
-                        }else{
-                          res.push({
-                            dates:moment(day).format("YYYY-MM-DD"),
-                            absenteeism:8
-                          });
-                        }
-                      }
+                      // let res = [];
+                      // let start = moment().startOf('month');
+                      // let end = moment().endOf('month');
+                      //
+                      // for(let day = start;day <= end;day.add(1,'d')){
+                      //   let daydata = response.filter(item => moment(item.dates).format("YYYY-MM-DD") === moment(day).format("YYYY-MM-DD"))
+                      //   if(daydata.length > 0){
+                      //     daydata[0].dates = moment(daydata[0].dates).format("YYYY-MM-DD")
+                      //     res.push(daydata[0]);
+                      //   }else{
+                      //     res.push({
+                      //       dates:moment(day).format("YYYY-MM-DD"),
+                      //       absenteeism:8
+                      //     });
+                      //   }
+                      // }
                         for (let j = 0; j < response.length; j++) {
                             response[j].dates = moment(response[j].dates).format("YYYY-MM-DD");
                             if(response[j].recognitionstate === "0"){
