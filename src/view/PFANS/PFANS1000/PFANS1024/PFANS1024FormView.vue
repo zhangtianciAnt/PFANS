@@ -226,7 +226,7 @@
               <template slot-scope="scope">
                 <!--code9-->
                 <el-form-item :prop="'tabledata.' + scope.$index + '.currencyposition'" :rules='rules.currencyposition'>
-                  <!--<dicselect
+                  <dicselect
                     :code="code9"
                     :data="scope.row.currencyposition"
                     :no="scope.row"
@@ -234,14 +234,14 @@
                     @change="getCurrencyposition"
                     style="width: 11rem"
                     :disabled="!disabled">
-                  </dicselect>-->
-                  <el-select :no="scope.row" v-model="scope.row.currencyposition"
-                             @change="(val)=>{getCurrencyposition(val,scope.row)}" style="width: 11rem"
-                             :disabled="!disabled">
-                    <el-option v-for="(item,index) in options" :key="index" :value="item.value">
-                      {{item.value}}
-                    </el-option>
-                  </el-select>
+                  </dicselect>
+                  <!--<el-select :no="scope.row" v-model="scope.row.currencyposition"-->
+                             <!--@change="(val)=>{getCurrencyposition(val,scope.row)}" style="width: 11rem"-->
+                             <!--:disabled="!disabled">-->
+                    <!--<el-option v-for="(item,index) in options" :key="index" :value="item.value">-->
+                      <!--{{item.value}}-->
+                    <!--</el-option>-->
+                  <!--</el-select>-->
                 </el-form-item>
               </template>
             </el-table-column>
@@ -1111,26 +1111,26 @@
       };
     },
     mounted() {
-      let option1 = {};
-      option1.name = getDictionaryInfo('PG019001').value1;
-      option1.code = 'PG019001';
-      option1.value = getDictionaryInfo('PG019001').value1;
-      let option2 = {};
-      option2.name = getDictionaryInfo('PG019002').value1;
-      option2.code = 'PG019002';
-      option2.value = getDictionaryInfo('PG019002').value1;
-      let option3 = {};
-      option3.name = getDictionaryInfo('PG019003').value1;
-      option3.code = 'PG019003';
-      option3.value = getDictionaryInfo('PG019003').value1;
-      let option4 = {};
-      option4.name = getDictionaryInfo('PG019004').value1;
-      option4.code = 'PG019004';
-      option4.value = getDictionaryInfo('PG019004').value1;
-      this.options.push(option1);
-      this.options.push(option2);
-      this.options.push(option3);
-      this.options.push(option4);
+      // let option1 = {};
+      // option1.name = getDictionaryInfo('PG019001').value1;
+      // option1.code = 'PG019001';
+      // option1.value = getDictionaryInfo('PG019001').value1;
+      // let option2 = {};
+      // option2.name = getDictionaryInfo('PG019002').value1;
+      // option2.code = 'PG019002';
+      // option2.value = getDictionaryInfo('PG019002').value1;
+      // let option3 = {};
+      // option3.name = getDictionaryInfo('PG019003').value1;
+      // option3.code = 'PG019003';
+      // option3.value = getDictionaryInfo('PG019003').value1;
+      // let option4 = {};
+      // option4.name = getDictionaryInfo('PG019004').value1;
+      // option4.code = 'PG019004';
+      // option4.value = getDictionaryInfo('PG019004').value1;
+      // this.options.push(option1);
+      // this.options.push(option2);
+      // this.options.push(option3);
+      // this.options.push(option4);
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
@@ -1143,9 +1143,9 @@
                 /* //555 this.currencyposition
                let currencyposition =  contractapplication[i].currencyposition;
                this.currencyposition = currencyposition === 'PG019001'?'USB$':'￥';*/
-                if (contractapplication[i].currencyposition !== '' && contractapplication[i].currencyposition !== null) {
-                  contractapplication[i].currencyposition = getDictionaryInfo(contractapplication[i].currencyposition).value4;
-                }
+                // if (contractapplication[i].currencyposition !== '' && contractapplication[i].currencyposition !== null) {
+                //   contractapplication[i].currencyposition = getDictionaryInfo(contractapplication[i].currencyposition).value4;
+                // }
                 this.maketype = contractapplication[i].maketype;
 
                 this.form1.claimtype = contractapplication[i].claimtype;
@@ -1979,13 +1979,13 @@
         for (let i = 0; i < this.form.tabledata.length; i++) {
           let o = {};
           Object.assign(o, this.form.tabledata[i]);
-          if (this.form.tabledata[i].currencyposition !== '' && this.form.tabledata[i].currencyposition !== null) {
-            for (let k = 0; k < this.options.length; k++) {
-              if (this.form.tabledata[i].currencyposition === this.options[k].value) {
-                o.currencyposition = this.options[k].code;
-              }
-            }
-          }
+          // if (this.form.tabledata[i].currencyposition !== '' && this.form.tabledata[i].currencyposition !== null) {
+          //   for (let k = 0; k < this.options.length; k++) {
+          //     if (this.form.tabledata[i].currencyposition === this.options[k].value) {
+          //       o.currencyposition = this.options[k].code;
+          //     }
+          //   }
+          // }
           o.contractdate = this.getcontractdate(this.form.tabledata[i].contractdate);
           this.form.tabledata[i].contracttype = this.form.contracttype;
           o.contracttype = this.form.tabledata[i].contracttype;

@@ -257,7 +257,7 @@
                 <!-- 111111!-->
                 <el-table-column :label="$t('label.PFANS1024VIEW_CURRENCYPOSITION')" align="center" prop="currencyposition"  width="200">
                   <template slot-scope="scope">
-                    <!--<dicselect
+                    <dicselect
                       :code="code9"
                       :data="scope.row.currencyposition"
                       :no="scope.row"
@@ -265,12 +265,12 @@
                       @change="getCurrencyposition"
                       style="width: 11rem"
                       :disabled="!disabled">
-                    </dicselect>-->
-                    <el-select :no="scope.row" v-model="scope.row.currencyposition" @change="(val)=>{getCurrencyposition(val,scope.row)}" style="width: 11rem" :disabled="!disabled">
-                      <el-option v-for="(item,index) in options" :key="index" v-model="item.value">
-                        {{item.value}}
-                      </el-option>
-                    </el-select>
+                    </dicselect>
+                    <!--<el-select :no="scope.row" v-model="scope.row.currencyposition" @change="(val)=>{getCurrencyposition(val,scope.row)}" style="width: 11rem" :disabled="!disabled">-->
+                      <!--<el-option v-for="(item,index) in options" :key="index" v-model="item.value">-->
+                        <!--{{item.value}}-->
+                      <!--</el-option>-->
+                    <!--</el-select>-->
                   </template>
                 </el-table-column>
                 <!--<el-table-column :label="$t('label.PFANS1024VIEW_SUPPORTDATE')" align="center" prop="supportdate"  width="200">-->
@@ -751,26 +751,26 @@
       },
       mounted(){
         this.contractnumbercount = this.$route.params.contractnumbercount;
-        let option1 = {};
-        option1.name = getDictionaryInfo('PG019001').value1;
-        option1.code = 'PG019001';
-        option1.value = getDictionaryInfo('PG019001').value1;
-        let option2 = {};
-        option2.name = getDictionaryInfo('PG019002').value1;
-        option2.code = 'PG019002';
-        option2.value = getDictionaryInfo('PG019002').value1;
-        let option3 = {};
-        option3.name = getDictionaryInfo('PG019003').value1;
-        option3.code = 'PG019003';
-        option3.value = getDictionaryInfo('PG019003').value1;
-        let option4 = {};
-        option4.name = getDictionaryInfo('PG019004').value1;
-        option4.code = 'PG019004';
-        option4.value = getDictionaryInfo('PG019004').value1;
-        this.options.push(option1);
-        this.options.push(option2);
-        this.options.push(option3);
-        this.options.push(option4);
+        // let option1 = {};
+        // option1.name = getDictionaryInfo('PG019001').value1;
+        // option1.code = 'PG019001';
+        // option1.value = getDictionaryInfo('PG019001').value1;
+        // let option2 = {};
+        // option2.name = getDictionaryInfo('PG019002').value1;
+        // option2.code = 'PG019002';
+        // option2.value = getDictionaryInfo('PG019002').value1;
+        // let option3 = {};
+        // option3.name = getDictionaryInfo('PG019003').value1;
+        // option3.code = 'PG019003';
+        // option3.value = getDictionaryInfo('PG019003').value1;
+        // let option4 = {};
+        // option4.name = getDictionaryInfo('PG019004').value1;
+        // option4.code = 'PG019004';
+        // option4.value = getDictionaryInfo('PG019004').value1;
+        // this.options.push(option1);
+        // this.options.push(option2);
+        // this.options.push(option3);
+        // this.options.push(option4);
         if (this.$route.params._id) {
           this.loading = true;
           this.$store
