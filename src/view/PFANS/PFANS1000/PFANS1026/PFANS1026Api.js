@@ -3,8 +3,16 @@ import request from '../../../../utils/request'
 export function get(data) {
   return request({
     url: 'contractapplication/get',
-    method: 'get',
-    params: data
+    method: 'post',
+    data: data
+  })
+}
+
+export function get2(data) {
+  return request({
+    url: 'contractapplication/get2',
+    method: 'post',
+    data: data
   })
 }
 
