@@ -1998,7 +1998,7 @@
           } else if (this.form.contracttype === 'HT014004') {
             o.maketype = '4';
           }
-          if (this.form.tabledata[i].state === '1') {
+          if (this.form.tabledata[i].state === this.$t('label.PFANS8008FORMVIEW_EFFECTIVE')) {
             let letclaimamount = 0;
             for (let j = 0; j < this.form.tableclaimtype.length; j++) {
               letclaimamount = letclaimamount + Number(this.form.tableclaimtype[j].claimamount);
@@ -2176,7 +2176,7 @@
         }
         if (val === 'cancellation') {
           for (let i = 0; i < this.form.tabledata.length; i++) {
-            this.form.tabledata[i].state = '0';
+            this.form.tabledata[i].state = this.$t('label.PFANS8008FORMVIEW_INVALID');
             this.form.tabledata[i].entrycondition = 'HT004001';
           }
           this.handleSave('cancellation');
