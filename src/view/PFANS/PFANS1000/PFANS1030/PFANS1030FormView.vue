@@ -217,13 +217,14 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1004VIEW_CAREERPLAN')" :error="errorplan"   prop="plan">
-                      <dicselect :code="code4"
-                                 :data="form.plan"
-                                 :disabled="!disable"
-                                 :multiple="multiple"
-                                 @change="getplan"
-                                 style="width:20vw">
-                      </dicselect>
+                      <el-select v-model="form.plan"  @change="getplan" :disabled="!disable" style="width: 20vw" clearable>
+                        <el-option
+                          v-for="item in optionsdate"
+                          :key="item.value"
+                          :label="item.lable"
+                          :value="item.value">
+                        </el-option>
+                      </el-select>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -716,6 +717,13 @@
         };
 
       return {
+        optionsdate: [{
+          value: this.$t('label.PFANS1004VIEW_INSIDE'),
+          lable: this.$t('label.PFANS1004VIEW_INSIDE')
+        },{
+          value:this.$t('label.PFANS1004VIEW_OUTER'),
+          lable: this.$t('label.PFANS1004VIEW_OUTER')
+        }],
         activeName: 'first',
         disabled: true,
         errorcustojapanese: '',
@@ -737,7 +745,6 @@
         code1: 'HT008',
         code2: 'HT005',
         code3: 'PG019',
-        code4: 'HT018',
         sumAwardmoney: '',
         errorgroup:'',
         selectType: "Single",
@@ -778,7 +785,7 @@
           telephone: '',
           commdepartment: '',
           commission: '',
-          plan: '',
+          plan:'',
           valuation: '',
           individual: '',
           plannumber: '',
@@ -989,7 +996,7 @@
             plan: [{
                 required: true,
                 validator: checkplan,
-                trigger: 'change'
+                trigger: 'blur'
             }],
             valuation: [{
                 required: true,

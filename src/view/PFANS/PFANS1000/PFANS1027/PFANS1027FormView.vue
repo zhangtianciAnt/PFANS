@@ -269,84 +269,84 @@
                 </el-tab-pane>
               </el-tabs>
             </el-tab-pane>
-            <el-tab-pane :label="$t('label.PFANS1027VIEW_SYSTEM')" name="fourth">
-              <el-row>
-                <el-col :span="8">
-                    <el-form-item :error="errorcenter" :label="$t('label.PFANS1027FORMVIEW_NAME')" prop="deploy">
-                      <org :disabled="!disabled" :error="errorcenter" :orglist="centerorglist" @getOrgids="getCenterId"
-                           orgtype="2" style="width:20vw"></org>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1027FORMVIEW_RESPONSIBLE')" prop="responsible">
-                    <el-input :disabled="!disabled" maxlength='20' style="width: 20vw"
-                              v-model="form.responsible"></el-input>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                <el-form-item :label="$t('label.PFANS1027FORMVIEW_TEL')" prop="tel">
-                  <el-input :disabled="!disabled" maxlength='20' style="width: 20vw"
-                            v-model="form.tel"></el-input>
-                </el-form-item>
-              </el-col>
-               </el-row>
-              <el-row>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1027FORMVIEW_SYSTEM')" prop="system">
-                    <el-input v-model="form.system" type="textarea" :rows="3" :disabled="!disabled" style="width: 71vw"></el-input>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-            </el-tab-pane>
-            <el-tab-pane :label="$t('label.PFANS1027VIEW_ESTIMATION')" name="fifth">
-              <el-collapse>
-                <el-collapse-item>
-                  <template slot="title">
-                    <span  class="collapse_Title">{{$t('label.PFANS1027FORMVIEW_EXPENSES')}}</span>
-                  </template>
-              <el-row>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1027FORMVIEW_REFER')"></el-form-item>
-                </el-col>
-              </el-row>
-                </el-collapse-item>
-                <el-collapse-item>
-                  <template slot="title">
-                    <span  class="collapse_Title">{{$t('label.PFANS1027FORMVIEW_FRUIT')}}</span>
-                  </template>
-                  <el-table :data="tablefifth" stripe header-cell-class-name="sub_bg_color_grey height">
-                    <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" prop="content"
-                                     type="index" width="50"></el-table-column>
-                    <el-table-column :label="$t('label.PFANS1027FORMVIEW_FRUITNAME')" align="center"  prop="delivery" width="200">
-                      <template slot-scope="scope">
-                        <el-input :disabled="!disabled" v-model="scope.row.fruition">
-                        </el-input>
-                      </template>
-                    </el-table-column>
-                    <el-table-column :label="$t('label.operation')" align="center" width="180">
-                      <template slot-scope="scope">
-                        <el-button
-                          :disabled="!disabled"
-                          @click.native.prevent="deleteRow(scope.$index, tablefifth)"
-                          plain
-                          size="small"
-                          type="danger"
-                        >{{$t('button.delete')}}
-                        </el-button>
-                        <el-button
-                          :disabled="!disabled"
-                          @click="addRow()"
-                          plain
-                          size="small"
-                          type="primary"
-                        >{{$t('button.insert')}}
-                        </el-button>
-                      </template>
-                    </el-table-column>
-                  </el-table>
-                </el-collapse-item>
-                  </el-collapse>
-            </el-tab-pane>
+<!--            <el-tab-pane :label="$t('label.PFANS1027VIEW_SYSTEM')" name="fourth">-->
+<!--              <el-row>-->
+<!--                <el-col :span="8">-->
+<!--                    <el-form-item :error="errorcenter" :label="$t('label.PFANS1027FORMVIEW_NAME')" prop="deploy">-->
+<!--                      <org :disabled="!disabled" :error="errorcenter" :orglist="centerorglist" @getOrgids="getCenterId"-->
+<!--                           orgtype="2" style="width:20vw"></org>-->
+<!--                  </el-form-item>-->
+<!--                </el-col>-->
+<!--                <el-col :span="8">-->
+<!--                  <el-form-item :label="$t('label.PFANS1027FORMVIEW_RESPONSIBLE')" prop="responsible">-->
+<!--                    <el-input :disabled="!disabled" maxlength='20' style="width: 20vw"-->
+<!--                              v-model="form.responsible"></el-input>-->
+<!--                  </el-form-item>-->
+<!--                </el-col>-->
+<!--                <el-col :span="8">-->
+<!--                <el-form-item :label="$t('label.PFANS1027FORMVIEW_TEL')" prop="tel">-->
+<!--                  <el-input :disabled="!disabled" maxlength='20' style="width: 20vw"-->
+<!--                            v-model="form.tel"></el-input>-->
+<!--                </el-form-item>-->
+<!--              </el-col>-->
+<!--               </el-row>-->
+<!--              <el-row>-->
+<!--                <el-col :span="8">-->
+<!--                  <el-form-item :label="$t('label.PFANS1027FORMVIEW_SYSTEM')" prop="system">-->
+<!--                    <el-input v-model="form.system" type="textarea" :rows="3" :disabled="!disabled" style="width: 71vw"></el-input>-->
+<!--                  </el-form-item>-->
+<!--                </el-col>-->
+<!--              </el-row>-->
+<!--            </el-tab-pane>-->
+<!--            <el-tab-pane :label="$t('label.PFANS1027VIEW_ESTIMATION')" name="fifth">-->
+<!--              <el-collapse>-->
+<!--                <el-collapse-item>-->
+<!--                  <template slot="title">-->
+<!--                    <span  class="collapse_Title">{{$t('label.PFANS1027FORMVIEW_EXPENSES')}}</span>-->
+<!--                  </template>-->
+<!--              <el-row>-->
+<!--                <el-col :span="8">-->
+<!--                  <el-form-item :label="$t('label.PFANS1027FORMVIEW_REFER')"></el-form-item>-->
+<!--                </el-col>-->
+<!--              </el-row>-->
+<!--                </el-collapse-item>-->
+<!--                <el-collapse-item>-->
+<!--                  <template slot="title">-->
+<!--                    <span  class="collapse_Title">{{$t('label.PFANS1027FORMVIEW_FRUIT')}}</span>-->
+<!--                  </template>-->
+<!--                  <el-table :data="tablefifth" stripe header-cell-class-name="sub_bg_color_grey height">-->
+<!--                    <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" prop="content"-->
+<!--                                     type="index" width="50"></el-table-column>-->
+<!--                    <el-table-column :label="$t('label.PFANS1027FORMVIEW_FRUITNAME')" align="center"  prop="delivery" width="200">-->
+<!--                      <template slot-scope="scope">-->
+<!--                        <el-input :disabled="!disabled" v-model="scope.row.fruition">-->
+<!--                        </el-input>-->
+<!--                      </template>-->
+<!--                    </el-table-column>-->
+<!--                    <el-table-column :label="$t('label.operation')" align="center" width="180">-->
+<!--                      <template slot-scope="scope">-->
+<!--                        <el-button-->
+<!--                          :disabled="!disabled"-->
+<!--                          @click.native.prevent="deleteRow(scope.$index, tablefifth)"-->
+<!--                          plain-->
+<!--                          size="small"-->
+<!--                          type="danger"-->
+<!--                        >{{$t('button.delete')}}-->
+<!--                        </el-button>-->
+<!--                        <el-button-->
+<!--                          :disabled="!disabled"-->
+<!--                          @click="addRow()"-->
+<!--                          plain-->
+<!--                          size="small"-->
+<!--                          type="primary"-->
+<!--                        >{{$t('button.insert')}}-->
+<!--                        </el-button>-->
+<!--                      </template>-->
+<!--                    </el-table-column>-->
+<!--                  </el-table>-->
+<!--                </el-collapse-item>-->
+<!--                  </el-collapse>-->
+<!--            </el-tab-pane>-->
           </el-tabs>
         </el-form>
       </div>
@@ -764,6 +764,12 @@
                     return prev;
                   }
                 }, 0);
+                if (index == 3) {
+                  sums[index] = Math.round((sums[index]) * 100) / 100;
+                }
+                if (index == 4) {
+                  sums[index] = Math.round((sums[index]) * 100) / 100;
+                }
               } else {
                 sums[index] = '--'
               }
@@ -815,7 +821,7 @@
             const {columns, data} = param;
             const sums = [];
             columns.forEach((column, index) => {
-              if (index === 1) {
+              if (index === 2) {
                 sums[index] = this.$t('label.PFANS1012VIEW_ACCOUNT');
                 return;
               }
@@ -829,6 +835,12 @@
                     return prev;
                   }
                 }, 0);
+                if (index == 2) {
+                  sums[index] = Math.round((sums[index]) * 100) / 100;
+                }
+                if (index == 4) {
+                  sums[index] = Math.round((sums[index]) * 100) / 100;
+                }
               } else {
                 sums[index] = '--'
               }
