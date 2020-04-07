@@ -521,7 +521,9 @@
 
                         <el-table-column :label="$t('label.PFANS1012FORMVIEW_PL')" align="center" width="150">
                           <template slot-scope="scope">
-                            <el-input :disabled="true" style="width: 100%" v-model="scope.row.plsummary">
+                            <el-input v-show="false"  :disabled="true" style="width: 100%" v-model="scope.row.plsummary">
+                            </el-input>
+                            <el-input :disabled="true" style="width: 100%" v-model="plsummary">
                             </el-input>
                           </template>
                         </el-table-column>
@@ -1197,6 +1199,7 @@
                 }
             };
             return {
+                plsummary: '',
                 Codecheck: '',
                 checkCode1: '',
                 checkcode: '',
@@ -1249,7 +1252,7 @@
                     publicexpenseid: '',
                     trafficdetails_id: '',
                     trafficdate: '',
-                    plsummary: this.$t('label.PFANS1013FORMVIEW_PLSUMMARY'),
+                    plsummary: 'PJ111008',
                     departmentname: '',
                     budgetcoding: '',
                     subjectnumber: '',
@@ -1462,6 +1465,7 @@
             };
         },
         mounted() {
+          this.plsummary = getDictionaryInfo('PJ111008').value1
             this.getsupplierinfor();
             this.getCompanyProjectList();
             this.checkoptionsdata();
@@ -2461,7 +2465,7 @@
                     departmentname: this.groupId,
                     budgetcoding: this.budgetcodingcheck,
                     subjectnumber: '',
-                    plsummary: this.$t('label.PFANS1013FORMVIEW_PLSUMMARY'),
+                    plsummary: 'PJ111008',
                     region: '',
                     vehicle: '',
                     startingpoint: '',

@@ -338,7 +338,7 @@
                             <!--@getUserids="getCusto" style="width: 10.15rem"></user>-->
                       <div class="">
                         <el-input class="content bg"
-                                  :disabled="true"
+                                  :disabled="!disabled"
                                   v-model="scope.row.custojapanese">
                           <el-button :disabled="true" size="small" slot="append" icon="el-icon-search" @click="handleClickA(scope.row)"></el-button>
                         </el-input>
@@ -359,19 +359,19 @@
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1024VIEW_ENGLISH')" align="center"  prop="custoenglish" width="200">
                     <template slot-scope="scope">
-                      <el-input :disabled="true" v-model="scope.row.custoenglish">
+                      <el-input :disabled="!disabled" v-model="scope.row.custoenglish">
                       </el-input>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1024VIEW_ABBREVIATION')" align="center"  prop="custoabbreviation" width="200">
                     <template slot-scope="scope">
-                      <el-input :disabled="true" v-model="scope.row.custoabbreviation">
+                      <el-input :disabled="!disabled" v-model="scope.row.custoabbreviation">
                       </el-input>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center"  prop="custochinese" width="200">
                     <template slot-scope="scope">
-                      <el-input :disabled="true" v-model="scope.row.custochinese">
+                      <el-input :disabled="!disabled" v-model="scope.row.custochinese">
                       </el-input>
                     </template>
                   </el-table-column>
@@ -379,19 +379,19 @@
                 <el-table-column :label="$t('label.PFANS1024VIEW_CUSTOMERPLACE')" align="center" width="120">
                   <el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="placejapanese" width="200">
                     <template slot-scope="scope">
-                      <el-input :disabled="true" v-model="scope.row.placejapanese">
+                      <el-input :disabled="!disabled" v-model="scope.row.placejapanese">
                       </el-input>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1024VIEW_ENGLISH')" align="center"  prop="placeenglish" width="200">
                     <template slot-scope="scope">
-                      <el-input :disabled="true" v-model="scope.row.placeenglish">
+                      <el-input :disabled="!disabled" v-model="scope.row.placeenglish">
                       </el-input>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center"  prop="placechinese" width="200">
                     <template slot-scope="scope">
-                      <el-input :disabled="true" v-model="scope.row.placechinese">
+                      <el-input :disabled="!disabled" v-model="scope.row.placechinese">
                       </el-input>
                     </template>
                   </el-table-column>
@@ -399,25 +399,25 @@
                 <el-table-column :label="$t('label.PFANS1024VIEW_RESPON')" align="center" width="120">
                   <el-table-column :label="$t('label.PFANS1024VIEW_BEFOREJAPANESE')" align="center" prop="responjapanese" width="200">
                     <template slot-scope="scope">
-                      <el-input :disabled="true" v-model="scope.row.responjapanese">
+                      <el-input :disabled="!disabled" v-model="scope.row.responjapanese">
                       </el-input>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1024VIEW_BEFOREENGLISH')" align="center"  prop="responerglish" width="200">
                     <template slot-scope="scope">
-                      <el-input :disabled="true" v-model="scope.row.responerglish">
+                      <el-input :disabled="!disabled" v-model="scope.row.responerglish">
                       </el-input>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1024VIEW_PHONE')" align="center"  prop="responphone" width="200">
                     <template slot-scope="scope">
-                      <el-input :disabled="true" v-model="scope.row.responphone">
+                      <el-input :disabled="!disabled" v-model="scope.row.responphone">
                       </el-input>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1024VIEW_EMAIL')" align="center"  prop="responemail" width="200">
                     <template slot-scope="scope">
-                      <el-input :disabled="true" v-model="scope.row.responemail">
+                      <el-input :disabled="!disabled" v-model="scope.row.responemail">
                       </el-input>
                     </template>
                   </el-table-column>
