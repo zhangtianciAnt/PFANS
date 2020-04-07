@@ -246,7 +246,7 @@
                       <el-table-column
                         :label="$t('label.PFANS5009FORMVIEW_PHASE')"
                         align="center"
-                        width="100"
+                        width="150"
                       >
                         <template slot-scope="scope">
                           <dicselect
@@ -254,13 +254,14 @@
                             :data="scope.row.phase"
                             :disabled="true"
                             :no="scope.row"
+                            style="width: 100%"
                           ></dicselect>
                         </template>
                       </el-table-column>
                       <el-table-column
                         :label="$t('label.PFANS5009FORMVIEW_STAGEPRODUCT')"
                         align="center"
-                        width="100"
+                        width="150"
                       >
                         <template slot-scope="scope">
                           <!--                          <el-input :disabled="true" style="width: 100%"-->
@@ -466,33 +467,32 @@
                           style="width: 80vw"
                         >
                           <!--                      编号-->
-                          <el-table-column
-                            :label="$t('label.PFANS5001FORMVIEW_NUMBERS')"
-                            align="center"
-                            width="130"
-                          >
-                            <template slot-scope="scope">
-                              <el-input
-                                :no="scope.row"
-                                :disabled="true"
-                                v-model="scope.row.number"
-                                style="width: 100%"
-                              ></el-input>
-                            </template>
-                          </el-table-column>
+<!--                          <el-table-column-->
+<!--                            :label="$t('label.PFANS5001FORMVIEW_NUMBERS')"-->
+<!--                            align="center"-->
+<!--                            width="130"-->
+<!--                          >-->
+<!--                            <template slot-scope="scope">-->
+<!--                              <el-input-->
+<!--                                :no="scope.row"-->
+<!--                                :disabled="true"-->
+<!--                                v-model="scope.row.number"-->
+<!--                                style="width: 100%"-->
+<!--                              ></el-input>-->
+<!--                            </template>-->
+<!--                          </el-table-column>-->
                           <!--                    姓名-->
                           <el-table-column
                             :label="$t('label.PFANSUSERFORMVIEW_CUSTOMERNAME')"
                             align="center"
-                            width="290"
-                          >
+                            width="290">
                             <template slot-scope="scope">
                               <user
-                                :disabled="true"
+                                :disabled="!disable"
                                 :no="scope.row"
                                 :userlist="scope.row.name"
                                 @getUserids="getCitationUserid"
-                                :multiple="multiple1"
+                                :multiple="multiple"
                                 style="width: 18vw"
                               ></user>
                             </template>
@@ -501,54 +501,70 @@
                           <el-table-column
                             :label="$t('label.PFANSUSERVIEW_POST')"
                             align="center"
-                            width="120"
-                          >
+                            width="120">
                             <template slot-scope="scope">
                               <el-input
                                 :no="scope.row"
-                                :disabled="true"
+                                :disabled="scope.$index == 0"
                                 v-model="scope.row.position"
-                                style="width: 100%"
-                              ></el-input>
+                                style="width: 100%">
+                              </el-input>
                             </template>
                           </el-table-column>
-                          <!--                入场时间-->
+                          <!--                进组时间-->
                           <el-table-column
-                            :label="$t('label.PFANS6004FORMVIEW_ADMISSIONTIME')"
+                            :label="$t('label.PFANS5001FORMVIEW_ADMISSIONTIME')"
                             align="center"
                             prop="admissiontime"
-                            width="180"
-                          >
+                            width="180">
                             <template slot-scope="scope">
                               <el-date-picker
                                 :disabled="!disable"
                                 type="date"
                                 :no="scope.row"
                                 v-model="scope.row.admissiontime"
-                                style="width: 9rem"
-                              ></el-date-picker>
+                                style="width: 9rem">
+                              </el-date-picker>
                             </template>
                           </el-table-column>
-                          <!--                退场时间-->
+                          <!--                退出时间-->
                           <el-table-column
-                            :label="$t('label.PFANS6004FORMVIEW_EXITIME')"
+                            :label="$t('label.PFANS5001FORMVIEW_EXITIME')"
                             align="center"
                             prop="exittime"
-                            width="180"
-                          >
+                            width="180">
                             <template slot-scope="scope">
                               <el-date-picker
                                 :disabled="!disable"
                                 type="date"
                                 :no="scope.row"
                                 v-model="scope.row.exittime"
-                                style="width: 9rem"
-                              ></el-date-picker>
+                                style="width: 9rem">
+                              </el-date-picker>
+                            </template>
+                          </el-table-column>
+                          <el-table-column :label="$t('label.operation')" align="center" width="200">
+                            <template slot-scope="scope">
+                              <el-button
+                                :disabled="!disable"
+                                @click.native.prevent="deleteRow1(scope.$index, tableB)"
+                                plain v-show="scope.$index != 0"
+                                size="small"
+                                type="danger"
+                              >{{$t('button.delete')}}
+                              </el-button>
+                              <el-button
+                                :disabled="!disable"
+                                @click="addRow1()"
+                                plain v-show="scope.$index != 0"
+                                size="small"
+                                type="primary"
+                              >{{$t('button.insert')}}
+                              </el-button>
                             </template>
                           </el-table-column>
                         </el-table>
                       </el-tab-pane>
-
                       <!--                社外-->
                       <el-tab-pane
                         :label="$t('label.PFANS5001FORMVIEW_OUTCOMMUNITY')"
@@ -562,20 +578,20 @@
                           style="width: 80vw"
                         >
                           <!--                      编号-->
-                          <el-table-column
-                            :label="$t('label.PFANS5001FORMVIEW_NUMBERS')"
-                            align="center"
-                            width="110"
-                          >
-                            <template slot-scope="scope">
-                              <el-input
-                                :no="scope.row"
-                                :disabled="true"
-                                v-model="scope.row.number"
-                                style="width: 100%"
-                              ></el-input>
-                            </template>
-                          </el-table-column>
+<!--                          <el-table-column-->
+<!--                            :label="$t('label.PFANS5001FORMVIEW_NUMBERS')"-->
+<!--                            align="center"-->
+<!--                            width="110"-->
+<!--                          >-->
+<!--                            <template slot-scope="scope">-->
+<!--                              <el-input-->
+<!--                                :no="scope.row"-->
+<!--                                :disabled="true"-->
+<!--                                v-model="scope.row.number"-->
+<!--                                style="width: 100%"-->
+<!--                              ></el-input>-->
+<!--                            </template>-->
+<!--                          </el-table-column>-->
                           <!--                      协力公司-->
                           <el-table-column
                             :label="$t('label.PFANS5001FORMVIEW_COOPERATIONCOMPANY')"
@@ -1643,7 +1659,27 @@ export default {
       row.workinghours = this.workinghoursRow;
       this.dialogTableVisible3 = false;
     },
+    deleteRow1(index, rows) {
+      if (rows.length > 2) {
+        rows.splice(index, 1);
+      }
+    },
+    addRow1() {
+      this.tableB.push({
+        projectsystem_id: '',
+        companyprojects_id: '',
+        type: '0',
+        number: '',
+        company: '',
+        name: '',
+        position: '',
+        admissiontime: '',
+        exittime: '',
+        rowindex: '',
+      });
+    },
     getUserids(val) {
+      this.tableB[0].name = val;
       this.userlist = val;
       this.form.leaderid = val;
       let lst = getOrgInfoByUserId(val);
@@ -1661,7 +1697,9 @@ export default {
         this.errorLeader = "";
       }
     },
+    
     getUserids1(val) {
+      this.tableB[1].name = val;
       this.userlist1 = val;
       this.form.managerid = val;
       if (
