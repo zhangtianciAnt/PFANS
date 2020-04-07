@@ -774,7 +774,7 @@
         if (this.$route.params._id) {
           this.loading = true;
           this.$store
-            .dispatch('PFANS1026Store/get', {"contractnumber": this.$route.params._id})
+            .dispatch('PFANS1026Store/get2', {"contractnumber": this.$route.params._id})
             .then(response => {
               let contractapplication = response.contractapplication;
               let contractnumbercount = response.contractnumbercount;
@@ -1064,7 +1064,7 @@
         getContract() {
           this.loading = true;
           this.$store
-            .dispatch('PFANS1026Store/get',{'type': '1'})
+            .dispatch('PFANS1026Store/get2',{'type': '1'})
             .then(response => {
               let letcontractnumber = [];
               let tabledata = response.contractapplication;
