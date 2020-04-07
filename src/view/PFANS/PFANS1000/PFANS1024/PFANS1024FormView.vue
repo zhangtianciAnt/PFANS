@@ -11,7 +11,6 @@
             <el-form-item :label="$t('label.PFANS1024VIEW_NUMBER')" :label-width="formLabelWidth"
                           :error="errorclaimtype" prop="claimtype">
               <dicselect
-                :disabled="!disabled2"
                 :code="code"
                 :data="form1.claimtype"
                 :multiple="multiple"
@@ -1164,6 +1163,17 @@
                 this.form1.entrycondition = contractapplication[i].periods;
 
                 this.form1.custojapanese = contractapplication[i].custojapanese;
+                this.formcustomer.custojapanese = contractapplication[i].custojapanese;
+                this.formcustomer.custoenglish = contractapplication[i].custoenglish;
+                this.formcustomer.custoabbreviation = contractapplication[i].custoabbreviation;
+                this.formcustomer.custochinese = contractapplication[i].custochinese;
+                this.formcustomer.placejapanese = contractapplication[i].placejapanese;
+                this.formcustomer.placeenglish = contractapplication[i].placeenglish;
+                this.formcustomer.placechinese = contractapplication[i].placechinese;
+                this.formcustomer.responjapanese = contractapplication[i].responjapanese;
+                this.formcustomer.responerglish = contractapplication[i].responerglish;
+                this.formcustomer.responphone = contractapplication[i].responphone;
+                this.formcustomer.responemail = contractapplication[i].responemail;
                 //グループ
                 this.getGroupId(contractapplication[i].group_id);
                 //先方组織
