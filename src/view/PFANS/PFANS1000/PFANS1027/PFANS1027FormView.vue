@@ -637,6 +637,7 @@
                         }
                       }
                       if ( response.numbercounts.length > 0 ) {
+                          let aa = 0;
                         for (let i = 0; i < response.numbercounts.length; i++) {
                           let letCurrencyposition = getDictionaryInfo(response.numbercounts[i].currencyposition);
                           if (letCurrencyposition != null) {
@@ -659,9 +660,16 @@
                           if (supportdate!==""&& supportdate!=null) {
                             response.numbercounts[i].supportdate = moment(supportdate).format('YYYY-MM-DD');
                           }
+
+                            if(response.numbercounts[i].claimamount){
+                              let claimamount = response.numbercounts[i].claimamount
+                              aa = Number(claimamount) + aa;
+                          }
                         }
+                          this.form.claimamount = aa
                       }
                       this.tablefirst = response.numbercounts;
+                      console.log("response.numbercounts",response.numbercounts)
                       if (response.personfee.length > 0) {
                         for (let index = 0; index < response.personfee.length; index++) {
                           response.personfee[index].name1 = this.tablethird1[index].name1;
