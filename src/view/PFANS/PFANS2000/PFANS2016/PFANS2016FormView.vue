@@ -593,7 +593,7 @@
           groupid: '',
           teamid: '',
           user_id: '',
-          worktime: '',
+          worktime: '0.00',
           applicationdate: moment(new Date()).format('YYYY-MM-DD'),
           errortype: '',
           lengthtime: '0',
@@ -807,7 +807,7 @@
           this.form.user_id = this.$store.getters.userinfo.userid;
         }
         this.getOvertimelist();
-        this.getWorktime();
+        // this.getWorktime();
       }
     },
     created() {
@@ -837,7 +837,11 @@
           .then(response => {
             for (let j = 0; j < response.length; j++) {
               if (moment(this.form.applicationdate).format('YYYY-MM-DD') === moment(response[j].punchcardrecord_date).format('YYYY-MM-DD') && this.$store.getters.userinfo.userid === response[j].user_id) {
-                this.form.worktime = response[j].worktime;
+                if(response[j].worktime > 0){
+                  this.form.worktime = (response[j].worktime).toFixed(0);
+                } else {
+                  this.form.worktime = 0.00;
+                }
               }
               this.loading = false;
             }
