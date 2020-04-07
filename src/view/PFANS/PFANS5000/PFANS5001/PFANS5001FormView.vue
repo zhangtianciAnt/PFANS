@@ -85,7 +85,7 @@
                     <el-col :span="8">
                       <el-form-item
                         :error="errorLeader"
-                        :label="$t('label.PFANS5001FORMVIEW_LEADERID')"
+                        :label="$t('label.PFANS5009FORMVIEW_PL')"
                         prop="leaderid"
                       >
                         <user
@@ -101,7 +101,7 @@
                     <el-col :span="8">
                       <el-form-item
                         :error="errorManager"
-                        :label="$t('label.PFANS5001FORMVIEW_MANAGERID')"
+                        :label="$t('label.PFANS5009FORMVIEW_TL')"
                         prop="managerid"
                       >
                         <user
@@ -412,13 +412,14 @@
                   <el-col :span="24">
                     <el-table :data="tableA" stripe border header-cell-class-name="sub_bg_color_blue"
                               style="width: 70vw">
-                      <el-table-column :label="$t('label.PFANS5009FORMVIEW_PHASE')" align="center">
+                      <el-table-column :label="$t('label.PFANS5009FORMVIEW_PHASE')" align="center" width="150">
                         <template slot-scope="scope">
                           <dicselect
                             :code="code"
                             :data="scope.row.phase"
                             :disabled="!disable"
                             :no="scope.row"
+                            style="width: 100%"
                             @change="getrole"
                           ></dicselect>
                         </template>
@@ -426,7 +427,7 @@
 
                       <el-table-column
                         :label="$t('label.PFANS5009FORMVIEW_STAGEPRODUCT')"
-                        align="center"
+                        align="center" width="150"
                       >
                         <template slot-scope="scope">
                           <el-input :disabled="!disable" style="width: 100%"
@@ -460,7 +461,7 @@
                       <!--                      预计人月-->
                       <el-table-column
                         :label="$t('label.PFANS5009FORMVIEW_ESTIMATEDWORK')"
-                        align="center">
+                        align="center" width="150">
                         <template slot-scope="scope">
                           <el-input-number
                             :disabled="!disable"
@@ -1091,12 +1092,12 @@
                     callback(
                         new Error(
                             this.$t('normal.error_08') +
-                            this.$t('label.PFANS5001FORMVIEW_LEADERID'),
+                            this.$t('label.PFANS5009FORMVIEW_PL'),
                         ),
                     );
                     this.errorLeader =
                         this.$t('normal.error_08') +
-                        this.$t('label.PFANS5001FORMVIEW_LEADERID');
+                        this.$t('label.PFANS5009FORMVIEW_PL');
                 } else {
                     callback();
                     this.errorLeader = '';
@@ -1107,12 +1108,12 @@
                     callback(
                         new Error(
                             this.$t('normal.error_08') +
-                            this.$t('label.PFANS5001FORMVIEW_MANAGERID'),
+                            this.$t('label.PFANS5009FORMVIEW_TL'),
                         ),
                     );
                     this.errorManager =
                         this.$t('normal.error_08') +
-                        this.$t('label.PFANS5001FORMVIEW_MANAGERID');
+                        this.$t('label.PFANS5009FORMVIEW_TL');
                 } else {
                     callback();
                     this.errorManager = '';
@@ -1232,7 +1233,7 @@
                         type: '0',
                         number: '',
                         company: '',
-                        name: '',
+                        name: this.$store.getters.userinfo.userid,
                         position: 'PL',
                         admissiontime: '',
                         exittime: '',
@@ -1243,7 +1244,7 @@
                         type: '0',
                         number: '',
                         company: '',
-                        name: '',
+                        name: this.$store.getters.userinfo.userid,
                         position: '',
                         admissiontime: '',
                         exittime: '',
@@ -2021,8 +2022,18 @@
                     } = org);
                 }
             },
-
+          getCitationUserid(userlist, row) {
+            row.name = userlist;
+            if (row.name != null && row.name !== '') {
+              let lst = getUserInfo(row.name);
+              // row.position = lst.userinfo.post;
+              row.number = lst.userinfo.jobnumber;
+              let lst1 = getOrgInfoByUserId(row.name);
+              row.company = lst1.groupNmae;
+            }
+          },
             getUserids(val) {
+              this.tableB[0].name = val;
                 this.userlist = val;
                 this.form.leaderid = val;
                 let lst = getOrgInfoByUserId(val);
@@ -2035,12 +2046,15 @@
                 ) {
                     this.errorLeader =
                         this.$t('normal.error_08') +
-                        this.$t('label.PFANS5001FORMVIEW_LEADERID');
+                        this.$t('label.PFANS5009FORMVIEW_PL');
                 } else {
                     this.errorLeader = '';
                 }
             },
+
             getUserids1(val) {
+              this.tableB[1].name = val;
+              this.tableB[1].position = 'TL';
                 this.userlist1 = val;
                 this.form.managerid = val;
                 if (
@@ -2050,7 +2064,7 @@
                 ) {
                     this.errorManager =
                         this.$t('normal.error_08') +
-                        this.$t('label.PFANS5001FORMVIEW_MANAGERID');
+                        this.$t('label.PFANS5009FORMVIEW_TL');
                 } else {
                     this.errorManager = '';
                 }
@@ -2090,16 +2104,6 @@
                 row.theme = this.themeRow;
                 row.workinghours = this.workinghoursRow;
                 this.dialogTableVisible3 = false;
-            },
-            getCitationUserid(userlist, row) {
-                row.name = userlist;
-                if (row.name != null && row.name !== '') {
-                    let lst = getUserInfo(row.name);
-                    // row.position = lst.userinfo.post;
-                    row.number = lst.userinfo.jobnumber;
-                    let lst1 = getOrgInfoByUserId(row.name);
-                    row.company = lst1.groupNmae;
-                }
             },
             // getdepartmentid(val1) {
             //   this.form.departmentid = val1;
