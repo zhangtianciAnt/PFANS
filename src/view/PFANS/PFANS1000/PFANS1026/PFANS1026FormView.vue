@@ -1288,11 +1288,12 @@
           .then(response => {
             let contractapplication = response.contractapplication;
             let contractnumbercount = response.contractnumbercount;
+            console.log("contractapplication",response.contractapplication)
             if (contractapplication.length > 0) {
               for (let i = 0; i < contractapplication.length; i++) {
-                if (contractapplication[i].currencyposition !== '' && contractapplication[i].currencyposition !== null) {
-                  contractapplication[i].currencyposition = getDictionaryInfo(contractapplication[i].currencyposition).value4;
-                }
+                // if (contractapplication[i].currencyposition !== '' && contractapplication[i].currencyposition !== null) {
+                //   contractapplication[i].currencyposition = getDictionaryInfo(contractapplication[i].currencyposition).value4;
+                // }
                   this.show3 = true;
                   this.maketype = contractapplication[i].maketype;
                   this.form1.claimtype = contractapplication[i].claimtype;
@@ -2115,7 +2116,8 @@
           if(this.form.tabledata[i].currencyposition !== '' && this.form.tabledata[i].currencyposition !== null){
             for(let k = 0;k < this.options.length;k++){
               if(this.form.tabledata[i].currencyposition === this.options[k].value){
-                o.currencyposition = this.options[k].code;
+                // o.currencyposition = this.options[k].code;
+                  o.currencyposition = this.options[k].value;
               }
             }
           }
@@ -2180,8 +2182,11 @@
         this.makeintoBaseInfo = {};
         this.makeintoBaseInfo = baseInfo;
         if (value === 'makeinto') {
+            debugger
           this.handleIndexDisabled();
         } else {
+            debugger
+            console.log("baseInfo",baseInfo)
 
           this.handleSaveContract(value, baseInfo);
 
