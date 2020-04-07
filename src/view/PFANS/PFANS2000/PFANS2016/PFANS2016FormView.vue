@@ -128,8 +128,11 @@
           <div class="sub_color_red" v-if="checkerrortishi">
             {{$t('label.PFANS2016FORMVIEW_TISHICHECKERROR')}}
           </div>
-          <div class="sub_color_red" v-if="form.errortype == 'PR013005' || form.errortype == 'PR013007'">
+          <div class="sub_color_red" v-if="form.errortype == 'PR013007'">
             {{$t('label.PFANS2016FORMVIEW_CHECKDAIXIUBANRI')}}
+          </div>
+          <div class="sub_color_red" v-if="form.errortype == 'PR013005' ">
+            {{$t('label.PFANS2016FORMVIEW_CHECKYEAR')}}
           </div>
           <el-row>
             <el-col :span="8"
