@@ -1893,7 +1893,7 @@
                 this.contractapplication = {};
                 this.loading = true;
                 this.$store
-                    .dispatch('PFANS1026Store/get', this.contractapplication)
+                    .dispatch('PFANS1026Store/get2', this.contractapplication)
                     .then(response => {
                         this.gridData3 = [];
                         for (let i = 0; i < response.contractapplication.length; i++) {
