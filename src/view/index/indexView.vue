@@ -110,17 +110,17 @@
                 <img :src="png5" style="width: 50%" @click="submitForm(5)" />
               </el-row>
               <el-row style="text-align: center">
-                <span style="font-size: 0.85rem">{{$t('title.PFANS5001VIEW')}}</span>
+                <span style="font-size: 0.85rem">{{$t('title.PFANS2010VIEW')}}</span>
               </el-row>
             </el-col>
-            <!--<el-col :span="3"  style="cursor: pointer">-->
-            <!--<el-row style="text-align: center">-->
-            <!--<img :src="png6" style="width: 50%" @click="submitForm(6)">-->
-            <!--</el-row>-->
-            <!--<el-row style="text-align: center">-->
-            <!--<span style="font-size: 0.85rem">{{$t('title.PFANS2020VIEW')}}</span>-->
-            <!--</el-row>-->
-            <!--</el-col>-->
+            <el-col :span="3"  style="cursor: pointer">
+            <el-row style="text-align: center">
+            <img :src="png6" style="width: 50%" @click="submitForm(6)">
+            </el-row>
+            <el-row style="text-align: center">
+            <span style="font-size: 0.85rem">{{$t('title.PFANS2016VIEW')}}</span>
+            </el-row>
+            </el-col>
             <el-col :span="3" style="cursor: pointer">
               <el-row style="text-align: center">
                 <img :src="png7" style="width: 50%" @click="submitForm(7)" />
@@ -215,10 +215,10 @@ export default {
         url = "PFANS4001View";
       }
       if (val === 5) {
-        url = "PFANS5001View";
+        url = "PFANS2010View";
       }
       if (val === 6) {
-        url = "PFANS2020View";
+        url = "PFANS2016View";
       }
       if (val === 7) {
         url = "PFANS2023View";
