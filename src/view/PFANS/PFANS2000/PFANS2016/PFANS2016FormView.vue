@@ -1942,7 +1942,7 @@
                 if((this.form.errortype != 'PR013005' && this.form.errortype != 'PR013007') && this.form.status != '4' &&
                   this.form.status != '5' && this.form.status != '6' && this.form.status != '7'&& this.form.status != '8' && this.form.lengthtime <= 0){
                   Message({
-                    message: this.$t('时间长度应大于0！'),
+                    message: this.$t('label.PFANS2016FORMVIEW_TIMECHECK'),
                     type: 'error',
                     duration: 5 * 1000,
                   });
