@@ -30,7 +30,7 @@
                 prop="birthday"
               >
                 <el-date-picker
-                  :disabled="disabled"
+                  :disabled="!disabled"
                   :placeholder="$t('normal.error_09')"
                   class="width"
                   type="date"
