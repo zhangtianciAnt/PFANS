@@ -267,6 +267,7 @@
                       for(let day = start;day <= end;day.add(1,'d')){
                         let daydata = response.filter(item => moment(item.dates).format("YYYY-MM-DD") === moment(day).format("YYYY-MM-DD"))
                         if(daydata.length > 0){
+                          daydata[0].dates = moment(daydata[0].dates).format("YYYY-MM-DD")
                           res.push(daydata[0]);
                         }else{
                           res.push({
