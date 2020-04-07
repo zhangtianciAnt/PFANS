@@ -143,24 +143,24 @@
                   }
                 }
               }
-              const datatade = [];
-              for (let m = 0; m < response.length; m++) {
-                for (let n = 0; n < datated.length; n++) {
-                  if (datated[n].contractnumber === response[m].contractnumber) {
-                    datatade.push({
-                      contracttype: response[m].contracttype,
-                      custochinese: response[m].custochinese,
-                      businesscode: response[m].businesscode,
-                      pjnamejapanese: response[m].pjnamejapanese,
-                      claimnumber: response[m].claimnumber,
-                      deliveryfinshdate: response[m].deliveryfinshdate,
-                      contractnumber: response[m].contractnumber,
-                      petition_id: response[m].petition_id,
-                    });
-                  }
-                }
-              }
-              this.data = datatade;
+              // const datatade = [];
+              // for (let m = 0; m < response.length; m++) {
+              //   for (let n = 0; n < datated.length; n++) {
+              //     if (datated[n].contractnumber === response[m].contractnumber) {
+              //       datatade.push({
+              //         contracttype: response[m].contracttype,
+              //         custochinese: response[m].custochinese,
+              //         businesscode: response[m].businesscode,
+              //         pjnamejapanese: response[m].pjnamejapanese,
+              //         claimnumber: response[m].claimnumber,
+              //         deliveryfinshdate: response[m].deliveryfinshdate,
+              //         contractnumber: response[m].contractnumber,
+              //         petition_id: response[m].petition_id,
+              //       });
+              //     }
+              //   }
+              // }
+              this.data = datated;
               this.loading = false;
             })
             .catch(error => {
