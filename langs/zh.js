@@ -2274,7 +2274,7 @@ module.exports = {
     PFANS2016FORMVIEW_DATACHECK: '预计代休休息时间与实际代休休息时间不符',
     PFANS2016FORMVIEW_SJCHECKEROR: '实际年假休息时间与实际年假休息时间不符',
     PFANS2016FORMVIEW_RELENGTHTIMETO: '实际时间长度总计（h）',
-    PFANS2016FORMVIEW_BJDJZHCHECK: '本年度的家长会次数已经用完',
+    PFANS2016FORMVIEW_BJDJZHCHECK: '您已经有该类申请在审批流程中或已超过可申请回数！每事业年度家长会只允许使用两次',
     PFANS2016FORMVIEW_BJDJZCHECK: '家长会一次只能申请四个小时',
     PFANS2016FORMVIEW_WOMENCHECK: '只能是女性填写',
     PFANS2016FORMVIEW_MENCHECK: '只能是男性填写',
