@@ -43,6 +43,20 @@
                       @getUserids="getUserids" style="width:20vw"></user>
               </el-form-item>
             </el-col>
+            <!--            start(添加申请日期)  fjl 2020/04/08-->
+            <el-col :span="8">
+              <el-form-item :label="$t('label.application_date')" prop="applicationdate">
+                <div class="block">
+                  <el-date-picker
+                    :disabled="!disable"
+                    style="width:20vw"
+                    type="date"
+                    v-model="form.applicationdate">
+                  </el-date-picker>
+                </div>
+              </el-form-item>
+            </el-col>
+            <!--            end(添加申请日期)  fjl 2020/04/08-->
             <el-col :span="8">
               <template>
                 <el-form-item
@@ -58,12 +72,6 @@
                   </dicselect>
                 </el-form-item>
               </template>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS3006VIEW_MOBILEPHONE')" prop="mobilephone">
-                <el-input :disabled="!disable" maxlength="11" style="width:20vw"
-                          v-model="form.mobilephone"></el-input>
-              </el-form-item>
             </el-col>
           </el-row>
           <el-row >
@@ -189,6 +197,12 @@
           </el-row>
           <el-row >
             <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS3006VIEW_MOBILEPHONE')" prop="mobilephone">
+                <el-input :disabled="!disable" maxlength="11" style="width:20vw"
+                          v-model="form.mobilephone"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
               <template>
                 <el-form-item :label="$t('label.PFANS3002VIEW_GUESTNAME')" prop="guestname" v-show="show2">
                   <el-input :disabled="!disable" maxlength='20' style="width:20vw"
@@ -312,6 +326,7 @@
           teamid: '',
           userid: '',
           usedate: moment(new Date()).format("YYYY-MM-DD"),
+          applicationdate: moment(new Date()).format("YYYY-MM-DD"),
           mobilephone: '',
           usetype: '',
           origin: '',
@@ -340,6 +355,11 @@
             required: true,
             validator: validateUserid,
             trigger: 'change'
+          }],
+          applicationdate: [{
+            required: true,
+            message: this.$t("normal.error_09") + this.$t("label.application_date"),
+            trigger: "change"
           }],
           usedate: [{
             required: true,

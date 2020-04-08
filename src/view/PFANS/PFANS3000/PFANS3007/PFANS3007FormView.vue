@@ -73,6 +73,20 @@
                 </dicselect>
               </el-form-item>
             </el-col>
+            <!--            start(添加申请日期)  fjl 2020/04/08-->
+            <el-col :span="8">
+              <el-form-item :label="$t('label.application_date')" prop="applicationdate">
+                <div class="block">
+                  <el-date-picker
+                    :disabled="!disable"
+                    style="width:20vw"
+                    type="date"
+                    v-model="form.applicationdate">
+                  </el-date-picker>
+                </div>
+              </el-form-item>
+            </el-col>
+            <!--            end(添加申请日期)  fjl 2020/04/08-->
           </el-row>
           <el-row >
             <el-col :span="8">
@@ -570,6 +584,7 @@
                     userid: '',
                     budgetunit: '',
                     businesscity: '',
+                    applicationdate: moment(new Date()).format("YYYY-MM-DD"),
                     travelclubplace: '',
                     condominiumcompany: '',
                     apartmentplace: '',
@@ -594,6 +609,11 @@
                         validator: validateUserid,
                         trigger: 'change'
                     }],
+                  applicationdate: [{
+                    required: true,
+                    message: this.$t("normal.error_09") + this.$t("label.application_date"),
+                    trigger: "change"
+                  }],
                     businesscity: [{
                         required: true,
                         message: this.$t('normal.error_08') + this.$t('label.PFANS3007VIEW_BUSINESSCITY'),

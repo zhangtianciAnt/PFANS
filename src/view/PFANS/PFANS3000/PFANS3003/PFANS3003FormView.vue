@@ -55,6 +55,20 @@
             </el-col>
           </el-row>
           <el-row >
+            <!--            start(添加申请日期)  fjl 2020/04/08-->
+            <el-col :span="8">
+              <el-form-item :label="$t('label.application_date')" prop="applicationdate">
+                <div class="block">
+                  <el-date-picker
+                    :disabled="!disable"
+                    style="width:20vw"
+                    type="date"
+                    v-model="form.applicationdate">
+                  </el-date-picker>
+                </div>
+              </el-form-item>
+            </el-col>
+            <!--            end(添加申请日期)  fjl 2020/04/08-->
             <el-col :span="8">
               <template>
                 <el-form-item :label="$t('label.PFANS3003VIEW_OCCUPATIONAL')" prop="occupational">
@@ -71,6 +85,8 @@
                 </el-form-item>
               </template>
             </el-col>
+          </el-row>
+          <el-row >
             <el-col :span="8">
               <template>
                 <el-form-item :label="$t('label.PFANS3003VIEW_INSIDELINE')" prop="insideline">
@@ -79,8 +95,6 @@
                 </el-form-item>
               </template>
             </el-col>
-          </el-row>
-          <el-row >
             <el-col :span="8">
               <template>
                 <el-form-item :label="$t('label.email')" prop="email">
@@ -155,6 +169,7 @@
   import EasyNormalContainer from "@/components/EasyNormalContainer";
   import dicselect from "../../../components/dicselect.vue";
   import {Message} from 'element-ui';
+  import moment from 'moment'
   import user from "../../../components/user.vue";
   import {getOrgInfoByUserId} from '@/utils/customize'
   import {telephoneNumber, validateEmail} from '@/utils/validate';
@@ -227,6 +242,7 @@
           ecenter: '',
           eoccupational: '',
           userid: '',
+          applicationdate: moment(new Date()).format("YYYY-MM-DD"),
           occupational: '',
           insideline: '',
           email: '',
@@ -241,6 +257,11 @@
             required: true,
             validator: validateUserid,
             trigger: 'change'
+          }],
+          applicationdate: [{
+            required: true,
+            message: this.$t("normal.error_09") + this.$t("label.application_date"),
+            trigger: "change"
           }],
           occupational: [{
             required: true,
