@@ -235,7 +235,7 @@
           <el-row
             v-if="form.errortype != 'PR013014' &&(form.status === '4' || form.status === '5' || form.status === '6' || form.status === '7')">
             <el-col :span="8"
-                    v-if="form.errortype != 'PR013001'&&form.errortype != 'PR013007'&&this.typecheck!='1'&&this.typecheck!='2'">
+                    v-if="form.errortype != 'PR013001'&& form.errortype != 'PR013005'&&form.errortype != 'PR013007'&&this.typecheck!='1'&&this.typecheck!='2'">
               <el-form-item :label="$t('label.reenddate')" prop="refinisheddate">
                 <el-date-picker @change="rechange" :disabled="form.status === '5' || form.status === '7' "
                                 style="width:20vw" type="date" v-model="form.refinisheddate"></el-date-picker>
@@ -723,6 +723,7 @@
             this.form = response;
             if (this.form.refinisheddate == null || this.form.reoccurrencedate == null) {
               if (this.form.status === '4') {
+                this.form.revacationtype = this.form.vacationtype;
                 this.form.reoccurrencedate = response.occurrencedate;
                 this.form.refinisheddate = response.finisheddate;
                 this.form.relengthtime = response.lengthtime;
@@ -1819,6 +1820,16 @@
                 this.form.relengthtime = timere * 8;
               } else if (letoccurrencedateTo != 'Invalid date') {
                 this.form.relengthtime = 4;
+              }
+            }
+            if (this.form.errortype === 'PR013005' || this.form.errortype === 'PR013007') {
+              if(this.form.finisheddate === ''){
+                this.form.finisheddate = this.form.occurrencedate
+              }
+            }
+            if ((this.form.errortype === 'PR013005' || this.form.errortype === 'PR013007')&& this.form.status === '4') {
+              if(this.form.refinisheddate === ''){
+                this.form.refinisheddate = this.form.reoccurrencedate
               }
             }
             // this.form.periodend = letfinisheddate.replace(letnewdate, letfinisheddate);
