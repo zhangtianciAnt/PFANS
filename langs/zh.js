@@ -123,7 +123,7 @@ module.exports = {
     error_checkTime1: '必须大于',
     error_checkTime2: '必须小于',
     error_date1: '离职日期须大于申请日期30天',
-    error_checkdatetype: '当JUDGEMENT天存在日期样式，请重新选择！',
+    error_checkdatetype: '当天存在日期样式，请重新选择！',
     error_checkerror: '当天无可删除数据，请重新选择！',
     error_attendancesetting: '请先设定公司考勤数据！',
     error_plandate: '当前时间段存在盘点计划！',
@@ -332,6 +332,7 @@ module.exports = {
     PFANS1041VIEW: '委託theme',
     PFANS1042VIEW: '成本结转表',
     PFANS1043VIEW: 'theme管理',
+    PFANS1044VIEW: '契約番号检索',
     PFANS2001VIEW: '招聘申请',
     PFANS2002VIEW: '招聘决裁',
     PFANS2003VIEW: '本社面试记录',
@@ -1143,7 +1144,12 @@ module.exports = {
     PFANS1026FORMVIEW_QQJE: '请输入请求金额',
     PFANS1026FORMVIEW_YQXSC: '已取消删除',
     PFANS1026FORMVIEW_QXSQFH: '请先申请番号',
-    PFANS1026FORMVIEW_QXSCZQSCDQYS: '请先删除之前生成的契约书',
+    PFANS1026FORMVIEW_QXSCZQSCDQYS: '请先删除之前生成的报价单',
+    PFANS1026FORMVIEW_QXSCZQSCDQYS1: '请先删除之前生成的该非判定书',
+    PFANS1026FORMVIEW_QXSCZQSCDQYS2: '请先删除之前生成的契约书',
+    PFANS1026FORMVIEW_QXSCZQSCDQYS3: '请先删除之前生成的决裁书',
+    PFANS1026FORMVIEW_QXSCZQSCDQYS4: '请先删除之前生成的纳品书',
+    PFANS1026FORMVIEW_QXSCZQSCDQYS5: '请先删除之前生成的请求书',
     PFANS1026FORMVIEW_DDZYW: ' 请输入担当者英文',
     PFANS1026FORMVIEW_DDZZW: ' 请输入担当者中文',
     PFANS1026FORMVIEW_QYHW: '请输入契約概要和文',
@@ -3187,5 +3193,7 @@ module.exports = {
     USERSVIEW_LEAVE: "离职",
     PFANS2017VIEW_AFTERNOON: '下午外出时长',
     //ADD-LXX
+
+    PFANS1044VIEW_CONTRACT:"契约种类"
   },
 };

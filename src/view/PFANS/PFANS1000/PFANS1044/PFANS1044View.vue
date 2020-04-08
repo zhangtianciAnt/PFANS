@@ -1,6 +1,23 @@
 <template>
-  <EasyNormalTable :title="title" :columns="columns" :data="data" :rowid="row" :buttonList="buttonList"
-                   @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" >
+  <EasyNormalTable :title="title" :columns="columns" :data="data" v-loading="loading" >
+        <el-form label-position="top" label-width="8vw" slot="search">
+        <el-row>
+          <el-col :span="8">
+            <el-form-item :label="$t('label.PFANS1044VIEW_CONTRACT')">
+            <el-select @change="changed"v-model="contractType">
+              <el-option :label="$t('menu.COMMISSIONCONTRACT')" value="0"></el-option>
+              <el-option :label="$t('menu.BROKERAGECONTRACT')" value="1"></el-option>
+              <el-option :label="$t('menu.OTHERCONTRACT')" value="2"></el-option>
+            </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item :label="$t('label.PFANS1024VIEW_DELIVERYDATE')">
+
+            </el-form-item>
+          </el-col>
+        </el-row>
+        </el-form>
   </EasyNormalTable>
 </template>
 
@@ -11,16 +28,18 @@
     import {getOrgInfo,getUserInfo,getStatus,getDictionaryInfo} from '@/utils/customize';
 
     export default {
-        name: 'PFANS1026View',
+        name: 'PFANS1044View',
         components: {
             EasyNormalTable
         },
         data() {
             return {
+                contractType:"0",
                 loading: false,
-                title: "title.PFANS1026VIEW",
+                title: "title.PFANS1044VIEW",
                 contractnumbercount: '',
                 data: [],
+                alldata:[],
                 columns: [
                     {
                         code: 'user_id',
@@ -66,9 +85,6 @@
                     }
                 ],
                 buttonList: [
-                    {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
-                    {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
-                    {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'}
                 ],
                 rowid: '',
                 contractnumber: '',
@@ -79,7 +95,7 @@
         mounted() {
             this.loading = true;
             this.$store
-                .dispatch('PFANS1026Store/get',{'type': '1'})
+                .dispatch('PFANS1026Store/get',{})
                 .then(response => {
                     let letcontractnumber = [];
                     let tabledata = response.contractapplication;
@@ -98,15 +114,16 @@
                                 tabledata[i].contracttype = letContracttype.value1;
                             }
                         }
+
                         if(tabledata[i].contractnumber != ""){
                             letcontractnumber.push(tabledata[i].contractnumber);
                         }
+
                         if(tabledata[i].state === '1' && this.$i18n){
                             tabledata[i].state = this.$t("label.PFANS8008FORMVIEW_EFFECTIVE");
                         }else if(tabledata[i].state === '0' && this.$i18n){
                             tabledata[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID");
                         }
-
                     }
                     var arr= new Array();
                     let o;
@@ -117,6 +134,7 @@
                             this.data.push(o);
                         }
                     }
+                    this.alldata = this.data;
                     this.contractnumbercount = (letcontractnumber.length + 1);
                     this.loading = false;
                 })
@@ -135,55 +153,9 @@
                 this.contractnumber = row.contractnumber;
                 this.state = row.state;
             },
-            buttonClick(val) {
-                this.$store.commit('global/SET_HISTORYURL', this.$route.path);
-                if (val === 'update') {
-                    if (this.rowid === '') {
-                        Message({
-                            message: this.$t('normal.info_01'),
-                            type: 'info',
-                            duration: 2 * 1000
-                        });
-                        return;
-                    }
-                    this.$router.push({
-                        name: 'PFANS1026FormView',
-                        params: {
-                            _id: this.contractnumber,
-                            contractnumbercount: this.contractnumbercount,
-                            state: this.state,
-                            disabled: true
-                        }
-                    })
-                }
-                if (val === 'view') {
-                    if (this.rowid === '') {
-                        Message({
-                            message: this.$t('normal.info_01'),
-                            type: 'info',
-                            duration: 2 * 1000
-                        });
-                        return;
-                    }
-                    this.$router.push({
-                        name: 'PFANS1026FormView',
-                        params: {
-                            _id: this.contractnumber,
-                            disabled: false
-                        }
-                    })
-                }
-                if (val === 'insert') {
-                    this.$router.push({
-                        name: 'PFANS1026FormView',
-                        params: {
-                            _id: '',
-                            contractnumbercount: this.contractnumbercount,
-                            disabled: true
-                        }
-                    })
-                }
-            },
+          changed(val){
+            this.data = this.alldata.filter(item => item.type == val);
+          }
         }
     }
 </script>

@@ -196,6 +196,7 @@ import ASSETS1002FormView from '@/view/ASSETS/ASSETS1000/ASSETS1002/ASSETS1002Fo
 import ASSETS1002ExportFormView from '@/view/ASSETS/ASSETS1000/ASSETS1002/ASSETS1002ExportFormView.vue'
 import ASSETS1003View from '@/view/ASSETS/ASSETS1000/ASSETS1003/ASSETS1003View.vue'
 import usersFormViewByPerson from '@/view/users/usersFormViewByPerson.vue'
+import PFANS1044View from '@/view/PFANS/PFANS1000/PFANS1044/PFANS1044View.vue'
 
 Vue.use(Router);
 
@@ -486,6 +487,11 @@ const routes = [
         path: '/PFANS1025View',
         name: 'PFANS1025View',
         component: PFANS1025View,
+      },
+      {
+        path: '/PFANS1044View',
+        name: 'PFANS1044View',
+        component: PFANS1044View,
       },
       {
         path: '/PFANS1025FormView',

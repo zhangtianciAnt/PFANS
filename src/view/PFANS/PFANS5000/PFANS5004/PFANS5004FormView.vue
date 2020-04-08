@@ -5,7 +5,7 @@
       :title="titles"
       @buttonClick="buttonClick"
       @end="end" @disabled="setdisabled"
-      @start="start"
+      @start="start"  :workflowCode="workcode"
       @workflowState="workflowState"
       ref="container"
       v-loading="loading"
@@ -335,6 +335,7 @@
     },
     data() {
       return {
+        workcode:'',
         disabled: true,
         activeName: "first",
         errorManager: "",
@@ -427,6 +428,12 @@
             //     this.title = this.$t('title.PFANS5004VIEW');
             //   }
             // }
+            if(this.form.projecttype === 'PP001002'){
+              this.workcode = 'W0009';
+            }else{
+              this.workcode = 'W0065';
+            }
+
               response.companyprojects.endtime = new Date()
             this.form = response.companyprojects;
             this.userlist = this.form.managerid;
