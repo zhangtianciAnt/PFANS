@@ -152,6 +152,42 @@
               </el-form-item>
             </el-col>
           </el-row>
+          <!--            start  fjl 2020/04/08  添加总务担当的受理功能-->
+          <el-row v-show="acceptShow">
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS3001FORMVIEW_ACCEPT')" prop="accept">
+                <span style="margin-right: 1rem ">{{$t('label.no')}}</span>
+                <el-switch
+                  :disabled="!disable"
+                  v-model="form.accept"
+                  active-value="1"
+                  inactive-value="0"
+                >
+                </el-switch>
+                <span style="margin-left: 1rem ">{{$t('label.yes')}}</span>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8" v-show="form.accept === '1'">
+              <el-form-item :label="$t('label.PFANS3001FORMVIEW_ACCEPTSTATUS')">
+                <el-select clearable style="width: 20vw"  v-model="form.acceptstatus" :disabled="!disable"
+                           :placeholder="$t('normal.error_09')">
+                  <el-option
+                    v-for="item in options"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8" v-show="form.accept === '1'">
+              <el-form-item :label="$t('label.PFANS5004VIEW_FINSHTIME')">
+                <el-date-picker :disabled="!disable" style="width:20vw" type="date"
+                                v-model="form.findate"></el-date-picker>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <!--            end  fjl 2020/04/08  添加总务担当的受理功能-->
           <el-row >
             <el-col :span="24">
               <el-form-item :label="$t('label.remarks')" prop="remarks">
@@ -171,7 +207,7 @@
   import {Message} from 'element-ui';
   import moment from 'moment'
   import user from "../../../components/user.vue";
-  import {getOrgInfoByUserId} from '@/utils/customize'
+  import {getOrgInfoByUserId,getCurrentRole2} from '@/utils/customize'
   import {telephoneNumber, validateEmail} from '@/utils/validate';
 
   export default {
@@ -234,6 +270,17 @@
         userlist: "",
         title: "title.PFANS3003VIEW",
         buttonList: [],
+        options: [
+          {
+            value: '0',
+            label: this.$t('label.PFANS3001FORMVIEW_CORRESPONDING'),
+          },
+          {
+            value: '1',
+            label: this.$t('label.PFANS3001FORMVIEW_COMPLETED'),
+          },
+        ],
+        acceptShow: false,
         form: {
           centerid: '',
           groupid: '',
@@ -251,6 +298,9 @@
           classification: '',
           balance: '',
           remarks: '',
+          accept: '0',
+          acceptstatus: '',
+          findate: '',
         },
         rules: {
           userid: [{
@@ -372,6 +422,12 @@
           this.form.userid = this.$store.getters.userinfo.userid;
         }
       }
+      //start(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
+      let role = getCurrentRole2();
+      if(role === '0'){
+        this.acceptShow = true;
+      }
+      //end(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
     },
     created() {
       this.disable = this.$route.params.disabled;

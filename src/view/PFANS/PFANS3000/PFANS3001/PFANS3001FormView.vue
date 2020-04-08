@@ -183,6 +183,12 @@
                             v-model="form.reairlinenumber"></el-input>
                 </el-form-item>
               </el-col>
+              <el-col :span="8">
+                <el-form-item :label="$t('label.PFANS3001VIEW_TICKETINGDATE')" prop="ticketingdate">
+                  <el-date-picker :disabled="!disable" style="width:20vw" type="date"
+                                  v-model="form.ticketingdate"></el-date-picker>
+                </el-form-item>
+              </el-col>
             </el-row>
             <el-row>
               <el-col :span="8">
@@ -200,14 +206,42 @@
                 </el-form-item>
               </el-col>
             </el-row>
-            <el-row>
+<!--            start  fjl 2020/04/08  添加总务担当的受理功能-->
+            <el-row v-show="acceptShow">
               <el-col :span="8">
-                <el-form-item :label="$t('label.PFANS3001VIEW_TICKETINGDATE')" prop="ticketingdate">
+                <el-form-item :label="$t('label.PFANS3001FORMVIEW_ACCEPT')" prop="accept">
+                  <span style="margin-right: 1rem ">{{$t('label.no')}}</span>
+                  <el-switch
+                    :disabled="!disable"
+                    v-model="form.accept"
+                    active-value="1"
+                    inactive-value="0"
+                  >
+                  </el-switch>
+                  <span style="margin-left: 1rem ">{{$t('label.yes')}}</span>
+                </el-form-item>
+              </el-col>
+              <el-col :span="8" v-show="form.accept === '1'">
+                <el-form-item :label="$t('label.PFANS3001FORMVIEW_ACCEPTSTATUS')">
+                  <el-select clearable style="width: 20vw"  v-model="form.acceptstatus" :disabled="!disable"
+                             :placeholder="$t('normal.error_09')">
+                    <el-option
+                      v-for="item in options"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value">
+                    </el-option>
+                  </el-select>
+                </el-form-item>
+              </el-col>
+              <el-col :span="8" v-show="form.accept === '1'">
+                <el-form-item :label="$t('label.PFANS5004VIEW_FINSHTIME')">
                   <el-date-picker :disabled="!disable" style="width:20vw" type="date"
-                                  v-model="form.ticketingdate"></el-date-picker>
+                                  v-model="form.findate"></el-date-picker>
                 </el-form-item>
               </el-col>
             </el-row>
+<!--            end  fjl 2020/04/08  添加总务担当的受理功能-->
           </el-tabs>
         </el-form>
       </div>
@@ -221,7 +255,7 @@
   import {Message} from 'element-ui';
   import user from '../../../components/user.vue';
   import dicselect from '../../../components/dicselect.vue';
-  import {getOrgInfoByUserId,getDictionaryInfo} from '@/utils/customize';
+  import {getOrgInfoByUserId,getDictionaryInfo,getCurrentRole2} from '@/utils/customize';
   import {isvalidPhone, idcardNumber, telephoneNumber} from '@/utils/validate';
   import moment from 'moment';
   import {getOrgInfo} from "../../../../utils/customize";
@@ -369,6 +403,17 @@
         multiple: false,
         relations: [],
         relations1: [],
+        options: [
+          {
+            value: '0',
+            label: this.$t('label.PFANS3001FORMVIEW_CORRESPONDING'),
+          },
+          {
+            value: '1',
+            label: this.$t('label.PFANS3001FORMVIEW_COMPLETED'),
+          },
+        ],
+        acceptShow: false,
         form: {
           user_id: '',
           center_id: '',
@@ -396,6 +441,9 @@
           ticketingdate: '',
           tripstart: '',
           tripend: '',
+          accept: '0',
+          acceptstatus: '',
+          findate: '',
         },
         rules: {
           user_id: [{
@@ -592,6 +640,12 @@
         }
       }
       this.getBusOuter();
+      //start(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
+      let role = getCurrentRole2();
+      if(role === '0'){
+        this.acceptShow = true;
+      }
+      //end(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
     },
     methods: {
       //start(添加出差申请关联)  fjl 2020/04/08
