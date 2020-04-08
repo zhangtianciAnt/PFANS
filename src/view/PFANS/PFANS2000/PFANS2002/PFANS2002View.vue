@@ -136,11 +136,13 @@
                       response[j].education1 = letStage.value1;
                   }
               }
-            for (var val of JSON.parse(this.data[j].interview)) {
-              if (val.interviewer) {
-                interview += getUserInfo(val.interviewer).userinfo.customername + ",";
+              if(this.data[j].interview !== null && this.data[j].interview !== "" && this.data[j].interview !== undefined){
+                  for (var val of JSON.parse(this.data[j].interview)) {
+                    if (val.interviewer) {
+                      interview += getUserInfo(val.interviewer).userinfo.customername + ",";
+                    }
+                  }
               }
-            }
             this.data[j]._interview = interview.substring(0, interview.length - 1);
             this.data[j].status = getStatus(this.data[j].status);
             this.data[j].birthday = moment(this.data[j].birthday).format(

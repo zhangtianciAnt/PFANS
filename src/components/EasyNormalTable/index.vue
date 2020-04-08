@@ -12,6 +12,7 @@
                   style="width: 25%;vertical-align:top" v-bind:prefix-icon="changeIcon" v-model="searchValue">
         </el-input>
       </div>
+      <slot name="search"></slot>
       <el-table :cell-class-name="rowheight" :data="this.pagedate" :default-sort='defaultSort'
                 :element-loading-text="$t('normal.waiting')"
                 :row-key="rowid" :span-method="SpanMethod" @filter-change="tableFilter"
@@ -414,5 +415,14 @@
   /*}*/
   .el-table /deep/ .current-row {
     background-color: #BDD8EE !important;
+  }
+  .el-form--label-top .el-form-item__label {
+    float: none;
+    display: inline-block;
+    text-align: left;
+    padding: 0 0 10px;
+    font-size: 0.8rem;
+    color: #005BAA;
+    font-weight: bold;
   }
 </style>
