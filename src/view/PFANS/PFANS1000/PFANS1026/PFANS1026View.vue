@@ -101,9 +101,9 @@
                         if(tabledata[i].contractnumber != ""){
                             letcontractnumber.push(tabledata[i].contractnumber);
                         }
-                        if(tabledata[i].state === '1'){
+                        if(tabledata[i].state === '1' && this.$i18n){
                             tabledata[i].state = this.$t("label.PFANS8008FORMVIEW_EFFECTIVE");
-                        }else if(tabledata[i].state === '0'){
+                        }else if(tabledata[i].state === '0' && this.$i18n){
                             tabledata[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID");
                         }
 
