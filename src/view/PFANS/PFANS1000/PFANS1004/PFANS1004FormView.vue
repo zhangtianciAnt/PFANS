@@ -921,53 +921,67 @@
                             }
                             this.form.scheduleddate = moment(this.form.scheduleddate).format('YYYY-MM-DD');
                             this.form.equipment = "0";
-                            if (this.$route.params._id) {
+                            let error = 0;
+                          if(this.form.amounttobegiven === 0){
+                              error = error+1;
+                              Message({
+                                message: this.$t("label.PFANS1004VIEW_AMOUNTTOBEGIVEN") + this.$t("label.PFANS1004FORMVIEW_ERROR"),
+                                type: 'error',
+                                duration: 5 * 1000
+                              });
+                              this.loading = false;
+                            }
+                            if(error === 0){
+                              if (this.$route.params._id) {
                                 this.form.judgementid = this.$route.params._id;
                                 this.$store
-                                    .dispatch('PFANS1004Store/updateJudgement', JudgementVo)
-                                    .then(response => {
-                                        this.data = response;
-                                        this.loading = false;
-                                        if(val !== "update") {
-                                            Message({
-                                                message: this.$t("normal.success_02"),
-                                                type: 'success',
-                                                duration: 5 * 1000
-                                            });
-                                            this.paramsTitle();
-                                        }
-                                    })
-                                    .catch(error => {
-                                        Message({
-                                            message: error,
-                                            type: 'error',
-                                            duration: 5 * 1000
-                                        });
-                                        this.loading = false;
-                                    })
+                                  .dispatch('PFANS1004Store/updateJudgement', JudgementVo)
+                                  .then(response => {
+                                    this.data = response;
+                                    this.loading = false;
+                                    if(val !== "update") {
+                                      Message({
+                                        message: this.$t("normal.success_02"),
+                                        type: 'success',
+                                        duration: 5 * 1000
+                                      });
+                                      this.paramsTitle();
+                                    }
+                                  })
+                                  .catch(error => {
+                                    Message({
+                                      message: error,
+                                      type: 'error',
+                                      duration: 5 * 1000
+                                    });
+                                    this.loading = false;
+                                  })
 
-                            } else {
+                              }
+                              else {
                                 this.$store
-                                    .dispatch('PFANS1004Store/createJudgement', JudgementVo)
-                                    .then(response => {
-                                        this.data = response;
-                                        this.loading = false;
-                                        Message({
-                                            message: this.$t("normal.success_01"),
-                                            type: 'success',
-                                            duration: 5 * 1000
-                                        });
-                                        this.paramsTitle();
-                                    })
-                                    .catch(error => {
-                                        Message({
-                                            message: error,
-                                            type: 'error',
-                                            duration: 5 * 1000
-                                        });
-                                        this.loading = false;
-                                    })
+                                  .dispatch('PFANS1004Store/createJudgement', JudgementVo)
+                                  .then(response => {
+                                    this.data = response;
+                                    this.loading = false;
+                                    Message({
+                                      message: this.$t("normal.success_01"),
+                                      type: 'success',
+                                      duration: 5 * 1000
+                                    });
+                                    this.paramsTitle();
+                                  })
+                                  .catch(error => {
+                                    Message({
+                                      message: error,
+                                      type: 'error',
+                                      duration: 5 * 1000
+                                    });
+                                    this.loading = false;
+                                  })
+                              }
                             }
+
                         }
                         else{
                             Message({

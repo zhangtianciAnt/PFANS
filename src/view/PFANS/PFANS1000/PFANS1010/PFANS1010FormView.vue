@@ -508,52 +508,64 @@
                 this.form.participants = '';
               }
               this.form.participants = letparticipants;
-              if (this.$route.params._id) {
-                this.form.communication_id = this.$route.params._id;
-                this.$store
-                  .dispatch('PFANS1010Store/updateCommunication', this.form)
-                  .then(response => {
-                    this.data = response;
-                    this.loading = false;
-                    if (val !== 'update') {
+              let error = 0;
+              if(this.form.moneys=== 0){
+                error = error+1;
+                Message({
+                  message:this.$t("label.PFANS1010FORMVIEW_SCHEDULEDAMOUNT") + this.$t("label.PFANS1004FORMVIEW_ERROR"),
+                  type: 'error',
+                  duration: 5 * 1000
+                });
+                this.loading = false;
+              }
+              if(error===0){
+                if (this.$route.params._id) {
+                  this.form.communication_id = this.$route.params._id;
+                  this.$store
+                    .dispatch('PFANS1010Store/updateCommunication', this.form)
+                    .then(response => {
+                      this.data = response;
+                      this.loading = false;
+                      if (val !== 'update') {
+                        Message({
+                          message: this.$t('normal.success_02'),
+                          type: 'success',
+                          duration: 5 * 1000,
+                        });
+                        this.paramsTitle();
+                      }
+                    })
+                    .catch(error => {
                       Message({
-                        message: this.$t('normal.success_02'),
+                        message: error,
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                      this.loading = false;
+                    });
+                } else {
+                  this.loading = true;
+                  this.$store
+                    .dispatch('PFANS1010Store/createCommunication', this.form)
+                    .then(response => {
+                      this.data = response;
+                      this.loading = false;
+                      Message({
+                        message: this.$t('normal.success_01'),
                         type: 'success',
                         duration: 5 * 1000,
                       });
                       this.paramsTitle();
-                    }
-                  })
-                  .catch(error => {
-                    Message({
-                      message: error,
-                      type: 'error',
-                      duration: 5 * 1000,
+                    })
+                    .catch(error => {
+                      Message({
+                        message: error,
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                      this.loading = false;
                     });
-                    this.loading = false;
-                  });
-              } else {
-                this.loading = true;
-                this.$store
-                  .dispatch('PFANS1010Store/createCommunication', this.form)
-                  .then(response => {
-                    this.data = response;
-                    this.loading = false;
-                    Message({
-                      message: this.$t('normal.success_01'),
-                      type: 'success',
-                      duration: 5 * 1000,
-                    });
-                    this.paramsTitle();
-                  })
-                  .catch(error => {
-                    Message({
-                      message: error,
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
-                    this.loading = false;
-                  });
+                }
               }
             }
             else{
