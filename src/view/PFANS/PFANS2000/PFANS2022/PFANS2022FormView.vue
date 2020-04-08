@@ -1,6 +1,6 @@
 <template>
   <div style="min-height: 100%">
-    <EasyNormalContainer :buttonList="buttonList" :canStart="canStart" :title="title" @buttonClick="buttonClick"
+    <EasyNormalContainer :buttonList="buttonList" :canStart="canStart" :title="title" @buttonClick="buttonClick" :workflowCode="workcode"
                          @end="end" @start="start" @workflowState="workflowState" ref="container" @disabled="setdisabled"
                          v-loading="loading">
       <div slot="customize">
@@ -213,6 +213,7 @@
                 }
             };
             return {
+              workcode:'',
                 centerid: '',
                 groupid: '',
                 teamid: '',
@@ -371,6 +372,13 @@
                             this.groupid= rst.groupNmae;
                             this.teamid= rst.teamNmae;
                         }
+
+                      if(this.form.twoclass === 'PR034001'){
+                        this.workcode = 'W0066';
+                      }else{
+                        this.workcode = 'W0031';
+                      }
+
                         this.userlist = this.form.user_id;
                         this.nomineeslist = this.form.nominees;
                         if (this.form.firstclass === 'PR024004') {
@@ -685,6 +693,12 @@
                     this.rules.weddingday[0].required = false;
                     this.rules.spousename[0].required = false;
                 }
+
+              if(this.form.twoclass === 'PR034001'){
+                this.workcode = 'W0066';
+              }else{
+                this.workcode = 'W0031';
+              }
             },
             getenteringform(val) {
                 this.form.enteringform = val;

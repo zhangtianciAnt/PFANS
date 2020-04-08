@@ -18,7 +18,7 @@
                 @row-click="rowClick" @row-dblclick="rowClick"
                 @selection-change="handleSelectionChange" @sort-change="sortChange" border
                 header-cell-class-name="sub_bg_color_blue" header-row-class-name="height" height="400"
-                highlight-current-row max-height="400" ref="eltable"
+                highlight-current-row max-height="400" ref="eltable" :row-class-name="rowClassName"
                 stripe style="width: 100%" v-loading='loading'>
         <el-table-column reserve-selection type="selection" v-if="showSelection" width="55" :selectable="selectable">
         </el-table-column>
@@ -167,6 +167,9 @@
         type: Function
       },
       selectable:{
+        type: Function
+      },
+      rowClassName:{
         type: Function
       }
     },

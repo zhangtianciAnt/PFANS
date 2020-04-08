@@ -102,7 +102,6 @@
                 .dispatch('PFANS5001Store/getFpans5001List', {})
                 //根据user_id取组织架构和user_name
                 .then(response => {
-                    debugger
                     this.data = response.filter(val =>  Number(val.status) < 7 );
                     for (let j = 0; j < response.length; j++) {
                         if(response[j].createby !== null && response[j].createby !== "") {

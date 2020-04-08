@@ -434,11 +434,12 @@
             message: this.$t('normal.error_08') + this.$t('label.PFANS1012VIEW_PAYEENAME'),
             trigger: 'change',
           }],
-          payeecode: [{
-            required: true,
-            message: this.$t('normal.error_08') + this.$t('label.PFANS1012VIEW_FOREIGNPAYEECODE'),
-            trigger: 'change',
-          },
+          payeecode: [
+          //   {
+          //   required: true,
+          //   message: this.$t('normal.error_08') + this.$t('label.PFANS1012VIEW_FOREIGNPAYEECODE'),
+          //   trigger: 'change',
+          // },
             {validator: validatePayeecode, trigger: 'blur'}],
           payeebankaccountnumber: [{
             required: true,
@@ -674,52 +675,64 @@
               }
               this.form.reimbursement = moment(this.form.reimbursement).format('YYYY-MM-DD');
               this.form.application_date = moment(this.form.application_date).format('YYYY-MM-DD');
-              if (this.$route.params._id) {
-                this.form.loanapplication_id = this.$route.params._id;
-                this.$store
-                  .dispatch('PFANS1006Store/updateLoanapplication', this.form)
-                  .then(response => {
-                    this.data = response;
-                    this.loading = false;
-                    if (val !== 'update') {
+              let error = 0;
+              if(this.form.moneys === 0){
+                error = error+1;
+                Message({
+                  message: this.$t("label.PFANS1025VIEW_AWARDMONEY") + this.$t("label.PFANS1004FORMVIEW_ERROR"),
+                  type: 'error',
+                  duration: 5 * 1000
+                });
+                this.loading = false;
+              }
+              if(error===0){
+                if (this.$route.params._id) {
+                  this.form.loanapplication_id = this.$route.params._id;
+                  this.$store
+                    .dispatch('PFANS1006Store/updateLoanapplication', this.form)
+                    .then(response => {
+                      this.data = response;
+                      this.loading = false;
+                      if (val !== 'update') {
+                        Message({
+                          message: this.$t('normal.success_02'),
+                          type: 'success',
+                          duration: 5 * 1000,
+                        });
+                        this.paramsTitle();
+                      }
+                    })
+                    .catch(error => {
                       Message({
-                        message: this.$t('normal.success_02'),
+                        message: error,
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                      this.loading = false;
+                    });
+                } else {
+                  this.loading = true;
+                  this.$store
+                    .dispatch('PFANS1006Store/createLoanapplication', this.form)
+                    .then(response => {
+                      this.data = response;
+                      this.loading = false;
+                      Message({
+                        message: this.$t('normal.success_01'),
                         type: 'success',
                         duration: 5 * 1000,
                       });
                       this.paramsTitle();
-                    }
-                  })
-                  .catch(error => {
-                    Message({
-                      message: error,
-                      type: 'error',
-                      duration: 5 * 1000,
+                    })
+                    .catch(error => {
+                      Message({
+                        message: error,
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                      this.loading = false;
                     });
-                    this.loading = false;
-                  });
-              } else {
-                this.loading = true;
-                this.$store
-                  .dispatch('PFANS1006Store/createLoanapplication', this.form)
-                  .then(response => {
-                    this.data = response;
-                    this.loading = false;
-                    Message({
-                      message: this.$t('normal.success_01'),
-                      type: 'success',
-                      duration: 5 * 1000,
-                    });
-                    this.paramsTitle();
-                  })
-                  .catch(error => {
-                    Message({
-                      message: error,
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
-                    this.loading = false;
-                  });
+                }
               }
             }
             else{

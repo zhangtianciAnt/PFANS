@@ -521,7 +521,9 @@
 
                         <el-table-column :label="$t('label.PFANS1012FORMVIEW_PL')" align="center" width="150">
                           <template slot-scope="scope">
-                            <el-input :disabled="true" style="width: 100%" v-model="scope.row.plsummary">
+                            <el-input v-show="false"  :disabled="true" style="width: 100%" v-model="scope.row.plsummary">
+                            </el-input>
+                            <el-input :disabled="true" style="width: 100%" v-model="plsummary">
                             </el-input>
                           </template>
                         </el-table-column>
@@ -1197,6 +1199,8 @@
                 }
             };
             return {
+                plsummary: '',
+                Codecheck: '',
                 checkCode1: '',
                 checkcode: '',
                 checktime: false,
@@ -1248,7 +1252,7 @@
                     publicexpenseid: '',
                     trafficdetails_id: '',
                     trafficdate: '',
-                    plsummary: this.$t('label.PFANS1013FORMVIEW_PLSUMMARY'),
+                    plsummary: 'PJ111008',
                     departmentname: '',
                     budgetcoding: '',
                     subjectnumber: '',
@@ -1461,6 +1465,7 @@
             };
         },
         mounted() {
+          this.plsummary = getDictionaryInfo('PJ111008').value1
             this.getsupplierinfor();
             this.getCompanyProjectList();
             this.checkoptionsdata();
@@ -1796,7 +1801,8 @@
                     });
             } else {
                 if (getUserInfo(this.$store.getters.userinfo.userid)) {
-                    this.form.code = getUserInfo(this.$store.getters.userinfo.userid).userinfo.personalcode;
+                  this.Codecheck= this.$store.getters.userinfo.userinfo.personalcode;
+                    this.form.code = this.$store.getters.userinfo.userinfo.personalcode;
                     let num = getUserInfo(this.$store.getters.userinfo.userid).userinfo.extension;
                     if(num){
                         this.form.telephone = num
@@ -2194,65 +2200,66 @@
                     this.show3 = false;
                     this.show4 = false;
                     this.show5 = false;
-                    // this.form.code = '';
-                    // this.form.accountnumber = '';
-                    // this.form.receivables = '';
-                    // this.form.loan = '';
-                    // this.form.fullname = '';
+                    this.form.code = '';
+                    this.form.accountnumber = '';
+                    this.form.receivables = '';
+                    this.form.loan = '';
+                    this.form.fullname = '';
                 } else if (val === 'PJ004002') {
                     this.show1 = false;
                     this.show2 = true;
                     this.show3 = false;
                     this.show4 = false;
                     this.show5 = false;
-                    // this.form.payeename = '';
-                    // this.form.payeecode = '';
-                    // this.form.payeebankaccountnumber = '';
-                    // this.form.payeebankaccount = '';
-                    // this.form.receivables = '';
-                    // this.form.loan = '';
-                    // this.form.fullname = '';
-                    // this.form.suppliername = ' ';
+                    this.form.code = this.Codecheck;
+                    this.form.payeename = '';
+                    this.form.payeecode = '';
+                    this.form.payeebankaccountnumber = '';
+                    this.form.payeebankaccount = '';
+                    this.form.receivables = '';
+                    this.form.loan = '';
+                    this.form.fullname = '';
+                    this.form.suppliername = ' ';
                 } else if (val === 'PJ004003') {
                     this.show1 = false;
                     this.show2 = false;
                     this.show3 = true;
                     this.show4 = false;
                     this.show5 = false;
-                    // this.form.payeename = '';
-                    // this.form.payeecode = '';
-                    // this.form.payeebankaccountnumber = '';
-                    // this.form.payeebankaccount = '';
-                    // this.form.code = '';
-                    // this.form.loan = '';
-                    // this.form.fullname = '';
+                    this.form.payeename = '';
+                    this.form.payeecode = '';
+                    this.form.payeebankaccountnumber = '';
+                    this.form.payeebankaccount = '';
+                    this.form.code = '';
+                    this.form.loan = '';
+                    this.form.fullname = '';
                 } else if (val === 'PJ004004') {
                     this.show1 = false;
                     this.show2 = false;
                     this.show3 = false;
                     this.show4 = true;
                     this.show5 = false;
-                    // this.form.payeename = '';
-                    // this.form.payeecode = '';
-                    // this.form.payeebankaccountnumber = '';
-                    // this.form.payeebankaccount = '';
-                    // this.form.code = '';
-                    // this.form.receivables = '';
-                    // this.form.fullname = '';
-                    // this.form.suppliername = ' ';
+                    this.form.payeename = '';
+                    this.form.payeecode = '';
+                    this.form.payeebankaccountnumber = '';
+                    this.form.payeebankaccount = '';
+                    this.form.code = '';
+                    this.form.receivables = '';
+                    this.form.fullname = '';
+                    this.form.suppliername = ' ';
                 } else {
                     this.show1 = false;
                     this.show2 = false;
                     this.show3 = false;
                     this.show4 = false;
                     this.show5 = true;
-                    // this.form.payeename = '';
-                    // this.form.payeecode = '';
-                    // this.form.payeebankaccountnumber = '';
-                    // this.form.payeebankaccount = '';
-                    // this.form.code = '';
-                    // this.form.receivables = '';
-                    // this.form.loan = '';
+                    this.form.payeename = '';
+                    this.form.payeecode = '';
+                    this.form.payeebankaccountnumber = '';
+                    this.form.payeebankaccount = '';
+                    this.form.code = '';
+                    this.form.receivables = '';
+                    this.form.loan = '';
                 }
             },
             getmodule(val) {
@@ -2458,7 +2465,7 @@
                     departmentname: this.groupId,
                     budgetcoding: this.budgetcodingcheck,
                     subjectnumber: '',
-                    plsummary: this.$t('label.PFANS1013FORMVIEW_PLSUMMARY'),
+                    plsummary: 'PJ111008',
                     region: '',
                     vehicle: '',
                     startingpoint: '',

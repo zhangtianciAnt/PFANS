@@ -61,6 +61,7 @@
                     style="width:20vw"
                     type="date"
                     v-model="form.applicationdate"
+                    @change="changeApp"
                   ></el-date-picker>
                 </div>
               </el-form-item>
@@ -370,7 +371,7 @@
           groupid: '',
           teamid: '',
           userid: '',
-          worktime: '',
+          worktime: '0.00',
           applicationdate: moment(new Date()).format('YYYY-MM-DD'),
           reserveovertimedate: '',
           overtimetype: '',
@@ -572,6 +573,40 @@
       }
     },
     methods: {
+      changeApp(val){
+        this.form.applicationdate = val;
+        this.getWorktime();
+      },
+      getWorktime() {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS2017Store/getFpans2017List', {})
+          .then(response => {
+            for (let j = 0; j < response.length; j++) {
+              if (moment(this.form.applicationdate).format('YYYY-MM-DD') === moment(response[j].punchcardrecord_date).format('YYYY-MM-DD') && this.$store.getters.userinfo.userid === response[j].user_id) {
+                let timeend = moment(response[j].time_end).format("HH:mm").replace(':', '.');
+                let worktime = Number(response[j].worktime);
+                let timeflg1 = timeend.substring(0,2);
+                let timeflg2 = timeend.substring(timeend.length-2);
+                let timeflg3 = timeflg2 /60;
+                if((Number(timeflg1) + Number(timeflg3) - Number(worktime) - 18).toFixed(2) > 0){
+                  this.form.worktime = (Number(timeflg1) + Number(timeflg3) - Number(worktime) - 18).toFixed(2);
+                } else {
+                  this.form.worktime = 0.00;
+                }
+              }
+              this.loading = false;
+            }
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
       setdisabled(val){
         if(this.$route.params.disabled){
           this.disabled = val;

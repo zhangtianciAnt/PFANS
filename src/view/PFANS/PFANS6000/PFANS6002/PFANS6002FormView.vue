@@ -354,13 +354,13 @@
                         },
                     ],
                     // 负责人（客户名称）
-                    liableperson: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.ASSETS1002VIEW_USERID'),
-                            trigger: 'change'
-                        },
-                    ],
+                    // liableperson: [
+                    //     {
+                    //         required: true,
+                    //         message: this.$t('normal.error_08') + this.$t('label.ASSETS1002VIEW_USERID'),
+                    //         trigger: 'change'
+                    //     },
+                    // ],
                   // 所属公司
                   thecompany: [
                     {
@@ -370,67 +370,67 @@
                     },
                   ],
                     // 中文(项目联络人)
-                    prochinese: [
-                        {
-                            required: false,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_CHINESE'),
-                            trigger: 'change'
-                        }],
+                    // prochinese: [
+                    //     {
+                    //         required: false,
+                    //         message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_CHINESE'),
+                    //         trigger: 'change'
+                    //     }],
                     // 日文(项目联络人)
-                    projapanese: [
-                        {
-                            required: false,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS6002FORMVIEW_JAPANESE'),
-                            trigger: 'change'
-                        },
-                    ],
+                    // projapanese: [
+                    //     {
+                    //         required: false,
+                    //         message: this.$t('normal.error_08') + this.$t('label.PFANS6002FORMVIEW_JAPANESE'),
+                    //         trigger: 'change'
+                    //     },
+                    // ],
                     // 英文(项目联络人)
-                    proenglish: [
-                        {
-                            required: false,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_ENGLISH'),
-                            trigger: 'change'
-                        },
-                    ],
+                    // proenglish: [
+                    //     {
+                    //         required: false,
+                    //         message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_ENGLISH'),
+                    //         trigger: 'change'
+                    //     },
+                    // ],
                     // 联系电话
-                    protelephone: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION'),
-                            trigger: 'blur'
-                        },
-                        {validator: validateTel, trigger: 'blur'}],
-                    // 邮箱地址
-                    protemail: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANSUSERFORMVIEW_EMAILADDRESS'),
-                            trigger: 'blur'
-                        },
-                        {validator: checkemail, trigger: 'blur'}],
+                    // protelephone: [
+                    //     {
+                    //         required: true,
+                    //         message: this.$t('normal.error_08') + this.$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION'),
+                    //         trigger: 'blur'
+                    //     },
+                    //     {validator: validateTel, trigger: 'blur'}],
+                    // // 邮箱地址
+                    // protemail: [
+                    //     {
+                    //         required: true,
+                    //         message: this.$t('normal.error_08') + this.$t('label.PFANSUSERFORMVIEW_EMAILADDRESS'),
+                    //         trigger: 'blur'
+                    //     },
+                    //     {validator: checkemail, trigger: 'blur'}],
                     //共通事务联络人
-                    commontperson: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS6002VIEW_COMMONTPERSON'),
-                            trigger: 'change'
-                        }],
-                    // 联系电话
-                    comtelephone: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION'),
-                            trigger: 'blur'
-                        },
-                        {validator: validateTel, trigger: 'blur'}],
-                    // 电子邮箱
-                    comnemail: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANSUSERFORMVIEW_EMAILADDRESS'),
-                            trigger: 'blur'
-                        },
-                        {validator: checkemail, trigger: 'blur'}],
+                    // commontperson: [
+                    //     {
+                    //         required: true,
+                    //         message: this.$t('normal.error_08') + this.$t('label.PFANS6002VIEW_COMMONTPERSON'),
+                    //         trigger: 'change'
+                    //     }],
+                    // // 联系电话
+                    // comtelephone: [
+                    //     {
+                    //         required: true,
+                    //         message: this.$t('normal.error_08') + this.$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION'),
+                    //         trigger: 'blur'
+                    //     },
+                    //     {validator: validateTel, trigger: 'blur'}],
+                    // // 电子邮箱
+                    // comnemail: [
+                    //     {
+                    //         required: true,
+                    //         message: this.$t('normal.error_08') + this.$t('label.PFANSUSERFORMVIEW_EMAILADDRESS'),
+                    //         trigger: 'blur'
+                    //     },
+                    //     {validator: checkemail, trigger: 'blur'}],
                     // 中文(地址)
                     addchinese: [
                         {
@@ -455,13 +455,13 @@
                         },
                     ],
                     // 人员规模
-                    perscale: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_09') + this.$t('label.PFANS6002VIEW_PERSCALE'),
-                            trigger: 'change'
-                        },
-                    ],
+                    // perscale: [
+                    //     {
+                    //         required: true,
+                    //         message: this.$t('normal.error_09') + this.$t('label.PFANS6002VIEW_PERSCALE'),
+                    //         trigger: 'change'
+                    //     },
+                    // ],
                   // 事业场编码
                   causecode: [
                     {
@@ -470,27 +470,27 @@
                       trigger: 'change'
                     },
                   ],
-                  prochinese: [
-                    {
-                      required: true,
-                      message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_CHINESE'),
-                      trigger: 'change'
-                    },
-                  ],
-                  projapanese: [
-                    {
-                      required: true,
-                      message: this.$t('normal.error_08') + this.$t('label.PFANS6002FORMVIEW_JAPANESE'),
-                      trigger: 'change'
-                    },
-                  ],
-                  proenglish: [
-                    {
-                      required: true,
-                      message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_ENGLISH'),
-                      trigger: 'change'
-                    },
-                  ],
+                  // prochinese: [
+                  //   {
+                  //     required: true,
+                  //     message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_CHINESE'),
+                  //     trigger: 'change'
+                  //   },
+                  // ],
+                  // projapanese: [
+                  //   {
+                  //     required: true,
+                  //     message: this.$t('normal.error_08') + this.$t('label.PFANS6002FORMVIEW_JAPANESE'),
+                  //     trigger: 'change'
+                  //   },
+                  // ],
+                  // proenglish: [
+                  //   {
+                  //     required: true,
+                  //     message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_ENGLISH'),
+                  //     trigger: 'change'
+                  //   },
+                  // ],
                 },
                 fileList: [],
                 upload: uploadUrl(),

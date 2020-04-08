@@ -349,20 +349,20 @@
                              width="200">
               <template slot-scope="scope">
                 <el-form-item :prop="'tabledata.' + scope.$index + '.currencyposition'" :rules='rules.currencyposition'>
-<!--                  <dicselect-->
-<!--                    :code="code9"-->
-<!--                    :data="scope.row.currencyposition"-->
-<!--                    :no="scope.row"-->
-<!--                    :multiple="multiple"-->
-<!--                    @change="getCurrencyposition"-->
-<!--                    style="width: 11rem"-->
-<!--                    :disabled="!disabled">-->
-<!--                  </dicselect>-->
-                  <el-select :no="scope.row" v-model="scope.row.currencyposition" @change="(val)=>{getCurrencyposition(val,scope.row)}" style="width: 11rem" :disabled="!disabled">
-                    <el-option v-for="(item,index) in options" :key="index" :value="item.value">
-                      {{item.value}}
-                    </el-option>
-                  </el-select>
+                 <dicselect
+                    :code="code9"
+                   :data="scope.row.currencyposition"
+                    :no="scope.row"
+                    :multiple="multiple"
+                   @change="getCurrencyposition"
+                    style="width: 11rem"
+                   :disabled="!disabled">
+                  </dicselect>
+                  <!--<el-select :no="scope.row" v-model="scope.row.currencyposition" @change="(val)=>{getCurrencyposition(val,scope.row)}" style="width: 11rem" :disabled="!disabled">-->
+                    <!--<el-option v-for="(item,index) in options" :key="index" :value="item.value">-->
+                      <!--{{item.value}}-->
+                    <!--</el-option>-->
+                  <!--</el-select>-->
                 </el-form-item>
               </template>
             </el-table-column>
@@ -422,7 +422,7 @@
                   <el-form-item :prop="'tabledata.' + scope.$index + '.custojapanese'" :rules='rules.custojapanese'>
                     <div class="">
                       <el-input class="content bg"
-                                :disabled="true"
+                                :disabled="!disabled"
                                 v-model="scope.row.custojapanese">
                         <el-button :disabled="!disabled" size="small" slot="append" icon="el-icon-search"
                                    @click="handleClickA(scope.row)"></el-button>
@@ -452,7 +452,7 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.custoenglish'" :rules='rules.custoenglish'>
-                    <el-input :disabled="true" v-model="scope.row.custoenglish">
+                    <el-input :disabled="!disabled" v-model="scope.row.custoenglish">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -462,7 +462,7 @@
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.custoabbreviation'"
                                 :rules='rules.custoabbreviation'>
-                    <el-input :disabled="true" v-model="scope.row.custoabbreviation">
+                    <el-input :disabled="!disabled" v-model="scope.row.custoabbreviation">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -471,7 +471,7 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.custochinese'" :rules="rules.custochinese">
-                    <el-input :disabled="true" v-model="scope.row.custochinese">
+                    <el-input :disabled="!disabled" v-model="scope.row.custochinese">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -506,7 +506,7 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.placejapanese'" :rules='rules.placejapanese'>
-                    <el-input :disabled="true" v-model="scope.row.placejapanese">
+                    <el-input :disabled="!disabled" v-model="scope.row.placejapanese">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -515,7 +515,7 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.placeenglish'" :rules='rules.placeenglish'>
-                    <el-input :disabled="true" v-model="scope.row.placeenglish">
+                    <el-input :disabled="!disabled" v-model="scope.row.placeenglish">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -524,7 +524,7 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.placechinese'" :rules='rules.placechinese'>
-                    <el-input :disabled="true" v-model="scope.row.placechinese">
+                    <el-input :disabled="!disabled" v-model="scope.row.placechinese">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -535,7 +535,7 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.responjapanese'">
-                    <el-input :disabled="true" v-model="scope.row.responjapanese">
+                    <el-input :disabled="!disabled" v-model="scope.row.responjapanese">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -544,7 +544,7 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.responerglish'" :rules='rules.responerglish'>
-                    <el-input :disabled="true" v-model="scope.row.responerglish">
+                    <el-input :disabled="!disabled" v-model="scope.row.responerglish">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -552,7 +552,7 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_PHONE')" align="center" prop="responphone" width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.responphone'" :rules='rules.responphone'>
-                    <el-input :disabled="true" v-model="scope.row.responphone">
+                    <el-input :disabled="!disabled" v-model="scope.row.responphone">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -560,7 +560,7 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_EMAIL')" align="center" prop="responemail" width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.responemail'">
-                    <el-input :disabled="true" v-model="scope.row.responemail">
+                    <el-input :disabled="!disabled" v-model="scope.row.responemail">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -1261,26 +1261,26 @@
     },
     mounted() {
       this.contractnumbercount = this.$route.params.contractnumbercount;
-      let option1 = {};
-      option1.name = getDictionaryInfo('PG019001').value1;
-      option1.code = 'PG019001';
-      option1.value = getDictionaryInfo('PG019001').value1;
-      let option2 = {};
-      option2.name = getDictionaryInfo('PG019002').value1;
-      option2.code = 'PG019002';
-      option2.value = getDictionaryInfo('PG019002').value1;
-      let option3 = {};
-      option3.name = getDictionaryInfo('PG019003').value1;
-      option3.code = 'PG019003';
-      option3.value = getDictionaryInfo('PG019003').value1;
-      let option4 = {};
-      option4.name = getDictionaryInfo('PG019004').value1;
-      option4.code = 'PG019004';
-      option4.value = getDictionaryInfo('PG019004').value1;
-      this.options.push(option1);
-      this.options.push(option2);
-      this.options.push(option3);
-      this.options.push(option4);
+      // let option1 = {};
+      // option1.name = getDictionaryInfo('PG019001').value1;
+      // option1.code = 'PG019001';
+      // option1.value = getDictionaryInfo('PG019001').value1;
+      // let option2 = {};
+      // option2.name = getDictionaryInfo('PG019002').value1;
+      // option2.code = 'PG019002';
+      // option2.value = getDictionaryInfo('PG019002').value1;
+      // let option3 = {};
+      // option3.name = getDictionaryInfo('PG019003').value1;
+      // option3.code = 'PG019003';
+      // option3.value = getDictionaryInfo('PG019003').value1;
+      // let option4 = {};
+      // option4.name = getDictionaryInfo('PG019004').value1;
+      // option4.code = 'PG019004';
+      // option4.value = getDictionaryInfo('PG019004').value1;
+      // this.options.push(option1);
+      // this.options.push(option2);
+      // this.options.push(option3);
+      // this.options.push(option4);
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
@@ -1290,9 +1290,9 @@
             let contractnumbercount = response.contractnumbercount;
             if (contractapplication.length > 0) {
               for (let i = 0; i < contractapplication.length; i++) {
-                if (contractapplication[i].currencyposition !== '' && contractapplication[i].currencyposition !== null) {
-                  contractapplication[i].currencyposition = getDictionaryInfo(contractapplication[i].currencyposition).value4;
-                }
+                // if (contractapplication[i].currencyposition !== '' && contractapplication[i].currencyposition !== null) {
+                //   contractapplication[i].currencyposition = getDictionaryInfo(contractapplication[i].currencyposition).value4;
+                // }
                   this.show3 = true;
                   this.maketype = contractapplication[i].maketype;
                   this.form1.claimtype = contractapplication[i].claimtype;
@@ -1922,20 +1922,11 @@
           entrycondition = letentrycondition.value2;
         }
         //契約書番号(契約種類 + 事業年度 + 上下期 + 社内組織番号)
-        //通し番号
-        let number = '0001';
-        if (this.contractnumbercount.toString().length === 1) {
-          number = '000' + this.contractnumbercount;
-        } else if (this.contractnumbercount.toString().length === 2) {
-          number = '00' + this.contractnumbercount;
-        } else if (this.contractnumbercount.toString().length === 3) {
-          number = '0' + this.contractnumbercount;
-        }
         if (this.checked) {
           this.letcontractnumber = this.form.contractnumber.split('-')[0] + letbook;
         } else {
           if(this.groupinfo[2] !== null){
-            this.letcontractnumber = abbreviation + applicationdate + entrycondition + this.groupinfo[2] + number + letbook;
+            this.letcontractnumber = abbreviation + applicationdate + entrycondition + this.groupinfo[2] + letbook;
           } else {
             Message({
               message: this.$t("normal.error_14"),
@@ -1949,7 +1940,7 @@
         let isClone = false;
         if (this.checked) {
           for (let i = 0; i < this.form.tabledata.length; i++) {
-            this.form.tabledata[i].state = '0';
+            this.form.tabledata[i].state = this.$t('label.PFANS8008FORMVIEW_INVALID');
             if (this.form.tabledata[0].deliverycondition == 'HT009002') {
               isClone = true;
             }
@@ -2112,13 +2103,14 @@
         for (let i = 0; i < this.form.tabledata.length; i++) {
           let o = {};
           Object.assign(o, this.form.tabledata[i]);
-          if(this.form.tabledata[i].currencyposition !== '' && this.form.tabledata[i].currencyposition !== null){
-            for(let k = 0;k < this.options.length;k++){
-              if(this.form.tabledata[i].currencyposition === this.options[k].value){
-                o.currencyposition = this.options[k].code;
-              }
-            }
-          }
+          // if(this.form.tabledata[i].currencyposition !== '' && this.form.tabledata[i].currencyposition !== null){
+          //   for(let k = 0;k < this.options.length;k++){
+          //     if(this.form.tabledata[i].currencyposition === this.options[k].value){
+          //       // o.currencyposition = this.options[k].code;
+          //         o.currencyposition = this.options[k].value;
+          //     }
+          //   }
+          // }
           o.claimdatetime = this.getclaimdatetime(this.form.tabledata[i].claimdatetime);
           this.form.tabledata[i].contracttype = this.form.contracttype;
           o.contracttype = this.form.tabledata[i].contracttype;
@@ -2158,7 +2150,7 @@
           else if (this.form.contracttype === 'HT008009') {
             o.maketype = '9';
           }
-          if (this.form.tabledata[i].state === '1') {
+          // if (this.form.tabledata[i].state === this.$t('label.PFANS8008FORMVIEW_EFFECTIVE')) {
             let letclaimamount = 0;
             for (let j = 0; j < this.form.tableclaimtype.length; j++) {
               letclaimamount = letclaimamount + Number(this.form.tableclaimtype[j].claimamount);
@@ -2169,7 +2161,7 @@
             }
             o.state = this.$t('label.PFANS8008FORMVIEW_EFFECTIVE');
             o.claimamount = letclaimamount;
-          }
+          // }
           if (Array.isArray(this.form.tabledata[i].conchinese)) {
             o.conchinese = this.form.tabledata[i].conchinese.join(',');
           }
