@@ -299,15 +299,18 @@
                     width="150"
                     align="center"
                   >
+                    <!-- zqu start -->
                     <template slot-scope="scope">
                       <el-input-number
                         v-model="scope.row.other3"
+                        @change="wagesChange(scope.row.no,scope.row.other3,'1')"
                         controls-position="right"
                         :min="0"
                         size="mini"
                         style="width:7rem"
                       ></el-input-number>
                     </template>
+                    <!-- zqu end -->
                   </plx-table-column>
                   <plx-table-column
                     prop="total2"
@@ -388,6 +391,7 @@
                     <template slot-scope="scope">
                       <el-input-number
                         v-model="scope.row.adjustment"
+                        @change="wagesChange(scope.row.no,scope.row.adjustment,'2')"
                         controls-position="right"
                         :min="0"
                         size="mini"
@@ -3116,6 +3120,31 @@ export default {
     // dom.addEventListener("scroll", this.handleScroll, true);
   },
   methods: {
+    wagesChange(noId, val, temp) {
+      this.totaldata.forEach(function(item, index) {
+        if (item.no === noId) {
+          if (temp === "1") {
+            // 保留小记2初始值，因为多次修改会造成数据累加，从而不正确
+            if (!item.total2init) {
+              item.total2init = item.total2;
+            }
+            // 小记2 = 小记2 + 其他3
+            item.total2 =
+              val && val > 0
+                ? parseInt(item.total2init) + parseInt(val)
+                : item.total2init;
+          } else if (temp === "2") {
+            if (!item.adjustment) {
+              item.adjustmentInit = item.adjustment;
+            }
+            // 调整数修改，个人社会保险(専項控除)随之变化
+            console.log(item.adjustmentInit)
+            console.log(val && val > 0)
+            item.socialinsurance = val && val > 0 ? val : item.adjustmentInit;
+          }
+        }
+      });
+    },
     // todo by skaixx : 滚动条滑动handeler
     // handleScroll(e) {
     //   let parentNode = e.srcElement;
