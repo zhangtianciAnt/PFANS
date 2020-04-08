@@ -305,7 +305,7 @@
                         v-model="scope.row.other3"
                         @change="wagesChange(scope.row.no,scope.row.other3,'1')"
                         controls-position="right"
-                        :min="0"
+                        :min="-10000000"
                         size="mini"
                         style="width:7rem"
                       ></el-input-number>
@@ -393,7 +393,7 @@
                         v-model="scope.row.adjustment"
                         @change="wagesChange(scope.row.no,scope.row.adjustment,'2')"
                         controls-position="right"
-                        :min="0"
+                        :min="-10000000"
                         size="mini"
                         style="width:7rem"
                       ></el-input-number>
@@ -491,7 +491,7 @@
                       <el-input-number
                         v-model="scope.row.thisadjustment"
                         controls-position="right"
-                        :min="0"
+                        :min="-10000000"
                         size="mini"
                         style="width:7rem"
                       ></el-input-number>
@@ -568,7 +568,7 @@
                       <el-input-number
                         v-model="scope.row.totaladjustment"
                         controls-position="right"
-                        :min="0"
+                        :min="-10000000"
                         size="mini"
                         style="width:7rem"
                       ></el-input-number>
@@ -620,7 +620,7 @@
                       <el-input-number
                         v-model="scope.row.other6"
                         controls-position="right"
-                        :min="0"
+                        :min="-10000000"
                         size="mini"
                         style="width:7rem"
                       ></el-input-number>
@@ -991,7 +991,7 @@
                           v-if="scope.row.type === '1'"
                           v-model="scope.row.moneys"
                           controls-position="right"
-                          :min="0"
+                          :min="-10000000"
                           size="mini"
                           style="width:7rem"
                         ></el-input-number>
@@ -1656,7 +1656,7 @@
                         v-model="scope.row.thisdiligencetry"
                         controls-position="right"
                         @change="thisMonthLacktimeChange(scope.row)"
-                        :min="0"
+                        :min="-10000000"
                         size="mini"
                         style="width:7rem"
                       ></el-input-number>
@@ -1675,7 +1675,7 @@
                         v-model="scope.row.thisshortdeficiencytry"
                         controls-position="right"
                         @change="thisMonthLacktimeChange(scope.row)"
-                        :min="0"
+                        :min="-10000000"
                         size="mini"
                         style="width:7rem"
                       ></el-input-number>
@@ -1694,7 +1694,7 @@
                         v-model="scope.row.thischronicdeficiencytry"
                         controls-position="right"
                         @change="thisMonthLacktimeChange(scope.row)"
-                        :min="0"
+                        :min="-10000000"
                         size="mini"
                         style="width:7rem"
                       ></el-input-number>
@@ -1713,7 +1713,7 @@
                         v-model="scope.row.thisdiligenceformal"
                         controls-position="right"
                         @change="thisMonthLacktimeChange(scope.row)"
-                        :min="0"
+                        :min="-10000000"
                         size="mini"
                         style="width:7rem"
                       ></el-input-number>
@@ -1732,7 +1732,7 @@
                         v-model="scope.row.thisshortdeficiencyformal"
                         controls-position="right"
                         @change="thisMonthLacktimeChange(scope.row)"
-                        :min="0"
+                        :min="-10000000"
                         size="mini"
                         style="width:7rem"
                       ></el-input-number>
@@ -1751,7 +1751,7 @@
                         v-model="scope.row.thischronicdeficiencyformal"
                         controls-position="right"
                         @change="thisMonthLacktimeChange(scope.row)"
-                        :min="0"
+                        :min="-10000000"
                         size="mini"
                         style="width:7rem"
                       ></el-input-number>
@@ -1909,7 +1909,7 @@
                         v-model="scope.row.thisweekdays"
                         controls-position="right"
                         @change="thisMonthOvertimeChange(scope.row)"
-                        :min="0"
+                        :min="-10000000"
                         size="mini"
                         style="width:7rem"
                       ></el-input-number>
@@ -1926,7 +1926,7 @@
                         v-model="scope.row.thisrestDay"
                         controls-position="right"
                         @change="thisMonthOvertimeChange(scope.row)"
-                        :min="0"
+                        :min="-10000000"
                         size="mini"
                         style="width:7rem"
                       ></el-input-number>
@@ -1943,7 +1943,7 @@
                         v-model="scope.row.thislegal"
                         controls-position="right"
                         @change="thisMonthOvertimeChange(scope.row)"
-                        :min="0"
+                        :min="-10000000"
                         size="mini"
                         style="width:7rem"
                       ></el-input-number>
@@ -1960,7 +1960,7 @@
                         v-model="scope.row.thisreplace"
                         controls-position="right"
                         @change="thisMonthOvertimeChange(scope.row)"
-                        :min="0"
+                        :min="-10000000"
                         size="mini"
                         style="width:7rem"
                       ></el-input-number>
@@ -1977,7 +1977,7 @@
                         v-model="scope.row.thisreplace3"
                         controls-position="right"
                         @change="thisMonthOvertimeChange(scope.row)"
-                        :min="0"
+                        :min="-10000000"
                         size="mini"
                         style="width:7rem"
                       ></el-input-number>
@@ -3129,18 +3129,17 @@ export default {
               item.total2init = item.total2;
             }
             // 小记2 = 小记2 + 其他3
-            item.total2 =
-              val && val > 0
-                ? parseInt(item.total2init) + parseInt(val)
-                : item.total2init;
+            item.total2 = val
+              ? (parseFloat(item.total2init) + parseFloat(val)).toFixed(2)
+              : item.total2init;
           } else if (temp === "2") {
             if (!item.adjustment) {
               item.adjustmentInit = item.adjustment;
             }
             // 调整数修改，个人社会保险(専項控除)随之变化
-            console.log(item.adjustmentInit)
-            console.log(val && val > 0)
-            item.socialinsurance = val && val > 0 ? val : item.adjustmentInit;
+            console.log(item.adjustmentInit);
+            console.log(val);
+            item.socialinsurance = val ? val.toFixed(2) : item.adjustmentInit;
           }
         }
       });
