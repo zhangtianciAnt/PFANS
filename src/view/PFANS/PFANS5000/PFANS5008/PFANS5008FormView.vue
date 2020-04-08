@@ -693,7 +693,7 @@
           }
         }
         this.companyform.project_id = val;
-
+        if (val != 'PP024001') {
           this.form = {};
           this.form.log_date = moment(this.companyform.log_date).format('YYYY-MM-DD');
           this.loading = true;
@@ -761,7 +761,7 @@
               });
               this.loading = false;
             });
-
+        }
       },
       rowclick(row, event, column) {
         this.row = row.logmanagementid;
