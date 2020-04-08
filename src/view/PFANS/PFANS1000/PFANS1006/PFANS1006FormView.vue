@@ -46,7 +46,7 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.judgement')" prop="judgement">
-                    <el-select @change="change" clearable v-model="form.judgement"
+                    <el-select @change="change" clearable v-model="form.judgements"
                                style="width: 20vw">
                       <el-option
                         :key="item.value"
@@ -322,7 +322,7 @@
         }
       };
       var validatejudgement = (rule, value, callback) => {
-        if (!this.form.judgement || this.form.judgement === '' || this.form.judgement === 'undefined') {
+        if (!this.form.judgements || this.form.judgements === '' || this.form.judgements === 'undefined') {
           return callback(new Error(this.$t('normal.error_09') + this.$t('label.judgement')));
         } else {
           return callback();
@@ -377,7 +377,7 @@
         tabIndex: 0,
         multiple: false,
         form: {
-          judgement: '',
+          judgements: '',
           user_id: '',
           center_id: '',
           group_id: '',
@@ -580,7 +580,7 @@
     methods: {
       change(val) {
         debugger
-        this.form.judgement = val;
+        this.form.judgements = val;
       },
       judgementlist() {
         let user_id = this.$store.getters.userinfo.userid;
