@@ -1245,7 +1245,7 @@
             type: '0',
             number: '',
             company: '',
-            name: this.$store.getters.userinfo.userid,
+            name: '',
             position: '',
             admissiontime: '',
             exittime: '',
@@ -1450,6 +1450,13 @@
             {
               required: true,
               message: this.$t('normal.error_08') + this.$t('label.user_name'),
+              trigger: 'blur',
+            },
+          ],
+          errorLeader: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS5001FORMVIEW_ENTRUST'),
               trigger: 'blur',
             },
           ],
@@ -1807,7 +1814,8 @@
             });
             this.loading = false;
           });
-      } else {
+      }
+      else {
         this.Numbers = 1;
         this.userlist = this.$store.getters.userinfo.userid;
         this.userlist1 = this.$store.getters.userinfo.userid;
