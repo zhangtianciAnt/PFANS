@@ -161,7 +161,7 @@
             <el-col :span="8">
               <template>
                 <el-form-item :label="$t('label.PFANS3006VIEW_WELCOMEBOARD')" prop="welcomeboard" v-show="show2">
-                  <span style="margin-right: 1vw ">{{$t('label.PFANSUSERFORMVIEW_NO')}}</span>`
+                  <span style="margin-right: 1vw ">{{$t('label.PFANSUSERFORMVIEW_NO')}}</span>
                   <el-switch
                     :disabled="!disable"
                     @change="downLoad"
@@ -176,7 +176,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3006VIEW_FELLOWMEMBERS')" prop="fellowmembers">
-                <span style="margin-right: 1vw ">{{$t('label.PFANSUSERFORMVIEW_NO')}}</span>`
+                <span style="margin-right: 1vw ">{{$t('label.PFANSUSERFORMVIEW_NO')}}</span>
                 <el-switch
                   :disabled="!disable"
                   v-model="form.fellowmembers"
