@@ -2117,6 +2117,11 @@
       // },
       getprojecttype(val1) {
         this.form.projecttype = val1;
+        if(this.form.projecttype === 'PP001002'){
+          this.workcode = 'W0008';
+        }else{
+          this.workcode = 'W0064';
+        }
       },
       getfield(val1) {
         this.form.field = val1;
