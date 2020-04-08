@@ -434,11 +434,12 @@
             message: this.$t('normal.error_08') + this.$t('label.PFANS1012VIEW_PAYEENAME'),
             trigger: 'change',
           }],
-          payeecode: [{
-            required: true,
-            message: this.$t('normal.error_08') + this.$t('label.PFANS1012VIEW_FOREIGNPAYEECODE'),
-            trigger: 'change',
-          },
+          payeecode: [
+          //   {
+          //   required: true,
+          //   message: this.$t('normal.error_08') + this.$t('label.PFANS1012VIEW_FOREIGNPAYEECODE'),
+          //   trigger: 'change',
+          // },
             {validator: validatePayeecode, trigger: 'blur'}],
           payeebankaccountnumber: [{
             required: true,
