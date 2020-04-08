@@ -1,5 +1,5 @@
 <template>
-  <div class="EasyNormalTable" style="min-height: 100%" element-loading-spinner="el-icon-loading">
+  <div class="EasyNormalTable" style="height: calc(100vh - 60px - 2rem)" element-loading-spinner="el-icon-loading">
     <el-card class="box-card">
       <div class="clearfix" slot="header" style="height: 20px" v-show="buttonShow">
         <easy-button-bar :data="buttonList" :systembutton="systembutton" @buttonClick="buttonClick"></easy-button-bar>
@@ -12,7 +12,7 @@
                   style="width: 25%;vertical-align:top" v-bind:prefix-icon="changeIcon" v-model="searchValue">
         </el-input>
       </div>
-      <div style="height: 400px;width: 100%">
+      <div style="height: calc(100vh - 60px - 15rem);width: 100%">
       <pl-table :datas="this.pagedate" :default-sort='defaultSort' :element-loading-text="$t('normal.waiting')" :row-key="rowid"
                 @filter-change="tableFilter" @row-click="rowClick" @row-dblclick="rowClick" @selection-change="handleSelectionChange" @sort-change="sortChange"
                 header-cell-class-name="sub_bg_color_blue" header-row-class-name="height" :pagination-show="paginationShow" :height-change="paginationShow"
