@@ -1924,7 +1924,6 @@
               vote2.entrypayment = response.contractapplication[i].entrypayment;
               vote2.theme = response.contractapplication[i].theme;
               this.gridData3.push(vote2);
-              console.log('aaa', this.gridData3);
             }
             this.loading = false;
           })
@@ -2308,6 +2307,12 @@
         });
       },
       deleteRow1(index, rows) {
+        if(index === 1){
+          rows[1].name = '';
+          rows[1].position = '';
+          rows[1].admissiontime = '';
+          rows[1].exittime = '';
+        }
         if (rows.length > 2) {
           rows.splice(index, 1);
         }
@@ -2579,6 +2584,7 @@
             for (let i = 0; i < this.tableB.length; i++) {
               // 社内员工进组时间&退出时间必须Check
               if ((!this.tableB[i].admissiontime || this.tableB[i].admissiontime === '' || !this.tableB[i].exittime || this.tableB[i].exittime === '') && this.tableB[i].name !== '') {
+                this.activeName ='fourth'
                 Message({
                   message: this.$t('normal.error_pfans50011'),
                   type: 'error',
@@ -2700,30 +2706,13 @@
               }
             }
 
-            for (let i = 0; i < this.tableB.length; i++) {
-              if (this.tableB[i].name == '' && this.tableB[i].admissiontime == '' && this.tableB[i].exittime == '') {
-                error1 = error1 + 1;
-              }
-            }
-            for (let i = 0; i < this.tableC.length; i++) {
-              if (this.tableC[i].name == '' && this.tableC[i].admissiontime == '' && this.tableC[i].exittime == '') {
-                error2 = error2 + 1;
-              }
-            }
             for (let i = 0; i < this.tableclaimtype.length; i++) {
               if (this.tableclaimtype[i].claimtype == '' || this.tableclaimtype[i].deliverydate == '' || this.tableclaimtype[i].completiondate == '' || this.tableclaimtype[i].claimdate == '' || this.tableclaimtype[i].supportdate == '' || this.tableclaimtype[i].claimamount == '') {
                 error3 = error3 + 1;
               }
             }
-            if (error1 != 0 && error2 != 0) {
-              this.loading = false;
-              Message({
-                message: this.$t('normal.error_08') +
-                  this.$t('label.PFANS5001FORMVIEW_SYSTEM'),
-                type: 'error',
-                duration: 5 * 1000,
-              });
-            } else if (error6 != 0) {
+          if (error6 != 0) {
+            this.activeName ='fourth'
               this.loading = false;
               Message({
                 message:
@@ -2732,6 +2721,7 @@
                 duration: 5 * 1000,
               });
             } else if (error4 != 0) {
+            this.activeName ='third'
               this.loading = false;
               Message({
                 message: this.$t('normal.error_08') +
@@ -2740,6 +2730,7 @@
                 duration: 5 * 1000,
               });
             } else if (error5 != 0) {
+            this.activeName ='second'
               this.loading = false;
               Message({
                 message: this.$t('normal.error_08') +
@@ -2748,6 +2739,7 @@
                 duration: 5 * 1000,
               });
             } else if (error != 0 && this.form.toolstype !== '1') {
+            this.activeName ='fifth'
               this.loading = false;
               Message({
                 message: this.$t('normal.error_08') +
@@ -2756,6 +2748,7 @@
                 duration: 5 * 1000,
               });
             } else if (error3 != 0 && this.form.toolstype !== '0') {
+            this.activeName ='fifth'
               this.loading = false;
               Message({
                 message: this.$t('normal.error_08') +
