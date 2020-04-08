@@ -5,7 +5,7 @@
       :title="title"
       @buttonClick="buttonClick"
       :canStart="canStart"
-      @end="end"
+      @end="end" :workflowCode="workcode"
       @start="start" @disabled="setdisabled"
       @workflowState="workflowState"
       ref="container"
@@ -1157,6 +1157,7 @@
         }
       };
       return {
+        workcode:'',
         tableclaimtype: [{
           claimtype: '',
           deliverydate: '',
@@ -1614,6 +1615,12 @@
             this.teamorglist = this.form.team_id;
             if (this.form.tools != '') {
               this.checkList = JSON.parse(this.form.tools);
+            }
+
+            if(this.form.projecttype === 'PP001002'){
+              this.workcode = 'W0008';
+            }else{
+              this.workcode = 'W0064';
             }
             //项目计划
             if (response.stageinformation.length > 0) {
@@ -2110,6 +2117,11 @@
       // },
       getprojecttype(val1) {
         this.form.projecttype = val1;
+        if(this.form.projecttype === 'PP001002'){
+          this.workcode = 'W0008';
+        }else{
+          this.workcode = 'W0064';
+        }
       },
       getfield(val1) {
         this.form.field = val1;
