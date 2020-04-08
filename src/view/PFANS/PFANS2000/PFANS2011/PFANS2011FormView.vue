@@ -57,11 +57,10 @@
               <el-form-item :label="$t('label.application_date')" prop="applicationdate">
                 <div class="block">
                   <el-date-picker
-                    :disabled="!disable"
+                    :disabled="true"
                     style="width:20vw"
                     type="date"
                     v-model="form.applicationdate"
-                    @change="changeApp"
                   ></el-date-picker>
                 </div>
               </el-form-item>
@@ -573,17 +572,13 @@
       }
     },
     methods: {
-      changeApp(val){
-        this.form.applicationdate = val;
-        this.getWorktime();
-      },
       getWorktime() {
         this.loading = true;
         this.$store
           .dispatch('PFANS2017Store/getFpans2017List', {})
           .then(response => {
             for (let j = 0; j < response.length; j++) {
-              if (moment(this.form.applicationdate).format('YYYY-MM-DD') === moment(response[j].punchcardrecord_date).format('YYYY-MM-DD') && this.$store.getters.userinfo.userid === response[j].user_id) {
+              if (moment(this.form.reserveovertimedate).format('YYYY-MM-DD') === moment(response[j].punchcardrecord_date).format('YYYY-MM-DD') && this.$store.getters.userinfo.userid === response[j].user_id) {
                 let timeend = moment(response[j].time_end).format("HH:mm").replace(':', '.');
                 let worktime = Number(response[j].worktime);
                 let timeflg1 = timeend.substring(0,2);
@@ -595,8 +590,8 @@
                   this.form.worktime = 0.00;
                 }
               }
-              this.loading = false;
             }
+            this.loading = false;
           })
           .catch(error => {
             Message({
@@ -667,6 +662,7 @@
           });
       },
       changeReserveovertimedate() {
+        this.getWorktime();
         let letreserveovertimedate = moment(this.form.reserveovertimedate).format(
           'YYYY-MM-DD',
         );
