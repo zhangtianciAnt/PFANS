@@ -847,8 +847,9 @@
                   this.form.worktime = 0.00;
                 }
               }
-              this.loading = false;
+
             }
+            this.loading = false;
           })
           .catch(error => {
             Message({
@@ -1586,6 +1587,7 @@
         }
       },
       getErrorType(val) {
+        debugger
         this.form.worktime = '';
         this.form.lengthtime = '';
         this.typecheck = '';
