@@ -35,26 +35,6 @@
             </el-col>
           </el-row>
           <el-row >
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS3003VIEW_ECENTER')" prop="ecenter">
-                <el-input v-model="form.ecenter" :disabled="!disable" style="width:20vw"
-                          maxlength="20"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item :error="error" :label="$t('label.applicant')" prop="userid">
-                <user :disabled="true" :error="error" :selectType="selectType" :userlist="userlist"
-                      @getUserids="getUserids" style="width: 20vw"></user>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-            <el-form-item :label="$t('label.PFANS3003VIEW_EUSER_ID')" prop="euser_id">
-              <el-input v-model="form.euser_id" :disabled="!disable" style="width:20vw"
-                        maxlength="20"></el-input>
-            </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row >
             <!--            start(添加申请日期)  fjl 2020/04/08-->
             <el-col :span="8">
               <el-form-item :label="$t('label.application_date')" prop="applicationdate">
@@ -69,6 +49,27 @@
               </el-form-item>
             </el-col>
             <!--            end(添加申请日期)  fjl 2020/04/08-->
+            <el-col :span="8">
+              <el-form-item :error="error" :label="$t('label.applicant')" prop="userid">
+                <user :disabled="true" :error="error" :selectType="selectType" :userlist="userlist"
+                      @getUserids="getUserids" style="width: 20vw"></user>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+            <el-form-item :label="$t('label.PFANS3003VIEW_EUSER_ID')" prop="euser_id">
+              <el-input v-model="form.euser_id" :disabled="!disable" style="width:20vw"
+                        maxlength="20"></el-input>
+            </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row >
+
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS3003VIEW_ECENTER')" prop="ecenter">
+                <el-input v-model="form.ecenter" :disabled="!disable" style="width:20vw"
+                          maxlength="20"></el-input>
+              </el-form-item>
+            </el-col>
             <el-col :span="8">
               <template>
                 <el-form-item :label="$t('label.PFANS3003VIEW_OCCUPATIONAL')" prop="occupational">

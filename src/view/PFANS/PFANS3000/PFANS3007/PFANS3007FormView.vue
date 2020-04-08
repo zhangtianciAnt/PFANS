@@ -41,16 +41,24 @@
                       @getUserids="getUserids" style="width: 20vw"></user>
               </el-form-item>
             </el-col>
+            <!--            start(添加申请日期)  fjl 2020/04/08-->
+            <el-col :span="8">
+              <el-form-item :label="$t('label.application_date')" prop="applicationdate">
+                <div class="block">
+                  <el-date-picker
+                    :disabled="!disable"
+                    style="width:20vw"
+                    type="date"
+                    v-model="form.applicationdate">
+                  </el-date-picker>
+                </div>
+              </el-form-item>
+            </el-col>
+            <!--            end(添加申请日期)  fjl 2020/04/08-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3007VIEW_BUSINESSCITY')" prop="businesscity">
                 <el-input :disabled="!disable" maxlength='20' style="width:20vw"
                           v-model="form.businesscity"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS3007VIEW_TRAVELCLUBPLACE')" prop="travelclubplace">
-                <el-input :disabled="!disable" maxlength='20' style="width:20vw"
-                          v-model="form.travelclubplace"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -73,20 +81,12 @@
                 </dicselect>
               </el-form-item>
             </el-col>
-            <!--            start(添加申请日期)  fjl 2020/04/08-->
             <el-col :span="8">
-              <el-form-item :label="$t('label.application_date')" prop="applicationdate">
-                <div class="block">
-                  <el-date-picker
-                    :disabled="!disable"
-                    style="width:20vw"
-                    type="date"
-                    v-model="form.applicationdate">
-                  </el-date-picker>
-                </div>
+              <el-form-item :label="$t('label.PFANS3007VIEW_TRAVELCLUBPLACE')" prop="travelclubplace">
+                <el-input :disabled="!disable" maxlength='20' style="width:20vw"
+                          v-model="form.travelclubplace"></el-input>
               </el-form-item>
             </el-col>
-            <!--            end(添加申请日期)  fjl 2020/04/08-->
           </el-row>
           <el-row >
             <el-col :span="8">
