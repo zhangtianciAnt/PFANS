@@ -311,7 +311,6 @@
                 this.buttonClick('update');
             },
             start(val) {
-              debugger
               if (val.state === '0') {
                 this.form.status = '2';
               }else if (val.state === '2') {
@@ -372,9 +371,11 @@
                             this.form.application_date = moment(this.form.application_date).format('YYYY-MM-DD');
                             this.baseInfo.purchaseApply = JSON.parse(JSON.stringify(this.form));
                             this.baseInfo.shoppingDetailed = [];
+                            let amountsum = 0;
                             for (let i = 0; i < this.tableD.length; i++) {
                                 if (this.tableD[i].projects !== '' || this.tableD[i].unitprice > 0 || this.tableD[i].numbers > 0 ||
                                     this.tableD[i].amount > 0 || this.tableD[i].remarks !== '') {
+                                  amountsum += parseFloat(this.tableD[i].amount)
                                     this.baseInfo.shoppingDetailed.push(
                                         {
                                             shoppingdetailed_id: this.tableD[i].shoppingdetailed_id,
@@ -388,50 +389,62 @@
                                     );
                                 }
                             }
+                          let error = 0;
+                          if(amountsum === 0){
+                            error = error+1;
+                            Message({
+                              message: this.$t("label.PFANS1017VIEW_MINGXI") + this.$t("label.PFANS1025VIEW_AWARDMONEY") + this.$t("label.PFANS1004FORMVIEW_ERROR"),
+                              type: 'error',
+                              duration: 5 * 1000
+                            });
+                            this.loading = false;
+                          }
+                          if(error===0){
                             if (this.$route.params._id) {
-                                this.baseInfo.purchaseApply.purchaseApply_id = this.$route.params._id;
-                                this.$store
-                                    .dispatch('PFANS1005Store/update', this.baseInfo)
-                                    .then(response => {
-                                        this.data = response;
-                                        this.loading = false;
-                                        if (val !== 'update') {
-                                            this.$message({
-                                                message: this.$t('normal.success_02'),
-                                                type: 'success',
-                                            });
-                                            this.paramsTitle();
-                                        }
-                                    })
-                                    .catch(error => {
-                                        Message({
-                                            message: error,
-                                            type: 'error',
-                                            duration: 5 * 1000,
-                                        });
-                                        this.loading = false;
+                              this.baseInfo.purchaseApply.purchaseApply_id = this.$route.params._id;
+                              this.$store
+                                .dispatch('PFANS1005Store/update', this.baseInfo)
+                                .then(response => {
+                                  this.data = response;
+                                  this.loading = false;
+                                  if (val !== 'update') {
+                                    this.$message({
+                                      message: this.$t('normal.success_02'),
+                                      type: 'success',
                                     });
+                                    this.paramsTitle();
+                                  }
+                                })
+                                .catch(error => {
+                                  Message({
+                                    message: error,
+                                    type: 'error',
+                                    duration: 5 * 1000,
+                                  });
+                                  this.loading = false;
+                                });
                             } else {
-                                this.$store
-                                    .dispatch('PFANS1005Store/insert', this.baseInfo)
-                                    .then(response => {
-                                        this.data = response;
-                                        this.loading = false;
-                                        this.$message({
-                                            message: this.$t('normal.success_01'),
-                                            type: 'success',
-                                        });
-                                        this.paramsTitle();
-                                    })
-                                    .catch(error => {
-                                        Message({
-                                            message: error,
-                                            type: 'error',
-                                            duration: 5 * 1000,
-                                        });
-                                        this.loading = false;
-                                    });
+                              this.$store
+                                .dispatch('PFANS1005Store/insert', this.baseInfo)
+                                .then(response => {
+                                  this.data = response;
+                                  this.loading = false;
+                                  this.$message({
+                                    message: this.$t('normal.success_01'),
+                                    type: 'success',
+                                  });
+                                  this.paramsTitle();
+                                })
+                                .catch(error => {
+                                  Message({
+                                    message: error,
+                                    type: 'error',
+                                    duration: 5 * 1000,
+                                  });
+                                  this.loading = false;
+                                });
                             }
+                          }
                         }
                         else{
                             Message({

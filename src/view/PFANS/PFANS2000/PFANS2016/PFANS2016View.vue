@@ -154,10 +154,7 @@ export default {
             }
           } else {
             if (this.$i18n) {
-              response[j].lengthtime =
-                response[j].lengthtime === "8"
-                  ? this.$t("label.PFANS2016FORMVIEW_QUANTIAN")
-                  : this.$t("label.PFANS2011FROMVIEW_HALFDATE");
+              response[j].lengthtime = response[j].lengthtime === "4" ? this.$t("label.PFANS2011FROMVIEW_HALFDATE") : this.$t("label.PFANS2016FORMVIEW_QUANTIAN");
             }
           }
 
