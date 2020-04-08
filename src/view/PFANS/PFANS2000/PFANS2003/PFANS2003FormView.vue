@@ -255,6 +255,74 @@
               </el-form-item>
             </el-col>
           </el-row>
+<!--  wxl 4/8  start-->
+          <el-row>
+            <el-col :span="24">
+              <el-table
+                :data="tableData"
+                :summary-method="getAverage"
+                border stripe
+                show-summary
+                style="width:46vw"
+                header-cell-class-name="sub_bg_color_blue"
+              >
+                <el-table-column
+                  :label="$t('label.PFANS2002FORMVIEW_INTERVIEWER')"
+                  align="center"
+                  prop="interviewer"
+                >
+                  <template slot-scope="scope">
+                    <user
+                      :disabled="!disabled"
+                      :no="scope.row"
+                      :userlist="scope.row.interviewer"
+                      @getUserids="getInterviewerids"
+                      selectType="Single"
+                      style="width:100%"
+                    ></user>
+                  </template>
+                </el-table-column>
+                <el-table-column
+                  :label="$t('label.PFANS2002FORMVIEW_SCORE')"
+                  align="center"
+                  prop="score"
+                >
+                  <template slot-scope="scope">
+                    <el-input-number
+                      :disabled="!disabled"
+                      :max="10"
+                      :min="0"
+                      :precision="1"
+                      :step="0.1"
+                      v-model="scope.row.score"
+                      style="width:100%"
+                    ></el-input-number>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.operation')" align="center" width="200">
+                  <template slot-scope="scope">
+                    <el-button
+                      :disabled="!disabled"
+                      @click.native.prevent="deleteRow(scope.$index, tableData)"
+                      plain
+                      size="small"
+                      type="danger"
+                    >{{$t('button.delete')}}
+                    </el-button>
+                    <el-button
+                      :disabled="!disabled"
+                      @click="addRow()"
+                      plain
+                      size="small"
+                      type="primary"
+                    >{{$t('button.insert')}}
+                    </el-button>
+                  </template>
+                </el-table-column>
+              </el-table>
+            </el-col>
+          </el-row>
+<!--  wxl 4/8  end-->
         </el-form>
       </div>
     </EasyNormalContainer>
@@ -383,6 +451,12 @@
         title: 'title.PFANS2003VIEW',
         buttonList: [],
         multiple: false,
+        tableData: [
+            {
+                interviewer: '',
+                score: 0,
+            },
+        ],
         form: {
           interviewrecord_id: '',
           name: '',
@@ -410,6 +484,7 @@
           resultshows: '',
           remarks: '',
           nodeList: [],
+          interview: '',
         },
         List: '',
         code1: 'PR019',
@@ -518,6 +593,13 @@
           .dispatch('PFANS2003Store/getinterviewrecordOne', {'interviewrecord_id': this.$route.params._id})
           .then(response => {
             this.form = response;
+// wxl 4/8  start
+              this.changeOption(this.form, 'view');
+              if(this.form.interview){
+                  this.tableData = this.form.interview;
+              }
+// wxl 4/8  end
+            console.log("this.form.interview",this.form.interview)
             this.getsource(this.form.source);
             this.userlist = this.form.member;
             if (this.form.source === 'PR020001') {
@@ -563,6 +645,84 @@
       }
     },
     methods: {
+// wxl 4/8 面试官放到面试记录 start
+      changeOption(form, method) {
+            let arr = [
+                'other1',
+                'other2',
+                'resume',
+                'identity',
+                'diploma',
+                'experience',
+                'entry',
+                'report',
+                'ticket',
+                'health',
+            ];
+            if (method === 'save') {
+                for (var i in form) {
+                    if (arr.includes(i)) {
+                        form[i] = form[i] === true ? '0' : '1';
+                    }
+                }
+            } else if (method === 'view') {
+                for (var i in form) {
+                    if (i === 'interview') {
+                        form[i] = JSON.parse(form[i]);
+                    }
+                    if (arr.includes(i)) {
+                        form[i] = form[i] === '0' ? true : false;
+                    }
+                }
+            }
+        },
+      getAverage(param) {
+            this.form.interview = JSON.stringify(this.tableData);
+            const {columns, data} = param;
+            const sums = [];
+            columns.forEach((column, index) => {
+                if (index === 0) {
+                    sums[index] = this.$t('label.PFANS2002FORMVIEW_AVESCORE');
+                    return;
+                }
+                const values = data.map(item => Number(item[column.property]));
+                if (!values.every(value => isNaN(value))) {
+                    sums[index] = values.reduce((prev, curr) => {
+                        const value = Number(curr);
+                        if (!isNaN(value)) {
+                            return prev + curr;
+                        } else {
+                            return prev;
+                        }
+                    }, 0);
+                } else {
+                    sums[index] = '';
+                }
+            });
+            sums[1] = Math.round(sums[1] / param.data.length * 100) / 100;
+            return sums;
+        },
+
+      getInterviewerids(userlist, row) {
+            row.interviewer = userlist;
+        },
+
+      deleteRow(index, rows) {
+            if (rows.length > 1) {
+                rows.splice(index, 1);
+            } else {
+                this.tableData[0].interviewer = '';
+                this.tableData[0].score = 0;
+            }
+        },
+
+      addRow() {
+            this.tableData.push({
+                interviewer: '',
+                score: 0,
+            });
+        },
+// wxl 4/8 面试官放到面试记录 end
       setdisabled(val){
         if(this.$route.params.disabled){
           this.disabled = val;
@@ -663,6 +823,7 @@
               this.form.recommenddep = '';
             }
             this.form.result = this.modelresult;
+              this.changeOption(this.form, 'save');
             if (this.$route.params._id) {
               this.form.interviewrecord_id = this.$route.params._id;
               this.$store
