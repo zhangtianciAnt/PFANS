@@ -119,15 +119,15 @@
                         .dispatch('PFANS1012Store/selectJudgement', {})
                         .then(response => {
                             for (let i = 0; i < response.length; i++) {
-
-                                    if (response[i].createon !== null && response[i].createon !== "") {
-                                        response[i].createon = moment(response[i].createon).format("YYYY-MM-DD");
-                                    }
-                                    var vote = {};
-                                    vote.value = response[i].judgementid;
-                                    vote.label = this.$t('menu.PFANS1004') + '_' + response[i].createon;
-                                    this.options.push(vote)
-
+                              if (user_id === response[i].user_id) {
+                                if (response[i].createon !== null && response[i].createon !== "") {
+                                  response[i].createon = moment(response[i].createon).format("YYYY-MM-DD");
+                                }
+                                var vote = {};
+                                vote.value = response[i].judgementid;
+                                vote.label = this.$t('menu.PFANS1004') + '_' + response[i].createon;
+                                this.options.push(vote)
+                              }
                             }
                             this.loading = false;
                         })
