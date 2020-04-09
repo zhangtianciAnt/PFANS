@@ -142,7 +142,8 @@
                                 style="width:20vw" type="date" v-model="form.occurrencedate"></el-date-picker>
               </el-form-item>
             </el-col>
-            <el-col :span="8">
+            <el-col :span="8"
+                    v-if="form.status != '4' && form.status != '5' && form.status != '6' && form.status != '7'">
               <el-form-item :label="$t('label.enddate')" prop="finisheddate">
                 <el-date-picker :disabled="!disable" @change="change"
                                 style="width:20vw" type="date" v-model="form.finisheddate"></el-date-picker>
@@ -198,10 +199,18 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.restartdate')" prop="reoccurrencedate">
                 <el-date-picker @change="rechange"
-                                :disabled="form.errortype != 'PR013014' && (form.status === '5' || form.status === '7' || form.status === '4')"
+                                :disabled="(form.errortype === 'PR013005' || form.errortype === 'PR013007' || form.errortype === 'PR013009') && form.status === '4' ? false : true"
                                 style="width:20vw" type="date" v-model="form.reoccurrencedate"></el-date-picker>
               </el-form-item>
             </el-col>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.reenddate')" prop="refinisheddate">
+                <el-date-picker @change="rechange"
+                                :disabled="(form.errortype === 'PR013005' || form.errortype === 'PR013007' || form.errortype === 'PR013009') && form.status === '4' ? false : true"
+                                style="width:20vw" type="date" v-model="form.refinisheddate"></el-date-picker>
+              </el-form-item>
+            </el-col>
+          </el-row>
             <!--            <el-col :span="8"-->
             <!--                    v-if="form.errortype != 'PR013001'&&form.errortype != 'PR013005'&&form.errortype != 'PR013006'&&form.errortype != 'PR013007'">-->
             <!--              <el-form-item :error="reerrorstarttime" :label="$t('label.restart')" prop="reperiodstart">-->
@@ -231,16 +240,16 @@
             <!--                </el-select>-->
             <!--              </el-form-item>-->
             <!--            </el-col>-->
-          </el-row>
-          <el-row
-            v-if="form.errortype != 'PR013014' &&(form.status === '4' || form.status === '5' || form.status === '6' || form.status === '7')">
-            <el-col :span="8"
-                    v-if="form.errortype != 'PR013001'&& form.errortype != 'PR013005'&&form.errortype != 'PR013007'&&this.typecheck!='1'&&this.typecheck!='2'">
-              <el-form-item :label="$t('label.reenddate')" prop="refinisheddate">
-                <el-date-picker @change="rechange" :disabled="form.status === '5' || form.status === '7' "
-                                style="width:20vw" type="date" v-model="form.refinisheddate"></el-date-picker>
-              </el-form-item>
-            </el-col>
+<!--          </el-row>-->
+<!--          <el-row-->
+<!--            v-if="form.errortype != 'PR013014' &&(form.status === '4' || form.status === '5' || form.status === '6' || form.status === '7')">-->
+<!--            <el-col :span="8"-->
+<!--                    v-if="form.errortype != 'PR013001'&& form.errortype != 'PR013005'&&form.errortype != 'PR013007'&&this.typecheck!='1'&&this.typecheck!='2'">-->
+<!--              <el-form-item :label="$t('label.reenddate')" prop="refinisheddate">-->
+<!--                <el-date-picker @change="rechange" :disabled="form.status === '5' || form.status === '7' "-->
+<!--                                style="width:20vw" type="date" v-model="form.refinisheddate"></el-date-picker>-->
+<!--              </el-form-item>-->
+<!--            </el-col>-->
             <!--            <el-col :span="8"-->
             <!--                    v-if="form.errortype != 'PR013001'&&form.errortype != 'PR013005'&&form.errortype != 'PR013006'&&form.errortype != 'PR013007'">-->
             <!--              <el-form-item :error="reerrorendtime" :label="$t('label.reend')" prop="reperiodend">-->
@@ -252,7 +261,7 @@
             <!--                </el-time-picker>-->
             <!--              </el-form-item>-->
             <!--            </el-col>-->
-          </el-row>
+<!--          </el-row>-->
           <el-row v-show="form.errortype == 'PR013016' ? true : false">
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2016FORMVIEW_HOSPITAL')" prop="hospital">
@@ -650,9 +659,19 @@
           //     trigger: 'change',
           // },
           //     {validator: validateEndtime, trigger: 'change'}],
-          reoccurrencedate: [,
+          reoccurrencedate: [
+            {
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.restartdate'),
+            trigger: 'change',
+            },
             {validator: revalidateStartdate, trigger: 'change'}],
           refinisheddate: [
+            {
+              required: true,
+              message: this.$t('normal.error_09') + this.$t('label.reenddate'),
+              trigger: 'change',
+            },
             {validator: revalidateEnddate, trigger: 'change'}],
           // reperiodstart: [
           //     {validator: revalidateStarttime, trigger: 'change'}],
@@ -757,7 +776,8 @@
             // if (this.form.status == '4' || this.form.status == '5' || this.form.status == '6' || this.form.status == '7') {
             //   this.checkfinisheddate = false;
             // }
-            if (this.form.status === '2' || this.form.status === '4') {
+            if (this.form.status === '2' || this.form.status === '4'
+              || this.form.status === '6'|| this.form.status === '7') {
               this.disable = false;
             }
             this.getOvertimelist();
@@ -831,12 +851,12 @@
       getWorktime() {
         this.loading = true;
         this.$store
-          .dispatch('PFANS2017Store/getFpans2017List', {})
+          .dispatch('PFANS2017Store/getFpans2017Listowner', {})
           .then(response => {
             for (let j = 0; j < response.length; j++) {
               if (moment(this.form.occurrencedate).format('YYYY-MM-DD') === moment(response[j].punchcardrecord_date).format('YYYY-MM-DD') && this.$store.getters.userinfo.userid === response[j].user_id) {
                 if(response[j].worktime > 0){
-                  this.form.worktime = (response[j].worktime).toFixed(0);
+                  this.form.worktime = Number((response[j].worktime)).toFixed(2);
                 } else {
                   this.form.worktime = 0.00;
                 }
@@ -861,6 +881,7 @@
       handleClick(val) {
         this.form.vacationtype = val;
         this.typecheck = val;
+        this.form.finisheddate = this.form.occurrencedate;
         if (val == '1' || val == '2') {
           // Message({
           //     message: this.$t('label.PFANS2016FORMVIEW_CHECKDAIXIUBANRI'),
@@ -870,7 +891,6 @@
           // this.checkfinisheddate = false;
           this.form.lengthtime = 4;
           // this.form.occurrencedate = moment(new Date()).format('YYYY-MM-DD');
-          this.form.finisheddate = this.form.occurrencedate;
         } else if (val == '0') {
           this.form.lengthtime = 8;
           // this.checkfinisheddate = true;
@@ -880,18 +900,21 @@
       rehandleClick(val) {
         this.form.revacationtype = val;
         this.typecheck = val;
+        this.form.refinisheddate = this.form.reoccurrencedate;
         if (val == '1' || val == '2') {
-          Message({
-            message: this.$t('label.PFANS2016FORMVIEW_CHECKDAIXIUBANRI'),
-            type: 'success',
-            duration: 5 * 1000,
-          });
-          this.form.reoccurrencedate = moment(new Date()).format('YYYY-MM-DD');
-          this.form.refinisheddate = '';
-          this.checkTimeLenght = 8;
+          // Message({
+          //   message: this.$t('label.PFANS2016FORMVIEW_CHECKDAIXIUBANRI'),
+          //   type: 'success',
+          //   duration: 5 * 1000,
+          // });
+          // this.form.reoccurrencedate = moment(new Date()).format('YYYY-MM-DD');
+          // this.form.refinisheddate = '';
+          // this.checkTimeLenght = 8;
+          this.form.relengthtime = 4;
         } else if (val == '0') {
-          this.form.reoccurrencedate = moment(new Date()).format('YYYY-MM-DD');
-          this.form.refinisheddate = moment(new Date()).format('YYYY-MM-DD');
+          this.form.relengthtime = 8;
+          // this.form.reoccurrencedate = moment(new Date()).format('YYYY-MM-DD');
+          // this.form.refinisheddate = moment(new Date()).format('YYYY-MM-DD');
         }
       },
       getTime(val) {
@@ -980,11 +1003,9 @@
               this.errorcheck = 1;
             }
           }
-        } else if (this.form.errortype === 'PR013009' || this.form.errortype === 'PR013010') {
+        } else if (this.form.errortype === 'PR013009') {
           let diffDate = moment(this.form.finisheddate).diff(moment(this.form.occurrencedate), 'days') + 1;
-          debugger;
-          if (this.form.errortype === 'PR013009') {
-            if (diffDate > 30 - this.sickleave) {
+            if (diffDate > 30 - this.sickleave || val / 8 > 30 - this.sickleave) {
               this.errorcheck = 2;
               Message({
                 message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
@@ -995,14 +1016,13 @@
             } else {
               this.errorcheck = 1;
             }
-          }
           for (let i = 0; i < diffDate; i++) {
             sum = sum + 1;
           }
           if (sum * 8 < val) {
             this.errorcheck = 2;
             Message({
-              message: this.$t('label.PFANS2016FORMVIEW_TIMENOCHECK'),
+              message: this.$t('label.PFANS2016FORMVIEW_WAICHUTIMENOCHECK'),
               type: 'error',
               duration: 5 * 1000,
             });
@@ -1011,7 +1031,6 @@
             this.errorcheck = 1;
           }
         }
-
       },
       getDay() {
         this.$store
@@ -1128,6 +1147,8 @@
         if(!this.form.finisheddate || !this.form.occurrencedate){
           return;
         }
+        this.form.lengthtime = 0;
+        let diffDate = moment(this.form.finisheddate).diff(moment(this.form.occurrencedate), 'days') + 1;
         if (this.form.errortype === 'PR013001') {
           // this.checklengthtime = false;
           this.getWorktime();
@@ -1136,6 +1157,19 @@
         }
         if (this.form.errortype === 'PR013014' || this.form.errortype === 'PR013005' || this.form.errortype === 'PR013007') {
           this.form.finisheddate = this.form.occurrencedate;
+        }
+        if (this.form.errortype === 'PR013009') {
+          if (diffDate > 30 - this.sickleave) {
+            this.errorcheck = 2;
+            Message({
+              message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            return;
+          } else {
+            this.errorcheck = 1;
+          }
         }
         // if (moment(this.form.occurrencedate).format('YYYY-MM-DD') === moment(this.form.finisheddate).format('YYYY-MM-DD')) {
         //   this.checklengthtime = false;
@@ -1235,14 +1269,31 @@
         // }
       },
       rechange() {
-        if (this.form.errortype === 'PR013001') {
-          this.checkrelengthtime = false;
-          this.form.refinisheddate = moment(new Date()).add(1, 'y').format('YYYY-MM-DD');
+        let rediffDate = moment(this.form.refinisheddate).diff(moment(this.form.reoccurrencedate), 'days') + 1;
+        if (this.form.errortype === 'PR013005' || this.form.errortype === 'PR013007') {
+          this.form.refinisheddate = this.form.reoccurrencedate;
         }
-        if (this.form.errortype === 'PR013014') {
-          // this.checklengthtime = true
-          this.form.refinisheddate = moment(new Date()).add(1, 'y').format('YYYY-MM-DD');
+        if (this.form.errortype === 'PR013009') {
+          if (rediffDate > 30 - this.sickleave) {
+            this.errorcheck = 2;
+            Message({
+              message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            return;
+          } else {
+            this.errorcheck = 1;
+          }
         }
+        // if (this.form.errortype === 'PR013001') {
+        //   this.checkrelengthtime = false;
+        //   this.form.refinisheddate = moment(new Date()).add(1, 'y').format('YYYY-MM-DD');
+        // }
+        // if (this.form.errortype === 'PR013014') {
+        //   // this.checklengthtime = true
+        //   this.form.refinisheddate = moment(new Date()).add(1, 'y').format('YYYY-MM-DD');
+        // }
         var getDate = function(str) {
           var tempDate = new Date();
           var list = str.split('-');
@@ -1535,7 +1586,6 @@
         }
       },
       getErrorType(val) {
-        debugger
         this.form.worktime = '';
         this.form.lengthtime = '';
         this.typecheck = '';
@@ -1589,12 +1639,12 @@
           this.checklengthtime = false;
           // this.checkfinisheddate = true;
           this.showVacation = true;
-        } else if (val === 'PR013010') {
-          this.checkerrortishi = false;
-          this.checkrelengthtime = false;
-          this.checklengthtime = false;
-          // this.checkfinisheddate = true;
-          this.showVacation = true;
+        // } else if (val === 'PR013010') {
+        //   this.checkerrortishi = false;
+        //   this.checkrelengthtime = false;
+        //   this.checklengthtime = false;
+        //   // this.checkfinisheddate = true;
+        //   this.showVacation = true;
         } else if (val === 'PR013011') {
           this.checkerrortishi = false;
           this.checkrelengthtime = true;
@@ -1671,6 +1721,16 @@
           this.form.status = '5';
         } else {
           this.form.status = '2';
+        }
+        if (this.form.errortype === 'PR013014') {
+          if (2 - this.parent <= 0) {
+            Message({
+              message: this.$t('label.PFANS2016FORMVIEW_BJDJZHCHECK'),
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            return;
+          }
         }
         this.buttonClick2('update');
       },

@@ -575,7 +575,7 @@
       getWorktime() {
         this.loading = true;
         this.$store
-          .dispatch('PFANS2017Store/getFpans2017List', {})
+          .dispatch('PFANS2017Store/getFpans2017Listowner', {})
           .then(response => {
             for (let j = 0; j < response.length; j++) {
               if (moment(this.form.reserveovertimedate).format('YYYY-MM-DD') === moment(response[j].punchcardrecord_date).format('YYYY-MM-DD') && this.$store.getters.userinfo.userid === response[j].user_id) {
