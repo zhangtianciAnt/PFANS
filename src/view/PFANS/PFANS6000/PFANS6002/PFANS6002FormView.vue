@@ -15,21 +15,21 @@
             <!--            中文-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1024VIEW_CHINESE')" prop="custchinese">
-                <el-input :disabled="!disabled" style="width:20vw"
+                <el-input :disabled="!disabled" style="width:20vw" maxlength='255'
                           v-model="form.custchinese"></el-input>
               </el-form-item>
             </el-col>
             <!--            日文-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6002FORMVIEW_JAPANESE')" prop="custjapanese">
-                <el-input :disabled="!disabled" style="width:20vw"
+                <el-input :disabled="!disabled" style="width:20vw" maxlength='255'
                           v-model="form.custjapanese"></el-input>
               </el-form-item>
             </el-col>
             <!--            英文-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1024VIEW_ENGLISH')" prop="custenglish">
-                <el-input :disabled="!disabled" style="width:20vw"
+                <el-input :disabled="!disabled" style="width:20vw" maxlength='255'
                           v-model="form.custenglish"></el-input>
               </el-form-item>
             </el-col>
@@ -39,21 +39,21 @@
             <!--            简称-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6002FORMVIEW_ABBREVIATION')" prop="abbreviation">
-                <el-input :disabled="!disabled" style="width:20vw"
+                <el-input :disabled="!disabled" style="width:20vw" maxlength='255'
                           v-model="form.abbreviation"></el-input>
               </el-form-item>
             </el-col>
             <!--            负责人-->
             <el-col :span="8">
               <el-form-item :label="$t('label.ASSETS1002VIEW_USERID')" prop="liableperson">
-                <el-input :disabled="!disabled" style="width:20vw"
+                <el-input :disabled="!disabled" style="width:20vw" maxlength='20'
                           v-model="form.liableperson"></el-input>
               </el-form-item>
             </el-col>
             <!--            所属公司-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6003FORMVIEW_THECOMPANY')" prop="thecompany">
-                <el-input :disabled="!disabled" style="width:20vw"
+                <el-input :disabled="!disabled" style="width:20vw" maxlength='50'
                           v-model="form.thecompany"></el-input>
               </el-form-item>
             </el-col>
@@ -76,7 +76,7 @@
                 <!--        事业场编码-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1024VIEW_BUSINESSCODE')" prop="causecode">
-                    <el-input :disabled="!disabled" style="width:20vw"
+                    <el-input :disabled="!disabled" style="width:20vw" maxlength='50'
                               v-model="form.causecode"></el-input>
                   </el-form-item>
                 </el-col>
@@ -97,21 +97,21 @@
             <!--            中文-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1024VIEW_CHINESE')" prop="prochinese">
-                <el-input :disabled="!disabled" style="width:20vw"
+                <el-input :disabled="!disabled" style="width:20vw" maxlength='20'
                           v-model="form.prochinese"></el-input>
               </el-form-item>
             </el-col>
             <!--            日文-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6002FORMVIEW_JAPANESE')" prop="projapanese">
-                <el-input :disabled="!disabled" style="width:20vw"
+                <el-input :disabled="!disabled" style="width:20vw" maxlength='255'
                           v-model="form.projapanese"></el-input>
               </el-form-item>
             </el-col>
             <!--            英文-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1024VIEW_ENGLISH')" prop="proenglish">
-                <el-input :disabled="!disabled" style="width:20vw"
+                <el-input :disabled="!disabled" style="width:20vw" maxlength='255'
                           v-model="form.proenglish"></el-input>
               </el-form-item>
             </el-col>
@@ -121,14 +121,14 @@
             <!--        联系电话-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')" prop="protelephone">
-                <el-input :disabled="!disabled" style="width:20vw"
+                <el-input :disabled="!disabled" style="width:20vw" maxlength='20'
                           v-model="form.protelephone"></el-input>
               </el-form-item>
             </el-col>
             <!--        邮箱地址-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANSUSERFORMVIEW_EMAILADDRESS')" prop="protemail">
-                <el-input :disabled="!disabled" style="width:20vw"
+                <el-input :disabled="!disabled" style="width:20vw" maxlength='20'
                           v-model="form.protemail"></el-input>
               </el-form-item>
             </el-col>
@@ -147,21 +147,21 @@
             <!--            共通事务联络人-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6002VIEW_COMMONTPERSON')" prop="commontperson">
-                <el-input :disabled="!disabled" style="width:20vw"
+                <el-input :disabled="!disabled" style="width:20vw" maxlength='20'
                           v-model="form.commontperson"></el-input>
               </el-form-item>
             </el-col>
             <!--        联系电话-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')" prop="comtelephone">
-                <el-input :disabled="!disabled" style="width:20vw"
+                <el-input :disabled="!disabled" style="width:20vw" maxlength='20'
                           v-model="form.comtelephone"></el-input>
               </el-form-item>
             </el-col>
             <!--        电子邮箱-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANSUSERFORMVIEW_EMAILADDRESS')" prop="comnemail">
-                <el-input :disabled="!disabled" style="width:20vw"
+                <el-input :disabled="!disabled" style="width:20vw" maxlength='20'
                           v-model="form.comnemail"></el-input>
               </el-form-item>
             </el-col>
@@ -179,21 +179,21 @@
             <!--            中文-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1024VIEW_CHINESE')" prop="addchinese">
-                <el-input :disabled="!disabled" style="width:20vw"
+                <el-input :disabled="!disabled" style="width:20vw" maxlength='255'
                           v-model="form.addchinese"></el-input>
               </el-form-item>
             </el-col>
             <!--            日文-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6002FORMVIEW_JAPANESE')" prop="addjapanese">
-                <el-input :disabled="!disabled" style="width:20vw"
+                <el-input :disabled="!disabled" style="width:20vw" maxlength='255'
                           v-model="form.addjapanese"></el-input>
               </el-form-item>
             </el-col>
             <!--            英文-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1024VIEW_ENGLISH')" prop="addenglish">
-                <el-input :disabled="!disabled" style="width:20vw"
+                <el-input :disabled="!disabled" style="width:20vw" maxlength='255'
                           v-model="form.addenglish"></el-input>
               </el-form-item>
             </el-col>
@@ -204,7 +204,7 @@
             <!--            网址-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6002FORMVIEW_WEBSITE')">
-                <el-input :disabled="!disabled" style="width:20vw"
+                <el-input :disabled="!disabled" style="width:20vw" maxlength='20'
                           v-model="form.website"></el-input>
               </el-form-item>
             </el-col>
