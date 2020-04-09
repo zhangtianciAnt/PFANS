@@ -82,10 +82,8 @@
                                type="index"></el-table-column>
               <el-table-column :label="$t('label.PFANS3005VIEW_USER')" align="center" prop="title" width="200">
                 <template slot-scope="scope">
-                  <el-form-item :prop="'tableD.' + scope.$index + '.title'" :rules='rules1.title'>
-                    <el-input v-model="scope.row.title" :no="scope.row" :disabled="!disabled"
-                              style="width: 10rem"></el-input>
-                  </el-form-item>
+                  <el-input v-model="scope.row.title" :no="scope.row" :disabled="!disabled"
+                            style="width: 10rem"></el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.center')" align="center" prop="detailcenter" width="200">
@@ -134,27 +132,23 @@
               <el-table-column :label="$t('label.PFANS1021FORMVIEW_STARTDATE')" align="center" prop="startdate"
                                width="200">
                 <template slot-scope="scope">
-                  <el-form-item :prop="'tableD.' + scope.$index + '.startdate'" :rules='rules1.startdate'>
-                    <el-date-picker :disabled="!disabled" :no="scope.row" type="date" v-model="scope.row.startdate"
-                                    style="width: 11rem"></el-date-picker>
-                  </el-form-item>
+                  <el-date-picker :disabled="!disabled" :no="scope.row" type="date" v-model="scope.row.startdate"
+                                  style="width: 11rem"></el-date-picker>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1021FORMVIEW_FABUILDING')" align="center" prop="fabuilding"
                                width="200" :error="errorFabuilding">
                 <template slot-scope="scope">
-                  <el-form-item :prop="'tableD.' + scope.$index + '.fabuilding'" :rules='rules1.fabuilding'>
-                    <dicselect
-                      :error="errorFabuilding"
-                      :no="scope.row"
-                      :code="code1"
-                      :data="scope.row.fabuilding"
-                      :multiple="multiplecheck"
-                      @change="getFabuilding"
-                      style="width: 11rem"
-                      :disabled="!disabled">
-                    </dicselect>
-                  </el-form-item>
+                  <dicselect
+                    :error="errorFabuilding"
+                    :no="scope.row"
+                    :code="code1"
+                    :data="scope.row.fabuilding"
+                    :multiple="multiplecheck"
+                    @change="getFabuilding"
+                    style="width: 11rem"
+                    :disabled="!disabled">
+                  </dicselect>
                 </template>
               </el-table-column>
               <!--              <el-table-column :label="$t('label.PFANS1021FORMVIEW_FBBUILDING')" align="center" prop="fbbuilding"  width="200">-->
@@ -347,31 +341,31 @@
         disabled: false,
         disabled1: false,
         menuList: [],
-        rules1: {
-          title: [{
-            required: true,
-            // message: this.$t('normal.error_09') + this.$t('label.applicant'),
-            validator: checktitle,
-            trigger: 'change',
-          }],
-          // entrymanager:[{
-          //   required: true,
-          //   // message: this.$t('normal.error_09') + this.$t('label.PFANS1021FORMVIEW_ENTRYMANAGER'),
-          //   validator: checkeNtrymanager,
-          //   trigger: 'change'
-          // }],
-          // fabuilding: [{
-          //   required: true,
-          //   // message: this.$t('normal.error_09') + this.$t('label.PFANS1021FORMVIEW_FABUILDING'),
-          //   validator: checkeFabuilding,
-          //   trigger: 'change',
-          // }],
-          startdate: [{
-            required: true,
-            message: this.$t('normal.error_09') + this.$t('label.PFANS1021FORMVIEW_STARTDATE'),
-            trigger: 'change',
-          }],
-        },
+        // rules1: {
+        //   title: [{
+        //     required: true,
+        //     // message: this.$t('normal.error_09') + this.$t('label.applicant'),
+        //     validator: checktitle,
+        //     trigger: 'change',
+        //   }],
+        // entrymanager:[{
+        //   required: true,
+        //   // message: this.$t('normal.error_09') + this.$t('label.PFANS1021FORMVIEW_ENTRYMANAGER'),
+        //   validator: checkeNtrymanager,
+        //   trigger: 'change'
+        // }],
+        // fabuilding: [{
+        //   required: true,
+        //   // message: this.$t('normal.error_09') + this.$t('label.PFANS1021FORMVIEW_FABUILDING'),
+        //   validator: checkeFabuilding,
+        //   trigger: 'change',
+        // }],
+        //   startdate: [{
+        //     required: true,
+        //     message: this.$t('normal.error_09') + this.$t('label.PFANS1021FORMVIEW_STARTDATE'),
+        //     trigger: 'change',
+        //   }],
+        // },
         rules: {
           user_id: [
             {
@@ -456,8 +450,8 @@
             if (response.securitydetail.length > 0) {
               this.form.tableD = response.securitydetail;
               if (this.form.tableD.length > 0) {
-                for(let m =0;m<this.form.tableD.length;m++){
-                  let letstaff = this.form.tableD[m].fabuilding.split(",");
+                for (let m = 0; m < this.form.tableD.length; m++) {
+                  let letstaff = this.form.tableD[m].fabuilding.split(',');
                   this.form.tableD[m].fabuilding = letstaff;
                 }
               }
@@ -537,7 +531,7 @@
       //         row.errorentrymanager = "";
       //     }
       // },
-      getFabuilding(val,row) {
+      getFabuilding(val, row) {
         row.fabuilding = val;
       },
       getSubtype(val) {
@@ -627,12 +621,12 @@
                 this.form.tableD[i].detailteam_id !== '' || this.form.tableD[i].phonenumber !== '' || this.form.tableD[i].emaildetail !== ''
                 || this.form.tableD[i].startdate !== '' || this.form.tableD[i].fabuilding !== '') {
                 let checktableD = '';
-                if(this.form.tableD[i].fabuilding!=''){
-                  let checktlist = this.form.tableD[i].fabuilding.splice(",");
+                if (this.form.tableD[i].fabuilding != '') {
+                  let checktlist = this.form.tableD[i].fabuilding.splice(',');
                   for (var m = 0; m < checktlist.length; m++) {
-                    checktableD = checktableD+checktlist[m] + ',';
+                    checktableD = checktableD + checktlist[m] + ',';
                   }
-                }else{
+                } else {
                   error1 = error1 + 1;
                 }
                 this.baseInfo.securitydetail.push(
@@ -646,7 +640,7 @@
                     phonenumber: this.form.tableD[i].phonenumber,
                     emaildetail: this.form.tableD[i].emaildetail,
                     startdate: this.form.tableD[i].startdate,
-                    fabuilding:checktableD.substring(0, checktableD.length - 1),
+                    fabuilding: checktableD.substring(0, checktableD.length - 1),
                     // fbbuilding: this.form.tableD[i].fbbuilding,
                     // showroom: this.form.tableD[i].showroom,
                     // entrymanager: this.form.tableD[i].entrymanager,
@@ -655,7 +649,6 @@
               }
             }
             let error = 0;
-
             let error2 = 0;
             let error3 = 0;
             for (let i = 0; i < this.form.tableD.length; i++) {
@@ -676,7 +669,7 @@
             if (error != 0) {
               Message({
                 message: this.$t('normal.error_08') +
-                  this.$t('label.applicant'),
+                  this.$t('label.PFANS3005VIEW_USER'),
                 type: 'error',
                 duration: 5 * 1000,
               });
