@@ -373,7 +373,6 @@
                       </div>
                     </el-form-item>
                   </el-col>
-
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_COMPANYNAME')" v-show="show5" prop="fullname">
                       <el-input :disabled="!disable" maxlength="20"
@@ -1502,6 +1501,16 @@
           });
         }
       }
+      //ADD-WS-个人编码修改
+      if (getUserInfo(this.$store.getters.userinfo.userid)) {
+        this.Codecheck = this.$store.getters.userinfo.userinfo.personalcode;
+        this.form.code = this.$store.getters.userinfo.userinfo.personalcode;
+        let num = getUserInfo(this.$store.getters.userinfo.userid).userinfo.extension;
+        if (num) {
+          this.form.telephone = num;
+        }
+      }
+      //ADD-WS-个人编码修改
       //ADD-WS-直接部门或间接部门赋值变更
       if (this.Redirict == '0') {
         let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ119');
@@ -1533,7 +1542,7 @@
         this.$store
           .dispatch('PFANS1012Store/selectById', {'publicexpenseid': this.$route.params._id})
           .then(response => {
-              this.form = response.publicexpense;
+            this.form = response.publicexpense;
               let rst = getOrgInfoByUserId(response.publicexpense.user_id);
               if (rst) {
                 this.centerid = rst.centerNmae;
@@ -1804,14 +1813,6 @@
             this.loading = false;
           });
       } else {
-        if (getUserInfo(this.$store.getters.userinfo.userid)) {
-          this.Codecheck = this.$store.getters.userinfo.userinfo.personalcode;
-          this.form.code = this.$store.getters.userinfo.userinfo.personalcode;
-          let num = getUserInfo(this.$store.getters.userinfo.userid).userinfo.extension;
-          if (num) {
-            this.form.telephone = num;
-          }
-        }
         if (getOrgInfoByUserId(this.$store.getters.userinfo.userid)) {
           this.groupId = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
           this.tableT[0].departmentname = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
