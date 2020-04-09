@@ -131,7 +131,7 @@
                         :disabled="!disabled"
                         :no="scope.row"
                         style="width: 100%"
-                        v-model="scope.row.exitime">
+                        v-model="scope.row.exittime">
                       </el-input>
                     </template>
                   </el-table-column>
@@ -709,13 +709,16 @@
           year: "",
         },
         tableData: [{
+            delegainformation_id: '',
+            companyprojects_id:'',
+            projectsystem_id:'',
           type: '',
           project_name: '',
           managerid: '',
           expname: '',
           suppliernameid: '',
           admissiontime: '',
-          exitime: '',
+          exittime: '',
           operationform: '',
           jobclassification: '',
           distriobjects: '',
@@ -779,8 +782,8 @@
               if (response[j].admissiontime !== null && response[j].admissiontime !== '') {
                 response[j].admissiontime = moment(response[j].admissiontime).format('YYYY-MM-DD');
               }
-              if (response[j].exitime !== null && response[j].exitime !== '') {
-                response[j].exitime = moment(response[j].exitime).format('YYYY-MM-DD');
+              if (response[j].exittime !== null && response[j].exittime !== '') {
+                response[j].exittime = moment(response[j].exittime).format('YYYY-MM-DD');
               }
               if (response[j].jobclassification !== null && response[j].jobclassification !== '') {
                 let letStage = getDictionaryInfo(response[j].jobclassification);
@@ -863,13 +866,19 @@
                 response[j].monthlength = h;
               }
                 tabledate.push({
+                    delegainformation_id: response[j].delegainformation_id,
+                    companyprojects_id: response[j].companyprojects_id,
+                    projectsystem_id: response[j].projectsystem_id,
+                    year: response[j].year,
+                    supplierinfor_id: response[j].supplierinfor_id,
+
                     type: 0,
                     project_name: response[j].project_name,
                     managerid: response[j].managerid,
                     expname: response[j].expname,
                     suppliernameid: response[j].suppliernameid,
                     admissiontime: response[j].admissiontime,
-                    exitime: response[j].exitime,
+                    exittime: response[j].exittime,
                     operationform: response[j].operationform,
                     jobclassification: response[j].jobclassification,
                     distriobjects: response[j].distriobjects,

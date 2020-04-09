@@ -583,7 +583,7 @@
           .dispatch('PFANS1012Store/selectJudgement', {})
           .then(response => {
             for (let i = 0; i < response.length; i++) {
-              if (user_id === response[i].user_id) {
+              if (user_id === response[i].user_id && response[i].equipment == '0') {
                 if (response[i].createon !== null && response[i].createon !== '') {
                   response[i].createon = moment(response[i].createon).format('YYYY-MM-DD');
                 }

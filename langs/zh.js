@@ -332,7 +332,7 @@ module.exports = {
     PFANS1041VIEW: '委託theme',
     PFANS1042VIEW: '成本结转表',
     PFANS1043VIEW: 'theme管理',
-    PFANS1044VIEW: '契約番号检索',
+    PFANS1044VIEW: '契約检索',
     PFANS2001VIEW: '招聘申请',
     PFANS2002VIEW: '招聘决裁',
     PFANS2003VIEW: '本社面试记录',

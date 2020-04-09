@@ -218,7 +218,7 @@
   import moment from 'moment';
   import {Message} from 'element-ui';
   import user from '../../../components/user.vue';
-  import {getOrgInfoByUserId} from '@/utils/customize';
+  import {getOrgInfoByUserId,getCurrentRole} from '@/utils/customize';
 
   export default {
     name: 'PFANS2011FormView',
@@ -575,7 +575,7 @@
       getWorktime() {
         this.loading = true;
         this.$store
-          .dispatch('PFANS2017Store/getFpans2017List', {})
+          .dispatch('PFANS2017Store/getFpans2017Listowner', {})
           .then(response => {
             for (let j = 0; j < response.length; j++) {
               if (moment(this.form.reserveovertimedate).format('YYYY-MM-DD') === moment(response[j].punchcardrecord_date).format('YYYY-MM-DD') && this.$store.getters.userinfo.userid === response[j].user_id) {
@@ -943,6 +943,10 @@
                   this.loading = false;
                 });
             } else {
+              //总经理审批自动通过
+              if(getCurrentRole() === "1"){
+                  this.form.status = '4';
+              }
               this.$store
                 .dispatch('PFANS2011Store/createOvertime', this.form)
                 .then(response => {

@@ -1,13 +1,14 @@
-import {creategiving,deleteFive,givinglist,deleteteappreciation, getDataList,getCasgiftApply,deleteothertwo,
-  deleteotherfour,save,deleteadditional,thisMonthLacktimeChange,thisMonthOvertimeChange
+import {
+  creategiving, deleteFive, givinglist, deleteteappreciation, getDataList, getCasgiftApply, deleteothertwo,
+  deleteotherfour, save, deleteadditional, thisMonthLacktimeChange, thisMonthOvertimeChange,insertWages
 } from './PFANS2005Api'
-import {updateNewUser} from "../../PFANS5000/PFANS5008/PFANS5008Api";
+import { updateNewUser } from "../../PFANS5000/PFANS5008/PFANS5008Api";
 const PFANS2005Store = {
   namespaced: true,
   state: {},
   mutations: {},
   actions: {
-    creategiving({commit}, data) {
+    creategiving({ commit }, data) {
       return new Promise((resolve, reject) => {
         creategiving(data).then(response => {
           if (response.code === 0) {
@@ -21,7 +22,7 @@ const PFANS2005Store = {
       })
     },
 
-    deleteothertwo({ commit },data) {
+    deleteothertwo({ commit }, data) {
       return new Promise((resolve, reject) => {
         deleteothertwo(data).then(response => {
           if (response.code === 0) {
@@ -35,7 +36,7 @@ const PFANS2005Store = {
       })
     },
 
-    deleteadditional({ commit },data) {
+    deleteadditional({ commit }, data) {
       return new Promise((resolve, reject) => {
         deleteadditional(data).then(response => {
           if (response.code === 0) {
@@ -49,7 +50,7 @@ const PFANS2005Store = {
       })
     },
 
-    deleteotherfour({ commit },data) {
+    deleteotherfour({ commit }, data) {
       return new Promise((resolve, reject) => {
         deleteotherfour(data).then(response => {
           if (response.code === 0) {
@@ -62,7 +63,7 @@ const PFANS2005Store = {
         })
       })
     },
-    deleteteappreciation({ commit },data) {
+    deleteteappreciation({ commit }, data) {
       return new Promise((resolve, reject) => {
         deleteteappreciation(data).then(response => {
           if (response.code === 0) {
@@ -75,7 +76,7 @@ const PFANS2005Store = {
         })
       })
     },
-    givinglist({ commit },data) {
+    givinglist({ commit }, data) {
       return new Promise((resolve, reject) => {
         givinglist(data).then(response => {
           if (response.code === 0) {
@@ -88,7 +89,7 @@ const PFANS2005Store = {
         })
       })
     },
-    deleteFive({ commit },data) {
+    deleteFive({ commit }, data) {
       return new Promise((resolve, reject) => {
         deleteFive(data).then(response => {
           if (response.code === 0) {
@@ -128,7 +129,7 @@ const PFANS2005Store = {
       })
     },
     //更新
-    save({commit}, data) {
+    save({ commit }, data) {
       return new Promise((resolve, reject) => {
         save(data).then(response => {
           if (response.code === 0) {
@@ -143,7 +144,7 @@ const PFANS2005Store = {
     },
 
     //本月加班数据变更时，重新计算加班费合计
-    thisMonthOvertimeChange({commit}, data) {
+    thisMonthOvertimeChange({ commit }, data) {
       return new Promise((resolve, reject) => {
         thisMonthOvertimeChange(data).then(response => {
           if (response.code === 0) {
@@ -157,7 +158,7 @@ const PFANS2005Store = {
       })
     },
     //本月欠勤数据变更时，重新计算欠勤费合计
-    thisMonthLacktimeChange({commit}, data) {
+    thisMonthLacktimeChange({ commit }, data) {
       return new Promise((resolve, reject) => {
         thisMonthLacktimeChange(data).then(response => {
           if (response.code === 0) {
@@ -170,9 +171,21 @@ const PFANS2005Store = {
         })
       })
     },
-
-
-
+    // zqu start insert wages
+    insertWages({ commit }, data) {
+      return new Promise((resolve, reject) => {
+        insertWages(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    }
+    // zqu end
   }
 };
 
