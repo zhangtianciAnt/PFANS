@@ -36,7 +36,7 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.application_date')" prop="application_date">
                 <el-date-picker
-                  :disabled="!disable"
+                  :disabled="true"
                   style="width:20vw"
                   type="date"
                   v-model="form.application_date">

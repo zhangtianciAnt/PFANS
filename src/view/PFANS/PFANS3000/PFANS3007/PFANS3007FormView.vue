@@ -46,7 +46,7 @@
               <el-form-item :label="$t('label.application_date')" prop="applicationdate">
                 <div class="block">
                   <el-date-picker
-                    :disabled="!disable"
+                    :disabled="true"
                     style="width:20vw"
                     type="date"
                     v-model="form.applicationdate">
