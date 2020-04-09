@@ -618,6 +618,7 @@
     color: white;
     margin: 0;
   }
+
   //ADD-WS-修改工作日设置日历当天颜色
   .fc-unthemed td.fc-today {
     background:cornsilk;
