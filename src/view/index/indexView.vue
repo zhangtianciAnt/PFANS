@@ -53,6 +53,7 @@
       <el-col :span="12" style="padding: 5px">
         <el-row style="height: 400px;max-height: 400px">
           <full-calendar
+            :dayRender="dayRender"
             :first-day="firstDay"
             :header="header"
             :locale="locale"
@@ -200,6 +201,54 @@ export default {
     EasyNumBar
   },
   methods: {
+    //ADD-WS-修改首页日历节假日颜色
+    getDay() {
+      this.$store
+        .dispatch('PFANS8007Store/getList', {})
+        .then(response => {
+          this.$store.commit("global/SET_DAYS", response);
+        })
+    },
+    dayRender: function (info) {
+      if (this.$store.getters.days != null) {
+        this.loading = true;
+        let response = this.$store.getters.days
+        for (let c = 0; c < response.length; c++) {
+          if (response[c].type == 1) {
+            if (moment(response[c].workingdate).format('YYYY-MM-DD') === moment(info.date).format('YYYY-MM-DD')) {
+              info.el.bgColor = '#df4848'
+            }
+          }
+          if (response[c].type == 2) {
+            if (moment(response[c].workingdate).format('YYYY-MM-DD') === moment(info.date).format('YYYY-MM-DD')) {
+              info.el.bgColor = '#999'
+            }
+          }
+          if (response[c].type == 3) {
+            if (moment(response[c].workingdate).format('YYYY-MM-DD') === moment(info.date).format('YYYY-MM-DD')) {
+              info.el.bgColor = '#005baa'
+            }
+          }
+          if (response[c].type == 4) {
+            if (moment(response[c].workingdate).format('YYYY-MM-DD') === moment(info.date).format('YYYY-MM-DD')) {
+              info.el.bgColor = '#f9e30e'
+            }
+          }
+          if (response[c].type == 5) {
+            if (moment(response[c].workingdate).format('YYYY-MM-DD') === moment(info.date).format('YYYY-MM-DD')) {
+              info.el.bgColor = 'magenta'
+            }
+          }
+          if (response[c].type == 6) {
+            if (moment(response[c].workingdate).format('YYYY-MM-DD') === moment(info.date).format('YYYY-MM-DD')) {
+              info.el.bgColor = 'green'
+            }
+          }
+        }
+        this.loading = false;
+      }
+    },
+    //ADD-WS-修改首页日历节假日颜色
     submitForm(val) {
       let url = "";
       if (val === 1) {
@@ -362,6 +411,9 @@ export default {
   mounted() {
     //获取个人信息
     this.InitUser();
+    //ADD-WS-修改首页日历节假日颜色
+    this.getDay();
+    //ADD-WS-修改首页日历节假日颜色
     this.$store.commit("global/SET_HISTORYURL", this.$route.path);
     this.getMessageData();
     this.getGSDT();
@@ -434,5 +486,11 @@ body .fc {
   margin-bottom: 12px !important;
   margin-left: 0px !important;
 }
+
+//ADD-WS-修改工作日设置日历当天颜色
+.fc-unthemed td.fc-today {
+  background:cornsilk;
+}
+//ADD-WS-修改工作日设置日历当天颜色
 </style>
 

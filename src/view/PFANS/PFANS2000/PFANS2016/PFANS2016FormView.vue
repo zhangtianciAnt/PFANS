@@ -713,7 +713,7 @@
     mounted() {
       this.getAbNormalParent();
       this.getSickleave();
-      this.getAttendance();
+      // this.getAttendance();
       this.getDay();
       if (this.$route.params._id) {
         this.loading = true;
@@ -868,20 +868,13 @@
           //     duration: 5 * 1000,
           // });
           // this.checkfinisheddate = false;
-          this.checkTimelenght = 4;
-          this.form.occurrencedate = moment(new Date()).format('YYYY-MM-DD');
+          this.form.lengthtime = 4;
+          // this.form.occurrencedate = moment(new Date()).format('YYYY-MM-DD');
           this.form.finisheddate = this.form.occurrencedate;
-          if(this.form.finisheddate !== this.form.occurrencedate){
-            Message({
-                message: this.$t('只能申请当天的异常'),
-                type: 'error',
-                duration: 5 * 1000,
-            });
-            return;
-          }
         } else if (val == '0') {
+          this.form.lengthtime = 8;
           // this.checkfinisheddate = true;
-          this.form.finisheddate = moment(new Date()).format('YYYY-MM-DD');
+          // this.form.finisheddate = moment(new Date()).format('YYYY-MM-DD');
         }
       },
       rehandleClick(val) {
@@ -973,59 +966,8 @@
               this.errorcheck = 1;
             }
           }
-          if (this.form.errortype === 'PR013008') {
-            if (sum * 8 < val) {
-              this.errorcheck = 2;
-              Message({
-                message: this.$t('label.PFANS2016FORMVIEW_WAICHUTIMENOCHECK'),
-                type: 'error',
-                duration: 5 * 1000,
-              });
-              return;
-            } else {
-              this.errorcheck = 1;
-            }
-          }
-          if (this.form.errortype === 'PR013016') {
-            if (sum * 8 < val) {
-              this.errorcheck = 2;
-              Message({
-                message: this.$t('label.PFANS2016FORMVIEW_WAICHUTIMENOCHECK'),
-                type: 'error',
-                duration: 5 * 1000,
-              });
-              return;
-            } else {
-              this.errorcheck = 1;
-            }
-          }
-          if (this.form.errortype === 'PR013018') {
-            if (sum * 8 < val) {
-              this.errorcheck = 2;
-              Message({
-                message: this.$t('label.PFANS2016FORMVIEW_WAICHUTIMENOCHECK'),
-                type: 'error',
-                duration: 5 * 1000,
-              });
-              return;
-            } else {
-              this.errorcheck = 1;
-            }
-          }
-          if (this.form.errortype === 'PR013019') {
-            if (sum * 8 < val) {
-              this.errorcheck = 2;
-              Message({
-                message: this.$t('label.PFANS2016FORMVIEW_WAICHUTIMENOCHECK'),
-                type: 'error',
-                duration: 5 * 1000,
-              });
-              return;
-            } else {
-              this.errorcheck = 1;
-            }
-          }
-          if (this.form.errortype === 'PR013014') {
+          if (this.form.errortype === 'PR013008' || this.form.errortype === 'PR013014'|| this.form.errortype === 'PR013016'
+            || this.form.errortype === 'PR013018'|| this.form.errortype === 'PR013019') {
             if (sum * 8 < val) {
               this.errorcheck = 2;
               Message({
@@ -1183,16 +1125,18 @@
           });
       },
       change() {
+        if(!this.form.finisheddate || !this.form.occurrencedate){
+          return;
+        }
         if (this.form.errortype === 'PR013001') {
           // this.checklengthtime = false;
           this.getWorktime();
           this.form.finisheddate = this.form.occurrencedate;
           // this.form.finisheddate = moment(new Date()).add(1, 'y').format('YYYY-MM-DD');
         }
-        // if (this.form.errortype === 'PR013014') {
-        //   this.checklengthtime = true;
-        //   this.form.finisheddate = moment(new Date()).add(1, 'y').format('YYYY-MM-DD');
-        // }
+        if (this.form.errortype === 'PR013014' || this.form.errortype === 'PR013005' || this.form.errortype === 'PR013007') {
+          this.form.finisheddate = this.form.occurrencedate;
+        }
         // if (moment(this.form.occurrencedate).format('YYYY-MM-DD') === moment(this.form.finisheddate).format('YYYY-MM-DD')) {
         //   this.checklengthtime = false;
         // }

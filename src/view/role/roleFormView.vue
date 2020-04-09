@@ -47,7 +47,7 @@
               <el-row>
                 <el-col :offset="3" :span="16">
                   <el-form-item label="是否默认角色:">
-                    <span style="margin-right: 1vw ">{{$t('label.no')}}</span>`
+                    <span style="margin-right: 1vw ">{{$t('label.no')}}</span>
                     <el-switch v-model="roleForm.defaultrole"></el-switch>
                     <span style="margin-left: 1vw ">{{$t('label.yes')}}</span>
                   </el-form-item>
