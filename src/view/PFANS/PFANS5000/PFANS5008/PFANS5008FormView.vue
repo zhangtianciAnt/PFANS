@@ -582,7 +582,6 @@
                 lable: response[i].project_name,
               });
             }
-            console.log('aaa', this.optionsdata);
             this.loading = false;
           })
           .catch(error => {
@@ -632,7 +631,6 @@
       getAttendancelist() {
         let timelenthcheck = 0;
         for (let j = 0; j < this.checkList.length; j++) {
-          console.log('ccc', this.checkList);
           if (moment(this.checkList[j].dates).format('YYYY-MM-DD') === moment(this.companyform.log_date).format('YYYY-MM-DD')) {
             if (this.checkList[j].absenteeism === null || this.checkList[j].absenteeism === '') {
               this.checkList[j].absenteeism = this.checkList[j].tabsenteeism;
@@ -664,16 +662,12 @@
             if (this.checkList[j].nursingleave === null || this.checkList[j].nursingleave === '') {
               this.checkList[j].nursingleave = 0;
             }
-            if (this.checkList[j].welfare === null || this.checkList[j].welfare === '') {
-              this.checkList[j].welfare = 0;
-            }
             if (this.checkList[j].absenteeism === null || this.checkList[j].absenteeism === '') {
               this.checkList[j].absenteeism = 0;
             }
             timelenthcheck = parseFloat(this.checkList[j].normal) + parseFloat(this.checkList[j].ordinaryindustry) + parseFloat(this.checkList[j].weekendindustry) + parseFloat(this.checkList[j].statutoryresidue) + parseFloat(this.checkList[j].annualrestday) + parseFloat(this.checkList[j].specialday)
-              + parseFloat(this.checkList[j].youthday) + parseFloat(this.checkList[j].womensday) + parseFloat(this.checkList[j].welfare) - parseFloat(this.checkList[j].absenteeism);
+              + parseFloat(this.checkList[j].youthday) + parseFloat(this.checkList[j].womensday) - parseFloat(this.checkList[j].absenteeism);
             this.checkdata = timelenthcheck;
-            console.log('aaa', timelenthcheck);
           }
         }
       },
