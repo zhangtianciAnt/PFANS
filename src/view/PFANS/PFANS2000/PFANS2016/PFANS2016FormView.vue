@@ -776,10 +776,10 @@
             // if (this.form.status == '4' || this.form.status == '5' || this.form.status == '6' || this.form.status == '7') {
             //   this.checkfinisheddate = false;
             // }
-            if (this.form.status === '2' || this.form.status === '4'
-              || this.form.status === '6'|| this.form.status === '7') {
-              this.disable = false;
-            }
+            // if (this.form.status === '2' || this.form.status === '4'
+            //   || this.form.status === '6'|| this.form.status === '7') {
+            //   this.disable = false;
+            // }
             this.getOvertimelist();
             if (this.form.uploadfile != '') {
               let uploadfile = this.form.uploadfile.split(';');
@@ -795,12 +795,17 @@
             if (this.form.status === '0') {
               this.workflowCode = 'W0003';
               this.canStart = true;
+              this.checklengthtime = false;
             } else if (this.form.status === '4') {
               this.workflowCode = 'W0059';
               this.canStart = true;
+              this.disable = false;
             } else if (this.form.status === '7') {
               this.workflowCode = 'W0059';
               this.canStart = false;
+              this.disable = false;
+            } else if(this.form.status === '2'){
+              this.disable = false;
             }
             this.loading = false;
 
@@ -1147,7 +1152,6 @@
         if(!this.form.finisheddate || !this.form.occurrencedate){
           return;
         }
-        this.form.lengthtime = 0;
         let diffDate = moment(this.form.finisheddate).diff(moment(this.form.occurrencedate), 'days') + 1;
         if (this.form.errortype === 'PR013001') {
           // this.checklengthtime = false;
@@ -1722,17 +1726,7 @@
         } else {
           this.form.status = '2';
         }
-        if (this.form.errortype === 'PR013014') {
-          if (2 - this.parent <= 0) {
-            Message({
-              message: this.$t('label.PFANS2016FORMVIEW_BJDJZHCHECK'),
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            return;
-          }
-        }
-        this.buttonClick2('update');
+          this.buttonClick2('update');
       },
       end() {
         if (this.form.status === '5') {
@@ -1786,15 +1780,15 @@
         this.$refs['ruleForm'].validate(valid => {
           if (valid) {
             this.errort = '';
-            let letrelation = '';
+            // let letrelation = '';
             // for (let j = 0; j < this.form.relation.length; j++) {
             //     letrelation = letrelation + ',' + this.form.relation[j];
             // }
-            let letnewdate = moment(new Date()).format('YYYY-MM-DD');
-            let letoccurrencedate = moment(this.form.occurrencedate).format('YYYY-MM-DD');
-            let letfinisheddate = moment(this.form.finisheddate).format('YYYY-MM-DD');
-            let letoccurrencedateTo = moment(this.form.reoccurrencedate).format('YYYY-MM-DD');
-            let letfinisheddateTo = moment(this.form.refinisheddate).format('YYYY-MM-DD');
+            // let letnewdate = moment(new Date()).format('YYYY-MM-DD');
+            // let letoccurrencedate = moment(this.form.occurrencedate).format('YYYY-MM-DD');
+            // let letfinisheddate = moment(this.form.finisheddate).format('YYYY-MM-DD');
+            // let letoccurrencedateTo = moment(this.form.reoccurrencedate).format('YYYY-MM-DD');
+            // let letfinisheddateTo = moment(this.form.refinisheddate).format('YYYY-MM-DD');
             if (this.form.errortype === 'PR013001' || this.form.errortype === 'PR013014') {
               this.form.finisheddate = this.form.occurrencedate;
             }
@@ -1811,7 +1805,7 @@
             //     this.form.lengthtime = 4;
             // }
             if (this.form.errortype === 'PR013005' || this.form.errortype === 'PR013006') {
-              if (letoccurrencedate == letfinisheddate) {
+              if (this.form.vacationtype === '0') {
                 this.form.lengthtime = 8;
               } else if (this.relist.length != '0') {
                 let time = 0;
@@ -1819,10 +1813,10 @@
                   time = time + 1;
                 }
                 this.form.lengthtime = time * 8;
-              } else {
+              } else if(this.form.vacationtype === '1'  || this.form.vacationtype === '2'){
                 this.form.lengthtime = 4;
               }
-              if (letoccurrencedateTo == letfinisheddateTo && letoccurrencedateTo != 'Invalid date') {
+              if (this.form.revacationtype === '0') {
                 this.form.relengthtime = 8;
               } else if (this.relistTwo.length != '0') {
                 let timere = 0;
@@ -1830,7 +1824,7 @@
                   timere = timere + 1;
                 }
                 this.form.relengthtime = timere * 8;
-              } else if (letoccurrencedateTo != 'Invalid date') {
+              } else if(this.form.revacationtype === '1'  || this.form.revacationtype === '2'){
                 this.form.relengthtime = 4;
               }
             }
