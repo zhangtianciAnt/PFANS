@@ -1125,6 +1125,9 @@
           });
       },
       change() {
+        if(!this.form.finisheddate || !this.form.occurrencedate){
+          return;
+        }
         if (this.form.errortype === 'PR013001') {
           // this.checklengthtime = false;
           this.getWorktime();
