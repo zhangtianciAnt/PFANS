@@ -103,7 +103,7 @@ export function thisMonthLacktimeChange(data) {
   });
 }
 
-//zqu start insert wages
+//zqu start insert update wages
 export function insertWages(data) {
   return request({
     url: 'wages/insertWages',

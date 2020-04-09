@@ -2835,7 +2835,7 @@ export default {
   },
   data() {
     return {
-      tableData: [], //zong
+      tableData: [], // 工资画面显示总数据
       totaldataFJKC: [],
       totaldataQQ: [],
       totaldataCY: [],
@@ -3091,7 +3091,7 @@ export default {
       ],
       OTherTwo: {},
       tableJS: [],
-      tableWages: [], // jiequ
+      tableWages: [], // 工资分页截取
       tableQT5: [],
       tableRZ: [],
       tableTZ: [],
@@ -3158,6 +3158,7 @@ export default {
         this.disabled = val;
       }
     },
+    // 根据giving获取数据
     getListdata() {
       this.loading = true;
       this.$store
@@ -3173,6 +3174,7 @@ export default {
           let datalistljsj = [];
           let datalistms = [];
           let datalistzhsr = [];
+          // 工资tab页数据处理
           response.wagesList.forEach(function(item, index) {
             let userInfo = getUserInfo(item.user_id).userinfo;
             item.user_name = userInfo.customername;
@@ -3196,9 +3198,9 @@ export default {
           this.listWages = 0;
           this.getList();
           // todo By Skaixx: 定位测试
-          const name = "祖成玉";
-          const location =
-            this.totaldata.find(item => item.user_name === name).no * 40;
+          // const name = "祖成玉";
+          // const location =
+          //   this.totaldata.find(item => item.user_name === name).no * 40;
 
           // region 欠勤 By SKAIXX
           // 添加非空判断 By SKAIXX
@@ -4060,7 +4062,6 @@ export default {
       this.getList();
     },
     handleCurrentChangeLJSJ(val) {
-      console.log("handleCurrentChangeLJSJ", val);
       this.listQueryListLJSJ.page = val;
       this.getList();
     },
@@ -4168,6 +4169,7 @@ export default {
       this.listQuery.page = val;
       this.getListimprot();
     },
+    // 获取tab页数据
     getList() {
       this.loading = true;
       if (this.listWages === 0 || this.tab === "0") {
@@ -4453,7 +4455,7 @@ export default {
       ) {
         this.buttonList[1].disabled = true;
       }
-      // zqu start
+      // zqu start 只有工资tab 保存按钮可以使用
       if (tab.index === "0") {
         this.buttonList[0].disabled = false;
       } else {
@@ -4655,6 +4657,7 @@ export default {
         this.$refs.uploader.clearFiles();
       }
     },
+    // 按钮点击事件
     buttonClick(val) {
       // zqu start 导入按钮点击事件
       if (val === "import") {
@@ -4705,11 +4708,27 @@ export default {
             });
         }
       } else if (val === "save") {
+        this.loading = true;
         // 插入工资数据
         this.$store
           .dispatch("PFANS2005Store/insertWages", this.totaldata)
-          .then(response => {})
-          .catch(err => {});
+          .then(response => {
+            this.loading = false;
+            // 重新获取工资数据
+            this.getListdata();
+            Message({
+              message: this.$t("normal.success_01"),
+              type: "success",
+              duration: 5 * 1000
+            });
+          })
+          .catch(err => {
+            this.loading = false;
+            this.$message({
+              message: this.$t("normal.error_04"),
+              type: "error"
+            });
+          });
       }
       // zqu end
     },
