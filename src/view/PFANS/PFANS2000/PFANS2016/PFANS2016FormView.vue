@@ -841,12 +841,12 @@
       getWorktime() {
         this.loading = true;
         this.$store
-          .dispatch('PFANS2017Store/getFpans2017List', {})
+          .dispatch('PFANS2017Store/getFpans2017Listowner', {})
           .then(response => {
             for (let j = 0; j < response.length; j++) {
               if (moment(this.form.occurrencedate).format('YYYY-MM-DD') === moment(response[j].punchcardrecord_date).format('YYYY-MM-DD') && this.$store.getters.userinfo.userid === response[j].user_id) {
                 if(response[j].worktime > 0){
-                  this.form.worktime = (response[j].worktime).toFixed(0);
+                  this.form.worktime = Number((response[j].worktime)).toFixed(2);
                 } else {
                   this.form.worktime = 0.00;
                 }
