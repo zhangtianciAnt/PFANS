@@ -59,7 +59,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1009FORMVIEW_INSTALLSOFTWARE')" v-show="show">
-                <span style="margin-right: 1vw ">{{$t('label.no')}}</span>`
+                <span style="margin-right: 1vw ">{{$t('label.no')}}</span>
                 <el-switch :disabled="!disable"
                            v-model="installsoftware"
                            active-value="0"
@@ -70,7 +70,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1009FORMVIEW_SUITABLEBRINGOUT')" v-show="show">
-                <span style="margin-right: 1vw ">{{$t('label.no')}}</span>`
+                <span style="margin-right: 1vw ">{{$t('label.no')}}</span>
                 <el-switch :disabled="!disable"
                            v-model="suitablebringout"
                            active-value="0"
@@ -131,7 +131,7 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1009FORMVIEW_DUTYFREEINPUT')" prop="dutyfreeinput">
-                <span style="margin-right: 1vw ">{{$t('label.PFANSUSERFORMVIEW_NO')}}</span>`
+                <span style="margin-right: 1vw ">{{$t('label.PFANSUSERFORMVIEW_NO')}}</span>
                 <el-switch
                   :disabled="!disable"
                   v-model="form.dutyfreeinput"
