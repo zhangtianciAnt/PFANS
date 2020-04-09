@@ -53,6 +53,7 @@
   import dicselect from '../../../components/dicselect';
   import user from '../../../components/user.vue';
   import moment from 'moment';
+  import {Message} from 'element-ui'
 
   export default {
     name: 'PFANS1012PointFormView',
