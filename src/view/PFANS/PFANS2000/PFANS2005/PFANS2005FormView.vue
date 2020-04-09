@@ -4705,6 +4705,11 @@ export default {
             });
         }
       } else if (val === "save") {
+        // 插入工资数据
+        this.$store
+          .dispatch("PFANS2005Store/insertWages", this.totaldata)
+          .then(response => {})
+          .catch(err => {});
       }
       // zqu end
     },

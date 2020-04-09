@@ -102,3 +102,13 @@ export function thisMonthLacktimeChange(data) {
     data: data,
   });
 }
+
+//zqu start insert wages
+export function insertWages(data) {
+  return request({
+    url: 'wages/insertWages',
+    method: 'post',
+    data: data,
+  })
+}
+//zqu end
