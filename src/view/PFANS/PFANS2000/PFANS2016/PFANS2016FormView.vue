@@ -659,9 +659,19 @@
           //     trigger: 'change',
           // },
           //     {validator: validateEndtime, trigger: 'change'}],
-          reoccurrencedate: [,
+          reoccurrencedate: [
+            {
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.restartdate'),
+            trigger: 'change',
+            },
             {validator: revalidateStartdate, trigger: 'change'}],
           refinisheddate: [
+            {
+              required: true,
+              message: this.$t('normal.error_09') + this.$t('label.reenddate'),
+              trigger: 'change',
+            },
             {validator: revalidateEnddate, trigger: 'change'}],
           // reperiodstart: [
           //     {validator: revalidateStarttime, trigger: 'change'}],
@@ -841,12 +851,12 @@
       getWorktime() {
         this.loading = true;
         this.$store
-          .dispatch('PFANS2017Store/getFpans2017List', {})
+          .dispatch('PFANS2017Store/getFpans2017Listowner', {})
           .then(response => {
             for (let j = 0; j < response.length; j++) {
               if (moment(this.form.occurrencedate).format('YYYY-MM-DD') === moment(response[j].punchcardrecord_date).format('YYYY-MM-DD') && this.$store.getters.userinfo.userid === response[j].user_id) {
                 if(response[j].worktime > 0){
-                  this.form.worktime = (response[j].worktime).toFixed(0);
+                  this.form.worktime = Number((response[j].worktime)).toFixed(2);
                 } else {
                   this.form.worktime = 0.00;
                 }
@@ -890,18 +900,21 @@
       rehandleClick(val) {
         this.form.revacationtype = val;
         this.typecheck = val;
+        this.form.refinisheddate = this.form.reoccurrencedate;
         if (val == '1' || val == '2') {
-          Message({
-            message: this.$t('label.PFANS2016FORMVIEW_CHECKDAIXIUBANRI'),
-            type: 'success',
-            duration: 5 * 1000,
-          });
-          this.form.reoccurrencedate = moment(new Date()).format('YYYY-MM-DD');
-          this.form.refinisheddate = '';
-          this.checkTimeLenght = 8;
+          // Message({
+          //   message: this.$t('label.PFANS2016FORMVIEW_CHECKDAIXIUBANRI'),
+          //   type: 'success',
+          //   duration: 5 * 1000,
+          // });
+          // this.form.reoccurrencedate = moment(new Date()).format('YYYY-MM-DD');
+          // this.form.refinisheddate = '';
+          // this.checkTimeLenght = 8;
+          this.form.relengthtime = 4;
         } else if (val == '0') {
-          this.form.reoccurrencedate = moment(new Date()).format('YYYY-MM-DD');
-          this.form.refinisheddate = moment(new Date()).format('YYYY-MM-DD');
+          this.form.relengthtime = 8;
+          // this.form.reoccurrencedate = moment(new Date()).format('YYYY-MM-DD');
+          // this.form.refinisheddate = moment(new Date()).format('YYYY-MM-DD');
         }
       },
       getTime(val) {
@@ -1708,6 +1721,16 @@
           this.form.status = '5';
         } else {
           this.form.status = '2';
+        }
+        if (this.form.errortype === 'PR013014') {
+          if (2 - this.parent <= 0) {
+            Message({
+              message: this.$t('label.PFANS2016FORMVIEW_BJDJZHCHECK'),
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            return;
+          }
         }
         this.buttonClick2('update');
       },

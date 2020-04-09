@@ -96,13 +96,13 @@
                 fix: false,
                 filter: true,
               },
-              {
-                code: 'status',
-                label: 'label.approval_status',
-                width: 150,
-                fix: false,
-                filter: true,
-              },
+              // {
+              //   code: 'status',
+              //   label: 'label.approval_status',
+              //   width: 150,
+              //   fix: false,
+              //   filter: true,
+              // },
             ],
             columns1:[
                 {

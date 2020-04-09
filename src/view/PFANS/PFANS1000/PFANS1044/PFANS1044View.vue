@@ -1,5 +1,5 @@
 <template>
-  <EasyNormalTable :columns="columns" :data="data" :title="title" v-loading="loading">
+  <EasyNormalTable :columns="columns" :data="data" :title="title" v-loading="loading" :buttonList="buttonList">
     <el-form label-position="top" label-width="8vw" slot="search">
       <el-row>
         <el-col :span="8">
@@ -45,6 +45,7 @@
     },
     data() {
       return {
+        buttonList:[],
         contractType: "0",
         loading: false,
         title: "title.PFANS1044VIEW",
