@@ -41,16 +41,24 @@
                       @getUserids="getUserids" style="width: 20vw"></user>
               </el-form-item>
             </el-col>
+            <!--            start(添加申请日期)  fjl 2020/04/08-->
+            <el-col :span="8">
+              <el-form-item :label="$t('label.application_date')" prop="applicationdate">
+                <div class="block">
+                  <el-date-picker
+                    :disabled="!disable"
+                    style="width:20vw"
+                    type="date"
+                    v-model="form.applicationdate">
+                  </el-date-picker>
+                </div>
+              </el-form-item>
+            </el-col>
+            <!--            end(添加申请日期)  fjl 2020/04/08-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3007VIEW_BUSINESSCITY')" prop="businesscity">
                 <el-input :disabled="!disable" maxlength='20' style="width:20vw"
                           v-model="form.businesscity"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS3007VIEW_TRAVELCLUBPLACE')" prop="travelclubplace">
-                <el-input :disabled="!disable" maxlength='20' style="width:20vw"
-                          v-model="form.travelclubplace"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -71,6 +79,12 @@
                   style="width:20vw"
                 >
                 </dicselect>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS3007VIEW_TRAVELCLUBPLACE')" prop="travelclubplace">
+                <el-input :disabled="!disable" maxlength='20' style="width:20vw"
+                          v-model="form.travelclubplace"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -371,6 +385,42 @@
               </template>
             </el-col>
           </el-row>
+          <!--            start  fjl 2020/04/08  添加总务担当的受理功能-->
+          <el-row v-show="acceptShow">
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS3001FORMVIEW_ACCEPT')" prop="accept">
+                <span style="margin-right: 1rem ">{{$t('label.no')}}</span>
+                <el-switch
+                  :disabled="!disable"
+                  v-model="form.accept"
+                  active-value="1"
+                  inactive-value="0"
+                >
+                </el-switch>
+                <span style="margin-left: 1rem ">{{$t('label.yes')}}</span>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8" v-show="form.accept === '1'">
+              <el-form-item :label="$t('label.PFANS3001FORMVIEW_ACCEPTSTATUS')">
+                <el-select clearable style="width: 20vw"  v-model="form.acceptstatus" :disabled="!disable"
+                           :placeholder="$t('normal.error_09')">
+                  <el-option
+                    v-for="item in options"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8" v-show="form.accept === '1'">
+              <el-form-item :label="$t('label.PFANS5004VIEW_FINSHTIME')">
+                <el-date-picker :disabled="!disable" style="width:20vw" type="date"
+                                v-model="form.findate"></el-date-picker>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <!--            end  fjl 2020/04/08  添加总务担当的受理功能-->
           <el-row >
             <el-col :span="24">
               <el-form-item :label="$t('label.PFANS3007VIEW_REMARKS')" prop="remarks">
@@ -390,7 +440,7 @@
     import moment from "moment";
     import {Message} from 'element-ui';
     import user from "../../../components/user.vue";
-    import {getDictionaryInfo, getOrgInfoByUserId,getOrgInfo} from '@/utils/customize';
+    import {getDictionaryInfo, getOrgInfoByUserId,getOrgInfo,getCurrentRole2} from '@/utils/customize';
     import {getUserInfo} from "../../../../utils/customize";
 
     export default {
@@ -563,6 +613,17 @@
                     },
                 ],
                 baseInfo: {},
+              options: [
+                {
+                  value: '0',
+                  label: this.$t('label.PFANS3001FORMVIEW_CORRESPONDING'),
+                },
+                {
+                  value: '1',
+                  label: this.$t('label.PFANS3001FORMVIEW_COMPLETED'),
+                },
+              ],
+              acceptShow: false,
                 form: {
                     centerid: '',
                     groupid: '',
@@ -570,6 +631,7 @@
                     userid: '',
                     budgetunit: '',
                     businesscity: '',
+                    applicationdate: moment(new Date()).format("YYYY-MM-DD"),
                     travelclubplace: '',
                     condominiumcompany: '',
                     apartmentplace: '',
@@ -587,6 +649,9 @@
                     usemoney: '',
                     paymoney: '',
                     remarks: '',
+                  accept: '0',
+                  acceptstatus: '',
+                  findate: '',
                 },
                 rules: {
                     userid: [{
@@ -594,6 +659,11 @@
                         validator: validateUserid,
                         trigger: 'change'
                     }],
+                  applicationdate: [{
+                    required: true,
+                    message: this.$t("normal.error_09") + this.$t("label.application_date"),
+                    trigger: "change"
+                  }],
                     businesscity: [{
                         required: true,
                         message: this.$t('normal.error_08') + this.$t('label.PFANS3007VIEW_BUSINESSCITY'),
@@ -831,6 +901,12 @@
                     this.form.userid = this.$store.getters.userinfo.userid;
                 }
             }
+          //start(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
+          let role = getCurrentRole2();
+          if(role === '0'){
+            this.acceptShow = true;
+          }
+          //end(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
         },
         created() {
             if (!this.$route.params.disabled) {
