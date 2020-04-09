@@ -606,6 +606,7 @@
   .fc-ltr .fc-dayGrid-view .fc-day-top .fc-day-number {
     float: left;
     width: 2.5rem;
+
   }
 
   .el-radio__input.is-checked + .el-radio__label {
@@ -617,4 +618,10 @@
     color: white;
     margin: 0;
   }
+
+  //ADD-WS-修改工作日设置日历当天颜色
+  .fc-unthemed td.fc-today {
+    background:cornsilk;
+  }
+  //ADD-WS-修改工作日设置日历当天颜色
 </style>

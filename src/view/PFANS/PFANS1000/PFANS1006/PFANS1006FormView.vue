@@ -1,89 +1,82 @@
 <template>
-  <div style="min-height: 100%">`
+  <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick" ref="container"
                          @workflowState="workflowState" v-loading="loading"
                          :canStart="canStart" @start="start" @end="end">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
                  style="padding:3vw">
-          <el-collapse>
-            <el-collapse-item>
-              <template slot="title">
-                <span class="collapse_Title">{{$t('title.PFANS1006VIEW')}}</span>
-              </template>
-              <el-row>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.center')">
-                    <el-input :disabled="true" style="width:20vw" v-model="centerid"></el-input>
-                    <el-input v-show='false' :disabled="true" style="width:20vw" v-model="form.center_id"></el-input>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.group')">
-                    <el-input :disabled="true" style="width:20vw" v-model="groupid"></el-input>
-                    <el-input v-show='false' :disabled="true" style="width:20vw" v-model="form.group_id"></el-input>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.team')">
-                    <el-input :disabled="true" style="width:20vw" v-model="teamid"></el-input>
-                    <el-input v-show='false' :disabled="true" style="width:20vw" v-model="form.team_id"></el-input>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-              <el-row>
-                <el-col :span="8">
-                  <el-form-item :error="error" :label="$t('label.applicant')" prop="user_id">
-                    <user :disabled="true" :error="error" :selectType="selectType" :userlist="userlist"
-                          @getUserids="getUserids" style="width:20vw" v-model="form.user_id"></user>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1012VIEW_TELEPHONE')" prop="telephone">
-                    <el-input :disabled="!disable" style="width:20vw" v-model="form.telephone"
-                              maxlength="20"></el-input>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.judgement')" prop="judgement">
-                    <el-select @change="change" clearable v-model="form.judgement"
-                               style="width: 20vw">
-                      <el-option
-                        :key="item.value"
-                        :label="item.label"
-                        :value="item.value"
-                        v-for="item in options">
-                      </el-option>
-                    </el-select>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-              <el-row>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1012FORMVIEW_BUDGET')">
-                    <el-input :disabled="true" style="width:20vw" v-model="form.budgetunit" maxlength='50'></el-input>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1012VIEW_MODULE')" v-show=flag>
-                    <dicselect :code="code2"
-                               :data="form.moduleid"
-                               :disabled="!disable"
-                               :multiple="multiple"
-                               @change="getmodule"
-                               style="width:20vw">
-                    </dicselect>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1012VIEW_ACCOUNTNUMBER')" prop="accountnumber" v-show=flag>
-                    <el-input :disabled="!disable" maxlength="20" style="width:20vw"
-                              v-model="form.accountnumber"></el-input>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-            </el-collapse-item>
-          </el-collapse>
+          <el-row>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.center')">
+                <el-input :disabled="true" style="width:20vw" v-model="centerid"></el-input>
+                <el-input v-show='false' :disabled="true" style="width:20vw" v-model="form.center_id"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.group')">
+                <el-input :disabled="true" style="width:20vw" v-model="groupid"></el-input>
+                <el-input v-show='false' :disabled="true" style="width:20vw" v-model="form.group_id"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.team')">
+                <el-input :disabled="true" style="width:20vw" v-model="teamid"></el-input>
+                <el-input v-show='false' :disabled="true" style="width:20vw" v-model="form.team_id"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="8">
+              <el-form-item :error="error" :label="$t('label.applicant')" prop="user_id">
+                <user :disabled="true" :error="error" :selectType="selectType" :userlist="userlist"
+                      @getUserids="getUserids" style="width:20vw" v-model="form.user_id"></user>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS1012VIEW_TELEPHONE')" prop="telephone">
+                <el-input :disabled="!disable" style="width:20vw" v-model="form.telephone"
+                          maxlength="20"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.judgement')" prop="judgement">
+                <el-select @change="change" clearable v-model="form.judgements"
+                           style="width: 20vw">
+                  <el-option
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"
+                    v-for="item in options">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS1012FORMVIEW_BUDGET')">
+                <el-input :disabled="true" style="width:20vw" v-model="form.budgetunit" maxlength='50'></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS1012VIEW_MODULE')" v-show=flag>
+                <dicselect :code="code2"
+                           :data="form.moduleid"
+                           :disabled="!disable"
+                           :multiple="multiple"
+                           @change="getmodule"
+                           style="width:20vw">
+                </dicselect>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS1012VIEW_ACCOUNTNUMBER')" prop="accountnumber" v-show=flag>
+                <el-input :disabled="!disable" maxlength="20" style="width:20vw"
+                          v-model="form.accountnumber"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
           <el-collapse>
             <el-collapse-item>
               <template slot="title">
@@ -322,7 +315,7 @@
         }
       };
       var validatejudgement = (rule, value, callback) => {
-        if (!this.form.judgement || this.form.judgement === '' || this.form.judgement === 'undefined') {
+        if (!this.form.judgements || this.form.judgements === '' || this.form.judgements === 'undefined') {
           return callback(new Error(this.$t('normal.error_09') + this.$t('label.judgement')));
         } else {
           return callback();
@@ -377,7 +370,7 @@
         tabIndex: 0,
         multiple: false,
         form: {
-          judgement: '',
+          judgements: '',
           user_id: '',
           center_id: '',
           group_id: '',
@@ -580,7 +573,7 @@
     methods: {
       change(val) {
         debugger
-        this.form.judgement = val;
+        this.form.judgements = val;
       },
       judgementlist() {
         let user_id = this.$store.getters.userinfo.userid;

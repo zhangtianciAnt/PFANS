@@ -35,12 +35,20 @@
             </el-col>
           </el-row>
           <el-row >
+            <!--            start(添加申请日期)  fjl 2020/04/08-->
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS3003VIEW_ECENTER')" prop="ecenter">
-                <el-input v-model="form.ecenter" :disabled="!disable" style="width:20vw"
-                          maxlength="20"></el-input>
+              <el-form-item :label="$t('label.application_date')" prop="applicationdate">
+                <div class="block">
+                  <el-date-picker
+                    :disabled="!disable"
+                    style="width:20vw"
+                    type="date"
+                    v-model="form.applicationdate">
+                  </el-date-picker>
+                </div>
               </el-form-item>
             </el-col>
+            <!--            end(添加申请日期)  fjl 2020/04/08-->
             <el-col :span="8">
               <el-form-item :error="error" :label="$t('label.applicant')" prop="userid">
                 <user :disabled="true" :error="error" :selectType="selectType" :userlist="userlist"
@@ -55,6 +63,13 @@
             </el-col>
           </el-row>
           <el-row >
+
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS3003VIEW_ECENTER')" prop="ecenter">
+                <el-input v-model="form.ecenter" :disabled="!disable" style="width:20vw"
+                          maxlength="20"></el-input>
+              </el-form-item>
+            </el-col>
             <el-col :span="8">
               <template>
                 <el-form-item :label="$t('label.PFANS3003VIEW_OCCUPATIONAL')" prop="occupational">
@@ -71,6 +86,8 @@
                 </el-form-item>
               </template>
             </el-col>
+          </el-row>
+          <el-row >
             <el-col :span="8">
               <template>
                 <el-form-item :label="$t('label.PFANS3003VIEW_INSIDELINE')" prop="insideline">
@@ -79,8 +96,6 @@
                 </el-form-item>
               </template>
             </el-col>
-          </el-row>
-          <el-row >
             <el-col :span="8">
               <template>
                 <el-form-item :label="$t('label.email')" prop="email">
@@ -138,6 +153,42 @@
               </el-form-item>
             </el-col>
           </el-row>
+          <!--            start  fjl 2020/04/08  添加总务担当的受理功能-->
+          <el-row v-show="acceptShow">
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS3001FORMVIEW_ACCEPT')" prop="accept">
+                <span style="margin-right: 1rem ">{{$t('label.no')}}</span>
+                <el-switch
+                  :disabled="!disable"
+                  v-model="form.accept"
+                  active-value="1"
+                  inactive-value="0"
+                >
+                </el-switch>
+                <span style="margin-left: 1rem ">{{$t('label.yes')}}</span>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8" v-show="form.accept === '1'">
+              <el-form-item :label="$t('label.PFANS3001FORMVIEW_ACCEPTSTATUS')">
+                <el-select clearable style="width: 20vw"  v-model="form.acceptstatus" :disabled="!disable"
+                           :placeholder="$t('normal.error_09')">
+                  <el-option
+                    v-for="item in options"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8" v-show="form.accept === '1'">
+              <el-form-item :label="$t('label.PFANS5004VIEW_FINSHTIME')">
+                <el-date-picker :disabled="!disable" style="width:20vw" type="date"
+                                v-model="form.findate"></el-date-picker>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <!--            end  fjl 2020/04/08  添加总务担当的受理功能-->
           <el-row >
             <el-col :span="24">
               <el-form-item :label="$t('label.remarks')" prop="remarks">
@@ -155,8 +206,9 @@
   import EasyNormalContainer from "@/components/EasyNormalContainer";
   import dicselect from "../../../components/dicselect.vue";
   import {Message} from 'element-ui';
+  import moment from 'moment'
   import user from "../../../components/user.vue";
-  import {getOrgInfoByUserId} from '@/utils/customize'
+  import {getOrgInfoByUserId,getCurrentRole2} from '@/utils/customize'
   import {telephoneNumber, validateEmail} from '@/utils/validate';
 
   export default {
@@ -219,6 +271,17 @@
         userlist: "",
         title: "title.PFANS3003VIEW",
         buttonList: [],
+        options: [
+          {
+            value: '0',
+            label: this.$t('label.PFANS3001FORMVIEW_CORRESPONDING'),
+          },
+          {
+            value: '1',
+            label: this.$t('label.PFANS3001FORMVIEW_COMPLETED'),
+          },
+        ],
+        acceptShow: false,
         form: {
           centerid: '',
           groupid: '',
@@ -227,6 +290,7 @@
           ecenter: '',
           eoccupational: '',
           userid: '',
+          applicationdate: moment(new Date()).format("YYYY-MM-DD"),
           occupational: '',
           insideline: '',
           email: '',
@@ -235,12 +299,20 @@
           classification: '',
           balance: '',
           remarks: '',
+          accept: '0',
+          acceptstatus: '',
+          findate: '',
         },
         rules: {
           userid: [{
             required: true,
             validator: validateUserid,
             trigger: 'change'
+          }],
+          applicationdate: [{
+            required: true,
+            message: this.$t("normal.error_09") + this.$t("label.application_date"),
+            trigger: "change"
           }],
           occupational: [{
             required: true,
@@ -351,6 +423,12 @@
           this.form.userid = this.$store.getters.userinfo.userid;
         }
       }
+      //start(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
+      let role = getCurrentRole2();
+      if(role === '0'){
+        this.acceptShow = true;
+      }
+      //end(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
     },
     created() {
       this.disable = this.$route.params.disabled;

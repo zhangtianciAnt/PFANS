@@ -108,37 +108,6 @@
                         ],
                     },
                     {
-                        code: 'SICKLEAVE',
-                        label: 'label.PFANS2010VIEW_SICKLEAVE',
-                        labelClass: 'pfans2010view_column_4',
-                        child: [
-                            {
-                                code: 'shortsickleave',
-                                label: 'label.PFANS2010VIEW_SHORT',
-                                labelClass: 'pfans2010view_column_5',
-                                width: 120,
-                                fix: false,
-                                filter: true,
-                            },
-                            {
-                                code: 'longsickleave',
-                                label: 'label.PFANS2010VIEW_LONG',
-                                labelClass: 'pfans2010view_column_5',
-                                width: 120,
-                                fix: false,
-                                filter: true,
-                            },
-                        ],
-                    },
-                    {
-                        code: 'compassionateleave',
-                        label: 'label.PFANS2010VIEW_LEAVE',
-                        labelClass: 'pfans2010view_column_6',
-                        width: 100,
-                        fix: false,
-                        filter: true,
-                    },
-                    {
                         code: 'annualrest',
                         label: 'label.PFANS2010VIEW_INHUGH',
                         labelClass: 'pfans2010view_column_6',
@@ -154,22 +123,38 @@
                         fix: false,
                         filter: true,
                     },
-                    {
-                        code: 'nursingleave',
-                        label: 'label.PFANS2010VIEW_MATERNITY',
-                        labelClass: 'pfans2010view_column_6',
-                        width: 140,
-                        fix: false,
-                        filter: true,
-                    },
-                    {
-                        code: 'welfare',
-                        label: 'label.PFANS2010VIEW_WELFARE',
-                        labelClass: 'pfans2010view_column_6',
-                        width: 120,
-                        fix: false,
-                        filter: true,
-                    },
+                  {
+                    code: 'welfare',
+                    label: 'label.PFANS2010VIEW_WELFARE',
+                    labelClass: 'pfans2010view_column_6',
+                    width: 120,
+                    fix: false,
+                    filter: true,
+                  },
+                  {
+                    code: 'shortsickleave',
+                    label: 'label.PFANS2010VIEW_SICKLEAVE',
+                    labelClass: 'pfans2010view_column_4',
+                    width: 120,
+                    fix: false,
+                    filter: true,
+                  },
+                  {
+                    code: 'compassionateleave',
+                    label: 'label.PFANS2010VIEW_LEAVE',
+                    labelClass: 'pfans2010view_column_7',
+                    width: 100,
+                    fix: false,
+                    filter: true,
+                  },
+                  {
+                    code: 'nursingleave',
+                    label: 'label.PFANS2010VIEW_MATERNITY',
+                    labelClass: 'pfans2010view_column_7',
+                    width: 140,
+                    fix: false,
+                    filter: true,
+                  },
                     {
                         code: 'absenteeism',
                         label: 'label.PFANS2010VIEW_ABSENCE',
@@ -195,8 +180,6 @@
         },
         methods: {
           rowClassName({row, rowIndex}){
-            debugger
-            console.log(moment(row.dates).format("E"))
             if(moment(row.dates).format("E") == 6 || moment(row.dates).format("E") == 7 ){
               return "sub_bg_color_Darkgrey";
             }
@@ -260,6 +243,34 @@
                     .dispatch('PFANS2010Store/getAttendancelist', parameter)
                     .then(response => {
 
+                      for (let j = 0; j < response.length; j++) {
+                          // response[j].dates = moment(response[j].dates).format("YYYY-MM-DD");
+                          if(response[j].recognitionstate === "0"){
+                              if (this.$i18n) {
+                                  response[j].recognitionstate = this.$t('label.PFANS2010VIEW_RECOGNITION0');
+                              }
+                          }
+                          else{
+                              if (this.$i18n) {
+                                  response[j].recognitionstate = this.$t('label.PFANS2010VIEW_RECOGNITION1');
+                              }
+                          }
+
+                          if(response[j].absenteeism === null || response[j].absenteeism === "")
+                          {
+                              response[j].absenteeism = response[j].tabsenteeism;
+                          }
+                          if(response[j].shortsickleave === null || response[j].shortsickleave === "")
+                          {
+                              response[j].shortsickleave = response[j].tshortsickleave;
+                          }
+                          if(response[j].longsickleave === null || response[j].longsickleave === "")
+                          {
+                              response[j].longsickleave = response[j].tlongsickleave;
+                          }
+
+                      }
+
                       let res = [];
                       let start = moment().startOf('month');
                       let end = moment().endOf('month');
@@ -276,33 +287,7 @@
                           });
                         }
                       }
-                        // for (let j = 0; j < response.length; j++) {
-                        //     response[j].dates = moment(response[j].dates).format("YYYY-MM-DD");
-                        //     if(response[j].recognitionstate === "0"){
-                        //         if (this.$i18n) {
-                        //             response[j].recognitionstate = this.$t('label.PFANS2010VIEW_RECOGNITION0');
-                        //         }
-                        //     }
-                        //     else{
-                        //         if (this.$i18n) {
-                        //             response[j].recognitionstate = this.$t('label.PFANS2010VIEW_RECOGNITION1');
-                        //         }
-                        //     }
-                        //
-                        //     if(response[j].absenteeism === null || response[j].absenteeism === "")
-                        //     {
-                        //         response[j].absenteeism = response[j].tabsenteeism;
-                        //     }
-                        //     if(response[j].shortsickleave === null || response[j].shortsickleave === "")
-                        //     {
-                        //         response[j].shortsickleave = response[j].tshortsickleave;
-                        //     }
-                        //     if(response[j].longsickleave === null || response[j].longsickleave === "")
-                        //     {
-                        //         response[j].longsickleave = response[j].tlongsickleave;
-                        //     }
-                        //
-                        // }
+
                         this.data = res;
                         this.loading = false;
                     })
@@ -341,13 +326,13 @@
     color: #ffffff;
   }
   .pfans2010view_column_4 {
-    height: 40px;
+    height: 81px;
     background: #2696C3;
     color: #ffffff;
     text-align: center;
   }
   .pfans2010view_column_5 {
-    height: 40px;
+    height: 81px;
     background: #93CBE1;
     color: #ffffff;
   }

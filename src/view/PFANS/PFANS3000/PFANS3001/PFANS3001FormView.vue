@@ -86,6 +86,29 @@
               </el-col>
             </el-row>
             <el-row>
+              <!--            start(添加出差申请关联)  fjl 2020/04/08-->
+              <el-col :span="8">
+                <el-form-item :label="$t('label.PFANS1013VIEW_RELATION')" prop="business_id">
+                  <el-select :disabled="!disable" clearable @change="changebusiness" style="width:20vw"
+                             v-model="form.business_id">
+                    <el-option
+                      v-if="form.ticketstype === 'first'"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value"
+                      v-for="item in relations">
+                    </el-option>
+                    <el-option
+                      v-else
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value"
+                      v-for="item in relations1">
+                    </el-option>
+                  </el-select>
+                </el-form-item>
+              </el-col>
+              <!--            end(添加申请日期)  fjl 2020/04/08-->
               <el-col :span="8">
                 <el-form-item :label="$t('label.PFANS3001VIEW_TRIPPOINT')" prop="trippoint">
                   <el-input :disabled="!disable" maxlength="50" style="width:20vw"
@@ -96,12 +119,6 @@
                 <el-form-item :label="$t('label.PFANS3001FORMVIEW_TRIPSTART')" prop="tripstart">
                   <el-date-picker :disabled="!disable" style="width:20vw" type="date"
                                   v-model="form.tripstart"></el-date-picker>
-                </el-form-item>
-              </el-col>
-              <el-col :span="8">
-                <el-form-item :label="$t('label.PFANS3001FORMVIEW_TRIPEND')" prop="tripend">
-                  <el-date-picker :disabled="!disable" style="width:20vw" type="date"
-                                  v-model="form.tripend"></el-date-picker>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -115,6 +132,12 @@
                 <el-form-item :label="$t('label.PFANS3001VIEW_GOAIRLINENUMBER')" prop="goairlinenumber">
                   <el-input :disabled="!disable" maxlength="20" style="width:20vw"
                             v-model="form.goairlinenumber"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="8">
+                <el-form-item :label="$t('label.PFANS3001FORMVIEW_TRIPEND')" prop="tripend">
+                  <el-date-picker :disabled="!disable" style="width:20vw" type="date"
+                                  v-model="form.tripend"></el-date-picker>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -133,6 +156,20 @@
                                   v-model="form.goarrivaldate"></el-date-picker>
                 </el-form-item>
               </el-col>
+              <!--            start(添加申请日期)  fjl 2020/04/08-->
+              <el-col :span="8">
+                <el-form-item :label="$t('label.application_date')" prop="applicationdate">
+                  <div class="block">
+                    <el-date-picker
+                      :disabled="!disable"
+                      style="width:20vw"
+                      type="date"
+                      v-model="form.applicationdate">
+                    </el-date-picker>
+                  </div>
+                </el-form-item>
+              </el-col>
+              <!--            end(添加申请日期)  fjl 2020/04/08-->
             </el-row>
             <el-row>
               <el-col :span="8">
@@ -144,6 +181,12 @@
                 <el-form-item :label="$t('label.PFANS3001VIEW_GOAIRLINENUMBER')" prop="reairlinenumber">
                   <el-input :disabled="!disable" maxlength="20" style="width:20vw"
                             v-model="form.reairlinenumber"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="8">
+                <el-form-item :label="$t('label.PFANS3001VIEW_TICKETINGDATE')" prop="ticketingdate">
+                  <el-date-picker :disabled="!disable" style="width:20vw" type="date"
+                                  v-model="form.ticketingdate"></el-date-picker>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -163,14 +206,42 @@
                 </el-form-item>
               </el-col>
             </el-row>
-            <el-row>
+<!--            start  fjl 2020/04/08  添加总务担当的受理功能-->
+            <el-row v-show="acceptShow">
               <el-col :span="8">
-                <el-form-item :label="$t('label.PFANS3001VIEW_TICKETINGDATE')" prop="ticketingdate">
+                <el-form-item :label="$t('label.PFANS3001FORMVIEW_ACCEPT')" prop="accept">
+                  <span style="margin-right: 1rem ">{{$t('label.no')}}</span>
+                  <el-switch
+                    :disabled="!disable"
+                    v-model="form.accept"
+                    active-value="1"
+                    inactive-value="0"
+                  >
+                  </el-switch>
+                  <span style="margin-left: 1rem ">{{$t('label.yes')}}</span>
+                </el-form-item>
+              </el-col>
+              <el-col :span="8" v-show="form.accept === '1'">
+                <el-form-item :label="$t('label.PFANS3001FORMVIEW_ACCEPTSTATUS')">
+                  <el-select clearable style="width: 20vw"  v-model="form.acceptstatus" :disabled="!disable"
+                             :placeholder="$t('normal.error_09')">
+                    <el-option
+                      v-for="item in options"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value">
+                    </el-option>
+                  </el-select>
+                </el-form-item>
+              </el-col>
+              <el-col :span="8" v-show="form.accept === '1'">
+                <el-form-item :label="$t('label.PFANS5004VIEW_FINSHTIME')">
                   <el-date-picker :disabled="!disable" style="width:20vw" type="date"
-                                  v-model="form.ticketingdate"></el-date-picker>
+                                  v-model="form.findate"></el-date-picker>
                 </el-form-item>
               </el-col>
             </el-row>
+<!--            end  fjl 2020/04/08  添加总务担当的受理功能-->
           </el-tabs>
         </el-form>
       </div>
@@ -184,7 +255,7 @@
   import {Message} from 'element-ui';
   import user from '../../../components/user.vue';
   import dicselect from '../../../components/dicselect.vue';
-  import {getOrgInfoByUserId} from '@/utils/customize';
+  import {getOrgInfoByUserId,getDictionaryInfo,getCurrentRole2} from '@/utils/customize';
   import {isvalidPhone, idcardNumber, telephoneNumber} from '@/utils/validate';
   import moment from 'moment';
   import {getOrgInfo} from "../../../../utils/customize";
@@ -330,11 +401,26 @@
         regExp: [],
         code: 'PG001',
         multiple: false,
+        relations: [],
+        relations1: [],
+        options: [
+          {
+            value: '0',
+            label: this.$t('label.PFANS3001FORMVIEW_CORRESPONDING'),
+          },
+          {
+            value: '1',
+            label: this.$t('label.PFANS3001FORMVIEW_COMPLETED'),
+          },
+        ],
+        acceptShow: false,
         form: {
           user_id: '',
           center_id: '',
           group_id: '',
           team_id: '',
+          business_id: '',
+          applicationdate: moment(new Date()).format("YYYY-MM-DD"),
           ticketstype: 'first',
           idcard: '',
           passport: '',
@@ -355,6 +441,9 @@
           ticketingdate: '',
           tripstart: '',
           tripend: '',
+          accept: '0',
+          acceptstatus: '',
+          findate: '',
         },
         rules: {
           user_id: [{
@@ -362,6 +451,18 @@
             validator: validateUserid,
             trigger: 'change',
           }],
+          // add  fjl   start
+          business_id: [{
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.PFANS1013VIEW_RELATION'),
+            trigger: 'change',
+          }],
+          applicationdate: [{
+            required: true,
+            message: this.$t("normal.error_09") + this.$t("label.application_date"),
+            trigger: "change"
+          }],
+          // add  fjl   start
           romanid: [{
             required: true,
             message: this.$t('normal.error_08') + this.$t('label.PFANS3001FORMVIEW_ROMANID'),
@@ -518,7 +619,7 @@
       else {
         this.showDomestic = true;
         this.userlist = this.$store.getters.userinfo.userid;
-        if (this.userlist !== null && this.userlist !== '') {
+        if (this.userlist !== null && this.userlist !== '' && this.userlist !== undefined) {
           let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
             if(rst) {
                 this.centerid = rst.centerNmae;
@@ -538,14 +639,92 @@
           this.form.user_id = this.$store.getters.userinfo.userid;
         }
       }
+      this.getBusOuter();
+      //start(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
+      let role = getCurrentRole2();
+      if(role === '0'){
+        this.acceptShow = true;
+      }
+      //end(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
     },
     methods: {
+      //start(添加出差申请关联)  fjl 2020/04/08
+      changebusiness(val) {
+        this.form.business_id = val;
+        if(this.form.ticketstype === 'first'){
+          for (var i = 0; i < this.relations.length; i++) {
+            if (this.relations[i].value === val) {
+              let cityflg = getDictionaryInfo(this.relations[i].city);
+              if(cityflg){
+                this.form.trippoint = cityflg.value1;
+              }
+              this.form.tripstart = this.relations[i].startdate;
+              this.form.tripend = this.relations[i].enddate;
+            }
+          }
+
+        } else if(this.form.ticketstype === 'second'){
+          for (var i = 0; i < this.relations1.length; i++) {
+            if (this.relations1[i].value === val) {
+              let regionflg = getDictionaryInfo(this.relations1[i].region);
+              if(regionflg){
+                this.form.trippoint = regionflg.value1;
+              }
+              this.form.tripstart = this.relations1[i].startdate;
+              this.form.tripend = this.relations1[i].enddate;
+            }
+          }
+        }
+      },
+      getBusOuter() {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS1001Store/getBusiness')
+          .then(response => {
+            for (let i = 0; i < response.length; i++) {
+              if (response[i].user_id === this.$store.getters.userinfo.userid) {
+                if(response[i].businesstype === '0'){
+                  this.relations1.push({
+                    value: response[i].business_id,
+                    label: this.$t('menu.PFANS1002') + '_' + moment(response[i].createon).format('YYYY-MM-DD'),
+                    region: response[i].region,
+                    startdate: response[i].startdate,
+                    enddate: response[i].enddate,
+                  });
+                } else if(response[i].businesstype === '1'){
+                  this.relations.push({
+                    city: response[i].city,
+                    value: response[i].business_id,
+                    label: this.$t('menu.PFANS1035') + '_' + moment(response[i].createon).format('YYYY-MM-DD'),
+                    // region: response[i].region,
+                    startdate: response[i].startdate,
+                    enddate: response[i].enddate,
+                  });
+                }
+              }
+            }
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
+      //end(添加出差申请关联)  fjl 2020/04/08
       setdisabled(val){
         if(this.$route.params.disabled){
           this.disabled = val;
         }
       },
       handleClick(tab, event) {
+        this.form.business_id = '';
+        this.form.trippoint = '';
+        this.form.tripstart = '';
+        this.form.tripend = '';
         if (tab.name === 'first') {
           this.showDomestic = true;
           this.showForeign = false;

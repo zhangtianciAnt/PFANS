@@ -42,7 +42,7 @@
 
                       <el-button :disabled="disabled" icon="el-icon-search" @click="dialogTableVisible = true"
                                  size="small"></el-button>
-                      <el-dialog :visible.sync="dialogTableVisible" center size="50%"
+                      <el-dialog :visible.sync="dialogTableVisible" center size="50%" :before-close="submit"
                                  top="8vh" lock-scroll
                                  append-to-body>
                         <div style="text-align: center">
@@ -403,7 +403,7 @@
                   >
                     <template slot-scope="scope">
                       <user
-                        :disabled="disabled"
+                        :disabled="true"
                         :no="scope.row"
                         :userlist="scope.row.interviewer"
                         @getUserids="getInterviewerids"
@@ -419,7 +419,7 @@
                   >
                     <template slot-scope="scope">
                       <el-input-number
-                        :disabled="disabled"
+                        :disabled="true"
                         :max="10"
                         :min="0"
                         :precision="1"
@@ -429,26 +429,28 @@
                       ></el-input-number>
                     </template>
                   </el-table-column>
-                  <el-table-column :label="$t('label.operation')" align="center" width="200">
-                    <template slot-scope="scope">
-                      <el-button
-                        :disabled="disabled"
-                        @click.native.prevent="deleteRow(scope.$index, tableData)"
-                        plain
-                        size="small"
-                        type="danger"
-                      >{{$t('button.delete')}}
-                      </el-button>
-                      <el-button
-                        :disabled="disabled"
-                        @click="addRow()"
-                        plain
-                        size="small"
-                        type="primary"
-                      >{{$t('button.insert')}}
-                      </el-button>
-                    </template>
-                  </el-table-column>
+<!-- wxl 4/8 面试官通过选人带出来 strat-->
+<!--                  <el-table-column :label="$t('label.operation')" align="center" width="200">-->
+<!--                    <template slot-scope="scope">-->
+<!--                      <el-button-->
+<!--                        :disabled="disabled"-->
+<!--                        @click.native.prevent="deleteRow(scope.$index, tableData)"-->
+<!--                        plain-->
+<!--                        size="small"-->
+<!--                        type="danger"-->
+<!--                      >{{$t('button.delete')}}-->
+<!--                      </el-button>-->
+<!--                      <el-button-->
+<!--                        :disabled="disabled"-->
+<!--                        @click="addRow()"-->
+<!--                        plain-->
+<!--                        size="small"-->
+<!--                        type="primary"-->
+<!--                      >{{$t('button.insert')}}-->
+<!--                      </el-button>-->
+<!--                    </template>-->
+<!--                  </el-table-column>-->
+<!-- wxl 4/8 面试官通过选人带出来 end-->
                 </el-table>
               </el-col>
             </el-row>
@@ -789,6 +791,9 @@
               vote.sex = getDictionaryInfo(response[i].sex).value1;
               }
               vote.birthday = moment(response[i].birthday).format('YYYY-MM-DD');
+// wxl 4/8 面试官通过选人带出来 start
+              vote.interview = response[i].interview
+// wxl 4/8 面试官通过选人带出来 end
               this.gridData.push(vote);
             }
             this.loading = false;
@@ -859,12 +864,19 @@
         this.form.sex = lst;
         this.form.birthday = lst2;
         this.errorname = '';
+// wxl 4/8 面试官通过选人带出来 start
+        this.tableData = this.currentRow4
+// wxl 4/8 面试官通过选人带出来 end
       },
       handleClickChange(val) {
         this.form.name = val.name;
         this.currentRow = val.name;
         this.currentRow2 = val.sex;
         this.currentRow3 = val.birthday;
+// wxl 4/8 面试官通过选人带出来 start
+          this.changeOption(val, 'view');
+        this.currentRow4 = val.interview;
+// wxl 4/8 面试官通过选人带出来 end
       },
       arraySpanMethod({row, column, rowIndex, columnIndex}) {
         if (columnIndex === 3) {
@@ -1113,7 +1125,6 @@
         this.$refs['form'].validate(valid => {
           if (valid) {
             this.loading = true;
-            console.log("this.$route.params._id",this.$route.params._id)
             if (!this.$route.params._id) {
               this.changeOption(this.form, 'save');
               this.form.education1 = this.tableData3[0].education;
