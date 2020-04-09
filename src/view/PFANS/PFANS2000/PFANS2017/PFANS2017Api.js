@@ -9,6 +9,13 @@ export function getFpans2017List() {
   })
 }
 
+export function getFpans2017Listowner() {
+  return request({
+    url: 'punchcardrecord/list1',
+    method: 'post'
+  })
+}
+
 export function download(data) {
   return requestDownload({
     url: 'punchcardrecord/download',

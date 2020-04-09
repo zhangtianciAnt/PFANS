@@ -1,4 +1,4 @@
-import {getFpans2017List, download,getPunDetail} from './PFANS2017Api'
+import {getFpans2017List, download,getPunDetail,getFpans2017Listowner} from './PFANS2017Api'
 
 const PFANS2017Store = {
   namespaced: true,
@@ -10,6 +10,20 @@ const PFANS2017Store = {
     getFpans2017List({commit}) {
       return new Promise((resolve, reject) => {
         getFpans2017List().then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    //获取异常申请中查看打卡记录
+    getFpans2017Listowner({commit}) {
+      return new Promise((resolve, reject) => {
+        getFpans2017Listowner().then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
