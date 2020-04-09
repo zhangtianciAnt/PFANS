@@ -659,9 +659,19 @@
           //     trigger: 'change',
           // },
           //     {validator: validateEndtime, trigger: 'change'}],
-          reoccurrencedate: [,
+          reoccurrencedate: [
+            {
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.restartdate'),
+            trigger: 'change',
+            },
             {validator: revalidateStartdate, trigger: 'change'}],
           refinisheddate: [
+            {
+              required: true,
+              message: this.$t('normal.error_09') + this.$t('label.reenddate'),
+              trigger: 'change',
+            },
             {validator: revalidateEnddate, trigger: 'change'}],
           // reperiodstart: [
           //     {validator: revalidateStarttime, trigger: 'change'}],
@@ -890,18 +900,21 @@
       rehandleClick(val) {
         this.form.revacationtype = val;
         this.typecheck = val;
+        this.form.refinisheddate = this.form.reoccurrencedate;
         if (val == '1' || val == '2') {
-          Message({
-            message: this.$t('label.PFANS2016FORMVIEW_CHECKDAIXIUBANRI'),
-            type: 'success',
-            duration: 5 * 1000,
-          });
-          this.form.reoccurrencedate = moment(new Date()).format('YYYY-MM-DD');
-          this.form.refinisheddate = '';
-          this.checkTimeLenght = 8;
+          // Message({
+          //   message: this.$t('label.PFANS2016FORMVIEW_CHECKDAIXIUBANRI'),
+          //   type: 'success',
+          //   duration: 5 * 1000,
+          // });
+          // this.form.reoccurrencedate = moment(new Date()).format('YYYY-MM-DD');
+          // this.form.refinisheddate = '';
+          // this.checkTimeLenght = 8;
+          this.form.relengthtime = 4;
         } else if (val == '0') {
-          this.form.reoccurrencedate = moment(new Date()).format('YYYY-MM-DD');
-          this.form.refinisheddate = moment(new Date()).format('YYYY-MM-DD');
+          this.form.relengthtime = 8;
+          // this.form.reoccurrencedate = moment(new Date()).format('YYYY-MM-DD');
+          // this.form.refinisheddate = moment(new Date()).format('YYYY-MM-DD');
         }
       },
       getTime(val) {
@@ -1708,6 +1721,16 @@
           this.form.status = '5';
         } else {
           this.form.status = '2';
+        }
+        if (this.form.errortype === 'PR013014') {
+          if (2 - this.parent <= 0) {
+            Message({
+              message: this.$t('label.PFANS2016FORMVIEW_BJDJZHCHECK'),
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            return;
+          }
         }
         this.buttonClick2('update');
       },
