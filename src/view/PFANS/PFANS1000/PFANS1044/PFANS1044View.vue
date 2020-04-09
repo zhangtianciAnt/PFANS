@@ -247,6 +247,9 @@
               if (item.extensiondate != null) {
                 item.extensiondate = moment(item.extensiondate).format("YYYY-MM-DD");
               }
+              if (item.entrypayment != null) {
+                item.entrypayment = moment(item.entrypayment).format("YYYY-MM-DD");
+              }
               letContracttype = getDictionaryInfo(item.currencyposition);
               if (letContracttype != null) {
                 item.currencyposition = letContracttype.value1;
