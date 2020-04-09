@@ -1,5 +1,5 @@
 <template>
-  <EasyNormalTable :columns="columns" :data="data" :title="title" v-loading="loading" :buttonList="buttonList">
+  <EasyNormalTable :columns="columns" :data="data" :title="title" v-loading="loading" :buttonList="buttonList" :showSelection="showSelection" @buttonClick="buttonClick" ref="roletable">
     <el-form label-position="top" label-width="8vw" slot="search">
       <el-row>
         <el-col :span="8">
@@ -45,7 +45,10 @@
     },
     data() {
       return {
-        buttonList:[],
+        showSelection:true,
+        buttonList:[
+          {'key': 'export', 'name': 'button.export', 'disabled': false, 'icon': 'el-icon-download'}
+        ],
         contractType: "0",
         loading: false,
         title: "title.PFANS1044VIEW",
@@ -92,14 +95,13 @@
             filter: true,
           },
           {
-            code: 'state',
-            label: 'label.PFANS1024VIEW_STATE',
+            code: 'price',
+            label: 'label.PFANS1024VIEW_CLAIMAMOUNT',
             width: 120,
             fix: false,
             filter: true,
           }
         ],
-        buttonList: [],
         rowid: '',
         contractnumber: '',
         state: '',
@@ -164,6 +166,106 @@
         })
     },
     methods: {
+      buttonClick(val){
+        if(val === 'export'){
+          if(this.$refs.roletable.selectedList.length === 0){
+            Message({
+              message: this.$t('normal.info_01'),
+              type: 'info',
+              duration: 2 * 1000
+            });
+            return;
+          }
+          let selectedlist = this.$refs.roletable.selectedList;
+
+          import('@/vendor/Export2Excel').then(excel => {
+            const tHeader = [
+              this.$t('label.department'),
+              this.$t('label.PFANS1024VIEW_DEPLOYMENT'),
+              this.$t('label.applicant'),
+              this.$t('label.PFANS1024VIEW_APPLICATIONDATE'),
+              this.$t('label.PFANS1024VIEW_CONTRACTTYPE'),
+              this.$t('label.PFANS1024VIEW_CONTRACTNUMBER'),
+              this.$t('label.PFANS1024VIEW_ENTRYCONDITION'),
+              this.$t('label.PFANS1024VIEW_ENTRYPAYMENT'),
+              this.$t('label.PFANS1024VIEW_CURRENCYPOSITION'),
+              this.$t('label.PFANS1024VIEW_CONTRACTDATE'),
+              this.$t('label.PFANS1024VIEW_TEMA'),
+              this.$t('label.PFANS1024VIEW_EXTENSIONDATE'),
+              this.$t('label.PFANS1024VIEW_CUSTOMERNAME') + this.$t('label.PFANS1024VIEW_JAPANESE') ,
+              this.$t('label.PFANS1024VIEW_CUSTOMERNAME') + this.$t('label.PFANS1024VIEW_ENGLISH'),
+              this.$t('label.PFANS1024VIEW_CUSTOMERNAME') + this.$t('label.PFANS1024VIEW_ABBREVIATION'),
+              this.$t('label.PFANS1024VIEW_CUSTOMERNAME') + this.$t('label.PFANS1024VIEW_CHINESE'),
+              this.$t('label.PFANS1024VIEW_CUSTOMERPLACE') + this.$t('label.PFANS1024VIEW_JAPANESE'),
+              this.$t('label.PFANS1024VIEW_CUSTOMERPLACE') + this.$t('label.PFANS1024VIEW_ENGLISH'),
+              this.$t('label.PFANS1024VIEW_CUSTOMERPLACE') + this.$t('label.PFANS1024VIEW_CHINESE'),
+              this.$t('label.PFANS1024VIEW_RESPON') + this.$t('label.PFANS1024VIEW_BEFOREJAPANESE'),
+              this.$t('label.PFANS1024VIEW_RESPON') + this.$t('label.PFANS1024VIEW_BEFOREENGLISH'),
+              this.$t('label.PFANS1024VIEW_RESPON') + this.$t('label.PFANS1024VIEW_PHONE'),
+              this.$t('label.PFANS1024VIEW_RESPON') + this.$t('label.PFANS1024VIEW_EMAIL'),
+              this.$t('label.PFANS1024VIEW_CONTRACT2') + this.$t('label.PFANS1024VIEW_JAPANESE'),
+              this.$t('label.PFANS1024VIEW_CONTRACT2') + this.$t('label.PFANS1024VIEW_ENGLISH'),
+              this.$t('label.PFANS1024VIEW_CONTRACT2') + this.$t('label.PFANS1024VIEW_CHINESE'),
+              this.$t('label.PFANS1024VIEW_ENTRUSTEDNUMBER'),
+              this.$t('label.PFANS1024VIEW_CLAIMAMOUNT')
+            ];
+            const filterVal = [
+              'department',
+              'deployment',
+              'user_id',
+              'applicationdate',
+              'contracttype',
+              'contractnumber',
+              'entrycondition',
+              'entrypayment',
+              'currencyposition',
+              'contractdate',
+              'theme',
+              'extensiondate',
+              'custojapanese',
+              'custoenglish',
+              'custoabbreviation',
+              'custochinese',
+              'placejapanese',
+              'placeenglish',
+              'placechinese',
+              'responjapanese',
+              'responerglish',
+              'responphone',
+              'responemail',
+              'conjapanese',
+              'conenglish',
+              'conchinese',
+              'entrustednumber',
+              'price',
+            ];
+            for(let item of selectedlist){
+              let letContracttype = getDictionaryInfo(item.entrycondition);
+              if (letContracttype != null) {
+                item.entrycondition = letContracttype.value1;
+              }
+              item.entrypayment = moment(item.entrypayment).format("YYYY-MM-DD");
+              letContracttype = getDictionaryInfo(item.currencyposition);
+              if (letContracttype != null) {
+                item.currencyposition = letContracttype.value1;
+              }
+              item.extensiondate = moment(item.extensiondate).format("YYYY-MM-DD");
+            }
+            const data = this.formatJson(filterVal, selectedlist);
+            excel.export_json_to_excel(tHeader, data, "契约一览");
+          })
+
+        }
+      },
+      formatJson(filterVal, jsonData) {
+        return jsonData.map(v => filterVal.map(j => {
+          if (j === 'timestamp') {
+            return parseTime(v[j]);
+          } else {
+            return v[j];
+          }
+        }));
+      },
       rowClick(row) {
         this.rowid = row.contractapplication_id;
         this.contractnumber = row.contractnumber;
@@ -196,12 +298,24 @@
         for (let al2 of filtersrst) {
           let a = this.alldata.filter(item => item.type == this.contractType && al2.contractnumber == item.contractnumber);
 
+          let prices = cons.filter(item => al2.contractnumber == item.contractnumber);
+          let price = 0
+          for(let pi of prices){
+            price = price + Number(pi.claimamount)
+          }
           if(a.length > 0){
-
+            a[0].price = this.abs(price*100);
             rst.push(a[0])
           }
         }
         this.data = rst;
+      },
+      abs(val){
+        var str = (val/100).toFixed(2) + '';
+        var intSum = str.substring(0,str.indexOf(".")).replace( /\B(?=(?:\d{3})+$)/g, ',' );//取到整数部分
+        var dot = str.substring(str.length,str.indexOf("."))//取到小数部分搜索
+        var ret = intSum + dot;
+        return ret;
       }
     }
   }
