@@ -1244,6 +1244,7 @@
             }
           }
         }
+        if(this.form.errortype === 'PR013005' && this.form.errortype === 'PR013007'){
         if (this.typecheck == '0') {
           let time = 0;
           for (let d = 0; d < this.relist.length; d++) {
@@ -1267,6 +1268,7 @@
             time = time + 1;
           }
           this.form.lengthtime = time * 8;
+        }
         }
         // if (this.form.errortype === 'PR013014') {
         //     this.form.lengthtime = 4;
