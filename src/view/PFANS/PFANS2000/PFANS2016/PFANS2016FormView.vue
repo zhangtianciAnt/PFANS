@@ -843,46 +843,25 @@
         this.$store
           .dispatch('PFANS2017Store/getFpans2017List', {})
           .then(response => {
-            debugger;
             for (let j = 0; j < response.length; j++) {
-              if(moment(this.form.applicationdate).format("YYYY-MM-DD") === moment(response[j].punchcardrecord_date).format("YYYY-MM-DD") && this.$store.getters.userinfo.userid === response[j].user_id){
-                this.form.worktime = response[j].worktime;
+              if (moment(this.form.occurrencedate).format('YYYY-MM-DD') === moment(response[j].punchcardrecord_date).format('YYYY-MM-DD') && this.$store.getters.userinfo.userid === response[j].user_id) {
+                if(response[j].worktime > 0){
+                  this.form.worktime = (response[j].worktime).toFixed(0);
+                } else {
+                  this.form.worktime = 0.00;
+                }
               }
-              this.loading = false;
             }
+            this.loading = false;
           })
           .catch(error => {
             Message({
               message: error,
               type: 'error',
-              duration: 5 * 1000
+              duration: 5 * 1000,
             });
             this.loading = false;
-          })
-        // this.loading = true;
-        // this.$store
-        //   .dispatch('PFANS2017Store/getFpans2017List', {})
-        //   .then(response => {
-        //     debugger;
-        //     for (let j = 0; j < response.length; j++) {
-        //       if (moment(this.form.occurrencedate).format('YYYY-MM-DD') === moment(response[j].punchcardrecord_date).format('YYYY-MM-DD') && this.$store.getters.userinfo.userid === response[j].user_id) {
-        //         if(response[j].worktime > 0){
-        //           this.form.worktime = (response[j].worktime).toFixed(0);
-        //         } else {
-        //           this.form.worktime = 0.00;
-        //         }
-        //       }
-        //     }
-        //     this.loading = false;
-        //   })
-        //   .catch(error => {
-        //     Message({
-        //       message: error,
-        //       type: 'error',
-        //       duration: 5 * 1000,
-        //     });
-        //     this.loading = false;
-        //   });
+          });
       },
       setdisabled(val) {
         if (this.$route.params.disabled) {
@@ -1152,6 +1131,9 @@
           });
       },
       change() {
+        if(!this.form.finisheddate || !this.form.occurrencedate){
+          return;
+        }
         this.form.lengthtime = 0;
         let diffDate = moment(this.form.finisheddate).diff(moment(this.form.occurrencedate), 'days') + 1;
         if (this.form.errortype === 'PR013001') {
@@ -1591,7 +1573,6 @@
         }
       },
       getErrorType(val) {
-        debugger
         this.form.worktime = '';
         this.form.lengthtime = '';
         this.typecheck = '';
