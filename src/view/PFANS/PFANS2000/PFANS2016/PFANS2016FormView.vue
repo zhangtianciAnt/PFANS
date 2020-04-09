@@ -599,8 +599,8 @@
         title: 'title.exception_application',
         buttonList: [],
         form: {
-          vacationtype: '0',
-          revacationtype: '0',
+          vacationtype: '',
+          revacationtype: '',
           centerid: '',
           groupid: '',
           teamid: '',
