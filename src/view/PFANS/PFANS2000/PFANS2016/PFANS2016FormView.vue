@@ -713,7 +713,7 @@
     mounted() {
       this.getAbNormalParent();
       this.getSickleave();
-      this.getAttendance();
+      // this.getAttendance();
       this.getDay();
       if (this.$route.params._id) {
         this.loading = true;
