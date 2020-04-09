@@ -303,7 +303,7 @@
                     <template slot-scope="scope">
                       <el-input-number
                         v-model="scope.row.other3"
-                        @change="wagesChange(scope.row.no,scope.row.other3,'1')"
+                        @change="wagesChange(scope.row.no,scope.row.other3,'total2')"
                         controls-position="right"
                         :min="-10000000"
                         size="mini"
@@ -391,7 +391,7 @@
                     <template slot-scope="scope">
                       <el-input-number
                         v-model="scope.row.adjustment"
-                        @change="wagesChange(scope.row.no,scope.row.adjustment,'2')"
+                        @change="wagesChange(scope.row.no,scope.row.adjustment,'socialinsurance')"
                         controls-position="right"
                         :min="-10000000"
                         size="mini"
@@ -490,6 +490,7 @@
                     <template slot-scope="scope">
                       <el-input-number
                         v-model="scope.row.thisadjustment"
+                        @change="wagesChange(scope.row.no,scope.row.thisadjustment,'thismonthadjustment')"
                         controls-position="right"
                         :min="-10000000"
                         size="mini"
@@ -567,6 +568,7 @@
                     <template slot-scope="scope">
                       <el-input-number
                         v-model="scope.row.totaladjustment"
+                        @change="wagesChange(scope.row.no,scope.row.totaladjustment,'total')"
                         controls-position="right"
                         :min="-10000000"
                         size="mini"
@@ -619,6 +621,7 @@
                     <template slot-scope="scope">
                       <el-input-number
                         v-model="scope.row.other6"
+                        @change="wagesChange(scope.row.no,scope.row.other6,'totalbonus')"
                         controls-position="right"
                         :min="-10000000"
                         size="mini"
@@ -3120,30 +3123,28 @@ export default {
     // dom.addEventListener("scroll", this.handleScroll, true);
   },
   methods: {
-    wagesChange(noId, val, temp) {
-      this.totaldata.forEach(function(item, index) {
+    // zqu start 工资tab 录入项change事件
+    wagesChange(noId, val, prop) {
+      this.totaldata.forEach((item, index) => {
         if (item.no === noId) {
-          if (temp === "1") {
-            // 保留小记2初始值，因为多次修改会造成数据累加，从而不正确
-            if (!item.total2init) {
-              item.total2init = item.total2;
-            }
-            // 小记2 = 小记2 + 其他3
-            item.total2 = val
-              ? (parseFloat(item.total2init) + parseFloat(val)).toFixed(2)
-              : item.total2init;
-          } else if (temp === "2") {
-            if (!item.adjustment) {
-              item.adjustmentInit = item.adjustment;
-            }
-            // 调整数修改，个人社会保险(専項控除)随之变化
-            console.log(item.adjustmentInit);
-            console.log(val);
-            item.socialinsurance = val ? val.toFixed(2) : item.adjustmentInit;
-          }
+          this.wagesChangeSwitch(item, prop, val);
         }
       });
     },
+    // 工资tab 录入项change事件 逻辑
+    wagesChangeSwitch(item, prop, val) {
+      // 用于存储prop初始值
+      let propInit = prop + "Init";
+      if (!item[propInit]) {
+        item[propInit] = item[prop];
+      }
+      // val存在正常计算，不存在使用init初始值
+      item[prop] = val
+        ? (parseFloat(item[propInit]) + parseFloat(val)).toFixed(2)
+        : item[propInit];
+    },
+    // zqu end
+
     // todo by skaixx : 滚动条滑动handeler
     // handleScroll(e) {
     //   let parentNode = e.srcElement;
@@ -4655,56 +4656,56 @@ export default {
       }
     },
     buttonClick(val) {
-      // zqu start
-      // if (val === "import") {
-      //   if (this.tab === "3") {
-      //     this.OTherTwo.giving_id = this.Giving;
-      //     this.OTherTwo.type = "0";
-      //     this.$store
-      //       .dispatch("PFANS2005Store/deleteothertwo", {
-      //         type: "1",
-      //         giving_id: this.Giving
-      //       })
-      //       .then(response => {
-      //         this.daoruothertwo = true;
-      //       });
-      //   }
-      //   if (this.tab === "4") {
-      //     this.$store
-      //       .dispatch("PFANS2005Store/deleteotherfour", {
-      //         giving_id: this.Giving
-      //       })
-      //       .then(response => {
-      //         this.daoruotherfour = true;
-      //       });
-      //   }
-      //   if (this.tab === "5") {
-      //     this.$store
-      //       .dispatch("PFANS2005Store/deleteFive", { giving_id: this.Giving })
-      //       .then(response => {
-      //         this.daoruotherfive = true;
-      //       });
-      //   }
-      //   if (this.tab === "10") {
-      //     this.$store
-      //       .dispatch("PFANS2005Store/deleteteappreciation", {
-      //         giving_id: this.Giving
-      //       })
-      //       .then(response => {
-      //         this.daoruappreciation = true;
-      //       });
-      //   }
-      //   if (this.tab === "13") {
-      //     this.$store
-      //       .dispatch("PFANS2005Store/deleteadditional", {
-      //         giving_id: this.Giving
-      //       })
-      //       .then(response => {
-      //         this.daorufjkc = true;
-      //       });
-      //   }
-      // } else if (val === "save") {
-      // }
+      // zqu start 导入按钮点击事件
+      if (val === "import") {
+        if (this.tab === "3") {
+          this.OTherTwo.giving_id = this.Giving;
+          this.OTherTwo.type = "0";
+          this.$store
+            .dispatch("PFANS2005Store/deleteothertwo", {
+              type: "1",
+              giving_id: this.Giving
+            })
+            .then(response => {
+              this.daoruothertwo = true;
+            });
+        }
+        if (this.tab === "4") {
+          this.$store
+            .dispatch("PFANS2005Store/deleteotherfour", {
+              giving_id: this.Giving
+            })
+            .then(response => {
+              this.daoruotherfour = true;
+            });
+        }
+        if (this.tab === "5") {
+          this.$store
+            .dispatch("PFANS2005Store/deleteFive", { giving_id: this.Giving })
+            .then(response => {
+              this.daoruotherfive = true;
+            });
+        }
+        if (this.tab === "10") {
+          this.$store
+            .dispatch("PFANS2005Store/deleteteappreciation", {
+              giving_id: this.Giving
+            })
+            .then(response => {
+              this.daoruappreciation = true;
+            });
+        }
+        if (this.tab === "13") {
+          this.$store
+            .dispatch("PFANS2005Store/deleteadditional", {
+              giving_id: this.Giving
+            })
+            .then(response => {
+              this.daorufjkc = true;
+            });
+        }
+      } else if (val === "save") {
+      }
       // zqu end
     },
     //本月加班数据变更时，重新计算加班费合计
