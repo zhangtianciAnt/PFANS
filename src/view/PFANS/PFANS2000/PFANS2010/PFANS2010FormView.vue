@@ -5,6 +5,8 @@
                      :data="data"
                      :title="title"
                      :rowid="row_id"
+                     :show-summary ="showSummary"
+                     :summary-method="getSummaries"
                      @rowClick="rowClick"
                      @buttonClick="buttonClick"
                      v-loading="loading" :rowClassName="rowClassName"
@@ -30,6 +32,7 @@
                 title: 'title.PFANS2010FOMRVIEW',
                 data: [],
                 rowid: '',
+                showSummary:true,
                 row_id: 'attendance_id',
                 form: {
                     attendanceid: '',
@@ -198,6 +201,7 @@
           //add-ws-考勤设置休日背景色
           rowClassName({row, rowIndex}){
             //add-ws-考勤设置休日背景色
+
             for(let i =0;i<this.dateInfo.length;i++){
               if(this.dateInfo[i].type === '4'){
                 if(this.dateInfo[i].dateflg === row.dates){
@@ -213,6 +217,7 @@
             if(moment(row.dates).format("E") == 6 || moment(row.dates).format("E") == 7 ){
               return "sub_bg_color_Darkgrey";
             }
+
           },
           setdisabled(val){
             if(this.$route.params.disabled){
@@ -330,6 +335,32 @@
                         this.loading = false;
                     });
             },
+          getSummaries(param) {
+            debugger;
+            const { columns, data } = param;
+            const sums = [];
+            columns.forEach((column, index) => {
+              if (index === 0) {
+                sums[index] = '合计';
+                return;
+              }
+              const values = data.map(item => Number(item[column.property]));
+              if (!values.every(value => isNaN(value))) {
+                sums[index] = values.reduce((prev, curr) => {
+                  const value = Number(curr);
+                  if (!isNaN(value)) {
+                    return prev + curr;
+                  } else {
+                    return prev;
+                  }
+                }, 0);
+              } else {
+                sums[index] = '-';
+              }
+            });
+
+            return sums;
+          },
         },
         mounted() {
           //add-ws-考勤设置休日背景色
