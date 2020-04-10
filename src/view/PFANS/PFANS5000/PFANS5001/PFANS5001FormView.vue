@@ -1899,7 +1899,7 @@
       setdisabled(val) {
         debugger
         if (this.$route.params.disabled) {
-          this.disabled = val;
+          this.disable = val;
         }
       },
       setToolsorgs(val) {
