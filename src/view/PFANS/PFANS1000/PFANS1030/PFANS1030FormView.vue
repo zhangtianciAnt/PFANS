@@ -413,7 +413,7 @@
                         controls-position="right"
                         style="width:20vw"
                         v-model="form.exchangerate"
-                        @change="sumAward()"
+                        @change="sumAward"
                       ></el-input-number>
                     </el-form-item>
                   </el-col>
@@ -554,6 +554,7 @@
                         :min="0"
                         :no="scope.row"
                         :precision="2"
+                        @change="changemonsynum(scope.row)"
                         controls-position="right"
                         style="width: 100%"
                         v-model="scope.row.depart"
@@ -746,6 +747,7 @@
         }],
         activeName: 'first',
         disabled: true,
+        moneysum: '',
         errorcustojapanese: '',
         errorcustochinese: '',
         errorplacejapanese: '',
@@ -934,12 +936,12 @@
         // add-ws-合同人件费修改
         startoption: [
           {
-            attf: '社員合計人数',
+            attf: this.$t('label.PFANS1030FORMVIEW_NEWDATA'),
             budgetcode: '0',
             depart: '',
           },
           {
-            attf: '社員コスト（元）',
+            attf: this.$t('label.PFANS1030FORMVIEW_NEWDATA2'),
             budgetcode: '0',
             depart: '',
           },
@@ -1172,6 +1174,11 @@
       this.disable = this.$route.params.disabled;
     },
     methods: {
+      changemonsynum(row){
+        if(row.attf ===this.$t('label.PFANS1030FORMVIEW_NEWDATA2')){
+          this.moneysum = row.depart;
+        }
+      },
       objectSpanMethod({row, column, rowIndex, columnIndex}) {
         if (rowIndex === 15 || rowIndex === 16) {
           if (columnIndex == 0) {
@@ -1223,9 +1230,9 @@
       changePro(val, row) {
         row.projects = val;
       },
-      sumAward() {
-        if (this.form.contracttype === 'PG019001') {
-          this.form.sarmb = this.from.exchangerate * this.sumAwardmoney;
+      sumAward(val) {
+        if (this.form.currencyposition === 'PG019001' || this.form.currencyposition === this.$t('label.PFANS1039FORMVIEW_DOLLAR')) {
+          this.form.sarmb = val * this.sumAwardmoney;
         } else {
           this.form.sarmb = this.sumAwardmoney;
         }
@@ -1233,11 +1240,6 @@
       changeSum(row) {
         row.worknumber = row.member + row.outsource;
         row.awardmoney = row.member * row.community + row.outsource * row.outcommunity;
-        if (this.form.contracttype === 'PG019001') {
-          this.form.sarmb = this.from.exchangerate * this.sumAwardmoney;
-        } else {
-          this.form.sarmb = this.sumAwardmoney;
-        }
       },
       getUserids(val) {
         this.userlist = val;
@@ -1248,8 +1250,9 @@
           this.error = '';
         }
       },
-      gettotal() {
-        this.form.outsourcing = this.form.total / this.form.number;
+      gettotal(val) {
+        this.form.outsourcing = val / this.form.number;
+        this.form.pjrate =  parseFloat((this.form.sarmb-this.moneysum-val))/this.form.sarmb
       },
       getcontracttype(val) {
         this.form.contracttype = val;
@@ -1349,8 +1352,8 @@
             }
             if (index == 7) {
               sums[index] = Math.round((sums[index]) * 100) / 100;
-              this.sumAwardmoney = sums[index];
             }
+            this.sumAwardmoney = sums[8];
           } else {
             sums[index] = '--';
           }
