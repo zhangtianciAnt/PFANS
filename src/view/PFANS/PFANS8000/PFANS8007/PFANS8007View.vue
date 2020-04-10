@@ -215,365 +215,372 @@
   </div>
 </template>
 <script>
-    import EasyNormalContainer from '@/components/EasyNormalContainer'
-    import FullCalendar from '@fullcalendar/vue'
-    import dayGridPlugin from '@fullcalendar/daygrid'
-    import timeGridPlugin from '@fullcalendar/timegrid'
-    import interactionPlugin from '@fullcalendar/interaction'
-    import moment from 'moment'
-    import {Message} from 'element-ui'
+  import EasyNormalContainer from '@/components/EasyNormalContainer';
+  import FullCalendar from '@fullcalendar/vue';
+  import dayGridPlugin from '@fullcalendar/daygrid';
+  import timeGridPlugin from '@fullcalendar/timegrid';
+  import interactionPlugin from '@fullcalendar/interaction';
+  import moment from 'moment';
+  import {Message} from 'element-ui';
 
-    export default {
-        name: 'PFANS8007View.vue',
-        components: {
-            FullCalendar,
-            EasyNormalContainer,
+  export default {
+    name: 'PFANS8007View.vue',
+    components: {
+      FullCalendar,
+      EasyNormalContainer,
+    },
+    data() {
+      return {
+        noback: true,
+        showNonCurrentDates: false,
+        defaultDate1: moment().years() + 1 + '-01-01',
+        defaultDate2: moment().years() + 1 + '-02-01',
+        defaultDate3: moment().years() + 1 + '-03-01',
+        defaultDate4: moment().years() + '-04-01',
+        defaultDate5: moment().years() + '-05-01',
+        defaultDate6: moment().years() + '-06-01',
+        defaultDate7: moment().years() + '-07-01',
+        defaultDate8: moment().years() + '-08-01',
+        defaultDate9: moment().years() + '-09-01',
+        defaultDate10: moment().years() + '-10-01',
+        defaultDate11: moment().years() + '-11-01',
+        defaultDate12: moment().years() + '-12-01',
+
+        method: '$(\'#calendar\').fullCalendar(\'prev\')',
+        tanchang: false,
+        title: 'title.PFANS8007VIEW',
+        firstDay: 1,
+        loading: false,
+        radio1: '',
+        checkradio: '',
+        day: '',
+        Clickday: '',
+        List1: [],
+        List2: [],
+        List3: [],
+        List4: [],
+        List5: [],
+        List6: [],
+        year: [],
+        yearsModel: null,
+        years: [],
+        one: 1,
+        dada: [],
+        header: {
+          left: '',
+          center: 'title',
+          right: '',
         },
-        data() {
-            return {
-                noback: true,
-                showNonCurrentDates: false,
-                defaultDate1: moment().years() + 1 + '-01-01',
-                defaultDate2: moment().years() + 1 + '-02-01',
-                defaultDate3: moment().years() + 1 + '-03-01',
-                defaultDate4: moment().years() + '-04-01',
-                defaultDate5: moment().years() + '-05-01',
-                defaultDate6: moment().years() + '-06-01',
-                defaultDate7: moment().years() + '-07-01',
-                defaultDate8: moment().years() + '-08-01',
-                defaultDate9: moment().years() + '-09-01',
-                defaultDate10: moment().years() + '-10-01',
-                defaultDate11: moment().years() + '-11-01',
-                defaultDate12: moment().years() + '-12-01',
-
-                method: '$(\'#calendar\').fullCalendar(\'prev\')',
-                tanchang: false,
-                title: 'title.PFANS8007VIEW',
-                firstDay: 1,
-                loading: false,
-                radio1: '',
-                day: '',
-                Clickday: '',
-                List1: [],
-                List2: [],
-                List3: [],
-                List4: [],
-                List5: [],
-                List6: [],
-                year: [],
-                yearsModel: null,
-                years: [],
-                one: 1,
-                dada: [],
-                header: {
-                    left: '',
-                    center: 'title',
-                    right: ''
-                },
-                params: {
-                    years: '',
-                    workingdate: '',
-                    type: '',
-                },
-                calendarPlugins: [
-                    dayGridPlugin,
-                    timeGridPlugin,
-                    interactionPlugin],
-                locale: 'cn'
-            }
+        params: {
+          years: '',
+          workingdate: '',
+          type: '',
         },
-        mounted() {
-            this.getDay();
-            this.init()
-            this.locale = this.$i18n.locale === 'zh_CN' ? 'ja' : 'ja'
-        },
-        methods: {
-            getDay() {
-                this.$store
-                    .dispatch('PFANS8007Store/getList', {})
-                    .then(response => {
-                        this.$store.commit("global/SET_DAYS", response);
-                    })
-            },
-            dayRender: function (info) {
-                if (this.$store.getters.days != null) {
-                    this.loading = true;
-                    let response = this.$store.getters.days
-                    for (let c = 0; c < response.length; c++) {
-                        if (response[c].type == 1) {
-                            if (moment(response[c].workingdate).format('YYYY-MM-DD') === moment(info.date).format('YYYY-MM-DD')) {
-                                info.el.bgColor = '#df4848'
-                            }
-                        }
-                        if (response[c].type == 2) {
-                            if (moment(response[c].workingdate).format('YYYY-MM-DD') === moment(info.date).format('YYYY-MM-DD')) {
-                                info.el.bgColor = '#999'
-                            }
-                        }
-                        if (response[c].type == 3) {
-                            if (moment(response[c].workingdate).format('YYYY-MM-DD') === moment(info.date).format('YYYY-MM-DD')) {
-                                info.el.bgColor = '#005baa'
-                            }
-                        }
-                        if (response[c].type == 4) {
-                            if (moment(response[c].workingdate).format('YYYY-MM-DD') === moment(info.date).format('YYYY-MM-DD')) {
-                                info.el.bgColor = '#f9e30e'
-                            }
-                        }
-                        if (response[c].type == 5) {
-                            if (moment(response[c].workingdate).format('YYYY-MM-DD') === moment(info.date).format('YYYY-MM-DD')) {
-                                info.el.bgColor = 'magenta'
-                            }
-                        }
-                        if (response[c].type == 6) {
-                            if (moment(response[c].workingdate).format('YYYY-MM-DD') === moment(info.date).format('YYYY-MM-DD')) {
-                                info.el.bgColor = 'green'
-                            }
-                        }
-                    }
-                    this.loading = false;
-                }
-
-            },
-            submitForm(ruleFormNew) {
-                if (this.params.type == "") {
-                    Message({
-                        message: this.$t('label.PFANS8007VIEW_YS'),
-                        type: 'error',
-                        duration: 5 * 1000
-                    })
-                } else {
-                    this.params.workingdate = moment(this.day).format('YYYY-MM-DD');
-                  this.params.years = this.yearsModel;
-                    this.loading = true;
-                    this.$store
-                        .dispatch('PFANS8007Store/deleteUser', {workingdate: this.params.workingdate})
-                        .then(response => {
-                                this.$store
-                                    .dispatch('PFANS8007Store/createNewUser', this.params)
-                                    .then(response => {
-                                        if (this.params.type == '1') {
-                                            this.data.style.backgroundColor = '#df4848'
-                                        }
-                                        if (this.params.type == '2') {
-                                            this.data.style.backgroundColor = '#999'
-                                        }
-                                        if (this.params.type == '3') {
-                                            this.data.style.backgroundColor = '#005baa'
-                                        }
-                                        if (this.params.type == '4') {
-                                            this.data.style.backgroundColor = '#f9e30e'
-                                        }
-                                        if (this.params.type == '5') {
-                                            this.data.style.backgroundColor = 'magenta'
-                                        }
-                                        if (this.params.type == '6') {
-                                            this.data.style.backgroundColor = 'green'
-                                        }
-                                        Message({
-                                            message: this.$t('normal.success_01'),
-                                            type: 'success',
-                                            duration: 5 * 1000
-                                        })
-                                        this.loading = false;
-                                        this.getDay();
-                                    })
-                                    .catch(error => {
-                                        Message({
-                                            message: error,
-                                            type: 'error',
-                                            duration: 5 * 1000
-                                        })
-                                        this.loading = false;
-                                    })
-                                this.tanchang = false
-                                this.radio1 = []
-                            }
-                        )
-                }
-            }
-            ,
-            resetForm(ruleFormNew) {
-                this.params.workingdate = moment(this.day).format('YYYY-MM-DD');
-                this.loading = true;
-                this.$store
-                    .dispatch('PFANS8007Store/deleteUser', {workingdate: this.params.workingdate})
-                    .then(response => {
-                        this.getDay();
-                        if (this.params.type == '1') {
-                            this.data.style.backgroundColor = ' rgb(255, 255, 204)'
-                        }
-                        if (this.params.type == '2') {
-                            this.data.style.backgroundColor = ' rgb(255, 255, 204)'
-                        }
-                        if (this.params.type == '3') {
-                            this.data.style.backgroundColor = ' rgb(255, 255, 204)'
-                        }
-                        if (this.params.type == '4') {
-                            this.data.style.backgroundColor = ' rgb(255, 255, 204)'
-                        }
-                        if (this.params.type == '5') {
-                            this.data.style.backgroundColor = ' rgb(255, 255, 204)'
-                        }
-                        if (this.params.type == '6') {
-                            this.data.style.backgroundColor = ' rgb(255, 255, 204)'
-                        }
-                        Message({
-                            message: this.$t('normal.info_03'),
-                            type: 'success',
-                            duration: 5 * 1000
-                        })
-                        this.loading = false;
-                    })
-                    .catch(error => {
-                        Message({
-                            message: error,
-                            type: 'error',
-                            duration: 5 * 1000
-                        })
-                        this.loading = false;
-                    })
-                this.tanchang = false
-                if (this.Clickday === 6 || this.Clickday === 0) {
-                    this.data.style.backgroundColor = '#999'
-                } else if (moment(this.day).format('YYYY-MM-DD') === moment(new Date()).format('YYYY-MM-DD')) {
-                    this.data.style.backgroundColor = '#fcf8e3'
-                } else {
-                    this.data.style.backgroundColor = 'rgb(255, 255, 204)'
-                }
-
-                this.radio1 = []
-            }
-            ,
-            setClick(type) {
-                this.params.type = type
-            }
-            ,
-            handleDateClick: function (info) {
-                this.params.type = '';
-                this.radio1 = '';
-                this.Clickday = info.date.getDay();
-                this.day = moment(info.date).format('YYYY-MM-DD')
-                this.data = info.dayEl
-                this.loading = true
-                this.$store
-                    .dispatch('PFANS8007Store/getList', {})
-                    .then(response => {
-                        const data1 = []
-                        for (let c = 0; c < response.length; c++) {
-                            data1.push({
-                                date: response[c].workingdate,
-                                type: response[c].type,
-                            })
-                            this.list1 = data1
-                        }
-                        if(this.list1){
-                          for (let a = 0; a < this.list1.length; a++) {
-                            if (this.day === moment(this.list1[a].date).format('YYYY-MM-DD')) {
-                              if (this.list1[a].type == 1) {
-                                this.radio1 = '1';
-                              }
-                              if (this.list1[a].type == 2) {
-                                this.radio1 = '2';
-                              }
-                              if (this.list1[a].type == 3) {
-                                this.radio1 = '3';
-                              }
-                              if (this.list1[a].type == 4) {
-                                this.radio1 = '4';
-                              }
-                              if (this.list1[a].type == 5) {
-                                this.radio1 = '5';
-                              }
-                              if (this.list1[a].type == 6) {
-                                this.radio1 = '6';
-                              }
-                            }
-                          }
-                        }
-
-                        this.tanchang = true
-                    })
-                this.loading = false
-            }
-            ,
-            init() {
-                var myDate = new Date
-                var year = myDate.getFullYear() + 1
-                this.initSelectYear(year)
-                this.yearsModel = year - 1
-                let obj = {year: this.yearsModel}
-            }
-            ,
-            initSelectYear(year) {
-                this.years = []
-                for (let i = 0; i < 5; i++) {
-                    this.years.push({value: (year - i), label: (year - i) + '年'})
-                }
-            }
-            ,
-            dateChange() {
-                this.year = this.yearsModel
-                this.defaultDate1 = this.year + 1 + '-01-01'
-                this.defaultDate2 = this.year + 1 + '-02-01'
-                this.defaultDate3 = this.year + 1 + '-03-01'
-                this.defaultDate4 = this.year + '-04-01'
-                this.defaultDate5 = this.year + '-05-01'
-                this.defaultDate6 = this.year + '-06-01'
-                this.defaultDate7 = this.year + '-07-01'
-                this.defaultDate8 = this.year + '-08-01'
-                this.defaultDate9 = this.year + '-09-01'
-                this.defaultDate10 = this.year + '-10-01'
-                this.defaultDate11 = this.year + '-11-01'
-                this.defaultDate12 = this.year + '-12-01'
-                let calendarApi1 = this.$refs.fullCalendar1.getApi()
-                calendarApi1.gotoDate(this.defaultDate4)
-                let calendarApi2 = this.$refs.fullCalendar2.getApi()
-                calendarApi2.gotoDate(this.defaultDate5)
-                let calendarApi3 = this.$refs.fullCalendar3.getApi()
-                calendarApi3.gotoDate(this.defaultDate6)
-                let calendarApi4 = this.$refs.fullCalendar4.getApi()
-                calendarApi4.gotoDate(this.defaultDate7)
-                let calendarApi5 = this.$refs.fullCalendar5.getApi()
-                calendarApi5.gotoDate(this.defaultDate8)
-                let calendarApi6 = this.$refs.fullCalendar6.getApi()
-                calendarApi6.gotoDate(this.defaultDate9)
-                let calendarApi7 = this.$refs.fullCalendar7.getApi()
-                calendarApi7.gotoDate(this.defaultDate10)
-                let calendarApi8 = this.$refs.fullCalendar8.getApi()
-                calendarApi8.gotoDate(this.defaultDate11)
-                let calendarApi9 = this.$refs.fullCalendar9.getApi()
-                calendarApi9.gotoDate(this.defaultDate12)
-                let calendarApi10 = this.$refs.fullCalendar10.getApi()
-                calendarApi10.gotoDate(this.defaultDate1)
-                let calendarApi11 = this.$refs.fullCalendar11.getApi()
-                calendarApi11.gotoDate(this.defaultDate2)
-                let calendarApi12 = this.$refs.fullCalendar12.getApi()
-                calendarApi12.gotoDate(this.defaultDate3)
-            }
-            ,
-            getMaxDay(year, month) {
-                var new_year = year
-                var new_month = month++
-                if (month > 12) {
-                    new_month -= 12
-                    new_year++
-                }
-                var new_date = new Date(new_year, new_month, 1)
-                return (new Date(new_date.getTime() - 1000 * 60 * 60 * 24)).getDate()
-            }
-            ,
+        calendarPlugins: [
+          dayGridPlugin,
+          timeGridPlugin,
+          interactionPlugin],
+        locale: 'cn',
+      };
+    },
+    mounted() {
+      this.getDay();
+      this.init();
+      this.locale = this.$i18n.locale === 'zh_CN' ? 'ja' : 'ja';
+    },
+    methods: {
+      getDay() {
+        this.$store
+          .dispatch('PFANS8007Store/getList', {})
+          .then(response => {
+            this.$store.commit('global/SET_DAYS', response);
+          });
+      },
+      dayRender: function(info) {
+        // add-ws-工作日设置周末为其他休假颜色覆盖问题修改
+        if (info.date.getDay() === 6 || info.date.getDay() === 0) {
+          info.el.bgColor = '#999';
         }
-    }
+        // add-ws-工作日设置周末为其他休假颜色覆盖问题修改
+        if (this.$store.getters.days != null) {
+          this.loading = true;
+          let response = this.$store.getters.days;
+          for (let c = 0; c < response.length; c++) {
+            if (response[c].type == 1) {
+              if (moment(response[c].workingdate).format('YYYY-MM-DD') === moment(info.date).format('YYYY-MM-DD')) {
+                info.el.bgColor = '#df4848';
+              }
+            }
+            if (response[c].type == 2) {
+              if (moment(response[c].workingdate).format('YYYY-MM-DD') === moment(info.date).format('YYYY-MM-DD')) {
+                info.el.bgColor = '#999';
+              }
+            }
+            if (response[c].type == 3) {
+              if (moment(response[c].workingdate).format('YYYY-MM-DD') === moment(info.date).format('YYYY-MM-DD')) {
+                info.el.bgColor = '#005baa';
+              }
+            }
+            if (response[c].type == 4) {
+              if (moment(response[c].workingdate).format('YYYY-MM-DD') === moment(info.date).format('YYYY-MM-DD')) {
+                info.el.bgColor = '#f9e30e';
+              }
+            }
+            if (response[c].type == 5) {
+              if (moment(response[c].workingdate).format('YYYY-MM-DD') === moment(info.date).format('YYYY-MM-DD')) {
+                info.el.bgColor = 'magenta';
+              }
+            }
+            if (response[c].type == 6) {
+              if (moment(response[c].workingdate).format('YYYY-MM-DD') === moment(info.date).format('YYYY-MM-DD')) {
+                info.el.bgColor = 'green';
+              }
+            }
+          }
+          this.loading = false;
+        }
+      },
+      submitForm(ruleFormNew) {
+        // add-ws-修改工作日设置check修改
+        if (this.params.type == '') {
+          Message({
+            message: this.$t('label.PFANS8007VIEW_YSCHECK'),
+            type: 'error',
+            duration: 5 * 1000,
+          });
+        }
+        // add-ws-修改工作日设置check修改
+        else {
+          this.params.workingdate = moment(this.day).format('YYYY-MM-DD');
+          this.params.years = this.yearsModel;
+          this.loading = true;
+          this.$store
+            .dispatch('PFANS8007Store/deleteUser', {workingdate: this.params.workingdate})
+            .then(response => {
+                this.$store
+                  .dispatch('PFANS8007Store/createNewUser', this.params)
+                  .then(response => {
+                    if (this.params.type == '1') {
+                      this.data.style.backgroundColor = '#df4848';
+                    }
+                    if (this.params.type == '2') {
+                      this.data.style.backgroundColor = '#999';
+                    }
+                    if (this.params.type == '3') {
+                      this.data.style.backgroundColor = '#005baa';
+                    }
+                    if (this.params.type == '4') {
+                      this.data.style.backgroundColor = '#f9e30e';
+                    }
+                    if (this.params.type == '5') {
+                      this.data.style.backgroundColor = 'magenta';
+                    }
+                    if (this.params.type == '6') {
+                      this.data.style.backgroundColor = 'green';
+                    }
+                    Message({
+                      message: this.$t('normal.success_01'),
+                      type: 'success',
+                      duration: 5 * 1000,
+                    });
+                    this.loading = false;
+                    this.getDay();
+                  })
+                  .catch(error => {
+                    Message({
+                      message: error,
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    this.loading = false;
+                  });
+                this.tanchang = false;
+                this.radio1 = [];
+              },
+            );
+        }
+      }
+      ,
+      resetForm(ruleFormNew) {
+        this.params.workingdate = moment(this.day).format('YYYY-MM-DD');
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS8007Store/deleteUser', {workingdate: this.params.workingdate})
+          .then(response => {
+            this.getDay();
+            if (this.params.type == '1') {
+              this.data.style.backgroundColor = ' rgb(255, 255, 204)';
+            }
+            if (this.params.type == '2') {
+              this.data.style.backgroundColor = ' rgb(255, 255, 204)';
+            }
+            if (this.params.type == '3') {
+              this.data.style.backgroundColor = ' rgb(255, 255, 204)';
+            }
+            if (this.params.type == '4') {
+              this.data.style.backgroundColor = ' rgb(255, 255, 204)';
+            }
+            if (this.params.type == '5') {
+              this.data.style.backgroundColor = ' rgb(255, 255, 204)';
+            }
+            if (this.params.type == '6') {
+              this.data.style.backgroundColor = ' rgb(255, 255, 204)';
+            }
+            Message({
+              message: this.$t('normal.info_03'),
+              type: 'success',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+        this.tanchang = false;
+        if (this.Clickday === 6 || this.Clickday === 0) {
+          this.data.style.backgroundColor = '#999';
+        } else if (moment(this.day).format('YYYY-MM-DD') === moment(new Date()).format('YYYY-MM-DD')) {
+          this.data.style.backgroundColor = '#fcf8e3';
+        } else {
+          this.data.style.backgroundColor = 'rgb(255, 255, 204)';
+        }
+
+        this.radio1 = [];
+      }
+      ,
+      setClick(type) {
+        this.params.type = type;
+      }
+      ,
+      handleDateClick: function(info) {
+        this.params.type = '';
+        this.radio1 = '';
+        this.Clickday = info.date.getDay();
+        this.day = moment(info.date).format('YYYY-MM-DD');
+        this.data = info.dayEl;
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS8007Store/getList', {})
+          .then(response => {
+            const data1 = [];
+            for (let c = 0; c < response.length; c++) {
+              data1.push({
+                date: response[c].workingdate,
+                type: response[c].type,
+              });
+              this.list1 = data1;
+            }
+            if (this.list1) {
+              for (let a = 0; a < this.list1.length; a++) {
+                if (this.day === moment(this.list1[a].date).format('YYYY-MM-DD')) {
+                  if (this.list1[a].type == 1) {
+                    this.radio1 = '1';
+                    this.checkradio = '1';
+                  }
+                  if (this.list1[a].type == 2) {
+                    this.radio1 = '2';
+                    this.checkradio = '1';
+                  }
+                  if (this.list1[a].type == 3) {
+                    this.radio1 = '3';
+                    this.checkradio = '1';
+                  }
+                  if (this.list1[a].type == 4) {
+                    this.radio1 = '4';
+                    this.checkradio = '1';
+                  }
+                  if (this.list1[a].type == 5) {
+                    this.radio1 = '5';
+                    this.checkradio = '1';
+                  }
+                  if (this.list1[a].type == 6) {
+                    this.radio1 = '6';
+                    this.checkradio = '1';
+                  }
+                }
+              }
+            }
+            this.tanchang = true;
+          });
+        this.loading = false;
+      }
+      ,
+      init() {
+        var myDate = new Date;
+        var year = myDate.getFullYear() + 1;
+        this.initSelectYear(year);
+        this.yearsModel = year - 1;
+        let obj = {year: this.yearsModel};
+      }
+      ,
+      initSelectYear(year) {
+        this.years = [];
+        for (let i = 0; i < 5; i++) {
+          this.years.push({value: (year - i), label: (year - i) + '年'});
+        }
+      }
+      ,
+      dateChange() {
+        this.year = this.yearsModel;
+        this.defaultDate1 = this.year + 1 + '-01-01';
+        this.defaultDate2 = this.year + 1 + '-02-01';
+        this.defaultDate3 = this.year + 1 + '-03-01';
+        this.defaultDate4 = this.year + '-04-01';
+        this.defaultDate5 = this.year + '-05-01';
+        this.defaultDate6 = this.year + '-06-01';
+        this.defaultDate7 = this.year + '-07-01';
+        this.defaultDate8 = this.year + '-08-01';
+        this.defaultDate9 = this.year + '-09-01';
+        this.defaultDate10 = this.year + '-10-01';
+        this.defaultDate11 = this.year + '-11-01';
+        this.defaultDate12 = this.year + '-12-01';
+        let calendarApi1 = this.$refs.fullCalendar1.getApi();
+        calendarApi1.gotoDate(this.defaultDate4);
+        let calendarApi2 = this.$refs.fullCalendar2.getApi();
+        calendarApi2.gotoDate(this.defaultDate5);
+        let calendarApi3 = this.$refs.fullCalendar3.getApi();
+        calendarApi3.gotoDate(this.defaultDate6);
+        let calendarApi4 = this.$refs.fullCalendar4.getApi();
+        calendarApi4.gotoDate(this.defaultDate7);
+        let calendarApi5 = this.$refs.fullCalendar5.getApi();
+        calendarApi5.gotoDate(this.defaultDate8);
+        let calendarApi6 = this.$refs.fullCalendar6.getApi();
+        calendarApi6.gotoDate(this.defaultDate9);
+        let calendarApi7 = this.$refs.fullCalendar7.getApi();
+        calendarApi7.gotoDate(this.defaultDate10);
+        let calendarApi8 = this.$refs.fullCalendar8.getApi();
+        calendarApi8.gotoDate(this.defaultDate11);
+        let calendarApi9 = this.$refs.fullCalendar9.getApi();
+        calendarApi9.gotoDate(this.defaultDate12);
+        let calendarApi10 = this.$refs.fullCalendar10.getApi();
+        calendarApi10.gotoDate(this.defaultDate1);
+        let calendarApi11 = this.$refs.fullCalendar11.getApi();
+        calendarApi11.gotoDate(this.defaultDate2);
+        let calendarApi12 = this.$refs.fullCalendar12.getApi();
+        calendarApi12.gotoDate(this.defaultDate3);
+      }
+      ,
+      getMaxDay(year, month) {
+        var new_year = year;
+        var new_month = month++;
+        if (month > 12) {
+          new_month -= 12;
+          new_year++;
+        }
+        var new_date = new Date(new_year, new_month, 1);
+        return (new Date(new_date.getTime() - 1000 * 60 * 60 * 24)).getDate();
+      }
+      ,
+    },
+  };
 </script>
 <style lang="scss" scoped>
-  .fc-unthemed td.fc-sat {
-    background: #999;
-  }
 
-  .fc-unthemed td.fc-sun {
-    background: #999;
-  }
 
   .fc-row.fc-widget-header {
     background-color: rgb(255, 204, 102);
@@ -621,7 +628,8 @@
 
   //ADD-WS-修改工作日设置日历当天颜色
   .fc-unthemed td.fc-today {
-    background:cornsilk;
+    background: cornsilk;
   }
+
   //ADD-WS-修改工作日设置日历当天颜色
 </style>
