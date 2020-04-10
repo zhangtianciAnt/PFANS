@@ -86,24 +86,33 @@
               </div>
             </el-form-item>
             <el-dialog :visible.sync="dialogVisibleE"
-                       top="8vh"
+                       top="8vh" width="100vh"
                        append-to-body>
-              <el-table :data="dataA" :row-key="rowid" @row-click="rowClickE" max-height="400" ref="roletableA"
+              <el-table :data="dataA.filter(data => !search || data.supchinese.toLowerCase().includes(search.toLowerCase()))" :row-key="rowid" @row-click="rowClickE" max-height="400" ref="roletableA"
                         v-loading='loading'>
                 <el-table-column property="supchinese" :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')"
-                                 width="120"></el-table-column>
-                <el-table-column property="suppliercode" :label="$t('label.PFANS6003FORMVIEW_VENDORNUM')"
-                                 width="120"></el-table-column>
+                                 width="240"></el-table-column>
+                <!--<el-table-column property="suppliercode" :label="$t('label.PFANS6003FORMVIEW_VENDORNUM')"-->
+                                 <!--width="120"></el-table-column>-->
                 <el-table-column property="liableperson" :label="$t('label.ASSETS1002VIEW_USERID')"
-                                 width="120"></el-table-column>
-                <el-table-column property="prochinese" :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')"
-                                 width="120"></el-table-column>
+                                 width="80"></el-table-column>
+                <!--<el-table-column property="prochinese" :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')"-->
+                                 <!--width="120"></el-table-column>-->
                 <el-table-column property="protelephone" :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')"
                                  width="120"></el-table-column>
-                <el-table-column property="commontperson" :label="$t('label.PFANS6002VIEW_COMMONTPERSON')"
-                                 width="120"></el-table-column>
-                <el-table-column property="comtelephone" :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')"
-                                 width="120"></el-table-column>
+                <!--<el-table-column property="commontperson" :label="$t('label.PFANS6002VIEW_COMMONTPERSON')"-->
+                                 <!--width="120"></el-table-column>-->
+                <!--<el-table-column property="comtelephone" :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')"-->
+                                 <!--width="120"></el-table-column>-->
+                <el-table-column
+                  align="right" width="230">
+                  <template slot="header" slot-scope="scope">
+                    <el-input
+                      v-model="search"
+                      size="mini"
+                      placeholder="请输入供应商关键字搜索"/>
+                  </template>
+                </el-table-column>
               </el-table>
             </el-dialog>
 
@@ -826,6 +835,7 @@
         dialogBook: false,
         display: true,
         options: [],
+        search: '',
         contractnumbercount: '',
         contractnumbercountok: '',
         maketype: '',

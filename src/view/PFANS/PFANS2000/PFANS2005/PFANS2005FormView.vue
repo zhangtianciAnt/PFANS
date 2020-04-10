@@ -9,6 +9,16 @@
     >
       <div slot="customize">
         <el-form label-position="top" label-width="8vw" ref="form">
+          <el-row type="flex" justify="end" style="margin-bottom:1vh">
+            <el-col :span="6">
+              <el-input
+                @input="handleFilterName"
+                placeholder="请输入员工名字"
+                prefix-icon="el-icon-search"
+                v-model="filterName"
+              ></el-input>
+            </el-col>
+          </el-row>
           <el-tabs @tab-click="handleClick" v-model="activeName" type="border-card">
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_GZ')" name="first">
               <div style="height: calc(100vh - 230px - 2rem);width: 100%">
@@ -2835,6 +2845,8 @@ export default {
   },
   data() {
     return {
+      responseDataInit: [], // responseDataInit 初始化值
+      filterName: "", //  过滤用户姓名
       tableData: [], // 工资画面显示总数据
       totaldataFJKC: [],
       totaldataQQ: [],
@@ -3123,6 +3135,11 @@ export default {
     // dom.addEventListener("scroll", this.handleScroll, true);
   },
   methods: {
+    // zqu start 根据员工姓名进行筛选
+    handleFilterName() {
+      console.log(this.filterName);
+    },
+    // zqu end
     // zqu start 工资tab 录入项change事件
     wagesChange(noId, val, prop) {
       this.totaldata.forEach((item, index) => {
