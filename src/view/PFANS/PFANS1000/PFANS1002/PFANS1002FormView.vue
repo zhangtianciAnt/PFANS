@@ -1641,7 +1641,12 @@
         this.buttonClick('update');
       },
       start(val) {
-        this.form.status = '2';
+        if (val.state === '0') {
+          this.form.status = '2';
+        }else if (val.state === '2') {
+          this.form.status = '4';
+        }
+        // this.form.status = '2';
         this.buttonClick('update');
       },
       end(val) {
