@@ -842,10 +842,10 @@
                     width="220%">
                     <template slot-scope="scope">
                       <el-col :span="8">
-                        <div class="dpSupIndex" style="width:14vw">
+                        <div class="dpSupIndex" style="width:16vw">
                           <el-container>
                             <input class="content bg" v-model="scope.row.contract"
-                                   :disabled="!disable"></input>
+                                   :disabled="!disable" style="min-width: 50%;width: 50%"></input>
                             <el-button :disabled="!disable" icon="el-icon-search" @click="dialogTableVisible3 = true"
                                        size="small"></el-button>
                             <el-dialog :title="$t('menu.BROKERAGECONTRACT')" :visible.sync="dialogTableVisible3" center

@@ -1,6 +1,6 @@
 <template>
   <div style="min-height: 100%">
-    <EasyNormalContainer ref="container" :title="title" @buttonClick="buttonClick" v-loading="loading" :buttonList="buttonList"
+    <EasyNormalContainer ref="container" :title="title" @buttonClick="buttonClick" v-loading="loading" :buttonList="buttonList" @disabled="setdisabled"
                          @workflowState="workflowState" :canStart="canStart" @start="start" @end="end" :workflowCode="workcode">
       <div slot="customize">
         <el-form :model="form" label-width="8vw" label-position="top" style="padding: 3vw" :rules="rules"
@@ -213,9 +213,9 @@
             </el-col>
           </el-row>
           <el-row>
-            <el-col :span="8">
+            <el-col :span="24">
               <el-form-item :label="$t('label.PFANS1004VIEW_REASONSFORQUOTATION')" label-width="6rem" v-show="show2">
-                <el-input v-model="form.reasonsforquotation" :disabled="!disabled" style="width: 70vw;padding-left:2rem" type="textarea"></el-input>
+                <el-input v-model="form.reasonsforquotation" :disabled="!disabled" style="width: 70vw;" type="textarea"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -653,6 +653,11 @@
             }
         },
         methods: {
+          setdisabled(val){
+            if(this.$route.params.disabled){
+              this.disabled = val;
+            }
+          },
           moneyDiff(){
             if(this.form.businessplanbalance > 0 && this.form.businessplanbalance < this.form.amounttobegiven){
               this.show = false;
