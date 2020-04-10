@@ -493,7 +493,7 @@
                                 :userlist="scope.row.name"
                                 @getUserids="getCitationUserid"
                                 :multiple="multiple"
-                                style="width: 18vw"
+                                style="width: 90%"
                               ></user>
                             </template>
                           </el-table-column>

@@ -508,7 +508,7 @@
                                  orgtype="2"
                                  :disabled="!disable"
                                  :error="errorgroup"
-                                 style="width: 100%"
+                                 style="width: 90%"
                                  :no="scope.row"
                                  @getOrgids="getGroupId"></org>
                           </template>

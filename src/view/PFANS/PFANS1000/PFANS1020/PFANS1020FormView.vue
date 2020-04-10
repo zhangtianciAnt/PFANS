@@ -118,7 +118,7 @@
                     :selectType="selectType"
                     :userlist="scope.row.username"
                     @getUserids="getUserids1"
-                    style="width: 10.15rem"
+                    style="width: 90%"
                   ></user>
                 </template>
               </el-table-column>

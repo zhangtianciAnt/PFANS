@@ -149,7 +149,7 @@
 <!--                    style="width: 100%"-->
 <!--                  ></dicselect>-->
                   <org :disabled="false" :no="scope.row" :orglist="scope.row.sourceipgroup" @getOrgids="getTgroup"
-                       orgtype="2" style="width:10vw"></org>
+                       orgtype="2" style="width:90%"></org>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1016FORMVIEW_SOURCEIPADDRESS')" align="center"  width="300">
@@ -200,7 +200,7 @@
 <!--                    style="width: 100%"-->
 <!--                  ></dicselect>-->
                   <org :disabled="false" :no="scope.row" :orglist="scope.row.destinationipgroup" @getOrgids="getWTgroup"
-                       orgtype="2" style="width:10vw"></org>
+                       orgtype="2" style="width:90%"></org>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1016FORMVIEW_DESTINATIONIPADDRESS')" align="center"  width="300">
