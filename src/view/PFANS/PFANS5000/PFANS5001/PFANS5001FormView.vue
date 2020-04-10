@@ -605,7 +605,7 @@
                             <template slot-scope="scope">
                               <el-input
                                 :no="scope.row"
-                                :disabled="scope.$index == 0"
+                                :disabled="scope.$index == 0 || !disable"
                                 v-model="scope.row.position"
                                 style="width: 100%">
                               </el-input>
