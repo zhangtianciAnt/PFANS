@@ -267,7 +267,7 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.email')" prop="email">
                 <el-input
-                  :disabled="!disabled" maxlength="20" style="width:20vw"
+                  :disabled="!disabled" maxlength="50" style="width:20vw"
                   v-model="form.email"></el-input>
               </el-form-item>
             </el-col>

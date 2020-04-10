@@ -516,7 +516,7 @@
                 <el-form-item :label="$t('label.PFANS2002FORMVIEW_LEVEL')">
                   <dicselect
                     :data="form.level"
-                    :disabled="disabled"
+                    :disabled="true"
                     @change="changeLevel"
                     class="width"
                     code="PR021"
@@ -527,7 +527,7 @@
               <el-col :span="8">
                 <el-form-item :label="$t('label.PFANS2002FORMVIEW_GIVING')">
                   <el-input-number
-                    :disabled="disabled"
+                    :disabled="true"
                     :max="1000000"
                     :min="0"
                     :precision="2"
@@ -814,6 +814,9 @@
               vote.source = response[i].source
               vote.other = response[i].other
               vote.member = response[i].member
+              vote.rn = response[i].rn
+              vote.salary = response[i].salary
+
 // wxl 4/8 面试官通过选人带出来 end
               this.gridData.push(vote);
             }
@@ -891,6 +894,10 @@
         this.changeUsing(this.form.adoption)
         this.form.other3 = this.currentRow6//其他
         this.form.others = this.currentRow7//推荐人
+        this.form.level = this.rn //rn
+        this.form.giving = this.salary //薪资
+
+
 // wxl 4/8 面试官通过选人带出来 end
       },
       handleClickChange(val) {
@@ -905,6 +912,8 @@
         this.currentRow5 = val.source;//招聘途径
         this.currentRow6 = val.other;//其他
         this.currentRow7 = val.member;//推荐人
+        this.rn = val.rn;//rn
+        this.salary = val.salary;//薪资
 // wxl 4/8 面试官通过选人带出来 end
       },
       arraySpanMethod({row, column, rowIndex, columnIndex}) {
