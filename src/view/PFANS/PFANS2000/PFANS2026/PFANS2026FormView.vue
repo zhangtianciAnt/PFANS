@@ -365,9 +365,15 @@
     data() {
       var validateDay = (rule, value, callback) => {
         if (value) {
-          if (moment(value).diff(moment(this.form.application_date), 'day') <= 30) {
-            callback(new Error(this.$t('normal.error_date1')));
-          } else {
+//wxl 0410  start
+          // if (moment(value).diff(moment(this.form.application_date), 'day') <= 30) {
+          //   callback(new Error(this.$t('normal.error_date1')));
+          // }
+          if (moment(value).diff(moment(this.form.application_date), 'day') < 0) {
+            callback(new Error(this.$t('normal.error_checkTime1') + this.$t('label.application')));
+          }
+//wxl 0410  end
+          else {
             callback();
           }
         } else {
