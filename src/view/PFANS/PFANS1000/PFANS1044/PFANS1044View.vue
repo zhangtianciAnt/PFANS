@@ -121,7 +121,6 @@
     },
 
     activated() {
-      debugger;
       if (!this.$route.meta.isBack) {
         // 如果isBack是false，表明需要获取新数据，否则就不再请求，直接使用缓存的数据
         this.init();
