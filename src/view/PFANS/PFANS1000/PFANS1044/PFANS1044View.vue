@@ -1,5 +1,7 @@
 <template>
-  <EasyNormalTable :columns="columns" :data="data" :title="title" v-loading="loading" :buttonList="buttonList" :showSelection="showSelection" @buttonClick="buttonClick" ref="roletable">
+  <EasyNormalTable :columns="columns" :data="data" :title="title" v-loading="loading" :buttonList="buttonList"
+                   :showSelection="showSelection" @buttonClick="buttonClick" ref="roletable"
+  @dbrowClick="dbrowClick">
     <el-form label-position="top" label-width="8vw" slot="search">
       <el-row>
         <el-col :span="8">
@@ -60,7 +62,7 @@
         alldata2: [],
         columns: [
           {
-            code: 'user_id',
+            code: 'username',
             label: 'label.applicant',
             width: 120,
             fix: false,
@@ -119,7 +121,7 @@
             tabledata[i].status = getStatus(tabledata[i].status);
             let user = getUserInfo(tabledata[i].user_id);
             if (user) {
-              tabledata[i].user_id = getUserInfo(tabledata[i].user_id).userinfo.customername;
+              tabledata[i].username = getUserInfo(tabledata[i].user_id).userinfo.customername;
             }
             if (tabledata[i].applicationdate !== null && tabledata[i].applicationdate !== "") {
               tabledata[i].applicationdate = moment(tabledata[i].applicationdate).format("YYYY-MM-DD");
@@ -166,6 +168,25 @@
         })
     },
     methods: {
+      dbrowClick(val){
+        let name = "";
+        if(val.type === '0'){
+          name = "PFANS1024FormView"
+        }else  if(val.type === '0'){
+          name = "PFANS1026FormView"
+        }else  if(val.type === '0'){
+          name = "PFANS1033FormView"
+        }
+
+        this.$router.push({
+          name: name,
+          params: {
+            _id: val.contractnumber,
+            state: val.state,
+            disabled: true
+          }
+        })
+      },
       buttonClick(val){
         if(val === 'export'){
           if(this.$refs.roletable.selectedList.length === 0){
@@ -212,7 +233,7 @@
             const filterVal = [
               'department',
               'deployment',
-              'user_id',
+              'username',
               'applicationdate',
               'contracttype',
               'contractnumber',

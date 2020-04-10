@@ -24,6 +24,7 @@ module.exports = {
   },
   button: {
     insert: '新建',
+    search: '检索',
     insertLots: '批量新建',
     update: '编辑',
     delete: '删除',

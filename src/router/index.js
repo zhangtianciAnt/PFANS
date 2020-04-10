@@ -492,6 +492,9 @@ const routes = [
         path: '/PFANS1044View',
         name: 'PFANS1044View',
         component: PFANS1044View,
+        meta: {
+          keepAlive: true  //此组件不需要被缓存
+        }
       },
       {
         path: '/PFANS1025FormView',
