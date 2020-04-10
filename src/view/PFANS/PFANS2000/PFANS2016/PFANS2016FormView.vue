@@ -1331,7 +1331,17 @@
       rechange() {
         let rediffDate = moment(this.form.refinisheddate).diff(moment(this.form.reoccurrencedate), 'days') + 1;
         if (this.form.errortype === 'PR013005' || this.form.errortype === 'PR013007') {
-          this.form.refinisheddate = this.form.reoccurrencedate;
+          if (this.retypecheck == '0') {
+            let time = 0;
+            //不包含公休日
+            for (let d = 0; d < this.relist.length; d++) {
+              time = time + 1;
+            }
+            this.form.relengthtime = time * 8;
+          } else {
+            this.form.refinisheddate = this.form.reoccurrencedate;
+            this.form.relengthtime = 4;
+          }
         }
         if (this.form.errortype === 'PR013009') {
           if (rediffDate > 30 - this.sickleave) {
