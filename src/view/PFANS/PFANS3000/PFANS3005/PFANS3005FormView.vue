@@ -818,8 +818,13 @@
         }
         this.buttonClick('update');
       },
-      start() {
-        this.form.status = '2';
+      start(val) {
+        if (val.state === '0') {
+          this.form.status = '2';
+        }else if (val.state === '2') {
+          this.form.status = '4';
+        }
+        // this.form.status = '2';
         this.buttonClick('update');
       },
       end() {
