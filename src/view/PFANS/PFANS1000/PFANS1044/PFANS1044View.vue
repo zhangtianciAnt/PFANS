@@ -110,6 +110,24 @@
         row: 'contractapplication_id '
       };
     },
+    beforeRouteEnter(to,from,next){
+
+      if(from.name === 'PFANS1024FormView' || from.name === 'PFANS1026FormView' || from.name === 'PFANS1033FormView'){
+        to.meta.keepAlive = true
+      }else{
+        to.meta.keepAlive = false
+      }
+      next();
+    },
+    beforeRouteLeave(to,from,next){
+
+      if(to.name === 'PFANS1024FormView' || to.name === 'PFANS1026FormView' || to.name === 'PFANS1033FormView'){
+        to.meta.keepAlive = true
+      }else{
+        to.meta.keepAlive = false
+      }
+      next();
+    },
     mounted() {
       this.loading = true;
       this.$store
@@ -172,9 +190,9 @@
         let name = "";
         if(val.type === '0'){
           name = "PFANS1024FormView"
-        }else  if(val.type === '0'){
+        }else  if(val.type === '1'){
           name = "PFANS1026FormView"
-        }else  if(val.type === '0'){
+        }else  if(val.type === '2'){
           name = "PFANS1033FormView"
         }
 
