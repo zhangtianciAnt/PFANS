@@ -418,7 +418,7 @@
                         :userlist="scope.row.interviewer"
                         @getUserids="getInterviewerids"
                         selectType="Single"
-                        style="width:100%"
+                        style="width:90%"
                       ></user>
                     </template>
                   </el-table-column>
