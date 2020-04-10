@@ -86,6 +86,15 @@ export default {
           fix: false,
           filter: true
         },
+        // add-ws-考勤异常实际值添加
+        {
+          code: "relengthtime",
+          label: "label.PFANS2016VIEW_REPERIODLENGTH",
+          width: 140,
+          fix: false,
+          filter: true
+        },
+        // add-ws-考勤异常实际值添加
         {
           code: "occurrencedate",
           label: "label.PFANS2016VIEW_OCCURRENCEDATE",
@@ -144,6 +153,7 @@ export default {
       .dispatch("PFANS2016Store/getFpans2016List", {})
       .then(response => {
         for (let j = 0; j < response.length; j++) {
+
           if (
             response[j].errortype != "PR013005" &&
             response[j].errortype != "PR013007"
@@ -168,6 +178,16 @@ export default {
           if (user) {
             response[j].username = user.userinfo.customername;
           }
+          // add-ws-考勤异常实际值添加
+          if (response[j].status == 7) {
+            if (this.$i18n) {
+              response[j].relengthtime =
+                response[j].relengthtime + this.$t("label.hours");
+            }
+          }else{
+            response[j].relengthtime ='';
+          }
+          // add-ws-考勤异常实际值添加
           if (response[j].status !== null && response[j].status !== "") {
             response[j].status = getStatus(response[j].status);
           }
