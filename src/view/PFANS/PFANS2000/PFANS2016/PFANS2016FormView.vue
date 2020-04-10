@@ -1624,33 +1624,30 @@
           this.checkrelengthtime = false;
           this.dislengthtime = false;
           this.showVacation = false;
+          this.form.lengthtime = '0';
         } else if (val === 'PR013009') {
           this.checkerrortishi = false;
           this.checkrelengthtime = false;
           this.dislengthtime = false;
           this.form.lengthtime = '0';
-          // this.checkfinisheddate = true;
           this.showVacation = true;
         } else if (val === 'PR013011') {
           this.checkerrortishi = false;
           this.checkrelengthtime = true;
           this.dislengthtime = true;
           this.form.lengthtime = 8;
-          // this.checkfinisheddate = true;
           this.showVacation = true;
         } else if (val === 'PR013012') {
           this.checkerrortishi = true;
           this.checkrelengthtime = true;
           this.dislengthtime = true;
           this.form.lengthtime = 8;
-          // this.checkfinisheddate = true;
           this.showVacation = true;
         } else if (val === 'PR013013') {
           this.checkerrortishi = false;
           this.checkrelengthtime = true;
           this.dislengthtime = true;
           this.form.lengthtime = 8;
-          // this.checkfinisheddate = true;
           this.showVacation = true;
         } else if (val === 'PR013014') {
           this.checkerrortishi = false;
@@ -1663,21 +1660,18 @@
             this.checkrelengthtime = true;
             this.dislengthtime = true;
           this.form.lengthtime = 8;
-            // this.checkfinisheddate = true;
             this.showVacation = true;
         } else if (val === 'PR013016') {
           this.checkerrortishi = false;
           this.checkrelengthtime = false;
           this.dislengthtime = false;
           this.form.lengthtime = '0';
-          // this.checkfinisheddate = true;
           this.showVacation = true;
         } else if (val === 'PR013017') {
           this.checkerrortishi = false;
           this.checkrelengthtime = true;
           this.dislengthtime = true;
           this.form.lengthtime = 8;
-          // this.checkfinisheddate = true;
           this.showVacation = true;
         } else if (val === 'PR013018' || val === 'PR013019') {
           this.checkerrortishi = false;
@@ -1685,11 +1679,6 @@
           this.dislengthtime = false;
           this.form.lengthtime = '0';
           this.showVacation = false;
-        // } else if (val === 'PR0130119') {
-        //   this.checkerrortishi = false;
-        //   this.checkrelengthtime = true;
-        //   this.dislengthtime = false;
-        //   this.showVacation = false;
         } else if (val === 'PR013020') {
           this.checkerrortishi = false;
           this.checkrelengthtime = true;
@@ -1808,7 +1797,7 @@
               }
               if(this.form.lengthtime > diffDate *8){
                 Message({
-                  message: this.$t('请选择日期范围内有效的时间'),
+                  message: this.$t('label.PFANS2016FORMVIEW_ERROREFFECTIVE'),
                   type: 'error',
                   duration: 5 * 1000,
                 });
@@ -1860,7 +1849,7 @@
               //判断申请人是否在试用期
               if(enddateflg >= moment(new Date()).format("YYYY-MM-DD")){
                 Message({
-                  message: this.$t('还在试用期，不可申请年假'),
+                  message: this.$t('label.PFANS2016FORMVIEW_ERRORANNUALLEAVEU'),
                   type: 'error',
                   duration: 5 * 1000,
                 });
@@ -1880,7 +1869,7 @@
               }
               if (this.checkDate < time) {
                 Message({
-                  message: this.$t('您的年休不足'),
+                  message: this.$t('label.PFANS2016FORMVIEW_ERRORANNUALLEAVE'),
                   type: 'error',
                   duration: 5 * 1000,
                 });
@@ -1905,7 +1894,7 @@
                 }
                 if(this.form.lengthtime > sum * 8){
                   Message({
-                    message: this.$t('请填写在日期区间内的时间'),
+                    message: this.$t('label.PFANS2016FORMVIEW_ERROREFFECTIVE'),
                     type: 'error',
                     duration: 5 * 1000,
                   });
