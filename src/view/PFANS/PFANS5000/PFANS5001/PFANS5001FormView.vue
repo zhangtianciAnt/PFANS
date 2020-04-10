@@ -593,7 +593,7 @@
                                 :userlist="scope.row.name"
                                 @getUserids="getCitationUserid"
                                 :multiple="multiple"
-                                style="width: 18vw"
+                                style="width: 80%"
                               ></user>
                             </template>
                           </el-table-column>
@@ -1897,8 +1897,9 @@
         }
       },
       setdisabled(val) {
+        debugger
         if (this.$route.params.disabled) {
-          this.disabled = val;
+          this.disable = val;
         }
       },
       setToolsorgs(val) {

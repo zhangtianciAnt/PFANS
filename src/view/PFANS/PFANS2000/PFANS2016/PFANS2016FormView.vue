@@ -324,7 +324,7 @@
   import {Message} from 'element-ui';
   import dicselect from '../../../components/dicselect.vue';
   import user from '../../../components/user.vue';
-  import {getOrgInfoByUserId} from '@/utils/customize';
+  import {getOrgInfoByUserId,getCurrentRole} from '@/utils/customize';
   import moment from 'moment';
   import {getDictionaryInfo, uploadUrl} from '../../../../utils/customize';
 
@@ -599,8 +599,8 @@
         title: 'title.exception_application',
         buttonList: [],
         form: {
-          vacationtype: '0',
-          revacationtype: '0',
+          vacationtype: '',
+          revacationtype: '',
           centerid: '',
           groupid: '',
           teamid: '',
@@ -725,7 +725,7 @@
         parent: '',
         checkTimelenght: '',
         checkTimeLenght: '',
-        enterday: '',
+        // enterday: '',
         marryday: '',
       };
     },
@@ -776,10 +776,10 @@
             // if (this.form.status == '4' || this.form.status == '5' || this.form.status == '6' || this.form.status == '7') {
             //   this.checkfinisheddate = false;
             // }
-            if (this.form.status === '2' || this.form.status === '4'
-              || this.form.status === '6'|| this.form.status === '7') {
-              this.disable = false;
-            }
+            // if (this.form.status === '2' || this.form.status === '4'
+            //   || this.form.status === '6'|| this.form.status === '7') {
+            //   this.disable = false;
+            // }
             this.getOvertimelist();
             if (this.form.uploadfile != '') {
               let uploadfile = this.form.uploadfile.split(';');
@@ -795,12 +795,17 @@
             if (this.form.status === '0') {
               this.workflowCode = 'W0003';
               this.canStart = true;
+              this.checklengthtime = false;
             } else if (this.form.status === '4') {
               this.workflowCode = 'W0059';
               this.canStart = true;
+              this.disable = false;
             } else if (this.form.status === '7') {
               this.workflowCode = 'W0059';
               this.canStart = false;
+              this.disable = false;
+            } else if(this.form.status === '2'){
+              this.disable = false;
             }
             this.loading = false;
 
@@ -816,7 +821,7 @@
 
       } else {
         this.userlist = this.$store.getters.userinfo.userid;
-        this.enterday = moment(this.$store.getters.userinfo.userinfo.enterday).format('YYYY-MM-DD');
+        // this.enterday = moment(this.$store.getters.userinfo.userinfo.enterday).format('YYYY-MM-DD');
         this.marryday = moment(this.$store.getters.userinfo.userinfo.marryday).format('YYYY-MM-DD');
         if (this.userlist !== null && this.userlist !== '') {
           let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
@@ -1147,7 +1152,6 @@
         if(!this.form.finisheddate || !this.form.occurrencedate){
           return;
         }
-        this.form.lengthtime = 0;
         let diffDate = moment(this.form.finisheddate).diff(moment(this.form.occurrencedate), 'days') + 1;
         if (this.form.errortype === 'PR013001') {
           // this.checklengthtime = false;
@@ -1240,6 +1244,7 @@
             }
           }
         }
+        if(this.form.errortype === 'PR013005' && this.form.errortype === 'PR013007'){
         if (this.typecheck == '0') {
           let time = 0;
           for (let d = 0; d < this.relist.length; d++) {
@@ -1263,6 +1268,7 @@
             time = time + 1;
           }
           this.form.lengthtime = time * 8;
+        }
         }
         // if (this.form.errortype === 'PR013014') {
         //     this.form.lengthtime = 4;
@@ -1544,15 +1550,15 @@
             });
             return;
           }
-          if (this.enterday < '2012-08-31') {
-            this.error = 1;
-            Message({
-              message: this.$t('label.PFANS2016FORMVIEW_ERRORENTERDAY'),
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            return;
-          }
+          // if (this.enterday < '2012-08-31') {
+          //   this.error = 1;
+          //   Message({
+          //     message: this.$t('label.PFANS2016FORMVIEW_ERRORENTERDAY'),
+          //     type: 'error',
+          //     duration: 5 * 1000,
+          //   });
+          //   return;
+          // }
         }
         if (this.form.errortype === 'PR013011') {
           var aa = moment(new Date()).format('YYYY-MM-DD');
@@ -1722,17 +1728,7 @@
         } else {
           this.form.status = '2';
         }
-        if (this.form.errortype === 'PR013014') {
-          if (2 - this.parent <= 0) {
-            Message({
-              message: this.$t('label.PFANS2016FORMVIEW_BJDJZHCHECK'),
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            return;
-          }
-        }
-        this.buttonClick2('update');
+          this.buttonClick2('update');
       },
       end() {
         if (this.form.status === '5') {
@@ -1786,18 +1782,35 @@
         this.$refs['ruleForm'].validate(valid => {
           if (valid) {
             this.errort = '';
-            let letrelation = '';
-            // for (let j = 0; j < this.form.relation.length; j++) {
-            //     letrelation = letrelation + ',' + this.form.relation[j];
+            // if(moment(this.form.occurrencedate).format('YYYY-MM-DD') === moment(this.form.finisheddate).format('YYYY-MM-DD')){
+            //   if(this.form.errortype === 'PR013014'){
+            //     if (2 - this.parent <= 0) {
+            //       Message({
+            //         message: this.$t('label.PFANS2016FORMVIEW_BJDJZHCHECK'),
+            //         type: 'error',
+            //         duration: 5 * 1000,
+            //       });
+            //       return;
+            //     }
+            //     if (val > 4) {
+            //       Message({
+            //         message: this.$t('label.PFANS2016FORMVIEW_BJDJZCHECK'),
+            //         type: 'error',
+            //         duration: 5 * 1000,
+            //       });
+            //       return;
+            //     }
+            //   } else {
+            //     if(this.from.lengthtime > 8){
+            //       alert('每日时间大于8小时！');
+            //     }
+            //   }
+            // } else {
+            //   let diffDate = moment(this.form.finisheddate).diff(moment(this.form.occurrencedate), 'days') + 1;
+            //   if(this.from.lengthtime > diffDate *8){
+            //     alert('输入1324')
+            //   }
             // }
-            let letnewdate = moment(new Date()).format('YYYY-MM-DD');
-            let letoccurrencedate = moment(this.form.occurrencedate).format('YYYY-MM-DD');
-            let letfinisheddate = moment(this.form.finisheddate).format('YYYY-MM-DD');
-            let letoccurrencedateTo = moment(this.form.reoccurrencedate).format('YYYY-MM-DD');
-            let letfinisheddateTo = moment(this.form.refinisheddate).format('YYYY-MM-DD');
-            if (this.form.errortype === 'PR013001' || this.form.errortype === 'PR013014') {
-              this.form.finisheddate = this.form.occurrencedate;
-            }
             if ((this.form.errortype != 'PR013005' && this.form.errortype != 'PR013007') && this.form.status != '4' &&
               this.form.status != '5' && this.form.status != '6' && this.form.status != '7' && this.form.status != '8' && this.form.lengthtime <= 0) {
               Message({
@@ -1807,11 +1820,8 @@
               });
               return;
             }
-            // if (this.form.errortype === 'PR013014' ) {
-            //     this.form.lengthtime = 4;
-            // }
             if (this.form.errortype === 'PR013005' || this.form.errortype === 'PR013006') {
-              if (letoccurrencedate == letfinisheddate) {
+              if (this.form.vacationtype === '0') {
                 this.form.lengthtime = 8;
               } else if (this.relist.length != '0') {
                 let time = 0;
@@ -1819,10 +1829,10 @@
                   time = time + 1;
                 }
                 this.form.lengthtime = time * 8;
-              } else {
+              } else if(this.form.vacationtype === '1'  || this.form.vacationtype === '2'){
                 this.form.lengthtime = 4;
               }
-              if (letoccurrencedateTo == letfinisheddateTo && letoccurrencedateTo != 'Invalid date') {
+              if (this.form.revacationtype === '0') {
                 this.form.relengthtime = 8;
               } else if (this.relistTwo.length != '0') {
                 let timere = 0;
@@ -1830,7 +1840,7 @@
                   timere = timere + 1;
                 }
                 this.form.relengthtime = timere * 8;
-              } else if (letoccurrencedateTo != 'Invalid date') {
+              } else if(this.form.revacationtype === '1'  || this.form.revacationtype === '2'){
                 this.form.relengthtime = 4;
               }
             }
@@ -1881,6 +1891,10 @@
                     this.loading = false;
                   });
               } else {
+                //总经理审批自动通过
+                if(getCurrentRole() === "1"){
+                    this.form.status = '4';
+                }
                 this.loading = true;
                 this.$store
                   .dispatch('PFANS2016Store/createPfans2016', this.form)

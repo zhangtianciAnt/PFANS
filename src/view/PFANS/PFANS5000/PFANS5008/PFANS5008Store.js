@@ -10,7 +10,8 @@ import {
   gettlist,
   downloadList,
   getListcheck,
-  CheckList
+  CheckList,
+  getCheckList
 } from './PFANS5008Api'
 const PFANS5008Store = {
   namespaced: true,
@@ -85,6 +86,19 @@ const PFANS5008Store = {
     getDataList({ commit }, data) {
       return new Promise((resolve, reject) => {
         getDataList(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    getCheckList({ commit }, data) {
+      return new Promise((resolve, reject) => {
+        getCheckList(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {

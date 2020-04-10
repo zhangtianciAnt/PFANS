@@ -131,6 +131,16 @@
                     </template>
                   </el-table-column>
                   <el-table-column
+                    :label="$t('label.PFANS2002FORMVIEW_SCHOOL')"
+                    prop="school"
+                    align="center"
+                  >
+                    <template slot-scope="scope">
+                      <el-input :disabled="disabled" class="width" v-model="scope.row.school" maxlength="20"
+                                style="width:100%"></el-input>
+                    </template>
+                  </el-table-column>
+                  <el-table-column
                     :label="$t('label.PFANS2002FORMVIEW_SPECIALTY')"
                     prop="specialty"
                     align="center"
@@ -408,7 +418,7 @@
                         :userlist="scope.row.interviewer"
                         @getUserids="getInterviewerids"
                         selectType="Single"
-                        style="width:100%"
+                        style="width:90%"
                       ></user>
                     </template>
                   </el-table-column>
@@ -536,7 +546,7 @@
                 <el-form-item :label="$t('label.PFANS2002FORMVIEW_ADOPTION')">
                   <dicselect
                     :data="form.adoption"
-                    :disabled="disabled"
+                    :disabled="true"
                     @change="changeUsing"
                     class="width"
                     code="PR051"
@@ -550,14 +560,14 @@
                   prop="other3"
                   v-show="other3_show"
                 >
-                  <el-input :disabled="disabled" class="width" maxlength="20" style="width:20vw"
+                  <el-input :disabled="true" class="width" maxlength="20" style="width:20vw"
                             v-model="form.other3"></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
                 <el-form-item v-show="display" :label="$t('label.PFANS2002FORMVIEW_OTHERS')">
                   <user
-                    :disabled="disabled"
+                    :disabled="true"
                     :userlist="form.others"
                     @getUserids="getUserids"
                     selectType="Single"
@@ -635,16 +645,19 @@
         tableData3: [
           {
             education: '',
+            school: '',
             specialty: '',
             quityear: '',
           },
           {
             education: '',
+            school: '',
             specialty: '',
             quityear: '',
           },
           {
             education: '',
+            school: '',
             specialty: '',
             quityear: '',
           },
@@ -656,12 +669,17 @@
           birthday: '',
 
           education1: '',
+            school1: '',
           specialty1: '',
           quityear1: '',
+
           education2: '',
+            school2: '',
           specialty2: '',
           quityear2: '',
+
           education3: '',
+            school3: '',
           specialty3: '',
           quityear3: '',
 
@@ -793,6 +811,9 @@
               vote.birthday = moment(response[i].birthday).format('YYYY-MM-DD');
 // wxl 4/8 面试官通过选人带出来 start
               vote.interview = response[i].interview
+              vote.source = response[i].source
+              vote.other = response[i].other
+              vote.member = response[i].member
 // wxl 4/8 面试官通过选人带出来 end
               this.gridData.push(vote);
             }
@@ -866,9 +887,14 @@
         this.errorname = '';
 // wxl 4/8 面试官通过选人带出来 start
         this.tableData = this.currentRow4
+        this.form.adoption = this.currentRow5//招聘途径
+        this.changeUsing(this.form.adoption)
+        this.form.other3 = this.currentRow6//其他
+        this.form.others = this.currentRow7//推荐人
 // wxl 4/8 面试官通过选人带出来 end
       },
       handleClickChange(val) {
+          console.log("val",val)
         this.form.name = val.name;
         this.currentRow = val.name;
         this.currentRow2 = val.sex;
@@ -876,6 +902,9 @@
 // wxl 4/8 面试官通过选人带出来 start
           this.changeOption(val, 'view');
         this.currentRow4 = val.interview;
+        this.currentRow5 = val.source;//招聘途径
+        this.currentRow6 = val.other;//其他
+        this.currentRow7 = val.member;//推荐人
 // wxl 4/8 面试官通过选人带出来 end
       },
       arraySpanMethod({row, column, rowIndex, columnIndex}) {
@@ -895,11 +924,16 @@
               this.tableData = this.form.interview;
               this.tableData3[0].education = response[0].education1;
               this.tableData3[0].specialty = response[0].specialty1;
+              this.tableData3[0].school = response[0].school1;
               this.tableData3[0].quityear = response[0].quityear1;
+
               this.tableData3[1].education = response[0].education2;
+              this.tableData3[1].school = response[0].school2;
               this.tableData3[1].specialty = response[0].specialty2;
               this.tableData3[1].quityear = response[0].quityear2;
+
               this.tableData3[2].education = response[0].education3;
+              this.tableData3[2].school = response[0].school3;
               this.tableData3[2].specialty = response[0].specialty3;
               this.tableData3[2].quityear = response[0].quityear3;
               //this.changeUsing(this.form.adoption);
@@ -1129,14 +1163,17 @@
               this.changeOption(this.form, 'save');
               this.form.education1 = this.tableData3[0].education;
               this.form.quityear1 = this.tableData3[0].quityear;
+              this.form.school1 = this.tableData3[0].school;
               this.form.specialty1 = this.tableData3[0].specialty;
 
               this.form.education2 = this.tableData3[1].education;
               this.form.quityear2 = this.tableData3[1].quityear;
+              this.form.school2 = this.tableData3[1].school;
               this.form.specialty2 = this.tableData3[1].specialty;
 
               this.form.education3 = this.tableData3[2].education;
               this.form.quityear3 = this.tableData3[2].quityear;
+              this.form.school3 = this.tableData3[2].school;
               this.form.specialty3 = this.tableData3[2].specialty;
 
               this.$store
@@ -1165,12 +1202,17 @@
               // zqu start
               this.form.education1 = this.tableData3[0].education;
               this.form.quityear1 = this.tableData3[0].quityear;
+              this.form.school1 = this.tableData3[0].school;
               this.form.specialty1 = this.tableData3[0].specialty;
+
               this.form.education2 = this.tableData3[1].education;
               this.form.quityear2 = this.tableData3[1].quityear;
+              this.form.school2 = this.tableData3[1].school;
               this.form.specialty2 = this.tableData3[1].specialty;
+
               this.form.education3 = this.tableData3[2].education;
               this.form.quityear3 = this.tableData3[2].quityear;
+              this.form.school3 = this.tableData3[2].school;
               this.form.specialty3 = this.tableData3[2].specialty;
               // zqu end
               this.$store

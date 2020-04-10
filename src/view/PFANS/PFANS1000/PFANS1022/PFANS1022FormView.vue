@@ -67,7 +67,7 @@
                 <template slot-scope="scope">
                   <user :disabled="!disabled" :error="errorapplication" :no="scope.row" :selectType="selectType"
                         :userlist="scope.row.application"
-                        @getUserids="getUserids1" style="width: 10.15rem"></user>
+                        @getUserids="getUserids1" style="width: 90%"></user>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1022FORMVIEW_KIND')" align="center" prop="kind" width="190">

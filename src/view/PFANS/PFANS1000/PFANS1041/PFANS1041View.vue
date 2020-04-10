@@ -40,13 +40,13 @@
                   <el-table-column :label="$t('label.PFANS1039FORMVIEW_ENTRUSTGROUP')" align="center" width="230">
                     <template slot-scope="scope">
                       <org :disabled="disabled" :no="scope.row" :orglist="scope.row.entrustgroupid" @getOrgids="getEntrustgroupId"
-                           orgtype="2" style="width:13vw"></org>
+                           orgtype="2" style="width:90%"></org>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1039FORMVIEW_GROUP')" align="center" width="230">
                     <template slot-scope="scope">
                       <org :disabled="true" :no="scope.row" :orglist="scope.row.groupid" @getOrgids="getGroupId"
-                           orgtype="2" style="width:13vw"></org>
+                           orgtype="2" style="width:90%"></org>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1039FORMVIEW_TEAM')" align="center" width="230">
@@ -398,13 +398,13 @@
                   <el-table-column :label="$t('label.PFANS1039FORMVIEW_ENTRUSTGROUP')" align="center" width="230">
                     <template slot-scope="scope">
                       <org :disabled="gettrue(scope.row)" :no="scope.row" :orglist="scope.row.entrustgroupid" @getOrgids="getEntrustgroupId"
-                           orgtype="2" style="width:13vw"></org>
+                           orgtype="2" style="width:90%"></org>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1039FORMVIEW_GROUP')" align="center" width="230">
                     <template slot-scope="scope">
                       <org :disabled="true" :no="scope.row" :orglist="scope.row.groupid" @getOrgids="getGroupId"
-                           orgtype="2" style="width:13vw"></org>
+                           orgtype="2" style="width:90%"></org>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1039FORMVIEW_TEAM')" align="center" width="150">

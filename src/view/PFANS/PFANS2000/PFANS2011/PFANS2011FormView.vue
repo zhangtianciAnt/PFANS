@@ -218,7 +218,7 @@
   import moment from 'moment';
   import {Message} from 'element-ui';
   import user from '../../../components/user.vue';
-  import {getOrgInfoByUserId} from '@/utils/customize';
+  import {getOrgInfoByUserId,getCurrentRole} from '@/utils/customize';
 
   export default {
     name: 'PFANS2011FormView',
@@ -604,7 +604,7 @@
       },
       setdisabled(val){
         if(this.$route.params.disabled){
-          this.disabled = val;
+          this.disable = val;
         }
       },
       getTime(val) {
@@ -943,6 +943,10 @@
                   this.loading = false;
                 });
             } else {
+              //总经理审批自动通过
+              if(getCurrentRole() === "1"){
+                  this.form.status = '4';
+              }
               this.$store
                 .dispatch('PFANS2011Store/createOvertime', this.form)
                 .then(response => {

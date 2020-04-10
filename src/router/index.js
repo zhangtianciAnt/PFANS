@@ -492,6 +492,10 @@ const routes = [
         path: '/PFANS1044View',
         name: 'PFANS1044View',
         component: PFANS1044View,
+        meta: {
+          keepAlive: true,
+          isBack:false
+        }
       },
       {
         path: '/PFANS1025FormView',
