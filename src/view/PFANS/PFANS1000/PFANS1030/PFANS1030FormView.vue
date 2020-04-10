@@ -1,5 +1,5 @@
 <template>
-  <div >
+  <div>
     <EasyNormalContainer :buttonList="buttonList"
                          :title="title"
                          @buttonClick="buttonClick"
@@ -9,14 +9,14 @@
                          ref="container"
                          v-loading="loading">
       <div slot="customize">
-        <el-form :model="form" :rules="rules" label-position="top" label-width="8vm" ref="reff"  style="padding: 2vw">
+        <el-form :model="form" :rules="rules" label-position="top" label-width="8vm" ref="reff" style="padding: 2vw">
           <el-tabs v-model="activeName" type="border-card">
             <el-tab-pane :label="$t('label.PFANS1025VIEW_FIRSTDETAILS')" name="first">
               <div>
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1024VIEW_CONTRACTNUMBER')">
-                      <el-input  :disabled="true"style="width:20vw" v-model="form.contractnumber"></el-input>
+                      <el-input :disabled="true" style="width:20vw" v-model="form.contractnumber"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -31,48 +31,57 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1031FORMVIEW_DEPOSITJAPANESE')" :error="errorcustojapanese" prop="custojapanese">
-                      <el-input  :disabled="true" style="width:20vw" v-model="form.custojapanese"></el-input>
+                    <el-form-item :label="$t('label.PFANS1031FORMVIEW_DEPOSITJAPANESE')" :error="errorcustojapanese"
+                                  prop="custojapanese">
+                      <el-input :disabled="true" style="width:20vw" v-model="form.custojapanese"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1032FORMVIEW_DEPOSITARYCHINESE')" :error="errorcustochinese" prop="custochinese">
-                      <el-input  :disabled="true"style="width:20vw" v-model="form.custochinese"></el-input>
+                    <el-form-item :label="$t('label.PFANS1032FORMVIEW_DEPOSITARYCHINESE')" :error="errorcustochinese"
+                                  prop="custochinese">
+                      <el-input :disabled="true" style="width:20vw" v-model="form.custochinese"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1030FORMVIEW_PRINCIPALPLAC')+$t('（')+$t('label.PFANS1024VIEW_JAPANESE')+$t('）')" :error="errorplacejapanese" prop="placejapanese">
-                      <el-input  :disabled="true" style="width:20vw" v-model="form.placejapanese"></el-input>
+                    <el-form-item
+                      :label="$t('label.PFANS1030FORMVIEW_PRINCIPALPLAC')+$t('（')+$t('label.PFANS1024VIEW_JAPANESE')+$t('）')"
+                      :error="errorplacejapanese" prop="placejapanese">
+                      <el-input :disabled="true" style="width:20vw" v-model="form.placejapanese"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1032FORMVIEW_PRINCIPALPLACECHINESE')" :error="errorplacechinese" prop="placechinese">
-                      <el-input  :disabled="true" style="width:20vw" v-model="form.placechinese"></el-input>
-                    </el-form-item>
-                  </el-col>
-                </el-row>
-                <el-row>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1024VIEW_DEPLOYMENT')" :error="errordeployment" prop="deployment">
-                      <el-input  :disabled="true"style="width:20vw" v-model="form.deployment"></el-input>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1025VIEW_PJNAMEJAPANESE')" :error="errorpjnamejapanese" prop="pjnamejapanese">
-                      <el-input  :disabled="true" style="width:20vw" v-model="form.pjnamejapanese"></el-input>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1025VIEW_PJNAMECHINESE')" :error="errorpjnamechinese" prop="pjnamechinese">
-                      <el-input  :disabled="true" style="width:20vw" v-model="form.pjnamechinese"></el-input>
+                    <el-form-item :label="$t('label.PFANS1032FORMVIEW_PRINCIPALPLACECHINESE')"
+                                  :error="errorplacechinese" prop="placechinese">
+                      <el-input :disabled="true" style="width:20vw" v-model="form.placechinese"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1025VIEW_OPENINGDATE')" :error="errorclaimdatetimeStart" prop="claimdatetimeStart">
+                    <el-form-item :label="$t('label.PFANS1024VIEW_DEPLOYMENT')" :error="errordeployment"
+                                  prop="deployment">
+                      <el-input :disabled="true" style="width:20vw" v-model="form.deployment"></el-input>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1025VIEW_PJNAMEJAPANESE')" :error="errorpjnamejapanese"
+                                  prop="pjnamejapanese">
+                      <el-input :disabled="true" style="width:20vw" v-model="form.pjnamejapanese"></el-input>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1025VIEW_PJNAMECHINESE')" :error="errorpjnamechinese"
+                                  prop="pjnamechinese">
+                      <el-input :disabled="true" style="width:20vw" v-model="form.pjnamechinese"></el-input>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+                <el-row>
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1025VIEW_OPENINGDATE')" :error="errorclaimdatetimeStart"
+                                  prop="claimdatetimeStart">
                       <el-date-picker
                         v-model="form.claimdatetimeStart"
                         :disabled="true"
@@ -82,7 +91,8 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1025VIEW_ENDDATE')" :error="errorclaimdatetimeEnd" prop="claimdatetimeEnd">
+                    <el-form-item :label="$t('label.PFANS1025VIEW_ENDDATE')" :error="errorclaimdatetimeEnd"
+                                  prop="claimdatetimeEnd">
                       <el-date-picker
                         v-model="form.claimdatetimeEnd"
                         :disabled="true"
@@ -92,7 +102,8 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1025VIEW_CURRENCYFORMAT')" :error="errorcurrencyposition" prop="currencyposition">
+                    <el-form-item :label="$t('label.PFANS1025VIEW_CURRENCYFORMAT')" :error="errorcurrencyposition"
+                                  prop="currencyposition">
                       <dicselect :code="code3"
                                  :data="form.currencyposition"
                                  :disabled="true"
@@ -105,33 +116,34 @@
                 </el-row>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1024VIEW_CLAIMAMOUNT')" :error="errorclaimamount" prop="claimamount">
-                      <el-input  :disabled="true" style="width:20vw" v-model="form.claimamount"></el-input>
+                    <el-form-item :label="$t('label.PFANS1024VIEW_CLAIMAMOUNT')" :error="errorclaimamount"
+                                  prop="claimamount">
+                      <el-input :disabled="true" style="width:20vw" v-model="form.claimamount"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
               </div>
 
-              <el-row >
+              <el-row>
                 <el-col :span="24">
-                  <el-table :data="tableS"  header-cell-class-name="sub_bg_color_blue" stripe border style="width: 70vw">
+                  <el-table :data="tableS" header-cell-class-name="sub_bg_color_blue" stripe border style="width: 70vw">
                     <el-table-column
                       prop="claimtype"
-                      :label="$t('label.PFANS1024VIEW_NUMBER')" align="center" width="150" />
+                      :label="$t('label.PFANS1024VIEW_NUMBER')" align="center" width="150"/>
                     <el-table-column
                       prop="deliverydate"
-                      :label="$t('label.PFANS1024VIEW_DELIVERYDATE')" align="center" width="170" />
+                      :label="$t('label.PFANS1024VIEW_DELIVERYDATE')" align="center" width="170"/>
                     <el-table-column
                       prop="completiondate"
                       :label="$t('label.PFANS1024VIEW_COMPLETIONDATE')" align="center" width="150"/>
                     <el-table-column
-                      prop="claimdate" :label="$t('label.PFANS1024VIEW_CLAIMDATE')" align="center"width="150"/>
+                      prop="claimdate" :label="$t('label.PFANS1024VIEW_CLAIMDATE')" align="center" width="150"/>
                     <el-table-column
-                      prop="supportdate" :label="$t('label.PFANS1024VIEW_SUPPORTDATE')" align="center"  width="150" />
+                      prop="supportdate" :label="$t('label.PFANS1024VIEW_SUPPORTDATE')" align="center" width="150"/>
                     <el-table-column
-                      prop="claimamount" :label="$t('label.PFANS1024VIEW_CLAIMAMOUNT')" align="center"  width="150" />
+                      prop="claimamount" :label="$t('label.PFANS1024VIEW_CLAIMAMOUNT')" align="center" width="150"/>
                     <!--<el-table-column-->
-                      <!--prop="currencyposition" :label="$t('label.PFANS1025VIEW_CURRENCYFORMAT')" align="center"  width="150" />-->
+                    <!--prop="currencyposition" :label="$t('label.PFANS1025VIEW_CURRENCYFORMAT')" align="center"  width="150" />-->
                   </el-table>
                 </el-col>
               </el-row>
@@ -149,11 +161,11 @@
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1025VIEW_TELEPHONE')" prop="telephone">
-                      <el-input  :disabled="true" style="width:20vw" v-model="form.telephone"></el-input>
+                      <el-input :disabled="true" style="width:20vw" v-model="form.telephone"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1025FORMVIEW_DRAFTINGDATE')" >
+                    <el-form-item :label="$t('label.PFANS1025FORMVIEW_DRAFTINGDATE')">
                       <el-date-picker
                         v-model="form.draftingdate"
                         :disabled="true"
@@ -165,7 +177,7 @@
                 </el-row>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1025FORMVIEW_SCHEDULEDDATE')" >
+                    <el-form-item :label="$t('label.PFANS1025FORMVIEW_SCHEDULEDDATE')">
                       <el-date-picker
                         v-model="form.scheduleddate"
                         :disabled="true"
@@ -186,7 +198,8 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1025VIEW_INDIVIDUAL')" :error="errorindividual" prop="individual">
+                    <el-form-item :label="$t('label.PFANS1025VIEW_INDIVIDUAL')" :error="errorindividual"
+                                  prop="individual">
                       <dicselect :code="code2"
                                  :data="form.individual"
                                  :disabled="!disable"
@@ -200,24 +213,25 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1025VIEW_PLANNUMBER')">
-                      <el-input  :disabled="!disable"style="width:20vw" v-model="form.plannumber"></el-input>
+                      <el-input :disabled="!disable" style="width:20vw" v-model="form.plannumber"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1025VIEW_VALUATIONNUMBER')">
-                      <el-input  :disabled="!disable" style="width:20vw" v-model="form.valuationnumber"></el-input>
+                      <el-input :disabled="!disable" style="width:20vw" v-model="form.valuationnumber"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1025VIEW_CONTRACTNUMBER')">
-                      <el-input  :disabled="!disable" style="width:20vw" v-model="form.contractnumber"></el-input>
+                      <el-input :disabled="!disable" style="width:20vw" v-model="form.contractnumber"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1004VIEW_CAREERPLAN')" :error="errorplan"   prop="plan">
-                      <el-select v-model="form.plan"  @change="getplan" :disabled="!disable" style="width: 20vw" clearable>
+                    <el-form-item :label="$t('label.PFANS1004VIEW_CAREERPLAN')" :error="errorplan" prop="plan">
+                      <el-select v-model="form.plan" @change="getplan" :disabled="!disable" style="width: 20vw"
+                                 clearable>
                         <el-option
                           v-for="item in optionsdate"
                           :key="item.value"
@@ -229,7 +243,7 @@
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1017FORMVIEW_PREPAREFOR')">
-                      <el-input  :disabled="!disable" style="width:45vw" v-model="form.remarks"></el-input>
+                      <el-input :disabled="!disable" style="width:45vw" v-model="form.remarks"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -246,7 +260,8 @@
                     <div v-else>{{scope.row.budgetcode}}</div>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1025VIEW_DEPART')" align="center" width="170" :error="errorgroup" prop="depart">
+                <el-table-column :label="$t('label.PFANS1025VIEW_DEPART')" align="center" width="170"
+                                 :error="errorgroup" prop="depart">
                   <template slot-scope="scope">
                     <org :orglist="scope.row.depart"
                          orgtype="2"
@@ -266,66 +281,68 @@
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="600">
-                <el-table-column :label="$t('label.PFANS1025VIEW_MEMBER')" align="center" width="150" prop="member">
-                  <template slot-scope="scope">
-                    <el-input-number v-if="scope.row.rowindex !== '999'"
-                                     :disabled="!disable"
-                                     :max="1000000000"
-                                     :min="0"
-                                     :no="scope.row"
-                                     :precision="2"
-                                     controls-position="right"
-                                     style="width: 100%"
-                                     v-model="scope.row.member"
-                                     @change="changeSum(scope.row)"
-                    ></el-input-number>
-                  </template>
+                  <el-table-column :label="$t('label.PFANS1025VIEW_MEMBER')" align="center" width="150" prop="member">
+                    <template slot-scope="scope">
+                      <el-input-number v-if="scope.row.rowindex !== '999'"
+                                       :disabled="!disable"
+                                       :max="1000000000"
+                                       :min="0"
+                                       :no="scope.row"
+                                       :precision="2"
+                                       controls-position="right"
+                                       style="width: 100%"
+                                       v-model="scope.row.member"
+                                       @change="changeSum(scope.row)"
+                      ></el-input-number>
+                    </template>
+                  </el-table-column>
+                  <el-table-column :label="$t('label.PFANS1025VIEW_COMMUNITY')" align="center" width="150">
+                    <template slot-scope="scope">
+                      <el-input-number v-if="scope.row.rowindex !== '999'"
+                                       :disabled="!disable"
+                                       :max="1000000000"
+                                       :min="0"
+                                       :no="scope.row"
+                                       controls-position="right"
+                                       style="width: 100%"
+                                       v-model="scope.row.community"
+                                       @change="changeSum(scope.row)"
+                      ></el-input-number>
+                    </template>
+                  </el-table-column>
+                  <el-table-column :label="$t('label.PFANS1025VIEW_OUTSOURCE')" align="center" width="150"
+                                   prop="outsource">
+                    <template slot-scope="scope">
+                      <el-input-number v-if="scope.row.rowindex !== '999'"
+                                       :disabled="!disable"
+                                       :max="1000000000"
+                                       :min="0"
+                                       :no="scope.row"
+                                       :precision="2"
+                                       controls-position="right"
+                                       style="width: 100%"
+                                       v-model="scope.row.outsource"
+                                       @change="changeSum(scope.row)"
+                      ></el-input-number>
+                    </template>
+                  </el-table-column>
+                  <el-table-column :label="$t('label.PFANS1025VIEW_OUTCOMMUNITY')" align="center" width="150">
+                    <template slot-scope="scope">
+                      <el-input-number v-if="scope.row.rowindex !== '999'"
+                                       :disabled="!disable"
+                                       :max="1000000000"
+                                       :min="0"
+                                       :no="scope.row"
+                                       controls-position="right"
+                                       style="width: 100%"
+                                       v-model="scope.row.outcommunity"
+                                       @change="changeSum(scope.row)"
+                      ></el-input-number>
+                    </template>
+                  </el-table-column>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1025VIEW_COMMUNITY')" align="center"width="150">
-                  <template slot-scope="scope">
-                    <el-input-number v-if="scope.row.rowindex !== '999'"
-                                     :disabled="!disable"
-                                     :max="1000000000"
-                                     :min="0"
-                                     :no="scope.row"
-                                     controls-position="right"
-                                     style="width: 100%"
-                                     v-model="scope.row.community"
-                                     @change="changeSum(scope.row)"
-                    ></el-input-number>
-                  </template>
-                </el-table-column>
-                <el-table-column :label="$t('label.PFANS1025VIEW_OUTSOURCE')" align="center"  width="150"  prop="outsource">
-                  <template slot-scope="scope">
-                    <el-input-number v-if="scope.row.rowindex !== '999'"
-                                     :disabled="!disable"
-                                     :max="1000000000"
-                                     :min="0"
-                                     :no="scope.row"
-                                     :precision="2"
-                                     controls-position="right"
-                                     style="width: 100%"
-                                     v-model="scope.row.outsource"
-                                     @change="changeSum(scope.row)"
-                    ></el-input-number>
-                  </template>
-                </el-table-column>
-                <el-table-column :label="$t('label.PFANS1025VIEW_OUTCOMMUNITY')" align="center"  width="150">
-                  <template slot-scope="scope">
-                    <el-input-number v-if="scope.row.rowindex !== '999'"
-                                     :disabled="!disable"
-                                     :max="1000000000"
-                                     :min="0"
-                                     :no="scope.row"
-                                     controls-position="right"
-                                     style="width: 100%"
-                                     v-model="scope.row.outcommunity"
-                                     @change="changeSum(scope.row)"
-                    ></el-input-number>
-                  </template>
-                </el-table-column>
-                </el-table-column>
-                <el-table-column :label="$t('label.PFANS1025VIEW_WORKNUMBER')" align="center" prop="worknumber" width="150">
+                <el-table-column :label="$t('label.PFANS1025VIEW_WORKNUMBER')" align="center" prop="worknumber"
+                                 width="150">
                   <template slot-scope="scope">
                     <el-input-number v-if="scope.row.rowindex !== '999'"
                                      :disabled="true"
@@ -339,7 +356,8 @@
                     ></el-input-number>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1025VIEW_AWARDMONEY')" align="center" prop="awardmoney" width="150">
+                <el-table-column :label="$t('label.PFANS1025VIEW_AWARDMONEY')" align="center" prop="awardmoney"
+                                 width="150">
                   <template slot-scope="scope">
                     <el-input-number v-if="scope.row.rowindex !== '999'"
                                      :disabled="true"
@@ -500,7 +518,7 @@
                   </el-form-item>
                 </el-col>
               </el-row>
-              <el-row >
+              <el-row>
                 <el-table :data="tableD" :summary-method="getTsummariesTableD"
                           :span-method="objectSpanMethod"
                           border
@@ -512,7 +530,8 @@
                       </el-input>
                     </template>
                   </el-table-column>
-                  <el-table-column :label="$t('label.PFANS1030FORMVIEW_ATTFMOTH')" align="center" width="170" prop="budgetcode">
+                  <el-table-column :label="$t('label.PFANS1030FORMVIEW_ATTFMOTH')" align="center" width="170"
+                                   prop="budgetcode">
                     <template slot-scope="scope">
                       <el-input-number
                         :disabled="!disable"
@@ -526,7 +545,8 @@
                       ></el-input-number>
                     </template>
                   </el-table-column>
-                  <el-table-column :label="$t('label.PFANS1030FORMVIEW_ATTFNUMBER')" align="center" width="150" prop="depart">
+                  <el-table-column :label="$t('label.PFANS1030FORMVIEW_ATTFNUMBER')" align="center" width="150"
+                                   prop="depart">
                     <template slot-scope="scope">
                       <el-input-number
                         :disabled="!disable"
@@ -552,177 +572,177 @@
 
 <script>
   import EasyNormalContainer from '@/components/EasyNormalContainer';
-  import user from "../../../components/user.vue";
+  import user from '../../../components/user.vue';
   import {Message} from 'element-ui';
   import dicselect from '../../../components/dicselect';
-  import moment from "moment";
-  import org from "../../../components/org";
-  import {getDictionaryInfo,getUserInfo,getOrgInfo} from '@/utils/customize';
+  import moment from 'moment';
+  import org from '../../../components/org';
+  import {getDictionaryInfo, getUserInfo, getOrgInfo} from '@/utils/customize';
 
   import project from '../../../components/project';
 
   export default {
-    name: "PFANS1025FormView",
+    name: 'PFANS1025FormView',
     components: {
       EasyNormalContainer,
       user,
       org,
       dicselect,
-      project
+      project,
     },
     data() {
       var checkuser = (rule, value, callback) => {
-        if (!this.form.user_id || this.form.user_id === '' || this.form.user_id === "undefined") {
+        if (!this.form.user_id || this.form.user_id === '' || this.form.user_id === 'undefined') {
           this.error = this.$t('normal.error_09') + this.$t('label.user_name');
           return callback(new Error(this.$t('normal.error_09') + this.$t('label.user_name')));
         } else {
-          this.error = "";
+          this.error = '';
           return callback();
         }
       };
-        var checkcustojapanese = (rule, value, callback) => {
-            if (!this.form.custojapanese || this.form.custojapanese === '' || this.form.custojapanese === "undefined") {
-                this.errorcustojapanese = this.$t('normal.error_08') + this.$t('label.PFANS1031FORMVIEW_DEPOSITJAPANESE');
-                return callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS1031FORMVIEW_DEPOSITJAPANESE')));
-            } else {
-                this.errorcustojapanese = "";
-                return callback();
-            }
-        };
+      var checkcustojapanese = (rule, value, callback) => {
+        if (!this.form.custojapanese || this.form.custojapanese === '' || this.form.custojapanese === 'undefined') {
+          this.errorcustojapanese = this.$t('normal.error_08') + this.$t('label.PFANS1031FORMVIEW_DEPOSITJAPANESE');
+          return callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS1031FORMVIEW_DEPOSITJAPANESE')));
+        } else {
+          this.errorcustojapanese = '';
+          return callback();
+        }
+      };
 
-        var checkcustochinese = (rule, value, callback) => {
-            if (!this.form.custochinese || this.form.custochinese === '' || this.form.custochinese === "undefined") {
-                this.errorcustochinese = this.$t('normal.error_08') + this.$t('label.PFANS1032FORMVIEW_DEPOSITARYCHINESE');
-                return callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS1032FORMVIEW_DEPOSITARYCHINESE')));
-            } else {
-                this.errorcustochinese = "";
-                return callback();
-            }
-        };
+      var checkcustochinese = (rule, value, callback) => {
+        if (!this.form.custochinese || this.form.custochinese === '' || this.form.custochinese === 'undefined') {
+          this.errorcustochinese = this.$t('normal.error_08') + this.$t('label.PFANS1032FORMVIEW_DEPOSITARYCHINESE');
+          return callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS1032FORMVIEW_DEPOSITARYCHINESE')));
+        } else {
+          this.errorcustochinese = '';
+          return callback();
+        }
+      };
 
-        var checkplacejapanese = (rule, value, callback) => {
-            if (!this.form.placejapanese || this.form.placejapanese === '' || this.form.placejapanese === "undefined") {
-                this.errorplacejapanese = this.$t('normal.error_08') + this.$t('label.PFANS1030FORMVIEW_PRINCIPALPLAC');
-                return callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS1030FORMVIEW_PRINCIPALPLAC')));
-            } else {
-                this.errorplacejapanese = "";
-                return callback();
-            }
-        };
+      var checkplacejapanese = (rule, value, callback) => {
+        if (!this.form.placejapanese || this.form.placejapanese === '' || this.form.placejapanese === 'undefined') {
+          this.errorplacejapanese = this.$t('normal.error_08') + this.$t('label.PFANS1030FORMVIEW_PRINCIPALPLAC');
+          return callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS1030FORMVIEW_PRINCIPALPLAC')));
+        } else {
+          this.errorplacejapanese = '';
+          return callback();
+        }
+      };
 
-        var checkplacechinese = (rule, value, callback) => {
-            if (!this.form.placechinese || this.form.placechinese === '' || this.form.placechinese === "undefined") {
-                this.errorplacechinese = this.$t('normal.error_08') + this.$t('label.PFANS1032FORMVIEW_PRINCIPALPLACECHINESE');
-                return callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS1032FORMVIEW_PRINCIPALPLACECHINESE')));
-            } else {
-                this.errorplacechinese = "";
-                return callback();
-            }
-        };
+      var checkplacechinese = (rule, value, callback) => {
+        if (!this.form.placechinese || this.form.placechinese === '' || this.form.placechinese === 'undefined') {
+          this.errorplacechinese = this.$t('normal.error_08') + this.$t('label.PFANS1032FORMVIEW_PRINCIPALPLACECHINESE');
+          return callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS1032FORMVIEW_PRINCIPALPLACECHINESE')));
+        } else {
+          this.errorplacechinese = '';
+          return callback();
+        }
+      };
 
-        var checkdeployment = (rule, value, callback) => {
-            if (!this.form.deployment || this.form.deployment === '' || this.form.deployment === "undefined") {
-                this.errordeployment = this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_DEPLOYMENT');
-                return callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_DEPLOYMENT')));
-            } else {
-                this.errordeployment = "";
-                return callback();
-            }
-        };
+      var checkdeployment = (rule, value, callback) => {
+        if (!this.form.deployment || this.form.deployment === '' || this.form.deployment === 'undefined') {
+          this.errordeployment = this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_DEPLOYMENT');
+          return callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_DEPLOYMENT')));
+        } else {
+          this.errordeployment = '';
+          return callback();
+        }
+      };
 
-        var checkpjnamejapanese = (rule, value, callback) => {
-            if (!this.form.pjnamejapanese || this.form.pjnamejapanese === '' || this.form.pjnamejapanese === "undefined") {
-                this.errorpjnamejapanese = this.$t('normal.error_08') + this.$t('label.PFANS1025VIEW_PJNAMEJAPANESE');
-                return callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS1025VIEW_PJNAMEJAPANESE')));
-            } else {
-                this.errorpjnamejapanese = "";
-                return callback();
-            }
-        };
-        var checkpjnamechinese = (rule, value, callback) => {
-            if (!this.form.pjnamechinese || this.form.pjnamechinese === '' || this.form.pjnamechinese === "undefined") {
-                this.errorpjnamechinese = this.$t('normal.error_08') + this.$t('label.PFANS1025VIEW_PJNAMECHINESE');
-                return callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS1025VIEW_PJNAMECHINESE')));
-            } else {
-                this.errorpjnamechinese = "";
-                return callback();
-            }
-        };
-        var checkclaimdatetimeStart = (rule, value, callback) => {
-            if (!this.form.claimdatetimeStart || this.form.claimdatetimeStart === '' || this.form.claimdatetimeStart === "undefined") {
-                this.errorclaimdatetimeStart = this.$t('normal.error_09') + this.$t('label.PFANS1025VIEW_OPENINGDATE');
-                return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1025VIEW_OPENINGDATE')));
-            } else {
-                this.errorclaimdatetimeStart = "";
-                return callback();
-            }
-        };
+      var checkpjnamejapanese = (rule, value, callback) => {
+        if (!this.form.pjnamejapanese || this.form.pjnamejapanese === '' || this.form.pjnamejapanese === 'undefined') {
+          this.errorpjnamejapanese = this.$t('normal.error_08') + this.$t('label.PFANS1025VIEW_PJNAMEJAPANESE');
+          return callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS1025VIEW_PJNAMEJAPANESE')));
+        } else {
+          this.errorpjnamejapanese = '';
+          return callback();
+        }
+      };
+      var checkpjnamechinese = (rule, value, callback) => {
+        if (!this.form.pjnamechinese || this.form.pjnamechinese === '' || this.form.pjnamechinese === 'undefined') {
+          this.errorpjnamechinese = this.$t('normal.error_08') + this.$t('label.PFANS1025VIEW_PJNAMECHINESE');
+          return callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS1025VIEW_PJNAMECHINESE')));
+        } else {
+          this.errorpjnamechinese = '';
+          return callback();
+        }
+      };
+      var checkclaimdatetimeStart = (rule, value, callback) => {
+        if (!this.form.claimdatetimeStart || this.form.claimdatetimeStart === '' || this.form.claimdatetimeStart === 'undefined') {
+          this.errorclaimdatetimeStart = this.$t('normal.error_09') + this.$t('label.PFANS1025VIEW_OPENINGDATE');
+          return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1025VIEW_OPENINGDATE')));
+        } else {
+          this.errorclaimdatetimeStart = '';
+          return callback();
+        }
+      };
 
-        var checkclaimdatetimeEnd = (rule, value, callback) => {
-            if (!this.form.claimdatetimeEnd || this.form.claimdatetimeEnd === '' || this.form.claimdatetimeEnd === "undefined") {
-                this.errorclaimdatetimeEnd = this.$t('normal.error_09') + this.$t('label.PFANS1025VIEW_ENDDATE');
-                return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1025VIEW_ENDDATE')));
-            } else {
-                this.errorclaimdatetimeEnd = "";
-                return callback();
-            }
-        };
+      var checkclaimdatetimeEnd = (rule, value, callback) => {
+        if (!this.form.claimdatetimeEnd || this.form.claimdatetimeEnd === '' || this.form.claimdatetimeEnd === 'undefined') {
+          this.errorclaimdatetimeEnd = this.$t('normal.error_09') + this.$t('label.PFANS1025VIEW_ENDDATE');
+          return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1025VIEW_ENDDATE')));
+        } else {
+          this.errorclaimdatetimeEnd = '';
+          return callback();
+        }
+      };
 
-        var checkcurrencyposition = (rule, value, callback) => {
-            if (!this.form.currencyposition || this.form.currencyposition === '' || this.form.currencyposition === "undefined") {
-                this.errorcurrencyposition = this.$t('normal.error_09') + this.$t('label.PFANS1025VIEW_CURRENCYFORMAT');
-                return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1025VIEW_CURRENCYFORMAT')));
-            } else {
-                this.errorcurrencyposition = "";
-                return callback();
-            }
-        };
+      var checkcurrencyposition = (rule, value, callback) => {
+        if (!this.form.currencyposition || this.form.currencyposition === '' || this.form.currencyposition === 'undefined') {
+          this.errorcurrencyposition = this.$t('normal.error_09') + this.$t('label.PFANS1025VIEW_CURRENCYFORMAT');
+          return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1025VIEW_CURRENCYFORMAT')));
+        } else {
+          this.errorcurrencyposition = '';
+          return callback();
+        }
+      };
 
-        var checkclaimamount = (rule, value, callback) => {
-            if (!this.form.claimamount || this.form.claimamount === '' || this.form.claimamount === "undefined") {
-                this.errorclaimamount = this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_CLAIMAMOUNT');
-                return callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_CLAIMAMOUNT')));
-            } else {
-                this.errorclaimamount = "";
-                return callback();
-            }
-        };
-        var checkplan = (rule, value, callback) => {
-            if (!this.form.plan || this.form.plan === '' || this.form.plan === "undefined") {
-                this.errorplan = this.$t('normal.error_09') + this.$t('label.PFANS1004VIEW_CAREERPLAN');
-                return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1004VIEW_CAREERPLAN')));
-            } else {
-                this.errorplan = "";
-                return callback();
-            }
-        };
-        var checkvaluation = (rule, value, callback) => {
-            if (!this.form.valuation || this.form.valuation === '' || this.form.valuation === "undefined") {
-                this.errorvaluation = this.$t('normal.error_09') + this.$t('label.PFANS1025VIEW_VALUATION');
-                return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1025VIEW_VALUATION')));
-            } else {
-                this.errorvaluation = "";
-                return callback();
-            }
-        };
+      var checkclaimamount = (rule, value, callback) => {
+        if (!this.form.claimamount || this.form.claimamount === '' || this.form.claimamount === 'undefined') {
+          this.errorclaimamount = this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_CLAIMAMOUNT');
+          return callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_CLAIMAMOUNT')));
+        } else {
+          this.errorclaimamount = '';
+          return callback();
+        }
+      };
+      var checkplan = (rule, value, callback) => {
+        if (!this.form.plan || this.form.plan === '' || this.form.plan === 'undefined') {
+          this.errorplan = this.$t('normal.error_09') + this.$t('label.PFANS1004VIEW_CAREERPLAN');
+          return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1004VIEW_CAREERPLAN')));
+        } else {
+          this.errorplan = '';
+          return callback();
+        }
+      };
+      var checkvaluation = (rule, value, callback) => {
+        if (!this.form.valuation || this.form.valuation === '' || this.form.valuation === 'undefined') {
+          this.errorvaluation = this.$t('normal.error_09') + this.$t('label.PFANS1025VIEW_VALUATION');
+          return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1025VIEW_VALUATION')));
+        } else {
+          this.errorvaluation = '';
+          return callback();
+        }
+      };
 
-        var checkindividual = (rule, value, callback) => {
-            if (!this.form.individual || this.form.individual === '' || this.form.individual === "undefined") {
-                this.errorindividual = this.$t('normal.error_09') + this.$t('label.PFANS1025VIEW_INDIVIDUAL');
-                return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1025VIEW_INDIVIDUAL')));
-            } else {
-                this.errorindividual = "";
-                return callback();
-            }
-        };
+      var checkindividual = (rule, value, callback) => {
+        if (!this.form.individual || this.form.individual === '' || this.form.individual === 'undefined') {
+          this.errorindividual = this.$t('normal.error_09') + this.$t('label.PFANS1025VIEW_INDIVIDUAL');
+          return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1025VIEW_INDIVIDUAL')));
+        } else {
+          this.errorindividual = '';
+          return callback();
+        }
+      };
 
       return {
         optionsdate: [{
           value: this.$t('label.PFANS1004VIEW_INSIDE'),
-          lable: this.$t('label.PFANS1004VIEW_INSIDE')
-        },{
-          value:this.$t('label.PFANS1004VIEW_OUTER'),
-          lable: this.$t('label.PFANS1004VIEW_OUTER')
+          lable: this.$t('label.PFANS1004VIEW_INSIDE'),
+        }, {
+          value: this.$t('label.PFANS1004VIEW_OUTER'),
+          lable: this.$t('label.PFANS1004VIEW_OUTER'),
         }],
         activeName: 'first',
         disabled: true,
@@ -738,25 +758,26 @@
         errorclaimamount: '',
         errorclaimdatetimeStart: '',
         errorclaimdatetimeEnd: '',
-        errorplan:'',
-        errorvaluation:'',
-        errorindividual:'',
+        errorplan: '',
+        errorvaluation: '',
+        errorindividual: '',
         userlist: '',
         code1: 'HT008',
         code2: 'HT005',
         code3: 'PG019',
         sumAwardmoney: '',
-        errorgroup:'',
-        selectType: "Single",
+        errorgroup: '',
+        selectType: 'Single',
         loading: false,
-        title: "title.PFANS1030VIEW",
+        title: 'title.PFANS1030VIEW',
         canStart: false,
         multiple: false,
-        orglist:'',
+        orglist: '',
         baseInfo: {},
         arrAttf: [],
         groupN: '',
         form: {
+          group_id: '',
           draftingdate: '',
           scheduleddate: '',
           number: '',
@@ -785,7 +806,7 @@
           telephone: '',
           commdepartment: '',
           commission: '',
-          plan:'',
+          plan: '',
           valuation: '',
           individual: '',
           plannumber: '',
@@ -822,116 +843,113 @@
             awardmoney: '',
             rowindex: '999',
           }],
-        tableS:[],
-        tableD:[{
-          award_id: '',
-          staffdetail_id: '',
-          attf: 'R11B',
-          budgetcode: '',
-          depart: ''
-        },
-          {
-            award_id: '',
-            staffdetail_id: '',
-            attf: 'R11A',
-            budgetcode: '',
-            depart: ''
-          },
-          {
-            award_id: '',
-            staffdetail_id: '',
-            attf: 'R10',
-            budgetcode: '',
-            depart: ''
-          },
-          {
-            award_id: '',
-            staffdetail_id: '',
-            attf: 'R9B',
-            budgetcode: '',
-            depart: ''
-          },
-          {
-            award_id: '',
-            staffdetail_id: '',
-            attf: 'R9A',
-            budgetcode: '',
-            depart: ''
-          },
-          {
-            award_id: '',
-            staffdetail_id: '',
-            attf: 'R8C',
-            budgetcode: '',
-            depart: ''
-          },
-          {
-            award_id: '',
-            staffdetail_id: '',
-            attf: 'R8B',
-            budgetcode: '',
-            depart: ''
-          },
-          {
-            award_id: '',
-            staffdetail_id: '',
-            attf: 'R8A',
-            budgetcode: '',
-            depart: ''
-          },
-          {
-            award_id: '',
-            staffdetail_id: '',
-            attf: 'R7',
-            budgetcode: '',
-            depart: ''
-          },
-          {
-            award_id: '',
-            staffdetail_id: '',
-            attf: 'R6',
-            budgetcode: '',
-            depart: ''
-          },
-          {
-            award_id: '',
-            staffdetail_id: '',
-            attf: 'R5',
-            budgetcode: '',
-            depart: ''
-          },
-          {
-            award_id: '',
-            staffdetail_id: '',
-            attf: 'R4',
-            budgetcode: '',
-            depart: ''
-          },
-          {
-            award_id: '',
-            staffdetail_id: '',
-            attf: 'R3',
-            budgetcode: '',
-            depart: ''
-          },
-          // {
-          //   attf: '社員合計人数',
-          //   budgetcode: '',
-          //   depart: ''
-          // },
-          // {
-          //   attf: '社員コスト（元）',
-          //   budgetcode: '',
-          //   depart: ''
-          // },
+        tableS: [],
+        tableD: [],
 
+        // },
+        //   {
+        //     award_id: '',
+        //     staffdetail_id: '',
+        //     attf: getDictionaryInfo('PR021012').value1,
+        //     budgetcode: '',
+        //     depart: ''
+        //   },
+        //   {
+        //     award_id: '',
+        //     staffdetail_id: '',
+        //     attf: getDictionaryInfo('PR021011').value1,
+        //     budgetcode: '',
+        //     depart: ''
+        //   },
+        //   {
+        //     award_id: '',
+        //     staffdetail_id: '',
+        //     attf: getDictionaryInfo('PR021010').value1,
+        //     budgetcode: '',
+        //     depart: ''
+        //   },
+        //   {
+        //     award_id: '',
+        //     staffdetail_id: '',
+        //     attf: getDictionaryInfo('PR021009').value1,
+        //     budgetcode: '',
+        //     depart: ''
+        //   },
+        //   {
+        //     award_id: '',
+        //     staffdetail_id: '',
+        //     attf: getDictionaryInfo('PR021006').value1,
+        //     budgetcode: '',
+        //     depart: ''
+        //   },
+        //   {
+        //     award_id: '',
+        //     staffdetail_id: '',
+        //     attf: getDictionaryInfo('PR021007').value1,
+        //     budgetcode: '',
+        //     depart: ''
+        //   },
+        //   {
+        //     award_id: '',
+        //     staffdetail_id: '',
+        //     attf: getDictionaryInfo('PR021008').value1,
+        //     budgetcode: '',
+        //     depart: ''
+        //   },
+        //   {
+        //     award_id: '',
+        //     staffdetail_id: '',
+        //     attf: getDictionaryInfo('PR021005').value1,
+        //     budgetcode: '',
+        //     depart: ''
+        //   },
+        //   {
+        //     award_id: '',
+        //     staffdetail_id: '',
+        //     attf: getDictionaryInfo('PR021004').value1,
+        //     budgetcode: '',
+        //     depart: ''
+        //   },
+        //   {
+        //     award_id: '',
+        //     staffdetail_id: '',
+        //     attf: getDictionaryInfo('PR021003').value1,
+        //     budgetcode: '',
+        //     depart: ''
+        //   },
+        //   {
+        //     award_id: '',
+        //     staffdetail_id: '',
+        //     attf: getDictionaryInfo('PR021002').value1,
+        //     budgetcode: '',
+        //     depart: ''
+        //   },
+        //   {
+        //     award_id: '',
+        //     staffdetail_id: '',
+        //     attf: getDictionaryInfo('PR021001').value1,
+        //     budgetcode: '',
+        //     depart: ''
+        //   },
+        // add-ws-合同人件费修改
+        startoption: [
+          {
+            attf: '社員合計人数',
+            budgetcode: '0',
+            depart: '',
+          },
+          {
+            attf: '社員コスト（元）',
+            budgetcode: '0',
+            depart: '',
+          },
         ],
-
+        // add-ws-合同人件费修改
         rules: {
           user_id: [{
             required: true,
             validator: checkuser,
-            trigger: 'change'
+            trigger: 'change',
           }],
           // telephone: [{
           //   required: true,
@@ -939,78 +957,79 @@
           //   trigger: 'change'
           // }],
           custojapanese: [{
-                required: true,
-                validator: checkcustojapanese,
-                trigger: 'change'
+            required: true,
+            validator: checkcustojapanese,
+            trigger: 'change',
           }],
-            custochinese: [{
-                required: true,
-                validator: checkcustochinese,
-                trigger: 'change'
-            }],
-            placejapanese: [{
-                required: true,
-                validator: checkplacejapanese,
-                trigger: 'change'
-            }],
-            placechinese: [{
-                required: true,
-                validator: checkplacechinese,
-                trigger: 'change'
-            }],
-            deployment: [{
-                required: true,
-                validator: checkdeployment,
-                trigger: 'change'
-            }],
-            pjnamejapanese: [{
-                required: true,
-                validator: checkpjnamejapanese,
-                trigger: 'change'
-            }],
-            pjnamechinese: [{
-                required: true,
-                validator: checkpjnamechinese,
-                trigger: 'change'
-            }],
-            claimdatetimeStart: [{
-                required: true,
-                validator: checkclaimdatetimeStart,
-                trigger: 'change'
-            }],
-            claimdatetimeEnd: [{
-                required: true,
-                validator: checkclaimdatetimeEnd,
-                trigger: 'change'
-            }],
-            currencyposition: [{
-                required: true,
-                validator: checkcurrencyposition,
-                trigger: 'change'
-            }],
-            claimamount: [{
-                required: true,
-                validator: checkclaimamount,
-                trigger: 'change'
-            }],
-            plan: [{
-                required: true,
-                validator: checkplan,
-                trigger: 'blur'
-            }],
-            valuation: [{
-                required: true,
-                validator: checkvaluation,
-                trigger: 'change'
-            }],
-            individual: [{
-                required: true,
-                validator: checkindividual,
-                trigger: 'change'
-            }],
+          custochinese: [{
+            required: true,
+            validator: checkcustochinese,
+            trigger: 'change',
+          }],
+          placejapanese: [{
+            required: true,
+            validator: checkplacejapanese,
+            trigger: 'change',
+          }],
+          placechinese: [{
+            required: true,
+            validator: checkplacechinese,
+            trigger: 'change',
+          }],
+          deployment: [{
+            required: true,
+            validator: checkdeployment,
+            trigger: 'change',
+          }],
+          pjnamejapanese: [{
+            required: true,
+            validator: checkpjnamejapanese,
+            trigger: 'change',
+          }],
+          pjnamechinese: [{
+            required: true,
+            validator: checkpjnamechinese,
+            trigger: 'change',
+          }],
+          claimdatetimeStart: [{
+            required: true,
+            validator: checkclaimdatetimeStart,
+            trigger: 'change',
+          }],
+          claimdatetimeEnd: [{
+            required: true,
+            validator: checkclaimdatetimeEnd,
+            trigger: 'change',
+          }],
+          currencyposition: [{
+            required: true,
+            validator: checkcurrencyposition,
+            trigger: 'change',
+          }],
+          claimamount: [{
+            required: true,
+            validator: checkclaimamount,
+            trigger: 'change',
+          }],
+          plan: [{
+            required: true,
+            validator: checkplan,
+            trigger: 'blur',
+          }],
+          valuation: [{
+            required: true,
+            validator: checkvaluation,
+            trigger: 'change',
+          }],
+          individual: [{
+            required: true,
+            validator: checkindividual,
+            trigger: 'change',
+          }],
         },
-        buttonList: []
-      }
+        buttonList: [],
+        optionsdatedic: [],
+      };
     },
     mounted() {
       this.loading = true;
@@ -1019,7 +1038,7 @@
           .dispatch('PFANS1025Store/selectById', {'award_id': this.$route.params._id})
           .then(response => {
             this.form = response.award;
-            if (response.award.custojapanese !== null && response.award.custojapanese !== "") {
+            if (response.award.custojapanese !== null && response.award.custojapanese !== '') {
               let letUser = getUserInfo(response.award.custojapanese);
               if (letUser != null) {
                 this.form.custojapanese = letUser.userinfo.customername;
@@ -1030,23 +1049,48 @@
               response.award.currencyposition = letCurrencyposition.value1;
               response.award.exchangerate = letCurrencyposition.value2;
             }
-            if(this.$store.getters.userinfo.userid){
+            if (this.$store.getters.userinfo.userid) {
               this.form.telephone = getUserInfo(this.$store.getters.userinfo.userid).userinfo.extension;
             }
             this.form.draftingdate = moment(new Date()).format('YYYY-MM-DD');
             var myDate = new Date();
             myDate.setDate(myDate.getDate() + 2);
             this.form.scheduleddate = moment(myDate).format('YYYY-MM-DD');
-            if(this.form.claimdatetime!=="" && this.form.claimdatetime!==null){
-              this.form.claimdatetimeStart = this.form.claimdatetime.slice(0,10);
-              this.form.claimdatetimeEnd = this.form.claimdatetime.slice(this.form.claimdatetime.length-10);
+            if (this.form.claimdatetime !== '' && this.form.claimdatetime !== null) {
+              this.form.claimdatetimeStart = this.form.claimdatetime.slice(0, 10);
+              this.form.claimdatetimeEnd = this.form.claimdatetime.slice(this.form.claimdatetime.length - 10);
             }
             if (response.awardDetail.length > 0) {
               this.tableT = response.awardDetail;
               for (var i = 0; i < this.tableT.length; i++) {
-                this.orglist=this.tableT[i].depart;
+                this.orglist = this.tableT[i].depart;
               }
             }
+            // add-ws-合同人件费修改
+            let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ070');
+            for (let i = 0; i < dicnew.length; i++) {
+              if (dicnew[i].value1 === this.form.group_id) {
+                this.optionsdatedic.push({
+                  value2: dicnew[i].value2,
+                  value3: dicnew[i].value3,
+                  value4: dicnew[i].value4,
+                });
+              }
+            }
+            let data = [];
+            for (let i = 0; i < this.optionsdatedic.length; i++) {
+              let money3 = this.optionsdatedic[i].value3;
+              let money4 = this.optionsdatedic[i].value4;
+              data.push({
+                award_id: '',
+                staffdetail_id: '',
+                attf: getDictionaryInfo(this.optionsdatedic[i].value2).value1,
+                budgetcode: ((money3 * 3) + (money4 * 9)) / 12,
+                depart: '',
+              });
+            }
+            this.tableD = data.concat(this.startoption);
+            // add-ws-合同人件费修改
             // if (this.form.tablecommunt !== '' && this.form.tablecommunt !== null) {
             //   for (let i = 0; i < JSON.parse(response.award.tablecommunt).length; i++) {
             //     let aa = JSON.parse(response.award.tablecommunt)[i];
@@ -1055,40 +1099,41 @@
             //   }
             // }
             if (response.staffDetail.length > 0) {
-              this.tableD = response.staffDetail
+              this.tableD = response.staffDetail;
             }
-            let aa = 0
-            if ( response.numbercounts.length > 0 ) {
+
+            let aa = 0;
+
+            if (response.numbercounts.length > 0) {
               for (let i = 0; i < response.numbercounts.length; i++) {
                 // let letCurrencyposition = getDictionaryInfo(response.numbercounts[i].currencyposition);
                 // if (letCurrencyposition != null) {
                 //   response.numbercounts[i].currencyposition = letCurrencyposition.value1;
-                //   response.numbercounts[i].exchangerate = letCurrencyposition.value2;
                 // }
                 let deliverydate = response.numbercounts[i].deliverydate;
                 let completiondate = response.numbercounts[i].completiondate;
                 let claimdate = response.numbercounts[i].claimdate;
                 let supportdate = response.numbercounts[i].supportdate;
 
-                if ( deliverydate !== "" && deliverydate!=null) {
+                if (deliverydate !== '' && deliverydate != null) {
                   response.numbercounts[i].deliverydate = moment(deliverydate).format('YYYY-MM-DD');
                 }
-                if (completiondate!== "" && completiondate!=null) {
+                if (completiondate !== '' && completiondate != null) {
                   response.numbercounts[i].completiondate = moment(completiondate).format('YYYY-MM-DD');
                 }
-                if (claimdate!==""&& claimdate!=null) {
+                if (claimdate !== '' && claimdate != null) {
                   response.numbercounts[i].claimdate = moment(claimdate).format('YYYY-MM-DD');
                 }
-                if (supportdate!==""&& supportdate!=null) {
+                if (supportdate !== '' && supportdate != null) {
                   response.numbercounts[i].supportdate = moment(supportdate).format('YYYY-MM-DD');
                 }
-                if(response.numbercounts[i].claimamount){
-                    let claimamount = response.numbercounts[i].claimamount
-                    aa = Number(claimamount) + aa;
+                if (response.numbercounts[i].claimamount) {
+                  let claimamount = response.numbercounts[i].claimamount;
+                  aa = Number(claimamount) + aa;
                 }
               }
             }
-            this.form.claimamount = aa
+            this.form.claimamount = aa;
             this.tableS = response.numbercounts;
             this.userlist = this.form.user_id;
             this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
@@ -1105,40 +1150,40 @@
           });
       }
     },
-    created(){
-      if(!this.$route.params.disabled){
-        this.buttonList=[
+    created() {
+      if (!this.$route.params.disabled) {
+        this.buttonList = [
           {
             key: 'generate',
             name: 'button.generate',
             disabled: false,
-          }
-        ]
-      }else {
-        this.buttonList=[
+          },
+        ];
+      } else {
+        this.buttonList = [
           {
             key: 'save',
             name: 'button.save',
             disabled: false,
             icon: 'el-icon-check',
           },
-        ]
+        ];
       }
       this.disable = this.$route.params.disabled;
     },
     methods: {
       objectSpanMethod({row, column, rowIndex, columnIndex}) {
-        if (rowIndex === 13 || rowIndex === 14){
+        if (rowIndex === 15 || rowIndex === 16) {
           if (columnIndex == 0) {
             return {
               rowspan: 1,
-              colspan: 2
-            }
+              colspan: 2,
+            };
           } else if (columnIndex == 1) {
             return {
               rowspan: 0,
-              colspan: 0
-            }
+              colspan: 0,
+            };
           }
           if (columnIndex == 0 || columnIndex == 1) {
             return [1, 1];
@@ -1170,7 +1215,7 @@
               sums[index] = Math.round((sums[index]) * 100) / 100;
             }
           } else {
-            sums[index] = ''
+            sums[index] = '';
           }
         });
         return sums;
@@ -1178,20 +1223,17 @@
       changePro(val, row) {
         row.projects = val;
       },
-
-      sumAward(){
-        // 111
-        if(this.form.contracttype === "PG019001"){
+      sumAward() {
+        if (this.form.contracttype === 'PG019001') {
           this.form.sarmb = this.from.exchangerate * this.sumAwardmoney;
         } else {
           this.form.sarmb = this.sumAwardmoney;
         }
       },
-      // 222
       changeSum(row) {
         row.worknumber = row.member + row.outsource;
         row.awardmoney = row.member * row.community + row.outsource * row.outcommunity;
-        if(this.form.contracttype === "PG019001"){
+        if (this.form.contracttype === 'PG019001') {
           this.form.sarmb = this.from.exchangerate * this.sumAwardmoney;
         } else {
           this.form.sarmb = this.sumAwardmoney;
@@ -1200,19 +1242,18 @@
       getUserids(val) {
         this.userlist = val;
         this.form.user_id = val;
-        if (!this.form.user_id || this.form.user_id === '' || typeof val == "undefined") {
+        if (!this.form.user_id || this.form.user_id === '' || typeof val == 'undefined') {
           this.error = this.$t('normal.error_08') + this.$t('label.user_name');
         } else {
           this.error = '';
         }
       },
-      gettotal(){
-        this.form.outsourcing= this.form.total / this.form.number;
+      gettotal() {
+        this.form.outsourcing = this.form.total / this.form.number;
       },
-      // 333
-      getcontracttype(val){
-        this.form.contracttype=val;
-        if(val === "PG019001"){
+      getcontracttype(val) {
+        this.form.contracttype = val;
+        if (val === 'PG019001') {
           this.form.sarmb = this.from.exchangerate * this.sumAwardmoney;
         } else {
           this.form.sarmb = this.sumAwardmoney;
@@ -1233,12 +1274,12 @@
       getindividual(val) {
         this.form.individual = val;
       },
-      getGroupId(orglist,row) {
-        row.depart=orglist;
-          let group = getOrgInfo(orglist);
-          if (group) {
-              row.budgetcode = group.encoding;
-          }
+      getGroupId(orglist, row) {
+        row.depart = orglist;
+        let group = getOrgInfo(orglist);
+        if (group) {
+          row.budgetcode = group.encoding;
+        }
       },
       workflowState(val) {
         if (val.state === '1') {
@@ -1246,15 +1287,15 @@
         } else if (val.state === '2') {
           this.form.status = '4';
         }
-        this.buttonClick("save");
+        this.buttonClick('save');
       },
       start() {
         this.form.status = '2';
-        this.buttonClick("save");
+        this.buttonClick('save');
       },
       end() {
         this.form.status = '0';
-        this.buttonClick("save");
+        this.buttonClick('save');
       },
       deleteRow(index, rows) {
         if (rows.length > 2) {
@@ -1311,69 +1352,69 @@
               this.sumAwardmoney = sums[index];
             }
           } else {
-            sums[index] = '--'
+            sums[index] = '--';
           }
         });
         return sums;
       },
       buttonClick(val) {
-        this.form.maketype='4',
-          this.baseInfo={};
-        this.form.user_id=this.userlist;
-        if(this.form.claimdatetimeStart!=="" && this.form.claimdatetimeEnd!==""){
-          this.form.claimdatetime=moment(this.form.claimdatetimeStart).format('YYYY-MM-DD')+" ~ "+moment(this.form.claimdatetimeEnd).format('YYYY-MM-DD');
+        this.form.maketype = '4',
+          this.baseInfo = {};
+        this.form.user_id = this.userlist;
+        if (this.form.claimdatetimeStart !== '' && this.form.claimdatetimeEnd !== '') {
+          this.form.claimdatetime = moment(this.form.claimdatetimeStart).format('YYYY-MM-DD') + ' ~ ' + moment(this.form.claimdatetimeEnd).format('YYYY-MM-DD');
         }
-        this.baseInfo.staffDetail=[];
-        for(let i=0;i<this.tableD.length;i++){
-            this.baseInfo.staffDetail.push({
-              staffdetail_id:this.tableD[i].staffdetail_id,
-              award_id:this.tableD[i].award_id,
-              attf:this.tableD[i].attf,
-              budgetcode:this.tableD[i].budgetcode,
-              depart:this.tableD[i].depart,
-            })
+        this.baseInfo.staffDetail = [];
+        for (let i = 0; i < this.tableD.length; i++) {
+          this.baseInfo.staffDetail.push({
+            staffdetail_id: this.tableD[i].staffdetail_id,
+            award_id: this.tableD[i].award_id,
+            attf: this.tableD[i].attf,
+            budgetcode: this.tableD[i].budgetcode,
+            depart: this.tableD[i].depart,
+          });
         }
-        this.baseInfo.award=JSON.parse(JSON.stringify(this.form));
+        this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
         this.baseInfo.groupN = this.$store.getters.orgGroupList;
-        this.baseInfo.awardDetail=[];
-        for(let i=0;i<this.tableT.length;i++){
-          if(this.tableT[i].budgetcode!==""||this.tableT[i].depart!==""||this.tableT[i].member>"0" ||this.tableT[i].community>"0"
-            ||this.tableT[i].outsource>"0"||this.tableT[i].outcommunity>"0"||this.tableT[i].worknumber>"0"||this.tableT[i].awardmoney>"0"){
+        this.baseInfo.awardDetail = [];
+        for (let i = 0; i < this.tableT.length; i++) {
+          if (this.tableT[i].budgetcode !== '' || this.tableT[i].depart !== '' || this.tableT[i].member > '0' || this.tableT[i].community > '0'
+            || this.tableT[i].outsource > '0' || this.tableT[i].outcommunity > '0' || this.tableT[i].worknumber > '0' || this.tableT[i].awardmoney > '0') {
             this.baseInfo.awardDetail.push({
-              awarddetail_id:this.tableT[i].awarddetail_id,
-              award_id:this.tableT[i].award_id,
-              budgetcode:this.tableT[i].budgetcode,
-              depart:this.tableT[i].depart,
-              projects:this.tableT[i].projects,
-              member:this.tableT[i].member,
-              community:this.tableT[i].community,
-              outsource:this.tableT[i].outsource,
-              outcommunity:this.tableT[i].outcommunity,
-              worknumber:this.tableT[i].worknumber,
-              awardmoney:this.tableT[i].awardmoney,
-              rowindex:this.tableT[i].rowindex,
-            })
+              awarddetail_id: this.tableT[i].awarddetail_id,
+              award_id: this.tableT[i].award_id,
+              budgetcode: this.tableT[i].budgetcode,
+              depart: this.tableT[i].depart,
+              projects: this.tableT[i].projects,
+              member: this.tableT[i].member,
+              community: this.tableT[i].community,
+              outsource: this.tableT[i].outsource,
+              outcommunity: this.tableT[i].outcommunity,
+              worknumber: this.tableT[i].worknumber,
+              awardmoney: this.tableT[i].awardmoney,
+              rowindex: this.tableT[i].rowindex,
+            });
           }
         }
-        if(val==="save"){
-          this.$refs["reff"].validate(valid =>{
-            if(valid){
+        if (val === 'save') {
+          this.$refs['reff'].validate(valid => {
+            if (valid) {
               this.loading = true;
 
-              if(this.$route.params._id){     //编辑
+              if (this.$route.params._id) {     //编辑
                 this.baseInfo.award.award_id = this.$route.params._id;
                 this.$store
-                  .dispatch('PFANS1025Store/update',this.baseInfo)
-                  .then(response =>{
-                    this.data=response;
-                    this.loading=false;
-                    if( val !== "update"){
+                  .dispatch('PFANS1025Store/update', this.baseInfo)
+                  .then(response => {
+                    this.data = response;
+                    this.loading = false;
+                    if (val !== 'update') {
                       Message({
                         message: this.$t('normal.success_02'),
                         type: 'success',
                         duration: 5 * 1000,
                       });
-                      if(this.$store.getters.historyUrl) {
+                      if (this.$store.getters.historyUrl) {
                         this.$router.push(this.$store.getters.historyUrl);
                       }
                     }
@@ -1384,24 +1425,23 @@
                       type: 'error',
                       duration: 5 * 1000,
                     });
-                    this.loading=false;
-                  })
+                    this.loading = false;
+                  });
               }
-            }
-            else{
-                Message({
-                    message: this.$t("normal.error_12"),
-                    type: 'error',
-                    duration: 5 * 1000
-                });
+            } else {
+              Message({
+                message: this.$t('normal.error_12'),
+                type: 'error',
+                duration: 5 * 1000,
+              });
             }
           });
         } else if (val === 'generate') {
           let user = getUserInfo(this.form.user_id);
           if (user) {
-            this.form.user_id= user.userinfo.customername;
+            this.form.user_id = user.userinfo.customername;
           }
-          this.baseInfo.award=JSON.parse(JSON.stringify(this.form));
+          this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
           this.$store
             .dispatch('PFANS1025Store/generateJxls', this.baseInfo)
             .then(response => {
@@ -1414,11 +1454,11 @@
                 duration: 5 * 1000,
               });
               this.loading = false;
-            })
+            });
         }
-      }
-    }
-  }
+      },
+    },
+  };
 </script>
 
 <style scoped rel="stylesheet/scss" lang="scss">
