@@ -1602,25 +1602,23 @@
           this.form.lengthtime = '0';
           this.getWorktime();
         } else if (val === 'PR013005') {
-          this.form.lengthtime = '0';
-          this.form.relengthtime = '0';
+          form.revacationtype = ''
           this.checkerrortishi = false;
           this.checkrelengthtime = false;
           this.dislengthtime = false;
           this.showVacation = false;
         } else if (val === 'PR013006') {
           this.form.lengthtime = '0';
-          this.form.relengthtime = '0';
           this.checkerrortishi = false;
           this.checkrelengthtime = false;
           this.dislengthtime = false;
           this.showVacation = false;
         } else if (val === 'PR013007') {
+          form.revacationtype = ''
           this.checkerrortishi = false;
           this.checkrelengthtime = false;
           this.dislengthtime = false;
           this.showVacation = false;
-          this.form.lengthtime = '0';
         } else if (val === 'PR013008') {
           this.checkerrortishi = false;
           this.checkrelengthtime = false;
@@ -1866,8 +1864,12 @@
                 for (let d = 0; d < this.relist.length; d++) {
                   time = time + 1;
                 }
+                this.form.lengthtime = time * 8;
+                this.form.relengthtime = time * 8;
               } else {
                 time = 0.5;
+                this.form.lengthtime = 4;
+                this.form.relengthtime = 4;
               }
               if (this.checkDate < time) {
                 Message({
@@ -1937,30 +1939,30 @@
               });
               return;
             }
-            if (this.form.errortype === 'PR013005' || this.form.errortype === 'PR013006') {
-              if (this.form.vacationtype === '0') {
-                this.form.lengthtime = 8;
-              } else if (this.relist.length != '0') {
-                let time = 0;
-                for (let d = 0; d < this.relist.length; d++) {
-                  time = time + 1;
-                }
-                this.form.lengthtime = time * 8;
-              } else if (this.form.vacationtype === '1' || this.form.vacationtype === '2') {
-                this.form.lengthtime = 4;
-              }
-              if (this.form.revacationtype === '0') {
-                this.form.relengthtime = 8;
-              } else if (this.relistTwo.length != '0') {
-                let timere = 0;
-                for (let d = 0; d < this.relistTwo.length; d++) {
-                  timere = timere + 1;
-                }
-                this.form.relengthtime = timere * 8;
-              } else if (this.form.revacationtype === '1' || this.form.revacationtype === '2') {
-                this.form.relengthtime = 4;
-              }
-            }
+            // if (this.form.errortype === 'PR013005' || this.form.errortype === 'PR013006') {
+            //   if (this.form.vacationtype === '0') {
+            //     this.form.lengthtime = 8;
+            //   } else if (this.relist.length != '0') {
+            //     let time = 0;
+            //     for (let d = 0; d < this.relist.length; d++) {
+            //       time = time + 1;
+            //     }
+            //     this.form.lengthtime = time * 8;
+            //   } else if (this.form.vacationtype === '1' || this.form.vacationtype === '2') {
+            //     this.form.lengthtime = 4;
+            //   }
+            //   if (this.form.revacationtype === '0') {
+            //     this.form.relengthtime = 8;
+            //   } else if (this.relistTwo.length != '0') {
+            //     let timere = 0;
+            //     for (let d = 0; d < this.relistTwo.length; d++) {
+            //       timere = timere + 1;
+            //     }
+            //     this.form.relengthtime = timere * 8;
+            //   } else if (this.form.revacationtype === '1' || this.form.revacationtype === '2') {
+            //     this.form.relengthtime = 4;
+            //   }
+            // }
             if (this.$route.params._id) {
               this.form.abnormalid = this.$route.params._id;
               this.loading = true;
