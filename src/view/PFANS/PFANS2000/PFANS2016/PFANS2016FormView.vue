@@ -457,8 +457,8 @@
 
       var revalidateVacationtype = (rule, value, callback) => {
         if((this.form.errortype == 'PR013005'|| this.form.errortype == 'PR013007') && this.form.status != '4' && this.form.status != '5' && this.form.status != '6' && this.form.status != '7'&& this.form.status != '8'){
-          if (this.form.vacationtype === null && this.form.vacationtype === '') {
-            callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS2016FORMVIEW_XJTYPE')));
+          if (this.form.vacationtype === null || this.form.vacationtype === '') {
+            callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS2016FORMVIEW_XJTYPE')));
           } else {
             callback();
           }
@@ -468,8 +468,8 @@
       };
       var revalidateRevacationtype = (rule, value, callback) => {
         if((this.form.errortype == 'PR013005' || this.form.errortype == 'PR013007') && (this.form.status === '4' || this.form.status === '5' || this.form.status === '6' || this.form.status === '7')){
-          if (this.form.revacationtype === null && this.form.revacationtype === '') {
-            callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS2016FORMVIEW_RELENGTHTIME')));
+          if (this.form.revacationtype === null || this.form.revacationtype === '') {
+            callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS2016FORMVIEW_RELENGTHTIME')));
           } else {
             callback();
           }
