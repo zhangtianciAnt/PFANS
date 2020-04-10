@@ -1,7 +1,7 @@
 <template>
-  <EasyNormalTable :columns="columns" :data="data" :title="title" v-loading="loading" :buttonList="buttonList"
-                   :showSelection="showSelection" @buttonClick="buttonClick" ref="roletable"
-  @dbrowClick="dbrowClick">
+  <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :showSelection="showSelection" :title="title"
+                   @buttonClick="buttonClick" @dbrowClick="dbrowClick" ref="roletable"
+                   v-loading="loading">
     <el-form label-position="top" label-width="8vw" slot="search">
       <el-row>
         <el-col :span="8">
@@ -47,8 +47,8 @@
     },
     data() {
       return {
-        showSelection:true,
-        buttonList:[
+        showSelection: true,
+        buttonList: [
           {'key': 'export', 'name': 'button.export', 'disabled': false, 'icon': 'el-icon-download'}
         ],
         contractType: "0",
@@ -57,7 +57,7 @@
         contractnumbercount: '',
         data: [],
         month: '',
-        month2:'',
+        month2: '',
         alldata: [],
         alldata2: [],
         columns: [
@@ -110,89 +110,94 @@
         row: 'contractapplication_id '
       };
     },
-    beforeRouteEnter(to,from,next){
+    beforeRouteEnter(to, from, next) {
 
-      if(from.name === 'PFANS1024FormView' || from.name === 'PFANS1026FormView' || from.name === 'PFANS1033FormView'){
-        to.meta.keepAlive = true
-      }else{
-        to.meta.keepAlive = false
+      if (from.name === 'PFANS1024FormView' || from.name === 'PFANS1026FormView' || from.name === 'PFANS1033FormView') {
+        to.meta.isBack = true
+      } else {
+        to.meta.isBack = false
       }
       next();
     },
-    beforeRouteLeave(to,from,next){
 
-      if(to.name === 'PFANS1024FormView' || to.name === 'PFANS1026FormView' || to.name === 'PFANS1033FormView'){
-        to.meta.keepAlive = true
-      }else{
-        to.meta.keepAlive = false
+    activated() {
+      debugger;
+      if (!this.$route.meta.isBack) {
+        // 如果isBack是false，表明需要获取新数据，否则就不再请求，直接使用缓存的数据
+        this.init();
+        this.contractType = "0";
+        this.month = '';
+        this.month2 = '';
       }
-      next();
-    },
-    mounted() {
-      this.loading = true;
-      this.$store
-        .dispatch('PFANS1026Store/get', {})
-        .then(response => {
-          let letcontractnumber = [];
-          let tabledata = response.contractapplication;
-          for (let i = 0; i < tabledata.length; i++) {
-            tabledata[i].status = getStatus(tabledata[i].status);
-            let user = getUserInfo(tabledata[i].user_id);
-            if (user) {
-              tabledata[i].username = getUserInfo(tabledata[i].user_id).userinfo.customername;
-            }
-            if (tabledata[i].applicationdate !== null && tabledata[i].applicationdate !== "") {
-              tabledata[i].applicationdate = moment(tabledata[i].applicationdate).format("YYYY-MM-DD");
-            }
-            if (tabledata[i].contracttype !== null && tabledata[i].contracttype !== "") {
-              let letContracttype = getDictionaryInfo(tabledata[i].contracttype);
-              if (letContracttype != null) {
-                tabledata[i].contracttype = letContracttype.value1;
-              }
-            }
+      // 恢复成默认的false，避免isBack一直是true，导致下次无法获取数据
+      this.$route.meta.isBack = false
 
-            if (tabledata[i].contractnumber != "") {
-              letcontractnumber.push(tabledata[i].contractnumber);
-            }
-
-            if (tabledata[i].state === '1' && this.$i18n) {
-              tabledata[i].state = this.$t("label.PFANS8008FORMVIEW_EFFECTIVE");
-            } else if (tabledata[i].state === '0' && this.$i18n) {
-              tabledata[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID");
-            }
-          }
-          var arr = [];
-          let o;
-          for (var i = 0; i < letcontractnumber.length; i++) {
-            if (arr.indexOf(letcontractnumber[i]) == -1) {
-              arr.push(letcontractnumber[i]);
-              o = Object.assign([], tabledata[i]);
-              this.data.push(o);
-            }
-          }
-          this.alldata = this.data;
-          this.alldata2 = response.contractnumbercount;
-          this.contractnumbercount = (letcontractnumber.length + 1);
-          this.changed();
-          this.loading = false;
-        })
-        .catch(error => {
-          Message({
-            message: error,
-            type: 'error',
-            duration: 5 * 1000
-          });
-          this.loading = false
-        })
     },
     methods: {
-      dbrowClick(val){
+      init() {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS1026Store/get', {})
+          .then(response => {
+            let letcontractnumber = [];
+            let tabledata = response.contractapplication;
+            for (let i = 0; i < tabledata.length; i++) {
+              tabledata[i].status = getStatus(tabledata[i].status);
+              let user = getUserInfo(tabledata[i].user_id);
+              if (user) {
+                tabledata[i].username = getUserInfo(tabledata[i].user_id).userinfo.customername;
+              }
+              if (tabledata[i].applicationdate !== null && tabledata[i].applicationdate !== "") {
+                tabledata[i].applicationdate = moment(tabledata[i].applicationdate).format("YYYY-MM-DD");
+              }
+              if (tabledata[i].contracttype !== null && tabledata[i].contracttype !== "") {
+                let letContracttype = getDictionaryInfo(tabledata[i].contracttype);
+                if (letContracttype != null) {
+                  tabledata[i].contracttype = letContracttype.value1;
+                }
+              }
+
+              if (tabledata[i].contractnumber != "") {
+                letcontractnumber.push(tabledata[i].contractnumber);
+              }
+
+              if (tabledata[i].state === '1' && this.$i18n) {
+                tabledata[i].state = this.$t("label.PFANS8008FORMVIEW_EFFECTIVE");
+              } else if (tabledata[i].state === '0' && this.$i18n) {
+                tabledata[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID");
+              }
+            }
+            var arr = [];
+            let o;
+            for (var i = 0; i < letcontractnumber.length; i++) {
+              if (arr.indexOf(letcontractnumber[i]) == -1) {
+                arr.push(letcontractnumber[i]);
+                o = Object.assign([], tabledata[i]);
+                this.data.push(o);
+              }
+            }
+            this.alldata = this.data;
+            this.alldata2 = response.contractnumbercount;
+            this.contractnumbercount = (letcontractnumber.length + 1);
+            this.changed();
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000
+            });
+            this.loading = false
+          })
+      },
+      dbrowClick(val) {
         let name = "";
-        if(val.type === '0'){
+        if (val.type === '0') {
           name = "PFANS1024FormView"
-        }else  if(val.type === '1'){
+        } else if (val.type === '1') {
           name = "PFANS1026FormView"
-        }else  if(val.type === '2'){
+        } else if (val.type === '2') {
           name = "PFANS1033FormView"
         }
 
@@ -205,9 +210,9 @@
           }
         })
       },
-      buttonClick(val){
-        if(val === 'export'){
-          if(this.$refs.roletable.selectedList.length === 0){
+      buttonClick(val) {
+        if (val === 'export') {
+          if (this.$refs.roletable.selectedList.length === 0) {
             Message({
               message: this.$t('normal.info_01'),
               type: 'info',
@@ -231,7 +236,7 @@
               this.$t('label.PFANS1024VIEW_CONTRACTDATE'),
               this.$t('label.PFANS1024VIEW_TEMA'),
               this.$t('label.PFANS1024VIEW_EXTENSIONDATE'),
-              this.$t('label.PFANS1024VIEW_CUSTOMERNAME') + this.$t('label.PFANS1024VIEW_JAPANESE') ,
+              this.$t('label.PFANS1024VIEW_CUSTOMERNAME') + this.$t('label.PFANS1024VIEW_JAPANESE'),
               this.$t('label.PFANS1024VIEW_CUSTOMERNAME') + this.$t('label.PFANS1024VIEW_ENGLISH'),
               this.$t('label.PFANS1024VIEW_CUSTOMERNAME') + this.$t('label.PFANS1024VIEW_ABBREVIATION'),
               this.$t('label.PFANS1024VIEW_CUSTOMERNAME') + this.$t('label.PFANS1024VIEW_CHINESE'),
@@ -278,7 +283,7 @@
               'entrustednumber',
               'price',
             ];
-            for(let item of selectedlist){
+            for (let item of selectedlist) {
               let letContracttype = getDictionaryInfo(item.entrycondition);
               if (letContracttype != null) {
                 item.entrycondition = letContracttype.value1;
@@ -319,10 +324,10 @@
       },
       changed() {
         let cons = this.alldata2;
-        if(this.month){
+        if (this.month) {
           cons = cons.filter(item => moment(item.deliverydate).format("YYYY-MM") == moment(this.month).format("YYYY-MM"));
         }
-        if(this.month2){
+        if (this.month2) {
           cons = cons.filter(item => moment(item.claimdate).format("YYYY-MM") == moment(this.month2).format("YYYY-MM"));
         }
 
@@ -345,21 +350,21 @@
           let a = this.alldata.filter(item => item.type == this.contractType && al2.contractnumber == item.contractnumber);
 
           let prices = cons.filter(item => al2.contractnumber == item.contractnumber);
-          let price = 0
-          for(let pi of prices){
+          let price = 0;
+          for (let pi of prices) {
             price = price + Number(pi.claimamount)
           }
-          if(a.length > 0){
-            a[0].price = this.abs(price*100);
+          if (a.length > 0) {
+            a[0].price = this.abs(price * 100);
             rst.push(a[0])
           }
         }
         this.data = rst;
       },
-      abs(val){
-        var str = (val/100).toFixed(2) + '';
-        var intSum = str.substring(0,str.indexOf(".")).replace( /\B(?=(?:\d{3})+$)/g, ',' );//取到整数部分
-        var dot = str.substring(str.length,str.indexOf("."))//取到小数部分搜索
+      abs(val) {
+        var str = (val / 100).toFixed(2) + '';
+        var intSum = str.substring(0, str.indexOf(".")).replace(/\B(?=(?:\d{3})+$)/g, ',');//取到整数部分
+        var dot = str.substring(str.length, str.indexOf("."));//取到小数部分搜索
         var ret = intSum + dot;
         return ret;
       }
