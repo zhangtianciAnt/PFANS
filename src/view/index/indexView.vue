@@ -210,6 +210,11 @@ export default {
         })
     },
     dayRender: function (info) {
+      // add-ws-工作日设置周末为其他休假颜色覆盖问题修改
+      if (info.date.getDay() === 6 || info.date.getDay() === 0) {
+        info.el.bgColor = '#999';
+      }
+      // add-ws-工作日设置周末为其他休假颜色覆盖问题修改
       if (this.$store.getters.days != null) {
         this.loading = true;
         let response = this.$store.getters.days
@@ -421,13 +426,7 @@ export default {
 };
 </script>
 <style lang="scss">
-.fc-unthemed td.fc-sat {
-  background: #999;
-}
 
-.fc-unthemed td.fc-sun {
-  background: #999;
-}
 
 .fc-row.fc-widget-header {
   /*background-color: rgb(255, 204, 102);*/
