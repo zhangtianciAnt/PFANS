@@ -693,16 +693,19 @@
               trigger: 'change',
             },
           ],
-          lengthtime: [{
-            required: true,
-            validator: validateLength,
-            trigger: 'change',
-          }],
+          lengthtime: [
+            {
+              required: true,
+              message: this.$t('normal.error_09') + this.$t('label.PFANS2016FORMVIEW_LENGTHTIME'),
+              trigger: 'change',
+            },
+            {validator: validateLength, trigger: 'change'}],
           relengthtime: [{
             required: true,
-            validator: revalidateLength,
+            message: this.$t('normal.error_09') + this.$t('label.PFANS2016FORMVIEW_RELENGTHTIMETO'),
             trigger: 'change',
-          }],
+          },
+            {validator: revalidateLength, trigger: 'change'}],
           hospital: [{required: true, validator: validatePass, trigger: 'blur'}],
           edate: [{required: true, validator: validatePass2, trigger: 'change'}],
         },
@@ -793,7 +796,11 @@
             if (this.form.status === '0') {
               this.workflowCode = 'W0003';
               this.canStart = true;
-              this.dislengthtime = false;
+              if(!this.disable){
+                this.dislengthtime = true;
+              } else {
+                this.dislengthtime = false;
+              }
             } else if (this.form.status === '4') {
               this.workflowCode = 'W0059';
               this.canStart = true;
@@ -1566,7 +1573,6 @@
         this.form.finisheddate = moment(new Date()).format("YYYY-MM-DD");
         this.form.occurrencedate = moment(new Date()).format("YYYY-MM-DD");
         this.form.worktime = '';
-        this.form.lengthtime = '';
         this.typecheck = '';
         let dictionaryInfo = getDictionaryInfo(val);
         if (dictionaryInfo) {
