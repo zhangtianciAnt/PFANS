@@ -13,13 +13,13 @@
         </el-input>
       </div>
       <slot name="search"></slot>
-      <el-table :cell-class-name="rowheight" :data="this.pagedate" :default-sort='defaultSort'
+      <el-table :cell-class-name="rowheight" :data="pagedate" :default-sort='defaultSort'
                 :element-loading-text="$t('normal.waiting')"
                 :row-key="rowid" :span-method="SpanMethod" @filter-change="tableFilter"
                 @row-click="rowClick" @row-dblclick="dbrowClick" :show-summary="showSummary"  :summary-method="summaryMethod"
                 @selection-change="handleSelectionChange" @sort-change="sortChange" border
-                header-cell-class-name="sub_bg_color_blue" header-row-class-name="height" height="calc(100vh - 60px - 15rem)"
-                highlight-current-row max-height="calc(100vh - 60px - 15rem)" ref="eltable" :row-class-name="rowClassName"
+                header-cell-class-name="sub_bg_color_blue" header-row-class-name="height" height="calc(100vh - 60px - 18rem)"
+                highlight-current-row max-height="calc(100vh - 60px - 18rem)" ref="eltable" :row-class-name="rowClassName"
                 stripe style="width: 100%;" v-loading='loading'>
         <el-table-column reserve-selection type="selection" v-if="showSelection" width="55" :selectable="selectable">
         </el-table-column>
@@ -55,8 +55,8 @@
         <el-pagination :current-page.sync="listQuery.page" :page-size="listQuery.limit"
                        :page-sizes="[10,50,100,500,99999]" :total="total" @current-change="handleCurrentChange"
                        @size-change="handleSizeChange" layout="slot,sizes, ->,prev, pager, next, jumper">
-          <!--<slot><span class="front Content_front"-->
-          <!--style="padding-right: 5px;font-weight: 400">{{$t('table.pagesize')}}</span></slot>-->
+          <slot><span class="front Content_front"
+          style="padding-right: 5px;font-weight: 400">{{$t('table.total')}}{{totaldata.length}}</span></slot>
         </el-pagination>
       </div>
     </el-card>

@@ -1282,7 +1282,7 @@
           },
           setdisabled(val){
             if(this.$route.params.disabled){
-              this.disabled = val;
+              this.disable = val;
             }
           },
           setToolsorgs(val){
@@ -1572,8 +1572,12 @@
                 }
                 this.buttonClick('update');
             },
-            start() {
+            start(val) {
+              if (val.state === '0') {
                 this.form.status = '2';
+              }else if (val.state === '2') {
+                this.form.status = '4';
+              }
                 this.buttonClick('update');
             },
             end() {

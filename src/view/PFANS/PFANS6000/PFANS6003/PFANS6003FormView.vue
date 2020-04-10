@@ -53,9 +53,9 @@
 
                 <!--           供应商编码（合同用）-->
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS6003FORMVIEW_VENDORNUM')" prop="suppliercode">
+                  <el-form-item :label="$t('label.PFANS6003FORMVIEW_VENDORNUM')" prop="vendornum">
                     <el-input :disabled="!disabled" style="width:20vw"
-                              v-model="form.suppliercode"></el-input>
+                              v-model="form.vendornum"></el-input>
                   </el-form-item>
                 </el-col>
 
@@ -341,6 +341,7 @@
         buttonList: [],
         multiple: false,
         form: {
+          vendornum: '',
           supplierinfor_id: '',
           type: this.$t('menu.PFANS6002'),
           supchinese: '',
@@ -421,12 +422,11 @@
                     trigger: 'change',
                 },
             ],
-          // 供应商编码（合同用）
-            suppliercode: [
+          vendornum: [
             {
               required: true,
               message: this.$t('normal.error_08') + this.$t('label.PFANS6003FORMVIEW_VENDORNUM'),
-              trigger: 'blur',
+              trigger: 'change',
             },
           ],
           // // 中文(项目联络人)
