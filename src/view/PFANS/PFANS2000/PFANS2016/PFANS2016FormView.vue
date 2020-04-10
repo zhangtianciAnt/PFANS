@@ -95,7 +95,7 @@
             </el-col>
             <el-col :span="8"
                     v-show="(form.errortype == 'PR013005'|| form.errortype == 'PR013007') && form.status != '4' && form.status != '5' && form.status != '6' && form.status != '7'&& form.status != '8'">
-              <el-form-item :label="$t('label.PFANS2016FORMVIEW_XJTYPE')" label-width="9rem">
+              <el-form-item :label="$t('label.PFANS2016FORMVIEW_XJTYPE')" label-width="9rem" prop="vacationtype">
                 <el-select v-model="form.vacationtype" style="width: 20vw"
                            :disabled="!disable" @change="handleClick">
                   <el-option
@@ -110,7 +110,7 @@
             </el-col>
             <el-col :span="8"
                     v-show="(form.errortype == 'PR013005' || form.errortype == 'PR013007') && (form.status === '4' || form.status === '5' || form.status === '6' || form.status === '7')">
-              <el-form-item :label="$t('label.PFANS2016FORMVIEW_RELENGTHTIME')" label-width="9rem" prop="relengthtime">
+              <el-form-item :label="$t('label.PFANS2016FORMVIEW_RELENGTHTIME')" label-width="9rem" prop="revacationtype">
                 <el-select @change="rehandleClick" v-model="form.revacationtype" style="width: 20vw"
                            :disabled="form.status === '5' || form.status === '7'">
                   <el-option
@@ -684,6 +684,16 @@
             message: this.$t('normal.error_09') + this.$t('label.PFANS2016FORMVIEW_ERRORTYPE'),
             trigger: 'change',
           }],
+          vacationtype: [{
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.PFANS2016FORMVIEW_XJTYPE'),
+            trigger: 'change',
+          }],
+          revacationtype: [{
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.PFANS2016FORMVIEW_RELENGTHTIME'),
+            trigger: 'change',
+          }],
           cause: [
             {
               required: true,
@@ -752,17 +762,18 @@
                 }
               }
             }
-            if (moment(this.form.occurrencedate).format('YYYY-MM-DD') != moment(this.form.finisheddate).format('YYYY-MM-DD')) {
+            if(this.form.errortype === 'PR013009' && moment(this.form.occurrencedate).format('YYYY-MM-DD') !== moment(this.form.finisheddate).format('YYYY-MM-DD')){
               this.dislengthtime = true;
             }
-            if (this.form.errortype === 'PR013014') {
+            if (this.form.errortype === 'PR013011'|| this.form.errortype === 'PR013012'|| this.form.errortype === 'PR013013'
+              || this.form.errortype === 'PR013015'|| this.form.errortype === 'PR013017'|| this.form.errortype === 'PR013020'
+              || this.form.errortype === 'PR013021') {
               this.dislengthtime = true;
-              // this.checkfinisheddate = false;
-
+            } else {
+              this.dislengthtime = false;
             }
             if (this.form.errortype === 'PR013001') {
               this.checkrelengthtime = false;
-              // this.checkfinisheddate = false;
             } else if (moment(this.form.refinisheddate).format('YYYY-MM-DD') != moment(this.form.reoccurrencedate).format('YYYY-MM-DD')) {
               this.checkrelengthtime = true;
             }
@@ -798,19 +809,20 @@
               this.canStart = true;
               if(!this.disable){
                 this.dislengthtime = true;
-              } else {
-                this.dislengthtime = false;
               }
             } else if (this.form.status === '4') {
               this.workflowCode = 'W0059';
               this.canStart = true;
               this.disable = false;
+              this.dislengthtime = true;
             } else if (this.form.status === '7') {
               this.workflowCode = 'W0059';
               this.canStart = false;
               this.disable = false;
+              this.dislengthtime = true;
             } else if (this.form.status === '2') {
               this.disable = false;
+              this.dislengthtime = true;
             }
             this.loading = false;
 
@@ -1585,6 +1597,7 @@
           this.dislengthtime = false;
           this.form.finisheddate = this.form.occurrencedate;
           this.showVacation = false;
+          this.form.lengthtime = '0';
           this.getWorktime();
         } else if (val === 'PR013005') {
           this.form.lengthtime = '0';
@@ -1592,7 +1605,6 @@
           this.checkerrortishi = false;
           this.checkrelengthtime = false;
           this.dislengthtime = false;
-          this.typecheck = 0;
           this.showVacation = false;
         } else if (val === 'PR013006') {
           this.form.lengthtime = '0';
@@ -1606,6 +1618,7 @@
           this.checkrelengthtime = false;
           this.dislengthtime = false;
           this.showVacation = false;
+          this.form.lengthtime = '0';
         } else if (val === 'PR013008') {
           this.checkerrortishi = false;
           this.checkrelengthtime = false;
@@ -1615,24 +1628,28 @@
           this.checkerrortishi = false;
           this.checkrelengthtime = false;
           this.dislengthtime = false;
+          this.form.lengthtime = '0';
           // this.checkfinisheddate = true;
           this.showVacation = true;
         } else if (val === 'PR013011') {
           this.checkerrortishi = false;
           this.checkrelengthtime = true;
           this.dislengthtime = true;
+          this.form.lengthtime = 8;
           // this.checkfinisheddate = true;
           this.showVacation = true;
         } else if (val === 'PR013012') {
           this.checkerrortishi = true;
           this.checkrelengthtime = true;
           this.dislengthtime = true;
+          this.form.lengthtime = 8;
           // this.checkfinisheddate = true;
           this.showVacation = true;
         } else if (val === 'PR013013') {
           this.checkerrortishi = false;
           this.checkrelengthtime = true;
           this.dislengthtime = true;
+          this.form.lengthtime = 8;
           // this.checkfinisheddate = true;
           this.showVacation = true;
         } else if (val === 'PR013014') {
@@ -1640,28 +1657,33 @@
           this.checkrelengthtime = true;
           this.dislengthtime = false;
           this.showVacation = false;
+          this.form.lengthtime = '0';
         } else if (val === 'PR013015') {
             this.checkerrortishi = false;
             this.checkrelengthtime = true;
             this.dislengthtime = true;
+          this.form.lengthtime = 8;
             // this.checkfinisheddate = true;
             this.showVacation = true;
         } else if (val === 'PR013016') {
           this.checkerrortishi = false;
           this.checkrelengthtime = false;
           this.dislengthtime = false;
+          this.form.lengthtime = '0';
           // this.checkfinisheddate = true;
           this.showVacation = true;
         } else if (val === 'PR013017') {
           this.checkerrortishi = false;
           this.checkrelengthtime = true;
           this.dislengthtime = true;
+          this.form.lengthtime = 8;
           // this.checkfinisheddate = true;
           this.showVacation = true;
         } else if (val === 'PR013018' || val === 'PR013019') {
           this.checkerrortishi = false;
           this.checkrelengthtime = true;
           this.dislengthtime = false;
+          this.form.lengthtime = '0';
           this.showVacation = false;
         // } else if (val === 'PR0130119') {
         //   this.checkerrortishi = false;
@@ -1762,9 +1784,12 @@
           if (valid) {
             this.errort = '';
             //add_fjl 04/09
+            let diffDate = moment(this.form.finisheddate).diff(moment(this.form.occurrencedate), 'days') + 1;
             //产休假，流产假
-            if (this.form.errortype === 'PR013012' || this.form.errortype === 'PR013021') {
-              if (this.$store.getters.userinfo.userinfo.sex !== 'PR019002') {
+            if (this.form.errortype === 'PR013011'|| this.form.errortype === 'PR013012'|| this.form.errortype === 'PR013013'
+              || this.form.errortype === 'PR013015'|| this.form.errortype === 'PR013017'|| this.form.errortype === 'PR013020'
+              || this.form.errortype === 'PR013021') {
+              if ((this.form.errortype === 'PR013012' || this.form.errortype === 'PR013021') && this.$store.getters.userinfo.userinfo.sex !== 'PR019002') {
                 Message({
                   message: this.$t('label.PFANS2016FORMVIEW_WOMENCHECK'),
                   type: 'error',
@@ -1772,16 +1797,25 @@
                 });
                 return;
               }
+              //男护理假
+              if (this.form.errortype === 'PR013013' && this.$store.getters.userinfo.userinfo.sex !== 'PR019001') {
+                Message({
+                  message: this.$t('label.PFANS2016FORMVIEW_MENCHECK'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                return;
+              }
+              if(this.form.lengthtime > diffDate *8){
+                Message({
+                  message: this.$t('请选择日期范围内有效的时间'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                return;
+              }
             }
-            //男护理假
-            if (this.form.errortype === 'PR013013' && this.$store.getters.userinfo.userinfo.sex !== 'PR019001') {
-              Message({
-                message: this.$t('label.PFANS2016FORMVIEW_MENCHECK'),
-                type: 'error',
-                duration: 5 * 1000,
-              });
-              return;
-            }
+
             //外出，家长会，劳灾，其他福利，妊娠检查
             if (this.form.errortype === 'PR013001' || this.form.errortype === 'PR013014' || this.form.errortype === 'PR013016'
               || this.form.errortype === 'PR013018' || this.form.errortype === 'PR013019') {
@@ -1881,7 +1915,7 @@
             }
             //病休
             if (this.form.errortype === 'PR013009') {
-              let diffDate = moment(this.form.finisheddate).diff(moment(this.form.occurrencedate), 'days') + 1;
+              // let diffDate = moment(this.form.finisheddate).diff(moment(this.form.occurrencedate), 'days') + 1;
               if (diffDate === 1) {
                 if (this.form.lengthtime > 8) {
                   Message({
