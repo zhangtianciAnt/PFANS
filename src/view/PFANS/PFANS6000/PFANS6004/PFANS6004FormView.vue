@@ -198,7 +198,7 @@
                 <!--            退场与否-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS6004FORMVIEW_EXITS')" prop="exits">
-                    <span style="margin-right: 1vw ">{{$t('label.no')}}</span>`
+                    <span style="margin-right: 1vw ">{{$t('label.no')}}</span>
                     <el-switch :disabled="!disabled"
                                @change="changeexits"
                                active-value="0"

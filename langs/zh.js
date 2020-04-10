@@ -79,6 +79,7 @@ module.exports = {
   table: {
     detail: '一览',
     pagesize: '每页行数',
+    total: '共',
   },
   normal: {
     zh_CN: 'CN',

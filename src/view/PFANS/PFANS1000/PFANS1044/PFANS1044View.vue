@@ -102,7 +102,28 @@
             width: 120,
             fix: false,
             filter: true,
-          }
+          },
+          // {
+          //   code: 'start',
+          //   label: 'label.PFANS2016VIEW_OCCURRENCEDATE',
+          //   width: 120,
+          //   fix: false,
+          //   filter: true,
+          // },
+          // {
+          //   code: 'end',
+          //   label: 'label.PFANS2016VIEW_FINISHEDDATE',
+          //   width: 120,
+          //   fix: false,
+          //   filter: true,
+          // },
+          // {
+          //   code: 'custochinese',
+          //   label: 'label.PFANS1010FORMVIEW_COMPANYNAME',
+          //   width: 120,
+          //   fix: false,
+          //   filter: true,
+          // }
         ],
         rowid: '',
         contractnumber: '',
@@ -160,6 +181,10 @@
                 letcontractnumber.push(tabledata[i].contractnumber);
               }
 
+              if(tabledata[i].contractdate && tabledata[i].contractdate.split("~").length > 1){
+                tabledata[i].start = tabledata[i].contractdate.split("~")[0].trim();
+                tabledata[i].end = tabledata[i].contractdate.split("~")[1].trim();
+              }
               if (tabledata[i].state === '1' && this.$i18n) {
                 tabledata[i].state = this.$t("label.PFANS8008FORMVIEW_EFFECTIVE");
               } else if (tabledata[i].state === '0' && this.$i18n) {
@@ -191,23 +216,23 @@
           })
       },
       dbrowClick(val) {
-        let name = "";
-        if (val.type === '0') {
-          name = "PFANS1024FormView"
-        } else if (val.type === '1') {
-          name = "PFANS1026FormView"
-        } else if (val.type === '2') {
-          name = "PFANS1033FormView"
-        }
-
-        this.$router.push({
-          name: name,
-          params: {
-            _id: val.contractnumber,
-            state: val.state,
-            disabled: true
-          }
-        })
+        // let name = "";
+        // if (val.type === '0') {
+        //   name = "PFANS1024FormView"
+        // } else if (val.type === '1') {
+        //   name = "PFANS1026FormView"
+        // } else if (val.type === '2') {
+        //   name = "PFANS1033FormView"
+        // }
+        //
+        // this.$router.push({
+        //   name: name,
+        //   params: {
+        //     _id: val.contractnumber,
+        //     state: val.state,
+        //     disabled: true
+        //   }
+        // })
       },
       buttonClick(val) {
         if (val === 'export') {
