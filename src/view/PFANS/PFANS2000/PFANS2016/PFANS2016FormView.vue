@@ -324,7 +324,7 @@
   import {Message} from 'element-ui';
   import dicselect from '../../../components/dicselect.vue';
   import user from '../../../components/user.vue';
-  import {getOrgInfoByUserId} from '@/utils/customize';
+  import {getOrgInfoByUserId,getCurrentRole} from '@/utils/customize';
   import moment from 'moment';
   import {getDictionaryInfo, uploadUrl} from '../../../../utils/customize';
 
@@ -1891,6 +1891,10 @@
                     this.loading = false;
                   });
               } else {
+                //总经理审批自动通过
+                if(getCurrentRole() === "1"){
+                    this.form.status = '4';
+                }
                 this.loading = true;
                 this.$store
                   .dispatch('PFANS2016Store/createPfans2016', this.form)
