@@ -51,6 +51,7 @@
                     <el-date-picker
                       v-model="form.birthday"
                       type="date"
+                      @change="getAge"
                       :placeholder="$t('label.PFANSUSERFORMVIEW_SELECTIONDATE')"
                       style="width:20vw"
                     ></el-date-picker>
@@ -2506,6 +2507,22 @@ export default {
     }
   },
   methods: {
+    // ADD-WS-生年月日change事件
+    getAge() {
+      let birthdays = new Date(this.form.birthday);
+      let d = new Date();
+      let age = 0;
+      let agenew = 0;
+      age = d.getFullYear() - birthdays.getFullYear();
+      agenew = d.getFullYear() - birthdays.getFullYear();
+      if (d.getMonth() > birthdays.getMonth() || (d.getMonth() == birthdays.getMonth() && d.getDate() > birthdays.getDate())) {
+        agenew = age;
+      } else {
+        agenew = age - 1;
+      }
+      this.age = agenew;
+    },
+    // ADD-WS-生年月日change事件
     // ADD-LXX
     sumToOldAge() {
       this.form.oldageinsurance =
@@ -2800,24 +2817,28 @@ export default {
             groupid: "",
             teamid: ""
           });
-          let birthdays = new Date(
-            response.customerInfo.userinfo.birthday.replace(/-/g, "/")
-          );
-          let d = new Date();
-          let age = 0;
-          let agenew = 0;
-          age = d.getFullYear() - birthdays.getFullYear();
-          agenew = d.getFullYear() - birthdays.getFullYear();
-          if (
-            d.getMonth() > birthdays.getMonth() ||
-            (d.getMonth() == birthdays.getMonth() &&
-              d.getDate() > birthdays.getDate())
-          ) {
-            agenew = age;
-          } else {
-            agenew = age - 1;
+          if(response.customerInfo.userinfo.birthday!=''){
+            let birthdays = new Date(
+              response.customerInfo.userinfo.birthday.replace(/-/g, "/")
+            );
+            let d = new Date();
+            let age = 0;
+            let agenew = 0;
+            age = d.getFullYear() - birthdays.getFullYear();
+            agenew = d.getFullYear() - birthdays.getFullYear();
+            if (
+              d.getMonth() > birthdays.getMonth() ||
+              (d.getMonth() == birthdays.getMonth() &&
+                d.getDate() > birthdays.getDate())
+            ) {
+              agenew = age;
+            } else {
+              agenew = age - 1;
+            }
+            this.age = agenew;
+          }else{
+            this.age = 0;
           }
-          this.age = agenew;
           this.status = response.customerInfo.status;
           this.userInfo.userAccount = response.userAccount;
           this.userInfo.customerInfo = response.customerInfo;
