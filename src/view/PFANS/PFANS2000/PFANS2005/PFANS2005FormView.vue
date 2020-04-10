@@ -11,12 +11,7 @@
         <el-form label-position="top" label-width="8vw" ref="form">
           <el-row type="flex" justify="end" style="margin-bottom:1vh">
             <el-col :span="6">
-              <el-input
-                @input="handleFilterName"
-                placeholder="请输入员工名字"
-                prefix-icon="el-icon-search"
-                v-model="filterName"
-              ></el-input>
+              <el-input placeholder="请输入员工名字" prefix-icon="el-icon-search" v-model="filterName"></el-input>
             </el-col>
           </el-row>
           <el-tabs @tab-click="handleClick" v-model="activeName" type="border-card">
@@ -76,6 +71,7 @@
                     :label="$t('label.PFANS2006VIEW_SEX')"
                     width="70"
                     align="center"
+                    :filters="filterSex"
                   ></plx-table-column>
                   <plx-table-column
                     prop="onlychild"
@@ -2848,6 +2844,10 @@ export default {
       responseDataInit: [], // responseDataInit 初始化值
       filterName: "", //  过滤用户姓名
       tableData: [], // 工资画面显示总数据
+      filterSex: [
+        { label: "男", value: "男" },
+        { label: "女", value: "女" }
+      ],
       totaldataFJKC: [],
       totaldataQQ: [],
       totaldataCY: [],
@@ -3134,12 +3134,20 @@ export default {
     // const dom = this.$refs["eltable"].$el;
     // dom.addEventListener("scroll", this.handleScroll, true);
   },
+  // zqu start 监听过滤名称
+  watch: {
+    filterName: function() {
+      if (this.filterName === "") {
+        this.totaldata = this.responseDataInit;
+      } else {
+        this.totaldata = this.responseDataInit.filter(item => {
+          return item.user_name === this.filterName;
+        });
+      }
+    }
+  },
+  // zqu end
   methods: {
-    // zqu start 根据员工姓名进行筛选
-    handleFilterName() {
-      console.log(this.filterName);
-    },
-    // zqu end
     // zqu start 工资tab 录入项change事件
     wagesChange(noId, val, prop) {
       this.totaldata.forEach((item, index) => {
@@ -3211,6 +3219,7 @@ export default {
             item.sociology = item.sociology === "1" ? "是" : "-";
             item.registered = item.registered === "1" ? "是" : "-";
           });
+          this.responseDataInit = response.wagesList;
           this.totaldata = response.wagesList;
           this.listWages = 0;
           this.getList();
