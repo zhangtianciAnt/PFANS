@@ -686,7 +686,7 @@
     methods: {
       setdisabled(val){
         if(this.$route.params.disabled){
-          this.disabled = val;
+          this.disable = val;
         }
       },
       changeSum() {

@@ -505,7 +505,7 @@
                             <template slot-scope="scope">
                               <el-input
                                 :no="scope.row"
-                                :disabled="scope.$index == 0"
+                                :disabled="scope.$index == 0 || !disable"
                                 v-model="scope.row.position"
                                 style="width: 100%">
                               </el-input>
@@ -794,7 +794,7 @@
                         <div class="dpSupIndex" style="width:20vw">
                           <el-container>
                             <input class="content bg" v-model="scope.row.contract"
-                            :disabled="scope.row.type === '0' ? true : false"></input>
+                            :disabled="scope.row.type === '0' ? true : false" style="min-width: 70%"></input>
                             <el-button
                               :disabled="scope.row.type === '0' ? true : false"
                               icon="el-icon-search"
