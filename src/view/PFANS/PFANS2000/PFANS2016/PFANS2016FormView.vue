@@ -454,6 +454,29 @@
           this.clearValidate(['occurrencedate', 'periodend', 'periodstart']);
         }
       };
+
+      var revalidateVacationtype = (rule, value, callback) => {
+        if((this.form.errortype == 'PR013005'|| this.form.errortype == 'PR013007') && this.form.status != '4' && this.form.status != '5' && this.form.status != '6' && this.form.status != '7'&& this.form.status != '8'){
+          if (this.form.vacationtype === null && this.form.vacationtype === '') {
+            callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS2016FORMVIEW_XJTYPE')));
+          } else {
+            callback();
+          }
+        }else {
+          callback();
+        }
+      };
+      var revalidateRevacationtype = (rule, value, callback) => {
+        if((this.form.errortype == 'PR013005' || this.form.errortype == 'PR013007') && (this.form.status === '4' || this.form.status === '5' || this.form.status === '6' || this.form.status === '7')){
+          if (this.form.revacationtype === null && this.form.revacationtype === '') {
+            callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS2016FORMVIEW_RELENGTHTIME')));
+          } else {
+            callback();
+          }
+        } else {
+          callback();
+        }
+      };
       var revalidateEnddate = (rule, value, callback) => {
         if (this.form.refinisheddate !== null && this.form.refinisheddate !== '') {
           if (moment(value).format('YYYY-MM-DD') < moment(this.form.reoccurrencedate).format('YYYY-MM-DD')) {
@@ -686,12 +709,14 @@
           }],
           vacationtype: [{
             required: true,
-            message: this.$t('normal.error_09') + this.$t('label.PFANS2016FORMVIEW_XJTYPE'),
+            validator: revalidateVacationtype,
+            // message: this.$t('normal.error_09') + this.$t('label.PFANS2016FORMVIEW_XJTYPE'),
             trigger: 'change',
           }],
           revacationtype: [{
             required: true,
-            message: this.$t('normal.error_09') + this.$t('label.PFANS2016FORMVIEW_RELENGTHTIME'),
+            validator: revalidateRevacationtype,
+            // message: this.$t('normal.error_09') + this.$t('label.PFANS2016FORMVIEW_RELENGTHTIME'),
             trigger: 'change',
           }],
           cause: [
@@ -1602,7 +1627,7 @@
           this.form.lengthtime = '0';
           this.getWorktime();
         } else if (val === 'PR013005') {
-          form.revacationtype = ''
+          this.form.vacationtype = ''
           this.checkerrortishi = false;
           this.checkrelengthtime = false;
           this.dislengthtime = false;
@@ -1614,7 +1639,7 @@
           this.dislengthtime = false;
           this.showVacation = false;
         } else if (val === 'PR013007') {
-          form.revacationtype = ''
+          this.form.vacationtype = ''
           this.checkerrortishi = false;
           this.checkrelengthtime = false;
           this.dislengthtime = false;
