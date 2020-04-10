@@ -902,7 +902,9 @@
       },
       handleClick(val) {
         this.form.vacationtype = val;
+        this.form.revacationtype = val;
         this.typecheck = val;
+        this.retypecheck = val;
         this.form.finisheddate = this.form.occurrencedate;
         if (val == '1' || val == '2') {
           // Message({
