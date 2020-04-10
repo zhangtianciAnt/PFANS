@@ -715,8 +715,8 @@
         this.$store
           .dispatch('PFANS6004Store/getexpatriatesinforApplyOne', {'expatriatesinfor_id': this.$route.params._id})
           .then(response => {
-
             this.form = response;
+            if(this.form.birth!='') {
               let birthdays = new Date(this.form.birth);
               let d = new Date();
               let age = 0;
@@ -724,11 +724,14 @@
               age = d.getFullYear() - birthdays.getFullYear();
               agenew = d.getFullYear() - birthdays.getFullYear();
               if (d.getMonth() > birthdays.getMonth() || (d.getMonth() == birthdays.getMonth() && d.getDate() > birthdays.getDate())) {
-                  agenew = age;
+                agenew = age;
               } else {
-                  agenew = age - 1;
+                agenew = age - 1;
               }
               this.age = agenew;
+            }else{
+              this.age = 0;
+            }
             this.form.admissiontime = moment(new Date()).format('YYYY-MM-DD');
             this.grouporglist = this.form.group_id;
             this.loading = false;
