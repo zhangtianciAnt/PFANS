@@ -725,7 +725,7 @@
         parent: '',
         checkTimelenght: '',
         checkTimeLenght: '',
-        enterday: '',
+        // enterday: '',
         marryday: '',
       };
     },
@@ -821,7 +821,7 @@
 
       } else {
         this.userlist = this.$store.getters.userinfo.userid;
-        this.enterday = moment(this.$store.getters.userinfo.userinfo.enterday).format('YYYY-MM-DD');
+        // this.enterday = moment(this.$store.getters.userinfo.userinfo.enterday).format('YYYY-MM-DD');
         this.marryday = moment(this.$store.getters.userinfo.userinfo.marryday).format('YYYY-MM-DD');
         if (this.userlist !== null && this.userlist !== '') {
           let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
@@ -1244,6 +1244,7 @@
             }
           }
         }
+        if(this.form.errortype === 'PR013005' && this.form.errortype === 'PR013007'){
         if (this.typecheck == '0') {
           let time = 0;
           for (let d = 0; d < this.relist.length; d++) {
@@ -1267,6 +1268,7 @@
             time = time + 1;
           }
           this.form.lengthtime = time * 8;
+        }
         }
         // if (this.form.errortype === 'PR013014') {
         //     this.form.lengthtime = 4;
@@ -1548,15 +1550,15 @@
             });
             return;
           }
-          if (this.enterday < '2012-08-31') {
-            this.error = 1;
-            Message({
-              message: this.$t('label.PFANS2016FORMVIEW_ERRORENTERDAY'),
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            return;
-          }
+          // if (this.enterday < '2012-08-31') {
+          //   this.error = 1;
+          //   Message({
+          //     message: this.$t('label.PFANS2016FORMVIEW_ERRORENTERDAY'),
+          //     type: 'error',
+          //     duration: 5 * 1000,
+          //   });
+          //   return;
+          // }
         }
         if (this.form.errortype === 'PR013011') {
           var aa = moment(new Date()).format('YYYY-MM-DD');
@@ -1780,18 +1782,35 @@
         this.$refs['ruleForm'].validate(valid => {
           if (valid) {
             this.errort = '';
-            // let letrelation = '';
-            // for (let j = 0; j < this.form.relation.length; j++) {
-            //     letrelation = letrelation + ',' + this.form.relation[j];
+            // if(moment(this.form.occurrencedate).format('YYYY-MM-DD') === moment(this.form.finisheddate).format('YYYY-MM-DD')){
+            //   if(this.form.errortype === 'PR013014'){
+            //     if (2 - this.parent <= 0) {
+            //       Message({
+            //         message: this.$t('label.PFANS2016FORMVIEW_BJDJZHCHECK'),
+            //         type: 'error',
+            //         duration: 5 * 1000,
+            //       });
+            //       return;
+            //     }
+            //     if (val > 4) {
+            //       Message({
+            //         message: this.$t('label.PFANS2016FORMVIEW_BJDJZCHECK'),
+            //         type: 'error',
+            //         duration: 5 * 1000,
+            //       });
+            //       return;
+            //     }
+            //   } else {
+            //     if(this.from.lengthtime > 8){
+            //       alert('每日时间大于8小时！');
+            //     }
+            //   }
+            // } else {
+            //   let diffDate = moment(this.form.finisheddate).diff(moment(this.form.occurrencedate), 'days') + 1;
+            //   if(this.from.lengthtime > diffDate *8){
+            //     alert('输入1324')
+            //   }
             // }
-            // let letnewdate = moment(new Date()).format('YYYY-MM-DD');
-            // let letoccurrencedate = moment(this.form.occurrencedate).format('YYYY-MM-DD');
-            // let letfinisheddate = moment(this.form.finisheddate).format('YYYY-MM-DD');
-            // let letoccurrencedateTo = moment(this.form.reoccurrencedate).format('YYYY-MM-DD');
-            // let letfinisheddateTo = moment(this.form.refinisheddate).format('YYYY-MM-DD');
-            if (this.form.errortype === 'PR013001' || this.form.errortype === 'PR013014') {
-              this.form.finisheddate = this.form.occurrencedate;
-            }
             if ((this.form.errortype != 'PR013005' && this.form.errortype != 'PR013007') && this.form.status != '4' &&
               this.form.status != '5' && this.form.status != '6' && this.form.status != '7' && this.form.status != '8' && this.form.lengthtime <= 0) {
               Message({
@@ -1801,9 +1820,6 @@
               });
               return;
             }
-            // if (this.form.errortype === 'PR013014' ) {
-            //     this.form.lengthtime = 4;
-            // }
             if (this.form.errortype === 'PR013005' || this.form.errortype === 'PR013006') {
               if (this.form.vacationtype === '0') {
                 this.form.lengthtime = 8;

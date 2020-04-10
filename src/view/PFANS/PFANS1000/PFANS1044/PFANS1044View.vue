@@ -244,12 +244,19 @@
               if (letContracttype != null) {
                 item.entrycondition = letContracttype.value1;
               }
-              item.entrypayment = moment(item.entrypayment).format("YYYY-MM-DD");
+              if (item.extensiondate != null) {
+                item.extensiondate = moment(item.extensiondate).format("YYYY-MM-DD");
+              }
+              if (item.entrypayment != null) {
+                item.entrypayment = moment(item.entrypayment).format("YYYY-MM-DD");
+              }
               letContracttype = getDictionaryInfo(item.currencyposition);
               if (letContracttype != null) {
                 item.currencyposition = letContracttype.value1;
               }
-              item.extensiondate = moment(item.extensiondate).format("YYYY-MM-DD");
+              if (item.extensiondate != null) {
+                item.extensiondate = moment(item.extensiondate).format("YYYY-MM-DD");
+              }
             }
             const data = this.formatJson(filterVal, selectedlist);
             excel.export_json_to_excel(tHeader, data, "契约一览");

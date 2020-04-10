@@ -157,8 +157,8 @@
                   vote.label = this.$t('menu.PFANS1005') + '_' + response[i].createon;
                   this.options.push(vote);
                 }
-                this.loading = false;
               }
+              this.loading = false;
             }).catch(error => {
             Message({
               message: error,
@@ -184,8 +184,8 @@
                   vote.label = this.$t('menu.PFANS1010') + '_' + response[i].createon;
                   this.options.push(vote);
                 }
-                this.loading = false;
               }
+              this.loading = false;
             }).catch(error => {
             Message({
               message: error,

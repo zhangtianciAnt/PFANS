@@ -483,7 +483,7 @@
     mounted() {
       // this.getList();
       this.getById();
-      this.getOrgInformation();
+      // this.getOrgInformation();
 
     },
     methods: {

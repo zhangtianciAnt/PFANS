@@ -97,6 +97,74 @@
               </el-form-item>
             </el-col>
           </el-row>
+          <!--  wxl 4/9  start-->
+          <el-row>
+            <el-col :span="24">
+              <el-table
+                :data="tableData"
+                :summary-method="getAverage"
+                border stripe
+                show-summary
+                style="width:46vw"
+                header-cell-class-name="sub_bg_color_blue"
+              >
+                <el-table-column
+                  :label="$t('label.PFANS2002FORMVIEW_INTERVIEWER')"
+                  align="center"
+                  prop="interviewer"
+                >
+                  <template slot-scope="scope">
+                    <user
+                      :disabled="!disabled"
+                      :no="scope.row"
+                      :userlist="scope.row.interviewer"
+                      @getUserids="getInterviewerids"
+                      selectType="Single"
+                      style="width:100%"
+                    ></user>
+                  </template>
+                </el-table-column>
+                <el-table-column
+                  :label="$t('label.PFANS2002FORMVIEW_SCORE')"
+                  align="center"
+                  prop="score"
+                >
+                  <template slot-scope="scope">
+                    <el-input-number
+                      :disabled="!disabled"
+                      :max="10"
+                      :min="0"
+                      :precision="1"
+                      :step="0.1"
+                      v-model="scope.row.score"
+                      style="width:100%"
+                    ></el-input-number>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.operation')" align="center" width="200">
+                  <template slot-scope="scope">
+                    <el-button
+                      :disabled="!disabled"
+                      @click.native.prevent="deleteRow(scope.$index, tableData)"
+                      plain
+                      size="small"
+                      type="danger"
+                    >{{$t('button.delete')}}
+                    </el-button>
+                    <el-button
+                      :disabled="!disabled"
+                      @click="addRow()"
+                      plain
+                      size="small"
+                      type="primary"
+                    >{{$t('button.insert')}}
+                    </el-button>
+                  </template>
+                </el-table-column>
+              </el-table>
+            </el-col>
+          </el-row>
+          <!--  wxl 4/9  end-->
           <el-row>
             <el-col :span="8">
               <el-form-item :error="errorrecommenddep" :label="$t('label.PFANS2003VIEW_RECOMMENDDEP')"
@@ -124,7 +192,7 @@
           </el-row>
           <el-row>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS2003VIEW_SOURCE')" prop="source">
+              <el-form-item :label="$t('label.PFANS2002FORMVIEW_ADOPTION')" prop="source">
                 <dicselect
                   :code="code2"
                   :data="form.source"
@@ -135,32 +203,60 @@
                 </dicselect>
               </el-form-item>
             </el-col>
+
+
+<!--wxl 0409 start-->
             <el-col :span="8">
-              <el-form-item :error="error" :label="$t('label.PFANS2003FORMVIEW_MEMBER')" prop="member" v-show="show1">
-                <user :disabled="!disabled" :error="error" :selectType="selectType"
-                      :userlist="userlist"
-                      @getUserids="getUserids"
-                      style="width:20vw"></user>
+              <el-form-item
+                :label="$t('label.PFANS2002FORMVIEW_OTHER3')"
+                prop="other3"
+                v-show="other3_show"
+              >
+                <el-input :disabled="!disabled" class="width" maxlength="20" style="width:20vw"
+                          v-model="form.other"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :error="errornetwork" :label="$t('label.PFANS2003FORMVIEW_NETWORK')" prop="network"
-                            v-show="show2">
-                <el-input :disabled="!disabled" :error="errornetwork"
-                          maxlength='50'
-                          style="width:20vw" v-model="form.network"></el-input>
+              <el-form-item v-show="display" :label="$t('label.PFANS2002FORMVIEW_OTHERS')">
+                <user
+                  :disabled="!disabled"
+                  :userlist="userlist"
+                  @getUserids="getUserids"
+                  selectType="Single"
+                  style="width:20vw"
+                ></user>
               </el-form-item>
             </el-col>
           </el-row>
-            <el-row>
-              <el-col :span="8">
-                <el-form-item  :label="$t('label.PFANS2002FORMVIEW_OTHER3')"
-                               v-show="show3">
-                  <el-input :disabled="!disabled"
-                            style="width:72vw" v-model="form.other" type="textarea"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
+<!--wxl 0409 end-->
+
+
+<!--            <el-col :span="8">-->
+<!--              <el-form-item :error="error" :label="$t('label.PFANS2003FORMVIEW_MEMBER')" prop="member" v-show="show1">-->
+<!--                <user :disabled="!disabled" :error="error" :selectType="selectType"-->
+<!--                      :userlist="userlist"-->
+<!--                      @getUserids="getUserids"-->
+<!--                      style="width:20vw"></user>-->
+<!--              </el-form-item>-->
+<!--            </el-col>-->
+<!--            <el-col :span="8">-->
+<!--              <el-form-item :error="errornetwork" :label="$t('label.PFANS2003FORMVIEW_NETWORK')" prop="network"-->
+<!--                            v-show="show2">-->
+<!--                <el-input :disabled="!disabled" :error="errornetwork"-->
+<!--                          maxlength='50'-->
+<!--                          style="width:20vw" v-model="form.network"></el-input>-->
+<!--              </el-form-item>-->
+<!--            </el-col>-->
+<!--          </el-row>-->
+<!--            <el-row>-->
+<!--              <el-col :span="8">-->
+<!--                <el-form-item  :label="$t('label.PFANS2002FORMVIEW_OTHER3')"-->
+<!--                               v-show="show3">-->
+<!--                  <el-input :disabled="!disabled"-->
+<!--                            style="width:72vw" v-model="form.other" type="textarea"></el-input>-->
+<!--                </el-form-item>-->
+<!--              </el-col>-->
+<!--            </el-row>-->
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')" prop="contactinformation">
@@ -255,74 +351,6 @@
               </el-form-item>
             </el-col>
           </el-row>
-<!--  wxl 4/8  start-->
-          <el-row>
-            <el-col :span="24">
-              <el-table
-                :data="tableData"
-                :summary-method="getAverage"
-                border stripe
-                show-summary
-                style="width:46vw"
-                header-cell-class-name="sub_bg_color_blue"
-              >
-                <el-table-column
-                  :label="$t('label.PFANS2002FORMVIEW_INTERVIEWER')"
-                  align="center"
-                  prop="interviewer"
-                >
-                  <template slot-scope="scope">
-                    <user
-                      :disabled="!disabled"
-                      :no="scope.row"
-                      :userlist="scope.row.interviewer"
-                      @getUserids="getInterviewerids"
-                      selectType="Single"
-                      style="width:100%"
-                    ></user>
-                  </template>
-                </el-table-column>
-                <el-table-column
-                  :label="$t('label.PFANS2002FORMVIEW_SCORE')"
-                  align="center"
-                  prop="score"
-                >
-                  <template slot-scope="scope">
-                    <el-input-number
-                      :disabled="!disabled"
-                      :max="10"
-                      :min="0"
-                      :precision="1"
-                      :step="0.1"
-                      v-model="scope.row.score"
-                      style="width:100%"
-                    ></el-input-number>
-                  </template>
-                </el-table-column>
-                <el-table-column :label="$t('label.operation')" align="center" width="200">
-                  <template slot-scope="scope">
-                    <el-button
-                      :disabled="!disabled"
-                      @click.native.prevent="deleteRow(scope.$index, tableData)"
-                      plain
-                      size="small"
-                      type="danger"
-                    >{{$t('button.delete')}}
-                    </el-button>
-                    <el-button
-                      :disabled="!disabled"
-                      @click="addRow()"
-                      plain
-                      size="small"
-                      type="primary"
-                    >{{$t('button.insert')}}
-                    </el-button>
-                  </template>
-                </el-table-column>
-              </el-table>
-            </el-col>
-          </el-row>
-<!--  wxl 4/8  end-->
         </el-form>
       </div>
     </EasyNormalContainer>
@@ -437,6 +465,8 @@
         }
       };
       return {
+        other3_show: false,
+        display: false,
         modelwhetherentry: '1',
         modelresult: '1',
         loading: false,
@@ -488,7 +518,8 @@
         },
         List: '',
         code1: 'PR019',
-        code2: 'PR020',
+        // code2: 'PR020',
+        code2: 'PR051',
         code3: 'PR022',
         code4: 'PR021',
         code5: 'PR023',
@@ -759,28 +790,44 @@
         } else if (val === 'PR023002') {
         }
       },
-      getsource(val) {
-        this.form.source = val;
-        if (val === 'PR020001') {
-          this.show1 = true;
-          this.show2 = false;
-          this.show3 = false;
-          this.rules.member[0].required = true;
-          this.error = '';
-          this.rules.network[0].required = false;
-        } else if (val === 'PR020002') {
-          this.show1 = false;
-          this.show2 = true;
-          this.show3 = false;
-          this.rules.network[0].required = true;
-          this.rules.member[0].required = false;
-        }else if(val === 'PR020003'){
-          this.show1 = false;
-          this.show2 = false;
-          this.show3 = true;
-          this.rules.network[0].required = false;
-          this.rules.member[0].required = false;
-        }
+      // getsource(val) {
+      //   this.form.source = val;
+      //   if (val === 'PR020001') {
+      //     this.show1 = true;
+      //     this.show2 = false;
+      //     this.show3 = false;
+      //     this.rules.member[0].required = true;
+      //     this.error = '';
+      //     this.rules.network[0].required = false;
+      //   } else if (val === 'PR020002') {
+      //     this.show1 = false;
+      //     this.show2 = true;
+      //     this.show3 = false;
+      //     this.rules.network[0].required = true;
+      //     this.rules.member[0].required = false;
+      //   }else if(val === 'PR020003'){
+      //     this.show1 = false;
+      //     this.show2 = false;
+      //     this.show3 = true;
+      //     this.rules.network[0].required = false;
+      //     this.rules.member[0].required = false;
+      //   }
+      // },
+        getsource(val) {
+          console.log(val);
+          this.form.source = val
+          if (val === 'PR051004') {
+              this.display = true;
+          } else {
+              this.display = false;
+              this.form.others = '';
+          }
+          this.form.adoption = val;
+          if (val === 'PR051005') {
+              this.other3_show = true;
+          } else {
+              this.other3_show = false;
+          }
       },
       changesex(val) {
         this.form.sex = val;
