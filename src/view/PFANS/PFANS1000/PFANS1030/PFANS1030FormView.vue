@@ -1019,12 +1019,16 @@
           .dispatch('PFANS1025Store/selectById', {'award_id': this.$route.params._id})
           .then(response => {
             this.form = response.award;
-
             if (response.award.custojapanese !== null && response.award.custojapanese !== "") {
               let letUser = getUserInfo(response.award.custojapanese);
               if (letUser != null) {
                 this.form.custojapanese = letUser.userinfo.customername;
               }
+            }
+            let letCurrencyposition = getDictionaryInfo(response.award.currencyposition);
+            if (letCurrencyposition != null) {
+              response.award.currencyposition = letCurrencyposition.value1;
+              response.award.exchangerate = letCurrencyposition.value2;
             }
             if(this.$store.getters.userinfo.userid){
               this.form.telephone = getUserInfo(this.$store.getters.userinfo.userid).userinfo.extension;
@@ -1054,13 +1058,13 @@
               this.tableD = response.staffDetail
             }
             let aa = 0
-
             if ( response.numbercounts.length > 0 ) {
               for (let i = 0; i < response.numbercounts.length; i++) {
-                let letCurrencyposition = getDictionaryInfo(response.numbercounts[i].currencyposition);
-                if (letCurrencyposition != null) {
-                  response.numbercounts[i].currencyposition = letCurrencyposition.value1;
-                }
+                // let letCurrencyposition = getDictionaryInfo(response.numbercounts[i].currencyposition);
+                // if (letCurrencyposition != null) {
+                //   response.numbercounts[i].currencyposition = letCurrencyposition.value1;
+                //   response.numbercounts[i].exchangerate = letCurrencyposition.value2;
+                // }
                 let deliverydate = response.numbercounts[i].deliverydate;
                 let completiondate = response.numbercounts[i].completiondate;
                 let claimdate = response.numbercounts[i].claimdate;
@@ -1084,7 +1088,7 @@
                 }
               }
             }
-              this.form.claimamount = aa
+            this.form.claimamount = aa
             this.tableS = response.numbercounts;
             this.userlist = this.form.user_id;
             this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
@@ -1174,13 +1178,16 @@
       changePro(val, row) {
         row.projects = val;
       },
+
       sumAward(){
+        // 111
         if(this.form.contracttype === "PG019001"){
           this.form.sarmb = this.from.exchangerate * this.sumAwardmoney;
         } else {
           this.form.sarmb = this.sumAwardmoney;
         }
       },
+      // 222
       changeSum(row) {
         row.worknumber = row.member + row.outsource;
         row.awardmoney = row.member * row.community + row.outsource * row.outcommunity;
@@ -1202,6 +1209,7 @@
       gettotal(){
         this.form.outsourcing= this.form.total / this.form.number;
       },
+      // 333
       getcontracttype(val){
         this.form.contracttype=val;
         if(val === "PG019001"){
