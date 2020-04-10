@@ -201,7 +201,6 @@
                             if(response[j].punchcardrecord_date === moment(new Date()).format('YYYY-MM-DD')){
                                 response[j].time_end = "";
                             }
-                            debugger
                             // ADD-LXX
                             response[j].afternoon = Number(parseFloat(response[j].worktime) - parseFloat(response[j].absenteeismam)).toFixed(3)
                             if(response[j].afternoon === 0){

@@ -1,6 +1,6 @@
 <template>
   <div style="min-height: 100%">
-    <EasyNormalContainer :buttonList="buttonList" v-loading="loading" :title="title" @buttonClick="buttonClick"
+    <EasyNormalContainer :buttonList="buttonList" v-loading="loading" :title="title" @buttonClick="buttonClick" @disabled="setdisabled"
                          @end="end" @start="start" @workflowState="workflowState" ref="container">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="ruleForm"
@@ -46,7 +46,7 @@
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1005VIEW_ITEM')" align="center" prop="projects" width="150">
                   <template slot-scope="scope">
-                    <el-select v-model="scope.row.projects" clearable :placeholder="$t('normal.error_09')">
+                    <el-select v-model="scope.row.projects" clearable :placeholder="$t('normal.error_09')" :disabled="!disable">
                       <el-option
                         v-for="item in options"
                         :key="item.companyprojects_id"
@@ -248,6 +248,11 @@
                 })
         },
         methods: {
+          setdisabled(val){
+            if(this.$route.params.disabled){
+              this.disable = val;
+            }
+          },
             getSummaries(param) {
                 const { columns, data } = param;
                 const sums = [];
