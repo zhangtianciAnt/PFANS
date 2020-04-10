@@ -158,6 +158,7 @@
                           <el-upload
                             v-model="form.uploadfile"
                             :action="upload"
+                            :disabled="!disable"
                             :file-list="fileList"
                             :on-remove="fileRemove"
                             :on-preview="fileDownload"
