@@ -1255,7 +1255,7 @@
             }
           }
         }
-        if (this.form.errortype === 'PR013005' && this.form.errortype === 'PR013007') {
+        if (this.form.errortype === 'PR013005' || this.form.errortype === 'PR013007') {
           if (this.typecheck == '0') {
             let time = 0;
             //不包含公休日
