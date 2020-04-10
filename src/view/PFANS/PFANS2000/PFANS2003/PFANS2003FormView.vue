@@ -192,7 +192,7 @@
           </el-row>
           <el-row>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS2003VIEW_SOURCE')" prop="source">
+              <el-form-item :label="$t('label.PFANS2002FORMVIEW_ADOPTION')" prop="source">
                 <dicselect
                   :code="code2"
                   :data="form.source"
