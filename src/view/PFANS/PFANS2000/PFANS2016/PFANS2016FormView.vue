@@ -841,7 +841,7 @@
               this.disable = false;
               this.dislengthtime = true;
             }else if (this.form.status === '5') {
-              this.canStart = true;
+              this.canStart = false;
               this.disable = false;
               this.dislengthtime = true;
               this.checkrelengthtime = true;
