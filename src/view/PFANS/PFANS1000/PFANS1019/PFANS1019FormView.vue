@@ -76,7 +76,7 @@
               <el-table-column :label="$t('label.PFANS1019FORMVIEW_CUSTOMER')" align="center" width="230">
                 <template slot-scope="scope">
                   <user :disabled="!disable" :error="errorusername" :no="scope.row" :selectType="selectType" :userlist="scope.row.customer"
-                        @getUserids="getUserids1" style="width: 100%"></user>
+                        @getUserids="getUserids1" style="width: 90%"></user>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1019FORMVIEW_STARTDATE')" align="center" width="160">

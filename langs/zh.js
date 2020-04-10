@@ -24,6 +24,7 @@ module.exports = {
   },
   button: {
     insert: '新建',
+    search: '检索',
     insertLots: '批量新建',
     update: '编辑',
     delete: '删除',
@@ -2975,6 +2976,7 @@ module.exports = {
     PFANS8007VIEW_HS: '会社特别休日',
     PFANS8007VIEW_YQ: '一齐年休日',
     PFANS8007VIEW_YS: '请选择日期类型',
+    PFANS8007VIEW_YSCHECK: '日期类型未变化',
     PFANS8007VIEW_CHECK: '当天存在日期样式，请重新选择！',
     PFANS8007VIEW_CHECKERROR: '当天无可删除数据，请重新选择！',
     PFANS8007VIEW_QC: '清除设置',

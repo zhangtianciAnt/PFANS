@@ -25,6 +25,7 @@
         },
         data() {
             return {
+                dateInfo: [],
                 loading: false,
                 title: 'title.PFANS2010FOMRVIEW',
                 data: [],
@@ -179,7 +180,36 @@
             };
         },
         methods: {
+          //add-ws-考勤设置休日背景色
+          getDay() {
+            this.$store
+              .dispatch('PFANS8007Store/getList', {})
+              .then(response => {
+                for (let i = 0; i < response.length; i++) {
+                  if(moment(response[i].workingdate).format('MM')===moment(new Date()).format('MM')){
+                    this.dateInfo.push({
+                      dateflg: moment(response[i].workingdate).format('YYYY-MM-DD'),
+                      type: response[i].type,
+                    });
+                  }
+                }
+              });
+          },
+          //add-ws-考勤设置休日背景色
           rowClassName({row, rowIndex}){
+            //add-ws-考勤设置休日背景色
+            for(let i =0;i<this.dateInfo.length;i++){
+              if(this.dateInfo[i].type === '4'){
+                if(this.dateInfo[i].dateflg === row.dates){
+                  return "white";
+                }
+              }else{
+                if(this.dateInfo[i].dateflg === row.dates){
+                  return "sub_bg_color_Darkgrey";
+                }
+              }
+            }
+            //add-ws-考勤设置休日背景色
             if(moment(row.dates).format("E") == 6 || moment(row.dates).format("E") == 7 ){
               return "sub_bg_color_Darkgrey";
             }
@@ -302,6 +332,9 @@
             },
         },
         mounted() {
+          //add-ws-考勤设置休日背景色
+          this.getDay();
+          //add-ws-考勤设置休日背景色
             this.getAttendancelist();
             this.$store.commit('global/SET_OPERATEID', '');
         },

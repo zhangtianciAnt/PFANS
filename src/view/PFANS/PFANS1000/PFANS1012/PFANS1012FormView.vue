@@ -1,7 +1,7 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :canStart="canStart" :title="title"
-                         @buttonClick="buttonClick"
+                         @buttonClick="buttonClick" @disabled="setdisabled"
                          @end="end" @start="start" @workflowState="workflowState" ref="container" v-loading="loading">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
@@ -508,7 +508,7 @@
                                  orgtype="2"
                                  :disabled="!disable"
                                  :error="errorgroup"
-                                 style="width: 100%"
+                                 style="width: 90%"
                                  :no="scope.row"
                                  @getOrgids="getGroupId"></org>
                           </template>
@@ -1884,6 +1884,11 @@
       },
     },
     methods: {
+      setdisabled(val){
+        if(this.$route.params.disabled){
+          this.disable = val;
+        }
+      },
       changeexternal(row) {
         if (row.external == '1') {
           this.budgetcodingcheck = row.budgetcoding;

@@ -55,6 +55,7 @@
                     @getUserids="getuserid"
                     :userlist="scope.row.user"
                     selectType="Single"
+                    style="width: 90%"
                   ></user>
                 </template>
               </el-table-column>

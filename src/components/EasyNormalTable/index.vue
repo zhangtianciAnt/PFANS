@@ -16,7 +16,7 @@
       <el-table :cell-class-name="rowheight" :data="this.pagedate" :default-sort='defaultSort'
                 :element-loading-text="$t('normal.waiting')"
                 :row-key="rowid" :span-method="SpanMethod" @filter-change="tableFilter"
-                @row-click="rowClick" @row-dblclick="rowClick"
+                @row-click="rowClick" @row-dblclick="dbrowClick" :show-summary="showSummary"  :summary-method="summaryMethod"
                 @selection-change="handleSelectionChange" @sort-change="sortChange" border
                 header-cell-class-name="sub_bg_color_blue" header-row-class-name="height" height="calc(100vh - 60px - 15rem)"
                 highlight-current-row max-height="calc(100vh - 60px - 15rem)" ref="eltable" :row-class-name="rowClassName"
@@ -171,6 +171,13 @@
         type: Function
       },
       rowClassName:{
+        type: Function
+      },
+      showSummary:{
+        type:Boolean,
+        default:false
+      },
+      summaryMethod:{
         type: Function
       }
     },
@@ -330,6 +337,14 @@
         //     this.systembutton = [false, false, false]
         //   })
         this.$emit('rowClick', row)
+      },
+      dbrowClick(row){
+        this.$store.commit('global/SET_OPERATEID', row[this.rowid]);
+        if(row.owner){
+          this.$store.commit('global/SET_OPERATEOWNER', row.owner);
+        }
+        this.$refs.workflow.isViewWorkflow();
+        this.$emit('dbrowClick', row)
       },
       // checkbox选中状态变更
       handleSelectionChange(val) {

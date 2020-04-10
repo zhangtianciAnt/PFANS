@@ -475,7 +475,7 @@
                              :orglist="scope.row.departmentname"
                              @getOrgids="getGroupId"
                              orgtype="2"
-                             style="width: 100%"></org>
+                             style="width: 90%"></org>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1012FORMVIEW_BUDGET')" align="center" width="150">
@@ -674,7 +674,7 @@
                              :orglist="scope.row.departmentname"
                              @getOrgids="getGroupId"
                              orgtype="2"
-                             style="width: 100%"></org>
+                             style="width: 90%"></org>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1012FORMVIEW_BUDGET')" align="center" width="150">

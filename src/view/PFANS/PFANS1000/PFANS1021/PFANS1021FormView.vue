@@ -116,19 +116,19 @@
                        @getOrgids="getGroupId2"></org>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS1021FORMVIEW_PHONENUMBER')" align="center" prop="phonenumber"
-                               width="200">
-                <template slot-scope="scope">
-                  <el-input :disabled="!disabled" :no="scope.row" maxlength="20" v-model="scope.row.phonenumber">
-                  </el-input>
-                </template>
-              </el-table-column>
-              <el-table-column :label="$t('label.email')" align="center" prop="emaildetail" width="200">
-                <template slot-scope="scope">
-                  <el-input :disabled="!disabled" :no="scope.row" maxlength="20" v-model="scope.row.emaildetail">
-                  </el-input>
-                </template>
-              </el-table-column>
+<!--              <el-table-column :label="$t('label.PFANS1021FORMVIEW_PHONENUMBER')" align="center" prop="phonenumber"-->
+<!--                               width="200">-->
+<!--                <template slot-scope="scope">-->
+<!--                  <el-input :disabled="!disabled" :no="scope.row" maxlength="20" v-model="scope.row.phonenumber">-->
+<!--                  </el-input>-->
+<!--                </template>-->
+<!--              </el-table-column>-->
+<!--              <el-table-column :label="$t('label.email')" align="center" prop="emaildetail" width="200">-->
+<!--                <template slot-scope="scope">-->
+<!--                  <el-input :disabled="!disabled" :no="scope.row" maxlength="20" v-model="scope.row.emaildetail">-->
+<!--                  </el-input>-->
+<!--                </template>-->
+<!--              </el-table-column>-->
               <el-table-column :label="$t('label.PFANS1021FORMVIEW_STARTDATE')" align="center" prop="startdate"
                                width="200">
                 <template slot-scope="scope">
