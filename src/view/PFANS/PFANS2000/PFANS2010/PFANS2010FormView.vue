@@ -444,6 +444,7 @@
     color: #ffffff;
     text-align: center;
   }
+
   .pfans2010view_column_5 {
     height: 40px;
     background: #93CBE1;
