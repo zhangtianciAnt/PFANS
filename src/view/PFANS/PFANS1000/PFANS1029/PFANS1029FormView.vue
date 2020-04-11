@@ -630,6 +630,14 @@
                 this.activeName1 = 'second',
                   this.tab2Disabled = false;
                 this.form2 = response;
+                debugger
+                if (this.form2.currencyposition !== null && this.form2.currencyposition !== "") {
+                  let letCurrencyposition = getDictionaryInfo(this.form2.currencyposition);
+                  if (letCurrencyposition != null) {
+                    this.form2.currencyposition = letCurrencyposition.value1;
+                  }
+                }
+
                 this.tableData2 = response.numberCount;
               }
             this.loading = false;
