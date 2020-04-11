@@ -1863,7 +1863,7 @@
               // a.diff(b, 'years', true); // 1.75
               // alert(a.diff(b, 'years'));
               // alert(a.diff(b, 'years', true));
-              if (this.sickleave < 60) {
+              if (this.sickleave > 60) {
                 Message({
                   message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECKFLG'),
                   type: 'error',
@@ -1901,6 +1901,7 @@
                 for (let d = 0; d < this.relist.length; d++) {
                   time = time + 1;
                 }
+                debugger;
                 if(time === 0){
                   Message({
                     message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
