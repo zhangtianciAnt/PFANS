@@ -1898,7 +1898,7 @@
             for (let i = 0; i < response.length; i++) {
               var vote1 = {};
               vote1.number = response[i].number;
-              vote1.name_id= response[i].expatriatesinfor_id;
+              vote1.name_id= response[i].account;
               vote1.expname = response[i].expname;
               vote1.suppliername = response[i].suppliername;
               // vote1.post = response[i].post;
