@@ -299,10 +299,11 @@
       },
       // 发起审批
       addworkflow() {
+        debugger
         if(this.defaultStart){
           this.startWorkflow()
         }else{
-          this.$emit("StartWorkflow")
+          this.$emit("StartWorkflow","StartWorkflow")
         }
       },
       startWorkflow(){
