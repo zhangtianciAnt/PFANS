@@ -133,12 +133,27 @@
                     filter: true,
                   },
                   {
-                    code: 'shortsickleave',
+                    code: 'SICKLEAVE',
                     label: 'label.PFANS2010VIEW_SICKLEAVE',
                     labelClass: 'pfans2010view_column_4',
-                    width: 120,
-                    fix: false,
-                    filter: true,
+                    child: [
+                      {
+                        code: 'shortsickleave',
+                        label: 'label.PFANS2010VIEW_SHORT',
+                        labelClass: 'pfans2010view_column_5',
+                        width: 120,
+                        fix: false,
+                        filter: true,
+                      },
+                      {
+                        code: 'longsickleave',
+                        label: 'label.PFANS2010VIEW_LONG',
+                        labelClass: 'pfans2010view_column_5',
+                        width: 120,
+                        fix: false,
+                        filter: true,
+                      },
+                    ],
                   },
                   {
                     code: 'compassionateleave',
@@ -334,6 +349,7 @@
                       var total_daixiu = 0;
                       var total_welfare = 0;
                       var total_shortsickleave = 0;
+                      var total_longsickleave = 0;
                       var total_compassionateleave = 0;
                       var total_nursingleave = 0;
                       var total_absenteeism = 0;
@@ -352,6 +368,7 @@
                         total_daixiu += parseFloat(res[i]["daixiu"] ===undefined ? '0' :(res[i]["daixiu"]===null || res[i]["daixiu"]==='' ? '0':res[i]["daixiu"]));
                         total_welfare += parseFloat(res[i]["welfare"] ===undefined ? '0' :(res[i]["welfare"]===null || res[i]["welfare"]==='' ? '0':res[i]["welfare"]));
                         total_shortsickleave += parseFloat(res[i]["shortsickleave"] ===undefined ? '0' :(res[i]["shortsickleave"]===null || res[i]["shortsickleave"]==='' ? '0':res[i]["shortsickleave"]));
+                        total_longsickleave += parseFloat(res[i]["longsickleave"] ===undefined ? '0' :(res[i]["longsickleave"]===null || res[i]["longsickleave"]==='' ? '0':res[i]["longsickleave"]));
                         total_compassionateleave += parseFloat(res[i]["compassionateleave"] ===undefined ? '0' :(res[i]["compassionateleave"]===null || res[i]["compassionateleave"]==='' ? '0':res[i]["compassionateleave"]));
                         total_nursingleave += parseFloat(res[i]["nursingleave"] ===undefined ? '0' :(res[i]["nursingleave"]===null || res[i]["nursingleave"]==='' ?  '0':res[i]["nursingleave"]));
                         total_absenteeism += parseFloat(res[i]["absenteeism"] ===undefined ? '0' :(res[i]["absenteeism"]===null || res[i]["absenteeism"]==='' ? '0':res[i]["absenteeism"]));
@@ -369,6 +386,7 @@
                                                                     daixiu: total_daixiu,
                                                                     welfare: total_welfare,
                                                                     shortsickleave: total_shortsickleave,
+                                                                    longsickleave: total_longsickleave,
                                                                     compassionateleave: total_compassionateleave,
                                                                     nursingleave: total_nursingleave,
                                                                     absenteeism: total_absenteeism,
@@ -421,13 +439,14 @@
     color: #ffffff;
   }
   .pfans2010view_column_4 {
-    height: 81px;
+    height: 40px;
     background: #2696C3;
     color: #ffffff;
     text-align: center;
   }
+
   .pfans2010view_column_5 {
-    height: 81px;
+    height: 40px;
     background: #93CBE1;
     color: #ffffff;
   }
