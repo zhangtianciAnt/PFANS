@@ -643,6 +643,8 @@
           this.rules.payeecode[0].required = true;
           this.rules.payeebankaccountnumber[0].required = true;
           this.rules.payeebankaccount[0].required = true;
+          this.form.payeebankaccountnumber = getUserInfo(this.form.user_id).userinfo.seatnumber;
+          console.log("getUserInfo(this.form.user_id).userinfo",getUserInfo("5e78b2544e3b194874181087").userinfo)
         } else if (val === 'PJ015002') {
           this.show1 = false;
           this.show2 = true;
