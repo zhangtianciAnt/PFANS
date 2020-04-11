@@ -170,6 +170,7 @@
     },
     data() {
       return {
+        checktimelength: '',
         checkLenth: '',
         checkList: [],
         checkdata: '',
@@ -391,6 +392,7 @@
           .dispatch('PFANS5008Store/getDataOne', {'logmanagement_id': this.$route.params._id})
           .then(response => {
             this.data = response;
+            this.checktimelength = response.time_start;
             if (response.confirmstatus == '1') {
               this.buttonList[0].disabled = true;
               this.buttonList[1].disabled = true;
@@ -974,14 +976,26 @@
                       }
                     }
                   }
-                  this.checkLenth = checklenth;
-                  if (parseFloat(this.checkLenth) + parseFloat(this.companyform.time_start) > this.checkdata) {
-                    error = error + 1;
-                    Message({
-                      message: this.$t('label.PFANS5008VIEW_CHECKLENTHLOGDATA'),
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
+                  if (this.$route.params._id || this.row) {
+                    this.checkLenth = checklenth;
+                    if (parseFloat(this.checkLenth) + parseFloat(this.companyform.time_start)-parseFloat(this.checktimelength) > this.checkdata) {
+                      error = error + 1;
+                      Message({
+                        message: this.$t('label.PFANS5008VIEW_CHECKLENTHLOGDATA'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                    }
+                  } else {
+                    this.checkLenth = checklenth;
+                    if (parseFloat(this.checkLenth) + parseFloat(this.companyform.time_start) > this.checkdata) {
+                      error = error + 1;
+                      Message({
+                        message: this.$t('label.PFANS5008VIEW_CHECKLENTHLOGDATA'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                    }
                   }
                   if (error == 0) {
                     if (this.$route.params._id || this.row) {

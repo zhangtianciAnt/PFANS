@@ -313,14 +313,14 @@
                 <el-table-column
                   prop="group_id"
                   :label="$t('label.department')"
-                  width="150"
+                  width="200"
                 >
                 </el-table-column>
                 <!--                项目-->
                 <el-table-column
                   prop="project_name"
                   :label="$t('label.PFANS5009VIEW_PROJECTNAME')"
-                  width="150"
+                  width="200"
                 >
                 </el-table-column>
                 <!--                项目类型-->

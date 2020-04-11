@@ -52,6 +52,27 @@
                   <!--                    </el-col>-->
                   <!--                  </el-row>-->
                   <el-row>
+                    <el-col :span="8">
+                      <el-form-item :label="$t('label.team')">
+                        <org :disabled="!disable" :orglist="form.team_id" @getOrgids="getTeamId" orgtype="3"
+                             style="width:20vw"></org>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="8">
+                      <el-form-item :error="errorgroup" :label="$t('label.group')" prop="group_id">
+                        <org :disabled="!disable" :error="errorgroup" :orglist="form.group_id" @getOrgids="getGroupId"
+                             orgtype="2" style="width:20vw"></org>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="8">
+                      <el-form-item :error="errorcenter" :label="$t('label.center')" prop="center_id">
+                        <org :disabled="!disable" :error="errorcenter" :orglist="form.center_id"
+                             @getOrgids="getCenterId"
+                             orgtype="1" style="width:20vw"></org>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+                  <el-row>
                     <!--   项目名称(中)-->
                     <el-col :span="8">
                       <el-form-item
@@ -673,6 +694,22 @@
           callback();
         }
       };
+      var groupId = (rule, value, callback) => {
+        if (!this.form.group_id || this.form.group_id === '') {
+          callback(new Error(this.$t('normal.error_08') + 'group'));
+          this.error = this.$t('normal.error_08') + 'group';
+        } else {
+          callback();
+        }
+      };
+      var centerId = (rule, value, callback) => {
+        if (!this.form.center_id || this.form.center_id === '') {
+          callback(new Error(this.$t('normal.error_08') + 'center'));
+          this.error = this.$t('normal.error_08') + 'center';
+        } else {
+          callback();
+        }
+      };
       return {
         // centerorglist: '',
         // grouporglist: '',
@@ -921,6 +958,20 @@
                 this.$t('normal.error_08') +
                 this.$t('label.PFANS5001FORMVIEW_BRIEFINTRODUCTION'),
               trigger: 'blur',
+            },
+          ],
+          center_id: [
+            {
+              required: true,
+              validator: centerId,
+              trigger: 'change',
+            },
+          ],
+          group_id: [
+            {
+              required: true,
+              validator: groupId,
+              trigger: 'change',
             },
           ],
           //纳期
@@ -1246,6 +1297,12 @@
         this.Numbers = 1;
         this.userlist = this.$store.getters.userinfo.userid;
         this.userlist1 = this.$store.getters.userinfo.userid;
+        let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+        if (lst) {
+          this.form.team_id = lst.teamId;
+          this.form.group_id = lst.groupId;
+          this.form.center_id = lst.centerId;
+        }
       }
       this.$store
         .dispatch('PFANS5001Store/getcustomer', {})
@@ -1284,6 +1341,32 @@
       }
     },
     methods: {
+      // add-ws共同部署center，group，team添加
+      getCenterId(val) {
+        this.form.center_id = val;
+        if (!val || this.form.center_id === '') {
+          this.errorcenter = this.$t('normal.error_08') + 'center';
+        } else {
+          this.errorcenter = '';
+        }
+      },
+      getGroupId(val) {
+        this.getOrgInformation(val);
+        if (this.form.center_id === '') {
+          this.errorgroup = this.$t('normal.error_08') + 'center';
+        } else {
+          this.errorgroup = '';
+        }
+      },
+      getTeamId(val) {
+        this.getOrgInformation(val);
+        if (this.form.center_id === '') {
+          this.errorgroup = this.$t('normal.error_08') + 'center';
+        } else {
+          this.errorgroup = '';
+        }
+      },
+      // add-ws共同部署center，group，team添加
       checkRequire() {
         if (!this.form.project_name ||
           !this.form.project_namejp ||
