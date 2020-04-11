@@ -537,6 +537,11 @@
                 callback(this.$t('normal.error_norestdays'));
               } else {
                 this.form.restdate = response.dat;
+                if (response.error == 'PR013005') {
+                  if (value / 8 > Number(response.checkdat)) {
+                    callback(this.$t('normal.error_norestdays'));
+                  }
+                }
                 callback();
               }
             })
@@ -787,8 +792,11 @@
                 }
               }
             }
-            if(this.form.errortype === 'PR013009' && moment(this.form.occurrencedate).format('YYYY-MM-DD') !== moment(this.form.finisheddate).format('YYYY-MM-DD')){
-              this.dislengthtime = true;
+            if(this.form.errortype === 'PR013009' || this.form.errortype === 'PR013008' || this.form.errortype === 'PR013006' ){
+              if(moment(this.form.occurrencedate).format('YYYY-MM-DD') !== moment(this.form.finisheddate).format('YYYY-MM-DD')){
+                this.dislengthtime = true;
+              }
+                this.dislengthtime = false;
             }
             if (this.form.errortype === 'PR013011'|| this.form.errortype === 'PR013012'|| this.form.errortype === 'PR013013'
               || this.form.errortype === 'PR013015'|| this.form.errortype === 'PR013017'|| this.form.errortype === 'PR013020'
@@ -1639,6 +1647,8 @@
         }
       },
       getErrorType(val) {
+        this.form.hospital = '';
+        this.form.edate = '';
         this.form.finisheddate = moment(new Date()).format("YYYY-MM-DD");
         this.form.occurrencedate = moment(new Date()).format("YYYY-MM-DD");
         this.form.worktime = '';
@@ -1911,9 +1921,14 @@
                 return;
               }
               //根据工龄,check申请病假超过2/3/4月，则不能申请年休
-              let agge = moment(this.$store.getters.userinfo.userinfo.enddate).format("YYYY-MM-DD");
+              // let agge = moment(this.$store.getters.userinfo.userinfo.enddate).format("YYYY-MM-DD");
               if(this.sickleave >60){
-                return 123;
+                Message({
+                  message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECKFLG'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                return;
               }
               if (this.typecheck === '0' || this.retypecheck === '0') {
                 for (let d = 0; d < this.relist.length; d++) {
