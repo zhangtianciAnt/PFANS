@@ -287,7 +287,7 @@
                     <el-input
                       class="width"
                       v-model="form.specialty"
-                      maxlength="10"
+                      maxlength="20"
                       style="width:20vw"
                     ></el-input>
                   </el-form-item>

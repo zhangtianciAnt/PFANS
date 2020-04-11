@@ -511,6 +511,7 @@
           setdisabled(val){
             if(this.$route.params.disabled){
               this.disabled = val;
+              this.flags = true
             }
           },
             getUserids(val) {
@@ -536,8 +537,13 @@
                 }
                 this.buttonClick("update");
             },
-            start() {
-                this.form.status = "7";
+            start(val) {
+              if (val.state === '0') {
+                this.form.status = '7';
+              }else if (val.state === '2') {
+                this.form.status = '9';
+              }
+                // this.form.status = "7";
                 this.buttonClick("update");
             },
             end() {
