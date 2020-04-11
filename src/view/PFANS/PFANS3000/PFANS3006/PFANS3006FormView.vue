@@ -198,7 +198,7 @@
           <el-row >
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3006VIEW_MOBILEPHONE')" prop="mobilephone">
-                <el-input :disabled="!disable" maxlength="11" style="width:20vw"
+                <el-input :disabled="!disable" maxlength="20" style="width:20vw"
                           v-model="form.mobilephone"></el-input>
               </el-form-item>
             </el-col>
@@ -421,7 +421,8 @@
             message: this.$t('normal.error_08') + this.$t('label.PFANS3006VIEW_MOBILEPHONE'),
             trigger: 'blur',
           },
-            {validator: validateTel, trigger: 'blur'}],
+            // {validator: validateTel, trigger: 'blur'}
+            ],
           usetype: [{
             required: true,
             message: this.$t("normal.error_09") + this.$t("label.PFANS3006VIEW_USETYPE"),

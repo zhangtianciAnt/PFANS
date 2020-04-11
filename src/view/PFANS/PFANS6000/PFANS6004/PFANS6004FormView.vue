@@ -127,7 +127,7 @@
             <!--            邮箱-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANSUSERFORMVIEW_EMAILADDRESS')" prop="email">
-                <el-input :disabled="!disabled" style="width:20vw"
+                <el-input :disabled="!disabled" style="width:20vw" maxlength="50"
                           v-model="form.email"></el-input>
               </el-form-item>
             </el-col>
