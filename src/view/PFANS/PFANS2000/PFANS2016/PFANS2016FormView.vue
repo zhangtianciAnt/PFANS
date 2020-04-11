@@ -1901,7 +1901,6 @@
                 for (let d = 0; d < this.relist.length; d++) {
                   time = time + 1;
                 }
-                debugger;
                 if(time === 0){
                   Message({
                     message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
