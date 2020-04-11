@@ -358,17 +358,19 @@
           callback();
         }
       };
-      var validatePass2 = (rule, value, callback) => {
-        if (this.form.errortype == 'PR013016') {
-          if (value) {
-            callback();
-          } else {
-            callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS2016FORMVIEW_EDATE')));
-          }
-        } else {
-          callback();
-        }
-      };
+      //预产期   04/11
+      // var validatePass2 = (rule, value, callback) => {
+      //   if (this.form.errortype == 'PR013016') {
+      //     if (value) {
+      //       callback();
+      //     } else {
+      //       callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS2016FORMVIEW_EDATE')));
+      //     }
+      //   } else {
+      //     callback();
+      //   }
+      // };
+
       // var validateEndtime = (rule, value, callback) => {
       //     if (this.form.periodend !== null && this.form.periodend !== '') {
       //         if ((moment(this.form.finisheddate).format('YYYY-MM-DD') === moment(this.form.occurrencedate).format('YYYY-MM-DD') && moment(value).format('HH:mm') < moment(this.form.periodstart).format('HH:mm'))
@@ -785,7 +787,7 @@
           },
             {validator: revalidateLength, trigger: 'change'}],
           hospital: [{required: true, validator: validatePass, trigger: 'blur'}],
-          edate: [{required: true, validator: validatePass2, trigger: 'change'}],
+          // edate: [{required: true, validator: validatePass2, trigger: 'change'}],
         },
         fileList: [],
         upload: uploadUrl(),
@@ -1376,6 +1378,9 @@
         }
       },
       rechange() {
+        if (!this.form.refinisheddate || !this.form.reoccurrencedate) {
+          return;
+        }
         let rediffDate = moment(this.form.refinisheddate).diff(moment(this.form.reoccurrencedate), 'days') + 1;
         if (this.form.errortype === 'PR013005' || this.form.errortype === 'PR013007') {
           if (this.retypecheck == '0') {
