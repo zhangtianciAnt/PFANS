@@ -772,7 +772,7 @@
                             <template slot-scope="scope">
                               <el-input
                                 :no="scope.row"
-                                :disabled="true"
+                                :disabled="!disable"
                                 v-model="scope.row.position"
                                 style="width: 100%">
                               </el-input>
@@ -2685,11 +2685,9 @@
                 });
               }
             }
-debugger
             //ADD 03-18 ,委托元为内采时，合同可自行添加请求金额
             this.baseInfo.contractnumbercount = this.tableclaimtype;
             //ADD 03-18 ,委托元为内采时，合同可自行添加请求金额 END
-
             let error1 = 0;
             let error2 = 0;
             let error3 = 0;
@@ -2724,7 +2722,12 @@ debugger
               }
               break;
             }
-
+            let error = 0;
+            for (let i = 0; i < this.tableD.length; i++) {
+              if (this.tableD[i].contract == '') {
+                error = error + 1;
+              }
+            }
             for (let i = 0; i < this.tableA.length; i++) {
               if (this.tableA[i].phase == '' && this.tableA[i].estimatedstarttime == '' && this.tableA[i].estimatedendtime == '') {
                 error4 = error4 + 1;
@@ -2745,7 +2748,16 @@ debugger
                 type: 'error',
                 duration: 5 * 1000,
               });
-            } else if (error4 != 0) {
+            } else if (error != 0 && this.form.toolstype !== '1') {
+            this.activeName ='fifth'
+            this.loading = false;
+            Message({
+              message: this.$t('normal.error_08') +
+                this.$t('label.PFANS5001FORMVIEW_CONTRACT'),
+              type: 'error',
+              duration: 5 * 1000,
+            });
+          }else if (error4 != 0) {
             this.activeName ='third'
               this.loading = false;
               Message({
