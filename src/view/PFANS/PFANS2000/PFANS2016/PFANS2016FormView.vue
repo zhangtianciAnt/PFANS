@@ -401,9 +401,9 @@
               .then(response => {
                 if (response.error != '') {
                   if (response.error == 'PR013005') {
-                    this.checkDate = response.checkdat;
+                    this.checkDate = response.dat;
                   } else if (response.error == 'PR013007') {
-                    this.checkDate = response.checkdat;
+                    this.checkDate = response.dat;
                   }
                 }
                 if (response.can === 'no') {
@@ -447,9 +447,9 @@
               .then(response => {
                 if (response.error != '') {
                   if (response.error == 'PR013005') {
-                    this.checkDate = response.checkdat;
+                    this.checkDate = response.dat;
                   } else if (response.error == 'PR013007') {
-                    this.checkDate = response.checkdat;
+                    this.checkDate = response.dat;
                   }
                 }
                 if (response.can === 'no') {
@@ -528,7 +528,7 @@
             })
             .then(response => {
               if (response.error != '' && response.error == 'PR013006') {
-                this.checkDate = response.checkdat;
+                this.checkDate = response.dat;
               }
               // if (response.error != '') {
               //   if (response.error == 'PR013005') {
@@ -570,7 +570,7 @@
             })
             .then(response => {
               if (response.error != '' && response.error == 'PR013006') {
-                this.checkDate = response.checkdat;
+                this.checkDate = response.dat;
               }
               // if (response.error != '') {
               //   if (response.error == 'PR013005') {
@@ -1863,7 +1863,7 @@
               // a.diff(b, 'years', true); // 1.75
               // alert(a.diff(b, 'years'));
               // alert(a.diff(b, 'years', true));
-              if (this.sickleave > 60) {
+              if (this.sickleave < 60) {
                 Message({
                   message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECKFLG'),
                   type: 'error',
@@ -1872,24 +1872,24 @@
                 return;
               }
               if (this.form.status === '4') {
-                if (this.retypecheck === '0') {
-                  for (let d = 0; d < this.relistTwo.length; d++) {
-                    timere = timere + 1;
-                  }
-                  if(timere === 0){
-                    Message({
-                      message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
-                    return;
-                  }
-                  this.form.relengthtime = time * 8;
-                } else {
-                  timere = 0.5;
-                  this.form.relengthtime = 4;
+                for (let d = 0; d < this.relistTwo.length; d++) {
+                  timere = timere + 1;
                 }
-                if (this.checkDate < time) {
+                if(timere === 0){
+                  Message({
+                    message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  return;
+                } else {
+                  if (this.retypecheck === '0') {
+                    this.form.relengthtime = timere * 8;
+                  } else {
+                    this.form.relengthtime = 4;
+                  }
+                }
+                if (this.checkDate < timere) {
                   Message({
                     message: this.$t('label.PFANS2016FORMVIEW_ERRORANNUALLEAVE'),
                     type: 'error',
@@ -1898,24 +1898,24 @@
                   return;
                 }
               } else {
-                if (this.typecheck === '0') {
-                  for (let d = 0; d < this.relist.length; d++) {
-                    time = time + 1;
-                  }
-                  if(time === 0){
-                    Message({
-                      message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
-                    return;
-                  }
-                  this.form.lengthtime = time * 8;
-                  this.form.relengthtime = time * 8;
+                for (let d = 0; d < this.relist.length; d++) {
+                  time = time + 1;
+                }
+                if(time === 0){
+                  Message({
+                    message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  return;
                 } else {
-                  time = 0.5;
-                  this.form.lengthtime = 4;
-                  this.form.relengthtime = 4;
+                  if (this.typecheck === '0') {
+                    this.form.lengthtime = time * 8;
+                    this.form.relengthtime = time * 8;
+                  } else {
+                    this.form.lengthtime = 4;
+                    this.form.relengthtime = 4;
+                  }
                 }
                 if (this.checkDate < time) {
                   Message({
@@ -1943,13 +1943,22 @@
                 for (let i = 0; i < this.relist.length; i++) {
                   sum = sum + 1;
                 }
-                if (this.form.lengthtime > sum * 8) {
+                if(sum === 0){
                   Message({
-                    message: this.$t('label.PFANS2016FORMVIEW_ERROREFFECTIVE'),
+                    message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
                     type: 'error',
                     duration: 5 * 1000,
                   });
                   return;
+                } else {
+                  if (this.form.lengthtime > sum * 8) {
+                    Message({
+                      message: this.$t('label.PFANS2016FORMVIEW_ERROREFFECTIVE'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    return;
+                  }
                 }
               }
             }
