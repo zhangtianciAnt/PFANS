@@ -185,7 +185,7 @@
                             </el-form-item>
                           </el-col>
                           <el-col :span="6" v-show="show3">
-                              <el-input :disabled="!disable" style="width: 10vw"
+                              <el-input :disabled="!disable" style="width: 10vw" maxlength='100'
                                         v-model="form.oreason" ></el-input>
                           </el-col>
                         </el-row>
@@ -206,7 +206,7 @@
                             </el-form-item>
                           </el-col>
                           <el-col :span="6" v-show="show4">
-                              <el-input :disabled="!disable" style="width: 10vw"
+                              <el-input :disabled="!disable" style="width: 10vw"  maxlength='100'
                                         v-model="form.othreason"></el-input>
                           </el-col>
                         </el-row>

@@ -1,7 +1,8 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" v-loading="loading" :title="title" @buttonClick="buttonClick"
-                         @end="end" @start="start" @workflowState="workflowState" ref="container" @disabled="setdisabled">
+                         @end="end" @start="start" @workflowState="workflowState" ref="container"
+                         @disabled="setdisabled">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="ruleForm"
                  style="padding: 3vw">
@@ -82,14 +83,14 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS4001FORMVIRW_KH')" prop="client">
-<!--                <dicselect-->
-<!--                  :disabled="!disable"-->
-<!--                  :code="code3"-->
-<!--                  :multiple="multiple3"-->
-<!--                  :data="form.client"-->
-<!--                  style="width:20vw"-->
-<!--                  @change="kh">-->
-<!--                </dicselect>-->
+                <!--                <dicselect-->
+                <!--                  :disabled="!disable"-->
+                <!--                  :code="code3"-->
+                <!--                  :multiple="multiple3"-->
+                <!--                  :data="form.client"-->
+                <!--                  style="width:20vw"-->
+                <!--                  @change="kh">-->
+                <!--                </dicselect>-->
                 <el-input v-model="form.client" :disabled="!disable" style="width:20vw" maxlength='20'></el-input>
 
               </el-form-item>
@@ -98,7 +99,8 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS4001FORMVIRW_YYFS')" prop="printscore">
-                <el-input-number :disabled="!disable" :min="0" :step="1" :max="9999999999" :precision="0" style="width:20vw"
+                <el-input-number :disabled="!disable" :min="0" :step="1" :max="9999999999" :precision="0"
+                                 style="width:20vw"
                                  v-model="form.printscore"></el-input-number>
               </el-form-item>
             </el-col>
@@ -115,7 +117,7 @@
                 type="textarea"
                 :rows="7"
                 v-model="form.remarks"
-                style="width: 72vw" >
+                style="width: 72vw">
               </el-input>
             </el-form-item>
           </el-row>
@@ -142,23 +144,23 @@
     },
     data() {
       var checkuser = (rule, value, callback) => {
-        if (!value || value === '' || value === "undefined") {
+        if (!value || value === '' || value === 'undefined') {
           this.error = this.$t('normal.error_09') + this.$t('label.applicant');
           return callback(new Error(this.$t('normal.error_09') + this.$t('label.applicant')));
         } else {
-          this.error = "";
+          this.error = '';
           return callback();
         }
       };
       return {
-          centerid: '',
-          groupid: '',
-          teamid: '',
+        centerid: '',
+        groupid: '',
+        teamid: '',
         error: '',
         loading: false,
         disable: false,
         selectType: 'Single',
-        userlist: "",
+        userlist: '',
         title: 'title.PFANS4001FORMVIEW',
         buttonList: [],
         form: {
@@ -179,7 +181,7 @@
         code: 'PC002',
         multiple: false,
         code2: 'PC001',
-        multiple2: false,
+        multiple2: true,
         code3: 'PG017',
         multiple3: false,
         rules: {
@@ -187,18 +189,18 @@
             {
               required: true,
               validator: checkuser,
-              trigger: 'change'
+              trigger: 'change',
             },
           ],
           application_date: [{
             required: true,
-          }
+          },
           ],
           usedate: [{
             required: true,
             message: this.$t('normal.error_09') + this.$t('label.PFANS4001FORMVIEW_YYRQ'),
             trigger: 'change',
-          }
+          },
           ],
           filename: [
             {
@@ -225,7 +227,7 @@
             {
               required: true,
               message: this.$t('normal.error_08') + this.$t('label.PFANS4001FORMVIRW_YYLX'),
-              trigger: 'change',
+              trigger: 'blur',
             },
           ],
           client: [
@@ -245,12 +247,16 @@
           .dispatch('PFANS4001Store/getPfans4001One', {'sealid': this.$route.params._id})
           .then(response => {
             this.form = response;
-              let rst = getOrgInfoByUserId(response.userid);
-              if(rst){
-                  this.centerid = rst.centerNmae;
-                  this.groupid= rst.groupNmae;
-                  this.teamid= rst.teamNmae;
-              }
+            // add-ws-印章管理下拉多选
+            let letstaff = this.form.sealtype.split(',');
+            this.form.sealtype = letstaff;
+            // add-ws-印章管理下拉多选
+            let rst = getOrgInfoByUserId(response.userid);
+            if (rst) {
+              this.centerid = rst.centerNmae;
+              this.groupid = rst.groupNmae;
+              this.teamid = rst.teamNmae;
+            }
             this.userlist = this.form.userid;
             if (this.form.status === '2') {
               this.disable = false;
@@ -269,14 +275,14 @@
         this.userlist = this.$store.getters.userinfo.userid;
         if (this.userlist !== null && this.userlist !== '') {
           let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-            if(rst) {
-                this.centerid = rst.centerNmae;
-                this.groupid= rst.groupNmae;
-                this.teamid= rst.teamNmae;
-                this.form.centerid = rst.centerId;
-                this.form.groupid = rst.groupId;
-                this.form.teamid = rst.teamId;
-            }
+          if (rst) {
+            this.centerid = rst.centerNmae;
+            this.groupid = rst.groupNmae;
+            this.teamid = rst.teamNmae;
+            this.form.centerid = rst.centerId;
+            this.form.groupid = rst.groupId;
+            this.form.teamid = rst.teamId;
+          }
           this.form.userid = this.$store.getters.userinfo.userid;
         }
       }
@@ -294,8 +300,8 @@
       }
     },
     methods: {
-      setdisabled(val){
-        if(this.$route.params.disabled){
+      setdisabled(val) {
+        if (this.$route.params.disabled) {
           this.disabled = val;
         }
       },
@@ -312,22 +318,22 @@
         this.form.userid = val;
         this.userlist = val;
         let rst = getOrgInfoByUserId(val);
-          if(rst){
-              this.centerid = rst.centerNmae;
-              this.groupid = rst.groupNmae;
-              this.teamid = rst.teamNmae;
-              this.form.centerid = rst.centerId;
-              this.form.groupid = rst.groupId;
-              this.form.teamid = rst.teamId;
-          }else{
-              this.centerid =  '';
-              this.groupid =  '';
-              this.teamid =  '';
-              this.form.centerid = '';
-              this.form.groupid =  '';
-              this.form.teamid =  '';
-          }
-        if (!this.form.userid || this.form.userid === '' || val === "undefined") {
+        if (rst) {
+          this.centerid = rst.centerNmae;
+          this.groupid = rst.groupNmae;
+          this.teamid = rst.teamNmae;
+          this.form.centerid = rst.centerId;
+          this.form.groupid = rst.groupId;
+          this.form.teamid = rst.teamId;
+        } else {
+          this.centerid = '';
+          this.groupid = '';
+          this.teamid = '';
+          this.form.centerid = '';
+          this.form.groupid = '';
+          this.form.teamid = '';
+        }
+        if (!this.form.userid || this.form.userid === '' || val === 'undefined') {
           this.error = this.$t('normal.error_08') + this.$t('label.applicant');
         } else {
           this.error = '';
@@ -339,19 +345,29 @@
         } else if (val.state === '2') {
           this.form.status = '4';
         }
-        this.buttonClick("update");
+        this.buttonClick('update');
       },
       start() {
         this.form.status = '2';
-        this.buttonClick("update");
+        this.buttonClick('update');
       },
       end() {
         this.form.status = '0';
-        this.buttonClick("update");
+        this.buttonClick('update');
       },
       buttonClick(val) {
         this.$refs['ruleForm'].validate(valid => {
           if (valid) {
+            // add-ws-印章管理下拉多选
+            let checktableD = '';
+            if (this.form.sealtype != '') {
+              let checktlist = this.form.sealtype.splice(',');
+              for (var m = 0; m < checktlist.length; m++) {
+                checktableD = checktableD + checktlist[m] + ',';
+              }
+            }
+            this.form.sealtype = checktableD.substring(0, checktableD.length - 1);
+            // add-ws-印章管理下拉多选
             if (this.$route.params._id) {
               this.loading = true;
               this.form.userid = this.userlist;
@@ -361,24 +377,25 @@
                 .then(response => {
                   this.data = response;
                   this.loading = false;
-                  if(val !== "update"){
+                  if (val !== 'update') {
                     Message({
-                      message: this.$t("normal.success_02"),
+                      message: this.$t('normal.success_02'),
                       type: 'success',
-                      duration: 5 * 1000
+                      duration: 5 * 1000,
                     });
                     if (this.$store.getters.historyUrl) {
                       this.$router.push(this.$store.getters.historyUrl);
-                    }}
+                    }
+                  }
                 })
                 .catch(error => {
                   Message({
                     message: error,
                     type: 'error',
-                    duration: 5 * 1000
+                    duration: 5 * 1000,
                   });
                   this.loading = false;
-                })
+                });
             } else {
               this.loading = true;
               this.form.userid = this.userlist;
@@ -388,9 +405,9 @@
                   this.data = response;
                   this.loading = false;
                   Message({
-                    message: this.$t("normal.success_01"),
+                    message: this.$t('normal.success_01'),
                     type: 'success',
-                    duration: 5 * 1000
+                    duration: 5 * 1000,
                   });
                   if (this.$store.getters.historyUrl) {
                     this.$router.push(this.$store.getters.historyUrl);
@@ -400,23 +417,22 @@
                   Message({
                     message: error,
                     type: 'error',
-                    duration: 5 * 1000
+                    duration: 5 * 1000,
                   });
                   this.loading = false;
-                })
+                });
             }
-          }
-          else{
-              Message({
-                  message: this.$t("normal.error_12"),
-                  type: 'error',
-                  duration: 5 * 1000
-              });
+          } else {
+            Message({
+              message: this.$t('normal.error_12'),
+              type: 'error',
+              duration: 5 * 1000,
+            });
           }
         });
       },
     },
-  }
+  };
 </script>
 <style lang="scss">
   .el-form-item__error {
