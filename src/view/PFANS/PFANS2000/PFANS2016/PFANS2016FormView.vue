@@ -1,7 +1,8 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick" @end="end"
-                         :canStart="canStart" @disabled="setdisabled" :defaultStart="defaultStart" @StartWorkflow="buttonClick"
+                         :canStart="canStart" @disabled="setdisabled" :defaultStart="defaultStart"
+                         @StartWorkflow="buttonClick"
                          @start="start" @workflowState="workflowState" ref="container" v-loading="loading"
                          :workflowCode="workflowCode">
       <div slot="customize">
@@ -110,7 +111,8 @@
             </el-col>
             <el-col :span="8"
                     v-show="(form.errortype == 'PR013005' || form.errortype == 'PR013007') && (form.status === '4' || form.status === '5' || form.status === '6' || form.status === '7')">
-              <el-form-item :label="$t('label.PFANS2016FORMVIEW_RELENGTHTIME')" label-width="9rem" prop="revacationtype">
+              <el-form-item :label="$t('label.PFANS2016FORMVIEW_RELENGTHTIME')" label-width="9rem"
+                            prop="revacationtype">
                 <el-select @change="rehandleClick" v-model="form.revacationtype" style="width: 20vw"
                            :disabled="form.status === '5' || form.status === '7'">
                   <el-option
@@ -346,7 +348,7 @@
         }
       };
       var validatePass = (rule, value, callback) => {
-        if (this.form.errortype == 'PR013017') {
+        if (this.form.errortype == 'PR013016') {
           if (value) {
             callback();
           } else {
@@ -356,89 +358,19 @@
           callback();
         }
       };
-      var validatePass2 = (rule, value, callback) => {
-        if (this.form.errortype == 'PR013017') {
-          if (value) {
-            callback();
-          } else {
-            callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS2016FORMVIEW_EDATE')));
-          }
-        } else {
-          callback();
-        }
-      };
-      // var validateEndtime = (rule, value, callback) => {
-      //     if (this.form.periodend !== null && this.form.periodend !== '') {
-      //         if ((moment(this.form.finisheddate).format('YYYY-MM-DD') === moment(this.form.occurrencedate).format('YYYY-MM-DD') && moment(value).format('HH:mm') < moment(this.form.periodstart).format('HH:mm'))
-      //             || (moment(this.form.finisheddate).format('YYYY-MM-DD') < moment(this.form.occurrencedate).format('YYYY-MM-DD'))) {
-      //             callback(new Error(this.$t('label.end') + this.$t('normal.error_checkTime1') + this.$t('label.start')));
-      //             this.errorendtime = this.$t('label.end') + this.$t('normal.error_checkTime1') + this.$t('label.start');
-      //         } else {
-      //             this.clearValidate(['periodstart', 'occurrencedate', 'finisheddate']);
-      //             callback();
-      //             this.errorendtime = '';
-      //         }
+      //预产期   04/11
+      // var validatePass2 = (rule, value, callback) => {
+      //   if (this.form.errortype == 'PR013016') {
+      //     if (value) {
+      //       callback();
       //     } else {
-      //         this.clearValidate(['periodstart', 'occurrencedate', 'periodend']);
-      //         callback();
-      //         this.errorendtime = '';
+      //       callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS2016FORMVIEW_EDATE')));
       //     }
+      //   } else {
+      //     callback();
+      //   }
       // };
-      // var revalidateEndtime = (rule, value, callback) => {
-      //     if (this.form.reperiodend !== null && this.form.reperiodend !== '') {
-      //         if ((moment(this.form.refinisheddate).format('YYYY-MM-DD') === moment(this.form.reoccurrencedate).format('YYYY-MM-DD') && moment(value).format('HH:mm') < moment(this.form.reperiodstart).format('HH:mm'))
-      //             || (moment(this.form.refinisheddate).format('YYYY-MM-DD') < moment(this.form.reoccurrencedate).format('YYYY-MM-DD'))) {
-      //             callback(new Error(this.$t('label.reend') + this.$t('normal.error_checkTime1') + this.$t('label.restart')));
-      //             this.reerrorendtime = this.$t('label.reend') + this.$t('normal.error_checkTime1') + this.$t('label.restart');
-      //         } else {
-      //             this.clearValidate(['reperiodstart', 'reoccurrencedate', 'refinisheddate']);
-      //             callback();
-      //             this.reerrorendtime = '';
-      //         }
-      //     } else {
-      //         this.clearValidate(['reperiodstart', 'reoccurrencedate', 'reperiodend']);
-      //         callback();
-      //         this.reerrorendtime = '';
-      //     }
-      // };
-      // var validateStarttime = (rule, value, callback) => {
-      //     if (this.form.periodstart !== null && this.form.periodstart !== '') {
-      //         if ((moment(this.form.finisheddate).format('YYYY-MM-DD') === moment(this.form.occurrencedate).format('YYYY-MM-DD') && moment(value).format('HH:mm') > moment(this.form.periodend).format('HH:mm'))
-      //             || (moment(this.form.finisheddate).format('YYYY-MM-DD') < moment(this.form.occurrencedate).format('YYYY-MM-DD'))
-      //         ) {
-      //             callback(new Error(this.$t('label.start') + this.$t('normal.error_checkTime2') + this.$t('label.end')));
-      //             this.errorstarttime = this.$t('label.start') + this.$t('normal.error_checkTime2') + this.$t('label.end');
-      //
-      //         } else {
-      //             callback();
-      //             this.clearValidate(['periodend', 'occurrencedate', 'periodstart']);
-      //             this.errorstarttime = '';
-      //         }
-      //     } else {
-      //         callback();
-      //         this.clearValidate(['periodend', 'occurrencedate', 'periodstart']);
-      //         this.errorstarttime = '';
-      //     }
-      // };
-      // var revalidateStarttime = (rule, value, callback) => {
-      //     if (this.form.reperiodstart !== null && this.form.reperiodstart !== '') {
-      //         if ((moment(this.form.refinisheddate).format('YYYY-MM-DD') === moment(this.form.reoccurrencedate).format('YYYY-MM-DD') && moment(value).format('HH:mm') > moment(this.form.reperiodend).format('HH:mm'))
-      //             || (moment(this.form.refinisheddate).format('YYYY-MM-DD') < moment(this.form.reoccurrencedate).format('YYYY-MM-DD'))
-      //         ) {
-      //             callback(new Error(this.$t('label.restart') + this.$t('normal.error_checkTime2') + this.$t('label.reend')));
-      //             this.reerrorstarttime = this.$t('label.restart') + this.$t('normal.error_checkTime2') + this.$t('label.reend');
-      //
-      //         } else {
-      //             callback();
-      //             this.clearValidate(['reperiodend', 'reoccurrencedate', 'reperiodstart']);
-      //             this.reerrorstarttime = '';
-      //         }
-      //     } else {
-      //         callback();
-      //         this.clearValidate(['reperiodend', 'reoccurrencedate', 'reperiodstart']);
-      //         this.reerrorstarttime = '';
-      //     }
-      // };
+
       var validateEnddate = (rule, value, callback) => {
         if (this.form.finisheddate !== null && this.form.finisheddate !== '') {
           if (moment(value).format('YYYY-MM-DD') < moment(this.form.occurrencedate).format('YYYY-MM-DD')) {
@@ -454,21 +386,92 @@
           this.clearValidate(['occurrencedate', 'periodend', 'periodstart']);
         }
       };
+      //add_fjl
       var revalidateVacationtype = (rule, value, callback) => {
-        if((this.form.errortype == 'PR013005'|| this.form.errortype == 'PR013007') && this.form.status != '4' && this.form.status != '5' && this.form.status != '6' && this.form.status != '7'&& this.form.status != '8'){
+        if ((this.form.errortype == 'PR013005' || this.form.errortype == 'PR013007') && this.form.status != '4' && this.form.status != '5' && this.form.status != '6' && this.form.status != '7' && this.form.status != '8') {
           if (this.form.vacationtype === null || this.form.vacationtype === '') {
             callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS2016FORMVIEW_XJTYPE')));
+          } else if (this.form.errortype == 'PR013005' || this.form.errortype == 'PR013007') {
+            this.$store
+              .dispatch('PFANS2016Store/cklength', {
+                'user_id': this.form.user_id,
+                errortype: this.form.errortype,
+                lengthtime: this.form.lengthtime,
+              })
+              .then(response => {
+                if (response.error != '') {
+                  if (response.error == 'PR013005') {
+                    this.checkDate = response.checkdat;
+                  } else if (response.error == 'PR013007') {
+                    this.checkDate = response.checkdat;
+                  }
+                }
+                if (response.can === 'no') {
+                  callback(this.$t('normal.error_norestdays'));
+                } else {
+                  this.form.restdate = response.dat;
+                  let valflg;
+                  if (value === '0') {
+                    valflg = 1;
+                  } else {
+                    valflg = 0.5;
+                  }
+                  if (Number(valflg) > Number(response.checkdat)) {
+                    callback(this.$t('normal.error_norestdays'));
+                  } else {
+                    callback();
+                  }
+                }
+              })
+              .catch(error => {
+                callback(error);
+              });
           } else {
             callback();
           }
-        }else {
+        } else {
           callback();
         }
       };
       var revalidateRevacationtype = (rule, value, callback) => {
-        if((this.form.errortype == 'PR013005' || this.form.errortype == 'PR013007') && (this.form.status === '4' || this.form.status === '5' || this.form.status === '6' || this.form.status === '7')){
+        if ((this.form.errortype == 'PR013005' || this.form.errortype == 'PR013007') && (this.form.status === '4' || this.form.status === '5' || this.form.status === '6' || this.form.status === '7')) {
           if (this.form.revacationtype === null || this.form.revacationtype === '') {
             callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS2016FORMVIEW_RELENGTHTIME')));
+          } else if (this.form.errortype == 'PR013005' || this.form.errortype == 'PR013007') {
+            this.$store
+              .dispatch('PFANS2016Store/cklength', {
+                'user_id': this.form.user_id,
+                errortype: this.form.errortype,
+                relengthtime: this.form.relengthtime,
+              })
+              .then(response => {
+                if (response.error != '') {
+                  if (response.error == 'PR013005') {
+                    this.checkDate = response.checkdat;
+                  } else if (response.error == 'PR013007') {
+                    this.checkDate = response.checkdat;
+                  }
+                }
+                if (response.can === 'no') {
+                  callback(this.$t('normal.error_norestdays'));
+                } else {
+                  this.form.restdate = response.dat;
+                  let valflg;
+                  if (value === '0') {
+                    valflg = 1;
+                  } else {
+                    valflg = 0.5;
+                  }
+                  if (Number(valflg) > Number(response.checkdat)) {
+                    callback(this.$t('normal.error_norestdays'));
+                  } else {
+                    callback();
+                  }
+                }
+              })
+              .catch(error => {
+                callback(error);
+              });
           } else {
             callback();
           }
@@ -516,7 +519,7 @@
         }
       };
       var validateLength = (rule, value, callback) => {
-        if (this.form.errortype == 'PR013005' || this.form.errortype == 'PR013006' || this.form.errortype == 'PR013007') {
+        if (this.form.errortype == 'PR013006') {
           this.$store
             .dispatch('PFANS2016Store/cklength', {
               'user_id': this.form.user_id,
@@ -524,19 +527,29 @@
               lengthtime: this.form.lengthtime,
             })
             .then(response => {
-              if (response.error != '') {
-                if (response.error == 'PR013005') {
-                  this.checkDate = response.dat;
-                } else if (response.error == 'PR013006') {
-                  this.checkDate = response.checkdat;
-                } else if (response.error == 'PR013007') {
-                  this.checkDate = response.checkdat;
-                }
+              if (response.error != '' && response.error == 'PR013006') {
+                this.checkDate = response.checkdat;
               }
+              // if (response.error != '') {
+              //   if (response.error == 'PR013005') {
+              //     this.checkDate = response.dat;
+              //   } else if (response.error == 'PR013006') {
+              //     this.checkDate = response.checkdat;
+              //   } else if (response.error == 'PR013007') {
+              //     this.checkDate = response.checkdat;
+              //   }
+              // }
               if (response.can === 'no') {
                 callback(this.$t('normal.error_norestdays'));
               } else {
                 this.form.restdate = response.dat;
+                if (response.error == 'PR013006') {
+                  if (value / 8 > Number(response.checkdat)) {
+                    callback(this.$t('normal.error_norestdays'));
+                  } else {
+                    callback();
+                  }
+                }
                 callback();
               }
             })
@@ -556,19 +569,29 @@
               relengthtime: this.form.relengthtime,
             })
             .then(response => {
-              if (response.error != '') {
-                if (response.error == 'PR013005') {
-                  this.checkDate = response.dat;
-                } else if (response.error == 'PR013006') {
-                  this.checkDate = response.checkdat;
-                } else if (response.error == 'PR013007') {
-                  this.checkDate = response.checkdat;
-                }
+              if (response.error != '' && response.error == 'PR013006') {
+                this.checkDate = response.checkdat;
               }
+              // if (response.error != '') {
+              //   if (response.error == 'PR013005') {
+              //     this.checkDate = response.dat;
+              //   } else if (response.error == 'PR013006') {
+              //     this.checkDate = response.checkdat;
+              //   } else if (response.error == 'PR013007') {
+              //     this.checkDate = response.checkdat;
+              //   }
+              // }
               if (response.can === 'no') {
                 callback(this.$t('normal.error_norestdays'));
               } else {
                 this.form.restdate = response.dat;
+                if (response.error == 'PR013006') {
+                  if (value / 8 > Number(response.checkdat)) {
+                    callback(this.$t('normal.error_norestdays'));
+                  } else {
+                    callback();
+                  }
+                }
                 callback();
               }
             })
@@ -580,7 +603,7 @@
         }
       };
       return {
-        defaultStart:false,
+        defaultStart: false,
         checkerrortishi: false,
         dislengthtime: false,
         checkrelengthtime: false,
@@ -742,7 +765,7 @@
           },
             {validator: revalidateLength, trigger: 'change'}],
           hospital: [{required: true, validator: validatePass, trigger: 'blur'}],
-          edate: [{required: true, validator: validatePass2, trigger: 'change'}],
+          // edate: [{required: true, validator: validatePass2, trigger: 'change'}],
         },
         fileList: [],
         upload: uploadUrl(),
@@ -787,13 +810,16 @@
                 }
               }
             }
-            if(this.form.errortype === 'PR013009' && moment(this.form.occurrencedate).format('YYYY-MM-DD') !== moment(this.form.finisheddate).format('YYYY-MM-DD')){
-              this.dislengthtime = true;
-            }
-            if (this.form.errortype === 'PR013011'|| this.form.errortype === 'PR013012'|| this.form.errortype === 'PR013013'
-              || this.form.errortype === 'PR013015'|| this.form.errortype === 'PR013017'|| this.form.errortype === 'PR013020'
+            if (this.form.errortype === 'PR013011' || this.form.errortype === 'PR013012' || this.form.errortype === 'PR013013'
+              || this.form.errortype === 'PR013015' || this.form.errortype === 'PR013017' || this.form.errortype === 'PR013020'
               || this.form.errortype === 'PR013021') {
               this.dislengthtime = true;
+            } else if (this.form.errortype === 'PR013009' || this.form.errortype === 'PR013008' || this.form.errortype === 'PR013006') {
+              if (moment(this.form.occurrencedate).format('YYYY-MM-DD') !== moment(this.form.finisheddate).format('YYYY-MM-DD')) {
+                this.dislengthtime = true;
+              } else {
+                this.dislengthtime = false;
+              }
             } else {
               this.dislengthtime = false;
             }
@@ -832,7 +858,7 @@
             if (this.form.status === '0') {
               this.workflowCode = 'W0003';
               this.canStart = true;
-              if(!this.disable){
+              if (!this.disable) {
                 this.dislengthtime = true;
               }
             } else if (this.form.status === '4') {
@@ -840,7 +866,7 @@
               this.canStart = true;
               this.disable = false;
               this.dislengthtime = true;
-            }else if (this.form.status === '5') {
+            } else if (this.form.status === '5') {
               this.canStart = false;
               this.disable = false;
               this.dislengthtime = true;
@@ -983,7 +1009,7 @@
           }
         }
         if (this.form.errortype === 'PR013001' || this.form.errortype === 'PR013016' ||
-            this.form.errortype === 'PR013018' || this.form.errortype === 'PR013019' || this.form.errortype === 'PR013014') {
+          this.form.errortype === 'PR013018' || this.form.errortype === 'PR013019' || this.form.errortype === 'PR013014') {
           this.form.finisheddate = this.form.occurrencedate;
         }
         if (this.form.errortype === 'PR013001' || this.form.errortype === 'PR013008' || this.form.errortype === 'PR013016'
@@ -1197,37 +1223,165 @@
             this.loading = false;
           });
       },
+      diffNoDays() {
+        if (moment(this.form.occurrencedate).format('YYYY-MM-DD') != moment(this.form.finisheddate).format('YYYY-MM-DD')) {
+          var getDate = function(str) {
+            var tempDate = new Date();
+            var list = str.split('-');
+            tempDate.setFullYear(list[0]);
+            tempDate.setMonth(list[1] - 1);
+            tempDate.setDate(list[2]);
+            return tempDate;
+          };
+          if (this.form.occurrencedate != '' && this.form.finisheddate != '') {
+            var date1 = getDate(moment(this.form.occurrencedate).format('YYYY-MM-DD'));
+            var date2 = getDate(moment(this.form.finisheddate).format('YYYY-MM-DD'));
+            if (date1 > date2) {
+              var tempDate = date1;
+              date1 = date2;
+              date2 = tempDate;
+            }
+            date1.setDate(date1.getDate() + 1);
+            var dateArr = [];
+            var i = 0;
+            while (!(date1.getFullYear() == date2.getFullYear()
+              && date1.getMonth() == date2.getMonth() && date1.getDate() == date2
+                .getDate())) {
+              var dayStr = date1.getDate().toString();
+              if (dayStr.length == 1) {
+                dayStr = '0' + dayStr;
+              }
+              var monthStr = (date1.getMonth() + 1).toString();
+              if (monthStr.length == 1) {
+                monthStr = '0' + monthStr;
+              }
+              dateArr[i] = date1.getFullYear() + '-' + monthStr + '-'
+                + dayStr;
+              i++;
+              date1.setDate(date1.getDate() + 1);
+            }
+            dateArr.splice(0, 0, moment(this.form.occurrencedate).format('YYYY-MM-DD'));
+            dateArr.push(moment(this.form.finisheddate).format('YYYY-MM-DD'));
+            this.Todaysum = dateArr;
+          }
+          for (let i = 0; i < this.Todaysum.length; i++) {
+            var date = getDate(this.Todaysum[i]);
+            if (date.getDay() == 6) {
+              this.Todaysum.splice(i, 1);
+            }
+            this.reList = this.Todaysum;
+          }
+          for (let j = 0; j < this.reList.length; j++) {
+            var data = getDate(this.reList[j]);
+            if (data.getDay() == 0) {
+              this.reList.splice(j, 1);
+            }
+            this.relist = this.reList;
+          }
+          for (let a = 0; a < this.relist.length; a++) {
+            for (let b = 0; b < this.dateInfo.length; b++) {
+              if (this.dateInfo[b].dateflg == this.relist[a] && this.dateInfo[b].type != '4') {
+                this.relist.splice(a, 1);
+              }
+            }
+          }
+        }
+      },
+      rediffNoDays(){
+        if (moment(this.form.reoccurrencedate).format('YYYY-MM-DD') !== moment(this.form.refinisheddate).format('YYYY-MM-DD')) {
+        var getDate = function(str) {
+          var tempDate = new Date();
+          var list = str.split('-');
+          tempDate.setFullYear(list[0]);
+          tempDate.setMonth(list[1] - 1);
+          tempDate.setDate(list[2]);
+          return tempDate;
+        };
+        if (this.form.reoccurrencedate != '' && this.form.refinisheddate != '') {
+            var date1 = getDate(moment(this.form.reoccurrencedate).format('YYYY-MM-DD'));
+            var date2 = getDate(moment(this.form.refinisheddate).format('YYYY-MM-DD'));
+            if (date1 > date2) {
+              var tempDate = date1;
+              date1 = date2;
+              date2 = tempDate;
+            }
+            date1.setDate(date1.getDate() + 1);
+            var dateArr = [];
+            var i = 0;
+            while (!(date1.getFullYear() == date2.getFullYear()
+              && date1.getMonth() == date2.getMonth() && date1.getDate() == date2
+                .getDate())) {
+              var dayStr = date1.getDate().toString();
+              if (dayStr.length == 1) {
+                dayStr = '0' + dayStr;
+              }
+              var monthStr = (date1.getMonth() + 1).toString();
+              if (monthStr.length == 1) {
+                monthStr = '0' + monthStr;
+              }
+              dateArr[i] = date1.getFullYear() + '-' + monthStr + '-'
+                + dayStr;
+              i++;
+              date1.setDate(date1.getDate() + 1);
+            }
+            dateArr.splice(0, 0, moment(this.form.reoccurrencedate).format('YYYY-MM-DD'));
+            dateArr.push(moment(this.form.refinisheddate).format('YYYY-MM-DD'));
+            this.Todaysum = dateArr;
+          }
+          for (let i = 0; i < this.Todaysum.length; i++) {
+            var date = getDate(this.Todaysum[i]);
+            if (date.getDay() == 6) {
+              this.Todaysum.splice(i, 1);
+            }
+            this.reList = this.Todaysum;
+          }
+          for (let j = 0; j < this.reList.length; j++) {
+            var data = getDate(this.reList[j]);
+            if (data.getDay() == 0) {
+              this.reList.splice(j, 1);
+            }
+            this.relistTwo = this.reList;
+          }
+          for (let a = 0; a < this.relistTwo.length; a++) {
+            for (let b = 0; b < this.dateInfo.length; b++) {
+              if (this.dateInfo[b].dateflg == this.relistTwo[a] && this.dateInfo[b].type != '4') {
+                this.relistTwo.splice(a, 1);
+              }
+            }
+          }
+        }
+      },
       change() {
+        this.diffNoDays();
         if (!this.form.finisheddate || !this.form.occurrencedate) {
           return;
         }
         let diffDate = moment(this.form.finisheddate).diff(moment(this.form.occurrencedate), 'days') + 1;
         //当天时间    （外出，家长会，妊娠检查，劳灾，其他福利）
         if (this.form.errortype === 'PR013001' || this.form.errortype === 'PR013014' || this.form.errortype === 'PR013016'
-            || this.form.errortype === 'PR013018' || this.form.errortype === 'PR013019') {
-          if(this.form.errortype === 'PR013001'){
+          || this.form.errortype === 'PR013018' || this.form.errortype === 'PR013019') {
+          if (this.form.errortype === 'PR013001') {
             this.getWorktime();
           }
           this.form.finisheddate = this.form.occurrencedate;
         }
         //请假单位为8小时    （结婚，产休，男护理，丧假，计划生育，工伤，流产） 包含公休日
-        if (this.form.errortype === 'PR013011' || this.form.errortype === 'PR013012' ||this.form.errortype === 'PR013013' ||this.form.errortype === 'PR013015' ||
+        if (this.form.errortype === 'PR013011' || this.form.errortype === 'PR013012' || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015' ||
           this.form.errortype === 'PR013017' || this.form.errortype === 'PR013020' || this.form.errortype === 'PR013021') {
-          if(diffDate > 0){
+          if (diffDate > 0) {
             this.form.lengthtime = 8 * diffDate;
           }
         }
         //代休_周末，事休
-        if(this.form.errortype === 'PR013006' || this.form.errortype === 'PR013008'){
-          if(moment(this.form.finisheddate).format("YYYY-MM-DD") === moment(this.form.occurrencedate).format("YYYY-MM-DD")){
+        if (this.form.errortype === 'PR013006' || this.form.errortype === 'PR013008') {
+          if (moment(this.form.finisheddate).format('YYYY-MM-DD') === moment(this.form.occurrencedate).format('YYYY-MM-DD')) {
             //当天取小时
             this.dislengthtime = false;
             this.form.finisheddate = this.form.occurrencedate;
           } else {
-            //跨天取整天，8小时  包含公休日
+            //跨天取整天，8小时   不包含公休日
             this.dislengthtime = true;
             let time = 0;
-            //不包含公休日
             for (let d = 0; d < this.relist.length; d++) {
               time = time + 1;
             }
@@ -1237,8 +1391,8 @@
         }
 
         //病假
-        if(this.form.errortype === 'PR013009'){
-          if(diffDate === 1){
+        if (this.form.errortype === 'PR013009') {
+          if (diffDate === 1) {
             //当天取小时
             this.dislengthtime = false;
             this.form.finisheddate = this.form.occurrencedate;
@@ -1248,72 +1402,7 @@
             this.form.lengthtime = 8 * diffDate;
           }
         }
-        if (this.form.errortype != 'PR013001' && this.form.errortype != 'PR013014') {
-          if (moment(this.form.occurrencedate).format('YYYY-MM-DD') != moment(this.form.finisheddate).format('YYYY-MM-DD')) {
-            // this.dislengthtime = true;
-            // this.changeTime();
-            var getDate = function(str) {
-              var tempDate = new Date();
-              var list = str.split('-');
-              tempDate.setFullYear(list[0]);
-              tempDate.setMonth(list[1] - 1);
-              tempDate.setDate(list[2]);
-              return tempDate;
-            };
-            if (this.form.occurrencedate != '' && this.form.finisheddate != '') {
-              var date1 = getDate(moment(this.form.occurrencedate).format('YYYY-MM-DD'));
-              var date2 = getDate(moment(this.form.finisheddate).format('YYYY-MM-DD'));
-              if (date1 > date2) {
-                var tempDate = date1;
-                date1 = date2;
-                date2 = tempDate;
-              }
-              date1.setDate(date1.getDate() + 1);
-              var dateArr = [];
-              var i = 0;
-              while (!(date1.getFullYear() == date2.getFullYear()
-                && date1.getMonth() == date2.getMonth() && date1.getDate() == date2
-                  .getDate())) {
-                var dayStr = date1.getDate().toString();
-                if (dayStr.length == 1) {
-                  dayStr = '0' + dayStr;
-                }
-                var monthStr = (date1.getMonth() + 1).toString();
-                if (monthStr.length == 1) {
-                  monthStr = '0' + monthStr;
-                }
-                dateArr[i] = date1.getFullYear() + '-' + monthStr + '-'
-                  + dayStr;
-                i++;
-                date1.setDate(date1.getDate() + 1);
-              }
-              dateArr.splice(0, 0, moment(this.form.occurrencedate).format('YYYY-MM-DD'));
-              dateArr.push(moment(this.form.finisheddate).format('YYYY-MM-DD'));
-              this.Todaysum = dateArr;
-            }
-            for (let i = 0; i < this.Todaysum.length; i++) {
-              var date = getDate(this.Todaysum[i]);
-              if (date.getDay() == 6) {
-                this.Todaysum.splice(i, 1);
-              }
-              this.reList = this.Todaysum;
-            }
-            for (let j = 0; j < this.reList.length; j++) {
-              var data = getDate(this.reList[j]);
-              if (data.getDay() == 0) {
-                this.reList.splice(j, 1);
-              }
-              this.relist = this.reList;
-            }
-            for (let a = 0; a < this.relist.length; a++) {
-              for (let b = 0; b < this.dateInfo.length; b++) {
-                if (this.dateInfo[b].dateflg == this.relist[a] && this.dateInfo[b].type != '4') {
-                  this.relist.splice(a, 1);
-                }
-              }
-            }
-          }
-        }
+        //年休，代休_特殊
         if (this.form.errortype === 'PR013005' || this.form.errortype === 'PR013007') {
           if (this.typecheck == '0') {
             let time = 0;
@@ -1329,7 +1418,14 @@
         }
       },
       rechange() {
+        if (!this.form.refinisheddate || !this.form.reoccurrencedate) {
+          return;
+        }
+        this.rediffNoDays();
         let rediffDate = moment(this.form.refinisheddate).diff(moment(this.form.reoccurrencedate), 'days') + 1;
+        // if (this.form.errortype != 'PR013001' && this.form.errortype != 'PR013014') {
+        // if (this.form.errortype != 'PR013001') {
+        // }
         if (this.form.errortype === 'PR013005' || this.form.errortype === 'PR013007') {
           if (this.retypecheck == '0') {
             let time = 0;
@@ -1344,86 +1440,29 @@
           }
         }
         if (this.form.errortype === 'PR013009') {
-          if (rediffDate > 30 - this.sickleave) {
-            this.errorcheck = 2;
-            Message({
-              message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            return;
+          if (rediffDate === 1) {
+            //当天取小时
+            this.checkrelengthtime = false;
+            this.form.refinisheddate = this.form.reoccurrencedate;
           } else {
-            this.errorcheck = 1;
+            //跨天取整天，8小时  包含公休日
+            this.checkrelengthtime = true;
+            this.form.relengthtime = 8 * diffDate;
           }
         }
-        var getDate = function(str) {
-          var tempDate = new Date();
-          var list = str.split('-');
-          tempDate.setFullYear(list[0]);
-          tempDate.setMonth(list[1] - 1);
-          tempDate.setDate(list[2]);
-          return tempDate;
-        };
-        // if (this.form.errortype != 'PR013001' && this.form.errortype != 'PR013014') {
-        if (this.form.errortype != 'PR013001') {
-          if (this.form.reoccurrencedate != '' && this.form.refinisheddate != '') {
-            if (moment(this.form.reoccurrencedate).format('YYYY-MM-DD') === moment(this.form.refinisheddate).format('YYYY-MM-DD')) {
-              this.checkrelengthtime = false;
-            } else {
-              this.checkrelengthtime = true;
-              var date1 = getDate(moment(this.form.reoccurrencedate).format('YYYY-MM-DD'));
-              var date2 = getDate(moment(this.form.refinisheddate).format('YYYY-MM-DD'));
-              if (date1 > date2) {
-                var tempDate = date1;
-                date1 = date2;
-                date2 = tempDate;
-              }
-              date1.setDate(date1.getDate() + 1);
-              var dateArr = [];
-              var i = 0;
-              while (!(date1.getFullYear() == date2.getFullYear()
-                && date1.getMonth() == date2.getMonth() && date1.getDate() == date2
-                  .getDate())) {
-                var dayStr = date1.getDate().toString();
-                if (dayStr.length == 1) {
-                  dayStr = '0' + dayStr;
-                }
-                var monthStr = (date1.getMonth() + 1).toString();
-                if (monthStr.length == 1) {
-                  monthStr = '0' + monthStr;
-                }
-                dateArr[i] = date1.getFullYear() + '-' + monthStr + '-'
-                  + dayStr;
-                i++;
-                date1.setDate(date1.getDate() + 1);
-              }
-              dateArr.splice(0, 0, moment(this.form.reoccurrencedate).format('YYYY-MM-DD'));
-              dateArr.push(moment(this.form.refinisheddate).format('YYYY-MM-DD'));
-              this.Todaysum = dateArr;
-            }
-            for (let i = 0; i < this.Todaysum.length; i++) {
-              var date = getDate(this.Todaysum[i]);
-              if (date.getDay() == 6) {
-                this.Todaysum.splice(i, 1);
-              }
-              this.reList = this.Todaysum;
-            }
-            for (let j = 0; j < this.reList.length; j++) {
-              var data = getDate(this.reList[j]);
-              if (data.getDay() == 0) {
-                this.reList.splice(j, 1);
-              }
-              this.relistTwo = this.reList;
-            }
-            for (let a = 0; a < this.relistTwo.length; a++) {
-              for (let b = 0; b < this.dateInfo.length; b++) {
-                if (this.dateInfo[b].dateflg == this.relistTwo[a] && this.dateInfo[b].type != '4') {
-                  this.relistTwo.splice(a, 1);
-                }
-              }
-            }
-          }
-        }
+        // if (this.form.errortype === 'PR013009') {
+        //   if (rediffDate > 30 - this.sickleave) {
+        //     this.errorcheck = 2;
+        //     Message({
+        //       message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
+        //       type: 'error',
+        //       duration: 5 * 1000,
+        //     });
+        //     return;
+        //   } else {
+        //     this.errorcheck = 1;
+        //   }
+        // }
         if (this.retypecheck == '0') {
           let timere = 0;
           for (let d = 0; d < this.relistTwo.length; d++) {
@@ -1434,117 +1473,6 @@
           this.form.refinisheddate = this.form.reoccurrencedate;
           this.form.relengthtime = 4;
         }
-        // else {
-        //     if (this.form.reoccurrencedate !== '' && this.form.refinisheddate !== '') {
-        //         if (moment(this.form.reoccurrencedate).format('YYYY-MM-DD') < moment(this.form.refinisheddate).format('YYYY-MM-DD')) {
-        //             var beginHours;
-        //             var endHours;
-        //             var time;
-        //             var beginDay = moment(this.form.reoccurrencedate).format('YYYY-MM-DD');
-        //             var endDay = moment(this.form.refinisheddate).format('YYYY-MM-DD');
-        //             var dayBegin = new Date(beginDay);
-        //             var dayEnd = new Date(endDay);
-        //             var daysDiff = dayEnd.getTime() - dayBegin.getTime();
-        //             var dayDiff = Math.floor(daysDiff / (24 * 3600 * 1000));
-        //             if (dayDiff - 1 > 0) {
-        //                 dayDiff = (dayDiff - 1) * 8;
-        //                 var dayBegin = new Date(this.form.reperiodstart);
-        //                 var dayEnd = new Date(this.form.reperiodend);
-        //                 var timeUp = Number(this.workshift.replace(':', '.'));         //上班时间
-        //                 var timeDown = Number(this.closingtime.replace(':', '.'));     //下班时间
-        //                 var lunchflgS = Number(this.lunchbreakS.replace(':', '.'));    //午休开始时间
-        //                 var lunchflgE = Number(this.lunchbreakE.replace(':', '.'));    //午休结束时间
-        //                 var beginTime = dayBegin.getHours() + dayBegin.getMinutes() / 60;
-        //                 if (beginTime <= lunchflgE) {
-        //                     beginHours = (lunchflgS - beginTime) + (timeDown - lunchflgE);
-        //                 } else {
-        //                     beginHours = timeDown - beginTime;
-        //                 }
-        //                 if (beginHours > 8) {
-        //                     beginHours = 8;
-        //                 }
-        //                 var endTime = dayEnd.getHours() + dayEnd.getMinutes() / 60;
-        //                 if (endTime >= lunchflgS) {
-        //                     endHours = (endTime - lunchflgE) + (lunchflgS - timeUp);
-        //                 } else {
-        //                     endHours = endTime - timeUp;
-        //                 }
-        //                 if (endHours > 8) {
-        //                     endHours = 8;
-        //                 }
-        //                 var time = beginTime + endTime;
-        //                 if (this.$i18n) {
-        //                     this.form.relengthtime = parseFloat(dayDiff + time).toFixed(1);
-        //                 }
-        //             } else {
-        //                 var dayBegin = new Date(this.form.reperiodstart);
-        //                 var dayEnd = new Date(this.form.reperiodend);
-        //                 var timeUp = Number(this.workshift.replace(':', '.'));         //上班时间
-        //                 var timeDown = Number(this.closingtime.replace(':', '.'));     //下班时间
-        //                 var lunchflgS = Number(this.lunchbreakS.replace(':', '.'));    //午休开始时间
-        //                 var lunchflgE = Number(this.lunchbreakE.replace(':', '.'));    //午休结束时间
-        //                 var beginTime = dayBegin.getHours() + dayBegin.getMinutes() / 60;
-        //                 if (beginTime <= lunchflgE) {
-        //                     beginHours = (lunchflgS - beginTime) + (timeDown - lunchflgE);
-        //                 } else {
-        //                     beginHours = timeDown - beginTime;
-        //                 }
-        //                 if (beginHours > 8) {
-        //                     beginHours = 8;
-        //                 }
-        //                 var endTime = dayEnd.getHours() + dayEnd.getMinutes() / 60;
-        //                 if (endTime >= lunchflgS) {
-        //                     endHours = (endTime - lunchflgE) + (lunchflgS - timeUp);
-        //                 } else {
-        //                     endHours = endTime - timeUp;
-        //                 }
-        //                 if (endHours > 8) {
-        //                     endHours = 8;
-        //                 }
-        //                 time = beginTime + endTime;
-        //                 if (this.$i18n) {
-        //                     this.form.relengthtime = parseFloat(time).toFixed(1);
-        //                 }
-        //             }
-        //         } else if (moment(this.form.reoccurrencedate).format('YYYY-MM-DD') === moment(this.form.refinisheddate).format('YYYY-MM-DD')) {
-        //             var time;
-        //             var dayBegin = new Date(this.form.reperiodstart);
-        //             var dayEnd = new Date(this.form.reperiodend);
-        //             var timeUp = Number(this.workshift.replace(':', '.'));         //上班时间
-        //             var timeDown = Number(this.closingtime.replace(':', '.'));     //下班时间
-        //             var lunchflgS = Number(this.lunchbreakS.replace(':', '.'));    //午休开始时间
-        //             var lunchflgE = Number(this.lunchbreakE.replace(':', '.'));    //午休结束时间
-        //             var beginTime = dayBegin.getHours() + dayBegin.getMinutes() / 60;
-        //             var endTime = dayEnd.getHours() + dayEnd.getMinutes() / 60;
-        //             if ((endTime <= lunchflgS && beginTime <= timeUp) || (beginTime >= lunchflgE && endTime <= timeDown)) {
-        //                 time = endTime - beginTime;
-        //             } else if (endTime >= lunchflgS && endTime <= lunchflgE) {
-        //                 time = lunchflgS - beginTime;
-        //             } else if (endTime >= lunchflgE && beginTime <= lunchflgS) {
-        //                 time = (lunchflgS - beginTime) + (endTime - lunchflgE);
-        //             } else if (beginTime >= lunchflgE && beginTime <= timeDown) {
-        //                 time = (lunchflgS - beginTime) + (endTime - lunchflgE);
-        //             } else {
-        //                 this.form.relengthtime = '0';
-        //             }
-        //             if (this.$i18n && time !== "") {
-        //                 if (time > 8) {
-        //                     time = 8;
-        //                 }
-        //                 if (time > 0) {
-        //                     this.form.relengthtime = parseFloat(time).toFixed(1);
-        //                 } else {
-        //                     this.form.relengthtime = '0';
-        //                 }
-        //             }
-        //         } else {
-        //             this.form.relengthtime = '';
-        //         }
-        //     }
-        // }
-        // if (this.form.errortype === 'PR013014') {
-        //     this.form.relengthtime = 4;
-        // }
       },
       getUserids(val) {
         if (val === 'undefined') {
@@ -1639,8 +1567,10 @@
         }
       },
       getErrorType(val) {
-        this.form.finisheddate = moment(new Date()).format("YYYY-MM-DD");
-        this.form.occurrencedate = moment(new Date()).format("YYYY-MM-DD");
+        this.form.hospital = '';
+        this.form.edate = '';
+        this.form.finisheddate = moment(new Date()).format('YYYY-MM-DD');
+        this.form.occurrencedate = moment(new Date()).format('YYYY-MM-DD');
         this.form.worktime = '';
         this.typecheck = '';
         let dictionaryInfo = getDictionaryInfo(val);
@@ -1657,7 +1587,7 @@
           this.form.lengthtime = '0';
           this.getWorktime();
         } else if (val === 'PR013005') {
-          this.form.vacationtype = ''
+          this.form.vacationtype = '';
           this.checkerrortishi = false;
           this.checkrelengthtime = false;
           this.dislengthtime = false;
@@ -1669,7 +1599,7 @@
           this.dislengthtime = false;
           this.showVacation = false;
         } else if (val === 'PR013007') {
-          this.form.vacationtype = ''
+          this.form.vacationtype = '';
           this.checkerrortishi = false;
           this.checkrelengthtime = false;
           this.dislengthtime = false;
@@ -1711,11 +1641,11 @@
           this.showVacation = false;
           this.form.lengthtime = '0';
         } else if (val === 'PR013015') {
-            this.checkerrortishi = false;
-            this.checkrelengthtime = true;
-            this.dislengthtime = true;
+          this.checkerrortishi = false;
+          this.checkrelengthtime = true;
+          this.dislengthtime = true;
           this.form.lengthtime = 8;
-            this.showVacation = true;
+          this.showVacation = true;
         } else if (val === 'PR013016') {
           this.checkerrortishi = false;
           this.checkrelengthtime = false;
@@ -1829,9 +1759,15 @@
             this.errort = '';
             //add_fjl 04/09
             let diffDate = moment(this.form.finisheddate).diff(moment(this.form.occurrencedate), 'days') + 1;
+            let rediffDate = moment(this.form.refinisheddate).diff(moment(this.form.reoccurrencedate), 'days') + 1;
+            if(this.form.status === '4'){
+              this.rediffNoDays();
+            } else {
+              this.diffNoDays();
+            }
             //产休假，流产假
-            if (this.form.errortype === 'PR013011'|| this.form.errortype === 'PR013012'|| this.form.errortype === 'PR013013'
-              || this.form.errortype === 'PR013015'|| this.form.errortype === 'PR013017'|| this.form.errortype === 'PR013020'
+            if (this.form.errortype === 'PR013011' || this.form.errortype === 'PR013012' || this.form.errortype === 'PR013013'
+              || this.form.errortype === 'PR013015' || this.form.errortype === 'PR013017' || this.form.errortype === 'PR013020'
               || this.form.errortype === 'PR013021') {
               if ((this.form.errortype === 'PR013012' || this.form.errortype === 'PR013021') && this.$store.getters.userinfo.userinfo.sex !== 'PR019002') {
                 Message({
@@ -1850,7 +1786,7 @@
                 });
                 return;
               }
-              if(this.form.lengthtime > diffDate *8){
+              if (this.form.lengthtime > diffDate * 8) {
                 Message({
                   message: this.$t('label.PFANS2016FORMVIEW_ERROREFFECTIVE'),
                   type: 'error',
@@ -1888,7 +1824,7 @@
                 });
                 return;
               }
-              if(this.form.lengthtime > 8){
+              if (this.form.lengthtime > 8) {
                 Message({
                   message: this.$t('label.PFANS2016FORMVIEW_WAICHUTIMENOCHECK'),
                   type: 'error',
@@ -1900,9 +1836,10 @@
             //代休_特殊,年休
             if (this.form.errortype === 'PR013005' || this.form.errortype === 'PR013007') {
               let time = 0;
-              let enddateflg = moment(this.$store.getters.userinfo.userinfo.enddate).format("YYYY-MM-DD");
+              let timere = 0;
+              let enddateflg = moment(this.$store.getters.userinfo.userinfo.enddate).format('YYYY-MM-DD');
               //判断申请人是否在试用期
-              if(enddateflg >= moment(new Date()).format("YYYY-MM-DD")){
+              if (enddateflg >= moment(new Date()).format('YYYY-MM-DD')) {
                 Message({
                   message: this.$t('label.PFANS2016FORMVIEW_ERRORANNUALLEAVEU'),
                   type: 'error',
@@ -1911,35 +1848,60 @@
                 return;
               }
               //根据工龄,check申请病假超过2/3/4月，则不能申请年休
-              let agge = moment(this.$store.getters.userinfo.userinfo.enddate).format("YYYY-MM-DD");
-              if(this.sickleave >60){
-                return 123;
-              }
-              if (this.typecheck === '0' || this.retypecheck === '0') {
-                for (let d = 0; d < this.relist.length; d++) {
-                  time = time + 1;
-                }
-                this.form.lengthtime = time * 8;
-                this.form.relengthtime = time * 8;
-              } else {
-                time = 0.5;
-                this.form.lengthtime = 4;
-                this.form.relengthtime = 4;
-              }
-              if (this.checkDate < time) {
+              // let agge = moment(this.$store.getters.userinfo.userinfo.enddate).format("YYYY-MM-DD");
+              if (this.sickleave > 60) {
                 Message({
-                  message: this.$t('label.PFANS2016FORMVIEW_ERRORANNUALLEAVE'),
+                  message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECKFLG'),
                   type: 'error',
                   duration: 5 * 1000,
                 });
                 return;
+              }
+              if (this.form.status === '4') {
+                if (this.retypecheck === '0') {
+                  for (let d = 0; d < this.relistTwo.length; d++) {
+                    timere = timere + 1;
+                  }
+                  this.form.relengthtime = time * 8;
+                } else {
+                  timere = 0.5;
+                  this.form.relengthtime = 4;
+                }
+                if (this.checkDate < time) {
+                  Message({
+                    message: this.$t('label.PFANS2016FORMVIEW_ERRORANNUALLEAVE'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  return;
+                }
+              } else {
+                if (this.typecheck === '0') {
+                  for (let d = 0; d < this.relist.length; d++) {
+                    time = time + 1;
+                  }
+                  this.form.lengthtime = time * 8;
+                  this.form.relengthtime = time * 8;
+                } else {
+                  time = 0.5;
+                  this.form.lengthtime = 4;
+                  this.form.relengthtime = 4;
+                }
+                if (this.checkDate < time) {
+                  Message({
+                    message: this.$t('label.PFANS2016FORMVIEW_ERRORANNUALLEAVE'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  return;
+                }
               }
             }
             //代休_周末，事休
             if (this.form.errortype === 'PR013006' || this.form.errortype === 'PR013008') {
               let sum = 0;
               if (moment(this.form.finisheddate).format('YYYY-MM-DD') === moment(this.form.occurrencedate).format('YYYY-MM-DD')) {
-                if(this.form.lengthtime > 8){
+                if (this.form.lengthtime > 8) {
                   Message({
                     message: this.$t('label.PFANS2016FORMVIEW_WAICHUTIMENOCHECK'),
                     type: 'error',
@@ -1951,7 +1913,7 @@
                 for (let i = 0; i < this.relist.length; i++) {
                   sum = sum + 1;
                 }
-                if(this.form.lengthtime > sum * 8){
+                if (this.form.lengthtime > sum * 8) {
                   Message({
                     message: this.$t('label.PFANS2016FORMVIEW_ERROREFFECTIVE'),
                     type: 'error',
@@ -1963,24 +1925,45 @@
             }
             //病休
             if (this.form.errortype === 'PR013009') {
-              // let diffDate = moment(this.form.finisheddate).diff(moment(this.form.occurrencedate), 'days') + 1;
-              if (diffDate === 1) {
-                if (this.form.lengthtime > 8) {
-                  Message({
-                    message: this.$t('label.PFANS2016FORMVIEW_WAICHUTIMENOCHECK'),
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  return;
+              if (this.form.status === '4') {
+                if (rediffDate === 1) {
+                  if (this.form.relengthtime > 8) {
+                    Message({
+                      message: this.$t('label.PFANS2016FORMVIEW_WAICHUTIMENOCHECK'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    return;
+                  }
+                } else {
+                  if (rediffDate > 30 - this.sickleave || (this.form.relengthtime / 8) > 30 - this.sickleave) {
+                    Message({
+                      message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    return;
+                  }
                 }
               } else {
-                if (diffDate > 30 - this.sickleave || (this.form.lengthtime / 8) > 30 - this.sickleave) {
-                  Message({
-                    message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  return;
+                if (diffDate === 1) {
+                  if (this.form.lengthtime > 8) {
+                    Message({
+                      message: this.$t('label.PFANS2016FORMVIEW_WAICHUTIMENOCHECK'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    return;
+                  }
+                } else {
+                  if (diffDate > 30 - this.sickleave || (this.form.lengthtime / 8) > 30 - this.sickleave) {
+                    Message({
+                      message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    return;
+                  }
                 }
               }
             }
@@ -2041,7 +2024,7 @@
                     }
                   }
 
-                  if(val === 'StartWorkflow'){
+                  if (val === 'StartWorkflow') {
                     this.$refs.container.$refs.workflow.startWorkflow();
                   }
                   // }
@@ -2057,7 +2040,7 @@
                 });
             } else {
               //总经理审批自动通过
-              if(getCurrentRole() === "1"){
+              if (getCurrentRole() === '1') {
                 this.form.status = '4';
               }
               this.loading = true;

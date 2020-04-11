@@ -184,15 +184,11 @@
                               <el-checkbox :disabled="!disable" @change="getChecked10" v-model="form.other7"><p>{{$t('label.PFANS1028VIEW_OTHERC2')}}</p></el-checkbox>
                             </el-form-item>
                           </el-col>
+                          <el-col :span="6" v-show="show3">
+                              <el-input :disabled="!disable" style="width: 10vw"
+                                        v-model="form.oreason" ></el-input>
+                          </el-col>
                         </el-row>
-                      <el-row>
-                        <el-col :span="24" v-show="show3">
-                          <el-form-item :label="$t('label.PFANS1028VIEW_POINTS106')">
-                            <el-input :disabled="!disable" style="width: 70vw" type="textarea"
-                                      v-model="form.oreason"></el-input>
-                          </el-form-item>
-                        </el-col>
-                      </el-row>
                         <el-row>
                           <el-col :span="6">
                             <el-form-item>
@@ -209,15 +205,11 @@
                               <el-checkbox :disabled="!disable" @change="getChecked13" v-model="form.other10"><p>{{$t('label.PFANS1028VIEW_OTHERC2')}}</p></el-checkbox>
                             </el-form-item>
                           </el-col>
+                          <el-col :span="6" v-show="show4">
+                              <el-input :disabled="!disable" style="width: 10vw"
+                                        v-model="form.othreason"></el-input>
+                          </el-col>
                         </el-row>
-                      <el-row>
-                        <el-col :span="24" v-show="show4">
-                          <el-form-item :label="$t('label.PFANS1028VIEW_POINTS106')">
-                            <el-input :disabled="!disable" style="width: 70vw" type="textarea"
-                                      v-model="form.othreason"></el-input>
-                          </el-form-item>
-                        </el-col>
-                      </el-row>
                         <el-row>
                           <el-col :span="6">
                             <el-form-item>
@@ -2757,6 +2749,7 @@
             if(this.form.other6 !== '' && this.form.other6 !== null){
               if(this.form.other6 === 'true'){
                 this.form.other6 = true;
+                this.show3 = false;
               } else {
                 this.form.other6 = false;
               }
@@ -2782,6 +2775,7 @@
             if(this.form.other9 !== '' && this.form.other9 !== null){
               if(this.form.other9 === 'true'){
                 this.form.other9 = true;
+                this.show4 = false;
               } else {
                 this.form.other9 = false;
               }
@@ -3180,6 +3174,7 @@
         this.form.other6 = val;
         if(val === true){
           this.form.other7 = false;
+          this.show3 = false;
         }
       },
       getChecked10(val){
@@ -3204,6 +3199,7 @@
         this.form.other9 = val;
         if(val === true){
           this.form.other10 = false;
+          this.show4 = false;
         }
       },
       getChecked13(val){

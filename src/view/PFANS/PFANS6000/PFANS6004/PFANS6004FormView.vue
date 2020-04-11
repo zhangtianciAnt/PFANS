@@ -127,7 +127,7 @@
             <!--            邮箱-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANSUSERFORMVIEW_EMAILADDRESS')" prop="email">
-                <el-input :disabled="!disabled" style="width:20vw"
+                <el-input :disabled="!disabled" style="width:20vw" maxlength="50"
                           v-model="form.email"></el-input>
               </el-form-item>
             </el-col>
@@ -332,14 +332,14 @@
                 </el-table-column>
                 <!--                开始时间-->
                 <el-table-column
-                  prop="mintime"
+                  prop="admissiontime"
                   :label="$t('label.PFANS5001FORMVIEW_STARTDATE')"
                   width="150"
                 >
                 </el-table-column>
                 <!--                结束时间-->
                 <el-table-column
-                  prop="maxtime"
+                  prop="exittime"
                   :label="$t('label.end')"
                   width="150"
                 >
@@ -500,13 +500,11 @@
           exits: '1',
         },
         tableData: [{
-          entrust: '',
+          group_id: '',
           project_name: '',
-          deployment: '',
           projecttype: '',
-          startdate: '',
-          endtime: '',
-          mintime: '',
+          exittime: '',
+          admissiontime: '',
         }],
         //性别
         code1: 'PR019',
@@ -870,28 +868,18 @@
                   response[j].project_name = user.userinfo.customername;
                 }
               }
-              if (response[j].deployment !== null && response[j].deployment !== "") {
-                let deployment = getUserInfo(response[j].deployment);
-                if (deployment) {
-                  response[j].deployment = user.userinfo.deployment;
-                }
+              if (response[j].admissiontime !== null && response[j].admissiontime !== "") {
+                response[j].admissiontime = moment(response[j].admissiontime).format("YYYY-MM-DD");
               }
-              if (response[j].mintime !== null && response[j].mintime !== "") {
-                response[j].mintime = moment(response[j].mintime).format("YYYY-MM-DD");
-              }
-              if (response[j].maxtime !== null && response[j].maxtime !== "") {
-                response[j].maxtime = moment(response[j].maxtime).format("YYYY-MM-DD");
+              if (response[j].exittime !== null && response[j].exittime !== "") {
+                response[j].exittime = moment(response[j].exittime).format("YYYY-MM-DD");
               }
               if (response[j].projecttype !== null && response[j].projecttype !== "") {
-                if (projecttype != null) {
-                  response[j].projecttype = projecttype.value1;
+                let checkvalue1 = getDictionaryInfo(response[j].projecttype);
+                if (checkvalue1) {
+                  response[j].projecttype = checkvalue1.value1;
                 }
-              }
-              if (response[j].jobclassification !== null && response[j].jobclassification !== "") {
-                let jobclassification = getDictionaryInfo(response[j].jobclassification);
-                if (jobclassification != null) {
-                  response[j].jobclassification = jobclassification.value1;
-                }
+
               }
             }
             this.tableData = response;
