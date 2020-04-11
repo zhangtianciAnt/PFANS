@@ -86,19 +86,21 @@
                         width: 140,
                         fix: false,
                         filter: true
-                    }, {
-                        code: 'reservesubstitutiondate',
-                        label: 'label.PFANS2011VIEW_RESERVESUBSTITUTION',
-                        width: 140,
-                        fix: false,
-                        filter: true
-                    }, {
-                        code: 'actualsubstitutiondate',
-                        label: 'label.PFANS2011VIEW_ACTUALSUBSTITUTION',
-                        width: 140,
-                        fix: false,
-                        filter: true
                     },
+                    // {
+                    //     code: 'reservesubstitutiondate',
+                    //     label: 'label.PFANS2011VIEW_RESERVESUBSTITUTION',
+                    //     width: 140,
+                    //     fix: false,
+                    //     filter: true
+                    // },
+                    // {
+                    //     code: 'actualsubstitutiondate',
+                    //     label: 'label.PFANS2011VIEW_ACTUALSUBSTITUTION',
+                    //     width: 140,
+                    //     fix: false,
+                    //     filter: true
+                    // },
                     {
                         code: 'status',
                         label: 'label.approval_status',
