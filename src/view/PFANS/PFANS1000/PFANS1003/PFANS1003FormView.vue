@@ -427,7 +427,8 @@
             message: this.$t('normal.error_08') + this.$t('label.PFANS1004VIEW_INVESTIGATOR'),
             trigger: 'blur',
           },
-            {validator: validateinvestigator, trigger: 'blur'}],
+            // {validator: validateinvestigator, trigger: 'blur'}
+            ],
           user_id: [
             {
               required: true,

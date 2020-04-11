@@ -228,7 +228,7 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1024VIEW_PHONE')" prop="phonenumber">
-                    <el-input :disabled="!disable" style="width:20vw" v-model="form.phonenumber"></el-input>
+                    <el-input :disabled="!disable" style="width:20vw" v-model="form.phonenumber" maxlength="20"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -269,12 +269,12 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1024VIEW_PHONE')" prop="phone">
-                    <el-input :disabled="!disable" style="width:20vw" v-model="form.phone"></el-input>
+                    <el-input :disabled="!disable" style="width:20vw" v-model="form.phone" maxlength="20"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.email')" prop="email">
-                    <el-input :disabled="!disable" style="width:20vw" v-model="form.email" maxlength="20"></el-input>
+                    <el-input :disabled="!disable" style="width:20vw" v-model="form.email" maxlength="50"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -295,12 +295,12 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1024VIEW_PHONE')" prop="phonenum">
-                    <el-input :disabled="!disable" style="width:20vw" v-model="form.phonenum"></el-input>
+                    <el-input :disabled="!disable" style="width:20vw" v-model="form.phonenum" maxlength="20"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.email')" prop="mail">
-                    <el-input :disabled="!disable" style="width:20vw" v-model="form.mail" maxlength="20"></el-input>
+                    <el-input :disabled="!disable" style="width:20vw" v-model="form.mail" maxlength="50"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -492,7 +492,8 @@
             message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_PHONE'),
             trigger: 'blur',
           },
-            {validator: validatephonenumber, trigger: 'blur'}],
+            // {validator: validatephonenumber, trigger: 'blur'}
+            ],
           businessplace: [{
             required: true,
             message: this.$t('normal.error_08') + this.$t('label.PFANS1011VIEW_BUSINESSPLACE'),
@@ -523,7 +524,8 @@
             message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_PHONE'),
             trigger: 'blur',
           },
-            {validator: validatePhone, trigger: 'blur'}],
+            // {validator: validatePhone, trigger: 'blur'}
+            ],
           email: [{
             required: true,
             message: this.$t('normal.error_08') + this.$t('label.email'),
@@ -545,7 +547,8 @@
             message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_PHONE'),
             trigger: 'blur',
           },
-            {validator: validatePhonenum, trigger: 'blur'}],
+            // {validator: validatePhonenum, trigger: 'blur'}
+            ],
           mail: [{
             required: true,
             message: this.$t('normal.error_08') + this.$t('label.email'),
