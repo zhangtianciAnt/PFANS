@@ -2724,7 +2724,12 @@ debugger
               }
               break;
             }
-
+            let error = 0;
+            for (let i = 0; i < this.tableD.length; i++) {
+              if (this.tableD[i].contract == '') {
+                error = error + 1;
+              }
+            }
             for (let i = 0; i < this.tableA.length; i++) {
               if (this.tableA[i].phase == '' && this.tableA[i].estimatedstarttime == '' && this.tableA[i].estimatedendtime == '') {
                 error4 = error4 + 1;
@@ -2745,7 +2750,16 @@ debugger
                 type: 'error',
                 duration: 5 * 1000,
               });
-            } else if (error4 != 0) {
+            } else if (error != 0 && this.form.toolstype !== '1') {
+            this.activeName ='fifth'
+            this.loading = false;
+            Message({
+              message: this.$t('normal.error_08') +
+                this.$t('label.PFANS5001FORMVIEW_CONTRACT'),
+              type: 'error',
+              duration: 5 * 1000,
+            });
+          }else if (error4 != 0) {
             this.activeName ='third'
               this.loading = false;
               Message({
