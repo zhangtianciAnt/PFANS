@@ -1398,6 +1398,23 @@
 //            }
     },
     methods: {
+
+        tipMes(contractNumber,index){
+            this.$confirm(this.$t('normal.error_tipis'), this.$t('normal.info'), {
+                confirmButtonText: this.$t('button.confirm'),
+                cancelButtonText: this.$t('button.cancel'),
+                type: 'warning',
+            }).then(() => {
+                var tabledata = {'contractnumber': contractNumber, 'rowindex': index};
+                this.handleSaveContract(index, this.makeintoBaseInfo, tabledata);
+            }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: this.$t('label.PFANS1026FORMVIEW_tipis'),
+                });
+            });
+        },
+
       getProjectList() {
         this.loading = true;
         this.$store
@@ -2056,43 +2073,50 @@
 //        }
         this.$store.dispatch('PFANS1026Store/existCheck', {contractNumber: contractNumber})
           .then(response => {
+              console.log("contractNumber",contractNumber)
             let s = 'count' + index;
             if (response[s] > 0 && s=='count1') {
-              Message({
-                message: this.$t('label.PFANS1026FORMVIEW_QXSCZQSCDQYS'),
-                type: 'error',
-                duration: 5 * 1000,
-              });
+                this.tipMes(contractNumber,index);
+              // Message({
+              //   message: this.$t('label.PFANS1026FORMVIEW_QXSCZQSCDQYS'),
+              //   type: 'error',
+              //   duration: 5 * 1000,
+              // });
             }else if (response[s] > 0 && s==='count2') {
-              Message({
-                message: this.$t('label.PFANS1026FORMVIEW_QXSCZQSCDQYS1'),
-                type: 'error',
-                duration: 5 * 1000,
-              });
+                this.tipMes(contractNumber,index);
+              // Message({
+              //   message: this.$t('label.PFANS1026FORMVIEW_QXSCZQSCDQYS1'),
+              //   type: 'error',
+              //   duration: 5 * 1000,
+              // });
             } else if (response[s] > 0 && s==='count3') {
-              Message({
-                message: this.$t('label.PFANS1026FORMVIEW_QXSCZQSCDQYS2'),
-                type: 'error',
-                duration: 5 * 1000,
-              });
+                this.tipMes(contractNumber,index);
+              // Message({
+              //   message: this.$t('label.PFANS1026FORMVIEW_QXSCZQSCDQYS2'),
+              //   type: 'error',
+              //   duration: 5 * 1000,
+              // });
             } else if (response[s] > 0 && s ==='count4') {
-              Message({
-                message: this.$t('label.PFANS1026FORMVIEW_QXSCZQSCDQYS3'),
-                type: 'error',
-                duration: 5 * 1000,
-              });
+                this.tipMes(contractNumber,index);
+              // Message({
+              //   message: this.$t('label.PFANS1026FORMVIEW_QXSCZQSCDQYS3'),
+              //   type: 'error',
+              //   duration: 5 * 1000,
+              // });
             } else if (response[s] > 0 && s==='count5') {
-              Message({
-                message: this.$t('label.PFANS1026FORMVIEW_QXSCZQSCDQYS4'),
-                type: 'error',
-                duration: 5 * 1000,
-              });
+                this.tipMes(contractNumber,index);
+              // Message({
+              //   message: this.$t('label.PFANS1026FORMVIEW_QXSCZQSCDQYS4'),
+              //   type: 'error',
+              //   duration: 5 * 1000,
+              // });
             } else if (response[s] > 0 && s==='count6') {
-              Message({
-                message: this.$t('label.PFANS1026FORMVIEW_QXSCZQSCDQYS5'),
-                type: 'error',
-                duration: 5 * 1000,
-              });
+                this.tipMes(contractNumber,index);
+              // Message({
+              //   message: this.$t('label.PFANS1026FORMVIEW_QXSCZQSCDQYS5'),
+              //   type: 'error',
+              //   duration: 5 * 1000,
+              // });
             } else {
               var tabledata = {'contractnumber': contractNumber, 'rowindex': index};
               //first save contractapplication
@@ -2212,6 +2236,8 @@
       },
       //contractapplication save
       handleSaveContract(value, baseInfo, tabledata) {
+            console.log("tabledata",tabledata)
+            debugger
         this.validateByType(value, valid => {
           if (valid) {
             this.loading = true;

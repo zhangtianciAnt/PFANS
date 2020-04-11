@@ -141,6 +141,7 @@ module.exports = {
     error_15: '契約番号作成失败！请选择有效的group',
     error_pfans5001: '外协员工的入离场时间不能为空',
     error_pfans50011: '社内员工的进组或退出时间不能为空',
+    error_tipis:'之前书类作成的要被替换,是否继续'
   },
   menu: {
     homePageManagement: '首页',
@@ -1145,6 +1146,7 @@ module.exports = {
     PFANS1026FORMVIEW_ZFR: '请输入支付日',
     PFANS1026FORMVIEW_QQJE: '请输入请求金额',
     PFANS1026FORMVIEW_YQXSC: '已取消删除',
+    PFANS1026FORMVIEW_tipis: '已取消更新',
     PFANS1026FORMVIEW_QXSQFH: '请先申请番号',
     PFANS1026FORMVIEW_QXSCZQSCDQYS: '请先删除之前生成的报价单',
     PFANS1026FORMVIEW_QXSCZQSCDQYS1: '请先删除之前生成的该非判定书',
