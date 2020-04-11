@@ -740,7 +740,10 @@
                                             <el-table-column property="suppliername"
                                                              :label="$t('label.PFANS5001FORMVIEW_COOPERATIONCOMPANY')"
                                                              width="100"></el-table-column>
-                                            <el-table-column property="post"
+                                            <el-table-column property="post1"
+                                                             :label="$t('label.PFANSUSERVIEW_POST')"
+                                                             width="150"></el-table-column>
+                                            <el-table-column property="post" v-if="false"
                                                              :label="$t('label.PFANSUSERVIEW_POST')"
                                                              width="150"></el-table-column>
                                             <el-table-column
@@ -1727,7 +1730,7 @@
                     company: response.projectsystem[i].company,
                     name: response.projectsystem[i].name,
                     name_id: response.projectsystem[i].name_id,
-                    position: response.projectsystem[i].position,
+                    position: getDictionaryInfo(response.projectsystem[i].position).value1,
                     admissiontime: response.projectsystem[i].admissiontime,
                     exittime: response.projectsystem[i].exittime,
                     rowindex: response.projectsystem[i].rowindex,
@@ -2106,6 +2109,7 @@
         this.currentRow5 = val.expname;
       },
       submit(row) {
+          alert(getDictionaryInfo(this.currentRow3).value1);
         row.number = this.currentRow;
         row.name = this.currentRow1;
         //add-ws-数据库id存的是name名，外协关联修改
@@ -2478,7 +2482,8 @@
               vote1.expname = response[i].expname;
               vote1.suppliername = response[i].suppliername;
               if(response[i].post){
-                  vote1.post = getDictionaryInfo(response[i].post).value1 ;
+                  vote1.post1 = getDictionaryInfo(response[i].post).value1 ;
+                  vote1.post = response[i].post ;
               }
                 // vote1.post = response[i].post
                 vote1.suppliernameid = response[i].supplierinfor_id;
