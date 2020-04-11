@@ -619,7 +619,7 @@
                                   <el-container>
                                     <input class="content bg" v-model="scope.row.name" :error="errorexpname"
                                            :disabled="true" v-show="false"></input>
-                                    <input class="content bg" v-model="expatriatesinfor_id"
+                                    <input class="content bg" v-model="scope.row.name_id"
                                            :disabled="true" ></input>
                                     <el-button
                                       :disabled="!disable"
@@ -1078,7 +1078,6 @@ export default {
       }
     };
     return {
-      expatriatesinfor_id: "",
       currentRow5: "",
       adddisabled: false,
       disable: true,
@@ -1176,6 +1175,7 @@ export default {
           projectsystem_id: "",
           companyprojects_id: "",
           type: "1",
+          name_id: "",
           number: "",
           company: "",
           name: "",
@@ -1428,26 +1428,22 @@ export default {
                 o.rowindex = response.projectsystem[i].rowindex;
                 this.tableB.push(o);
               } else {
-                if(response.projectsystem[i].name!=''||response.projectsystem[i].name!=null){
-                  this.$store
-                    .dispatch('PFANS6004Store/getexpatriatesinforApplyOne', {'expatriatesinfor_id': response.projectsystem[i].name})
-                    .then(response => {
-                      this.expatriatesinfor_id = response.expname;
-                    })
+                if (response.projectsystem[i].name != '' || response.projectsystem[i].name != null) {
+                  let o = {};
+                  o.name = response.projectsystem[i].projectsystem_id;
+                  o.companyprojects_id =
+                    response.projectsystem[i].companyprojects_id;
+                  o.type = response.projectsystem[i].type;
+                  o.number = response.projectsystem[i].number;
+                  o.company = response.projectsystem[i].company;
+                  o.name = response.projectsystem[i].name;
+                  o.name_id = response.projectsystem[i].name_id;
+                  o.position = response.projectsystem[i].position;
+                  o.admissiontime = response.projectsystem[i].admissiontime;
+                  o.exittime = response.projectsystem[i].exittime;
+                  o.rowindex = response.projectsystem[i].rowindex;
+                  this.tableC.push(o);
                 }
-                let o = {};
-                o.name = response.projectsystem[i].projectsystem_id;
-                o.companyprojects_id =
-                  response.projectsystem[i].companyprojects_id;
-                o.type = response.projectsystem[i].type;
-                o.number = response.projectsystem[i].number;
-                o.company = response.projectsystem[i].company;
-                o.name = response.projectsystem[i].name;
-                o.position = response.projectsystem[i].position;
-                o.admissiontime = response.projectsystem[i].admissiontime;
-                o.exittime = response.projectsystem[i].exittime;
-                o.rowindex = response.projectsystem[i].rowindex;
-                this.tableC.push(o);
               }
             }
           }
@@ -1762,12 +1758,12 @@ export default {
       row.name = this.currentRow1;
       row.company = this.currentRow2;
       row.position = this.currentRow3;
-      this.expatriatesinfor_id = this.currentRow5;
+      row.name_id = this.currentRow5;
       this.dialogTableVisible1 = false;
     },
     handleClickChange(val) {
       this.currentRow = val.number;
-      this.currentRow1 = val.expatriatesinfor_id;
+      this.currentRow1 = val.name_id;
       this.currentRow2 = val.suppliername;
       this.currentRow3 = val.post;
       this.currentRow5 = val.expname;
@@ -1822,7 +1818,7 @@ export default {
           for (let i = 0; i < response.length; i++) {
             var vote1 = {};
             vote1.number = response[i].number;
-            vote1.expatriatesinfor_id= response[i].expatriatesinfor_id;
+            vote1.name_id= response[i].expatriatesinfor_id;
             vote1.expname = response[i].expname;
             vote1.suppliername = response[i].suppliername;
             vote1.post = response[i].post;
@@ -2012,6 +2008,7 @@ export default {
                 name: this.tableC[i].name,
                 suppliernameid: this.tableC[i].suppliernameid,
                 type: this.tableC[i].type,
+                name_id: this.tableC[i].name_id,
                 company: this.tableC[i].company,
                 admissiontime: this.tableC[i].admissiontime,
                 exittime: this.tableC[i].exittime,
