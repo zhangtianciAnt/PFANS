@@ -50,7 +50,7 @@
             <el-row>
               <el-col :span="8">
                 <el-form-item :label="$t('label.PFANS3001VIEW_EXTENSIONNUMBER')" prop="extensionnumber">
-                  <el-input :disabled="!disable" style="width:20vw"
+                  <el-input :disabled="!disable" style="width:20vw" maxlength ="20"
                             v-model="form.extensionnumber"></el-input>
                 </el-form-item>
               </el-col>
