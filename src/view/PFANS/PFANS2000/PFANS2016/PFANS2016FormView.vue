@@ -1835,8 +1835,8 @@
                 return;
               }
             }
-            //代休_特殊,年休
-            if (this.form.errortype === 'PR013005' || this.form.errortype === 'PR013007') {
+            //年休
+            if (this.form.errortype === 'PR013005') {
               let time = 0;
               let timere = 0;
               let enddateflg = moment(this.$store.getters.userinfo.userinfo.enddate).format('YYYY-MM-DD');
