@@ -141,7 +141,7 @@ module.exports = {
     error_15: '契約番号作成失败！请选择有效的group',
     error_pfans5001: '外协员工的入离场时间不能为空',
     error_pfans50011: '社内员工的进组或退出时间不能为空',
-    error_tipis:'之前书类作成的要被替换,是否继续'
+    error_tipis:'之前作成的书类要被替换,是否继续？'
   },
   menu: {
     homePageManagement: '首页',
