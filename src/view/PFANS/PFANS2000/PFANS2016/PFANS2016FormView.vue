@@ -1001,119 +1001,119 @@
         }
       },
       //时间长度总计
-      getTime(val) {
-        let sum = 0;
-        if (moment(this.form.finisheddate).format('YYYY-MM-DD') === moment(this.form.occurrencedate).format('YYYY-MM-DD')) {
-          sum = 1;
-        } else {
-          for (let i = 0; i < this.relist.length; i++) {
-            sum = sum + 1;
-          }
-        }
-        if (this.form.errortype === 'PR013001' || this.form.errortype === 'PR013016' ||
-          this.form.errortype === 'PR013018' || this.form.errortype === 'PR013019' || this.form.errortype === 'PR013014') {
-          this.form.finisheddate = this.form.occurrencedate;
-        }
-        if (this.form.errortype === 'PR013001' || this.form.errortype === 'PR013008' || this.form.errortype === 'PR013016'
-          || this.form.errortype === 'PR013018' || this.form.errortype === 'PR013019' || this.form.errortype === 'PR013014') {
-          for (let i = 0; i < this.relist.length; i++) {
-            sum = sum + 1;
-          }
-          if (moment(this.form.finisheddate).format('YYYY-MM-DD') === moment(this.form.occurrencedate).format('YYYY-MM-DD')) {
-            sum = 1;
-          }
-          if (this.form.errortype === 'PR013014') {
-            if (2 - this.parent <= 0) {
-              this.errorcheck = 2;
-              Message({
-                message: this.$t('label.PFANS2016FORMVIEW_BJDJZHCHECK'),
-                type: 'error',
-                duration: 5 * 1000,
-              });
-              return;
-            } else {
-              this.errorcheck = 1;
-            }
-            if (val > 4) {
-              this.errorcheck = 2;
-              Message({
-                message: this.$t('label.PFANS2016FORMVIEW_BJDJZCHECK'),
-                type: 'error',
-                duration: 5 * 1000,
-              });
-              return;
-            } else {
-              this.errorcheck = 1;
-            }
-          } else if (this.form.errortype === 'PR013016' && this.$store.getters.userinfo.userinfo.sex !== 'PR019002') {
-            if (this.$store.getters.userinfo.userinfo.sex !== 'PR019002') {
-              this.errorcheck = 2;
-              Message({
-                message: this.$t('label.PFANS2016FORMVIEW_WOMENCHECK'),
-                type: 'error',
-                duration: 5 * 1000,
-              });
-              return;
-            } else {
-              this.errorcheck = 1;
-            }
-          }
-          if (this.form.errortype === 'PR013001') {
-            if (8 < val) {
-              this.errorcheck = 2;
-              Message({
-                message: this.$t('label.PFANS2016FORMVIEW_WAICHUTIMENOCHECK'),
-                type: 'error',
-                duration: 5 * 1000,
-              });
-              return;
-            } else {
-              this.errorcheck = 1;
-            }
-          }
-          if (this.form.errortype === 'PR013008' || this.form.errortype === 'PR013014' || this.form.errortype === 'PR013016'
-            || this.form.errortype === 'PR013018' || this.form.errortype === 'PR013019') {
-            if (sum * 8 < val) {
-              this.errorcheck = 2;
-              Message({
-                message: this.$t('label.PFANS2016FORMVIEW_WAICHUTIMENOCHECK'),
-                type: 'error',
-                duration: 5 * 1000,
-              });
-              return;
-            } else {
-              this.errorcheck = 1;
-            }
-          }
-        } else if (this.form.errortype === 'PR013009') {
-          let diffDate = moment(this.form.finisheddate).diff(moment(this.form.occurrencedate), 'days') + 1;
-          if (diffDate > 30 - this.sickleave || val / 8 > 30 - this.sickleave) {
-            this.errorcheck = 2;
-            Message({
-              message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            return;
-          } else {
-            this.errorcheck = 1;
-          }
-          for (let i = 0; i < diffDate; i++) {
-            sum = sum + 1;
-          }
-          if (sum * 8 < val) {
-            this.errorcheck = 2;
-            Message({
-              message: this.$t('label.PFANS2016FORMVIEW_WAICHUTIMENOCHECK'),
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            return;
-          } else {
-            this.errorcheck = 1;
-          }
-        }
-      },
+      // getTime(val) {
+      //   let sum = 0;
+      //   if (moment(this.form.finisheddate).format('YYYY-MM-DD') === moment(this.form.occurrencedate).format('YYYY-MM-DD')) {
+      //     sum = 1;
+      //   } else {
+      //     for (let i = 0; i < this.relist.length; i++) {
+      //       sum = sum + 1;
+      //     }
+      //   }
+      //   if (this.form.errortype === 'PR013001' || this.form.errortype === 'PR013016' ||
+      //     this.form.errortype === 'PR013018' || this.form.errortype === 'PR013019' || this.form.errortype === 'PR013014') {
+      //     this.form.finisheddate = this.form.occurrencedate;
+      //   }
+      //   if (this.form.errortype === 'PR013001' || this.form.errortype === 'PR013008' || this.form.errortype === 'PR013016'
+      //     || this.form.errortype === 'PR013018' || this.form.errortype === 'PR013019' || this.form.errortype === 'PR013014') {
+      //     for (let i = 0; i < this.relist.length; i++) {
+      //       sum = sum + 1;
+      //     }
+      //     if (moment(this.form.finisheddate).format('YYYY-MM-DD') === moment(this.form.occurrencedate).format('YYYY-MM-DD')) {
+      //       sum = 1;
+      //     }
+      //     if (this.form.errortype === 'PR013014') {
+      //       if (2 - this.parent <= 0) {
+      //         this.errorcheck = 2;
+      //         Message({
+      //           message: this.$t('label.PFANS2016FORMVIEW_BJDJZHCHECK'),
+      //           type: 'error',
+      //           duration: 5 * 1000,
+      //         });
+      //         return;
+      //       } else {
+      //         this.errorcheck = 1;
+      //       }
+      //       if (val > 4) {
+      //         this.errorcheck = 2;
+      //         Message({
+      //           message: this.$t('label.PFANS2016FORMVIEW_BJDJZCHECK'),
+      //           type: 'error',
+      //           duration: 5 * 1000,
+      //         });
+      //         return;
+      //       } else {
+      //         this.errorcheck = 1;
+      //       }
+      //     } else if (this.form.errortype === 'PR013016' && this.$store.getters.userinfo.userinfo.sex !== 'PR019002') {
+      //       if (this.$store.getters.userinfo.userinfo.sex !== 'PR019002') {
+      //         this.errorcheck = 2;
+      //         Message({
+      //           message: this.$t('label.PFANS2016FORMVIEW_WOMENCHECK'),
+      //           type: 'error',
+      //           duration: 5 * 1000,
+      //         });
+      //         return;
+      //       } else {
+      //         this.errorcheck = 1;
+      //       }
+      //     }
+      //     if (this.form.errortype === 'PR013001') {
+      //       if (8 < val) {
+      //         this.errorcheck = 2;
+      //         Message({
+      //           message: this.$t('label.PFANS2016FORMVIEW_WAICHUTIMENOCHECK'),
+      //           type: 'error',
+      //           duration: 5 * 1000,
+      //         });
+      //         return;
+      //       } else {
+      //         this.errorcheck = 1;
+      //       }
+      //     }
+      //     if (this.form.errortype === 'PR013008' || this.form.errortype === 'PR013014' || this.form.errortype === 'PR013016'
+      //       || this.form.errortype === 'PR013018' || this.form.errortype === 'PR013019') {
+      //       if (sum * 8 < val) {
+      //         this.errorcheck = 2;
+      //         Message({
+      //           message: this.$t('label.PFANS2016FORMVIEW_WAICHUTIMENOCHECK'),
+      //           type: 'error',
+      //           duration: 5 * 1000,
+      //         });
+      //         return;
+      //       } else {
+      //         this.errorcheck = 1;
+      //       }
+      //     }
+      //   } else if (this.form.errortype === 'PR013009') {
+      //     let diffDate = moment(this.form.finisheddate).diff(moment(this.form.occurrencedate), 'days') + 1;
+      //     if (diffDate > 30 - this.sickleave || val / 8 > 30 - this.sickleave) {
+      //       this.errorcheck = 2;
+      //       Message({
+      //         message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
+      //         type: 'error',
+      //         duration: 5 * 1000,
+      //       });
+      //       return;
+      //     } else {
+      //       this.errorcheck = 1;
+      //     }
+      //     for (let i = 0; i < diffDate; i++) {
+      //       sum = sum + 1;
+      //     }
+      //     if (sum * 8 < val) {
+      //       this.errorcheck = 2;
+      //       Message({
+      //         message: this.$t('label.PFANS2016FORMVIEW_WAICHUTIMENOCHECK'),
+      //         type: 'error',
+      //         duration: 5 * 1000,
+      //       });
+      //       return;
+      //     } else {
+      //       this.errorcheck = 1;
+      //     }
+      //   }
+      // },
       getDay() {
         this.$store
           .dispatch('PFANS8007Store/getList', {})
@@ -1876,6 +1876,14 @@
                   for (let d = 0; d < this.relistTwo.length; d++) {
                     timere = timere + 1;
                   }
+                  if(timere === 0){
+                    Message({
+                      message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    return;
+                  }
                   this.form.relengthtime = time * 8;
                 } else {
                   timere = 0.5;
@@ -1893,6 +1901,14 @@
                 if (this.typecheck === '0') {
                   for (let d = 0; d < this.relist.length; d++) {
                     time = time + 1;
+                  }
+                  if(time === 0){
+                    Message({
+                      message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    return;
                   }
                   this.form.lengthtime = time * 8;
                   this.form.relengthtime = time * 8;
@@ -1949,15 +1965,15 @@
                     });
                     return;
                   }
-                } else {
-                  if (rediffDate > 30 - this.sickleave || (this.form.relengthtime / 8) > 30 - this.sickleave) {
-                    Message({
-                      message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
-                    return;
-                  }
+                // } else {
+                //   if (rediffDate > 30 - this.sickleave || (this.form.relengthtime / 8) > 30 - this.sickleave) {
+                //     Message({
+                //       message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
+                //       type: 'error',
+                //       duration: 5 * 1000,
+                //     });
+                //     return;
+                //   }
                 }
               } else {
                 if (diffDate === 1) {
@@ -1969,22 +1985,21 @@
                     });
                     return;
                   }
-                } else {
-                  if (diffDate > 30 - this.sickleave || (this.form.lengthtime / 8) > 30 - this.sickleave) {
-                    Message({
-                      message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
-                    return;
-                  }
+                // } else {
+                //   if (diffDate > 30 - this.sickleave || (this.form.lengthtime / 8) > 30 - this.sickleave) {
+                //     Message({
+                //       message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
+                //       type: 'error',
+                //       duration: 5 * 1000,
+                //     });
+                //     return;
+                //   }
                 }
               }
             }
             //金额不能为0的check
-            // if ((this.form.errortype != 'PR013005' && this.form.errortype != 'PR013007') && this.form.status != '4' &&
-            //   this.form.status != '5' && this.form.status != '6' && this.form.status != '7' && this.form.status != '8' && this.form.lengthtime <= 0) {
-            if(this.form.lengthtime <= 0){
+            if ((this.form.errortype != 'PR013005' && this.form.errortype != 'PR013007') && this.form.status != '4' &&
+              this.form.status != '5' && this.form.status != '6' && this.form.status != '7' && this.form.status != '8' && this.form.lengthtime <= 0) {
               Message({
                 message: this.$t('label.PFANS2016FORMVIEW_TIMECHECK'),
                 type: 'error',
