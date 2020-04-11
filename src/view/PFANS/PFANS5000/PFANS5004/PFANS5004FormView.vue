@@ -179,7 +179,7 @@
               </div>
             </el-tab-pane>
 
-            <el-tab-pane :label="$t('label.PFANS5004VIEW_PROJECTSECORE')" name="second">
+            <el-tab-pane :label="$t('label.PFANS5001FORMVIEW_SYSTEM')" name="second">
               <el-table :data="source"
                         border
                         header-cell-class-name="sub_bg_color_blue" stripe>
@@ -478,6 +478,9 @@
                   if (this.$i18n) {
                     this.source[i].type = this.$t('label.PFANS5004VIEW_ASSIST');
                   }
+                  //add-ws-数据库id存的是name名，外协关联修改
+                  this.source[i].name = this.source[i].name_id;
+                  //add-ws-数据库id存的是name名，外协关联修改
                 }
               }
             }
