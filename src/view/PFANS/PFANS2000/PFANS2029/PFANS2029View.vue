@@ -52,7 +52,7 @@
     import EasyNormalTable from "@/components/EasyNormalTable";
     import {Message} from 'element-ui';
     import moment from "moment";
-    import {getUserInfo} from '@/utils/customize';
+    import {getUserInfo,getCooperinterviewListByAccount} from '@/utils/customize';
 
     export default {
         name: 'PFANS2029View',
@@ -95,13 +95,6 @@
                         filter: true
                     },
                     {
-                        code: 'center_id',
-                        label: 'label.center',
-                        width: 160,
-                        fix: false,
-                        filter: true
-                    },
-                    {
                         code: 'group_id',
                         label: 'label.group',
                         width: 160,
@@ -109,8 +102,8 @@
                         filter: true
                     },
                     {
-                        code: 'team_id',
-                        label: 'label.team',
+                        code: 'suppliername',
+                        label: 'label.PFANS6001VIEW_SUPPLIERNAME',
                         width: 160,
                         fix: false,
                         filter: true
@@ -184,10 +177,13 @@
                     .dispatch('PFANS2029Store/getFpans2029List', {})
                     .then(response => {
                         for (let j = 0; j < response.length; j++) {
-                            let user = getUserInfo(response[j].user_id);
-                            if (user) {
-                                response[j].user_id = user.userinfo.customername;
+                            let supplierInfor = getCooperinterviewListByAccount(response[j].user_id);
+                            if (supplierInfor) {
+                                response[j].user_id = supplierInfor.expname;
+                                response[j].suppliername = supplierInfor.suppliername;
                             }
+                            //所属group
+                            //response[j].group_id = supplierInfor.suppliername;
                             if (response[j].punchcardrecord_date !== null && response[j].punchcardrecord_date !== "") {
                                 response[j].punchcardrecord_date = moment(response[j].punchcardrecord_date).format("YYYY-MM-DD");
                             }
@@ -201,16 +197,14 @@
                             if(response[j].punchcardrecord_date === moment(new Date()).format('YYYY-MM-DD')){
                                 response[j].time_end = "";
                             }
-                            // ADD-LXX
                             response[j].afternoon = Number(parseFloat(response[j].worktime) - parseFloat(response[j].absenteeismam)).toFixed(3)
-                            if(response[j].afternoon === 0){
+                            if(response[j].afternoon === "0.0" || response[j].afternoon === "0.00" || response[j].afternoon === "0.000"){
                                 response[j].afternoon  = ""
                             }
-                            // ADD-LXX
-                            if(response[j].worktime === "0.00"){
+                            if(response[j].worktime === "0.0" || response[j].worktime === "0.00" || response[j].worktime === "0.000"){
                                 response[j].worktime = "";
                             }
-                            if(response[j].absenteeismam === "0.00"){
+                            if(response[j].absenteeismam === "0.0" || response[j].absenteeismam === "0.00" || response[j].absenteeismam === "0.000"){
                                 response[j].absenteeismam = "";
                             }
                         }

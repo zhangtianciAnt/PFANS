@@ -340,21 +340,21 @@
 
                       for (var i =0; i < res.length; i ++)
                       {
-                        total_normal += parseFloat(res[i]["normal"] === undefined ? '0' :(res[i]["normal"] ===null?'0':res[i]["normal"]));
-                        total_ordinaryindustry += parseFloat(res[i]["ordinaryindustry"] ===undefined ? '0' :(res[i]["ordinaryindustry"]===null?'0':res[i]["ordinaryindustry"]));
-                        total_weekendindustry += parseFloat(res[i]["weekendindustry"] ===undefined ? '0' :(res[i]["weekendindustry"]===null?'0':res[i]["weekendindustry"]));
-                        total_statutoryresidue += parseFloat(res[i]["statutoryresidue"] ===undefined ? '0' :(res[i]["statutoryresidue"]===null?'0':res[i]["statutoryresidue"]));
-                        total_annualrestday += parseFloat(res[i]["annualrestday"] ===undefined ? '0' :(res[i]["annualrestday"]===null?'0':res[i]["annualrestday"]));
-                        total_specialday += parseFloat(res[i]["specialday"] ===undefined ? '0' :(res[i]["specialday"]===null?'0':res[i]["specialday"]));
-                        total_youthday += parseFloat(res[i]["youthday"] ===undefined ? '0' :(res[i]["youthday"]===null?'0':res[i]["youthday"]));
-                        total_womensday += parseFloat(res[i]["womensday"] ===undefined ? '0' :(res[i]["womensday"]===null?'0':res[i]["womensday"]));
-                        total_annualrest += parseFloat(res[i]["annualrest"] ===undefined ? '0' :(res[i]["annualrest"]===null?'0':res[i]["annualrest"]));
-                        total_daixiu += parseFloat(res[i]["daixiu"] ===undefined ? '0' :(res[i]["daixiu"]===null?'0':res[i]["daixiu"]));
-                        total_welfare += parseFloat(res[i]["welfare"] ===undefined ? '0' :(res[i]["welfare"]===null?'0':res[i]["welfare"]));
-                        total_shortsickleave += parseFloat(res[i]["shortsickleave"] ===undefined ? '0' :(res[i]["shortsickleave"]===null?'0':res[i]["shortsickleave"]));
-                        total_compassionateleave += parseFloat(res[i]["compassionateleave"] ===undefined ? '0' :(res[i]["compassionateleave"]===null?'0':res[i]["compassionateleave"]));
-                        total_nursingleave += parseFloat(res[i]["nursingleave"] ===undefined ? '0' :(res[i]["nursingleave"]===null?'0':res[i]["nursingleave"]));
-                        total_absenteeism += parseFloat(res[i]["absenteeism"] ===undefined ? '0' :(res[i]["absenteeism"]===null?'0':res[i]["absenteeism"]));
+                        total_normal += parseFloat(res[i]["normal"] === undefined ? '0' :(res[i]["normal"] ===null || res[i]["normal"] ==='' ? '0':res[i]["normal"]));
+                        total_ordinaryindustry += parseFloat(res[i]["ordinaryindustry"] ===undefined ? '0' :(res[i]["ordinaryindustry"]===null || res[i]["ordinaryindustry"]==='' ? '0':res[i]["ordinaryindustry"]));
+                        total_weekendindustry += parseFloat(res[i]["weekendindustry"] ===undefined ? '0' :(res[i]["weekendindustry"]===null ||  res[i]["weekendindustry"]==='' ? '0':res[i]["weekendindustry"]));
+                        total_statutoryresidue += parseFloat(res[i]["statutoryresidue"] ===undefined ? '0' :(res[i]["statutoryresidue"]===null || res[i]["statutoryresidue"]==='' ? '0':res[i]["statutoryresidue"]));
+                        total_annualrestday += parseFloat(res[i]["annualrestday"] ===undefined ? '0' :(res[i]["annualrestday"]===null || res[i]["annualrestday"]=== '' ? '0':res[i]["annualrestday"]));
+                        total_specialday += parseFloat(res[i]["specialday"] ===undefined ? '0' :(res[i]["specialday"]===null || res[i]["specialday"]=== '' ? '0':res[i]["specialday"]));
+                        total_youthday += parseFloat(res[i]["youthday"] ===undefined ? '0' :(res[i]["youthday"]===null || res[i]["youthday"]=== '' ? '0':res[i]["youthday"]));
+                        total_womensday += parseFloat(res[i]["womensday"] ===undefined ? '0' :(res[i]["womensday"]===null || res[i]["womensday"]==='' ? '0':res[i]["womensday"]));
+                        total_annualrest += parseFloat(res[i]["annualrest"] ===undefined ? '0' :(res[i]["annualrest"]===null || res[i]["annualrest"]==='' ? '0':res[i]["annualrest"]));
+                        total_daixiu += parseFloat(res[i]["daixiu"] ===undefined ? '0' :(res[i]["daixiu"]===null || res[i]["daixiu"]==='' ? '0':res[i]["daixiu"]));
+                        total_welfare += parseFloat(res[i]["welfare"] ===undefined ? '0' :(res[i]["welfare"]===null || res[i]["welfare"]==='' ? '0':res[i]["welfare"]));
+                        total_shortsickleave += parseFloat(res[i]["shortsickleave"] ===undefined ? '0' :(res[i]["shortsickleave"]===null || res[i]["shortsickleave"]==='' ? '0':res[i]["shortsickleave"]));
+                        total_compassionateleave += parseFloat(res[i]["compassionateleave"] ===undefined ? '0' :(res[i]["compassionateleave"]===null || res[i]["compassionateleave"]==='' ? '0':res[i]["compassionateleave"]));
+                        total_nursingleave += parseFloat(res[i]["nursingleave"] ===undefined ? '0' :(res[i]["nursingleave"]===null || res[i]["nursingleave"]==='' ?  '0':res[i]["nursingleave"]));
+                        total_absenteeism += parseFloat(res[i]["absenteeism"] ===undefined ? '0' :(res[i]["absenteeism"]===null || res[i]["absenteeism"]==='' ? '0':res[i]["absenteeism"]));
                       }
                       res1.push( {dates: '合计',
                                                                     normal: total_normal,

@@ -185,7 +185,7 @@
                             </el-form-item>
                           </el-col>
                           <el-col :span="6" v-show="show3">
-                              <el-input :disabled="!disable" style="width: 10vw"
+                              <el-input :disabled="!disable" style="width: 10vw" maxlength='100'
                                         v-model="form.oreason" ></el-input>
                           </el-col>
                         </el-row>
@@ -206,7 +206,7 @@
                             </el-form-item>
                           </el-col>
                           <el-col :span="6" v-show="show4">
-                              <el-input :disabled="!disable" style="width: 10vw"
+                              <el-input :disabled="!disable" style="width: 10vw"  maxlength='100'
                                         v-model="form.othreason"></el-input>
                           </el-col>
                         </el-row>
@@ -216,19 +216,14 @@
                           <el-checkbox :disabled="!disable" @change="getChecked14" v-model="form.other11"><p>{{$t('label.PFANS1028VIEW_OTHER')}}</p></el-checkbox>
                             </el-form-item>
                           </el-col>
+                          <el-col :span="6" v-show="show5">
+                              <el-input :disabled="!disable" style="width: 30vw"  maxlength='100'
+                                        v-model="form.otherreason"></el-input>
+                          </el-col>
                         </el-row>
-                      <el-row>
-                        <el-col :span="24" v-show="show5">
-                          <el-form-item :label="$t('label.PFANS1028VIEW_POINTS106')">
-                            <el-input :disabled="!disable" style="width: 70vw" type="textarea"
-                                      v-model="form.otherreason"></el-input>
-                          </el-form-item>
-                        </el-col>
-                      </el-row>
                     </el-form-item>
                   </el-col>
                 </el-row>
-
                 <el-collapse>
                   <el-collapse-item>
                     <template slot="title">
