@@ -348,7 +348,7 @@
         }
       };
       var validatePass = (rule, value, callback) => {
-        if (this.form.errortype == 'PR013017') {
+        if (this.form.errortype == 'PR013016') {
           if (value) {
             callback();
           } else {
@@ -359,7 +359,7 @@
         }
       };
       var validatePass2 = (rule, value, callback) => {
-        if (this.form.errortype == 'PR013017') {
+        if (this.form.errortype == 'PR013016') {
           if (value) {
             callback();
           } else {
