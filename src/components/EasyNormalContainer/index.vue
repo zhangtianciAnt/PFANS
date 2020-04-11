@@ -7,7 +7,7 @@
         <el-row>
           <easy-button-bar :data="buttons" @buttonClick="buttonClick"></easy-button-bar>
           <easy-work-flow :canStart="canStart" :workflowCode="workflowCode"
-                          @canStartWorkflow="canStartWorkflow"
+                          @canStartWorkflow="canStartWorkflow" :saveFunction="saveFunction"
                           @canViewWorkflow="canViewWorkflow"
                           @changeLoading="changeLoading" @end="end" @start="start" @workflowState="workflowState"
                           ref="workflow"></easy-work-flow>
@@ -73,6 +73,12 @@
       enableSave: {
         type: Boolean,
         default: true
+      },
+      saveFunction:{
+        type:Function,
+        default:function () {
+          return true;
+        }
       }
     },
     methods: {

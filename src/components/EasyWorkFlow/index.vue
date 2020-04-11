@@ -63,6 +63,12 @@
         default: function () {
           return []
         }
+      },
+      saveFunction:{
+        type:Function,
+        default:function () {
+          return true;
+        }
       }
     },
     methods: {
@@ -295,29 +301,31 @@
       },
       // 发起审批
       addworkflow() {
-        if(this.workflowlist.length > 1){
-          this.$refs.start.startWorkflow = true;
-          this.$refs.start.selectId = this.workflowlist[0].workflowid;
-          this.$refs.start.selectWorkflowstep(
-            this.workflowlist[0].workflowid
-          )
-        }else{
-          // this.$refs.start.startWorkflow = false;
-          if(this.workflowlist.length === 0){
-            this.$message({
-              message: this.$t('normal.error_13'),
-              type: 'error'
-            });
-            return;
+        let rst = this.saveFunction();
+        if(rst){
+          if(this.workflowlist.length > 1){
+            this.$refs.start.startWorkflow = true;
+            this.$refs.start.selectId = this.workflowlist[0].workflowid;
+            this.$refs.start.selectWorkflowstep(
+              this.workflowlist[0].workflowid
+            )
+          }else{
+            // this.$refs.start.startWorkflow = false;
+            if(this.workflowlist.length === 0){
+              this.$message({
+                message: this.$t('normal.error_13'),
+                type: 'error'
+              });
+              return;
+            }
+            this.$refs.start.selectId = this.workflowlist[0].workflowid;
+            this.$refs.start.selectWorkflowstep(
+              this.workflowlist[0].workflowid
+            )
+            this.$refs.start.submit();
+
           }
-          this.$refs.start.selectId = this.workflowlist[0].workflowid;
-          this.$refs.start.selectWorkflowstep(
-            this.workflowlist[0].workflowid
-          )
-          this.$refs.start.submit();
-
         }
-
       },
       //关闭回掉
       refresh() {
