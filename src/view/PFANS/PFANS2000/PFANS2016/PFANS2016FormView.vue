@@ -457,8 +457,8 @@
 
       var revalidateVacationtype = (rule, value, callback) => {
         if((this.form.errortype == 'PR013005'|| this.form.errortype == 'PR013007') && this.form.status != '4' && this.form.status != '5' && this.form.status != '6' && this.form.status != '7'&& this.form.status != '8'){
-          if (this.form.vacationtype === null && this.form.vacationtype === '') {
-            callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS2016FORMVIEW_XJTYPE')));
+          if (this.form.vacationtype === null || this.form.vacationtype === '') {
+            callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS2016FORMVIEW_XJTYPE')));
           } else {
             callback();
           }
@@ -468,8 +468,8 @@
       };
       var revalidateRevacationtype = (rule, value, callback) => {
         if((this.form.errortype == 'PR013005' || this.form.errortype == 'PR013007') && (this.form.status === '4' || this.form.status === '5' || this.form.status === '6' || this.form.status === '7')){
-          if (this.form.revacationtype === null && this.form.revacationtype === '') {
-            callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS2016FORMVIEW_RELENGTHTIME')));
+          if (this.form.revacationtype === null || this.form.revacationtype === '') {
+            callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS2016FORMVIEW_RELENGTHTIME')));
           } else {
             callback();
           }
@@ -840,11 +840,17 @@
               this.canStart = true;
               this.disable = false;
               this.dislengthtime = true;
+            }else if (this.form.status === '5') {
+              this.canStart = false;
+              this.disable = false;
+              this.dislengthtime = true;
+              this.checkrelengthtime = true;
             } else if (this.form.status === '7') {
               this.workflowCode = 'W0059';
               this.canStart = false;
               this.disable = false;
               this.dislengthtime = true;
+              this.checkrelengthtime = true;
             } else if (this.form.status === '2') {
               this.disable = false;
               this.dislengthtime = true;
@@ -1212,9 +1218,23 @@
           }
         }
         //代休_周末，事休
-        // if(this.form.errortype === 'PR013006' || this.form.errortype === 'PR013008'){
-        //
-        // }
+        if(this.form.errortype === 'PR013006' || this.form.errortype === 'PR013008'){
+          if(moment(this.form.finisheddate).format("YYYY-MM-DD") === moment(this.form.occurrencedate).format("YYYY-MM-DD")){
+            //当天取小时
+            this.dislengthtime = false;
+            this.form.finisheddate = this.form.occurrencedate;
+          } else {
+            //跨天取整天，8小时  包含公休日
+            this.dislengthtime = true;
+            let time = 0;
+            //不包含公休日
+            for (let d = 0; d < this.relist.length; d++) {
+              time = time + 1;
+            }
+            this.form.lengthtime = time * 8;
+            // this.form.lengthtime = 8 * diffDate;
+          }
+        }
 
         //病假
         if(this.form.errortype === 'PR013009'){
@@ -1311,7 +1331,17 @@
       rechange() {
         let rediffDate = moment(this.form.refinisheddate).diff(moment(this.form.reoccurrencedate), 'days') + 1;
         if (this.form.errortype === 'PR013005' || this.form.errortype === 'PR013007') {
-          this.form.refinisheddate = this.form.reoccurrencedate;
+          if (this.retypecheck == '0') {
+            let time = 0;
+            //不包含公休日
+            for (let d = 0; d < this.relist.length; d++) {
+              time = time + 1;
+            }
+            this.form.relengthtime = time * 8;
+          } else {
+            this.form.refinisheddate = this.form.reoccurrencedate;
+            this.form.relengthtime = 4;
+          }
         }
         if (this.form.errortype === 'PR013009') {
           if (rediffDate > 30 - this.sickleave) {
@@ -1885,7 +1915,7 @@
               // if(this.sickleave >60){
               //   return 123;
               // }
-              if (this.typecheck === '0') {
+              if (this.typecheck === '0' || this.retypecheck === '0') {
                 for (let d = 0; d < this.relist.length; d++) {
                   time = time + 1;
                 }
