@@ -708,7 +708,9 @@
                                 <div class="dpSupIndex" style="width:10vw" prop="expname">
                                   <el-container>
                                     <input class="content bg" v-model="scope.row.name" :error="errorexpname"
-                                           :disabled="true"></input>
+                                           :disabled="true" v-show="false"></input>
+                                    <input class="content bg" v-model="expatriatesinfor_id"
+                                           :disabled="true" ></input>
                                     <el-button :disabled="!disable" icon="el-icon-search"
                                                @click="dialogTableVisible1 = true"
                                                size="small"></el-button>
@@ -727,9 +729,14 @@
                                             <el-table-column property="number" fixed
                                                              :label="$t('label.PFANS5001FORMVIEW_NUMBERS')"
                                                              width="100"></el-table-column>
+                                            <el-table-column property="expatriatesinfor_id" fixed v-if="false"
+                                                             :label="$t('label.PFANSUSERFORMVIEW_CUSTOMERNAME')"
+                                                             width="180"></el-table-column>
+
                                             <el-table-column property="expname" fixed
                                                              :label="$t('label.PFANSUSERFORMVIEW_CUSTOMERNAME')"
                                                              width="180"></el-table-column>
+
                                             <el-table-column property="suppliername"
                                                              :label="$t('label.PFANS5001FORMVIEW_COOPERATIONCOMPANY')"
                                                              width="100"></el-table-column>
@@ -1171,6 +1178,7 @@
         // grouporglist: '',
         // teamorglist: '',
         errorcenter: '',
+        expatriatesinfor_id: '',
         errorgroup: '',
         errorgroup1: '',
         errorexpname: '',
@@ -1201,6 +1209,7 @@
         currentRow2: '',
         currentRow3: '',
         currentRow4: '',
+        currentRow5: '',
         //项目计划
         tableA: [
           {
@@ -1707,6 +1716,13 @@
                     rowindex: response.projectsystem[i].rowindex,
                   });
                 } else if (response.projectsystem[i].type === '1') {
+                  if(response.projectsystem[i].name!=''||response.projectsystem[i].name!=null){
+                    this.$store
+                      .dispatch('PFANS6004Store/getexpatriatesinforApplyOne', {'expatriatesinfor_id': response.projectsystem[i].name})
+                      .then(response => {
+                        this.expatriatesinfor_id = response.expname;
+                      })
+                  }
                   flag2 = true;
                   tablec.push({
                     name: response.projectsystem[i].projectsystem_id,
@@ -1897,7 +1913,6 @@
         }
       },
       setdisabled(val) {
-        debugger
         if (this.$route.params.disabled) {
           this.disable = val;
         }
@@ -2086,14 +2101,16 @@
       },
       handleClickChange(val) {
         this.currentRow = val.number;
-        this.currentRow1 = val.expname;
+        this.currentRow1 = val.expatriatesinfor_id;
         this.currentRow2 = val.suppliername;
         this.currentRow3 = val.post;
         this.currentRow4 = val.suppliernameid;
+        this.currentRow5 = val.expname;
       },
       submit(row) {
         row.number = this.currentRow;
         row.name = this.currentRow1;
+        this.expatriatesinfor_id = this.currentRow5;
         row.company = this.currentRow2;
         row.position = this.currentRow3;
         row.suppliernameid = this.currentRow4;
@@ -2457,6 +2474,7 @@
             for (let i = 0; i < response.length; i++) {
               var vote1 = {};
               vote1.number = response[i].number;
+              vote1.expatriatesinfor_id= response[i].expatriatesinfor_id;
               vote1.expname = response[i].expname;
               vote1.suppliername = response[i].suppliername;
               vote1.post = response[i].post;
@@ -2673,12 +2691,6 @@
             this.baseInfo.contractnumbercount = this.tableclaimtype;
             //ADD 03-18 ,委托元为内采时，合同可自行添加请求金额 END
 
-            let error = 0;
-            for (let i = 0; i < this.tableD.length; i++) {
-              if (this.tableD[i].contract == '') {
-                error = error + 1;
-              }
-            }
             let error1 = 0;
             let error2 = 0;
             let error3 = 0;
