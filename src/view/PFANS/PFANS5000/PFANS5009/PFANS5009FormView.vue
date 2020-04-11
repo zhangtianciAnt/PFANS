@@ -1758,12 +1758,16 @@ export default {
       row.name = this.currentRow1;
       row.company = this.currentRow2;
       row.position = this.currentRow3;
+      //add-ws-数据库id存的是name名，外协关联修改
       row.name_id = this.currentRow5;
+      //add-ws-数据库id存的是name名，外协关联修改
       this.dialogTableVisible1 = false;
     },
     handleClickChange(val) {
       this.currentRow = val.number;
+      //add-ws-数据库id存的是name名，外协关联修改
       this.currentRow1 = val.name_id;
+      //add-ws-数据库id存的是name名，外协关联修改
       this.currentRow2 = val.suppliername;
       this.currentRow3 = val.post;
       this.currentRow5 = val.expname;
