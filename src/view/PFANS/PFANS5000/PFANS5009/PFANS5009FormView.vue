@@ -618,7 +618,9 @@
                                 <div class="dpSupIndex" style="width:10vw" prop="expname">
                                   <el-container>
                                     <input class="content bg" v-model="scope.row.name" :error="errorexpname"
-                                    :disabled="true"></input>
+                                           :disabled="true" v-show="false"></input>
+                                    <input class="content bg" v-model="expatriatesinfor_id"
+                                           :disabled="true" ></input>
                                     <el-button
                                       :disabled="!disable"
                                       icon="el-icon-search"
@@ -652,12 +654,14 @@
                                               :label="$t('label.PFANS5001FORMVIEW_NUMBERS')"
                                               width="100"
                                             ></el-table-column>
-                                            <el-table-column
-                                              property="expname"
-                                              fixed
-                                              :label="$t('label.PFANSUSERFORMVIEW_CUSTOMERNAME')"
-                                              width="180"
-                                            ></el-table-column>
+                                            <el-table-column property="expatriatesinfor_id" fixed v-if="false"
+                                                             :label="$t('label.PFANSUSERFORMVIEW_CUSTOMERNAME')"
+                                                             width="180"></el-table-column>
+
+                                            <el-table-column property="expname" fixed
+                                                             :label="$t('label.PFANSUSERFORMVIEW_CUSTOMERNAME')"
+                                                             width="180"></el-table-column>
+
                                             <el-table-column
                                               property="suppliername"
                                               :label="$t('label.PFANS5001FORMVIEW_COOPERATIONCOMPANY')"
@@ -1074,6 +1078,8 @@ export default {
       }
     };
     return {
+      expatriatesinfor_id: "",
+      currentRow5: "",
       adddisabled: false,
       disable: true,
       centerorglist: "",
@@ -1422,6 +1428,13 @@ export default {
                 o.rowindex = response.projectsystem[i].rowindex;
                 this.tableB.push(o);
               } else {
+                if(response.projectsystem[i].name!=''||response.projectsystem[i].name!=null){
+                  this.$store
+                    .dispatch('PFANS6004Store/getexpatriatesinforApplyOne', {'expatriatesinfor_id': response.projectsystem[i].name})
+                    .then(response => {
+                      this.expatriatesinfor_id = response.expname;
+                    })
+                }
                 let o = {};
                 o.name = response.projectsystem[i].projectsystem_id;
                 o.companyprojects_id =
@@ -1749,13 +1762,15 @@ export default {
       row.name = this.currentRow1;
       row.company = this.currentRow2;
       row.position = this.currentRow3;
+      this.expatriatesinfor_id = this.currentRow5;
       this.dialogTableVisible1 = false;
     },
     handleClickChange(val) {
       this.currentRow = val.number;
-      this.currentRow1 = val.expname;
+      this.currentRow1 = val.expatriatesinfor_id;
       this.currentRow2 = val.suppliername;
       this.currentRow3 = val.post;
+      this.currentRow5 = val.expname;
     },
     addRow() {
       this.tableA.push({
@@ -1807,6 +1822,7 @@ export default {
           for (let i = 0; i < response.length; i++) {
             var vote1 = {};
             vote1.number = response[i].number;
+            vote1.expatriatesinfor_id= response[i].expatriatesinfor_id;
             vote1.expname = response[i].expname;
             vote1.suppliername = response[i].suppliername;
             vote1.post = response[i].post;
@@ -1872,12 +1888,6 @@ export default {
     },
     getcaron(val1) {
       this.form.caron = val1;
-    },
-    handleClickChange(val) {
-      this.currentRow = val.number;
-      this.currentRow1 = val.expname;
-      this.currentRow2 = val.suppliername;
-      this.currentRow3 = val.post;
     },
     getworkinghours(workinghours) {
       if (workinghours != null) {

@@ -451,7 +451,9 @@
                                 <div class="dpSupIndex" style="width:10vw" prop="expname">
                                   <el-container>
                                     <input class="content bg" v-model="scope.row.name" :error="errorexpname"
-                                           :disabled="true"></input>
+                                           :disabled="true" v-show="false"></input>
+                                    <input class="content bg" v-model="expatriatesinfor_id"
+                                           :disabled="true" ></input>
                                     <el-button :disabled="!disable" icon="el-icon-search"
                                                @click="dialogTableVisible1 = true"
                                                size="small"></el-button>
@@ -470,9 +472,14 @@
                                             <el-table-column property="number" fixed
                                                              :label="$t('label.PFANS5001FORMVIEW_NUMBERS')"
                                                              width="100"></el-table-column>
+                                            <el-table-column property="expatriatesinfor_id" fixed v-if="false"
+                                                             :label="$t('label.PFANSUSERFORMVIEW_CUSTOMERNAME')"
+                                                             width="180"></el-table-column>
+
                                             <el-table-column property="expname" fixed
                                                              :label="$t('label.PFANSUSERFORMVIEW_CUSTOMERNAME')"
                                                              width="180"></el-table-column>
+
                                             <el-table-column property="suppliername"
                                                              :label="$t('label.PFANS5001FORMVIEW_COOPERATIONCOMPANY')"
                                                              width="100"></el-table-column>
@@ -670,6 +677,8 @@
         // centerorglist: '',
         // grouporglist: '',
         // teamorglist: '',
+        currentRow5: '',
+        expatriatesinfor_id: '',
         errorcenter: '',
         errorgroup: '',
         errorexpname: '',
@@ -1066,7 +1075,6 @@
         this.$store
           .dispatch('PFANS5013Store/selectById', {comproject_id: this.$route.params._id})
           .then(response => {
-
             this.form = response.comproject;
             this.userlist = this.form.leaderid;
             this.userlist1 = this.form.managerid;
@@ -1130,6 +1138,13 @@
                     rowindex: response.prosystem[i].rowindex,
                   });
                 } else if (response.prosystem[i].type === '1') {
+                  if(response.prosystem[i].name!=''||response.prosystem[i].name!=null){
+                    this.$store
+                      .dispatch('PFANS6004Store/getexpatriatesinforApplyOne', {'expatriatesinfor_id': response.prosystem[i].name})
+                      .then(response => {
+                        this.expatriatesinfor_id = response.expname;
+                      })
+                  }
                   flag2 = true;
                   tablec.push({
                     name: response.prosystem[i].prosystem,
@@ -1139,14 +1154,13 @@
                     company: response.prosystem[i].company,
                     name: response.prosystem[i].name,
                     position: response.prosystem[i].position,
-
                     admissiontime: response.prosystem[i].admissiontime,
                     exittime: response.prosystem[i].exittime,
                     rowindex: response.prosystem[i].rowindex,
                   });
                 }
               }
-              if (!flag1) {
+              if(!flag1){
                 this.tableB = [
                   {
                     prosystem_id: '',
@@ -1159,13 +1173,13 @@
                     admissiontime: '',
                     exittime: '',
                     rowindex: '',
-                  },
-                ];
-              } else {
+                  }
+                ]
+              }else{
                 this.tableB = tableb;
               }
 
-              if (!flag2) {
+              if(!flag2){
                 this.tableC = [
                   {
                     prosystem_id: '',
@@ -1179,8 +1193,8 @@
                     exittime: '',
                     rowindex: '',
                   },
-                ];
-              } else {
+                ]
+              }else{
                 this.tableC = tablec;
               }
             }
@@ -1444,20 +1458,18 @@
       },
       handleClickChange(val) {
         this.currentRow = val.number;
-        this.currentRow1 = val.expname;
+        this.currentRow1 = val.expatriatesinfor_id;
         this.currentRow2 = val.suppliername;
         this.currentRow3 = val.post;
         this.currentRow4 = val.suppliernameid;
+        this.currentRow5 = val.expname;
       },
       submit(row) {
         row.number = this.currentRow;
         row.name = this.currentRow1;
+        this.expatriatesinfor_id = this.currentRow5;
         row.company = this.currentRow2;
-        // if(this.currentRow3){
-        //     row.position = getDictionaryInfo(this.currentRow3).value1
-        // }
         row.position = this.currentRow3;
-
         row.suppliernameid = this.currentRow4;
         this.dialogTableVisible1 = false;
       },
@@ -1804,6 +1816,7 @@
             for (let i = 0; i < response.length; i++) {
               var vote1 = {};
               vote1.number = response[i].number;
+              vote1.expatriatesinfor_id= response[i].expatriatesinfor_id;
               vote1.expname = response[i].expname;
               vote1.suppliername = response[i].suppliername;
               // vote1.post = response[i].post;
@@ -1952,13 +1965,13 @@
               for (let K = 1; K < this.tableB.length; K++) {
                 if (this.tableB[i].name === this.tableB[K].name) {
                   this.activeName = 'fourth';
+                  this.loading = false;
                   error1 = error1 + 1;
                   Message({
                     message: this.$t('label.PFANS5013FROMVIEW_CHECKERROR'),
                     type: 'error',
                     duration: 5 * 1000,
                   });
-                  this.loading = false;
                 }
                 break;
               }
@@ -1968,13 +1981,13 @@
               for (let K = 1; K < this.tableC.length; K++) {
                 if (this.tableC[i].name === this.tableC[K].name) {
                   this.activeName = 'fourth';
+                  this.loading = false;
                   error1 = error1 + 1;
                   Message({
                     message: this.$t('label.PFANS5013FROMVIEW_CHECKERROR'),
                     type: 'error',
                     duration: 5 * 1000,
                   });
-                  this.loading = false;
                 }
                 break;
               }
@@ -1983,13 +1996,13 @@
             for (let i = 0; i < this.tableB.length; i++) {
               if ((!this.tableB[i].admissiontime || this.tableB[i].admissiontime === '' || !this.tableB[i].exittime || this.tableB[i].exittime === '') && this.tableB[i].name !== '') {
                 this.activeName = 'fourth';
+                this.loading = false;
                 error1 = error1 + 1;
                 Message({
                   message: this.$t('normal.error_pfans50011'),
                   type: 'error',
                   duration: 5 * 1000,
                 });
-                this.loading = false;
                 return;
               }
               if (
@@ -2041,11 +2054,6 @@
                   theme: this.tableD[i].theme,
                   workinghours: this.tableD[i].workinghours,
                 });
-              }
-            }
-            for (let i = 0; i < this.tableD.length; i++) {
-              if (this.tableD[i].contract == '') {
-                error1 = error1 + 1;
               }
             }
             // if (error != '') {
