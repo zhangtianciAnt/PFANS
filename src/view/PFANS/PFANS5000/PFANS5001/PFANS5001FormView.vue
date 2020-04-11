@@ -2685,7 +2685,7 @@
                 });
               }
             }
-
+debugger
             //ADD 03-18 ,委托元为内采时，合同可自行添加请求金额
             this.baseInfo.contractnumbercount = this.tableclaimtype;
             //ADD 03-18 ,委托元为内采时，合同可自行添加请求金额 END
@@ -2763,16 +2763,8 @@
                 type: 'error',
                 duration: 5 * 1000,
               });
-            } else if (error != 0 && this.form.toolstype !== '1') {
-            this.activeName ='fifth'
-              this.loading = false;
-              Message({
-                message: this.$t('normal.error_08') +
-                  this.$t('label.PFANS5001FORMVIEW_CONTRACT'),
-                type: 'error',
-                duration: 5 * 1000,
-              });
-            } else if (error3 != 0 && this.form.toolstype !== '0') {
+
+            }  else if (error3 != 0 && this.form.toolstype !== '0') {
             this.activeName ='fifth'
               this.loading = false;
               Message({
