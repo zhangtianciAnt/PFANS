@@ -820,8 +820,7 @@
               } else {
                 this.dislengthtime = false;
               }
-            }
-            else {
+            } else {
               this.dislengthtime = false;
             }
             if (this.form.errortype === 'PR013001') {
@@ -1224,7 +1223,136 @@
             this.loading = false;
           });
       },
+      diffNoDays() {
+        if (moment(this.form.occurrencedate).format('YYYY-MM-DD') != moment(this.form.finisheddate).format('YYYY-MM-DD')) {
+          var getDate = function(str) {
+            var tempDate = new Date();
+            var list = str.split('-');
+            tempDate.setFullYear(list[0]);
+            tempDate.setMonth(list[1] - 1);
+            tempDate.setDate(list[2]);
+            return tempDate;
+          };
+          if (this.form.occurrencedate != '' && this.form.finisheddate != '') {
+            var date1 = getDate(moment(this.form.occurrencedate).format('YYYY-MM-DD'));
+            var date2 = getDate(moment(this.form.finisheddate).format('YYYY-MM-DD'));
+            if (date1 > date2) {
+              var tempDate = date1;
+              date1 = date2;
+              date2 = tempDate;
+            }
+            date1.setDate(date1.getDate() + 1);
+            var dateArr = [];
+            var i = 0;
+            while (!(date1.getFullYear() == date2.getFullYear()
+              && date1.getMonth() == date2.getMonth() && date1.getDate() == date2
+                .getDate())) {
+              var dayStr = date1.getDate().toString();
+              if (dayStr.length == 1) {
+                dayStr = '0' + dayStr;
+              }
+              var monthStr = (date1.getMonth() + 1).toString();
+              if (monthStr.length == 1) {
+                monthStr = '0' + monthStr;
+              }
+              dateArr[i] = date1.getFullYear() + '-' + monthStr + '-'
+                + dayStr;
+              i++;
+              date1.setDate(date1.getDate() + 1);
+            }
+            dateArr.splice(0, 0, moment(this.form.occurrencedate).format('YYYY-MM-DD'));
+            dateArr.push(moment(this.form.finisheddate).format('YYYY-MM-DD'));
+            this.Todaysum = dateArr;
+          }
+          for (let i = 0; i < this.Todaysum.length; i++) {
+            var date = getDate(this.Todaysum[i]);
+            if (date.getDay() == 6) {
+              this.Todaysum.splice(i, 1);
+            }
+            this.reList = this.Todaysum;
+          }
+          for (let j = 0; j < this.reList.length; j++) {
+            var data = getDate(this.reList[j]);
+            if (data.getDay() == 0) {
+              this.reList.splice(j, 1);
+            }
+            this.relist = this.reList;
+          }
+          for (let a = 0; a < this.relist.length; a++) {
+            for (let b = 0; b < this.dateInfo.length; b++) {
+              if (this.dateInfo[b].dateflg == this.relist[a] && this.dateInfo[b].type != '4') {
+                this.relist.splice(a, 1);
+              }
+            }
+          }
+        }
+      },
+      rediffNoDays(){
+        if (moment(this.form.reoccurrencedate).format('YYYY-MM-DD') !== moment(this.form.refinisheddate).format('YYYY-MM-DD')) {
+        var getDate = function(str) {
+          var tempDate = new Date();
+          var list = str.split('-');
+          tempDate.setFullYear(list[0]);
+          tempDate.setMonth(list[1] - 1);
+          tempDate.setDate(list[2]);
+          return tempDate;
+        };
+        if (this.form.reoccurrencedate != '' && this.form.refinisheddate != '') {
+            var date1 = getDate(moment(this.form.reoccurrencedate).format('YYYY-MM-DD'));
+            var date2 = getDate(moment(this.form.refinisheddate).format('YYYY-MM-DD'));
+            if (date1 > date2) {
+              var tempDate = date1;
+              date1 = date2;
+              date2 = tempDate;
+            }
+            date1.setDate(date1.getDate() + 1);
+            var dateArr = [];
+            var i = 0;
+            while (!(date1.getFullYear() == date2.getFullYear()
+              && date1.getMonth() == date2.getMonth() && date1.getDate() == date2
+                .getDate())) {
+              var dayStr = date1.getDate().toString();
+              if (dayStr.length == 1) {
+                dayStr = '0' + dayStr;
+              }
+              var monthStr = (date1.getMonth() + 1).toString();
+              if (monthStr.length == 1) {
+                monthStr = '0' + monthStr;
+              }
+              dateArr[i] = date1.getFullYear() + '-' + monthStr + '-'
+                + dayStr;
+              i++;
+              date1.setDate(date1.getDate() + 1);
+            }
+            dateArr.splice(0, 0, moment(this.form.reoccurrencedate).format('YYYY-MM-DD'));
+            dateArr.push(moment(this.form.refinisheddate).format('YYYY-MM-DD'));
+            this.Todaysum = dateArr;
+          }
+          for (let i = 0; i < this.Todaysum.length; i++) {
+            var date = getDate(this.Todaysum[i]);
+            if (date.getDay() == 6) {
+              this.Todaysum.splice(i, 1);
+            }
+            this.reList = this.Todaysum;
+          }
+          for (let j = 0; j < this.reList.length; j++) {
+            var data = getDate(this.reList[j]);
+            if (data.getDay() == 0) {
+              this.reList.splice(j, 1);
+            }
+            this.relistTwo = this.reList;
+          }
+          for (let a = 0; a < this.relistTwo.length; a++) {
+            for (let b = 0; b < this.dateInfo.length; b++) {
+              if (this.dateInfo[b].dateflg == this.relistTwo[a] && this.dateInfo[b].type != '4') {
+                this.relistTwo.splice(a, 1);
+              }
+            }
+          }
+        }
+      },
       change() {
+        this.diffNoDays();
         if (!this.form.finisheddate || !this.form.occurrencedate) {
           return;
         }
@@ -1251,10 +1379,9 @@
             this.dislengthtime = false;
             this.form.finisheddate = this.form.occurrencedate;
           } else {
-            //跨天取整天，8小时  包含公休日
+            //跨天取整天，8小时   不包含公休日
             this.dislengthtime = true;
             let time = 0;
-            //不包含公休日
             for (let d = 0; d < this.relist.length; d++) {
               time = time + 1;
             }
@@ -1275,72 +1402,7 @@
             this.form.lengthtime = 8 * diffDate;
           }
         }
-        if (this.form.errortype != 'PR013001' && this.form.errortype != 'PR013014') {
-          if (moment(this.form.occurrencedate).format('YYYY-MM-DD') != moment(this.form.finisheddate).format('YYYY-MM-DD')) {
-            // this.dislengthtime = true;
-            // this.changeTime();
-            var getDate = function(str) {
-              var tempDate = new Date();
-              var list = str.split('-');
-              tempDate.setFullYear(list[0]);
-              tempDate.setMonth(list[1] - 1);
-              tempDate.setDate(list[2]);
-              return tempDate;
-            };
-            if (this.form.occurrencedate != '' && this.form.finisheddate != '') {
-              var date1 = getDate(moment(this.form.occurrencedate).format('YYYY-MM-DD'));
-              var date2 = getDate(moment(this.form.finisheddate).format('YYYY-MM-DD'));
-              if (date1 > date2) {
-                var tempDate = date1;
-                date1 = date2;
-                date2 = tempDate;
-              }
-              date1.setDate(date1.getDate() + 1);
-              var dateArr = [];
-              var i = 0;
-              while (!(date1.getFullYear() == date2.getFullYear()
-                && date1.getMonth() == date2.getMonth() && date1.getDate() == date2
-                  .getDate())) {
-                var dayStr = date1.getDate().toString();
-                if (dayStr.length == 1) {
-                  dayStr = '0' + dayStr;
-                }
-                var monthStr = (date1.getMonth() + 1).toString();
-                if (monthStr.length == 1) {
-                  monthStr = '0' + monthStr;
-                }
-                dateArr[i] = date1.getFullYear() + '-' + monthStr + '-'
-                  + dayStr;
-                i++;
-                date1.setDate(date1.getDate() + 1);
-              }
-              dateArr.splice(0, 0, moment(this.form.occurrencedate).format('YYYY-MM-DD'));
-              dateArr.push(moment(this.form.finisheddate).format('YYYY-MM-DD'));
-              this.Todaysum = dateArr;
-            }
-            for (let i = 0; i < this.Todaysum.length; i++) {
-              var date = getDate(this.Todaysum[i]);
-              if (date.getDay() == 6) {
-                this.Todaysum.splice(i, 1);
-              }
-              this.reList = this.Todaysum;
-            }
-            for (let j = 0; j < this.reList.length; j++) {
-              var data = getDate(this.reList[j]);
-              if (data.getDay() == 0) {
-                this.reList.splice(j, 1);
-              }
-              this.relist = this.reList;
-            }
-            for (let a = 0; a < this.relist.length; a++) {
-              for (let b = 0; b < this.dateInfo.length; b++) {
-                if (this.dateInfo[b].dateflg == this.relist[a] && this.dateInfo[b].type != '4') {
-                  this.relist.splice(a, 1);
-                }
-              }
-            }
-          }
-        }
+        //年休，代休_特殊
         if (this.form.errortype === 'PR013005' || this.form.errortype === 'PR013007') {
           if (this.typecheck == '0') {
             let time = 0;
@@ -1359,7 +1421,11 @@
         if (!this.form.refinisheddate || !this.form.reoccurrencedate) {
           return;
         }
+        this.rediffNoDays();
         let rediffDate = moment(this.form.refinisheddate).diff(moment(this.form.reoccurrencedate), 'days') + 1;
+        // if (this.form.errortype != 'PR013001' && this.form.errortype != 'PR013014') {
+        // if (this.form.errortype != 'PR013001') {
+        // }
         if (this.form.errortype === 'PR013005' || this.form.errortype === 'PR013007') {
           if (this.retypecheck == '0') {
             let time = 0;
@@ -1374,86 +1440,29 @@
           }
         }
         if (this.form.errortype === 'PR013009') {
-          if (rediffDate > 30 - this.sickleave) {
-            this.errorcheck = 2;
-            Message({
-              message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            return;
+          if (rediffDate === 1) {
+            //当天取小时
+            this.checkrelengthtime = false;
+            this.form.refinisheddate = this.form.reoccurrencedate;
           } else {
-            this.errorcheck = 1;
+            //跨天取整天，8小时  包含公休日
+            this.checkrelengthtime = true;
+            this.form.relengthtime = 8 * diffDate;
           }
         }
-        var getDate = function(str) {
-          var tempDate = new Date();
-          var list = str.split('-');
-          tempDate.setFullYear(list[0]);
-          tempDate.setMonth(list[1] - 1);
-          tempDate.setDate(list[2]);
-          return tempDate;
-        };
-        // if (this.form.errortype != 'PR013001' && this.form.errortype != 'PR013014') {
-        if (this.form.errortype != 'PR013001') {
-          if (this.form.reoccurrencedate != '' && this.form.refinisheddate != '') {
-            if (moment(this.form.reoccurrencedate).format('YYYY-MM-DD') === moment(this.form.refinisheddate).format('YYYY-MM-DD')) {
-              this.checkrelengthtime = false;
-            } else {
-              this.checkrelengthtime = true;
-              var date1 = getDate(moment(this.form.reoccurrencedate).format('YYYY-MM-DD'));
-              var date2 = getDate(moment(this.form.refinisheddate).format('YYYY-MM-DD'));
-              if (date1 > date2) {
-                var tempDate = date1;
-                date1 = date2;
-                date2 = tempDate;
-              }
-              date1.setDate(date1.getDate() + 1);
-              var dateArr = [];
-              var i = 0;
-              while (!(date1.getFullYear() == date2.getFullYear()
-                && date1.getMonth() == date2.getMonth() && date1.getDate() == date2
-                  .getDate())) {
-                var dayStr = date1.getDate().toString();
-                if (dayStr.length == 1) {
-                  dayStr = '0' + dayStr;
-                }
-                var monthStr = (date1.getMonth() + 1).toString();
-                if (monthStr.length == 1) {
-                  monthStr = '0' + monthStr;
-                }
-                dateArr[i] = date1.getFullYear() + '-' + monthStr + '-'
-                  + dayStr;
-                i++;
-                date1.setDate(date1.getDate() + 1);
-              }
-              dateArr.splice(0, 0, moment(this.form.reoccurrencedate).format('YYYY-MM-DD'));
-              dateArr.push(moment(this.form.refinisheddate).format('YYYY-MM-DD'));
-              this.Todaysum = dateArr;
-            }
-            for (let i = 0; i < this.Todaysum.length; i++) {
-              var date = getDate(this.Todaysum[i]);
-              if (date.getDay() == 6) {
-                this.Todaysum.splice(i, 1);
-              }
-              this.reList = this.Todaysum;
-            }
-            for (let j = 0; j < this.reList.length; j++) {
-              var data = getDate(this.reList[j]);
-              if (data.getDay() == 0) {
-                this.reList.splice(j, 1);
-              }
-              this.relistTwo = this.reList;
-            }
-            for (let a = 0; a < this.relistTwo.length; a++) {
-              for (let b = 0; b < this.dateInfo.length; b++) {
-                if (this.dateInfo[b].dateflg == this.relistTwo[a] && this.dateInfo[b].type != '4') {
-                  this.relistTwo.splice(a, 1);
-                }
-              }
-            }
-          }
-        }
+        // if (this.form.errortype === 'PR013009') {
+        //   if (rediffDate > 30 - this.sickleave) {
+        //     this.errorcheck = 2;
+        //     Message({
+        //       message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
+        //       type: 'error',
+        //       duration: 5 * 1000,
+        //     });
+        //     return;
+        //   } else {
+        //     this.errorcheck = 1;
+        //   }
+        // }
         if (this.retypecheck == '0') {
           let timere = 0;
           for (let d = 0; d < this.relistTwo.length; d++) {
@@ -1464,117 +1473,6 @@
           this.form.refinisheddate = this.form.reoccurrencedate;
           this.form.relengthtime = 4;
         }
-        // else {
-        //     if (this.form.reoccurrencedate !== '' && this.form.refinisheddate !== '') {
-        //         if (moment(this.form.reoccurrencedate).format('YYYY-MM-DD') < moment(this.form.refinisheddate).format('YYYY-MM-DD')) {
-        //             var beginHours;
-        //             var endHours;
-        //             var time;
-        //             var beginDay = moment(this.form.reoccurrencedate).format('YYYY-MM-DD');
-        //             var endDay = moment(this.form.refinisheddate).format('YYYY-MM-DD');
-        //             var dayBegin = new Date(beginDay);
-        //             var dayEnd = new Date(endDay);
-        //             var daysDiff = dayEnd.getTime() - dayBegin.getTime();
-        //             var dayDiff = Math.floor(daysDiff / (24 * 3600 * 1000));
-        //             if (dayDiff - 1 > 0) {
-        //                 dayDiff = (dayDiff - 1) * 8;
-        //                 var dayBegin = new Date(this.form.reperiodstart);
-        //                 var dayEnd = new Date(this.form.reperiodend);
-        //                 var timeUp = Number(this.workshift.replace(':', '.'));         //上班时间
-        //                 var timeDown = Number(this.closingtime.replace(':', '.'));     //下班时间
-        //                 var lunchflgS = Number(this.lunchbreakS.replace(':', '.'));    //午休开始时间
-        //                 var lunchflgE = Number(this.lunchbreakE.replace(':', '.'));    //午休结束时间
-        //                 var beginTime = dayBegin.getHours() + dayBegin.getMinutes() / 60;
-        //                 if (beginTime <= lunchflgE) {
-        //                     beginHours = (lunchflgS - beginTime) + (timeDown - lunchflgE);
-        //                 } else {
-        //                     beginHours = timeDown - beginTime;
-        //                 }
-        //                 if (beginHours > 8) {
-        //                     beginHours = 8;
-        //                 }
-        //                 var endTime = dayEnd.getHours() + dayEnd.getMinutes() / 60;
-        //                 if (endTime >= lunchflgS) {
-        //                     endHours = (endTime - lunchflgE) + (lunchflgS - timeUp);
-        //                 } else {
-        //                     endHours = endTime - timeUp;
-        //                 }
-        //                 if (endHours > 8) {
-        //                     endHours = 8;
-        //                 }
-        //                 var time = beginTime + endTime;
-        //                 if (this.$i18n) {
-        //                     this.form.relengthtime = parseFloat(dayDiff + time).toFixed(1);
-        //                 }
-        //             } else {
-        //                 var dayBegin = new Date(this.form.reperiodstart);
-        //                 var dayEnd = new Date(this.form.reperiodend);
-        //                 var timeUp = Number(this.workshift.replace(':', '.'));         //上班时间
-        //                 var timeDown = Number(this.closingtime.replace(':', '.'));     //下班时间
-        //                 var lunchflgS = Number(this.lunchbreakS.replace(':', '.'));    //午休开始时间
-        //                 var lunchflgE = Number(this.lunchbreakE.replace(':', '.'));    //午休结束时间
-        //                 var beginTime = dayBegin.getHours() + dayBegin.getMinutes() / 60;
-        //                 if (beginTime <= lunchflgE) {
-        //                     beginHours = (lunchflgS - beginTime) + (timeDown - lunchflgE);
-        //                 } else {
-        //                     beginHours = timeDown - beginTime;
-        //                 }
-        //                 if (beginHours > 8) {
-        //                     beginHours = 8;
-        //                 }
-        //                 var endTime = dayEnd.getHours() + dayEnd.getMinutes() / 60;
-        //                 if (endTime >= lunchflgS) {
-        //                     endHours = (endTime - lunchflgE) + (lunchflgS - timeUp);
-        //                 } else {
-        //                     endHours = endTime - timeUp;
-        //                 }
-        //                 if (endHours > 8) {
-        //                     endHours = 8;
-        //                 }
-        //                 time = beginTime + endTime;
-        //                 if (this.$i18n) {
-        //                     this.form.relengthtime = parseFloat(time).toFixed(1);
-        //                 }
-        //             }
-        //         } else if (moment(this.form.reoccurrencedate).format('YYYY-MM-DD') === moment(this.form.refinisheddate).format('YYYY-MM-DD')) {
-        //             var time;
-        //             var dayBegin = new Date(this.form.reperiodstart);
-        //             var dayEnd = new Date(this.form.reperiodend);
-        //             var timeUp = Number(this.workshift.replace(':', '.'));         //上班时间
-        //             var timeDown = Number(this.closingtime.replace(':', '.'));     //下班时间
-        //             var lunchflgS = Number(this.lunchbreakS.replace(':', '.'));    //午休开始时间
-        //             var lunchflgE = Number(this.lunchbreakE.replace(':', '.'));    //午休结束时间
-        //             var beginTime = dayBegin.getHours() + dayBegin.getMinutes() / 60;
-        //             var endTime = dayEnd.getHours() + dayEnd.getMinutes() / 60;
-        //             if ((endTime <= lunchflgS && beginTime <= timeUp) || (beginTime >= lunchflgE && endTime <= timeDown)) {
-        //                 time = endTime - beginTime;
-        //             } else if (endTime >= lunchflgS && endTime <= lunchflgE) {
-        //                 time = lunchflgS - beginTime;
-        //             } else if (endTime >= lunchflgE && beginTime <= lunchflgS) {
-        //                 time = (lunchflgS - beginTime) + (endTime - lunchflgE);
-        //             } else if (beginTime >= lunchflgE && beginTime <= timeDown) {
-        //                 time = (lunchflgS - beginTime) + (endTime - lunchflgE);
-        //             } else {
-        //                 this.form.relengthtime = '0';
-        //             }
-        //             if (this.$i18n && time !== "") {
-        //                 if (time > 8) {
-        //                     time = 8;
-        //                 }
-        //                 if (time > 0) {
-        //                     this.form.relengthtime = parseFloat(time).toFixed(1);
-        //                 } else {
-        //                     this.form.relengthtime = '0';
-        //                 }
-        //             }
-        //         } else {
-        //             this.form.relengthtime = '';
-        //         }
-        //     }
-        // }
-        // if (this.form.errortype === 'PR013014') {
-        //     this.form.relengthtime = 4;
-        // }
       },
       getUserids(val) {
         if (val === 'undefined') {
@@ -1861,6 +1759,12 @@
             this.errort = '';
             //add_fjl 04/09
             let diffDate = moment(this.form.finisheddate).diff(moment(this.form.occurrencedate), 'days') + 1;
+            let rediffDate = moment(this.form.refinisheddate).diff(moment(this.form.reoccurrencedate), 'days') + 1;
+            if(this.form.status === '4'){
+              this.rediffNoDays();
+            } else {
+              this.diffNoDays();
+            }
             //产休假，流产假
             if (this.form.errortype === 'PR013011' || this.form.errortype === 'PR013012' || this.form.errortype === 'PR013013'
               || this.form.errortype === 'PR013015' || this.form.errortype === 'PR013017' || this.form.errortype === 'PR013020'
@@ -1932,6 +1836,7 @@
             //代休_特殊,年休
             if (this.form.errortype === 'PR013005' || this.form.errortype === 'PR013007') {
               let time = 0;
+              let timere = 0;
               let enddateflg = moment(this.$store.getters.userinfo.userinfo.enddate).format('YYYY-MM-DD');
               //判断申请人是否在试用期
               if (enddateflg >= moment(new Date()).format('YYYY-MM-DD')) {
@@ -1952,24 +1857,44 @@
                 });
                 return;
               }
-              if (this.typecheck === '0' || this.retypecheck === '0') {
-                for (let d = 0; d < this.relist.length; d++) {
-                  time = time + 1;
+              if (this.form.status === '4') {
+                if (this.retypecheck === '0') {
+                  for (let d = 0; d < this.relistTwo.length; d++) {
+                    timere = timere + 1;
+                  }
+                  this.form.relengthtime = time * 8;
+                } else {
+                  timere = 0.5;
+                  this.form.relengthtime = 4;
                 }
-                this.form.lengthtime = time * 8;
-                this.form.relengthtime = time * 8;
+                if (this.checkDate < time) {
+                  Message({
+                    message: this.$t('label.PFANS2016FORMVIEW_ERRORANNUALLEAVE'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  return;
+                }
               } else {
-                time = 0.5;
-                this.form.lengthtime = 4;
-                this.form.relengthtime = 4;
-              }
-              if (this.checkDate < time) {
-                Message({
-                  message: this.$t('label.PFANS2016FORMVIEW_ERRORANNUALLEAVE'),
-                  type: 'error',
-                  duration: 5 * 1000,
-                });
-                return;
+                if (this.typecheck === '0') {
+                  for (let d = 0; d < this.relist.length; d++) {
+                    time = time + 1;
+                  }
+                  this.form.lengthtime = time * 8;
+                  this.form.relengthtime = time * 8;
+                } else {
+                  time = 0.5;
+                  this.form.lengthtime = 4;
+                  this.form.relengthtime = 4;
+                }
+                if (this.checkDate < time) {
+                  Message({
+                    message: this.$t('label.PFANS2016FORMVIEW_ERRORANNUALLEAVE'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  return;
+                }
               }
             }
             //代休_周末，事休
@@ -2000,24 +1925,45 @@
             }
             //病休
             if (this.form.errortype === 'PR013009') {
-              // let diffDate = moment(this.form.finisheddate).diff(moment(this.form.occurrencedate), 'days') + 1;
-              if (diffDate === 1) {
-                if (this.form.lengthtime > 8) {
-                  Message({
-                    message: this.$t('label.PFANS2016FORMVIEW_WAICHUTIMENOCHECK'),
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  return;
+              if (this.form.status === '4') {
+                if (rediffDate === 1) {
+                  if (this.form.relengthtime > 8) {
+                    Message({
+                      message: this.$t('label.PFANS2016FORMVIEW_WAICHUTIMENOCHECK'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    return;
+                  }
+                } else {
+                  if (rediffDate > 30 - this.sickleave || (this.form.relengthtime / 8) > 30 - this.sickleave) {
+                    Message({
+                      message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    return;
+                  }
                 }
               } else {
-                if (diffDate > 30 - this.sickleave || (this.form.lengthtime / 8) > 30 - this.sickleave) {
-                  Message({
-                    message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  return;
+                if (diffDate === 1) {
+                  if (this.form.lengthtime > 8) {
+                    Message({
+                      message: this.$t('label.PFANS2016FORMVIEW_WAICHUTIMENOCHECK'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    return;
+                  }
+                } else {
+                  if (diffDate > 30 - this.sickleave || (this.form.lengthtime / 8) > 30 - this.sickleave) {
+                    Message({
+                      message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    return;
+                  }
                 }
               }
             }
