@@ -175,7 +175,7 @@
   import PFANS1031View from '../PFANS1031/PFANS1031View.vue';
   import {Message} from 'element-ui';
   import user from '../../../components/user.vue';
-  import {getUserInfo} from '@/utils/customize';
+  import {getUserInfo,getDictionaryInfo} from '@/utils/customize';
   import dicselect from '../../../components/dicselect.vue';
   import moment from 'moment';
 
@@ -257,6 +257,12 @@
               this.form.openingdate = this.form.claimdatetime.slice(0, 10);
               this.form.enddate = this.form.claimdatetime.slice(this.form.claimdatetime.length - 10);
             }
+            if (this.form.claimtype !== null && this.form.claimtype !== "") {
+              let checkclaimtype = getDictionaryInfo(this.form.claimtype);
+              if(checkclaimtype!=null || checkclaimtype!='')
+                this.form.claimtype = checkclaimtype.value1;
+            }
+
             if (response.depositjapanese !== null && response.depositjapanese !== "") {
               let letUser = getUserInfo(response.depositjapanese);
               if (letUser != null) {

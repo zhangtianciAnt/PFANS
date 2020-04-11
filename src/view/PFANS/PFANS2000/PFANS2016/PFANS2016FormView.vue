@@ -371,78 +371,6 @@
       //   }
       // };
 
-      // var validateEndtime = (rule, value, callback) => {
-      //     if (this.form.periodend !== null && this.form.periodend !== '') {
-      //         if ((moment(this.form.finisheddate).format('YYYY-MM-DD') === moment(this.form.occurrencedate).format('YYYY-MM-DD') && moment(value).format('HH:mm') < moment(this.form.periodstart).format('HH:mm'))
-      //             || (moment(this.form.finisheddate).format('YYYY-MM-DD') < moment(this.form.occurrencedate).format('YYYY-MM-DD'))) {
-      //             callback(new Error(this.$t('label.end') + this.$t('normal.error_checkTime1') + this.$t('label.start')));
-      //             this.errorendtime = this.$t('label.end') + this.$t('normal.error_checkTime1') + this.$t('label.start');
-      //         } else {
-      //             this.clearValidate(['periodstart', 'occurrencedate', 'finisheddate']);
-      //             callback();
-      //             this.errorendtime = '';
-      //         }
-      //     } else {
-      //         this.clearValidate(['periodstart', 'occurrencedate', 'periodend']);
-      //         callback();
-      //         this.errorendtime = '';
-      //     }
-      // };
-      // var revalidateEndtime = (rule, value, callback) => {
-      //     if (this.form.reperiodend !== null && this.form.reperiodend !== '') {
-      //         if ((moment(this.form.refinisheddate).format('YYYY-MM-DD') === moment(this.form.reoccurrencedate).format('YYYY-MM-DD') && moment(value).format('HH:mm') < moment(this.form.reperiodstart).format('HH:mm'))
-      //             || (moment(this.form.refinisheddate).format('YYYY-MM-DD') < moment(this.form.reoccurrencedate).format('YYYY-MM-DD'))) {
-      //             callback(new Error(this.$t('label.reend') + this.$t('normal.error_checkTime1') + this.$t('label.restart')));
-      //             this.reerrorendtime = this.$t('label.reend') + this.$t('normal.error_checkTime1') + this.$t('label.restart');
-      //         } else {
-      //             this.clearValidate(['reperiodstart', 'reoccurrencedate', 'refinisheddate']);
-      //             callback();
-      //             this.reerrorendtime = '';
-      //         }
-      //     } else {
-      //         this.clearValidate(['reperiodstart', 'reoccurrencedate', 'reperiodend']);
-      //         callback();
-      //         this.reerrorendtime = '';
-      //     }
-      // };
-      // var validateStarttime = (rule, value, callback) => {
-      //     if (this.form.periodstart !== null && this.form.periodstart !== '') {
-      //         if ((moment(this.form.finisheddate).format('YYYY-MM-DD') === moment(this.form.occurrencedate).format('YYYY-MM-DD') && moment(value).format('HH:mm') > moment(this.form.periodend).format('HH:mm'))
-      //             || (moment(this.form.finisheddate).format('YYYY-MM-DD') < moment(this.form.occurrencedate).format('YYYY-MM-DD'))
-      //         ) {
-      //             callback(new Error(this.$t('label.start') + this.$t('normal.error_checkTime2') + this.$t('label.end')));
-      //             this.errorstarttime = this.$t('label.start') + this.$t('normal.error_checkTime2') + this.$t('label.end');
-      //
-      //         } else {
-      //             callback();
-      //             this.clearValidate(['periodend', 'occurrencedate', 'periodstart']);
-      //             this.errorstarttime = '';
-      //         }
-      //     } else {
-      //         callback();
-      //         this.clearValidate(['periodend', 'occurrencedate', 'periodstart']);
-      //         this.errorstarttime = '';
-      //     }
-      // };
-      // var revalidateStarttime = (rule, value, callback) => {
-      //     if (this.form.reperiodstart !== null && this.form.reperiodstart !== '') {
-      //         if ((moment(this.form.refinisheddate).format('YYYY-MM-DD') === moment(this.form.reoccurrencedate).format('YYYY-MM-DD') && moment(value).format('HH:mm') > moment(this.form.reperiodend).format('HH:mm'))
-      //             || (moment(this.form.refinisheddate).format('YYYY-MM-DD') < moment(this.form.reoccurrencedate).format('YYYY-MM-DD'))
-      //         ) {
-      //             callback(new Error(this.$t('label.restart') + this.$t('normal.error_checkTime2') + this.$t('label.reend')));
-      //             this.reerrorstarttime = this.$t('label.restart') + this.$t('normal.error_checkTime2') + this.$t('label.reend');
-      //
-      //         } else {
-      //             callback();
-      //             this.clearValidate(['reperiodend', 'reoccurrencedate', 'reperiodstart']);
-      //             this.reerrorstarttime = '';
-      //         }
-      //     } else {
-      //         callback();
-      //         this.clearValidate(['reperiodend', 'reoccurrencedate', 'reperiodstart']);
-      //         this.reerrorstarttime = '';
-      //     }
-      // };
       var validateEnddate = (rule, value, callback) => {
         if (this.form.finisheddate !== null && this.form.finisheddate !== '') {
           if (moment(value).format('YYYY-MM-DD') < moment(this.form.occurrencedate).format('YYYY-MM-DD')) {
@@ -463,41 +391,41 @@
         if ((this.form.errortype == 'PR013005' || this.form.errortype == 'PR013007') && this.form.status != '4' && this.form.status != '5' && this.form.status != '6' && this.form.status != '7' && this.form.status != '8') {
           if (this.form.vacationtype === null || this.form.vacationtype === '') {
             callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS2016FORMVIEW_XJTYPE')));
-          // } else if (this.form.errortype == 'PR013006' || this.form.errortype == 'PR013007') {
-          //   this.$store
-          //     .dispatch('PFANS2016Store/cklength', {
-          //       'user_id': this.form.user_id,
-          //       errortype: this.form.errortype,
-          //       lengthtime: this.form.lengthtime,
-          //     })
-          //     .then(response => {
-          //       if (response.error != '') {
-          //         if (response.error == 'PR013006') {
-          //           this.checkDate = response.checkdat;
-          //         } else if (response.error == 'PR013007') {
-          //           this.checkDate = response.checkdat;
-          //         }
-          //       }
-          //       if (response.can === 'no') {
-          //         callback(this.$t('normal.error_norestdays'));
-          //       } else {
-          //         this.form.restdate = response.dat;
-          //         let valflg;
-          //         if (value === '0') {
-          //           valflg = 1;
-          //         } else {
-          //           valflg = 0.5;
-          //         }
-          //         if (Number(valflg) > Number(response.checkdat)) {
-          //           callback(this.$t('normal.error_norestdays'));
-          //         } else {
-          //           callback();
-          //         }
-          //       }
-          //     })
-          //     .catch(error => {
-          //       callback(error);
-          //     });
+          } else if (this.form.errortype == 'PR013005' || this.form.errortype == 'PR013007') {
+            this.$store
+              .dispatch('PFANS2016Store/cklength', {
+                'user_id': this.form.user_id,
+                errortype: this.form.errortype,
+                lengthtime: this.form.lengthtime,
+              })
+              .then(response => {
+                if (response.error != '') {
+                  if (response.error == 'PR013005') {
+                    this.checkDate = response.checkdat;
+                  } else if (response.error == 'PR013007') {
+                    this.checkDate = response.checkdat;
+                  }
+                }
+                if (response.can === 'no') {
+                  callback(this.$t('normal.error_norestdays'));
+                } else {
+                  this.form.restdate = response.dat;
+                  let valflg;
+                  if (value === '0') {
+                    valflg = 1;
+                  } else {
+                    valflg = 0.5;
+                  }
+                  if (Number(valflg) > Number(response.checkdat)) {
+                    callback(this.$t('normal.error_norestdays'));
+                  } else {
+                    callback();
+                  }
+                }
+              })
+              .catch(error => {
+                callback(error);
+              });
           } else {
             callback();
           }
@@ -509,6 +437,41 @@
         if ((this.form.errortype == 'PR013005' || this.form.errortype == 'PR013007') && (this.form.status === '4' || this.form.status === '5' || this.form.status === '6' || this.form.status === '7')) {
           if (this.form.revacationtype === null || this.form.revacationtype === '') {
             callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS2016FORMVIEW_RELENGTHTIME')));
+          } else if (this.form.errortype == 'PR013005' || this.form.errortype == 'PR013007') {
+            this.$store
+              .dispatch('PFANS2016Store/cklength', {
+                'user_id': this.form.user_id,
+                errortype: this.form.errortype,
+                relengthtime: this.form.relengthtime,
+              })
+              .then(response => {
+                if (response.error != '') {
+                  if (response.error == 'PR013005') {
+                    this.checkDate = response.checkdat;
+                  } else if (response.error == 'PR013007') {
+                    this.checkDate = response.checkdat;
+                  }
+                }
+                if (response.can === 'no') {
+                  callback(this.$t('normal.error_norestdays'));
+                } else {
+                  this.form.restdate = response.dat;
+                  let valflg;
+                  if (value === '0') {
+                    valflg = 1;
+                  } else {
+                    valflg = 0.5;
+                  }
+                  if (Number(valflg) > Number(response.checkdat)) {
+                    callback(this.$t('normal.error_norestdays'));
+                  } else {
+                    callback();
+                  }
+                }
+              })
+              .catch(error => {
+                callback(error);
+              });
           } else {
             callback();
           }
@@ -556,7 +519,7 @@
         }
       };
       var validateLength = (rule, value, callback) => {
-        if (this.form.errortype == 'PR013005' || this.form.errortype == 'PR013006' || this.form.errortype == 'PR013007') {
+        if (this.form.errortype == 'PR013006') {
           this.$store
             .dispatch('PFANS2016Store/cklength', {
               'user_id': this.form.user_id,
@@ -564,22 +527,27 @@
               lengthtime: this.form.lengthtime,
             })
             .then(response => {
-              if (response.error != '') {
-                if (response.error == 'PR013005') {
-                  this.checkDate = response.dat;
-                } else if (response.error == 'PR013006') {
-                  this.checkDate = response.checkdat;
-                } else if (response.error == 'PR013007') {
-                  this.checkDate = response.checkdat;
-                }
+              if (response.error != '' && response.error == 'PR013006') {
+                this.checkDate = response.checkdat;
               }
+              // if (response.error != '') {
+              //   if (response.error == 'PR013005') {
+              //     this.checkDate = response.dat;
+              //   } else if (response.error == 'PR013006') {
+              //     this.checkDate = response.checkdat;
+              //   } else if (response.error == 'PR013007') {
+              //     this.checkDate = response.checkdat;
+              //   }
+              // }
               if (response.can === 'no') {
                 callback(this.$t('normal.error_norestdays'));
               } else {
                 this.form.restdate = response.dat;
-                if (response.error == 'PR013005') {
+                if (response.error == 'PR013006') {
                   if (value / 8 > Number(response.checkdat)) {
                     callback(this.$t('normal.error_norestdays'));
+                  } else {
+                    callback();
                   }
                 }
                 callback();
@@ -601,19 +569,29 @@
               relengthtime: this.form.relengthtime,
             })
             .then(response => {
-              if (response.error != '') {
-                if (response.error == 'PR013005') {
-                  this.checkDate = response.dat;
-                } else if (response.error == 'PR013006') {
-                  this.checkDate = response.checkdat;
-                } else if (response.error == 'PR013007') {
-                  this.checkDate = response.checkdat;
-                }
+              if (response.error != '' && response.error == 'PR013006') {
+                this.checkDate = response.checkdat;
               }
+              // if (response.error != '') {
+              //   if (response.error == 'PR013005') {
+              //     this.checkDate = response.dat;
+              //   } else if (response.error == 'PR013006') {
+              //     this.checkDate = response.checkdat;
+              //   } else if (response.error == 'PR013007') {
+              //     this.checkDate = response.checkdat;
+              //   }
+              // }
               if (response.can === 'no') {
                 callback(this.$t('normal.error_norestdays'));
               } else {
                 this.form.restdate = response.dat;
+                if (response.error == 'PR013006') {
+                  if (value / 8 > Number(response.checkdat)) {
+                    callback(this.$t('normal.error_norestdays'));
+                  } else {
+                    callback();
+                  }
+                }
                 callback();
               }
             })

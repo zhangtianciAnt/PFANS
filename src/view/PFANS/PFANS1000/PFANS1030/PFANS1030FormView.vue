@@ -459,7 +459,7 @@
                       controls-position="right"
                       style="width:11vw"
                       v-model="form.number"
-                      @change="gettotal"
+                      @change="gettotal1"
                     ></el-input-number>
                   </el-form-item>
                 </el-col>
@@ -1225,7 +1225,11 @@
             sums[index] = '';
           }
         });
+        this.moneysumclick(sums);
         return sums;
+      },
+      moneysumclick(sums){
+        this.form.pjrate =  parseFloat((this.form.sarmb - this.moneysum - this.form.total))/this.form.sarmb
       },
       changePro(val, row) {
         row.projects = val;
@@ -1250,8 +1254,19 @@
           this.error = '';
         }
       },
+      gettotal1(val) {
+        if(this.form.total===0){
+          this.form.outsourcing = 0;
+        }else{
+          this.form.outsourcing = this.form.total / val;
+        }
+      },
       gettotal(val) {
-        this.form.outsourcing = val / this.form.number;
+        if(this.form.number===0){
+          this.form.outsourcing = 0;
+        }else{
+          this.form.outsourcing = val / this.form.number;
+        }
         this.form.pjrate =  parseFloat((this.form.sarmb-this.moneysum-val))/this.form.sarmb
       },
       getcontracttype(val) {
@@ -1354,11 +1369,21 @@
               sums[index] = Math.round((sums[index]) * 100) / 100;
             }
             this.sumAwardmoney = sums[8];
+
           } else {
             sums[index] = '--';
           }
         });
+        this.moneySum(sums);
         return sums;
+      },
+      moneySum(sums){
+        debugger
+        if (this.form.currencyposition === 'PG019001' || this.form.currencyposition === this.$t('label.PFANS1039FORMVIEW_DOLLAR')) {
+          this.form.sarmb = this.form.exchangerate * sums[8];
+        } else {
+          this.form.sarmb = sums[8];
+        }
       },
       buttonClick(val) {
         this.form.maketype = '4',
