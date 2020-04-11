@@ -111,6 +111,8 @@ import PFANS2016View from '@/view/PFANS/PFANS2000/PFANS2016/PFANS2016View.vue'
 import PFANS2016FormView from '@/view/PFANS/PFANS2000/PFANS2016/PFANS2016FormView.vue'
 import PFANS2017View from '@/view/PFANS/PFANS2000/PFANS2017/PFANS2017View.vue'
 import PFANS2017FormView from '@/view/PFANS/PFANS2000/PFANS2017/PFANS2017FormView.vue'
+import PFANS2029View from '@/view/PFANS/PFANS2000/PFANS2029/PFANS2029View.vue'
+import PFANS2029FormView from '@/view/PFANS/PFANS2000/PFANS2029/PFANS2029FormView.vue'
 import PFANS2018View from '@/view/PFANS/PFANS2000/PFANS2018/PFANS2018View.vue'
 import PFANS2018FormView from '@/view/PFANS/PFANS2000/PFANS2018/PFANS2018FormView.vue'
 import PFANS2020View from '@/view/PFANS/PFANS2000/PFANS2020/PFANS2020View.vue'
@@ -758,6 +760,16 @@ const routes = [
         component: PFANS2017FormView
       },
       {
+        path: '/PFANS2029View',
+        name: 'PFANS2029View',
+        component: PFANS2029View
+      },
+      {
+        path: '/PFANS2029FormView',
+        name: 'PFANS2029FormView',
+        component: PFANS2029FormView
+      },
+      {
         path: '/PFANS2018View',
         name: 'PFANS2018View',
         component: PFANS2018View
@@ -1131,13 +1143,13 @@ const routes = [
         component: PFANS8008FormView,
       },
       {
-        path: '/PFANS8009View',
-        name: 'PFANS8009View',
+        path: '/PFANS8009PointView',
+        name: 'PFANS8009PointView',
         component: PFANS8009View,
       },
       {
-        path: '/PFANS8009PointView',
-        name: 'PFANS8009PointView',
+        path: '/PFANS8009View',
+        name: 'PFANS8009View',
         component: PFANS8009PointView,
       },
       {

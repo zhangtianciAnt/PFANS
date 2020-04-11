@@ -359,7 +359,8 @@
               message: this.$t('normal.error_08') + this.$t('label.PFANS6001VIEW_CONTACTINFORMATION'),
               trigger: 'blur',
             },
-            {validator: validateTel, trigger: 'blur'}],
+            // {validator: validateTel, trigger: 'blur'}
+            ],
 
           birth: [
             {

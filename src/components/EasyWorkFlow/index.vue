@@ -63,6 +63,10 @@
         default: function () {
           return []
         }
+      },
+      defaultStart:{
+        type:Boolean,
+        default:true
       }
     },
     methods: {
@@ -295,6 +299,14 @@
       },
       // 发起审批
       addworkflow() {
+        debugger
+        if(this.defaultStart){
+          this.startWorkflow()
+        }else{
+          this.$emit("StartWorkflow","StartWorkflow")
+        }
+      },
+      startWorkflow(){
         if(this.workflowlist.length > 1){
           this.$refs.start.startWorkflow = true;
           this.$refs.start.selectId = this.workflowlist[0].workflowid;
@@ -317,7 +329,6 @@
           this.$refs.start.submit();
 
         }
-
       },
       //关闭回掉
       refresh() {
