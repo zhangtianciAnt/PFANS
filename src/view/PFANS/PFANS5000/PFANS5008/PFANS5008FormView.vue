@@ -590,6 +590,27 @@
                 lable: response[i].project_name,
               });
             }
+
+            this.$store
+              .dispatch('PFANS5013Store/getMyConProject', {})
+              .then(response => {
+                for (let i = 0; i < response.length; i++) {
+                  this.optionsdata.push({
+                    value: response[i].comproject_id,
+                    lable: response[i].project_name,
+                  });
+                }
+                this.loading = false;
+              })
+              .catch(error => {
+                Message({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.loading = false;
+              });
+
             this.loading = false;
           })
           .catch(error => {
