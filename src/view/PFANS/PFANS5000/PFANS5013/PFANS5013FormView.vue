@@ -473,7 +473,7 @@
                                   <el-container>
                                     <input class="content bg" v-model="scope.row.name" :error="errorexpname"
                                            :disabled="true" v-show="false"></input>
-                                    <input class="content bg" v-model="expatriatesinfor_id"
+                                    <input class="content bg" v-model="scope.row.name_id"
                                            :disabled="true" ></input>
                                     <el-button :disabled="!disable" icon="el-icon-search"
                                                @click="dialogTableVisible1 = true"
@@ -715,7 +715,6 @@
         // grouporglist: '',
         // teamorglist: '',
         currentRow5: '',
-        expatriatesinfor_id: '',
         errorcenter: '',
         errorgroup: '',
         errorexpname: '',
@@ -791,6 +790,7 @@
             prosystem_id: '',
             comproject_id: '',
             type: '1',
+            name_id: '',
             number: '',
             company: '',
             name: '',
@@ -1189,13 +1189,6 @@
                     rowindex: response.prosystem[i].rowindex,
                   });
                 } else if (response.prosystem[i].type === '1') {
-                  if(response.prosystem[i].name!=''||response.prosystem[i].name!=null){
-                    this.$store
-                      .dispatch('PFANS6004Store/getexpatriatesinforApplyOne', {'expatriatesinfor_id': response.prosystem[i].name})
-                      .then(response => {
-                        this.expatriatesinfor_id = response.expname;
-                      })
-                  }
                   flag2 = true;
                   tablec.push({
                     name: response.prosystem[i].prosystem,
@@ -1204,6 +1197,7 @@
                     number: response.prosystem[i].number,
                     company: response.prosystem[i].company,
                     name: response.prosystem[i].name,
+                    name_id: response.prosystem[i].name_id,
                     position: response.prosystem[i].position,
                     admissiontime: response.prosystem[i].admissiontime,
                     exittime: response.prosystem[i].exittime,
@@ -1541,7 +1535,7 @@
       },
       handleClickChange(val) {
         this.currentRow = val.number;
-        this.currentRow1 = val.expatriatesinfor_id;
+        this.currentRow1 = val.name_id;
         this.currentRow2 = val.suppliername;
         this.currentRow3 = val.post;
         this.currentRow4 = val.suppliernameid;
@@ -1550,7 +1544,7 @@
       submit(row) {
         row.number = this.currentRow;
         row.name = this.currentRow1;
-        this.expatriatesinfor_id = this.currentRow5;
+        row.name_id = this.currentRow5;
         row.company = this.currentRow2;
         row.position = this.currentRow3;
         row.suppliernameid = this.currentRow4;
@@ -1899,7 +1893,7 @@
             for (let i = 0; i < response.length; i++) {
               var vote1 = {};
               vote1.number = response[i].number;
-              vote1.expatriatesinfor_id= response[i].expatriatesinfor_id;
+              vote1.name_id= response[i].expatriatesinfor_id;
               vote1.expname = response[i].expname;
               vote1.suppliername = response[i].suppliername;
               // vote1.post = response[i].post;
@@ -2116,6 +2110,7 @@
                 this.baseInfo.prosystem.push({
                   number: this.tableC[i].number,
                   name: this.tableC[i].name,
+                  name_id: this.tableC[i].name_id,
                   suppliernameid: this.tableC[i].suppliernameid,
                   type: this.tableC[i].type,
                   company: this.tableC[i].company,
