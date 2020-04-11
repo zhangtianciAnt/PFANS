@@ -799,6 +799,8 @@
           .dispatch('PFANS2016Store/getPfans2016One', {'abnormalid': this.$route.params._id})
           .then(response => {
             this.form = response;
+            this.typecheck = this.form.vacationtype;
+            this.typecheck = this.form.revacationtype;
             if (this.form.refinisheddate == null || this.form.reoccurrencedate == null) {
               if (this.form.status === '4') {
                 this.form.revacationtype = this.form.vacationtype;
@@ -1503,69 +1505,69 @@
         }
 
       },
-      changeTime() {
-        let diffDate = moment(this.form.finisheddate).diff(moment(this.form.occurrencedate), 'days') + 1;
-        if (this.form.errortype === 'PR013012' || this.form.errortype === 'PR013021' && this.$store.getters.userinfo.userinfo.sex !== 'PR019002') {
-          if (this.$store.getters.userinfo.userinfo.sex !== 'PR019002') {
-            this.error = 1;
-            Message({
-              message: this.$t('label.PFANS2016FORMVIEW_WOMENCHECK'),
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            return;
-          }
-        } else if (this.form.errortype === 'PR013013') {
-          if (this.$store.getters.userinfo.userinfo.sex !== 'PR019001') {
-            this.error = 1;
-            Message({
-              message: this.$t('label.PFANS2016FORMVIEW_MENCHECK'),
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            return;
-          }
-          // if (this.enterday < '2012-08-31') {
-          //   this.error = 1;
-          //   Message({
-          //     message: this.$t('label.PFANS2016FORMVIEW_ERRORENTERDAY'),
-          //     type: 'error',
-          //     duration: 5 * 1000,
-          //   });
-          //   return;
-          // }
-        }
-        if (this.form.errortype === 'PR013011') {
-          var aa = moment(new Date()).format('YYYY-MM-DD');
-          var sDate1 = Date.parse(aa);
-          var sDate2 = Date.parse(this.marryday);
-          var dateSpan = sDate2 - sDate1;
-          var dateSpan = Math.abs(dateSpan);
-          var iDays = Math.floor(dateSpan / (24 * 3600 * 1000));
-          if (iDays > 365) {
-            this.error = 1;
-            Message({
-              message: this.$t('label.PFANS2016FORMVIEW_ERRORMARRYDAY'),
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            return;
-          }
-          if (diffDate > 15) {
-            this.error = 1;
-            Message({
-              message: this.$t('label.PFANS2016FORMVIEW_ERRORMARRYDAYS'),
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            return;
-          }
-        }
-        if (this.form.errortype === 'PR013011' || this.form.errortype === 'PR013012' || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015'
-          || this.form.errortype === 'PR013021' || this.form.errortype === 'PR013020' || this.form.errortype === 'PR013017') {
-          this.form.lengthtime = diffDate * 8;
-        }
-      },
+      // changeTime() {
+      //   let diffDate = moment(this.form.finisheddate).diff(moment(this.form.occurrencedate), 'days') + 1;
+      //   if (this.form.errortype === 'PR013012' || this.form.errortype === 'PR013021' && this.$store.getters.userinfo.userinfo.sex !== 'PR019002') {
+      //     if (this.$store.getters.userinfo.userinfo.sex !== 'PR019002') {
+      //       this.error = 1;
+      //       Message({
+      //         message: this.$t('label.PFANS2016FORMVIEW_WOMENCHECK'),
+      //         type: 'error',
+      //         duration: 5 * 1000,
+      //       });
+      //       return;
+      //     }
+      //   } else if (this.form.errortype === 'PR013013') {
+      //     if (this.$store.getters.userinfo.userinfo.sex !== 'PR019001') {
+      //       this.error = 1;
+      //       Message({
+      //         message: this.$t('label.PFANS2016FORMVIEW_MENCHECK'),
+      //         type: 'error',
+      //         duration: 5 * 1000,
+      //       });
+      //       return;
+      //     }
+      //     // if (this.enterday < '2012-08-31') {
+      //     //   this.error = 1;
+      //     //   Message({
+      //     //     message: this.$t('label.PFANS2016FORMVIEW_ERRORENTERDAY'),
+      //     //     type: 'error',
+      //     //     duration: 5 * 1000,
+      //     //   });
+      //     //   return;
+      //     // }
+      //   }
+      //   if (this.form.errortype === 'PR013011') {
+      //     var aa = moment(new Date()).format('YYYY-MM-DD');
+      //     var sDate1 = Date.parse(aa);
+      //     var sDate2 = Date.parse(this.marryday);
+      //     var dateSpan = sDate2 - sDate1;
+      //     var dateSpan = Math.abs(dateSpan);
+      //     var iDays = Math.floor(dateSpan / (24 * 3600 * 1000));
+      //     if (iDays > 365) {
+      //       this.error = 1;
+      //       Message({
+      //         message: this.$t('label.PFANS2016FORMVIEW_ERRORMARRYDAY'),
+      //         type: 'error',
+      //         duration: 5 * 1000,
+      //       });
+      //       return;
+      //     }
+      //     if (diffDate > 15) {
+      //       this.error = 1;
+      //       Message({
+      //         message: this.$t('label.PFANS2016FORMVIEW_ERRORMARRYDAYS'),
+      //         type: 'error',
+      //         duration: 5 * 1000,
+      //       });
+      //       return;
+      //     }
+      //   }
+      //   if (this.form.errortype === 'PR013011' || this.form.errortype === 'PR013012' || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015'
+      //     || this.form.errortype === 'PR013021' || this.form.errortype === 'PR013020' || this.form.errortype === 'PR013017') {
+      //     this.form.lengthtime = diffDate * 8;
+      //   }
+      // },
       getErrorType(val) {
         this.form.hospital = '';
         this.form.edate = '';
@@ -1848,7 +1850,19 @@
                 return;
               }
               //根据工龄,check申请病假超过2/3/4月，则不能申请年休
-              // let agge = moment(this.$store.getters.userinfo.userinfo.enddate).format("YYYY-MM-DD");
+              // let workdayflg = moment(this.$store.getters.userinfo.userinfo.workday);
+              // var aa = workdayflg.get('y')
+              // var bb = workdayflg.get('MM')
+              // var cc = workdayflg.get('DD')
+              // var date = new Date();
+              // var nowyear = date.getFullYear();
+              //
+              // var a = moment([aa, 9, 1]);
+              // var b = moment([nowyear, 4, 1]);
+              // a.diff(b, 'years');       // 1
+              // a.diff(b, 'years', true); // 1.75
+              // alert(a.diff(b, 'years'));
+              // alert(a.diff(b, 'years', true));
               if (this.sickleave > 60) {
                 Message({
                   message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECKFLG'),
@@ -1968,8 +1982,9 @@
               }
             }
             //金额不能为0的check
-            if ((this.form.errortype != 'PR013005' && this.form.errortype != 'PR013007') && this.form.status != '4' &&
-              this.form.status != '5' && this.form.status != '6' && this.form.status != '7' && this.form.status != '8' && this.form.lengthtime <= 0) {
+            // if ((this.form.errortype != 'PR013005' && this.form.errortype != 'PR013007') && this.form.status != '4' &&
+            //   this.form.status != '5' && this.form.status != '6' && this.form.status != '7' && this.form.status != '8' && this.form.lengthtime <= 0) {
+            if(this.form.lengthtime <= 0){
               Message({
                 message: this.$t('label.PFANS2016FORMVIEW_TIMECHECK'),
                 type: 'error',
@@ -1977,30 +1992,6 @@
               });
               return;
             }
-            // if (this.form.errortype === 'PR013005' || this.form.errortype === 'PR013006') {
-            //   if (this.form.vacationtype === '0') {
-            //     this.form.lengthtime = 8;
-            //   } else if (this.relist.length != '0') {
-            //     let time = 0;
-            //     for (let d = 0; d < this.relist.length; d++) {
-            //       time = time + 1;
-            //     }
-            //     this.form.lengthtime = time * 8;
-            //   } else if (this.form.vacationtype === '1' || this.form.vacationtype === '2') {
-            //     this.form.lengthtime = 4;
-            //   }
-            //   if (this.form.revacationtype === '0') {
-            //     this.form.relengthtime = 8;
-            //   } else if (this.relistTwo.length != '0') {
-            //     let timere = 0;
-            //     for (let d = 0; d < this.relistTwo.length; d++) {
-            //       timere = timere + 1;
-            //     }
-            //     this.form.relengthtime = timere * 8;
-            //   } else if (this.form.revacationtype === '1' || this.form.revacationtype === '2') {
-            //     this.form.relengthtime = 4;
-            //   }
-            // }
             if (this.$route.params._id) {
               this.form.abnormalid = this.$route.params._id;
               this.loading = true;
