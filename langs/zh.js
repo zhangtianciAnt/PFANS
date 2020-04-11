@@ -2281,8 +2281,6 @@ module.exports = {
     PFANS2016FORMVIEW_CHECKYEAR: '半日年休时，须满足上午四小时出勤工作或下午四小时出勤工作',
     PFANS2016FORMVIEW_TISHICHECKERROR: '①员工生育时享受产前产后连续98天产假，其中产前可以休假15天；难产增加产假15天；生育多胞胎时，每多生育一个婴儿，增加产假15天。产假期间包括公休日。\n' +
       '②已婚女员工怀孕生育符合生育保险政策和国家和省人口与计划生育政策要求的子女时，可以享受本条第1款规定的产假以外的产假60天（包括公休日）。',
-    PFANS2016FORMVIEW_DATACHECK: '预计代休休息时间与实际代休休息时间不符',
-    PFANS2016FORMVIEW_SJCHECKEROR: '实际年假休息时间与实际年假休息时间不符',
     PFANS2016FORMVIEW_RELENGTHTIMETO: '实际时间长度总计（h）',
     PFANS2016FORMVIEW_BJDJZHCHECK: '您已经有该类申请在审批流程中或已超过可申请回数！每事业年度家长会只允许使用两次',
     PFANS2016FORMVIEW_BJDJZCHECK: '家长会一次只能申请四个小时',
@@ -2291,6 +2289,8 @@ module.exports = {
     PFANS2016FORMVIEW_SHORTCHECK: '该日是休息日',
     PFANS2016FORMVIEW_TIMENOCHECK: '请填写有效的时间',
     PFANS2016FORMVIEW_SHORTCHECKFLG: '由于您已经申请了两个月的病假，不能申请年休了！',
+    PFANS2016FORMVIEW_SHORTCHECKFLG2: '由于您已经申请了三个月的病假，不能申请年休了！',
+    PFANS2016FORMVIEW_SHORTCHECKFLG3: '由于您已经申请了四个月的病假，不能申请年休了！',
     PFANS2016FORMVIEW_QUANTIAN: '全天',
     PFANS2016FORMVIEW_SHANGWU: '上午',
     PFANS2016FORMVIEW_XIAWU: '下午',

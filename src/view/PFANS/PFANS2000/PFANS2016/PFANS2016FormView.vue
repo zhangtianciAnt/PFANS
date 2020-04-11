@@ -1850,26 +1850,44 @@
                 return;
               }
               //根据工龄,check申请病假超过2/3/4月，则不能申请年休
-              // let workdayflg = moment(this.$store.getters.userinfo.userinfo.workday);
-              // var aa = workdayflg.get('y')
-              // var bb = workdayflg.get('MM')
-              // var cc = workdayflg.get('DD')
-              // var date = new Date();
-              // var nowyear = date.getFullYear();
-              //
-              // var a = moment([aa, 9, 1]);
-              // var b = moment([nowyear, 4, 1]);
-              // a.diff(b, 'years');       // 1
-              // a.diff(b, 'years', true); // 1.75
-              // alert(a.diff(b, 'years'));
-              // alert(a.diff(b, 'years', true));
-              if (this.sickleave > 60) {
-                Message({
-                  message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECKFLG'),
-                  type: 'error',
-                  duration: 5 * 1000,
-                });
-                return;
+              var workdayflg = moment(this.$store.getters.userinfo.userinfo.workday);
+              var year = workdayflg.get('y');
+              var mon = workdayflg.get('M') + 1;
+              var day = workdayflg.get('d');
+              //当前年度
+              var date = new Date();
+              var nowyear = date.getFullYear();
+
+              var a = moment([year, mon, day]);
+              var b = moment([nowyear, 4, 1]);
+              var diffY = b.diff(a, 'years', true); // 取两位小数
+              if(1<= diffY < 10){             //十年工龄，病假超过两个月check
+                if (this.sickleave > 60) {
+                  Message({
+                    message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECKFLG'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  return;
+                }
+              } else if(10 <= diffY < 20){        //十年到二十年工龄，病假超过三个月check
+                if (this.sickleave > 90) {
+                  Message({
+                    message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECKFLG2'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  return;
+                }
+              } else if(20 <= diffY){           //二十年年工龄以上，病假超过四个月check
+                if (this.sickleave > 120) {
+                  Message({
+                    message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECKFLG3'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  return;
+                }
               }
               if (this.form.status === '4') {
                 for (let d = 0; d < this.relistTwo.length; d++) {
