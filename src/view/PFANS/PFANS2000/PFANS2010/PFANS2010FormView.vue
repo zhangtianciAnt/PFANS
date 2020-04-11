@@ -5,8 +5,6 @@
                      :data="data"
                      :title="title"
                      :rowid="row_id"
-                     :show-summary ="showSummary"
-                     :summary-method="getSummaries"
                      @rowClick="rowClick"
                      @buttonClick="buttonClick"
                      v-loading="loading" :rowClassName="rowClassName"
@@ -32,7 +30,6 @@
                 title: 'title.PFANS2010FOMRVIEW',
                 data: [],
                 rowid: '',
-                showSummary:true,
                 row_id: 'attendance_id',
                 form: {
                     attendanceid: '',
@@ -307,6 +304,7 @@
                       }
 
                       let res = [];
+                      let res1 = [];
                       let start = moment().startOf('month');
                       let end = moment().endOf('month');
 
@@ -323,8 +321,67 @@
                         }
                       }
 
-                        this.data = res;
-                        this.loading = false;
+                      //add CCM 合计行--from
+                      var total_normal = 0;
+                      var total_ordinaryindustry = 0;
+                      var total_weekendindustry = 0;
+                      var total_statutoryresidue = 0;
+                      var total_annualrestday = 0;
+                      var total_specialday = 0;
+                      var total_youthday = 0;
+                      var total_womensday = 0;
+                      var total_annualrest = 0;
+                      var total_daixiu = 0;
+                      var total_welfare = 0;
+                      var total_shortsickleave = 0;
+                      var total_compassionateleave = 0;
+                      var total_nursingleave = 0;
+                      var total_absenteeism = 0;
+
+                      for (var i =0; i < res.length; i ++)
+                      {
+                        total_normal += parseFloat(res[i]["normal"] === undefined ? '0' :(res[i]["normal"] ===null?'0':res[i]["normal"]));
+                        total_ordinaryindustry += parseFloat(res[i]["ordinaryindustry"] ===undefined ? '0' :(res[i]["ordinaryindustry"]===null?'0':res[i]["ordinaryindustry"]));
+                        total_weekendindustry += parseFloat(res[i]["weekendindustry"] ===undefined ? '0' :(res[i]["weekendindustry"]===null?'0':res[i]["weekendindustry"]));
+                        total_statutoryresidue += parseFloat(res[i]["statutoryresidue"] ===undefined ? '0' :(res[i]["statutoryresidue"]===null?'0':res[i]["statutoryresidue"]));
+                        total_annualrestday += parseFloat(res[i]["annualrestday"] ===undefined ? '0' :(res[i]["annualrestday"]===null?'0':res[i]["annualrestday"]));
+                        total_specialday += parseFloat(res[i]["specialday"] ===undefined ? '0' :(res[i]["specialday"]===null?'0':res[i]["specialday"]));
+                        total_youthday += parseFloat(res[i]["youthday"] ===undefined ? '0' :(res[i]["youthday"]===null?'0':res[i]["youthday"]));
+                        total_womensday += parseFloat(res[i]["womensday"] ===undefined ? '0' :(res[i]["womensday"]===null?'0':res[i]["womensday"]));
+                        total_annualrest += parseFloat(res[i]["annualrest"] ===undefined ? '0' :(res[i]["annualrest"]===null?'0':res[i]["annualrest"]));
+                        total_daixiu += parseFloat(res[i]["daixiu"] ===undefined ? '0' :(res[i]["daixiu"]===null?'0':res[i]["daixiu"]));
+                        total_welfare += parseFloat(res[i]["welfare"] ===undefined ? '0' :(res[i]["welfare"]===null?'0':res[i]["welfare"]));
+                        total_shortsickleave += parseFloat(res[i]["shortsickleave"] ===undefined ? '0' :(res[i]["shortsickleave"]===null?'0':res[i]["shortsickleave"]));
+                        total_compassionateleave += parseFloat(res[i]["compassionateleave"] ===undefined ? '0' :(res[i]["compassionateleave"]===null?'0':res[i]["compassionateleave"]));
+                        total_nursingleave += parseFloat(res[i]["nursingleave"] ===undefined ? '0' :(res[i]["nursingleave"]===null?'0':res[i]["nursingleave"]));
+                        total_absenteeism += parseFloat(res[i]["absenteeism"] ===undefined ? '0' :(res[i]["absenteeism"]===null?'0':res[i]["absenteeism"]));
+                      }
+                      res1.push( {dates: '合计',
+                                                                    normal: total_normal,
+                                                                    ordinaryindustry: total_ordinaryindustry,
+                                                                    weekendindustry: total_weekendindustry,
+                                                                    statutoryresidue: total_statutoryresidue,
+                                                                    annualrestday: total_annualrestday,
+                                                                    specialday: total_specialday,
+                                                                    youthday: total_youthday,
+                                                                    womensday: total_womensday,
+                                                                    annualrest: total_annualrest,
+                                                                    daixiu: total_daixiu,
+                                                                    welfare: total_welfare,
+                                                                    shortsickleave: total_shortsickleave,
+                                                                    compassionateleave: total_compassionateleave,
+                                                                    nursingleave: total_nursingleave,
+                                                                    absenteeism: total_absenteeism,
+                                                                    recognitionstate: null
+                      });
+                      for (var k =0 ; k<res.length;k++)
+                      {
+                        res1.push(res[k]);
+                      }
+
+                      //add CCM 合计行--end
+                      this.data = res1;
+                      this.loading = false;
                     })
                     .catch(error => {
                         Message({
@@ -335,32 +392,6 @@
                         this.loading = false;
                     });
             },
-          getSummaries(param) {
-            debugger;
-            const { columns, data } = param;
-            const sums = [];
-            columns.forEach((column, index) => {
-              if (index === 0) {
-                sums[index] = '合计';
-                return;
-              }
-              const values = data.map(item => Number(item[column.property]));
-              if (!values.every(value => isNaN(value))) {
-                sums[index] = values.reduce((prev, curr) => {
-                  const value = Number(curr);
-                  if (!isNaN(value)) {
-                    return prev + curr;
-                  } else {
-                    return prev;
-                  }
-                }, 0);
-              } else {
-                sums[index] = '-';
-              }
-            });
-
-            return sums;
-          },
         },
         mounted() {
           //add-ws-考勤设置休日背景色
