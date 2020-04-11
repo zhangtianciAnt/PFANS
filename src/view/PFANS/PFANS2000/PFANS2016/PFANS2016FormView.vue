@@ -1,7 +1,7 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick" @end="end"
-                         :canStart="canStart" @disabled="setdisabled" :saveFunction="saveFunction"
+                         :canStart="canStart" @disabled="setdisabled" :defaultStart="defaultStart" @StartWorkflow="buttonClick"
                          @start="start" @workflowState="workflowState" ref="container" v-loading="loading"
                          :workflowCode="workflowCode">
       <div slot="customize">
@@ -454,7 +454,6 @@
           this.clearValidate(['occurrencedate', 'periodend', 'periodstart']);
         }
       };
-
       var revalidateVacationtype = (rule, value, callback) => {
         if((this.form.errortype == 'PR013005'|| this.form.errortype == 'PR013007') && this.form.status != '4' && this.form.status != '5' && this.form.status != '6' && this.form.status != '7'&& this.form.status != '8'){
           if (this.form.vacationtype === null || this.form.vacationtype === '') {
@@ -581,6 +580,7 @@
         }
       };
       return {
+        defaultStart:false,
         checkerrortishi: false,
         dislengthtime: false,
         checkrelengthtime: false,
@@ -2030,15 +2030,19 @@
                   // }
                   // else{
                   this.data = response;
-                  if (val !== 'update') {
-                    Message({
-                      message: this.$t('normal.success_02'),
-                      type: 'success',
-                      duration: 5 * 1000,
-                    });
+                  Message({
+                    message: this.$t('normal.success_02'),
+                    type: 'success',
+                    duration: 5 * 1000,
+                  });
+                  if (val !== 'save' && val !== 'StartWorkflow') {
                     if (this.$store.getters.historyUrl) {
                       this.$router.push(this.$store.getters.historyUrl);
                     }
+                  }
+
+                  if(val === 'StartWorkflow'){
+                    this.$refs.container.$refs.workflow.startWorkflow();
                   }
                   // }
 
