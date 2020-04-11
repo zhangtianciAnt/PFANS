@@ -8,7 +8,7 @@
           <easy-button-bar :data="buttons" @buttonClick="buttonClick"></easy-button-bar>
           <easy-work-flow :canStart="canStart" :workflowCode="workflowCode"
                           @canStartWorkflow="canStartWorkflow" :saveFunction="saveFunction"
-                          @canViewWorkflow="canViewWorkflow"
+                          @canViewWorkflow="canViewWorkflow" @StartWorkflow="StartWorkflow"
                           @changeLoading="changeLoading" @end="end" @start="start" @workflowState="workflowState"
                           ref="workflow"></easy-work-flow>
         </el-row>
@@ -122,6 +122,9 @@
           }
           this.$emit('disabled', true);
         }
+      },
+      StartWorkflow(){
+        this.$emit("StartWorkflow")
       },
       canViewWorkflow(val) {
         this.canViewWorkflowVal = val;
