@@ -1,7 +1,7 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick" @end="end"
-                         :canStart="canStart" @disabled="setdisabled"
+                         :canStart="canStart" @disabled="setdisabled" :saveFunction="saveFunction"
                          @start="start" @workflowState="workflowState" ref="container" v-loading="loading"
                          :workflowCode="workflowCode">
       <div slot="customize">
@@ -1911,10 +1911,10 @@
                 return;
               }
               //根据工龄,check申请病假超过2/3/4月，则不能申请年休
-              // let agge = moment(this.$store.getters.userinfo.userinfo.enddate).format("YYYY-MM-DD");
-              // if(this.sickleave >60){
-              //   return 123;
-              // }
+              let agge = moment(this.$store.getters.userinfo.userinfo.enddate).format("YYYY-MM-DD");
+              if(this.sickleave >60){
+                return 123;
+              }
               if (this.typecheck === '0' || this.retypecheck === '0') {
                 for (let d = 0; d < this.relist.length; d++) {
                   time = time + 1;
