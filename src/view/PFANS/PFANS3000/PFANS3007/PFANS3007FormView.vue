@@ -808,6 +808,7 @@
                             this.showdata = false;
                             let dictionaryInfo = getDictionaryInfo('PR010001');
                             if (dictionaryInfo) {
+                                this.tableD2[0].copuntype = dictionaryInfo.value1;
                                 this.tableD2[0].copunnumber = dictionaryInfo.value2;
                                 this.tableD2[0].copunnumbermax = dictionaryInfo.value2;
                                 this.tableD2[0].copunvalue = dictionaryInfo.value3;
@@ -815,6 +816,7 @@
                             ;
                             dictionaryInfo = getDictionaryInfo('PR010002');
                             if (dictionaryInfo) {
+                                this.tableD2[1].copuntype = dictionaryInfo.value1;
                                 this.tableD2[1].copunnumber = dictionaryInfo.value2;
                                 this.tableD2[1].copunnumbermax = dictionaryInfo.value2;
                                 this.tableD2[1].copunvalue = dictionaryInfo.value3;
@@ -822,6 +824,7 @@
                             ;
                             dictionaryInfo = getDictionaryInfo('PR010003');
                             if (dictionaryInfo) {
+                                this.tableD2[2].copuntype = dictionaryInfo.value1;
                                 this.tableD2[2].copunnumber = dictionaryInfo.value2;
                                 this.tableD2[2].copunnumbermax = dictionaryInfo.value2;
                                 this.tableD2[2].copunvalue = dictionaryInfo.value3;
@@ -843,6 +846,7 @@
                             this.showdata = false;
                             let dictionaryInfo = getDictionaryInfo('PR011001');
                             if (dictionaryInfo) {
+                                this.tableD3[0].copuntype = dictionaryInfo.value1;
                                 this.tableD3[0].copunnumber = dictionaryInfo.value2;
                                 this.tableD3[0].copunnumbermax = dictionaryInfo.value2;
                                 this.tableD3[0].copunvalue = dictionaryInfo.value3;
@@ -850,6 +854,7 @@
                             ;
                             dictionaryInfo = getDictionaryInfo('PR011002');
                             if (dictionaryInfo) {
+                                this.tableD3[1].copuntype = dictionaryInfo.value1;
                                 this.tableD3[1].copunnumber = dictionaryInfo.value2;
                                 this.tableD3[1].copunnumbermax = dictionaryInfo.value2;
                                 this.tableD3[1].copunvalue = dictionaryInfo.value3;
@@ -857,6 +862,7 @@
                             ;
                             dictionaryInfo = getDictionaryInfo('PR011003');
                             if (dictionaryInfo) {
+                                this.tableD3[2].copuntype = dictionaryInfo.value1;
                                 this.tableD3[2].copunnumber = dictionaryInfo.value2;
                                 this.tableD3[2].copunnumbermax = dictionaryInfo.value2;
                                 this.tableD3[2].copunvalue = dictionaryInfo.value3;
