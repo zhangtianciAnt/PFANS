@@ -772,7 +772,7 @@
                             <template slot-scope="scope">
                               <el-input
                                 :no="scope.row"
-                                :disabled="true"
+                                :disabled="!disable"
                                 v-model="scope.row.position"
                                 style="width: 100%">
                               </el-input>
@@ -2685,11 +2685,9 @@
                 });
               }
             }
-debugger
             //ADD 03-18 ,委托元为内采时，合同可自行添加请求金额
             this.baseInfo.contractnumbercount = this.tableclaimtype;
             //ADD 03-18 ,委托元为内采时，合同可自行添加请求金额 END
-
             let error1 = 0;
             let error2 = 0;
             let error3 = 0;
