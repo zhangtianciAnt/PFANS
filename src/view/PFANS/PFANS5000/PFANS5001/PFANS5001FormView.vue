@@ -1702,6 +1702,7 @@
               let flag1 = false;
               let flag2 = false;
               for (var i = 0; i < response.projectsystem.length; i++) {
+                  debugger
                 if (response.projectsystem[i].type === '0') {
                   flag1 = true;
                   tableb.push({
@@ -2476,8 +2477,11 @@
               vote1.name_id= response[i].expatriatesinfor_id;
               vote1.expname = response[i].expname;
               vote1.suppliername = response[i].suppliername;
-              vote1.post = response[i].post;
-              vote1.suppliernameid = response[i].supplierinfor_id;
+              if(response[i].post){
+                  vote1.post = getDictionaryInfo(response[i].post).value1 ;
+              }
+                // vote1.post = response[i].post
+                vote1.suppliernameid = response[i].supplierinfor_id;
               this.gridData1.push(vote1);
             }
             this.centerorglist = this.form.center_id;
