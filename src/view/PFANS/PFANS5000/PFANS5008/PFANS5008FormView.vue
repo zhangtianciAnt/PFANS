@@ -977,6 +977,7 @@
                     }
                   }
                   if (this.$route.params._id || this.row) {
+
                     this.checkLenth = checklenth;
                     if (parseFloat(this.checkLenth) + parseFloat(this.companyform.time_start)-parseFloat(this.checktimelength) > this.checkdata) {
                       error = error + 1;
