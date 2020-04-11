@@ -1,7 +1,8 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick" @end="end"
-                         :canStart="canStart" @disabled="setdisabled" :defaultStart="defaultStart" @StartWorkflow="buttonClick"
+                         :canStart="canStart" @disabled="setdisabled" :defaultStart="defaultStart"
+                         @StartWorkflow="buttonClick"
                          @start="start" @workflowState="workflowState" ref="container" v-loading="loading"
                          :workflowCode="workflowCode">
       <div slot="customize">
@@ -110,7 +111,8 @@
             </el-col>
             <el-col :span="8"
                     v-show="(form.errortype == 'PR013005' || form.errortype == 'PR013007') && (form.status === '4' || form.status === '5' || form.status === '6' || form.status === '7')">
-              <el-form-item :label="$t('label.PFANS2016FORMVIEW_RELENGTHTIME')" label-width="9rem" prop="revacationtype">
+              <el-form-item :label="$t('label.PFANS2016FORMVIEW_RELENGTHTIME')" label-width="9rem"
+                            prop="revacationtype">
                 <el-select @change="rehandleClick" v-model="form.revacationtype" style="width: 20vw"
                            :disabled="form.status === '5' || form.status === '7'">
                   <el-option
@@ -454,19 +456,55 @@
           this.clearValidate(['occurrencedate', 'periodend', 'periodstart']);
         }
       };
+      //add_fjl
       var revalidateVacationtype = (rule, value, callback) => {
-        if((this.form.errortype == 'PR013005'|| this.form.errortype == 'PR013007') && this.form.status != '4' && this.form.status != '5' && this.form.status != '6' && this.form.status != '7'&& this.form.status != '8'){
+        if ((this.form.errortype == 'PR013005' || this.form.errortype == 'PR013007') && this.form.status != '4' && this.form.status != '5' && this.form.status != '6' && this.form.status != '7' && this.form.status != '8') {
           if (this.form.vacationtype === null || this.form.vacationtype === '') {
             callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS2016FORMVIEW_XJTYPE')));
+          // } else if (this.form.errortype == 'PR013006' || this.form.errortype == 'PR013007') {
+          //   this.$store
+          //     .dispatch('PFANS2016Store/cklength', {
+          //       'user_id': this.form.user_id,
+          //       errortype: this.form.errortype,
+          //       lengthtime: this.form.lengthtime,
+          //     })
+          //     .then(response => {
+          //       if (response.error != '') {
+          //         if (response.error == 'PR013006') {
+          //           this.checkDate = response.checkdat;
+          //         } else if (response.error == 'PR013007') {
+          //           this.checkDate = response.checkdat;
+          //         }
+          //       }
+          //       if (response.can === 'no') {
+          //         callback(this.$t('normal.error_norestdays'));
+          //       } else {
+          //         this.form.restdate = response.dat;
+          //         let valflg;
+          //         if (value === '0') {
+          //           valflg = 1;
+          //         } else {
+          //           valflg = 0.5;
+          //         }
+          //         if (Number(valflg) > Number(response.checkdat)) {
+          //           callback(this.$t('normal.error_norestdays'));
+          //         } else {
+          //           callback();
+          //         }
+          //       }
+          //     })
+          //     .catch(error => {
+          //       callback(error);
+          //     });
           } else {
             callback();
           }
-        }else {
+        } else {
           callback();
         }
       };
       var revalidateRevacationtype = (rule, value, callback) => {
-        if((this.form.errortype == 'PR013005' || this.form.errortype == 'PR013007') && (this.form.status === '4' || this.form.status === '5' || this.form.status === '6' || this.form.status === '7')){
+        if ((this.form.errortype == 'PR013005' || this.form.errortype == 'PR013007') && (this.form.status === '4' || this.form.status === '5' || this.form.status === '6' || this.form.status === '7')) {
           if (this.form.revacationtype === null || this.form.revacationtype === '') {
             callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS2016FORMVIEW_RELENGTHTIME')));
           } else {
@@ -585,7 +623,7 @@
         }
       };
       return {
-        defaultStart:false,
+        defaultStart: false,
         checkerrortishi: false,
         dislengthtime: false,
         checkrelengthtime: false,
@@ -792,17 +830,18 @@
                 }
               }
             }
-            if(this.form.errortype === 'PR013009' || this.form.errortype === 'PR013008' || this.form.errortype === 'PR013006' ){
-              if(moment(this.form.occurrencedate).format('YYYY-MM-DD') !== moment(this.form.finisheddate).format('YYYY-MM-DD')){
-                this.dislengthtime = true;
-              }
-                this.dislengthtime = false;
-            }
-            if (this.form.errortype === 'PR013011'|| this.form.errortype === 'PR013012'|| this.form.errortype === 'PR013013'
-              || this.form.errortype === 'PR013015'|| this.form.errortype === 'PR013017'|| this.form.errortype === 'PR013020'
+            if (this.form.errortype === 'PR013011' || this.form.errortype === 'PR013012' || this.form.errortype === 'PR013013'
+              || this.form.errortype === 'PR013015' || this.form.errortype === 'PR013017' || this.form.errortype === 'PR013020'
               || this.form.errortype === 'PR013021') {
               this.dislengthtime = true;
-            } else {
+            } else if (this.form.errortype === 'PR013009' || this.form.errortype === 'PR013008' || this.form.errortype === 'PR013006') {
+              if (moment(this.form.occurrencedate).format('YYYY-MM-DD') !== moment(this.form.finisheddate).format('YYYY-MM-DD')) {
+                this.dislengthtime = true;
+              } else {
+                this.dislengthtime = false;
+              }
+            }
+            else {
               this.dislengthtime = false;
             }
             if (this.form.errortype === 'PR013001') {
@@ -840,7 +879,7 @@
             if (this.form.status === '0') {
               this.workflowCode = 'W0003';
               this.canStart = true;
-              if(!this.disable){
+              if (!this.disable) {
                 this.dislengthtime = true;
               }
             } else if (this.form.status === '4') {
@@ -848,7 +887,7 @@
               this.canStart = true;
               this.disable = false;
               this.dislengthtime = true;
-            }else if (this.form.status === '5') {
+            } else if (this.form.status === '5') {
               this.canStart = false;
               this.disable = false;
               this.dislengthtime = true;
@@ -991,7 +1030,7 @@
           }
         }
         if (this.form.errortype === 'PR013001' || this.form.errortype === 'PR013016' ||
-            this.form.errortype === 'PR013018' || this.form.errortype === 'PR013019' || this.form.errortype === 'PR013014') {
+          this.form.errortype === 'PR013018' || this.form.errortype === 'PR013019' || this.form.errortype === 'PR013014') {
           this.form.finisheddate = this.form.occurrencedate;
         }
         if (this.form.errortype === 'PR013001' || this.form.errortype === 'PR013008' || this.form.errortype === 'PR013016'
@@ -1212,22 +1251,22 @@
         let diffDate = moment(this.form.finisheddate).diff(moment(this.form.occurrencedate), 'days') + 1;
         //当天时间    （外出，家长会，妊娠检查，劳灾，其他福利）
         if (this.form.errortype === 'PR013001' || this.form.errortype === 'PR013014' || this.form.errortype === 'PR013016'
-            || this.form.errortype === 'PR013018' || this.form.errortype === 'PR013019') {
-          if(this.form.errortype === 'PR013001'){
+          || this.form.errortype === 'PR013018' || this.form.errortype === 'PR013019') {
+          if (this.form.errortype === 'PR013001') {
             this.getWorktime();
           }
           this.form.finisheddate = this.form.occurrencedate;
         }
         //请假单位为8小时    （结婚，产休，男护理，丧假，计划生育，工伤，流产） 包含公休日
-        if (this.form.errortype === 'PR013011' || this.form.errortype === 'PR013012' ||this.form.errortype === 'PR013013' ||this.form.errortype === 'PR013015' ||
+        if (this.form.errortype === 'PR013011' || this.form.errortype === 'PR013012' || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015' ||
           this.form.errortype === 'PR013017' || this.form.errortype === 'PR013020' || this.form.errortype === 'PR013021') {
-          if(diffDate > 0){
+          if (diffDate > 0) {
             this.form.lengthtime = 8 * diffDate;
           }
         }
         //代休_周末，事休
-        if(this.form.errortype === 'PR013006' || this.form.errortype === 'PR013008'){
-          if(moment(this.form.finisheddate).format("YYYY-MM-DD") === moment(this.form.occurrencedate).format("YYYY-MM-DD")){
+        if (this.form.errortype === 'PR013006' || this.form.errortype === 'PR013008') {
+          if (moment(this.form.finisheddate).format('YYYY-MM-DD') === moment(this.form.occurrencedate).format('YYYY-MM-DD')) {
             //当天取小时
             this.dislengthtime = false;
             this.form.finisheddate = this.form.occurrencedate;
@@ -1245,8 +1284,8 @@
         }
 
         //病假
-        if(this.form.errortype === 'PR013009'){
-          if(diffDate === 1){
+        if (this.form.errortype === 'PR013009') {
+          if (diffDate === 1) {
             //当天取小时
             this.dislengthtime = false;
             this.form.finisheddate = this.form.occurrencedate;
@@ -1649,8 +1688,8 @@
       getErrorType(val) {
         this.form.hospital = '';
         this.form.edate = '';
-        this.form.finisheddate = moment(new Date()).format("YYYY-MM-DD");
-        this.form.occurrencedate = moment(new Date()).format("YYYY-MM-DD");
+        this.form.finisheddate = moment(new Date()).format('YYYY-MM-DD');
+        this.form.occurrencedate = moment(new Date()).format('YYYY-MM-DD');
         this.form.worktime = '';
         this.typecheck = '';
         let dictionaryInfo = getDictionaryInfo(val);
@@ -1667,7 +1706,7 @@
           this.form.lengthtime = '0';
           this.getWorktime();
         } else if (val === 'PR013005') {
-          this.form.vacationtype = ''
+          this.form.vacationtype = '';
           this.checkerrortishi = false;
           this.checkrelengthtime = false;
           this.dislengthtime = false;
@@ -1679,7 +1718,7 @@
           this.dislengthtime = false;
           this.showVacation = false;
         } else if (val === 'PR013007') {
-          this.form.vacationtype = ''
+          this.form.vacationtype = '';
           this.checkerrortishi = false;
           this.checkrelengthtime = false;
           this.dislengthtime = false;
@@ -1721,11 +1760,11 @@
           this.showVacation = false;
           this.form.lengthtime = '0';
         } else if (val === 'PR013015') {
-            this.checkerrortishi = false;
-            this.checkrelengthtime = true;
-            this.dislengthtime = true;
+          this.checkerrortishi = false;
+          this.checkrelengthtime = true;
+          this.dislengthtime = true;
           this.form.lengthtime = 8;
-            this.showVacation = true;
+          this.showVacation = true;
         } else if (val === 'PR013016') {
           this.checkerrortishi = false;
           this.checkrelengthtime = false;
@@ -1840,8 +1879,8 @@
             //add_fjl 04/09
             let diffDate = moment(this.form.finisheddate).diff(moment(this.form.occurrencedate), 'days') + 1;
             //产休假，流产假
-            if (this.form.errortype === 'PR013011'|| this.form.errortype === 'PR013012'|| this.form.errortype === 'PR013013'
-              || this.form.errortype === 'PR013015'|| this.form.errortype === 'PR013017'|| this.form.errortype === 'PR013020'
+            if (this.form.errortype === 'PR013011' || this.form.errortype === 'PR013012' || this.form.errortype === 'PR013013'
+              || this.form.errortype === 'PR013015' || this.form.errortype === 'PR013017' || this.form.errortype === 'PR013020'
               || this.form.errortype === 'PR013021') {
               if ((this.form.errortype === 'PR013012' || this.form.errortype === 'PR013021') && this.$store.getters.userinfo.userinfo.sex !== 'PR019002') {
                 Message({
@@ -1860,7 +1899,7 @@
                 });
                 return;
               }
-              if(this.form.lengthtime > diffDate *8){
+              if (this.form.lengthtime > diffDate * 8) {
                 Message({
                   message: this.$t('label.PFANS2016FORMVIEW_ERROREFFECTIVE'),
                   type: 'error',
@@ -1898,7 +1937,7 @@
                 });
                 return;
               }
-              if(this.form.lengthtime > 8){
+              if (this.form.lengthtime > 8) {
                 Message({
                   message: this.$t('label.PFANS2016FORMVIEW_WAICHUTIMENOCHECK'),
                   type: 'error',
@@ -1910,9 +1949,9 @@
             //代休_特殊,年休
             if (this.form.errortype === 'PR013005' || this.form.errortype === 'PR013007') {
               let time = 0;
-              let enddateflg = moment(this.$store.getters.userinfo.userinfo.enddate).format("YYYY-MM-DD");
+              let enddateflg = moment(this.$store.getters.userinfo.userinfo.enddate).format('YYYY-MM-DD');
               //判断申请人是否在试用期
-              if(enddateflg >= moment(new Date()).format("YYYY-MM-DD")){
+              if (enddateflg >= moment(new Date()).format('YYYY-MM-DD')) {
                 Message({
                   message: this.$t('label.PFANS2016FORMVIEW_ERRORANNUALLEAVEU'),
                   type: 'error',
@@ -1922,7 +1961,7 @@
               }
               //根据工龄,check申请病假超过2/3/4月，则不能申请年休
               // let agge = moment(this.$store.getters.userinfo.userinfo.enddate).format("YYYY-MM-DD");
-              if(this.sickleave >60){
+              if (this.sickleave > 60) {
                 Message({
                   message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECKFLG'),
                   type: 'error',
@@ -1954,7 +1993,7 @@
             if (this.form.errortype === 'PR013006' || this.form.errortype === 'PR013008') {
               let sum = 0;
               if (moment(this.form.finisheddate).format('YYYY-MM-DD') === moment(this.form.occurrencedate).format('YYYY-MM-DD')) {
-                if(this.form.lengthtime > 8){
+                if (this.form.lengthtime > 8) {
                   Message({
                     message: this.$t('label.PFANS2016FORMVIEW_WAICHUTIMENOCHECK'),
                     type: 'error',
@@ -1966,7 +2005,7 @@
                 for (let i = 0; i < this.relist.length; i++) {
                   sum = sum + 1;
                 }
-                if(this.form.lengthtime > sum * 8){
+                if (this.form.lengthtime > sum * 8) {
                   Message({
                     message: this.$t('label.PFANS2016FORMVIEW_ERROREFFECTIVE'),
                     type: 'error',
@@ -2056,7 +2095,7 @@
                     }
                   }
 
-                  if(val === 'StartWorkflow'){
+                  if (val === 'StartWorkflow') {
                     this.$refs.container.$refs.workflow.startWorkflow();
                   }
                   // }
@@ -2072,7 +2111,7 @@
                 });
             } else {
               //总经理审批自动通过
-              if(getCurrentRole() === "1"){
+              if (getCurrentRole() === '1') {
                 this.form.status = '4';
               }
               this.loading = true;
