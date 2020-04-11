@@ -370,6 +370,7 @@
                               <el-input
                                 :no="scope.row"
                                 :disabled="!disable"
+                                maxlength="20"
                                 v-model="scope.row.position"
                                 style="width: 100%">
                               </el-input>
