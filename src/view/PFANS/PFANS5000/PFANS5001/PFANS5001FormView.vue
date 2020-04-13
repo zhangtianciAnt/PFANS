@@ -354,9 +354,9 @@
                                 :data="gridData2.filter(data => !search || data.entrust.toLowerCase().includes(search.toLowerCase()))"
                                 height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
                                 @row-click="handleClickChange1">
-                                <el-table-column property="entrust" :label="$t('label.PFANS5001FORMVIEW_ENTRUST')"
+                                <el-table-column  show-overflow-tooltip property="entrust" :label="$t('label.PFANS5001FORMVIEW_ENTRUST')"
                                                  width="240"></el-table-column>
-                                <el-table-column property="deployment" :label="$t('label.PFANS5001FORMVIEW_DEPLOYMENT')"
+                                <el-table-column  show-overflow-tooltip property="thecompany" :label="$t('label.PFANS6003FORMVIEW_THECOMPANY')"
                                                  width="240"></el-table-column>
                                 <el-table-column
                                   align="right" width="230">
@@ -379,12 +379,12 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS5001FORMVIEW_DEPLOYMENT')">
+                  <el-form-item :label="$t('label.PFANS6003FORMVIEW_THECOMPANY')">
                     <el-input :disabled="!disable" style="width:20vw" v-model="form.deployment"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS5001FORMVIEW_BEHALF')" prop="behalf">
+                  <el-form-item :label="$t('label.ASSETS1002VIEW_USERID')" prop="behalf">
                     <el-input :disabled="!disable" maxlength='20' style="width:20vw"
                               v-model="form.behalf"></el-input>
                   </el-form-item>
@@ -393,7 +393,7 @@
               <el-row v-show="form.toolstype === '0' || !form.toolstype">
                 <el-col :span="8">
                   <el-form-item
-                    :label="$t('label.PFANS5001FORMVIEW_INTELLIGENCE')"
+                    :label="$t('label.PFANS1017FORMVIEW_PREPAREFOR')"
                     prop="intelligence"
                   >
                     <el-input
@@ -726,20 +726,18 @@
                                             height="500px" highlight-current-row style="width: 100%"
                                             tooltip-effect="dark"
                                             @row-click="handleClickChange">
-                                            <el-table-column property="number" fixed
-                                                             :label="$t('label.PFANS5001FORMVIEW_NUMBERS')"
-                                                             width="100"></el-table-column>
+                                            <!--<el-table-column property="number" fixed-->
+                                                             <!--:label="$t('label.PFANS5001FORMVIEW_NUMBERS')"-->
+                                                             <!--width="100"></el-table-column>-->
                                             <el-table-column property="expatriatesinfor_id" fixed v-if="false"
                                                              :label="$t('label.PFANSUSERFORMVIEW_CUSTOMERNAME')"
                                                              width="180"></el-table-column>
-
                                             <el-table-column property="expname" fixed
                                                              :label="$t('label.PFANSUSERFORMVIEW_CUSTOMERNAME')"
                                                              width="180"></el-table-column>
-
                                             <el-table-column property="suppliername"
                                                              :label="$t('label.PFANS5001FORMVIEW_COOPERATIONCOMPANY')"
-                                                             width="100"></el-table-column>
+                                                             width="200"></el-table-column>
                                             <el-table-column property="post1"
                                                              :label="$t('label.PFANSUSERVIEW_POST')"
                                                              width="150"></el-table-column>
@@ -871,15 +869,15 @@
                                     @row-click="handleClickChange2">
                                     <el-table-column property="contract"
                                                      :label="$t('label.PFANS1032FORMVIEW_CONTRACTNUMBER')"
-                                                     width="120"></el-table-column>
+                                                     width="160"></el-table-column>
                                     <el-table-column property="deployment" :label="$t('label.group')"
-                                                     width="100"></el-table-column>
+                                                     width="180"></el-table-column>
                                     <el-table-column property="contracttype"
                                                      :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')"
                                                      width="150"></el-table-column>
-                                    <el-table-column property="applicationdate"
-                                                     :label="$t('label.PFANS1024VIEW_APPLICATIONDATE')"
-                                                     width="100"></el-table-column>
+                                    <!--<el-table-column property="applicationdate"-->
+                                                     <!--:label="$t('label.PFANS1024VIEW_APPLICATIONDATE')"-->
+                                                     <!--width="100"></el-table-column>-->
                                     <el-table-column property="claimdatetime"
                                                      :label="$t('label.PFANS1024VIEW_CLAIMDATETIME')"
                                                      width="200"></el-table-column>
@@ -1213,6 +1211,9 @@
         currentRow3: '',
         currentRow4: '',
         currentRow5: '',
+        currentRow6: '',
+        currentRow7: '',
+        currentRow8: '',
         //项目计划
         tableA: [
           {
@@ -1705,7 +1706,6 @@
               let flag1 = false;
               let flag2 = false;
               for (var i = 0; i < response.projectsystem.length; i++) {
-                  debugger
                 if (response.projectsystem[i].type === '0') {
                   flag1 = true;
                   tableb.push({
@@ -1722,6 +1722,12 @@
                   });
                 } else if (response.projectsystem[i].type === '1') {
                   flag2 = true;
+                  //add-ws-value1非空判断
+                  let letbudge = getDictionaryInfo(response.projectsystem[i].position);
+                  if (letbudge) {
+                    response.projectsystem[i].position = letbudge.value1;
+                  }
+                  //add-ws-value1非空判断
                   tablec.push({
                     name: response.projectsystem[i].projectsystem_id,
                     companyprojects_id: response.projectsystem[i].companyprojects_id,
@@ -1730,7 +1736,7 @@
                     company: response.projectsystem[i].company,
                     name: response.projectsystem[i].name,
                     name_id: response.projectsystem[i].name_id,
-                    position: getDictionaryInfo(response.projectsystem[i].position).value1,
+                    position: response.projectsystem[i].position,
                     admissiontime: response.projectsystem[i].admissiontime,
                     exittime: response.projectsystem[i].exittime,
                     rowindex: response.projectsystem[i].rowindex,
@@ -1937,10 +1943,16 @@
                 response.contractapplication[i].entrypayment = [claimdatetim, claimdatetime1];
 
               }
+              //add-ws-value1非空判断
+              let letbudge = getDictionaryInfo(response.contractapplication[i].contracttype);
+              if (letbudge) {
+                response.contractapplication[i].contracttype = letbudge.value1;
+              }
+              //add-ws-value1非空判断
               var vote2 = {};
               vote2.contract = response.contractapplication[i].contractnumber;
               vote2.deployment = response.contractapplication[i].deployment;
-              vote2.contracttype = getDictionaryInfo(response.contractapplication[i].contracttype).value1;
+              vote2.contracttype = response.contractapplication[i].contracttype;
               vote2.applicationdate = moment(response.contractapplication[i].applicationdate).format('YYYY-MM-DD');
               vote2.state = response.contractapplication[i].state;
               vote2.claimdatetime = response.contractapplication[i].claimdatetime;
@@ -1970,7 +1982,9 @@
             for (let i = 0; i < response.length; i++) {
               var vote = {};
               vote.entrust = response[i].custchinese;
-              vote.deployment = response[i].prochinese;
+              vote.liableperson = response[i].liableperson;
+              vote.thecompany = response[i].thecompany;
+              vote.remarks = response[i].remarks;
               this.gridData2.push(vote);
             }
             this.loading = false;
@@ -2104,12 +2118,11 @@
         this.currentRow1 = val.name_id;
         //add-ws-数据库id存的是name名，外协关联修改
         this.currentRow2 = val.suppliername;
-        this.currentRow3 = val.post;
+        this.currentRow3 = val.post1;
         this.currentRow4 = val.suppliernameid;
         this.currentRow5 = val.expname;
       },
       submit(row) {
-          alert(getDictionaryInfo(this.currentRow3).value1);
         row.number = this.currentRow;
         row.name = this.currentRow1;
         //add-ws-数据库id存的是name名，外协关联修改
@@ -2122,11 +2135,15 @@
       },
       handleClickChange1(val) {
         this.currentRow = val.entrust;
-        this.currentRow1 = val.deployment;
+        this.currentRow6 = val.liableperson;
+        this.currentRow7 = val.thecompany;
+        this.currentRow8 = val.remarks;
       },
       submit1() {
         this.form.entrust = this.currentRow;
-        this.form.deployment = this.currentRow1;
+        this.form.deployment = this.currentRow7;
+        this.form.behalf = this.currentRow6;
+        this.form.intelligence = this.currentRow8;
         this.dialogTableVisible2 = false;
       },
       //合同
@@ -2482,7 +2499,14 @@
               vote1.expname = response[i].expname;
               vote1.suppliername = response[i].suppliername;
               if(response[i].post){
-                  vote1.post1 = getDictionaryInfo(response[i].post).value1 ;
+                //add-ws-value1-非空判断
+                let postvalue1 = '';
+                let letbudge = getDictionaryInfo(response[i].post);
+                if (letbudge) {
+                  postvalue1 = letbudge.value1;
+                }
+                //add-ws-value1-非空判断
+                  vote1.post1 = postvalue1 ;
                   vote1.post = response[i].post ;
               }
                 // vote1.post = response[i].post
@@ -2704,6 +2728,9 @@
             let error4 = 0;
             let error5 = 0;
             let error6 = 0;
+            let error7 = 0;
+            let error8 = 0;
+            let error9 = 0;
             if (this.form.toolstype === '1') {
               if (this.form.toolsorgs === undefined) {
                 error5 = error5 + 1;
@@ -2743,7 +2770,23 @@
                 error4 = error4 + 1;
               }
             }
-
+            //ADD-WS-开发部门，体制时间范围check
+            for (let i = 0; i < this.tableA.length; i++) {
+              if (moment(this.tableA[i].estimatedstarttime).format('YYYY-MM-DD') > moment(this.tableA[i].estimatedendtime).format('YYYY-MM-DD')) {
+                error7 = error7 + 1;
+              }
+            }
+            for (let i = 0; i < this.tableB.length; i++) {
+              if (moment(this.tableB[i].admissiontime).format('YYYY-MM-DD') > moment(this.tableB[i].exittime).format('YYYY-MM-DD')) {
+                error8 = error8 + 1;
+              }
+            }
+            for (let i = 0; i < this.tableC.length; i++) {
+              if (moment(this.tableC[i].admissiontime).format('YYYY-MM-DD') > moment(this.tableC[i].exittime).format('YYYY-MM-DD')) {
+                error9 = error9 + 1;
+              }
+            }
+            //ADD-WS-开发部门，体制时间范围check
             for (let i = 0; i < this.tableclaimtype.length; i++) {
               if (this.tableclaimtype[i].claimtype == '' || this.tableclaimtype[i].deliverydate == '' || this.tableclaimtype[i].completiondate == '' || this.tableclaimtype[i].claimdate == '' || this.tableclaimtype[i].supportdate == '' || this.tableclaimtype[i].claimamount == '') {
                 error3 = error3 + 1;
@@ -2796,7 +2839,35 @@
                 type: 'error',
                 duration: 5 * 1000,
               });
-            } else if (this.$route.params._id) {
+            }
+          //ADD-WS-开发部门，体制时间范围check
+          else if (error7 != 0) {
+            this.activeName ='third'
+            this.loading = false;
+            Message({
+              message: this.$t('label.PFANS5001FORMVIEW_CHECKDATAERROR'),
+              type: 'error',
+              duration: 5 * 1000,
+            });
+          } else if (error8 != 0) {
+            this.activeName ='fourth'
+            this.loading = false;
+            Message({
+              message: this.$t('label.PFANS5001FORMVIEW_CHECKDATAERRORN'),
+              type: 'error',
+              duration: 5 * 1000,
+            });
+          } else if (error9 != 0) {
+            this.activeName ='fourth'
+            this.loading = false;
+            Message({
+              message: this.$t('label.PFANS5001FORMVIEW_CHECKDATAERRORW'),
+              type: 'error',
+              duration: 5 * 1000,
+            });
+          }
+          //ADD-WS-开发部门，体制时间范围check
+          else if (this.$route.params._id) {
               this.baseInfo.companyprojects.companyprojects_id = this.$route.params._id;
               this.form.center_id = this.centerorglist;
               this.form.group_id = this.grouporglist;

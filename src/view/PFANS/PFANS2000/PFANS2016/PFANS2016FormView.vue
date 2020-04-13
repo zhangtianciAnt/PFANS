@@ -630,10 +630,10 @@
           label: this.$t('label.PFANS2016FORMVIEW_QUANTIAN'),
         }, {
           value: '1',
-          label: this.$t('label.PFANS2016FORMVIEW_SHANGWU'),
-        }, {
-          value: '2',
-          label: this.$t('label.PFANS2016FORMVIEW_XIAWU'),
+          label: this.$t('label.PFANS2011FROMVIEW_HALFDATE'),
+        // }, {
+        //   value: '2',
+        //   label: this.$t('label.PFANS2016FORMVIEW_XIAWU'),
         }],
         showVacation: false,
         erroruser: '',
@@ -1226,7 +1226,7 @@
           });
       },
       diffNoDays() {
-        if (moment(this.form.occurrencedate).format('YYYY-MM-DD') != moment(this.form.finisheddate).format('YYYY-MM-DD')) {
+        // if (moment(this.form.occurrencedate).format('YYYY-MM-DD') != moment(this.form.finisheddate).format('YYYY-MM-DD')) {
           var getDate = function(str) {
             var tempDate = new Date();
             var list = str.split('-');
@@ -1243,11 +1243,10 @@
               date1 = date2;
               date2 = tempDate;
             }
-            date1.setDate(date1.getDate() + 1);
+            // date1.setDate(date1.getDate() + 1);
             var dateArr = [];
             var i = 0;
-            while (!(date1.getFullYear() == date2.getFullYear()
-              && date1.getMonth() == date2.getMonth() && date1.getDate() == date2
+            while (!(date1.getFullYear() == date2.getFullYear() && date1.getMonth() == date2.getMonth() && date1.getDate() == date2
                 .getDate())) {
               var dayStr = date1.getDate().toString();
               if (dayStr.length == 1) {
@@ -1266,31 +1265,33 @@
             dateArr.push(moment(this.form.finisheddate).format('YYYY-MM-DD'));
             this.Todaysum = dateArr;
           }
-          for (let i = 0; i < this.Todaysum.length; i++) {
-            var date = getDate(this.Todaysum[i]);
-            if (date.getDay() == 6) {
-              this.Todaysum.splice(i, 1);
+            for (let a = 0; a < this.Todaysum.length; a++) {
+                for (let b = 0; b < this.dateInfo.length; b++) {
+                    if (this.dateInfo[b].dateflg == this.Todaysum[a] && this.dateInfo[b].type != '4') {
+                        this.Todaysum.splice(a, 1);
+                    }
+                }
             }
             this.reList = this.Todaysum;
-          }
-          for (let j = 0; j < this.reList.length; j++) {
-            var data = getDate(this.reList[j]);
-            if (data.getDay() == 0) {
-              this.reList.splice(j, 1);
+          for (let i = 0; i < this.reList.length; i++) {
+            var date = getDate(this.reList[i]);
+            if (date.getDay() == 6) {
+              this.reList.splice(i, 1);
             }
+
+          }
             this.relist = this.reList;
-          }
-          for (let a = 0; a < this.relist.length; a++) {
-            for (let b = 0; b < this.dateInfo.length; b++) {
-              if (this.dateInfo[b].dateflg == this.relist[a] && this.dateInfo[b].type != '4') {
-                this.relist.splice(a, 1);
-              }
+          for (let j = 0; j < this.relist.length; j++) {
+            var data = getDate(this.relist[j]);
+            if (data.getDay() == 0) {
+              this.relist.splice(j, 1);
             }
+            // this.relist = this.reList;
           }
-        }
+        // }
       },
       rediffNoDays(){
-        if (moment(this.form.reoccurrencedate).format('YYYY-MM-DD') !== moment(this.form.refinisheddate).format('YYYY-MM-DD')) {
+        // if (moment(this.form.reoccurrencedate).format('YYYY-MM-DD') !== moment(this.form.refinisheddate).format('YYYY-MM-DD')) {
         var getDate = function(str) {
           var tempDate = new Date();
           var list = str.split('-');
@@ -1307,7 +1308,7 @@
               date1 = date2;
               date2 = tempDate;
             }
-            date1.setDate(date1.getDate() + 1);
+            // date1.setDate(date1.getDate() + 1);
             var dateArr = [];
             var i = 0;
             while (!(date1.getFullYear() == date2.getFullYear()
@@ -1330,28 +1331,28 @@
             dateArr.push(moment(this.form.refinisheddate).format('YYYY-MM-DD'));
             this.Todaysum = dateArr;
           }
-          for (let i = 0; i < this.Todaysum.length; i++) {
-            var date = getDate(this.Todaysum[i]);
-            if (date.getDay() == 6) {
-              this.Todaysum.splice(i, 1);
-            }
-            this.reList = this.Todaysum;
-          }
-          for (let j = 0; j < this.reList.length; j++) {
-            var data = getDate(this.reList[j]);
-            if (data.getDay() == 0) {
-              this.reList.splice(j, 1);
-            }
-            this.relistTwo = this.reList;
-          }
-          for (let a = 0; a < this.relistTwo.length; a++) {
-            for (let b = 0; b < this.dateInfo.length; b++) {
-              if (this.dateInfo[b].dateflg == this.relistTwo[a] && this.dateInfo[b].type != '4') {
-                this.relistTwo.splice(a, 1);
+          for (let a = 0; a < this.Todaysum.length; a++) {
+              for (let b = 0; b < this.dateInfo.length; b++) {
+                  if (this.dateInfo[b].dateflg == this.Todaysum[a] && this.dateInfo[b].type != '4') {
+                      this.Todaysum.splice(a, 1);
+                  }
               }
+          }
+          this.reList = this.Todaysum;
+          for (let i = 0; i < this.reList.length; i++) {
+            var date = getDate(this.reList[i]);
+            if (date.getDay() == 6) {
+              this.reList.splice(i, 1);
             }
           }
-        }
+          this.relistTwo = this.reList;
+          for (let j = 0; j < this.relistTwo.length; j++) {
+            var data = getDate(this.relistTwo[j]);
+            if (data.getDay() == 0) {
+              this.relistTwo.splice(j, 1);
+            }
+          }
+        // }
       },
       change() {
         this.diffNoDays();
@@ -1890,23 +1891,33 @@
                 }
               }
               if (this.form.status === '4') {
-                for (let d = 0; d < this.relistTwo.length; d++) {
-                  timere = timere + 1;
-                }
-                if(timere === 0){
-                  Message({
-                    message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  return;
-                } else {
-                  if (this.retypecheck === '0') {
-                    this.form.relengthtime = timere * 8;
-                  } else {
-                    this.form.relengthtime = 4;
+                  // if(moment(this.form.refinisheddate).format("YYYY-MM-DD") === moment(this.form.reoccurrencedate).format("YYYY-MM-DD")){
+                  //     if (this.retypecheck === '0') {
+                  //         this.form.relengthtime =  8;
+                  //         timere =  8;
+                  //     } else {
+                  //         this.form.relengthtime = 4;
+                  //         timere = 4;
+                  //     }
+                  // } else {
+                      for (let d = 0; d < this.relistTwo.length; d++) {
+                          timere = timere + 1;
+                      }
+                      if(timere <= 1){
+                          Message({
+                              message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
+                              type: 'error',
+                              duration: 5 * 1000,
+                          });
+                          return;
+                      } else {
+                          if (this.retypecheck === '0') {
+                              this.form.relengthtime = timere * 8;
+                          } else {
+                              this.form.relengthtime = 4;
+                          }
+                      // }
                   }
-                }
                 if (this.checkDate < timere) {
                   Message({
                     message: this.$t('label.PFANS2016FORMVIEW_ERRORANNUALLEAVE'),
@@ -1916,25 +1927,36 @@
                   return;
                 }
               } else {
-                for (let d = 0; d < this.relist.length; d++) {
-                  time = time + 1;
-                }
-                if(time === 0){
-                  Message({
-                    message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  return;
-                } else {
-                  if (this.typecheck === '0') {
-                    this.form.lengthtime = time * 8;
-                    this.form.relengthtime = time * 8;
-                  } else {
-                    this.form.lengthtime = 4;
-                    this.form.relengthtime = 4;
-                  }
-                }
+                  // if(moment(this.form.finisheddate).format("YYYY-MM-DD") === moment(this.form.occurrencedate).format("YYYY-MM-DD")){
+                  //     if (this.typecheck === '0') {
+                  //         this.form.lengthtime =  8;
+                  //         time =  8;
+                  //     } else {
+                  //         this.form.lengthtime = 4;
+                  //         time = 4;
+                  //     }
+                  // } else {
+                  alert(this.relist.length);
+                      for (let d = 0; d < this.relist.length; d++) {
+                          time = time + 1;
+                      }
+                      if (time <= 1) {
+                          Message({
+                              message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
+                              type: 'error',
+                              duration: 5 * 1000,
+                          });
+                          return;
+                      } else {
+                          if (this.typecheck === '0') {
+                              this.form.lengthtime = time * 8;
+                              this.form.relengthtime = time * 8;
+                          } else {
+                              this.form.lengthtime = 4;
+                              this.form.relengthtime = 4;
+                          }
+                      }
+                  // }
                 if (this.checkDate < time) {
                   Message({
                     message: this.$t('label.PFANS2016FORMVIEW_ERRORANNUALLEAVE'),

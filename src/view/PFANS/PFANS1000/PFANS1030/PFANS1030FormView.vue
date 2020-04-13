@@ -270,6 +270,7 @@
                          style="width: 9rem"
                          :no="scope.row"
                          @getOrgids="getGroupId" v-if="scope.row.rowindex !== '999'"></org>
+                    <el-input v-show='false' :disabled="false" style="width:20vw" v-model="scope.row.companyend"></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS5008VIEW_PROGRAM')" align="center" width="150">
@@ -797,6 +798,7 @@
           placejapanese: '',
           placechinese: '',
           deployment: '',
+          companyend: '',
           pjnamejapanese: '',
           pjnamechinese: '',
           claimdatetimeStart: '',
@@ -822,6 +824,7 @@
           award_id: '',
           budgetcode: '',
           depart: '',
+          companyend: '',
           projects: '',
           member: '',
           community: '',
@@ -1066,6 +1069,9 @@
               this.tableT = response.awardDetail;
               for (var i = 0; i < this.tableT.length; i++) {
                 this.orglist = this.tableT[i].depart;
+                this.getGroupId(this.orglist,this.tableT[i]);
+                // let group = getOrgInfo(this.orglist);
+                // this.tableT[i].companyend = group.companyen;
               }
             }
             // add-ws-合同人件费修改
@@ -1297,6 +1303,7 @@
         let group = getOrgInfo(orglist);
         if (group) {
           row.budgetcode = group.encoding;
+          row.companyend = group.companyen;
         }
       },
       workflowState(val) {
@@ -1327,6 +1334,7 @@
           awarddetail_id: '',
           award_id: '',
           budgetcode: '',
+          companyend: '',
           depart: '',
           member: '',
           community: '',
@@ -1378,7 +1386,6 @@
         return sums;
       },
       moneySum(sums){
-        debugger
         if (this.form.currencyposition === 'PG019001' || this.form.currencyposition === this.$t('label.PFANS1039FORMVIEW_DOLLAR')) {
           this.form.sarmb = this.form.exchangerate * sums[8];
         } else {
@@ -1469,10 +1476,17 @@
           if (user) {
             this.form.user_id = user.userinfo.customername;
           }
+          this.form.companyend = this.tableT.companyend;
           this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
+          debugger
+          console.log(this.form)
           this.$store
             .dispatch('PFANS1025Store/generateJxls', this.baseInfo)
             .then(response => {
+              debugger
+              // for(let i = 0; i < response.baseInfo.awardDetail.length; i++){
+              //
+              // }
               this.loading = false;
             })
             .catch(error => {

@@ -311,6 +311,7 @@
               >
                 <!--                部门-->
                 <el-table-column
+                  show-overflow-tooltip
                   prop="group_id"
                   :label="$t('label.department')"
                   width="200"
@@ -318,6 +319,7 @@
                 </el-table-column>
                 <!--                项目-->
                 <el-table-column
+                  show-overflow-tooltip
                   prop="project_name"
                   :label="$t('label.PFANS5009VIEW_PROJECTNAME')"
                   width="200"
@@ -325,6 +327,7 @@
                 </el-table-column>
                 <!--                项目类型-->
                 <el-table-column
+                  show-overflow-tooltip
                   prop="projecttype"
                   :label="$t('label.PFANS5001FORMVIEW_PROJECTTYPE')"
                   width="150"
@@ -853,7 +856,7 @@
       selectById(val) {
         this.loading = true;
         this.$store
-          .dispatch('PFANS6004Store/getCompanyProject', {"SyspName": this.$route.params._id})
+          .dispatch('PFANS6004Store/getCompanyProject', {"SyspName": this.$route.params._account})
           .then(response => {
             for (let j = 0; j < response.length; j++) {
               if (response[j].group_id !== null && response[j].group_id !== '') {
