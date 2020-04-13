@@ -466,6 +466,7 @@
         erroradmissiontime: '',
         grouporglist: '',
         errorexitime: '',
+        account: '',
         errorgroup: '',
         errorgraduateschool: '',
         disabled: false,
@@ -708,7 +709,7 @@
       };
     },
     mounted() {
-      if (this.$route.params._id) {
+      if (this.$route.params._account) {
         this.selectById();
       }
       if (this.$route.params._id) {
