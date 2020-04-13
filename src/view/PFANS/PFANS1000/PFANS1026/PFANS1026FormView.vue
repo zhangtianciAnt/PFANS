@@ -654,19 +654,19 @@
               </template>
             </el-table-column>
             <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYFINSHDATE')" align="center"
-                             prop="deliveryfinshdate" width="200">
+                              width="200">
               <template slot-scope="scope">
-                <el-form-item :prop="'tabledata.' + scope.$index + '.deliveryfinshdate'"
+                <el-form-item :prop="'tableclaimtype.' + scope.$index + '.deliveryfinshdate'"
                               :rules='rules.deliveryfinshdate'>
                   <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.deliveryfinshdate"
                                   style="width: 11rem"></el-date-picker>
                 </el-form-item>
               </template>
             </el-table-column>
-            <el-table-column :label="$t('label.PFANS1024VIEW_LOADINGJUDGE')" align="center" prop="loadingjudge"
-                             width="200" :error="errorjudge">
+            <el-table-column :label="$t('label.PFANS1024VIEW_LOADINGJUDGE')" align="center"
+                             width="200">
               <template slot-scope="scope">
-                <el-form-item :prop="'tabledata.' + scope.$index + '.loadingjudge'" :rules='rules.loadingjudge'>
+                <el-form-item :prop="'tableclaimtype.' + scope.$index + '.loadingjudge'" :rules='rules.loadingjudge'>
                   <user :disabled="!disabled" :no="scope.row" :selectType="selectType"
                         :userlist="scope.row.loadingjudge"
                         @getUserids="getJudge" style="width: 10.15rem"></user>
@@ -1849,6 +1849,8 @@
           claimtype: '',
           deliverydate: '',
           completiondate: '',
+          deliveryfinshdate: '',
+          loadingjudge: '',
           claimdate: moment(new Date()).format('YYYY-MM-DD'),
           claimamount: '',
           supportdate: '',
@@ -2452,7 +2454,7 @@
         myRule.forEach(function(item, index, array) {
           let dataName = 'tabledata';
           let maxCount = rowCount;
-          if (['deliverydate', 'completiondate', 'claimdate', 'supportdate', 'claimamount'].indexOf(item) >= 0) {
+          if (['deliverydate', 'completiondate', 'claimdate', 'supportdate', 'deliveryfinshdate', 'loadingjudge', 'claimamount'].indexOf(item) >= 0) {
             dataName = 'tableclaimtype';
             maxCount = rowCount2;
             for (var k = 0; k < maxCount; k++) {
