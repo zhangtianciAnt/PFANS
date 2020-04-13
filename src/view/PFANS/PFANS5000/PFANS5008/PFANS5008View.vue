@@ -97,6 +97,7 @@
         Message1: true,
         result: false,
         cuowu: '',
+        createy: '',
         daoru: false,
         checkTableData: [],
         authHeader: {'x-auth-token': getToken()},
@@ -270,6 +271,7 @@
         }
       },
       rowClick(row) {
+        this.createy= row.createby;
         this.row = row.logmanagement_id;
       },
       getProjectList() {
@@ -340,6 +342,7 @@
           this.$router.push({
             name: 'PFANS5008FormView',
             params: {
+              _createby:this.createy,
               _id: this.row,
               disabled: true,
             },
@@ -356,6 +359,7 @@
           this.$router.push({
             name: 'PFANS5008FormView',
             params: {
+              _createby:this.createy,
               _id: this.row,
               disabled: false,
             },
