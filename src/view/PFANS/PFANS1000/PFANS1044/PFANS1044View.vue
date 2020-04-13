@@ -148,7 +148,7 @@
         row: '',
         contractnumber: '',
         state: '',
-        rowid: 'contractnumbercount_id '
+        rowid: 'contractapplication_id '
       };
     },
     beforeRouteEnter(to, from, next) {
@@ -395,6 +395,7 @@
         }));
       },
       changed() {
+        this.$refs.roletable.$refs.eltable.clearSelection();
         let cons = this.alldata2;
         if (this.month) {
           cons = cons.filter(item => moment(item.deliverydate).format("YYYY-MM") == moment(this.month).format("YYYY-MM"));
