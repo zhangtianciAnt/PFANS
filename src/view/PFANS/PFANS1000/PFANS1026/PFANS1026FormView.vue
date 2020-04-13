@@ -325,26 +325,7 @@
                 </template>
               </el-table-column>
             </el-table-column>
-            <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYFINSHDATE')" align="center"
-                             prop="deliveryfinshdate" width="200">
-              <template slot-scope="scope">
-                <el-form-item :prop="'tabledata.' + scope.$index + '.deliveryfinshdate'"
-                              :rules='rules.deliveryfinshdate'>
-                  <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.deliveryfinshdate"
-                                  style="width: 11rem"></el-date-picker>
-                </el-form-item>
-              </template>
-            </el-table-column>
-            <el-table-column :label="$t('label.PFANS1024VIEW_LOADINGJUDGE')" align="center" prop="loadingjudge"
-                             width="200" :error="errorjudge">
-              <template slot-scope="scope">
-                <el-form-item :prop="'tabledata.' + scope.$index + '.loadingjudge'" :rules='rules.loadingjudge'>
-                  <user :disabled="!disabled" :no="scope.row" :selectType="selectType"
-                        :userlist="scope.row.loadingjudge"
-                        @getUserids="getJudge" style="width: 10.15rem"></user>
-                </el-form-item>
-              </template>
-            </el-table-column>
+
             <el-table-column :label="$t('label.PFANS1024VIEW_CURRENCYPOSITION')" align="center" prop="currencyposition"
                              width="200">
               <template slot-scope="scope">
@@ -669,6 +650,26 @@
                               :rules='rules.completiondate'>
                   <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.completiondate"
                                   style="width: 9.5rem"></el-date-picker>
+                </el-form-item>
+              </template>
+            </el-table-column>
+            <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYFINSHDATE')" align="center"
+                             prop="deliveryfinshdate" width="200">
+              <template slot-scope="scope">
+                <el-form-item :prop="'tabledata.' + scope.$index + '.deliveryfinshdate'"
+                              :rules='rules.deliveryfinshdate'>
+                  <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.deliveryfinshdate"
+                                  style="width: 11rem"></el-date-picker>
+                </el-form-item>
+              </template>
+            </el-table-column>
+            <el-table-column :label="$t('label.PFANS1024VIEW_LOADINGJUDGE')" align="center" prop="loadingjudge"
+                             width="200" :error="errorjudge">
+              <template slot-scope="scope">
+                <el-form-item :prop="'tabledata.' + scope.$index + '.loadingjudge'" :rules='rules.loadingjudge'>
+                  <user :disabled="!disabled" :no="scope.row" :selectType="selectType"
+                        :userlist="scope.row.loadingjudge"
+                        @getUserids="getJudge" style="width: 10.15rem"></user>
                 </el-form-item>
               </template>
             </el-table-column>
