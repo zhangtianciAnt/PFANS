@@ -2059,6 +2059,32 @@
               }
               break;
             }
+            //ADD-WS-体制时间范围check
+            for (let i = 0; i < this.tableB.length; i++) {
+              if (moment(this.tableB[i].admissiontime).format('YYYY-MM-DD') > moment(this.tableB[i].exittime).format('YYYY-MM-DD')) {
+                this.activeName = 'fourth';
+                this.loading = false;
+                error1 = error1 + 1;
+                Message({
+                  message: this.$t('label.PFANS5001FORMVIEW_CHECKDATAERRORN'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+              }
+            }
+            for (let i = 0; i < this.tableC.length; i++) {
+              if (moment(this.tableC[i].admissiontime).format('YYYY-MM-DD') > moment(this.tableC[i].exittime).format('YYYY-MM-DD')) {
+                this.activeName = 'fourth';
+                this.loading = false;
+                error1 = error1 + 1;
+                Message({
+                  message: this.$t('label.PFANS5001FORMVIEW_CHECKDATAERRORW'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+              }
+            }
+            //ADD-WS-体制时间范围check
             for (let i = 0; i < this.tableC.length; i++) {
               for (let K = 1; K < this.tableC.length; K++) {
                 if (this.tableC[i].name === this.tableC[K].name) {
