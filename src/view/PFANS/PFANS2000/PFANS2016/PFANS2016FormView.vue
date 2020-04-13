@@ -1890,23 +1890,33 @@
                 }
               }
               if (this.form.status === '4') {
-                for (let d = 0; d < this.relistTwo.length; d++) {
-                  timere = timere + 1;
-                }
-                if(timere === 0){
-                  Message({
-                    message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  return;
-                } else {
-                  if (this.retypecheck === '0') {
-                    this.form.relengthtime = timere * 8;
+                  if(moment(this.form.refinisheddate).format("YYYY-MM-DD") === moment(this.form.reoccurrencedate).format("YYYY-MM-DD")){
+                      if (this.retypecheck === '0') {
+                          this.form.relengthtime =  8;
+                          timere =  8;
+                      } else {
+                          this.form.relengthtime = 4;
+                          timere = 4;
+                      }
                   } else {
-                    this.form.relengthtime = 4;
+                      for (let d = 0; d < this.relistTwo.length; d++) {
+                          timere = timere + 1;
+                      }
+                      if(timere === 0){
+                          Message({
+                              message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
+                              type: 'error',
+                              duration: 5 * 1000,
+                          });
+                          return;
+                      } else {
+                          if (this.retypecheck === '0') {
+                              this.form.relengthtime = timere * 8;
+                          } else {
+                              this.form.relengthtime = 4;
+                          }
+                      }
                   }
-                }
                 if (this.checkDate < timere) {
                   Message({
                     message: this.$t('label.PFANS2016FORMVIEW_ERRORANNUALLEAVE'),
@@ -1916,25 +1926,35 @@
                   return;
                 }
               } else {
-                for (let d = 0; d < this.relist.length; d++) {
-                  time = time + 1;
-                }
-                if(time === 0){
-                  Message({
-                    message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  return;
-                } else {
-                  if (this.typecheck === '0') {
-                    this.form.lengthtime = time * 8;
-                    this.form.relengthtime = time * 8;
+                  if(moment(this.form.finisheddate).format("YYYY-MM-DD") === moment(this.form.occurrencedate).format("YYYY-MM-DD")){
+                      if (this.typecheck === '0') {
+                          this.form.lengthtime =  8;
+                          time =  8;
+                      } else {
+                          this.form.lengthtime = 4;
+                          time = 4;
+                      }
                   } else {
-                    this.form.lengthtime = 4;
-                    this.form.relengthtime = 4;
+                      for (let d = 0; d < this.relist.length; d++) {
+                          time = time + 1;
+                      }
+                      if (time === 0) {
+                          Message({
+                              message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
+                              type: 'error',
+                              duration: 5 * 1000,
+                          });
+                          return;
+                      } else {
+                          if (this.typecheck === '0') {
+                              this.form.lengthtime = time * 8;
+                              this.form.relengthtime = time * 8;
+                          } else {
+                              this.form.lengthtime = 4;
+                              this.form.relengthtime = 4;
+                          }
+                      }
                   }
-                }
                 if (this.checkDate < time) {
                   Message({
                     message: this.$t('label.PFANS2016FORMVIEW_ERRORANNUALLEAVE'),
