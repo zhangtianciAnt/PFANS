@@ -1410,7 +1410,7 @@
                         //跨天取整天，8小时   不包含公休日
                         this.dislengthtime = true;
                         let time = 0;
-                        for (let d = 0; d < this.relist.length; d++) {
+                        for (let d = 0; d < this.relist.length -1; d++) {
                             time = time + 1;
                         }
                         this.form.lengthtime = time * 8;
@@ -1435,7 +1435,7 @@
                     if (this.typecheck == '0') {
                         let time = 0;
                         //不包含公休日
-                        for (let d = 0; d < this.relist.length; d++) {
+                        for (let d = 0; d < this.relist.length -1; d++) {
                             time = time + 1;
                         }
                         this.form.lengthtime = time * 8;
@@ -1458,7 +1458,7 @@
                     if (this.retypecheck == '0') {
                         let time = 0;
                         //不包含公休日
-                        for (let d = 0; d < this.relist.length; d++) {
+                        for (let d = 0; d < this.relistTwo.length -1; d++) {
                             time = time + 1;
                         }
                         this.form.relengthtime = time * 8;
@@ -1493,7 +1493,7 @@
                 // }
                 if (this.retypecheck == '0') {
                     let timere = 0;
-                    for (let d = 0; d < this.relistTwo.length; d++) {
+                    for (let d = 0; d < this.relistTwo.length -1; d++) {
                         timere = timere + 1;
                     }
                     this.form.relengthtime = timere * 8;
