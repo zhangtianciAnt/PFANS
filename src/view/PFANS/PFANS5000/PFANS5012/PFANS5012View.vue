@@ -105,6 +105,7 @@
       // }
       //
       let letorgGroupList = this.$store.getters.orgGroupList;
+      debugger
       for (let i = 0;i < letorgGroupList.length; i ++){
         if(letorgGroupList[i].groupid === groupid){
           let group = {};
@@ -133,6 +134,7 @@
         this.$store
           .dispatch('PFANS5001Store/getProjectList', {StrFlg:"2",StrDate:this.months})
           .then(response => {
+            debugger
             for (let i = 0;i < this.data.length; i ++){
               let status;
               let groupuserlist = this.data[i].groupuserlist;

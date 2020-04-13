@@ -907,7 +907,7 @@
                           <dicselect
                             :data="scope.row.type"
                             @change="changeType"
-                            code="PJ106"
+                            code="PJ108"
                             style="width:7vw"
                             :no="scope.row"
                             size="small"
@@ -1371,7 +1371,7 @@
                           <dicselect
                             :data="scope.row.type"
                             @change="changeType"
-                            code="PJ108"
+                            code="PJ106"
                             style="width:7vw"
                             :no="scope.row"
                             size="small"
@@ -2150,11 +2150,11 @@
         assets1: [],
         assets2: [],
         travel: [],
-        business: [{assetstype: '0'}, {assetstype: '1'}, {assetstype: '0'}, {assetstype: '1'}, {assetstype: '0'}, {assetstype: '1'}, {assetstype: '0'}, {assetstype: '1'}],
-        equipment_newyear: [{assetstype: '0'}, {assetstype: '1'}],
-        equipment_lastyear: [{assetstype: '0'}, {assetstype: '1'}],
-        assets_newyear: [{assetstype: '0'}, {assetstype: '1'}],
-        assets_lastyear: [{assetstype: '0'}, {assetstype: '1'}],
+        business: [{assetstype: '0'}, {assetstype: '0'},  {assetstype: '0'}, {assetstype: '0'}],
+        equipment_newyear: [{assetstype: '0'}],
+        equipment_lastyear: [{assetstype: '0'}],
+        assets_newyear: [{assetstype: '0'}],
+        assets_lastyear: [{assetstype: '0'}],
         error: '',
         options: [],
         selectType: 'Single',
