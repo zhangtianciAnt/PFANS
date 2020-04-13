@@ -178,6 +178,7 @@
         ],
         rowid: '',
         row: 'expatriatesinfor_id',
+        account: '',
         isShow: true,
         rowname: '',
       };
@@ -259,6 +260,7 @@
                   graduateschool: response[j].graduateschool,
                   technology: response[j].technology,
                   rn: response[j].rn,
+                  account: response[j].account,
                 })
               }
             }
@@ -275,6 +277,7 @@
           });
       },
       rowClick(row) {
+        this.account = row.account;
         this.rowid = row.expatriatesinfor_id;
         this.rowname = row.expname;
       },
@@ -439,6 +442,7 @@
           this.$router.push({
             name: 'PFANS6004FormView',
             params: {
+              _account: this.account,
               _id: this.rowid,
               _name: this.rowname,
               disabled: true,
@@ -457,6 +461,7 @@
           this.$router.push({
             name: 'PFANS6004FormView',
             params: {
+              _account: this.account,
               _id: this.rowid,
               _name: this.rowname,
               disabled: false,

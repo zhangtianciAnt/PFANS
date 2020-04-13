@@ -853,7 +853,7 @@
       selectById(val) {
         this.loading = true;
         this.$store
-          .dispatch('PFANS6004Store/getCompanyProject', {"SyspName": this.$route.params._id})
+          .dispatch('PFANS6004Store/getCompanyProject', {"SyspName": this.$route.params._account})
           .then(response => {
             for (let j = 0; j < response.length; j++) {
               if (response[j].group_id !== null && response[j].group_id !== '') {
