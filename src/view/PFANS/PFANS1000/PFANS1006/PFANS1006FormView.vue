@@ -39,9 +39,8 @@
                           maxlength="20"></el-input>
               </el-form-item>
             </el-col>
-<!--            prop="judgement"-->
             <el-col :span="8">
-              <el-form-item :label="$t('label.judgement')" >
+              <el-form-item :label="$t('label.judgement')"  prop="judgement">
                 <el-select @change="change" clearable v-model="form.judgements"
                            style="width: 20vw">
                   <el-option
