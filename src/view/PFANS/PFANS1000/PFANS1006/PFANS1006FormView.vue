@@ -39,8 +39,9 @@
                           maxlength="20"></el-input>
               </el-form-item>
             </el-col>
+<!--            prop="judgement"-->
             <el-col :span="8">
-              <el-form-item :label="$t('label.judgement')" prop="judgement">
+              <el-form-item :label="$t('label.judgement')" >
                 <el-select @change="change" clearable v-model="form.judgements"
                            style="width: 20vw">
                   <el-option
@@ -167,46 +168,92 @@
               </el-row>
               <el-row>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1012VIEW_PAYEENAME')" v-show="show1" prop="payeename">
-                    <el-input :disabled="!disable" style="width:20vw" v-model="form.payeename"
-                              maxlength="20"></el-input>
+                  <el-form-item :error="errorsuppliername" :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')"
+                                prop="suppliername" v-show="show8">
+                    <div class="dpSupIndex" style="width: 20vw" prop="suppliername">
+                      <el-container>
+                        <input class="content bg" v-model="form.accountpayeename" :error="errorsuppliername"
+                               :disabled="true">
+                        <el-button :disabled="!disable" icon="el-icon-search" @click="dialogTableVisible = true"
+                                   size="small"></el-button>
+                        <el-dialog :title="$t('title.PFANS6003VIEW')" :visible.sync="dialogTableVisible" center
+                                   size="50%"
+                                   top="8vh" lock-scroll
+                                   append-to-body>
+                          <div style="text-align: center">
+                            <el-row style="text-align: center;height: 90%;overflow: hidden">
+                              <el-table
+                                :data="gridData.filter(data => !search || data.suppliername.toLowerCase().includes(search.toLowerCase()))"
+                                height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
+                                @row-click="handleClickChange">
+                                <el-table-column property="accountpayeename"
+                                                 :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')"
+                                                 width="150"></el-table-column>
+                                <el-table-column property="payeename"
+                                                 :label="$t('label.PFANS1012VIEW_PAYEENAME')"
+                                                 width="150"></el-table-column>
+                                <el-table-column property="vendornum"
+                                                 :label="$t('label.PFANS1012VIEW_FOREIGNPAYEECODE')"
+                                                 width="100"></el-table-column>
+                                <el-table-column property="payeebankaccountnumber"
+                                                 :label="$t('label.PFANS1012VIEW_PAYEEBANKNUMBER')"
+                                                 width="150"></el-table-column>
+                                <el-table-column property="payeebankaccount"
+                                                 :label="$t('label.PFANS1012VIEW_PAYEEBANKACCOUNT')"
+                                                 width="150"></el-table-column>
+                                <el-table-column
+                                  align="right" width="230">
+                                  <template slot="header" slot-scope="scope">
+                                    <el-input
+                                      v-model="search"
+                                      size="mini"
+                                      :placeholder="$t('label.PFANS1012FORMVIEW_USERNAME')"/>
+                                  </template>
+                                </el-table-column>
+                              </el-table>
+                            </el-row>
+                            <span slot="footer" class="dialog-footer">
+                          <el-button type="primary" @click="submit">{{$t('button.confirm')}}</el-button>
+                        </span>
+                          </div>
+                        </el-dialog>
+                      </el-container>
+                    </div>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1012VIEW_FOREIGNPAYEECODE')" v-show="show1" prop="payeecode">
-                    <el-input :disabled="!disable" style="width:20vw" maxlength="20"
+                  <el-form-item :label="$t('label.PFANS1012VIEW_PAYEENAME')" v-show="show9" prop="payeename">
+                    <el-input :disabled="true" style="width:20vw" v-model="form.payeename"
+                              ></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1012VIEW_FOREIGNPAYEECODE')" v-show="show7" prop="payeecode">
+                    <el-input :disabled="true" style="width:20vw"
                               v-model="form.payeecode"></el-input>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1012VIEW_PAYEEBANKNUMBER')" v-show="show1"
-                                prop="payeebankaccountnumber">
-                    <el-input :disabled="!disable" style="width:20vw" v-model="form.payeebankaccountnumber"
-                              maxlength="20"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
               <el-row>
                 <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1012VIEW_PAYEEBANKNUMBER')" v-show="show1"
+                                prop="payeebankaccountnumber">
+                    <el-input :disabled="true" style="width:20vw" v-model="form.payeebankaccountnumber"
+                    ></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1012VIEW_PAYEEBANKACCOUNT')" v-show="show1"
                                 prop="payeebankaccount">
-                    <el-input :disabled="!disable" style="width:20vw" v-model="form.payeebankaccount"
-                              maxlength="20"></el-input>
+                    <el-input :disabled="true" style="width:20vw" v-model="form.payeebankaccount"
+                              ></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1012VIEW_PERSONALNAME')" v-show="show2" prop="name">
-                    <el-input :disabled="!disable" style="width:20vw" v-model="form.name" maxlength="20"></el-input>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-              <el-row>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1012VIEW_PAYEENAME')" v-show="show3" prop="accountpayeename">
-                    <el-input :disabled="!disable" style="width:20vw" v-model="form.accountpayeename"
-                              maxlength="20"></el-input>
+                    <el-input :disabled="true" style="width:20vw" v-model="form.name" maxlength="20"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -266,18 +313,13 @@
           callback();
         }
       };
-      var validatePayeebankaccountnumber = (rule, value, callback) => {
-        this.regExp = /^[A-Za-z0-9]+$/;
-        if (this.form.ayeebankaccountnumber !== null && this.form.payeebankaccountnumber !== '') {
-          if (!this.regExp.test((value))) {
-            callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS1012VIEW_PAYEEBANKNUMBER')));
-          } else {
-            callback();
-          }
-        } else {
-          callback();
-        }
-      };
+      // var validatePayeebankaccountnumber = (rule, value, callback) => {
+      //   if (!value || value === '' || value === 'undefined') {
+      //       callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS1012VIEW_PAYEEBANKNUMBER')));
+      //   } else {
+      //     callback();
+      //   }
+      // };
       var validateUserid = (rule, value, callback) => {
         if (!value || value === '' || value === 'undefined') {
           callback(new Error(this.$t('normal.error_08') + this.$t('label.applicant')));
@@ -347,7 +389,14 @@
         }
       };
       return {
+        dialogTableVisible: false,
+        show9: false,
+        show8: false,
+        show1: false,
+        show7: false,
+        errorsuppliername: '',
         options: [],
+        gridData: [],
         flag: false,
         centerid: '',
         groupid: '',
@@ -370,6 +419,7 @@
         tabIndex: 0,
         multiple: false,
         form: {
+          accountpayeename: '',
           judgements: '',
           user_id: '',
           center_id: '',
@@ -394,11 +444,16 @@
           reasonfordelay: '',
           application_date: moment(new Date()).format('YYYY-MM-DD'),
         },
+        currentRow: '',
+        currentRow1: '',
+        currentRow2: '',
+        currentRow3: '',
+        currentRow4: '',
+        Codecheck: '',
         code1: 'PG001',
         code2: 'PJ002',
         code3: 'PG019',
         code4: 'PJ015',
-        show1: false,
         show2: false,
         show3: false,
         menuList: [],
@@ -454,18 +509,18 @@
             trigger: 'change',
           }],
           payeecode: [
-            //   {
-            //   required: true,
-            //   message: this.$t('normal.error_08') + this.$t('label.PFANS1012VIEW_FOREIGNPAYEECODE'),
-            //   trigger: 'change',
-            // },
+              {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS1012VIEW_FOREIGNPAYEECODE'),
+              trigger: 'change',
+            },
             {validator: validatePayeecode, trigger: 'blur'}],
           payeebankaccountnumber: [{
             required: true,
             message: this.$t('normal.error_08') + this.$t('label.PFANS1012VIEW_PAYEEBANKNUMBER'),
             trigger: 'change',
           },
-            {validator: validatePayeebankaccountnumber, trigger: 'blur'}],
+            ],
           judgement: [{
             required: true,
             validator: validatejudgement,
@@ -509,6 +564,7 @@
       }
     },
     mounted() {
+      this.getsupplierinfor();
       this.judgementlist();
       let userid = this.$store.getters.userinfo.userid;
       let groupid = getUserInfo(userid).userinfo.groupid;
@@ -529,13 +585,21 @@
               this.teamid = rst.teamNmae;
             }
             this.userlist = this.form.user_id;
-            this.getPayment(this.form.paymentmethod);
             if (this.form.paymentmethod === 'PJ015001') {
+              this.show9 = true;
+              this.show8 = true;
               this.show1 = true;
+              this.show7 = true;
             } else if (this.form.paymentmethod === 'PJ015002') {
+              this.show9 = false;
+              this.show8 = false;
               this.show2 = true;
+              this.show7 = false;
             } else if (this.form.paymentmethod === 'PJ015003') {
+              this.show9 = true;
+              this.show8 = true;
               this.show3 = true;
+              this.show7 = true;
             }
             this.loading = false;
           })
@@ -549,6 +613,10 @@
           });
       } else {
         this.userlist = this.$store.getters.userinfo.userid;
+        if(getUserInfo(this.$store.getters.userinfo.userid)){
+          this.form.name = this.$store.getters.userinfo.userinfo.personalcode;
+          this.Codecheck = this.$store.getters.userinfo.userinfo.personalcode;
+        }
         let num = getUserInfo(this.$store.getters.userinfo.userid).userinfo.extension;
         if (num) {
           this.form.telephone = num;
@@ -571,8 +639,53 @@
       }
     },
     methods: {
+      submit() {
+        let val = this.currentRow;
+        let val1 = this.currentRow1;
+        let val2 = this.currentRow2;
+        let val3 = this.currentRow3;
+        let val4 = this.currentRow4;
+        this.dialogTableVisible = false;
+        this.form.accountpayeename = val;
+        this.form.payeename = val1;
+        this.form.payeecode = val2;
+        this.form.payeebankaccountnumber = val3;
+        this.form.payeebankaccount = val4;
+      },
+      handleClickChange(val) {
+        this.currentRow = val.accountpayeename;
+        this.currentRow1 = val.payeename;
+        this.currentRow2 = val.suppliercode;
+        this.currentRow3 = val.payeebankaccountnumber;
+        this.currentRow4 = val.payeebankaccount;
+      },
+      getsupplierinfor() {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS6003Store/getsupplierinfor2')
+          .then(response => {
+            this.gridData = [];
+            for (let i = 0; i < response.length; i++) {
+              var vote = {};
+              vote.accountpayeename = response[i].supchinese;
+              vote.payeename = response[i].payeename;
+              vote.suppliercode = response[i].suppliercode;
+              vote.payeebankaccountnumber = response[i].payeebankaccountnumber;
+              vote.payeebankaccount = response[i].payeebankaccount;
+              this.gridData.push(vote);
+            }
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
       change(val) {
-        debugger
         this.form.judgements = val;
       },
       judgementlist() {
@@ -632,9 +745,16 @@
       getPayment(val) {
         this.form.paymentmethod = val;
         if (val === 'PJ015001') {
+          this.show7 = true;
+          this.show9 = true;
+          this.show8 = true;
           this.show1 = true;
           this.show2 = false;
           this.show3 = false;
+          this.form.payeename= '';
+          this.form.payeecode = '';
+          this.form.payeebankaccountnumber = '';
+          this.form.payeebankaccount = '';
           this.form.name = '';
           this.form.accountpayeename = '';
           this.rules.name[0].required = false;
@@ -643,9 +763,11 @@
           this.rules.payeecode[0].required = true;
           this.rules.payeebankaccountnumber[0].required = true;
           this.rules.payeebankaccount[0].required = true;
-          this.form.payeebankaccountnumber = getUserInfo(this.form.user_id).userinfo.seatnumber;
-          console.log("getUserInfo(this.form.user_id).userinfo",getUserInfo("5e78b2544e3b194874181087").userinfo)
         } else if (val === 'PJ015002') {
+          this.form.name = this.Codecheck
+          this.show7 = false;
+          this.show9 = false;
+          this.show8 = false;
           this.show1 = false;
           this.show2 = true;
           this.show3 = false;
@@ -661,18 +783,22 @@
           this.rules.payeebankaccountnumber[0].required = false;
           this.rules.payeebankaccount[0].required = false;
         } else if (val === 'PJ015003') {
+          this.show7 = true;
+          this.show9 = true;
+          this.show8 = true;
           this.show1 = false;
           this.show2 = false;
           this.show3 = true;
           this.form.name = '';
           this.form.payeename = '';
           this.form.payeecode = '';
+          this.form.accountpayeename = '';
           this.form.payeebankaccountnumber = '';
           this.form.payeebankaccount = '';
           this.rules.accountpayeename[0].required = true;
           this.rules.name[0].required = false;
-          this.rules.payeename[0].required = false;
-          this.rules.payeecode[0].required = false;
+          this.rules.payeename[0].required = true;
+          this.rules.payeecode[0].required = true;
           this.rules.payeebankaccountnumber[0].required = false;
           this.rules.payeebankaccount[0].required = false;
         }
@@ -708,22 +834,21 @@
           this.$refs['refform'].validate(valid => {
             if (valid) {
               this.loading = true;
-              if (this.form.paymentmethod === 'PJ015001') {
-                this.form.name = '';
-                this.form.accountpayeename = '';
-              } else if (this.form.paymentmethod === 'PJ015002') {
-                this.form.payeename = '';
-                this.form.payeecode = '';
-                this.form.payeebankaccountnumber = '';
-                this.form.payeebankaccount = '';
-                this.form.accountpayeename = '';
-              } else if (this.form.paymentmethod === 'PJ015003') {
-                this.form.name = '';
-                this.form.payeename = '';
-                this.form.payeecode = '';
-                this.form.payeebankaccountnumber = '';
-                this.form.payeebankaccount = '';
-              }
+              // if (this.form.paymentmethod === 'PJ015001') {
+              //   this.form.name = '';
+              // } else if (this.form.paymentmethod === 'PJ015002') {
+              //   this.form.payeename = '';
+              //   this.form.payeecode = '';
+              //   this.form.payeebankaccountnumber = '';
+              //   this.form.payeebankaccount = '';
+              //   this.form.accountpayeename = '';
+              // } else if (this.form.paymentmethod === 'PJ015003') {
+              //   this.form.name = '';
+              //   this.form.payeename = '';
+              //   this.form.payeecode = '';
+              //   this.form.payeebankaccountnumber = '';
+              //   this.form.payeebankaccount = '';
+              // }
               this.form.reimbursement = moment(this.form.reimbursement).format('YYYY-MM-DD');
               this.form.application_date = moment(this.form.application_date).format('YYYY-MM-DD');
               let error = 0;
