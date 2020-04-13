@@ -531,7 +531,7 @@
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012FORMVIEW_ACCOUNT')" align="center" width="250">
                           <template slot-scope="scope">
-                            <el-select v-model="scope.row.accountcode" style="width: 100%"
+                            <el-select v-model="scope.row.accountcode" style="width: 100%" :disabled="!disable"
                                        @change="getaccoundcode(scope.row)">
                               <el-option
                                 v-for="item in accoundoptionsdate"

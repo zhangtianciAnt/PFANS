@@ -1235,6 +1235,7 @@
       }
       //333
       let userid = this.$store.getters.userinfo.userid;
+      this.buttonList[3].disabled = true
       if (userid !== null && userid !== '') {
         let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
         if (lst !== null && lst !== '') {
