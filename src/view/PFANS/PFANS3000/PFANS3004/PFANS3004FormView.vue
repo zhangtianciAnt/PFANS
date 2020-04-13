@@ -15,7 +15,7 @@
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
                  style="padding: 3vw">
           <!--            start  fjl 2020/04/08  添加总务担当的受理功能-->
-          <el-row
+          <el-row>
             <!--            <el-col :span="8">-->
             <!--              <el-form-item :label="$t('label.PFANS3001FORMVIEW_ACCEPT')" prop="accept">-->
             <!--                <span style="margin-right: 1rem ">{{$t('label.no')}}</span>-->
@@ -278,11 +278,6 @@
             if (this.form.status === '4') {
               this.disabled = true;
             }
-              if (this.disable) {
-                  this.acceptShow = false;
-              } else {
-                  this.acceptShow = true;
-              }
             this.loading = false;
           })
           .catch(error => {
@@ -313,9 +308,15 @@
       }
       //start(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
       let role = getCurrentRole2();
-      if(role === '0'){
-        this.acceptShow = false;
-      }
+        if (role === '0') {
+            if (this.disable) {
+                this.acceptShow = false;
+            } else {
+                this.acceptShow = true;
+            }
+        } else {
+            this.acceptShow = true;
+        }
       //end(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
     },
     created() {

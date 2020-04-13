@@ -402,11 +402,6 @@
             if (this.form.status === '2') {
               this.disable = false;
             }
-              if (this.disable) {
-                  this.acceptShow = false;
-              } else {
-                  this.acceptShow = true;
-              }
             this.loading = false;
           })
           .catch(error => {
@@ -434,9 +429,15 @@
       }
       //start(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
       let role = getCurrentRole2();
-      if(role === '0'){
-        this.acceptShow = false;
-      }
+        if (role === '0') {
+            if (this.disable) {
+                this.acceptShow = false;
+            } else {
+                this.acceptShow = true;
+            }
+        } else {
+            this.acceptShow = true;
+        }
       //end(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
     },
     created() {

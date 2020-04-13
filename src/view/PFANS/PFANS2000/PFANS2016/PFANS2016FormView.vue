@@ -1961,7 +1961,6 @@
                   //         time = 4;
                   //     }
                   // } else {
-                  alert(this.relist.length);
                       for (let d = 0; d < this.relist.length; d++) {
                           time = time + 1;
                       }

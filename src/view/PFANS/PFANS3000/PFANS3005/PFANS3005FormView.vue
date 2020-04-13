@@ -623,11 +623,6 @@
               this.show4 = true;
               this.show5 = false;
             }
-              if (this.disable) {
-                  this.acceptShow = false;
-              } else {
-                  this.acceptShow = true;
-              }
             this.userlist = this.form.user_id;
             this.controllerlist = this.form.controller;
             this.usernamelist = this.form.username;
@@ -662,9 +657,15 @@
       }
       //start(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
       let role = getCurrentRole2();
-      if(role === '0'){
-        this.acceptShow = false;
-      }
+        if (role === '0') {
+            if (this.disable) {
+                this.acceptShow = false;
+            } else {
+                this.acceptShow = true;
+            }
+        } else {
+            this.acceptShow = true;
+        }
       //end(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
     },
     created() {

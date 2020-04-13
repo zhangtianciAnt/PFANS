@@ -273,7 +273,7 @@
   import moment from "moment";
   import {Message} from 'element-ui';
   import user from "../../../components/user.vue";
-  import {getOrgInfoByUserId,getCurrentRole2} from '@/utils/customize'
+  import {getOrgInfoByUserId,getCurrentRoleCar} from '@/utils/customize'
   import {telephoneNumber, validateNumber} from '@/utils/validate';
 
   export default {
@@ -508,11 +508,6 @@
             }else{
                 this.show2 = false;
             }
-              if (this.disable) {
-                  this.acceptShow = false;
-              } else {
-                  this.acceptShow = true;
-              }
             this.loading = false;
           })
           .catch(error => {
@@ -541,10 +536,16 @@
         }
       }
       //start(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
-      let role = getCurrentRole2();
-      if(role === '0'){
-        this.acceptShow = false;
-      }
+      let role = getCurrentRoleCar();
+        if (role === '0') {
+            if (this.disable) {
+                this.acceptShow = false;
+            } else {
+                this.acceptShow = true;
+            }
+        } else {
+            this.acceptShow = true;
+        }
       //end(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
     },
     created() {

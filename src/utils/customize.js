@@ -405,3 +405,15 @@ export function getCurrentRole2() {
   }
   return "1";
 }
+
+export function getCurrentRoleCar() {
+
+  if(store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0){
+    for(let role of store.getters.useraccount.roles){
+      if(role.description.indexOf("司机")!= -1){
+        return "0";
+      }
+    }
+  }
+  return "1";
+}
