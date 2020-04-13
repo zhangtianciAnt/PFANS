@@ -697,13 +697,14 @@
               trigger: 'blur',
             },
           ],
-          loanday: [
-            {
-              required: true,
-              message: this.$t('normal.error_09') + this.$t('label.PFANS1002VIEW_LOANDAY2'),
-              trigger: 'blur',
-            },
-          ],
+            // DEL   FJL
+          // loanday: [
+          //   {
+          //     required: true,
+          //     message: this.$t('normal.error_09') + this.$t('label.PFANS1002VIEW_LOANDAY2'),
+          //     trigger: 'blur',
+          //   },
+          // ],
           loanmoney: [
             {
               required: true,
