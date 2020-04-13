@@ -78,31 +78,32 @@
               <template slot="title">
                 <span  class="collapse_Title">{{$t('label.PFANS1018VIEW_APPLICATIONDEPLOYMENT')}}</span>
               </template>
-          <el-row>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.center')">
-                <el-input :disabled="true" style="width:20vw" v-model="centerid"></el-input>
-                <el-input v-show='false' :disabled="true" maxlength='36' style="width: 20vw" v-model="form.center_id"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.group')">
-                <el-input :disabled="true" style="width:20vw" v-model="groupid"></el-input>
-                <el-input v-show='false' :disabled="true" maxlength='36' style="width: 20vw" v-model="form.group_id"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.team')">
-                <el-input :disabled="true" style="width:20vw" v-model="teamid"></el-input>
-                <el-input v-show='false' :disabled="true" maxlength='36' style="width: 20vw" v-model="form.team_id"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
+<!--          <el-row>-->
+<!--            <el-col :span="8">-->
+<!--              <el-form-item :label="$t('label.center')">-->
+<!--                <el-input :disabled="true" style="width:20vw" v-model="centerid"></el-input>-->
+<!--                <el-input v-show='false' :disabled="true" maxlength='36' style="width: 20vw" v-model="form.center_id"></el-input>-->
+<!--              </el-form-item>-->
+<!--            </el-col>-->
+<!--            <el-col :span="8">-->
+<!--              <el-form-item :label="$t('label.group')">-->
+<!--                <el-input :disabled="true" style="width:20vw" v-model="groupid"></el-input>-->
+<!--                <el-input v-show='false' :disabled="true" maxlength='36' style="width: 20vw" v-model="form.group_id"></el-input>-->
+<!--              </el-form-item>-->
+<!--            </el-col>-->
+<!--            <el-col :span="8">-->
+<!--              <el-form-item :label="$t('label.team')">-->
+<!--                <el-input :disabled="true" style="width:20vw" v-model="teamid"></el-input>-->
+<!--                <el-input v-show='false' :disabled="true" maxlength='36' style="width: 20vw" v-model="form.team_id"></el-input>-->
+<!--              </el-form-item>-->
+<!--            </el-col>-->
+<!--          </el-row>-->
           <el-row>
             <el-col :span="8">
               <el-form-item :error="error_user" :label="$t('label.PFANS3005VIEW_USER')" prop="user_name">
-                <user :disabled="!disabled" :error="error_user" :selectType="selectType" :userlist="useridlist"
-                      @getUserids="getUserids" style="width: 20vw"></user>
+<!--                <user :disabled="!disabled" :error="error_user" :selectType="selectType" :userlist="useridlist"-->
+<!--                      @getUserids="getUserids" style="width: 20vw"></user>-->
+                <el-input :disabled="!disabled"  maxlength='36' style="width: 20vw" v-model="form.user_name"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
