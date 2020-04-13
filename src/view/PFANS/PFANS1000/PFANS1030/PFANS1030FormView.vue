@@ -1269,7 +1269,8 @@
       moneysumclick(sums){
         this.form.membercost = sums[3]
         this.form.investorspeopor =sums[2]
-        this.form.pjrate =  parseFloat((this.form.sarmb - this.form.membercost - this.form.total))/this.form.sarmb
+        let checkpjrate =  parseFloat((this.form.sarmb - this.form.membercost - this.form.total))/this.form.sarmb
+        this.form.pjrate =checkpjrate *100
       },
       changePro(val, row) {
         row.projects = val;
