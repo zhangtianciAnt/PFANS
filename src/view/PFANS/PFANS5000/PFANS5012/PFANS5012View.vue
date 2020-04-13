@@ -105,7 +105,6 @@
       // }
       //
       let letorgGroupList = this.$store.getters.orgGroupList;
-      debugger
       for (let i = 0;i < letorgGroupList.length; i ++){
         if(letorgGroupList[i].groupid === groupid){
           let group = {};
@@ -134,13 +133,12 @@
         this.$store
           .dispatch('PFANS5001Store/getProjectList', {StrFlg:"2",StrDate:this.months})
           .then(response => {
-            debugger
             for (let i = 0;i < this.data.length; i ++){
               let status;
               let groupuserlist = this.data[i].groupuserlist;
               let confirm = 0;
               if (this.$i18n) {
-                 status = this.$t('label.PFANS5012VIEW_CONFIRM');
+                status = this.$t('label.PFANS5012VIEW_CONFIRM');
               }
               for (let j = 0;j < response.length; j ++){
                 for (let x = 0;x < groupuserlist.length; x ++){
@@ -150,9 +148,9 @@
                     if (this.$i18n) {
                       if(response[j].unconfirm != null){
                         if(Number(response[j].unconfirm) > 0){
-                            if (this.$i18n) {
-                                status = this.$t('label.PFANS5012VIEW_UNCONFIRM');
-                            }
+                          if (this.$i18n) {
+                            status = this.$t('label.PFANS5012VIEW_UNCONFIRM');
+                          }
                         }
                       }
                     }
