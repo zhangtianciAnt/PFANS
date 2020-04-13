@@ -413,6 +413,7 @@ module.exports = {
     ASSETS1002FORMVIEW: '盘点计划详情',
     ASSETS1002EXPORTFORMVIEW: '盘点详细',
     ASSETS1003VIEW: '服务器地址',
+    PFANS8008VIEWYILAN: '信息一览'
   },
   label: {
     pfanstype: '申请种类',
