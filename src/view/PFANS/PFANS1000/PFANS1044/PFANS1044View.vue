@@ -1,6 +1,6 @@
 <template>
   <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :showSelection="showSelection" :title="title"
-                   @buttonClick="buttonClick" @dbrowClick="dbrowClick" ref="roletable"
+                   @buttonClick="buttonClick" @dbrowClick="dbrowClick" ref="roletable" :rowid="rowid"
                    v-loading="loading">
     <el-form label-position="top" label-width="8vw" slot="search">
       <el-row>
@@ -18,6 +18,24 @@
             <el-date-picker
               @change="changed" type="month"
               v-model="month">
+            </el-date-picker>
+          </el-form-item>
+        </el-col>
+        <el-col :span="8">
+          <el-form-item :label="$t('label.PFANS2016VIEW_OCCURRENCEDATE')">
+            <el-date-picker
+              @change="changed" type="month"
+              v-model="month3">
+            </el-date-picker>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="8">
+          <el-form-item :label="$t('label.PFANS2016VIEW_FINISHEDDATE')">
+            <el-date-picker
+              @change="changed" type="month"
+              v-model="month4">
             </el-date-picker>
           </el-form-item>
         </el-col>
@@ -58,6 +76,8 @@
         data: [],
         month: '',
         month2: '',
+        month4:'',
+        month3:'',
         alldata: [],
         alldata2: [],
         columns: [
@@ -125,10 +145,10 @@
             filter: true,
           }
         ],
-        rowid: '',
+        row: '',
         contractnumber: '',
         state: '',
-        row: 'contractapplication_id '
+        rowid: 'contractapplication_id '
       };
     },
     beforeRouteEnter(to, from, next) {
@@ -197,10 +217,10 @@
               if (arr.indexOf(letcontractnumber[i]) == -1) {
                 arr.push(letcontractnumber[i]);
                 o = Object.assign([], tabledata[i]);
-                this.data.push(o);
+                this.alldata.push(o);
               }
             }
-            this.alldata = this.data;
+            // this.alldata = this.data;
             this.alldata2 = response.contractnumbercount;
             this.contractnumbercount = (letcontractnumber.length + 1);
             this.changed();
@@ -216,23 +236,23 @@
           })
       },
       dbrowClick(val) {
-        // let name = "";
-        // if (val.type === '0') {
-        //   name = "PFANS1024FormView"
-        // } else if (val.type === '1') {
-        //   name = "PFANS1026FormView"
-        // } else if (val.type === '2') {
-        //   name = "PFANS1033FormView"
-        // }
-        //
-        // this.$router.push({
-        //   name: name,
-        //   params: {
-        //     _id: val.contractnumber,
-        //     state: val.state,
-        //     disabled: true
-        //   }
-        // })
+        let name = "";
+        if (val.type === '0') {
+          name = "PFANS1024FormView"
+        } else if (val.type === '1') {
+          name = "PFANS1026FormView"
+        } else if (val.type === '2') {
+          name = "PFANS1033FormView"
+        }
+
+        this.$router.push({
+          name: name,
+          params: {
+            _id: val.contractnumber,
+            state: val.state,
+            disabled: true
+          }
+        })
       },
       buttonClick(val) {
         if (val === 'export') {
@@ -245,7 +265,7 @@
             return;
           }
           let selectedlist = this.$refs.roletable.selectedList;
-
+          let output = [];
           import('@/vendor/Export2Excel').then(excel => {
             const tHeader = [
               this.$t('label.department'),
@@ -276,7 +296,11 @@
               this.$t('label.PFANS1024VIEW_CONTRACT2') + this.$t('label.PFANS1024VIEW_JAPANESE'),
               this.$t('label.PFANS1024VIEW_CONTRACT2') + this.$t('label.PFANS1024VIEW_ENGLISH'),
               this.$t('label.PFANS1024VIEW_CONTRACT2') + this.$t('label.PFANS1024VIEW_CHINESE'),
-              this.$t('label.PFANS1024VIEW_ENTRUSTEDNUMBER')
+              this.$t('label.PFANS1024VIEW_ENTRUSTEDNUMBER'),
+              this.$t('label.PFANS1024VIEW_DELIVERYFINSHDATE'),
+              this.$t('label.PFANS1024VIEW_DELIVERYDATE'),
+              this.$t('label.PFANS1044VIEW_KANRYO'),
+              this.$t('label.PFANS1024VIEW_LOADINGJUDGE'),
             ];
             const filterVal = [
               'department',
@@ -288,7 +312,7 @@
               'entrycondition',
               'entrypayment',
               'currencyposition',
-              'price',
+              'claimamount',
               'start',
               'end',
               'theme',
@@ -307,28 +331,55 @@
               'conjapanese',
               'conenglish',
               'conchinese',
-              'entrustednumber'
+              'entrustednumber',
+              'deliverydate',
+              'deliverydate',
+              'deliverydate',
+              'username'
             ];
-            for (let item of selectedlist) {
-              let letContracttype = getDictionaryInfo(item.entrycondition);
-              if (letContracttype != null) {
-                item.entrycondition = letContracttype.value1;
+
+            for(let selItem of selectedlist){
+              let cons = this.alldata2;
+              if (this.month) {
+                cons = cons.filter(item => moment(item.deliverydate).format("YYYY-MM") == moment(this.month).format("YYYY-MM"));
               }
-              if (item.extensiondate != null) {
-                item.extensiondate = moment(item.extensiondate).format("YYYY-MM-DD");
+              if (this.month2) {
+                cons = cons.filter(item => moment(item.claimdate).format("YYYY-MM") == moment(this.month2).format("YYYY-MM"));
               }
-              if (item.entrypayment != null) {
-                item.entrypayment = moment(item.entrypayment).format("YYYY-MM-DD");
-              }
-              letContracttype = getDictionaryInfo(item.currencyposition);
-              if (letContracttype != null) {
-                item.currencyposition = letContracttype.value1;
-              }
-              if (item.extensiondate != null) {
-                item.extensiondate = moment(item.extensiondate).format("YYYY-MM-DD");
+
+              cons = cons.filter(item => selItem.contractnumber == item.contractnumber);
+
+
+
+              for(let citem of cons){
+
+                let letContracttype = getDictionaryInfo(citem.entrycondition);
+                if (letContracttype != null) {
+                  citem.entrycondition = letContracttype.value1;
+                }
+                if (citem.extensiondate != null) {
+                  citem.extensiondate = moment(citem.extensiondate).format("YYYY-MM-DD");
+                }
+                if (citem.entrypayment != null) {
+                  citem.entrypayment = moment(citem.entrypayment).format("YYYY-MM-DD");
+                }
+                letContracttype = getDictionaryInfo(citem.currencyposition);
+                if (letContracttype != null) {
+                  citem.currencyposition = letContracttype.value1;
+                }
+                if (citem.extensiondate != null) {
+                  citem.extensiondate = moment(citem.extensiondate).format("YYYY-MM-DD");
+                }
+                if (citem.deliverydate != null) {
+                  citem.deliverydate = moment(citem.deliverydate).format("YYYY-MM-DD");
+                }
+
+                let oitem = {};
+                Object.assign(oitem, selItem,citem)
+                output.push(oitem);
               }
             }
-            const data = this.formatJson(filterVal, selectedlist);
+            const data = this.formatJson(filterVal, output);
             excel.export_json_to_excel(tHeader, data, "契约一览");
           })
 
@@ -343,12 +394,8 @@
           }
         }));
       },
-      rowClick(row) {
-        this.rowid = row.contractapplication_id;
-        this.contractnumber = row.contractnumber;
-        this.state = row.state;
-      },
       changed() {
+        this.$refs.roletable.$refs.eltable.clearSelection();
         let cons = this.alldata2;
         if (this.month) {
           cons = cons.filter(item => moment(item.deliverydate).format("YYYY-MM") == moment(this.month).format("YYYY-MM"));
@@ -371,9 +418,17 @@
           }
           return item
         }, []);
+
         let rst = [];
         for (let al2 of filtersrst) {
           let a = this.alldata.filter(item => item.type == this.contractType && al2.contractnumber == item.contractnumber);
+
+          if (this.month3) {
+            a = a.filter(item => moment(item.start).format("YYYY-MM") == moment(this.month3).format("YYYY-MM"));
+          }
+          if (this.month4) {
+            a = a.filter(item => moment(item.end).format("YYYY-MM") == moment(this.month4).format("YYYY-MM"));
+          }
 
           let prices = cons.filter(item => al2.contractnumber == item.contractnumber);
           let price = 0;
@@ -381,7 +436,7 @@
             price = price + Number(pi.claimamount)
           }
           if (a.length > 0) {
-            a[0].price = this.abs(price * 100);
+            a[0].price = this.abs(price*100);
             rst.push(a[0])
           }
         }

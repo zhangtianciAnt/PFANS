@@ -273,6 +273,7 @@ module.exports = {
     PFANS6009: 'BP社统计',
     PFANS8001: '修改密码登录',
     PFANS8002: '待办事项',
+    PFANS8003: '信息詳細',
     PFANS8007: '工作日设置',
     PFANS8008: '信息发布设置',
     ASSETS: '资产盘点',
@@ -413,6 +414,7 @@ module.exports = {
     ASSETS1002FORMVIEW: '盘点计划详情',
     ASSETS1002EXPORTFORMVIEW: '盘点详细',
     ASSETS1003VIEW: '服务器地址',
+    PFANS8008VIEWYILAN: '信息一览'
   },
   label: {
     pfanstype: '申请种类',
@@ -3206,6 +3208,7 @@ module.exports = {
     PFANS2017VIEW_AFTERNOON: '下午外出时长',
     //ADD-LXX
 
-    PFANS1044VIEW_CONTRACT:"契约种类"
+    PFANS1044VIEW_CONTRACT:"契约种类",
+    PFANS1044VIEW_KANRYO:"纳品完了日"
   },
 };
