@@ -1057,13 +1057,14 @@
               trigger: 'change',
             },
           ],
-          bookingday: [
-            {
-              required: true,
-              message: this.$t('normal.error_09') + this.$t('label.PFANS1002VIEW_BOOKINGDAY'),
-              trigger: 'blur',
-            },
-          ],
+            // DEL   FJL
+          // bookingday: [
+          //   {
+          //     required: true,
+          //     message: this.$t('normal.error_09') + this.$t('label.PFANS1002VIEW_BOOKINGDAY'),
+          //     trigger: 'blur',
+          //   },
+          // ],
           actuarialdate: [
             {
               required: true,
@@ -1076,13 +1077,14 @@
               required: true,
             },
           ],
-          loanday: [
-            {
-              required: true,
-              message: this.$t('normal.error_09') + this.$t('label.PFANS1002VIEW_LOANDAY1'),
-              trigger: 'blur',
-            },
-          ],
+            // DEL   FJL
+          // loanday: [
+          //   {
+          //     required: true,
+          //     message: this.$t('normal.error_09') + this.$t('label.PFANS1002VIEW_LOANDAY1'),
+          //     trigger: 'blur',
+          //   },
+          // ],
           loanmoney: [
             {
               required: true,
