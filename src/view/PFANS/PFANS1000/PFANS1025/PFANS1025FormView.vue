@@ -655,7 +655,6 @@
             this.userlist = this.form.user_id;
             this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
             this.baseInfo.awardDetail = JSON.parse(JSON.stringify(this.tableT));
-            this.baseInfo.groupN = this.$store.getters.orgGroupList;
             this.loading = false;
           })
           .catch(error => {
@@ -829,6 +828,8 @@
       buttonClick(val) {
         this.form.maketype = '7',
           this.baseInfo = {};
+        debugger
+        this.baseInfo.groupN = this.$store.getters.orgGroupList;
         this.form.user_id = this.userlist;
         if (this.form.claimdatetimeStart !== '' && this.form.claimdatetimeEnd !== '') {
           this.form.claimdatetime = moment(this.form.claimdatetimeStart).format('YYYY-MM-DD') + ' ~ ' + moment(this.form.claimdatetimeEnd).format('YYYY-MM-DD');
