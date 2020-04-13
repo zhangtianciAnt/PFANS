@@ -1064,10 +1064,22 @@
                 this.form.custojapanese = letUser.userinfo.customername;
               }
             }
+            //add-ws-汇率修改
+            if(response.award.currencyposition === 'PG019001'  || this.form.currencyposition === this.$t('label.PFANS1039FORMVIEW_DOLLAR')){
+              let letcheckexchangerate = getDictionaryInfo('JY001001');
+              if (letcheckexchangerate != null) {
+                response.award.exchangerate = letcheckexchangerate.value2;
+              }
+            }else {
+              let letCurrencypositioncheck = getDictionaryInfo(response.award.currencyposition);
+              if (letCurrencypositioncheck != null) {
+                response.award.exchangerate= letCurrencypositioncheck.value1;
+              }
+            }
+            //add-ws-汇率修改
             let letCurrencyposition = getDictionaryInfo(response.award.currencyposition);
             if (letCurrencyposition != null) {
               response.award.currencyposition = letCurrencyposition.value1;
-              response.award.exchangerate = letCurrencyposition.value2;
             }
             if (this.$store.getters.userinfo.userid) {
               this.form.telephone = getUserInfo(this.$store.getters.userinfo.userid).userinfo.extension;
@@ -1227,7 +1239,6 @@
         return sums;
       },
       moneysumclick(sums){
-        debugger
         this.form.membercost = sums[1]
         this.form.investorspeopor =sums[2]
         this.form.pjrate =  parseFloat((this.form.sarmb - this.form.membercost - this.form.total))/this.form.sarmb
@@ -1466,12 +1477,9 @@
           }
           this.form.companyend = this.tableT.companyend;
           this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
-          debugger
-          console.log(this.form)
           this.$store
             .dispatch('PFANS1025Store/generateJxls', this.baseInfo)
             .then(response => {
-              debugger
               // for(let i = 0; i < response.baseInfo.awardDetail.length; i++){
               //
               // }
