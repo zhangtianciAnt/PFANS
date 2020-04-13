@@ -311,6 +311,7 @@
               >
                 <!--                部门-->
                 <el-table-column
+                  show-overflow-tooltip
                   prop="group_id"
                   :label="$t('label.department')"
                   width="200"
@@ -318,6 +319,7 @@
                 </el-table-column>
                 <!--                项目-->
                 <el-table-column
+                  show-overflow-tooltip
                   prop="project_name"
                   :label="$t('label.PFANS5009VIEW_PROJECTNAME')"
                   width="200"
@@ -325,6 +327,7 @@
                 </el-table-column>
                 <!--                项目类型-->
                 <el-table-column
+                  show-overflow-tooltip
                   prop="projecttype"
                   :label="$t('label.PFANS5001FORMVIEW_PROJECTTYPE')"
                   width="150"
