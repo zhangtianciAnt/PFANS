@@ -188,6 +188,7 @@
                         filter: true,
                     },
                 ],
+              totalAbsenteeism:false,
                 buttonList: [
                     {'key': 'back', 'name': 'button.back', 'disabled': false, 'icon': 'el-icon-back'},
                     {'key': 'recognition', 'name': 'button.recognition', 'disabled': false, 'icon': 'el-icon-check'}
@@ -221,12 +222,16 @@
                 }
               }else{
                 if(this.dateInfo[i].dateflg === row.dates){
+                  row.absenteeism = "";
+                  this.totalAbsenteeism = true;
                   return "sub_bg_color_Darkgrey";
                 }
               }
             }
             //add-ws-考勤设置休日背景色
             if(moment(row.dates).format("E") == 6 || moment(row.dates).format("E") == 7 ){
+              row.absenteeism = "";
+              this.totalAbsenteeism = true;
               return "sub_bg_color_Darkgrey";
             }
 
@@ -418,6 +423,30 @@
             this.getAttendancelist();
             this.$store.commit('global/SET_OPERATEID', '');
         },
+      watch:{
+        data:{
+          handler(val) {
+            if(this.totalAbsenteeism){
+              let total = 0;
+              for(let item of val){
+                if(item.dates === '合计'){
+                  continue;
+                }
+
+                total = total+ Number(item.absenteeism)
+              }
+
+              if(total > 0){
+                val[0].absenteeism = total;
+              }
+            }
+
+            this.totalAbsenteeism = false;
+          },
+          immediate: true,  //刷新加载 立马触发一次handler
+          deep: true,
+        }
+      }
     };
 </script>
 
