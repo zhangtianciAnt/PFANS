@@ -869,15 +869,15 @@
                                     @row-click="handleClickChange2">
                                     <el-table-column property="contract"
                                                      :label="$t('label.PFANS1032FORMVIEW_CONTRACTNUMBER')"
-                                                     width="120"></el-table-column>
+                                                     width="160"></el-table-column>
                                     <el-table-column property="deployment" :label="$t('label.group')"
-                                                     width="100"></el-table-column>
+                                                     width="180"></el-table-column>
                                     <el-table-column property="contracttype"
                                                      :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')"
                                                      width="150"></el-table-column>
-                                    <el-table-column property="applicationdate"
-                                                     :label="$t('label.PFANS1024VIEW_APPLICATIONDATE')"
-                                                     width="100"></el-table-column>
+                                    <!--<el-table-column property="applicationdate"-->
+                                                     <!--:label="$t('label.PFANS1024VIEW_APPLICATIONDATE')"-->
+                                                     <!--width="100"></el-table-column>-->
                                     <el-table-column property="claimdatetime"
                                                      :label="$t('label.PFANS1024VIEW_CLAIMDATETIME')"
                                                      width="200"></el-table-column>
