@@ -663,9 +663,9 @@
         this.$store
           .dispatch('PFANS2010Store/getAttendancelist', parameter)
           .then(response => {
-            if (response.length === 0) {
-              this.checkdata = 0;
-            }
+            // if (response.length === 0) {
+            //   this.checkdata = 0;
+            // }
             this.checkList = response;
             this.loading = false;
           })
