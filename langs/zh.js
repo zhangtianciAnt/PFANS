@@ -273,6 +273,7 @@ module.exports = {
     PFANS6009: 'BP社统计',
     PFANS8001: '修改密码登录',
     PFANS8002: '待办事项',
+    PFANS8003: '信息詳細',
     PFANS8007: '工作日设置',
     PFANS8008: '信息发布设置',
     ASSETS: '资产盘点',
