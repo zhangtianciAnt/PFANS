@@ -297,7 +297,10 @@
               this.$t('label.PFANS1024VIEW_CONTRACT2') + this.$t('label.PFANS1024VIEW_ENGLISH'),
               this.$t('label.PFANS1024VIEW_CONTRACT2') + this.$t('label.PFANS1024VIEW_CHINESE'),
               this.$t('label.PFANS1024VIEW_ENTRUSTEDNUMBER'),
-              this.$t('label.PFANS1024VIEW_ENTRUSTEDNUMBER')
+              this.$t('label.PFANS1024VIEW_DELIVERYFINSHDATE'),
+              this.$t('label.PFANS1024VIEW_DELIVERYDATE'),
+              this.$t('label.PFANS1044VIEW_KANRYO'),
+              this.$t('label.PFANS1024VIEW_LOADINGJUDGE'),
             ];
             const filterVal = [
               'department',
@@ -309,7 +312,7 @@
               'entrycondition',
               'entrypayment',
               'currencyposition',
-              'price',
+              'claimamount',
               'start',
               'end',
               'theme',
@@ -328,27 +331,12 @@
               'conjapanese',
               'conenglish',
               'conchinese',
-              'entrustednumber'
+              'entrustednumber',
+              'deliverydate',
+              'deliverydate',
+              'deliverydate',
+              'username'
             ];
-            for (let item of selectedlist) {
-              let letContracttype = getDictionaryInfo(item.entrycondition);
-              if (letContracttype != null) {
-                item.entrycondition = letContracttype.value1;
-              }
-              if (item.extensiondate != null) {
-                item.extensiondate = moment(item.extensiondate).format("YYYY-MM-DD");
-              }
-              if (item.entrypayment != null) {
-                item.entrypayment = moment(item.entrypayment).format("YYYY-MM-DD");
-              }
-              letContracttype = getDictionaryInfo(item.currencyposition);
-              if (letContracttype != null) {
-                item.currencyposition = letContracttype.value1;
-              }
-              if (item.extensiondate != null) {
-                item.extensiondate = moment(item.extensiondate).format("YYYY-MM-DD");
-              }
-            }
 
             for(let selItem of selectedlist){
               let cons = this.alldata2;
@@ -361,7 +349,31 @@
 
               cons = cons.filter(item => selItem.contractnumber == item.contractnumber);
 
+
+
               for(let citem of cons){
+
+                let letContracttype = getDictionaryInfo(citem.entrycondition);
+                if (letContracttype != null) {
+                  citem.entrycondition = letContracttype.value1;
+                }
+                if (citem.extensiondate != null) {
+                  citem.extensiondate = moment(citem.extensiondate).format("YYYY-MM-DD");
+                }
+                if (citem.entrypayment != null) {
+                  citem.entrypayment = moment(citem.entrypayment).format("YYYY-MM-DD");
+                }
+                letContracttype = getDictionaryInfo(citem.currencyposition);
+                if (letContracttype != null) {
+                  citem.currencyposition = letContracttype.value1;
+                }
+                if (citem.extensiondate != null) {
+                  citem.extensiondate = moment(citem.extensiondate).format("YYYY-MM-DD");
+                }
+                if (citem.deliverydate != null) {
+                  citem.deliverydate = moment(citem.deliverydate).format("YYYY-MM-DD");
+                }
+
                 let oitem = {};
                 Object.assign(oitem, selItem,citem)
                 output.push(oitem);

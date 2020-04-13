@@ -3205,6 +3205,7 @@ module.exports = {
     PFANS2017VIEW_AFTERNOON: '下午外出时长',
     //ADD-LXX
 
-    PFANS1044VIEW_CONTRACT:"契约种类"
+    PFANS1044VIEW_CONTRACT:"契约种类",
+    PFANS1044VIEW_KANRYO:"纳品完了日"
   },
 };
