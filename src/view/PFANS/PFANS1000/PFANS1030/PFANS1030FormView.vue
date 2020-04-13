@@ -407,14 +407,13 @@
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1030FORMVIEW_EXCHANGERATE')">
                       <el-input-number
-                        :disabled="!disable"
+                        :disabled="true"
                         :max="1000000000"
                         :min="0"
                         :precision="4"
                         controls-position="right"
                         style="width:20vw"
                         v-model="form.exchangerate"
-                        @change="sumAward"
                       ></el-input-number>
                     </el-form-item>
                   </el-col>
@@ -1235,13 +1234,6 @@
       },
       changePro(val, row) {
         row.projects = val;
-      },
-      sumAward(val) {
-        if (this.form.currencyposition === 'PG019001' || this.form.currencyposition === this.$t('label.PFANS1039FORMVIEW_DOLLAR')) {
-          this.form.sarmb = val * this.sumAwardmoney;
-        } else {
-          this.form.sarmb = this.sumAwardmoney;
-        }
       },
       changeSum(row) {
         row.worknumber = row.member + row.outsource;
