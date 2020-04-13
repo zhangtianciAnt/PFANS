@@ -74,6 +74,7 @@
           page: 1,
           limit: 5,
         },
+        age:'',
         total: 0,
         message: [{hang: '', error: ''}],
         daoru: false,
@@ -218,12 +219,24 @@
                   response[j].sex = sex.value1;
                 }
               }
-              if (response[j].age !== null && response[j].age !== '') {
-                let age = getUserInfo(response[j].age);
-                if (age) {
-                  response[j].age = user.userinfo.customername;
+              //add-ws-年龄计算添加
+              if(response[j].birth!='') {
+                let birthdays = new Date(response[j].birth);
+                let d = new Date();
+                let age = 0;
+                let agenew = 0;
+                age = d.getFullYear() - birthdays.getFullYear();
+                agenew = d.getFullYear() - birthdays.getFullYear();
+                if (d.getMonth() > birthdays.getMonth() || (d.getMonth() == birthdays.getMonth() && d.getDate() > birthdays.getDate())) {
+                  agenew = age;
+                } else {
+                  agenew = age - 1;
                 }
+                this.age = agenew;
+              }else{
+                this.age = 0;
               }
+              //add-ws-年龄计算添加
               if (response[j].education !== null && response[j].education !== '') {
                 let education = getDictionaryInfo(response[j].education);
                 if (education != null) {
@@ -255,7 +268,7 @@
                   expname: response[j].expname,
                   group_id: response[j].group_id,
                   sex: response[j].sex,
-                  age: response[j].age,
+                  age: this.age,
                   education: response[j].education,
                   graduateschool: response[j].graduateschool,
                   technology: response[j].technology,
@@ -277,7 +290,9 @@
           });
       },
       rowClick(row) {
+        //add-ws-根据外协account匹配数据
         this.account = row.account;
+        //add-ws-根据外协account匹配数据
         this.rowid = row.expatriatesinfor_id;
         this.rowname = row.expname;
       },
@@ -442,7 +457,9 @@
           this.$router.push({
             name: 'PFANS6004FormView',
             params: {
+              //add-ws-根据外协account匹配数据
               _account: this.account,
+              //add-ws-根据外协account匹配数据
               _id: this.rowid,
               _name: this.rowname,
               disabled: true,
@@ -461,7 +478,9 @@
           this.$router.push({
             name: 'PFANS6004FormView',
             params: {
+              //add-ws-根据外协account匹配数据
               _account: this.account,
+              //add-ws-根据外协account匹配数据
               _id: this.rowid,
               _name: this.rowname,
               disabled: false,
