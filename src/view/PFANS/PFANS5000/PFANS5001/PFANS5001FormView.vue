@@ -177,7 +177,6 @@
                     <el-col :span="8">
                       <el-form-item
                         :label="$t('label.PFANS5001FORMVIEW_CHENTRUST')"
-                        prop="chentrust"
                       >
                         <dicselect
                           :code="code9"
@@ -193,7 +192,7 @@
                     <el-col :span="8">
                       <el-form-item
                         :label="$t('label.PFANS5001FORMVIEW_OUENTRUST')"
-                        prop="ouentrust"
+                      
                       >
                         <dicselect
                           :code="code10"
@@ -1491,21 +1490,21 @@
             },
           ],
           // 委託元（在華）
-          chentrust: [
-            {
-              required: true,
-              message: this.$t('normal.error_08') + this.$t('label.PFANS5001FORMVIEW_CHENTRUST'),
-              trigger: 'blur',
-            },
-          ],
-          // 委託元（在華以外）
-          ouentrust: [
-            {
-              required: true,
-              message: this.$t('normal.error_08') + this.$t('label.PFANS5001FORMVIEW_OUENTRUST'),
-              trigger: 'blur',
-            },
-          ],
+          // chentrust: [
+          //   {
+          //     required: true,
+          //     message: this.$t('normal.error_08') + this.$t('label.PFANS5001FORMVIEW_CHENTRUST'),
+          //     trigger: 'blur',
+          //   },
+          // ],
+          // // 委託元（在華以外）
+          // ouentrust: [
+          //   {
+          //     required: true,
+          //     message: this.$t('normal.error_08') + this.$t('label.PFANS5001FORMVIEW_OUENTRUST'),
+          //     trigger: 'blur',
+          //   },
+          // ],
           center_id: [
             {
               required: true,
