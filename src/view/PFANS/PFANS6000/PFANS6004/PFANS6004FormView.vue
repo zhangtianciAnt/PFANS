@@ -79,21 +79,21 @@
               </el-form-item>
             </el-col>
             <!--            技术分类-->
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS2003VIEW_TECHNOLOGY')" prop="technology">
-                <dicselect
-                  :code="code5"
-                  :data="form.technology"
-                  :disabled="true"
-                  :multiple="multiple"
-                  @change="changetechnology"
-                  style="width:20vw">
-                </dicselect>
-              </el-form-item>
-            </el-col>
+            <!--<el-col :span="8">-->
+              <!--<el-form-item :label="$t('label.PFANS2003VIEW_TECHNOLOGY')" prop="technology">-->
+                <!--<dicselect-->
+                  <!--:code="code5"-->
+                  <!--:data="form.technology"-->
+                  <!--:disabled="true"-->
+                  <!--:multiple="multiple"-->
+                  <!--@change="changetechnology"-->
+                  <!--style="width:20vw">-->
+                <!--</dicselect>-->
+              <!--</el-form-item>-->
+            <!--</el-col>-->
             <!--            Rn-->
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS2003FORMVIEW_RN')" prop="rn">
+              <el-form-item :label="$t('label.PFANS6004FORMVIEW_RN')" prop="rn">
                 <dicselect
                   :code="code4"
                   :data="form.rn"
@@ -102,6 +102,13 @@
                   @change="changern"
                   style="width:20vw">
                 </dicselect>
+              </el-form-item>
+            </el-col>
+            <!--            邮箱-->
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANSUSERFORMVIEW_EMAILADDRESS')">
+                <el-input :disabled="!disabled" style="width:20vw" maxlength="50"
+                          v-model="form.email"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -114,26 +121,6 @@
                      orgtype="2" style="width:20vw"></org>
               </el-form-item>
             </el-col>
-            <!--            编号变更卡号-->
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANSUSERFORMVIEW_JOBNUMBER')" prop="number">
-                <el-input
-                  :disabled="!disabled"
-                  style="width:20vw"
-                  v-model="form.number">
-                </el-input>
-              </el-form-item>
-            </el-col>
-            <!--            邮箱-->
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANSUSERFORMVIEW_EMAILADDRESS')" prop="email">
-                <el-input :disabled="!disabled" style="width:20vw" maxlength="50"
-                          v-model="form.email"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <!--          第五行-->
-          <el-row>
             <!--            作业形态-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6004FORMVIEW_OPERATIONFORM')" prop="operationform">
@@ -147,6 +134,19 @@
                 </dicselect>
               </el-form-item>
             </el-col>
+            <!--            编号变更卡号-->
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANSUSERFORMVIEW_JOBNUMBER')" prop="number">
+                <el-input
+                  :disabled="!disabled"
+                  style="width:20vw"
+                  v-model="form.number">
+                </el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <!--          第五行-->
+          <el-row>
             <!--            作业分类-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6004FORMVIEW_JOBCLASSIFICATIONM')" prop="jobclassification">
@@ -174,16 +174,10 @@
             </el-col>
           </el-row>
           <el-row>
-            <!--            職務-->
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANSUSERVIEW_POST')" prop="post">
-                <dicselect
-                  :disabled="!disabled"
-                  :code="code15"
-                  :data="form.post"
-                  @change="changePost"
-                  style="width:20vw">
-                </dicselect>
+            <el-col :span="24">
+              <el-form-item :label="$t('label.PFANS2003FORMVIEW_SPECIALITY')">
+                <el-input :disabled="!disabled" :rows="2" style="width: 71vw" type="textarea"
+                          v-model="form.speciality"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -368,7 +362,6 @@
     getorgGroupList
   } from '../../../../utils/customize';
   import org from '../../../components/org';
-  import {validateEmail} from "../../../../utils/validate";
 
   export default {
     name: 'PFANS6004FormView',
@@ -443,17 +436,6 @@
         } else {
           callback();
           this.errorexitime = '';
-        }
-      };
-      var checkemail = (rule, value, callback) => {
-        if (this.form.email !== null && this.form.email !== '') {
-          if (!validateEmail(value)) {
-            callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.email')));
-          } else {
-            callback();
-          }
-        } else {
-          callback();
         }
       };
       return {
@@ -545,13 +527,6 @@
               validator: checkexpname,
               trigger: 'change',
             }],
-          // 職務
-          post: [
-            {
-              required: true,
-              message: this.$t('normal.error_09') + this.$t('label.PFANSUSERVIEW_POST'),
-              trigger: 'blur',
-            }],
           // 性别
           sex: [
             {
@@ -568,13 +543,6 @@
               trigger: 'change',
             },
           ],
-          email: [
-            {
-              required: true,
-              message: this.$t('normal.error_08') + this.$t('label.PFANSUSERFORMVIEW_EMAILADDRESS'),
-              trigger: 'blur'
-            },
-            {validator: checkemail, trigger: 'blur'}],
           // 编号
           number: [
             {
@@ -818,9 +786,6 @@
       },
       changecountermeasure(val) {
         this.form.countermeasure = val;
-      },
-      changePost(val) {
-        this.form.post = val;
       },
       changeexitreason(val) {
         this.form.exitreason = val;
