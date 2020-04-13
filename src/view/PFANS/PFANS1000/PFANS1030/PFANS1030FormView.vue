@@ -407,14 +407,13 @@
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1030FORMVIEW_EXCHANGERATE')">
                       <el-input-number
-                        :disabled="!disable"
+                        :disabled="true"
                         :max="1000000000"
                         :min="0"
                         :precision="4"
                         controls-position="right"
                         style="width:20vw"
                         v-model="form.exchangerate"
-                        @change="sumAward"
                       ></el-input-number>
                     </el-form-item>
                   </el-col>
@@ -521,8 +520,6 @@
               </el-row>
               <el-row>
                 <el-table :data="tableD" :summary-method="getTsummariesTableD"
-                          :span-method="objectSpanMethod"
-                          border
                           show-summary
                           header-cell-class-name="sub_bg_color_blue" stripe>
                   <el-table-column :label="$t('label.PFANS1030FORMVIEW_ATTF')" align="center" width="150">
@@ -539,6 +536,7 @@
                         :max="1000000000"
                         :min="0"
                         :no="scope.row"
+                        @change="changebudgetcode(scope.row)"
                         :precision="2"
                         controls-position="right"
                         style="width: 100%"
@@ -555,15 +553,61 @@
                         :min="0"
                         :no="scope.row"
                         :precision="2"
-                        @change="changemonsynum(scope.row)"
+                        @change="changedepart(scope.row)"
                         controls-position="right"
                         style="width: 100%"
                         v-model="scope.row.depart"
                       ></el-input-number>
                     </template>
                   </el-table-column>
+                  <el-table-column :label="$t('label.PFANS1030FORMVIEW_MONEYSUM')" align="center" width="150"
+                                   prop="subtotal">
+                    <template slot-scope="scope">
+                      <el-input-number
+                        :disabled="!disable"
+                        :max="1000000000"
+                        :min="0"
+                        :no="scope.row"
+                        :precision="2"
+                        @change="changesubtotal(scope.row)"
+                        controls-position="right"
+                        style="width: 100%"
+                        v-model="scope.row.subtotal"
+                      ></el-input-number>
+                    </template>
+                  </el-table-column>
                 </el-table>
               </el-row>
+<!--              add-ws-公式修改-->
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1030FORMVIEW_ATTFMOTH')">
+                    <el-input-number
+                      :disabled="true"
+                      :max="1000000000"
+                      :min="0"
+                      :precision="2"
+                      controls-position="right"
+                      style="width:11vw"
+                      v-model="form.membercost"
+                    ></el-input-number>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1030FORMVIEW_ATTFNUMBER')">
+                    <el-input-number
+                      :disabled="true"
+                      :max="1000000000"
+                      :min="0"
+                      :precision="2"
+                      controls-position="right"
+                      style="width:11vw"
+                      v-model="form.investorspeopor"
+                    ></el-input-number>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <!--              add-ws-公式修改-->
             </el-tab-pane>
           </el-tabs>
         </el-form>
@@ -780,6 +824,8 @@
         arrAttf: [],
         groupN: '',
         form: {
+          membercost: '',
+          investorspeopor: '',
           group_id: '',
           draftingdate: '',
           scheduleddate: '',
@@ -936,20 +982,6 @@
         //     budgetcode: '',
         //     depart: ''
         //   },
-        // add-ws-合同人件费修改
-        startoption: [
-          {
-            attf: this.$t('label.PFANS1030FORMVIEW_NEWDATA'),
-            budgetcode: '0',
-            depart: '',
-          },
-          {
-            attf: this.$t('label.PFANS1030FORMVIEW_NEWDATA2'),
-            budgetcode: '0',
-            depart: '',
-          },
-        ],
-        // add-ws-合同人件费修改
         rules: {
           user_id: [{
             required: true,
@@ -1049,10 +1081,19 @@
                 this.form.custojapanese = letUser.userinfo.customername;
               }
             }
+            //add-ws-汇率修改
+            if(response.award.currencyposition === 'PG019001'  || this.form.currencyposition === this.$t('label.PFANS1039FORMVIEW_DOLLAR')){
+              let letcheckexchangerate = getDictionaryInfo('JY001001');
+              if (letcheckexchangerate != null) {
+                response.award.exchangerate = letcheckexchangerate.value2;
+              }
+            }else {
+              response.award.exchangerate =  1 ;
+            }
+            //add-ws-汇率修改
             let letCurrencyposition = getDictionaryInfo(response.award.currencyposition);
             if (letCurrencyposition != null) {
               response.award.currencyposition = letCurrencyposition.value1;
-              response.award.exchangerate = letCurrencyposition.value2;
             }
             if (this.$store.getters.userinfo.userid) {
               this.form.telephone = getUserInfo(this.$store.getters.userinfo.userid).userinfo.extension;
@@ -1095,9 +1136,11 @@
                 attf: getDictionaryInfo(this.optionsdatedic[i].value2).value1,
                 budgetcode: ((money3 * 3) + (money4 * 9)) / 12,
                 depart: '',
+                subtotal: '',
               });
             }
-            this.tableD = data.concat(this.startoption);
+            this.tableD = data
+            console.log("aaa",this.tableD)
             // add-ws-合同人件费修改
             // if (this.form.tablecommunt !== '' && this.form.tablecommunt !== null) {
             //   for (let i = 0; i < JSON.parse(response.award.tablecommunt).length; i++) {
@@ -1180,28 +1223,14 @@
       this.disable = this.$route.params.disabled;
     },
     methods: {
-      changemonsynum(row){
-        if(row.attf ===this.$t('label.PFANS1030FORMVIEW_NEWDATA2')){
-          this.moneysum = row.depart;
-        }
+      changesubtotal(row){
+        row.subtotal = row.subtotal
       },
-      objectSpanMethod({row, column, rowIndex, columnIndex}) {
-        if (rowIndex === 15 || rowIndex === 16) {
-          if (columnIndex == 0) {
-            return {
-              rowspan: 1,
-              colspan: 2,
-            };
-          } else if (columnIndex == 1) {
-            return {
-              rowspan: 0,
-              colspan: 0,
-            };
-          }
-          if (columnIndex == 0 || columnIndex == 1) {
-            return [1, 1];
-          }
-        }
+      changebudgetcode(row){
+       row.subtotal = row.budgetcode * row.depart
+      },
+      changedepart(row){
+        row.subtotal = row.budgetcode * row.depart
       },
       getTsummariesTableD(param) {
         const {columns, data} = param;
@@ -1222,30 +1251,28 @@
               }
             }, 0);
             if (index == 1) {
-              sums[index + 1] = Math.round((sums[index]) * 100) / 100;
+              sums[index] = Math.round((sums[index]) * 100) / 100;
             }
             if (index == 2) {
               sums[index] = Math.round((sums[index]) * 100) / 100;
             }
+            if (index == 3) {
+              sums[index] = Math.round((sums[index]) * 100) / 100;
+            }
           } else {
-            sums[index] = '';
+            sums[index] = '--';
           }
         });
         this.moneysumclick(sums);
         return sums;
       },
       moneysumclick(sums){
-        this.form.pjrate =  parseFloat((this.form.sarmb - this.moneysum - this.form.total))/this.form.sarmb
+        this.form.membercost = sums[3]
+        this.form.investorspeopor =sums[2]
+        this.form.pjrate =  parseFloat((this.form.sarmb - this.form.membercost - this.form.total))/this.form.sarmb
       },
       changePro(val, row) {
         row.projects = val;
-      },
-      sumAward(val) {
-        if (this.form.currencyposition === 'PG019001' || this.form.currencyposition === this.$t('label.PFANS1039FORMVIEW_DOLLAR')) {
-          this.form.sarmb = val * this.sumAwardmoney;
-        } else {
-          this.form.sarmb = this.sumAwardmoney;
-        }
       },
       changeSum(row) {
         row.worknumber = row.member + row.outsource;
@@ -1273,7 +1300,7 @@
         }else{
           this.form.outsourcing = val / this.form.number;
         }
-        this.form.pjrate =  parseFloat((this.form.sarmb-this.moneysum-val))/this.form.sarmb
+        this.form.pjrate =  parseFloat((this.form.sarmb-this.form.membercost-val))/this.form.sarmb
       },
       getcontracttype(val) {
         this.form.contracttype = val;
@@ -1407,6 +1434,7 @@
             attf: this.tableD[i].attf,
             budgetcode: this.tableD[i].budgetcode,
             depart: this.tableD[i].depart,
+            subtotal: this.tableD[i].subtotal,
           });
         }
         this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
@@ -1478,12 +1506,9 @@
           }
           this.form.companyend = this.tableT.companyend;
           this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
-          debugger
-          console.log(this.form)
           this.$store
             .dispatch('PFANS1025Store/generateJxls', this.baseInfo)
             .then(response => {
-              debugger
               // for(let i = 0; i < response.baseInfo.awardDetail.length; i++){
               //
               // }
