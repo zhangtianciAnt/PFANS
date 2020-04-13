@@ -726,20 +726,18 @@
                                             height="500px" highlight-current-row style="width: 100%"
                                             tooltip-effect="dark"
                                             @row-click="handleClickChange">
-                                            <el-table-column property="number" fixed
-                                                             :label="$t('label.PFANS5001FORMVIEW_NUMBERS')"
-                                                             width="100"></el-table-column>
+                                            <!--<el-table-column property="number" fixed-->
+                                                             <!--:label="$t('label.PFANS5001FORMVIEW_NUMBERS')"-->
+                                                             <!--width="100"></el-table-column>-->
                                             <el-table-column property="expatriatesinfor_id" fixed v-if="false"
                                                              :label="$t('label.PFANSUSERFORMVIEW_CUSTOMERNAME')"
                                                              width="180"></el-table-column>
-
                                             <el-table-column property="expname" fixed
                                                              :label="$t('label.PFANSUSERFORMVIEW_CUSTOMERNAME')"
                                                              width="180"></el-table-column>
-
                                             <el-table-column property="suppliername"
                                                              :label="$t('label.PFANS5001FORMVIEW_COOPERATIONCOMPANY')"
-                                                             width="100"></el-table-column>
+                                                             width="200"></el-table-column>
                                             <el-table-column property="post1"
                                                              :label="$t('label.PFANSUSERVIEW_POST')"
                                                              width="150"></el-table-column>
@@ -871,15 +869,15 @@
                                     @row-click="handleClickChange2">
                                     <el-table-column property="contract"
                                                      :label="$t('label.PFANS1032FORMVIEW_CONTRACTNUMBER')"
-                                                     width="120"></el-table-column>
+                                                     width="160"></el-table-column>
                                     <el-table-column property="deployment" :label="$t('label.group')"
-                                                     width="100"></el-table-column>
+                                                     width="180"></el-table-column>
                                     <el-table-column property="contracttype"
                                                      :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')"
                                                      width="150"></el-table-column>
-                                    <el-table-column property="applicationdate"
-                                                     :label="$t('label.PFANS1024VIEW_APPLICATIONDATE')"
-                                                     width="100"></el-table-column>
+                                    <!--<el-table-column property="applicationdate"-->
+                                                     <!--:label="$t('label.PFANS1024VIEW_APPLICATIONDATE')"-->
+                                                     <!--width="100"></el-table-column>-->
                                     <el-table-column property="claimdatetime"
                                                      :label="$t('label.PFANS1024VIEW_CLAIMDATETIME')"
                                                      width="200"></el-table-column>
