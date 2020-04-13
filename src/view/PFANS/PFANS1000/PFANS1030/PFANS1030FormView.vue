@@ -1073,7 +1073,7 @@
             }else {
               let letCurrencypositioncheck = getDictionaryInfo(response.award.currencyposition);
               if (letCurrencypositioncheck != null) {
-                response.award.exchangerate= letCurrencypositioncheck.value1;
+                response.award.exchangerate= letCurrencypositioncheck.value2;
               }
             }
             //add-ws-汇率修改
