@@ -383,15 +383,15 @@ export default {
         .dispatch("personalCenterStore/getPersonalCenter")
         .then(response => {
           this.custominfo = response.customerInfo;
-          if (response.customerInfo) {
+          // if (response.customerInfo) {
             this.userinfo = response.customerInfo;
             this.$store.commit("global/SET_USERINFO", response.customerInfo);
             this.$emit("showPersonCenter");
-          }
+          // }
 
-          if (response.userAccount) {
+          // if (response.userAccount) {
             this.$store.commit("global/SET_USERACCOUNT", response.userAccount);
-          }
+          // }
           let roles = response.userAccount.roles; //系统角色
           let rolename = "";
           if (roles && roles.length > 0) {
