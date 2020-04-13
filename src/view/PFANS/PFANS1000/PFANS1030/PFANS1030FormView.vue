@@ -521,7 +521,6 @@
               </el-row>
               <el-row>
                 <el-table :data="tableD" :summary-method="getTsummariesTableD"
-                          :span-method="objectSpanMethod"
                           border
                           show-summary
                           header-cell-class-name="sub_bg_color_blue" stripe>
@@ -555,7 +554,6 @@
                         :min="0"
                         :no="scope.row"
                         :precision="2"
-                        @change="changemonsynum(scope.row)"
                         controls-position="right"
                         style="width: 100%"
                         v-model="scope.row.depart"
@@ -564,6 +562,36 @@
                   </el-table-column>
                 </el-table>
               </el-row>
+<!--              add-ws-公式修改-->
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1030FORMVIEW_ATTFMOTH')">
+                    <el-input-number
+                      :disabled="true"
+                      :max="1000000000"
+                      :min="0"
+                      :precision="2"
+                      controls-position="right"
+                      style="width:11vw"
+                      v-model="form.membercost"
+                    ></el-input-number>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1030FORMVIEW_ATTFNUMBER')">
+                    <el-input-number
+                      :disabled="true"
+                      :max="1000000000"
+                      :min="0"
+                      :precision="2"
+                      controls-position="right"
+                      style="width:11vw"
+                      v-model="form.investorspeopor"
+                    ></el-input-number>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <!--              add-ws-公式修改-->
             </el-tab-pane>
           </el-tabs>
         </el-form>
@@ -780,6 +808,8 @@
         arrAttf: [],
         groupN: '',
         form: {
+          membercost: '',
+          investorspeopor: '',
           group_id: '',
           draftingdate: '',
           scheduleddate: '',
@@ -936,20 +966,6 @@
         //     budgetcode: '',
         //     depart: ''
         //   },
-        // add-ws-合同人件费修改
-        startoption: [
-          {
-            attf: this.$t('label.PFANS1030FORMVIEW_NEWDATA'),
-            budgetcode: '0',
-            depart: '',
-          },
-          {
-            attf: this.$t('label.PFANS1030FORMVIEW_NEWDATA2'),
-            budgetcode: '0',
-            depart: '',
-          },
-        ],
-        // add-ws-合同人件费修改
         rules: {
           user_id: [{
             required: true,
@@ -1097,7 +1113,7 @@
                 depart: '',
               });
             }
-            this.tableD = data.concat(this.startoption);
+            this.tableD = data
             // add-ws-合同人件费修改
             // if (this.form.tablecommunt !== '' && this.form.tablecommunt !== null) {
             //   for (let i = 0; i < JSON.parse(response.award.tablecommunt).length; i++) {
@@ -1180,29 +1196,6 @@
       this.disable = this.$route.params.disabled;
     },
     methods: {
-      changemonsynum(row){
-        if(row.attf ===this.$t('label.PFANS1030FORMVIEW_NEWDATA2')){
-          this.moneysum = row.depart;
-        }
-      },
-      objectSpanMethod({row, column, rowIndex, columnIndex}) {
-        if (rowIndex === 15 || rowIndex === 16) {
-          if (columnIndex == 0) {
-            return {
-              rowspan: 1,
-              colspan: 2,
-            };
-          } else if (columnIndex == 1) {
-            return {
-              rowspan: 0,
-              colspan: 0,
-            };
-          }
-          if (columnIndex == 0 || columnIndex == 1) {
-            return [1, 1];
-          }
-        }
-      },
       getTsummariesTableD(param) {
         const {columns, data} = param;
         const sums = [];
@@ -1235,7 +1228,10 @@
         return sums;
       },
       moneysumclick(sums){
-        this.form.pjrate =  parseFloat((this.form.sarmb - this.moneysum - this.form.total))/this.form.sarmb
+        debugger
+        this.form.membercost = sums[1]
+        this.form.investorspeopor =sums[2]
+        this.form.pjrate =  parseFloat((this.form.sarmb - this.form.membercost - this.form.total))/this.form.sarmb
       },
       changePro(val, row) {
         row.projects = val;
@@ -1273,7 +1269,7 @@
         }else{
           this.form.outsourcing = val / this.form.number;
         }
-        this.form.pjrate =  parseFloat((this.form.sarmb-this.moneysum-val))/this.form.sarmb
+        this.form.pjrate =  parseFloat((this.form.sarmb-this.form.membercost-val))/this.form.sarmb
       },
       getcontracttype(val) {
         this.form.contracttype = val;
