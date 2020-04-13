@@ -367,7 +367,7 @@
                         this.form.group_id = rst.groupId;
                         this.form.team_id = rst.teamId;
                     }
-                    this.form.user_name = this.$store.getters.userinfo.userid;
+                    //this.form.user_name = this.$store.getters.userinfo.userid;
                 }
                 this.loading = false;
             }
