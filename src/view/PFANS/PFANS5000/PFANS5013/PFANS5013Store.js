@@ -1,5 +1,5 @@
 import {getFpans5013List,selectById,update,insert,getcustomer,getexpat,select,getPjList,
-        getProjectList,getTimestart,getGroupTimestart,updateTimestart,getList2} from './PFANS5013Api'
+        getProjectList,getTimestart,getGroupTimestart,updateTimestart,getList2,getMyConProject} from './PFANS5013Api'
 
 
 const PFANS5013Store = {
@@ -180,7 +180,19 @@ const PFANS5013Store = {
         })
       })
     },
-
+    getMyConProject({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getMyConProject(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
   }
 };
 

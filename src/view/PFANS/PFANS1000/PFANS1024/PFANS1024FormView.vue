@@ -1235,6 +1235,7 @@
       }
       //333
       let userid = this.$store.getters.userinfo.userid;
+      this.buttonList[3].disabled = true
       if (userid !== null && userid !== '') {
         let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
         if (lst !== null && lst !== '') {
@@ -1439,30 +1440,30 @@
                   response[j].protelephone = user.userinfo.customername;
                 }
               }
-              if (response[j].commontperson !== null && response[j].commontperson !== '') {
-                let commontperson = getUserInfo(response[j].commontperson);
-                if (commontperson) {
-                  response[j].commontperson = user.userinfo.customername;
-                }
-              }
-              if (response[j].comtelephone !== null && response[j].comtelephone !== '') {
-                let comtelephone = getUserInfo(response[j].comtelephone);
-                if (comtelephone) {
-                  response[j].comtelephone = user.userinfo.customername;
-                }
-              }
-              if (response[j].addchinese !== null && response[j].addchinese !== '') {
-                let addchinese = getUserInfo(response[j].addchinese);
-                if (addchinese) {
-                  response[j].addchinese = user.userinfo.customername;
-                }
-              }
-              if (response[j].perscale !== null && response[j].perscale !== '') {
-                let perscale = getDictionaryInfo(response[j].perscale);
-                if (perscale != null) {
-                  response[j].perscale = perscale.value1;
-                }
-              }
+              // if (response[j].commontperson !== null && response[j].commontperson !== '') {
+              //   let commontperson = getUserInfo(response[j].commontperson);
+              //   if (commontperson) {
+              //     response[j].commontperson = user.userinfo.customername;
+              //   }
+              // }
+              // if (response[j].comtelephone !== null && response[j].comtelephone !== '') {
+              //   let comtelephone = getUserInfo(response[j].comtelephone);
+              //   if (comtelephone) {
+              //     response[j].comtelephone = user.userinfo.customername;
+              //   }
+              // }
+              // if (response[j].addchinese !== null && response[j].addchinese !== '') {
+              //   let addchinese = getUserInfo(response[j].addchinese);
+              //   if (addchinese) {
+              //     response[j].addchinese = user.userinfo.customername;
+              //   }
+              // }
+              // if (response[j].perscale !== null && response[j].perscale !== '') {
+              //   let perscale = getDictionaryInfo(response[j].perscale);
+              //   if (perscale != null) {
+              //     response[j].perscale = perscale.value1;
+              //   }
+              // }
             }
 
             this.dataA = response;

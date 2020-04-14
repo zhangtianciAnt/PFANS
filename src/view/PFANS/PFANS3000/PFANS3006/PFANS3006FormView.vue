@@ -14,6 +14,42 @@
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw"
                  ref="refform" style="padding: 3vw">
+          <!--            start  fjl 2020/04/08  添加总务担当的受理功能-->
+          <el-row>
+<!--            <el-col :span="8">-->
+<!--              <el-form-item :label="$t('label.PFANS3001FORMVIEW_ACCEPT')" prop="accept">-->
+<!--                <span style="margin-right: 1rem ">{{$t('label.no')}}</span>-->
+<!--                <el-switch-->
+<!--                  :disabled="!disable"-->
+<!--                  v-model="form.accept"-->
+<!--                  active-value="1"-->
+<!--                  inactive-value="0"-->
+<!--                >-->
+<!--                </el-switch>-->
+<!--                <span style="margin-left: 1rem ">{{$t('label.yes')}}</span>-->
+<!--              </el-form-item>-->
+<!--            </el-col>-->
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS3001FORMVIEW_ACCEPTSTATUS')">
+                <el-select clearable style="width: 20vw"  v-model="form.acceptstatus" :disabled="acceptShow"
+                           :placeholder="$t('normal.error_09')">
+                  <el-option
+                    v-for="item in options"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS3006VIEW_ACCEPTTIME')">
+                <el-date-picker :disabled="acceptShow" style="width:20vw" type="date"
+                                v-model="form.findate"></el-date-picker>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <!--            end  fjl 2020/04/08  添加总务担当的受理功能-->
           <el-row >
             <!--1-->
             <el-col :span="8">
@@ -198,7 +234,7 @@
           <el-row >
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3006VIEW_MOBILEPHONE')" prop="mobilephone">
-                <el-input :disabled="!disable" maxlength="11" style="width:20vw"
+                <el-input :disabled="!disable" maxlength="20" style="width:20vw"
                           v-model="form.mobilephone"></el-input>
               </el-form-item>
             </el-col>
@@ -218,42 +254,6 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <!--            start  fjl 2020/04/08  添加总务担当的受理功能-->
-          <el-row v-show="acceptShow">
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS3001FORMVIEW_ACCEPT')" prop="accept">
-                <span style="margin-right: 1rem ">{{$t('label.no')}}</span>
-                <el-switch
-                  :disabled="!disable"
-                  v-model="form.accept"
-                  active-value="1"
-                  inactive-value="0"
-                >
-                </el-switch>
-                <span style="margin-left: 1rem ">{{$t('label.yes')}}</span>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8" v-show="form.accept === '1'">
-              <el-form-item :label="$t('label.PFANS3001FORMVIEW_ACCEPTSTATUS')">
-                <el-select clearable style="width: 20vw"  v-model="form.acceptstatus" :disabled="!disable"
-                           :placeholder="$t('normal.error_09')">
-                  <el-option
-                    v-for="item in options"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
-                  </el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8" v-show="form.accept === '1'">
-              <el-form-item :label="$t('label.PFANS5004VIEW_FINSHTIME')">
-                <el-date-picker :disabled="!disable" style="width:20vw" type="date"
-                                v-model="form.findate"></el-date-picker>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <!--            end  fjl 2020/04/08  添加总务担当的受理功能-->
           <el-row >
             <el-col :span="24">
               <el-form-item :label="$t('label.remarks')" prop="remarks">
@@ -273,7 +273,7 @@
   import moment from "moment";
   import {Message} from 'element-ui';
   import user from "../../../components/user.vue";
-  import {getOrgInfoByUserId,getCurrentRole2} from '@/utils/customize'
+  import {getOrgInfoByUserId,getCurrentRoleCar} from '@/utils/customize'
   import {telephoneNumber, validateNumber} from '@/utils/validate';
 
   export default {
@@ -359,14 +359,18 @@
         options: [
           {
             value: '0',
-            label: this.$t('label.PFANS3001FORMVIEW_CORRESPONDING'),
+            label: this.$t('label.PFANS3006VIEW_ACCEPT'),
           },
           {
             value: '1',
-            label: this.$t('label.PFANS3001FORMVIEW_COMPLETED'),
+            label: this.$t('label.PFANS3006VIEW_REFUSE'),
+          },
+          {
+            value: '2',
+            label: this.$t('label.PFANS3006VIEW_CARRYOUT'),
           },
         ],
-        acceptShow: false,
+        acceptShow: true,
         form: {
           centerid: '',
           groupid: '',
@@ -421,7 +425,8 @@
             message: this.$t('normal.error_08') + this.$t('label.PFANS3006VIEW_MOBILEPHONE'),
             trigger: 'blur',
           },
-            {validator: validateTel, trigger: 'blur'}],
+            // {validator: validateTel, trigger: 'blur'}
+            ],
           usetype: [{
             required: true,
             message: this.$t("normal.error_09") + this.$t("label.PFANS3006VIEW_USETYPE"),
@@ -451,11 +456,11 @@
           },
               {validator: validateendtime, trigger: 'change'}
           ],
-          guestname: [{
-            required: true,
-            message: this.$t('normal.error_08') + this.$t('label.PFANS3002VIEW_GUESTNAME'),
-            trigger: 'blur'
-          }],
+          // guestname: [{
+          //   required: true,
+          //   message: this.$t('normal.error_08') + this.$t('label.PFANS3002VIEW_GUESTNAME'),
+          //   trigger: 'blur'
+          // }],
           usenumber: [{
             required: true,
             message: this.$t('normal.error_08') + this.$t('label.PFANS3006VIEW_USENUMBER'),
@@ -503,7 +508,6 @@
             }else{
                 this.show2 = false;
             }
-
             this.loading = false;
           })
           .catch(error => {
@@ -532,10 +536,16 @@
         }
       }
       //start(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
-      let role = getCurrentRole2();
-      if(role === '0'){
-        this.acceptShow = true;
-      }
+      let role = getCurrentRoleCar();
+        if (role === '0') {
+            if (this.disable) {
+                this.acceptShow = false;
+            } else {
+                this.acceptShow = true;
+            }
+        } else {
+            this.acceptShow = true;
+        }
       //end(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
     },
     created() {

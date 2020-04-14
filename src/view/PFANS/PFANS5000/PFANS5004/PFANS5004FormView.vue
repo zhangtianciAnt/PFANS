@@ -158,6 +158,7 @@
                           <el-upload
                             v-model="form.uploadfile"
                             :action="upload"
+                            :disabled="!disable"
                             :file-list="fileList"
                             :on-remove="fileRemove"
                             :on-preview="fileDownload"
@@ -178,7 +179,7 @@
               </div>
             </el-tab-pane>
 
-            <el-tab-pane :label="$t('label.PFANS5004VIEW_PROJECTSECORE')" name="second">
+            <el-tab-pane :label="$t('label.PFANS5001FORMVIEW_SYSTEM')" name="second">
               <el-table :data="source"
                         border
                         header-cell-class-name="sub_bg_color_blue" stripe>
@@ -477,6 +478,9 @@
                   if (this.$i18n) {
                     this.source[i].type = this.$t('label.PFANS5004VIEW_ASSIST');
                   }
+                  //add-ws-数据库id存的是name名，外协关联修改
+                  this.source[i].name = this.source[i].name_id;
+                  //add-ws-数据库id存的是name名，外协关联修改
                 }
               }
             }
@@ -548,8 +552,13 @@
         }
         this.buttonClick("update");
       },
-      start() {
-        this.form.status = "7";
+      start(val) {
+        if (val.state === '0') {
+          this.form.status = '7';
+        }else if (val.state === '2') {
+          this.form.status = '9';
+        }
+        // this.form.status = "7";
         this.buttonClick("update");
       },
       end() {

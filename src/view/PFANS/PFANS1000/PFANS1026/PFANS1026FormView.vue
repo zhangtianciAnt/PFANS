@@ -259,6 +259,18 @@
                 </el-form-item>
               </template>
             </el-table-column>
+
+            <el-table-column :label="$t('label.PFANS1024VIEW_EXTENSIONREASON')" align="center" prop="extensionreason"
+                             width="200">
+              <template slot-scope="scope">
+                <el-form-item :prop="'tabledata.' + scope.$index + '.extensionreason'">
+                  <el-input  type="textarea"
+                             :rows="2" :disabled="!disabled"  v-model="scope.row.extensionreason"
+                                  style="width: 11rem"></el-input>
+                </el-form-item>
+              </template>
+            </el-table-column>
+
             <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYCONDITION')" align="center">
               <el-table-column :label="$t('label.PFANS1026VIEW_SITUATION')" align="center" prop="deliverycondition"
                                width="200">
@@ -325,26 +337,7 @@
                 </template>
               </el-table-column>
             </el-table-column>
-            <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYFINSHDATE')" align="center"
-                             prop="deliveryfinshdate" width="200">
-              <template slot-scope="scope">
-                <el-form-item :prop="'tabledata.' + scope.$index + '.deliveryfinshdate'"
-                              :rules='rules.deliveryfinshdate'>
-                  <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.deliveryfinshdate"
-                                  style="width: 11rem"></el-date-picker>
-                </el-form-item>
-              </template>
-            </el-table-column>
-            <el-table-column :label="$t('label.PFANS1024VIEW_LOADINGJUDGE')" align="center" prop="loadingjudge"
-                             width="200" :error="errorjudge">
-              <template slot-scope="scope">
-                <el-form-item :prop="'tabledata.' + scope.$index + '.loadingjudge'" :rules='rules.loadingjudge'>
-                  <user :disabled="!disabled" :no="scope.row" :selectType="selectType"
-                        :userlist="scope.row.loadingjudge"
-                        @getUserids="getJudge" style="width: 10.15rem"></user>
-                </el-form-item>
-              </template>
-            </el-table-column>
+
             <el-table-column :label="$t('label.PFANS1024VIEW_CURRENCYPOSITION')" align="center" prop="currencyposition"
                              width="200">
               <template slot-scope="scope">
@@ -669,6 +662,26 @@
                               :rules='rules.completiondate'>
                   <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.completiondate"
                                   style="width: 9.5rem"></el-date-picker>
+                </el-form-item>
+              </template>
+            </el-table-column>
+            <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYFINSHDATE')" align="center"
+                              width="200">
+              <template slot-scope="scope">
+                <el-form-item :prop="'tableclaimtype.' + scope.$index + '.deliveryfinshdate'"
+                              :rules='rules.deliveryfinshdate'>
+                  <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.deliveryfinshdate"
+                                  style="width: 11rem"></el-date-picker>
+                </el-form-item>
+              </template>
+            </el-table-column>
+            <el-table-column :label="$t('label.PFANS1024VIEW_LOADINGJUDGE')" align="center"
+                             width="200">
+              <template slot-scope="scope">
+                <el-form-item :prop="'tableclaimtype.' + scope.$index + '.loadingjudge'" :rules='rules.loadingjudge'>
+                  <user :disabled="!disabled" :no="scope.row" :selectType="selectType"
+                        :userlist="scope.row.loadingjudge"
+                        @getUserids="getJudge" style="width: 10.15rem"></user>
                 </el-form-item>
               </template>
             </el-table-column>
@@ -1398,6 +1411,23 @@
 //            }
     },
     methods: {
+
+        tipMes(contractNumber,index){
+            this.$confirm(this.$t('normal.error_tipis'), this.$t('normal.info'), {
+                confirmButtonText: this.$t('button.confirm'),
+                cancelButtonText: this.$t('button.cancel'),
+                type: 'warning',
+            }).then(() => {
+                var tabledata = {'contractnumber': contractNumber, 'rowindex': index};
+                this.handleSaveContract(index, this.makeintoBaseInfo, tabledata);
+            }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: this.$t('label.PFANS1026FORMVIEW_tipis'),
+                });
+            });
+        },
+
       getProjectList() {
         this.loading = true;
         this.$store
@@ -1786,6 +1816,7 @@
             entrycondition: 'HT004002',
             entrypayment: '',
             extensiondate: '',
+            extensionreason: '',
             claimtype: this.form1.claimtype,
             deliverycondition: '',
             delivery: '',
@@ -1831,6 +1862,8 @@
           claimtype: '',
           deliverydate: '',
           completiondate: '',
+          deliveryfinshdate: '',
+          loadingjudge: '',
           claimdate: moment(new Date()).format('YYYY-MM-DD'),
           claimamount: '',
           supportdate: '',
@@ -2056,43 +2089,50 @@
 //        }
         this.$store.dispatch('PFANS1026Store/existCheck', {contractNumber: contractNumber})
           .then(response => {
+              console.log("contractNumber",contractNumber)
             let s = 'count' + index;
             if (response[s] > 0 && s=='count1') {
-              Message({
-                message: this.$t('label.PFANS1026FORMVIEW_QXSCZQSCDQYS'),
-                type: 'error',
-                duration: 5 * 1000,
-              });
+                this.tipMes(contractNumber,index);
+              // Message({
+              //   message: this.$t('label.PFANS1026FORMVIEW_QXSCZQSCDQYS'),
+              //   type: 'error',
+              //   duration: 5 * 1000,
+              // });
             }else if (response[s] > 0 && s==='count2') {
-              Message({
-                message: this.$t('label.PFANS1026FORMVIEW_QXSCZQSCDQYS1'),
-                type: 'error',
-                duration: 5 * 1000,
-              });
+                this.tipMes(contractNumber,index);
+              // Message({
+              //   message: this.$t('label.PFANS1026FORMVIEW_QXSCZQSCDQYS1'),
+              //   type: 'error',
+              //   duration: 5 * 1000,
+              // });
             } else if (response[s] > 0 && s==='count3') {
-              Message({
-                message: this.$t('label.PFANS1026FORMVIEW_QXSCZQSCDQYS2'),
-                type: 'error',
-                duration: 5 * 1000,
-              });
+                this.tipMes(contractNumber,index);
+              // Message({
+              //   message: this.$t('label.PFANS1026FORMVIEW_QXSCZQSCDQYS2'),
+              //   type: 'error',
+              //   duration: 5 * 1000,
+              // });
             } else if (response[s] > 0 && s ==='count4') {
-              Message({
-                message: this.$t('label.PFANS1026FORMVIEW_QXSCZQSCDQYS3'),
-                type: 'error',
-                duration: 5 * 1000,
-              });
+                this.tipMes(contractNumber,index);
+              // Message({
+              //   message: this.$t('label.PFANS1026FORMVIEW_QXSCZQSCDQYS3'),
+              //   type: 'error',
+              //   duration: 5 * 1000,
+              // });
             } else if (response[s] > 0 && s==='count5') {
-              Message({
-                message: this.$t('label.PFANS1026FORMVIEW_QXSCZQSCDQYS4'),
-                type: 'error',
-                duration: 5 * 1000,
-              });
+                this.tipMes(contractNumber,index);
+              // Message({
+              //   message: this.$t('label.PFANS1026FORMVIEW_QXSCZQSCDQYS4'),
+              //   type: 'error',
+              //   duration: 5 * 1000,
+              // });
             } else if (response[s] > 0 && s==='count6') {
-              Message({
-                message: this.$t('label.PFANS1026FORMVIEW_QXSCZQSCDQYS5'),
-                type: 'error',
-                duration: 5 * 1000,
-              });
+                this.tipMes(contractNumber,index);
+              // Message({
+              //   message: this.$t('label.PFANS1026FORMVIEW_QXSCZQSCDQYS5'),
+              //   type: 'error',
+              //   duration: 5 * 1000,
+              // });
             } else {
               var tabledata = {'contractnumber': contractNumber, 'rowindex': index};
               //first save contractapplication
@@ -2212,6 +2252,8 @@
       },
       //contractapplication save
       handleSaveContract(value, baseInfo, tabledata) {
+            console.log("tabledata",tabledata)
+            debugger
         this.validateByType(value, valid => {
           if (valid) {
             this.loading = true;
@@ -2425,7 +2467,7 @@
         myRule.forEach(function(item, index, array) {
           let dataName = 'tabledata';
           let maxCount = rowCount;
-          if (['deliverydate', 'completiondate', 'claimdate', 'supportdate', 'claimamount'].indexOf(item) >= 0) {
+          if (['deliverydate', 'completiondate', 'claimdate', 'supportdate', 'deliveryfinshdate', 'loadingjudge', 'claimamount'].indexOf(item) >= 0) {
             dataName = 'tableclaimtype';
             maxCount = rowCount2;
             for (var k = 0; k < maxCount; k++) {

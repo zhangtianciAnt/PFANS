@@ -44,16 +44,16 @@
               <el-table :data="tableD" header-cell-class-name="sub_bg_color_blue" border stripe style="width: 73vw" :summary-method="getSummaries" show-summary>
                 <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" type="index" width="80">
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1005VIEW_ITEM')" align="center" prop="projects" width="150">
+                <el-table-column :label="$t('label.PFANS1005FORMVIEW_ERROR')" align="center" prop="remarks" width="180">
                   <template slot-scope="scope">
-                    <el-select v-model="scope.row.projects" clearable :placeholder="$t('normal.error_09')" :disabled="!disable">
-                      <el-option
-                        v-for="item in options"
-                        :key="item.companyprojects_id"
-                        :label="item.project_name"
-                        :value="item.companyprojects_id">
-                      </el-option>
-                    </el-select>
+                    <el-input :disabled="!disable" maxlength="200" v-model="scope.row.remarks">
+                    </el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS1019FORMVIEW_EMPLOY')" align="center" prop="employ" width="180">
+                  <template slot-scope="scope">
+                    <el-input :disabled="!disable" maxlength="200" v-model="scope.row.employ">
+                    </el-input>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1005VIEW_UNITPRICE')" align="center" prop="unitprice" width="200">
@@ -70,9 +70,7 @@
                                      controls-position="right" :no="scope.row"
                                      :step="1" v-model="scope.row.numbers">
                     </el-input-number>
-                  </template> if (this.form.status === '2') {
-                  this.disable = false;
-                  }
+                  </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1005VIEW_AMOUNT')" align="center" prop="amount" width="200">
                   <template slot-scope="scope">
@@ -80,10 +78,16 @@
                     </el-input-number>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS2026FORMVIEW_REMARKS')" align="center" prop="remarks" >
+                <el-table-column :label="$t('label.PFANS1005FORMVIEW_PJPROJECT')" align="center" prop="projects" width="180">
                   <template slot-scope="scope">
-                    <el-input :disabled="!disable" v-model="scope.row.remarks">
-                    </el-input>
+                    <el-select v-model="scope.row.projects" clearable :placeholder="$t('normal.error_09')" :disabled="!disable">
+                      <el-option
+                        v-for="item in options"
+                        :key="item.companyprojects_id"
+                        :label="item.project_name"
+                        :value="item.companyprojects_id">
+                      </el-option>
+                    </el-select>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.operation')" align="center" width="200">
@@ -169,6 +173,7 @@
                         numbers: '',
                         amount: '',
                         remarks: '',
+                        employ: '',
                     },
                 ],
                 buttonList: [
@@ -260,8 +265,8 @@
                     if (index === 0) {
                         sums[index] = this.$t('label.PFANS1012VIEW_ACCOUNT');
                         return;
-                    } else if ([1,2,5].includes(index)) {
-                        sums[index] = "-";
+                    } else if ([1,2,6].includes(index)) {
+                        sums[index] = "--";
                         return;
                     }
                     const values = data.map(item => Number(item[column.property]));
@@ -339,6 +344,7 @@
                         numbers: '',
                         amount: '',
                         remarks: '',
+                        employ: '',
                     }]
                 }
             },
@@ -351,6 +357,7 @@
                     numbers: '',
                     amount: '',
                     remarks: '',
+                    employ: '',
                 });
             },
             paramsTitle() {
@@ -379,7 +386,7 @@
                             let amountsum = 0;
                             for (let i = 0; i < this.tableD.length; i++) {
                                 if (this.tableD[i].projects !== '' || this.tableD[i].unitprice > 0 || this.tableD[i].numbers > 0 ||
-                                    this.tableD[i].amount > 0 || this.tableD[i].remarks !== '') {
+                                    this.tableD[i].amount > 0 || this.tableD[i].remarks !== '' || this.tableD[i].employ !== '') {
                                   amountsum += parseFloat(this.tableD[i].amount)
                                     this.baseInfo.shoppingDetailed.push(
                                         {
@@ -390,6 +397,7 @@
                                             numbers: this.tableD[i].numbers,
                                             amount: this.tableD[i].amount,
                                             remarks: this.tableD[i].remarks,
+                                            employ: this.tableD[i].employ,
                                         },
                                     );
                                 }

@@ -8,7 +8,7 @@
           <easy-button-bar :data="buttons" @buttonClick="buttonClick"></easy-button-bar>
           <easy-work-flow :canStart="canStart" :workflowCode="workflowCode"
                           @canStartWorkflow="canStartWorkflow"
-                          @canViewWorkflow="canViewWorkflow"
+                          @canViewWorkflow="canViewWorkflow" @StartWorkflow="StartWorkflow" :defaultStart="defaultStart"
                           @changeLoading="changeLoading" @end="end" @start="start" @workflowState="workflowState"
                           ref="workflow"></easy-work-flow>
         </el-row>
@@ -73,6 +73,10 @@
       enableSave: {
         type: Boolean,
         default: true
+      },
+      defaultStart:{
+        type:Boolean,
+        default:true
       }
     },
     methods: {
@@ -116,6 +120,9 @@
           }
           this.$emit('disabled', true);
         }
+      },
+      StartWorkflow(val){
+        this.$emit("StartWorkflow",val)
       },
       canViewWorkflow(val) {
         this.canViewWorkflowVal = val;

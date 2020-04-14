@@ -2468,8 +2468,7 @@
                 for (let i = 0; i < this.tableT.length; i++) {
                   if (this.tableT[i].trafficdate !== '' && this.tableT[i].invoicenumber !== '' && this.tableT[i].departmentname !== '' && this.tableT[i].budgetcoding !== ''
                     && this.tableT[i].rmb > 0 && this.tableT[i].annexno !== '' && this.tableT[i].plsummary !== ''
-                    && this.tableT[i].accountcode !== '' && this.tableT[i].subjectnumber !== '' && this.tableT[i].region !== ''&& this.tableT[i].vehicle !== ''
-                    && this.tableT[i].startingpoint !== '') {
+                    && this.tableT[i].accountcode !== '' && this.tableT[i].subjectnumber !== '') {
                     this.baseInfo.trafficdetails.push(
                       {
                         trafficdetails_id: this.tableT[i].trafficdetails_id,
@@ -2501,7 +2500,7 @@
                   if (this.tableA[i].accommodationdate !== '' && this.tableA[i].invoicenumber !== '' && this.tableA[i].departmentname !== ''
                     && this.tableA[i].budgetcoding !== '' && this.tableA[i].plsummary !== '' && this.tableA[i].accountcode !== '' && this.tableA[i].subjectnumber !== ''
                     && this.tableA[i].rmb > 0 && this.tableA[i].activitycontent !== ''
-                    && this.tableA[i].city !== '' && this.tableA[i].facilitytype !== '' && this.tableA[i].facilityname !== '' && this.tableA[i].annexno !== '') {
+                    && this.tableA[i].city !== '' && this.tableA[i].facilitytype !== '' && this.tableA[i].annexno !== '') {
                     this.baseInfo.accommodationdetails.push(
                       {
                         accommodationdetails_id: this.tableA[i].accommodationdetails_id,

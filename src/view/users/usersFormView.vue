@@ -200,7 +200,7 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_EMAIL')" prop="email">
-                    <el-input class="width" v-model="form.email" style="width:20vw" />
+                    <el-input class="width" v-model="form.email" style="width:20vw" maxlength="50" />
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -210,7 +210,7 @@
                     :label="$t('label.PFANSUSERFORMVIEW_MOBILENUMBER')"
                     prop="mobilenumber"
                   >
-                    <el-input class="width" v-model="form.mobilenumber" style="width:20vw" />
+                    <el-input class="width" v-model="form.mobilenumber" style="width:20vw" maxlength="20"/>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -287,7 +287,7 @@
                     <el-input
                       class="width"
                       v-model="form.specialty"
-                      maxlength="10"
+                      maxlength="20"
                       style="width:20vw"
                     ></el-input>
                   </el-form-item>
@@ -2433,7 +2433,7 @@ export default {
             required: true,
             message: this.$t("normal.error_08") + this.$t("label.user_mobile")
           },
-          { validator: validateTel, trigger: "blur" }
+          // { validator: validateTel, trigger: "blur" }
         ],
         email: [
           {

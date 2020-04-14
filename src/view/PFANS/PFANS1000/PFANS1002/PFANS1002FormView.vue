@@ -1057,13 +1057,14 @@
               trigger: 'change',
             },
           ],
-          bookingday: [
-            {
-              required: true,
-              message: this.$t('normal.error_09') + this.$t('label.PFANS1002VIEW_BOOKINGDAY'),
-              trigger: 'blur',
-            },
-          ],
+            // DEL   FJL
+          // bookingday: [
+          //   {
+          //     required: true,
+          //     message: this.$t('normal.error_09') + this.$t('label.PFANS1002VIEW_BOOKINGDAY'),
+          //     trigger: 'blur',
+          //   },
+          // ],
           actuarialdate: [
             {
               required: true,
@@ -1076,13 +1077,14 @@
               required: true,
             },
           ],
-          loanday: [
-            {
-              required: true,
-              message: this.$t('normal.error_09') + this.$t('label.PFANS1002VIEW_LOANDAY1'),
-              trigger: 'blur',
-            },
-          ],
+            // DEL   FJL
+          // loanday: [
+          //   {
+          //     required: true,
+          //     message: this.$t('normal.error_09') + this.$t('label.PFANS1002VIEW_LOANDAY1'),
+          //     trigger: 'blur',
+          //   },
+          // ],
           loanmoney: [
             {
               required: true,
@@ -1641,7 +1643,12 @@
         this.buttonClick('update');
       },
       start(val) {
-        this.form.status = '2';
+        if (val.state === '0') {
+          this.form.status = '2';
+        }else if (val.state === '2') {
+          this.form.status = '4';
+        }
+        // this.form.status = '2';
         this.buttonClick('update');
       },
       end(val) {

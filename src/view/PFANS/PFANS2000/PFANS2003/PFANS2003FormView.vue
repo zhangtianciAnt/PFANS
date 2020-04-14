@@ -820,6 +820,7 @@
               this.display = true;
           } else {
               this.display = false;
+              this.userlist = '',
               this.form.others = '';
           }
           this.form.adoption = val;
@@ -827,6 +828,9 @@
               this.other3_show = true;
           } else {
               this.other3_show = false;
+              // this.form.others = '';
+              this.form.other = '';
+
           }
       },
       changesex(val) {

@@ -98,6 +98,12 @@
                             <el-col>
                               <el-radio :label="-1">全组织</el-radio>
                             </el-col>
+                              <el-col>
+                              <el-radio :label="3">本CENTER</el-radio>
+                            </el-col>
+                             <el-col>
+                              <el-radio :label="2">本GROUP</el-radio>
+                            </el-col>
                             <el-col>
                               <el-radio :label="5">本级及以下</el-radio>
                             </el-col>

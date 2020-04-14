@@ -53,9 +53,9 @@
 
                 <!--           供应商编码（合同用）-->
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS6003FORMVIEW_VENDORNUM')" prop="suppliercode">
+                  <el-form-item :label="$t('label.PFANS6003FORMVIEW_VENDORNUM')" prop="vendornum">
                     <el-input :disabled="!disabled" style="width:20vw"
-                              v-model="form.suppliercode"></el-input>
+                              v-model="form.vendornum"></el-input>
                   </el-form-item>
                 </el-col>
 
@@ -158,14 +158,14 @@
                 <!--        联系电话-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')" prop="protelephone">
-                    <el-input :disabled="!disabled" style="width:20vw"
+                    <el-input :disabled="!disabled" style="width:20vw" maxlength="20"
                               v-model="form.protelephone"></el-input>
                   </el-form-item>
                 </el-col>
                 <!--        邮箱地址-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_EMAILADDRESS')" prop="protemail">
-                    <el-input :disabled="!disabled" style="width:20vw"
+                    <el-input :disabled="!disabled" style="width:20vw" maxlength="50"
                               v-model="form.protemail"></el-input>
                   </el-form-item>
                 </el-col>
@@ -188,14 +188,14 @@
                 <!--        联系电话-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')" prop="comtelephone">
-                    <el-input :disabled="!disabled" style="width:20vw"
+                    <el-input :disabled="!disabled" style="width:20vw" maxlength="20"
                               v-model="form.comtelephone"></el-input>
                   </el-form-item>
                 </el-col>
                 <!--        电子邮箱-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_EMAILADDRESS')" prop="comnemail">
-                    <el-input :disabled="!disabled" style="width:20vw"
+                    <el-input :disabled="!disabled" style="width:20vw" maxlength="50"
                               v-model="form.comnemail"></el-input>
                   </el-form-item>
                 </el-col>
@@ -341,6 +341,7 @@
         buttonList: [],
         multiple: false,
         form: {
+          vendornum: '',
           supplierinfor_id: '',
           type: this.$t('menu.PFANS6002'),
           supchinese: '',
@@ -421,12 +422,11 @@
                     trigger: 'change',
                 },
             ],
-          // 供应商编码（合同用）
-            suppliercode: [
+          vendornum: [
             {
               required: true,
               message: this.$t('normal.error_08') + this.$t('label.PFANS6003FORMVIEW_VENDORNUM'),
-              trigger: 'blur',
+              trigger: 'change',
             },
           ],
           // // 中文(项目联络人)

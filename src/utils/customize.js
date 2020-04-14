@@ -398,7 +398,19 @@ export function getCurrentRole2() {
 
   if(store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0){
     for(let role of store.getters.useraccount.roles){
-      if(role.description.indexOf("总务担当")!= -1 || role.description.indexOf("人事总务部长")!= -1){
+      if(role.description.indexOf("总务担当")!= -1){
+        return "0";
+      }
+    }
+  }
+  return "1";
+}
+
+export function getCurrentRoleCar() {
+
+  if(store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0){
+    for(let role of store.getters.useraccount.roles){
+      if(role.description.indexOf("司机")!= -1){
         return "0";
       }
     }

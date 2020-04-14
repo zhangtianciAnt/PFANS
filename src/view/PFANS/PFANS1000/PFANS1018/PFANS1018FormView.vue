@@ -78,31 +78,32 @@
               <template slot="title">
                 <span  class="collapse_Title">{{$t('label.PFANS1018VIEW_APPLICATIONDEPLOYMENT')}}</span>
               </template>
-          <el-row>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.center')">
-                <el-input :disabled="true" style="width:20vw" v-model="centerid"></el-input>
-                <el-input v-show='false' :disabled="true" maxlength='36' style="width: 20vw" v-model="form.center_id"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.group')">
-                <el-input :disabled="true" style="width:20vw" v-model="groupid"></el-input>
-                <el-input v-show='false' :disabled="true" maxlength='36' style="width: 20vw" v-model="form.group_id"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.team')">
-                <el-input :disabled="true" style="width:20vw" v-model="teamid"></el-input>
-                <el-input v-show='false' :disabled="true" maxlength='36' style="width: 20vw" v-model="form.team_id"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
+<!--          <el-row>-->
+<!--            <el-col :span="8">-->
+<!--              <el-form-item :label="$t('label.center')">-->
+<!--                <el-input :disabled="true" style="width:20vw" v-model="centerid"></el-input>-->
+<!--                <el-input v-show='false' :disabled="true" maxlength='36' style="width: 20vw" v-model="form.center_id"></el-input>-->
+<!--              </el-form-item>-->
+<!--            </el-col>-->
+<!--            <el-col :span="8">-->
+<!--              <el-form-item :label="$t('label.group')">-->
+<!--                <el-input :disabled="true" style="width:20vw" v-model="groupid"></el-input>-->
+<!--                <el-input v-show='false' :disabled="true" maxlength='36' style="width: 20vw" v-model="form.group_id"></el-input>-->
+<!--              </el-form-item>-->
+<!--            </el-col>-->
+<!--            <el-col :span="8">-->
+<!--              <el-form-item :label="$t('label.team')">-->
+<!--                <el-input :disabled="true" style="width:20vw" v-model="teamid"></el-input>-->
+<!--                <el-input v-show='false' :disabled="true" maxlength='36' style="width: 20vw" v-model="form.team_id"></el-input>-->
+<!--              </el-form-item>-->
+<!--            </el-col>-->
+<!--          </el-row>-->
           <el-row>
             <el-col :span="8">
               <el-form-item :error="error_user" :label="$t('label.PFANS3005VIEW_USER')" prop="user_name">
-                <user :disabled="!disabled" :error="error_user" :selectType="selectType" :userlist="useridlist"
-                      @getUserids="getUserids" style="width: 20vw"></user>
+<!--                <user :disabled="!disabled" :error="error_user" :selectType="selectType" :userlist="useridlist"-->
+<!--                      @getUserids="getUserids" style="width: 20vw"></user>-->
+                <el-input :disabled="!disabled"  maxlength='36' style="width: 20vw" v-model="form.user_name"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -119,7 +120,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.email')" prop="email">
-                <el-input :disabled="!disabled" maxlength='20' style="width: 20vw"
+                <el-input :disabled="!disabled" maxlength='50' style="width: 20vw"
                           v-model="form.email"></el-input>
               </el-form-item>
             </el-col>
@@ -133,7 +134,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1018FORMVIEW_INSIDENUMBER')" prop="extension">
-                <el-input :disabled="!disabled" style="width: 20vw"
+                <el-input :disabled="!disabled" style="width: 20vw" maxlength='20'
                           v-model="form.extension"></el-input>
               </el-form-item>
             </el-col>
@@ -366,7 +367,7 @@
                         this.form.group_id = rst.groupId;
                         this.form.team_id = rst.teamId;
                     }
-                    this.form.user_name = this.$store.getters.userinfo.userid;
+                    //this.form.user_name = this.$store.getters.userinfo.userid;
                 }
                 this.loading = false;
             }

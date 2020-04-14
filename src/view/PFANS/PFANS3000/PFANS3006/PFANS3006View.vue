@@ -275,7 +275,21 @@
                         width: 280,
                         fix: false,
                         filter: true
-                    }
+                    },
+                    {
+                        code: 'acceptstatus',
+                        label: 'label.PFANS3001FORMVIEW_ACCEPTSTATUS',
+                        width: 150,
+                        fix: false,
+                        filter: true,
+                    },
+                    {
+                        code: 'findate',
+                        label: 'label.PFANS3006VIEW_ACCEPTTIME',
+                        width: 150,
+                        fix: false,
+                        filter: true,
+                    },
                 ],
                 buttonList: [
                     {
@@ -354,6 +368,22 @@
                         }
                         if (response[j].endtime !== null && response[j].endtime !== "") {
                             response[j].endtime = moment(response[j].endtime).format("HH:mm");
+                        }
+                        // ADD_FJL   (受理状态)
+                        if (response[j].acceptstatus !== null && response[j].acceptstatus !== "") {
+                            if (this.$i18n) {
+                                if (response[j].acceptstatus === '0') {
+                                    response[j].acceptstatus = this.$t('label.PFANS3006VIEW_ACCEPT');
+                                } else if (response[j].acceptstatus === '1') {
+                                    response[j].acceptstatus = this.$t('label.PFANS3006VIEW_REFUSE');
+                                } else if (response[j].acceptstatus === '2') {
+                                    response[j].acceptstatus = this.$t('label.PFANS3006VIEW_CARRYOUT');
+                                }
+                            }
+                        }
+                        // ADD_FJL   (受理时间)
+                        if (response[j].findate !== null && response[j].findate !== "") {
+                            response[j].findate = moment(response[j].findate).format('YYYY-MM-DD');
                         }
                     }
                     this.data = response;

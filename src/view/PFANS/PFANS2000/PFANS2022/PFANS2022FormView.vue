@@ -149,6 +149,7 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.enclosure')">
                 <el-upload
+                  :disabled="!disabled"
                   :action="upload"
                   :file-list="fileList"
                   :on-remove="fileRemove"
@@ -711,8 +712,13 @@
                 }
                 this.buttonClick("update");
             },
-            start() {
+            start(val) {
+              if (val.state === '0') {
                 this.form.status = '2';
+              }else if (val.state === '2') {
+                this.form.status = '4';
+              }
+                // this.form.status = '2';
                 this.buttonClick("update");
             },
             end() {

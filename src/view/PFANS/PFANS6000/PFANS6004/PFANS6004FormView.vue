@@ -79,21 +79,21 @@
               </el-form-item>
             </el-col>
             <!--            技术分类-->
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS2003VIEW_TECHNOLOGY')" prop="technology">
-                <dicselect
-                  :code="code5"
-                  :data="form.technology"
-                  :disabled="true"
-                  :multiple="multiple"
-                  @change="changetechnology"
-                  style="width:20vw">
-                </dicselect>
-              </el-form-item>
-            </el-col>
+            <!--<el-col :span="8">-->
+              <!--<el-form-item :label="$t('label.PFANS2003VIEW_TECHNOLOGY')" prop="technology">-->
+                <!--<dicselect-->
+                  <!--:code="code5"-->
+                  <!--:data="form.technology"-->
+                  <!--:disabled="true"-->
+                  <!--:multiple="multiple"-->
+                  <!--@change="changetechnology"-->
+                  <!--style="width:20vw">-->
+                <!--</dicselect>-->
+              <!--</el-form-item>-->
+            <!--</el-col>-->
             <!--            Rn-->
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS2003FORMVIEW_RN')" prop="rn">
+              <el-form-item :label="$t('label.PFANS6004FORMVIEW_RN')" prop="rn">
                 <dicselect
                   :code="code4"
                   :data="form.rn"
@@ -102,6 +102,13 @@
                   @change="changern"
                   style="width:20vw">
                 </dicselect>
+              </el-form-item>
+            </el-col>
+            <!--            邮箱-->
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANSUSERFORMVIEW_EMAILADDRESS')">
+                <el-input :disabled="!disabled" style="width:20vw" maxlength="50"
+                          v-model="form.email"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -114,26 +121,6 @@
                      orgtype="2" style="width:20vw"></org>
               </el-form-item>
             </el-col>
-            <!--            编号变更卡号-->
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANSUSERFORMVIEW_JOBNUMBER')" prop="number">
-                <el-input
-                  :disabled="!disabled"
-                  style="width:20vw"
-                  v-model="form.number">
-                </el-input>
-              </el-form-item>
-            </el-col>
-            <!--            邮箱-->
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANSUSERFORMVIEW_EMAILADDRESS')" prop="email">
-                <el-input :disabled="!disabled" style="width:20vw"
-                          v-model="form.email"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <!--          第五行-->
-          <el-row>
             <!--            作业形态-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6004FORMVIEW_OPERATIONFORM')" prop="operationform">
@@ -147,6 +134,19 @@
                 </dicselect>
               </el-form-item>
             </el-col>
+            <!--            编号变更卡号-->
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANSUSERFORMVIEW_JOBNUMBER')" prop="number">
+                <el-input
+                  :disabled="!disabled"
+                  style="width:20vw"
+                  v-model="form.number">
+                </el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <!--          第五行-->
+          <el-row>
             <!--            作业分类-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6004FORMVIEW_JOBCLASSIFICATIONM')" prop="jobclassification">
@@ -174,16 +174,10 @@
             </el-col>
           </el-row>
           <el-row>
-            <!--            職務-->
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANSUSERVIEW_POST')" prop="post">
-                <dicselect
-                  :disabled="!disabled"
-                  :code="code15"
-                  :data="form.post"
-                  @change="changePost"
-                  style="width:20vw">
-                </dicselect>
+            <el-col :span="24">
+              <el-form-item :label="$t('label.PFANS2003FORMVIEW_SPECIALITY')">
+                <el-input :disabled="!disabled" :rows="2" style="width: 71vw" type="textarea"
+                          v-model="form.speciality"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -198,7 +192,7 @@
                 <!--            退场与否-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS6004FORMVIEW_EXITS')" prop="exits">
-                    <span style="margin-right: 1vw ">{{$t('label.no')}}</span>`
+                    <span style="margin-right: 1vw ">{{$t('label.no')}}</span>
                     <el-switch :disabled="!disabled"
                                @change="changeexits"
                                active-value="0"
@@ -311,20 +305,23 @@
               >
                 <!--                部门-->
                 <el-table-column
+                  show-overflow-tooltip
                   prop="group_id"
                   :label="$t('label.department')"
-                  width="150"
+                  width="200"
                 >
                 </el-table-column>
                 <!--                项目-->
                 <el-table-column
+                  show-overflow-tooltip
                   prop="project_name"
                   :label="$t('label.PFANS5009VIEW_PROJECTNAME')"
-                  width="150"
+                  width="200"
                 >
                 </el-table-column>
                 <!--                项目类型-->
                 <el-table-column
+                  show-overflow-tooltip
                   prop="projecttype"
                   :label="$t('label.PFANS5001FORMVIEW_PROJECTTYPE')"
                   width="150"
@@ -332,14 +329,14 @@
                 </el-table-column>
                 <!--                开始时间-->
                 <el-table-column
-                  prop="mintime"
+                  prop="admissiontime"
                   :label="$t('label.PFANS5001FORMVIEW_STARTDATE')"
                   width="150"
                 >
                 </el-table-column>
                 <!--                结束时间-->
                 <el-table-column
-                  prop="maxtime"
+                  prop="exittime"
                   :label="$t('label.end')"
                   width="150"
                 >
@@ -365,7 +362,6 @@
     getorgGroupList
   } from '../../../../utils/customize';
   import org from '../../../components/org';
-  import {validateEmail} from "../../../../utils/validate";
 
   export default {
     name: 'PFANS6004FormView',
@@ -442,17 +438,6 @@
           this.errorexitime = '';
         }
       };
-      var checkemail = (rule, value, callback) => {
-        if (this.form.email !== null && this.form.email !== '') {
-          if (!validateEmail(value)) {
-            callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.email')));
-          } else {
-            callback();
-          }
-        } else {
-          callback();
-        }
-      };
       return {
         age: '',
         loading: false,
@@ -463,6 +448,7 @@
         erroradmissiontime: '',
         grouporglist: '',
         errorexitime: '',
+        account: '',
         errorgroup: '',
         errorgraduateschool: '',
         disabled: false,
@@ -500,13 +486,11 @@
           exits: '1',
         },
         tableData: [{
-          entrust: '',
+          group_id: '',
           project_name: '',
-          deployment: '',
           projecttype: '',
-          startdate: '',
-          endtime: '',
-          mintime: '',
+          exittime: '',
+          admissiontime: '',
         }],
         //性别
         code1: 'PR019',
@@ -543,13 +527,6 @@
               validator: checkexpname,
               trigger: 'change',
             }],
-          // 職務
-          post: [
-            {
-              required: true,
-              message: this.$t('normal.error_09') + this.$t('label.PFANSUSERVIEW_POST'),
-              trigger: 'blur',
-            }],
           // 性别
           sex: [
             {
@@ -566,13 +543,6 @@
               trigger: 'change',
             },
           ],
-          email: [
-            {
-              required: true,
-              message: this.$t('normal.error_08') + this.$t('label.PFANSUSERFORMVIEW_EMAILADDRESS'),
-              trigger: 'blur'
-            },
-            {validator: checkemail, trigger: 'blur'}],
           // 编号
           number: [
             {
@@ -707,7 +677,7 @@
       };
     },
     mounted() {
-      if (this.$route.params._id) {
+      if (this.$route.params._account) {
         this.selectById();
       }
       if (this.$route.params._id) {
@@ -817,9 +787,6 @@
       changecountermeasure(val) {
         this.form.countermeasure = val;
       },
-      changePost(val) {
-        this.form.post = val;
-      },
       changeexitreason(val) {
         this.form.exitreason = val;
       },
@@ -855,7 +822,7 @@
       selectById(val) {
         this.loading = true;
         this.$store
-          .dispatch('PFANS6004Store/getCompanyProject', {"SyspName": this.$route.params._id})
+          .dispatch('PFANS6004Store/getCompanyProject', {"SyspName": this.$route.params._account})
           .then(response => {
             for (let j = 0; j < response.length; j++) {
               if (response[j].group_id !== null && response[j].group_id !== '') {
@@ -870,28 +837,18 @@
                   response[j].project_name = user.userinfo.customername;
                 }
               }
-              if (response[j].deployment !== null && response[j].deployment !== "") {
-                let deployment = getUserInfo(response[j].deployment);
-                if (deployment) {
-                  response[j].deployment = user.userinfo.deployment;
-                }
+              if (response[j].admissiontime !== null && response[j].admissiontime !== "") {
+                response[j].admissiontime = moment(response[j].admissiontime).format("YYYY-MM-DD");
               }
-              if (response[j].mintime !== null && response[j].mintime !== "") {
-                response[j].mintime = moment(response[j].mintime).format("YYYY-MM-DD");
-              }
-              if (response[j].maxtime !== null && response[j].maxtime !== "") {
-                response[j].maxtime = moment(response[j].maxtime).format("YYYY-MM-DD");
+              if (response[j].exittime !== null && response[j].exittime !== "") {
+                response[j].exittime = moment(response[j].exittime).format("YYYY-MM-DD");
               }
               if (response[j].projecttype !== null && response[j].projecttype !== "") {
-                if (projecttype != null) {
-                  response[j].projecttype = projecttype.value1;
+                let checkvalue1 = getDictionaryInfo(response[j].projecttype);
+                if (checkvalue1) {
+                  response[j].projecttype = checkvalue1.value1;
                 }
-              }
-              if (response[j].jobclassification !== null && response[j].jobclassification !== "") {
-                let jobclassification = getDictionaryInfo(response[j].jobclassification);
-                if (jobclassification != null) {
-                  response[j].jobclassification = jobclassification.value1;
-                }
+
               }
             }
             this.tableData = response;

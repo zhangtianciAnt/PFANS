@@ -308,7 +308,7 @@
     data() {
       return {
         activeName: "first",
-        tableNewYearTotal: [{assetstype:"0"}, {assetstype:"1"}]
+        tableNewYearTotal: [{assetstype:"0"}]
       }
     },
     props: {
@@ -331,19 +331,17 @@
         if (column.property === "name") {
           if (index === 0) {
             return this.$t("label.PFANS1036FORMVIEW_DOMESTICTRAVEL");
-          }else if(index === 2){
+          }else if(index === 1){
             return this.$t('label.PFANS1036FORMVIEW_JAPANBUSINESSTRAVEL');
-          }else if(index === 4){
+          }else if(index === 2){
             return this.$t('label.PFANS1036FORMVIEW_BUSINESSTRAVEL');
-          }else if(index === 6 ){
+          }else if(index === 3 ){
            return  this.$t('label.PFANS1036FORMVIEW_LOCALTRANSPORT');
           }
         }
         if (column.property === "assetstype") {
           if (row[column.property] === "0") {
             return this.$t("label.PFANS1036FORMVIEW_PLAN");
-          } else if (row[column.property] === "1") {
-            return this.$t("label.PFANS1036FORMVIEW_ACHIEVEMENTS");
           }
         }
         if(column.property === "total"){
@@ -354,8 +352,6 @@
         if(column.property === "type"){
           if (index === 0) {
             return this.$t("label.PFANS1036FORMVIEW_PLAN");
-          } else if (index === 1) {
-            return this.$t("label.PFANS1036FORMVIEW_ACHIEVEMENTS");
           }
         }
       },
@@ -387,7 +383,6 @@
       },
       getSummaries(table) {
         let totalExpect = {};
-        let totalActual = {};
         table.forEach(
           row => {
             let sum = 0;
@@ -395,9 +390,6 @@
               if (row.assetstype === "0") {
                 totalExpect["money" + i] = (row["money" + i] || 0) + (totalExpect["money" + i] || 0);
                 totalExpect["number" + i] = (row["number" + i] || 0) + (totalExpect["number" + i] || 0);
-              } else {
-                totalActual["money" + i] = (row["money" + i] || 0) + (totalActual["money" + i] || 0);
-                totalActual["number" + i] = (row["number" + i] || 0) + (totalActual["number" + i] || 0);
               }
             }
             if (row.assetstype === "0") {
@@ -407,19 +399,11 @@
               totalExpect.moneyfirsthalf = (row.moneyfirsthalf||0) + (totalExpect.moneyfirsthalf||0);
               totalExpect.moneysecondhalf = (row.moneysecondhalf||0) + (totalExpect.moneysecondhalf||0);
               totalExpect.moneyAnnual = (row.moneyAnnual||0) + (totalExpect.moneyAnnual||0);
-            } else {
-              totalActual.numberfirsthalf = (row.numberfirsthalf||0) + (totalActual.numberfirsthalf||0) ;
-              totalActual.numbersecondhalf = (row.numbersecondhalf||0) + (totalActual.numbersecondhalf||0);
-              totalActual.numberAnnual = (row.numberAnnual||0) + (totalActual.numberAnnual||0);
-              totalActual.moneyfirsthalf = (row.moneyfirsthalf||0) + (totalActual.moneyfirsthalf||0);
-              totalActual.moneysecondhalf = (row.moneysecondhalf||0) + (totalActual.moneysecondhalf||0);
-              totalActual.moneyAnnual = (row.moneyAnnual||0) + (totalActual.moneyAnnual||0);
             }
           }
         )
         totalExpect.moneyAnnual = (parseFloat(totalExpect.moneyfirsthalf) + parseFloat(totalExpect.moneysecondhalf));
-        totalActual.moneyAnnual = (parseFloat(totalActual.moneyfirsthalf) + parseFloat(totalActual.moneysecondhalf));
-        this.tableNewYearTotal = [totalExpect, totalActual];
+        this.tableNewYearTotal = [totalExpect];
         this.$emit("travel", this.tableNewYearTotal);
       },
       deleteRowF2(index, rows) {
@@ -430,10 +414,8 @@
       addRowF2(val) {
         if (val === 0) {
           this.tableNewYear.push({assetstype: "0"});
-          this.tableNewYear.push({assetstype: "1"});
         } else {
           this.tableLastYear.push({assetstype: "0"});
-          this.tableLastYear.push({assetstype: "1"});
         }
       }
     },

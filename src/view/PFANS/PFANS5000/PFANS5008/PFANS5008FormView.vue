@@ -8,8 +8,8 @@
           <el-form :model="companyform" ref="companyform"
                    class="demo-ruleForm" :rules="rules">
             <el-container>
-              <el-aside style="width: 58%;height: 50rem">
-                <el-tabs type="border-card">
+              <el-aside style="width: 58%;height: 39.3rem">
+
                   <el-row>
                     <el-col :span="12">
                       <el-form-item :label="$t('label.PFANS5008VIEW_RIQI')" prop="log_date">
@@ -83,6 +83,16 @@
                   </el-row>
                   <el-row>
                     <el-col :span="12">
+                      <el-form-item :label="$t('label.PFANS5008VIEW_GZBZ')" style="width:  16vw" prop="work_memo">
+                        <el-input
+                          type="textarea"
+                          :rows="2"
+                          v-model="companyform.work_memo" :disabled="!disable"
+                        >
+                        </el-input>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
                       <el-form-item label="WBS_ID" style="width:  17vw" prop="wbs_id">
                         <el-input
                           :rows="2"
@@ -92,61 +102,52 @@
                       </el-form-item>
                     </el-col>
                   </el-row>
-
-                  <el-form-item :label="$t('label.PFANS5008VIEW_GZBZ')" style="width: 81.8%" prop="work_memo">
-                    <el-input
-                      type="textarea"
-                      :rows="7"
-                      v-model="companyform.work_memo" :disabled="!disable"
-                      style="width: 36vw">
-                    </el-input>
-                  </el-form-item>
-                </el-tabs>
               </el-aside>
-              <el-tabs type="border-card" style="width: 400px">
-                <el-main>
-                  <el-calendar v-model="companyform.log_date" :disabled="!disable" class="appManage">
-                    <template
-                      slot="dateCell"
-                      slot-scope="{date, data}">
-                      <p>
-                        {{ data.day.split('-').slice(2).join('-') }}
-                      </p>
-                    </template>
-                  </el-calendar>
-                  <div align="center">
-                    <span v-show="Riqickeck"> {{ this.companyform.log_date | moment('YYYY-MM-DD')}}</span>
-                    <span>{{$t('label.PFANS5008FORMVIEW_JL')}}</span>
-                  </div>
-                  <el-table
-                    :data="DataList"
-                    v-show="xsTable"
-                    @row-click="rowclick"
-                  >
-                    <el-table-column
-                      prop="start_time"
-                      :label="$t('label.PFANS5008FORMVIEW_SC')"
-                      width="120px">
-                    </el-table-column>
-                    <el-table-column
-                      prop="work_phase"
-                      :label="$t('label.PFANS5008VIEW_JDJOBS')"
-                      width="140px">
-                    </el-table-column>
-                    <el-table-column
-                      prop="behavior_breakdown"
-                      :label="$t('label.PFANS5008VIEW_XWXF')"
-                      width="140px">
-                    </el-table-column>
-                    <el-table-column
-                      prop="project_name"
-                      :label="$t('label.PFANS5008FORMVIEW_GZPROGRAM')"
-                      width="120px">
-                    </el-table-column>
-                  </el-table>
-                </el-main>
-              </el-tabs>
+              <el-main>
+                <el-calendar v-model="companyform.log_date" :disabled="!disable" class="appManage">
+                  <template
+                    slot="dateCell"
+                    slot-scope="{date, data}">
+                    <p>
+                      {{ data.day.split('-').slice(2).join('-') }}
+                    </p>
+                  </template>
+                </el-calendar>
+              </el-main>
             </el-container>
+            <div align="center" v-show='divfalse' style="margin-top: 10vm">
+              <span v-show="Riqickeck"> {{ this.companyform.log_date | moment('YYYY-MM-DD')}}</span>
+              <span>{{$t('label.PFANS5008FORMVIEW_JL')}}</span>
+            </div>
+            <el-table
+              :data="DataList"
+              v-show="xsTable"
+              @row-click="rowclick"
+            >
+              <el-table-column
+                show-overflow-tooltip
+                prop="project_name"
+                :label="$t('label.PFANS5008FORMVIEW_GZPROGRAM')"
+                width="250px">
+              </el-table-column>
+              <el-table-column
+                prop="start_time"
+                :label="$t('label.PFANS5008FORMVIEW_SC')"
+                width="250px">
+              </el-table-column>
+              <el-table-column
+                show-overflow-tooltip
+                prop="work_phase"
+                :label="$t('label.PFANS5008VIEW_JDJOBS')"
+                width="250px">
+              </el-table-column>
+              <el-table-column
+                show-overflow-tooltip
+                prop="behavior_breakdown"
+                :label="$t('label.PFANS5008VIEW_XWXF')"
+                width="200px">
+              </el-table-column>
+            </el-table>
           </el-form>
         </el-form>
       </div>
@@ -170,6 +171,8 @@
     },
     data() {
       return {
+        divfalse: false,
+        checktimelength: '',
         checkLenth: '',
         checkList: [],
         checkdata: '',
@@ -222,11 +225,17 @@
       };
     },
     created() {
-      if (this.$store.getters.userinfo.userid !== undefined) {
-        this.User_id = this.$store.getters.userinfo.userid;
+      //add -ws - 工作记录table表格编辑时根据编辑人id获取数据，新建时根据登录人id获取数据
+      if (this.$route.params._createby != undefined) {
+        this.User_id = this.$route.params._createby;
       } else {
-        this.User_id = this.$store.getters.useraccount._id;
+        if (this.$store.getters.userinfo.userid !== undefined) {
+          this.User_id = this.$store.getters.userinfo.userid;
+        } else {
+          this.User_id = this.$store.getters.useraccount._id;
+        }
       }
+      //add -ws - 工作记录table表格编辑时根据编辑人id获取数据，新建时根据登录人id获取数据
       this.companyform.log_date = this.$route.params.date;
       this.buttonList = [
         {
@@ -289,10 +298,12 @@
                   obj.behavior_breakdown = letErrortypecheck.value1;
                 }
                 obj.project_name = response[k].project_name;
+                this.divfalse = true;
                 this.xsTable = true;
                 obj.logmanagementid = response[k].logmanagement_id;
                 datalist[k] = obj;
                 this.DataList = datalist;
+                this.divfalse = true;
                 this.xsTable = true;
               }
             }
@@ -366,9 +377,11 @@
                         obj.behavior_breakdown = letErrortypecheck.value1;
                       }
                       obj.project_name = response[k].project_name;
+                      this.divfalse = true;
                       this.xsTable = true;
                       obj.logmanagementid = response[k].logmanagement_id;
                       datalist[k] = obj;
+                      this.divfalse = true;
                       this.xsTable = true;
                     }
                   }
@@ -391,6 +404,7 @@
           .dispatch('PFANS5008Store/getDataOne', {'logmanagement_id': this.$route.params._id})
           .then(response => {
             this.data = response;
+            this.checktimelength = response.time_start;
             if (response.confirmstatus == '1') {
               this.buttonList[0].disabled = true;
               this.buttonList[1].disabled = true;
@@ -476,9 +490,11 @@
                           obj.behavior_breakdown = letErrortypecheck.value1;
                         }
                         obj.project_name = response[k].project_name;
+                        this.divfalse = true;
                         this.xsTable = true;
                         obj.logmanagementid = response[k].logmanagement_id;
                         datalist[k] = obj;
+                        this.divfalse = true;
                         this.xsTable = true;
                       }
                     }
@@ -561,9 +577,11 @@
                           obj.behavior_breakdown = letErrortypecheck.value1;
                         }
                         obj.project_name = response[k].project_name;
+                        this.divfalse = true;
                         this.xsTable = true;
                         obj.logmanagementid = response[k].logmanagement_id;
                         datalist[k] = obj;
+                        this.divfalse = true;
                         this.xsTable = true;
                       }
                     }
@@ -588,6 +606,27 @@
                 lable: response[i].project_name,
               });
             }
+
+            this.$store
+              .dispatch('PFANS5013Store/getMyConProject', {})
+              .then(response => {
+                for (let i = 0; i < response.length; i++) {
+                  this.optionsdata.push({
+                    value: response[i].comproject_id,
+                    lable: response[i].project_name,
+                  });
+                }
+                this.loading = false;
+              })
+              .catch(error => {
+                Message({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.loading = false;
+              });
+
             this.loading = false;
           })
           .catch(error => {
@@ -616,7 +655,7 @@
       },
       checkgetAttendancelist() {
         let parameter = {
-          user_id: this.$store.getters.userinfo.userid,
+          user_id: this.User_id,
           years: moment(new Date()).format('YYYY'),
           months: moment(new Date()).format('MM'),
         };
@@ -624,6 +663,9 @@
         this.$store
           .dispatch('PFANS2010Store/getAttendancelist', parameter)
           .then(response => {
+            // if (response.length === 0) {
+            //   this.checkdata = 0;
+            // }
             this.checkList = response;
             this.loading = false;
           })
@@ -812,6 +854,7 @@
       },
       riqi() {
         this.getAttendancelist();
+        this.divfalse = false;
         this.xsTable = false;
         this.loading = true;
         this.$store
@@ -861,9 +904,11 @@
                     obj.behavior_breakdown = letErrortypecheck.value1;
                   }
                   obj.project_name = response[k].project_name;
+                  this.divfalse = true;
                   this.xsTable = true;
                   obj.logmanagementid = response[k].logmanagement_id;
                   datalist[k] = obj;
+                  this.divfalse = true;
                   this.xsTable = true;
                 }
               }
@@ -875,6 +920,7 @@
       buttonClick(val) {
         this.checklistgettable();
         if (val === 'mingtian') {
+          this.divfalse = false;
           this.xsTable = false;
           this.companyform.log_date = moment(this.companyform.log_date).add(1, 'days').format('YYYY-MM-DD');
           this.getAttendancelist();
@@ -932,9 +978,11 @@
                       obj.behavior_breakdown = letErrortypecheck.value1;
                     }
                     obj.project_name = response[k].project_name;
+                    this.divfalse = true;
                     this.xsTable = true;
                     obj.logmanagementid = response[k].logmanagement_id;
                     datalist[k] = obj;
+                    this.divfalse = true;
                     this.xsTable = true;
                   }
                 }
@@ -974,14 +1022,27 @@
                       }
                     }
                   }
-                  this.checkLenth = checklenth;
-                  if (parseFloat(this.checkLenth) + parseFloat(this.companyform.time_start) > this.checkdata) {
-                    error = error + 1;
-                    Message({
-                      message: this.$t('label.PFANS5008VIEW_CHECKLENTHLOGDATA'),
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
+                  if (this.$route.params._id || this.row) {
+
+                    this.checkLenth = checklenth;
+                    if (parseFloat(this.checkLenth) + parseFloat(this.companyform.time_start) - parseFloat(this.checktimelength) > this.checkdata) {
+                      error = error + 1;
+                      Message({
+                        message: this.$t('label.PFANS5008VIEW_CHECKLENTHLOGDATA'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                    }
+                  } else {
+                    this.checkLenth = checklenth;
+                    if (parseFloat(this.checkLenth) + parseFloat(this.companyform.time_start) > this.checkdata) {
+                      error = error + 1;
+                      Message({
+                        message: this.$t('label.PFANS5008VIEW_CHECKLENTHLOGDATA'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                    }
                   }
                   if (error == 0) {
                     if (this.$route.params._id || this.row) {
@@ -1041,9 +1102,11 @@
                                       obj.behavior_breakdown = letErrortypecheck.value1;
                                     }
                                     obj.project_name = response[k].project_name;
+                                    this.divfalse = true;
                                     this.xsTable = true;
                                     obj.logmanagementid = response[k].logmanagement_id;
                                     datalist[k] = obj;
+                                    this.divfalse = true;
                                     this.xsTable = true;
                                   }
                                 }
@@ -1122,9 +1185,11 @@
                                       obj.behavior_breakdown = letErrortypecheck.value1;
                                     }
                                     obj.project_name = response[k].project_name;
+                                    this.divfalse = true;
                                     this.xsTable = true;
                                     obj.logmanagementid = response[k].logmanagement_id;
                                     datalist[k] = obj;
+                                    this.divfalse = true;
                                     this.xsTable = true;
                                   }
                                 }
@@ -1181,7 +1246,7 @@
         } else {
           this.Riqickeck = true;
         }
-
+        this.divfalse = false;
         this.xsTable = false;
         this.loading = true;
 
@@ -1235,9 +1300,11 @@
                       obj.behavior_breakdown = letErrortypecheck.value1;
                     }
                     obj.project_name = response[k].project_name;
+                    this.divfalse = true;
                     this.xsTable = true;
                     obj.logmanagementid = response[k].logmanagement_id;
                     datalist[k] = obj;
+                    this.divfalse = true;
                     this.xsTable = true;
                   }
                 }

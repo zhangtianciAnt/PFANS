@@ -27,8 +27,8 @@
             </el-col>
 
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS6001VIEW_CONTACTINFORMATION')" prop="contactinformation">
-                <el-input :disabled="!disabled" maxlength='20' style="width: 20vw"
+              <el-form-item :label="$t('label.PFANS6001VIEW_CONTACTINFORMATION')">
+                <el-input :disabled="!disabled"  style="width: 20vw"
                           v-model="form.contactinformation"></el-input>
               </el-form-item>
             </el-col>
@@ -189,21 +189,21 @@
 
           <el-row>
 
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS2003VIEW_TECHNOLOGY')" prop="technology">
-                <dicselect
-                  :code="code5"
-                  :data="form.technology"
-                  :disabled="!disabled"
-                  :multiple="multiple"
-                  @change="changetechnology"
-                  style="width: 20vw">
-                </dicselect>
-              </el-form-item>
-            </el-col>
+            <!--<el-col :span="8">-->
+              <!--<el-form-item :label="$t('label.PFANS2003VIEW_TECHNOLOGY')" prop="technology">-->
+                <!--<dicselect-->
+                  <!--:code="code5"-->
+                  <!--:data="form.technology"-->
+                  <!--:disabled="!disabled"-->
+                  <!--:multiple="multiple"-->
+                  <!--@change="changetechnology"-->
+                  <!--style="width: 20vw">-->
+                <!--</dicselect>-->
+              <!--</el-form-item>-->
+            <!--</el-col>-->
 
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS2003FORMVIEW_RN')" prop="rn">
+              <el-form-item :label="$t('label.PFANS6004FORMVIEW_RN')" prop="rn">
                 <dicselect
                   :code="code4"
                   :data="form.rn"
@@ -216,7 +216,7 @@
             </el-col>
 
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS2003FORMVIEW_WHETHERENTRY')" prop="whetherentry">
+              <el-form-item :label="$t('label.PFANS6004FORMVIEW_WHETHERENTRY')" prop="whetherentry">
                 <dicselect
                   :code="code6"
                   :data="form.whetherentry"
@@ -353,13 +353,14 @@
             },
           ],
 
-          contactinformation: [
-            {
-              required: true,
-              message: this.$t('normal.error_08') + this.$t('label.PFANS6001VIEW_CONTACTINFORMATION'),
-              trigger: 'blur',
-            },
-            {validator: validateTel, trigger: 'blur'}],
+          // contactinformation: [
+          //   {
+          //     required: true,
+          //     message: this.$t('normal.error_08') + this.$t('label.PFANS6001VIEW_CONTACTINFORMATION'),
+          //     trigger: 'blur',
+          //   },
+          //   {validator: validateTel, trigger: 'blur'}
+          //   ],
 
           birth: [
             {
@@ -424,14 +425,14 @@
                 trigger: 'change',
               },
             ],
-
-          technology: [
-            {
-              required: true,
-              message: this.$t('normal.error_09') + this.$t('label.PFANS2003VIEW_TECHNOLOGY'),
-              trigger: 'change',
-            },
-          ],
+          //
+          // technology: [
+          //   {
+          //     required: true,
+          //     message: this.$t('normal.error_09') + this.$t('label.PFANS2003VIEW_TECHNOLOGY'),
+          //     trigger: 'change',
+          //   },
+          // ],
 
           rn: [
             {
@@ -527,9 +528,9 @@
       changeresult(val) {
         this.form.result = val;
       },
-      changetechnology(val) {
-        this.form.technology = val;
-      },
+      // changetechnology(val) {
+      //   this.form.technology = val;
+      // },
       changern(val) {
         this.form.rn = val;
       },

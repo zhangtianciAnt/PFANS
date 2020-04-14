@@ -70,6 +70,8 @@ import { Message } from "element-ui";
 import { setToken } from "@/utils/auth.js";
 import { isvalidPhone } from "@/utils/validate.js";
 import EasyLocale from "@/components/EasyLocale";
+let Base64 = require('js-base64').Base64
+
 export default {
   name: "index",
   components: { ConfirmSlider,EasyLocale },
@@ -144,11 +146,14 @@ export default {
   },
   methods: {
     handleLogin() {
+      let form = {};
+      form.account = this.loginForm.account
+      form.password = Base64.encode(this.loginForm.password)
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true;
           this.$store
-            .dispatch("registerStore/Login", this.loginForm)
+            .dispatch("registerStore/Login", form)
             .then(response => {
               setToken(response.token);
               this.$router.push("/index");

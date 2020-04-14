@@ -93,7 +93,7 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS2026VIEW_FIXEDTELEPHONE')" prop="fixed_phone">
-                    <el-input :disabled="!disable" maxlength="11" style="width:20vw"
+                    <el-input :disabled="!disable" maxlength="20" style="width:20vw"
                               v-model="form.fixed_phone"></el-input>
                   </el-form-item>
                 </el-col>
@@ -101,13 +101,13 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.user_mobile')" prop="cellphone">
-                    <el-input :disabled="!disable" maxlength="11" style="width:20vw"
+                    <el-input :disabled="!disable" maxlength="20" style="width:20vw"
                               v-model="form.cellphone"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.email')" prop="email">
-                    <el-input :disabled="!disable" maxlength="20" style="width:20vw"
+                    <el-input :disabled="!disable" maxlength="50" style="width:20vw"
                               v-model="form.email"></el-input>
                   </el-form-item>
                 </el-col>
@@ -579,7 +579,7 @@
             trigger: 'change'
           }],
           fixed_phone: [{
-            validator: checkphone, trigger: 'change',
+            // validator: checkphone, trigger: 'change',
           }],
           sex: [{
             required: true,
@@ -594,7 +594,7 @@
             }
           ],
           cellphone: [{
-            validator: checktel, trigger: 'change',
+            // validator: checktel, trigger: 'change',
           }],
           hope_exit_date: [{
             required: true,

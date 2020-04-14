@@ -1034,6 +1034,20 @@ export function menu() {
                   ]
                 },
                 {
+                  '_id': 'PFANS2029',
+                  'name': 'menu.PFANS2029',
+                  'menuvisible': true,
+                  'menuurl': '/PFANS2029View',
+                  'menuicon': '',
+                  'children': [],
+                  'actions': [
+                    {"_id": "PFANS2029_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                    {"_id": "PFANS2029_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                    {"_id": "PFANS2029_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                    {"_id": "PFANS2029_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+                  ]
+                },
+                {
                   '_id': 'PFANS2018',
                   'name': 'menu.PFANS2018',
                   'menuvisible': true,
@@ -1829,6 +1843,20 @@ export function menu() {
               ]
             },
             {
+              '_id': 'PFANS8003',
+              'name': 'menu.PFANS8003',
+              'menuvisible': false,
+              'menuurl': '/PFANS8003View',
+              'menuicon': '',
+              'children': [],
+              'actions': [
+                {"_id": "PFANS8003_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                {"_id": "PFANS8003_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                {"_id": "PFANS8003_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                {"_id": "PFANS8003_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+              ]
+            },
+            {
               '_id': 'PFANS8007',
               'name': 'menu.PFANS8007',
               'menuvisible': true,
@@ -1846,7 +1874,7 @@ export function menu() {
               '_id': 'PFANSDICTIONARY',
               'name': 'menu.PFANSDICTIONARY',
               'menuvisible': true,
-              'menuurl': '/PFANS8009PointView',
+              'menuurl': '/PFANS8009View',
               'menuicon': '',
               'children': [],
               'actions': [

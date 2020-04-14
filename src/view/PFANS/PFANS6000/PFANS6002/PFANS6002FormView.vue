@@ -76,7 +76,7 @@
                 <!--        事业场编码-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1024VIEW_BUSINESSCODE')" prop="causecode">
-                    <el-input :disabled="!disabled" style="width:20vw" maxlength='50'
+                    <el-input :disabled="!disabled" style="width:20vw" maxlength='20'
                               v-model="form.causecode"></el-input>
                   </el-form-item>
                 </el-col>
@@ -128,7 +128,7 @@
             <!--        邮箱地址-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANSUSERFORMVIEW_EMAILADDRESS')" prop="protemail">
-                <el-input :disabled="!disabled" style="width:20vw" maxlength='20'
+                <el-input :disabled="!disabled" style="width:20vw" maxlength='50'
                           v-model="form.protemail"></el-input>
               </el-form-item>
             </el-col>
@@ -161,7 +161,7 @@
             <!--        电子邮箱-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANSUSERFORMVIEW_EMAILADDRESS')" prop="comnemail">
-                <el-input :disabled="!disabled" style="width:20vw" maxlength='20'
+                <el-input :disabled="!disabled" style="width:20vw" maxlength='50'
                           v-model="form.comnemail"></el-input>
               </el-form-item>
             </el-col>
@@ -214,7 +214,7 @@
             <!--            备注-->
             <el-col :span="24">
               <el-form-item :label="$t('label.remarks')">
-                <el-input :disabled="!disabled" :rows="2" style="width: 71vw" type="textarea"
+                <el-input :disabled="!disabled" :rows="2" style="width: 71vw" type="textarea" maxlength="100"
                           v-model="form.remarks"></el-input>
               </el-form-item>
             </el-col>

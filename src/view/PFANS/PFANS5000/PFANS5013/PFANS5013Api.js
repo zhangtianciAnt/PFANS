@@ -103,3 +103,11 @@ export function updateTimestart(data) {
   })
 }
 
+export function getMyConProject(data) {
+  return request({
+    url: 'comprojects/getMyConProject',
+    method: 'get',
+    params: data
+  })
+}
+

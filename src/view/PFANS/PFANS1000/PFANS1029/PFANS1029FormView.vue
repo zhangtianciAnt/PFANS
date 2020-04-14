@@ -172,11 +172,6 @@
                         </el-form-item>
                       </el-col>
                       <el-col :span="8">
-                        <el-form-item :label="$t('label.PFANS1029FROM_PRPLACEPOSITION')+$t('（')+$t('label.PFANS1024VIEW_CHINESE')+$t('）')">
-                          <el-input  :disabled="!disable" style="width:20vw" v-model="form.prplacepositionchinese"></el-input>
-                        </el-form-item>
-                      </el-col>
-                      <el-col :span="8">
                         <el-form-item :label="$t('label.PFANS1029FROM_NAME')+$t('（')+$t('label.PFANS1024VIEW_JAPANESE')+$t('）')">
                           <el-input  :disabled="!disable" style="width:20vw" v-model="form.namejapanese"></el-input>
                         </el-form-item>
@@ -185,13 +180,16 @@
 
 
                     <el-row>
-
+                      <el-col :span="8">
+                        <el-form-item :label="$t('label.PFANS1029FROM_PRPLACEPOSITION')+$t('（')+$t('label.PFANS1024VIEW_CHINESE')+$t('）')">
+                          <el-input  :disabled="!disable" style="width:20vw" v-model="form.prplacepositionchinese"></el-input>
+                        </el-form-item>
+                      </el-col>
                       <el-col :span="8">
                         <el-form-item :label="$t('label.PFANS1029FROM_NAME')+$t('（')+$t('label.PFANS1024VIEW_CHINESE')+$t('）')">
                           <el-input  :disabled="!disable" style="width:20vw" v-model="form.namechinese"></el-input>
                         </el-form-item>
                       </el-col>
-
                       <el-col :span="8">
                         <el-form-item :label="$t('label.PFANS1029FROM_SIGNINGDATE')">
                           <el-date-picker :disabled="!disable" style="width:20vw" v-model="form.signingdate">
@@ -207,25 +205,11 @@
                         </el-form-item>
                       </el-col>
                       <el-col :span="8">
-                        <el-form-item :label="$t('label.PFANS1029FROMVIEW_OTHERTERMS')+$t(' (')+$t('label.PFANS1024VIEW_JAPANESE')+$t(') ')">
-                          <el-input type="textarea" :disabled="!disable" style="width:20vw" v-model="form.othertermsjapanese"></el-input>
-                        </el-form-item>
-                      </el-col>
-                    </el-row>
-
-                    <el-row>
-                      <el-col :span="8">
                         <el-form-item :label="$t('label.PFANS1029FROM_TECHNICALCONTENT')+$t(' (')+$t('label.PFANS1024VIEW_CHINESE')+$t(') ')">
                           <el-input type="textarea" :disabled="!disable" style="width:20vw" v-model="form.technicalcontentchinese"></el-input>
                         </el-form-item>
                       </el-col>
-                      <el-col :span="8">
-                        <el-form-item :label="$t('label.PFANS1029FROMVIEW_OTHERTERMS')+$t(' (')+$t('label.PFANS1024VIEW_CHINESE')+$t(') ')">
-                          <el-input type="textarea" :disabled="!disable" style="width:20vw" v-model="form.othertermschinese"></el-input>
-                        </el-form-item>
-                      </el-col>
                     </el-row>
-
                     <el-row>
                       <el-col :span="8">
                         <el-form-item :label="$t('label.PFANS1029FROM_REDELEGATE')">
@@ -250,7 +234,6 @@
                         </el-form-item>
                       </el-col>
                     </el-row>
-
                     <el-row>
                       <el-col :span="8">
                         <el-form-item label="">
@@ -263,6 +246,22 @@
                         </el-form-item>
                       </el-col>
                     </el-row>
+                    <el-row>
+                      <el-col :span="8">
+                        <el-form-item :label="$t('label.PFANS1029FROMVIEW_OTHERTERMS')+$t(' (')+$t('label.PFANS1024VIEW_JAPANESE')+$t(') ')">
+                          <el-input type="textarea" :disabled="!disable" style="width:20vw" v-model="form.othertermsjapanese"></el-input>
+                        </el-form-item>
+                      </el-col>
+                      <el-col :span="8">
+                        <el-form-item :label="$t('label.PFANS1029FROMVIEW_OTHERTERMS')+$t(' (')+$t('label.PFANS1024VIEW_CHINESE')+$t(') ')">
+                          <el-input type="textarea" :disabled="!disable" style="width:20vw" v-model="form.othertermschinese"></el-input>
+                        </el-form-item>
+                      </el-col>
+                    </el-row>
+
+
+
+
                   </el-tab-pane>
                 </el-tabs>
               </div>
@@ -631,6 +630,14 @@
                 this.activeName1 = 'second',
                   this.tab2Disabled = false;
                 this.form2 = response;
+                debugger
+                if (this.form2.currencyposition !== null && this.form2.currencyposition !== "") {
+                  let letCurrencyposition = getDictionaryInfo(this.form2.currencyposition);
+                  if (letCurrencyposition != null) {
+                    this.form2.currencyposition = letCurrencyposition.value1;
+                  }
+                }
+
                 this.tableData2 = response.numberCount;
               }
             this.loading = false;
