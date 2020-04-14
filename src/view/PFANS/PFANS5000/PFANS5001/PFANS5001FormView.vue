@@ -192,7 +192,7 @@
                     <el-col :span="8">
                       <el-form-item
                         :label="$t('label.PFANS5001FORMVIEW_OUENTRUST')"
-                      
+
                       >
                         <dicselect
                           :code="code10"
@@ -1750,6 +1750,9 @@
               }
               this.tableB = tableb;
               this.tableC = tablec;
+              if(this.tableB.length = 1){
+                  this.addRow1();
+              }
             }
             /*else{
                 this.tableB = [
