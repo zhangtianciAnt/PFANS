@@ -59,24 +59,7 @@
                         </el-form-item>
                       </el-col>
                     </el-row>
-                    <el-row>
-                      <el-col :span="8">
-                        <el-form-item :label="$t('label.PFANS1029FROM_COMPANYLEADER')+$t('（')+$t('label.PFANS1024VIEW_JAPANESE')+$t('）')">
-                          <el-input  :disabled="!disable"style="width:20vw" v-model="form2.companyleaderjapanese"></el-input>
-                        </el-form-item>
-                      </el-col>
-                      <el-col :span="8">
-                        <el-form-item :label="$t('label.PFANS1029FROM_COMPANYLEADER')+$t('（')+$t('label.PFANS1024VIEW_CHINESE')+$t('）')">
-                          <el-input  :disabled="!disable" style="width:20vw" v-model="form2.companyleaderchinese"></el-input>
-                        </el-form-item>
-                      </el-col>
-                      <el-col :span="8">
-                        <el-form-item :label="$t('label.PFANS1029FROM_SIGNINGDATE2')">
-                          <el-date-picker :disabled="!disable" style="width:20vw" v-model="form2.signingdate">
-                          </el-date-picker>
-                        </el-form-item>
-                      </el-col>
-                    </el-row>
+
                     <!--3-->
                     <el-row>
                       <el-col :span="8">
@@ -330,7 +313,24 @@
                   </el-form-item>
                 </el-col>
               </el-row>
-
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1029FROM_COMPANYLEADER')+$t('（')+$t('label.PFANS1024VIEW_JAPANESE')+$t('）')">
+                    <el-input  :disabled="!disable"style="width:20vw" v-model="form2.companyleaderjapanese"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1029FROM_COMPANYLEADER')+$t('（')+$t('label.PFANS1024VIEW_CHINESE')+$t('）')">
+                    <el-input  :disabled="!disable" style="width:20vw" v-model="form2.companyleaderchinese"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1029FROM_SIGNINGDATE2')">
+                    <el-date-picker :disabled="!disable" style="width:20vw" v-model="form2.signingdate">
+                    </el-date-picker>
+                  </el-form-item>
+                </el-col>
+              </el-row>
               <!--3-->
               <el-row>
                 <el-col :span="8">
