@@ -576,7 +576,6 @@
         this.$store
           .dispatch('PFANS1029Store/one', {"contract_id": this.$route.params._id})
           .then(response => {
-              console.log("response",response)
               let aa = 0;
             for (let i = 0; i < response.numberCount.length; i++) {
               if (response.numberCount[i].currencyposition !== null && response.numberCount[i].currencyposition !== "") {
@@ -609,9 +608,6 @@
               }
             }
               this.form2.claimamount = aa
-              console.log("this.form2.claimamount",this.form2.claimamount)
-
-
             if (response.depositjapanese !== null && response.depositjapanese !== "") {
               let letUser = getUserInfo(response.depositjapanese);
               if (letUser != null) {
@@ -625,12 +621,19 @@
                   this.tabDisabled = false;
                 this.form = response;
                 this.tableData = response.numberCount;
+                //add-ws-基本情报1通货形式value1赋值
+                if (this.form.currencyposition !== null && this.form.currencyposition !== "") {
+                  let letCurrencyposition = getDictionaryInfo(this.form.currencyposition);
+                  if (letCurrencyposition != null) {
+                    this.form.currencyposition = letCurrencyposition.value1;
+                  }
+                }
+                //add-ws-基本情报1通货形式value1赋值
               }else{
                 this.flag = 1;//业务类型
                 this.activeName1 = 'second',
                   this.tab2Disabled = false;
                 this.form2 = response;
-                debugger
                 if (this.form2.currencyposition !== null && this.form2.currencyposition !== "") {
                   let letCurrencyposition = getDictionaryInfo(this.form2.currencyposition);
                   if (letCurrencyposition != null) {
