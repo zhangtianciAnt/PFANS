@@ -843,6 +843,8 @@
           user_id: '',
           telephone: '',
           commdepartment: '',
+          extrinsic: '',
+          numbermoth: '',
           commission: '',
           plan: '',
           valuation: '',
@@ -1447,33 +1449,32 @@
             subtotal: this.tableD[i].subtotal,
           });
         }
-        this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
         this.baseInfo.groupN = this.$store.getters.orgGroupList;
-        this.baseInfo.awardDetail = [];
-        for (let i = 0; i < this.tableT.length; i++) {
-          if (this.tableT[i].budgetcode !== '' || this.tableT[i].depart !== '' || this.tableT[i].member > '0' || this.tableT[i].community > '0'
-            || this.tableT[i].outsource > '0' || this.tableT[i].outcommunity > '0' || this.tableT[i].worknumber > '0' || this.tableT[i].awardmoney > '0') {
-            this.baseInfo.awardDetail.push({
-              awarddetail_id: this.tableT[i].awarddetail_id,
-              award_id: this.tableT[i].award_id,
-              budgetcode: this.tableT[i].budgetcode,
-              depart: this.tableT[i].depart,
-              projects: this.tableT[i].projects,
-              member: this.tableT[i].member,
-              community: this.tableT[i].community,
-              outsource: this.tableT[i].outsource,
-              outcommunity: this.tableT[i].outcommunity,
-              worknumber: this.tableT[i].worknumber,
-              awardmoney: this.tableT[i].awardmoney,
-              rowindex: this.tableT[i].rowindex,
-            });
-          }
-        }
         if (val === 'save') {
           this.$refs['reff'].validate(valid => {
             if (valid) {
               this.loading = true;
-
+              this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
+              this.baseInfo.awardDetail = [];
+              for (let i = 0; i < this.tableT.length; i++) {
+                if (this.tableT[i].budgetcode !== '' || this.tableT[i].depart !== '' || this.tableT[i].member > '0' || this.tableT[i].community > '0'
+                  || this.tableT[i].outsource > '0' || this.tableT[i].outcommunity > '0' || this.tableT[i].worknumber > '0' || this.tableT[i].awardmoney > '0') {
+                  this.baseInfo.awardDetail.push({
+                    awarddetail_id: this.tableT[i].awarddetail_id,
+                    award_id: this.tableT[i].award_id,
+                    budgetcode: this.tableT[i].budgetcode,
+                    depart: this.tableT[i].depart,
+                    projects: this.tableT[i].projects,
+                    member: this.tableT[i].member,
+                    community: this.tableT[i].community,
+                    outsource: this.tableT[i].outsource,
+                    outcommunity: this.tableT[i].outcommunity,
+                    worknumber: this.tableT[i].worknumber,
+                    awardmoney: this.tableT[i].awardmoney,
+                    rowindex: this.tableT[i].rowindex,
+                  });
+                }
+              }
               if (this.$route.params._id) {     //编辑
                 this.baseInfo.award.award_id = this.$route.params._id;
                 this.$store
@@ -1510,6 +1511,43 @@
             }
           });
         } else if (val === 'generate') {
+          this.baseInfo.awardDetail = [];
+          let sumoutsource = 0;
+          let summember = 0;
+          let sumworknumber = 0;
+          let sumawardmoney = 0;
+          for (let i = 0; i < this.tableT.length; i++) {
+            if (this.tableT[i].budgetcode !== '' || this.tableT[i].depart !== '' || this.tableT[i].member > '0' || this.tableT[i].community > '0'
+              || this.tableT[i].outsource > '0' || this.tableT[i].outcommunity > '0' || this.tableT[i].worknumber > '0' || this.tableT[i].awardmoney > '0') {
+              //add-ws-模板合计值累加
+              sumoutsource +=this.tableT[i].outsource
+              summember +=this.tableT[i].member
+              sumworknumber +=this.tableT[i].worknumber
+              sumawardmoney +=this.tableT[i].awardmoney
+              //add-ws-模板合计值累加
+              this.baseInfo.awardDetail.push({
+                awarddetail_id: this.tableT[i].awarddetail_id,
+                award_id: this.tableT[i].award_id,
+                budgetcode: this.tableT[i].budgetcode,
+                depart: this.tableT[i].depart,
+                projects: this.tableT[i].projects,
+                member: this.tableT[i].member,
+                community: this.tableT[i].community,
+                outsource: this.tableT[i].outsource,
+                outcommunity: this.tableT[i].outcommunity,
+                worknumber: this.tableT[i].worknumber,
+                awardmoney: this.tableT[i].awardmoney,
+                rowindex: this.tableT[i].rowindex,
+              });
+            }
+          }
+         //add-ws-将画面没有用到的字段给模板合计值赋值
+          this.form.extrinsic = sumoutsource;
+          this.form.numbermoth =summember;
+          this.form.commdepartment =sumworknumber;
+          this.form.commission = sumawardmoney;
+          //add-ws-将画面没有用到的字段给模板合计值赋值
+          this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
           let user = getUserInfo(this.form.user_id);
           if (user) {
             this.form.user_id = user.userinfo.customername;
