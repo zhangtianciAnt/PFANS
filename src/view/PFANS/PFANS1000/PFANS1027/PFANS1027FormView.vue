@@ -224,26 +224,26 @@
                         <el-input-number v-model="scope.row.functionamount1" @change="changeSum1(scope.row)" controls-position="right" style="width: 11rem" :disabled="!disabled1" :min="0" :max="1000000000" :precision="2"></el-input-number>
                       </template>
                     </el-table-column>
-                    <el-table-column :label="$t('label.operation')" align="center" width="200">
-                      <template slot-scope="scope">
-                        <el-button
-                          :disabled="!disabled"
-                          @click.native.prevent="deleteRow(scope.$index, tablethird1)"
-                          plain
-                          size="small"
-                          type="danger"
-                        >{{$t('button.delete')}}
-                        </el-button>
-                        <el-button
-                          :disabled="!disabled"
-                          @click="addRow()"
-                          plain
-                          size="small"
-                          type="primary"
-                        >{{$t('button.insert')}}
-                        </el-button>
-                      </template>
-                    </el-table-column>
+<!--                    <el-table-column :label="$t('label.operation')" align="center" width="200">-->
+<!--                      <template slot-scope="scope">-->
+<!--                        <el-button-->
+<!--                          :disabled="!disabled"-->
+<!--                          @click.native.prevent="deleteRow(scope.$index, tablethird1)"-->
+<!--                          plain-->
+<!--                          size="small"-->
+<!--                          type="danger"-->
+<!--                        >{{$t('button.delete')}}-->
+<!--                        </el-button>-->
+<!--                        <el-button-->
+<!--                          :disabled="!disabled"-->
+<!--                          @click="addRow()"-->
+<!--                          plain-->
+<!--                          size="small"-->
+<!--                          type="primary"-->
+<!--                        >{{$t('button.insert')}}-->
+<!--                        </el-button>-->
+<!--                      </template>-->
+<!--                    </el-table-column>-->
                   </el-table>
                 </el-tab-pane>
                 <!--其他费用-->
@@ -502,81 +502,81 @@
                 debugunit1: '',
                 debugamount1: ''
               },
-              //   {
-              //   name1: this.$t('label.PFANS1027FORMVIEW_APPOINT2'),
-              //   name: this.$t('label.PFANS1027VIEW_ANALYSIS'),
-              //   functionsprice2: '',
-              //   functionhour2: '',
-              //   functionunit2: '',
-              //   functionamount2: ''
-              // }, {
-              //   name: this.$t('label.PFANS1027VIEW_DESIGN'),
-              //   systemsprice2: '',
-              //   systemhour2: '',
-              //   systemunit2: '',
-              //   systemamount2: ''
-              // }, {
-              //   name: this.$t('label.PFANS1027VIEW_DETAILED'),
-              //   designsprice2: '',
-              //   designhour2: '',
-              //   designunit2: '',
-              //   designamount2: ''
-              // },{
-              //   name: this.$t('label.PFANS1027VIEW_VERIFICATION'),
-              //   versprice2: '',
-              //   verhour2: '',
-              //   verunit2: '',
-              //   veramount2: ''
-              // },{
-              //   name: this.$t('label.PFANS1027VIEW_IMPLEMENTATION'),
-              //   implesprice2: '',
-              //   implehour2: '',
-              //   impleunit2: '',
-              //   impleamount2: ''
-              // },{
-              //   name: this.$t('label.PFANS1027VIEW_DEBUG'),
-              //   debugsprice2: '',
-              //   debughour2: '',
-              //   debugunit2: '',
-              //   debugamount2: ''
-              // },{
-              //   name1: this.$t('label.PFANS1027FORMVIEW_APPOINT3'),
-              //   name: this.$t('label.PFANS1027VIEW_ANALYSIS'),
-              //   functionsprice3: '',
-              //   functionhour3: '',
-              //   functionunit3: '',
-              //   functionamount3: ''
-              // }, {
-              //   name: this.$t('label.PFANS1027VIEW_DESIGN'),
-              //   systemsprice3: '',
-              //   systemhour3: '',
-              //   systemunit3: '',
-              //   systemamount3: ''
-              // }, {
-              //   name: this.$t('label.PFANS1027VIEW_DETAILED'),
-              //   designsprice3: '',
-              //   designhour3: '',
-              //   designunit3: '',
-              //   designamount3: ''
-              // },{
-              //   name: this.$t('label.PFANS1027VIEW_VERIFICATION'),
-              //   versprice3: '',
-              //   verhour3: '',
-              //   verunit3: '',
-              //   veramount3: ''
-              // },{
-              //   name: this.$t('label.PFANS1027VIEW_IMPLEMENTATION'),
-              //   implesprice3: '',
-              //   implehour3: '',
-              //   impleunit3: '',
-              //   impleamount3: ''
-              // },{
-              //   name: this.$t('label.PFANS1027VIEW_DEBUG'),
-              //   debugsprice3: '',
-              //   debughour3: '',
-              //   debugunit3: '',
-              //   debugamount3: ''
-              // },
+                {
+                name1: this.$t('label.PFANS1027FORMVIEW_APPOINT2'),
+                name: this.$t('label.PFANS1027VIEW_ANALYSIS'),
+                functionsprice2: '',
+                functionhour2: '',
+                functionunit2: '',
+                functionamount2: ''
+              }, {
+                name: this.$t('label.PFANS1027VIEW_DESIGN'),
+                systemsprice2: '',
+                systemhour2: '',
+                systemunit2: '',
+                systemamount2: ''
+              }, {
+                name: this.$t('label.PFANS1027VIEW_DETAILED'),
+                designsprice2: '',
+                designhour2: '',
+                designunit2: '',
+                designamount2: ''
+              },{
+                name: this.$t('label.PFANS1027VIEW_VERIFICATION'),
+                versprice2: '',
+                verhour2: '',
+                verunit2: '',
+                veramount2: ''
+              },{
+                name: this.$t('label.PFANS1027VIEW_IMPLEMENTATION'),
+                implesprice2: '',
+                implehour2: '',
+                impleunit2: '',
+                impleamount2: ''
+              },{
+                name: this.$t('label.PFANS1027VIEW_DEBUG'),
+                debugsprice2: '',
+                debughour2: '',
+                debugunit2: '',
+                debugamount2: ''
+              },{
+                name1: this.$t('label.PFANS1027FORMVIEW_APPOINT3'),
+                name: this.$t('label.PFANS1027VIEW_ANALYSIS'),
+                functionsprice3: '',
+                functionhour3: '',
+                functionunit3: '',
+                functionamount3: ''
+              }, {
+                name: this.$t('label.PFANS1027VIEW_DESIGN'),
+                systemsprice3: '',
+                systemhour3: '',
+                systemunit3: '',
+                systemamount3: ''
+              }, {
+                name: this.$t('label.PFANS1027VIEW_DETAILED'),
+                designsprice3: '',
+                designhour3: '',
+                designunit3: '',
+                designamount3: ''
+              },{
+                name: this.$t('label.PFANS1027VIEW_VERIFICATION'),
+                versprice3: '',
+                verhour3: '',
+                verunit3: '',
+                veramount3: ''
+              },{
+                name: this.$t('label.PFANS1027VIEW_IMPLEMENTATION'),
+                implesprice3: '',
+                implehour3: '',
+                impleunit3: '',
+                impleamount3: ''
+              },{
+                name: this.$t('label.PFANS1027VIEW_DEBUG'),
+                debugsprice3: '',
+                debughour3: '',
+                debugunit3: '',
+                debugamount3: ''
+              },
               ],
 
               tablethird2:[{
@@ -846,94 +846,94 @@
               }
             }
           },
-          deleteRow(index, rows) {
-            if (rows.length > 6) {
-              rows.splice(index, 6);
-            }else{
-              this.tablethird1 = [
-                {
-                  appoint1:'',
-                  name: this.$t('label.PFANS1027VIEW_ANALYSIS'),
-                  functionsprice1:'',
-                  functionhour1: '',
-                  functionunit1: '',
-                  functionamount1: '',
-                }, {
-                  name: this.$t('label.PFANS1027VIEW_DESIGN'),
-                  systemsprice1: '',
-                  systemhour1: '',
-                  systemunit1: '',
-                  systemamount1: ''
-                }, {
-                  name: this.$t('label.PFANS1027VIEW_DETAILED'),
-                  designsprice1: '',
-                  designhour1: '',
-                  designunit1: '',
-                  designamount1: ''
-                },{
-                  name: this.$t('label.PFANS1027VIEW_VERIFICATION'),
-                  versprice1: '',
-                  verhour1: '',
-                  verunit1: '',
-                  veramount1: ''
-                },{
-                  name: this.$t('label.PFANS1027VIEW_IMPLEMENTATION'),
-                  implesprice1: '',
-                  implehour1: '',
-                  impleunit1: '',
-                  impleamount1: ''
-                },{
-                  name: this.$t('label.PFANS1027VIEW_DEBUG'),
-                  debugsprice1: '',
-                  debughour1: '',
-                  debugunit1: '',
-                  debugamount1: ''
-                },
-              ]
-            }
-          },
-          addRow() {
-            this.tablethird1.push(
-           {
-                appoint1:'',
-                name: this.$t('label.PFANS1027VIEW_ANALYSIS'),
-                functionsprice1:'',
-                functionhour1: '',
-                functionunit1: '',
-                functionamount1: '',
-              }, {
-                name: this.$t('label.PFANS1027VIEW_DESIGN'),
-                systemsprice1: '',
-                systemhour1: '',
-                systemunit1: '',
-                systemamount1: ''
-              }, {
-                name: this.$t('label.PFANS1027VIEW_DETAILED'),
-                designsprice1: '',
-                designhour1: '',
-                designunit1: '',
-                designamount1: ''
-              },{
-                name: this.$t('label.PFANS1027VIEW_VERIFICATION'),
-                versprice1: '',
-                verhour1: '',
-                verunit1: '',
-                veramount1: ''
-              },{
-                name: this.$t('label.PFANS1027VIEW_IMPLEMENTATION'),
-                implesprice1: '',
-                implehour1: '',
-                impleunit1: '',
-                impleamount1: ''
-              },{
-                name: this.$t('label.PFANS1027VIEW_DEBUG'),
-                debugsprice1: '',
-                debughour1: '',
-                debugunit1: '',
-                debugamount1: ''
-              },
-          )
-          },
+          // deleteRow(index, rows) {
+          //   if (rows.length > 6) {
+          //     rows.splice(index, 6);
+          //   }else{
+          //     this.tablethird1 = [
+          //       {
+          //         appoint1:'',
+          //         name: this.$t('label.PFANS1027VIEW_ANALYSIS'),
+          //         functionsprice1:'',
+          //         functionhour1: '',
+          //         functionunit1: '',
+          //         functionamount1: '',
+          //       }, {
+          //         name: this.$t('label.PFANS1027VIEW_DESIGN'),
+          //         systemsprice1: '',
+          //         systemhour1: '',
+          //         systemunit1: '',
+          //         systemamount1: ''
+          //       }, {
+          //         name: this.$t('label.PFANS1027VIEW_DETAILED'),
+          //         designsprice1: '',
+          //         designhour1: '',
+          //         designunit1: '',
+          //         designamount1: ''
+          //       },{
+          //         name: this.$t('label.PFANS1027VIEW_VERIFICATION'),
+          //         versprice1: '',
+          //         verhour1: '',
+          //         verunit1: '',
+          //         veramount1: ''
+          //       },{
+          //         name: this.$t('label.PFANS1027VIEW_IMPLEMENTATION'),
+          //         implesprice1: '',
+          //         implehour1: '',
+          //         impleunit1: '',
+          //         impleamount1: ''
+          //       },{
+          //         name: this.$t('label.PFANS1027VIEW_DEBUG'),
+          //         debugsprice1: '',
+          //         debughour1: '',
+          //         debugunit1: '',
+          //         debugamount1: ''
+          //       },
+          //     ]
+          //   }
+          // },
+          // addRow() {
+          //   this.tablethird1.push(
+          //  {
+          //       appoint1:'',
+          //       name: this.$t('label.PFANS1027VIEW_ANALYSIS'),
+          //       functionsprice1:'',
+          //       functionhour1: '',
+          //       functionunit1: '',
+          //       functionamount1: '',
+          //     }, {
+          //       name: this.$t('label.PFANS1027VIEW_DESIGN'),
+          //       systemsprice1: '',
+          //       systemhour1: '',
+          //       systemunit1: '',
+          //       systemamount1: ''
+          //     }, {
+          //       name: this.$t('label.PFANS1027VIEW_DETAILED'),
+          //       designsprice1: '',
+          //       designhour1: '',
+          //       designunit1: '',
+          //       designamount1: ''
+          //     },{
+          //       name: this.$t('label.PFANS1027VIEW_VERIFICATION'),
+          //       versprice1: '',
+          //       verhour1: '',
+          //       verunit1: '',
+          //       veramount1: ''
+          //     },{
+          //       name: this.$t('label.PFANS1027VIEW_IMPLEMENTATION'),
+          //       implesprice1: '',
+          //       implehour1: '',
+          //       impleunit1: '',
+          //       impleamount1: ''
+          //     },{
+          //       name: this.$t('label.PFANS1027VIEW_DEBUG'),
+          //       debugsprice1: '',
+          //       debughour1: '',
+          //       debugunit1: '',
+          //       debugamount1: ''
+          //     },
+          // )
+          // },
           getsummaries(param) {
             const {columns, data} = param;
             const sums = [];
@@ -998,7 +998,6 @@
                     this.baseInfo.personfee = [];
                     this.baseInfo.othpersonfee = [];
                     this.baseInfo.fruit = [];
-                    console.log(this.tablethird1)
                     for (let i = 0; i < this.tablethird1.length; i++) {
                       if (this.tablethird1[i].functionsprice1 !== '' || this.tablethird1[i].functionhour1 !== '' || this.tablethird1[i].functionunit1 !== '' ||
                         this.tablethird1[i].functionamount1 !== '' || this.tablethird1[i].systemsprice1 !== '' || this.tablethird1[i].systemsprice1 !== '' || this.tablethird1[i].systemhour1 !== ''
