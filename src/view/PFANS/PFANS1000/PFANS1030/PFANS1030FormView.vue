@@ -1398,6 +1398,9 @@
                 return prev;
               }
             }, 0);
+            if (index == 1) {
+              sums[index] = '--';
+            }
             if (index == 2) {
               sums[index] = Math.round((sums[index]) * 100) / 100;
             }
