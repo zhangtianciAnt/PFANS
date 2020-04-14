@@ -638,6 +638,9 @@
                     .dispatch('PFANS1027Store/selectById', {"quotationid": this.$route.params._id})
                     .then(response => {
                       this.form = response.quotation;
+                      if(this.form.draftingdate === '' || this.form.draftingdate === undefined){
+                          this.form.draftingdate = moment(new Date()).format("YYYY-MM-DD");
+                      }
                       if (this.form.claimdatetime !== null && this.form.claimdatetime !== "") {
                         this.form.startdate = this.form.claimdatetime.slice(0, 10);
                         this.form.enddate = this.form.claimdatetime.slice(this.form.claimdatetime.length - 10);
