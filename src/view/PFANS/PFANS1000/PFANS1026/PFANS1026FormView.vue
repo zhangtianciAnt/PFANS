@@ -470,15 +470,15 @@
                 </template>
               </el-table-column>
             </el-table-column>
-            <el-table-column :label="$t('label.PFANS1024VIEW_BUSINESSCODE')" align="center" prop="businesscode"
-                             width="200">
-              <template slot-scope="scope">
-                <el-form-item :prop="'tabledata.' + scope.$index + '.businesscode'" :rules='rules.businesscode'>
-                  <el-input :disabled="true" style="width: 11rem" v-model="scope.row.businesscode">
-                  </el-input>
-                </el-form-item>
-              </template>
-            </el-table-column>
+              <el-table-column :label="$t('label.PFANS1024VIEW_BUSINESSCODE')" align="center" prop="businesscode"
+                               width="200" :error="errorcode">
+                <template slot-scope="scope">
+                  <el-form-item :prop="'tabledata.' + scope.$index + '.businesscode'" :rules="rules.businesscode">
+                    <el-input :disabled="true" style="width: 11rem" v-model="scope.row.businesscode">
+                    </el-input>
+                  </el-form-item>
+                </template>
+              </el-table-column>
             <el-table-column :label="$t('label.PFANS1024VIEW_VARTO')" align="center" prop="varto" width="200">
               <template slot-scope="scope">
                 <el-form-item :prop="'tabledata.' + scope.$index + '.varto'" :rules='rules.varto'>
@@ -645,6 +645,7 @@
                   </el-input>
                 </el-form-item>
               </template>
+              <!--222-->
             </el-table-column>
             <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYDATE')" align="center" prop="deliverydate"
                              width="170">
@@ -665,7 +666,7 @@
                 </el-form-item>
               </template>
             </el-table-column>
-            <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYFINSHDATE')" align="center"
+            <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYFINSHDATE')" align="center" prop="deliveryfinshdate"
                               width="200">
               <template slot-scope="scope">
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.deliveryfinshdate'"
@@ -678,8 +679,8 @@
             <el-table-column :label="$t('label.PFANS1024VIEW_LOADINGJUDGE')" align="center"
                              width="200">
               <template slot-scope="scope">
-                <el-form-item :error="errorloadingjudge" :prop="'tableclaimtype.' + scope.$index + '.loadingjudge'" :rules='rules.loadingjudge'>
-                  <user :disabled="!disabled" :no="scope.row" :selectType="selectType" :error="errorloadingjudge"
+                <el-form-item :prop="'tableclaimtype.' + scope.$index + '.loadingjudge'" :rules='rules.loadingjudge'>
+                  <user :disabled="!disabled" :no="scope.row" :selectType="selectType"
                         :userlist="scope.row.loadingjudge"
                         @getUserids="getJudge" style="width: 10.15rem"></user>
                 </el-form-item>
@@ -784,13 +785,12 @@
       var validateLoadingjudge = (rule, value, callback) => {
         if (value === '') {
           callback(new Error(this.$t('label.PFANS1026FORMVIEW_CHPDSSZ')));
-          this.errorloadingjudge = this.$t('label.PFANS1026FORMVIEW_CHPDSSZ');
         } else {
           callback();
-          this.errorloadingjudge = '';
         }
       };
       var validateDeliveryfinshdate = (rule, value, callback) => {
+        debugger
         if (value === '' || value === null) {
           callback(new Error(this.$t('label.PFANS1026FORMVIEW_NPZCR')));
         } else {
@@ -825,6 +825,7 @@
           callback();
         }
       };
+      // 333
       var validateBusinesscode = (rule, value, callback) => {
         if (value === '') {
           callback(new Error(this.$t('label.PFANS1026FORMVIEW_SYC')));
@@ -1022,7 +1023,7 @@
         erroruser: '',
         errorjudge: '',
         errorcusto: '',
-        errorloadingjudge: '',
+        errorcode: '',
         errorfirstjudge: '',
         errorsecondjudge: '',
         erroroutmanager: '',
@@ -1039,16 +1040,20 @@
           'save': ['contractnumber'],
           'makeinto': ['contractnumber'],
           '1': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount', 'loadingjudge'],
+          // 该非判定书
           '2': ['custojapanese', 'deployment', 'claimdatetime', 'varto'],
+          // 契约书作成
           '3': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount', 'deliverydate', 'completiondate', 'claimdate', 'supportdate'],
+          // 决裁书作成
           '4': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount'],
+          // 纳品书作成
           '5': ['custojapanese', 'custoenglish', 'custoabbreviation', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount', 'deliveryfinshdate', 'deliverydate', 'completiondate'
               , 'claimdate', 'supportdate', 'varto', 'conchinese', 'conjapanese', 'loadingjudge', 'deliveryfinshdate'],
-          '6': ['custochinese', 'businesscode', 'claimdatetime', 'currencyposition', 'claimamount', 'deliveryfinshdate','pjnamechinese','contractnumber','claimnumber','claimamount','claimdate','custoenglish',
-            'placeenglish','pjnamejapanese','placechinese','responphone','remarks'],
+          '6': ['custochinese', 'businesscode', 'claimdatetime', 'currencyposition', 'claimamount', 'deliveryfinshdate'],
           '7': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount', 'deliverydate'],
-          '61': ['custoenglish', 'businesscode', 'placeenglish', 'responerglish', 'claimdatetime', 'currencyposition', 'claimamount', 'deliveryfinshdate', 'placechinese', 'responphone'],
-          '62': ['custoenglish', 'businesscode', 'placeenglish', 'responerglish', 'claimdatetime', 'currencyposition', 'claimamount', 'deliveryfinshdate', 'placechinese', 'responphone'],
+          '61': ['custochinese', 'businesscode', 'currencyposition','conchinese', 'contractnumber', 'claimnumber', 'claimamount', 'claimdate','deliverydate','completiondate','deliveryfinshdate','loadingjudge','supportdate'],
+          // 请求书作成 111
+          '62': ['custoenglish','custochinese', 'currencyposition','placeenglish','businesscode', 'pjnamejapanese', 'pjnamechinese', 'contractnumber', 'claimnumber', 'claimamount', 'claimdate', 'placechinese', 'responphone', 'remarks','deliverydate','completiondate','deliveryfinshdate','loadingjudge','supportdate'],
         },
         rules1: {
             claimtype: [
@@ -1103,11 +1108,11 @@
           currencyposition: [
             {validator: validateCurrencyposition},
           ],
-          loadingjudge: [
-            {validator: validateLoadingjudge},
-          ],
           deliveryfinshdate: [
             {validator: validateDeliveryfinshdate},
+          ],
+          loadingjudge: [
+            {validator: validateLoadingjudge},
           ],
           custojapanese: [
             {validator: validateCustojapanese},
@@ -1644,11 +1649,6 @@
       },
       getJudge(val, row) {
         row.loadingjudge = val;
-          if (!row.loadingjudge || row.loadingjudge === '' || val === 'undefined') {
-              this.errorloadingjudge = this.$t('normal.error_09') + this.$t('label.applicant');
-          } else {
-              this.errorloadingjudge = '';
-          }
       },
       getCusto(val, row) {
         row.custojapanese = val;

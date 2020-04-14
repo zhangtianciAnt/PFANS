@@ -427,7 +427,7 @@
                 <el-table-column :label="$t('label.operation')" align="center" width="200">
                   <template slot-scope="scope">
                     <el-button
-                      :disabled="!disable"
+                      :disabled="scope.row.budgetcode ===$t('label.PFANS1025FORMVIEW_CHECKERROR')?true:!disable"
                       @click.native.prevent="deleteRow(scope.$index, tableT)"
                       plain
                       size="small"
@@ -435,7 +435,7 @@
                     >{{$t('button.delete')}}
                     </el-button>
                     <el-button
-                      :disabled="!disable"
+                      :disabled="scope.row.budgetcode ===$t('label.PFANS1025FORMVIEW_CHECKERROR')?true:!disable"
                       @click="addRow()"
                       plain
                       size="small"
@@ -502,6 +502,9 @@
         orglist: '',
         baseInfo: {},
         form: {
+          investorspeopor: '',
+          membercost: '',
+          numbermoth: '',
           draftingdate: '',
           scheduleddate: '',
           contractnumber: '',
@@ -578,6 +581,14 @@
           .dispatch('PFANS1025Store/selectById', {'award_id': this.$route.params._id})
           .then(response => {
             this.form = response.award;
+            //add-ws-契约种类value1值处理
+            if (this.form.contracttype !== null && this.form.contracttype !== "") {
+              let letContracttype = getDictionaryInfo(this.form.contracttype);
+              if (letContracttype != null) {
+                this.form.contracttype = letContracttype.value1;
+              }
+            }
+            //add-ws-契约种类value1值处理
             if (getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)) {
               this.budgetcodingcheck = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
             }
@@ -834,32 +845,32 @@
         if (this.form.claimdatetimeStart !== '' && this.form.claimdatetimeEnd !== '') {
           this.form.claimdatetime = moment(this.form.claimdatetimeStart).format('YYYY-MM-DD') + ' ~ ' + moment(this.form.claimdatetimeEnd).format('YYYY-MM-DD');
         }
-        this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
-        this.baseInfo.awardDetail = [];
-        for (let i = 0; i < this.tableT.length; i++) {
-          if (this.tableT[i].budgetcode !== '' || this.tableT[i].depart !== '' || this.tableT[i].member > '0' || this.tableT[i].community > '0'
-            || this.tableT[i].outsource > '0' || this.tableT[i].outcommunity > '0' || this.tableT[i].worknumber > '0' || this.tableT[i].awardmoney > '0') {
-            this.baseInfo.awardDetail.push({
-              awarddetail_id: this.tableT[i].awarddetail_id,
-              award_id: this.tableT[i].award_id,
-              budgetcode: this.tableT[i].budgetcode,
-              depart: this.tableT[i].depart,
-              member: this.tableT[i].member,
-              projects: this.tableT[i].projects,
-              community: this.tableT[i].community,
-              outsource: this.tableT[i].outsource,
-              outcommunity: this.tableT[i].outcommunity,
-              worknumber: this.tableT[i].worknumber,
-              awardmoney: this.tableT[i].awardmoney,
-              rowindex: this.tableT[i].rowindex,
-            });
-          }
-        }
         if (this.$route.params.disabled) {
           this.$refs['reff'].validate(valid => {
             if (valid) {
               this.loading = true;
               if (this.$route.params._id) {     //郛冶ｾ�
+                this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
+                this.baseInfo.awardDetail = [];
+                for (let i = 0; i < this.tableT.length; i++) {
+                  if (this.tableT[i].budgetcode !== '' || this.tableT[i].depart !== '' || this.tableT[i].member > '0' || this.tableT[i].community > '0'
+                    || this.tableT[i].outsource > '0' || this.tableT[i].outcommunity > '0' || this.tableT[i].worknumber > '0' || this.tableT[i].awardmoney > '0') {
+                    this.baseInfo.awardDetail.push({
+                      awarddetail_id: this.tableT[i].awarddetail_id,
+                      award_id: this.tableT[i].award_id,
+                      budgetcode: this.tableT[i].budgetcode,
+                      depart: this.tableT[i].depart,
+                      member: this.tableT[i].member,
+                      projects: this.tableT[i].projects,
+                      community: this.tableT[i].community,
+                      outsource: this.tableT[i].outsource,
+                      outcommunity: this.tableT[i].outcommunity,
+                      worknumber: this.tableT[i].worknumber,
+                      awardmoney: this.tableT[i].awardmoney,
+                      rowindex: this.tableT[i].rowindex,
+                    });
+                  }
+                }
                 this.baseInfo.award.award_id = this.$route.params._id;
                 this.$store
                   .dispatch('PFANS1025Store/update', this.baseInfo)
@@ -895,6 +906,38 @@
             }
           });
         } else {
+          this.baseInfo.awardDetail = [];
+          let sumoutsource = 0;
+          let sumworknumber = 0;
+          let sumawardmoney = 0;
+          for (let i = 0; i < this.tableT.length; i++) {
+            if (this.tableT[i].budgetcode !== '' || this.tableT[i].depart !== '' || this.tableT[i].member > '0' || this.tableT[i].community > '0'
+              || this.tableT[i].outsource > '0' || this.tableT[i].outcommunity > '0' || this.tableT[i].worknumber > '0' || this.tableT[i].awardmoney > '0') {
+              sumoutsource += this.tableT[i].outsource
+              sumworknumber += this.tableT[i].worknumber
+              sumawardmoney += this.tableT[i].awardmoney
+              this.baseInfo.awardDetail.push({
+                awarddetail_id: this.tableT[i].awarddetail_id,
+                award_id: this.tableT[i].award_id,
+                budgetcode: this.tableT[i].budgetcode,
+                depart: this.tableT[i].depart,
+                member: this.tableT[i].member,
+                projects: this.tableT[i].projects,
+                community: this.tableT[i].community,
+                outsource: this.tableT[i].outsource,
+                outcommunity: this.tableT[i].outcommunity,
+                worknumber: this.tableT[i].worknumber,
+                awardmoney: this.tableT[i].awardmoney,
+                rowindex: this.tableT[i].rowindex,
+              });
+            }
+          }
+          //add-ws-将画面没有用到的字段给模板合计值赋值
+          this.form.investorspeopor= sumoutsource;
+          this.form.membercost= sumworknumber;
+          this.form.numbermoth=  sumawardmoney;
+          //add-ws-将画面没有用到的字段给模板合计值赋值
+          this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
           this.loading = true;
           let user = getUserInfo(this.form.user_id);
           if (user) {
