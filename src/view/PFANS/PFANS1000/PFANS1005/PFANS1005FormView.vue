@@ -265,8 +265,8 @@
                     if (index === 0) {
                         sums[index] = this.$t('label.PFANS1012VIEW_ACCOUNT');
                         return;
-                    } else if ([1,2,5].includes(index)) {
-                        sums[index] = "-";
+                    } else if ([1,2,6].includes(index)) {
+                        sums[index] = "--";
                         return;
                     }
                     const values = data.map(item => Number(item[column.property]));
