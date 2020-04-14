@@ -121,10 +121,6 @@
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1025VIEW_SECONDDETAILS')" name="second">
               <el-collapse>
-                <el-collapse-item>
-                  <template slot="title">
-                    <span  class="collapse_Title">{{$t('label.PFANS1027FORMVIEW_INSTRUMENT')}}</span>
-                  </template>
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1027FORMVIEW_NUMBER')" prop="requestnumber">
@@ -132,48 +128,44 @@
                               v-model="form.requestnumber"></el-input>
                   </el-form-item>
                 </el-col>
-              </el-row>
-              </el-collapse-item>
-              <el-collapse-item>
-                <template slot="title">
-                  <span  class="collapse_Title">{{$t('label.PFANS1027FORMVIEW_METHOD')}}</span>
-                </template>
-              <el-row>
                 <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1027FORMVIEW_METHOD')">
                     <el-radio-group v-model="radio1" @change="radio1change">
                       <el-radio :label="1" :disabled="!disabled">{{$t('label.PFANS1027FORMVIEW_BATCH')}}</el-radio>
                       <el-radio :label="2" :disabled="!disabled">{{$t('label.PFANS1027FORMVIEW_SETTLEMENT')}}</el-radio>
                     </el-radio-group>
+                  </el-form-item>
                 </el-col>
-              </el-row>
-              </el-collapse-item>
-              <el-collapse-item>
-                <template slot="title">
-                  <span  class="collapse_Title">{{$t('label.PFANS1027FORMVIEW_FORM')}}</span>
-                </template>
-              <el-row>
                 <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1027FORMVIEW_FORM')">
                     <el-radio-group v-model="radio2" @change="radio2change">
                       <el-radio :label="1" :disabled="!disabled">{{$t('label.PFANS1027FORMVIEW_CONTRACT')}}</el-radio>
                       <el-radio :label="2" :disabled="!disabled">{{$t('label.PFANS1027FORMVIEW_APPOINT')}}</el-radio>
                       <el-radio :label="3" :disabled="!disabled">{{$t('label.PFANS1027FORMVIEW_CONSERVATIVE')}}</el-radio>
                     </el-radio-group>
+                  </el-form-item>
                 </el-col>
               </el-row>
-              </el-collapse-item>
-              <el-collapse-item>
-                <template slot="title">
-                  <span  class="collapse_Title">{{$t('label.PFANS1027FORMVIEW_DEFECTS')}}</span>
-                </template>
               <el-row>
                 <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1027FORMVIEW_DEFECTS')">
                     <el-radio-group v-model="radio3" @change="radio3change">
                       <el-radio :label="1" :disabled="!disabled">{{$t('label.PFANS1027FORMVIEW_YES')}}</el-radio>
                       <el-radio :label="2" :disabled="!disabled">{{$t('label.PFANS1027FORMVIEW_NO')}}</el-radio>
                     </el-radio-group>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1025FORMVIEW_DRAFTINGDATE')" prop="draftingdate">
+                    <el-date-picker
+                      v-model="form.draftingdate"
+                      :disabled="!disabled"
+                      type="date"
+                      style="width:20vw">
+                    </el-date-picker>
+                  </el-form-item>
                 </el-col>
               </el-row>
-              </el-collapse-item>
              </el-collapse>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1027VIEW_DETAILS')" name="third">
@@ -444,6 +436,7 @@
                     claimamount: '',
                     loadingjudge: '',
                     requestnumber: '',
+                    draftingdate: '',
                     batch: '',
                     settlement: '',
                     contract: '',
@@ -617,6 +610,11 @@
                     required: true,
                     message: this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS1012VIEW_TELEPHONE'),
                     trigger: 'change'
+                  }],
+                  draftingdate: [{
+                      required: true,
+                      message: this.$t('normal.error_08') + this.$t('label.PFANS1025FORMVIEW_DRAFTINGDATE'),
+                      trigger: 'change'
                   }],
                 },
               buttonList: [{
@@ -837,6 +835,11 @@
               }
             }
           },
+          checkRequire() {
+            if (!this.form.draftingdate) {
+                this.activeName = 'second';
+            }
+          },
           arraySpanMethod({ row, column, rowIndex, columnIndex }) {
             if (rowIndex % 2 === 0) {
               if (columnIndex === 0) {
@@ -965,6 +968,7 @@
             return sums;
           },
             buttonClick(val) {
+              this.checkRequire();
               if(this.form.startdate!=="" && this.form.enddate!==""){
                 this.form.claimdatetime=moment(this.form.startdate).format('YYYY-MM-DD')+" ~ "+moment(this.form.enddate).format('YYYY-MM-DD');
               }
