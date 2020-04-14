@@ -855,7 +855,7 @@
       };
       var validatePlacechinese = (rule, value, callback) => {
         if (value === '') {
-            callback(new Error(this.$t('label.PFANS1026FORMVIEW_ZSRW')));
+            callback(new Error(this.$t('label.PFANS1026FORMVIEW_ZSZW')));
         } else {
           callback();
         }
@@ -1040,7 +1040,7 @@
           'makeinto': ['contractnumber'],
           '1': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount', 'loadingjudge'],
           '2': ['custojapanese', 'deployment', 'claimdatetime', 'varto'],
-          '3': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount', 'deliverydate', 'completiondate', 'claimdate', 'supportdate'],
+          '3': ['custojapanese', 'custochinese', 'conchinese', 'conjapanese', 'placejapanese', 'placechinese', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount', 'deliverydate', 'completiondate', 'claimdate', 'supportdate'],
           '4': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount'],
           '5': ['custojapanese', 'custoenglish', 'custoabbreviation', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount', 'deliveryfinshdate', 'deliverydate', 'completiondate'
               , 'claimdate', 'supportdate', 'varto', 'conchinese', 'conjapanese', 'loadingjudge', 'deliveryfinshdate'],
