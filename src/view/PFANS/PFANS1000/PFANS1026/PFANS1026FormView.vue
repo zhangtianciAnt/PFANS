@@ -678,8 +678,8 @@
             <el-table-column :label="$t('label.PFANS1024VIEW_LOADINGJUDGE')" align="center"
                              width="200">
               <template slot-scope="scope">
-                <el-form-item :prop="'tableclaimtype.' + scope.$index + '.loadingjudge'" :rules='rules.loadingjudge'>
-                  <user :disabled="!disabled" :no="scope.row" :selectType="selectType"
+                <el-form-item :error="errorloadingjudge" :prop="'tableclaimtype.' + scope.$index + '.loadingjudge'" :rules='rules.loadingjudge'>
+                  <user :disabled="!disabled" :no="scope.row" :selectType="selectType" :error="errorloadingjudge"
                         :userlist="scope.row.loadingjudge"
                         @getUserids="getJudge" style="width: 10.15rem"></user>
                 </el-form-item>
@@ -784,12 +784,14 @@
       var validateLoadingjudge = (rule, value, callback) => {
         if (value === '') {
           callback(new Error(this.$t('label.PFANS1026FORMVIEW_CHPDSSZ')));
+          this.errorloadingjudge = this.$t('label.PFANS1026FORMVIEW_CHPDSSZ');
         } else {
           callback();
+          this.errorloadingjudge = '';
         }
       };
       var validateDeliveryfinshdate = (rule, value, callback) => {
-        if (value === '') {
+        if (value === '' || value === null) {
           callback(new Error(this.$t('label.PFANS1026FORMVIEW_NPZCR')));
         } else {
           callback();
@@ -1020,6 +1022,7 @@
         erroruser: '',
         errorjudge: '',
         errorcusto: '',
+        errorloadingjudge: '',
         errorfirstjudge: '',
         errorsecondjudge: '',
         erroroutmanager: '',
@@ -1640,6 +1643,11 @@
       },
       getJudge(val, row) {
         row.loadingjudge = val;
+          if (!row.loadingjudge || row.loadingjudge === '' || val === 'undefined') {
+              this.errorloadingjudge = this.$t('normal.error_09') + this.$t('label.applicant');
+          } else {
+              this.errorloadingjudge = '';
+          }
       },
       getCusto(val, row) {
         row.custojapanese = val;
