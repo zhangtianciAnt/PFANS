@@ -202,7 +202,7 @@
               .dispatch('PFANS8007Store/getList', {})
               .then(response => {
                 for (let i = 0; i < response.length; i++) {
-                  if(moment(response[i].workingdate).format('MM')===moment(new Date()).format('MM')){
+                  if(moment(response[i].workingdate).format('MM')===this.$route.params.months){
                     this.dateInfo.push({
                       dateflg: moment(response[i].workingdate).format('YYYY-MM-DD'),
                       type: response[i].type,
