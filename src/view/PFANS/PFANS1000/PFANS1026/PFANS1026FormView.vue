@@ -1050,11 +1050,11 @@
           // 纳品书作成
           '5': ['custojapanese', 'custoenglish', 'custoabbreviation', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount', 'deliveryfinshdate', 'deliverydate', 'completiondate'
               , 'claimdate', 'supportdate', 'varto', 'conchinese', 'conjapanese', 'loadingjudge', 'deliveryfinshdate'],
-          '6': ['custochinese', 'businesscode', 'claimdatetime', 'currencyposition', 'claimamount', 'deliveryfinshdate'],
+          '6': [ 'conchinese','conjapanese','custochinese', 'businesscode', 'claimdatetime', 'currencyposition', 'claimamount', 'deliveryfinshdate'],
           '7': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount', 'deliverydate'],
-          '61': ['custochinese', 'businesscode', 'currencyposition','conchinese', 'claimamount', 'claimdate','deliverydate','completiondate','deliveryfinshdate','loadingjudge','supportdate'],
+          '61': ['custojapanese','custoenglish','custochinese', 'businesscode', 'currencyposition','conchinese','conjapanese' ,'claimamount', 'claimdate','deliverydate','completiondate','deliveryfinshdate','loadingjudge','supportdate'],
           // 请求书作成 111
-          '62': ['custoenglish','custochinese','conchinese', 'currencyposition','placeenglish','businesscode','conjapanese', 'claimamount', 'placejapanese','claimdate', 'placechinese','deliverydate','completiondate','deliveryfinshdate','loadingjudge','supportdate'],
+          '62': ['claimdatetime','custojapanese','custoenglish','custochinese','conchinese', 'currencyposition','businesscode','conjapanese', 'claimamount', 'placejapanese','claimdate', 'placechinese','deliverydate','completiondate','deliveryfinshdate','loadingjudge','supportdate'],
         },
         rules1: {
             claimtype: [
