@@ -358,7 +358,7 @@
                                  width="150">
                   <template slot-scope="scope">
                     <el-input-number
-                                     :disabled="scope.row.budgetcode ===$t('label.PFANS6008VIEW_EXPENSE')?false:true"
+                                     :disabled="scope.row.budgetcode ===$t('label.PFANS6008VIEW_EXPENSE')?!disable:true"
                                      :max="1000000000"
                                      :min="0"
                                      :no="scope.row"

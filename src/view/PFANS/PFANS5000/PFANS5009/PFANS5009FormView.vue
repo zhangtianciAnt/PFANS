@@ -1456,6 +1456,9 @@
             // this.baseInfo.companyprojects = JSON.parse(JSON.stringify(this.form));
             // this.baseInfo.stageInformation = JSON.parse(JSON.stringify(this.tableP));
             this.loading = false;
+            if(this.tableB.length = 1){
+                this.addRow1();
+            }
           })
           .catch(error => {
             Message({

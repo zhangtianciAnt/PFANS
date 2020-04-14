@@ -49,7 +49,7 @@
 </template>
 <script>
     import {getToken} from '@/utils/auth'
-    import EasyNormalTable from "@/components/EasyNormalTable";
+    import EasyNormalTable from "@/components/EasyBigDataTable";
     import {Message} from 'element-ui';
     import moment from "moment";
     import {getUserInfo} from '@/utils/customize';
@@ -92,63 +92,63 @@
                         label: 'label.user_name',
                         width: 90,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: 'center_id',
                         label: 'label.center',
                         width: 160,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: 'group_id',
                         label: 'label.group',
                         width: 160,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: 'team_id',
                         label: 'label.team',
                         width: 160,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: 'punchcardrecord_date',
                         label: 'label.date',
                         width: 110,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: 'time_start',
                         label: 'label.PFANS2017VIEW_START',
                         width: 110,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: 'time_end',
                         label: 'label.PFANS2017VIEW_END',
                         width: 110,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: 'worktime',
                         label: 'label.PFANS2017VIEW_COUNTTIME',
                         width: 140,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: 'absenteeismam',
                         label: 'label.PFANS2017VIEW_ABSENTEEISMAM',
                         width: 140,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     // ADD-LXX
                     {
@@ -156,7 +156,7 @@
                         label: 'label.PFANS2017VIEW_AFTERNOON',
                         width: 140,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     // ADD-LXX
                 ],
