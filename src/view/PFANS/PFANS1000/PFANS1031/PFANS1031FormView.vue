@@ -164,6 +164,16 @@
                         style="width:20vw"></user>
                 </el-form-item>
             </el-col>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS1024VIEW_CLAIMDATE')">
+                <el-date-picker
+                  :disabled="disable"
+                  style="width:20vw"
+                  type="date"
+                  v-model="form.claimdate">
+                </el-date-picker>
+              </el-form-item>
+            </el-col>
           </el-row>
         </el-form>
       </div>
@@ -222,6 +232,7 @@
           judgment:'',
           determination:'',
           conjapanese:'',
+          claimdate:'',
         },
         code1: 'HT008',
         code2: 'PJ081',
@@ -313,6 +324,7 @@
         //   }
         // });
         if (val === 'export1') {
+          this.loading = true;
           let deposit = getUserInfo(this.form.depositjapanese);
           if (deposit) {
             this.form.depositjapanese= deposit.userinfo.customername;

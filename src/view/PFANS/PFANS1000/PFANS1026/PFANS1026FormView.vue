@@ -678,8 +678,8 @@
             <el-table-column :label="$t('label.PFANS1024VIEW_LOADINGJUDGE')" align="center"
                              width="200">
               <template slot-scope="scope">
-                <el-form-item :prop="'tableclaimtype.' + scope.$index + '.loadingjudge'" :rules='rules.loadingjudge'>
-                  <user :disabled="!disabled" :no="scope.row" :selectType="selectType"
+                <el-form-item :error="errorloadingjudge" :prop="'tableclaimtype.' + scope.$index + '.loadingjudge'" :rules='rules.loadingjudge'>
+                  <user :disabled="!disabled" :no="scope.row" :selectType="selectType" :error="errorloadingjudge"
                         :userlist="scope.row.loadingjudge"
                         @getUserids="getJudge" style="width: 10.15rem"></user>
                 </el-form-item>
@@ -784,12 +784,14 @@
       var validateLoadingjudge = (rule, value, callback) => {
         if (value === '') {
           callback(new Error(this.$t('label.PFANS1026FORMVIEW_CHPDSSZ')));
+          this.errorloadingjudge = this.$t('label.PFANS1026FORMVIEW_CHPDSSZ');
         } else {
           callback();
+          this.errorloadingjudge = '';
         }
       };
       var validateDeliveryfinshdate = (rule, value, callback) => {
-        if (value === '') {
+        if (value === '' || value === null) {
           callback(new Error(this.$t('label.PFANS1026FORMVIEW_NPZCR')));
         } else {
           callback();
@@ -1020,6 +1022,7 @@
         erroruser: '',
         errorjudge: '',
         errorcusto: '',
+        errorloadingjudge: '',
         errorfirstjudge: '',
         errorsecondjudge: '',
         erroroutmanager: '',
@@ -1039,8 +1042,10 @@
           '2': ['custojapanese', 'deployment', 'claimdatetime', 'varto'],
           '3': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount', 'deliverydate', 'completiondate', 'claimdate', 'supportdate'],
           '4': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount'],
-          '5': ['custojapanese', 'custoenglish', 'custoabbreviation', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount', 'deliveryfinshdate', 'deliverydate', 'completiondate', 'claimdate', 'supportdate', 'varto'],
-          '6': ['custochinese', 'businesscode', 'claimdatetime', 'currencyposition', 'claimamount', 'deliveryfinshdate'],
+          '5': ['custojapanese', 'custoenglish', 'custoabbreviation', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount', 'deliveryfinshdate', 'deliverydate', 'completiondate'
+              , 'claimdate', 'supportdate', 'varto', 'conchinese', 'conjapanese', 'loadingjudge', 'deliveryfinshdate'],
+          '6': ['custochinese', 'businesscode', 'claimdatetime', 'currencyposition', 'claimamount', 'deliveryfinshdate','pjnamechinese','contractnumber','claimnumber','claimamount','claimdate','custoenglish',
+            'placeenglish','pjnamejapanese','placechinese','responphone','remarks'],
           '7': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount', 'deliverydate'],
           '61': ['custoenglish', 'businesscode', 'placeenglish', 'responerglish', 'claimdatetime', 'currencyposition', 'claimamount', 'deliveryfinshdate', 'placechinese', 'responphone'],
           '62': ['custoenglish', 'businesscode', 'placeenglish', 'responerglish', 'claimdatetime', 'currencyposition', 'claimamount', 'deliveryfinshdate', 'placechinese', 'responphone'],
@@ -1639,6 +1644,11 @@
       },
       getJudge(val, row) {
         row.loadingjudge = val;
+          if (!row.loadingjudge || row.loadingjudge === '' || val === 'undefined') {
+              this.errorloadingjudge = this.$t('normal.error_09') + this.$t('label.applicant');
+          } else {
+              this.errorloadingjudge = '';
+          }
       },
       getCusto(val, row) {
         row.custojapanese = val;
@@ -2253,7 +2263,6 @@
       //contractapplication save
       handleSaveContract(value, baseInfo, tabledata) {
             console.log("tabledata",tabledata)
-            debugger
         this.validateByType(value, valid => {
           if (valid) {
             this.loading = true;
