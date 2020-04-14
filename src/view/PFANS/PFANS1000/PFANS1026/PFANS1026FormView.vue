@@ -856,7 +856,7 @@
       };
       var validatePlacechinese = (rule, value, callback) => {
         if (value === '') {
-            callback(new Error(this.$t('label.PFANS1026FORMVIEW_ZSRW')));
+            callback(new Error(this.$t('label.PFANS1026FORMVIEW_ZSZW')));
         } else {
           callback();
         }
@@ -871,7 +871,7 @@
       };
       var validateResponphone = (rule, value, callback) => {
         if (value === '') {
-          callback(new Error(this.$t('label.PFANS1026FORMVIEW_DDZZW')));
+          callback(new Error(this.$t('label.PFANS1026FORMVIEW_CHECKPHONE')));
         } else {
           callback();
         }
@@ -1043,7 +1043,8 @@
           // 该非判定书
           '2': ['custojapanese', 'deployment', 'claimdatetime', 'varto'],
           // 契约书作成
-          '3': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount', 'deliverydate', 'completiondate', 'claimdate', 'supportdate'],
+
+          '3': ['custojapanese', 'conchinese','conjapanese','custochinese', 'placejapanese', 'placechinese', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount', 'deliverydate', 'completiondate', 'claimdate', 'supportdate'],
           // 决裁书作成
           '4': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount'],
           // 纳品书作成

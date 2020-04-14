@@ -107,6 +107,7 @@
                   v-model="form.relengthtime"
                 ></el-input-number>
                 <el-input-number
+                  v-else
                   :disabled="checkrelengthtime"
                   step-strictly
                   :max="1000000000"
@@ -888,7 +889,7 @@
                             if (!this.disable) {
                                 this.dislengthtime = true;
                             }
-                        } else if (this.form.status === '4') {
+                        } else if (this.form.status === '4' || this.form.status === '6') {
                             this.workflowCode = 'W0059';
                             this.canStart = true;
                             this.disable = false;
