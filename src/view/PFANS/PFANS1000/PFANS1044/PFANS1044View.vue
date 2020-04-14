@@ -332,10 +332,10 @@
               'conenglish',
               'conchinese',
               'entrustednumber',
+              'deliveryfinshdate',
               'deliverydate',
               'deliverydate',
-              'deliverydate',
-              'username'
+              'loadingjudge'
             ];
 
             for(let selItem of selectedlist){

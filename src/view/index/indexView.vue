@@ -44,7 +44,8 @@
             <el-divider></el-divider>
             <el-row style="height:185px;max-height: 185px;overflow: hidden">
               <el-table :show-header="false" :data="DataList2" @row-click="rowclickDataList2">
-                <el-table-column prop="title" width="590"></el-table-column>
+                <el-table-column prop="title" width="500"></el-table-column>
+                <el-table-column prop="creaton" width="95"></el-table-column>
               </el-table>
             </el-row>
           </el-card>
@@ -339,6 +340,7 @@ export default {
                 "YYYY-MM-DD"
               );
             }
+            debugger
             let obj = {};
             obj.title = response[j].title;
             obj.url = response[j].url;

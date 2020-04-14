@@ -259,6 +259,18 @@
                 </el-form-item>
               </template>
             </el-table-column>
+
+            <el-table-column :label="$t('label.PFANS1024VIEW_EXTENSIONREASON')" align="center" prop="extensionreason"
+                             width="200">
+              <template slot-scope="scope">
+                <el-form-item :prop="'tabledata.' + scope.$index + '.extensionreason'">
+                  <el-input  type="textarea"
+                             :rows="2" :disabled="!disabled"  v-model="scope.row.extensionreason"
+                                  style="width: 11rem"></el-input>
+                </el-form-item>
+              </template>
+            </el-table-column>
+
             <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYCONDITION')" align="center">
               <el-table-column :label="$t('label.PFANS1026VIEW_SITUATION')" align="center" prop="deliverycondition"
                                width="200">
@@ -1805,6 +1817,7 @@
             entrycondition: 'HT004002',
             entrypayment: '',
             extensiondate: '',
+            extensionreason: '',
             claimtype: this.form1.claimtype,
             deliverycondition: '',
             delivery: '',
