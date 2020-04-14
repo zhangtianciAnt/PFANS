@@ -889,7 +889,7 @@
                             if (!this.disable) {
                                 this.dislengthtime = true;
                             }
-                        } else if (this.form.status === '4') {
+                        } else if (this.form.status === '4' || this.form.status === '6') {
                             this.workflowCode = 'W0059';
                             this.canStart = true;
                             this.disable = false;
