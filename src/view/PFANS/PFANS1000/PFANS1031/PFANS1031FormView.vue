@@ -253,6 +253,7 @@
           .dispatch('PFANS1031Store/one', {'napalm_id': this.$route.params._id})
           .then(response => {
             this.form = response;
+            this.userlist = this.form.loadingjudge;
             if (this.form.claimdatetime !== null && this.form.claimdatetime !== "") {
               this.form.openingdate = this.form.claimdatetime.slice(0, 10);
               this.form.enddate = this.form.claimdatetime.slice(this.form.claimdatetime.length - 10);
