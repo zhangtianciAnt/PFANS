@@ -10,59 +10,64 @@
       v-loading="loading"
     >
       <div slot="customize" style="width: 100%">
-        <el-table
-          :data="tableData"
-          border
-          stripe
-          :header-cell-style="getRowClass"
+        <el-row style="padding-top: 30px">
+          <el-date-picker
+            v-model="form.main.pd_date" @change="change"
+            type="month">
+          </el-date-picker>
+        </el-row>
+        <el-row style="padding-top: 20px">
+        <plx-table-grid
+          :datas="tableData"
+          border ref="plx"
+          stripe use-virtual :pagination-show="paginationShow"
           style="width: 100%;height: calc(100vh - 200px - 2rem)"
           tooltip-effect="dark"
-          @selection-change="handleSelectionChange"
           header-cell-class-name="sub_bg_color_blue"
         >
           <!--checkbox-->
-          <el-table-column type="selection" width="55"></el-table-column>
+          <!--<plx-table-column type="selection" width="55"></plx-table-column>-->
           <!-- 序号-->
-          <el-table-column
+          <plx-table-column
             :label="$t('label.PFANS2026FORMVIEW_ORDERNUMBER')"
             align="center"
             type="index"
             width="50"
-          ></el-table-column>
+          ></plx-table-column>
           <!-- 名前-->
-          <el-table-column
+          <plx-table-column
             :label="$t('label.PFANS2007VIEW_NAME')"
             align="center"
             prop="username"
             width="120"
-          ></el-table-column>
+          ></plx-table-column>
           <!-- 卒業年-->
-          <el-table-column
+          <plx-table-column
             :label="$t('label.PFANS2024VIEW_GRADUATIONYEAR')"
             align="center"
             width="100"
             prop="graduation1"
-          ></el-table-column>
+          ></plx-table-column>
           <!-- 会社名-->
-          <el-table-column
+          <plx-table-column sortable
             :label="$t('label.PFANS1036FORMVIEW_CLUBNAME')"
             align="center"
             prop="company"
             width="200"
-          ></el-table-column>
+          ></plx-table-column>
           <!-- 查定时间-->
-          <el-table-column :label="$t('label.PFANS6005VIEW_CHECKTIME')" align="center" width="250">
-            <template slot-scope="scope">
-              <el-date-picker
-                :disabled="!disabled"
-                v-model="scope.row.assesstime"
-                type="datetime"
-                placeholder="选择日期时间"
-              ></el-date-picker>
-            </template>
-          </el-table-column>
+          <!--<plx-table-column :label="$t('label.PFANS6005VIEW_CHECKTIME')" align="center" width="250">-->
+            <!--<template slot-scope="scope">-->
+              <!--<el-date-picker-->
+                <!--:disabled="!disabled"-->
+                <!--v-model="scope.row.assesstime"-->
+                <!--type="datetime"-->
+                <!--placeholder="选择日期时间"-->
+              <!--&gt;</el-date-picker>-->
+            <!--</template>-->
+          <!--</plx-table-column>-->
           <!-- 技術スキル-->
-          <el-table-column
+          <plx-table-column
             :label="$t('label.PFANS6005FORMVIEW_TECHNOLOGY')"
             align="center"
             width="250"
@@ -73,20 +78,20 @@
                 :code="code1"
                 :data="scope.row.technical"
                 :disabled="!disabled"
-                @change="(val)=>{changetechnical(val,scope.$index)}"
+                @change="changetechnical"
                 style="width: 100%"
               ></dicselect>
             </template>
-          </el-table-column>
+          </plx-table-column>
           <!-- 技術価値-->
-          <el-table-column
+          <plx-table-column
             :label="$t('label.PFANS6005FORMVIEW_TECHNOLOGYVALUE')"
             align="center"
             prop="technology"
             width="100"
-          ></el-table-column>
+          ></plx-table-column>
           <!-- 管理スキル-->
-          <el-table-column
+          <plx-table-column
             :label="$t('label.PFANS6005FORMVIEW_MANAGEMENTSKILLS')"
             align="center"
             prop="management"
@@ -98,20 +103,20 @@
                 :code="code2"
                 :data="scope.row.management"
                 :disabled="!disabled"
-                @change="(val)=>{changemanagement(val,scope.$index)}"
+                @change="changemanagement"
                 style="width: 100%"
               ></dicselect>
             </template>
-          </el-table-column>
+          </plx-table-column>
           <!-- 管理価値-->
-          <el-table-column
+          <plx-table-column
             :label="$t('label.PFANS6005FORMVIEW_MANAGEMENTVALUE')"
             align="center"
             prop="value"
             width="100"
-          ></el-table-column>
+          ></plx-table-column>
           <!--   分野スキル-->
-          <el-table-column
+          <plx-table-column
             :label="$t('label.PFANS2026FORMVIEW_FIELDSKILLS')"
             align="center"
             prop="fieldskills"
@@ -123,20 +128,20 @@
                 :code="code3"
                 :data="scope.row.fieldskills"
                 :disabled="!disabled"
-                @change="(val)=>{changefieldskills(val,scope.$index)}"
+                @change="changefieldskills"
                 style="width: 100%"
               ></dicselect>
             </template>
-          </el-table-column>
+          </plx-table-column>
           <!-- 分野価値-->
-          <el-table-column
+          <plx-table-column
             :label="$t('label.PFANS6005FORMVIEW_FIELDVALUE')"
             align="center"
             prop="field"
             width="100"
-          ></el-table-column>
+          ></plx-table-column>
           <!-- 語学スキル-->
-          <el-table-column
+          <plx-table-column
             :label="$t('label.PFANS6005FORMVIEW_LANGUAGESKILLS')"
             align="center"
             prop="language"
@@ -148,20 +153,20 @@
                 :code="code4"
                 :data="scope.row.language"
                 :disabled="!disabled"
-                @change="((val)=>{changelanguage(val,scope.$index)})"
+                @change="changelanguage"
                 style="width: 100%"
               ></dicselect>
             </template>
-          </el-table-column>
+          </plx-table-column>
           <!--  語学価値-->
-          <el-table-column
+          <plx-table-column
             :label="$t('label.PFANS2026FORMVIEW_LANGUAGEVALUE')"
             align="center"
             prop="languagevalue"
             width="100"
-          ></el-table-column>
+          ></plx-table-column>
           <!-- 勤務スキル-->
-          <el-table-column
+          <plx-table-column
             :label="$t('label.PFANS6005FORMVIEW_JOBSKILLS')"
             align="center"
             prop="workskills"
@@ -173,20 +178,20 @@
                 :code="code5"
                 :data="scope.row.workskills"
                 :disabled="!disabled"
-                @change="(val)=>{changeworkskills(val,scope.$index)}"
+                @change="changeworkskills"
                 style="width: 100%"
               ></dicselect>
             </template>
-          </el-table-column>
+          </plx-table-column>
           <!--  勤務価値-->
-          <el-table-column
+          <plx-table-column
             :label="$t('label.PFANS6005FORMVIEW_WORKVALUE')"
             align="center"
             prop="service"
             width="100"
-          ></el-table-column>
+          ></plx-table-column>
           <!-- 勤続評価-->
-          <el-table-column
+          <plx-table-column
             :label="$t('label.PFANS6005FORMVIEW_WORKTIME')"
             align="center"
             prop="evaluation"
@@ -198,22 +203,22 @@
                 :code="code6"
                 :data="scope.row.evaluation"
                 :disabled="!disabled"
-                @change="(val)=>{changeevaluation(val,scope.$index)}"
+                @change="changeevaluation"
                 style="width: 100%"
               ></dicselect>
             </template>
-          </el-table-column>
+          </plx-table-column>
           <!--  勤続価値-->
-          <el-table-column
+          <plx-table-column
             :label="$t('label.PFANS6005FORMVIEW_WORKVALUE1')"
             align="center"
             prop="rvicevalue"
             width="100"
-          ></el-table-column>
+          ></plx-table-column>
           <!-- 責任者激励-->
-          <el-table-column :label="$t('label.PFANS6005FORMVIEW_INCENTIVELEADER')" align="center">
+          <plx-table-column :label="$t('label.PFANS6005FORMVIEW_INCENTIVELEADER')" align="center">
             <!-- PSDCD駐在規模-->
-            <el-table-column
+            <plx-table-column
               :label="$t('label.PFANS6005FORMVIEW_SERVINGSIZE')"
               align="center"
               prop="psdcdscale"
@@ -225,20 +230,20 @@
                   :code="code7"
                   :data="scope.row.psdcdscale"
                   :disabled="!disabled"
-                  @change="(val)=>{changepsdcdscale(val,scope.$index)}"
+                  @change="changepsdcdscale"
                   style="width: 100%"
                 ></dicselect>
               </template>
-            </el-table-column>
+            </plx-table-column>
             <!-- 規模価値-->
-            <el-table-column
+            <plx-table-column
               :label="$t('label.PFANS6005FORMVIEW_SIZEVALUE')"
               align="center"
               prop="scalevalue"
               width="100"
-            ></el-table-column>
+            ></plx-table-column>
             <!-- 貢献評価-->
-            <el-table-column
+            <plx-table-column
               :label="$t('label.PFANS6005FORMVIEW_CONEVALUATION')"
               align="center"
               prop="contribution"
@@ -250,23 +255,23 @@
                   :code="code8"
                   :data="scope.row.contribution"
                   :disabled="!disabled"
-                  @change="(val)=>{changecontribution(val,scope.$index)}"
+                  @change="changecontribution"
                   style="width: 100%"
                 ></dicselect>
               </template>
-            </el-table-column>
+            </plx-table-column>
             <!-- 貢献係数-->
-            <el-table-column
+            <plx-table-column
               :label="$t('label.PFANS6005FORMVIEW_CONCOEFFICIENT')"
               align="center"
               prop="coefficient"
               width="100"
-            ></el-table-column>
-          </el-table-column>
+            ></plx-table-column>
+          </plx-table-column>
           <!--  出向者激励-->
-          <el-table-column :label="$t('label.PFANS6005FORMVIEW_OUTBOUNDMOTIVATION')" align="center">
+          <plx-table-column :label="$t('label.PFANS6005FORMVIEW_OUTBOUNDMOTIVATION')" align="center">
             <!--出项者PSDCD相当ランク-->
-            <el-table-column
+            <plx-table-column
               :label="$t('label.PFANS6005VIEW_PSDCDGRADE')"
               align="center"
               prop="staffpsdcdrank"
@@ -278,20 +283,20 @@
                   :code="code9"
                   :data="scope.row.staffpsdcdrank"
                   :disabled="!disabled"
-                  @change="(val)=>{changestaffpsdcdrank(val,scope.$index)}"
+                  @change="changestaffpsdcdrank"
                   style="width: 100%"
                 ></dicselect>
               </template>
-            </el-table-column>
+            </plx-table-column>
             <!--  ランク価値-->
-            <el-table-column
+            <plx-table-column
               :label="$t('label.PFANS6005FORMVIEW_LEVELVALUE')"
               align="center"
               prop="rankvalue"
               width="100"
-            ></el-table-column>
+            ></plx-table-column>
             <!--  貢献評価-->
-            <el-table-column
+            <plx-table-column
               :label="$t('label.PFANS6005FORMVIEW_CONCOEFFICIENT')"
               align="center"
               prop="butionevaluation"
@@ -303,70 +308,55 @@
                   :code="code8"
                   :data="scope.row.butionevaluation"
                   :disabled="!disabled"
-                  @change="(val)=>{changebutionevaluation(val,scope.$index)}"
+                  @change="changebutionevaluation"
                   style="width: 100%"
                 ></dicselect>
               </template>
-            </el-table-column>
+            </plx-table-column>
             <!-- 貢献係数-->
-            <el-table-column
+            <plx-table-column
               :label="$t('label.PFANS6005FORMVIEW_SIZEVALUE')"
               align="center"
               prop="butioncoefficient"
               width="100"
-            ></el-table-column>
-          </el-table-column>
+            ></plx-table-column>
+          </plx-table-column>
           <!-- 開発単価微調整-->
-          <el-table-column
+          <plx-table-column
             :label="$t('label.PFANS6005VIEW_PRICEADJUST')"
             align="center"
             prop="unitprice"
             width="130"
           >
             <template slot-scope="scope">
-              <el-input
-                :no="scope.row"
+              <el-input-number
                 :disabled="!disabled"
+                controls-position="right"
+                :min="-100000" :max="100000"
                 v-model="scope.row.unitprice"
-                @blur="unitpriceBuler(scope.$index)"
+                @change="unitpriceBuler"
                 style="width: 100%"
-              ></el-input>
+              ></el-input-number>
             </template>
-          </el-table-column>
+          </plx-table-column>
           <!-- 開発総単価-->
-          <el-table-column
+          <plx-table-column
             :label="$t('label.PFANS6005VIEW_SUMPRICE')"
             align="center"
             prop="totalunit"
             width="100"
           >
-            <template slot-scope="scope">
-              <el-input
-                :no="scope.row"
-                :disabled="disabled2"
-                v-model="scope.row.totalunit"
-                style="width: 100%"
-              ></el-input>
-            </template>
-          </el-table-column>
+          </plx-table-column>
           <!-- 共通費用-->
-          <el-table-column
+          <plx-table-column
             :label="$t('label.PFANS6005FORMVIEW_COMMONCOST')"
             align="center"
             prop="common"
             width="100"
           >
-            <template slot-scope="scope">
-              <el-input
-                :no="scope.row"
-                :disabled="disabled2"
-                v-model="scope.row.common"
-                style="width: 100%"
-              ></el-input>
-            </template>
-          </el-table-column>
+          </plx-table-column>
           <!-- PSDCD相当ランク-->
-          <el-table-column
+          <plx-table-column
             :label="$t('label.PFANS6005VIEW_PSDCDGRADE')"
             align="center"
             prop="psdcdrank"
@@ -378,13 +368,13 @@
                 :code="code9"
                 :data="scope.row.psdcdrank"
                 :disabled="!disabled"
-                @change="(val)=>{changepsdcdrank(val,scope.$index)}"
+                @change="changepsdcdrank"
                 style="width: 100%"
               ></dicselect>
             </template>
-          </el-table-column>
+          </plx-table-column>
           <!--  備考-->
-          <el-table-column
+          <plx-table-column
             :label="$t('label.PFANS6007VIEW_REMARKS')"
             align="center"
             prop="remarks"
@@ -398,25 +388,17 @@
                 style="width: 100%"
               ></el-input>
             </template>
-          </el-table-column>
+          </plx-table-column>
           <!-- 前年単価-->
-          <el-table-column
-            :label="$t('label.PFANS6005VIEW_LASTYEARPRICE')"
-            align="center"
-            prop="yearunit"
-            width="90"
-          >
-            <template slot-scope="scope">
-              <el-input
-                :no="scope.row"
-                plain
-                :disabled="disabled2"
-                v-model="scope.row.yearunit"
-                style="width: 100%"
-              ></el-input>
-            </template>
-          </el-table-column>
-        </el-table>
+          <!--<plx-table-column-->
+            <!--:label="$t('label.PFANS6005VIEW_LASTYEARPRICE')"-->
+            <!--align="center"-->
+            <!--prop="yearunit"-->
+            <!--width="90"-->
+          <!--&gt;-->
+          <!--</plx-table-column>-->
+        </plx-table-grid>
+        </el-row>
       </div>
     </EasyNormalContainer>
   </div>
@@ -438,6 +420,7 @@ export default {
   },
   data() {
     return {
+      paginationShow:false,
       noback: true,
       loading: false,
       baseInfo: {},
@@ -456,7 +439,13 @@ export default {
       code9: "BP023",
       title: "title.PFANS6005VIEW",
       disabled: false,
-      disabled2: true,
+      form:{
+        main:{
+          pricesetgroup_id:'',
+          pd_date:new Date()
+        },
+        drtail:[]
+      },
       buttonList: [
         {
           key: "save",
@@ -485,6 +474,10 @@ export default {
   },
 
   methods: {
+    change(){
+      this.tableData = [];
+      this.getpriceset();
+    },
     setdisabled(val) {
       if (this.$route.params.disabled) {
         this.disabled = val;
@@ -504,16 +497,7 @@ export default {
       this.tableData[index].common = this.arr[index][6] * this.arr[index][7];
     },
     unitpriceBuler(index) {
-      if (
-        this.tableData[index].unitprice !== "" &&
-        this.tableData[index].unitprice !== null
-      ) {
-        this.arr[index][10] = parseInt(this.tableData[index].unitprice);
-        this.countTotalunit(index);
-      } else {
-        this.arr[index][10] = 0;
-        this.countTotalunit(index);
-      }
+      this.sum();
     },
     getRowClass({ row, column, rowIndex, columnIndex }) {
       if (column.level === 2 && columnIndex >= 0 && columnIndex < 4) {
@@ -544,56 +528,64 @@ export default {
         };
       }
     },
-    getpriceset() {
+    getpriceset(val) {
       this.loading = true;
       this.$store
-        .dispatch("PFANS6005Store/getPricesetList")
+        .dispatch("PFANS6005Store/getpriceset",{pd_date:moment(this.form.main.pd_date).format("YYYY-MM")})
         .then(response => {
-          for (let j = 0; j < response.length; j++) {
-            response[j].assesstime = moment(new Date()).format(
-              "YYYY-MM-DD HH:mm:ss"
-            );
-            response[j].graduation1 = moment(response[j].graduation).format(
-              "YYYY"
-            );
-            this.arr[j] = [];
-            this.arr[j][0] = parseInt(
-              response[j].technology == null ? 0 : response[j].technology
-            );
-            this.arr[j][1] = parseInt(
-              response[j].value == null ? 0 : response[j].value
-            );
-            this.arr[j][2] = parseInt(
-              response[j].field == null ? 0 : response[j].field
-            );
-            this.arr[j][3] = parseInt(
-              response[j].languagevalue == null ? 0 : response[j].languagevalue
-            );
-            this.arr[j][4] = parseInt(
-              response[j].service == null ? 0 : response[j].service
-            );
-            this.arr[j][5] = parseInt(
-              response[j].rvicevalue == null ? 0 : response[j].rvicevalue
-            );
-            this.arr[j][6] = parseInt(
-              response[j].scalevalue == null ? 0 : response[j].scalevalue
-            );
-            this.arr[j][7] = parseFloat(
-              response[j].coefficient == null ? 0 : response[j].coefficient
-            );
-            this.arr[j][8] = parseInt(
-              response[j].rankvalue == null ? 0 : response[j].rankvalue
-            );
-            this.arr[j][9] = parseFloat(
-              response[j].butioncoefficient == null
-                ? 0
-                : response[j].butioncoefficient
-            );
-            this.arr[j][10] = parseInt(
-              response[j].unitprice == null ? 0 : response[j].unitprice
-            );
+          this.form = response[0];
+          if(response[0].detail){
+            response = response[0];
+            for (let j = 0; j < response.detail.length; j++) {
+              response.detail[j].assesstime = moment(new Date()).format(
+                "YYYY-MM-DD HH:mm:ss"
+              );
+              if(response.detail[j].graduation){
+                response.detail[j].graduation1 = moment(response.detail[j].graduation).format(
+                  "YYYY"
+                );
+              }
+
+              this.arr[j] = [];
+              this.arr[j][0] = parseInt(
+                response.detail[j].technology == null ? 0 : response.detail[j].technology
+              );
+              this.arr[j][1] = parseInt(
+                response.detail[j].value == null ? 0 : response.detail[j].value
+              );
+              this.arr[j][2] = parseInt(
+                response.detail[j].field == null ? 0 : response.detail[j].field
+              );
+              this.arr[j][3] = parseInt(
+                response.detail[j].languagevalue == null ? 0 : response.detail[j].languagevalue
+              );
+              this.arr[j][4] = parseInt(
+                response.detail[j].service == null ? 0 : response.detail[j].service
+              );
+              this.arr[j][5] = parseInt(
+                response.detail[j].rvicevalue == null ? 0 : response.detail[j].rvicevalue
+              );
+              this.arr[j][6] = parseInt(
+                response.detail[j].scalevalue == null ? 0 : response.detail[j].scalevalue
+              );
+              this.arr[j][7] = parseFloat(
+                response.detail[j].coefficient == null ? 0 : response.detail[j].coefficient
+              );
+              this.arr[j][8] = parseInt(
+                response.detail[j].rankvalue == null ? 0 : response.detail[j].rankvalue
+              );
+              this.arr[j][9] = parseFloat(
+                response.detail[j].butioncoefficient == null
+                  ? 0
+                  : response.detail[j].butioncoefficient
+              );
+              this.arr[j][10] = parseInt(
+                response.detail[j].unitprice == null ? 0 : response.detail[j].unitprice
+              );
+            }
           }
-          this.tableData = response;
+
+          this.tableData = response.detail;
           this.loading = false;
         })
         .catch(error => {
@@ -607,10 +599,10 @@ export default {
     },
     buttonClick(val) {
       if (val === "save") {
-        if (this.multipleSelection) {
+        // if (this.multipleSelection) {
           this.loading = true;
           this.$store
-            .dispatch("PFANS6005Store/updatepriceset", this.multipleSelection)
+            .dispatch("PFANS6005Store/updatepriceset", this.form)
             .then(response => {
               Message({
                 message: this.$t("normal.success_02"),
@@ -618,7 +610,7 @@ export default {
                 duration: 5 * 1000
               });
               this.loading = false;
-              this.getpriceset();
+              // this.getpriceset();
             })
             .catch(error => {
               Message({
@@ -628,112 +620,116 @@ export default {
               });
               this.loading = false;
             });
-          this.getpriceset();
-        } else {
-          Message({
-            message: this.$t("normal.info_01"),
-            type: "error",
-            duration: 5 * 1000
-          });
-        }
+          // this.getpriceset();
+        // } else {
+        //   Message({
+        //     message: this.$t("normal.info_01"),
+        //     type: "error",
+        //     duration: 5 * 1000
+        //   });
+        // }
       }
     },
-    changetechnical(val, index) {
-      this.tableData[index].technical = val;
+    changetechnical(val, row) {
+      row.technical = val;
       let dictionaryInfo = getDictionaryInfo(val);
       if (dictionaryInfo) {
-        this.tableData[index].technology = dictionaryInfo.value2;
+        row.technology = dictionaryInfo.value2;
       }
-      this.arr[index][0] = parseInt(this.tableData[index].technology);
-      this.countTotalunit(index);
+      this.sum();
     },
-    changemanagement(val, index) {
-      this.tableData[index].management = val;
+    changemanagement(val, row) {
+      row.management = val;
       let dictionaryInfo = getDictionaryInfo(val);
       if (dictionaryInfo) {
-        this.tableData[index].value = dictionaryInfo.value2;
+        row.value = dictionaryInfo.value2;
       }
-      this.arr[index][1] = parseInt(this.tableData[index].value);
-      this.countTotalunit(index);
+      this.sum();
     },
-    changefieldskills(val, index) {
-      this.tableData[index].fieldskills = val;
+    changefieldskills(val, row) {
+      row.fieldskills = val;
       let dictionaryInfo = getDictionaryInfo(val);
       if (dictionaryInfo) {
-        this.tableData[index].field = dictionaryInfo.value2;
+        row.field = dictionaryInfo.value2;
       }
-      this.arr[index][2] = parseInt(this.tableData[index].field);
-      this.countTotalunit(index);
+      this.sum();
     },
-    changelanguage(val, index) {
-      this.tableData[index].language = val;
+    changelanguage(val, row) {
+      row.language = val;
       let dictionaryInfo = getDictionaryInfo(val);
       if (dictionaryInfo) {
-        this.tableData[index].languagevalue = dictionaryInfo.value2;
+        row.languagevalue = dictionaryInfo.value2;
       }
-      this.arr[index][3] = parseInt(this.tableData[index].languagevalue);
-      this.countTotalunit(index);
+      this.sum = true;
     },
-    changeworkskills(val, index) {
-      this.tableData[index].workskills = val;
+    changeworkskills(val, row) {
+      row.workskills = val;
       let dictionaryInfo = getDictionaryInfo(val);
       if (dictionaryInfo) {
-        this.tableData[index].service = dictionaryInfo.value2;
+        row.service = dictionaryInfo.value2;
       }
-      this.arr[index][4] = parseInt(this.tableData[index].service);
-      this.countTotalunit(index);
+      this.sum();
     },
-    changeevaluation(val, index) {
-      this.tableData[index].evaluation = val;
+    changeevaluation(val, row) {
+      row.evaluation = val;
       let dictionaryInfo = getDictionaryInfo(val);
       if (dictionaryInfo) {
-        this.tableData[index].rvicevalue = dictionaryInfo.value2;
+        row.rvicevalue = dictionaryInfo.value2;
       }
-      this.arr[index][5] = parseInt(this.tableData[index].rvicevalue);
-      this.countTotalunit(index);
+      this.sum();
     },
-    changepsdcdscale(val, index) {
-      this.tableData[index].psdcdscale = val;
+    changepsdcdscale(val, row) {
+      row.psdcdscale = val;
       let dictionaryInfo = getDictionaryInfo(val);
       if (dictionaryInfo) {
-        this.tableData[index].scalevalue = dictionaryInfo.value2;
+        row.scalevalue = dictionaryInfo.value2;
       }
-      this.arr[index][6] = parseInt(this.tableData[index].scalevalue);
+      this.sum1();
     },
-    changecontribution(val, index) {
-      this.tableData[index].contribution = val;
+    changecontribution(val, row) {
+      row.contribution = val;
       let dictionaryInfo = getDictionaryInfo(val);
       if (dictionaryInfo) {
-        this.tableData[index].coefficient = dictionaryInfo.value2;
+        row.coefficient = dictionaryInfo.value2;
       }
-      this.arr[index][7] = parseFloat(this.tableData[index].coefficient);
-      this.countTotalunit(index);
+      this.sum1();
     },
-    changestaffpsdcdrank(val, index) {
-      this.tableData[index].staffpsdcdrank = val;
+    changestaffpsdcdrank(val, row) {
+      row.staffpsdcdrank = val;
       let dictionaryInfo = getDictionaryInfo(val);
       if (dictionaryInfo) {
-        this.tableData[index].rankvalue = dictionaryInfo.value2;
+        row.rankvalue = dictionaryInfo.value2;
       }
-      this.arr[index][8] = parseInt(this.tableData[index].rankvalue);
+      this.sum();
     },
-    changebutionevaluation(val, index) {
-      this.tableData[index].butionevaluation = val;
+    changebutionevaluation(val, row) {
+      row.butionevaluation = val;
       let dictionaryInfo = getDictionaryInfo(val);
       if (dictionaryInfo) {
-        this.tableData[index].butioncoefficient = dictionaryInfo.value2;
+        row.butioncoefficient = dictionaryInfo.value2;
       }
-      this.arr[index][9] = parseFloat(this.tableData[index].butioncoefficient);
-      this.countTotalunit(index);
+      this.sum();
     },
-    changepsdcdrank(val, index) {
-      this.tableData[index].psdcdrank = val;
+    changepsdcdrank(val, row) {
+      row.psdcdrank = val;
       let dictionaryInfo = getDictionaryInfo(val);
       if (dictionaryInfo) {
-        this.tableData[index].psdcdrank = dictionaryInfo.value1;
+        row.psdcdrank = dictionaryInfo.value1;
+      }
+      this.sum();
+    },
+    sum(){
+      for(let item of this.tableData){
+        item.totalunit = Number(item.technology) + Number(item.value) + Number(item.field) + Number(item.languagevalue) + Number(item.service)
+          + Number(item.rvicevalue)+ Number(item.rankvalue)*Number(item.butioncoefficient) + Number(item.unitprice)
+      }
+    },
+    sum1(){
+      for(let item of this.tableData){
+        item.common = Number(item.scalevalue)*Number(item.coefficient);
       }
     }
-  }
+  },
 };
 </script>
 
