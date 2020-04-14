@@ -257,6 +257,14 @@
                     width="150"
                     align="center"
                   ></plx-table-column>
+                  <!-- 小计1(基本給+补助) -->
+                  <plx-table-column
+                    prop="total1"
+                    :label="$t('label.PFANS2006VIEW_SUBTOTAL1')"
+                    width="150"
+                    align="center"
+                  ></plx-table-column>
+                  <!-- 一括补助 -->
                   <plx-table-column
                     prop="ykbz"
                     :label="$t('label.PFANS2006VIEW_YKBZ')"
@@ -269,12 +277,8 @@
                       width="150"
                       align="center"
                   ></plx-table-column>-->
-                  <plx-table-column
-                    prop="total1"
-                    :label="$t('label.PFANS2006VIEW_SUBTOTAL1')"
-                    width="150"
-                    align="center"
-                  ></plx-table-column>
+
+                  
                   <!-- <plx-table-column
                       prop="traffic"
                       :label="$t('label.PFANS2006VIEW_TRANSPORTATION')"
@@ -3995,6 +3999,7 @@ export default {
               this.getList();
             }
           }
+          debugger
           this.loading = false;
           //endregion
 
