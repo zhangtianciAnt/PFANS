@@ -107,6 +107,7 @@
                   v-model="form.relengthtime"
                 ></el-input-number>
                 <el-input-number
+                  v-else
                   :disabled="checkrelengthtime"
                   step-strictly
                   :max="1000000000"
