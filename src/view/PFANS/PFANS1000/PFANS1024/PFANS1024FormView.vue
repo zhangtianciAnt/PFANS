@@ -135,7 +135,7 @@
             <div class="dialog-footer" align="center">
               <el-row style=" margin-bottom: 20px;">
                 <el-col :span="24">
-                  <el-button @click="clickData(7)" :disabled=disabledCount7>
+                  <el-button @click="clickData(7)" >
                   <span style="margin-right: 86%;">{{$t('label.PFANS1026FORMVIEW_AWARD')}}
                   </span>
                   </el-button>
@@ -829,7 +829,7 @@
         titleType2: this.$t('label.PFANS1024VIEW_INTERNSERVITUDE'),
         titleType3: this.$t('label.PFANS1024VIEW_OVERSEASTECHNOLOGY'),
         titleType4: this.$t('label.PFANS1024VIEW_OVERSEASSERVITUDE'),
-        disabledCount7: false,
+        // disabledCount7: false,
         checked: false,
         checkeddisplay: true,
         dialogBook: false,
@@ -1810,6 +1810,23 @@
           }
         });
       },
+      //add-ws-委托决裁书编辑时逻辑改变跟受託的相同
+      tipMes(contractNumber,index){
+        this.$confirm(this.$t('normal.error_tipis'), this.$t('normal.info'), {
+          confirmButtonText: this.$t('button.confirm'),
+          cancelButtonText: this.$t('button.cancel'),
+          type: 'warning',
+        }).then(() => {
+          var tabledata = {'contractnumber': contractNumber, 'rowindex': index};
+          this.handleSaveContract(index, this.makeintoBaseInfo, tabledata);
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: this.$t('label.PFANS1026FORMVIEW_tipis'),
+          });
+        });
+      },
+      //add-ws-委托决裁书编辑时逻辑改变跟受託的相同
       handleClick() {
         //請求方式
         let letclaimtype = '';
@@ -1957,11 +1974,14 @@
           .then(response => {
             let s = 'count' + index;
             if (response[s] > 0) {
-              Message({
-                message: this.$t('label.PFANS1026FORMVIEW_QXSCZQSCDQYS'),
-                type: 'success',
-                duration: 5 * 1000,
-              });
+              //add-ws-委托决裁书编辑时逻辑改变跟受託的相同
+              this.tipMes(contractNumber,index);
+              //add-ws-委托决裁书编辑时逻辑改变跟受託的相同
+              // Message({
+              //   message: this.$t('label.PFANS1026FORMVIEW_QXSCZQSCDQYS'),
+              //   type: 'success',
+              //   duration: 5 * 1000,
+              // });
             } else {
               var tabledata = {'contractnumber': contractNumber, 'rowindex': index};
               this.handleSaveContract(index, this.makeintoBaseInfo, tabledata);
@@ -2143,11 +2163,11 @@
         this.$store.dispatch('PFANS1026Store/existCheck', {contractNumber: this.letcontractnumber})
           .then(response => {
             this.dialogBook = true;
-            if (response.count7 === 0) {
-              this.disabledCount7 = false;
-            } else {
-              this.disabledCount7 = true;
-            }
+            // if (response.count7 === 0) {
+            //   this.disabledCount7 = false;
+            // } else {
+            //   this.disabledCount7 = true;
+            // }
             // let error = 0;
             // for (let i = 0; i < this.form.tabledata.length; i++) {
             //   if (this.form.tabledata.currencyposition == undefined || this.form.tabledata.contractdate == undefined) {

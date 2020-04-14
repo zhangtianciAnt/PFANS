@@ -578,6 +578,14 @@
           .dispatch('PFANS1025Store/selectById', {'award_id': this.$route.params._id})
           .then(response => {
             this.form = response.award;
+            //add-ws-契约种类value1值处理
+            if (this.form.contracttype !== null && this.form.contracttype !== "") {
+              let letContracttype = getDictionaryInfo(this.form.contracttype);
+              if (letContracttype != null) {
+                this.form.contracttype = letContracttype.value1;
+              }
+            }
+            //add-ws-契约种类value1值处理
             if (getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)) {
               this.budgetcodingcheck = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
             }
