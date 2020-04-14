@@ -413,7 +413,7 @@
                                  width="150">
                   <template slot-scope="scope">
                     <el-input-number
-                      :disabled="scope.row.budgetcode ===$t('label.PFANS1025FORMVIEW_CHECKERROR')?false:true"
+                      :disabled="scope.row.budgetcode ===$t('label.PFANS1025FORMVIEW_CHECKERROR')?!disable:true"
                       :max="1000000000"
                       :min="0"
                       :no="scope.row"
@@ -815,6 +815,9 @@
                 return prev;
               }
             }, 0);
+            if (index == 1) {
+              sums[index] = '--';
+            }
             if (index == 2) {
               sums[index] = Math.round((sums[index]) * 100) / 100;
             }
