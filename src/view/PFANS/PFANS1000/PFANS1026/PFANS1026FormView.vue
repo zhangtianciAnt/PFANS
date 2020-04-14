@@ -790,7 +790,8 @@
         }
       };
       var validateDeliveryfinshdate = (rule, value, callback) => {
-        if (value === '') {
+        debugger
+        if (value === '' || value === null) {
           callback(new Error(this.$t('label.PFANS1026FORMVIEW_NPZCR')));
         } else {
           callback();
