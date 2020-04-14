@@ -1054,8 +1054,8 @@
           '7': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount', 'deliverydate'],
           '61': ['custojapanese','custoenglish','custochinese', 'businesscode', 'currencyposition','conchinese','conjapanese' ,'claimamount', 'claimdate','deliverydate','completiondate','deliveryfinshdate','loadingjudge','supportdate'],
           // 请求书作成 111
-          '62': ['claimdatetime','custojapanese','custoenglish','custochinese','conchinese', 'currencyposition','businesscode','conjapanese', 'claimamount', 'placejapanese','claimdate', 'placechinese','deliverydate','completiondate','deliveryfinshdate','loadingjudge','supportdate'],
-        },
+          '62': ['claimdatetime','custoenglish','conchinese', 'currencyposition','businesscode','conjapanese', 'claimamount', 'placejapanese','claimdate', 'placechinese','deliveryfinshdate','loadingjudge','supportdate'],
+        }, 
         rules1: {
             claimtype: [
                 {
