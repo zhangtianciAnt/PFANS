@@ -1039,7 +1039,7 @@
         ruleSet: {
           'save': ['contractnumber'],
           'makeinto': ['contractnumber'],
-          '1': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount', 'loadingjudge'],
+          '1': ['supportdate', 'deliverydate' ,'completiondate' ,'deliveryfinshdate','custojapanese', 'conchinese','conjapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount', 'loadingjudge'],
           // 该非判定书
           '2': ['custojapanese', 'deployment', 'claimdatetime', 'varto'],
           // 契约书作成
@@ -1052,9 +1052,9 @@
               , 'claimdate', 'supportdate', 'varto', 'conchinese', 'conjapanese', 'loadingjudge', 'deliveryfinshdate'],
           '6': ['custochinese', 'businesscode', 'claimdatetime', 'currencyposition', 'claimamount', 'deliveryfinshdate'],
           '7': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount', 'deliverydate'],
-          '61': ['custochinese', 'businesscode', 'currencyposition','conchinese', 'contractnumber', 'claimnumber', 'claimamount', 'claimdate','deliverydate','completiondate','deliveryfinshdate','loadingjudge','supportdate'],
+          '61': ['custochinese', 'businesscode', 'currencyposition','conchinese', 'claimamount', 'claimdate','deliverydate','completiondate','deliveryfinshdate','loadingjudge','supportdate'],
           // 请求书作成 111
-          '62': ['custoenglish','custochinese', 'currencyposition','placeenglish','businesscode', 'pjnamejapanese', 'pjnamechinese', 'contractnumber', 'claimnumber', 'claimamount', 'claimdate', 'placechinese', 'responphone', 'remarks','deliverydate','completiondate','deliveryfinshdate','loadingjudge','supportdate'],
+          '62': ['custoenglish','custochinese', 'currencyposition','placeenglish','businesscode', 'claimamount', 'claimdate', 'placechinese','deliverydate','completiondate','deliveryfinshdate','loadingjudge','supportdate'],
         },
         rules1: {
             claimtype: [
