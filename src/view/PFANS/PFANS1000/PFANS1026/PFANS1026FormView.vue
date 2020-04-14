@@ -1041,7 +1041,8 @@
           '4': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount'],
           '5': ['custojapanese', 'custoenglish', 'custoabbreviation', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount', 'deliveryfinshdate', 'deliverydate', 'completiondate'
               , 'claimdate', 'supportdate', 'varto', 'conchinese', 'conjapanese', 'loadingjudge', 'deliveryfinshdate'],
-          '6': ['custochinese', 'businesscode', 'claimdatetime', 'currencyposition', 'claimamount', 'deliveryfinshdate'],
+          '6': ['custochinese', 'businesscode', 'claimdatetime', 'currencyposition', 'claimamount', 'deliveryfinshdate','pjnamechinese','contractnumber','claimnumber','claimamount','claimdate','custoenglish',
+            'placeenglish','pjnamejapanese','placechinese','responphone','remarks'],
           '7': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount', 'deliverydate'],
           '61': ['custoenglish', 'businesscode', 'placeenglish', 'responerglish', 'claimdatetime', 'currencyposition', 'claimamount', 'deliveryfinshdate', 'placechinese', 'responphone'],
           '62': ['custoenglish', 'businesscode', 'placeenglish', 'responerglish', 'claimdatetime', 'currencyposition', 'claimamount', 'deliveryfinshdate', 'placechinese', 'responphone'],
