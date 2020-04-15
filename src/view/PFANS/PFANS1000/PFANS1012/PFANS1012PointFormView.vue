@@ -120,6 +120,7 @@
           this.$store
             .dispatch('PFANS1012Store/selectJudgement', {})
             .then(response => {
+              debugger
               for (let i = 0; i < response.length; i++) {
                 if (user_id === response[i].user_id && response[i].equipment == '0') {
                   if (response[i].createon !== null && response[i].createon !== '') {
@@ -127,7 +128,7 @@
                   }
                   var vote = {};
                   vote.value = response[i].judgementid;
-                  vote.label = this.$t('menu.PFANS1004') + '_' + response[i].createon;
+                  vote.label = response[i].judgnumbers + '_' + this.$t('menu.PFANS1004');
                   this.options.push(vote);
                 }
               }

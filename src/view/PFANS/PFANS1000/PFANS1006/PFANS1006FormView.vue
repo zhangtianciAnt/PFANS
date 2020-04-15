@@ -732,7 +732,7 @@
                 }
                 var vote = {};
                 vote.value = response[i].judgementid;
-                vote.label = this.$t('menu.PFANS1004') + '_' + response[i].createon;
+                vote.label = response[i].judgnumbers + '_' + this.$t('menu.PFANS1004');
                 this.options.push(vote);
               }
             }
