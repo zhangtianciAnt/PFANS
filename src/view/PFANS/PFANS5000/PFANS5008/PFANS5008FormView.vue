@@ -402,6 +402,7 @@
         this.companyform.work_phase = '';
       }
       if (this.$route.params._id) {
+        this.companyform.logmanagement_id = this.$route.params._id;
         this.loading = true;
         this.$store
           .dispatch('PFANS5008Store/getDataOne', {'logmanagement_id': this.$route.params._id})
@@ -787,6 +788,7 @@
       },
       rowclick(row, event, column) {
         this.row = row.logmanagementid;
+        this.companyform.logmanagement_id = row.logmanagementid;
         this.loading = true;
         this.$store
           .dispatch('PFANS5008Store/getDataOne', {'logmanagement_id': this.row})
@@ -970,7 +972,6 @@
             });
         }
         if (val === 'btnSave') {
-          this.companyform.logmanagement_id = this.$route.params._id;
           this.$refs['companyform'].validate(valid => {
             if (valid) {
               let error = 0;
@@ -1000,7 +1001,7 @@
                       }
                     }
                   }
-                  if (this.$route.params._id || this.row) {
+                  if (this.companyform.logmanagement_id) {
 
                     this.checkLenth = checklenth;
                     if (parseFloat(this.checkLenth) + parseFloat(this.companyform.time_start) - parseFloat(this.checktimelength) > this.checkdata) {
