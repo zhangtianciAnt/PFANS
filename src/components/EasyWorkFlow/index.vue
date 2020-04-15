@@ -130,6 +130,9 @@
                   workflows = response.data.list;
                 }
                 this.workflowlist = workflows;
+                debugger
+                console.log(this.$store.getters.operateOwner)
+                console.log(this.$store.getters.userinfo.userid)
                 if (response.data.can === "0") {
                   if(this.$store.getters.operateOwner && this.$store.getters.userinfo.userid && (
                     this.$store.getters.operateOwner === this.$store.getters.userinfo.userid

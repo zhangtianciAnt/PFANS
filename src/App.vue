@@ -11,3 +11,8 @@ export default {
   name: 'App'
 }
 </script>
+<style>
+  #nprogress .bar {
+    background: #81b2ec !important;
+  }
+</style>

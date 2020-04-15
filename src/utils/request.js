@@ -75,7 +75,16 @@ service.interceptors.response.use(
         } else {
           return false;
         }
-      } else {
+      } else if (response.data.code === 20102) {
+        if (router.currentRoute.path !== '/') {
+          router.replace({
+            path: '/error401',
+            query: {
+              redirect: router.currentRoute.fullPath
+            }
+          });
+        }
+      }else {
         return response.data;
       }
     } else {

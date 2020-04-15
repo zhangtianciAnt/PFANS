@@ -2,7 +2,6 @@
   <div style="min-height: 100%">
     <EasyNormalContainer
       :buttonList="buttonList"
-      :canStart="canStart"
       :title="title"
       @buttonClick="buttonClick"
       ref="container"
@@ -1380,7 +1379,6 @@
             },
           ],
         },
-        canStart: false,
       };
     },
     mounted() {
@@ -1644,7 +1642,7 @@
         this.buttonClick('update');
       },
       end() {
-        this.form.status = '0';
+        this.form.status = '4';
         this.buttonClick('update');
       },
       addRow3() {
@@ -1743,6 +1741,14 @@
         this.dialogTableVisible3 = false;
       },
       deleteRow1(index, rows) {
+        //add-ws-当体制仅有一条删除清空数据项
+        if (index === 1) {
+          rows[1].name = '';
+          rows[1].position = '';
+          rows[1].admissiontime = '';
+          rows[1].exittime = '';
+        }
+        //add-ws-当体制仅有一条删除清空数据项
         if (rows.length > 2) {
           rows.splice(index, 1);
         }
