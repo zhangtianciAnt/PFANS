@@ -239,7 +239,17 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1012FORMVIEW_BUDGET')" prop="thisproject">
-                <el-input v-model="form.thisproject" :disabled="true" style="width: 20vw" maxlength='20'></el-input>
+<!--                <el-input v-model="form.thisproject" :disabled="true" style="width: 20vw" maxlength='20'></el-input>-->
+                <el-select :disabled="!disabled" :placeholder="$t('normal.error_09')" clearable style="width: 20vw"
+                           v-model="form.thisproject">
+                  <el-option
+                    :key="item.value"
+                    :label="item.lable"
+                    :value="item.value"
+                    @change="changeBut"
+                    v-for="item in options">
+                  </el-option>
+                </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -322,7 +332,7 @@
   import dicselect from "../../../components/dicselect.vue";
   import user from "../../../components/user.vue";
   import { Message } from 'element-ui'
-  import {downLoadUrl,getOrgInfoByUserId, uploadUrl,getUserInfo} from '@/utils/customize';
+  import {downLoadUrl,getOrgInfoByUserId,getOrgInfo, uploadUrl,getUserInfo} from '@/utils/customize';
   import moment from "moment";
 
   export default {
@@ -363,6 +373,7 @@
         radio1: 1,
         userlist: '',
         optionsdata: [],
+          options: [],
         loading: false,
         error: '',
         checked: true,
@@ -543,7 +554,7 @@
                   this.centerid = rst.centerNmae;
                   this.groupid= rst.groupNmae;
                   this.teamid= rst.teamNmae;
-                  this.form.thisproject = rst.personalcode;
+                  // this.form.thisproject = rst.personalcode;
               }
             this.userlist = this.form.user_id;
             if(response.unusedevice.length > 0){
@@ -628,12 +639,28 @@
                 this.form.center_id = rst.centerId;
                 this.form.group_id = rst.groupId;
                 this.form.team_id = rst.teamId;
-                this.form.thisproject = rst.personalcode;
+                // this.form.thisproject = rst.personalcode;
             }
           this.form.user_id = this.$store.getters.userinfo.userid;
         }
         this.loading = false;
       }
+        //ADD_FJL  修改人员预算编码
+        if (getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)) {
+            let butinfo = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
+            let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+            if (dic.length > 0) {
+                for (let i = 0; i < dic.length; i++) {
+                    if (butinfo === dic[i].value1) {
+                        this.options.push({
+                            lable: dic[i].value3,
+                            value: dic[i].code,
+                        })
+                    }
+                }
+            }
+        }
+        //ADD_FJL  修改人员预算编码
     },
     created() {
       this.disabled = this.$route.params.disabled;
@@ -747,6 +774,9 @@
           this.show3 = false;
         }
       },
+        changeBut(val) {
+            this.form.thisproject = val;
+        },
       getSalequotation(val) {
         this.form.salequotation = val;
         if (val === "PJ013002") {
