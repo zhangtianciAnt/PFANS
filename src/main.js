@@ -15,6 +15,8 @@ import CnRegionPicker from 'cn-region-picker'
 import '@fullcalendar/core/main.css';
 import '@fullcalendar/daygrid/main.css';
 import plTable from 'pl-table'
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
 
 import 'pl-table/themes/index.css' // 引入样式（必须引入)，请查看webpack是否配置了url-loader对woff，ttf文件的引用,不配置会报错哦
 
@@ -29,7 +31,7 @@ Vue.use(ElementUI, {
 })
 
 router.beforeEach((to, from, next) => {
-
+  NProgress.start();
   /* 路由发生变化修改页面title */
   if (to.meta.title && to.meta.type === 'wx') {
     document.title = to.meta.title;
@@ -38,6 +40,19 @@ router.beforeEach((to, from, next) => {
   }
   next()
 });
+
+router.afterEach(() => {
+  // 在即将进入新的页面组件前，关闭掉进度条
+  NProgress.done()
+})
+
+NProgress.configure({
+  easing: 'ease',  // 动画方式
+  speed: 500,  // 递增进度条的速度
+  showSpinner: false, // 是否显示加载ico
+  trickleSpeed: 200, // 自动递增间隔
+  minimum: 0.3 // 初始化时的最小百分比
+})
 
 Vue.filter('moment', function(dataStr, pattern = 'YYYY-MM-DD HH:mm:ss') {
   return moment(dataStr).format(pattern)
