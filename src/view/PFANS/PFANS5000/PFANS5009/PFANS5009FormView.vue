@@ -2,7 +2,6 @@
   <div style="min-height: 100%">
     <EasyNormalContainer
       :buttonList="buttonList"
-      :canStart="canStart"
       :title="title"
       @buttonClick="buttonClick"
       ref="container"
@@ -1380,7 +1379,6 @@
             },
           ],
         },
-        canStart: false,
       };
     },
     mounted() {
