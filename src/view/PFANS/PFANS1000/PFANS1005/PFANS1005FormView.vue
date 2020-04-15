@@ -38,6 +38,20 @@
                                 type="date" v-model="form.application_date"></el-date-picker>
               </el-form-item>
             </el-col>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS1012FORMVIEW_BUDGET')">
+                <el-select clearable style="width: 20vw"  v-model="form.budgetunit" :disabled="!disable"
+                           :placeholder="$t('normal.error_09')">
+                  <el-option
+                    v-for="item in options1"
+                    :key="item.value"
+                    :label="item.lable"
+                    :value="item.value"
+                    @change="changeBut">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
           </el-row>
           <el-row >
             <el-col :span="24">
@@ -123,7 +137,7 @@
     import EasyNormalContainer from '@/components/EasyNormalContainer';
     import user from '../../../components/user';
     import {Message} from 'element-ui';
-    import {getOrgInfoByUserId} from '@/utils/customize';
+    import {getOrgInfoByUserId,getOrgInfo} from '@/utils/customize';
     import moment from 'moment';
 
     export default {
@@ -143,12 +157,14 @@
                 }
             };
             return {
+                options1:[],
                 options:[],
                 sumTotal:[],
                 centerid: '',
                 groupid: '',
                 teamid: '',
                 error: '',
+                budgetunit: '',
                 selectType: 'Single',
                 userlist: '',
                 code: 'PK004',
@@ -246,6 +262,22 @@
                     this.form.user_id = this.$store.getters.userinfo.userid;
                 }
             }
+            //ADD_FJL  修改人员预算编码
+            if (getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)) {
+                let butinfo = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
+                let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+                if(dic.length > 0){
+                    for (let i = 0; i < dic.length; i++) {
+                        if(butinfo === dic[i].value1){
+                            this.options1.push({
+                                lable: dic[i].value3,
+                                value: dic[i].code,
+                            })
+                        }
+                    }
+                }
+            }
+            //ADD_FJL  修改人员预算编码
             this.$store
                 .dispatch('PFANS5009Store/getSiteList3')
                 .then(response => {
@@ -253,6 +285,9 @@
                 })
         },
         methods: {
+            changeBut(val) {
+                this.form.budgetunit = val;
+            },
           setdisabled(val){
             if(this.$route.params.disabled){
               this.disable = val;
