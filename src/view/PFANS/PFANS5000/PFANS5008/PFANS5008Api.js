@@ -10,7 +10,15 @@ export function createNewUser(data) {
     data: data
   })
 }
-
+//add-ws-外协人员表查询
+export function getAttendancepdlist(data) {
+  return request({
+    url: 'punchcardrecordbp/getAttendancelist',
+    method: 'post',
+    data: data
+  })
+}
+//add-ws-外协人员表查询
 export function getListcheck(data) {
   return request({
     url: 'logmanagement/getListcheck',
