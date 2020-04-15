@@ -1368,6 +1368,7 @@
           this.form.user_id = this.$store.getters.userinfo.userid;
         }
       }
+      //ADD_FJL  修改人员预算编码
         if (getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)) {
             // this.form.budgetunit = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
             let butinfo = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
@@ -1383,6 +1384,7 @@
                 }
             }
         }
+        //ADD_FJL  修改人员预算编码
     },
     created() {
       if (!this.$route.params.disabled) {
