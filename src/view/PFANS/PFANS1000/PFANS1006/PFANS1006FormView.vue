@@ -56,7 +56,17 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1012FORMVIEW_BUDGET')">
-                <el-input :disabled="true" style="width:20vw" v-model="form.budgetunit" maxlength='50'></el-input>
+<!--                <el-input :disabled="true" style="width:20vw" v-model="form.budgetunit" maxlength='50'></el-input>-->
+                <el-select clearable style="width: 20vw"  v-model="form.budgetunit" :disabled="!disable"
+                           :placeholder="$t('normal.error_09')">
+                  <el-option
+                    v-for="item in options1"
+                    :key="item.value"
+                    :label="item.lable"
+                    :value="item.value"
+                    @change="changeBut">
+                  </el-option>
+                </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -221,13 +231,13 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1012VIEW_PAYEENAME')" v-show="show9" prop="payeename">
+                  <el-form-item :label="$t('label.PFANS1012VIEW_PAYEENAME')" v-if="show9" prop="payeename">
                     <el-input :disabled="true" style="width:20vw" v-model="form.payeename"
                               ></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1012VIEW_FOREIGNPAYEECODE')" v-show="show7" prop="payeecode">
+                  <el-form-item :label="$t('label.PFANS1012VIEW_FOREIGNPAYEECODE')" v-if="show7" prop="payeecode">
                     <el-input :disabled="true" style="width:20vw"
                               v-model="form.payeecode"></el-input>
                   </el-form-item>
@@ -235,14 +245,14 @@
               </el-row>
               <el-row>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1012VIEW_PAYEEBANKNUMBER')" v-show="show1"
+                  <el-form-item :label="$t('label.PFANS1012VIEW_PAYEEBANKNUMBER')" v-if="show1"
                                 prop="payeebankaccountnumber">
                     <el-input :disabled="true" style="width:20vw" v-model="form.payeebankaccountnumber"
                     ></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1012VIEW_PAYEEBANKACCOUNT')" v-show="show1"
+                  <el-form-item :label="$t('label.PFANS1012VIEW_PAYEEBANKACCOUNT')" v-if="show1"
                                 prop="payeebankaccount">
                     <el-input :disabled="true" style="width:20vw" v-model="form.payeebankaccount"
                               ></el-input>
@@ -395,11 +405,13 @@
         show7: false,
         errorsuppliername: '',
         options: [],
+        options1: [],
         gridData: [],
         flag: false,
         centerid: '',
         groupid: '',
         teamid: '',
+        search: '',
         regExp: [],
         png11: png11,
         loading: false,
@@ -622,9 +634,9 @@
         }
         if (this.userlist !== null && this.userlist !== '') {
           this.form.user_id = this.$store.getters.userinfo.userid;
-          if (getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)) {
-            this.form.budgetunit = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
-          }
+          // if (getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)) {
+          //   this.form.budgetunit = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
+          // }
           let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
           if (rst) {
             this.centerid = rst.centerNmae;
@@ -636,8 +648,27 @@
           }
         }
       }
+        //ADD_FJL  修改人员预算编码
+        if (getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)) {
+            let butinfo = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
+            let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+            if(dic.length > 0){
+                for (let i = 0; i < dic.length; i++) {
+                    if(butinfo === dic[i].value1){
+                        this.options1.push({
+                            lable: dic[i].value3,
+                            value: dic[i].code,
+                        })
+                    }
+                }
+            }
+        }
+        //ADD_FJL  修改人员预算编码
     },
     methods: {
+        changeBut(val) {
+            this.form.budgetunit = val;
+        },
       submit() {
         let val = this.currentRow;
         let val1 = this.currentRow1;
@@ -711,9 +742,9 @@
       getUserids(val) {
         this.form.user_id = val;
         let rst = getOrgInfoByUserId(val);
-        if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
-          this.form.budgetunit = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
-        }
+        // valif (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
+        //   this.form.budgetunit = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
+        // }
         if (rst) {
           this.centerid = rst.centerNmae;
           this.groupid = rst.groupNmae;

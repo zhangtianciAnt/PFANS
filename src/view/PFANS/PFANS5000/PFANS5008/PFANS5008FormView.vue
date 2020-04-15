@@ -10,98 +10,101 @@
             <el-container>
               <el-aside style="width: 58%;height: 39.3rem">
 
-                  <el-row>
-                    <el-col :span="12">
-                      <el-form-item :label="$t('label.PFANS5008VIEW_RIQI')" prop="log_date">
-                        <el-date-picker
-                          @change="clickdata"
-                          v-model="companyform.log_date"
-                          :disabled="!disable"
-                          type="date"
-                          style="width:16vw"
-                        >
-                        </el-date-picker>
-                      </el-form-item>
-                    </el-col>
-                    <el-col :span="12">
-                      <el-form-item :label="$t('label.PFANS5008FORMVIEW_SC')" prop="time_start">
-                        <el-input-number v-model="companyform.time_start" :disabled="!disable" controls-position="right"
-                                         :precision="2" :step="0.5" :min="0" :max="24" style="width: 16vw"
-                        ></el-input-number>
-                      </el-form-item>
-                    </el-col>
-                  </el-row>
-                  <el-row>
-                    <div v-show="isShow">
-                      <el-col :span="12">
-                        <el-form-item :label="$t('label.PFANS5004VIEW_PROJECTNAMW')">
-                          <el-select v-model="companyform.project_id" :disabled="!disable" style="width: 16vw" clearable
-                                     @change="getProject">
-                            <el-option
-                              v-for="item in optionsdata"
-                              :key="item.value"
-                              :label="item.lable"
-                              :value="item.value">
-                            </el-option>
-                          </el-select>
-                        </el-form-item>
-                      </el-col>
-                      <el-col :span="12">
-                        <el-form-item :label="$t('label.PFANS5008VIEW_PROGRAMNAME')" style="width:17vw"
-                                      prop="project_name">
-                        </el-form-item>
-                        {{companyform.project_name}}
-                      </el-col>
+                <el-row>
+                  <el-col :span="12">
+                    <el-form-item :label="$t('label.PFANS5008VIEW_RIQI')" prop="log_date">
+                      <el-date-picker
+                        @change="clickdata"
+                        v-model="companyform.log_date"
+                        :disabled="!disable"
+                        type="date"
+                        style="width:16vw"
+                      >
+                      </el-date-picker>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="12">
+                    <el-form-item :label="$t('label.PFANS5008FORMVIEW_SC')" prop="time_start">
+                      <el-input-number v-model="companyform.time_start" :disabled="!disable" controls-position="right"
+                                       :precision="2" :step="0.5" :min="0" :max="24" style="width: 16vw"
+                      ></el-input-number>
+                    </el-form-item>
+                    <div class="sub_color_red">
+                      {{$t('label.PFANS5008FORMVIEW_CHECKTIMELENGTH')+this.checkdata+$t('label.hours')}}
                     </div>
-                  </el-row>
-                  <el-row>
+                  </el-col>
+                </el-row>
+                <el-row>
+                  <div v-show="isShow">
                     <el-col :span="12">
-                      <el-form-item :label="$t('label.PFANS5008VIEW_JDJOBS')" style="width:17vw" prop="work_phase">
-                        <dicselect
-                          :disabled="!disable"
-                          :code="code2"
-                          :multiple="multiple2"
-                          :data="companyform.work_phase"
-                          @change="JDjobs"
-                          style="width: 16vw">
-                        </dicselect>
+                      <el-form-item :label="$t('label.PFANS5004VIEW_PROJECTNAMW')">
+                        <el-select v-model="companyform.project_id" :disabled="!disable" style="width: 16vw" clearable
+                                   @change="getProject">
+                          <el-option
+                            v-for="item in optionsdata"
+                            :key="item.value"
+                            :label="item.lable"
+                            :value="item.value">
+                          </el-option>
+                        </el-select>
                       </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                      <el-form-item :label="$t('label.PFANS5008VIEW_XWXF')" style="width:  17vw"
-                                    prop="behavior_breakdown">
-                        <dicselect
-                          :disabled="!disable"
-                          :code="code3"
-                          :multiple="multiple3"
-                          :data="companyform.behavior_breakdown"
-                          @change="XWXF"
-                          style="width: 16vw">
-                        </dicselect>
+                      <el-form-item :label="$t('label.PFANS5008VIEW_PROGRAMNAME')" style="width:17vw"
+                                    prop="project_name">
                       </el-form-item>
+                      {{companyform.project_name}}
                     </el-col>
-                  </el-row>
-                  <el-row>
-                    <el-col :span="12">
-                      <el-form-item :label="$t('label.PFANS5008VIEW_GZBZ')" style="width:  16vw" prop="work_memo">
-                        <el-input
-                          type="textarea"
-                          :rows="2"
-                          v-model="companyform.work_memo" :disabled="!disable"
-                        >
-                        </el-input>
-                      </el-form-item>
-                    </el-col>
-                    <el-col :span="12">
-                      <el-form-item label="WBS_ID" style="width:  17vw" prop="wbs_id">
-                        <el-input
-                          :rows="2"
-                          v-model="companyform.wbs_id" :disabled="!disable"
-                          style="width: 16vw">
-                        </el-input>
-                      </el-form-item>
-                    </el-col>
-                  </el-row>
+                  </div>
+                </el-row>
+                <el-row>
+                  <el-col :span="12">
+                    <el-form-item :label="$t('label.PFANS5008VIEW_JDJOBS')" style="width:17vw" prop="work_phase">
+                      <dicselect
+                        :disabled="!disable"
+                        :code="code2"
+                        :multiple="multiple2"
+                        :data="companyform.work_phase"
+                        @change="JDjobs"
+                        style="width: 16vw">
+                      </dicselect>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="12">
+                    <el-form-item :label="$t('label.PFANS5008VIEW_XWXF')" style="width:  17vw"
+                                  prop="behavior_breakdown">
+                      <dicselect
+                        :disabled="!disable"
+                        :code="code3"
+                        :multiple="multiple3"
+                        :data="companyform.behavior_breakdown"
+                        @change="XWXF"
+                        style="width: 16vw">
+                      </dicselect>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+                <el-row>
+                  <el-col :span="12">
+                    <el-form-item :label="$t('label.PFANS5008VIEW_GZBZ')" style="width:  16vw" prop="work_memo">
+                      <el-input
+                        type="textarea"
+                        :rows="2"
+                        v-model="companyform.work_memo" :disabled="!disable"
+                      >
+                      </el-input>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="12">
+                    <el-form-item label="WBS_ID" style="width:  17vw" prop="wbs_id">
+                      <el-input
+                        :rows="2"
+                        v-model="companyform.wbs_id" :disabled="!disable"
+                        style="width: 16vw">
+                      </el-input>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
               </el-aside>
               <el-main>
                 <el-calendar v-model="companyform.log_date" :disabled="!disable" class="appManage">
@@ -603,7 +606,7 @@
             for (let i = 0; i < response.length; i++) {
               this.optionsdata.push({
                 value: response[i].companyprojects_id,
-                lable: response[i].project_name,
+                lable: response[i].numbers + '_' + response[i].project_name,
               });
             }
 
@@ -613,7 +616,7 @@
                 for (let i = 0; i < response.length; i++) {
                   this.optionsdata.push({
                     value: response[i].comproject_id,
-                    lable: response[i].project_name,
+                    lable: response[i].numbers + '_' + response[i].project_name,
                   });
                 }
                 this.loading = false;
@@ -663,10 +666,19 @@
         this.$store
           .dispatch('PFANS2010Store/getAttendancelist', parameter)
           .then(response => {
-            // if (response.length === 0) {
-            //   this.checkdata = 0;
-            // }
-            this.checkList = response;
+            //add-ws-当前人的登陆id在设内表中未查到的时候，去社外表查询用社外的数据否则就用社内的数据
+            if (response.length === 0) {
+              this.$store
+                .dispatch('PFANS5008Store/getAttendancepdlist', parameter)
+                .then(response => {
+                  this.checkList = response;
+                  this.getAttendancelist();
+                });
+            } else {
+              this.checkList = response;
+              this.getAttendancelist();
+            }
+            //add-ws-当前人的登陆id在设内表中未查到的时候，去社外表查询用社外的数据否则就用社内的数据
             this.loading = false;
           })
           .catch(error => {
@@ -679,47 +691,13 @@
           });
       },
       getAttendancelist() {
-        let timelenthcheck = 0;
+        let sumoutgoinghours = 0;
         for (let j = 0; j < this.checkList.length; j++) {
           if (moment(this.checkList[j].dates).format('YYYY-MM-DD') === moment(this.companyform.log_date).format('YYYY-MM-DD')) {
-            if (this.checkList[j].absenteeism === null || this.checkList[j].absenteeism === '') {
-              this.checkList[j].absenteeism = this.checkList[j].tabsenteeism;
-            }
-            if (this.checkList[j].normal === null || this.checkList[j].normal === '') {
-              this.checkList[j].normal = 0;
-            }
-            if (this.checkList[j].ordinaryindustry === null || this.checkList[j].ordinaryindustry === '') {
-              this.checkList[j].ordinaryindustry = 0;
-            }
-            if (this.checkList[j].weekendindustry === null || this.checkList[j].weekendindustry === '') {
-              this.checkList[j].weekendindustry = 0;
-            }
-            if (this.checkList[j].statutoryresidue === null || this.checkList[j].statutoryresidue === '') {
-              this.checkList[j].statutoryresidue = 0;
-            }
-            if (this.checkList[j].annualrestday === null || this.checkList[j].annualrestday === '') {
-              this.checkList[j].annualrestday = 0;
-            }
-            if (this.checkList[j].specialday === null || this.checkList[j].specialday === '') {
-              this.checkList[j].specialday = 0;
-            }
-            if (this.checkList[j].youthday === null || this.checkList[j].youthday === '') {
-              this.checkList[j].youthday = 0;
-            }
-            if (this.checkList[j].womensday === null || this.checkList[j].womensday === '') {
-              this.checkList[j].womensday = 0;
-            }
-            if (this.checkList[j].nursingleave === null || this.checkList[j].nursingleave === '') {
-              this.checkList[j].nursingleave = 0;
-            }
-            if (this.checkList[j].absenteeism === null || this.checkList[j].absenteeism === '') {
-              this.checkList[j].absenteeism = 0;
-            }
-            timelenthcheck = parseFloat(this.checkList[j].normal) + parseFloat(this.checkList[j].ordinaryindustry) + parseFloat(this.checkList[j].weekendindustry) + parseFloat(this.checkList[j].statutoryresidue) + parseFloat(this.checkList[j].annualrestday) + parseFloat(this.checkList[j].specialday)
-              + parseFloat(this.checkList[j].youthday) + parseFloat(this.checkList[j].womensday) - parseFloat(this.checkList[j].absenteeism);
-            this.checkdata = timelenthcheck;
+            sumoutgoinghours = parseFloat(this.checkList[j].outgoinghours);
           }
         }
+        this.checkdata = sumoutgoinghours;
       },
       setdisabled(val) {
         if (this.$route.params.disabled) {

@@ -11,7 +11,8 @@ import {
   downloadList,
   getListcheck,
   CheckList,
-  getCheckList
+  getCheckList,
+  getAttendancepdlist
 } from './PFANS5008Api'
 const PFANS5008Store = {
   namespaced: true,
@@ -20,7 +21,21 @@ const PFANS5008Store = {
   mutations: {
   },
   actions: {
-
+    //add-ws-外协人员表查询
+    getAttendancepdlist({ commit }, data) {
+      return new Promise((resolve, reject) => {
+        getAttendancepdlist(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    //add-ws-外协人员表查询
     deletePersonal({ commit },data) {
       return new Promise((resolve, reject) => {
         deletePersonal(data).then(response => {
