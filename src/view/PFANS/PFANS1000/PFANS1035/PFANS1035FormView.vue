@@ -991,6 +991,9 @@
           this.form.balance = null;
         }
       },
+        changeBut(val) {
+            this.form.budgetunit = val;
+        },
       getplantype(val) {
         this.form.plantype = val;
         if (val === 'PR002006') {
