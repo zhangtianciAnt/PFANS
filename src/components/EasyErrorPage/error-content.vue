@@ -1,7 +1,7 @@
 <template>
   <div class="error-page">
     <div class="content-con">
-      <img :src="src" :alt="code" style="width: 60%">
+      <img :src="src" :alt="code" style="width: 100%">
       <div class="text-con">
         <h4>{{ code }}</h4>
         <h5>{{ desc }}</h5>
