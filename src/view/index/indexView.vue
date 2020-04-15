@@ -340,7 +340,6 @@ export default {
                 "YYYY-MM-DD"
               );
             }
-            debugger
             let obj = {};
             obj.title = response[j].title;
             obj.url = response[j].url;
