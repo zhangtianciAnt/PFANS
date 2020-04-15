@@ -159,12 +159,23 @@ export default {
             response[j].errortype != "PR013007"
           ) {
             if (this.$i18n) {
-              response[j].lengthtime =
-                response[j].lengthtime + this.$t("label.hours");
+                //UPD_FJL   添加是否有实际时长的判断
+                if(response[j].relengthtime === '' || response[j].relengthtime === null) {
+                    response[j].lengthtime = response[j].lengthtime + this.$t("label.hours");
+                } else {
+                    response[j].lengthtime = response[j].relengthtime + this.$t("label.hours");
+                }
+                //UPD_FJL
             }
           } else {
             if (this.$i18n) {
-              response[j].lengthtime = response[j].lengthtime === "4" ? this.$t("label.PFANS2011FROMVIEW_HALFDATE") : this.$t("label.PFANS2016FORMVIEW_QUANTIAN");
+                //UPD_FJL   添加是否有实际时长的判断
+                if(response[j].relengthtime === '' || response[j].relengthtime === null) {
+                    response[j].lengthtime = response[j].lengthtime === "4" ? this.$t("label.PFANS2011FROMVIEW_HALFDATE") : this.$t("label.PFANS2016FORMVIEW_QUANTIAN");
+                } else {
+                    response[j].lengthtime = response[j].relengthtime === "4" ? this.$t("label.PFANS2011FROMVIEW_HALFDATE") : this.$t("label.PFANS2016FORMVIEW_QUANTIAN");
+                }
+                //UPD_FJL
             }
           }
 
