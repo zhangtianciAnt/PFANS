@@ -80,7 +80,7 @@
               <el-table-column
                 prop="entermouth"
                 :label="$t('label.PFANS1038VIEW_ADOPTED')"
-                width="195"
+                width="240"
                 align="center"
                 v-if="show"
                 :formatter="formatterDic">
@@ -154,7 +154,7 @@
               <el-table-column
                 prop="nextyear"
                 :label="getNextYearLevel"
-                width="180"
+                width="200"
                 align="center"
               >
                 <template slot-scope="scope">
@@ -172,7 +172,7 @@
               <el-table-column
                 prop="entermouth"
                 :label="$t('label.PFANS1038VIEW_ADOPTED')"
-                width="200"
+                width="220"
                 align="center"
               >
                 <template slot-scope="scope">
