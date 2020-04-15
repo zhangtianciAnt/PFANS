@@ -24,7 +24,9 @@
           >{{this.$t('label.PFANS8008FORMVIEW_INVALID')}}</el-radio>
         </el-form-item>
         <el-form-item :label="$t('label.PFANS8008FORMVIEW_RICHTEXT')">
-          <tinymce :height="300" :readonly="readonly" id="mytinymce" v-model="form.richtext"></tinymce>
+          <!--<tinymce :height="300" :readonly="readonly" id="mytinymce" v-model="form.richtext"></tinymce>-->
+          <quill-editor v-model="form.richtext" ref="myQuillEditor" style="height: 300px;" :options="editorOption">
+          </quill-editor>
         </el-form-item>
       </el-form>
     </div>
@@ -35,12 +37,20 @@
   import EasyNormalContainer from "@/components/EasyNormalContainer";
   import tinymce from "./index";
   import {Message} from 'element-ui';
+  import {
+    quillEditor
+  } from 'vue-quill-editor'
+  import 'quill/dist/quill.core.css'
+  import 'quill/dist/quill.snow.css'
+  import 'quill/dist/quill.bubble.css'
+
 
   export default {
     name: "PFANS8008FormView",
-    components: { EasyNormalContainer, tinymce },
+    components: { EasyNormalContainer, quillEditor },
     data() {
       return {
+        editorOption: {},
         loading: false,
         disbaled: false,
         titles: "title.PFANS8008VIEW",
