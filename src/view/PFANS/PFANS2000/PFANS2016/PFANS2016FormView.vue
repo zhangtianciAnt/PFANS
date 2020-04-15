@@ -840,7 +840,7 @@
                         }
                         if (this.form.errortype === 'PR013011' || this.form.errortype === 'PR013012' || this.form.errortype === 'PR013013'
                             || this.form.errortype === 'PR013015' || this.form.errortype === 'PR013017' || this.form.errortype === 'PR013020'
-                            || this.form.errortype === 'PR013021') {
+                            || this.form.errortype === 'PR013021' || this.form.errortype === 'PR013022') {
                             this.dislengthtime = true;
                         } else if (this.form.errortype === 'PR013009' || this.form.errortype === 'PR013008' || this.form.errortype === 'PR013006') {
                             if (moment(this.form.occurrencedate).format('YYYY-MM-DD') !== moment(this.form.finisheddate).format('YYYY-MM-DD')) {
@@ -1411,7 +1411,7 @@
                         //跨天取整天，8小时   不包含公休日
                         this.dislengthtime = true;
                         let time = 0;
-                        for (let d = 0; d < this.relist.length -1; d++) {
+                        for (let d = 0; d < this.relist.length - 1; d++) {
                             time = time + 1;
                         }
                         this.form.lengthtime = time * 8;
@@ -1436,7 +1436,7 @@
                     if (this.typecheck == '0') {
                         let time = 0;
                         //不包含公休日
-                        for (let d = 0; d < this.relist.length -1; d++) {
+                        for (let d = 0; d < this.relist.length - 1; d++) {
                             time = time + 1;
                         }
                         this.form.lengthtime = time * 8;
@@ -1459,7 +1459,7 @@
                     if (this.retypecheck == '0') {
                         let time = 0;
                         //不包含公休日
-                        for (let d = 0; d < this.relistTwo.length -1; d++) {
+                        for (let d = 0; d < this.relistTwo.length - 1; d++) {
                             time = time + 1;
                         }
                         this.form.relengthtime = time * 8;
@@ -1494,7 +1494,7 @@
                 // }
                 if (this.retypecheck == '0') {
                     let timere = 0;
-                    for (let d = 0; d < this.relistTwo.length -1; d++) {
+                    for (let d = 0; d < this.relistTwo.length - 1; d++) {
                         timere = timere + 1;
                     }
                     this.form.relengthtime = timere * 8;
@@ -1705,6 +1705,12 @@
                     this.dislengthtime = true;
                     this.form.lengthtime = 8;
                     this.showVacation = true;
+                } else if (val === 'PR013022') {
+                    this.checkerrortishi = false;
+                    this.checkrelengthtime = true;
+                    this.dislengthtime = true;
+                    this.form.lengthtime = '1';
+                    this.showVacation = true;
                 }
                 this.$refs.ruleForm.validateField('lengthtime');
                 // this.changeTime();
@@ -1830,10 +1836,10 @@
                             //外出，家长会，劳灾，其他福利，妊娠检查
                             if (this.form.errortype === 'PR013001' || this.form.errortype === 'PR013014' || this.form.errortype === 'PR013016'
                                 || this.form.errortype === 'PR013018' || this.form.errortype === 'PR013019') {
-                                for (let d = 0; d < this.relist.length; d++) {
+                                for (let d = 0; d < this.relist.length - 1; d++) {
                                     time = time + 1;
                                 }
-                                if (time <= 1) {
+                                if (time < 1) {
                                     Message({
                                         message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
                                         type: 'error',
@@ -1937,10 +1943,10 @@
                                     //         timere = 4;
                                     //     }
                                     // } else {
-                                    for (let d = 0; d < this.relistTwo.length; d++) {
+                                    for (let d = 0; d < this.relistTwo.length - 1; d++) {
                                         timere = timere + 1;
                                     }
-                                    if (timere <= 1) {
+                                    if (timere < 1) {
                                         Message({
                                             message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
                                             type: 'error',
@@ -1973,10 +1979,10 @@
                                     //         time = 4;
                                     //     }
                                     // } else {
-                                    for (let d = 0; d < this.relist.length; d++) {
+                                    for (let d = 0; d < this.relist.length - 1; d++) {
                                         time = time + 1;
                                     }
-                                    if (time <= 1) {
+                                    if (time < 1) {
                                         Message({
                                             message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
                                             type: 'error',
@@ -1986,10 +1992,10 @@
                                     } else {
                                         if (this.typecheck === '0') {
                                             this.form.lengthtime = time * 8;
-                                            this.form.relengthtime = time * 8;
+                                            // this.form.relengthtime = time * 8;
                                         } else {
                                             this.form.lengthtime = 4;
-                                            this.form.relengthtime = 4;
+                                            // this.form.relengthtime = 4;
                                         }
                                     }
                                     // }
@@ -2016,10 +2022,10 @@
                                 //     return;
                                 //   }
                                 // } else {
-                                for (let i = 0; i < this.relist.length; i++) {
+                                for (let i = 0; i < this.relist.length - 1; i++) {
                                     sum = sum + 1;
                                 }
-                                if (sum <= 1) {
+                                if (sum < 1) {
                                     Message({
                                         message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
                                         type: 'error',
@@ -2027,7 +2033,7 @@
                                     });
                                     return;
                                 } else {
-                                    if (sum === 2) {
+                                    if (sum === 1) {
                                         if (this.form.lengthtime > 8) {
                                             Message({
                                                 message: this.$t('label.PFANS2016FORMVIEW_WAICHUTIMENOCHECK'),
@@ -2092,6 +2098,16 @@
                                         //   }
                                     }
                                 }
+                            }
+                            //加餐、哺乳（女）
+                            if (this.form.errortype === 'PR013022' && this.$store.getters.userinfo.userinfo.sex !== 'PR019002') {
+                                Message({
+                                    message: this.$t('label.PFANS2016FORMVIEW_WOMENCHECK'),
+                                    type: 'error',
+                                    duration: 5 * 1000,
+                                });
+                                return;
+                                this.form.lengthtime = 1;
                             }
                             //金额不能为0的check
                             if ((this.form.errortype != 'PR013005' && this.form.errortype != 'PR013007') && this.form.status != '4' &&

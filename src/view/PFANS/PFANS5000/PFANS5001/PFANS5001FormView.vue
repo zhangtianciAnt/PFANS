@@ -904,7 +904,7 @@
                   </el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS5009FORMVIEW_THEME')"
-                    align="center">
+                    align="center" width="150">
                     <template slot-scope="scope">
                       <el-input
                         :no="scope.row"
@@ -928,6 +928,35 @@
                       ></el-date-picker>
                     </template>
                   </el-table-column>
+<!--                  add-ws-合同关联项目，分配金额-->
+                  <el-table-column :label="$t('label.PFANS5001FORMVIEW_CONTRACTREQUESTAMOUNT')" align="center" width="150">
+                    <template slot-scope="scope">
+                      <el-input-number
+                        :disabled="true"
+                        :max="1000000000"
+                        :min="0"
+                        :precision="2"
+                        controls-position="right"
+                        style="width: 100%"
+                        v-model="scope.row.contractrequestamount"
+                      ></el-input-number>
+                    </template>
+                  </el-table-column>
+                  <el-table-column :label="$t('label.PFANS5001FORMVIEW_CHECKCONTRACTAMOUNT')" align="center" width="150">
+                    <template slot-scope="scope">
+                      <el-input-number
+                        :disabled="!disable"
+                        :max="1000000000"
+                        :min="0"
+                        :precision="2"
+                        controls-position="right"
+                        @change="changeRMB(scope.row)"
+                        style="width: 100%"
+                        v-model="scope.row.contractamount"
+                      ></el-input-number>
+                    </template>
+                  </el-table-column>
+<!--                  add-ws-合同关联项目，分配金额-->
                   <el-table-column :label="$t('label.operation')" align="center" width="200">
                     <template slot-scope="scope">
                       <el-button
@@ -1180,6 +1209,7 @@
         // teamorglist: '',
         errorcenter: '',
         errorgroup: '',
+        checkmessage: '',
         errorgroup1: '',
         errorexpname: '',
         search: '',
@@ -1203,6 +1233,7 @@
         activeName2: 'first',
         buttonList: [],
         themeRow: '',
+        claimamount: '',
         workinghoursRow: '',
         currentRow: '',
         currentRow1: '',
@@ -1288,6 +1319,10 @@
             contract: '',
             theme: '',
             workinghours: '',
+            //add-ws-合同关联项目，分配金额
+            contractrequestamount: '',
+            contractamount: '',
+            //add-ws-合同关联项目，分配金额
             rowindex: '',
           },
         ],
@@ -1750,9 +1785,15 @@
               }
               this.tableB = tableb;
               this.tableC = tablec;
-              if(this.tableB.length = 1){
-                  this.addRow1();
+              //add-ws-修改判断tableB为一条的时候添加空行
+              let checktableb = 0;
+              for (var i = 0; i < this.tableB.length; i++) {
+                checktableb =checktableb+1
               }
+              if(checktableb===1){
+                this.addRow1()
+              }
+              //add-ws-修改判断tableB为一条的时候添加空行
             }
             /*else{
                 this.tableB = [
@@ -1795,6 +1836,10 @@
                   response.projectcontract[i].workinghours = [claimdatetim, claimdatetime1];
                 }
                 tabled.push({
+                  //add-ws-合同关联项目，分配金额
+                  contractrequestamount: response.projectcontract[i].contractrequestamount,
+                  contractamount: response.projectcontract[i].contractamount,
+                  //add-ws-合同关联项目，分配金额
                   contract: response.projectcontract[i].contract,
                   theme: response.projectcontract[i].theme,
                   workinghours: response.projectcontract[i].workinghours,
@@ -1888,6 +1933,19 @@
       }
     },
     methods: {
+      //ADD-WS-合同分配金额不能大于合同分配金额
+      changeRMB(row){
+        this.checkmessage = 0;
+        if(row.contractrequestamount<row.contractamount){
+          this.checkmessage = 1;
+          Message({
+            message: this.$t('label.PFANS5001FORMVIEW_CHECKERRORMESSAGE'),
+            type: 'error',
+            duration: 5 * 1000,
+          });
+        }
+      },
+      //ADD-WS-合同分配金额不能大于合同分配金额
       setPl({row, column, rowIndex, columnIndex}) {
         if (row.position.toUpperCase() === 'PL') {
           return 'PlStyle';
@@ -1960,6 +2018,7 @@
               vote2.claimdatetime = response.contractapplication[i].claimdatetime;
               vote2.entrypayment = response.contractapplication[i].entrypayment;
               vote2.theme = response.contractapplication[i].theme;
+              vote2.claimamount = response.contractapplication[i].claimamount;
               this.gridData3.push(vote2);
             }
             this.loading = false;
@@ -2150,11 +2209,13 @@
       },
       //合同
       handleClickChange2(val) {
+        this.claimamount = val.claimamount
         this.currentRow = val.contract;
         this.themeRow = val.theme;
         this.workinghoursRow = val.entrypayment;
       },
       submit2(row) {
+        row.contractrequestamount = this.claimamount
         row.contract = this.currentRow;
         row.theme = this.themeRow;
         row.workinghours = this.workinghoursRow;
@@ -2414,6 +2475,10 @@
           contract: '',
           theme: '',
           workinghours: '',
+          //add-ws-合同关联项目，分配金额
+          contractrequestamount: '',
+          contractamount: '',
+          //add-ws-合同关联项目，分配金额
           rowindex: '',
         });
       },
@@ -2428,6 +2493,10 @@
             contract: '',
             theme: '',
             workinghours: '',
+            //add-ws-合同关联项目，分配金额
+            contractrequestamount: '',
+            contractamount: '',
+            //add-ws-合同关联项目，分配金额
             rowindex: '',
           }];
         }
@@ -2621,6 +2690,10 @@
                 contract: '',
                 theme: '',
                 workinghours: '',
+                //add-ws-合同关联项目，分配金额
+                contractrequestamount: '',
+                contractamount: '',
+                //add-ws-合同关联项目，分配金额
               }];
             }
             this.baseInfo.companyprojects = JSON.parse(JSON.stringify(this.form));
@@ -2707,6 +2780,13 @@
                 });
               }
             }
+            //add-ws-存在check关闭loading
+            if (this.checkmessage === 1) {
+              this.activeName ='fifth'
+              this.loading = false;
+             return;
+            }
+            //add-ws-存在check关闭loading
             for (let i = 0; i < this.tableD.length; i++) {
               this.tableD[i].workinghours = this.getworkinghours(this.tableD[i].workinghours);
               if (
@@ -2715,6 +2795,10 @@
                 this.tableD[i].workinghours !== ''
               ) {
                 this.baseInfo.projectcontract.push({
+                  //add-ws-合同关联项目，分配金额
+                  contractrequestamount: this.tableD[i].contractrequestamount,
+                  contractamount: this.tableD[i].contractamount,
+                  //add-ws-合同关联项目，分配金额
                   contract: this.tableD[i].contract,
                   theme: this.tableD[i].theme,
                   workinghours: this.tableD[i].workinghours,
@@ -2869,6 +2953,12 @@
             });
           }
           //ADD-WS-开发部门，体制时间范围check
+          //add-ws-存在check关闭loading
+          else if (this.checkmessage === 1) {
+            this.activeName ='fifth'
+            this.loading = false;
+          }
+            //add-ws-存在check关闭loading
           else if (this.$route.params._id) {
               this.baseInfo.companyprojects.companyprojects_id = this.$route.params._id;
               this.form.center_id = this.centerorglist;

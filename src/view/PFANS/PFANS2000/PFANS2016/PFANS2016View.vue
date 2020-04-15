@@ -159,12 +159,25 @@ export default {
             response[j].errortype != "PR013007"
           ) {
             if (this.$i18n) {
-              response[j].lengthtime =
-                response[j].lengthtime + this.$t("label.hours");
+                //UPD_FJL   添加是否有实际时长的判断
+                response[j].lengthtime = response[j].lengthtime + this.$t("label.hours");
+                if(response[j].status == 7) {
+                    response[j].relengthtime = response[j].relengthtime + this.$t("label.hours");
+                } else {
+                    response[j].relengthtime ='';
+                }
+                //UPD_FJL
             }
           } else {
             if (this.$i18n) {
-              response[j].lengthtime = response[j].lengthtime === "4" ? this.$t("label.PFANS2011FROMVIEW_HALFDATE") : this.$t("label.PFANS2016FORMVIEW_QUANTIAN");
+                //UPD_FJL   添加是否有实际时长的判断
+                response[j].lengthtime = response[j].lengthtime === "4" ? this.$t("label.PFANS2011FROMVIEW_HALFDATE") : this.$t("label.PFANS2016FORMVIEW_QUANTIAN");
+                if(response[j].status == 7) {
+                    response[j].relengthtime = response[j].relengthtime === "4" ? this.$t("label.PFANS2011FROMVIEW_HALFDATE") : this.$t("label.PFANS2016FORMVIEW_QUANTIAN");
+                } else {
+                    response[j].relengthtime ='';
+                }
+                //UPD_FJL
             }
           }
 
@@ -178,16 +191,18 @@ export default {
           if (user) {
             response[j].username = user.userinfo.customername;
           }
+          // del_fjl
           // add-ws-考勤异常实际值添加
-          if (response[j].status == 7) {
-            if (this.$i18n) {
-              response[j].relengthtime =
-                response[j].relengthtime + this.$t("label.hours");
-            }
-          }else{
-            response[j].relengthtime ='';
-          }
+          // if (response[j].status == 7) {
+          //   if (this.$i18n) {
+          //     response[j].relengthtime =
+          //       response[j].relengthtime + this.$t("label.hours");
+          //   }
+          // }else{
+          //   response[j].relengthtime ='';
+          // }
           // add-ws-考勤异常实际值添加
+          // del_fjl
           if (response[j].status !== null && response[j].status !== "") {
             response[j].status = getStatus(response[j].status);
           }
