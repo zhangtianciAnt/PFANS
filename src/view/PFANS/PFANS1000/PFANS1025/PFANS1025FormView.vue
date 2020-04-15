@@ -3,7 +3,6 @@
     <EasyNormalContainer :buttonList="buttonList"
                          :title="title"
                          @buttonClick="buttonClick"
-                         :canStart="canStart"
                          @end="end" @start="start"
                          @workflowState="workflowState"
                          ref="container"
@@ -497,7 +496,6 @@
         selectType: 'Single',
         loading: false,
         title: 'title.PFANS1025VIEW',
-        canStart: false,
         multiple: false,
         orglist: '',
         baseInfo: {},
