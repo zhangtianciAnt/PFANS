@@ -32,9 +32,9 @@
         <el-timeline style="padding-top: 30px;max-height: 500px;overflow-y: auto">
           <el-timeline-item
             :key="index"
-            :timestamp="(item.sdata)" :type="index.toString() === '0'?'primary':'info'"
+            :timestamp="(item.edata)" :type="index.toString() === '0'?'primary':'info'"
             v-for="(item, index) in logDetail2">
-            {{item.content}}
+            {{item.content}}{{item.remark}}
           </el-timeline-item>
         </el-timeline>
       </div>
@@ -83,6 +83,9 @@
                     this.logDetail2.map(item => {
                       if (item.sdata && item.sdata != '') {
                         item.sdata = moment(item.sdata).format('YYYY-MM-DD HH:mm:ss')
+                      }
+                      if (item.edata && item.edata != '') {
+                        item.edata = moment(item.edata).format('YYYY-MM-DD HH:mm:ss')
                       }
                       if (item.isvirtual === '0') {
                         item.content = item.result

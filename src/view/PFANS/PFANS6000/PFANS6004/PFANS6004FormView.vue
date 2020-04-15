@@ -121,7 +121,7 @@
                      orgtype="2" style="width:20vw"></org>
               </el-form-item>
             </el-col>
-            <!--            作业形态-->
+            <!--            作业场所-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6004FORMVIEW_OPERATIONFORM')" prop="operationform">
                 <dicselect
@@ -135,6 +135,7 @@
               </el-form-item>
             </el-col>
             <!--            编号变更卡号-->
+            <!--1111-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANSUSERFORMVIEW_JOBNUMBER')" prop="number">
                 <el-input
@@ -765,6 +766,11 @@
       },
       changeoperationform(val) {
         this.form.operationform = val;
+        if(val === 'BP024002'){
+          this.form.number = '00000'
+        }else{
+          this.form.number = ''
+        }
       },
       changetechnology(val) {
         this.form.technology = val;

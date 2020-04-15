@@ -1494,9 +1494,15 @@
             // this.baseInfo.companyprojects = JSON.parse(JSON.stringify(this.form));
             // this.baseInfo.stageInformation = JSON.parse(JSON.stringify(this.tableP));
             this.loading = false;
-            if(this.tableB.length = 1){
-                this.addRow1();
+            //add-ws-修改判断tableB为一条的时候添加空行
+            let checktableb = 0;
+            for (var i = 0; i < this.tableB.length; i++) {
+              checktableb =checktableb+1
             }
+            if(checktableb===1){
+              this.addRow1()
+            }
+            //add-ws-修改判断tableB为一条的时候添加空行
           })
           .catch(error => {
             Message({
