@@ -1337,7 +1337,7 @@
                     teamid: '',
                     user_id: '',
                     telephone: '',
-                    moduleid: 'AP',
+                    moduleid: '',
                     accountnumber: '',
                     reimbursementdate: moment(new Date()).format('YYYY-MM-DD'),
                     moneys: '',
@@ -1859,6 +1859,7 @@
                     this.show9 = true;
                     this.show6 = false;
                     this.show7 = false;
+                    this.form.moduleid = 'AP';
                 } else if (this.form.type === 'PJ001002') {
                     this.show9 = false;
                     this.show6 = true;

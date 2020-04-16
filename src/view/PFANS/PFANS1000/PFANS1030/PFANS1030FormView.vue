@@ -596,6 +596,32 @@
               </el-row>
               <!--              add-ws-公式修改-->
             </el-tab-pane>
+            <!--            //add-ws-添加上传附件功能-->
+            <el-tab-pane :label="$t('label.PFANS2022VIEW_UPDATINGFILES')" name="fourth">
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.enclosure')" prop="enclosurecontent">
+                    <el-upload
+                      :action="upload"
+                      :disabled="!disable"
+                      :file-list="fileList"
+                      :on-error="fileError"
+                      :on-preview="fileDownload"
+                      :on-remove="fileRemove"
+                      :on-success="fileSuccess"
+                      class="upload-demo"
+                      drag
+                      ref="upload"
+                      v-model="form.uploadfile">
+                      <i class="el-icon-upload"></i>
+                      <div class="el-upload__text">{{$t('label.enclosurecontent')}}<em>{{$t('normal.info_09')}}</em>
+                      </div>
+                    </el-upload>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </el-tab-pane>
+            <!--            //add-ws-添加上传附件功能-->
           </el-tabs>
         </el-form>
       </div>
@@ -610,7 +636,7 @@
   import dicselect from '../../../components/dicselect';
   import moment from 'moment';
   import org from '../../../components/org';
-  import {getDictionaryInfo, getUserInfo, getOrgInfo} from '@/utils/customize';
+  import {getDictionaryInfo, getUserInfo,downLoadUrl, uploadUrl,getOrgInfo} from '@/utils/customize';
 
   import project from '../../../components/project';
 
@@ -770,6 +796,10 @@
       };
 
       return {
+        //add-ws-添加上传附件功能-
+        fileList: [],
+        upload: uploadUrl(),
+        //add-ws-添加上传附件功能-
         optionsdate: [{
           value: this.$t('label.PFANS1004VIEW_INSIDE'),
           lable: this.$t('label.PFANS1004VIEW_INSIDE'),
@@ -810,6 +840,7 @@
         arrAttf: [],
         groupN: '',
         form: {
+          uploadfile: '',
           membercost: '',
           investorspeopor: '',
           group_id: '',
@@ -1092,6 +1123,19 @@
               this.form.claimdatetimeEnd = this.form.claimdatetime.slice(this.form.claimdatetime.length - 10);
             }
             //add-ws-表格第一行固定处理
+            //add-ws-添加上传附件功能
+            if (this.form.uploadfile != '' && this.form.uploadfile != null) {
+              let uploadfile = this.form.uploadfile.split(';');
+              for (var i = 0; i < uploadfile.length; i++) {
+                if (uploadfile[i].split(',')[0] != '') {
+                  let o = {};
+                  o.name = uploadfile[i].split(',')[0];
+                  o.url = uploadfile[i].split(',')[1];
+                  this.fileList.push(o);
+                }
+              }
+            }
+            //add-ws-添加上传附件功能
             if (response.awardDetail.length > 0) {
               let check = 0;
               let data = [];
@@ -1229,6 +1273,48 @@
       this.disable = this.$route.params.disabled;
     },
     methods: {
+      //add-ws-添加上传附件功能-
+      fileError(err, file, fileList) {
+        Message({
+          message: this.$t('normal.error_04'),
+          type: 'error',
+          duration: 5 * 1000,
+        });
+      },
+      fileRemove(file, fileList) {
+        this.fileList = [];
+        this.form.uploadfile = '';
+        for (var item of fileList) {
+          let o = {};
+          o.name = item.name;
+          o.url = item.url;
+          this.fileList.push(o);
+          this.form.uploadfile += item.name + ',' + item.url + ';';
+        }
+      },
+      fileDownload(file) {
+        if (file.url) {
+          var url = downLoadUrl(file.url);
+          window.open(url);
+        }
+
+      },
+      fileSuccess(response, file, fileList) {
+        this.fileList = [];
+        this.form.uploadfile = '';
+        for (var item of fileList) {
+          let o = {};
+          o.name = item.name;
+          if (!item.url) {
+            o.url = item.response.info;
+          } else {
+            o.url = item.url;
+          }
+          this.fileList.push(o);
+          this.form.uploadfile += o.name + ',' + o.url + ';';
+        }
+      },
+      //add-ws-添加上传附件功能-
       changesubtotal(row){
         row.subtotal = row.subtotal
       },
