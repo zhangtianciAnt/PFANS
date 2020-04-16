@@ -2,6 +2,7 @@
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList"
                          :title="title"
+                         :enableSave="enableSave"
                          @buttonClick="buttonClick"
                          @end="end" @start="start"
                          @workflowState="workflowState"
@@ -308,8 +309,19 @@
                         header-cell-class-name="sub_bg_color_blue" stripe>
                 <el-table-column :label="$t('label.PFANS1012FORMVIEW_BUDGET')" align="center" width="150">
                   <template slot-scope="scope">
-                    <el-input :disabled="true" maxlength="20" style="width: 100%" v-model="scope.row.budgetcode">
-                    </el-input>
+<!--                    <el-input :disabled="true" maxlength="20" style="width: 100%" v-model="scope.row.budgetcode">-->
+<!--                    </el-input>-->
+                    <el-select clearable style="width: 20vw" v-model="scope.row.budgetcode" :disabled="!disable"
+                               :placeholder="$t('normal.error_09')">
+                      <el-option
+                        v-for="item in options1"
+                        :key="item.value"
+                        :label="item.lable"
+                        :value="item.value"
+                        :no="scope.row"
+                        @change="getBudgetunit">
+                      </el-option>
+                    </el-select>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1025VIEW_DEPART')" align="center" width="170"
@@ -515,6 +527,8 @@
         }
       };
       return {
+          options1:[],
+          enableSave: false,
         //add-ws-添加上传附件功能-
         fileList: [],
         upload: uploadUrl(),
@@ -617,6 +631,9 @@
           .dispatch('PFANS1025Store/selectById', {'award_id': this.$route.params._id})
           .then(response => {
             this.form = response.award;
+            if(this.form.status==='4'){
+              this.enableSave = true;
+            }
             //add-ws-契约种类value1值处理
             if (this.form.contracttype !== null && this.form.contracttype !== '') {
               let letContracttype = getDictionaryInfo(this.form.contracttype);
@@ -679,6 +696,23 @@
               }
               for (var i = 0; i < this.tableT.length; i++) {
                 this.orglist = this.tableT[i].depart;
+                if(this.tableT[i].depart !== '' && this.tableT[i].depart !== null && this.tableT[i].depart !== undefined){
+                    //ADD_FJL
+                    this.options1 = [];
+                    let butinfo = getOrgInfo(this.tableT[i].depart).encoding;
+                    let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+                    if(dic.length > 0){
+                        for (let i = 0; i < dic.length; i++) {
+                            if(butinfo === dic[i].value1){
+                                this.options1.push({
+                                    lable: dic[i].value2 +'_'+ dic[i].value3,
+                                    value: dic[i].code,
+                                })
+                            }
+                        }
+                    }
+                    //ADD_FJL  修改人员预算编码
+                }
               }
             }
             let mamount = 0;
@@ -800,6 +834,9 @@
         }
       },
       //add-ws-添加上传附件功能-
+        getBudgetunit(val, row) {
+            row.budgetcode = val;
+        },
       changePro(val, row) {
         row.projects = val;
       },
@@ -834,12 +871,28 @@
       getindividual(val) {
         this.form.individual = val;
       },
+        //修改人员预算编码
       getGroupId(orglist, row) {
         row.depart = orglist;
-        let group = getOrgInfo(orglist);
-        if (group) {
-          row.budgetcode = group.encoding;
-        }
+          //ADD_FJL
+          this.options1 = [];
+          let butinfo = getOrgInfo(row.depart).encoding;
+          let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+          if(dic.length > 0){
+              for (let i = 0; i < dic.length; i++) {
+                  if(butinfo === dic[i].value1){
+                      this.options1.push({
+                          lable: dic[i].value2 +'_'+ dic[i].value3,
+                          value: dic[i].code,
+                      })
+                  }
+              }
+          }
+          //ADD_FJL  修改人员预算编码
+        // let group = getOrgInfo(orglist);
+        // if (group) {
+        //   row.budgetcode = group.encoding;
+        // }
       },
       workflowState(val) {
         if (val.state === '1') {
