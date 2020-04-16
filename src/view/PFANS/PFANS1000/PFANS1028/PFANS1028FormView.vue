@@ -7,7 +7,6 @@
                          @end="end" @start="start"
                          @workflowState="workflowState"
                          ref="container"
-                         :enableSave="enableSave"
                          v-loading="loading">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
@@ -1388,7 +1387,6 @@
           tableJasoftware: '0',
           tableGatetechnology: '0'
         },
-        enableSave: false,
         checked1: false,
         checked2: false,
         checked3: false,
@@ -2662,9 +2660,6 @@
           .dispatch('PFANS1028Store/one', {'nonjudgment_id': this.$route.params._id})
           .then(response => {
             this.form = response;
-            if(this.form.status==='4'){
-              this.enableSave = true;
-            }
             this.form.gfjudgeno='GF-'+response.contractnumber;
             this.form.jxjudgeno='JX-'+response.contractnumber;
             this.form.lyjudgeno='LY-'+response.contractnumber;
