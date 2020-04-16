@@ -1553,6 +1553,15 @@
                     .then(response => {
                             this.form = response.publicexpense;
                             let rst = getOrgInfoByUserId(response.publicexpense.user_id);
+                      if (this.form.type == 'PJ001001') {
+                        let moduleidinfo = getDictionaryInfo(this.form.moduleid);
+                        if (moduleidinfo != null) {
+                          this.form.moduleid = moduleidinfo.value1;
+                        } else {
+                          this.form.moduleid = AP;
+                        }
+                        // moduleid
+                      }
                             if (rst) {
                                 this.centerid = rst.centerNmae;
                                 this.groupid = rst.groupNmae;
@@ -1808,6 +1817,10 @@
                                 this.show9 = false;
                                 this.show6 = true;
                                 this.show7 = true;
+                              let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
+                              if (letErrortype != null) {
+                                this.tableR[i].accountcode = letErrortype.code;
+                              }
                             }
                             this.loading = false;
                         },

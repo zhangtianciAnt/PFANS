@@ -1,7 +1,14 @@
 <template>
-  <EasyNormalTable :title="title" :columns="columns" :data="data" :rowid="row" :buttonList="buttonList"
-                   @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
-  </EasyNormalTable>
+  <div>
+    <EasyNormalTable :title="title" :columns="columns" :data="data" :rowid="row" :buttonList="buttonList"
+                     @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" v-show="showTable1">
+    </EasyNormalTable>
+<!--    ADD-WS-决裁编号添加-->
+    <EasyNormalTable :buttonList="buttonList" :columns="columns2" :data="data" :title="title" v-loading="loading"
+                     v-show="!showTable1" @buttonClick="buttonClick" @rowClick="rowClick" :rowid="row">
+    </EasyNormalTable>
+<!--    ADD-WS-决裁编号添加-->
+  </div>
 </template>
 
 <script>
@@ -16,10 +23,59 @@
     },
     data() {
       return {
+        //ADD-WS-决裁编号添加
+        showTable1: true,
+        //ADD-WS-决裁编号添加
         loading: false,
         title: '',
         // 表格数据源
         data: [],
+        //ADD-WS-决裁编号添加
+        columns2: [
+          {
+            code: 'judgnumbers',
+            label: 'label.PFANS1001FORMVIEW_NUMBERS',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'user_id',
+            label: 'label.applicant',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'center_id',
+            label: 'label.center',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'group_id',
+            label: 'label.group',
+            width: 130,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'team_id',
+            label: 'label.team',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'status',
+            label: 'label.approval_status',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+        ],
+        //ADD-WS-决裁编号添加
         // 列属性
         columns: [
           {
@@ -74,38 +130,62 @@
     methods: {
       getCompanyProjectList(val) {
         if (val === 1) {
-          this.row = "business_id";
+          //ADD-WS-决裁编号添加
+          this.showTable1 = true;
+          //ADD-WS-决裁编号添加
+          this.row = 'business_id';
           this.title = 'title.PFANS1002VIEW';
           let businesstype = {'businesstype': '0'};
-          this.dispatchparameter('PFANS1001Store/getBusiness',businesstype);
+          this.dispatchparameter('PFANS1001Store/getBusiness', businesstype);
         } else if (val === 2) {
-            this.row = "business_id";
-            this.title = 'title.PFANS1035VIEW';
-            let businesstype = {'businesstype': '1'};
-            this.dispatchparameter('PFANS1001Store/getBusiness',businesstype);
+          //ADD-WS-决裁编号添加
+          this.showTable1 = true;
+          //ADD-WS-决裁编号添加
+          this.row = 'business_id';
+          this.title = 'title.PFANS1035VIEW';
+          let businesstype = {'businesstype': '1'};
+          this.dispatchparameter('PFANS1001Store/getBusiness', businesstype);
         } else if (val === 3) {
+          //ADD-WS-决裁编号添加
+          this.showTable1 = true;
+          //ADD-WS-决裁编号添加
           this.row = 'judgementid';
-            this.title = 'title.PFANS1003VIEW';
+          this.title = 'title.PFANS1003VIEW';
           let letequipment = {'equipment': '1'};
           this.dispatchparameter('PFANS1001Store/getJudgement', letequipment);
         } else if (val === 4) {
+          //ADD-WS-决裁编号添加
+          this.showTable1 = false;
+          //ADD-WS-决裁编号添加
           this.row = 'judgementid';
           this.title = 'title.PFANS1004VIEW';
           let letequipment = {'equipment': '0'};
           this.dispatchparameter('PFANS1001Store/getJudgement', letequipment);
         } else if (val === 5) {
+          //ADD-WS-决裁编号添加
+          this.showTable1 = true;
+          //ADD-WS-决裁编号添加
           this.row = 'purchaseapply_id';
           this.title = 'title.PFANS1005VIEW';
           this.dispatch('PFANS1001Store/getpurchaseApply');
         } else if (val === 6) {
+          //ADD-WS-决裁编号添加
+          this.showTable1 = true;
+          //ADD-WS-决裁编号添加
           this.row = 'loanapplication_id';
           this.title = 'title.PFANS1006VIEW';
           this.dispatch('PFANS1001Store/getLoanapplication');
         } else if (val === 10) {
+          //ADD-WS-决裁编号添加
+          this.showTable1 = true;
+          //ADD-WS-决裁编号添加
           this.row = 'communication_id';
           this.title = 'title.PFANS1010VIEW';
           this.dispatch('PFANS1001Store/getCommunication');
         } else if (val === 11) {
+          //ADD-WS-决裁编号添加
+          this.showTable1 = true;
+          //ADD-WS-决裁编号添加
           this.row = 'offshore_id';
           this.title = 'title.PFANS1011VIEW';
           this.dispatch('PFANS1001Store/getOffshore');
@@ -133,12 +213,12 @@
       },
       setuser(response) {
         for (let j = 0; j < response.length; j++) {
-            let nameflg = getOrgInfoByUserId(response[j].user_id);
-            if (nameflg) {
-                response[j].center_id = nameflg.centerNmae;
-                response[j].group_id = nameflg.groupNmae;
-                response[j].team_id = nameflg.teamNmae;
-            }
+          let nameflg = getOrgInfoByUserId(response[j].user_id);
+          if (nameflg) {
+            response[j].center_id = nameflg.centerNmae;
+            response[j].group_id = nameflg.groupNmae;
+            response[j].team_id = nameflg.teamNmae;
+          }
           let user = getUserInfo(response[j].user_id);
           if (user) {
             response[j].user_id = getUserInfo(response[j].user_id).userinfo.customername;
@@ -174,7 +254,7 @@
         if (this.$route.params.title === 1) {
           letname = 'PFANS1002FormView';
         } else if (this.$route.params.title === 2) {
-            letname = 'PFANS1035FormView';
+          letname = 'PFANS1035FormView';
         } else if (this.$route.params.title === 3) {
           letname = 'PFANS1003FormView';
         } else if (this.$route.params.title === 4) {
