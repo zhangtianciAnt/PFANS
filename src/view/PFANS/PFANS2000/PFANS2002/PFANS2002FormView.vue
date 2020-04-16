@@ -230,17 +230,42 @@
 
                   <el-row>
                     <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS2002FORMVIEW_OTHER1_1')">
+                      <el-form-item :label="$t('label.PFANS2005FORMVIEW_QT1')">
                         <span style="margin-right: 1rem ">{{$t('label.PFANSUSERFORMVIEW_NO')}}</span>
-                        <el-switch :disabled="disabled" v-model="form.other1"></el-switch>
+                        <el-switch
+                          :disabled="disabled"
+                          v-model="form.other1"
+                          active-value="0"
+                          @change="changeOther1"
+                          inactive-value="1"></el-switch>
                         <span style="margin-left: 1rem ">{{$t('label.PFANSUSERFORMVIEW_YES')}}</span>
                       </el-form-item>
                     </el-col>
+                    <el-col>
+                      <!--技术1备注 ADD 4/16 ztc-->
+                      <el-form-item :label="$t('label.PFANS2005FORMVIEW_QT1')" v-if="show1">
+                        <el-input type="textarea" v-model="form.remark1" :disabled="disabled"></el-input>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+                  <el-row>
                     <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS2002FORMVIEW_OTHER2_1')">
+                      <el-form-item :label="$t('label.PFANS2005FORMVIEW_QT2')">
                         <span style="margin-right: 1rem ">{{$t('label.PFANSUSERFORMVIEW_NO')}}</span>
-                        <el-switch :disabled="disabled" v-model="form.other2"></el-switch>
+                        <el-switch
+                          :disabled="disabled"
+                          v-model="form.other2"
+                          active-value="0"
+                          inactive-value="1"
+                          @change="changeOther2"
+                        ></el-switch>
                         <span style="margin-left: 1rem ">{{$t('label.PFANSUSERFORMVIEW_YES')}}</span>
+                      </el-form-item>
+                    </el-col>
+                    <el-col>
+                      <!--技术2备注 ADD 4/16 ztc-->
+                      <el-form-item :label="$t('label.PFANS2005FORMVIEW_QT2')" v-if="show2">
+                        <el-input type="textarea" v-model="form.remark2" :disabled="disabled"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -631,7 +656,9 @@
         multiple: false,
         search: '',
         result: '',
-          code_sex: 'PR019',
+        show1: false,
+        show2: false,
+        code_sex: 'PR019',
         gridData: [],
         num: 0,
         activeName: 'first',
@@ -667,22 +694,20 @@
           name: '',
           sex: '',
           birthday: '',
-
+          remark1: '',
+          remark2: '',
           education1: '',
-            school1: '',
+          school1: '',
           specialty1: '',
           quityear1: '',
-
           education2: '',
-            school2: '',
+          school2: '',
           specialty2: '',
           quityear2: '',
-
           education3: '',
-            school3: '',
+          school3: '',
           specialty3: '',
           quityear3: '',
-
           intime: '',
           expectedtime: '',
           // entrytime:"",
@@ -778,6 +803,22 @@
     },
 
     methods: {
+      // <!--技术1备注 ADD 4/16 ztc-->
+      changeOther1(val) {
+        if (val === '1') {
+          this.show1 = false;
+        } else {
+          this.show1 = true;
+        }
+      },
+      // <!--技术1备注 ADD 4/16 ztc-->
+      changeOther2(val) {
+        if (val === '1') {
+          this.show2 = false;
+        } else {
+          this.show2 = true;
+        }
+      },
       checkRequire(){
         if(!this.form.name || !this.form.sex || !this.form.birthday){
           this.activeName = 'first';
