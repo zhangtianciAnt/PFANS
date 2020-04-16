@@ -261,7 +261,7 @@
               </el-row>
               <el-row>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1012VIEW_PERSONALNAME')" v-show="show2" prop="name">
+                  <el-form-item :label="$t('label.PFANS1012VIEW_CAIWUPERSONALCODE')" v-show="show2" prop="name">
                     <el-input :disabled="true" style="width:20vw" v-model="form.name" maxlength="20"></el-input>
                   </el-form-item>
                 </el-col>
@@ -625,8 +625,8 @@
       } else {
         this.userlist = this.$store.getters.userinfo.userid;
         if(getUserInfo(this.$store.getters.userinfo.userid)){
-          this.form.name = this.$store.getters.userinfo.userinfo.personalcode;
-          this.Codecheck = this.$store.getters.userinfo.userinfo.personalcode;
+          this.form.name = this.$store.getters.userinfo.userinfo.caiwupersonalcode;
+          this.Codecheck = this.$store.getters.userinfo.userinfo.caiwupersonalcode;
         }
         let num = getUserInfo(this.$store.getters.userinfo.userid).userinfo.extension;
         if (num) {
@@ -741,6 +741,13 @@
       },
       getUserids(val) {
         this.form.user_id = val;
+        if(val === ''){
+          this.form.code =''
+          this.Codecheck =''
+        }else{
+          this.form.code = getUserInfo(val).userinfo.caiwupersonalcode;
+          this.Codecheck = getUserInfo(val).userinfo.caiwupersonalcode;
+        }
         let rst = getOrgInfoByUserId(val);
         // valif (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
         //   this.form.budgetunit = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
