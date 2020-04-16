@@ -1,6 +1,6 @@
 <template>
   <div style="min-height: 100%">`
-    <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick" ref="container"
+    <EasyNormalContainer :buttonList="buttonList" :enableSave="enableSave" :title="title" @buttonClick="buttonClick" ref="container"
                          v-loading="loading" :canStart="canStart">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
@@ -199,6 +199,7 @@
     },
     data() {
       return {
+        enableSave: false,
         multiple: false,
         loading: false,
         selectType: 'Single',
@@ -264,6 +265,9 @@
           .dispatch('PFANS1031Store/one', {'napalm_id': this.$route.params._id})
           .then(response => {
             this.form = response;
+            if(this.form.status==='4'){
+              this.enableSave = true;
+            }
             this.userlist = this.form.loadingjudge;
             if (this.form.claimdatetime !== null && this.form.claimdatetime !== "") {
               this.form.openingdate = this.form.claimdatetime.slice(0, 10);
