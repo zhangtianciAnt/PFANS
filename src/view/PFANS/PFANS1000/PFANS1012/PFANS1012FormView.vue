@@ -51,14 +51,16 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_MODULE')">
-                      <!--                      <dicselect :code="code2"-->
-                      <!--                                 :data="form.moduleid"-->
-                      <!--                                 :disabled="!disable"-->
-                      <!--                                 :multiple="multiple"-->
-                      <!--                                 @change="getmodule"-->
-                      <!--                                 style="width:20vw">-->
-                      <!--                      </dicselect>-->
-                      <el-input :disabled="true" style="width:20vw" v-model="form.moduleid"></el-input>
+                                            <dicselect :code="code2"
+                                                       :data="form.moduleid"
+                                                       :disabled="!disable"
+                                                       :multiple="multiple"
+                                                       @change="getmodule"
+                                                       style="width:20vw"
+                                                       v-if="show6"
+                                            >
+                                            </dicselect>
+                      <el-input :disabled="true" style="width:20vw" v-model="form.moduleid" v-if="show9"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -488,6 +490,7 @@
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1012FORMVIEW_CHARGED')" name="second">
               <el-collapse>
+                <!--111-->
                 <el-collapse-item v-if="show9">
                   <template slot="title">
                     <span class="collapse_Title">{{$t('label.PFANS1012VIEW_TRAFFIC')}}</span>
@@ -2422,9 +2425,9 @@
                     this.form.loan = '';
                 }
             },
-            // getmodule(val) {
-            //   this.form.moduleid = val;
-            // },
+            getmodule(val) {
+              this.form.moduleid = val;
+            },
 
             getCurrency(val, row) {
                 row.currency = val;
