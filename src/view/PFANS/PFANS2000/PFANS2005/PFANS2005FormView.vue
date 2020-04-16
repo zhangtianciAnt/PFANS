@@ -264,6 +264,13 @@
                     width="150"
                     align="center"
                   ></plx-table-column>
+                  <!-- 一括补助基本 -->
+                  <plx-table-column
+                    prop="ykbzjs"
+                    :label="$t('label.PFANS2006VIEW_YKBZJB')"
+                    width="150"
+                    align="center"
+                  ></plx-table-column>
                   <!-- 一括补助 -->
                   <plx-table-column
                     prop="ykbz"

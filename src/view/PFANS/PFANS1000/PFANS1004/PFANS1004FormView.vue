@@ -558,6 +558,7 @@
                 // this.form.thisproject = rst.personalcode;
               }
               this.userlist = this.form.user_id;
+                this.getBudt(this.userlist);
               this.getDecisive(this.form.decisive);
               this.getBusinessplantype(this.form.businessplantype);
               if (this.form.careerplan === '1') {
@@ -628,25 +629,10 @@
             // this.form.thisproject = rst.personalcode;
           }
           this.form.user_id = this.$store.getters.userinfo.userid;
+            this.getBudt(this.form.user_id);
         }
         // this.loading = false;
       }
-      //ADD_FJL  修改人员预算编码
-      if (getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)) {
-        let butinfo = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
-        let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-        if (dic.length > 0) {
-          for (let i = 0; i < dic.length; i++) {
-            if (butinfo === dic[i].value1) {
-              this.options.push({
-                lable: dic[i].value3,
-                value: dic[i].code,
-              })
-            }
-          }
-        }
-      }
-      //ADD_FJL  修改人员预算编码
     },
     computed: {
       readonly: function () {
@@ -711,6 +697,24 @@
       }
     },
     methods: {
+        getBudt(val){
+            //ADD_FJL  修改人员预算编码
+            if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
+                let butinfo = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
+                let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+                if(dic.length > 0){
+                    for (let i = 0; i < dic.length; i++) {
+                        if(butinfo === dic[i].value1){
+                            this.options.push({
+                                lable: dic[i].value2 +'_'+ dic[i].value3,
+                                value: dic[i].code,
+                            })
+                        }
+                    }
+                }
+            }
+            //ADD_FJL  修改人员预算编码
+        },
       setdisabled(val) {
         if (this.$route.params.disabled) {
           this.disabled = val;

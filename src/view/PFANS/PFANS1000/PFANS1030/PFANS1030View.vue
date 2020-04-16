@@ -93,6 +93,13 @@
             fix: false,
             filter: true,
           },
+          {
+            code: 'status',
+            label: 'label.approval_status',
+            width: 120,
+            fix: false,
+            filter: true
+          }
         ],
         buttonList: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
@@ -187,6 +194,7 @@
                               currencyposition: response[j].currencyposition,
                               claimamount: response[j].claimamount,
                               award_id: response[j].award_id,
+                              status:response[j].status
                             });
                           }
                         }
@@ -207,6 +215,7 @@
                             currencyposition: response[m].currencyposition,
                             claimamount: response[m].claimamount,
                             award_id: response[m].award_id,
+                            status:response[m].status
                           });
                         }
                       }

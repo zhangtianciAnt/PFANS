@@ -262,7 +262,7 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1012VIEW_CAIWUPERSONALCODE')" v-show="show2" prop="name">
-                    <el-input :disabled="true" style="width:20vw" v-model="form.name" maxlength="20"></el-input>
+                    <el-input :disabled="!disable" style="width:20vw" v-model="form.name" maxlength="20"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -544,7 +544,7 @@
           }],
           name: [{
             required: true,
-            message: this.$t('normal.error_08') + this.$t('label.PFANS1012VIEW_PERSONALNAME'),
+            message: this.$t('normal.error_08') + this.$t('label.PFANS1012VIEW_CAIWUPERSONALCODE'),
             trigger: 'change',
           }],
           accountpayeename: [{
@@ -612,6 +612,7 @@
               this.show3 = true;
               this.show7 = true;
             }
+              this.getBudt(this.userlist);
             this.loading = false;
           })
           .catch(error => {
@@ -646,26 +647,29 @@
             this.form.group_id = rst.groupId;
             this.form.team_id = rst.teamId;
           }
+            this.getBudt(this.form.user_id);
         }
       }
-        //ADD_FJL  修改人员预算编码
-        if (getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)) {
-            let butinfo = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
-            let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-            if(dic.length > 0){
-                for (let i = 0; i < dic.length; i++) {
-                    if(butinfo === dic[i].value1){
-                        this.options1.push({
-                            lable: dic[i].value3,
-                            value: dic[i].code,
-                        })
+    },
+    methods: {
+        getBudt(val){
+            //ADD_FJL  修改人员预算编码
+            if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
+                let butinfo = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
+                let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+                if(dic.length > 0){
+                    for (let i = 0; i < dic.length; i++) {
+                        if(butinfo === dic[i].value1){
+                            this.options1.push({
+                                lable: dic[i].value2 +'_'+ dic[i].value3,
+                                value: dic[i].code,
+                            })
+                        }
                     }
                 }
             }
-        }
-        //ADD_FJL  修改人员预算编码
-    },
-    methods: {
+            //ADD_FJL  修改人员预算编码
+        },
         changeBut(val) {
             this.form.budgetunit = val;
         },

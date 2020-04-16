@@ -351,6 +351,7 @@
                   this.teamid= rst.teamNmae;
               }
             this.userlist = this.form.user_id;
+              this.getBudt(this.userlist);
             let lettableT = [];
             let letreason = response.reason.split(';');
             if (letreason.length > 0) {
@@ -397,30 +398,32 @@
                 this.form.group_id = rst.groupId;
                 this.form.team_id = rst.teamId;
             }
+            this.getBudt(this.form.user_id);
             // if(getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)){
             //     this.form.budgetunit = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
             // }
         }
       }
-        //ADD_FJL  修改人员预算编码
-        if (getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)) {
-            // this.form.budgetunit = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
-            let butinfo = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
-            let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-            if(dic.length > 0){
-                for (let i = 0; i < dic.length; i++) {
-                    if(butinfo === dic[i].value1){
-                        this.options.push({
-                            lable: dic[i].value3,
-                            value: dic[i].code,
-                        })
+    },
+    methods: {
+        getBudt(val){
+            //ADD_FJL  修改人员预算编码
+            if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
+                let butinfo = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
+                let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+                if(dic.length > 0){
+                    for (let i = 0; i < dic.length; i++) {
+                        if(butinfo === dic[i].value1){
+                            this.options.push({
+                                lable: dic[i].value2 +'_'+ dic[i].value3,
+                                value: dic[i].code,
+                            })
+                        }
                     }
                 }
             }
-        }
-        //ADD_FJL  修改人员预算编码
-    },
-    methods: {
+            //ADD_FJL  修改人员预算编码
+        },
         changeBut(val) {
             this.form.budgetunit = val;
         },
