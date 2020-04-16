@@ -60,6 +60,12 @@
               //       filter: true,
               //   },
               {
+                code: 'numbers',
+                label: 'label.PFANS5009VIEW_PROJECTNO',
+                width: 110,
+                fix: false,
+                filter: true,
+              },{
                 code: 'project_name',
                 label: 'label.PFANS5004VIEW_PROJECTNAMW',
                 width: 120,
