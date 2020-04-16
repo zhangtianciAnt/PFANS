@@ -2,6 +2,7 @@
   <div>
     <EasyNormalContainer :buttonList="buttonList"
                          :title="title"
+                         :enableSave="enableSave"
                          @buttonClick="buttonClick"
                          @end="end" @start="start"
                          @workflowState="workflowState"
@@ -796,6 +797,7 @@
       };
 
       return {
+        enableSave: false,
         //add-ws-添加上传附件功能-
         fileList: [],
         upload: uploadUrl(),
@@ -1091,6 +1093,9 @@
           .dispatch('PFANS1025Store/selectById', {'award_id': this.$route.params._id})
           .then(response => {
             this.form = response.award;
+            if(this.form.status==='4'){
+              this.enableSave = true;
+            }
             if (response.award.custojapanese !== null && response.award.custojapanese !== '') {
               let letUser = getUserInfo(response.award.custojapanese);
               if (letUser != null) {

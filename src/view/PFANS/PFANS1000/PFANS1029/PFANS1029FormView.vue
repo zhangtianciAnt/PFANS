@@ -621,6 +621,9 @@
                 this.activeName1 = 'first',
                   this.tabDisabled = false;
                 this.form = response;
+                if(this.form.status==='4'){
+                  this.enableSave = true;
+                }
                 this.tableData = response.numberCount;
                 //add-ws-基本情报1通货形式value1赋值
                 if (this.form.currencyposition !== null && this.form.currencyposition !== "") {

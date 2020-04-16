@@ -124,7 +124,7 @@
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_CAIWUPERSONALCODE')">
-                      <el-input :disabled="true" style="width: 20vw" v-model="form.personalcode">
+                      <el-input :disabled="!disable" style="width: 20vw" v-model="form.personalcode">
                       </el-input>
                     </el-form-item>
                   </el-col>
