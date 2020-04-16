@@ -878,6 +878,7 @@
         row.depart = orglist;
         //ADD_FJL
         this.options1 = [];
+        row.budgetcode = '';
         let butinfo = getOrgInfo(row.depart).encoding;
         let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
         if (dic.length > 0) {
@@ -994,67 +995,65 @@
           this.form.claimdatetime = moment(this.form.claimdatetimeStart).format('YYYY-MM-DD') + ' ~ ' + moment(this.form.claimdatetimeEnd).format('YYYY-MM-DD');
         }
         if (val === 'save') {
-          if (this.$route.params.disabled) {
-            this.$refs['reff'].validate(valid => {
-              if (valid) {
-                this.loading = true;
-                if (this.$route.params._id) {     //郛冶ｾ�
-                  this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
-                  this.baseInfo.awardDetail = [];
-                  for (let i = 0; i < this.tableT.length; i++) {
-                    if (this.tableT[i].budgetcode !== '' || this.tableT[i].depart !== '' || this.tableT[i].member > '0' || this.tableT[i].community > '0'
-                      || this.tableT[i].outsource > '0' || this.tableT[i].outcommunity > '0' || this.tableT[i].worknumber > '0' || this.tableT[i].awardmoney > '0') {
-                      this.baseInfo.awardDetail.push({
-                        awarddetail_id: this.tableT[i].awarddetail_id,
-                        award_id: this.tableT[i].award_id,
-                        budgetcode: this.tableT[i].budgetcode,
-                        depart: this.tableT[i].depart,
-                        member: this.tableT[i].member,
-                        projects: this.tableT[i].projects,
-                        community: this.tableT[i].community,
-                        outsource: this.tableT[i].outsource,
-                        outcommunity: this.tableT[i].outcommunity,
-                        worknumber: this.tableT[i].worknumber,
-                        awardmoney: this.tableT[i].awardmoney,
-                        rowindex: this.tableT[i].rowindex,
-                      });
-                    }
+          this.$refs['reff'].validate(valid => {
+            if (valid) {
+              this.loading = true;
+              if (this.$route.params._id) {     //郛冶ｾ�
+                this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
+                this.baseInfo.awardDetail = [];
+                for (let i = 0; i < this.tableT.length; i++) {
+                  if (this.tableT[i].budgetcode !== '' || this.tableT[i].depart !== '' || this.tableT[i].member > '0' || this.tableT[i].community > '0'
+                    || this.tableT[i].outsource > '0' || this.tableT[i].outcommunity > '0' || this.tableT[i].worknumber > '0' || this.tableT[i].awardmoney > '0') {
+                    this.baseInfo.awardDetail.push({
+                      awarddetail_id: this.tableT[i].awarddetail_id,
+                      award_id: this.tableT[i].award_id,
+                      budgetcode: this.tableT[i].budgetcode,
+                      depart: this.tableT[i].depart,
+                      member: this.tableT[i].member,
+                      projects: this.tableT[i].projects,
+                      community: this.tableT[i].community,
+                      outsource: this.tableT[i].outsource,
+                      outcommunity: this.tableT[i].outcommunity,
+                      worknumber: this.tableT[i].worknumber,
+                      awardmoney: this.tableT[i].awardmoney,
+                      rowindex: this.tableT[i].rowindex,
+                    });
                   }
-                  this.baseInfo.award.award_id = this.$route.params._id;
-                  this.$store
-                    .dispatch('PFANS1025Store/update', this.baseInfo)
-                    .then(response => {
-                      this.data = response;
-                      this.loading = false;
-                      if (val !== 'update') {
-                        Message({
-                          message: this.$t('normal.success_02'),
-                          type: 'success',
-                          duration: 5 * 1000,
-                        });
-                        if (this.$store.getters.historyUrl) {
-                          this.$router.push(this.$store.getters.historyUrl);
-                        }
-                      }
-                    })
-                    .catch(error => {
+                }
+                this.baseInfo.award.award_id = this.$route.params._id;
+                this.$store
+                  .dispatch('PFANS1025Store/update', this.baseInfo)
+                  .then(response => {
+                    this.data = response;
+                    this.loading = false;
+                    if (val !== 'update') {
                       Message({
-                        message: error,
-                        type: 'error',
+                        message: this.$t('normal.success_02'),
+                        type: 'success',
                         duration: 5 * 1000,
                       });
-                      this.loading = false;
+                      if (this.$store.getters.historyUrl) {
+                        this.$router.push(this.$store.getters.historyUrl);
+                      }
+                    }
+                  })
+                  .catch(error => {
+                    Message({
+                      message: error,
+                      type: 'error',
+                      duration: 5 * 1000,
                     });
-                }
-              } else {
-                Message({
-                  message: this.$t('normal.error_12'),
-                  type: 'error',
-                  duration: 5 * 1000,
-                });
+                    this.loading = false;
+                  });
               }
-            });
-          }
+            } else {
+              Message({
+                message: this.$t('normal.error_12'),
+                type: 'error',
+                duration: 5 * 1000,
+              });
+            }
+          });
         } else if (val === 'generate') {
           this.baseInfo.awardDetail = [];
           let sumoutsource = 0;

@@ -1461,6 +1461,7 @@
           row.depart = orglist;
           //ADD_FJL
           this.options1 = [];
+          row.budgetcode = '';
           let butinfo = getOrgInfo(row.depart).encoding;
               let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
               if(dic.length > 0){
