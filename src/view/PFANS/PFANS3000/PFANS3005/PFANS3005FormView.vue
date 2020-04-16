@@ -716,7 +716,7 @@
                     for (let i = 0; i < dic.length; i++) {
                         if(butinfo === dic[i].value1){
                             this.options1.push({
-                                lable: dic[i].value3,
+                                lable: dic[i].value2 +'_'+ dic[i].value3,
                                 value: dic[i].code,
                             })
                         }
