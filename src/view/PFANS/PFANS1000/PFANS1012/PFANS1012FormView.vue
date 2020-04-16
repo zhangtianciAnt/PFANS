@@ -382,7 +382,7 @@
                   </el-col>
                 </el-row>
                 <el-row>
-                  <el-form-item :label="$t('label.PFANS1012VIEW_ABSTRACT')">
+                  <el-form-item :label="$t('label.PFANS1012VIEW_ABSTRACT')" prop="remark">
                     <el-input :disabled="!disable" style="width: 70vw" type="textarea"
                               v-model="form.remark">
                     </el-input>
@@ -1380,6 +1380,11 @@
                         message: this.$t('normal.error_09') + this.$t('label.PFANS1012VIEW_PAYMENTMETHOD'),
                         trigger: 'change',
                     }],
+                  remark: [{
+                    required: true,
+                    message: this.$t('normal.error_09') + this.$t('label.PFANS1012VIEW_ABSTRACT'),
+                    trigger: 'change',
+                  }],
                     accountnumber: [{
                         required: true,
                         message: this.$t('normal.error_09') + this.$t('label.PFANS1012VIEW_ACCOUNT_NUMBER'),
