@@ -2,7 +2,6 @@
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList"
                          :title="title"
-                         :enableSave="enableSave"
                          @buttonClick="buttonClick"
                          :canStart="canStart"
                          @end="end" @start="start"
@@ -473,7 +472,6 @@
       return {
         activeName1: 'first',
         activeName2: 'third',
-        enableSave: false,
         tabDisabled: true,
         tab2Disabled: true,
         disabled: true,
@@ -640,9 +638,6 @@
                 this.activeName1 = 'second',
                   this.tab2Disabled = false;
                 this.form2 = response;
-                if(this.form2.status==='4'){
-                  this.enableSave = true;
-                }
                 if (this.form2.currencyposition !== null && this.form2.currencyposition !== "") {
                   let letCurrencyposition = getDictionaryInfo(this.form2.currencyposition);
                   if (letCurrencyposition != null) {

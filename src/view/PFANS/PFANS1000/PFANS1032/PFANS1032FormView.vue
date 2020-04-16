@@ -2,7 +2,6 @@
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList"
                          :title="title"
-                         :enableSave="enableSave"
                          @buttonClick="buttonClick"
                          ref="container"
                          v-loading="loading">
@@ -156,7 +155,6 @@
     },
     data() {
       return {
-        enableSave: false,
         title: "title.PFANS1032VIEW",
         buttonList: [],
         loading: false,
@@ -196,9 +194,6 @@
           .dispatch('PFANS1032Store/one', {"petition_id" : this.$route.params._id})
           .then(response => {
             this.form = response;
-            if(this.form.status==='4'){
-              this.enableSave = true;
-            }
             if (this.form.claimdatetime !== null && this.form.claimdatetime !== "") {
               this.form.openingdate = this.form.claimdatetime.slice(0, 10);
               this.form.enddate = this.form.claimdatetime.slice(this.form.claimdatetime.length - 10);

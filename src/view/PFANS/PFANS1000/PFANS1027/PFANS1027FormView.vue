@@ -1,7 +1,7 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :canStart="canStart" :title="title" @buttonClick="buttonClick"
-                        ref="container" v-loading="loading"    :enableSave="enableSave">
+                        ref="container" v-loading="loading" >
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
                  style="padding: 2vw">
@@ -404,7 +404,6 @@
         },
         data() {
             return {
-              enableSave: false,
                 radio1: 1,
                 radio2: 1,
                 radio3: 1,
@@ -639,9 +638,6 @@
                     .dispatch('PFANS1027Store/selectById', {"quotationid": this.$route.params._id})
                     .then(response => {
                       this.form = response.quotation;
-                      if(this.form.status==='4'){
-                        this.enableSave = true;
-                      }
                       if(this.form.draftingdate === '' || this.form.draftingdate === undefined || this.form.draftingdate === null){
                           this.form.draftingdate = moment(new Date()).format("YYYY-MM-DD");
                       }
