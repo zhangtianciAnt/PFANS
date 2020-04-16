@@ -3,8 +3,10 @@
     <EasyNormalContainer
       :buttonList="buttonList"
       :title="titles"
+      @StartWorkflow="buttonClick"
       @buttonClick="buttonClick"
       @end="end" @disabled="setdisabled"
+      :defaultStart="defaultStart"
       @start="start"  :workflowCode="workcode"
       @workflowState="workflowState"
       ref="container"
@@ -336,6 +338,9 @@
     },
     data() {
       return {
+        //add-ws-4/16-实施结果为空的情况下发起审批，提示填入必须项后程序没有终止修改
+        defaultStart: false,
+       //add-ws-4/16-实施结果为空的情况下发起审批，提示填入必须项后程序没有终止修改
         workcode:'',
         disabled: true,
         activeName: "first",
@@ -550,7 +555,9 @@
         } else if (val.state === "2") {
           this.form.status = "9";
         }
-        this.buttonClick("update");
+        //add-ws-4/16-实施结果为空的情况下发起审批，提示填入必须项后程序没有终止修改
+        this.buttonClick2();
+        //add-ws-4/16-实施结果为空的情况下发起审批，提示填入必须项后程序没有终止修改
       },
       start(val) {
         if (val.state === '0') {
@@ -558,13 +565,35 @@
         }else if (val.state === '2') {
           this.form.status = '9';
         }
-        // this.form.status = "7";
-        this.buttonClick("update");
+        //add-ws-4/16-实施结果为空的情况下发起审批，提示填入必须项后程序没有终止修改
+        this.buttonClick2();
+        //add-ws-4/16-实施结果为空的情况下发起审批，提示填入必须项后程序没有终止修改
       },
       end() {
         this.form.status = "0";
-        this.buttonClick("update");
+        //add-ws-4/16-实施结果为空的情况下发起审批，提示填入必须项后程序没有终止修改
+        this.buttonClick2();
+        //add-ws-4/16-实施结果为空的情况下发起审批，提示填入必须项后程序没有终止修改
       },
+      //add-ws-4/16-实施结果为空的情况下发起审批，提示填入必须项后程序没有终止修改
+      buttonClick2() {
+        this.baseInfo.companyprojects.companyprojects_id = this.$route.params._id;
+        this.$store
+          .dispatch("PFANS5001Store/update", this.baseInfo)
+          .then(response => {
+            this.data = response;
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: "error",
+              duration: 5 * 1000
+            });
+            this.loading = false;
+          });
+      },
+      //add-ws-4/16-实施结果为空的情况下发起审批，提示填入必须项后程序没有终止修改
       fileError(err, file, fileList) {
         Message({
           message: this.$t("normal.error_04"),
@@ -668,15 +697,18 @@
                 .then(response => {
                   this.data = response;
                   this.loading = false;
-                  if (val !== "update") {
-                    Message({
-                      message: this.$t("normal.success_02"),
-                      type: "success",
-                      duration: 5 * 1000
-                    });
+                  Message({
+                    message: this.$t('normal.success_02'),
+                    type: 'success',
+                    duration: 5 * 1000,
+                  });
+                  if (val !== 'save' && val !== 'StartWorkflow') {
                     if (this.$store.getters.historyUrl) {
                       this.$router.push(this.$store.getters.historyUrl);
                     }
+                  }
+                  if(val === 'StartWorkflow'){
+                    this.$refs.container.$refs.workflow.startWorkflow();
                   }
                 })
                 .catch(error => {
