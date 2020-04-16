@@ -32,6 +32,7 @@
       },
       data(){
           return {
+            checktype:"",
             region: "1",
             showTable1: true,
             loading:false,
@@ -170,6 +171,7 @@
           }
       },
       mounted() {
+        this.checktype = 1;
         this.loading = true;
         this.$store
           .dispatch('PFANS5001Store/getList2', {flag: "0"})
@@ -268,8 +270,10 @@
       methods: {
         changed() {
           if (this.region === '2') {
+            this.checktype=2
             this.showTable1 = false;
           } else if (this.region === '1') {
+            this.checktype=1
             this.showTable1 = true;
           }
         },
@@ -290,6 +294,7 @@
             this.$router.push({
               name: 'PFANS5004FormView',
               params: {
+                type:this.checktype,
                 _id: this.rowid,
                 disabled: true
               }
@@ -307,6 +312,7 @@
             this.$router.push({
               name: 'PFANS5004FormView',
               params: {
+                type:this.checktype,
                 _id: this.rowid,
                 disabled: false
               }

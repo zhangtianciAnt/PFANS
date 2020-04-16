@@ -101,7 +101,17 @@
           <el-row >
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1012FORMVIEW_BUDGET')" >
-                <el-input :disabled="true" style="width:20vw" v-model="form.budgetunit" maxlength='50'></el-input>
+<!--                <el-input :disabled="true" style="width:20vw" v-model="form.budgetunit" maxlength='50'></el-input>-->
+                <el-select clearable style="width: 20vw" v-model="form.budgetunit" :disabled="!disable"
+                           :placeholder="$t('normal.error_09')">
+                  <el-option
+                    v-for="item in options1"
+                    :key="item.value"
+                    :label="item.lable"
+                    :value="item.value"
+                    @change="getBudgetunit">
+                  </el-option>
+                </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -517,6 +527,7 @@
                 }
             }
             return {
+                options1:[],
                 centerid: '',
                 groupid: '',
                 teamid: '',
@@ -796,6 +807,7 @@
                             }
                         }
                         this.userlist = this.form.userid;
+                        this.getBudt(this.userlist);
                         this.baseInfo.japancondominium = JSON.parse(JSON.stringify(this.form));
                         if (this.form.condominiumcompany === "PR007001") {
                             this.baseInfo.usecoupon = JSON.parse(JSON.stringify(this.tableD2));
@@ -909,6 +921,7 @@
                         this.form.teamid = rst.teamId;
                     }
                     this.form.userid = this.$store.getters.userinfo.userid;
+                    this.getBudt(this.form.userid);
                 }
             }
           //start(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
@@ -931,6 +944,27 @@
             this.disable = this.$route.params.disabled;
         },
         methods: {
+            getBudt(val){
+                //ADD_FJL  修改人员预算编码
+                if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
+                    let butinfo = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
+                    let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+                    if(dic.length > 0){
+                        for (let i = 0; i < dic.length; i++) {
+                            if(butinfo === dic[i].value1){
+                                this.options1.push({
+                                    lable: dic[i].value2 +'_'+ dic[i].value3,
+                                    value: dic[i].code,
+                                })
+                            }
+                        }
+                    }
+                }
+                //ADD_FJL  修改人员预算编码
+            },
+            getBudgetunit(val) {
+                this.form.budgetnumber = val;
+            },
           setdisabled(val){
             if(this.$route.params.disabled){
               this.disabled = val;

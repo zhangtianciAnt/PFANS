@@ -1289,6 +1289,7 @@
               }
             }
             this.userlist = this.form.user_id;
+              this.getBudt(this.userlist);
             this.baseInfo.business = JSON.parse(JSON.stringify(this.form));
             if (this.form.objectivetype === 'PJ018005') {
               this.show = true;
@@ -1366,25 +1367,9 @@
             this.form.team_id = rst.teamId;
           }
           this.form.user_id = this.$store.getters.userinfo.userid;
+            this.getBudt(this.form.user_id);
         }
       }
-      //ADD_FJL  修改人员预算编码
-        if (getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)) {
-            // this.form.budgetunit = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
-            let butinfo = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
-            let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-            if(dic.length > 0){
-                for (let i = 0; i < dic.length; i++) {
-                    if(butinfo === dic[i].value1){
-                        this.options.push({
-                            lable: dic[i].value3,
-                            value: dic[i].code,
-                        })
-                    }
-                }
-            }
-        }
-        //ADD_FJL  修改人员预算编码
     },
     created() {
       if (!this.$route.params.disabled) {
@@ -1393,6 +1378,24 @@
       this.disable = this.$route.params.disabled;
     },
     methods: {
+        getBudt(val){
+            //ADD_FJL  修改人员预算编码
+            if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
+                let butinfo = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
+                let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+                if(dic.length > 0){
+                    for (let i = 0; i < dic.length; i++) {
+                        if(butinfo === dic[i].value1){
+                            this.options.push({
+                                lable: dic[i].value2 +'_'+ dic[i].value3,
+                                value: dic[i].code,
+                            })
+                        }
+                    }
+                }
+            }
+            //ADD_FJL  修改人员预算编码
+        },
       change(val) {
         this.form.companyprojectsname = val;
       },
