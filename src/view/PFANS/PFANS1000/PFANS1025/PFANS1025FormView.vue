@@ -633,6 +633,8 @@
             this.form = response.award;
             if (this.form.status === '4') {
               this.enableSave = true;
+            }else{
+              this.enableSave = false;
             }
             //add-ws-契约种类value1值处理
             if (this.form.contracttype !== null && this.form.contracttype !== '') {
@@ -776,7 +778,7 @@
           {
             key: 'generate',
             name: 'button.generate',
-            disabled: false,
+            disabled: true,
           },
         ];
       } else {

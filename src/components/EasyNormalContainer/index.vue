@@ -109,16 +109,18 @@
       },
       canStartWorkflow(val) {
         this.canStartWorkflowVal = val;
-        if (!this.canStartWorkflowVal && this.canViewWorkflowVal && !this.enableSave) {
-          for (var i = 1; i < this.buttons.length; i++) {
-            this.buttons[i].disabled = true
-            this.$emit('disabled', false);
+        if (!this.enableSave) {
+          if (!this.canStartWorkflowVal && this.canViewWorkflowVal) {
+            for (var i = 1; i < this.buttons.length; i++) {
+              this.buttons[i].disabled = true
+              this.$emit('disabled', false);
+            }
+          } else {
+            for (var i = 0; i < this.enabled.length; i++) {
+              this.buttons[i].disabled = this.enabled[i]
+            }
+            this.$emit('disabled', true);
           }
-        } else {
-          for (var i = 0; i < this.enabled.length; i++) {
-            this.buttons[i].disabled = this.enabled[i]
-          }
-          this.$emit('disabled', true);
         }
       },
       StartWorkflow(val){
@@ -126,16 +128,18 @@
       },
       canViewWorkflow(val) {
         this.canViewWorkflowVal = val;
-        if (!this.canStartWorkflowVal && this.canViewWorkflowVal && !this.enableSave) {
-          for (var i = 1; i < this.buttons.length; i++) {
-            this.buttons[i].disabled = true
-            this.$emit('disabled', false);
+        if (!this.enableSave) {
+          if (!this.canStartWorkflowVal && this.canViewWorkflowVal) {
+            for (var i = 1; i < this.buttons.length; i++) {
+              this.buttons[i].disabled = true
+              this.$emit('disabled', false);
+            }
+          } else {
+            for (var i = 0; i < this.enabled.length; i++) {
+              this.buttons[i].disabled = this.enabled[i]
+            }
+            this.$emit('disabled', true);
           }
-        } else {
-          for (var i = 0; i < this.enabled.length; i++) {
-            this.buttons[i].disabled = this.enabled[i]
-          }
-          this.$emit('disabled', true);
         }
       }
     },
@@ -164,6 +168,13 @@
     watch: {
       loading(val) {
         this.vloading = val;
+      },
+      enableSave(val){
+        if (this.enableSave) {
+          for (var i = 0; i < this.buttons.length; i++) {
+            this.buttons[i].disabled = false
+          }
+        }
       }
     }
   }

@@ -1106,6 +1106,8 @@
             this.form = response.award;
             if(this.form.status==='4'){
               this.enableSave = true;
+            }else{
+              this.enableSave = false;
             }
             if (response.award.custojapanese !== null && response.award.custojapanese !== '') {
               let letUser = getUserInfo(response.award.custojapanese);
@@ -1290,7 +1292,7 @@
           {
             key: 'generate',
             name: 'button.generate',
-            disabled: false,
+            disabled: true,
           },
         ];
       } else {
