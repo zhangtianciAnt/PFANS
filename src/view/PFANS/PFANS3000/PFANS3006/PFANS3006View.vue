@@ -9,6 +9,21 @@
     @rowClick="rowClick"
     v-loading="loading"
   >
+    <!--ADD-ZTC-增加列表日历筛选 start-->
+    <el-date-picker
+      unlink-panels
+      class="bigWidth"
+      v-model="workinghours"
+      style="margin-right:1vw"
+      slot="customize"
+      type="daterange"
+      :end-placeholder="$t('label.enddate')"
+      :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
+      :start-placeholder="$t('label.startdate')"
+      @change="filterInfo"
+    ></el-date-picker>
+    <!--ADD-ZTC-增加列表日历筛选 end-->
+
   </EasyNormalTable>
 </template>
 
@@ -26,7 +41,15 @@
         },
         data() {
             return {
+              totaldata: [],
                 loading: false,
+              // ADD-ZTC-增加列表日历筛选 start
+              working: "",
+              workinghours: "",
+              tabledata: [],
+              // ADD-ZTC-增加列表日历筛选 end
+              starttiem: "",
+              endTime: "",
                 title: "title.PFANS3006VIEW",
                 data: [],
                 columns: [
@@ -387,6 +410,9 @@
                         }
                     }
                     this.data = response;
+                  // ADD-ZTC-增加列表日历筛选 start
+                  this.tabledata = response;
+                  // ADD-ZTC-增加列表日历筛选 end
                     this.loading = false;
                 })
                 .catch(error => {
@@ -399,6 +425,111 @@
                 })
         },
         methods: {
+          // ADD-ZTC-增加列表日历筛选 start
+          filterInfo() {
+            this.data = this.tabledata.slice(0);
+            if (this.tabledata.length > 0) {
+              //进行时间筛选
+              this.working = this.getworkinghours(this.workinghours);
+              (this.starttiem = this.working.substring(0, 10)),
+                (this.endTiem = this.working.substring(13, 23));
+              if (this.starttiem != "" || this.endTiem != "") {
+                this.data = this.data.filter(item => {
+                  return this.starttiem <= item.usedate && item.usedate <= this.endTiem
+                });
+              }
+            }
+          },
+          getworkinghours(workinghours) {
+            if (workinghours != null) {
+              if (workinghours.length > 0) {
+                return (
+                  moment(workinghours[0]).format("YYYY-MM-DD") +
+                  " ~ " +
+                  moment(workinghours[1]).format("YYYY-MM-DD")
+                );
+              } else {
+                return "";
+              }
+            } else {
+              return "";
+            }
+          },
+          clickdata() {
+            this.working = this.getworkinghours(this.workinghours);
+            (this.starttiem = this.working.substring(0, 10)),
+              (this.endTiem = this.working.substring(13, 23));
+            let tabledate = [];
+            let tabledata = [];
+            if (this.tabledata != "") {
+              if (this.starttiem == "" && this.endTiem == "") {
+                for (let i = 0; i < this.tabledata.length; i++) {
+                  tabledata.push({
+                    applicant: this.tabledata[i].applicant,
+                    centername: this.tabledata[i].centername,
+                    groupname: this.tabledata[i].groupname,
+                    teamname: this.tabledata[i].teamname,
+                    usedate: this.tabledata[i].usedate,
+                    usetype: this.tabledata[i].usetype,
+                    mobilephone: this.tabledata[i].mobilephone,
+                    starttime: this.tabledata[i].starttime,
+                    origin: this.tabledata[i].origin,
+                    transferstation: this.tabledata[i].transferstation,
+                    destination: this.tabledata[i].destination,
+                    endtime: this.tabledata[i].endtime,
+                    flightnumber: this.tabledata[i].flightnumber,
+                    departurecity: this.tabledata[i].departurecity,
+                    welcomeboard: this.tabledata[i].welcomeboard,
+                    fellowmembers: this.tabledata[i].fellowmembers,
+                    guestname: this.tabledata[i].guestname,
+                    usenumber: this.tabledata[i].usenumber,
+                    remarks: this.tabledata[i].remarks,
+                    status: this.tabledata[i].status,
+                    operation: this.tabledata[i].operation,
+                    acceptstatus: this.tabledata[i].acceptstatus,
+                    findate: this.tabledata[i].findate,
+                  });
+                }
+                this.data = tabledata;
+              } else {
+                for (let i = 0; i < this.tabledata.length; i++) {
+                  if (
+                    this.starttiem <= this.tabledata[i].usedate &&
+                    this.tabledata[i].usedate <= this.endTiem
+                  ) {
+                    tabledate.push({
+                      applicant: this.tabledata[i].applicant,
+                      centername: this.tabledata[i].centername,
+                      groupname: this.tabledata[i].groupname,
+                      teamname: this.tabledata[i].teamname,
+                      usedate: this.tabledata[i].usedate,
+                      usetype: this.tabledata[i].usetype,
+                      mobilephone: this.tabledata[i].mobilephone,
+                      starttime: this.tabledata[i].starttime,
+                      origin: this.tabledata[i].origin,
+                      transferstation: this.tabledata[i].transferstation,
+                      destination: this.tabledata[i].destination,
+                      endtime: this.tabledata[i].endtime,
+                      flightnumber: this.tabledata[i].flightnumber,
+                      departurecity: this.tabledata[i].departurecity,
+                      welcomeboard: this.tabledata[i].welcomeboard,
+                      fellowmembers: this.tabledata[i].fellowmembers,
+                      guestname: this.tabledata[i].guestname,
+                      usenumber: this.tabledata[i].usenumber,
+                      remarks: this.tabledata[i].remarks,
+                      status: this.tabledata[i].status,
+                      operation: this.tabledata[i].operation,
+                      acceptstatus: this.tabledata[i].acceptstatus,
+                      findate: this.tabledata[i].findate,
+                    });
+                  }
+                }
+                this.data = tabledate;
+              }
+            }
+          },
+          // ADD-ZTC-增加列表日历筛选 end
+
             rowClick(row) {
                 this.rowid = row.appointmentcarid;
             },
