@@ -51,14 +51,16 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_MODULE')">
-                      <!--                      <dicselect :code="code2"-->
-                      <!--                                 :data="form.moduleid"-->
-                      <!--                                 :disabled="!disable"-->
-                      <!--                                 :multiple="multiple"-->
-                      <!--                                 @change="getmodule"-->
-                      <!--                                 style="width:20vw">-->
-                      <!--                      </dicselect>-->
-                      <el-input :disabled="true" style="width:20vw" v-model="form.moduleid"></el-input>
+                                            <dicselect :code="code2"
+                                                       :data="form.moduleid"
+                                                       :disabled="!disable"
+                                                       :multiple="multiple"
+                                                       @change="getmodule"
+                                                       style="width:20vw"
+                                                       v-if="show6"
+                                            >
+                                            </dicselect>
+                      <el-input :disabled="true" style="width:20vw" v-model="form.moduleid" v-if="show9"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -231,7 +233,7 @@
                 </el-row>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012VIEW_PERSONALCODE')" v-show="show2" prop="code">
+                    <el-form-item :label="$t('label.PFANS1012VIEW_CAIWUPERSONALCODE')" v-show="show2" prop="code">
                       <el-input :disabled="true" maxlength="20" style="width:20vw" v-model="form.code"></el-input>
                     </el-form-item>
                   </el-col>
@@ -382,7 +384,7 @@
                   </el-col>
                 </el-row>
                 <el-row>
-                  <el-form-item :label="$t('label.PFANS1012VIEW_ABSTRACT')">
+                  <el-form-item :label="$t('label.PFANS1012VIEW_ABSTRACT')" prop="remark">
                     <el-input :disabled="!disable" style="width: 70vw" type="textarea"
                               v-model="form.remark">
                     </el-input>
@@ -488,6 +490,7 @@
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1012FORMVIEW_CHARGED')" name="second">
               <el-collapse>
+                <!--111-->
                 <el-collapse-item v-if="show9">
                   <template slot="title">
                     <span class="collapse_Title">{{$t('label.PFANS1012VIEW_TRAFFIC')}}</span>
@@ -1380,6 +1383,11 @@
                         message: this.$t('normal.error_09') + this.$t('label.PFANS1012VIEW_PAYMENTMETHOD'),
                         trigger: 'change',
                     }],
+                  remark: [{
+                    required: true,
+                    message: this.$t('normal.error_09') + this.$t('label.PFANS1012VIEW_ABSTRACT'),
+                    trigger: 'change',
+                  }],
                     accountnumber: [{
                         required: true,
                         message: this.$t('normal.error_09') + this.$t('label.PFANS1012VIEW_ACCOUNT_NUMBER'),
@@ -1504,8 +1512,8 @@
             }
             //ADD-WS-个人编码修改
             if (getUserInfo(this.$store.getters.userinfo.userid)) {
-                this.Codecheck = this.$store.getters.userinfo.userinfo.personalcode;
-                this.form.code = this.$store.getters.userinfo.userinfo.personalcode;
+                this.Codecheck = this.$store.getters.userinfo.userinfo.caiwupersonalcode;
+                this.form.code = this.$store.getters.userinfo.userinfo.caiwupersonalcode;
                 let num = getUserInfo(this.$store.getters.userinfo.userid).userinfo.extension;
                 if (num) {
                     this.form.telephone = num;
@@ -2292,7 +2300,13 @@
 
             },
             getUserids(val) {
-                this.form.code = getUserInfo(val).userinfo.personalcode;
+              if(val === ''){
+                this.form.code =''
+                this.Codecheck =''
+              }else{
+                this.form.code = getUserInfo(val).userinfo.caiwupersonalcode;
+                this.Codecheck = getUserInfo(val).userinfo.caiwupersonalcode;
+              }
                 this.userlist = val;
                 this.form.user_id = val;
                 let rst = getOrgInfoByUserId(val);
@@ -2411,9 +2425,9 @@
                     this.form.loan = '';
                 }
             },
-            // getmodule(val) {
-            //   this.form.moduleid = val;
-            // },
+            getmodule(val) {
+              this.form.moduleid = val;
+            },
 
             getCurrency(val, row) {
                 row.currency = val;

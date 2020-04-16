@@ -2735,6 +2735,7 @@
             let error10 = 0;
             let error11 = 0;
             let error12 = 0;
+            let error13 = 0;
             for (let i = 0; i < this.tableB.length; i++) {
               // 社内员工进组时间&退出时间必须Check
               if ((!this.tableB[i].admissiontime || this.tableB[i].admissiontime === '' || !this.tableB[i].exittime || this.tableB[i].exittime === '') && this.tableB[i].name !== '') {
@@ -2794,6 +2795,9 @@
                 this.tableD[i].theme !== '' ||
                 this.tableD[i].workinghours !== ''
               ) {
+                if(this.tableD[i].contractamount == 0 ){
+                  error13 = error13+1;
+                }
                 this.baseInfo.projectcontract.push({
                   //add-ws-合同关联项目，分配金额
                   contractrequestamount: this.tableD[i].contractrequestamount,
@@ -2937,7 +2941,15 @@
                 type: 'error',
                 duration: 5 * 1000,
               });
-            } else if (error != 0 && this.form.toolstype !== '1') {
+            } else if (error13 != 0) {
+              this.activeName = 'fifth';
+              Message({
+                message: this.$t('label.PFANS5001FORMVIEW_CHECKCONTRACTAMOUNTERROR'),
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            }else if (error != 0 && this.form.toolstype !== '1') {
               this.activeName = 'fifth';
               this.loading = false;
               Message({

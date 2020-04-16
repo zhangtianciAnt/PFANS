@@ -201,7 +201,7 @@ import usersFormViewByPerson from '@/view/users/usersFormViewByPerson.vue'
 import PFANS1044View from '@/view/PFANS/PFANS1000/PFANS1044/PFANS1044View.vue'
 
 import error401 from '@/components/EasyErrorPage/401.vue'
-
+import error404 from '@/components/EasyErrorPage/404.vue'
 Vue.use(Router);
 
 const routes = [
@@ -1193,6 +1193,18 @@ const routes = [
         path: '/ASSETS1003View',
         name: 'ASSETS1003View',
         component: ASSETS1003View,
+      },
+    ]
+  },
+  {
+    path: '*',
+    name: 'faid',
+    component: frameView,
+    children: [
+      {
+        path: '*',
+        name: 'faid',
+        component: error404
       },
     ]
   }

@@ -402,6 +402,7 @@
         this.companyform.work_phase = '';
       }
       if (this.$route.params._id) {
+        this.companyform.logmanagement_id = this.$route.params._id;
         this.loading = true;
         this.$store
           .dispatch('PFANS5008Store/getDataOne', {'logmanagement_id': this.$route.params._id})
@@ -694,7 +695,13 @@
         let sumoutgoinghours = 0;
         for (let j = 0; j < this.checkList.length; j++) {
           if (moment(this.checkList[j].dates).format('YYYY-MM-DD') === moment(this.companyform.log_date).format('YYYY-MM-DD')) {
-            sumoutgoinghours = parseFloat(this.checkList[j].outgoinghours);
+            if(this.checkList[j].outgoinghours===null){
+              sumoutgoinghours = 0;
+            }else if(this.checkList[j].outgoinghours===''){
+              sumoutgoinghours = 0;
+            }else{
+              sumoutgoinghours = parseFloat(this.checkList[j].outgoinghours);
+            }
           }
         }
         this.checkdata = sumoutgoinghours;
@@ -787,10 +794,12 @@
       },
       rowclick(row, event, column) {
         this.row = row.logmanagementid;
+        this.companyform.logmanagement_id = row.logmanagementid;
         this.loading = true;
         this.$store
           .dispatch('PFANS5008Store/getDataOne', {'logmanagement_id': this.row})
           .then(response => {
+            this.checktimelength = response.time_start;
             if (response.confirmstatus == '1') {
               this.buttonList[0].disabled = true;
               this.buttonList[1].disabled = true;
@@ -970,7 +979,6 @@
             });
         }
         if (val === 'btnSave') {
-          this.companyform.logmanagement_id = this.$route.params._id;
           this.$refs['companyform'].validate(valid => {
             if (valid) {
               let error = 0;
@@ -1000,8 +1008,7 @@
                       }
                     }
                   }
-                  if (this.$route.params._id || this.row) {
-
+                  if (this.companyform.logmanagement_id) {
                     this.checkLenth = checklenth;
                     if (parseFloat(this.checkLenth) + parseFloat(this.companyform.time_start) - parseFloat(this.checktimelength) > this.checkdata) {
                       error = error + 1;

@@ -3,10 +3,10 @@
 </template>
 
 <script>
-  import error401 from '@/assets/jpg/403.jpg'
+  import error401 from '@/assets/jpg/404.jpg'
   import errorContent from './error-content.vue'
   export default {
-    name: 'error_401',
+    name: 'error_404',
     components: {
       errorContent
     },

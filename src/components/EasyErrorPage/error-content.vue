@@ -1,12 +1,16 @@
 <template>
+  <div class="EasyNormalTable" element-loading-spinner="el-icon-loading" style="height: calc(100vh - 60px - 2rem)">
+    <el-card class="box-card">
   <div class="error-page">
     <div class="content-con">
-      <img :src="src" :alt="code" style="width: 60%">
+      <img :src="src" :alt="code" style="width: 100%;height: calc(100vh - 60px - 5rem)">
       <div class="text-con">
         <h4>{{ code }}</h4>
         <h5>{{ desc }}</h5>
       </div>
     </div>
+  </div>
+    </el-card>
   </div>
 </template>
 
@@ -25,12 +29,12 @@
 <style type="less">
   .error-page{
     width: 100%;
-    height: 100%;
+    height: calc(100vh - 60px - 5rem);
     position: relative;
     background: #f8f8f9;
     .content-con{
-      width: 700px;
-      height: 600px;
+      width: 100%;
+      height: calc(100vh - 60px - 5rem);
       position: absolute;
       left: 50%;
       top: 50%;
@@ -38,7 +42,7 @@
       img{
         display: block;
         width: 100%;
-        height: 100%;
+        height: calc(100vh - 60px - 5rem);
       }
       .text-con{
         position: absolute;
