@@ -513,6 +513,7 @@ module.exports = {
     INDEX_SZ: '设置',
     INDEX_GD: '更多',
     INDEX_RLRC: '日历历程',
+    PFANS1001FORMVIEW_NUMBERS: '决裁编号',
     PFANS1002FORMVIEW_DOMESTIC: '境内出差',
     PFANS1002FORMVIEW_ABROAD: '境外出差',
     PFANS1002FORMVIEW_INFORMATION: '基本信息',
