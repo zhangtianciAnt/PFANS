@@ -123,7 +123,7 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012VIEW_PERSONALCODE')">
+                    <el-form-item :label="$t('label.PFANS1012VIEW_CAIWUPERSONALCODE')">
                       <el-input :disabled="true" style="width: 20vw" v-model="form.personalcode">
                       </el-input>
                     </el-form-item>
@@ -1044,6 +1044,7 @@
         }
       };
       return {
+        Codecheck: '',
         centername: '',
         groupname: '',
         teamname: '',
@@ -1415,7 +1416,8 @@
               this.form.telephone = num
           }
         if(getUserInfo(this.$store.getters.userinfo.userid)){
-          this.form.personalcode = getUserInfo(this.$store.getters.userinfo.userid).userinfo.personalcode;
+          this.form.personalcode = this.$store.getters.userinfo.userinfo.caiwupersonalcode;
+          this.Codecheck = this.$store.getters.userinfo.userinfo.caiwupersonalcode;
         }
         if(getOrgInfoByUserId(this.$store.getters.userinfo.userid)){
           this.groupId = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
@@ -1726,7 +1728,13 @@
       },
       getUserids(val) {
         this.form.userid = val;
-        this.form.personalcode = getUserInfo(val).userinfo.personalcode;
+        if(val === ''){
+          this.form.personalcode =''
+          this.Codecheck =''
+        }else{
+          this.form.personalcode = getUserInfo(val).userinfo.caiwupersonalcode;
+          this.Codecheck = getUserInfo(val).userinfo.caiwupersonalcode;
+        }
         this.userlist = val;
         let lst = getOrgInfoByUserId(val);
         if(lst){

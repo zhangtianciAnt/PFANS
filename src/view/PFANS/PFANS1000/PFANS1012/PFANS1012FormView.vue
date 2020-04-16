@@ -231,7 +231,7 @@
                 </el-row>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012VIEW_PERSONALCODE')" v-show="show2" prop="code">
+                    <el-form-item :label="$t('label.PFANS1012VIEW_CAIWUPERSONALCODE')" v-show="show2" prop="code">
                       <el-input :disabled="true" maxlength="20" style="width:20vw" v-model="form.code"></el-input>
                     </el-form-item>
                   </el-col>
@@ -1504,8 +1504,8 @@
             }
             //ADD-WS-个人编码修改
             if (getUserInfo(this.$store.getters.userinfo.userid)) {
-                this.Codecheck = this.$store.getters.userinfo.userinfo.personalcode;
-                this.form.code = this.$store.getters.userinfo.userinfo.personalcode;
+                this.Codecheck = this.$store.getters.userinfo.userinfo.caiwupersonalcode;
+                this.form.code = this.$store.getters.userinfo.userinfo.caiwupersonalcode;
                 let num = getUserInfo(this.$store.getters.userinfo.userid).userinfo.extension;
                 if (num) {
                     this.form.telephone = num;
@@ -2292,7 +2292,13 @@
 
             },
             getUserids(val) {
-                this.form.code = getUserInfo(val).userinfo.personalcode;
+              if(val === ''){
+                this.form.code =''
+                this.Codecheck =''
+              }else{
+                this.form.code = getUserInfo(val).userinfo.caiwupersonalcode;
+                this.Codecheck = getUserInfo(val).userinfo.caiwupersonalcode;
+              }
                 this.userlist = val;
                 this.form.user_id = val;
                 let rst = getOrgInfoByUserId(val);
