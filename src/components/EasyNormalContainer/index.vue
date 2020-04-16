@@ -72,7 +72,7 @@
       },
       enableSave: {
         type: Boolean,
-        default: true
+        default: false
       },
       defaultStart:{
         type:Boolean,
@@ -109,7 +109,7 @@
       },
       canStartWorkflow(val) {
         this.canStartWorkflowVal = val;
-        if (!this.canStartWorkflowVal && this.canViewWorkflowVal && this.enableSave) {
+        if (!this.canStartWorkflowVal && this.canViewWorkflowVal && !this.enableSave) {
           for (var i = 1; i < this.buttons.length; i++) {
             this.buttons[i].disabled = true
             this.$emit('disabled', false);
@@ -126,7 +126,7 @@
       },
       canViewWorkflow(val) {
         this.canViewWorkflowVal = val;
-        if (!this.canStartWorkflowVal && this.canViewWorkflowVal && this.enableSave) {
+        if (!this.canStartWorkflowVal && this.canViewWorkflowVal && !this.enableSave) {
           for (var i = 1; i < this.buttons.length; i++) {
             this.buttons[i].disabled = true
             this.$emit('disabled', false);
