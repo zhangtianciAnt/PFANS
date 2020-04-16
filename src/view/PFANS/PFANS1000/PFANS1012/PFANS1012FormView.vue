@@ -1789,7 +1789,6 @@
                             this.baseInfo.trafficdetails = JSON.parse(JSON.stringify(this.tableT));
                             this.baseInfo.purchasedetails = JSON.parse(JSON.stringify(this.tableP));
                             this.baseInfo.otherdetails = JSON.parse(JSON.stringify(this.tableR));
-                            this.getPayment(this.form.paymentmethod);
                             if (this.form.paymentmethod === 'PJ004001') {
                                 this.show1 = true;
                             } else if (this.form.paymentmethod === 'PJ004002') {
