@@ -309,8 +309,8 @@
                         header-cell-class-name="sub_bg_color_blue" stripe>
                 <el-table-column :label="$t('label.PFANS1012FORMVIEW_BUDGET')" align="center" width="150">
                   <template slot-scope="scope">
-<!--                    <el-input :disabled="true" maxlength="20" style="width: 100%" v-model="scope.row.budgetcode">-->
-<!--                    </el-input>-->
+                    <!--                    <el-input :disabled="true" maxlength="20" style="width: 100%" v-model="scope.row.budgetcode">-->
+                    <!--                    </el-input>-->
                     <el-select clearable style="width: 20vw" v-model="scope.row.budgetcode" :disabled="!disable"
                                :placeholder="$t('normal.error_09')">
                       <el-option
@@ -527,8 +527,8 @@
         }
       };
       return {
-          options1:[],
-          enableSave: false,
+        options1: [],
+        enableSave: false,
         //add-ws-添加上传附件功能-
         fileList: [],
         upload: uploadUrl(),
@@ -631,7 +631,7 @@
           .dispatch('PFANS1025Store/selectById', {'award_id': this.$route.params._id})
           .then(response => {
             this.form = response.award;
-            if(this.form.status==='4'){
+            if (this.form.status === '4') {
               this.enableSave = true;
             }
             //add-ws-契约种类value1值处理
@@ -696,22 +696,22 @@
               }
               for (var i = 0; i < this.tableT.length; i++) {
                 this.orglist = this.tableT[i].depart;
-                if(this.tableT[i].depart !== '' && this.tableT[i].depart !== null && this.tableT[i].depart !== undefined){
-                    //ADD_FJL
-                    this.options1 = [];
-                    let butinfo = getOrgInfo(this.tableT[i].depart).encoding;
-                    let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-                    if(dic.length > 0){
-                        for (let i = 0; i < dic.length; i++) {
-                            if(butinfo === dic[i].value1){
-                                this.options1.push({
-                                    lable: dic[i].value2 +'_'+ dic[i].value3,
-                                    value: dic[i].code,
-                                })
-                            }
-                        }
+                if (this.tableT[i].depart !== '' && this.tableT[i].depart !== null && this.tableT[i].depart !== undefined) {
+                  //ADD_FJL
+                  this.options1 = [];
+                  let butinfo = getOrgInfo(this.tableT[i].depart).encoding;
+                  let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+                  if (dic.length > 0) {
+                    for (let i = 0; i < dic.length; i++) {
+                      if (butinfo === dic[i].value1) {
+                        this.options1.push({
+                          lable: dic[i].value2 + '_' + dic[i].value3,
+                          value: dic[i].code,
+                        });
+                      }
                     }
-                    //ADD_FJL  修改人员预算编码
+                  }
+                  //ADD_FJL  修改人员预算编码
                 }
               }
             }
@@ -834,9 +834,9 @@
         }
       },
       //add-ws-添加上传附件功能-
-        getBudgetunit(val, row) {
-            row.budgetcode = val;
-        },
+      getBudgetunit(val, row) {
+        row.budgetcode = val;
+      },
       changePro(val, row) {
         row.projects = val;
       },
@@ -871,24 +871,24 @@
       getindividual(val) {
         this.form.individual = val;
       },
-        //修改人员预算编码
+      //修改人员预算编码
       getGroupId(orglist, row) {
         row.depart = orglist;
-          //ADD_FJL
-          this.options1 = [];
-          let butinfo = getOrgInfo(row.depart).encoding;
-          let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-          if(dic.length > 0){
-              for (let i = 0; i < dic.length; i++) {
-                  if(butinfo === dic[i].value1){
-                      this.options1.push({
-                          lable: dic[i].value2 +'_'+ dic[i].value3,
-                          value: dic[i].code,
-                      })
-                  }
-              }
+        //ADD_FJL
+        this.options1 = [];
+        let butinfo = getOrgInfo(row.depart).encoding;
+        let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+        if (dic.length > 0) {
+          for (let i = 0; i < dic.length; i++) {
+            if (butinfo === dic[i].value1) {
+              this.options1.push({
+                lable: dic[i].value2 + '_' + dic[i].value3,
+                value: dic[i].code,
+              });
+            }
           }
-          //ADD_FJL  修改人员预算编码
+        }
+        //ADD_FJL  修改人员预算编码
         // let group = getOrgInfo(orglist);
         // if (group) {
         //   row.budgetcode = group.encoding;
@@ -900,15 +900,15 @@
         } else if (val.state === '2') {
           this.form.status = '4';
         }
-        this.buttonClick('update');
+        this.buttonClick('save');
       },
       start() {
         this.form.status = '2';
-        this.buttonClick('update');
+        this.buttonClick('save');
       },
       end() {
         this.form.status = '0';
-        this.buttonClick('update');
+        this.buttonClick('save');
       },
       deleteRow(index, rows) {
         if (rows.length > 1) {
@@ -991,67 +991,69 @@
         if (this.form.claimdatetimeStart !== '' && this.form.claimdatetimeEnd !== '') {
           this.form.claimdatetime = moment(this.form.claimdatetimeStart).format('YYYY-MM-DD') + ' ~ ' + moment(this.form.claimdatetimeEnd).format('YYYY-MM-DD');
         }
-        if (this.$route.params.disabled) {
-          this.$refs['reff'].validate(valid => {
-            if (valid) {
-              this.loading = true;
-              if (this.$route.params._id) {     //郛冶ｾ�
-                this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
-                this.baseInfo.awardDetail = [];
-                for (let i = 0; i < this.tableT.length; i++) {
-                  if (this.tableT[i].budgetcode !== '' || this.tableT[i].depart !== '' || this.tableT[i].member > '0' || this.tableT[i].community > '0'
-                    || this.tableT[i].outsource > '0' || this.tableT[i].outcommunity > '0' || this.tableT[i].worknumber > '0' || this.tableT[i].awardmoney > '0') {
-                    this.baseInfo.awardDetail.push({
-                      awarddetail_id: this.tableT[i].awarddetail_id,
-                      award_id: this.tableT[i].award_id,
-                      budgetcode: this.tableT[i].budgetcode,
-                      depart: this.tableT[i].depart,
-                      member: this.tableT[i].member,
-                      projects: this.tableT[i].projects,
-                      community: this.tableT[i].community,
-                      outsource: this.tableT[i].outsource,
-                      outcommunity: this.tableT[i].outcommunity,
-                      worknumber: this.tableT[i].worknumber,
-                      awardmoney: this.tableT[i].awardmoney,
-                      rowindex: this.tableT[i].rowindex,
-                    });
+        if (val === 'save') {
+          if (this.$route.params.disabled) {
+            this.$refs['reff'].validate(valid => {
+              if (valid) {
+                this.loading = true;
+                if (this.$route.params._id) {     //郛冶ｾ�
+                  this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
+                  this.baseInfo.awardDetail = [];
+                  for (let i = 0; i < this.tableT.length; i++) {
+                    if (this.tableT[i].budgetcode !== '' || this.tableT[i].depart !== '' || this.tableT[i].member > '0' || this.tableT[i].community > '0'
+                      || this.tableT[i].outsource > '0' || this.tableT[i].outcommunity > '0' || this.tableT[i].worknumber > '0' || this.tableT[i].awardmoney > '0') {
+                      this.baseInfo.awardDetail.push({
+                        awarddetail_id: this.tableT[i].awarddetail_id,
+                        award_id: this.tableT[i].award_id,
+                        budgetcode: this.tableT[i].budgetcode,
+                        depart: this.tableT[i].depart,
+                        member: this.tableT[i].member,
+                        projects: this.tableT[i].projects,
+                        community: this.tableT[i].community,
+                        outsource: this.tableT[i].outsource,
+                        outcommunity: this.tableT[i].outcommunity,
+                        worknumber: this.tableT[i].worknumber,
+                        awardmoney: this.tableT[i].awardmoney,
+                        rowindex: this.tableT[i].rowindex,
+                      });
+                    }
                   }
-                }
-                this.baseInfo.award.award_id = this.$route.params._id;
-                this.$store
-                  .dispatch('PFANS1025Store/update', this.baseInfo)
-                  .then(response => {
-                    this.data = response;
-                    this.loading = false;
-                    if (val !== 'update') {
+                  this.baseInfo.award.award_id = this.$route.params._id;
+                  this.$store
+                    .dispatch('PFANS1025Store/update', this.baseInfo)
+                    .then(response => {
+                      this.data = response;
+                      this.loading = false;
+                      if (val !== 'update') {
+                        Message({
+                          message: this.$t('normal.success_02'),
+                          type: 'success',
+                          duration: 5 * 1000,
+                        });
+                        if (this.$store.getters.historyUrl) {
+                          this.$router.push(this.$store.getters.historyUrl);
+                        }
+                      }
+                    })
+                    .catch(error => {
                       Message({
-                        message: this.$t('normal.success_02'),
-                        type: 'success',
+                        message: error,
+                        type: 'error',
                         duration: 5 * 1000,
                       });
-                      if (this.$store.getters.historyUrl) {
-                        this.$router.push(this.$store.getters.historyUrl);
-                      }
-                    }
-                  })
-                  .catch(error => {
-                    Message({
-                      message: error,
-                      type: 'error',
-                      duration: 5 * 1000,
+                      this.loading = false;
                     });
-                    this.loading = false;
-                  });
+                }
+              } else {
+                Message({
+                  message: this.$t('normal.error_12'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
               }
-            } else {
-              Message({
-                message: this.$t('normal.error_12'),
-                type: 'error',
-                duration: 5 * 1000,
-              });
-            }
-          });
-        } else {
+            });
+          }
+        } else if (val === 'generate') {
           this.baseInfo.awardDetail = [];
           let sumoutsource = 0;
           let sumworknumber = 0;
