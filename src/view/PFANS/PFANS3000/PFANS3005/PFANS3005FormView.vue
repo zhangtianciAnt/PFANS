@@ -111,8 +111,18 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1012FORMVIEW_BUDGET')">
-                <el-input :disabled="true" maxlength="20" style="width:20vw"
-                          v-model="form.budgetnumber"></el-input>
+<!--                <el-input :disabled="true" maxlength="20" style="width:20vw"-->
+<!--                          v-model="form.budgetnumber"></el-input>-->
+                <el-select clearable style="width: 20vw" v-model="form.budgetnumber" :disabled="!disable"
+                           :placeholder="$t('normal.error_09')">
+                  <el-option
+                    v-for="item in options1"
+                    :key="item.value"
+                    :label="item.lable"
+                    :value="item.value"
+                    @change="getBudgetunit">
+                  </el-option>
+                </el-select>
               </el-form-item>
             </el-col>
           </el-row>
@@ -385,6 +395,7 @@
         }
       };
       return {
+          options1:[],
         centerid: '',
         groupid: '',
         teamid: '',
@@ -627,6 +638,7 @@
             this.controllerlist = this.form.controller;
             this.usernamelist = this.form.username;
             this.recipientslist = this.form.recipients;
+            this.getBudt(this.userlist);
             this.loading = false;
           })
           .catch(error => {
@@ -641,9 +653,9 @@
         this.userlist = this.$store.getters.userinfo.userid;
         if (this.userlist !== null && this.userlist !== '') {
           let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-            if(getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)){
-                this.form.budgetnumber = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
-            }
+            // if(getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)){
+            //     this.form.budgetnumber = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
+            // }
           if(rst) {
               this.centerid = rst.centerNmae;
               this.groupid = rst.groupNmae;
@@ -653,6 +665,7 @@
               this.form.team_id = rst.teamId;
           }
           this.form.user_id = this.$store.getters.userinfo.userid;
+            this.getBudt(this.form.user_id);
         }
       }
       //start(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
@@ -694,6 +707,27 @@
       }
     },
     methods: {
+        getBudt(val){
+            //ADD_FJL  修改人员预算编码
+            if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
+                let butinfo = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
+                let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+                if(dic.length > 0){
+                    for (let i = 0; i < dic.length; i++) {
+                        if(butinfo === dic[i].value1){
+                            this.options1.push({
+                                lable: dic[i].value3,
+                                value: dic[i].code,
+                            })
+                        }
+                    }
+                }
+            }
+            //ADD_FJL  修改人员预算编码
+        },
+        getBudgetunit(val) {
+            this.form.budgetnumber = val;
+        },
       setdisabled(val){
         if(this.$route.params.disabled){
           this.disable = val;
@@ -706,9 +740,9 @@
         this.form.user_id = val;
         this.userlist = val;
         let rst = getOrgInfoByUserId(val);
-          if(getOrgInfo(getOrgInfoByUserId(val).groupId)){
-              this.form.budgetnumber = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
-          }
+          // if(getOrgInfo(getOrgInfoByUserId(val).groupId)){
+          //     this.form.budgetnumber = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
+          // }
         if(rst) {
             this.centerid = rst.centerNmae;
             this.groupid = rst.groupNmae;
