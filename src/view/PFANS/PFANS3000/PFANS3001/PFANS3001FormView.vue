@@ -140,15 +140,14 @@
                 <el-form-item :label="$t('label.PFANS1013VIEW_RELATION')" prop="business_id">
                   <el-select :disabled="!disable" clearable @change="changebusiness" style="width:20vw"
                              v-model="form.business_id">
+<!--                    <el-option-->
+<!--                      v-if="form.ticketstype !== 'first'"-->
+<!--                    :key="item.value"-->
+<!--                    :label="item.label"-->
+<!--                    :value="item.value"-->
+<!--                    v-for="item in relations">-->
+<!--                    </el-option>-->
                     <el-option
-                      v-if="form.ticketstype === 'first'"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value"
-                      v-for="item in relations">
-                    </el-option>
-                    <el-option
-                      v-else
                       :key="item.value"
                       :label="item.label"
                       :value="item.value"
@@ -726,7 +725,7 @@
             getBusOuter() {
                 this.loading = true;
                 this.$store
-                    .dispatch('PFANS1001Store/getBusiness')
+                    .dispatch('PFANS1013Store/getdate')
                     .then(response => {
                         for (let i = 0; i < response.length; i++) {
                             if (response[i].user_id === this.$store.getters.userinfo.userid) {
