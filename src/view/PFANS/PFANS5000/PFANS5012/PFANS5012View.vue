@@ -16,7 +16,7 @@
 <script>
   import EasyNormalTable from "@/components/EasyNormalTable";
   import {Message} from 'element-ui';
-  import {getUserInfo} from "../../../../utils/customize";
+  import {getUserInfo,getCooperinterviewListByAccount,getOrgInfo} from "../../../../utils/customize";
   import moment from 'moment';
 
   export default {
@@ -161,13 +161,21 @@
             //   this.data[i].confirm = confirm;
             //   this.data[i].status = status;
             // }
-
             let groupuserlist = [];
             for (let item of response) {
               let user = getUserInfo(item.projectid);
               if (user) {
                 item.centername = user.userinfo.centername;
                 item.groupname = user.userinfo.groupname;
+              }
+              else{
+                  let co = getCooperinterviewListByAccount(item.projectid);
+                  if(co){
+                      let group = getOrgInfo(co.group_id)
+                      if(group){
+                          item.groupname = group.companyname;
+                      }
+                  }
               }
               groupuserlist.push(item.projectid);
             }

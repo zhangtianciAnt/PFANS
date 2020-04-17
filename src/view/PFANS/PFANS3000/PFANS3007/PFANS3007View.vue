@@ -198,6 +198,13 @@
                 fix: false,
                 filter: true,
             },
+            {
+                code: 'refusereason',
+                label: 'label.PFANS3007FORMVIEW_REFUSEREASON',
+                width: 150,
+                fix: false,
+                filter: true,
+            },
         ],
         buttonList: [
           {
@@ -235,7 +242,7 @@
             if (response[j].budgetunit !== null && response[j].budgetunit !== '') {
               let letBudgetunit = getDictionaryInfo(response[j].budgetunit);
               if (letBudgetunit != null) {
-                response[j].budgetunit = letBudgetunit.value1;
+                response[j].budgetunit = letBudgetunit.value2 +'_'+ letBudgetunit.value3;
               }
             }
             if (response[j].condominiumcompany !== null && response[j].condominiumcompany !== '') {
