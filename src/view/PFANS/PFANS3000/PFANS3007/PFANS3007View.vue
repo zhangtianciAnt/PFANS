@@ -177,13 +177,13 @@
             fix: false,
             filter: true,
           },
-          {
-            code: 'status',
-            label: 'label.approval_status',
-            width: 140,
-            fix: false,
-            filter: true,
-          },
+          // {
+          //   code: 'status',
+          //   label: 'label.approval_status',
+          //   width: 140,
+          //   fix: false,
+          //   filter: true,
+          // },
             {
                 code: 'acceptstatus',
                 label: 'label.PFANS3001FORMVIEW_ACCEPTSTATUS',

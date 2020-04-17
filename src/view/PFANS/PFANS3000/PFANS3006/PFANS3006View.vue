@@ -274,31 +274,31 @@
                         fix: false,
                         filter: true
                     },
-                    {
-                        code: 'status',
-                        label: 'label.status',
-                        child: [
-                            {
-                                code: 'status',
-                                label: 'label.approval_status',
-                                labelClass: 'pfans3006view_column_22',
-                                width: 140,
-                                fix: false,
-                                filter: true
-                            },
-                            {
-                                code: 'operation',
-                                label: 'label.operation',
-                                labelClass: 'pfans3006view_column_22',
-                                width: 140,
-                                fix: false,
-                                filter: true
-                            },
-                        ],
-                        width: 280,
-                        fix: false,
-                        filter: true
-                    },
+                    // {
+                    //     code: 'status',
+                    //     label: 'label.status',
+                    //     child: [
+                    //         {
+                    //             code: 'status',
+                    //             label: 'label.approval_status',
+                    //             labelClass: 'pfans3006view_column_22',
+                    //             width: 140,
+                    //             fix: false,
+                    //             filter: true
+                    //         },
+                    //         {
+                    //             code: 'operation',
+                    //             label: 'label.operation',
+                    //             labelClass: 'pfans3006view_column_22',
+                    //             width: 140,
+                    //             fix: false,
+                    //             filter: true
+                    //         },
+                    //     ],
+                    //     width: 280,
+                    //     fix: false,
+                    //     filter: true
+                    // },
                     {
                         code: 'acceptstatus',
                         label: 'label.PFANS3001FORMVIEW_ACCEPTSTATUS',
