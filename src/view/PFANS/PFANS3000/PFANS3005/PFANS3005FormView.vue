@@ -1,7 +1,7 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick" ref="container"
-                         @workflowState="workflowState" v-loading="loading" @disabled="setdisabled"
+                         @workflowState="workflowState" v-loading="loading" @disabled="setdisabled" :enableSave="enableSave"
                          :canStart="canStart" @start="start" @end="end">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
@@ -412,6 +412,7 @@
         usernamelist: '',
         recipientslist: '',
         title: 'title.PFANS3005VIEW',
+        enableSave: false,
         buttonList: [],
         editableTabsValue: '0',
         editableTabs: [],
@@ -585,6 +586,11 @@
           .dispatch('PFANS3005Store/getPurchaseOne', {'purchase_id': this.$route.params._id})
           .then(response => {
             this.form = response;
+              if (this.form.status === '4') {
+                  this.enableSave = true;
+              }else{
+                  this.enableSave = false;
+              }
               let rst = getOrgInfoByUserId(response.user_id);
               if(rst){
                   this.centerid = rst.centerNmae;

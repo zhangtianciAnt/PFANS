@@ -162,15 +162,15 @@
             //   this.data[i].status = status;
             // }
 
-
+            let groupuserlist = [];
             for (let item of response) {
               let user = getUserInfo(item.projectid);
               if (user) {
                 item.centername = user.userinfo.centername;
                 item.groupname = user.userinfo.groupname;
               }
+              groupuserlist.push(item.projectid);
             }
-
             let filters = new Set();
             for (let i = 0; i < response.length; i++) {
               filters.add(response[i])
@@ -185,7 +185,6 @@
               }
               return item
             }, []);
-
 
             let data = [];
             for (let citem of filtersrst) {
@@ -207,7 +206,7 @@
                   }
                 }
               }
-
+              idata.groupuserlist = groupuserlist;
               data.push(idata)
             }
             this.data = data;
