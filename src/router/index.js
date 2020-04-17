@@ -223,8 +223,8 @@ const routes = [
     component: frameView,
     children: [
       {
-        path: '/error401',
-        name: 'error401',
+        path: '/error403',
+        name: 'error403',
         component: error401
       },
       {

@@ -3,9 +3,12 @@
     <EasyNormalContainer :buttonList="buttonList"
                          :title="title"
                          :enableSave="enableSave"
+                         @StartWorkflow="buttonClick"
+                         :defaultStart="defaultStart"
                          @buttonClick="buttonClick"
                          @end="end" @start="start"
                          @workflowState="workflowState"
+                         @disabled="setdisabled"
                          ref="container"
                          v-loading="loading">
       <div slot="customize">
@@ -254,8 +257,8 @@
                         header-cell-class-name="sub_bg_color_blue" stripe>
                 <el-table-column :label="$t('label.PFANS1012FORMVIEW_BUDGET')" align="center" width="150">
                   <template slot-scope="scope">
-<!--                    <el-input :disabled="true" maxlength="20" style="width: 100%" v-model="scope.row.budgetcode">-->
-<!--                    </el-input>-->
+                    <!--                    <el-input :disabled="true" maxlength="20" style="width: 100%" v-model="scope.row.budgetcode">-->
+                    <!--                    </el-input>-->
                     <el-select clearable style="width: 20vw" v-model="scope.row.budgetcode" :disabled="!disable"
                                :placeholder="$t('normal.error_09')">
                       <el-option
@@ -278,13 +281,14 @@
                          :error="errorgroup"
                          style="width: 9rem"
                          :no="scope.row"
-                         @getOrgids="getGroupId" ></org>
-                    <el-input v-show='false' :disabled="false" style="width:20vw" v-model="scope.row.companyend"></el-input>
+                         @getOrgids="getGroupId"></org>
+                    <el-input v-show='false' :disabled="false" style="width:20vw"
+                              v-model="scope.row.companyend"></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS5008VIEW_PROGRAM')" align="center" width="150">
                   <template slot-scope="scope">
-                    <project  style="width: 100%" :data="scope.row.projects" :no="scope.row"
+                    <project style="width: 100%" :data="scope.row.projects" :no="scope.row"
                              :disabled="scope.row.budgetcode ===$t('label.PFANS6008VIEW_EXPENSE')?true:!disable"
                              @change="changePro">
                     </project>
@@ -293,28 +297,30 @@
                 <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="600">
                   <el-table-column :label="$t('label.PFANS1025VIEW_MEMBER')" align="center" width="150" prop="member">
                     <template slot-scope="scope">
-                      <el-input-number  :disabled="scope.row.budgetcode ===$t('label.PFANS6008VIEW_EXPENSE')?true:!disable"
-                                       :max="1000000000"
-                                       :min="0"
-                                       :no="scope.row"
-                                       :precision="2"
-                                       controls-position="right"
-                                       style="width: 100%"
-                                       v-model="scope.row.member"
-                                       @change="changeSum(scope.row)"
+                      <el-input-number
+                        :disabled="scope.row.budgetcode ===$t('label.PFANS6008VIEW_EXPENSE')?true:!disable"
+                        :max="1000000000"
+                        :min="0"
+                        :no="scope.row"
+                        :precision="2"
+                        controls-position="right"
+                        style="width: 100%"
+                        v-model="scope.row.member"
+                        @change="changeSum(scope.row)"
                       ></el-input-number>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1025VIEW_COMMUNITY')" align="center" width="150">
                     <template slot-scope="scope">
-                      <el-input-number  :disabled="scope.row.budgetcode ===$t('label.PFANS6008VIEW_EXPENSE')?true:!disable"
-                                       :max="1000000000"
-                                       :min="0"
-                                       :no="scope.row"
-                                       controls-position="right"
-                                       style="width: 100%"
-                                       v-model="scope.row.community"
-                                       @change="changeSum(scope.row)"
+                      <el-input-number
+                        :disabled="scope.row.budgetcode ===$t('label.PFANS6008VIEW_EXPENSE')?true:!disable"
+                        :max="1000000000"
+                        :min="0"
+                        :no="scope.row"
+                        controls-position="right"
+                        style="width: 100%"
+                        v-model="scope.row.community"
+                        @change="changeSum(scope.row)"
                       ></el-input-number>
                     </template>
                   </el-table-column>
@@ -322,29 +328,29 @@
                                    prop="outsource">
                     <template slot-scope="scope">
                       <el-input-number
-                                       :disabled="scope.row.budgetcode ===$t('label.PFANS6008VIEW_EXPENSE')?true:!disable"
-                                       :max="1000000000"
-                                       :min="0"
-                                       :no="scope.row"
-                                       :precision="2"
-                                       controls-position="right"
-                                       style="width: 100%"
-                                       v-model="scope.row.outsource"
-                                       @change="changeSum(scope.row)"
+                        :disabled="scope.row.budgetcode ===$t('label.PFANS6008VIEW_EXPENSE')?true:!disable"
+                        :max="1000000000"
+                        :min="0"
+                        :no="scope.row"
+                        :precision="2"
+                        controls-position="right"
+                        style="width: 100%"
+                        v-model="scope.row.outsource"
+                        @change="changeSum(scope.row)"
                       ></el-input-number>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1025VIEW_OUTCOMMUNITY')" align="center" width="150">
                     <template slot-scope="scope">
                       <el-input-number
-                                       :disabled="scope.row.budgetcode ===$t('label.PFANS6008VIEW_EXPENSE')?true:!disable"
-                                       :max="1000000000"
-                                       :min="0"
-                                       :no="scope.row"
-                                       controls-position="right"
-                                       style="width: 100%"
-                                       v-model="scope.row.outcommunity"
-                                       @change="changeSum(scope.row)"
+                        :disabled="scope.row.budgetcode ===$t('label.PFANS6008VIEW_EXPENSE')?true:!disable"
+                        :max="1000000000"
+                        :min="0"
+                        :no="scope.row"
+                        controls-position="right"
+                        style="width: 100%"
+                        v-model="scope.row.outcommunity"
+                        @change="changeSum(scope.row)"
                       ></el-input-number>
                     </template>
                   </el-table-column>
@@ -353,14 +359,14 @@
                                  width="150">
                   <template slot-scope="scope">
                     <el-input-number
-                                     :disabled="true"
-                                     :max="1000000000"
-                                     :min="0"
-                                     :no="scope.row"
-                                     :precision="2"
-                                     controls-position="right"
-                                     style="width: 100%"
-                                     v-model="scope.row.worknumber"
+                      :disabled="true"
+                      :max="1000000000"
+                      :min="0"
+                      :no="scope.row"
+                      :precision="2"
+                      controls-position="right"
+                      style="width: 100%"
+                      v-model="scope.row.worknumber"
                     ></el-input-number>
                   </template>
                 </el-table-column>
@@ -368,33 +374,33 @@
                                  width="150">
                   <template slot-scope="scope">
                     <el-input-number
-                                     :disabled="scope.row.budgetcode ===$t('label.PFANS6008VIEW_EXPENSE')?!disable:true"
-                                     :max="1000000000"
-                                     :min="0"
-                                     :no="scope.row"
-                                     :precision="2"
-                                     controls-position="right"
-                                     style="width: 100%"
-                                     v-model="scope.row.awardmoney"
+                      :disabled="scope.row.budgetcode ===$t('label.PFANS6008VIEW_EXPENSE')?!disable:true"
+                      :max="1000000000"
+                      :min="0"
+                      :no="scope.row"
+                      :precision="2"
+                      controls-position="right"
+                      style="width: 100%"
+                      v-model="scope.row.awardmoney"
                     ></el-input-number>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.operation')" align="center" width="200">
                   <template slot-scope="scope">
                     <el-button
-                               :disabled="scope.row.budgetcode ===$t('label.PFANS6008VIEW_EXPENSE')?true:!disable"
-                               @click.native.prevent="deleteRow(scope.$index, tableT)"
-                               plain
-                               size="small"
-                               type="danger"
+                      :disabled="scope.row.budgetcode ===$t('label.PFANS6008VIEW_EXPENSE')?true:!disable"
+                      @click.native.prevent="deleteRow(scope.$index, tableT)"
+                      plain
+                      size="small"
+                      type="danger"
                     >{{$t('button.delete')}}
                     </el-button>
                     <el-button
-                               :disabled="scope.row.budgetcode ===$t('label.PFANS6008VIEW_EXPENSE')?true:!disable"
-                               @click="addRow()"
-                               plain
-                               size="small"
-                               type="primary"
+                      :disabled="scope.row.budgetcode ===$t('label.PFANS6008VIEW_EXPENSE')?true:!disable"
+                      @click="addRow()"
+                      plain
+                      size="small"
+                      type="primary"
                     >{{$t('button.insert')}}
                     </el-button>
                   </template>
@@ -576,7 +582,7 @@
                   </el-table-column>
                 </el-table>
               </el-row>
-<!--              add-ws-公式修改-->
+              <!--              add-ws-公式修改-->
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1030FORMVIEW_ATTFMOTH')">
@@ -647,7 +653,7 @@
   import dicselect from '../../../components/dicselect';
   import moment from 'moment';
   import org from '../../../components/org';
-  import {getDictionaryInfo, getUserInfo,downLoadUrl, uploadUrl,getOrgInfo} from '@/utils/customize';
+  import {getDictionaryInfo, getUserInfo, downLoadUrl, uploadUrl, getOrgInfo} from '@/utils/customize';
 
   import project from '../../../components/project';
 
@@ -807,6 +813,9 @@
       };
 
       return {
+        //add-ws-4/17-实施结果为空的情况下发起审批，提示填入必须项后程序没有终止修改
+        defaultStart: false,
+        //add-ws-4/17-实施结果为空的情况下发起审批，提示填入必须项后程序没有终止修改
         enableSave: false,
         //add-ws-添加上传附件功能-
         fileList: [],
@@ -819,7 +828,7 @@
           value: this.$t('label.PFANS1004VIEW_OUTER'),
           lable: this.$t('label.PFANS1004VIEW_OUTER'),
         }],
-        options1:[],
+        options1: [],
         activeName: 'first',
         disabled: true,
         moneysum: '',
@@ -900,7 +909,7 @@
         tableT: [{
           awarddetail_id: '',
           award_id: '',
-          budgetcode:  this.$t('label.PFANS6008VIEW_EXPENSE'),
+          budgetcode: this.$t('label.PFANS6008VIEW_EXPENSE'),
           depart: '',
           projects: '',
           member: '',
@@ -909,7 +918,7 @@
           outcommunity: '',
           worknumber: '',
           awardmoney: '',
-        },{
+        }, {
           awarddetail_id: '',
           award_id: '',
           budgetcode: '',
@@ -1104,9 +1113,9 @@
           .dispatch('PFANS1025Store/selectById', {'award_id': this.$route.params._id})
           .then(response => {
             this.form = response.award;
-            if(this.form.status==='4'){
+            if (this.form.status === '4') {
               this.enableSave = true;
-            }else{
+            } else {
               this.enableSave = false;
             }
             if (response.award.custojapanese !== null && response.award.custojapanese !== '') {
@@ -1116,13 +1125,13 @@
               }
             }
             //add-ws-汇率修改
-            if(response.award.currencyposition === 'PG019001'  || this.form.currencyposition === this.$t('label.PFANS1039FORMVIEW_DOLLAR')){
+            if (response.award.currencyposition === 'PG019001' || this.form.currencyposition === this.$t('label.PFANS1039FORMVIEW_DOLLAR')) {
               let letcheckexchangerate = getDictionaryInfo('JY001001');
               if (letcheckexchangerate != null) {
                 response.award.exchangerate = letcheckexchangerate.value2;
               }
-            }else {
-              response.award.exchangerate =  1 ;
+            } else {
+              response.award.exchangerate = 1;
             }
             //add-ws-汇率修改
             let letCurrencyposition = getDictionaryInfo(response.award.currencyposition);
@@ -1181,23 +1190,23 @@
               }
               for (var i = 0; i < this.tableT.length; i++) {
                 this.orglist = this.tableT[i].depart;
-                  if(this.tableT[i].depart !== '' && this.tableT[i].depart !== null && this.tableT[i].depart !== undefined){
-                      //ADD_FJL
-                      this.options1 = [];
-                      let butinfo = getOrgInfo(this.tableT[i].depart).encoding;
-                      let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-                      if(dic.length > 0){
-                          for (let i = 0; i < dic.length; i++) {
-                              if(butinfo === dic[i].value1){
-                                  this.options1.push({
-                                      lable: dic[i].value2 +'_'+ dic[i].value3,
-                                      value: dic[i].code,
-                                  })
-                              }
-                          }
+                if (this.tableT[i].depart !== '' && this.tableT[i].depart !== null && this.tableT[i].depart !== undefined) {
+                  //ADD_FJL
+                  this.options1 = [];
+                  let butinfo = getOrgInfo(this.tableT[i].depart).encoding;
+                  let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+                  if (dic.length > 0) {
+                    for (let i = 0; i < dic.length; i++) {
+                      if (butinfo === dic[i].value1) {
+                        this.options1.push({
+                          lable: dic[i].value2 + '_' + dic[i].value3,
+                          value: dic[i].code,
+                        });
                       }
-                      //ADD_FJL  修改人员预算编码
+                    }
                   }
+                  //ADD_FJL  修改人员预算编码
+                }
               }
             }
             //add-ws-表格第一行固定处理
@@ -1225,7 +1234,7 @@
                 subtotal: '',
               });
             }
-            this.tableD = data
+            this.tableD = data;
             // add-ws-合同人件费修改
             // if (this.form.tablecommunt !== '' && this.form.tablecommunt !== null) {
             //   for (let i = 0; i < JSON.parse(response.award.tablecommunt).length; i++) {
@@ -1308,9 +1317,16 @@
       this.disable = this.$route.params.disabled;
     },
     methods: {
-        getBudgetunit(val, row) {
-            row.budgetcode = val;
-        },
+      //add-ws-4/17-审批过程中数据可编辑问题修改
+      setdisabled(val) {
+        if (this.$route.params.disabled) {
+          this.disable = val;
+        }
+      },
+      //add-ws-4/17-审批过程中数据可编辑问题修改
+      getBudgetunit(val, row) {
+        row.budgetcode = val;
+      },
       //add-ws-添加上传附件功能-
       fileError(err, file, fileList) {
         Message({
@@ -1353,14 +1369,14 @@
         }
       },
       //add-ws-添加上传附件功能-
-      changesubtotal(row){
-        row.subtotal = row.subtotal
+      changesubtotal(row) {
+        row.subtotal = row.subtotal;
       },
-      changebudgetcode(row){
-       row.subtotal = row.budgetcode * row.depart
+      changebudgetcode(row) {
+        row.subtotal = row.budgetcode * row.depart;
       },
-      changedepart(row){
-        row.subtotal = row.budgetcode * row.depart
+      changedepart(row) {
+        row.subtotal = row.budgetcode * row.depart;
       },
       getTsummariesTableD(param) {
         const {columns, data} = param;
@@ -1396,11 +1412,11 @@
         this.moneysumclick(sums);
         return sums;
       },
-      moneysumclick(sums){
-        this.form.membercost = sums[3]
-        this.form.investorspeopor =sums[2]
-        let checkpjrate =  parseFloat((this.form.sarmb - this.form.membercost - this.form.total))/this.form.sarmb
-        this.form.pjrate =checkpjrate *100
+      moneysumclick(sums) {
+        this.form.membercost = sums[3];
+        this.form.investorspeopor = sums[2];
+        let checkpjrate = parseFloat((this.form.sarmb - this.form.membercost - this.form.total)) / this.form.sarmb;
+        this.form.pjrate = checkpjrate * 100;
       },
       changePro(val, row) {
         row.projects = val;
@@ -1419,19 +1435,19 @@
         }
       },
       gettotal1(val) {
-        if(this.form.total===0){
+        if (this.form.total === 0) {
           this.form.outsourcing = 0;
-        }else{
+        } else {
           this.form.outsourcing = this.form.total / val;
         }
       },
       gettotal(val) {
-        if(this.form.number===0){
+        if (this.form.number === 0) {
           this.form.outsourcing = 0;
-        }else{
+        } else {
           this.form.outsourcing = val / this.form.number;
         }
-        this.form.pjrate =  parseFloat((this.form.sarmb-this.form.membercost-val))/this.form.sarmb
+        this.form.pjrate = parseFloat((this.form.sarmb - this.form.membercost - val)) / this.form.sarmb;
       },
       getcontracttype(val) {
         this.form.contracttype = val;
@@ -1456,25 +1472,25 @@
       getindividual(val) {
         this.form.individual = val;
       },
-        //修改人员预算编码
+      //修改人员预算编码
       getGroupId(orglist, row) {
-          row.depart = orglist;
-          //ADD_FJL
-          this.options1 = [];
-          row.budgetcode = '';
-          let butinfo = getOrgInfo(row.depart).encoding;
-              let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-              if(dic.length > 0){
-                  for (let i = 0; i < dic.length; i++) {
-                      if(butinfo === dic[i].value1){
-                          this.options1.push({
-                              lable: dic[i].value2 +'_'+ dic[i].value3,
-                              value: dic[i].code,
-                          })
-                      }
-                  }
-              }
-          //ADD_FJL  修改人员预算编码
+        row.depart = orglist;
+        //ADD_FJL
+        this.options1 = [];
+        row.budgetcode = '';
+        let butinfo = getOrgInfo(row.depart).encoding;
+        let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+        if (dic.length > 0) {
+          for (let i = 0; i < dic.length; i++) {
+            if (butinfo === dic[i].value1) {
+              this.options1.push({
+                lable: dic[i].value2 + '_' + dic[i].value3,
+                value: dic[i].code,
+              });
+            }
+          }
+        }
+        //ADD_FJL  修改人员预算编码
         let group = getOrgInfo(orglist);
         if (group) {
           // row.budgetcode = group.encoding;
@@ -1487,16 +1503,80 @@
         } else if (val.state === '2') {
           this.form.status = '4';
         }
-        this.buttonClick('save');
+        //add-ws-4/17-实施结果为空的情况下发起审批，提示填入必须项后程序没有终止修改
+        this.buttonClick2();
+        //add-ws-4/17-实施结果为空的情况下发起审批，提示填入必须项后程序没有终止修改
       },
       start() {
         this.form.status = '2';
-        this.buttonClick('save');
+        //add-ws-4/17-实施结果为空的情况下发起审批，提示填入必须项后程序没有终止修改
+        this.buttonClick2();
+        //add-ws-4/17-实施结果为空的情况下发起审批，提示填入必须项后程序没有终止修改
       },
       end() {
         this.form.status = '0';
-        this.buttonClick('save');
+        //add-ws-4/17-实施结果为空的情况下发起审批，提示填入必须项后程序没有终止修改
+        this.buttonClick2();
+        //add-ws-4/17-实施结果为空的情况下发起审批，提示填入必须项后程序没有终止修改
       },
+      //add-ws-4/17-实施结果为空的情况下发起审批，提示填入必须项后程序没有终止修改
+      buttonClick2() {
+        this.form.maketype = '4',
+          this.baseInfo = {};
+        this.form.user_id = this.userlist;
+        if (this.form.claimdatetimeStart !== '' && this.form.claimdatetimeEnd !== '') {
+          this.form.claimdatetime = moment(this.form.claimdatetimeStart).format('YYYY-MM-DD') + ' ~ ' + moment(this.form.claimdatetimeEnd).format('YYYY-MM-DD');
+        }
+        this.baseInfo.staffDetail = [];
+        for (let i = 0; i < this.tableD.length; i++) {
+          this.baseInfo.staffDetail.push({
+            staffdetail_id: this.tableD[i].staffdetail_id,
+            award_id: this.tableD[i].award_id,
+            attf: this.tableD[i].attf,
+            budgetcode: this.tableD[i].budgetcode,
+            depart: this.tableD[i].depart,
+            subtotal: this.tableD[i].subtotal,
+          });
+        }
+        this.baseInfo.groupN = this.$store.getters.orgGroupList;
+        this.loading = true;
+        this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
+        this.baseInfo.awardDetail = [];
+        for (let i = 0; i < this.tableT.length; i++) {
+          if (this.tableT[i].budgetcode !== '' || this.tableT[i].depart !== '' || this.tableT[i].member > '0' || this.tableT[i].community > '0'
+            || this.tableT[i].outsource > '0' || this.tableT[i].outcommunity > '0' || this.tableT[i].worknumber > '0' || this.tableT[i].awardmoney > '0') {
+            this.baseInfo.awardDetail.push({
+              awarddetail_id: this.tableT[i].awarddetail_id,
+              award_id: this.tableT[i].award_id,
+              budgetcode: this.tableT[i].budgetcode,
+              depart: this.tableT[i].depart,
+              projects: this.tableT[i].projects,
+              member: this.tableT[i].member,
+              community: this.tableT[i].community,
+              outsource: this.tableT[i].outsource,
+              outcommunity: this.tableT[i].outcommunity,
+              worknumber: this.tableT[i].worknumber,
+              awardmoney: this.tableT[i].awardmoney,
+              rowindex: this.tableT[i].rowindex,
+            });
+          }
+        }
+        this.$store
+          .dispatch('PFANS1025Store/update', this.baseInfo)
+          .then(response => {
+            this.data = response;
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
+      //add-ws-4/17-实施结果为空的情况下发起审批，提示填入必须项后程序没有终止修改
       deleteRow(index, rows) {
         if (rows.length > 2) {
           rows.splice(index, 1);
@@ -1563,7 +1643,7 @@
         this.moneySum(sums);
         return sums;
       },
-      moneySum(sums){
+      moneySum(sums) {
         if (this.form.currencyposition === 'PG019001' || this.form.currencyposition === this.$t('label.PFANS1039FORMVIEW_DOLLAR')) {
           this.form.sarmb = this.form.exchangerate * sums[8];
         } else {
@@ -1589,67 +1669,72 @@
           });
         }
         this.baseInfo.groupN = this.$store.getters.orgGroupList;
-        if (val === 'save') {
-          this.$refs['reff'].validate(valid => {
-            if (valid) {
-              this.loading = true;
-              this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
-              this.baseInfo.awardDetail = [];
-              for (let i = 0; i < this.tableT.length; i++) {
-                if (this.tableT[i].budgetcode !== '' || this.tableT[i].depart !== '' || this.tableT[i].member > '0' || this.tableT[i].community > '0'
-                  || this.tableT[i].outsource > '0' || this.tableT[i].outcommunity > '0' || this.tableT[i].worknumber > '0' || this.tableT[i].awardmoney > '0') {
-                  this.baseInfo.awardDetail.push({
-                    awarddetail_id: this.tableT[i].awarddetail_id,
-                    award_id: this.tableT[i].award_id,
-                    budgetcode: this.tableT[i].budgetcode,
-                    depart: this.tableT[i].depart,
-                    projects: this.tableT[i].projects,
-                    member: this.tableT[i].member,
-                    community: this.tableT[i].community,
-                    outsource: this.tableT[i].outsource,
-                    outcommunity: this.tableT[i].outcommunity,
-                    worknumber: this.tableT[i].worknumber,
-                    awardmoney: this.tableT[i].awardmoney,
-                    rowindex: this.tableT[i].rowindex,
-                  });
-                }
+
+        this.$refs['reff'].validate(valid => {
+          if (valid) {
+            this.loading = true;
+            this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
+            this.baseInfo.awardDetail = [];
+            for (let i = 0; i < this.tableT.length; i++) {
+              if (this.tableT[i].budgetcode !== '' || this.tableT[i].depart !== '' || this.tableT[i].member > '0' || this.tableT[i].community > '0'
+                || this.tableT[i].outsource > '0' || this.tableT[i].outcommunity > '0' || this.tableT[i].worknumber > '0' || this.tableT[i].awardmoney > '0') {
+                this.baseInfo.awardDetail.push({
+                  awarddetail_id: this.tableT[i].awarddetail_id,
+                  award_id: this.tableT[i].award_id,
+                  budgetcode: this.tableT[i].budgetcode,
+                  depart: this.tableT[i].depart,
+                  projects: this.tableT[i].projects,
+                  member: this.tableT[i].member,
+                  community: this.tableT[i].community,
+                  outsource: this.tableT[i].outsource,
+                  outcommunity: this.tableT[i].outcommunity,
+                  worknumber: this.tableT[i].worknumber,
+                  awardmoney: this.tableT[i].awardmoney,
+                  rowindex: this.tableT[i].rowindex,
+                });
               }
-              if (this.$route.params._id) {     //编辑
-                this.baseInfo.award.award_id = this.$route.params._id;
-                this.$store
-                  .dispatch('PFANS1025Store/update', this.baseInfo)
-                  .then(response => {
-                    this.data = response;
-                    this.loading = false;
-                    if (val !== 'update') {
-                      Message({
-                        message: this.$t('normal.success_02'),
-                        type: 'success',
-                        duration: 5 * 1000,
-                      });
-                      if (this.$store.getters.historyUrl) {
-                        this.$router.push(this.$store.getters.historyUrl);
-                      }
-                    }
-                  })
-                  .catch(error => {
-                    Message({
-                      message: error,
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
-                    this.loading = false;
-                  });
-              }
-            } else {
-              Message({
-                message: this.$t('normal.error_12'),
-                type: 'error',
-                duration: 5 * 1000,
-              });
             }
-          });
-        } else if (val === 'generate') {
+            if (this.$route.params._id) {     //编辑
+              this.baseInfo.award.award_id = this.$route.params._id;
+              this.$store
+                .dispatch('PFANS1025Store/update', this.baseInfo)
+                .then(response => {
+                  this.data = response;
+                  this.loading = false;
+                  Message({
+                    message: this.$t('normal.success_02'),
+                    type: 'success',
+                    duration: 5 * 1000,
+                  });
+                  //add-ws-4/17-实施结果为空的情况下发起审批，提示填入必须项后程序没有终止修改
+                  if (val !== 'save' && val !== 'StartWorkflow') {
+                    if (this.$store.getters.historyUrl) {
+                      this.$router.push(this.$store.getters.historyUrl);
+                    }
+                  }
+                  if (val === 'StartWorkflow') {
+                    this.$refs.container.$refs.workflow.startWorkflow();
+                  }
+                  //add-ws-4/17-实施结果为空的情况下发起审批，提示填入必须项后程序没有终止修改
+                })
+                .catch(error => {
+                  Message({
+                    message: error,
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  this.loading = false;
+                });
+            }
+          } else {
+            Message({
+              message: this.$t('normal.error_12'),
+              type: 'error',
+              duration: 5 * 1000,
+            });
+          }
+        });
+        if (val === 'generate') {
           this.baseInfo.awardDetail = [];
           let sumoutsource = 0;
           let summember = 0;
@@ -1659,10 +1744,10 @@
             if (this.tableT[i].budgetcode !== '' || this.tableT[i].depart !== '' || this.tableT[i].member > '0' || this.tableT[i].community > '0'
               || this.tableT[i].outsource > '0' || this.tableT[i].outcommunity > '0' || this.tableT[i].worknumber > '0' || this.tableT[i].awardmoney > '0') {
               //add-ws-模板合计值累加
-              sumoutsource +=this.tableT[i].outsource
-              summember +=this.tableT[i].member
-              sumworknumber +=this.tableT[i].worknumber
-              sumawardmoney +=this.tableT[i].awardmoney
+              sumoutsource += this.tableT[i].outsource;
+              summember += this.tableT[i].member;
+              sumworknumber += this.tableT[i].worknumber;
+              sumawardmoney += this.tableT[i].awardmoney;
               //add-ws-模板合计值累加
               this.baseInfo.awardDetail.push({
                 awarddetail_id: this.tableT[i].awarddetail_id,
@@ -1680,10 +1765,10 @@
               });
             }
           }
-         //add-ws-将画面没有用到的字段给模板合计值赋值
+          //add-ws-将画面没有用到的字段给模板合计值赋值
           this.form.extrinsic = sumoutsource;
-          this.form.numbermoth =summember;
-          this.form.commdepartment =sumworknumber;
+          this.form.numbermoth = summember;
+          this.form.commdepartment = sumworknumber;
           this.form.commission = sumawardmoney;
           //add-ws-将画面没有用到的字段给模板合计值赋值
           this.baseInfo.award = JSON.parse(JSON.stringify(this.form));

@@ -183,20 +183,20 @@
         starttime: '',
         endtime: '',
         buttonList: [
-          //承认
-          {
-            'key': 'recognition',
-            'name': 'button.recognition',
-            'disabled': false,
-            'icon': 'el-icon-plus'
-          },
-          // 拒绝
-          {
-            'key': 'refuse',
-            'name': 'button.refuse',
-            'disabled': false,
-            'icon': 'el-icon-edit'
-          },
+          // //承认
+          // {
+          //   'key': 'recognition',
+          //   'name': 'button.recognition',
+          //   'disabled': false,
+          //   'icon': 'el-icon-plus'
+          // },
+          // // 拒绝
+          // {
+          //   'key': 'refuse',
+          //   'name': 'button.refuse',
+          //   'disabled': false,
+          //   'icon': 'el-icon-edit'
+          // },
         ],
       };
     },

@@ -606,17 +606,17 @@
       var validateContractdate = (rule, value, callback) => {
         if (Array.isArray(value)) {
           if (value.length == 0) {
-            callback(new Error(this.$t('label.PFANS1026FORMVIEW_KFQQSJ')));
+            callback(new Error(this.$t('normal.error_08')+this.$t('label.PFANS1024VIEW_CONTRACTDATE')));
           }
           value.map(function(item) {
             if (item === '') {
-              callback(new Error(this.$t('label.PFANS1026FORMVIEW_KFQQSJ')));
+              callback(new Error(this.$t('normal.error_08')+this.$t('label.PFANS1024VIEW_CONTRACTDATE')));
             }
           });
           callback();
         } else {
           if (value === '') {
-            callback(new Error(this.$t('label.PFANS1026FORMVIEW_KFQQSJ')));
+            callback(new Error(this.$t('normal.error_08')+this.$t('label.PFANS1024VIEW_CONTRACTDATE')));
           } else {
             callback();
           }
@@ -624,9 +624,10 @@
 
       };
       var validateCurrencyposition = (rule, value, callback) => {
+
         if (value === '') {
           // 333
-          callback(new Error(this.$t('label.PFANS1026FORMVIEW_THDW')));
+          callback(new Error(this.$t('normal.error_08')+this.$t('label.PFANS1024VIEW_CURRENCYPOSITION')));
         } else {
           callback();
         }
