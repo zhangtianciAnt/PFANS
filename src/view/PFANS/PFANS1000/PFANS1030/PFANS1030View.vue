@@ -16,7 +16,7 @@
   import EasyNormalTable from '@/components/EasyNormalTable';
   import {getDictionaryInfo, getStatus} from '@/utils/customize';
   import {Message} from 'element-ui';
-
+  let moment = require('moment');
 
   export default {
     name: 'PFANS1025View',
@@ -48,13 +48,6 @@
             code: 'custochinese',
             label: 'label.PFANS1025VIEW_ENTRUST',
             width: 120,
-            fix: false,
-            filter: true,
-          },
-          {
-            code: 'placechinese',
-            label: 'label.PFANS1025VIEW_ENTRUSTPLACE',
-            width: 150,
             fix: false,
             filter: true,
           },
@@ -99,7 +92,16 @@
             width: 120,
             fix: false,
             filter: true
-          }
+          },
+          //add-ws-4/17-添加审批时间
+          {
+            code: 'modifyon',
+            label: 'label.PFANS1030FORMVIEW_TIEEEND',
+            width: 150,
+            fix: false,
+            filter: true,
+          },
+          //add-ws-4/17-添加审批时间
         ],
         buttonList: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
@@ -160,6 +162,11 @@
                             if (response[j].status !== null && response[j].status !== '') {
                               response[j].status = getStatus(response[j].status);
                             }
+                            //add-ws-4/17-添加审批时间
+                            if (response[j].modifyon !== null && response[j].modifyon !== '') {
+                              response[j].modifyon = moment(response[j].modifyon).format('YYYY-MM-DD');
+                            }
+                            //add-ws-4/17-添加审批时间
                             if (response[j].pjnamechinese !== null && response[j].pjnamechinese !== '') {
                               if (response[j].pjnamechinese.split(',').length > 1) {
                                 let aa = [];
@@ -186,7 +193,7 @@
                             datated.push({
                               contracttype: response[j].contracttype,
                               custochinese: response[j].custochinese,
-                              placechinese: response[j].placechinese,
+                              modifyon: response[j].modifyon,
                               deployment: response[j].deployment,
                               pjnamechinese: response[j].pjnamechinese,
                               claimdatetime: response[j].claimdatetime,
@@ -207,7 +214,7 @@
                           datatade.push({
                             contracttype: response[m].contracttype,
                             custochinese: response[m].custochinese,
-                            placechinese: response[m].placechinese,
+                            modifyon: response[m].modifyon,
                             deployment: response[m].deployment,
                             pjnamechinese: response[m].pjnamechinese,
                             claimdatetime: response[m].claimdatetime,

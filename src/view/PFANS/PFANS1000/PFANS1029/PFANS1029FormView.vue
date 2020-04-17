@@ -121,6 +121,8 @@
                     <template>
                       <el-table
                         :data="tableData"
+                        border
+                        header-cell-class-name="sub_bg_color_blue"
                         style="width: 100%">
                         <el-table-column
                           prop="claimtype"
