@@ -214,7 +214,7 @@
             <!--            备注-->
             <el-col :span="24">
               <el-form-item :label="$t('label.remarks')">
-                <el-input :disabled="!disabled" :rows="2" style="width: 71vw" type="textarea" maxlength="100"
+                <el-input :disabled="!disabled" :rows="2" style="width: 71vw" type="textarea"
                           v-model="form.remarks"></el-input>
               </el-form-item>
             </el-col>

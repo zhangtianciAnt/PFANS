@@ -195,10 +195,10 @@
                   <el-form-item :label="$t('label.PFANS6004FORMVIEW_EXITS')" prop="exits">
                     <span style="margin-right: 1vw ">{{$t('label.no')}}</span>
                     <el-switch :disabled="!disabled"
-                               @change="changeexits"
+                               v-model="form.exits"
                                active-value="0"
                                inactive-value="1"
-                               v-model="form.exits"
+                               @change="changeexits"
                     ></el-switch>
                     <span style="margin-left: 1vw ">{{$t('label.yes')}}</span>
                   </el-form-item>
@@ -210,7 +210,7 @@
                 <!--            退场时间-->
                 <el-col :span="8">
                   <el-form-item :error="errorexitime" :label="$t('label.PFANS6004FORMVIEW_EXITIME')" prop="exitime"
-                                v-show="show">
+                                v-if="show">
                     <el-date-picker
                       :disabled="!disabled"
                       style="width:20vw"
@@ -221,7 +221,7 @@
                 </el-col>
                 <!--            退场理由-->
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS6004FORMVIEW_EXITREASON')" prop="exitreason" v-show="show">
+                  <el-form-item :label="$t('label.PFANS6004FORMVIEW_EXITREASON')" prop="exitreason" v-if="show">
                     <dicselect
                       :code="code6"
                       :data="form.exitreason"
@@ -234,7 +234,7 @@
                 </el-col>
                 <!--            所有技术-->
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS6004FORMVIEW_ALLTECHNOLOGY')" prop="alltechnology" v-show="show">
+                  <el-form-item :label="$t('label.PFANS6004FORMVIEW_ALLTECHNOLOGY')" prop="alltechnology" v-if="show">
                     <dicselect
                       :code="code7"
                       :data="form.alltechnology"
@@ -250,7 +250,7 @@
               <el-row>
                 <!--            現場評価-->
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS6004FORMVIEW_SITEVALUATION')" prop="sitevaluation" v-show="show">
+                  <el-form-item :label="$t('label.PFANS6004FORMVIEW_SITEVALUATION')" prop="sitevaluation" v-if="show">
                     <dicselect
                       :code="code8"
                       :data="form.sitevaluation"
@@ -264,7 +264,7 @@
                 <!--            業務影響-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS6004FORMVIEW_BUSINESSIMPACT')" prop="businessimpact"
-                                v-show="show">
+                                v-if="show">
                     <dicselect
                       :code="code10"
                       :data="form.businessimpact"
@@ -278,7 +278,7 @@
                 <!--            対策-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS6004FORMVIEW_COUNTERMEASURE')" prop="countermeasure"
-                                v-show="show">
+                                v-if="show">
                     <dicselect
                       :code="code9"
                       :data="form.countermeasure"
@@ -815,6 +815,12 @@
           this.rules.sitevaluation[0].required = false;
           this.rules.businessimpact[0].required = false;
           this.rules.countermeasure[0].required = false;
+          this.form.exitime = null;
+          this.form.exitreason = null;
+          this.form.alltechnology = null;
+          this.form.sitevaluation = null;
+          this.form.businessimpact = null;
+          this.form.countermeasure = null;
         } else {
           this.show = true;
           this.rules.exitime[0].required = true;
