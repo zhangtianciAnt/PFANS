@@ -37,7 +37,7 @@
             </el-col>
             <el-col :span="8" v-show="refuseShow">
               <el-form-item :label="$t('label.PFANS3007FORMVIEW_REFUSEREASON')">
-                <el-input :disabled="!disable" maxlength="100" style="width:20vw" v-model="form.refusereason"></el-input>
+                <el-input :disabled="acceptShow" maxlength="100" style="width:20vw" v-model="form.refusereason"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
