@@ -335,15 +335,15 @@ export default {
         .then(response => {
           let data = [];
           for (let j = 0; j < response.length; j++) {
-            if (response[j].creaton !== null && response[j].creaton !== "") {
-              response[j].creaton = moment(response[j].creaton).format(
+            if (response[j].createon !== null && response[j].createon !== "") {
+              response[j].createon = moment(response[j].createon).format(
                 "YYYY-MM-DD"
               );
             }
             let obj = {};
             obj.title = response[j].title;
             obj.url = response[j].url;
-            obj.creaton = response[j].creaton;
+            obj.creaton = response[j].createon;
             obj.informationid = response[j].informationid;
             obj.availablestate = response[j].availablestate;
             data[j] = obj;
