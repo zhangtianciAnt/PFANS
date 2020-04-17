@@ -28,7 +28,7 @@
 
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6001VIEW_CONTACTINFORMATION')">
-                <el-input :disabled="!disabled"  style="width: 20vw"
+                <el-input :disabled="!disabled" style="width: 20vw" maxlength="20"
                           v-model="form.contactinformation"></el-input>
               </el-form-item>
             </el-col>
@@ -104,7 +104,8 @@
 
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6001VIEW_GRADUATESCHOOL')" prop="graduateschool">
-                <el-input :disabled="!disabled" style="width: 20vw" v-model="form.graduateschool"></el-input>
+                <el-input :disabled="!disabled" style="width: 20vw" v-model="form.graduateschool"
+                          maxlength="20"></el-input>
               </el-form-item>
             </el-col>
 
