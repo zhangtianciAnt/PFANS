@@ -421,7 +421,7 @@
           this.paramsTitle();
         } else {
           if (Number(this.sumTotal[4]) > 1000) {
-            this.$message.error(this.$t('label.PFANS1005FORMVIEW_ERROR'));
+            this.$message.error(this.$t('label.PFANS1005FORMVIEW_ERRORCHECK'));
             return;
           }
           this.$refs['ruleForm'].validate(valid => {

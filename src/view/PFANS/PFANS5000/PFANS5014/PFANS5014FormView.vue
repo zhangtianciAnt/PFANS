@@ -341,6 +341,7 @@
                     name: "button.save"
                 }],
                 source: [{
+                    name_id: '',
                     prosystem_id: '',
                     comproject_id: '',
                     type: '',
@@ -465,15 +466,18 @@
                         /*项目资源*///项目体制
                         if (response.prosystem.length > 0) {
                             this.source = response.prosystem;
-                            for (var i = 0; i < this.source.length; i++) {
-                                if (this.source[i].type === '0') {
-                                    this.source[i].type = this.$t('label.PFANS5004VIEW_STAFF');
-                                    let lst = getUserInfo(this.source[i].name);
-                                    this.source[i].name = lst.userinfo.customername;
-                                } else {
-                                    this.source[i].type = this.$t('label.PFANS5004VIEW_ASSIST');
-                                }
+                          for (var i = 0; i < this.source.length; i++) {
+                            if (this.source[i].type === '0') {
+                              this.source[i].name_id  = this.source[i].name
+                              let lst = getUserInfo(this.source[i].name);
+                              this.source[i].name = lst.userinfo.customername;
+                            } else {
+                              let name = '';
+                              name = this.source[i].name
+                              this.source[i].name = this.source[i].name_id
+                              this.source[i].name_id = name
                             }
+                          }
                         }
                         if (this.form.uploadfile != null) {
                             if (this.form.uploadfile != "") {
@@ -636,7 +640,8 @@
                             ) {
                                 this.baseInfo.prosystem.push({
                                     number: this.source[i].number,
-                                    name: this.source[i].name,
+                                    name_id: this.source[i].name,
+                                    name: this.source[i].name_id,
                                     type: this.source[i].type,
                                     position: this.source[i].position,
                                     admissiontime: this.source[i].admissiontime,
