@@ -150,14 +150,14 @@
             fix: false,
             filter: true,
           },
-          {
-            //技术分类
-            code: 'technology',
-            label: 'label.PFANS2003VIEW_TECHNOLOGY',
-            width: 120,
-            fix: false,
-            filter: true,
-          },
+          // {
+          //   //技术分类
+          //   code: 'technology',
+          //   label: 'label.PFANS2003VIEW_TECHNOLOGY',
+          //   width: 120,
+          //   fix: false,
+          //   filter: true,
+          // },
           {
             //RN
             code: 'rn',
@@ -249,12 +249,12 @@
                   response[j].graduateschool = user.userinfo.customername;
                 }
               }
-              if (response[j].technology !== null && response[j].technology !== '') {
-                let technology = getDictionaryInfo(response[j].technology);
-                if (technology != null) {
-                  response[j].technology = technology.value1;
-                }
-              }
+              // if (response[j].technology !== null && response[j].technology !== '') {
+              //   let technology = getDictionaryInfo(response[j].technology);
+              //   if (technology != null) {
+              //     response[j].technology = technology.value1;
+              //   }
+              // }
               if (response[j].rn !== null && response[j].rn !== '') {
                 let rn = getDictionaryInfo(response[j].rn);
                 if (rn != null) {
@@ -271,7 +271,7 @@
                   age: this.age,
                   education: response[j].education,
                   graduateschool: response[j].graduateschool,
-                  technology: response[j].technology,
+                  // technology: response[j].technology,
                   rn: response[j].rn,
                   account: response[j].account,
                 })

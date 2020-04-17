@@ -16,23 +16,10 @@
                  style="padding:3vw">
           <!--            start  fjl 2020/04/08  添加总务担当的受理功能-->
           <el-row>
-            <!--            <el-col :span="8">-->
-            <!--              <el-form-item :label="$t('label.PFANS3001FORMVIEW_ACCEPT')" prop="accept">-->
-            <!--                <span style="margin-right: 1rem ">{{$t('label.no')}}</span>-->
-            <!--                <el-switch-->
-            <!--                  :disabled="!disable"-->
-            <!--                  v-model="form.accept"-->
-            <!--                  active-value="1"-->
-            <!--                  inactive-value="0"-->
-            <!--                >-->
-            <!--                </el-switch>-->
-            <!--                <span style="margin-left: 1rem ">{{$t('label.yes')}}</span>-->
-            <!--              </el-form-item>-->
-            <!--            </el-col>-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3001FORMVIEW_ACCEPTSTATUS')">
                 <el-select clearable style="width: 20vw"  v-model="form.acceptstatus" :disabled="acceptShow"
-                           :placeholder="$t('normal.error_09')">
+                           :placeholder="$t('normal.error_09')" @change="changeAcc">
                   <el-option
                     v-for="item in options"
                     :key="item.value"
@@ -46,6 +33,11 @@
               <el-form-item :label="$t('label.PFANS3006VIEW_ACCEPTTIME')">
                 <el-date-picker :disabled="acceptShow" style="width:20vw" type="date"
                                 v-model="form.findate"></el-date-picker>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8" v-show="refuseShow">
+              <el-form-item :label="$t('label.PFANS3007FORMVIEW_REFUSEREASON')">
+                <el-input :disabled="!disable" maxlength="100" style="width:20vw" v-model="form.refusereason"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -639,6 +631,7 @@
                     },
                 ],
               acceptShow: true,
+                refuseShow: false,
                 form: {
                     centerid: '',
                     groupid: '',
@@ -664,6 +657,7 @@
                     usemoney: '',
                     paymoney: '',
                     remarks: '',
+                    refusereason: '',
                   accept: '0',
                   acceptstatus: '',
                   findate: '',
@@ -770,6 +764,23 @@
                     .dispatch('PFANS3007Store/selectById', {'japancondominiumid': this.$route.params._id})
                     .then(response => {
                         this.form = response.japancondominium;
+                        if(this.form.acceptstatus === '1'){
+                            this.refuseShow = true;
+                        } else {
+                            this.refuseShow = false;
+                        }
+                        //start(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
+                        let role = getCurrentRole2();
+                        if (role === '0') {
+                            if (this.disable) {
+                                this.acceptShow = false;
+                            } else {
+                                this.acceptShow = true;
+                            }
+                        } else {
+                            this.acceptShow = true;
+                        }
+                        //end(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
                         let rst = getOrgInfoByUserId(response.japancondominium.userid);
                         if(rst){
                             this.centerid = rst.centerNmae;
@@ -924,18 +935,6 @@
                     this.getBudt(this.form.userid);
                 }
             }
-          //start(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
-          let role = getCurrentRole2();
-            if (role === '0') {
-                if (this.disable) {
-                    this.acceptShow = false;
-                } else {
-                    this.acceptShow = true;
-                }
-            } else {
-                this.acceptShow = true;
-            }
-          //end(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
         },
         created() {
             if (!this.$route.params.disabled) {
@@ -944,6 +943,15 @@
             this.disable = this.$route.params.disabled;
         },
         methods: {
+            //change受理状态  add_fjl
+            changeAcc(val){
+              this.form.acceptstatus = val;
+               if(val === '1'){
+                   this.refuseShow = true;
+               } else {
+                   this.refuseShow = false;
+               }
+            },
             getBudt(val){
                 //ADD_FJL  修改人员预算编码
                 if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {

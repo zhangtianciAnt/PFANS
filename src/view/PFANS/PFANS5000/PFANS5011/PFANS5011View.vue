@@ -83,21 +83,22 @@
             .dispatch('PFANS5001Store/getProjectList', {StrFlg:"1"})
             .then(response => {
               for (let i = 0;i < response.length; i ++){
-                response[i].confirm = response[i].confirm === null ? 0 : Number(response[i].confirm);
+                //response[i].confirm = response[i].confirm === null ? 0 : Number(response[i].confirm);
+                  response[i].confirm = response[i].unconfirm === null ? 0 : Number(response[i].unconfirm);
                 if (this.$i18n) {
                     response[i].status = this.$t('label.PFANS5012VIEW_UNCONFIRM');
-                    if(response[i].unconfirm != null){
-                      if(Number(response[i].unconfirm) > 0){
-                        response[i].status = this.$t('label.PFANS5012VIEW_UNCONFIRM');
-                      }
-                    }
-                    else{
-                      if(response[i].confirm != null){
-                        if(Number(response[i].confirm) > 0){
-                          response[i].status = this.$t('label.PFANS5012VIEW_CONFIRM');
-                        }
-                      }
-                    }
+                    // if(response[i].unconfirm != null){
+                    //   if(Number(response[i].unconfirm) > 0){
+                    //     response[i].status = this.$t('label.PFANS5012VIEW_UNCONFIRM');
+                    //   }
+                    // }
+                    // else{
+                    //   if(response[i].confirm != null){
+                    //     if(Number(response[i].confirm) > 0){
+                    //       response[i].status = this.$t('label.PFANS5012VIEW_CONFIRM');
+                    //     }
+                    //   }
+                    // }
                 }
               }
               this.data = response;

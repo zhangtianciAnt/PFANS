@@ -153,7 +153,7 @@
 <script>
   import EasyNormalContainer from "@/components/EasyNormalContainer";
   import {Message} from 'element-ui';
-  import {getUserInfo,getCooperinterviewList,getOrgInfo} from '@/utils/customize';
+  import {getUserInfo,getCooperinterviewList,getCooperinterviewListByAccount,getOrgInfo} from '@/utils/customize';
   import moment from "moment";
 
   export default {
@@ -184,20 +184,20 @@
         starttime: '',
         endtime: '',
         buttonList: [
-          //承认
-          {
-            'key': 'recognition',
-            'name': 'button.recognition',
-            'disabled': false,
-            'icon': 'el-icon-plus'
-          },
-          // 拒绝
-          {
-            'key': 'refuse',
-            'name': 'button.refuse',
-            'disabled': false,
-            'icon': 'el-icon-edit'
-          },
+          // //承认
+          // {
+          //   'key': 'recognition',
+          //   'name': 'button.recognition',
+          //   'disabled': false,
+          //   'icon': 'el-icon-plus'
+          // },
+          // // 拒绝
+          // {
+          //   'key': 'refuse',
+          //   'name': 'button.refuse',
+          //   'disabled': false,
+          //   'icon': 'el-icon-edit'
+          // },
         ],
       };
     },
@@ -278,7 +278,7 @@
                     }
                   }
                   else{
-                    let co = getCooperinterviewList(response[i].createby);
+                    let co = getCooperinterviewListByAccount(response[i].createby);
                     if(co){
                       letdata.name = co.expname;
                       letdata.company = co.suppliername;

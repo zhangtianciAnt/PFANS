@@ -782,7 +782,7 @@
       };
       var validateCurrencyposition = (rule, value, callback) => {
         if (value === '') {
-          callback(new Error(this.$t('label.PFANS1026FORMVIEW_THDW')));
+          callback(new Error(this.$t('normal.error_08')+this.$t('label.PFANS1024VIEW_CURRENCYPOSITION')));
         } else {
           callback();
         }
@@ -2236,16 +2236,19 @@
             o.maketype = '9';
           }
           // if (this.form.tabledata[i].state === this.$t('label.PFANS8008FORMVIEW_EFFECTIVE')) {
-          let letclaimamount = 0;
-          for (let j = 0; j < this.form.tableclaimtype.length; j++) {
-            letclaimamount = letclaimamount + Number(this.form.tableclaimtype[j].claimamount);
-
-            //请求番号
-            let claimnumber = this.form.tabledata[i].contractnumber + '-' + (j + 1);
-            this.form.tableclaimtype[j].claimnumber = claimnumber;
+          //add-ws-4/17-契约番号废弃状态有效变无效修改
+          if (this.form.tabledata[i].state === this.$t('label.PFANS8008FORMVIEW_EFFECTIVE')) {
+            let letclaimamount = 0;
+            for (let j = 0; j < this.form.tableclaimtype.length; j++) {
+              letclaimamount = letclaimamount + Number(this.form.tableclaimtype[j].claimamount);
+              //请求番号
+              let claimnumber = this.form.tabledata[i].contractnumber + '-' + (j + 1);
+              this.form.tableclaimtype[j].claimnumber = claimnumber;
+            }
+            o.state = this.$t('label.PFANS8008FORMVIEW_EFFECTIVE');
+            o.claimamount = letclaimamount;
           }
-          o.state = this.$t('label.PFANS8008FORMVIEW_EFFECTIVE');
-          o.claimamount = letclaimamount;
+          //add-ws-4/17-契约番号废弃状态有效变无效修改
           // }
           if (Array.isArray(this.form.tabledata[i].conchinese)) {
             o.conchinese = this.form.tabledata[i].conchinese.join(',');

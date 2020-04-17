@@ -1,13 +1,18 @@
 <template>
   <div>
     <EasyNormalTable :title="title" :columns="columns" :data="data" :rowid="row" :buttonList="buttonList"
-                     @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" v-show="showTable1">
+                     @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" v-show="this.showTable===1">
     </EasyNormalTable>
-<!--    ADD-WS-决裁编号添加-->
+    <!--    ADD-WS-决裁编号添加-->
     <EasyNormalTable :buttonList="buttonList" :columns="columns2" :data="data" :title="title" v-loading="loading"
-                     v-show="!showTable1" @buttonClick="buttonClick" @rowClick="rowClick" :rowid="row">
+                     v-show="this.showTable===2" @buttonClick="buttonClick" @rowClick="rowClick" :rowid="row">
     </EasyNormalTable>
-<!--    ADD-WS-决裁编号添加-->
+    <!--    ADD-WS-决裁编号添加-->
+    <!--    ADD-WS-费用编号添加-->
+    <EasyNormalTable :buttonList="buttonList" :columns="columns3" :data="data" :title="title" v-loading="loading"
+                     v-show="this.showTable===3" @buttonClick="buttonClick" @rowClick="rowClick" :rowid="row">
+    </EasyNormalTable>
+    <!--    ADD-WS-费用编号添加-->
   </div>
 </template>
 
@@ -23,18 +28,77 @@
     },
     data() {
       return {
-        //ADD-WS-决裁编号添加
-        showTable1: true,
-        //ADD-WS-决裁编号添加
+        options: [],
+        showTable: '',
         loading: false,
         title: '',
         // 表格数据源
         data: [],
+        //ADD-WS-费用编号添加
+        columns3: [
+          {
+            code: 'purchasenumbers',
+            label: 'label.PFANS1005VIEW_NUMBERS',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'remarks',
+            label: 'label.PFANS1012VIEW_ABSTRACT',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'user_id',
+            label: 'label.applicant',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'center_id',
+            label: 'label.center',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'group_id',
+            label: 'label.group',
+            width: 130,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'team_id',
+            label: 'label.team',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'status',
+            label: 'label.approval_status',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+        ],
+        //ADD-WS-费用编号添加
         //ADD-WS-决裁编号添加
         columns2: [
           {
             code: 'judgnumbers',
             label: 'label.PFANS1001FORMVIEW_NUMBERS',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'filename',
+            label: 'label.PFANS1012VIEW_ABSTRACT',
             width: 120,
             fix: false,
             filter: true,
@@ -131,7 +195,7 @@
       getCompanyProjectList(val) {
         if (val === 1) {
           //ADD-WS-决裁编号添加
-          this.showTable1 = true;
+          this.showTable = 1;
           //ADD-WS-决裁编号添加
           this.row = 'business_id';
           this.title = 'title.PFANS1002VIEW';
@@ -139,7 +203,7 @@
           this.dispatchparameter('PFANS1001Store/getBusiness', businesstype);
         } else if (val === 2) {
           //ADD-WS-决裁编号添加
-          this.showTable1 = true;
+          this.showTable = 1;
           //ADD-WS-决裁编号添加
           this.row = 'business_id';
           this.title = 'title.PFANS1035VIEW';
@@ -147,7 +211,7 @@
           this.dispatchparameter('PFANS1001Store/getBusiness', businesstype);
         } else if (val === 3) {
           //ADD-WS-决裁编号添加
-          this.showTable1 = true;
+          this.showTable = 1;
           //ADD-WS-决裁编号添加
           this.row = 'judgementid';
           this.title = 'title.PFANS1003VIEW';
@@ -155,36 +219,36 @@
           this.dispatchparameter('PFANS1001Store/getJudgement', letequipment);
         } else if (val === 4) {
           //ADD-WS-决裁编号添加
-          this.showTable1 = false;
+          this.showTable = 2;
           //ADD-WS-决裁编号添加
           this.row = 'judgementid';
           this.title = 'title.PFANS1004VIEW';
           let letequipment = {'equipment': '0'};
           this.dispatchparameter('PFANS1001Store/getJudgement', letequipment);
         } else if (val === 5) {
-          //ADD-WS-决裁编号添加
-          this.showTable1 = true;
-          //ADD-WS-决裁编号添加
+          //ADD-WS-费用编号添加
+          this.showTable = 3;
+          //ADD-WS-费用编号添加
           this.row = 'purchaseapply_id';
           this.title = 'title.PFANS1005VIEW';
           this.dispatch('PFANS1001Store/getpurchaseApply');
         } else if (val === 6) {
           //ADD-WS-决裁编号添加
-          this.showTable1 = true;
+          this.showTable = 1;
           //ADD-WS-决裁编号添加
           this.row = 'loanapplication_id';
           this.title = 'title.PFANS1006VIEW';
           this.dispatch('PFANS1001Store/getLoanapplication');
         } else if (val === 10) {
           //ADD-WS-决裁编号添加
-          this.showTable1 = true;
+          this.showTable = 1;
           //ADD-WS-决裁编号添加
           this.row = 'communication_id';
           this.title = 'title.PFANS1010VIEW';
           this.dispatch('PFANS1001Store/getCommunication');
         } else if (val === 11) {
           //ADD-WS-决裁编号添加
-          this.showTable1 = true;
+          this.showTable = 1;
           //ADD-WS-决裁编号添加
           this.row = 'offshore_id';
           this.title = 'title.PFANS1011VIEW';

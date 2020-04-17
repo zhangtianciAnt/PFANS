@@ -107,6 +107,13 @@
                         fix: false,
                         filter: true,
                     },
+                    {
+                        code: 'refusereason',
+                        label: 'label.PFANS3007FORMVIEW_REFUSEREASON',
+                        width: 150,
+                        fix: false,
+                        filter: true,
+                    },
                 ],
                 buttonList: [
                     {

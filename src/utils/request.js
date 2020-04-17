@@ -65,25 +65,17 @@ service.interceptors.response.use(
       if (response.data.code === 20101) {
         removeToken();
         if (router.currentRoute.path !== '/') {
-          router.replace({
-            path: '/',
-            query: {
-              redirect: router.currentRoute.fullPath
-            }
-          });
+          router.push({
+            name: '/'
+          })
           return Promise.reject(i18n.t('normal.error_05'))
         } else {
           return false;
         }
       } else if (response.data.code === 20102) {
-        if (router.currentRoute.path !== '/') {
-          router.replace({
-            path: '/error401',
-            query: {
-              redirect: router.currentRoute.fullPath
-            }
-          });
-        }
+        router.push({
+          name: 'error403'
+        })
       }else {
         return response.data;
       }
