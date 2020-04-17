@@ -6,6 +6,7 @@
                          @buttonClick="buttonClick"
                          @end="end" @start="start"
                          @workflowState="workflowState"
+                         @disabled="setdisabled"
                          ref="container"
                          v-loading="loading">
       <div slot="customize">
@@ -636,6 +637,13 @@
             }else{
               this.enableSave = false;
             }
+            //add-ws-发起审批后，有些项目没有锁住
+            if (this.form.status === '2') {
+              this.disable = false;
+            }else{
+              this.disable = true;
+            }
+            //add-ws-发起审批后，有些项目没有锁住
             //add-ws-契约种类value1值处理
             if (this.form.contracttype !== null && this.form.contracttype !== '') {
               let letContracttype = getDictionaryInfo(this.form.contracttype);
@@ -794,6 +802,13 @@
       this.disable = this.$route.params.disabled;
     },
     methods: {
+      //add-ws-4/17-审批过程中数据可编辑问题修改
+      setdisabled(val) {
+        if (this.$route.params.disabled) {
+          this.disable = val;
+        }
+      },
+      //add-ws-4/17-审批过程中数据可编辑问题修改
       //add-ws-添加上传附件功能-
       fileError(err, file, fileList) {
         Message({

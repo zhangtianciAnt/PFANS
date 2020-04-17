@@ -782,7 +782,7 @@
       };
       var validateCurrencyposition = (rule, value, callback) => {
         if (value === '') {
-          callback(new Error(this.$t('label.PFANS1026FORMVIEW_THDW')));
+          callback(new Error(this.$t('normal.error_08')+this.$t('label.PFANS1024VIEW_CURRENCYPOSITION')));
         } else {
           callback();
         }
