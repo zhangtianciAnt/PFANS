@@ -491,7 +491,6 @@
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1012FORMVIEW_CHARGED')" name="second">
               <el-collapse>
-                <!--111-->
                 <el-collapse-item v-if="show9">
                   <template slot="title">
                     <span class="collapse_Title">{{$t('label.PFANS1012VIEW_TRAFFIC')}}</span>
@@ -1817,6 +1816,7 @@
                             } else if (this.form.paymentmethod === 'PJ004005') {
                                 this.show5 = true;
                             }
+                      // 111
                             if (this.form.type === 'PJ001001') {
                                 this.show9 = true;
                                 this.show6 = false;
@@ -1875,8 +1875,10 @@
                     this.show9 = true;
                     this.show6 = false;
                     this.show7 = false;
-                  this.form.moduleidApp = getDictionaryInfo(this.form.moduleid).value1;
+                  debugger
                   this.form.moduleid = 'PJ002001';
+                  this.form.moduleidApp = getDictionaryInfo(this.form.moduleid).value1;
+
                 } else if (this.form.type === 'PJ001002') {
                     this.show9 = false;
                     this.show6 = true;
