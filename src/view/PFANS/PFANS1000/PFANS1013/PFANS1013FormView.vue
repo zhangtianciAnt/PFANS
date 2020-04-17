@@ -1296,39 +1296,42 @@
                 this.$store
                     .dispatch('PFANS1013Store/selectById', {'evectionid': this.$route.params._id})
                     .then(response => {
+                        debugger;
                         let lst = getOrgInfoByUserId(response.evection.userid);
                         if(lst){
                             this.centername = lst.centerNmae;
                             this.groupname = lst.groupNmae;
                             this.teamname = lst.teamNmae;
                         }
+
                         this.form = response.evection;
                         if (response.trafficdetails.length > 0) {
-                            for (let i = 0; i < response.trafficdetails.length; i++) {
+                            this.tableT = response.trafficdetails;
+                            for (let i = 0; i < this.tableT.length; i++) {
                                 //科目名
-                                let acinfo = getDictionaryInfo(response.trafficdetails[i].accountcode);
+                                let acinfo = getDictionaryInfo(this.tableT[i].accountcode);
                                 if(acinfo){
-                                    response.trafficdetails[i].accountcode = acinfo.value1;
+                                    this.tableT[i].accountcode = acinfo.value1;
                                     this.accountcodeflg =  acinfo.value1;
                                     this.accountcodeflg1 =  acinfo.code;
                                     this.subjectnumberflg =  acinfo.value2;
                                 }
                                 //PL摘要内容
-                                let plsuinfo = getDictionaryInfo(response.trafficdetails[i].plsummary);
+                                let plsuinfo = getDictionaryInfo(this.tableT[i].plsummary);
                                 if(plsuinfo){
-                                    response.trafficdetails[i].plsummary = plsuinfo.value1;
+                                    this.tableT[i].plsummary = plsuinfo.value1;
                                     this.plsummaryflg = plsuinfo.value1;
                                     this.plsummaryflg1 = plsuinfo.code;
                                 }
-                                if(response.trafficdetails[i].departmentname !== '' && response.trafficdetails[i].departmentname !== null && response.trafficdetails[i].departmentname !== undefined){
+                                if(this.tableT[i].departmentname !== '' && this.tableT[i].departmentname !== null && this.tableT[i].departmentname !== undefined){
                                     //ADD_FJL
-                                    response.trafficdetails[i].optionsT = [];
-                                    let butinfo = getOrgInfo(response.trafficdetails[i].departmentname).encoding;
+                                    this.tableT[i].optionsT = [];
+                                    let butinfo = getOrgInfo(this.tableT[i].departmentname).encoding;
                                     let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
                                     if(dic.length > 0){
                                         for (let j = 0; j < dic.length; j++) {
                                             if(butinfo === dic[j].value1){
-                                                response.trafficdetails[i].optionsT.push({
+                                                this.tableT[i].optionsT.push({
                                                     lable: dic[j].value2 +'_'+ dic[j].value3,
                                                     value: dic[j].code,
                                                 })
@@ -1338,20 +1341,20 @@
                                     //ADD_FJL  修改人员预算编码
                                 }
                             }
-                            this.tableT = response.trafficdetails;
                         }
                         if (response.accommodationdetails.length > 0) {
-                            for (let i = 0; i < response.accommodationdetails.length; i++) {
-                                if (response.accommodationdetails[i].accommodationdate !== '' && response.accommodationdetails[i].accommodationdate !== null) {
-                                    let time = response.accommodationdetails[i].accommodationdate;
+                            this.tableA = response.accommodationdetails;
+                            for (let i = 0; i < this.tableA.length; i++) {
+                                if (this.tableA[i].accommodationdate !== '' && this.tableA[i].accommodationdate !== null) {
+                                    let time = this.tableA[i].accommodationdate;
                                     let starttime = time.slice(0, 10);
                                     let endtime = time.slice(time.length - 10);
-                                    response.accommodationdetails[i].accommodationdate = [starttime, endtime];
+                                    this.tableA[i].accommodationdate = [starttime, endtime];
                                 }
                                 //PL摘要内容
-                                let plsuinfo = getDictionaryInfo(response.accommodationdetails[i].plsummary);
+                                let plsuinfo = getDictionaryInfo(this.tableA[i].plsummary);
                                 if(plsuinfo){
-                                    response.accommodationdetails[i].plsummary = plsuinfo.value1;
+                                    this.tableA[i].plsummary = plsuinfo.value1;
                                     this.plsummaryflg = plsuinfo.value1;
                                     this.plsummaryflg1 = plsuinfo.code;
                                 }
@@ -1360,26 +1363,26 @@
                                         this.Redirict = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).redirict;
                                     }
                                 }
-                                let acinfo = getDictionaryInfo(response.accommodationdetails[i].accountcode);
+                                let acinfo = getDictionaryInfo(this.tableA[i].accountcode);
                                 if(acinfo){
                                     if(this.Redirict == '0') {
                                         this.code20 = 'PJ119'
                                     }else if(this.Redirict == '1') {
                                         this.code20 = 'PJ132'
                                     }
-                                    response.accommodationdetails[i].accountcode = acinfo.value1;
+                                    this.tableA[i].accountcode = acinfo.value1;
                                 }
-                                if(response.accommodationdetails[i].departmentname !== '' && response.accommodationdetails[i].departmentname !== null && response.accommodationdetails[i].departmentname !== undefined){
+                                if(this.tableA[i].departmentname !== '' && this.tableA[i].departmentname !== null && this.tableA[i].departmentname !== undefined){
                                     //ADD_FJL
-                                    response.accommodationdetails[i].optionsA = [];
-                                    let butinfo = getOrgInfo(response.accommodationdetails[i].departmentname).encoding;
-                                    let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-                                    if(dic.length > 0){
-                                        for (let j = 0; j < dic.length; i++) {
-                                            if(butinfo === dic[j].value1){
-                                                response.accommodationdetails[i].optionsA.push({
-                                                    lable: dic[j].value2 +'_'+ dic[j].value3,
-                                                    value: dic[j].code,
+                                    this.tableA[i].optionsA = [];
+                                    let butinfoA = getOrgInfo(this.tableA[i].departmentname).encoding;
+                                    let dicA = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+                                    if(dicA.length > 0){
+                                        for (let j = 0; j < dicA.length; j++) {
+                                            if(butinfoA === dicA[j].value1){
+                                                this.tableA[i].optionsA.push({
+                                                    lable: dicA[j].value2 +'_'+ dicA[j].value3,
+                                                    value: dicA[j].code,
                                                 })
                                             }
                                         }
@@ -1387,7 +1390,6 @@
                                     //ADD_FJL  修改人员预算编码
                                 }
                             }
-                            this.tableA = response.accommodationdetails;
                             for (var i = 0; i < this.tableA.length; i++) {
                                 if (this.$route.params.method === 'view') {
                                     if (this.form.type === '0') {
