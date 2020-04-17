@@ -16,23 +16,10 @@
                  ref="refform" style="padding: 3vw">
           <!--            start  fjl 2020/04/08  添加总务担当的受理功能-->
           <el-row>
-<!--            <el-col :span="8">-->
-<!--              <el-form-item :label="$t('label.PFANS3001FORMVIEW_ACCEPT')" prop="accept">-->
-<!--                <span style="margin-right: 1rem ">{{$t('label.no')}}</span>-->
-<!--                <el-switch-->
-<!--                  :disabled="!disable"-->
-<!--                  v-model="form.accept"-->
-<!--                  active-value="1"-->
-<!--                  inactive-value="0"-->
-<!--                >-->
-<!--                </el-switch>-->
-<!--                <span style="margin-left: 1rem ">{{$t('label.yes')}}</span>-->
-<!--              </el-form-item>-->
-<!--            </el-col>-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3001FORMVIEW_ACCEPTSTATUS')">
                 <el-select clearable style="width: 20vw"  v-model="form.acceptstatus" :disabled="acceptShow"
-                           :placeholder="$t('normal.error_09')">
+                           :placeholder="$t('normal.error_09')" @change="changeAcc">
                   <el-option
                     v-for="item in options"
                     :key="item.value"
@@ -46,6 +33,11 @@
               <el-form-item :label="$t('label.PFANS3006VIEW_ACCEPTTIME')">
                 <el-date-picker :disabled="acceptShow" style="width:20vw" type="date"
                                 v-model="form.findate"></el-date-picker>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8" v-show="refuseShow">
+              <el-form-item :label="$t('label.PFANS3007FORMVIEW_REFUSEREASON')">
+                <el-input :disabled="acceptShow" maxlength="100" style="width:20vw" v-model="form.refusereason"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -371,6 +363,7 @@
           },
         ],
         acceptShow: true,
+          refuseShow: false,
         form: {
           centerid: '',
           groupid: '',
@@ -398,6 +391,7 @@
           accept: '0',
           acceptstatus: '',
           findate: '',
+          refusereason: '',
         },
         rules: {
           fellowmembersname:[{
@@ -484,6 +478,23 @@
           .dispatch('PFANS3006Store/getAppointmentCarOne', {"appointmentcarid": this.$route.params._id})
           .then(response => {
             this.form = response;
+              if(this.form.acceptstatus === '1'){
+                  this.refuseShow = true;
+              } else {
+                  this.refuseShow = false;
+              }
+              //start(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
+              let role = getCurrentRoleCar();
+              if (role === '0') {
+                  if (this.disable) {
+                      this.acceptShow = false;
+                  } else {
+                      this.acceptShow = true;
+                  }
+              } else {
+                  this.acceptShow = true;
+              }
+              //end(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
               let rst = getOrgInfoByUserId(response.userid);
               if(rst){
                   this.centerid = rst.centerNmae;
@@ -535,18 +546,6 @@
           this.form.userid = this.$store.getters.userinfo.userid;
         }
       }
-      //start(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
-      let role = getCurrentRoleCar();
-        if (role === '0') {
-            if (this.disable) {
-                this.acceptShow = false;
-            } else {
-                this.acceptShow = true;
-            }
-        } else {
-            this.acceptShow = true;
-        }
-      //end(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
     },
     created() {
       this.disable = this.$route.params.disable;
@@ -562,6 +561,15 @@
       }
     },
     methods: {
+        //change受理状态  add_fjl
+        changeAcc(val){
+            this.form.acceptstatus = val;
+            if(val === '1'){
+                this.refuseShow = true;
+            } else {
+                this.refuseShow = false;
+            }
+        },
       setdisabled(val){
         if(this.$route.params.disabled){
           this.disabled = val;
