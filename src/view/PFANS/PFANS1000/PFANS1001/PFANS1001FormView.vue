@@ -3,11 +3,11 @@
     <EasyNormalTable :title="title" :columns="columns" :data="data" :rowid="row" :buttonList="buttonList"
                      @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" v-show="this.showTable===1">
     </EasyNormalTable>
-<!--    ADD-WS-决裁编号添加-->
+    <!--    ADD-WS-决裁编号添加-->
     <EasyNormalTable :buttonList="buttonList" :columns="columns2" :data="data" :title="title" v-loading="loading"
                      v-show="this.showTable===2" @buttonClick="buttonClick" @rowClick="rowClick" :rowid="row">
     </EasyNormalTable>
-<!--    ADD-WS-决裁编号添加-->
+    <!--    ADD-WS-决裁编号添加-->
     <!--    ADD-WS-费用编号添加-->
     <EasyNormalTable :buttonList="buttonList" :columns="columns3" :data="data" :title="title" v-loading="loading"
                      v-show="this.showTable===3" @buttonClick="buttonClick" @rowClick="rowClick" :rowid="row">
@@ -28,6 +28,7 @@
     },
     data() {
       return {
+        options: [],
         showTable: '',
         loading: false,
         title: '',
@@ -38,6 +39,13 @@
           {
             code: 'purchasenumbers',
             label: 'label.PFANS1005VIEW_NUMBERS',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'remarks',
+            label: 'label.PFANS1012VIEW_ABSTRACT',
             width: 120,
             fix: false,
             filter: true,
@@ -84,6 +92,13 @@
           {
             code: 'judgnumbers',
             label: 'label.PFANS1001FORMVIEW_NUMBERS',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'filename',
+            label: 'label.PFANS1012VIEW_ABSTRACT',
             width: 120,
             fix: false,
             filter: true,
