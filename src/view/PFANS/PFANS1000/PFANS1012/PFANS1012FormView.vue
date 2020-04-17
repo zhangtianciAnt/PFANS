@@ -932,7 +932,7 @@
                         <el-table-column :label="$t('label.PFANS1012FORMVIEW_ACCOUNT')" align="center" width="250"
                         >
                           <template slot-scope="scope">
-                            <dicselect :code="code16"
+                            <dicselect :code="scope.row.code16"
                                        :disabled="!disable"
                                        :data="scope.row.accountcode"
                                        :multiple="multiple"
@@ -1334,6 +1334,7 @@
                     display: true,
                 }],
                 tableR: [{
+                    code16: '',
                     publicexpenseid: '',
                     otherdetails_id: '',
                     otherdetailsdate: '',
@@ -1476,7 +1477,6 @@
                 code11: '',
                 code13: 'PJ071',
                 code14: 'PJ083',
-                code16: '',
                 code17: '',
                 invoicenumber: '',
                 errorgroup: '',
@@ -1629,7 +1629,6 @@
                                 }
                             }
                             if (response.purchasedetails.length > 0) {
-
                                 this.tableP = response.purchasedetails;
                                 for (var i = 0; i < this.tableP.length; i++) {
                                     this.code17 = '';
@@ -1677,7 +1676,7 @@
                             if (response.otherdetails.length > 0) {
                                 this.tableR = response.otherdetails;
                                 for (let i = 0; i < this.tableR.length; i++) {
-                                    this.code16 = '';
+                                  this.tableR[i].code16 = '';
                                     this.orglist = this.tableR[i].departmentname;
                                     if(this.tableR[i].departmentname !== '' && this.tableR[i].departmentname !== null && this.tableR[i].departmentname !== undefined){
                                         //ADD_FJL
@@ -1702,85 +1701,85 @@
                                     }
                                     if (this.Redirict == '0') {
                                         if (this.tableR[i].plsummary == 'PJ111001') {
-                                            this.code16 = 'PJ112';
+                                          this.tableR[i].code16 = 'PJ112';
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
                                                 this.tableR[i].accountcode = letErrortype.code;
                                             }
                                         } else if (this.tableR[i].plsummary === 'PJ111002') {
-                                            this.code16 = 'PJ113';
+                                          this.tableR[i].code16 = 'PJ113';
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
                                                 this.tableR[i].accountcode = letErrortype.code;
                                             }
                                         } else if (this.tableR[i].plsummary === 'PJ111003') {
-                                            this.code16 = 'PJ114';
+                                          this.tableR[i].code16 = 'PJ114';
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
                                                 this.tableR[i].accountcode = letErrortype.code;
                                             }
                                         } else if (this.tableR[i].plsummary === 'PJ111004') {
-                                            this.code16 = '';
+                                          this.tableR[i].code16 = '';
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
                                                 this.tableR[i].accountcode = letErrortype.code;
                                             }
                                         } else if (this.tableR[i].plsummary === 'PJ111005') {
-                                            this.code16 = 'PJ116';
+                                          this.tableR[i].code16 = 'PJ116';
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
                                                 this.tableR[i].accountcode = letErrortype.code;
                                             }
                                         } else if (this.tableR[i].plsummary === 'PJ111006') {
-                                            this.code16 = 'PJ117';
+                                          this.tableR[i].code16 = 'PJ117';
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
                                                 this.tableR[i].accountcode = letErrortype.code;
                                             }
                                         } else if (this.tableR[i].plsummary === 'PJ111007') {
-                                            this.code16 = 'PJ118';
+                                          this.tableR[i].code16 = 'PJ118';
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
                                                 this.tableR[i].accountcode = letErrortype.code;
                                             }
                                         } else if (this.tableR[i].plsummary === 'PJ111008') {
-                                            this.code16 = 'PJ119';
+                                          this.tableR[i].code16 = 'PJ119';
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
                                                 this.tableR[i].accountcode = letErrortype.code;
                                             }
                                         } else if (this.tableR[i].plsummary === 'PJ111009') {
-                                            this.code16 = 'PJ120';
+                                          this.tableR[i].code16 = 'PJ120';
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
                                                 this.tableR[i].accountcode = letErrortype.code;
                                             }
                                         } else if (this.tableR[i].plsummary === 'PJ111010') {
-                                            this.code16 = 'PJ121';
+                                          this.tableR[i].code16 = 'PJ121';
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
                                                 this.tableR[i].accountcode = letErrortype.code;
                                             }
                                         } else if (this.tableR[i].plsummary === 'PJ111011') {
-                                            this.code16 = 'PJ122';
+                                          this.tableR[i].code16 = 'PJ122';
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
                                                 this.tableR[i].accountcode = letErrortype.code;
                                             }
                                         } else if (this.tableR[i].plsummary === 'PJ111012') {
-                                            this.code16 = 'PJ123';
+                                          this.tableR[i].code16 = 'PJ123';
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
                                                 this.tableR[i].accountcode = letErrortype.code;
                                             }
                                         } else if (this.tableR[i].plsummary === 'PJ111013') {
-                                            this.code16 = '';
+                                          this.tableR[i].code16 = '';
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
                                                 this.tableR[i].accountcode = letErrortype.code;
                                             }
                                         } else if (this.tableR[i].plsummary === 'PJ111014') {
-                                            this.code16 = 'PJ125';
+                                          this.tableR[i].code16 = 'PJ125';
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
                                                 this.tableR[i].accountcode = letErrortype.code;
@@ -1788,85 +1787,85 @@
                                         }
                                     } else if (this.Redirict == '1' || this.Redirict == '') {
                                         if (this.tableR[i].plsummary == 'PJ111001') {
-                                            this.code16 = 'PJ127';
+                                          this.tableR[i].code16 = 'PJ127';
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
                                                 this.tableR[i].accountcode = letErrortype.code;
                                             }
                                         } else if (this.tableR[i].plsummary === 'PJ111002') {
-                                            this.code16 = 'PJ128';
+                                          this.tableR[i].code16 = 'PJ128';
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
                                                 this.tableR[i].accountcode = letErrortype.code;
                                             }
                                         } else if (this.tableR[i].plsummary === 'PJ111003') {
-                                            this.code16 = 'PJ129';
+                                          this.tableR[i].code16 = 'PJ129';
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
                                                 this.tableR[i].accountcode = letErrortype.code;
                                             }
                                         } else if (this.tableR[i].plsummary === 'PJ111004') {
-                                            this.code16 = 'PJ115';
+                                          this.tableR[i].code16 = 'PJ115';
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
                                                 this.tableR[i].accountcode = letErrortype.code;
                                             }
                                         } else if (this.tableR[i].plsummary === 'PJ111005') {
-                                            this.code16 = 'PJ130';
+                                          this.tableR[i].code16 = 'PJ130';
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
                                                 this.tableR[i].accountcode = letErrortype.code;
                                             }
                                         } else if (this.tableR[i].plsummary === 'PJ111006') {
-                                            this.code16 = '';
+                                          this.tableR[i].code16 = '';
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
                                                 this.tableR[i].accountcode = letErrortype.code;
                                             }
                                         } else if (this.tableR[i].plsummary === 'PJ111007') {
-                                            this.code16 = 'PJ131';
+                                          this.tableR[i].code16 = 'PJ131';
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
                                                 this.tableR[i].accountcode = letErrortype.code;
                                             }
                                         } else if (this.tableR[i].plsummary === 'PJ111008') {
-                                            this.code16 = 'PJ132';
+                                          this.tableR[i].code16 = 'PJ132';
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
                                                 this.tableR[i].accountcode = letErrortype.code;
                                             }
                                         } else if (this.tableR[i].plsummary === 'PJ111009') {
-                                            this.code16 = 'PJ133';
+                                          this.tableR[i].code16 = 'PJ133';
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
                                                 this.tableR[i].accountcode = letErrortype.code;
                                             }
                                         } else if (this.tableR[i].plsummary === 'PJ111010') {
-                                            this.code16 = 'PJ134';
+                                          this.tableR[i].code16 = 'PJ134';
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
                                                 this.tableR[i].accountcode = letErrortype.code;
                                             }
                                         } else if (this.tableR[i].plsummary === 'PJ111011') {
-                                            this.code16 = 'PJ135';
+                                          this.tableR[i].code16 = 'PJ135';
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
                                                 this.tableR[i].accountcode = letErrortype.code;
                                             }
                                         } else if (this.tableR[i].plsummary === 'PJ111012') {
-                                            this.code16 = 'PJ136';
+                                          this.tableR[i].code16 = 'PJ136';
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
                                                 this.tableR[i].accountcode = letErrortype.code;
                                             }
                                         } else if (this.tableR[i].plsummary === 'PJ111013') {
-                                            this.code16 = 'PJ124';
+                                          this.tableR[i].code16 = 'PJ124';
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
                                                 this.tableR[i].accountcode = letErrortype.code;
                                             }
                                         } else if (this.tableR[i].plsummary === 'PJ111014') {
-                                            this.code16 = 'PJ137';
+                                          this.tableR[i].code16 = 'PJ137';
                                             let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                                             if (letErrortype != null) {
                                                 this.tableR[i].accountcode = letErrortype.code;
@@ -2072,124 +2071,125 @@
                     this.companyen = group.companyen;
                     this.Redirict = group.redirict;
                     // row.budgetcoding = group.encoding;
-                    this.code17 = this.Redirict == '0' ? 'PJ121' : 'PJ134';
-                    if (this.Redirict == '0') {
-                        if (row.plsummary == 'PJ111001') {
-                            row.accountcode = '',
-                                this.code16 = 'PJ112';
-
-                        } else if (row.plsummary == 'PJ111002') {
-                            row.accountcode = '',
-                                this.code16 = 'PJ113';
-
-                        } else if (row.plsummary == 'PJ111003') {
-                            row.accountcode = '',
-                                this.code16 = 'PJ114';
-
-                        } else if (row.plsummary == 'PJ111004') {
-                            row.accountcode = '',
-                                this.code16 = '';
-
-                        } else if (row.plsummary == 'PJ111005') {
-                            row.accountcode = '',
-                                this.code16 = 'PJ116';
-
-                        } else if (row.plsummary == 'PJ111006') {
-                            row.accountcode = '',
-                                this.code16 = 'PJ117';
-
-                        } else if (row.plsummary == 'PJ111007') {
-                            row.accountcode = '',
-                                this.code16 = 'PJ118';
-
-                        } else if (row.plsummary == 'PJ111008') {
-                            row.accountcode = '',
-                                this.code16 = 'PJ119';
-
-                        } else if (row.plsummary == 'PJ111009') {
-                            row.accountcode = '',
-                                this.code16 = 'PJ120';
-
-                        } else if (row.plsummary == 'PJ111010') {
-                            row.accountcode = '',
-                                this.code16 = 'PJ121';
-
-                        } else if (row.plsummary == 'PJ111011') {
-                            row.accountcode = '',
-                                this.code16 = 'PJ122';
-
-                        } else if (row.plsummary == 'PJ111012') {
-                            row.accountcode = '',
-                                this.code16 = 'PJ123';
-
-                        } else if (row.plsummary == 'PJ111013') {
-                            row.accountcode = '',
-                                this.code16 = '';
-
-                        } else if (row.plsummary == 'PJ111014') {
-                            row.accountcode = '',
-                                this.code16 = 'PJ125';
-
-                        }
-                    } else if (this.Redirict == '1' || this.Redirict == '') {
-                        if (row.plsummary == 'PJ111001') {
-                            row.accountcode = '',
-                                this.code16 = 'PJ127';
-
-                        } else if (row.plsummary == 'PJ111002') {
-                            row.accountcode = '',
-                                this.code16 = 'PJ128';
-
-                        } else if (row.plsummary == 'PJ111003') {
-                            row.accountcode = '',
-                                this.code16 = 'PJ129';
-
-                        } else if (row.plsummary == 'PJ111004') {
-                            row.accountcode = '',
-                                this.code16 = 'PJ115';
-
-                        } else if (row.plsummary == 'PJ111005') {
-                            row.accountcode = '',
-                                this.code16 = 'PJ130';
-
-                        } else if (row.plsummary == 'PJ111006') {
-                            row.accountcode = '',
-                                this.code16 = '';
-
-                        } else if (row.plsummary == 'PJ111007') {
-                            row.accountcode = '',
-                                this.code16 = 'PJ131';
-
-                        } else if (row.plsummary == 'PJ111008') {
-                            row.accountcode = '',
-                                this.code16 = 'PJ132';
-
-                        } else if (row.plsummary == 'PJ111009') {
-                            row.accountcode = '',
-                                this.code16 = 'PJ133';
-
-                        } else if (row.plsummary == 'PJ111010') {
-                            row.accountcode = '',
-                                this.code16 = 'PJ134';
-
-                        } else if (row.plsummary == 'PJ111011') {
-                            row.accountcode = '',
-                                this.code16 = 'PJ135';
-
-                        } else if (row.plsummary == 'PJ111012') {
-                            row.accountcode = '',
-                                this.code16 = 'PJ136';
-
-                        } else if (row.plsummary == 'PJ111013') {
-                            row.accountcode = '',
-                                this.code16 = 'PJ124';
-
-                        } else if (row.plsummary == 'PJ111014') {
-                            row.accountcode = '',
-                                this.code16 = 'PJ137';
-
-                        }
-                    }
+                    // this.code17 = this.Redirict == '0' ? 'PJ121' : 'PJ134';
+                    // if (this.Redirict == '0') {
+                    //     if (row.plsummary == 'PJ111001') {
+                    //         row.accountcode = '',
+                    //             this.code16 = 'PJ112';
+                    //
+                    //     } else if (row.plsummary == 'PJ111002') {
+                    //         row.accountcode = '',
+                    //             this.code16 = 'PJ113';
+                    //
+                    //     } else if (row.plsummary == 'PJ111003') {
+                    //         row.accountcode = '',
+                    //             this.code16 = 'PJ114';
+                    //
+                    //     } else if (row.plsummary == 'PJ111004') {
+                    //         row.accountcode = '',
+                    //             this.code16 = '';
+                    //
+                    //     } else if (row.plsummary == 'PJ111005') {
+                    //         row.accountcode = '',
+                    //             this.code16 = 'PJ116';
+                    //
+                    //     } else if (row.plsummary == 'PJ111006') {
+                    //         row.accountcode = '',
+                    //             this.code16 = 'PJ117';
+                    //
+                    //     } else if (row.plsummary == 'PJ111007') {
+                    //         row.accountcode = '',
+                    //             this.code16 = 'PJ118';
+                    //
+                    //     } else if (row.plsummary == 'PJ111008') {
+                    //         row.accountcode = '',
+                    //             this.code16 = 'PJ119';
+                    //
+                    //     } else if (row.plsummary == 'PJ111009') {
+                    //         row.accountcode = '',
+                    //             this.code16 = 'PJ120';
+                    //
+                    //     } else if (row.plsummary == 'PJ111010') {
+                    //         row.accountcode = '',
+                    //             this.code16 = 'PJ121';
+                    //
+                    //     } else if (row.plsummary == 'PJ111011') {
+                    //         row.accountcode = '',
+                    //             this.code16 = 'PJ122';
+                    //
+                    //     } else if (row.plsummary == 'PJ111012') {
+                    //         row.accountcode = '',
+                    //             this.code16 = 'PJ123';
+                    //
+                    //     } else if (row.plsummary == 'PJ111013') {
+                    //         row.accountcode = '',
+                    //             this.code16 = '';
+                    //
+                    //     } else if (row.plsummary == 'PJ111014') {
+                    //         row.accountcode = '',
+                    //             this.code16 = 'PJ125';
+                    //
+                    //     }
+                    // }
+                    // else if (this.Redirict == '1' || this.Redirict == '') {
+                    //     if (row.plsummary == 'PJ111001') {
+                    //         row.accountcode = '',
+                    //             this.code16 = 'PJ127';
+                    //
+                    //     } else if (row.plsummary == 'PJ111002') {
+                    //         row.accountcode = '',
+                    //             this.code16 = 'PJ128';
+                    //
+                    //     } else if (row.plsummary == 'PJ111003') {
+                    //         row.accountcode = '',
+                    //             this.code16 = 'PJ129';
+                    //
+                    //     } else if (row.plsummary == 'PJ111004') {
+                    //         row.accountcode = '',
+                    //             this.code16 = 'PJ115';
+                    //
+                    //     } else if (row.plsummary == 'PJ111005') {
+                    //         row.accountcode = '',
+                    //             this.code16 = 'PJ130';
+                    //
+                    //     } else if (row.plsummary == 'PJ111006') {
+                    //         row.accountcode = '',
+                    //             this.code16 = '';
+                    //
+                    //     } else if (row.plsummary == 'PJ111007') {
+                    //         row.accountcode = '',
+                    //             this.code16 = 'PJ131';
+                    //
+                    //     } else if (row.plsummary == 'PJ111008') {
+                    //         row.accountcode = '',
+                    //             this.code16 = 'PJ132';
+                    //
+                    //     } else if (row.plsummary == 'PJ111009') {
+                    //         row.accountcode = '',
+                    //             this.code16 = 'PJ133';
+                    //
+                    //     } else if (row.plsummary == 'PJ111010') {
+                    //         row.accountcode = '',
+                    //             this.code16 = 'PJ134';
+                    //
+                    //     } else if (row.plsummary == 'PJ111011') {
+                    //         row.accountcode = '',
+                    //             this.code16 = 'PJ135';
+                    //
+                    //     } else if (row.plsummary == 'PJ111012') {
+                    //         row.accountcode = '',
+                    //             this.code16 = 'PJ136';
+                    //
+                    //     } else if (row.plsummary == 'PJ111013') {
+                    //         row.accountcode = '',
+                    //             this.code16 = 'PJ124';
+                    //
+                    //     } else if (row.plsummary == 'PJ111014') {
+                    //         row.accountcode = '',
+                    //             this.code16 = 'PJ137';
+                    //
+                    //     }
+                    // }
                     if (this.Redirict == '0') {
                         this.accoundoptionsdate = [];
                         let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ119');
@@ -2247,117 +2247,117 @@
                     if (this.Redirict == '0') {
                         if (row.plsummary == 'PJ111001') {
                             row.accountcode = '',
-                                this.code16 = 'PJ112';
+                              row.code16 = 'PJ112';
 
                         } else if (row.plsummary == 'PJ111002') {
                             row.accountcode = '',
-                                this.code16 = 'PJ113';
+                              row.code16 = 'PJ113';
 
                         } else if (row.plsummary == 'PJ111003') {
                             row.accountcode = '',
-                                this.code16 = 'PJ114';
+                              row.code16 = 'PJ114';
 
                         } else if (row.plsummary == 'PJ111004') {
                             row.accountcode = '',
-                                this.code16 = '';
+                              row.code16 = '';
 
                         } else if (row.plsummary == 'PJ111005') {
                             row.accountcode = '',
-                                this.code16 = 'PJ116';
+                              row.code16 = 'PJ116';
 
                         } else if (row.plsummary == 'PJ111006') {
                             row.accountcode = '',
-                                this.code16 = 'PJ117';
+                              row.code16 = 'PJ117';
 
                         } else if (row.plsummary == 'PJ111007') {
                             row.accountcode = '',
-                                this.code16 = 'PJ118';
+                              row.code16 = 'PJ118';
 
                         } else if (row.plsummary == 'PJ111008') {
                             row.accountcode = '',
-                                this.code16 = 'PJ119';
+                              row.code16 = 'PJ119';
 
                         } else if (row.plsummary == 'PJ111009') {
                             row.accountcode = '',
-                                this.code16 = 'PJ120';
+                              row.code16 = 'PJ120';
 
                         } else if (row.plsummary == 'PJ111010') {
                             row.accountcode = '',
-                                this.code16 = 'PJ121';
+                              row.code16 = 'PJ121';
 
                         } else if (row.plsummary == 'PJ111011') {
                             row.accountcode = '',
-                                this.code16 = 'PJ122';
+                              row.code16 = 'PJ122';
 
                         } else if (row.plsummary == 'PJ111012') {
                             row.accountcode = '',
-                                this.code16 = 'PJ123';
+                              row.code16 = 'PJ123';
 
                         } else if (row.plsummary == 'PJ111013') {
                             row.accountcode = '',
-                                this.code16 = '';
+                              row.code16 = '';
 
                         } else if (row.plsummary == 'PJ111014') {
                             row.accountcode = '',
-                                this.code16 = 'PJ125';
+                              row.code16 = 'PJ125';
 
                         }
                     } else if (this.Redirict == '1' || this.Redirict == '') {
                         if (row.plsummary == 'PJ111001') {
                             row.accountcode = '',
-                                this.code16 = 'PJ127';
+                              row.code16 = 'PJ127';
 
                         } else if (row.plsummary == 'PJ111002') {
                             row.accountcode = '',
-                                this.code16 = 'PJ128';
+                              row.code16 = 'PJ128';
 
                         } else if (row.plsummary == 'PJ111003') {
                             row.accountcode = '',
-                                this.code16 = 'PJ129';
+                              row.code16 = 'PJ129';
 
                         } else if (row.plsummary == 'PJ111004') {
                             row.accountcode = '',
-                                this.code16 = 'PJ115';
+                              row.code16 = 'PJ115';
 
                         } else if (row.plsummary == 'PJ111005') {
                             row.accountcode = '',
-                                this.code16 = 'PJ130';
+                              row.code16 = 'PJ130';
 
                         } else if (row.plsummary == 'PJ111006') {
                             row.accountcode = '',
-                                this.code16 = '';
+                              row.code16 = '';
 
                         } else if (row.plsummary == 'PJ111007') {
                             row.accountcode = '',
-                                this.code16 = 'PJ131';
+                              row.code16 = 'PJ131';
 
                         } else if (row.plsummary == 'PJ111008') {
                             row.accountcode = '',
-                                this.code16 = 'PJ132';
+                              row.code16 = 'PJ132';
 
                         } else if (row.plsummary == 'PJ111009') {
                             row.accountcode = '',
-                                this.code16 = 'PJ133';
+                              row.code16 = 'PJ133';
 
                         } else if (row.plsummary == 'PJ111010') {
                             row.accountcode = '',
-                                this.code16 = 'PJ134';
+                              row.code16 = 'PJ134';
 
                         } else if (row.plsummary == 'PJ111011') {
                             row.accountcode = '',
-                                this.code16 = 'PJ135';
+                              row.code16 = 'PJ135';
 
                         } else if (row.plsummary == 'PJ111012') {
                             row.accountcode = '',
-                                this.code16 = 'PJ136';
+                              row.code16 = 'PJ136';
 
                         } else if (row.plsummary == 'PJ111013') {
                             row.accountcode = '',
-                                this.code16 = 'PJ124';
+                              row.code16 = 'PJ124';
 
                         } else if (row.plsummary == 'PJ111014') {
                             row.accountcode = '',
-                                this.code16 = 'PJ137';
+                              row.code16 = 'PJ137';
 
                         }
                     }
@@ -2415,123 +2415,124 @@
                     this.Redirict = group.redirict;
                     // row.budgetcoding = group.encoding;
                     this.code17 = this.Redirict == '0' ? 'PJ121' : 'PJ134';
-                    if (this.Redirict == '0') {
-                        if (row.plsummary == 'PJ111001') {
-                            row.accountcode = '',
-                                this.code16 = 'PJ112';
-
-                        } else if (row.plsummary == 'PJ111002') {
-                            row.accountcode = '',
-                                this.code16 = 'PJ113';
-
-                        } else if (row.plsummary == 'PJ111003') {
-                            row.accountcode = '',
-                                this.code16 = 'PJ114';
-
-                        } else if (row.plsummary == 'PJ111004') {
-                            row.accountcode = '',
-                                this.code16 = '';
-
-                        } else if (row.plsummary == 'PJ111005') {
-                            row.accountcode = '',
-                                this.code16 = 'PJ116';
-
-                        } else if (row.plsummary == 'PJ111006') {
-                            row.accountcode = '',
-                                this.code16 = 'PJ117';
-
-                        } else if (row.plsummary == 'PJ111007') {
-                            row.accountcode = '',
-                                this.code16 = 'PJ118';
-
-                        } else if (row.plsummary == 'PJ111008') {
-                            row.accountcode = '',
-                                this.code16 = 'PJ119';
-
-                        } else if (row.plsummary == 'PJ111009') {
-                            row.accountcode = '',
-                                this.code16 = 'PJ120';
-
-                        } else if (row.plsummary == 'PJ111010') {
-                            row.accountcode = '',
-                                this.code16 = 'PJ121';
-
-                        } else if (row.plsummary == 'PJ111011') {
-                            row.accountcode = '',
-                                this.code16 = 'PJ122';
-
-                        } else if (row.plsummary == 'PJ111012') {
-                            row.accountcode = '',
-                                this.code16 = 'PJ123';
-
-                        } else if (row.plsummary == 'PJ111013') {
-                            row.accountcode = '',
-                                this.code16 = '';
-
-                        } else if (row.plsummary == 'PJ111014') {
-                            row.accountcode = '',
-                                this.code16 = 'PJ125';
-
-                        }
-                    } else if (this.Redirict == '1' || this.Redirict == '') {
-                        if (row.plsummary == 'PJ111001') {
-                            row.accountcode = '',
-                                this.code16 = 'PJ127';
-
-                        } else if (row.plsummary == 'PJ111002') {
-                            row.accountcode = '',
-                                this.code16 = 'PJ128';
-
-                        } else if (row.plsummary == 'PJ111003') {
-                            row.accountcode = '',
-                                this.code16 = 'PJ129';
-
-                        } else if (row.plsummary == 'PJ111004') {
-                            row.accountcode = '',
-                                this.code16 = 'PJ115';
-
-                        } else if (row.plsummary == 'PJ111005') {
-                            row.accountcode = '',
-                                this.code16 = 'PJ130';
-
-                        } else if (row.plsummary == 'PJ111006') {
-                            row.accountcode = '',
-                                this.code16 = '';
-
-                        } else if (row.plsummary == 'PJ111007') {
-                            row.accountcode = '',
-                                this.code16 = 'PJ131';
-
-                        } else if (row.plsummary == 'PJ111008') {
-                            row.accountcode = '',
-                                this.code16 = 'PJ132';
-
-                        } else if (row.plsummary == 'PJ111009') {
-                            row.accountcode = '',
-                                this.code16 = 'PJ133';
-
-                        } else if (row.plsummary == 'PJ111010') {
-                            row.accountcode = '',
-                                this.code16 = 'PJ134';
-
-                        } else if (row.plsummary == 'PJ111011') {
-                            row.accountcode = '',
-                                this.code16 = 'PJ135';
-
-                        } else if (row.plsummary == 'PJ111012') {
-                            row.accountcode = '',
-                                this.code16 = 'PJ136';
-
-                        } else if (row.plsummary == 'PJ111013') {
-                            row.accountcode = '',
-                                this.code16 = 'PJ124';
-
-                        } else if (row.plsummary == 'PJ111014') {
-                            row.accountcode = '',
-                                this.code16 = 'PJ137';
-
-                        }
-                    }
+                    // if (this.Redirict == '0') {
+                    //     if (row.plsummary == 'PJ111001') {
+                    //         row.accountcode = '',
+                    //           row.code16 = 'PJ112';
+                    //
+                    //     } else if (row.plsummary == 'PJ111002') {
+                    //         row.accountcode = '',
+                    //           row.code16 = 'PJ113';
+                    //
+                    //     } else if (row.plsummary == 'PJ111003') {
+                    //         row.accountcode = '',
+                    //           row.code16 = 'PJ114';
+                    //
+                    //     } else if (row.plsummary == 'PJ111004') {
+                    //         row.accountcode = '',
+                    //           row.code16 = '';
+                    //
+                    //     } else if (row.plsummary == 'PJ111005') {
+                    //         row.accountcode = '',
+                    //           row.code16 = 'PJ116';
+                    //
+                    //     } else if (row.plsummary == 'PJ111006') {
+                    //         row.accountcode = '',
+                    //           row.code16 = 'PJ117';
+                    //
+                    //     } else if (row.plsummary == 'PJ111007') {
+                    //         row.accountcode = '',
+                    //           row.code16 = 'PJ118';
+                    //
+                    //     } else if (row.plsummary == 'PJ111008') {
+                    //         row.accountcode = '',
+                    //           row.code16 = 'PJ119';
+                    //
+                    //     } else if (row.plsummary == 'PJ111009') {
+                    //         row.accountcode = '',
+                    //           row.code16 = 'PJ120';
+                    //
+                    //     } else if (row.plsummary == 'PJ111010') {
+                    //         row.accountcode = '',
+                    //           row.code16 = 'PJ121';
+                    //
+                    //     } else if (row.plsummary == 'PJ111011') {
+                    //         row.accountcode = '',
+                    //           row.code16 = 'PJ122';
+                    //
+                    //     } else if (row.plsummary == 'PJ111012') {
+                    //         row.accountcode = '',
+                    //           row.code16 = 'PJ123';
+                    //
+                    //     } else if (row.plsummary == 'PJ111013') {
+                    //         row.accountcode = '',
+                    //           row.code16 = '';
+                    //
+                    //     } else if (row.plsummary == 'PJ111014') {
+                    //         row.accountcode = '',
+                    //           row.code16 = 'PJ125';
+                    //
+                    //     }
+                    // }
+                    // else if (this.Redirict == '1' || this.Redirict == '') {
+                    //     if (row.plsummary == 'PJ111001') {
+                    //         row.accountcode = '',
+                    //           row.code16 = 'PJ127';
+                    //
+                    //     } else if (row.plsummary == 'PJ111002') {
+                    //         row.accountcode = '',
+                    //           row.code16 = 'PJ128';
+                    //
+                    //     } else if (row.plsummary == 'PJ111003') {
+                    //         row.accountcode = '',
+                    //           row.code16 = 'PJ129';
+                    //
+                    //     } else if (row.plsummary == 'PJ111004') {
+                    //         row.accountcode = '',
+                    //           row.code16 = 'PJ115';
+                    //
+                    //     } else if (row.plsummary == 'PJ111005') {
+                    //         row.accountcode = '',
+                    //           row.code16 = 'PJ130';
+                    //
+                    //     } else if (row.plsummary == 'PJ111006') {
+                    //         row.accountcode = '',
+                    //           row.code16 = '';
+                    //
+                    //     } else if (row.plsummary == 'PJ111007') {
+                    //         row.accountcode = '',
+                    //           row.code16 = 'PJ131';
+                    //
+                    //     } else if (row.plsummary == 'PJ111008') {
+                    //         row.accountcode = '',
+                    //           row.code16 = 'PJ132';
+                    //
+                    //     } else if (row.plsummary == 'PJ111009') {
+                    //         row.accountcode = '',
+                    //           row.code16 = 'PJ133';
+                    //
+                    //     } else if (row.plsummary == 'PJ111010') {
+                    //         row.accountcode = '',
+                    //           row.code16 = 'PJ134';
+                    //
+                    //     } else if (row.plsummary == 'PJ111011') {
+                    //         row.accountcode = '',
+                    //           row.code16 = 'PJ135';
+                    //
+                    //     } else if (row.plsummary == 'PJ111012') {
+                    //         row.accountcode = '',
+                    //           row.code16 = 'PJ136';
+                    //
+                    //     } else if (row.plsummary == 'PJ111013') {
+                    //         row.accountcode = '',
+                    //           row.code16 = 'PJ124';
+                    //
+                    //     } else if (row.plsummary == 'PJ111014') {
+                    //         row.accountcode = '',
+                    //           row.code16 = 'PJ137';
+                    //
+                    //     }
+                    // }
                     if (this.Redirict == '0') {
                         this.accoundoptionsdate = [];
                         let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ119');
@@ -2564,117 +2565,117 @@
                 if (this.Redirict == '0') {
                     if (row.plsummary == 'PJ111001') {
                         row.accountcode = '',
-                            this.code16 = 'PJ112';
+                          row.code16 = 'PJ112';
                         this.code17 = 'PJ112';
                     } else if (row.plsummary == 'PJ111002') {
                         row.accountcode = '',
-                            this.code16 = 'PJ113';
+                          row.code16 = 'PJ113';
                         this.code17 = 'PJ113';
                     } else if (row.plsummary == 'PJ111003') {
                         row.accountcode = '',
-                            this.code16 = 'PJ114';
+                          row.code16 = 'PJ114';
                         this.code17 = 'PJ114';
                     } else if (row.plsummary == 'PJ111004') {
                         row.accountcode = '',
-                            this.code16 = '';
+                          row.code16 = '';
                         this.code17 = '';
                     } else if (row.plsummary == 'PJ111005') {
                         row.accountcode = '',
-                            this.code16 = 'PJ116';
+                          row.code16 = 'PJ116';
                         this.code17 = 'PJ116';
                     } else if (row.plsummary == 'PJ111006') {
                         row.accountcode = '',
-                            this.code16 = 'PJ117';
+                          row.code16 = 'PJ117';
                         this.code17 = 'PJ117';
                     } else if (row.plsummary == 'PJ111007') {
                         row.accountcode = '',
-                            this.code16 = 'PJ118';
+                          row.code16 = 'PJ118';
                         this.code17 = 'PJ118';
                     } else if (row.plsummary == 'PJ111008') {
                         row.accountcode = '',
-                            this.code16 = 'PJ119';
+                          row.code16 = 'PJ119';
                         this.code17 = 'PJ119';
                     } else if (row.plsummary == 'PJ111009') {
                         row.accountcode = '',
-                            this.code16 = 'PJ120';
+                          row.code16 = 'PJ120';
                         this.code17 = 'PJ120';
                     } else if (row.plsummary == 'PJ111010') {
                         row.accountcode = '',
-                            this.code16 = 'PJ121';
+                          row.code16 = 'PJ121';
                         this.code17 = 'PJ121';
                     } else if (row.plsummary == 'PJ111011') {
                         row.accountcode = '',
-                            this.code16 = 'PJ122';
+                          row.code16 = 'PJ122';
                         this.code17 = 'PJ122';
                     } else if (row.plsummary == 'PJ111012') {
                         row.accountcode = '',
-                            this.code16 = 'PJ123';
+                          row.code16 = 'PJ123';
                         this.code17 = 'PJ123';
                     } else if (row.plsummary == 'PJ111013') {
                         row.accountcode = '',
-                            this.code16 = '';
+                          row.code16 = '';
                         this.code17 = '';
                     } else if (row.plsummary == 'PJ111014') {
                         row.accountcode = '',
-                            this.code16 = 'PJ125';
+                          row.code16 = 'PJ125';
                         this.code17 = 'PJ125';
                     }
                 } else if (this.Redirict == '1' || this.Redirict == '') {
                     if (row.plsummary == 'PJ111001') {
                         row.accountcode = '',
-                            this.code16 = 'PJ127';
+                          row.code16 = 'PJ127';
                         this.code17 = 'PJ127';
                     } else if (row.plsummary == 'PJ111002') {
                         row.accountcode = '',
-                            this.code16 = 'PJ128';
+                          row.code16 = 'PJ128';
                         this.code17 = 'PJ128';
                     } else if (row.plsummary == 'PJ111003') {
                         row.accountcode = '',
-                            this.code16 = 'PJ129';
+                          row.code16 = 'PJ129';
                         this.code17 = 'PJ129';
                     } else if (row.plsummary == 'PJ111004') {
                         row.accountcode = '',
-                            this.code16 = 'PJ115';
+                          row.code16 = 'PJ115';
                         this.code17 = 'PJ115';
                     } else if (row.plsummary == 'PJ111005') {
                         row.accountcode = '',
-                            this.code16 = 'PJ130';
+                          row.code16 = 'PJ130';
                         this.code17 = 'PJ130';
                     } else if (row.plsummary == 'PJ111006') {
                         row.accountcode = '',
-                            this.code16 = '';
+                          row.code16 = '';
                         this.code17 = '';
                     } else if (row.plsummary == 'PJ111007') {
                         row.accountcode = '',
-                            this.code16 = 'PJ131';
+                          row.code16 = 'PJ131';
                         this.code17 = 'PJ131';
                     } else if (row.plsummary == 'PJ111008') {
                         row.accountcode = '',
-                            this.code16 = 'PJ132';
+                          row.code16 = 'PJ132';
                         this.code17 = 'PJ132';
                     } else if (row.plsummary == 'PJ111009') {
                         row.accountcode = '',
-                            this.code16 = 'PJ133';
+                          row.code16 = 'PJ133';
                         this.code17 = 'PJ133';
                     } else if (row.plsummary == 'PJ111010') {
                         row.accountcode = '',
-                            this.code16 = 'PJ134';
+                          row.code16 = 'PJ134';
                         this.code17 = 'PJ134';
                     } else if (row.plsummary == 'PJ111011') {
                         row.accountcode = '',
-                            this.code16 = 'PJ135';
+                          row.code16 = 'PJ135';
                         this.code17 = 'PJ135';
                     } else if (row.plsummary == 'PJ111012') {
                         row.accountcode = '',
-                            this.code16 = 'PJ136';
+                          row.code16 = 'PJ136';
                         this.code17 = 'PJ136';
                     } else if (row.plsummary == 'PJ111013') {
                         row.accountcode = '',
-                            this.code16 = 'PJ124';
+                          row.code16 = 'PJ124';
                         this.code17 = 'PJ124';
                     } else if (row.plsummary == 'PJ111014') {
                         row.accountcode = '',
-                            this.code16 = 'PJ137';
+                          row.code16 = 'PJ137';
                         this.code17 = 'PJ137';
                     }
                 }
@@ -3542,7 +3543,7 @@
                                 }
                             } else if (this.form.type === 'PJ001002') {
                                 for (let i = 0; i < this.tableR.length; i++) {
-                                    if (this.tableR[i].otherdetailsdate != '') {
+                                    if (this.tableR[i].otherdetailsdate != ''&&this.tableR[i].otherdetailsdate != null) {
                                         if (this.tableR[i].budgetcoding === '') {
                                             error = error + 1;
                                             Message({
@@ -3573,7 +3574,7 @@
                                     }
                                 }
                                 for (let i = 0; i < this.tableP.length; i++) {
-                                    if (this.tableP[i].purchasedetailsdate != '') {
+                                    if (this.tableP[i].purchasedetailsdate != ''&&this.tableP[i].purchasedetailsdate != null) {
                                         if (this.tableP[i].budgetcoding === '') {
                                             error = error + 1;
                                             Message({
