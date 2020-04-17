@@ -1382,10 +1382,10 @@
                 // }
             },
             change() {
-                this.diffNoDays();
                 if (!this.form.finisheddate || !this.form.occurrencedate) {
                     return;
                 }
+                this.diffNoDays();
                 let diffDate = moment(this.form.finisheddate).diff(moment(this.form.occurrencedate), 'days') + 1;
                 //当天时间    （外出，家长会，妊娠检查，劳灾，其他福利）
                 if (this.form.errortype === 'PR013001' || this.form.errortype === 'PR013014' || this.form.errortype === 'PR013016'
