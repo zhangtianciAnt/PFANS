@@ -309,7 +309,7 @@ export default {
         //进行在职离职筛选
         if (this.enterOrleave !== "") {
           //在职筛选
-          if (this.enterOrleave === "0") {
+          if (this.enterOrleave === "1") {
             this.tableList = this.tableList.filter(item => {
               return item.enddate === null || item.enddate === "";
             });
