@@ -204,7 +204,7 @@
             <!--            网址-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6002FORMVIEW_WEBSITE')">
-                <el-input :disabled="!disabled" style="width:20vw" maxlength='20'
+                <el-input :disabled="!disabled" style="width:20vw" maxlength='50'
                           v-model="form.website"></el-input>
               </el-form-item>
             </el-col>
