@@ -2003,8 +2003,6 @@
                                         });
                                         return;
                                     } else {
-                                        debugger;
-                                        alert(this.retypecheck)
                                         if (this.retypecheck === '0') {
                                             this.form.relengthtime = timere * 8;
                                         } else if(this.retypecheck === '1'){
