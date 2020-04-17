@@ -514,13 +514,24 @@
                                  :error="errorgroup"
                                  style="width: 90%"
                                  :no="scope.row"
-                                 @getOrgids="getGroupId"></org>
+                                 @getOrgids="getGroupIdT"></org>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012FORMVIEW_BUDGET')" align="center" width="150">
                           <template slot-scope="scope">
-                            <el-input :disabled="true" style="width: 100%" v-model="scope.row.budgetcoding">
-                            </el-input>
+<!--                            <el-input :disabled="true" style="width: 100%" v-model="scope.row.budgetcoding">-->
+<!--                            </el-input>-->
+                            <el-select clearable style="width: 20vw" v-model="scope.row.budgetcoding" :disabled="!disable"
+                                       :placeholder="$t('normal.error_09')">
+                              <el-option
+                                v-for="item in optionsT"
+                                :key="item.value"
+                                :label="item.lable"
+                                :value="item.value"
+                                :no="scope.row"
+                                @change="getBudgetunit">
+                              </el-option>
+                            </el-select>
                           </template>
                         </el-table-column>
 
@@ -661,13 +672,24 @@
                                  :error="errorgroup"
                                  style="width: 100%"
                                  :no="scope.row"
-                                 @getOrgids="getGroupId"></org>
+                                 @getOrgids="getGroupIdP"></org>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012FORMVIEW_BUDGET')" align="center" width="150">
                           <template slot-scope="scope">
-                            <el-input :disabled="true" style="width: 100%" v-model="scope.row.budgetcoding">
-                            </el-input>
+<!--                            <el-input :disabled="true" style="width: 100%" v-model="scope.row.budgetcoding">-->
+<!--                            </el-input>-->
+                            <el-select clearable style="width: 20vw" v-model="scope.row.budgetcoding" :disabled="!disable"
+                                       :placeholder="$t('normal.error_09')">
+                              <el-option
+                                v-for="item in optionsP"
+                                :key="item.value"
+                                :label="item.lable"
+                                :value="item.value"
+                                :no="scope.row"
+                                @change="getBudgetunit">
+                              </el-option>
+                            </el-select>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1002FROMVIEW_SFGDZC')" align="center" width="150">
@@ -880,13 +902,22 @@
                                  :error="errorgroup"
                                  style="width: 100%"
                                  :no="scope.row"
-                                 @getOrgids="getGroupId"></org>
+                                 @getOrgids="getGroupIdR"></org>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012FORMVIEW_BUDGET')" align="center" width="150">
                           <template slot-scope="scope">
-                            <el-input :disabled="true" style="width: 100%" v-model="scope.row.budgetcoding">
-                            </el-input>
+<!--                            <el-input :disabled="true" style="width: 100%" v-model="scope.row.budgetcoding">-->
+<!--                            </el-input>-->
+                            <el-select clearable style="width: 20vw" v-model="scope.row.budgetcoding" :no="scope.row" @change="getBudgetunit1" :disabled="!disable"
+                                       :placeholder="$t('normal.error_09')">
+                              <el-option
+                                v-for="item in optionsR"
+                                :key="item.value"
+                                :label="item.lable"
+                                :value="item.value">
+                              </el-option>
+                            </el-select>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012FORMVIEW_PL')" align="center" width="150">
@@ -1204,6 +1235,9 @@
                 }
             };
             return {
+                optionsT:[],
+                optionsP:[],
+                optionsR:[],
                 plsummary: '',
                 Codecheck: '',
                 checkCode1: '',
@@ -1485,9 +1519,9 @@
             }
             if (getOrgInfoByUserId(this.$store.getters.userinfo.userid)) {
                 this.groupId = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
-                if (getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)) {
-                    this.budgetcodingcheck = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
-                }
+                // if (getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)) {
+                //     this.budgetcodingcheck = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
+                // }
             }
 
             let PLdicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ111');
@@ -1582,6 +1616,23 @@
                                 this.tableT = response.trafficdetails;
                                 for (var i = 0; i < this.tableT.length; i++) {
                                     this.orglist = this.tableT[i].departmentname;
+                                    if(this.tableT[i].departmentname !== '' && this.tableT[i].departmentname !== null && this.tableT[i].departmentname !== undefined){
+                                        //ADD_FJL
+                                        this.optionsT = [];
+                                        let butinfo = getOrgInfo(this.tableT[i].departmentname).encoding;
+                                        let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+                                        if(dic.length > 0){
+                                            for (let i = 0; i < dic.length; i++) {
+                                                if(butinfo === dic[i].value1){
+                                                    this.optionsT.push({
+                                                        lable: dic[i].value2 +'_'+ dic[i].value3,
+                                                        value: dic[i].code,
+                                                    })
+                                                }
+                                            }
+                                        }
+                                        //ADD_FJL  修改人员预算编码
+                                    }
                                 }
                             }
                             if (response.purchasedetails.length > 0) {
@@ -1589,6 +1640,23 @@
                                 for (var i = 0; i < this.tableP.length; i++) {
                                     this.code17 = '';
                                     this.orglist = this.tableP[i].departmentname;
+                                    if(this.tableP[i].departmentname !== '' && this.tableP[i].departmentname !== null && this.tableP[i].departmentname !== undefined){
+                                        //ADD_FJL
+                                        this.optionsP = [];
+                                        let butinfo = getOrgInfo(this.tableP[i].departmentname).encoding;
+                                        let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+                                        if(dic.length > 0){
+                                            for (let i = 0; i < dic.length; i++) {
+                                                if(butinfo === dic[i].value1){
+                                                    this.optionsP.push({
+                                                        lable: dic[i].value2 +'_'+ dic[i].value3,
+                                                        value: dic[i].code,
+                                                    })
+                                                }
+                                            }
+                                        }
+                                        //ADD_FJL  修改人员预算编码
+                                    }
                                     if (this.tableP[i].foreigncurrency > 0) {
                                         this.disa = false;
                                         this.disablecheck = false;
@@ -1617,6 +1685,23 @@
                                 for (let i = 0; i < this.tableR.length; i++) {
                                     this.code16 = '';
                                     this.orglist = this.tableR[i].departmentname;
+                                    if(this.tableR[i].departmentname !== '' && this.tableR[i].departmentname !== null && this.tableR[i].departmentname !== undefined){
+                                        //ADD_FJL
+                                        this.optionsR = [];
+                                        let butinfo = getOrgInfo(this.tableR[i].departmentname).encoding;
+                                        let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+                                        if(dic.length > 0){
+                                            for (let i = 0; i < dic.length; i++) {
+                                                if(butinfo === dic[i].value1){
+                                                    this.optionsR.push({
+                                                        lable: dic[i].value2 +'_'+ dic[i].value3,
+                                                        value: dic[i].code,
+                                                    })
+                                                }
+                                            }
+                                        }
+                                        //ADD_FJL  修改人员预算编码
+                                    }
                                     if (this.tableR[i].foreigncurrency > 0) {
                                         this.disa = false;
                                         this.disablecheck = false;
@@ -1838,18 +1923,18 @@
                         this.loading = false;
                     });
             } else {
-                if (getOrgInfoByUserId(this.$store.getters.userinfo.userid)) {
-                    this.groupId = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
-                    this.tableT[0].departmentname = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
-                    this.tableP[0].departmentname = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
-                    this.tableR[0].departmentname = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
-                    if (getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)) {
-                        this.budgetcodingcheck = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
-                        this.tableT[0].budgetcoding = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
-                        this.tableP[0].budgetcoding = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
-                        this.tableR[0].budgetcoding = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
-                    }
-                }
+                // if (getOrgInfoByUserId(this.$store.getters.userinfo.userid)) {
+                //     this.groupId = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
+                //     this.tableT[0].departmentname = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
+                //     this.tableP[0].departmentname = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
+                //     this.tableR[0].departmentname = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
+                //     if (getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)) {
+                //         this.budgetcodingcheck = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
+                //         this.tableT[0].budgetcoding = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
+                //         this.tableP[0].budgetcoding = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
+                //         this.tableR[0].budgetcoding = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
+                //     }
+                // }
                 this.userlist = this.$store.getters.userinfo.userid;
                 if (this.userlist !== null && this.userlist !== '') {
                     let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
@@ -1875,7 +1960,6 @@
                     this.show9 = true;
                     this.show6 = false;
                     this.show7 = false;
-                  debugger
                   this.form.moduleid = 'PJ002001';
                   this.form.moduleidApp = getDictionaryInfo(this.form.moduleid).value1;
 
@@ -1913,6 +1997,12 @@
             },
         },
         methods: {
+            getBudgetunit(val, row) {
+                row.budgetcoding = val;
+            },
+            getBudgetunit1(val, row) {
+                row.budgetcoding = val;
+            },
             setdisabled(val) {
                 if (this.$route.params.disabled) {
                     this.disable = val;
@@ -1964,17 +2054,375 @@
                         this.loading = false;
                     });
             },
-            getGroupId(orglist, row) {
+            getGroupIdT(orglist, row) {
                 if (orglist == '') {
                     row.budgetcoding = '';
                 }
                 this.Redirict = '',
-                    row.departmentname = orglist;
+                row.departmentname = orglist;
+                //ADD_FJL
+                this.optionsT = [];
+                row.budgetcoding = '';
+                let butinfo = getOrgInfo(row.departmentname).encoding;
+                let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+                if(dic.length > 0){
+                    for (let i = 0; i < dic.length; i++) {
+                        if(butinfo === dic[i].value1){
+                            this.optionsT.push({
+                                lable: dic[i].value2 +'_'+ dic[i].value3,
+                                value: dic[i].code,
+                            })
+                        }
+                    }
+                }
+                //ADD_FJL  修改人员预算编码
                 let group = getOrgInfo(orglist);
                 if (group) {
                     this.companyen = group.companyen;
                     this.Redirict = group.redirict;
-                    row.budgetcoding = group.encoding;
+                    // row.budgetcoding = group.encoding;
+                    this.code17 = this.Redirict == '0' ? 'PJ121' : 'PJ134';
+                    if (this.Redirict == '0') {
+                        if (row.plsummary == 'PJ111001') {
+                            row.accountcode = '',
+                                this.code16 = 'PJ112';
+
+                        } else if (row.plsummary == 'PJ111002') {
+                            row.accountcode = '',
+                                this.code16 = 'PJ113';
+
+                        } else if (row.plsummary == 'PJ111003') {
+                            row.accountcode = '',
+                                this.code16 = 'PJ114';
+
+                        } else if (row.plsummary == 'PJ111004') {
+                            row.accountcode = '',
+                                this.code16 = '';
+
+                        } else if (row.plsummary == 'PJ111005') {
+                            row.accountcode = '',
+                                this.code16 = 'PJ116';
+
+                        } else if (row.plsummary == 'PJ111006') {
+                            row.accountcode = '',
+                                this.code16 = 'PJ117';
+
+                        } else if (row.plsummary == 'PJ111007') {
+                            row.accountcode = '',
+                                this.code16 = 'PJ118';
+
+                        } else if (row.plsummary == 'PJ111008') {
+                            row.accountcode = '',
+                                this.code16 = 'PJ119';
+
+                        } else if (row.plsummary == 'PJ111009') {
+                            row.accountcode = '',
+                                this.code16 = 'PJ120';
+
+                        } else if (row.plsummary == 'PJ111010') {
+                            row.accountcode = '',
+                                this.code16 = 'PJ121';
+
+                        } else if (row.plsummary == 'PJ111011') {
+                            row.accountcode = '',
+                                this.code16 = 'PJ122';
+
+                        } else if (row.plsummary == 'PJ111012') {
+                            row.accountcode = '',
+                                this.code16 = 'PJ123';
+
+                        } else if (row.plsummary == 'PJ111013') {
+                            row.accountcode = '',
+                                this.code16 = '';
+
+                        } else if (row.plsummary == 'PJ111014') {
+                            row.accountcode = '',
+                                this.code16 = 'PJ125';
+
+                        }
+                    } else if (this.Redirict == '1' || this.Redirict == '') {
+                        if (row.plsummary == 'PJ111001') {
+                            row.accountcode = '',
+                                this.code16 = 'PJ127';
+
+                        } else if (row.plsummary == 'PJ111002') {
+                            row.accountcode = '',
+                                this.code16 = 'PJ128';
+
+                        } else if (row.plsummary == 'PJ111003') {
+                            row.accountcode = '',
+                                this.code16 = 'PJ129';
+
+                        } else if (row.plsummary == 'PJ111004') {
+                            row.accountcode = '',
+                                this.code16 = 'PJ115';
+
+                        } else if (row.plsummary == 'PJ111005') {
+                            row.accountcode = '',
+                                this.code16 = 'PJ130';
+
+                        } else if (row.plsummary == 'PJ111006') {
+                            row.accountcode = '',
+                                this.code16 = '';
+
+                        } else if (row.plsummary == 'PJ111007') {
+                            row.accountcode = '',
+                                this.code16 = 'PJ131';
+
+                        } else if (row.plsummary == 'PJ111008') {
+                            row.accountcode = '',
+                                this.code16 = 'PJ132';
+
+                        } else if (row.plsummary == 'PJ111009') {
+                            row.accountcode = '',
+                                this.code16 = 'PJ133';
+
+                        } else if (row.plsummary == 'PJ111010') {
+                            row.accountcode = '',
+                                this.code16 = 'PJ134';
+
+                        } else if (row.plsummary == 'PJ111011') {
+                            row.accountcode = '',
+                                this.code16 = 'PJ135';
+
+                        } else if (row.plsummary == 'PJ111012') {
+                            row.accountcode = '',
+                                this.code16 = 'PJ136';
+
+                        } else if (row.plsummary == 'PJ111013') {
+                            row.accountcode = '',
+                                this.code16 = 'PJ124';
+
+                        } else if (row.plsummary == 'PJ111014') {
+                            row.accountcode = '',
+                                this.code16 = 'PJ137';
+
+                        }
+                    }
+                    if (this.Redirict == '0') {
+                        this.accoundoptionsdate = [];
+                        let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ119');
+                        for (let i = 0; i < dicnew.length; i++) {
+                            if (dicnew[i].code === 'PJ119004') {
+                                this.accoundoptionsdate.push({
+                                    value: dicnew[i].code,
+                                    lable: dicnew[i].value1,
+                                });
+                            }
+                        }
+                    } else if (this.Redirict == '1' || this.Redirict == '') {
+                        this.accoundoptionsdate = [];
+                        let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ132');
+                        for (let i = 0; i < dicnew.length; i++) {
+                            if (dicnew[i].code === 'PJ132004') {
+                                this.accoundoptionsdate.push({
+                                    value: dicnew[i].code,
+                                    lable: dicnew[i].value1,
+                                });
+                            }
+                        }
+                    }
+                }
+                this.budgetcodingcheck = row.budgetcoding;
+            },
+            getGroupIdR(orglist, row) {
+                if (orglist == '') {
+                    row.budgetcoding = '';
+                }
+                this.Redirict = '',
+                row.departmentname = orglist;
+                //ADD_FJL
+                this.optionsR = [];
+                row.budgetcoding = '';
+                let butinfo = getOrgInfo(row.departmentname).encoding;
+                let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+                if(dic.length > 0){
+                    for (let i = 0; i < dic.length; i++) {
+                        if(butinfo === dic[i].value1){
+                            this.optionsR.push({
+                                lable: dic[i].value2 +'_'+ dic[i].value3,
+                                value: dic[i].code,
+                            })
+                        }
+                    }
+                }
+                //ADD_FJL  修改人员预算编码
+                let group = getOrgInfo(orglist);
+                if (group) {
+                    this.companyen = group.companyen;
+                    this.Redirict = group.redirict;
+                    // row.budgetcoding = group.encoding;
+                    this.code17 = this.Redirict == '0' ? 'PJ121' : 'PJ134';
+                    if (this.Redirict == '0') {
+                        if (row.plsummary == 'PJ111001') {
+                            row.accountcode = '',
+                                this.code16 = 'PJ112';
+
+                        } else if (row.plsummary == 'PJ111002') {
+                            row.accountcode = '',
+                                this.code16 = 'PJ113';
+
+                        } else if (row.plsummary == 'PJ111003') {
+                            row.accountcode = '',
+                                this.code16 = 'PJ114';
+
+                        } else if (row.plsummary == 'PJ111004') {
+                            row.accountcode = '',
+                                this.code16 = '';
+
+                        } else if (row.plsummary == 'PJ111005') {
+                            row.accountcode = '',
+                                this.code16 = 'PJ116';
+
+                        } else if (row.plsummary == 'PJ111006') {
+                            row.accountcode = '',
+                                this.code16 = 'PJ117';
+
+                        } else if (row.plsummary == 'PJ111007') {
+                            row.accountcode = '',
+                                this.code16 = 'PJ118';
+
+                        } else if (row.plsummary == 'PJ111008') {
+                            row.accountcode = '',
+                                this.code16 = 'PJ119';
+
+                        } else if (row.plsummary == 'PJ111009') {
+                            row.accountcode = '',
+                                this.code16 = 'PJ120';
+
+                        } else if (row.plsummary == 'PJ111010') {
+                            row.accountcode = '',
+                                this.code16 = 'PJ121';
+
+                        } else if (row.plsummary == 'PJ111011') {
+                            row.accountcode = '',
+                                this.code16 = 'PJ122';
+
+                        } else if (row.plsummary == 'PJ111012') {
+                            row.accountcode = '',
+                                this.code16 = 'PJ123';
+
+                        } else if (row.plsummary == 'PJ111013') {
+                            row.accountcode = '',
+                                this.code16 = '';
+
+                        } else if (row.plsummary == 'PJ111014') {
+                            row.accountcode = '',
+                                this.code16 = 'PJ125';
+
+                        }
+                    } else if (this.Redirict == '1' || this.Redirict == '') {
+                        if (row.plsummary == 'PJ111001') {
+                            row.accountcode = '',
+                                this.code16 = 'PJ127';
+
+                        } else if (row.plsummary == 'PJ111002') {
+                            row.accountcode = '',
+                                this.code16 = 'PJ128';
+
+                        } else if (row.plsummary == 'PJ111003') {
+                            row.accountcode = '',
+                                this.code16 = 'PJ129';
+
+                        } else if (row.plsummary == 'PJ111004') {
+                            row.accountcode = '',
+                                this.code16 = 'PJ115';
+
+                        } else if (row.plsummary == 'PJ111005') {
+                            row.accountcode = '',
+                                this.code16 = 'PJ130';
+
+                        } else if (row.plsummary == 'PJ111006') {
+                            row.accountcode = '',
+                                this.code16 = '';
+
+                        } else if (row.plsummary == 'PJ111007') {
+                            row.accountcode = '',
+                                this.code16 = 'PJ131';
+
+                        } else if (row.plsummary == 'PJ111008') {
+                            row.accountcode = '',
+                                this.code16 = 'PJ132';
+
+                        } else if (row.plsummary == 'PJ111009') {
+                            row.accountcode = '',
+                                this.code16 = 'PJ133';
+
+                        } else if (row.plsummary == 'PJ111010') {
+                            row.accountcode = '',
+                                this.code16 = 'PJ134';
+
+                        } else if (row.plsummary == 'PJ111011') {
+                            row.accountcode = '',
+                                this.code16 = 'PJ135';
+
+                        } else if (row.plsummary == 'PJ111012') {
+                            row.accountcode = '',
+                                this.code16 = 'PJ136';
+
+                        } else if (row.plsummary == 'PJ111013') {
+                            row.accountcode = '',
+                                this.code16 = 'PJ124';
+
+                        } else if (row.plsummary == 'PJ111014') {
+                            row.accountcode = '',
+                                this.code16 = 'PJ137';
+
+                        }
+                    }
+                    if (this.Redirict == '0') {
+                        this.accoundoptionsdate = [];
+                        let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ119');
+                        for (let i = 0; i < dicnew.length; i++) {
+                            if (dicnew[i].code === 'PJ119004') {
+                                this.accoundoptionsdate.push({
+                                    value: dicnew[i].code,
+                                    lable: dicnew[i].value1,
+                                });
+                            }
+                        }
+                    } else if (this.Redirict == '1' || this.Redirict == '') {
+                        this.accoundoptionsdate = [];
+                        let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ132');
+                        for (let i = 0; i < dicnew.length; i++) {
+                            if (dicnew[i].code === 'PJ132004') {
+                                this.accoundoptionsdate.push({
+                                    value: dicnew[i].code,
+                                    lable: dicnew[i].value1,
+                                });
+                            }
+                        }
+                    }
+                }
+                this.budgetcodingcheck = row.budgetcoding;
+            },
+            getGroupIdP(orglist, row) {
+                if (orglist == '') {
+                    row.budgetcoding = '';
+                }
+                this.Redirict = '',
+                row.departmentname = orglist;
+                //ADD_FJL
+                this.optionsP = [];
+                row.budgetcoding = '';
+                let butinfo = getOrgInfo(row.departmentname).encoding;
+                let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+                if(dic.length > 0){
+                    for (let i = 0; i < dic.length; i++) {
+                        if(butinfo === dic[i].value1){
+                            this.optionsP.push({
+                                lable: dic[i].value2 +'_'+ dic[i].value3,
+                                value: dic[i].code,
+                            })
+                        }
+                    }
+                }
+                //ADD_FJL  修改人员预算编码
+                let group = getOrgInfo(orglist);
+                if (group) {
+                    this.companyen = group.companyen;
+                    this.Redirict = group.redirict;
+                    // row.budgetcoding = group.encoding;
                     this.code17 = this.Redirict == '0' ? 'PJ121' : 'PJ134';
                     if (this.Redirict == '0') {
                         if (row.plsummary == 'PJ111001') {
@@ -2645,7 +3093,7 @@
                     publicexpenseid: '',
                     trafficdate: '',
                     accountcode: this.accoundoptionsdate,
-                    departmentname: this.groupId,
+                    departmentname: '',
                     budgetcoding: this.budgetcodingcheck,
                     subjectnumber: '',
                     plsummary: 'PJ111008',
@@ -2680,7 +3128,7 @@
                     publicexpenseid: '',
                     purchasedetails_id: '',
                     invoicenumber: '',
-                    departmentname: this.groupId,
+                    departmentname: '',
                     budgetcoding: this.budgetcodingcheck,
                     purchasedetailsdate: '',
                     procurementdetails: '',
@@ -2714,7 +3162,7 @@
                     currency: '',
                     currencyrate: '',
                     tormb: '',
-                    departmentname: this.groupId,
+                    departmentname: '',
                     accountcode: '',
                     plsummary: '',
                     subjectnumber: '',

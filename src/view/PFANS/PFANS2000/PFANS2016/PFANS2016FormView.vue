@@ -145,7 +145,7 @@
                     :key="item.value"
                     :label="item.label"
                     :value="item.value"
-                    v-for="item in options1"
+                    v-for="item in options"
                   >
                   </el-option>
                 </el-select>
@@ -649,7 +649,16 @@
                 reerrorendtime: '',
                 errorstarttime: '',
                 reerrorstarttime: '',
-                options: [],
+                options: [{
+                    value: '0',
+                    label: this.$t('label.PFANS2016FORMVIEW_QUANTIAN'),
+                }, {
+                    value: '1',
+                    label: this.$t('label.PFANS2011FROMVIEW_HALFDATE'),
+                    }, {
+                      value: '2',
+                      label: this.$t('label.PFANS2016FORMVIEW_UNREST'),
+                }],
                 value: [],
                 options1: [{
                     value: '0',
@@ -991,7 +1000,7 @@
                 this.typecheck = val;
                 this.retypecheck = val;
                 this.form.finisheddate = this.form.occurrencedate;
-                if (val == '1' || val == '2') {
+                if (val == '1') {
                     // Message({
                     //     message: this.$t('label.PFANS2016FORMVIEW_CHECKDAIXIUBANRI'),
                     //     type: 'success',
@@ -1010,20 +1019,12 @@
                 this.form.revacationtype = val;
                 this.retypecheck = val;
                 this.form.refinisheddate = this.form.reoccurrencedate;
-                if (val == '1' || val == '2') {
-                    // Message({
-                    //   message: this.$t('label.PFANS2016FORMVIEW_CHECKDAIXIUBANRI'),
-                    //   type: 'success',
-                    //   duration: 5 * 1000,
-                    // });
-                    // this.form.reoccurrencedate = moment(new Date()).format('YYYY-MM-DD');
-                    // this.form.refinisheddate = '';
-                    // this.checkTimeLenght = 8;
-                    this.form.relengthtime = 4;
-                } else if (val == '0') {
+                if (val == '0') {
                     this.form.relengthtime = 8;
-                    // this.form.reoccurrencedate = moment(new Date()).format('YYYY-MM-DD');
-                    // this.form.refinisheddate = moment(new Date()).format('YYYY-MM-DD');
+                } else if (val == '1') {
+                    this.form.relengthtime = 4;
+                }else if (val == '2') {
+                    this.form.relengthtime = 0;
                 }
             },
             //时间长度总计
@@ -1463,9 +1464,12 @@
                             time = time + 1;
                         }
                         this.form.relengthtime = time * 8;
-                    } else {
+                    } else if(this.retypecheck == '1') {
                         this.form.refinisheddate = this.form.reoccurrencedate;
                         this.form.relengthtime = 4;
+                    } else if(this.retypecheck == '2') {
+                        this.form.refinisheddate = this.form.reoccurrencedate;
+                        this.form.relengthtime = 0;
                     }
                 }
                 if (this.form.errortype === 'PR013009') {
@@ -1498,9 +1502,12 @@
                         timere = timere + 1;
                     }
                     this.form.relengthtime = timere * 8;
-                } else {
+                } else if(this.retypecheck == '1') {
                     this.form.refinisheddate = this.form.reoccurrencedate;
                     this.form.relengthtime = 4;
+                } else if(this.retypecheck == '2') {
+                    this.form.refinisheddate = this.form.reoccurrencedate;
+                    this.form.relengthtime = 0;
                 }
             },
             getUserids(val) {
@@ -1881,6 +1888,48 @@
                                     return;
                                 }
                             }
+                            //代休_特殊
+                            if (this.form.errortype === 'PR013007') {
+                                if (this.form.status === '4') {
+                                    for (let d = 0; d < this.relistTwo.length - 1; d++) {
+                                        timere = timere + 1;
+                                    }
+                                    if (timere < 1) {
+                                        Message({
+                                            message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
+                                            type: 'error',
+                                            duration: 5 * 1000,
+                                        });
+                                        return;
+                                    } else {
+                                        if (this.retypecheck === '0') {
+                                            this.form.relengthtime = timere * 8;
+                                        } else if(this.retypecheck === '1'){
+                                            this.form.relengthtime = 4;
+                                        } else if(this.retypecheck === '2'){
+                                            this.form.relengthtime = 0;
+                                        }
+                                    }
+                                } else {
+                                    for (let d = 0; d < this.relist.length - 1; d++) {
+                                        time = time + 1;
+                                    }
+                                    if (time < 1) {
+                                        Message({
+                                            message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
+                                            type: 'error',
+                                            duration: 5 * 1000,
+                                        });
+                                        return;
+                                    } else {
+                                        if (this.typecheck === '0') {
+                                            this.form.lengthtime = time * 8;
+                                        } else {
+                                            this.form.lengthtime = 4;
+                                        }
+                                    }
+                                }
+                            }
                             //年休
                             if (this.form.errortype === 'PR013005') {
                                 let enddateflg = moment(this.$store.getters.userinfo.userinfo.enddate).format('YYYY-MM-DD');
@@ -1956,8 +2005,10 @@
                                     } else {
                                         if (this.retypecheck === '0') {
                                             this.form.relengthtime = timere * 8;
-                                        } else {
+                                        } else if(this.retypecheck === '1'){
                                             this.form.relengthtime = 4;
+                                        } else if(this.retypecheck === '2'){
+                                            this.form.relengthtime = 0;
                                         }
                                         // }
                                     }
