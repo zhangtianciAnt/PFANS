@@ -60,7 +60,8 @@
                                                        v-if="show6"
                                             >
                                             </dicselect>
-                      <el-input :disabled="true" style="width:20vw" v-model="form.moduleid" v-if="show9"></el-input>
+                      <el-input :disabled="true" style="width:20vw"
+                                v-model="form.moduleidApp" v-if="show9"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -1338,6 +1339,7 @@
                     user_id: '',
                     telephone: '',
                     moduleid: '',
+                  moduleidApp: '',
                     accountnumber: '',
                     reimbursementdate: moment(new Date()).format('YYYY-MM-DD'),
                     moneys: '',
@@ -1553,13 +1555,21 @@
                     .then(response => {
                       this.form = response.publicexpense;
                       let rst = getOrgInfoByUserId(response.publicexpense.user_id);
-                      if (this.form.type == 'PJ001001') {
-                        let moduleidinfo = getDictionaryInfo(this.form.moduleid);
-                        if (moduleidinfo != null) {
+
+                      if (this.form.moduleid !== null && this.form.moduleid !== "") {
+                        let moduleidinfo = getDictionaryInfo(this.form.projecttype);
+                        if (moduleidinfo) {
                           this.form.moduleid = moduleidinfo.value1;
                         }
-                        // moduleid
+
                       }
+                      // if (this.form.moduleid == 'PJ001001') {
+                      //   let moduleidinfo = getDictionaryInfo(this.form.moduleid);
+                      //   if (moduleidinfo != null) {
+                      //     this.form.moduleid = moduleidinfo.value1;
+                      //   }
+                      //   // moduleid
+                      // }
                             if (rst) {
                                 this.centerid = rst.centerNmae;
                                 this.groupid = rst.groupNmae;
@@ -1815,10 +1825,6 @@
                                 this.show9 = false;
                                 this.show6 = true;
                                 this.show7 = true;
-                              let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
-                              if (letErrortype != null) {
-                                this.tableR[i].accountcode = letErrortype.code;
-                              }
                             }
                             this.loading = false;
                         },
@@ -1869,7 +1875,8 @@
                     this.show9 = true;
                     this.show6 = false;
                     this.show7 = false;
-                    this.form.moduleid = 'AP';
+                  this.form.moduleidApp = getDictionaryInfo(this.form.moduleid).value1;
+                  this.form.moduleid = 'PJ002001';
                 } else if (this.form.type === 'PJ001002') {
                     this.show9 = false;
                     this.show6 = true;
