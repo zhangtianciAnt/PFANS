@@ -703,7 +703,7 @@
             }else{
               this.age = 0;
             }
-            this.form.admissiontime = moment(new Date()).format('YYYY-MM-DD');
+            // this.form.admissiontime = moment(new Date()).format('YYYY-MM-DD');
             this.grouporglist = this.form.group_id;
             this.loading = false;
             if (this.form.exits === '1') {

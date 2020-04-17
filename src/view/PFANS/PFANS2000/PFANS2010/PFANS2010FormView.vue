@@ -325,8 +325,9 @@
 
                       let res = [];
                       let res1 = [];
-                      let start = moment().startOf('month');
-                      let end = moment().endOf('month');
+                      let yearMonth = moment(Date.parse(this.$route.params.years + '-' + this.$route.params.months +'-01'));
+                      let start = moment(yearMonth).startOf('month');
+                      let end = moment(yearMonth).endOf('month');
 
                       for(let day = start;day <= end;day.add(1,'d')){
                         let daydata = response.filter(item => moment(item.dates).format("YYYY-MM-DD") === moment(day).format("YYYY-MM-DD"))

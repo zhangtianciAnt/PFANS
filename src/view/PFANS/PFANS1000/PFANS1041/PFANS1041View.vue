@@ -746,7 +746,7 @@
   import {getOrgInfoByUserId, getDictionaryInfo} from '@/utils/customize';
   import org from "../../../components/org";
   import moment from "moment";
-  import EasyWorkFlow from '@/components/EasyWorkFlow'
+  import EasyWorkFlow from '@/components/EasyWorkFlow';
 
   export default {
     name: 'PFANS1041View',
@@ -764,7 +764,7 @@
         years: this.$route.params._id,
         title: 'title.PFANS1041VIEW',
         activeName: 'first',
-        workflowCode: "W0054",
+        workflowCode: "W0055",
         status: '0',
         loading: false,
         disabled: false,
@@ -982,6 +982,7 @@
         row.commission = val;
       },
       workflowState(val) {
+        //debugger;
         if (val.state === '1') {
           this.status = '3';
         } else if (val.state === '2') {
@@ -990,10 +991,12 @@
         this.buttonClick('update');
       },
       start() {
+        //debugger;
         this.status = '2';
         this.buttonClick('update');
       },
       end() {
+        //debugger;
         this.status = '0';
         this.buttonClick('update');
       },
@@ -1014,16 +1017,17 @@
       },
       //el-tabsClick
       handleClick(tab, event) {
+        //debugger;
           this.loadingflg = '0';
           this.activeName = tab.name;
           if (tab.name === 'first') {
-              this.workflowCode = "W0054";
+              this.workflowCode = "W0055";
               this.canStart = false;
               this.getdata(this.years,"");
           }
           else{
               if(this.tableA[0].status === '4'){
-                this.workflowCode = "W0055";
+                this.workflowCode = "W0054";
                 this.canStart = true;
               }
               this.getdata("",this.months);
@@ -1175,12 +1179,17 @@
               }
               this.loading = false;
               if (val !== 'update') {
+                //debugger;
+
+
                 Message({
                   message: this.$t('normal.success_03'),
                   type: 'success',
                   duration: 5 * 1000,
                 });
+                this.$store.commit('global/SET_OPERATEOWNER', this.$store.getters.userinfo.userid);
               }
+
               this.$router.push({
                 name: 'PFANS1041View',
               });
