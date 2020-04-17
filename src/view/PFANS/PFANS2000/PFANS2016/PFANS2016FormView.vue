@@ -835,7 +835,7 @@
                     .then(response => {
                         this.form = response;
                         this.typecheck = this.form.vacationtype;
-                        this.typecheck = this.form.revacationtype;
+                        this.retypecheck = this.form.revacationtype;
                         if (this.form.refinisheddate == null || this.form.reoccurrencedate == null) {
                             if (this.form.status === '4') {
                                 this.form.revacationtype = this.form.vacationtype;
@@ -996,9 +996,9 @@
             },
             handleClick(val) {
                 this.form.vacationtype = val;
-                this.form.revacationtype = val;
+                // this.form.revacationtype = val;
                 this.typecheck = val;
-                this.retypecheck = val;
+                // this.retypecheck = val;
                 this.form.finisheddate = this.form.occurrencedate;
                 if (val == '1') {
                     // Message({
@@ -2003,6 +2003,8 @@
                                         });
                                         return;
                                     } else {
+                                        debugger;
+                                        alert(this.retypecheck)
                                         if (this.retypecheck === '0') {
                                             this.form.relengthtime = timere * 8;
                                         } else if(this.retypecheck === '1'){
