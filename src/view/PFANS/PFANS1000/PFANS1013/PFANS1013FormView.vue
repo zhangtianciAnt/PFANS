@@ -482,15 +482,13 @@
                       <template slot-scope="scope">
                         <!--                        <el-input :disabled="true" style="width: 100%" v-model="scope.row.budgetcoding">-->
                         <!--                        </el-input>-->
-                        <el-select clearable style="width: 20vw" v-model="scope.row.budgetcoding" :disabled="!disable"
-                                   :placeholder="$t('normal.error_09')">
+                        <el-select clearable style="width: 100%" v-model="scope.row.budgetcoding" :disabled="!disable"
+                                   :placeholder="$t('normal.error_09')" :no="scope.row" @change="getBudgetunit">
                           <el-option
-                            v-for="item in optionsT"
+                            v-for="item in scope.row.optionsT"
                             :key="item.value"
                             :label="item.lable"
-                            :value="item.value"
-                            :no="scope.row"
-                            @change="getBudgetunit">
+                            :value="item.value">
                           </el-option>
                         </el-select>
                       </template>
@@ -692,15 +690,13 @@
                       <template slot-scope="scope">
                         <!--                        <el-input :disabled="true" style="width: 100%" v-model="scope.row.budgetcoding">-->
                         <!--                        </el-input>-->
-                        <el-select clearable style="width: 20vw" v-model="scope.row.budgetcoding" :disabled="!disable"
-                                   :placeholder="$t('normal.error_09')">
+                        <el-select clearable style="width: 100%" v-model="scope.row.budgetcoding" :disabled="!disable"
+                                   :placeholder="$t('normal.error_09')" :no="scope.row" @change="getBudgetunit">
                           <el-option
-                            v-for="item in optionsA"
+                            v-for="item in scope.row.optionsA"
                             :key="item.value"
                             :label="item.lable"
-                            :value="item.value"
-                            :no="scope.row"
-                            @change="getBudgetunit">
+                            :value="item.value">
                           </el-option>
                         </el-select>
                       </template>
@@ -1066,8 +1062,6 @@
                 }
             };
             return {
-                optionsA:'',
-                optionsT:'',
                 Codecheck: '',
                 centername: '',
                 groupname: '',
@@ -1327,22 +1321,22 @@
                                     this.plsummaryflg1 = plsuinfo.code;
                                 }
                                 if(response.trafficdetails[i].departmentname !== '' && response.trafficdetails[i].departmentname !== null && response.trafficdetails[i].departmentname !== undefined){
-                                      //ADD_FJL
-                                      this.optionsT = [];
-                                      let butinfo = getOrgInfo(response.trafficdetails[i].departmentname).encoding;
-                                      let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-                                      if(dic.length > 0){
-                                          for (let i = 0; i < dic.length; i++) {
-                                              if(butinfo === dic[i].value1){
-                                                  this.optionsT.push({
-                                                      lable: dic[i].value2 +'_'+ dic[i].value3,
-                                                      value: dic[i].code,
-                                                  })
-                                              }
-                                          }
-                                      }
-                                      //ADD_FJL  修改人员预算编码
-                                  }
+                                    //ADD_FJL
+                                    response.trafficdetails[i].optionsT = [];
+                                    let butinfo = getOrgInfo(response.trafficdetails[i].departmentname).encoding;
+                                    let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+                                    if(dic.length > 0){
+                                        for (let j = 0; j < dic.length; j++) {
+                                            if(butinfo === dic[j].value1){
+                                                response.trafficdetails[i].optionsT.push({
+                                                    lable: dic[j].value2 +'_'+ dic[j].value3,
+                                                    value: dic[j].code,
+                                                })
+                                            }
+                                        }
+                                    }
+                                    //ADD_FJL  修改人员预算编码
+                                }
                             }
                             this.tableT = response.trafficdetails;
                         }
@@ -1377,15 +1371,15 @@
                                 }
                                 if(response.accommodationdetails[i].departmentname !== '' && response.accommodationdetails[i].departmentname !== null && response.accommodationdetails[i].departmentname !== undefined){
                                     //ADD_FJL
-                                    this.optionsA = [];
+                                    response.accommodationdetails[i].optionsA = [];
                                     let butinfo = getOrgInfo(response.accommodationdetails[i].departmentname).encoding;
                                     let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
                                     if(dic.length > 0){
-                                        for (let i = 0; i < dic.length; i++) {
-                                            if(butinfo === dic[i].value1){
-                                                this.optionsA.push({
-                                                    lable: dic[i].value2 +'_'+ dic[i].value3,
-                                                    value: dic[i].code,
+                                        for (let j = 0; j < dic.length; i++) {
+                                            if(butinfo === dic[j].value1){
+                                                response.accommodationdetails[i].optionsA.push({
+                                                    lable: dic[j].value2 +'_'+ dic[j].value3,
+                                                    value: dic[j].code,
                                                 })
                                             }
                                         }
@@ -1698,14 +1692,14 @@
             getGroupIdT(orglist, row) {
                 row.departmentname = orglist;
                 //ADD_FJL
-                this.optionsT = [];
+                row.optionsT = [];
                 row.budgetcoding = '';
                 let butinfo = getOrgInfo(row.departmentname).encoding;
                 let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
                 if(dic.length > 0){
                     for (let i = 0; i < dic.length; i++) {
                         if(butinfo === dic[i].value1){
-                            this.optionsT.push({
+                            row.optionsT.push({
                                 lable: dic[i].value2 +'_'+ dic[i].value3,
                                 value: dic[i].code,
                             })
@@ -1730,14 +1724,14 @@
             getGroupIdA(orglist, row) {
                 row.departmentname = orglist;
                 //ADD_FJL
-                this.optionsA = [];
+                row.optionsA = [];
                 row.budgetcoding = '';
                 let butinfo = getOrgInfo(row.departmentname).encoding;
                 let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
                 if(dic.length > 0){
                     for (let i = 0; i < dic.length; i++) {
                         if(butinfo === dic[i].value1){
-                            this.optionsA.push({
+                            row.optionsA.push({
                                 lable: dic[i].value2 +'_'+ dic[i].value3,
                                 value: dic[i].code,
                             })

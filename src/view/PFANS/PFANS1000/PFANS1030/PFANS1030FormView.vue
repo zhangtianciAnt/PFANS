@@ -259,15 +259,13 @@
                   <template slot-scope="scope">
                     <!--                    <el-input :disabled="true" maxlength="20" style="width: 100%" v-model="scope.row.budgetcode">-->
                     <!--                    </el-input>-->
-                    <el-select clearable style="width: 20vw" v-model="scope.row.budgetcode" :disabled="!disable"
-                               :placeholder="$t('normal.error_09')">
+                    <el-select clearable style="width: 100%" v-model="scope.row.budgetcode" :disabled="!disable"
+                               :placeholder="$t('normal.error_09')" :no="scope.row" @change="getBudgetunit">
                       <el-option
-                        v-for="item in options1"
+                        v-for="item in scope.row.options1"
                         :key="item.value"
                         :label="item.lable"
-                        :value="item.value"
-                        :no="scope.row"
-                        @change="getBudgetunit">
+                        :value="item.value">
                       </el-option>
                     </el-select>
                   </template>
@@ -828,7 +826,6 @@
           value: this.$t('label.PFANS1004VIEW_OUTER'),
           lable: this.$t('label.PFANS1004VIEW_OUTER'),
         }],
-        options1: [],
         activeName: 'first',
         disabled: true,
         moneysum: '',
@@ -1192,15 +1189,15 @@
                 this.orglist = this.tableT[i].depart;
                 if (this.tableT[i].depart !== '' && this.tableT[i].depart !== null && this.tableT[i].depart !== undefined) {
                   //ADD_FJL
-                  this.options1 = [];
+                  this.tableT[i].options1 = [];
                   let butinfo = getOrgInfo(this.tableT[i].depart).encoding;
                   let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
                   if (dic.length > 0) {
-                    for (let i = 0; i < dic.length; i++) {
-                      if (butinfo === dic[i].value1) {
-                        this.options1.push({
-                          lable: dic[i].value2 + '_' + dic[i].value3,
-                          value: dic[i].code,
+                    for (let j = 0; j < dic.length; j++) {
+                      if (butinfo === dic[j].value1) {
+                        this.tableT[i].options1.push({
+                          lable: dic[j].value2 + '_' + dic[j].value3,
+                          value: dic[j].code,
                         });
                       }
                     }
@@ -1476,14 +1473,14 @@
       getGroupId(orglist, row) {
         row.depart = orglist;
         //ADD_FJL
-        this.options1 = [];
+        row.options1 = [];
         row.budgetcode = '';
         let butinfo = getOrgInfo(row.depart).encoding;
         let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
         if (dic.length > 0) {
           for (let i = 0; i < dic.length; i++) {
             if (butinfo === dic[i].value1) {
-              this.options1.push({
+               row.options1.push({
                 lable: dic[i].value2 + '_' + dic[i].value3,
                 value: dic[i].code,
               });
