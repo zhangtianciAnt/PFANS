@@ -167,7 +167,7 @@
                 <el-date-picker
                   :disabled="!disabled"
                   style="width: 20vw"
-                  type="date"
+                  @change="changeinterviewdate"
                   v-model="form.interview_date">
                 </el-date-picker>
               </el-form-item>
@@ -478,7 +478,7 @@
             }else{
               this.age = 0 ;
             }
-            this.form.interview_date = moment(response.interview_date).format('YYYY-MM-DD');
+            //this.form.interview_date = moment(response.interview_date).format('YYYY-MM-DD');
             this.loading = false;
           })
           .catch(error => {
@@ -522,6 +522,9 @@
 
       changesex(val) {
         this.form.sex = val;
+      },
+      changeinterviewdate(val) {
+        this.form.interview_date = val;
       },
       changeeducation(val) {
         this.form.education = val;
