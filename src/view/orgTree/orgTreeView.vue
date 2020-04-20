@@ -33,7 +33,7 @@
                     <el-input v-model="currentNode.orgname" v-show="orgnameflag"></el-input>
                     <span v-show="!orgnameflag">{{currentNode.orgname}}</span>
                   </el-form-item>
-                  <el-form-item  label="预算编码" @mouseover.native="changeflag('encodingflag',true)" @mouseout.native="changeflag('encodingflag',false)">
+                  <el-form-item  label="预算编码(集约）" @mouseover.native="changeflag('encodingflag',true)" @mouseout.native="changeflag('encodingflag',false)">
                     <el-input v-model="currentNode.encoding" v-show="encodingflag"></el-input>
                     <span v-show="!encodingflag">{{currentNode.encoding}}</span>
                   </el-form-item>
