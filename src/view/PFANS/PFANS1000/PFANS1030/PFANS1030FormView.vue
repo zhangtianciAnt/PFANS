@@ -509,7 +509,7 @@
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1030FORMVIEW_RATE')">
                     <el-input-number
-                      :disabled="!disable"
+                      :disabled="true"
                       :max="1000000000"
                       :min="0"
                       :precision="2"
@@ -534,7 +534,7 @@
                                    prop="budgetcode">
                     <template slot-scope="scope">
                       <el-input-number
-                        :disabled="!disable"
+                        :disabled="true"
                         :max="1000000000"
                         :min="0"
                         :no="scope.row"

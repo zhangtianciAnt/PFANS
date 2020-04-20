@@ -31,7 +31,7 @@
           {
             code: 'numbers',
             label: 'label.PFANS5009VIEW_PROJECTNO',
-            width: 120,
+            width: 140,
             fix: false,
             filter: true,
             december:true
@@ -40,7 +40,7 @@
           {
             code: 'projectname',
             label: 'label.PFANS5009VIEW_PROJECTNAME',
-            width: 120,
+            width: 140,
             fix: false,
             filter: true
           },
@@ -49,22 +49,22 @@
           {
             code: 'confirm',
             label: 'label.PFANS1036FORMVIEW_JOBNUMBER',
-            width: 130,
+            width: 140,
             fix: false,
             filter: true
           },
 
           //状态
-          {
-              code: 'status',
-              label: 'label.status',
-              width: 130,
-              fix: false,
-              filter: true
-          },
+          // {
+          //     code: 'status',
+          //     label: 'label.status',
+          //     width: 130,
+          //     fix: false,
+          //     filter: true
+          // },
         ],
         buttonList: [
-          {'key': 'handle', 'name': 'button.handle', 'disabled': false, 'icon': 'el-icon-view'},
+          {'key': 'handle', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
         ],
         rowid: '',
         row_id: 'projectid'

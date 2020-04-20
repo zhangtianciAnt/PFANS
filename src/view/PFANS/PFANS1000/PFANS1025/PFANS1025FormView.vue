@@ -634,13 +634,6 @@
             }else{
               this.enableSave = false;
             }
-            //add-ws-发起审批后，有些项目没有锁住
-            if (this.form.status === '2') {
-              this.disable = false;
-            }else{
-              this.disable = true;
-            }
-            //add-ws-发起审批后，有些项目没有锁住
             //add-ws-契约种类value1值处理
             if (this.form.contracttype !== null && this.form.contracttype !== '') {
               let letContracttype = getDictionaryInfo(this.form.contracttype);

@@ -1,223 +1,221 @@
 <template>
-  <div style="min-height: 100%">`
+  <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick" ref="container"
                          @workflowState="workflowState" v-loading="loading"
                          :canStart="canStart" @start="start" @end="end">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
                  style="padding:2vw">
+<!--          <el-collapse>-->
+<!--            <el-collapse-item>-->
+              <template slot="title">
+                <span class="collapse_Title">{{$t('title.PFANS1010VIEW')}}</span>
+              </template>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.center')">
+                    <el-input :disabled="true" style="width:20vw" v-model="centerid"></el-input>
+                    <el-input v-show='false' :disabled="true" style="width:20vw" v-model="form.center_id"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.group')">
+                    <el-input :disabled="true" style="width:20vw" v-model="groupid"></el-input>
+                    <el-input v-show='false' :disabled="true" style="width:20vw" v-model="form.group_id"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.team')">
+                    <el-input :disabled="true" style="width:20vw" v-model="teamid"></el-input>
+                    <el-input v-show='false' :disabled="true" style="width:20vw" v-model="form.team_id"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :error="error" :label="$t('label.applicant')" prop="user_id">
+                    <user :disabled="true" :error="error" :selectType="selectType" :userlist="userlist"
+                          style="width:20vw" @getUserids="getUserids"></user>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1010FORMVIEW_DATEOFUSE')" prop="usedate">
+                    <el-date-picker
+                      :disabled="!disable"
+                      style="width:20vw"
+                      type="date"
+                      v-model="form.usedate">
+                    </el-date-picker>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="30">
+                  <div class="sub_color_blue">{{$t('label.PFANS1010FORMVIEW_USERNAME')}}</div>
+                </el-col>
+              </el-row>
+              <el-row style="padding-top:1.5rem">
+                <el-col :span="24">
+                  <el-table :data="tableT" header-cell-class-name="sub_bg_color_blue" style="width: 72vw" border stripe>
+                    <el-table-column :label="$t('label.user_name')" align="center">
+                      <template slot-scope="scope">
+                        <user
+                          :no="scope.row"
+                          :disabled="!disable"
+                          @getUserids="getuserid"
+                          :userlist="scope.row.user"
+                          selectType="Single"
+                          style="width: 90%"
+                        ></user>
+                      </template>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.PFANS1010FORMVIEW_JOINREASON')" align="center">
+                      <template slot-scope="scope">
+                        <el-input :no="scope.row" :disabled="!disable" v-model="scope.row.reason">
+                        </el-input>
+                      </template>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.operation')" width="200" align="center">
+                      <template slot-scope="scope">
+                        <el-button
+                          @click.native.prevent="deleteRow1(scope.$index, tableT)"
+                          type="danger"
+                          size="small"
+                          plain
+                          :disabled="!disable"
+                        >{{$t('button.delete')}}
+                        </el-button>
+                        <el-button
+                          @click="addRow1()"
+                          type="primary"
+                          size="small"
+                          plain
+                          :disabled="!disable"
+                        >{{$t('button.insert')}}
+                        </el-button>
+                      </template>
+                    </el-table-column>
+                  </el-table>
+                </el-col>
+              </el-row>
+              <el-row style="padding-top:1.5rem">
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.remarks')">
+                    <el-input :disabled="!disable" type="textarea" style="width:72vw" v-model="form.remarks"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+<!--            </el-collapse-item>-->
+<!--          </el-collapse>-->
           <el-collapse>
             <el-collapse-item>
               <template slot="title">
-                <span  class="collapse_Title">{{$t('title.PFANS1010VIEW')}}</span>
+                <span class="collapse_Title">{{$t('label.PFANS1010FORMVIEW_OPPOSITEUNIT')}}</span>
               </template>
-          <el-row>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.center')">
-                <el-input :disabled="true" style="width:20vw" v-model="centerid"></el-input>
-                <el-input v-show='false' :disabled="true" style="width:20vw" v-model="form.center_id"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.group')">
-                <el-input :disabled="true" style="width:20vw" v-model="groupid"></el-input>
-                <el-input v-show='false' :disabled="true" style="width:20vw" v-model="form.group_id"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.team')">
-                <el-input :disabled="true" style="width:20vw" v-model="teamid"></el-input>
-                <el-input v-show='false' :disabled="true" style="width:20vw" v-model="form.team_id"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="8">
-              <el-form-item :error="error" :label="$t('label.applicant')" prop="user_id">
-                <user :disabled="true" :error="error" :selectType="selectType" :userlist="userlist"
-                      style="width:20vw" @getUserids="getUserids"></user>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="30">
-              <div class="sub_color_blue">{{$t('label.PFANS1010FORMVIEW_USERNAME')}}</div>
-            </el-col>
-          </el-row>
-          <el-row style="padding-top:1.5rem">
-            <el-col :span="24">
-            <el-table :data="tableT" header-cell-class-name="sub_bg_color_blue" style="width: 72vw" border stripe>
-              <el-table-column :label="$t('label.user_name')" align="center">
-                <template slot-scope="scope">
-                  <user
-                    :no="scope.row"
-                    :disabled="!disable"
-                    @getUserids="getuserid"
-                    :userlist="scope.row.user"
-                    selectType="Single"
-                    style="width: 90%"
-                  ></user>
-                </template>
-              </el-table-column>
-              <el-table-column :label="$t('label.PFANS1010FORMVIEW_JOINREASON')" align="center">
-                <template slot-scope="scope">
-                  <el-input :no="scope.row" :disabled="!disable" v-model="scope.row.reason">
-                  </el-input>
-                </template>
-              </el-table-column>
-              <el-table-column :label="$t('label.operation')" width="200" align="center">
-                <template slot-scope="scope">
-                  <el-button
-                    @click.native.prevent="deleteRow1(scope.$index, tableT)"
-                    type="danger"
-                    size="small"
-                    plain
-                    :disabled="!disable"
-                  >{{$t('button.delete')}}
-                  </el-button>
-                  <el-button
-                    @click="addRow1()"
-                    type="primary"
-                    size="small"
-                    plain
-                    :disabled="!disable"
-                  >{{$t('button.insert')}}
-                  </el-button>
-                </template>
-              </el-table-column>
-            </el-table>
-            </el-col>
-          </el-row>
-          <el-row style="padding-top:1.5rem">
-            <el-col :span="8">
-              <el-form-item :label="$t('label.remarks')">
-                <el-input :disabled="!disable" type="textarea" style="width:72vw" v-model="form.remarks"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1010FORMVIEW_DATEOFUSE')" prop="usedate">
-                <el-date-picker
-                  :disabled="!disable"
-                  style="width:20vw"
-                  type="date"
-                  v-model="form.usedate">
-                </el-date-picker>
-              </el-form-item>
-            </el-col>
-          </el-row>
+
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1010FORMVIEW_COMPANYNAME')" prop="company">
+                    <el-input :disabled="!disable" style="width:20vw" v-model="form.company" maxlength='50'></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row style="width: 800px" align="right">
+                <el-col :span="24">
+                  <el-table :data="tableP" header-cell-class-name="sub_bg_color_blue" style="width: 46vw" border stripe>
+                    <el-table-column :label="$t('label.PFANS1010FORMVIEW_PARTICIPANTS')" align="center">
+                      <template slot-scope="scope">
+                        <el-input :no="scope.row" :disabled="!disable" v-model="scope.row.participants">
+                        </el-input>
+                      </template>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.operation')" width="200" align="center">
+                      <template slot-scope="scope">
+                        <el-button
+                          @click.native.prevent="deleteRow2(scope.$index, tableP)"
+                          type="danger"
+                          size="small"
+                          plain
+                          :disabled="!disable"
+                        >{{$t('button.delete')}}
+                        </el-button>
+                        <el-button
+                          @click="addRow2()"
+                          type="primary"
+                          size="small"
+                          plain
+                          :disabled="!disable"
+                        >{{$t('button.insert')}}
+                        </el-button>
+                      </template>
+                    </el-table-column>
+                  </el-table>
+                </el-col>
+              </el-row>
             </el-collapse-item>
           </el-collapse>
           <el-collapse>
             <el-collapse-item>
               <template slot="title">
-                <span  class="collapse_Title">{{$t('label.PFANS1010FORMVIEW_OPPOSITEUNIT')}}</span>
+                <span class="collapse_Title">{{$t('label.PFANS1010FORMVIEW_AMOUNTUSED')}}</span>
               </template>
 
-          <el-row>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1010FORMVIEW_COMPANYNAME')" prop="company">
-                <el-input :disabled="!disable" style="width:20vw" v-model="form.company" maxlength='50'></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row style="width: 800px" align="right">
-            <el-col :span="24">
-            <el-table :data="tableP" header-cell-class-name="sub_bg_color_blue"  style="width: 46vw" border stripe>
-              <el-table-column :label="$t('label.PFANS1010FORMVIEW_PARTICIPANTS')" align="center">
-                <template slot-scope="scope">
-                  <el-input :no="scope.row" :disabled="!disable" v-model="scope.row.participants">
-                  </el-input>
-                </template>
-              </el-table-column>
-              <el-table-column :label="$t('label.operation')" width="200" align="center">
-                <template slot-scope="scope">
-                  <el-button
-                    @click.native.prevent="deleteRow2(scope.$index, tableP)"
-                    type="danger"
-                    size="small"
-                    plain
-                    :disabled="!disable"
-                  >{{$t('button.delete')}}
-                  </el-button>
-                  <el-button
-                    @click="addRow2()"
-                    type="primary"
-                    size="small"
-                    plain
-                    :disabled="!disable"
-                  >{{$t('button.insert')}}
-                  </el-button>
-                </template>
-              </el-table-column>
-            </el-table>
-            </el-col>
-          </el-row>
-            </el-collapse-item>
-          </el-collapse>
-          <el-collapse>
-            <el-collapse-item>
-              <template slot="title">
-                <span  class="collapse_Title">{{$t('label.PFANS1010FORMVIEW_AMOUNTUSED')}}</span>
-              </template>
-
-          <el-row>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1010FORMVIEW_SCHEDULEDAMOUNT')" prop="moneys">
-                <el-input-number v-model="form.moneys"
-                                 controls-position="right"
-                                 :disabled="!disable"
-                                 :min="0"
-                                 :max="1000000000"
-                                 :precision="2"
-                                 style="width:20vw"
-                ></el-input-number>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1010FORMVIEW_PERCAPITA')" prop="percapita">
-                <el-input-number v-model="form.percapita"
-                                 controls-position="right"
-                                 :disabled="!disable"
-                                 :min="0"
-                                 :max="1000000000"
-                                 :precision="2"
-                                 style="width:20vw"
-                ></el-input-number>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1012FORMVIEW_BUDGET')">
-<!--                <el-input :disabled="true" style="width:20vw" v-model="form.budgetunit" maxlength='50'></el-input>-->
-                <el-select clearable style="width: 20vw"  v-model="form.budgetunit" :disabled="!disable"
-                           :placeholder="$t('normal.error_09')">
-                  <el-option
-                    v-for="item in options"
-                    :key="item.value"
-                    :label="item.lable"
-                    :value="item.value"
-                    @change="changeBut">
-                  </el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1010FORMVIEW_PURPOSEOFUSE')">
-                <el-input :disabled="!disable" type="textarea" style="width:72vw"
-                          v-model="form.objective"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1010FORMVIEW_RECEPTIONPLACE')">
-                <el-input :disabled="!disable" type="textarea" style="width:72vw" v-model="form.place"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1010FORMVIEW_SCHEDULEDAMOUNT')" prop="moneys">
+                    <el-input-number v-model="form.moneys"
+                                     controls-position="right"
+                                     :disabled="!disable"
+                                     :min="0"
+                                     :max="1000000000"
+                                     :precision="2"
+                                     style="width:20vw"
+                    ></el-input-number>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1010FORMVIEW_PERCAPITA')" prop="percapita">
+                    <el-input-number v-model="form.percapita"
+                                     controls-position="right"
+                                     :disabled="!disable"
+                                     :min="0"
+                                     :max="1000000000"
+                                     :precision="2"
+                                     style="width:20vw"
+                    ></el-input-number>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1012FORMVIEW_BUDGET')">
+                    <!--                <el-input :disabled="true" style="width:20vw" v-model="form.budgetunit" maxlength='50'></el-input>-->
+                    <el-select clearable style="width: 20vw" v-model="form.budgetunit" :disabled="!disable"
+                               :placeholder="$t('normal.error_09')">
+                      <el-option
+                        v-for="item in options"
+                        :key="item.value"
+                        :label="item.lable"
+                        :value="item.value"
+                        @change="changeBut">
+                      </el-option>
+                    </el-select>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1010FORMVIEW_PURPOSEOFUSE')">
+                    <el-input :disabled="!disable" type="textarea" style="width:72vw"
+                              v-model="form.objective"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1010FORMVIEW_RECEPTIONPLACE')">
+                    <el-input :disabled="!disable" type="textarea" style="width:72vw" v-model="form.place"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
             </el-collapse-item>
           </el-collapse>
         </el-form>
@@ -230,7 +228,7 @@
   import dicselect from '../../../components/dicselect.vue';
   import {Message} from 'element-ui';
   import user from '../../../components/user.vue';
-  import {getOrgInfoByUserId,getOrgInfo} from '@/utils/customize';
+  import {getOrgInfo, getOrgInfoByUserId} from '@/utils/customize';
   import moment from 'moment';
 
   export default {
@@ -251,10 +249,10 @@
         }
       };
       return {
-          options: [],
-          centerid: '',
-          groupid: '',
-          teamid: '',
+        options: [],
+        centerid: '',
+        groupid: '',
+        teamid: '',
         total: 0,
         total2: 0,
         tableT: [{
@@ -344,14 +342,14 @@
           .dispatch('PFANS1010Store/getCommunicationOne', {'communication_id': this.$route.params._id})
           .then(response => {
             this.form = response;
-              let rst = getOrgInfoByUserId(response.user_id);
-              if(rst){
-                  this.centerid = rst.centerNmae;
-                  this.groupid= rst.groupNmae;
-                  this.teamid= rst.teamNmae;
-              }
+            let rst = getOrgInfoByUserId(response.user_id);
+            if (rst) {
+              this.centerid = rst.centerNmae;
+              this.groupid = rst.groupNmae;
+              this.teamid = rst.teamNmae;
+            }
             this.userlist = this.form.user_id;
-              this.getBudt(this.userlist);
+            this.getBudt(this.userlist);
             let lettableT = [];
             let letreason = response.reason.split(';');
             if (letreason.length > 0) {
@@ -390,61 +388,60 @@
         if (this.userlist !== null && this.userlist !== '') {
           this.form.user_id = this.$store.getters.userinfo.userid;
           let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-            if(rst) {
-                this.centerid = rst.centerNmae;
-                this.groupid= rst.groupNmae;
-                this.teamid= rst.teamNmae;
-                this.form.center_id = rst.centerId;
-                this.form.group_id = rst.groupId;
-                this.form.team_id = rst.teamId;
-            }
-            this.getBudt(this.form.user_id);
-            // if(getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)){
-            //     this.form.budgetunit = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
-            // }
+          if (rst) {
+            this.centerid = rst.centerNmae;
+            this.groupid = rst.groupNmae;
+            this.teamid = rst.teamNmae;
+            this.form.center_id = rst.centerId;
+            this.form.group_id = rst.groupId;
+            this.form.team_id = rst.teamId;
+          }
+          this.getBudt(this.form.user_id);
+          // if(getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)){
+          //     this.form.budgetunit = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
+          // }
         }
       }
     },
     methods: {
-        getBudt(val){
-            //ADD_FJL  修改人员预算编码
-            if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
-                let butinfo = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
-                let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-                if(dic.length > 0){
-                    for (let i = 0; i < dic.length; i++) {
-                        if(butinfo === dic[i].value1){
-                            this.options.push({
-                                lable: dic[i].value2 +'_'+ dic[i].value3,
-                                value: dic[i].code,
-                            })
-                        }
-                    }
-                }
+      getBudt(val) {
+        //ADD_FJL  修改人员预算编码
+        if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
+          let butinfo = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
+          let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+          if (dic.length > 0) {
+            for (let i = 0; i < dic.length; i++) {
+              if (butinfo === dic[i].value1) {
+                this.options.push({
+                  lable: dic[i].value2 + '_' + dic[i].value3,
+                  value: dic[i].code,
+                });
+              }
             }
-            //ADD_FJL  修改人员预算编码
-        },
-        changeBut(val) {
-            this.form.budgetunit = val;
-        },
+          }
+        }
+        //ADD_FJL  修改人员预算编码
+      },
+      changeBut(val) {
+        this.form.budgetunit = val;
+      },
       deleteRow1(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
-        } else{
-          this.tableT=[{
+        } else {
+          this.tableT = [{
             user: '',
             reason: '',
-          }]
+          }];
         }
       },
       deleteRow2(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
-        }
-        else{
-          this.tableP=[{
+        } else {
+          this.tableP = [{
             participants: '',
-          }]
+          }];
         }
       },
       addRow1() {
@@ -465,24 +462,24 @@
         this.form.user_id = val;
         this.userlist = val;
         let rst = getOrgInfoByUserId(val);
-          // if(getOrgInfo(getOrgInfoByUserId(val).groupId)){
-          //     this.form.budgetunit = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
-          // }
-          if(rst){
-              this.centerid = rst.centerNmae;
-              this.groupid = rst.groupNmae;
-              this.teamid = rst.teamNmae;
-              this.form.center_id = rst.centerId;
-              this.form.group_id = rst.groupId;
-              this.form.team_id = rst.teamId;
-          }else{
-              this.centerid =  '';
-              this.groupid =  '';
-              this.teamid =  '';
-              this.form.center_id = '';
-              this.form.group_id =  '';
-              this.form.team_id =  '';
-          }
+        // if(getOrgInfo(getOrgInfoByUserId(val).groupId)){
+        //     this.form.budgetunit = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
+        // }
+        if (rst) {
+          this.centerid = rst.centerNmae;
+          this.groupid = rst.groupNmae;
+          this.teamid = rst.teamNmae;
+          this.form.center_id = rst.centerId;
+          this.form.group_id = rst.groupId;
+          this.form.team_id = rst.teamId;
+        } else {
+          this.centerid = '';
+          this.groupid = '';
+          this.teamid = '';
+          this.form.center_id = '';
+          this.form.group_id = '';
+          this.form.team_id = '';
+        }
         if (!this.form.user_id || this.form.user_id === '' || val === 'undefined') {
           this.error = this.$t('normal.error_08') + this.$t('label.applicant');
         } else {
@@ -523,17 +520,17 @@
               let letreason = '';
               for (let i = 0; i <= this.tableT.length - 1; i++) {
                 if (this.tableT[i].user.trim() === '' && this.tableT[i].reason === '') {
-                    letreason = '';
+                  letreason = '';
                 } else {
                   letreason = letreason + this.tableT[i].user + ',' + this.tableT[i].reason + ';';
                 }
               }
-              if(letreason){
-                  letreason = letreason.substring(0, letreason.length - 1).replace('undefined', '').trim();
-                  if (letreason.replace(';', '').replace('undefined', '').replace(',', '').trim() === '') {
-                      letreason = '';
-                  }
-                  this.form.reason = letreason;
+              if (letreason) {
+                letreason = letreason.substring(0, letreason.length - 1).replace('undefined', '').trim();
+                if (letreason.replace(';', '').replace('undefined', '').replace(',', '').trim() === '') {
+                  letreason = '';
+                }
+                this.form.reason = letreason;
               }
               let letparticipants = '';
               for (var j = 0; j <= this.tableP.length - 1; j++) {
@@ -547,16 +544,16 @@
               }
               this.form.participants = letparticipants;
               let error = 0;
-              if(this.form.moneys=== 0){
-                error = error+1;
+              if (this.form.moneys === 0) {
+                error = error + 1;
                 Message({
-                  message:this.$t("label.PFANS1010FORMVIEW_SCHEDULEDAMOUNT") + this.$t("label.PFANS1004FORMVIEW_ERROR"),
+                  message: this.$t('label.PFANS1010FORMVIEW_SCHEDULEDAMOUNT') + this.$t('label.PFANS1004FORMVIEW_ERROR'),
                   type: 'error',
-                  duration: 5 * 1000
+                  duration: 5 * 1000,
                 });
                 this.loading = false;
               }
-              if(error===0){
+              if (error === 0) {
                 if (this.$route.params._id) {
                   this.form.communication_id = this.$route.params._id;
                   this.$store
@@ -605,13 +602,12 @@
                     });
                 }
               }
-            }
-            else{
-                Message({
-                    message: this.$t("normal.error_12"),
-                    type: 'error',
-                    duration: 5 * 1000
-                });
+            } else {
+              Message({
+                message: this.$t('normal.error_12'),
+                type: 'error',
+                duration: 5 * 1000,
+              });
             }
           });
         }
