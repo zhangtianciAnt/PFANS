@@ -125,31 +125,37 @@
                         header-cell-class-name="sub_bg_color_blue"
                         style="width: 100%">
                         <el-table-column
+                          align="center"
                           prop="claimtype"
                           :label="$t('label.PFANS1029FROM_TABLEHEADER1')"
                           width="150">
                         </el-table-column>
                         <el-table-column
+                          align="center"
                           prop="deliverydate"
                           :label="$t('label.PFANS1029FROM_TABLEHEADER2')"
                           width="150">
                         </el-table-column>
                         <el-table-column
+                          align="center"
                           prop="completiondate"
                           :label="$t('label.PFANS1029FROM_TABLEHEADER3')"
                           width="150">
                         </el-table-column>
                         <el-table-column
+                          align="center"
                           prop="claimdate"
                           :label="$t('label.PFANS1029FROM_TABLEHEADER4')"
                           width="150">
                         </el-table-column>
                         <el-table-column
+                          align="center"
                           prop="supportdate"
-                          :label="$t('label.PFANS1029FROM_TABLEHEADER5')"
+                          :label="$t('label.PFANS1024VIEW_SUPPORTDATE')"
                           width="150">
                         </el-table-column>
                         <el-table-column
+                          align="center"
                           prop="claimamount"
                           :label="$t('label.PFANS1029FROM_TABLEHEADER6')"
                           width="150">
@@ -396,31 +402,37 @@
                   :data="tableData2"
                   style="width: 100%">
                   <el-table-column
+                    align="center"
                     prop="claimtype"
                     :label="$t('label.PFANS1029FROM_TABLEHEADER1')"
                     width="150">
                   </el-table-column>
                   <el-table-column
+                    align="center"
                     prop="deliverydate"
                     :label="$t('label.PFANS1029FROM_TABLEHEADER2')"
                     width="150">
                   </el-table-column>
                   <el-table-column
+                    align="center"
                     prop="completiondate"
                     :label="$t('label.PFANS1029FROM_TABLEHEADER3')"
                     width="150">
                   </el-table-column>
                   <el-table-column
+                    align="center"
                     prop="claimdate"
                     :label="$t('label.PFANS1029FROM_TABLEHEADER4')"
                     width="150">
                   </el-table-column>
                   <el-table-column
+                    align="center"
                     prop="supportdate"
-                    :label="$t('label.PFANS1029FROM_TABLEHEADER5')"
+                    :label="$t('label.PFANS1024VIEW_SUPPORTDATE')"
                     width="150">
                   </el-table-column>
                   <el-table-column
+                    align="center"
                     prop="claimamount"
                     :label="$t('label.PFANS1029FROM_TABLEHEADER6')"
                     width="150">

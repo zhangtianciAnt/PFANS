@@ -101,7 +101,7 @@
                   </el-form-item>
                 </el-col>
               </el-row>
-              <el-table :data="tablefirst" stripe header-cell-class-name="sub_bg_color_grey height">
+              <el-table :data="tablefirst" header-cell-class-name="sub_bg_color_blue" stripe>
                 <el-table-column
                   prop="claimtype"
                   :label="$t('label.PFANS1024VIEW_NUMBER')" align="center" width="150">
@@ -179,7 +179,7 @@
                     show-summary
                     border
                     style="width: 100%; margin-top: 20px"
-                    stripe header-cell-class-name="sub_bg_color_grey height">
+                    header-cell-class-name="sub_bg_color_blue" stripe>
                     <el-table-column
                       width="200">
                       <template slot-scope="scope">
