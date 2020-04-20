@@ -388,8 +388,8 @@
               </el-collapse>
             </el-tab-pane>
             <el-tab-pane :label="this.$t('label.PFANSUSERFORMVIEW_SKILLLEVEL')" name="third">
-              <el-collapse>
-                <el-collapse-item>
+<!--              <el-collapse>-->
+<!--                <el-collapse-item>-->
                   <template slot="title">
                     <span class="collapse_Title">{{$t('label.PFANSUSERFORMVIEW_SKILL')}}</span>
                   </template>
@@ -461,8 +461,8 @@
                       </el-table>
                     </el-col>
                   </el-row>
-                </el-collapse-item>
-              </el-collapse>
+<!--                </el-collapse-item>-->
+<!--              </el-collapse>-->
               <el-collapse>
                 <el-collapse-item>
                   <template slot="title">
@@ -1674,8 +1674,8 @@
               name="seven"
               style="padding-left:0.5%"
             >
-              <el-collapse>
-                <el-collapse-item>
+<!--              <el-collapse>-->
+<!--                <el-collapse-item>-->
                   <template slot="title">
                     <span class="collapse_Title">{{$t('label.PFANSUSERFORMVIEW_REWARDPUNISHMENT')}}</span>
                   </template>
@@ -1751,8 +1751,8 @@
                       </el-table>
                     </el-col>
                   </el-row>
-                </el-collapse-item>
-              </el-collapse>
+<!--                </el-collapse-item>-->
+<!--              </el-collapse>-->
             </el-tab-pane>
             <el-tab-pane
               :label="this.$t('label.PFANSUSERFORMVIEW_EDITUSER')"
