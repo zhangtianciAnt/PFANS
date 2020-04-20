@@ -72,7 +72,6 @@
                 </dicselect>
               </el-form-item>
             </el-col>
-
             <!--        事业场编码-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1024VIEW_BUSINESSCODE')" prop="causecode">
@@ -129,7 +128,6 @@
                               v-model="form.protemail"></el-input>
                   </el-form-item>
                 </el-col>
-
 
               </el-row>
             </el-collapse-item>
@@ -197,7 +195,6 @@
               </el-row>
               <!--          第九行-->
               <el-row>
-
                 <!--            网址-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS6002FORMVIEW_WEBSITE')">
