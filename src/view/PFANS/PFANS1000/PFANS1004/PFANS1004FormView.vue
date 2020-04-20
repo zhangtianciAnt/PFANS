@@ -50,7 +50,7 @@
           <el-row>
             <el-col :span="16">
               <el-form-item :label="$t('label.PFANS1004VIEW_FILENAME')" prop="filename">
-                <el-input :disabled="!disabled" :rows="3" maxlength='50' style="width:72vw" type="textarea"
+                <el-input :disabled="!disabled" :rows="1" maxlength='50' style="width:72vw" type="textarea"
                           v-model="form.filename"></el-input>
               </el-form-item>
             </el-col>
@@ -160,7 +160,7 @@
           <el-row style="padding-top: 100px">
             <el-col :span="24">
               <el-form-item :label="$t('label.PFANS1004VIEW_PURCHASSUPPORT')" prop="purchassupport">
-                <el-input :disabled="!disabled" :rows="2" style="width:72vw" type="textarea"
+                <el-input :disabled="!disabled" :rows="1" style="width:72vw" type="textarea"
                           v-model="form.purchassupport"></el-input>
               </el-form-item>
             </el-col>
