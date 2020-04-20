@@ -485,7 +485,7 @@
                                      width="120"></el-table-column>
                     <el-table-column property="applicationdate" :label="$t('label.PFANS1024VIEW_APPLICATIONDATE')"
                                      width="120"></el-table-column>
-                    <el-table-column property="state" :label="$t('label.approval_status')"
+                    <el-table-column property="state" :label="$t('label.PFANS1024VIEW_STATE')"
                                      width="120"></el-table-column>
                   </el-table>
                 </el-dialog>
