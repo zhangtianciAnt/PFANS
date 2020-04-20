@@ -89,9 +89,9 @@
           page: 1,
           limit: 5,
         },
-        confirmstatus0: this.$t('label.PFANS5008VIEW_UNCONFIRM'),
-        confirmstatus1: this.$t('label.PFANS5008VIEW_CONFIRM'),
-        confirmstatus2: this.$t('label.PFANS5008VIEW_REFUSE'),
+        // confirmstatus0: this.$t('label.PFANS5008VIEW_UNCONFIRM'),
+        // confirmstatus1: this.$t('label.PFANS5008VIEW_CONFIRM'),
+        // confirmstatus2: this.$t('label.PFANS5008VIEW_REFUSE'),
         total: 0,
         message: [{hang: '', error: ''}],
         Message1: true,
@@ -152,13 +152,13 @@
             fix: false,
             filter: true,
           },
-          {
-            code: 'confirmstatus',
-            label: 'label.PFANS5008FORMVIEW_CONFIRMSTATUS',
-            width: 140,
-            fix: false,
-            filter: true,
-          },
+          // {
+          //   code: 'confirmstatus',
+          //   label: 'label.PFANS5008FORMVIEW_CONFIRMSTATUS',
+          //   width: 140,
+          //   fix: false,
+          //   filter: true,
+          // },
         ],
         buttonList: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
@@ -293,15 +293,15 @@
                 if (response[j].time_end !== null && response[j].time_end !== '') {
                   response[j].time_end = moment(response[j].time_end).format('HH:mm');
                 }
-                if (response[j].confirmstatus !== null && response[j].confirmstatus !== '') {
-                  if (response[j].confirmstatus === '0') {
-                    response[j].confirmstatus = this.confirmstatus0;
-                  } else if (response[j].confirmstatus === '1') {
-                    response[j].confirmstatus = this.confirmstatus1;
-                  } else {
-                    response[j].confirmstatus = this.confirmstatus2;
-                  }
-                }
+                // if (response[j].confirmstatus !== null && response[j].confirmstatus !== '') {
+                //   if (response[j].confirmstatus === '0') {
+                //     response[j].confirmstatus = this.confirmstatus0;
+                //   } else if (response[j].confirmstatus === '1') {
+                //     response[j].confirmstatus = this.confirmstatus1;
+                //   } else {
+                //     response[j].confirmstatus = this.confirmstatus2;
+                //   }
+                // }
               }
               this.data = response;
               this.loading = false;

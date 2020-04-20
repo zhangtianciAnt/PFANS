@@ -773,6 +773,14 @@
             row.amount1 = row.cost1 * row.detailed1;
           },
           changeSum1(row) {
+            //add-ws-4/20-单价或工数清空后，单价或工数设置为0
+            if(row.functionsprice1===undefined){
+              row.functionsprice1 = 0;
+            }
+            if(row.functionhour1===undefined){
+              row.functionhour1 = 0;
+            }
+            //add-ws-4/20-单价或工数清空后，单价或工数设置为0
             row.functionamount1 = row.functionsprice1 * row.functionhour1;
           },
           getContracttype(val){
