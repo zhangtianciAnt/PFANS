@@ -83,47 +83,58 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :error="errorassetname" :label="$t('label.PFANS1009FORMVIEW_ASSETNAME')"  prop="assetname">
-                <div class="dpSupIndex" style="width: 20vw" prop="assetname">
-                  <el-container>
-                    <input class="content bg" v-model="form.assetname" :error="errorassetname" :disabled="true"></input>
-                    <el-button :disabled="!disable" icon="el-icon-search" @click="dialogTableVisible = true"
-                               size="small"></el-button>
-                    <el-dialog :title="$t('title.ASSETS1001FORMVIEW')" :visible.sync="dialogTableVisible" center size="50%"
-                               top="8vh" lock-scroll
-                               append-to-body>
-                      <div style="text-align: center">
-                        <el-row style="text-align: center;height: 90%;overflow: hidden">
-                          <el-table
-                            :data="gridData.filter(data => !search || data.assetname.toLowerCase().includes(search.toLowerCase()))"
-                            height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
-                            :span-method="arraySpanMethod" @row-click="handleClickChange">
-                            <el-table-column property="assetname" :label="$t('label.ASSETS1001VIEW_FILENAME')"
-                                             width="200"></el-table-column>
-                            <el-table-column property="usedepart" :label="$t('label.ASSETS1001VIEW_USEDEPARTMENT')"
-                                             width="250"></el-table-column>
-                            <el-table-column
-                              align="right" width="200">
-                              <template slot="header" slot-scope="scope">
-                                <el-input
-                                  v-model="search"
-                                  size="mini"
-                                  :placeholder="$t('label.PFANS1016FORMVIEW_IMPORT')" />
-                              </template>
-                            </el-table-column>
-                          </el-table>
-                        </el-row>
-                        <span slot="footer" class="dialog-footer">
-                          <el-button type="primary" @click="submit">{{$t("button.confirm")}}</el-button>
-                        </span>
-                      </div>
-                    </el-dialog>
-                  </el-container>
-                </div>
+                <template slot-scope="scope">
+                  <el-input :disabled="!disable" style="width:20vw" v-model="form.assetname">
+                  </el-input>
+                </template>
+                <!--ztc 0420 修改-->
+                <!--<div class="dpSupIndex" style="width: 20vw" prop="assetname">-->
+                <!--<el-container>-->
+                <!--<input class="content bg" v-model="form.assetname" :error="errorassetname" :disabled="true"></input>-->
+                <!--<el-button :disabled="!disable" icon="el-icon-search" @click="dialogTableVisible = true"-->
+                <!--size="small"></el-button>-->
+                <!--<el-dialog :title="$t('title.ASSETS1001FORMVIEW')" :visible.sync="dialogTableVisible" center size="50%"-->
+                <!--top="8vh" lock-scroll-->
+                <!--append-to-body>-->
+                <!--<div style="text-align: center">-->
+                <!--<el-row style="text-align: center;height: 90%;overflow: hidden">-->
+                <!--<el-table-->
+                <!--:data="gridData.filter(data => !search || data.assetname.toLowerCase().includes(search.toLowerCase()))"-->
+                <!--height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"-->
+                <!--:span-method="arraySpanMethod" @row-click="handleClickChange">-->
+                <!--<el-table-column property="assetname" :label="$t('label.ASSETS1001VIEW_FILENAME')"-->
+                <!--width="200"></el-table-column>-->
+                <!--<el-table-column property="usedepart" :label="$t('label.ASSETS1001VIEW_USEDEPARTMENT')"-->
+                <!--width="250"></el-table-column>-->
+                <!--<el-table-column-->
+                <!--align="right" width="200">-->
+                <!--<template slot="header" slot-scope="scope">-->
+                <!--<el-input-->
+                <!--v-model="search"-->
+                <!--size="mini"-->
+                <!--:placeholder="$t('label.PFANS1016FORMVIEW_IMPORT')" />-->
+                <!--</template>-->
+                <!--</el-table-column>-->
+                <!--</el-table>-->
+                <!--</el-row>-->
+                <!--<span slot="footer" class="dialog-footer">-->
+                <!--<el-button type="primary" @click="submit">{{$t("button.confirm")}}</el-button>-->
+                <!--</span>-->
+                <!--</div>-->
+                <!--</el-dialog>-->
+                <!--</el-container>-->
+                <!--</div>-->
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1009FORMVIEW_ANCILLARYEQUIPMENT')" prop="">
                 <el-input :disabled="!disable" style="width:20vw" v-model="form.ancillaryequipment"
+                          maxlength=""></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS1009FORMVIEW_RFID')" prop="">
+                <el-input :disabled="!disable" style="width:20vw" v-model="form.rfid"
                           maxlength=""></el-input>
               </el-form-item>
             </el-col>
@@ -278,6 +289,7 @@
           inputdate: moment(new Date()).format('YYYY-MM-DD'),
           releasedate: '',
           objective: '',
+          rfid: '',
           borrowing: '',
           repair: [],
           repairkits: '',
@@ -340,7 +352,7 @@
       }
     },
     mounted() {
-      this.getAssetsnameList();
+      // this.getAssetsnameList();
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
@@ -414,42 +426,42 @@
           this.errorassetname = '';
         }
       },
-      submit() {
-        let val = this.currentRow;
-        this.dialogTableVisible = false;
-        this.form.assetname = val;
-      },
-      arraySpanMethod({row, column, rowIndex, columnIndex}) {
-        if (columnIndex === 3) {
-          return [1, 2];
-        }
-      },
-      handleClickChange(val) {
-        this.currentRow = val.assetname
-      },
-      getAssetsnameList() {
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS1009Store/getAssetsnameList', {})
-          .then(response => {
-            this.gridData = [];
-            for (let i = 0; i < response.length; i++) {
-              var vote = {};
-              vote.assetname = response[i].filename;
-              vote.usedepart = response[i].usedepartment;
-              this.gridData.push(vote)
-            }
-            this.loading = false;
-          })
-          .catch(error => {
-            Message({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000
-            });
-            this.loading = false;
-          })
-      },
+      // submit() {
+      //   let val = this.currentRow;
+      //   this.dialogTableVisible = false;
+      //   this.form.assetname = val;
+      // },
+      // arraySpanMethod({row, column, rowIndex, columnIndex}) {
+      //   if (columnIndex === 3) {
+      //     return [1, 2];
+      //   }
+      // },
+      // handleClickChange(val) {
+      //   this.currentRow = val.assetname
+      // },
+      // getAssetsnameList() {
+      //   this.loading = true;
+      //   this.$store
+      //     .dispatch('PFANS1009Store/getAssetsnameList', {})
+      //     .then(response => {
+      //       this.gridData = [];
+      //       for (let i = 0; i < response.length; i++) {
+      //         var vote = {};
+      //         vote.assetname = response[i].filename;
+      //         vote.usedepart = response[i].usedepartment;
+      //         this.gridData.push(vote)
+      //       }
+      //       this.loading = false;
+      //     })
+      //     .catch(error => {
+      //       Message({
+      //         message: error,
+      //         type: 'error',
+      //         duration: 5 * 1000
+      //       });
+      //       this.loading = false;
+      //     })
+      // },
       getUserids(val) {
         this.form.user_id = val;
         let rst = getOrgInfoByUserId(val);
