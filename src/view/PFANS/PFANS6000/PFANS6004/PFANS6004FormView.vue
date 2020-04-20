@@ -815,14 +815,14 @@
           this.rules.sitevaluation[0].required = false;
           this.rules.businessimpact[0].required = false;
           this.rules.countermeasure[0].required = false;
+        } else {
+          this.show = true;
           this.form.exitime = null;
           this.form.exitreason = null;
           this.form.alltechnology = null;
           this.form.sitevaluation = null;
           this.form.businessimpact = null;
           this.form.countermeasure = null;
-        } else {
-          this.show = true;
           this.rules.exitime[0].required = true;
           this.rules.exitreason[0].required = true;
           this.rules.alltechnology[0].required = true;

@@ -66,14 +66,14 @@
             fix: false,
             filter: true,
           },
-          {
-            //技术分类
-            code: 'technology',
-            label: 'label.PFANS2003VIEW_TECHNOLOGY',
-            width: 120,
-            fix: false,
-            filter: true,
-          },
+          // {
+          //   //技术分类
+          //   code: 'technology',
+          //   label: 'label.PFANS2003VIEW_TECHNOLOGY',
+          //   width: 120,
+          //   fix: false,
+          //   filter: true,
+          // },
           {
             //面试时间
             code: 'interview_date',
@@ -122,12 +122,12 @@
                 response[j].whetherentry = letStage.value1;
               }
             }
-            if (response[j].technology !== null && response[j].technology !== '') {
-              let letStage = getDictionaryInfo(response[j].technology);
-              if (letStage != null) {
-                response[j].technology = letStage.value1;
-              }
-            }
+            // if (response[j].technology !== null && response[j].technology !== '') {
+            //   let letStage = getDictionaryInfo(response[j].technology);
+            //   if (letStage != null) {
+            //     response[j].technology = letStage.value1;
+            //   }
+            // }
             if (response[j].interview_date !== null && response[j].interview_date !== '') {
               response[j].interview_date = moment(response[j].interview_date).format('YYYY-MM-DD');
             }
