@@ -1899,8 +1899,10 @@
                                             this.form.relengthtime = timere * 8;
                                         } else if (this.retypecheck === '1') {
                                             this.form.relengthtime = 4;
+                                            timere = 0.5;
                                         } else if (this.retypecheck === '2') {
                                             this.form.relengthtime = 0;
+                                            timere = 0;
                                         }
                                         // }
                                     }
@@ -1935,10 +1937,9 @@
                                     } else {
                                         if (this.typecheck === '0') {
                                             this.form.lengthtime = time * 8;
-                                            // this.form.relengthtime = time * 8;
                                         } else {
                                             this.form.lengthtime = 4;
-                                            // this.form.relengthtime = 4;
+                                            time = 0.5;
                                         }
                                     }
                                     // }
@@ -2118,6 +2119,8 @@
                                         if (val === 'StartWorkflow') {
                                             this.disable = false;
                                             this.dislengthtime = true;
+                                            this.checkrelengthtime = true;
+                                            this.disrevacationtype = true;
                                             this.$refs.container.$refs.workflow.startWorkflow();
                                         }
                                     })
