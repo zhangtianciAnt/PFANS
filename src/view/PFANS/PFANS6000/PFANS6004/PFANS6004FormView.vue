@@ -548,7 +548,7 @@
           number: [
             {
               required: true,
-              message: this.$t('normal.error_08') + this.$t('label.PFANS5001FORMVIEW_NUMBERS'),
+              message: this.$t('normal.error_08') + this.$t('label.PFANSUSERFORMVIEW_JOBNUMBER'),
               trigger: 'blur',
             },
           ],
@@ -587,7 +587,7 @@
           operationform: [
             {
               required: true,
-              message: this.$t('normal.error_09') + this.$t('label.PFANS2026VIEW_EDUCATIONALBACKGROUND'),
+              message: this.$t('normal.error_09') + this.$t('label.PFANS6004FORMVIEW_OPERATIONFORM'),
               trigger: 'change',
             },
           ],
@@ -595,7 +595,7 @@
           jobclassification: [
             {
               required: true,
-              message: this.$t('normal.error_09') + this.$t('label.PFANS2003FORMVIEW_INTERVIEWDEP'),
+              message: this.$t('normal.error_09') + this.$t('label.PFANS6004FORMVIEW_JOBCLASSIFICATIONM'),
               trigger: 'change',
             },
           ],
@@ -603,7 +603,7 @@
           admissiontime: [
             {
               required: true,
-              message: this.$t('normal.error_09') + this.$t('label.PFANS2003FORMVIEW_INTERVIEWDATE'),
+              message: this.$t('normal.error_09') + this.$t('label.PFANS6004FORMVIEW_ADMISSIONTIME'),
               trigger: 'change',
             },
             {validator: valadmissiontime, trigger: 'change'},
