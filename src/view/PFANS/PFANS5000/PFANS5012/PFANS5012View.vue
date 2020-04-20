@@ -67,16 +67,16 @@
             fix: false,
             filter: true
           },
-          {
-            code: 'status',
-            label: 'label.status',
-            width: 140,
-            fix: false,
-            filter: true
-          },
+          // {
+          //   code: 'status',
+          //   label: 'label.status',
+          //   width: 140,
+          //   fix: false,
+          //   filter: true
+          // },
         ],
         buttonList: [
-          {'key': 'handle', 'name': 'button.handle', 'disabled': false, 'icon': 'el-icon-view'},
+          {'key': 'handle', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
         ],
         rowid: '',
         row_id: 'projectname'

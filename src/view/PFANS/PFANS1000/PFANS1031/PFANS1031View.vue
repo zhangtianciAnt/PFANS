@@ -92,6 +92,13 @@
             filter: true,
           },
           {
+            code: 'deliverydate',
+            label: 'label.PFANS1024VIEW_DELIVERYDATE',
+            width: 140,
+            fix: false,
+            filter: true,
+          },
+          {
             code: 'claimamount',
             label: 'label.PFANS1024VIEW_CLAIMAMOUNT',
             width: 140,
@@ -197,6 +204,9 @@
                     if (response[j].deliveryfinshdate !== null && response[j].deliveryfinshdate !== '') {
                       response[j].deliveryfinshdate = moment(response[j].deliveryfinshdate).format('YYYY-MM-DD');
                     }
+                    if (response[j].deliverydate !== null && response[j].deliverydate !== '') {
+                      response[j].deliverydate = moment(response[j].deliverydate).format('YYYY-MM-DD');
+                    }
                     if (response[j].openingdate !== null && response[j].openingdate !== '') {
                       response[j].openingdate = moment(response[j].openingdate).format('YYYY-MM-DD');
                     }
@@ -216,6 +226,7 @@
                       openingdate: response[j].openingdate,
                       enddate: response[j].enddate,
                       deliveryfinshdate: response[j].deliveryfinshdate,
+                      deliverydate: response[j].deliverydate,
                       claimamount: response[j].claimamount,
                       claimnumber: response[j].claimnumber,
                       claimtype: response[j].claimtype,

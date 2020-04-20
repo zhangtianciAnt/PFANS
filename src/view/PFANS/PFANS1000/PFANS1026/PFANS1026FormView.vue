@@ -76,7 +76,6 @@
           </el-dialog>
 
         </el-form>
-
         <el-form :model="form" label-width="8vw" label-position="top" style="padding: 2vw"
                  ref="refform">
 
@@ -2276,9 +2275,11 @@
             let checksum = 0;
             let error = 0;
             for (let j = 0; j < this.form.tableclaimtype.length; j++) {
-              checksum += parseFloat(this.form.tableclaimtype[j].claimamount);
+              if(parseFloat(this.form.tableclaimtype[j].claimamount) === 0){
+                checksum = checksum+1;
+              }
             }
-            if (checksum === 0) {
+            if (checksum != 0) {
               error = error + 1;
               Message({
                 message: this.$t('label.PFANS1026FORMVIEW_CHECKERRORMONEY'),
