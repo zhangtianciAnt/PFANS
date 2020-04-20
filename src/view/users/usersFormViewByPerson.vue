@@ -21,7 +21,8 @@
                     :label="$t('label.PFANSUSERFORMVIEW_CUSTOMERNAME')"
                     prop="customername"
                   >
-                    <el-input class="width" v-model="form.customername" maxlength="20" style="width:20vw" disabled></el-input>
+                    <el-input class="width" v-model="form.customername" maxlength="20" style="width:20vw"
+                              disabled></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -37,7 +38,8 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_ADFIELD')" prop="adfield">
-                    <el-input class="width" v-model="form.adfield" maxlength="20" style="width:20vw" disabled></el-input>
+                    <el-input class="width" v-model="form.adfield" maxlength="20" style="width:20vw"
+                              disabled></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -62,7 +64,8 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERVIEW_NATIONALITY')" prop="nationality">
-                    <el-input class="width" v-model="form.nationality" maxlength="20" style="width:20vw" disabled></el-input>
+                    <el-input class="width" v-model="form.nationality" maxlength="20" style="width:20vw"
+                              disabled></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -74,29 +77,34 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_REGISTER')" prop="register">
-                    <el-input class="width" v-model="form.register" maxlength="20" style="width:20vw" disabled></el-input>
+                    <el-input class="width" v-model="form.register" maxlength="20" style="width:20vw"
+                              disabled></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_IDNUMBER')" prop="idnumber">
-                    <el-input class="width" v-model="form.idnumber" maxlength="18" style="width:20vw" disabled></el-input>
+                    <el-input class="width" v-model="form.idnumber" maxlength="18" style="width:20vw"
+                              disabled></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_PASSPORT')">
-                    <el-input class="width" v-model="form.passport" maxlength="10" style="width:20vw" disabled></el-input>
+                    <el-input class="width" v-model="form.passport" maxlength="10" style="width:20vw"
+                              disabled></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_SECURITY')">
-                    <el-input class="width" v-model="form.security" maxlength="20" style="width:20vw" disabled></el-input>
+                    <el-input class="width" v-model="form.security" maxlength="20" style="width:20vw"
+                              disabled></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_HOUSEFUND')">
-                    <el-input class="width" v-model="form.housefund" maxlength="20" style="width:20vw" disabled></el-input>
+                    <el-input class="width" v-model="form.housefund" maxlength="20" style="width:20vw"
+                              disabled></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -133,9 +141,9 @@
                     <span style="margin-right: 1vw ">{{$t('label.no')}}</span>
                     <el-switch
                     <el-switch disabled
-                      v-model="form.children"
-                      active-value="1"
-                      inactive-value="0">
+                               v-model="form.children"
+                               active-value="1"
+                               inactive-value="0">
                     </el-switch>
                     <span style="margin-left: 1vw ">{{$t('label.yes')}}</span>
                   </el-form-item>
@@ -143,10 +151,10 @@
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_EXPERIENCE')" prop="experience">
                     <el-select disabled
-                      v-model="form.experience"
-                      :placeholder="$t('normal.error_09')"
-                      class="width"
-                      style="width:20vw"
+                               v-model="form.experience"
+                               :placeholder="$t('normal.error_09')"
+                               class="width"
+                               style="width:20vw"
                     >
                       <el-option
                         v-for="item in experience_options"
@@ -186,7 +194,8 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_EXTENSION')" prop="extension">
-                    <el-input class="width" v-model.number="form.extension" maxlength="20" style="width:20vw"></el-input>
+                    <el-input class="width" v-model.number="form.extension" maxlength="20"
+                              style="width:20vw"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -203,17 +212,18 @@
                     :label="$t('label.PFANSUSERFORMVIEW_EDUCATIONALCALENDAR')"
                     prop="graduation"
                   >
-                    <el-input class="width" v-model="form.graduation" maxlength="20" style="width:20vw" disabled></el-input>
+                    <el-input class="width" v-model="form.graduation" maxlength="20" style="width:20vw"
+                              disabled></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_DEGREE')" prop="degree">
                     <dicselect disabled
-                      code="PG018"
-                      class="width"
-                      style="width:20vw"
-                      @change="changeDegree"
-                      :data="form.degree"
+                               code="PG018"
+                               class="width"
+                               style="width:20vw"
+                               @change="changeDegree"
+                               :data="form.degree"
                     ></dicselect>
                   </el-form-item>
                 </el-col>
@@ -223,11 +233,11 @@
                     prop="educational"
                   >
                     <dicselect disabled
-                      code="PR022"
-                      class="width"
-                      style="width:20vw"
-                      @change="changeEducational"
-                      :data="form.educational"
+                               code="PR022"
+                               class="width"
+                               style="width:20vw"
+                               @change="changeEducational"
+                               :data="form.educational"
                     ></dicselect>
                   </el-form-item>
                 </el-col>
@@ -235,7 +245,8 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_SPECIALTY')" prop="specialty">
-                    <el-input class="width" v-model="form.specialty" maxlength="10" style="width:20vw" disabled></el-input>
+                    <el-input class="width" v-model="form.specialty" maxlength="10" style="width:20vw"
+                              disabled></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -244,10 +255,10 @@
                     prop="graduationday"
                   >
                     <el-date-picker disabled
-                      v-model="form.graduationday"
-                      type="date"
-                      :placeholder="$t('label.PFANSUSERFORMVIEW_SELECTIONDATE')"
-                      style="width:20vw"
+                                    v-model="form.graduationday"
+                                    type="date"
+                                    :placeholder="$t('label.PFANSUSERFORMVIEW_SELECTIONDATE')"
+                                    style="width:20vw"
                     ></el-date-picker>
                   </el-form-item>
                 </el-col>
@@ -255,65 +266,67 @@
               <el-collapse>
                 <el-collapse-item>
                   <template slot="title">
-                    <span  class="collapse_Title">{{$t('label.PFANSUSERFORMVIEW_EDUCATIONEXPERIENCE')}}</span>
+                    <span class="collapse_Title">{{$t('label.PFANSUSERFORMVIEW_EDUCATIONEXPERIENCE')}}</span>
                   </template>
-                  <el-row >
+                  <el-row>
                     <el-col :span="24">
-              <el-table
-                :data="educationTable"
-                style="width:72vw;margin-top:1%"
-                border header-cell-class-name="sub_bg_color_blue" stripe
-              >
-                <el-table-column
-                  prop="time"
-                  :label="$t('label.PFANSUSERFORMVIEW_PERIOD')"
-                  align="center"
-                >
-                  <template slot-scope="scope">
-                    <el-date-picker
-                      style="width:100%" disabled
-                      v-model="scope.row.time"
-                      type="daterange"
-                      :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
-                      :start-placeholder="$t('label.startdate')"
-                      :end-placeholder="$t('label.enddate')"
-                      unlink-panels
-                    ></el-date-picker>
-                  </template>
-                </el-table-column>
-                <el-table-column
-                  prop="school"
-                  :label="$t('label.PFANS2003VIEW_SCHOOL')"
-                  align="center"
-                >
-                  <template slot-scope="scope">
-                    <el-input class="width" v-model="scope.row.school" maxlength="20" style="width:100%" disabled></el-input>
-                  </template>
-                </el-table-column>
-                <el-table-column prop="notes" :label="$t('label.remarks')" align="center">
-                  <template slot-scope="scope">
-                    <el-input class="width" v-model="scope.row.notes" maxlength="50" style="width:100%" disabled></el-input>
-                  </template>
-                </el-table-column>
-                <el-table-column :label="$t('label.operation')" width="200" align="center">
-                  <template slot-scope="scope">
-                    <el-button
-                      @click.native.prevent="deleteRow(scope.$index, educationTable)"
-                      type="danger"
-                      size="small"
-                      plain disabled
-                    >{{$t('button.delete')}}
-                    </el-button>
-                    <el-button
-                      @click="addRow('education')"
-                      type="primary"
-                      size="small"
-                      plain disabled
-                    >{{$t('button.insert')}}
-                    </el-button>
-                  </template>
-                </el-table-column>
-              </el-table>
+                      <el-table
+                        :data="educationTable"
+                        style="width:72vw;margin-top:1%"
+                        border header-cell-class-name="sub_bg_color_blue" stripe
+                      >
+                        <el-table-column
+                          prop="time"
+                          :label="$t('label.PFANSUSERFORMVIEW_PERIOD')"
+                          align="center"
+                        >
+                          <template slot-scope="scope">
+                            <el-date-picker
+                              style="width:100%" disabled
+                              v-model="scope.row.time"
+                              type="daterange"
+                              :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
+                              :start-placeholder="$t('label.startdate')"
+                              :end-placeholder="$t('label.enddate')"
+                              unlink-panels
+                            ></el-date-picker>
+                          </template>
+                        </el-table-column>
+                        <el-table-column
+                          prop="school"
+                          :label="$t('label.PFANS2003VIEW_SCHOOL')"
+                          align="center"
+                        >
+                          <template slot-scope="scope">
+                            <el-input class="width" v-model="scope.row.school" maxlength="20" style="width:100%"
+                                      disabled></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column prop="notes" :label="$t('label.remarks')" align="center">
+                          <template slot-scope="scope">
+                            <el-input class="width" v-model="scope.row.notes" maxlength="50" style="width:100%"
+                                      disabled></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.operation')" width="200" align="center">
+                          <template slot-scope="scope">
+                            <el-button
+                              @click.native.prevent="deleteRow(scope.$index, educationTable)"
+                              type="danger"
+                              size="small"
+                              plain disabled
+                            >{{$t('button.delete')}}
+                            </el-button>
+                            <el-button
+                              @click="addRow('education')"
+                              type="primary"
+                              size="small"
+                              plain disabled
+                            >{{$t('button.insert')}}
+                            </el-button>
+                          </template>
+                        </el-table-column>
+                      </el-table>
                     </el-col>
                   </el-row>
                 </el-collapse-item>
@@ -321,105 +334,113 @@
             </el-tab-pane>
             <el-tab-pane :label="this.$t('label.PFANSUSERFORMVIEW_SKILLLEVEL')" name="third">
               <el-collapse>
-                <el-collapse-item>
+<!--                <el-collapse-item>-->
                   <template slot="title">
-                    <span  class="collapse_Title">{{$t('label.PFANSUSERFORMVIEW_SKILL')}}</span>
+                    <span class="collapse_Title">{{$t('label.PFANSUSERFORMVIEW_SKILL')}}</span>
                   </template>
-                  <el-row >
+                  <el-row>
                     <el-col :span="24">
-              <el-table :data="skillTable" style="width:72vw;margin-top:1%" border header-cell-class-name="sub_bg_color_blue" stripe>
-                <el-table-column prop="name" :label="$t('label.PFANS3004VIEW_NAME')" align="center">
-                  <template slot-scope="scope">
-                    <el-input class="width" v-model="scope.row.name" maxlength="20" style="width: 100%" disabled></el-input>
-                  </template>
-                </el-table-column>
-                <el-table-column
-                  prop="ability"
-                  :label="$t('label.PFANSUSERFORMVIEW_ABILITY')"
-                  align="center"
-                >
-                  <template slot-scope="scope">
-                    <el-input class="width" v-model="scope.row.ability" maxlength="20" style="width: 100%" disabled></el-input>
-                  </template>
-                </el-table-column>
-                <el-table-column prop="notes" :label="$t('label.remarks')" align="center">
-                  <template slot-scope="scope">
-                    <el-input class="width" v-model="scope.row.notes" maxlength="50" style="width: 100%" disabled></el-input>
-                  </template>
-                </el-table-column>
-                <el-table-column :label="$t('label.operation')" width="200" align="center">
-                  <template slot-scope="scope">
-                    <el-button
-                      @click.native.prevent="deleteRow(scope.$index, skillTable)"
-                      type="danger"
-                      size="small"
-                      plain disabled
-                    >{{$t('button.delete')}}
-                    </el-button>
-                    <el-button
-                      @click="addRow('skill')"
-                      type="primary"
-                      size="small"
-                      plain disabled
-                    >{{$t('button.insert')}}
-                    </el-button>
-                  </template>
-                </el-table-column>
-              </el-table>
+                      <el-table :data="skillTable" style="width:72vw;margin-top:1%" border
+                                header-cell-class-name="sub_bg_color_blue" stripe>
+                        <el-table-column prop="name" :label="$t('label.PFANS3004VIEW_NAME')" align="center">
+                          <template slot-scope="scope">
+                            <el-input class="width" v-model="scope.row.name" maxlength="20" style="width: 100%"
+                                      disabled></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column
+                          prop="ability"
+                          :label="$t('label.PFANSUSERFORMVIEW_ABILITY')"
+                          align="center"
+                        >
+                          <template slot-scope="scope">
+                            <el-input class="width" v-model="scope.row.ability" maxlength="20" style="width: 100%"
+                                      disabled></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column prop="notes" :label="$t('label.remarks')" align="center">
+                          <template slot-scope="scope">
+                            <el-input class="width" v-model="scope.row.notes" maxlength="50" style="width: 100%"
+                                      disabled></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.operation')" width="200" align="center">
+                          <template slot-scope="scope">
+                            <el-button
+                              @click.native.prevent="deleteRow(scope.$index, skillTable)"
+                              type="danger"
+                              size="small"
+                              plain disabled
+                            >{{$t('button.delete')}}
+                            </el-button>
+                            <el-button
+                              @click="addRow('skill')"
+                              type="primary"
+                              size="small"
+                              plain disabled
+                            >{{$t('button.insert')}}
+                            </el-button>
+                          </template>
+                        </el-table-column>
+                      </el-table>
                     </el-col>
                   </el-row>
-                </el-collapse-item>
+<!--                </el-collapse-item>-->
               </el-collapse>
               <el-collapse>
                 <el-collapse-item>
                   <template slot="title">
-                    <span  class="collapse_Title">{{$t('label.PFANSUSERFORMVIEW_LANGUAGEQUALIFICATION')}}</span>
+                    <span class="collapse_Title">{{$t('label.PFANSUSERFORMVIEW_LANGUAGEQUALIFICATION')}}</span>
                   </template>
-                  <el-row >
+                  <el-row>
                     <el-col :span="24">
-              <el-table :data="languageTable" style="width:72vw;margin-top:1%" border header-cell-class-name="sub_bg_color_blue" stripe>
-                <el-table-column
-                  prop="programme"
-                  :label="$t('label.PFANS5008VIEW_PROGRAM')"
-                  align="center"
-                >
-                  <template slot-scope="scope">
-                    <el-input class="width" v-model="scope.row.programme" maxlength="20" style="width: 100%" disabled></el-input>
-                  </template>
-                </el-table-column>
-                <el-table-column
-                  prop="level"
-                  :label="$t('label.PFANSUSERFORMVIEW_LEVEL')"
-                  align="center"
-                >
-                  <template slot-scope="scope">
-                    <el-input class="width" v-model="scope.row.level" maxlength="20" style="width: 100%" disabled></el-input>
-                  </template>
-                </el-table-column>
-                <el-table-column prop="notes" :label="$t('label.remarks')" align="center">
-                  <template slot-scope="scope">
-                    <el-input class="width" v-model="scope.row.notes" maxlength="50" style="width: 100%" disabled></el-input>
-                  </template>
-                </el-table-column>
-                <el-table-column :label="$t('label.operation')" width="200" align="center">
-                  <template slot-scope="scope">
-                    <el-button
-                      @click.native.prevent="deleteRow(scope.$index, languageTable)"
-                      type="danger"
-                      size="small"
-                      plain disabled
-                    >{{$t('button.delete')}}
-                    </el-button>
-                    <el-button
-                      @click="addRow('language')"
-                      type="primary"
-                      size="small"
-                      plain disabled
-                    >{{$t('button.insert')}}
-                    </el-button>
-                  </template>
-                </el-table-column>
-              </el-table>
+                      <el-table :data="languageTable" style="width:72vw;margin-top:1%" border
+                                header-cell-class-name="sub_bg_color_blue" stripe>
+                        <el-table-column
+                          prop="programme"
+                          :label="$t('label.PFANS5008VIEW_PROGRAM')"
+                          align="center"
+                        >
+                          <template slot-scope="scope">
+                            <el-input class="width" v-model="scope.row.programme" maxlength="20" style="width: 100%"
+                                      disabled></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column
+                          prop="level"
+                          :label="$t('label.PFANSUSERFORMVIEW_LEVEL')"
+                          align="center"
+                        >
+                          <template slot-scope="scope">
+                            <el-input class="width" v-model="scope.row.level" maxlength="20" style="width: 100%"
+                                      disabled></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column prop="notes" :label="$t('label.remarks')" align="center">
+                          <template slot-scope="scope">
+                            <el-input class="width" v-model="scope.row.notes" maxlength="50" style="width: 100%"
+                                      disabled></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.operation')" width="200" align="center">
+                          <template slot-scope="scope">
+                            <el-button
+                              @click.native.prevent="deleteRow(scope.$index, languageTable)"
+                              type="danger"
+                              size="small"
+                              plain disabled
+                            >{{$t('button.delete')}}
+                            </el-button>
+                            <el-button
+                              @click="addRow('language')"
+                              type="primary"
+                              size="small"
+                              plain disabled
+                            >{{$t('button.insert')}}
+                            </el-button>
+                          </template>
+                        </el-table-column>
+                      </el-table>
                     </el-col>
                   </el-row>
                 </el-collapse-item>
@@ -445,74 +466,76 @@
               <el-collapse>
                 <el-collapse-item>
                   <template slot="title">
-                    <span  class="collapse_Title">{{$t('label.PFANSUSERFORMVIEW_BEFOREWORK')}}</span>
+                    <span class="collapse_Title">{{$t('label.PFANSUSERFORMVIEW_BEFOREWORK')}}</span>
                   </template>
-                  <el-row >
+                  <el-row>
                     <el-col :span="24">
-              <el-table
-                :data="beforeWorkTable"
-                style="width:72vw;margin-top:1%"
-                border header-cell-class-name="sub_bg_color_blue" stripe
-              >
-                <el-table-column
-                  prop="time"
-                  :label="$t('label.PFANSUSERFORMVIEW_PERIOD')"
-                  align="center"
-                >
-                  <template slot-scope="scope">
-                    <el-date-picker
-                      v-model="scope.row.time"
-                      type="daterange" disabled
-                      :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
-                      :start-placeholder="$t('label.startdate')"
-                      :end-placeholder="$t('label.enddate')"
-                      unlink-panels
-                      style="width: 100%"
-                    ></el-date-picker>
-                  </template>
-                </el-table-column>
-                <el-table-column
-                  prop="company"
-                  :label="$t('label.PFANSUSERFORMVIEW_COMPANY')"
-                  align="center"
-                >
-                  <template slot-scope="scope">
-                    <el-input v-model="scope.row.company" maxlength="20" style="width: 100%" disabled></el-input>
-                  </template>
-                </el-table-column>
-                <el-table-column
-                  prop="postion"
-                  :label="$t('label.PFANS2020VIEW_JOB')"
-                  align="center"
-                >
-                  <template slot-scope="scope">
-                    <el-input v-model="scope.row.postion" maxlength="20" style="width: 100%" disabled></el-input>
-                  </template>
-                </el-table-column>
-                <el-table-column prop="notes" :label="$t('label.remarks')" align="center">
-                  <template slot-scope="scope">
-                    <el-input v-model="scope.row.notes" maxlength="50" style="width: 100%" disabled></el-input>
-                  </template>
-                </el-table-column>
-                <el-table-column :label="$t('label.operation')" width="200" align="center">
-                  <template slot-scope="scope">
-                    <el-button
-                      @click.native.prevent="deleteRow(scope.$index, beforeWorkTable)"
-                      type="danger"
-                      size="small"
-                      plain disabled
-                    >{{$t('button.delete')}}
-                    </el-button>
-                    <el-button
-                      @click="addRow('beforeWork')"
-                      type="primary"
-                      size="small"
-                      plain disabled
-                    >{{$t('button.insert')}}
-                    </el-button>
-                  </template>
-                </el-table-column>
-              </el-table>
+                      <el-table
+                        :data="beforeWorkTable"
+                        style="width:72vw;margin-top:1%"
+                        border header-cell-class-name="sub_bg_color_blue" stripe
+                      >
+                        <el-table-column
+                          prop="time"
+                          :label="$t('label.PFANSUSERFORMVIEW_PERIOD')"
+                          align="center"
+                        >
+                          <template slot-scope="scope">
+                            <el-date-picker
+                              v-model="scope.row.time"
+                              type="daterange" disabled
+                              :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
+                              :start-placeholder="$t('label.startdate')"
+                              :end-placeholder="$t('label.enddate')"
+                              unlink-panels
+                              style="width: 100%"
+                            ></el-date-picker>
+                          </template>
+                        </el-table-column>
+                        <el-table-column
+                          prop="company"
+                          :label="$t('label.PFANSUSERFORMVIEW_COMPANY')"
+                          align="center"
+                        >
+                          <template slot-scope="scope">
+                            <el-input v-model="scope.row.company" maxlength="20" style="width: 100%"
+                                      disabled></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column
+                          prop="postion"
+                          :label="$t('label.PFANS2020VIEW_JOB')"
+                          align="center"
+                        >
+                          <template slot-scope="scope">
+                            <el-input v-model="scope.row.postion" maxlength="20" style="width: 100%"
+                                      disabled></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column prop="notes" :label="$t('label.remarks')" align="center">
+                          <template slot-scope="scope">
+                            <el-input v-model="scope.row.notes" maxlength="50" style="width: 100%" disabled></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.operation')" width="200" align="center">
+                          <template slot-scope="scope">
+                            <el-button
+                              @click.native.prevent="deleteRow(scope.$index, beforeWorkTable)"
+                              type="danger"
+                              size="small"
+                              plain disabled
+                            >{{$t('button.delete')}}
+                            </el-button>
+                            <el-button
+                              @click="addRow('beforeWork')"
+                              type="primary"
+                              size="small"
+                              plain disabled
+                            >{{$t('button.insert')}}
+                            </el-button>
+                          </template>
+                        </el-table-column>
+                      </el-table>
                     </el-col>
                   </el-row>
                 </el-collapse-item>
@@ -559,7 +582,7 @@
                       @getOrgids="getCenterid"
                     ></org>
                     <!--<el-button-->
-                      <!--type="text"-->
+                    <!--type="text"-->
                     <!--&gt;{{$t('label.INDEX_GD')}}-->
                     <!--</el-button>-->
                   </el-form-item>
@@ -569,17 +592,20 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_JOBNUMBER')" prop="jobnumber">
-                    <el-input class="width" v-model="form.jobnumber" maxlength="10" style="width:20vw" disabled></el-input>
+                    <el-input class="width" v-model="form.jobnumber" maxlength="10" style="width:20vw"
+                              disabled></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.budgetunit')" prop="budgetunit">
-                    <el-input class="width" disabled v-model="form.budgetunit" maxlength="10" style="width:20vw"></el-input>
+                    <el-input class="width" disabled v-model="form.budgetunit" maxlength="10"
+                              style="width:20vw"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1012VIEW_PERSONALCODE')" >
-                    <el-input class="width" v-model="form.personalcode" maxlength="10" style="width:20vw" disabled></el-input>
+                  <el-form-item :label="$t('label.PFANS1012VIEW_PERSONALCODE')">
+                    <el-input class="width" v-model="form.personalcode" maxlength="10" style="width:20vw"
+                              disabled></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -611,7 +637,8 @@
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_OCCUPATIONTYPE')" prop="occupationtype">
                     <dicselect :code="occupationtypecode" class="width" style="width:20vw" :data="form.occupationtype"
-                               :disabled="occupationtypedis" v-if="occupationtypedisplay" @change="getOccupationtype" disabled
+                               :disabled="occupationtypedis" v-if="occupationtypedisplay" @change="getOccupationtype"
+                               disabled
                     ></dicselect>
                   </el-form-item>
                 </el-col>
@@ -637,20 +664,20 @@
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERVIEW_POST')" prop="post">
                     <dicselect disabled
-                      :code="code1"
-                      :data="form.post"
-                      @change="changePost"
-                      style="width:20vw">
+                               :code="code1"
+                               :data="form.post"
+                               @change="changePost"
+                               style="width:20vw">
                     </dicselect>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1012VIEW_CAIWUPERSONALCODE')">
                     <el-input disabled
-                      class="width"
-                      v-model="form.caiwupersonalcode"
-                      maxlength="10"
-                      style="width:20vw"
+                              class="width"
+                              v-model="form.caiwupersonalcode"
+                              maxlength="10"
+                              style="width:20vw"
                     ></el-input>
                   </el-form-item>
                 </el-col>
@@ -659,10 +686,10 @@
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_LABORCONTRACTTYPE')">
                     <el-select disabled
-                      v-model="form.laborcontracttype"
-                      :placeholder="$t('normal.error_09')"
-                      class="width"
-                      style="width:20vw"
+                               v-model="form.laborcontracttype"
+                               :placeholder="$t('normal.error_09')"
+                               class="width"
+                               style="width:20vw"
                     >
                       <el-option
                         v-for="item in laborcontracttype"
@@ -831,7 +858,8 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_SEATNUMBER')" prop="seatnumber">
-                    <el-input class="width" v-model="form.seatnumber" maxlength="20" style="width:20vw" disabled></el-input>
+                    <el-input class="width" v-model="form.seatnumber" maxlength="20" style="width:20vw"
+                              disabled></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -885,45 +913,45 @@
                       :visible.sync="dialogTableVisible2"
                       style="padding-top:5px"
                     >
-                      <el-row >
+                      <el-row>
                         <el-col :span="24">
-                      <el-table :data="oldageData" stripe>
-                        <el-table-column
-                          property="date"
-                          align="center"
-                          :label="$t('label.PFANSUSERFORMVIEW_TIME')"
-                          width="200"
-                        >
-                          <template slot-scope="scope">
-                            <span style="color:#75a7ef">{{ scope.row.date }}</span>
-                          </template>
-                        </el-table-column>
-                        <el-table-column
-                          property="before"
-                          align="center"
-                          :label="$t('label.PFANSUSERFORMVIEW_BEFORE')"
-                          width="130"
-                        ></el-table-column>
-                        <el-table-column
-                          property="after"
-                          align="center"
-                          :label="$t('label.PFANSUSERFORMVIEW_AFTER')"
-                          width="130"
-                        >
-                          <template slot-scope="scope">
-                            <span style="color:#d16765">{{ scope.row.after }}</span>
-                          </template>
-                        </el-table-column>
-                        <el-table-column
-                          property="remark"
-                          align="center"
-                          :label="$t('label.PFANS1017FORMVIEW_PREPAREFOR')"
-                        >
-                          <template slot-scope="scope">
-                            <el-input style="width:5vw" v-model="scope.row.remark" size="mini" disabled></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table>
+                          <el-table :data="oldageData" stripe>
+                            <el-table-column
+                              property="date"
+                              align="center"
+                              :label="$t('label.PFANSUSERFORMVIEW_TIME')"
+                              width="200"
+                            >
+                              <template slot-scope="scope">
+                                <span style="color:#75a7ef">{{ scope.row.date }}</span>
+                              </template>
+                            </el-table-column>
+                            <el-table-column
+                              property="before"
+                              align="center"
+                              :label="$t('label.PFANSUSERFORMVIEW_BEFORE')"
+                              width="130"
+                            ></el-table-column>
+                            <el-table-column
+                              property="after"
+                              align="center"
+                              :label="$t('label.PFANSUSERFORMVIEW_AFTER')"
+                              width="130"
+                            >
+                              <template slot-scope="scope">
+                                <span style="color:#d16765">{{ scope.row.after }}</span>
+                              </template>
+                            </el-table-column>
+                            <el-table-column
+                              property="remark"
+                              align="center"
+                              :label="$t('label.PFANS1017FORMVIEW_PREPAREFOR')"
+                            >
+                              <template slot-scope="scope">
+                                <el-input style="width:5vw" v-model="scope.row.remark" size="mini" disabled></el-input>
+                              </template>
+                            </el-table-column>
+                          </el-table>
                         </el-col>
                       </el-row>
                     </el-dialog>
@@ -953,45 +981,45 @@
                       :visible.sync="dialogTableVisible3"
                       style="padding-top:5px"
                     >
-                      <el-row >
+                      <el-row>
                         <el-col :span="24">
-                      <el-table :data="houseData" stripe>
-                        <el-table-column
-                          property="date"
-                          align="center"
-                          :label="$t('label.PFANSUSERFORMVIEW_TIME')"
-                          width="200"
-                        >
-                          <template slot-scope="scope">
-                            <span style="color:#75a7ef">{{ scope.row.date }}</span>
-                          </template>
-                        </el-table-column>
-                        <el-table-column
-                          property="before"
-                          align="center"
-                          :label="$t('label.PFANSUSERFORMVIEW_BEFORE')"
-                          width="130"
-                        ></el-table-column>
-                        <el-table-column
-                          property="after"
-                          align="center"
-                          :label="$t('label.PFANSUSERFORMVIEW_AFTER')"
-                          width="130"
-                        >
-                          <template slot-scope="scope">
-                            <span style="color:#d16765">{{ scope.row.after }}</span>
-                          </template>
-                        </el-table-column>
-                        <el-table-column
-                          property="remark"
-                          align="center"
-                          :label="$t('label.PFANS1017FORMVIEW_PREPAREFOR')"
-                        >
-                          <template slot-scope="scope">
-                            <el-input style="width:5vw" v-model="scope.row.remark" size="mini" disabled></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table>
+                          <el-table :data="houseData" stripe>
+                            <el-table-column
+                              property="date"
+                              align="center"
+                              :label="$t('label.PFANSUSERFORMVIEW_TIME')"
+                              width="200"
+                            >
+                              <template slot-scope="scope">
+                                <span style="color:#75a7ef">{{ scope.row.date }}</span>
+                              </template>
+                            </el-table-column>
+                            <el-table-column
+                              property="before"
+                              align="center"
+                              :label="$t('label.PFANSUSERFORMVIEW_BEFORE')"
+                              width="130"
+                            ></el-table-column>
+                            <el-table-column
+                              property="after"
+                              align="center"
+                              :label="$t('label.PFANSUSERFORMVIEW_AFTER')"
+                              width="130"
+                            >
+                              <template slot-scope="scope">
+                                <span style="color:#d16765">{{ scope.row.after }}</span>
+                              </template>
+                            </el-table-column>
+                            <el-table-column
+                              property="remark"
+                              align="center"
+                              :label="$t('label.PFANS1017FORMVIEW_PREPAREFOR')"
+                            >
+                              <template slot-scope="scope">
+                                <el-input style="width:5vw" v-model="scope.row.remark" size="mini" disabled></el-input>
+                              </template>
+                            </el-table-column>
+                          </el-table>
                         </el-col>
                       </el-row>
                     </el-dialog>
@@ -1024,45 +1052,45 @@
                       :visible.sync="dialogTableVisible4"
                       style="padding-top:5px"
                     >
-                      <el-row >
+                      <el-row>
                         <el-col :span="24">
-                      <el-table :data="medicalData" stripe>
-                        <el-table-column
-                          property="date"
-                          align="center"
-                          :label="$t('label.PFANSUSERFORMVIEW_TIME')"
-                          width="200"
-                        >
-                          <template slot-scope="scope">
-                            <span style="color:#75a7ef">{{ scope.row.date }}</span>
-                          </template>
-                        </el-table-column>
-                        <el-table-column
-                          property="before"
-                          align="center"
-                          :label="$t('label.PFANSUSERFORMVIEW_BEFORE')"
-                          width="130"
-                        ></el-table-column>
-                        <el-table-column
-                          property="after"
-                          align="center"
-                          :label="$t('label.PFANSUSERFORMVIEW_AFTER')"
-                          width="130"
-                        >
-                          <template slot-scope="scope">
-                            <span style="color:#d16765">{{ scope.row.after }}</span>
-                          </template>
-                        </el-table-column>
-                        <el-table-column
-                          property="remark"
-                          align="center"
-                          :label="$t('label.PFANS1017FORMVIEW_PREPAREFOR')"
-                        >
-                          <template slot-scope="scope">
-                            <el-input style="width:5vw" v-model="scope.row.remark" size="mini" disabled></el-input>
-                          </template>
-                        </el-table-column>
-                      </el-table>
+                          <el-table :data="medicalData" stripe>
+                            <el-table-column
+                              property="date"
+                              align="center"
+                              :label="$t('label.PFANSUSERFORMVIEW_TIME')"
+                              width="200"
+                            >
+                              <template slot-scope="scope">
+                                <span style="color:#75a7ef">{{ scope.row.date }}</span>
+                              </template>
+                            </el-table-column>
+                            <el-table-column
+                              property="before"
+                              align="center"
+                              :label="$t('label.PFANSUSERFORMVIEW_BEFORE')"
+                              width="130"
+                            ></el-table-column>
+                            <el-table-column
+                              property="after"
+                              align="center"
+                              :label="$t('label.PFANSUSERFORMVIEW_AFTER')"
+                              width="130"
+                            >
+                              <template slot-scope="scope">
+                                <span style="color:#d16765">{{ scope.row.after }}</span>
+                              </template>
+                            </el-table-column>
+                            <el-table-column
+                              property="remark"
+                              align="center"
+                              :label="$t('label.PFANS1017FORMVIEW_PREPAREFOR')"
+                            >
+                              <template slot-scope="scope">
+                                <el-input style="width:5vw" v-model="scope.row.remark" size="mini" disabled></el-input>
+                              </template>
+                            </el-table-column>
+                          </el-table>
                         </el-col>
                       </el-row>
                     </el-dialog>
@@ -1089,7 +1117,7 @@
                       :visible.sync="dialogTableVisible"
                       style="padding-top:5px"
                     >
-                      <el-row >
+                      <el-row>
                         <el-col :span="24">
                           <el-table :data="gridData" stripe>
                             <el-table-column
@@ -1155,7 +1183,8 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_CAUTION')" label-width="7rem">
-                    <el-input class="width" v-model="form.caution" maxlength="20" style="width:20vw" disabled></el-input>
+                    <el-input class="width" v-model="form.caution" maxlength="20" style="width:20vw"
+                              disabled></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -1167,199 +1196,208 @@
               style="padding-left:0.5%"
             >
               <el-collapse>
-                <el-collapse-item>
+<!--                <el-collapse-item>-->
                   <template slot="title">
-                    <span  class="collapse_Title">{{$t('label.PFANSUSERFORMVIEW_AFTERWORk')}}</span>
+                    <span class="collapse_Title">{{$t('label.PFANSUSERFORMVIEW_AFTERWORk')}}</span>
                   </template>
-                  <el-row >
+                  <el-row>
                     <el-col :span="24">
-              <el-table
-                :data="workAfterTable"
-                style="width:72vw;margin-top:1%"
-                border header-cell-class-name="sub_bg_color_blue" stripe
-              >
-                <el-table-column
-                  prop="time"
-                  :label="$t('label.PFANSUSERFORMVIEW_PERIOD')"
-                  align="center"
-                >
-                  <template slot-scope="scope">
-                    <el-date-picker
-                      v-model="scope.row.time"
-                      type="daterange"
-                      :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
-                      :start-placeholder="$t('label.startdate')"
-                      :end-placeholder="$t('label.enddate')"
-                      unlink-panels disabled
-                      style="width: 100%"
-                    ></el-date-picker>
-                  </template>
-                </el-table-column>
-                <el-table-column
-                  prop="programme"
-                  :label="$t('label.PFANS5008VIEW_PROGRAM')"
-                  align="center"
-                >
-                  <template slot-scope="scope">
-                    <el-input class="width" v-model="scope.row.programme" maxlength="20" style="width: 100%" disabled></el-input>
-                  </template>
-                </el-table-column>
-                <el-table-column prop="notes" :label="$t('label.remarks')" align="center">
-                  <template slot-scope="scope">
-                    <el-input class="width" v-model="scope.row.notes" maxlength="50" style="width: 100%" disabled></el-input>
-                  </template>
-                </el-table-column>
-                <el-table-column :label="$t('label.operation')" width="200" align="center">
-                  <template slot-scope="scope">
-                    <el-button
-                      @click.native.prevent="deleteRow(scope.$index, workAfterTable)"
-                      type="danger"
-                      size="small"
-                      plain disabled
-                    >{{$t('button.delete')}}
-                    </el-button>
-                    <el-button
-                      @click="addRow('workafter')"
-                      type="primary"
-                      size="small"
-                      plain disabled
-                    >{{$t('button.insert')}}
-                    </el-button>
-                  </template>
-                </el-table-column>
-              </el-table>
+                      <el-table
+                        :data="workAfterTable"
+                        style="width:72vw;margin-top:1%"
+                        border header-cell-class-name="sub_bg_color_blue" stripe
+                      >
+                        <el-table-column
+                          prop="time"
+                          :label="$t('label.PFANSUSERFORMVIEW_PERIOD')"
+                          align="center"
+                        >
+                          <template slot-scope="scope">
+                            <el-date-picker
+                              v-model="scope.row.time"
+                              type="daterange"
+                              :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
+                              :start-placeholder="$t('label.startdate')"
+                              :end-placeholder="$t('label.enddate')"
+                              unlink-panels disabled
+                              style="width: 100%"
+                            ></el-date-picker>
+                          </template>
+                        </el-table-column>
+                        <el-table-column
+                          prop="programme"
+                          :label="$t('label.PFANS5008VIEW_PROGRAM')"
+                          align="center"
+                        >
+                          <template slot-scope="scope">
+                            <el-input class="width" v-model="scope.row.programme" maxlength="20" style="width: 100%"
+                                      disabled></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column prop="notes" :label="$t('label.remarks')" align="center">
+                          <template slot-scope="scope">
+                            <el-input class="width" v-model="scope.row.notes" maxlength="50" style="width: 100%"
+                                      disabled></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.operation')" width="200" align="center">
+                          <template slot-scope="scope">
+                            <el-button
+                              @click.native.prevent="deleteRow(scope.$index, workAfterTable)"
+                              type="danger"
+                              size="small"
+                              plain disabled
+                            >{{$t('button.delete')}}
+                            </el-button>
+                            <el-button
+                              @click="addRow('workafter')"
+                              type="primary"
+                              size="small"
+                              plain disabled
+                            >{{$t('button.insert')}}
+                            </el-button>
+                          </template>
+                        </el-table-column>
+                      </el-table>
                     </el-col>
                   </el-row>
-                </el-collapse-item>
+<!--                </el-collapse-item>-->
               </el-collapse>
               <el-collapse>
                 <el-collapse-item>
                   <template slot="title">
-                    <span  class="collapse_Title">{{$t('label.PFANSUSERFORMVIEW_TRAININGPRACTICE')}}</span>
+                    <span class="collapse_Title">{{$t('label.PFANSUSERFORMVIEW_TRAININGPRACTICE')}}</span>
                   </template>
-                  <el-row >
+                  <el-row>
                     <el-col :span="24">
-              <el-table :data="trainTable" style="width:72vw;margin-top:1%" border header-cell-class-name="sub_bg_color_blue" stripe>
-                <el-table-column
-                  prop="time"
-                  :label="$t('label.PFANSUSERFORMVIEW_PERIOD')"
-                  align="center"
-                >
-                  <template slot-scope="scope">
-                    <el-date-picker
-                      v-model="scope.row.time"
-                      type="daterange" disabled
-                      :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
-                      :start-placeholder="$t('label.startdate')"
-                      :end-placeholder="$t('label.enddate')"
-                      unlink-panels
-                      style="width: 100%"
-                    ></el-date-picker>
-                  </template>
-                </el-table-column>
-                <el-table-column prop="programme" :label="$t('label.operation')" align="center">
-                  <template slot-scope="scope">
-                    <el-input class="width" v-model="scope.row.programme" maxlength="20" style="width: 100%" disabled></el-input>
-                  </template>
-                </el-table-column>
-                <el-table-column prop="notes" :label="$t('label.remarks')" align="center">
-                  <template slot-scope="scope">
-                    <el-input class="width" v-model="scope.row.notes" maxlength="50" style="width: 100%" disabled></el-input>
-                  </template>
-                </el-table-column>
-                <el-table-column :label="$t('label.operation')" width="200" align="center">
-                  <template slot-scope="scope">
-                    <el-button
-                      @click.native.prevent="deleteRow(scope.$index, trainTable)"
-                      type="danger"
-                      size="small"
-                      plain disabled
-                    >{{$t('button.delete')}}
-                    </el-button>
-                    <el-button
-                      @click="addRow('train')"
-                      type="primary"
-                      size="small"
-                      plain disabled
-                    >{{$t('button.insert')}}
-                    </el-button>
-                  </template>
-                </el-table-column>
-              </el-table>
+                      <el-table :data="trainTable" style="width:72vw;margin-top:1%" border
+                                header-cell-class-name="sub_bg_color_blue" stripe>
+                        <el-table-column
+                          prop="time"
+                          :label="$t('label.PFANSUSERFORMVIEW_PERIOD')"
+                          align="center"
+                        >
+                          <template slot-scope="scope">
+                            <el-date-picker
+                              v-model="scope.row.time"
+                              type="daterange" disabled
+                              :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
+                              :start-placeholder="$t('label.startdate')"
+                              :end-placeholder="$t('label.enddate')"
+                              unlink-panels
+                              style="width: 100%"
+                            ></el-date-picker>
+                          </template>
+                        </el-table-column>
+                        <el-table-column prop="programme" :label="$t('label.operation')" align="center">
+                          <template slot-scope="scope">
+                            <el-input class="width" v-model="scope.row.programme" maxlength="20" style="width: 100%"
+                                      disabled></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column prop="notes" :label="$t('label.remarks')" align="center">
+                          <template slot-scope="scope">
+                            <el-input class="width" v-model="scope.row.notes" maxlength="50" style="width: 100%"
+                                      disabled></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.operation')" width="200" align="center">
+                          <template slot-scope="scope">
+                            <el-button
+                              @click.native.prevent="deleteRow(scope.$index, trainTable)"
+                              type="danger"
+                              size="small"
+                              plain disabled
+                            >{{$t('button.delete')}}
+                            </el-button>
+                            <el-button
+                              @click="addRow('train')"
+                              type="primary"
+                              size="small"
+                              plain disabled
+                            >{{$t('button.insert')}}
+                            </el-button>
+                          </template>
+                        </el-table-column>
+                      </el-table>
                     </el-col>
                   </el-row>
                 </el-collapse-item>
               </el-collapse>
             </el-tab-pane>
-            <el-tab-pane :label="this.$t('label.PFANSUSERFORMVIEW_REWARDPUNISHMENT')" name="seven" style="padding-left:0.5%">
+            <el-tab-pane :label="this.$t('label.PFANSUSERFORMVIEW_REWARDPUNISHMENT')" name="seven"
+                         style="padding-left:0.5%">
               <el-collapse>
-                <el-collapse-item>
+<!--                <el-collapse-item>-->
                   <template slot="title">
-                    <span  class="collapse_Title">{{$t('label.PFANSUSERFORMVIEW_REWARDPUNISHMENT')}}</span>
+                    <span class="collapse_Title">{{$t('label.PFANSUSERFORMVIEW_REWARDPUNISHMENT')}}</span>
                   </template>
-                  <el-row >
+                  <el-row>
                     <el-col :span="24">
-              <el-table :data="rewardTable" style="width:72vw;margin-top:1%" border header-cell-class-name="sub_bg_color_blue" stripe>
-                <el-table-column
-                  prop="notes"
-                  :label="$t('label.PFANS3004VIEW_NAME')"
-                  align="center"
-                >
-                  <template slot-scope="scope">
-                    <el-input class="width" v-model="scope.row.programme" maxlength="20" style="width: 100%" disabled></el-input>
-                  </template>
-                </el-table-column>
-                <el-table-column
-                  prop="time"
-                  :label="$t('label.PFANSUSERFORMVIEW_TIME')"
-                  align="center"
-                >
-                  <template slot-scope="scope">
-                    <el-date-picker
-                      v-model="scope.row._time"
-                      type="date" disabled
-                      :placeholder="$t('label.PFANSUSERFORMVIEW_SELECTIONDATE')"
-                      style="width: 100%"
-                    ></el-date-picker>
-                  </template>
-                </el-table-column>
-                <el-table-column
-                  prop="notes"
-                  :label="$t('label.PFANSUSERFORMVIEW_EXPLAIN')"
-                  align="center"
-                >
-                  <template slot-scope="scope">
-                    <el-input class="width" v-model="scope.row.notes" maxlength="50" style="width: 100%" disabled></el-input>
-                  </template>
-                </el-table-column>
-                <el-table-column :label="$t('label.operation')" width="200" align="center">
-                  <template slot-scope="scope">
-                    <el-button
-                      @click.native.prevent="deleteRow(scope.$index, rewardTable)"
-                      type="danger"
-                      size="small"
-                      plain disabled
-                    >{{$t('button.delete')}}
-                    </el-button>
-                    <el-button
-                      @click="addRow('reward')"
-                      type="primary"
-                      size="small"
-                      plain disabled
-                    >{{$t('button.insert')}}
-                    </el-button>
-                  </template>
-                </el-table-column>
-              </el-table>
+                      <el-table :data="rewardTable" style="width:72vw;margin-top:1%" border
+                                header-cell-class-name="sub_bg_color_blue" stripe>
+                        <el-table-column
+                          prop="notes"
+                          :label="$t('label.PFANS3004VIEW_NAME')"
+                          align="center"
+                        >
+                          <template slot-scope="scope">
+                            <el-input class="width" v-model="scope.row.programme" maxlength="20" style="width: 100%"
+                                      disabled></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column
+                          prop="time"
+                          :label="$t('label.PFANSUSERFORMVIEW_TIME')"
+                          align="center"
+                        >
+                          <template slot-scope="scope">
+                            <el-date-picker
+                              v-model="scope.row._time"
+                              type="date" disabled
+                              :placeholder="$t('label.PFANSUSERFORMVIEW_SELECTIONDATE')"
+                              style="width: 100%"
+                            ></el-date-picker>
+                          </template>
+                        </el-table-column>
+                        <el-table-column
+                          prop="notes"
+                          :label="$t('label.PFANSUSERFORMVIEW_EXPLAIN')"
+                          align="center"
+                        >
+                          <template slot-scope="scope">
+                            <el-input class="width" v-model="scope.row.notes" maxlength="50" style="width: 100%"
+                                      disabled></el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.operation')" width="200" align="center">
+                          <template slot-scope="scope">
+                            <el-button
+                              @click.native.prevent="deleteRow(scope.$index, rewardTable)"
+                              type="danger"
+                              size="small"
+                              plain disabled
+                            >{{$t('button.delete')}}
+                            </el-button>
+                            <el-button
+                              @click="addRow('reward')"
+                              type="primary"
+                              size="small"
+                              plain disabled
+                            >{{$t('button.insert')}}
+                            </el-button>
+                          </template>
+                        </el-table-column>
+                      </el-table>
                     </el-col>
                   </el-row>
-                </el-collapse-item>
+<!--                </el-collapse-item>-->
               </el-collapse>
             </el-tab-pane>
             <el-tab-pane :label="this.$t('label.PFANSUSERFORMVIEW_EDITUSER')" name="eight" style="padding-left:0.5%">
               <el-row>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS2026VIEW_RESIGNATIONDATE')" prop="resignation_date" >
+                  <el-form-item :label="$t('label.PFANS2026VIEW_RESIGNATIONDATE')" prop="resignation_date">
                     <el-date-picker style="width:20vw" v-model="form.resignation_date" disabled>
                     </el-date-picker>
                   </el-form-item>
@@ -1371,9 +1409,11 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item :label="$t('title.PFANS2026VIEW')" v-if="this.form.staffexitprocedure !==''&& this.form.staffexitprocedure !==null">
+                  <el-form-item :label="$t('title.PFANS2026VIEW')"
+                                v-if="this.form.staffexitprocedure !==''&& this.form.staffexitprocedure !==null">
                     <router-link :to="{ name: 'PFANS2026FormView',
-                   params: { _id: this.form.staffexitprocedure, disabled: true}}" >{{this.$t('button.view')}}</router-link>
+                   params: { _id: this.form.staffexitprocedure, disabled: true}}">{{this.$t('button.view')}}
+                    </router-link>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -1385,33 +1425,33 @@
   </div>
 </template>
 <script>
-  import EasyNormalContainer from "@/components/EasyNormalContainer";
-  import {isvalidPhone} from "@/utils/validate";
-  import {Message} from "element-ui";
-  import org from "@/view/components/org";
-  import dicselect from "../components/dicselect";
-  import moment from "moment";
+  import EasyNormalContainer from '@/components/EasyNormalContainer';
+  import {isvalidPhone} from '@/utils/validate';
+  import {Message} from 'element-ui';
+  import org from '@/view/components/org';
+  import dicselect from '../components/dicselect';
+  import moment from 'moment';
 
   export default {
-    name: "usersFormViewByPerson",
+    name: 'usersFormViewByPerson',
     components: {
       EasyNormalContainer,
       org,
-      dicselect
+      dicselect,
     },
     data() {
       var validateTel = (rule, value, callback) => {
-        if (value === "") {
-          callback(new Error(this.$t("label.PFANSUSERFORMVIEW_TRUEMOBILE")));
+        if (value === '') {
+          callback(new Error(this.$t('label.PFANSUSERFORMVIEW_TRUEMOBILE')));
         } else if (!isvalidPhone(value)) {
-          callback(new Error(this.$t("label.PFANSUSERFORMVIEW_EFFECTIVEMOBILE")));
+          callback(new Error(this.$t('label.PFANSUSERFORMVIEW_EFFECTIVEMOBILE')));
         } else {
           let params = {
-              id: this.$route.params._id,
-              mobilenumber: value
+            id: this.$route.params._id,
+            mobilenumber: value,
           };
           this.$store
-            .dispatch("usersStore/mobileCheck", params)
+            .dispatch('usersStore/mobileCheck', params)
             .then(response => {
               if (response.code != 0) {
                 callback(new Error(response.message));
@@ -1428,30 +1468,30 @@
       var validateId = (rule, value, callback) => {
         if (
           !/^\d{2}(0[1-9]|[1-9][0-9])\d{2}((((1[6-9]|[2-9]\d)\d{2})(0[13578]|1[02])(0[1-9]|[12]\d|3[01]))|(((1[6-9]|[2-9]\d)\d{2})(0[13456789]|1[012])(0[1-9]|[12]\d|30))|(((1[6-9]|[2-9]\d)\d{2})02(0[1-9]|1\d|2[0-8]))|(((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))0229))\d{3}(\d|x|X)$/i.test(
-            value
+            value,
           )
         ) {
-          callback(new Error(this.$t("label.PFANSUSERFORMVIEW_TRUEIDNUMBER")));
+          callback(new Error(this.$t('label.PFANSUSERFORMVIEW_TRUEIDNUMBER')));
         } else {
           callback();
         }
       };
 
       var centerId = (rule, value, callback) => {
-        if (!this.form.centerid || this.form.centerid === "") {
-          callback(new Error(this.$t("normal.error_08") + "center"));
-          this.error = this.$t("normal.error_08") + "center";
+        if (!this.form.centerid || this.form.centerid === '') {
+          callback(new Error(this.$t('normal.error_08') + 'center'));
+          this.error = this.$t('normal.error_08') + 'center';
         } else {
           callback();
         }
       };
 
       return {
-        age: "",
-        code: "",
+        age: '',
+        code: '',
         code1: 'PG021',
-        occupationtypecode:"",
-        occupationtypedis:true,
+        occupationtypecode: '',
+        occupationtypedis: true,
         display: true,
         occupationtypedisplay: true,
         oldageData: null,
@@ -1463,411 +1503,411 @@
         dialogTableVisible3: false,
         dialogTableVisible4: false,
         loading: false,
-        error: "",
+        error: '',
         educationTable: [
           {
             time: [],
-            school: "",
-            notes: ""
-          }
+            school: '',
+            notes: '',
+          },
         ],
         skillTable: [
           {
-            name: "",
-            ability: "",
-            notes: ""
-          }
+            name: '',
+            ability: '',
+            notes: '',
+          },
         ],
         languageTable: [
           {
-            programme: "",
-            level: "",
-            notes: ""
-          }
+            programme: '',
+            level: '',
+            notes: '',
+          },
         ],
         beforeWorkTable: [
           {
             time: [],
-            company: "",
-            postion: "",
-            notes: ""
-          }
+            company: '',
+            postion: '',
+            notes: '',
+          },
         ],
         workAfterTable: [
           {
             time: [],
-            programme: "",
-            notes: ""
-          }
+            programme: '',
+            notes: '',
+          },
         ],
         trainTable: [
           {
             time: [],
-            programme: "",
-            notes: ""
-          }
+            programme: '',
+            notes: '',
+          },
         ],
         rewardTable: [
           {
-            programme: "",
-            _time: "",
-            notes: ""
-          }
+            programme: '',
+            _time: '',
+            notes: '',
+          },
         ],
 
-        activeName: "first",
+        activeName: 'first',
         difference_options: [
-          {value: "1", label: this.$t("label.PFANSUSERFORMVIEW_NEWSTAFF")},
+          {value: '1', label: this.$t('label.PFANSUSERFORMVIEW_NEWSTAFF')},
           {
-            value: "2",
-            label: this.$t("label.PFANSUSERFORMVIEW_OLDSTAFF")
-          }
+            value: '2',
+            label: this.$t('label.PFANSUSERFORMVIEW_OLDSTAFF'),
+          },
         ],
         rank_options: [
-          {value: "0", label: this.$t("label.PFANSUSERVIEW_MEMBERS")},
+          {value: '0', label: this.$t('label.PFANSUSERVIEW_MEMBERS')},
           {
-            value: "1",
-            label: this.$t("label.PFANSUSERVIEW_OUTGOING")
-          }
+            value: '1',
+            label: this.$t('label.PFANSUSERVIEW_OUTGOING'),
+          },
         ],
         laborcontracttype: [
-          {value: "0", label: this.$t("label.PFANSUSERFORMVIEW_FIXEDTIME")},
+          {value: '0', label: this.$t('label.PFANSUSERFORMVIEW_FIXEDTIME')},
           {
-            value: "1",
-            label: this.$t("label.PFANSUSERFORMVIEW_NOFIXEDTIME")
-          }
+            value: '1',
+            label: this.$t('label.PFANSUSERFORMVIEW_NOFIXEDTIME'),
+          },
         ],
         marital_options: [
-          {value: "0", label: this.$t("label.PFANSUSERFORMVIEW_UNMARRIED")},
+          {value: '0', label: this.$t('label.PFANSUSERFORMVIEW_UNMARRIED')},
           {
-            value: "1",
-            label: this.$t("label.PFANSUSERFORMVIEW_MARRIED")
-          }
+            value: '1',
+            label: this.$t('label.PFANSUSERFORMVIEW_MARRIED'),
+          },
         ],
         experience_options: [
-          {value: "0", label: this.$t("label.PFANSUSERFORMVIEW_YES")},
+          {value: '0', label: this.$t('label.PFANSUSERFORMVIEW_YES')},
           {
-            value: "1",
-            label: this.$t("label.PFANSUSERFORMVIEW_NO")
-          }
+            value: '1',
+            label: this.$t('label.PFANSUSERFORMVIEW_NO'),
+          },
         ],
         form: {
-          type:"",
-          centername: "",
-          groupname: "",
-          teamname: "",
-          customername: "",
-          sex: "",
-          adfield: "",
-          birthday: "",
-          nationality: "",
-          nation: "",
-          register: "",
-          idnumber: "",
-          passport: "",
-          security: "",
-          housefund: "",
-          marital: "0",
-          children: "",
-          experience: "",
-          address: "",
-          email: "",
-          mobilenumber: "",
-          phone: "",
-          extension: "",
-          graduation: "",
-          degree: "",
-          educational: "",
-          specialty: "",
-          graduationday: "",
-          workday: "",
+          type: '',
+          centername: '',
+          groupname: '',
+          teamname: '',
+          customername: '',
+          sex: '',
+          adfield: '',
+          birthday: '',
+          nationality: '',
+          nation: '',
+          register: '',
+          idnumber: '',
+          passport: '',
+          security: '',
+          housefund: '',
+          marital: '0',
+          children: '',
+          experience: '',
+          address: '',
+          email: '',
+          mobilenumber: '',
+          phone: '',
+          extension: '',
+          graduation: '',
+          degree: '',
+          educational: '',
+          specialty: '',
+          graduationday: '',
+          workday: '',
           departmentid: [],
-          centerid: "",
-          groupid: "",
-          teamid: "",
-          budgetunit: "",
-          userid: "",
-          jobnumber: "",
-          personalcode:"",
-          difference: "1",
-          post: "",
-          rank: "",
-          occupationtype:"",
-          laborcontracttype: "",
-          fixedate: "",
-          laborcontractday: "",
-          enterday: "",
-          upgraded: "",
-          annualyear: "",
-          annuallastyear: "",
-          welfareyear: "",
-          welfarelastyear: "",
-          restyear: "",
-          restlastyear: "",
-          seatnumber: "",
-          salary: "",
-          duty:"",
-          basic:"",
-          caution: "",
-          resignation_date:"",
+          centerid: '',
+          groupid: '',
+          teamid: '',
+          budgetunit: '',
+          userid: '',
+          jobnumber: '',
+          personalcode: '',
+          difference: '1',
+          post: '',
+          rank: '',
+          occupationtype: '',
+          laborcontracttype: '',
+          fixedate: '',
+          laborcontractday: '',
+          enterday: '',
+          upgraded: '',
+          annualyear: '',
+          annuallastyear: '',
+          welfareyear: '',
+          welfarelastyear: '',
+          restyear: '',
+          restlastyear: '',
+          seatnumber: '',
+          salary: '',
+          duty: '',
+          basic: '',
+          caution: '',
+          resignation_date: '',
           reason2: '',
-          staffexitprocedure:"",
-          oldageinsurance: "",
-          houseinsurance: "",
-          medicalinsurance: "",
-          informationid: "",
-          title: "",
-          availablestate: "0"
+          staffexitprocedure: '',
+          oldageinsurance: '',
+          houseinsurance: '',
+          medicalinsurance: '',
+          informationid: '',
+          title: '',
+          availablestate: '0',
         },
         disable: false,
-        userToRoleId: "",
+        userToRoleId: '',
         userInfo: {
           userAccount: {},
-          customerInfo: {}
+          customerInfo: {},
         },
         baseInfoForm: {
-          email: "",
-          departmentid: []
+          email: '',
+          departmentid: [],
         },
-        title: "label.PFANSUSERVIEW_USER",
+        title: 'label.PFANSUSERVIEW_USER',
         isEdit: false,
-        status: "0",
+        status: '0',
         buttonList: [
-          {key: "userSave", name: this.$t("button.save")},
+          {key: 'userSave', name: this.$t('button.save')},
         ],
         rules: {
           adfield: [
             {
               required: true,
               message:
-                this.$t("normal.error_08") +
-                this.$t("label.PFANSUSERFORMVIEW_ADFIELD"),
-              trigger: "blur"
-            }
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_ADFIELD'),
+              trigger: 'blur',
+            },
           ],
           customername: [
             {
               required: true,
               message:
-                this.$t("normal.error_08") +
-                this.$t("label.PFANSUSERFORMVIEW_CUSTOMERNAME"),
-              trigger: "blur"
-            }
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_CUSTOMERNAME'),
+              trigger: 'blur',
+            },
           ],
           sex: [
             {
               required: true,
-              message: this.$t("normal.error_08") + this.$t("label.sex"),
-              trigger: "change"
-            }
+              message: this.$t('normal.error_08') + this.$t('label.sex'),
+              trigger: 'change',
+            },
           ],
           birthday: [
             {
               required: true,
               message:
-                this.$t("normal.error_08") +
-                this.$t("label.PFANSUSERVIEW_BIRTHDAY"),
-              trigger: "blur"
-            }
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERVIEW_BIRTHDAY'),
+              trigger: 'blur',
+            },
           ],
           nation: [
             {
               required: true,
               message:
-                this.$t("normal.error_08") +
-                this.$t("label.PFANSUSERFORMVIEW_NATION"),
-              trigger: "blur"
-            }
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_NATION'),
+              trigger: 'blur',
+            },
           ],
           nationality: [
             {
               required: true,
               message:
-                this.$t("normal.error_08") +
-                this.$t("label.PFANSUSERVIEW_NATIONALITY"),
-              trigger: "blur"
-            }
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERVIEW_NATIONALITY'),
+              trigger: 'blur',
+            },
           ],
           register: [
             {
               required: true,
               message:
-                this.$t("normal.error_08") +
-                this.$t("label.PFANSUSERFORMVIEW_REGISTER"),
-              trigger: "blur"
-            }
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_REGISTER'),
+              trigger: 'blur',
+            },
           ],
           centerid: [
             {
               required: true,
               validator: centerId,
-              trigger: "blur"
-            }
+              trigger: 'blur',
+            },
           ],
           idnumber: [
             {
               required: true,
               message:
-                this.$t("normal.error_08") +
-                this.$t("label.PFANSUSERFORMVIEW_IDNUMBER"),
-              trigger: "blur"
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_IDNUMBER'),
+              trigger: 'blur',
             },
             {
               validator: validateId,
-              trigger: "blur"
-            }
+              trigger: 'blur',
+            },
           ],
           marital: [
             {
               required: true,
               message:
-                this.$t("normal.error_08") +
-                this.$t("label.PFANSUSERFORMVIEW_MARITAL"),
-              trigger: "change"
-            }
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_MARITAL'),
+              trigger: 'change',
+            },
           ],
           address: [
             {
               required: true,
               message:
-                this.$t("normal.error_08") +
-                this.$t("label.PFANSUSERFORMVIEW_ADDRESS"),
-              trigger: "blur"
-            }
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_ADDRESS'),
+              trigger: 'blur',
+            },
           ],
           phone: [
             {
               required: true,
               message:
-                this.$t("normal.error_08") +
-                this.$t("label.PFANSUSERFORMVIEW_PHONE"),
-              trigger: "blur"
-            }
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_PHONE'),
+              trigger: 'blur',
+            },
           ],
           extension: [
             {
               required: true,
               message:
-                this.$t("normal.error_08") +
-                this.$t("label.PFANSUSERFORMVIEW_EXTENSION"),
-              trigger: "blur"
-            }
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_EXTENSION'),
+              trigger: 'blur',
+            },
           ],
           graduation: [
             {
               required: true,
               message:
-                this.$t("normal.error_08") +
-                this.$t("label.PFANSUSERFORMVIEW_GRADUATION"),
-              trigger: "blur"
-            }
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_GRADUATION'),
+              trigger: 'blur',
+            },
           ],
           degree: [
             {
               required: true,
               message:
-                this.$t("normal.error_08") +
-                this.$t("label.PFANSUSERFORMVIEW_DEGREE"),
-              trigger: "change"
-            }
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_DEGREE'),
+              trigger: 'change',
+            },
           ],
           educational: [
             {
               required: true,
               message:
-                this.$t("normal.error_08") +
-                this.$t("label.PFANSUSERFORMVIEW_EDUCATIONAL"),
-              trigger: "change"
-            }
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_EDUCATIONAL'),
+              trigger: 'change',
+            },
           ],
           specialty: [
             {
               required: true,
               message:
-                this.$t("normal.error_08") +
-                this.$t("label.PFANSUSERFORMVIEW_SPECIALTY"),
-              trigger: "blur"
-            }
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_SPECIALTY'),
+              trigger: 'blur',
+            },
           ],
           graduationday: [
             {
               required: true,
               message:
-                this.$t("normal.error_08") +
-                this.$t("label.PFANSUSERFORMVIEW_GRADUATIONDAY"),
-              trigger: "blur"
-            }
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_GRADUATIONDAY'),
+              trigger: 'blur',
+            },
           ],
           workday: [
             {
               required: true,
               message:
-                this.$t("normal.error_08") +
-                this.$t("label.PFANSUSERFORMVIEW_WORKDAY"),
-              trigger: "blur"
-            }
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_WORKDAY'),
+              trigger: 'blur',
+            },
           ],
           jobnumber: [
             {
               required: true,
               message:
-                this.$t("normal.error_08") +
-                this.$t("label.PFANSUSERFORMVIEW_JOBNUMBER"),
-              trigger: "blur"
-            }
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_JOBNUMBER'),
+              trigger: 'blur',
+            },
           ],
           type: [
             {
-                required: true,
-                message:
-                    this.$t("normal.error_08") +
-                    this.$t("label.type"),
-                trigger: "change"
-            }
+              required: true,
+              message:
+                this.$t('normal.error_08') +
+                this.$t('label.type'),
+              trigger: 'change',
+            },
           ],
           rank: [
             {
-                required: true,
-                message:
-                    this.$t("normal.error_08") +
-                    this.$t("label.PFANSUSERFORMVIEW_RANK"),
-                trigger: "change"
-            }
+              required: true,
+              message:
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_RANK'),
+              trigger: 'change',
+            },
           ],
           occupationtype: [
             {
-                required: true,
-                message:
-                    this.$t("normal.error_08") +
-                    this.$t("label.PFANSUSERFORMVIEW_OCCUPATIONTYPE"),
-                trigger: "change"
-            }
+              required: true,
+              message:
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_OCCUPATIONTYPE'),
+              trigger: 'change',
+            },
           ],
           post: [
             {
               required: true,
               message:
-                this.$t("normal.error_08") + this.$t("label.PFANSUSERVIEW_POST"),
-              trigger: "change"
-            }
+                this.$t('normal.error_08') + this.$t('label.PFANSUSERVIEW_POST'),
+              trigger: 'change',
+            },
           ],
           laborcontractday: [
             {
               required: true,
               message:
-                this.$t("normal.error_08") +
-                this.$t("label.PFANSUSERFORMVIEW_LABORCONTRACTDAY"),
-              trigger: "blur"
-            }
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_LABORCONTRACTDAY'),
+              trigger: 'blur',
+            },
           ],
           enterday: [
             {
               required: true,
               message:
-                this.$t("normal.error_08") +
-                this.$t("label.PFANSUSERFORMVIEW_ENTERDAY"),
-              trigger: "blur"
-            }
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_ENTERDAY'),
+              trigger: 'blur',
+            },
           ],
           // annualyear: [
           //   {
@@ -1927,78 +1967,78 @@
             {
               required: true,
               message:
-                this.$t("normal.error_08") +
-                this.$t("label.PFANSUSERFORMVIEW_SEATNUMBER"),
-              trigger: "blur"
-            }
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_SEATNUMBER'),
+              trigger: 'blur',
+            },
           ],
           basic: [
             {
               required: true,
               message:
-                this.$t("normal.error_08") +
-                this.$t("label.PFANSUSERFORMVIEW_BASIC"),
-              trigger: "blur"
-            }
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_BASIC'),
+              trigger: 'blur',
+            },
           ],
           duty: [
             {
               required: true,
               message:
-                this.$t("normal.error_08") +
-                this.$t("label.PFANSUSERFORMVIEW_DUTY"),
-              trigger: "blur"
-            }
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_DUTY'),
+              trigger: 'blur',
+            },
           ],
           oldageinsurance: [
             {
               required: true,
               message:
-                this.$t("normal.error_08") +
-                this.$t("label.PFANSUSERFORMVIEW_OLDAGEINSURANCE"),
-              trigger: "blur"
-            }
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_OLDAGEINSURANCE'),
+              trigger: 'blur',
+            },
           ],
           houseinsurance: [
             {
               required: true,
               message:
-                this.$t("normal.error_08") +
-                this.$t("label.PFANSUSERFORMVIEW_HOUSEINSURANCE"),
-              trigger: "blur"
-            }
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_HOUSEINSURANCE'),
+              trigger: 'blur',
+            },
           ],
           medicalinsurance: [
             {
               required: true,
               message:
-                this.$t("normal.error_08") +
-                this.$t("label.PFANSUSERFORMVIEW_MEDICALINSURANCE"),
-              trigger: "blur"
-            }
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_MEDICALINSURANCE'),
+              trigger: 'blur',
+            },
           ],
           mobilenumber: [
             {
               required: true,
-              message: this.$t("normal.error_08") + this.$t("label.user_mobile")
+              message: this.$t('normal.error_08') + this.$t('label.user_mobile'),
             },
-            {validator: validateTel, trigger: "blur"}
+            {validator: validateTel, trigger: 'blur'},
           ],
           email: [
             {
               required: true,
               message:
-                this.$t("normal.error_08") +
-                this.$t("label.PFANSUSERFORMVIEW_EMAILADDRESS"),
-              trigger: "blur"
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_EMAILADDRESS'),
+              trigger: 'blur',
             },
             {
-              type: "email",
-              message: this.$t("label.PFANSUSERFORMVIEW_TRUEEMAILADDRESS"),
-              trigger: ["blur", "change"]
-            }
-          ]
-        }
+              type: 'email',
+              message: this.$t('label.PFANSUSERFORMVIEW_TRUEEMAILADDRESS'),
+              trigger: ['blur', 'change'],
+            },
+          ],
+        },
       };
     },
     computed: {
@@ -2012,19 +2052,19 @@
       // }
     },
     watch: {
-      form:{
+      form: {
         handler: function() {
           this.form.salary = this.form.duty + this.form.basic;
         },
-        deep: true
+        deep: true,
       },
       userToRoleId(val) {
         if (val) {
           this.$router.push({
-            name: "usersToRoleView",
+            name: 'usersToRoleView',
             params: {
-              _id: val
-            }
+              _id: val,
+            },
           });
         }
       },
@@ -2052,7 +2092,7 @@
       }
 
       // if (this.$route.params._id) {
-        this.getById();
+      this.getById();
       // }
     },
     methods: {
@@ -2089,7 +2129,7 @@
           !this.form.phone ||
           !this.form.extension
         ) {
-          this.activeName = "first";
+          this.activeName = 'first';
         } else if (
           !this.form.graduation ||
           !this.form.degree ||
@@ -2098,9 +2138,9 @@
           !this.form.nation ||
           !this.form.graduationday
         ) {
-          this.activeName = "second";
+          this.activeName = 'second';
         } else if (!this.form.workday) {
-          this.activeName = "fouth";
+          this.activeName = 'fouth';
         } else if (
           !this.form.jobnumber ||
           !this.form.type ||
@@ -2123,7 +2163,7 @@
           this.form.houseinsurance === undefined ||
           this.form.medicalinsurance === undefined
         ) {
-          this.activeName = "five";
+          this.activeName = 'five';
         }
       },
       changePost(val) {
@@ -2132,66 +2172,66 @@
       deleteRow(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
-        }else{
-          Object.keys(rows[0]).forEach( key =>{
-            rows[0][key] = "";
-            if(key === "time"){
+        } else {
+          Object.keys(rows[0]).forEach(key => {
+            rows[0][key] = '';
+            if (key === 'time') {
               rows[0][key] = [];
             }
-          })
+          });
         }
       },
       addRow(val) {
-        if (val === "education") {
+        if (val === 'education') {
           this.educationTable.push({
             time: [],
-            school: "",
-            notes: ""
+            school: '',
+            notes: '',
           });
-        } else if (val === "skill") {
+        } else if (val === 'skill') {
           this.skillTable.push({
-            name: "",
-            ability: "",
-            notes: ""
+            name: '',
+            ability: '',
+            notes: '',
           });
-        } else if (val === "language") {
+        } else if (val === 'language') {
           this.languageTable.push({
-            programme: "",
-            level: "",
-            notes: ""
+            programme: '',
+            level: '',
+            notes: '',
           });
-        } else if (val === "beforeWork") {
+        } else if (val === 'beforeWork') {
           this.beforeWorkTable.push({
             time: [],
-            company: "",
-            postion: "",
-            notes: ""
+            company: '',
+            postion: '',
+            notes: '',
           });
-        } else if (val === "workafter") {
+        } else if (val === 'workafter') {
           this.workAfterTable.push({
             time: [],
-            programme: "",
-            notes: ""
+            programme: '',
+            notes: '',
           });
-        } else if (val === "train") {
+        } else if (val === 'train') {
           this.trainTable.push({
             time: [],
-            programme: "",
-            notes: ""
+            programme: '',
+            notes: '',
           });
-        } else if (val === "reward") {
+        } else if (val === 'reward') {
           this.rewardTable.push({
-            programme: "",
-            _time: "",
-            notes: ""
+            programme: '',
+            _time: '',
+            notes: '',
           });
         }
       },
       changeEducational(val) {
         this.form.educational = val;
       },
-     changesex(val){
-        this.form.sex=val;
+      changesex(val) {
+        this.form.sex = val;
       },
       changeDegree(val) {
         this.form.degree = val;
@@ -2206,81 +2246,80 @@
                 this.occupationtypecode = 'PR055';
                 this.rules.occupationtype[0].required = true;
               } else if (this.form.type === '1') {
-                this.code = 'PJ053'
+                this.code = 'PJ053';
                 this.rules.occupationtype[0].required = false;
               }
-              this.form.occupationtype = "";
+              this.form.occupationtype = '';
               this.occupationtypedisplay = true;
-              this.form.rank = "";
+              this.form.rank = '';
               this.display = true;
-            }
-          )
-        }else{
+            },
+          );
+        } else {
           if (this.form.type === '0') {
-              this.code = 'PR021';
-              this.occupationtypecode = 'PR055';
-              this.rules.occupationtype[0].required = true;
-              if (this.form.rank === 'PR021001' || this.form.rank === 'PR021002'
-                  || this.form.rank === 'PR021003' || this.form.rank === 'PR021004') {
-                  this.occupationtypedis = true;
-                  this.form.occupationtype = 'PR055001';
-              } else {
-                  this.occupationtypedis = false;
-              }
+            this.code = 'PR021';
+            this.occupationtypecode = 'PR055';
+            this.rules.occupationtype[0].required = true;
+            if (this.form.rank === 'PR021001' || this.form.rank === 'PR021002'
+              || this.form.rank === 'PR021003' || this.form.rank === 'PR021004') {
+              this.occupationtypedis = true;
+              this.form.occupationtype = 'PR055001';
+            } else {
+              this.occupationtypedis = false;
+            }
           } else if (this.form.type === '1') {
-            this.form.occupationtype = "";
+            this.form.occupationtype = '';
             this.rules.occupationtype[0].required = false;
-            this.code = 'PJ053'
+            this.code = 'PJ053';
           }
         }
       },
       getRank(val) {
-          if (val) {
-              this.form.rank = val;
-              this.$nextTick(
-                  () => {
-                      if(this.code === "PR021"){
-                          this.rules.occupationtype[0].required = true;
-                          if (this.form.rank === 'PR021001' || this.form.rank === 'PR021002'
-                              || this.form.rank === 'PR021003' || this.form.rank === 'PR021004') {
-                              this.occupationtypedis = true;
-                              this.form.occupationtype = 'PR055001';
-                          } else {
-                              this.occupationtypedis = false;
-                          }
-                      }
-                      else{
-                          this.rules.occupationtype[0].required = false;
-                      }
-                  }
-              )
-          }
+        if (val) {
+          this.form.rank = val;
+          this.$nextTick(
+            () => {
+              if (this.code === 'PR021') {
+                this.rules.occupationtype[0].required = true;
+                if (this.form.rank === 'PR021001' || this.form.rank === 'PR021002'
+                  || this.form.rank === 'PR021003' || this.form.rank === 'PR021004') {
+                  this.occupationtypedis = true;
+                  this.form.occupationtype = 'PR055001';
+                } else {
+                  this.occupationtypedis = false;
+                }
+              } else {
+                this.rules.occupationtype[0].required = false;
+              }
+            },
+          );
+        }
       },
       getOccupationtype(val) {
-          this.form.occupationtype = val;
+        this.form.occupationtype = val;
       },
       getCenterid(val) {
         this.getOrgInformation(val);
-        if (!val || this.form.centerid === "") {
-          this.error = this.$t("normal.error_08") + "center";
+        if (!val || this.form.centerid === '') {
+          this.error = this.$t('normal.error_08') + 'center';
         } else {
-          this.error = "";
+          this.error = '';
         }
       },
       getGroupid(val) {
         this.getOrgInformation(val);
-        if (this.form.centerid === "") {
-          this.error = this.$t("normal.error_08") + "center";
+        if (this.form.centerid === '') {
+          this.error = this.$t('normal.error_08') + 'center';
         } else {
-          this.error = "";
+          this.error = '';
         }
       },
       getTeamid(val) {
         this.getOrgInformation(val);
-        if (this.form.centerid === "") {
-          this.error = this.$t("normal.error_08") + "center";
+        if (this.form.centerid === '') {
+          this.error = this.$t('normal.error_08') + 'center';
         } else {
-          this.error = "";
+          this.error = '';
         }
       },
 
@@ -2314,19 +2353,19 @@
             centerid: this.form.centerid,
             groupid: this.form.groupid,
             teamid: this.form.teamid,
-              budgetunit: this.form.budgetunit
+            budgetunit: this.form.budgetunit,
           } = org);
         }
       },
       getById() {
         this.loading = true;
         this.$store
-          .dispatch("usersStore/getme")
+          .dispatch('usersStore/getme')
           .then(response => {
             this.form = response.customerInfo.userinfo;
-            if(response.customerInfo.userinfo.birthday!=''){
+            if (response.customerInfo.userinfo.birthday != '') {
               let birthdays = new Date(
-                response.customerInfo.userinfo.birthday.replace(/-/g, "/")
+                response.customerInfo.userinfo.birthday.replace(/-/g, '/'),
               );
               let d = new Date();
               let age = 0;
@@ -2343,82 +2382,82 @@
                 agenew = age - 1;
               }
               this.age = agenew;
-            }else{
+            } else {
               this.age = 0;
             }
             this.status = response.customerInfo.status;
             this.userInfo.userAccount = response.userAccount;
             this.userInfo.customerInfo = response.customerInfo;
             this.educationTable = this.userInfo.customerInfo.userinfo.educationTable;
-            if(this.educationTable==null){
-              this.educationTable=[
+            if (this.educationTable == null) {
+              this.educationTable = [
                 {
                   time: [],
-                  school: "",
-                  notes: ""
-                }
-              ]
+                  school: '',
+                  notes: '',
+                },
+              ];
             }
             this.skillTable = this.userInfo.customerInfo.userinfo.skillTable;
-            if(this.skillTable==null){
-              this.skillTable=[
+            if (this.skillTable == null) {
+              this.skillTable = [
                 {
-                  name: "",
-                  ability: "",
-                  notes: ""
-                }
-              ]
+                  name: '',
+                  ability: '',
+                  notes: '',
+                },
+              ];
             }
             this.languageTable = this.userInfo.customerInfo.userinfo.languageTable;
-            if(this.languageTable==null){
-              this.languageTable= [
+            if (this.languageTable == null) {
+              this.languageTable = [
                 {
-                  programme: "",
-                  level: "",
-                  notes: ""
-                }
-              ]
+                  programme: '',
+                  level: '',
+                  notes: '',
+                },
+              ];
             }
             this.beforeWorkTable = this.userInfo.customerInfo.userinfo.beforeWorkTable;
-            if(this.beforeWorkTable==null){
-              this.beforeWorkTable= [
+            if (this.beforeWorkTable == null) {
+              this.beforeWorkTable = [
                 {
                   time: [],
-                  company: "",
-                  postion: "",
-                  notes: ""
-                }
-              ]
+                  company: '',
+                  postion: '',
+                  notes: '',
+                },
+              ];
             }
             this.workAfterTable = this.userInfo.customerInfo.userinfo.workAfterTable;
-            if(this.workAfterTable==null){
-              this.workAfterTable=[
+            if (this.workAfterTable == null) {
+              this.workAfterTable = [
                 {
                   time: [],
-                  programme: "",
-                  notes: ""
-                }
-              ]
+                  programme: '',
+                  notes: '',
+                },
+              ];
             }
             this.trainTable = this.userInfo.customerInfo.userinfo.trainTable;
-            if(this.trainTable==null){
-              this.trainTable=[
+            if (this.trainTable == null) {
+              this.trainTable = [
                 {
                   time: [],
-                  programme: "",
-                  notes: ""
-                }
-              ]
+                  programme: '',
+                  notes: '',
+                },
+              ];
             }
             this.rewardTable = this.userInfo.customerInfo.userinfo.rewardTable;
-            if(this.rewardTable==null){
-              this. rewardTable= [
+            if (this.rewardTable == null) {
+              this.rewardTable = [
                 {
-                  programme: "",
-                  _time: "",
-                  notes: ""
-                }
-              ]
+                  programme: '',
+                  _time: '',
+                  notes: '',
+                },
+              ];
             }
             this.gridData = this.userInfo.customerInfo.userinfo.gridData;
             this.oldageData = this.userInfo.customerInfo.userinfo.oldageData;
@@ -2430,36 +2469,36 @@
           .catch(err => {
             Message({
               message: err,
-              type: "error",
-              duration: 5 * 1000
+              type: 'error',
+              duration: 5 * 1000,
             });
             this.loading = false;
           });
       },
 
       cancelForm() {
-        this.$refs.container.buttonClick("back");
+        this.$refs.container.buttonClick('back');
       },
 
       buttonClick(val) {
         this.loading = true;
-        if (val === "userSave") {
-          this.userSave("userSave");
-        } else if (val === "userSaveToRole") {
-          this.userSave("userSaveToRole");
+        if (val === 'userSave') {
+          this.userSave('userSave');
+        } else if (val === 'userSaveToRole') {
+          this.userSave('userSaveToRole');
         }
       },
       Personal() {
         if (this.gridData === null) {
           this.gridData = [
             {
-              date: new moment().format("YYYY-MM-DD"),
-              before: "",
+              date: new moment().format('YYYY-MM-DD'),
+              before: '',
               after: this.form.salary,
               duty: this.form.duty,
               basic: this.form.basic,
-              remark: ""
-            }
+              remark: '',
+            },
           ];
         } else if (
           this.gridData.length > 0 &&
@@ -2467,23 +2506,23 @@
           this.gridData[this.gridData.length - 1].after
         ) {
           this.gridData.push({
-            date: new moment().format("YYYY-MM-DD"),
+            date: new moment().format('YYYY-MM-DD'),
             before: this.gridData[this.gridData.length - 1].after,
             after: this.form.salary,
             duty: this.form.duty,
             basic: this.form.basic,
-            remark: ""
+            remark: '',
           });
         }
 
         if (this.medicalData === null) {
           this.medicalData = [
             {
-              date: new moment().format("YYYY-MM-DD"),
-              before: "",
+              date: new moment().format('YYYY-MM-DD'),
+              before: '',
               after: this.form.medicalinsurance,
-              remark: ""
-            }
+              remark: '',
+            },
           ];
         } else if (
           this.medicalData.length > 0 &&
@@ -2491,21 +2530,21 @@
           this.medicalData[this.medicalData.length - 1].after
         ) {
           this.medicalData.push({
-            date: new moment().format("YYYY-MM-DD"),
+            date: new moment().format('YYYY-MM-DD'),
             before: this.medicalData[this.medicalData.length - 1].after,
             after: this.form.medicalinsurance,
-            remark: ""
+            remark: '',
           });
         }
 
         if (this.houseData === null) {
           this.houseData = [
             {
-              date: new moment().format("YYYY-MM-DD"),
-              before: "",
+              date: new moment().format('YYYY-MM-DD'),
+              before: '',
               after: this.form.houseinsurance,
-              remark: ""
-            }
+              remark: '',
+            },
           ];
         } else if (
           this.houseData.length > 0 &&
@@ -2513,21 +2552,21 @@
           this.houseData[this.houseData.length - 1].after
         ) {
           this.houseData.push({
-            date: new moment().format("YYYY-MM-DD"),
+            date: new moment().format('YYYY-MM-DD'),
             before: this.houseData[this.houseData.length - 1].after,
             after: this.form.houseinsurance,
-            remark: ""
+            remark: '',
           });
         }
 
         if (this.oldageData === null) {
           this.oldageData = [
             {
-              date: new moment().format("YYYY-MM-DD"),
-              before: "",
+              date: new moment().format('YYYY-MM-DD'),
+              before: '',
               after: this.form.oldageinsurance,
-              remark: ""
-            }
+              remark: '',
+            },
           ];
         } else if (
           this.oldageData.length > 0 &&
@@ -2535,10 +2574,10 @@
           this.oldageData[this.oldageData.length - 1].after
         ) {
           this.oldageData.push({
-            date: new moment().format("YYYY-MM-DD"),
+            date: new moment().format('YYYY-MM-DD'),
             before: this.oldageData[this.oldageData.length - 1].after,
             after: this.form.oldageinsurance,
-            remark: ""
+            remark: '',
           });
         }
         this.userInfo.customerInfo.userinfo.gridData = this.gridData;
@@ -2548,11 +2587,11 @@
       },
       userSave(btnkey) {
         this.checkRequire();
-        this.$refs["form"].validate(valid => {
+        this.$refs['form'].validate(valid => {
           if (valid) {
             this.userInfo.userAccount.account = this.form.adfield;
             // this.userInfo.userAccount.password = this.form.adfield;
-            this.userInfo.userAccount.usertype = "0";
+            this.userInfo.userAccount.usertype = '0';
             this.userInfo.customerInfo.userinfo = this.form;
             this.Personal();
             this.userInfo.customerInfo.userinfo.educationTable = this.educationTable;
@@ -2562,7 +2601,7 @@
             this.userInfo.customerInfo.userinfo.workAfterTable = this.workAfterTable;
             this.userInfo.customerInfo.userinfo.trainTable = this.trainTable;
             this.userInfo.customerInfo.userinfo.rewardTable = this.rewardTable;
-            this.userInfo.customerInfo.type = "1";
+            this.userInfo.customerInfo.type = '1';
             this.userInfo.customerInfo.userinfo.status = this.status;
             this.userInfo.customerInfo.status = this.status;
             this.userInfo.userAccount.status = this.status;
@@ -2572,11 +2611,11 @@
               this.userInfo.customerInfo.userinfo.companyid = [this.form.groupid];
             } else if (this.form.centerid) {
               this.userInfo.customerInfo.userinfo.companyid = [
-                this.form.centerid
+                this.form.centerid,
               ];
             }
             this.$store
-              .dispatch("usersStore/userSave", this.userInfo)
+              .dispatch('usersStore/userSave', this.userInfo)
               .then(response => {
                 // if (btnkey === "userSaveToRole") {
                 //   this.userToRoleId = response;
@@ -2585,47 +2624,47 @@
                 // }
                 this.loading = false;
                 this.$message({
-                  message: this.$t("label.PFANSUSERFORMVIEW_SUBMITSUCCESSFULLY"),
-                  type: "success"
+                  message: this.$t('label.PFANSUSERFORMVIEW_SUBMITSUCCESSFULLY'),
+                  type: 'success',
                 });
-                this.activeName = "first";
+                this.activeName = 'first';
                 // this.getUserList();
               })
               .catch(err => {
                 Message({
                   message: err,
-                  type: "error",
-                  duration: 5 * 1000
+                  type: 'error',
+                  duration: 5 * 1000,
                 });
                 this.loading = false;
               });
 
 
           } else {
-              Message({
-                  message: this.$t("normal.error_12"),
-                  type: 'error',
-                  duration: 5 * 1000
-              });
+            Message({
+              message: this.$t('normal.error_12'),
+              type: 'error',
+              duration: 5 * 1000,
+            });
             this.loading = false;
           }
         });
       },
       getUserList() {
         let params = {
-          orgtype: "1"
+          orgtype: '1',
         };
         this.$store.dispatch('usersStore/getUserTableList', params).then(response => {
-          this.$store.commit("global/SET_USERLIST", response);
+          this.$store.commit('global/SET_USERLIST', response);
         }).catch(err => {
           Message({
             message: err,
             type: 'error',
-            duration: 5 * 1000
-          })
-        })
+            duration: 5 * 1000,
+          });
+        });
       },
-    }
+    },
   };
 </script>
 

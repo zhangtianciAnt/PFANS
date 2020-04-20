@@ -200,7 +200,7 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_EMAIL')" prop="email">
-                    <el-input class="width" v-model="form.email" style="width:20vw" maxlength="50" />
+                    <el-input class="width" v-model="form.email" style="width:20vw" maxlength="50"/>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -370,13 +370,15 @@
                               type="danger"
                               size="small"
                               plain
-                            >{{$t('button.delete')}}</el-button>
+                            >{{$t('button.delete')}}
+                            </el-button>
                             <el-button
                               @click="addRow('education')"
                               type="primary"
                               size="small"
                               plain
-                            >{{$t('button.insert')}}</el-button>
+                            >{{$t('button.insert')}}
+                            </el-button>
                           </template>
                         </el-table-column>
                       </el-table>
@@ -386,8 +388,8 @@
               </el-collapse>
             </el-tab-pane>
             <el-tab-pane :label="this.$t('label.PFANSUSERFORMVIEW_SKILLLEVEL')" name="third">
-              <el-collapse>
-                <el-collapse-item>
+<!--              <el-collapse>-->
+<!--                <el-collapse-item>-->
                   <template slot="title">
                     <span class="collapse_Title">{{$t('label.PFANSUSERFORMVIEW_SKILL')}}</span>
                   </template>
@@ -445,20 +447,22 @@
                               type="danger"
                               size="small"
                               plain
-                            >{{$t('button.delete')}}</el-button>
+                            >{{$t('button.delete')}}
+                            </el-button>
                             <el-button
                               @click="addRow('skill')"
                               type="primary"
                               size="small"
                               plain
-                            >{{$t('button.insert')}}</el-button>
+                            >{{$t('button.insert')}}
+                            </el-button>
                           </template>
                         </el-table-column>
                       </el-table>
                     </el-col>
                   </el-row>
-                </el-collapse-item>
-              </el-collapse>
+<!--                </el-collapse-item>-->
+<!--              </el-collapse>-->
               <el-collapse>
                 <el-collapse-item>
                   <template slot="title">
@@ -520,13 +524,15 @@
                               type="danger"
                               size="small"
                               plain
-                            >{{$t('button.delete')}}</el-button>
+                            >{{$t('button.delete')}}
+                            </el-button>
                             <el-button
                               @click="addRow('language')"
                               type="primary"
                               size="small"
                               plain
-                            >{{$t('button.insert')}}</el-button>
+                            >{{$t('button.insert')}}
+                            </el-button>
                           </template>
                         </el-table-column>
                       </el-table>
@@ -621,13 +627,15 @@
                               type="danger"
                               size="small"
                               plain
-                            >{{$t('button.delete')}}</el-button>
+                            >{{$t('button.delete')}}
+                            </el-button>
                             <el-button
                               @click="addRow('beforeWork')"
                               type="primary"
                               size="small"
                               plain
-                            >{{$t('button.insert')}}</el-button>
+                            >{{$t('button.insert')}}
+                            </el-button>
                           </template>
                         </el-table-column>
                       </el-table>
@@ -682,7 +690,8 @@
                   <el-button
                     type="text"
                     @click="dialogTableVisible5 = true"
-                  >{{$t('label.INDEX_GD')}}</el-button>
+                  >{{$t('label.INDEX_GD')}}
+                  </el-button>
 
                   <el-dialog
                     :title="$t('label.PFANSUSERFORMVIEW_OTHERORGS')"
@@ -1179,7 +1188,8 @@
                     <el-button
                       type="text"
                       @click="dialogTableVisible3 = true"
-                    >{{$t('label.PFANSUSERFORMVIEW_PERSONAL')}}</el-button>
+                    >{{$t('label.PFANSUSERFORMVIEW_PERSONAL')}}
+                    </el-button>
                     <el-dialog
                       :title="$t('label.PFANSUSERFORMVIEW_HOUSEINSURANCE') + $t('label.PFANSUSERFORMVIEW_PERSONAL')"
                       :visible.sync="dialogTableVisible3"
@@ -1388,7 +1398,8 @@
                     <el-button
                       type="text"
                       @click="dialogTableVisible = true"
-                    >{{$t('label.PFANSUSERFORMVIEW_PERSONAL')}}</el-button>
+                    >{{$t('label.PFANSUSERFORMVIEW_PERSONAL')}}
+                    </el-button>
                     <el-dialog
                       :title="$t('label.PFANSUSERFORMVIEW_SALARY') + $t('label.PFANSUSERFORMVIEW_PERSONAL')"
                       :visible.sync="dialogTableVisible"
@@ -1563,13 +1574,15 @@
                               type="danger"
                               size="small"
                               plain
-                            >{{$t('button.delete')}}</el-button>
+                            >{{$t('button.delete')}}
+                            </el-button>
                             <el-button
                               @click="addRow('workafter')"
                               type="primary"
                               size="small"
                               plain
-                            >{{$t('button.insert')}}</el-button>
+                            >{{$t('button.insert')}}
+                            </el-button>
                           </template>
                         </el-table-column>
                       </el-table>
@@ -1639,13 +1652,15 @@
                               type="danger"
                               size="small"
                               plain
-                            >{{$t('button.delete')}}</el-button>
+                            >{{$t('button.delete')}}
+                            </el-button>
                             <el-button
                               @click="addRow('train')"
                               type="primary"
                               size="small"
                               plain
-                            >{{$t('button.insert')}}</el-button>
+                            >{{$t('button.insert')}}
+                            </el-button>
                           </template>
                         </el-table-column>
                       </el-table>
@@ -1659,8 +1674,8 @@
               name="seven"
               style="padding-left:0.5%"
             >
-              <el-collapse>
-                <el-collapse-item>
+<!--              <el-collapse>-->
+<!--                <el-collapse-item>-->
                   <template slot="title">
                     <span class="collapse_Title">{{$t('label.PFANSUSERFORMVIEW_REWARDPUNISHMENT')}}</span>
                   </template>
@@ -1722,20 +1737,22 @@
                               type="danger"
                               size="small"
                               plain
-                            >{{$t('button.delete')}}</el-button>
+                            >{{$t('button.delete')}}
+                            </el-button>
                             <el-button
                               @click="addRow('reward')"
                               type="primary"
                               size="small"
                               plain
-                            >{{$t('button.insert')}}</el-button>
+                            >{{$t('button.insert')}}
+                            </el-button>
                           </template>
                         </el-table-column>
                       </el-table>
                     </el-col>
                   </el-row>
-                </el-collapse-item>
-              </el-collapse>
+<!--                </el-collapse-item>-->
+<!--              </el-collapse>-->
             </el-tab-pane>
             <el-tab-pane
               :label="this.$t('label.PFANSUSERFORMVIEW_EDITUSER')"
@@ -1764,7 +1781,8 @@
                     <router-link
                       :to="{ name: 'PFANS2026FormView',
                    params: { _id: this.form.staffexitprocedure, disabled: true}}"
-                    >{{this.$t('button.view')}}</router-link>
+                    >{{this.$t('button.view')}}
+                    </router-link>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -1776,1029 +1794,731 @@
   </div>
 </template>
 <script>
-import EasyNormalContainer from "@/components/EasyNormalContainer";
-import { isvalidPhone } from "@/utils/validate";
-import { Message } from "element-ui";
-import org from "@/view/components/org";
-import dicselect from "../components/dicselect";
-import moment from "moment";
+  import EasyNormalContainer from '@/components/EasyNormalContainer';
+  import {isvalidPhone} from '@/utils/validate';
+  import {Message} from 'element-ui';
+  import org from '@/view/components/org';
+  import dicselect from '../components/dicselect';
+  import moment from 'moment';
 
-export default {
-  name: "usersFormView",
-  components: {
-    EasyNormalContainer,
-    org,
-    dicselect
-  },
-  data() {
-    var validateTel = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error(this.$t("label.PFANSUSERFORMVIEW_TRUEMOBILE")));
-      } else if (!isvalidPhone(value)) {
-        callback(new Error(this.$t("label.PFANSUSERFORMVIEW_EFFECTIVEMOBILE")));
-      } else {
-        let params = {
-          id: this.$route.params._id,
-          mobilenumber: value
-        };
-        this.$store
-          .dispatch("usersStore/mobileCheck", params)
-          .then(response => {
-            if (response.code != 0) {
-              callback(new Error(response.message));
-            } else {
-              callback();
-            }
-          })
-          .catch(err => {
-            callback(new Error(err));
-          });
-      }
-    };
-
-    var validateId = (rule, value, callback) => {
-      if (
-        !/^\d{2}(0[1-9]|[1-9][0-9])\d{2}((((1[6-9]|[2-9]\d)\d{2})(0[13578]|1[02])(0[1-9]|[12]\d|3[01]))|(((1[6-9]|[2-9]\d)\d{2})(0[13456789]|1[012])(0[1-9]|[12]\d|30))|(((1[6-9]|[2-9]\d)\d{2})02(0[1-9]|1\d|2[0-8]))|(((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))0229))\d{3}(\d|x|X)$/i.test(
-          value
-        )
-      ) {
-        callback(new Error(this.$t("label.PFANSUSERFORMVIEW_TRUEIDNUMBER")));
-      } else {
-        callback();
-      }
-    };
-
-    var centerId = (rule, value, callback) => {
-      if (!this.form.centerid || this.form.centerid === "") {
-        callback(new Error(this.$t("normal.error_08") + "center"));
-        this.error = this.$t("normal.error_08") + "center";
-      } else {
-        callback();
-      }
-    };
-
-    return {
-      age: "",
-      code: "",
-      code1: "PG021",
-      occupationtypecode: "",
-      occupationtypedis: true,
-      display: true,
-      occupationtypedisplay: true,
-      oldageData: null,
-      otherOrgs: null,
-      houseData: null,
-      medicalData: null,
-      gridData: null,
-      dialogTableVisible: false,
-      dialogTableVisible2: false,
-      dialogTableVisible3: false,
-      dialogTableVisible4: false,
-      dialogTableVisible5: false,
-      loading: false,
-      error: "",
-      educationTable: [
-        {
-          time: [],
-          school: "",
-          notes: ""
-        }
-      ],
-      skillTable: [
-        {
-          name: "",
-          ability: "",
-          notes: ""
-        }
-      ],
-      languageTable: [
-        {
-          programme: "",
-          level: "",
-          notes: ""
-        }
-      ],
-      beforeWorkTable: [
-        {
-          time: [],
-          company: "",
-          postion: "",
-          notes: ""
-        }
-      ],
-      workAfterTable: [
-        {
-          time: [],
-          programme: "",
-          notes: ""
-        }
-      ],
-      trainTable: [
-        {
-          time: [],
-          programme: "",
-          notes: ""
-        }
-      ],
-      rewardTable: [
-        {
-          programme: "",
-          _time: "",
-          notes: ""
-        }
-      ],
-
-      activeName: "first",
-      difference_options: [
-        { value: "1", label: this.$t("label.PFANSUSERFORMVIEW_NEWSTAFF") },
-        {
-          value: "2",
-          label: this.$t("label.PFANSUSERFORMVIEW_OLDSTAFF")
-        }
-      ],
-      rank_options: [
-        { value: "0", label: this.$t("label.PFANSUSERVIEW_MEMBERS") },
-        {
-          value: "1",
-          label: this.$t("label.PFANSUSERVIEW_OUTGOING")
-        }
-      ],
-      laborcontracttype: [
-        { value: "0", label: this.$t("label.PFANSUSERFORMVIEW_FIXEDTIME") },
-        {
-          value: "1",
-          label: this.$t("label.PFANSUSERFORMVIEW_NOFIXEDTIME")
-        }
-      ],
-      marital_options: [
-        { value: "0", label: this.$t("label.PFANSUSERFORMVIEW_UNMARRIED") },
-        {
-          value: "1",
-          label: this.$t("label.PFANSUSERFORMVIEW_MARRIED")
-        }
-      ],
-      experience_options: [
-        { value: "0", label: this.$t("label.PFANSUSERFORMVIEW_YES") },
-        {
-          value: "1",
-          label: this.$t("label.PFANSUSERFORMVIEW_NO")
-        }
-      ],
-      form: {
-        type: "",
-        centername: "",
-        groupname: "",
-        teamname: "",
-        customername: "",
-        sex: "",
-        adfield: "",
-        birthday: "",
-        otherorgs: [
-          {
-            centerid: "",
-            groupid: "",
-            teamid: ""
-          }
-        ],
-        // age: "",
-        nationality: "",
-        nation: "",
-        register: "",
-        idnumber: "",
-        passport: "",
-        security: "",
-        housefund: "",
-        marital: "0",
-        children: "",
-        experience: "",
-        address: "",
-        email: "",
-        mobilenumber: "",
-        phone: "",
-        extension: "",
-        graduation: "",
-        degree: "",
-        educational: "",
-        specialty: "",
-        graduationday: "",
-        workday: "",
-        departmentid: [],
-        centerid: "",
-        groupid: "",
-        teamid: "",
-        budgetunit: "",
-        userid: "",
-        jobnumber: "",
-        personalcode: "",
-        difference: "1",
-        post: "",
-        rank: "",
-        occupationtype: "",
-        laborcontracttype: "",
-        fixedate: "",
-        laborcontractday: "",
-        enterday: "",
-        upgraded: "",
-        annualyear: "",
-        annuallastyear: "",
-        welfareyear: "",
-        welfarelastyear: "",
-        restyear: "",
-        restlastyear: "",
-        seatnumber: "",
-        salary: "",
-        duty: "",
-        basic: "",
-        caution: "",
-        resignation_date: "",
-        reason2: "",
-        staffexitprocedure: "",
-        oldageinsurance: "",
-        houseinsurance: "",
-        medicalinsurance: "",
-        informationid: "",
-        title: "",
-        availablestate: "0",
-        // ADD-LXX
-        yanglaoinsurance: "",
-        yiliaoinsurance: "",
-        shiyeinsurance: "",
-        gongshanginsurance: "",
-        shengyuinsurance: ""
-        // ADD-LXX
-      },
-      disable: false,
-      userToRoleId: "",
-      userInfo: {
-        userAccount: {},
-        customerInfo: {}
-      },
-      baseInfoForm: {
-        email: "",
-        departmentid: []
-      },
-      title: "label.PFANSUSERVIEW_USER",
-      isEdit: false,
-      status: "0",
-      buttonList: [
-        { key: "userSave", name: this.$t("button.save") }
-        // {
-        //   key: "userSaveToRole",
-        //   name: this.$t("label.PFANSUSERFORMVIEW_SAVEANDROLE")
-        // }
-      ],
-      rules: {
-        adfield: [
-          {
-            required: true,
-            message:
-              this.$t("normal.error_08") +
-              this.$t("label.PFANSUSERFORMVIEW_ADFIELD"),
-            trigger: "blur"
-          }
-        ],
-        customername: [
-          {
-            required: true,
-            message:
-              this.$t("normal.error_08") +
-              this.$t("label.PFANSUSERFORMVIEW_CUSTOMERNAME"),
-            trigger: "blur"
-          }
-        ],
-        sex: [
-          {
-            required: true,
-            message: this.$t("normal.error_08") + this.$t("label.sex"),
-            trigger: "change"
-          }
-        ],
-        birthday: [
-          {
-            required: true,
-            message:
-              this.$t("normal.error_08") +
-              this.$t("label.PFANSUSERVIEW_BIRTHDAY"),
-            trigger: "blur"
-          }
-        ],
-        nation: [
-          {
-            required: true,
-            message:
-              this.$t("normal.error_08") +
-              this.$t("label.PFANSUSERFORMVIEW_NATION"),
-            trigger: "blur"
-          }
-        ],
-        nationality: [
-          {
-            required: true,
-            message:
-              this.$t("normal.error_08") +
-              this.$t("label.PFANSUSERVIEW_NATIONALITY"),
-            trigger: "blur"
-          }
-        ],
-        register: [
-          {
-            required: true,
-            message:
-              this.$t("normal.error_08") +
-              this.$t("label.PFANSUSERFORMVIEW_REGISTER"),
-            trigger: "blur"
-          }
-        ],
-        centerid: [
-          {
-            required: true,
-            validator: centerId,
-            trigger: "blur"
-          }
-        ],
-        idnumber: [
-          {
-            required: true,
-            message:
-              this.$t("normal.error_08") +
-              this.$t("label.PFANSUSERFORMVIEW_IDNUMBER"),
-            trigger: "blur"
-          },
-          {
-            validator: validateId,
-            trigger: "blur"
-          }
-        ],
-        marital: [
-          {
-            required: true,
-            message:
-              this.$t("normal.error_08") +
-              this.$t("label.PFANSUSERFORMVIEW_MARITAL"),
-            trigger: "change"
-          }
-        ],
-        address: [
-          {
-            required: true,
-            message:
-              this.$t("normal.error_08") +
-              this.$t("label.PFANSUSERFORMVIEW_ADDRESS"),
-            trigger: "blur"
-          }
-        ],
-        phone: [
-          {
-            required: true,
-            message:
-              this.$t("normal.error_08") +
-              this.$t("label.PFANSUSERFORMVIEW_PHONE"),
-            trigger: "blur"
-          }
-        ],
-        extension: [
-          {
-            required: true,
-            message:
-              this.$t("normal.error_08") +
-              this.$t("label.PFANSUSERFORMVIEW_EXTENSION"),
-            trigger: "blur"
-          }
-        ],
-        graduation: [
-          {
-            required: true,
-            message:
-              this.$t("normal.error_08") +
-              this.$t("label.PFANSUSERFORMVIEW_GRADUATION"),
-            trigger: "blur"
-          }
-        ],
-        degree: [
-          {
-            required: true,
-            message:
-              this.$t("normal.error_08") +
-              this.$t("label.PFANSUSERFORMVIEW_DEGREE"),
-            trigger: "change"
-          }
-        ],
-        educational: [
-          {
-            required: true,
-            message:
-              this.$t("normal.error_08") +
-              this.$t("label.PFANSUSERFORMVIEW_EDUCATIONAL"),
-            trigger: "change"
-          }
-        ],
-        specialty: [
-          {
-            required: true,
-            message:
-              this.$t("normal.error_08") +
-              this.$t("label.PFANSUSERFORMVIEW_SPECIALTY"),
-            trigger: "blur"
-          }
-        ],
-        graduationday: [
-          {
-            required: true,
-            message:
-              this.$t("normal.error_08") +
-              this.$t("label.PFANSUSERFORMVIEW_GRADUATIONDAY"),
-            trigger: "blur"
-          }
-        ],
-        workday: [
-          {
-            required: true,
-            message:
-              this.$t("normal.error_08") +
-              this.$t("label.PFANSUSERFORMVIEW_WORKDAY"),
-            trigger: "blur"
-          }
-        ],
-        jobnumber: [
-          {
-            required: true,
-            message:
-              this.$t("normal.error_08") +
-              this.$t("label.PFANSUSERFORMVIEW_JOBNUMBER"),
-            trigger: "blur"
-          }
-        ],
-        type: [
-          {
-            required: true,
-            message: this.$t("normal.error_08") + this.$t("label.type"),
-            trigger: "change"
-          }
-        ],
-        rank: [
-          {
-            required: true,
-            message:
-              this.$t("normal.error_08") +
-              this.$t("label.PFANSUSERFORMVIEW_RANK"),
-            trigger: "change"
-          }
-        ],
-        occupationtype: [
-          {
-            required: true,
-            message:
-              this.$t("normal.error_08") +
-              this.$t("label.PFANSUSERFORMVIEW_OCCUPATIONTYPE"),
-            trigger: "change"
-          }
-        ],
-        post: [
-          {
-            required: true,
-            message:
-              this.$t("normal.error_08") + this.$t("label.PFANSUSERVIEW_POST"),
-            trigger: "change"
-          }
-        ],
-        laborcontractday: [
-          {
-            required: true,
-            message:
-              this.$t("normal.error_08") +
-              this.$t("label.PFANSUSERFORMVIEW_LABORCONTRACTDAY"),
-            trigger: "blur"
-          }
-        ],
-        enterday: [
-          {
-            required: true,
-            message:
-              this.$t("normal.error_08") +
-              this.$t("label.PFANSUSERFORMVIEW_ENTERDAY"),
-            trigger: "blur"
-          }
-        ],
-        // annualyear: [
-        //   {
-        //     required: true,
-        //     message:
-        //       this.$t("normal.error_08") +
-        //       this.$t("label.PFANSUSERFORMVIEW_ANNUALYEAR"),
-        //     trigger: "blur"
-        //   }
-        // ],
-        // annuallastyear: [
-        //   {
-        //     required: true,
-        //     message:
-        //       this.$t("normal.error_08") +
-        //       this.$t("label.PFANSUSERFORMVIEW_ANNUALLASTYEAR"),
-        //     trigger: "blur"
-        //   }
-        // ],
-        // welfareyear: [
-        //   {
-        //     required: true,
-        //     message:
-        //       this.$t("normal.error_08") +
-        //       this.$t("label.PFANSUSERFORMVIEW_WELFAREYEAR"),
-        //     trigger: "blur"
-        //   }
-        // ],
-        // welfarelastyear: [
-        //   {
-        //     required: true,
-        //     message:
-        //       this.$t("normal.error_08") +
-        //       this.$t("label.PFANSUSERFORMVIEW_WELFARELASTYEAR"),
-        //     trigger: "blur"
-        //   }
-        // ],
-        // restyear: [
-        //   {
-        //     required: true,
-        //     message:
-        //       this.$t("normal.error_08") +
-        //       this.$t("label.PFANSUSERFORMVIEW_RESTYEAR"),
-        //     trigger: "blur"
-        //   }
-        // ],
-        // restlastyear: [
-        //   {
-        //     required: true,
-        //     message:
-        //       this.$t("normal.error_08") +
-        //       this.$t("label.PFANSUSERFORMVIEW_RESTLASTYEAR"),
-        //     trigger: "blur"
-        //   }
-        // ],
-        seatnumber: [
-          {
-            required: true,
-            message:
-              this.$t("normal.error_08") +
-              this.$t("label.PFANSUSERFORMVIEW_SEATNUMBER"),
-            trigger: "blur"
-          }
-        ],
-        basic: [
-          {
-            required: true,
-            message:
-              this.$t("normal.error_08") +
-              this.$t("label.PFANSUSERFORMVIEW_BASIC"),
-            trigger: "blur"
-          }
-        ],
-        duty: [
-          {
-            required: true,
-            message:
-              this.$t("normal.error_08") +
-              this.$t("label.PFANSUSERFORMVIEW_DUTY"),
-            trigger: "blur"
-          }
-        ],
-        // 暂时注释掉-lxx
-        // oldageinsurance: [
-        //   {
-        //     required: true,
-        //     message:
-        //       this.$t('normal.error_08') +
-        //       this.$t('label.PFANSUSERFORMVIEW_OLDAGEINSURANCE'),
-        //     trigger: 'blur',
-        //   },
-        // ],
-        // 暂时注释掉-lxx
-        houseinsurance: [
-          {
-            required: true,
-            message:
-              this.$t("normal.error_08") +
-              this.$t("label.PFANSUSERFORMVIEW_HOUSEINSURANCE"),
-            trigger: "blur"
-          }
-        ],
-        // 暂时注释掉-lxx
-        // medicalinsurance: [
-        //   {
-        //     required: true,
-        //     message:
-        //       this.$t('normal.error_08') +
-        //       this.$t('label.PFANSUSERFORMVIEW_MEDICALINSURANCE'),
-        //     trigger: 'blur',
-        //   },
-        // ],
-        // 暂时注释掉-lxx
-        // ADD-LXX
-        yanglaoinsurance: [
-          {
-            required: true,
-            message:
-              this.$t("normal.error_08") +
-              this.$t("label.PFANSUSERFORMVIEW_YANGLAOINSURANCE"),
-            trigger: "blur"
-          }
-        ],
-        yiliaoinsurance: [
-          {
-            required: true,
-            message:
-              this.$t("normal.error_08") +
-              this.$t("label.PFANSUSERFORMVIEW_YILIAOINSURANCE"),
-            trigger: "blur"
-          }
-        ],
-        shiyeinsurance: [
-          {
-            required: true,
-            message:
-              this.$t("normal.error_08") +
-              this.$t("label.PFANSUSERFORMVIEW_SHIYEINSURANCE"),
-            trigger: "blur"
-          }
-        ],
-        gongshanginsurance: [
-          {
-            required: true,
-            message:
-              this.$t("normal.error_08") +
-              this.$t("label.PFANSUSERFORMVIEW_GONGSHANGINSURANCE"),
-            trigger: "blur"
-          }
-        ],
-        shengyuinsurance: [
-          {
-            required: true,
-            message:
-              this.$t("normal.error_08") +
-              this.$t("label.PFANSUSERFORMVIEW_SHENGYUINSURANCE"),
-            trigger: "blur"
-          }
-        ],
-        // ADD-LXX
-        mobilenumber: [
-          {
-            required: true,
-            message: this.$t("normal.error_08") + this.$t("label.user_mobile")
-          },
-          // { validator: validateTel, trigger: "blur" }
-        ],
-        email: [
-          {
-            required: true,
-            message:
-              this.$t("normal.error_08") +
-              this.$t("label.PFANSUSERFORMVIEW_EMAILADDRESS"),
-            trigger: "blur"
-          },
-          {
-            type: "email",
-            message: this.$t("label.PFANSUSERFORMVIEW_TRUEEMAILADDRESS"),
-            trigger: ["blur", "change"]
-          }
-        ]
-      }
-    };
-  },
-  // computed: {
-  //     birthday: {
-  //         get() {
-  //             return this.form.birthday;
-  //         },
-  //         set(val) {
-  //             this.form.birthday = val;
-  //         }
-  //     }
-  // },
-  watch: {
-    form: {
-      handler: function() {
-        this.form.salary = this.form.duty + this.form.basic;
-      },
-      deep: true
+  export default {
+    name: 'usersFormView',
+    components: {
+      EasyNormalContainer,
+      org,
+      dicselect,
     },
-    userToRoleId(val) {
-      if (val) {
-        this.$router.push({
-          name: "usersToRoleView",
-          params: {
-            _id: val
-          }
-        });
-      }
-    }
-    // birthday(val) {
-    //     if (val) {
-    //         this.form.age =
-    //             moment().format("YYYY") - moment(val).format("YYYY") > 0
-    //                 ? moment().format("YYYY") - moment(val).format("YYYY")
-    //                 : 0;
+    data() {
+      var validateTel = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error(this.$t('label.PFANSUSERFORMVIEW_TRUEMOBILE')));
+        } else if (!isvalidPhone(value)) {
+          callback(new Error(this.$t('label.PFANSUSERFORMVIEW_EFFECTIVEMOBILE')));
+        } else {
+          let params = {
+            id: this.$route.params._id,
+            mobilenumber: value,
+          };
+          this.$store
+            .dispatch('usersStore/mobileCheck', params)
+            .then(response => {
+              if (response.code != 0) {
+                callback(new Error(response.message));
+              } else {
+                callback();
+              }
+            })
+            .catch(err => {
+              callback(new Error(err));
+            });
+        }
+      };
+
+      var validateId = (rule, value, callback) => {
+        if (
+          !/^\d{2}(0[1-9]|[1-9][0-9])\d{2}((((1[6-9]|[2-9]\d)\d{2})(0[13578]|1[02])(0[1-9]|[12]\d|3[01]))|(((1[6-9]|[2-9]\d)\d{2})(0[13456789]|1[012])(0[1-9]|[12]\d|30))|(((1[6-9]|[2-9]\d)\d{2})02(0[1-9]|1\d|2[0-8]))|(((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))0229))\d{3}(\d|x|X)$/i.test(
+            value,
+          )
+        ) {
+          callback(new Error(this.$t('label.PFANSUSERFORMVIEW_TRUEIDNUMBER')));
+        } else {
+          callback();
+        }
+      };
+
+      var centerId = (rule, value, callback) => {
+        if (!this.form.centerid || this.form.centerid === '') {
+          callback(new Error(this.$t('normal.error_08') + 'center'));
+          this.error = this.$t('normal.error_08') + 'center';
+        } else {
+          callback();
+        }
+      };
+
+      return {
+        age: '',
+        code: '',
+        code1: 'PG021',
+        occupationtypecode: '',
+        occupationtypedis: true,
+        display: true,
+        occupationtypedisplay: true,
+        oldageData: null,
+        otherOrgs: null,
+        houseData: null,
+        medicalData: null,
+        gridData: null,
+        dialogTableVisible: false,
+        dialogTableVisible2: false,
+        dialogTableVisible3: false,
+        dialogTableVisible4: false,
+        dialogTableVisible5: false,
+        loading: false,
+        error: '',
+        educationTable: [
+          {
+            time: [],
+            school: '',
+            notes: '',
+          },
+        ],
+        skillTable: [
+          {
+            name: '',
+            ability: '',
+            notes: '',
+          },
+        ],
+        languageTable: [
+          {
+            programme: '',
+            level: '',
+            notes: '',
+          },
+        ],
+        beforeWorkTable: [
+          {
+            time: [],
+            company: '',
+            postion: '',
+            notes: '',
+          },
+        ],
+        workAfterTable: [
+          {
+            time: [],
+            programme: '',
+            notes: '',
+          },
+        ],
+        trainTable: [
+          {
+            time: [],
+            programme: '',
+            notes: '',
+          },
+        ],
+        rewardTable: [
+          {
+            programme: '',
+            _time: '',
+            notes: '',
+          },
+        ],
+
+        activeName: 'first',
+        difference_options: [
+          {value: '1', label: this.$t('label.PFANSUSERFORMVIEW_NEWSTAFF')},
+          {
+            value: '2',
+            label: this.$t('label.PFANSUSERFORMVIEW_OLDSTAFF'),
+          },
+        ],
+        rank_options: [
+          {value: '0', label: this.$t('label.PFANSUSERVIEW_MEMBERS')},
+          {
+            value: '1',
+            label: this.$t('label.PFANSUSERVIEW_OUTGOING'),
+          },
+        ],
+        laborcontracttype: [
+          {value: '0', label: this.$t('label.PFANSUSERFORMVIEW_FIXEDTIME')},
+          {
+            value: '1',
+            label: this.$t('label.PFANSUSERFORMVIEW_NOFIXEDTIME'),
+          },
+        ],
+        marital_options: [
+          {value: '0', label: this.$t('label.PFANSUSERFORMVIEW_UNMARRIED')},
+          {
+            value: '1',
+            label: this.$t('label.PFANSUSERFORMVIEW_MARRIED'),
+          },
+        ],
+        experience_options: [
+          {value: '0', label: this.$t('label.PFANSUSERFORMVIEW_YES')},
+          {
+            value: '1',
+            label: this.$t('label.PFANSUSERFORMVIEW_NO'),
+          },
+        ],
+        form: {
+          type: '',
+          centername: '',
+          groupname: '',
+          teamname: '',
+          customername: '',
+          sex: '',
+          adfield: '',
+          birthday: '',
+          otherorgs: [
+            {
+              centerid: '',
+              groupid: '',
+              teamid: '',
+            },
+          ],
+          // age: "",
+          nationality: '',
+          nation: '',
+          register: '',
+          idnumber: '',
+          passport: '',
+          security: '',
+          housefund: '',
+          marital: '0',
+          children: '',
+          experience: '',
+          address: '',
+          email: '',
+          mobilenumber: '',
+          phone: '',
+          extension: '',
+          graduation: '',
+          degree: '',
+          educational: '',
+          specialty: '',
+          graduationday: '',
+          workday: '',
+          departmentid: [],
+          centerid: '',
+          groupid: '',
+          teamid: '',
+          budgetunit: '',
+          userid: '',
+          jobnumber: '',
+          personalcode: '',
+          difference: '1',
+          post: '',
+          rank: '',
+          occupationtype: '',
+          laborcontracttype: '',
+          fixedate: '',
+          laborcontractday: '',
+          enterday: '',
+          upgraded: '',
+          annualyear: '',
+          annuallastyear: '',
+          welfareyear: '',
+          welfarelastyear: '',
+          restyear: '',
+          restlastyear: '',
+          seatnumber: '',
+          salary: '',
+          duty: '',
+          basic: '',
+          caution: '',
+          resignation_date: '',
+          reason2: '',
+          staffexitprocedure: '',
+          oldageinsurance: '',
+          houseinsurance: '',
+          medicalinsurance: '',
+          informationid: '',
+          title: '',
+          availablestate: '0',
+          // ADD-LXX
+          yanglaoinsurance: '',
+          yiliaoinsurance: '',
+          shiyeinsurance: '',
+          gongshanginsurance: '',
+          shengyuinsurance: '',
+          // ADD-LXX
+        },
+        disable: false,
+        userToRoleId: '',
+        userInfo: {
+          userAccount: {},
+          customerInfo: {},
+        },
+        baseInfoForm: {
+          email: '',
+          departmentid: [],
+        },
+        title: 'label.PFANSUSERVIEW_USER',
+        isEdit: false,
+        status: '0',
+        buttonList: [
+          {key: 'userSave', name: this.$t('button.save')},
+          // {
+          //   key: "userSaveToRole",
+          //   name: this.$t("label.PFANSUSERFORMVIEW_SAVEANDROLE")
+          // }
+        ],
+        rules: {
+          adfield: [
+            {
+              required: true,
+              message:
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_ADFIELD'),
+              trigger: 'blur',
+            },
+          ],
+          customername: [
+            {
+              required: true,
+              message:
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_CUSTOMERNAME'),
+              trigger: 'blur',
+            },
+          ],
+          sex: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.sex'),
+              trigger: 'change',
+            },
+          ],
+          birthday: [
+            {
+              required: true,
+              message:
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERVIEW_BIRTHDAY'),
+              trigger: 'blur',
+            },
+          ],
+          nation: [
+            {
+              required: true,
+              message:
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_NATION'),
+              trigger: 'blur',
+            },
+          ],
+          nationality: [
+            {
+              required: true,
+              message:
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERVIEW_NATIONALITY'),
+              trigger: 'blur',
+            },
+          ],
+          register: [
+            {
+              required: true,
+              message:
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_REGISTER'),
+              trigger: 'blur',
+            },
+          ],
+          centerid: [
+            {
+              required: true,
+              validator: centerId,
+              trigger: 'blur',
+            },
+          ],
+          idnumber: [
+            {
+              required: true,
+              message:
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_IDNUMBER'),
+              trigger: 'blur',
+            },
+            {
+              validator: validateId,
+              trigger: 'blur',
+            },
+          ],
+          marital: [
+            {
+              required: true,
+              message:
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_MARITAL'),
+              trigger: 'change',
+            },
+          ],
+          address: [
+            {
+              required: true,
+              message:
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_ADDRESS'),
+              trigger: 'blur',
+            },
+          ],
+          phone: [
+            {
+              required: true,
+              message:
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_PHONE'),
+              trigger: 'blur',
+            },
+          ],
+          extension: [
+            {
+              required: true,
+              message:
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_EXTENSION'),
+              trigger: 'blur',
+            },
+          ],
+          graduation: [
+            {
+              required: true,
+              message:
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_GRADUATION'),
+              trigger: 'blur',
+            },
+          ],
+          degree: [
+            {
+              required: true,
+              message:
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_DEGREE'),
+              trigger: 'change',
+            },
+          ],
+          educational: [
+            {
+              required: true,
+              message:
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_EDUCATIONAL'),
+              trigger: 'change',
+            },
+          ],
+          specialty: [
+            {
+              required: true,
+              message:
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_SPECIALTY'),
+              trigger: 'blur',
+            },
+          ],
+          graduationday: [
+            {
+              required: true,
+              message:
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_GRADUATIONDAY'),
+              trigger: 'blur',
+            },
+          ],
+          workday: [
+            {
+              required: true,
+              message:
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_WORKDAY'),
+              trigger: 'blur',
+            },
+          ],
+          jobnumber: [
+            {
+              required: true,
+              message:
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_JOBNUMBER'),
+              trigger: 'blur',
+            },
+          ],
+          type: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.type'),
+              trigger: 'change',
+            },
+          ],
+          rank: [
+            {
+              required: true,
+              message:
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_RANK'),
+              trigger: 'change',
+            },
+          ],
+          occupationtype: [
+            {
+              required: true,
+              message:
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_OCCUPATIONTYPE'),
+              trigger: 'change',
+            },
+          ],
+          post: [
+            {
+              required: true,
+              message:
+                this.$t('normal.error_08') + this.$t('label.PFANSUSERVIEW_POST'),
+              trigger: 'change',
+            },
+          ],
+          laborcontractday: [
+            {
+              required: true,
+              message:
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_LABORCONTRACTDAY'),
+              trigger: 'blur',
+            },
+          ],
+          enterday: [
+            {
+              required: true,
+              message:
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_ENTERDAY'),
+              trigger: 'blur',
+            },
+          ],
+          // annualyear: [
+          //   {
+          //     required: true,
+          //     message:
+          //       this.$t("normal.error_08") +
+          //       this.$t("label.PFANSUSERFORMVIEW_ANNUALYEAR"),
+          //     trigger: "blur"
+          //   }
+          // ],
+          // annuallastyear: [
+          //   {
+          //     required: true,
+          //     message:
+          //       this.$t("normal.error_08") +
+          //       this.$t("label.PFANSUSERFORMVIEW_ANNUALLASTYEAR"),
+          //     trigger: "blur"
+          //   }
+          // ],
+          // welfareyear: [
+          //   {
+          //     required: true,
+          //     message:
+          //       this.$t("normal.error_08") +
+          //       this.$t("label.PFANSUSERFORMVIEW_WELFAREYEAR"),
+          //     trigger: "blur"
+          //   }
+          // ],
+          // welfarelastyear: [
+          //   {
+          //     required: true,
+          //     message:
+          //       this.$t("normal.error_08") +
+          //       this.$t("label.PFANSUSERFORMVIEW_WELFARELASTYEAR"),
+          //     trigger: "blur"
+          //   }
+          // ],
+          // restyear: [
+          //   {
+          //     required: true,
+          //     message:
+          //       this.$t("normal.error_08") +
+          //       this.$t("label.PFANSUSERFORMVIEW_RESTYEAR"),
+          //     trigger: "blur"
+          //   }
+          // ],
+          // restlastyear: [
+          //   {
+          //     required: true,
+          //     message:
+          //       this.$t("normal.error_08") +
+          //       this.$t("label.PFANSUSERFORMVIEW_RESTLASTYEAR"),
+          //     trigger: "blur"
+          //   }
+          // ],
+          seatnumber: [
+            {
+              required: true,
+              message:
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_SEATNUMBER'),
+              trigger: 'blur',
+            },
+          ],
+          basic: [
+            {
+              required: true,
+              message:
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_BASIC'),
+              trigger: 'blur',
+            },
+          ],
+          duty: [
+            {
+              required: true,
+              message:
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_DUTY'),
+              trigger: 'blur',
+            },
+          ],
+          // 暂时注释掉-lxx
+          // oldageinsurance: [
+          //   {
+          //     required: true,
+          //     message:
+          //       this.$t('normal.error_08') +
+          //       this.$t('label.PFANSUSERFORMVIEW_OLDAGEINSURANCE'),
+          //     trigger: 'blur',
+          //   },
+          // ],
+          // 暂时注释掉-lxx
+          houseinsurance: [
+            {
+              required: true,
+              message:
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_HOUSEINSURANCE'),
+              trigger: 'blur',
+            },
+          ],
+          // 暂时注释掉-lxx
+          // medicalinsurance: [
+          //   {
+          //     required: true,
+          //     message:
+          //       this.$t('normal.error_08') +
+          //       this.$t('label.PFANSUSERFORMVIEW_MEDICALINSURANCE'),
+          //     trigger: 'blur',
+          //   },
+          // ],
+          // 暂时注释掉-lxx
+          // ADD-LXX
+          yanglaoinsurance: [
+            {
+              required: true,
+              message:
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_YANGLAOINSURANCE'),
+              trigger: 'blur',
+            },
+          ],
+          yiliaoinsurance: [
+            {
+              required: true,
+              message:
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_YILIAOINSURANCE'),
+              trigger: 'blur',
+            },
+          ],
+          shiyeinsurance: [
+            {
+              required: true,
+              message:
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_SHIYEINSURANCE'),
+              trigger: 'blur',
+            },
+          ],
+          gongshanginsurance: [
+            {
+              required: true,
+              message:
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_GONGSHANGINSURANCE'),
+              trigger: 'blur',
+            },
+          ],
+          shengyuinsurance: [
+            {
+              required: true,
+              message:
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_SHENGYUINSURANCE'),
+              trigger: 'blur',
+            },
+          ],
+          // ADD-LXX
+          mobilenumber: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.user_mobile'),
+            },
+            // { validator: validateTel, trigger: "blur" }
+          ],
+          email: [
+            {
+              required: true,
+              message:
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_EMAILADDRESS'),
+              trigger: 'blur',
+            },
+            {
+              type: 'email',
+              message: this.$t('label.PFANSUSERFORMVIEW_TRUEEMAILADDRESS'),
+              trigger: ['blur', 'change'],
+            },
+          ],
+        },
+      };
+    },
+    // computed: {
+    //     birthday: {
+    //         get() {
+    //             return this.form.birthday;
+    //         },
+    //         set(val) {
+    //             this.form.birthday = val;
+    //         }
     //     }
-    // }
-  },
-  mounted() {
-    this.form.staffexitprocedure;
-    if (this.$route.params._org) {
-      ({
-        centername: this.form.centername,
-        groupname: this.form.groupname,
-        teamname: this.form.teamname,
-        centerid: this.form.centerid,
-        groupid: this.form.groupid,
-        teamid: this.form.teamid,
-        budgetunit: this.form.budgetunit
-      } = this.$route.params._org);
-    }
-
-    if (this.$route.params._id) {
-      this.getById(this.$route.params._id);
-    }
-  },
-  methods: {
-    // ADD-WS-生年月日change事件
-    getAge() {
-      let birthdays = new Date(this.form.birthday);
-      let d = new Date();
-      let age = 0;
-      let agenew = 0;
-      age = d.getFullYear() - birthdays.getFullYear();
-      agenew = d.getFullYear() - birthdays.getFullYear();
-      if (d.getMonth() > birthdays.getMonth() || (d.getMonth() == birthdays.getMonth() && d.getDate() > birthdays.getDate())) {
-        agenew = age;
-      } else {
-        agenew = age - 1;
-      }
-      this.age = agenew;
-    },
-    // ADD-WS-生年月日change事件
-    // ADD-LXX
-    sumToOldAge() {
-      this.form.oldageinsurance =
-        parseFloat(this.form.yanglaoinsurance) +
-        parseFloat(this.form.gongshanginsurance) +
-        parseFloat(this.form.shiyeinsurance);
-    },
-    sumToMedical() {
-      this.form.medicalinsurance =
-        parseFloat(this.form.yiliaoinsurance) +
-        parseFloat(this.form.shengyuinsurance)
-    },
-    // ADD-LXX
-    checkRequire() {
-      if (
-        !this.form.customername ||
-        !this.form.sex ||
-        !this.form.adfield ||
-        !this.form.birthday ||
-        !this.form.nationality ||
-        !this.form.nation ||
-        !this.form.register ||
-        !this.form.idnumber ||
-        !this.form.marital ||
-        !this.form.address ||
-        !this.form.email ||
-        !this.form.mobilenumber ||
-        !this.form.phone ||
-        !this.form.extension
-      ) {
-        this.activeName = "first";
-      } else if (
-        !this.form.graduation ||
-        !this.form.degree ||
-        !this.form.educational ||
-        !this.form.specialty ||
-        !this.form.nation ||
-        !this.form.graduationday
-      ) {
-        this.activeName = "second";
-      } else if (!this.form.workday) {
-        this.activeName = "fouth";
-      } else if (
-        !this.form.jobnumber ||
-        !this.form.type ||
-        !this.form.rank ||
-        !this.form.occupationtype ||
-        !this.form.centerid ||
-        !this.form.post ||
-        !this.form.laborcontractday ||
-        !this.form.enterday ||
-        this.form.annualyear === undefined ||
-        this.form.annuallastyear === undefined ||
-        this.form.welfareyear === undefined ||
-        this.form.welfarelastyear === undefined ||
-        this.form.restyear === undefined ||
-        this.form.restlastyear === undefined ||
-        !this.form.seatnumber ||
-        !this.form.duty ||
-        !this.form.basic ||
-        // this.form.oldageinsurance === undefined ||
-        this.form.houseinsurance === undefined ||
-        // this.form.medicalinsurance === undefined ||
-        // ADD-LXX
-        this.form.yanglaoinsurance === undefined ||
-        this.form.yiliaoinsurance === undefined ||
-        this.form.shiyeinsurance === undefined ||
-        this.form.gongshanginsurance === undefined ||
-        this.form.shengyuinsurance === undefined
-        // ADD-LXX
-      ) {
-        this.activeName = "five";
-      }
-    },
-    changePost(val) {
-      this.form.post = val;
-    },
-    deleteRow(index, rows) {
-      if (rows.length > 1) {
-        rows.splice(index, 1);
-      } else {
-        Object.keys(rows[0]).forEach(key => {
-          rows[0][key] = "";
-          if (key === "time") {
-            rows[0][key] = [];
-          }
-        });
-      }
-    },
-    addRow(val) {
-      if (val === "education") {
-        this.educationTable.push({
-          time: [],
-          school: "",
-          notes: ""
-        });
-      } else if (val === "skill") {
-        this.skillTable.push({
-          name: "",
-          ability: "",
-          notes: ""
-        });
-      } else if (val === "language") {
-        this.languageTable.push({
-          programme: "",
-          level: "",
-          notes: ""
-        });
-      } else if (val === "beforeWork") {
-        this.beforeWorkTable.push({
-          time: [],
-          company: "",
-          postion: "",
-          notes: ""
-        });
-      } else if (val === "workafter") {
-        this.workAfterTable.push({
-          time: [],
-          programme: "",
-          notes: ""
-        });
-      } else if (val === "train") {
-        this.trainTable.push({
-          time: [],
-          programme: "",
-          notes: ""
-        });
-      } else if (val === "reward") {
-        this.rewardTable.push({
-          programme: "",
-          _time: "",
-          notes: ""
-        });
-      }
-    },
-    changeEducational(val) {
-      this.form.educational = val;
-    },
-    changesex(val) {
-      this.form.sex = val;
-    },
-    changeDegree(val) {
-      this.form.degree = val;
-    },
-    changeRank(val) {
-      if (val) {
-        this.display = false;
-        this.$nextTick(() => {
-          if (this.form.type === "0") {
-            this.code = "PR021";
-            this.occupationtypecode = "PR055";
-            this.rules.occupationtype[0].required = true;
-          } else if (this.form.type === "1") {
-            this.code = "PJ053";
-            this.rules.occupationtype[0].required = false;
-          }
-          this.form.occupationtype = "";
-          this.occupationtypedisplay = true;
-          this.form.rank = "";
-          this.display = true;
-        });
-      } else {
-        if (this.form.type === "0") {
-          this.code = "PR021";
-          this.occupationtypecode = "PR055";
-          this.rules.occupationtype[0].required = true;
-          if (
-            this.form.rank === "PR021001" ||
-            this.form.rank === "PR021002" ||
-            this.form.rank === "PR021003" ||
-            this.form.rank === "PR021004"
-          ) {
-            this.occupationtypedis = true;
-            this.form.occupationtype = "PR055001";
-          } else {
-            this.occupationtypedis = false;
-          }
-        } else if (this.form.type === "1") {
-          this.form.occupationtype = "";
-          this.rules.occupationtype[0].required = false;
-          this.code = "PJ053";
+    // },
+    watch: {
+      form: {
+        handler: function() {
+          this.form.salary = this.form.duty + this.form.basic;
+        },
+        deep: true,
+      },
+      userToRoleId(val) {
+        if (val) {
+          this.$router.push({
+            name: 'usersToRoleView',
+            params: {
+              _id: val,
+            },
+          });
         }
-      }
+      },
+      // birthday(val) {
+      //     if (val) {
+      //         this.form.age =
+      //             moment().format("YYYY") - moment(val).format("YYYY") > 0
+      //                 ? moment().format("YYYY") - moment(val).format("YYYY")
+      //                 : 0;
+      //     }
+      // }
     },
-    getRank(val) {
-      if (val) {
-        this.form.rank = val;
-        this.$nextTick(() => {
-          if (this.code === "PR021") {
-            this.rules.occupationtype[0].required = true;
-            if (
-              this.form.rank === "PR021001" ||
-              this.form.rank === "PR021002" ||
-              this.form.rank === "PR021003" ||
-              this.form.rank === "PR021004"
-            ) {
-              this.occupationtypedis = true;
-              this.form.occupationtype = "PR055001";
-            } else {
-              this.occupationtypedis = false;
-            }
-          } else {
-            this.rules.occupationtype[0].required = false;
-          }
-        });
-      }
-    },
-    getOccupationtype(val) {
-      this.form.occupationtype = val;
-    },
-    getCenterid(val) {
-      this.getOrgInformation(val);
-      if (!val || this.form.centerid === "") {
-        this.error = this.$t("normal.error_08") + "center";
-      } else {
-        this.error = "";
-      }
-    },
-    getGroupid(val) {
-      this.getOrgInformation(val);
-      if (this.form.centerid === "") {
-        this.error = this.$t("normal.error_08") + "center";
-      } else {
-        this.error = "";
-      }
-    },
-    getTeamid(val) {
-      this.getOrgInformation(val);
-      if (this.form.centerid === "") {
-        this.error = this.$t("normal.error_08") + "center";
-      } else {
-        this.error = "";
-      }
-    },
-    setOrgc(val, no) {
-      no.centerid = val;
-    },
-    setOrgg(val, no) {
-      no.groupid = val;
-    },
-    setOrgt(val, no) {
-      no.teamid = val;
-    },
-    getOrgInformation(id) {
-      let org = {};
-      let treeCom = this.$store.getters.orgs;
-
-      if (id && treeCom.getNode(id)) {
-        let node = id;
-        let type = treeCom.getNode(id).data.type || 0;
-        for (let index = parseInt(type); index >= 1; index--) {
-          if (parseInt(type) === index && ![1, 2].includes(parseInt(type))) {
-            org.teamname = treeCom.getNode(node).data.departmentname;
-            org.teamid = treeCom.getNode(node).data._id;
-          }
-          if (index === 2) {
-            org.groupname = treeCom.getNode(node).data.departmentname;
-            org.groupid = treeCom.getNode(node).data._id;
-            org.budgetunit = treeCom.getNode(node).data.encoding;
-          }
-          if (index === 1) {
-            org.centername = treeCom.getNode(node).data.companyname;
-            org.centerid = treeCom.getNode(node).data._id;
-          }
-          node = treeCom.getNode(node).parent.data._id;
-        }
+    mounted() {
+      this.form.staffexitprocedure;
+      if (this.$route.params._org) {
         ({
           centername: this.form.centername,
           groupname: this.form.groupname,
@@ -2806,361 +2526,659 @@ export default {
           centerid: this.form.centerid,
           groupid: this.form.groupid,
           teamid: this.form.teamid,
-          budgetunit: this.form.budgetunit
-        } = org);
+          budgetunit: this.form.budgetunit,
+        } = this.$route.params._org);
+      }
+
+      if (this.$route.params._id) {
+        this.getById(this.$route.params._id);
       }
     },
-    getById(_id) {
-      this.loading = true;
-      let params = {
-        userid: _id
-      };
-      this.$store
-        .dispatch("usersStore/getById", params)
-        .then(response => {
-          this.form = response.customerInfo.userinfo;
-          if (!this.form.otherorgs) {
-            this.form.otherorgs = [];
-          }
-          this.form.otherorgs.push({
-            centerid: "",
-            groupid: "",
-            teamid: ""
-          });
-          if(response.customerInfo.userinfo.birthday!=''){
-            let birthdays = new Date(
-              response.customerInfo.userinfo.birthday.replace(/-/g, "/")
-            );
-            let d = new Date();
-            let age = 0;
-            let agenew = 0;
-            age = d.getFullYear() - birthdays.getFullYear();
-            agenew = d.getFullYear() - birthdays.getFullYear();
-            if (
-              d.getMonth() > birthdays.getMonth() ||
-              (d.getMonth() == birthdays.getMonth() &&
-                d.getDate() > birthdays.getDate())
-            ) {
-              agenew = age;
-            } else {
-              agenew = age - 1;
+    methods: {
+      // ADD-WS-生年月日change事件
+      getAge() {
+        let birthdays = new Date(this.form.birthday);
+        let d = new Date();
+        let age = 0;
+        let agenew = 0;
+        age = d.getFullYear() - birthdays.getFullYear();
+        agenew = d.getFullYear() - birthdays.getFullYear();
+        if (d.getMonth() > birthdays.getMonth() || (d.getMonth() == birthdays.getMonth() && d.getDate() > birthdays.getDate())) {
+          agenew = age;
+        } else {
+          agenew = age - 1;
+        }
+        this.age = agenew;
+      },
+      // ADD-WS-生年月日change事件
+      // ADD-LXX
+      sumToOldAge() {
+        this.form.oldageinsurance =
+          parseFloat(this.form.yanglaoinsurance) +
+          parseFloat(this.form.gongshanginsurance) +
+          parseFloat(this.form.shiyeinsurance);
+      },
+      sumToMedical() {
+        this.form.medicalinsurance =
+          parseFloat(this.form.yiliaoinsurance) +
+          parseFloat(this.form.shengyuinsurance);
+      },
+      // ADD-LXX
+      checkRequire() {
+        if (
+          !this.form.customername ||
+          !this.form.sex ||
+          !this.form.adfield ||
+          !this.form.birthday ||
+          !this.form.nationality ||
+          !this.form.nation ||
+          !this.form.register ||
+          !this.form.idnumber ||
+          !this.form.marital ||
+          !this.form.address ||
+          !this.form.email ||
+          !this.form.mobilenumber ||
+          !this.form.phone ||
+          !this.form.extension
+        ) {
+          this.activeName = 'first';
+        } else if (
+          !this.form.graduation ||
+          !this.form.degree ||
+          !this.form.educational ||
+          !this.form.specialty ||
+          !this.form.nation ||
+          !this.form.graduationday
+        ) {
+          this.activeName = 'second';
+        } else if (!this.form.workday) {
+          this.activeName = 'fouth';
+        } else if (
+          !this.form.jobnumber ||
+          !this.form.type ||
+          !this.form.rank ||
+          !this.form.occupationtype ||
+          !this.form.centerid ||
+          !this.form.post ||
+          !this.form.laborcontractday ||
+          !this.form.enterday ||
+          this.form.annualyear === undefined ||
+          this.form.annuallastyear === undefined ||
+          this.form.welfareyear === undefined ||
+          this.form.welfarelastyear === undefined ||
+          this.form.restyear === undefined ||
+          this.form.restlastyear === undefined ||
+          !this.form.seatnumber ||
+          !this.form.duty ||
+          !this.form.basic ||
+          // this.form.oldageinsurance === undefined ||
+          this.form.houseinsurance === undefined ||
+          // this.form.medicalinsurance === undefined ||
+          // ADD-LXX
+          this.form.yanglaoinsurance === undefined ||
+          this.form.yiliaoinsurance === undefined ||
+          this.form.shiyeinsurance === undefined ||
+          this.form.gongshanginsurance === undefined ||
+          this.form.shengyuinsurance === undefined
+        // ADD-LXX
+        ) {
+          this.activeName = 'five';
+        }
+      },
+      changePost(val) {
+        this.form.post = val;
+      },
+      deleteRow(index, rows) {
+        if (rows.length > 1) {
+          rows.splice(index, 1);
+        } else {
+          Object.keys(rows[0]).forEach(key => {
+            rows[0][key] = '';
+            if (key === 'time') {
+              rows[0][key] = [];
             }
-            this.age = agenew;
-          }else{
-            this.age = 0;
-          }
-          this.status = response.customerInfo.status;
-          this.userInfo.userAccount = response.userAccount;
-          this.userInfo.customerInfo = response.customerInfo;
-          this.educationTable = this.userInfo.customerInfo.userinfo.educationTable;
-          if (this.educationTable == null) {
-            this.educationTable = [
-              {
-                time: [],
-                school: "",
-                notes: ""
-              }
-            ];
-          }
-          this.skillTable = this.userInfo.customerInfo.userinfo.skillTable;
-          if (this.skillTable == null) {
-            this.skillTable = [
-              {
-                name: "",
-                ability: "",
-                notes: ""
-              }
-            ];
-          }
-          this.languageTable = this.userInfo.customerInfo.userinfo.languageTable;
-          if (this.languageTable == null) {
-            this.languageTable = [
-              {
-                programme: "",
-                level: "",
-                notes: ""
-              }
-            ];
-          }
-          this.beforeWorkTable = this.userInfo.customerInfo.userinfo.beforeWorkTable;
-          if (this.beforeWorkTable == null) {
-            this.beforeWorkTable = [
-              {
-                time: [],
-                company: "",
-                postion: "",
-                notes: ""
-              }
-            ];
-          }
-          this.workAfterTable = this.userInfo.customerInfo.userinfo.workAfterTable;
-          if (this.workAfterTable == null) {
-            this.workAfterTable = [
-              {
-                time: [],
-                programme: "",
-                notes: ""
-              }
-            ];
-          }
-          this.trainTable = this.userInfo.customerInfo.userinfo.trainTable;
-          if (this.trainTable == null) {
-            this.trainTable = [
-              {
-                time: [],
-                programme: "",
-                notes: ""
-              }
-            ];
-          }
-          this.rewardTable = this.userInfo.customerInfo.userinfo.rewardTable;
-          if (this.rewardTable == null) {
-            this.rewardTable = [
-              {
-                programme: "",
-                _time: "",
-                notes: ""
-              }
-            ];
-          }
-          this.gridData = this.userInfo.customerInfo.userinfo.gridData;
-          this.oldageData = this.userInfo.customerInfo.userinfo.oldageData;
-          this.houseData = this.userInfo.customerInfo.userinfo.houseData;
-          this.medicalData = this.userInfo.customerInfo.userinfo.medicalData;
-          this.changeRank();
-          this.loading = false;
-        })
-        .catch(err => {
-          Message({
-            message: err,
-            type: "error",
-            duration: 5 * 1000
           });
-          this.loading = false;
-        });
-    },
+        }
+      },
+      addRow(val) {
+        if (val === 'education') {
+          this.educationTable.push({
+            time: [],
+            school: '',
+            notes: '',
+          });
+        } else if (val === 'skill') {
+          this.skillTable.push({
+            name: '',
+            ability: '',
+            notes: '',
+          });
+        } else if (val === 'language') {
+          this.languageTable.push({
+            programme: '',
+            level: '',
+            notes: '',
+          });
+        } else if (val === 'beforeWork') {
+          this.beforeWorkTable.push({
+            time: [],
+            company: '',
+            postion: '',
+            notes: '',
+          });
+        } else if (val === 'workafter') {
+          this.workAfterTable.push({
+            time: [],
+            programme: '',
+            notes: '',
+          });
+        } else if (val === 'train') {
+          this.trainTable.push({
+            time: [],
+            programme: '',
+            notes: '',
+          });
+        } else if (val === 'reward') {
+          this.rewardTable.push({
+            programme: '',
+            _time: '',
+            notes: '',
+          });
+        }
+      },
+      changeEducational(val) {
+        this.form.educational = val;
+      },
+      changesex(val) {
+        this.form.sex = val;
+      },
+      changeDegree(val) {
+        this.form.degree = val;
+      },
+      changeRank(val) {
+        if (val) {
+          this.display = false;
+          this.$nextTick(() => {
+            if (this.form.type === '0') {
+              this.code = 'PR021';
+              this.occupationtypecode = 'PR055';
+              this.rules.occupationtype[0].required = true;
+            } else if (this.form.type === '1') {
+              this.code = 'PJ053';
+              this.rules.occupationtype[0].required = false;
+            }
+            this.form.occupationtype = '';
+            this.occupationtypedisplay = true;
+            this.form.rank = '';
+            this.display = true;
+          });
+        } else {
+          if (this.form.type === '0') {
+            this.code = 'PR021';
+            this.occupationtypecode = 'PR055';
+            this.rules.occupationtype[0].required = true;
+            if (
+              this.form.rank === 'PR021001' ||
+              this.form.rank === 'PR021002' ||
+              this.form.rank === 'PR021003' ||
+              this.form.rank === 'PR021004'
+            ) {
+              this.occupationtypedis = true;
+              this.form.occupationtype = 'PR055001';
+            } else {
+              this.occupationtypedis = false;
+            }
+          } else if (this.form.type === '1') {
+            this.form.occupationtype = '';
+            this.rules.occupationtype[0].required = false;
+            this.code = 'PJ053';
+          }
+        }
+      },
+      getRank(val) {
+        if (val) {
+          this.form.rank = val;
+          this.$nextTick(() => {
+            if (this.code === 'PR021') {
+              this.rules.occupationtype[0].required = true;
+              if (
+                this.form.rank === 'PR021001' ||
+                this.form.rank === 'PR021002' ||
+                this.form.rank === 'PR021003' ||
+                this.form.rank === 'PR021004'
+              ) {
+                this.occupationtypedis = true;
+                this.form.occupationtype = 'PR055001';
+              } else {
+                this.occupationtypedis = false;
+              }
+            } else {
+              this.rules.occupationtype[0].required = false;
+            }
+          });
+        }
+      },
+      getOccupationtype(val) {
+        this.form.occupationtype = val;
+      },
+      getCenterid(val) {
+        this.getOrgInformation(val);
+        if (!val || this.form.centerid === '') {
+          this.error = this.$t('normal.error_08') + 'center';
+        } else {
+          this.error = '';
+        }
+      },
+      getGroupid(val) {
+        this.getOrgInformation(val);
+        if (this.form.centerid === '') {
+          this.error = this.$t('normal.error_08') + 'center';
+        } else {
+          this.error = '';
+        }
+      },
+      getTeamid(val) {
+        this.getOrgInformation(val);
+        if (this.form.centerid === '') {
+          this.error = this.$t('normal.error_08') + 'center';
+        } else {
+          this.error = '';
+        }
+      },
+      setOrgc(val, no) {
+        no.centerid = val;
+      },
+      setOrgg(val, no) {
+        no.groupid = val;
+      },
+      setOrgt(val, no) {
+        no.teamid = val;
+      },
+      getOrgInformation(id) {
+        let org = {};
+        let treeCom = this.$store.getters.orgs;
 
-    cancelForm() {
-      this.$refs.container.buttonClick("back");
-    },
+        if (id && treeCom.getNode(id)) {
+          let node = id;
+          let type = treeCom.getNode(id).data.type || 0;
+          for (let index = parseInt(type); index >= 1; index--) {
+            if (parseInt(type) === index && ![1, 2].includes(parseInt(type))) {
+              org.teamname = treeCom.getNode(node).data.departmentname;
+              org.teamid = treeCom.getNode(node).data._id;
+            }
+            if (index === 2) {
+              org.groupname = treeCom.getNode(node).data.departmentname;
+              org.groupid = treeCom.getNode(node).data._id;
+              org.budgetunit = treeCom.getNode(node).data.encoding;
+            }
+            if (index === 1) {
+              org.centername = treeCom.getNode(node).data.companyname;
+              org.centerid = treeCom.getNode(node).data._id;
+            }
+            node = treeCom.getNode(node).parent.data._id;
+          }
+          ({
+            centername: this.form.centername,
+            groupname: this.form.groupname,
+            teamname: this.form.teamname,
+            centerid: this.form.centerid,
+            groupid: this.form.groupid,
+            teamid: this.form.teamid,
+            budgetunit: this.form.budgetunit,
+          } = org);
+        }
+      },
+      getById(_id) {
+        this.loading = true;
+        let params = {
+          userid: _id,
+        };
+        this.$store
+          .dispatch('usersStore/getById', params)
+          .then(response => {
+            this.form = response.customerInfo.userinfo;
+            if (!this.form.otherorgs) {
+              this.form.otherorgs = [];
+            }
+            this.form.otherorgs.push({
+              centerid: '',
+              groupid: '',
+              teamid: '',
+            });
+            if (response.customerInfo.userinfo.birthday != '') {
+              let birthdays = new Date(
+                response.customerInfo.userinfo.birthday.replace(/-/g, '/'),
+              );
+              let d = new Date();
+              let age = 0;
+              let agenew = 0;
+              age = d.getFullYear() - birthdays.getFullYear();
+              agenew = d.getFullYear() - birthdays.getFullYear();
+              if (
+                d.getMonth() > birthdays.getMonth() ||
+                (d.getMonth() == birthdays.getMonth() &&
+                  d.getDate() > birthdays.getDate())
+              ) {
+                agenew = age;
+              } else {
+                agenew = age - 1;
+              }
+              this.age = agenew;
+            } else {
+              this.age = 0;
+            }
+            this.status = response.customerInfo.status;
+            this.userInfo.userAccount = response.userAccount;
+            this.userInfo.customerInfo = response.customerInfo;
+            this.educationTable = this.userInfo.customerInfo.userinfo.educationTable;
+            if (this.educationTable == null) {
+              this.educationTable = [
+                {
+                  time: [],
+                  school: '',
+                  notes: '',
+                },
+              ];
+            }
+            this.skillTable = this.userInfo.customerInfo.userinfo.skillTable;
+            if (this.skillTable == null) {
+              this.skillTable = [
+                {
+                  name: '',
+                  ability: '',
+                  notes: '',
+                },
+              ];
+            }
+            this.languageTable = this.userInfo.customerInfo.userinfo.languageTable;
+            if (this.languageTable == null) {
+              this.languageTable = [
+                {
+                  programme: '',
+                  level: '',
+                  notes: '',
+                },
+              ];
+            }
+            this.beforeWorkTable = this.userInfo.customerInfo.userinfo.beforeWorkTable;
+            if (this.beforeWorkTable == null) {
+              this.beforeWorkTable = [
+                {
+                  time: [],
+                  company: '',
+                  postion: '',
+                  notes: '',
+                },
+              ];
+            }
+            this.workAfterTable = this.userInfo.customerInfo.userinfo.workAfterTable;
+            if (this.workAfterTable == null) {
+              this.workAfterTable = [
+                {
+                  time: [],
+                  programme: '',
+                  notes: '',
+                },
+              ];
+            }
+            this.trainTable = this.userInfo.customerInfo.userinfo.trainTable;
+            if (this.trainTable == null) {
+              this.trainTable = [
+                {
+                  time: [],
+                  programme: '',
+                  notes: '',
+                },
+              ];
+            }
+            this.rewardTable = this.userInfo.customerInfo.userinfo.rewardTable;
+            if (this.rewardTable == null) {
+              this.rewardTable = [
+                {
+                  programme: '',
+                  _time: '',
+                  notes: '',
+                },
+              ];
+            }
+            this.gridData = this.userInfo.customerInfo.userinfo.gridData;
+            this.oldageData = this.userInfo.customerInfo.userinfo.oldageData;
+            this.houseData = this.userInfo.customerInfo.userinfo.houseData;
+            this.medicalData = this.userInfo.customerInfo.userinfo.medicalData;
+            this.changeRank();
+            this.loading = false;
+          })
+          .catch(err => {
+            Message({
+              message: err,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
 
-    buttonClick(val) {
-      this.loading = true;
-      if (val === "userSave") {
-        this.userSave("userSave");
-      } else if (val === "userSaveToRole") {
-        this.userSave("userSaveToRole");
-      }
-    },
-    Personal() {
-      if (this.gridData === null) {
-        this.gridData = [
-          {
-            date: new moment().format("YYYY-MM-DD"),
-            before: "",
+      cancelForm() {
+        this.$refs.container.buttonClick('back');
+      },
+
+      buttonClick(val) {
+        this.loading = true;
+        if (val === 'userSave') {
+          this.userSave('userSave');
+        } else if (val === 'userSaveToRole') {
+          this.userSave('userSaveToRole');
+        }
+      },
+      Personal() {
+        if (this.gridData === null) {
+          this.gridData = [
+            {
+              date: new moment().format('YYYY-MM-DD'),
+              before: '',
+              after: this.form.salary,
+              duty: this.form.duty,
+              basic: this.form.basic,
+              remark: '',
+            },
+          ];
+        } else if (
+          this.gridData.length > 0 &&
+          this.form.salary.toString() !==
+          this.gridData[this.gridData.length - 1].after
+        ) {
+          this.gridData.push({
+            date: new moment().format('YYYY-MM-DD'),
+            before: this.gridData[this.gridData.length - 1].after,
             after: this.form.salary,
             duty: this.form.duty,
             basic: this.form.basic,
-            remark: ""
-          }
-        ];
-      } else if (
-        this.gridData.length > 0 &&
-        this.form.salary.toString() !==
-          this.gridData[this.gridData.length - 1].after
-      ) {
-        this.gridData.push({
-          date: new moment().format("YYYY-MM-DD"),
-          before: this.gridData[this.gridData.length - 1].after,
-          after: this.form.salary,
-          duty: this.form.duty,
-          basic: this.form.basic,
-          remark: ""
-        });
-      }
-
-      if (this.medicalData === null) {
-        this.medicalData = [
-          {
-            date: new moment().format("YYYY-MM-DD"),
-            before: "",
-            after: this.form.medicalinsurance,
-            remark: ""
-          }
-        ];
-      } else if (
-        this.medicalData.length > 0 &&
-        this.form.medicalinsurance.toString() !==
-          this.medicalData[this.medicalData.length - 1].after
-      ) {
-        this.medicalData.push({
-          date: new moment().format("YYYY-MM-DD"),
-          before: this.medicalData[this.medicalData.length - 1].after,
-          after: this.form.medicalinsurance,
-          remark: ""
-        });
-      }
-
-      if (this.houseData === null) {
-        this.houseData = [
-          {
-            date: new moment().format("YYYY-MM-DD"),
-            before: "",
-            after: this.form.houseinsurance,
-            remark: ""
-          }
-        ];
-      } else if (
-        this.houseData.length > 0 &&
-        this.form.houseinsurance.toString() !==
-          this.houseData[this.houseData.length - 1].after
-      ) {
-        this.houseData.push({
-          date: new moment().format("YYYY-MM-DD"),
-          before: this.houseData[this.houseData.length - 1].after,
-          after: this.form.houseinsurance,
-          remark: ""
-        });
-      }
-
-      if (this.oldageData === null) {
-        this.oldageData = [
-          {
-            date: new moment().format("YYYY-MM-DD"),
-            before: "",
-            after: this.form.oldageinsurance,
-            remark: ""
-          }
-        ];
-      } else if (
-        this.oldageData.length > 0 &&
-        this.form.oldageinsurance.toString() !==
-          this.oldageData[this.oldageData.length - 1].after
-      ) {
-        this.oldageData.push({
-          date: new moment().format("YYYY-MM-DD"),
-          before: this.oldageData[this.oldageData.length - 1].after,
-          after: this.form.oldageinsurance,
-          remark: ""
-        });
-      }
-      this.userInfo.customerInfo.userinfo.gridData = this.gridData;
-      this.userInfo.customerInfo.userinfo.medicalData = this.medicalData;
-      this.userInfo.customerInfo.userinfo.houseData = this.houseData;
-      this.userInfo.customerInfo.userinfo.oldageData = this.oldageData;
-    },
-    userSave(btnkey) {
-      this.checkRequire();
-      this.$refs["form"].validate(valid => {
-        if (valid) {
-          this.userInfo.userAccount.account = this.form.adfield;
-          // this.userInfo.userAccount.password = this.form.adfield;
-          this.userInfo.userAccount.usertype = "0";
-          this.userInfo.customerInfo.userinfo = this.form;
-          this.Personal();
-          this.userInfo.customerInfo.userinfo.educationTable = this.educationTable;
-          this.userInfo.customerInfo.userinfo.skillTable = this.skillTable;
-          this.userInfo.customerInfo.userinfo.languageTable = this.languageTable;
-          this.userInfo.customerInfo.userinfo.beforeWorkTable = this.beforeWorkTable;
-          this.userInfo.customerInfo.userinfo.workAfterTable = this.workAfterTable;
-          this.userInfo.customerInfo.userinfo.trainTable = this.trainTable;
-          this.userInfo.customerInfo.userinfo.rewardTable = this.rewardTable;
-          this.userInfo.customerInfo.type = "1";
-          this.userInfo.customerInfo.userinfo.status = this.status;
-          this.userInfo.customerInfo.status = this.status;
-          this.userInfo.userAccount.status = this.status;
-          if (this.form.teamid) {
-            this.userInfo.customerInfo.userinfo.companyid = [this.form.teamid];
-          } else if (this.form.groupid) {
-            this.userInfo.customerInfo.userinfo.companyid = [this.form.groupid];
-          } else if (this.form.centerid) {
-            this.userInfo.customerInfo.userinfo.companyid = [
-              this.form.centerid
-            ];
-          }
-          this.$store
-            .dispatch("usersStore/userSave", this.userInfo)
-            .then(response => {
-              if (btnkey === "userSaveToRole") {
-                this.userToRoleId = response;
-              } else {
-                this.$refs.container.buttonClick("back");
-              }
-              this.loading = false;
-              this.$message({
-                message: this.$t("label.PFANSUSERFORMVIEW_SUBMITSUCCESSFULLY"),
-                type: "success"
-              });
-              this.getUserList();
-            })
-            .catch(err => {
-              Message({
-                message: err,
-                type: "error",
-                duration: 5 * 1000
-              });
-              this.loading = false;
-            });
-        } else {
-          Message({
-            message: this.$t("normal.error_12"),
-            type: "error",
-            duration: 5 * 1000
+            remark: '',
           });
-          this.loading = false;
         }
-      });
-    },
-    getUserList() {
-      let params = {
-        orgtype: "1"
-      };
-      this.$store
-        .dispatch("usersStore/getUserTableList", params)
-        .then(response => {
-          this.$store.commit("global/SET_USERLIST", response);
-        })
-        .catch(err => {
-          Message({
-            message: err,
-            type: "error",
-            duration: 5 * 1000
+
+        if (this.medicalData === null) {
+          this.medicalData = [
+            {
+              date: new moment().format('YYYY-MM-DD'),
+              before: '',
+              after: this.form.medicalinsurance,
+              remark: '',
+            },
+          ];
+        } else if (
+          this.medicalData.length > 0 &&
+          this.form.medicalinsurance.toString() !==
+          this.medicalData[this.medicalData.length - 1].after
+        ) {
+          this.medicalData.push({
+            date: new moment().format('YYYY-MM-DD'),
+            before: this.medicalData[this.medicalData.length - 1].after,
+            after: this.form.medicalinsurance,
+            remark: '',
           });
+        }
+
+        if (this.houseData === null) {
+          this.houseData = [
+            {
+              date: new moment().format('YYYY-MM-DD'),
+              before: '',
+              after: this.form.houseinsurance,
+              remark: '',
+            },
+          ];
+        } else if (
+          this.houseData.length > 0 &&
+          this.form.houseinsurance.toString() !==
+          this.houseData[this.houseData.length - 1].after
+        ) {
+          this.houseData.push({
+            date: new moment().format('YYYY-MM-DD'),
+            before: this.houseData[this.houseData.length - 1].after,
+            after: this.form.houseinsurance,
+            remark: '',
+          });
+        }
+
+        if (this.oldageData === null) {
+          this.oldageData = [
+            {
+              date: new moment().format('YYYY-MM-DD'),
+              before: '',
+              after: this.form.oldageinsurance,
+              remark: '',
+            },
+          ];
+        } else if (
+          this.oldageData.length > 0 &&
+          this.form.oldageinsurance.toString() !==
+          this.oldageData[this.oldageData.length - 1].after
+        ) {
+          this.oldageData.push({
+            date: new moment().format('YYYY-MM-DD'),
+            before: this.oldageData[this.oldageData.length - 1].after,
+            after: this.form.oldageinsurance,
+            remark: '',
+          });
+        }
+        this.userInfo.customerInfo.userinfo.gridData = this.gridData;
+        this.userInfo.customerInfo.userinfo.medicalData = this.medicalData;
+        this.userInfo.customerInfo.userinfo.houseData = this.houseData;
+        this.userInfo.customerInfo.userinfo.oldageData = this.oldageData;
+      },
+      userSave(btnkey) {
+        this.checkRequire();
+        this.$refs['form'].validate(valid => {
+          if (valid) {
+            this.userInfo.userAccount.account = this.form.adfield;
+            // this.userInfo.userAccount.password = this.form.adfield;
+            this.userInfo.userAccount.usertype = '0';
+            this.userInfo.customerInfo.userinfo = this.form;
+            this.Personal();
+            this.userInfo.customerInfo.userinfo.educationTable = this.educationTable;
+            this.userInfo.customerInfo.userinfo.skillTable = this.skillTable;
+            this.userInfo.customerInfo.userinfo.languageTable = this.languageTable;
+            this.userInfo.customerInfo.userinfo.beforeWorkTable = this.beforeWorkTable;
+            this.userInfo.customerInfo.userinfo.workAfterTable = this.workAfterTable;
+            this.userInfo.customerInfo.userinfo.trainTable = this.trainTable;
+            this.userInfo.customerInfo.userinfo.rewardTable = this.rewardTable;
+            this.userInfo.customerInfo.type = '1';
+            this.userInfo.customerInfo.userinfo.status = this.status;
+            this.userInfo.customerInfo.status = this.status;
+            this.userInfo.userAccount.status = this.status;
+            if (this.form.teamid) {
+              this.userInfo.customerInfo.userinfo.companyid = [this.form.teamid];
+            } else if (this.form.groupid) {
+              this.userInfo.customerInfo.userinfo.companyid = [this.form.groupid];
+            } else if (this.form.centerid) {
+              this.userInfo.customerInfo.userinfo.companyid = [
+                this.form.centerid,
+              ];
+            }
+            this.$store
+              .dispatch('usersStore/userSave', this.userInfo)
+              .then(response => {
+                if (btnkey === 'userSaveToRole') {
+                  this.userToRoleId = response;
+                } else {
+                  this.$refs.container.buttonClick('back');
+                }
+                this.loading = false;
+                this.$message({
+                  message: this.$t('label.PFANSUSERFORMVIEW_SUBMITSUCCESSFULLY'),
+                  type: 'success',
+                });
+                this.getUserList();
+              })
+              .catch(err => {
+                Message({
+                  message: err,
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.loading = false;
+              });
+          } else {
+            Message({
+              message: this.$t('normal.error_12'),
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          }
         });
-    }
-  }
-};
+      },
+      getUserList() {
+        let params = {
+          orgtype: '1',
+        };
+        this.$store
+          .dispatch('usersStore/getUserTableList', params)
+          .then(response => {
+            this.$store.commit('global/SET_USERLIST', response);
+          })
+          .catch(err => {
+            Message({
+              message: err,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+          });
+      },
+    },
+  };
 </script>
 
 <style rel="stylesheet/scss" lang="scss">
-.el-dialog__title {
-  color: #75a7ef;
-}
-
-.el-dialog__body {
-  padding-top: 0px;
-}
-
-.width {
-  width: 10.7rem;
-}
-
-.user_form {
-  .el-input--medium .el-input__inner {
-    border: none;
+  .el-dialog__title {
+    color: #75a7ef;
   }
 
-  a {
-    cursor: pointer;
-    background: transparent;
-    color: #5d9cec;
-    text-decoration: none;
+  .el-dialog__body {
+    padding-top: 0px;
   }
 
-  a:hover {
-    color: #fb6e52;
-    text-decoration: underline;
+  .width {
+    width: 10.7rem;
   }
-}
+
+  .user_form {
+    .el-input--medium .el-input__inner {
+      border: none;
+    }
+
+    a {
+      cursor: pointer;
+      background: transparent;
+      color: #5d9cec;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: #fb6e52;
+      text-decoration: underline;
+    }
+  }
 </style>
 

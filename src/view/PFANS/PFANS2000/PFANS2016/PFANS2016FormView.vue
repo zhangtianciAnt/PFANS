@@ -560,9 +560,9 @@
                 }, {
                     value: '1',
                     label: this.$t('label.PFANS2011FROMVIEW_HALFDATE'),
-                    }, {
-                      value: '2',
-                      label: this.$t('label.PFANS2016FORMVIEW_UNREST'),
+                }, {
+                    value: '2',
+                    label: this.$t('label.PFANS2016FORMVIEW_UNREST'),
                 }],
                 value: [],
                 options1: [{
@@ -792,7 +792,7 @@
                             this.workflowCode = 'W0059';
                             this.canStart = true;
                             //查看时，不可编辑
-                            if(!this.disable){
+                            if (!this.disable) {
                                 this.disrevacationtype = true;
                             } else {
                                 this.disrevacationtype = false;
@@ -921,7 +921,7 @@
                     this.form.relengthtime = 8;
                 } else if (val == '1') {
                     this.form.relengthtime = 4;
-                }else if (val == '2') {
+                } else if (val == '2') {
                     this.form.relengthtime = 0;
                 }
             },
@@ -1168,50 +1168,66 @@
                         date1 = date2;
                         date2 = tempDate;
                     }
-                    // date1.setDate(date1.getDate() + 1);
+                    date1.setDate(date1.getDate() + 1);
                     var dateArr = [];
                     var i = 0;
-                    while (!(date1.getFullYear() == date2.getFullYear() && date1.getMonth() == date2.getMonth() && date1.getDate() == date2
-                        .getDate())) {
-                        var dayStr = date1.getDate().toString();
-                        if (dayStr.length == 1) {
-                            dayStr = '0' + dayStr;
+                    this.Todaysum = [];
+                    if (moment(this.form.occurrencedate).format('YYYY-MM-DD') === moment(this.form.finisheddate).format('YYYY-MM-DD')) {
+                        this.Todaysum.push(moment(this.form.occurrencedate).format('YYYY-MM-DD'));
+                    } else {
+                        while (!(date1.getFullYear() == date2.getFullYear() && date1.getMonth() == date2.getMonth() && date1.getDate() == date2
+                            .getDate())) {
+                            var dayStr = date1.getDate().toString();
+                            if (dayStr.length == 1) {
+                                dayStr = '0' + dayStr;
+                            }
+                            var monthStr = (date1.getMonth() + 1).toString();
+                            if (monthStr.length == 1) {
+                                monthStr = '0' + monthStr;
+                            }
+                            dateArr[i] = date1.getFullYear() + '-' + monthStr + '-'
+                                + dayStr;
+                            i++;
+                            date1.setDate(date1.getDate() + 1);
                         }
-                        var monthStr = (date1.getMonth() + 1).toString();
-                        if (monthStr.length == 1) {
-                            monthStr = '0' + monthStr;
-                        }
-                        dateArr[i] = date1.getFullYear() + '-' + monthStr + '-'
-                            + dayStr;
-                        i++;
-                        date1.setDate(date1.getDate() + 1);
+                        dateArr.splice(0, 0, moment(this.form.occurrencedate).format('YYYY-MM-DD'));
+                        dateArr.push(moment(this.form.finisheddate).format('YYYY-MM-DD'));
+                        this.Todaysum = dateArr;
                     }
-                    dateArr.splice(0, 0, moment(this.form.occurrencedate).format('YYYY-MM-DD'));
-                    dateArr.push(moment(this.form.finisheddate).format('YYYY-MM-DD'));
-                    this.Todaysum = dateArr;
                 }
+                //去掉工作日设定里面的节假日
                 for (let a = 0; a < this.Todaysum.length; a++) {
                     for (let b = 0; b < this.dateInfo.length; b++) {
-                        if (this.dateInfo[b].dateflg == this.Todaysum[a] && this.dateInfo[b].type != '4') {
+                        if (this.dateInfo[b].dateflg == this.Todaysum[a]) {
                             this.Todaysum.splice(a, 1);
                         }
                     }
                 }
                 this.reList = this.Todaysum;
+                //去除周六
                 for (let i = 0; i < this.reList.length; i++) {
                     var date = getDate(this.reList[i]);
                     if (date.getDay() == 6) {
                         this.reList.splice(i, 1);
                     }
-
                 }
                 this.relist = this.reList;
+                //去除周日
                 for (let j = 0; j < this.relist.length; j++) {
                     var data = getDate(this.relist[j]);
                     if (data.getDay() == 0) {
                         this.relist.splice(j, 1);
                     }
-                    // this.relist = this.reList;
+                }
+                //添加振替出勤日
+                for (let b = 0; b < this.dateInfo.length; b++) {
+                    if (moment(this.form.occurrencedate).format('YYYY-MM-DD') <= moment(this.dateInfo[b].dateflg).format('YYYY-MM-DD') && moment(this.form.finisheddate).format('YYYY-MM-DD') >= moment(this.dateInfo[b].dateflg).format('YYYY-MM-DD')) {
+                        if (this.dateInfo[b].type === '4') {
+                            this.relist.push({
+                                tdfo: this.dateInfo[b].dateflg
+                            });
+                        }
+                    }
                 }
                 // }
             },
@@ -1233,37 +1249,44 @@
                         date1 = date2;
                         date2 = tempDate;
                     }
-                    // date1.setDate(date1.getDate() + 1);
+                    date1.setDate(date1.getDate() + 1);
                     var dateArr = [];
                     var i = 0;
-                    while (!(date1.getFullYear() == date2.getFullYear()
-                        && date1.getMonth() == date2.getMonth() && date1.getDate() == date2
-                            .getDate())) {
-                        var dayStr = date1.getDate().toString();
-                        if (dayStr.length == 1) {
-                            dayStr = '0' + dayStr;
+                    this.Todaysum = [];
+                    if (moment(this.form.reoccurrencedate).format('YYYY-MM-DD') === moment(this.form.refinisheddate).format('YYYY-MM-DD')) {
+                        this.Todaysum.push(moment(this.form.reoccurrencedate).format('YYYY-MM-DD'));
+                    } else {
+                        while (!(date1.getFullYear() == date2.getFullYear()
+                            && date1.getMonth() == date2.getMonth() && date1.getDate() == date2
+                                .getDate())) {
+                            var dayStr = date1.getDate().toString();
+                            if (dayStr.length == 1) {
+                                dayStr = '0' + dayStr;
+                            }
+                            var monthStr = (date1.getMonth() + 1).toString();
+                            if (monthStr.length == 1) {
+                                monthStr = '0' + monthStr;
+                            }
+                            dateArr[i] = date1.getFullYear() + '-' + monthStr + '-'
+                                + dayStr;
+                            i++;
+                            date1.setDate(date1.getDate() + 1);
                         }
-                        var monthStr = (date1.getMonth() + 1).toString();
-                        if (monthStr.length == 1) {
-                            monthStr = '0' + monthStr;
-                        }
-                        dateArr[i] = date1.getFullYear() + '-' + monthStr + '-'
-                            + dayStr;
-                        i++;
-                        date1.setDate(date1.getDate() + 1);
-                    }
                     dateArr.splice(0, 0, moment(this.form.reoccurrencedate).format('YYYY-MM-DD'));
                     dateArr.push(moment(this.form.refinisheddate).format('YYYY-MM-DD'));
                     this.Todaysum = dateArr;
                 }
+                }
+                //去掉工作日设定里面的节假日
                 for (let a = 0; a < this.Todaysum.length; a++) {
                     for (let b = 0; b < this.dateInfo.length; b++) {
-                        if (this.dateInfo[b].dateflg == this.Todaysum[a] && this.dateInfo[b].type != '4') {
+                        if (this.dateInfo[b].dateflg == this.Todaysum[a]) {
                             this.Todaysum.splice(a, 1);
                         }
                     }
                 }
                 this.reList = this.Todaysum;
+                //去除周六
                 for (let i = 0; i < this.reList.length; i++) {
                     var date = getDate(this.reList[i]);
                     if (date.getDay() == 6) {
@@ -1271,10 +1294,21 @@
                     }
                 }
                 this.relistTwo = this.reList;
+                //去除周末
                 for (let j = 0; j < this.relistTwo.length; j++) {
                     var data = getDate(this.relistTwo[j]);
                     if (data.getDay() == 0) {
                         this.relistTwo.splice(j, 1);
+                    }
+                }
+                //添加振替出勤日
+                for (let b = 0; b < this.dateInfo.length; b++) {
+                    if (moment(this.form.reoccurrencedate).format('YYYY-MM-DD') <= moment(this.dateInfo[b].dateflg).format('YYYY-MM-DD') && moment(this.form.refinisheddate).format('YYYY-MM-DD') >= moment(this.dateInfo[b].dateflg).format('YYYY-MM-DD')) {
+                        if (this.dateInfo[b].type === '4') {
+                            this.relist.push({
+                                tdfo: this.dateInfo[b].dateflg
+                            });
+                        }
                     }
                 }
                 // }
@@ -1310,7 +1344,7 @@
                         //跨天取整天，8小时   不包含公休日
                         this.dislengthtime = true;
                         let time = 0;
-                        for (let d = 0; d < this.relist.length - 1; d++) {
+                        for (let d = 0; d < this.relist.length; d++) {
                             time = time + 1;
                         }
                         this.form.lengthtime = time * 8;
@@ -1335,7 +1369,7 @@
                     if (this.typecheck == '0') {
                         let time = 0;
                         //不包含公休日
-                        for (let d = 0; d < this.relist.length - 1; d++) {
+                        for (let d = 0; d < this.relist.length; d++) {
                             time = time + 1;
                         }
                         this.form.lengthtime = time * 8;
@@ -1358,14 +1392,14 @@
                     if (this.retypecheck == '0') {
                         let time = 0;
                         //不包含公休日
-                        for (let d = 0; d < this.relistTwo.length - 1; d++) {
+                        for (let d = 0; d < this.relistTwo.length; d++) {
                             time = time + 1;
                         }
                         this.form.relengthtime = time * 8;
-                    } else if(this.retypecheck == '1') {
+                    } else if (this.retypecheck == '1') {
                         this.form.refinisheddate = this.form.reoccurrencedate;
                         this.form.relengthtime = 4;
-                    } else if(this.retypecheck == '2') {
+                    } else if (this.retypecheck == '2') {
                         this.form.refinisheddate = this.form.reoccurrencedate;
                         this.form.relengthtime = 0;
                     }
@@ -1396,14 +1430,14 @@
                 // }
                 if (this.retypecheck == '0') {
                     let timere = 0;
-                    for (let d = 0; d < this.relistTwo.length - 1; d++) {
+                    for (let d = 0; d < this.relistTwo.length; d++) {
                         timere = timere + 1;
                     }
                     this.form.relengthtime = timere * 8;
-                } else if(this.retypecheck == '1') {
+                } else if (this.retypecheck == '1') {
                     this.form.refinisheddate = this.form.reoccurrencedate;
                     this.form.relengthtime = 4;
-                } else if(this.retypecheck == '2') {
+                } else if (this.retypecheck == '2') {
                     this.form.refinisheddate = this.form.reoccurrencedate;
                     this.form.relengthtime = 0;
                 }
@@ -1705,10 +1739,10 @@
                                     return;
                                 }
                                 if (parseInt(this.form.status) >= 4) {
-                                    for (let d = 0; d < this.relistTwo.length - 1; d++) {
+                                    for (let d = 0; d < this.relistTwo.length; d++) {
                                         timere = timere + 1;
                                     }
-                                    if (timere < 1) {
+                                    if (timere === 0) {
                                         Message({
                                             message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
                                             type: 'error',
@@ -1725,10 +1759,10 @@
                                         return;
                                     }
                                 } else {
-                                    for (let d = 0; d < this.relist.length - 1; d++) {
+                                    for (let d = 0; d < this.relist.length; d++) {
                                         time = time + 1;
                                     }
-                                    if (time < 1) {
+                                    if (time === 0) {
                                         Message({
                                             message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
                                             type: 'error',
@@ -1749,10 +1783,10 @@
                             //代休_特殊
                             if (this.form.errortype === 'PR013007') {
                                 if (parseInt(this.form.status) >= 4) {
-                                    for (let d = 0; d < this.relistTwo.length - 1; d++) {
+                                    for (let d = 0; d < this.relistTwo.length; d++) {
                                         timere = timere + 1;
                                     }
-                                    if (timere < 1) {
+                                    if (timere === 0) {
                                         Message({
                                             message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
                                             type: 'error',
@@ -1762,17 +1796,17 @@
                                     } else {
                                         if (this.retypecheck === '0') {
                                             this.form.relengthtime = timere * 8;
-                                        } else if(this.retypecheck === '1'){
+                                        } else if (this.retypecheck === '1') {
                                             this.form.relengthtime = 4;
-                                        } else if(this.retypecheck === '2'){
+                                        } else if (this.retypecheck === '2') {
                                             this.form.relengthtime = 0;
                                         }
                                     }
                                 } else {
-                                    for (let d = 0; d < this.relist.length - 1; d++) {
+                                    for (let d = 0; d < this.relist.length; d++) {
                                         time = time + 1;
                                     }
-                                    if (time < 1) {
+                                    if (time === 0) {
                                         Message({
                                             message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
                                             type: 'error',
@@ -1850,10 +1884,10 @@
                                     //         timere = 4;
                                     //     }
                                     // } else {
-                                    for (let d = 0; d < this.relistTwo.length - 1; d++) {
+                                    for (let d = 0; d < this.relistTwo.length; d++) {
                                         timere = timere + 1;
                                     }
-                                    if (timere < 1) {
+                                    if (timere === 0) {
                                         Message({
                                             message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
                                             type: 'error',
@@ -1863,10 +1897,12 @@
                                     } else {
                                         if (this.retypecheck === '0') {
                                             this.form.relengthtime = timere * 8;
-                                        } else if(this.retypecheck === '1'){
+                                        } else if (this.retypecheck === '1') {
                                             this.form.relengthtime = 4;
-                                        } else if(this.retypecheck === '2'){
+                                            timere = 0.5;
+                                        } else if (this.retypecheck === '2') {
                                             this.form.relengthtime = 0;
+                                            timere = 0;
                                         }
                                         // }
                                     }
@@ -1888,10 +1924,10 @@
                                     //         time = 4;
                                     //     }
                                     // } else {
-                                    for (let d = 0; d < this.relist.length - 1; d++) {
+                                    for (let d = 0; d < this.relist.length; d++) {
                                         time = time + 1;
                                     }
-                                    if (time < 1) {
+                                    if (time === 0) {
                                         Message({
                                             message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
                                             type: 'error',
@@ -1901,10 +1937,9 @@
                                     } else {
                                         if (this.typecheck === '0') {
                                             this.form.lengthtime = time * 8;
-                                            // this.form.relengthtime = time * 8;
                                         } else {
                                             this.form.lengthtime = 4;
-                                            // this.form.relengthtime = 4;
+                                            time = 0.5;
                                         }
                                     }
                                     // }
@@ -1932,10 +1967,10 @@
                                 //   }
                                 // } else {
                                 if (parseInt(this.form.status) >= 4) {
-                                    for (let i = 0; i < this.relistTwo.length - 1; i++) {
+                                    for (let i = 0; i < this.relistTwo.length; i++) {
                                         timere = timere + 1;
                                     }
-                                    if (timere < 1) {
+                                    if (timere === 0) {
                                         Message({
                                             message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
                                             type: 'error',
@@ -1964,10 +1999,10 @@
                                         }
                                     }
                                 } else {
-                                    for (let i = 0; i < this.relist.length - 1; i++) {
+                                    for (let i = 0; i < this.relist.length; i++) {
                                         time = time + 1;
                                     }
-                                    if (time < 1) {
+                                    if (time === 0) {
                                         Message({
                                             message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
                                             type: 'error',
@@ -2082,6 +2117,10 @@
                                         }
 
                                         if (val === 'StartWorkflow') {
+                                            this.disable = false;
+                                            this.dislengthtime = true;
+                                            this.checkrelengthtime = true;
+                                            this.disrevacationtype = true;
                                             this.$refs.container.$refs.workflow.startWorkflow();
                                         }
                                     })
