@@ -623,10 +623,18 @@
                 this.activeName1 = 'first',
                   this.tabDisabled = false;
                 this.form = response;
+                let sum = 0;
                 if(this.form.status==='4'){
                   this.enableSave = true;
                 }
                 this.tableData = response.numberCount;
+                for(let i = 0 ;i<this.tableData.length;i++){
+                  if(this.tableData[i].claimamount){
+                    let claimamount = this.tableData[i].claimamount
+                    sum = Number(claimamount) + sum;
+                  }
+                }
+                this.form.claimamount = sum
                 //add-ws-基本情报1通货形式value1赋值
                 if (this.form.currencyposition !== null && this.form.currencyposition !== "") {
                   let letCurrencyposition = getDictionaryInfo(this.form.currencyposition);
@@ -646,8 +654,15 @@
                     this.form2.currencyposition = letCurrencyposition.value1;
                   }
                 }
-
+                let sum2=0;
                 this.tableData2 = response.numberCount;
+                for(let i = 0 ;i<this.tableData2.length;i++){
+                  if(this.tableData2[i].claimamount){
+                    let claimamount = this.tableData2[i].claimamount
+                    sum2 = Number(claimamount) + sum2;
+                  }
+                }
+                this.form2.claimamount = sum2
               }
             this.loading = false;
 

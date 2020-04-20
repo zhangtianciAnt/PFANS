@@ -419,6 +419,7 @@
           } else {
             callback();
             this.erroradmissiontime = '';
+            this.errorexitime = '';
           }
         } else {
           callback();
@@ -432,6 +433,7 @@
             this.errorexitime = this.$t('label.PFANS2002FORMVIEW_EXITTIME') + this.$t('normal.error_checkTime1') + this.$t('label.PFANS2003FORMVIEW_INTERVIEWDATE');
           } else {
             callback();
+            this.erroradmissiontime = '';
             this.errorexitime = '';
           }
         } else {

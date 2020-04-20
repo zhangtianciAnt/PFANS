@@ -509,7 +509,7 @@
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1030FORMVIEW_RATE')">
                     <el-input-number
-                      :disabled="true"
+                      :disabled="!disable"
                       :max="1000000000"
                       :min="0"
                       :precision="2"
