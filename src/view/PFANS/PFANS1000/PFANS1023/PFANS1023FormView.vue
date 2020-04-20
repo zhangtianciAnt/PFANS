@@ -1,13 +1,13 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer ref="container" :title="title" @buttonClick="buttonClick" v-loading="loading"
-                         :buttonList="buttonList"  :workflowCode="workflowCode"
+                         :buttonList="buttonList" :workflowCode="workflowCode"
                          @workflowState="workflowState" :canStart="canStart" @start="start" @end="end">
       <div slot="customize">
         <el-form :model="form" label-width="8vw" label-position="top" style="padding: 2vw" :rules="rules"
                  ref="refform">
-          <el-collapse>
-            <el-collapse-item>
+<!--          <el-collapse>-->
+<!--            <el-collapse-item>-->
               <template slot="title">
                 <span class="collapse_Title">{{$t('title.PFANS1023VIEW')}}</span>
               </template>
@@ -15,19 +15,22 @@
                 <el-col :span="8">
                   <el-form-item :label="$t('label.center')">
                     <el-input :disabled="true" style="width:20vw" v-model="centerid"></el-input>
-                    <el-input   v-show='false' v-model="form.center_id" :disabled="false" style="width: 20vw" maxlength='36'></el-input>
+                    <el-input v-show='false' v-model="form.center_id" :disabled="false" style="width: 20vw"
+                              maxlength='36'></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.group')">
                     <el-input :disabled="true" style="width:20vw" v-model="groupid"></el-input>
-                    <el-input  v-show='false' v-model="form.group_id" :disabled="false" style="width: 20vw" maxlength='36'></el-input>
+                    <el-input v-show='false' v-model="form.group_id" :disabled="false" style="width: 20vw"
+                              maxlength='36'></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.team')">
                     <el-input :disabled="true" style="width:20vw" v-model="teamid"></el-input>
-                    <el-input v-show='false'  v-model="form.team_id" :disabled="false" style="width: 20vw" maxlength='36'></el-input>
+                    <el-input v-show='false' v-model="form.team_id" :disabled="false" style="width: 20vw"
+                              maxlength='36'></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -106,8 +109,8 @@
                   </el-form-item>
                 </el-col>
               </el-row>
-            </el-collapse-item>
-          </el-collapse>
+<!--            </el-collapse-item>-->
+<!--          </el-collapse>-->
           <el-collapse>
             <el-collapse-item>
               <template slot="title">
@@ -115,42 +118,41 @@
               </template>
               <el-row>
                 <el-col :span="8">
-                  <el-checkbox v-model="checked1" @change="getChecked1" :disabled="!disabled">
                     <el-form-item :label="$t('label.PFANS1023FORMVIEW_COMPANY')" label-width="8vw">
+                      <el-checkbox v-model="checked1" @change="getChecked1" :disabled="!disabled">
+                      </el-checkbox>
                       <el-input v-model="form.company" :disabled="!disabled1" style="width: 18.4vw"></el-input>
                     </el-form-item>
-                  </el-checkbox>
                 </el-col>
                 <el-col :span="8">
-                  <el-checkbox v-model="checked2" @change="getChecked2" :disabled="!disabled">
                     <el-form-item :label="$t('label.PFANS1023FORMVIEW_SECRET')" label-width="8vw">
+                      <el-checkbox v-model="checked2" @change="getChecked2" :disabled="!disabled">
+                      </el-checkbox>
                       <el-input v-model="form.secret" :disabled="!disabled2" style="width: 18.4vw"></el-input>
                     </el-form-item>
-                  </el-checkbox>
                 </el-col>
                 <el-col :span="8">
-                  <el-checkbox v-model="checked3" @change="getChecked3" :disabled="!disabled">
                     <el-form-item :label="$t('label.PFANS1023FORMVIEW_INFORMATION')" label-width="8vw">
+                      <el-checkbox v-model="checked3" @change="getChecked3" :disabled="!disabled">
+                      </el-checkbox>
                       <el-input v-model="form.information" :disabled="!disabled3" style="width: 18.4vw"></el-input>
                     </el-form-item>
-                  </el-checkbox>
                 </el-col>
               </el-row>
-
               <el-row>
                 <el-col :span="8">
-                  <el-checkbox v-model="checked4" @change="getChecked4" :disabled="!disabled">
                     <el-form-item :label="$t('label.PFANS1023FORMVIEW_INTELLIGENCE')">
+                      <el-checkbox v-model="checked4" @change="getChecked4" :disabled="!disabled">
+                      </el-checkbox>
                       <el-input v-model="form.intelligence" :disabled="!disabled4" style="width: 18.4vw"></el-input>
                     </el-form-item>
-                  </el-checkbox>
                 </el-col>
                 <el-col :span="8">
-                  <el-checkbox v-model="checked5" @change="getChecked5" :disabled="!disabled">
                     <el-form-item :label="$t('label.PFANS1023FORMVIEW_CONFIDENTIAL')">
+                      <el-checkbox v-model="checked5" @change="getChecked5" :disabled="!disabled">
+                      </el-checkbox>
                       <el-input v-model="form.confident" :disabled="!disabled5" style="width: 18.4vw"></el-input>
                     </el-form-item>
-                  </el-checkbox>
                 </el-col>
               </el-row>
             </el-collapse-item>
@@ -333,11 +335,11 @@
           .then(response => {
             this.form = response;
             let rst = getOrgInfoByUserId(response.user_id);
-              if(rst){
-                  this.centerid = rst.centerNmae;
-                  this.groupid= rst.groupNmae;
-                  this.teamid= rst.teamNmae;
-              }
+            if (rst) {
+              this.centerid = rst.centerNmae;
+              this.groupid = rst.groupNmae;
+              this.teamid = rst.teamNmae;
+            }
             this.userlist = this.form.user_id;
             if (this.form.compatibleseal === '1') {
               this.radio = 1;
@@ -360,11 +362,11 @@
               this.checked2 = true;
               this.disabled2 = true;
             }
-              if(this.form.machinemedia == 'PJ028001'){
-                  this.workflowCode = 'W0058';
-              }else{
-                  this.workflowCode = 'W0030';
-              }
+            if (this.form.machinemedia == 'PJ028001') {
+              this.workflowCode = 'W0058';
+            } else {
+              this.workflowCode = 'W0030';
+            }
             if (this.form.information === '') {
               this.checked3 = false;
             } else {
@@ -404,13 +406,13 @@
         this.userlist = this.$store.getters.userinfo.userid;
         if (this.userlist !== null && this.userlist !== '') {
           let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-          if(rst) {
-              this.centerid = rst.centerNmae;
-              this.groupid = rst.groupNmae;
-              this.teamid = rst.teamNmae;
-              this.form.center_id = rst.centerId;
-              this.form.group_id = rst.groupId;
-              this.form.team_id = rst.teamId;
+          if (rst) {
+            this.centerid = rst.centerNmae;
+            this.groupid = rst.groupNmae;
+            this.teamid = rst.teamNmae;
+            this.form.center_id = rst.centerId;
+            this.form.group_id = rst.groupId;
+            this.form.team_id = rst.teamId;
           }
           this.form.user_id = this.$store.getters.userinfo.userid;
         }
@@ -435,20 +437,20 @@
         this.userlist = val;
         this.form.user_id = val;
         let rst = getOrgInfoByUserId(val);
-        if(rst) {
-            this.centerid = rst.centerNmae;
-            this.groupid = rst.groupNmae;
-            this.teamid = rst.teamNmae;
-            this.form.center_id = rst.centerId;
-            this.form.group_id = rst.groupId;
-            this.form.team_id = rst.teamId;
-        }else{
-            this.centerid =  '';
-            this.groupid =  '';
-            this.teamid =  '';
-            this.form.center_id = '';
-            this.form.group_id =  '';
-            this.form.team_id =  '';
+        if (rst) {
+          this.centerid = rst.centerNmae;
+          this.groupid = rst.groupNmae;
+          this.teamid = rst.teamNmae;
+          this.form.center_id = rst.centerId;
+          this.form.group_id = rst.groupId;
+          this.form.team_id = rst.teamId;
+        } else {
+          this.centerid = '';
+          this.groupid = '';
+          this.teamid = '';
+          this.form.center_id = '';
+          this.form.group_id = '';
+          this.form.team_id = '';
         }
         if (!this.form.user_id || this.form.user_id === '' || val === 'undefined') {
           this.erroruser = this.$t('normal.error_09') + this.$t('label.applicant');
@@ -457,11 +459,11 @@
         }
       },
       getMachinemedia(val) {
-          if(val == 'PJ028001'){
-              this.workflowCode = 'W0058';
-          }else{
-              this.workflowCode = 'W0030';
-          }
+        if (val == 'PJ028001') {
+          this.workflowCode = 'W0058';
+        } else {
+          this.workflowCode = 'W0030';
+        }
         this.form.machinemedia = val;
       },
       getFabuilding(val) {
@@ -605,13 +607,12 @@
                   this.loading = false;
                 });
             }
-          }
-          else{
-              Message({
-                  message: this.$t("normal.error_12"),
-                  type: 'error',
-                  duration: 5 * 1000
-              });
+          } else {
+            Message({
+              message: this.$t('normal.error_12'),
+              type: 'error',
+              duration: 5 * 1000,
+            });
           }
         });
       },
