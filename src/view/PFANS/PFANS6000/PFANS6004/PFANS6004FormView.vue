@@ -41,7 +41,7 @@
             <!--            毕业院校-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6001VIEW_GRADUATESCHOOL')" prop="graduateschool">
-                <el-input :disabled="true" style="width:20vw" v-model="form.graduateschool"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="form.graduateschool" maxlength="50"></el-input>
               </el-form-item>
             </el-col>
             <!--            学历-->
@@ -141,7 +141,7 @@
                 <el-input
                   :disabled="!disabled"
                   style="width:20vw"
-                  v-model="form.number">
+                  v-model="form.number" maxlength="20">
                 </el-input>
               </el-form-item>
             </el-col>
