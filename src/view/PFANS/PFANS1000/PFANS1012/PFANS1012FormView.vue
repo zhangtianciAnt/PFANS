@@ -1581,14 +1581,23 @@
                     .then(response => {
                       this.form = response.publicexpense;
                       let rst = getOrgInfoByUserId(response.publicexpense.user_id);
-
-                      if (this.form.moduleid !== null && this.form.moduleid !== "") {
-                        let moduleidinfo = getDictionaryInfo(this.form.projecttype);
-                        if (moduleidinfo) {
-                          this.form.moduleid = moduleidinfo.value1;
+                      //ADD-WS-4/20-交通费得时候模块修改
+                      if (this.form.type === 'PJ001001') {
+                        if (this.form.moduleid !== null && this.form.moduleid !== "") {
+                          let moduleidinfo = getDictionaryInfo(this.form.moduleid);
+                          if (moduleidinfo) {
+                            this.form.moduleidApp = moduleidinfo.value1;
+                          }
                         }
-
+                      } else if (this.form.type === 'PJ001002') {
+                        if (this.form.moduleid !== null && this.form.moduleid !== "") {
+                          let moduleidinfo = getDictionaryInfo(this.form.moduleid);
+                          if (moduleidinfo) {
+                            this.form.moduleid = moduleidinfo.value1;
+                          }
+                        }
                       }
+                      //ADD-WS-4/20-交通费得时候模块修改
                       // if (this.form.moduleid == 'PJ001001') {
                       //   let moduleidinfo = getDictionaryInfo(this.form.moduleid);
                       //   if (moduleidinfo != null) {
@@ -1955,7 +1964,6 @@
                     this.show7 = false;
                   this.form.moduleid = 'PJ002001';
                   this.form.moduleidApp = getDictionaryInfo(this.form.moduleid).value1;
-
                 } else if (this.form.type === 'PJ001002') {
                     this.show9 = false;
                     this.show6 = true;
