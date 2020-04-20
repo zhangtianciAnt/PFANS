@@ -173,7 +173,7 @@
           {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
           {'key': 'import', 'name': 'button.import', 'disabled': false, icon: 'el-icon-upload2'},
           {'key': 'export', 'name': 'button.export', 'disabled': false, icon: 'el-icon-download'},
-          //{'key': 'crAccount', 'name': 'button.crAccount', 'disabled': false, icon: 'el-icon-user'},
+          // {'key': 'crAccount', 'name': 'button.crAccount', 'disabled': false, icon: 'el-icon-user'},
           {'key': 'crAccount2', 'name': 'button.crAccount2', 'disabled': false, icon: 'el-icon-user'},
           // {'key': 'export2', 'name': 'button.download2', 'disabled': false, icon: 'el-icon-download'},
         ],
