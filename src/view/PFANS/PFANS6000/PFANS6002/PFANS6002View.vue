@@ -357,8 +357,10 @@
                             this.$t('label.PFANS6002VIEW_ADDRESSJ'),
                             this.$t('label.PFANS6002VIEW_ADDRESSE'),
                             this.$t('label.PFANS6002VIEW_PERSCALE'),
-                          this.$t('label.PFANS6003FORMVIEW_THECOMPANY'),
-                          this.$t('label.PFANS1024VIEW_BUSINESSCODE'),
+                            this.$t('label.PFANS6003FORMVIEW_THECOMPANY'),
+                            this.$t('label.PFANS1024VIEW_BUSINESSCODE'),
+                            this.$t('label.PFANS6002FORMVIEW_WEBSITE'),
+                            this.$t('label.remarks'),
                         ];
                         const filterVal = [
                             'custchinese',
@@ -378,8 +380,10 @@
                             'addjapanese',
                             'addenglish',
                             'perscale',
-                          'thecompany',
-                          'causecode'
+                            'thecompany',
+                            'causecode',
+                            'website',
+                            'remarks'
 
                         ];
                         const list = this.selectedlist;
