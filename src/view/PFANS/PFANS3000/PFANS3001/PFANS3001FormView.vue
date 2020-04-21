@@ -133,7 +133,7 @@
                   <el-select :disabled="!disable" clearable @change="changebusiness" style="width:20vw"
                              v-model="form.business_id">
                     <el-option
-                      v-if="form.ticketstype !== 'first'"
+                      v-if="form.ticketstype === 'first'"
                       :key="item.value"
                       :label="item.label"
                       :value="item.value"
