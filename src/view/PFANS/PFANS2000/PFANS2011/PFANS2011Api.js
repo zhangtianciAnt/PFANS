@@ -42,6 +42,14 @@ export function getList(data) {
   })
 }
 
+export function getOvertimeDay(data) {
+  return request({
+    url: 'overtime/getOvertimeDay',
+    method: 'post',
+    data: data
+  })
+}
+
 
 
 

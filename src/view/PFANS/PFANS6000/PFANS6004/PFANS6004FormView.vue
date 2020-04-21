@@ -412,14 +412,16 @@
         }
       };
       var valadmissiontime = (rule, value, callback) => {
-        if (this.form.exitime !== null && this.form.exitime !== '') {
-          if (moment(value).format('YYYY-MM-DD') > moment(this.form.exitime).format('YYYY-MM-DD')) {
-            callback(new Error(this.$t('label.PFANS6004FORMVIEW_ADMISSIONTIME') + this.$t('normal.error_checkTime2') + this.$t('label.PFANS2002FORMVIEW_EXITTIME')));
-            this.erroradmissiontime = this.$t('label.PFANS6004FORMVIEW_ADMISSIONTIME') + this.$t('normal.error_checkTime2') + this.$t('label.PFANS2002FORMVIEW_EXITTIME');
-          } else {
-            callback();
-            this.erroradmissiontime = '';
-            this.errorexitime = '';
+        if (this.form.exits == '0') {
+          if (this.form.exitime !== null && this.form.exitime !== '') {
+            if (moment(value).format('YYYY-MM-DD') > moment(this.form.exitime).format('YYYY-MM-DD')) {
+              callback(new Error(this.$t('label.PFANS6004FORMVIEW_ADMISSIONTIME') + this.$t('normal.error_checkTime2') + this.$t('label.PFANS2002FORMVIEW_EXITTIME')));
+              this.erroradmissiontime = this.$t('label.PFANS6004FORMVIEW_ADMISSIONTIME') + this.$t('normal.error_checkTime2') + this.$t('label.PFANS2002FORMVIEW_EXITTIME');
+            } else {
+              callback();
+              this.erroradmissiontime = '';
+              this.errorexitime = '';
+            }
           }
         } else {
           callback();
@@ -808,6 +810,7 @@
         }
       },
       changeexits(val) {
+
         this.form.exits = val;
         if (val === '1') {
           this.show = false;
@@ -817,6 +820,8 @@
           this.rules.sitevaluation[0].required = false;
           this.rules.businessimpact[0].required = false;
           this.rules.countermeasure[0].required = false;
+          this.erroradmissiontime = '';
+          this.errorexitime = '';
         } else {
           this.show = true;
           this.form.exitime = null;

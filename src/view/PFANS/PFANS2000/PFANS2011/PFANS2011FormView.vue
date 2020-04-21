@@ -368,7 +368,7 @@
                     value: '1',
                     label: this.$t('label.PFANS2011FROMVIEW_HALFDATE'),
                 }],
-                ageflg: '',
+                // ageflg: '',
                 sexflg: '',
                 form: {
                     centerid: '',
@@ -467,6 +467,8 @@
                 show: false,
                 disactualovertime: false,
                 dataList: [],
+                overtimeday: '',
+                overtimemen: '',
                 punchcardrecord: {
                     user_id: '',
                 },
@@ -475,6 +477,8 @@
         mounted() {
             this.getAttendance();
             this.getDateList();
+            this.getOvertimeDay();
+            this.getOvertimeMen();
             if (this.$route.params._id) {
                 this.loading = true;
                 this.$store
@@ -511,16 +515,21 @@
                         if (this.form.status === '0') {
                             this.workflowCode = 'W0001';
                             this.canStart = true;
-                            this.disactualovertime = true;
+                            this.disactualovertime = false;
                         } else if (this.form.status === '2') {
                             this.disable = false;
                             this.showovertimetype = true;
                             this.showovertimelength = true;
-                        } else if ((this.form.status === '4' || this.form.status === '6') && this.disable) {
+                            this.disactualovertime = false;
+                        } else if (this.form.status === '4' || this.form.status === '6') {
                             this.workflowCode = 'W0040';
                             this.canStart = true;
+                            if (!this.disable) {
+                                this.disactualovertime = false;
+                            } else {
+                                this.disactualovertime = true;
+                            }
                             this.disable = false;
-                            this.disactualovertime = true;
                             this.rules.actualovertime[0].required = true;
                         } else if (this.form.status === '7') {
                             this.workflowCode = 'W0040';
@@ -544,7 +553,7 @@
                         this.loading = false;
                     });
             } else {
-                this.ageflg = this.$store.getters.userinfo.userinfo.age;
+                // this.ageflg = this.$store.getters.userinfo.userinfo.age;
                 this.sexflg = this.$store.getters.userinfo.userinfo.sex;
                 this.userlist = this.$store.getters.userinfo.userid;
                 if (this.userlist !== null && this.userlist !== '') {
@@ -654,6 +663,50 @@
                                 this.timeend = response[i].time_end;
                             }
                         }
+                        this.loading = false;
+                    })
+                    .catch(error => {
+                        Message({
+                            message: error,
+                            type: 'error',
+                            duration: 5 * 1000,
+                        });
+                        this.loading = false;
+                    });
+            },
+            //获取本年度的五四青年节请假次数
+            getOvertimeDay() {
+                this.loading = true;
+                this.$store
+                    .dispatch('PFANS2011Store/getOvertimeDay', {
+                        'overtimetype': 'PR001007',
+                        'reserveovertimedate': new Date().getFullYear() + '-05-04',
+                        'userid': this.$store.getters.userinfo.userid
+                    })
+                    .then(response => {
+                        this.overtimeday = response.length;
+                        this.loading = false;
+                    })
+                    .catch(error => {
+                        Message({
+                            message: error,
+                            type: 'error',
+                            duration: 5 * 1000,
+                        });
+                        this.loading = false;
+                    });
+            },
+            //获取本年度的三八妇女节请假次数
+            getOvertimeMen() {
+                this.loading = true;
+                this.$store
+                    .dispatch('PFANS2011Store/getOvertimeDay', {
+                        'overtimetype': 'PR001008',
+                        'reserveovertimedate': new Date().getFullYear() + '-03-08',
+                        'userid': this.$store.getters.userinfo.userid
+                    })
+                    .then(response => {
+                        this.overtimemen = response.length;
                         this.loading = false;
                     })
                     .catch(error => {
@@ -877,7 +930,7 @@
                     this.form.overtimelength = this.options1[1].label;
                     this.form.reserveovertime = '4';
                     this.form.reserveovertimedate = dateMonth.getFullYear() + '-' + '05' + '-' + '04';
-                    if (Number(this.ageflg) > 28) {
+                    if (parseInt(this.$store.getters.userinfo.userinfo.age) > 28) {
                         Message({
                             message: this.$t('label.PFANS2011FROMVIEW_ERRORINFOW'),
                             type: 'error',
@@ -901,21 +954,64 @@
             buttonClick(val) {
                 this.$refs['refform'].validate(valid => {
                     if (valid) {
-                        if (this.form.overtimetype === 'PR001008' && this.$store.getters.userinfo.userinfo.sex !== 'PR019002') {
-                            Message({
-                                message: this.$t('label.PFANS2011FROMVIEW_ERRORINFOS'),
-                                type: 'error',
-                                duration: 5 * 1000,
-                            });
-                            return;
+                        if (this.form.overtimetype === 'PR001008') {
+                            //三八妇女节重复申请check
+                            // if (this.overtimemen >= 1) {
+                            //     Message({
+                            //         message: this.$t('label.PFANS2011FROMVIEW_OVERTIMEMEN'),
+                            //         type: 'error',
+                            //         duration: 5 * 1000,
+                            //     });
+                            //     return;
+                            // }
+                            if (this.$store.getters.userinfo.userinfo.sex !== 'PR019002') {
+                                Message({
+                                    message: this.$t('label.PFANS2011FROMVIEW_ERRORINFOS'),
+                                    type: 'error',
+                                    duration: 5 * 1000,
+                                });
+                                return;
+                            }
+
                         }
-                        if (this.form.overtimetype === 'PR001007' && Number(this.ageflg) > 28) {
-                            Message({
-                                message: this.$t('label.PFANS2011FROMVIEW_ERRORINFOW'),
-                                type: 'error',
-                                duration: 5 * 1000,
-                            });
-                            return;
+                        if (this.form.overtimetype === 'PR001007') {
+                            //五四青年节重复申请check
+                            // if (this.overtimeday >= 1) {
+                            //     Message({
+                            //         message: this.$t('label.PFANS2011FROMVIEW_OVERTIMEDAY'),
+                            //         type: 'error',
+                            //         duration: 5 * 1000,
+                            //     });
+                            //     return;
+                            // }
+                            //五四青年节28周岁以内申请
+                            if (parseInt(this.$store.getters.userinfo.userinfo.age) > 28) {
+                                Message({
+                                    message: this.$t('label.PFANS2011FROMVIEW_ERRORINFOW'),
+                                    type: 'error',
+                                    duration: 5 * 1000,
+                                });
+                                return;
+                            }
+                        }
+                        if (parseInt(this.form.status) <= 4 || this.form.status === '') {
+                            if (parseInt(this.form.reserveovertime) === 0) {
+                                Message({
+                                    message: this.$t('label.PFANS2011VIEW_TIMEERROR'),
+                                    type: 'error',
+                                    duration: 5 * 1000,
+                                });
+                                return;
+                            }
+                        } else if (parseInt(this.form.status) > 4) {
+                            if (parseInt(this.form.actualovertime) === 0) {
+                                Message({
+                                    message: this.$t('label.PFANS2011VIEW_TIMEERROR'),
+                                    type: 'error',
+                                    duration: 5 * 1000,
+                                });
+                                return;
+                            }
                         }
                         this.loading = true;
                         this.form.userid = this.userlist;
@@ -962,6 +1058,9 @@
                                         }
                                     }
                                     if (val === 'StartWorkflow') {
+                                        this.showovertimetype = true;
+                                        this.showovertimelength = true;
+                                        this.disactualovertime = false;
                                         this.$refs.container.$refs.workflow.startWorkflow();
                                     }
                                 })
