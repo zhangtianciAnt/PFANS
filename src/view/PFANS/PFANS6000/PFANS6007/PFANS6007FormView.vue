@@ -53,7 +53,7 @@
                                              :label="$t('label.user_name')"
                                              width="100"></el-table-column>
                             <el-table-column property="account"
-                                             width="0" v-show="false"></el-table-column>
+                                             width="0" v-if="false"></el-table-column>
                             <el-table-column property="group_id"
                                              :label="$t('label.PFANS5001FORMVIEW_DEPARTMENTID')"
                                              width="150"></el-table-column>
