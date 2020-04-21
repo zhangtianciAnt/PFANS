@@ -15,6 +15,20 @@ export function getPjnameList(data) {
     params: data
   })
 }
+  export function getPjnameList6007(data) {
+    return request({
+      url: 'variousfunds/getPjnameList6007',
+      method: 'post',
+      data: data
+    })
+  }
+export function listPsdcd(data) {
+  return request({
+    url: 'variousfunds/listPsdcd',
+    method: 'get',
+    params: data
+  })
+}
 
 export function getvariousfundsApplyOne(data) {
   return request({
