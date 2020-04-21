@@ -1374,20 +1374,12 @@
                           entrycondition = letentrycondition.value2;
                       }
                       //契約書番号(契約種類 + 事業年度 + 上下期 + 社内組織番号)
-                      //通し番号
-                      let number = '01';
-                      if(this.contractnumbercount.toString().length === 1){
-                          number = '0' + this.contractnumbercount
-                      }
-                      else if(this.contractnumbercount.toString().length === 2){
-                          number = this.contractnumbercount
-                      }
                       if(this.checked){
                           this.letcontractnumber = this.form.contractnumber.split("-")[0] + letbook;
                       }
                       else{
                         if(this.groupinfo[2] !== null){
-                          this.letcontractnumber = abbreviation + applicationdate + entrycondition + this.groupinfo[2] + '0000' + number + letbook;
+                          this.letcontractnumber = abbreviation + applicationdate + entrycondition + this.groupinfo[2] + '0000' + letbook;
                         } else {
                           Message({
                             message: this.$t("normal.error_14"),

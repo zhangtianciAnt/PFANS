@@ -100,7 +100,7 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1004VIEW_BUSINESSPLANBALANCE')" prop="businessplanbalance"
                             v-show="show">
-                <el-input-number :disabled="!disabled" :max="1000000000" :min="0"
+                <el-input-number :disabled="!disabled" :max="1000000000000" :min="0"
                                  :precision="2" @change="moneyDiff" controls-position="right" style="width:20vw"
                                  v-model="form.businessplanbalance"></el-input-number>
               </el-form-item>
