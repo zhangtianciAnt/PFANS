@@ -956,14 +956,14 @@
                     if (valid) {
                         if (this.form.overtimetype === 'PR001008') {
                             //三八妇女节重复申请check
-                            if (this.overtimemen >= 1) {
-                                Message({
-                                    message: this.$t('label.PFANS2011FROMVIEW_OVERTIMEMEN'),
-                                    type: 'error',
-                                    duration: 5 * 1000,
-                                });
-                                return;
-                            }
+                            // if (this.overtimemen >= 1) {
+                            //     Message({
+                            //         message: this.$t('label.PFANS2011FROMVIEW_OVERTIMEMEN'),
+                            //         type: 'error',
+                            //         duration: 5 * 1000,
+                            //     });
+                            //     return;
+                            // }
                             if (this.$store.getters.userinfo.userinfo.sex !== 'PR019002') {
                                 Message({
                                     message: this.$t('label.PFANS2011FROMVIEW_ERRORINFOS'),
@@ -976,18 +976,37 @@
                         }
                         if (this.form.overtimetype === 'PR001007') {
                             //五四青年节重复申请check
-                            if (this.overtimeday >= 1) {
+                            // if (this.overtimeday >= 1) {
+                            //     Message({
+                            //         message: this.$t('label.PFANS2011FROMVIEW_OVERTIMEDAY'),
+                            //         type: 'error',
+                            //         duration: 5 * 1000,
+                            //     });
+                            //     return;
+                            // }
+                            //五四青年节28周岁以内申请
+                            if (parseInt(this.$store.getters.userinfo.userinfo.age) > 28) {
                                 Message({
-                                    message: this.$t('label.PFANS2011FROMVIEW_OVERTIMEDAY'),
+                                    message: this.$t('label.PFANS2011FROMVIEW_ERRORINFOW'),
                                     type: 'error',
                                     duration: 5 * 1000,
                                 });
                                 return;
                             }
-                            //五四青年节28周岁以内申请
-                            if (parseInt(this.$store.getters.userinfo.userinfo.age) > 28) {
+                        }
+                        if (parseInt(this.form.status) <= 4 || this.form.status === '') {
+                            if (parseInt(this.form.reserveovertime) === 0) {
                                 Message({
-                                    message: this.$t('label.PFANS2011FROMVIEW_ERRORINFOW'),
+                                    message: this.$t('label.PFANS2011VIEW_TIMEERROR'),
+                                    type: 'error',
+                                    duration: 5 * 1000,
+                                });
+                                return;
+                            }
+                        } else if (parseInt(this.form.status) > 4) {
+                            if (parseInt(this.form.actualovertime) === 0) {
+                                Message({
+                                    message: this.$t('label.PFANS2011VIEW_TIMEERROR'),
                                     type: 'error',
                                     duration: 5 * 1000,
                                 });
