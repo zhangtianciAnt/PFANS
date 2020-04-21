@@ -1,5 +1,5 @@
 <template>
-  <div style="min-height: 100%">`
+  <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick" ref="container"
                          @workflowState="workflowState" v-loading="loading"
                          :canStart="canStart" @start="start" @end="end">
@@ -8,8 +8,8 @@
                  style="padding:2vw">
           <el-tabs v-model="activeName" type="border-card">
             <el-tab-pane :label="$t('label.PFANS1011VIEW_OVERSEASBUSINESS')" name="first">
-<!--              境外出張予定者-->
-              <span  class="collapse_Title">{{$t('label.PFANS1011VIEW_OVERSEASBUSINESS')}}</span>
+              <!--              境外出張予定者-->
+              <span class="collapse_Title">{{$t('label.PFANS1011VIEW_OVERSEASBUSINESS')}}</span>
               <el-row style="padding-top:1.5vw">
                 <el-col :span="8">
                   <el-form-item :label="$t('label.center')">
@@ -44,8 +44,8 @@
                   </el-form-item>
                 </el-col>
               </el-row>
-<!--              面談者（記入者）-->
-              <span  class="collapse_Title">{{$t('label.PFANS1011VIEW_IN2')}}</span>
+              <!--              面談者（記入者）-->
+              <span class="collapse_Title">{{$t('label.PFANS1011VIEW_IN2')}}</span>
               <el-row style="padding-top:1.5vw">
                 <el-col :span="8">
                   <el-form-item :label="$t('label.center')">
@@ -81,7 +81,7 @@
                   </el-form-item>
                 </el-col>
               </el-row>
-  <!--              出張事前面談事項（面談者で手書き記入)-->
+              <!--              出張事前面談事項（面談者で手書き記入)-->
               <el-row>
                 <!--                  1-->
                 <el-col :span="8">
@@ -121,7 +121,7 @@
                 </el-col>
               </el-row>
               <el-row>
-<!--                4-->
+                <!--                4-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1011VIEW_HEALTHOFMEMBERS')" label-width="23vw">
                     <span style="margin-right: 1vw ">{{$t('label.no')}}</span>
@@ -133,7 +133,7 @@
                     <span style="margin-left: 1vw ">{{$t('label.yes')}}</span>
                   </el-form-item>
                 </el-col>
-<!--                5-->
+                <!--                5-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1011VIEW_CUSTOMERS')" label-width="24vw">
                     <span style="margin-right: 1vw ">{{$t('label.no')}}</span>
@@ -145,7 +145,7 @@
                     <span style="margin-left: 1vw ">{{$t('label.yes')}}</span>
                   </el-form-item>
                 </el-col>
-<!--                6-->
+                <!--                6-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1011VIEW_OBJECTCHINA')" label-width="23vw">
                     <span style="margin-right: 1vw ">{{$t('label.no')}}</span>
@@ -159,9 +159,9 @@
                 </el-col>
               </el-row>
             </el-tab-pane>
-            <el-tab-pane :label="$t('label.PFANS1011VIEW_OVERSEASBUSINESSNI')" name="second">
-            <!--   境外出張にあたって-->
-              <span  class="collapse_Title">{{$t('label.PFANS1011VIEW_OVERSEASBUSINESSNI')}}</span>
+            <el-tab-pane :label="$t('label.PFANS1011VIEW_INTERVIEWCONTENT')" name="second">
+              <!--   境外出張にあたって-->
+<!--              <span class="collapse_Title">{{$t('label.PFANS1011VIEW_OVERSEASBUSINESSNI')}}</span>-->
               <el-row style="padding-top:1.5vw">
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1009FORMVIEW_OBJECTIVE')">
@@ -179,7 +179,7 @@
                 </el-col>
               </el-row>
               <!-- 健康状況-->
-              <span  class="collapse_Title">{{$t('label.PFANS1011VIEW_HEALTHCONDITION')}}</span>
+              <span class="collapse_Title">{{$t('label.PFANS1011VIEW_HEALTHCONDITION')}}</span>
               <el-row style="padding-top:1.5vw">
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1011VIEW_KOLEI')">
@@ -206,8 +206,8 @@
               </el-row>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1011VIEW_EMERGENCYCONTACT')" name="third">
-            <!-- 緊急時の連絡先（家族）-->
-              <span  class="collapse_Title">{{$t('label.PFANS1011VIEW_EMERGENCYCONTACT1')}}</span>
+              <!-- 緊急時の連絡先（家族）-->
+              <span class="collapse_Title">{{$t('label.PFANS1011VIEW_EMERGENCYCONTACT1')}}</span>
               <el-row style="padding-top:1.5vw">
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS2007VIEW_NAME')" prop="name">
@@ -228,12 +228,13 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1024VIEW_PHONE')" prop="phonenumber">
-                    <el-input :disabled="!disable" style="width:20vw" v-model="form.phonenumber" maxlength="20"></el-input>
+                    <el-input :disabled="!disable" style="width:20vw" v-model="form.phonenumber"
+                              maxlength="20"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
               <!-- 出張先事業場と受入責任者-->
-              <span  class="collapse_Title">{{$t('label.PFANS1011VIEW_TORESPONSIBLEPERSON')}}</span>
+              <span class="collapse_Title">{{$t('label.PFANS1011VIEW_TORESPONSIBLEPERSON')}}</span>
               <el-row style="padding-top:1.5vw">
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1011VIEW_DOMEI')" prop="domei">
@@ -315,7 +316,7 @@
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import {Message} from 'element-ui';
   import user from '../../../components/user.vue';
-  import {getOrgInfoByUserId, getUserInfo,getDictionaryInfo} from '@/utils/customize';
+  import {getDictionaryInfo, getOrgInfoByUserId, getUserInfo} from '@/utils/customize';
   import {validateEmail} from '@/utils/validate';
   import moment from 'moment';
 
@@ -404,9 +405,9 @@
         }
       };
       return {
-          centerid: '',
-          groupid: '',
-          teamid: '',
+        centerid: '',
+        groupid: '',
+        teamid: '',
         activeName: 'first',
         loading: false,
         error: '',
@@ -493,7 +494,7 @@
             trigger: 'blur',
           },
             // {validator: validatephonenumber, trigger: 'blur'}
-            ],
+          ],
           businessplace: [{
             required: true,
             message: this.$t('normal.error_08') + this.$t('label.PFANS1011VIEW_BUSINESSPLACE'),
@@ -525,7 +526,7 @@
             trigger: 'blur',
           },
             // {validator: validatePhone, trigger: 'blur'}
-            ],
+          ],
           email: [{
             required: true,
             message: this.$t('normal.error_08') + this.$t('label.email'),
@@ -548,7 +549,7 @@
             trigger: 'blur',
           },
             // {validator: validatePhonenum, trigger: 'blur'}
-            ],
+          ],
           mail: [{
             required: true,
             message: this.$t('normal.error_08') + this.$t('label.email'),
@@ -579,12 +580,12 @@
           .dispatch('PFANS1011Store/getOffshoreOne', {'offshore_id': this.$route.params._id})
           .then(response => {
             this.form = response;
-              let rst = getOrgInfoByUserId(response.user_id);
-              if(rst){
-                  this.centerid = rst.centerNmae;
-                  this.groupid= rst.groupNmae;
-                  this.teamid= rst.teamNmae;
-              }
+            let rst = getOrgInfoByUserId(response.user_id);
+            if (rst) {
+              this.centerid = rst.centerNmae;
+              this.groupid = rst.groupNmae;
+              this.teamid = rst.teamNmae;
+            }
             this.userlist = this.form.user_id;
             this.userelist = this.form.user;
             this.loading = false;
@@ -602,14 +603,14 @@
         if (this.userlist !== null && this.userlist !== '') {
           this.form.user_id = this.$store.getters.userinfo.userid;
           let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-            if(rst) {
-                this.centerid = rst.centerNmae;
-                this.groupid= rst.groupNmae;
-                this.teamid= rst.teamNmae;
-                this.form.center_id = rst.centerId;
-                this.form.group_id = rst.groupId;
-                this.form.team_id = rst.teamId;
-            }
+          if (rst) {
+            this.centerid = rst.centerNmae;
+            this.groupid = rst.groupNmae;
+            this.teamid = rst.teamNmae;
+            this.form.center_id = rst.centerId;
+            this.form.group_id = rst.groupId;
+            this.form.team_id = rst.teamId;
+          }
           let lst = getUserInfo(this.$store.getters.userinfo.userid);
           if (lst) {
             this.form.serviceposition = getDictionaryInfo(lst.userinfo.post).value1;
@@ -626,25 +627,25 @@
       }
     },
     methods: {
-      checkRequire(){
-        if(!this.form.user_id || !this.form.user || !this.form.interviewday){
+      checkRequire() {
+        if (!this.form.user_id || !this.form.user || !this.form.interviewday) {
           this.activeName = 'first';
-        }else if(!this.form.name ||
-        !this.form.shank ||
-        !this.form.address ||
-        !this.form.phonenumber ||
-        !this.form.domei ||
-        !this.form.businessplace ||
-        !this.form.deploy ||
-        !this.form.responsibleperson ||
-        !this.form.specialclass ||
-        !this.form.phone ||
-        !this.form.email ||
-        !this.form.special ||
-        !this.form.phonenum ||
-        !this.form.mail ||
-        !this.form.actasaperson
-        ){
+        } else if (!this.form.name ||
+          !this.form.shank ||
+          !this.form.address ||
+          !this.form.phonenumber ||
+          !this.form.domei ||
+          !this.form.businessplace ||
+          !this.form.deploy ||
+          !this.form.responsibleperson ||
+          !this.form.specialclass ||
+          !this.form.phone ||
+          !this.form.email ||
+          !this.form.special ||
+          !this.form.phonenum ||
+          !this.form.mail ||
+          !this.form.actasaperson
+        ) {
           this.activeName = 'third';
         }
       },
@@ -652,21 +653,21 @@
         this.form.user_id = val;
         let rst = getUserInfo(val);
         let lst = getOrgInfoByUserId(val);
-          if(lst){
-              this.centerid = lst.centerNmae;
-              this.groupid = lst.groupNmae;
-              this.teamid = lst.teamNmae;
-              this.form.center_id = lst.centerId;
-              this.form.group_id = lst.groupId;
-              this.form.team_id = lst.teamId;
-          }else{
-              this.centerid =  '';
-              this.groupid =  '';
-              this.teamid =  '';
-              this.form.center_id = '';
-              this.form.group_id =  '';
-              this.form.team_id =  '';
-          }
+        if (lst) {
+          this.centerid = lst.centerNmae;
+          this.groupid = lst.groupNmae;
+          this.teamid = lst.teamNmae;
+          this.form.center_id = lst.centerId;
+          this.form.group_id = lst.groupId;
+          this.form.team_id = lst.teamId;
+        } else {
+          this.centerid = '';
+          this.groupid = '';
+          this.teamid = '';
+          this.form.center_id = '';
+          this.form.group_id = '';
+          this.form.team_id = '';
+        }
         if (rst) {
           this.form.serviceposition = getDictionaryInfo(rst.userinfo.rank).value1;
         } else {
@@ -770,13 +771,12 @@
                     this.loading = false;
                   });
               }
-            }
-            else{
-                Message({
-                    message: this.$t("normal.error_12"),
-                    type: 'error',
-                    duration: 5 * 1000
-                });
+            } else {
+              Message({
+                message: this.$t('normal.error_12'),
+                type: 'error',
+                duration: 5 * 1000,
+              });
             }
           });
         }

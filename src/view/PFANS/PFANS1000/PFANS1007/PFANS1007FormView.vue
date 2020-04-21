@@ -192,15 +192,16 @@
                       </el-input-number>
                     </template>
                   </el-table-column>
-                  <el-table-column :label="$t('label.PFANS1007FORMVIEW_YEARSOFUSE')" align="center" prop="yearsofuse"
-                                   width="200">
-                    <template slot-scope="scope">
-                      <el-input-number @change="change" :no="scope.row" :disabled="!disabled" :min="0" :precision="2"
-                                       style="width:100%" :max="9999999" controls-position="right"
-                                       v-model="scope.row.yearsofuse">
-                      </el-input-number>
-                    </template>
-                  </el-table-column>
+                  <!--ztc 0420 修改-->
+                  <!--<el-table-column :label="$t('label.PFANS1007FORMVIEW_YEARSOFUSE')" align="center" prop="yearsofuse"-->
+                  <!--width="200">-->
+                  <!--<template slot-scope="scope">-->
+                  <!--<el-input-number @change="change" :no="scope.row" :disabled="!disabled" :min="0" :precision="2"-->
+                  <!--style="width:100%" :max="9999999" controls-position="right"-->
+                  <!--v-model="scope.row.yearsofuse">-->
+                  <!--</el-input-number>-->
+                  <!--</template>-->
+                  <!--</el-table-column>-->
                   <el-table-column :label="$t('label.PFANS1007FORMVIEW_NETWORTH')" align="center" prop="networth"
                                    width="200">
                     <template slot-scope="scope">
@@ -627,7 +628,7 @@
       },
       change(val) {
         this.form.originalvalue = val;
-        this.form.yearsofuse = val;
+        // this.form.yearsofuse = val;
         this.form.networth = val;
       },
       getProcessingmethod(val) {
@@ -686,7 +687,7 @@
               settagnumber: '',
               purchasedate: '',
               originalvalue: '',
-              yearsofuse: '',
+              // yearsofuse: '',
               networth: '',
               scrapping: '',
               remarks: '',
@@ -725,7 +726,7 @@
           settagnumber: '',
           purchasedate: '',
           originalvalue: 0,
-          yearsofuse: 0,
+          // yearsofuse: 0,
           networth: 0,
           scrapping: '',
           remarks: '',
@@ -814,7 +815,7 @@
               this.baseInfo.scrapdetails = [];
               for (let i = 0; i < this.table1.length; i++) {
                 if (this.table1[i].fixedassetnam !== '' || this.table1[i].megasnumber !== '' || this.table1[i].settagnumber !== '' ||
-                  this.table1[i].purchasedate !== '' || this.table1[i].originalvalue !== 0 || this.table1[i].yearsofuse !== 0 || this.table1[i].networth !== 0
+                  this.table1[i].purchasedate !== '' || this.table1[i].originalvalue !== 0 || this.table1[i].networth !== 0
                   || this.table1[i].scrapping !== '' || this.table1[i].remarks !== '') {
                   this.baseInfo.scrapdetails.push(
                     {
@@ -825,7 +826,7 @@
                       settagnumber: this.table1[i].settagnumber,
                       purchasedate: this.table1[i].purchasedate,
                       originalvalue: this.table1[i].originalvalue,
-                      yearsofuse: this.table1[i].yearsofuse,
+                      // yearsofuse: this.table1[i].yearsofuse,
                       networth: this.table1[i].networth,
                       scrapping: this.table1[i].scrapping,
                       remarks: this.table1[i].remarks,

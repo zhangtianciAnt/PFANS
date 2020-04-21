@@ -660,7 +660,7 @@ export default {
       if (dictionaryInfo) {
         row.languagevalue = dictionaryInfo.value2;
       }
-      this.sum = true;
+      this.sum();
     },
     changeworkskills(val, row) {
       row.workskills = val;

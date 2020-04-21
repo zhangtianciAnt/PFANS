@@ -499,8 +499,8 @@
           .then(response => {
             this.form = response;
             this.loading = false;
-            if (this.form.uploadfile != '') {
-              let uploadfile = (this.form.uploadfile || ' ').split(';');
+            if (this.form.uploadfile != ''&& this.form.uploadfile != null) {
+              let uploadfile = this.form.uploadfile.split(';');
               for (var i = 0; i < uploadfile.length; i++) {
                 if (uploadfile[i].split(',')[0] != '') {
                   let o = {};

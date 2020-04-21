@@ -41,7 +41,7 @@
             <!--            毕业院校-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6001VIEW_GRADUATESCHOOL')" prop="graduateschool">
-                <el-input :disabled="true" style="width:20vw" v-model="form.graduateschool"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="form.graduateschool" maxlength="50"></el-input>
               </el-form-item>
             </el-col>
             <!--            学历-->
@@ -141,7 +141,7 @@
                 <el-input
                   :disabled="!disabled"
                   style="width:20vw"
-                  v-model="form.number">
+                  v-model="form.number" maxlength="20">
                 </el-input>
               </el-form-item>
             </el-col>
@@ -412,13 +412,16 @@
         }
       };
       var valadmissiontime = (rule, value, callback) => {
-        if (this.form.exitime !== null && this.form.exitime !== '') {
-          if (moment(value).format('YYYY-MM-DD') > moment(this.form.exitime).format('YYYY-MM-DD')) {
-            callback(new Error(this.$t('label.PFANS6004FORMVIEW_ADMISSIONTIME') + this.$t('normal.error_checkTime2') + this.$t('label.PFANS2002FORMVIEW_EXITTIME')));
-            this.erroradmissiontime = this.$t('label.PFANS6004FORMVIEW_ADMISSIONTIME') + this.$t('normal.error_checkTime2') + this.$t('label.PFANS2002FORMVIEW_EXITTIME');
-          } else {
-            callback();
-            this.erroradmissiontime = '';
+        if (this.form.exits == '0') {
+          if (this.form.exitime !== null && this.form.exitime !== '') {
+            if (moment(value).format('YYYY-MM-DD') > moment(this.form.exitime).format('YYYY-MM-DD')) {
+              callback(new Error(this.$t('label.PFANS6004FORMVIEW_ADMISSIONTIME') + this.$t('normal.error_checkTime2') + this.$t('label.PFANS2002FORMVIEW_EXITTIME')));
+              this.erroradmissiontime = this.$t('label.PFANS6004FORMVIEW_ADMISSIONTIME') + this.$t('normal.error_checkTime2') + this.$t('label.PFANS2002FORMVIEW_EXITTIME');
+            } else {
+              callback();
+              this.erroradmissiontime = '';
+              this.errorexitime = '';
+            }
           }
         } else {
           callback();
@@ -432,6 +435,7 @@
             this.errorexitime = this.$t('label.PFANS2002FORMVIEW_EXITTIME') + this.$t('normal.error_checkTime1') + this.$t('label.PFANS2003FORMVIEW_INTERVIEWDATE');
           } else {
             callback();
+            this.erroradmissiontime = '';
             this.errorexitime = '';
           }
         } else {
@@ -548,7 +552,7 @@
           number: [
             {
               required: true,
-              message: this.$t('normal.error_08') + this.$t('label.PFANS5001FORMVIEW_NUMBERS'),
+              message: this.$t('normal.error_08') + this.$t('label.PFANSUSERFORMVIEW_JOBNUMBER'),
               trigger: 'blur',
             },
           ],
@@ -587,7 +591,7 @@
           operationform: [
             {
               required: true,
-              message: this.$t('normal.error_09') + this.$t('label.PFANS2026VIEW_EDUCATIONALBACKGROUND'),
+              message: this.$t('normal.error_09') + this.$t('label.PFANS6004FORMVIEW_OPERATIONFORM'),
               trigger: 'change',
             },
           ],
@@ -595,7 +599,7 @@
           jobclassification: [
             {
               required: true,
-              message: this.$t('normal.error_09') + this.$t('label.PFANS2003FORMVIEW_INTERVIEWDEP'),
+              message: this.$t('normal.error_09') + this.$t('label.PFANS6004FORMVIEW_JOBCLASSIFICATIONM'),
               trigger: 'change',
             },
           ],
@@ -603,7 +607,7 @@
           admissiontime: [
             {
               required: true,
-              message: this.$t('normal.error_09') + this.$t('label.PFANS2003FORMVIEW_INTERVIEWDATE'),
+              message: this.$t('normal.error_09') + this.$t('label.PFANS6004FORMVIEW_ADMISSIONTIME'),
               trigger: 'change',
             },
             {validator: valadmissiontime, trigger: 'change'},
@@ -806,6 +810,7 @@
         }
       },
       changeexits(val) {
+
         this.form.exits = val;
         if (val === '1') {
           this.show = false;
@@ -815,14 +820,16 @@
           this.rules.sitevaluation[0].required = false;
           this.rules.businessimpact[0].required = false;
           this.rules.countermeasure[0].required = false;
+          this.erroradmissiontime = '';
+          this.errorexitime = '';
+        } else {
+          this.show = true;
           this.form.exitime = null;
           this.form.exitreason = null;
           this.form.alltechnology = null;
           this.form.sitevaluation = null;
           this.form.businessimpact = null;
           this.form.countermeasure = null;
-        } else {
-          this.show = true;
           this.rules.exitime[0].required = true;
           this.rules.exitreason[0].required = true;
           this.rules.alltechnology[0].required = true;

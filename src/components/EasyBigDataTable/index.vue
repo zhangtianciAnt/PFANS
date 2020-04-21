@@ -73,7 +73,7 @@
         rowheight:40,
         listQuery: {
           page: 1,
-          limit: 10
+          limit: 50
         },
         paginationShow:false,
         fit:false,
