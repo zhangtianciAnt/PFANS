@@ -1,13 +1,22 @@
 <template>
-  <EasyNormalTable :title="title" :columns="columns" :data="data" :rowid="row" :buttonList="buttonList"
-                   @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
-  </EasyNormalTable>
+  <EasyNormalTable
+    ref="dataTable"
+    :buttonList="buttonList"
+    :columns="columns"
+    :data="data"
+    :title="title"
+    @buttonClick="buttonClick"
+    @rowClick="rowClick"
+    v-loading="loading"
+    :showSelection="true"
+    :selectable="selectInit"
+  ></EasyNormalTable>
 </template>
 
 <script>
   import EasyNormalTable from '@/components/EasyNormalTable';
   import {Message} from 'element-ui';
-  import {getOrgInfoByUserId, getStatus, getUserInfo} from '@/utils/customize';
+  import {getDictionaryInfo, getOrgInfoByUserId, getStatus, getUserInfo} from '@/utils/customize';
 
   export default {
     name: 'PFANS1037FormView',
@@ -17,6 +26,8 @@
     data() {
       return {
         loading: false,
+        selectedlist: [],
+        comIdList: [],
         title: '',
         // 表格数据源
         data: [],
@@ -59,18 +70,39 @@
           },
         ],
         buttonList: [
-          {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
-          {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
-          {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
+          {
+            key: 'view',
+            name: 'button.view',
+            disabled: false,
+            icon: 'el-icon-view'
+          },
+          {
+            key: 'insert',
+            name: 'button.insert',
+            disabled: false,
+            icon: 'el-icon-plus'
+          },
+          {
+            key: 'update',
+            name: 'button.update',
+            disabled: false,
+            icon: 'el-icon-edit'
+          },
+          {
+            key: "export",
+            name: "button.export",
+            disabled: false,
+            icon: "el-icon-download"
+          }
         ],
         rowid: '',
         row: '',
         url: '',
+        // row_id: ""
       };
     },
     mounted() {
       this.getCompanyProjectList(this.$route.params.title);
-
     },
     methods: {
       getCompanyProjectList(val) {
@@ -81,7 +113,7 @@
         } else if (val === 8) {
           this.row = 'softwaretransferid';
           this.title = 'title.PFANS1008VIEW';
-            this.dispatch('PFANS1037Store/getSoftwaretransfer');
+          this.dispatch('PFANS1037Store/getSoftwaretransfer');
         } else if (val === 9) {
           this.row = 'fixedassets_id';
           this.title = 'title.PFANS1009VIEW';
@@ -126,6 +158,9 @@
         }
         return response;
         this.loading = false;
+      },
+      selectInit(row, index) {
+        return row.status === "正常结束";
       },
       rowClick(row) {
         if (this.$route.params.title === 7) {
@@ -186,6 +221,72 @@
               disabled: true,
             },
           });
+        }
+        if (val === "export") {
+          if (this.$refs.dataTable.selectedList.length === 0) {
+            Message({
+              message: this.$t("normal.info_01"),
+              type: "info",
+              duration: 2 * 1000
+            });
+            return;
+          }
+          this.loading = true;
+          this.selectedlist = this.$refs.dataTable.selectedList;
+
+          if (this.$route.params.title === 7) {
+            for (let h = 0; h < this.selectedlist.length; h++) {
+              this.comIdList.push(this.selectedlist[h].assetinformationid);
+            }
+            this.$store
+              .dispatch('PFANS1007Store/downLoad', this.comIdList)
+              .then(response => {
+                this.loading = false;
+              })
+              .catch(error => {
+                Message({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.loading = false;
+              })
+          } else if (this.$route.params.title === 8) {
+            for (let h = 0; h < this.selectedlist.length; h++) {
+              this.comIdList.push(this.selectedlist[h].softwaretransferid);
+            }
+            this.$store
+              .dispatch('PFANS1008Store/downLoad', this.comIdList)
+              .then(response => {
+                this.loading = false;
+              })
+              .catch(error => {
+                Message({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.loading = false;
+              })
+          } else if (this.$route.params.title === 9) {
+            for (let h = 0; h < this.selectedlist.length; h++) {
+              this.comIdList.push(this.selectedlist[h].fixedassets_id);
+              this.$store
+                .dispatch('PFANS1009Store/downLoad', this.comIdList)
+                .then(response => {
+                  this.loading = false;
+                })
+                .catch(error => {
+                  Message({
+                    message: error,
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  this.loading = false;
+                })
+            }
+
+          }
         }
       },
     },
