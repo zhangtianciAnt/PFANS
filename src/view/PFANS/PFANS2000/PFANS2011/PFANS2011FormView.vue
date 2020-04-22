@@ -843,15 +843,20 @@
                     this.form.status = '0';
                 }
                 // this.buttonClick('update');
-                this.uopdateSta();
+                this.uopdateSta('end');
             },
-            uopdateSta(){
+            uopdateSta(val) {
                 this.loading = true;
                 this.$store
                     .dispatch('PFANS2011Store/updateOvertime', this.form)
                     .then(response => {
                         this.data = response;
                         this.loading = false;
+                        if (val === 'end') {
+                            if (this.$store.getters.historyUrl) {
+                                this.$router.push(this.$store.getters.historyUrl);
+                            }
+                        }
                     })
                     .catch(error => {
                         Message({
