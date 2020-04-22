@@ -1,11 +1,19 @@
-import {insert, get, selectById, update,getJudgement,getLoanApplication,selectJudgement,selectPurchaseApply,selectCommunication,gettotalcost} from './PFANS1012Api'
-import {gettlist} from "../../PFANS5000/PFANS5008/PFANS5008Api";
-
+import {exportjs,insert, get, selectById, update,getJudgement,getLoanApplication,selectJudgement,selectPurchaseApply,selectCommunication,gettotalcost} from './PFANS1012Api'
 const PFANS1012Store = {
   namespaced: true,
   state: {},
   mutations: {},
   actions: {
+    exportjs({commit}, data) {
+      return new Promise((resolve, reject) => {
+        exportjs(data).then(response => {
+          resolve(response);
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+
     //更新
     update({commit}, data) {
       return new Promise((resolve, reject) => {
