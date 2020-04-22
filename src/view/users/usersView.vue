@@ -551,16 +551,16 @@
                             this.$t("label.PFANSUSERFORMVIEW_LABORCONTRACTTYPE"),//劳动合同类型
                             this.$t("label.PFANSUSERFORMVIEW_AGE"),//年龄
                             this.$t("label.PFANSUSERFORMVIEW_CHILDREN"),//是否独生子女
-                            this.$t("今年年休数(残)"),//今年年休数(残)
+                            this.$t("label.PFANSUSERFORMVIEW_ANNUALBREAKS"),//今年年休数(残)
                             this.$t("label.PFANSUSERFORMVIEW_ANNUALYEAR"),//今年年休数
                             this.$t("label.PFANSUSERFORMVIEW_UPGRADED"),//升格升号年月日
                             this.$t("label.PFANSUSERFORMVIEW_SEATNUMBER"),//银行账号
                             this.$t("label.PFANSUSERFORMVIEW_FIXEDATE"),//银行账号
-                            this.$t("変更前基本工资"),//変更前基本工资
-                            this.$t("変更前职责工资"),//変更前职责工资
-                            this.$t("现基本工资"),//现基本工资
-                            this.$t("现职责工资"),//现职责工资
-                            this.$t("給料変更日"),//給料変更日
+                            this.$t("label.PFANSUSERFORMVIEW_BEFOREBASICSALARY"),//変更前基本工资
+                            this.$t("label.PFANSUSERFORMVIEW_CHANGEDUTYSALARY"),//変更前职责工资
+                            this.$t("label.PFANSUSERFORMVIEW_CURRENTBASICSALARY"),//现基本工资
+                            this.$t("label.PFANSUSERFORMVIEW_CURRENTDUTYSALARY"),//现职责工资
+                            this.$t("label.PFANSUSERFORMVIEW_FEEDINGCHANGEDAY"),//給料変更日
                             this.$t("label.PFANSUSERFORMVIEW_YANGLAOINSURANCE"),//养老保险基数
                             this.$t("label.PFANSUSERFORMVIEW_YILIAOINSURANCE"),//医疗保险基数
                             this.$t("label.PFANSUSERFORMVIEW_SHIYEINSURANCE"),//失业保险基数
