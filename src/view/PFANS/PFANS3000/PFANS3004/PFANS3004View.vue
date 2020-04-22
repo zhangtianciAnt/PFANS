@@ -155,7 +155,6 @@
             this.$store
                 .dispatch('PFANS3004Store/getStationery', {})
                 .then(response => {
-                    let footnam = "";
                     for (let j = 0; j < response.length; j++) {
                         response[j].status = getStatus(response[j].status);
                         if (response[j].applicationdate !== null && response[j].applicationdate !== "") {
@@ -165,12 +164,15 @@
                         if (response[j].stationerytype !== '' && response[j].stationerytype !== null && response[j].stationerytype !== undefined) {
                             let typeflg = response[j].stationerytype.split(",");
                             if(typeflg.length > 1){
+                                let footnam = "";
                                 for (var val of JSON.parse(response[j].stationerytype)) {
                                     if (val.footname) {
                                         footnam += getDictionaryInfo(val.footname).value2 + ",";
                                     }
                                 }
-                                response[j].size = footnam.substring(0, footnam.length - 1);
+                                if(footnam !== ""){
+                                    response[j].size = footnam.substring(0, footnam.length - 1);
+                                }
                             }
                         }
                         //add_fjl 拼接类别明细
