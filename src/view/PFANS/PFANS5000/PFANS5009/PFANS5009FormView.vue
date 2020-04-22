@@ -7,7 +7,6 @@
       ref="container"
       v-loading="loading"
 
-      @disabled="setdisabled"
     >
       <div slot="customize">
         <el-form
@@ -713,7 +712,7 @@
                             <template slot-scope="scope">
                               <el-input
                                 :no="scope.row"
-                                :disabled="true"
+                                :disabled="scope.row.updOrinsflg ==='1' ? true : !disable"
                                 v-model="scope.row.position"
                                 style="width: 100%"
                               ></el-input>
@@ -1472,7 +1471,7 @@
                   o.rowindex = response.projectsystem[i].rowindex;
                   o.updOrinsflg = '1';
                   this.tableB.push(o);
-                } else {
+                } else if(response.projectsystem[i].type === '1'){
                   if (response.projectsystem[i].name != '' || response.projectsystem[i].name != null) {
                     let o = {};
                     o.name = response.projectsystem[i].projectsystem_id;
@@ -1492,7 +1491,11 @@
                   }
                 }
               }
-
+             //add-ws-修改判断tableC没数据的时候添加空行
+              if (this.tableC.length === 0) {
+                this.addRow2();
+              }
+              //add-ws-修改判断tableC没数据的时候添加空行
             }
             // this.baseInfo.companyprojects = JSON.parse(JSON.stringify(this.form));
             // this.baseInfo.stageInformation = JSON.parse(JSON.stringify(this.tableP));
@@ -1631,11 +1634,11 @@
           this.activeName = 'first';
         }
       },
-      setdisabled(val) {
-        if (this.$route.params.disabled) {
-          this.disabled = val;
-        }
-      },
+      // setdisabled(val) {
+      //   if (this.$route.params.disabled) {
+      //     this.disabled = val;
+      //   }
+      // },
       // workflowState(val) {
       //   if (val.state === '1') {
       //     this.form.status = '6';
