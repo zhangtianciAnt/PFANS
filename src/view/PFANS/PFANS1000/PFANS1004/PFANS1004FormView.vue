@@ -100,7 +100,7 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1004VIEW_BUSINESSPLANBALANCE')" prop="businessplanbalance"
                             v-show="show">
-                <el-input-number :disabled="!disabled" :max="1000000000" :min="0"
+                <el-input-number :disabled="!disabled" :max="1000000000000" :min="0"
                                  :precision="2" @change="moneyDiff" controls-position="right" style="width:20vw"
                                  v-model="form.businessplanbalance"></el-input-number>
               </el-form-item>
@@ -997,6 +997,19 @@
               this.form.scheduleddate = moment(this.form.scheduleddate).format('YYYY-MM-DD');
               this.form.equipment = "0";
               let error = 0;
+              //add-ws-4/22-实施计划金额不能大于事业计划余额check
+              if (this.form.careerplan === '1') {
+                  if(this.form.amounttobegiven>this.form.businessplanbalance){
+                    error = error + 1;
+                    Message({
+                      message: this.$t("label.PFANS1004FORMVIEW_CHECKERROR"),
+                      type: 'error',
+                      duration: 5 * 1000
+                    });
+                    this.loading = false;
+                  }
+              }
+              //add-ws-4/22-实施计划金额不能大于事业计划余额check
               if (this.form.amounttobegiven === 0) {
                 error = error + 1;
                 Message({

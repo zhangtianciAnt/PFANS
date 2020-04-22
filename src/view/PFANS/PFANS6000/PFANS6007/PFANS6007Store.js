@@ -5,6 +5,8 @@ import {
   getvariousfundsApplyOne,
   updatevariousfundsApply,
   getexpatriatesinfor,
+  getPjnameList6007,
+  listPsdcd,
 } from './PFANS6007Api'
 const PFANS6007Store = {
   namespaced: true,
@@ -27,6 +29,32 @@ const PFANS6007Store = {
     getPjnameList() {
       return new Promise((resolve, reject) => {
         getPjnameList().then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    getPjnameList6007({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getPjnameList6007(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    listPsdcd({commit}, data) {
+      return new Promise((resolve, reject) => {
+        listPsdcd(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {

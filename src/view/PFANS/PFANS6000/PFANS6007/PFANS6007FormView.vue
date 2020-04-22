@@ -19,42 +19,51 @@
             <!--                </el-select>-->
             <!--              </el-form-item>-->
             <!--            </el-col>-->
+
             <el-col :span="8">
-              <el-form-item :error="error_pjname" :label="$t('label.PFANS6007VIEW_PJNAME')"
-                            prop="pjname">
-                <div class="dpSupIndex" style="width: 20vw" prop="pjname">
+              <el-form-item :label="$t('label.PFANS6007VIEW_BPPLAYER')" prop="bpplayer">
+<!--                <el-select :disabled="!disabled" style="width:20vw" v-model="form.bpplayer">-->
+<!--                  <el-option-->
+<!--                    :key="item.value"-->
+<!--                    :label="item.lable"-->
+<!--                    :value="item.value"-->
+<!--                    v-for="item in gridDatabpplayer">-->
+<!--                  </el-option>-->
+<!--                </el-select>-->
+                <div class="dpSupIndex" style="width: 20vw" prop="bpplayer">
                   <el-container>
-                    <input class="content bg" v-model="form.pjname" :error="error_pjname"
-                           :disabled="true"></input>
+                    <input class="content bg" v-model="form.bpplayer"
+                           :disabled="!disabled"></input>
+
                     <el-button :disabled="!disabled" icon="el-icon-search" @click="dialogTableVisible = true"
                                size="small"></el-button>
-                    <el-dialog :title="$t('label.PFANS6007VIEW_PJNAME')" :visible.sync="dialogTableVisible" center
+                    <el-dialog :title="$t('label.PFANS6007VIEW_BPPLAYER')" :visible.sync="dialogTableVisible" center
                                size="50%"
                                top="8vh" lock-scroll
                                append-to-body>
                       <div style="text-align: center">
                         <el-row style="text-align: center;height: 90%;overflow: hidden">
                           <el-table
-                            :data="gridData.filter(data => !search || data.pjname.toLowerCase().includes(search.toLowerCase()))"
+                            :data="gridDatabpplayer.filter(data => !search || data.expname.toLowerCase().includes(search.toLowerCase()))"
                             height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
                             @row-click="handleClickChange">
-                            <el-table-column property="pjname" :label="$t('label.PFANS6007VIEW_PJNAME')"
+                            <el-table-column property="suppliername" :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')"
+                                             width="180"></el-table-column>
+                            <el-table-column property="expname"
+                                             :label="$t('label.user_name')"
+                                             width="100"></el-table-column>
+                            <el-table-column property="account"
+                                             width="0" v-if="false"></el-table-column>
+                            <el-table-column property="group_id"
+                                             :label="$t('label.PFANS5001FORMVIEW_DEPARTMENTID')"
                                              width="150"></el-table-column>
-                            <el-table-column property="psdcdwindow" :label="$t('label.PFANS6007VIEW_PSDCDWINDOW')"
-                                             width="120"></el-table-column>
-                            <el-table-column property="bpclubname"
-                                             :label="$t('label.PFANS6007VIEW_BPCLUBNAME')"
-                                             width="150"></el-table-column>
-                            <el-table-column property="bpplayer"
-                                             :label="$t('label.PFANS6007VIEW_BPPLAYER')"
-                                             width="120"></el-table-column>
                             <el-table-column
                               align="right" width="230">
                               <template slot="header" slot-scope="scope">
                                 <el-input
                                   v-model="search"
                                   size="mini"
-                                  placeholder="请输入供应商关键字搜索"/>
+                                  placeholder="请输入关键字搜索"/>
                               </template>
                             </el-table-column>
                           </el-table>
@@ -69,21 +78,28 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS6007VIEW_PSDCDWINDOW')">
-                <el-input :disabled="true" style="width:20vw" v-model="form.psdcdwindow"></el-input>
+              <el-form-item :label="$t('label.PFANS6007VIEW_BPCLUBNAME')" prop="bpclubname">
+                <el-input :disabled="true" style="width:20vw" v-model="form.bpclubname"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS6007VIEW_BPCLUBNAME')" prop="bpclubname">
-                <el-input :disabled="true" style="width:20vw" v-model="form.bpclubname"></el-input>
+              <el-form-item :label="$t('label.PFANS6007VIEW_PJNAME')" prop="pjname">
+                <el-select :disabled="!disabled" style="width:20vw" v-model="form.pjname" @change="changeOption">
+                  <el-option
+                    :key="item.value"
+                    :label="item.lable"
+                    :value="item.value"
+                    v-for="item in gridData">
+                  </el-option>
+                </el-select>
               </el-form-item>
             </el-col>
           </el-row>
           <!--2-->
           <el-row>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS6007VIEW_BPPLAYER')">
-                <el-input :disabled="true" style="width:20vw" v-model="form.bpplayer"></el-input>
+              <el-form-item :label="$t('label.PFANS6007VIEW_PSDCDWINDOW')">
+                <el-input :disabled="true" style="width:20vw" v-model="form.psdcdwindow"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -140,7 +156,7 @@
             <el-col :span="24">
               <el-form-item :label="$t('label.PFANS6007VIEW_REMARKS')">
                 <el-input :disabled="!disabled" :rows="2" style="width: 72vw" type="textarea"
-                          v-model="form.remarks"></el-input>
+                          v-model="form.remarks" maxlength="200"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -157,7 +173,7 @@
   import {Message} from 'element-ui'
   import moment from "moment";
   import {valfloat} from '@/utils/validate';
-  import {getUserInfo} from '@/utils/customize';
+  import {getUserInfo,getOrgInfo,} from '@/utils/customize';
 
   export default {
     name: 'PFANS6007FormView',
@@ -176,12 +192,12 @@
           return callback();
         }
       };
-      var checkbpclubname = (rule, value, callback) => {
+      var checkbpplayer = (rule, value, callback) => {
         if (!value || value === '' || value === "undefined") {
-          this.error_bpclubname = this.$t('normal.error_09') + this.$t('label.PFANS6007VIEW_BPCLUBNAME');
-          return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS6007VIEW_BPCLUBNAME')));
+          this.error_bpplayer = this.$t('normal.error_09') + this.$t('label.PFANS6007VIEW_BPPLAYER');
+          return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS6007VIEW_BPPLAYER')));
         } else {
-          this.error_bpclubname = "";
+          this.error_bpplayer = "";
           return callback();
         }
       };
@@ -214,7 +230,7 @@
       };
       var checkpayment = (rule, value, callback) => {
         if (this.form.payment !== null && this.form.payment !== '') {
-          if (valfloat(value)) {
+          if (valfloat(value) && value!=0) {
             callback();
           } else {
             callback(new Error(this.$t('normal.error_09') + this.$t('label.effective') + this.$t('label.PFANS6007VIEW_PAYMENT')));
@@ -229,6 +245,7 @@
         loading: false,
         error_pjname: '',
         error_bpclubname: '',
+        error_bpplayer:'',
         error_year: '',
         error_plmonthplan: '',
         error_typeoffees: '',
@@ -238,6 +255,7 @@
         buttonList: [],
         search: '',
         gridData: [],
+        gridDatabpplayer: [],
         multiple: false,
         form: {
           variousfunds_id: '',
@@ -262,10 +280,10 @@
               trigger: 'change'
             },
           ],
-          bpclubname: [
+          bpplayer: [
             {
               required: true,
-              validator: checkbpclubname,
+              validator: checkbpplayer,
               trigger: 'change'
             },
           ],
@@ -301,7 +319,7 @@
       };
     },
     mounted() {
-      this.getPjnameList();
+      this.getbpplayerList();
       if (this.$route.params._id) {//查看详情
         this.loading = true;
         this.$store
@@ -339,27 +357,24 @@
           this.disabled = val;
         }
       },
-      getPjnameList() {
+      getbpplayerList() {
         this.$store
-          .dispatch('PFANS6007Store/getPjnameList', {})
+          .dispatch('PFANS6004Store/getexpatriatesinfor')
           .then(response => {
             console.log(response)
-            this.gridData = [];
+            this.gridDatabpplayer = [];
             for (let i = 0; i < response.length; i++) {
-              this.gridData = [];
-              for (let i = 0; i < response.length; i++) {
-                let vote = {};
-                vote.pjname = response[i].project_name;
-                if (response[i].managerid !== null && response[i].managerid !== '') {
-                  let user = getUserInfo(response[i].managerid);
-                  if (user) {
-                    vote.psdcdwindow = user.userinfo.customername;
-                  }
+               var vote = {};
+              vote.suppliername = response[i].suppliername;
+              vote.expname = response[i].expname;
+              vote.account = response[i].account;
+              if (response[i].group_id !== null && response[i].group_id !== '') {
+                let group = getOrgInfo(response[i].group_id);
+                if (group) {
+                  vote.group_id = group.companyname;
                 }
-                vote.bpclubname = response[i].entrust;
-                vote.bpplayer = response[i].deployment;
-                this.gridData.push(vote);
               }
+              this.gridDatabpplayer.push(vote);
             }
             this.loading = false;
           })
@@ -372,34 +387,90 @@
             this.loading = false;
           });
       },
+      getPjnameList(val) {
+        this.loading = true;
+        let id = val;
+        this.$store
+          .dispatch('PFANS6007Store/getPjnameList6007', {"bpplayer":id})
+          .then(response => {
+            console.log(response)
+            this.gridData = [];
+              for (let i = 0; i < response.length; i++) {
+                var vote = {};
+                vote.value = response[i].numbers;
+                vote.lable = response[i].numbers +'_'+response[i].project_name;
+                this.gridData.push(vote);
+              }
+            this.form.pjname = '';
+            this.form.psdcdwindow = '';
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
       changeOption(val) {
-        for (let i = 0; i < this.options1.length; i++) {
-          if (this.options1[i].project_name === val) {
-            this.form.psdcdwindow = this.options1[i].username;
-            this.form.bpclubname = this.options1[i].bpclubname;
-            this.form.bpplayer = this.options1[i].bpplayer;
+        this.form.pjname = val;
+        this.loading = true;
+        let number ='';
+        for (let i = 0; i < this.gridData.length; i++) {
+          if (this.gridData[i].value === val) {
+            number = this.gridData[i].value;
           }
         }
+        this.loading = true;
+        let params = {
+          numbers: number
+        }
+        this.$store
+          .dispatch('PFANS6007Store/listPsdcd', params)
+          .then(response => {
+            for (let j = 0; j < response.length; j++)
+            {
+              let leaderid = response[j].leaderid;
+              if (leaderid)
+              {
+                let userinfo = getUserInfo(leaderid);
+                if(userinfo){
+                  this.form.psdcdwindow = userinfo.userinfo.customername;
+                }
+              }
+            }
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000
+            });
+            this.loading = false;
+          })
       },
+
       getYear(val) {
         this.form.year = val;
       },
+
       handleClickChange(val) {
-        this.currentRow = val.pjname;
-        this.currentRow1 = val.psdcdwindow;
-        this.currentRow2 = val.bpclubname;
-        this.currentRow3 = val.bpplayer;
+        this.currentRow = val.expname;
+        this.currentRow1 = val.suppliername;
+        this.currentRow2 = val.account;
       },
       submit() {
         let lst = this.currentRow;
         let lst1 = this.currentRow1;
         let lst2 = this.currentRow2;
-        let lst3 = this.currentRow3;
         this.dialogTableVisible = false;
-        this.form.pjname = lst;
-        this.form.psdcdwindow = lst1;
-        this.form.bpclubname = lst2;
-        this.form.bpplayer = lst3;
+        this.form.bpplayer = lst;
+        this.form.bpclubname = lst1;
+        this.$refs.refform.validateField('bpplayer');
+        this.getPjnameList(lst2);
       },
       getPlmonthplan(val) {
         this.form.plmonthplan = val;

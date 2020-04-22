@@ -1,6 +1,6 @@
 <template>
   <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id" :showSelection="isShow"
-                   :title="title" @buttonClick="buttonClick"
+                   :title="title" @buttonClick="buttonClick" :selectable="selectInit"
                    @rowClick="rowClick" ref="roletable" v-loading="loading">
   </EasyNormalTable>
 
@@ -20,6 +20,7 @@
         },
         data() {
             return {
+                optations: [],
                 totalcostvalue: [],
                 selectedlist: [],
                 selectedList: [],
@@ -59,13 +60,13 @@
                         fix: false,
                         filter: true
                     },
-                  {
-                    code: 'invoiceno',
-                    label: 'label.PFANS1013VIEW_REIMNUMBER',
-                    width: 130,
-                    fix: false,
-                    filter: true
-                  },
+                    {
+                        code: 'invoiceno',
+                        label: 'label.PFANS1013VIEW_REIMNUMBER',
+                        width: 130,
+                        fix: false,
+                        filter: true
+                    },
                     {
                         code: 'moneys',
                         label: 'label.PFANS1012VIEW_MONEY',
@@ -85,7 +86,13 @@
                     {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
                     {'key': 'insert', 'name': 'button.insert', 'disabled': false, "icon": "el-icon-plus"},
                     {'key': 'update', 'name': 'button.update', 'disabled': false, "icon": 'el-icon-edit'},
-                    {'key': 'export', 'name': 'button.export', 'disabled': false, icon: 'el-icon-upload2'}
+                    {
+                        'key': 'export',
+                        'name': 'label.PFANS1012VIEW_EXPORTCSV',
+                        'disabled': false,
+                        icon: 'el-icon-upload2'
+                    },
+                    // {'key': 'export1', 'name': 'label.PFANS1012VIEW_EXPORT1', 'disabled': false, icon: 'el-icon-upload2'}
                 ],
                 rowid: '',
                 row_id: 'publicexpenseid',
@@ -133,6 +140,11 @@
                 })
         },
         methods: {
+            //ADD_FJL
+            selectInit(row, index) {
+                return row.status === this.$t("label.PFANS5004VIEW_OVERTIME");
+            },
+            //ADD_FJL
             rowClick(row) {
                 this.rowid = row.publicexpenseid;
             },
@@ -193,25 +205,28 @@
                     this.startoption = [];
                     this.selectedList = {};
                     this.selectedList.totalcost = [];
-                  if(this.$refs.roletable.selectedList.length === 0){
-                    Message({
-                      message: this.$t('normal.info_01'),
-                      type: 'info',
-                      duration: 2 * 1000
-                    });
-                    return;
-                  } else if(this.$refs.roletable.selectedList.length > 0){
-                    for(let i = 0; i < this.$refs.roletable.selectedList.length; i++){
-                      if(this.$refs.roletable.selectedList[i].status !== this.$t("label.PFANS5004VIEW_OVERTIME")){
+                    if (this.$refs.roletable.selectedList.length === 0) {
                         Message({
-                          message: this.$t('label.PFANS1013VIEW_EXPORTERRINFO'),
-                          type: 'error',
-                          duration: 2 * 1000
+                            message: this.$t('normal.info_01'),
+                            type: 'info',
+                            duration: 2 * 1000
                         });
                         return;
-                      }
                     }
-                  }
+                    //DEL_FJL
+                    // else if(this.$refs.roletable.selectedList.length > 0){
+                    //   for(let i = 0; i < this.$refs.roletable.selectedList.length; i++){
+                    //     if(this.$refs.roletable.selectedList[i].status !== this.$t("label.PFANS5004VIEW_OVERTIME")){
+                    //       Message({
+                    //         message: this.$t('label.PFANS1013VIEW_EXPORTERRINFO'),
+                    //         type: 'error',
+                    //         duration: 2 * 1000
+                    //       });
+                    //       return;
+                    //     }
+                    //   }
+                    // }
+                    //DEL_FJL
                     this.selectedlist = this.$refs.roletable.selectedList;
                     for (let i = 0; i < this.selectedlist.length; i++) {
                         this.selectedList.totalcost.push({
@@ -260,29 +275,29 @@
                                                 let date;
                                                 let invoiceDate = moment(response[m].invoicedate).format("MM");
                                                 if (invoiceDate == '01') {
-                                                    date = 'Jan'
+                                                    date = 'JAN'
                                                 } else if (invoiceDate == '02') {
-                                                    date = 'Feb'
+                                                    date = 'FEB'
                                                 } else if (invoiceDate == '03') {
-                                                    date = 'Mar'
+                                                    date = 'MAR'
                                                 } else if (invoiceDate == '04') {
-                                                    date = 'Apr'
+                                                    date = 'APR'
                                                 } else if (invoiceDate == '05') {
-                                                    date = 'May'
+                                                    date = 'MAY'
                                                 } else if (invoiceDate == '06') {
-                                                    date = 'June'
+                                                    date = 'JUNE'
                                                 } else if (invoiceDate == '07') {
-                                                    date = 'July'
+                                                    date = 'JULY'
                                                 } else if (invoiceDate == '08') {
-                                                    date = 'Aug'
+                                                    date = 'AUG'
                                                 } else if (invoiceDate == '09') {
-                                                    date = 'Sept'
+                                                    date = 'SEPT'
                                                 } else if (invoiceDate == '10') {
-                                                    date = 'Oct'
+                                                    date = 'OCT'
                                                 } else if (invoiceDate == '11') {
-                                                    date = 'Nov'
+                                                    date = 'NOV'
                                                 } else if (invoiceDate == '12') {
-                                                    date = 'Dec'
+                                                    date = 'DEC'
                                                 }
                                                 let invoiceDat = moment(response[m].invoicedate).format("DD");
                                                 let invoicedat = moment(response[m].invoicedate).format("YYYY");
@@ -292,35 +307,45 @@
                                                 let Date;
                                                 let conditionDate = moment(response[m].conditiondate).format("MM");
                                                 if (conditionDate == '01') {
-                                                    Date = 'Jan'
+                                                    Date = 'JAN'
                                                 } else if (conditionDate == '02') {
-                                                    Date = 'Feb'
+                                                    Date = 'FEB'
                                                 } else if (conditionDate == '03') {
-                                                    Date = 'Mar'
+                                                    Date = 'MAR'
                                                 } else if (conditionDate == '04') {
-                                                    Date = 'Apr'
+                                                    Date = 'APR'
                                                 } else if (conditionDate == '05') {
-                                                    Date = 'May'
+                                                    Date = 'MAY'
                                                 } else if (conditionDate == '06') {
-                                                    Date = 'June'
+                                                    Date = 'JUNE'
                                                 } else if (conditionDate == '07') {
-                                                    Date = 'July'
+                                                    Date = 'JULY'
                                                 } else if (conditionDate == '08') {
-                                                    Date = 'Aug'
+                                                    Date = 'AUG'
                                                 } else if (conditionDate == '09') {
-                                                    Date = 'Sept'
+                                                    Date = 'SEPT'
                                                 } else if (conditionDate == '10') {
-                                                    Date = 'Oct'
+                                                    Date = 'OCT'
                                                 } else if (conditionDate == '11') {
-                                                    Date = 'Nov'
+                                                    Date = 'NOV'
                                                 } else if (conditionDate == '12') {
-                                                    Date = 'Dec'
+                                                    Date = 'DEC'
                                                 }
                                                 let conditionDat = moment(response[m].invoicedate).format("DD");
                                                 let conditiondat = moment(response[m].invoicedate).format("YYYY");
                                                 response[m].conditiondate = conditionDat + Date + conditiondat;
                                             }
-                                            invoiceamountvalue += parseFloat(response[m].lineamount);
+                                            if (response[m].subjectnumber != '' && response[m].subjectnumber != null) {
+                                                response[m].subjectnumber = response[m].subjectnumber.replace("-0", "0")
+                                                response[m].subjectnumber = response[m].subjectnumber.replace("0-", "0")
+                                            }
+                                            if (response[m].budgetcoding != '' && response[m].budgetcoding != null) {
+                                                let letbudge = getDictionaryInfo(response[m].budgetcoding);
+                                                if (letbudge) {
+                                                    response[m].budgetcoding = letbudge.value1;
+                                                }
+                                            }
+                                            invoiceamountvalue += parseFloat(response[m].lineamount).toFixed(2);
                                             this.totalcostvalue.push({
                                                 invoicenumber: response[m].invoicenumber,
                                                 number: response[m].number,
@@ -404,13 +429,37 @@
                                         type: obj.type,
                                     })
                                 }
-
                                 let filterVal = ['invoicenumber', 'number', 'invoicetype', 'rowtype', 'invoicedate', 'conditiondate', 'vendorcode', 'paymentmethod', 'currency',
                                     'invoiceamount', 'lineamount', 'currencyrate', 'companysegment', 'budgetcoding', 'subjectnumber',
                                     , 'productsegment', 'vatnumber', 'taxCode', 'paymentterms', 'remark', 'source', 'paymentmethods', 'type'];
                                 const parser = new Parser({header: false});
                                 const result = parser.parse(csvData);
                                 let aaa = result;
+                                //   const parser = new Parser({excelStrings:true});
+                                //   console.log("bbb",parser)
+                                //   const result = parser.parse(csvData);
+                                //   console.log("ccc",result)
+                                //   let aaa = result.substring(220);
+                                //
+                                //   debugger
+                                //
+                                //   while(aaa.indexOf('"="')!='-1'){
+                                //     aaa= aaa.replace('"="','')
+                                //   }
+                                //   let bbb = aaa;
+                                // console.log("aaa",bbb)
+                                // while(bbb.indexOf('""')!='-1'){
+                                //   bbb= bbb.replace('""','"')
+                                //
+                                // }
+                                // let ccc = bbb;
+                                // console.log("ccc",ccc)
+                                // while(ccc.indexOf('",",')!='-1'){
+                                //   ccc= ccc.replace('",",','",')
+                                //
+                                // }
+                                // let ddd = ccc;
+                                // console.log("bbb",ddd)
                                 let csvContent = "data:text/csv;charset=utf-8,\uFEFF" + aaa;
                                 const link = document.createElement("a");
                                 link.href = csvContent;
@@ -446,6 +495,23 @@
                         }
                     })
                 }
+                // else if (val === "export1") {
+                //   this.loading = true;
+                //   let publicexpenseid= this.selectedlist[0].publicexpenseid;
+                //   this.$store
+                //     .dispatch('PFANS1012Store/exportjs', publicexpenseid)
+                //     .then(response => {
+                //       this.loading = false;
+                //     })
+                //     .catch(error => {
+                //       Message({
+                //         message: error,
+                //         type: 'error',
+                //         duration: 5 * 1000,
+                //       });
+                //       this.loading = false;
+                //     })
+                // }
             }
         }
     }

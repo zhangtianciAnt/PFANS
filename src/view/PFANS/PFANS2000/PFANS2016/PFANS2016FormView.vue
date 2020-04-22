@@ -1622,7 +1622,7 @@
                 } else {
                     this.form.status = '0';
                 }
-                this.buttonClick2();
+                this.buttonClick2("end");
             },
             fileError(err, file, fileList) {
                 Message({
@@ -2171,7 +2171,7 @@
                     }
                 );
             },
-            buttonClick2() {
+            buttonClick2(val) {
                 this.form.abnormalid = this.$route.params._id;
                 this.loading = true;
                 this.$store
@@ -2179,6 +2179,11 @@
                     .then(response => {
                         this.loading = false;
                         this.data = response;
+                        if (val === 'end') {
+                            if (this.$store.getters.historyUrl) {
+                                this.$router.push(this.$store.getters.historyUrl);
+                            }
+                        }
                     })
                     .catch(error => {
                         Message({

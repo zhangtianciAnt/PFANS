@@ -445,7 +445,7 @@
           nodeList: [],
           accept: '0',
           acceptstatus: '',
-          findate: '',
+            findate: moment(new Date()).format("YYYY-MM-DD"),
           refusereason: '',
         },
           options: [

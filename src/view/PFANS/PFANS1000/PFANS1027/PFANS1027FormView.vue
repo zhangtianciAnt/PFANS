@@ -101,7 +101,7 @@
                   </el-form-item>
                 </el-col>
               </el-row>
-              <el-table :data="tablefirst" header-cell-class-name="sub_bg_color_blue" stripe>
+              <el-table :data="tablefirst" header-cell-class-name="sub_bg_color_blue" stripe border>
                 <el-table-column
                   prop="claimtype"
                   :label="$t('label.PFANS1024VIEW_NUMBER')" align="center" width="150">

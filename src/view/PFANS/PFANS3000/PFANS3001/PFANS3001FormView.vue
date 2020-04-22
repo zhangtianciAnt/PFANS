@@ -132,14 +132,15 @@
                 <el-form-item :label="$t('label.PFANS1013VIEW_RELATION')" prop="business_id">
                   <el-select :disabled="!disable" clearable @change="changebusiness" style="width:20vw"
                              v-model="form.business_id">
-<!--                    <el-option-->
-<!--                      v-if="form.ticketstype !== 'first'"-->
-<!--                    :key="item.value"-->
-<!--                    :label="item.label"-->
-<!--                    :value="item.value"-->
-<!--                    v-for="item in relations">-->
-<!--                    </el-option>-->
                     <el-option
+                      v-if="form.ticketstype === 'first'"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value"
+                      v-for="item in relations">
+                    </el-option>
+                    <el-option
+                      v-else
                       :key="item.value"
                       :label="item.label"
                       :value="item.value"
@@ -453,7 +454,7 @@
                     tripend: '',
                     accept: '0',
                     acceptstatus: '',
-                    findate: '',
+                    findate: moment(new Date()).format("YYYY-MM-DD"),
                     refusereason: '',
                 },
                 rules: {

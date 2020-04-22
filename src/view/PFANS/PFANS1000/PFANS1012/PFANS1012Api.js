@@ -1,10 +1,22 @@
 import request from '../../../../utils/request'
+import requestPdf from '../../../../utils/requestPdf';
+import requestDownload from '../../../../utils/requestDownload';
 
 //获取流程列表
 export function get() {
   return request({
     url: 'publicexpense/get',
     method: 'get'
+  })
+}
+
+export function exportjs(data) {
+  debugger
+  return requestPdf({
+    url: 'publicexpense/exportjs',
+    method: 'post',
+    data: data,
+    responseType: 'blob'
   })
 }
 
