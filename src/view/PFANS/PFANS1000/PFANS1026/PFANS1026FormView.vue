@@ -2563,8 +2563,40 @@
                 type: 'error',
                 duration: 5 * 1000,
               });
+              return;
             }
             //add-ws-请求金额不可为0check添加
+
+            //region复合合同金额分配check
+
+            let one = 0;
+            let two = 0;
+            let three = 0;
+            let four = 0;
+            for (let x = 0; x < this.form.tablecompound.length; x++) {
+                if(this.form.tablecompound[x].claimtype === this.$t('label.PFANS1026FORMVIEW_ONE')){
+                    one = one + this.form.tablecompound[x].contractrequestamount;
+                }
+                if(this.form.tablecompound[x].claimtype === this.$t('label.PFANS1026FORMVIEW_TWO')){
+                    two = two + this.form.tablecompound[x].contractrequestamount;
+                }
+                if(this.form.tablecompound[x].claimtype === this.$t('label.PFANS1026FORMVIEW_THREE')){
+                    three = three + this.form.tablecompound[x].contractrequestamount;
+                }
+                if(this.form.tablecompound[x].claimtype === this.$t('label.PFANS1026FORMVIEW_FOUR')){
+                    four = four + this.form.tablecompound[x].contractrequestamount;
+                }
+            }
+            if(one > this.claimamount1 || two > this.claimamount2 || three > this.claimamount3 || four > this.claimamount4){
+                Message({
+                    message: this.$t('label.PFANS1026FORMVIEW_CLAIMAMOUNT'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                });
+                return;
+            }
+            //endregion
+
             if (error === 0) {
               this.loading = true;
               if (this.$route.params._id) {
