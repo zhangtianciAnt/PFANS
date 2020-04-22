@@ -1627,19 +1627,26 @@
               }
               if (response.invoice.length > 0) {
                 this.tableF = response.invoice;
-                //   for (var i = 0; i < this.tableF.length; i++) {
-                //     if (this.tableF[i].taxrate === '') {
-                //       this.checkexternal = true;
-                //       this.checktaxes = true;
-                //       this.checkdisable = true;
-                //       this.disablecheck = true;
-                //     }else{
-                //       this.checkexternal = false;
-                //       this.checktaxes = false;
-                //       this.checkdisable = false;
-                //       this.disablecheck = false;
-                //     }
-                // }
+                  for (var i = 0; i < this.tableF.length; i++) {
+                   if(this.$route.params.disabled){
+                     if (this.tableF[i].taxrate === '') {
+                       this.checkexternal = true;
+                       this.checktaxes = true;
+                       this.checkdisable = true;
+                       this.disablecheck = true;
+                     }else{
+                       this.checkexternal = false;
+                       this.checktaxes = false;
+                       this.checkdisable = false;
+                       this.disablecheck = false;
+                     }
+                   }else{
+                     this.checkexternal = true;
+                     this.checktaxes = true;
+                     this.checkdisable = true;
+                     this.disablecheck = true;
+                   }
+                }
                 if(this.form.status ==='2'){
                   this.checkexternal = true;
                   this.checktaxes = true;
@@ -2029,7 +2036,6 @@
         });
     },
     created() {
-      debugger
       if (!this.$route.params.disabled) {
         this.buttonList = [];
       }
