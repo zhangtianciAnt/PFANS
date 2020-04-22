@@ -392,7 +392,7 @@
                   </el-form-item>
                 </el-row>
                 <el-row v-if="this.form.type === 'PJ001001'?false:true">
-                  <el-form-item :label="$t('label.PFANS1012FORMVIEW_INVOICEI')">
+                  <el-form-item :label="$t('label.PFANS1012FORMVIEW_INVOICETTYPE')">
                     <el-table :data="tableF"
                               header-cell-class-name="sub_bg_color_blue" stripe border style="width: 70vw">
                       <el-table-column :label="$t('label.PFANS1012FORMVIEW_INVOICEN')" align="center" width="200">
@@ -403,14 +403,15 @@
                       </el-table-column>
                       <el-table-column :label="$t('label.PFANS1012FORMVIEW_INVOICET')" align="center" width="200">
                         <template slot-scope="scope">
-                          <dicselect :code="code9"
-                                     :data="scope.row.invoicetype"
-                                     :disabled="!disable"
-                                     :multiple="multiple"
-                                     :no="scope.row"
-                                     @change="getPaymentinvoicetype"
-                                     style="width: 100%">
-                          </dicselect>
+                          <el-select clearable style="width: 100%" v-model="scope.row.invoicetype" :disabled="!disable"
+                                     :placeholder="$t('normal.error_09')" :no="scope.row" >
+                            <el-option
+                              v-for="item in optionstype"
+                              :key="item.value"
+                              :label="item.lable"
+                              :value="item.value">
+                            </el-option>
+                          </el-select>
                         </template>
                       </el-table-column>
                       <el-table-column :label="$t('label.PFANS1012FORMVIEW_INVOICEM')" align="center" width="150">
@@ -651,7 +652,7 @@
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012FORMVIEW_INVOICEN')" align="center" width="150">
                           <template slot-scope="scope">
-                            <el-select style="width: 100%" v-model="scope.row.invoicenumber" clearable
+                            <el-select style="width: 100%" v-model="scope.row.invoicenumber" clearable @change="changeinvoicenumber"
                                        :disabled="!disable">
                               <el-option
                                 v-for="item in optionsdata"
@@ -677,7 +678,7 @@
                           <template slot-scope="scope">
 <!--                            <el-input :disabled="true" style="width: 100%" v-model="scope.row.budgetcoding">-->
 <!--                            </el-input>-->
-                            <el-select clearable style="width: 100%" v-model="scope.row.budgetcoding" :disabled="!disable"
+                            <el-select clearable style="width: 100%" v-model="scope.row.budgetcoding" :disabled="scope.row.external==1?true:!disable"
                                        :placeholder="$t('normal.error_09')" :no="scope.row" @change="getBudgetunit">
                               <el-option
                                 v-for="item in scope.row.optionsP"
@@ -821,7 +822,6 @@
                           <template slot-scope="scope">
                             <el-input-number
                               :disabled="true"
-                              :precision="2"
                               controls-position="right"
                               style="width: 100%"
                               @change="changeRMB(scope.row)"
@@ -879,7 +879,7 @@
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012FORMVIEW_INVOICEN')" align="center" width="150">
                           <template slot-scope="scope">
-                            <el-select style="width: 100%" v-model="scope.row.invoicenumber" clearable
+                            <el-select style="width: 100%" v-model="scope.row.invoicenumber" clearable @change="changeinvoicenumber"
                                        :disabled="!disable">
                               <el-option
                                 v-for="item in optionsdata"
@@ -905,7 +905,7 @@
                           <template slot-scope="scope">
 <!--                            <el-input :disabled="true" style="width: 100%" v-model="scope.row.budgetcoding">-->
 <!--                            </el-input>-->
-                            <el-select clearable style="width: 100%" v-model="scope.row.budgetcoding" :no="scope.row" @change="getBudgetunit" :disabled="!disable"
+                            <el-select clearable style="width: 100%" v-model="scope.row.budgetcoding" :no="scope.row" @change="getBudgetunit" :disabled="checkdisable"
                                        :placeholder="$t('normal.error_09')">
                               <el-option
                                 v-for="item in scope.row.optionsR"
@@ -947,7 +947,7 @@
                             </el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1012FORMVIEW_FWTIME')" align="center" width="150"
+                        <el-table-column :label="$t('label.PFANS1012FORMVIEW_FWTIME')" align="center" width="160"
                                          v-if="checktime">
                           <template slot-scope="scope">
                             <el-date-picker :disabled="!disable" style="width: 100%"
@@ -1042,7 +1042,6 @@
                           <template slot-scope="scope">
                             <el-input-number
                               :disabled="true"
-                              :precision="2"
                               controls-position="right"
                               style="width: 100%"
                               @change="changeRMB(scope.row)"
@@ -1231,6 +1230,7 @@
                 }
             };
             return {
+                checkdisable: false,
                 plsummary: '',
                 Codecheck: '',
                 checkCode1: '',
@@ -1242,6 +1242,7 @@
                 teamid: '',
                 disablecheck: false,
                 ploptionsdate: [],
+                optionstype: [],
                 accoundoptionsdate: [],
                 optionsdate: [{value: 'PP024001', lable: this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')}],
                 tormbT: '',
@@ -1473,7 +1474,6 @@
                 code3: 'PJ004',
                 code4: 'PG019',
                 code5: 'PJ005',
-                code9: 'PJ068',
                 code11: '',
                 code13: 'PJ071',
                 code14: 'PJ083',
@@ -1526,6 +1526,16 @@
                     });
                 }
             }
+
+          let checktype = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ068');
+          for (let i = 0; i < checktype.length; i++) {
+            if (checktype[i].code === 'PJ068001') {
+              this.optionstype.push({
+                value: checktype[i].code,
+                lable: checktype[i].value1,
+              });
+            }
+          }
 
             let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ111');
             for (let i = 0; i < dic.length; i++) {
@@ -1642,6 +1652,10 @@
                                 for (var i = 0; i < this.tableP.length; i++) {
                                     this.code17 = '';
                                     this.orglist = this.tableP[i].departmentname;
+                                  let group = getOrgInfo(this.orglist);
+                                  if (group) {
+                                    this.Redirict = group.redirict;
+                                  }
                                     if(this.tableP[i].departmentname !== '' && this.tableP[i].departmentname !== null && this.tableP[i].departmentname !== undefined){
                                         //ADD_FJL
                                         this.tableP[i].optionsP = [];
@@ -1687,6 +1701,10 @@
                                 for (let i = 0; i < this.tableR.length; i++) {
                                   this.tableR[i].code16 = '';
                                     this.orglist = this.tableR[i].departmentname;
+                                  let group = getOrgInfo(this.orglist);
+                                  if (group) {
+                                    this.Redirict = group.redirict;
+                                  }
                                     if(this.tableR[i].departmentname !== '' && this.tableR[i].departmentname !== null && this.tableR[i].departmentname !== undefined){
                                         //ADD_FJL
                                         this.tableR[i].optionsR = [];
@@ -1883,6 +1901,11 @@
                                     }
                                     if (this.tableR[i].subjectnumber == '0504-00-0000') {
                                         this.checktime = true;
+                                      if (this.tableR[i].servicehours == null||this.tableR[i].servicehours == '') {
+                                        this.checkdisable = false
+                                      } else {
+                                        this.checkdisable = true
+                                      }
                                     }
                                 }
                             }
@@ -1998,6 +2021,15 @@
             },
         },
         methods: {
+          changeinvoicenumber(val, row) {
+            row.invoicenumber = val;
+            for (let j = 0; j < this.tableF.length; j++) {
+              if (row.invoicenumber == this.tableF[j].invoicenumber) {
+                if (this.tableF[j].taxes === '') {
+                }
+              }
+            }
+          },
             getBudgetunit(val, row) {
                 row.budgetcoding = val;
             },
@@ -2693,10 +2725,12 @@
                 if (row.servicehours == null) {
                     row.budgetcoding = this.budgetcodingcheck;
                     row.subjectnumber = this.checkCode2;
+                    this.checkdisable = false
                 } else {
                     this.budgetcodingcheck = row.budgetcoding;
                     row.subjectnumber = this.checkcode;
                     row.budgetcoding = '000000';
+                    this.checkdisable = true
                 }
             },
             getaccoundcode(row) {
@@ -3093,7 +3127,7 @@
                     trafficdate: '',
                     accountcode: this.accoundoptionsdate,
                     departmentname: '',
-                    budgetcoding: this.budgetcodingcheck,
+                    budgetcoding: '',
                     subjectnumber: '',
                     plsummary: 'PJ111008',
                     region: '',
@@ -3128,7 +3162,7 @@
                     purchasedetails_id: '',
                     invoicenumber: '',
                     departmentname: '',
-                    budgetcoding: this.budgetcodingcheck,
+                    budgetcoding:  '',
                     purchasedetailsdate: '',
                     procurementdetails: '',
                     accountcode: '',
@@ -3165,7 +3199,7 @@
                     accountcode: '',
                     plsummary: '',
                     subjectnumber: '',
-                    budgetcoding: this.budgetcodingcheck,
+                    budgetcoding: '',
                     remarks: '',
                     rmb: '',
                     foreigncurrency: '',
