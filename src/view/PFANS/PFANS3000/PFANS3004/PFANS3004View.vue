@@ -155,7 +155,6 @@
             this.$store
                 .dispatch('PFANS3004Store/getStationery', {})
                 .then(response => {
-                    debugger;
                     let footnam = "";
                     for (let j = 0; j < response.length; j++) {
                         response[j].status = getStatus(response[j].status);
