@@ -17,7 +17,7 @@
 <script>
     import EasyNormalTable from "@/components/EasyNormalTable";
     import {Message} from 'element-ui'
-    import {getStatus, getUserInfo,getOrgInfoByUserId} from "../../../../utils/customize";
+    import {getStatus, getUserInfo, getDictionaryInfo, getOrgInfoByUserId} from "../../../../utils/customize";
     import moment from "moment";
 
     export default {
@@ -66,25 +66,25 @@
                         width: 140,
                         fix: false,
                         filter: true,
-                    },
-                    {
-                        code: 'name',
-                        label: 'label.PFANS3004VIEW_NAME',
-                        width: 140,
-                        fix: false,
-                        filter: true
+                        // },
+                        // {
+                        //     code: 'name',
+                        //     label: 'label.PFANS3004VIEW_NAME',
+                        //     width: 140,
+                        //     fix: false,
+                        //     filter: true
                     }, {
                         code: 'size',
                         label: 'label.PFANS3004VIEW_SIZE',
-                        width: 140,
+                        width: 200,
                         fix: false,
                         filter: true
-                    }, {
-                        code: 'numbers',
-                        label: 'label.numbers',
-                        width: 140,
-                        fix: false,
-                        filter: true
+                        // }, {
+                        //     code: 'numbers',
+                        //     label: 'label.numbers',
+                        //     width: 140,
+                        //     fix: false,
+                        //     filter: true
                     }, {
                         code: 'remarks',
                         label: 'label.remarks',
@@ -155,11 +155,22 @@
             this.$store
                 .dispatch('PFANS3004Store/getStationery', {})
                 .then(response => {
+                    let footnam = "";
                     for (let j = 0; j < response.length; j++) {
                         response[j].status = getStatus(response[j].status);
                         if (response[j].applicationdate !== null && response[j].applicationdate !== "") {
                             response[j].applicationdate = moment(response[j].applicationdate).format("YYYY-MM-DD");
                         }
+                        //add_fjl 拼接类别明细
+                        if (response[j].stationerytype !== '' && response[j].stationerytype !== null) {
+                            for (var val of JSON.parse(response[j].stationerytype)) {
+                                if (val.footname) {
+                                    footnam += getDictionaryInfo(val.footname).value2 + ",";
+                                }
+                            }
+                        }
+                        response[j].size = footnam.substring(0, footnam.length - 1);
+                        //add_fjl 拼接类别明细
                         let user = getUserInfo(response[j].userid)
                         let nameflg = getOrgInfoByUserId(response[j].userid);
                         if (nameflg) {
@@ -268,8 +279,8 @@
                   }
                     this.selectedlist = this.$refs.roletable.selectedList;
                     import('@/vendor/Export2Excel').then(excel => {
-                        const tHeader = [this.$t('label.applicant'), this.$t('label.center'), this.$t('label.group'), this.$t('label.team'), this.$t('label.application_date'), this.$t('label.PFANS3004VIEW_NAME'), this.$t('label.PFANS3004VIEW_SIZE'), this.$t('label.numbers'), this.$t('label.remarks'), this.$t('label.status')];
-                        const filterVal = ['applicant', 'centerid', 'groupid', 'teamid', 'applicationdate', 'name', 'size', 'numbers', 'remarks', 'status'];
+                        const tHeader = [this.$t('label.applicant'), this.$t('label.center'), this.$t('label.group'), this.$t('label.team'), this.$t('label.application_date'), this.$t('label.PFANS3004VIEW_SIZE'), this.$t('label.remarks'), this.$t('label.status')];
+                        const filterVal = ['applicant', 'centerid', 'groupid', 'teamid', 'applicationdate', 'size', 'remarks', 'status'];
                         const list = this.selectedlist;
                         const data = this.formatJson(filterVal, list);
                         excel.export_json_to_excel(tHeader, data, this.$t('menu.PFANS3004'));

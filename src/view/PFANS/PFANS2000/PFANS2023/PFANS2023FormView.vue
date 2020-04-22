@@ -430,6 +430,11 @@
                     this.esep = true;
                     this.disabledec = false;
                     this.disablemar = false;
+
+                  this.form.specific_goals_sep1 =  this.form.specific_goals_year1
+                  this.form.specific_goals_sep2 =  this.form.specific_goals_year2
+                  this.form.specific_goals_sep3 =  this.form.specific_goals_year3
+                  this.form.your_own_goals_sep =  this.form.your_own_goals_year
                 } else if (this.form.stage === '1' && this.form.status === '2') {
                     this.aaaaaa = 'W0037';
                     this.canStart = false;
@@ -467,6 +472,12 @@
                     this.disabledec = true;
                     this.dec = true;
                     this.disablemar = false;
+
+                  this.form.specific_goals_dec1 =  this.form.specific_goals_sep1
+                  this.form.specific_goals_dec2 =  this.form.specific_goals_sep2
+                  this.form.specific_goals_dec3 =  this.form.specific_goals_sep3
+                  this.form.your_own_goals_dec =  this.form.your_own_goals_sep
+
                 } else if (this.form.stage === '2' && this.form.status === '2') {
                     this.aaaaaa = 'W0038';
                     this.canStart = false;
@@ -507,6 +518,11 @@
                     this.dec = true;
                     this.disablemar = true;
                     this.mar = true;
+
+                  this.form.specific_goals_mar1 =  this.form.specific_goals_dec1
+                  this.form.specific_goals_mar2 =  this.form.specific_goals_dec2
+                  this.form.specific_goals_mar3 =  this.form.specific_goals_dec3
+                  this.form.your_own_goals_mar =  this.form.your_own_goals_dec
                 } else if (this.form.stage === '3' && this.form.status === '2') {
                     this.aaaaaa = 'W0039';
                     this.canStart = false;

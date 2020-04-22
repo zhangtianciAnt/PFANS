@@ -644,7 +644,7 @@
             <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMTYPE')" align="center" prop="claimtype" width="130">
               <template slot-scope="scope">
                 <el-form-item>
-                  <el-input :disabled="!disabled3" v-model="scope.row.claimtype">
+                  <el-input :disabled="!disabled3" :no="scope.row" v-model="scope.row.claimtype">
                   </el-input>
                 </el-form-item>
               </template>
@@ -712,12 +712,85 @@
               <template slot-scope="scope">
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.claimamount'" :rules='rules.claimamount'>
                   <el-input-number v-model="scope.row.claimamount" controls-position="right" style="width: 11rem"
-                                   :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
+                                   :disabled="!disabled" :min="0" :max="1000000000" :precision="2"
+                                   @change="changeclaimamount(scope.row)"></el-input-number>
                 </el-form-item>
               </template>
             </el-table-column>
           </el-table>
-
+          <el-table :data="form.tablecompound" stripe border header-cell-class-name="sub_bg_color_blue"
+                    style="padding-top: 2vw" v-if="displaycompound">
+            <el-table-column
+              :label="$t('label.PFANS1024VIEW_CLAIMTYPE')"
+              align="center"
+              width="200">
+              <template slot-scope="scope">
+                <el-select clearable v-model="scope.row.claimtype"
+                           :placeholder="$t('normal.error_09')" @change="changeclaimtype(scope.row)">
+                  <el-option
+                    clearable
+                    v-for="item in optionscompound"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                  </el-option>
+                </el-select>
+              </template>
+            </el-table-column>
+            <el-table-column
+              :label="$t('label.group')"
+              align="center"
+              width="240">
+              <template slot-scope="scope">
+                <org  :no="scope.row" :orglist="scope.row.group_id" @getOrgids="getEntrustgroupId"
+                      orgtype="2" style="width:90%"></org>
+              </template>
+            </el-table-column>
+            <el-table-column
+              :label="$t('label.PFANS1024VIEW_CLAIMAMOUNT')"
+              align="center"
+              width="200">
+              <template slot-scope="scope">
+                <el-input :disabled="true" v-model="scope.row.claimamount"></el-input>
+              </template>
+            </el-table-column>
+            <el-table-column
+              :label="$t('label.PFANS5009FORMVIEW_AMOUNTALLOCATED')"
+              align="center"
+              width="200">
+              <template slot-scope="scope">
+                <el-input-number
+                  :max="Number(scope.row.claimamount)"
+                  :min="0"
+                  :precision="2"
+                  controls-position="right"
+                  style="width: 100%"
+                  v-model="scope.row.contractrequestamount"
+                ></el-input-number>
+              </template>
+            </el-table-column>
+            <el-table-column
+              :label="$t('label.operation')"
+              align="center"
+              width="200">
+              <template slot-scope="scope">
+                <el-button
+                  @click.native.prevent="deleteRowcompound(scope.$index, form.tablecompound)"
+                  plain
+                  size="small"
+                  type="danger"
+                >{{$t('button.delete')}}
+                </el-button>
+                <el-button
+                  @click="addRowcompound()"
+                  plain
+                  size="small"
+                  type="primary"
+                >{{$t('button.insert')}}
+                </el-button>
+              </template>
+            </el-table-column>
+          </el-table>
         </el-form>
       </div>
     </EasyNormalContainer>
@@ -794,7 +867,6 @@
         }
       };
       var validateDeliveryfinshdate = (rule, value, callback) => {
-        debugger
         if (value === '' || value === null) {
           callback(new Error(this.$t('label.PFANS1026FORMVIEW_NPZCR')));
         } else {
@@ -829,7 +901,6 @@
           callback();
         }
       };
-      // 333
       var validateBusinesscode = (rule, value, callback) => {
         if (value === '') {
           callback(new Error(this.$t('label.PFANS1026FORMVIEW_SYC')));
@@ -1008,6 +1079,7 @@
         dialogFormVisible: false,
         dialogBook: false,
         display: true,
+        displaycompound: false,
         grouporglist: '',
         groupinfo: ['', '', '', ''],
         errorgroup: '',
@@ -1037,7 +1109,7 @@
         disabled2: true,
         disabled3: false,
         disabled4: false,
-        // options: [],
+        optionscompound: [],
         multiple: false,
         rowindex: '',
         ruleSet: {
@@ -1056,7 +1128,7 @@
           '6': ['conchinese', 'conjapanese', 'custochinese', 'businesscode', 'claimdatetime', 'currencyposition', 'claimamount', 'deliveryfinshdate'],
           '7': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount', 'deliverydate'],
           '61': ['custojapanese', 'custoenglish', 'custochinese', 'businesscode', 'currencyposition', 'conchinese', 'conjapanese', 'claimamount', 'claimdate', 'deliverydate', 'completiondate', 'deliveryfinshdate', 'loadingjudge', 'supportdate'],
-          // 请求书作成 111
+          // 请求书作成
           '62': ['claimdatetime', 'custoenglish', 'conchinese', 'currencyposition', 'businesscode', 'conjapanese', 'claimamount', 'placejapanese', 'claimdate', 'placechinese', 'deliveryfinshdate', 'loadingjudge', 'supportdate'],
         },
         rules1: {
@@ -1243,6 +1315,17 @@
           supportdate: '',
           claimamount: '',
           tableclaimtype: [],
+          tablecompound: [
+              {
+                  contractcompound_id: '',
+                  contractnumber: '',
+                  claimtype: '',
+                  group_id: '',
+                  claimamount: '',
+                  contractrequestamount: '',
+                  rowindex: '',
+              },
+          ],
         },
         formLabelWidth: '120px',
         tablefirst: [],
@@ -1284,6 +1367,10 @@
         titleB: 'menu.PFANS1040',
         titleC: 'menu.PFANS1041',
         projectResult: [],
+        claimamount1:'',
+        claimamount2:'',
+        claimamount3:'',
+        claimamount4:'',
       };
     },
     mounted() {
@@ -1315,6 +1402,7 @@
           .then(response => {
             let contractapplication = response.contractapplication;
             let contractnumbercount = response.contractnumbercount;
+            let contractcompound = response.contractcompound;
             if (contractapplication.length > 0) {
               for (let i = 0; i < contractapplication.length; i++) {
                 // if (contractapplication[i].currencyposition !== '' && contractapplication[i].currencyposition !== null) {
@@ -1337,6 +1425,13 @@
                 this.form.entrycondition = contractapplication[i].periods;
                 //グループ
                 this.getGroupId(contractapplication[i].group_id);
+                //复合合同的情况
+                if(contractapplication[i].state === this.$t('label.PFANS8008FORMVIEW_EFFECTIVE')){
+                    if(contractapplication[i].contracttype === 'HT008002' || contractapplication[i].contracttype === 'HT008004'
+                        || contractapplication[i].contracttype === 'HT008006' || contractapplication[i].contracttype === 'HT008008'){
+                        this.displaycompound = true;
+                    }
+                }
                 //契約種類
                 let letabbreviation = getDictionaryInfo(contractapplication[i].contracttype);
                 if (letabbreviation != null) {
@@ -1381,8 +1476,72 @@
                 }
               }
             }
+            //纳品回数
             if (contractnumbercount.length > 0) {
               this.form.tableclaimtype = contractnumbercount;
+              if(this.displaycompound){
+                  this.optionscompound = [];
+                  let option1 = {};
+                  let option2 = {};
+                  let option3 = {};
+                  let option4 = {};
+                  if(contractnumbercount.length === 1){
+                      option1.code = 'HT001001';
+                      option1.value = contractnumbercount[0].claimtype;
+                      this.optionscompound.push(option1);
+                      //请求金额
+                      this.claimamount1 = contractnumbercount[0].claimamount;
+                  }
+                  else if(contractnumbercount.length === 2){
+                      option1.code = 'HT001001';
+                      option1.value = contractnumbercount[0].claimtype;
+                      option2.code = 'HT001002';
+                      option2.value = contractnumbercount[1].claimtype;
+                      this.optionscompound.push(option1);
+                      this.optionscompound.push(option2);
+                      //请求金额
+                      this.claimamount1 = contractnumbercount[0].claimamount;
+                      this.claimamount2 = contractnumbercount[1].claimamount;
+                  }
+                  else if(contractnumbercount.length === 3){
+                      option1.code = 'HT001001';
+                      option1.value = contractnumbercount[0].claimtype;
+                      option2.code = 'HT001002';
+                      option2.value = contractnumbercount[1].claimtype;
+                      option3.code = 'HT001003';
+                      option3.value = contractnumbercount[2].claimtype;
+                      this.optionscompound.push(option1);
+                      this.optionscompound.push(option2);
+                      this.optionscompound.push(option3);
+                      //请求金额
+                      this.claimamount1 = contractnumbercount[0].claimamount;
+                      this.claimamount2 = contractnumbercount[1].claimamount;
+                      this.claimamount3 = contractnumbercount[2].claimamount;
+                  }
+                  else if(contractnumbercount.length === 4){
+                      option1.code = 'HT001001';
+                      option1.value = contractnumbercount[0].claimtype;
+                      option2.code = 'HT001002';
+                      option2.value = contractnumbercount[1].claimtype;
+                      option3.code = 'HT001003';
+                      option3.value = contractnumbercount[2].claimtype;
+                      option4.code = 'HT001004';
+                      option4.value = contractnumbercount[3].claimtype;
+                      this.optionscompound.push(option1);
+                      this.optionscompound.push(option2);
+                      this.optionscompound.push(option3);
+                      this.optionscompound.push(option4);
+                      //请求金额
+                      this.claimamount1 = contractnumbercount[0].claimamount;
+                      this.claimamount2 = contractnumbercount[1].claimamount;
+                      this.claimamount3 = contractnumbercount[2].claimamount;
+                      this.claimamount4 = contractnumbercount[3].claimamount;
+                  }
+              }
+            }
+            //复合合同金额分配
+            if (contractcompound.length > 0) {
+                this.form.tablecompound = contractcompound;
             }
             this.loading = false;
           })
@@ -1886,6 +2045,66 @@
           rowindex: '',
         });
       },
+      addRowcompound() {
+          this.form.tablecompound.push({
+              contractcompound_id: '',
+              contractnumber: '',
+              claimtype: '',
+              group_id: '',
+              contractrequestamount: '',
+              rowindex: '',
+          });
+      },
+      getEntrustgroupId(val, row) {
+          row.group_id = val;
+      },
+      deleteRowcompound(index, rows) {
+          if (rows.length > 1) {
+              rows.splice(index, 1);
+          } else {
+              this.form.tablecompound = [
+                  {
+                      contractcompound_id: '',
+                      contractnumber: '',
+                      claimtype: '',
+                      group_id: '',
+                      contractrequestamount: '',
+                      rowindex: '',
+                  },
+              ];
+          }
+      },
+      //纳品回数金额
+      changeclaimamount(val){
+          if(val.claimtype === this.$t('label.PFANS1026FORMVIEW_ONE')){
+              this.claimamount1 = val.claimamount;
+          }
+          if(val.claimtype === this.$t('label.PFANS1026FORMVIEW_TWO')){
+              this.claimamount2 = val.claimamount
+          }
+          if(val.claimtype === this.$t('label.PFANS1026FORMVIEW_THREE')){
+              this.claimamount3 = val.claimamount
+          }
+          if(val.claimtype === this.$t('label.PFANS1026FORMVIEW_FOUR')){
+              this.claimamount4 = val.claimamount
+          }
+      },
+      //复合请求方式
+      changeclaimtype(val){
+          val.contractrequestamount = '0';
+          if(val.claimtype === this.$t('label.PFANS1026FORMVIEW_ONE')){
+              val.claimamount = this.claimamount1;
+          }
+          if(val.claimtype === this.$t('label.PFANS1026FORMVIEW_TWO')){
+              val.claimamount = this.claimamount2;
+          }
+          if(val.claimtype === this.$t('label.PFANS1026FORMVIEW_THREE')){
+              val.claimamount = this.claimamount3;
+          }
+          if(val.claimtype === this.$t('label.PFANS1026FORMVIEW_FOUR')){
+              val.claimamount = this.claimamount4;
+          }
+      },
       //契約番号做成
       click() {
 
@@ -1993,17 +2212,30 @@
             }
           }
         }
-
+        this.optionscompound = [];
+        let option1 = {};
+        let option2 = {};
+        let option3 = {};
+        let option4 = {};
         this.addRowdata(isClone);
         this.form.tableclaimtype = [];
         if (this.form.claimtype === 'HT001001') {
           this.addRowclaimtype();
           this.form.tableclaimtype[0].claimtype = letclaimtypeone;
+          option1.code = 'HT001001';
+          option1.value = letclaimtypeone;
+          this.optionscompound.push(option1);
         } else if (this.form.claimtype === 'HT001002') {
           this.addRowclaimtype();
           this.addRowclaimtype();
           this.form.tableclaimtype[0].claimtype = letclaimtypeone;
           this.form.tableclaimtype[1].claimtype = letclaimtypetwo;
+          option1.code = 'HT001001';
+          option1.value = letclaimtypeone;
+          option2.code = 'HT001002';
+          option2.value = letclaimtypetwo;
+          this.optionscompound.push(option1);
+          this.optionscompound.push(option2);
         } else if (this.form.claimtype === 'HT001003') {
           this.addRowclaimtype();
           this.addRowclaimtype();
@@ -2011,6 +2243,15 @@
           this.form.tableclaimtype[0].claimtype = letclaimtypeone;
           this.form.tableclaimtype[1].claimtype = letclaimtypetwo;
           this.form.tableclaimtype[2].claimtype = letclaimtypethree;
+          option1.code = 'HT001001';
+          option1.value = letclaimtypeone;
+          option2.code = 'HT001002';
+          option2.value = letclaimtypetwo;
+          option3.code = 'HT001003';
+          option3.value = letclaimtypethree;
+          this.optionscompound.push(option1);
+          this.optionscompound.push(option2);
+          this.optionscompound.push(option3);
 
         } else if (this.form.claimtype === 'HT001004') {
           this.addRowclaimtype();
@@ -2021,7 +2262,25 @@
           this.form.tableclaimtype[1].claimtype = letclaimtypetwo;
           this.form.tableclaimtype[2].claimtype = letclaimtypethree;
           this.form.tableclaimtype[3].claimtype = letclaimtypefour;
+          option1.code = 'HT001001';
+          option1.value = letclaimtypeone;
+          option2.code = 'HT001002';
+          option2.value = letclaimtypetwo;
+          option3.code = 'HT001003';
+          option3.value = letclaimtypethree;
+          option4.code = 'HT001004';
+          option4.value = letclaimtypefour;
+          this.optionscompound.push(option1);
+          this.optionscompound.push(option2);
+          this.optionscompound.push(option3);
+          this.optionscompound.push(option4);
         }
+        //请求金额
+        this.claimamount1 = '';
+        this.claimamount2 = '';
+        this.claimamount3 = '';
+        this.claimamount4 = '';
+        this.displaycompound = false;
         //海外受託 技術開発
         if (this.form.contracttype === 'HT008001') {
           this.titleType = this.titleType1;
@@ -2029,6 +2288,7 @@
         //海外複合受託 技術開発
         else if (this.form.contracttype === 'HT008002') {
           this.titleType = this.titleType2;
+          this.displaycompound = true;
         }
         //海外受託 役務
         else if (this.form.contracttype === 'HT008003') {
@@ -2037,6 +2297,7 @@
         //海外複合受託 役務
         else if (this.form.contracttype === 'HT008004') {
           this.titleType = this.titleType4;
+          this.displaycompound = true;
         }
         //国内受託 技術開発
         else if (this.form.contracttype === 'HT008005') {
@@ -2045,6 +2306,7 @@
         //国内複合受託 技術開発
         else if (this.form.contracttype === 'HT008006') {
           this.titleType = this.titleType6;
+          this.displaycompound = true;
         }
         //国内受託 役務
         else if (this.form.contracttype === 'HT008007') {
@@ -2053,6 +2315,7 @@
         //国内複合受託 役務
         else if (this.form.contracttype === 'HT008008') {
           this.titleType = this.titleType8;
+          this.displaycompound = true;
         }
         //販売
         else if (this.form.contracttype === 'HT008009') {
@@ -2071,7 +2334,7 @@
         }
         this.dialogFormVisible = false;
       },
-      //存在check222
+      //存在check
       existCheck(contractNumber, index) {
         this.loading = true;
         if (contractNumber == null || contractNumber == undefined || contractNumber == '') {
@@ -2256,6 +2519,20 @@
         }
 //              baseInfo.contractapplication = this.tabledata;
         baseInfo.contractnumbercount = this.form.tableclaimtype;
+        baseInfo.contractcompound = [];
+        for (let x = 0; x < this.form.tablecompound.length; x++) {
+            let o = {};
+            if(this.form.tablecompound[x].claimtype != ''){
+                o.contractcompound_id = this.form.tablecompound[x].contractcompound_id
+                o.contractnumber = this.form.tablecompound[x].contractnumber
+                o.claimtype = this.form.tablecompound[x].claimtype
+                o.group_id = this.form.tablecompound[x].group_id
+                o.claimamount = this.form.tablecompound[x].claimamount
+                o.contractrequestamount = this.form.tablecompound[x].contractrequestamount
+                o.rowindex = this.form.tablecompound[x].rowindex
+                baseInfo.contractcompound.push(o)
+            }
+        }
         this.makeintoBaseInfo = {};
         this.makeintoBaseInfo = baseInfo;
         if (value === 'makeinto') {
