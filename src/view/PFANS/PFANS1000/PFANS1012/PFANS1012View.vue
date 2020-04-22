@@ -11,7 +11,7 @@
     import {Message} from 'element-ui'
     import {getDictionaryInfo, getOrgInfoByUserId, getStatus, getUserInfo} from '@/utils/customize'
     import moment from "moment";
-    import json2csv from 'json2csv';
+
     const {Parser} = require('json2csv');
     export default {
         name: "PFANS1012View",
@@ -322,9 +322,7 @@
                                                 let conditiondat = moment(response[m].invoicedate).format("YYYY");
                                                 response[m].conditiondate = conditionDat + Date + conditiondat;
                                             }
-                                            debugger
                                           if(response[m].subjectnumber!=''&&response[m].subjectnumber!=null){
-                                            debugger
                                             response[m].subjectnumber =response[m].subjectnumber.replace("-0","0")
                                             response[m].subjectnumber =response[m].subjectnumber.replace("0-","0")
                                           }
@@ -392,48 +390,76 @@
                                 let csvData = [];
                                 for (let i = 0; i < this.startoptionvalue.length; i++) {
                                     let obj = this.startoptionvalue[i];
-                                  csvData.push({
-                                    [[0]]: obj.invoicenumber,
-                                    [[1]]: obj.number,
-                                    [[2]]: obj.invoicetype,
-                                    [[3]]: obj.rowtype,
-                                    [[4]]: obj.invoicedate,
-                                    [[5]]: obj.conditiondate,
-                                    [[6]]: obj.vendorcode,
-                                    [[7]]: obj.paymentmethod,
-                                    [[8]]: obj.currency,
-                                    [[9]]: obj.invoiceamount,
-                                    [[10]]: obj.lineamount,
-                                    [[11]]: obj.currencyrate,
-                                    [[12]]: obj.companysegment,
-                                    [[13]]: obj.budgetcoding,
-                                    [[14]]: obj.subjectnumber,
-                                    [[15]]: obj.productsegment,
-                                    [[16]]: obj.vatnumber,
-                                    [[17]]: obj.taxCode,
-                                    [[18]]: obj.paymentterms,
-                                    [[19]]: obj.remark,
-                                    [[20]]: obj.source,
-                                    [[21]]: obj.paymentmethods,
-                                    [[22]]: obj.type,
-                                  })
+                                    csvData.push({
+                                      invoicenumber: obj.invoicenumber,
+                                      number: obj.number,
+                                      invoicetype: obj.invoicetype,
+                                      rowtype: obj.rowtype,
+                                      invoicedate: obj.invoicedate,
+                                      conditiondate: obj.conditiondate,
+                                      vendorcode: obj.vendorcode,
+                                      paymentmethod: obj.paymentmethod,
+                                      currency: obj.currency,
+                                      invoiceamount: obj.invoiceamount,
+                                      lineamount: obj.lineamount,
+                                      currencyrate: obj.currencyrate,
+                                      companysegment: obj.companysegment,
+                                      budgetcoding: obj.budgetcoding,
+                                      subjectnumber: obj.subjectnumber,
+                                      productsegment: obj.productsegment,
+                                      vatnumber: obj.vatnumber,
+                                      taxCode: obj.taxCode,
+                                      paymentterms: obj.paymentterms,
+                                      remark: obj.remark,
+                                      source: obj.source,
+                                      paymentmethods: obj.paymentmethods,
+                                      type: obj.type,
+                                    })
+                                  console.log("aaa",csvData)
                                 }
-                              let filterVal = ['invoicenumber', 'number', 'invoicetype', 'rowtype', 'invoicedate', 'conditiondate', 'vendorcode', 'paymentmethod', 'currency',
-                                'invoiceamount', 'lineamount', 'currencyrate', 'companysegment', 'budgetcoding', 'subjectnumber',
-                                , 'productsegment', 'vatnumber', 'taxCode', 'paymentterms', 'remark', 'source', 'paymentmethods', 'type'];
-                              const result = json2csv.parse(csvData, {
-                                excelStrings: true
-                              });
-                              let aaa = result.substring(220);
-                              let csvContent = "data:text/csv;charset=utf-8,\uFEFF" + aaa;
-                              const link = document.createElement("a");
-                              link.href = csvContent;
-                              link.download = this.$t('AP') + this.$t('title.PFANS1012VIEW') + '.csv';
-                              document.body.appendChild(link);
-                              link.click();
-                              document.body.removeChild(link);
-                              this.loading = false;
+
+                                let filterVal = ['invoicenumber', 'number', 'invoicetype', 'rowtype', 'invoicedate', 'conditiondate', 'vendorcode', 'paymentmethod', 'currency',
+                                    'invoiceamount', 'lineamount', 'currencyrate', 'companysegment', 'budgetcoding', 'subjectnumber',
+                                    , 'productsegment', 'vatnumber', 'taxCode', 'paymentterms', 'remark', 'source', 'paymentmethods', 'type'];
+                               debugger
+                              const parser = new Parser({header: false});
+                              const result = parser.parse(csvData);
+                              console.log("aaa",result)
+                              let aaa = result;
+                              //   const parser = new Parser({excelStrings:true});
+                              //   console.log("bbb",parser)
+                              //   const result = parser.parse(csvData);
+                              //   console.log("ccc",result)
+                              //   let aaa = result.substring(220);
+                              //
+                              //   debugger
+                              //
+                              //   while(aaa.indexOf('"="')!='-1'){
+                              //     aaa= aaa.replace('"="','')
+                              //   }
+                              //   let bbb = aaa;
+                              // console.log("aaa",bbb)
+                              // while(bbb.indexOf('""')!='-1'){
+                              //   bbb= bbb.replace('""','"')
+                              //
+                              // }
+                              // let ccc = bbb;
+                              // console.log("ccc",ccc)
+                              // while(ccc.indexOf('",",')!='-1'){
+                              //   ccc= ccc.replace('",",','",')
+                              //
+                              // }
+                              // let ddd = ccc;
+                              // console.log("bbb",ddd)
+                                let csvContent = "data:text/csv;charset=utf-8,\uFEFF" + aaa;
+                                const link = document.createElement("a");
+                                link.href = csvContent;
+                                link.download = this.$t('AP') + this.$t('title.PFANS1012VIEW') + '.csv';
+                                document.body.appendChild(link);
+                                link.click();
+                                document.body.removeChild(link);
                             }
+                            this.loading = false;
                         })
                         .catch(error => {
                             Message({

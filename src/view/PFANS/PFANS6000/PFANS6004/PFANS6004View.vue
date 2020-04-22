@@ -261,6 +261,82 @@
                   response[j].rn = rn.value1;
                 }
               }
+
+              if (response[j].graduation_year !== null && response[j].graduation_year !== '') {
+                  response[j].graduation_year = moment(response[j].graduation_year).format('YYYY');
+              }
+              if (response[j].operationform !== null && response[j].operationform !== '') {
+                let operationform = getDictionaryInfo(response[j].operationform);
+                if (operationform != null) {
+                  response[j].operationform = operationform.value1;
+                }
+              }
+              if (response[j].jobclassification !== null && response[j].jobclassification !== '') {
+                let jobclassification = getDictionaryInfo(response[j].jobclassification);
+                if (jobclassification != null) {
+                  response[j].jobclassification = jobclassification.value1;
+                }
+              }
+              if (response[j].admissiontime !== null && response[j].admissiontime !== '') {
+                response[j].admissiontime = moment(response[j].admissiontime).format('YYYY-MM-DD');
+              }
+              else
+              {
+                response[j].admissiontime = moment(new Date()).format('YYYY-MM-DD');
+              }
+
+
+              if (response[j].exits !== null && response[j].exits !== '') {
+                if (response[j].exits =='0')
+                {
+                  response[j].exits ='是';
+                  if (response[j].exitime !== null && response[j].exitime !== '') {
+                    response[j].exitime = moment(response[j].exitime).format('YYYY-MM-DD');
+                  }
+                  if (response[j].exitreason !== null && response[j].exitreason !== '') {
+                    let exitreason = getDictionaryInfo(response[j].exitreason);
+                    if (exitreason != null) {
+                      response[j].exitreason = exitreason.value1;
+                    }
+                  }
+                  if (response[j].alltechnology !== null && response[j].alltechnology !== '') {
+                    let alltechnology = getDictionaryInfo(response[j].alltechnology);
+                    if (alltechnology != null) {
+                      response[j].alltechnology = alltechnology.value1;
+                    }
+                  }
+                  if (response[j].sitevaluation !== null && response[j].sitevaluation !== '') {
+                    let sitevaluation = getDictionaryInfo(response[j].sitevaluation);
+                    if (sitevaluation != null) {
+                      response[j].sitevaluation = sitevaluation.value1;
+                    }
+                  }
+                  if (response[j].businessimpact !== null && response[j].businessimpact !== '') {
+                    let businessimpact = getDictionaryInfo(response[j].businessimpact);
+                    if (businessimpact != null) {
+                      response[j].businessimpact = businessimpact.value1;
+                    }
+                  }
+                  if (response[j].countermeasure !== null && response[j].countermeasure !== '') {
+                    let countermeasure = getDictionaryInfo(response[j].countermeasure);
+                    if (countermeasure != null) {
+                      response[j].countermeasure = countermeasure.value1;
+                    }
+                  }
+                }
+                else
+                {
+                  response[j].exits ='否';
+                  response[j].exitime ='';
+                  response[j].exitreason ='';
+                  response[j].alltechnology='';
+                  response[j].sitevaluation ='';
+                  response[j].businessimpact ='';
+                  response[j].countermeasure ='';
+                }
+              }
+
+
               if (response[j].whetherentry == "BP006001") {
                 tabledate.push({
                   expatriatesinfor_id: response[j].expatriatesinfor_id,
@@ -274,6 +350,21 @@
                   // technology: response[j].technology,
                   rn: response[j].rn,
                   account: response[j].account,
+
+                  graduation_year:response[j].graduation_year,
+                  email:response[j].email,
+                  operationform:response[j].operationform,
+                  number:response[j].number,
+                  jobclassification:response[j].jobclassification,
+                  admissiontime:response[j].admissiontime,
+                  speciality:response[j].speciality,
+                  exits:response[j].exits,
+                  exitime:response[j].exitime,
+                  exitreason:response[j].exitreason,
+                  alltechnology:response[j].alltechnology,
+                  sitevaluation:response[j].sitevaluation,
+                  businessimpact:response[j].businessimpact,
+                  countermeasure:response[j].countermeasure,
                 })
               }
             }
@@ -392,26 +483,51 @@
             const tHeader = [
               this.$t('label.user_name'),
               this.$t('label.sex'),
-              this.$t('label.PFANS6001VIEW_SUPPLIERNAME'),
+
               this.$t('label.PFANS6001VIEW_GRADUATESCHOOL'),
               this.$t('label.PFANS2026VIEW_EDUCATIONALBACKGROUND'),
-              this.$t('label.PFANS2003VIEW_TECHNOLOGY'),
+              this.$t('label.PFANS2024VIEW_GRADUATIONYEAR'),
+              this.$t('label.PFANS6001VIEW_SUPPLIERNAME'),
               this.$t('label.PFANS2003FORMVIEW_RN'),
+              this.$t('label.PFANSUSERFORMVIEW_EMAILADDRESS'),
+              this.$t('label.group'),
               this.$t('label.PFANS6004FORMVIEW_OPERATIONFORM'),
+              this.$t('label.PFANSUSERFORMVIEW_JOBNUMBER'),
               this.$t('label.PFANS6004FORMVIEW_JOBCLASSIFICATIONM'),
+              this.$t('label.PFANS6004FORMVIEW_ADMISSIONTIME'),
+              this.$t('label.PFANS2003FORMVIEW_SPECIALITY'),
+
+              this.$t('label.PFANS6004FORMVIEW_EXITS'),
+              this.$t('label.PFANS6004FORMVIEW_EXITIME'),
+              this.$t('label.PFANS6004FORMVIEW_EXITREASON'),
+              this.$t('label.PFANS6004FORMVIEW_ALLTECHNOLOGY'),
+              this.$t('label.PFANS6004FORMVIEW_SITEVALUATION'),
+              this.$t('label.PFANS6004FORMVIEW_BUSINESSIMPACT'),
+              this.$t('label.PFANS6004FORMVIEW_COUNTERMEASURE'),
 
             ];
             const filterVal = [
               'expname',
               'sex',
-              'suppliername',
               'graduateschool',
               'education',
-              'technology',
+              'graduation_year',
+              'suppliername',
               'rn',
+              'email',
+              'group_id',
               'operationform',
+              'number',
               'jobclassification',
-
+              'admissiontime',
+              'speciality',
+              'exits',
+              'exitime',
+              'exitreason',
+              'alltechnology',
+              'sitevaluation',
+              'businessimpact',
+              'countermeasure',
             ];
             const list = this.selectedlist;
             for (let h = 0; h < list.length; h++) {
