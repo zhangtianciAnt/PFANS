@@ -660,7 +660,7 @@
                     refusereason: '',
                   accept: '0',
                   acceptstatus: '',
-                  findate: '',
+                    findate: moment(new Date()).format("YYYY-MM-DD"),
                 },
                 rules: {
                     userid: [{
