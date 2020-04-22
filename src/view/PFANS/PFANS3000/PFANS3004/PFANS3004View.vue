@@ -155,6 +155,7 @@
             this.$store
                 .dispatch('PFANS3004Store/getStationery', {})
                 .then(response => {
+                    debugger;
                     let footnam = "";
                     for (let j = 0; j < response.length; j++) {
                         response[j].status = getStatus(response[j].status);
@@ -162,10 +163,13 @@
                             response[j].applicationdate = moment(response[j].applicationdate).format("YYYY-MM-DD");
                         }
                         //add_fjl 拼接类别明细
-                        if (response[j].stationerytype !== '' && response[j].stationerytype !== null) {
-                            for (var val of JSON.parse(response[j].stationerytype)) {
-                                if (val.footname) {
-                                    footnam += getDictionaryInfo(val.footname).value2 + ",";
+                        if (response[j].stationerytype !== '' && response[j].stationerytype !== null && response[j].stationerytype !== undefined) {
+                            let typeflg = response[j].stationerytype.split(",");
+                            if(typeflg.length > 1){
+                                for (var val of JSON.parse(response[j].stationerytype)) {
+                                    if (val.footname) {
+                                        footnam += getDictionaryInfo(val.footname).value2 + ",";
+                                    }
                                 }
                             }
                         }
