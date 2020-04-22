@@ -997,6 +997,19 @@
               this.form.scheduleddate = moment(this.form.scheduleddate).format('YYYY-MM-DD');
               this.form.equipment = "0";
               let error = 0;
+              //add-ws-4/22-实施计划金额不能大于事业计划余额check
+              if (this.form.careerplan === '1') {
+                  if(this.form.amounttobegiven>this.form.businessplanbalance){
+                    error = error + 1;
+                    Message({
+                      message: this.$t("label.PFANS1004FORMVIEW_CHECKERROR"),
+                      type: 'error',
+                      duration: 5 * 1000
+                    });
+                    this.loading = false;
+                  }
+              }
+              //add-ws-4/22-实施计划金额不能大于事业计划余额check
               if (this.form.amounttobegiven === 0) {
                 error = error + 1;
                 Message({

@@ -161,7 +161,7 @@
                             if (this.$i18n) {
                                 //UPD_FJL   添加是否有实际时长的判断
                                 response[j].lengthtime = response[j].lengthtime + this.$t("label.hours");
-                                if (response[j].status === '7') {
+                                if (parseInt(response[j].status) > 4) {
                                     response[j].relengthtime = response[j].relengthtime + this.$t("label.hours");
                                 } else {
                                     response[j].relengthtime = '';
@@ -172,7 +172,7 @@
                             if (this.$i18n) {
                                 //UPD_FJL   添加是否有实际时长的判断
                                 response[j].lengthtime = response[j].lengthtime === "4" ? this.$t("label.PFANS2011FROMVIEW_HALFDATE") : this.$t("label.PFANS2016FORMVIEW_QUANTIAN");
-                                if (response[j].status === '7') {
+                                if (parseInt(response[j].status) > 4) {
                                     if (parseInt(response[j].relengthtime) >= 8) {
                                         response[j].relengthtime = this.$t("label.PFANS2016FORMVIEW_QUANTIAN")
                                     } else if (parseInt(response[j].relengthtime) === 4) {
@@ -262,7 +262,7 @@
         },
         methods: {
             selectInit(row, index) {
-                return row.status === "正常结束";
+                return row.status === this.$t("label.PFANS5004VIEW_OVERTIME");
             },
             formatJson(filterVal, jsonData) {
                 return jsonData.map(v =>
