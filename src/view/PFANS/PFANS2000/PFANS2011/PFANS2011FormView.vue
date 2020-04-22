@@ -938,7 +938,7 @@
                     this.form.overtimelength = this.options1[1].label;
                     this.form.reserveovertime = '4';
                     this.form.reserveovertimedate = dateMonth.getFullYear() + '-' + '05' + '-' + '04';
-                    if (parseInt(this.$store.getters.userinfo.userinfo.age) > 28) {
+                    if (Number(this.$store.getters.userinfo.userinfo.age) > 28) {
                         Message({
                             message: this.$t('label.PFANS2011FROMVIEW_ERRORINFOW'),
                             type: 'error',
@@ -993,7 +993,7 @@
                             //     return;
                             // }
                             //五四青年节28周岁以内申请
-                            if (parseInt(this.$store.getters.userinfo.userinfo.age) > 28) {
+                            if (Number(this.$store.getters.userinfo.userinfo.age) > 28) {
                                 Message({
                                     message: this.$t('label.PFANS2011FROMVIEW_ERRORINFOW'),
                                     type: 'error',
@@ -1002,8 +1002,8 @@
                                 return;
                             }
                         }
-                        if (parseInt(this.form.status) <= 4 || this.form.status === '') {
-                            if (parseInt(this.form.reserveovertime) === 0) {
+                        if (Number(this.form.status) <= 4 || this.form.status === '') {
+                            if (Number(this.form.reserveovertime) === 0) {
                                 Message({
                                     message: this.$t('label.PFANS2011VIEW_TIMEERROR'),
                                     type: 'error',
@@ -1011,8 +1011,8 @@
                                 });
                                 return;
                             }
-                        } else if (parseInt(this.form.status) > 4) {
-                            if (parseInt(this.form.actualovertime) === 0) {
+                        } else if (Number(this.form.status) > 4) {
+                            if (Number(this.form.actualovertime) === 0) {
                                 Message({
                                     message: this.$t('label.PFANS2011VIEW_TIMEERROR'),
                                     type: 'error',
