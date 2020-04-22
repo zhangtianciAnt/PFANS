@@ -1429,7 +1429,7 @@
                 if(contractapplication[i].state === this.$t('label.PFANS8008FORMVIEW_EFFECTIVE')){
                     if(contractapplication[i].contracttype === 'HT008002' || contractapplication[i].contracttype === 'HT008004'
                         || contractapplication[i].contracttype === 'HT008006' || contractapplication[i].contracttype === 'HT008008'){
-                        this.displaycompound = true;
+                        this.displaycompound = false;//gbb
                     }
                 }
                 //契約種類
@@ -2288,7 +2288,7 @@
         //海外複合受託 技術開発
         else if (this.form.contracttype === 'HT008002') {
           this.titleType = this.titleType2;
-          this.displaycompound = true;
+          this.displaycompound = false;//gbb
         }
         //海外受託 役務
         else if (this.form.contracttype === 'HT008003') {
@@ -2297,7 +2297,7 @@
         //海外複合受託 役務
         else if (this.form.contracttype === 'HT008004') {
           this.titleType = this.titleType4;
-          this.displaycompound = true;
+          this.displaycompound = false;//gbb
         }
         //国内受託 技術開発
         else if (this.form.contracttype === 'HT008005') {
@@ -2306,7 +2306,7 @@
         //国内複合受託 技術開発
         else if (this.form.contracttype === 'HT008006') {
           this.titleType = this.titleType6;
-          this.displaycompound = true;
+          this.displaycompound = false;//gbb
         }
         //国内受託 役務
         else if (this.form.contracttype === 'HT008007') {
@@ -2315,7 +2315,7 @@
         //国内複合受託 役務
         else if (this.form.contracttype === 'HT008008') {
           this.titleType = this.titleType8;
-          this.displaycompound = true;
+          this.displaycompound = false;//gbb
         }
         //販売
         else if (this.form.contracttype === 'HT008009') {

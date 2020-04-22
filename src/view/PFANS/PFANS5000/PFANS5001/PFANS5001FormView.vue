@@ -1221,6 +1221,7 @@
         gridData1: [],
         gridData2: [],
         gridData3: [],
+        compounddata: [],
         disable: true,
         customerinfor: [],
         checkList: [],
@@ -1996,6 +1997,7 @@
           .dispatch('PFANS1026Store/get2', this.contractapplication)
           .then(response => {
             this.gridData3 = [];
+            this.compounddata = [];
             for (let i = 0; i < response.contractapplication.length; i++) {
               if (response.contractapplication[i].claimdatetime !== '' && response.contractapplication[i].claimdatetime !== null) {
                 let claimdatetime = response.contractapplication[i].claimdatetime;
@@ -2024,6 +2026,7 @@
               vote2.claimamount = response.contractapplication[i].claimamount;
               this.gridData3.push(vote2);
             }
+            this.compounddata = response.contractcompound;
             this.loading = false;
           })
           .catch(error => {
