@@ -345,7 +345,7 @@
                                                     response[m].budgetcoding = letbudge.value1;
                                                 }
                                             }
-                                            invoiceamountvalue += parseFloat(response[m].lineamount);
+                                            invoiceamountvalue += parseFloat(response[m].lineamount).toFixed(2);
                                             this.totalcostvalue.push({
                                                 invoicenumber: response[m].invoicenumber,
                                                 number: response[m].number,
