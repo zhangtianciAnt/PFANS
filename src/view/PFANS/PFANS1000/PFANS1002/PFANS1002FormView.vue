@@ -60,7 +60,8 @@
                     <el-form-item :label="$t('label.PFANS5009VIEW_PROJECTNAME')" prop="companyprojectsname">
                       <div class="dpSupIndex" prop="companyprojectsname" style="width: 19vw">
                         <el-container>
-                          <project :data="form.companyprojectsname" :disabled="!disable" @change="change" style="width: 100%">
+                          <project :data="form.companyprojectsname" :disabled="!disable" @change="change"
+                                   style="width: 100%">
                           </project>
                           <!--<input class="content bg" v-model="form.projectname"-->
                           <!--:disabled="true"></input>-->
@@ -273,8 +274,8 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012FORMVIEW_BUDGET')">
-<!--                      <el-input :disabled="true" maxlength='50' style="width:20vw" v-model="form.budgetunit"></el-input>-->
-                      <el-select clearable style="width: 20vw"  v-model="form.budgetunit" :disabled="!disable"
+                      <!--                      <el-input :disabled="true" maxlength='50' style="width:20vw" v-model="form.budgetunit"></el-input>-->
+                      <el-select clearable style="width: 20vw" v-model="form.budgetunit" :disabled="!disable"
                                  :placeholder="$t('normal.error_09')">
                         <el-option
                           v-for="item in options"
@@ -754,7 +755,7 @@
       dicselect,
       EasyNormalContainer,
       user,
-      project
+      project,
     },
     data() {
       var validateUserid = (rule, value, callback) => {
@@ -1069,7 +1070,7 @@
               trigger: 'change',
             },
           ],
-            // DEL   FJL
+          // DEL   FJL
           // bookingday: [
           //   {
           //     required: true,
@@ -1089,7 +1090,7 @@
               required: true,
             },
           ],
-            // DEL   FJL
+          // DEL   FJL
           // loanday: [
           //   {
           //     required: true,
@@ -1274,7 +1275,7 @@
               this.tablePD = [];
               for (let i = 0; i < response.travelcontent.length; i++) {
                 let date = [];
-                let letdate = response.travelcontent[i].duringdate.split(" ~ ");
+                let letdate = response.travelcontent[i].duringdate.split(' ~ ');
                 if (letdate.length > 0) {
                   date.push(letdate[0]);
                   date.push(letdate[1]);
@@ -1284,12 +1285,12 @@
                   businessid: response.travelcontent[i].businessid,
                   duringdate: date,
                   place: response.travelcontent[i].place,
-                  content: response.travelcontent[i].content
+                  content: response.travelcontent[i].content,
                 });
               }
             }
             this.userlist = this.form.user_id;
-              this.getBudt(this.userlist);
+            this.getBudt(this.userlist);
             this.baseInfo.business = JSON.parse(JSON.stringify(this.form));
             if (this.form.objectivetype === 'PJ018005') {
               this.show = true;
@@ -1367,7 +1368,7 @@
             this.form.team_id = rst.teamId;
           }
           this.form.user_id = this.$store.getters.userinfo.userid;
-            this.getBudt(this.form.user_id);
+          this.getBudt(this.form.user_id);
         }
       }
     },
@@ -1378,24 +1379,24 @@
       this.disable = this.$route.params.disabled;
     },
     methods: {
-        getBudt(val){
-            //ADD_FJL  修改人员预算编码
-            if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
-                let butinfo = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
-                let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-                if(dic.length > 0){
-                    for (let i = 0; i < dic.length; i++) {
-                        if(butinfo === dic[i].value1){
-                            this.options.push({
-                                lable: dic[i].value2 +'_'+ dic[i].value3,
-                                value: dic[i].code,
-                            })
-                        }
-                    }
-                }
+      getBudt(val) {
+        //ADD_FJL  修改人员预算编码
+        if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
+          let butinfo = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
+          let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+          if (dic.length > 0) {
+            for (let i = 0; i < dic.length; i++) {
+              if (butinfo === dic[i].value1) {
+                this.options.push({
+                  lable: dic[i].value2 + '_' + dic[i].value3,
+                  value: dic[i].code,
+                });
+              }
             }
-            //ADD_FJL  修改人员预算编码
-        },
+          }
+        }
+        //ADD_FJL  修改人员预算编码
+      },
       change(val) {
         this.form.companyprojectsname = val;
       },
@@ -1678,7 +1679,7 @@
       start(val) {
         if (val.state === '0') {
           this.form.status = '2';
-        }else if (val.state === '2') {
+        } else if (val.state === '2') {
           this.form.status = '4';
         }
         // this.form.status = '2';
@@ -1746,58 +1747,74 @@
                 );
               }
               this.loading = true;
-              if (this.$route.params._id) {
-                this.baseInfo.business.businessid = this.$route.params._id;
-                this.$store
-                  .dispatch('PFANS1002Store/updateBusiness', this.baseInfo)
-                  .then(response => {
-                    this.data = response;
-                    this.loading = false;
-                    if (val !== 'update') {
+              let error = 0;
+              //add-ws-4/22-金额不能大于事业计划余额check
+              if (this.form.plan === '1') {
+                if (this.form.moneys > this.form.balance) {
+                  error = error + 1;
+                  Message({
+                    message: this.$t('label.PFANS1002VIEW_CHECKERROR'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  this.loading = false;
+                }
+              }
+              //add-ws-4/22-金额不能大于事业计划余额check
+              if (error === 0) {
+                if (this.$route.params._id) {
+                  this.baseInfo.business.businessid = this.$route.params._id;
+                  this.$store
+                    .dispatch('PFANS1002Store/updateBusiness', this.baseInfo)
+                    .then(response => {
+                      this.data = response;
+                      this.loading = false;
+                      if (val !== 'update') {
+                        Message({
+                          message: this.$t('normal.success_02'),
+                          type: 'success',
+                          duration: 5 * 1000,
+                        });
+                        this.paramsTitle();
+                      }
+                    })
+                    .catch(error => {
                       Message({
-                        message: this.$t('normal.success_02'),
+                        message: error,
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                      this.loading = false;
+                    });
+
+                } else {
+                  this.$store
+                    .dispatch('PFANS1002Store/createBusiness', this.baseInfo)
+                    .then(response => {
+                      this.data = response;
+                      this.loading = false;
+                      Message({
+                        message: this.$t('normal.success_01'),
                         type: 'success',
                         duration: 5 * 1000,
                       });
                       this.paramsTitle();
-                    }
-                  })
-                  .catch(error => {
-                    Message({
-                      message: error,
-                      type: 'error',
-                      duration: 5 * 1000,
+                    })
+                    .catch(error => {
+                      Message({
+                        message: error,
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                      this.loading = false;
                     });
-                    this.loading = false;
-                  });
-
-              } else {
-                this.$store
-                  .dispatch('PFANS1002Store/createBusiness', this.baseInfo)
-                  .then(response => {
-                    this.data = response;
-                    this.loading = false;
-                    Message({
-                      message: this.$t('normal.success_01'),
-                      type: 'success',
-                      duration: 5 * 1000,
-                    });
-                    this.paramsTitle();
-                  })
-                  .catch(error => {
-                    Message({
-                      message: error,
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
-                    this.loading = false;
-                  });
+                }
               }
             } else {
               Message({
-                message: this.$t("normal.error_12"),
+                message: this.$t('normal.error_12'),
                 type: 'error',
-                duration: 5 * 1000
+                duration: 5 * 1000,
               });
             }
           });
