@@ -262,7 +262,7 @@
         },
         methods: {
             selectInit(row, index) {
-                return row.status === "正常结束";
+                return row.status === this.$t("label.PFANS5004VIEW_OVERTIME");
             },
             formatJson(filterVal, jsonData) {
                 return jsonData.map(v =>

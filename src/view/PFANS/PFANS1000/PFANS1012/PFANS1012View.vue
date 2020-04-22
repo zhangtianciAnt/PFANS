@@ -1,6 +1,6 @@
 <template>
   <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id" :showSelection="isShow"
-                   :title="title" @buttonClick="buttonClick"
+                   :title="title" @buttonClick="buttonClick" :selectable="selectInit"
                    @rowClick="rowClick" ref="roletable" v-loading="loading">
   </EasyNormalTable>
 
@@ -20,7 +20,7 @@
         },
         data() {
             return {
-              optations: [],
+                optations: [],
                 totalcostvalue: [],
                 selectedlist: [],
                 selectedList: [],
@@ -60,13 +60,13 @@
                         fix: false,
                         filter: true
                     },
-                  {
-                    code: 'invoiceno',
-                    label: 'label.PFANS1013VIEW_REIMNUMBER',
-                    width: 130,
-                    fix: false,
-                    filter: true
-                  },
+                    {
+                        code: 'invoiceno',
+                        label: 'label.PFANS1013VIEW_REIMNUMBER',
+                        width: 130,
+                        fix: false,
+                        filter: true
+                    },
                     {
                         code: 'moneys',
                         label: 'label.PFANS1012VIEW_MONEY',
@@ -86,9 +86,14 @@
                     {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
                     {'key': 'insert', 'name': 'button.insert', 'disabled': false, "icon": "el-icon-plus"},
                     {'key': 'update', 'name': 'button.update', 'disabled': false, "icon": 'el-icon-edit'},
-                    {'key': 'export', 'name': 'label.PFANS1012VIEW_EXPORTCSV', 'disabled': false, icon: 'el-icon-upload2'},
+                    {
+                        'key': 'export',
+                        'name': 'label.PFANS1012VIEW_EXPORTCSV',
+                        'disabled': false,
+                        icon: 'el-icon-upload2'
+                    },
                     // {'key': 'export1', 'name': 'label.PFANS1012VIEW_EXPORT1', 'disabled': false, icon: 'el-icon-upload2'}
-                    ],
+                ],
                 rowid: '',
                 row_id: 'publicexpenseid',
                 isShow: true,
@@ -135,6 +140,11 @@
                 })
         },
         methods: {
+            //ADD_FJL
+            selectInit(row, index) {
+                return row.status === this.$t("label.PFANS5004VIEW_OVERTIME");
+            },
+            //ADD_FJL
             rowClick(row) {
                 this.rowid = row.publicexpenseid;
             },
@@ -195,25 +205,28 @@
                     this.startoption = [];
                     this.selectedList = {};
                     this.selectedList.totalcost = [];
-                  if(this.$refs.roletable.selectedList.length === 0){
-                    Message({
-                      message: this.$t('normal.info_01'),
-                      type: 'info',
-                      duration: 2 * 1000
-                    });
-                    return;
-                  } else if(this.$refs.roletable.selectedList.length > 0){
-                    for(let i = 0; i < this.$refs.roletable.selectedList.length; i++){
-                      if(this.$refs.roletable.selectedList[i].status !== this.$t("label.PFANS5004VIEW_OVERTIME")){
+                    if (this.$refs.roletable.selectedList.length === 0) {
                         Message({
-                          message: this.$t('label.PFANS1013VIEW_EXPORTERRINFO'),
-                          type: 'error',
-                          duration: 2 * 1000
+                            message: this.$t('normal.info_01'),
+                            type: 'info',
+                            duration: 2 * 1000
                         });
                         return;
-                      }
                     }
-                  }
+                    //DEL_FJL
+                    // else if(this.$refs.roletable.selectedList.length > 0){
+                    //   for(let i = 0; i < this.$refs.roletable.selectedList.length; i++){
+                    //     if(this.$refs.roletable.selectedList[i].status !== this.$t("label.PFANS5004VIEW_OVERTIME")){
+                    //       Message({
+                    //         message: this.$t('label.PFANS1013VIEW_EXPORTERRINFO'),
+                    //         type: 'error',
+                    //         duration: 2 * 1000
+                    //       });
+                    //       return;
+                    //     }
+                    //   }
+                    // }
+                    //DEL_FJL
                     this.selectedlist = this.$refs.roletable.selectedList;
                     for (let i = 0; i < this.selectedlist.length; i++) {
                         this.selectedList.totalcost.push({
@@ -322,16 +335,16 @@
                                                 let conditiondat = moment(response[m].invoicedate).format("YYYY");
                                                 response[m].conditiondate = conditionDat + Date + conditiondat;
                                             }
-                                          if(response[m].subjectnumber!=''&&response[m].subjectnumber!=null){
-                                            response[m].subjectnumber =response[m].subjectnumber.replace("-0","0")
-                                            response[m].subjectnumber =response[m].subjectnumber.replace("0-","0")
-                                          }
-                                          if(response[m].budgetcoding!=''&&response[m].budgetcoding!=null){
-                                            let letbudge = getDictionaryInfo(response[m].budgetcoding);
-                                            if (letbudge) {
-                                              response[m].budgetcoding = letbudge.value1;
+                                            if (response[m].subjectnumber != '' && response[m].subjectnumber != null) {
+                                                response[m].subjectnumber = response[m].subjectnumber.replace("-0", "0")
+                                                response[m].subjectnumber = response[m].subjectnumber.replace("0-", "0")
                                             }
-                                          }
+                                            if (response[m].budgetcoding != '' && response[m].budgetcoding != null) {
+                                                let letbudge = getDictionaryInfo(response[m].budgetcoding);
+                                                if (letbudge) {
+                                                    response[m].budgetcoding = letbudge.value1;
+                                                }
+                                            }
                                             invoiceamountvalue += parseFloat(response[m].lineamount);
                                             this.totalcostvalue.push({
                                                 invoicenumber: response[m].invoicenumber,
@@ -391,62 +404,62 @@
                                 for (let i = 0; i < this.startoptionvalue.length; i++) {
                                     let obj = this.startoptionvalue[i];
                                     csvData.push({
-                                      invoicenumber: obj.invoicenumber,
-                                      number: obj.number,
-                                      invoicetype: obj.invoicetype,
-                                      rowtype: obj.rowtype,
-                                      invoicedate: obj.invoicedate,
-                                      conditiondate: obj.conditiondate,
-                                      vendorcode: obj.vendorcode,
-                                      paymentmethod: obj.paymentmethod,
-                                      currency: obj.currency,
-                                      invoiceamount: obj.invoiceamount,
-                                      lineamount: obj.lineamount,
-                                      currencyrate: obj.currencyrate,
-                                      companysegment: obj.companysegment,
-                                      budgetcoding: obj.budgetcoding,
-                                      subjectnumber: obj.subjectnumber,
-                                      productsegment: obj.productsegment,
-                                      vatnumber: obj.vatnumber,
-                                      taxCode: obj.taxCode,
-                                      paymentterms: obj.paymentterms,
-                                      remark: obj.remark,
-                                      source: obj.source,
-                                      paymentmethods: obj.paymentmethods,
-                                      type: obj.type,
+                                        invoicenumber: obj.invoicenumber,
+                                        number: obj.number,
+                                        invoicetype: obj.invoicetype,
+                                        rowtype: obj.rowtype,
+                                        invoicedate: obj.invoicedate,
+                                        conditiondate: obj.conditiondate,
+                                        vendorcode: obj.vendorcode,
+                                        paymentmethod: obj.paymentmethod,
+                                        currency: obj.currency,
+                                        invoiceamount: obj.invoiceamount,
+                                        lineamount: obj.lineamount,
+                                        currencyrate: obj.currencyrate,
+                                        companysegment: obj.companysegment,
+                                        budgetcoding: obj.budgetcoding,
+                                        subjectnumber: obj.subjectnumber,
+                                        productsegment: obj.productsegment,
+                                        vatnumber: obj.vatnumber,
+                                        taxCode: obj.taxCode,
+                                        paymentterms: obj.paymentterms,
+                                        remark: obj.remark,
+                                        source: obj.source,
+                                        paymentmethods: obj.paymentmethods,
+                                        type: obj.type,
                                     })
                                 }
                                 let filterVal = ['invoicenumber', 'number', 'invoicetype', 'rowtype', 'invoicedate', 'conditiondate', 'vendorcode', 'paymentmethod', 'currency',
                                     'invoiceamount', 'lineamount', 'currencyrate', 'companysegment', 'budgetcoding', 'subjectnumber',
                                     , 'productsegment', 'vatnumber', 'taxCode', 'paymentterms', 'remark', 'source', 'paymentmethods', 'type'];
-                              const parser = new Parser({header: false});
-                              const result = parser.parse(csvData);
-                              let aaa = result;
-                              //   const parser = new Parser({excelStrings:true});
-                              //   console.log("bbb",parser)
-                              //   const result = parser.parse(csvData);
-                              //   console.log("ccc",result)
-                              //   let aaa = result.substring(220);
-                              //
-                              //   debugger
-                              //
-                              //   while(aaa.indexOf('"="')!='-1'){
-                              //     aaa= aaa.replace('"="','')
-                              //   }
-                              //   let bbb = aaa;
-                              // console.log("aaa",bbb)
-                              // while(bbb.indexOf('""')!='-1'){
-                              //   bbb= bbb.replace('""','"')
-                              //
-                              // }
-                              // let ccc = bbb;
-                              // console.log("ccc",ccc)
-                              // while(ccc.indexOf('",",')!='-1'){
-                              //   ccc= ccc.replace('",",','",')
-                              //
-                              // }
-                              // let ddd = ccc;
-                              // console.log("bbb",ddd)
+                                const parser = new Parser({header: false});
+                                const result = parser.parse(csvData);
+                                let aaa = result;
+                                //   const parser = new Parser({excelStrings:true});
+                                //   console.log("bbb",parser)
+                                //   const result = parser.parse(csvData);
+                                //   console.log("ccc",result)
+                                //   let aaa = result.substring(220);
+                                //
+                                //   debugger
+                                //
+                                //   while(aaa.indexOf('"="')!='-1'){
+                                //     aaa= aaa.replace('"="','')
+                                //   }
+                                //   let bbb = aaa;
+                                // console.log("aaa",bbb)
+                                // while(bbb.indexOf('""')!='-1'){
+                                //   bbb= bbb.replace('""','"')
+                                //
+                                // }
+                                // let ccc = bbb;
+                                // console.log("ccc",ccc)
+                                // while(ccc.indexOf('",",')!='-1'){
+                                //   ccc= ccc.replace('",",','",')
+                                //
+                                // }
+                                // let ddd = ccc;
+                                // console.log("bbb",ddd)
                                 let csvContent = "data:text/csv;charset=utf-8,\uFEFF" + aaa;
                                 const link = document.createElement("a");
                                 link.href = csvContent;
