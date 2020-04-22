@@ -919,7 +919,7 @@
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012FORMVIEW_PL')" align="center" width="150">
                           <template slot-scope="scope">
-                            <el-select v-model="scope.row.plsummary" :disabled="!disable" style="width: 100%" clearable
+                            <el-select v-model="scope.row.plsummary" :disabled="checktaxes" style="width: 100%" clearable
                                        @change="getplsummary(scope.row)">
                               <el-option
                                 v-for="item in ploptionsdate"
@@ -1627,18 +1627,24 @@
               }
               if (response.invoice.length > 0) {
                 this.tableF = response.invoice;
-                for (var i = 0; i < this.tableF.length; i++) {
-                  if (this.tableF[i].taxrate === '') {
-                    this.checkexternal = true;
-                    this.checktaxes = true;
-                    this.checkdisable = true;
-                    this.disablecheck = true;
-                  }else{
-                    this.checkexternal = false;
-                    this.checktaxes = false;
-                    this.checkdisable = false;
-                    this.disablecheck = false;
-                  }
+                //   for (var i = 0; i < this.tableF.length; i++) {
+                //     if (this.tableF[i].taxrate === '') {
+                //       this.checkexternal = true;
+                //       this.checktaxes = true;
+                //       this.checkdisable = true;
+                //       this.disablecheck = true;
+                //     }else{
+                //       this.checkexternal = false;
+                //       this.checktaxes = false;
+                //       this.checkdisable = false;
+                //       this.disablecheck = false;
+                //     }
+                // }
+                if(this.form.status ==='2'){
+                  this.checkexternal = true;
+                  this.checktaxes = true;
+                  this.checkdisable = true;
+                  this.disablecheck = true;
                 }
                 this.checkoptionsdata();
               }
@@ -2023,6 +2029,7 @@
         });
     },
     created() {
+      debugger
       if (!this.$route.params.disabled) {
         this.buttonList = [];
       }
