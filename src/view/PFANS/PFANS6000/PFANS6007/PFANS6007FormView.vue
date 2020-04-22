@@ -401,10 +401,8 @@
                 vote.lable = response[i].numbers +'_'+response[i].project_name;
                 this.gridData.push(vote);
               }
-              if (response.length== 0)
-              {
-                this.form.pjname = '';
-              }
+            this.form.pjname = '';
+            this.form.psdcdwindow = '';
             this.loading = false;
           })
           .catch(error => {

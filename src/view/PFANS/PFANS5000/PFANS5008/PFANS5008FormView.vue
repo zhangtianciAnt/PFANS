@@ -107,11 +107,11 @@
                 </el-row>
               </el-aside>
               <el-main>
-                <el-calendar v-model="companyform.log_date" :disabled="!disable" class="appManage">
+                <el-calendar v-model="companyform.log_date" :disabled="!disable" class="appManage" >
                   <template
                     slot="dateCell"
                     slot-scope="{date, data}">
-                    <p>
+                    <p @click='changedate(data.day)'>
                       {{ data.day.split('-').slice(2).join('-') }}
                     </p>
                   </template>
@@ -840,6 +840,90 @@
             this.loading = false;
           });
       },
+      changedate(){
+        this.getAttendancelist();
+        this.$route.params._id = ''
+        this.row = ''
+        this.companyform.logmanagement_id = ''
+        this.companyform.time_start = '';
+        this.companyform.wbs_id = '';
+        this.companyform.behavior_breakdown = '';
+        this.companyform.work_phase = '';
+        this.companyform.work_memo = '';
+        if (this.companyform.log_date == null) {
+          this.Riqickeck = false;
+        } else {
+          this.Riqickeck = true;
+        }
+        this.divfalse = false;
+        this.xsTable = false;
+        this.loading = true;
+
+        let log_date = moment(this.companyform.log_date).format('YYYY-MM-DD');
+        this.$store
+          .dispatch('PFANS5008Store/getCheckList', {})
+          .then(response => {
+            const data = [];
+            let datalist = [];
+            for (let k = 0; k < response.length; k++) {
+              if (this.User_id === response[k].createby) {
+                if (response[k].has_project === '01') {
+                  let log_date3 = moment(response[k].log_date).format('YYYY-MM-DD');
+                  if (log_date3 === log_date) {
+                    if (response[k].work_phase === 'PP008001') {
+                      this.code3 = 'PP009';
+                      let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                      if (letErrortype != null) {
+                        response[k].behavior_breakdown = letErrortype.code;
+                      }
+                    } else if (response[k].work_phase === 'PP008002') {
+                      this.code3 = 'PP010';
+                      let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                      if (letErrortype != null) {
+                        response[k].behavior_breakdown = letErrortype.code;
+                      }
+                    } else if (response[k].work_phase === 'PP008003') {
+                      this.code3 = 'PP025';
+                      let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                      if (letErrortype != null) {
+                        response[k].behavior_breakdown = letErrortype.code;
+                      }
+                    } else if (response[k].work_phase === 'PP008004') {
+                      this.code3 = 'PP011';
+                      let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                      if (letErrortype != null) {
+                        response[k].behavior_breakdown = letErrortype.code;
+                      }
+                    }
+                    if (response[k].work_phase !== null && response[k].work_phase !== '') {
+                      let letErrortype = getDictionaryInfo(response[k].work_phase);
+                      if (letErrortype != null) {
+                        response[k].work_phase = letErrortype.value1;
+                      }
+                    }
+                    let obj = {};
+                    obj.start_time = response[k].time_start;
+                    obj.work_phase = response[k].work_phase;
+                    let letErrortypecheck = getDictionaryInfo(response[k].behavior_breakdown);
+                    if (letErrortypecheck != null) {
+                      obj.behavior_breakdown = letErrortypecheck.value1;
+                    }
+                    obj.project_name = response[k].project_name;
+                    this.divfalse = true;
+                    this.xsTable = true;
+                    obj.logmanagementid = response[k].logmanagement_id;
+                    datalist[k] = obj;
+                    this.divfalse = true;
+                    this.xsTable = true;
+                  }
+                }
+              }
+            }
+            this.DataList = datalist;
+          });
+
+        this.loading = false;
+      },
       riqi() {
         this.getAttendancelist();
         this.divfalse = false;
@@ -908,6 +992,9 @@
       buttonClick(val) {
         this.checklistgettable();
         if (val === 'mingtian') {
+          this.$route.params._id = ''
+          this.row = ''
+          this.companyform.logmanagement_id = ''
           this.divfalse = false;
           this.xsTable = false;
           this.companyform.log_date = moment(this.companyform.log_date).add(1, 'days').format('YYYY-MM-DD');
@@ -982,6 +1069,7 @@
         if (val === 'btnSave') {
           this.$refs['companyform'].validate(valid => {
             if (valid) {
+              this.getAttendancelist();
               let error = 0;
               if (moment(this.companyform.log_date).format('YYYY-MM-DD') >= moment(new Date()).format('YYYY-MM-DD')) {
                 error = error + 1;
@@ -1222,6 +1310,9 @@
       },
       clickdata() {
         this.getAttendancelist();
+        this.$route.params._id = ''
+        this.row = ''
+        this.companyform.logmanagement_id = ''
         this.companyform.time_start = '';
         this.companyform.wbs_id = '';
         this.companyform.behavior_breakdown = '';
