@@ -1623,6 +1623,12 @@
                     this.form.status = '0';
                 }
                 this.buttonClick2();
+                //ADD_FJL 审批撤销时，画面控件可编辑
+                this.disable = true;
+                this.dislengthtime = false;
+                this.checkrelengthtime = false;
+                this.disrevacationtype = false;
+                //ADD_FJL
             },
             fileError(err, file, fileList) {
                 Message({
