@@ -6,10 +6,8 @@
       @buttonClick="buttonClick"
       ref="container"
       v-loading="loading"
-      @end="end"
-      @start="start"
+
       @disabled="setdisabled"
-      @workflowState="workflowState"
     >
       <div slot="customize">
         <el-form
@@ -487,7 +485,7 @@
                             width="290">
                             <template slot-scope="scope">
                               <user
-                                :disabled="!disable"
+                                :disabled="scope.row.updOrinsflg ==='1' ? true : !disable"
                                 :no="scope.row"
                                 :userlist="scope.row.name"
                                 @getUserids="getCitationUserid"
@@ -519,11 +517,12 @@
                             width="180">
                             <template slot-scope="scope">
                               <el-date-picker
-                                :disabled="!disable"
+                                :disabled="scope.row.updOrinsflg ==='1' ? true : !disable"
                                 type="date"
                                 :no="scope.row"
                                 v-model="scope.row.admissiontime"
-                                style="width: 9rem">
+                                style="width: 9rem"
+                                >
                               </el-date-picker>
                             </template>
                           </el-table-column>
@@ -546,11 +545,12 @@
                           <el-table-column :label="$t('label.operation')" align="center" width="200">
                             <template slot-scope="scope">
                               <el-button
-                                :disabled="!disable"
+                                :disabled="scope.row.updOrinsflg ==='1' ? true : !disable"
                                 @click.native.prevent="deleteRow1(scope.$index, tableB)"
                                 plain v-show="scope.$index != 0"
                                 size="small"
                                 type="danger"
+
                               >{{$t('button.delete')}}
                               </el-button>
                               <el-button
@@ -622,7 +622,7 @@
                                     <input class="content bg" v-model="scope.row.name_id"
                                            :disabled="true"></input>
                                     <el-button
-                                      :disabled="!disable"
+                                      :disabled="scope.row.updOrinsflg ==='1' ? true : !disable"
                                       icon="el-icon-search"
                                       @click="dialogTableVisible1 = true"
                                       size="small"
@@ -728,7 +728,7 @@
                           >
                             <template slot-scope="scope">
                               <el-date-picker
-                                :disabled="!disable"
+                                :disabled="scope.row.updOrinsflg ==='1' ? true : !disable"
                                 type="date"
                                 :no="scope.row"
                                 v-model="scope.row.admissiontime"
@@ -760,7 +760,7 @@
                           >
                             <template slot-scope="scope">
                               <el-button
-                                :disabled="!disable"
+                                :disabled="scope.row.updOrinsflg ==='1' ? true : !disable"
                                 @click.native.prevent="deleteRow2(scope.$index, tableC)"
                                 plain
                                 size="small"
@@ -1201,6 +1201,7 @@
             admissiontime: '',
             exittime: '',
             rowindex: '',
+            updOrinsflg:'1',//区分修改还是新建
           },
         ],
 
@@ -1218,6 +1219,7 @@
             admissiontime: '',
             exittime: '',
             rowindex: '',
+            updOrinsflg:'1',//区分修改还是新建
           },
         ],
 
@@ -1468,6 +1470,7 @@
                   o.admissiontime = response.projectsystem[i].admissiontime;
                   o.exittime = response.projectsystem[i].exittime;
                   o.rowindex = response.projectsystem[i].rowindex;
+                  o.updOrinsflg = '1';
                   this.tableB.push(o);
                 } else {
                   if (response.projectsystem[i].name != '' || response.projectsystem[i].name != null) {
@@ -1484,10 +1487,12 @@
                     o.admissiontime = response.projectsystem[i].admissiontime;
                     o.exittime = response.projectsystem[i].exittime;
                     o.rowindex = response.projectsystem[i].rowindex;
+                    o.updOrinsflg = '1';
                     this.tableC.push(o);
                   }
                 }
               }
+
             }
             // this.baseInfo.companyprojects = JSON.parse(JSON.stringify(this.form));
             // this.baseInfo.stageInformation = JSON.parse(JSON.stringify(this.tableP));
@@ -1577,6 +1582,7 @@
           admissiontime: '',
           exittime: '',
           rowindex: '',
+          updOrinsflg:'0',//区分修改还是新建
         });
       },
       // 体制-社外
@@ -1596,6 +1602,7 @@
               admissiontime: '',
               exittime: '',
               rowindex: '',
+              updOrinsflg:'0',//区分修改还是新建
             },
           ];
         }
@@ -1629,22 +1636,22 @@
           this.disabled = val;
         }
       },
-      workflowState(val) {
-        if (val.state === '1') {
-          this.form.status = '6';
-        } else if (val.state === '2') {
-          this.form.status = '4';
-        }
-        this.buttonClick('update');
-      },
-      start() {
-        this.form.status = '5';
-        this.buttonClick('update');
-      },
-      end() {
-        this.form.status = '4';
-        this.buttonClick('update');
-      },
+      // workflowState(val) {
+      //   if (val.state === '1') {
+      //     this.form.status = '6';
+      //   } else if (val.state === '2') {
+      //     this.form.status = '4';
+      //   }
+      //   this.buttonClick('update');
+      // },
+      // start() {
+      //   this.form.status = '5';
+      //   this.buttonClick('update');
+      // },
+      // end() {
+      //   this.form.status = '4';
+      //   this.buttonClick('update');
+      // },
       addRow3() {
         this.tableD.push({
           projectcontract_id: '',
@@ -1765,6 +1772,7 @@
           admissiontime: '',
           exittime: '',
           rowindex: '',
+          updOrinsflg:'0',//区分修改还是新建
         });
       },
       getUserids(val) {

@@ -2816,11 +2816,7 @@
         row.taxrate = ' ';
       },
       changeSum(row) {
-        if (row.taxrate == '') {
-          row.facetax = '';
-        } else {
-          row.facetax = row.invoiceamount - row.excludingtax;
-        }
+        row.facetax = row.invoiceamount - row.excludingtax;
         for (let j = 0; j < this.tableF.length; j++) {
           if (this.tableF[j].invoiceamount != 0) {
             this.form.tormb = '';
