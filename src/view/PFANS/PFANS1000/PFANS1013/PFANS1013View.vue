@@ -15,18 +15,18 @@
 </template>
 
 <script>
-  import EasyNormalTable from '@/components/EasyNormalTable'
-  import {Message} from 'element-ui'
-  import {getDictionaryInfo, getOrgInfoByUserId, getStatus, getUserInfo} from '@/utils/customize'
-  import moment from "moment";
+  import EasyNormalTable from '@/components/EasyNormalTable';
+  import {Message} from 'element-ui';
+  import {getDictionaryInfo, getOrgInfoByUserId, getStatus, getUserInfo} from '@/utils/customize';
+  import moment from 'moment';
 
   const {Parser} = require('json2csv');
 
   export default {
-    name: "PFANS1013View",
+    name: 'PFANS1013View',
     components: {
       moment,
-      EasyNormalTable
+      EasyNormalTable,
     },
     data() {
       return {
@@ -36,7 +36,7 @@
         selectedList: [],
         isShow: true,
         loading: false,
-        title: "title.PFANS1013VIEW",
+        title: 'title.PFANS1013VIEW',
         data: [],
         columns: [
           {
@@ -44,49 +44,49 @@
             label: 'label.applicant',
             width: 100,
             fix: false,
-            filter: true
+            filter: true,
           },
           {
             code: 'centername',
             label: 'label.center',
             width: 130,
             fix: false,
-            filter: true
+            filter: true,
           },
           {
             code: 'groupname',
             label: 'label.group',
             width: 130,
             fix: false,
-            filter: true
+            filter: true,
           },
           {
             code: 'teamname',
             label: 'label.team',
             width: 130,
             fix: false,
-            filter: true
+            filter: true,
           },
           {
             code: 'type',
             label: 'label.PFANS1013VIEW_TYPE',
             width: 120,
             fix: false,
-            filter: true
+            filter: true,
           },
           {
             code: 'invoiceno',
             label: 'label.PFANS1013VIEW_REIMNUMBER',
             width: 130,
             fix: false,
-            filter: true
+            filter: true,
           },
           {
             code: 'startdate',
             label: 'label.PFANS1013VIEW_STARTDATE',
             width: 150,
             fix: false,
-            filter: true
+            filter: true,
 
           },
           {
@@ -94,7 +94,7 @@
             label: 'label.PFANS1013VIEW_ENDDATE',
             width: 150,
             fix: false,
-            filter: true
+            filter: true,
 
           },
           // {
@@ -109,37 +109,33 @@
             label: 'label.approval_status',
             width: 120,
             fix: false,
-            filter: true
-          }
+            filter: true,
+          },
         ],
         buttonList: [
           {
             key: 'view',
             name: 'button.view',
             disabled: false,
-            icon: 'el-icon-view'
+            icon: 'el-icon-view',
           },
           {
             key: 'insert',
             name: 'button.insert',
             disabled: false,
-            icon: 'el-icon-plus'
+            icon: 'el-icon-plus',
           },
           {
             key: 'update',
             name: 'button.update',
             disabled: false,
-            icon: 'el-icon-edit'
+            icon: 'el-icon-edit',
           },
-          {
-            key: 'export',
-            name: 'button.export',
-            disabled: false,
-            icon: 'el-icon-upload2'
-          }
+          {'key': 'export', 'name': 'label.PFANS1012VIEW_EXPORTCSV', 'disabled': false, icon: 'el-icon-upload2'},
+          // {'key': 'export1', 'name': 'label.PFANS1012VIEW_EXPORT2', 'disabled': false, icon: 'el-icon-upload2'},
         ],
         rowid: '',
-        row_id: 'evectionid'
+        row_id: 'evectionid',
       };
     },
     mounted() {
@@ -167,7 +163,7 @@
             //     response[j].budgetunit = letBudgetunit.value1;
             //   }
             // }
-            if (response[j].type !== null && response[j].type !== "") {
+            if (response[j].type !== null && response[j].type !== '') {
               if (response[j].type === '0') {
                 if (this.$i18n) {
 
@@ -180,14 +176,14 @@
                 }
               }
             }
-            if (response[j].startdate !== null && response[j].startdate !== "") {
-              response[j].startdate = moment(response[j].startdate).format("YYYY-MM-DD");
+            if (response[j].startdate !== null && response[j].startdate !== '') {
+              response[j].startdate = moment(response[j].startdate).format('YYYY-MM-DD');
             }
-            if (response[j].status !== null && response[j].status !== "") {
+            if (response[j].status !== null && response[j].status !== '') {
               response[j].status = getStatus(response[j].status);
             }
-            if (response[j].enddate !== null && response[j].enddate !== "") {
-              response[j].enddate = moment(response[j].enddate).format("YYYY-MM-DD");
+            if (response[j].enddate !== null && response[j].enddate !== '') {
+              response[j].enddate = moment(response[j].enddate).format('YYYY-MM-DD');
             }
           }
           this.data = response;
@@ -197,10 +193,10 @@
           Message({
             message: error,
             type: 'error',
-            duration: 5 * 1000
+            duration: 5 * 1000,
           });
           this.loading = false;
-        })
+        });
     },
     methods: {
       rowClick(row) {
@@ -209,11 +205,11 @@
       formatJson(filterVal, jsonData) {
         return jsonData.map(v => filterVal.map(j => {
           if (j === 'timestamp') {
-            return parseTime(v[j])
+            return parseTime(v[j]);
           } else {
-            return v[j]
+            return v[j];
           }
-        }))
+        }));
       },
       buttonClick(val) {
         this.$store.commit('global/SET_HISTORYURL', this.$route.path);
@@ -222,7 +218,7 @@
             Message({
               message: this.$t('normal.info_01'),
               type: 'info',
-              duration: 2 * 1000
+              duration: 2 * 1000,
             });
             return;
           }
@@ -231,23 +227,23 @@
             params: {
               _id: this.rowid,
               disabled: true,
-              method: "update"
-            }
-          })
+              method: 'update',
+            },
+          });
         } else if (val === 'insert') {
           this.$router.push({
             name: 'PFANS1013FormView',
             params: {
               _id: '',
-              disabled: true
-            }
-          })
+              disabled: true,
+            },
+          });
         } else if (val === 'view') {
           if (this.rowid === '') {
             Message({
               message: this.$t('normal.info_01'),
               type: 'info',
-              duration: 2 * 1000
+              duration: 2 * 1000,
             });
             return;
           }
@@ -256,9 +252,9 @@
             params: {
               _id: this.rowid,
               disabled: false,
-              method: "view"
-            }
-          })
+              method: 'view',
+            },
+          });
         } else if (val === 'export') {
           this.startoptionvalue = [];
           this.travelcostvalue = [];
@@ -269,26 +265,26 @@
             Message({
               message: this.$t('normal.info_01'),
               type: 'info',
-              duration: 2 * 1000
+              duration: 2 * 1000,
             });
             return;
-          } else if(this.$refs.roletable.selectedList.length > 0){
-              for(let i = 0; i < this.$refs.roletable.selectedList.length; i++){
-                if(this.$refs.roletable.selectedList[i].status !== this.$t("label.PFANS5004VIEW_OVERTIME")){
-                  Message({
-                    message: this.$t('label.PFANS1013VIEW_EXPORTERRINFO'),
-                    type: 'error',
-                    duration: 2 * 1000
-                  });
-                  return;
-                }
+          } else if (this.$refs.roletable.selectedList.length > 0) {
+            for (let i = 0; i < this.$refs.roletable.selectedList.length; i++) {
+              if (this.$refs.roletable.selectedList[i].status !== this.$t('label.PFANS5004VIEW_OVERTIME')) {
+                Message({
+                  message: this.$t('label.PFANS1013VIEW_EXPORTERRINFO'),
+                  type: 'error',
+                  duration: 2 * 1000,
+                });
+                return;
               }
+            }
           }
           this.selectedlist = this.$refs.roletable.selectedList;
           for (let i = 0; i < this.selectedlist.length; i++) {
             this.selectedList.travelcost.push({
-              evectionid: this.selectedlist[i].evectionid
-            })
+              evectionid: this.selectedlist[i].evectionid,
+            });
           }
           this.loading = true;
           this.$store
@@ -304,77 +300,87 @@
                     let letErrortype = getDictionaryInfo(this.selectedlist[i].paymentmethod);
                     if (letErrortype != null) {
                       this.selectedlist[i].paymentmethod = letErrortype.value1;
-                      if (this.selectedlist[i].paymentmethod === this.$t("label.PFANS1012VIEW_ONLINEPAYMENT") || this.selectedlist[i].paymentmethod === this.$t("label.PFANS1012VIEW_TRANSFERCHECK")) {
-                        this.selectedlist[i].paymentmethod = this.$t("label.PFANS1012VIEW_COST")
-                      } else if (this.selectedlist[i].paymentmethod === this.$t("label.PFANS1012VIEW_PPAYMENT")) {
-                        this.selectedlist[i].paymentmethod = this.$t("label.PFANS1012VIEW_OFFICE")
+                      if (this.selectedlist[i].paymentmethod === this.$t('label.PFANS1012VIEW_ONLINEPAYMENT') || this.selectedlist[i].paymentmethod === this.$t('label.PFANS1012VIEW_TRANSFERCHECK')) {
+                        this.selectedlist[i].paymentmethod = this.$t('label.PFANS1012VIEW_COST');
+                      } else if (this.selectedlist[i].paymentmethod === this.$t('label.PFANS1012VIEW_PPAYMENT')) {
+                        this.selectedlist[i].paymentmethod = this.$t('label.PFANS1012VIEW_OFFICE');
                       } else if (this.selectedlist[i].paymentmethod === '') {
-                        this.selectedlist[i].paymentmethod = ''
+                        this.selectedlist[i].paymentmethod = '';
                       }
                     }
-                    if (response[m].invoicedate !== null && response[m].invoicedate !== "") {
+                    if (response[m].invoicedate !== null && response[m].invoicedate !== '') {
                       let date;
-                      let invoiceDate = moment(response[m].invoicedate).format("MM");
+                      let invoiceDate = moment(response[m].invoicedate).format('MM');
                       if (invoiceDate == '01') {
-                        date = 'Jan'
+                        date = 'JAN'
                       } else if (invoiceDate == '02') {
-                        date = 'Feb'
+                        date = 'FEB'
                       } else if (invoiceDate == '03') {
-                        date = 'Mar'
+                        date = 'MAR'
                       } else if (invoiceDate == '04') {
-                        date = 'Apr'
+                        date = 'APR'
                       } else if (invoiceDate == '05') {
-                        date = 'May'
+                        date = 'MAY'
                       } else if (invoiceDate == '06') {
-                        date = 'June'
+                        date = 'JUNE'
                       } else if (invoiceDate == '07') {
-                        date = 'July'
+                        date = 'JULY'
                       } else if (invoiceDate == '08') {
-                        date = 'Aug'
+                        date = 'AUG'
                       } else if (invoiceDate == '09') {
-                        date = 'Sept'
+                        date = 'SEPT'
                       } else if (invoiceDate == '10') {
-                        date = 'Oct'
+                        date = 'OCT'
                       } else if (invoiceDate == '11') {
-                        date = 'Nov'
+                        date = 'NOV'
                       } else if (invoiceDate == '12') {
-                        date = 'Dec'
+                        date = 'DEC'
                       }
-                      let invoiceDat = moment(response[m].invoicedate).format("DD");
-                      let invoicedat = moment(response[m].invoicedate).format("YYYY");
+                      let invoiceDat = moment(response[m].invoicedate).format('DD');
+                      let invoicedat = moment(response[m].invoicedate).format('YYYY');
                       response[m].invoicedate = invoiceDat + date + invoicedat;
                     }
-                    if (response[m].conditiondate !== null && response[m].conditiondate !== "") {
+                    if (response[m].conditiondate !== null && response[m].conditiondate !== '') {
                       let Date;
-                      let conditionDate = moment(response[m].conditiondate).format("MM");
+                      let conditionDate = moment(response[m].conditiondate).format('MM');
                       if (conditionDate == '01') {
-                        Date = 'Jan'
+                        Date = 'JAN'
                       } else if (conditionDate == '02') {
-                        Date = 'Feb'
+                        Date = 'FEB'
                       } else if (conditionDate == '03') {
-                        Date = 'Mar'
+                        Date = 'MAR'
                       } else if (conditionDate == '04') {
-                        Date = 'Apr'
+                        Date = 'APR'
                       } else if (conditionDate == '05') {
-                        Date = 'May'
+                        Date = 'MAY'
                       } else if (conditionDate == '06') {
-                        Date = 'June'
+                        Date = 'JUNE'
                       } else if (conditionDate == '07') {
-                        Date = 'July'
+                        Date = 'JULY'
                       } else if (conditionDate == '08') {
-                        Date = 'Aug'
+                        Date = 'AUG'
                       } else if (conditionDate == '09') {
-                        Date = 'Sept'
+                        Date = 'SEPT'
                       } else if (conditionDate == '10') {
-                        Date = 'Oct'
+                        Date = 'OCT'
                       } else if (conditionDate == '11') {
-                        Date = 'Nov'
+                        Date = 'NOV'
                       } else if (conditionDate == '12') {
-                        Date = 'Dec'
+                        Date = 'DEC'
                       }
-                      let conditionDat = moment(response[m].invoicedate).format("DD");
-                      let conditiondat = moment(response[m].invoicedate).format("YYYY");
+                      let conditionDat = moment(response[m].invoicedate).format('DD');
+                      let conditiondat = moment(response[m].invoicedate).format('YYYY');
                       response[m].conditiondate = conditionDat + Date + conditiondat;
+                    }
+                    if(response[m].subjectnumber!=''&&response[m].subjectnumber!=null){
+                      response[m].subjectnumber =response[m].subjectnumber.replace("-0","0")
+                      response[m].subjectnumber =response[m].subjectnumber.replace("0-","0")
+                    }
+                    if(response[m].budgetcoding!=''&&response[m].budgetcoding!=null){
+                      let letbudge = getDictionaryInfo(response[m].budgetcoding);
+                      if (letbudge) {
+                        response[m].budgetcoding = letbudge.value1;
+                      }
                     }
                     invoiceamountvalue += parseFloat(response[m].lineamount);
                     this.travelcostvalue.push({
@@ -401,7 +407,7 @@
                       source: 'OPEN_IF',
                       paymentmethods: 'WIRE',
                       type: ',',
-                    })
+                    });
                   }
                 }
               }
@@ -454,21 +460,20 @@
                   vatnumber: obj.vatnumber,
                   taxCode: obj.taxCode,
                   paymentterms: obj.paymentterms,
-                  remarks: obj.remarks,
+                  remark: obj.remark,
                   source: obj.source,
                   paymentmethods: obj.paymentmethods,
                   type: obj.type,
-                })
+                });
               }
               let filterVal = ['invoicenumber', 'number', 'invoicetype', 'rowtype', 'invoicedate', 'conditiondate', 'vendorcode', 'paymentmethod', 'currency',
                 'invoiceamount', 'lineamount', 'currencyrate', 'companysegment', 'budgetcoding', 'subjectnumber',
                 , 'productsegment', 'vatnumber', 'taxCode', 'paymentterms', 'remarks', 'source', 'paymentmethods', 'type'];
               const parser = new Parser({header: false});
               const result = parser.parse(csvData);
-
-              let resultflg = result;
-              let csvContent = "data:text/csv;charset=utf-8,\uFEFF" + resultflg;
-              const link = document.createElement("a");
+              let aaa = result;
+              let csvContent = 'data:text/csv;charset=utf-8,\uFEFF' + aaa;
+              const link = document.createElement('a');
               link.href = csvContent;
               link.download = this.$t('AP') + this.$t('title.PFANS1013VIEW') + '.csv';
               document.body.appendChild(link);
@@ -480,14 +485,14 @@
               Message({
                 message: error,
                 type: 'error',
-                duration: 5 * 1000
+                duration: 5 * 1000,
               });
               this.loading = false;
-            })
+            });
         }
       },
-    }
-  }
+    },
+  };
 </script>
 
 <style scoped>

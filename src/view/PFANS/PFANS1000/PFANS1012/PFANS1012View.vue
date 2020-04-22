@@ -415,16 +415,13 @@
                                       paymentmethods: obj.paymentmethods,
                                       type: obj.type,
                                     })
-                                  console.log("aaa",csvData)
                                 }
 
                                 let filterVal = ['invoicenumber', 'number', 'invoicetype', 'rowtype', 'invoicedate', 'conditiondate', 'vendorcode', 'paymentmethod', 'currency',
                                     'invoiceamount', 'lineamount', 'currencyrate', 'companysegment', 'budgetcoding', 'subjectnumber',
                                     , 'productsegment', 'vatnumber', 'taxCode', 'paymentterms', 'remark', 'source', 'paymentmethods', 'type'];
-                               debugger
                               const parser = new Parser({header: false});
                               const result = parser.parse(csvData);
-                              console.log("aaa",result)
                               let aaa = result;
                               //   const parser = new Parser({excelStrings:true});
                               //   console.log("bbb",parser)
