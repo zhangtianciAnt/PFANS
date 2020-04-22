@@ -466,6 +466,7 @@
                   type: obj.type,
                 });
               }
+
               let filterVal = ['invoicenumber', 'number', 'invoicetype', 'rowtype', 'invoicedate', 'conditiondate', 'vendorcode', 'paymentmethod', 'currency',
                 'invoiceamount', 'lineamount', 'currencyrate', 'companysegment', 'budgetcoding', 'subjectnumber',
                 , 'productsegment', 'vatnumber', 'taxCode', 'paymentterms', 'remarks', 'source', 'paymentmethods', 'type'];

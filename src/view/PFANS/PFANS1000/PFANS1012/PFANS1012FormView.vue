@@ -403,15 +403,10 @@
                       </el-table-column>
                       <el-table-column :label="$t('label.PFANS1012FORMVIEW_INVOICET')" align="center" width="200">
                         <template slot-scope="scope">
-                          <el-select clearable style="width: 100%" v-model="scope.row.invoicetype" :disabled="!disable"
-                                     :placeholder="$t('normal.error_09')" :no="scope.row">
-                            <el-option
-                              v-for="item in optionstype"
-                              :key="item.value"
-                              :label="item.lable"
-                              :value="item.value">
-                            </el-option>
-                          </el-select>
+                          <el-input v-show="false" :disabled="true" style="width: 100%" v-model="scope.row.invoicetype">
+                          </el-input>
+                          <el-input :disabled="true" style="width: 100%" v-model="invoicetype">
+                          </el-input>
                         </template>
                       </el-table-column>
                       <el-table-column :label="$t('label.PFANS1012FORMVIEW_INVOICEM')" align="center" width="150">
@@ -1236,6 +1231,7 @@
         }
       };
       return {
+        invoicetype: '',
         checkexternal: false,
         checktaxes: false,
         checkdisable: false,
@@ -1310,7 +1306,7 @@
           invoice_id: '',
           publicexpenseid: '',
           invoicenumber: '1',
-          invoicetype: '',
+          invoicetype: 'PJ068001',
           invoiceamount: '',
           taxrate: '',
           excludingtax: '',
@@ -1511,7 +1507,7 @@
       };
     },
     mounted() {
-
+      this.invoicetype = getDictionaryInfo('PJ068001').value1;
       this.plsummary = getDictionaryInfo('PJ111008').value1;
       this.getsupplierinfor();
       this.getCompanyProjectList();
