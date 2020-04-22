@@ -67,11 +67,11 @@
                 </div>
               </el-form-item>
             </el-col>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS2011FROMVIEW_OVERTIME')" prop="worktime">
-                <el-input :disabled="true" style="width:20vw" v-model="form.worktime"></el-input>
-              </el-form-item>
-            </el-col>
+<!--            <el-col :span="8">-->
+<!--              <el-form-item :label="$t('label.PFANS2011FROMVIEW_OVERTIME')" prop="worktime">-->
+<!--                <el-input :disabled="true" style="width:20vw" v-model="form.worktime"></el-input>-->
+<!--              </el-form-item>-->
+<!--            </el-col>-->
           </el-row>
           <el-row>
             <el-col :span="8">
@@ -585,6 +585,7 @@
             }
         },
         methods: {
+            //加班合计时长
             getWorktime() {
                 this.loading = true;
                 this.$store

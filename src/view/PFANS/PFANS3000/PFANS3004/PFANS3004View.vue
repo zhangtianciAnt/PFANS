@@ -75,7 +75,7 @@
                         //     filter: true
                     }, {
                         code: 'size',
-                        label: 'label.PFANS3004VIEW_SIZE',
+                        label: 'label.PFANS3004VIEW_NAME',
                         width: 200,
                         fix: false,
                         filter: true
@@ -170,9 +170,9 @@
                                         footnam += getDictionaryInfo(val.footname).value2 + ",";
                                     }
                                 }
+                                response[j].size = footnam.substring(0, footnam.length - 1);
                             }
                         }
-                        response[j].size = footnam.substring(0, footnam.length - 1);
                         //add_fjl 拼接类别明细
                         let user = getUserInfo(response[j].userid)
                         let nameflg = getOrgInfoByUserId(response[j].userid);
