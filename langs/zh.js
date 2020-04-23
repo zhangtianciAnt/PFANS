@@ -2275,6 +2275,7 @@ module.exports = {
     PFANS2011FROMVIEW_ERRORINFOW: '五四青年节应该是28周岁以内申请',
     PFANS2011FROMVIEW_OVERTIMEDAY: '本年度的五四青年节已经申请过了',
     PFANS2011FROMVIEW_OVERTIMEMEN: '本年度的三八妇女节已经申请过了',
+    PFANS2011FROMVIEW_OVERTIMEONEDAY: '一天内不能重复申请（平日、周末、法定日加班）！',
     PFANS2013VIEW_LASTYEAR: '上年度',
     PFANS2013VIEW_THISYEAR: '本年度',
     PFANS2013VIEW_ANNUALLEAVE: '法定年休',

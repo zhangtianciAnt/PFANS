@@ -468,6 +468,7 @@
                 disactualovertime: false,
                 dataList: [],
                 overtimeday: '',
+                overtimeOneday: '',
                 overtimemen: '',
                 punchcardrecord: {
                     user_id: '',
@@ -959,6 +960,32 @@
                     this.form.actualsubstitutiondate = null;
                 }
             },
+            //新建接口
+            insertForm() {
+                this.loading = true;
+                this.$store
+                    .dispatch('PFANS2011Store/createOvertime', this.form)
+                    .then(response => {
+                        this.data = response;
+                        this.loading = false;
+                        Message({
+                            message: this.$t('normal.success_01'),
+                            type: 'success',
+                            duration: 5 * 1000,
+                        });
+                        if (this.$store.getters.historyUrl) {
+                            this.$router.push(this.$store.getters.historyUrl);
+                        }
+                    })
+                    .catch(error => {
+                        Message({
+                            message: error,
+                            type: 'error',
+                            duration: 5 * 1000,
+                        });
+                        this.loading = false;
+                    });
+            },
             buttonClick(val) {
                 this.$refs['refform'].validate(valid => {
                     if (valid) {
@@ -1021,7 +1048,6 @@
                                 return;
                             }
                         }
-                        this.loading = true;
                         this.form.userid = this.userlist;
                         this.form.applicationdate = moment(this.form.applicationdate).format(
                             'YYYY-MM-DD',
@@ -1045,6 +1071,7 @@
                             }
                         }
                         if (this.$route.params._id) {
+                            this.loading = true;
                             this.$store
                                 .dispatch('PFANS2011Store/updateOvertime', this.form)
                                 .then(response => {
@@ -1081,32 +1108,70 @@
                                     this.loading = false;
                                 });
                         } else {
+                            //五四青年节和三八妇女节重复申请check
+                            if (this.form.overtimetype === 'PR001007') {
+                                if (this.overtimeday >= 1) {
+                                    Message({
+                                        message: this.$t('label.PFANS2011FROMVIEW_OVERTIMEDAY'),
+                                        type: 'error',
+                                        duration: 5 * 1000,
+                                    });
+                                    return;
+                                }
+                            }
+                            //三八妇女节重复申请check
+                            if (this.form.overtimetype === 'PR001008') {
+                                if (this.overtimemen >= 1) {
+                                    Message({
+                                        message: this.$t('label.PFANS2011FROMVIEW_OVERTIMEMEN'),
+                                        type: 'error',
+                                        duration: 5 * 1000,
+                                    });
+                                    return;
+                                }
+                            }
                             //总经理审批自动通过
                             if (getCurrentRole() === "1") {
                                 this.form.status = '4';
                             }
-                            this.$store
-                                .dispatch('PFANS2011Store/createOvertime', this.form)
-                                .then(response => {
-                                    this.data = response;
-                                    this.loading = false;
-                                    Message({
-                                        message: this.$t('normal.success_01'),
-                                        type: 'success',
-                                        duration: 5 * 1000,
+                            //平日加班，周末加班，法定加班一天只能申请一次的check
+                            if (this.form.overtimetype === 'PR001001' || this.form.overtimetype === 'PR001002' || this.form.overtimetype === 'PR001003') {
+                                //获取一天的（平时，周末，法定加班次数）
+                                this.loading = true;
+                                let letreserveovertimedate = moment(this.form.reserveovertimedate).format('YYYY-MM-DD',);
+                                this.$store
+                                    .dispatch('PFANS2011Store/getOvertimeOneday', {
+                                        'reserveovertimedate': letreserveovertimedate,
+                                        'userid': this.$store.getters.userinfo.userid
+                                    })
+                                    .then(response => {
+                                        this.overtimeOneday = response.length;
+                                        this.loading = false;
+                                        if (this.overtimeOneday >= 1) {
+                                            Message({
+                                                message: this.$t('label.PFANS2011FROMVIEW_OVERTIMEONEDAY'),
+                                                type: 'error',
+                                                duration: 5 * 1000,
+                                            });
+                                            return;
+                                        } else {
+                                            //新建接口
+                                            this.insertForm();
+                                        }
+                                    })
+                                    .catch(error => {
+                                        Message({
+                                            message: error,
+                                            type: 'error',
+                                            duration: 5 * 1000,
+                                        });
+                                        this.loading = false;
                                     });
-                                    if (this.$store.getters.historyUrl) {
-                                        this.$router.push(this.$store.getters.historyUrl);
-                                    }
-                                })
-                                .catch(error => {
-                                    Message({
-                                        message: error,
-                                        type: 'error',
-                                        duration: 5 * 1000,
-                                    });
-                                    this.loading = false;
-                                });
+
+                            } else {
+                                //新建接口
+                                this.insertForm();
+                            }
                         }
                     } else {
                         Message({
