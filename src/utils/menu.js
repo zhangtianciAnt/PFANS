@@ -567,7 +567,7 @@ export function menu() {
                   '_id': 'PFANS1008',
                   'name': 'menu.PFANS1008',
                   'menuvisible': false,
-                  'menuurl': '/PFANS1008View',
+                  'menuurl': '/PFANS1008FormView',
                   'menuicon': '',
                   'children': [],
                   'actions': [
