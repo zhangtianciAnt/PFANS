@@ -109,10 +109,10 @@
             </el-col>
             <el-col :span="8">
               <template>
-                <el-form-item :label="$t('加班时长')" prop="overtimelength"
+                <el-form-item :label="$t('label.PFANS2011FROMVIEW_OVERTIMELENGTH')" prop="overtimelength"
                               v-show="form.overtimetype === 'PR001005' || form.overtimetype === 'PR001007' || form.overtimetype === 'PR001008'">
                   <el-select
-                    :disabled="form.overtimetype === 'PR001007' || form.overtimetype === 'PR001008' ? true : false"
+                    :disabled="disovertimelength"
                     @change="handleclick" style="width: 20vw"
                     v-model="form.overtimelength">
                     <el-option
@@ -342,6 +342,7 @@
             //   }
             // };
             return {
+                disovertimelength: false,
                 defaultStart:false,
                 showovertimelength: false,
                 showovertimetype: false,
@@ -494,7 +495,18 @@
                             this.groupid = rst.groupNmae;
                             this.teamid = rst.teamNmae;
                         }
-                        this.loading = false;
+                        //会社特别休日加班的场合
+                        if (this.form.overtimetype === 'PR001005') {
+                            this.disovertimelength = false;
+                            this.showovertimelength = true;
+                            this.disactualovertime = false;
+                        } else if (this.form.overtimetype === 'PR001007' || this.form.overtimetype === 'PR001008') {
+                            //五四青年节,妇女节的场合
+                            this.disovertimelength = true;
+                            this.showovertimetype = true;
+                            this.showovertimelength = true;
+                            this.disactualovertime = false;
+                        }
                         this.userlist = this.form.userid;
                         if (
                             this.form.overtimetype === 'PR001002' &&
@@ -918,10 +930,17 @@
                     this.rules.reservesubstitutiondate[0].required = false;
                     this.form.actualsubstitutiondate = null;
                 }
+                if (val === 'PR001005') {
+                    this.disovertimelength = false;
+                    this.showovertimelength = true;
+                    this.disactualovertime = false;
+                }
                 if (val === 'PR001008') {
+                    this.disactualovertime = false;
+                    this.disovertimelength = true;
                     this.showovertimetype = true;
                     this.showovertimelength = true;
-                    this.form.overtimelength = this.options1[1].label;
+                    this.form.overtimelength = '1';
                     this.form.reserveovertime = '4';
                     this.form.reserveovertimedate = dateMonth.getFullYear() + '-' + '03' + '-' + '08';
                     if (this.$store.getters.userinfo.userinfo.sex !== 'PR019002') {
@@ -934,9 +953,11 @@
                     }
                 }
                 if (val === 'PR001007') {
+                    this.disactualovertime = false;
+                    this.disovertimelength = true;
                     this.showovertimetype = true;
                     this.showovertimelength = true;
-                    this.form.overtimelength = this.options1[1].label;
+                    this.form.overtimelength = '1';
                     this.form.reserveovertime = '4';
                     this.form.reserveovertimedate = dateMonth.getFullYear() + '-' + '05' + '-' + '04';
                     if (Number(this.$store.getters.userinfo.userinfo.age) > 28) {
