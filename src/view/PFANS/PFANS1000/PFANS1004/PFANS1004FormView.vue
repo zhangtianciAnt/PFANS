@@ -93,6 +93,13 @@
                 <span style="margin-left: 1rem ">{{$t('label.PFANS1004VIEW_INSIDE')}}</span>
               </el-form-item>
             </el-col>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS1004VIEW_AMOUNTTOBEGIVEN')" prop="amounttobegiven">
+                <el-input-number :disabled="!disabled" :max="1000000000" :min="0"
+                                 :precision="2" @change="moneyDiff" controls-position="right" style="width:20vw"
+                                 v-model="form.amounttobegiven"></el-input-number>
+              </el-form-item>
+            </el-col>
           </el-row>
           <el-row>
             <el-col :span="8">
@@ -126,15 +133,6 @@
                 <el-input-number :disabled="!disabled" :max="1000000000000" :min="0"
                                  :precision="2" @change="moneyDiff" controls-position="right" style="width:20vw"
                                  v-model="form.businessplanbalance"></el-input-number>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1004VIEW_AMOUNTTOBEGIVEN')" prop="amounttobegiven">
-                <el-input-number :disabled="!disabled" :max="1000000000" :min="0"
-                                 :precision="2" @change="moneyDiff" controls-position="right" style="width:20vw"
-                                 v-model="form.amounttobegiven"></el-input-number>
               </el-form-item>
             </el-col>
           </el-row>
@@ -603,7 +601,9 @@
                 // this.form.thisproject = rst.personalcode;
               }
               this.userlist = this.form.user_id;
-              this.getBudt(this.userlist);
+              if(this.form.group_name=='' || this.form.group_name==null){
+                this.getBudt(this.userlist);
+              }
               this.getDecisive(this.form.decisive);
               this.getBusinessplantype(this.form.businessplantype);
               if (this.form.careerplan === '1') {
@@ -752,10 +752,8 @@
           this.errorgroup = '';
         }
       },
-
       getchangeGroup(val){
         this.options = [];
-        this.form.thisproject ='';
         if (val) {
           let butinfo = getOrgInfo(val).encoding;
           let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
@@ -774,7 +772,6 @@
       //add-ws-4/23-总务蛋蛋高可用i选择部门带出预算编码
       getBudt(val) {
         this.options = [];
-        this.form.thisproject ='';
         //ADD_FJL  修改人员预算编码
         if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
           let butinfo = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
