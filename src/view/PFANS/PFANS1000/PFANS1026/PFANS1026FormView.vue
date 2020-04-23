@@ -2606,7 +2606,19 @@
             let lettwo = [];
             let letthree = [];
             let letfour = [];
+            let checkcontractrequestamount = 0;
+            let checkgroup = 0;
             for (let x = 0; x < this.form.tablecompound.length; x++) {
+                if(this.form.tablecompound[x].claimtype != ""){
+                    if(parseFloat(this.form.tablecompound[x].contractrequestamount) === 0
+                        || this.form.tablecompound[x].contractrequestamount === ''
+                        || this.form.tablecompound[x].contractrequestamount === undefined){
+                        checkcontractrequestamount = checkcontractrequestamount + 1;
+                    }
+                    if(this.form.tablecompound[x].group_id === ''){
+                        checkgroup = checkgroup + 1;
+                    }
+                }
                 if(this.form.tablecompound[x].claimtype.indexOf(this.$t('label.PFANS1026FORMVIEW_ONE')) != -1){
                     one = one + this.form.tablecompound[x].contractrequestamount;
                     letone.push(this.form.tablecompound[x].group_id);
@@ -2623,6 +2635,22 @@
                     four = four + this.form.tablecompound[x].contractrequestamount;
                     letfour.push(this.form.tablecompound[x].group_id);
                 }
+            }
+            if (checkcontractrequestamount != 0) {
+                Message({
+                    message: this.$t('label.PFANS1026FORMVIEW_COMPOUND'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                });
+                return;
+            }
+            if (checkgroup != 0) {
+                Message({
+                    message: this.$t('label.PFANS1026FORMVIEW_GROUPID'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                });
+                return;
             }
             if(one > this.claimamount1 || two > this.claimamount2 || three > this.claimamount3 || four > this.claimamount4){
                 Message({

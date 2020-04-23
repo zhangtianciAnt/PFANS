@@ -1033,6 +1033,7 @@
           grouporglist: '',
           custojapanese: '',
           suppliercode: '',
+          vendornum: '',
         },
         form: {
           tabledata: [],
@@ -1316,6 +1317,7 @@
         this.recordData.custoabbreviation = row.abbreviation;
         this.recordData.custochinese = row.supchinese;
         this.recordData.suppliercode = row.suppliercode;
+        this.recordData.vendornum = row.vendornum;
 
         this.recordData.placejapanese = row.addjapanese;
         this.recordData.placeenglish = row.addenglish;
@@ -1337,7 +1339,7 @@
         this.recordDataB = row;
         this.dialogVisibleB = true;
       },
-      rowClickE(row) {//333
+      rowClickE(row) {
         this.form1.custojapanese = row.supjapanese;
 
         this.formcustomer.custojapanese = row.supjapanese;
@@ -1345,7 +1347,7 @@
         this.formcustomer.custoabbreviation = row.abbreviation;
         this.formcustomer.custochinese = row.supchinese;
         this.formcustomer.suppliercode = row.suppliercode;
-
+        this.formcustomer.vendornum = row.vendornum;
 
         if (!row.addjapanese) {
           this.formcustomer.placejapanese = row.addchinese;
@@ -1856,7 +1858,7 @@
           abbreviation = letabbreviation.value2;
         }
         //先方組織名编码
-        let sidegroup = this.formcustomer.suppliercode;
+        let sidegroup = this.formcustomer.vendornum;
         if(sidegroup===undefined){
             this.dialogVisibleC = false;
         }
@@ -1880,8 +1882,7 @@
         if (letentrycondition != null) {
           entrycondition = letentrycondition.value2;
         }
-        //契約書番号(契約種類 + 事業年度 + 上下期 + 社内組織番号 + 先方番号)
-
+        //契約書番号(契約種類 + 事業年度 + 上下期 + 社内組織番号 + 供应商编码)
         if (this.checked) {
           this.letcontractnumber = this.form.contractnumber.split('-')[0] + letbook;
         } else {
