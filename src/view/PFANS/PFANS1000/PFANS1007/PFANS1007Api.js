@@ -1,4 +1,5 @@
 import request from '../../../../utils/request'
+import requestPdf from "../../../../utils/requestPdf";
 
 export function getAssetinformation() {
   return request({
@@ -28,5 +29,14 @@ export function insert(data) {
     url: 'assetinformation/insert',
     method: 'post',
     data: data
+  })
+}
+
+export function downLoad(data) {
+  return requestPdf({
+    url: 'assetinformation/downLoad1',
+    method: 'post',
+    data: data,
+    responseType: 'blob'
   })
 }

@@ -1,10 +1,11 @@
 import request from '../../../../utils/request'
+import requestPdf from "../../../../utils/requestPdf";
 
-export function getSoftwaretransfer(data) {
+export function getSoftwaretransfer() {
   return request({
     url: 'softwaretransfer/get',
     method: 'get',
-    params: data
+    // params: data
   })
 
 }
@@ -30,5 +31,14 @@ export function insert(data) {
     url: 'softwaretransfer/insert',
     method: 'post',
     data: data
+  })
+}
+
+export function downLoad(data) {
+  return requestPdf({
+    url: 'softwaretransfer/downLoad1',
+    method: 'post',
+    data: data,
+    responseType: 'blob'
   })
 }
