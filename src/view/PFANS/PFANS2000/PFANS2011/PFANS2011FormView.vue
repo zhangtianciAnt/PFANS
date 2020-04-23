@@ -109,10 +109,10 @@
             </el-col>
             <el-col :span="8">
               <template>
-                <el-form-item :label="$t('加班时长')" prop="overtimelength"
+                <el-form-item :label="$t('label.PFANS2011FROMVIEW_OVERTIMELENGTH')" prop="overtimelength"
                               v-show="form.overtimetype === 'PR001005' || form.overtimetype === 'PR001007' || form.overtimetype === 'PR001008'">
                   <el-select
-                    :disabled="form.overtimetype === 'PR001007' || form.overtimetype === 'PR001008' ? true : false"
+                    :disabled="disovertimelength"
                     @change="handleclick" style="width: 20vw"
                     v-model="form.overtimelength">
                     <el-option
@@ -342,6 +342,7 @@
             //   }
             // };
             return {
+                disovertimelength: false,
                 defaultStart:false,
                 showovertimelength: false,
                 showovertimetype: false,
@@ -468,6 +469,7 @@
                 disactualovertime: false,
                 dataList: [],
                 overtimeday: '',
+                overtimeOneday: '',
                 overtimemen: '',
                 punchcardrecord: {
                     user_id: '',
@@ -493,7 +495,18 @@
                             this.groupid = rst.groupNmae;
                             this.teamid = rst.teamNmae;
                         }
-                        this.loading = false;
+                        //会社特别休日加班的场合
+                        if (this.form.overtimetype === 'PR001005') {
+                            this.disovertimelength = false;
+                            this.showovertimelength = true;
+                            this.disactualovertime = false;
+                        } else if (this.form.overtimetype === 'PR001007' || this.form.overtimetype === 'PR001008') {
+                            //五四青年节,妇女节的场合
+                            this.disovertimelength = true;
+                            this.showovertimetype = true;
+                            this.showovertimelength = true;
+                            this.disactualovertime = false;
+                        }
                         this.userlist = this.form.userid;
                         if (
                             this.form.overtimetype === 'PR001002' &&
@@ -917,10 +930,17 @@
                     this.rules.reservesubstitutiondate[0].required = false;
                     this.form.actualsubstitutiondate = null;
                 }
+                if (val === 'PR001005') {
+                    this.disovertimelength = false;
+                    this.showovertimelength = true;
+                    this.disactualovertime = false;
+                }
                 if (val === 'PR001008') {
+                    this.disactualovertime = false;
+                    this.disovertimelength = true;
                     this.showovertimetype = true;
                     this.showovertimelength = true;
-                    this.form.overtimelength = this.options1[1].label;
+                    this.form.overtimelength = '1';
                     this.form.reserveovertime = '4';
                     this.form.reserveovertimedate = dateMonth.getFullYear() + '-' + '03' + '-' + '08';
                     if (this.$store.getters.userinfo.userinfo.sex !== 'PR019002') {
@@ -933,9 +953,11 @@
                     }
                 }
                 if (val === 'PR001007') {
+                    this.disactualovertime = false;
+                    this.disovertimelength = true;
                     this.showovertimetype = true;
                     this.showovertimelength = true;
-                    this.form.overtimelength = this.options1[1].label;
+                    this.form.overtimelength = '1';
                     this.form.reserveovertime = '4';
                     this.form.reserveovertimedate = dateMonth.getFullYear() + '-' + '05' + '-' + '04';
                     if (Number(this.$store.getters.userinfo.userinfo.age) > 28) {
@@ -958,6 +980,32 @@
                     this.form.reservesubstitutiondate = null;
                     this.form.actualsubstitutiondate = null;
                 }
+            },
+            //新建接口
+            insertForm() {
+                this.loading = true;
+                this.$store
+                    .dispatch('PFANS2011Store/createOvertime', this.form)
+                    .then(response => {
+                        this.data = response;
+                        this.loading = false;
+                        Message({
+                            message: this.$t('normal.success_01'),
+                            type: 'success',
+                            duration: 5 * 1000,
+                        });
+                        if (this.$store.getters.historyUrl) {
+                            this.$router.push(this.$store.getters.historyUrl);
+                        }
+                    })
+                    .catch(error => {
+                        Message({
+                            message: error,
+                            type: 'error',
+                            duration: 5 * 1000,
+                        });
+                        this.loading = false;
+                    });
             },
             buttonClick(val) {
                 this.$refs['refform'].validate(valid => {
@@ -1021,7 +1069,6 @@
                                 return;
                             }
                         }
-                        this.loading = true;
                         this.form.userid = this.userlist;
                         this.form.applicationdate = moment(this.form.applicationdate).format(
                             'YYYY-MM-DD',
@@ -1045,6 +1092,7 @@
                             }
                         }
                         if (this.$route.params._id) {
+                            this.loading = true;
                             this.$store
                                 .dispatch('PFANS2011Store/updateOvertime', this.form)
                                 .then(response => {
@@ -1081,32 +1129,70 @@
                                     this.loading = false;
                                 });
                         } else {
+                            //五四青年节和三八妇女节重复申请check
+                            if (this.form.overtimetype === 'PR001007') {
+                                if (this.overtimeday >= 1) {
+                                    Message({
+                                        message: this.$t('label.PFANS2011FROMVIEW_OVERTIMEDAY'),
+                                        type: 'error',
+                                        duration: 5 * 1000,
+                                    });
+                                    return;
+                                }
+                            }
+                            //三八妇女节重复申请check
+                            if (this.form.overtimetype === 'PR001008') {
+                                if (this.overtimemen >= 1) {
+                                    Message({
+                                        message: this.$t('label.PFANS2011FROMVIEW_OVERTIMEMEN'),
+                                        type: 'error',
+                                        duration: 5 * 1000,
+                                    });
+                                    return;
+                                }
+                            }
                             //总经理审批自动通过
                             if (getCurrentRole() === "1") {
                                 this.form.status = '4';
                             }
-                            this.$store
-                                .dispatch('PFANS2011Store/createOvertime', this.form)
-                                .then(response => {
-                                    this.data = response;
-                                    this.loading = false;
-                                    Message({
-                                        message: this.$t('normal.success_01'),
-                                        type: 'success',
-                                        duration: 5 * 1000,
+                            //平日加班，周末加班，法定加班一天只能申请一次的check
+                            if (this.form.overtimetype === 'PR001001' || this.form.overtimetype === 'PR001002' || this.form.overtimetype === 'PR001003') {
+                                //获取一天的（平时，周末，法定加班次数）
+                                this.loading = true;
+                                let letreserveovertimedate = moment(this.form.reserveovertimedate).format('YYYY-MM-DD',);
+                                this.$store
+                                    .dispatch('PFANS2011Store/getOvertimeOneday', {
+                                        'reserveovertimedate': letreserveovertimedate,
+                                        'userid': this.$store.getters.userinfo.userid
+                                    })
+                                    .then(response => {
+                                        this.overtimeOneday = response.length;
+                                        this.loading = false;
+                                        if (this.overtimeOneday >= 1) {
+                                            Message({
+                                                message: this.$t('label.PFANS2011FROMVIEW_OVERTIMEONEDAY'),
+                                                type: 'error',
+                                                duration: 5 * 1000,
+                                            });
+                                            return;
+                                        } else {
+                                            //新建接口
+                                            this.insertForm();
+                                        }
+                                    })
+                                    .catch(error => {
+                                        Message({
+                                            message: error,
+                                            type: 'error',
+                                            duration: 5 * 1000,
+                                        });
+                                        this.loading = false;
                                     });
-                                    if (this.$store.getters.historyUrl) {
-                                        this.$router.push(this.$store.getters.historyUrl);
-                                    }
-                                })
-                                .catch(error => {
-                                    Message({
-                                        message: error,
-                                        type: 'error',
-                                        duration: 5 * 1000,
-                                    });
-                                    this.loading = false;
-                                });
+
+                            } else {
+                                //新建接口
+                                this.insertForm();
+                            }
                         }
                     } else {
                         Message({

@@ -615,7 +615,7 @@
             <el-tab-pane :label="$t('label.PFANS2022VIEW_UPDATINGFILES')" name="fourth">
               <el-row>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.enclosure')" prop="enclosurecontent">
+                  <el-form-item :label="$t('label.enclosure')" prop="enclosurecontent" :error="errorfile">
                     <el-upload
                       :action="upload"
                       :disabled="!disable"
@@ -624,6 +624,7 @@
                       :on-preview="fileDownload"
                       :on-remove="fileRemove"
                       :on-success="fileSuccess"
+                      :on-change="filechange"
                       class="upload-demo"
                       drag
                       ref="upload"
@@ -810,6 +811,16 @@
         }
       };
 
+      var checkuploadfile = (rule, value, callback) => {
+        if (!this.form.uploadfile || this.form.uploadfile === '' || this.form.uploadfile === 'undefined') {
+          this.errorfile = this.$t('normal.error_16') + this.$t('label.enclosure');
+          return callback(new Error(this.$t('normal.error_16') + this.$t('label.enclosure')));
+        } else {
+          this.errorfile = '';
+          return callback();
+        }
+      };
+
       return {
         //add-ws-4/17-实施结果为空的情况下发起审批，提示填入必须项后程序没有终止修改
         defaultStart: false,
@@ -836,6 +847,7 @@
         errordeployment: '',
         errorpjnamejapanese: '',
         errorpjnamechinese: '',
+        errorfile:'',
         error: '',
         errorcurrencyposition: '',
         errorclaimamount: '',
@@ -1098,6 +1110,11 @@
             validator: checkindividual,
             trigger: 'change',
           }],
+          enclosurecontent: [{
+            required: true,
+            validator: checkuploadfile,
+            trigger: 'change',
+          }],
         },
         buttonList: [],
         optionsdatedic: [],
@@ -1349,6 +1366,9 @@
           window.open(url);
         }
 
+      },
+      filechange(file, fileList) {
+        this.$refs.reff.validateField('enclosurecontent');
       },
       fileSuccess(response, file, fileList) {
         this.fileList = [];

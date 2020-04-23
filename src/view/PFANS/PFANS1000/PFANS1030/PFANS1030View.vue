@@ -159,14 +159,18 @@
                                 response[j].currencyposition = letCurrencyposition.value1;
                               }
                             }
+                            //add-ws-4/17-添加审批时间
+                            if(response[j].status!='0'){
+                              if (response[j].modifyon !== null && response[j].modifyon !== '') {
+                                response[j].modifyon = moment(response[j].modifyon).format('YYYY-MM-DD');
+                              }
+                            }else{
+                              response[j].modifyon =''
+                            }
+                            //add-ws-4/17-添加审批时间
                             if (response[j].status !== null && response[j].status !== '') {
                               response[j].status = getStatus(response[j].status);
                             }
-                            //add-ws-4/17-添加审批时间
-                            if (response[j].modifyon !== null && response[j].modifyon !== '') {
-                              response[j].modifyon = moment(response[j].modifyon).format('YYYY-MM-DD');
-                            }
-                            //add-ws-4/17-添加审批时间
                             if (response[j].pjnamechinese !== null && response[j].pjnamechinese !== '') {
                               if (response[j].pjnamechinese.split(',').length > 1) {
                                 let aa = [];
@@ -201,7 +205,8 @@
                               currencyposition: response[j].currencyposition,
                               claimamount: response[j].claimamount,
                               award_id: response[j].award_id,
-                              status:response[j].status
+                              status:response[j].status,
+                              owner: response[j].owner,
                             });
                           }
                         }
@@ -222,7 +227,8 @@
                             currencyposition: response[m].currencyposition,
                             claimamount: response[m].claimamount,
                             award_id: response[m].award_id,
-                            status:response[m].status
+                            status:response[m].status,
+                            owner: response[m].owner,
                           });
                         }
                       }

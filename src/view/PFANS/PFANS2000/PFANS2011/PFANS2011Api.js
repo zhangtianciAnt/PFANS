@@ -50,6 +50,14 @@ export function getOvertimeDay(data) {
   })
 }
 
+export function getOvertimeOneday(data) {
+  return request({
+    url: 'overtime/getOvertimeOneday',
+    method: 'post',
+    data: data
+  })
+}
+
 
 
 

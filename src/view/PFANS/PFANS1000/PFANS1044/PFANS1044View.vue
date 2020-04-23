@@ -1,6 +1,7 @@
 <template>
-  <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :showSelection="showSelection" :title="title"
-                   @buttonClick="buttonClick" @dbrowClick="dbrowClick" ref="roletable" :rowid="rowid"
+  <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="rowid"
+                   :showSelection="showSelection"
+                   :title="title" @buttonClick="buttonClick" @dbrowClick="dbrowClick" ref="roletable"
                    v-loading="loading">
     <el-form label-position="top" label-width="8vw" slot="search">
       <el-row>
@@ -76,8 +77,8 @@
         data: [],
         month: '',
         month2: '',
-        month4:'',
-        month3:'',
+        month4: '',
+        month3: '',
         alldata: [],
         alldata2: [],
         columns: [
@@ -200,11 +201,19 @@
               if (tabledata[i].contractnumber != "") {
                 letcontractnumber.push(tabledata[i].contractnumber);
               }
+              if (tabledata[i].type !== '1') {
+                if (tabledata[i].contractdate && tabledata[i].contractdate.split("~").length > 1) {
+                  tabledata[i].start = tabledata[i].contractdate.split("~")[0].trim();
+                  tabledata[i].end = tabledata[i].contractdate.split("~")[1].trim();
+                }
+              } else {
+                if (tabledata[i].claimdatetime && tabledata[i].claimdatetime.split("~").length > 1) {
+                  tabledata[i].start = tabledata[i].claimdatetime.split("~")[0].trim();
+                  tabledata[i].end = tabledata[i].claimdatetime.split("~")[1].trim();
+                }
 
-              if(tabledata[i].contractdate && tabledata[i].contractdate.split("~").length > 1){
-                tabledata[i].start = tabledata[i].contractdate.split("~")[0].trim();
-                tabledata[i].end = tabledata[i].contractdate.split("~")[1].trim();
               }
+
               if (tabledata[i].state === '1' && this.$i18n) {
                 tabledata[i].state = this.$t("label.PFANS8008FORMVIEW_EFFECTIVE");
               } else if (tabledata[i].state === '0' && this.$i18n) {
@@ -338,7 +347,7 @@
               'loadingjudge'
             ];
 
-            for(let selItem of selectedlist){
+            for (let selItem of selectedlist) {
               let cons = this.alldata2;
               if (this.month) {
                 cons = cons.filter(item => moment(item.deliverydate).format("YYYY-MM") == moment(this.month).format("YYYY-MM"));
@@ -350,15 +359,14 @@
               cons = cons.filter(item => selItem.contractnumber == item.contractnumber);
 
 
-
-              for(let citem of cons){
+              for (let citem of cons) {
 
                 let letContracttype = getDictionaryInfo(citem.entrycondition);
                 if (letContracttype != null) {
                   citem.entrycondition = letContracttype.value1;
                 }
-                if (citem.extensiondate != null) {
-                  citem.extensiondate = moment(citem.extensiondate).format("YYYY-MM-DD");
+                if (selItem.extensiondate != null) {
+                  selItem.extensiondate = moment(selItem.extensiondate).format("YYYY-MM-DD");
                 }
                 if (citem.entrypayment != null) {
                   citem.entrypayment = moment(citem.entrypayment).format("YYYY-MM-DD");
@@ -367,15 +375,28 @@
                 if (letContracttype != null) {
                   citem.currencyposition = letContracttype.value1;
                 }
-                if (citem.extensiondate != null) {
-                  citem.extensiondate = moment(citem.extensiondate).format("YYYY-MM-DD");
-                }
                 if (citem.deliverydate != null) {
                   citem.deliverydate = moment(citem.deliverydate).format("YYYY-MM-DD");
                 }
-
+                if (selItem.entrypayment != null) {
+                  selItem.entrypayment = moment(selItem.entrypayment).format("YYYY-MM-DD");
+                }
+                if (selItem.entrycondition != null) {
+                  let letContracttype = getDictionaryInfo(selItem.entrycondition);
+                  if (letContracttype != null) {
+                    selItem.entrycondition = letContracttype.value1;
+                  }
+                }
+                if (selItem.currencyposition != null) {
+                  let letContracttype = getDictionaryInfo(selItem.currencyposition);
+                  if (letContracttype != null) {
+                    selItem.currencyposition = letContracttype.value1;
+                  }
+                }
                 let oitem = {};
-                Object.assign(oitem, selItem,citem)
+                Object.assign(oitem, selItem, citem);
+                oitem.currencyposition = selItem.currencyposition;
+                oitem.extensiondate = selItem.extensiondate;
                 output.push(oitem);
               }
             }
@@ -436,7 +457,7 @@
             price = price + Number(pi.claimamount)
           }
           if (a.length > 0) {
-            a[0].price = this.abs(price*100);
+            a[0].price = this.abs(price * 100);
             rst.push(a[0])
           }
         }
