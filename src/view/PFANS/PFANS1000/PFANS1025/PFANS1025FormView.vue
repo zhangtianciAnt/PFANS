@@ -460,7 +460,7 @@
             <el-tab-pane :label="$t('label.PFANS2022VIEW_UPDATINGFILES')" name="thrid">
               <el-row>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.enclosure')" prop="enclosurecontent">
+                  <el-form-item :label="$t('label.enclosure')" prop="enclosurecontent" :error="errorfile">
                     <el-upload
                       :action="upload"
                       :disabled="!disable"
@@ -469,6 +469,7 @@
                       :on-preview="fileDownload"
                       :on-remove="fileRemove"
                       :on-success="fileSuccess"
+                      :on-change="filechange"
                       class="upload-demo"
                       drag
                       ref="upload"
@@ -525,6 +526,15 @@
           return callback();
         }
       };
+      var checkuploadfile = (rule, value, callback) => {
+        if (!this.form.uploadfile || this.form.uploadfile === '' || this.form.uploadfile === 'undefined') {
+          this.errorfile = this.$t('normal.error_16') + this.$t('label.enclosure');
+          return callback(new Error(this.$t('normal.error_16') + this.$t('label.enclosure')));
+        } else {
+          this.errorfile = '';
+          return callback();
+        }
+      };
       return {
         enableSave: false,
         //add-ws-添加上传附件功能-
@@ -536,6 +546,7 @@
         activeName: 'first',
         disabled: true,
         error: '',
+        errorfile:'',
         userlist: '',
         code1: 'HT008',
         code2: 'HT005',
@@ -611,6 +622,11 @@
           user_id: [{
             required: true,
             validator: checkuser,
+            trigger: 'change',
+          }],
+          enclosurecontent: [{
+            required: true,
+            validator: checkuploadfile,
             trigger: 'change',
           }],
           // telephone: [{
@@ -817,6 +833,9 @@
           this.fileList.push(o);
           this.form.uploadfile += item.name + ',' + item.url + ';';
         }
+      },
+      filechange(file, fileList) {
+        this.$refs.reff.validateField('enclosurecontent');
       },
       fileDownload(file) {
         if (file.url) {
