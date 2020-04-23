@@ -2573,18 +2573,26 @@
             let two = 0;
             let three = 0;
             let four = 0;
+            let letone = [];
+            let lettwo = [];
+            let letthree = [];
+            let letfour = [];
             for (let x = 0; x < this.form.tablecompound.length; x++) {
                 if(this.form.tablecompound[x].claimtype === this.$t('label.PFANS1026FORMVIEW_ONE')){
                     one = one + this.form.tablecompound[x].contractrequestamount;
+                    letone.push(this.form.tablecompound[x].group_id);
                 }
                 if(this.form.tablecompound[x].claimtype === this.$t('label.PFANS1026FORMVIEW_TWO')){
                     two = two + this.form.tablecompound[x].contractrequestamount;
+                    lettwo.push(this.form.tablecompound[x].group_id);
                 }
                 if(this.form.tablecompound[x].claimtype === this.$t('label.PFANS1026FORMVIEW_THREE')){
                     three = three + this.form.tablecompound[x].contractrequestamount;
+                    letthree.push(this.form.tablecompound[x].group_id);
                 }
                 if(this.form.tablecompound[x].claimtype === this.$t('label.PFANS1026FORMVIEW_FOUR')){
                     four = four + this.form.tablecompound[x].contractrequestamount;
+                    letfour.push(this.form.tablecompound[x].group_id);
                 }
             }
             if(one > this.claimamount1 || two > this.claimamount2 || three > this.claimamount3 || four > this.claimamount4){
@@ -2594,6 +2602,47 @@
                     duration: 5 * 1000,
                 });
                 return;
+            }
+            if(refrain(letone).length > 0){
+                Message({
+                    message: this.$t('label.PFANS1026FORMVIEW_ONE') + this.$t('label.PFANS1026FORMVIEW_GROUP'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                });
+                return;
+            }
+              if(refrain(lettwo).length > 0){
+                  Message({
+                      message: this.$t('label.PFANS1026FORMVIEW_TWO') + this.$t('label.PFANS1026FORMVIEW_GROUP'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                  });
+                  return;
+              }
+              if(refrain(letthree).length > 0){
+                  Message({
+                      message: this.$t('label.PFANS1026FORMVIEW_THREE') + this.$t('label.PFANS1026FORMVIEW_GROUP'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                  });
+                  return;
+              }
+              if(refrain(letfour).length > 0){
+                  Message({
+                      message: this.$t('label.PFANS1026FORMVIEW_FOUR') + this.$t('label.PFANS1026FORMVIEW_GROUP'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                  });
+                  return;
+              }
+            function refrain(arr) {
+                var tmp = [];
+                if(Array.isArray(arr)) {
+                    arr.concat().sort().sort(function(a,b) {
+                        if(a==b && tmp.indexOf(a) === -1) tmp.push(a);
+                    });
+                }
+                return tmp;
             }
             //endregion
 
