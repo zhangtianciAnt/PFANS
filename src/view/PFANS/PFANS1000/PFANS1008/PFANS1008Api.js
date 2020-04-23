@@ -38,7 +38,7 @@ export function downLoad(data) {
   return requestPdf({
     url: 'softwaretransfer/downLoad1',
     method: 'get',
-    data: data,
+    params: data,
     responseType: 'blob'
   })
 }
