@@ -373,9 +373,24 @@
                 if (citem.deliverydate != null) {
                   citem.deliverydate = moment(citem.deliverydate).format("YYYY-MM-DD");
                 }
-
+                if (selItem.entrypayment != null) {
+                  selItem.entrypayment = moment(selItem.entrypayment).format("YYYY-MM-DD");
+                }
+                if (selItem.entrycondition != null) {
+                  let letContracttype = getDictionaryInfo(selItem.entrycondition );
+                  if (letContracttype != null) {
+                    selItem.entrycondition = letContracttype.value1;
+                  }
+                }
+                if (selItem.currencyposition != null) {
+                  let letContracttype = getDictionaryInfo(selItem.currencyposition );
+                  if (letContracttype != null) {
+                    selItem.currencyposition = letContracttype.value1;
+                  }
+                }
                 let oitem = {};
                 Object.assign(oitem, selItem,citem)
+                oitem.currencyposition = selItem.currencyposition;
                 output.push(oitem);
               }
             }
