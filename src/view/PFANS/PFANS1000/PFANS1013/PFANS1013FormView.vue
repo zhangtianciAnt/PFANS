@@ -1315,6 +1315,40 @@
       };
     },
     mounted() {
+      if (this.Redirict == '0') {
+        this.code20 = 'PJ119';
+        this.tableA[0].accountcode = 'PJ119001';
+        this.tableA[1].accountcode = 'PJ119005';
+        let accinfo = getDictionaryInfo('PJ119002');
+        if (accinfo) {
+          this.tableT[0].accountcode = accinfo.value1;
+          this.tableT[0].subjectnumber = accinfo.value2;
+          this.accountcodeflg = accinfo.value1;
+          this.accountcodeflg1 = accinfo.code;
+          this.subjectnumberflg = accinfo.value2;
+        }
+      }
+      else if (this.Redirict == '1' || this.Redirict == '') {
+        this.code20 = 'PJ132';
+        this.tableA[0].accountcode = 'PJ132001';
+        this.tableA[1].accountcode = 'PJ132005';
+        let accinfo = getDictionaryInfo('PJ132002');
+        if (accinfo) {
+          this.tableT[0].accountcode = accinfo.value1;
+          this.tableT[0].subjectnumber = accinfo.value2;
+          this.accountcodeflg = accinfo.value1;
+          this.accountcodeflg1 = accinfo.code;
+          this.subjectnumberflg = accinfo.value2;
+        }
+      }
+      let plsummaryinfo = getDictionaryInfo('PJ111008');
+      if (plsummaryinfo) {
+        this.tableA[0].plsummary = plsummaryinfo.value1;
+        this.tableA[1].plsummary = plsummaryinfo.value1;
+        this.tableT[0].plsummary = plsummaryinfo.value1;
+        this.plsummaryflg = plsummaryinfo.value1;
+        this.plsummaryflg1 = plsummaryinfo.code;
+      }
       let PLdicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ071');
       for (let i = 0; i < PLdicnew.length; i++) {
           this.optionsrate.push({
@@ -1533,39 +1567,6 @@
             // this.tableR[0].budgetcoding = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
             this.Redirict = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).redirict;
           }
-        }
-        if (this.Redirict == '0') {
-          this.code20 = 'PJ119';
-          this.tableA[0].accountcode = 'PJ119001';
-          this.tableA[1].accountcode = 'PJ119005';
-          let accinfo = getDictionaryInfo('PJ119002');
-          if (accinfo) {
-            this.tableT[0].accountcode = accinfo.value1;
-            this.tableT[0].subjectnumber = accinfo.value2;
-            this.accountcodeflg = accinfo.value1;
-            this.accountcodeflg1 = accinfo.code;
-            this.subjectnumberflg = accinfo.value2;
-          }
-        } else if (this.Redirict == '1' || this.Redirict == '') {
-          this.code20 = 'PJ132';
-          this.tableA[0].accountcode = 'PJ132001';
-          this.tableA[1].accountcode = 'PJ132005';
-          let accinfo = getDictionaryInfo('PJ132002');
-          if (accinfo) {
-            this.tableT[0].accountcode = accinfo.value1;
-            this.tableT[0].subjectnumber = accinfo.value2;
-            this.accountcodeflg = accinfo.value1;
-            this.accountcodeflg1 = accinfo.code;
-            this.subjectnumberflg = accinfo.value2;
-          }
-        }
-        let plsummaryinfo = getDictionaryInfo('PJ111008');
-        if (plsummaryinfo) {
-          this.tableA[0].plsummary = plsummaryinfo.value1;
-          this.tableA[1].plsummary = plsummaryinfo.value1;
-          this.tableT[0].plsummary = plsummaryinfo.value1;
-          this.plsummaryflg = plsummaryinfo.value1;
-          this.plsummaryflg1 = plsummaryinfo.code;
         }
         this.userlist = this.$store.getters.userinfo.userid;
         if (this.userlist !== null && this.userlist !== '') {
