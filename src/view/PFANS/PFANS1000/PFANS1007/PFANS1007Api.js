@@ -36,7 +36,7 @@ export function downLoad(data) {
   return requestPdf({
     url: 'assetinformation/downLoad1',
     method: 'get',
-    data: data,
+    params: data,
     responseType: 'blob'
   })
 }

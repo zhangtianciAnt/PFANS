@@ -69,6 +69,14 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1012VIEW_CAIWUPERSONALCODE')">
+                      <el-input :disabled="!disable" style="width: 20vw" v-model="form.personalcode">
+                      </el-input>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+                <el-row>
+                  <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1013VIEW_RELATION')" prop="business_id">
                       <el-select :disabled="!disable" clearable @change="changebusiness" style="width:20vw"
                                  v-model="form.business_id">
@@ -81,8 +89,6 @@
                       </el-select>
                     </el-form-item>
                   </el-col>
-                </el-row>
-                <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1002VIEW_REGION')">
                       <dicselect
@@ -105,6 +111,8 @@
                       </el-form-item>
                     </template>
                   </el-col>
+                </el-row>
+                <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1013VIEW_ENDDATE')">
                       <el-date-picker
@@ -115,17 +123,9 @@
                       </el-date-picker>
                     </el-form-item>
                   </el-col>
-                </el-row>
-                <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1013VIEW_DATENUMBER')">
                       <el-input :disabled="true" style="width:20vw" v-model="form.datenumber"></el-input>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012VIEW_CAIWUPERSONALCODE')">
-                      <el-input :disabled="!disable" style="width: 20vw" v-model="form.personalcode">
-                      </el-input>
                     </el-form-item>
                   </el-col>
                   <!--                  <el-col :span="8">-->
@@ -142,6 +142,21 @@
                   <!--                    </el-form-item>-->
                   <!--                  </el-col>-->
                   <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1002VIEW_EXTERNAL')" prop="external">
+                      <span style="margin-right: 1vw ">{{$t('label.PFANSUSERFORMVIEW_NO')}}</span>
+                      <el-switch
+                        :disabled="true"
+                        v-model="form.external"
+                        active-value="1"
+                        inactive-value="0"
+                      >
+                      </el-switch>
+                      <span style="margin-left: 1vw ">{{$t('label.PFANSUSERFORMVIEW_YES')}}</span>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+                <el-row>
+                  <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1013FORMVIEW_LOAN')">
                       <el-select :disabled="!disable" clearable @change="change2" style="width:20vw"
                                  v-model="form.loan">
@@ -154,8 +169,6 @@
                       </el-select>
                     </el-form-item>
                   </el-col>
-                </el-row>
-                <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1013VIEW_LOANAMOUNT')">
                       <el-input-number
@@ -184,6 +197,8 @@
                       ></el-input-number>
                     </el-form-item>
                   </el-col>
+                </el-row>
+                <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1013VIEW_BALANCE')">
                       <el-input-number
@@ -196,8 +211,6 @@
                       ></el-input-number>
                     </el-form-item>
                   </el-col>
-                </el-row>
-                <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS5004VIEW_PROJECTNAMW')">
                       <el-select :disabled="!disable" clearable style="width: 20vw" v-model="form.project_id">
@@ -211,18 +224,13 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1002VIEW_EXTERNAL')" prop="external">
-                      <span style="margin-right: 1vw ">{{$t('label.PFANSUSERFORMVIEW_NO')}}</span>
-                      <el-switch
-                        :disabled="true"
-                        v-model="form.external"
-                        active-value="1"
-                        inactive-value="0"
-                      >
-                      </el-switch>
-                      <span style="margin-left: 1vw ">{{$t('label.PFANSUSERFORMVIEW_YES')}}</span>
+                    <el-form-item :label="$t('label.PFANS1012VIEW_REIMBURSEMENTDATE')">
+                      <el-date-picker :disabled="!disable" style="width:20vw" v-model="form.reimbursementdate">
+                      </el-date-picker>
                     </el-form-item>
                   </el-col>
+                </el-row>
+                <el-row>
                   <el-col :span="8" v-show="show2">
                     <el-form-item :label="$t('label.PFANS1002VIEW_ABROADBUSINESS')">
                       <span style="margin-right: 1vw ">{{$t('label.no')}}</span>
@@ -234,14 +242,6 @@
                       >
                       </el-switch>
                       <span style="margin-left: 1vw ">{{$t('label.yes')}}</span>
-                    </el-form-item>
-                  </el-col>
-                </el-row>
-                <el-row>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012VIEW_REIMBURSEMENTDATE')">
-                      <el-date-picker :disabled="!disable" style="width:20vw" v-model="form.reimbursementdate">
-                      </el-date-picker>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8" v-show="show2">
@@ -480,7 +480,7 @@
                              style="width: 90%"></org>
                       </template>
                     </el-table-column>
-                    <el-table-column :label="$t('label.PFANS1012FORMVIEW_BUDGET')" align="center" width="150">
+                    <el-table-column :label="$t('label.PFANS1012FORMVIEW_BUDGET')" align="center" width="200">
                       <template slot-scope="scope">
                         <!--                        <el-input :disabled="true" style="width: 100%" v-model="scope.row.budgetcoding">-->
                         <!--                        </el-input>-->
@@ -690,7 +690,7 @@
                              style="width: 90%"></org>
                       </template>
                     </el-table-column>
-                    <el-table-column :label="$t('label.PFANS1012FORMVIEW_BUDGET')" align="center" width="150">
+                    <el-table-column :label="$t('label.PFANS1012FORMVIEW_BUDGET')" align="center" width="200">
                       <template slot-scope="scope">
                         <!--                        <el-input :disabled="true" style="width: 100%" v-model="scope.row.budgetcoding">-->
                         <!--                        </el-input>-->
@@ -1522,8 +1522,8 @@
         if (getOrgInfoByUserId(this.$store.getters.userinfo.userid)) {
           this.groupId = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
           // this.tableT[0].departmentname = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
-          this.tableA[0].departmentname = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
-          this.tableA[1].departmentname = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
+          // this.tableA[0].departmentname = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
+          // this.tableA[1].departmentname = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
           // this.tableR[0].departmentname = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
           if (getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)) {
             // this.encoding = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
