@@ -357,8 +357,8 @@
                 if (letContracttype != null) {
                   citem.entrycondition = letContracttype.value1;
                 }
-                if (citem.extensiondate != null) {
-                  citem.extensiondate = moment(citem.extensiondate).format("YYYY-MM-DD");
+                if (selItem.extensiondate != null) {
+                  selItem.extensiondate = moment(selItem.extensiondate).format("YYYY-MM-DD");
                 }
                 if (citem.entrypayment != null) {
                   citem.entrypayment = moment(citem.entrypayment).format("YYYY-MM-DD");
@@ -367,15 +367,28 @@
                 if (letContracttype != null) {
                   citem.currencyposition = letContracttype.value1;
                 }
-                if (citem.extensiondate != null) {
-                  citem.extensiondate = moment(citem.extensiondate).format("YYYY-MM-DD");
-                }
                 if (citem.deliverydate != null) {
                   citem.deliverydate = moment(citem.deliverydate).format("YYYY-MM-DD");
                 }
-
+                if (selItem.entrypayment != null) {
+                  selItem.entrypayment = moment(selItem.entrypayment).format("YYYY-MM-DD");
+                }
+                if (selItem.entrycondition != null) {
+                  let letContracttype = getDictionaryInfo(selItem.entrycondition );
+                  if (letContracttype != null) {
+                    selItem.entrycondition = letContracttype.value1;
+                  }
+                }
+                if (selItem.currencyposition != null) {
+                  let letContracttype = getDictionaryInfo(selItem.currencyposition );
+                  if (letContracttype != null) {
+                    selItem.currencyposition = letContracttype.value1;
+                  }
+                }
                 let oitem = {};
                 Object.assign(oitem, selItem,citem)
+                oitem.currencyposition = selItem.currencyposition;
+                oitem.extensiondate = selItem.extensiondate;
                 output.push(oitem);
               }
             }
