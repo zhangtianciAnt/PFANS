@@ -205,7 +205,8 @@
                               currencyposition: response[j].currencyposition,
                               claimamount: response[j].claimamount,
                               award_id: response[j].award_id,
-                              status:response[j].status
+                              status:response[j].status,
+                              owner: response[j].owner,
                             });
                           }
                         }
@@ -226,7 +227,8 @@
                             currencyposition: response[m].currencyposition,
                             claimamount: response[m].claimamount,
                             award_id: response[m].award_id,
-                            status:response[m].status
+                            status:response[m].status,
+                            owner: response[m].owner,
                           });
                         }
                       }

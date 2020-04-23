@@ -219,6 +219,7 @@
                               claimamount: response[j].claimamount,
                               status: response[j].status,
                               award_id: response[j].award_id,
+                              owner: response[j].owner,
                             });
                           }
                         }
@@ -241,6 +242,7 @@
                             claimamount: response[m].claimamount,
                             status: response[m].status,
                             award_id: response[m].award_id,
+                            owner: response[m].owner,
                           });
                         }
                       }
