@@ -156,6 +156,27 @@
                   </el-col>
                 </el-row>
                 <el-row>
+                  <el-col :span="8" v-show="show2">
+                    <el-form-item :label="$t('label.PFANS1002VIEW_ABROADBUSINESS')">
+                      <span style="margin-right: 1vw ">{{$t('label.no')}}</span>
+                      <el-switch
+                        :disabled="true"
+                        active-value="1"
+                        inactive-value="0"
+                        v-model="form.abroadbusiness"
+                      >
+                      </el-switch>
+                      <span style="margin-left: 1vw ">{{$t('label.yes')}}</span>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8" v-show="show2">
+                    <el-form-item :label="$t('label.PFANS1002VIEW_LEVEL')">
+                      <el-input :disabled="true" style="width: 20vw" v-model="form.level">
+                      </el-input>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+                <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1013FORMVIEW_LOAN')">
                       <el-select :disabled="!disable" clearable @change="change2" style="width:20vw"
@@ -227,27 +248,6 @@
                     <el-form-item :label="$t('label.PFANS1012VIEW_REIMBURSEMENTDATE')">
                       <el-date-picker :disabled="!disable" style="width:20vw" v-model="form.reimbursementdate">
                       </el-date-picker>
-                    </el-form-item>
-                  </el-col>
-                </el-row>
-                <el-row>
-                  <el-col :span="8" v-show="show2">
-                    <el-form-item :label="$t('label.PFANS1002VIEW_ABROADBUSINESS')">
-                      <span style="margin-right: 1vw ">{{$t('label.no')}}</span>
-                      <el-switch
-                        :disabled="true"
-                        active-value="1"
-                        inactive-value="0"
-                        v-model="form.abroadbusiness"
-                      >
-                      </el-switch>
-                      <span style="margin-left: 1vw ">{{$t('label.yes')}}</span>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="8" v-show="show2">
-                    <el-form-item :label="$t('label.PFANS1002VIEW_LEVEL')">
-                      <el-input :disabled="true" style="width: 20vw" v-model="form.level">
-                      </el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -2071,7 +2071,7 @@
           accommodationdate: [],
           // nextday: '',
           invoicenumber: '',
-          departmentname: this.groupId,
+          departmentname:'',
           activitycontent: '',
           plsummary: this.plsummaryflg,
           accountcode: '',
@@ -2217,7 +2217,6 @@
             this.tableA[0].subjectnumber = getDictionaryInfo(this.tableA[0].accountcode).value2;
             this.tableA[1].accommodationdate = [this.relations[i].startdate, this.relations[i].enddate];
             this.tableA[1].subjectnumber = getDictionaryInfo(this.tableA[1].accountcode).value2;
-            this.tableA[0].departmentname = this.groupId;
           }
         }
       },

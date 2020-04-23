@@ -39,6 +39,14 @@
                                 type="date" v-model="form.application_date"></el-date-picker>
               </el-form-item>
             </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="8">
+              <el-form-item :error="errorgroup" :label="$t('label.PFANS1004VIEW_GROUPZW')" prop="group_name" v-if="checkgroup">
+                <org :disabled="!disable" :error="errorgroup" :orglist="form.group_name" @getOrgids="getGroupId"
+                     orgtype="2" style="width:20vw"></org>
+              </el-form-item>
+            </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1012FORMVIEW_BUDGET')">
                 <el-select clearable style="width: 20vw" v-model="form.budgetunit" :disabled="!disable"
@@ -144,16 +152,26 @@
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import user from '../../../components/user';
   import {Message} from 'element-ui';
-  import {getOrgInfoByUserId, getOrgInfo} from '@/utils/customize';
+  import {getOrgInfoByUserId, getOrgInfo,getCurrentRole2} from '@/utils/customize';
   import moment from 'moment';
-
+  import org from '../../../components/org';
   export default {
     name: 'PFANS1005FormView',
     components: {
       EasyNormalContainer,
       user,
+      org,
     },
     data() {
+      var groupId = (rule, value, callback) => {
+        if (!this.form.group_name || this.form.group_name === '') {
+          callback(new Error( this.$t('normal.error_08') + this.$t('label.PFANS1004VIEW_GROUPZW')));
+          this.errorgroup =  this.$t('normal.error_08') + this.$t('label.PFANS1004VIEW_GROUPZW');
+        } else {
+          this.errorgroup = '';
+          callback();
+        }
+      };
       var validateUserid = (rule, value, callback) => {
         if (!value || value === '' || value === 'undefined') {
           callback(new Error(this.$t('normal.error_08') + this.$t('label.applicant')));
@@ -164,6 +182,8 @@
         }
       };
       return {
+        errorgroup: '',
+        checkgroup: false,
         optionsdata: [],
         options1: [],
         options: [],
@@ -210,6 +230,13 @@
           },
         ],
         rules: {
+          group_name: [
+            {
+              required: true,
+              validator: groupId,
+              trigger: 'change',
+            },
+          ],
           user_id: [{
             required: true,
             validator: validateUserid,
@@ -230,12 +257,26 @@
       this.disable = this.$route.params.disabled;
     },
     mounted() {
+      //add-ws-4/23-总务担当可用选择部门带出预算编码
+      let role = getCurrentRole2();
+      if (role === '0') {
+        this.checkgroup = true;
+      } else {
+        this.checkgroup = false;
+      }
+      //add-ws-4/23-总务担当可用选择部门带出预算编码
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
           .dispatch('PFANS1005Store/selectById', {'purchaseApplyid': this.$route.params._id})
           .then(response => {
             this.form = response.purchaseApply;
+            //add-ws-4/23-总务担当可用选择部门带出预算编码
+            if(this.form.group_name!='' && this.form.group_name!=null){
+              this.orglist = this.form.group_name;
+              this.getchangeGroup(this.form.group_name)
+            }
+            //add-ws-4/23-总务担当可用选择部门带出预算编码
             let rst = getOrgInfoByUserId(response.purchaseApply.user_id);
             if (rst) {
               this.centerid = rst.centerNmae;
@@ -246,7 +287,10 @@
               this.tableD = response.shoppingDetailed;
             }
             this.userlist = this.form.user_id;
-            this.getBudt(this.userlist);
+            if(this.form.group_name=='' || this.form.group_name==null){
+              this.getBudt(this.userlist);
+            }
+
             this.loading = false;
           })
           .catch(error => {
@@ -280,7 +324,37 @@
         });
     },
     methods: {
+      //add-ws-4/23-总务蛋蛋高可用i选择部门带出预算编码
+      getGroupId(orglist) {
+        debugger
+        this.getchangeGroup(orglist)
+        this.form.group_name =orglist
+        if (!this.form.group_name || this.form.group_name === '') {
+          this.errorgroup = this.$t('normal.error_08') + this.$t('label.PFANS1004VIEW_GROUPZW');
+        } else {
+          this.errorgroup = '';
+        }
+      },
+      getchangeGroup(val){
+        this.options1 = [];
+        if (val) {
+          let butinfo = getOrgInfo(val).encoding;
+          let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+          if (dic.length > 0) {
+            for (let i = 0; i < dic.length; i++) {
+              if (butinfo === dic[i].value1) {
+                this.options1.push({
+                  lable: dic[i].value2 + '_' + dic[i].value3,
+                  value: dic[i].code,
+                });
+              }
+            }
+          }
+        }
+      },
+      //add-ws-4/23-总务蛋蛋高可用i选择部门带出预算编码
       getBudt(val) {
+        this.options1 = [];
         //ADD_FJL  修改人员预算编码
         if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
           let butinfo = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
