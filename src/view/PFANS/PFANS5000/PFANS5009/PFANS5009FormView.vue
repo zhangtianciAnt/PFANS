@@ -651,26 +651,26 @@
                                               property="number"
                                               fixed
                                               :label="$t('label.PFANS5001FORMVIEW_NUMBERS')"
-                                              width="100"
+                                              width="140"
                                             ></el-table-column>
                                             <el-table-column property="expatriatesinfor_id" fixed v-if="false"
                                                              :label="$t('label.PFANSUSERFORMVIEW_CUSTOMERNAME')"
-                                                             width="180"></el-table-column>
+                                                             width="0"></el-table-column>
 
                                             <el-table-column property="expname" fixed
                                                              :label="$t('label.PFANSUSERFORMVIEW_CUSTOMERNAME')"
-                                                             width="180"></el-table-column>
+                                                             width="140"></el-table-column>
 
                                             <el-table-column
                                               property="suppliername"
                                               :label="$t('label.PFANS5001FORMVIEW_COOPERATIONCOMPANY')"
-                                              width="100"
+                                              width="240"
                                             ></el-table-column>
-                                            <el-table-column
-                                              property="post"
-                                              :label="$t('label.PFANSUSERVIEW_POST')"
-                                              width="150"
-                                            ></el-table-column>
+<!--                                            <el-table-column-->
+<!--                                              property="post"-->
+<!--                                              :label="$t('label.PFANSUSERVIEW_POST')"-->
+<!--                                              width="150"-->
+<!--                                            ></el-table-column>-->
                                             <el-table-column align="right" width="180">
                                               <template slot="header" slot-scope="scope">
                                                 <el-input
@@ -793,7 +793,7 @@
                   header-cell-class-name="sub_bg_color_blue"
                   style="width: 90vw"
                 >
-                  <el-table-column :label="$t('label.PFANS5009FORMVIEW_CONTRACT')" align="center"  width="220%">
+                  <el-table-column :label="$t('label.PFANS5009FORMVIEW_CONTRACT')" align="center"  width="240%">
                     <template slot-scope="scope">
                       <el-col :span="8">
                         <div class="dpSupIndex" style="width:20vw">
@@ -853,14 +853,14 @@
                                     <el-table-column
                                       property="claimdatetime"
                                       :label="$t('label.PFANS1024VIEW_CLAIMDATETIME')"
-                                      width="100"
+                                      width="110"
                                     ></el-table-column>
                                     <el-table-column align="right" width="230">
                                       <template slot="header" slot-scope="scope">
                                         <el-input
                                           v-model="search"
                                           size="mini"
-                                          placeholder="请输入姓名关键字搜索"
+                                          placeholder="请输入契約番号关键字搜索"
                                         />
                                       </template>
                                     </el-table-column>
@@ -1712,6 +1712,7 @@
                 );
                 response.contractapplication[i].claimdatetime = [
                   claimdatetim,
+                  '~',
                   claimdatetime1,
                 ];
               }
@@ -1848,7 +1849,7 @@
         row.number = this.currentRow;
         row.name = this.currentRow1;
         row.company = this.currentRow2;
-        row.position = this.currentRow3;
+        //row.position = this.currentRow3;
         //add-ws-数据库id存的是name名，外协关联修改
         row.name_id = this.currentRow5;
         //add-ws-数据库id存的是name名，外协关联修改
@@ -1860,7 +1861,7 @@
         this.currentRow1 = val.name_id;
         //add-ws-数据库id存的是name名，外协关联修改
         this.currentRow2 = val.suppliername;
-        this.currentRow3 = val.post;
+        //this.currentRow3 = val.post;
         this.currentRow5 = val.expname;
       },
       addRow() {
@@ -1916,7 +1917,7 @@
               vote1.name_id = response[i].account;
               vote1.expname = response[i].expname;
               vote1.suppliername = response[i].suppliername;
-              vote1.post = response[i].post;
+              //vote1.post = response[i].post;
               this.gridData1.push(vote1);
             }
             this.centerorglist = this.form.center_id;
