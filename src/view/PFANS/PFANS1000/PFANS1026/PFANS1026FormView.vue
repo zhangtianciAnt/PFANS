@@ -2581,7 +2581,9 @@
             let checksum = 0;
             let error = 0;
             for (let j = 0; j < this.form.tableclaimtype.length; j++) {
-              if(parseFloat(this.form.tableclaimtype[j].claimamount) === 0){
+              if(parseFloat(this.form.tableclaimtype[j].claimamount) === 0
+                  || this.form.tableclaimtype[j].claimamount === ''
+                  || this.form.tableclaimtype[j].claimamount === undefined){
                 checksum = checksum+1;
               }
             }
