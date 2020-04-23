@@ -43,8 +43,8 @@ export function getAssetsnameList(data) {
 export function downLoad(data) {
   return requestPdf({
     url: 'fixedassets/downLoad1',
-    method: 'post',
-    data: data,
+    method: 'get',
+    params: data,
     responseType: 'blob'
   })
 }

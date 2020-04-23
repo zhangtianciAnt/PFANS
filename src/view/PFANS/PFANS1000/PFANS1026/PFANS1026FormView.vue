@@ -1429,7 +1429,7 @@
                 if(contractapplication[i].state === this.$t('label.PFANS8008FORMVIEW_EFFECTIVE')){
                     if(contractapplication[i].contracttype === 'HT008002' || contractapplication[i].contracttype === 'HT008004'
                         || contractapplication[i].contracttype === 'HT008006' || contractapplication[i].contracttype === 'HT008008'){
-                        this.displaycompound = false;//gbb
+                        this.displaycompound = true;
                     }
                 }
                 //契約種類
@@ -2288,7 +2288,7 @@
         //海外複合受託 技術開発
         else if (this.form.contracttype === 'HT008002') {
           this.titleType = this.titleType2;
-          this.displaycompound = false;//gbb
+          this.displaycompound = true;
         }
         //海外受託 役務
         else if (this.form.contracttype === 'HT008003') {
@@ -2297,7 +2297,7 @@
         //海外複合受託 役務
         else if (this.form.contracttype === 'HT008004') {
           this.titleType = this.titleType4;
-          this.displaycompound = false;//gbb
+          this.displaycompound = true;
         }
         //国内受託 技術開発
         else if (this.form.contracttype === 'HT008005') {
@@ -2306,7 +2306,7 @@
         //国内複合受託 技術開発
         else if (this.form.contracttype === 'HT008006') {
           this.titleType = this.titleType6;
-          this.displaycompound = false;//gbb
+          this.displaycompound = true;
         }
         //国内受託 役務
         else if (this.form.contracttype === 'HT008007') {
@@ -2315,7 +2315,7 @@
         //国内複合受託 役務
         else if (this.form.contracttype === 'HT008008') {
           this.titleType = this.titleType8;
-          this.displaycompound = false;//gbb
+          this.displaycompound = true;
         }
         //販売
         else if (this.form.contracttype === 'HT008009') {
@@ -2573,18 +2573,26 @@
             let two = 0;
             let three = 0;
             let four = 0;
+            let letone = [];
+            let lettwo = [];
+            let letthree = [];
+            let letfour = [];
             for (let x = 0; x < this.form.tablecompound.length; x++) {
                 if(this.form.tablecompound[x].claimtype === this.$t('label.PFANS1026FORMVIEW_ONE')){
                     one = one + this.form.tablecompound[x].contractrequestamount;
+                    letone.push(this.form.tablecompound[x].group_id);
                 }
                 if(this.form.tablecompound[x].claimtype === this.$t('label.PFANS1026FORMVIEW_TWO')){
                     two = two + this.form.tablecompound[x].contractrequestamount;
+                    lettwo.push(this.form.tablecompound[x].group_id);
                 }
                 if(this.form.tablecompound[x].claimtype === this.$t('label.PFANS1026FORMVIEW_THREE')){
                     three = three + this.form.tablecompound[x].contractrequestamount;
+                    letthree.push(this.form.tablecompound[x].group_id);
                 }
                 if(this.form.tablecompound[x].claimtype === this.$t('label.PFANS1026FORMVIEW_FOUR')){
                     four = four + this.form.tablecompound[x].contractrequestamount;
+                    letfour.push(this.form.tablecompound[x].group_id);
                 }
             }
             if(one > this.claimamount1 || two > this.claimamount2 || three > this.claimamount3 || four > this.claimamount4){
@@ -2594,6 +2602,47 @@
                     duration: 5 * 1000,
                 });
                 return;
+            }
+            if(refrain(letone).length > 0){
+                Message({
+                    message: this.$t('label.PFANS1026FORMVIEW_ONE') + this.$t('label.PFANS1026FORMVIEW_GROUP'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                });
+                return;
+            }
+              if(refrain(lettwo).length > 0){
+                  Message({
+                      message: this.$t('label.PFANS1026FORMVIEW_TWO') + this.$t('label.PFANS1026FORMVIEW_GROUP'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                  });
+                  return;
+              }
+              if(refrain(letthree).length > 0){
+                  Message({
+                      message: this.$t('label.PFANS1026FORMVIEW_THREE') + this.$t('label.PFANS1026FORMVIEW_GROUP'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                  });
+                  return;
+              }
+              if(refrain(letfour).length > 0){
+                  Message({
+                      message: this.$t('label.PFANS1026FORMVIEW_FOUR') + this.$t('label.PFANS1026FORMVIEW_GROUP'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                  });
+                  return;
+              }
+            function refrain(arr) {
+                var tmp = [];
+                if(Array.isArray(arr)) {
+                    arr.concat().sort().sort(function(a,b) {
+                        if(a==b && tmp.indexOf(a) === -1) tmp.push(a);
+                    });
+                }
+                return tmp;
             }
             //endregion
 
