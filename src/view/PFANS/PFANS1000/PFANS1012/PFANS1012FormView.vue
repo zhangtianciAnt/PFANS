@@ -515,7 +515,7 @@
                                  @getOrgids="getGroupIdT"></org>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1012FORMVIEW_BUDGET')" align="center" width="150">
+                        <el-table-column :label="$t('label.PFANS1012FORMVIEW_BUDGET')" align="center" width="200">
                           <template slot-scope="scope">
                             <!--                            <el-input :disabled="true" style="width: 100%" v-model="scope.row.budgetcoding">-->
                             <!--                            </el-input>-->
@@ -673,7 +673,7 @@
                                  @getOrgids="getGroupIdP"></org>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1012FORMVIEW_BUDGET')" align="center" width="150">
+                        <el-table-column :label="$t('label.PFANS1012FORMVIEW_BUDGET')" align="center" width="200">
                           <template slot-scope="scope">
                             <!--                            <el-input :disabled="true" style="width: 100%" v-model="scope.row.budgetcoding">-->
                             <!--                            </el-input>-->
@@ -903,7 +903,7 @@
                                  @getOrgids="getGroupIdR"></org>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1012FORMVIEW_BUDGET')" align="center" width="150">
+                        <el-table-column :label="$t('label.PFANS1012FORMVIEW_BUDGET')" align="center" width="200">
                           <template slot-scope="scope">
                             <!--                            <el-input :disabled="true" style="width: 100%" v-model="scope.row.budgetcoding">-->
                             <!--                            </el-input>-->
