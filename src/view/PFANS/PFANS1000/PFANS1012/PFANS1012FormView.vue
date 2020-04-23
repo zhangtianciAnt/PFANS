@@ -419,13 +419,15 @@
                       </el-table-column>
                       <el-table-column :label="$t('label.PFANS1012FORMVIEW_TAXRATE')" align="center" width="240">
                         <template slot-scope="scope">
-                          <dicselect :code="code13"
-                                     :data="scope.row.taxrate"
-                                     :disabled="!disable"
-                                     :no="scope.row"
-                                     @change="getrate"
-                                     style="width: 100%">
-                          </dicselect>
+                          <el-select :disabled="!disable" clearable style="width: 100%" v-model="scope.row.taxrate"
+                                     :no="scope.row" >
+                            <el-option
+                              :key="item.value"
+                              :label="item.lable"
+                              :value="item.value"
+                              v-for="item in optionsrate">
+                            </el-option>
+                          </el-select>
                         </template>
                       </el-table-column>
                       <el-table-column :label="$t('label.PFANS1012FORMVIEW_EXCLUDINGTAX')" align="center" width="150"
@@ -1246,6 +1248,7 @@
         teamid: '',
         disablecheck: false,
         ploptionsdate: [],
+        optionsrate: [],
         optionstype: [],
         accoundoptionsdate: [],
         optionsdate: [{value: 'PP024001', lable: this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')}],
@@ -1521,7 +1524,13 @@
         //     this.budgetcodingcheck = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
         // }
       }
-
+      let ratelist = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ071');
+      for (let i = 0; i < ratelist.length; i++) {
+        this.optionsrate.push({
+          value: ratelist[i].code,
+          lable: ratelist[i].value1,
+        });
+      }
       let PLdicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ111');
       for (let i = 0; i < PLdicnew.length; i++) {
         if (PLdicnew[i].code === 'PJ111010') {
@@ -1627,26 +1636,6 @@
               }
               if (response.invoice.length > 0) {
                 this.tableF = response.invoice;
-                  for (var i = 0; i < this.tableF.length; i++) {
-                   if(this.$route.params.disabled){
-                     if (this.tableF[i].taxrate === '') {
-                       this.checkexternal = true;
-                       this.checktaxes = true;
-                       this.checkdisable = true;
-                       this.disablecheck = true;
-                     }else{
-                       this.checkexternal = false;
-                       this.checktaxes = false;
-                       this.checkdisable = false;
-                       this.disablecheck = false;
-                     }
-                   }else{
-                     this.checkexternal = true;
-                     this.checktaxes = true;
-                     this.checkdisable = true;
-                     this.disablecheck = true;
-                   }
-                }
                 if(this.form.status ==='2'){
                   this.checkexternal = true;
                   this.checktaxes = true;
@@ -1991,6 +1980,10 @@
         //         this.tableR[0].budgetcoding = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
         //     }
         // }
+        this.checkexternal = true;
+        this.checktaxes = true;
+        this.checkdisable = true;
+        this.disablecheck = true;
         this.userlist = this.$store.getters.userinfo.userid;
         if (this.userlist !== null && this.userlist !== '') {
           let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
@@ -2041,10 +2034,10 @@
       }
       this.disable = this.$route.params.disabled;
       if (this.disable) {
-        this.checkexternal = true;
-        this.checktaxes = true;
-        this.checkdisable = true;
-        this.disablecheck = true;
+        this.checkexternal = false;
+        this.checktaxes = false;
+        this.checkdisable = false;
+        this.disablecheck = false;
       } else {
         this.checkexternal = true;
         this.checktaxes = true;
