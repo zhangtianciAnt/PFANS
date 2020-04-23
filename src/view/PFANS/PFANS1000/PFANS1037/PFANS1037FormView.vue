@@ -223,6 +223,7 @@
           });
         }
         if (val === "export") {
+          this.comIdList = [];
           if (this.$refs.dataTable.selectedList.length === 0) {
             Message({
               message: this.$t("normal.info_01"),
@@ -235,59 +236,74 @@
           this.selectedlist = this.$refs.dataTable.selectedList;
 
           if (this.$route.params.title === 7) {
-            for (let h = 0; h < this.selectedlist.length; h++) {
-              this.comIdList.push(this.selectedlist[h].assetinformationid);
-            }
-            this.$store
-              .dispatch('PFANS1007Store/downLoad', this.comIdList)
-              .then(response => {
-                this.loading = false;
-              })
-              .catch(error => {
-                Message({
-                  message: error,
-                  type: 'error',
-                  duration: 5 * 1000,
-                });
-                this.loading = false;
-              })
+            this.export1(0);
           } else if (this.$route.params.title === 8) {
-            for (let h = 0; h < this.selectedlist.length; h++) {
-              this.comIdList.push(this.selectedlist[h].softwaretransferid);
-            }
-            this.$store
-              .dispatch('PFANS1008Store/downLoad', this.comIdList)
-              .then(response => {
-                this.loading = false;
-              })
-              .catch(error => {
-                Message({
-                  message: error,
-                  type: 'error',
-                  duration: 5 * 1000,
-                });
-                this.loading = false;
-              })
+            this.export2(0);
           } else if (this.$route.params.title === 9) {
-            for (let h = 0; h < this.selectedlist.length; h++) {
-              this.comIdList.push(this.selectedlist[h].fixedassets_id);
-              this.$store
-                .dispatch('PFANS1009Store/downLoad', this.comIdList)
-                .then(response => {
-                  this.loading = false;
-                })
-                .catch(error => {
-                  Message({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  this.loading = false;
-                })
-            }
+            this.export3(0);
           }
         }
       },
+      export1(val) {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS1007Store/downLoad', {assetinformationId: this.$refs.dataTable.selectedList[val].assetinformationid})
+          .then(response => {
+            this.loading = false;
+            if (val < this.$refs.dataTable.selectedList.length - 1) {
+              val = val + 1;
+              this.export1(val);
+            }
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          })
+      },
+      export2(val) {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS1008Store/downLoad', {softwaretransferId: this.$refs.dataTable.selectedList[val].softwaretransferid})
+          .then(response => {
+            this.loading = false;
+            if (val < this.$refs.dataTable.selectedList.length - 1) {
+              val = val + 1;
+              this.export2(val);
+            }
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          })
+      },
+      export3(val) {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS1009Store/downLoad', {fixedassetsId: this.$refs.dataTable.selectedList[val].fixedassets_id})
+          .then(response => {
+            this.loading = false;
+            if (val < this.$refs.dataTable.selectedList.length - 1) {
+              val = val + 1;
+              this.export3(val);
+            }
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          })
+      }
     },
   };
 </script>
