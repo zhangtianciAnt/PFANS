@@ -92,7 +92,12 @@
                         'disabled': false,
                         icon: 'el-icon-upload2'
                     },
-                    // {'key': 'export1', 'name': 'label.PFANS1012VIEW_EXPORT1', 'disabled': false, icon: 'el-icon-upload2'}
+                    {
+                        'key': 'export1',
+                        'name': 'label.PFANS1012VIEW_EXPORT1',
+                        'disabled': false,
+                        icon: 'el-icon-upload2'
+                    }
                 ],
                 rowid: '',
                 row_id: 'publicexpenseid',
@@ -171,6 +176,26 @@
                         return v[j]
                     }
                 }))
+            },
+            export1(val) {
+                this.loading = true;
+                this.$store
+                    .dispatch('PFANS1012Store/exportjs', {publicexpenseid: this.$refs.roletable.selectedList[val].publicexpenseid})
+                    .then(response => {
+                        this.loading = false;
+                        if (val < this.$refs.roletable.selectedList.length - 1) {
+                            val = val + 1;
+                            this.export1(val);
+                        }
+                    })
+                    .catch(error => {
+                        Message({
+                            message: error,
+                            type: 'error',
+                            duration: 5 * 1000,
+                        });
+                        this.loading = false;
+                    })
             },
             buttonClick(val) {
                 this.$store.commit('global/SET_HISTORYURL', '');
@@ -494,24 +519,19 @@
                             disabled: true
                         }
                     })
+                } else if (val === "export1") {
+                    if (this.$refs.roletable.selectedList.length === 0) {
+                        Message({
+                            message: this.$t("normal.info_01"),
+                            type: "info",
+                            duration: 2 * 1000
+                        });
+                        return;
+                    }
+                    this.selectedlist = this.$refs.roletable.selectedList;
+                    this.export1(0);
+
                 }
-                // else if (val === "export1") {
-                //   this.loading = true;
-                //   let publicexpenseid= this.selectedlist[0].publicexpenseid;
-                //   this.$store
-                //     .dispatch('PFANS1012Store/exportjs', publicexpenseid)
-                //     .then(response => {
-                //       this.loading = false;
-                //     })
-                //     .catch(error => {
-                //       Message({
-                //         message: error,
-                //         type: 'error',
-                //         duration: 5 * 1000,
-                //       });
-                //       this.loading = false;
-                //     })
-                // }
             }
         }
     }
