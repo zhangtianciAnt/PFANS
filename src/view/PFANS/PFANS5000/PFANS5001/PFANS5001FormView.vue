@@ -1871,6 +1871,7 @@
             //项目合同
             if (response.projectcontract.length > 0) {
               let tabled = [];
+              let compound = [];
               for (let i = 0; i < response.projectcontract.length; i++) {
                 if (response.projectcontract[i].workinghours !== '' && response.projectcontract[i].workinghours !== null) {
                   let claimdatetime = response.projectcontract[i].workinghours;
@@ -1878,7 +1879,6 @@
                   let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
                   response.projectcontract[i].workinghours = [claimdatetim, claimdatetime1];
                 }
-                let compound = [];
                 //region复合合同金额分配
                 if(this.compounddata.length > 0){
                     let dic = this.compounddata.filter(item => item.contractnumber === response.projectcontract[i].contract
