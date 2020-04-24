@@ -373,7 +373,7 @@
                         <el-table-column :label="$t('label.PFANS1012FORMVIEW_TAXRATE')" align="center" width="240">
                           <template slot-scope="scope">
                             <el-select :disabled="!disable" clearable style="width: 100%" v-model="scope.row.taxrate"
-                                       :no="scope.row" >
+                                       @change="getrate(scope.row)">
                               <el-option
                                 :key="item.value"
                                 :label="item.lable"
@@ -459,7 +459,7 @@
                     <el-table-column :label="$t('label.PFANS1012FORMVIEW_INVOICEN')" align="center" width="150">
                       <template slot-scope="scope">
                         <el-select :disabled="!disable" clearable style="width: 100%" v-model="scope.row.invoicenumber"
-                                   :no="scope.row" @change="changeinvoicenumber">
+                                   @change="changeinvoicenumber(scope.row)">
                           <el-option
                             :key="item.value"
                             :label="item.lable"
@@ -669,7 +669,7 @@
                     <el-table-column :label="$t('label.PFANS1012FORMVIEW_INVOICEN')" align="center" width="150">
                       <template slot-scope="scope">
                         <el-select :disabled="!disable" clearable style="width: 100%" v-model="scope.row.invoicenumber"
-                                   :no="scope.row" @change="changeinvoicenumber">
+                                   @change="changeinvoicenumber(scope.row)">
                           <el-option
                             :key="item.value"
                             :label="item.lable"
@@ -1602,19 +1602,35 @@
       }
     },
     methods: {
-      changeinvoicenumber(val) {
+      changeinvoicenumber(row, val) {
         for (let j = 0; j < this.tableF.length; j++) {
-          if (val == this.tableF[j].invoicenumber) {
+          if (row.invoicenumber == this.tableF[j].invoicenumber) {
             if (this.tableF[j].taxrate === '') {
+              row.taxes = 0;
               this.checkmoney = true;
               this.checktaxes = true;
               break;
             } else {
+              let taxratevalue = 0;
+              if (row.rmb != '') {
+                if (this.tableF[j].taxrate == 'PJ071001') {
+                  this.taxrateValue = getDictionaryInfo('PJ071001').value1;
+                } else if (this.tableF[j].taxrate == 'PJ071002') {
+                  this.taxrateValue = getDictionaryInfo('PJ071002').value1;
+                } else if (this.tableF[j].taxrate == 'PJ071003') {
+                  this.taxrateValue = getDictionaryInfo('PJ071003').value1;
+                } else if (this.tableF[j].taxrate == 'PJ071004') {
+                  this.taxrateValue = getDictionaryInfo('PJ071004').value1;
+                }
+                taxratevalue = 1 + Number(this.taxrateValue);
+                row.taxes = parseFloat((row.rmb / (taxratevalue) * this.taxrateValue)).toFixed(2);
+              }
               this.checkmoney = false;
               this.checktaxes = false;
               break;
             }
           } else {
+            row.taxes = 0;
             this.checkmoney = false;
             this.checktaxes = false;
           }
@@ -1692,6 +1708,21 @@
             });
             this.loading = false;
           });
+      },
+      getrate(row) {
+        let taxratevalue = 0;
+        if (row.taxrate == 'PJ071001') {
+          this.taxrateValue = getDictionaryInfo('PJ071001').value1;
+        } else if (row.taxrate == 'PJ071002') {
+          this.taxrateValue = getDictionaryInfo('PJ071002').value1;
+        } else if (row.taxrate == 'PJ071003') {
+          this.taxrateValue = getDictionaryInfo('PJ071003').value1;
+        } else if (row.taxrate == 'PJ071004') {
+          this.taxrateValue = getDictionaryInfo('PJ071004').value1;
+        }
+        taxratevalue = 1 + Number(this.taxrateValue);
+        row.excludingtax = parseFloat((row.invoiceamount / (taxratevalue) * this.taxrateValue)).toFixed(2);
+        row.facetax = row.invoiceamount - row.excludingtax;
       },
       getBusInside() {
         this.loading = true;
@@ -1939,6 +1970,18 @@
         }
       },
       changeSum(row) {
+        let taxratevalue = 0;
+        if (row.taxrate == 'PJ071001') {
+          this.taxrateValue = getDictionaryInfo('PJ071001').value1;
+        } else if (row.taxrate == 'PJ071002') {
+          this.taxrateValue = getDictionaryInfo('PJ071002').value1;
+        } else if (row.taxrate == 'PJ071003') {
+          this.taxrateValue = getDictionaryInfo('PJ071003').value1;
+        } else if (row.taxrate == 'PJ071004') {
+          this.taxrateValue = getDictionaryInfo('PJ071004').value1;
+        }
+        taxratevalue = 1 + Number(this.taxrateValue);
+        row.excludingtax = parseFloat((row.invoiceamount / (taxratevalue) * this.taxrateValue)).toFixed(2);
         row.facetax = row.invoiceamount - row.excludingtax;
       },
       deleteRow(index, rows) {
