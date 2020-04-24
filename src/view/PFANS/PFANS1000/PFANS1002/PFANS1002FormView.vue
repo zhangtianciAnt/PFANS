@@ -58,49 +58,14 @@
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS5009VIEW_PROJECTNAME')" prop="companyprojectsname">
-                      <div class="dpSupIndex" prop="companyprojectsname" style="width: 19vw">
-                        <el-container>
-                          <project :data="form.companyprojectsname" :disabled="!disable" @change="change"
-                                   style="width: 100%">
-                          </project>
-                          <!--<input class="content bg" v-model="form.projectname"-->
-                          <!--:disabled="true"></input>-->
-                          <!--<el-button :disabled="!disable" icon="el-icon-search" @click="dialogTableVisible = true"-->
-                          <!--size="small"></el-button>-->
-                          <!--<el-dialog :title="$t('label.PFANS5009VIEW_PROJECTNAME')" :visible.sync="dialogTableVisible"-->
-                          <!--center size="50%"-->
-                          <!--top="8vh" lock-scroll-->
-                          <!--append-to-body>-->
-                          <!--<div style="text-align: center">-->
-                          <!--<el-row style="text-align: center;height: 90%;overflow: hidden">-->
-                          <!--<el-table-->
-                          <!--:data="gridData.filter(data => !search || data.projectname.toLowerCase().includes(search.toLowerCase()))"-->
-                          <!--height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"-->
-                          <!--@row-click="handleClickChange">-->
-                          <!--<el-table-column property="numbers"-->
-                          <!--:label="$t('label.PFANS5004VIEW_PROJECTNUMBER')"-->
-                          <!--width="200"></el-table-column>-->
-                          <!--<el-table-column property="projectname"-->
-                          <!--:label="$t('label.PFANS5009VIEW_PROJECTNAME')"-->
-                          <!--width="200"></el-table-column>-->
-                          <!--<el-table-column-->
-                          <!--align="right" width="230">-->
-                          <!--<template slot="header" slot-scope="scope">-->
-                          <!--<el-input-->
-                          <!--v-model="search"-->
-                          <!--size="mini"-->
-                          <!--placeholder="请输入项目名称关键字搜索"/>-->
-                          <!--</template>-->
-                          <!--</el-table-column>-->
-                          <!--</el-table>-->
-                          <!--</el-row>-->
-                          <!--<span slot="footer" class="dialog-footer">-->
-                          <!--<el-button type="primary" @click="submit">{{$t('button.confirm')}}</el-button>-->
-                          <!--</span>-->
-                          <!--</div>-->
-                          <!--</el-dialog>-->
-                        </el-container>
-                      </div>
+                      <el-select :disabled="!disable" clearable style="width: 20vw" v-model="form.companyprojectsname">
+                        <el-option
+                          :key="item.value"
+                          :label="item.lable"
+                          :value="item.value"
+                          v-for="item in optionsdate">
+                        </el-option>
+                      </el-select>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -826,6 +791,7 @@
         callback();
       };
       return {
+        optionsdate: [{value: 'PP024001', lable: this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')}],
         options: [],
         centerid: '',
         groupid: '',
@@ -1254,6 +1220,7 @@
       };
     },
     mounted() {
+      this.getCompanyProjectList();
       this.getProjectNames();
       if (this.$route.params._id) {
         this.loading = true;
@@ -1379,6 +1346,56 @@
       this.disable = this.$route.params.disabled;
     },
     methods: {
+      //add-ws-4/24-项目名称所取数据源变更
+      getCompanyProjectList() {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS5009Store/getSiteList3', {})
+          .then(response => {
+            debugger
+            if(response.length>0){
+              for (let i = 0; i < response.length; i++) {
+                this.optionsdate.push({
+                  value: response[i].companyprojects_id,
+                  lable: response[i].numbers + '_' + response[i].project_name,
+                });
+              }
+            }
+            this.$store
+              .dispatch('PFANS5013Store/getMyConProject', {})
+              .then(response => {
+                debugger
+                if(response.length>0) {
+                  for (let i = 0; i < response.length; i++) {
+                    this.optionsdate.push({
+                      value: response[i].comproject_id,
+                      lable: response[i].numbers + '_' + response[i].project_name,
+                    });
+                  }
+                }
+                this.loading = false;
+              })
+              .catch(error => {
+                Message({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.loading = false;
+              });
+
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
+      //add-ws-4/24-项目名称所取数据源变更
       getBudt(val) {
         //ADD_FJL  修改人员预算编码
         if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
@@ -1396,9 +1413,6 @@
           }
         }
         //ADD_FJL  修改人员预算编码
-      },
-      change(val) {
-        this.form.companyprojectsname = val;
       },
       checkRequire() {
         if (

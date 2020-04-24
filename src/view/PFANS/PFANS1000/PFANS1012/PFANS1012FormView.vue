@@ -2135,13 +2135,31 @@
           .dispatch('PFANS5009Store/getSiteList3', {})
           .then(response => {
             for (let i = 0; i < response.length; i++) {
-              // if (response[i].status == '4' || response[i].status == '6' || response[i].status == '7') {
               this.optionsdate.push({
                 value: response[i].companyprojects_id,
-                lable: response[i].project_name,
+                lable: response[i].numbers + '_' + response[i].project_name,
               });
-              // }
             }
+            this.$store
+              .dispatch('PFANS5013Store/getMyConProject', {})
+              .then(response => {
+                for (let i = 0; i < response.length; i++) {
+                  this.optionsdate.push({
+                    value: response[i].comproject_id,
+                    lable: response[i].numbers + '_' + response[i].project_name,
+                  });
+                }
+                this.loading = false;
+              })
+              .catch(error => {
+                Message({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.loading = false;
+              });
+
             this.loading = false;
           })
           .catch(error => {
