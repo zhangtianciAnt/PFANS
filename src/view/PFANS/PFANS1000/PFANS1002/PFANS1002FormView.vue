@@ -1352,26 +1352,20 @@
         this.$store
           .dispatch('PFANS5009Store/getSiteList3', {})
           .then(response => {
-            debugger
-            if(response.length>0){
-              for (let i = 0; i < response.length; i++) {
-                this.optionsdate.push({
-                  value: response[i].companyprojects_id,
-                  lable: response[i].numbers + '_' + response[i].project_name,
-                });
-              }
+            for (let i = 0; i < response.length; i++) {
+              this.optionsdate.push({
+                value: response[i].companyprojects_id,
+                lable: response[i].numbers + '_' + response[i].project_name,
+              });
             }
             this.$store
               .dispatch('PFANS5013Store/getMyConProject', {})
               .then(response => {
-                debugger
-                if(response.length>0) {
-                  for (let i = 0; i < response.length; i++) {
-                    this.optionsdate.push({
-                      value: response[i].comproject_id,
-                      lable: response[i].numbers + '_' + response[i].project_name,
-                    });
-                  }
+                for (let i = 0; i < response.length; i++) {
+                  this.optionsdate.push({
+                    value: response[i].comproject_id,
+                    lable: response[i].numbers + '_' + response[i].project_name,
+                  });
                 }
                 this.loading = false;
               })
