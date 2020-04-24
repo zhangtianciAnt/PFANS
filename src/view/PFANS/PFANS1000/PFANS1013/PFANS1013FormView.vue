@@ -1760,7 +1760,6 @@
         this.$store
           .dispatch('PFANS5009Store/getSiteList3', {})
           .then(response => {
-            debugger
             for (let i = 0; i < response.length; i++) {
               this.optionsdate.push({
                 value: response[i].companyprojects_id,
@@ -1770,7 +1769,6 @@
             this.$store
               .dispatch('PFANS5013Store/getMyConProject', {})
               .then(response => {
-                debugger
                 for (let i = 0; i < response.length; i++) {
                   this.optionsdate.push({
                     value: response[i].comproject_id,

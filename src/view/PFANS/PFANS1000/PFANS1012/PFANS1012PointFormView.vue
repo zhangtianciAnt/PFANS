@@ -154,7 +154,7 @@
                   }
                   var vote = {};
                   vote.value = response[i].purchaseapply_id;
-                  vote.label = this.$t('menu.PFANS1005') + '_' + response[i].createon;
+                  vote.label = response[i].purchasenumbers + '_' + this.$t('menu.PFANS1005');
                   this.options.push(vote);
                 }
               }
