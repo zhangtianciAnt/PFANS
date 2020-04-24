@@ -2731,7 +2731,6 @@
             let error3 = 0;
             let error4 = 0;
             let error5 = 0;
-            let error6 = 0;
             let error7 = 0;
             let error8 = 0;
             let error9 = 0;
@@ -2824,25 +2823,6 @@
                 error5 = error5 + 1;
               }
             }
-            for (let i = 0; i < this.tableB.length; i++) {
-              for (let K = 1; K < this.tableB.length; K++) {
-                if (this.tableB[i].name === this.tableB[K].name) {
-                  error6 = error6 + 1;
-                }
-                break;
-              }
-              break;
-            }
-
-            for (let i = 0; i < this.tableC.length; i++) {
-              for (let K = 1; K < this.tableC.length; K++) {
-                if (this.tableC[i].name === this.tableC[K].name) {
-                  error6 = error6 + 1;
-                }
-                break;
-              }
-              break;
-            }
             let error = 0;
             for (let i = 0; i < this.tableD.length; i++) {
               if (this.tableD[i].contract == '') {
@@ -2927,15 +2907,6 @@
                 duration: 5 * 1000,
               });
               this.loading = false;
-            }else if (error6 != 0) {
-              this.activeName = 'fourth';
-              this.loading = false;
-              Message({
-                message:
-                  this.$t('label.PFANS5001FORMVIEW_CHECKNAME'),
-                type: 'error',
-                duration: 5 * 1000,
-              });
             } else if (error9 != 0) {
               this.activeName = 'fourth';
               this.loading = false;
