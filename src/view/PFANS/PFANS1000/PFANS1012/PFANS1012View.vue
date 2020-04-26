@@ -133,7 +133,7 @@
                   response[j].modifyon = moment(response[j].modifyon).format('YYYY-MM-DD');
                 }
               } else {
-                response[j].modifyon = '';
+                response[j].modifyon = null;
               }
               if (response[j].status !== null && response[j].status !== '') {
                 response[j].status = getStatus(response[j].status);
