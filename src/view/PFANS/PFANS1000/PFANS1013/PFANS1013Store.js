@@ -1,11 +1,20 @@
-import {create, get, selectById,gettravelcostvo, update,getdate,getLoanApplication} from './PFANS1013Api'
-import {gettotalcost} from "../PFANS1012/PFANS1012Api";
+import {exportjs, create, get, selectById, gettravelcostvo, update, getdate, getLoanApplication} from './PFANS1013Api'
 
 const PFANS1013Store = {
   namespaced: true,
   state: {},
   mutations: {},
   actions: {
+    //精算书PDF打印
+    exportjs({commit}, data) {
+      return new Promise((resolve, reject) => {
+        exportjs(data).then(response => {
+          resolve(response);
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
     //获取流程
     get() {
       return new Promise((resolve, reject) => {

@@ -138,7 +138,12 @@
                         'disabled': false,
                         icon: 'el-icon-upload2'
                     },
-                    // {'key': 'export1', 'name': 'label.PFANS1012VIEW_EXPORT2', 'disabled': false, icon: 'el-icon-upload2'},
+                    {
+                        'key': 'export1',
+                        'name': 'label.PFANS1012VIEW_EXPORT2',
+                        'disabled': false,
+                        icon: 'el-icon-upload2'
+                    },
                 ],
                 rowid: '',
                 row_id: 'evectionid',
@@ -221,6 +226,26 @@
                         return v[j];
                     }
                 }));
+            },
+            export1(val) {
+                this.loading = true;
+                this.$store
+                    .dispatch('PFANS1013Store/exportjs', {evectionid: this.$refs.roletable.selectedList[val].evectionid})
+                    .then(response => {
+                        this.loading = false;
+                        if (val < this.$refs.roletable.selectedList.length - 1) {
+                            val = val + 1;
+                            this.export1(val);
+                        }
+                    })
+                    .catch(error => {
+                        Message({
+                            message: error,
+                            type: 'error',
+                            duration: 5 * 1000,
+                        });
+                        this.loading = false;
+                    })
             },
             buttonClick(val) {
                 this.$store.commit('global/SET_HISTORYURL', this.$route.path);
@@ -504,6 +529,18 @@
                             });
                             this.loading = false;
                         });
+                } else if (val === "export1") {
+                    if (this.$refs.roletable.selectedList.length === 0) {
+                        Message({
+                            message: this.$t("normal.info_01"),
+                            type: "info",
+                            duration: 2 * 1000
+                        });
+                        return;
+                    }
+                    this.selectedlist = this.$refs.roletable.selectedList;
+                    this.export1(0);
+
                 }
             },
         },
