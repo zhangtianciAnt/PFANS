@@ -336,17 +336,6 @@
                                 sum = sum + 1;
                                 for (let i = 0; i < this.selectedlist.length; i++) {
                                     if (response[m].evectionid == this.selectedlist[i].evectionid) {
-                                        let letErrortype = getDictionaryInfo(this.selectedlist[i].paymentmethod);
-                                        if (letErrortype != null) {
-                                            this.selectedlist[i].paymentmethod = letErrortype.value1;
-                                            if (this.selectedlist[i].paymentmethod === this.$t('label.PFANS1012VIEW_ONLINEPAYMENT') || this.selectedlist[i].paymentmethod === this.$t('label.PFANS1012VIEW_TRANSFERCHECK')) {
-                                                this.selectedlist[i].paymentmethod = this.$t('label.PFANS1012VIEW_COST');
-                                            } else if (this.selectedlist[i].paymentmethod === this.$t('label.PFANS1012VIEW_PPAYMENT')) {
-                                                this.selectedlist[i].paymentmethod = this.$t('label.PFANS1012VIEW_OFFICE');
-                                            } else if (this.selectedlist[i].paymentmethod === '') {
-                                                this.selectedlist[i].paymentmethod = '';
-                                            }
-                                        }
                                         if (response[m].invoicedate !== null && response[m].invoicedate !== '') {
                                             let date;
                                             let invoiceDate = moment(response[m].invoicedate).format('MM');
@@ -421,7 +410,7 @@
                                                 response[m].budgetcoding = letbudge.value1;
                                             }
                                         }
-                                        invoiceamountvalue += parseFloat(response[m].lineamount).toFixed(2);
+                                        invoiceamountvalue += parseFloat(response[m].lineamount);
                                         this.travelcostvalue.push({
                                             invoicenumber: response[m].invoicenumber,
                                             number: response[m].number,
@@ -430,7 +419,7 @@
                                             invoicedate: response[m].invoicedate,
                                             conditiondate: response[m].conditiondate,
                                             vendorcode: response[m].vendorcode,
-                                            paymentmethod: this.selectedlist[i].paymentmethod,
+                                            paymentmethod: this.$t("label.PFANS1012VIEW_OFFICE"),
                                             currency: response[m].currency,
                                             invoiceamount: response[m].invoiceamount,
                                             lineamount: response[m].lineamount,
@@ -461,7 +450,7 @@
                                 paymentmethod: '',
                                 currency: '',
                                 invoiceamount: sum + 1,
-                                lineamount: invoiceamountvalue,
+                                lineamount: invoiceamountvalue.toFixed(2),
                                 currencyrate: '',
                                 companysegment: '',
                                 budgetcoding: '',

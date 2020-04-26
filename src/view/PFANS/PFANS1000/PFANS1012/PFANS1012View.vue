@@ -370,7 +370,7 @@
                                                     response[m].budgetcoding = letbudge.value1;
                                                 }
                                             }
-                                            invoiceamountvalue += parseFloat(response[m].lineamount).toFixed(2);
+                                            invoiceamountvalue += parseFloat(response[m].lineamount);
                                             this.totalcostvalue.push({
                                                 invoicenumber: response[m].invoicenumber,
                                                 number: response[m].number,
@@ -410,7 +410,7 @@
                                     paymentmethod: '',
                                     currency: '',
                                     invoiceamount: sum + 1,
-                                    lineamount: invoiceamountvalue,
+                                    lineamount: invoiceamountvalue.toFixed(2),
                                     currencyrate: '',
                                     companysegment: '',
                                     budgetcoding: '',

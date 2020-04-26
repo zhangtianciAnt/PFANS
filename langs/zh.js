@@ -1904,6 +1904,7 @@ module.exports = {
     PFANS1044VIEW_YSKM: '应收科目',
     PFANS1044VIEW_YSCPD: '应收产品段',
     PFANS1044VIEW_SMNUMBER: '行说明',
+    PFANS1044VIEW_JLDW: '计量单位',
     PFANS1044VIEW_JSCODE: '计量单位',
     PFANS1044VIEW_HMONEYS: '行金额',
     PFANS1044VIEW_SRBMD: '收入部门段',
