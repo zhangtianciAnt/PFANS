@@ -61,6 +61,7 @@
     getSupplierinfor,
   } from '@/utils/customize';
   import moment from 'moment';
+  import {getDepartmentById} from '../../../../utils/customize';
 
   export default {
     name: 'PFANS6004View',
@@ -114,6 +115,14 @@
             //所属部门
             code: 'group_id',
             label: 'label.PFANS5001FORMVIEW_DEPARTMENTID',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
+            //卡号
+            code: 'number',
+            label: 'label.PFANSUSERFORMVIEW_JOBNUMBER',
             width: 120,
             fix: false,
             filter: true,
@@ -284,7 +293,24 @@
               {
                 response[j].admissiontime = moment(new Date()).format('YYYY-MM-DD');
               }
-
+              if (response[j].birth !== null && response[j].birth !== '') {
+                response[j].birth = moment(response[j].birth).format('YYYY-MM-DD');
+              }
+              if (response[j].interviewdep !== null && response[j].interviewdep !== '') {
+                let interviewdep = getDepartmentById(response[j].interviewdep);
+                if (interviewdep) {
+                  response[j].interviewdep = getDepartmentById(response[j].interviewdep);
+                }
+              }
+              if (response[j].interview_date !== null && response[j].interview_date !== '') {
+                response[j].interview_date = moment(response[j].interview_date).format('YYYY-MM-DD');
+              }
+              if (response[j].result !== null && response[j].result !== '') {
+                let result = getDictionaryInfo(response[j].result);
+                if (result != null) {
+                  response[j].result = result.value1;
+                }
+              }
 
               if (response[j].exits !== null && response[j].exits !== '') {
                 if (response[j].exits =='0')
@@ -338,19 +364,31 @@
 
 
               if (response[j].whetherentry == "BP006001") {
+                if (response[j].whetherentry !== null && response[j].whetherentry !== '') {
+                  let whetherentry = getDictionaryInfo(response[j].whetherentry);
+                  if (whetherentry != null) {
+                    response[j].whetherentry = whetherentry.value1;
+                  }
+                }
                 tabledate.push({
                   expatriatesinfor_id: response[j].expatriatesinfor_id,
                   suppliername: response[j].suppliername,
                   expname: response[j].expname,
                   group_id: response[j].group_id,
                   sex: response[j].sex,
+                  birth:response[j].birth,
+                  contactinformation:response[j].contactinformation,
+                  interviewdep:response[j].interviewdep,
+                  interview_date:response[j].interview_date,
+                  result:response[j].result,
+                  whetherentry:response[j].whetherentry,
                   age: this.age,
                   education: response[j].education,
                   graduateschool: response[j].graduateschool,
                   // technology: response[j].technology,
                   rn: response[j].rn,
                   account: response[j].account,
-
+                  remarks:response[j].remarks,
                   graduation_year:response[j].graduation_year,
                   email:response[j].email,
                   operationform:response[j].operationform,
@@ -484,8 +522,10 @@
               this.$t('label.user_name'),
               this.$t('label.sex'),
 
+              this.$t('label.PFANS6001VIEW_BIRTH'),
               this.$t('label.PFANS6001VIEW_GRADUATESCHOOL'),
               this.$t('label.PFANS2026VIEW_EDUCATIONALBACKGROUND'),
+              this.$t('label.PFANS6001VIEW_CONTACTINFORMATION'),
               this.$t('label.PFANS2024VIEW_GRADUATIONYEAR'),
               this.$t('label.PFANS6001VIEW_SUPPLIERNAME'),
               this.$t('label.PFANS2003FORMVIEW_RN'),
@@ -494,8 +534,12 @@
               this.$t('label.PFANS6004FORMVIEW_OPERATIONFORM'),
               this.$t('label.PFANSUSERFORMVIEW_JOBNUMBER'),
               this.$t('label.PFANS6004FORMVIEW_JOBCLASSIFICATIONM'),
-              this.$t('label.PFANS6004FORMVIEW_ADMISSIONTIME'),
               this.$t('label.PFANS2003FORMVIEW_SPECIALITY'),
+              this.$t('label.PFANS2003FORMVIEW_INTERVIEWDEP'),
+              this.$t('label.PFANS2003FORMVIEW_INTERVIEWDATE'),
+              this.$t('label.PFANS6001VIEW_RESULT'),
+              this.$t('label.PFANS6004FORMVIEW_WHETHERENTRY'),
+              this.$t('label.PFANS6004FORMVIEW_ADMISSIONTIME'),
 
               this.$t('label.PFANS6004FORMVIEW_EXITS'),
               this.$t('label.PFANS6004FORMVIEW_EXITIME'),
@@ -504,13 +548,15 @@
               this.$t('label.PFANS6004FORMVIEW_SITEVALUATION'),
               this.$t('label.PFANS6004FORMVIEW_BUSINESSIMPACT'),
               this.$t('label.PFANS6004FORMVIEW_COUNTERMEASURE'),
-
+              this.$t('label.remarks'),
             ];
             const filterVal = [
               'expname',
               'sex',
+              'birth',
               'graduateschool',
               'education',
+              'contactinformation',
               'graduation_year',
               'suppliername',
               'rn',
@@ -519,8 +565,12 @@
               'operationform',
               'number',
               'jobclassification',
-              'admissiontime',
               'speciality',
+              'interviewdep',
+              'interview_date',
+              'result',
+              'whetherentry',
+              'admissiontime',
               'exits',
               'exitime',
               'exitreason',
@@ -528,6 +578,7 @@
               'sitevaluation',
               'businessimpact',
               'countermeasure',
+              'remarks',
             ];
             const list = this.selectedlist;
             for (let h = 0; h < list.length; h++) {
