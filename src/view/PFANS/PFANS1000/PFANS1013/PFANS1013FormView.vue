@@ -342,7 +342,8 @@
                   <el-collapse>
                     <el-collapse-item>
                       <template slot="title">
-                        <span class="collapse_Title">{{$t('label.PFANS1012FORMVIEW_INVOICEI')}}</span>
+                        <span class="collapse_Title">{{$t('label.PFANS1012FORMVIEW_INVOICETTYPE')}}</span>
+                        <span style="color: red;font-size: 0.85rem">{{$t('label.PFANS1012FORMVIEW_INVOICEI')}}</span>
                       </template>
                       <el-table :data="tableF"
                                 border header-cell-class-name="sub_bg_color_blue" stripe style="width: 70vw">
@@ -2085,7 +2086,7 @@
           rows.splice(index, 1);
         } else {
           this.tableF = [{
-            invoicenumber: '',
+            invoicenumber: this.$t('label.PFANS1012FORMVIEW_NUMBERZP') +1,
             invoicetype: '',
             invoiceamount: '',
             taxrate: '',

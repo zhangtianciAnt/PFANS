@@ -1901,6 +1901,7 @@ module.exports = {
     PFANS1044VIEW_WHERE: '收货地点',
     PFANS1044VIEW_YSNUMBERS: '应收科目公司段',
     PFANS1044VIEW_YSBMD: '应收部门段',
+    PFANS1044VIEW_CHECKERROR: '以下合同不在导出范围内',
     PFANS1044VIEW_YSKM: '应收科目',
     PFANS1044VIEW_YSCPD: '应收产品段',
     PFANS1044VIEW_SMNUMBER: '行说明',
