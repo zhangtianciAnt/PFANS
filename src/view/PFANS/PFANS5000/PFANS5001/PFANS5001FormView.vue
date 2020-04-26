@@ -1675,7 +1675,7 @@
         fileList: [],
         upload: uploadUrl(),
         canStart: false,
-        displaycompound: true,
+        displaycompound: false,
       };
     },
     mounted() {
@@ -1883,6 +1883,7 @@
                 if(this.compounddata.length > 0){
                     let dic = this.compounddata.filter(item => item.contractnumber === response.projectcontract[i].contract
                         && item.group_id === this.form.group_id);
+
                     let claimamount = 0;
                     for (let dtem of dic) {
                         //add-ws-合同关联项目，分配金额
@@ -1894,7 +1895,10 @@
                             contractrequestamount: dtem.contractrequestamount,
                         });
                     }
-                    response.projectcontract[i].contractrequestamount = claimamount;
+                    if(compound.length > 0){
+                        response.projectcontract[i].contractrequestamount = claimamount;
+                        this.displaycompound = true;
+                    }
                 }
                 //endregion
 
@@ -2300,7 +2304,10 @@
                     contractrequestamount: dtem.contractrequestamount,
                 });
             }
-            row.contractrequestamount = claimamount;
+            if(this.tablecompound.length > 0){
+                row.contractrequestamount = claimamount;
+                this.displaycompound = true;
+            }
         }
         //endregion
       },
@@ -2575,7 +2582,7 @@
           }
           rows.splice(index, 1);
         } else {
-          this.tablecompound = [];
+          this.displaycompound = false;
           this.tableD = [{
             projectcontract_id: '',
             companyprojects_id: '',
