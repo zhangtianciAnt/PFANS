@@ -485,7 +485,7 @@
                         <!--                        <el-input :disabled="true" style="width: 100%" v-model="scope.row.budgetcoding">-->
                         <!--                        </el-input>-->
                         <el-select clearable style="width: 100%" v-model="scope.row.budgetcoding" :disabled="checktaxes"
-                                   :placeholder="$t('normal.error_09')" :no="scope.row" @change="getBudgetunit">
+                                   :placeholder="$t('normal.error_09')" :no="scope.row">
                           <el-option
                             v-for="item in scope.row.optionsT"
                             :key="item.value"
@@ -695,7 +695,7 @@
                         <!--                        <el-input :disabled="true" style="width: 100%" v-model="scope.row.budgetcoding">-->
                         <!--                        </el-input>-->
                         <el-select clearable style="width: 100%" v-model="scope.row.budgetcoding" :disabled="checktaxes"
-                                   :placeholder="$t('normal.error_09')" :no="scope.row" @change="getBudgetunit">
+                                   :placeholder="$t('normal.error_09')" :no="scope.row">
                           <el-option
                             v-for="item in scope.row.optionsA"
                             :key="item.value"
@@ -1315,32 +1315,6 @@
       };
     },
     mounted() {
-      if (this.Redirict == '0') {
-        this.code20 = 'PJ119';
-        this.tableA[0].accountcode = 'PJ119001';
-        this.tableA[1].accountcode = 'PJ119005';
-        let accinfo = getDictionaryInfo('PJ119002');
-        if (accinfo) {
-          this.tableT[0].accountcode = accinfo.value1;
-          this.tableT[0].subjectnumber = accinfo.value2;
-          this.accountcodeflg = accinfo.value1;
-          this.accountcodeflg1 = accinfo.code;
-          this.subjectnumberflg = accinfo.value2;
-        }
-      }
-      else if (this.Redirict == '1' || this.Redirict == '') {
-        this.code20 = 'PJ132';
-        this.tableA[0].accountcode = 'PJ132001';
-        this.tableA[1].accountcode = 'PJ132005';
-        let accinfo = getDictionaryInfo('PJ132002');
-        if (accinfo) {
-          this.tableT[0].accountcode = accinfo.value1;
-          this.tableT[0].subjectnumber = accinfo.value2;
-          this.accountcodeflg = accinfo.value1;
-          this.accountcodeflg1 = accinfo.code;
-          this.subjectnumberflg = accinfo.value2;
-        }
-      }
       let plsummaryinfo = getDictionaryInfo('PJ111008');
       if (plsummaryinfo) {
         this.tableA[0].plsummary = plsummaryinfo.value1;
@@ -1587,6 +1561,31 @@
           this.showAout = true;
         }
       }
+        if (this.Redirict == '0') {
+            this.code20 = 'PJ119';
+            this.tableA[0].accountcode = 'PJ119001';
+            this.tableA[1].accountcode = 'PJ119005';
+            let accinfo = getDictionaryInfo('PJ119002');
+            if (accinfo) {
+                this.tableT[0].accountcode = accinfo.value1;
+                this.tableT[0].subjectnumber = accinfo.value2;
+                this.accountcodeflg = accinfo.value1;
+                this.accountcodeflg1 = accinfo.code;
+                this.subjectnumberflg = accinfo.value2;
+            }
+        } else if (this.Redirict == '1' || this.Redirict == '') {
+            this.code20 = 'PJ132';
+            this.tableA[0].accountcode = 'PJ132001';
+            this.tableA[1].accountcode = 'PJ132005';
+            let accinfo = getDictionaryInfo('PJ132002');
+            if (accinfo) {
+                this.tableT[0].accountcode = accinfo.value1;
+                this.tableT[0].subjectnumber = accinfo.value2;
+                this.accountcodeflg = accinfo.value1;
+                this.accountcodeflg1 = accinfo.code;
+                this.subjectnumberflg = accinfo.value2;
+            }
+        }
     },
     created() {
       if (!this.$route.params.disabled) {
@@ -1635,9 +1634,6 @@
             this.checktaxes = false;
           }
         }
-      },
-      getBudgetunit(val, row) {
-        row.budgetcoding = val;
       },
       getcode(val, row) {
         row.accountcode = val;
@@ -2486,8 +2482,10 @@
               }
             }
           } else if (this.Redirict === '0' ? (row.accountcode === 'PJ119005') : (row.accountcode === 'PJ132005')) {
+              row.rmb = '';
             row.rmb = (150 * (diffDate + 1)).toFixed(2);
           } else if (this.Redirict === '0' ? (row.accountcode === 'PJ119006') : (row.accountcode === 'PJ132006')) {
+              row.rmb = '';
             row.rmb = (Number(row.rmb + 100) * (diffDate + 1)).toFixed(2);
           }
 
@@ -2564,6 +2562,7 @@
               }
             }
             if (accfig !== '' && accfig !== undefined && row.travel !== '' && row.travel !== undefined) {
+                row.rmb = '';
               row.rmb = (row.travel * Number(accfig)).toFixed(2);
             }
           } else if (this.Redirict === '0' ? (row.accountcode === 'PJ119005') : (row.accountcode === 'PJ132005')) {
@@ -2573,10 +2572,12 @@
               jpvalueflg2 = Number(jpregion12) + firstBusiNum;
             }
             if (jpvalueflg2 !== '' && jpvalueflg2 !== undefined) {
+                row.rmb = '';
               row.rmb = (Number(jpvalueflg2) * (diffDate + 1) + firstBusiNum).toFixed(2);
             }
           } else if (this.Redirict === '0' ? (row.accountcode === 'PJ119006') : (row.accountcode === 'PJ132006')) {
             if (jpvalueflg2 !== '' && jpvalueflg2 !== undefined) {
+                row.rmb = '';
               row.rmb = (Number(jpvalueflg2 + 100) * (diffDate + 1) + firstBusiNum).toFixed(2);
             }
           }

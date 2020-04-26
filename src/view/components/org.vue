@@ -10,7 +10,7 @@
         </el-tag>
       </div>
       <el-button :disabled="disabled" @click="openDialog" icon="el-icon-search" size="small"></el-button>
-      <el-dialog :visible.sync="dialogVisible" center size="50%" top="8vh" lock-scroll append-to-body>
+      <el-dialog :visible.sync="dialogVisible" center size="50%" top="8vh" lock-scroll append-to-body destroy-on-close>
         <el-row style="text-align: center;height: 90%;overflow: hidden">
           <EasyTree :checktrictly="true" :defaultProps="defaultProps" :defaultlist="data" :renderContent="renderContent"
                     :showCheckbox="selectType === 'Single'?false:true" :showFilter="false"
@@ -149,6 +149,7 @@
       }
       ,
       submit () {
+        debugger
         let val
         if (this.selectType === 'Single') {
           val = this.currentRow

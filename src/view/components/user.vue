@@ -13,7 +13,7 @@
       </div>
       <el-button icon="el-icon-search" @click="show = true" :disabled="disabled" size="small"></el-button>
 
-      <el-dialog :visible.sync="show" center width="60%" append-to-body lock-scroll top="2vh">
+      <el-dialog :visible.sync="show" center width="60%" append-to-body lock-scroll top="2vh" destroy-on-close>
         <el-container class="container" style="height:60%"   v-loading="loading" element-loading-spinner="el-icon-loading">
           <el-aside width="30%" style="overflow: hidden">
             <EasyTree :defaultlist="data" :defaultProps="defaultProps" :showFilter="true" :showCheckbox="false"
@@ -234,11 +234,11 @@
       handleNodeClick (data) {
         this.loading = true;
 
-        if(this.$store.getters.orgId === data._id){
-          this.tableList = this.$store.getters.userTableList;
-          this.loading = false;
-          return;
-        }
+        // if(this.$store.getters.orgId === data._id){
+        //   this.tableList = this.$store.getters.userTableList;
+        //   this.loading = false;
+        //   return;
+        // }
         this.$store.commit("global/SET_ORGID",data._id);
         this.currentNodeData = data;
         let params = {
