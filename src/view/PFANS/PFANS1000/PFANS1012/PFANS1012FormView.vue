@@ -392,7 +392,8 @@
                   </el-form-item>
                 </el-row>
                 <el-row v-if="this.form.type === 'PJ001001'?false:true">
-                  <el-form-item :label="$t('label.PFANS1012FORMVIEW_INVOICETTYPE')">
+                  <span class="collapse_Title">{{$t('label.PFANS1012FORMVIEW_INVOICETTYPE')}}</span>
+                    <span style="color: red;font-size: 0.85rem">{{$t('label.PFANS1012FORMVIEW_INVOICEI')}}</span>
                     <el-table :data="tableF"
                               header-cell-class-name="sub_bg_color_blue" stripe border style="width: 70vw">
                       <el-table-column :label="$t('label.PFANS1012FORMVIEW_INVOICEN')" align="center" width="200">
@@ -483,7 +484,7 @@
                         </template>
                       </el-table-column>
                     </el-table>
-                  </el-form-item>
+
                 </el-row>
               </div>
             </el-tab-pane>
@@ -545,7 +546,7 @@
                             <el-select v-model="scope.row.accountcode" style="width: 100%" :disabled="!disable"
                                        @change="getaccoundcode(scope.row)">
                               <el-option
-                                v-for="item in accoundoptionsdate"
+                                v-for="item in scope.row.accoundoptionsdate"
                                 :key="item.value"
                                 :label="item.lable"
                                 :value="item.value">
@@ -719,7 +720,7 @@
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012FORMVIEW_ACCOUNT')" align="center" width="250">
                           <template slot-scope="scope">
-                            <dicselect :code="code17"
+                            <dicselect :code="scope.row.code17"
                                        :disabled="checktaxes"
                                        :data="scope.row.accountcode"
                                        :multiple="multiple"
@@ -1251,7 +1252,6 @@
         ploptionsdate: [],
         optionsrate: [],
         optionstype: [],
-        accoundoptionsdate: [],
         optionsdate: [{value: 'PP024001', lable: this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')}],
         tormbT: '',
         Redirict: '',
@@ -1309,7 +1309,7 @@
         tableF: [{
           invoice_id: '',
           publicexpenseid: '',
-          invoicenumber: '1',
+          invoicenumber: this.$t('label.PFANS1012FORMVIEW_NUMBERZP') +1,
           invoicetype: 'PJ068001',
           invoiceamount: '',
           taxrate: '',
@@ -1317,6 +1317,7 @@
           facetax: '',
         }],
         tableP: [{
+          code17: '',
           publicexpenseid: '',
           purchasedetails_id: '',
           invoicenumber: '',
@@ -1485,7 +1486,6 @@
         code11: '',
         code13: 'PJ071',
         code14: 'PJ083',
-        code17: '',
         invoicenumber: '',
         errorgroup: '',
         orglist: '',
@@ -1572,30 +1572,32 @@
           this.form.telephone = num;
         }
       }
+      this.tableP[0].code17 = this.Redirict == '0' ? 'PJ121' : 'PJ134';
       //ADD-WS-个人编码修改
       //ADD-WS-直接部门或间接部门赋值变更
-      if (this.Redirict == '0') {
-        let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ119');
-        for (let i = 0; i < dicnew.length; i++) {
-          if (dicnew[i].code === 'PJ119004') {
-            this.accoundoptionsdate.push({
-              value: dicnew[i].code,
-              lable: dicnew[i].value1,
-            });
-          }
-        }
-      } else if (this.Redirict == '1' || this.Redirict == '') {
-        this.code17 = this.Redirict == '0' ? 'PJ121' : 'PJ134';
-        let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ132');
-        for (let i = 0; i < dicnew.length; i++) {
-          if (dicnew[i].code === 'PJ132004') {
-            this.accoundoptionsdate.push({
-              value: dicnew[i].code,
-              lable: dicnew[i].value1,
-            });
-          }
-        }
-      }
+      // this.tableT[0].accoundoptionsdate = [];
+      // if (this.Redirict == '0') {
+      //   let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ119');
+      //   for (let i = 0; i < dicnew.length; i++) {
+      //     if (dicnew[i].code === 'PJ119004') {
+      //       this.tableT[0].accoundoptionsdate.push({
+      //         value: dicnew[i].code,
+      //         lable: dicnew[i].value1,
+      //       });
+      //     }
+      //   }
+      // } else if (this.Redirict == '1' || this.Redirict == '') {
+      //
+      //   let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ132');
+      //   for (let i = 0; i < dicnew.length; i++) {
+      //     if (dicnew[i].code === 'PJ132004') {
+      //       this.tableT[0].accoundoptionsdate.push({
+      //         value: dicnew[i].code,
+      //         lable: dicnew[i].value1,
+      //       });
+      //     }
+      //   }
+      // }
       //ADD-WS-直接部门或间接部门赋值变更
       this.IDname = this.$route.params._id;
       if (this.IDname) {
@@ -1649,6 +1651,10 @@
                 this.tableT = response.trafficdetails;
                 for (var i = 0; i < this.tableT.length; i++) {
                   this.orglist = this.tableT[i].departmentname;
+                  let group = getOrgInfo(this.orglist);
+                  if (group) {
+                    this.Redirict = group.redirict;
+                  }
                   if (this.tableT[i].departmentname !== '' && this.tableT[i].departmentname !== null && this.tableT[i].departmentname !== undefined) {
                     //ADD_FJL
                     this.tableT[i].optionsT = [];
@@ -1666,12 +1672,37 @@
                     }
                     //ADD_FJL  修改人员预算编码
                   }
+                  if (this.Redirict == '0') {
+                    this.tableT[i].accoundoptionsdate = [];
+                    let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ119');
+                    for (let a = 0; a < dicnew.length; a++) {
+                      if (dicnew[a].code === 'PJ119004') {
+                        this.tableT[i].accoundoptionsdate.push({
+                          value: dicnew[a].code,
+                          lable: dicnew[a].value1,
+                        });
+                      }
+                    }
+                  }
+                  else if (this.Redirict == '1' || this.Redirict == '') {
+                    this.tableT[i].accoundoptionsdate = [];
+                    let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ132');
+                    for (let a = 0; a < dicnew.length; a++) {
+                      if (dicnew[a].code === 'PJ132004') {
+                        this.tableT[i].accoundoptionsdate.push({
+                          value: dicnew[a].code,
+                          lable: dicnew[a].value1,
+                        });
+                      }
+                    }
+                  }
+
                 }
               }
               if (response.purchasedetails.length > 0) {
                 this.tableP = response.purchasedetails;
                 for (var i = 0; i < this.tableP.length; i++) {
-                  this.code17 = '';
+                  this.tableP[i].code17 = '';
                   this.orglist = this.tableP[i].departmentname;
                   let group = getOrgInfo(this.orglist);
                   if (group) {
@@ -1700,7 +1731,7 @@
                   }
                   if (this.Redirict == '0') {
                     if (this.tableP[i].plsummary === 'PJ111010') {
-                      this.code17 = 'PJ121';
+                      this.tableP[i].code17 = 'PJ121';
                       let letErrortype = getDictionaryInfo(this.tableP[i].accountcode);
                       if (letErrortype != null) {
                         this.tableP[i].accountcode = letErrortype.code;
@@ -1708,7 +1739,7 @@
                     }
                   } else if (this.Redirict == '1' || this.Redirict == '') {
                     if (this.tableP[i].plsummary === 'PJ111010') {
-                      this.code17 = 'PJ134';
+                      this.tableP[i].code17 = 'PJ134';
                       let letErrortype = getDictionaryInfo(this.tableP[i].accountcode);
                       if (letErrortype != null) {
                         this.tableP[i].accountcode = letErrortype.code;
@@ -2318,22 +2349,22 @@
           //     }
           // }
           if (this.Redirict == '0') {
-            this.accoundoptionsdate = [];
+            row.accoundoptionsdate = [];
             let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ119');
             for (let i = 0; i < dicnew.length; i++) {
               if (dicnew[i].code === 'PJ119004') {
-                this.accoundoptionsdate.push({
+                row.accoundoptionsdate.push({
                   value: dicnew[i].code,
                   lable: dicnew[i].value1,
                 });
               }
             }
           } else if (this.Redirict == '1' || this.Redirict == '') {
-            this.accoundoptionsdate = [];
+            row.accoundoptionsdate = [];
             let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ132');
             for (let i = 0; i < dicnew.length; i++) {
               if (dicnew[i].code === 'PJ132004') {
-                this.accoundoptionsdate.push({
+                row.accoundoptionsdate.push({
                   value: dicnew[i].code,
                   lable: dicnew[i].value1,
                 });
@@ -2370,7 +2401,7 @@
           this.companyen = group.companyen;
           this.Redirict = group.redirict;
           // row.budgetcoding = group.encoding;
-          this.code17 = this.Redirict == '0' ? 'PJ121' : 'PJ134';
+          row.code17 = this.Redirict == '0' ? 'PJ121' : 'PJ134';
           if (this.Redirict == '0') {
             if (row.plsummary == 'PJ111001') {
               row.accountcode = '',
@@ -2489,22 +2520,22 @@
             }
           }
           if (this.Redirict == '0') {
-            this.accoundoptionsdate = [];
+            row.accoundoptionsdate = [];
             let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ119');
             for (let i = 0; i < dicnew.length; i++) {
               if (dicnew[i].code === 'PJ119004') {
-                this.accoundoptionsdate.push({
+                row.accoundoptionsdate.push({
                   value: dicnew[i].code,
                   lable: dicnew[i].value1,
                 });
               }
             }
           } else if (this.Redirict == '1' || this.Redirict == '') {
-            this.accoundoptionsdate = [];
+            row.accoundoptionsdate = [];
             let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ132');
             for (let i = 0; i < dicnew.length; i++) {
               if (dicnew[i].code === 'PJ132004') {
-                this.accoundoptionsdate.push({
+                row.accoundoptionsdate.push({
                   value: dicnew[i].code,
                   lable: dicnew[i].value1,
                 });
@@ -2541,7 +2572,7 @@
           this.companyen = group.companyen;
           this.Redirict = group.redirict;
           // row.budgetcoding = group.encoding;
-          this.code17 = this.Redirict == '0' ? 'PJ121' : 'PJ134';
+          row.code17 = this.Redirict == '0' ? 'PJ121' : 'PJ134';
           // if (this.Redirict == '0') {
           //     if (row.plsummary == 'PJ111001') {
           //         row.accountcode = '',
@@ -2661,22 +2692,22 @@
           //     }
           // }
           if (this.Redirict == '0') {
-            this.accoundoptionsdate = [];
+            row.accoundoptionsdate = [];
             let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ119');
             for (let i = 0; i < dicnew.length; i++) {
               if (dicnew[i].code === 'PJ119004') {
-                this.accoundoptionsdate.push({
+                row.accoundoptionsdate.push({
                   value: dicnew[i].code,
                   lable: dicnew[i].value1,
                 });
               }
             }
           } else if (this.Redirict == '1' || this.Redirict == '') {
-            this.accoundoptionsdate = [];
+            row.accoundoptionsdate = [];
             let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ132');
             for (let i = 0; i < dicnew.length; i++) {
               if (dicnew[i].code === 'PJ132004') {
-                this.accoundoptionsdate.push({
+                row.accoundoptionsdate.push({
                   value: dicnew[i].code,
                   lable: dicnew[i].value1,
                 });
@@ -2693,117 +2724,117 @@
           if (row.plsummary == 'PJ111001') {
             row.accountcode = '',
               row.code16 = 'PJ112';
-            this.code17 = 'PJ112';
+            row.code17 = 'PJ112';
           } else if (row.plsummary == 'PJ111002') {
             row.accountcode = '',
               row.code16 = 'PJ113';
-            this.code17 = 'PJ113';
+            row.code17 = 'PJ113';
           } else if (row.plsummary == 'PJ111003') {
             row.accountcode = '',
               row.code16 = 'PJ114';
-            this.code17 = 'PJ114';
+            row.code17 = 'PJ114';
           } else if (row.plsummary == 'PJ111004') {
             row.accountcode = '',
               row.code16 = '';
-            this.code17 = '';
+            row.code17 = '';
           } else if (row.plsummary == 'PJ111005') {
             row.accountcode = '',
               row.code16 = 'PJ116';
-            this.code17 = 'PJ116';
+            row.code17 = 'PJ116';
           } else if (row.plsummary == 'PJ111006') {
             row.accountcode = '',
               row.code16 = 'PJ117';
-            this.code17 = 'PJ117';
+            row.code17 = 'PJ117';
           } else if (row.plsummary == 'PJ111007') {
             row.accountcode = '',
               row.code16 = 'PJ118';
-            this.code17 = 'PJ118';
+            row.code17 = 'PJ118';
           } else if (row.plsummary == 'PJ111008') {
             row.accountcode = '',
               row.code16 = 'PJ119';
-            this.code17 = 'PJ119';
+            row.code17 = 'PJ119';
           } else if (row.plsummary == 'PJ111009') {
             row.accountcode = '',
               row.code16 = 'PJ120';
-            this.code17 = 'PJ120';
+            row.code17 = 'PJ120';
           } else if (row.plsummary == 'PJ111010') {
             row.accountcode = '',
               row.code16 = 'PJ121';
-            this.code17 = 'PJ121';
+            row.code17 = 'PJ121';
           } else if (row.plsummary == 'PJ111011') {
             row.accountcode = '',
               row.code16 = 'PJ122';
-            this.code17 = 'PJ122';
+            row.code17 = 'PJ122';
           } else if (row.plsummary == 'PJ111012') {
             row.accountcode = '',
               row.code16 = 'PJ123';
-            this.code17 = 'PJ123';
+            row.code17 = 'PJ123';
           } else if (row.plsummary == 'PJ111013') {
             row.accountcode = '',
               row.code16 = '';
-            this.code17 = '';
+            row.code17 = '';
           } else if (row.plsummary == 'PJ111014') {
             row.accountcode = '',
               row.code16 = 'PJ125';
-            this.code17 = 'PJ125';
+            row.code17 = 'PJ125';
           }
         } else if (this.Redirict == '1' || this.Redirict == '') {
           if (row.plsummary == 'PJ111001') {
             row.accountcode = '',
               row.code16 = 'PJ127';
-            this.code17 = 'PJ127';
+            row.code17 = 'PJ127';
           } else if (row.plsummary == 'PJ111002') {
             row.accountcode = '',
               row.code16 = 'PJ128';
-            this.code17 = 'PJ128';
+            row.code17 = 'PJ128';
           } else if (row.plsummary == 'PJ111003') {
             row.accountcode = '',
               row.code16 = 'PJ129';
-            this.code17 = 'PJ129';
+            row.code17 = 'PJ129';
           } else if (row.plsummary == 'PJ111004') {
             row.accountcode = '',
               row.code16 = 'PJ115';
-            this.code17 = 'PJ115';
+            row.code17 = 'PJ115';
           } else if (row.plsummary == 'PJ111005') {
             row.accountcode = '',
               row.code16 = 'PJ130';
-            this.code17 = 'PJ130';
+            row.code17 = 'PJ130';
           } else if (row.plsummary == 'PJ111006') {
             row.accountcode = '',
               row.code16 = '';
-            this.code17 = '';
+            row.code17 = '';
           } else if (row.plsummary == 'PJ111007') {
             row.accountcode = '',
               row.code16 = 'PJ131';
-            this.code17 = 'PJ131';
+            row.code17 = 'PJ131';
           } else if (row.plsummary == 'PJ111008') {
             row.accountcode = '',
               row.code16 = 'PJ132';
-            this.code17 = 'PJ132';
+            row.code17 = 'PJ132';
           } else if (row.plsummary == 'PJ111009') {
             row.accountcode = '',
               row.code16 = 'PJ133';
-            this.code17 = 'PJ133';
+            row.code17 = 'PJ133';
           } else if (row.plsummary == 'PJ111010') {
             row.accountcode = '',
               row.code16 = 'PJ134';
-            this.code17 = 'PJ134';
+            row.code17 = 'PJ134';
           } else if (row.plsummary == 'PJ111011') {
             row.accountcode = '',
               row.code16 = 'PJ135';
-            this.code17 = 'PJ135';
+            row.code17 = 'PJ135';
           } else if (row.plsummary == 'PJ111012') {
             row.accountcode = '',
               row.code16 = 'PJ136';
-            this.code17 = 'PJ136';
+            row.code17 = 'PJ136';
           } else if (row.plsummary == 'PJ111013') {
             row.accountcode = '',
               row.code16 = 'PJ124';
-            this.code17 = 'PJ124';
+            row.code17 = 'PJ124';
           } else if (row.plsummary == 'PJ111014') {
             row.accountcode = '',
               row.code16 = 'PJ137';
-            this.code17 = 'PJ137';
+            row.code17 = 'PJ137';
           }
         }
 
@@ -3218,16 +3249,16 @@
         if (rows.length > 1) {
           rows.splice(index, 1);
         }
-        // else {
-        //     this.tableF.push({
-        //         invoicenumber: '',
-        //         invoicetype: '',
-        //         invoiceamount: '',
-        //         taxrate: '',
-        //         excludingtax: '',
-        //         facetax: '',
-        //     });
-        // }
+        else {
+            this.tableF = [{
+                invoicenumber: '',
+                invoicetype: '',
+                invoiceamount: '',
+                taxrate: '',
+                excludingtax: '',
+                facetax: '',
+            }];
+        }
         this.checkoptionsdata();
       },
       addRow() {
@@ -3235,7 +3266,7 @@
           trafficdetails_id: '',
           publicexpenseid: '',
           trafficdate: '',
-          accountcode: this.accoundoptionsdate,
+          accountcode: '',
           departmentname: '',
           budgetcoding: '',
           subjectnumber: '',
@@ -3251,13 +3282,15 @@
       },
       addRow7() {
         let b;
+        let c;
         if (this.tableF.length > 0) {
-          b = this.tableF.length + 1;
+          b =   this.tableF.length + 1;
+          c = this.$t('label.PFANS1012FORMVIEW_NUMBERZP')+ b
         }
         this.tableF.push({
           invoice_id: '',
           publicexpenseid: '',
-          invoicenumber: b,
+          invoicenumber: c,
           invoicetype: '',
           invoiceamount: '',
           taxrate: '',

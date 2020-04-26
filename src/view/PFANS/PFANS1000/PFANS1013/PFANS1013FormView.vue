@@ -521,11 +521,11 @@
                         </el-input>
                       </template>
                     </el-table-column>
-                    <el-table-column :label="$t('label.PFANS1012VIEW_REGION')" align="center" width="200">
-                      <template slot-scope="scope">
+                    <el-table-column :label="$t('label.PFANS1012VIEW_REGION')" align="center" width="200" >
+                      <template slot-scope="scope" >
                         <!--                        <el-input :disabled="!disable" maxlength="20" style="width: 100%" v-model="scope.row.region">-->
                         <!--                        </el-input>-->
-                        <dicselect :code="code2"
+                        <dicselect :code="code21"
                                    :data="scope.row.region"
                                    :disabled="checktaxes"
                                    :multiple="multiple"
@@ -1159,7 +1159,7 @@
         tableF: [{
           evectionid: '',
           invoicenumber: '1',
-          invoicetype: 'PJ068001',
+          invoicenumber: this.$t('label.PFANS1012FORMVIEW_NUMBERZP') + 1,
           invoiceamount: '',
           taxrate: '',
           excludingtax: '',
@@ -1296,6 +1296,7 @@
         code12: 'PJ068',
         code15: 'PJ083',
         code20: '',
+        code21: '',
         multiple: false,
         show2: false,
         showAout: false,
@@ -1315,6 +1316,7 @@
       };
     },
     mounted() {
+      this.code21= this.form.type == '0'? 'PJ036' : 'PJ017'
       let plsummaryinfo = getDictionaryInfo('PJ111008');
       if (plsummaryinfo) {
         this.tableA[0].plsummary = plsummaryinfo.value1;
@@ -1325,10 +1327,10 @@
       }
       let PLdicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ071');
       for (let i = 0; i < PLdicnew.length; i++) {
-          this.optionsrate.push({
-            value: PLdicnew[i].code,
-            lable: PLdicnew[i].value1,
-          });
+        this.optionsrate.push({
+          value: PLdicnew[i].code,
+          lable: PLdicnew[i].value1,
+        });
       }
       this.invoicetype = getDictionaryInfo('PJ068001').value1;
       this.getBusInside();
@@ -1410,7 +1412,7 @@
                 if (acinfo) {
                   if (this.Redirict == '0') {
                     this.code20 = 'PJ119';
-                  } else if (this.Redirict == '1'|| this.Redirict == '') {
+                  } else if (this.Redirict == '1' || this.Redirict == '') {
                     this.code20 = 'PJ132';
                   }
                   this.tableA[i].accountcode = acinfo.value1;
@@ -1561,31 +1563,31 @@
           this.showAout = true;
         }
       }
-        if (this.Redirict == '0') {
-            this.code20 = 'PJ119';
-            this.tableA[0].accountcode = 'PJ119001';
-            this.tableA[1].accountcode = 'PJ119005';
-            let accinfo = getDictionaryInfo('PJ119002');
-            if (accinfo) {
-                this.tableT[0].accountcode = accinfo.value1;
-                this.tableT[0].subjectnumber = accinfo.value2;
-                this.accountcodeflg = accinfo.value1;
-                this.accountcodeflg1 = accinfo.code;
-                this.subjectnumberflg = accinfo.value2;
-            }
-        } else if (this.Redirict == '1' || this.Redirict == '') {
-            this.code20 = 'PJ132';
-            this.tableA[0].accountcode = 'PJ132001';
-            this.tableA[1].accountcode = 'PJ132005';
-            let accinfo = getDictionaryInfo('PJ132002');
-            if (accinfo) {
-                this.tableT[0].accountcode = accinfo.value1;
-                this.tableT[0].subjectnumber = accinfo.value2;
-                this.accountcodeflg = accinfo.value1;
-                this.accountcodeflg1 = accinfo.code;
-                this.subjectnumberflg = accinfo.value2;
-            }
+      if (this.Redirict == '0') {
+        this.code20 = 'PJ119';
+        this.tableA[0].accountcode = 'PJ119001';
+        this.tableA[1].accountcode = 'PJ119005';
+        let accinfo = getDictionaryInfo('PJ119002');
+        if (accinfo) {
+          this.tableT[0].accountcode = accinfo.value1;
+          this.tableT[0].subjectnumber = accinfo.value2;
+          this.accountcodeflg = accinfo.value1;
+          this.accountcodeflg1 = accinfo.code;
+          this.subjectnumberflg = accinfo.value2;
         }
+      } else if (this.Redirict == '1' || this.Redirict == '') {
+        this.code20 = 'PJ132';
+        this.tableA[0].accountcode = 'PJ132001';
+        this.tableA[1].accountcode = 'PJ132005';
+        let accinfo = getDictionaryInfo('PJ132002');
+        if (accinfo) {
+          this.tableT[0].accountcode = accinfo.value1;
+          this.tableT[0].subjectnumber = accinfo.value2;
+          this.accountcodeflg = accinfo.value1;
+          this.accountcodeflg1 = accinfo.code;
+          this.subjectnumberflg = accinfo.value2;
+        }
+      }
     },
     created() {
       if (!this.$route.params.disabled) {
@@ -1861,6 +1863,15 @@
             this.code20 = 'PJ132';
           }
         }
+        if (this.Redirict == '0') {
+          this.code20 = 'PJ119';
+          this.tableA[0].accountcode = 'PJ119001';
+          this.tableA[1].accountcode = 'PJ119005';
+        } else if (this.Redirict == '1' || this.Redirict == '') {
+          this.code20 = 'PJ132';
+          this.tableA[0].accountcode = 'PJ132001';
+          this.tableA[1].accountcode = 'PJ132005';
+        }
         if (!orglist) {
           row.budgetcoding = '';
         }
@@ -1916,6 +1927,7 @@
         //   }],
         this.activeName = 'first',
           this.form.type = val;
+        this.code21 = this.form.type == '0'? 'PJ036' : 'PJ017'
         this.relations = [];
         if (val === '0') {
           this.getBusInside();
@@ -2071,17 +2083,16 @@
       deleteRow5(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
+        } else {
+          this.tableF = [{
+            invoicenumber: '',
+            invoicetype: '',
+            invoiceamount: '',
+            taxrate: '',
+            excludingtax: '',
+            facetax: '',
+          }];
         }
-        // else {
-        //   this.tableF.push({
-        //     invoicenumber: '',
-        //     invoicetype: '',
-        //     invoiceamount: '',
-        //     taxrate: '',
-        //     excludingtax: '',
-        //     facetax: '',
-        //   });
-        // }
         this.checkOption();
       },
       deleteRow6(index, rows) {
@@ -2131,7 +2142,7 @@
           accommodationdate: [],
           // nextday: '',
           invoicenumber: '',
-          departmentname:'',
+          departmentname: '',
           activitycontent: '',
           plsummary: this.plsummaryflg,
           accountcode: '',
@@ -2175,13 +2186,15 @@
       // },
       addRow5() {
         let b;
+        let c;
         if (this.tableF.length > 0) {
           b = this.tableF.length + 1;
+          c = this.$t('label.PFANS1012FORMVIEW_NUMBERZP') + b;
         }
         this.tableF.push({
           invoice_id: '',
           evectionid: '',
-          invoicenumber: b,
+          invoicenumber: c,
           invoicetype: '',
           invoiceamount: '',
           taxrate: '',
@@ -2439,7 +2452,7 @@
         }
         if (this.form.type === '0') {
           //境内无规定外费用的场合，住宿标准check
-          if (this.Redirict === '0' ? (row.accountcode === 'PJ119001') : (row.accountcode === 'PJ132001') && this.form.external === '1') {
+          if (this.Redirict === '0' ? (row.accountcode === 'PJ119001') : (row.accountcode === 'PJ132001') && this.form.external === '0') {
             if (row.facilitytype === 'PJ035001') {
               if (row.city !== '') {
                 if (row.city === 'PJ036001' || row.city === 'PJ036002' || row.city === 'PJ036003' || row.city === 'PJ036004') {
@@ -2463,7 +2476,7 @@
             } else if (row.facilitytype === 'PJ035002') {
               if (row.city !== '') {
                 if (row.city === 'PJ036001' || row.city === 'PJ036002' || row.city === 'PJ036003' || row.city === 'PJ036004') {
-                  if (row.rmb / diffDate > jpregion8) {
+                  if (row.rmb / diffDate > jpregion8/30) {
                     Message({
                       message: this.$t('label.PFANS1013FORMVIEW_RMBLIMIT'),
                       type: 'error',
@@ -2471,7 +2484,7 @@
                     });
                   }
                 } else {
-                  if (row.rmb / diffDate > jpregion9) {
+                  if (row.rmb / diffDate > jpregion9/30) {
                     Message({
                       message: this.$t('label.PFANS1013FORMVIEW_RMBLIMIT'),
                       type: 'error',
@@ -2482,10 +2495,10 @@
               }
             }
           } else if (this.Redirict === '0' ? (row.accountcode === 'PJ119005') : (row.accountcode === 'PJ132005')) {
-              row.rmb = '';
+            row.rmb = '';
             row.rmb = (150 * (diffDate + 1)).toFixed(2);
           } else if (this.Redirict === '0' ? (row.accountcode === 'PJ119006') : (row.accountcode === 'PJ132006')) {
-              row.rmb = '';
+            row.rmb = '';
             row.rmb = (Number(row.rmb + 100) * (diffDate + 1)).toFixed(2);
           }
 
@@ -2562,7 +2575,7 @@
               }
             }
             if (accfig !== '' && accfig !== undefined && row.travel !== '' && row.travel !== undefined) {
-                row.rmb = '';
+              row.rmb = '';
               row.rmb = (row.travel * Number(accfig)).toFixed(2);
             }
           } else if (this.Redirict === '0' ? (row.accountcode === 'PJ119005') : (row.accountcode === 'PJ132005')) {
@@ -2572,12 +2585,12 @@
               jpvalueflg2 = Number(jpregion12) + firstBusiNum;
             }
             if (jpvalueflg2 !== '' && jpvalueflg2 !== undefined) {
-                row.rmb = '';
+              row.rmb = '';
               row.rmb = (Number(jpvalueflg2) * (diffDate + 1) + firstBusiNum).toFixed(2);
             }
           } else if (this.Redirict === '0' ? (row.accountcode === 'PJ119006') : (row.accountcode === 'PJ132006')) {
             if (jpvalueflg2 !== '' && jpvalueflg2 !== undefined) {
-                row.rmb = '';
+              row.rmb = '';
               row.rmb = (Number(jpvalueflg2 + 100) * (diffDate + 1) + firstBusiNum).toFixed(2);
             }
           }
@@ -2713,7 +2726,7 @@
               if (this.form.type === '0') {
                 for (let i = 0; i < this.tableT.length; i++) {
                   if (this.tableT[i].trafficdate !== '' && this.tableT[i].invoicenumber !== '' && this.tableT[i].departmentname !== '' && this.tableT[i].budgetcoding !== ''
-                    && this.tableT[i].rmb > 0  && this.tableT[i].plsummary !== ''
+                    && this.tableT[i].rmb > 0 && this.tableT[i].plsummary !== ''
                     && this.tableT[i].accountcode !== '' && this.tableT[i].subjectnumber !== '') {
                     this.baseInfo.trafficdetails.push(
                       {
@@ -2746,7 +2759,7 @@
                   if (this.tableA[i].accommodationdate !== '' && this.tableA[i].invoicenumber !== '' && this.tableA[i].departmentname !== ''
                     && this.tableA[i].budgetcoding !== '' && this.tableA[i].plsummary !== '' && this.tableA[i].accountcode !== '' && this.tableA[i].subjectnumber !== ''
                     && this.tableA[i].rmb > 0 && this.tableA[i].activitycontent !== ''
-                    && this.tableA[i].city !== '' && this.tableA[i].facilitytype !== '' ) {
+                    && this.tableA[i].city !== '' && this.tableA[i].facilitytype !== '') {
                     this.baseInfo.accommodationdetails.push(
                       {
                         accommodationdetails_id: this.tableA[i].accommodationdetails_id,
@@ -2811,7 +2824,7 @@
               } else if (this.form.type === '1') {
                 for (let i = 0; i < this.tableT.length; i++) {
                   if (this.tableT[i].trafficdate !== '' && this.tableT[i].invoicenumber !== '' && this.tableT[i].departmentname !== '' && this.tableT[i].budgetcoding !== ''
-                    && this.tableT[i].rmb > 0  && this.tableT[i].plsummary !== ''
+                    && this.tableT[i].rmb > 0 && this.tableT[i].plsummary !== ''
                     && this.tableT[i].accountcode !== '' && this.tableT[i].subjectnumber !== '' && this.tableT[i].region !== '' && this.tableT[i].vehicle !== ''
                     && this.tableT[i].startingpoint !== '') {
                     // && this.tableT[i].foreigncurrency > 0 && this.tableT[i].currency !== ''
@@ -2846,7 +2859,7 @@
                   if (this.tableA[i].accommodationdate !== '' && this.tableA[i].invoicenumber !== '' && this.tableA[i].departmentname !== ''
                     && this.tableA[i].budgetcoding !== '' && this.tableA[i].plsummary !== '' && this.tableA[i].accountcode !== '' && this.tableA[i].subjectnumber !== ''
                     && this.tableA[i].rmb > 0 && this.tableA[i].activitycontent !== ''
-                    && this.tableA[i].region !== '' && this.tableA[i].facilitytype !== '' && this.tableA[i].facilityname !== '' ) {
+                    && this.tableA[i].region !== '' && this.tableA[i].facilitytype !== '' && this.tableA[i].facilityname !== '') {
                     this.baseInfo.accommodationdetails.push(
                       {
                         accommodationdetails_id: this.tableA[i].accommodationdetails_id,
