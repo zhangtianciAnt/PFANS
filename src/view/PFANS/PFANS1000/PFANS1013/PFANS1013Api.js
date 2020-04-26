@@ -1,4 +1,5 @@
 import request from '../../../../utils/request'
+import requestPdf from "../../../../utils/requestPdf";
 
 export function get() {
   return request({
@@ -48,6 +49,15 @@ export function getLoanApplication() {
   return request({
     url: 'evection/getLoanApplication',
     method: 'get',
+  })
+}
+
+export function exportjs(data) {
+  return requestPdf({
+    url: 'evection/exportjs',
+    method: 'get',
+    params: data,
+    responseType: 'blob'
   })
 }
 

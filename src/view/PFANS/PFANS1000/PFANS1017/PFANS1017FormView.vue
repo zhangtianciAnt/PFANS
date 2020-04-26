@@ -97,8 +97,19 @@
                            :disabled="!disable"
                            :multiple="multiple"
                            @change="changeidtype"
-                           style="width:72vw">
+                           style="width:20vw">
                 </dicselect>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS6005FORMVIEW_NOTE')">
+                <el-input :disabled="!disable"
+                          style="width:72vw"
+                          type="textarea"
+                          v-model="form.remark"
+                ></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -112,19 +123,19 @@
               <el-table :data="tableT" stripe border header-cell-class-name="sub_bg_color_blue" style="width: 72vw">
                 <el-table-column :label="$t('label.PFANS2007VIEW_NUMBER')" align="center" fixed prop="content"
                                  type="index"></el-table-column>
-                <el-table-column :label="$t('label.PFANS1017FORMVIEW_USERTYPE')" align="center" width="150">
-                  <template slot-scope="scope">
-                    <dicselect
-                      :no="scope.row"
-                      :code="code3"
-                      :data="scope.row.usertype"
-                      :disabled="!disable"
-                      :multiple="multiple"
-                      @change="changeusertype"
-                      style="width: 100%"
-                    ></dicselect>
-                  </template>
-                </el-table-column>
+                <!--<el-table-column :label="$t('label.PFANS1017FORMVIEW_USERTYPE')" align="center" width="150">-->
+                <!--<template slot-scope="scope">-->
+                <!--<dicselect-->
+                <!--:no="scope.row"-->
+                <!--:code="code3"-->
+                <!--:data="scope.row.usertype"-->
+                <!--:disabled="!disable"-->
+                <!--:multiple="multiple"-->
+                <!--@change="changeusertype"-->
+                <!--style="width: 100%"-->
+                <!--&gt;</dicselect>-->
+                <!--</template>-->
+                <!--</el-table-column>-->
                 <el-table-column :label="$t('label.PFANS1017FORMVIEW_USERNAME')" align="center" width="150">
                   <template slot-scope="scope">
                     <el-input :no="scope.row" :disabled="!disable" v-model="scope.row.username" maxlength="20"
@@ -144,6 +155,19 @@
                     <el-input :no="scope.row" :disabled="!disable" v-model="scope.row.ming" maxlength="20"
                               style="width: 100%">
                     </el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS1017FORMVIEW_ACCOUNTTYPE')" align="center" width="150">
+                  <template slot-scope="scope">
+                    <dicselect
+                      :no="scope.row"
+                      :code="code7"
+                      :data="scope.row.accounttype"
+                      :disabled="!disable"
+                      :multiple="multiple"
+                      @change="changeaccounttype"
+                      style="width: 100%"
+                    ></dicselect>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1017FORMVIEW_ACCOUNT')" align="center" width="160">
@@ -180,7 +204,7 @@
                 <el-table-column :label="$t('label.PFANS1012FORMVIEW_BUDGET')" align="center" width="150">
                   <template slot-scope="scope">
 <!--                    <el-input :disabled="true" style="width:20vw" v-model="scope.row.budgetunit"></el-input>-->
-                    <el-select clearable style="width: 20vw" v-model="scope.row.budgetunit" :disabled="!disable"
+                    <el-select clearable style="width: 100%" v-model="scope.row.budgetunit" :disabled="!disable"
                                :placeholder="$t('normal.error_09')">
                       <el-option
                         v-for="item in options1"
@@ -334,17 +358,19 @@
                     subtype: '',
                     application: moment(new Date()).format('YYYY-MM-DD'),
                     email: '',
+                  remark: '',
                     extension: '',
                     idtype: '',
                 },
                 tableT: [{
                     number: '',
-                    usertype: '',
+                  // usertype: '',
                     username: '',
                     surname: '',
                     ming: '',
                     account: '',
                     transmission: '',
+                  accounttype: '',
                     waitfortime: '',
                     budgetunit: '',
                     cybozu: '',
@@ -355,10 +381,12 @@
                 }],
                 code1: 'PJ037',
                 code2: 'PJ038',
-                code3: 'PJ039',
+              // code3: 'PJ039',
                 code4: 'PJ040',
                 code5: 'PJ041',
                 code6: 'PG001',
+              // 邮箱类型
+              code7: 'PJ046',
                 disabled: false,
                 rules: {
                     user_id: [{
@@ -526,8 +554,11 @@
             changeidtype(val) {
                 this.form.idtype = val;
             },
-            changeusertype(val, row) {
-                row.usertype = val;
+          // changeusertype(val, row) {
+          //     row.usertype = val;
+          // },
+          changeaccounttype(val, row) {
+            row.accounttype = val;
             },
             changetransmission(val, row) {
                 row.transmission = val;
@@ -548,12 +579,13 @@
                     this.tableT = [{
                         psdcddetail_id: '',
                         psdcd_id: '',
-                        usertype: ' ',
+                      // usertype: ' ',
                         username: '',
                         surname: '',
                         ming: '',
                         account: '',
                         transmission: ' ',
+                      accounttype: ' ',
                         waitfortime: '',
                         budgetunit: ' ',
                         cybozu: ' ',
@@ -568,12 +600,13 @@
                 this.tableT.push({
                     psdcddetail_id: '',
                     psdcd_id: '',
-                    usertype: '',
+                  // usertype: '',
                     username: '',
                     surname: '',
                     ming: '',
                     account: '',
                     transmission: '',
+                  accounttype: '',
                     waitfortime: '',
                     budgetunit: '',
                     cybozu: '',
@@ -595,7 +628,7 @@
                         for (let i = 0; i < this.tableT.length; i++) {
                             if (this.tableT[i].number !== '' || this.tableT[i].usertype !== '' || this.tableT[i].username !== '' ||
                                 this.tableT[i].surname !== '' || this.tableT[i].ming !== '' || this.tableT[i].account !== '' ||
-                                this.tableT[i].transmission !== '' || this.tableT[i].waitfortime !== '' || this.tableT[i].budgetunit !== '' ||
+                              this.tableT[i].transmission !== '' || this.tableT[i].accounttype !== '' || this.tableT[i].waitfortime !== '' || this.tableT[i].budgetunit !== '' ||
                                 this.tableT[i].cybozu !== '' || this.tableT[i].expecttime !== '' || this.tableT[i].domainaccount !== '' ||
                                 this.tableT[i].forwardtime !== '' || this.tableT[i].preparefor !== '') {
                                 this.baseInfo.psdcddetail.push(
@@ -603,12 +636,13 @@
                                         psdcddetail_id: this.tableT[i].psdcddetail_id,
                                         psdcd_id: this.tableT[i].psdcd_id,
                                         number: this.tableT[i].number,
-                                        usertype: this.tableT[i].usertype,
+                                      // usertype: this.tableT[i].usertype,
                                         username: this.tableT[i].username,
                                         surname: this.tableT[i].surname,
                                         ming: this.tableT[i].ming,
                                         account: this.tableT[i].account,
                                         transmission: this.tableT[i].transmission,
+                                      accounttype: this.tableT[i].accounttype,
                                         waitfortime: this.tableT[i].waitfortime,
                                         budgetunit: this.tableT[i].budgetunit,
                                         cybozu: this.tableT[i].cybozu,
