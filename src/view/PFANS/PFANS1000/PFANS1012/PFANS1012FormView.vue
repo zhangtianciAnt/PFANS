@@ -441,7 +441,7 @@
                             :no="scope.row"
                             :step="1"
                             v-model="scope.row.excludingtax"
-                            @change="changeSum(scope.row)"
+                            @change="changesummoney(scope.row)"
                             style="width: 100%">
                           </el-input-number>
                         </template>
@@ -2840,6 +2840,9 @@
 
         }
       },
+      changesummoney(row) {
+        row.facetax = row.invoiceamount - row.excludingtax;
+      },
       getrate(row) {
         let taxratevalue = 0;
         if (row.taxrate == 'PJ071001') {
@@ -2852,8 +2855,8 @@
           this.taxrateValue = getDictionaryInfo('PJ071004').value1;
         }
         taxratevalue = 1 + Number(this.taxrateValue);
-        row.excludingtax = parseFloat((row.invoiceamount / (taxratevalue) * this.taxrateValue)).toFixed(2);
-        row.facetax = row.invoiceamount - row.excludingtax;
+        row.facetax = parseFloat((row.invoiceamount / (taxratevalue) * this.taxrateValue)).toFixed(2);
+        row.excludingtax = row.invoiceamount - row.facetax;
       },
       getPaymentinvoicetype(val, row) {
         row.excludingtax = '';
@@ -2873,9 +2876,8 @@
           this.taxrateValue = getDictionaryInfo('PJ071004').value1;
         }
         taxratevalue = 1 + Number(this.taxrateValue);
-        row.excludingtax = parseFloat((row.invoiceamount / (taxratevalue) * this.taxrateValue)).toFixed(2);
-        row.facetax = row.invoiceamount - row.excludingtax;
-        row.facetax = row.invoiceamount - row.excludingtax;
+        row.facetax = parseFloat((row.invoiceamount / (taxratevalue) * this.taxrateValue)).toFixed(2);
+        row.excludingtax = row.invoiceamount - row.facetax;
         for (let j = 0; j < this.tableF.length; j++) {
           if (this.tableF[j].invoiceamount != 0) {
             this.form.tormb = '';

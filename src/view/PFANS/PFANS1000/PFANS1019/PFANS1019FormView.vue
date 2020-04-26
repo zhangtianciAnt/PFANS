@@ -108,19 +108,19 @@
                   </el-input>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS1019FORMVIEW_NATURE')" align="center" width="160">
-                <template slot-scope="scope">
-                  <dicselect
-                    :no="scope.row"
-                    :code="code"
-                    :data="scope.row.nature"
-                    :disabled="!disable"
-                    :multiple="multiple"
-                    @change="changenature"
-                    style="width: 100%"
-                  ></dicselect>
-                </template>
-              </el-table-column>
+              <!--<el-table-column :label="$t('label.PFANS1019FORMVIEW_NATURE')" align="center" width="160">-->
+              <!--<template slot-scope="scope">-->
+              <!--<dicselect-->
+              <!--:no="scope.row"-->
+              <!--:code="code"-->
+              <!--:data="scope.row.nature"-->
+              <!--:disabled="!disable"-->
+              <!--:multiple="multiple"-->
+              <!--@change="changenature"-->
+              <!--style="width: 100%"-->
+              <!--&gt;</dicselect>-->
+              <!--</template>-->
+              <!--</el-table-column>-->
               <el-table-column :label="$t('label.PFANS1019FORMVIEW_DEVELOPER')" align="center" width="150">
                 <template slot-scope="scope">
                   <el-input :no="scope.row" :disabled="!disable" v-model="scope.row.developer" style="width: 100%">
@@ -247,7 +247,7 @@
           employ: '',
           softtype: '',
         }],
-        code: 'PA006',
+        // code: 'PA006',
           code1: 'PA005',
       };
     },
@@ -357,9 +357,9 @@
         this.form.status = '0';
         this.buttonClick('update');
       },
-      changenature(val, row) {
-        row.nature = val;
-      },
+      // changenature(val, row) {
+      //   row.nature = val;
+      // },
       changesofttype(val, row) {
         row.softtype = val;
       },
@@ -372,7 +372,7 @@
           startdate: '',
           enddate: '',
           softwarename: '',
-          nature: '',
+          // nature: '',
           developer: '',
           employ: '',
           softtype: '',
@@ -391,7 +391,7 @@
             startdate: '',
             enddate: '',
             softwarename: '',
-            nature: ' ',
+            // nature: ' ',
             developer: '',
             employ: '',
             softtype: ' ',
@@ -419,7 +419,7 @@
                     startdate: this.tableT[i].startdate,
                     enddate: this.tableT[i].enddate,
                     softwarename: this.tableT[i].softwarename,
-                    nature: this.tableT[i].nature,
+                    // nature: this.tableT[i].nature,
                     developer: this.tableT[i].developer,
                     employ: this.tableT[i].employ,
                     softtype: this.tableT[i].softtype,

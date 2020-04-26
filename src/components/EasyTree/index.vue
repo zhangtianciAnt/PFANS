@@ -143,9 +143,9 @@ export default {
       return data[this.defaultProps.label].indexOf(value) !== -1;
     },
     nodeClick(node) {
-      if (this.$store.getters.operateId === node[this.nodeid]) {
-        return;
-      }
+      // if (this.$store.getters.operateId === node[this.nodeid]) {
+      //   return;
+      // }
       this.$store.commit("global/SET_OPERATEID", node[this.nodeid]);
       this.$emit("nodeClick", node);
     },

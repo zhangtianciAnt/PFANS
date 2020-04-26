@@ -393,7 +393,7 @@
                               :no="scope.row"
                               :precision="2"
                               :step="1"
-                              @change="changeSum(scope.row)"
+                              @change="changesummoney(scope.row)"
                               controls-position="right"
                               style="width: 100%"
                               v-model="scope.row.excludingtax">
@@ -1717,8 +1717,8 @@
           this.taxrateValue = getDictionaryInfo('PJ071004').value1;
         }
         taxratevalue = 1 + Number(this.taxrateValue);
-        row.excludingtax = parseFloat((row.invoiceamount / (taxratevalue) * this.taxrateValue)).toFixed(2);
-        row.facetax = row.invoiceamount - row.excludingtax;
+        row.facetax = parseFloat((row.invoiceamount / (taxratevalue) * this.taxrateValue)).toFixed(2);
+        row.excludingtax = row.invoiceamount - row.facetax;
       },
       getBusInside() {
         this.loading = true;
@@ -1982,6 +1982,9 @@
           row.exchangermb = 0.00;
         }
       },
+      changesummoney(row) {
+        row.facetax = row.invoiceamount - row.excludingtax;
+      },
       changeSum(row) {
         let taxratevalue = 0;
         if (row.taxrate == 'PJ071001') {
@@ -1994,8 +1997,8 @@
           this.taxrateValue = getDictionaryInfo('PJ071004').value1;
         }
         taxratevalue = 1 + Number(this.taxrateValue);
-        row.excludingtax = parseFloat((row.invoiceamount / (taxratevalue) * this.taxrateValue)).toFixed(2);
-        row.facetax = row.invoiceamount - row.excludingtax;
+        row.facetax = parseFloat((row.invoiceamount / (taxratevalue) * this.taxrateValue)).toFixed(2);
+        row.excludingtax = row.invoiceamount - row.facetax;
       },
       deleteRow(index, rows) {
         if (rows.length > 1) {
