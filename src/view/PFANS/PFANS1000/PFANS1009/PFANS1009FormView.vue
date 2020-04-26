@@ -206,8 +206,6 @@
                 </el-date-picker>
               </el-form-item>
             </el-col>
-          </el-row>
-          <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1009FORMVIEW_REPAIRKITS')">
                 <dicselect
@@ -218,6 +216,12 @@
                   style="width:20vw"
                   @change="changerepairkits">
                 </dicselect>
+              </el-form-item>
+            </el-col>
+            <!--ztc 04/26 借出契约书为有时增加合同编号菜单栏-->
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS1007FORMVIEW_CONTRACTNO')" prop="contractno" v-show="show3">
+                <el-input :disabled="!disable" style="width:20vw" v-model="form.contractno"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -261,6 +265,7 @@
         search: '',
         show1: true,
         show2: true,
+        show3: false,
         repair: '',
         installsoftware: '1',
         installsoftwareflg: '',
@@ -280,6 +285,7 @@
           center_id: '',
           group_id: '',
           team_id: '',
+          contractno: '',
           casedate: moment(new Date()).format('YYYY-MM-DD'),
           assettype: '',
           installsoftware: '',
@@ -311,6 +317,11 @@
             message: this.$t('normal.error_09') + this.$t('label.application_date'),
             trigger: 'change',
           }],
+          contractno: [{
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.PFANS1007FORMVIEW_CONTRACTNO'),
+            trigger: 'change',
+          },],
           inputdate: [{
             required: true,
             message: this.$t('normal.error_09') + this.$t('label.PFANS1009FORMVIEW_INPUTDATE'),
@@ -365,6 +376,7 @@
                   this.groupid= rst.groupNmae;
                   this.teamid= rst.teamNmae;
               }
+            this.changerepairkits(this.form.repairkits);
             this.userlist = this.form.user_id;
             this.installsoftware = this.form.installsoftware;
             this.installsoftwareflg = this.form.installsoftware;
@@ -426,19 +438,19 @@
           this.errorassetname = '';
         }
       },
-      // submit() {
-      //   let val = this.currentRow;
-      //   this.dialogTableVisible = false;
-      //   this.form.assetname = val;
-      // },
-      // arraySpanMethod({row, column, rowIndex, columnIndex}) {
-      //   if (columnIndex === 3) {
-      //     return [1, 2];
-      //   }
-      // },
-      // handleClickChange(val) {
-      //   this.currentRow = val.assetname
-      // },
+      submit() {
+        let val = this.currentRow;
+        this.dialogTableVisible = false;
+        this.form.assetname = val;
+      },
+      arraySpanMethod({row, column, rowIndex, columnIndex}) {
+        if (columnIndex === 3) {
+          return [1, 2];
+        }
+      },
+      handleClickChange(val) {
+        this.currentRow = val.assetname
+      },
       // getAssetsnameList() {
       //   this.loading = true;
       //   this.$store
@@ -496,6 +508,14 @@
       },
       changerepairkits(val) {
         this.form.repairkits = val;
+        if (val === 'PJ010001') {
+          this.show3 = true;
+          this.rules.contractno[0].required = true;
+        } else {
+          this.show3 = false;
+          this.form.contractno = '';
+          this.rules.contractno[0].required = false;
+        }
       },
       radiochange(val) {
         this.form.dutyfreeinput = val;
@@ -546,6 +566,9 @@
               if (this.form.assettype !== 'PJ009002') {
                 this.form.installsoftware = '1';
                 this.form.suitablebringout = '1';
+              }
+              if (this.form.repairkits === 'PJ010002') {
+                this.form.contractno = '';
               }
               if (this.form.dutyfreeinput === '0') {
                 this.form.inputdate = '';
