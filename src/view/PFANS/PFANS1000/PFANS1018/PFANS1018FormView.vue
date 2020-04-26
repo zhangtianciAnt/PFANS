@@ -67,9 +67,11 @@
                                     v-model="form.payment"></el-date-picker>
                   </el-form-item>
                 </el-col>
-                <el-col :span="16">
+              </el-row>
+          <el-row>
+            <el-col :span="24">
                   <el-form-item :label="$t('label.PFANS1016FORMVIEW_REASON')">
-                    <el-input :disabled="!disabled" :rows="2" style="width: 40vw" type="textarea"
+                    <el-input :disabled="!disabled" :rows="2" style="width: 71vw" type="textarea"
                               v-model="form.reason"></el-input>
                   </el-form-item>
                 </el-col>
@@ -142,19 +144,19 @@
                               v-model="form.extension"></el-input>
                   </el-form-item>
                 </el-col>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1018FORMVIEW_USINGLEVEL')" prop="useLevel">
-                    <dicselect
-                      :code="code2"
-                      :data="form.useLevel"
-                      :disabled="!disabled"
-                      :multiple="multiple"
-                      @change="getUsinglevel"
-                      style="width: 20vw"
-                    >
-                    </dicselect>
-                  </el-form-item>
-                </el-col>
+                <!--<el-col :span="8">-->
+                <!--<el-form-item :label="$t('label.PFANS1018FORMVIEW_USINGLEVEL')" prop="useLevel">-->
+                <!--<dicselect-->
+                <!--:code="code2"-->
+                <!--:data="form.useLevel"-->
+                <!--:disabled="!disabled"-->
+                <!--:multiple="multiple"-->
+                <!--@change="getUsinglevel"-->
+                <!--style="width: 20vw"-->
+                <!--&gt;-->
+                <!--</dicselect>-->
+                <!--</el-form-item>-->
+                <!--</el-col>-->
               </el-row>
               <!--          <el-row>-->
               <!--            <el-col :span="10">-->
@@ -307,13 +309,13 @@
             trigger: 'blur',
           },
             {validator: checkemail, trigger: 'blur'}],
-          useLevel: [
-            {
-              required: true,
-              message: this.$t('normal.error_09') + this.$t('label.PFANS1018FORMVIEW_USINGLEVEL'),
-              trigger: 'change',
-            },
-          ],
+          // useLevel: [
+          //   {
+          //     required: true,
+          //     message: this.$t('normal.error_09') + this.$t('label.PFANS1018FORMVIEW_USINGLEVEL'),
+          //     trigger: 'change',
+          //   },
+          // ],
         },
       };
     },
@@ -444,9 +446,9 @@
       getApplicationtype(val) {
         this.form.applicationType = val;
       },
-      getUsinglevel(val) {
-        this.form.useLevel = val;
-      },
+      // getUsinglevel(val) {
+      //   this.form.useLevel = val;
+      // },
       workflowState(val) {
         if (val.state === '1') {
           this.form.status = '3';
