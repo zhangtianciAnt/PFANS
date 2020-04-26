@@ -1049,6 +1049,41 @@
                     </template>
                   </el-table-column>
                 </el-table>
+                <el-table :data="tablecompound" stripe border header-cell-class-name="sub_bg_color_blue"
+                          style="padding-top: 2vw" v-if="displaycompound">
+                  <el-table-column
+                    :label="$t('label.PFANS5009FORMVIEW_CONTRACT')"
+                    align="center"
+                    width="220%">
+                    <template slot-scope="scope">
+                      <el-input :disabled="true" v-model="scope.row.contractnumber"></el-input>
+                    </template>
+                  </el-table-column>
+                  <el-table-column
+                    :label="$t('label.PFANS1024VIEW_CLAIMTYPE')"
+                    align="center"
+                    width="150">
+                    <template slot-scope="scope">
+                      <el-input :disabled="true" v-model="scope.row.claimtype"></el-input>
+                    </template>
+                  </el-table-column>
+                  <el-table-column
+                    :label="$t('label.PFANS1024VIEW_CLAIMAMOUNT')"
+                    align="center"
+                    width="370">
+                    <template slot-scope="scope">
+                      <el-input :disabled="true" v-model="scope.row.claimamount"></el-input>
+                    </template>
+                  </el-table-column>
+                  <el-table-column
+                    :label="$t('label.PFANS5009FORMVIEW_AMOUNTALLOCATED')"
+                    align="center"
+                    width="270">
+                    <template slot-scope="scope">
+                      <el-input :disabled="true" v-model="scope.row.contractrequestamount"></el-input>
+                    </template>
+                  </el-table-column>
+                </el-table>
               </el-form-item>
             </el-tab-pane>
             <!--            其他管理工具-->
@@ -1331,6 +1366,8 @@
             rowindex: '',
           },
         ],
+        //合同分配金额
+        tablecompound: [],
         data: [],
         loading: false,
         dialogTableVisible1: false,
@@ -1638,6 +1675,7 @@
         fileList: [],
         upload: uploadUrl(),
         canStart: false,
+        displaycompound: true,
       };
     },
     mounted() {
@@ -1833,6 +1871,7 @@
             //项目合同
             if (response.projectcontract.length > 0) {
               let tabled = [];
+              let compound = [];
               for (let i = 0; i < response.projectcontract.length; i++) {
                 if (response.projectcontract[i].workinghours !== '' && response.projectcontract[i].workinghours !== null) {
                   let claimdatetime = response.projectcontract[i].workinghours;
@@ -1840,18 +1879,38 @@
                   let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
                   response.projectcontract[i].workinghours = [claimdatetim, claimdatetime1];
                 }
-                tabled.push({
-                  //add-ws-合同关联项目，分配金额
-                  contractrequestamount: response.projectcontract[i].contractrequestamount,
-                  contractamount: response.projectcontract[i].contractamount,
-                  //add-ws-合同关联项目，分配金额
-                  contract: response.projectcontract[i].contract,
-                  theme: response.projectcontract[i].theme,
-                  workinghours: response.projectcontract[i].workinghours,
-                });
+                //region复合合同金额分配
+                if(this.compounddata.length > 0){
+                    let dic = this.compounddata.filter(item => item.contractnumber === response.projectcontract[i].contract
+                        && item.group_id === this.form.group_id);
+                    let claimamount = 0;
+                    for (let dtem of dic) {
+                        //add-ws-合同关联项目，分配金额
+                        claimamount = claimamount + Number(dtem.contractrequestamount);
+                        compound.push({
+                            contractnumber: dtem.contractnumber,
+                            claimtype: dtem.claimtype,
+                            claimamount: dtem.claimamount,
+                            contractrequestamount: dtem.contractrequestamount,
+                        });
+                    }
+                    response.projectcontract[i].contractrequestamount = claimamount;
+                }
+                //endregion
 
+                tabled.push({
+                    //add-ws-合同关联项目，分配金额
+                    contractrequestamount: response.projectcontract[i].contractrequestamount,
+                    contractamount: response.projectcontract[i].contractamount,
+                    //add-ws-合同关联项目，分配金额
+                    contract: response.projectcontract[i].contract,
+                    theme: response.projectcontract[i].theme,
+                    workinghours: response.projectcontract[i].workinghours,
+                });
               }
               this.tableD = tabled;
+              //合同分配金额
+              this.tablecompound = compound;
             }
             //ADD 03-18 ,委托元为内采时，合同可自行添加请求金额
             if (response.contractnumbercount.length > 0) {
@@ -2226,6 +2285,24 @@
         row.theme = this.themeRow;
         row.workinghours = this.workinghoursRow;
         this.dialogTableVisible3 = false;
+        //region复合合同金额分配
+        if(this.compounddata.length > 0){
+            let dic = this.compounddata.filter(item => item.contractnumber === row.contract
+                && item.group_id === this.form.group_id);
+            let claimamount = 0;
+            for (let dtem of dic) {
+                //add-ws-合同关联项目，分配金额
+                claimamount = claimamount + Number(dtem.contractrequestamount);
+                this.tablecompound.push({
+                    contractnumber: dtem.contractnumber,
+                    claimtype: dtem.claimtype,
+                    claimamount: dtem.claimamount,
+                    contractrequestamount: dtem.contractrequestamount,
+                });
+            }
+            row.contractrequestamount = claimamount;
+        }
+        //endregion
       },
       // getdepartmentid(val1) {
       //   this.form.departmentid = val1;
@@ -2491,8 +2568,14 @@
       //合同
       deleteRow3(index, rows) {
         if (rows.length > 1) {
+          for(let i = 0;i < this.tablecompound.length;i++){
+              if(this.tablecompound[i].contractnumber === rows[index].contract){
+                  this.tablecompound.splice(i, 1);
+              }
+          }
           rows.splice(index, 1);
         } else {
+          this.tablecompound = [];
           this.tableD = [{
             projectcontract_id: '',
             companyprojects_id: '',
@@ -2731,7 +2814,6 @@
             let error3 = 0;
             let error4 = 0;
             let error5 = 0;
-            let error6 = 0;
             let error7 = 0;
             let error8 = 0;
             let error9 = 0;
@@ -2824,25 +2906,6 @@
                 error5 = error5 + 1;
               }
             }
-            for (let i = 0; i < this.tableB.length; i++) {
-              for (let K = 1; K < this.tableB.length; K++) {
-                if (this.tableB[i].name === this.tableB[K].name) {
-                  error6 = error6 + 1;
-                }
-                break;
-              }
-              break;
-            }
-
-            for (let i = 0; i < this.tableC.length; i++) {
-              for (let K = 1; K < this.tableC.length; K++) {
-                if (this.tableC[i].name === this.tableC[K].name) {
-                  error6 = error6 + 1;
-                }
-                break;
-              }
-              break;
-            }
             let error = 0;
             for (let i = 0; i < this.tableD.length; i++) {
               if (this.tableD[i].contract == '') {
@@ -2927,15 +2990,6 @@
                 duration: 5 * 1000,
               });
               this.loading = false;
-            }else if (error6 != 0) {
-              this.activeName = 'fourth';
-              this.loading = false;
-              Message({
-                message:
-                  this.$t('label.PFANS5001FORMVIEW_CHECKNAME'),
-                type: 'error',
-                duration: 5 * 1000,
-              });
             } else if (error9 != 0) {
               this.activeName = 'fourth';
               this.loading = false;

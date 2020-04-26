@@ -2654,9 +2654,12 @@
                 });
                 return;
             }
-            if(one > this.claimamount1 || two > this.claimamount2 || three > this.claimamount3 || four > this.claimamount4){
+            if((one != 0 && Number(one).toFixed(2) != Number(this.claimamount1).toFixed(2))
+                || (two != 0 && Number(two).toFixed(2) != Number(this.claimamount2).toFixed(2))
+                || (three != 0 && Number(three).toFixed(2) != Number(this.claimamount3).toFixed(2))
+                || (four != 0 && Number(four).toFixed(2) != Number(this.claimamount4).toFixed(2))){
                 Message({
-                    message: this.$t('label.PFANS1026FORMVIEW_CLAIMAMOUNT'),
+                    message: this.$t('label.PFANS1026FORMVIEW_COMPOUNDM'),
                     type: 'error',
                     duration: 5 * 1000,
                 });

@@ -9,13 +9,11 @@ export function get() {
     method: 'get'
   })
 }
-
 export function exportjs(data) {
-  debugger
   return requestPdf({
     url: 'publicexpense/exportjs',
-    method: 'post',
-    data: data,
+    method: 'get',
+    params: data,
     responseType: 'blob'
   })
 }

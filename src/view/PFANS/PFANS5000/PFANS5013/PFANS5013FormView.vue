@@ -2043,22 +2043,6 @@
               }
             }
             let error1 = 0;
-            for (let i = 0; i < this.tableB.length; i++) {
-              for (let K = 1; K < this.tableB.length; K++) {
-                if (this.tableB[i].name === this.tableB[K].name) {
-                  this.activeName = 'fourth';
-                  this.loading = false;
-                  error1 = error1 + 1;
-                  Message({
-                    message: this.$t('label.PFANS5013FROMVIEW_CHECKERROR'),
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                }
-                break;
-              }
-              break;
-            }
             //ADD-WS-体制时间范围check
             for (let i = 0; i < this.tableB.length; i++) {
               if (moment(this.tableB[i].admissiontime).format('YYYY-MM-DD') > moment(this.tableB[i].exittime).format('YYYY-MM-DD')) {
@@ -2085,22 +2069,6 @@
               }
             }
             //ADD-WS-体制时间范围check
-            for (let i = 0; i < this.tableC.length; i++) {
-              for (let K = 1; K < this.tableC.length; K++) {
-                if (this.tableC[i].name === this.tableC[K].name) {
-                  this.activeName = 'fourth';
-                  this.loading = false;
-                  error1 = error1 + 1;
-                  Message({
-                    message: this.$t('label.PFANS5013FROMVIEW_CHECKERROR'),
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                }
-                break;
-              }
-              break;
-            }
             for (let i = 0; i < this.tableB.length; i++) {
               if ((!this.tableB[i].admissiontime || this.tableB[i].admissiontime === '' || !this.tableB[i].exittime || this.tableB[i].exittime === '') && this.tableB[i].name !== '') {
                 this.activeName = 'fourth';

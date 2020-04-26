@@ -420,7 +420,7 @@
                       <el-table-column :label="$t('label.PFANS1012FORMVIEW_TAXRATE')" align="center" width="240">
                         <template slot-scope="scope">
                           <el-select :disabled="!disable" clearable style="width: 100%" v-model="scope.row.taxrate"
-                                     :no="scope.row" >
+                                     @change="getrate(scope.row)">
                             <el-option
                               :key="item.value"
                               :label="item.lable"
@@ -441,7 +441,7 @@
                             :no="scope.row"
                             :step="1"
                             v-model="scope.row.excludingtax"
-                            @change="changeSum(scope.row)"
+                            @change="changesummoney(scope.row)"
                             style="width: 100%">
                           </el-input-number>
                         </template>
@@ -650,8 +650,8 @@
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012FORMVIEW_INVOICEN')" align="center" width="150">
                           <template slot-scope="scope">
-                            <el-select style="width: 100%" v-model="scope.row.invoicenumber" clearable :no="scope.row"
-                                       @change="changeinvoicenumber"
+                            <el-select style="width: 100%" v-model="scope.row.invoicenumber" clearable
+                                       @change="changeinvoicenumber(scope.row)"
                                        :disabled="!disable">
                               <el-option
                                 v-for="item in optionsdata"
@@ -880,8 +880,8 @@
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012FORMVIEW_INVOICEN')" align="center" width="150">
                           <template slot-scope="scope">
-                            <el-select style="width: 100%" v-model="scope.row.invoicenumber" clearable :no="scope.row"
-                                       @change="changeinvoicenumber"
+                            <el-select style="width: 100%" v-model="scope.row.invoicenumber" clearable
+                                       @change="changeinvoicenumber(scope.row)"
                                        :disabled="!disable">
                               <el-option
                                 v-for="item in optionsdata"
@@ -921,7 +921,8 @@
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012FORMVIEW_PL')" align="center" width="150">
                           <template slot-scope="scope">
-                            <el-select v-model="scope.row.plsummary" :disabled="checktaxes" style="width: 100%" clearable
+                            <el-select v-model="scope.row.plsummary" :disabled="checktaxes" style="width: 100%"
+                                       clearable
                                        @change="getplsummary(scope.row)">
                               <el-option
                                 v-for="item in ploptionsdate"
@@ -1636,7 +1637,7 @@
               }
               if (response.invoice.length > 0) {
                 this.tableF = response.invoice;
-                if(this.form.status ==='2'){
+                if (this.form.status === '2') {
                   this.checkexternal = true;
                   this.checktaxes = true;
                   this.checkdisable = true;
@@ -2056,16 +2057,31 @@
       },
     },
     methods: {
-      changeinvoicenumber(val) {
+      changeinvoicenumber(row, val) {
         for (let j = 0; j < this.tableF.length; j++) {
-          if (val == this.tableF[j].invoicenumber) {
+          if (row.invoicenumber == this.tableF[j].invoicenumber) {
             if (this.tableF[j].taxrate === '') {
+              row.taxes = 0;
               this.checkexternal = true;
               this.checkdisable = true;
               this.checktaxes = true;
               this.disablecheck = true;
               break;
             } else {
+              let taxratevalue = 0;
+              if (row.rmb != '') {
+                if (this.tableF[j].taxrate == 'PJ071001') {
+                  this.taxrateValue = getDictionaryInfo('PJ071001').value1;
+                } else if (this.tableF[j].taxrate == 'PJ071002') {
+                  this.taxrateValue = getDictionaryInfo('PJ071002').value1;
+                } else if (this.tableF[j].taxrate == 'PJ071003') {
+                  this.taxrateValue = getDictionaryInfo('PJ071003').value1;
+                } else if (this.tableF[j].taxrate == 'PJ071004') {
+                  this.taxrateValue = getDictionaryInfo('PJ071004').value1;
+                }
+                taxratevalue = 1 + Number(this.taxrateValue);
+                row.taxes = parseFloat((row.rmb / (taxratevalue) * this.taxrateValue)).toFixed(2);
+              }
               this.checkdisable = false;
               this.checkexternal = false;
               this.checktaxes = false;
@@ -2073,6 +2089,7 @@
               break;
             }
           } else {
+            row.taxes = 0;
             this.checkdisable = false;
             this.checkexternal = false;
             this.checktaxes = false;
@@ -2118,13 +2135,31 @@
           .dispatch('PFANS5009Store/getSiteList3', {})
           .then(response => {
             for (let i = 0; i < response.length; i++) {
-              // if (response[i].status == '4' || response[i].status == '6' || response[i].status == '7') {
               this.optionsdate.push({
                 value: response[i].companyprojects_id,
-                lable: response[i].project_name,
+                lable: response[i].numbers + '_' + response[i].project_name,
               });
-              // }
             }
+            this.$store
+              .dispatch('PFANS5013Store/getMyConProject', {})
+              .then(response => {
+                for (let i = 0; i < response.length; i++) {
+                  this.optionsdate.push({
+                    value: response[i].comproject_id,
+                    lable: response[i].numbers + '_' + response[i].project_name,
+                  });
+                }
+                this.loading = false;
+              })
+              .catch(error => {
+                Message({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.loading = false;
+              });
+
             this.loading = false;
           })
           .catch(error => {
@@ -2805,8 +2840,23 @@
 
         }
       },
-      getrate(val, row) {
-        row.taxrate = val;
+      changesummoney(row) {
+        row.facetax = row.invoiceamount - row.excludingtax;
+      },
+      getrate(row) {
+        let taxratevalue = 0;
+        if (row.taxrate == 'PJ071001') {
+          this.taxrateValue = getDictionaryInfo('PJ071001').value1;
+        } else if (row.taxrate == 'PJ071002') {
+          this.taxrateValue = getDictionaryInfo('PJ071002').value1;
+        } else if (row.taxrate == 'PJ071003') {
+          this.taxrateValue = getDictionaryInfo('PJ071003').value1;
+        } else if (row.taxrate == 'PJ071004') {
+          this.taxrateValue = getDictionaryInfo('PJ071004').value1;
+        }
+        taxratevalue = 1 + Number(this.taxrateValue);
+        row.facetax = parseFloat((row.invoiceamount / (taxratevalue) * this.taxrateValue)).toFixed(2);
+        row.excludingtax = row.invoiceamount - row.facetax;
       },
       getPaymentinvoicetype(val, row) {
         row.excludingtax = '';
@@ -2815,7 +2865,19 @@
         row.taxrate = ' ';
       },
       changeSum(row) {
-        row.facetax = row.invoiceamount - row.excludingtax;
+        let taxratevalue = 0;
+        if (row.taxrate == 'PJ071001') {
+          this.taxrateValue = getDictionaryInfo('PJ071001').value1;
+        } else if (row.taxrate == 'PJ071002') {
+          this.taxrateValue = getDictionaryInfo('PJ071002').value1;
+        } else if (row.taxrate == 'PJ071003') {
+          this.taxrateValue = getDictionaryInfo('PJ071003').value1;
+        } else if (row.taxrate == 'PJ071004') {
+          this.taxrateValue = getDictionaryInfo('PJ071004').value1;
+        }
+        taxratevalue = 1 + Number(this.taxrateValue);
+        row.facetax = parseFloat((row.invoiceamount / (taxratevalue) * this.taxrateValue)).toFixed(2);
+        row.excludingtax = row.invoiceamount - row.facetax;
         for (let j = 0; j < this.tableF.length; j++) {
           if (this.tableF[j].invoiceamount != 0) {
             this.form.tormb = '';

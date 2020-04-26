@@ -731,15 +731,34 @@
           .then(response => {
             for (let i = 0; i < response.length; i++) {
               if (user_id === response[i].user_id && response[i].equipment == '0') {
-                if (response[i].createon !== null && response[i].createon !== '') {
-                  response[i].createon = moment(response[i].createon).format('YYYY-MM-DD');
-                }
-                var vote = {};
-                vote.value = response[i].judgementid;
-                vote.label = response[i].judgnumbers + '_' + this.$t('menu.PFANS1004');
-                this.options.push(vote);
+                this.options.push({
+                  value: response[i].judgementid,
+                  label: response[i].judgnumbers + '_' + this.$t('menu.PFANS1004'),
+                });
               }
             }
+            //add-ws-4/24-暂借款申请单添加千元以下费用申请数据到下拉列表中
+            this.$store
+              .dispatch('PFANS1012Store/selectPurchaseApply', {})
+              .then(response => {
+                for (let i = 0; i < response.length; i++) {
+                  if (user_id === response[i].user_id) {
+                    this.options.push({
+                      value: response[i].purchaseapply_id,
+                      label: response[i].purchasenumbers + '_' + this.$t('menu.PFANS1005'),
+                    });
+                  }
+                }
+                this.loading = false;
+              }).catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
+            //add-ws-4/24-暂借款申请单添加千元以下费用申请数据到下拉列表中
             this.loading = false;
           });
       },
