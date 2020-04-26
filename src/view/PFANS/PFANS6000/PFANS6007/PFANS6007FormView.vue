@@ -86,8 +86,8 @@
               <el-form-item :label="$t('label.PFANS6007VIEW_PJNAME')" prop="pjname">
                 <el-select :disabled="!disabled" style="width:20vw" v-model="form.pjname" @change="changeOption">
                   <el-option
-                    :key="item.value"
-                    :label="item.lable"
+                    :key="item.code"
+                    :label="item.label"
                     :value="item.value"
                     v-for="item in gridData">
                   </el-option>
@@ -319,24 +319,65 @@
       };
     },
     mounted() {
-      this.getbpplayerList();
-      if (this.$route.params._id) {//查看详情
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS6007Store/getvariousfundsApplyOne', {"variousfunds_id": this.$route.params._id})
-          .then(response => {
-            this.form = response;
-            this.loading = false;
-          })
-          .catch(error => {
-            Message({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000
-            });
-            this.loading = false;
-          })
-      }
+      //this.getbpplayerList();
+      this.loading = true;
+      this.$store
+        .dispatch('PFANS6004Store/getexpatriatesinfor')
+        .then(response => {
+
+          this.gridDatabpplayer = [];
+          for (let i = 0; i < response.length; i++) {
+            var vote = {};
+            vote.suppliername = response[i].suppliername;
+            vote.expname = response[i].expname;
+            vote.account = response[i].account;
+            if (response[i].group_id !== null && response[i].group_id !== '') {
+              let group = getOrgInfo(response[i].group_id);
+              if (group) {
+                vote.group_id = group.companyname;
+              }
+            }
+            this.gridDatabpplayer.push(vote);
+          }
+          this.loading = false;
+          if (this.$route.params._id) {//查看详情
+            this.loading = true;
+            let number ='';
+            this.$store
+              .dispatch('PFANS6007Store/getvariousfundsApplyOne', {"variousfunds_id": this.$route.params._id})
+              .then(response => {
+
+                this.form = response;
+                for (let i = 0; i < this.gridDatabpplayer.length; i++)
+                {
+                  if (this.gridDatabpplayer[i].expname === this.form.bpplayer) {
+                    number = this.gridDatabpplayer[i].account;
+                  }
+                }
+                this.loading = false;
+                this.$store
+                  .dispatch('PFANS6007Store/getPjnameList6007', {"bpplayer":number})
+                  .then(response => {
+                    this.gridData = [];
+                    for (let i = 0; i < response.length; i++) {
+                      var vote = {};
+                      vote.code = response[i].numbers;
+                      vote.value = response[i].numbers +'_'+ response[i].project_name;
+                      this.gridData.push(vote);
+                    }
+                    this.loading = false;
+                  });
+              });
+          }
+        })
+        .catch(error => {
+          Message({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000,
+          });
+          this.loading = false;
+        });
     },
     created() {
       this.disabled = this.$route.params.disabled;
@@ -361,7 +402,7 @@
         this.$store
           .dispatch('PFANS6004Store/getexpatriatesinfor')
           .then(response => {
-            console.log(response)
+
             this.gridDatabpplayer = [];
             for (let i = 0; i < response.length; i++) {
                var vote = {};
@@ -393,12 +434,11 @@
         this.$store
           .dispatch('PFANS6007Store/getPjnameList6007', {"bpplayer":id})
           .then(response => {
-            console.log(response)
             this.gridData = [];
               for (let i = 0; i < response.length; i++) {
                 var vote = {};
-                vote.value = response[i].numbers;
-                vote.lable = response[i].numbers +'_'+response[i].project_name;
+                vote.code = response[i].numbers;
+                vote.value = response[i].numbers +'_'+ response[i].project_name;
                 this.gridData.push(vote);
               }
             this.form.pjname = '';
@@ -415,12 +455,12 @@
           });
       },
       changeOption(val) {
-        this.form.pjname = val;
+        //this.form.pjname = val;
         this.loading = true;
         let number ='';
         for (let i = 0; i < this.gridData.length; i++) {
           if (this.gridData[i].value === val) {
-            number = this.gridData[i].value;
+            number = this.gridData[i].code;
           }
         }
         this.loading = true;
