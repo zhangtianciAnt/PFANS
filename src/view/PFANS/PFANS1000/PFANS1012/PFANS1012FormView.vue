@@ -393,245 +393,243 @@
                 </el-row>
                 <el-row v-if="this.form.type === 'PJ001001'?false:true">
                   <span class="collapse_Title">{{$t('label.PFANS1012FORMVIEW_INVOICETTYPE')}}</span>
-                    <span style="color: red;font-size: 0.85rem">{{$t('label.PFANS1012FORMVIEW_INVOICEI')}}</span>
-                    <el-table :data="tableF"
-                              header-cell-class-name="sub_bg_color_blue" stripe border style="width: 70vw">
-                      <el-table-column :label="$t('label.PFANS1012FORMVIEW_INVOICEN')" align="center" width="200">
-                        <template slot-scope="scope">
-                          <el-input :disabled="true" style="width: 100%" v-model="scope.row.invoicenumber">
-                          </el-input>
-                        </template>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1012FORMVIEW_INVOICET')" align="center" width="200">
-                        <template slot-scope="scope">
-                          <el-input v-show="false" :disabled="true" style="width: 100%" v-model="scope.row.invoicetype">
-                          </el-input>
-                          <el-input :disabled="true" style="width: 100%" v-model="invoicetype">
-                          </el-input>
-                        </template>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1012FORMVIEW_INVOICEM')" align="center" width="150">
-                        <template slot-scope="scope">
-                          <el-input-number :min="0" :precision="2" :max="9999999" :disabled="!disable"
-                                           controls-position="right" :no="scope.row" @change="changeSum(scope.row)"
-                                           :step="1" v-model="scope.row.invoiceamount" style="width: 100%">
-                          </el-input-number>
-                        </template>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1012FORMVIEW_TAXRATE')" align="center" width="240">
-                        <template slot-scope="scope">
-                          <el-select :disabled="!disable" clearable style="width: 100%" v-model="scope.row.taxrate"
-                                     @change="getrate(scope.row)">
-                            <el-option
-                              :key="item.value"
-                              :label="item.lable"
-                              :value="item.value"
-                              v-for="item in optionsrate">
-                            </el-option>
-                          </el-select>
-                        </template>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1012FORMVIEW_EXCLUDINGTAX')" align="center" width="150"
-                                       prop="debitamount">
-                        <template slot-scope="scope">
-                          <el-input-number
-                            :disabled="!disable"
-                            :min="0" :precision="2"
-                            :max="9999999"
-                            controls-position="right"
-                            :no="scope.row"
-                            :step="1"
-                            v-model="scope.row.excludingtax"
-                            @change="changesummoney(scope.row)"
-                            style="width: 100%">
-                          </el-input-number>
-                        </template>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1012FORMVIEW_FACETAX')" align="center" width="150"
-                                       prop="creditamount">
-                        <template slot-scope="scope">
-                          <el-input-number
-                            :disabled="true"
-                            :min="0" :precision="2"
-                            :max="9999999"
-                            controls-position="right"
-                            :no="scope.row"
-                            :step="1"
-                            v-model="scope.row.facetax"
-                            @change="changeSum(scope.row)"
-                            style="width: 100%">
-                          </el-input-number>
-                        </template>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.operation')" align="center" width="200">
-                        <template slot-scope="scope">
-                          <el-button
-                            :disabled="!disable"
-                            @click.native.prevent="deleteRow7(scope.$index, tableF)"
-                            plain
-                            size="small"
-                            type="danger"
-                          >{{$t('button.delete')}}
-                          </el-button>
-                          <el-button
-                            :disabled="!disable"
-                            @click="addRow7()"
-                            plain
-                            size="small"
-                            type="primary"
-                          >{{$t('button.insert')}}
-                          </el-button>
-                        </template>
-                      </el-table-column>
-                    </el-table>
+                  <span style="color: red;font-size: 0.85rem">{{$t('label.PFANS1012FORMVIEW_INVOICEI')}}</span>
+                  <el-table :data="tableF"
+                            header-cell-class-name="sub_bg_color_blue" stripe border style="width: 70vw">
+                    <el-table-column :label="$t('label.PFANS1012FORMVIEW_INVOICEN')" align="center" width="200">
+                      <template slot-scope="scope">
+                        <el-input :disabled="true" style="width: 100%" v-model="scope.row.invoicenumber">
+                        </el-input>
+                      </template>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.PFANS1012FORMVIEW_INVOICET')" align="center" width="200">
+                      <template slot-scope="scope">
+                        <el-input v-show="false" :disabled="true" style="width: 100%" v-model="scope.row.invoicetype">
+                        </el-input>
+                        <el-input :disabled="true" style="width: 100%" v-model="invoicetype">
+                        </el-input>
+                      </template>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.PFANS1012FORMVIEW_INVOICEM')" align="center" width="150">
+                      <template slot-scope="scope">
+                        <el-input-number :min="0" :precision="2" :max="9999999" :disabled="!disable"
+                                         controls-position="right" :no="scope.row" @change="changeSum(scope.row)"
+                                         :step="1" v-model="scope.row.invoiceamount" style="width: 100%">
+                        </el-input-number>
+                      </template>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.PFANS1012FORMVIEW_TAXRATE')" align="center" width="240">
+                      <template slot-scope="scope">
+                        <el-select :disabled="!disable" clearable style="width: 100%" v-model="scope.row.taxrate"
+                                   @change="getrate(scope.row)">
+                          <el-option
+                            :key="item.value"
+                            :label="item.lable"
+                            :value="item.value"
+                            v-for="item in optionsrate">
+                          </el-option>
+                        </el-select>
+                      </template>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.PFANS1012FORMVIEW_EXCLUDINGTAX')" align="center" width="150"
+                                     prop="debitamount">
+                      <template slot-scope="scope">
+                        <el-input-number
+                          :disabled="!disable"
+                          :min="0" :precision="2"
+                          :max="9999999"
+                          controls-position="right"
+                          :no="scope.row"
+                          :step="1"
+                          v-model="scope.row.excludingtax"
+                          @change="changesummoney(scope.row)"
+                          style="width: 100%">
+                        </el-input-number>
+                      </template>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.PFANS1012FORMVIEW_FACETAX')" align="center" width="150"
+                                     prop="creditamount">
+                      <template slot-scope="scope">
+                        <el-input-number
+                          :disabled="true"
+                          :min="0" :precision="2"
+                          :max="9999999"
+                          controls-position="right"
+                          :no="scope.row"
+                          :step="1"
+                          v-model="scope.row.facetax"
+                          @change="changeSum(scope.row)"
+                          style="width: 100%">
+                        </el-input-number>
+                      </template>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.operation')" align="center" width="200">
+                      <template slot-scope="scope">
+                        <el-button
+                          :disabled="!disable"
+                          @click.native.prevent="deleteRow7(scope.$index, tableF)"
+                          plain
+                          size="small"
+                          type="danger"
+                        >{{$t('button.delete')}}
+                        </el-button>
+                        <el-button
+                          :disabled="!disable"
+                          @click="addRow7()"
+                          plain
+                          size="small"
+                          type="primary"
+                        >{{$t('button.insert')}}
+                        </el-button>
+                      </template>
+                    </el-table-column>
+                  </el-table>
 
                 </el-row>
               </div>
             </el-tab-pane>
-            <el-tab-pane :label="$t('label.PFANS1012FORMVIEW_CHARGED')" name="second">
-              <el-collapse>
-                <el-collapse-item v-if="show9">
-                  <template slot="title">
-                    <span class="collapse_Title">{{$t('label.PFANS1012VIEW_TRAFFIC')}}</span>
-                  </template>
-                  <el-row>
-                    <el-col :span="24">
-                      <el-table :data="tableT" :summary-method="getTsummaries"
-                                header-cell-class-name="sub_bg_color_blue"
-                                show-summary stripe border style="width: 70vw">
-                        <el-table-column :label="$t('label.date')" align="center" width="150">
-                          <template slot-scope="scope">
-                            <el-date-picker :disabled="!disable" style="width: 100%"
-                                            v-model="scope.row.trafficdate"></el-date-picker>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1012FORMVIEW_DEPARTMENT')" align="center" width="200">
-                          <template slot-scope="scope">
-                            <org :orglist="scope.row.departmentname"
-                                 orgtype="2"
-                                 :disabled="!disable"
-                                 :error="errorgroup"
-                                 style="width: 90%"
-                                 :no="scope.row"
-                                 @getOrgids="getGroupIdT"></org>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1012FORMVIEW_BUDGET')" align="center" width="200">
-                          <template slot-scope="scope">
-                            <!--                            <el-input :disabled="true" style="width: 100%" v-model="scope.row.budgetcoding">-->
-                            <!--                            </el-input>-->
-                            <el-select clearable style="width: 100%" v-model="scope.row.budgetcoding"
-                                       :disabled="!disable"
-                                       :placeholder="$t('normal.error_09')" :no="scope.row" @change="getBudgetunit">
-                              <el-option
-                                v-for="item in scope.row.optionsT"
-                                :key="item.value"
-                                :label="item.lable"
-                                :value="item.value">
-                              </el-option>
-                            </el-select>
-                          </template>
-                        </el-table-column>
+            <el-tab-pane :label="$t('label.PFANS1013VIEW_TRAFFIC')" name="second" v-if="show9">
 
-                        <el-table-column :label="$t('label.PFANS1012FORMVIEW_PL')" align="center" width="150">
-                          <template slot-scope="scope">
-                            <el-input v-show="false" :disabled="true" style="width: 100%" v-model="scope.row.plsummary">
-                            </el-input>
-                            <el-input :disabled="true" style="width: 100%" v-model="plsummary">
-                            </el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1012FORMVIEW_ACCOUNT')" align="center" width="250">
-                          <template slot-scope="scope">
-                            <el-select v-model="scope.row.accountcode" style="width: 100%" :disabled="!disable"
-                                       @change="getaccoundcode(scope.row)">
-                              <el-option
-                                v-for="item in scope.row.accoundoptionsdate"
-                                :key="item.value"
-                                :label="item.lable"
-                                :value="item.value">
-                              </el-option>
-                            </el-select>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1012FORMVIEW_ACCOUNTB')" align="center" width="150">
-                          <template slot-scope="scope">
-                            <el-input :disabled="true" style="width: 100%" v-model="scope.row.subjectnumber">
-                            </el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1012VIEW_REGION')" align="center" width="150">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" style="width: 100%" maxlength="20"
-                                      v-model="scope.row.region">
-                            </el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1012VIEW_VEHICLE')" align="center" width="150">
-                          <template slot-scope="scope">
-                            <dicselect :code="code14"
-                                       :data="scope.row.vehicle"
-                                       :disabled="!disable"
-                                       :multiple="multiple"
-                                       :no="scope.row"
-                                       @change="getvehicle" style="width: 100%">
-                            </dicselect>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1012VIEW_STARTINGPOINT')" align="center" width="150">
-                          <template slot-scope="scope">
-                            <el-tooltip class="item" effect="light" :content="scope.row.startingpoint" placement="top"
-                                        :disabled="scope.row.startingpoint===''?true:false">
-                              <el-input :disabled="!disable" style="width: 100%" maxlength="20"
-                                        v-model="scope.row.startingpoint"/>
-                            </el-tooltip>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1012VIEW_RMB')" align="center" prop="rmb" width="150">
-                          <template slot-scope="scope">
-                            <el-input-number
-                              :disabled="!disable"
-                              :max="1000000000"
-                              :min="0"
-                              :precision="2"
-                              @change="changeRMB(scope.row)"
-                              controls-position="right"
-                              style="width: 100%"
-                              v-model="scope.row.rmb"
-                            ></el-input-number>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1012VIEW_ANNEXNO')" align="center" width="100">
-                          <template slot-scope="scope">
-                            <el-input :disabled="!disable" maxlength="20" v-model="scope.row.annexno">
-                            </el-input>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('label.operation')" align="center" width="200">
-                          <template slot-scope="scope">
-                            <el-button
-                              :disabled="!disable"
-                              @click.native.prevent="deleteRow(scope.$index, tableT)"
-                              plain
-                              size="small"
-                              type="danger"
-                            >{{$t('button.delete')}}
-                            </el-button>
-                            <el-button
-                              :disabled="!disable"
-                              @click="addRow()"
-                              plain
-                              size="small"
-                              type="primary"
-                            >{{$t('button.insert')}}
-                            </el-button>
-                          </template>
-                        </el-table-column>
-                      </el-table>
-                    </el-col>
-                  </el-row>
-                </el-collapse-item>
-              </el-collapse>
+              <el-row>
+                <el-col :span="24">
+                  <el-table :data="tableT" :summary-method="getTsummaries"
+                            header-cell-class-name="sub_bg_color_blue"
+                            show-summary stripe border style="width: 70vw">
+                    <el-table-column :label="$t('label.date')" align="center" width="150">
+                      <template slot-scope="scope">
+                        <el-date-picker :disabled="!disable" style="width: 100%"
+                                        v-model="scope.row.trafficdate"></el-date-picker>
+                      </template>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.PFANS1012FORMVIEW_DEPARTMENT')" align="center" width="200">
+                      <template slot-scope="scope">
+                        <org :orglist="scope.row.departmentname"
+                             orgtype="2"
+                             :disabled="!disable"
+                             :error="errorgroup"
+                             style="width: 90%"
+                             :no="scope.row"
+                             @getOrgids="getGroupIdT"></org>
+                      </template>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.PFANS1012FORMVIEW_BUDGET')" align="center" width="200">
+                      <template slot-scope="scope">
+                        <!--                            <el-input :disabled="true" style="width: 100%" v-model="scope.row.budgetcoding">-->
+                        <!--                            </el-input>-->
+                        <el-select clearable style="width: 100%" v-model="scope.row.budgetcoding"
+                                   :disabled="!disable"
+                                   :placeholder="$t('normal.error_09')" :no="scope.row" @change="getBudgetunit">
+                          <el-option
+                            v-for="item in scope.row.optionsT"
+                            :key="item.value"
+                            :label="item.lable"
+                            :value="item.value">
+                          </el-option>
+                        </el-select>
+                      </template>
+                    </el-table-column>
+
+                    <el-table-column :label="$t('label.PFANS1012FORMVIEW_PL')" align="center" width="150">
+                      <template slot-scope="scope">
+                        <el-input v-show="false" :disabled="true" style="width: 100%" v-model="scope.row.plsummary">
+                        </el-input>
+                        <el-input :disabled="true" style="width: 100%" v-model="plsummary">
+                        </el-input>
+                      </template>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.PFANS1012FORMVIEW_ACCOUNT')" align="center" width="250">
+                      <template slot-scope="scope">
+                        <el-select v-model="scope.row.accountcode" style="width: 100%" :disabled="!disable"
+                                   @change="getaccoundcode(scope.row)">
+                          <el-option
+                            v-for="item in scope.row.accoundoptionsdate"
+                            :key="item.value"
+                            :label="item.lable"
+                            :value="item.value">
+                          </el-option>
+                        </el-select>
+                      </template>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.PFANS1012FORMVIEW_ACCOUNTB')" align="center" width="150">
+                      <template slot-scope="scope">
+                        <el-input :disabled="true" style="width: 100%" v-model="scope.row.subjectnumber">
+                        </el-input>
+                      </template>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.PFANS1012VIEW_REGION')" align="center" width="150">
+                      <template slot-scope="scope">
+                        <el-input :disabled="!disable" style="width: 100%" maxlength="20"
+                                  v-model="scope.row.region">
+                        </el-input>
+                      </template>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.PFANS1012VIEW_VEHICLE')" align="center" width="150">
+                      <template slot-scope="scope">
+                        <dicselect :code="code14"
+                                   :data="scope.row.vehicle"
+                                   :disabled="!disable"
+                                   :multiple="multiple"
+                                   :no="scope.row"
+                                   @change="getvehicle" style="width: 100%">
+                        </dicselect>
+                      </template>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.PFANS1012VIEW_STARTINGPOINT')" align="center" width="150">
+                      <template slot-scope="scope">
+                        <el-tooltip class="item" effect="light" :content="scope.row.startingpoint" placement="top"
+                                    :disabled="scope.row.startingpoint===''?true:false">
+                          <el-input :disabled="!disable" style="width: 100%" maxlength="20"
+                                    v-model="scope.row.startingpoint"/>
+                        </el-tooltip>
+                      </template>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.PFANS1012VIEW_RMB')" align="center" prop="rmb" width="150">
+                      <template slot-scope="scope">
+                        <el-input-number
+                          :disabled="!disable"
+                          :max="1000000000"
+                          :min="0"
+                          :precision="2"
+                          @change="changeRMB(scope.row)"
+                          controls-position="right"
+                          style="width: 100%"
+                          v-model="scope.row.rmb"
+                        ></el-input-number>
+                      </template>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.PFANS1012VIEW_ANNEXNO')" align="center" width="100">
+                      <template slot-scope="scope">
+                        <el-input :disabled="!disable" maxlength="20" v-model="scope.row.annexno">
+                        </el-input>
+                      </template>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.operation')" align="center" width="200">
+                      <template slot-scope="scope">
+                        <el-button
+                          :disabled="!disable"
+                          @click.native.prevent="deleteRow(scope.$index, tableT)"
+                          plain
+                          size="small"
+                          type="danger"
+                        >{{$t('button.delete')}}
+                        </el-button>
+                        <el-button
+                          :disabled="!disable"
+                          @click="addRow()"
+                          plain
+                          size="small"
+                          type="primary"
+                        >{{$t('button.insert')}}
+                        </el-button>
+                      </template>
+                    </el-table-column>
+                  </el-table>
+                </el-col>
+              </el-row>
+
+            </el-tab-pane>
+
+            <el-tab-pane :label="$t('label.PFANS1012FORMVIEW_CHARGED')" name="third" v-if="show6">
               <el-collapse>
                 <el-collapse-item v-if="show6">
                   <template slot="title">
@@ -1309,7 +1307,7 @@
         tableF: [{
           invoice_id: '',
           publicexpenseid: '',
-          invoicenumber: this.$t('label.PFANS1012FORMVIEW_NUMBERZP') +1,
+          invoicenumber: this.$t('label.PFANS1012FORMVIEW_NUMBERZP') + 1,
           invoicetype: 'PJ068001',
           invoiceamount: '',
           taxrate: '',
@@ -1683,8 +1681,7 @@
                         });
                       }
                     }
-                  }
-                  else if (this.Redirict == '1' || this.Redirict == '') {
+                  } else if (this.Redirict == '1' || this.Redirict == '') {
                     this.tableT[i].accoundoptionsdate = [];
                     let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ132');
                     for (let a = 0; a < dicnew.length; a++) {
@@ -3248,16 +3245,15 @@
       deleteRow7(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
-        }
-        else {
-            this.tableF = [{
-                invoicenumber: this.$t('label.PFANS1012FORMVIEW_NUMBERZP') +1,
-                invoicetype: '',
-                invoiceamount: '',
-                taxrate: '',
-                excludingtax: '',
-                facetax: '',
-            }];
+        } else {
+          this.tableF = [{
+            invoicenumber: this.$t('label.PFANS1012FORMVIEW_NUMBERZP') + 1,
+            invoicetype: '',
+            invoiceamount: '',
+            taxrate: '',
+            excludingtax: '',
+            facetax: '',
+          }];
         }
         this.checkoptionsdata();
       },
@@ -3284,8 +3280,8 @@
         let b;
         let c;
         if (this.tableF.length > 0) {
-          b =   this.tableF.length + 1;
-          c = this.$t('label.PFANS1012FORMVIEW_NUMBERZP')+ b
+          b = this.tableF.length + 1;
+          c = this.$t('label.PFANS1012FORMVIEW_NUMBERZP') + b;
         }
         this.tableF.push({
           invoice_id: '',
@@ -3707,28 +3703,30 @@
               //ADD-WS-增加公共费用精算书check
               if (this.form.type === 'PJ001001') {
                 for (let i = 0; i < this.tableT.length; i++) {
-                  if (this.tableT[i].budgetcoding === '') {
-                    error = error + 1;
-                    Message({
-                      message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_BUDGET'),
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
-                    break;
-                  }
-                  if (this.tableT[i].subjectnumber === '') {
-                    error = error + 1;
-                    Message({
-                      message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNTB'),
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
-                    break;
+                  if (this.tableT[i].rmb > 0) {
+                    if (this.tableT[i].budgetcoding === '') {
+                      error = error + 1;
+                      Message({
+                        message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_BUDGET'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                      break;
+                    }
+                    if (this.tableT[i].subjectnumber === '') {
+                      error = error + 1;
+                      Message({
+                        message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNTB'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                      break;
+                    }
                   }
                 }
               } else if (this.form.type === 'PJ001002') {
                 for (let i = 0; i < this.tableR.length; i++) {
-                  if (this.tableR[i].otherdetailsdate != '' && this.tableR[i].otherdetailsdate != null) {
+                  if (this.tableR[i].rmb > 0) {
                     if (this.tableR[i].budgetcoding === '') {
                       error = error + 1;
                       Message({
@@ -3759,7 +3757,7 @@
                   }
                 }
                 for (let i = 0; i < this.tableP.length; i++) {
-                  if (this.tableP[i].purchasedetailsdate != '' && this.tableP[i].purchasedetailsdate != null) {
+                  if (this.tableP[i].rmb > 0) {
                     if (this.tableP[i].budgetcoding === '') {
                       error = error + 1;
                       Message({
@@ -3805,7 +3803,7 @@
                       }
                     }
                   }
-                  if (summoney != this.tableF[j].invoiceamount && summoney != '0') {
+                  if (summoney != this.tableF[j].invoiceamount ) {
                     error = error + 1;
                     Message({
                       message: this.$t('label.PFANS1012FORMVIEW_MESSAGE'),
@@ -3831,7 +3829,6 @@
                       }
                     }
                   }
-
                   for (let i = 0; i < this.tableR.length; i++) {
                     if (this.tableR[i].otherdetailsdate !== '' || this.tableR[i].invoicenumber !== '' || this.tableR[i].costitem !== '' || this.tableR[i].departmentname !== '' || this.tableR[i].accountcode !== '' || this.tableR[i].subjectnumber !== '' || this.tableR[i].budgetcoding !== '' || this.tableR[i].remarks !== ''
                       || this.tableR[i].rmb > 0 || this.tableR[i].foreigncurrency > 0 || this.tableR[i].taxes !== '' || this.tableR[i].annexno !== '') {
@@ -3844,7 +3841,7 @@
                     }
                   }
                   sumout = summoney + sumMoney;
-                  if (sumout != this.tableF[j].invoiceamount && sumout != '0') {
+                  if (sumout != this.tableF[j].invoiceamount) {
                     error = error + 1;
                     Message({
                       message: this.$t('label.PFANS1012FORMVIEW_MESSAGE'),
