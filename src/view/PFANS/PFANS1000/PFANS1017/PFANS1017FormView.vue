@@ -97,8 +97,19 @@
                            :disabled="!disable"
                            :multiple="multiple"
                            @change="changeidtype"
-                           style="width:72vw">
+                           style="width:20vw">
                 </dicselect>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS6005FORMVIEW_NOTE')">
+                <el-input :disabled="!disable"
+                          style="width:72vw"
+                          type="textarea"
+                          v-model="form.remark"
+                ></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -347,6 +358,7 @@
                     subtype: '',
                     application: moment(new Date()).format('YYYY-MM-DD'),
                     email: '',
+                  remark: '',
                     extension: '',
                     idtype: '',
                 },
