@@ -140,7 +140,7 @@
                     },
                     {
                         'key': 'export1',
-                        'name': 'label.PFANS1012VIEW_EXPORT2',
+                        'name': 'button.printing',
                         'disabled': false,
                         icon: 'el-icon-upload2'
                     },
