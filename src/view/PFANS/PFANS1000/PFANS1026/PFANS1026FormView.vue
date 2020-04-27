@@ -816,6 +816,34 @@
                 </el-form-item>
               </template>
             </el-table-column>
+            <!--            ADD_FJL-->
+            <el-table-column :label="$t('label.PFANS1026FORMVIEW_RECOVERYSTATUS')" align="center" prop="recoverystatus"
+                             width="200">
+              <template slot-scope="scope">
+                <el-form-item :prop="'tableclaimtype.' + scope.$index + '.recoverystatus'">
+                  <el-select clearable v-model="scope.row.recoverystatus"
+                             :placeholder="$t('normal.error_09')">
+                    <el-option
+                      clearable
+                      v-for="item in optionsrestatus"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value">
+                    </el-option>
+                  </el-select>
+                </el-form-item>
+              </template>
+            </el-table-column>
+            <el-table-column :label="$t('label.PFANS1026FORMVIEW_RECOVERYDATE')" align="center" prop="recoverydate"
+                             width="200">
+              <template slot-scope="scope">
+                <el-form-item :prop="'tableclaimtype.' + scope.$index + '.recoverydate'">
+                  <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.recoverydate"
+                                  style="width: 9.5rem"></el-date-picker>
+                </el-form-item>
+              </template>
+            </el-table-column>
+            <!--            ADD_FJL-->
             <el-table-column :label="$t('label.PFANS1024VIEW_REMARKS')" align="center" prop="remarksqh" width="200">
               <template slot-scope="scope">
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.remarksqh'">
@@ -1128,6 +1156,23 @@
                     callback();
                 }
             };
+            //ADD_FJL 资金回收状况
+            // var validateRecoverystatus = (rule, value, callback) => {
+            //     debugger
+            //     if (value === '' && value != null && value != undefined) {
+            //         callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1026FORMVIEW_RECOVERYSTATUS')));
+            //     } else {
+            //         callback();
+            //     }
+            // };
+            // var validateRecoverydate = (rule, value, callback) => {
+            //     debugger;
+            //     if (value === '' && value != null && value != undefined) {
+            //         callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1026FORMVIEW_RECOVERYDATE')));
+            //     } else {
+            //         callback();
+            //     }
+            // };
             var groupId = (rule, value, callback) => {
                 if (!this.form1.grouporglist || this.form1.grouporglist === '') {
                     callback(new Error(this.$t('normal.error_08') + 'group'));
@@ -1217,6 +1262,14 @@
                 disabled3: false,
                 disabled4: false,
                 optionscompound: [],
+                optionsrestatus: [{
+                    value: '0',
+                    label: this.$t('label.PFANS1026FORMVIEW_RECOVERYOFF'),
+                }, {
+                    value: '1',
+                    label: this.$t('label.PFANS1026FORMVIEW_RECOVERYON'),
+                }
+                ],
                 multiple: false,
                 rowindex: '',
                 ruleSet: {
@@ -1354,6 +1407,13 @@
                     claimamount: [
                         {validator: validateClaimamount},
                     ],
+                    //ADD_FJL 资金回收状况
+                    // recoverystatus: [
+                    //         {validator: validateRecoverystatus},
+                    //     ],
+                    // recoverydate: [
+                    //         {validator: validateRecoverydate},
+                    //     ],
 
 
                 },
@@ -1990,6 +2050,7 @@
             getDecide(val, row) {
                 row.decide = val;
             },
+            //UPD_FJL  start
             getDeliverycondition(val, row) {
                 row.deliverycondition = val;
             },
@@ -2014,6 +2075,7 @@
             getClaimqh(val, row) {
                 row.claimqh = val;
             },
+            //UPD_FJL  end
             //日期区组件处理
             getclaimdatetime(claimdatetime) {
                 if (claimdatetime != null) {
@@ -2176,6 +2238,8 @@
                     claimqh: '',
                     qingremarksqh: '',
                     remarksqh: '',
+                    recoverystatus: '',
+                    recoverydate: '',
                 });
             },
             addRowcompound() {

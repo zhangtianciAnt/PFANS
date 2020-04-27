@@ -8,6 +8,14 @@ export function get(data) {
   })
 }
 
+export function getList(data) {
+  return request({
+    url: 'contractapplication/getList',
+    method: 'post',
+    data: data
+  })
+}
+
 export function get2(data) {
   return request({
     url: 'contractapplication/get2',
