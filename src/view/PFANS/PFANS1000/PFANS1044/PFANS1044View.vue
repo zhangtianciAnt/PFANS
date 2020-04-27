@@ -477,7 +477,7 @@
                                         let Invoicedat = moment(new Date()).format('YYYY');
                                         let invoiceDate = moment(new Date()).format('MM');
                                         let invoice = moment(new Date()).format('DD');
-                                        contractapplication[n].varto = invoicedat + invoice + '-' + contractapplication[n].contractnumber;
+                                        contractapplication[n].varto = invoicedat + invoiceDate + '-' + contractapplication[n].contractnumber;
                                         let date = '';
                                         if (invoiceDate == '01') {
                                           date = 'JAN';
@@ -576,7 +576,7 @@
                                         let Invoicedat = moment(new Date()).format('YYYY');
                                         let invoiceDate = moment(new Date()).format('MM');
                                         let invoice = moment(new Date()).format('DD');
-                                        contractapplication[n].varto = invoicedat + invoice + '-' + contractapplication[n].contractnumber;
+                                        contractapplication[n].varto = invoicedat + invoiceDate + '-' + contractapplication[n].contractnumber;
                                         let date = '';
                                         if (invoiceDate == '01') {
                                           date = 'JAN';
@@ -675,7 +675,7 @@
                                         let Invoicedat = moment(new Date()).format('YYYY');
                                         let invoiceDate = moment(new Date()).format('MM');
                                         let invoice = moment(new Date()).format('DD');
-                                        contractapplication[n].varto = invoicedat + invoice + '-' + contractapplication[n].contractnumber;
+                                        contractapplication[n].varto = invoicedat + invoiceDate + '-' + contractapplication[n].contractnumber;
                                         let date = '';
                                         if (invoiceDate == '01') {
                                           date = 'JAN';
@@ -773,7 +773,7 @@
                                       let Invoicedat = moment(new Date()).format('YYYY');
                                       let invoiceDate = moment(new Date()).format('MM');
                                       let invoice = moment(new Date()).format('DD');
-                                      contractapplication[n].varto = invoicedat + invoice + '-' + contractapplication[n].contractnumber;
+                                      contractapplication[n].varto = invoicedat + invoiceDate + '-' + contractapplication[n].contractnumber;
                                       let date = '';
                                       if (invoiceDate == '01') {
                                         date = 'JAN';
@@ -878,7 +878,7 @@
                                   let Invoicedat = moment(new Date()).format('YYYY');
                                   let invoiceDate = moment(new Date()).format('MM');
                                   let invoice = moment(new Date()).format('DD');
-                                  contractapplication[n].varto = invoicedat + invoice + '-' + contractapplication[n].contractnumber;
+                                  contractapplication[n].varto = invoicedat + invoiceDate + '-' + contractapplication[n].contractnumber;
                                   let date = '';
                                   if (invoiceDate == '01') {
                                     date = 'JAN';
@@ -975,7 +975,7 @@
                                   let Invoicedat = moment(new Date()).format('YYYY');
                                   let invoiceDate = moment(new Date()).format('MM');
                                   let invoice = moment(new Date()).format('DD');
-                                  contractapplication[n].varto = invoicedat + invoice + '-' + contractapplication[n].contractnumber;
+                                  contractapplication[n].varto = invoicedat + invoiceDate + '-' + contractapplication[n].contractnumber;
                                   let date = '';
                                   if (invoiceDate == '01') {
                                     date = 'JAN';
@@ -1072,7 +1072,7 @@
                                   let Invoicedat = moment(new Date()).format('YYYY');
                                   let invoiceDate = moment(new Date()).format('MM');
                                   let invoice = moment(new Date()).format('DD');
-                                  contractapplication[n].varto = invoicedat + invoice + '-' + contractapplication[n].contractnumber;
+                                  contractapplication[n].varto = invoicedat + invoiceDate + '-' + contractapplication[n].contractnumber;
                                   let date = '';
                                   if (invoiceDate == '01') {
                                     date = 'JAN';
@@ -1168,7 +1168,7 @@
                                 let Invoicedat = moment(new Date()).format('YYYY');
                                 let invoiceDate = moment(new Date()).format('MM');
                                 let invoice = moment(new Date()).format('DD');
-                                contractapplication[n].varto = invoicedat + invoice + '-' + contractapplication[n].contractnumber;
+                                contractapplication[n].varto = invoicedat + invoiceDate + '-' + contractapplication[n].contractnumber;
                                 let date = '';
                                 if (invoiceDate == '01') {
                                   date = 'JAN';
@@ -1360,7 +1360,7 @@
                   'supportdate', 'status', 'businesscode', 'state', 'sidegroup', 'secondjudge'
                   , 'rowindex', 'responphone', 'careeryear', 'responerglish', 'responemail', 'remarks', 'qingremarks', '', '', 'productnumber'
                   , 'claim', 'placechinese', 'periods', 'papercontract', 'pageSize', 'owners', 'owner', 'outputmanager', 'outnumber'];
-                const parser = new Parser({header: true});
+                const parser = new Parser({header: false});
                 const result = parser.parse(csvData);
                 let aaa = result;
                 let csvContent = 'data:text/csv;charset=utf-8,\uFEFF' + aaa;
