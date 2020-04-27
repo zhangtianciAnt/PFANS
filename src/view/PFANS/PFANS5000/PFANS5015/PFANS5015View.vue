@@ -56,7 +56,7 @@
         showSelection: true,
         buttonList: [
           //{'key': 'import', 'name': 'button.import', 'disabled': false, 'icon': 'el-icon-upload2'},
-          {'key': 'export', 'name': 'button.export', 'disabled': false, 'icon': 'el-icon-download'},
+          {'key': 'export', 'name': 'button.export', 'disabled': false, 'icon': 'el-icon-upload2'},
         ],
         contractType: '0',
         loading: false,
