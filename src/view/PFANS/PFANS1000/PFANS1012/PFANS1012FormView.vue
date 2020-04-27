@@ -1367,6 +1367,7 @@
         }],
         baseInfo: {},
         form: {
+          bsexternal: '',
           project_id: '',
           centerid: '',
           groupid: '',
@@ -3595,6 +3596,15 @@
               }
               this.form.moneys = Math.round((this.form.rmbexpenditure + this.form.tormb) * 100) / 100;
               this.form.reimbursementdate = moment(this.form.reimbursementdate).format('YYYY-MM-DD');
+              //add-ws-4/27-BS科目根据收款方编码值，赋01
+              if(this.form.payeecode!=''&&this.form.payeecode!=null){
+                if(this.form.payeecode==='00027358'){
+                  this.form.bsexternal = '1'
+                }else{
+                  this.form.bsexternal = '0'
+                }
+              }
+              //add-ws-4/27-BS科目根据收款方编码值，赋01
               this.baseInfo.publicexpense = JSON.parse(JSON.stringify(this.form));
               let sum = 0;
               for (let i = 0; i < this.tableF.length; i++) {
