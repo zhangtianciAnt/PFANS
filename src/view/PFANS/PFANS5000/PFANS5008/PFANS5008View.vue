@@ -121,28 +121,28 @@
             label: 'label.user_name',
             width: 120,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'project_name',
             label: 'label.PFANS5008VIEW_PROGRAM',
             width: 120,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'log_date',
             label: 'label.PFANS5008VIEW_RIQI',
             width: 140,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'time_start',
             label: 'label.PFANS5008FORMVIEW_SC',
             width: 140,
             fix: false,
-            filter: true,
+            filter: false,
           },
 
           {
@@ -150,7 +150,7 @@
             label: 'label.PFANS5008VIEW_GZBZ',
             width: 140,
             fix: false,
-            filter: true,
+            filter: false,
           },
           // {
           //   code: 'confirmstatus',
