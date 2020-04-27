@@ -1201,13 +1201,15 @@
                   let contractdate1 = contractdate.slice(contractdate.length - 10);
                   contractapplication[i].contractdate = [contractdat, contractdate1];
                 }
-                if (contractapplication[i].conchinese != null && contractapplication[i].conchinese != '') {
-                  let conchinese = contractapplication[i].conchinese;
-                  if (typeof conchinese == 'string') {
-                    conchinese = conchinese.split(',');
-                    contractapplication[i].conchinese = conchinese;
-                  }
-                }
+                  // DEL_FJL  start
+                  // if (contractapplication[i].conchinese != null && contractapplication[i].conchinese != '') {
+                  //   let conchinese = contractapplication[i].conchinese;
+                  //   if (typeof conchinese == 'string') {
+                  //     conchinese = conchinese.split(',');
+                  //     contractapplication[i].conchinese = conchinese;
+                  //   }
+                  // }
+                  //   DEL_FJL  end
                 let o = Object.assign({}, contractapplication[i]);
                 this.form.tabledata.push(o);
                 if (this.maketype === '1') {
@@ -1288,17 +1290,19 @@
             });
           });
       },
-      changePro(val, row) {
-        let nameJA = '';
-        for (let i = 0; i < val.length; i++) {
-          let result = this.projectResult.filter(value => {
-            return value.companyprojects_id === val[i];
-          });
-          nameJA += result[0].project_namejp + ',';
-        }
-        row.conchinese = val;
-        row.conjapanese = nameJA.substring(0, nameJA.length - 1);
-      },
+        // DEL_FJL  start
+        // changePro(val, row) {
+        //   let nameJA = '';
+        //   for (let i = 0; i < val.length; i++) {
+        //     let result = this.projectResult.filter(value => {
+        //       return value.companyprojects_id === val[i];
+        //     });
+        //     nameJA += result[0].project_namejp + ',';
+        //   }
+        //   row.conchinese = val;
+        //   row.conjapanese = nameJA.substring(0, nameJA.length - 1);
+        // },
+        // DEL_FJL  enf
       changed() {
         if (this.region === '2') {
           this.showTable1 = false;
@@ -2049,9 +2053,11 @@
             o.state = this.$t('label.PFANS8008FORMVIEW_EFFECTIVE');
             o.claimamount = letclaimamount;
           }
-          if (Array.isArray(this.form.tabledata[i].conchinese)) {
-            o.conchinese = this.form.tabledata[i].conchinese.join(',');
-          }
+            // DEL_FJL  start
+            // if (Array.isArray(this.form.tabledata[i].conchinese)) {
+            //   o.conchinese = this.form.tabledata[i].conchinese.join(',');
+            // }
+            // DEL_FJL  end
           baseInfo.contractapplication.push(o);
         }
 //        baseInfo.contractapplication = this.tabledata;
