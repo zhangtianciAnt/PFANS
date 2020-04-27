@@ -71,7 +71,7 @@
 </template>
 <script>
   import {getToken} from '@/utils/auth';
-  import EasyNormalTable from '@/components/EasyNormalTable';
+  import EasyNormalTable from '@/components/EasyBigDataTable';
   import {Message} from 'element-ui';
   import {getOrgInfoByUserId, getUserInfo, getCooperinterviewListByAccount} from '../../../../utils/customize';
 
