@@ -67,6 +67,15 @@
             fix: false,
             filter: true,
           },
+          //ADD-WS-4/27-精算类型添加
+          {
+            code: 'type',
+            label: 'label.PFANS1012VIEW_TYPECHECK',
+            width: 130,
+            fix: false,
+            filter: true,
+          },
+          //ADD-WS-4/27-精算类型添加
           {
             code: 'moneys',
             label: 'label.PFANS1012VIEW_MONEY',
@@ -128,6 +137,15 @@
               if (rst) {
                 response[j].user_id = rst.userinfo.customername;
               }
+              //ADD-WS-4/27-精算类型添加
+              if (response[j].type !== null && response[j].type !== '') {
+                if(response[j].type==='PJ001001'){
+                  response[j].type = this.$t('label.PFANS1012VIEW_TYPECHECKJT')
+                }else if(response[j].type==='PJ001002'){
+                  response[j].type =this.$t('label.PFANS1012VIEW_TYPECHECKQQ')
+                }
+              }
+              //ADD-WS-4/27-精算类型添加
               if (response[j].status != '0') {
                 if (response[j].modifyon !== null && response[j].modifyon !== '') {
                   response[j].modifyon = moment(response[j].modifyon).format('YYYY-MM-DD');

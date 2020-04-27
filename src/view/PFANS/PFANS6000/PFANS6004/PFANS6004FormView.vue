@@ -701,6 +701,13 @@
           .dispatch('PFANS6004Store/getexpatriatesinforApplyOne', {'expatriatesinfor_id': this.$route.params._id})
           .then(response => {
             this.form = response;
+            //账号
+            if(this.form.account != null){
+                let letaccount = this.form.account.split("K");
+                if(letaccount.length === 1){
+                    this.form.account = "";
+                }
+            }
             if(this.form.birth!='') {
               let birthdays = new Date(this.form.birth);
               let d = new Date();

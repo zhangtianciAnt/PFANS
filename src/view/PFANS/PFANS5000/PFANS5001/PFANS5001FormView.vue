@@ -1880,36 +1880,36 @@
                   response.projectcontract[i].workinghours = [claimdatetim, claimdatetime1];
                 }
                 //region复合合同金额分配
-                if(this.compounddata.length > 0){
-                    let dic = this.compounddata.filter(item => item.contractnumber === response.projectcontract[i].contract
-                        && item.group_id === this.form.group_id);
+                if (this.compounddata.length > 0) {
+                  let dic = this.compounddata.filter(item => item.contractnumber === response.projectcontract[i].contract
+                    && item.group_id === this.form.group_id);
 
-                    let claimamount = 0;
-                    for (let dtem of dic) {
-                        //add-ws-合同关联项目，分配金额
-                        claimamount = claimamount + Number(dtem.contractrequestamount);
-                        compound.push({
-                            contractnumber: dtem.contractnumber,
-                            claimtype: dtem.claimtype,
-                            claimamount: dtem.claimamount,
-                            contractrequestamount: dtem.contractrequestamount,
-                        });
-                    }
-                    if(compound.length > 0){
-                        response.projectcontract[i].contractrequestamount = claimamount;
-                        this.displaycompound = true;
-                    }
+                  let claimamount = 0;
+                  for (let dtem of dic) {
+                    //add-ws-合同关联项目，分配金额
+                    claimamount = claimamount + Number(dtem.contractrequestamount);
+                    compound.push({
+                      contractnumber: dtem.contractnumber,
+                      claimtype: dtem.claimtype,
+                      claimamount: dtem.claimamount,
+                      contractrequestamount: dtem.contractrequestamount,
+                    });
+                  }
+                  if (compound.length > 0) {
+                    response.projectcontract[i].contractrequestamount = claimamount;
+                    this.displaycompound = true;
+                  }
                 }
                 //endregion
 
                 tabled.push({
-                    //add-ws-合同关联项目，分配金额
-                    contractrequestamount: response.projectcontract[i].contractrequestamount,
-                    contractamount: response.projectcontract[i].contractamount,
-                    //add-ws-合同关联项目，分配金额
-                    contract: response.projectcontract[i].contract,
-                    theme: response.projectcontract[i].theme,
-                    workinghours: response.projectcontract[i].workinghours,
+                  //add-ws-合同关联项目，分配金额
+                  contractrequestamount: response.projectcontract[i].contractrequestamount,
+                  contractamount: response.projectcontract[i].contractamount,
+                  //add-ws-合同关联项目，分配金额
+                  contract: response.projectcontract[i].contract,
+                  theme: response.projectcontract[i].theme,
+                  workinghours: response.projectcontract[i].workinghours,
                 });
               }
               this.tableD = tabled;
@@ -2014,9 +2014,12 @@
       },
       //ADD-WS-合同分配金额不能大于合同分配金额
       setPl({row, column, rowIndex, columnIndex}) {
-        if (row.position.toUpperCase() === 'PL') {
-          return 'PlStyle';
+        if (row.position != '' && row.position != null) {
+          if (row.position.toUpperCase() === 'PL') {
+            return 'PlStyle';
+          }
         }
+
       },
       checkRequire() {
         if (!this.form.group_id ||
@@ -2290,24 +2293,24 @@
         row.workinghours = this.workinghoursRow;
         this.dialogTableVisible3 = false;
         //region复合合同金额分配
-        if(this.compounddata.length > 0){
-            let dic = this.compounddata.filter(item => item.contractnumber === row.contract
-                && item.group_id === this.form.group_id);
-            let claimamount = 0;
-            for (let dtem of dic) {
-                //add-ws-合同关联项目，分配金额
-                claimamount = claimamount + Number(dtem.contractrequestamount);
-                this.tablecompound.push({
-                    contractnumber: dtem.contractnumber,
-                    claimtype: dtem.claimtype,
-                    claimamount: dtem.claimamount,
-                    contractrequestamount: dtem.contractrequestamount,
-                });
-            }
-            if(this.tablecompound.length > 0){
-                row.contractrequestamount = claimamount;
-                this.displaycompound = true;
-            }
+        if (this.compounddata.length > 0) {
+          let dic = this.compounddata.filter(item => item.contractnumber === row.contract
+            && item.group_id === this.form.group_id);
+          let claimamount = 0;
+          for (let dtem of dic) {
+            //add-ws-合同关联项目，分配金额
+            claimamount = claimamount + Number(dtem.contractrequestamount);
+            this.tablecompound.push({
+              contractnumber: dtem.contractnumber,
+              claimtype: dtem.claimtype,
+              claimamount: dtem.claimamount,
+              contractrequestamount: dtem.contractrequestamount,
+            });
+          }
+          if (this.tablecompound.length > 0) {
+            row.contractrequestamount = claimamount;
+            this.displaycompound = true;
+          }
         }
         //endregion
       },
@@ -2575,10 +2578,10 @@
       //合同
       deleteRow3(index, rows) {
         if (rows.length > 1) {
-          for(let i = 0;i < this.tablecompound.length;i++){
-              if(this.tablecompound[i].contractnumber === rows[index].contract){
-                  this.tablecompound.splice(i, 1);
-              }
+          for (let i = 0; i < this.tablecompound.length; i++) {
+            if (this.tablecompound[i].contractnumber === rows[index].contract) {
+              this.tablecompound.splice(i, 1);
+            }
           }
           rows.splice(index, 1);
         } else {
@@ -2853,7 +2856,7 @@
             for (let i = 0; i < this.tableC.length; i++) {
               // 外协员工入场时间&离场时间必须Check
               if ((!this.tableC[i].admissiontime || this.tableC[i].admissiontime === '' || !this.tableC[i].exittime || this.tableC[i].exittime === '') && this.tableC[i].name !== '') {
-                error11 = error11+1;
+                error11 = error11 + 1;
               }
               if (
                 this.tableC[i].number !== '' ||
@@ -2877,7 +2880,7 @@
             }
             //add-ws-存在check关闭loading
             if (this.checkmessage === 1) {
-              error12 = error12+1
+              error12 = error12 + 1;
             }
             //add-ws-存在check关闭loading
             for (let i = 0; i < this.tableD.length; i++) {
@@ -2887,8 +2890,8 @@
                 this.tableD[i].theme !== '' ||
                 this.tableD[i].workinghours !== ''
               ) {
-                if(this.tableD[i].contractamount == 0 ){
-                  error13 = error13+1;
+                if (this.tableD[i].contractamount == 0) {
+                  error13 = error13 + 1;
                 }
                 this.baseInfo.projectcontract.push({
                   //add-ws-合同关联项目，分配金额
@@ -3013,7 +3016,7 @@
                 duration: 5 * 1000,
               });
               this.loading = false;
-            }else if (error != 0 && this.form.toolstype !== '1') {
+            } else if (error != 0 && this.form.toolstype !== '1') {
               this.activeName = 'fifth';
               this.loading = false;
               Message({
@@ -3034,7 +3037,7 @@
               });
             }
             //add-ws-存在check关闭loading
-            else if (error12!=0) {
+            else if (error12 != 0) {
               this.activeName = 'fifth';
               this.loading = false;
             }
