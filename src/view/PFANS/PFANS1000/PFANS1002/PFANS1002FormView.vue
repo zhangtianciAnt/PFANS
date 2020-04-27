@@ -420,7 +420,7 @@
                     </template>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1002VIEW_LOANMONEY1')" prop="loanmoney">
+                    <el-form-item :label="$t('label.PFANS1002VIEW_LOANMONEY1')" >
                       <el-input-number
                         :disabled="!disable"
                         :max="999999999"
@@ -1064,13 +1064,6 @@
           //     trigger: 'blur',
           //   },
           // ],
-          loanmoney: [
-            {
-              required: true,
-              message: this.$t('normal.error_08') + this.$t('label.PFANS1002VIEW_LOANMONEY1'),
-              trigger: 'blur',
-            },
-          ],
           accommodationcost: [
             {
               required: true,

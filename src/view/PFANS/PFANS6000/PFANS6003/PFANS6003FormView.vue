@@ -15,21 +15,21 @@
             <!--            中文-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1024VIEW_CHINESE')" prop="supchinese">
-                <el-input :disabled="!disabled" style="width:20vw" maxlength="50"
+                <el-input :disabled="!disabled" style="width:20vw" maxlength="100"
                           v-model="form.supchinese"></el-input>
               </el-form-item>
             </el-col>
             <!--            日文-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6002FORMVIEW_JAPANESE')" prop="supjapanese">
-                <el-input :disabled="!disabled" style="width:20vw" maxlength="50"
+                <el-input :disabled="!disabled" style="width:20vw" maxlength="100"
                           v-model="form.supjapanese"></el-input>
               </el-form-item>
             </el-col>
             <!--            英文-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1024VIEW_ENGLISH')" prop="supenglish">
-                <el-input :disabled="!disabled" style="width:20vw" maxlength="50"
+                <el-input :disabled="!disabled" style="width:20vw" maxlength="100"
                           v-model="form.supenglish"></el-input>
               </el-form-item>
             </el-col>
@@ -131,21 +131,21 @@
                 <!--            中文-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1024VIEW_CHINESE')" prop="prochinese">
-                    <el-input :disabled="!disabled" style="width:20vw" maxlength="50"
+                    <el-input :disabled="!disabled" style="width:20vw" maxlength="100"
                               v-model="form.prochinese"></el-input>
                   </el-form-item>
                 </el-col>
                 <!--            日文-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS6002FORMVIEW_JAPANESE')" prop="projapanese">
-                    <el-input :disabled="!disabled" style="width:20vw" maxlength="50"
+                    <el-input :disabled="!disabled" style="width:20vw" maxlength="100"
                               v-model="form.projapanese"></el-input>
                   </el-form-item>
                 </el-col>
                 <!--            英文-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1024VIEW_ENGLISH')" prop="proenglish">
-                    <el-input :disabled="!disabled" style="width:20vw" maxlength="50"
+                    <el-input :disabled="!disabled" style="width:20vw" maxlength="100"
                               v-model="form.proenglish"></el-input>
                   </el-form-item>
                 </el-col>
