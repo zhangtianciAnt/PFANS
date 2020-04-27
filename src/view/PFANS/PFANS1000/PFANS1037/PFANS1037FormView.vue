@@ -90,7 +90,7 @@
           },
           {
             key: "export",
-            name: "button.export",
+            name: "button.printing",
             disabled: false,
             icon: "el-icon-download"
           }

@@ -29,10 +29,14 @@
                 </dicselect>
               </el-form-item>
             </el-col>
-            <!--            年龄-->
+            <!--            账号-->
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANSUSERFORMVIEW_AGE')">
-                <el-input :disabled="true" style="width:20vw" v-model="age"></el-input>
+              <el-form-item :label="$t('label.PFANSUSERFORMVIEW_ADFIELD')" >
+                <el-input
+                  :disabled="true"
+                  style="width:20vw"
+                  v-model="form.account" maxlength="20">
+                </el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -58,15 +62,10 @@
                 </dicselect>
               </el-form-item>
             </el-col>
-            <!--           卒业年-->
+            <!--            年龄-->
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS2024VIEW_GRADUATIONYEAR')" prop="graduation_year">
-                <el-date-picker
-                  :disabled="true"
-                  style="width:20vw"
-                  type="year"
-                  v-model="form.graduation_year">
-                </el-date-picker>
+              <el-form-item :label="$t('label.PFANSUSERFORMVIEW_AGE')">
+                <el-input :disabled="true" style="width:20vw" v-model="age"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -104,11 +103,15 @@
                 </dicselect>
               </el-form-item>
             </el-col>
-            <!--            邮箱-->
+            <!--           卒业年-->
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANSUSERFORMVIEW_EMAILADDRESS')">
-                <el-input :disabled="!disabled" style="width:20vw" maxlength="50"
-                          v-model="form.email"></el-input>
+              <el-form-item :label="$t('label.PFANS2024VIEW_GRADUATIONYEAR')" prop="graduation_year">
+                <el-date-picker
+                  :disabled="true"
+                  style="width:20vw"
+                  type="year"
+                  v-model="form.graduation_year">
+                </el-date-picker>
               </el-form-item>
             </el-col>
           </el-row>
@@ -134,15 +137,11 @@
                 </dicselect>
               </el-form-item>
             </el-col>
-            <!--            编号变更卡号-->
-            <!--1111-->
+            <!--            邮箱-->
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANSUSERFORMVIEW_JOBNUMBER')" prop="number">
-                <el-input
-                  :disabled="!disabled"
-                  style="width:20vw"
-                  v-model="form.number" maxlength="20">
-                </el-input>
+              <el-form-item :label="$t('label.PFANSUSERFORMVIEW_EMAILADDRESS')">
+                <el-input :disabled="!disabled" style="width:20vw" maxlength="50"
+                          v-model="form.email"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -171,6 +170,17 @@
                   type="date"
                   v-model="form.admissiontime">
                 </el-date-picker>
+              </el-form-item>
+            </el-col>
+            <!--            编号变更卡号-->
+            <!--1111-->
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANSUSERFORMVIEW_JOBNUMBER')" prop="number">
+                <el-input
+                  :disabled="!disabled"
+                  style="width:20vw"
+                  v-model="form.number" maxlength="20">
+                </el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -691,6 +701,13 @@
           .dispatch('PFANS6004Store/getexpatriatesinforApplyOne', {'expatriatesinfor_id': this.$route.params._id})
           .then(response => {
             this.form = response;
+            //账号
+            if(this.form.account != null){
+                let letaccount = this.form.account.split("K");
+                if(letaccount.length === 1){
+                    this.form.account = "";
+                }
+            }
             if(this.form.birth!='') {
               let birthdays = new Date(this.form.birth);
               let d = new Date();

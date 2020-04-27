@@ -26,7 +26,7 @@
     },
     data() {
       return {
-        department: '',
+        department: null,
         options:[],
         loading: false,
         title: 'title.ASSETS1002EXPORTFORMVIEW',

@@ -2086,7 +2086,7 @@
           rows.splice(index, 1);
         } else {
           this.tableF = [{
-            invoicenumber: '',
+            invoicenumber: this.$t('label.PFANS1012FORMVIEW_NUMBERZP') +1,
             invoicetype: '',
             invoiceamount: '',
             taxrate: '',
