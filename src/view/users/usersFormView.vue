@@ -770,7 +770,7 @@
                   <el-form-item :label="$t('label.budgetunit')" prop="budgetunit">
                     <el-input
                       class="width"
-                      :disabled="true"
+                      :disabled="false"
                       v-model="form.budgetunit"
                       maxlength="10"
                       style="width:20vw"

@@ -258,7 +258,7 @@
     import user from '../../../components/user.vue';
     import {getOrgInfoByUserId, getCurrentRole} from '@/utils/customize';
     import moment from 'moment';
-    import {getDictionaryInfo, uploadUrl} from '../../../../utils/customize';
+    import {downLoadUrl,getDictionaryInfo, uploadUrl} from '../../../../utils/customize';
 
     export default {
         name: 'PFANS2016FormView',
