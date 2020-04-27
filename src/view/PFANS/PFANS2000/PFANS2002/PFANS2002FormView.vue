@@ -613,7 +613,7 @@
   import dicselect from '../../../components/dicselect';
   import user from '../../../components/user';
   import org from '../../../components/org';
-  import {uploadUrl} from '../../../../utils/customize';
+  import {downLoadUrl,uploadUrl} from '../../../../utils/customize';
   import {getDictionaryInfo} from '../../../../utils/customize';
   import moment from 'moment';
   import {Message} from 'element-ui';
