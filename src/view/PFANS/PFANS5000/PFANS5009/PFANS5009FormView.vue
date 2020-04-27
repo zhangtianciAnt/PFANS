@@ -1693,8 +1693,8 @@
       },
       getcontract() {
         this.contractapplication = {};
-        this.contractapplication.entrycondition = [];
-        this.contractapplication.entrycondition = 'HT004007';
+        // this.contractapplication.entrycondition = [];
+        // this.contractapplication.entrycondition = 'HT004007';//契約締結完了
         this.loading = true;
         this.$store
           .dispatch('PFANS1026Store/get2', this.contractapplication)
@@ -1742,10 +1742,11 @@
       },
       handleClickChange2(val) {
         this.currentRow = val.contract;
-        this.themeRow = val.contract;
+        this.themeRow = val.theme;
         this.workinghoursRow = val.claimdatetime;
       },
       submit2(row) {
+        debugger;
         row.contract = this.currentRow;
         row.theme = this.themeRow;
         row.workinghours = this.workinghoursRow;
