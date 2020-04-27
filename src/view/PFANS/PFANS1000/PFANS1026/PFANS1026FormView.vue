@@ -2447,6 +2447,7 @@
                 if (this.form.claimtype === 'HT001001') {
                     this.addRowclaimtype();
                     this.form.tableclaimtype[0].claimtype = letclaimtypeone;
+                    this.form.tableclaimtype[0].recoverystatus = '0';
                     option1.code = 'HT001001';
                     option1.value = letclaimtypeone;
                     this.optionscompound.push(option1);
@@ -2455,6 +2456,8 @@
                     this.addRowclaimtype();
                     this.form.tableclaimtype[0].claimtype = letclaimtypeone;
                     this.form.tableclaimtype[1].claimtype = letclaimtypetwo;
+                    this.form.tableclaimtype[0].recoverystatus = '0';
+                    this.form.tableclaimtype[1].recoverystatus = '0';
                     option1.code = 'HT001001';
                     option1.value = letclaimtypeone;
                     option2.code = 'HT001002';
@@ -2468,6 +2471,9 @@
                     this.form.tableclaimtype[0].claimtype = letclaimtypeone;
                     this.form.tableclaimtype[1].claimtype = letclaimtypetwo;
                     this.form.tableclaimtype[2].claimtype = letclaimtypethree;
+                    this.form.tableclaimtype[0].recoverystatus = '0';
+                    this.form.tableclaimtype[1].recoverystatus = '0';
+                    this.form.tableclaimtype[2].recoverystatus = '0';
                     option1.code = 'HT001001';
                     option1.value = letclaimtypeone;
                     option2.code = 'HT001002';
@@ -2487,6 +2493,10 @@
                     this.form.tableclaimtype[1].claimtype = letclaimtypetwo;
                     this.form.tableclaimtype[2].claimtype = letclaimtypethree;
                     this.form.tableclaimtype[3].claimtype = letclaimtypefour;
+                    this.form.tableclaimtype[0].recoverystatus = '0';
+                    this.form.tableclaimtype[1].recoverystatus = '0';
+                    this.form.tableclaimtype[2].recoverystatus = '0';
+                    this.form.tableclaimtype[3].recoverystatus = '0';
                     option1.code = 'HT001001';
                     option1.value = letclaimtypeone;
                     option2.code = 'HT001002';
