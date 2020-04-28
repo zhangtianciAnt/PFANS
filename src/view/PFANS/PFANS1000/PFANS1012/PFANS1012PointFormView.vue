@@ -127,7 +127,7 @@
                   }
                   var vote = {};
                   vote.value = response[i].judgementid;
-                  vote.label = response[i].judgnumbers + '_' + this.$t('menu.PFANS1004');
+                  vote.label = this.$t('menu.PFANS1004') + '_' + response[i].judgnumbers;
                   this.options.push(vote);
                 }
               }
@@ -154,7 +154,7 @@
                   }
                   var vote = {};
                   vote.value = response[i].purchaseapply_id;
-                  vote.label = response[i].purchasenumbers + '_' + this.$t('menu.PFANS1005');
+                  vote.label = this.$t('menu.PFANS1005') + '_' + response[i].purchasenumbers;
                   this.options.push(vote);
                 }
               }
@@ -181,7 +181,7 @@
                   }
                   var vote = {};
                   vote.value = response[i].communication_id;
-                  vote.label = this.$t('menu.PFANS1010') + '_' + response[i].createon;
+                  vote.label = this.$t('menu.PFANS1010')+ '_' + response[i].createon ;
                   this.options.push(vote);
                 }
               }
