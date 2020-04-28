@@ -2152,6 +2152,16 @@
               disabled: false,
             },
           });
+        } else if (row.judgement_name.substring(0, 2) === this.$t('label.PFANS1012VIEW_CAIGOU')) {
+          this.$router.push({
+            name: 'PFANS3005FormView',
+            params: {
+              _checkid: this.IDname,
+              _check: true,
+              _id: row.judgement,
+              disabled: false,
+            },
+          });
         }
       },
       //add-ws-4/28-精算中，点击决裁，跳转画面

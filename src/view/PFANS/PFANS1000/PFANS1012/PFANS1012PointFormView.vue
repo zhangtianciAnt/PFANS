@@ -68,7 +68,8 @@
           value: '2',
           lable: this.$t('menu.PFANS1005'),
         }, {value: '3', lable: this.$t('menu.PFANS1010')}
-          , {value: '4', lable: this.$t('menu.PFANS1030')}],
+          , {value: '4', lable: this.$t('label.PFANS1012VIEW_CHECKLIST')}
+          , {value: '5', lable: this.$t('label.PFANS1012VIEW_PURCHASSES')}],
         award: [],
         options: [],
         selectType: 'Single',
@@ -210,7 +211,30 @@
                   this.options.push(vote);
                 }
               }
-              console.log("aaa",this.options)
+              this.loading = false;
+            }).catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+        }else if (val == '5') {
+          this.form.judgement = '';
+          this.options = [];
+          this.loading = true;
+          this.$store
+            .dispatch('PFANS3005Store/getPurchase')
+            .then(response => {
+              for (let i = 0; i < response.length; i++) {
+                if(response[i].status === '4'){
+                  var vote = {};
+                  vote.value = response[i].purchase_id;
+                  vote.label = this.$t('label.PFANS1012VIEW_PURCHASSES') + '_' + response[i].purnumbers;
+                  this.options.push(vote);
+                }
+              }
               this.loading = false;
             }).catch(error => {
             Message({

@@ -1077,16 +1077,16 @@
                   .then(response => {
                     this.data = response;
                     this.loading = false;
-                    // if (val !== 'update') {
+                    if (val !== 'update') {
                     Message({
                       message: this.$t('normal.success_02'),
                       type: 'success',
                       duration: 5 * 1000,
                     });
-                    //   if (this.$store.getters.historyUrl) {
-                    //     this.$router.push(this.$store.getters.historyUrl);
-                    //   }
-                    // }
+                      if (this.$store.getters.historyUrl) {
+                        this.$router.push(this.$store.getters.historyUrl);
+                      }
+                    }
                   })
                   .catch(error => {
                     Message({
