@@ -144,7 +144,13 @@
             fix: false,
             filter: false,
           },
-
+          {
+            code: 'wbs_id',
+            label: 'WBS_ID',
+            width: 140,
+            fix: false,
+            filter: false,
+          },
           {
             code: 'work_memo',
             label: 'label.PFANS5008VIEW_GZBZ',

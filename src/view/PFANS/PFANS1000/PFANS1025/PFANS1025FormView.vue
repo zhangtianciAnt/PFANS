@@ -546,7 +546,7 @@
         activeName: 'first',
         disabled: true,
         error: '',
-        errorfile:'',
+        errorfile: '',
         userlist: '',
         code1: 'HT008',
         code2: 'HT005',
@@ -647,7 +647,7 @@
             this.form = response.award;
             if (this.form.status === '4') {
               this.enableSave = true;
-            }else{
+            } else {
               this.enableSave = false;
             }
             //add-ws-契约种类value1值处理
@@ -714,13 +714,13 @@
                 this.orglist = this.tableT[i].depart;
                 if (this.tableT[i].depart !== '' && this.tableT[i].depart !== null && this.tableT[i].depart !== undefined) {
                   //ADD_FJL
-                    this.tableT[i].options1 = [];
+                  this.tableT[i].options1 = [];
                   let butinfo = getOrgInfo(this.tableT[i].depart).encoding;
                   let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
                   if (dic.length > 0) {
                     for (let j = 0; j < dic.length; j++) {
                       if (butinfo === dic[j].value1) {
-                          this.tableT[i].options1.push({
+                        this.tableT[i].options1.push({
                           lable: dic[j].value2 + '_' + dic[j].value3,
                           value: dic[j].code,
                         });
@@ -908,7 +908,7 @@
         if (dic.length > 0) {
           for (let i = 0; i < dic.length; i++) {
             if (butinfo === dic[i].value1) {
-                row.options1.push({
+              row.options1.push({
                 lable: dic[i].value2 + '_' + dic[i].value3,
                 value: dic[i].code,
               });
@@ -1010,6 +1010,23 @@
       changePlan(val) {
         this.form.plan = val;
       },
+      //add-ws-4/28-精算中，点击决裁，跳转画面
+      checkparamsTitle() {
+        let id = this.$route.params._checkid;
+        this.$router.push({
+          name: 'PFANS1012FormView',
+          params: {
+            _id: id,
+          },
+        });
+      },
+
+      paramsTitle() {
+        this.$router.push({
+          name: 'PFANS1025View',
+        });
+      },
+      //add-ws-4/28-精算中，点击决裁，跳转画面
       buttonClick(val) {
         this.form.maketype = '7',
           this.baseInfo = {};
@@ -1018,7 +1035,17 @@
         if (this.form.claimdatetimeStart !== '' && this.form.claimdatetimeEnd !== '') {
           this.form.claimdatetime = moment(this.form.claimdatetimeStart).format('YYYY-MM-DD') + ' ~ ' + moment(this.form.claimdatetimeEnd).format('YYYY-MM-DD');
         }
-        if (val === 'save') {
+        if (val === 'back') {
+          //add-ws-4/28-精算中，点击决裁，跳转画面
+          if (this.$route.params._check != null && this.$route.params._check != '' && this.$route.params._check != undefined) {
+            if (this.$route.params._check) {
+              this.checkparamsTitle();
+            }
+          } else {
+            this.paramsTitle();
+          }
+          //add-ws-4/28-精算中，点击决裁，跳转画面
+        } else if (val === 'save') {
           this.$refs['reff'].validate(valid => {
             if (valid) {
               this.loading = true;
@@ -1051,11 +1078,11 @@
                     this.data = response;
                     this.loading = false;
                     if (val !== 'update') {
-                      Message({
-                        message: this.$t('normal.success_02'),
-                        type: 'success',
-                        duration: 5 * 1000,
-                      });
+                    Message({
+                      message: this.$t('normal.success_02'),
+                      type: 'success',
+                      duration: 5 * 1000,
+                    });
                       if (this.$store.getters.historyUrl) {
                         this.$router.push(this.$store.getters.historyUrl);
                       }
