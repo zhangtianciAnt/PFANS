@@ -316,7 +316,7 @@
               </template>
               <el-table
                 :data="tableData"
-                border
+                header-cell-class-name="sub_bg_color_blue" stripe border
                 style="width:100%"
               >
                 <!--                部门-->
