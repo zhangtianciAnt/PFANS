@@ -84,12 +84,19 @@
                   </el-col>
                 </el-row>
                 <el-row>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.judgement')" v-if="show7">
-                      <el-input :disabled="true" style="width:20vw" v-model="form.judgement_name">
-                      </el-input>
-                    </el-form-item>
-                  </el-col>
+                  <el-table
+                    :data="DataList"
+                    v-show="show7"
+                    @row-click="rowclick"
+                    style="width: 230px"
+                    header-cell-class-name="sub_bg_color_blue" stripe border
+                  >
+                    <el-table-column
+                      prop="judgement_name"
+                      :label="$t('label.judgement')"
+                      width="228px">
+                    </el-table-column>
+                  </el-table>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
@@ -1233,6 +1240,9 @@
         }
       };
       return {
+        DataList: [{
+          judgement_name: '',
+        }],
         invoicetype: '',
         checkexternal: false,
         checktaxes: false,
@@ -1606,6 +1616,22 @@
           .dispatch('PFANS1012Store/selectById', {'publicexpenseid': this.$route.params._id})
           .then(response => {
               this.form = response.publicexpense;
+            //add-ws-4/28-精算中，点击决裁，跳转画面
+              let judgement = this.form.judgement.split(',');
+              let judgementname = this.form.judgement_name.split(',');
+              let datalist = [];
+              for (var i = 0; i < judgement.length; i++) {
+                for (var d = 0; d < judgementname.length; d++) {
+                  if (i===d) {
+                    let obj = {};
+                    obj.judgement = judgement[i];
+                    obj.judgement_name = judgementname[d];
+                    datalist[i] = obj;
+                  }
+                }
+              }
+              this.DataList = datalist;
+            //add-ws-4/28-精算中，点击决裁，跳转画面
               let rst = getOrgInfoByUserId(response.publicexpense.user_id);
               //ADD-WS-4/20-交通费得时候模块修改
               if (this.form.type === 'PJ001001') {
@@ -2038,13 +2064,11 @@
         if (this.form.type === 'PJ001001') {
           this.show9 = true;
           this.show6 = false;
-          this.show7 = false;
           this.form.moduleid = 'PJ002001';
           this.form.moduleidApp = getDictionaryInfo(this.form.moduleid).value1;
         } else if (this.form.type === 'PJ001002') {
           this.show9 = false;
           this.show6 = true;
-          this.show7 = true;
         }
       }
       this.$store
@@ -2086,6 +2110,43 @@
       },
     },
     methods: {
+      //add-ws-4/28-精算中，点击决裁，跳转画面
+      rowclick(row, event, column) {
+        if (row.judgement_name.substring(0, 2) === '决裁') {
+          this.$router.push({
+            name: 'PFANS1004FormView',
+            params: {
+              _checkid: this.IDname,
+              _check: true,
+              _id: row.judgement,
+              disabled: false,
+            },
+          });
+        }
+        if (row.judgement_name.substring(0, 2) === '千元') {
+          this.$router.push({
+            name: 'PFANS1005FormView',
+            params: {
+              _checkid: this.IDname,
+              _check: true,
+              _id: row.judgement,
+              disabled: false,
+            },
+          });
+        }
+        if (row.judgement_name.substring(0, 2) === '交际') {
+          this.$router.push({
+            name: 'PFANS1010FormView',
+            params: {
+              _checkid: this.IDname,
+              _check: true,
+              _id: row.judgement,
+              disabled: false,
+            },
+          });
+        }
+      },
+      //add-ws-4/28-精算中，点击决裁，跳转画面
       changeinvoicenumber(row, val) {
         for (let j = 0; j < this.tableF.length; j++) {
           if (row.invoicenumber == this.tableF[j].invoicenumber) {
@@ -3597,11 +3658,11 @@
               this.form.moneys = Math.round((this.form.rmbexpenditure + this.form.tormb) * 100) / 100;
               this.form.reimbursementdate = moment(this.form.reimbursementdate).format('YYYY-MM-DD');
               //add-ws-4/27-BS科目根据收款方编码值，赋01
-              if(this.form.payeecode!=''&&this.form.payeecode!=null){
-                if(this.form.payeecode==='00027358'){
-                  this.form.bsexternal = '1'
-                }else{
-                  this.form.bsexternal = '0'
+              if (this.form.payeecode != '' && this.form.payeecode != null) {
+                if (this.form.payeecode === '00027358') {
+                  this.form.bsexternal = '1';
+                } else {
+                  this.form.bsexternal = '0';
                 }
               }
               //add-ws-4/27-BS科目根据收款方编码值，赋01
@@ -3813,7 +3874,7 @@
                       }
                     }
                   }
-                  if (summoney != this.tableF[j].invoiceamount ) {
+                  if (summoney != this.tableF[j].invoiceamount) {
                     error = error + 1;
                     Message({
                       message: this.$t('label.PFANS1012FORMVIEW_MESSAGE'),

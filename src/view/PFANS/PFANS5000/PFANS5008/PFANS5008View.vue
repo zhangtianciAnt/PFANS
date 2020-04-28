@@ -164,6 +164,7 @@
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
           {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
+          {'key': 'delete', 'name': 'button.delete', 'disabled': false, 'icon': 'el-icon-delete'},
           // {'key': 'import', 'name': 'button.import', 'disabled': false,icon: 'el-icon-download'},
           // {'key': 'export', 'name': 'button.export', 'disabled': false, icon: 'el-icon-upload2'},
           // {'key': 'export2', 'name': 'button.download2', 'disabled': false, 'icon': 'el-icon-download'},
@@ -393,9 +394,54 @@
           });
         } else if (val === 'import') {
           this.daoru = true;
+        }else if(val === 'delete'){
+          if (this.row === '') {
+            Message({
+              message: this.$t('normal.info_01'),
+              type: 'info',
+              duration: 2 * 1000,
+            });
+            return;
+          }
+
+          this.delete();
         }
-      }
-      ,
+      },
+      delete() {
+        this.loading = true;
+        this.$confirm(this.$t('normal.info_02'), this.$t('normal.info'), {
+          confirmButtonText: this.$t('button.confirm'),
+          cancelButtonText: this.$t('button.cancel'),
+          type: 'warning',
+          center: true
+        }).then(() => {
+          this.$store
+            .dispatch('PFANS5008Store/deletePersonal', {personalprojects_id: this.rowid})
+            .then(response => {
+              this.getWorkflowList();
+              Message({
+                message: this.$t('normal.info_03'),
+                type: 'success',
+                duration: 2 * 1000
+              })
+              this.loading = false;
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000
+              })
+              this.loading = false;
+            })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: this.$t('normal.info_04')
+          });
+          this.loading = false;
+        });
+      },
     },
   };
 </script>
