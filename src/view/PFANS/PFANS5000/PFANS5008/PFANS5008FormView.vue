@@ -123,6 +123,7 @@
               <span>{{$t('label.PFANS5008FORMVIEW_JL')}}</span>
             </div>
             <el-table
+              header-cell-class-name="sub_bg_color_blue" stripe border
               :data="DataList"
               v-show="xsTable"
               @row-click="rowclick"
