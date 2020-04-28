@@ -326,6 +326,7 @@
         .then(response => {
 
           this.gridDatabpplayer = [];
+          response = response.filter(item => item.result === 'BP003001');
           for (let i = 0; i < response.length; i++) {
             var vote = {};
             vote.suppliername = response[i].suppliername;
@@ -402,7 +403,7 @@
         this.$store
           .dispatch('PFANS6004Store/getexpatriatesinfor')
           .then(response => {
-
+            response = response.filter(item => item.result === 'BP003001');
             this.gridDatabpplayer = [];
             for (let i = 0; i < response.length; i++) {
                var vote = {};
