@@ -2,6 +2,18 @@
   <div>
     <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" ref="roletable" @rowClick="rowClick"
                      :title="title" @buttonClick="buttonClick" v-loading="loading" :showSelection="isShow" :rowid="rowid">
+      <el-date-picker
+        unlink-panels
+        class="bigWidth"
+        v-model="workinghours"
+        style="margin-right:1vw"
+        slot="customize"
+        type="daterange"
+        :end-placeholder="$t('label.enddate')"
+        :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
+        :start-placeholder="$t('label.startdate')"
+        @change="filterInfo"
+      ></el-date-picker>
     </EasyNormalTable>
     <el-dialog :visible.sync="daoru" width="50%">
       <div>
@@ -49,10 +61,10 @@
 </template>
 <script>
     import {getToken} from '@/utils/auth'
-    import EasyNormalTable from "@/components/EasyNormalTable";
+    import EasyNormalTable from "@/components/EasyBigDataTable";
     import {Message} from 'element-ui';
     import moment from "moment";
-    import {getUserInfo,getCooperinterviewListByAccount} from '@/utils/customize';
+    import {getUserInfo,getCooperinterviewListByAccount,getorgGroupList} from '@/utils/customize';
 
     export default {
         name: 'PFANS2029View',
@@ -86,55 +98,59 @@
                 loading: false,
                 title: "title.PFANS2017VIEW",
                 data: [],
+                workinghours: "",
+                tableList: [],
+                working: "",
+                starttime: "",
                 columns: [
                     {
                         code: 'user_id',
                         label: 'label.user_name',
                         width: 90,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: 'group_id',
                         label: 'label.group',
                         width: 160,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: 'suppliername',
                         label: 'label.PFANS6001VIEW_SUPPLIERNAME',
                         width: 160,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: 'punchcardrecord_date',
                         label: 'label.date',
                         width: 110,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: 'time_start',
                         label: 'label.PFANS2017VIEW_START',
                         width: 110,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: 'time_end',
                         label: 'label.PFANS2017VIEW_END',
                         width: 110,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: 'worktime',
                         label: 'label.PFANS2017VIEW_COUNTTIME',
                         width: 140,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: 'absenteeismam',
@@ -183,7 +199,12 @@
                                 response[j].suppliername = supplierInfor.suppliername;
                             }
                             //所属group
-                            //response[j].group_id = supplierInfor.suppliername;
+                            if (response[j].group_id !== null && response[j].group_id !== '' && response[j].group_id !== undefined) {
+                                let group = getorgGroupList(response[j].group_id);
+                                if (group) {
+                                    response[j].group_id = group.groupname;
+                                }
+                            }
                             if (response[j].punchcardrecord_date !== null && response[j].punchcardrecord_date !== "") {
                                 response[j].punchcardrecord_date = moment(response[j].punchcardrecord_date).format("YYYY-MM-DD");
                             }
@@ -209,6 +230,7 @@
                             }
                         }
                         this.data = response;
+                        this.tableList = response;
                         this.loading = false;
                     })
                     .catch(error => {
@@ -359,7 +381,36 @@
                 //       this.loading = false;
                 //     })
                 // }
-            }
+            },
+            filterInfo() {
+                this.data = this.tableList.slice(0);
+                if (this.tableList.length > 0) {
+                    //进行时间筛选
+                    this.working = this.getworkinghours(this.workinghours);
+                    this.starttime = this.working.substring(0, 10);
+                    this.endTime = this.working.substring(13, 23);
+                    if (this.starttime != "" || this.endTime != "") {
+                        this.data = this.data.filter(item => {
+                            return this.starttime <= item.punchcardrecord_date && item.punchcardrecord_date <= this.endTime
+                        });
+                    }
+                }
+            },
+            getworkinghours(workinghours) {
+                if (workinghours != null) {
+                    if (workinghours.length > 0) {
+                        return (
+                            moment(workinghours[0]).format("YYYY-MM-DD") +
+                            " ~ " +
+                            moment(workinghours[1]).format("YYYY-MM-DD")
+                        );
+                    } else {
+                        return "";
+                    }
+                } else {
+                    return "";
+                }
+            },
         }
     }
 </script>
