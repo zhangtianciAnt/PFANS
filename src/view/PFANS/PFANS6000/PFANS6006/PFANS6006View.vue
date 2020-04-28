@@ -164,33 +164,33 @@
                     </template>
                   </el-table-column>
                   <!--                配賦対象-->
-                  <el-table-column
-                    :label="$t('label.PFANS6005VIEW_PFDX')"
-                    align="center"
-                    width="120">
-                    <template slot-scope="scope">
-                      <el-input
-                        :disabled="!disabled"
-                        :no="scope.row"
-                        style="width: 100%"
-                        v-model="scope.row.distriobjects">
-                      </el-input>
-                    </template>
-                  </el-table-column>
-                  <!--                構内対象-->
-                  <el-table-column
-                    :label="$t('label.PFANS6005VIEW_SNDX')"
-                    align="center"
-                    width="120">
-                    <template slot-scope="scope">
-                      <el-input
-                        :disabled="!disabled"
-                        :no="scope.row"
-                        style="width: 100%"
-                        v-model="scope.row.venuetarget">
-                      </el-input>
-                    </template>
-                  </el-table-column>
+<!--                  <el-table-column-->
+<!--                    :label="$t('label.PFANS6005VIEW_PFDX')"-->
+<!--                    align="center"-->
+<!--                    width="120">-->
+<!--                    <template slot-scope="scope">-->
+<!--                      <el-input-->
+<!--                        :disabled="!disabled"-->
+<!--                        :no="scope.row"-->
+<!--                        style="width: 100%"-->
+<!--                        v-model="scope.row.distriobjects">-->
+<!--                      </el-input>-->
+<!--                    </template>-->
+<!--                  </el-table-column>-->
+<!--                  &lt;!&ndash;                構内対象&ndash;&gt;-->
+<!--                  <el-table-column-->
+<!--                    :label="$t('label.PFANS6005VIEW_SNDX')"-->
+<!--                    align="center"-->
+<!--                    width="120">-->
+<!--                    <template slot-scope="scope">-->
+<!--                      <el-input-->
+<!--                        :disabled="!disabled"-->
+<!--                        :no="scope.row"-->
+<!--                        style="width: 100%"-->
+<!--                        v-model="scope.row.venuetarget">-->
+<!--                      </el-input>-->
+<!--                    </template>-->
+<!--                  </el-table-column>-->
                 </el-table-column>
                 <!--              第二组-->
                 <!--活用状况-->
@@ -956,7 +956,7 @@
         }
       },
       getRowClass({row, column, rowIndex, columnIndex}) {
-        if (column.level === 2 && columnIndex >= 0 && columnIndex < 10) {
+        if (column.level === 2 && columnIndex >= 0 && columnIndex < 8) {
           return {
             color: 'white',
             background: '#99CCFF !important',
@@ -964,7 +964,7 @@
             'border-right': '1px solid #73B9FF',
           };
         }
-        if (column.level === 2 && columnIndex >= 4 && columnIndex < 24) {
+        if (column.level === 2 && columnIndex >= 4 && columnIndex < 22) {
           return {
             color: 'white',
             background: '#99CC99 !important',
@@ -972,7 +972,7 @@
             'border-right': '1px solid #73CC73',
           };
         }
-        if (column.level === 2 && columnIndex >= 24 && columnIndex < 29) {
+        if (column.level === 2 && columnIndex >= 22 && columnIndex < 27) {
           return {
             color: 'white',
             background: '#99CCFF',
@@ -980,7 +980,7 @@
             'border-right': '1px solid #73CC73',
           };
         }
-        if (column.level === 1 && columnIndex >= 0 && columnIndex < 25) {
+        if (column.level === 1 && columnIndex >= 0 && columnIndex < 23) {
           return {
             color: 'white',
             background: '#005BAA !important',
