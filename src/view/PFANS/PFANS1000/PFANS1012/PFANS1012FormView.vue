@@ -1616,13 +1616,13 @@
           .dispatch('PFANS1012Store/selectById', {'publicexpenseid': this.$route.params._id})
           .then(response => {
               this.form = response.publicexpense;
-            //add-ws-4/28-精算中，点击决裁，跳转画面
+              //add-ws-4/28-精算中，点击决裁，跳转画面
               let judgement = this.form.judgement.split(',');
               let judgementname = this.form.judgement_name.split(',');
               let datalist = [];
               for (var i = 0; i < judgement.length; i++) {
                 for (var d = 0; d < judgementname.length; d++) {
-                  if (i===d) {
+                  if (i === d) {
                     let obj = {};
                     obj.judgement = judgement[i];
                     obj.judgement_name = judgementname[d];
@@ -1631,7 +1631,7 @@
                 }
               }
               this.DataList = datalist;
-            //add-ws-4/28-精算中，点击决裁，跳转画面
+              //add-ws-4/28-精算中，点击决裁，跳转画面
               let rst = getOrgInfoByUserId(response.publicexpense.user_id);
               //ADD-WS-4/20-交通费得时候模块修改
               if (this.form.type === 'PJ001001') {
@@ -2112,7 +2112,7 @@
     methods: {
       //add-ws-4/28-精算中，点击决裁，跳转画面
       rowclick(row, event, column) {
-        if (row.judgement_name.substring(0, 2) === '决裁') {
+        if (row.judgement_name.substring(0, 2) === this.$t('menu.PFANS1001')) {
           this.$router.push({
             name: 'PFANS1004FormView',
             params: {
@@ -2122,8 +2122,7 @@
               disabled: false,
             },
           });
-        }
-        if (row.judgement_name.substring(0, 2) === '千元') {
+        } else if (row.judgement_name.substring(0, 2) === this.$t('label.PFANS1012VIEW_QIANYUAN')) {
           this.$router.push({
             name: 'PFANS1005FormView',
             params: {
@@ -2133,10 +2132,19 @@
               disabled: false,
             },
           });
-        }
-        if (row.judgement_name.substring(0, 2) === '交际') {
+        } else if (row.judgement_name.substring(0, 2) === this.$t('label.PFANS1012VIEW_JIAOJI')) {
           this.$router.push({
             name: 'PFANS1010FormView',
+            params: {
+              _checkid: this.IDname,
+              _check: true,
+              _id: row.judgement,
+              disabled: false,
+            },
+          });
+        } else if (row.judgement_name.substring(0, 2) === this.$t('label.PFANS1012VIEW_WEITUO')) {
+          this.$router.push({
+            name: 'PFANS1025FormView',
             params: {
               _checkid: this.IDname,
               _check: true,
