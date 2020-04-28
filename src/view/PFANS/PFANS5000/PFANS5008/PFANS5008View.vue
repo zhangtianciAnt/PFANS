@@ -73,7 +73,7 @@
   import {getToken} from '@/utils/auth';
   import EasyNormalTable from '@/components/EasyBigDataTable';
   import {Message} from 'element-ui';
-  import {getOrgInfoByUserId, getUserInfo, getCooperinterviewListByAccount} from '../../../../utils/customize';
+  import {getOrgInfoByUserId, getUserInfo, getCooperinterviewListByAccount,getDictionaryInfo} from '../../../../utils/customize';
 
   let moment = require('moment');
   export default {
@@ -140,6 +140,20 @@
           {
             code: 'time_start',
             label: 'label.PFANS5008FORMVIEW_SC',
+            width: 140,
+            fix: false,
+            filter: false,
+          },
+          {
+            code: 'work_phase',
+            label: 'label.PFANS5008VIEW_JDJOBS',
+            width: 140,
+            fix: false,
+            filter: false,
+          },
+          {
+            code: 'behavior_breakdown',
+            label: 'label.PFANS5008VIEW_XWXF',
             width: 140,
             fix: false,
             filter: false,
@@ -294,6 +308,18 @@
                   let co = getCooperinterviewListByAccount(response[j].createby);
                   if (co) {
                     response[j].username = co.expname;
+                  }
+                }
+                if (response[j].work_phase != ''&&response[j].work_phase != null) {
+                  let letErrortype = getDictionaryInfo(response[j].work_phase);
+                  if (letErrortype != null) {
+                    response[j].work_phase = letErrortype.value1;
+                  }
+                }
+                if (response[j].behavior_breakdown != ''&&response[j].behavior_breakdown != null) {
+                  let letErrortype = getDictionaryInfo(response[j].behavior_breakdown);
+                  if (letErrortype != null) {
+                    response[j].behavior_breakdown = letErrortype.value1
                   }
                 }
                 response[j].log_date = moment(response[j].log_date).format('YYYY-MM-DD');
