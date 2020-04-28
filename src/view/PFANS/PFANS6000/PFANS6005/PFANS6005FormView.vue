@@ -493,7 +493,8 @@ export default {
           sum += this.arr[index][i];
       }
       this.tableData[index].totalunit =
-        sum + this.arr[index][8] * this.arr[index][9] + this.arr[index][10];
+        //sum + this.arr[index][8] * this.arr[index][9] + this.arr[index][10];
+      sum + this.arr[index][8] * this.arr[index][9];
       this.tableData[index].common = this.arr[index][6] * this.arr[index][7];
     },
     unitpriceBuler(index) {
@@ -720,8 +721,10 @@ export default {
     },
     sum(){
       for(let item of this.tableData){
+        // item.totalunit = Number(item.technology) + Number(item.value) + Number(item.field) + Number(item.languagevalue) + Number(item.service)
+        //   + Number(item.rvicevalue)+ Number(item.rankvalue)*Number(item.butioncoefficient) + Number(item.unitprice)
         item.totalunit = Number(item.technology) + Number(item.value) + Number(item.field) + Number(item.languagevalue) + Number(item.service)
-          + Number(item.rvicevalue)+ Number(item.rankvalue)*Number(item.butioncoefficient) + Number(item.unitprice)
+          + Number(item.rvicevalue)+ Number(item.rankvalue)*Number(item.butioncoefficient)
       }
     },
     sum1(){

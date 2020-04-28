@@ -56,7 +56,7 @@
         showSelection: true,
         buttonList: [
           //{'key': 'import', 'name': 'button.import', 'disabled': false, 'icon': 'el-icon-upload2'},
-          {'key': 'export', 'name': 'button.export', 'disabled': false, 'icon': 'el-icon-download'},
+          {'key': 'export', 'name': 'button.export', 'disabled': false, 'icon': 'el-icon-upload2'},
         ],
         contractType: '0',
         loading: false,
@@ -104,7 +104,7 @@
           },
           {
             code: 'time',
-            label: 'label.PFANS5008FORMVIEW_SC',
+            label: 'label.PFANS5015VIEW_FORMVIEW_SC',
             width: 140,
             fix: false,
             filter: true,
@@ -113,13 +113,15 @@
         row: '',
         contractnumber: '',
         state: '',
-        allData:[]
+        allData:[],
+        contractList:[]
       };
     },
     created() {
     },
-    mounted() {
-      this.getProjectList();
+    async mounted() {
+      await this.getcontract();
+      await this.getProjectList();
     },
     methods: {
       filter(){
@@ -157,6 +159,16 @@
 
         this.data = filtersrst;
       },
+      getcontract(){
+        this.$store
+          .dispatch('PFANS5001Store/selectAll', {})
+          .then(responses => {
+            if (responses)
+            {
+              this.contractList = responses;
+            }
+          });
+      },
       getProjectList() {
         this.loading = true;
         this.$store
@@ -176,48 +188,34 @@
                 if (response[j].time_end !== null && response[j].time_end !== '') {
                   response[j].time_end = moment(response[j].time_end).format('HH:mm');
                 }
-
                 response[j].unique = response[j].username + response[j].project_name;
                 response[j].contractno='';
               }
+            let result = [];
+            this.loading = true;
 
             for (let i = 0; i < response.length; i++)
             {
               if (response[i].project_id !== null && response[i].project_id !== '')
               {
-                this.loading = true;
-                this.$store
-                  .dispatch('PFANS5001Store/selectById', {companyprojectsid: response[i].project_id})
-                  .then(responses => {
-                    for (let j = 0; j < responses.projectcontract.length; j++)
-                    {
-                      if (response[i].contractno !==null &&  response[i].contractno !=='' && response[i].contractno !==undefined)
-                      {
-                        response[i].contractno = response[i].contractno + ',' + responses.projectcontract[j].contract;
-                      }
-                      else
-                      {
-                        response[i].contractno = responses.projectcontract[j].contract;
-                      }
-                    }
-                  })
-                  .catch(error => {
-                    Message({
-                      message: error,
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
-                    this.loading = false;
-                  });
+                let r = this.contractList.filter(item => item.companyprojects_id === response[i].project_id);
+                for (let su of r){
+                  if (response[i].contractno !==null &&  response[i].contractno !=='' && response[i].contractno !==undefined)
+                  {
+                    response[i].contractno = response[i].contractno + ',' + su.contract;
+                  }
+                  else
+                  {
+                    response[i].contractno = su.contract;
+                  }
+                }
               }
-              //debugger;
-              console.log(this.allData);
             }
             this.allData = response;
-              this.filter();
-              this.loading = false;
-            },
-          )
+            this.filter();
+            this.loading = false;
+
+            })
           .catch(error => {
             Message({
               message: error,
@@ -245,7 +243,7 @@
             this.$t('label.user_name'),
             this.$t('label.PFANS5008VIEW_PROGRAM'),
             this.$t('label.PFANS1007FORMVIEW_CONTRACTNO'),
-            this.$t('label.PFANS5008FORMVIEW_SC'),
+            this.$t('label.PFANS5015VIEW_FORMVIEW_SC'),
 
           ];
           const filterVal = [

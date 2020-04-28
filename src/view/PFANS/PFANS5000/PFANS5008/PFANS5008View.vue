@@ -73,7 +73,7 @@
   import {getToken} from '@/utils/auth';
   import EasyNormalTable from '@/components/EasyBigDataTable';
   import {Message} from 'element-ui';
-  import {getOrgInfoByUserId, getUserInfo, getCooperinterviewListByAccount} from '../../../../utils/customize';
+  import {getOrgInfoByUserId, getUserInfo, getCooperinterviewListByAccount,getDictionaryInfo} from '../../../../utils/customize';
 
   let moment = require('moment');
   export default {
@@ -121,36 +121,56 @@
             label: 'label.user_name',
             width: 120,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'project_name',
             label: 'label.PFANS5008VIEW_PROGRAM',
             width: 120,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'log_date',
             label: 'label.PFANS5008VIEW_RIQI',
             width: 140,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'time_start',
             label: 'label.PFANS5008FORMVIEW_SC',
             width: 140,
             fix: false,
-            filter: true,
+            filter: false,
           },
-
+          {
+            code: 'work_phase',
+            label: 'label.PFANS5008VIEW_JDJOBS',
+            width: 140,
+            fix: false,
+            filter: false,
+          },
+          {
+            code: 'behavior_breakdown',
+            label: 'label.PFANS5008VIEW_XWXF',
+            width: 140,
+            fix: false,
+            filter: false,
+          },
+          {
+            code: 'wbs_id',
+            label: 'WBS_ID',
+            width: 140,
+            fix: false,
+            filter: false,
+          },
           {
             code: 'work_memo',
             label: 'label.PFANS5008VIEW_GZBZ',
             width: 140,
             fix: false,
-            filter: true,
+            filter: false,
           },
           // {
           //   code: 'confirmstatus',
@@ -164,6 +184,7 @@
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
           {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
+          {'key': 'delete', 'name': 'button.delete', 'disabled': false, 'icon': 'el-icon-delete'},
           // {'key': 'import', 'name': 'button.import', 'disabled': false,icon: 'el-icon-download'},
           // {'key': 'export', 'name': 'button.export', 'disabled': false, icon: 'el-icon-upload2'},
           // {'key': 'export2', 'name': 'button.download2', 'disabled': false, 'icon': 'el-icon-download'},
@@ -289,6 +310,18 @@
                     response[j].username = co.expname;
                   }
                 }
+                if (response[j].work_phase != ''&&response[j].work_phase != null) {
+                  let letErrortype = getDictionaryInfo(response[j].work_phase);
+                  if (letErrortype != null) {
+                    response[j].work_phase = letErrortype.value1;
+                  }
+                }
+                if (response[j].behavior_breakdown != ''&&response[j].behavior_breakdown != null) {
+                  let letErrortype = getDictionaryInfo(response[j].behavior_breakdown);
+                  if (letErrortype != null) {
+                    response[j].behavior_breakdown = letErrortype.value1
+                  }
+                }
                 response[j].log_date = moment(response[j].log_date).format('YYYY-MM-DD');
                 if (response[j].time_end !== null && response[j].time_end !== '') {
                   response[j].time_end = moment(response[j].time_end).format('HH:mm');
@@ -393,9 +426,55 @@
           });
         } else if (val === 'import') {
           this.daoru = true;
+        }else if(val === 'delete'){
+          if (this.row === '') {
+            Message({
+              message: this.$t('normal.info_01'),
+              type: 'info',
+              duration: 2 * 1000,
+            });
+            return;
+          }
+
+          this.delete();
         }
-      }
-      ,
+      },
+      delete() {
+        this.loading = true;
+        this.$confirm(this.$t('normal.info_02'), this.$t('normal.info'), {
+          confirmButtonText: this.$t('button.confirm'),
+          cancelButtonText: this.$t('button.cancel'),
+          type: 'warning',
+          center: true
+        }).then(() => {
+          this.$store
+            .dispatch('PFANS5008Store/deleteLog', {logmanagement_id: this.row})
+            .then(response => {
+              this.getProjectList();
+              this.$store.commit('global/SET_OPERATEID', '');
+              Message({
+                message: this.$t('normal.info_03'),
+                type: 'success',
+                duration: 2 * 1000
+              })
+              this.loading = false;
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000
+              })
+              this.loading = false;
+            })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: this.$t('normal.info_04')
+          });
+          this.loading = false;
+        });
+      },
     },
   };
 </script>

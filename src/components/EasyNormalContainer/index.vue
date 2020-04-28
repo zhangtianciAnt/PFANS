@@ -92,11 +92,11 @@
       buttonClick(val) {
         if ('back' === val) {
           if (this.$store.getters.historyUrl && this.$store.getters.historyUrl !== '') {
-            if(this.$router.currentRoute.fullPath === '/PFANS1004FormView'){
-              this.$router.push(this.$store.getters.historyUrl)
-            }else{
+            // if(this.$router.currentRoute.fullPath === '/PFANS1004FormView'){
+            //   this.$router.push(this.$store.getters.historyUrl)
+            // }else{
               this.$router.back();
-            }
+            // }
           } else {
             this.$emit('buttonClick', val)
           }

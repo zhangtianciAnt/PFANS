@@ -482,6 +482,17 @@
           employ: '',
         });
       },
+      //add-ws-4/28-精算中，点击决裁，跳转画面
+      checkparamsTitle() {
+        let id = this.$route.params._checkid
+        this.$router.push({
+          name: 'PFANS1012FormView',
+          params: {
+            _id: id,
+          },
+        });
+      },
+      //add-ws-4/28-精算中，点击决裁，跳转画面
       paramsTitle() {
         this.$router.push({
           name: 'PFANS1001FormView',
@@ -492,7 +503,15 @@
       },
       buttonClick(val) {
         if (val === 'back') {
-          this.paramsTitle();
+          //add-ws-4/28-精算中，点击决裁，跳转画面
+          if(this.$route.params._check!=null&&this.$route.params._check!=''&&this.$route.params._check!=undefined){
+            if(this.$route.params._check){
+              this.checkparamsTitle();
+            }
+          }else{
+            this.paramsTitle();
+          }
+          //add-ws-4/28-精算中，点击决裁，跳转画面
         } else {
           if (Number(this.sumTotal[4]) > 1000) {
             this.$message.error(this.$t('label.PFANS1005FORMVIEW_ERRORCHECK'));

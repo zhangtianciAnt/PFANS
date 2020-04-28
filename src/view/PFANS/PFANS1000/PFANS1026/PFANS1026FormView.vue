@@ -941,10 +941,8 @@
     import user from '../../../components/user.vue';
     import org from '../../../components/org';
     import moment from 'moment';
-    import project from '../../../components/project';
     import ElInput from '../../../../../node_modules/element-ui/packages/input/src/input.vue';
     import ElFormItem from '../../../../../node_modules/element-ui/packages/form/src/form-item.vue';
-    import {save} from '../../PFANS2000/PFANS2005/PFANS2005Api';
 
     export default {
         name: 'PFANS1026View',
@@ -956,7 +954,6 @@
             user,
             org,
             EasyNormalTable,
-            project,
         },
         data() {
             var validateDeployment = (rule, value, callback) => {
@@ -1610,13 +1607,15 @@
                                     let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
                                     contractapplication[i].claimdatetime = [claimdatetim, claimdatetime1];
                                 }
-                                if (contractapplication[i].conchinese != null && contractapplication[i].conchinese != '') {
-                                    let conchinese = contractapplication[i].conchinese;
-                                    if (typeof conchinese == 'string') {
-                                        conchinese = conchinese.split(',');
-                                        contractapplication[i].conchinese = conchinese;
-                                    }
-                                }
+                                // DEL_FJL  start
+                                // if (contractapplication[i].conchinese != null && contractapplication[i].conchinese != '') {
+                                //     let conchinese = contractapplication[i].conchinese;
+                                //     if (typeof conchinese == 'string') {
+                                //         conchinese = conchinese.split(',');
+                                //         contractapplication[i].conchinese = conchinese;
+                                //     }
+                                // }
+                                // DEL_FJL  end
 
                                 let o = Object.assign({}, contractapplication[i]);
                                 this.form.tabledata.push(o);
@@ -1794,17 +1793,19 @@
                         });
                     });
             },
-            changePro(val, row) {
-                let nameJA = '';
-                for (let i = 0; i < val.length; i++) {
-                    let result = this.projectResult.filter(value => {
-                        return value.companyprojects_id === val[i];
-                    });
-                    nameJA += result[0].project_namejp + ',';
-                }
-                row.conchinese = val;
-                row.conjapanese = nameJA.substring(0, nameJA.length - 1);
-            },
+            // DEL_FJL  start
+            // changePro(val, row) {
+            //     let nameJA = '';
+            //     for (let i = 0; i < val.length; i++) {
+            //         let result = this.projectResult.filter(value => {
+            //             return value.companyprojects_id === val[i];
+            //         });
+            //         nameJA += result[0].project_namejp + ',';
+            //     }
+            //     row.conchinese = val;
+            //     row.conjapanese = nameJA.substring(0, nameJA.length - 1);
+            // },
+            // DEL_FJL  end
             changed() {
                 // if (this.region === '2') {
                 //   this.showTable1 = false;
@@ -2446,6 +2447,7 @@
                 if (this.form.claimtype === 'HT001001') {
                     this.addRowclaimtype();
                     this.form.tableclaimtype[0].claimtype = letclaimtypeone;
+                    this.form.tableclaimtype[0].recoverystatus = '0';
                     option1.code = 'HT001001';
                     option1.value = letclaimtypeone;
                     this.optionscompound.push(option1);
@@ -2454,6 +2456,8 @@
                     this.addRowclaimtype();
                     this.form.tableclaimtype[0].claimtype = letclaimtypeone;
                     this.form.tableclaimtype[1].claimtype = letclaimtypetwo;
+                    this.form.tableclaimtype[0].recoverystatus = '0';
+                    this.form.tableclaimtype[1].recoverystatus = '0';
                     option1.code = 'HT001001';
                     option1.value = letclaimtypeone;
                     option2.code = 'HT001002';
@@ -2467,6 +2471,9 @@
                     this.form.tableclaimtype[0].claimtype = letclaimtypeone;
                     this.form.tableclaimtype[1].claimtype = letclaimtypetwo;
                     this.form.tableclaimtype[2].claimtype = letclaimtypethree;
+                    this.form.tableclaimtype[0].recoverystatus = '0';
+                    this.form.tableclaimtype[1].recoverystatus = '0';
+                    this.form.tableclaimtype[2].recoverystatus = '0';
                     option1.code = 'HT001001';
                     option1.value = letclaimtypeone;
                     option2.code = 'HT001002';
@@ -2486,6 +2493,10 @@
                     this.form.tableclaimtype[1].claimtype = letclaimtypetwo;
                     this.form.tableclaimtype[2].claimtype = letclaimtypethree;
                     this.form.tableclaimtype[3].claimtype = letclaimtypefour;
+                    this.form.tableclaimtype[0].recoverystatus = '0';
+                    this.form.tableclaimtype[1].recoverystatus = '0';
+                    this.form.tableclaimtype[2].recoverystatus = '0';
+                    this.form.tableclaimtype[3].recoverystatus = '0';
                     option1.code = 'HT001001';
                     option1.value = letclaimtypeone;
                     option2.code = 'HT001002';
@@ -2735,9 +2746,11 @@
                     }
                     //add-ws-4/17-契约番号废弃状态有效变无效修改
                     // }
-                    if (Array.isArray(this.form.tabledata[i].conchinese)) {
-                        o.conchinese = this.form.tabledata[i].conchinese.join(',');
-                    }
+                    // DEL_FJL  start
+                    // if (Array.isArray(this.form.tabledata[i].conchinese)) {
+                    //     o.conchinese = this.form.tabledata[i].conchinese.join(',');
+                    // }
+                    // DEL_FJL   end
                     baseInfo.contractapplication.push(o);
                 }
 //              baseInfo.contractapplication = this.tabledata;

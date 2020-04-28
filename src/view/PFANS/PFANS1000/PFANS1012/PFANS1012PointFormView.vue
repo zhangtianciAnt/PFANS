@@ -53,7 +53,7 @@
   import dicselect from '../../../components/dicselect';
   import user from '../../../components/user.vue';
   import moment from 'moment';
-  import {Message} from 'element-ui'
+  import {Message} from 'element-ui';
 
   export default {
     name: 'PFANS1012PointFormView',
@@ -67,7 +67,9 @@
         optionsdata: [{value: '1', lable: this.$t('menu.PFANS1004')}, {
           value: '2',
           lable: this.$t('menu.PFANS1005'),
-        }, {value: '3', lable: this.$t('menu.PFANS1010')}],
+        }, {value: '3', lable: this.$t('menu.PFANS1010')}
+          , {value: '4', lable: this.$t('label.PFANS1012VIEW_CHECKLIST')}
+          , {value: '5', lable: this.$t('label.PFANS1012VIEW_PURCHASSES')}],
         award: [],
         options: [],
         selectType: 'Single',
@@ -127,7 +129,7 @@
                   }
                   var vote = {};
                   vote.value = response[i].judgementid;
-                  vote.label = response[i].judgnumbers + '_' + this.$t('menu.PFANS1004');
+                  vote.label = this.$t('menu.PFANS1004') + '_' + response[i].judgnumbers;
                   this.options.push(vote);
                 }
               }
@@ -154,7 +156,7 @@
                   }
                   var vote = {};
                   vote.value = response[i].purchaseapply_id;
-                  vote.label = response[i].purchasenumbers + '_' + this.$t('menu.PFANS1005');
+                  vote.label = this.$t('menu.PFANS1005') + '_' + response[i].purchasenumbers;
                   this.options.push(vote);
                 }
               }
@@ -182,6 +184,54 @@
                   var vote = {};
                   vote.value = response[i].communication_id;
                   vote.label = this.$t('menu.PFANS1010') + '_' + response[i].createon;
+                  this.options.push(vote);
+                }
+              }
+              this.loading = false;
+            }).catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+        } else if (val == '4') {
+          this.form.judgement = '';
+          this.options = [];
+          this.loading = true;
+          this.$store
+            .dispatch('PFANS1025Store/get', {'maketype': '7'})
+            .then(response => {
+              for (let i = 0; i < response.length; i++) {
+                if(response[i].status === '4'){
+                  var vote = {};
+                  vote.value = response[i].award_id;
+                  vote.label = this.$t('label.PFANS1012VIEW_CHECKLIST') + '_' + response[i].contractnumber;
+                  this.options.push(vote);
+                }
+              }
+              this.loading = false;
+            }).catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+        }else if (val == '5') {
+          this.form.judgement = '';
+          this.options = [];
+          this.loading = true;
+          this.$store
+            .dispatch('PFANS3005Store/getPurchase')
+            .then(response => {
+              for (let i = 0; i < response.length; i++) {
+                if(response[i].status === '4'){
+                  var vote = {};
+                  vote.value = response[i].purchase_id;
+                  vote.label = this.$t('label.PFANS1012VIEW_PURCHASSES') + '_' + response[i].purnumbers;
                   this.options.push(vote);
                 }
               }
