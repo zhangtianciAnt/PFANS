@@ -87,14 +87,25 @@
                   <el-table
                     :data="DataList"
                     v-show="show7"
-                    @row-click="rowclick"
-                    style="width: 230px"
+                    style="width: 518px"
                     header-cell-class-name="sub_bg_color_blue" stripe border
                   >
                     <el-table-column
+                      align="center"
                       prop="judgement_name"
                       :label="$t('label.judgement')"
-                      width="228px">
+                      width="315px">
+                    </el-table-column>
+                    <el-table-column :label="$t('label.operation')" align="center" width="200">
+                      <template slot-scope="scope">
+                        <el-button
+                          @click.native.prevent="viewdata(scope.row)"
+                          plain
+                          size="small"
+                          type="primary"
+                        >{{$t('button.view')}}
+                        </el-button>
+                      </template>
                     </el-table-column>
                   </el-table>
                 </el-row>
@@ -2111,7 +2122,7 @@
     },
     methods: {
       //add-ws-4/28-精算中，点击决裁，跳转画面
-      rowclick(row, event, column) {
+      viewdata(row) {
         if (row.judgement_name.substring(0, 2) === this.$t('menu.PFANS1001')) {
           this.$router.push({
             name: 'PFANS1004FormView',
