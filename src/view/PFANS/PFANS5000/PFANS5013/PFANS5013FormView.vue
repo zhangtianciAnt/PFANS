@@ -508,6 +508,9 @@
                                             <el-table-column property="post"
                                                              :label="$t('label.PFANSUSERVIEW_POST')"
                                                              width="150"></el-table-column>
+                                            <el-table-column property="suppliernameid" v-if="false"
+                                                             :label="$t('label.PFANSUSERVIEW_POST')"
+                                                             width="150"></el-table-column>
                                             <!--                                            <el-table-column property="post"-->
                                             <!--                                                             v-if="false"-->
                                             <!--                                                             :label="$t('label.PFANSUSERVIEW_POST')"-->
@@ -1901,6 +1904,7 @@
               vote1.name_id= response[i].account;
               vote1.expname = response[i].expname;
               vote1.suppliername = response[i].suppliername;
+              vote1.suppliernameid = response[i].expatriatesinfor_id;
               // vote1.post = response[i].post;
               if (response[i].post) {
                 vote1.post = getDictionaryInfo(response[i].post).value1;
