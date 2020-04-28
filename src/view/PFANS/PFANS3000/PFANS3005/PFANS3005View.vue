@@ -20,6 +20,13 @@
                 title: 'title.PFANS3005VIEW',
                 data: [],
                 columns: [
+                  {
+                    code: 'purnumbers',
+                    label: 'label.PFANS3005VIEW_NUMBERS',
+                    width: 150,
+                    fix: false,
+                    filter: true
+                  },
                     {
                         code: 'center_id',
                         label: 'label.center',

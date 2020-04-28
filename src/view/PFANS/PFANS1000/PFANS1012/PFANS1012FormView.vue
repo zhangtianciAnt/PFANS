@@ -87,14 +87,25 @@
                   <el-table
                     :data="DataList"
                     v-show="show7"
-                    @row-click="rowclick"
-                    style="width: 230px"
+                    style="width: 518px"
                     header-cell-class-name="sub_bg_color_blue" stripe border
                   >
                     <el-table-column
+                      align="center"
                       prop="judgement_name"
                       :label="$t('label.judgement')"
-                      width="228px">
+                      width="315px">
+                    </el-table-column>
+                    <el-table-column :label="$t('label.operation')" align="center" width="200">
+                      <template slot-scope="scope">
+                        <el-button
+                          @click.native.prevent="viewdata(scope.row)"
+                          plain
+                          size="small"
+                          type="primary"
+                        >{{$t('button.view')}}
+                        </el-button>
+                      </template>
                     </el-table-column>
                   </el-table>
                 </el-row>
@@ -240,6 +251,12 @@
                   </el-col>
                 </el-row>
                 <el-row>
+                  <el-col :span="8">
+                    <el-form-item :error="errorname" :label="$t('label.PFANS1012FORMVIEW_PERPOR')" v-show="show2">
+                      <user :disabled="!disable" :error="errorname" :selectType="selectType" :userlist="namelist"
+                            @getUserids="getUsernames" style="width: 20vw" v-model="form.user_name"></user>
+                    </el-form-item>
+                  </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_CAIWUPERSONALCODE')" v-show="show2" prop="code">
                       <el-input :disabled="!disable" maxlength="20" style="width:20vw" v-model="form.code"></el-input>
@@ -1272,6 +1289,7 @@
         tableRValue: '',
         errorsuppliername: '',
         disa: true,
+        errorname: '',
         error: '',
         gridData: [],
         dialogTableVisible: false,
@@ -1282,6 +1300,7 @@
         selectType: 'Single',
         title: 'title.PFANS1012VIEW',
         userlist: '',
+        namelist: '',
         activeName: 'first',
         disablde: true,
         loading: false,
@@ -1377,6 +1396,7 @@
         }],
         baseInfo: {},
         form: {
+          user_name: '',
           bsexternal: '',
           project_id: '',
           centerid: '',
@@ -1987,6 +2007,7 @@
               }
 
               this.userlist = this.form.user_id;
+              this.namelist = this.form.user_name;
               this.baseInfo.publicexpense = JSON.parse(JSON.stringify(this.form));
               this.baseInfo.trafficdetails = JSON.parse(JSON.stringify(this.tableT));
               this.baseInfo.purchasedetails = JSON.parse(JSON.stringify(this.tableP));
@@ -2041,6 +2062,7 @@
         this.checkdisable = true;
         this.disablecheck = true;
         this.userlist = this.$store.getters.userinfo.userid;
+        this.namelist = this.$store.getters.userinfo.userid;
         if (this.userlist !== null && this.userlist !== '') {
           let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
           if (rst) {
@@ -2052,6 +2074,7 @@
             this.form.teamid = rst.teamId;
           }
           this.form.user_id = this.$store.getters.userinfo.userid;
+          this.form.user_name = this.$store.getters.userinfo.userid;
         }
         this.jude = this.$route.params._name;
         for (var i = 0; i < this.jude.length; i++) {
@@ -2111,7 +2134,7 @@
     },
     methods: {
       //add-ws-4/28-精算中，点击决裁，跳转画面
-      rowclick(row, event, column) {
+      viewdata(row) {
         if (row.judgement_name.substring(0, 2) === this.$t('menu.PFANS1001')) {
           this.$router.push({
             name: 'PFANS1004FormView',
@@ -3018,7 +3041,7 @@
         }
 
       },
-      getUserids(val) {
+      getUsernames(val) {
         if (val === '') {
           this.form.code = '';
           this.Codecheck = '';
@@ -3026,6 +3049,16 @@
           this.form.code = getUserInfo(val).userinfo.caiwupersonalcode;
           this.Codecheck = getUserInfo(val).userinfo.caiwupersonalcode;
         }
+        this.namelist = val;
+        this.form.user_name = val;
+        if (!this.form.user_name || this.form.user_name === '' || typeof val == 'undefined') {
+          this.errorname = this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_PERPOR');
+        } else {
+          this.errorname = '';
+        }
+      },
+
+      getUserids(val) {
         this.userlist = val;
         this.form.user_id = val;
         let rst = getOrgInfoByUserId(val);
@@ -3082,6 +3115,8 @@
           this.show3 = false;
           this.show4 = false;
           this.show5 = false;
+          this.namelist = '';
+          this.form.user_name = '';
           this.form.code = '';
           this.form.accountnumber = '';
           this.form.receivables = '';
@@ -3093,6 +3128,7 @@
           this.show3 = false;
           this.show4 = false;
           this.show5 = false;
+          this.namelist = this.$store.getters.userinfo.userid
           this.form.code = this.Codecheck;
           this.form.payeename = '';
           this.form.payeecode = '';
@@ -3113,6 +3149,8 @@
           this.form.payeebankaccountnumber = '';
           this.form.payeebankaccount = '';
           this.form.code = '';
+          this.form.user_name = '';
+          this.namelist = '';
           this.form.loan = '';
           this.form.fullname = '';
         } else if (val === 'PJ004004') {
@@ -3126,6 +3164,8 @@
           this.form.payeebankaccountnumber = '';
           this.form.payeebankaccount = '';
           this.form.code = '';
+          this.form.user_name = '';
+          this.namelist = '';
           this.form.receivables = '';
           this.form.fullname = '';
           this.form.suppliername = ' ';
@@ -3140,6 +3180,7 @@
           this.form.payeebankaccountnumber = '';
           this.form.payeebankaccount = '';
           this.form.code = '';
+          this.form.user_name = '';
           this.form.receivables = '';
           this.form.loan = '';
         }
@@ -3670,6 +3711,7 @@
               this.baseInfo.otherdetails = [];
               this.baseInfo.invoice = [];
               this.form.user_id = this.userlist;
+              this.form.user_name = this.namelist;
               if (this.form.tormb === undefined) {
                 this.form.tormb = '';
               }
@@ -4015,6 +4057,7 @@
         this.baseInfo.otherdetails = [];
         this.baseInfo.invoice = [];
         this.form.user_id = this.userlist;
+        this.form.user_name = this.namelist;
         if (this.form.tormb === undefined) {
           this.form.tormb = '';
         }
