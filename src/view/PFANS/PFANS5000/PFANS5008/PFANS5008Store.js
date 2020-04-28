@@ -7,6 +7,7 @@ import {
   getDataOne,
   createProject,
   deletePersonal,
+  deleteLog,
   gettlist,
   downloadList,
   getListcheck,
@@ -39,6 +40,19 @@ const PFANS5008Store = {
     deletePersonal({ commit },data) {
       return new Promise((resolve, reject) => {
         deletePersonal(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    deleteLog({ commit },data) {
+      return new Promise((resolve, reject) => {
+        deleteLog(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {

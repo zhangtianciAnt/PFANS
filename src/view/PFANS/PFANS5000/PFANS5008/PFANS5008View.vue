@@ -416,9 +416,10 @@
           center: true
         }).then(() => {
           this.$store
-            .dispatch('PFANS5008Store/deletePersonal', {personalprojects_id: this.rowid})
+            .dispatch('PFANS5008Store/deleteLog', {logmanagement_id: this.row})
             .then(response => {
-              this.getWorkflowList();
+              this.getProjectList();
+              this.$store.commit('global/SET_OPERATEID', '');
               Message({
                 message: this.$t('normal.info_03'),
                 type: 'success',

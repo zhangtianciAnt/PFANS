@@ -107,3 +107,11 @@ export function deletePersonal(data) {
     data: data,
   });
 }
+
+export function deleteLog(data) {
+  return request({
+    url: 'logmanagement/deleteLog',
+    method: 'post',
+    data: data,
+  });
+}
