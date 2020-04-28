@@ -325,12 +325,13 @@
                       response[j].exitreason = exitreason.value1;
                     }
                   }
-                  if (response[j].alltechnology !== null && response[j].alltechnology !== '') {
-                    let alltechnology = getDictionaryInfo(response[j].alltechnology);
-                    if (alltechnology != null) {
-                      response[j].alltechnology = alltechnology.value1;
-                    }
-                  }
+                  //所有技术
+                  // if (response[j].alltechnology !== null && response[j].alltechnology !== '') {
+                  //   let alltechnology = getDictionaryInfo(response[j].alltechnology);
+                  //   if (alltechnology != null) {
+                  //     response[j].alltechnology = alltechnology.value1;
+                  //   }
+                  // }
                   if (response[j].sitevaluation !== null && response[j].sitevaluation !== '') {
                     let sitevaluation = getDictionaryInfo(response[j].sitevaluation);
                     if (sitevaluation != null) {
@@ -343,12 +344,13 @@
                       response[j].businessimpact = businessimpact.value1;
                     }
                   }
-                  if (response[j].countermeasure !== null && response[j].countermeasure !== '') {
-                    let countermeasure = getDictionaryInfo(response[j].countermeasure);
-                    if (countermeasure != null) {
-                      response[j].countermeasure = countermeasure.value1;
-                    }
-                  }
+                  //对策
+                  // if (response[j].countermeasure !== null && response[j].countermeasure !== '') {
+                  //   let countermeasure = getDictionaryInfo(response[j].countermeasure);
+                  //   if (countermeasure != null) {
+                  //     response[j].countermeasure = countermeasure.value1;
+                  //   }
+                  // }
                 }
                 else
                 {
