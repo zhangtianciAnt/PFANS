@@ -73,7 +73,7 @@
   import {getToken} from '@/utils/auth';
   import EasyNormalTable from '@/components/EasyBigDataTable';
   import {Message} from 'element-ui';
-  import {getOrgInfoByUserId, getUserInfo, getCooperinterviewListByAccount} from '../../../../utils/customize';
+  import {getOrgInfoByUserId, getUserInfo, getCooperinterviewListByAccount,getDictionaryInfo} from '../../../../utils/customize';
 
   let moment = require('moment');
   export default {
@@ -144,7 +144,27 @@
             fix: false,
             filter: false,
           },
-
+          {
+            code: 'work_phase',
+            label: 'label.PFANS5008VIEW_JDJOBS',
+            width: 140,
+            fix: false,
+            filter: false,
+          },
+          {
+            code: 'behavior_breakdown',
+            label: 'label.PFANS5008VIEW_XWXF',
+            width: 140,
+            fix: false,
+            filter: false,
+          },
+          {
+            code: 'wbs_id',
+            label: 'WBS_ID',
+            width: 140,
+            fix: false,
+            filter: false,
+          },
           {
             code: 'work_memo',
             label: 'label.PFANS5008VIEW_GZBZ',
@@ -290,6 +310,18 @@
                     response[j].username = co.expname;
                   }
                 }
+                if (response[j].work_phase != ''&&response[j].work_phase != null) {
+                  let letErrortype = getDictionaryInfo(response[j].work_phase);
+                  if (letErrortype != null) {
+                    response[j].work_phase = letErrortype.value1;
+                  }
+                }
+                if (response[j].behavior_breakdown != ''&&response[j].behavior_breakdown != null) {
+                  let letErrortype = getDictionaryInfo(response[j].behavior_breakdown);
+                  if (letErrortype != null) {
+                    response[j].behavior_breakdown = letErrortype.value1
+                  }
+                }
                 response[j].log_date = moment(response[j].log_date).format('YYYY-MM-DD');
                 if (response[j].time_end !== null && response[j].time_end !== '') {
                   response[j].time_end = moment(response[j].time_end).format('HH:mm');
@@ -416,9 +448,10 @@
           center: true
         }).then(() => {
           this.$store
-            .dispatch('PFANS5008Store/deletePersonal', {personalprojects_id: this.rowid})
+            .dispatch('PFANS5008Store/deleteLog', {logmanagement_id: this.row})
             .then(response => {
-              this.getWorkflowList();
+              this.getProjectList();
+              this.$store.commit('global/SET_OPERATEID', '');
               Message({
                 message: this.$t('normal.info_03'),
                 type: 'success',

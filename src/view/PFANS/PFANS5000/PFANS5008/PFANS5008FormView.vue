@@ -136,19 +136,25 @@
               <el-table-column
                 prop="start_time"
                 :label="$t('label.PFANS5008FORMVIEW_SC')"
-                width="250px">
+                width="150px">
               </el-table-column>
               <el-table-column
                 show-overflow-tooltip
                 prop="work_phase"
                 :label="$t('label.PFANS5008VIEW_JDJOBS')"
-                width="250px">
+                width="150px">
               </el-table-column>
               <el-table-column
                 show-overflow-tooltip
                 prop="behavior_breakdown"
                 :label="$t('label.PFANS5008VIEW_XWXF')"
-                width="200px">
+                width="150px">
+              </el-table-column>
+              <el-table-column
+                show-overflow-tooltip
+                prop="wbs_id"
+                :label="$t('label.PFANS5008FORMVIEW_WBSID')"
+                width="150px">
               </el-table-column>
             </el-table>
           </el-form>
@@ -185,6 +191,7 @@
           work_phase: '',
           behavior_breakdown: '',
           project_name: '',
+          wbs_id: '',
         }],
         optionsdata: [{value: 'PP024001', lable: this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')}],
         optionsdate: [],
@@ -306,6 +313,7 @@
                 this.divfalse = true;
                 this.xsTable = true;
                 obj.logmanagementid = response[k].logmanagement_id;
+                obj.wbs_id= response[k].wbs_id;
                 datalist[k] = obj;
                 this.DataList = datalist;
                 this.divfalse = true;
@@ -385,6 +393,7 @@
                       this.divfalse = true;
                       this.xsTable = true;
                       obj.logmanagementid = response[k].logmanagement_id;
+                      obj.wbs_id= response[k].wbs_id;
                       datalist[k] = obj;
                       this.divfalse = true;
                       this.xsTable = true;
@@ -499,6 +508,7 @@
                         this.divfalse = true;
                         this.xsTable = true;
                         obj.logmanagementid = response[k].logmanagement_id;
+                        obj.wbs_id= response[k].wbs_id;
                         datalist[k] = obj;
                         this.divfalse = true;
                         this.xsTable = true;
@@ -586,6 +596,7 @@
                         this.divfalse = true;
                         this.xsTable = true;
                         obj.logmanagementid = response[k].logmanagement_id;
+                        obj.wbs_id= response[k].wbs_id;
                         datalist[k] = obj;
                         this.divfalse = true;
                         this.xsTable = true;
@@ -914,6 +925,7 @@
                     this.divfalse = true;
                     this.xsTable = true;
                     obj.logmanagementid = response[k].logmanagement_id;
+                    obj.wbs_id= response[k].wbs_id;
                     datalist[k] = obj;
                     this.divfalse = true;
                     this.xsTable = true;
@@ -981,6 +993,7 @@
                   this.divfalse = true;
                   this.xsTable = true;
                   obj.logmanagementid = response[k].logmanagement_id;
+                  obj.wbs_id= response[k].wbs_id;
                   datalist[k] = obj;
                   this.divfalse = true;
                   this.xsTable = true;
@@ -1058,6 +1071,7 @@
                     this.divfalse = true;
                     this.xsTable = true;
                     obj.logmanagementid = response[k].logmanagement_id;
+                    obj.wbs_id= response[k].wbs_id;
                     datalist[k] = obj;
                     this.divfalse = true;
                     this.xsTable = true;
@@ -1182,6 +1196,7 @@
                                       this.divfalse = true;
                                       this.xsTable = true;
                                       obj.logmanagementid = response[k].logmanagement_id;
+                                      obj.wbs_id= response[k].wbs_id;
                                       datalist[k] = obj;
                                       this.divfalse = true;
                                       this.xsTable = true;
@@ -1265,6 +1280,7 @@
                                       this.divfalse = true;
                                       this.xsTable = true;
                                       obj.logmanagementid = response[k].logmanagement_id;
+                                      obj.wbs_id= response[k].wbs_id;
                                       datalist[k] = obj;
                                       this.divfalse = true;
                                       this.xsTable = true;
@@ -1357,6 +1373,7 @@
                                   this.divfalse = true;
                                   this.xsTable = true;
                                   obj.logmanagementid = response[k].logmanagement_id;
+                                  obj.wbs_id= response[k].wbs_id;
                                   datalist[k] = obj;
                                   this.divfalse = true;
                                   this.xsTable = true;
@@ -1440,6 +1457,7 @@
                                   this.divfalse = true;
                                   this.xsTable = true;
                                   obj.logmanagementid = response[k].logmanagement_id;
+                                  obj.wbs_id= response[k].wbs_id;
                                   datalist[k] = obj;
                                   this.divfalse = true;
                                   this.xsTable = true;
@@ -1559,6 +1577,7 @@
                     this.divfalse = true;
                     this.xsTable = true;
                     obj.logmanagementid = response[k].logmanagement_id;
+                    obj.wbs_id= response[k].wbs_id;
                     datalist[k] = obj;
                     this.divfalse = true;
                     this.xsTable = true;
