@@ -8,6 +8,13 @@ export function getCostList(data) {
     params: data
   })
 }
+export function getCostBygroupid(data) {
+  return request({
+    url: 'coststatistics/getCostBygroupid',
+    method: 'get',
+    params: data
+  })
+}
 
 export function insertCoststatistics() {
   return request({
