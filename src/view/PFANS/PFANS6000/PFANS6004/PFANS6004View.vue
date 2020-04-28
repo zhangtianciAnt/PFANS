@@ -159,6 +159,14 @@
             fix: false,
             filter: true,
           },
+          {
+            //登录账号
+            code: 'accountname',
+            label: 'label.PFANS6004FORMVIEW_ACCOUNT',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
           // {
           //   //技术分类
           //   code: 'technology',
@@ -405,6 +413,7 @@
                   sitevaluation:response[j].sitevaluation,
                   businessimpact:response[j].businessimpact,
                   countermeasure:response[j].countermeasure,
+                  accountname:response[j].accountname,
                 })
               }
             }
@@ -420,6 +429,7 @@
             this.loading = false;
           });
       },
+      //getBpAc
       rowClick(row) {
         //add-ws-根据外协account匹配数据
         this.account = row.account;
