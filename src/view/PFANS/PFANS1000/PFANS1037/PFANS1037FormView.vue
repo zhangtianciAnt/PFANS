@@ -5,6 +5,7 @@
     :columns="columns"
     :data="data"
     :title="title"
+    :rowid="row"
     @buttonClick="buttonClick"
     @rowClick="rowClick"
     v-loading="loading"
