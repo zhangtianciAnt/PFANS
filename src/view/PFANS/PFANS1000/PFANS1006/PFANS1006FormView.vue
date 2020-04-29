@@ -736,6 +736,12 @@
                   label: response[i].judgnumbers + '_' + this.$t('menu.PFANS1004'),
                 });
               }
+              if (user_id === response[i].user_id && response[i].equipment == '1') {
+                this.options.push({
+                  value: response[i].judgementid,
+                  label: response[i].judgnumbers + '_' + this.$t('menu.PFANS1003'),
+                });
+              }
             }
             //add-ws-4/24-暂借款申请单添加千元以下费用申请数据到下拉列表中
             this.$store

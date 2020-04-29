@@ -252,6 +252,19 @@
                       </el-select>
                     </el-form-item>
                   </el-col>
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1013VIEW_YESYJDA')" >
+                      <span style="margin-right: 1rem ">{{$t('label.no')}}</span>
+                      <el-switch
+                        :disabled="!disable"
+                        active-value="1"
+                        inactive-value="0"
+                        v-model="form.arrivenight"
+                      >
+                      </el-switch>
+                      <span style="margin-left: 1rem ">{{$t('label.yes')}}</span>
+                    </el-form-item>
+                  </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
@@ -842,6 +855,7 @@
           objectivetypeother: this.$t('label.PFANS1002VIEW_OTHER'),
           details: '',
           budgetunit: '',
+          arrivenight: '',
           plan: '',
           plantype: '',
           classificationtype: '',

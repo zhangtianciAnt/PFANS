@@ -84,32 +84,6 @@
                   </el-col>
                 </el-row>
                 <el-row>
-                  <el-table
-                    :data="DataList"
-                    v-show="show7"
-                    style="width: 518px"
-                    header-cell-class-name="sub_bg_color_blue" stripe border
-                  >
-                    <el-table-column
-                      align="center"
-                      prop="judgement_name"
-                      :label="$t('label.judgement')"
-                      width="315px">
-                    </el-table-column>
-                    <el-table-column :label="$t('label.operation')" align="center" width="200">
-                      <template slot-scope="scope">
-                        <el-button
-                          @click.native.prevent="viewdata(scope.row)"
-                          plain
-                          size="small"
-                          type="primary"
-                        >{{$t('button.view')}}
-                        </el-button>
-                      </template>
-                    </el-table-column>
-                  </el-table>
-                </el-row>
-                <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_RMBEXPENDITURE')" prop="rmbexpenditure">
                       <el-input-number
@@ -513,7 +487,6 @@
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1013VIEW_TRAFFIC')" name="second" v-if="show9">
-
               <el-row>
                 <el-col :span="24">
                   <el-table :data="tableT" :summary-method="getTsummaries"
@@ -574,7 +547,7 @@
                         </el-select>
                       </template>
                     </el-table-column>
-                    <el-table-column :label="$t('label.PFANS1012FORMVIEW_ACCOUNTB')" align="center" width="150">
+                    <el-table-column :label="$t('label.PFANS1012FORMVIEW_ACCOUNTB')" align="center" width="150" v-if="false">
                       <template slot-scope="scope">
                         <el-input :disabled="true" style="width: 100%" v-model="scope.row.subjectnumber">
                         </el-input>
@@ -761,7 +734,7 @@
                             </el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1012FORMVIEW_ACCOUNTB')" align="center" width="150">
+                        <el-table-column :label="$t('label.PFANS1012FORMVIEW_ACCOUNTB')" align="center" width="150" v-if="false">
                           <template slot-scope="scope">
                             <el-input :disabled="true" style="width: 100%" v-model="scope.row.subjectnumber">
                             </el-input>
@@ -968,7 +941,7 @@
                             </dicselect>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1012FORMVIEW_ACCOUNTB')" align="center" width="150">
+                        <el-table-column :label="$t('label.PFANS1012FORMVIEW_ACCOUNTB')" align="center" width="150" v-if="false">
                           <template slot-scope="scope">
                             <el-input :disabled="true" style="width: 100%" v-model="scope.row.subjectnumber">
                             </el-input>
@@ -1107,6 +1080,35 @@
                   </el-row>
                 </el-collapse-item>
               </el-collapse>
+            </el-tab-pane>
+
+            <el-tab-pane :label="$t('label.PFANS1002FORMVIEW_NUBERSGLJC')" name="fouthd" v-if="show7">
+              <el-row>
+                <el-table
+                  :data="DataList"
+
+                  style="width: 518px"
+                  header-cell-class-name="sub_bg_color_blue" stripe border
+                >
+                  <el-table-column
+                    align="center"
+                    prop="judgement_name"
+                    :label="$t('label.judgement')"
+                    width="315px">
+                  </el-table-column>
+                  <el-table-column :label="$t('label.operation')" align="center" width="200">
+                    <template slot-scope="scope">
+                      <el-button
+                        @click.native.prevent="viewdata(scope.row)"
+                        plain
+                        size="small"
+                        type="primary"
+                      >{{$t('button.view')}}
+                      </el-button>
+                    </template>
+                  </el-table-column>
+                </el-table>
+              </el-row>
             </el-tab-pane>
           </el-tabs>
         </el-form>
@@ -2178,6 +2180,16 @@
         } else if (row.judgement_name.substring(0, 2) === this.$t('label.PFANS1012VIEW_CAIGOU')) {
           this.$router.push({
             name: 'PFANS3005FormView',
+            params: {
+              _checkid: this.IDname,
+              _check: true,
+              _id: row.judgement,
+              disabled: false,
+            },
+          });
+        }else if (row.judgement_name.substring(0, 2) === this.$t('label.PFANS1012VIEW_WUCHANG')) {
+          this.$router.push({
+            name: 'PFANS1003FormView',
             params: {
               _checkid: this.IDname,
               _check: true,
@@ -3566,20 +3578,20 @@
       },
       getMoney(sums) {
         if (this.form.type === 'PJ001001') {
-          this.form.rmbexpenditure = sums[9];
+          this.form.rmbexpenditure = sums[8];
         } else if (this.checkCode1 == '1') {
-          this.form.rmbexpenditure = this.tablePValue[9] + sums[9];
+          this.form.rmbexpenditure = this.tablePValue[8] + sums[8];
         } else {
-          this.form.rmbexpenditure = this.tablePValue[9] + sums[8];
+          this.form.rmbexpenditure = this.tablePValue[8] + sums[7];
         }
       },
       getforeigncurrency(sums) {
         if (this.form.type === 'PJ001001') {
           this.form.foreigncurrency = '0';
         } else if (this.checkCode1 == '1') {
-          this.form.foreigncurrency = this.tablePValue[10] + sums[10];
+          this.form.foreigncurrency = this.tablePValue[9] + sums[9];
         } else {
-          this.form.foreigncurrency = this.tablePValue[10] + sums[9];
+          this.form.foreigncurrency = this.tablePValue[9] + sums[8];
         }
       },
       changeRMB(newValue) {
