@@ -37,10 +37,9 @@
   import EasyNormalTable from '@/components/EasyNormalTable';
   import {Message} from 'element-ui';
   import moment from 'moment';
-  import {getUserInfo} from '@/utils/customize';
   import user from '../../../components/user';
   import org from '../../../components/org';
-  import {getCooperinterviewListByAccount} from '../../../../utils/customize';
+  import {getCooperinterviewListByAccount, getOrgInfo,getUserInfo} from '../../../../utils/customize';
 
   export default {
     name: 'PFANS5015',
@@ -87,6 +86,13 @@
             width: 120,
             fix: false,
             filter: true,
+          },
+          {
+            code: 'groupname',
+            label: 'label.group',
+            width: 120,
+            fix: false,
+            filter: false,
           },
           {
             code: 'project_name',
@@ -178,10 +184,18 @@
                 let user = getUserInfo(response[j].createby);
                 if (user) {
                   response[j].username = user.userinfo.customername;
+                  response[j].groupname = user.userinfo.groupname;
                 } else {
                   let co = getCooperinterviewListByAccount(response[j].createby);
                   if (co) {
                     response[j].username = co.expname;
+                    if (co.group_id)
+                    {
+                      let group = getOrgInfo(co.group_id);
+                      if (group) {
+                        response[j].groupname = group.companyname;
+                      }
+                    }
                   }
                 }
                 response[j].log_date = moment(response[j].log_date).format('YYYY-MM-DD');
@@ -236,11 +250,11 @@
           });
           return;
         }
-        debugger;
         this.selectedlist = this.$refs.roletable.selectedList;
         import('@/vendor/Export2Excel').then(excel => {
           const tHeader = [
             this.$t('label.user_name'),
+            this.$t('label.group'),
             this.$t('label.PFANS5008VIEW_PROGRAM'),
             this.$t('label.PFANS1007FORMVIEW_CONTRACTNO'),
             this.$t('label.PFANS5015VIEW_FORMVIEW_SC'),
@@ -248,12 +262,12 @@
           ];
           const filterVal = [
             'username',
+            'groupname',
             'project_name',
             'contractno',
             'time',
           ];
           const list = this.selectedlist;
-          debugger;
           const data = this.formatJson(filterVal, list);
           excel.export_json_to_excel(tHeader, data, this.$t('menu.PFANS5015'));
         });
