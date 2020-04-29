@@ -210,6 +210,7 @@
           let businesstype = {'businesstype': '1'};
           this.dispatchparameter('PFANS1001Store/getBusiness', businesstype);
         } else if (val === 3) {
+
           //ADD-WS-决裁编号添加
           this.showTable = 2;
           //ADD-WS-决裁编号添加

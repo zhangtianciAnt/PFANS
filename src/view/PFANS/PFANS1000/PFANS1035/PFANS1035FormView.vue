@@ -522,6 +522,7 @@
         multiple: false,
         search: '',
         gridData: [],
+
         form: {
           arrivenight: '',
           center_id: '',

@@ -722,6 +722,7 @@
       change(val) {
         this.form.judgements = val;
       },
+
       judgementlist() {
         let user_id = this.$store.getters.userinfo.userid;
         this.options = [];
