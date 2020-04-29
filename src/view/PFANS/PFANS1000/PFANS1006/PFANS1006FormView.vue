@@ -722,6 +722,7 @@
       change(val) {
         this.form.judgements = val;
       },
+
       judgementlist() {
         let user_id = this.$store.getters.userinfo.userid;
         this.options = [];
@@ -734,6 +735,12 @@
                 this.options.push({
                   value: response[i].judgementid,
                   label: response[i].judgnumbers + '_' + this.$t('menu.PFANS1004'),
+                });
+              }
+              if (user_id === response[i].user_id && response[i].equipment == '1') {
+                this.options.push({
+                  value: response[i].judgementid,
+                  label: response[i].judgnumbers + '_' + this.$t('menu.PFANS1003'),
                 });
               }
             }

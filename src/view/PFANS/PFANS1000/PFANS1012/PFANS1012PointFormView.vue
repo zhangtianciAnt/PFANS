@@ -69,7 +69,8 @@
           lable: this.$t('menu.PFANS1005'),
         }, {value: '3', lable: this.$t('menu.PFANS1010')}
           , {value: '4', lable: this.$t('label.PFANS1012VIEW_CHECKLIST')}
-          , {value: '5', lable: this.$t('label.PFANS1012VIEW_PURCHASSES')}],
+          , {value: '5', lable: this.$t('label.PFANS1012VIEW_PURCHASSES')}
+          , {value: '6', lable: this.$t('label.PFANS1012VIEW_PURCHASSESWC')}],
         award: [],
         options: [],
         selectType: 'Single',
@@ -244,8 +245,35 @@
             });
             this.loading = false;
           });
+        }else if (val == '6') {
+          this.form.judgement = '';
+          this.options = [];
+          this.$store
+            .dispatch('PFANS1012Store/selectJudgement', {})
+            .then(response => {
+              for (let i = 0; i < response.length; i++) {
+                if (user_id === response[i].user_id && response[i].equipment == '1') {
+                  if (response[i].createon !== null && response[i].createon !== '') {
+                    response[i].createon = moment(response[i].createon).format('YYYY-MM-DD');
+                  }
+                  var vote = {};
+                  vote.value = response[i].judgementid;
+                  vote.label = this.$t('menu.PFANS1003') + '_' + response[i].judgnumbers;
+                  this.options.push(vote);
+                }
+              }
+              this.loading = false;
+            }).catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
         }
       },
+
       change(val) {
         let option = '';
         let _option = [];
