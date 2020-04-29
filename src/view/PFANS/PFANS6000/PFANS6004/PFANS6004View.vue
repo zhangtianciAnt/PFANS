@@ -519,7 +519,9 @@
       buttonClick(val) {
         if (val === 'import') {
           this.daoru = true;
-        } else if (val === 'export') {
+          this.clear(false);
+        }
+        else if (val === 'export') {
           if(this.$refs.roletable.selectedList.length === 0){
             Message({
               message: this.$t('normal.info_01'),
@@ -607,7 +609,8 @@
             const data = this.formatJson(filterVal, list);
             excel.export_json_to_excel(tHeader, data, this.$t('menu.PFANS6004'));
           });
-        } else if (val === 'export2') {
+        }
+        else if (val === 'export2') {
           this.loading = true;
           this.$store
             .dispatch('PFANS6004Store/download', {})
@@ -711,7 +714,7 @@
                 type: 'success',
                 duration: 5 * 1000,
               });
-
+              this.getexpatriatesinfor();
               this.loading = false;
             })
             .catch(error => {

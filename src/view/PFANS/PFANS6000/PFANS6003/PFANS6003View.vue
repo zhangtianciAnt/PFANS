@@ -314,6 +314,7 @@
             buttonClick(val) {
                 if (val === 'import') {
                     this.daoru = true;
+                    this.clear(false);
                 } else if (val === 'export') {
                   if(this.$refs.roletable.selectedList.length === 0){
                     Message({
