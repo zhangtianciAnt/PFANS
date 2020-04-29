@@ -73,7 +73,7 @@
   import {getToken} from '@/utils/auth';
   import EasyNormalTable from '@/components/EasyBigDataTable';
   import {Message} from 'element-ui';
-  import {getOrgInfoByUserId, getUserInfo, getCooperinterviewListByAccount,getDictionaryInfo} from '../../../../utils/customize';
+  import {getOrgInfoByUserId, getUserInfo, getCooperinterviewListByAccount,getDictionaryInfo,getOrgInfo} from '../../../../utils/customize';
 
   let moment = require('moment');
   export default {
@@ -119,6 +119,13 @@
           {
             code: 'username',
             label: 'label.user_name',
+            width: 120,
+            fix: false,
+            filter: false,
+          },
+          {
+            code: 'groupname',
+            label: 'label.group',
             width: 120,
             fix: false,
             filter: false,
@@ -304,10 +311,18 @@
                 let user = getUserInfo(response[j].createby);
                 if (user) {
                   response[j].username = user.userinfo.customername;
+                  response[j].groupname = user.userinfo.groupname;
                 } else {
                   let co = getCooperinterviewListByAccount(response[j].createby);
                   if (co) {
                     response[j].username = co.expname;
+                    if (co.group_id)
+                    {
+                      let group = getOrgInfo(co.group_id);
+                      if (group) {
+                        response[j].groupname = group.companyname;
+                      }
+                    }
                   }
                 }
                 if (response[j].work_phase != ''&&response[j].work_phase != null) {
