@@ -524,8 +524,8 @@ export default {
         this.selectedlist = this.$refs.roletable.selectedList;
         import("@/vendor/Export2Excel").then(excel => {
           const tHeader = [
-            this.$t("label.user_name"),//姓名
             this.$t("label.PFANSUSERFORMVIEW_JOBNUMBER"),//工号
+              this.$t("label.user_name"),//姓名
             this.$t("label.center"),//center
             this.$t("label.group"),//group
             this.$t("label.team"),//team
@@ -569,8 +569,8 @@ export default {
             this.$t("label.PFANSUSERFORMVIEW_HOUSEINSURANCE"),//住房公积金缴纳基数
           ];
           const filterVal = [
+              "jobnumber",//工号
             "customername",//姓名
-            "jobnumber",//工号
             "centername",//center
             "groupname",//group
             "teamname",//team
