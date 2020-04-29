@@ -2671,7 +2671,6 @@
               vote1.name_id = response[i].account;
               vote1.expname = response[i].expname;
               vote1.suppliername = response[i].suppliername;
-              vote1.suppliernameid = response[i].expatriatesinfor_id;
               if (response[i].post) {
                 //add-ws-value1-非空判断
                 let postvalue1 = '';

@@ -1921,7 +1921,7 @@
               vote1.name_id = response[i].account;
               vote1.expname = response[i].expname;
               vote1.suppliername = response[i].suppliername;
-              vote1.suppliernameid = response[i].expatriatesinfor_id;
+              vote1.suppliernameid = response[i].supplierinfor_id;
               //vote1.post = response[i].post;
               this.gridData1.push(vote1);
             }
