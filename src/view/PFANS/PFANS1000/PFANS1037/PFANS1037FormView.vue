@@ -105,6 +105,18 @@
     mounted() {
       this.getCompanyProjectList(this.$route.params.title);
     },
+    created(){
+      if (this.$route.params.title === 7) {
+        this.row = 'assetinformationid';
+        this.title = 'title.PFANS1007VIEW';
+      } else if (this.$route.params.title === 8) {
+        this.row = 'softwaretransferid';
+        this.title = 'title.PFANS1008VIEW';
+      } else if (this.$route.params.title === 9) {
+        this.row = 'fixedassets_id';
+        this.title = 'title.PFANS1009VIEW';
+      }
+    },
     methods: {
       getCompanyProjectList(val) {
         if (val === 7) {
