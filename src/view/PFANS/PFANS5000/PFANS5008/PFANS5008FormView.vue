@@ -196,6 +196,8 @@
         }],
         optionsdata: [{value: 'PP024001', lable: this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')}],
         optionsdate: [],
+        optionsdategroup: [{value: 'PP024001', lable: this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')}],
+        optionsdategroup: [],
         buttonList: [],
         disable: false,
         PFANS5008: this.$route.params.PFANS5008,
@@ -210,6 +212,7 @@
           work_memo: '',
           has_project: '',
           wbs_id: '',
+          group_id:'',
         },
         User_id: '',
         Riqickeck: true,
@@ -623,6 +626,10 @@
                 value: response[i].companyprojects_id,
                 lable: response[i].numbers + '_' + response[i].project_name,
               });
+              this.optionsdategroup.push({
+                value: response[i].companyprojects_id,
+                lable: response[i].group_id,
+              });
             }
 
             this.$store
@@ -632,6 +639,10 @@
                   this.optionsdata.push({
                     value: response[i].comproject_id,
                     lable: response[i].numbers + '_' + response[i].project_name,
+                  });
+                  this.optionsdategroup.push({
+                    value: response[i].comproject_id,
+                    lable: response[i].group_id,
                   });
                 }
                 this.loading = false;
@@ -736,7 +747,13 @@
             this.companyform.project_name = item.lable;
           }
         }
+        for (let item of this.optionsdategroup) {
+          if (item.value === val) {
+            this.companyform.group_id = item.lable;
+          }
+        }
         this.companyform.project_id = val;
+
         if (val != 'PP024001') {
           this.form = {};
           this.form.log_date = moment(this.companyform.log_date).format('YYYY-MM-DD');
