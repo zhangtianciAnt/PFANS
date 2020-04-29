@@ -245,14 +245,17 @@
                 <!--            所有技术-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS6004FORMVIEW_ALLTECHNOLOGY')" prop="alltechnology" v-if="show">
-                    <dicselect
-                      :code="code7"
-                      :data="form.alltechnology"
-                      :disabled="!disabled"
-                      :multiple="multiple"
-                      @change="changealltechnology"
-                      style="width:20vw">
-                    </dicselect>
+<!--                    <dicselect-->
+<!--                      :code="code7"-->
+<!--                      :data="form.alltechnology"-->
+<!--                      :disabled="!disabled"-->
+<!--                      :multiple="multiple"-->
+<!--                      @change="changealltechnology"-->
+<!--                      style="width:20vw">-->
+<!--                    </dicselect>-->
+                    <el-input :disabled="!disabled" style="width:20vw" maxlength="100"
+                              v-model="form.alltechnology"></el-input>
+
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -289,14 +292,16 @@
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS6004FORMVIEW_COUNTERMEASURE')" prop="countermeasure"
                                 v-if="show">
-                    <dicselect
-                      :code="code9"
-                      :data="form.countermeasure"
-                      :disabled="!disabled"
-                      :multiple="multiple"
-                      @change="changecountermeasure"
-                      style="width:20vw">
-                    </dicselect>
+<!--                    <dicselect-->
+<!--                      :code="code9"-->
+<!--                      :data="form.countermeasure"-->
+<!--                      :disabled="!disabled"-->
+<!--                      :multiple="multiple"-->
+<!--                      @change="changecountermeasure"-->
+<!--                      style="width:20vw">-->
+<!--                    </dicselect>-->
+                    <el-input :disabled="!disabled" style="width:20vw" maxlength="100"
+                              v-model="form.countermeasure"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -311,7 +316,7 @@
               </template>
               <el-table
                 :data="tableData"
-                border
+                header-cell-class-name="sub_bg_color_blue" stripe border
                 style="width:100%"
               >
                 <!--                部门-->

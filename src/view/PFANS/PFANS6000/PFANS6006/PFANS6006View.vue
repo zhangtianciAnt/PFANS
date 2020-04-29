@@ -51,6 +51,20 @@
                 <el-table-column
                   :label="$t('label.PFANS2023FORMVIEW_INTELLIGENCE')"
                   align="center">
+                  <!--                部门名-->
+                  <el-table-column
+                    :label="$t('label.department')"
+                    align="center"
+                    width="200">
+                    <template slot-scope="scope">
+                      <el-input
+                        :disabled="!disabled"
+                        :no="scope.row"
+                        style="width: 100%"
+                        v-model="scope.row.group_id">
+                      </el-input>
+                    </template>
+                  </el-table-column>
                   <!--                pj名-->
                   <el-table-column
                     :label="$t('label.PFANS6007VIEW_PJNAME')"
@@ -164,33 +178,33 @@
                     </template>
                   </el-table-column>
                   <!--                配賦対象-->
-                  <el-table-column
-                    :label="$t('label.PFANS6005VIEW_PFDX')"
-                    align="center"
-                    width="120">
-                    <template slot-scope="scope">
-                      <el-input
-                        :disabled="!disabled"
-                        :no="scope.row"
-                        style="width: 100%"
-                        v-model="scope.row.distriobjects">
-                      </el-input>
-                    </template>
-                  </el-table-column>
-                  <!--                構内対象-->
-                  <el-table-column
-                    :label="$t('label.PFANS6005VIEW_SNDX')"
-                    align="center"
-                    width="120">
-                    <template slot-scope="scope">
-                      <el-input
-                        :disabled="!disabled"
-                        :no="scope.row"
-                        style="width: 100%"
-                        v-model="scope.row.venuetarget">
-                      </el-input>
-                    </template>
-                  </el-table-column>
+<!--                  <el-table-column-->
+<!--                    :label="$t('label.PFANS6005VIEW_PFDX')"-->
+<!--                    align="center"-->
+<!--                    width="120">-->
+<!--                    <template slot-scope="scope">-->
+<!--                      <el-input-->
+<!--                        :disabled="!disabled"-->
+<!--                        :no="scope.row"-->
+<!--                        style="width: 100%"-->
+<!--                        v-model="scope.row.distriobjects">-->
+<!--                      </el-input>-->
+<!--                    </template>-->
+<!--                  </el-table-column>-->
+<!--                  &lt;!&ndash;                構内対象&ndash;&gt;-->
+<!--                  <el-table-column-->
+<!--                    :label="$t('label.PFANS6005VIEW_SNDX')"-->
+<!--                    align="center"-->
+<!--                    width="120">-->
+<!--                    <template slot-scope="scope">-->
+<!--                      <el-input-->
+<!--                        :disabled="!disabled"-->
+<!--                        :no="scope.row"-->
+<!--                        style="width: 100%"-->
+<!--                        v-model="scope.row.venuetarget">-->
+<!--                      </el-input>-->
+<!--                    </template>-->
+<!--                  </el-table-column>-->
                 </el-table-column>
                 <!--              第二组-->
                 <!--活用状况-->
@@ -689,7 +703,7 @@
   import moment from "moment";
   import {Message} from 'element-ui';
   import user from "../../../components/user.vue";
-  import {getDictionaryInfo, getSupplierinfor, getUserInfo} from '../../../../utils/customize';
+  import {getDictionaryInfo, getSupplierinfor, getUserInfo,getorgGroupList} from '../../../../utils/customize';
 
   export default {
     name: "PFANS6006View",
@@ -714,6 +728,7 @@
             projectsystem_id:'',
           type: '',
           project_name: '',
+          group_id: '',
           managerid: '',
           expname: '',
           suppliernameid: '',
@@ -767,6 +782,12 @@
             console.log(response)
               let tabledate = [];
             for (let j = 0; j < response.length; j++) {
+              if (response[j].group_id !== null && response[j].group_id !== '' && response[j].group_id !== undefined) {
+                  let group = getorgGroupList(response[j].group_id);
+                  if (group) {
+                      response[j].group_id = group.groupname;
+                  }
+              }
               if (response[j].managerid !== null && response[j].managerid !== '') {
                 let rst = getUserInfo(response[j].managerid)
                 if (rst) {
@@ -874,6 +895,7 @@
 
                     type: 0,
                     project_name: response[j].project_name,
+                    group_id: response[j].group_id,
                     managerid: response[j].managerid,
                     expname: response[j].expname,
                     suppliernameid: response[j].suppliernameid,
@@ -956,7 +978,7 @@
         }
       },
       getRowClass({row, column, rowIndex, columnIndex}) {
-        if (column.level === 2 && columnIndex >= 0 && columnIndex < 10) {
+        if (column.level === 2 && columnIndex >= 0 && columnIndex < 9) {
           return {
             color: 'white',
             background: '#99CCFF !important',
@@ -964,7 +986,7 @@
             'border-right': '1px solid #73B9FF',
           };
         }
-        if (column.level === 2 && columnIndex >= 4 && columnIndex < 24) {
+        if (column.level === 2 && columnIndex >= 9 && columnIndex < 23) {
           return {
             color: 'white',
             background: '#99CC99 !important',
@@ -972,7 +994,7 @@
             'border-right': '1px solid #73CC73',
           };
         }
-        if (column.level === 2 && columnIndex >= 24 && columnIndex < 29) {
+        if (column.level === 2 && columnIndex >= 23 && columnIndex < 28) {
           return {
             color: 'white',
             background: '#99CCFF',
@@ -980,7 +1002,7 @@
             'border-right': '1px solid #73CC73',
           };
         }
-        if (column.level === 1 && columnIndex >= 0 && columnIndex < 25) {
+        if (column.level === 1 && columnIndex >= 0 && columnIndex < 23) {
           return {
             color: 'white',
             background: '#005BAA !important',

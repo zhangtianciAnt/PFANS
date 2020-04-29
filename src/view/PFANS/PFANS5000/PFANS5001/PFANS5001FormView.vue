@@ -745,6 +745,9 @@
                                             <el-table-column property="post" v-if="false"
                                                              :label="$t('label.PFANSUSERVIEW_POST')"
                                                              width="150"></el-table-column>
+                                            <el-table-column property="suppliernameid" v-if="false"
+                                                             :label="$t('label.PFANSUSERVIEW_POST')"
+                                                             width="150"></el-table-column>
                                             <el-table-column
                                               align="right" width="180">
                                               <template slot="header" slot-scope="scope">
@@ -880,7 +883,7 @@
                                     <!--:label="$t('label.PFANS1024VIEW_APPLICATIONDATE')"-->
                                     <!--width="100"></el-table-column>-->
                                     <el-table-column property="claimdatetime"
-                                                     :label="$t('label.PFANS1024VIEW_CLAIMDATETIME')"
+                                                     :label="$t('label.PFANS1026VIEW_CONTRACTPERIOD')"
                                                      width="200"></el-table-column>
                                     <el-table-column
                                       align="right" width="230">
@@ -916,7 +919,7 @@
                       </el-input>
                     </template>
                   </el-table-column>
-                  <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMDATETIME')" align="center" prop="claimdatetime"
+                  <el-table-column :label="$t('label.PFANS1026VIEW_CONTRACTPERIOD')" align="center" prop="claimdatetime"
                                    width="370">
                     <template slot-scope="scope">
                       <el-date-picker unlink-panels
@@ -2585,6 +2588,7 @@
           }
           rows.splice(index, 1);
         } else {
+          this.tablecompound = [];
           this.displaycompound = false;
           this.tableD = [{
             projectcontract_id: '',

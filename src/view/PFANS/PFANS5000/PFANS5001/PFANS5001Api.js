@@ -15,6 +15,14 @@ export function selectById(data) {
     params: data
   })
 }
+export function selectAll(data) {
+  return request({
+    url: 'companyprojects/selectAll',
+    method: 'get'
+  })
+}
+
+
 export function select(data) {
   return request({
     url: 'companyprojects/select',

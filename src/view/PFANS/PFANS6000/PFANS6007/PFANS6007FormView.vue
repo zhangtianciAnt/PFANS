@@ -33,7 +33,7 @@
                 <div class="dpSupIndex" style="width: 20vw" prop="bpplayer">
                   <el-container>
                     <input class="content bg" v-model="form.bpplayer"
-                           :disabled="!disabled"></input>
+                           :disabled="true"></input>
 
                     <el-button :disabled="!disabled" icon="el-icon-search" @click="dialogTableVisible = true"
                                size="small"></el-button>
@@ -99,7 +99,7 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6007VIEW_PSDCDWINDOW')">
-                <el-input :disabled="true" style="width:20vw" v-model="form.psdcdwindow"></el-input>
+                <el-input :disabled="!disabled" style="width:20vw" v-model="form.psdcdwindow"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -326,6 +326,7 @@
         .then(response => {
 
           this.gridDatabpplayer = [];
+          //response = response.filter(item => item.result === 'BP003001');
           for (let i = 0; i < response.length; i++) {
             var vote = {};
             vote.suppliername = response[i].suppliername;
@@ -402,7 +403,7 @@
         this.$store
           .dispatch('PFANS6004Store/getexpatriatesinfor')
           .then(response => {
-
+            //response = response.filter(item => item.result === 'BP003001');
             this.gridDatabpplayer = [];
             for (let i = 0; i < response.length; i++) {
                var vote = {};

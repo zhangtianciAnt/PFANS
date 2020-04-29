@@ -2,6 +2,18 @@
   <div>
     <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" ref="roletable" @rowClick="rowClick"
                      :title="title" @buttonClick="buttonClick" v-loading="loading" :showSelection="isShow" :rowid="rowid">
+      <el-date-picker
+        unlink-panels
+        class="bigWidth"
+        v-model="workinghours"
+        style="margin-right:1vw"
+        slot="customize"
+        type="daterange"
+        :end-placeholder="$t('label.enddate')"
+        :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
+        :start-placeholder="$t('label.startdate')"
+        @change="filterInfo"
+      ></el-date-picker>
     </EasyNormalTable>
     <el-dialog :visible.sync="daoru" width="50%">
       <div>
@@ -52,7 +64,7 @@
     import EasyNormalTable from "@/components/EasyBigDataTable";
     import {Message} from 'element-ui';
     import moment from "moment";
-    import {getUserInfo} from '@/utils/customize';
+    import {getUserInfo,parseTime} from '@/utils/customize';
 
     export default {
         name: 'PFANS2017View',
@@ -86,6 +98,10 @@
                 loading: false,
                 title: "title.PFANS2017VIEW",
                 data: [],
+                workinghours: "",
+                tableList: [],
+                working: "",
+                starttime: "",
                 columns: [
                     {
                         code: 'user_id',
@@ -215,6 +231,7 @@
                             }
                         }
                         this.data = response;
+                        this.tableList = response;
                         this.loading = false;
                     })
                     .catch(error => {
@@ -365,7 +382,36 @@
                 //       this.loading = false;
                 //     })
                 // }
-            }
+            },
+            filterInfo() {
+                this.data = this.tableList.slice(0);
+                if (this.tableList.length > 0) {
+                    //进行时间筛选
+                    this.working = this.getworkinghours(this.workinghours);
+                    this.starttime = this.working.substring(0, 10);
+                    this.endTime = this.working.substring(13, 23);
+                    if (this.starttime != "" || this.endTime != "") {
+                        this.data = this.data.filter(item => {
+                            return this.starttime <= item.punchcardrecord_date && item.punchcardrecord_date <= this.endTime
+                        });
+                    }
+                }
+            },
+            getworkinghours(workinghours) {
+                if (workinghours != null) {
+                    if (workinghours.length > 0) {
+                        return (
+                            moment(workinghours[0]).format("YYYY-MM-DD") +
+                            " ~ " +
+                            moment(workinghours[1]).format("YYYY-MM-DD")
+                        );
+                    } else {
+                        return "";
+                    }
+                } else {
+                    return "";
+                }
+            },
         }
     }
 </script>

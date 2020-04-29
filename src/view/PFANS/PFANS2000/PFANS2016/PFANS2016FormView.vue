@@ -1609,6 +1609,7 @@
                 this.buttonClick2();
             },
             start() {
+              this.form.applicationdate=moment(new Date()).format('YYYY-MM-DD');
                 if (this.form.status === '4' || this.form.status === '6') {
                     this.form.status = '5';
                 } else {

@@ -48,8 +48,8 @@
         <el-pagination :current-page.sync="listQuery.page" :page-size="listQuery.limit"
                        :page-sizes="[10,50,100,500,99999]" :total="total" @current-change="handleCurrentChange"
                        @size-change="handleSizeChange" layout="slot,sizes, ->,prev, pager, next, jumper">
-          <!--<slot><span class="front Content_front"-->
-                      <!--style="padding-right: 5px;font-weight: 400">{{$t('table.pagesize')}}</span></slot>-->
+          <slot><span class="front Content_front"
+                      style="padding-right: 5px;font-weight: 400">{{$t('table.total')}}{{totaldata.length}}</span></slot>
         </el-pagination>
       </div>
     </el-card>

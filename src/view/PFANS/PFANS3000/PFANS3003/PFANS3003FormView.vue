@@ -93,13 +93,34 @@
             </el-col>
           </el-row>
           <el-row>
-
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS3003VIEW_DCENTER')" prop="dcenter">
+                <el-input v-model="form.dcenter" :disabled="!disable" style="width:20vw"
+                ></el-input>
+              </el-form-item>
+            </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3003VIEW_ECENTER')" prop="ecenter">
                 <el-input v-model="form.ecenter" :disabled="!disable" style="width:20vw"
-                          maxlength="20"></el-input>
+                ></el-input>
               </el-form-item>
             </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS3003VIEW_BCENTER')" prop="bcenter">
+                <el-input v-model="form.bcenter" :disabled="!disable" style="width:20vw"
+                ></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS3003VIEW_ACENTER')" prop="acenter">
+                <el-input v-model="form.acenter" :disabled="!disable" style="width:20vw"
+                ></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
             <el-col :span="8">
               <template>
                 <el-form-item :label="$t('label.PFANS3003VIEW_OCCUPATIONAL')" prop="occupational">
@@ -288,6 +309,9 @@
                     teamid: '',
                     euser_id: '',
                     ecenter: '',
+                  dcenter: '',
+                  bcenter: '',
+                  acenter: '',
                     eoccupational: '',
                     userid: '',
                     applicationdate: moment(new Date()).format("YYYY-MM-DD"),
@@ -330,6 +354,21 @@
                         message: this.$t("normal.error_08") + this.$t("label.PFANS3003VIEW_ECENTER"),
                         trigger: "blur"
                     }],
+                  dcenter: [{
+                    required: true,
+                    message: this.$t("normal.error_08") + this.$t("label.PFANS3003VIEW_DCENTER"),
+                    trigger: "blur"
+                  }],
+                  bcenter: [{
+                    required: true,
+                    message: this.$t("normal.error_08") + this.$t("label.PFANS3003VIEW_ACENTER"),
+                    trigger: "blur"
+                  }],
+                  acenter: [{
+                    required: true,
+                    message: this.$t("normal.error_08") + this.$t("label.PFANS3003VIEW_BCENTER"),
+                    trigger: "blur"
+                  }],
                     eoccupational: [{
                         required: true,
                         message: this.$t("normal.error_08") + this.$t("label.PFANS3003VIEW_EOCCUPATIONAL"),

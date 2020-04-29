@@ -159,6 +159,14 @@
             fix: false,
             filter: true,
           },
+          {
+            //登录账号
+            code: 'accountname',
+            label: 'label.PFANS6004FORMVIEW_ACCOUNT',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
           // {
           //   //技术分类
           //   code: 'technology',
@@ -325,12 +333,13 @@
                       response[j].exitreason = exitreason.value1;
                     }
                   }
-                  if (response[j].alltechnology !== null && response[j].alltechnology !== '') {
-                    let alltechnology = getDictionaryInfo(response[j].alltechnology);
-                    if (alltechnology != null) {
-                      response[j].alltechnology = alltechnology.value1;
-                    }
-                  }
+                  //所有技术
+                  // if (response[j].alltechnology !== null && response[j].alltechnology !== '') {
+                  //   let alltechnology = getDictionaryInfo(response[j].alltechnology);
+                  //   if (alltechnology != null) {
+                  //     response[j].alltechnology = alltechnology.value1;
+                  //   }
+                  // }
                   if (response[j].sitevaluation !== null && response[j].sitevaluation !== '') {
                     let sitevaluation = getDictionaryInfo(response[j].sitevaluation);
                     if (sitevaluation != null) {
@@ -343,12 +352,13 @@
                       response[j].businessimpact = businessimpact.value1;
                     }
                   }
-                  if (response[j].countermeasure !== null && response[j].countermeasure !== '') {
-                    let countermeasure = getDictionaryInfo(response[j].countermeasure);
-                    if (countermeasure != null) {
-                      response[j].countermeasure = countermeasure.value1;
-                    }
-                  }
+                  //对策
+                  // if (response[j].countermeasure !== null && response[j].countermeasure !== '') {
+                  //   let countermeasure = getDictionaryInfo(response[j].countermeasure);
+                  //   if (countermeasure != null) {
+                  //     response[j].countermeasure = countermeasure.value1;
+                  //   }
+                  // }
                 }
                 else
                 {
@@ -403,6 +413,7 @@
                   sitevaluation:response[j].sitevaluation,
                   businessimpact:response[j].businessimpact,
                   countermeasure:response[j].countermeasure,
+                  accountname:response[j].accountname,
                 })
               }
             }
@@ -418,6 +429,7 @@
             this.loading = false;
           });
       },
+      //getBpAc
       rowClick(row) {
         //add-ws-根据外协account匹配数据
         this.account = row.account;

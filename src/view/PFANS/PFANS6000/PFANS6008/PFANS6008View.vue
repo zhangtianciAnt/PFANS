@@ -686,8 +686,13 @@
     methods: {
       init() {
         this.loading = true;
+        let groupid = this.$store.getters.userinfo.userinfo.groupid;
+        let params = {
+          groupid: groupid
+        }
+        debugger;
         this.$store
-          .dispatch('PFANS6008Store/getCostList')
+          .dispatch('PFANS6008Store/getCostBygroupid', params)
           .then(response => {
             for (let j = 0; j < response.length; j++) {
               if (response[j].bpname !== null && response[j].bpname !== "") {
