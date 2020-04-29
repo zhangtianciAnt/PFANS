@@ -15,7 +15,7 @@ export default {
       var e = event || window.event || arguments.callee.caller.arguments[0];
 
       if (e && e.keyCode == 123) {
-        alert("好好工作！！！");
+        alert("不要看我，我会害羞！~");
         e.returnValue = false;
         return (false);
       }
@@ -24,7 +24,7 @@ export default {
       var e = event || window.event || arguments.callee.caller.arguments[0];
 
       if (e && e.keyCode == 123) {
-        alert("好好工作！！！");
+        alert("不要看我，我会害羞！~");
         e.returnValue = false;
         return (false);
       }
@@ -33,7 +33,7 @@ export default {
       var e = event || window.event || arguments.callee.caller.arguments[0];
 
       if (e && e.keyCode == 123) {
-        alert("好好工作！！！");
+        alert("不要看我，我会害羞！~");
         e.returnValue = false;
         return (false);
       }
@@ -49,7 +49,7 @@ export default {
 
     mAlert() {
 
-      alert("好好工作！！！");
+      alert("不要看我，我会害羞！~");
     }
   }
 }
