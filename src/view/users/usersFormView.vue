@@ -2959,6 +2959,7 @@
                         for (let g = 0; g < this.gridData.length; g++) {
                             //最后一次的变更日期
                             this.feedingchangeday = this.gridData[g].date;
+                            this.gridData[g].date = moment(this.gridData[g].date).format("YYYY-MM-DD");
                         }
                         this.oldageData = this.userInfo.customerInfo.userinfo.oldageData;
                         this.houseData = this.userInfo.customerInfo.userinfo.houseData;

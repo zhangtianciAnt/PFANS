@@ -220,7 +220,7 @@
             </el-col>
             <!--ztc 04/26 借出契约书为有时增加合同编号菜单栏-->
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1007FORMVIEW_CONTRACTNO')" prop="contractno" v-show="show3">
+              <el-form-item :label="$t('label.PFANS1007FORMVIEW_CONTRACTNO')" prop="contractno" v-if="show3">
                 <el-input :disabled="!disable" style="width:20vw" v-model="form.contractno"></el-input>
               </el-form-item>
             </el-col>

@@ -67,6 +67,13 @@
                                     v-model="form.payment"></el-date-picker>
                   </el-form-item>
                 </el-col>
+                <!--                add_fjl-->
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1012VIEW_CAIWUPERSONALCODE')">
+                    <el-input :disabled="true" maxlength="20" style="width:20vw" v-model="form.financecode"></el-input>
+                  </el-form-item>
+                </el-col>
+                <!--                add_fjl-->
               </el-row>
           <el-row>
             <el-col :span="24">
@@ -177,7 +184,7 @@
   import PFANS1018View from '../PFANS1018/PFANS1018View.vue';
   import dicselect from '../../../components/dicselect.vue';
   import {Message} from 'element-ui';
-  import {getOrgInfoByUserId} from '@/utils/customize';
+  import {getOrgInfoByUserId, getUserInfo} from '@/utils/customize';
   import moment from 'moment';
   import {validateEmail} from '../../../../utils/validate';
 
@@ -257,6 +264,7 @@
           extension: '',
           applicationType: '',
           status: '',
+            financecode: '',
         },
         code1: 'PJ044',
         code2: 'PJ054',
@@ -336,6 +344,11 @@
               this.appteamid = rst.teamNmae;
             }
             this.userapplicantlist = this.form.user_id;
+              // ADD_FJL  财务编码
+              if (getUserInfo(this.form.user_id)) {
+                  this.form.financecode = getUserInfo(this.form.user_id).userinfo.caiwupersonalcode;
+              }
+              // ADD_FJL  财务编码
             this.useridlist = this.form.user_name;
             this.loading = false;
           })
@@ -349,6 +362,11 @@
           });
       } else {
         this.userapplicantlist = this.$store.getters.userinfo.userid;
+          // ADD_FJL  财务编码
+          if (getUserInfo(this.$store.getters.userinfo.userid)) {
+              this.form.financecode = getUserInfo(this.$store.getters.userinfo.userid).userinfo.caiwupersonalcode;
+          }
+          // ADD_FJL  财务编码
         if (this.userapplicantlist !== null && this.userapplicantlist !== '') {
           let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
           if (rst) {
