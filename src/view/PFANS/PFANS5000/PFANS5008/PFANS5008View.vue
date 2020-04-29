@@ -310,13 +310,20 @@
           .then(response => {
               for (let j = 0; j < response.length; j++) {
                 let user = getUserInfo(response[j].createby);
+
                 if (user) {
                   response[j].username = user.userinfo.customername;
-                  response[j].groupname = user.userinfo.groupname;
                 } else {
                   let co = getCooperinterviewListByAccount(response[j].createby);
                   if (co) {
                     response[j].username = co.expname;
+                  }
+                }
+                if(response[j].project_id  === 'PP024001')
+                {
+                  let co = getCooperinterviewListByAccount(response[j].createby);
+                  if (co)
+                  {
                     if (co.group_id)
                     {
                       let group = getOrgInfo(co.group_id);
@@ -325,7 +332,22 @@
                       }
                     }
                   }
+                  if (user)
+                  {
+                    response[j].groupname = user.userinfo.groupname;
+                  }
                 }
+                else
+                {
+                  if (response[j].group_id)
+                  {
+                    let group = getOrgInfo(response[j].group_id);
+                    if (group) {
+                      response[j].groupname = group.companyname;
+                    }
+                  }
+                }
+
                 if (response[j].work_phase != ''&&response[j].work_phase != null) {
                   let letErrortype = getDictionaryInfo(response[j].work_phase);
                   if (letErrortype != null) {
