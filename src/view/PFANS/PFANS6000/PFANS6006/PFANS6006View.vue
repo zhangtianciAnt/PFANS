@@ -978,7 +978,7 @@
         }
       },
       getRowClass({row, column, rowIndex, columnIndex}) {
-        if (column.level === 2 && columnIndex >= 0 && columnIndex < 8) {
+        if (column.level === 2 && columnIndex >= 0 && columnIndex < 9) {
           return {
             color: 'white',
             background: '#99CCFF !important',
@@ -986,7 +986,7 @@
             'border-right': '1px solid #73B9FF',
           };
         }
-        if (column.level === 2 && columnIndex >= 4 && columnIndex < 22) {
+        if (column.level === 2 && columnIndex >= 9 && columnIndex < 23) {
           return {
             color: 'white',
             background: '#99CC99 !important',
@@ -994,7 +994,7 @@
             'border-right': '1px solid #73CC73',
           };
         }
-        if (column.level === 2 && columnIndex >= 22 && columnIndex < 27) {
+        if (column.level === 2 && columnIndex >= 23 && columnIndex < 28) {
           return {
             color: 'white',
             background: '#99CCFF',

@@ -745,6 +745,9 @@
                                             <el-table-column property="post" v-if="false"
                                                              :label="$t('label.PFANSUSERVIEW_POST')"
                                                              width="150"></el-table-column>
+                                            <el-table-column property="suppliernameid" v-if="false"
+                                                             :label="$t('label.PFANSUSERVIEW_POST')"
+                                                             width="150"></el-table-column>
                                             <el-table-column
                                               align="right" width="180">
                                               <template slot="header" slot-scope="scope">

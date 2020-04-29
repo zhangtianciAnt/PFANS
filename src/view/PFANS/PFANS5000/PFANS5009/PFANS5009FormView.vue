@@ -666,6 +666,9 @@
                                               :label="$t('label.PFANS5001FORMVIEW_COOPERATIONCOMPANY')"
                                               width="240"
                                             ></el-table-column>
+                                            <el-table-column property="suppliernameid" v-if="false"
+                                                             :label="$t('label.PFANSUSERVIEW_POST')"
+                                                             width="150"></el-table-column>
 <!--                                            <el-table-column-->
 <!--                                              property="post"-->
 <!--                                              :label="$t('label.PFANSUSERVIEW_POST')"-->
@@ -1850,7 +1853,7 @@
         row.number = this.currentRow;
         row.name = this.currentRow1;
         row.company = this.currentRow2;
-        //row.position = this.currentRow3;
+        row.suppliernameid = this.currentRow3;
         //add-ws-数据库id存的是name名，外协关联修改
         row.name_id = this.currentRow5;
         //add-ws-数据库id存的是name名，外协关联修改
@@ -1862,7 +1865,7 @@
         this.currentRow1 = val.name_id;
         //add-ws-数据库id存的是name名，外协关联修改
         this.currentRow2 = val.suppliername;
-        //this.currentRow3 = val.post;
+        this.currentRow3 = val.suppliernameid;
         this.currentRow5 = val.expname;
       },
       addRow() {
@@ -1918,6 +1921,7 @@
               vote1.name_id = response[i].account;
               vote1.expname = response[i].expname;
               vote1.suppliername = response[i].suppliername;
+              vote1.suppliernameid = response[i].supplierinfor_id;
               //vote1.post = response[i].post;
               this.gridData1.push(vote1);
             }
