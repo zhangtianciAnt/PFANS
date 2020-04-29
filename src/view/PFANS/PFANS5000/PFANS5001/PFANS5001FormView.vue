@@ -2888,15 +2888,13 @@
             }
             //add-ws-存在check关闭loading
             for (let i = 0; i < this.tableD.length; i++) {
-              this.tableD[i].workinghours = this.getworkinghours(this.tableD[i].workinghours);
+              this.tableD[i].contractamount = this.tableD[i].contractamount === undefined ? 0 : this.tableD[i].contractamount;
               if (
                 this.tableD[i].contract !== '' ||
                 this.tableD[i].theme !== '' ||
                 this.tableD[i].workinghours !== ''
               ) {
-                if (this.tableD[i].contractamount == 0) {
-                  error13 = error13 + 1;
-                }
+                error13 = error13 + this.tableD[i].contractamount;
                 this.baseInfo.projectcontract.push({
                   //add-ws-合同关联项目，分配金额
                   contractrequestamount: this.tableD[i].contractrequestamount,
@@ -2930,11 +2928,8 @@
               if (this.tableA[i].phase == '' && this.tableA[i].estimatedstarttime == '' && this.tableA[i].estimatedendtime == '') {
                 error4 = error4 + 1;
               }
-            }
-            //ADD-WS-开发部门，体制时间范围check
-            for (let i = 0; i < this.tableA.length; i++) {
               if (moment(this.tableA[i].estimatedstarttime).format('YYYY-MM-DD') > moment(this.tableA[i].estimatedendtime).format('YYYY-MM-DD')) {
-                error7 = error7 + 1;
+                  error7 = error7 + 1;
               }
             }
             for (let i = 0; i < this.tableB.length; i++) {
@@ -3012,7 +3007,7 @@
                 type: 'error',
                 duration: 5 * 1000,
               });
-            } else if (error13 != 0) {
+            } else if (error13 == 0) {
               this.activeName = 'fifth';
               Message({
                 message: this.$t('label.PFANS5001FORMVIEW_CHECKCONTRACTAMOUNTERROR'),
@@ -3047,6 +3042,9 @@
             }
             //add-ws-存在check关闭loading
             else if (this.$route.params._id) {
+              for (let i = 0; i < this.baseInfo.projectcontract.length; i++) {
+                  this.baseInfo.projectcontract[i].workinghours = this.getworkinghours(this.baseInfo.projectcontract[i].workinghours);
+              }
               this.baseInfo.companyprojects.companyprojects_id = this.$route.params._id;
               this.form.center_id = this.centerorglist;
               this.form.group_id = this.grouporglist;
@@ -3076,6 +3074,9 @@
                   this.loading = false;
                 });
             } else {
+              for (let i = 0; i < this.baseInfo.projectcontract.length; i++) {
+                  this.baseInfo.projectcontract[i].workinghours = this.getworkinghours(this.baseInfo.projectcontract[i].workinghours);
+              }
               this.$store
                 .dispatch('PFANS5001Store/insert', this.baseInfo)
                 .then(response => {
