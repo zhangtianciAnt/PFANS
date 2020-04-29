@@ -526,7 +526,7 @@
                         //     this.disactualovertime = true;
                         // }
                         if (this.form.status === '0') {
-                            this.workflowCode = 'W0001';
+                            // this.workflowCode = 'W0001';
                           if(this.form.overtimetype >= 'PR001004'){
                             this.workflowCode = 'W0067';
                           }else{
@@ -541,7 +541,12 @@
                             this.showovertimelength = true;
                             this.disactualovertime = false;
                         } else if (this.form.status === '4' || this.form.status === '6') {
+                            // this.workflowCode = 'W0040';
+                          if(this.form.overtimetype >= 'PR001004') {
+                            this.workflowCode = 'W0068';
+                          }else{
                             this.workflowCode = 'W0040';
+                          }
                             this.canStart = true;
                             if (!this.disable) {
                                 this.disactualovertime = false;
@@ -551,7 +556,12 @@
                             this.disable = false;
                             this.rules.actualovertime[0].required = true;
                         } else if (this.form.status === '7') {
+                            // this.workflowCode = 'W0040';
+                          if(this.form.overtimetype >= 'PR001004') {
+                            this.workflowCode = 'W0068';
+                          }else{
                             this.workflowCode = 'W0040';
+                          }
                             this.canStart = false;
                             this.disable = false;
                             this.disactualovertime = false;
@@ -829,15 +839,15 @@
             },
             workflowState(val) {
                 if (val.state === '1') {
-                    if (val.workflowCode === 'W0001') {
+                    if (val.workflowCode === 'W0001' || val.workflowCode === 'W0067') {
                         this.form.status = '3';
-                    } else if (val.workflowCode === 'W0040') {
+                    } else if (val.workflowCode === 'W0040' || val.workflowCode === 'W0068') {
                         this.form.status = '6';
                     }
                 } else if (val.state === '2') {
-                    if (val.workflowCode === 'W0001') {
+                    if (val.workflowCode === 'W0001' || val.workflowCode === 'W0067') {
                         this.form.status = '4';
-                    } else if (val.workflowCode === 'W0040') {
+                    } else if (val.workflowCode === 'W0040' || val.workflowCode === 'W0068') {
                         this.form.status = '7';
                         this.canStart = false;
                     }
