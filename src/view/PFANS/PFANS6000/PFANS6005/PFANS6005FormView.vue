@@ -32,6 +32,7 @@
             :label="$t('label.PFANS2026FORMVIEW_ORDERNUMBER')"
             align="center"
             type="index"
+            fixed="left"
             width="50"
           ></plx-table-column>
           <!-- 名前-->
@@ -39,6 +40,7 @@
             :label="$t('label.PFANS2007VIEW_NAME')"
             align="center"
             prop="username"
+            fixed="left"
             width="120"
           ></plx-table-column>
           <!-- 卒業年-->
