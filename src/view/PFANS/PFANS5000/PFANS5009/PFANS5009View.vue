@@ -30,6 +30,13 @@
         contractstatus3: this.$t('label.PFANS5009FORMVIEW_CONTRACTSTATUS3'),
         columns: [
           {
+            code: 'groupname',
+            label: 'label.group',
+            width: 190,
+            fix: false,
+            filter: true,
+          },
+          {
             code: 'numbers',
             label: 'label.PFANS5009VIEW_PROJECTNO',
             width: 110,
@@ -43,13 +50,7 @@
             fix: false,
             filter: true,
           },
-          {
-            code: 'groupname',
-            label: 'label.group',
-            width: 110,
-            fix: false,
-            filter: true,
-          },
+
           {
             code: 'phase',
             label: 'label.PFANS5009VIEW_PHASE',

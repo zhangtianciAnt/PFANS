@@ -117,19 +117,20 @@
         isShow: true,
         columns: [
           {
+            code: 'groupname',
+            label: 'label.group',
+            width: 190,
+            fix: false,
+            filter: false,
+          },
+          {
             code: 'username',
             label: 'label.user_name',
             width: 120,
             fix: false,
             filter: false,
           },
-          {
-            code: 'groupname',
-            label: 'label.group',
-            width: 120,
-            fix: false,
-            filter: false,
-          },
+
           {
             code: 'project_name',
             label: 'label.PFANS5008VIEW_PROGRAM',
