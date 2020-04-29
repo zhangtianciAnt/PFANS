@@ -8,6 +8,7 @@
   import EasyNormalTable from '@/components/EasyNormalTable';
   import {Message} from 'element-ui';
   import {getDictionaryInfo, getStatus} from '@/utils/customize';
+  import {getOrgInfo} from '../../../../utils/customize';
 
   export default {
     name: 'PFANS5009VIEW',
@@ -38,6 +39,13 @@
           {
             code: 'project_name',
             label: 'label.PFANS5009VIEW_PROJECTNAME',
+            width: 110,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'groupname',
+            label: 'label.group',
             width: 110,
             fix: false,
             filter: true,
@@ -120,6 +128,7 @@
           //     }
           //   }
           // }
+
           for (let j = 0; j < response.length; j++) {
             if (response[j].phase !== null && response[j].phase !== '') {
               let letPhase = getDictionaryInfo(response[j].phase);
@@ -146,6 +155,13 @@
               }
             }
             response[j].status = getStatus(response[j].status);
+            if (response[j].group_id)
+            {
+              let group = getOrgInfo(response[j].group_id);
+              if (group) {
+                response[j].groupname = group.companyname;
+              }
+            }
           }
           this.data = response;
           this.loading = false;
