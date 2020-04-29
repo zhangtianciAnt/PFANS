@@ -5,7 +5,7 @@ import {
   removeToken
 } from './auth'
 import i18n from '../assets/js/i18n'
-
+let Base64 = require('js-base64').Base64
 const service = axios.create({
   baseURL: process.env.BASE_API,
 });
@@ -77,6 +77,7 @@ service.interceptors.response.use(
           name: 'error403'
         })
       }else {
+        // response.data.data = JSON.parse(Base64.decode(response.data.data));
         return response.data;
       }
     } else {
