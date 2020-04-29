@@ -120,6 +120,7 @@
                 tableD: [
                     {
                         code: "",
+                        type: "",
                         valie1: "",
                         valie2: "",
                         valie3: "",
@@ -129,6 +130,8 @@
                         valie7: "",
                         valie8: "",
                         valie9: "",
+                        pcode: "",
+                        status: "",
                     }
                 ],
                 rules: {
@@ -197,6 +200,7 @@
                     this.tableD = [
                         {
                             code: this.letcode.substring(0, 5) + '001',
+                            type: "",
                             valie1: "",
                             valie2: "",
                             valie3: "",
@@ -206,6 +210,8 @@
                             valie7: "",
                             valie8: "",
                             valie9: "",
+                            pcode: "",
+                            status: "",
                         }
                     ]
                 }
@@ -219,6 +225,7 @@
                 }
                 this.tableD.push({
                     code: this.letcode,
+                    type: "",
                     valie1: "",
                     valie2: "",
                     valie3: "",
@@ -228,6 +235,8 @@
                     valie7: "",
                     valie8: "",
                     valie9: "",
+                    pcode: "",
+                    status: "",
                 });
             },
             buttonClick(val) {
@@ -252,6 +261,7 @@
                     for (let i = 0; i < this.tableD.length; i++) {
                         this.dictionarylist.push({
                             code: this.tableD[i].code,
+                            type: this.tableD[i].type,
                             value1: this.tableD[i].value1,
                             value2: this.tableD[i].value2,
                             value3: this.tableD[i].value3,
@@ -261,6 +271,8 @@
                             value7: this.tableD[i].value7,
                             value8: this.tableD[i].value8,
                             value9: this.tableD[i].value9,
+                            pcode: this.tableD[i].pcode,
+                            status: this.tableD[i].status,
                         });
                     }
                     if (this.$route.params.code) {
