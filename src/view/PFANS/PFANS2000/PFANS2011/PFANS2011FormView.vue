@@ -527,6 +527,12 @@
                         // }
                         if (this.form.status === '0') {
                             this.workflowCode = 'W0001';
+                          if(this.form.overtimetype >= 'PR001004'){
+                            this.workflowCode = 'W0067';
+                          }else{
+                            this.workflowCode = 'W0001';
+                          }
+
                             this.canStart = true;
                             this.disactualovertime = false;
                         } else if (this.form.status === '2') {
@@ -917,6 +923,15 @@
                 }
             },
             change(val) {
+              if(val >= 'PR001004'){
+                if (this.form.status === '0') {
+                  this.workflowCode = 'W0067';
+                }
+              }else{
+                if (this.form.status === '0') {
+                  this.workflowCode = 'W0001';
+                }
+              }
                 this.showovertimetype = false;
                 this.showovertimelength = false;
                 let dateMonth = new Date();
@@ -970,6 +985,8 @@
                         return;
                     }
                 }
+
+
             },
             change2(val) {
                 this.form.reserveovertime = val;
