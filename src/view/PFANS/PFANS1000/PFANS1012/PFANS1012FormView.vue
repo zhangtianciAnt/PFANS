@@ -233,7 +233,7 @@
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_CAIWUPERSONALCODE')" v-show="show2" prop="code">
-                      <el-input :disabled="!disable" maxlength="20" style="width:20vw" v-model="form.code"></el-input>
+                      <el-input :disabled="true" maxlength="20" style="width:20vw" v-model="form.code"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
