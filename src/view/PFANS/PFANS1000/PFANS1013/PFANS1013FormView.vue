@@ -128,6 +128,18 @@
                       <el-input :disabled="true" style="width:20vw" v-model="form.datenumber"></el-input>
                     </el-form-item>
                   </el-col>
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS5004VIEW_PROJECTNAMW')">
+                      <el-select :disabled="!disable" clearable style="width: 20vw" v-model="form.project_id">
+                        <el-option
+                          :key="item.value"
+                          :label="item.lable"
+                          :value="item.value"
+                          v-for="item in optionsdate">
+                        </el-option>
+                      </el-select>
+                    </el-form-item>
+                  </el-col>
                   <!--                  <el-col :span="8">-->
                   <!--                    <el-form-item :label="$t('label.budgetunit')" prop="budgetunit">-->
                   <!--                      <dicselect-->
@@ -246,18 +258,6 @@
                         style="width:20vw"
                         v-model="form.balance"
                       ></el-input-number>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS5004VIEW_PROJECTNAMW')">
-                      <el-select :disabled="!disable" clearable style="width: 20vw" v-model="form.project_id">
-                        <el-option
-                          :key="item.value"
-                          :label="item.lable"
-                          :value="item.value"
-                          v-for="item in optionsdate">
-                        </el-option>
-                      </el-select>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -602,7 +602,6 @@
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1012VIEW_CURRENCY')" align="center"
-                                     prop="currency"
                                      v-if="this.form.type === '0'? false : true" width="200">
                       <template slot-scope="scope">
                         <dicselect :code="code3"
@@ -805,7 +804,6 @@
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1012VIEW_CURRENCY')" align="center"
-                                     prop="currency"
                                      v-if="this.form.type === '0'? false : true" width="200">
                       <template slot-scope="scope">
                         <dicselect :code="code3"
@@ -867,7 +865,7 @@
                         ></el-input-number>
                       </template>
                     </el-table-column>
-                    <el-table-column :label="$t('label.PFANS1012FORMVIEW_TAXES')" align="center"
+                    <el-table-column :label="$t('label.PFANS1012FORMVIEW_TAXES')" align="center"  prop="taxes"
                                      width="150">
                       <template slot-scope="scope">
                         <el-input-number
@@ -881,7 +879,7 @@
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1013FORMVIEW_SUBSIDIES')" align="center"
-                                     width="200">
+                                     prop="subsidies"  width="200">
                       <template slot-scope="scope">
                         <el-input-number
                           :disabled="true"
@@ -1735,6 +1733,7 @@
                   abroadbusiness: response[i].abroadbusiness,
                   external: response[i].external,
                   arrivenight: response[i].arrivenight,
+                  companyprojectsname: response[i].companyprojectsname,
                   city: response[i].region,
                   startdate: response[i].startdate,
                   enddate: response[i].enddate,
@@ -1783,6 +1782,7 @@
                   value: response[i].business_id,
                   label: this.$t('menu.PFANS1035') + '_' + moment(response[i].createon).format('YYYY-MM-DD'),
                   city: response[i].city,
+                  companyprojectsname: response[i].companyprojectsname,
                   startdate: response[i].startdate,
                   enddate: response[i].enddate,
                   businesstype: response[i].businesstype,
@@ -2341,7 +2341,7 @@
             if (dict) {
               this.form.level = dict.value1;
             }
-
+            this.form.project_id = this.relations[i].companyprojectsname;
             this.form.abroadbusiness = this.relations[i].abroadbusiness;
             this.form.external = this.relations[i].external;
             this.form.arrivenight = this.relations[i].arrivenight;
@@ -2472,19 +2472,17 @@
                 return prev;
               }
             }, 0);
-            if (index === 7) {
-              sums[index] = Math.round((sums[index]) * 100) / 100;
-            }
-            if (index === 8) {
-              sums[index] = Math.round((sums[index]) * 100) / 100;
-            }
-            if (index === 10) {
-              sums[index] = Math.round((sums[index]) * 100) / 100;
-            }
+
             if (index === 11) {
               sums[index] = Math.round((sums[index]) * 100) / 100;
             }
+            if (index === 12) {
+              sums[index] = Math.round((sums[index]) * 100) / 100;
+            }
             if (index === 13) {
+              sums[index] = Math.round((sums[index]) * 100) / 100;
+            }
+            if (index === 14) {
               sums[index] = Math.round((sums[index]) * 100) / 100;
             }
           } else {
@@ -2877,14 +2875,11 @@
               this.baseInfo.invoice = [];
               this.baseInfo.currencyexchanges = [];
               let errorFLG = 0;
-              let errorInfoFLG = 1;
-              let errorInfoFLG2 = 1;
-              let errorInfoFLG3 = 1;
               if (this.form.type === '0') {
                 for (let i = 0; i < this.tableT.length; i++) {
-                  if (this.tableT[i].trafficdate !== '' && this.tableT[i].invoicenumber !== '' && this.tableT[i].departmentname !== '' && this.tableT[i].budgetcoding !== ''
-                    && this.tableT[i].rmb > 0 && this.tableT[i].plsummary !== ''
-                    && this.tableT[i].accountcode !== '' && this.tableT[i].subjectnumber !== '') {
+                  if (this.tableT[i].trafficdate !== '' || this.tableT[i].invoicenumber !== '' || this.tableT[i].departmentname !== '' || this.tableT[i].budgetcoding !== ''
+                    || this.tableT[i].rmb > 0 || this.tableT[i].plsummary !== ''
+                    || this.tableT[i].accountcode !== '' || this.tableT[i].subjectnumber !== '') {
                     this.baseInfo.trafficdetails.push(
                       {
                         trafficdetails_id: this.tableT[i].trafficdetails_id,
@@ -2906,21 +2901,18 @@
                         annexno: this.tableT[i].annexno,
                       },
                     );
-                    errorInfoFLG += 1;
-                  } else {
-                    errorInfoFLG = 0;
-                    break;
                   }
                 }
                 for (let i = 0; i < this.tableA.length; i++) {
-                  if (this.tableA[i].accommodationdate !== '' && this.tableA[i].invoicenumber !== '' && this.tableA[i].departmentname !== ''
-                    && this.tableA[i].budgetcoding !== '' && this.tableA[i].plsummary !== '' && this.tableA[i].accountcode !== '' && this.tableA[i].subjectnumber !== ''
-                    && this.tableA[i].activitycontent !== ''
-                    && this.tableA[i].city !== '' && this.tableA[i].facilitytype !== '') {
+                  if (this.tableA[i].accommodationdate !== '' || this.tableA[i].invoicenumber !== '' || this.tableA[i].departmentname !== ''
+                    || this.tableA[i].budgetcoding !== '' || this.tableA[i].plsummary !== '' || this.tableA[i].accountcode !== '' || this.tableA[i].subjectnumber !== ''
+                    || this.tableA[i].activitycontent !== ''
+                    || this.tableA[i].city !== '' || this.tableA[i].facilitytype !== '') {
                     this.baseInfo.accommodationdetails.push(
                       {
                         accommodationdetails_id: this.tableA[i].accommodationdetails_id,
                         evectionid: this.tableA[i].evectionid,
+                        subsidies: this.tableA[i].subsidies,
                         accommodationdate: this.tableA[i].accommodationdate,
                         invoicenumber: this.tableA[i].invoicenumber,
                         departmentname: this.tableA[i].departmentname,
@@ -2929,22 +2921,14 @@
                         accountcode: this.tableA[i].accountcode,
                         subjectnumber: this.tableA[i].subjectnumber,
                         activitycontent: this.tableA[i].activitycontent,
-                        // region: this.tableA[i].region,
-                        //境内
                         city: this.tableA[i].city,
                         facilitytype: this.tableA[i].facilitytype,
                         facilityname: this.tableA[i].facilityname,
-                        // currency: this.tableA[i].currency,
-                        // travel: this.tableA[i].travel,
                         rmb: this.tableA[i].rmb,
                         taxes: this.tableA[i].taxes,
                         annexno: this.tableA[i].annexno,
                       },
                     );
-                    errorInfoFLG2 += 1;
-                  } else {
-                    errorInfoFLG2 = 0;
-                    break;
                   }
                 }
                 // for (let i = 0; i < this.tableR.length; i++) {
@@ -2980,11 +2964,10 @@
                 // }
               } else if (this.form.type === '1') {
                 for (let i = 0; i < this.tableT.length; i++) {
-                  if (this.tableT[i].trafficdate !== '' && this.tableT[i].invoicenumber !== '' && this.tableT[i].departmentname !== '' && this.tableT[i].budgetcoding !== ''
-                    && this.tableT[i].rmb > 0 && this.tableT[i].plsummary !== ''
-                    && this.tableT[i].accountcode !== '' && this.tableT[i].subjectnumber !== '' && this.tableT[i].region !== '' && this.tableT[i].vehicle !== ''
-                    && this.tableT[i].startingpoint !== '') {
-                    // && this.tableT[i].foreigncurrency > 0 && this.tableT[i].currency !== ''
+                  if (this.tableT[i].trafficdate !== '' || this.tableT[i].invoicenumber !== '' || this.tableT[i].departmentname !== '' || this.tableT[i].budgetcoding !== ''
+                    || this.tableT[i].rmb > 0 || this.tableT[i].plsummary !== ''
+                    || this.tableT[i].accountcode !== '' || this.tableT[i].subjectnumber !== '' || this.tableT[i].region !== '' || this.tableT[i].vehicle !== ''
+                    || this.tableT[i].startingpoint !== '') {
                     this.baseInfo.trafficdetails.push(
                       {
                         trafficdetails_id: this.tableT[i].trafficdetails_id,
@@ -3006,21 +2989,18 @@
                         annexno: this.tableT[i].annexno,
                       },
                     );
-                    errorInfoFLG += 1;
-                  } else {
-                    errorInfoFLG = 0;
-                    break;
                   }
                 }
                 for (let i = 0; i < this.tableA.length; i++) {
-                  if (this.tableA[i].accommodationdate !== '' && this.tableA[i].invoicenumber !== '' && this.tableA[i].departmentname !== ''
-                    && this.tableA[i].budgetcoding !== '' && this.tableA[i].plsummary !== '' && this.tableA[i].accountcode !== '' && this.tableA[i].subjectnumber !== ''
-                    && this.tableA[i].activitycontent !== ''
-                    && this.tableA[i].region !== '' && this.tableA[i].facilitytype !== '' && this.tableA[i].facilityname !== '') {
+                  if (this.tableA[i].accommodationdate !== '' || this.tableA[i].invoicenumber !== '' || this.tableA[i].departmentname !== ''
+                    || this.tableA[i].budgetcoding !== '' || this.tableA[i].plsummary !== '' || this.tableA[i].accountcode !== '' || this.tableA[i].subjectnumber !== ''
+                    || this.tableA[i].activitycontent !== ''
+                    || this.tableA[i].region !== '' || this.tableA[i].facilitytype !== '' || this.tableA[i].facilityname !== '') {
                     this.baseInfo.accommodationdetails.push(
                       {
                         accommodationdetails_id: this.tableA[i].accommodationdetails_id,
                         evectionid: this.tableA[i].evectionid,
+                        subsidies: this.tableA[i].subsidies,
                         accommodationdate: this.tableA[i].accommodationdate,
                         invoicenumber: this.tableA[i].invoicenumber,
                         departmentname: this.tableA[i].departmentname,
@@ -3041,10 +3021,6 @@
                         annexno: this.tableA[i].annexno,
                       },
                     );
-                    errorInfoFLG2 += 1;
-                  } else {
-                    errorInfoFLG2 = 0;
-                    break;
                   }
                 }
                 // for (let i = 0; i < this.tableR.length; i++) {
@@ -3166,32 +3142,80 @@
                   return;
                 }
               }
+
+              for (let i = 0; i < this.tableT.length; i++) {
+                if (this.tableT[i].rmb > 0) {
+                  if (this.tableT[i].budgetcoding === '') {
+                    errorFLG = errorFLG + 1;
+                    Message({
+                      message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_BUDGET'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    break;
+                  }
+                  if (this.tableT[i].subjectnumber === '') {
+                    errorFLG = errorFLG + 1;
+                    Message({
+                      message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNTB'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    break;
+                  }
+                  if (this.tableT[i].plsummary === '') {
+                    errorFLG = errorFLG + 1;
+                    Message({
+                      message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_PL'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    break;
+                  }
+                }
+              }
+
+              for (let i = 0; i < this.tableA.length; i++) {
+                if (this.tableA[i].rmb > 0 || this.tableA[i].subsidies > 0) {
+                  if (this.tableA[i].budgetcoding === '') {
+                    errorFLG = errorFLG + 1;
+                    Message({
+                      message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_BUDGET'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    break;
+                  }
+                  if (this.tableA[i].subjectnumber === '') {
+                    errorFLG = errorFLG + 1;
+                    Message({
+                      message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNTB'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    break;
+                  }
+                  if (this.tableA[i].plsummary === '') {
+                    errorFLG = errorFLG + 1;
+                    Message({
+                      message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_PL'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    break;
+                  }
+                  if (this.tableA[i].facilitytype === '') {
+                    errorFLG = errorFLG + 1;
+                    Message({
+                      message: this.$t('normal.error_08') + this.$t('label.PFANS1013FORMVIEW_FACILITYTYPE'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    break;
+                  }
+                }
+              }
               // if(this.baseInfo.trafficdetails.length === 0 && this.baseInfo.accommodationdetails.length === 0 && this.baseInfo.otherdetails.length === 0){
-              if (this.baseInfo.trafficdetails.length === 0 && this.baseInfo.accommodationdetails.length === 0) {
-                Message({
-                  message: this.$t('label.PFANS1013FORMVIEW_ERRORINFO'),
-                  type: 'error',
-                  duration: 5 * 1000,
-                });
-                errorFLG += 1;
-                return;
-              }
-              if (errorInfoFLG === 0 && this.tableT !== 0) {
-                Message({
-                  message: this.$t('label.PFANS1013FORMVIEW_ERRORINFOT'),
-                  type: 'error',
-                  duration: 5 * 1000,
-                });
-                return;
-              }
-              if (errorInfoFLG2 === 0 && this.tableA !== 0) {
-                Message({
-                  message: this.$t('label.PFANS1013FORMVIEW_ERRORINFOA'),
-                  type: 'error',
-                  duration: 5 * 1000,
-                });
-                return;
-              }
               // if(errorInfoFLG3 === 0 && this.baseInfo.otherdetails.length !== 0){
               //   Message({
               //     message: this.$t('label.PFANS1013FORMVIEW_ERRORINFOR'),
