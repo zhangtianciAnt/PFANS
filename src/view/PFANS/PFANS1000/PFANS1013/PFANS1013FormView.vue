@@ -2792,10 +2792,10 @@
       getMoney(sums) {
         if (this.form.type === '0') {
           // this.form.totalpay = sums[10] + this.tableAValue[11] + this.tableRValue[9];
-          this.form.totalpay = sums[9] + this.tableAValue[10];
+          this.form.totalpay = sums[9] + this.tableAValue[10]+ this.tableAValue[12];
         } else if (this.form.type === '1') {
           // this.form.totalpay = sums[10] + this.tableAValue[13] + this.tableRValue[9];
-          this.form.totalpay = sums[9] + this.tableAValue[12];
+          this.form.totalpay = sums[9] + this.tableAValue[12]+ this.tableAValue[14];
         }
         this.form.balance = this.form.loanamount - this.form.totalpay;
       },
