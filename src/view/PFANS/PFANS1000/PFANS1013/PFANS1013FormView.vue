@@ -1349,7 +1349,6 @@
         });
       }
       this.invoicetype = getDictionaryInfo('PJ068001').value1;
-      this.getBusInside();
       this.getLoanapp();
       this.getCompanyProjectList();
       this.checkOption();
@@ -1529,6 +1528,7 @@
             this.loading = false;
           });
       } else {
+        this.getBusInside();
         this.checkmoney = true;
         this.checktaxes = true;
         let num = getUserInfo(this.$store.getters.userinfo.userid).userinfo.extension;
@@ -1744,6 +1744,7 @@
                 });
               }
             }
+            this.business(this.form.business_id);
             this.loading = false;
           })
           .catch(error => {
@@ -1791,6 +1792,7 @@
                 });
               }
             }
+            this.business(this.form.business_id);
             this.loading = false;
           })
           .catch(error => {
@@ -1853,7 +1855,6 @@
       //   }
       // },
       getGroupIdT(orglist, row) {
-        debugger
         row.departmentname = orglist;
         //ADD_FJL
         row.optionsT = [];
@@ -2303,6 +2304,15 @@
         });
         this.getMoney(sums);
         return sums;
+      },
+      business(val) {
+        for (var i = 0; i < this.relations.length; i++) {
+          if (this.relations[i].value === val) {
+            this.form.external = this.relations[i].external;
+            this.form.arrivenight = this.relations[i].arrivenight;
+            this.form.abroadbusiness = this.relations[i].abroadbusiness;
+          }
+        }
       },
       changebusiness(val) {
         this.form.startdate = '';
@@ -2905,7 +2915,7 @@
                 for (let i = 0; i < this.tableA.length; i++) {
                   if (this.tableA[i].accommodationdate !== '' && this.tableA[i].invoicenumber !== '' && this.tableA[i].departmentname !== ''
                     && this.tableA[i].budgetcoding !== '' && this.tableA[i].plsummary !== '' && this.tableA[i].accountcode !== '' && this.tableA[i].subjectnumber !== ''
-                    && this.tableA[i].rmb > 0 && this.tableA[i].activitycontent !== ''
+                    && this.tableA[i].activitycontent !== ''
                     && this.tableA[i].city !== '' && this.tableA[i].facilitytype !== '') {
                     this.baseInfo.accommodationdetails.push(
                       {
@@ -3003,13 +3013,10 @@
                   }
                 }
                 for (let i = 0; i < this.tableA.length; i++) {
-                  debugger
-                  console.log('aaa', this.tableA);
                   if (this.tableA[i].accommodationdate !== '' && this.tableA[i].invoicenumber !== '' && this.tableA[i].departmentname !== ''
                     && this.tableA[i].budgetcoding !== '' && this.tableA[i].plsummary !== '' && this.tableA[i].accountcode !== '' && this.tableA[i].subjectnumber !== ''
-                    && this.tableA[i].rmb > 0 && this.tableA[i].activitycontent !== ''
+                    && this.tableA[i].activitycontent !== ''
                     && this.tableA[i].region !== '' && this.tableA[i].facilitytype !== '' && this.tableA[i].facilityname !== '') {
-                    debugger
                     this.baseInfo.accommodationdetails.push(
                       {
                         accommodationdetails_id: this.tableA[i].accommodationdetails_id,
