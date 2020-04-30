@@ -55,4 +55,11 @@ export function getSiteList2(data) {
   })
 }
 
+export function getSiteList5(data) {
+  return request({
+    url: 'companyprojects/getSiteList5',
+    method: 'get',
+    params: data
+  })
+}
 

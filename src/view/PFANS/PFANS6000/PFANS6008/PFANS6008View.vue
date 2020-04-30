@@ -10,6 +10,27 @@
       @buttonClick="buttonClick"
       ref="roletable"
       v-loading="loading">
+      <div slot="search">
+        <el-form label-position="top" label-width="8vw" ref="reff" style="padding-top: 10px" :rules="rules">
+          <el-form-item>
+            <el-row style="padding-top: 10px">
+              <el-col :span="6">
+                <el-form-item :label="$t('label.PFANS1039FORMVIEW_GROUP')">
+                  <el-select v-model="form.group_id" style="width: 20vw"
+                             @change="changeGroup">
+                    <el-option
+                      v-for="item in optionsdata"
+                      :key="item.value"
+                      :label="item.lable"
+                      :value="item.value">
+                    </el-option>
+                  </el-select>
+                </el-form-item>
+              </el-col>
+            </el-row>
+          </el-form-item>
+        </el-form>
+      </div>
     </EasyNormalTable>
   </div>
 </template>
@@ -18,7 +39,7 @@
   import EasyNormalTable from "@/components/EasyNormalTable";
   import {Message} from 'element-ui';
   import moment from "moment";
-  import {getCooperinterviewList,getDictionaryInfo,getSupplierinfor} from '@/utils/customize';
+  import {getCooperinterviewList,getDictionaryInfo,getSupplierinfor,getCurrentRole,getDownOrgInfo} from '@/utils/customize';
   export default {
     name: 'PFANS6008View',
     components: {
@@ -29,6 +50,10 @@
         loading: false,
         title: "title.PFANS6008VIEW",
         data: [],
+        form: {
+          group_id: '',
+        },
+        optionsdata: [],
         columns: [
           {
             code: 'bpname',
@@ -171,7 +196,7 @@
               {
                 code: 'totalcost6',
                 label: 'label.PFANS6008VIEW_TOTALCOST',
-                  labelClass: 'sixbackcolor',
+                labelClass: 'sixbackcolor',
                 width: 105,
                 fix: false,
                 filter: true,
@@ -179,7 +204,7 @@
               {
                 code: 'expense6',
                 label: 'label.PFANS6008VIEW_EXPENSE',
-                  labelClass: 'sixbackcolor',
+                labelClass: 'sixbackcolor',
                 width: 80,
                 fix: false,
                 filter: true,
@@ -187,7 +212,7 @@
               {
                 code: 'contract6',
                 label: 'label.PFANS6008VIEW_CONTRACT',
-                  labelClass: 'sixbackcolor',
+                labelClass: 'sixbackcolor',
                 width: 105,
                 fix: false,
                 filter: true,
@@ -315,7 +340,7 @@
               {
                 code: 'totalmanhours9',
                 label: 'label.PFANS6008VIEW_TOTALMANHOURS',
-                  labelClass: 'sixbackcolor',
+                labelClass: 'sixbackcolor',
                 width: 105,
                 fix: false,
                 filter: true,
@@ -323,7 +348,7 @@
               {
                 code: 'totalcost9',
                 label: 'label.PFANS6008VIEW_TOTALCOST',
-                  labelClass: 'sixbackcolor',
+                labelClass: 'sixbackcolor',
                 width: 105,
                 fix: false,
                 filter: true,
@@ -331,7 +356,7 @@
               {
                 code: 'expense9',
                 label: 'label.PFANS6008VIEW_EXPENSE',
-                  labelClass: 'sixbackcolor',
+                labelClass: 'sixbackcolor',
                 width: 80,
                 fix: false,
                 filter: true,
@@ -339,7 +364,7 @@
               {
                 code: 'contract9',
                 label: 'label.PFANS6008VIEW_CONTRACT',
-                  labelClass: 'sixbackcolor',
+                labelClass: 'sixbackcolor',
                 width: 105,
                 fix: false,
                 filter: true,
@@ -467,7 +492,7 @@
               {
                 code: 'totalmanhours12',
                 label: 'label.PFANS6008VIEW_TOTALMANHOURS',
-                  labelClass: 'sixbackcolor',
+                labelClass: 'sixbackcolor',
                 width: 105,
                 fix: false,
                 filter: true,
@@ -475,7 +500,7 @@
               {
                 code: 'totalcost12',
                 label: 'label.PFANS6008VIEW_TOTALCOST',
-                  labelClass: 'sixbackcolor',
+                labelClass: 'sixbackcolor',
                 width: 105,
                 fix: false,
                 filter: true,
@@ -483,7 +508,7 @@
               {
                 code: 'expense12',
                 label: 'label.PFANS6008VIEW_EXPENSE',
-                  labelClass: 'sixbackcolor',
+                labelClass: 'sixbackcolor',
                 width: 80,
                 fix: false,
                 filter: true,
@@ -491,7 +516,7 @@
               {
                 code: 'contract12',
                 label: 'label.PFANS6008VIEW_CONTRACT',
-                  labelClass: 'sixbackcolor',
+                labelClass: 'sixbackcolor',
                 width: 105,
                 fix: false,
                 filter: true,
@@ -619,7 +644,7 @@
               {
                 code: 'totalmanhours3',
                 label: 'label.PFANS6008VIEW_TOTALMANHOURS',
-                  labelClass: 'sixbackcolor',
+                labelClass: 'sixbackcolor',
                 width: 100,
                 fix: false,
                 filter: true,
@@ -627,7 +652,7 @@
               {
                 code: 'totalcost3',
                 label: 'label.PFANS6008VIEW_TOTALCOST',
-                  labelClass: 'sixbackcolor',
+                labelClass: 'sixbackcolor',
                 width: 100,
                 fix: false,
                 filter: true,
@@ -635,7 +660,7 @@
               {
                 code: 'expense3',
                 label: 'label.PFANS6008VIEW_EXPENSE',
-                  labelClass: 'sixbackcolor',
+                labelClass: 'sixbackcolor',
                 width: 80,
                 fix: false,
                 filter: true,
@@ -643,7 +668,7 @@
               {
                 code: 'contract3',
                 label: 'label.PFANS6008VIEW_CONTRACT',
-                  labelClass: 'sixbackcolor',
+                labelClass: 'sixbackcolor',
                 width: 100,
                 fix: false,
                 filter: true,
@@ -664,33 +689,37 @@
       };
     },
     mounted() {
+      this.getById();
       this.loading = true;
       this.$store
         .dispatch('PFANS6008Store/insertCoststatistics')
         .then(response => {
-          this.init();
+          //this.init();
           this.loading = false;
         })
         .catch(error => {
           this.loading = false;
         })
-      .catch(error => {
-        Message({
-          message: error,
-          type: 'error',
-          duration: 5 * 1000
-        });
-        this.loading = false;
-      })
+        .catch(error => {
+          Message({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000
+          });
+          this.loading = false;
+        })
     },
     methods: {
       init() {
+        let groupid ='';
         this.loading = true;
-        let groupid = this.$store.getters.userinfo.userinfo.groupid;
+        if (this.form.group_id)
+        {
+          groupid = this.form.group_id;
+        }
         let params = {
           groupid: groupid
         }
-        debugger;
         this.$store
           .dispatch('PFANS6008Store/getCostBygroupid', params)
           .then(response => {
@@ -718,7 +747,7 @@
               duration: 5 * 1000
             });
             this.loading = false;
-        })
+          })
       },
       buttonClick(val) {
         if (val === 'export') {
@@ -761,6 +790,91 @@
           downloadElement.click(); //点击下载
           document.body.removeChild(downloadElement); //下载完成移除元素
           window.URL.revokeObjectURL(href); //释放掉blob对象
+        }
+      },
+      getById() {
+
+        this.loading = true;
+        let role = getCurrentRole();
+        const vote = [];
+        if (role === '3') {
+          vote.push(
+            {
+              value: this.$store.getters.userinfo.userinfo.groupid,
+              lable: this.$store.getters.userinfo.userinfo.groupname,
+            },
+          );
+        } else if (role === '2') {
+          let centerId = this.$store.getters.userinfo.userinfo.centerid;
+          let orgs = getDownOrgInfo(centerId);
+          if (orgs){
+            for (let org of orgs) {
+              console.log(org)
+              vote.push(
+                {
+                  value: org._id,
+                  lable: org.companyname,
+                },
+              );
+            }
+          }
+
+        } else if (role === '1') {
+          let centerId = this.$store.getters.userinfo.userinfo.centerid;
+          let orgs = getDownOrgInfo(centerId);
+          if (orgs){
+            for (let center of orgs) {
+              let centers = getDownOrgInfo(center._id);
+              if (centers){
+                for (let group of centers) {
+                  vote.push(
+                    {
+                      value: group._id,
+                      lable: group.companyname,
+                    },
+                  );
+                }
+              }
+
+            }
+          }
+        }
+        const vote1 = [];
+        if (this.$store.getters.userinfo.userid ==='5e78fefff1560b363cdd6db7'
+          || this.$store.getters.userinfo.userid ==='5e78b2254e3b194874180f31'
+          || this.$store.getters.userinfo.userid ==='5e78b2004e3b194874180e21'
+          || this.$store.getters.userinfo.userid ==='5e78b2064e3b194874180e4d')
+        {
+          let centerId = '5e7858a08f4316308435112c';
+          let orgs = getDownOrgInfo(centerId);
+          if (orgs){
+            for (let center of orgs) {
+              let centers = getDownOrgInfo(center._id);
+              if (centers){
+                for (let group of centers) {
+                  vote1.push(
+                    {
+                      value: group._id,
+                      lable: group.companyname,
+                    },
+                  );
+                }
+              }
+            }
+          }
+          this.optionsdata = vote1;
+        }
+        else
+        {
+          this.optionsdata = vote;
+        }
+        this.loading = false;
+      },
+      changeGroup(val) {
+        this.form.group_id = val;
+        if (this.form.group_id) {
+          //this.getList(this.form.group_id, this.form.year, this.form.region);
+          this.init();
         }
       },
     }

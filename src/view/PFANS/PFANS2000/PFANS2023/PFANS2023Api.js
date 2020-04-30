@@ -1,4 +1,5 @@
 import request from '../../../../utils/request'
+import requestDownload from '../../../../utils/requestDownload'
 
 //创建流程
 export function createPfans2023(data) {
@@ -33,3 +34,14 @@ export function getFpans2023List(data) {
     data: data
   })
 }
+
+//获取流程列表
+export function download(data) {
+  return requestDownload({
+    url: 'goalmanagement/downLoad1',
+    method: 'post',
+    data: data,
+    responseType: 'blob'
+  })
+}
+
