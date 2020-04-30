@@ -479,10 +479,12 @@
               this.form.tableD = response.securitydetail;
               if (this.form.tableD.length > 0) {
                 for (let m = 0; m < this.form.tableD.length; m++) {
-                  let timea = this.form.tableD[m].timea;
-                  let serdate = timea.slice(0, 10);
-                  let serdate1 = timea.slice(timea.length - 10);
-                  this.form.tableD[m].timea = [serdate, serdate1];
+                  if (this.form.tableD[m].timea != null) {
+                    let timea = this.form.tableD[m].timea;
+                    let serdate = timea.slice(0, 10);
+                    let serdate1 = timea.slice(timea.length - 10);
+                    this.form.tableD[m].timea = [serdate, serdate1];
+                  }
                   let letstaff = this.form.tableD[m].fabuilding.split(',');
                   this.form.tableD[m].fabuilding = letstaff;
                 }
