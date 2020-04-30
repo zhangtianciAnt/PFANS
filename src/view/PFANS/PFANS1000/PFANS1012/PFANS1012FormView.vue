@@ -787,7 +787,7 @@
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012VIEW_CURRENCYRATE')" align="center"
-                                         width="150">
+                                         width="150"  prop="currencyrate">
                           <template slot-scope="scope">
                             <el-input-number
                               :disabled="!disablecurr"
@@ -803,7 +803,7 @@
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012VIEW_TORMB')" align="center"
-                                         width="150">
+                                         width="150" prop="tormb">
                           <template slot-scope="scope">
                             <el-input-number
                               :disabled="true"
@@ -817,7 +817,7 @@
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012FORMVIEW_TAXES')" align="center"
-                                         width="150">
+                                         width="150" prop="taxes">
                           <template slot-scope="scope">
                             <el-input-number
                               :disabled="true"
@@ -1010,7 +1010,7 @@
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012VIEW_CURRENCYRATE')" align="center"
-                                         width="150">
+                                         width="150"   prop="currencyrate">
                           <template slot-scope="scope">
                             <el-input-number
                               :disabled="!disablecurr"
@@ -1026,7 +1026,7 @@
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012VIEW_TORMB')" align="center"
-                                         width="150">
+                                         width="150" prop="tormb">
                           <template slot-scope="scope">
                             <el-input-number
                               :disabled="true"
@@ -1040,8 +1040,8 @@
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012FORMVIEW_TAXES')" align="center"
-                                         width="150
-">
+                                         width="150" prop="taxes"
+>
                           <template slot-scope="scope">
                             <el-input-number
                               :disabled="true"
@@ -4061,6 +4061,7 @@
                   }
                 }
               }
+
               //ADD-WS-增加公共费用精算书check
               if (this.form.type === 'PJ001001') {
                 for (let j = 0; j < this.tableF.length; j++) {
