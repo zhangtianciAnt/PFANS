@@ -76,11 +76,19 @@
         <plx-table-grid
           :datas="tableData" @selection-change="handleSelectionChange()"
           border ref="plx"
-          stripe use-virtual
+          stripe use-virtual :pagination-show="paginationShow"
           style="width: 100%;height: calc(100vh - 200px - 2rem)"
           tooltip-effect="dark"
           header-cell-class-name="sub_bg_color_blue"
         >
+          <!-- 序号-->
+          <plx-table-column
+            :label="$t('label.PFANS2026FORMVIEW_ORDERNUMBER')"
+            align="center"
+            type="index"
+            fixed="left"
+            width="50"
+          ></plx-table-column>
           <plx-table-column
             :label="$t('label.PFANS1042FORMVIEW_MONERTYPE')"
             align="center">
@@ -226,98 +234,98 @@
                 <span>{{scope.row.departmenttotal}}</span>
               </template>
             </plx-table-column>
-          </plx-table-column>
-
-
-          <plx-table-column
-            :label="$t('label.PFANS1042FORMVIEW_DEPARTCOMCOST')"
-            align="center">
-
-            <plx-table-column
-              :label="$t('label.PFANS1042FORMVIEW_YUANQINCOST')"
-              align="center"
-              width="110">
-              <template slot-scope="scope">
-                <span>{{scope.row.yuanqincost}}</span>
-              </template>
-            </plx-table-column>
-
-            <plx-table-column
-              :label="$t('label.PFANS1042FORMVIEW_TRAVALCOST')"
-              align="center"
-              width="110">
-
-              <template slot-scope="scope">
-                <span>{{scope.row.travalcost}}</span>
-              </template>
-
-            </plx-table-column>
 
 
             <plx-table-column
-              :label="$t('label.PFANS1042FORMVIEW_CONCOST')"
-              align="center"
-              width="110">
+              :label="$t('label.PFANS1042FORMVIEW_DEPARTCOMCOST')"
+              align="center">
 
-              <template slot-scope="scope">
-                <span>{{scope.row.concost}}</span>
-              </template>
+              <plx-table-column
+                :label="$t('label.PFANS1042FORMVIEW_YUANQINCOST')"
+                align="center"
+                width="110">
+                <template slot-scope="scope">
+                  <span>{{scope.row.yuanqincost}}</span>
+                </template>
+              </plx-table-column>
+
+              <plx-table-column
+                :label="$t('label.PFANS1042FORMVIEW_TRAVALCOST')"
+                align="center"
+                width="110">
+
+                <template slot-scope="scope">
+                  <span>{{scope.row.travalcost}}</span>
+                </template>
+
+              </plx-table-column>
+
+
+              <plx-table-column
+                :label="$t('label.PFANS1042FORMVIEW_CONCOST')"
+                align="center"
+                width="110">
+
+                <template slot-scope="scope">
+                  <span>{{scope.row.concost}}</span>
+                </template>
+
+              </plx-table-column>
+
+              <plx-table-column
+                :label="$t('label.PFANS1042FORMVIEW_CALLCOST')"
+                align="center"
+                width="110">
+
+                <template slot-scope="scope">
+                  <span>{{scope.row.callcost}}</span>
+                </template>
+
+              </plx-table-column>
+
+              <plx-table-column
+                :label="$t('label.PFANS1042FORMVIEW_BRANDCOST')"
+                align="center"
+                width="110">
+
+                <template slot-scope="scope">
+                  <span>{{scope.row.brandcost}}</span>
+                </template>
+
+              </plx-table-column>
+
+              <plx-table-column
+                :label="$t('label.PFANS1042FORMVIEW_RENT')"
+                align="center"
+                width="110">
+                <template slot-scope="scope">
+                  <span>{{scope.row.rent}}</span>
+                </template>
+
+              </plx-table-column>
+
+              <plx-table-column
+                :label="$t('label.PFANS1042FORMVIEW_OTHER')"
+                align="center"
+                width="110">
+
+                <template slot-scope="scope">
+                  <span>{{scope.row.other}}</span>
+                </template>
+
+              </plx-table-column>
+
+              <plx-table-column
+                :label="$t('label.PFANS1042FORMVIEW_DEPARTMENTCOST')"
+                align="center"
+                width="110">
+                <template slot-scope="scope">
+                  <span>{{scope.row.departmentcom}}</span>
+                </template>
+
+              </plx-table-column>
 
             </plx-table-column>
-
-            <plx-table-column
-              :label="$t('label.PFANS1042FORMVIEW_CALLCOST')"
-              align="center"
-              width="110">
-
-              <template slot-scope="scope">
-                <span>{{scope.row.callcost}}</span>
-              </template>
-
-            </plx-table-column>
-
-            <plx-table-column
-              :label="$t('label.PFANS1042FORMVIEW_BRANDCOST')"
-              align="center"
-              width="110">
-
-              <template slot-scope="scope">
-                <span>{{scope.row.brandcost}}</span>
-              </template>
-
-            </plx-table-column>
-
-            <plx-table-column
-              :label="$t('label.PFANS1042FORMVIEW_RENT')"
-              align="center"
-              width="110">
-              <template slot-scope="scope">
-                <span>{{scope.row.rent}}</span>
-              </template>
-
-            </plx-table-column>
-
-            <plx-table-column
-              :label="$t('label.PFANS1042FORMVIEW_OTHER')"
-              align="center"
-              width="110">
-
-              <template slot-scope="scope">
-                <span>{{scope.row.other}}</span>
-              </template>
-
-            </plx-table-column>
-
-            <plx-table-column
-              :label="$t('label.PFANS1042FORMVIEW_DEPARTMENTCOST')"
-              align="center"
-              width="110">
-              <template slot-scope="scope">
-                <span>{{scope.row.departmentcom}}</span>
-              </template>
-
-            </plx-table-column>
-
             <plx-table-column
               :label="$t('label.PFANS1042FORMVIEW_ALLOCATION')"
               align="center"
@@ -438,6 +446,7 @@
                 }
             };
             return {
+                paginationShow: false,
                 errormonth: '',
                 errorgroup: '',
                 erroryear: '',
@@ -702,11 +711,11 @@
                                 response[j].pj = aaa;
                             }
 //外部受託-
-                            response[j].outst1 = Number(response[j].outst1) + Number(response[j].outst2) + Number(response[j].outst3);
+                            response[j].outst1 = (Number(response[j].outst1) + Number(response[j].outst2) + Number(response[j].outst3)).toFixed(2);
 //税金-
-                            response[j].tax = ((Number(response[j].outst2) / ((1 + date1) * date1))) + ((Number(response[j].outst3) / ((1 + date2) * date2)));
+                            response[j].tax = (((Number(response[j].outst2) / ((1 + date1) * date1))) + ((Number(response[j].outst3) / ((1 + date2) * date2)))).toFixed(2);
 //収入合計
-                            response[j].intotal = response[j].outst1 + response[j].tax + Number(response[j].inst);
+                            response[j].intotal = (Number(response[j].outst1) + Number(response[j].tax) + Number(response[j].inst)).toFixed(2);
 
                             if (sum == 0) {
                                 response[j].peocost = 0;
@@ -715,28 +724,28 @@
                                 response[j].allocation = 0;
                             } else {
 //人件费计算（給料）
-                                response[j].peocost = Number(response[j].emhours) / Number(sum) * Number(response[j].peocost);
+                                response[j].peocost = (Number(response[j].emhours) / Number(sum) * Number(response[j].peocost)).toFixed(2);
 //外注費计算
-                                response[j].outcost = Number(response[j].emhours) / Number(sum) * Number(response[j].outcost);
+                                response[j].outcost = (Number(response[j].emhours) / Number(sum) * Number(response[j].outcost)).toFixed(2);
 //部門共通按分
-                                response[j].departmentcom = Number(response[j].emhours) / Number(sum) * Number(response[j].departmenttotal);
+                                response[j].departmentcom = (Number(response[j].emhours) / Number(sum) * Number(response[j].departmenttotal)).toFixed(2);
 //配賦費用
-                                response[j].allocation = (Number(response[j].emhours) / Number(sum)) * ((Number(response[j].emhours) * she * 1000 + Number(response[j].outhours) * nei * 1000 + Number(response[j].outhours) * wai * 1000));
+                                response[j].allocation = ((Number(response[j].emhours) / Number(sum)) * ((Number(response[j].emhours) * she * 1000 + Number(response[j].outhours) * nei * 1000 + Number(response[j].outhours) * wai * 1000))).toFixed(2);
                             }
 // 部門共通費用合計
-                            response[j].departmenttotal = Number(response[j].yuanqincost) + Number(response[j].travalcost) + Number(response[j].concost) + Number(response[j].callcost) + Number(response[j].brandcost) + Number(response[j].rent) + Number(response[j].other);
+                            response[j].departmenttotal = (Number(response[j].yuanqincost) + Number(response[j].travalcost) + Number(response[j].concost) + Number(response[j].callcost) + Number(response[j].brandcost) + Number(response[j].rent) + Number(response[j].other)).toFixed(2);
 //支出合計
-                            response[j].costtotal = response[j].peocost + response[j].outcost + Number(response[j].inwetuo) + Number(response[j].researchcost) + response[j].departmentcom
+                            response[j].costtotal = (Number(response[j].peocost) + Number(response[j].outcost) + Number(response[j].inwetuo) + Number(response[j].researchcost) + Number(response[j].departmentcom)
                                 + Number(response[j].yuanqincost) + Number(response[j].travalcost) + Number(response[j].concost) + Number(response[j].callcost) + Number(response[j].brandcost)
-                                + Number(response[j].rent) + Number(response[j].other) + Number(response[j].concost) + response[j].departmenttotal + response[j].allocation;
+                                + Number(response[j].rent) + Number(response[j].other) + Number(response[j].concost) + Number(response[j].departmenttotal) + Number(response[j].allocation)).toFixed(2);
 //仕掛品処理
 //                   response[j].process = this.$t('label.PFANS1042FORMVIEW_OUTANDIN')
 
-                            response[j].process = response[j].costtotal - response[j].intotal;
+                            response[j].process = (Number(response[j].costtotal) - Number(response[j].intotal)).toFixed(2);
 //限界利益
-                            response[j].marginal = (response[j].inst + response[j].outst1) - (response[j].peocost + response[j].outcost + response[j].researchcost);
+                            response[j].marginal = (Number(response[j].inst) + Number(response[j].outst1) - Number(response[j].peocost) - Number(response[j].outcost) - Number(response[j].researchcost)).toFixed(2);
 //営業利益 = 限界利益 - 所有和项目有关的费用
-                            response[j].Operating = response[j].marginal - response[j].costtotal;
+                            response[j].Operating = (Number(response[j].marginal) - Number(response[j].costtotal)).toFixed(2);
 
 
                             tabledate.push({
