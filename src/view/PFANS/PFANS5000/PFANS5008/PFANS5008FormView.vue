@@ -422,6 +422,7 @@
         this.$store
           .dispatch('PFANS5008Store/getDataOne', {'logmanagement_id': this.$route.params._id})
           .then(response => {
+            debugger
             this.data = response;
             this.checktimelength = response.time_start;
             if (response.confirmstatus == '1') {
@@ -619,7 +620,7 @@
       getCompanyProjectList() {
         this.loading = true;
         this.$store
-          .dispatch('PFANS5009Store/getSiteList3', {})
+          .dispatch('PFANS5009Store/getSiteList5', {})
           .then(response => {
             for (let i = 0; i < response.length; i++) {
               this.optionsdata.push({
@@ -831,6 +832,7 @@
         this.$store
           .dispatch('PFANS5008Store/getDataOne', {'logmanagement_id': this.row})
           .then(response => {
+
             this.checktimelength = response.time_start;
             if (response.confirmstatus == '1') {
               this.buttonList[0].disabled = true;
