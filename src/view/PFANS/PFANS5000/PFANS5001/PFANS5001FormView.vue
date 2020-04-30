@@ -2799,12 +2799,33 @@
                 //add-ws-合同关联项目，分配金额
               }];
             }
+            let error = 0;
+            let error1 = 0;
+            let error2 = 0;
+            let error3 = 0;
+            let error4 = 0;
+            let error5 = 0;
+            let error7 = 0;
+            let error8 = 0;
+            let error9 = 0;
+            let error10 = 0;
+            let error11 = 0;
+            let error12 = 0;
+            let error13 = 0;
             this.baseInfo.companyprojects = JSON.parse(JSON.stringify(this.form));
             this.baseInfo.stageinformation = [];
             this.baseInfo.projectsystem = [];
             this.baseInfo.projectcontract = [];
             //项目计划
             for (let i = 0; i < this.tableA.length; i++) {
+              if (this.tableA[i].phase == '' && this.tableA[i].estimatedstarttime == '' && this.tableA[i].estimatedendtime == '') {
+                error4 = error4 + 1;
+                break;
+              }
+              if (moment(this.tableA[i].estimatedstarttime).format('YYYY-MM-DD') > moment(this.tableA[i].estimatedendtime).format('YYYY-MM-DD')) {
+                error7 = error7 + 1;
+                break;
+              }
               if (
                 this.tableA[i].phase !== '' ||
                 this.tableA[i].stageproduct !== '' ||
@@ -2823,22 +2844,15 @@
                 });
               }
             }
-            let error1 = 0;
-            let error2 = 0;
-            let error3 = 0;
-            let error4 = 0;
-            let error5 = 0;
-            let error7 = 0;
-            let error8 = 0;
-            let error9 = 0;
-            let error10 = 0;
-            let error11 = 0;
-            let error12 = 0;
-            let error13 = 0;
             for (let i = 0; i < this.tableB.length; i++) {
               // 社内员工进组时间&退出时间必须Check
               if ((!this.tableB[i].admissiontime || this.tableB[i].admissiontime === '' || !this.tableB[i].exittime || this.tableB[i].exittime === '') && this.tableB[i].name !== '') {
                 error10 = error10 + 1;
+                break;
+              }
+              if (moment(this.tableB[i].admissiontime).format('YYYY-MM-DD') > moment(this.tableB[i].exittime).format('YYYY-MM-DD')) {
+                error8 = error8 + 1;
+                break;
               }
               if (
                 this.tableB[i].number !== '' ||
@@ -2861,6 +2875,11 @@
               // 外协员工入场时间&离场时间必须Check
               if ((!this.tableC[i].admissiontime || this.tableC[i].admissiontime === '' || !this.tableC[i].exittime || this.tableC[i].exittime === '') && this.tableC[i].name !== '') {
                 error11 = error11 + 1;
+                break;
+              }
+              if (moment(this.tableC[i].admissiontime).format('YYYY-MM-DD') > moment(this.tableC[i].exittime).format('YYYY-MM-DD')) {
+                error9 = error9 + 1;
+                break;
               }
               if (
                 this.tableC[i].number !== '' ||
@@ -2889,6 +2908,10 @@
             //add-ws-存在check关闭loading
             for (let i = 0; i < this.tableD.length; i++) {
               this.tableD[i].contractamount = this.tableD[i].contractamount === undefined ? 0 : this.tableD[i].contractamount;
+              if (this.tableD[i].contract == '') {
+                error = error + 1;
+                break;
+              }
               if (
                 this.tableD[i].contract !== '' ||
                 this.tableD[i].theme !== '' ||
@@ -2918,30 +2941,7 @@
                 error5 = error5 + 1;
               }
             }
-            let error = 0;
-            for (let i = 0; i < this.tableD.length; i++) {
-              if (this.tableD[i].contract == '') {
-                error = error + 1;
-              }
-            }
-            for (let i = 0; i < this.tableA.length; i++) {
-              if (this.tableA[i].phase == '' && this.tableA[i].estimatedstarttime == '' && this.tableA[i].estimatedendtime == '') {
-                error4 = error4 + 1;
-              }
-              if (moment(this.tableA[i].estimatedstarttime).format('YYYY-MM-DD') > moment(this.tableA[i].estimatedendtime).format('YYYY-MM-DD')) {
-                  error7 = error7 + 1;
-              }
-            }
-            for (let i = 0; i < this.tableB.length; i++) {
-              if (moment(this.tableB[i].admissiontime).format('YYYY-MM-DD') > moment(this.tableB[i].exittime).format('YYYY-MM-DD')) {
-                error8 = error8 + 1;
-              }
-            }
-            for (let i = 0; i < this.tableC.length; i++) {
-              if (moment(this.tableC[i].admissiontime).format('YYYY-MM-DD') > moment(this.tableC[i].exittime).format('YYYY-MM-DD')) {
-                error9 = error9 + 1;
-              }
-            }
+
             //ADD-WS-开发部门，体制时间范围check
             for (let i = 0; i < this.tableclaimtype.length; i++) {
               if (this.tableclaimtype[i].claimtype == '' || this.tableclaimtype[i].deliverydate == '' || this.tableclaimtype[i].completiondate == '' || this.tableclaimtype[i].claimdate == '' || this.tableclaimtype[i].supportdate == '' || this.tableclaimtype[i].claimamount == '') {
@@ -3043,7 +3043,7 @@
             //add-ws-存在check关闭loading
             else if (this.$route.params._id) {
               for (let i = 0; i < this.baseInfo.projectcontract.length; i++) {
-                  this.baseInfo.projectcontract[i].workinghours = this.getworkinghours(this.baseInfo.projectcontract[i].workinghours);
+                this.baseInfo.projectcontract[i].workinghours = this.getworkinghours(this.baseInfo.projectcontract[i].workinghours);
               }
               this.baseInfo.companyprojects.companyprojects_id = this.$route.params._id;
               this.form.center_id = this.centerorglist;
@@ -3075,7 +3075,7 @@
                 });
             } else {
               for (let i = 0; i < this.baseInfo.projectcontract.length; i++) {
-                  this.baseInfo.projectcontract[i].workinghours = this.getworkinghours(this.baseInfo.projectcontract[i].workinghours);
+                this.baseInfo.projectcontract[i].workinghours = this.getworkinghours(this.baseInfo.projectcontract[i].workinghours);
               }
               this.$store
                 .dispatch('PFANS5001Store/insert', this.baseInfo)
