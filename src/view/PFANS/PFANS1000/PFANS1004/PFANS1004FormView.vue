@@ -1065,12 +1065,12 @@
               if (this.form.businessplantype === 'PR002004') {
                 this.form.classificationtype = '';
               }
-              if (this.form.salequotation === 'PJ013001') {
+              if (this.form.salequotation === 'PJ013002') {
                 this.form.reasonsforquotation = '';
               }
-              if (this.form.salequotation === 'PJ013003') {
-                this.form.reasonsforquotation = '';
-              }
+              // if (this.form.salequotation === 'PJ013003') {
+              //   this.form.reasonsforquotation = '';
+              // }
               if (this.form.decisive === 'PJ011001') {
                 this.form.startdate = '';
                 this.form.enddate = '';

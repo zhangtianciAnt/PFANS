@@ -86,6 +86,30 @@
                             style="width: 10rem"></el-input>
                 </template>
               </el-table-column>
+              <el-table-column :label="$t('label.PFANS3005VIEW_COMPANY')" align="center" prop="title" width="200"
+                               v-if="show">
+                <template slot-scope="scope">
+                  <el-input v-model="scope.row.company" :no="scope.row" :disabled="!disabled"
+                            style="width: 10rem"></el-input>
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('label.PFANS3005VIEW_TIME')" align="center" prop="title" width="370"
+                               v-if="show">
+                <template slot-scope="scope">
+                  <el-date-picker
+                    v-model="scope.row.timea"
+                    :no="scope.row"
+                    class="bigWidth"
+                    :disabled="!disabled"
+                    type="daterange"
+                    unlink-panels
+                    :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
+                    :start-placeholder="$t('label.startdate')"
+                    :end-placeholder="$t('label.enddate')"
+                    style="width: 20rem">
+                  </el-date-picker>
+                </template>
+              </el-table-column>
               <el-table-column :label="$t('label.center')" align="center" prop="detailcenter" width="200">
                 <template slot-scope="scope">
                   <org :orglist="scope.row.detailcenter_id"
@@ -305,6 +329,7 @@
         selectType: 'Single',
         title: 'title.PFANS1021VIEW',
         buttonList: [],
+        timea: '',
         multiple: false,
         multiplecheck: true,
         form: {
@@ -329,6 +354,8 @@
               phonenumber: '',
               emaildetail: '',
               startdate: '',
+              company: '',
+              timea: [],
               fabuilding: '',
               // fbbuilding: ' ',
               // showroom: ' ',
@@ -338,6 +365,7 @@
         },
         code: 'PJ029',
         code1: 'PJ030',
+        show: false,
         disabled: false,
         disabled1: false,
         menuList: [],
@@ -451,10 +479,21 @@
               this.form.tableD = response.securitydetail;
               if (this.form.tableD.length > 0) {
                 for (let m = 0; m < this.form.tableD.length; m++) {
+                  let timea = this.form.tableD[m].timea;
+                  let serdate = timea.slice(0, 10);
+                  let serdate1 = timea.slice(timea.length - 10);
+                  this.form.tableD[m].timea = [serdate, serdate1];
                   let letstaff = this.form.tableD[m].fabuilding.split(',');
                   this.form.tableD[m].fabuilding = letstaff;
                 }
               }
+            }
+            if (this.form.subtype == 'PJ029003' || this.form.subtype == 'PJ029004') {
+              this.show = true;
+            } else {
+              this.show = false;
+              this.form.tableD.company = '';
+              this.form.tableD.timea = '';
             }
             this.userlist = this.form.user_id;
             this.loading = false;
@@ -536,6 +575,13 @@
       },
       getSubtype(val) {
         this.form.subtype = val;
+        if (val == 'PJ029003' || val == 'PJ029004') {
+          this.show = true;
+        } else {
+          this.show = false;
+          this.form.tableD.company = '';
+          this.form.tableD.timea = '';
+        }
       },
       // getFbbuilding(val,row) {
       //     row.fbbuilding = val;
@@ -574,6 +620,8 @@
               phonenumber: '',
               emaildetail: '',
               startdate: '',
+              company: '',
+              timea: '',
               fabuilding: '',
               // fbbuilding: ' ',
               // showroom: ' ',
@@ -602,6 +650,8 @@
           phonenumber: '',
           emaildetail: '',
           startdate: '',
+          company: '',
+          timea: '',
           fabuilding: '',
           // fbbuilding:' ',
           // showroom: ' ',
@@ -620,6 +670,7 @@
               if (this.form.tableD[i].title.trim() === '' || this.form.tableD[i].detailcenter_id !== '' || this.form.tableD[i].detailgroup_id !== '' ||
                 this.form.tableD[i].detailteam_id !== '' || this.form.tableD[i].phonenumber !== '' || this.form.tableD[i].emaildetail !== ''
                 || this.form.tableD[i].startdate !== '' || this.form.tableD[i].fabuilding !== '') {
+                this.form.tableD[i].timea = moment(this.form.tableD[i].timea[0]).format('YYYY-MM-DD') + ' ~ ' + moment(this.form.tableD[i].timea[1]).format('YYYY-MM-DD');
                 let checktableD = '';
                 if (this.form.tableD[i].fabuilding != '') {
                   let checktlist = this.form.tableD[i].fabuilding.splice(',');
@@ -640,6 +691,8 @@
                     phonenumber: this.form.tableD[i].phonenumber,
                     emaildetail: this.form.tableD[i].emaildetail,
                     startdate: this.form.tableD[i].startdate,
+                    company: this.form.tableD[i].company,
+                    timea: this.form.tableD[i].timea,
                     fabuilding: checktableD.substring(0, checktableD.length - 1),
                     // fbbuilding: this.form.tableD[i].fbbuilding,
                     // showroom: this.form.tableD[i].showroom,
