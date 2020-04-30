@@ -76,11 +76,19 @@
         <plx-table-grid
           :datas="tableData" @selection-change="handleSelectionChange()"
           border ref="plx"
-          stripe use-virtual
+          stripe use-virtual :pagination-show="paginationShow"
           style="width: 100%;height: calc(100vh - 200px - 2rem)"
           tooltip-effect="dark"
           header-cell-class-name="sub_bg_color_blue"
         >
+          <!-- 序号-->
+          <plx-table-column
+            :label="$t('label.PFANS2026FORMVIEW_ORDERNUMBER')"
+            align="center"
+            type="index"
+            fixed="left"
+            width="50"
+          ></plx-table-column>
           <plx-table-column
             :label="$t('label.PFANS1042FORMVIEW_MONERTYPE')"
             align="center">
@@ -226,98 +234,98 @@
                 <span>{{scope.row.departmenttotal}}</span>
               </template>
             </plx-table-column>
-          </plx-table-column>
-
-
-          <plx-table-column
-            :label="$t('label.PFANS1042FORMVIEW_DEPARTCOMCOST')"
-            align="center">
-
-            <plx-table-column
-              :label="$t('label.PFANS1042FORMVIEW_YUANQINCOST')"
-              align="center"
-              width="110">
-              <template slot-scope="scope">
-                <span>{{scope.row.yuanqincost}}</span>
-              </template>
-            </plx-table-column>
-
-            <plx-table-column
-              :label="$t('label.PFANS1042FORMVIEW_TRAVALCOST')"
-              align="center"
-              width="110">
-
-              <template slot-scope="scope">
-                <span>{{scope.row.travalcost}}</span>
-              </template>
-
-            </plx-table-column>
 
 
             <plx-table-column
-              :label="$t('label.PFANS1042FORMVIEW_CONCOST')"
-              align="center"
-              width="110">
+              :label="$t('label.PFANS1042FORMVIEW_DEPARTCOMCOST')"
+              align="center">
 
-              <template slot-scope="scope">
-                <span>{{scope.row.concost}}</span>
-              </template>
+              <plx-table-column
+                :label="$t('label.PFANS1042FORMVIEW_YUANQINCOST')"
+                align="center"
+                width="110">
+                <template slot-scope="scope">
+                  <span>{{scope.row.yuanqincost}}</span>
+                </template>
+              </plx-table-column>
+
+              <plx-table-column
+                :label="$t('label.PFANS1042FORMVIEW_TRAVALCOST')"
+                align="center"
+                width="110">
+
+                <template slot-scope="scope">
+                  <span>{{scope.row.travalcost}}</span>
+                </template>
+
+              </plx-table-column>
+
+
+              <plx-table-column
+                :label="$t('label.PFANS1042FORMVIEW_CONCOST')"
+                align="center"
+                width="110">
+
+                <template slot-scope="scope">
+                  <span>{{scope.row.concost}}</span>
+                </template>
+
+              </plx-table-column>
+
+              <plx-table-column
+                :label="$t('label.PFANS1042FORMVIEW_CALLCOST')"
+                align="center"
+                width="110">
+
+                <template slot-scope="scope">
+                  <span>{{scope.row.callcost}}</span>
+                </template>
+
+              </plx-table-column>
+
+              <plx-table-column
+                :label="$t('label.PFANS1042FORMVIEW_BRANDCOST')"
+                align="center"
+                width="110">
+
+                <template slot-scope="scope">
+                  <span>{{scope.row.brandcost}}</span>
+                </template>
+
+              </plx-table-column>
+
+              <plx-table-column
+                :label="$t('label.PFANS1042FORMVIEW_RENT')"
+                align="center"
+                width="110">
+                <template slot-scope="scope">
+                  <span>{{scope.row.rent}}</span>
+                </template>
+
+              </plx-table-column>
+
+              <plx-table-column
+                :label="$t('label.PFANS1042FORMVIEW_OTHER')"
+                align="center"
+                width="110">
+
+                <template slot-scope="scope">
+                  <span>{{scope.row.other}}</span>
+                </template>
+
+              </plx-table-column>
+
+              <plx-table-column
+                :label="$t('label.PFANS1042FORMVIEW_DEPARTMENTCOST')"
+                align="center"
+                width="110">
+                <template slot-scope="scope">
+                  <span>{{scope.row.departmentcom}}</span>
+                </template>
+
+              </plx-table-column>
 
             </plx-table-column>
-
-            <plx-table-column
-              :label="$t('label.PFANS1042FORMVIEW_CALLCOST')"
-              align="center"
-              width="110">
-
-              <template slot-scope="scope">
-                <span>{{scope.row.callcost}}</span>
-              </template>
-
-            </plx-table-column>
-
-            <plx-table-column
-              :label="$t('label.PFANS1042FORMVIEW_BRANDCOST')"
-              align="center"
-              width="110">
-
-              <template slot-scope="scope">
-                <span>{{scope.row.brandcost}}</span>
-              </template>
-
-            </plx-table-column>
-
-            <plx-table-column
-              :label="$t('label.PFANS1042FORMVIEW_RENT')"
-              align="center"
-              width="110">
-              <template slot-scope="scope">
-                <span>{{scope.row.rent}}</span>
-              </template>
-
-            </plx-table-column>
-
-            <plx-table-column
-              :label="$t('label.PFANS1042FORMVIEW_OTHER')"
-              align="center"
-              width="110">
-
-              <template slot-scope="scope">
-                <span>{{scope.row.other}}</span>
-              </template>
-
-            </plx-table-column>
-
-            <plx-table-column
-              :label="$t('label.PFANS1042FORMVIEW_DEPARTMENTCOST')"
-              align="center"
-              width="110">
-              <template slot-scope="scope">
-                <span>{{scope.row.departmentcom}}</span>
-              </template>
-
-            </plx-table-column>
-
             <plx-table-column
               :label="$t('label.PFANS1042FORMVIEW_ALLOCATION')"
               align="center"
@@ -438,6 +446,7 @@
                 }
             };
             return {
+                paginationShow: false,
                 errormonth: '',
                 errorgroup: '',
                 erroryear: '',
