@@ -51,6 +51,15 @@ export function selectById(data) {
     params: data
   })
 }
+
+export function getpublicelist(data) {
+  return request({
+    url: 'publicexpense/getpublicelist',
+    method: 'get',
+    params: data
+  })
+}
+
 //裁决号
 export function getJudgement(data) {
   return request({
