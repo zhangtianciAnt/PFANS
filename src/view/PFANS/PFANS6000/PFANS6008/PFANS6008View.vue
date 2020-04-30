@@ -681,7 +681,8 @@
         ],
         buttonList: [
 //          {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
-          {'key': 'export', 'name': 'button.export', 'disabled': false, 'icon': 'el-icon-download'}
+          {'key': 'export', 'name': 'button.export', 'disabled': false, 'icon': 'el-icon-download'},
+          {'key': 'generate', 'name': 'button.generate', 'disabled': false},
         ],
         rowid: '',
         isShow: true,
@@ -690,24 +691,6 @@
     },
     mounted() {
       this.getById();
-      this.loading = true;
-      this.$store
-        .dispatch('PFANS6008Store/insertCoststatistics')
-        .then(response => {
-          //this.init();
-          this.loading = false;
-        })
-        .catch(error => {
-          this.loading = false;
-        })
-        .catch(error => {
-          Message({
-            message: error,
-            type: 'error',
-            duration: 5 * 1000
-          });
-          this.loading = false;
-        })
     },
     methods: {
       init() {
@@ -762,6 +745,32 @@
             let selectedList = this.selectedlist;
             this.export(selectedList);
           }
+        }
+        if (val === 'generate')
+        {
+          this.loading = true;
+          this.$store
+            .dispatch('PFANS6008Store/insertCoststatistics')
+            .then(response => {
+              //this.init();
+              Message({
+                message: this.$t("normal.success_04"),
+                type: "success",
+                duration: 5 * 1000
+              });
+              this.loading = false;
+            })
+            .catch(error => {
+              this.loading = false;
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000
+              });
+              this.loading = false;
+            })
         }
       },
       export(selectedList){

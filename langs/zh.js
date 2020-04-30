@@ -118,6 +118,7 @@ module.exports = {
     success_01: '数据创建成功！',
     success_02: '数据更新成功！',
     success_03: '操作成功！',
+    success_04:'费用统计数据生成成功！',
     error_startTime: '请输入开始时间！',
     error_endTime: '请输入结束时间！',
     error_program: '请选择工作项目！',
