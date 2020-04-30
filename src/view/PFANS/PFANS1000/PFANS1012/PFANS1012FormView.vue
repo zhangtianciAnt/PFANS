@@ -787,7 +787,7 @@
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012VIEW_CURRENCYRATE')" align="center"
-                                         width="150"  prop="currencyrate">
+                                         width="150" prop="currencyrate">
                           <template slot-scope="scope">
                             <el-input-number
                               :disabled="!disablecurr"
@@ -1010,7 +1010,7 @@
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012VIEW_CURRENCYRATE')" align="center"
-                                         width="150"   prop="currencyrate">
+                                         width="150" prop="currencyrate">
                           <template slot-scope="scope">
                             <el-input-number
                               :disabled="!disablecurr"
@@ -1041,7 +1041,7 @@
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012FORMVIEW_TAXES')" align="center"
                                          width="150" prop="taxes"
->
+                        >
                           <template slot-scope="scope">
                             <el-input-number
                               :disabled="true"
@@ -1291,7 +1291,7 @@
       };
       return {
         DataList2: [],
-        show12:false,
+        show12: false,
         DataList: [{
           judgement_name: '',
         }],
@@ -1918,6 +1918,12 @@
                       if (letErrortype != null) {
                         this.tableR[i].accountcode = letErrortype.code;
                       }
+                    } else if (this.tableR[i].plsummary === 'PJ111015') {
+                      this.tableR[i].code16 = 'PJ138';
+                      let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
+                      if (letErrortype != null) {
+                        this.tableR[i].accountcode = letErrortype.code;
+                      }
                     }
                   } else if (this.Redirict == '1' || this.Redirict == '') {
                     if (this.tableR[i].plsummary == 'PJ111001') {
@@ -2000,6 +2006,12 @@
                       }
                     } else if (this.tableR[i].plsummary === 'PJ111014') {
                       this.tableR[i].code16 = 'PJ137';
+                      let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
+                      if (letErrortype != null) {
+                        this.tableR[i].accountcode = letErrortype.code;
+                      }
+                    } else if (this.tableR[i].plsummary === 'PJ111015') {
+                      this.tableR[i].code16 = 'PJ139';
                       let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                       if (letErrortype != null) {
                         this.tableR[i].accountcode = letErrortype.code;
@@ -2237,22 +2249,22 @@
     methods: {
       //add-ws-4/30-公共费用决裁已关联得精算
       rowclick(row, event, column) {
-        this.DataList2 = []
+        this.DataList2 = [];
         this.loading = true;
         this.$store
           .dispatch('PFANS1012Store/getpublicelist', {'publicexpenseid': row.judgement})
           .then(response => {
-            for(let i = 0; i< response.length; i++){
+            for (let i = 0; i < response.length; i++) {
               if (response[i].status !== null && response[i].status !== '') {
                 response[i].status = getStatus(response[i].status);
               }
               this.DataList2.push({
-                moneys  :response[i].moneys,
-                invoiceno :response[i].invoiceno,
-                status:response[i].status,
-              })
+                moneys: response[i].moneys,
+                invoiceno: response[i].invoiceno,
+                status: response[i].status,
+              });
             }
-            this.show12 = true
+            this.show12 = true;
             this.loading = false;
           }).catch(error => {
           Message({
@@ -2701,6 +2713,10 @@
               row.accountcode = '',
                 row.code16 = 'PJ125';
 
+            } else if (row.plsummary == 'PJ111015') {
+              row.accountcode = '',
+                row.code16 = 'PJ138';
+
             }
           } else if (this.Redirict == '1' || this.Redirict == '') {
             if (row.plsummary == 'PJ111001') {
@@ -2758,6 +2774,10 @@
             } else if (row.plsummary == 'PJ111014') {
               row.accountcode = '',
                 row.code16 = 'PJ137';
+
+            } else if (row.plsummary == 'PJ111015') {
+              row.accountcode = '',
+                row.code16 = 'PJ139';
 
             }
           }
@@ -3019,6 +3039,10 @@
             row.accountcode = '',
               row.code16 = 'PJ125';
             row.code17 = 'PJ125';
+          }else if (row.plsummary == 'PJ111015') {
+            row.accountcode = '',
+              row.code16 = 'PJ138';
+            row.code17 = 'PJ138';
           }
         } else if (this.Redirict == '1' || this.Redirict == '') {
           if (row.plsummary == 'PJ111001') {
@@ -3077,6 +3101,10 @@
             row.accountcode = '',
               row.code16 = 'PJ137';
             row.code17 = 'PJ137';
+          }else if (row.plsummary == 'PJ111015') {
+            row.accountcode = '',
+              row.code16 = 'PJ139';
+            row.code17 = 'PJ139';
           }
         }
 
