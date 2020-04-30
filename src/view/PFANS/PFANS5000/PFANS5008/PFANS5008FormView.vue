@@ -620,7 +620,7 @@
       getCompanyProjectList() {
         this.loading = true;
         this.$store
-          .dispatch('PFANS5009Store/getSiteList3', {})
+          .dispatch('PFANS5009Store/getSiteList5', {})
           .then(response => {
             for (let i = 0; i < response.length; i++) {
               this.optionsdata.push({
@@ -832,6 +832,7 @@
         this.$store
           .dispatch('PFANS5008Store/getDataOne', {'logmanagement_id': this.row})
           .then(response => {
+
             this.checktimelength = response.time_start;
             if (response.confirmstatus == '1') {
               this.buttonList[0].disabled = true;
@@ -1105,6 +1106,7 @@
           this.$refs['companyform'].validate(valid => {
             if (valid) {
               this.getAttendancelist();
+              this.loading = true;
               let error = 0;
               if (this.checkuserid === 0) {
                 if (moment(this.companyform.log_date).format('YYYY-MM-DD') >= moment(new Date()).format('YYYY-MM-DD')) {
@@ -1114,6 +1116,7 @@
                     type: 'error',
                     duration: 5 * 1000,
                   });
+                  this.loading = false;
                 } else if (this.companyform.time_start == '0') {
                   error = error + 1;
                   Message({
@@ -1121,17 +1124,16 @@
                     type: 'error',
                     duration: 5 * 1000,
                   });
+                  this.loading = false;
                 }
                 this.$store
                   .dispatch('PFANS5008Store/getCheckList', {'createby': this.User_id})
                   .then(response => {
                     let checklenth = 0;
                     for (let j = 0; j < response.length; j++) {
-
                       if (moment(response[j].log_date).format('YYYY-MM-DD') === moment(this.companyform.log_date).format('YYYY-MM-DD')) {
                         checklenth += parseFloat(response[j].time_start);
                       }
-
                     }
                     if (this.companyform.logmanagement_id) {
                       this.checkLenth = checklenth;
@@ -1142,6 +1144,7 @@
                           type: 'error',
                           duration: 5 * 1000,
                         });
+                        this.loading = false;
                       }
                     } else {
                       this.checkLenth = checklenth;
@@ -1152,11 +1155,11 @@
                           type: 'error',
                           duration: 5 * 1000,
                         });
+                        this.loading = false;
                       }
                     }
                     if (error == 0) {
                       if (this.$route.params._id || this.row) {
-                        this.loading = true;
                         this.$store
                           .dispatch('PFANS5008Store/updateNewUser', this.companyform)
                           .then(response => {
@@ -1171,7 +1174,6 @@
                               .then(response => {
                                 let datalist = [];
                                 for (let k = 0; k < response.length; k++) {
-
                                   if (moment(response[k].log_date).format('YYYY-MM-DD') === moment(this.companyform.log_date).format('YYYY-MM-DD')) {
                                     if (response[k].work_phase === 'PP008001') {
                                       this.code3 = 'PP009';
@@ -1240,7 +1242,6 @@
                         } else {
                           this.companyform.has_project = '01';
                         }
-                        this.loading = true;
                         this.$store
                           .dispatch('PFANS5008Store/createNewUser', this.companyform)
                           .then(response => {
