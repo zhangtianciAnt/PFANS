@@ -1,6 +1,6 @@
 <template>
   <div>
-    <EasyNormalContainer :buttonList="buttonList" :canStart="canStart" :title="title" :workflowCode="aaaaaa"
+    <EasyNormalContainer :buttonList="buttonList" :canStart="canStart" :title="title" :workflowCode="aaaaaa" :enableSave="enableSave"
                          @buttonClick="buttonClick" @end="end" @start="start" @workflowState="workflowState"
                          ref="container" v-loading="loading" @disabled="setdisabled">
       <div slot="customize">
@@ -233,6 +233,7 @@
                 }
             };
             return {
+              enableSave:false,
                 centerid: '',
                 groupid: '',
                 teamid: '',
@@ -383,6 +384,7 @@
                   {
                     key: "export",
                     name: "button.export",
+                    disabled:true
                   }
                 ];
                 this.form.stage = '0';
@@ -549,14 +551,14 @@
                     this.disablemar = true;
                 } else if (this.form.stage === '3' && this.form.status === '4') {
                     this.aaaaaa = 'W0039';
-                    this.canStart = true;
+                    this.canStart = false;
                     this.disable = false;
                     this.disableyear = false;
                     this.disablesep = false;
                     this.disabledec = false;
                     this.disablemar = false;
                     this.mar = true;
-
+                 this.enableSave = true;
                 }
             },
 
