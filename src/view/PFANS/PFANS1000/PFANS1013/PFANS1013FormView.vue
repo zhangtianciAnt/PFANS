@@ -1543,15 +1543,19 @@
           this.groupId = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
           this.tableT[0].departmentname = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
           this.tableT[0].optionsT = [];
-          let butinfo = getOrgInfo(this.tableT[0].departmentname).encoding;
-          let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-          if (dic.length > 0) {
-            for (let j = 0; j < dic.length; j++) {
-              if (butinfo === dic[j].value1) {
-                this.tableT[0].optionsT.push({
-                  lable: dic[j].value2 + '_' + dic[j].value3,
-                  value: dic[j].code,
-                });
+          if (this.tableT[0].departmentname) {
+            let butinfo = getOrgInfo(this.tableT[0].departmentname).encoding;
+            if (butinfo) {
+              let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+              if (dic.length > 0) {
+                for (let j = 0; j < dic.length; j++) {
+                  if (butinfo === dic[j].value1) {
+                    this.tableT[0].optionsT.push({
+                      lable: dic[j].value2 + '_' + dic[j].value3,
+                      value: dic[j].code,
+                    });
+                  }
+                }
               }
             }
           }
@@ -1587,32 +1591,31 @@
         } else {
           this.showAout = true;
         }
-      }
-
-      if (this.Redirict == '0') {
-        this.accountcode = 'PJ119001';
-      } else if (this.Redirict == '1') {
-        this.accountcode = 'PJ132001';
-      }
-      if (this.Redirict == '0') {
-        this.code20 = 'PJ119';
-        let accinfo = getDictionaryInfo('PJ119002');
-        if (accinfo) {
-          this.tableT[0].accountcode = accinfo.value1;
-          this.tableT[0].subjectnumber = accinfo.value2;
-          this.accountcodeflg = accinfo.value1;
-          this.accountcodeflg1 = accinfo.code;
-          this.subjectnumberflg = accinfo.value2;
+        if (this.Redirict == '0') {
+          this.code20 = 'PJ119';
+          let accinfo = getDictionaryInfo('PJ119002');
+          if (accinfo) {
+            this.tableT[0].accountcode = accinfo.value1;
+            this.tableT[0].subjectnumber = accinfo.value2;
+            this.accountcodeflg = accinfo.value1;
+            this.accountcodeflg1 = accinfo.code;
+            this.subjectnumberflg = accinfo.value2;
+          }
+        } else if (this.Redirict == '1' || this.Redirict == '') {
+          this.code20 = 'PJ132';
+          let accinfo = getDictionaryInfo('PJ132002');
+          if (accinfo) {
+            this.tableT[0].accountcode = accinfo.value1;
+            this.tableT[0].subjectnumber = accinfo.value2;
+            this.accountcodeflg = accinfo.value1;
+            this.accountcodeflg1 = accinfo.code;
+            this.subjectnumberflg = accinfo.value2;
+          }
         }
-      } else if (this.Redirict == '1' || this.Redirict == '') {
-        this.code20 = 'PJ132';
-        let accinfo = getDictionaryInfo('PJ132002');
-        if (accinfo) {
-          this.tableT[0].accountcode = accinfo.value1;
-          this.tableT[0].subjectnumber = accinfo.value2;
-          this.accountcodeflg = accinfo.value1;
-          this.accountcodeflg1 = accinfo.code;
-          this.subjectnumberflg = accinfo.value2;
+        if (this.Redirict == '0') {
+          this.accountcode = 'PJ119001';
+        } else if (this.Redirict == '1') {
+          this.accountcode = 'PJ132001';
         }
       }
     },
