@@ -865,7 +865,7 @@
                         ></el-input-number>
                       </template>
                     </el-table-column>
-                    <el-table-column :label="$t('label.PFANS1012FORMVIEW_TAXES')" align="center"  prop="taxes"
+                    <el-table-column :label="$t('label.PFANS1012FORMVIEW_TAXES')" align="center" prop="taxes"
                                      width="150">
                       <template slot-scope="scope">
                         <el-input-number
@@ -879,7 +879,7 @@
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1013FORMVIEW_SUBSIDIES')" align="center"
-                                     prop="subsidies"  width="200">
+                                     prop="subsidies" width="200">
                       <template slot-scope="scope">
                         <el-input-number
                           :disabled="true"
@@ -1719,13 +1719,85 @@
             this.loading = false;
           });
       },
-      getBusOuter() {
+      getBusInside() {
+        let businesstype = {'businesstype': '1'};
         this.loading = true;
         this.$store
-          .dispatch('PFANS1013Store/getdate')
+          .dispatch('PFANS1001Store/getBusiness', businesstype)
           .then(response => {
             for (let i = 0; i < response.length; i++) {
-              if (response[i].user_id === this.$store.getters.userinfo.userid && response[i].businesstype === '0') {
+              if (this.disable) {
+                if (response[i].user_id === this.$store.getters.userinfo.userid) {
+                  this.relations.push({
+                    place: response[i].city,
+                    value: response[i].business_id,
+                    label: this.$t('menu.PFANS1035') + '_' + moment(response[i].createon).format('YYYY-MM-DD'),
+                    city: response[i].city,
+                    companyprojectsname: response[i].companyprojectsname,
+                    startdate: response[i].startdate,
+                    enddate: response[i].enddate,
+                    businesstype: response[i].businesstype,
+                    datenumber: response[i].datenumber,
+                    external: response[i].external,
+                    arrivenight: response[i].arrivenight,
+                  });
+                }
+              } else {
+                this.relations.push({
+                  place: response[i].city,
+                  value: response[i].business_id,
+                  label: this.$t('menu.PFANS1035') + '_' + moment(response[i].createon).format('YYYY-MM-DD'),
+                  city: response[i].city,
+                  companyprojectsname: response[i].companyprojectsname,
+                  startdate: response[i].startdate,
+                  enddate: response[i].enddate,
+                  businesstype: response[i].businesstype,
+                  datenumber: response[i].datenumber,
+                  external: response[i].external,
+                  arrivenight: response[i].arrivenight,
+                });
+              }
+
+            }
+            this.business(this.form.business_id);
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
+      getBusOuter() {
+        let businesstype = {'businesstype': '0'};
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS1001Store/getBusiness', businesstype)
+          .then(response => {
+            for (let i = 0; i < response.length; i++) {
+              if (this.disable) {
+                if (response[i].user_id === this.$store.getters.userinfo.userid) {
+                  this.relations.push({
+                    place: response[i].city,
+                    value: response[i].business_id,
+                    label: this.$t('menu.PFANS1002') + '_' + moment(response[i].createon).format('YYYY-MM-DD'),
+                    abroadbusiness: response[i].abroadbusiness,
+                    external: response[i].external,
+                    arrivenight: response[i].arrivenight,
+                    companyprojectsname: response[i].companyprojectsname,
+                    city: response[i].region,
+                    startdate: response[i].startdate,
+                    enddate: response[i].enddate,
+                    level: response[i].level,
+                    businesstype: response[i].businesstype,
+                    datenumber: response[i].datenumber,
+                  });
+                }
+
+              } else {
                 this.relations.push({
                   place: response[i].city,
                   value: response[i].business_id,
@@ -1742,6 +1814,7 @@
                   datenumber: response[i].datenumber,
                 });
               }
+
             }
             this.business(this.form.business_id);
             this.loading = false;
@@ -1769,40 +1842,6 @@
         taxratevalue = 1 + Number(this.taxrateValue);
         row.facetax = parseFloat((row.invoiceamount / (taxratevalue) * this.taxrateValue)).toFixed(2);
         row.excludingtax = row.invoiceamount - row.facetax;
-      },
-      getBusInside() {
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS1013Store/getdate')
-          .then(response => {
-            for (let i = 0; i < response.length; i++) {
-              if (response[i].user_id === this.$store.getters.userinfo.userid && response[i].businesstype === '1') {
-                this.relations.push({
-                  place: response[i].city,
-                  value: response[i].business_id,
-                  label: this.$t('menu.PFANS1035') + '_' + moment(response[i].createon).format('YYYY-MM-DD'),
-                  city: response[i].city,
-                  companyprojectsname: response[i].companyprojectsname,
-                  startdate: response[i].startdate,
-                  enddate: response[i].enddate,
-                  businesstype: response[i].businesstype,
-                  datenumber: response[i].datenumber,
-                  external: response[i].external,
-                  arrivenight: response[i].arrivenight,
-                });
-              }
-            }
-            this.business(this.form.business_id);
-            this.loading = false;
-          })
-          .catch(error => {
-            Message({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            this.loading = false;
-          });
       },
       getCompanyProjectList() {
         this.loading = true;
@@ -2572,7 +2611,6 @@
         this.getTravel(row);
       },
       getTravel(row) {
-
         var jpvalueflg2;
         var jpregion1;
         var jpregion2;
