@@ -352,6 +352,7 @@
           <!-- 共通費用-->
           <plx-table-column
             :label="$t('label.PFANS6005FORMVIEW_COMMONCOST')"
+            v-if="false"
             align="center"
             prop="common"
             width="100"
@@ -495,8 +496,8 @@ export default {
           sum += this.arr[index][i];
       }
       this.tableData[index].totalunit =
-        //sum + this.arr[index][8] * this.arr[index][9] + this.arr[index][10];
-      sum + this.arr[index][8] * this.arr[index][9];
+      sum + this.arr[index][6] * this.arr[index][7] + this.arr[index][8] * this.arr[index][9] + this.arr[index][10];
+      //sum + this.arr[index][8] * this.arr[index][9];
       this.tableData[index].common = this.arr[index][6] * this.arr[index][7];
     },
     unitpriceBuler(index) {
@@ -723,10 +724,10 @@ export default {
     },
     sum(){
       for(let item of this.tableData){
-        // item.totalunit = Number(item.technology) + Number(item.value) + Number(item.field) + Number(item.languagevalue) + Number(item.service)
-        //   + Number(item.rvicevalue)+ Number(item.rankvalue)*Number(item.butioncoefficient) + Number(item.unitprice)
         item.totalunit = Number(item.technology) + Number(item.value) + Number(item.field) + Number(item.languagevalue) + Number(item.service)
-          + Number(item.rvicevalue)+ Number(item.rankvalue)*Number(item.butioncoefficient)
+          + Number(item.rvicevalue)+ Number(item.scalevalue)*Number(item.coefficient) + Number(item.rankvalue)*Number(item.butioncoefficient) + Number(item.unitprice)
+        // item.totalunit = Number(item.technology) + Number(item.value) + Number(item.field) + Number(item.languagevalue) + Number(item.service)
+        //   + Number(item.rvicevalue)+ Number(item.rankvalue)*Number(item.butioncoefficient)
       }
     },
     sum1(){
