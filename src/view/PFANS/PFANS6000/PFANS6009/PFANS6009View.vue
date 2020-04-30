@@ -12,6 +12,27 @@
       v-loading="loading"
       v-show="region === '1'"
     >
+      <div slot="search">
+        <el-form label-position="top" label-width="8vw" ref="reff" style="padding-top: 10px" :rules="rules">
+          <el-form-item>
+            <el-row style="padding-top: 10px">
+              <el-col :span="6">
+                <el-form-item :label="$t('label.PFANS1039FORMVIEW_GROUP')">
+                  <el-select v-model="form.group_id" style="width: 20vw"
+                             @change="changeGroup">
+                    <el-option
+                      v-for="item in optionsdata"
+                      :key="item.value"
+                      :label="item.lable"
+                      :value="item.value">
+                    </el-option>
+                  </el-select>
+                </el-form-item>
+              </el-col>
+            </el-row>
+          </el-form-item>
+        </el-form>
+      </div>
       <el-select slot="customize" v-model="region">
         <el-option :label="$t('label.PFANS6009TAB1')" value="1"></el-option>
         <el-option :label="$t('label.PFANS6009TAB2')" value="2"></el-option>
@@ -71,6 +92,27 @@
       v-loading="loading"
       v-show="region === '2'"
     >
+      <div slot="search">
+        <el-form label-position="top" label-width="8vw" ref="reff" style="padding-top: 10px" :rules="rules">
+          <el-form-item>
+            <el-row style="padding-top: 10px">
+              <el-col :span="6">
+                <el-form-item :label="$t('label.PFANS1039FORMVIEW_GROUP')">
+                  <el-select v-model="form.group_id" style="width: 20vw"
+                             @change="changeGroup">
+                    <el-option
+                      v-for="item in optionsdata"
+                      :key="item.value"
+                      :label="item.lable"
+                      :value="item.value">
+                    </el-option>
+                  </el-select>
+                </el-form-item>
+              </el-col>
+            </el-row>
+          </el-form-item>
+        </el-form>
+      </div>
       <el-select slot="customize" v-model="region">
         <el-option :label="$t('label.PFANS6009TAB1')" value="1"></el-option>
         <el-option :label="$t('label.PFANS6009TAB2')" value="2"></el-option>
@@ -89,6 +131,27 @@
       v-loading="loading"
       v-show="region === '3'"
     >
+      <div slot="search">
+        <el-form label-position="top" label-width="8vw" ref="reff" style="padding-top: 10px" :rules="rules">
+          <el-form-item>
+            <el-row style="padding-top: 10px">
+              <el-col :span="6">
+                <el-form-item :label="$t('label.PFANS1039FORMVIEW_GROUP')">
+                  <el-select v-model="form.group_id" style="width: 20vw"
+                             @change="changeGroup">
+                    <el-option
+                      v-for="item in optionsdata"
+                      :key="item.value"
+                      :label="item.lable"
+                      :value="item.value">
+                    </el-option>
+                  </el-select>
+                </el-form-item>
+              </el-col>
+            </el-row>
+          </el-form-item>
+        </el-form>
+      </div>
       <el-select slot="customize" v-model="region">
         <el-option :label="$t('label.PFANS6009TAB1')" value="1"></el-option>
         <el-option :label="$t('label.PFANS6009TAB2')" value="2"></el-option>
@@ -102,8 +165,8 @@
   // import EasyNormalContainer from '@/components/EasyNormalContainer';
   import EasyNormalTable from '@/components/EasyNormalTable';
   import {Message} from 'element-ui';
-  import {getSupplierinfor} from '@/utils/customize';
   import moment from 'moment';
+  import {getCooperinterviewList,getDictionaryInfo,getSupplierinfor,getCurrentRole,getDownOrgInfo} from '@/utils/customize';
 
   export default {
     name: 'PFANS6009View',
@@ -116,6 +179,10 @@
         loading: false,
         title: 'title.PFANS6009VIEW',
         activeName: 'first',
+        form: {
+          group_id: '',
+        },
+        optionsdata: [],
         tableA: [],
         tableB: [],
         tableC: [],
@@ -419,6 +486,7 @@
       };
     },
     mounted() {
+      this.getById();
       // TAB1
 //      for (var i = 0; i < this.array.length; i++) {
 //        this.columns[i + 1].label = this.array[i];
@@ -585,9 +653,17 @@
         if (this.tableALoading == false) {
           return;
         }
+        let groupid ='';
         this.loading = true;
+        if (this.form.group_id)
+        {
+          groupid = this.form.group_id;
+        }
+        let params = {
+          groupid: groupid
+        }
         this.$store
-          .dispatch('PFANS6009Store/getCostList')
+          .dispatch('PFANS6009Store/getCostList',params)
           .then(response => {
             var tableData = response.company;
             var tripData = response.trip;
@@ -665,9 +741,17 @@
         if (this.tableBLoading == false) {
           return;
         }
+        let groupid ='';
         this.loading = true;
+        if (this.form.group_id)
+        {
+          groupid = this.form.group_id;
+        }
+        let params = {
+          groupid: groupid
+        }
         this.$store
-          .dispatch('PFANS6009Store/getWorktimes')
+          .dispatch('PFANS6009Store/getWorktimes',params)
           .then(response => {
             var tableData = response.worktimes;
             var year = response.year;
@@ -740,9 +824,17 @@
         if (this.tableCLoading == false) {
           return;
         }
+        let groupid ='';
         this.loading = true;
+        if (this.form.group_id)
+        {
+          groupid = this.form.group_id;
+        }
+        let params = {
+          groupid: groupid
+        }
         this.$store
-          .dispatch('PFANS6009Store/getWorkers')
+          .dispatch('PFANS6009Store/getWorkers',params)
           .then(response => {
             var tableC = response.workers;
             var year = response.year;
@@ -856,6 +948,92 @@
           downloadElement.click(); //点击下载
           document.body.removeChild(downloadElement); //下载完成移除元素
           window.URL.revokeObjectURL(href); //释放掉blob对象
+        }
+      },
+      getById() {
+        this.loading = true;
+        let role = getCurrentRole();
+        const vote = [];
+        if (role === '3') {
+          vote.push(
+            {
+              value: this.$store.getters.userinfo.userinfo.groupid,
+              lable: this.$store.getters.userinfo.userinfo.groupname,
+            },
+          );
+        } else if (role === '2') {
+          let centerId = this.$store.getters.userinfo.userinfo.centerid;
+          let orgs = getDownOrgInfo(centerId);
+          if (orgs){
+            for (let org of orgs) {
+              console.log(org)
+              vote.push(
+                {
+                  value: org._id,
+                  lable: org.companyname,
+                },
+              );
+            }
+          }
+
+        } else if (role === '1') {
+          let centerId = this.$store.getters.userinfo.userinfo.centerid;
+          let orgs = getDownOrgInfo(centerId);
+          if (orgs){
+            for (let center of orgs) {
+              let centers = getDownOrgInfo(center._id);
+              if (centers){
+                for (let group of centers) {
+                  vote.push(
+                    {
+                      value: group._id,
+                      lable: group.companyname,
+                    },
+                  );
+                }
+              }
+
+            }
+          }
+        }
+        const vote1 = [];
+        if (this.$store.getters.userinfo.userid ==='5e78fefff1560b363cdd6db7'
+          || this.$store.getters.userinfo.userid ==='5e78b2254e3b194874180f31'
+          || this.$store.getters.userinfo.userid ==='5e78b2004e3b194874180e21'
+          || this.$store.getters.userinfo.userid ==='5e78b2064e3b194874180e4d')
+        {
+          let centerId = '5e7858a08f4316308435112c';
+          let orgs = getDownOrgInfo(centerId);
+          if (orgs){
+            for (let center of orgs) {
+              let centers = getDownOrgInfo(center._id);
+              if (centers){
+                for (let group of centers) {
+                  vote1.push(
+                    {
+                      value: group._id,
+                      lable: group.companyname,
+                    },
+                  );
+                }
+              }
+            }
+          }
+          this.optionsdata = vote1;
+        }
+        else
+        {
+          this.optionsdata = vote;
+        }
+        this.loading = false;
+      },
+      changeGroup(val) {
+        this.form.group_id = val;
+        if (this.form.group_id) {
+          //this.getList(this.form.group_id, this.form.year, this.form.region);
+          this.loadTableA();
+          this.loadTableB();
+          this.loadTableC();
         }
       },
     }

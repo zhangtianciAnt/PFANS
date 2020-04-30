@@ -4,9 +4,9 @@ const PFANS6009Store = {
   state: {},
   mutations: {},
   actions: {
-    getCostList() {
+    getCostList({commit}, data) {
       return new Promise((resolve, reject) => {
-        getCostList().then(response => {
+        getCostList(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -17,9 +17,9 @@ const PFANS6009Store = {
         })
       })
     },
-    getWorktimes() {
+    getWorktimes({commit}, data) {
       return new Promise((resolve, reject) => {
-        getWorktimes().then(response => {
+        getWorktimes(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -30,9 +30,9 @@ const PFANS6009Store = {
         })
       })
     },
-    getWorkers() {
+    getWorkers({commit}, data) {
       return new Promise((resolve, reject) => {
-        getWorkers().then(response => {
+        getWorkers(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
