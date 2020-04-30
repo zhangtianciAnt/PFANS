@@ -547,7 +547,8 @@
                         </el-select>
                       </template>
                     </el-table-column>
-                    <el-table-column :label="$t('label.PFANS1012FORMVIEW_ACCOUNTB')" align="center" width="150" v-if="false">
+                    <el-table-column :label="$t('label.PFANS1012FORMVIEW_ACCOUNTB')" align="center" width="150"
+                                     v-if="false">
                       <template slot-scope="scope">
                         <el-input :disabled="true" style="width: 100%" v-model="scope.row.subjectnumber">
                         </el-input>
@@ -734,7 +735,8 @@
                             </el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1012FORMVIEW_ACCOUNTB')" align="center" width="150" v-if="false">
+                        <el-table-column :label="$t('label.PFANS1012FORMVIEW_ACCOUNTB')" align="center" width="150"
+                                         v-if="false">
                           <template slot-scope="scope">
                             <el-input :disabled="true" style="width: 100%" v-model="scope.row.subjectnumber">
                             </el-input>
@@ -941,7 +943,8 @@
                             </dicselect>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1012FORMVIEW_ACCOUNTB')" align="center" width="150" v-if="false">
+                        <el-table-column :label="$t('label.PFANS1012FORMVIEW_ACCOUNTB')" align="center" width="150"
+                                         v-if="false">
                           <template slot-scope="scope">
                             <el-input :disabled="true" style="width: 100%" v-model="scope.row.subjectnumber">
                             </el-input>
@@ -1086,7 +1089,7 @@
               <el-row>
                 <el-table
                   :data="DataList"
-
+                  @row-click="rowclick"
                   style="width: 518px"
                   header-cell-class-name="sub_bg_color_blue" stripe border
                 >
@@ -1096,7 +1099,7 @@
                     :label="$t('label.judgement')"
                     width="315px">
                   </el-table-column>
-                  <el-table-column :label="$t('label.operation')" align="center" width="200">
+                  <el-table-column :label="$t('label.operation')" align="center" width="200" v-if="show10">
                     <template slot-scope="scope">
                       <el-button
                         @click.native.prevent="viewdata(scope.row)"
@@ -1106,6 +1109,34 @@
                       >{{$t('button.view')}}
                       </el-button>
                     </template>
+                  </el-table-column>
+                </el-table>
+              </el-row>
+              <div>&nbsp;</div>
+              <el-row>
+                <el-table
+                  :data="DataList2"
+                  style="width: 841px"
+                  header-cell-class-name="sub_bg_color_blue" stripe border
+                  v-show="show12"
+                >
+                  <el-table-column
+                    align="center"
+                    prop="invoiceno"
+                    :label="$t('label.PFANS1013VIEW_REIMNUMBER')"
+                    width="280px">
+                  </el-table-column>
+                  <el-table-column
+                    align="center"
+                    prop="moneys"
+                    :label="$t('label.PFANS1025VIEW_AWARDMONEY')"
+                    width="280px">
+                  </el-table-column>
+                  <el-table-column
+                    align="center"
+                    prop="status"
+                    :label="$t('label.PFANS5005VIEW_STATUS')"
+                    width="280px">
                   </el-table-column>
                 </el-table>
               </el-row>
@@ -1122,7 +1153,7 @@
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import user from '../../../components/user.vue';
   import dicselect from '../../../components/dicselect';
-  import {getDictionaryInfo, getOrgInfo, getOrgInfoByUserId, getUserInfo} from '@/utils/customize';
+  import {getDictionaryInfo, getOrgInfo, getOrgInfoByUserId, getUserInfo, getStatus} from '@/utils/customize';
   import {Message} from 'element-ui';
   import moment from 'moment';
   import org from '../../../components/org';
@@ -1259,6 +1290,8 @@
         }
       };
       return {
+        DataList2: [],
+        show12:false,
         DataList: [{
           judgement_name: '',
         }],
@@ -1529,6 +1562,7 @@
         show5: false,
         show6: false,
         show7: false,
+        show10: false,
         show9: false,
         show: false,
         showrow: true,
@@ -1605,31 +1639,6 @@
       }
       this.tableP[0].code17 = this.Redirict == '0' ? 'PJ121' : 'PJ134';
       //ADD-WS-个人编码修改
-      //ADD-WS-直接部门或间接部门赋值变更
-      // this.tableT[0].accoundoptionsdate = [];
-      // if (this.Redirict == '0') {
-      //   let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ119');
-      //   for (let i = 0; i < dicnew.length; i++) {
-      //     if (dicnew[i].code === 'PJ119004') {
-      //       this.tableT[0].accoundoptionsdate.push({
-      //         value: dicnew[i].code,
-      //         lable: dicnew[i].value1,
-      //       });
-      //     }
-      //   }
-      // } else if (this.Redirict == '1' || this.Redirict == '') {
-      //
-      //   let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ132');
-      //   for (let i = 0; i < dicnew.length; i++) {
-      //     if (dicnew[i].code === 'PJ132004') {
-      //       this.tableT[0].accoundoptionsdate.push({
-      //         value: dicnew[i].code,
-      //         lable: dicnew[i].value1,
-      //       });
-      //     }
-      //   }
-      // }
-      //ADD-WS-直接部门或间接部门赋值变更
       this.IDname = this.$route.params._id;
       if (this.IDname) {
         this.disablecheck = true;
@@ -2030,10 +2039,12 @@
                 this.show9 = true;
                 this.show6 = false;
                 this.show7 = false;
+                this.show10 = false;
               } else if (this.form.type === 'PJ001002') {
                 this.show9 = false;
                 this.show6 = true;
                 this.show7 = true;
+                this.show10 = true;
               }
               this.loading = false;
             },
@@ -2047,18 +2058,87 @@
             this.loading = false;
           });
       } else {
-        // if (getOrgInfoByUserId(this.$store.getters.userinfo.userid)) {
-        //     this.groupId = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
-        //     this.tableT[0].departmentname = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
-        //     this.tableP[0].departmentname = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
-        //     this.tableR[0].departmentname = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
-        //     if (getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)) {
-        //         this.budgetcodingcheck = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
-        //         this.tableT[0].budgetcoding = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
-        //         this.tableP[0].budgetcoding = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
-        //         this.tableR[0].budgetcoding = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
-        //     }
-        // }
+        //ADD-WS-直接部门或间接部门赋值变更
+        this.tableT[0].accoundoptionsdate = [];
+        if (this.Redirict == '0') {
+          let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ119');
+          for (let i = 0; i < dicnew.length; i++) {
+            if (dicnew[i].code === 'PJ119004') {
+              this.tableT[0].accoundoptionsdate.push({
+                value: dicnew[i].code,
+                lable: dicnew[i].value1,
+              });
+            }
+          }
+        } else if (this.Redirict == '1' || this.Redirict == '') {
+
+          let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ132');
+          for (let i = 0; i < dicnew.length; i++) {
+            if (dicnew[i].code === 'PJ132004') {
+              this.tableT[0].accoundoptionsdate.push({
+                value: dicnew[i].code,
+                lable: dicnew[i].value1,
+              });
+            }
+          }
+        }
+        //ADD-WS-直接部门或间接部门赋值变更
+        if (getOrgInfoByUserId(this.$store.getters.userinfo.userid)) {
+          this.tableT[0].departmentname = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
+          this.tableP[0].departmentname = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
+          this.tableR[0].departmentname = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
+          if (this.tableT[0].departmentname) {
+            this.tableT[0].optionsT = [];
+            let butinfo = getOrgInfo(this.tableT[0].departmentname).encoding;
+            if (butinfo) {
+              let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+              if (dic.length > 0) {
+                for (let j = 0; j < dic.length; j++) {
+                  if (butinfo === dic[j].value1) {
+                    this.tableT[0].optionsT.push({
+                      lable: dic[j].value2 + '_' + dic[j].value3,
+                      value: dic[j].code,
+                    });
+                  }
+                }
+              }
+            }
+          }
+          if (this.tableP[0].departmentname) {
+            this.tableP[0].optionsP = [];
+            let butinfo = getOrgInfo(this.tableP[0].departmentname).encoding;
+            if (butinfo) {
+              let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+              if (dic.length > 0) {
+                for (let j = 0; j < dic.length; j++) {
+                  if (butinfo === dic[j].value1) {
+                    this.tableP[0].optionsP.push({
+                      lable: dic[j].value2 + '_' + dic[j].value3,
+                      value: dic[j].code,
+                    });
+                  }
+                }
+              }
+            }
+          }
+          if (this.tableR[0].departmentname) {
+            this.tableR[0].optionsR = [];
+            let butinfo = getOrgInfo(this.tableR[0].departmentname).encoding;
+            if (butinfo) {
+              let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+              if (dic.length > 0) {
+                for (let j = 0; j < dic.length; j++) {
+                  if (butinfo === dic[j].value1) {
+                    this.tableR[0].optionsR.push({
+                      lable: dic[j].value2 + '_' + dic[j].value3,
+                      value: dic[j].code,
+                    });
+                  }
+                }
+              }
+            }
+          }
+        }
         this.checkexternal = true;
         this.checktaxes = true;
         this.checkdisable = true;
@@ -2083,16 +2163,36 @@
           this.form.judgement += this.jude[i][0].value + ',';
           this.form.judgement_name += this.jude[i][0].label + ',';
         }
+        //add-ws-4/28-精算中，点击决裁，跳转画面
+        let judgementnew = this.form.judgement.substring(0, this.form.judgement.length - 1);
+        let judgementnamenew = this.form.judgement_name.substring(0, this.form.judgement_name.length - 1);
+        let judgement = judgementnew.split(',');
+        let judgementname = judgementnamenew.split(',');
+        let datalist = [];
+        for (var i = 0; i < judgement.length; i++) {
+          for (var d = 0; d < judgementname.length; d++) {
+            if (i === d) {
+              let obj = {};
+              obj.judgement = judgement[i];
+              obj.judgement_name = judgementname[d];
+              datalist[i] = obj;
+            }
+          }
+        }
+        this.DataList = datalist;
+        //add-ws-4/28-精算中，点击决裁，跳转画面
         this.form.judgement = this.form.judgement.substring(0, this.form.judgement.length - 1);
         this.form.judgement_name = this.form.judgement_name.substring(0, this.form.judgement_name.length - 1);
         this.form.type = this.$route.params._type;
         if (this.form.type === 'PJ001001') {
           this.show9 = true;
+          this.show7 = false;
           this.show6 = false;
           this.form.moduleid = 'PJ002001';
           this.form.moduleidApp = getDictionaryInfo(this.form.moduleid).value1;
         } else if (this.form.type === 'PJ001002') {
           this.show9 = false;
+          this.show7 = true;
           this.show6 = true;
         }
       }
@@ -2135,6 +2235,35 @@
       },
     },
     methods: {
+      //add-ws-4/30-公共费用决裁已关联得精算
+      rowclick(row, event, column) {
+        this.DataList2 = []
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS1012Store/getpublicelist', {'publicexpenseid': row.judgement})
+          .then(response => {
+            for(let i = 0; i< response.length; i++){
+              if (response[i].status !== null && response[i].status !== '') {
+                response[i].status = getStatus(response[i].status);
+              }
+              this.DataList2.push({
+                moneys  :response[i].moneys,
+                invoiceno :response[i].invoiceno,
+                status:response[i].status,
+              })
+            }
+            this.show12 = true
+            this.loading = false;
+          }).catch(error => {
+          Message({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000,
+          });
+          this.loading = false;
+        });
+      },
+      //add-ws-4/30-公共费用决裁已关联得精算
       //add-ws-4/28-精算中，点击决裁，跳转画面
       viewdata(row) {
         if (row.judgement_name.substring(0, 2) === this.$t('menu.PFANS1001')) {
@@ -2187,7 +2316,7 @@
               disabled: false,
             },
           });
-        }else if (row.judgement_name.substring(0, 2) === this.$t('label.PFANS1012VIEW_WUCHANG')) {
+        } else if (row.judgement_name.substring(0, 2) === this.$t('label.PFANS1012VIEW_WUCHANG')) {
           this.$router.push({
             name: 'PFANS1003FormView',
             params: {
@@ -3141,7 +3270,7 @@
           this.show3 = false;
           this.show4 = false;
           this.show5 = false;
-          this.namelist = this.$store.getters.userinfo.userid
+          this.namelist = this.$store.getters.userinfo.userid;
           this.form.code = this.Codecheck;
           this.form.payeename = '';
           this.form.payeecode = '';
