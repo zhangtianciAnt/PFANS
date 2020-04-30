@@ -522,96 +522,97 @@ export default {
           return;
         }
         this.selectedlist = this.$refs.roletable.selectedList;
-        import("@/vendor/Export2Excel").then(excel => {
-          const tHeader = [
-            this.$t("label.PFANSUSERFORMVIEW_JOBNUMBER"),//工号
-              this.$t("label.user_name"),//姓名
-            this.$t("label.center"),//center
-            this.$t("label.group"),//group
-            this.$t("label.team"),//team
-            this.$t("label.PFANSUSERVIEW_ENTERDAY"),//入社时间
-            this.$t("label.PFANSUSERVIEW_POST"),//职务
-            this.$t("label.PFANSUSERVIEW_RANK"),//RANK
-            this.$t("label.sex"),//性别
-            this.$t("label.budgetunit"),//预算编码
-            this.$t("label.PFANSUSERVIEW_BIRTHDAY"),//生年月日
-            this.$t("label.PFANSUSERFORMVIEW_ADFIELD"),//AD域账号
-            this.$t("label.PFANSUSERVIEW_NATIONALITY"),//国籍
-            this.$t("label.PFANSUSERFORMVIEW_NATION"),//民族
-            this.$t("label.PFANSUSERFORMVIEW_REGISTER"),//户籍
-            this.$t("label.PFANSUSERFORMVIEW_ADDRESS"),//住所
-            this.$t("label.PFANSUSERFORMVIEW_GRADUATION"),//最终毕业学校
-            this.$t("label.PFANSUSERFORMVIEW_SPECIALTY"),//专业
-            this.$t("label.PFANSUSERFORMVIEW_EXPERIENCE"),//是否有工作经验
-            this.$t("label.PFANSUSERFORMVIEW_IDNUMBER"),//身份证号码
-            this.$t("label.PFANSUSERFORMVIEW_GRADUATIONDAY"),//毕业年月日
-            this.$t("label.PFANSUSERFORMVIEW_DEGREE"),//最终学位
-            this.$t("label.PFANSUSERFORMVIEW_WORKDAY"),//仕事开始年月日
-            this.$t("label.PFANS1012VIEW_PERSONALCODE"),//员工ID
-            this.$t("label.PFANSUSERFORMVIEW_LABORCONTRACTTYPE"),//劳动合同类型
-            this.$t("label.PFANSUSERFORMVIEW_AGE"),//年龄
-            this.$t("label.PFANSUSERFORMVIEW_CHILDREN"),//是否独生子女
-            this.$t("label.PFANSUSERFORMVIEW_ANNUALBREAKS"),//今年年休数(残)
-            this.$t("label.PFANSUSERFORMVIEW_ANNUALYEAR"),//今年年休数
-            this.$t("label.PFANSUSERFORMVIEW_UPGRADED"),//升格升号年月日
-            this.$t("label.PFANSUSERFORMVIEW_SEATNUMBER"),//银行账号
-            this.$t("label.PFANSUSERFORMVIEW_FIXEDATE"),//银行账号
-            this.$t("label.PFANSUSERFORMVIEW_BEFOREBASICSALARY"),//変更前基本工资
-            this.$t("label.PFANSUSERFORMVIEW_CHANGEDUTYSALARY"),//変更前职责工资
-            this.$t("label.PFANSUSERFORMVIEW_CURRENTBASICSALARY"),//现基本工资
-            this.$t("label.PFANSUSERFORMVIEW_CURRENTDUTYSALARY"),//现职责工资
-            this.$t("label.PFANSUSERFORMVIEW_FEEDINGCHANGEDAY"),//給料変更日
-            this.$t("label.PFANSUSERFORMVIEW_YANGLAOINSURANCE"),//养老保险基数
-            this.$t("label.PFANSUSERFORMVIEW_YILIAOINSURANCE"),//医疗保险基数
-            this.$t("label.PFANSUSERFORMVIEW_SHIYEINSURANCE"),//失业保险基数
-            this.$t("label.PFANSUSERFORMVIEW_GONGSHANGINSURANCE"),//工伤保险基数
-            this.$t("label.PFANSUSERFORMVIEW_SHENGYUINSURANCE"),//生育保险基数
-            this.$t("label.PFANSUSERFORMVIEW_HOUSEINSURANCE"),//住房公积金缴纳基数
-          ];
-          const filterVal = [
-              "jobnumber",//工号
-            "customername",//姓名
-            "centername",//center
-            "groupname",//group
-            "teamname",//team
-            "enterday",//入社时间
-            "post",//职务
-            "rank",//RANK
-            "sex",//性别
-            "budgetunit",//预算编码
-            "birthday",//生年月日
-            "adfield",//AD域账号
-            "nationality",//国籍
-            "nation",//民族
-            "register",//户籍
-            "address",//住所
-            "graduation",//最终毕业学校
-            "specialty",//专业
-            "experience",//是否有工作经验
-            "idnumber",//身份证号码
-            "graduationday",//毕业年月日
-            "degree",//最终学位
-            "workday",//仕事开始年月日
-            "personalcode",//员工ID
-            "laborcontracttype",//劳动合同类型
-            "age",//年龄
-            "children",//是否独生子女
-            "annualyearto",//今年年休数(残)
-            "annualyear",//今年年休数
-            "upgraded",//升格升号年月日
-            "seatnumber",//银行账号
-            "fixedate",//固定期限締切日
-            "after",//変更前基本工资
-            "before",//変更前职责工资
-            "basic",//现基本工资
-            "duty",//现职责工资
-            "date",//給料変更日
-            "yanglaoinsurance",//养老保险基数
-            "yiliaoinsurance",//医疗保险基数
-            "shiyeinsurance",//失业保险基数
-            "gongshanginsurance",//工伤保险基数
-            "shengyuinsurance",//生育保险基数
-            "houseinsurance",//住房公积金缴纳基数
+          import("@/vendor/Export2Excel").then(excel => {
+              const tHeader = [
+                  this.$t("label.user_name"),//姓名
+                  this.$t("label.PFANSUSERFORMVIEW_ADFIELD"),//AD域账号
+                  this.$t("label.PFANSUSERFORMVIEW_JOBNUMBER"),//卡号
+                  this.$t("label.PFANS1012VIEW_PERSONALCODE"),//员工ID
+                  this.$t("label.PFANSUSERFORMVIEW_IDNUMBER"),//身份证号码
+                  this.$t("label.sex"),//性别
+                  this.$t("label.PFANSUSERFORMVIEW_AGE"),//年龄
+                  this.$t("label.PFANSUSERVIEW_BIRTHDAY"),//生年月日
+                  this.$t("label.PFANSUSERVIEW_NATIONALITY"),//国籍
+                  this.$t("label.PFANSUSERFORMVIEW_NATION"),//民族
+                  this.$t("label.PFANSUSERFORMVIEW_REGISTER"),//户籍
+                  this.$t("label.PFANSUSERFORMVIEW_CHILDREN"),//是否独生子女
+                  this.$t("label.PFANSUSERVIEW_ENTERDAY"),//入社时间
+                  this.$t("label.center"),//center
+                  this.$t("label.group"),//group
+                  this.$t("label.team"),//team
+                  this.$t("label.budgetunit"),//预算编码
+                  this.$t("label.PFANSUSERVIEW_POST"),//职务
+                  this.$t("label.PFANSUSERVIEW_RANK"),//RANK
+                  this.$t("label.PFANSUSERFORMVIEW_WORKDAY"),//仕事开始年月日
+                  this.$t("label.PFANSUSERFORMVIEW_EXPERIENCE"),//是否有工作经验
+                  this.$t("label.PFANSUSERFORMVIEW_GRADUATIONDAY"),//毕业年月日
+                  this.$t("label.PFANSUSERFORMVIEW_GRADUATION"),//最终毕业学校
+                  this.$t("label.PFANSUSERFORMVIEW_SPECIALTY"),//专业
+                  this.$t("label.PFANSUSERFORMVIEW_DEGREE"),//最终学位
+                  this.$t("label.PFANSUSERFORMVIEW_ANNUALBREAKS"),//今年年休数(残)
+                  this.$t("label.PFANSUSERFORMVIEW_ANNUALYEAR"),//今年年休数
+                  this.$t("label.PFANSUSERFORMVIEW_LABORCONTRACTTYPE"),//劳动合同类型
+                  this.$t("label.PFANSUSERFORMVIEW_FIXEDATE"),//固定期限締切日
+                  this.$t("label.PFANSUSERFORMVIEW_UPGRADED"),//升格升号年月日
+                  this.$t("label.PFANSUSERFORMVIEW_CURRENTBASICSALARY"),//现基本工资
+                  this.$t("label.PFANSUSERFORMVIEW_CURRENTDUTYSALARY"),//现职责工资
+                  this.$t("label.PFANSUSERFORMVIEW_FEEDINGCHANGEDAY"),//給料変更日
+                  this.$t("label.PFANSUSERFORMVIEW_BEFOREBASICSALARY"),//変更前基本工资
+                  this.$t("label.PFANSUSERFORMVIEW_CHANGEDUTYSALARY"),//変更前职责工资
+                  this.$t("label.PFANSUSERFORMVIEW_YANGLAOINSURANCE"),//养老保险基数
+                  this.$t("label.PFANSUSERFORMVIEW_YILIAOINSURANCE"),//医疗保险基数
+                  this.$t("label.PFANSUSERFORMVIEW_SHIYEINSURANCE"),//失业保险基数
+                  this.$t("label.PFANSUSERFORMVIEW_GONGSHANGINSURANCE"),//工伤保险基数
+                  this.$t("label.PFANSUSERFORMVIEW_SHENGYUINSURANCE"),//生育保险基数
+                  this.$t("label.PFANSUSERFORMVIEW_HOUSEINSURANCE"),//住房公积金缴纳基数
+                  this.$t("label.PFANSUSERFORMVIEW_SEATNUMBER"),//银行账号
+                  this.$t("label.PFANSUSERFORMVIEW_ADDRESS"),//住所
+              ];
+              const filterVal = [
+
+                  "customername",//姓名
+                  "adfield",//AD域账号
+                  "jobnumber",//卡号
+                  "personalcode",//员工ID
+                  "idnumber",//身份证号码
+                  "sex",//性别
+                  "age",//年龄
+                  "birthday",//生年月日
+                  "nationality",//国籍
+                  "nation",//民族
+                  "register",//户籍
+                  "children",//是否独生子女
+                  "enterday",//入社时间
+                  "centername",//center
+                  "groupname",//group
+                  "teamname",//team
+                  "budgetunit",//预算编码
+                  "post",//职务
+                  "rank",//RANK
+                  "workday",//仕事开始年月日
+                  "experience",//是否有工作经验
+                  "graduationday",//毕业年月日
+                  "graduation",//最终毕业学校
+                  "specialty",//专业
+                  "degree",//最终学位
+                  "annualyearto",//今年年休数(残)
+                  "annualyear",//今年年休数
+                  "laborcontracttype",//劳动合同类型
+                  "fixedate",//固定期限締切日
+                  "upgraded",//升格升号年月日
+                  "basic",//现基本工资
+                  "duty",//现职责工资
+                  "date",//給料変更日
+                  "after",//変更前基本工资
+                  "before",//変更前职责工资
+                  "yanglaoinsurance",//养老保险基数
+                  "yiliaoinsurance",//医疗保险基数
+                  "shiyeinsurance",//失业保险基数
+                  "gongshanginsurance",//工伤保险基数
+                  "shengyuinsurance",//生育保险基数
+                  "houseinsurance",//住房公积金缴纳基数
+                  "seatnumber",//银行账号
+                  "address",//住所
           ];
           const list = this.selectedlist;
             for (let h = 0; h < list.length; h++) {
@@ -674,7 +675,7 @@ export default {
                 }
             }
           const data = this.formatJson(filterVal, list);
-          excel.export_json_to_excel(tHeader, data, this.$t("menu.PERSONNEL"));
+              excel.export_json_to_excel(tHeader, data, this.$t("menu.PERSONNEL") + '_' + this.$t(moment(new Date()).format("YYYY-MM-DD")));
         });
       }
       if (val === "import") {

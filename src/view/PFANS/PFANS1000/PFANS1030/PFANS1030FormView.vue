@@ -847,7 +847,7 @@
         errordeployment: '',
         errorpjnamejapanese: '',
         errorpjnamechinese: '',
-        errorfile:'',
+        errorfile: '',
         error: '',
         errorcurrencyposition: '',
         errorclaimamount: '',
@@ -1500,7 +1500,7 @@
         if (dic.length > 0) {
           for (let i = 0; i < dic.length; i++) {
             if (butinfo === dic[i].value1) {
-               row.options1.push({
+              row.options1.push({
                 lable: dic[i].value2 + '_' + dic[i].value3,
                 value: dic[i].code,
               });
@@ -1686,72 +1686,72 @@
           });
         }
         this.baseInfo.groupN = this.$store.getters.orgGroupList;
-
-        this.$refs['reff'].validate(valid => {
-          if (valid) {
-            this.loading = true;
-            this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
-            this.baseInfo.awardDetail = [];
-            for (let i = 0; i < this.tableT.length; i++) {
-              if (this.tableT[i].budgetcode !== '' || this.tableT[i].depart !== '' || this.tableT[i].member > '0' || this.tableT[i].community > '0'
-                || this.tableT[i].outsource > '0' || this.tableT[i].outcommunity > '0' || this.tableT[i].worknumber > '0' || this.tableT[i].awardmoney > '0') {
-                this.baseInfo.awardDetail.push({
-                  awarddetail_id: this.tableT[i].awarddetail_id,
-                  award_id: this.tableT[i].award_id,
-                  budgetcode: this.tableT[i].budgetcode,
-                  depart: this.tableT[i].depart,
-                  projects: this.tableT[i].projects,
-                  member: this.tableT[i].member,
-                  community: this.tableT[i].community,
-                  outsource: this.tableT[i].outsource,
-                  outcommunity: this.tableT[i].outcommunity,
-                  worknumber: this.tableT[i].worknumber,
-                  awardmoney: this.tableT[i].awardmoney,
-                  rowindex: this.tableT[i].rowindex,
-                });
+        if (val === 'save') {
+          this.$refs['reff'].validate(valid => {
+            if (valid) {
+              this.loading = true;
+              this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
+              this.baseInfo.awardDetail = [];
+              for (let i = 0; i < this.tableT.length; i++) {
+                if (this.tableT[i].budgetcode !== '' || this.tableT[i].depart !== '' || this.tableT[i].member > '0' || this.tableT[i].community > '0'
+                  || this.tableT[i].outsource > '0' || this.tableT[i].outcommunity > '0' || this.tableT[i].worknumber > '0' || this.tableT[i].awardmoney > '0') {
+                  this.baseInfo.awardDetail.push({
+                    awarddetail_id: this.tableT[i].awarddetail_id,
+                    award_id: this.tableT[i].award_id,
+                    budgetcode: this.tableT[i].budgetcode,
+                    depart: this.tableT[i].depart,
+                    projects: this.tableT[i].projects,
+                    member: this.tableT[i].member,
+                    community: this.tableT[i].community,
+                    outsource: this.tableT[i].outsource,
+                    outcommunity: this.tableT[i].outcommunity,
+                    worknumber: this.tableT[i].worknumber,
+                    awardmoney: this.tableT[i].awardmoney,
+                    rowindex: this.tableT[i].rowindex,
+                  });
+                }
               }
-            }
-            if (this.$route.params._id) {     //编辑
-              this.baseInfo.award.award_id = this.$route.params._id;
-              this.$store
-                .dispatch('PFANS1025Store/update', this.baseInfo)
-                .then(response => {
-                  this.data = response;
-                  this.loading = false;
-                  Message({
-                    message: this.$t('normal.success_02'),
-                    type: 'success',
-                    duration: 5 * 1000,
-                  });
-                  //add-ws-4/17-实施结果为空的情况下发起审批，提示填入必须项后程序没有终止修改
-                  if (val !== 'save' && val !== 'StartWorkflow') {
-                    if (this.$store.getters.historyUrl) {
-                      this.$router.push(this.$store.getters.historyUrl);
+              if (this.$route.params._id) {     //编辑
+                this.baseInfo.award.award_id = this.$route.params._id;
+                this.$store
+                  .dispatch('PFANS1025Store/update', this.baseInfo)
+                  .then(response => {
+                    this.data = response;
+                    this.loading = false;
+                    Message({
+                      message: this.$t('normal.success_02'),
+                      type: 'success',
+                      duration: 5 * 1000,
+                    });
+                    //add-ws-4/17-实施结果为空的情况下发起审批，提示填入必须项后程序没有终止修改
+                    if (val !== 'save' && val !== 'StartWorkflow') {
+                      if (this.$store.getters.historyUrl) {
+                        this.$router.push(this.$store.getters.historyUrl);
+                      }
                     }
-                  }
-                  if (val === 'StartWorkflow') {
-                    this.$refs.container.$refs.workflow.startWorkflow();
-                  }
-                  //add-ws-4/17-实施结果为空的情况下发起审批，提示填入必须项后程序没有终止修改
-                })
-                .catch(error => {
-                  Message({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000,
+                    if (val === 'StartWorkflow') {
+                      this.$refs.container.$refs.workflow.startWorkflow();
+                    }
+                    //add-ws-4/17-实施结果为空的情况下发起审批，提示填入必须项后程序没有终止修改
+                  })
+                  .catch(error => {
+                    Message({
+                      message: error,
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    this.loading = false;
                   });
-                  this.loading = false;
-                });
+              }
+            } else {
+              Message({
+                message: this.$t('normal.error_12'),
+                type: 'error',
+                duration: 5 * 1000,
+              });
             }
-          } else {
-            Message({
-              message: this.$t('normal.error_12'),
-              type: 'error',
-              duration: 5 * 1000,
-            });
-          }
-        });
-        if (val === 'generate') {
+          });
+        } else if (val === 'generate') {
           this.baseInfo.awardDetail = [];
           let sumoutsource = 0;
           let summember = 0;

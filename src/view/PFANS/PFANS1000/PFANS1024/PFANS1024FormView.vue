@@ -2076,57 +2076,79 @@
       handleSaveContract(value, baseInfo, tabledata) {
         this.validateByType(value, valid => {
           if (valid) {
-            this.loading = true;
-            if (this.$route.params._id) {
-              this.$store.dispatch('PFANS1026Store/update', baseInfo)
-                .then(response => {
-                  this.data = response;
-                  if (tabledata) {
-                    this.handleSaveNumber(tabledata);
-                  } else {
+            //add-ws-请求金额不可为0check添加
+            let checksum = 0;
+            let error = 0;
+            for (let j = 0; j < this.form.tableclaimtype.length; j++) {
+              if (parseFloat(this.form.tableclaimtype[j].claimamount) === 0
+                || this.form.tableclaimtype[j].claimamount === ''
+                || this.form.tableclaimtype[j].claimamount === undefined) {
+                checksum = checksum + 1;
+              }
+            }
+            if (checksum != 0) {
+              error = error + 1;
+              Message({
+                message: this.$t('label.PFANS1026FORMVIEW_CHECKERRORMONEY'),
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              return;
+            }
+            //add-ws-请求金额不可为0check添加
+            if(error===0){
+              this.loading = true;
+              if (this.$route.params._id) {
+                this.$store.dispatch('PFANS1026Store/update', baseInfo)
+                  .then(response => {
+                    this.data = response;
+                    if (tabledata) {
+                      this.handleSaveNumber(tabledata);
+                    } else {
+                      Message({
+                        message: this.$t('normal.success_02'),
+                        type: 'success',
+                        duration: 5 * 1000,
+                      });
+                      this.loading = false;
+                      this.paramsTitle();
+                    }
+
+                  })
+                  .catch(error => {
                     Message({
-                      message: this.$t('normal.success_02'),
-                      type: 'success',
+                      message: error,
+                      type: 'error',
                       duration: 5 * 1000,
                     });
                     this.loading = false;
-                    this.paramsTitle();
-                  }
-
-                })
-                .catch(error => {
-                  Message({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000,
                   });
-                  this.loading = false;
-                });
-            } else {
-              this.$store.dispatch('PFANS1026Store/insert', baseInfo)
-                .then(response => {
-                  this.data = response;
-                  if (tabledata) {
-                    this.handleSaveNumber(tabledata);
-                  } else {
+              } else {
+                this.$store.dispatch('PFANS1026Store/insert', baseInfo)
+                  .then(response => {
+                    this.data = response;
+                    if (tabledata) {
+                      this.handleSaveNumber(tabledata);
+                    } else {
+                      Message({
+                        message: this.$t('normal.success_01'),
+                        type: 'success',
+                        duration: 5 * 1000,
+                      });
+                      this.loading = false;
+                      this.paramsTitle();
+                    }
+
+                  })
+                  .catch(error => {
                     Message({
-                      message: this.$t('normal.success_01'),
-                      type: 'success',
+                      message: error,
+                      type: 'error',
                       duration: 5 * 1000,
                     });
                     this.loading = false;
-                    this.paramsTitle();
-                  }
-
-                })
-                .catch(error => {
-                  Message({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000,
                   });
-                  this.loading = false;
-                });
+              }
             }
           }
         });
