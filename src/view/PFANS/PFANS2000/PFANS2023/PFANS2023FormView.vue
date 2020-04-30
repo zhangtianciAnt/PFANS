@@ -379,7 +379,11 @@
                     {
                         key: "save",
                         name: "button.save",
-                    }
+                    },
+                  {
+                    key: "export",
+                    name: "button.export",
+                  }
                 ];
                 this.form.stage = '0';
             }
@@ -603,6 +607,15 @@
           },
           start() {
             this.form.status = '2';
+            if(this.form.stage === '0'){
+              this.form.application_date1 = new Date();
+            }else if(this.form.stage === '1'){
+              this.form.application_date2 = new Date();
+            }else if(this.form.stage === '2'){
+              this.form.application_date3 = new Date();
+            }else if(this.form.stage === '3'){
+              this.form.application_date4 = new Date();
+            }
             this.buttonClick("update");
           },
           end() {
@@ -694,6 +707,22 @@
                             });
                         }
                     })
+                }
+                else if (val === 'export') {
+                  this.loading = true;
+                  this.$store
+                    .dispatch("PFANS2023Store/download", { goalmanagement_id: this.$route.params._id })
+                    .then(response => {
+                      this.loading = false;
+                    })
+                    .catch(error => {
+                      Message({
+                        message: error,
+                        type: "error",
+                        duration: 5 * 1000
+                      });
+                      this.loading = false;
+                    });
                 }
                 else{
                         this.checkRequire();
