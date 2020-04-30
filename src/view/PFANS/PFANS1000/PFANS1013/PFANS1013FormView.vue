@@ -857,7 +857,7 @@
                                      prop="rmb" width="200">
                       <template slot-scope="scope">
                         <el-input-number
-                          :disabled="(scope.row.accountcode === 'PJ132005' && scope.row.accountcode === 'PJ132006')||(scope.row.accountcode === '') ? true : false"
+                          :disabled="(scope.row.accountcode === 'PJ132005' || scope.row.accountcode === 'PJ132006' || scope.row.accountcode === 'PJ119005' || scope.row.accountcode === 'PJ119006'|| scope.row.accountcode === '') ? true : false"
                           :max="1000000000" :min="0"
                           :precision="2"
                           @change="changelowance(scope.row)"
@@ -1541,7 +1541,22 @@
         }
         if (getOrgInfoByUserId(this.$store.getters.userinfo.userid)) {
           this.groupId = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
-          // this.tableT[0].departmentname = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
+          this.tableT[0].departmentname = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
+          this.tableT[0].optionsT = [];
+          let butinfo = getOrgInfo(this.tableT[0].departmentname).encoding;
+          let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+          if (dic.length > 0) {
+            for (let j = 0; j < dic.length; j++) {
+              if (butinfo === dic[j].value1) {
+                this.tableT[0].optionsT.push({
+                  lable: dic[j].value2 + '_' + dic[j].value3,
+                  value: dic[j].code,
+                });
+              }
+            }
+          }
+          // this.getGroupIdT(this.groupId,this.tableT);
+          // this.getGroupIdA(this.groupId,this.tableA);
           // this.tableA[0].departmentname = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
           // this.tableA[1].departmentname = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
           // this.tableR[0].departmentname = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
@@ -1660,6 +1675,23 @@
         if (dic) {
           row.subjectnumber = dic.value2;
         }
+        if (this.form.type === '0') {
+          if (row.accountcode === 'PJ119005' || row.accountcode === 'PJ132005') {
+            let moneys = getDictionaryInfo('PJ035001').value9;
+            row.subsidies = moneys;
+          } else if (row.accountcode === 'PJ119006' || row.accountcode === 'PJ132006') {
+            let moneys = getDictionaryInfo('PJ035001').value9;
+            row.subsidies = moneys;
+          }
+        } else if (this.form.type === '1') {
+          if (row.accountcode === 'PJ119005' || row.accountcode === 'PJ132005') {
+            let moneys = getDictionaryInfo('PJ035001').value8;
+            row.subsidies = moneys;
+          } else if (row.accountcode === 'PJ119006' || row.accountcode === 'PJ132006') {
+            let moneys = getDictionaryInfo('PJ035001').value9;
+            row.subsidies = moneys;
+          }
+        }
       },
       getLoanapp() {
         this.loading = true;
@@ -1746,7 +1778,7 @@
                   place: response[i].city,
                   value: response[i].business_id,
                   label: this.$t('menu.PFANS1035') + '_' + moment(response[i].createon).format('YYYY-MM-DD'),
-                  city: response[i].region,
+                  city: response[i].city,
                   startdate: response[i].startdate,
                   enddate: response[i].enddate,
                   businesstype: response[i].businesstype,
@@ -1818,6 +1850,7 @@
       //   }
       // },
       getGroupIdT(orglist, row) {
+        debugger
         row.departmentname = orglist;
         //ADD_FJL
         row.optionsT = [];
@@ -2156,7 +2189,7 @@
           accommodationdate: '',
           // nextday: '',
           invoicenumber: '',
-          departmentname: this.groupId,
+          departmentname: '',
           activitycontent: '',
           plsummary: this.plsummaryflg,
           accountcode: '',
@@ -2280,6 +2313,7 @@
             if (cityinfo) {
               this.form.place = cityinfo.value1;
               this.region = cityinfo.code;
+
               // this.tableA[1].region = cityinfo.code;
               // if (cityinfo.code === 'PJ017001' || cityinfo.code === 'PJ017002') {
               //   // this.tableA[0].currency = 'PG019002';
@@ -2348,10 +2382,16 @@
           dateArr.push(moment(this.form.enddate).format('YYYY-MM-DD'));
           this.Todaysum = dateArr;
         }
+        let moneys = 0;
+        if (this.form.type === '0') {
+          moneys = getDictionaryInfo('PJ035001').value7;
+        } else if (this.form.type === '1') {
+          moneys = getDictionaryInfo('PJ035002').value8;
+        }
         for (let i = 0; i < this.Todaysum.length; i++) {
           this.tableA.push({
             accountcode: this.accountcode,
-            subsidies: '150',
+            subsidies: moneys,
             evectionid: '',
             accommodationdetails_id: '',
             accommodationdate: this.Todaysum[i],
@@ -2361,7 +2401,7 @@
             subjectnumber: this.subjectnumberflg,
             departmentname: this.groupId,
             activitycontent: '',
-            city: '',
+            city: this.region,
             region: this.region,
             facilitytype: '',
             facilityname: '',
@@ -2373,9 +2413,25 @@
             taxes: '',
           });
         }
-        if (this.form.arrivenight === '1') {
-          this.tableA[0].subsidies = '250';
+        for (let i = 0; i < this.tableA.length; i++) {
+          this.tableA[i].optionsA = [];
+          let butinfoA = getOrgInfo(this.tableA[i].departmentname).encoding;
+          let dicA = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+          if (dicA.length > 0) {
+            for (let j = 0; j < dicA.length; j++) {
+              if (butinfoA === dicA[j].value1) {
+                this.tableA[i].optionsA.push({
+                  lable: dicA[j].value2 + '_' + dicA[j].value3,
+                  value: dicA[j].code,
+                });
+              }
+            }
+          }
         }
+        if (this.form.arrivenight === '1') {
+          this.tableA[0].subsidies = parseFloat(moneys) + 100;
+        }
+
       },
       change2(val) {
         this.form.loanamount = '';
@@ -2505,6 +2561,7 @@
         this.getTravel(row);
       },
       getTravel(row) {
+
         var jpvalueflg2;
         var jpregion1;
         var jpregion2;
@@ -2547,7 +2604,7 @@
             if (row.facilitytype === 'PJ035001') {
               if (row.city !== '') {
                 if (row.city === 'PJ036001' || row.city === 'PJ036002' || row.city === 'PJ036003' || row.city === 'PJ036004') {
-                  if (row.rmb / diffDate > jpregion1) {
+                  if (row.rmb > jpregion1) {
                     Message({
                       message: this.$t('label.PFANS1013FORMVIEW_RMBLIMIT'),
                       type: 'error',
@@ -2555,7 +2612,7 @@
                     });
                   }
                 } else {
-                  if (row.rmb / diffDate > jpregion2) {
+                  if (row.rmb > jpregion2) {
                     Message({
                       message: this.$t('label.PFANS1013FORMVIEW_RMBLIMIT'),
                       type: 'error',
@@ -2567,7 +2624,7 @@
             } else if (row.facilitytype === 'PJ035002') {
               if (row.city !== '') {
                 if (row.city === 'PJ036001' || row.city === 'PJ036002' || row.city === 'PJ036003' || row.city === 'PJ036004') {
-                  if (row.rmb / diffDate > jpregion8 / 30) {
+                  if (row.rmb > jpregion8 / 30) {
                     Message({
                       message: this.$t('label.PFANS1013FORMVIEW_RMBLIMIT'),
                       type: 'error',
@@ -2575,7 +2632,7 @@
                     });
                   }
                 } else {
-                  if (row.rmb / diffDate > jpregion9 / 30) {
+                  if (row.rmb > jpregion9 / 30) {
                     Message({
                       message: this.$t('label.PFANS1013FORMVIEW_RMBLIMIT'),
                       type: 'error',
@@ -2587,10 +2644,8 @@
             }
           } else if (this.Redirict === '0' ? (row.accountcode === 'PJ119005') : (row.accountcode === 'PJ132005')) {
             row.rmb = '';
-            row.rmb = (150 * (diffDate + 1)).toFixed(2);
           } else if (this.Redirict === '0' ? (row.accountcode === 'PJ119006') : (row.accountcode === 'PJ132006')) {
             row.rmb = '';
-            row.rmb = (Number(row.rmb + 100) * (diffDate + 1)).toFixed(2);
           }
 
         } else if (this.form.type === '1') {
@@ -2677,12 +2732,10 @@
             }
             if (jpvalueflg2 !== '' && jpvalueflg2 !== undefined) {
               row.rmb = '';
-              row.rmb = (Number(jpvalueflg2) * (diffDate + 1) + firstBusiNum).toFixed(2);
             }
           } else if (this.Redirict === '0' ? (row.accountcode === 'PJ119006') : (row.accountcode === 'PJ132006')) {
             if (jpvalueflg2 !== '' && jpvalueflg2 !== undefined) {
               row.rmb = '';
-              row.rmb = (Number(jpvalueflg2 + 100) * (diffDate + 1) + firstBusiNum).toFixed(2);
             }
           }
         }
