@@ -299,8 +299,10 @@
         errorsuppliername: '',
         disabled: false,
         buttonList: [],
+        tabledate: [],
         multiple: false,
         search: '',
+        tempupdexpname:'',
         gridData: [],
         form: {
           expatriatesinfor_id: '',
@@ -454,14 +456,16 @@
       };
     },
     mounted() {
-
+      this.getExp();
       this.getSupplierNameList();
+
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
           .dispatch('PFANS6004Store/getexpatriatesinforApplyOne', {'expatriatesinfor_id': this.$route.params._id})
           .then(response => {
             this.form = response;
+            this.tempupdexpname = this.form.expname;
             if(this.form.birth!=''){
               let birthdays = new Date(this.form.birth);
               let d = new Date();
@@ -606,58 +610,85 @@
             this.form.expatriatesinfor_id = this.$route.params._id;
             this.form.birth = moment(this.form.birth).format('YYYY-MM-DD');
             this.form.interview_date = moment(this.form.interview_date).format('YYYY-MM-DD');
+
             this.loading = true;
             if (this.$route.params._id) {
-              this.$store
-                .dispatch('PFANS6004Store/updateexpatriatesinforApply', this.form)
-                .then(response => {
-                  this.data = response;
-                  this.loading = false;
-                  if (val !== 'update') {
+              let exp = this.tabledate.filter(item => item.expname === this.form.expname);
+              if (exp.length > 0 && exp[0].expname != this.tempupdexpname)
+              {
+                Message({
+                  message: this.$t('normal.error_17'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.loading = false;
+              }
+              else
+              {
+                this.$store
+                  .dispatch('PFANS6004Store/updateexpatriatesinforApply', this.form)
+                  .then(response => {
+                    this.data = response;
+                    this.loading = false;
+                    if (val !== 'update') {
+                      Message({
+                        message: this.$t('normal.success_02'),
+                        type: 'success',
+                        duration: 5 * 1000,
+                      });
+                      if (this.$store.getters.historyUrl) {
+                        this.$router.push(this.$store.getters.historyUrl);
+                      }
+                    }
+                  })
+                  .catch(error => {
                     Message({
-                      message: this.$t('normal.success_02'),
+                      message: error,
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    this.loading = false;
+                  });
+              }
+            } else {
+              this.form.birth = moment(this.form.birth).format('YYYY-MM-DD');
+              this.form.interview_date = moment(this.form.interview_date).format('YYYY-MM-DD');
+              let exp = this.tabledate.filter(item => item.expname === this.form.expname);
+              if (exp.length > 0)
+              {
+                Message({
+                  message: this.$t('normal.error_17'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.loading = false;
+              }
+              else
+              {
+                this.loading = true;
+                this.$store
+                  .dispatch('PFANS6004Store/createexpatriatesinforApply', this.form)
+                  .then(response => {
+                    this.data = response;
+                    this.loading = false;
+                    Message({
+                      message: this.$t('normal.success_01'),
                       type: 'success',
                       duration: 5 * 1000,
                     });
                     if (this.$store.getters.historyUrl) {
                       this.$router.push(this.$store.getters.historyUrl);
                     }
-                  }
-                })
-                .catch(error => {
-                  Message({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000,
+                  })
+                  .catch(error => {
+                    Message({
+                      message: error,
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    this.loading = false;
                   });
-                  this.loading = false;
-                });
-            } else {
-              this.form.birth = moment(this.form.birth).format('YYYY-MM-DD');
-              this.form.interview_date = moment(this.form.interview_date).format('YYYY-MM-DD');
-              this.loading = true;
-              this.$store
-                .dispatch('PFANS6004Store/createexpatriatesinforApply', this.form)
-                .then(response => {
-                  this.data = response;
-                  this.loading = false;
-                  Message({
-                    message: this.$t('normal.success_01'),
-                    type: 'success',
-                    duration: 5 * 1000,
-                  });
-                  if (this.$store.getters.historyUrl) {
-                    this.$router.push(this.$store.getters.historyUrl);
-                  }
-                })
-                .catch(error => {
-                  Message({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  this.loading = false;
-                });
+              }
             }
           }
           else{
@@ -669,6 +700,23 @@
           }
         });
       },
+      getExp(){
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS6004Store/getexpatriatesinfor')
+          .then(response => {
+            this.tabledate = response;
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      }
     },
   };
 </script>
