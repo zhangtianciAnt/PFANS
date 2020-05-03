@@ -52,19 +52,19 @@
                   :label="$t('label.PFANS2023FORMVIEW_INTELLIGENCE')"
                   align="center">
                   <!--                部门名-->
-                  <el-table-column
-                    :label="$t('label.department')"
-                    align="center"
-                    width="200">
-                    <template slot-scope="scope">
-                      <el-input
-                        :disabled="!disabled"
-                        :no="scope.row"
-                        style="width: 100%"
-                        v-model="scope.row.group_id">
-                      </el-input>
-                    </template>
-                  </el-table-column>
+<!--                  <el-table-column-->
+<!--                    :label="$t('label.department')"-->
+<!--                    align="center"-->
+<!--                    width="200">-->
+<!--                    <template slot-scope="scope">-->
+<!--                      <el-input-->
+<!--                        :disabled="!disabled"-->
+<!--                        :no="scope.row"-->
+<!--                        style="width: 100%"-->
+<!--                        v-model="scope.row.group_id">-->
+<!--                      </el-input>-->
+<!--                    </template>-->
+<!--                  </el-table-column>-->
                   <!--                pj名-->
                   <el-table-column
                     :label="$t('label.PFANS6007VIEW_PJNAME')"
@@ -103,7 +103,7 @@
                         :disabled="!disabled"
                         :no="scope.row"
                         style="width: 100%"
-                        v-model="scope.row.suppliernameid">
+                        v-model="scope.row.suppliername">
                       </el-input>
                     </template>
                   </el-table-column>
@@ -723,15 +723,16 @@
           year: "",
         },
         tableData: [{
-            delegainformation_id: '',
-            companyprojects_id:'',
-            projectsystem_id:'',
+          delegainformation_id: '',
+          companyprojects_id:'',
+          projectsystem_id:'',
           type: '',
           project_name: '',
           group_id: '',
+          account: '',
           managerid: '',
           expname: '',
-          suppliernameid: '',
+          suppliername: '',
           admissiontime: '',
           exittime: '',
           operationform: '',
@@ -777,91 +778,81 @@
       getList() {
         this.loading = true;
         this.$store
-          .dispatch('PFANS6006Store/getYears', {'year': this.year})
+          .dispatch('PFANS6006Store/getYears', {'year': this.year,'group_id': '6ED276094B952D25E106897F7726BB58F9F9'})
           .then(response => {
-            console.log(response)
               let tabledate = [];
             for (let j = 0; j < response.length; j++) {
-              if (response[j].group_id !== null && response[j].group_id !== '' && response[j].group_id !== undefined) {
-                  let group = getorgGroupList(response[j].group_id);
-                  if (group) {
-                      response[j].group_id = group.groupname;
-                  }
-              }
               if (response[j].managerid !== null && response[j].managerid !== '') {
                 let rst = getUserInfo(response[j].managerid)
                 if (rst) {
                   response[j].managerid = rst.userinfo.customername;
                 }
               }
-              if (response[j].supplierinfor_id !== null && response[j].supplierinfor_id !== '') {
-                let supplierInfo = getSupplierinfor(response[j].supplierinfor_id);
-                if (supplierInfo) {
-                  response[j].suppliernameid = supplierInfo.supchinese;
-                }
-              }
-              if (response[j].admissiontime !== null && response[j].admissiontime !== '') {
-                response[j].admissiontime = moment(response[j].admissiontime).format('YYYY-MM-DD');
-              }
-              if (response[j].exittime !== null && response[j].exittime !== '') {
-                response[j].exittime = moment(response[j].exittime).format('YYYY-MM-DD');
-              }
-              if (response[j].jobclassification !== null && response[j].jobclassification !== '') {
-                let letStage = getDictionaryInfo(response[j].jobclassification);
-                if (letStage != null) {
-                  response[j].jobclassification = letStage.value1;
-                }
-              }
-              if (response[j].operationform !== null && response[j].operationform !== '') {
-                let letStage = getDictionaryInfo(response[j].operationform);
-                if (letStage != null) {
-                  response[j].operationform = letStage.value1;
-                }
-              }
-              if (response[j].alltechnology !== null && response[j].alltechnology !== '') {
-                let letStage = getDictionaryInfo(response[j].alltechnology);
-                if (letStage != null) {
-                  response[j].alltechnology = letStage.value1;
-                }
-              }
-              if (response[j].sitevaluation !== null && response[j].sitevaluation !== '') {
-                let letStage = getDictionaryInfo(response[j].sitevaluation);
-                if (letStage != null) {
-                  response[j].sitevaluation = letStage.value1;
-                }
-              }
-              if (response[j].exitreason !== null && response[j].exitreason !== '') {
-                let letStage = getDictionaryInfo(response[j].exitreason);
-                if (letStage != null) {
-                  response[j].exitreason = letStage.value1;
-                }
-              }
-              if (response[j].businessimpact !== null && response[j].businessimpact !== '') {
-                let letStage = getDictionaryInfo(response[j].businessimpact);
-                if (letStage != null) {
-                  response[j].businessimpact = letStage.value1;
-                }
-              }
-              if (response[j].countermeasure !== null && response[j].countermeasure !== '') {
-                let letStage = getDictionaryInfo(response[j].countermeasure);
-                if (letStage != null) {
-                  response[j].countermeasure = letStage.value1;
-                }
-              }
-              if (response[j].distriobjects !== null && response[j].distriobjects !== '') {
-                if (response[j].distriobjects = 0) {
-                  response[j].distriobjects = "是";
-                } else if (response[j].distriobjects = 1) {
-                  response[j].distriobjects = "否";
-                }
-              }
-              if (response[j].venuetarget !== null && response[j].venuetarget !== '') {
-                if (response[j].venuetarget = 0) {
-                  response[j].venuetarget = "是";
-                } else if (response[j].venuetarget = 1) {
-                  response[j].venuetarget = "否";
-                }
-              }
+
+              //region 无用代码
+                // if (response[j].admissiontime !== null && response[j].admissiontime !== '') {
+                //   response[j].admissiontime = moment(response[j].admissiontime).format('YYYY-MM-DD');
+                // }
+                // if (response[j].exittime !== null && response[j].exittime !== '') {
+                //   response[j].exittime = moment(response[j].exittime).format('YYYY-MM-DD');
+                // }
+                // if (response[j].jobclassification !== null && response[j].jobclassification !== '') {
+                //   let letStage = getDictionaryInfo(response[j].jobclassification);
+                //   if (letStage != null) {
+                //     response[j].jobclassification = letStage.value1;
+                //   }
+                // }
+                // if (response[j].operationform !== null && response[j].operationform !== '') {
+                //   let letStage = getDictionaryInfo(response[j].operationform);
+                //   if (letStage != null) {
+                //     response[j].operationform = letStage.value1;
+                //   }
+                // }
+                // if (response[j].alltechnology !== null && response[j].alltechnology !== '') {
+                //   let letStage = getDictionaryInfo(response[j].alltechnology);
+                //   if (letStage != null) {
+                //     response[j].alltechnology = letStage.value1;
+                //   }
+                // }
+                // if (response[j].sitevaluation !== null && response[j].sitevaluation !== '') {
+                //   let letStage = getDictionaryInfo(response[j].sitevaluation);
+                //   if (letStage != null) {
+                //     response[j].sitevaluation = letStage.value1;
+                //   }
+                // }
+                // if (response[j].exitreason !== null && response[j].exitreason !== '') {
+                //   let letStage = getDictionaryInfo(response[j].exitreason);
+                //   if (letStage != null) {
+                //     response[j].exitreason = letStage.value1;
+                //   }
+                // }
+                // if (response[j].businessimpact !== null && response[j].businessimpact !== '') {
+                //   let letStage = getDictionaryInfo(response[j].businessimpact);
+                //   if (letStage != null) {
+                //     response[j].businessimpact = letStage.value1;
+                //   }
+                // }
+                // if (response[j].countermeasure !== null && response[j].countermeasure !== '') {
+                //   let letStage = getDictionaryInfo(response[j].countermeasure);
+                //   if (letStage != null) {
+                //     response[j].countermeasure = letStage.value1;
+                //   }
+                // }
+                // if (response[j].distriobjects !== null && response[j].distriobjects !== '') {
+                //   if (response[j].distriobjects = 0) {
+                //     response[j].distriobjects = "是";
+                //   } else if (response[j].distriobjects = 1) {
+                //     response[j].distriobjects = "否";
+                //   }
+                // }
+                // if (response[j].venuetarget !== null && response[j].venuetarget !== '') {
+                //   if (response[j].venuetarget = 0) {
+                //     response[j].venuetarget = "是";
+                //   } else if (response[j].venuetarget = 1) {
+                //     response[j].venuetarget = "否";
+                //   }
+                // }
+                //endregion
 
               if (response[j].venuetarget == 0) {
                 let arr = [
@@ -886,47 +877,46 @@
                 }
                 response[j].monthlength = h;
               }
-                tabledate.push({
-                    delegainformation_id: response[j].delegainformation_id,
-                    companyprojects_id: response[j].companyprojects_id,
-                    projectsystem_id: response[j].projectsystem_id,
-                    year: response[j].year,
-                    supplierinfor_id: response[j].supplierinfor_id,
-
-                    type: 0,
-                    project_name: response[j].project_name,
-                    group_id: response[j].group_id,
-                    managerid: response[j].managerid,
-                    expname: response[j].expname,
-                    suppliernameid: response[j].suppliernameid,
-                    admissiontime: response[j].admissiontime,
-                    exittime: response[j].exittime,
-                    operationform: response[j].operationform,
-                    jobclassification: response[j].jobclassification,
-                    distriobjects: response[j].distriobjects,
-                    venuetarget: response[j].venuetarget,
-                    january: response[j].january,
-                    february: response[j].february,
-                    march: response[j].march,
-                    april: response[j].april,
-                    may: response[j].may,
-                    june: response[j].june,
-                    july: response[j].july,
-                    august: response[j].august,
-                    september: response[j].september,
-                    october: response[j].october,
-                    november: response[j].november,
-                    december: response[j].december,
-                    monthlength: response[j].monthlength,
-                    remarks: response[j].remarks,
-                    alltechnology: response[j].alltechnology,
-                    sitevaluation: response[j].sitevaluation,
-                    exitreason: response[j].exitreason,
-                    businessimpact:response[j].businessimpact,
-                    countermeasure: response[j].countermeasure,
-                })
+              tabledate.push({
+                  delegainformation_id: response[j].delegainformation_id,
+                  companyprojects_id: response[j].companyprojects_id,
+                  projectsystem_id: response[j].projectsystem_id,
+                  year: response[j].year,
+                  supplierinfor_id: response[j].supplierinfor_id,
+                  type: 0,
+                  project_name: response[j].project_name,
+                  group_id: response[j].group_id,
+                  account: response[j].account,
+                  managerid: response[j].managerid,
+                  expname: response[j].expname,
+                  suppliername: response[j].suppliername,
+                  admissiontime: response[j].admissiontime,
+                  exittime: response[j].exittime,
+                  operationform: response[j].operationform,
+                  jobclassification: response[j].jobclassification,
+                  distriobjects: response[j].distriobjects,
+                  venuetarget: response[j].venuetarget,
+                  january: response[j].january,
+                  february: response[j].february,
+                  march: response[j].march,
+                  april: response[j].april,
+                  may: response[j].may,
+                  june: response[j].june,
+                  july: response[j].july,
+                  august: response[j].august,
+                  september: response[j].september,
+                  october: response[j].october,
+                  november: response[j].november,
+                  december: response[j].december,
+                  monthlength: response[j].monthlength,
+                  remarks: response[j].remarks,
+                  alltechnology: response[j].alltechnology,
+                  sitevaluation: response[j].sitevaluation,
+                  exitreason: response[j].exitreason,
+                  businessimpact:response[j].businessimpact,
+                  countermeasure: response[j].countermeasure,
+              })
             }
-
             this.tableData = tabledate;
             this.loading = false;
           })
@@ -956,16 +946,16 @@
             .dispatch('PFANS6006Store/updateDeleginformation', this.multipleSelection)
             .then(response => {
               this.data = response;
-              this.getList(this.year);
+              this.loading = false;
+              //this.getList(this.year);
               Message({
                 message: this.$t("normal.success_02"),
                 type: "success",
                 duration: 5 * 1000
               });
-              this.$router.push({
-                name: 'PFANS6006View',
-              });
-              this.loading = false;
+              // this.$router.push({
+              //   name: 'PFANS6006View',
+              // });
             })
             .catch(error => {
               Message({
