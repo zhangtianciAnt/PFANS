@@ -778,7 +778,8 @@
       getList() {
         this.loading = true;
         this.$store
-          .dispatch('PFANS6006Store/getYears', {'year': this.year,'group_id': '6ED276094B952D25E106897F7726BB58F9F9'})
+            //.dispatch('PFANS6006Store/getYears', {'year': this.year,'group_id': '6ED276094B952D25E106897F7726BB58F9F9'})
+          .dispatch('PFANS6006Store/getYears', {'year': this.year})
           .then(response => {
               let tabledate = [];
             for (let j = 0; j < response.length; j++) {
