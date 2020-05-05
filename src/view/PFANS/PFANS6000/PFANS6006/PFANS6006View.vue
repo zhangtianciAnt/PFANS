@@ -47,8 +47,8 @@
 
                 <plx-table-column
                   type="selection"
-                  width="55">
-
+                  width="40"
+                  fixed="left">
                 </plx-table-column>
 
                 <!-- 序号-->
@@ -56,7 +56,8 @@
                   :label="$t('label.PFANS2006VIEW_NO')"
                   align="center"
                   type="index"
-                  width="80">
+                  width="50"
+                  fixed="left">
                 </plx-table-column>
 
                 <!--              第一组-->
@@ -69,56 +70,60 @@
                     :label="$t('label.PFANS6007VIEW_PJNAME')"
                     prop="project_name"
                     align="center"
-                    width="180">
+                    fixed="left"
+                    width="120">
                   </plx-table-column>
                   <!--                窓口-->
                   <plx-table-column
                     :label="$t('label.PFANS6007VIEW_PSDCDWINDOW')"
                     align="center"
                     prop="managerid"
-                    width="120">
+                    fixed="left"
+                    width="80">
                   </plx-table-column>
                   <!--                BP会社名-->
                   <plx-table-column
                     :label="$t('label.PFANS6007VIEW_BPCLUBNAME')"
-                    align="center"
+                    align="left"
                     prop="suppliername"
-                    width="150">
+                    fixed="left"
+                    width="120">
                   </plx-table-column>
                   <!--                BP名前-->
                   <plx-table-column
                     :label="$t('label.PFANS5001FORMVIEW_BPNAME')"
                     align="center"
                     prop="expname"
-                    width="180">
+                    fixed="left"
+                    width="80">
                   </plx-table-column>
                   <!--                入场时间-->
                   <plx-table-column
                     :label="$t('label.PFANS6004FORMVIEW_ADMISSIONTIME')"
                     align="center"
                     prop="admissiontime"
-                    width="150">
+                    width="90">
                   </plx-table-column>
                   <!--                退场时间-->
                   <plx-table-column
                     :label="$t('label.PFANS6004FORMVIEW_EXITIME')"
                     align="center"
                     prop="exittime"
-                    width="150">
+                    width="90">
                   </plx-table-column>
                   <!--                作業形態-->
                   <plx-table-column
                     :label="$t('label.PFANS6004FORMVIEW_OPERATIONFORM')"
                     align="center"
                     prop="operationform"
-                    width="180">
+                    width="90">
                   </plx-table-column>
                   <!--                作業分類-->
                   <plx-table-column
                     :label="$t('label.PFANS6004FORMVIEW_JOBCLASSIFICATIONM')"
                     align="center"
                     prop="jobclassification"
-                    width="150">
+                    width="90">
                   </plx-table-column>
                   <!--                配賦対象-->
 <!--                  <plx-table-column-->
@@ -158,10 +163,11 @@
                   <plx-table-column
                     :label="$t('label.April')"
                     align="center"
-                    width="170"
+                    width="130"
                     prop="april">
                     <template slot-scope="scope">
                       <el-input-number
+                        size="mini"
                         :disabled="false"
                         v-if="scope.row.type == '1'"
                         :max="9999999999"
@@ -169,10 +175,11 @@
                         :precision="2"
                         :step="0.01"
                         controls-position="right"
-                        style="width:8vw"
+                        style="width:90%"
                         v-model.trim="scope.row.april">
                       </el-input-number>
                       <el-input-number
+                        size="mini"
                         :disabled="true"
                         v-if="scope.row.type == '0'"
                         :max="9999999999"
@@ -180,7 +187,7 @@
                         :precision="2"
                         :step="0.01"
                         controls-position="right"
-                        style="width:8vw"
+                        style="width:90%"
                         v-model.trim="scope.row.april">
                       </el-input-number>
 
@@ -190,9 +197,10 @@
                   <plx-table-column
                     :label="$t('label.May')"
                     align="center"
-                    width="170">
+                    width="130">
                     <template slot-scope="scope">
                       <el-input-number
+                        size="mini"
                         v-if="scope.row.type == '1'"
                         :disabled="false"
                         :max="9999999999"
@@ -200,10 +208,11 @@
                         :precision="2"
                         :step="0.01"
                         controls-position="right"
-                        style="width:8vw"
+                        style="width:90%"
                         v-model.trim="scope.row.may">
                       </el-input-number>
                       <el-input-number
+                        size="mini"
                         v-if="scope.row.type == '0'"
                         :disabled="true"
                         :max="9999999999"
@@ -211,7 +220,7 @@
                         :precision="2"
                         :step="0.01"
                         controls-position="right"
-                        style="width:8vw"
+                        style="width:90%"
                         v-model.trim="scope.row.may">
                       </el-input-number>
                     </template>
@@ -220,9 +229,10 @@
                   <plx-table-column
                     :label="$t('label.June')"
                     align="center"
-                    width="170">
+                    width="130">
                     <template slot-scope="scope">
                       <el-input-number
+                        size="mini"
                         v-if="scope.row.type == '0'"
                         :disabled="true"
                         :max="9999999999"
@@ -230,10 +240,11 @@
                         :precision="2"
                         :step="0.01"
                         controls-position="right"
-                        style="width:8vw"
+                        style="width:90%"
                         v-model.trim="scope.row.june">
                       </el-input-number>
                       <el-input-number
+                        size="mini"
                         v-if="scope.row.type == '1'"
                         :disabled="false"
                         :max="9999999999"
@@ -241,7 +252,7 @@
                         :precision="2"
                         :step="0.01"
                         controls-position="right"
-                        style="width:8vw"
+                        style="width:90%"
                         v-model.trim="scope.row.june">
                       </el-input-number>
                     </template>
@@ -250,9 +261,10 @@
                   <plx-table-column
                     :label="$t('label.July')"
                     align="center"
-                    width="170">
+                    width="130">
                     <template slot-scope="scope">
                       <el-input-number
+                        size="mini"
                         v-if="scope.row.type == '0'"
                         :disabled="true"
                         :max="9999999999"
@@ -260,10 +272,11 @@
                         :precision="2"
                         :step="0.01"
                         controls-position="right"
-                        style="width:8vw"
+                        style="width:90%"
                         v-model.trim="scope.row.july">
                       </el-input-number>
                       <el-input-number
+                        size="mini"
                         v-if="scope.row.type == '1'"
                         :disabled="false"
                         :max="9999999999"
@@ -271,7 +284,7 @@
                         :precision="2"
                         :step="0.01"
                         controls-position="right"
-                        style="width:8vw"
+                        style="width:90%"
                         v-model.trim="scope.row.july">
                       </el-input-number>
                     </template>
@@ -280,9 +293,10 @@
                   <plx-table-column
                     :label="$t('label.August')"
                     align="center"
-                    width="170">
+                    width="130">
                     <template slot-scope="scope">
                       <el-input-number
+                        size="mini"
                         v-if="scope.row.type == '1'"
                         :disabled="false"
                         :max="9999999999"
@@ -290,10 +304,11 @@
                         :precision="2"
                         :step="0.01"
                         controls-position="right"
-                        style="width:8vw"
+                        style="width:90%"
                         v-model.trim="scope.row.august">
                       </el-input-number>
                       <el-input-number
+                        size="mini"
                         v-if="scope.row.type == '0'"
                         :disabled="true"
                         :max="9999999999"
@@ -301,7 +316,7 @@
                         :precision="2"
                         :step="0.01"
                         controls-position="right"
-                        style="width:8vw"
+                        style="width:90%"
                         v-model.trim="scope.row.august">
                       </el-input-number>
                     </template>
@@ -310,9 +325,10 @@
                   <plx-table-column
                     :label="$t('label.September')"
                     align="center"
-                    width="170">
+                    width="130">
                     <template slot-scope="scope">
                       <el-input-number
+                        size="mini"
                         v-if="scope.row.type == '0'"
                         :disabled="true"
                         :max="9999999999"
@@ -320,10 +336,11 @@
                         :precision="2"
                         :step="0.01"
                         controls-position="right"
-                        style="width:8vw"
+                        style="width:90%"
                         v-model.trim="scope.row.september">
                       </el-input-number>
                       <el-input-number
+                        size="mini"
                         v-if="scope.row.type == '1'"
                         :disabled="false"
                         :max="9999999999"
@@ -331,7 +348,7 @@
                         :precision="2"
                         :step="0.01"
                         controls-position="right"
-                        style="width:8vw"
+                        style="width:90%"
                         v-model.trim="scope.row.september">
                       </el-input-number>
                     </template>
@@ -340,9 +357,10 @@
                   <plx-table-column
                     :label="$t('label.October')"
                     align="center"
-                    width="170">
+                    width="130">
                     <template slot-scope="scope">
                       <el-input-number
+                        size="mini"
                         v-if="scope.row.type == '1'"
                         :disabled="false"
                         :max="9999999999"
@@ -350,10 +368,11 @@
                         :precision="2"
                         :step="0.01"
                         controls-position="right"
-                        style="width:8vw"
+                        style="width:90%"
                         v-model.trim="scope.row.october">
                       </el-input-number>
                       <el-input-number
+                        size="mini"
                         v-if="scope.row.type == '0'"
                         :disabled="true"
                         :max="9999999999"
@@ -361,7 +380,7 @@
                         :precision="2"
                         :step="0.01"
                         controls-position="right"
-                        style="width:8vw"
+                        style="width:90%"
                         v-model.trim="scope.row.october">
                       </el-input-number>
                     </template>
@@ -370,9 +389,10 @@
                   <plx-table-column
                     :label="$t('label.November')"
                     align="center"
-                    width="170">
+                    width="130">
                     <template slot-scope="scope">
                       <el-input-number
+                        size="mini"
                         v-if="scope.row.type == '0'"
                         :disabled="true"
                         :max="9999999999"
@@ -380,10 +400,11 @@
                         :precision="2"
                         :step="0.01"
                         controls-position="right"
-                        style="width:8vw"
+                        style="width:90%"
                         v-model.trim="scope.row.november">
                       </el-input-number>
                       <el-input-number
+                        size="mini"
                         v-if="scope.row.type == '1'"
                         :disabled="false"
                         :max="9999999999"
@@ -391,7 +412,7 @@
                         :precision="2"
                         :step="0.01"
                         controls-position="right"
-                        style="width:8vw"
+                        style="width:90%"
                         v-model.trim="scope.row.november">
                       </el-input-number>
                     </template>
@@ -400,9 +421,10 @@
                   <plx-table-column
                     :label="$t('label.December')"
                     align="center"
-                    width="170">
+                    width="130">
                     <template slot-scope="scope">
                       <el-input-number
+                        size="mini"
                         v-if="scope.row.type == '1'"
                         :disabled="false"
                         :max="9999999999"
@@ -410,10 +432,11 @@
                         :precision="2"
                         :step="0.01"
                         controls-position="right"
-                        style="width:8vw"
+                        style="width:90%"
                         v-model.trim="scope.row.december">
                       </el-input-number>
                       <el-input-number
+                        size="mini"
                         v-if="scope.row.type == '0'"
                         :disabled="true"
                         :max="9999999999"
@@ -421,7 +444,7 @@
                         :precision="2"
                         :step="0.01"
                         controls-position="right"
-                        style="width:8vw"
+                        style="width:90%"
                         v-model.trim="scope.row.december">
                       </el-input-number>
                     </template>
@@ -430,9 +453,10 @@
                   <plx-table-column
                     :label="$t('label.January')"
                     align="center"
-                    width="170">
+                    width="130">
                     <template slot-scope="scope">
                       <el-input-number
+                        size="mini"
                         v-if="scope.row.type == '0'"
                         :disabled="true"
                         :max="9999999999"
@@ -440,10 +464,11 @@
                         :precision="2"
                         :step="0.01"
                         controls-position="right"
-                        style="width:8vw"
+                        style="width:90%"
                         v-model.trim="scope.row.january">
                       </el-input-number>
                       <el-input-number
+                        size="mini"
                         v-if="scope.row.type == '1'"
                         :disabled="false"
                         :max="9999999999"
@@ -451,7 +476,7 @@
                         :precision="2"
                         :step="0.01"
                         controls-position="right"
-                        style="width:8vw"
+                        style="width:90%"
                         v-model.trim="scope.row.january">
                       </el-input-number>
                     </template>
@@ -460,9 +485,10 @@
                   <plx-table-column
                     :label="$t('label.February')"
                     align="center"
-                    width="170">
+                    width="130">
                     <template slot-scope="scope">
                       <el-input-number
+                        size="mini"
                         v-if="scope.row.type == '1'"
                         :disabled="false"
                         :max="9999999999"
@@ -470,10 +496,11 @@
                         :precision="2"
                         :step="0.01"
                         controls-position="right"
-                        style="width:8vw"
+                        style="width:90%"
                         v-model.trim="scope.row.february">
                       </el-input-number>
                       <el-input-number
+                        size="mini"
                         v-if="scope.row.type == '0'"
                         :disabled="true"
                         :max="9999999999"
@@ -481,7 +508,7 @@
                         :precision="2"
                         :step="0.01"
                         controls-position="right"
-                        style="width:8vw"
+                        style="width:90%"
                         v-model.trim="scope.row.february">
                       </el-input-number>
                     </template>
@@ -490,9 +517,10 @@
                   <plx-table-column
                     :label="$t('label.March')"
                     align="center"
-                    width="170">
+                    width="130">
                     <template slot-scope="scope">
                       <el-input-number
+                        size="mini"
                         v-if="scope.row.type == '0'"
                         :disabled="true"
                         :max="9999999999"
@@ -500,10 +528,11 @@
                         :precision="2"
                         :step="0.01"
                         controls-position="right"
-                        style="width:8vw"
+                        style="width:90%"
                         v-model.trim="scope.row.march">
                       </el-input-number>
                       <el-input-number
+                        size="mini"
                         v-if="scope.row.type == '1'"
                         :disabled="false"
                         :max="9999999999"
@@ -511,7 +540,7 @@
                         :precision="2"
                         :step="0.01"
                         controls-position="right"
-                        style="width:8vw"
+                        style="width:90%"
                         v-model.trim="scope.row.march">
                       </el-input-number>
                     </template>
@@ -523,6 +552,7 @@
                     width="80">
                     <template slot-scope="scope">
                       <el-input
+                        size="mini"
                         :disabled="!disabled"
                         :no="scope.row"
                         style="width: 100%"
@@ -537,6 +567,7 @@
                     width="200">
                     <template slot-scope="scope">
                       <el-input
+                        size="mini"
                         v-if="scope.row.type == '1'"
                         :disabled="false"
                         :rows="1"
@@ -545,6 +576,7 @@
                         v-model="scope.row.remarks">
                       </el-input>
                       <el-input
+                        size="mini"
                         v-if="scope.row.type == '0'"
                         :disabled="true"
                         :rows="1"
@@ -986,30 +1018,28 @@
               return {
                   color: 'white',
                   background: '#99CCFF !important',
-                  'border-bottom': '1px solid #99CCFF',
-                  'border-right': '1px solid #73B9FF',
+                  border: '1px solid white',
               };
           }
           if (column.level === 2 && columnIndex >= 4 && columnIndex < 22) {
               return {
                   color: 'white',
                   background: '#99CC99 !important',
-                  'border-bottom': '1px solid #99CCFF',
-                  'border-right': '1px solid #73CC73',
+                border: '1px solid white',
               };
           }
           if (column.level === 2 && columnIndex >= 22 && columnIndex < 27) {
           return {
             color: 'white',
             background: '#99CCFF',
-            'border-bottom': '1px solid #99CCFF',
-            'border-right': '1px solid #73CC73',
+            border: '1px solid white',
           };
         }
         if (column.level === 1 && columnIndex >= 0 && columnIndex < 23) {
           return {
             color: 'white',
             background: '#005BAA !important',
+            border: '1px solid white',
           };
         }
       },
