@@ -35,7 +35,7 @@
                 <el-input
                   :disabled="true"
                   style="width:20vw"
-                  v-model="form.account" maxlength="20">
+                  v-model="form.accountname" maxlength="20">
                 </el-input>
               </el-form-item>
             </el-col>
@@ -468,7 +468,7 @@
         erroradmissiontime: '',
         grouporglist: '',
         errorexitime: '',
-        account: '',
+        accountname: '',
         errorgroup: '',
         errorgraduateschool: '',
         disabled: false,

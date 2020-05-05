@@ -58,7 +58,7 @@
           {
             code: 'bpname',
             label: 'label.PFANS6008VIEW_BPNAME',
-            width: 150,
+            width: 100,
             fix: false,
             filter: true,
           },
@@ -97,9 +97,9 @@
               {
                 code: 'support6',
                 label: 'label.PFANS6008VIEW_SUPPORT',
-                width: 110,
+                width: 100,
                 fix: false,
-                filter: true,
+                filter: false,
               }
             ],
             width: 540,
@@ -134,9 +134,9 @@
               {
                 code: 'support6',
                 label: 'label.PFANS6008VIEW_SUPPORT',
-                width: 110,
+                width: 100,
                 fix: false,
-                filter: true,
+                filter: false,
               }
             ],
             width: 540,
@@ -171,9 +171,9 @@
               {
                 code: 'support6',
                 label: 'label.PFANS6008VIEW_SUPPORT',
-                width: 110,
+                width: 100,
                 fix: false,
-                filter: true,
+                filter: false,
               }
             ],
             width: 540,
@@ -250,9 +250,9 @@
               {
                 code: 'support9',
                 label: 'label.PFANS6008VIEW_SUPPORT',
-                width: 110,
+                width: 100,
                 fix: false,
-                filter: true,
+                filter: false,
               }
             ],
             width: 540,
@@ -287,9 +287,9 @@
               {
                 code: 'support9',
                 label: 'label.PFANS6008VIEW_SUPPORT',
-                width: 110,
+                width: 100,
                 fix: false,
-                filter: true,
+                filter: false,
               }
             ],
             width: 540,
@@ -324,9 +324,9 @@
               {
                 code: 'support9',
                 label: 'label.PFANS6008VIEW_SUPPORT',
-                width: 110,
+                width: 100,
                 fix: false,
-                filter: true,
+                filter: false,
               }
             ],
             width: 540,
@@ -402,9 +402,9 @@
               {
                 code: 'support12',
                 label: 'label.PFANS6008VIEW_SUPPORT',
-                width: 110,
+                width: 100,
                 fix: false,
-                filter: true,
+                filter: false,
               }
             ],
             width: 540,
@@ -439,9 +439,9 @@
               {
                 code: 'support12',
                 label: 'label.PFANS6008VIEW_SUPPORT',
-                width: 110,
+                width: 100,
                 fix: false,
-                filter: true,
+                filter: false,
               }
             ],
             width: 540,
@@ -476,9 +476,9 @@
               {
                 code: 'support12',
                 label: 'label.PFANS6008VIEW_SUPPORT',
-                width: 110,
+                width: 100,
                 fix: false,
-                filter: true,
+                filter: false,
               }
             ],
             width: 540,
@@ -554,9 +554,9 @@
               {
                 code: 'support3',
                 label: 'label.PFANS6008VIEW_SUPPORT',
-                width: 110,
+                width: 100,
                 fix: false,
-                filter: true,
+                filter: false,
               }
             ],
             width: 540,
@@ -591,9 +591,9 @@
               {
                 code: 'support3',
                 label: 'label.PFANS6008VIEW_SUPPORT',
-                width: 110,
+                width: 100,
                 fix: false,
-                filter: true,
+                filter: false,
               }
             ],
             width: 540,
@@ -628,9 +628,9 @@
               {
                 code: 'support3',
                 label: 'label.PFANS6008VIEW_SUPPORT',
-                width: 110,
+                width: 100,
                 fix: false,
-                filter: true,
+                filter: false,
               }
             ],
             width: 540,
@@ -752,7 +752,7 @@
           this.$store
             .dispatch('PFANS6008Store/insertCoststatistics')
             .then(response => {
-              //this.init();
+              this.init();
               Message({
                 message: this.$t("normal.success_04"),
                 type: "success",
@@ -876,6 +876,10 @@
         else
         {
           this.optionsdata = vote;
+        }
+        this.form.group_id = this.optionsdata[0].value;
+        if (this.form.group_id) {
+          this.init();
         }
         this.loading = false;
       },
