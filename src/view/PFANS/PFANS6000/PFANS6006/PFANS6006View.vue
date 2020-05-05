@@ -1014,21 +1014,21 @@
         }
       },
       getRowClass({row, column, rowIndex, columnIndex}) {
-          if (column.level === 2 && columnIndex >= 0 && columnIndex < 8) {
+          if (column.level === 2 && columnIndex >= 0 && columnIndex < 10) {
               return {
                   color: 'white',
                   background: '#99CCFF !important',
                   border: '1px solid white',
               };
           }
-          if (column.level === 2 && columnIndex >= 4 && columnIndex < 22) {
+          if (column.level === 2 && columnIndex >= 4 && columnIndex < 24) {
               return {
                   color: 'white',
                   background: '#99CC99 !important',
                 border: '1px solid white',
               };
           }
-          if (column.level === 2 && columnIndex >= 22 && columnIndex < 27) {
+          if (column.level === 2 && columnIndex >= 22 && columnIndex < 29) {
           return {
             color: 'white',
             background: '#99CCFF',
