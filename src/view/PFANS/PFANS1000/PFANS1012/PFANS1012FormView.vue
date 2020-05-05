@@ -3138,7 +3138,6 @@
             this.checktime = true;
             this.checkcode = dic.value4;
           }
-
         }
       },
       changesummoney(row) {
