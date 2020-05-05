@@ -5,8 +5,8 @@
       <div slot="customize">
         <el-form label-position="top" label-width="8vw" ref="reff" style="padding-top: 10px">
           <el-form-item>
-            <el-row>
-              <el-col :span="8">
+            <el-row style="margin-top: 20px">
+              <el-col :span="18">
                 <div align="right">
                   <el-date-picker
                     :placeholder="$t('normal.error_09')"
@@ -17,7 +17,7 @@
                   </el-date-picker>
                 </div>
               </el-col>
-              <el-col :span="8">
+              <el-col :span="6">
                 <div align="right">
                   <el-select v-model="group_id" style="width: 20vw"
                              @change="changeGroup">
