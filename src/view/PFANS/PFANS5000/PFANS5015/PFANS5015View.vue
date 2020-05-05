@@ -217,6 +217,24 @@
                       response[j].groupname = group.companyname;
                     }
                   }
+                  else
+                  {
+                    let co = getCooperinterviewListByAccount(response[j].createby);
+                    if (co)
+                    {
+                      if (co.group_id)
+                      {
+                        let group = getOrgInfo(co.group_id);
+                        if (group) {
+                          response[j].groupname = group.companyname;
+                        }
+                      }
+                    }
+                    if (user)
+                    {
+                      response[j].groupname = user.userinfo.groupname;
+                    }
+                  }
                 }
                 response[j].log_date = moment(response[j].log_date).format('YYYY-MM-DD');
                 if (response[j].time_end !== null && response[j].time_end !== '') {
