@@ -946,6 +946,14 @@
         this.multipleSelection = val;
       },
       buttonClick(val) {
+        if(this.multipleSelection.length === 0){
+            Message({
+                message: this.$t('normal.info_01'),
+                type: 'info',
+                duration: 2 * 1000
+            });
+            return;
+        }
         if (val === 'save') {
           this.loading = true;
           this.$store
