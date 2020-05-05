@@ -719,6 +719,54 @@
                   response[j].bpcompany = supplierInfor.supchinese;
                 }
               }
+              if (response[j].manhour1 !== null && response[j].manhour1!== "")
+              {
+                response[j].manhour1 = Number(parseFloat(response[j].manhour1)) === 0 ? 0: Number(parseFloat(response[j].manhour1)).toFixed(2);
+              }
+              if (response[j].manhour2 !== null && response[j].manhour2!== "")
+              {
+                response[j].manhour2 = Number(parseFloat(response[j].manhour2)) === 0 ? 0: Number(parseFloat(response[j].manhour2)).toFixed(2);
+              }
+              if (response[j].manhour3 !== null && response[j].manhour3!== "")
+              {
+                response[j].manhour3 = Number(parseFloat(response[j].manhour3)) === 0 ? 0: Number(parseFloat(response[j].manhour3)).toFixed(2);
+              }
+              if (response[j].manhour4 !== null && response[j].manhour4!== "")
+              {
+                response[j].manhour4 = Number(parseFloat(response[j].manhour4)) === 0 ? 0: Number(parseFloat(response[j].manhour4)).toFixed(2);
+              }
+              if (response[j].manhour5 !== null && response[j].manhour5!== "")
+              {
+                response[j].manhour5 = Number(parseFloat(response[j].manhour5)) === 0 ? 0: Number(parseFloat(response[j].manhour5)).toFixed(2);
+              }
+              if (response[j].manhour6 !== null && response[j].manhour6!== "")
+              {
+                response[j].manhour6 = Number(parseFloat(response[j].manhour6)) === 0 ? 0: Number(parseFloat(response[j].manhour6)).toFixed(2);
+              }
+              if (response[j].manhour7 !== null && response[j].manhour7!== "")
+              {
+                response[j].manhour7 = Number(parseFloat(response[j].manhour7)) === 0 ? 0: Number(parseFloat(response[j].manhour7)).toFixed(2);
+              }
+              if (response[j].manhour8 !== null && response[j].manhour8!== "")
+              {
+                response[j].manhour8 = Number(parseFloat(response[j].manhour8)) === 0 ? 0: Number(parseFloat(response[j].manhour8)).toFixed(2);
+              }
+              if (response[j].manhour9 !== null && response[j].manhour9!== "")
+              {
+                response[j].manhour9 = Number(parseFloat(response[j].manhour9)) === 0 ? 0: Number(parseFloat(response[j].manhour9)).toFixed(2);
+              }
+              if (response[j].manhour10 !== null && response[j].manhour10!== "")
+              {
+                response[j].manhour10 = Number(parseFloat(response[j].manhour10)) === 0 ? 0: Number(parseFloat(response[j].manhour10)).toFixed(2);
+              }
+              if (response[j].manhour11 !== null && response[j].manhour11!== "")
+              {
+                response[j].manhour11 = Number(parseFloat(response[j].manhour11)) === 0 ? 0: Number(parseFloat(response[j].manhour11)).toFixed(2);
+              }
+              if (response[j].manhour12 !== null && response[j].manhour12!== "")
+              {
+                response[j].manhour12 = Number(parseFloat(response[j].manhour12)) === 0 ? 0: Number(parseFloat(response[j].manhour12)).toFixed(2);
+              }
             }
             this.data = response;
             this.loading = false;
