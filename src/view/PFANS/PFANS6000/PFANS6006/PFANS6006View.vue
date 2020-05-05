@@ -4,11 +4,10 @@
                          @buttonClick="buttonClick" ref="container" v-loading="loading">
       <div slot="customize">
         <el-form label-position="top" label-width="8vw" ref="reff" style="padding-top: 10px">
-
           <el-form-item>
             <el-row>
-              <el-col :span="24">
-                <div class="block">
+              <el-col :span="8">
+                <div align="right">
                   <el-date-picker
                     :placeholder="$t('normal.error_09')"
                     @change="yearChange"
@@ -16,6 +15,19 @@
                     type="year"
                     v-model="year">
                   </el-date-picker>
+                </div>
+              </el-col>
+              <el-col :span="8">
+                <div align="right">
+                  <el-select v-model="group_id" style="width: 20vw"
+                             @change="changeGroup">
+                    <el-option
+                      v-for="item in optionsdata"
+                      :key="item.value"
+                      :label="item.lable"
+                      :value="item.value">
+                    </el-option>
+                  </el-select>
                 </div>
               </el-col>
             </el-row>
@@ -51,131 +63,61 @@
                 <el-table-column
                   :label="$t('label.PFANS2023FORMVIEW_INTELLIGENCE')"
                   align="center">
-                  <!--                部门名-->
-<!--                  <el-table-column-->
-<!--                    :label="$t('label.department')"-->
-<!--                    align="center"-->
-<!--                    width="200">-->
-<!--                    <template slot-scope="scope">-->
-<!--                      <el-input-->
-<!--                        :disabled="!disabled"-->
-<!--                        :no="scope.row"-->
-<!--                        style="width: 100%"-->
-<!--                        v-model="scope.row.group_id">-->
-<!--                      </el-input>-->
-<!--                    </template>-->
-<!--                  </el-table-column>-->
                   <!--                pj名-->
                   <el-table-column
                     :label="$t('label.PFANS6007VIEW_PJNAME')"
+                    prop="project_name"
                     align="center"
                     width="180">
-                    <template slot-scope="scope">
-                      <el-input
-                        :disabled="!disabled"
-                        :no="scope.row"
-                        style="width: 100%"
-                        v-model="scope.row.project_name">
-                      </el-input>
-                    </template>
                   </el-table-column>
                   <!--                窓口-->
                   <el-table-column
                     :label="$t('label.PFANS6007VIEW_PSDCDWINDOW')"
                     align="center"
+                    prop="managerid"
                     width="120">
-                    <template slot-scope="scope">
-                      <el-input
-                        :disabled="!disabled"
-                        :no="scope.row"
-                        style="width: 100%"
-                        v-model="scope.row.managerid">
-                      </el-input>
-                    </template>
                   </el-table-column>
                   <!--                BP会社名-->
                   <el-table-column
                     :label="$t('label.PFANS6007VIEW_BPCLUBNAME')"
                     align="center"
+                    prop="suppliername"
                     width="150">
-                    <template slot-scope="scope">
-                      <el-input
-                        :disabled="!disabled"
-                        :no="scope.row"
-                        style="width: 100%"
-                        v-model="scope.row.suppliername">
-                      </el-input>
-                    </template>
                   </el-table-column>
                   <!--                BP名前-->
                   <el-table-column
                     :label="$t('label.PFANS5001FORMVIEW_BPNAME')"
                     align="center"
+                    prop="expname"
                     width="180">
-                    <template slot-scope="scope">
-                      <el-input
-                        :disabled="!disabled"
-                        :no="scope.row"
-                        style="width: 100%"
-                        v-model="scope.row.expname">
-                      </el-input>
-                    </template>
                   </el-table-column>
                   <!--                入场时间-->
                   <el-table-column
                     :label="$t('label.PFANS6004FORMVIEW_ADMISSIONTIME')"
                     align="center"
+                    prop="admissiontime"
                     width="150">
-                    <template slot-scope="scope">
-                      <el-input
-                        :disabled="!disabled"
-                        :no="scope.row"
-                        style="width: 100%"
-                        v-model="scope.row.admissiontime">
-                      </el-input>
-                    </template>
                   </el-table-column>
                   <!--                退场时间-->
                   <el-table-column
                     :label="$t('label.PFANS6004FORMVIEW_EXITIME')"
                     align="center"
+                    prop="exittime"
                     width="150">
-                    <template slot-scope="scope">
-                      <el-input
-                        :disabled="!disabled"
-                        :no="scope.row"
-                        style="width: 100%"
-                        v-model="scope.row.exittime">
-                      </el-input>
-                    </template>
                   </el-table-column>
                   <!--                作業形態-->
                   <el-table-column
                     :label="$t('label.PFANS6004FORMVIEW_OPERATIONFORM')"
                     align="center"
+                    prop="operationform"
                     width="180">
-                    <template slot-scope="scope">
-                      <el-input
-                        :disabled="!disabled"
-                        :no="scope.row"
-                        style="width: 100%"
-                        v-model="scope.row.operationform">
-                      </el-input>
-                    </template>
                   </el-table-column>
                   <!--                作業分類-->
                   <el-table-column
                     :label="$t('label.PFANS6004FORMVIEW_JOBCLASSIFICATIONM')"
                     align="center"
+                    prop="jobclassification"
                     width="150">
-                    <template slot-scope="scope">
-                      <el-input
-                        :disabled="!disabled"
-                        :no="scope.row"
-                        style="width: 100%"
-                        v-model="scope.row.jobclassification">
-                      </el-input>
-                    </template>
                   </el-table-column>
                   <!--                配賦対象-->
 <!--                  <el-table-column-->
@@ -622,71 +564,36 @@
                   <el-table-column
                     :label="$t('label.PFANS6004FORMVIEW_ALLTECHNOLOGY')"
                     align="center"
+                    prop="alltechnology"
                     width="120">
-                    <template slot-scope="scope">
-                      <el-input
-                        :disabled="!disabled"
-                        :no="scope.row"
-                        style="width: 100%"
-                        v-model="scope.row.alltechnology">
-                      </el-input>
-                    </template>
                   </el-table-column>
                   <!--                現場評価-->
                   <el-table-column
                     :label="$t('label.PFANS6004FORMVIEW_SITEVALUATION')"
                     align="center"
+                    prop="sitevaluation"
                     width="120">
-                    <template slot-scope="scope">
-                      <el-input
-                        :disabled="!disabled"
-                        :no="scope.row"
-                        style="width: 100%"
-                        v-model="scope.row.sitevaluation">
-                      </el-input>
-                    </template>
                   </el-table-column>
                   <!--                退場理由-->
                   <el-table-column
                     :label="$t('label.PFANS6004FORMVIEW_EXITREASON')"
                     align="center"
+                    prop="exitreason"
                     width="120">
-                    <template slot-scope="scope">
-                      <el-input
-                        :disabled="!disabled"
-                        :no="scope.row"
-                        style="width: 100%"
-                        v-model="scope.row.exitreason">
-                      </el-input>
-                    </template>
                   </el-table-column>
                   <!--                業務影響-->
                   <el-table-column
                     :label="$t('label.PFANS6004FORMVIEW_BUSINESSIMPACT')"
                     align="center"
+                    prop="businessimpact"
                     width="120">
-                    <template slot-scope="scope">
-                      <el-input
-                        :disabled="!disabled"
-                        :no="scope.row"
-                        style="width: 100%"
-                        v-model="scope.row.businessimpact">
-                      </el-input>
-                    </template>
                   </el-table-column>
                   <!--                対策-->
                   <el-table-column
                     :label="$t('label.PFANS6004FORMVIEW_COUNTERMEASURE')"
                     align="center"
+                    prop="countermeasure"
                     width="120">
-                    <template slot-scope="scope">
-                      <el-input
-                        :disabled="!disabled"
-                        :no="scope.row"
-                        style="width: 100%"
-                        v-model="scope.row.countermeasure">
-                      </el-input>
-                    </template>
                   </el-table-column>
                 </el-table-column>
               </el-table>
@@ -703,7 +610,8 @@
   import moment from "moment";
   import {Message} from 'element-ui';
   import user from "../../../components/user.vue";
-  import {getDictionaryInfo, getSupplierinfor, getUserInfo,getorgGroupList} from '../../../../utils/customize';
+  import {getDictionaryInfo, getSupplierinfor, getUserInfo,
+      getCurrentRole,getDownOrgInfo,getorgGroupList} from '../../../../utils/customize';
 
   export default {
     name: "PFANS6006View",
@@ -718,15 +626,13 @@
         baseInfo: {},
         scope: '',
         year: moment(new Date()).format('MM') < 4 ? moment(new Date()).add(-1, 'y').format("YYYY") : moment(new Date()).format('YYYY'),
+        group_id:'',
         row: '',
-        form: {
-          year: "",
-        },
         tableData: [{
           delegainformation_id: '',
           companyprojects_id:'',
           projectsystem_id:'',
-          type: '',
+          type: '1',
           project_name: '',
           group_id: '',
           account: '',
@@ -772,14 +678,14 @@
             'disabled': false,
           },
         ],
+        optionsdata: [],
       };
     },
     methods: {
       getList() {
         this.loading = true;
         this.$store
-            //.dispatch('PFANS6006Store/getYears', {'year': this.year,'group_id': '6ED276094B952D25E106897F7726BB58F9F9'})
-          .dispatch('PFANS6006Store/getYears', {'year': this.year})
+          .dispatch('PFANS6006Store/getYears', {'year': this.year,'group_id': this.group_id})
           .then(response => {
               let tabledate = [];
             for (let j = 0; j < response.length; j++) {
@@ -884,7 +790,7 @@
                   projectsystem_id: response[j].projectsystem_id,
                   year: response[j].year,
                   supplierinfor_id: response[j].supplierinfor_id,
-                  type: 0,
+                  type: 1,
                   project_name: response[j].project_name,
                   group_id: response[j].group_id,
                   account: response[j].account,
@@ -930,8 +836,105 @@
             this.loading = false;
           })
       },
+      getById() {
+            this.loading = true;
+            let role = getCurrentRole();
+            const vote = [];
+            if (role === '3') {
+                vote.push(
+                    {
+                        value: this.$store.getters.userinfo.userinfo.groupid,
+                        lable: this.$store.getters.userinfo.userinfo.groupname,
+                    },
+                );
+                this.group_id = this.$store.getters.userinfo.userinfo.groupid;
+            } else if (role === '2') {
+                let centerId = this.$store.getters.userinfo.userinfo.centerid;
+                let orgs = getDownOrgInfo(centerId);
+                if (orgs){
+                    if(orgs.length > 0){
+                        this.group_id = orgs[0]._id;
+                    }
+                    for (let org of orgs) {
+                        console.log(org)
+                        vote.push(
+                            {
+                                value: org._id,
+                                lable: org.companyname,
+                            },
+                        );
+                    }
+                }
+
+            } else if (role === '1') {
+                let centerId = this.$store.getters.userinfo.userinfo.centerid;
+                let orgs = getDownOrgInfo(centerId);
+                if (orgs){
+                    if(orgs.length > 0){
+                        if(getDownOrgInfo(orgs[0]._id).length > 0){
+                            this.group_id = getDownOrgInfo(orgs[0]._id)[0]._id;
+                        }
+                    }
+                    for (let center of orgs) {
+                        let centers = getDownOrgInfo(center._id);
+                        if (centers){
+                            for (let group of centers) {
+                                vote.push(
+                                    {
+                                        value: group._id,
+                                        lable: group.companyname,
+                                    },
+                                );
+                            }
+                        }
+
+                    }
+                }
+            }
+            const vote1 = [];
+            if (this.$store.getters.userinfo.userid ==='5e78fefff1560b363cdd6db7'
+                || this.$store.getters.userinfo.userid ==='5e78b2254e3b194874180f31'
+                || this.$store.getters.userinfo.userid ==='5e78b2004e3b194874180e21'
+                || this.$store.getters.userinfo.userid ==='5e78b2064e3b194874180e4d')
+            {
+                let centerId = '5e7858a08f4316308435112c';
+                let orgs = getDownOrgInfo(centerId);
+                if (orgs){
+                    if(orgs.length > 0){
+                        if(getDownOrgInfo(orgs[0]._id).length > 0){
+                            this.group_id = getDownOrgInfo(orgs[0]._id)[0]._id;
+                        }
+                    }
+                    for (let center of orgs) {
+                        let centers = getDownOrgInfo(center._id);
+                        if (centers){
+                            for (let group of centers) {
+                                vote1.push(
+                                    {
+                                        value: group._id,
+                                        lable: group.companyname,
+                                    },
+                                );
+                            }
+                        }
+                    }
+                }
+                this.optionsdata = vote1;
+            }
+            else
+            {
+                this.optionsdata = vote;
+            }
+            this.loading = false;
+        },
+      changeGroup(val) {
+            this.group_id = val;
+            if (this.group_id) {
+                this.getList();
+            }
+        },
       handleRowClick(row) {
-         row.type='1'
+         //row.type='1'
       },
       yearChange(value) {
         this.year = moment(value).format('YYYY');
@@ -969,23 +972,23 @@
         }
       },
       getRowClass({row, column, rowIndex, columnIndex}) {
-        if (column.level === 2 && columnIndex >= 0 && columnIndex < 9) {
-          return {
-            color: 'white',
-            background: '#99CCFF !important',
-            'border-bottom': '1px solid #99CCFF',
-            'border-right': '1px solid #73B9FF',
-          };
-        }
-        if (column.level === 2 && columnIndex >= 9 && columnIndex < 23) {
-          return {
-            color: 'white',
-            background: '#99CC99 !important',
-            'border-bottom': '1px solid #99CCFF',
-            'border-right': '1px solid #73CC73',
-          };
-        }
-        if (column.level === 2 && columnIndex >= 23 && columnIndex < 28) {
+          if (column.level === 2 && columnIndex >= 0 && columnIndex < 8) {
+              return {
+                  color: 'white',
+                  background: '#99CCFF !important',
+                  'border-bottom': '1px solid #99CCFF',
+                  'border-right': '1px solid #73B9FF',
+              };
+          }
+          if (column.level === 2 && columnIndex >= 4 && columnIndex < 22) {
+              return {
+                  color: 'white',
+                  background: '#99CC99 !important',
+                  'border-bottom': '1px solid #99CCFF',
+                  'border-right': '1px solid #73CC73',
+              };
+          }
+          if (column.level === 2 && columnIndex >= 22 && columnIndex < 27) {
           return {
             color: 'white',
             background: '#99CCFF',
@@ -1003,6 +1006,7 @@
 
     },
     mounted() {
+      this.getById();
       this.getList();
     },
   }
