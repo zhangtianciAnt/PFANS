@@ -877,6 +877,10 @@
         {
           this.optionsdata = vote;
         }
+        this.form.group_id = this.optionsdata[0].value;
+        if (this.form.group_id) {
+          this.init();
+        }
         this.loading = false;
       },
       changeGroup(val) {
