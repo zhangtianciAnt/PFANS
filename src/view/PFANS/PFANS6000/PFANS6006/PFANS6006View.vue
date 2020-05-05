@@ -33,9 +33,9 @@
             </el-row>
             <el-row style="padding-top: 10px">
               <plx-table-grid :datas="tableData" :header-cell-style="getRowClass" border
-                        header-cell-class-name="sub_bg_color_blue" stripe height="400"
-                              use-virtual :pagination-show="paginationShow"
-                              style="width: 100%;height: calc(100vh - 200px - 2rem)"
+                        header-cell-class-name="sub_bg_color_blue" stripe height="400" header-row-class-name="height"
+                              use-virtual :pagination-show="paginationShow" big-data-checkbox highlight-current-row
+                              style="width: 100%;height: calc(100vh - 200px - 2rem)" cell-class-name = "row_height_left" :row-height="rowheight"
                         @selection-change="handleSelectionChange" @row-click="handleRowClick">
 
                 <!--checkbox-->
@@ -1014,6 +1014,14 @@
   }
 </script>
 
-<style scoped>
-
+<style lang="scss">
+  .row_height_left {
+    font-size: 0.75rem;
+    padding: 0px;
+    text-align: left;
+    background-color: transparent !important;
+  }
+  .el-table /deep/ .current-row{
+    background-color: #BDD8EE;
+  }
 </style>

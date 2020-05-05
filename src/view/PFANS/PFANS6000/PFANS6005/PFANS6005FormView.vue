@@ -23,6 +23,8 @@
           stripe use-virtual :pagination-show="paginationShow"
           style="width: 100%;height: calc(100vh - 200px - 2rem)"
           tooltip-effect="dark"
+          cell-class-name = "row_height_left" :row-height="rowheight"
+          highlight-current-row
           header-cell-class-name="sub_bg_color_blue"
         >
           <!--checkbox-->
@@ -739,5 +741,14 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss">
+  .row_height_left {
+    font-size: 0.75rem;
+    padding: 0px;
+    text-align: left;
+    background-color: transparent !important;
+  }
+  .el-table /deep/ .current-row{
+    background-color: #BDD8EE;
+  }
 </style>
