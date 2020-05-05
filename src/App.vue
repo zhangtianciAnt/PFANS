@@ -7,6 +7,9 @@
 </template>
 
 <script>
+
+import { Message } from 'element-ui';
+
 export default {
   name: 'App',
   created() {
@@ -14,7 +17,9 @@ export default {
       var e = event || window.event || arguments.callee.caller.arguments[0];
 
       if (e && e.keyCode == 123) {
-        alert("👀~再看就把你吃掉~");
+        Message({
+          message: '👀~再看就把你吃掉~'
+        });
         e.returnValue = false;
         return (false);
       }
@@ -23,7 +28,10 @@ export default {
       var e = event || window.event || arguments.callee.caller.arguments[0];
 
       if (e && e.keyCode == 123) {
-        alert("👀~再看就把你吃掉~");
+        // Message({
+        //   message: '👀~再看就把你吃掉~',
+        //   type: 'warning'
+        // });
         e.returnValue = false;
         return (false);
       }
@@ -32,23 +40,25 @@ export default {
       var e = event || window.event || arguments.callee.caller.arguments[0];
 
       if (e && e.keyCode == 123) {
-        alert("👀~再看就把你吃掉~");
+        Message({
+          message: '👀~再看就把你吃掉~'
+        });
         e.returnValue = false;
         return (false);
       }
     }
   },
   methods: {
-    mousedown :function mdClick(event) {
-      var e = event || window.event || arguments.callee.caller.arguments[0];
-      if (e.button == 2 || e.button == 3) {
-        this.mAlert();
-      }
-    },
-
-    mAlert() {
-      alert("👀~再看就把你吃掉~");
-    }
+    // mousedown :function mdClick(event) {
+    //   var e = event || window.event || arguments.callee.caller.arguments[0];
+    //   if (e.button == 2 || e.button == 3) {
+    //     this.mAlert();
+    //   }
+    // },
+    //
+    // mAlert() {
+    //   alert("👀~再看就把你吃掉~");
+    // }
   }
 }
 </script>
