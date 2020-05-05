@@ -3734,7 +3734,6 @@
         return sums;
       },
       getMoney(sums) {
-        debugger
         if (this.form.type === 'PJ001001') {
           this.form.rmbexpenditure = sums[8];
         } else if (this.checkCode1 == '1') {
@@ -3744,7 +3743,6 @@
         }
       },
       getforeigncurrency(sums) {
-        debugger
         if (this.form.type === 'PJ001001') {
           this.form.foreigncurrency = '0';
         } else if (this.checkCode1 == '1') {
