@@ -2912,21 +2912,27 @@
                 error = error + 1;
                 break;
               }
-              if (
-                this.tableD[i].contract !== '' ||
-                this.tableD[i].theme !== '' ||
-                this.tableD[i].workinghours !== ''
-              ) {
-                error13 = error13 + this.tableD[i].contractamount;
-                this.baseInfo.projectcontract.push({
-                  //add-ws-合同关联项目，分配金额
-                  contractrequestamount: this.tableD[i].contractrequestamount,
-                  contractamount: this.tableD[i].contractamount,
-                  //add-ws-合同关联项目，分配金额
-                  contract: this.tableD[i].contract,
-                  theme: this.tableD[i].theme,
-                  workinghours: this.tableD[i].workinghours,
-                });
+              if (this.tableD[i].contractamount == 0) {
+                error13 = error13 + 1;
+                break;
+              }
+              if (this.tableD[i].contractrequestamount > 0) {
+                if (
+                  this.tableD[i].contract !== '' ||
+                  this.tableD[i].theme !== '' ||
+                  this.tableD[i].workinghours !== ''
+                ) {
+
+                  this.baseInfo.projectcontract.push({
+                    //add-ws-合同关联项目，分配金额
+                    contractrequestamount: this.tableD[i].contractrequestamount,
+                    contractamount: this.tableD[i].contractamount,
+                    //add-ws-合同关联项目，分配金额
+                    contract: this.tableD[i].contract,
+                    theme: this.tableD[i].theme,
+                    workinghours: this.tableD[i].workinghours,
+                  });
+                }
               }
             }
             //ADD 03-18 ,委托元为内采时，合同可自行添加请求金额
@@ -3007,7 +3013,7 @@
                 type: 'error',
                 duration: 5 * 1000,
               });
-            } else if (error13 == 0) {
+            } else if (error13 != 0) {
               this.activeName = 'fifth';
               Message({
                 message: this.$t('label.PFANS5001FORMVIEW_CHECKCONTRACTAMOUNTERROR'),
