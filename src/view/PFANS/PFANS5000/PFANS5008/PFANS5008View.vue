@@ -346,6 +346,24 @@
                       response[j].groupname = group.companyname;
                     }
                   }
+                  else
+                  {
+                    let co = getCooperinterviewListByAccount(response[j].createby);
+                    if (co)
+                    {
+                      if (co.group_id)
+                      {
+                        let group = getOrgInfo(co.group_id);
+                        if (group) {
+                          response[j].groupname = group.companyname;
+                        }
+                      }
+                    }
+                    if (user)
+                    {
+                      response[j].groupname = user.userinfo.groupname;
+                    }
+                  }
                 }
 
                 if (response[j].work_phase != ''&&response[j].work_phase != null) {
