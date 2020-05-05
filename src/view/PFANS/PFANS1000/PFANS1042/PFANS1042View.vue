@@ -171,27 +171,6 @@
           <plx-table-column
             :label="$t('label.PFANS1042FORMVIEW_EXPENDITURE')"
             align="center">
-            <!--            社員工数-->
-            <!--            <plx-table-column-->
-            <!--              :label="$t('label.PFANS1042FORMVIEW_EMHOURS')"-->
-            <!--              align="center"-->
-            <!--              width="110">-->
-
-            <!--              <template slot-scope="scope">-->
-            <!--                <span>{{scope.row.emhours}}</span>-->
-            <!--              </template>-->
-
-            <!--            </plx-table-column>-->
-            <!--            外注工数-->
-            <!--            <plx-table-column-->
-            <!--              :label="$t('label.PFANS1042FORMVIEW_OUTHOURS')"-->
-            <!--              align="center"-->
-            <!--              width="110">-->
-            <!--              <template slot-scope="scope">-->
-            <!--                <span>{{scope.row.outhours}}</span>-->
-            <!--              </template>-->
-
-            <!--            </plx-table-column>-->
             <!--            人件費-->
             <plx-table-column
               :label="$t('label.PFANS1042FORMVIEW_PEOCOST')"
@@ -646,6 +625,27 @@
           <!--          人員（名）-->
           <plx-table-column
             :label="$t('label.PFANS1042FORMVIEW_PERSONNAME')">
+            <!--            社員工数-->
+            <!--            <plx-table-column-->
+            <!--              :label="$t('label.PFANS1042FORMVIEW_EMHOURS')"-->
+            <!--              align="center"-->
+            <!--              width="110">-->
+
+            <!--              <template slot-scope="scope">-->
+            <!--                <span>{{scope.row.emhours}}</span>-->
+            <!--              </template>-->
+
+            <!--            </plx-table-column>-->
+            <!--            外注工数-->
+            <!--            <plx-table-column-->
+            <!--              :label="$t('label.PFANS1042FORMVIEW_OUTHOURS')"-->
+            <!--              align="center"-->
+            <!--              width="110">-->
+            <!--              <template slot-scope="scope">-->
+            <!--                <span>{{scope.row.outhours}}</span>-->
+            <!--              </template>-->
+
+            <!--            </plx-table-column>-->
             <!--            構外外注(工数)-->
             <plx-table-column
               :label="$t('label.PFANS1042FORMVIEW_OUTSOURCINGHOURS')"
@@ -1177,6 +1177,42 @@
                                 process: response[j].process,
                                 marginal: response[j].marginal,
                                 Operating: response[j].Operating,
+                                twocost: response[j].twocost,
+                                peocostsum: response[j].peocostsum,
+                                depreciationsoft: response[j].depreciationsoft,
+                                depreciationequipment: response[j].depreciationequipment,
+                                leasecost: response[j].leasecost,
+                                temporaryrent: response[j].temporaryrent,
+                                costsubtotal: response[j].costsubtotal,
+                                surveyfee: response[j].surveyfee,
+                                othersoftwarefree: response[j].othersoftwarefree,
+                                expensessubtotal: response[j].expensessubtotal,
+                                transferone: response[j].transferone,
+                                transfertwo: response[j].transfertwo,
+                                allocationsum: response[j].allocationsum,
+                                threefree: response[j].threefree,
+                                commonfee: response[j].commonfee,
+                                otherexpenses: response[j].otherexpenses,
+                                otherincome: response[j].otherincome,
+                                otherexpentotal: response[j].otherexpentotal,
+                                interestrate: response[j].interestrate,
+                                operatingprofit: response[j].operatingprofit,
+                                pretaxprofit: response[j].pretaxprofit,
+                                taxallowance: response[j].taxallowance,
+                                posttaxbenefit: response[j].posttaxbenefit,
+                                operatingmargin: response[j].operatingmargin,
+                                outsourcinghours: response[j].outsourcinghours,
+                                outsourcingname: response[j].outsourcingname,
+                                employeename: response[j].employeename,
+                                outsourcingpjhours: response[j].outsourcingpjhours,
+                                employeepjhours: response[j].employeepjhours,
+                                employeeuptime: response[j].employeeuptime,
+                                externalpjrate: response[j].externalpjrate,
+                                externalinjectionrate: response[j].externalinjectionrate,
+                                memberpjrate: response[j].memberpjrate,
+                                membershiprate: response[j].membershiprate,
+                                pjrateemployees: response[j].pjrateemployees,
+                                staffingrate: response[j].staffingrate,
                             });
                         }
 
