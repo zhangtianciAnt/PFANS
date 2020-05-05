@@ -752,7 +752,7 @@
           this.$store
             .dispatch('PFANS6008Store/insertCoststatistics')
             .then(response => {
-              //this.init();
+              this.init();
               Message({
                 message: this.$t("normal.success_04"),
                 type: "success",
@@ -876,6 +876,10 @@
         else
         {
           this.optionsdata = vote;
+        }
+        this.form.group_id = this.optionsdata[0].value;
+        if (this.form.group_id) {
+          this.init();
         }
         this.loading = false;
       },
