@@ -752,7 +752,7 @@
           this.$store
             .dispatch('PFANS6008Store/insertCoststatistics')
             .then(response => {
-              //this.init();
+              this.init();
               Message({
                 message: this.$t("normal.success_04"),
                 type: "success",
