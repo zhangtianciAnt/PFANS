@@ -1110,11 +1110,13 @@
                                 // response[j].pj1 = aaa
                                 response[j].pj = aaa;
                             }
-//外部受託-
+                            //部門売上合計
+                            response[j].centerintotal = (Number(response[j].inst) + Number(response[j].tax) + Number(response[j].outst1)).toFixed(2)
+                            //外部受託-
                             response[j].outst1 = (Number(response[j].outst1) + Number(response[j].outst2) + Number(response[j].outst3)).toFixed(2);
-//税金-
+                            //税金-
                             response[j].tax = (((Number(response[j].outst2) / ((1 + date1) * date1))) + ((Number(response[j].outst3) / ((1 + date2) * date2)))).toFixed(2);
-//売上合計
+                            //売上合計
                             response[j].intotal = (Number(response[j].outst1) + Number(response[j].tax) + Number(response[j].inst)).toFixed(2);
 
                             if (sum == 0) {
