@@ -32,95 +32,96 @@
               </el-col>
             </el-row>
             <el-row style="padding-top: 10px">
-              <el-table :data="tableData" :header-cell-style="getRowClass" border
+              <plx-table-grid :datas="tableData" :header-cell-style="getRowClass" border
                         header-cell-class-name="sub_bg_color_blue" stripe height="400"
-                        @selection-change="handleSelectionChange" @row-click="handleRowClick"
-                        style="width: 100%">
+                              use-virtual :pagination-show="paginationShow"
+                              style="width: 100%;height: calc(100vh - 200px - 2rem)"
+                        @selection-change="handleSelectionChange" @row-click="handleRowClick">
 
                 <!--checkbox-->
-<!--                <el-table-column-->
+<!--                <plx-table-column-->
 <!--                  width="55">-->
 <!--                  <el-checkbox type="selection"-->
 <!--                  ></el-checkbox>-->
-<!--                </el-table-column>-->
+<!--                </plx-table-column>-->
 
-                <el-table-column
+                <plx-table-column
                   type="selection"
                   width="55">
 
-                </el-table-column>
+                </plx-table-column>
 
                 <!-- 序号-->
-                <el-table-column
+                <plx-table-column
                   :label="$t('label.PFANS2006VIEW_NO')"
                   align="center"
                   type="index"
                   width="80">
-                </el-table-column>
+                </plx-table-column>
 
                 <!--              第一组-->
                 <!--              基本情报-->
-                <el-table-column
+                <plx-table-column
                   :label="$t('label.PFANS2023FORMVIEW_INTELLIGENCE')"
                   align="center">
                   <!--                pj名-->
-                  <el-table-column
+                  <plx-table-column
                     :label="$t('label.PFANS6007VIEW_PJNAME')"
                     prop="project_name"
                     align="center"
                     width="180">
-                  </el-table-column>
+                  </plx-table-column>
                   <!--                窓口-->
-                  <el-table-column
+                  <plx-table-column
                     :label="$t('label.PFANS6007VIEW_PSDCDWINDOW')"
                     align="center"
                     prop="managerid"
                     width="120">
-                  </el-table-column>
+                  </plx-table-column>
                   <!--                BP会社名-->
-                  <el-table-column
+                  <plx-table-column
                     :label="$t('label.PFANS6007VIEW_BPCLUBNAME')"
                     align="center"
                     prop="suppliername"
                     width="150">
-                  </el-table-column>
+                  </plx-table-column>
                   <!--                BP名前-->
-                  <el-table-column
+                  <plx-table-column
                     :label="$t('label.PFANS5001FORMVIEW_BPNAME')"
                     align="center"
                     prop="expname"
                     width="180">
-                  </el-table-column>
+                  </plx-table-column>
                   <!--                入场时间-->
-                  <el-table-column
+                  <plx-table-column
                     :label="$t('label.PFANS6004FORMVIEW_ADMISSIONTIME')"
                     align="center"
                     prop="admissiontime"
                     width="150">
-                  </el-table-column>
+                  </plx-table-column>
                   <!--                退场时间-->
-                  <el-table-column
+                  <plx-table-column
                     :label="$t('label.PFANS6004FORMVIEW_EXITIME')"
                     align="center"
                     prop="exittime"
                     width="150">
-                  </el-table-column>
+                  </plx-table-column>
                   <!--                作業形態-->
-                  <el-table-column
+                  <plx-table-column
                     :label="$t('label.PFANS6004FORMVIEW_OPERATIONFORM')"
                     align="center"
                     prop="operationform"
                     width="180">
-                  </el-table-column>
+                  </plx-table-column>
                   <!--                作業分類-->
-                  <el-table-column
+                  <plx-table-column
                     :label="$t('label.PFANS6004FORMVIEW_JOBCLASSIFICATIONM')"
                     align="center"
                     prop="jobclassification"
                     width="150">
-                  </el-table-column>
+                  </plx-table-column>
                   <!--                配賦対象-->
-<!--                  <el-table-column-->
+<!--                  <plx-table-column-->
 <!--                    :label="$t('label.PFANS6005VIEW_PFDX')"-->
 <!--                    align="center"-->
 <!--                    width="120">-->
@@ -132,9 +133,9 @@
 <!--                        v-model="scope.row.distriobjects">-->
 <!--                      </el-input>-->
 <!--                    </template>-->
-<!--                  </el-table-column>-->
+<!--                  </plx-table-column>-->
 <!--                  &lt;!&ndash;                構内対象&ndash;&gt;-->
-<!--                  <el-table-column-->
+<!--                  <plx-table-column-->
 <!--                    :label="$t('label.PFANS6005VIEW_SNDX')"-->
 <!--                    align="center"-->
 <!--                    width="120">-->
@@ -146,15 +147,15 @@
 <!--                        v-model="scope.row.venuetarget">-->
 <!--                      </el-input>-->
 <!--                    </template>-->
-<!--                  </el-table-column>-->
-                </el-table-column>
+<!--                  </plx-table-column>-->
+                </plx-table-column>
                 <!--              第二组-->
                 <!--活用状况-->
-                <el-table-column
+                <plx-table-column
                   :label="$t('label.PFANS2023FORMVIEW_INTELLIGENCE')"
                   align="center">
                   <!--四月-->
-                  <el-table-column
+                  <plx-table-column
                     :label="$t('label.April')"
                     align="center"
                     width="170"
@@ -184,9 +185,9 @@
                       </el-input-number>
 
                     </template>
-                  </el-table-column>
+                  </plx-table-column>
                   <!--五月-->
-                  <el-table-column
+                  <plx-table-column
                     :label="$t('label.May')"
                     align="center"
                     width="170">
@@ -214,9 +215,9 @@
                         v-model.trim="scope.row.may">
                       </el-input-number>
                     </template>
-                  </el-table-column>
+                  </plx-table-column>
                   <!--六月-->
-                  <el-table-column
+                  <plx-table-column
                     :label="$t('label.June')"
                     align="center"
                     width="170">
@@ -244,9 +245,9 @@
                         v-model.trim="scope.row.june">
                       </el-input-number>
                     </template>
-                  </el-table-column>
+                  </plx-table-column>
                   <!--七月-->
-                  <el-table-column
+                  <plx-table-column
                     :label="$t('label.July')"
                     align="center"
                     width="170">
@@ -274,9 +275,9 @@
                         v-model.trim="scope.row.july">
                       </el-input-number>
                     </template>
-                  </el-table-column>
+                  </plx-table-column>
                   <!--八月-->
-                  <el-table-column
+                  <plx-table-column
                     :label="$t('label.August')"
                     align="center"
                     width="170">
@@ -304,9 +305,9 @@
                         v-model.trim="scope.row.august">
                       </el-input-number>
                     </template>
-                  </el-table-column>
+                  </plx-table-column>
                   <!--九月-->
-                  <el-table-column
+                  <plx-table-column
                     :label="$t('label.September')"
                     align="center"
                     width="170">
@@ -334,9 +335,9 @@
                         v-model.trim="scope.row.september">
                       </el-input-number>
                     </template>
-                  </el-table-column>
+                  </plx-table-column>
                   <!--十月-->
-                  <el-table-column
+                  <plx-table-column
                     :label="$t('label.October')"
                     align="center"
                     width="170">
@@ -364,9 +365,9 @@
                         v-model.trim="scope.row.october">
                       </el-input-number>
                     </template>
-                  </el-table-column>
+                  </plx-table-column>
                   <!--十一月-->
-                  <el-table-column
+                  <plx-table-column
                     :label="$t('label.November')"
                     align="center"
                     width="170">
@@ -394,9 +395,9 @@
                         v-model.trim="scope.row.november">
                       </el-input-number>
                     </template>
-                  </el-table-column>
+                  </plx-table-column>
                   <!--十二月-->
-                  <el-table-column
+                  <plx-table-column
                     :label="$t('label.December')"
                     align="center"
                     width="170">
@@ -424,9 +425,9 @@
                         v-model.trim="scope.row.december">
                       </el-input-number>
                     </template>
-                  </el-table-column>
+                  </plx-table-column>
                   <!--一月-->
-                  <el-table-column
+                  <plx-table-column
                     :label="$t('label.January')"
                     align="center"
                     width="170">
@@ -454,9 +455,9 @@
                         v-model.trim="scope.row.january">
                       </el-input-number>
                     </template>
-                  </el-table-column>
+                  </plx-table-column>
                   <!--二月-->
-                  <el-table-column
+                  <plx-table-column
                     :label="$t('label.February')"
                     align="center"
                     width="170">
@@ -484,9 +485,9 @@
                         v-model.trim="scope.row.february">
                       </el-input-number>
                     </template>
-                  </el-table-column>
+                  </plx-table-column>
                   <!--三月-->
-                  <el-table-column
+                  <plx-table-column
                     :label="$t('label.March')"
                     align="center"
                     width="170">
@@ -514,9 +515,9 @@
                         v-model.trim="scope.row.march">
                       </el-input-number>
                     </template>
-                  </el-table-column>
+                  </plx-table-column>
                   <!--勤続月数-->
-                  <el-table-column
+                  <plx-table-column
                     :label="$t('label.PFANS6005VIEW_KQYS')"
                     align="center"
                     width="80">
@@ -528,9 +529,9 @@
                         v-model="scope.row.monthlength">
                       </el-input>
                     </template>
-                  </el-table-column>
+                  </plx-table-column>
                   <!--備考-->
-                  <el-table-column
+                  <plx-table-column
                     :label="$t('label.PFANS6007VIEW_REMARKS')"
                     align="center"
                     width="200">
@@ -552,51 +553,51 @@
                         v-model="scope.row.remarks">
                       </el-input>
                     </template>
-                  </el-table-column>
-                </el-table-column>
+                  </plx-table-column>
+                </plx-table-column>
 
                 <!--              第三组-->
                 <!--              退场情报-->
-                <el-table-column
+                <plx-table-column
                   :label="$t('label.PFANS6004VIEW_EXINTELLIGENCE')"
                   align="center">
                   <!--                所有情报-->
-                  <el-table-column
+                  <plx-table-column
                     :label="$t('label.PFANS6004FORMVIEW_ALLTECHNOLOGY')"
                     align="center"
                     prop="alltechnology"
                     width="120">
-                  </el-table-column>
+                  </plx-table-column>
                   <!--                現場評価-->
-                  <el-table-column
+                  <plx-table-column
                     :label="$t('label.PFANS6004FORMVIEW_SITEVALUATION')"
                     align="center"
                     prop="sitevaluation"
                     width="120">
-                  </el-table-column>
+                  </plx-table-column>
                   <!--                退場理由-->
-                  <el-table-column
+                  <plx-table-column
                     :label="$t('label.PFANS6004FORMVIEW_EXITREASON')"
                     align="center"
                     prop="exitreason"
                     width="120">
-                  </el-table-column>
+                  </plx-table-column>
                   <!--                業務影響-->
-                  <el-table-column
+                  <plx-table-column
                     :label="$t('label.PFANS6004FORMVIEW_BUSINESSIMPACT')"
                     align="center"
                     prop="businessimpact"
                     width="120">
-                  </el-table-column>
+                  </plx-table-column>
                   <!--                対策-->
-                  <el-table-column
+                  <plx-table-column
                     :label="$t('label.PFANS6004FORMVIEW_COUNTERMEASURE')"
                     align="center"
                     prop="countermeasure"
                     width="120">
-                  </el-table-column>
-                </el-table-column>
-              </el-table>
+                  </plx-table-column>
+                </plx-table-column>
+              </plx-table-grid>
             </el-row>
           </el-form-item>
         </el-form>
@@ -621,6 +622,7 @@
     },
     data() {
       return {
+        paginationShow:false,
         loading: false,
         buttonList: [],
         baseInfo: {},
