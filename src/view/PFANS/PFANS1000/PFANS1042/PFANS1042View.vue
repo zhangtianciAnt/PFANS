@@ -1345,6 +1345,7 @@
                                 posttaxbenefit: response[j].posttaxbenefit,
                                 operatingmargin: response[j].operatingmargin,
                                 outsourcinghours: response[j].outsourcinghours,
+                                outsourcing: response[j].outsourcing,
                                 outsourcingname: response[j].outsourcingname,
                                 employeename: response[j].employeename,
                                 outsourcingpjhours: response[j].outsourcingpjhours,
