@@ -830,16 +830,12 @@
             .dispatch('PFANS6006Store/updateDeleginformation', this.multipleSelection)
             .then(response => {
               this.data = response;
-              this.loading = false;
-              //this.getList(this.year);
+              this.getList();
               Message({
                 message: this.$t("normal.success_02"),
                 type: "success",
                 duration: 5 * 1000
               });
-              // this.$router.push({
-              //   name: 'PFANS6006View',
-              // });
             })
             .catch(error => {
               Message({
