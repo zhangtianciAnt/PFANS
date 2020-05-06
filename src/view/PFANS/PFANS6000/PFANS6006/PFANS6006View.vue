@@ -38,13 +38,6 @@
                               style="width: 100%;height: calc(100vh - 200px - 2rem)" cell-class-name = "row_height_left" :row-height="rowheight"
                         @selection-change="handleSelectionChange" @row-click="handleRowClick">
 
-                <!--checkbox-->
-<!--                <plx-table-column-->
-<!--                  width="55">-->
-<!--                  <el-checkbox type="selection"-->
-<!--                  ></el-checkbox>-->
-<!--                </plx-table-column>-->
-
                 <plx-table-column
                   type="selection"
                   width="40"
@@ -53,7 +46,7 @@
 
                 <!-- 序号-->
                 <plx-table-column
-                  :label="$t('label.PFANS2006VIEW_NO')"
+                  :label="'NO'"
                   align="center"
                   type="index"
                   width="50"
@@ -66,21 +59,21 @@
                   :label="$t('label.PFANS2023FORMVIEW_INTELLIGENCE')"
                   align="center">
                   <!--                pj名-->
-                  <plx-table-column
-                    :label="$t('label.PFANS6007VIEW_PJNAME')"
-                    prop="project_name"
-                    align="center"
-                    fixed="left"
-                    width="120">
-                  </plx-table-column>
-                  <!--                窓口-->
-                  <plx-table-column
-                    :label="$t('label.PFANS6007VIEW_PSDCDWINDOW')"
-                    align="center"
-                    prop="managerid"
-                    fixed="left"
-                    width="80">
-                  </plx-table-column>
+<!--                  <plx-table-column-->
+<!--                    :label="$t('label.PFANS6007VIEW_PJNAME')"-->
+<!--                    prop="project_name"-->
+<!--                    align="center"-->
+<!--                    fixed="left"-->
+<!--                    width="120">-->
+<!--                  </plx-table-column>-->
+<!--                  &lt;!&ndash;                窓口&ndash;&gt;-->
+<!--                  <plx-table-column-->
+<!--                    :label="$t('label.PFANS6007VIEW_PSDCDWINDOW')"-->
+<!--                    align="center"-->
+<!--                    prop="managerid"-->
+<!--                    fixed="left"-->
+<!--                    width="80">-->
+<!--                  </plx-table-column>-->
                   <!--                BP会社名-->
                   <plx-table-column
                     :label="$t('label.PFANS6007VIEW_BPCLUBNAME')"
@@ -98,24 +91,25 @@
                     width="80">
                   </plx-table-column>
                   <!--                入场时间-->
-                  <plx-table-column
-                    :label="$t('label.PFANS6004FORMVIEW_ADMISSIONTIME')"
-                    align="center"
-                    prop="admissiontime"
-                    width="90">
-                  </plx-table-column>
-                  <!--                退场时间-->
-                  <plx-table-column
-                    :label="$t('label.PFANS6004FORMVIEW_EXITIME')"
-                    align="center"
-                    prop="exittime"
-                    width="90">
-                  </plx-table-column>
+<!--                  <plx-table-column-->
+<!--                    :label="$t('label.PFANS6004FORMVIEW_ADMISSIONTIME')"-->
+<!--                    align="center"-->
+<!--                    prop="admissiontime"-->
+<!--                    width="90">-->
+<!--                  </plx-table-column>-->
+<!--                  &lt;!&ndash;                退场时间&ndash;&gt;-->
+<!--                  <plx-table-column-->
+<!--                    :label="$t('label.PFANS6004FORMVIEW_EXITIME')"-->
+<!--                    align="center"-->
+<!--                    prop="exittime"-->
+<!--                    width="90">-->
+<!--                  </plx-table-column>-->
                   <!--                作業形態-->
                   <plx-table-column
                     :label="$t('label.PFANS6004FORMVIEW_OPERATIONFORM')"
                     align="center"
                     prop="operationform"
+                    fixed="left"
                     width="90">
                   </plx-table-column>
                   <!--                作業分類-->
@@ -123,6 +117,7 @@
                     :label="$t('label.PFANS6004FORMVIEW_JOBCLASSIFICATIONM')"
                     align="center"
                     prop="jobclassification"
+                    fixed="left"
                     width="90">
                   </plx-table-column>
                   <!--                配賦対象-->
@@ -155,9 +150,9 @@
 <!--                  </plx-table-column>-->
                 </plx-table-column>
                 <!--              第二组-->
-                <!--活用状况-->
+                <!--              工数-->
                 <plx-table-column
-                  :label="$t('label.PFANS2023FORMVIEW_INTELLIGENCE')"
+                  :label="$t('label.PFANS6008VIEW_MANHOUR')"
                   align="center">
                   <!--四月-->
                   <plx-table-column
@@ -587,7 +582,6 @@
                     </template>
                   </plx-table-column>
                 </plx-table-column>
-
                 <!--              第三组-->
                 <!--              退场情报-->
                 <plx-table-column
@@ -643,8 +637,7 @@
   import moment from "moment";
   import {Message} from 'element-ui';
   import user from "../../../components/user.vue";
-  import {getDictionaryInfo, getSupplierinfor, getUserInfo,
-      getCurrentRole,getDownOrgInfo,getorgGroupList} from '../../../../utils/customize';
+  import {getCurrentRole,getDownOrgInfo} from '../../../../utils/customize';
 
   export default {
     name: "PFANS6006View",
@@ -723,12 +716,12 @@
           .then(response => {
               let tabledate = [];
             for (let j = 0; j < response.length; j++) {
-              if (response[j].managerid !== null && response[j].managerid !== '') {
-                let rst = getUserInfo(response[j].managerid)
-                if (rst) {
-                  response[j].managerid = rst.userinfo.customername;
-                }
-              }
+              // if (response[j].managerid !== null && response[j].managerid !== '') {
+              //   let rst = getUserInfo(response[j].managerid)
+              //   if (rst) {
+              //     response[j].managerid = rst.userinfo.customername;
+              //   }
+              // }
 
               //region 无用代码
                 // if (response[j].admissiontime !== null && response[j].admissiontime !== '') {
@@ -795,8 +788,7 @@
                 // }
                 //endregion
 
-              if (response[j].venuetarget == 0) {
-                let arr = [
+              let arr = [
                   response[j].april,
                   response[j].may,
                   response[j].june,
@@ -809,15 +801,14 @@
                   response[j].january,
                   response[j].february,
                   response[j].march
-                ];
-                var h = 0;
-                for (let i = 0; i < arr.length; i++) {
+              ];
+              var h = 0;
+              for (let i = 0; i < arr.length; i++) {
                   if (arr[i] != null && arr[i] != "0.00" && arr[i] != "0") {
-                    h++;
+                      h++;
                   }
-                }
-                response[j].monthlength = h;
               }
+              response[j].monthlength = h;
               tabledate.push({
                   delegainformation_id: response[j].delegainformation_id,
                   companyprojects_id: response[j].companyprojects_id,
