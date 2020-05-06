@@ -1,5 +1,6 @@
 import request from '../../../../utils/request'
 import requestDownload from '../../../../utils/requestDownload';
+import requestPdf from "../../../../utils/requestPdf";
 
 export function get(data) {
   return request({
@@ -23,7 +24,7 @@ export function selectById(data) {
   })
 }
 export function generateJxls(data) {
-  return requestDownload({
+  return requestPdf({
     url: 'award/generateJxls',
     method: 'post',
     data: data,
