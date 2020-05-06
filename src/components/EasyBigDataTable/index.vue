@@ -13,36 +13,36 @@
         </el-input>
       </div>
       <div style="height: calc(100vh - 60px - 15rem);width: 100%">
-      <pl-table :datas="this.pagedate" :default-sort='defaultSort' :element-loading-text="$t('normal.waiting')" :row-key="rowid"
+      <plx-table-grid :datas="this.pagedate" :default-sort='defaultSort' :element-loading-text="$t('normal.waiting')" :row-key="rowid"
                 @filter-change="tableFilter" @row-click="rowClick" @row-dblclick="rowClick" @selection-change="handleSelectionChange" @sort-change="sortChange"
                 header-cell-class-name="sub_bg_color_blue" header-row-class-name="height" :pagination-show="paginationShow" :height-change="paginationShow"
                 highlight-current-row ref="eltable" stripe border use-virtual big-data-checkbox
                 style="width: 100%" v-loading='loading' cell-class-name = "row_height_left" :row-height="rowheight">
-        <pl-table-column reserve-selection type="selection" v-if="showSelection" width="55">
-        </pl-table-column>
-        <pl-table-column type="index" v-if="showIndex" width="55" label="NO">
-        </pl-table-column>
-        <pl-table-column :key="item.code" :label="$t(item.label)" :label-class-name="item.labelClass"
+        <plx-table-column reserve-selection type="selection" v-if="showSelection" width="55">
+        </plx-table-column>
+        <plx-table-column type="index" v-if="showIndex" width="55" label="NO">
+        </plx-table-column>
+        <plx-table-column :key="item.code" :label="$t(item.label)" :label-class-name="item.labelClass"
                          v-for="item in this.columns" v-if="item.child && item.child.length > 0">
-          <pl-table-column :key="o.code" :label="$t(o.label)" :label-class-name="o.labelClass"
+          <plx-table-column :key="o.code" :label="$t(o.label)" :label-class-name="o.labelClass"
                            v-for="o in item.child" v-if="o.child && o.child.length > 0">
-            <pl-table-column :column-key="oo.code" :filters="oo.filter === true?filtersdata(oo):null" :fixed="oo.fix" :formatter="formatter"
+            <plx-table-column :column-key="oo.code" :filters="oo.filter === true?filtersdata(oo):null" :fixed="oo.fix" :formatter="formatter"
                              :key="oo.code"
                              :label="$t(oo.label)" :label-class-name="oo.labelClass" :min-width="oo.width" :prop="oo.code"
                              align="left"  sortable="custom"
                              v-for="oo in o.child"/>
-          </pl-table-column>
-          <pl-table-column :column-key="o.code" :filters="o.filter === true?filtersdata(o):null" :fixed="o.fix" :formatter="formatter" :key="o.code"
+          </plx-table-column>
+          <plx-table-column :column-key="o.code" :filters="o.filter === true?filtersdata(o):null" :fixed="o.fix" :formatter="formatter" :key="o.code"
                            :label="$t(o.label)" :label-class-name="o.labelClass" :min-width="o.width" :prop="o.code"
                            align="left"  sortable="custom"
                            v-else/>
-        </pl-table-column>
-        <pl-table-column :column-key="item.code" :filters="item.filter === true?filtersdata(item):null" :fixed="item.fix" :formatter="formatter"
+        </plx-table-column>
+        <plx-table-column :column-key="item.code" :filters="item.filter === true?filtersdata(item):null" :fixed="item.fix" :formatter="formatter"
                          :key="item.code"
                          :label="$t(item.label)" :label-class-name="item.labelClass" :min-width="item.width" :prop="item.code"
                          align="left"  sortable="custom"
                          v-else/>
-      </pl-table>
+      </plx-table-grid>
       </div>
       <div class="pagination-container" style="padding-top: 20px">
         <el-pagination :current-page.sync="listQuery.page" :page-size="listQuery.limit"

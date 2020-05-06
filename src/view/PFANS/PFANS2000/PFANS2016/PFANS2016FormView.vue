@@ -221,7 +221,7 @@
               <el-form-item :label="$t('label.enclosure')" prop="enclosurecontent">
                 <el-upload
                   :action="upload"
-                  :disabled="!disable"
+                  :disabled="disableupload"
                   :file-list="fileList"
                   :on-error="fileError"
                   :on-preview="fileDownload"
@@ -538,6 +538,7 @@
                 checkerrortishi: false,
                 dislengthtime: false,
                 checkrelengthtime: false,
+                disableupload:false,
                 centerid: '',
                 groupid: '',
                 teamid: '',
@@ -787,6 +788,7 @@
                             this.canStart = true;
                             if (!this.disable) {
                                 this.dislengthtime = true;
+                                this.disableupload = true;
                             }
                         } else if (this.form.status === '4' || this.form.status === '6') {
                             this.workflowCode = 'W0059';
@@ -794,8 +796,10 @@
                             //查看时，不可编辑
                             if (!this.disable) {
                                 this.disrevacationtype = true;
+                                this.disableupload = true;
                             } else {
                                 this.disrevacationtype = false;
+                                this.disableupload = false;
                             }
                             this.disable = false;
                             this.dislengthtime = true;
@@ -805,6 +809,7 @@
                             this.disrevacationtype = true;
                             this.dislengthtime = true;
                             this.checkrelengthtime = true;
+                            this.disableupload = true;
                         } else if (this.form.status === '7') {
                             this.disrevacationtype = true;
                             this.workflowCode = 'W0059';
@@ -812,9 +817,11 @@
                             this.disable = false;
                             this.dislengthtime = true;
                             this.checkrelengthtime = true;
+                            this.disableupload = true;
                         } else if (this.form.status === '2') {
                             this.disable = false;
                             this.dislengthtime = true;
+                            this.disableupload = true;
                         }
                         this.loading = false;
 
@@ -859,6 +866,7 @@
                         icon: 'el-icon-check',
                     },
                 ];
+
             }
         },
         methods: {
@@ -1612,8 +1620,10 @@
               this.form.applicationdate=moment(new Date()).format('YYYY-MM-DD');
                 if (this.form.status === '4' || this.form.status === '6') {
                     this.form.status = '5';
+                    this.disableupload = true;
                 } else {
                     this.form.status = '2';
+                    this.disableupload = true;
                 }
                 this.buttonClick2();
             },
