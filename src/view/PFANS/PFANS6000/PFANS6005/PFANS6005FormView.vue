@@ -23,6 +23,8 @@
           stripe use-virtual :pagination-show="paginationShow"
           style="width: 100%;height: calc(100vh - 200px - 2rem)"
           tooltip-effect="dark"
+          cell-class-name = "row_height_left" :row-height="rowheight"
+          highlight-current-row
           header-cell-class-name="sub_bg_color_blue"
         >
           <!--checkbox-->
@@ -41,21 +43,21 @@
             align="center"
             prop="username"
             fixed="left"
-            width="120"
+            width="70"
           ></plx-table-column>
           <!-- 卒業年-->
           <plx-table-column
             :label="$t('label.PFANS2024VIEW_GRADUATIONYEAR')"
             align="center"
-            width="100"
+            width="65"
             prop="graduation1"
           ></plx-table-column>
           <!-- 会社名-->
           <plx-table-column sortable
             :label="$t('label.PFANS1036FORMVIEW_CLUBNAME')"
-            align="center"
+            align="left"
             prop="company"
-            width="200"
+            width="160"
           ></plx-table-column>
           <!-- 查定时间-->
           <!--<plx-table-column :label="$t('label.PFANS6005VIEW_CHECKTIME')" align="center" width="250">-->
@@ -76,6 +78,7 @@
           >
             <template slot-scope="scope">
               <dicselect
+                size="mini"
                 :no="scope.row"
                 :code="code1"
                 :data="scope.row.technical"
@@ -101,6 +104,7 @@
           >
             <template slot-scope="scope">
               <dicselect
+                size="mini"
                 :no="scope.row"
                 :code="code2"
                 :data="scope.row.management"
@@ -126,6 +130,7 @@
           >
             <template slot-scope="scope">
               <dicselect
+                size="mini"
                 :no="scope.row"
                 :code="code3"
                 :data="scope.row.fieldskills"
@@ -151,6 +156,7 @@
           >
             <template slot-scope="scope">
               <dicselect
+                size="mini"
                 :no="scope.row"
                 :code="code4"
                 :data="scope.row.language"
@@ -176,6 +182,7 @@
           >
             <template slot-scope="scope">
               <dicselect
+                size="mini"
                 :no="scope.row"
                 :code="code5"
                 :data="scope.row.workskills"
@@ -201,6 +208,7 @@
           >
             <template slot-scope="scope">
               <dicselect
+                size="mini"
                 :no="scope.row"
                 :code="code6"
                 :data="scope.row.evaluation"
@@ -228,6 +236,7 @@
             >
               <template slot-scope="scope">
                 <dicselect
+                  size="mini"
                   :no="scope.row"
                   :code="code7"
                   :data="scope.row.psdcdscale"
@@ -253,6 +262,7 @@
             >
               <template slot-scope="scope">
                 <dicselect
+                  size="mini"
                   :no="scope.row"
                   :code="code8"
                   :data="scope.row.contribution"
@@ -281,6 +291,7 @@
             >
               <template slot-scope="scope">
                 <dicselect
+                  size="mini"
                   :no="scope.row"
                   :code="code9"
                   :data="scope.row.staffpsdcdrank"
@@ -306,6 +317,7 @@
             >
               <template slot-scope="scope">
                 <dicselect
+                  size="mini"
                   :no="scope.row"
                   :code="code8"
                   :data="scope.row.butionevaluation"
@@ -332,6 +344,7 @@
           >
             <template slot-scope="scope">
               <el-input-number
+                size="mini"
                 :disabled="!disabled"
                 controls-position="right"
                 :min="-100000" :max="100000"
@@ -367,6 +380,7 @@
           >
             <template slot-scope="scope">
               <dicselect
+                size="mini"
                 :no="scope.row"
                 :code="code9"
                 :data="scope.row.psdcdrank"
@@ -385,6 +399,7 @@
           >
             <template slot-scope="scope">
               <el-input
+                size="mini"
                 :no="scope.row"
                 :disabled="!disabled"
                 v-model="scope.row.remarks"
@@ -739,5 +754,14 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss">
+  .row_height_left {
+    font-size: 0.75rem;
+    padding: 0px;
+    text-align: left;
+    background-color: transparent !important;
+  }
+  .el-table /deep/ .current-row{
+    background-color: #BDD8EE;
+  }
 </style>
