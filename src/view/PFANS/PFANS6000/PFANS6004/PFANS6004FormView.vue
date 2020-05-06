@@ -661,13 +661,13 @@
             },
           ],
           // 所有技术
-          alltechnology: [
-            {
-              required: true,
-              message: this.$t('normal.error_09') + this.$t('label.PFANS6004FORMVIEW_ALLTECHNOLOGY'),
-              trigger: 'change',
-            },
-          ],
+          // alltechnology: [
+          //   {
+          //     required: true,
+          //     message: this.$t('normal.error_09') + this.$t('label.PFANS6004FORMVIEW_ALLTECHNOLOGY'),
+          //     trigger: 'change',
+          //   },
+          // ],
           // 現場評価
           sitevaluation: [
             {
@@ -685,13 +685,13 @@
             },
           ],
           // 対策
-          countermeasure: [
-            {
-              required: true,
-              message: this.$t('normal.error_09') + this.$t('label.PFANS6004FORMVIEW_COUNTERMEASURE'),
-              trigger: 'change',
-            },
-          ],
+          // countermeasure: [
+          //   {
+          //     required: true,
+          //     message: this.$t('normal.error_09') + this.$t('label.PFANS6004FORMVIEW_COUNTERMEASURE'),
+          //     trigger: 'change',
+          //   },
+          // ],
         },
         show: false,
       };
@@ -764,18 +764,18 @@
         this.show = false;
         this.rules.exitime[0].required = false;
         this.rules.exitreason[0].required = false;
-        this.rules.alltechnology[0].required = false;
+        //this.rules.alltechnology[0].required = false;
         this.rules.sitevaluation[0].required = false;
         this.rules.businessimpact[0].required = false;
-        this.rules.countermeasure[0].required = false;
+        //this.rules.countermeasure[0].required = false;
       } else {
         this.show = true;
         this.rules.exitime[0].required = true;
         this.rules.exitreason[0].required = true;
-        this.rules.alltechnology[0].required = true;
+        //this.rules.alltechnology[0].required = true;
         this.rules.sitevaluation[0].required = true;
         this.rules.businessimpact[0].required = true;
-        this.rules.countermeasure[0].required = true;
+        //this.rules.countermeasure[0].required = true;
       }
     },
     methods: {
@@ -838,10 +838,10 @@
           this.show = false;
           this.rules.exitime[0].required = false;
           this.rules.exitreason[0].required = false;
-          this.rules.alltechnology[0].required = false;
+          //this.rules.alltechnology[0].required = false;
           this.rules.sitevaluation[0].required = false;
           this.rules.businessimpact[0].required = false;
-          this.rules.countermeasure[0].required = false;
+          //this.rules.countermeasure[0].required = false;
           this.erroradmissiontime = '';
           this.errorexitime = '';
         } else {
@@ -854,10 +854,10 @@
           this.form.countermeasure = null;
           this.rules.exitime[0].required = true;
           this.rules.exitreason[0].required = true;
-          this.rules.alltechnology[0].required = true;
+          //this.rules.alltechnology[0].required = true;
           this.rules.sitevaluation[0].required = true;
           this.rules.businessimpact[0].required = true;
-          this.rules.countermeasure[0].required = true;
+          //this.rules.countermeasure[0].required = true;
         }
       },
       selectById(val) {
@@ -919,10 +919,10 @@
               this.form.countermeasure = '';
               this.rules.exitime[0].required = false;
               this.rules.exitreason[0].required = false;
-              this.rules.alltechnology[0].required = false;
+              //this.rules.alltechnology[0].required = false;
               this.rules.sitevaluation[0].required = false;
               this.rules.businessimpact[0].required = false;
-              this.rules.countermeasure[0].required = false;
+              //this.rules.countermeasure[0].required = false;
             }
             if (this.$route.params._id) {
               this.$store
