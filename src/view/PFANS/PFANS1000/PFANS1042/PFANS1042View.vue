@@ -1142,40 +1142,40 @@
                                 response[j].allocation = ((Number(response[j].emhours) / Number(sum)) * ((Number(response[j].emhours) * she * 1000 + Number(response[j].outhours) * nei * 1000 + Number(response[j].outhours) * wai * 1000))).toFixed(2);
                             }
                             //固定資産費用小計
-                            // response[j].costsubtotal = (Number(response[j].depreciationsoft) +Number(response[j].depreciationequipment) +Number(response[j].rent) +
-                            //                           Number(response[j].leasecost) +Number(response[j].temporaryrent) +Number(response[j].other)).toFixed(2);
+                            response[j].costsubtotal = (Number(response[j].depreciationsoft) + Number(response[j].depreciationequipment) + Number(response[j].rent) +
+                                Number(response[j].leasecost) + Number(response[j].temporaryrent) + Number(response[j].other)).toFixed(2);
                             //研究開発費・ソフト費用小計
-                            // response[j].expensessubtotal = (Number(response[j].researchcost) +Number(response[j].surveyfee) +Number(response[j].inwetuo) +
-                            //     Number(response[j].outcost) +Number(response[j].outcost)).toFixed(2);
+                            response[j].expensessubtotal = (Number(response[j].researchcost) + Number(response[j].surveyfee) + Number(response[j].inwetuo) +
+                                Number(response[j].outcost) + Number(response[j].outcost)).toFixed(2);
 
                             //配賦部門費小計
-                            // response[j].allocationsum = (Number(response[j].expensessubtotal) +Number(response[j].transferone) +Number(response[j].transfertwo)).toFixed(2);
+                            response[j].allocationsum = (Number(response[j].expensessubtotal) + Number(response[j].transferone) + Number(response[j].transfertwo)).toFixed(2);
 
                             // 部門共通費用合計
                             response[j].departmenttotal = (Number(response[j].yuanqincost) + Number(response[j].travalcost) + Number(response[j].concost) + Number(response[j].callcost) + Number(response[j].brandcost) + Number(response[j].rent) + Number(response[j].other)).toFixed(2);
 
-                            // //支出合計
-                            // response[j].costtotal = (Number(response[j].peocost) + Number(response[j].outcost) + Number(response[j].inwetuo) + Number(response[j].researchcost) + Number(response[j].departmentcom)
-                            //     + Number(response[j].yuanqincost) + Number(response[j].travalcost) + Number(response[j].concost) + Number(response[j].callcost) + Number(response[j].brandcost)
-                            //     + Number(response[j].rent) + Number(response[j].other) + Number(response[j].concost) + Number(response[j].departmenttotal) + Number(response[j].allocation)).toFixed(2);
+                            //支出合計
+                            response[j].costtotal = (Number(response[j].peocost) + Number(response[j].outcost) + Number(response[j].inwetuo) + Number(response[j].researchcost) + Number(response[j].departmentcom)
+                                + Number(response[j].yuanqincost) + Number(response[j].travalcost) + Number(response[j].concost) + Number(response[j].callcost) + Number(response[j].brandcost)
+                                + Number(response[j].rent) + Number(response[j].other) + Number(response[j].concost) + Number(response[j].departmenttotal) + Number(response[j].allocation)).toFixed(2);
                             //仕掛品
                             // response[j].process = (Number(response[j].costtotal) - Number(response[j].intotal)).toFixed(2);
-                            // response[j].process = ('-' + response[j].peocostsum - response[j].costsubtotal - response[j].expensessubtotal - Number(response[j].yuanqincost) - Number(response[j].travalcost)
-                            //     - Number(response[j].callcost) - Number(response[j].callcost) - Number(response[j].threefree) - Number(response[j].threefree) - Number(response[j].brandcost)
-                            //     - Number(response[j].otherexpenses) + Number(response[j].intotal) * 0.75).toFixed(2);
+                            response[j].process = ('-' + response[j].peocostsum - response[j].costsubtotal - response[j].expensessubtotal - Number(response[j].yuanqincost) - Number(response[j].travalcost)
+                                - Number(response[j].callcost) - Number(response[j].callcost) - Number(response[j].threefree) - Number(response[j].threefree) - Number(response[j].brandcost)
+                                - Number(response[j].otherexpenses) + Number(response[j].intotal) * 0.75).toFixed(2);
 
                             //その他諸経費小計
-                            // response[j].otherexpentotal = (Number(response[j].yuanqincost) + Number(response[j].travalcost)
-                            //     + Number(response[j].callcost) + Number(response[j].callcost) + Number(response[j].threefree) + Number(response[j].threefree) + Number(response[j].brandcost)
-                            //     + Number(response[j].otherexpenses) + Number(response[j].otherincome) + Number(response[j].process)).toFixed(2);
+                            response[j].otherexpentotal = (Number(response[j].yuanqincost) + Number(response[j].travalcost)
+                                + Number(response[j].callcost) + Number(response[j].callcost) + Number(response[j].threefree) + Number(response[j].threefree) + Number(response[j].brandcost)
+                                + Number(response[j].otherexpenses) + Number(response[j].otherincome) + Number(response[j].process)).toFixed(2);
 
                             // 合計
-                            // response[j].costtotal = response[j].peocostsum + response[j].costsubtotal + response[j].expensessubtotal + response[j].allocationsum + response[j].otherexpentotal
+                            response[j].costtotal = Number(response[j].peocostsum) + Number(response[j].costsubtotal) + Number(response[j].expensessubtotal) + Number(response[j].allocationsum) + Number(response[j].otherexpentotal)
 
                             //営業利益
-                            // response[j].Operating = response[j].intotal - response[j].costtotal;
+                            response[j].Operating = Number(response[j].intotal) - Number(response[j].costtotal);
                             //税引後利益
-                            // response[j].posttaxbenefit = response[j].Operating - response[j].taxallowance;
+                            response[j].posttaxbenefit = Number(response[j].Operating) - Number(response[j].taxallowance);
 
                             //限界利益
                             // response[j].marginal = (Number(response[j].inst) + Number(response[j].outst1) - Number(response[j].peocost) - Number(response[j].outcost) - Number(response[j].researchcost)).toFixed(2);
