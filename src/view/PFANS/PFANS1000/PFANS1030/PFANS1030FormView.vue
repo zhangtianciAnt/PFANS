@@ -231,17 +231,29 @@
                   </el-col>
                 </el-row>
                 <el-row>
+                  <!--<el-col :span="8">-->
+                  <!--<el-form-item :label="$t('label.PFANS1004VIEW_CAREERPLAN')" :error="errorplan" prop="plan">-->
+                  <!--<el-select v-model="form.plan" @change="getplan" :disabled="!disable" style="width: 20vw"-->
+                  <!--clearable>-->
+                  <!--<el-option-->
+                  <!--v-for="item in optionsdate"-->
+                  <!--:key="item.value"-->
+                  <!--:label="item.lable"-->
+                  <!--:value="item.value">-->
+                  <!--</el-option>-->
+                  <!--</el-select>-->
+                  <!--</el-form-item>-->
+                  <!--</el-col>-->
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1004VIEW_CAREERPLAN')" :error="errorplan" prop="plan">
-                      <el-select v-model="form.plan" @change="getplan" :disabled="!disable" style="width: 20vw"
-                                 clearable>
-                        <el-option
-                          v-for="item in optionsdate"
-                          :key="item.value"
-                          :label="item.lable"
-                          :value="item.value">
-                        </el-option>
-                      </el-select>
+                      <span>{{$t('label.PFANS1004VIEW_INSIDE')}}</span>
+                      <el-switch
+                        :disabled="!disable"
+                        v-model="form.plan"
+                        active-value="1"
+                        inactive-value="0">
+                      </el-switch>
+                      <span>{{$t('label.PFANS1004VIEW_OUTER')}}</span>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -1483,9 +1495,9 @@
       getvaluation(val) {
         this.form.valuation = val;
       },
-      getplan(val) {
-        this.form.plan = val;
-      },
+      // getplan(val) {
+      //   this.form.plan = val;
+      // },
       getindividual(val) {
         this.form.individual = val;
       },
