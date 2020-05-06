@@ -422,7 +422,6 @@
         this.$store
           .dispatch('PFANS5008Store/getDataOne', {'logmanagement_id': this.$route.params._id})
           .then(response => {
-            debugger
             this.data = response;
             this.checktimelength = response.time_start;
             if (response.confirmstatus == '1') {
@@ -687,7 +686,6 @@
         let parameter = {
           user_id: this.User_id,
           years: moment(new Date()).format('YYYY'),
-          months: moment(new Date()).format('MM'),
         };
         this.loading = true;
         this.$store
