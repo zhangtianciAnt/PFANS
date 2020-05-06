@@ -3,6 +3,12 @@
     <EasyNormalTable :title="title" :columns="columns" :data="data" :buttonList="buttonList" ref="roletable"
                      @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" :rowid="rowid"
                      :showSelection="isShow">
+      <el-date-picker
+        v-model="month"
+        type="month"
+        slot="customize"
+        @change="showData">
+      </el-date-picker>
     </EasyNormalTable>
     <el-dialog :visible.sync="daoru" width="50%">
       <div>
@@ -74,8 +80,8 @@
   import EasyNormalTable from '@/components/EasyBigDataTable';
   import {Message} from 'element-ui';
   import {getOrgInfoByUserId, getUserInfo, getCooperinterviewListByAccount,getDictionaryInfo,getOrgInfo} from '../../../../utils/customize';
-
   let moment = require('moment');
+
   export default {
     name: 'PFANS5008View',
     components: {
@@ -83,6 +89,7 @@
     },
     data() {
       return {
+        month:moment(new Date()).format("YYYY-MM-DD"),
         pop_download: false,
         totaldata: [],
         listQuery: {
@@ -202,7 +209,7 @@
       };
     },
     mounted() {
-      this.getProjectList();
+      this.getProjectList(moment(new Date()).format("YYYY-MM-DD"));
       this.$store.commit('global/SET_OPERATEID', '');
     },
     computed: {
@@ -213,6 +220,9 @@
       },
     },
     methods: {
+      showData(){
+        this.getProjectList(this.month);
+      },
       handleDownload(row) {
         this.loading = true;
         this.$store
@@ -303,10 +313,10 @@
         this.createy= row.createby;
         this.row = row.logmanagement_id;
       },
-      getProjectList() {
+      getProjectList(val) {
         this.loading = true;
         this.$store
-          .dispatch('PFANS5008Store/getDataList', {})
+          .dispatch('PFANS5008Store/getDataList1', {log_date:val})
           .then(response => {
               for (let j = 0; j < response.length; j++) {
                 let user = getUserInfo(response[j].createby);
