@@ -1101,12 +1101,12 @@
 
                         let sum = 0;
 
-                        for (let j = 0; j < response.length; j++) {
+                        for (let j = 1; j < response.length; j++) {
                             sum += Number(response[j].emhours);
                         }
 
-                        for (let j = 0; j < response.length; j++) {
-//共通PJ（研修会议等）
+                        for (let j = 1; j < response.length; j++) {
+                           //共通PJ（研修会议等）
                             if (response[j].pj == null) {
                                 // response[j].pj1 = aaa
                                 response[j].pj = aaa;
