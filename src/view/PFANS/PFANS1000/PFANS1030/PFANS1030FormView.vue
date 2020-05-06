@@ -1698,7 +1698,7 @@
           });
         }
         this.baseInfo.groupN = this.$store.getters.orgGroupList;
-        if (val === 'save') {
+        if (val === 'save' || val === 'StartWorkflow') {
           this.$refs['reff'].validate(valid => {
             if (valid) {
               this.loading = true;

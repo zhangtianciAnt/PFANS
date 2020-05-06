@@ -163,8 +163,7 @@
                     <template slot-scope="scope">
                       <el-input-number
                         size="mini"
-                        :disabled="false"
-                        v-if="scope.row.type == '1'"
+                        :disabled="disabledfunc(4)"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -173,19 +172,6 @@
                         style="width:90%"
                         v-model.trim="scope.row.april">
                       </el-input-number>
-                      <el-input-number
-                        size="mini"
-                        :disabled="true"
-                        v-if="scope.row.type == '0'"
-                        :max="9999999999"
-                        :min="0"
-                        :precision="2"
-                        :step="0.01"
-                        controls-position="right"
-                        style="width:90%"
-                        v-model.trim="scope.row.april">
-                      </el-input-number>
-
                     </template>
                   </plx-table-column>
                   <!--五月-->
@@ -196,20 +182,7 @@
                     <template slot-scope="scope">
                       <el-input-number
                         size="mini"
-                        v-if="scope.row.type == '1'"
-                        :disabled="false"
-                        :max="9999999999"
-                        :min="0"
-                        :precision="2"
-                        :step="0.01"
-                        controls-position="right"
-                        style="width:90%"
-                        v-model.trim="scope.row.may">
-                      </el-input-number>
-                      <el-input-number
-                        size="mini"
-                        v-if="scope.row.type == '0'"
-                        :disabled="true"
+                        :disabled="disabledfunc(5)"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -228,20 +201,7 @@
                     <template slot-scope="scope">
                       <el-input-number
                         size="mini"
-                        v-if="scope.row.type == '0'"
-                        :disabled="true"
-                        :max="9999999999"
-                        :min="0"
-                        :precision="2"
-                        :step="0.01"
-                        controls-position="right"
-                        style="width:90%"
-                        v-model.trim="scope.row.june">
-                      </el-input-number>
-                      <el-input-number
-                        size="mini"
-                        v-if="scope.row.type == '1'"
-                        :disabled="false"
+                        :disabled="disabledfunc(6)"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -260,20 +220,7 @@
                     <template slot-scope="scope">
                       <el-input-number
                         size="mini"
-                        v-if="scope.row.type == '0'"
-                        :disabled="true"
-                        :max="9999999999"
-                        :min="0"
-                        :precision="2"
-                        :step="0.01"
-                        controls-position="right"
-                        style="width:90%"
-                        v-model.trim="scope.row.july">
-                      </el-input-number>
-                      <el-input-number
-                        size="mini"
-                        v-if="scope.row.type == '1'"
-                        :disabled="false"
+                        :disabled="disabledfunc(7)"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -292,20 +239,7 @@
                     <template slot-scope="scope">
                       <el-input-number
                         size="mini"
-                        v-if="scope.row.type == '1'"
-                        :disabled="false"
-                        :max="9999999999"
-                        :min="0"
-                        :precision="2"
-                        :step="0.01"
-                        controls-position="right"
-                        style="width:90%"
-                        v-model.trim="scope.row.august">
-                      </el-input-number>
-                      <el-input-number
-                        size="mini"
-                        v-if="scope.row.type == '0'"
-                        :disabled="true"
+                        :disabled="disabledfunc(8)"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -324,20 +258,7 @@
                     <template slot-scope="scope">
                       <el-input-number
                         size="mini"
-                        v-if="scope.row.type == '0'"
-                        :disabled="true"
-                        :max="9999999999"
-                        :min="0"
-                        :precision="2"
-                        :step="0.01"
-                        controls-position="right"
-                        style="width:90%"
-                        v-model.trim="scope.row.september">
-                      </el-input-number>
-                      <el-input-number
-                        size="mini"
-                        v-if="scope.row.type == '1'"
-                        :disabled="false"
+                        :disabled="disabledfunc(9)"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -356,20 +277,7 @@
                     <template slot-scope="scope">
                       <el-input-number
                         size="mini"
-                        v-if="scope.row.type == '1'"
-                        :disabled="false"
-                        :max="9999999999"
-                        :min="0"
-                        :precision="2"
-                        :step="0.01"
-                        controls-position="right"
-                        style="width:90%"
-                        v-model.trim="scope.row.october">
-                      </el-input-number>
-                      <el-input-number
-                        size="mini"
-                        v-if="scope.row.type == '0'"
-                        :disabled="true"
+                        :disabled="disabledfunc(10)"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -388,20 +296,7 @@
                     <template slot-scope="scope">
                       <el-input-number
                         size="mini"
-                        v-if="scope.row.type == '0'"
-                        :disabled="true"
-                        :max="9999999999"
-                        :min="0"
-                        :precision="2"
-                        :step="0.01"
-                        controls-position="right"
-                        style="width:90%"
-                        v-model.trim="scope.row.november">
-                      </el-input-number>
-                      <el-input-number
-                        size="mini"
-                        v-if="scope.row.type == '1'"
-                        :disabled="false"
+                        :disabled="disabledfunc(11)"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -420,20 +315,7 @@
                     <template slot-scope="scope">
                       <el-input-number
                         size="mini"
-                        v-if="scope.row.type == '1'"
-                        :disabled="false"
-                        :max="9999999999"
-                        :min="0"
-                        :precision="2"
-                        :step="0.01"
-                        controls-position="right"
-                        style="width:90%"
-                        v-model.trim="scope.row.december">
-                      </el-input-number>
-                      <el-input-number
-                        size="mini"
-                        v-if="scope.row.type == '0'"
-                        :disabled="true"
+                        :disabled="disabledfunc(12)"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -452,20 +334,7 @@
                     <template slot-scope="scope">
                       <el-input-number
                         size="mini"
-                        v-if="scope.row.type == '0'"
-                        :disabled="true"
-                        :max="9999999999"
-                        :min="0"
-                        :precision="2"
-                        :step="0.01"
-                        controls-position="right"
-                        style="width:90%"
-                        v-model.trim="scope.row.january">
-                      </el-input-number>
-                      <el-input-number
-                        size="mini"
-                        v-if="scope.row.type == '1'"
-                        :disabled="false"
+                        :disabled="disabledfunc(1)"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -484,20 +353,7 @@
                     <template slot-scope="scope">
                       <el-input-number
                         size="mini"
-                        v-if="scope.row.type == '1'"
-                        :disabled="false"
-                        :max="9999999999"
-                        :min="0"
-                        :precision="2"
-                        :step="0.01"
-                        controls-position="right"
-                        style="width:90%"
-                        v-model.trim="scope.row.february">
-                      </el-input-number>
-                      <el-input-number
-                        size="mini"
-                        v-if="scope.row.type == '0'"
-                        :disabled="true"
+                        :disabled="disabledfunc(2)"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -516,20 +372,7 @@
                     <template slot-scope="scope">
                       <el-input-number
                         size="mini"
-                        v-if="scope.row.type == '0'"
-                        :disabled="true"
-                        :max="9999999999"
-                        :min="0"
-                        :precision="2"
-                        :step="0.01"
-                        controls-position="right"
-                        style="width:90%"
-                        v-model.trim="scope.row.march">
-                      </el-input-number>
-                      <el-input-number
-                        size="mini"
-                        v-if="scope.row.type == '1'"
-                        :disabled="false"
+                        :disabled="disabledfunc(3)"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -563,17 +406,7 @@
                     <template slot-scope="scope">
                       <el-input
                         size="mini"
-                        v-if="scope.row.type == '1'"
                         :disabled="false"
-                        :rows="1"
-                        style="width: 10vw"
-                        type="textarea"
-                        v-model="scope.row.remarks">
-                      </el-input>
-                      <el-input
-                        size="mini"
-                        v-if="scope.row.type == '0'"
-                        :disabled="true"
                         :rows="1"
                         style="width: 10vw"
                         type="textarea"
@@ -637,7 +470,7 @@
   import moment from "moment";
   import {Message} from 'element-ui';
   import user from "../../../components/user.vue";
-  import {getCurrentRole,getDownOrgInfo} from '../../../../utils/customize';
+  import {getCurrentRole,getDownOrgInfo,getDictionaryInfo} from '../../../../utils/customize';
 
   export default {
     name: "PFANS6006View",
@@ -647,6 +480,8 @@
     },
     data() {
       return {
+        nowm: Number(moment(new Date()).format("M")) === 1 ? 12 : Number(moment(new Date()).format("M")) - 1,
+        nowd: Number(moment(new Date()).format("D")),
         paginationShow:false,
         loading: false,
         buttonList: [],
@@ -659,7 +494,6 @@
           delegainformation_id: '',
           companyprojects_id:'',
           projectsystem_id:'',
-          type: '1',
           project_name: '',
           group_id: '',
           account: '',
@@ -693,6 +527,7 @@
           countermeasure: '',
         }],
         data: [],
+        dictionary:'',
         multipleSelection: [],
         userlist: "",
         title: 'title.PFANS6006VIEW_TITLE',
@@ -815,7 +650,6 @@
                   projectsystem_id: response[j].projectsystem_id,
                   year: response[j].year,
                   supplierinfor_id: response[j].supplierinfor_id,
-                  type: 1,
                   project_name: response[j].project_name,
                   group_id: response[j].group_id,
                   account: response[j].account,
@@ -968,6 +802,19 @@
       handleSelectionChange(val) {
         this.multipleSelection = val;
       },
+      disabledfunc(item){
+          if(item === this.nowm){
+              if(this.nowd <= this.dictionary){
+                  return false;
+              }
+              else{
+                  return true;
+              }
+          }
+          else{
+              return true;
+          }
+      },
       buttonClick(val) {
         if(this.multipleSelection.length === 0){
             Message({
@@ -1039,6 +886,9 @@
     mounted() {
       this.getById();
       this.getList();
+      if(getDictionaryInfo('BP026001')){
+          this.dictionary = Number(getDictionaryInfo('BP026001').value1);
+      }
     },
   }
 </script>

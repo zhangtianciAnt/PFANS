@@ -497,6 +497,13 @@
                         }
                         //会社特别休日加班的场合
                         if (this.form.overtimetype === 'PR001005') {
+                            if (this.form.status === '4') {
+                                if (this.form.overtimelength === '0') {
+                                    this.form.actualovertime = '8'
+                                } else {
+                                    this.form.actualovertime = '4'
+                                }
+                            }
                             this.disovertimelength = false;
                             this.showovertimelength = true;
                             this.disactualovertime = false;
@@ -518,6 +525,7 @@
                         if (this.form.status === '5') {
                             this.disable = false;
                             this.disactualovertime = false;
+                            this.disovertimelength = true;
                         }
                         // if (this.form.status === '6') {
                         //     this.workflowCode = 'W0040';
@@ -548,7 +556,7 @@
                             this.workflowCode = 'W0040';
                           }
                             this.canStart = true;
-                            if (!this.disable) {
+                            if (!this.disable || this.form.overtimetype === 'PR001005') {
                                 this.disactualovertime = false;
                             } else {
                                 this.disactualovertime = true;
@@ -556,6 +564,7 @@
                             this.disable = false;
                             this.rules.actualovertime[0].required = true;
                         } else if (this.form.status === '7') {
+                            this.disovertimelength = true;
                             // this.workflowCode = 'W0040';
                           if(this.form.overtimetype >= 'PR001004') {
                             this.workflowCode = 'W0068';
@@ -927,9 +936,17 @@
                     this.showovertimelength = true;
                 }
                 if (val === '0') {
-                    this.form.reserveovertime = '8';
+                    if (Number(this.form.status) >= 4) {
+                        this.form.actualovertime = '8';
+                    } else {
+                        this.form.reserveovertime = '8';
+                    }
                 } else if (val === '1') {
-                    this.form.reserveovertime = '4';
+                    if (Number(this.form.status) >= 4) {
+                        this.form.actualovertime = '4';
+                    } else {
+                        this.form.reserveovertime = '4';
+                    }
                 }
             },
             change(val) {
@@ -1143,6 +1160,7 @@
                                     }
                                     if (val === 'StartWorkflow') {
                                         this.showovertimetype = true;
+                                        this.disovertimelength = true;
                                         this.showovertimelength = true;
                                         this.disactualovertime = false;
                                         this.$refs.container.$refs.workflow.startWorkflow();
