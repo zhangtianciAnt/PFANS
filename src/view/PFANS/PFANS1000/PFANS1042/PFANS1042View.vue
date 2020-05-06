@@ -799,566 +799,619 @@
 </template>
 
 <script>
-  import EasyNormalContainer from '@/components/EasyNormalContainer';
-  import moment from 'moment';
-  import {Message} from 'element-ui';
-  import user from '../../../components/user.vue';
-  import org from '../../../components/org';
-  import {getDictionaryInfo} from '@/utils/customize';
-  import {getOrgInfoByUserId} from '../../../../utils/customize';
-  import {getDownOrgInfo, getCurrentRole} from '@/utils/customize';
+    import EasyNormalContainer from '@/components/EasyNormalContainer';
+    import moment from 'moment';
+    import {Message} from 'element-ui';
+    import user from '../../../components/user.vue';
+    import org from '../../../components/org';
+    import {getDictionaryInfo} from '@/utils/customize';
+    import {getOrgInfoByUserId} from '../../../../utils/customize';
+    import {getDownOrgInfo, getCurrentRole} from '@/utils/customize';
 
-  export default {
-    name: 'PFANS1042View',
-    components: {
-      EasyNormalContainer,
-      user,
-      org,
-    },
-    data() {
-      var years = (rule, value, callback) => {
-        if (!this.form.year || this.form.year === '' || this.form.year === 'undefined') {
-          callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS1036FORMVIEW_BUSINESSYEAR')));
-          this.error = this.$t('normal.error_08') + this.$t('label.PFANS1036FORMVIEW_BUSINESSYEAR');
-        } else {
-          callback();
-          this.error = '';
-        }
-      };
-
-      var groups = (rule, value, callback) => {
-
-        if (!this.form.group_id || this.form.group_id === '' || this.form.group_id === 'undefined') {
-          callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS1039FORMVIEW_GROUP')));
-          this.errorgroup = this.$t('normal.error_08') + this.$t('label.PFANS1039FORMVIEW_GROUP');
-        } else {
-          callback();
-          this.errorgroup = '';
-        }
-      };
-
-      var months = (rule, value, callback) => {
-        if (!this.form.region || this.form.region === '' || this.form.region === 'undefined') {
-          callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS5009FORMVIEW_MONTH')));
-          this.errormonth = this.$t('normal.error_09') + this.$t('label.PFANS5009FORMVIEW_MONTH');
-        } else {
-          callback();
-          this.errormonth = '';
-        }
-      };
-      return {
-        paginationShow: false,
-        errormonth: '',
-        errorgroup: '',
-        erroryear: '',
-        loading: false,
-        buttonList: [],
-        baseInfo: {},
-        scope: '',
-        optionsdata: [],
-        row: '',
-        form: {
-          year: '',
-          group_id: '',
-          region: '',
-
+    export default {
+        name: 'PFANS1042View',
+        components: {
+            EasyNormalContainer,
+            user,
+            org,
         },
-
-        rules: {
-
-          year: [{
-            required: true,
-            validator: years,
-            trigger: 'change',
-          }],
-          group: [{
-            required: true,
-            validator: groups,
-            trigger: 'change',
-          }],
-          month: [{
-            required: true,
-            validator: months,
-            trigger: 'change',
-          }],
-
-        },
-
-        tableData: [],
-        data: [],
-        multipleSelection: [],
-        userlist: '',
-        title: 'title.PFANS1042VIEW',
-        disabled: false,
-        disable: true,
-        buttonList: [
-          // {
-          //   'key': 'save',
-          //   'name': 'button.save',
-          //   'disabled': false,
-          // },
-        ],
-      };
-    },
-    mounted() {
-      // this.getList();
-      this.getById();
-      // this.getOrgInformation();
-
-    },
-    methods: {
-      changeRegion(val) {
-        this.form.region = val;
-        if (this.form.group_id && this.form.year && this.form.region) {
-          this.getList(this.form.group_id, this.form.year, this.form.region);
-        } else {
-          if (!this.form.group_id || this.form.group_id === '' || !this.form.year || this.form.year === '') {
-            if (!this.form.group_id) {
-              this.errorgroup = this.$t('normal.error_08') + this.$t('label.PFANS1039FORMVIEW_GROUP');
-            }
-            if (!this.form.year) {
-              this.erroryear = this.$t('normal.error_08') + this.$t('label.PFANS1036FORMVIEW_BUSINESSYEAR');
-            }
-
-          } else {
-            this.errorgroup = '';
-          }
-        }
-
-      },
-
-      changeYear(val) {
-        this.form.year = moment(val).format('YYYY');
-        if (this.form.group_id && this.form.region) {
-          if (val) {
-            this.getList(this.form.group_id, this.form.year, this.form.region);
-          }
-        } else {
-          if (!this.form.group_id || this.form.group_id === '' || val === 'undefined' || !this.form.region || this.form.region === '') {
-            if (!this.form.group_id) {
-              this.errorgroup = this.$t('normal.error_08') + this.$t('label.PFANS1039FORMVIEW_GROUP');
-            }
-            if (!this.form.region) {
-              this.errormonth = this.$t('normal.error_09') + this.$t('label.PFANS5009FORMVIEW_MONTH');
-            }
-          } else {
-            this.errorgroup = '';
-          }
-        }
-
-      },
-
-      // getGroupId(val) {
-      //   this.form.group_id = val;
-      //   this.getOrgInformation(val);
-      //   debugger;
-      //   // this.form.group_id = '807C39FFD200D8A9826FD14AF50B5D112468';
-      //   if (!this.form.group_id || this.form.group_id === '' || val === 'undefined') {
-      //     this.errorgroup = this.$t('normal.error_08') + this.$t('label.PFANS1039FORMVIEW_GROUP');
-      //   } else {
-      //     this.errorgroup = '';
-      //   }
-      //   if (this.form.year && this.form.region && this.form.group_id) {
-      //     this.getList(this.form.group_id, this.form.year, this.form.region);
-      //   } else {
-      //     // this.erroryear = this.$t('normal.error_08') + this.$t('label.PFANS1036FORMVIEW_BUSINESSYEAR');
-      //     // this.errormonth = this.$t('normal.error_09') + this.$t('label.PFANS5009FORMVIEW_MONTH');
-      //     if (!this.form.region) {
-      //       this.errormonth = this.$t('normal.error_09') + this.$t('label.PFANS5009FORMVIEW_MONTH');
-      //     }
-      //     if (!this.form.year) {
-      //       this.erroryear = this.$t('normal.error_08') + this.$t('label.PFANS1036FORMVIEW_BUSINESSYEAR');
-      //     }
-      //
-      //   }
-      //
-      //
-      // },
-      //
-      // getOrgInformation(id) {
-      //   let org = {};
-      //   let treeCom = this.$store.getters.orgs;
-      //
-      //   if (id && treeCom.getNode(id)) {
-      //     let node = id;
-      //     let type = treeCom.getNode(id).data.type || 0;
-      //     for (let index = parseInt(type); index >= 1; index--) {
-      //       if (parseInt(type) === index && ![1, 2].includes(parseInt(type))) {
-      //         org.teamname = treeCom.getNode(node).data.departmentname;
-      //
-      //
-      //         org.team_id = treeCom.getNode(node).data._id;
-      //       }
-      //       if (index === 2) {
-      //         org.groupname = treeCom.getNode(node).data.departmentname;
-      //         org.group_id = treeCom.getNode(node).data._id;
-      //       }
-      //       if (index === 1) {
-      //         org.centername = treeCom.getNode(node).data.companyname;
-      //         org.center_id = treeCom.getNode(node).data._id;
-      //       }
-      //       node = treeCom.getNode(node).parent.data._id;
-      //     }
-      //     ({
-      //       centername: this.form.centername,
-      //       groupname: this.form.groupname,
-      //       teamname: this.form.teamname,
-      //       center_id: this.form.center_id,
-      //       group_id: this.form.group_id,
-      //       team_id: this.form.team_id,
-      //     } = org);
-      //   }
-      // },
-      changeGroup(val) {
-
-        this.form.group_id = val;
-        if (this.form.group_id && this.form.year && this.form.region) {
-          this.getList(this.form.group_id, this.form.year, this.form.region);
-        } else {
-          if (!this.form.region || this.form.region === '' || !this.form.year || this.form.year === '') {
-            if (!this.form.region) {
-              this.errormonth = this.$t('normal.error_09') + this.$t('label.PFANS5009FORMVIEW_MONTH');
-            }
-            if (!this.form.year) {
-              this.erroryear = this.$t('normal.error_08') + this.$t('label.PFANS1036FORMVIEW_BUSINESSYEAR');
-            }
-            this.errorgroup = '';
-          } else {
-            this.errorgroup = '';
-          }
-        }
-
-      },
-      getById() {
-
-        this.loading = true;
-        let role = getCurrentRole();
-        const vote = [];
-        if (role === '3') {
-          vote.push(
-            {
-              value: this.$store.getters.userinfo.userinfo.groupid,
-              lable: this.$store.getters.userinfo.userinfo.groupname,
-            },
-          );
-        } else if (role === '2') {
-          let centerId = this.$store.getters.userinfo.userinfo.centerid;
-          let orgs = getDownOrgInfo(centerId);
-          if (orgs) {
-            for (let org of orgs) {
-              vote.push(
-                {
-                  value: org._id,
-                  lable: org.companyname,
-                },
-              );
-            }
-          }
-
-        } else if (role === '1') {
-          let centerId = this.$store.getters.userinfo.userinfo.centerid;
-          let orgs = getDownOrgInfo(centerId);
-          if (orgs) {
-            for (let center of orgs) {
-              let centers = getDownOrgInfo(center._id);
-              if (centers) {
-                for (let group of centers) {
-                  vote.push(
-                    {
-                      value: group._id,
-                      lable: group.companyname,
-                    },
-                  );
+        data() {
+            var years = (rule, value, callback) => {
+                if (!this.form.year || this.form.year === '' || this.form.year === 'undefined') {
+                    callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS1036FORMVIEW_BUSINESSYEAR')));
+                    this.error = this.$t('normal.error_08') + this.$t('label.PFANS1036FORMVIEW_BUSINESSYEAR');
+                } else {
+                    callback();
+                    this.error = '';
                 }
-              }
+            };
 
-            }
-          }
+            var groups = (rule, value, callback) => {
 
-        }
-        this.optionsdata = vote;
-        //add_fjl 添加默认值
-        this.form.group_id = this.optionsdata[0].value;
-        this.form.year = moment(new Date()).format('YYYY');
-        this.form.region = moment(new Date()).format('MM');
-        this.getList(this.optionsdata[0].value, this.form.year, this.form.region);
-        //add_fjl
-        this.loading = false;
-      },
-      getList(groupid, year, month) {
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS1042Store/getPltab', {'groupid': groupid, 'year': year, 'month': month})
-          .then(response => {
-            let tabledate = [];
-            let date1 = getDictionaryInfo('PJ086002').value2;
-            let date2 = getDictionaryInfo('PJ086003').value2;
-            let wai = getDictionaryInfo('PJ110001').value2;//0.4
-            let nei = getDictionaryInfo('PJ110002').value2;//1
-            let she = getDictionaryInfo('PJ110003').value2;//3
-            let aaa = getDictionaryInfo('PP024001').value1;
-            let sum = 0;
-            let sumouthours = 0;
-            let suminhours = 0;
-            let sumoutsourcingpjhours = 0;
-            let sums = 0;
-            //add-ws-5/6-报销金额统计为sumpublic，外注的费用统计的金额累计为sumcoststa
-            let sumpublic =response[0].unpublice + response[0].unevec ;
-            let sumcoststa = response[0].uncoststa;
-            //add-ws-5/6-报销金额统计为sumpublic，外注的费用统计的金额累计为sumcoststa
-            for (let i = 1; i < response.length; i++) {
-              //add-ws-5/6-本社工数累加
-              sum += Number(response[i].emhours);
-              //add-ws-5/6-本社工数累加
-              //add-ws-5/6-配赋费计算添加
-              sumouthours += Number(response[i].outhours);
-              suminhours += Number(response[i].inhours);
-              //add-ws-5/6-配赋费计算添加
-              //add-ws-5/6-外注工数累加
-              sums = Number(sumouthours)+Number(suminhours)
-              sumoutsourcingpjhours += sums;
-              //add-ws-5/6-外注工数累加
-            }
-            for (let j = 1; j < response.length; j++) {
-              //共通PJ（研修会议等）
-              if (response[j].pj == null) {
-                // response[j].pj1 = aaa
-                response[j].pj = aaa;
-              }
-              //部門売上合計
-              response[j].centerintotal = (Number(response[j].inst) + Number(response[j].tax) + Number(response[j].outst1)).toFixed(2);
-              //外部受託-
-              response[j].outst1 = (Number(response[j].outst1) + Number(response[j].outst2) + Number(response[j].outst3)).toFixed(2);
-              //税金-
-              response[j].tax = (((Number(response[j].outst2) / ((1 + date1) * date1))) + ((Number(response[j].outst3) / ((1 + date2) * date2)))).toFixed(2);
-              //売上合計
-              response[j].intotal = (Number(response[j].outst1) + Number(response[j].tax) + Number(response[j].inst)).toFixed(2);
+                if (!this.form.group_id || this.form.group_id === '' || this.form.group_id === 'undefined') {
+                    callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS1039FORMVIEW_GROUP')));
+                    this.errorgroup = this.$t('normal.error_08') + this.$t('label.PFANS1039FORMVIEW_GROUP');
+                } else {
+                    callback();
+                    this.errorgroup = '';
+                }
+            };
 
-              //外注（構外∔構内）PJ工数
-              response[j].outsourcingpjhours = (Number(response[j].inhours) + Number(response[j].outhours)).toFixed(2);
-              if (sum == 0) {
-                response[j].peocost = 0;
-                response[j].departmentcom = 0;
-                response[j].allocation = 0;
-              } else {
+            var months = (rule, value, callback) => {
+                if (!this.form.region || this.form.region === '' || this.form.region === 'undefined') {
+                    callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS5009FORMVIEW_MONTH')));
+                    this.errormonth = this.$t('normal.error_09') + this.$t('label.PFANS5009FORMVIEW_MONTH');
+                } else {
+                    callback();
+                    this.errormonth = '';
+                }
+            };
+            return {
+                paginationShow: false,
+                errormonth: '',
+                errorgroup: '',
+                erroryear: '',
+                loading: false,
+                buttonList: [],
+                baseInfo: {},
+                scope: '',
+                optionsdata: [],
+                row: '',
+                form: {
+                    year: '',
+                    group_id: '',
+                    region: '',
+
+                },
+
+                rules: {
+
+                    year: [{
+                        required: true,
+                        validator: years,
+                        trigger: 'change',
+                    }],
+                    group: [{
+                        required: true,
+                        validator: groups,
+                        trigger: 'change',
+                    }],
+                    month: [{
+                        required: true,
+                        validator: months,
+                        trigger: 'change',
+                    }],
+
+                },
+
+                tableData: [],
+                data: [],
+                multipleSelection: [],
+                userlist: '',
+                title: 'title.PFANS1042VIEW',
+                disabled: false,
+                disable: true,
+                buttonList: [
+                    // {
+                    //   'key': 'save',
+                    //   'name': 'button.save',
+                    //   'disabled': false,
+                    // },
+                ],
+            };
+        },
+        mounted() {
+            // this.getList();
+            this.getById();
+            // this.getOrgInformation();
+
+        },
+        methods: {
+            changeRegion(val) {
+                this.form.region = val;
+                if (this.form.group_id && this.form.year && this.form.region) {
+                    this.getList(this.form.group_id, this.form.year, this.form.region);
+                } else {
+                    if (!this.form.group_id || this.form.group_id === '' || !this.form.year || this.form.year === '') {
+                        if (!this.form.group_id) {
+                            this.errorgroup = this.$t('normal.error_08') + this.$t('label.PFANS1039FORMVIEW_GROUP');
+                        }
+                        if (!this.form.year) {
+                            this.erroryear = this.$t('normal.error_08') + this.$t('label.PFANS1036FORMVIEW_BUSINESSYEAR');
+                        }
+
+                    } else {
+                        this.errorgroup = '';
+                    }
+                }
+
+            },
+
+            changeYear(val) {
+                this.form.year = moment(val).format('YYYY');
+                if (this.form.group_id && this.form.region) {
+                    if (val) {
+                        this.getList(this.form.group_id, this.form.year, this.form.region);
+                    }
+                } else {
+                    if (!this.form.group_id || this.form.group_id === '' || val === 'undefined' || !this.form.region || this.form.region === '') {
+                        if (!this.form.group_id) {
+                            this.errorgroup = this.$t('normal.error_08') + this.$t('label.PFANS1039FORMVIEW_GROUP');
+                        }
+                        if (!this.form.region) {
+                            this.errormonth = this.$t('normal.error_09') + this.$t('label.PFANS5009FORMVIEW_MONTH');
+                        }
+                    } else {
+                        this.errorgroup = '';
+                    }
+                }
+
+            },
+
+            // getGroupId(val) {
+            //   this.form.group_id = val;
+            //   this.getOrgInformation(val);
+            //   debugger;
+            //   // this.form.group_id = '807C39FFD200D8A9826FD14AF50B5D112468';
+            //   if (!this.form.group_id || this.form.group_id === '' || val === 'undefined') {
+            //     this.errorgroup = this.$t('normal.error_08') + this.$t('label.PFANS1039FORMVIEW_GROUP');
+            //   } else {
+            //     this.errorgroup = '';
+            //   }
+            //   if (this.form.year && this.form.region && this.form.group_id) {
+            //     this.getList(this.form.group_id, this.form.year, this.form.region);
+            //   } else {
+            //     // this.erroryear = this.$t('normal.error_08') + this.$t('label.PFANS1036FORMVIEW_BUSINESSYEAR');
+            //     // this.errormonth = this.$t('normal.error_09') + this.$t('label.PFANS5009FORMVIEW_MONTH');
+            //     if (!this.form.region) {
+            //       this.errormonth = this.$t('normal.error_09') + this.$t('label.PFANS5009FORMVIEW_MONTH');
+            //     }
+            //     if (!this.form.year) {
+            //       this.erroryear = this.$t('normal.error_08') + this.$t('label.PFANS1036FORMVIEW_BUSINESSYEAR');
+            //     }
+            //
+            //   }
+            //
+            //
+            // },
+            //
+            // getOrgInformation(id) {
+            //   let org = {};
+            //   let treeCom = this.$store.getters.orgs;
+            //
+            //   if (id && treeCom.getNode(id)) {
+            //     let node = id;
+            //     let type = treeCom.getNode(id).data.type || 0;
+            //     for (let index = parseInt(type); index >= 1; index--) {
+            //       if (parseInt(type) === index && ![1, 2].includes(parseInt(type))) {
+            //         org.teamname = treeCom.getNode(node).data.departmentname;
+            //
+            //
+            //         org.team_id = treeCom.getNode(node).data._id;
+            //       }
+            //       if (index === 2) {
+            //         org.groupname = treeCom.getNode(node).data.departmentname;
+            //         org.group_id = treeCom.getNode(node).data._id;
+            //       }
+            //       if (index === 1) {
+            //         org.centername = treeCom.getNode(node).data.companyname;
+            //         org.center_id = treeCom.getNode(node).data._id;
+            //       }
+            //       node = treeCom.getNode(node).parent.data._id;
+            //     }
+            //     ({
+            //       centername: this.form.centername,
+            //       groupname: this.form.groupname,
+            //       teamname: this.form.teamname,
+            //       center_id: this.form.center_id,
+            //       group_id: this.form.group_id,
+            //       team_id: this.form.team_id,
+            //     } = org);
+            //   }
+            // },
+            changeGroup(val) {
+
+                this.form.group_id = val;
+                if (this.form.group_id && this.form.year && this.form.region) {
+                    this.getList(this.form.group_id, this.form.year, this.form.region);
+                } else {
+                    if (!this.form.region || this.form.region === '' || !this.form.year || this.form.year === '') {
+                        if (!this.form.region) {
+                            this.errormonth = this.$t('normal.error_09') + this.$t('label.PFANS5009FORMVIEW_MONTH');
+                        }
+                        if (!this.form.year) {
+                            this.erroryear = this.$t('normal.error_08') + this.$t('label.PFANS1036FORMVIEW_BUSINESSYEAR');
+                        }
+                        this.errorgroup = '';
+                    } else {
+                        this.errorgroup = '';
+                    }
+                }
+
+            },
+            getById() {
+
+                this.loading = true;
+                let role = getCurrentRole();
+                const vote = [];
+                if (role === '3') {
+                    vote.push(
+                        {
+                            value: this.$store.getters.userinfo.userinfo.groupid,
+                            lable: this.$store.getters.userinfo.userinfo.groupname,
+                        },
+                    );
+                } else if (role === '2') {
+                    let centerId = this.$store.getters.userinfo.userinfo.centerid;
+                    let orgs = getDownOrgInfo(centerId);
+                    if (orgs) {
+                        for (let org of orgs) {
+                            vote.push(
+                                {
+                                    value: org._id,
+                                    lable: org.companyname,
+                                },
+                            );
+                        }
+                    }
+
+                } else if (role === '1') {
+                    let centerId = this.$store.getters.userinfo.userinfo.centerid;
+                    let orgs = getDownOrgInfo(centerId);
+                    if (orgs) {
+                        for (let center of orgs) {
+                            let centers = getDownOrgInfo(center._id);
+                            if (centers) {
+                                for (let group of centers) {
+                                    vote.push(
+                                        {
+                                            value: group._id,
+                                            lable: group.companyname,
+                                        },
+                                    );
+                                }
+                            }
+
+                        }
+                    }
+
+                }
+                this.optionsdata = vote;
+                //add_fjl 添加默认值
+                this.form.group_id = this.optionsdata[0].value;
+                this.form.year = moment(new Date()).format('YYYY');
+                this.form.region = moment(new Date()).format('MM');
+                this.getList(this.optionsdata[0].value, this.form.year, this.form.region);
+                //add_fjl
+                this.loading = false;
+            },
+            getList(groupid, year, month) {
+                this.loading = true;
+                this.$store
+                    .dispatch('PFANS1042Store/getPltab', {'groupid': groupid, 'year': year, 'month': month})
+                    .then(response => {
+                        let tabledate = [];
+                        let date1 = getDictionaryInfo('PJ086002').value2;
+                        let date2 = getDictionaryInfo('PJ086003').value2;
+                        let wai = getDictionaryInfo('PJ110001').value2;//0.4
+                        let nei = getDictionaryInfo('PJ110002').value2;//1
+                        let she = getDictionaryInfo('PJ110003').value2;//3
+                        let aaa = getDictionaryInfo('PP024001').value1;
+                        let sum = 0;
+                        let sumouthours = 0;
+                        let suminhours = 0;
+                        let sumoutsourcingpjhours = 0;
+                        let sums = 0;
+                        //计算工数
+                        let numFlg = 160;
+                        //add-ws-5/6-报销金额统计为sumpublic，外注的费用统计的金额累计为sumcoststa
+                        let sumpublic = response[0].unpublice + response[0].unevec;
+                        let sumcoststa = response[0].uncoststa;
+                        //add-ws-5/6-报销金额统计为sumpublic，外注的费用统计的金额累计为sumcoststa
+                        for (let i = 1; i < response.length; i++) {
+                            //add-ws-5/6-本社工数累加
+                            sum += Number(response[i].emhours);
+                            //add-ws-5/6-本社工数累加
+                            //add-ws-5/6-配赋费计算添加
+                            sumouthours += Number(response[i].outhours);
+                            suminhours += Number(response[i].inhours);
+                            //add-ws-5/6-配赋费计算添加
+                            //add-ws-5/6-外注工数累加
+                            sums = Number(sumouthours) + Number(suminhours)
+                            sumoutsourcingpjhours += sums;
+                            //add-ws-5/6-外注工数累加
+                        }
+                        for (let j = 1; j < response.length; j++) {
+                            //共通PJ（研修会议等）
+                            if (response[j].pj == null) {
+                                // response[j].pj1 = aaa
+                                response[j].pj = aaa;
+                            }
+                            //部門売上合計
+                            response[j].centerintotal = (Number(response[j].inst) + Number(response[j].tax) + Number(response[j].outst1)).toFixed(2);
+                            //外部受託-
+                            response[j].outst1 = (Number(response[j].outst1) + Number(response[j].outst2) + Number(response[j].outst3)).toFixed(2);
+                            //税金-
+                            response[j].tax = (((Number(response[j].outst2) / ((1 + date1) * date1))) + ((Number(response[j].outst3) / ((1 + date2) * date2)))).toFixed(2);
+                            //売上合計
+                            response[j].intotal = (Number(response[j].outst1) + Number(response[j].tax) + Number(response[j].inst)).toFixed(2);
+
+                            //外注（構外∔構内）PJ工数
+                            response[j].outsourcingpjhours = (Number(response[j].inhours) + Number(response[j].outhours)).toFixed(2);
+                            if (sum == 0) {
+                                response[j].peocost = 0;
+                                response[j].departmentcom = 0;
+                                response[j].allocation = 0;
+                            } else {
 //upd -ws-5/5-人件费修改
-                //人件费计算（給料）
-                response[j].peocost = (Number(response[j].emhours) / Number(sum)).toFixed(2);
+                                //人件费计算（給料）
+                                response[j].peocost = (Number(response[j].emhours) / Number(sum)).toFixed(2);
 //upd -ws-5/5-人件费修改
 //upd -ws-5/5-部門共通按分修改
-                //部門共通按分
-                response[j].departmentcom = (Number(response[j].emhours) / Number(sum) * Number(sumcoststa)).toFixed(2);
+                                //部門共通按分
+                                response[j].departmentcom = (Number(response[j].emhours) / Number(sum) * Number(sumcoststa)).toFixed(2);
 //upd -ws-5/5-部門共通按分修改
-                //配賦費用
-                response[j].allocation = ((Number(response[j].emhours) / Number(sum)) * ((Number(response[j].emhours) * she * 1000 + Number(response[j].outhours) * nei * 1000 + Number(response[j].outhours) * wai * 1000))).toFixed(2);
-              }
-              //人件費小計
-              response[j].peocostsum = (Number(response[j].peocost) + Number(response[j].twocost)).toFixed(2);
-              //upd -ws-5/5-外注费修改
-              //外注費计算
-              if (sumoutsourcingpjhours == 0) {
-                response[j].outcost = 0;
-              }else{
-                response[j].outcost = (Number(response[j].outsourcingpjhours) / Number(sumoutsourcingpjhours) * Number(sumpublic)).toFixed(2);
-              }
-              //upd -ws-5/5-外注费修改
-              //固定資産費用小計
-              response[j].costsubtotal = (Number(response[j].depreciationsoft) + Number(response[j].depreciationequipment) + Number(response[j].rent) +
-                Number(response[j].leasecost) + Number(response[j].temporaryrent) + Number(response[j].other)).toFixed(2);
-              //研究開発費・ソフト費用小計
-              // response[j].expensessubtotal = (Number(response[j].researchcost) + Number(response[j].surveyfee) + Number(response[j].inwetuo) +
-              //   Number(response[j].outcost) + Number(response[j].outcost)).toFixed(2);
+                                //配賦費用
+                                response[j].allocation = ((Number(response[j].emhours) / Number(sum)) * ((Number(response[j].emhours) * she * 1000 + Number(response[j].outhours) * nei * 1000 + Number(response[j].outhours) * wai * 1000))).toFixed(2);
+                            }
+                            //人件費小計
+                            response[j].peocostsum = (Number(response[j].peocost) + Number(response[j].twocost)).toFixed(2);
+                            //upd -ws-5/5-外注费修改
+                            //外注費计算
+                            if (sumoutsourcingpjhours == 0) {
+                                response[j].outcost = 0;
+                            } else {
+                                response[j].outcost = (Number(response[j].outsourcingpjhours) / Number(sumoutsourcingpjhours) * Number(sumpublic)).toFixed(2);
+                            }
+                            //upd -ws-5/5-外注费修改
+                            //固定資産費用小計
+                            response[j].costsubtotal = (Number(response[j].depreciationsoft) + Number(response[j].depreciationequipment) + Number(response[j].rent) +
+                                Number(response[j].leasecost) + Number(response[j].temporaryrent) + Number(response[j].other)).toFixed(2);
+                            //研究開発費・ソフト費用小計
+                            // response[j].expensessubtotal = (Number(response[j].researchcost) + Number(response[j].surveyfee) + Number(response[j].inwetuo) +
+                            //   Number(response[j].outcost) + Number(response[j].outcost)).toFixed(2);
 
-              // 部門共通費用合計
-              response[j].departmenttotal = (Number(response[j].yuanqincost) + Number(response[j].travalcost) + Number(response[j].concost) + Number(response[j].callcost) + Number(response[j].brandcost) + Number(response[j].rent) + Number(response[j].other)).toFixed(2);
+                            // 部門共通費用合計
+                            response[j].departmenttotal = (Number(response[j].yuanqincost) + Number(response[j].travalcost) + Number(response[j].concost) + Number(response[j].callcost) + Number(response[j].brandcost) + Number(response[j].rent) + Number(response[j].other)).toFixed(2);
 
-              //支出合計
-              response[j].costtotal = (Number(response[j].peocost) + Number(response[j].outcost) + Number(response[j].inwetuo) + Number(response[j].researchcost) + Number(response[j].departmentcom)
-                + Number(response[j].yuanqincost) + Number(response[j].travalcost) + Number(response[j].concost) + Number(response[j].callcost) + Number(response[j].brandcost)
-                + Number(response[j].rent) + Number(response[j].other) + Number(response[j].concost) + Number(response[j].departmenttotal) + Number(response[j].allocation)).toFixed(2);
+                            //支出合計
+                            response[j].costtotal = (Number(response[j].peocost) + Number(response[j].outcost) + Number(response[j].inwetuo) + Number(response[j].researchcost) + Number(response[j].departmentcom)
+                                + Number(response[j].yuanqincost) + Number(response[j].travalcost) + Number(response[j].concost) + Number(response[j].callcost) + Number(response[j].brandcost)
+                                + Number(response[j].rent) + Number(response[j].other) + Number(response[j].concost) + Number(response[j].departmenttotal) + Number(response[j].allocation)).toFixed(2);
 
-              //その他諸経費小計
-              response[j].otherexpentotal = (Number(response[j].yuanqincost) + Number(response[j].travalcost)
-                + Number(response[j].callcost) + Number(response[j].callcost) + Number(response[j].threefree) + Number(response[j].threefree) + Number(response[j].brandcost)
-                + Number(response[j].otherexpenses) + Number(response[j].otherincome) + Number(response[j].process)).toFixed(2);
+                            //その他諸経費小計
+                            response[j].otherexpentotal = (Number(response[j].yuanqincost) + Number(response[j].travalcost)
+                                + Number(response[j].callcost) + Number(response[j].callcost) + Number(response[j].threefree) + Number(response[j].threefree) + Number(response[j].brandcost)
+                                + Number(response[j].otherexpenses) + Number(response[j].otherincome) + Number(response[j].process)).toFixed(2);
 
-              //営業利益
-              response[j].Operating = Number(response[j].intotal) - Number(response[j].costtotal);
-              //税引後利益
-              response[j].posttaxbenefit = Number(response[j].Operating) - Number(response[j].taxallowance);
+                            //営業利益
+                            response[j].Operating = Number(response[j].intotal) - Number(response[j].costtotal);
+                            //税引後利益
+                            response[j].posttaxbenefit = Number(response[j].Operating) - Number(response[j].taxallowance);
 
-              //限界利益
-              // response[j].marginal = (Number(response[j].inst) + Number(response[j].outst1) - Number(response[j].peocost) - Number(response[j].outcost) - Number(response[j].researchcost)).toFixed(2);
+                            //限界利益
+                            // response[j].marginal = (Number(response[j].inst) + Number(response[j].outst1) - Number(response[j].peocost) - Number(response[j].outcost) - Number(response[j].researchcost)).toFixed(2);
 
-              //営業利益 = 限界利益 - 所有和项目有关的费用
-              // response[j].Operating = (Number(response[j].marginal) - Number(response[j].costtotal)).toFixed(2);
-              //add-ws-5/6-配赋费计算添加W
-              //構外外注配赋费
-              let outsour = getDictionaryInfo('CW001003').value2;
-              let outsourcinghours = response[j].outsourcinghours * outsour;
-              //構内外注配赋费
-              let outsourcing = getDictionaryInfo('CW001002').value2;
-              let outsourcingname = response[j].outsourcingname * outsourcing;
-              //社员配赋费
-              let employee = getDictionaryInfo('CW001001').value2;
-              let employeename = response[j].employeename * employee;
-              //構外工数百分比*構外外注配赋费
-              let sumoutsourcinghours = 0;
-              if (sumouthours == 0) {
-                sumoutsourcinghours = 0;
-              } else {
-                sumoutsourcinghours = (Number(response[j].outhours) / Number(sumouthours)).toFixed(2);
-              }
-              //構内工数百分比*構内外注配赋费
-              let sumoutsourcingname = 0;
-              if (suminhours == 0) {
-                sumoutsourcingname = 0;
-              } else {
-                sumoutsourcingname = (Number(response[j].outhours) / Number(suminhours)).toFixed(2);
-              }
-              //设员工数百分比*社员配赋费
-              let sumemployeename = 0;
-              if (sum == 0) {
-                sumemployeename = 0;
-              } else {
-                sumemployeename = (Number(response[j].emhours) / Number(sum)).toFixed(2);
-              }
-              //合计
-              response[j].expensessubtotal = (Number(sumoutsourcinghours) + Number(sumoutsourcingname) + Number(sumemployeename)).toFixed(2);
-              //add-ws-5/6-配赋费计算添加
-              //配賦部門費小計
-              response[j].allocationsum = (Number(response[j].expensessubtotal) + Number(response[j].transferone) + Number(response[j].transfertwo)).toFixed(2);
-              //仕掛品
-              // response[j].process = (Number(response[j].costtotal) - Number(response[j].intotal)).toFixed(2);
-              response[j].process = ('-' + response[j].peocostsum - response[j].costsubtotal - response[j].expensessubtotal - Number(response[j].yuanqincost) - Number(response[j].travalcost)
-                - Number(response[j].callcost) - Number(response[j].callcost) - Number(response[j].threefree) - Number(response[j].threefree) - Number(response[j].brandcost)
-                - Number(response[j].otherexpenses) + Number(response[j].intotal) * 0.75).toFixed(2);
+                            //営業利益 = 限界利益 - 所有和项目有关的费用
+                            // response[j].Operating = (Number(response[j].marginal) - Number(response[j].costtotal)).toFixed(2);
+                            //add-ws-5/6-配赋费计算添加W
+                            //構外外注配赋费
+                            let outsour = getDictionaryInfo('CW001003').value2;
+                            let outsourcinghours = response[j].outsourcinghours * outsour;
+                            //構内外注配赋费
+                            let outsourcing = getDictionaryInfo('CW001002').value2;
+                            let outsourcingname = response[j].outsourcingname * outsourcing;
+                            //社员配赋费
+                            let employee = getDictionaryInfo('CW001001').value2;
+                            let employeename = response[j].employeename * employee;
+                            //構外工数百分比*構外外注配赋费
+                            let sumoutsourcinghours = 0;
+                            if (sumouthours == 0) {
+                                sumoutsourcinghours = 0;
+                            } else {
+                                sumoutsourcinghours = (Number(response[j].outhours) / Number(sumouthours)).toFixed(2);
+                            }
+                            //構内工数百分比*構内外注配赋费
+                            let sumoutsourcingname = 0;
+                            if (suminhours == 0) {
+                                sumoutsourcingname = 0;
+                            } else {
+                                sumoutsourcingname = (Number(response[j].outhours) / Number(suminhours)).toFixed(2);
+                            }
+                            //设员工数百分比*社员配赋费
+                            let sumemployeename = 0;
+                            if (sum == 0) {
+                                sumemployeename = 0;
+                            } else {
+                                sumemployeename = (Number(response[j].emhours) / Number(sum)).toFixed(2);
+                            }
+                            //合计
+                            response[j].expensessubtotal = (Number(sumoutsourcinghours) + Number(sumoutsourcingname) + Number(sumemployeename)).toFixed(2);
+                            //add-ws-5/6-配赋费计算添加
+                            //配賦部門費小計
+                            response[j].allocationsum = (Number(response[j].expensessubtotal) + Number(response[j].transferone) + Number(response[j].transfertwo)).toFixed(2);
+                            //仕掛品
+                            response[j].process = (Number('-' + response[j].centerintotal) + Number(response[j].inwetuo)).toFixed(2);
+                            // response[j].process = ('-' + response[j].peocostsum - response[j].costsubtotal - response[j].expensessubtotal - Number(response[j].yuanqincost) - Number(response[j].travalcost)
+                            //   - Number(response[j].callcost) - Number(response[j].callcost) - Number(response[j].threefree) - Number(response[j].threefree) - Number(response[j].brandcost)
+                            //   - Number(response[j].otherexpenses) + Number(response[j].intotal) * 0.75).toFixed(2);
 
-              // 合計
-              response[j].costtotal = Number(response[j].peocostsum) + Number(response[j].costsubtotal) + Number(response[j].expensessubtotal) + Number(response[j].allocationsum) + Number(response[j].otherexpentotal);
+                            // 合計
+                            response[j].costtotal = Number(response[j].peocostsum) + Number(response[j].costsubtotal) + Number(response[j].expensessubtotal) + Number(response[j].allocationsum) + Number(response[j].otherexpentotal);
+// add_fjl
+                            //社員PJ工数
+                            response[j].emhours = (Number(response[j].emhours) / Number(numFlg)).toFixed(2)
 
-              tabledate.push({
-                pj1: response[j].pj1,
-                pj: response[j].pj,
-                outst1: response[j].outst1,
-                outst2: response[j].outst2,
-                outst3: response[j].outst3,
-                tax: response[j].tax,
-                inst: response[j].inst,
-                intotal: response[j].intotal,
-                centerintotal: response[j].centerintotal,
-                emhours: response[j].emhours,
-                outhours: response[j].outhours,
-                peocost: response[j].peocost,
-                outcost: response[j].outcost,
-                inwetuo: response[j].inwetuo,
-                researchcost: response[j].researchcost,
-                departmentcom: response[j].departmentcom,
-                yuanqincost: response[j].yuanqincost,
-                travalcost: response[j].travalcost,
-                concost: response[j].concost,
-                callcost: response[j].callcost,
-                brandcost: response[j].brandcost,
-                rent: response[j].rent,
-                other: response[j].other,
-                departmenttotal: response[j].departmenttotal,
-                allocation: response[j].allocation,
-                costtotal: response[j].costtotal,
-                process: response[j].process,
-                marginal: response[j].marginal,
-                Operating: response[j].Operating,
-                twocost: response[j].twocost,
-                peocostsum: response[j].peocostsum,
-                depreciationsoft: response[j].depreciationsoft,
-                depreciationequipment: response[j].depreciationequipment,
-                leasecost: response[j].leasecost,
-                temporaryrent: response[j].temporaryrent,
-                costsubtotal: response[j].costsubtotal,
-                surveyfee: response[j].surveyfee,
-                othersoftwarefree: response[j].othersoftwarefree,
-                expensessubtotal: response[j].expensessubtotal,
-                transferone: response[j].transferone,
-                transfertwo: response[j].transfertwo,
-                allocationsum: response[j].allocationsum,
-                threefree: response[j].threefree,
-                commonfee: response[j].commonfee,
-                otherexpenses: response[j].otherexpenses,
-                otherincome: response[j].otherincome,
-                otherexpentotal: response[j].otherexpentotal,
-                interestrate: response[j].interestrate,
-                operatingprofit: response[j].operatingprofit,
-                pretaxprofit: response[j].pretaxprofit,
-                taxallowance: response[j].taxallowance,
-                posttaxbenefit: response[j].posttaxbenefit,
-                operatingmargin: response[j].operatingmargin,
-                outsourcinghours: response[j].outsourcinghours,
-                outsourcingname: response[j].outsourcingname,
-                employeename: response[j].employeename,
-                outsourcingpjhours: response[j].outsourcingpjhours,
-                employeepjhours: response[j].employeepjhours,
-                employeeuptime: response[j].employeeuptime,
-                externalpjrate: response[j].externalpjrate,
-                externalinjectionrate: response[j].externalinjectionrate,
-                memberpjrate: response[j].memberpjrate,
-                membershiprate: response[j].membershiprate,
-                pjrateemployees: response[j].pjrateemployees,
-                staffingrate: response[j].staffingrate,
-              });
-            }
+                            //外注（構外∔構内）稼働工数
+                            response[j].outsourcing = ((Number(response[j].outsourcingpjhours) + Number(response[0].unworktimeei) + Number(response[0].unworktimeex)) / Number(numFlg)).toFixed(2);
 
-            this.tableData = tabledate;
-            this.loading = false;
-          })
-          .catch(error => {
-            Message({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            this.loading = false;
-          });
-      },
-      changeTaxallowance(val, row) {
-        row.taxallowance = val;
-        row.posttaxbenefit = row.pretaxprofit - row.taxallowance;
-      },
+                            //社員稼働工数
+                            response[j].employeeuptime = ((Number(response[j].emhours) + Number(response[0].unworktime)) / Number(numFlg)).toFixed(2);
 
-      handleSelectionChange(val) {
-        this.multipleSelection = val;
-      },
-      buttonClick(val) {
-        // if (val === 'save') {
-        //   this.loading = true;
-        //   this.$store
-        //     .dispatch('PFANS6006Store/updateDeleginformation', this.multipleSelection)
-        //     .then(response => {
-        //       this.data = response;
-        //       this.getList(this.year);
-        //       Message({
-        //         message: this.$t("normal.success_02"),
-        //         type: "success",
-        //         duration: 5 * 1000
-        //       });
-        //       this.$router.push({
-        //         name: 'PFANS6006View',
-        //       });
-        //       this.loading = false;
-        //     })
-        //     .catch(error => {
-        //       Message({
-        //         message: error,
-        //         type: 'error',
-        //         duration: 5 * 1000,
-        //       });
-        //       this.loading = false;
-        //     });
-        // }
-      },
+                            //外注PJ稼働率
+                            if (Number(response[j].outsourcinghours) + Number(response[j].outsourcingname) > 0) {
+                                response[j].externalpjrate = (Number(response[j].outsourcingpjhours) / (Number(response[j].outsourcinghours) + Number(response[j].outsourcingname))).toFixed(2);
+                            } else {
+                                response[j].externalpjrate = 0
+                            }
+
+                            //外注稼働率
+                            if (Number(response[j].outsourcinghours) + Number(response[j].outsourcingname) > 0) {
+                                response[j].externalinjectionrate = (Number(response[j].outsourcing) / (Number(response[j].outsourcinghours) + Number(response[j].outsourcingname))).toFixed(2);
+                            } else {
+                                response[j].externalinjectionrate = 0
+                            }
+
+                            //社員PJ稼働率
+                            if (Number(response[j].employeename) > 0) {
+                                response[j].memberpjrate = (Number(response[j].emhours) / Number(response[j].employeename)).toFixed(2);
+                            } else {
+                                response[j].memberpjrate = 0
+                            }
+
+                            //社員稼働率
+                            if (Number(response[j].employeename) > 0) {
+                                response[j].membershiprate = (Number(response[j].employeeuptime) / Number(response[j].employeename)).toFixed(2);
+                            } else {
+                                response[j].membershiprate = 0
+                            }
+
+                            //全員PJ稼働率
+                            if (Number(response[j].outsourcinghours) + Number(response[j].outsourcingname) + Number(response[j].employeename) > 0) {
+                                response[j].pjrateemployees = ((Number(response[j].outsourcingpjhours) + Number(response[j].emhours)) / ((Number(response[j].outsourcinghours) + Number(response[j].outsourcingname) + Number(response[j].employeename)))).toFixed(2);
+                            } else {
+                                response[j].pjrateemployees = 0
+                            }
+
+                            //全員稼働率
+                            if (Number(response[j].outsourcinghours) + Number(response[j].outsourcingname) + Number(response[j].employeename) > 0) {
+                                response[j].staffingrate = ((Number(response[j].outsourcing) + Number(response[j].employeeuptime)) / ((Number(response[j].outsourcinghours) + Number(response[j].outsourcingname) + Number(response[j].employeename)))).toFixed(2);
+                            } else {
+                                response[j].staffingrate = 0
+                            }
+                            // add_fjl
+                            tabledate.push({
+                                pj1: response[j].pj1,
+                                pj: response[j].pj,
+                                outst1: response[j].outst1,
+                                outst2: response[j].outst2,
+                                outst3: response[j].outst3,
+                                tax: response[j].tax,
+                                inst: response[j].inst,
+                                intotal: response[j].intotal,
+                                centerintotal: response[j].centerintotal,
+                                emhours: response[j].emhours,
+                                outhours: response[j].outhours,
+                                peocost: response[j].peocost,
+                                outcost: response[j].outcost,
+                                inwetuo: response[j].inwetuo,
+                                researchcost: response[j].researchcost,
+                                departmentcom: response[j].departmentcom,
+                                yuanqincost: response[j].yuanqincost,
+                                travalcost: response[j].travalcost,
+                                concost: response[j].concost,
+                                callcost: response[j].callcost,
+                                brandcost: response[j].brandcost,
+                                rent: response[j].rent,
+                                other: response[j].other,
+                                departmenttotal: response[j].departmenttotal,
+                                allocation: response[j].allocation,
+                                costtotal: response[j].costtotal,
+                                process: response[j].process,
+                                marginal: response[j].marginal,
+                                Operating: response[j].Operating,
+                                twocost: response[j].twocost,
+                                peocostsum: response[j].peocostsum,
+                                depreciationsoft: response[j].depreciationsoft,
+                                depreciationequipment: response[j].depreciationequipment,
+                                leasecost: response[j].leasecost,
+                                temporaryrent: response[j].temporaryrent,
+                                costsubtotal: response[j].costsubtotal,
+                                surveyfee: response[j].surveyfee,
+                                othersoftwarefree: response[j].othersoftwarefree,
+                                expensessubtotal: response[j].expensessubtotal,
+                                transferone: response[j].transferone,
+                                transfertwo: response[j].transfertwo,
+                                allocationsum: response[j].allocationsum,
+                                threefree: response[j].threefree,
+                                commonfee: response[j].commonfee,
+                                otherexpenses: response[j].otherexpenses,
+                                otherincome: response[j].otherincome,
+                                otherexpentotal: response[j].otherexpentotal,
+                                interestrate: response[j].interestrate,
+                                operatingprofit: response[j].operatingprofit,
+                                pretaxprofit: response[j].pretaxprofit,
+                                taxallowance: response[j].taxallowance,
+                                posttaxbenefit: response[j].posttaxbenefit,
+                                operatingmargin: response[j].operatingmargin,
+                                outsourcinghours: response[j].outsourcinghours,
+                                outsourcingname: response[j].outsourcingname,
+                                employeename: response[j].employeename,
+                                outsourcingpjhours: response[j].outsourcingpjhours,
+                                employeepjhours: response[j].employeepjhours,
+                                employeeuptime: response[j].employeeuptime,
+                                externalpjrate: response[j].externalpjrate,
+                                externalinjectionrate: response[j].externalinjectionrate,
+                                memberpjrate: response[j].memberpjrate,
+                                membershiprate: response[j].membershiprate,
+                                pjrateemployees: response[j].pjrateemployees,
+                                staffingrate: response[j].staffingrate,
+                            });
+                        }
+
+                        this.tableData = tabledate;
+                        this.loading = false;
+                    })
+                    .catch(error => {
+                        Message({
+                            message: error,
+                            type: 'error',
+                            duration: 5 * 1000,
+                        });
+                        this.loading = false;
+                    });
+            },
+            changeTaxallowance(val, row) {
+                row.taxallowance = val;
+                row.posttaxbenefit = row.pretaxprofit - row.taxallowance;
+            },
+
+            handleSelectionChange(val) {
+                this.multipleSelection = val;
+            },
+            buttonClick(val) {
+                // if (val === 'save') {
+                //   this.loading = true;
+                //   this.$store
+                //     .dispatch('PFANS6006Store/updateDeleginformation', this.multipleSelection)
+                //     .then(response => {
+                //       this.data = response;
+                //       this.getList(this.year);
+                //       Message({
+                //         message: this.$t("normal.success_02"),
+                //         type: "success",
+                //         duration: 5 * 1000
+                //       });
+                //       this.$router.push({
+                //         name: 'PFANS6006View',
+                //       });
+                //       this.loading = false;
+                //     })
+                //     .catch(error => {
+                //       Message({
+                //         message: error,
+                //         type: 'error',
+                //         duration: 5 * 1000,
+                //       });
+                //       this.loading = false;
+                //     });
+                // }
+            },
 
 
-    },
+        },
 
-  };
+    };
 </script>
 
 <style scoped>
