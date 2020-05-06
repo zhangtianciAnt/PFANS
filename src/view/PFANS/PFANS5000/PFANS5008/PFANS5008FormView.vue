@@ -422,7 +422,6 @@
         this.$store
           .dispatch('PFANS5008Store/getDataOne', {'logmanagement_id': this.$route.params._id})
           .then(response => {
-            debugger
             this.data = response;
             this.checktimelength = response.time_start;
             if (response.confirmstatus == '1') {
@@ -692,7 +691,6 @@
         this.$store
           .dispatch('PFANS2010Store/getAttendancelist', parameter)
           .then(response => {
-            debugger
             //add-ws-当前人的登陆id在设内表中未查到的时候，去社外表查询用社外的数据否则就用社内的数据
             if (response.length === 0) {
               this.$store
