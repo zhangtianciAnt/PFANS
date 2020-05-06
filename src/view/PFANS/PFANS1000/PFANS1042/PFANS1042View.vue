@@ -1102,6 +1102,10 @@
             let suminhours = 0;
             let sumoutsourcingpjhours = 0;
             let sums = 0;
+            //add-ws-5/6-报销金额统计为sumpublic，外注的费用统计的金额累计为sumcoststa
+            let sumpublic =response[0].unpublice + response[0].unevec ;
+            let sumcoststa = response[0].uncoststa;
+            //add-ws-5/6-报销金额统计为sumpublic，外注的费用统计的金额累计为sumcoststa
             for (let i = 1; i < response.length; i++) {
               //add-ws-5/6-本社工数累加
               sum += Number(response[i].emhours);
@@ -1139,11 +1143,12 @@
               } else {
 //upd -ws-5/5-人件费修改
                 //人件费计算（給料）
-                response[j].peocost = Number(response[j].emhours) / Number(sum);
+                response[j].peocost = (Number(response[j].emhours) / Number(sum)).toFixed(2);
 //upd -ws-5/5-人件费修改
+//upd -ws-5/5-部門共通按分修改
                 //部門共通按分
-                response[j].departmentcom = (Number(response[j].emhours) / Number(sum) * Number(response[j].departmenttotal)).toFixed(2);
-
+                response[j].departmentcom = (Number(response[j].emhours) / Number(sum) * Number(sumcoststa)).toFixed(2);
+//upd -ws-5/5-部門共通按分修改
                 //配賦費用
                 response[j].allocation = ((Number(response[j].emhours) / Number(sum)) * ((Number(response[j].emhours) * she * 1000 + Number(response[j].outhours) * nei * 1000 + Number(response[j].outhours) * wai * 1000))).toFixed(2);
               }
@@ -1154,7 +1159,7 @@
               if (sumoutsourcingpjhours == 0) {
                 response[j].outcost = 0;
               }else{
-                response[j].outcost = (Number(response[j].outsourcingpjhours) / Number(sumoutsourcingpjhours) * Number(response[j].outcost)).toFixed(2);
+                response[j].outcost = (Number(response[j].outsourcingpjhours) / Number(sumoutsourcingpjhours) * Number(sumpublic)).toFixed(2);
               }
               //upd -ws-5/5-外注费修改
               //固定資産費用小計
@@ -1202,24 +1207,24 @@
               if (sumouthours == 0) {
                 sumoutsourcinghours = 0;
               } else {
-                sumoutsourcinghours = Number(response[j].outhours) / Number(sumouthours);
+                sumoutsourcinghours = (Number(response[j].outhours) / Number(sumouthours)).toFixed(2);
               }
               //構内工数百分比*構内外注配赋费
               let sumoutsourcingname = 0;
               if (suminhours == 0) {
                 sumoutsourcingname = 0;
               } else {
-                sumoutsourcingname = Number(response[j].outhours) / Number(suminhours);
+                sumoutsourcingname = (Number(response[j].outhours) / Number(suminhours)).toFixed(2);
               }
               //设员工数百分比*社员配赋费
               let sumemployeename = 0;
               if (sum == 0) {
                 sumemployeename = 0;
               } else {
-                sumemployeename = Number(response[j].emhours) / Number(sum);
+                sumemployeename = (Number(response[j].emhours) / Number(sum)).toFixed(2);
               }
               //合计
-              response[j].expensessubtotal = Number(sumoutsourcinghours) + Number(sumoutsourcingname) + Number(sumemployeename);
+              response[j].expensessubtotal = (Number(sumoutsourcinghours) + Number(sumoutsourcingname) + Number(sumemployeename)).toFixed(2);
               //add-ws-5/6-配赋费计算添加
               //配賦部門費小計
               response[j].allocationsum = (Number(response[j].expensessubtotal) + Number(response[j].transferone) + Number(response[j].transfertwo)).toFixed(2);
