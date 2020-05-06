@@ -1,5 +1,6 @@
 import request from '../../../../utils/request'
 import requestDownload from '../../../../utils/requestDownload'
+import requestPdf from "../../../../utils/requestPdf";
 
 export function get() {
   return request({
@@ -23,7 +24,7 @@ export function update(data) {
 }
 
 export function downLoad(data) {
-  return requestDownload({
+  return requestPdf({
     url: 'petition/downLoad1',
     method: 'post',
     data: data,

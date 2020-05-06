@@ -1,5 +1,6 @@
 import request from '../../../../utils/request'
 import requestDownload from '../../../../utils/requestDownload';
+import requestPdf from "../../../../utils/requestPdf";
 
 export function get(data) {
   return request({
@@ -26,7 +27,7 @@ export function update(data) {
 }
 
 export function generateJxls(data) {
-  return requestDownload({
+  return requestPdf({
     url: 'contract/generateJxls',
     method: 'post',
     data: data,
