@@ -377,42 +377,47 @@ export function downLoadUrl(url) {
 }
 
 export function getCurrentRole() {
-
+  let roles = "";
   if(store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0){
     for(let role of store.getters.useraccount.roles){
-      if(role.description.indexOf("总经理")!= -1){
-        return "1";
-      }else if(role.description.toUpperCase().indexOf("CENTER")!= -1){
-        return "2";
-      }else if(role.description.toUpperCase().indexOf("GM")!= -1){
-        return "3";
-      }else if(role.description.toUpperCase().indexOf("TL")!= -1){
-        return "4";
-      }
+      roles = roles + role.description;
+    }
+
+    if(roles.indexOf("总经理")!= -1){
+      return "1";
+    }else if(roles.toUpperCase().indexOf("CENTER")!= -1){
+      return "2";
+    }else if(roles.toUpperCase().indexOf("GM")!= -1){
+      return "3";
+    }else if(roles.toUpperCase().indexOf("TL")!= -1){
+      return "4";
     }
   }
   return "5";
 }
 
 export function getCurrentRole2() {
-
+  let roles = "";
   if(store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0){
     for(let role of store.getters.useraccount.roles){
-      if(role.description.indexOf("总务担当")!= -1){
-        return "0";
-      }
+      roles = roles + role.description;
+    }
+
+    if(roles.toUpperCase().indexOf("总务担当")!= -1){
+      return "0";
     }
   }
   return "1";
 }
 
 export function getCurrentRoleCar() {
-
+  let roles = "";
   if(store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0){
     for(let role of store.getters.useraccount.roles){
-      if(role.description.indexOf("司机")!= -1){
-        return "0";
-      }
+      roles = roles + role.description;
+    }
+    if(roles.toUpperCase().indexOf("司机")!= -1){
+      return "0";
     }
   }
   return "1";
