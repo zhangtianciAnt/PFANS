@@ -37,9 +37,9 @@
                 <el-row>
                   <div v-show="isShow">
                     <el-col :span="12">
-                      <el-form-item :label="$t('label.PFANS5004VIEW_PROJECTNAMW')">
+                      <el-form-item :label="$t('label.PFANS5004VIEW_PROJECTNAMW')" prop="project_id">
                         <el-select v-model="companyform.project_id" :disabled="!disable" style="width: 16vw" clearable
-                                   @change="getProject">
+                                   @change="getProject" >
                           <el-option
                             v-for="item in optionsdata"
                             :key="item.value"
@@ -234,7 +234,12 @@
             required: true,
             message: this.$t('normal.error_08') + this.$t('label.PFANS5008VIEW_RIQI'),
             trigger: 'blur',
-          },
+          }],
+          project_id: [{
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.PFANS5004VIEW_PROJECTNAMW'),
+            trigger: 'change',
+          }
           ],
         },
       };
