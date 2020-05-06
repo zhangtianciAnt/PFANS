@@ -293,7 +293,7 @@
               <el-form-item :label="$t('label.PFANS3005VIEW_STORAGEDATE')">
                 <el-date-picker
                   startDate
-                  :disabled="!disable"
+                  :disabled="acceptShow1"
                   style="width:20vw"
                   type="date"
                   v-model="form.storagedate">
@@ -304,7 +304,7 @@
               <el-form-item :label="$t('label.PFANS3005VIEW_COLLECTIONDAY')">
                 <el-date-picker
                   startDate
-                  :disabled="!disable"
+                  :disabled="acceptShow1"
                   style="width:20vw"
                   type="date"
                   v-model="form.collectionday">
@@ -314,7 +314,7 @@
             <el-col :span="8">
               <el-form-item :errorrecipients="errorrecipients" :label="$t('label.PFANS3005VIEW_RECIPIENTS')"
                             prop="recipients">
-                <user :disabled="!disable" :errorrecipients="errorrecipients" :selectType="selectType"
+                <user :disabled="acceptShow1" :errorrecipients="errorrecipients" :selectType="selectType"
                       :userlist="recipientslist"
                       style="width:20vw" v-model="form.recipients"
                       @getUserids="getRecipientslist"></user>
@@ -326,7 +326,7 @@
               <el-form-item :label="$t('label.PFANS3005VIEW_ACTUARIALDATE')">
                 <el-date-picker
                   startDate
-                  :disabled="!disable"
+                  :disabled="acceptShow1"
                   style="width:20vw"
                   type="date"
                   v-model="form.actuarialdate">
@@ -337,7 +337,7 @@
               <el-form-item :label="$t('label.PFANS3005VIEW_ACTUARIALAMOUNT')">
                 <el-input-number v-model="form.actuarialamount"
                                  controls-position="right"
-                                 :disabled="!disable"
+                                 :disabled="acceptShow1"
                                  :min="0"
                                  :max="1000000000"
                                  :precision="2"
@@ -465,6 +465,7 @@
           },
         ],
         acceptShow: true,
+        acceptShow1: true,
         code1: 'PR002',
         code2: 'PR003',
         code3: 'PJ005',
@@ -576,6 +577,12 @@
       };
     },
     mounted() {
+      let role = getCurrentRole2();
+      if (role === '0') {
+        this.acceptShow1 = false;
+      } else {
+        this.acceptShow1 = true;
+      }
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
