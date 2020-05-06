@@ -1134,23 +1134,21 @@
               response[j].outsourcingpjhours = (Number(response[j].inhours) + Number(response[j].outhours)).toFixed(2);
               if (sum == 0) {
                 response[j].peocost = 0;
-                response[j].outcost = 0;
                 response[j].departmentcom = 0;
                 response[j].allocation = 0;
-                response[j].peocostsum = 0;
               } else {
 //upd -ws-5/5-人件费修改
                 //人件费计算（給料）
                 response[j].peocost = Number(response[j].emhours) / Number(sum);
 //upd -ws-5/5-人件费修改
-                //人件費小計
-                response[j].peocostsum = (Number(response[j].peocost) + Number(response[j].twocost)).toFixed(2);
                 //部門共通按分
                 response[j].departmentcom = (Number(response[j].emhours) / Number(sum) * Number(response[j].departmenttotal)).toFixed(2);
 
                 //配賦費用
                 response[j].allocation = ((Number(response[j].emhours) / Number(sum)) * ((Number(response[j].emhours) * she * 1000 + Number(response[j].outhours) * nei * 1000 + Number(response[j].outhours) * wai * 1000))).toFixed(2);
               }
+              //人件費小計
+              response[j].peocostsum = (Number(response[j].peocost) + Number(response[j].twocost)).toFixed(2);
               //upd -ws-5/5-外注费修改
               //外注費计算
               if (sumoutsourcingpjhours == 0) {
