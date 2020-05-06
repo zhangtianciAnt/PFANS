@@ -245,7 +245,7 @@
                   <!--</el-form-item>-->
                   <!--</el-col>-->
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1004VIEW_CAREERPLAN')" :error="errorplan" prop="plan">
+                    <el-form-item :label="$t('label.PFANS1004VIEW_CAREERPLAN')" prop="plan">
                       <span>{{$t('label.PFANS1004VIEW_INSIDE')}}</span>
                       <el-switch
                         :disabled="!disable"
@@ -794,15 +794,15 @@
           return callback();
         }
       };
-      var checkplan = (rule, value, callback) => {
-        if (!this.form.plan || this.form.plan === '' || this.form.plan === 'undefined') {
-          this.errorplan = this.$t('normal.error_09') + this.$t('label.PFANS1004VIEW_CAREERPLAN');
-          return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1004VIEW_CAREERPLAN')));
-        } else {
-          this.errorplan = '';
-          return callback();
-        }
-      };
+      // var checkplan = (rule, value, callback) => {
+      //   if (!this.form.plan || this.form.plan === '' || this.form.plan === 'undefined') {
+      //     this.errorplan = this.$t('normal.error_09') + this.$t('label.PFANS1004VIEW_CAREERPLAN');
+      //     return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1004VIEW_CAREERPLAN')));
+      //   } else {
+      //     this.errorplan = '';
+      //     return callback();
+      //   }
+      // };
       var checkvaluation = (rule, value, callback) => {
         if (!this.form.valuation || this.form.valuation === '' || this.form.valuation === 'undefined') {
           this.errorvaluation = this.$t('normal.error_09') + this.$t('label.PFANS1025VIEW_VALUATION');
@@ -1107,11 +1107,11 @@
             validator: checkclaimamount,
             trigger: 'change',
           }],
-          plan: [{
-            required: true,
-            validator: checkplan,
-            trigger: 'blur',
-          }],
+          // plan: [{
+          //   required: true,
+          //   validator: checkplan,
+          //   trigger: 'blur',
+          // }],
           valuation: [{
             required: true,
             validator: checkvaluation,
@@ -1160,10 +1160,10 @@
               response.award.exchangerate = 1;
             }
             //add-ws-汇率修改
-            let letCurrencyposition = getDictionaryInfo(response.award.currencyposition);
-            if (letCurrencyposition != null) {
-              response.award.currencyposition = letCurrencyposition.value1;
-            }
+            // let letCurrencyposition = getDictionaryInfo(response.award.currencyposition);
+            // if (letCurrencyposition != null) {
+            //   response.award.currencyposition = letCurrencyposition.value1;
+            // }
             if (this.$store.getters.userinfo.userid) {
               this.form.telephone = getUserInfo(this.$store.getters.userinfo.userid).userinfo.extension;
             }
@@ -1698,7 +1698,7 @@
           });
         }
         this.baseInfo.groupN = this.$store.getters.orgGroupList;
-        if (val === 'save') {
+        if (val === 'save' || val === 'StartWorkflow') {
           this.$refs['reff'].validate(valid => {
             if (valid) {
               this.loading = true;
