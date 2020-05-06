@@ -52,8 +52,8 @@
                     <el-col :span="12">
                       <el-form-item :label="$t('label.PFANS5008VIEW_PROGRAMNAME')" style="width:17vw"
                                     prop="project_name">
+                        {{companyform.project_name}}
                       </el-form-item>
-                      {{companyform.project_name}}
                     </el-col>
                   </div>
                 </el-row>
