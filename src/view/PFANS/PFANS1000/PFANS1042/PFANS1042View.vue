@@ -1108,7 +1108,8 @@
                         let sumpublic = response[0].unpublice + response[0].unevec;
                         let sumcoststa = response[0].uncoststa;
                         //add-ws-5/6-报销金额统计为sumpublic，外注的费用统计的金额累计为sumcoststa
-                        for (let i = 1; i < response.length; i++) {
+
+                        for (let i = 0; i < response.length; i++) {
                             //add-ws-5/6-本社工数累加
                             sum += Number(response[i].emhours);
                             //add-ws-5/6-本社工数累加
@@ -1121,12 +1122,16 @@
                             sumoutsourcingpjhours += sums;
                             //add-ws-5/6-外注工数累加
                         }
-                        for (let j = 1; j < response.length; j++) {
+                        for (let j = 0; j < response.length; j++) {
                             //共通PJ（研修会议等）
-                            if (response[j].pj == null) {
+                            //add_fjl
+                            if (response[j].plmoneyflg == 'plmoneyflg') {
                                 // response[j].pj1 = aaa
                                 response[j].pj = aaa;
                             }
+                            response[0].emhours = response[0].unworktime;
+                            response[0].outsourcingpjhours = Number(response[0].unworktimeei) + Number(response[0].unworktimeex);
+                            //add_fjl
                             //部門売上合計
                             response[j].centerintotal = (Number(response[j].inst) + Number(response[j].tax) + Number(response[j].outst1)).toFixed(2);
                             //外部受託-
