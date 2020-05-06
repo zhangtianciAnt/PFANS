@@ -1131,7 +1131,7 @@
                                 response[j].peocost = (Number(response[j].emhours) / Number(sum) * Number(response[j].peocost)).toFixed(2);
 
                                 //人件費小計
-                                response[j].peocostsum = (response[j].peocost + Number(response[j].twocost)).toFixed(2);
+                                response[j].peocostsum = (Number(response[j].peocost) + Number(response[j].twocost)).toFixed(2);
                                 //外注費计算
                                 response[j].outcost = (Number(response[j].emhours) / Number(sum) * Number(response[j].outcost)).toFixed(2);
 
