@@ -702,7 +702,8 @@
               align="center"
               width="110">
               <template slot-scope="scope">
-                <span>{{scope.row.employeepjhours}}</span>
+                <!--                <span>{{scope.row.employeepjhours}}</span>-->
+                <span>{{scope.row.emhours}}</span>
               </template>
             </plx-table-column>
             <!--            社員稼働工数  -->
@@ -1119,6 +1120,8 @@
                             //売上合計
                             response[j].intotal = (Number(response[j].outst1) + Number(response[j].tax) + Number(response[j].inst)).toFixed(2);
 
+                            //外注（構外∔構内）PJ工数
+                            response[j].outsourcingpjhours = (Number(response[j].inhours) + Number(response[j].outhours)).toFixed(2);
                             if (sum == 0) {
                                 response[j].peocost = 0;
                                 response[j].outcost = 0;
