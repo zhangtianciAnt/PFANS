@@ -660,7 +660,7 @@
             <plx-table-column
               :label="$t('label.PFANS1042FORMVIEW_OUTSOURCINGNAME')"
               align="center"
-              width="110">
+              width="130">
               <template slot-scope="scope">
                 <span>{{scope.row.outsourcingname}}</span>
               </template>
@@ -682,7 +682,7 @@
             <plx-table-column
               :label="$t('label.PFANS1042FORMVIEW_OUTSOURCINGPJHOURS')"
               align="center"
-              width="110">
+              width="180">
               <template slot-scope="scope">
                 <span>{{scope.row.outsourcingpjhours}}</span>
               </template>
@@ -691,7 +691,7 @@
             <plx-table-column
               :label="$t('label.PFANS1042FORMVIEW_OUTSOURCING')"
               align="center"
-              width="110">
+              width="180">
               <template slot-scope="scope">
                 <span>{{scope.row.outsourcing}}</span>
               </template>
@@ -700,7 +700,7 @@
             <plx-table-column
               :label="$t('label.PFANS1042FORMVIEW_EMPLOYEEPJHOURS')"
               align="center"
-              width="110">
+              width="130">
               <template slot-scope="scope">
                 <!--                <span>{{scope.row.employeepjhours}}</span>-->
                 <span>{{scope.row.emhours}}</span>
