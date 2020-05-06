@@ -525,6 +525,7 @@
           exitreason: '',
           businessimpact: '',
           countermeasure: '',
+          year: '',
         }],
         data: [],
         dictionary:'',
@@ -681,6 +682,7 @@
                   exitreason: response[j].exitreason,
                   businessimpact:response[j].businessimpact,
                   countermeasure: response[j].countermeasure,
+                  year: response[j].year,
               })
             }
             this.tableData = tabledate;
