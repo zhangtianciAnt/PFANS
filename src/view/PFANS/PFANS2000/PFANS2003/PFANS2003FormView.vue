@@ -169,7 +169,7 @@
             <el-col :span="8">
               <el-form-item :error="errorrecommenddep" :label="$t('label.PFANS2003VIEW_RECOMMENDDEP')"
                             prop="recommenddep"
-                            v-show="show">
+              >
                 <org :disabled="!disabled"
                      :error="errorrecommenddep"
                      :orglist="form.recommenddep"
@@ -180,7 +180,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS2003FORMVIEW_RECOMMENDDATE')" prop="recommend_date" v-show="show">
+              <el-form-item :label="$t('label.PFANS2003FORMVIEW_RECOMMENDDATE')" prop="recommend_date">
                 <el-date-picker
                   :disabled="!disabled"
                   style="width:20vw"
@@ -528,78 +528,7 @@
         show1: false,
         show2: false,
         show3: false,
-        show: false,
         rules: {
-          name: [{
-            required: true,
-            message: this.$t('normal.error_08') + this.$t('label.user_name'),
-            trigger: 'blur',
-          }],
-          sex: [{
-            required: true,
-            message: this.$t('normal.error_09') + this.$t('label.sex'),
-            trigger: 'change',
-          }],
-          birthday: [{
-            required: true,
-            message: this.$t("normal.error_08")+ this.$t('label.PFANS2002VIEW_BIRTHDAY'),
-            trigger: 'change'}],
-          accept_date: [{
-            required: true,
-            message: this.$t('normal.error_09') + this.$t('label.PFANS2003VIEW_ACCEPTDATE'),
-            trigger: 'change',
-          },
-            {validator: validateaccept_date, trigger: 'change'}],
-          interviewdep: [{
-            required: true,
-            validator: validateinterviewdepid,
-            trigger: 'change',
-          }],
-          interview_date: [{
-            required: true,
-            message: this.$t('normal.error_09') + this.$t('label.PFANS2003FORMVIEW_INTERVIEWDATE'),
-            trigger: 'change',
-          },
-            {validator: validateinterview_date, trigger: 'change'}],
-          source: [{
-            required: true,
-            validator: validatesourceid,
-            trigger: 'change',
-          }],
-          member: [{
-            required: true,
-            validator: validateUserid,
-            trigger: 'change',
-          }],
-          network: [{
-            required: true,
-            message: this.$t('normal.error_08') + this.$t('label.PFANS2003FORMVIEW_NETWORK'),
-            trigger: 'blur',
-          }],
-          recommend_date: [{
-            required: false,
-            message: this.$t('normal.error_09') + this.$t('label.PFANS2003FORMVIEW_RECOMMENDDATE'),
-            trigger: 'blur',
-          }],
-          recommenddep: [
-            {
-              required: false,
-              validator: validaterecommenddepid,
-              trigger: 'blur',
-            },
-          ],
-          email: [{
-            required: true,
-            message: this.$t('normal.error_08') + this.$t('label.email'),
-            trigger: 'blur',
-          },
-            {validator: checkemail, trigger: 'blur'}],
-          contactinformation: [{
-            required: true,
-            message: this.$t('normal.error_08') + this.$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION'),
-            trigger: 'blur',
-          },
-            {validator: validateTel, trigger: 'blur'}],
         },
       };
     },
@@ -657,10 +586,7 @@
             }
             this.modelwhetherentry = this.form.whetherentry;
             if (this.form.whetherentry === '0') {
-              this.show = true;
               this.result1 = false;
-              this.rules.recommend_date[0].required = true;
-              this.rules.recommenddep[0].required = true;
             }
             this.modelresult = this.form.result;
             this.loading = false;
@@ -844,16 +770,10 @@
       },
       changewhetherentry(val) {
         if (val === '1') {
-          this.show = false;
           this.result1 = true;
-          this.rules.recommend_date[0].required = false;
-          this.rules.recommenddep[0].required = false;
         } else {
-          this.show = true;
           this.modelresult = '0';
           this.result1 = false;
-          this.rules.recommend_date[0].required = true;
-          this.rules.recommenddep[0].required = true;
         }
       },
       buttonClick(val) {
@@ -869,10 +789,6 @@
               this.form.member = '';
             }
             this.form.whetherentry = this.modelwhetherentry;
-            if (this.form.whetherentry === '1') {
-              this.form.recommend_date = '';
-              this.form.recommenddep = '';
-            }
             this.form.result = this.modelresult;
               this.changeOption(this.form, 'save');
             if (this.$route.params._id) {
