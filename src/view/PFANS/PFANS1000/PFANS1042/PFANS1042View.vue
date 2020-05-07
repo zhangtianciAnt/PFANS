@@ -230,11 +230,19 @@
               :label="$t('label.PFANS1042FORMVIEW_DEPRECIATIONSOFT')"
               align="center"
               width="150">
-
               <template slot-scope="scope">
-                <span>{{scope.row.depreciationsoft}}</span>
+                <el-input-number
+                  size="mini"
+                  :min="0" :precision="2"
+                  :max="9999999"
+                  controls-position="right"
+                  :no="scope.row"
+                  :step="1"
+                  v-model="scope.row.depreciationsoft"
+                  style="width: 100%">
+                </el-input-number>
+                <!--                <span>{{scope.row.depreciationsoft}}</span>-->
               </template>
-
             </pl-table-column>
             <!--            減価償却費（ソフト）-->
             <pl-table-column
@@ -242,7 +250,17 @@
               align="center"
               width="160">
               <template slot-scope="scope">
-                <span>{{scope.row.depreciationequipment}}</span>
+                <el-input-number
+                  size="mini"
+                  :min="0" :precision="2"
+                  :max="9999999"
+                  controls-position="right"
+                  :no="scope.row"
+                  :step="1"
+                  v-model="scope.row.depreciationequipment"
+                  style="width: 100%">
+                </el-input-number>
+                <!--                <span>{{scope.row.depreciationequipment}}</span>-->
               </template>
             </pl-table-column>
             <!--            オフィス家賃-->
