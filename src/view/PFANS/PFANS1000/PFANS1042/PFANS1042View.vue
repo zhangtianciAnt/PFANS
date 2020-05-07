@@ -1301,21 +1301,21 @@
               if (sumouthours == 0) {
                 sumoutsourcinghours = 0;
               } else {
-                sumoutsourcinghours = (Number(response[j].outhours) / Number(sumouthours)).toFixed(2);
+                sumoutsourcinghours = (Number(response[j].outhours) / Number(sumouthours) * outsourcinghours).toFixed(2);
               }
               //構内工数百分比*構内外注配赋费
               let sumoutsourcingname = 0;
               if (suminhours == 0) {
                 sumoutsourcingname = 0;
               } else {
-                sumoutsourcingname = (Number(response[j].outhours) / Number(suminhours)).toFixed(2);
+                sumoutsourcingname = (Number(response[j].outhours) / Number(suminhours) * outsourcingname).toFixed(2);
               }
               //设员工数百分比*社员配赋费
               let sumemployeename = 0;
               if (sum == 0) {
                 sumemployeename = 0;
               } else {
-                sumemployeename = (Number(response[j].emhours) / Number(sum)).toFixed(2);
+                sumemployeename = (Number(response[j].emhours) / Number(sum) * employeename).toFixed(2);
               }
               //合计
               response[j].expensessubtotal = (Number(sumoutsourcinghours) + Number(sumoutsourcingname) + Number(sumemployeename)).toFixed(2);
