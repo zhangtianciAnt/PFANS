@@ -821,6 +821,7 @@
                           <template slot-scope="scope">
                             <el-input-number
                               :disabled="true"
+                              :min="0"
                               controls-position="right"
                               style="width: 100%"
                               @change="changeRMB(scope.row)"
@@ -1045,6 +1046,7 @@
                           <template slot-scope="scope">
                             <el-input-number
                               :disabled="true"
+                              :min="0"
                               controls-position="right"
                               style="width: 100%"
                               @change="changeRMB(scope.row)"
@@ -4393,7 +4395,6 @@
       height: 34px;
       min-width: 80%;
       border: 0.1rem solid #ebeef5;
-      overflow-y: scroll;
       overflow-x: hidden;
       line-height: 34px;
       padding: 0.1rem 0.5rem 0.2rem 0.5rem;
