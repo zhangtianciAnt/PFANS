@@ -608,6 +608,9 @@
                 }
             }
             this.getWorkingday();
+            if(this.$store.getters.userinfo.userid === '5e78fefff1560b363cdd6db7'){
+                this.workflowCode = '';
+            }
         },
         created() {
             this.disable = this.$route.params.disabled;
@@ -885,6 +888,10 @@
                 this.uopdateSta('end');
             },
             uopdateSta(val) {
+                //总经理审批自动通过
+                if (getCurrentRole() === '1' && this.form.status === '4') {
+                    this.form.status = '7';
+                }
                 this.loading = true;
                 this.$store
                     .dispatch('PFANS2011Store/updateOvertime', this.form)
@@ -1028,6 +1035,10 @@
             },
             //新建接口
             insertForm() {
+                //总经理审批自动通过
+                if (getCurrentRole() === '1') {
+                    this.form.status = '4';
+                }
                 this.loading = true;
                 this.$store
                     .dispatch('PFANS2011Store/createOvertime', this.form)
@@ -1137,6 +1148,10 @@
                             }
                         }
                         if (this.$route.params._id) {
+                            //总经理审批自动通过
+                            if (getCurrentRole() === '1' && this.form.status === '4') {
+                                this.form.status = '7';
+                            }
                             this.loading = true;
                             this.$store
                                 .dispatch('PFANS2011Store/updateOvertime', this.form)
@@ -1196,10 +1211,6 @@
                                     });
                                     return;
                                 }
-                            }
-                            //总经理审批自动通过
-                            if (getCurrentRole() === "1") {
-                                this.form.status = '4';
                             }
                             //平日加班，周末加班，法定加班一天只能申请一次的check
                             if (this.form.overtimetype === 'PR001001' || this.form.overtimetype === 'PR001002' || this.form.overtimetype === 'PR001003') {
