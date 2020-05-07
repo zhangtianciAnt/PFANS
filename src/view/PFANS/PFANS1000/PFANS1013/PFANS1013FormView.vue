@@ -252,7 +252,7 @@
                     <el-form-item :label="$t('label.PFANS1013VIEW_BALANCE')">
                       <el-input-number
                         :disabled="true"
-                        :max="9999999999"
+                        :max="9999999999" :min="0"
                         :precision="2"
                         controls-position="right"
                         style="width:20vw"
@@ -594,6 +594,7 @@
                       <template slot-scope="scope">
                         <el-input-number
                           :disabled="true"
+                          :min="0"
                           :precision="2"
                           controls-position="right"
                           style="width: 100%"
@@ -870,7 +871,7 @@
                       <template slot-scope="scope">
                         <el-input-number
                           :disabled="true"
-                          :precision="2"
+                          :precision="2" :min="0"
                           @change="changeRMB(scope.row)"
                           controls-position="right"
                           style="width: 100%"
@@ -2139,6 +2140,7 @@
             plsummary: this.plsummaryflg,
             accountcode: '',
             subjectnumber: '',
+            subsidies: '',
             city: '',
             region: ' ',
             facilitytype: '',
@@ -2147,6 +2149,7 @@
             // accommodation: '',
             rmb: '',
             travel: '',
+            taxes: '',
             annexno: '',
           }];
         }
@@ -2233,6 +2236,7 @@
           // nextday: '',
           invoicenumber: '',
           departmentname: '',
+          subsidies: '',
           activitycontent: '',
           plsummary: this.plsummaryflg,
           accountcode: '',
