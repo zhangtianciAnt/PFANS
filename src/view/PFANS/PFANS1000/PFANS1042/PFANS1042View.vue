@@ -73,7 +73,7 @@
           </el-form-item>
         </el-form>
 
-        <plx-table-grid
+        <pl-table
           :datas="tableData" @selection-change="handleSelectionChange()"
           border ref="plx"
           stripe use-virtual :pagination-show="paginationShow"
@@ -82,26 +82,26 @@
           header-cell-class-name="sub_bg_color_blue"
         >
           <!-- 序号-->
-          <plx-table-column
+          <pl-table-column
             :label="$t('label.PFANS2026FORMVIEW_ORDERNUMBER')"
             align="center"
             type="index"
             fixed="left"
             width="50"
-          ></plx-table-column>
-          <plx-table-column
+          ></pl-table-column>
+          <pl-table-column
             :label="$t('label.PFANS1042FORMVIEW_MONERTYPE')"
             align="center">
-            <plx-table-column
+            <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_DETAILS')"
               align="center"
               width="200">
               <template slot-scope="scope">
                 <span>{{scope.row.pj}}</span>
               </template>
-            </plx-table-column>
+            </pl-table-column>
 
-            <!--                  <plx-table-column-->
+            <!--                  <pl-table-column-->
             <!--                    :label="$t('label.PFANS1042FORMVIEW_COMMONPJ')"-->
             <!--                    align="center"-->
             <!--                    width="160">-->
@@ -109,14 +109,14 @@
             <!--                      <span>{{scope.row.pj1}}</span>-->
             <!--                    </template>-->
 
-            <!--                  </plx-table-column>-->
-          </plx-table-column>
+            <!--                  </pl-table-column>-->
+          </pl-table-column>
           <!--          売上-->
-          <plx-table-column
+          <pl-table-column
             :label="$t('label.PFANS1042FORMVIEW_INCOME')"
             align="center">
             <!--            技術開発・海外役務-->
-            <plx-table-column
+            <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_OUTST')"
               align="center"
               width="180">
@@ -124,9 +124,9 @@
                 <span>{{scope.row.outst1}}</span>
               </template>
 
-            </plx-table-column>
+            </pl-table-column>
 
-            <!--            <plx-table-column-->
+            <!--            <pl-table-column-->
             <!--              :label="$t('label.PFANS1042FORMVIEW_TAX')"-->
             <!--              align="center"-->
             <!--              width="110">-->
@@ -135,18 +135,18 @@
             <!--                <span>{{scope.row.tax}}</span>-->
             <!--              </template>-->
 
-            <!--            </plx-table-column>-->
+            <!--            </pl-table-column>-->
 
-            <plx-table-column
+            <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_TAXYW')"
               align="center"
               width="200">
               <template slot-scope="scope">
                 <span>{{scope.row.taxyw}}</span>
               </template>
-            </plx-table-column>
+            </pl-table-column>
 
-            <plx-table-column
+            <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_TAXSA')"
               align="center"
               width="200">
@@ -154,9 +154,9 @@
                 <span>{{scope.row.taxsa}}</span>
               </template>
 
-            </plx-table-column>
+            </pl-table-column>
 
-            <plx-table-column
+            <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_INST')"
               align="center"
               width="110">
@@ -165,33 +165,33 @@
                 <span>{{scope.row.inst}}</span>
               </template>
 
-            </plx-table-column>
+            </pl-table-column>
             <!--            部門売上合計-->
-            <plx-table-column
+            <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_CENTERINTOTAL')"
               align="center"
               width="110">
               <template slot-scope="scope">
                 <span>{{scope.row.centerintotal}}</span>
               </template>
-            </plx-table-column>
+            </pl-table-column>
             <!--            売上合計-->
-            <plx-table-column
+            <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_INTOTAL')"
               align="center"
               width="110">
               <template slot-scope="scope">
                 <span>{{scope.row.intotal}}</span>
               </template>
-            </plx-table-column>
-          </plx-table-column>
+            </pl-table-column>
+          </pl-table-column>
 
           <!--          一般管理販売費-->
-          <plx-table-column
+          <pl-table-column
             :label="$t('label.PFANS1042FORMVIEW_EXPENDITURE')"
             align="center">
             <!--            人件費-->
-            <plx-table-column
+            <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_PEOCOST')"
               align="center"
               width="110">
@@ -200,9 +200,9 @@
                 <span>{{scope.row.peocost}}</span>
               </template>
 
-            </plx-table-column>
+            </pl-table-column>
             <!--            厚生費-->
-            <plx-table-column
+            <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_TWOCOST')"
               align="center"
               width="110">
@@ -211,9 +211,9 @@
                 <span>{{scope.row.twocost}}</span>
               </template>
 
-            </plx-table-column>
+            </pl-table-column>
             <!--            人件費小計-->
-            <plx-table-column
+            <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_PEOCOSTSUM')"
               align="center"
               width="110">
@@ -222,9 +222,9 @@
                 <span>{{scope.row.peocostsum}}</span>
               </template>
 
-            </plx-table-column>
+            </pl-table-column>
             <!--            減価償却費（設備）-->
-            <plx-table-column
+            <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_DEPRECIATIONSOFT')"
               align="center"
               width="150">
@@ -233,90 +233,90 @@
                 <span>{{scope.row.depreciationsoft}}</span>
               </template>
 
-            </plx-table-column>
+            </pl-table-column>
             <!--            減価償却費（ソフト）-->
-            <plx-table-column
+            <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_DEPRECIATIONEQUIPMENT')"
               align="center"
               width="160">
               <template slot-scope="scope">
                 <span>{{scope.row.depreciationequipment}}</span>
               </template>
-            </plx-table-column>
+            </pl-table-column>
             <!--            オフィス家賃-->
-            <plx-table-column
+            <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_RENT')"
               align="center"
               width="110">
               <template slot-scope="scope">
                 <span>{{scope.row.rent}}</span>
               </template>
-            </plx-table-column>
+            </pl-table-column>
             <!--            リース費-->
-            <plx-table-column
+            <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_LEASECOST')"
               align="center"
               width="110">
               <template slot-scope="scope">
                 <span>{{scope.row.leasecost}}</span>
               </template>
-            </plx-table-column>
+            </pl-table-column>
             <!--            出向者賃借料-->
-            <plx-table-column
+            <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_TEMPORARYRENT')"
               align="center"
               width="110">
               <template slot-scope="scope">
                 <span>{{scope.row.temporaryrent}}</span>
               </template>
-            </plx-table-column>
+            </pl-table-column>
             <!--            その他(固定費)-->
-            <plx-table-column
+            <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_OTHER')"
               align="center"
               width="110">
               <template slot-scope="scope">
                 <span>{{scope.row.other}}</span>
               </template>
-            </plx-table-column>
+            </pl-table-column>
             <!--            固定資産費用小計-->
-            <plx-table-column
+            <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_COSTSUBTOTAL')"
               align="center"
               width="150">
               <template slot-scope="scope">
                 <span>{{scope.row.costsubtotal}}</span>
               </template>
-            </plx-table-column>
+            </pl-table-column>
             <!--            研究材料費-->
-            <plx-table-column
+            <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_RESEARCHCOST')"
               align="center"
               width="110">
               <template slot-scope="scope">
                 <span>{{scope.row.researchcost}}</span>
               </template>
-            </plx-table-column>
+            </pl-table-column>
             <!--            調査費-->
-            <plx-table-column
+            <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_SURVEYFEE')"
               align="center"
               width="110">
               <template slot-scope="scope">
                 <span>{{scope.row.surveyfee}}</span>
               </template>
-            </plx-table-column>
+            </pl-table-column>
             <!--            内部委託支出-->
-            <plx-table-column
+            <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_INWEITUO')"
               align="center"
               width="110">
               <template slot-scope="scope">
                 <span>{{scope.row.inwetuo}}</span>
               </template>
-            </plx-table-column>
+            </pl-table-column>
             <!--            外注費-->
-            <plx-table-column
+            <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_OUTCOST')"
               align="center"
               width="110">
@@ -324,81 +324,81 @@
                 <span>{{scope.row.outcost}}</span>
               </template>
 
-            </plx-table-column>
+            </pl-table-column>
             <!--            その他(ソフト費)-->
-            <plx-table-column
+            <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_OTHERSOFTWAREFREE')"
               align="center"
               width="110">
               <template slot-scope="scope">
                 <span>{{scope.row.outcost}}</span>
               </template>
-            </plx-table-column>
+            </pl-table-column>
             <!--            研究開発費・ソフト費用小計-->
-            <plx-table-column
+            <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_EXPENSESSUBTOTAL')"
               align="center"
               width="180">
               <template slot-scope="scope">
                 <span>{{scope.row.expensessubtotal}}</span>
               </template>
-            </plx-table-column>
+            </pl-table-column>
             <!--            管理・共通部門配賦-->
-            <plx-table-column
+            <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_MANCOMMONDEPT')"
               align="center"
               width="180">
               <template slot-scope="scope">
                 <span>{{scope.row.expensessubtotal}}</span>
               </template>
-            </plx-table-column>
+            </pl-table-column>
             <!--            振替１-->
-            <plx-table-column
+            <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_TRANSFERONE')"
               align="center"
               width="110">
               <template slot-scope="scope">
                 <span>{{scope.row.transferone}}</span>
               </template>
-            </plx-table-column>
+            </pl-table-column>
             <!--            振替２-->
-            <plx-table-column
+            <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_TRANSFERTWO')"
               align="center"
               width="110">
               <template slot-scope="scope">
                 <span>{{scope.row.transfertwo}}</span>
               </template>
-            </plx-table-column>
+            </pl-table-column>
             <!--            配賦部門費小計-->
-            <plx-table-column
+            <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_ALLOCATIONSUM')"
               align="center"
               width="150">
               <template slot-scope="scope">
                 <span>{{scope.row.allocationsum}}</span>
               </template>
-            </plx-table-column>
+            </pl-table-column>
             <!--            部門共通費用合計-->
-            <!--            <plx-table-column-->
+            <!--            <pl-table-column-->
             <!--              :label="$t('label.PFANS1042FORMVIEW_DEPARTMENTTOTAL')"-->
             <!--              align="center"-->
             <!--              width="170">-->
             <!--              <template slot-scope="scope">-->
             <!--                <span>{{scope.row.departmenttotal}}</span>-->
             <!--              </template>-->
-            <!--            </plx-table-column>-->
+            <!--            </pl-table-column>-->
             <!--            原動費-->
-            <plx-table-column
+            <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_YUANQINCOST')"
               align="center"
               width="110">
               <template slot-scope="scope">
                 <span>{{scope.row.yuanqincost}}</span>
               </template>
-            </plx-table-column>
+            </pl-table-column>
             <!--            旅費-->
-            <plx-table-column
+            <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_TRAVALCOST')"
               align="center"
               width="110">
@@ -407,9 +407,9 @@
                 <span>{{scope.row.travalcost}}</span>
               </template>
 
-            </plx-table-column>
+            </pl-table-column>
             <!--            消耗費-->
-            <plx-table-column
+            <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_CALLCOST')"
               align="center"
               width="110">
@@ -418,9 +418,9 @@
                 <span>{{scope.row.callcost}}</span>
               </template>
 
-            </plx-table-column>
+            </pl-table-column>
             <!--            通信費-->
-            <plx-table-column
+            <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_CONCOST')"
               align="center"
               width="110">
@@ -429,28 +429,28 @@
                 <span>{{scope.row.callcost}}</span>
               </template>
 
-            </plx-table-column>
+            </pl-table-column>
             <!--            会議費/交際費/研修費-->
-            <plx-table-column
+            <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_THREEFREE')"
               align="center"
               width="200">
               <template slot-scope="scope">
                 <span>{{scope.row.threefree}}</span>
               </template>
-            </plx-table-column>
+            </pl-table-column>
             <!--            共同事務費-->
-            <plx-table-column
+            <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_COMMONFEE')"
               align="center"
               width="110">
               <template slot-scope="scope">
                 <span>{{scope.row.threefree}}</span>
               </template>
-            </plx-table-column>
+            </pl-table-column>
 
             <!--            ブランド使用料-->
-            <plx-table-column
+            <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_BRANDCOST')"
               align="center"
               width="150">
@@ -459,19 +459,19 @@
                 <span>{{scope.row.brandcost}}</span>
               </template>
 
-            </plx-table-column>
+            </pl-table-column>
             <!--            その他経費-->
-            <plx-table-column
+            <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_OTHEREXPENSES')"
               align="center"
               width="110">
               <template slot-scope="scope">
                 <span>{{scope.row.otherexpenses}}</span>
               </template>
-            </plx-table-column>
+            </pl-table-column>
             <!--            仕掛品-->
 
-            <plx-table-column
+            <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_PRO')"
               align="center"
               width="110">
@@ -480,9 +480,9 @@
                 <span>{{scope.row.process}}</span>
               </template>
 
-            </plx-table-column>
+            </pl-table-column>
             <!--            その他利益-->
-            <plx-table-column
+            <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_OTHERINCOME')"
               align="center"
               width="200">
@@ -497,59 +497,59 @@
                   style="width: 100%">
                 </el-input-number>
               </template>
-            </plx-table-column>
+            </pl-table-column>
 
             <!--            その他諸経費小計-->
-            <plx-table-column
+            <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_OTHEREXPENTOTAL')"
               align="center"
               width="200">
               <template slot-scope="scope">
                 <span>{{scope.row.otherexpentotal}}</span>
               </template>
-            </plx-table-column>
+            </pl-table-column>
             <!--            部門共通按分-->
-                          <plx-table-column
+                          <pl-table-column
                             :label="$t('label.PFANS1042FORMVIEW_DEPARTMENTCOST')"
                             align="center"
                             width="110">
                             <template slot-scope="scope">
                               <span>{{scope.row.departmentcom}}</span>
                             </template>
-                          </plx-table-column>
+                          </pl-table-column>
             <!--            配賦費用-->
-            <!--            <plx-table-column-->
+            <!--            <pl-table-column-->
             <!--              :label="$t('label.PFANS1042FORMVIEW_ALLOCATION')"-->
             <!--              align="center"-->
             <!--              width="110">-->
             <!--              <template slot-scope="scope">-->
             <!--                <span>{{scope.row.allocation}}</span>-->
             <!--              </template>-->
-            <!--            </plx-table-column>-->
+            <!--            </pl-table-column>-->
             <!--            合計-->
-            <plx-table-column
+            <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_COSTTOTAL')"
               align="center"
               width="110">
               <template slot-scope="scope">
                 <span>{{scope.row.costtotal}}</span>
               </template>
-            </plx-table-column>
-          </plx-table-column>
+            </pl-table-column>
+          </pl-table-column>
           <!--          営業利益-->
-          <plx-table-column
+          <pl-table-column
             :label="$t('label.PFANS1042FORMVIEW_OPERATION')"
             align="center"
             width="110">
             <template slot-scope="scope">
               <span>{{scope.row.Operating}}</span>
             </template>
-          </plx-table-column>
+          </pl-table-column>
           <!--          損--マイナス-->
-          <plx-table-column
+          <pl-table-column
             :label="$t('label.PFANS1042FORMVIEW_LOSSMINUS')">
             <!--            金利-->
-            <plx-table-column
+            <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_INTERESTRATE')"
               align="center"
               width="200">
@@ -564,9 +564,9 @@
                   style="width: 100%">
                 </el-input-number>
               </template>
-            </plx-table-column>
+            </pl-table-column>
             <!--            為替-->
-            <plx-table-column
+            <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_EXCHANGE')"
               align="center"
               width="200"
@@ -586,28 +586,28 @@
               <!--              <el-input-number ></el-input-number>-->
               <!--              <span>{{scope.row.exchange}}</span>-->
               <!--            </template>-->
-            </plx-table-column>
+            </pl-table-column>
             <!--            営業外損益-->
-            <plx-table-column
+            <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_OPERATINGPROFIT')"
               align="center"
               width="110">
               <template slot-scope="scope">
                 <span>{{scope.row.operatingprofit}}</span>
               </template>
-            </plx-table-column>
-          </plx-table-column>
+            </pl-table-column>
+          </pl-table-column>
           <!--          税引前利益-->
-          <plx-table-column
+          <pl-table-column
             :label="$t('label.PFANS1042FORMVIEW_PRETAXPROFIT')"
             align="center"
             width="110">
             <template slot-scope="scope">
               <span>{{scope.row.pretaxprofit}}</span>
             </template>
-          </plx-table-column>
+          </pl-table-column>
           <!--          税金引当金-->
-          <plx-table-column
+          <pl-table-column
             :label="$t('label.PFANS1042FORMVIEW_TAXALLOWANCE')"
             align="center"
             width="200">
@@ -623,30 +623,30 @@
                 style="width: 100%">
               </el-input-number>
             </template>
-          </plx-table-column>
+          </pl-table-column>
           <!--          税引後利益-->
-          <plx-table-column
+          <pl-table-column
             :label="$t('label.PFANS1042FORMVIEW_POSTTAXBENEFIT')"
             align="center"
             width="110">
             <template slot-scope="scope">
               <span>{{scope.row.posttaxbenefit}}</span>
             </template>
-          </plx-table-column>
+          </pl-table-column>
           <!--          営業利益率-->
-          <plx-table-column
+          <pl-table-column
             :label="$t('label.PFANS1042FORMVIEW_OPERATINGMARGIN')"
             align="center"
             width="110">
             <template slot-scope="scope">
               <span>{{scope.row.operatingmargin}}</span>
             </template>
-          </plx-table-column>
+          </pl-table-column>
           <!--          人員（名）-->
-          <plx-table-column
+          <pl-table-column
             :label="$t('label.PFANS1042FORMVIEW_PERSONNAME')">
             <!--            社員工数-->
-            <!--            <plx-table-column-->
+            <!--            <pl-table-column-->
             <!--              :label="$t('label.PFANS1042FORMVIEW_EMHOURS')"-->
             <!--              align="center"-->
             <!--              width="110">-->
@@ -655,9 +655,9 @@
             <!--                <span>{{scope.row.emhours}}</span>-->
             <!--              </template>-->
 
-            <!--            </plx-table-column>-->
+            <!--            </pl-table-column>-->
             <!--            外注工数-->
-            <!--            <plx-table-column-->
+            <!--            <pl-table-column-->
             <!--              :label="$t('label.PFANS1042FORMVIEW_OUTHOURS')"-->
             <!--              align="center"-->
             <!--              width="110">-->
@@ -665,58 +665,58 @@
             <!--                <span>{{scope.row.outhours}}</span>-->
             <!--              </template>-->
 
-            <!--            </plx-table-column>-->
+            <!--            </pl-table-column>-->
             <!--            構外外注(工数)-->
-            <plx-table-column
+            <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_OUTSOURCINGHOURS')"
               align="center"
               width="110">
               <template slot-scope="scope">
                 <span>{{scope.row.outsourcinghours}}</span>
               </template>
-            </plx-table-column>
+            </pl-table-column>
             <!--            構内外注（名）-->
-            <plx-table-column
+            <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_OUTSOURCINGNAME')"
               align="center"
               width="130">
               <template slot-scope="scope">
                 <span>{{scope.row.outsourcingname}}</span>
               </template>
-            </plx-table-column>
+            </pl-table-column>
             <!--            社員（名）-->
-            <plx-table-column
+            <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_EMPLOYEENAME')"
               align="center"
               width="110">
               <template slot-scope="scope">
                 <span>{{scope.row.employeename}}</span>
               </template>
-            </plx-table-column>
-          </plx-table-column>
+            </pl-table-column>
+          </pl-table-column>
           <!--          工数(人月)-->
-          <plx-table-column
+          <pl-table-column
             :label="$t('label.PFANS1042FORMVIEW_EFFORTMONTH')">
             <!--            外注（構外∔構内）PJ工数-->
-            <plx-table-column
+            <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_OUTSOURCINGPJHOURS')"
               align="center"
               width="180">
               <template slot-scope="scope">
                 <span>{{scope.row.outsourcingpjhours}}</span>
               </template>
-            </plx-table-column>
+            </pl-table-column>
             <!--            外注（構外∔構内）稼働工数-->
-            <plx-table-column
+            <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_OUTSOURCING')"
               align="center"
               width="180">
               <template slot-scope="scope">
                 <span>{{scope.row.outsourcing}}</span>
               </template>
-            </plx-table-column>
+            </pl-table-column>
             <!--            社員PJ工数  -->
-            <plx-table-column
+            <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_EMPLOYEEPJHOURS')"
               align="center"
               width="130">
@@ -724,93 +724,93 @@
                 <!--                <span>{{scope.row.employeepjhours}}</span>-->
                 <span>{{scope.row.emhours}}</span>
               </template>
-            </plx-table-column>
+            </pl-table-column>
             <!--            社員稼働工数  -->
-            <plx-table-column
+            <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_EMPLOYEEUPTIME')"
               align="center"
               width="110">
               <template slot-scope="scope">
                 <span>{{scope.row.employeeuptime}}</span>
               </template>
-            </plx-table-column>
-          </plx-table-column>
+            </pl-table-column>
+          </pl-table-column>
           <!--          稼働率（%）-->
-          <plx-table-column
+          <pl-table-column
             :label="$t('label.PFANS1042FORMVIEW_CROPPINGRATE')">
             <!--            外注PJ稼働率-->
-            <plx-table-column
+            <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_EXTERNALPJRATE')"
               align="center"
               width="110">
               <template slot-scope="scope">
                 <span>{{scope.row.externalpjrate}}</span>
               </template>
-            </plx-table-column>
+            </pl-table-column>
             <!--            外注稼働率-->
-            <plx-table-column
+            <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_EXTERNALINJECTIONRATE')"
               align="center"
               width="110">
               <template slot-scope="scope">
                 <span>{{scope.row.externalinjectionrate}}</span>
               </template>
-            </plx-table-column>
+            </pl-table-column>
             <!--            社員PJ稼働率  -->
-            <plx-table-column
+            <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_MEMBERPJRATE')"
               align="center"
               width="110">
               <template slot-scope="scope">
                 <span>{{scope.row.memberpjrate}}</span>
               </template>
-            </plx-table-column>
+            </pl-table-column>
             <!--            社員稼働率  -->
-            <plx-table-column
+            <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_MEMBERSHIPRATE')"
               align="center"
               width="110">
               <template slot-scope="scope">
                 <span>{{scope.row.membershiprate}}</span>
               </template>
-            </plx-table-column>
+            </pl-table-column>
             <!--            全員PJ稼働率  -->
-            <plx-table-column
+            <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_PJRATEEMPLOYEES')"
               align="center"
               width="110">
               <template slot-scope="scope">
                 <span>{{scope.row.pjrateemployees}}</span>
               </template>
-            </plx-table-column>
+            </pl-table-column>
             <!--            全員稼働率  -->
-            <plx-table-column
+            <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_STAFFINGRATE')"
               align="center"
               width="110">
               <template slot-scope="scope">
                 <span>{{scope.row.staffingrate}}</span>
               </template>
-            </plx-table-column>
-          </plx-table-column>
+            </pl-table-column>
+          </pl-table-column>
 
-          <!--          <plx-table-column-->
+          <!--          <pl-table-column-->
           <!--            :label="$t('label.PFANS1042FORMVIEW_PROFIT')"-->
           <!--            align="center">-->
 
-          <!--            <plx-table-column-->
+          <!--            <pl-table-column-->
           <!--              :label="$t('label.PFANS1042FORMVIEW_ARGINAL')"-->
           <!--              align="center"-->
           <!--              width="110">-->
           <!--              <template slot-scope="scope">-->
           <!--                <span>{{scope.row.marginal}}</span>-->
           <!--              </template>-->
-          <!--            </plx-table-column>-->
+          <!--            </pl-table-column>-->
 
 
-          <!--          </plx-table-column>-->
+          <!--          </pl-table-column>-->
 
-        </plx-table-grid>
+        </pl-table>
 
       </div>
     </EasyNormalContainer>
