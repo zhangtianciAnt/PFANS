@@ -976,11 +976,13 @@
             val.otherexpentotal = (Number(val.yuanqincost) + Number(val.travalcost) + Number(val.callcost)
                 + Number(val.concost) + Number(val.threefree) + Number(val.commonfee) + Number(val.brandcost)
                 + Number(val.otherexpenses) + Number(val.otherincome) + Number(val.process)).toFixed(2);
-            //--営業利益率
+            //--営業利益
+            val.Operating = (Number(val.intotal) - Number(val.peocostsum) - Number(val.costsubtotal) - Number(val.departmenttotal) - Number(val.allocationsum) - Number(val.otherexpentotal)).toFixed(2);
+            //--営業利益率 = 営業利益 / 売上合計
             if (Number(val.intotal) > 0) {
-                val.otherincome = (Number(val.intotal) - Number(val.peocostsum) - Number(val.costsubtotal) - Number(val.departmenttotal) - Number(val.allocationsum) - Number(val.otherexpentotal)) / Number(val.intotal);
+                val.operatingmargin = ((Number(val.Operating) / Number(val.intotal)) * 100).toFixed(2) + '%';
             } else {
-                val.otherincome = 0;
+                val.operatingmargin = 0;
             }
 
         },
@@ -1192,7 +1194,6 @@
                   //add-ws-5/6-报销金额统计为sumpublic，外注的费用统计的金额累计为sumcoststa
 
                   for (let i = 0; i < response.length; i++) {
-                    debugger
                     //add-ws-5/6-本社工数累加
                     sum += Number(response[i].emhours);
                     //add-ws-5/6-本社工数累加
