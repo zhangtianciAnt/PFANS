@@ -371,24 +371,26 @@
                 <span>{{scope.row.expensessubtotal}}</span>
               </template>
             </pl-table-column>
-            <!--            振替１-->
-            <pl-table-column
-              :label="$t('label.PFANS1042FORMVIEW_TRANSFERONE')"
-              align="center"
-              width="110">
-              <template slot-scope="scope">
-                <span>{{scope.row.transferone}}</span>
-              </template>
-            </pl-table-column>
-            <!--            振替２-->
-            <pl-table-column
-              :label="$t('label.PFANS1042FORMVIEW_TRANSFERTWO')"
-              align="center"
-              width="110">
-              <template slot-scope="scope">
-                <span>{{scope.row.transfertwo}}</span>
-              </template>
-            </pl-table-column>
+            <!--            DEL_FJL-->
+            <!--            &lt;!&ndash;            振替１&ndash;&gt;-->
+            <!--            <pl-table-column-->
+            <!--              :label="$t('label.PFANS1042FORMVIEW_TRANSFERONE')"-->
+            <!--              align="center"-->
+            <!--              width="110">-->
+            <!--              <template slot-scope="scope">-->
+            <!--                <span>{{scope.row.transferone}}</span>-->
+            <!--              </template>-->
+            <!--            </pl-table-column>-->
+            <!--            &lt;!&ndash;            振替２&ndash;&gt;-->
+            <!--            <pl-table-column-->
+            <!--              :label="$t('label.PFANS1042FORMVIEW_TRANSFERTWO')"-->
+            <!--              align="center"-->
+            <!--              width="110">-->
+            <!--              <template slot-scope="scope">-->
+            <!--                <span>{{scope.row.transfertwo}}</span>-->
+            <!--              </template>-->
+            <!--            </pl-table-column>-->
+            <!--            DEL_FJL-->
             <!--            配賦部門費小計-->
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_ALLOCATIONSUM')"
@@ -1313,8 +1315,11 @@
               //合计
               response[j].expensessubtotal = (Number(sumoutsourcinghours) + Number(sumoutsourcingname) + Number(sumemployeename)).toFixed(2);
               //add-ws-5/6-配赋费计算添加
+                      //         UPD_FJL --start
               //配賦部門費小計
-              response[j].allocationsum = (Number(response[j].expensessubtotal) + Number(response[j].transferone) + Number(response[j].transfertwo)).toFixed(2);
+                      // response[j].allocationsum = (Number(response[j].expensessubtotal) + Number(response[j].transferone) + Number(response[j].transfertwo)).toFixed(2);
+                      response[j].allocationsum = (Number(response[j].expensessubtotal)).toFixed(2);
+                      //         UPD_FJL --end
 
 // add_fjl
               //社員PJ工数
@@ -1416,8 +1421,8 @@
                 surveyfee: response[j].surveyfee,
                 othersoftwarefree: response[j].othersoftwarefree,
                 expensessubtotal: response[j].expensessubtotal,
-                transferone: response[j].transferone,
-                transfertwo: response[j].transfertwo,
+                  // transferone: response[j].transferone,
+                  // transfertwo: response[j].transfertwo,
                 allocationsum: response[j].allocationsum,
                 threefree: response[j].threefree,
                 commonfee: response[j].commonfee,
@@ -1509,8 +1514,8 @@
             othersoftwarefree: this.tableData[i].othersoftwarefree,
             departmenttotal: this.tableData[i].departmenttotal,
             expensessubtotal: this.tableData[i].expensessubtotal,
-            transferone: this.tableData[i].transferone,
-            transfertwo: this.tableData[i].transfertwo,
+              // transferone: this.tableData[i].transferone,
+              // transfertwo: this.tableData[i].transfertwo,
             allocationsum: this.tableData[i].allocationsum,
             yuanqincost: this.tableData[i].yuanqincost,
             travalcost: this.tableData[i].travalcost,
