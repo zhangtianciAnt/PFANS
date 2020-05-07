@@ -1300,10 +1300,10 @@
               response[j].emhours = ((Number(response[j].emhours) + Number(response[0].unworktime)) / Number(numFlg)).toFixed(2);
 
               //外注（構外∔構内）稼働工数
-              response[j].outsourcing = ((Number(response[j].outsourcingpjhours) + Number(response[0].unworktimeei) + Number(response[0].unworktimeex)) / Number(numFlg)).toFixed(2);
+                response[j].outsourcing = (Number(response[j].outsourcingpjhours)).toFixed(2);
 
               //社員稼働工数
-              response[j].employeeuptime = ((Number(response[j].emhours) + Number(response[0].unworktime)) / Number(numFlg)).toFixed(2);
+                response[j].employeeuptime = (Number(response[j].emhours)).toFixed(2);
 
               //外注PJ稼働率
               if (Number(response[j].outsourcinghours) + Number(response[j].outsourcingname) > 0) {
