@@ -1177,9 +1177,9 @@
                   //计算工数
                   let numFlg = 160;
                   //add-ws-5/6-报销金额统计为sumpublic，外注的费用统计的金额累计为sumcoststa
-                  let sumcoststa  = response[0].unpublice + response[0].unevec;
+                  let sumcoststa  = Number(response[0].unpublice) + Number(response[0].unevec);
                   debugger
-                  let sumpublic   = response[0].uncoststa;
+                  let sumpublic   = Number(response[0].uncoststa);
                   //add-ws-5/6-报销金额统计为sumpublic，外注的费用统计的金额累计为sumcoststa
 
                   for (let i = 0; i < response.length; i++) {
@@ -1229,6 +1229,7 @@
                       response[j].peocost = (Number(response[j].emhours) / Number(sum)).toFixed(2);
 //upd -ws-5/5-人件费修改
 //upd -ws-5/5-部門共通按分修改
+                      debugger
                       //部門共通按分
                       response[j].departmentcom = (Number(response[j].emhours) / Number(sum) * Number(sumcoststa)).toFixed(2);
 //upd -ws-5/5-部門共通按分修改
