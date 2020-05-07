@@ -518,6 +518,7 @@
                   :no="scope.row"
                   :step="1"
                   v-model="scope.row.otherincome"
+                  @change="changeOtherincome(scope.row)"
                   style="width: 100%">
                 </el-input-number>
               </template>
@@ -952,11 +953,21 @@
 
     },
     methods: {
-      //add_fjl --(営業外損益)自动计算
+        //add_fjl --start
       changeIntere(val) {
+          //--(営業外損益)自动计算
         val.operatingprofit = (val.interestrate + val.exchanges).toFixed(2);
+          //--(税引前利益)自动计算
+          val.pretaxprofit = (Number(val.operatingprofit) + Number(val.Operating)).toFixed(2);
       },
-      //add_fjl --(営業外損益)自动计算
+        changeTaxallowance(val) {
+            //--(税引後利益)自动计算
+            val.posttaxbenefit = (Number(val.pretaxprofit) - Number(val.taxallowance)).toFixed(2);
+        },
+        // changeOtherincome(){
+        //
+        // },
+        //add_fjl --end
       changeRegion(val) {
         this.form.region = val;
         if (this.form.group_id && this.form.year && this.form.region) {
@@ -1340,7 +1351,7 @@
               //営業利益
               response[j].Operating = Number(response[j].intotal) - Number(response[j].costtotal);
               //税引後利益
-              response[j].posttaxbenefit = Number(response[j].Operating) - Number(response[j].taxallowance);
+                // response[j].posttaxbenefit = Number(response[j].Operating) - Number(response[j].taxallowance);
 // add_fjl
               tabledate.push({
                 pj1: response[j].pj1,
@@ -1426,10 +1437,6 @@
             this.loading = false;
           });
       },
-      changeTaxallowance(val, row) {
-        row.taxallowance = val;
-        row.posttaxbenefit = row.pretaxprofit - row.taxallowance;
-      },
 
       handleSelectionChange(val) {
         this.multipleSelection = val;
@@ -1508,7 +1515,6 @@
         this.$store
           .dispatch('PFANS1042Store/insert', this.costcarryforward)
           .then(response => {
-            debugger
             Message({
               message: this.$t('normal.success_02'),
               type: 'success',
