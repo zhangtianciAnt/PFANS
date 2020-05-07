@@ -8,9 +8,25 @@ export function createPfans3001(data) {
   });
 }
 
+export function insert(data) {
+  return request({
+    url: 'tickets/insert',
+    method: 'post',
+    data: data,
+  });
+}
+
 export function updatePfans3001(data) {
   return request({
     url: 'tickets/updateInfo',
+    method: 'post',
+    data: data,
+  });
+}
+
+export function update(data) {
+  return request({
+    url: 'tickets/update',
     method: 'post',
     data: data,
   });
@@ -30,3 +46,13 @@ export function getPfans3001One(data) {
     data: data,
   });
 }
+
+export function selectById(data) {
+  return request({
+    url: 'tickets/selectById',
+    method: 'get',
+    params: data
+  });
+}
+
+
