@@ -205,26 +205,6 @@
                     response[j].company = co.suppliername;
                   }
                 }
-                if(response[j].project_id  === 'PP024001')
-                {
-                  let co = getCooperinterviewListByAccount(response[j].createby);
-                  if (co)
-                  {
-                    if (co.group_id)
-                    {
-                      let group = getOrgInfo(co.group_id);
-                      if (group) {
-                        response[j].groupname = group.companyname;
-                      }
-                    }
-                  }
-                  if (user)
-                  {
-                    response[j].groupname = user.userinfo.groupname;
-                  }
-                }
-                else
-                {
                   if (response[j].group_id)
                   {
                     let group = getOrgInfo(response[j].group_id);
@@ -232,25 +212,52 @@
                       response[j].groupname = group.companyname;
                     }
                   }
-                  else
-                  {
-                    let co = getCooperinterviewListByAccount(response[j].createby);
-                    if (co)
-                    {
-                      if (co.group_id)
-                      {
-                        let group = getOrgInfo(co.group_id);
-                        if (group) {
-                          response[j].groupname = group.companyname;
-                        }
-                      }
-                    }
-                    if (user)
-                    {
-                      response[j].groupname = user.userinfo.groupname;
-                    }
-                  }
-                }
+                // if(response[j].project_id  === 'PP024001')
+                // {
+                //   let co = getCooperinterviewListByAccount(response[j].createby);
+                //   if (co)
+                //   {
+                //     if (co.group_id)
+                //     {
+                //       let group = getOrgInfo(co.group_id);
+                //       if (group) {
+                //         response[j].groupname = group.companyname;
+                //       }
+                //     }
+                //   }
+                //   if (user)
+                //   {
+                //     response[j].groupname = user.userinfo.groupname;
+                //   }
+                // }
+                // else
+                // {
+                //   if (response[j].group_id)
+                //   {
+                //     let group = getOrgInfo(response[j].group_id);
+                //     if (group) {
+                //       response[j].groupname = group.companyname;
+                //     }
+                //   }
+                //   else
+                //   {
+                //     let co = getCooperinterviewListByAccount(response[j].createby);
+                //     if (co)
+                //     {
+                //       if (co.group_id)
+                //       {
+                //         let group = getOrgInfo(co.group_id);
+                //         if (group) {
+                //           response[j].groupname = group.companyname;
+                //         }
+                //       }
+                //     }
+                //     if (user)
+                //     {
+                //       response[j].groupname = user.userinfo.groupname;
+                //     }
+                //   }
+                // }
                 response[j].log_date = moment(response[j].log_date).format('YYYY-MM-DD');
                 if (response[j].time_end !== null && response[j].time_end !== '') {
                   response[j].time_end = moment(response[j].time_end).format('HH:mm');
