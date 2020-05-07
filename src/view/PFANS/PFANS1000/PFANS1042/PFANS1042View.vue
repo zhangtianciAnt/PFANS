@@ -333,7 +333,7 @@
               align="center"
               width="110">
               <template slot-scope="scope">
-                <span>{{scope.row.outcost}}</span>
+                <span>{{scope.row.othersoftwarefree}}</span>
               </template>
             </pl-table-column>
             <!--            研究開発費・ソフト費用小計-->
@@ -342,7 +342,7 @@
               align="center"
               width="180">
               <template slot-scope="scope">
-                <span>{{scope.row.expensessubtotal}}</span>
+                <span>{{scope.row.departmenttotal}}</span>
               </template>
             </pl-table-column>
             <!--            管理・共通部門配賦-->
@@ -428,7 +428,7 @@
               width="110">
 
               <template slot-scope="scope">
-                <span>{{scope.row.callcost}}</span>
+                <span>{{scope.row.concost}}</span>
               </template>
 
             </pl-table-column>
@@ -447,7 +447,7 @@
               align="center"
               width="110">
               <template slot-scope="scope">
-                <span>{{scope.row.threefree}}</span>
+                <span>{{scope.row.commonfee}}</span>
               </template>
             </pl-table-column>
 
