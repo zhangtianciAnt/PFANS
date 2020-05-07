@@ -1319,7 +1319,7 @@
                 for (let b = 0; b < this.dateInfo.length; b++) {
                     if (moment(this.form.reoccurrencedate).format('YYYY-MM-DD') <= moment(this.dateInfo[b].dateflg).format('YYYY-MM-DD') && moment(this.form.refinisheddate).format('YYYY-MM-DD') >= moment(this.dateInfo[b].dateflg).format('YYYY-MM-DD')) {
                         if (this.dateInfo[b].type === '4') {
-                            this.relist.push({
+                            this.relistTwo.push({
                                 tdfo: this.dateInfo[b].dateflg
                             });
                         }
