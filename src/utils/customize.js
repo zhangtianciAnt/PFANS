@@ -409,7 +409,20 @@ export function getCurrentRole2() {
   }
   return "1";
 }
-
+//add-ws-5/7-财务部长权限添加
+export function getCurrentRole3() {
+  let roles = "";
+  if(store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0){
+    for(let role of store.getters.useraccount.roles){
+      roles = roles + role.description;
+    }
+    if(roles.toUpperCase().indexOf("财务部长")!= -1){
+      return "0";
+    }
+  }
+  return "1";
+}
+//add-ws-5/7-财务部长权限添加
 export function getCurrentRoleCar() {
   let roles = "";
   if(store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0){
