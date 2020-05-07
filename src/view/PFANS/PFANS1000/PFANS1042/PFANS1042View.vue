@@ -1129,8 +1129,6 @@
                                 // response[j].pj1 = aaa
                                 response[j].pj = aaa;
                             }
-                            response[0].emhours = response[0].unworktime;
-                            response[0].outsourcingpjhours = Number(response[0].unworktimeei) + Number(response[0].unworktimeex);
                             //add_fjl
                             //部門売上合計
                             response[j].centerintotal = (Number(response[j].inst) + Number(response[j].tax) + Number(response[j].outst1)).toFixed(2);
@@ -1142,7 +1140,7 @@
                             response[j].intotal = (Number(response[j].outst1) + Number(response[j].tax) + Number(response[j].inst)).toFixed(2);
 
                             //外注（構外∔構内）PJ工数
-                            response[j].outsourcingpjhours = (Number(response[j].inhours) + Number(response[j].outhours)).toFixed(2);
+                            response[j].outsourcingpjhours = ((Number(response[j].inhours) + Number(response[j].outhours)) / Number(numFlg)).toFixed(2);
                             if (sum == 0) {
                                 response[j].peocost = 0;
                                 response[j].departmentcom = 0;
