@@ -1189,6 +1189,7 @@
                   //add-ws-5/6-报销金额统计为sumpublic，外注的费用统计的金额累计为sumcoststa
                   let sumcoststa  = Number(response[0].unpublice) + Number(response[0].unevec);
                   let sumpublic   = Number(response[0].uncoststa);
+                  let sumplpublice   = Number(response[0].unplpublice);
                   //add-ws-5/6-报销金额统计为sumpublic，外注的费用统计的金额累计为sumcoststa
 
                   for (let i = 0; i < response.length; i++) {
@@ -1233,6 +1234,7 @@
                     //外注（構外∔構内）PJ工数
                     response[j].outsourcingpjhours = ((Number(response[j].inhours) + Number(response[j].outhours) + Number(response[0].unworktimeei) + Number(response[0].unworktimeex)) / Number(numFlg)).toFixed(2);
                     if (sum == 0) {
+                      response[j].twocost = 0;
                       response[j].peocost = 0;
                       response[j].departmentcom = 0;
                       response[j].allocation = 0;
@@ -1241,6 +1243,9 @@
                       //人件费计算（給料）
                       response[j].peocost = (Number(response[j].emhours) / Number(sum)).toFixed(2);
 //upd -ws-5/5-人件费修改
+//add -ws-5/7-厚生费修改
+                      response[j].twocost = (Number(response[j].emhours) / Number(sum) * Number(sumplpublice)).toFixed(2);
+//add -ws-5/7-厚生费修改
 //upd -ws-5/5-部門共通按分修改
                       //部門共通按分
                       response[j].departmentcom = (Number(response[j].emhours) / Number(sum) * Number(sumcoststa)).toFixed(2);
