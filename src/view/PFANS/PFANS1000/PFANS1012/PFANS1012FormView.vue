@@ -3739,7 +3739,7 @@
         debugger
         if (this.form.type === 'PJ001001') {
           this.form.rmbexpenditure = sums[8];
-        } else if (this.checkCode1 == '1' || this.checkCode1 == '') {
+        } else if (this.checktime) {
           this.form.rmbexpenditure = this.tablePValue[8] + sums[8];
         } else {
           this.form.rmbexpenditure = this.tablePValue[8] + sums[7];
@@ -3749,7 +3749,7 @@
         debugger
         if (this.form.type === 'PJ001001') {
           this.form.foreigncurrency = '0';
-        } else if (this.checkCode1 == '1' || this.checkCode1 == '') {
+        } else if (this.checktime) {
           this.form.foreigncurrency = this.tablePValue[9] + sums[9];
         } else {
           this.form.foreigncurrency = this.tablePValue[9] + sums[8];
