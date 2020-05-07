@@ -597,7 +597,7 @@
               :label="$t('label.PFANS1042FORMVIEW_EXCHANGE')"
               align="center"
               width="200"
-              prop="exchange">
+              prop="exchanges">
               <template slot-scope="scope">
                 <el-input-number
                   size="mini"
@@ -606,15 +606,11 @@
                   controls-position="right"
                   :no="scope.row"
                   :step="1"
-                  v-model="scope.row.exchange"
+                  v-model="scope.row.exchanges"
                   @change="changeIntere(scope.row)"
                   style="width: 100%">
                 </el-input-number>
               </template>
-              <!--            <template slot-scope="scope">-->
-              <!--              <el-input-number ></el-input-number>-->
-              <!--              <span>{{scope.row.exchange}}</span>-->
-              <!--            </template>-->
             </pl-table-column>
             <!--            営業外損益-->
             <pl-table-column
@@ -958,10 +954,8 @@
         },
         methods: {
             //add_fjl --(営業外損益)自动计算
-            changeIntere(val, row) {
-                debugger;
-                row.interestrate = val;
-                row.operatingprofit = row.interestrate + row.exchange;
+            changeIntere(val) {
+                val.operatingprofit = (val.interestrate + val.exchanges).toFixed(2);
             },
             //add_fjl --(営業外損益)自动计算
             changeRegion(val) {
@@ -1201,7 +1195,7 @@
                                 - (Number(response[j].outst2) / (1 + Number(date1)) * Number(date1) + Number(response[j].outst3) / (1 + Number(date2)) * Number(date2))).toFixed(2);
                             //ADD_FJL  end
                             //外注（構外∔構内）PJ工数
-                            response[j].outsourcingpjhours = ((Number(response[j].inhours) + Number(response[j].outhours)) / Number(numFlg)).toFixed(2);
+                            response[j].outsourcingpjhours = ((Number(response[j].inhours) + Number(response[j].outhours) + Number(response[0].unworktimeei) + Number(response[0].unworktimeex)) / Number(numFlg)).toFixed(2);
                             if (sum == 0) {
                                 response[j].peocost = 0;
                                 response[j].departmentcom = 0;
@@ -1295,7 +1289,7 @@
 
 // add_fjl
                             //社員PJ工数
-                            response[j].emhours = (Number(response[j].emhours) / Number(numFlg)).toFixed(2)
+                            response[j].emhours = ((Number(response[j].emhours) + Number(response[0].unworktime)) / Number(numFlg)).toFixed(2)
 
                             //外注（構外∔構内）稼働工数
                             response[j].outsourcing = ((Number(response[j].outsourcingpjhours) + Number(response[0].unworktimeei) + Number(response[0].unworktimeex)) / Number(numFlg)).toFixed(2);
