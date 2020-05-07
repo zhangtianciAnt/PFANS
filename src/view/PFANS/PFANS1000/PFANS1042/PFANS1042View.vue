@@ -1389,7 +1389,6 @@
                                         //税引後利益 = 税引前利益 + 税金引当金
                                         response[j].posttaxbenefit = Number(response[j].pretaxprofit) - Number(response[j].taxallowance);
                                         //営業利益率
-                                        alert(Number(response[j].Operating))
                                         if (Number(response[j].intotal) > 0) {
                                             response[j].operatingmargin = ((Number(response[j].Operating) / Number(response[j].intotal)) * 100).toFixed(2) + '%';
                                         } else {
