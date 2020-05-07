@@ -1621,7 +1621,7 @@
       for (let i = 0; i < dic.length; i++) {
         if (dic[i].code === 'PJ111001' || dic[i].code === 'PJ111002' || dic[i].code === 'PJ111003' || dic[i].code === 'PJ111004' || dic[i].code === 'PJ111005'
           || dic[i].code === 'PJ111006' || dic[i].code === 'PJ111007' || dic[i].code === 'PJ111009' || dic[i].code === 'PJ111011'
-          || dic[i].code === 'PJ111012' || dic[i].code === 'PJ111013' || dic[i].code === 'PJ111014') {
+          || dic[i].code === 'PJ111012' || dic[i].code === 'PJ111013' || dic[i].code === 'PJ111014'|| dic[i].code === 'PJ111015') {
           this.ploptionsdate.push({
             value: dic[i].code,
             lable: dic[i].value1,
