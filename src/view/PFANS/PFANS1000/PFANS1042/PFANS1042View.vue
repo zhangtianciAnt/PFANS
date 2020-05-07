@@ -154,14 +154,12 @@
               <template slot-scope="scope">
                 <span>{{scope.row.outst3}}</span>
               </template>
-
             </pl-table-column>
-
+            <!--            内部受託-->
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_INST')"
               align="center"
               width="110">
-
               <template slot-scope="scope">
                 <span>{{scope.row.inst}}</span>
               </template>
@@ -1215,6 +1213,8 @@
                     }
                     //add_fjl
                     //ADD_FJL  start
+                      //その他(ソフト費)
+                      response[j].othersoftwarefree = (Number('-' + response[j].inst)).toFixed(2);
                     //部門売上合計
                     response[j].centerintotal = (Number(response[j].inst) + Number(response[j].outst3) + Number(response[j].outst2) + Number(response[j].outst1)).toFixed(2);
                     //技術開発・海外役務-
