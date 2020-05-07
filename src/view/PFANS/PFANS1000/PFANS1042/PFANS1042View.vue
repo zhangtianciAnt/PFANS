@@ -608,7 +608,7 @@
                   :no="scope.row"
                   :step="1"
                   v-model="scope.row.exchanges"
-                  @change="changeIntere(scope.row)"
+                  @change="changeIntere1(scope.row)"
                   style="width: 100%">
                 </el-input-number>
               </template>
@@ -960,13 +960,24 @@
           //--(税引前利益)自动计算
           val.pretaxprofit = (Number(val.operatingprofit) + Number(val.Operating)).toFixed(2);
       },
+        changeIntere1(val) {
+            //--(営業外損益)自动计算
+            val.operatingprofit = (val.interestrate + val.exchanges).toFixed(2);
+            //--(税引前利益)自动计算
+            val.pretaxprofit = (Number(val.operatingprofit) + Number(val.Operating)).toFixed(2);
+        },
         changeTaxallowance(val) {
             //--(税引後利益)自动计算
             val.posttaxbenefit = (Number(val.pretaxprofit) - Number(val.taxallowance)).toFixed(2);
         },
-        // changeOtherincome(){
-        //
-        // },
+        changeOtherincome(val) {
+            //--その他諸経費小計
+            val.otherexpentotal = (Number(val.yuanqincost) + Number(val.travalcost) + Number(val.callcost)
+                + Number(val.concost) + Number(val.threefree) + Number(val.commonfee) + Number(val.brandcost)
+                + Number(val.otherexpenses) + Number(val.otherincome) + Number(val.process)).toFixed(2);
+            //--営業利益率
+            val.otherincome = (Number(val.intotal) - Number(val.peocostsum) - Number(val.costsubtotal) - Number(val.departmenttotal) - Number(val.allocationsum) - Number(val.otherexpentotal)) / Number(val.intotal);
+        },
         //add_fjl --end
       changeRegion(val) {
         this.form.region = val;
@@ -1236,15 +1247,16 @@
               response[j].costsubtotal = (Number(response[j].depreciationsoft) + Number(response[j].depreciationequipment) + Number(response[j].rent) +
                 Number(response[j].leasecost) + Number(response[j].temporaryrent) + Number(response[j].other)).toFixed(2);
               //研究開発費・ソフト費用小計
-              // response[j].expensessubtotal = (Number(response[j].researchcost) + Number(response[j].surveyfee) + Number(response[j].inwetuo) +
-              //   Number(response[j].outcost) + Number(response[j].outcost)).toFixed(2);
+                response[j].departmenttotal = (Number(response[j].researchcost) + Number(response[j].surveyfee) + Number(response[j].inwetuo) +
+                    Number(response[j].outcost) + Number(response[j].othersoftwarefree)).toFixed(2);
 
               // 部門共通費用合計
-              response[j].departmenttotal = (Number(response[j].yuanqincost) + Number(response[j].travalcost) + Number(response[j].concost) + Number(response[j].callcost) + Number(response[j].brandcost) + Number(response[j].rent) + Number(response[j].other)).toFixed(2);
-
+                // response[j].departmenttotal = (Number(response[j].yuanqincost) + Number(response[j].travalcost) + Number(response[j].concost) + Number(response[j].callcost) + Number(response[j].brandcost) + Number(response[j].rent) + Number(response[j].other)).toFixed(2);
+                //仕掛品
+                response[j].process = (Number('-' + response[j].centerintotal) + Number(response[j].inwetuo)).toFixed(2);
               //その他諸経費小計
-              response[j].otherexpentotal = (Number(response[j].yuanqincost) + Number(response[j].travalcost)
-                + Number(response[j].callcost) + Number(response[j].callcost) + Number(response[j].threefree) + Number(response[j].threefree) + Number(response[j].brandcost)
+                response[j].otherexpentotal = (Number(response[j].yuanqincost) + Number(response[j].travalcost) + Number(response[j].callcost)
+                    + Number(response[j].concost) + Number(response[j].threefree) + Number(response[j].commonfee) + Number(response[j].brandcost)
                 + Number(response[j].otherexpenses) + Number(response[j].otherincome) + Number(response[j].process)).toFixed(2);
 
 
@@ -1289,11 +1301,6 @@
               //add-ws-5/6-配赋费计算添加
               //配賦部門費小計
               response[j].allocationsum = (Number(response[j].expensessubtotal) + Number(response[j].transferone) + Number(response[j].transfertwo)).toFixed(2);
-              //仕掛品
-              response[j].process = (Number('-' + response[j].centerintotal) + Number(response[j].inwetuo)).toFixed(2);
-              // response[j].process = ('-' + response[j].peocostsum - response[j].costsubtotal - response[j].expensessubtotal - Number(response[j].yuanqincost) - Number(response[j].travalcost)
-              //   - Number(response[j].callcost) - Number(response[j].callcost) - Number(response[j].threefree) - Number(response[j].threefree) - Number(response[j].brandcost)
-              //   - Number(response[j].otherexpenses) + Number(response[j].intotal) * 0.75).toFixed(2);
 
 // add_fjl
               //社員PJ工数
@@ -1404,6 +1411,7 @@
                 otherincome: response[j].otherincome,
                 otherexpentotal: response[j].otherexpentotal,
                 interestrate: response[j].interestrate,
+                  exchanges: response[j].exchanges,
                 operatingprofit: response[j].operatingprofit,
                 pretaxprofit: response[j].pretaxprofit,
                 taxallowance: response[j].taxallowance,
