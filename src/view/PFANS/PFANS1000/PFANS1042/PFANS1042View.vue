@@ -115,7 +115,7 @@
           <plx-table-column
             :label="$t('label.PFANS1042FORMVIEW_INCOME')"
             align="center">
-
+            <!--            技術開発・海外役務-->
             <plx-table-column
               :label="$t('label.PFANS1042FORMVIEW_OUTST')"
               align="center"
@@ -126,13 +126,32 @@
 
             </plx-table-column>
 
-            <plx-table-column
-              :label="$t('label.PFANS1042FORMVIEW_TAX')"
-              align="center"
-              width="110">
+            <!--            <plx-table-column-->
+            <!--              :label="$t('label.PFANS1042FORMVIEW_TAX')"-->
+            <!--              align="center"-->
+            <!--              width="110">-->
 
+            <!--              <template slot-scope="scope">-->
+            <!--                <span>{{scope.row.tax}}</span>-->
+            <!--              </template>-->
+
+            <!--            </plx-table-column>-->
+
+            <plx-table-column
+              :label="$t('label.PFANS1042FORMVIEW_TAXYW')"
+              align="center"
+              width="200">
               <template slot-scope="scope">
-                <span>{{scope.row.tax}}</span>
+                <span>{{scope.row.taxyw}}</span>
+              </template>
+            </plx-table-column>
+
+            <plx-table-column
+              :label="$t('label.PFANS1042FORMVIEW_TAXSA')"
+              align="center"
+              width="200">
+              <template slot-scope="scope">
+                <span>{{scope.row.taxsa}}</span>
               </template>
 
             </plx-table-column>
@@ -156,7 +175,7 @@
                 <span>{{scope.row.centerintotal}}</span>
               </template>
             </plx-table-column>
-
+            <!--            売上合計-->
             <plx-table-column
               :label="$t('label.PFANS1042FORMVIEW_INTOTAL')"
               align="center"
@@ -1091,8 +1110,8 @@
                     .dispatch('PFANS1042Store/getPltab', {'groupid': groupid, 'year': year, 'month': month})
                     .then(response => {
                         let tabledate = [];
-                        let date1 = getDictionaryInfo('PJ086002').value2;
-                        let date2 = getDictionaryInfo('PJ086003').value2;
+                        let date1 = getDictionaryInfo('PJ086002').value2; // --国内役務（6%税込み）
+                        let date2 = getDictionaryInfo('PJ086003').value2;  // --国内販売（13%税込み）
                         let wai = getDictionaryInfo('PJ110001').value2;//0.4
                         let nei = getDictionaryInfo('PJ110002').value2;//1
                         let she = getDictionaryInfo('PJ110003').value2;//3
@@ -1130,10 +1149,16 @@
                                 response[j].pj = aaa;
                             }
                             //add_fjl
+                            //ADD_FJL  start
                             //部門売上合計
-                            response[j].centerintotal = (Number(response[j].inst) + Number(response[j].tax) + Number(response[j].outst1)).toFixed(2);
-                            //外部受託-
-                            response[j].outst1 = (Number(response[j].outst1) + Number(response[j].outst2) + Number(response[j].outst3)).toFixed(2);
+                            response[j].centerintotal = (Number(response[j].inst) + Number(response[j].taxsa) + Number(response[j].taxyw) + Number(response[j].outst1)).toFixed(2);
+                            //技術開発・海外役務-
+                            response[j].outst1 = (Number(response[j].outst1)).toFixed(2);
+                            // --国内役務（6%税込み）
+                            response[j].taxyw = (Number(response[j].outst2) * date1).toFixed(2);
+                            // --国内販売（13%税込み）
+                            response[j].taxsa = (Number(response[j].outst3) * date2).toFixed(2);
+                            //ADD_FJL  end
                             //税金-
                             response[j].tax = (((Number(response[j].outst2) / ((1 + date1) * date1))) + ((Number(response[j].outst3) / ((1 + date2) * date2)))).toFixed(2);
                             //売上合計
@@ -1292,14 +1317,16 @@
                             } else {
                                 response[j].staffingrate = 0
                             }
-                            // add_fjl
+// add_fjl
                             tabledate.push({
                                 pj1: response[j].pj1,
                                 pj: response[j].pj,
                                 outst1: response[j].outst1,
                                 outst2: response[j].outst2,
                                 outst3: response[j].outst3,
-                                tax: response[j].tax,
+                                // tax: response[j].tax,
+                                taxyw: response[j].taxyw,
+                                taxsa: response[j].taxsa,
                                 inst: response[j].inst,
                                 intotal: response[j].intotal,
                                 centerintotal: response[j].centerintotal,
