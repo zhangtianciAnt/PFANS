@@ -237,6 +237,7 @@
                   :no="scope.row"
                   :step="1"
                   v-model="scope.row.depreciationsoft"
+                  @change="changeDeprec(scope.row)"
                   style="width: 100%">
                 </el-input-number>
                 <!--                <span>{{scope.row.depreciationsoft}}</span>-->
@@ -257,6 +258,7 @@
                   :no="scope.row"
                   :step="1"
                   v-model="scope.row.depreciationequipment"
+                  @change="changeDepment(scope.row)"
                   style="width: 100%">
                 </el-input-number>
                 <!--                <span>{{scope.row.depreciationequipment}}</span>-->
@@ -985,6 +987,14 @@
                     val.operatingmargin = 0;
                 }
 
+            },
+            changeDeprec(val) {
+                val.costsubtotal = (Number(val.depreciationsoft) + Number(val.depreciationequipment) + Number(val.rent) +
+                    Number(val.leasecost) + Number(val.temporaryrent) + Number(val.other)).toFixed(2);
+            },
+            changeDepment(val) {
+                val.costsubtotal = (Number(val.depreciationsoft) + Number(val.depreciationequipment) + Number(val.rent) +
+                    Number(val.leasecost) + Number(val.temporaryrent) + Number(val.other)).toFixed(2);
             },
             //add_fjl --end
             changeRegion(val) {
