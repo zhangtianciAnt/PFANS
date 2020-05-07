@@ -1325,42 +1325,42 @@
 
               //外注PJ稼働率
               if (Number(response[j].outsourcinghours) + Number(response[j].outsourcingname) > 0) {
-                response[j].externalpjrate = (Number(response[j].outsourcingpjhours) / (Number(response[j].outsourcinghours) + Number(response[j].outsourcingname))).toFixed(2);
+                  response[j].externalpjrate = ((Number(response[j].outsourcingpjhours) / (Number(response[j].outsourcinghours) + Number(response[j].outsourcingname))) * 100).toFixed(2) + '%';
               } else {
                 response[j].externalpjrate = 0;
               }
 
               //外注稼働率
               if (Number(response[j].outsourcinghours) + Number(response[j].outsourcingname) > 0) {
-                response[j].externalinjectionrate = (Number(response[j].outsourcing) / (Number(response[j].outsourcinghours) + Number(response[j].outsourcingname))).toFixed(2);
+                  response[j].externalinjectionrate = ((Number(response[j].outsourcing) / (Number(response[j].outsourcinghours) + Number(response[j].outsourcingname))) * 100).toFixed(2) + '%';
               } else {
                 response[j].externalinjectionrate = 0;
               }
 
               //社員PJ稼働率
               if (Number(response[j].employeename) > 0) {
-                response[j].memberpjrate = (Number(response[j].emhours) / Number(response[j].employeename)).toFixed(2);
+                  response[j].memberpjrate = ((Number(response[j].emhours) / Number(response[j].employeename)) * 100).toFixed(2) + '%';
               } else {
                 response[j].memberpjrate = 0;
               }
 
               //社員稼働率
               if (Number(response[j].employeename) > 0) {
-                response[j].membershiprate = (Number(response[j].employeeuptime) / Number(response[j].employeename)).toFixed(2);
+                  response[j].membershiprate = ((Number(response[j].employeeuptime) / Number(response[j].employeename)) * 100).toFixed(2) + '%';
               } else {
                 response[j].membershiprate = 0;
               }
 
               //全員PJ稼働率
               if (Number(response[j].outsourcinghours) + Number(response[j].outsourcingname) + Number(response[j].employeename) > 0) {
-                response[j].pjrateemployees = ((Number(response[j].outsourcingpjhours) + Number(response[j].emhours)) / ((Number(response[j].outsourcinghours) + Number(response[j].outsourcingname) + Number(response[j].employeename)))).toFixed(2);
+                  response[j].pjrateemployees = (((Number(response[j].outsourcingpjhours) + Number(response[j].emhours)) / ((Number(response[j].outsourcinghours) + Number(response[j].outsourcingname) + Number(response[j].employeename)))) * 100).toFixed(2) + '%';
               } else {
                 response[j].pjrateemployees = 0;
               }
 
               //全員稼働率
               if (Number(response[j].outsourcinghours) + Number(response[j].outsourcingname) + Number(response[j].employeename) > 0) {
-                response[j].staffingrate = ((Number(response[j].outsourcing) + Number(response[j].employeeuptime)) / ((Number(response[j].outsourcinghours) + Number(response[j].outsourcingname) + Number(response[j].employeename)))).toFixed(2);
+                  response[j].staffingrate = (((Number(response[j].outsourcing) + Number(response[j].employeeuptime)) / ((Number(response[j].outsourcinghours) + Number(response[j].outsourcingname) + Number(response[j].employeename)))) * 100).toFixed(2) + '%';
               } else {
                 response[j].staffingrate = 0;
               }
