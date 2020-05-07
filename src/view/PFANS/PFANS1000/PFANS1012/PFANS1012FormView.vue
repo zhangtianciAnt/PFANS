@@ -821,6 +821,7 @@
                           <template slot-scope="scope">
                             <el-input-number
                               :disabled="true"
+                              :min="0"
                               controls-position="right"
                               style="width: 100%"
                               @change="changeRMB(scope.row)"
@@ -1045,6 +1046,7 @@
                           <template slot-scope="scope">
                             <el-input-number
                               :disabled="true"
+                              :min="0"
                               controls-position="right"
                               style="width: 100%"
                               @change="changeRMB(scope.row)"
@@ -1301,7 +1303,7 @@
         checkdisable: false,
         plsummary: '',
         Codecheck: '',
-        checkCode1: '',
+        checkCode1: '0',
         checkcode: '',
         checktime: false,
         centerid: '',
@@ -3734,18 +3736,20 @@
         return sums;
       },
       getMoney(sums) {
+        debugger
         if (this.form.type === 'PJ001001') {
           this.form.rmbexpenditure = sums[8];
-        } else if (this.checkCode1 == '1') {
+        } else if (this.checktime) {
           this.form.rmbexpenditure = this.tablePValue[8] + sums[8];
         } else {
           this.form.rmbexpenditure = this.tablePValue[8] + sums[7];
         }
       },
       getforeigncurrency(sums) {
+        debugger
         if (this.form.type === 'PJ001001') {
           this.form.foreigncurrency = '0';
-        } else if (this.checkCode1 == '1') {
+        } else if (this.checktime) {
           this.form.foreigncurrency = this.tablePValue[9] + sums[9];
         } else {
           this.form.foreigncurrency = this.tablePValue[9] + sums[8];
@@ -4393,7 +4397,6 @@
       height: 34px;
       min-width: 80%;
       border: 0.1rem solid #ebeef5;
-      overflow-y: scroll;
       overflow-x: hidden;
       line-height: 34px;
       padding: 0.1rem 0.5rem 0.2rem 0.5rem;

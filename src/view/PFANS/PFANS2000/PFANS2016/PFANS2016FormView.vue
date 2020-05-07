@@ -546,7 +546,7 @@
                 errorcheck: 1,
                 // checkfinisheddate: true,
                 relistTwo: '',
-                workflowCode: 'W0003',
+                workflowCode: '',
                 canStart: true,
                 loading: false,
                 errort: '',
@@ -853,6 +853,12 @@
                 }
                 this.getOvertimelist();
                 // this.getWorktime();
+                if(this.$store.getters.userinfo.userid === '5e78fefff1560b363cdd6db7'){
+                    this.workflowCode = '1';
+                }
+                else{
+                    this.workflowCode = 'W0003';
+                }
             }
         },
         created() {
@@ -1313,7 +1319,7 @@
                 for (let b = 0; b < this.dateInfo.length; b++) {
                     if (moment(this.form.reoccurrencedate).format('YYYY-MM-DD') <= moment(this.dateInfo[b].dateflg).format('YYYY-MM-DD') && moment(this.form.refinisheddate).format('YYYY-MM-DD') >= moment(this.dateInfo[b].dateflg).format('YYYY-MM-DD')) {
                         if (this.dateInfo[b].type === '4') {
-                            this.relist.push({
+                            this.relistTwo.push({
                                 tdfo: this.dateInfo[b].dateflg
                             });
                         }
@@ -2109,6 +2115,10 @@
                                 return;
                             }
                             if (this.$route.params._id) {
+                                //总经理审批自动通过
+                                if (getCurrentRole() === '1' && this.form.status === '4') {
+                                    this.form.status = '7';
+                                }
                                 this.form.abnormalid = this.$route.params._id;
                                 this.loading = true;
                                 this.$store
@@ -2183,6 +2193,10 @@
                 );
             },
             buttonClick2(val) {
+                //总经理审批自动通过
+                if (getCurrentRole() === '1' && this.form.status === '4') {
+                    this.form.status = '7';
+                }
                 this.form.abnormalid = this.$route.params._id;
                 this.loading = true;
                 this.$store

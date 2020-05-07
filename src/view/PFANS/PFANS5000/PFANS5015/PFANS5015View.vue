@@ -163,7 +163,7 @@
         }, []);
         for (let it of filtersrst){
           let time = 0;
-          let r = rst.filter(item => item.username === it.username && item.project_name === it.project_name);
+          let r = rst.filter(item => item.username === it.username && item.project_id === it.project_id);
           for (let su of r){
             time = Number(time) + Number(su.time_start);
           }
@@ -262,7 +262,7 @@
                 if (response[j].time_end !== null && response[j].time_end !== '') {
                   response[j].time_end = moment(response[j].time_end).format('HH:mm');
                 }
-                response[j].unique = response[j].username + response[j].project_name;
+                response[j].unique = response[j].username + response[j].project_id;
                 response[j].contractno='';
               }
             let result = [];

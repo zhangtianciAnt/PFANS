@@ -8,3 +8,19 @@ export function getPltab(data) {
     params: data,
   });
 }
+
+export function getCostList(data) {
+  return request({
+    url: 'Pltab/getCostList',
+    method: 'get',
+    params: data,
+  });
+}
+
+export function insert(data) {
+  return request({
+    url: 'Pltab/insert',
+    method: 'post',
+    data: data
+  })
+}

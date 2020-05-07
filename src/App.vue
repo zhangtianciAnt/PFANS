@@ -1,5 +1,5 @@
 <template>
-  <div @mousedown="mousedown($event)" class="theme_panasonic">
+  <div class="theme_panasonic">
     <transition name="el-fade-in">
       <router-view style="font-family: 'Helvetica Neue', 'Arial'"/>
     </transition>
@@ -28,10 +28,6 @@
           var e = event || window.event || arguments.callee.caller.arguments[0];
 
           if (e && e.keyCode == 123) {
-            // Message({
-            //   message: '👀~再看就把你吃掉~',
-            //   type: 'warning'
-            // });
             e.returnValue = false;
             return (false);
           }
