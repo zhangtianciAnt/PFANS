@@ -39,7 +39,7 @@
                     <el-col :span="12">
                       <el-form-item :label="$t('label.PFANS5004VIEW_PROJECTNAMW')" prop="project_id">
                         <el-select v-model="companyform.project_id" :disabled="!disable" style="width: 16vw" clearable
-                                   @change="getProject" >
+                                   @change="getProject">
                           <el-option
                             v-for="item in optionsdata"
                             :key="item.value"
@@ -212,7 +212,7 @@
           work_memo: '',
           has_project: '',
           wbs_id: '',
-          group_id:'',
+          group_id: '',
         },
         User_id: '',
         Riqickeck: true,
@@ -239,7 +239,7 @@
             required: true,
             message: this.$t('normal.error_08') + this.$t('label.PFANS5004VIEW_PROJECTNAMW'),
             trigger: 'change',
-          }
+          },
           ],
         },
       };
@@ -1111,397 +1111,432 @@
               this.getAttendancelist();
               this.loading = true;
               let error = 0;
-              if (this.checkuserid === 0) {
-                if (moment(this.companyform.log_date).format('YYYY-MM-DD') >= moment(new Date()).format('YYYY-MM-DD')) {
-                  error = error + 1;
+              //add-ws-日志截止日期check添加
+              let check = 0;
+              let log_date = moment(this.companyform.log_date).format('DD');
+              let date = getDictionaryInfo('BP026001').value2;
+              if (moment(this.companyform.log_date).format('yyyy') < moment(new Date()).format('yyyy')) {
+                check = check + 1;
+                Message({
+                  message: this.$t('label.PFANS5008VIEW_CHECKDATA'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.loading = false;
+              } else if (moment(this.companyform.log_date).format('MM') < moment(new Date()).format('MM')) {
+                check = check + 1;
+                Message({
+                  message: this.$t('label.PFANS5008VIEW_CHECKDATA'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.loading = false;
+              } else if (moment(this.companyform.log_date).format('MM') === moment(new Date()).format('MM')) {
+                if (log_date < date) {
+                  check = check + 1;
                   Message({
-                    message: this.$t('label.PFANS5008FORMVIEW_CKECKLOGDATA'),
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  this.loading = false;
-                } else if (this.companyform.time_start == '0') {
-                  error = error + 1;
-                  Message({
-                    message: this.$t('label.PFANS5008FORMVIEW_CKECKTIME'),
+                    message: this.$t('label.PFANS5008VIEW_CHECKDATA'),
                     type: 'error',
                     duration: 5 * 1000,
                   });
                   this.loading = false;
                 }
-                this.$store
-                  .dispatch('PFANS5008Store/getCheckList', {'createby': this.User_id})
-                  .then(response => {
-                    let checklenth = 0;
-                    for (let j = 0; j < response.length; j++) {
-                      if (moment(response[j].log_date).format('YYYY-MM-DD') === moment(this.companyform.log_date).format('YYYY-MM-DD')) {
-                        checklenth += parseFloat(response[j].time_start);
-                      }
-                    }
-                    if (this.companyform.logmanagement_id) {
-                      this.checkLenth = checklenth;
-                      if (parseFloat(this.checkLenth) + parseFloat(this.companyform.time_start) - parseFloat(this.checktimelength) > this.checkdata) {
-                        error = error + 1;
-                        Message({
-                          message: this.$t('label.PFANS5008VIEW_CHECKLENTHLOGDATA'),
-                          type: 'error',
-                          duration: 5 * 1000,
-                        });
-                        this.loading = false;
-                      }
-                    } else {
-                      this.checkLenth = checklenth;
-                      if (parseFloat(this.checkLenth) + parseFloat(this.companyform.time_start) > this.checkdata) {
-                        error = error + 1;
-                        Message({
-                          message: this.$t('label.PFANS5008VIEW_CHECKLENTHLOGDATA'),
-                          type: 'error',
-                          duration: 5 * 1000,
-                        });
-                        this.loading = false;
-                      }
-                    }
-                    if (error == 0) {
-                      if (this.$route.params._id || this.row) {
-                        this.$store
-                          .dispatch('PFANS5008Store/updateNewUser', this.companyform)
-                          .then(response => {
-                            this.data = response;
-                            Message({
-                              message: this.$t('normal.success_02'),
-                              type: 'success',
-                              duration: 5 * 1000,
-                            });
-                            this.$store
-                              .dispatch('PFANS5008Store/getCheckList', {'createby': this.User_id})
-                              .then(response => {
-                                let datalist = [];
-                                for (let k = 0; k < response.length; k++) {
-                                  if (moment(response[k].log_date).format('YYYY-MM-DD') === moment(this.companyform.log_date).format('YYYY-MM-DD')) {
-                                    if (response[k].work_phase === 'PP008001') {
-                                      this.code3 = 'PP009';
-                                      let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
-                                      if (letErrortype != null) {
-                                        response[k].behavior_breakdown = letErrortype.code;
-                                      }
-                                    } else if (response[k].work_phase === 'PP008002') {
-                                      this.code3 = 'PP010';
-                                      let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
-                                      if (letErrortype != null) {
-                                        response[k].behavior_breakdown = letErrortype.code;
-                                      }
-                                    } else if (response[k].work_phase === 'PP008003') {
-                                      this.code3 = 'PP025';
-                                      let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
-                                      if (letErrortype != null) {
-                                        response[k].behavior_breakdown = letErrortype.code;
-                                      }
-                                    } else if (response[k].work_phase === 'PP008004') {
-                                      this.code3 = 'PP011';
-                                      let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
-                                      if (letErrortype != null) {
-                                        response[k].behavior_breakdown = letErrortype.code;
-                                      }
-                                    }
-                                    if (response[k].work_phase !== null && response[k].work_phase !== '') {
-                                      let letErrortype = getDictionaryInfo(response[k].work_phase);
-                                      if (letErrortype != null) {
-                                        response[k].work_phase = letErrortype.value1;
-                                      }
-                                    }
-                                    let obj = {};
-                                    obj.start_time = response[k].time_start;
-                                    obj.work_phase = response[k].work_phase;
-                                    let letErrortypecheck = getDictionaryInfo(response[k].behavior_breakdown);
-                                    if (letErrortypecheck != null) {
-                                      obj.behavior_breakdown = letErrortypecheck.value1;
-                                    }
-                                    obj.project_name = response[k].project_name;
-                                    this.divfalse = true;
-                                    this.xsTable = true;
-                                    obj.logmanagementid = response[k].logmanagement_id;
-                                    obj.wbs_id = response[k].wbs_id;
-                                    datalist[k] = obj;
-                                    this.divfalse = true;
-                                    this.xsTable = true;
-                                  }
-
-                                }
-                                this.DataList = datalist;
-                                this.loading = false;
-                              });
-                          })
-                          .catch(error => {
-                            Message({
-                              message: error,
-                              type: 'error',
-                              duration: 5 * 1000,
-                            });
-                            this.loading = false;
-                          });
-                      } else {
-                        if (this.companyform.project_id === '') {
-                          this.companyform.has_project = '02';
-                        } else {
-                          this.companyform.has_project = '01';
+              }
+              //add-ws-日志截止日期check添加
+              if (check === 0) {
+                if (this.checkuserid === 0) {
+                  if (moment(this.companyform.log_date).format('YYYY-MM-DD') >= moment(new Date()).format('YYYY-MM-DD')) {
+                    error = error + 1;
+                    Message({
+                      message: this.$t('label.PFANS5008FORMVIEW_CKECKLOGDATA'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    this.loading = false;
+                  } else if (this.companyform.time_start == '0') {
+                    error = error + 1;
+                    Message({
+                      message: this.$t('label.PFANS5008FORMVIEW_CKECKTIME'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    this.loading = false;
+                  }
+                  this.$store
+                    .dispatch('PFANS5008Store/getCheckList', {'createby': this.User_id})
+                    .then(response => {
+                      let checklenth = 0;
+                      for (let j = 0; j < response.length; j++) {
+                        if (moment(response[j].log_date).format('YYYY-MM-DD') === moment(this.companyform.log_date).format('YYYY-MM-DD')) {
+                          checklenth += parseFloat(response[j].time_start);
                         }
-                        this.$store
-                          .dispatch('PFANS5008Store/createNewUser', this.companyform)
-                          .then(response => {
-                            this.data = response;
-                            Message({
-                              message: this.$t('normal.success_01'),
-                              type: 'success',
-                              duration: 5 * 1000,
-                            });
-                            this.$store
-                              .dispatch('PFANS5008Store/getCheckList', {'createby': this.User_id})
-                              .then(response => {
-                                let datalist = [];
-                                for (let k = 0; k < response.length; k++) {
-
-                                  if (moment(this.companyform.log_date).format('YYYY-MM-DD') === moment(response[k].log_date).format('YYYY-MM-DD')) {
-                                    if (response[k].work_phase === 'PP008001') {
-                                      this.code3 = 'PP009';
-                                      let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
-                                      if (letErrortype != null) {
-                                        response[k].behavior_breakdown = letErrortype.code;
-                                      }
-                                    } else if (response[k].work_phase === 'PP008002') {
-                                      this.code3 = 'PP010';
-                                      let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
-                                      if (letErrortype != null) {
-                                        response[k].behavior_breakdown = letErrortype.code;
-                                      }
-                                    } else if (response[k].work_phase === 'PP008003') {
-                                      this.code3 = 'PP025';
-                                      let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
-                                      if (letErrortype != null) {
-                                        response[k].behavior_breakdown = letErrortype.code;
-                                      }
-                                    } else if (response[k].work_phase === 'PP008004') {
-                                      this.code3 = 'PP011';
-                                      let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
-                                      if (letErrortype != null) {
-                                        response[k].behavior_breakdown = letErrortype.code;
-                                      }
-                                    }
-                                    if (response[k].work_phase !== null && response[k].work_phase !== '') {
-                                      let letErrortype = getDictionaryInfo(response[k].work_phase);
-                                      if (letErrortype != null) {
-                                        response[k].work_phase = letErrortype.value1;
-                                      }
-                                    }
-                                    let obj = {};
-                                    obj.start_time = response[k].time_start;
-                                    obj.work_phase = response[k].work_phase;
-                                    let letErrortypecheck = getDictionaryInfo(response[k].behavior_breakdown);
-                                    if (letErrortypecheck != null) {
-                                      obj.behavior_breakdown = letErrortypecheck.value1;
-                                    }
-                                    obj.project_name = response[k].project_name;
-                                    this.divfalse = true;
-                                    this.xsTable = true;
-                                    obj.logmanagementid = response[k].logmanagement_id;
-                                    obj.wbs_id = response[k].wbs_id;
-                                    datalist[k] = obj;
-                                    this.divfalse = true;
-                                    this.xsTable = true;
-                                  }
-
-                                }
-                                this.DataList = datalist;
-                                this.loading = false;
-                              });
-                          })
-                          .catch(error => {
-                            Message({
-                              message: error,
-                              type: 'error',
-                              duration: 5 * 1000,
-                            });
-                            this.loading = false;
-                          });
                       }
-                    }
-                  });
-              } else if (this.checkuserid === 1) {
-                if (this.companyform.time_start == '0') {
-                  error = error + 1;
-                  Message({
-                    message: this.$t('label.PFANS5008FORMVIEW_CKECKTIME'),
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
+                      if (this.companyform.logmanagement_id) {
+                        this.checkLenth = checklenth;
+                        if (parseFloat(this.checkLenth) + parseFloat(this.companyform.time_start) - parseFloat(this.checktimelength) > this.checkdata) {
+                          error = error + 1;
+                          Message({
+                            message: this.$t('label.PFANS5008VIEW_CHECKLENTHLOGDATA'),
+                            type: 'error',
+                            duration: 5 * 1000,
+                          });
+                          this.loading = false;
+                        }
+                      } else {
+                        this.checkLenth = checklenth;
+                        if (parseFloat(this.checkLenth) + parseFloat(this.companyform.time_start) > this.checkdata) {
+                          error = error + 1;
+                          Message({
+                            message: this.$t('label.PFANS5008VIEW_CHECKLENTHLOGDATA'),
+                            type: 'error',
+                            duration: 5 * 1000,
+                          });
+                          this.loading = false;
+                        }
+                      }
+                      if (error == 0) {
+                        if (this.$route.params._id || this.row) {
+                          this.$store
+                            .dispatch('PFANS5008Store/updateNewUser', this.companyform)
+                            .then(response => {
+                              this.data = response;
+                              Message({
+                                message: this.$t('normal.success_02'),
+                                type: 'success',
+                                duration: 5 * 1000,
+                              });
+                              this.$store
+                                .dispatch('PFANS5008Store/getCheckList', {'createby': this.User_id})
+                                .then(response => {
+                                  let datalist = [];
+                                  for (let k = 0; k < response.length; k++) {
+                                    if (moment(response[k].log_date).format('YYYY-MM-DD') === moment(this.companyform.log_date).format('YYYY-MM-DD')) {
+                                      if (response[k].work_phase === 'PP008001') {
+                                        this.code3 = 'PP009';
+                                        let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                                        if (letErrortype != null) {
+                                          response[k].behavior_breakdown = letErrortype.code;
+                                        }
+                                      } else if (response[k].work_phase === 'PP008002') {
+                                        this.code3 = 'PP010';
+                                        let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                                        if (letErrortype != null) {
+                                          response[k].behavior_breakdown = letErrortype.code;
+                                        }
+                                      } else if (response[k].work_phase === 'PP008003') {
+                                        this.code3 = 'PP025';
+                                        let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                                        if (letErrortype != null) {
+                                          response[k].behavior_breakdown = letErrortype.code;
+                                        }
+                                      } else if (response[k].work_phase === 'PP008004') {
+                                        this.code3 = 'PP011';
+                                        let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                                        if (letErrortype != null) {
+                                          response[k].behavior_breakdown = letErrortype.code;
+                                        }
+                                      }
+                                      if (response[k].work_phase !== null && response[k].work_phase !== '') {
+                                        let letErrortype = getDictionaryInfo(response[k].work_phase);
+                                        if (letErrortype != null) {
+                                          response[k].work_phase = letErrortype.value1;
+                                        }
+                                      }
+                                      let obj = {};
+                                      obj.start_time = response[k].time_start;
+                                      obj.work_phase = response[k].work_phase;
+                                      let letErrortypecheck = getDictionaryInfo(response[k].behavior_breakdown);
+                                      if (letErrortypecheck != null) {
+                                        obj.behavior_breakdown = letErrortypecheck.value1;
+                                      }
+                                      obj.project_name = response[k].project_name;
+                                      this.divfalse = true;
+                                      this.xsTable = true;
+                                      obj.logmanagementid = response[k].logmanagement_id;
+                                      obj.wbs_id = response[k].wbs_id;
+                                      datalist[k] = obj;
+                                      this.divfalse = true;
+                                      this.xsTable = true;
+                                    }
+
+                                  }
+                                  this.DataList = datalist;
+                                  this.loading = false;
+                                });
+                            })
+                            .catch(error => {
+                              Message({
+                                message: error,
+                                type: 'error',
+                                duration: 5 * 1000,
+                              });
+                              this.loading = false;
+                            });
+                        } else {
+                          if (this.companyform.project_id === '') {
+                            this.companyform.has_project = '02';
+                          } else {
+                            this.companyform.has_project = '01';
+                          }
+                          this.$store
+                            .dispatch('PFANS5008Store/createNewUser', this.companyform)
+                            .then(response => {
+                              this.data = response;
+                              Message({
+                                message: this.$t('normal.success_01'),
+                                type: 'success',
+                                duration: 5 * 1000,
+                              });
+                              this.$store
+                                .dispatch('PFANS5008Store/getCheckList', {'createby': this.User_id})
+                                .then(response => {
+                                  let datalist = [];
+                                  for (let k = 0; k < response.length; k++) {
+
+                                    if (moment(this.companyform.log_date).format('YYYY-MM-DD') === moment(response[k].log_date).format('YYYY-MM-DD')) {
+                                      if (response[k].work_phase === 'PP008001') {
+                                        this.code3 = 'PP009';
+                                        let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                                        if (letErrortype != null) {
+                                          response[k].behavior_breakdown = letErrortype.code;
+                                        }
+                                      } else if (response[k].work_phase === 'PP008002') {
+                                        this.code3 = 'PP010';
+                                        let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                                        if (letErrortype != null) {
+                                          response[k].behavior_breakdown = letErrortype.code;
+                                        }
+                                      } else if (response[k].work_phase === 'PP008003') {
+                                        this.code3 = 'PP025';
+                                        let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                                        if (letErrortype != null) {
+                                          response[k].behavior_breakdown = letErrortype.code;
+                                        }
+                                      } else if (response[k].work_phase === 'PP008004') {
+                                        this.code3 = 'PP011';
+                                        let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                                        if (letErrortype != null) {
+                                          response[k].behavior_breakdown = letErrortype.code;
+                                        }
+                                      }
+                                      if (response[k].work_phase !== null && response[k].work_phase !== '') {
+                                        let letErrortype = getDictionaryInfo(response[k].work_phase);
+                                        if (letErrortype != null) {
+                                          response[k].work_phase = letErrortype.value1;
+                                        }
+                                      }
+                                      let obj = {};
+                                      obj.start_time = response[k].time_start;
+                                      obj.work_phase = response[k].work_phase;
+                                      let letErrortypecheck = getDictionaryInfo(response[k].behavior_breakdown);
+                                      if (letErrortypecheck != null) {
+                                        obj.behavior_breakdown = letErrortypecheck.value1;
+                                      }
+                                      obj.project_name = response[k].project_name;
+                                      this.divfalse = true;
+                                      this.xsTable = true;
+                                      obj.logmanagementid = response[k].logmanagement_id;
+                                      obj.wbs_id = response[k].wbs_id;
+                                      datalist[k] = obj;
+                                      this.divfalse = true;
+                                      this.xsTable = true;
+                                    }
+
+                                  }
+                                  this.DataList = datalist;
+                                  this.loading = false;
+                                });
+                            })
+                            .catch(error => {
+                              Message({
+                                message: error,
+                                type: 'error',
+                                duration: 5 * 1000,
+                              });
+                              this.loading = false;
+                            });
+                        }
+                      }
+                    });
                 }
-                if (error == 0) {
-                  if (this.$route.params._id || this.row) {
-                    this.loading = true;
-                    this.$store
-                      .dispatch('PFANS5008Store/updateNewUser', this.companyform)
-                      .then(response => {
-                        this.data = response;
-                        Message({
-                          message: this.$t('normal.success_02'),
-                          type: 'success',
-                          duration: 5 * 1000,
-                        });
-                        this.$store
-                          .dispatch('PFANS5008Store/getCheckList', {'createby': this.User_id})
-                          .then(response => {
-                            let datalist = [];
-                            for (let k = 0; k < response.length; k++) {
-
-                              if (moment(response[k].log_date).format('YYYY-MM-DD') === moment(this.companyform.log_date).format('YYYY-MM-DD')) {
-                                if (response[k].work_phase === 'PP008001') {
-                                  this.code3 = 'PP009';
-                                  let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
-                                  if (letErrortype != null) {
-                                    response[k].behavior_breakdown = letErrortype.code;
-                                  }
-                                } else if (response[k].work_phase === 'PP008002') {
-                                  this.code3 = 'PP010';
-                                  let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
-                                  if (letErrortype != null) {
-                                    response[k].behavior_breakdown = letErrortype.code;
-                                  }
-                                } else if (response[k].work_phase === 'PP008003') {
-                                  this.code3 = 'PP025';
-                                  let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
-                                  if (letErrortype != null) {
-                                    response[k].behavior_breakdown = letErrortype.code;
-                                  }
-                                } else if (response[k].work_phase === 'PP008004') {
-                                  this.code3 = 'PP011';
-                                  let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
-                                  if (letErrortype != null) {
-                                    response[k].behavior_breakdown = letErrortype.code;
-                                  }
-                                }
-                                if (response[k].work_phase !== null && response[k].work_phase !== '') {
-                                  let letErrortype = getDictionaryInfo(response[k].work_phase);
-                                  if (letErrortype != null) {
-                                    response[k].work_phase = letErrortype.value1;
-                                  }
-                                }
-                                let obj = {};
-                                obj.start_time = response[k].time_start;
-                                obj.work_phase = response[k].work_phase;
-                                let letErrortypecheck = getDictionaryInfo(response[k].behavior_breakdown);
-                                if (letErrortypecheck != null) {
-                                  obj.behavior_breakdown = letErrortypecheck.value1;
-                                }
-                                obj.project_name = response[k].project_name;
-                                this.divfalse = true;
-                                this.xsTable = true;
-                                obj.logmanagementid = response[k].logmanagement_id;
-                                obj.wbs_id = response[k].wbs_id;
-                                datalist[k] = obj;
-                                this.divfalse = true;
-                                this.xsTable = true;
-                              }
-
-                            }
-                            this.DataList = datalist;
-                            this.loading = false;
+                else if (this.checkuserid === 1) {
+                  if (this.companyform.time_start == '0') {
+                    error = error + 1;
+                    Message({
+                      message: this.$t('label.PFANS5008FORMVIEW_CKECKTIME'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    this.loading = false;
+                  }
+                  if (error == 0) {
+                    if (this.$route.params._id || this.row) {
+                      this.loading = true;
+                      this.$store
+                        .dispatch('PFANS5008Store/updateNewUser', this.companyform)
+                        .then(response => {
+                          this.data = response;
+                          Message({
+                            message: this.$t('normal.success_02'),
+                            type: 'success',
+                            duration: 5 * 1000,
                           });
-                      })
-                      .catch(error => {
-                        Message({
-                          message: error,
-                          type: 'error',
-                          duration: 5 * 1000,
+                          this.$store
+                            .dispatch('PFANS5008Store/getCheckList', {'createby': this.User_id})
+                            .then(response => {
+                              let datalist = [];
+                              for (let k = 0; k < response.length; k++) {
+
+                                if (moment(response[k].log_date).format('YYYY-MM-DD') === moment(this.companyform.log_date).format('YYYY-MM-DD')) {
+                                  if (response[k].work_phase === 'PP008001') {
+                                    this.code3 = 'PP009';
+                                    let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                                    if (letErrortype != null) {
+                                      response[k].behavior_breakdown = letErrortype.code;
+                                    }
+                                  } else if (response[k].work_phase === 'PP008002') {
+                                    this.code3 = 'PP010';
+                                    let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                                    if (letErrortype != null) {
+                                      response[k].behavior_breakdown = letErrortype.code;
+                                    }
+                                  } else if (response[k].work_phase === 'PP008003') {
+                                    this.code3 = 'PP025';
+                                    let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                                    if (letErrortype != null) {
+                                      response[k].behavior_breakdown = letErrortype.code;
+                                    }
+                                  } else if (response[k].work_phase === 'PP008004') {
+                                    this.code3 = 'PP011';
+                                    let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                                    if (letErrortype != null) {
+                                      response[k].behavior_breakdown = letErrortype.code;
+                                    }
+                                  }
+                                  if (response[k].work_phase !== null && response[k].work_phase !== '') {
+                                    let letErrortype = getDictionaryInfo(response[k].work_phase);
+                                    if (letErrortype != null) {
+                                      response[k].work_phase = letErrortype.value1;
+                                    }
+                                  }
+                                  let obj = {};
+                                  obj.start_time = response[k].time_start;
+                                  obj.work_phase = response[k].work_phase;
+                                  let letErrortypecheck = getDictionaryInfo(response[k].behavior_breakdown);
+                                  if (letErrortypecheck != null) {
+                                    obj.behavior_breakdown = letErrortypecheck.value1;
+                                  }
+                                  obj.project_name = response[k].project_name;
+                                  this.divfalse = true;
+                                  this.xsTable = true;
+                                  obj.logmanagementid = response[k].logmanagement_id;
+                                  obj.wbs_id = response[k].wbs_id;
+                                  datalist[k] = obj;
+                                  this.divfalse = true;
+                                  this.xsTable = true;
+                                }
+
+                              }
+                              this.DataList = datalist;
+                              this.loading = false;
+                            });
+                        })
+                        .catch(error => {
+                          Message({
+                            message: error,
+                            type: 'error',
+                            duration: 5 * 1000,
+                          });
+                          this.loading = false;
                         });
-                        this.loading = false;
-                      });
-                  } else {
-                    if (this.companyform.project_id === '') {
-                      this.companyform.has_project = '02';
                     } else {
-                      this.companyform.has_project = '01';
-                    }
-                    this.loading = true;
-                    this.$store
-                      .dispatch('PFANS5008Store/createNewUser', this.companyform)
-                      .then(response => {
-                        this.data = response;
-                        Message({
-                          message: this.$t('normal.success_01'),
-                          type: 'success',
-                          duration: 5 * 1000,
-                        });
-                        this.$store
-                          .dispatch('PFANS5008Store/getCheckList', {'createby': this.User_id})
-                          .then(response => {
-                            let datalist = [];
-                            for (let k = 0; k < response.length; k++) {
-
-                              if (moment(this.companyform.log_date).format('YYYY-MM-DD') === moment(response[k].log_date).format('YYYY-MM-DD')) {
-                                if (response[k].work_phase === 'PP008001') {
-                                  this.code3 = 'PP009';
-                                  let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
-                                  if (letErrortype != null) {
-                                    response[k].behavior_breakdown = letErrortype.code;
-                                  }
-                                } else if (response[k].work_phase === 'PP008002') {
-                                  this.code3 = 'PP010';
-                                  let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
-                                  if (letErrortype != null) {
-                                    response[k].behavior_breakdown = letErrortype.code;
-                                  }
-                                } else if (response[k].work_phase === 'PP008003') {
-                                  this.code3 = 'PP025';
-                                  let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
-                                  if (letErrortype != null) {
-                                    response[k].behavior_breakdown = letErrortype.code;
-                                  }
-                                } else if (response[k].work_phase === 'PP008004') {
-                                  this.code3 = 'PP011';
-                                  let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
-                                  if (letErrortype != null) {
-                                    response[k].behavior_breakdown = letErrortype.code;
-                                  }
-                                }
-                                if (response[k].work_phase !== null && response[k].work_phase !== '') {
-                                  let letErrortype = getDictionaryInfo(response[k].work_phase);
-                                  if (letErrortype != null) {
-                                    response[k].work_phase = letErrortype.value1;
-                                  }
-                                }
-                                let obj = {};
-                                obj.start_time = response[k].time_start;
-                                obj.work_phase = response[k].work_phase;
-                                let letErrortypecheck = getDictionaryInfo(response[k].behavior_breakdown);
-                                if (letErrortypecheck != null) {
-                                  obj.behavior_breakdown = letErrortypecheck.value1;
-                                }
-                                obj.project_name = response[k].project_name;
-                                this.divfalse = true;
-                                this.xsTable = true;
-                                obj.logmanagementid = response[k].logmanagement_id;
-                                obj.wbs_id = response[k].wbs_id;
-                                datalist[k] = obj;
-                                this.divfalse = true;
-                                this.xsTable = true;
-                              }
-
-                            }
-                            this.DataList = datalist;
-                            this.loading = false;
+                      if (this.companyform.project_id === '') {
+                        this.companyform.has_project = '02';
+                      } else {
+                        this.companyform.has_project = '01';
+                      }
+                      this.loading = true;
+                      this.$store
+                        .dispatch('PFANS5008Store/createNewUser', this.companyform)
+                        .then(response => {
+                          this.data = response;
+                          Message({
+                            message: this.$t('normal.success_01'),
+                            type: 'success',
+                            duration: 5 * 1000,
                           });
-                      })
-                      .catch(error => {
-                        Message({
-                          message: error,
-                          type: 'error',
-                          duration: 5 * 1000,
+                          this.$store
+                            .dispatch('PFANS5008Store/getCheckList', {'createby': this.User_id})
+                            .then(response => {
+                              let datalist = [];
+                              for (let k = 0; k < response.length; k++) {
+
+                                if (moment(this.companyform.log_date).format('YYYY-MM-DD') === moment(response[k].log_date).format('YYYY-MM-DD')) {
+                                  if (response[k].work_phase === 'PP008001') {
+                                    this.code3 = 'PP009';
+                                    let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                                    if (letErrortype != null) {
+                                      response[k].behavior_breakdown = letErrortype.code;
+                                    }
+                                  } else if (response[k].work_phase === 'PP008002') {
+                                    this.code3 = 'PP010';
+                                    let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                                    if (letErrortype != null) {
+                                      response[k].behavior_breakdown = letErrortype.code;
+                                    }
+                                  } else if (response[k].work_phase === 'PP008003') {
+                                    this.code3 = 'PP025';
+                                    let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                                    if (letErrortype != null) {
+                                      response[k].behavior_breakdown = letErrortype.code;
+                                    }
+                                  } else if (response[k].work_phase === 'PP008004') {
+                                    this.code3 = 'PP011';
+                                    let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                                    if (letErrortype != null) {
+                                      response[k].behavior_breakdown = letErrortype.code;
+                                    }
+                                  }
+                                  if (response[k].work_phase !== null && response[k].work_phase !== '') {
+                                    let letErrortype = getDictionaryInfo(response[k].work_phase);
+                                    if (letErrortype != null) {
+                                      response[k].work_phase = letErrortype.value1;
+                                    }
+                                  }
+                                  let obj = {};
+                                  obj.start_time = response[k].time_start;
+                                  obj.work_phase = response[k].work_phase;
+                                  let letErrortypecheck = getDictionaryInfo(response[k].behavior_breakdown);
+                                  if (letErrortypecheck != null) {
+                                    obj.behavior_breakdown = letErrortypecheck.value1;
+                                  }
+                                  obj.project_name = response[k].project_name;
+                                  this.divfalse = true;
+                                  this.xsTable = true;
+                                  obj.logmanagementid = response[k].logmanagement_id;
+                                  obj.wbs_id = response[k].wbs_id;
+                                  datalist[k] = obj;
+                                  this.divfalse = true;
+                                  this.xsTable = true;
+                                }
+
+                              }
+                              this.DataList = datalist;
+                              this.loading = false;
+                            });
+                        })
+                        .catch(error => {
+                          Message({
+                            message: error,
+                            type: 'error',
+                            duration: 5 * 1000,
+                          });
+                          this.loading = false;
                         });
-                        this.loading = false;
-                      });
+                    }
                   }
                 }
               }
-
             } else {
               Message({
                 message: this.$t('normal.error_12'),
