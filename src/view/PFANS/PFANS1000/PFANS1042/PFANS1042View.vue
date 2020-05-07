@@ -1161,15 +1161,13 @@
                             //技術開発・海外役務-
                             response[j].outst1 = (Number(response[j].outst1)).toFixed(2);
                             // --国内役務（6%税込み）
-                            response[j].taxyw = (Number(response[j].outst2) * date1).toFixed(2);
+                            response[j].taxyw = ((Number(response[j].outst2) / ((1 + date1) * date1))).toFixed(2);
                             // --国内販売（13%税込み）
-                            response[j].taxsa = (Number(response[j].outst3) * date2).toFixed(2);
-                            //ADD_FJL  end
-                            //税金-
-                            response[j].tax = (((Number(response[j].outst2) / ((1 + date1) * date1))) + ((Number(response[j].outst3) / ((1 + date2) * date2)))).toFixed(2);
+                            response[j].taxsa = ((Number(response[j].outst3) / ((1 + date2) * date2))).toFixed(2);
                             //売上合計
-                            response[j].intotal = (Number(response[j].outst1) + Number(response[j].tax) + Number(response[j].inst)).toFixed(2);
-
+                            response[j].intotal = ((Number(response[j].outst1) + Number(response[j].taxsa) + Number(response[j].taxyw))
+                                - (Number(response[j].taxyw) * date1 + Number(response[j].taxsa) * date2)).toFixed(2);
+                            //ADD_FJL  end
                             //外注（構外∔構内）PJ工数
                             response[j].outsourcingpjhours = ((Number(response[j].inhours) + Number(response[j].outhours)) / Number(numFlg)).toFixed(2);
                             if (sum == 0) {
