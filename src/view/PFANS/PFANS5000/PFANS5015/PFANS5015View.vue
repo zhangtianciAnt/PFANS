@@ -11,7 +11,7 @@
             <el-col :span="12">
               <el-form-item :label="$t('label.PFANS2016VIEW_OCCURRENCEDATE')">
                 <el-date-picker
-                  @change="filter"
+                  @change="changeFilte"
                   type="date"
                   v-model="start">
                 </el-date-picker>
@@ -20,7 +20,7 @@
             <el-col :span="12">
               <el-form-item :label="$t('label.PFANS2016VIEW_FINISHEDDATE')">
                 <el-date-picker
-                  @change="filter"
+                  @change="changeFilte"
                   type="date"
                   v-model="end">
                 </el-date-picker>
@@ -34,7 +34,7 @@
 </template>
 
 <script>
-  import EasyNormalTable from '@/components/EasyNormalTable';
+  import EasyNormalTable from '@/components/EasyBigDataTable';
   import {Message} from 'element-ui';
   import moment from 'moment';
   import user from '../../../components/user';
@@ -86,6 +86,13 @@
             width: 120,
             fix: false,
             filter: true,
+          },
+          {
+            code: 'company',
+            label: 'label.PFANSUSERFORMVIEW_COMPANY',
+            width: 120,
+            fix: false,
+            filter: false,
           },
           {
             code: 'groupname',
@@ -164,6 +171,12 @@
         }
 
         this.data = filtersrst;
+        this.loading = false;
+      },
+
+      changeFilte(){
+        this.loading = true;
+        this.filter();
       },
       getcontract(){
         this.$store
@@ -184,10 +197,12 @@
                 let user = getUserInfo(response[j].createby);
                 if (user) {
                   response[j].username = user.userinfo.customername;
+                  response[j].company = "PSDCD";
                 } else {
                   let co = getCooperinterviewListByAccount(response[j].createby);
                   if (co) {
                     response[j].username = co.expname;
+                    response[j].company = co.suppliername;
                   }
                 }
                 if(response[j].project_id  === 'PP024001')
@@ -292,6 +307,7 @@
         import('@/vendor/Export2Excel').then(excel => {
           const tHeader = [
             this.$t('label.user_name'),
+            this.$t('label.PFANSUSERFORMVIEW_COMPANY'),
             this.$t('label.group'),
             this.$t('label.PFANS5008VIEW_PROGRAM'),
             this.$t('label.PFANS1007FORMVIEW_CONTRACTNO'),
@@ -300,6 +316,7 @@
           ];
           const filterVal = [
             'username',
+            'company',
             'groupname',
             'project_name',
             'contractno',

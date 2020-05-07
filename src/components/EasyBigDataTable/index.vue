@@ -12,6 +12,7 @@
                   style="width: 25%;vertical-align:top" v-bind:prefix-icon="changeIcon" v-model="searchValue">
         </el-input>
       </div>
+      <slot name="search"></slot>
       <div style="height: calc(100vh - 60px - 15rem);width: 100%">
       <pl-table :datas="this.pagedate" :default-sort='defaultSort' :element-loading-text="$t('normal.waiting')" :row-key="rowid"
                 @filter-change="tableFilter" @row-click="rowClick" @row-dblclick="rowClick" @selection-change="handleSelectionChange" @sort-change="sortChange"
