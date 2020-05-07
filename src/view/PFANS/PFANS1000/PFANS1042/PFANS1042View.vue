@@ -967,12 +967,6 @@
         //--(税引前利益)自动计算
         val.pretaxprofit = (Number(val.operatingprofit) + Number(val.Operating)).toFixed(2);
       },
-        changeIntere1(val) {
-            //--(営業外損益)自动计算
-            val.operatingprofit = (val.interestrate + val.exchanges).toFixed(2);
-            //--(税引前利益)自动计算
-            val.pretaxprofit = (Number(val.operatingprofit) + Number(val.Operating)).toFixed(2);
-        },
         changeTaxallowance(val) {
             //--(税引後利益)自动计算
             val.posttaxbenefit = (Number(val.pretaxprofit) - Number(val.taxallowance)).toFixed(2);
@@ -983,7 +977,12 @@
                 + Number(val.concost) + Number(val.threefree) + Number(val.commonfee) + Number(val.brandcost)
                 + Number(val.otherexpenses) + Number(val.otherincome) + Number(val.process)).toFixed(2);
             //--営業利益率
-            val.otherincome = (Number(val.intotal) - Number(val.peocostsum) - Number(val.costsubtotal) - Number(val.departmenttotal) - Number(val.allocationsum) - Number(val.otherexpentotal)) / Number(val.intotal);
+            if (Number(val.intotal) > 0) {
+                val.otherincome = (Number(val.intotal) - Number(val.peocostsum) - Number(val.costsubtotal) - Number(val.departmenttotal) - Number(val.allocationsum) - Number(val.otherexpentotal)) / Number(val.intotal);
+            } else {
+                val.otherincome = 0;
+            }
+
         },
         //add_fjl --end
       changeRegion(val) {
