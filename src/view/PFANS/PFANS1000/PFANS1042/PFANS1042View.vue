@@ -62,7 +62,6 @@
                 </el-form-item>
               </el-col>
             </el-row>
-
             <!--            <el-row style="padding-top: 30px">-->
             <!--              <el-table :data="tableData" @selection-change="handleSelectionChange()"-->
             <!--                        header-cell-class-name="sub_bg_color_blue" stripe-->
@@ -853,7 +852,7 @@
   import org from '../../../components/org';
   import {getDictionaryInfo} from '@/utils/customize';
   import {getOrgInfoByUserId} from '../../../../utils/customize';
-  import {getDownOrgInfo, getCurrentRole} from '@/utils/customize';
+  import {getDownOrgInfo, getCurrentRole, getCurrentRole3} from '@/utils/customize';
 
   export default {
     name: 'PFANS1042View',
@@ -953,6 +952,7 @@
         this.buttonList = [];
       }
     },
+    //add-ws-5/7-财务部长可用保存
     mounted() {
       // this.getList();
       this.getById();
@@ -1188,8 +1188,8 @@
                   //计算工数
                   let numFlg = 160;
                   //add-ws-5/6-报销金额统计为sumpublic，外注的费用统计的金额累计为sumcoststa
-                  let sumcoststa  = response[0].unpublice + response[0].unevec;
-                  let sumpublic   = response[0].uncoststa;
+                  let sumcoststa  = Number(response[0].unpublice) + Number(response[0].unevec);
+                  let sumpublic   = Number(response[0].uncoststa);
                   //add-ws-5/6-报销金额统计为sumpublic，外注的费用统计的金额累计为sumcoststa
 
                   for (let i = 0; i < response.length; i++) {
@@ -1202,6 +1202,7 @@
                     suminhours += Number(response[i].inhours);
                     //add-ws-5/6-配赋费计算添加
                     //add-ws-5/6-外注工数累加
+                    response[i].outsourcingpjhours = ((Number(response[i].inhours) + Number(response[i].outhours) + Number(response[0].unworktimeei) + Number(response[0].unworktimeex)) / Number(numFlg)).toFixed(2);
                     sumoutsourcingpjhours +=  Number(response[i].outsourcingpjhours);
                     //add-ws-5/6-外注工数累加
                   }
@@ -1564,7 +1565,7 @@
             this.loading = false;
           });
       },
-
+      //add-ws-5/7-保存PL数据，先根据group ，year，month删除再插入
 
     },
 
