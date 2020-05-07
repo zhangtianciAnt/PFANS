@@ -480,6 +480,7 @@
     },
     data() {
       return {
+        rowheight:40,
         nowm: Number(moment(new Date()).format("M")) === 1 ? 12 : Number(moment(new Date()).format("M")) - 1,
         nowd: Number(moment(new Date()).format("D")),
         paginationShow:false,
