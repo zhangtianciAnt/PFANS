@@ -154,14 +154,12 @@
               <template slot-scope="scope">
                 <span>{{scope.row.outst3}}</span>
               </template>
-
             </pl-table-column>
-
+            <!--            内部受託-->
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_INST')"
               align="center"
               width="110">
-
               <template slot-scope="scope">
                 <span>{{scope.row.inst}}</span>
               </template>
@@ -967,14 +965,25 @@
         //--(税引前利益)自动计算
         val.pretaxprofit = (Number(val.operatingprofit) + Number(val.Operating)).toFixed(2);
       },
-      changeTaxallowance(val) {
-        //--(税引後利益)自动计算
-        val.posttaxbenefit = (Number(val.pretaxprofit) - Number(val.taxallowance)).toFixed(2);
-      },
-      // changeOtherincome(){
-      //
-      // },
-      //add_fjl --end
+        changeIntere1(val) {
+            //--(営業外損益)自动计算
+            val.operatingprofit = (val.interestrate + val.exchanges).toFixed(2);
+            //--(税引前利益)自动计算
+            val.pretaxprofit = (Number(val.operatingprofit) + Number(val.Operating)).toFixed(2);
+        },
+        changeTaxallowance(val) {
+            //--(税引後利益)自动计算
+            val.posttaxbenefit = (Number(val.pretaxprofit) - Number(val.taxallowance)).toFixed(2);
+        },
+        changeOtherincome(val) {
+            //--その他諸経費小計
+            val.otherexpentotal = (Number(val.yuanqincost) + Number(val.travalcost) + Number(val.callcost)
+                + Number(val.concost) + Number(val.threefree) + Number(val.commonfee) + Number(val.brandcost)
+                + Number(val.otherexpenses) + Number(val.otherincome) + Number(val.process)).toFixed(2);
+            //--営業利益率
+            val.otherincome = (Number(val.intotal) - Number(val.peocostsum) - Number(val.costsubtotal) - Number(val.departmenttotal) - Number(val.allocationsum) - Number(val.otherexpentotal)) / Number(val.intotal);
+        },
+        //add_fjl --end
       changeRegion(val) {
         this.form.region = val;
         if (this.form.group_id && this.form.year && this.form.region) {
@@ -1178,7 +1187,6 @@
                   let numFlg = 160;
                   //add-ws-5/6-报销金额统计为sumpublic，外注的费用统计的金额累计为sumcoststa
                   let sumcoststa  = Number(response[0].unpublice) + Number(response[0].unevec);
-                  debugger
                   let sumpublic   = Number(response[0].uncoststa);
                   //add-ws-5/6-报销金额统计为sumpublic，外注的费用统计的金额累计为sumcoststa
 
@@ -1205,6 +1213,8 @@
                     }
                     //add_fjl
                     //ADD_FJL  start
+                      //その他(ソフト費)
+                      response[j].othersoftwarefree = (Number('-' + response[j].inst)).toFixed(2);
                     //部門売上合計
                     response[j].centerintotal = (Number(response[j].inst) + Number(response[j].outst3) + Number(response[j].outst2) + Number(response[j].outst1)).toFixed(2);
                     //技術開発・海外役務-
@@ -1229,216 +1239,211 @@
                       response[j].peocost = (Number(response[j].emhours) / Number(sum)).toFixed(2);
 //upd -ws-5/5-人件费修改
 //upd -ws-5/5-部門共通按分修改
-                      debugger
                       //部門共通按分
                       response[j].departmentcom = (Number(response[j].emhours) / Number(sum) * Number(sumcoststa)).toFixed(2);
 //upd -ws-5/5-部門共通按分修改
-                      //配賦費用
-                      response[j].allocation = ((Number(response[j].emhours) / Number(sum)) * ((Number(response[j].emhours) * she * 1000 + Number(response[j].outhours) * nei * 1000 + Number(response[j].outhours) * wai * 1000))).toFixed(2);
-                    }
-                    //人件費小計
-                    response[j].peocostsum = (Number(response[j].peocost) + Number(response[j].twocost)).toFixed(2);
-                    //upd -ws-5/5-外注费修改
-                    //外注費计算
-                    debugger
-                    if (sumoutsourcingpjhours == 0) {
-                      response[j].outcost = 0;
-                    } else {
-                      response[j].outcost = (Number(response[j].outsourcingpjhours) / Number(sumoutsourcingpjhours) * Number(sumpublic)).toFixed(2);
-                    }
-                    //upd -ws-5/5-外注费修改
-                    //固定資産費用小計
-                    response[j].costsubtotal = (Number(response[j].depreciationsoft) + Number(response[j].depreciationequipment) + Number(response[j].rent) +
-                      Number(response[j].leasecost) + Number(response[j].temporaryrent) + Number(response[j].other)).toFixed(2);
-                    //研究開発費・ソフト費用小計
-                    // response[j].expensessubtotal = (Number(response[j].researchcost) + Number(response[j].surveyfee) + Number(response[j].inwetuo) +
-                    //   Number(response[j].outcost) + Number(response[j].outcost)).toFixed(2);
+                //配賦費用
+                        response[j].allocation = ((Number(response[j].emhours) / Number(sum)) * ((Number(response[j].emhours) * Number(she) * 1000 + Number(response[j].outhours) * Number(nei) * 1000 + Number(response[j].outhours) * Number(wai) * 1000))).toFixed(2);
+              }
+              //人件費小計
+              response[j].peocostsum = (Number(response[j].peocost) + Number(response[j].twocost)).toFixed(2);
+              //upd -ws-5/5-外注费修改
+              //外注費计算
+              if (sumoutsourcingpjhours == 0) {
+                response[j].outcost = 0;
+              } else {
+                response[j].outcost = (Number(response[j].outsourcingpjhours) / Number(sumoutsourcingpjhours) * Number(sumpublic)).toFixed(2);
+              }
+              //upd -ws-5/5-外注费修改
+              //固定資産費用小計
+              response[j].costsubtotal = (Number(response[j].depreciationsoft) + Number(response[j].depreciationequipment) + Number(response[j].rent) +
+                Number(response[j].leasecost) + Number(response[j].temporaryrent) + Number(response[j].other)).toFixed(2);
+              //研究開発費・ソフト費用小計
+                response[j].departmenttotal = (Number(response[j].researchcost) + Number(response[j].surveyfee) + Number(response[j].inwetuo) +
+                    Number(response[j].outcost) + Number(response[j].othersoftwarefree)).toFixed(2);
 
-                    // 部門共通費用合計
-                    response[j].departmenttotal = (Number(response[j].yuanqincost) + Number(response[j].travalcost) + Number(response[j].concost) + Number(response[j].callcost) + Number(response[j].brandcost) + Number(response[j].rent) + Number(response[j].other)).toFixed(2);
+              // 部門共通費用合計
+                // response[j].departmenttotal = (Number(response[j].yuanqincost) + Number(response[j].travalcost) + Number(response[j].concost) + Number(response[j].callcost) + Number(response[j].brandcost) + Number(response[j].rent) + Number(response[j].other)).toFixed(2);
+                //仕掛品
+                response[j].process = (Number('-' + response[j].centerintotal) + Number(response[j].inwetuo)).toFixed(2);
+              //その他諸経費小計
+                response[j].otherexpentotal = (Number(response[j].yuanqincost) + Number(response[j].travalcost) + Number(response[j].callcost)
+                    + Number(response[j].concost) + Number(response[j].threefree) + Number(response[j].commonfee) + Number(response[j].brandcost)
+                + Number(response[j].otherexpenses) + Number(response[j].otherincome) + Number(response[j].process)).toFixed(2);
 
-                    //その他諸経費小計
-                    response[j].otherexpentotal = (Number(response[j].yuanqincost) + Number(response[j].travalcost)
-                      + Number(response[j].callcost) + Number(response[j].callcost) + Number(response[j].threefree) + Number(response[j].threefree) + Number(response[j].brandcost)
-                      + Number(response[j].otherexpenses) + Number(response[j].otherincome) + Number(response[j].process)).toFixed(2);
 
+              //限界利益
+              // response[j].marginal = (Number(response[j].inst) + Number(response[j].outst1) - Number(response[j].peocost) - Number(response[j].outcost) - Number(response[j].researchcost)).toFixed(2);
 
-                    //限界利益
-                    // response[j].marginal = (Number(response[j].inst) + Number(response[j].outst1) - Number(response[j].peocost) - Number(response[j].outcost) - Number(response[j].researchcost)).toFixed(2);
-
-                    //営業利益 = 限界利益 - 所有和项目有关的费用
-                    // response[j].Operating = (Number(response[j].marginal) - Number(response[j].costtotal)).toFixed(2);
-                    //add-ws-5/6-配赋费计算添加W
-                    //構外外注配赋费
-                    let outsour = getDictionaryInfo('CW001003').value2;
-                    let outsourcinghours = response[j].outsourcinghours * outsour;
-                    //構内外注配赋费
-                    let outsourcing = getDictionaryInfo('CW001002').value2;
-                    let outsourcingname = response[j].outsourcingname * outsourcing;
-                    //社员配赋费
-                    let employee = getDictionaryInfo('CW001001').value2;
-                    let employeename = response[j].employeename * employee;
-                    //構外工数百分比*構外外注配赋费
-                    let sumoutsourcinghours = 0;
-                    if (sumouthours == 0) {
-                      sumoutsourcinghours = 0;
-                    } else {
-                      sumoutsourcinghours = (Number(response[j].outhours) / Number(sumouthours)*Number(outsourcinghours)).toFixed(2);
-                    }
-                    //構内工数百分比*構内外注配赋费
-                    let sumoutsourcingname = 0;
-                    if (suminhours == 0) {
-                      sumoutsourcingname = 0;
-                    } else {
-                      sumoutsourcingname = (Number(response[j].outhours) / Number(suminhours)*Number(outsourcingname)).toFixed(2);
-                    }
-                    //设员工数百分比*社员配赋费
-                    let sumemployeename = 0;
-                    if (sum == 0) {
-                      sumemployeename = 0;
-                    } else {
-                      sumemployeename = (Number(response[j].emhours) / Number(sum)*Number(employeename)).toFixed(2);
-                    }
-                    //合计
-                    response[j].expensessubtotal = (Number(sumoutsourcinghours) + Number(sumoutsourcingname) + Number(sumemployeename)).toFixed(2);
-                    //add-ws-5/6-配赋费计算添加
-                    //配賦部門費小計
-                    response[j].allocationsum = (Number(response[j].expensessubtotal) + Number(response[j].transferone) + Number(response[j].transfertwo)).toFixed(2);
-                    //仕掛品
-                    response[j].process = (Number('-' + response[j].centerintotal) + Number(response[j].inwetuo)).toFixed(2);
-                    // response[j].process = ('-' + response[j].peocostsum - response[j].costsubtotal - response[j].expensessubtotal - Number(response[j].yuanqincost) - Number(response[j].travalcost)
-                    //   - Number(response[j].callcost) - Number(response[j].callcost) - Number(response[j].threefree) - Number(response[j].threefree) - Number(response[j].brandcost)
-                    //   - Number(response[j].otherexpenses) + Number(response[j].intotal) * 0.75).toFixed(2);
+              //営業利益 = 限界利益 - 所有和项目有关的费用
+              // response[j].Operating = (Number(response[j].marginal) - Number(response[j].costtotal)).toFixed(2);
+              //add-ws-5/6-配赋费计算添加W
+              //構外外注配赋费
+              let outsour = getDictionaryInfo('CW001003').value2;
+              let outsourcinghours = response[j].outsourcinghours * outsour;
+              //構内外注配赋费
+              let outsourcing = getDictionaryInfo('CW001002').value2;
+              let outsourcingname = response[j].outsourcingname * outsourcing;
+              //社员配赋费
+              let employee = getDictionaryInfo('CW001001').value2;
+              let employeename = response[j].employeename * employee;
+              //構外工数百分比*構外外注配赋费
+              let sumoutsourcinghours = 0;
+              if (sumouthours == 0) {
+                sumoutsourcinghours = 0;
+              } else {
+                sumoutsourcinghours = (Number(response[j].outhours) / Number(sumouthours)).toFixed(2);
+              }
+              //構内工数百分比*構内外注配赋费
+              let sumoutsourcingname = 0;
+              if (suminhours == 0) {
+                sumoutsourcingname = 0;
+              } else {
+                sumoutsourcingname = (Number(response[j].outhours) / Number(suminhours)).toFixed(2);
+              }
+              //设员工数百分比*社员配赋费
+              let sumemployeename = 0;
+              if (sum == 0) {
+                sumemployeename = 0;
+              } else {
+                sumemployeename = (Number(response[j].emhours) / Number(sum)).toFixed(2);
+              }
+              //合计
+              response[j].expensessubtotal = (Number(sumoutsourcinghours) + Number(sumoutsourcingname) + Number(sumemployeename)).toFixed(2);
+              //add-ws-5/6-配赋费计算添加
+              //配賦部門費小計
+              response[j].allocationsum = (Number(response[j].expensessubtotal) + Number(response[j].transferone) + Number(response[j].transfertwo)).toFixed(2);
 
 // add_fjl
-                    //社員PJ工数
-                    response[j].emhours = ((Number(response[j].emhours) + Number(response[0].unworktime)) / Number(numFlg)).toFixed(2);
+              //社員PJ工数
+              response[j].emhours = ((Number(response[j].emhours) + Number(response[0].unworktime)) / Number(numFlg)).toFixed(2);
 
-                    //外注（構外∔構内）稼働工数
-                    response[j].outsourcing = (Number(response[j].outsourcingpjhours)).toFixed(2);
+              //外注（構外∔構内）稼働工数
+                response[j].outsourcing = (Number(response[j].outsourcingpjhours)).toFixed(2);
 
-                    //社員稼働工数
-                    response[j].employeeuptime = (Number(response[j].emhours)).toFixed(2);
+              //社員稼働工数
+                response[j].employeeuptime = (Number(response[j].emhours)).toFixed(2);
 
-                    //外注PJ稼働率
-                    if (Number(response[j].outsourcinghours) + Number(response[j].outsourcingname) > 0) {
-                      response[j].externalpjrate = (Number(response[j].outsourcingpjhours) / (Number(response[j].outsourcinghours) + Number(response[j].outsourcingname))).toFixed(2);
-                    } else {
-                      response[j].externalpjrate = 0;
-                    }
+              //外注PJ稼働率
+              if (Number(response[j].outsourcinghours) + Number(response[j].outsourcingname) > 0) {
+                  response[j].externalpjrate = ((Number(response[j].outsourcingpjhours) / (Number(response[j].outsourcinghours) + Number(response[j].outsourcingname))) * 100).toFixed(2) + '%';
+              } else {
+                response[j].externalpjrate = 0;
+              }
 
-                    //外注稼働率
-                    if (Number(response[j].outsourcinghours) + Number(response[j].outsourcingname) > 0) {
-                      response[j].externalinjectionrate = (Number(response[j].outsourcing) / (Number(response[j].outsourcinghours) + Number(response[j].outsourcingname))).toFixed(2);
-                    } else {
-                      response[j].externalinjectionrate = 0;
-                    }
+              //外注稼働率
+              if (Number(response[j].outsourcinghours) + Number(response[j].outsourcingname) > 0) {
+                  response[j].externalinjectionrate = ((Number(response[j].outsourcing) / (Number(response[j].outsourcinghours) + Number(response[j].outsourcingname))) * 100).toFixed(2) + '%';
+              } else {
+                response[j].externalinjectionrate = 0;
+              }
 
-                    //社員PJ稼働率
-                    if (Number(response[j].employeename) > 0) {
-                      response[j].memberpjrate = (Number(response[j].emhours) / Number(response[j].employeename)).toFixed(2);
-                    } else {
-                      response[j].memberpjrate = 0;
-                    }
+              //社員PJ稼働率
+              if (Number(response[j].employeename) > 0) {
+                  response[j].memberpjrate = ((Number(response[j].emhours) / Number(response[j].employeename)) * 100).toFixed(2) + '%';
+              } else {
+                response[j].memberpjrate = 0;
+              }
 
-                    //社員稼働率
-                    if (Number(response[j].employeename) > 0) {
-                      response[j].membershiprate = (Number(response[j].employeeuptime) / Number(response[j].employeename)).toFixed(2);
-                    } else {
-                      response[j].membershiprate = 0;
-                    }
+              //社員稼働率
+              if (Number(response[j].employeename) > 0) {
+                  response[j].membershiprate = ((Number(response[j].employeeuptime) / Number(response[j].employeename)) * 100).toFixed(2) + '%';
+              } else {
+                response[j].membershiprate = 0;
+              }
 
-                    //全員PJ稼働率
-                    if (Number(response[j].outsourcinghours) + Number(response[j].outsourcingname) + Number(response[j].employeename) > 0) {
-                      response[j].pjrateemployees = ((Number(response[j].outsourcingpjhours) + Number(response[j].emhours)) / ((Number(response[j].outsourcinghours) + Number(response[j].outsourcingname) + Number(response[j].employeename)))).toFixed(2);
-                    } else {
-                      response[j].pjrateemployees = 0;
-                    }
+              //全員PJ稼働率
+              if (Number(response[j].outsourcinghours) + Number(response[j].outsourcingname) + Number(response[j].employeename) > 0) {
+                  response[j].pjrateemployees = (((Number(response[j].outsourcingpjhours) + Number(response[j].emhours)) / ((Number(response[j].outsourcinghours) + Number(response[j].outsourcingname) + Number(response[j].employeename)))) * 100).toFixed(2) + '%';
+              } else {
+                response[j].pjrateemployees = 0;
+              }
 
-                    //全員稼働率
-                    if (Number(response[j].outsourcinghours) + Number(response[j].outsourcingname) + Number(response[j].employeename) > 0) {
-                      response[j].staffingrate = ((Number(response[j].outsourcing) + Number(response[j].employeeuptime)) / ((Number(response[j].outsourcinghours) + Number(response[j].outsourcingname) + Number(response[j].employeename)))).toFixed(2);
-                    } else {
-                      response[j].staffingrate = 0;
-                    }
-                    response[j].costtotal = (Number(response[j].peocostsum) + Number(response[j].costsubtotal) + Number(response[j].expensessubtotal) + Number(response[j].allocationsum) + Number(response[j].otherexpentotal)
-                      + Number(response[j].departmentcom)).toFixed(2);
-                    //営業利益
-                    response[j].Operating = Number(response[j].intotal) - Number(response[j].costtotal);
-                    //税引後利益
-                    // response[j].posttaxbenefit = Number(response[j].Operating) - Number(response[j].taxallowance);
+              //全員稼働率
+              if (Number(response[j].outsourcinghours) + Number(response[j].outsourcingname) + Number(response[j].employeename) > 0) {
+                  response[j].staffingrate = (((Number(response[j].outsourcing) + Number(response[j].employeeuptime)) / ((Number(response[j].outsourcinghours) + Number(response[j].outsourcingname) + Number(response[j].employeename)))) * 100).toFixed(2) + '%';
+              } else {
+                response[j].staffingrate = 0;
+              }
+              response[j].costtotal = (Number(response[j].peocostsum) + Number(response[j].costsubtotal) + Number(response[j].expensessubtotal) + Number(response[j].allocationsum) + Number(response[j].otherexpentotal)
+                + Number(response[j].departmentcom)).toFixed(2);
+              //営業利益
+              response[j].Operating = Number(response[j].intotal) - Number(response[j].costtotal);
+              //税引後利益
+                // response[j].posttaxbenefit = Number(response[j].Operating) - Number(response[j].taxallowance);
 // add_fjl
-                    tabledate.push({
-                      pj1: response[j].pj1,
-                      pj: response[j].pj,
-                      outst1: response[j].outst1,
-                      outst2: response[j].outst2,
-                      outst3: response[j].outst3,
-                      // tax: response[j].tax,
-                      // taxyw: response[j].taxyw,
-                      // taxsa: response[j].taxsa,
-                      inst: response[j].inst,
-                      intotal: response[j].intotal,
-                      centerintotal: response[j].centerintotal,
-                      emhours: response[j].emhours,
-                      outhours: response[j].outhours,
-                      peocost: response[j].peocost,
-                      outcost: response[j].outcost,
-                      inwetuo: response[j].inwetuo,
-                      researchcost: response[j].researchcost,
-                      departmentcom: response[j].departmentcom,
-                      yuanqincost: response[j].yuanqincost,
-                      travalcost: response[j].travalcost,
-                      concost: response[j].concost,
-                      callcost: response[j].callcost,
-                      brandcost: response[j].brandcost,
-                      rent: response[j].rent,
-                      other: response[j].other,
-                      departmenttotal: response[j].departmenttotal,
-                      allocation: response[j].allocation,
-                      costtotal: response[j].costtotal,
-                      process: response[j].process,
-                      marginal: response[j].marginal,
-                      Operating: response[j].Operating,
-                      twocost: response[j].twocost,
-                      peocostsum: response[j].peocostsum,
-                      depreciationsoft: response[j].depreciationsoft,
-                      depreciationequipment: response[j].depreciationequipment,
-                      leasecost: response[j].leasecost,
-                      temporaryrent: response[j].temporaryrent,
-                      costsubtotal: response[j].costsubtotal,
-                      surveyfee: response[j].surveyfee,
-                      othersoftwarefree: response[j].othersoftwarefree,
-                      expensessubtotal: response[j].expensessubtotal,
-                      transferone: response[j].transferone,
-                      transfertwo: response[j].transfertwo,
-                      allocationsum: response[j].allocationsum,
-                      threefree: response[j].threefree,
-                      commonfee: response[j].commonfee,
-                      otherexpenses: response[j].otherexpenses,
-                      otherincome: response[j].otherincome,
-                      otherexpentotal: response[j].otherexpentotal,
-                      interestrate: response[j].interestrate,
-                      operatingprofit: response[j].operatingprofit,
-                      pretaxprofit: response[j].pretaxprofit,
-                      taxallowance: response[j].taxallowance,
-                      posttaxbenefit: response[j].posttaxbenefit,
-                      operatingmargin: response[j].operatingmargin,
-                      outsourcinghours: response[j].outsourcinghours,
-                      outsourcing: response[j].outsourcing,
-                      outsourcingname: response[j].outsourcingname,
-                      employeename: response[j].employeename,
-                      outsourcingpjhours: response[j].outsourcingpjhours,
-                      employeepjhours: response[j].employeepjhours,
-                      employeeuptime: response[j].employeeuptime,
-                      externalpjrate: response[j].externalpjrate,
-                      externalinjectionrate: response[j].externalinjectionrate,
-                      memberpjrate: response[j].memberpjrate,
-                      membershiprate: response[j].membershiprate,
-                      pjrateemployees: response[j].pjrateemployees,
-                      staffingrate: response[j].staffingrate,
-                    });
-                  }
+              tabledate.push({
+                pj1: response[j].pj1,
+                pj: response[j].pj,
+                outst1: response[j].outst1,
+                outst2: response[j].outst2,
+                outst3: response[j].outst3,
+                // tax: response[j].tax,
+                // taxyw: response[j].taxyw,
+                // taxsa: response[j].taxsa,
+                inst: response[j].inst,
+                intotal: response[j].intotal,
+                centerintotal: response[j].centerintotal,
+                emhours: response[j].emhours,
+                outhours: response[j].outhours,
+                peocost: response[j].peocost,
+                outcost: response[j].outcost,
+                inwetuo: response[j].inwetuo,
+                researchcost: response[j].researchcost,
+                departmentcom: response[j].departmentcom,
+                yuanqincost: response[j].yuanqincost,
+                travalcost: response[j].travalcost,
+                concost: response[j].concost,
+                callcost: response[j].callcost,
+                brandcost: response[j].brandcost,
+                rent: response[j].rent,
+                other: response[j].other,
+                departmenttotal: response[j].departmenttotal,
+                allocation: response[j].allocation,
+                costtotal: response[j].costtotal,
+                process: response[j].process,
+                marginal: response[j].marginal,
+                Operating: response[j].Operating,
+                twocost: response[j].twocost,
+                peocostsum: response[j].peocostsum,
+                depreciationsoft: response[j].depreciationsoft,
+                depreciationequipment: response[j].depreciationequipment,
+                leasecost: response[j].leasecost,
+                temporaryrent: response[j].temporaryrent,
+                costsubtotal: response[j].costsubtotal,
+                surveyfee: response[j].surveyfee,
+                othersoftwarefree: response[j].othersoftwarefree,
+                expensessubtotal: response[j].expensessubtotal,
+                transferone: response[j].transferone,
+                transfertwo: response[j].transfertwo,
+                allocationsum: response[j].allocationsum,
+                threefree: response[j].threefree,
+                commonfee: response[j].commonfee,
+                otherexpenses: response[j].otherexpenses,
+                otherincome: response[j].otherincome,
+                otherexpentotal: response[j].otherexpentotal,
+                interestrate: response[j].interestrate,
+                  exchanges: response[j].exchanges,
+                operatingprofit: response[j].operatingprofit,
+                pretaxprofit: response[j].pretaxprofit,
+                taxallowance: response[j].taxallowance,
+                posttaxbenefit: response[j].posttaxbenefit,
+                operatingmargin: response[j].operatingmargin,
+                outsourcinghours: response[j].outsourcinghours,
+                outsourcing: response[j].outsourcing,
+                outsourcingname: response[j].outsourcingname,
+                employeename: response[j].employeename,
+                outsourcingpjhours: response[j].outsourcingpjhours,
+                employeepjhours: response[j].employeepjhours,
+                employeeuptime: response[j].employeeuptime,
+                externalpjrate: response[j].externalpjrate,
+                externalinjectionrate: response[j].externalinjectionrate,
+                memberpjrate: response[j].memberpjrate,
+                membershiprate: response[j].membershiprate,
+                pjrateemployees: response[j].pjrateemployees,
+                staffingrate: response[j].staffingrate,
+              });
+            }
 
                   this.tableData = tabledate;
                   this.loading = false;
