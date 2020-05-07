@@ -1243,7 +1243,7 @@
                       response[j].departmentcom = (Number(response[j].emhours) / Number(sum) * Number(sumcoststa)).toFixed(2);
 //upd -ws-5/5-部門共通按分修改
                 //配賦費用
-                response[j].allocation = ((Number(response[j].emhours) / Number(sum)) * ((Number(response[j].emhours) * she * 1000 + Number(response[j].outhours) * nei * 1000 + Number(response[j].outhours) * wai * 1000))).toFixed(2);
+                        response[j].allocation = ((Number(response[j].emhours) / Number(sum)) * ((Number(response[j].emhours) * Number(she) * 1000 + Number(response[j].outhours) * Number(nei) * 1000 + Number(response[j].outhours) * Number(wai) * 1000))).toFixed(2);
               }
               //人件費小計
               response[j].peocostsum = (Number(response[j].peocost) + Number(response[j].twocost)).toFixed(2);
