@@ -78,15 +78,16 @@
           border ref="plx"
           stripe use-virtual :pagination-show="paginationShow"
           style="width: 100%;height: calc(100vh - 200px - 2rem)"
-          tooltip-effect="dark"
-          header-cell-class-name="sub_bg_color_blue"
+          tooltip-effect="dark" cell-class-name = "row_height_left"
+          header-cell-class-name="sub_bg_color_blue" header-row-class-name="height"
+          big-data-checkbox highlight-current-row
         >
           <!-- 序号-->
           <pl-table-column
             :label="$t('label.PFANS2026FORMVIEW_ORDERNUMBER')"
             align="center"
             type="index"
-            fixed="left"
+            fixed
             width="50"
           ></pl-table-column>
           <pl-table-column
@@ -95,6 +96,7 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_DETAILS')"
               align="center"
+              show-overflow-tooltip
               width="200">
               <template slot-scope="scope">
                 <span>{{scope.row.pj}}</span>
@@ -488,6 +490,7 @@
               width="200">
               <template slot-scope="scope">
                 <el-input-number
+                  size="mini"
                   :min="0" :precision="2"
                   :max="9999999"
                   controls-position="right"
@@ -555,6 +558,7 @@
               width="200">
               <template slot-scope="scope">
                 <el-input-number
+                  size="mini"
                   :min="0" :precision="2"
                   :max="9999999"
                   controls-position="right"
@@ -573,6 +577,7 @@
               prop="exchange">
               <template slot-scope="scope">
                 <el-input-number
+                  size="mini"
                   :min="0" :precision="2"
                   :max="9999999"
                   controls-position="right"
@@ -613,6 +618,7 @@
             width="200">
             <template slot-scope="scope">
               <el-input-number
+                size="mini"
                 :min="0" :precision="2"
                 :max="9999999"
                 controls-position="right"
@@ -1442,6 +1448,14 @@
     };
 </script>
 
-<style scoped>
-
+<style lang="scss">
+  .row_height_left {
+    font-size: 0.75rem;
+    padding: 0px;
+    text-align: left;
+    background-color: transparent !important;
+  }
+  .el-table /deep/ .current-row{
+    background-color: #BDD8EE;
+  }
 </style>
