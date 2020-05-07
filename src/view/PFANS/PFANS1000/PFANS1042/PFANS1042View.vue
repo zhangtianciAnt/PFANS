@@ -229,7 +229,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_DEPRECIATIONSOFT')"
               align="center"
-              width="150">
+              width="150"
+              prop="depreciationsoft">
               <template slot-scope="scope">
                 <el-input-number
                   size="mini"
@@ -248,7 +249,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_DEPRECIATIONEQUIPMENT')"
               align="center"
-              width="160">
+              width="160"
+              prop="depreciationequipment">
               <template slot-scope="scope">
                 <el-input-number
                   size="mini"
@@ -505,7 +507,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_OTHERINCOME')"
               align="center"
-              width="200">
+              width="200"
+              prop="otherincome">
               <template slot-scope="scope">
                 <el-input-number
                   size="mini"
@@ -573,7 +576,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_INTERESTRATE')"
               align="center"
-              width="200">
+              width="200"
+              prop="interestrate">
               <template slot-scope="scope">
                 <el-input-number
                   size="mini"
@@ -583,6 +587,7 @@
                   :no="scope.row"
                   :step="1"
                   v-model="scope.row.interestrate"
+                  @change="changeIntere(scope.row)"
                   style="width: 100%">
                 </el-input-number>
               </template>
@@ -602,6 +607,7 @@
                   :no="scope.row"
                   :step="1"
                   v-model="scope.row.exchange"
+                  @change="changeIntere(scope.row)"
                   style="width: 100%">
                 </el-input-number>
               </template>
@@ -633,7 +639,8 @@
           <pl-table-column
             :label="$t('label.PFANS1042FORMVIEW_TAXALLOWANCE')"
             align="center"
-            width="200">
+            width="200"
+            prop="taxallowance">
             <template slot-scope="scope">
               <el-input-number
                 size="mini"
@@ -950,6 +957,13 @@
 
         },
         methods: {
+            //add_fjl --(営業外損益)自动计算
+            changeIntere(val, row) {
+                debugger;
+                row.interestrate = val;
+                row.operatingprofit = row.interestrate + row.exchange;
+            },
+            //add_fjl --(営業外損益)自动计算
             changeRegion(val) {
                 this.form.region = val;
                 if (this.form.group_id && this.form.year && this.form.region) {
@@ -1184,7 +1198,7 @@
                             response[j].outst3 = (Number(response[j].outst3)).toFixed(2);
                             //売上合計
                             response[j].intotal = ((Number(response[j].outst1) + Number(response[j].outst3) + Number(response[j].outst2))
-                                - (Number(response[j].outst2) / (1 + Number(date1)) * Number(date1) + Number(response[j].outst3) / (1 + Number(date2)))).toFixed(2);
+                                - (Number(response[j].outst2) / (1 + Number(date1)) * Number(date1) + Number(response[j].outst3) / (1 + Number(date2)) * Number(date2))).toFixed(2);
                             //ADD_FJL  end
                             //外注（構外∔構内）PJ工数
                             response[j].outsourcingpjhours = ((Number(response[j].inhours) + Number(response[j].outhours)) / Number(numFlg)).toFixed(2);
