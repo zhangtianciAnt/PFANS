@@ -144,7 +144,7 @@
               align="center"
               width="200">
               <template slot-scope="scope">
-                <span>{{scope.row.taxyw}}</span>
+                <span>{{scope.row.outst2}}</span>
               </template>
             </pl-table-column>
 
@@ -153,7 +153,7 @@
               align="center"
               width="200">
               <template slot-scope="scope">
-                <span>{{scope.row.taxsa}}</span>
+                <span>{{scope.row.outst3}}</span>
               </template>
 
             </pl-table-column>
@@ -1157,16 +1157,16 @@
                             //add_fjl
                             //ADD_FJL  start
                             //部門売上合計
-                            response[j].centerintotal = (Number(response[j].inst) + Number(response[j].taxsa) + Number(response[j].taxyw) + Number(response[j].outst1)).toFixed(2);
+                            response[j].centerintotal = (Number(response[j].inst) + Number(response[j].outst3) + Number(response[j].outst2) + Number(response[j].outst1)).toFixed(2);
                             //技術開発・海外役務-
                             response[j].outst1 = (Number(response[j].outst1)).toFixed(2);
                             // --国内役務（6%税込み）
-                            response[j].taxyw = ((Number(response[j].outst2) / ((1 + date1) * date1))).toFixed(2);
+                            response[j].outst2 = (Number(response[j].outst2)).toFixed(2);
                             // --国内販売（13%税込み）
-                            response[j].taxsa = ((Number(response[j].outst3) / ((1 + date2) * date2))).toFixed(2);
+                            response[j].outst3 = (Number(response[j].outst3)).toFixed(2);
                             //売上合計
-                            response[j].intotal = ((Number(response[j].outst1) + Number(response[j].taxsa) + Number(response[j].taxyw))
-                                - (Number(response[j].taxyw) * date1 + Number(response[j].taxsa) * date2)).toFixed(2);
+                            response[j].intotal = ((Number(response[j].outst1) + Number(response[j].outst3) + Number(response[j].outst2))
+                                - (Number(response[j].outst2) / (1 + Number(date1)) * Number(date1) + Number(response[j].outst3) / (1 + Number(date2)))).toFixed(2);
                             //ADD_FJL  end
                             //外注（構外∔構内）PJ工数
                             response[j].outsourcingpjhours = ((Number(response[j].inhours) + Number(response[j].outhours)) / Number(numFlg)).toFixed(2);
@@ -1326,8 +1326,8 @@
                                 outst2: response[j].outst2,
                                 outst3: response[j].outst3,
                                 // tax: response[j].tax,
-                                taxyw: response[j].taxyw,
-                                taxsa: response[j].taxsa,
+                                // taxyw: response[j].taxyw,
+                                // taxsa: response[j].taxsa,
                                 inst: response[j].inst,
                                 intotal: response[j].intotal,
                                 centerintotal: response[j].centerintotal,
