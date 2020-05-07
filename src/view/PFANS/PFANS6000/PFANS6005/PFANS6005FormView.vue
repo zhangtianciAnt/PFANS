@@ -11,10 +11,27 @@
     >
       <div slot="customize" style="width: 100%">
         <el-row style="padding-top: 30px">
-          <el-date-picker
-            v-model="form.main.pd_date" @change="change"
-            type="month">
-          </el-date-picker>
+          <el-col :span="5">
+            <el-date-picker
+              v-model="form.main.pd_date" @change="change"
+              type="month">
+            </el-date-picker>
+          </el-col>
+          <el-col :span="6">
+            <div align="right">
+
+                <el-select v-model="form.main.group_id" style="width: 20vw"
+                           @change="changeGroup">
+                  <el-option
+                    v-for="item in optionsdata"
+                    :key="item.value"
+                    :label="item.lable"
+                    :value="item.value">
+                  </el-option>
+                </el-select>
+
+            </div>
+          </el-col>
         </el-row>
         <el-row style="padding-top: 20px">
         <plx-table-grid
@@ -428,7 +445,7 @@ import dicselect from "../../../components/dicselect.vue";
 import { Message } from "element-ui";
 import { getDictionaryInfo, getOrgInfoByUserId } from "@/utils/customize";
 import moment from "moment";
-import { getUserInfo } from "../../../../utils/customize";
+import {getCurrentRole, getDownOrgInfo, getUserInfo,getCooperinterviewList} from "../../../../utils/customize";
 
 export default {
   name: "PFANS6005FormView",
@@ -446,6 +463,7 @@ export default {
       row: "",
       arr: [], //二维数组初始化变量服务于更改和计算
       tableData: [],
+      optionsdata:[],
       code1: "BP015",
       code2: "BP016",
       code3: "BP017",
@@ -460,7 +478,8 @@ export default {
       form:{
         main:{
           pricesetgroup_id:'',
-          pd_date:new Date()
+          pd_date:new Date(),
+          group_id:''
         },
         drtail:[]
       },
@@ -475,7 +494,8 @@ export default {
     };
   },
   mounted() {
-    this.getpriceset();
+    this.getById();
+    this.getpriceset(this.form.main.group_id);
   },
   created() {
     this.disabled = true;
@@ -492,9 +512,110 @@ export default {
   },
 
   methods: {
+    getById() {
+      this.loading = true;
+      let role = getCurrentRole();
+      const vote = [];
+      if (role === '3') {
+        vote.push(
+          {
+            value: this.$store.getters.userinfo.userinfo.groupid,
+            lable: this.$store.getters.userinfo.userinfo.groupname,
+          },
+        );
+        this.group_id = this.$store.getters.userinfo.userinfo.groupid;
+      } else if (role === '2') {
+        let centerId = this.$store.getters.userinfo.userinfo.centerid;
+        let orgs = getDownOrgInfo(centerId);
+        if (orgs){
+          if(orgs.length > 0){
+            this.group_id = orgs[0]._id;
+          }
+          for (let org of orgs) {
+            console.log(org)
+            vote.push(
+              {
+                value: org._id,
+                lable: org.companyname,
+              },
+            );
+          }
+        }
+
+      } else if (role === '1') {
+        let centerId = this.$store.getters.userinfo.userinfo.centerid;
+        let orgs = getDownOrgInfo(centerId);
+        if (orgs){
+          if(orgs.length > 0){
+            if(getDownOrgInfo(orgs[0]._id).length > 0){
+              this.group_id = getDownOrgInfo(orgs[0]._id)[0]._id;
+            }
+          }
+          for (let center of orgs) {
+            let centers = getDownOrgInfo(center._id);
+            if (centers){
+              for (let group of centers) {
+                vote.push(
+                  {
+                    value: group._id,
+                    lable: group.companyname,
+                  },
+                );
+              }
+            }
+
+          }
+        }
+      }
+      const vote1 = [];
+      if (this.$store.getters.userinfo.userid ==='5e78fefff1560b363cdd6db7'
+        || this.$store.getters.userinfo.userid ==='5e78b2254e3b194874180f31'
+        || this.$store.getters.userinfo.userid ==='5e78b2004e3b194874180e21'
+        || this.$store.getters.userinfo.userid ==='5e78b2064e3b194874180e4d')
+      {
+        let centerId = '5e7858a08f4316308435112c';
+        let orgs = getDownOrgInfo(centerId);
+        if (orgs){
+          if(orgs.length > 0){
+            if(getDownOrgInfo(orgs[0]._id).length > 0){
+              this.group_id = getDownOrgInfo(orgs[0]._id)[0]._id;
+            }
+          }
+          for (let center of orgs) {
+            let centers = getDownOrgInfo(center._id);
+            if (centers){
+              for (let group of centers) {
+                vote1.push(
+                  {
+                    value: group._id,
+                    lable: group.companyname,
+                  },
+                );
+              }
+            }
+          }
+        }
+        this.optionsdata = vote1;
+      }
+      else
+      {
+        this.optionsdata = vote;
+      }
+      this.form.main.group_id = this.optionsdata[0].value;
+      if (this.form.main.group_id) {
+        this.getpriceset(this.form.main.group_id);
+      }
+      this.loading = false;
+    },
+    changeGroup(val) {
+      this.form.main.group_id = val;
+      if (this.form.main.group_id) {
+        this.getpriceset(this.form.main.group_id);
+      }
+    },
     change(){
       this.tableData = [];
-      this.getpriceset();
+      this.getpriceset(this.form.main.group_id);
     },
     setdisabled(val) {
       if (this.$route.params.disabled) {
@@ -601,10 +722,28 @@ export default {
               this.arr[j][10] = parseInt(
                 response.detail[j].unitprice == null ? 0 : response.detail[j].unitprice
               );
+
+              if(response.detail[j].user_id)
+              {
+                let co = getCooperinterviewList(response.detail[j].user_id);
+                if (co)
+                {
+                  response.detail[j].group_id = co.group_id;
+                  // if (co.group_id)
+                  // {
+                  //   let group = getOrgInfo(co.group_id);
+                  //   if (group) {
+                  //     response.detail[j].groupname = group.companyname;
+                  //   }
+                  // }
+                }
+              }
             }
           }
-
-          this.tableData = response.detail;
+          let tablegroup = [];
+          this.form.main.group_id = val;
+          tablegroup = response.detail.filter(item => item.group_id === this.form.main.group_id);
+          this.tableData = tablegroup;
           this.loading = false;
         })
         .catch(error => {
