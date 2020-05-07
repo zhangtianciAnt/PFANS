@@ -62,7 +62,6 @@
                 </el-form-item>
               </el-col>
             </el-row>
-
             <!--            <el-row style="padding-top: 30px">-->
             <!--              <el-table :data="tableData" @selection-change="handleSelectionChange()"-->
             <!--                        header-cell-class-name="sub_bg_color_blue" stripe-->
@@ -1175,15 +1174,15 @@
                   let sumouthours = 0;
                   let suminhours = 0;
                   let sumoutsourcingpjhours = 0;
-                  let sums = 0;
                   //计算工数
                   let numFlg = 160;
                   //add-ws-5/6-报销金额统计为sumpublic，外注的费用统计的金额累计为sumcoststa
-                  let sumpublic = response[0].unpublice + response[0].unevec;
-                  let sumcoststa = response[0].uncoststa;
+                  let sumcoststa  = response[0].unpublice + response[0].unevec;
+                  let sumpublic   = response[0].uncoststa;
                   //add-ws-5/6-报销金额统计为sumpublic，外注的费用统计的金额累计为sumcoststa
 
                   for (let i = 0; i < response.length; i++) {
+                    debugger
                     //add-ws-5/6-本社工数累加
                     sum += Number(response[i].emhours);
                     //add-ws-5/6-本社工数累加
@@ -1192,8 +1191,7 @@
                     suminhours += Number(response[i].inhours);
                     //add-ws-5/6-配赋费计算添加
                     //add-ws-5/6-外注工数累加
-                    sums = Number(sumouthours) + Number(suminhours);
-                    sumoutsourcingpjhours += sums;
+                    sumoutsourcingpjhours +=  Number(response[i].outsourcingpjhours);
                     //add-ws-5/6-外注工数累加
                   }
                   for (let j = 0; j < response.length; j++) {
