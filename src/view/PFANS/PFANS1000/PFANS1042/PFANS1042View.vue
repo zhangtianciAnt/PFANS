@@ -608,7 +608,7 @@
                   :no="scope.row"
                   :step="1"
                   v-model="scope.row.exchanges"
-                  @change="changeIntere1(scope.row)"
+                  @change="changeIntere(scope.row)"
                   style="width: 100%">
                 </el-input-number>
               </template>
@@ -937,14 +937,21 @@
         title: 'title.PFANS1042VIEW',
         disabled: false,
         disable: true,
-        buttonList: [
-          {
-            'key': 'save',
-            'name': 'button.save',
-            'disabled': false,
-          },
-        ],
+        buttonList: [],
       };
+    },
+    //add-ws-5/7-财务部长可用保存
+    created() {
+      let role1 = getCurrentRole3();
+      if (role1 === '0') {
+        this.buttonList = [{
+          'key': 'save',
+          'name': 'button.save',
+          'disabled': false,
+        }];
+      } else {
+        this.buttonList = [];
+      }
     },
     mounted() {
       // this.getList();
@@ -953,12 +960,12 @@
 
     },
     methods: {
-        //add_fjl --start
+      //add_fjl --start
       changeIntere(val) {
-          //--(営業外損益)自动计算
+        //--(営業外損益)自动计算
         val.operatingprofit = (val.interestrate + val.exchanges).toFixed(2);
-          //--(税引前利益)自动计算
-          val.pretaxprofit = (Number(val.operatingprofit) + Number(val.Operating)).toFixed(2);
+        //--(税引前利益)自动计算
+        val.pretaxprofit = (Number(val.operatingprofit) + Number(val.Operating)).toFixed(2);
       },
         changeIntere1(val) {
             //--(営業外損益)自动计算
@@ -1158,77 +1165,81 @@
         this.loading = false;
       },
       getList(groupid, year, month) {
+        //upd-ws-5/7-根据groupid，year，month去本表查询数据有数据的话拿本表的数据，没有数据的时候根据sql查询
         this.loading = true;
         this.$store
-          .dispatch('PFANS1042Store/getPltab', {'groupid': groupid, 'year': year, 'month': month})
+          .dispatch('PFANS1042Store/getCostList', {'groupid': groupid, 'year': year, 'month': month})
           .then(response => {
-            let tabledate = [];
-            let date1 = getDictionaryInfo('PJ086002').value2; // --国内役務（6%税込み）
-            let date2 = getDictionaryInfo('PJ086003').value2;  // --国内販売（13%税込み）
-            let wai = getDictionaryInfo('PJ110001').value2;//0.4
-            let nei = getDictionaryInfo('PJ110002').value2;//1
-            let she = getDictionaryInfo('PJ110003').value2;//3
-            let aaa = getDictionaryInfo('PP024001').value1;
-            let sum = 0;
-            let sumouthours = 0;
-            let suminhours = 0;
-            let sumoutsourcingpjhours = 0;
-            let sums = 0;
-            //计算工数
-            let numFlg = 160;
-            //add-ws-5/6-报销金额统计为sumpublic，外注的费用统计的金额累计为sumcoststa
-            let sumpublic = response[0].unpublice + response[0].unevec;
-            let sumcoststa = response[0].uncoststa;
-            //add-ws-5/6-报销金额统计为sumpublic，外注的费用统计的金额累计为sumcoststa
+            if (response.length === 0) {
+              this.$store
+                .dispatch('PFANS1042Store/getPltab', {'groupid': groupid, 'year': year, 'month': month})
+                .then(response => {
+                  let tabledate = [];
+                  let date1 = getDictionaryInfo('PJ086002').value2; // --国内役務（6%税込み）
+                  let date2 = getDictionaryInfo('PJ086003').value2;  // --国内販売（13%税込み）
+                  let wai = getDictionaryInfo('PJ110001').value2;//0.4
+                  let nei = getDictionaryInfo('PJ110002').value2;//1
+                  let she = getDictionaryInfo('PJ110003').value2;//3
+                  let aaa = getDictionaryInfo('PP024001').value1;
+                  let sum = 0;
+                  let sumouthours = 0;
+                  let suminhours = 0;
+                  let sumoutsourcingpjhours = 0;
+                  //计算工数
+                  let numFlg = 160;
+                  //add-ws-5/6-报销金额统计为sumpublic，外注的费用统计的金额累计为sumcoststa
+                  let sumcoststa  = response[0].unpublice + response[0].unevec;
+                  let sumpublic   = response[0].uncoststa;
+                  //add-ws-5/6-报销金额统计为sumpublic，外注的费用统计的金额累计为sumcoststa
 
-            for (let i = 0; i < response.length; i++) {
-              //add-ws-5/6-本社工数累加
-              sum += Number(response[i].emhours);
-              //add-ws-5/6-本社工数累加
-              //add-ws-5/6-配赋费计算添加
-              sumouthours += Number(response[i].outhours);
-              suminhours += Number(response[i].inhours);
-              //add-ws-5/6-配赋费计算添加
-              //add-ws-5/6-外注工数累加
-              sums = Number(sumouthours) + Number(suminhours);
-              sumoutsourcingpjhours += sums;
-              //add-ws-5/6-外注工数累加
-            }
-            for (let j = 0; j < response.length; j++) {
-              //共通PJ（研修会议等）
-              //add_fjl
-              if (response[j].plmoneyflg == 'plmoneyflg') {
-                // response[j].pj1 = aaa
-                response[j].pj = aaa;
-              }
-              //add_fjl
-              //ADD_FJL  start
-              //部門売上合計
-              response[j].centerintotal = (Number(response[j].inst) + Number(response[j].outst3) + Number(response[j].outst2) + Number(response[j].outst1)).toFixed(2);
-              //技術開発・海外役務-
-              response[j].outst1 = (Number(response[j].outst1)).toFixed(2);
-              // --国内役務（6%税込み）
-              response[j].outst2 = (Number(response[j].outst2)).toFixed(2);
-              // --国内販売（13%税込み）
-              response[j].outst3 = (Number(response[j].outst3)).toFixed(2);
-              //売上合計
-              response[j].intotal = ((Number(response[j].outst1) + Number(response[j].outst3) + Number(response[j].outst2))
-                - (Number(response[j].outst2) / (1 + Number(date1)) * Number(date1) + Number(response[j].outst3) / (1 + Number(date2)) * Number(date2))).toFixed(2);
-              //ADD_FJL  end
-              //外注（構外∔構内）PJ工数
-              response[j].outsourcingpjhours = ((Number(response[j].inhours) + Number(response[j].outhours) + Number(response[0].unworktimeei) + Number(response[0].unworktimeex)) / Number(numFlg)).toFixed(2);
-              if (sum == 0) {
-                response[j].peocost = 0;
-                response[j].departmentcom = 0;
-                response[j].allocation = 0;
-              } else {
+                  for (let i = 0; i < response.length; i++) {
+                    debugger
+                    //add-ws-5/6-本社工数累加
+                    sum += Number(response[i].emhours);
+                    //add-ws-5/6-本社工数累加
+                    //add-ws-5/6-配赋费计算添加
+                    sumouthours += Number(response[i].outhours);
+                    suminhours += Number(response[i].inhours);
+                    //add-ws-5/6-配赋费计算添加
+                    //add-ws-5/6-外注工数累加
+                    sumoutsourcingpjhours +=  Number(response[i].outsourcingpjhours);
+                    //add-ws-5/6-外注工数累加
+                  }
+                  for (let j = 0; j < response.length; j++) {
+                    //共通PJ（研修会议等）
+                    //add_fjl
+                    if (response[j].plmoneyflg == 'plmoneyflg') {
+                      // response[j].pj1 = aaa
+                      response[j].pj = aaa;
+                    }
+                    //add_fjl
+                    //ADD_FJL  start
+                    //部門売上合計
+                    response[j].centerintotal = (Number(response[j].inst) + Number(response[j].outst3) + Number(response[j].outst2) + Number(response[j].outst1)).toFixed(2);
+                    //技術開発・海外役務-
+                    response[j].outst1 = (Number(response[j].outst1)).toFixed(2);
+                    // --国内役務（6%税込み）
+                    response[j].outst2 = (Number(response[j].outst2)).toFixed(2);
+                    // --国内販売（13%税込み）
+                    response[j].outst3 = (Number(response[j].outst3)).toFixed(2);
+                    //売上合計
+                    response[j].intotal = ((Number(response[j].outst1) + Number(response[j].outst3) + Number(response[j].outst2))
+                      - (Number(response[j].outst2) / (1 + Number(date1)) * Number(date1) + Number(response[j].outst3) / (1 + Number(date2)) * Number(date2))).toFixed(2);
+                    //ADD_FJL  end
+                    //外注（構外∔構内）PJ工数
+                    response[j].outsourcingpjhours = ((Number(response[j].inhours) + Number(response[j].outhours) + Number(response[0].unworktimeei) + Number(response[0].unworktimeex)) / Number(numFlg)).toFixed(2);
+                    if (sum == 0) {
+                      response[j].peocost = 0;
+                      response[j].departmentcom = 0;
+                      response[j].allocation = 0;
+                    } else {
 //upd -ws-5/5-人件费修改
-                //人件费计算（給料）
-                response[j].peocost = (Number(response[j].emhours) / Number(sum)).toFixed(2);
+                      //人件费计算（給料）
+                      response[j].peocost = (Number(response[j].emhours) / Number(sum)).toFixed(2);
 //upd -ws-5/5-人件费修改
 //upd -ws-5/5-部門共通按分修改
-                //部門共通按分
-                response[j].departmentcom = (Number(response[j].emhours) / Number(sum) * Number(sumcoststa)).toFixed(2);
+                      //部門共通按分
+                      response[j].departmentcom = (Number(response[j].emhours) / Number(sum) * Number(sumcoststa)).toFixed(2);
 //upd -ws-5/5-部門共通按分修改
                 //配賦費用
                 response[j].allocation = ((Number(response[j].emhours) / Number(sum)) * ((Number(response[j].emhours) * she * 1000 + Number(response[j].outhours) * nei * 1000 + Number(response[j].outhours) * wai * 1000))).toFixed(2);
@@ -1433,22 +1444,36 @@
               });
             }
 
-            this.tableData = tabledate;
-            this.loading = false;
-          })
-          .catch(error => {
-            Message({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            this.loading = false;
+                  this.tableData = tabledate;
+                  this.loading = false;
+                })
+                .catch(error => {
+                  Message({
+                    message: error,
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  this.loading = false;
+                });
+            }else{
+              this.tableData = response
+              this.loading = false;
+            }
+          }).catch(error => {
+          Message({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000,
           });
+          this.loading = false;
+        });
+        //upd-ws-5/7-根据groupid，year，month去本表查询数据有数据的话拿本表的数据，没有数据的时候根据sql查询
       },
 
       handleSelectionChange(val) {
         this.multipleSelection = val;
       },
+      //add-ws-5/7-保存PL数据，先根据group ，year，month删除再插入
       buttonClick(val) {
         this.loading = true;
         this.costcarryforward = [];
