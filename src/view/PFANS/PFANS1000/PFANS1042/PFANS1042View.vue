@@ -372,26 +372,24 @@
                 <span>{{scope.row.expensessubtotal}}</span>
               </template>
             </pl-table-column>
-            <!--            DEL_FJL-->
-            <!--            &lt;!&ndash;            振替１&ndash;&gt;-->
-            <!--            <pl-table-column-->
-            <!--              :label="$t('label.PFANS1042FORMVIEW_TRANSFERONE')"-->
-            <!--              align="center"-->
-            <!--              width="110">-->
-            <!--              <template slot-scope="scope">-->
-            <!--                <span>{{scope.row.transferone}}</span>-->
-            <!--              </template>-->
-            <!--            </pl-table-column>-->
-            <!--            &lt;!&ndash;            振替２&ndash;&gt;-->
-            <!--            <pl-table-column-->
-            <!--              :label="$t('label.PFANS1042FORMVIEW_TRANSFERTWO')"-->
-            <!--              align="center"-->
-            <!--              width="110">-->
-            <!--              <template slot-scope="scope">-->
-            <!--                <span>{{scope.row.transfertwo}}</span>-->
-            <!--              </template>-->
-            <!--            </pl-table-column>-->
-            <!--            DEL_FJL-->
+            <!--            振替１-->
+            <pl-table-column
+              :label="$t('label.PFANS1042FORMVIEW_TRANSFERONE')"
+              align="center"
+              width="110">
+              <template slot-scope="scope">
+                <span>{{scope.row.transferone}}</span>
+              </template>
+            </pl-table-column>
+            <!--            振替２-->
+            <pl-table-column
+              :label="$t('label.PFANS1042FORMVIEW_TRANSFERTWO')"
+              align="center"
+              width="110">
+              <template slot-scope="scope">
+                <span>{{scope.row.transfertwo}}</span>
+              </template>
+            </pl-table-column>
             <!--            配賦部門費小計-->
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_ALLOCATIONSUM')"
@@ -1456,8 +1454,8 @@
                                             surveyfee: response[j].surveyfee,
                                             othersoftwarefree: response[j].othersoftwarefree,
                                             expensessubtotal: response[j].expensessubtotal,
-                                            // transferone: response[j].transferone,
-                                            // transfertwo: response[j].transfertwo,
+                                            transferone: response[j].transferone,
+                                            transfertwo: response[j].transfertwo,
                                             allocationsum: response[j].allocationsum,
                                             threefree: response[j].threefree,
                                             commonfee: response[j].commonfee,
@@ -1528,7 +1526,7 @@
                 //     };
                 // }
                 if (column.level === 2 && (columnIndex === 5 || columnIndex === 6 || columnIndex === 9
-                    || columnIndex === 16 || columnIndex === 22 || columnIndex === 24 || columnIndex === 35 || columnIndex === 37)) {
+                    || columnIndex === 16 || columnIndex === 22 || columnIndex === 26 || columnIndex === 37 || columnIndex === 39)) {
                     return {
                         color: 'white',
                         background: '#778899',
@@ -1585,8 +1583,8 @@
                         othersoftwarefree: this.tableData[i].othersoftwarefree,
                         departmenttotal: this.tableData[i].departmenttotal,
                         expensessubtotal: this.tableData[i].expensessubtotal,
-                        // transferone: this.tableData[i].transferone,
-                        // transfertwo: this.tableData[i].transfertwo,
+                        transferone: this.tableData[i].transferone,
+                        transfertwo: this.tableData[i].transfertwo,
                         allocationsum: this.tableData[i].allocationsum,
                         yuanqincost: this.tableData[i].yuanqincost,
                         travalcost: this.tableData[i].travalcost,
