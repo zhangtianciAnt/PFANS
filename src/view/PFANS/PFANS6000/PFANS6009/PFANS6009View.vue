@@ -19,7 +19,7 @@
               <el-col :span="6">
                 <el-form-item :label="$t('label.PFANS1039FORMVIEW_GROUP')">
                   <el-select v-model="form.group_id" style="width: 20vw"
-                             @change="changeGroup">
+                             @change="changeGroupA">
                     <el-option
                       v-for="item in optionsdata"
                       :key="item.value"
@@ -99,7 +99,7 @@
               <el-col :span="6">
                 <el-form-item :label="$t('label.PFANS1039FORMVIEW_GROUP')">
                   <el-select v-model="form.group_id" style="width: 20vw"
-                             @change="changeGroup">
+                             @change="changeGroupB">
                     <el-option
                       v-for="item in optionsdata"
                       :key="item.value"
@@ -138,7 +138,7 @@
               <el-col :span="6">
                 <el-form-item :label="$t('label.PFANS1039FORMVIEW_GROUP')">
                   <el-select v-model="form.group_id" style="width: 20vw"
-                             @change="changeGroup">
+                             @change="changeGroupC">
                     <el-option
                       v-for="item in optionsdata"
                       :key="item.value"
@@ -543,9 +543,9 @@
       this.columnsC[13].child.splice(1, 1);
       this.columnsC[13].child[0].label = this.number;
 
-      this.loadTableA();
-      this.loadTableB();
-      this.loadTableC();
+      this.loadTableA(this.form.group_id);
+      this.loadTableB(this.form.group_id);
+      this.loadTableC(this.form.group_id);
 
     },
     methods: {
@@ -649,12 +649,14 @@
           }
         }
       },
-      loadTableA() {
-        if (this.tableALoading == false) {
-          return;
-        }
-        let groupid ='';
+      loadTableA(val) {
+        // if (this.tableALoading == false) {
+        //   return;
+        // }
+         let groupid ='';
+        debugger;
         this.loading = true;
+        this.form.group_id = val;
         if (this.form.group_id)
         {
           groupid = this.form.group_id;
@@ -665,6 +667,7 @@
         this.$store
           .dispatch('PFANS6009Store/getCostList',params)
           .then(response => {
+            debugger;
             var tableData = response.company;
             var tripData = response.trip;
             var assetData = response.asset;
@@ -737,7 +740,7 @@
             this.tableALoading = false;
           });
       },
-      loadTableB() {
+      loadTableB(val) {
         if (this.tableBLoading == false) {
           return;
         }
@@ -820,7 +823,7 @@
             this.tableBLoading = false;
           });
       },
-      loadTableC() {
+      loadTableC(val) {
         if (this.tableCLoading == false) {
           return;
         }
@@ -923,8 +926,12 @@
         console.log(listA);
         console.log(listB);
         console.log(listC);
+
+        let params = {
+          groupid: this.form.group_id
+        }
         this.$store
-          .dispatch("PFANS6009Store/downloadExcel")
+          .dispatch("PFANS6009Store/downloadExcel",params)
           .then(response => {
             this.download(response, "BP社集計一览")
           })
@@ -992,7 +999,6 @@
                   );
                 }
               }
-
             }
           }
         }
@@ -1025,14 +1031,29 @@
         {
           this.optionsdata = vote;
         }
+        this.form.group_id = this.optionsdata[0].value;
+        if (this.form.group_id) {
+          this.loadTableA(this.form.group_id);
+          this.loadTableB(this.form.group_id);
+          this.loadTableC(this.form.group_id);
+        }
         this.loading = false;
       },
-      changeGroup(val) {
+      changeGroupA(val) {
         this.form.group_id = val;
         if (this.form.group_id) {
-          //this.getList(this.form.group_id, this.form.year, this.form.region);
-          this.loadTableA();
+          this.loadTableA(this.form.group_id);
+        }
+      },
+      changeGroupB(val) {
+        this.form.group_id = val;
+        if (this.form.group_id) {
           this.loadTableB();
+        }
+      },
+      changeGroupC(val) {
+        this.form.group_id = val;
+        if (this.form.group_id) {
           this.loadTableC();
         }
       },
