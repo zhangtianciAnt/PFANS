@@ -2335,10 +2335,10 @@
                 return prev;
               }
             }, 0);
-            if (index === 4) {
+            if (index === 9) {
               sums[index] = Math.round((sums[index]) * 100) / 100;
             }
-            if (index === 5) {
+            if (index === 10) {
               sums[index] = Math.round((sums[index]) * 100) / 100;
             }
           } else {
@@ -2515,7 +2515,9 @@
                 return prev;
               }
             }, 0);
-
+            if (index === 10) {
+              sums[index] = Math.round((sums[index]) * 100) / 100;
+            }
             if (index === 11) {
               sums[index] = Math.round((sums[index]) * 100) / 100;
             }

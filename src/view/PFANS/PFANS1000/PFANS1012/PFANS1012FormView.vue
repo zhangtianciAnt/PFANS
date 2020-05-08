@@ -3658,10 +3658,7 @@
                 return prev;
               }
             }, 0);
-            if (index == 4) {
-              sums[index] = Math.round((sums[index]) * 100) / 100;
-            }
-            if (index == 5) {
+            if (index == 8) {
               sums[index] = Math.round((sums[index]) * 100) / 100;
             }
           } else {
@@ -3690,10 +3687,10 @@
                 return prev;
               }
             }, 0);
-            if (index == 3) {
+            if (index == 8) {
               sums[index] = Math.round((sums[index]) * 100) / 100;
             }
-            if (index == 4) {
+            if (index == 9) {
               sums[index] = Math.round((sums[index]) * 100) / 100;
             }
           } else {
@@ -3721,10 +3718,13 @@
                 return prev;
               }
             }, 0);
-            if (index == 3) {
+            if (index == 7) {
               sums[index] = Math.round((sums[index]) * 100) / 100;
             }
-            if (index == 4) {
+            if (index == 8) {
+              sums[index] = Math.round((sums[index]) * 100) / 100;
+            }
+            if (index == 9) {
               sums[index] = Math.round((sums[index]) * 100) / 100;
             }
           } else {
@@ -3736,7 +3736,6 @@
         return sums;
       },
       getMoney(sums) {
-        debugger
         if (this.form.type === 'PJ001001') {
           this.form.rmbexpenditure = sums[8];
         } else if (this.checktime) {
@@ -3746,7 +3745,6 @@
         }
       },
       getforeigncurrency(sums) {
-        debugger
         if (this.form.type === 'PJ001001') {
           this.form.foreigncurrency = '0';
         } else if (this.checktime) {
