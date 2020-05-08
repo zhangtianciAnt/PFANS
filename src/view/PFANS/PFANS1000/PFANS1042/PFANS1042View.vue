@@ -969,6 +969,14 @@
                 val.operatingprofit = (val.interestrate + val.exchanges).toFixed(2);
                 //--(税引前利益)自动计算
                 val.pretaxprofit = (Number(val.operatingprofit) + Number(val.Operating)).toFixed(2);
+                //--(税引後利益)自动计算
+                val.posttaxbenefit = (Number(val.pretaxprofit) - Number(val.taxallowance)).toFixed(2);
+                //--営業利益率 = 営業利益 / 売上合計
+                if (Number(val.intotal) > 0) {
+                    val.operatingmargin = ((Number(val.Operating) / Number(val.intotal)) * 100).toFixed(2) + '%';
+                } else {
+                    val.operatingmargin = 0;
+                }
             },
             changeTaxallowance(val) {
                 //--(税引後利益)自动计算
@@ -983,6 +991,11 @@
                 val.costtotal = (Number(val.peocostsum) + Number(val.costsubtotal) + Number(val.departmenttotal) + Number(val.allocationsum) + Number(val.otherexpentotal)).toFixed(2);
                 //--営業利益
                 val.Operating = (Number(val.intotal) - Number(val.costtotal)).toFixed(2);
+                //--(税引前利益)自动计算
+                val.pretaxprofit = (Number(val.operatingprofit) + Number(val.Operating)).toFixed(2);
+
+                //--(税引後利益)自动计算
+                val.posttaxbenefit = (Number(val.pretaxprofit) - Number(val.taxallowance)).toFixed(2);
                 //--営業利益率 = 営業利益 / 売上合計
                 if (Number(val.intotal) > 0) {
                     val.operatingmargin = ((Number(val.Operating) / Number(val.intotal)) * 100).toFixed(2) + '%';
@@ -995,8 +1008,25 @@
                 //固定資産費用小計
                 val.costsubtotal = (Number(val.depreciationsoft) + Number(val.depreciationequipment) + Number(val.rent) +
                     Number(val.leasecost) + Number(val.temporaryrent) + Number(val.other)).toFixed(2);
+
                 //合計
                 val.costtotal = (Number(val.peocostsum) + Number(val.costsubtotal) + Number(val.departmenttotal) + Number(val.allocationsum) + Number(val.otherexpentotal)).toFixed(2);
+
+                //--営業利益
+                val.Operating = (Number(val.intotal) - Number(val.costtotal)).toFixed(2);
+
+                //--(税引前利益)自动计算
+                val.pretaxprofit = (Number(val.operatingprofit) + Number(val.Operating)).toFixed(2);
+
+                //--(税引後利益)自动计算
+                val.posttaxbenefit = (Number(val.pretaxprofit) - Number(val.taxallowance)).toFixed(2);
+
+                //--営業利益率 = 営業利益 / 売上合計
+                if (Number(val.intotal) > 0) {
+                    val.operatingmargin = ((Number(val.Operating) / Number(val.intotal)) * 100).toFixed(2) + '%';
+                } else {
+                    val.operatingmargin = 0;
+                }
             },
             // changeDepment(val) {
             //     val.costsubtotal = (Number(val.depreciationsoft) + Number(val.depreciationequipment) + Number(val.rent) +
@@ -1290,7 +1320,7 @@
                                         // 部門共通費用合計
                                         // response[j].departmenttotal = (Number(response[j].yuanqincost) + Number(response[j].travalcost) + Number(response[j].concost) + Number(response[j].callcost) + Number(response[j].brandcost) + Number(response[j].rent) + Number(response[j].other)).toFixed(2);
                                         //仕掛品
-                                        response[j].process = (Number('-' + response[j].centerintotal) + Number(response[j].inwetuo)).toFixed(2);
+                                        response[j].process = (Number('-' + response[j].centerintotal) + Number(response[j].inst)).toFixed(2);
                                         //その他諸経費小計
                                         response[j].otherexpentotal = (Number(response[j].yuanqincost) + Number(response[j].travalcost) + Number(response[j].callcost)
                                             + Number(response[j].concost) + Number(response[j].threefree) + Number(response[j].commonfee) + Number(response[j].brandcost)
