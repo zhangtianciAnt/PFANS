@@ -698,7 +698,7 @@
               addLine1[key_hour] = parseFloat(total_manhour).toFixed(2);
               addLine1[key_cost] = parseFloat(total_cost).toFixed(2);
               if (total_manhour == 0) {
-                addLine2[key_cost] = "0.0";
+                addLine2[key_cost] = "0.00";
               } else {
                 addLine2[key_cost] = (parseFloat(total_cost) / parseFloat(total_manhour)).toFixed(2);
               }
