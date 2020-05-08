@@ -69,7 +69,7 @@
                 </el-col>
                 <!--                add_fjl-->
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1012VIEW_CAIWUPERSONALCODE')">
+                  <el-form-item :label="$t('label.PFANS1012VIEW_PERSONALCODE')">
                     <el-input :disabled="true" maxlength="20" style="width:20vw" v-model="form.financecode"></el-input>
                   </el-form-item>
                 </el-col>
@@ -133,7 +133,7 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.email')" prop="email">
-                    <el-input :disabled="!disabled" maxlength='50' style="width: 20vw"
+                    <el-input :disabled="!disabled" style="width: 20vw"
                               v-model="form.email"></el-input>
                   </el-form-item>
                 </el-col>
@@ -346,7 +346,7 @@
             this.userapplicantlist = this.form.user_id;
               // ADD_FJL  财务编码
               if (getUserInfo(this.form.user_id)) {
-                  this.form.financecode = getUserInfo(this.form.user_id).userinfo.caiwupersonalcode;
+                this.form.financecode = getUserInfo(this.form.user_id).userinfo.personalcode;
               }
               // ADD_FJL  财务编码
             this.useridlist = this.form.user_name;
@@ -364,7 +364,7 @@
         this.userapplicantlist = this.$store.getters.userinfo.userid;
           // ADD_FJL  财务编码
           if (getUserInfo(this.$store.getters.userinfo.userid)) {
-              this.form.financecode = getUserInfo(this.$store.getters.userinfo.userid).userinfo.caiwupersonalcode;
+            this.form.financecode = getUserInfo(this.$store.getters.userinfo.userid).userinfo.personalcode;
           }
           // ADD_FJL  财务编码
         if (this.userapplicantlist !== null && this.userapplicantlist !== '') {

@@ -1217,11 +1217,11 @@
                 this.$store
                     .dispatch('PFANS1042Store/getCostList', {'groupid': groupid, 'year': year, 'month': month})
                     .then(response => {
+                      debugger
                         if (response.length === 0) {
                             this.$store
                                 .dispatch('PFANS1042Store/getPltab', {'groupid': groupid, 'year': year, 'month': month})
                                 .then(response => {
-                                    debugger;
                                     let tabledate = [];
                                     let date1 = getDictionaryInfo('PJ086002').value2; // --国内役務（6%税込み）
                                     let date2 = getDictionaryInfo('PJ086003').value2;  // --国内販売（13%税込み）
@@ -1591,6 +1591,7 @@
                         region: this.form.region,
                         group_id: this.form.group_id,
                         pj: this.tableData[i].pj,
+                        pj1: this.tableData[i].pj1,
                         outst1: this.tableData[i].outst1,
                         taxyw: this.tableData[i].taxyw,
                         taxsa: this.tableData[i].taxsa,

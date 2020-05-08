@@ -111,15 +111,21 @@
                 :error="errorusername"
               >
                 <template slot-scope="scope">
-                  <user
-                    :disabled="!disabled"
+                  <!--<user-->
+                  <!--:disabled="!disabled"-->
+                  <!--:error="errorusername"-->
+                  <!--:no="scope.row"-->
+                  <!--:selectType="selectType"-->
+                  <!--:userlist="scope.row.username"-->
+                  <!--@getUserids="getUserids1"-->
+                  <!--style="width: 90%"-->
+                  <!--&gt;</user>-->
+                  <el-input
                     :error="errorusername"
+                    :disabled="!disabled"
                     :no="scope.row"
-                    :selectType="selectType"
-                    :userlist="scope.row.username"
-                    @getUserids="getUserids1"
-                    style="width: 90%"
-                  ></user>
+                    v-model="scope.row.username"
+                  ></el-input>
                 </template>
               </el-table-column>
               <el-table-column
@@ -135,7 +141,7 @@
                     :multiple="multiple"
                     @change="getRank"
                     style="width: 11rem"
-                    :disabled="true"
+                    :disabled="!disabled"
                   ></dicselect>
                 </template>
               </el-table-column>
@@ -146,8 +152,7 @@
               >
                 <template slot-scope="scope">
                   <el-input
-                    :disabled="true"
-                    maxlength="20"
+                    :disabled="!disabled"
                     :no="scope.row"
                     v-model="scope.row.mailaddress"
                   ></el-input>
@@ -267,7 +272,7 @@ export default {
           reason: ""
         }
       ],
-      code: "PR021",
+      code: "PR063",
       disabled: false,
       disabled1: false,
       menuList: [],
@@ -392,21 +397,20 @@ export default {
         this.erroruser = "";
       }
     },
-    getUserids1(val, row) {
-      debugger;
-      row.username = val;
-      if (!row.username || row.username === "" || val === "undefined") {
-        row.errorusername =
-          this.$t("normal.error_09") + this.$t("label.applicant");
-      } else {
-        row.errorusername = "";
-      }
-      // ADD-LXX
-      let tempUserInfo = getUserInfo(val);
-      row.rank = tempUserInfo.userinfo.rank;
-      row.mailaddress = tempUserInfo.userinfo.email;
-      // ADD-LXX
-    },
+    // getUserids1(val, row) {
+    //   row.username = val;
+    //   if (!row.username || row.username === "" || val === "undefined") {
+    //     row.errorusername =
+    //       this.$t("normal.error_09") + this.$t("label.applicant");
+    //   } else {
+    //     row.errorusername = "";
+    //   }
+    //   // ADD-LXX
+    //   let tempUserInfo = getUserInfo(val);
+    //   row.rank = tempUserInfo.userinfo.rank;
+    //   row.mailaddress = tempUserInfo.userinfo.email;
+    //   // ADD-LXX
+    // },
     getRank(val, row) {
       row.rank = val;
     },
