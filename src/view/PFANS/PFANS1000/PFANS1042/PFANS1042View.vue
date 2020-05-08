@@ -1221,13 +1221,14 @@
                             this.$store
                                 .dispatch('PFANS1042Store/getPltab', {'groupid': groupid, 'year': year, 'month': month})
                                 .then(response => {
+                                    debugger;
                                     let tabledate = [];
                                     let date1 = getDictionaryInfo('PJ086002').value2; // --国内役務（6%税込み）
                                     let date2 = getDictionaryInfo('PJ086003').value2;  // --国内販売（13%税込み）
                                     let wai = getDictionaryInfo('PJ110001').value2;//0.4
                                     let nei = getDictionaryInfo('PJ110002').value2;//1
                                     let she = getDictionaryInfo('PJ110003').value2;//3
-                                    let aaa = getDictionaryInfo('PP024001').value1;
+                                    // let aaa = getDictionaryInfo('PP024001').value1;
                                     let sum = 0;
                                     let sumouthours = 0;
                                     let suminhours = 0;
@@ -1256,9 +1257,9 @@
                                     for (let j = 0; j < response.length; j++) {
                                         //共通PJ（研修会议等）
                                         //add_fjl
-                                        if (response[j].plmoneyflg == 'plmoneyflg') {
+                                        if (response[j].pj1 === 'PP024001') {
                                             // response[j].pj1 = aaa
-                                            response[j].pj = aaa;
+                                            response[j].pj = getDictionaryInfo(response[j].pj1).value1;
                                         }
                                         //add_fjl
                                         //ADD_FJL  start
