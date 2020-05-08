@@ -27,7 +27,7 @@ export function update(data) {
 }
 
 export function generateJxls(data) {
-  return requestPdf({
+  return requestDownload({
     url: 'contract/generateJxls',
     method: 'post',
     data: data,

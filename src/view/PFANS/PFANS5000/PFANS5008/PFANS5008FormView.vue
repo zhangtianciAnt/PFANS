@@ -1114,7 +1114,7 @@
               //add-ws-日志截止日期check添加
               let check = 0;
               let log_date = moment(this.companyform.log_date).format('DD');
-              let date = getDictionaryInfo('BP026001').value2;
+              let date = getDictionaryInfo('BP027001').value1;
               let checkdate = date < 10?'0'+date:date;
               if (moment(this.companyform.log_date).format('YYYY') < moment(new Date()).format('YYYY')) {
                 if (moment(this.companyform.log_date).format('MM') > moment(new Date()).format('MM')) {

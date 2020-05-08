@@ -24,7 +24,7 @@ export function update(data) {
 }
 
 export function downLoad(data) {
-  return requestPdf({
+  return requestDownload({
     url: 'petition/downLoad1',
     method: 'post',
     data: data,
