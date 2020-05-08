@@ -1217,7 +1217,6 @@
                 this.$store
                     .dispatch('PFANS1042Store/getCostList', {'groupid': groupid, 'year': year, 'month': month})
                     .then(response => {
-                      debugger
                         if (response.length === 0) {
                             this.$store
                                 .dispatch('PFANS1042Store/getPltab', {'groupid': groupid, 'year': year, 'month': month})
@@ -1321,7 +1320,7 @@
                                         // 部門共通費用合計
                                         // response[j].departmenttotal = (Number(response[j].yuanqincost) + Number(response[j].travalcost) + Number(response[j].concost) + Number(response[j].callcost) + Number(response[j].brandcost) + Number(response[j].rent) + Number(response[j].other)).toFixed(2);
                                         //仕掛品
-                                        response[j].process = (Number('-' + response[j].centerintotal) + Number(response[j].inst)).toFixed(2);
+                                        response[j].process = (Number('-' + response[j].centerintotal) + Number(response[j].process)).toFixed(2);
                                         //その他諸経費小計
                                         response[j].otherexpentotal = (Number(response[j].yuanqincost) + Number(response[j].travalcost) + Number(response[j].callcost)
                                             + Number(response[j].concost) + Number(response[j].threefree) + Number(response[j].commonfee) + Number(response[j].brandcost)
