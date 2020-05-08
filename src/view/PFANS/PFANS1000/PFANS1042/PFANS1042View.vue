@@ -975,7 +975,7 @@
                 if (Number(val.intotal) > 0) {
                     val.operatingmargin = ((Number(val.Operating) / Number(val.intotal)) * 100).toFixed(2) + '%';
                 } else {
-                    val.operatingmargin = 0;
+                    val.operatingmargin = '0.00';
                 }
             },
             changeTaxallowance(val) {
@@ -998,9 +998,12 @@
                 val.posttaxbenefit = (Number(val.pretaxprofit) - Number(val.taxallowance)).toFixed(2);
                 //--営業利益率 = 営業利益 / 売上合計
                 if (Number(val.intotal) > 0) {
-                    val.operatingmargin = ((Number(val.Operating) / Number(val.intotal)) * 100).toFixed(2) + '%';
+                    val.operatingmargin = ((Number(val.Operating) / Number(val.intotal)) * 100).toFixed(2);
+                    if (Number(val.operatingmargin) > 0) {
+                        val.operatingmargin = val.operatingmargin + '%';
+                    }
                 } else {
-                    val.operatingmargin = 0;
+                    val.operatingmargin = '0.00';
                 }
 
             },
@@ -1023,9 +1026,12 @@
 
                 //--営業利益率 = 営業利益 / 売上合計
                 if (Number(val.intotal) > 0) {
-                    val.operatingmargin = ((Number(val.Operating) / Number(val.intotal)) * 100).toFixed(2) + '%';
+                    val.operatingmargin = ((Number(val.Operating) / Number(val.intotal)) * 100).toFixed(2);
+                    if (Number(val.operatingmargin) > 0) {
+                        val.operatingmargin = val.operatingmargin + '%';
+                    }
                 } else {
-                    val.operatingmargin = 0;
+                    val.operatingmargin = '0.00';
                 }
             },
             // changeDepment(val) {
@@ -1281,10 +1287,10 @@
                                         //外注（構外∔構内）PJ工数
                                         response[j].outsourcingpjhours = ((Number(response[j].inhours) + Number(response[j].outhours) + Number(response[0].unworktimeei) + Number(response[0].unworktimeex)) / Number(numFlg)).toFixed(2);
                                         if (sum == 0) {
-                                            response[j].twocost = 0;
-                                            response[j].peocost = 0;
-                                            response[j].departmentcom = 0;
-                                            response[j].allocation = 0;
+                                            response[j].twocost = '0.00';
+                                            response[j].peocost = '0.00';
+                                            response[j].departmentcom = '0.00';
+                                            response[j].allocation = '0.00';
                                         } else {
 //upd -ws-5/5-人件费修改
                                             //人件费计算（給料）
@@ -1305,7 +1311,7 @@
                                         //upd -ws-5/5-外注费修改
                                         //外注費计算
                                         if (sumoutsourcingpjhours == 0) {
-                                            response[j].outcost = 0;
+                                            response[j].outcost = '0.00';
                                         } else {
                                             response[j].outcost = (Number(response[j].outsourcingpjhours) / Number(sumoutsourcingpjhours) * Number(sumpublic)).toFixed(2);
                                         }
@@ -1448,7 +1454,7 @@
                                         //営業利益
                                         response[j].Operating = (Number(response[j].intotal) - Number(response[j].costtotal)).toFixed(2);
                                         //営業外損益 = 金利（損--マイナス） + 為替（損--マイナス） --初始默認為0
-                                        response[j].operatingprofit = 0;
+                                        response[j].operatingprofit = '0.00';
                                         //税引前利益 = 営業利益 + 営業外損益
                                         response[j].pretaxprofit = Number(response[j].Operating) + Number(response[j].operatingprofit);
                                         //税引後利益 = 税引前利益 + 税金引当金
@@ -1460,8 +1466,29 @@
                                             response[j].operatingmargin = 0
                                         }
 
-
 // add_fjl
+                                        response[j].inst = this.numFormat(response[j].inst);
+                                        response[j].rent = this.numFormat(response[j].rent);
+                                        response[j].leasecost = this.numFormat(response[j].leasecost);
+                                        response[j].temporaryrent = this.numFormat(response[j].temporaryrent);
+                                        response[j].other = this.numFormat(response[j].other);
+                                        response[j].researchcost = this.numFormat(response[j].researchcost);
+                                        response[j].inwetuo = this.numFormat(response[j].inwetuo);
+                                        response[j].othersoftwarefree = this.numFormat(response[j].othersoftwarefree);
+                                        response[j].yuanqincost = this.numFormat(response[j].yuanqincost);
+                                        response[j].travalcost = this.numFormat(response[j].travalcost);
+                                        response[j].callcost = this.numFormat(response[j].callcost);
+                                        response[j].concost = this.numFormat(response[j].concost);
+                                        response[j].threefree = this.numFormat(response[j].threefree);
+                                        response[j].commonfee = this.numFormat(response[j].commonfee);
+                                        response[j].brandcost = this.numFormat(response[j].brandcost);
+                                        response[j].otherexpenses = this.numFormat(response[j].otherexpenses);
+
+
+                                        //暂时无用控件赋值 --
+                                        response[j].surveyfee = '--';
+                                        response[j].transferone = '--';
+                                        response[j].transfertwo = '--';
                                         tabledate.push({
                                             pj1: response[j].pj1,
                                             pj: response[j].pj,
@@ -1559,6 +1586,13 @@
                     this.loading = false;
                 });
                 //upd-ws-5/7-根据groupid，year，month去本表查询数据有数据的话拿本表的数据，没有数据的时候根据sql查询
+            },
+            numFormat(value) {
+                if (value === '' || value === null || value === '0') {
+                    return '0.00'
+                } else {
+                    return value;
+                }
             },
             getRowClass({row, column, rowIndex, columnIndex}) {
                 // if (column.level === 1 && columnIndex === 2) {
