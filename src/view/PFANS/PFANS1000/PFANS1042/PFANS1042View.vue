@@ -231,7 +231,7 @@
                 <el-input-number
                   size="mini"
                   :min="0" :precision="2"
-                  :max="9999999"
+                  :max="999999999"
                   controls-position="right"
                   :no="scope.row"
                   :step="1"
@@ -252,12 +252,12 @@
                 <el-input-number
                   size="mini"
                   :min="0" :precision="2"
-                  :max="9999999"
+                  :max="999999999"
                   controls-position="right"
                   :no="scope.row"
                   :step="1"
                   v-model="scope.row.depreciationequipment"
-                  @change="changeDepment(scope.row)"
+                  @change="changeDeprec(scope.row)"
                   style="width: 100%">
                 </el-input-number>
                 <!--                <span>{{scope.row.depreciationequipment}}</span>-->
@@ -513,7 +513,7 @@
                 <el-input-number
                   size="mini"
                   :min="0" :precision="2"
-                  :max="9999999"
+                  :max="999999999"
                   controls-position="right"
                   :no="scope.row"
                   :step="1"
@@ -583,8 +583,8 @@
               <template slot-scope="scope">
                 <el-input-number
                   size="mini"
-                  :min="0" :precision="2"
-                  :max="9999999"
+                  :min="-999999999" :precision="2"
+                  :max="999999999"
                   controls-position="right"
                   :no="scope.row"
                   :step="1"
@@ -603,8 +603,8 @@
               <template slot-scope="scope">
                 <el-input-number
                   size="mini"
-                  :min="0" :precision="2"
-                  :max="9999999"
+                  :min="-999999999" :precision="2"
+                  :max="999999999"
                   controls-position="right"
                   :no="scope.row"
                   :step="1"
@@ -643,7 +643,7 @@
               <el-input-number
                 size="mini"
                 :min="0" :precision="2"
-                :max="9999999"
+                :max="999999999"
                 controls-position="right"
                 :no="scope.row"
                 :step="1"
@@ -981,8 +981,10 @@
                 val.otherexpentotal = (Number(val.yuanqincost) + Number(val.travalcost) + Number(val.callcost)
                     + Number(val.concost) + Number(val.threefree) + Number(val.commonfee) + Number(val.brandcost)
                     + Number(val.otherexpenses) + Number(val.otherincome) + Number(val.process)).toFixed(2);
+                //合計
+                val.costtotal = (Number(val.peocostsum) + Number(val.costsubtotal) + Number(val.departmenttotal) + Number(val.allocationsum) + Number(val.otherexpentotal)).toFixed(2);
                 //--営業利益
-                val.Operating = (Number(val.intotal) - Number(val.peocostsum) - Number(val.costsubtotal) - Number(val.departmenttotal) - Number(val.allocationsum) - Number(val.otherexpentotal)).toFixed(2);
+                val.Operating = (Number(val.intotal) - Number(val.costtotal)).toFixed(2);
                 //--営業利益率 = 営業利益 / 売上合計
                 if (Number(val.intotal) > 0) {
                     val.operatingmargin = ((Number(val.Operating) / Number(val.intotal)) * 100).toFixed(2) + '%';
@@ -992,13 +994,16 @@
 
             },
             changeDeprec(val) {
+                //固定資産費用小計
                 val.costsubtotal = (Number(val.depreciationsoft) + Number(val.depreciationequipment) + Number(val.rent) +
                     Number(val.leasecost) + Number(val.temporaryrent) + Number(val.other)).toFixed(2);
+                //合計
+                val.costtotal = (Number(val.peocostsum) + Number(val.costsubtotal) + Number(val.departmenttotal) + Number(val.allocationsum) + Number(val.otherexpentotal)).toFixed(2);
             },
-            changeDepment(val) {
-                val.costsubtotal = (Number(val.depreciationsoft) + Number(val.depreciationequipment) + Number(val.rent) +
-                    Number(val.leasecost) + Number(val.temporaryrent) + Number(val.other)).toFixed(2);
-            },
+            // changeDepment(val) {
+            //     val.costsubtotal = (Number(val.depreciationsoft) + Number(val.depreciationequipment) + Number(val.rent) +
+            //         Number(val.leasecost) + Number(val.temporaryrent) + Number(val.other)).toFixed(2);
+            // },
             //add_fjl --end
             changeRegion(val) {
                 this.form.region = val;
@@ -1391,8 +1396,7 @@
                                             response[j].staffingrate = 0;
                                         }
                                         //合計
-                                        response[j].costtotal = (Number(response[j].peocostsum) + Number(response[j].costsubtotal) + Number(response[j].expensessubtotal) + Number(response[j].allocationsum) + Number(response[j].otherexpentotal)
-                                            + Number(response[j].departmentcom)).toFixed(2);
+                                        response[j].costtotal = (Number(response[j].peocostsum) + Number(response[j].costsubtotal) + Number(response[j].departmenttotal) + Number(response[j].allocationsum) + Number(response[j].otherexpentotal)).toFixed(2);
                                         //営業利益
                                         response[j].Operating = (Number(response[j].intotal) - Number(response[j].costtotal)).toFixed(2);
                                         //営業外損益 = 金利（損--マイナス） + 為替（損--マイナス） --初始默認為0
@@ -1509,20 +1513,20 @@
                 //upd-ws-5/7-根据groupid，year，month去本表查询数据有数据的话拿本表的数据，没有数据的时候根据sql查询
             },
             getRowClass({row, column, rowIndex, columnIndex}) {
-                if (column.level === 1 && columnIndex === 2) {
-                    return {
-                        color: 'white',
-                        background: '#5CBFA3',
-                        border: '1px solid white',
-                    };
-                }
-                if (column.level === 1 && columnIndex === 3) {
-                    return {
-                        color: 'white',
-                        background: '#2696C3',
-                        border: '1px solid white',
-                    };
-                }
+                // if (column.level === 1 && columnIndex === 2) {
+                //     return {
+                //         color: 'white',
+                //         background: '#5CBFA3',
+                //         border: '1px solid white',
+                //     };
+                // }
+                // if (column.level === 1 && columnIndex === 3) {
+                //     return {
+                //         color: 'white',
+                //         background: '#2696C3',
+                //         border: '1px solid white',
+                //     };
+                // }
                 if (column.level === 2 && (columnIndex === 5 || columnIndex === 6 || columnIndex === 9
                     || columnIndex === 16 || columnIndex === 22 || columnIndex === 24 || columnIndex === 35 || columnIndex === 37)) {
                     return {
