@@ -2593,13 +2593,14 @@
                 return prev;
               }
             }, 0);
-            if (index === 5) {
-              sums[index] = Math.round((sums[index]) * 100) / 100;
-            }
+            // if (index === 5) {
+            //   sums[index] = Math.round((sums[index]) * 100) / 100;
+            // }
           } else {
             sums[index] = '--';
           }
         });
+        sums[5] = Math.round(sums[5] * 100) / 100;
         return sums;
       },
       getactivitycontent(val, row) {
