@@ -13,7 +13,7 @@
       v-show="region === '1'"
     >
       <div slot="search">
-        <el-form label-position="top" label-width="8vw" ref="reff" style="padding-top: 10px" :rules="rules">
+        <el-form label-position="top" label-width="8vw" ref="reff" style="padding-top: 10px">
           <el-form-item>
             <el-row style="padding-top: 10px">
               <el-col :span="6">
