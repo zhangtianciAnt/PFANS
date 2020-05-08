@@ -50,6 +50,11 @@
                         </dicselect>
                       </el-form-item>
                     </el-col>
+                    <el-col :span="8">
+                      <el-form-item :label="$t('label.PFANS2023VIEW_YEARS')">
+                        {{form.createon  | moment('YYYY')}}
+                      </el-form-item>
+                    </el-col>
                   </el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS2023FORMVIEW_ROLE')" prop="role">
@@ -214,7 +219,7 @@
     import {Message} from 'element-ui';
     import {getOrgInfoByUserId,getUserInfo} from '@/utils/customize'
     import {getDictionaryInfo} from '../../../../utils/customize';
-
+    let moment = require('moment');
     export default {
         name: 'PFANS2023FormView',
         components: {
