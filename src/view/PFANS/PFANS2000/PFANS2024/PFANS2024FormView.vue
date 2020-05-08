@@ -99,8 +99,10 @@
                   <el-row>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS2024FORMVIEW_FEATURES')" >
-                        <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disable"
-                                  style="width: 70vw" type="textarea" v-model="form.features"></el-input>
+                        <el-input :autosize="{ minRows: 3, maxRows: 6}" :disabled="!disable"
+                                  style="width: 70vw" type="textarea" v-model="form.features"
+                                  :placeholder="$t('label.PFANS2024FORMVIEW_FEATURES1')"
+                        ></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
