@@ -2345,8 +2345,14 @@
             sums[index] = '--';
           }
         });
-        sums[9] = Math.round(sums[9] * 100) / 100;
-        sums[10] = Math.round(sums[10] * 100) / 100;
+        if (this.form.type === '0') {
+          sums[9] = Math.round(sums[9] * 100) / 100;
+          sums[10] = Math.round(sums[10] * 100) / 100;
+        }else{
+          sums[9] = Math.round(sums[9] * 100) / 100;
+          sums[10] = Math.round(sums[10] * 100) / 100;
+          sums[12] = Math.round(sums[12] * 100) / 100;
+        }
         this.getMoney(sums);
         return sums;
       },
@@ -2536,6 +2542,16 @@
             sums[index] = '--';
           }
         });
+        if (this.form.type === '0') {
+          sums[12] = Math.round(sums[12] * 100) / 100;
+          sums[11] = Math.round(sums[11] * 100) / 100;
+          sums[10] = Math.round(sums[10] * 100) / 100;
+        }else{
+          sums[13] = Math.round(sums[13] * 100) / 100;
+          sums[11] = Math.round(sums[11] * 100) / 100;
+          sums[12] = Math.round(sums[12] * 100) / 100;
+          sums[14] = Math.round(sums[14] * 100) / 100;
+        }
         this.tableAValue = sums;
         return sums;
       },

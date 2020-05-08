@@ -3700,6 +3700,9 @@
         });
         sums[8] = Math.round(sums[8] * 100) / 100;
         sums[9] = Math.round(sums[9] * 100) / 100;
+        sums[11] = Math.round(sums[11] * 100) / 100;
+        sums[12] = Math.round(sums[12] * 100) / 100;
+        sums[13] = Math.round(sums[13] * 100) / 100;
         this.tablePValue = sums;
         return sums;
       },
@@ -3721,22 +3724,28 @@
                 return prev;
               }
             }, 0);
-            // if (index == 7) {
-            //   sums[index] = Math.round((sums[index]) * 100) / 100;
-            // }
-            // if (index == 8) {
-            //   sums[index] = Math.round((sums[index]) * 100) / 100;
-            // }
-            // if (index == 9) {
-            //   sums[index] = Math.round((sums[index]) * 100) / 100;
-            // }
+            if (index == 7) {
+              sums[index] = Math.round((sums[index]) * 100) / 100;
+            }
+            if (index == 8) {
+              sums[index] = Math.round((sums[index]) * 100) / 100;
+            }
+            if (index == 9) {
+              sums[index] = Math.round((sums[index]) * 100) / 100;
+            }
+            if (index == 10) {
+              sums[index] = Math.round((sums[index]) * 100) / 100;
+            }
+            if (index == 11) {
+              sums[index] = Math.round((sums[index]) * 100) / 100;
+            }
+            if (index == 12) {
+              sums[index] = Math.round((sums[index]) * 100) / 100;
+            }
           } else {
             sums[index] = '--';
           }
         });
-        sums[7] = Math.round(sums[7] * 100) / 100;
-        sums[8] = Math.round(sums[8] * 100) / 100;
-        sums[9] = Math.round(sums[9] * 100) / 100;
         this.getMoney(sums);
         this.getforeigncurrency(sums);
         return sums;
