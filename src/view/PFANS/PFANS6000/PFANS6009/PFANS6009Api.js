@@ -26,10 +26,11 @@ export function getWorkers(data) {
 }
 
 export function downloadExcel(data) {
+  debugger;
   return requestDownload({
     url: '/companystatistics/downloadExcel',
-    method: 'post',
-    data: data
+    method: 'get',
+    params: data
   })
 }
 
