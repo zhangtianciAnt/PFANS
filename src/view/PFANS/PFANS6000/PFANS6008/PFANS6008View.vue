@@ -59,7 +59,7 @@
           {
             code: 'bpname',
             label: 'label.PFANS6008VIEW_BPNAME',
-            width: 100,
+            width: 120,
             fix: false,
             filter: true,
           },
