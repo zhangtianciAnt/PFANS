@@ -500,9 +500,11 @@
 
                                             <el-table-column property="expname" fixed
                                                              :label="$t('label.PFANSUSERFORMVIEW_CUSTOMERNAME')"
+                                                             show-overflow-tooltip
                                                              width="180"></el-table-column>
 
                                             <el-table-column property="suppliername"
+                                                             show-overflow-tooltip
                                                              :label="$t('label.PFANS5001FORMVIEW_COOPERATIONCOMPANY')"
                                                              width="100"></el-table-column>
                                             <el-table-column property="post"
@@ -1899,17 +1901,20 @@
           .then(response => {
             this.gridData1 = [];
             for (let i = 0; i < response.length; i++) {
-              var vote1 = {};
-              vote1.number = response[i].number;
-              vote1.name_id= response[i].account;
-              vote1.expname = response[i].expname;
-              vote1.suppliername = response[i].suppliername;
-              // vote1.post = response[i].post;
-              if (response[i].post) {
-                vote1.post = getDictionaryInfo(response[i].post).value1;
+              if(response[i].account){
+                var vote1 = {};
+                vote1.number = response[i].number;
+                vote1.name_id= response[i].account;
+                vote1.expname = response[i].expname;
+                vote1.suppliername = response[i].suppliername;
+                // vote1.post = response[i].post;
+                if (response[i].post) {
+                  vote1.post = getDictionaryInfo(response[i].post).value1;
+                }
+                vote1.suppliernameid = response[i].supplierinfor_id;
+                this.gridData1.push(vote1);
               }
-              vote1.suppliernameid = response[i].supplierinfor_id;
-              this.gridData1.push(vote1);
+
             }
             this.centerorglist = this.form.center_id;
             this.grouporglist = this.form.group_id;
