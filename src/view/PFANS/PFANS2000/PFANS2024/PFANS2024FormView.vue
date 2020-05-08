@@ -84,6 +84,11 @@
                     </el-col>
                   </el-row>
                   <el-row>
+                    <el-form-item :label="$t('label.PFANS2023VIEW_YEARS')">
+                      {{form.createon  | moment('YYYY')}}
+                    </el-form-item>
+                  </el-row>
+                  <el-row>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS2024FORMVIEW_BUSINESS')" prop="business">
                         <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disable"
@@ -115,22 +120,22 @@
                   </el-row>
                   <el-row>
                     <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS2024FORMVIEW_SKILLRANKING1')">
+                      <el-form-item :label="$t('label.PFANS2024FORMVIEW_SKILLRANKING2')">
                         <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disable"
                                   style="width: 70vw" type="textarea" v-model="form.skillranking2"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
-                  <el-row>
-                    <el-form-item :label="$t('label.PFANS2024FORMVIEW_COMPLETE')">
-                      <el-switch
-                        :disabled="!disable"
-                        active-value="0"
-                        inactive-value="1"
-                        v-model="form.skillrankingfinished"
-                      ></el-switch>
-                    </el-form-item>
-                  </el-row>
+                  <!--<el-row>-->
+                    <!--<el-form-item :label="$t('label.PFANS2024FORMVIEW_COMPLETE')">-->
+                      <!--<el-switch-->
+                        <!--:disabled="!disable"-->
+                        <!--active-value="0"-->
+                        <!--inactive-value="1"-->
+                        <!--v-model="form.skillrankingfinished"-->
+                      <!--&gt;</el-switch>-->
+                    <!--</el-form-item>-->
+                  <!--</el-row>-->
                 </el-form>
               </div>
             </el-tab-pane>
@@ -153,25 +158,25 @@
                       </el-form-item>
                     </el-col>
                   </el-row>
-                  <el-row>
-                    <el-form-item :label="$t('label.PFANS2024FORMVIEW_COMPLETE')">
-                      <el-switch
-                        :disabled="!disable"
-                        active-value="0"
-                        inactive-value="1"
-                        v-model="form.nextskillrankingfinished"
-                      ></el-switch>
-                    </el-form-item>
-                  </el-row>
+                  <!--<el-row>-->
+                    <!--<el-form-item :label="$t('label.PFANS2024FORMVIEW_COMPLETE')">-->
+                      <!--<el-switch-->
+                        <!--:disabled="!disable"-->
+                        <!--active-value="0"-->
+                        <!--inactive-value="1"-->
+                        <!--v-model="form.nextskillrankingfinished"-->
+                      <!--&gt;</el-switch>-->
+                    <!--</el-form-item>-->
+                  <!--</el-row>-->
                 </el-form>
               </div>
             </el-tab-pane>
-            <el-tab-pane :label="$t('label.PFANS2024FORMVIEW_FUTURE')" name="fourth">
+            <el-tab-pane :label=" thisyear + $t('label.PFANS2024FORMVIEW_FUTURE')" name="fourth">
               <div>
                 <el-form :model="form" label-position="top" label-width="8vw" ref="form">
                   <el-row>
                     <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS2024FORMVIEW_FUTURE1')" >
+                      <el-form-item :label=" thisyear + $t('label.PFANS2024FORMVIEW_FUTURE1')" >
                         <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disable"
                                   style="width: 70vw" type="textarea"
                                   :placeholder="$t('label.PFANS2024FORMVIEW_FUTURE1PLACE')"
@@ -189,16 +194,16 @@
                       </el-form-item>
                     </el-col>
                   </el-row>
-                  <el-row>
-                    <el-form-item :label="$t('label.PFANS2024FORMVIEW_COMPLETE')">
-                      <el-switch
-                        :disabled="!disable"
-                        active-value="0"
-                        inactive-value="1"
-                        v-model="form.futurefinished"
-                      ></el-switch>
-                    </el-form-item>
-                  </el-row>
+                  <!--<el-row>-->
+                    <!--<el-form-item :label="$t('label.PFANS2024FORMVIEW_COMPLETE')">-->
+                      <!--<el-switch-->
+                        <!--:disabled="!disable"-->
+                        <!--active-value="0"-->
+                        <!--inactive-value="1"-->
+                        <!--v-model="form.futurefinished"-->
+                      <!--&gt;</el-switch>-->
+                    <!--</el-form-item>-->
+                  <!--</el-row>-->
                 </el-form>
               </div>
             </el-tab-pane>
@@ -256,7 +261,7 @@
     import dicselect from "../../../components/dicselect.vue";
     import {Message} from 'element-ui';
     import {getOrgInfoByUserId} from '@/utils/customize'
-
+    import moment from "moment";
     export default {
         name: 'PFANS2023FormView',
         components: {
@@ -275,6 +280,7 @@
                 }
             };
             return {
+                thisyear:moment(new Date()).format('YYYY'),
                 centerid: '',
                 groupid: '',
                 teamid: '',

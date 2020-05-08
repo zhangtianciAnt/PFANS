@@ -24,7 +24,7 @@
                 // 列属性
                 columns: [
                     {
-                        code: 'contract',
+                        code: 'createon',
                         label: 'label.PFANS2023VIEW_YEARS',
                         width: 90,
                         fix: false,
@@ -139,6 +139,9 @@
                         if (response[j].contract !== null && response[j].contract !== "") {
                             response[j].contract = moment(response[j].contract).format("YYYY");
                         }
+                      if (response[j].createon !== null && response[j].createon !== "") {
+                        response[j].createon = moment(response[j].createon).format("YYYY");
+                      }
                     }
                     this.data = response;
                     this.loading = false;
