@@ -1,30 +1,44 @@
 <template>
   <div>
-    <EasyNormalTable :buttonList="buttonList"
+    <EasyNormalContainer
+      :buttonList="buttonList"
+      :title="title"
+      @buttonClick="buttonClick"
+      @disabled="setdisabled"
+      ref="container"
+      v-loading="loading"
+    >
+      <div slot="customize">
+    <EasyNormalTable
                      :columns="columns"
                      :data="data"
-                     :title="title"
                      :rowid="row_id"
                      @rowClick="rowClick"
-                     @buttonClick="buttonClick"
-                     v-loading="loading" :rowClassName="rowClassName"
-                     @disabled="setdisabled">
+                     :showSelection="showSelection"
+                     :selectable="selectable" :rowClassName="rowClassName"
+    ref="table">
     </EasyNormalTable>
+      </div>
+    </EasyNormalContainer>
   </div>
 </template>
 
 <script>
-    import EasyNormalTable from '@/components/EasyNormalTable';
+    import EasyNormalTable from '@/components/EasyNormalTable/index2.vue';
     import {Message} from 'element-ui';
     import moment from "moment";
+    import EasyNormalContainer from '@/components/EasyNormalContainer';
 
     export default {
         name: 'PFANS2010FormView',
         components: {
             EasyNormalTable,
+          EasyNormalContainer
         },
         data() {
             return {
+              showSelection:true,
+              uplist:[],
                 dateInfo: [],
                 loading: false,
                 title: 'title.PFANS2010FOMRVIEW',
@@ -190,19 +204,26 @@
                 ],
               totalAbsenteeism:false,
                 buttonList: [
-                    {'key': 'back', 'name': 'button.back', 'disabled': false, 'icon': 'el-icon-back'},
+                    // {'key': 'back', 'name': 'button.back', 'disabled': false, 'icon': 'el-icon-back'},
                     {'key': 'recognition', 'name': 'button.recognition', 'disabled': false, 'icon': 'el-icon-check'}
                 ],
             };
         },
         methods: {
+          selectable(row, index){
+            if(index != 0 && row.recognitionstate === this.$t('label.PFANS2010VIEW_RECOGNITION0')){
+              return true;
+            }else{
+              return false;
+            }
+          },
           //add-ws-考勤设置休日背景色
           getDay() {
             this.$store
               .dispatch('PFANS8007Store/getList', {})
               .then(response => {
                 for (let i = 0; i < response.length; i++) {
-                  if(moment(response[i].workingdate).format('MM')===this.$route.params.months){
+                  if(moment(response[i].workingdate).format('MM')===this.$route.params._id.split(",")[2]){
                     this.dateInfo.push({
                       dateflg: moment(response[i].workingdate).format('YYYY-MM-DD'),
                       type: response[i].type,
@@ -243,7 +264,7 @@
           },
             rowClick(row) {
                 this.rowid = row.attendanceid;
-                this.form.attendanceid = row.attendanceid;
+
             },
             buttonClick(val) {
                 this.$store.commit('global/SET_HISTORYURL', this.$route.path)
@@ -253,7 +274,7 @@
                     });
                 }
                 else if (val === 'recognition') {
-                    if (this.rowid === '') {
+                    if (this.$refs.table.selectedList.length === 0) {
                         Message({
                             message: this.$t('normal.info_01'),
                             type: 'info',
@@ -262,33 +283,46 @@
                         return;
                     }
                     this.loading = true;
-                    this.$store
-                        .dispatch('PFANS2010Store/update', this.form)
-                        .then(response => {
-                            this.data = response;
-                            this.getAttendancelist();
-                            this.loading = false;
-                            Message({
-                                message: this.$t('normal.success_02'),
-                                type: 'success',
-                                duration: 5 * 1000,
-                            });
-                        })
-                        .catch(error => {
-                            Message({
-                                message: error,
-                                type: 'error',
-                                duration: 5 * 1000
-                            });
-                            this.loading = false;
-                        })
+                    this.uplist = this.$refs.table.selectedList;
+                    this.update(0);
+
                 }
             },
+          update(val){
+            this.form.attendanceid = this.uplist[val].attendanceid;
+            val = val + 1;
+            this.$store
+              .dispatch('PFANS2010Store/update', this.form)
+              .then(response => {
+                if(val < this.uplist.length){
+                  this.update(val);
+                }else{
+                  this.data = response;
+                  this.getAttendancelist();
+                  this.loading = false;
+                  Message({
+                    message: this.$t('normal.success_02'),
+                    type: 'success',
+                    duration: 5 * 1000,
+                  });
+
+                  this.$refs.table.$refs.eltable.clearSelection();
+                }
+              })
+              .catch(error => {
+                Message({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000
+                });
+                this.loading = false;
+              })
+          },
             getAttendancelist() {
                 let parameter = {
-                    user_id:this.$route.params.userid,
-                    years:this.$route.params.years,
-                    months:this.$route.params.months,
+                    user_id:this.$route.params._id.split(",")[0],
+                    years:this.$route.params._id.split(",")[1],
+                    months:this.$route.params._id.split(",")[2],
                 }
                 this.loading = true;
                 this.$store
@@ -325,7 +359,7 @@
 
                       let res = [];
                       let res1 = [];
-                      let yearMonth = moment(Date.parse(this.$route.params.years + '-' + this.$route.params.months +'-01'));
+                      let yearMonth = moment(Date.parse(this.$route.params._id.split(",")[1] + '-' + this.$route.params._id.split(",")[2] +'-01'));
                       let start = moment(yearMonth).startOf('month');
                       let end = moment(yearMonth).endOf('month');
 
@@ -422,7 +456,7 @@
           this.getDay();
           //add-ws-考勤设置休日背景色
             this.getAttendancelist();
-            this.$store.commit('global/SET_OPERATEID', '');
+            // this.$store.commit('global/SET_OPERATEID', '');
         },
       watch:{
         data:{
