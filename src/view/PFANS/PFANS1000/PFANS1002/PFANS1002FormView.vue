@@ -1434,7 +1434,6 @@
         ) {
           this.activeName = 'second';
         } else if (
-          !this.form.budgetunit ||
           (this.form.plan === '1' && (!this.form.plantype || (this.form.plantype === 'PR002006' && (!this.form.classificationtype)) || !this.form.balance)
           ) ||
           this.form.currency === 'PG019001' && (
@@ -1445,9 +1444,7 @@
             !this.form.otherfxrate) ||
           !this.form.currency === 'PG019004' && (
             !this.form.otherfxrate) ||
-          !this.form.bookingday ||
           !this.form.actuarialdate ||
-          !this.form.loanday ||
           !this.form.accommodationcost ||
           !this.form.accommodation ||
           !this.form.passportno ||

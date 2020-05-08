@@ -1115,24 +1115,21 @@
               let check = 0;
               let log_date = moment(this.companyform.log_date).format('DD');
               let date = getDictionaryInfo('BP026001').value2;
-              if (moment(this.companyform.log_date).format('yyyy') < moment(new Date()).format('yyyy')) {
-                check = check + 1;
-                Message({
-                  message: this.$t('label.PFANS5008VIEW_CHECKDATA'),
-                  type: 'error',
-                  duration: 5 * 1000,
-                });
-                this.loading = false;
+              let checkdate = date < 10?'0'+date:date;
+              if (moment(this.companyform.log_date).format('YYYY') < moment(new Date()).format('YYYY')) {
+                if (moment(this.companyform.log_date).format('MM') > moment(new Date()).format('MM')) {
+                  if (checkdate < moment(new Date()).format('DD')) {
+                    check = check + 1;
+                    Message({
+                      message: this.$t('label.PFANS5008VIEW_CHECKDATA'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    this.loading = false;
+                  }
+                }
               } else if (moment(this.companyform.log_date).format('MM') < moment(new Date()).format('MM')) {
-                check = check + 1;
-                Message({
-                  message: this.$t('label.PFANS5008VIEW_CHECKDATA'),
-                  type: 'error',
-                  duration: 5 * 1000,
-                });
-                this.loading = false;
-              } else if (moment(this.companyform.log_date).format('MM') === moment(new Date()).format('MM')) {
-                if (log_date < date) {
+                if (checkdate < moment(new Date()).format('DD')) {
                   check = check + 1;
                   Message({
                     message: this.$t('label.PFANS5008VIEW_CHECKDATA'),
@@ -1141,6 +1138,7 @@
                   });
                   this.loading = false;
                 }
+
               }
               //add-ws-日志截止日期check添加
               if (check === 0) {
@@ -1358,8 +1356,7 @@
                         }
                       }
                     });
-                }
-                else if (this.checkuserid === 1) {
+                } else if (this.checkuserid === 1) {
                   if (this.companyform.time_start == '0') {
                     error = error + 1;
                     Message({

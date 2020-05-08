@@ -77,9 +77,8 @@
           border ref="plx"
           stripe use-virtual :pagination-show="paginationShow"
           style="width: 100%;height: calc(100vh - 200px - 2rem)"
-          tooltip-effect="dark" cell-class-name="row_height_left"
-          header-cell-class-name="sub_bg_color_blue" header-row-class-name="height"
-          big-data-checkbox highlight-current-row
+          tooltip-effect="dark" cell-class-name="row_height_left" header-row-class-name="height"
+          big-data-checkbox highlight-current-row :header-cell-style="getRowClass"
         >
           <!-- 序号-->
           <pl-table-column
@@ -350,7 +349,7 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_OTHERSOFTWAREFREE')"
               align="center"
-              width="110">
+              width="150">
               <template slot-scope="scope">
                 <span>{{scope.row.othersoftwarefree}}</span>
               </template>
@@ -359,7 +358,7 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_EXPENSESSUBTOTAL')"
               align="center"
-              width="180">
+              width="220">
               <template slot-scope="scope">
                 <span>{{scope.row.departmenttotal}}</span>
               </template>
@@ -573,6 +572,7 @@
           </pl-table-column>
           <!--          損--マイナス-->
           <pl-table-column
+            align="center"
             :label="$t('label.PFANS1042FORMVIEW_LOSSMINUS')">
             <!--            金利-->
             <pl-table-column
@@ -673,6 +673,7 @@
           </pl-table-column>
           <!--          人員（名）-->
           <pl-table-column
+            align="center"
             :label="$t('label.PFANS1042FORMVIEW_PERSONNAME')">
             <!--            社員工数-->
             <!--            <pl-table-column-->
@@ -725,6 +726,7 @@
           </pl-table-column>
           <!--          工数(人月)-->
           <pl-table-column
+            align="center"
             :label="$t('label.PFANS1042FORMVIEW_EFFORTMONTH')">
             <!--            外注（構外∔構内）PJ工数-->
             <pl-table-column
@@ -766,6 +768,7 @@
           </pl-table-column>
           <!--          稼働率（%）-->
           <pl-table-column
+            align="center"
             :label="$t('label.PFANS1042FORMVIEW_CROPPINGRATE')">
             <!--            外注PJ稼働率-->
             <pl-table-column
@@ -1505,7 +1508,43 @@
                 });
                 //upd-ws-5/7-根据groupid，year，month去本表查询数据有数据的话拿本表的数据，没有数据的时候根据sql查询
             },
-
+            getRowClass({row, column, rowIndex, columnIndex}) {
+                if (column.level === 1 && columnIndex === 2) {
+                    return {
+                        color: 'white',
+                        background: '#5CBFA3',
+                        border: '1px solid white',
+                    };
+                }
+                if (column.level === 1 && columnIndex === 3) {
+                    return {
+                        color: 'white',
+                        background: '#2696C3',
+                        border: '1px solid white',
+                    };
+                }
+                if (column.level === 2 && (columnIndex === 5 || columnIndex === 6 || columnIndex === 9
+                    || columnIndex === 16 || columnIndex === 22 || columnIndex === 24 || columnIndex === 35 || columnIndex === 37)) {
+                    return {
+                        color: 'white',
+                        background: '#778899',
+                        border: '1px solid white',
+                    };
+                } else {
+                    return {
+                        color: 'white',
+                        background: '#005BAA',
+                        border: '1px solid white',
+                    };
+                }
+                // if (column.level === 2 && columnIndex >= 4) {
+                //     return {
+                //         color: 'white',
+                //         background: '#778899',
+                //         border: '1px solid white',
+                //     };
+                // }
+            },
             handleSelectionChange(val) {
                 this.multipleSelection = val;
             },
