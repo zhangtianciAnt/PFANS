@@ -389,7 +389,7 @@
                   {
                     key: "export",
                     name: "button.export",
-                    disabled:true
+                    disabled:false
                   }
                 ];
                 this.form.stage = '0';
