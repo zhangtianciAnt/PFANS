@@ -1115,9 +1115,10 @@
               let check = 0;
               let log_date = moment(this.companyform.log_date).format('DD');
               let date = getDictionaryInfo('BP026001').value2;
-              if (moment(this.companyform.log_date).format('yyyy') < moment(new Date()).format('yyyy')) {
+              let checkdate = date < 10?'0'+date:date;
+              if (moment(this.companyform.log_date).format('YYYY') < moment(new Date()).format('YYYY')) {
                 if (moment(this.companyform.log_date).format('MM') > moment(new Date()).format('MM')) {
-                  if (date < moment(new Date()).format('DD')) {
+                  if (checkdate < moment(new Date()).format('DD')) {
                     check = check + 1;
                     Message({
                       message: this.$t('label.PFANS5008VIEW_CHECKDATA'),
@@ -1128,7 +1129,7 @@
                   }
                 }
               } else if (moment(this.companyform.log_date).format('MM') < moment(new Date()).format('MM')) {
-                if (date < moment(new Date()).format('DD')) {
+                if (checkdate < moment(new Date()).format('DD')) {
                   check = check + 1;
                   Message({
                     message: this.$t('label.PFANS5008VIEW_CHECKDATA'),
@@ -1137,6 +1138,7 @@
                   });
                   this.loading = false;
                 }
+
               }
               //add-ws-日志截止日期check添加
               if (check === 0) {
