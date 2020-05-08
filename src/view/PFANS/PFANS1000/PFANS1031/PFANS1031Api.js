@@ -27,7 +27,7 @@ export function update(data) {
 }
 
 export function downLoad(data) {
-  return requestPdf({
+  return requestDownload({
     url: 'napalm/downLoad1',
     method: 'post',
     data: data,
