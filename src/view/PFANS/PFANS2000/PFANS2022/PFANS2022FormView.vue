@@ -673,7 +673,7 @@
                 }
             },
             gettwoclass(val) {
-                this.form.twoclass = val;
+                // this.form.twoclass = val;
                 let dictionaryInfo = getDictionaryInfo(val);
                 if (dictionaryInfo) {
                     this.twoclass = dictionaryInfo.value2;
@@ -712,7 +712,7 @@
                     this.rules.spousename[0].required = false;
                 }
 
-              if(this.form.twoclass === 'PR034001'){
+              if(val === 'PR034001'){
                 this.workcode = 'W0066';
               }else{
                 this.workcode = 'W0031';
