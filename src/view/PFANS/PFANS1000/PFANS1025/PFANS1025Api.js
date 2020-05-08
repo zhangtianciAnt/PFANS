@@ -24,7 +24,7 @@ export function selectById(data) {
   })
 }
 export function generateJxls(data) {
-  return requestPdf({
+  return requestDownload({
     url: 'award/generateJxls',
     method: 'post',
     data: data,

@@ -125,6 +125,7 @@
         }).then(() => {
           this.loading = true
           this.$emit('changeLoading', true);
+          debugger
           this.workflowform.dataId = this.$store.getters.operateId
           this.workflowform.menuUrl = this.$store.getters.workflowUrl
           this.workflowform.dataUrl = this.$route.path

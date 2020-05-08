@@ -99,7 +99,7 @@
                         filter: true
                     },
                 ],
-                row_id: 'attendance_id',
+                row_id: 'rowid',
             };
         },
         mounted() {
@@ -134,6 +134,10 @@
                                     response[j].recognitionstate = this.$t('label.PFANS2010VIEW_RECOGNITION1');
                                 }
                             }
+
+                          response[j].owner = response[j].user_id;
+                          response[j].rowid = response[j].user_id + "," + response[j].years + "," + response[j].months;
+
                         }
                         this.data = response;
                         this.loading = false;
@@ -148,9 +152,7 @@
                     })
             },
             rowClick(row) {
-                this.user_id = row.user_id;
-                this.years = row.years;
-                this.months = row.months;
+                this.user_id = row.rowid;
             },
             buttonClick(val) {
                 this.$store.commit('global/SET_HISTORYURL', this.$route.path);
@@ -166,9 +168,10 @@
                     this.$router.push({
                         name: 'PFANS2010FormView',
                         params: {
-                            userid: this.user_id,
-                            years: this.years,
-                            months: this.months,
+                            _id:this.user_id,
+                            // userid: this.user_id,
+                            // years: this.years,
+                            // months: this.months,
                             disabled: false
                         }
                     })

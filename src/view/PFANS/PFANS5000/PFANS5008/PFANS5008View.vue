@@ -296,7 +296,7 @@
               this.result = true;
             }
             this.getList();
-            this.getProjectList();
+            this.getProjectList(this.month);
           }
         }
       },
@@ -523,7 +523,7 @@
           this.$store
             .dispatch('PFANS5008Store/deleteLog', {logmanagement_id: this.row})
             .then(response => {
-              this.getProjectList();
+              this.getProjectList(this.month);
               this.$store.commit('global/SET_OPERATEID', '');
               Message({
                 message: this.$t('normal.info_03'),

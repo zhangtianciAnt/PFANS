@@ -969,6 +969,14 @@
                 val.operatingprofit = (val.interestrate + val.exchanges).toFixed(2);
                 //--(税引前利益)自动计算
                 val.pretaxprofit = (Number(val.operatingprofit) + Number(val.Operating)).toFixed(2);
+                //--(税引後利益)自动计算
+                val.posttaxbenefit = (Number(val.pretaxprofit) - Number(val.taxallowance)).toFixed(2);
+                //--営業利益率 = 営業利益 / 売上合計
+                if (Number(val.intotal) > 0) {
+                    val.operatingmargin = ((Number(val.Operating) / Number(val.intotal)) * 100).toFixed(2) + '%';
+                } else {
+                    val.operatingmargin = 0;
+                }
             },
             changeTaxallowance(val) {
                 //--(税引後利益)自动计算
@@ -983,6 +991,11 @@
                 val.costtotal = (Number(val.peocostsum) + Number(val.costsubtotal) + Number(val.departmenttotal) + Number(val.allocationsum) + Number(val.otherexpentotal)).toFixed(2);
                 //--営業利益
                 val.Operating = (Number(val.intotal) - Number(val.costtotal)).toFixed(2);
+                //--(税引前利益)自动计算
+                val.pretaxprofit = (Number(val.operatingprofit) + Number(val.Operating)).toFixed(2);
+
+                //--(税引後利益)自动计算
+                val.posttaxbenefit = (Number(val.pretaxprofit) - Number(val.taxallowance)).toFixed(2);
                 //--営業利益率 = 営業利益 / 売上合計
                 if (Number(val.intotal) > 0) {
                     val.operatingmargin = ((Number(val.Operating) / Number(val.intotal)) * 100).toFixed(2) + '%';
@@ -995,8 +1008,25 @@
                 //固定資産費用小計
                 val.costsubtotal = (Number(val.depreciationsoft) + Number(val.depreciationequipment) + Number(val.rent) +
                     Number(val.leasecost) + Number(val.temporaryrent) + Number(val.other)).toFixed(2);
+
                 //合計
                 val.costtotal = (Number(val.peocostsum) + Number(val.costsubtotal) + Number(val.departmenttotal) + Number(val.allocationsum) + Number(val.otherexpentotal)).toFixed(2);
+
+                //--営業利益
+                val.Operating = (Number(val.intotal) - Number(val.costtotal)).toFixed(2);
+
+                //--(税引前利益)自动计算
+                val.pretaxprofit = (Number(val.operatingprofit) + Number(val.Operating)).toFixed(2);
+
+                //--(税引後利益)自动计算
+                val.posttaxbenefit = (Number(val.pretaxprofit) - Number(val.taxallowance)).toFixed(2);
+
+                //--営業利益率 = 営業利益 / 売上合計
+                if (Number(val.intotal) > 0) {
+                    val.operatingmargin = ((Number(val.Operating) / Number(val.intotal)) * 100).toFixed(2) + '%';
+                } else {
+                    val.operatingmargin = 0;
+                }
             },
             // changeDepment(val) {
             //     val.costsubtotal = (Number(val.depreciationsoft) + Number(val.depreciationequipment) + Number(val.rent) +
@@ -1197,7 +1227,7 @@
                                     let wai = getDictionaryInfo('PJ110001').value2;//0.4
                                     let nei = getDictionaryInfo('PJ110002').value2;//1
                                     let she = getDictionaryInfo('PJ110003').value2;//3
-                                    let aaa = getDictionaryInfo('PP024001').value1;
+                                    // let aaa = getDictionaryInfo('PP024001').value1;
                                     let sum = 0;
                                     let sumouthours = 0;
                                     let suminhours = 0;
@@ -1226,9 +1256,9 @@
                                     for (let j = 0; j < response.length; j++) {
                                         //共通PJ（研修会议等）
                                         //add_fjl
-                                        if (response[j].plmoneyflg == 'plmoneyflg') {
+                                        if (response[j].pj1 === 'PP024001') {
                                             // response[j].pj1 = aaa
-                                            response[j].pj = aaa;
+                                            response[j].pj = getDictionaryInfo(response[j].pj1).value1;
                                         }
                                         //add_fjl
                                         //ADD_FJL  start
@@ -1290,7 +1320,7 @@
                                         // 部門共通費用合計
                                         // response[j].departmenttotal = (Number(response[j].yuanqincost) + Number(response[j].travalcost) + Number(response[j].concost) + Number(response[j].callcost) + Number(response[j].brandcost) + Number(response[j].rent) + Number(response[j].other)).toFixed(2);
                                         //仕掛品
-                                        response[j].process = (Number('-' + response[j].centerintotal) + Number(response[j].inwetuo)).toFixed(2);
+                                        response[j].process = (Number('-' + response[j].centerintotal) + Number(response[j].process)).toFixed(2);
                                         //その他諸経費小計
                                         response[j].otherexpentotal = (Number(response[j].yuanqincost) + Number(response[j].travalcost) + Number(response[j].callcost)
                                             + Number(response[j].concost) + Number(response[j].threefree) + Number(response[j].commonfee) + Number(response[j].brandcost)
@@ -1352,46 +1382,66 @@
                                         //社員稼働工数
                                         response[j].employeeuptime = (Number(response[j].emhours)).toFixed(2);
 
+                                        //添加 %
+                                        let bflg = '%';
                                         //外注PJ稼働率
                                         if (Number(response[j].outsourcinghours) + Number(response[j].outsourcingname) > 0) {
-                                            response[j].externalpjrate = ((Number(response[j].outsourcingpjhours) / (Number(response[j].outsourcinghours) + Number(response[j].outsourcingname))) * 100).toFixed(2) + '%';
+                                            response[j].externalpjrate = ((Number(response[j].outsourcingpjhours) / (Number(response[j].outsourcinghours) + Number(response[j].outsourcingname))) * 100).toFixed(2);
+                                            if (Number(response[j].externalpjrate) > 0) {
+                                                response[j].externalpjrate = response[j].externalpjrate + bflg;
+                                            }
                                         } else {
-                                            response[j].externalpjrate = 0;
+                                            response[j].externalpjrate = '0.00';
                                         }
 
                                         //外注稼働率
                                         if (Number(response[j].outsourcinghours) + Number(response[j].outsourcingname) > 0) {
-                                            response[j].externalinjectionrate = ((Number(response[j].outsourcing) / (Number(response[j].outsourcinghours) + Number(response[j].outsourcingname))) * 100).toFixed(2) + '%';
+                                            response[j].externalinjectionrate = ((Number(response[j].outsourcing) / (Number(response[j].outsourcinghours) + Number(response[j].outsourcingname))) * 100).toFixed(2);
+                                            if (Number(response[j].externalinjectionrate) > 0) {
+                                                response[j].externalinjectionrate = response[j].externalinjectionrate + bflg;
+                                            }
                                         } else {
-                                            response[j].externalinjectionrate = 0;
+                                            response[j].externalinjectionrate = '0.00';
                                         }
 
                                         //社員PJ稼働率
                                         if (Number(response[j].employeename) > 0) {
-                                            response[j].memberpjrate = ((Number(response[j].emhours) / Number(response[j].employeename)) * 100).toFixed(2) + '%';
+                                            response[j].memberpjrate = ((Number(response[j].emhours) / Number(response[j].employeename)) * 100).toFixed(2);
+                                            if (Number(response[j].memberpjrate) > 0) {
+                                                response[j].memberpjrate = response[j].memberpjrate + bflg;
+                                            }
                                         } else {
-                                            response[j].memberpjrate = 0;
+                                            response[j].memberpjrate = '0.00';
                                         }
 
                                         //社員稼働率
                                         if (Number(response[j].employeename) > 0) {
-                                            response[j].membershiprate = ((Number(response[j].employeeuptime) / Number(response[j].employeename)) * 100).toFixed(2) + '%';
+                                            response[j].membershiprate = ((Number(response[j].employeeuptime) / Number(response[j].employeename)) * 100).toFixed(2);
+                                            if (Number(response[j].membershiprate) > 0) {
+                                                response[j].membershiprate = response[j].membershiprate + bflg;
+                                            }
                                         } else {
-                                            response[j].membershiprate = 0;
+                                            response[j].membershiprate = '0.00';
                                         }
 
                                         //全員PJ稼働率
                                         if (Number(response[j].outsourcinghours) + Number(response[j].outsourcingname) + Number(response[j].employeename) > 0) {
-                                            response[j].pjrateemployees = (((Number(response[j].outsourcingpjhours) + Number(response[j].emhours)) / ((Number(response[j].outsourcinghours) + Number(response[j].outsourcingname) + Number(response[j].employeename)))) * 100).toFixed(2) + '%';
+                                            response[j].pjrateemployees = (((Number(response[j].outsourcingpjhours) + Number(response[j].emhours)) / ((Number(response[j].outsourcinghours) + Number(response[j].outsourcingname) + Number(response[j].employeename)))) * 100).toFixed(2);
+                                            if (Number(response[j].pjrateemployees) > 0) {
+                                                response[j].pjrateemployees = response[j].pjrateemployees + bflg;
+                                            }
                                         } else {
-                                            response[j].pjrateemployees = 0;
+                                            response[j].pjrateemployees = '0.00';
                                         }
 
                                         //全員稼働率
                                         if (Number(response[j].outsourcinghours) + Number(response[j].outsourcingname) + Number(response[j].employeename) > 0) {
-                                            response[j].staffingrate = (((Number(response[j].outsourcing) + Number(response[j].employeeuptime)) / ((Number(response[j].outsourcinghours) + Number(response[j].outsourcingname) + Number(response[j].employeename)))) * 100).toFixed(2) + '%';
+                                            response[j].staffingrate = (((Number(response[j].outsourcing) + Number(response[j].employeeuptime)) / ((Number(response[j].outsourcinghours) + Number(response[j].outsourcingname) + Number(response[j].employeename)))) * 100).toFixed(2);
+                                            if (Number(response[j].staffingrate) > 0) {
+                                                response[j].staffingrate = response[j].staffingrate + bflg;
+                                            }
                                         } else {
-                                            response[j].staffingrate = 0;
+                                            response[j].staffingrate = '0.00';
                                         }
                                         //合計
                                         response[j].costtotal = (Number(response[j].peocostsum) + Number(response[j].costsubtotal) + Number(response[j].departmenttotal) + Number(response[j].allocationsum) + Number(response[j].otherexpentotal)).toFixed(2);
@@ -1560,6 +1610,7 @@
                         region: this.form.region,
                         group_id: this.form.group_id,
                         pj: this.tableData[i].pj,
+                        pj1: this.tableData[i].pj1,
                         outst1: this.tableData[i].outst1,
                         taxyw: this.tableData[i].taxyw,
                         taxsa: this.tableData[i].taxsa,

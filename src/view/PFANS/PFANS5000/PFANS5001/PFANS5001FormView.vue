@@ -2667,25 +2667,28 @@
           .then(response => {
             this.gridData1 = [];
             for (let i = 0; i < response.length; i++) {
-              var vote1 = {};
-              vote1.number = response[i].number;
-              vote1.name_id = response[i].account;
-              vote1.expname = response[i].expname;
-              vote1.suppliername = response[i].suppliername;
-              if (response[i].post) {
-                //add-ws-value1-非空判断
-                let postvalue1 = '';
-                let letbudge = getDictionaryInfo(response[i].post);
-                if (letbudge) {
-                  postvalue1 = letbudge.value1;
+              if(response[i].account){
+                var vote1 = {};
+                vote1.number = response[i].number;
+                vote1.name_id = response[i].account;
+                vote1.expname = response[i].expname;
+                vote1.suppliername = response[i].suppliername;
+                if (response[i].post) {
+                  //add-ws-value1-非空判断
+                  let postvalue1 = '';
+                  let letbudge = getDictionaryInfo(response[i].post);
+                  if (letbudge) {
+                    postvalue1 = letbudge.value1;
+                  }
+                  //add-ws-value1-非空判断
+                  vote1.post1 = postvalue1;
+                  vote1.post = response[i].post;
                 }
-                //add-ws-value1-非空判断
-                vote1.post1 = postvalue1;
-                vote1.post = response[i].post;
+                // vote1.post = response[i].post
+                vote1.suppliernameid = response[i].supplierinfor_id;
+                this.gridData1.push(vote1);
               }
-              // vote1.post = response[i].post
-              vote1.suppliernameid = response[i].supplierinfor_id;
-              this.gridData1.push(vote1);
+
             }
             this.centerorglist = this.form.center_id;
             this.grouporglist = this.form.group_id;

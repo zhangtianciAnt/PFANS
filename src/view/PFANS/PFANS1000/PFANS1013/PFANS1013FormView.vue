@@ -2335,16 +2335,18 @@
                 return prev;
               }
             }, 0);
-            if (index === 4) {
-              sums[index] = Math.round((sums[index]) * 100) / 100;
-            }
-            if (index === 5) {
-              sums[index] = Math.round((sums[index]) * 100) / 100;
-            }
+            // if (index === 9) {
+            //   sums[index] = Math.round((sums[index]) * 100) / 100;
+            // }
+            // if (index === 10) {
+            //   sums[index] = Math.round((sums[index]) * 100) / 100;
+            // }
           } else {
             sums[index] = '--';
           }
         });
+        sums[9] = Math.round(sums[9] * 100) / 100;
+        sums[10] = Math.round(sums[10] * 100) / 100;
         this.getMoney(sums);
         return sums;
       },
@@ -2515,7 +2517,9 @@
                 return prev;
               }
             }, 0);
-
+            if (index === 10) {
+              sums[index] = Math.round((sums[index]) * 100) / 100;
+            }
             if (index === 11) {
               sums[index] = Math.round((sums[index]) * 100) / 100;
             }
@@ -2584,9 +2588,9 @@
                 return prev;
               }
             }, 0);
-            if (index === 5) {
-              sums[index] = Math.round((sums[index]) * 100) / 100;
-            }
+            // if (index === 5) {
+            //   sums[index] = Math.round((sums[index]) * 100) / 100;
+            // }
           } else {
             sums[index] = '--';
           }
