@@ -1116,23 +1116,19 @@
               let log_date = moment(this.companyform.log_date).format('DD');
               let date = getDictionaryInfo('BP026001').value2;
               if (moment(this.companyform.log_date).format('yyyy') < moment(new Date()).format('yyyy')) {
-                check = check + 1;
-                Message({
-                  message: this.$t('label.PFANS5008VIEW_CHECKDATA'),
-                  type: 'error',
-                  duration: 5 * 1000,
-                });
-                this.loading = false;
+                if (moment(this.companyform.log_date).format('MM') > moment(new Date()).format('MM')) {
+                  if (date < moment(new Date()).format('DD')) {
+                    check = check + 1;
+                    Message({
+                      message: this.$t('label.PFANS5008VIEW_CHECKDATA'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    this.loading = false;
+                  }
+                }
               } else if (moment(this.companyform.log_date).format('MM') < moment(new Date()).format('MM')) {
-                check = check + 1;
-                Message({
-                  message: this.$t('label.PFANS5008VIEW_CHECKDATA'),
-                  type: 'error',
-                  duration: 5 * 1000,
-                });
-                this.loading = false;
-              } else if (moment(this.companyform.log_date).format('MM') === moment(new Date()).format('MM')) {
-                if (log_date < date) {
+                if (date < moment(new Date()).format('DD')) {
                   check = check + 1;
                   Message({
                     message: this.$t('label.PFANS5008VIEW_CHECKDATA'),
@@ -1358,8 +1354,7 @@
                         }
                       }
                     });
-                }
-                else if (this.checkuserid === 1) {
+                } else if (this.checkuserid === 1) {
                   if (this.companyform.time_start == '0') {
                     error = error + 1;
                     Message({
