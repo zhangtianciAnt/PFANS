@@ -1,6 +1,7 @@
 import {
   get,
   getList,
+  getdetilList,
   insert,
   update,
 }
@@ -27,6 +28,19 @@ const PFANS1040Store = {
     get({commit}, data) {
       return new Promise((resolve, reject) => {
         get(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    getdetilList({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getdetilList(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {

@@ -16,6 +16,14 @@ export function get(data) {
   })
 }
 
+export function getdetilList(data) {
+  return request({
+    url: 'themeplan/getdetilList',
+    method: 'post',
+    data: data
+  })
+}
+
 export function insert(data) {
   return request({
     url: 'themeplan/insert',
