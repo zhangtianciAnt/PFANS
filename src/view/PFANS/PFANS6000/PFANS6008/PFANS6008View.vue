@@ -10,14 +10,8 @@
       @buttonClick="buttonClick"
       ref="roletable"
       v-loading="loading">
-      <div slot="search">
-        <el-form label-position="top" label-width="8vw" ref="reff" style="padding-top: 10px">
-          <el-form-item>
-            <el-row style="padding-top: 10px">
-              <el-col :span="6">
-                <el-form-item :label="$t('label.PFANS1039FORMVIEW_GROUP')">
                   <el-select v-model="form.group_id" style="width: 20vw"
-                             @change="changeGroup">
+                             @change="changeGroup" slot="customize">
                     <el-option
                       v-for="item in optionsdata"
                       :key="item.value"
@@ -25,12 +19,6 @@
                       :value="item.value">
                     </el-option>
                   </el-select>
-                </el-form-item>
-              </el-col>
-            </el-row>
-          </el-form-item>
-        </el-form>
-      </div>
     </EasyNormalTable>
   </div>
 </template>
