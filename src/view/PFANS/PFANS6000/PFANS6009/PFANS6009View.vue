@@ -1064,7 +1064,6 @@
             }
           }
           if (columnIndex == 0 || columnIndex == 1) {
-            console.log('return 1,1');
             return [1, 1];
           }
         }
@@ -1097,7 +1096,6 @@
             }
           }
           if (columnIndex == 0 || columnIndex == 1) {
-            console.log('return 1,1');
             return [1, 1];
           }
         }
@@ -1130,7 +1128,6 @@
             }
           }
           if (columnIndex == 0 || columnIndex == 1) {
-            console.log('return 1,1');
             return [1, 1];
           }
         }
@@ -1506,6 +1503,7 @@
         }
       },
       export(listA, listB, listC) {
+        this.loading = true;
         let params = {
           groupid: this.form.group_id,
           years: this.form.year,
@@ -1514,9 +1512,10 @@
           .dispatch('PFANS6009Store/downloadExcel', params)
           .then(response => {
             this.download(response, 'BP社集計一览');
+            this.loading = false;
           })
           .catch(() => {
-            console.log('no');
+            this.loading = false;
           });
       },
       download(data, filename) {
@@ -1553,7 +1552,6 @@
           let orgs = getDownOrgInfo(centerId);
           if (orgs) {
             for (let org of orgs) {
-              console.log(org);
               vote.push(
                 {
                   value: org._id,
