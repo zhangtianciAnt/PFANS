@@ -378,25 +378,23 @@
                         if (this.form.status === '2') {
                             this.disable = false;
                         }
+                      //start(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
+                      let role = getCurrentRole2();
+                      if (role === '0') {
                         if (this.form.status === '4') {
-                            //start(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
-                            let role = getCurrentRole2();
-                            if (role === '0') {
-                                if (this.disable) {
-                                    this.form.findate = moment(new Date()).format("YYYY-MM-DD")
-                                    this.acceptShow = false;
-                                } else {
-                                    this.acceptShow = true;
-                                }
-                            } else {
-                                this.acceptShow = true;
-                            }
-                            //end(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
-                            this.disabled = true;
-                            this.enableSave = true;
+                          this.enableSave = true;
+                          if (this.disable) {
+                            this.form.findate = moment(new Date()).format("YYYY-MM-DD")
+                            this.acceptShow = false;
+                          } else {
+                            this.acceptShow = true;
+                          }
                         } else {
-                            this.enableSave = false;
+                          this.acceptShow = true;
+                          this.enableSave = false;
                         }
+                      }
+                      //end(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
                         this.loading = false;
                     })
                     .catch(error => {
