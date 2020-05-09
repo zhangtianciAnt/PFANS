@@ -172,7 +172,7 @@
           {
             code: 'sixtotal',
 
-            label: 'label.PFANS6008VIEW_SIX',
+            label: 'label.PFANS6008VIEW_SUPPORT6',
             child: [
               {
                 code: 'totalmanhours6',
@@ -324,7 +324,7 @@
           },
           {
             code: 'ninetotal',
-            label: 'label.PFANS6008VIEW_NINE',
+            label: 'label.PFANS6008VIEW_SUPPORT9',
             child: [
               {
                 code: 'totalmanhours9',
@@ -476,7 +476,7 @@
           },
           {
             code: 'twelvetotal',
-            label: 'label.PFANS6008VIEW_TWELVE',
+            label: 'label.PFANS6008VIEW_SUPPORT12',
             child: [
               {
                 code: 'totalmanhours12',
@@ -628,7 +628,7 @@
           },
           {
             code: 'threetotal',
-            label: 'label.PFANS6008VIEW_THREE',
+            label: 'label.PFANS6008VIEW_SUPPORT3',
             child: [
               {
                 code: 'totalmanhours3',
