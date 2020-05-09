@@ -1424,7 +1424,7 @@
                   } else if (this.Redirict == '1' || this.Redirict == '') {
                     this.code20 = 'PJ132';
                   }
-                  this.tableA[i].accountcode = acinfo.value1;
+                    this.tableA[i].accountcode = acinfo.code;
                 }
                 if (this.tableA[i].departmentname !== '' && this.tableA[i].departmentname !== null && this.tableA[i].departmentname !== undefined) {
                   //ADD_FJL
