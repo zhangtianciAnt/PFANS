@@ -482,8 +482,7 @@
           },
           {
             code: 'SERVICE',
-            label: moment().years() +
-              this.$t('label.PFANS2005FORMVIEW_YEAR') +
+            label:
               '4' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
@@ -503,8 +502,7 @@
             ],
           }, {
             code: 'SERVICE',
-            label: moment().years() +
-              this.$t('label.PFANS2005FORMVIEW_YEAR') +
+            label:
               '5' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
@@ -524,8 +522,7 @@
             ],
           }, {
             code: 'SERVICE',
-            label: moment().years() +
-              this.$t('label.PFANS2005FORMVIEW_YEAR') +
+            label:
               '6' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
@@ -545,8 +542,7 @@
             ],
           }, {
             code: 'SERVICE',
-            label: moment().years() +
-              this.$t('label.PFANS2005FORMVIEW_YEAR') +
+            label:
               '7' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
@@ -566,8 +562,7 @@
             ],
           }, {
             code: 'SERVICE',
-            label: moment().years() +
-              this.$t('label.PFANS2005FORMVIEW_YEAR') +
+            label:
               '8' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
@@ -587,8 +582,7 @@
             ],
           }, {
             code: 'SERVICE',
-            label: moment().years() +
-              this.$t('label.PFANS2005FORMVIEW_YEAR') +
+            label:
               '9' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
@@ -608,8 +602,7 @@
             ],
           }, {
             code: 'SERVICE',
-            label: moment().years() +
-              this.$t('label.PFANS2005FORMVIEW_YEAR') +
+            label:
               '10' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
@@ -629,8 +622,7 @@
             ],
           }, {
             code: 'SERVICE',
-            label: moment().years() +
-              this.$t('label.PFANS2005FORMVIEW_YEAR') +
+            label:
               '11' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
@@ -650,8 +642,7 @@
             ],
           }, {
             code: 'SERVICE',
-            label: moment().years() +
-              this.$t('label.PFANS2005FORMVIEW_YEAR') +
+            label:
               '12' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
@@ -671,8 +662,7 @@
             ],
           }, {
             code: 'SERVICE',
-            label: moment().years() + 1 +
-              this.$t('label.PFANS2005FORMVIEW_YEAR') +
+            label:
               '1' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
@@ -692,8 +682,7 @@
             ],
           }, {
             code: 'SERVICE',
-            label: moment().years() + 1 +
-              this.$t('label.PFANS2005FORMVIEW_YEAR') +
+            label:
               '2' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
@@ -713,8 +702,7 @@
             ],
           }, {
             code: 'SERVICE',
-            label: moment().years() + 1 +
-              this.$t('label.PFANS2005FORMVIEW_YEAR') +
+            label:
               '3' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
@@ -762,8 +750,7 @@
           },
           {
             code: 'SERVICE',
-            label: moment().years() +
-              this.$t('label.PFANS2005FORMVIEW_YEAR') +
+            label:
               '4' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
@@ -777,8 +764,7 @@
             ],
           }, {
             code: 'SERVICE',
-            label: moment().years() +
-              this.$t('label.PFANS2005FORMVIEW_YEAR') +
+            label:
               '5' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
@@ -792,8 +778,7 @@
             ],
           }, {
             code: 'SERVICE',
-            label: moment().years() +
-              this.$t('label.PFANS2005FORMVIEW_YEAR') +
+            label:
               '6' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
@@ -807,8 +792,7 @@
             ],
           }, {
             code: 'SERVICE',
-            label: moment().years() +
-              this.$t('label.PFANS2005FORMVIEW_YEAR') +
+            label:
               '7' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
@@ -822,8 +806,7 @@
             ],
           }, {
             code: 'SERVICE',
-            label: moment().years() +
-              this.$t('label.PFANS2005FORMVIEW_YEAR') +
+            label:
               '8' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
@@ -837,8 +820,7 @@
             ],
           }, {
             code: 'SERVICE',
-            label: moment().years() +
-              this.$t('label.PFANS2005FORMVIEW_YEAR') +
+            label:
               '9' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
@@ -852,8 +834,7 @@
             ],
           }, {
             code: 'SERVICE',
-            label: moment().years() +
-              this.$t('label.PFANS2005FORMVIEW_YEAR') +
+            label:
               '10' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
@@ -867,8 +848,7 @@
             ],
           }, {
             code: 'SERVICE',
-            label: moment().years() +
-              this.$t('label.PFANS2005FORMVIEW_YEAR') +
+            label:
               '11' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
@@ -882,8 +862,7 @@
             ],
           }, {
             code: 'SERVICE',
-            label: moment().years() +
-              this.$t('label.PFANS2005FORMVIEW_YEAR') +
+            label:
               '12' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
@@ -897,8 +876,7 @@
             ],
           }, {
             code: 'SERVICE',
-            label: moment().years() + 1 +
-              this.$t('label.PFANS2005FORMVIEW_YEAR') +
+            label:
               '1' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
@@ -912,8 +890,7 @@
             ],
           }, {
             code: 'SERVICE',
-            label: moment().years() + 1 +
-              this.$t('label.PFANS2005FORMVIEW_YEAR') +
+            label:
               '2' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
@@ -927,8 +904,7 @@
             ],
           }, {
             code: 'SERVICE',
-            label: moment().years() + 1 +
-              this.$t('label.PFANS2005FORMVIEW_YEAR') +
+            label:
               '3' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
