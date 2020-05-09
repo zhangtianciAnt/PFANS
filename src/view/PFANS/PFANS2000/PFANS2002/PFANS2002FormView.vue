@@ -10,6 +10,7 @@
     ref="container"
     @disabled="setdisabled"
     v-loading="loading"
+    :enableSave="enableSave"
   >
     <div slot="customize" style="margin-top:2vw">
       <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="form">
@@ -750,6 +751,7 @@
           others: '',
           status: '0',
         },
+        enableSave: true,
         disable: false,
         canStart: false,
         buttonList: [],
