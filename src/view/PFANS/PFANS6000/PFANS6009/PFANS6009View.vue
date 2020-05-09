@@ -8,6 +8,7 @@
       :title="title"
       @buttonClick="buttonClick"
       :span-method="this.arraySpanMethod"
+      :rowClassName="rowClassNameA"
       ref="container1"
       v-loading="loading"
       v-show="region === '1'"
@@ -85,6 +86,7 @@
       :title="title"
       @buttonClick="buttonClick"
       :span-method="this.arraySpanMethod2"
+      :rowClassName="rowClassNameB"
       ref="container2"
       v-loading="loading"
       v-show="region === '2'"
@@ -120,6 +122,7 @@
       :title="title"
       @buttonClick="buttonClick"
       :span-method="this.arraySpanMethod3"
+      :rowClassName="rowClassNameC"
       ref="container3"
       v-loading="loading"
       v-show="region === '3'"
@@ -479,8 +482,7 @@
           },
           {
             code: 'SERVICE',
-            label: moment().years() +
-              this.$t('label.PFANS2005FORMVIEW_YEAR') +
+            label:
               '4' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
@@ -500,8 +502,7 @@
             ],
           }, {
             code: 'SERVICE',
-            label: moment().years() +
-              this.$t('label.PFANS2005FORMVIEW_YEAR') +
+            label:
               '5' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
@@ -521,8 +522,7 @@
             ],
           }, {
             code: 'SERVICE',
-            label: moment().years() +
-              this.$t('label.PFANS2005FORMVIEW_YEAR') +
+            label:
               '6' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
@@ -542,8 +542,7 @@
             ],
           }, {
             code: 'SERVICE',
-            label: moment().years() +
-              this.$t('label.PFANS2005FORMVIEW_YEAR') +
+            label:
               '7' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
@@ -563,8 +562,7 @@
             ],
           }, {
             code: 'SERVICE',
-            label: moment().years() +
-              this.$t('label.PFANS2005FORMVIEW_YEAR') +
+            label:
               '8' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
@@ -584,8 +582,7 @@
             ],
           }, {
             code: 'SERVICE',
-            label: moment().years() +
-              this.$t('label.PFANS2005FORMVIEW_YEAR') +
+            label:
               '9' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
@@ -605,8 +602,7 @@
             ],
           }, {
             code: 'SERVICE',
-            label: moment().years() +
-              this.$t('label.PFANS2005FORMVIEW_YEAR') +
+            label:
               '10' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
@@ -626,8 +622,7 @@
             ],
           }, {
             code: 'SERVICE',
-            label: moment().years() +
-              this.$t('label.PFANS2005FORMVIEW_YEAR') +
+            label:
               '11' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
@@ -647,8 +642,7 @@
             ],
           }, {
             code: 'SERVICE',
-            label: moment().years() +
-              this.$t('label.PFANS2005FORMVIEW_YEAR') +
+            label:
               '12' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
@@ -668,8 +662,7 @@
             ],
           }, {
             code: 'SERVICE',
-            label: moment().years() + 1 +
-              this.$t('label.PFANS2005FORMVIEW_YEAR') +
+            label:
               '1' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
@@ -689,8 +682,7 @@
             ],
           }, {
             code: 'SERVICE',
-            label: moment().years() + 1 +
-              this.$t('label.PFANS2005FORMVIEW_YEAR') +
+            label:
               '2' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
@@ -710,8 +702,7 @@
             ],
           }, {
             code: 'SERVICE',
-            label: moment().years() + 1 +
-              this.$t('label.PFANS2005FORMVIEW_YEAR') +
+            label:
               '3' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
@@ -759,8 +750,7 @@
           },
           {
             code: 'SERVICE',
-            label: moment().years() +
-              this.$t('label.PFANS2005FORMVIEW_YEAR') +
+            label:
               '4' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
@@ -774,8 +764,7 @@
             ],
           }, {
             code: 'SERVICE',
-            label: moment().years() +
-              this.$t('label.PFANS2005FORMVIEW_YEAR') +
+            label:
               '5' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
@@ -789,8 +778,7 @@
             ],
           }, {
             code: 'SERVICE',
-            label: moment().years() +
-              this.$t('label.PFANS2005FORMVIEW_YEAR') +
+            label:
               '6' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
@@ -804,8 +792,7 @@
             ],
           }, {
             code: 'SERVICE',
-            label: moment().years() +
-              this.$t('label.PFANS2005FORMVIEW_YEAR') +
+            label:
               '7' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
@@ -819,8 +806,7 @@
             ],
           }, {
             code: 'SERVICE',
-            label: moment().years() +
-              this.$t('label.PFANS2005FORMVIEW_YEAR') +
+            label:
               '8' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
@@ -834,8 +820,7 @@
             ],
           }, {
             code: 'SERVICE',
-            label: moment().years() +
-              this.$t('label.PFANS2005FORMVIEW_YEAR') +
+            label:
               '9' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
@@ -849,8 +834,7 @@
             ],
           }, {
             code: 'SERVICE',
-            label: moment().years() +
-              this.$t('label.PFANS2005FORMVIEW_YEAR') +
+            label:
               '10' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
@@ -864,8 +848,7 @@
             ],
           }, {
             code: 'SERVICE',
-            label: moment().years() +
-              this.$t('label.PFANS2005FORMVIEW_YEAR') +
+            label:
               '11' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
@@ -879,8 +862,7 @@
             ],
           }, {
             code: 'SERVICE',
-            label: moment().years() +
-              this.$t('label.PFANS2005FORMVIEW_YEAR') +
+            label:
               '12' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
@@ -894,8 +876,7 @@
             ],
           }, {
             code: 'SERVICE',
-            label: moment().years() + 1 +
-              this.$t('label.PFANS2005FORMVIEW_YEAR') +
+            label:
               '1' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
@@ -909,8 +890,7 @@
             ],
           }, {
             code: 'SERVICE',
-            label: moment().years() + 1 +
-              this.$t('label.PFANS2005FORMVIEW_YEAR') +
+            label:
               '2' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
@@ -924,8 +904,7 @@
             ],
           }, {
             code: 'SERVICE',
-            label: moment().years() + 1 +
-              this.$t('label.PFANS2005FORMVIEW_YEAR') +
+            label:
               '3' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
@@ -971,10 +950,11 @@
       let year = moment().subtract(3, 'months').year();
       for (var i = 0; i < this.array.length; i++) {
         if (i <= 8) {
-          this.columns[i + 1].label = this.array[i].replace('0000', year).replace('Y', this.yearLabel).replace('M', this.monthLabel);
+          //this.columns[i + 1].label = this.array[i].replace('0000', year).replace('Y', this.yearLabel).replace('M', this.monthLabel);
+          this.columns[i + 1].label = this.array[i].replace('0000', '').replace('Y', '').replace('M', this.monthLabel);
         } else {
-          this.columns[i + 1].label = this.array[i].replace('0000', year + 1).replace('Y', this.yearLabel).replace('M', this.monthLabel);
-          ;
+          //this.columns[i + 1].label = this.array[i].replace('0000', year + 1).replace('Y', this.yearLabel).replace('M', this.monthLabel);
+          this.columns[i + 1].label = this.array[i].replace('0000', '').replace('Y', '').replace('M', this.monthLabel);
         }
       }
 
@@ -1026,12 +1006,27 @@
 
     },
     methods: {
-      changeregion(val){
-        if(val==='1'){
+      rowClassNameA({row, rowIndex}) {
+        if (row.bpcompany === this.$t('label.PFANS6009VIEW_TOTAL') || row.bpcompany === this.$t('label.PFANS6009VIEW_AVERAGEUNITPRICE') || row.bpcompany === this.$t('label.PFANS6009VIEW_TRAVELEXPENSES') || row.bpcompany === this.$t('label.PFANS6009VIEW_EQUIPMENTFUNDS') || row.bpcompany === this.$t('label.PFANS6009VIEW_TOTALEXPENDITURE')) {
+          return 'sub_bg_color_Darkgrey';
+        }
+      },
+      rowClassNameB({row, rowIndex}) {
+        if (row.group_id === '0') {
+          return 'sub_bg_color_Darkgrey';
+        }
+      },
+      rowClassNameC({row, rowIndex}) {
+        if (row.group_id === '0') {
+          return 'sub_bg_color_Darkgrey';
+        }
+      },
+      changeregion(val) {
+        if (val === '1') {
           this.loadTableA(this.form.group_id, this.form.year);
-        }else if(val==='2'){
+        } else if (val === '2') {
           this.loadTableB(this.form.group_id, this.form.year);
-        }else if(val==='3'){
+        } else if (val === '3') {
           this.loadTableC(this.form.group_id, this.form.year);
         }
       },
@@ -1064,7 +1059,6 @@
             }
           }
           if (columnIndex == 0 || columnIndex == 1) {
-            console.log('return 1,1');
             return [1, 1];
           }
         }
@@ -1097,7 +1091,6 @@
             }
           }
           if (columnIndex == 0 || columnIndex == 1) {
-            console.log('return 1,1');
             return [1, 1];
           }
         }
@@ -1130,7 +1123,6 @@
             }
           }
           if (columnIndex == 0 || columnIndex == 1) {
-            console.log('return 1,1');
             return [1, 1];
           }
         }
@@ -1506,6 +1498,7 @@
         }
       },
       export(listA, listB, listC) {
+        this.loading = true;
         let params = {
           groupid: this.form.group_id,
           years: this.form.year,
@@ -1514,9 +1507,10 @@
           .dispatch('PFANS6009Store/downloadExcel', params)
           .then(response => {
             this.download(response, 'BP社集計一览');
+            this.loading = false;
           })
           .catch(() => {
-            console.log('no');
+            this.loading = false;
           });
       },
       download(data, filename) {
@@ -1553,7 +1547,6 @@
           let orgs = getDownOrgInfo(centerId);
           if (orgs) {
             for (let org of orgs) {
-              console.log(org);
               vote.push(
                 {
                   value: org._id,
