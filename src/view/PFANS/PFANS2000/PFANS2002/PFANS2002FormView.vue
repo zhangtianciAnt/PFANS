@@ -602,6 +602,14 @@
                 </el-form-item>
               </el-col>
             </el-row>
+            <el-row>
+              <el-col>
+                <!--手动说明备注项-->
+                <el-form-item :label="$t('label.PFANS1017FORMVIEW_PREPAREFOR')">
+                  <el-input type="textarea" v-model="form.remark3" :disabled="disabled"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
           </el-tab-pane>
         </el-tabs>
       </el-form>
@@ -727,6 +735,7 @@
           other1: '',
           other2: '',
           other3: '',
+          remark3: '',
           resume: false,
           identity: false,
           diploma: false,
