@@ -1153,6 +1153,7 @@
         baseInfo: {},
         // encoding:'',
         groupId: '',
+          accflg: '',
         form: {
           arrivenight: '',
           external: '',
@@ -1616,6 +1617,12 @@
         } else if (this.Redirict == '1') {
           this.accountcode = 'PJ132001';
         }
+          // add_fjl --获取住宿费的科目代码
+          let accountinf0 = getDictionaryInfo(this.accountcode);
+          if (accountinf0) {
+              this.accflg = accountinf0.value2;
+          }
+          // add_fjl --获取住宿费的科目代码
       }
     },
     created() {
@@ -2214,7 +2221,7 @@
           plsummary: this.plsummaryflg,
           accountcode: this.accountcodeflg,
           subjectnumber: this.subjectnumberflg,
-          departmentname: this.groupId,
+            departmentname: '',
           taxes: '',
           // costitem: '',
           region: '',
@@ -2462,7 +2469,7 @@
             invoicenumber: '',
             plsummary: this.plsummaryflg,
             budgetcoding: '',
-            subjectnumber: this.subjectnumberflg,
+              subjectnumber: this.accflg,
             departmentname: this.groupId,
             activitycontent: '',
             city: this.region,

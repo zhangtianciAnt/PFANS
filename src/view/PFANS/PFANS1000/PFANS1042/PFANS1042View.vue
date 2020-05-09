@@ -1340,7 +1340,11 @@
                                             Number(response[j].leasecost) + Number(response[j].temporaryrent) + Number(response[j].other)).toFixed(2);
                                         //ADD_FJL  start--(内部委託支出)按分
                                         //内部委託支出
-                                        response[j].inwetuo = (Number(response[j].emhours) / Number(sum) * Number(response[0].inwetuo)).toFixed(2);
+                                        if (sum == 0) {
+                                            response[j].inwetuo = '0.00';
+                                        } else {
+                                            response[j].inwetuo = (Number(response[j].emhours) / Number(sum) * Number(response[0].inwetuo)).toFixed(2);
+                                        }
                                         //ADD_FJL  end--(内部委託支出)按分
                                         //研究開発費・ソフト費用小計
                                         response[j].departmenttotal = (Number(response[j].researchcost) + Number(response[j].surveyfee) + Number(response[j].inwetuo) +
