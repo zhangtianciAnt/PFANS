@@ -974,10 +974,11 @@
       let year = moment().subtract(3, 'months').year();
       for (var i = 0; i < this.array.length; i++) {
         if (i <= 8) {
-          this.columns[i + 1].label = this.array[i].replace('0000', year).replace('Y', this.yearLabel).replace('M', this.monthLabel);
+          //this.columns[i + 1].label = this.array[i].replace('0000', year).replace('Y', this.yearLabel).replace('M', this.monthLabel);
+          this.columns[i + 1].label = this.array[i].replace('0000', '').replace('Y', '').replace('M', this.monthLabel);
         } else {
-          this.columns[i + 1].label = this.array[i].replace('0000', year + 1).replace('Y', this.yearLabel).replace('M', this.monthLabel);
-          ;
+          //this.columns[i + 1].label = this.array[i].replace('0000', year + 1).replace('Y', this.yearLabel).replace('M', this.monthLabel);
+          this.columns[i + 1].label = this.array[i].replace('0000', '').replace('Y', '').replace('M', this.monthLabel);
         }
       }
 
