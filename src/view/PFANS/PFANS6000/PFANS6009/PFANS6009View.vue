@@ -29,7 +29,7 @@
           :value="item.value">
         </el-option>
       </el-select>
-      <el-select v-model="region" slot="customize" style="width: 10vw">
+      <el-select v-model="region" slot="customize" style="width: 10vw" @change="changeregion">
         <el-option :label="$t('label.PFANS6009TAB1')" value="1"></el-option>
         <el-option :label="$t('label.PFANS6009TAB2')" value="2"></el-option>
         <el-option :label="$t('label.PFANS6009TAB3')" value="3"></el-option>
@@ -106,7 +106,7 @@
           :value="item.value">
         </el-option>
       </el-select>
-      <el-select v-model="region" slot="customize" style="width: 10vw">
+      <el-select v-model="region" slot="customize" style="width: 10vw" @change="changeregion">
         <el-option :label="$t('label.PFANS6009TAB1')" value="1"></el-option>
         <el-option :label="$t('label.PFANS6009TAB2')" value="2"></el-option>
         <el-option :label="$t('label.PFANS6009TAB3')" value="3"></el-option>
@@ -141,7 +141,7 @@
           :value="item.value">
         </el-option>
       </el-select>
-      <el-select v-model="region" slot="customize" style="width: 10vw">
+      <el-select v-model="region" slot="customize" style="width: 10vw" @change="changeregion">
         <el-option :label="$t('label.PFANS6009TAB1')" value="1"></el-option>
         <el-option :label="$t('label.PFANS6009TAB2')" value="2"></el-option>
         <el-option :label="$t('label.PFANS6009TAB3')" value="3"></el-option>
@@ -185,7 +185,6 @@
         tableC: [],
         optationsC: [],
         optationsB: [],
-        tableALoading: true,
         region: '1',
         columns: [
           {
@@ -1027,6 +1026,15 @@
 
     },
     methods: {
+      changeregion(val){
+        if(val==='1'){
+          this.loadTableA(this.form.group_id, this.form.year);
+        }else if(val==='2'){
+          this.loadTableB(this.form.group_id, this.form.year);
+        }else if(val==='3'){
+          this.loadTableC(this.form.group_id, this.form.year);
+        }
+      },
       // rowspan
       arraySpanMethod({row, column, rowIndex, columnIndex}) {
         if (rowIndex > this.tableA.length - 5) {
@@ -1146,7 +1154,6 @@
         this.$store
           .dispatch('PFANS6009Store/getCostList', params)
           .then(response => {
-            debugger;
             var tableData = response.company;
             var tripData = response.trip;
             var assetData = response.asset;
@@ -1207,7 +1214,6 @@
 
             this.tableA = tableData;
             this.loading = false;
-            this.tableALoading = false;
           })
           .catch(error => {
             Message({
@@ -1216,7 +1222,6 @@
               duration: 5 * 1000,
             });
             this.loading = false;
-            this.tableALoading = false;
           });
       },
       loadTableB(group_id, yearss) {
@@ -1238,7 +1243,6 @@
         this.$store
           .dispatch('PFANS6009Store/getWorktimes', params)
           .then(response => {
-            debugger
             this.tableB = [];
             this.optationsB = [];
             let datatableb = [];
@@ -1502,10 +1506,6 @@
         }
       },
       export(listA, listB, listC) {
-        console.log(listA);
-        console.log(listB);
-        console.log(listC);
-
         let params = {
           groupid: this.form.group_id,
           years: this.form.year,
@@ -1618,14 +1618,11 @@
       },
       changeGroupA(val) {
         this.form.group_id = val;
-        //if (this.form.group_id) {
         this.loadTableA(this.form.group_id, this.form.year);
-        //}
       },
       changeGroupB(val) {
         this.form.group_id = val;
         this.loadTableB(this.form.group_id, this.form.year);
-
       },
       changeGroupC(val) {
         this.form.group_id = val;
