@@ -481,7 +481,7 @@
             filter: true,
           },
           {
-            code: 'SERVICE',
+            code: 'SERVICE1',
             label:
               '4' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
@@ -501,7 +501,7 @@
               },
             ],
           }, {
-            code: 'SERVICE',
+            code: 'SERVICE2',
             label:
               '5' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
@@ -521,7 +521,7 @@
               },
             ],
           }, {
-            code: 'SERVICE',
+            code: 'SERVICE3',
             label:
               '6' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
@@ -541,7 +541,7 @@
               },
             ],
           }, {
-            code: 'SERVICE',
+            code: 'SERVICE4',
             label:
               '7' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
@@ -561,7 +561,7 @@
               },
             ],
           }, {
-            code: 'SERVICE',
+            code: 'SERVICE5',
             label:
               '8' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
@@ -581,7 +581,7 @@
               },
             ],
           }, {
-            code: 'SERVICE',
+            code: 'SERVICE6',
             label:
               '9' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
@@ -601,7 +601,7 @@
               },
             ],
           }, {
-            code: 'SERVICE',
+            code: 'SERVICE7',
             label:
               '10' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
@@ -621,7 +621,7 @@
               },
             ],
           }, {
-            code: 'SERVICE',
+            code: 'SERVICE8',
             label:
               '11' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
@@ -641,7 +641,7 @@
               },
             ],
           }, {
-            code: 'SERVICE',
+            code: 'SERVICE9',
             label:
               '12' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
@@ -661,7 +661,7 @@
               },
             ],
           }, {
-            code: 'SERVICE',
+            code: 'SERVICE10',
             label:
               '1' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
@@ -681,7 +681,7 @@
               },
             ],
           }, {
-            code: 'SERVICE',
+            code: 'SERVICE11',
             label:
               '2' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
@@ -701,7 +701,7 @@
               },
             ],
           }, {
-            code: 'SERVICE',
+            code: 'SERVICE12',
             label:
               '3' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
@@ -721,7 +721,7 @@
               },
             ],
           }, {
-            code: 'SERVICE',
+            code: 'SERVICE13',
             label: 'label.PFANS1012VIEW_ACCOUNT',
             child: [
               {
@@ -749,7 +749,7 @@
             filter: true,
           },
           {
-            code: 'SERVICE',
+            code: 'SERVICEC1',
             label:
               '4' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
@@ -763,7 +763,7 @@
               },
             ],
           }, {
-            code: 'SERVICE',
+            code: 'SERVICEC2',
             label:
               '5' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
@@ -777,7 +777,7 @@
               },
             ],
           }, {
-            code: 'SERVICE',
+            code: 'SERVICEC3',
             label:
               '6' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
@@ -791,7 +791,7 @@
               },
             ],
           }, {
-            code: 'SERVICE',
+            code: 'SERVICEC4',
             label:
               '7' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
@@ -805,7 +805,7 @@
               },
             ],
           }, {
-            code: 'SERVICE',
+            code: 'SERVICEC5',
             label:
               '8' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
@@ -819,7 +819,7 @@
               },
             ],
           }, {
-            code: 'SERVICE',
+            code: 'SERVICEC6',
             label:
               '9' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
@@ -833,7 +833,7 @@
               },
             ],
           }, {
-            code: 'SERVICE',
+            code: 'SERVICEC7',
             label:
               '10' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
@@ -847,7 +847,7 @@
               },
             ],
           }, {
-            code: 'SERVICE',
+            code: 'SERVICEC8',
             label:
               '11' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
@@ -861,7 +861,7 @@
               },
             ],
           }, {
-            code: 'SERVICE',
+            code: 'SERVICEC9',
             label:
               '12' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
@@ -875,7 +875,7 @@
               },
             ],
           }, {
-            code: 'SERVICE',
+            code: 'SERVICEC10',
             label:
               '1' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
@@ -889,7 +889,7 @@
               },
             ],
           }, {
-            code: 'SERVICE',
+            code: 'SERVICEC11',
             label:
               '2' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
@@ -903,7 +903,7 @@
               },
             ],
           }, {
-            code: 'SERVICE',
+            code: 'SERVICEC12',
             label:
               '3' +
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
@@ -917,7 +917,7 @@
               },
             ],
           }, {
-            code: 'SERVICE',
+            code: 'SERVICEC13',
             label: 'label.PFANS1012VIEW_ACCOUNT',
             child: [
               {
