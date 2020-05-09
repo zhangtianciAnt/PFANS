@@ -1338,6 +1338,10 @@
                                         //固定資産費用小計
                                         response[j].costsubtotal = (Number(response[j].depreciationsoft) + Number(response[j].depreciationequipment) + Number(response[j].rent) +
                                             Number(response[j].leasecost) + Number(response[j].temporaryrent) + Number(response[j].other)).toFixed(2);
+                                        //ADD_FJL  start--(内部委託支出)按分
+                                        //内部委託支出
+                                        response[j].inwetuo = (Number(response[j].emhours) / Number(sum) * Number(response[0].inwetuo)).toFixed(2);
+                                        //ADD_FJL  end--(内部委託支出)按分
                                         //研究開発費・ソフト費用小計
                                         response[j].departmenttotal = (Number(response[j].researchcost) + Number(response[j].surveyfee) + Number(response[j].inwetuo) +
                                             Number(response[j].outcost) + Number(response[j].othersoftwarefree)).toFixed(2);
