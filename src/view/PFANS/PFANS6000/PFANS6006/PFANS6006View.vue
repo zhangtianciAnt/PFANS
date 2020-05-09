@@ -851,27 +851,27 @@
         }
       },
       getRowClass({row, column, rowIndex, columnIndex}) {
-          if (column.level === 2 && columnIndex >= 0 && columnIndex < 10) {
-              return {
-                  color: 'white',
-                  background: '#99CCFF !important',
-                  border: '1px solid white',
-              };
-          }
-          if (column.level === 2 && columnIndex >= 4 && columnIndex < 24) {
-              return {
-                  color: 'white',
-                  background: '#99CC99 !important',
-                border: '1px solid white',
-              };
-          }
-          if (column.level === 2 && columnIndex >= 22 && columnIndex < 29) {
+        // if (column.level === 2 && columnIndex >= 0 && columnIndex < 6) {
+        //   return {
+        //     color: 'white',
+        //     background: '#99CCFF !important',
+        //     border: '1px solid white',
+        //   };
+        // }
+        if (column.level === 2 && columnIndex >= 6 && columnIndex < 20) {
           return {
             color: 'white',
-            background: '#99CCFF',
+            background: '#99CC99 !important',
             border: '1px solid white',
           };
         }
+        // if (column.level === 2 && columnIndex >= 22 && columnIndex < 29) {
+        //   return {
+        //     color: 'white',
+        //     background: '#99CCFF',
+        //     border: '1px solid white',
+        //   };
+        // }
         if (column.level === 1 && columnIndex >= 0 && columnIndex < 23) {
           return {
             color: 'white',
