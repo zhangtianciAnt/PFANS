@@ -185,6 +185,7 @@ export function getUUID(len, radix) {
 }
 
 export function getUserInfo(userid) {
+
   let info = null;
   if (store.getters.userList && store.getters.userList.length > 0) {
     for (let user of store.getters.userList) {
@@ -425,8 +426,21 @@ export function getCurrentRole2() {
     for(let role of store.getters.useraccount.roles){
       roles = roles + role.description;
     }
-
     if(roles.toUpperCase().indexOf("总务担当")!= -1){
+      return "0";
+    }
+  }
+  return "1";
+}
+
+// ztc 0509 IT担当
+export function getCurrentRole4() {
+  let roles = "";
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
+      roles = roles + role.description;
+    }
+    if (roles.toUpperCase().indexOf("IT担当") != -1) {
       return "0";
     }
   }

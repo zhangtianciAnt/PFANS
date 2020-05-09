@@ -2116,7 +2116,7 @@
                             }
                             if (this.$route.params._id) {
                                 //总经理审批自动通过
-                                if (getCurrentRole() === '1' && this.form.status === '4') {
+                                if (getCurrentRole() === '1' && this.form.status === '4' && this.form.user_id === '5e78fefff1560b363cdd6db7') {
                                     this.form.status = '7';
                                 }
                                 this.form.abnormalid = this.$route.params._id;
@@ -2194,7 +2194,7 @@
             },
             buttonClick2(val) {
                 //总经理审批自动通过
-                if (getCurrentRole() === '1' && this.form.status === '4') {
+                if (getCurrentRole() === '1' && this.form.status === '4' && this.form.user_id === '5e78fefff1560b363cdd6db7') {
                     this.form.status = '7';
                 }
                 this.form.abnormalid = this.$route.params._id;

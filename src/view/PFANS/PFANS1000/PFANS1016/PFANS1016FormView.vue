@@ -1,11 +1,31 @@
 <template>
   <div style="min-height: 100%">`
     <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick" ref="container"
-                         @workflowState="workflowState"  v-loading="loading"
-                         :canStart="canStart" @start="start" @end="end">
+                         @workflowState="workflowState" v-loading="loading"
+                         :canStart="canStart" @start="start" @end="end" :enableSave="enableSave">
+      <!--//start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09-->
+      <!--:enableSave="enableSave"-->
+      <!--//end(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09-->
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
                  style="padding:3vw">
+          <!--//start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09-->
+          <el-row>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS1016FORMVIEW_CORRESPONDING')" prop='corresponding'>
+                <span style="margin-right: 1vw ">{{$t('label.PFANS1016FORMVIEW_INCOMPLETE')}}</span>
+                <el-switch
+                  :disabled="acceptShow"
+                  @change="getcorresponding"
+                  active-value="1"
+                  inactive-value="0"
+                  v-model="form.corresponding"
+                ></el-switch>
+                <span style="margin-left: 1vw ">{{$t('label.PFANS1016FORMVIEW_COMPLETE')}}</span>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <!--//end(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09-->
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.center')">
@@ -16,13 +36,13 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.group')">
                 <el-input :disabled="true" style="width:20vw" v-model="groupid"></el-input>
-                <el-input  v-show='false' :disabled="false" style="width:20vw" v-model="form.group_id"></el-input>
+                <el-input v-show='false' :disabled="false" style="width:20vw" v-model="form.group_id"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.team')">
                 <el-input :disabled="true" style="width:20vw" v-model="teamid"></el-input>
-                <el-input  v-show='false' :disabled="false" style="width:20vw" v-model="form.team_id"></el-input>
+                <el-input v-show='false' :disabled="false" style="width:20vw" v-model="form.team_id"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -96,10 +116,11 @@
                           style="width:20vw"
                           v-model="form.extension"
                           maxlength="20"
-                ></el-input></el-form-item>
+                ></el-input>
+              </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1016FORMVIEW_MANAGER')" >
+              <el-form-item :label="$t('label.PFANS1016FORMVIEW_MANAGER')">
                 <user :disabled="!disable"
                       :selectType="selectType"
                       :userlist="managerlist"
@@ -128,148 +149,152 @@
 
           <el-row>
             <el-col :span="8">
-                <el-form-item :label="$t('label.PFANS1016FORMVIEW_REASON')" prop="reason">
-                  <el-input :disabled="!disable" :rows="2" type="textarea" style="width:71.4vw" v-model="form.reason">
-                  </el-input>
-                </el-form-item>
+              <el-form-item :label="$t('label.PFANS1016FORMVIEW_REASON')" prop="reason">
+                <el-input :disabled="!disable" :rows="2" type="textarea" style="width:71.4vw" v-model="form.reason">
+                </el-input>
+              </el-form-item>
             </el-col>
           </el-row>
-          <el-row style="padding-top:1.5rem" >
+          <el-row style="padding-top:1.5rem">
             <el-col :span="24">
-            <el-table :data="tableT" stripe border header-cell-class-name="sub_bg_color_blue" style="width: 72vw">
-              <el-table-column :label="$t('label.PFANS1016FORMVIEW_sourceipgroup')" align="center"  width="200">
-                <template slot-scope="scope">
-<!--                  <dicselect-->
-<!--                    :no="scope.row"-->
-<!--                    :code="code3"-->
-<!--                    :data="scope.row.sourceipgroup"-->
-<!--                    :disabled="!disable"-->
-<!--                    :multiple="multiple"-->
-<!--                    @change="changesourceipgroup"-->
-<!--                    style="width: 100%"-->
-<!--                  ></dicselect>-->
-                  <org :disabled="false" :no="scope.row" :orglist="scope.row.sourceipgroup" @getOrgids="getTgroup"
-                       orgtype="2" style="width:90%"></org>
-                </template>
-              </el-table-column>
-              <el-table-column :label="$t('label.PFANS1016FORMVIEW_SOURCEIPADDRESS')" align="center"  width="300">
-                <template slot-scope="scope">
-                  <div style="width: 100%;float:left">
-                    <div style="width: 70%;float: left">
-                      <el-input :disabled="!disable" :no="scope.row" v-model="scope.row.sourceipaddresstest" >
-                      </el-input>
+              <el-table :data="tableT" stripe border header-cell-class-name="sub_bg_color_blue" style="width: 72vw">
+                <el-table-column :label="$t('label.PFANS1016FORMVIEW_sourceipgroup')" align="center" width="200">
+                  <template slot-scope="scope">
+                    <!--                  <dicselect-->
+                    <!--                    :no="scope.row"-->
+                    <!--                    :code="code3"-->
+                    <!--                    :data="scope.row.sourceipgroup"-->
+                    <!--                    :disabled="!disable"-->
+                    <!--                    :multiple="multiple"-->
+                    <!--                    @change="changesourceipgroup"-->
+                    <!--                    style="width: 100%"-->
+                    <!--                  ></dicselect>-->
+                    <org :disabled="false" :no="scope.row" :orglist="scope.row.sourceipgroup" @getOrgids="getTgroup"
+                         orgtype="2" style="width:90%"></org>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS1016FORMVIEW_SOURCEIPADDRESS')" align="center" width="300">
+                  <template slot-scope="scope">
+                    <div style="width: 100%;float:left">
+                      <div style="width: 70%;float: left">
+                        <el-input :disabled="!disable" :no="scope.row" v-model="scope.row.sourceipaddresstest">
+                        </el-input>
+                      </div>
+                      <div style="width: 30%;float: right;margin-top:0.25rem">
+                        <el-button
+                          :no="scope.row"
+                          @click="addSourceipaddress(scope.$index,tableT)"
+                          plain
+                          size="small"
+                          type="primary"
+                          :disabled="!disable"
+                        >{{$t('button.appends')}}
+                        </el-button>
+                      </div>
                     </div>
-                    <div style="width: 30%;float: right;margin-top:0.25rem">
-                      <el-button
-                        :no="scope.row"
-                        @click="addSourceipaddress(scope.$index,tableT)"
-                        plain
-                        size="small"
-                        type="primary"
-                        :disabled="!disable"
-                      >{{$t('button.appends')}}
-                      </el-button>
+                    <el-input :disabled="!disable" type="textarea" v-model="scope.row.sourceipaddress"
+                              style="width: 100%; padding-top:1rem">
+                    </el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS1016FORMVIEW_COMMUNICATION')" align="center" width="130">
+                  <template slot-scope="scope">
+                    <dicselect
+                      :no="scope.row"
+                      :code="code4"
+                      :data="scope.row.communication"
+                      :disabled="!disable"
+                      :multiple="multiple"
+                      @change="changecommunication"
+                      style="width: 100%"
+                    ></dicselect>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS1016FORMVIEW_DESTINATIONIPGROUP')" align="center" width="200">
+                  <template slot-scope="scope">
+                    <!--                  <dicselect-->
+                    <!--                    :no="scope.row"-->
+                    <!--                    :code="code3"-->
+                    <!--                    :data="scope.row.destinationipgroup"-->
+                    <!--                    :disabled="!disable"-->
+                    <!--                    :multiple="multiple"-->
+                    <!--                    @change="changedestinationipgroup"-->
+                    <!--                    style="width: 100%"-->
+                    <!--                  ></dicselect>-->
+                    <org :disabled="false" :no="scope.row" :orglist="scope.row.destinationipgroup"
+                         @getOrgids="getWTgroup"
+                         orgtype="2" style="width:90%"></org>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS1016FORMVIEW_DESTINATIONIPADDRESS')" align="center" width="300">
+                  <template slot-scope="scope">
+                    <div style="width: 100%;float:left">
+                      <div style="width: 70%;float: left">
+                        <el-input :disabled="!disable" :no="scope.row" v-model="scope.row.destinationipaddresstest">
+                        </el-input>
+                      </div>
+                      <div style="width: 30%;float: right;margin-top:0.25rem">
+                        <el-button
+                          :no="scope.row"
+                          @click="addDestinationipaddress(scope.$index,tableT)"
+                          plain
+                          :disabled="!disable"
+                          size="small"
+                          type="primary"
+                        >{{$t('button.appends')}}
+                        </el-button>
+                      </div>
                     </div>
-                  </div>
-                  <el-input :disabled="!disable" type="textarea" v-model="scope.row.sourceipaddress" style="width: 100%; padding-top:1rem">
-                  </el-input>
-                </template>
-              </el-table-column>
-              <el-table-column :label="$t('label.PFANS1016FORMVIEW_COMMUNICATION')" align="center"  width="130">
-                <template slot-scope="scope">
-                  <dicselect
-                    :no="scope.row"
-                    :code="code4"
-                    :data="scope.row.communication"
-                    :disabled="!disable"
-                    :multiple="multiple"
-                    @change="changecommunication"
-                    style="width: 100%"
-                  ></dicselect>
-                </template>
-              </el-table-column>
-              <el-table-column :label="$t('label.PFANS1016FORMVIEW_DESTINATIONIPGROUP')" align="center"  width="200">
-                <template slot-scope="scope">
-<!--                  <dicselect-->
-<!--                    :no="scope.row"-->
-<!--                    :code="code3"-->
-<!--                    :data="scope.row.destinationipgroup"-->
-<!--                    :disabled="!disable"-->
-<!--                    :multiple="multiple"-->
-<!--                    @change="changedestinationipgroup"-->
-<!--                    style="width: 100%"-->
-<!--                  ></dicselect>-->
-                  <org :disabled="false" :no="scope.row" :orglist="scope.row.destinationipgroup" @getOrgids="getWTgroup"
-                       orgtype="2" style="width:90%"></org>
-                </template>
-              </el-table-column>
-              <el-table-column :label="$t('label.PFANS1016FORMVIEW_DESTINATIONIPADDRESS')" align="center"  width="300">
-                <template slot-scope="scope">
-                  <div style="width: 100%;float:left">
-                    <div style="width: 70%;float: left">
-                      <el-input :disabled="!disable" :no="scope.row" v-model="scope.row.destinationipaddresstest" >
-                      </el-input>
+                    <el-input :disabled="!disable" type="textarea" v-model="scope.row.destinationipaddress"
+                              style="width: 100%; padding-top:1rem">
+                    </el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS1016FORMVIEW_PROTOCOL')" align="center" width="300">
+                  <template slot-scope="scope">
+                    <div style="width: 100%;float:left">
+                      <div style="width: 70%;float: left">
+                        <el-input :disabled="!disable" :no="scope.row" v-model="scope.row.protocoltest">
+                        </el-input>
+                      </div>
+                      <div style="width: 30%;float: right;margin-top:0.25rem">
+                        <el-button
+                          :no="scope.row"
+                          @click="addProtocol(scope.$index,tableT)"
+                          plain
+                          size="small"
+                          type="primary"
+                          :disabled="!disable"
+                        >{{$t('button.appends')}}
+                        </el-button>
+                      </div>
                     </div>
-                    <div style="width: 30%;float: right;margin-top:0.25rem">
-                      <el-button
-                        :no="scope.row"
-                        @click="addDestinationipaddress(scope.$index,tableT)"
-                        plain
-                        :disabled="!disable"
-                        size="small"
-                        type="primary"
-                      >{{$t('button.appends')}}
-                      </el-button>
-                    </div>
-                  </div>
-                  <el-input :disabled="!disable" type="textarea" v-model="scope.row.destinationipaddress" style="width: 100%; padding-top:1rem">
-                  </el-input>
-                </template>
-              </el-table-column>
-              <el-table-column :label="$t('label.PFANS1016FORMVIEW_PROTOCOL')" align="center"  width="300">
-                <template slot-scope="scope">
-                  <div style="width: 100%;float:left">
-                    <div style="width: 70%;float: left">
-                      <el-input :disabled="!disable" :no="scope.row" v-model="scope.row.protocoltest" >
-                      </el-input>
-                    </div>
-                    <div style="width: 30%;float: right;margin-top:0.25rem">
-                      <el-button
-                        :no="scope.row"
-                        @click="addProtocol(scope.$index,tableT)"
-                        plain
-                        size="small"
-                        type="primary"
-                        :disabled="!disable"
-                      >{{$t('button.appends')}}
-                      </el-button>
-                    </div>
-                  </div>
-                  <el-input :disabled="!disable" type="textarea" v-model="scope.row.protocol" style="width: 100%; padding-top:1rem">
-                  </el-input>
-                </template>
-              </el-table-column>
-              <el-table-column :label="$t('label.operation')" align="center" width="200">
-                <template slot-scope="scope">
-                  <el-button
-                    @click.native.prevent="deleteRow(scope.$index, tableT)"
-                    type="danger"
-                    size="small"
-                    plain
-                    :disabled="!disable"
-                  >{{$t('button.delete')}}
-                  </el-button>
-                  <el-button
-                    @click="addRow()"
-                    type="primary"
-                    size="small"
-                    plain
-                    :disabled="!disable"
-                  >{{$t('button.insert')}}
-                  </el-button>
-                </template>
-              </el-table-column>
-            </el-table>
+                    <el-input :disabled="!disable" type="textarea" v-model="scope.row.protocol"
+                              style="width: 100%; padding-top:1rem">
+                    </el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.operation')" align="center" width="200">
+                  <template slot-scope="scope">
+                    <el-button
+                      @click.native.prevent="deleteRow(scope.$index, tableT)"
+                      type="danger"
+                      size="small"
+                      plain
+                      :disabled="!disable"
+                    >{{$t('button.delete')}}
+                    </el-button>
+                    <el-button
+                      @click="addRow()"
+                      type="primary"
+                      size="small"
+                      plain
+                      :disabled="!disable"
+                    >{{$t('button.insert')}}
+                    </el-button>
+                  </template>
+                </el-table-column>
+              </el-table>
             </el-col>
           </el-row>
         </el-form>
@@ -283,8 +308,8 @@
   import {Message} from 'element-ui'
   import user from "../../../components/user.vue";
   import org from "../../../components/org";
-  import {getOrgInfoByUserId} from '@/utils/customize'
-  import {telephoneNumber,validateEmail} from '@/utils/validate';
+  import {getCurrentRole4, getOrgInfoByUserId} from '@/utils/customize'
+  import {telephoneNumber, validateEmail} from '@/utils/validate';
   import moment from "moment";
 
   export default {
@@ -317,7 +342,7 @@
         }
       };
       return {
-          errorgroup:'',
+        errorgroup: '',
         centerid: '',
         groupid: '',
         teamid: '',
@@ -327,6 +352,10 @@
         userlist: "",
         managerlist: "",
         duringdate: '',
+        //start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
+        acceptShow: 'true',
+        enableSave: false,
+        //end(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
         multiple: false,
         selectType: "Single",
         error: '',
@@ -339,6 +368,9 @@
           type: this.$t('menu.PFANS1016'),
           typesof: '',
           operationtype: '',
+          //start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
+          corresponding: '',
+          //end(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
           payment: moment(new Date()).format("YYYY-MM-DD"),
           email: '',
           extension: '',
@@ -388,8 +420,10 @@
           email: [
             {validator: checkemail, trigger: 'blur'}],
           extension: [
-            {   required: true,
-                message: this.$t('normal.error_08') + this.$t('label.PFANS3001VIEW_EXTENSIONNUMBER'), trigger: 'blur'}],
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS3001VIEW_EXTENSIONNUMBER'), trigger: 'blur'
+            }],
           reason: [{
             required: true,
             message: this.$t('normal.error_08') + this.$t('label.PFANS1016FORMVIEW_REASON'),
@@ -423,17 +457,16 @@
         this.$store
           .dispatch('PFANS1016Store/selectById', {"routing_id": this.$route.params._id})
           .then(response => {
-            debugger
             if (this.form.status === '2') {
               this.disable = false;
             }
             this.userlist = response.user_id;
             let rst = getOrgInfoByUserId(response.routing.user_id);
-              if(rst){
-                  this.centerid = rst.centerNmae;
-                  this.groupid= rst.groupNmae;
-                  this.teamid= rst.teamNmae;
-              }
+            if (rst) {
+              this.centerid = rst.centerNmae;
+              this.groupid = rst.groupNmae;
+              this.teamid = rst.teamNmae;
+            }
             this.form = response.routing;
             let duringdate = response.routing.duringdate;
             let serdate = duringdate.slice(0, 10);
@@ -442,6 +475,22 @@
             if (response.routingdetail.length > 0) {
               this.tableT = response.routingdetail;
             }
+            //start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
+            let role = getCurrentRole4();
+            if (role === '0') {
+              if (this.form.status === '4') {
+                this.enableSave = true;
+                if (this.disable) {
+                  this.acceptShow = false;
+                } else {
+                  this.acceptShow = true;
+                }
+              } else {
+                this.acceptShow = true;
+                this.enableSave = false;
+              }
+            }
+            //end(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
             this.managerlist = this.form.manager;
             this.userlist = this.form.user_id;
             this.loading = false;
@@ -459,68 +508,70 @@
         if (this.userlist !== null && this.userlist !== '') {
           this.form.user_id = this.$store.getters.userinfo.userid;
           let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-            if(rst) {
-                this.centerid = rst.centerNmae;
-                this.groupid = rst.groupNmae;
-                this.teamid = rst.teamNmae;
-                this.form.center_id = rst.centerId;
-                this.form.group_id = rst.groupId;
-                this.form.team_id = rst.teamId;
-            }
+          if (rst) {
+            this.centerid = rst.centerNmae;
+            this.groupid = rst.groupNmae;
+            this.teamid = rst.teamNmae;
+            this.form.center_id = rst.centerId;
+            this.form.group_id = rst.groupId;
+            this.form.team_id = rst.teamId;
+          }
         }
       }
     },
     methods: {
 
-        getTgroup(val, row){
-            row.sourceipgroup = val;
+      getTgroup(val, row) {
+        row.sourceipgroup = val;
 
-        },
-        getWTgroup(val, row){
-            row.destinationipgroup = val;
-        },
-      addSourceipaddress(index, rows){
-        if(rows[index].sourceipaddress === ""){
+      },
+      // <!--//start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09-->
+      getcorresponding(val) {
+        this.form.corresponding = val;
+      },
+      //<!--//start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09-->
+      getWTgroup(val, row) {
+        row.destinationipgroup = val;
+      },
+      addSourceipaddress(index, rows) {
+        if (rows[index].sourceipaddress === "") {
           rows[index].sourceipaddress = rows[index].sourceipaddresstest;
-        }
-        else{
+        } else {
           rows[index].sourceipaddress = rows[index].sourceipaddress + ";" + rows[index].sourceipaddresstest;
         }
       },
-      addDestinationipaddress(index, rows){
-        if(rows[index].destinationipaddress === ""){
+      addDestinationipaddress(index, rows) {
+        if (rows[index].destinationipaddress === "") {
           rows[index].destinationipaddress = rows[index].destinationipaddresstest;
-        }
-        else{
+        } else {
           rows[index].destinationipaddress = rows[index].destinationipaddress + ";" + rows[index].destinationipaddresstest;
         }
       },
-      addProtocol(index, rows){
-        if(rows[index].protocol === ""){
+      addProtocol(index, rows) {
+        if (rows[index].protocol === "") {
           rows[index].protocol = rows[index].protocoltest;
-        }
-        else{
+        } else {
           rows[index].protocol = rows[index].protocol + ";" + rows[index].protocoltest;
         }
       },
       getUserids(val) {
         this.form.user_id = val;
         let rst = getOrgInfoByUserId(val);
-          if(rst) {
-              this.centerid = rst.centerNmae;
-              this.groupid = rst.groupNmae;
-              this.teamid = rst.teamNmae;
-              this.form.center_id = rst.centerId;
-              this.form.group_id = rst.groupId;
-              this.form.team_id = rst.teamId;
-          }else{
-              this.centerid =  '';
-              this.groupid =  '';
-              this.teamid =  '';
-              this.form.center_id = '';
-              this.form.group_id =  '';
-              this.form.team_id =  '';
-          }
+        if (rst) {
+          this.centerid = rst.centerNmae;
+          this.groupid = rst.groupNmae;
+          this.teamid = rst.teamNmae;
+          this.form.center_id = rst.centerId;
+          this.form.group_id = rst.groupId;
+          this.form.team_id = rst.teamId;
+        } else {
+          this.centerid = '';
+          this.groupid = '';
+          this.teamid = '';
+          this.form.center_id = '';
+          this.form.group_id = '';
+          this.form.team_id = '';
+        }
         if (!this.form.user_id || this.form.user_id === '' || val === "undefined") {
           this.error = this.$t('normal.error_08') + this.$t('label.applicant');
         } else {
@@ -541,9 +592,9 @@
       },
       start(val) {
         if (val.state === '0') {
-            this.form.status = '2';
-        }else if (val.state === '2') {
-            this.form.status = '4';
+          this.form.status = '2';
+        } else if (val.state === '2') {
+          this.form.status = '4';
         }
         // this.form.status = '2';
         this.buttonClick("update");
@@ -558,24 +609,23 @@
       changeoperationtype(val) {
         this.form.operationtype = val;
       },
-      changesourceipgroup(val,row) {
+      changesourceipgroup(val, row) {
         row.sourceipgroup = val;
       },
-      changecommunication(val,row) {
+      changecommunication(val, row) {
         row.communication = val;
       },
-      changedestinationipgroup(val,row) {
+      changedestinationipgroup(val, row) {
         row.destinationipgroup = val;
       },
       deleteRow(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
-        }
-        else{
-          this.tableT=[{
+        } else {
+          this.tableT = [{
             routing_id: '',
             routingdetail_id: '',
-            sourceipgroup:' ',
+            sourceipgroup: ' ',
             sourceipaddresstest: '',
             sourceipaddress: '',
             communication: ' ',
@@ -603,39 +653,39 @@
         });
       },
       buttonClick(val) {
-          this.$refs["refform"].validate(valid => {
-            if (valid) {
-              this.loading = true
-              this.form.duringdate = moment(this.form.duringdate[0]).format('YYYY-MM-DD') + ' ~ ' + moment(this.form.duringdate[1]).format('YYYY-MM-DD');
-              this.baseInfo = {};
-              this.form.payment = moment(this.form.payment).format('YYYY-MM-DD');
-              this.baseInfo.routing = JSON.parse(JSON.stringify(this.form));
-              this.baseInfo.routingdetail = [];
-              for (let i = 0; i < this.tableT.length; i++) {
-                if (this.tableT[i].sourceipgroup !== '' || this.tableT[i].sourceipaddress !== '' || this.tableT[i].communication !== '' ||
-                  this.tableT[i].destinationipgroup !== '' || this.tableT[i].destinationipaddress !== '' || this.tableT[i].protocol !== '') {
-                  this.baseInfo.routingdetail.push(
-                    {
-                      routingdetail_id: this.tableT[i].routingdetail_id,
-                      routing_id: this.tableT[i].routing_id,
-                      sourceipgroup: this.tableT[i].sourceipgroup,
-                      sourceipaddress: this.tableT[i].sourceipaddress,
-                      communication: this.tableT[i].communication,
-                      destinationipgroup: this.tableT[i].destinationipgroup,
-                      destinationipaddress: this.tableT[i].destinationipaddress,
-                      protocol: this.tableT[i].protocol,
-                    },
-                  );
-                }
+        this.$refs["refform"].validate(valid => {
+          if (valid) {
+            this.loading = true
+            this.form.duringdate = moment(this.form.duringdate[0]).format('YYYY-MM-DD') + ' ~ ' + moment(this.form.duringdate[1]).format('YYYY-MM-DD');
+            this.baseInfo = {};
+            this.form.payment = moment(this.form.payment).format('YYYY-MM-DD');
+            this.baseInfo.routing = JSON.parse(JSON.stringify(this.form));
+            this.baseInfo.routingdetail = [];
+            for (let i = 0; i < this.tableT.length; i++) {
+              if (this.tableT[i].sourceipgroup !== '' || this.tableT[i].sourceipaddress !== '' || this.tableT[i].communication !== '' ||
+                this.tableT[i].destinationipgroup !== '' || this.tableT[i].destinationipaddress !== '' || this.tableT[i].protocol !== '') {
+                this.baseInfo.routingdetail.push(
+                  {
+                    routingdetail_id: this.tableT[i].routingdetail_id,
+                    routing_id: this.tableT[i].routing_id,
+                    sourceipgroup: this.tableT[i].sourceipgroup,
+                    sourceipaddress: this.tableT[i].sourceipaddress,
+                    communication: this.tableT[i].communication,
+                    destinationipgroup: this.tableT[i].destinationipgroup,
+                    destinationipaddress: this.tableT[i].destinationipaddress,
+                    protocol: this.tableT[i].protocol,
+                  },
+                );
               }
-              if (this.$route.params._id) {
-                this.form.routing_id = this.$route.params._id;
-                this.$store
-                  .dispatch('PFANS1016Store/update', this.baseInfo)
-                  .then(response => {
+            }
+            if (this.$route.params._id) {
+              this.form.routing_id = this.$route.params._id;
+              this.$store
+                .dispatch('PFANS1016Store/update', this.baseInfo)
+                .then(response => {
                   this.data = response;
                   this.loading = false
-                  if(val !== "update"){
+                  if (val !== "update") {
                     Message({
                       message: this.$t("normal.success_02"),
                       type: 'success',
@@ -646,50 +696,49 @@
                     }
                   }
                 })
-                  .catch(error => {
-                    Message({
-                      message: error,
-                      type: 'error',
-                      duration: 5 * 1000
-                    });
-                    this.loading = false
-                  })
-              } else {
-                this.loading = true
-                this.$store
-                  .dispatch('PFANS1016Store/insert', this.baseInfo)
-                  .then(response => {
-                    this.data = response;
-                    this.loading = false
-                    Message({
-                      message: this.$t("normal.success_01"),
-                      type: 'success',
-                      duration: 5 * 1000
-                    });
-                    if (this.$store.getters.historyUrl) {
-                      this.$router.push(this.$store.getters.historyUrl);
-                    }
-                  })
-                  .catch(error => {
-                    Message({
-                      message: error,
-                      type: 'error',
-                      duration: 5 * 1000
-                    });
-                    this.loading = false
-                  })
-              }
-            }
-            else{
-                Message({
-                    message: this.$t("normal.error_12"),
+                .catch(error => {
+                  Message({
+                    message: error,
                     type: 'error',
                     duration: 5 * 1000
-                });
+                  });
+                  this.loading = false
+                })
+            } else {
+              this.loading = true
+              this.$store
+                .dispatch('PFANS1016Store/insert', this.baseInfo)
+                .then(response => {
+                  this.data = response;
+                  this.loading = false
+                  Message({
+                    message: this.$t("normal.success_01"),
+                    type: 'success',
+                    duration: 5 * 1000
+                  });
+                  if (this.$store.getters.historyUrl) {
+                    this.$router.push(this.$store.getters.historyUrl);
+                  }
+                })
+                .catch(error => {
+                  Message({
+                    message: error,
+                    type: 'error',
+                    duration: 5 * 1000
+                  });
+                  this.loading = false
+                })
             }
-          });
-        }
+          } else {
+            Message({
+              message: this.$t("normal.error_12"),
+              type: 'error',
+              duration: 5 * 1000
+            });
+          }
+        });
       }
+    }
   }
 </script>
 

@@ -47,6 +47,13 @@
                         fix: false,
                         filter: true
                     },
+                  {
+                    code: 'corresponding',
+                    label: 'label.PFANS1016FORMVIEW_CORRESPONDING',
+                    width: 80,
+                    fix: false,
+                    filter: true
+                  },
                     {
                         code: 'status',
                         label: 'label.approval_status',
@@ -70,6 +77,11 @@
                 .dispatch('PFANS1019Store/getTrialsoft')
                 .then(response => {
                     for (let j = 0; j < response.length; j++) {
+                      if (response[j].corresponding == 1) {
+                        response[j].corresponding = '完成'
+                      } else {
+                        response[j].corresponding = '未完成'
+                      }
                         let user = getUserInfo(response[j].user_id);
                         let nameflg = getOrgInfoByUserId(response[j].user_id);
                         if (nameflg) {

@@ -1,16 +1,31 @@
 <template>
   <div style="min-height: 100%">
-    <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick" @end="end"
-                         @start="start"
-                         @workflowState="workflowState" ref="container" v-loading="loading">
+    <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick" ref="container"
+                         @workflowState="workflowState" v-loading="loading"
+                         :canStart="canStart" @start="start" @end="end" :enableSave="enableSave">
+      <!--//start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09-->
+      <!--:enableSave="enableSave"-->
+      <!--//end(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09-->
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
                  style="padding: 2vw">
-<!--          <el-collapse>-->
-<!--            <el-collapse-item>-->
-              <template slot="title">
-                <span class="collapse_Title">{{$t('title.PFANS1018VIEW')}}</span>
-              </template>
+          <!--//start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09-->
+          <el-row>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS1016FORMVIEW_CORRESPONDING')" prop='corresponding'>
+                <span style="margin-right: 1vw ">{{$t('label.PFANS1016FORMVIEW_INCOMPLETE')}}</span>
+                <el-switch
+                  :disabled="acceptShow"
+                  @change="getcorresponding"
+                  active-value="1"
+                  inactive-value="0"
+                  v-model="form.corresponding"
+                ></el-switch>
+                <span style="margin-left: 1vw ">{{$t('label.PFANS1016FORMVIEW_COMPLETE')}}</span>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <!--//end(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09-->
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.center')">
@@ -181,20 +196,17 @@
 <script>
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import user from '../../../components/user.vue';
-  import PFANS1018View from '../PFANS1018/PFANS1018View.vue';
   import dicselect from '../../../components/dicselect.vue';
   import {Message} from 'element-ui';
-  import {getOrgInfoByUserId, getUserInfo} from '@/utils/customize';
+  import {getCurrentRole4, getOrgInfoByUserId, getUserInfo} from '@/utils/customize';
   import moment from 'moment';
-  import {validateEmail} from '../../../../utils/validate';
+  import {validateEmail} from '@/utils/validate';
 
   export default {
     name: 'PFANS1018FormView',
     components: {
       EasyNormalContainer,
-      PFANS1018View,
       user,
-      getOrgInfoByUserId,
       dicselect,
     },
     data() {
@@ -240,6 +252,10 @@
         selectType: 'Single',
         useridlist: '',
         userapplicantlist: '',
+        //start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
+        acceptShow: 'true',
+        enableSave: false,
+        //end(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
         title: 'title.PFANS1018VIEW',
         disabled: false,
         buttonList: [],
@@ -260,6 +276,9 @@
           user_name: '',
           reason: '',
           email: '',
+          //start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
+          corresponding: '',
+          //end(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
           romanname: '',
           extension: '',
           applicationType: '',
@@ -349,6 +368,22 @@
                 this.form.financecode = getUserInfo(this.form.user_id).userinfo.personalcode;
               }
               // ADD_FJL  财务编码
+            //start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
+            let role = getCurrentRole4();
+            if (role === '0') {
+              if (this.form.status === '4') {
+                this.enableSave = true;
+                if (this.disable) {
+                  this.acceptShow = false;
+                } else {
+                  this.acceptShow = true;
+                }
+              } else {
+                this.acceptShow = true;
+                this.enableSave = false;
+              }
+            }
+            //end(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
             this.useridlist = this.form.user_name;
             this.loading = false;
           })
@@ -364,6 +399,7 @@
         this.userapplicantlist = this.$store.getters.userinfo.userid;
           // ADD_FJL  财务编码
           if (getUserInfo(this.$store.getters.userinfo.userid)) {
+
             this.form.financecode = getUserInfo(this.$store.getters.userinfo.userid).userinfo.personalcode;
           }
           // ADD_FJL  财务编码
@@ -397,8 +433,8 @@
       }
     },
     created() {
-      this.disabled = this.$route.params.disabled;
-      if (this.disabled) {
+      this.disable = this.$route.params.disabled;
+      if (this.disable) {
         this.buttonList = [
           {
             key: 'save',
@@ -434,6 +470,11 @@
           this.error_applicant = '';
         }
       },
+      // <!--//start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09-->
+      getcorresponding(val) {
+        this.form.corresponding = val;
+      },
+      //<!--//start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09-->
       getUserids(val) {
         this.form.user_name = val;
         let rst = getOrgInfoByUserId(val);

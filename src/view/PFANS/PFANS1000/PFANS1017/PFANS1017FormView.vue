@@ -2,10 +2,30 @@
   <div style="min-height: 100%">`
     <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick" ref="container"
                          @workflowState="workflowState" v-loading="loading"
-                         :canStart="canStart" @start="start" @end="end">
+                         :canStart="canStart" @start="start" @end="end" :enableSave="enableSave">
+      <!--//start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09-->
+      <!--:enableSave="enableSave"-->
+      <!--//end(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09-->
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
                  style="padding:3vw">
+          <!--//start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09-->
+          <el-row>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS1016FORMVIEW_CORRESPONDING')" prop='corresponding'>
+                <span style="margin-right: 1vw ">{{$t('label.PFANS1016FORMVIEW_INCOMPLETE')}}</span>
+                <el-switch
+                  :disabled="acceptShow"
+                  @change="getcorresponding"
+                  active-value="1"
+                  inactive-value="0"
+                  v-model="form.corresponding"
+                ></el-switch>
+                <span style="margin-left: 1vw ">{{$t('label.PFANS1016FORMVIEW_COMPLETE')}}</span>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <!--//end(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09-->
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.center')">
@@ -303,7 +323,7 @@
     import dicselect from '../../../components/dicselect.vue';
     import {Message} from 'element-ui';
     import user from '../../../components/user.vue';
-    import {getOrgInfoByUserId,getOrgInfo} from '@/utils/customize';
+    import {getCurrentRole4, getOrgInfoByUserId, getOrgInfo} from '@/utils/customize';
     import {validateEmail} from '@/utils/validate';
     import moment from 'moment';
 
@@ -343,6 +363,10 @@
                 buttonList: [],
                 baseInfo: {},
                 multiple: false,
+              //start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
+              acceptShow: 'true',
+              enableSave: false,
+              //end(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
                 loading: false,
                 selectType: 'Single',
                 error: '',
@@ -356,6 +380,9 @@
                     user_id: '',
                     type: this.$t('menu.PFANS1017'),
                     subtype: '',
+                  //start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
+                  corresponding: '',
+                  //end(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
                     application: moment(new Date()).format('YYYY-MM-DD'),
                     email: '',
                   remark: '',
@@ -454,6 +481,22 @@
                         if (response.psdcddetail.length > 0) {
                             this.tableT = response.psdcddetail;
                         }
+                      //start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
+                      let role = getCurrentRole4();
+                      if (role === '0') {
+                        if (this.form.status === '4') {
+                          this.enableSave = true;
+                          if (this.disable) {
+                            this.acceptShow = false;
+                          } else {
+                            this.acceptShow = true;
+                          }
+                        } else {
+                          this.acceptShow = true;
+                          this.enableSave = false;
+                        }
+                      }
+                      //end(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
                         this.userlist = this.form.user_id;
                         this.getBudt(this.userlist);
                         this.loading = false;
@@ -505,6 +548,11 @@
                 }
                 //ADD_FJL  修改人员预算编码
             },
+          // <!--//start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09-->
+          getcorresponding(val) {
+            this.form.corresponding = val;
+          },
+          //<!--//start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09-->
             getUserids(val) {
                 this.form.user_id = val;
                 let rst = getOrgInfoByUserId(val);

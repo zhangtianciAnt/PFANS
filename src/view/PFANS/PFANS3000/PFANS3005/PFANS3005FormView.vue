@@ -594,10 +594,11 @@
             } else {
               this.refuseShow = false;
             }
-            if (this.form.status === '4') {
-              //start(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
-              let role = getCurrentRole2();
-              if (role === '0') {
+            //start(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
+            let role = getCurrentRole2();
+            if (role === '0') {
+              if (this.form.status === '4') {
+                this.enableSave = true;
                 if (this.disable) {
                   this.form.findate = moment(new Date()).format('YYYY-MM-DD');
                   this.acceptShow = false;
@@ -606,12 +607,10 @@
                 }
               } else {
                 this.acceptShow = true;
+                this.enableSave = false;
               }
-              //end(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
-              this.enableSave = true;
-            } else {
-              this.enableSave = false;
             }
+            //end(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
             let rst = getOrgInfoByUserId(response.user_id);
             if (rst) {
               this.centerid = rst.centerNmae;

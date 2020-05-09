@@ -10,6 +10,7 @@
       :canStart="canStart"
       @start="start"
       @end="end"
+      :enableSave="enableSave"
     >
       <div slot="customize">
         <el-form
@@ -20,6 +21,23 @@
           :rules="rules"
           ref="refform"
         >
+          <!--//start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09-->
+          <el-row>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS1016FORMVIEW_CORRESPONDING')" prop='corresponding'>
+                <span style="margin-right: 1vw ">{{$t('label.PFANS1016FORMVIEW_INCOMPLETE')}}</span>
+                <el-switch
+                  :disabled="acceptShow"
+                  @change="getcorresponding"
+                  active-value="1"
+                  inactive-value="0"
+                  v-model="form.corresponding"
+                ></el-switch>
+                <span style="margin-left: 1vw ">{{$t('label.PFANS1016FORMVIEW_COMPLETE')}}</span>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <!--//end(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09-->
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.center')">
@@ -203,7 +221,7 @@ import EasyNormalContainer from "@/components/EasyNormalContainer";
 import dicselect from "../../../components/dicselect.vue";
 import user from "../../../components/user.vue";
 import { Message } from "element-ui";
-import { getOrgInfoByUserId, getUserInfo } from "@/utils/customize";
+import {getCurrentRole4, getOrgInfoByUserId, getUserInfo} from "@/utils/customize";
 import org from "../../../components/org";
 import moment from "moment";
 
@@ -248,6 +266,10 @@ export default {
       baseInfo: {},
       userlist: "",
       loading: false,
+      //start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
+      acceptShow: 'true',
+      enableSave: false,
+      //end(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
       erroruser: "",
       errorusername: "",
       selectType: "Single",
@@ -260,6 +282,9 @@ export default {
         team_id: "",
         user_id: "",
         type: this.$t("menu.PFANS1020"),
+        //start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
+        corresponding: '',
+        //end(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
         dailypayment: moment(new Date()).format("YYYY-MM-DD")
       },
       tableD: [
@@ -326,6 +351,22 @@ export default {
           if (this.form.status === "2") {
             this.disable = false;
           }
+          //start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
+          let role = getCurrentRole4();
+          if (role === '0') {
+            if (this.form.status === '4') {
+              this.enableSave = true;
+              if (this.disabled) {
+                this.acceptShow = false;
+              } else {
+                this.acceptShow = true;
+              }
+            } else {
+              this.acceptShow = true;
+              this.enableSave = false;
+            }
+          }
+          //end(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
           this.loading = false;
         })
         .catch(error => {
@@ -414,6 +455,11 @@ export default {
     getRank(val, row) {
       row.rank = val;
     },
+    // <!--//start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09-->
+    getcorresponding(val) {
+      this.form.corresponding = val;
+    },
+    //<!--//start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09-->
     workflowState(val) {
       if (val.state === "1") {
         this.form.status = "3";
