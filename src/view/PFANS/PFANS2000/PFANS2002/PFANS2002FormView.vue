@@ -234,10 +234,11 @@
                         <span style="margin-right: 1rem ">{{$t('label.PFANSUSERFORMVIEW_NO')}}</span>
                         <el-switch
                           :disabled="disabled"
+                          active-value="1"
+                          inactive-value="0"
                           v-model="form.other1"
-                          active-value="0"
                           @change="changeOther1"
-                          inactive-value="1"></el-switch>
+                        ></el-switch>
                         <span style="margin-left: 1rem ">{{$t('label.PFANSUSERFORMVIEW_YES')}}</span>
                       </el-form-item>
                     </el-col>
@@ -255,8 +256,8 @@
                         <el-switch
                           :disabled="disabled"
                           v-model="form.other2"
-                          active-value="0"
-                          inactive-value="1"
+                          active-value="1"
+                          inactive-value="0"
                           @change="changeOther2"
                         ></el-switch>
                         <span style="margin-left: 1rem ">{{$t('label.PFANSUSERFORMVIEW_YES')}}</span>
@@ -723,8 +724,8 @@
           english_detail: '',
           janpanese: '',
           janpanese_detail: '',
-          other1: false,
-          other2: false,
+          other1: '',
+          other2: '',
           other3: '',
           resume: false,
           identity: false,
@@ -806,17 +807,19 @@
       // <!--技术1备注 ADD 4/16 ztc-->
       changeOther1(val) {
         if (val === '1') {
-          this.show1 = false;
-        } else {
           this.show1 = true;
+        } else {
+          this.show1 = false
+          this.form.remark1 = '';
         }
       },
       // <!--技术1备注 ADD 4/16 ztc-->
       changeOther2(val) {
         if (val === '1') {
-          this.show2 = false;
-        } else {
           this.show2 = true;
+        } else {
+          this.show2 = false;
+          this.form.remark2 = '';
         }
       },
       checkRequire(){
@@ -892,8 +895,8 @@
       },
       changeOption(form, method) {
         let arr = [
-          'other1',
-          'other2',
+          // 'other1',
+          // 'other2',
           'resume',
           'identity',
           'diploma',
@@ -972,7 +975,6 @@
         this.$store
           .dispatch('PFANS2002Store/getOne', id)
           .then(response => {
-            console.log(response[0]);
             if (response) {
               this.form = response[0];
               this.changeOption(this.form, 'view');
@@ -1011,6 +1013,18 @@
                     this.other3_show = true;
                     this.form.others = '';
                 }
+              if (this.form.other1 === '1') {
+                this.show1 = true;
+              } else {
+                this.show1 = false;
+                this.form.remark1 = '';
+              }
+              if (this.form.other2 === '1') {
+                this.show2 = true;
+              } else {
+                this.show1 = false;
+                this.form.remark2 = '';
+              }
               this.loading = false;
             }
             if (this.form.status === '2') {

@@ -502,7 +502,7 @@
               this.show = true;
             } else {
               this.show = false;
-              this.form.yearschedule = "";
+              this.form.yearschedule = '';
             }
           },
             workflowState(val) {

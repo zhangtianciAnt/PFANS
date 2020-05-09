@@ -487,13 +487,13 @@
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
               {
-                code: 'ncost4',
+                code: 'aprilgn',
                 label: 'label.PFANS6009VIEW_MANHOUR2',
                 width: 110,
                 fix: false,
                 filter: true,
               }, {
-                code: 'wcost4',
+                code: 'aprilgw',
                 label: 'label.PFANS6009VIEW_COST2',
                 width: 110,
                 fix: false,
@@ -507,13 +507,13 @@
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
               {
-                code: 'ncost5',
+                code: 'maygn',
                 label: 'label.PFANS6009VIEW_MANHOUR2',
                 width: 110,
                 fix: false,
                 filter: true,
               }, {
-                code: 'wcost5',
+                code: 'maygw',
                 label: 'label.PFANS6009VIEW_COST2',
                 width: 110,
                 fix: false,
@@ -527,13 +527,13 @@
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
               {
-                code: 'ncost6',
+                code: 'junegn',
                 label: 'label.PFANS6009VIEW_MANHOUR2',
                 width: 110,
                 fix: false,
                 filter: true,
               }, {
-                code: 'wcost6',
+                code: 'junegw',
                 label: 'label.PFANS6009VIEW_COST2',
                 width: 110,
                 fix: false,
@@ -547,13 +547,13 @@
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
               {
-                code: 'ncost7',
+                code: 'julygn',
                 label: 'label.PFANS6009VIEW_MANHOUR2',
                 width: 110,
                 fix: false,
                 filter: true,
               }, {
-                code: 'wcost7',
+                code: 'julygw',
                 label: 'label.PFANS6009VIEW_COST2',
                 width: 110,
                 fix: false,
@@ -567,13 +567,13 @@
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
               {
-                code: 'ncost8',
+                code: 'augustgn',
                 label: 'label.PFANS6009VIEW_MANHOUR2',
                 width: 110,
                 fix: false,
                 filter: true,
               }, {
-                code: 'wcost8',
+                code: 'augustgw',
                 label: 'label.PFANS6009VIEW_COST2',
                 width: 110,
                 fix: false,
@@ -587,13 +587,13 @@
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
               {
-                code: 'ncost9',
+                code: 'septembergn',
                 label: 'label.PFANS6009VIEW_MANHOUR2',
                 width: 110,
                 fix: false,
                 filter: true,
               }, {
-                code: 'wcost9',
+                code: 'septembergw',
                 label: 'label.PFANS6009VIEW_COST2',
                 width: 110,
                 fix: false,
@@ -607,13 +607,13 @@
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
               {
-                code: 'ncost10',
+                code: 'octobergn',
                 label: 'label.PFANS6009VIEW_MANHOUR2',
                 width: 110,
                 fix: false,
                 filter: true,
               }, {
-                code: 'wcost10',
+                code: 'octobergw',
                 label: 'label.PFANS6009VIEW_COST2',
                 width: 110,
                 fix: false,
@@ -627,13 +627,13 @@
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
               {
-                code: 'ncost11',
+                code: 'novembergn',
                 label: 'label.PFANS6009VIEW_MANHOUR2',
                 width: 110,
                 fix: false,
                 filter: true,
               }, {
-                code: 'wcost11',
+                code: 'novembergw',
                 label: 'label.PFANS6009VIEW_COST2',
                 width: 110,
                 fix: false,
@@ -647,13 +647,13 @@
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
               {
-                code: 'ncost12',
+                code: 'decembergn',
                 label: 'label.PFANS6009VIEW_MANHOUR2',
                 width: 110,
                 fix: false,
                 filter: true,
               }, {
-                code: 'wcost12',
+                code: 'decembergw',
                 label: 'label.PFANS6009VIEW_COST2',
                 width: 110,
                 fix: false,
@@ -667,13 +667,13 @@
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
               {
-                code: 'ncost1',
+                code: 'januarygn',
                 label: 'label.PFANS6009VIEW_MANHOUR2',
                 width: 110,
                 fix: false,
                 filter: true,
               }, {
-                code: 'wcost1',
+                code: 'januarygw',
                 label: 'label.PFANS6009VIEW_COST2',
                 width: 110,
                 fix: false,
@@ -687,13 +687,13 @@
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
               {
-                code: 'ncost2',
+                code: 'februarygn',
                 label: 'label.PFANS6009VIEW_MANHOUR2',
                 width: 110,
                 fix: false,
                 filter: true,
               }, {
-                code: 'wcost2',
+                code: 'februarygw',
                 label: 'label.PFANS6009VIEW_COST2',
                 width: 110,
                 fix: false,
@@ -707,13 +707,13 @@
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
               {
-                code: 'ncost3',
+                code: 'marchgn',
                 label: 'label.PFANS6009VIEW_MANHOUR2',
                 width: 110,
                 fix: false,
                 filter: true,
               }, {
-                code: 'wcost3',
+                code: 'marchgw',
                 label: 'label.PFANS6009VIEW_COST2',
                 width: 110,
                 fix: false,
@@ -1240,34 +1240,38 @@
             let datatableb = [];
             for (let i = 0; i < response.length; i++) {
               this.optationsB.push({
-                group_id: response[i].group_id,
+                group_id: response[i].group_ID,
                 suppliername: response[i].suppliername,
-                ncost1: moment(response[i].date).format('MM') === '01' ? (response[i].operationform === 'BP024001' ? parseFloat(response[i].worktime).toFixed(2) : '0.00') : '0.00',
-                ncost2: moment(response[i].date).format('MM') === '02' ? (response[i].operationform === 'BP024001' ? parseFloat(response[i].worktime).toFixed(2) : '0.00') : '0.00',
-                ncost3: moment(response[i].date).format('MM') === '03' ? (response[i].operationform === 'BP024001' ? parseFloat(response[i].worktime).toFixed(2) : '0.00') : '0.00',
-                ncost4: moment(response[i].date).format('MM') === '04' ? (response[i].operationform === 'BP024001' ? parseFloat(response[i].worktime).toFixed(2) : '0.00') : '0.00',
-                ncost5: moment(response[i].date).format('MM') === '05' ? (response[i].operationform === 'BP024001' ? parseFloat(response[i].worktime).toFixed(2) : '0.00') : '0.00',
-                ncost6: moment(response[i].date).format('MM') === '06' ? (response[i].operationform === 'BP024001' ? parseFloat(response[i].worktime).toFixed(2) : '0.00') : '0.00',
-                ncost7: moment(response[i].date).format('MM') === '07' ? (response[i].operationform === 'BP024001' ? parseFloat(response[i].worktime).toFixed(2) : '0.00') : '0.00',
-                ncost8: moment(response[i].date).format('MM') === '08' ? (response[i].operationform === 'BP024001' ? parseFloat(response[i].worktime).toFixed(2) : '0.00') : '0.00',
-                ncost9: moment(response[i].date).format('MM') === '09' ? (response[i].operationform === 'BP024001' ? parseFloat(response[i].worktime).toFixed(2) : '0.00') : '0.00',
-                ncost10: moment(response[i].date).format('MM') === '10' ? (response[i].operationform === 'BP024001' ? parseFloat(response[i].worktime).toFixed(2) : '0.00') : '0.00',
-                ncost11: moment(response[i].date).format('MM') === '11' ? (response[i].operationform === 'BP024001' ? parseFloat(response[i].worktime).toFixed(2) : '0.00') : '0.00',
-                ncost12: moment(response[i].date).format('MM') === '12' ? (response[i].operationform === 'BP024001' ? parseFloat(response[i].worktime).toFixed(2) : '0.00') : '0.00',
-                wcost1: moment(response[i].date).format('MM') === '01' ? (response[i].operationform === 'BP024002' ? parseFloat(response[i].worktime).toFixed(2) : '0.00') : '0.00',
-                wcost2: moment(response[i].date).format('MM') === '02' ? (response[i].operationform === 'BP024002' ? parseFloat(response[i].worktime).toFixed(2) : '0.00') : '0.00',
-                wcost3: moment(response[i].date).format('MM') === '03' ? (response[i].operationform === 'BP024002' ? parseFloat(response[i].worktime).toFixed(2) : '0.00') : '0.00',
-                wcost4: moment(response[i].date).format('MM') === '04' ? (response[i].operationform === 'BP024002' ? parseFloat(response[i].worktime).toFixed(2) : '0.00') : '0.00',
-                wcost5: moment(response[i].date).format('MM') === '05' ? (response[i].operationform === 'BP024002' ? parseFloat(response[i].worktime).toFixed(2) : '0.00') : '0.00',
-                wcost6: moment(response[i].date).format('MM') === '06' ? (response[i].operationform === 'BP024002' ? parseFloat(response[i].worktime).toFixed(2) : '0.00') : '0.00',
-                wcost7: moment(response[i].date).format('MM') === '07' ? (response[i].operationform === 'BP024002' ? parseFloat(response[i].worktime).toFixed(2) : '0.00') : '0.00',
-                wcost8: moment(response[i].date).format('MM') === '08' ? (response[i].operationform === 'BP024002' ? parseFloat(response[i].worktime).toFixed(2) : '0.00') : '0.00',
-                wcost9: moment(response[i].date).format('MM') === '09' ? (response[i].operationform === 'BP024002' ? parseFloat(response[i].worktime).toFixed(2) : '0.00') : '0.00',
-                wcost10: moment(response[i].date).format('MM') === '10' ? (response[i].operationform === 'BP024002' ? parseFloat(response[i].worktime).toFixed(2) : '0.00') : '0.00',
-                wcost11: moment(response[i].date).format('MM') === '11' ? (response[i].operationform === 'BP024002' ? parseFloat(response[i].worktime).toFixed(2) : '0.00') : '0.00',
-                wcost12: moment(response[i].date).format('MM') === '12' ? (response[i].operationform === 'BP024002' ? parseFloat(response[i].worktime).toFixed(2) : '0.00') : '0.00',
-                nsum: response[i].operationform === 'BP024001' ? parseFloat(response[i].worktime).toFixed(2) : '0.00',
-                wsum: response[i].operationform === 'BP024002' ? parseFloat(response[i].worktime).toFixed(2) : '0.00',
+                aprilgn: response[i].aprilgn ==='0'?'0.00':response[i].aprilgn,
+                aprilgw:response[i].aprilgw ==='0'?'0.00':response[i].aprilgw,
+                maygn:response[i].maygn ==='0'?'0.00':response[i].maygn,
+                maygw:response[i].maygw ==='0'?'0.00':response[i].maygw,
+                junegn:response[i].junegn ==='0'?'0.00':response[i].junegn,
+                junegw:response[i].junegw ==='0'?'0.00':response[i].junegw,
+                julygn:response[i].julygn ==='0'?'0.00':response[i].julygn,
+                julygw:response[i].julygw ==='0'?'0.00':response[i].julygw,
+                augustgn:response[i].augustgn ==='0'?'0.00':response[i].augustgn,
+                augustgw:response[i].augustgw ==='0'?'0.00':response[i].augustgw,
+                septembergn:response[i].septembergn ==='0'?'0.00':response[i].septembergn,
+                septembergw:response[i].septembergw ==='0'?'0.00':response[i].septembergw,
+                octobergn:response[i].octobergn ==='0'?'0.00':response[i].octobergn,
+                octobergw:response[i].octobergw ==='0'?'0.00':response[i].octobergw,
+                novembergn:response[i].novembergn ==='0'?'0.00':response[i].novembergn,
+                novembergw:response[i].novembergw ==='0'?'0.00':response[i].novembergw,
+                decembergn:response[i].decembergn ==='0'?'0.00':response[i].decembergn,
+                decembergw:response[i].decembergw ==='0'?'0.00':response[i].decembergw,
+                januarygn:response[i].januarygn ==='0'?'0.00':response[i].januarygn,
+                januarygw:response[i].januarygw ==='0'?'0.00':response[i].januarygw,
+                februarygn:response[i].februarygn ==='0'?'0.00':response[i].februarygn,
+                februarygw:response[i].februarygw ==='0'?'0.00':response[i].februarygw,
+                marchgn:response[i].marchgn ==='0'?'0.00':response[i].marchgn,
+                marchgw:response[i].marchgw ==='0'?'0.00':response[i].marchgw,
+                nsum:(Number(response[i].aprilgn)+Number(response[i].maygn)+Number(response[i].junegn)+Number(response[i].julygn)
+                  +Number(response[i].augustgn)+Number(response[i].septembergn)+Number(response[i].octobergn)
+                  +Number(response[i].novembergn)+Number(response[i].decembergn)+Number(response[i].januarygn)+Number(response[i].februarygn)+Number(response[i].marchgn)).toFixed(2),
+                wsum:(Number(response[i].aprilgw)+Number(response[i].maygw)+Number(response[i].junegw)+Number(response[i].julygw)
+                  +Number(response[i].augustgw)+Number(response[i].septembergw)+Number(response[i].octobergw)
+                  +Number(response[i].novembergw)+Number(response[i].decembergw)+Number(response[i].januarygw)+Number(response[i].februarygw)+Number(response[i].marchgw)).toFixed(2),
               });
             }
             let nsumcost1 = 0;
@@ -1298,60 +1302,60 @@
             let wsum = 0;
             let sum = 0;
             for (let i = 0; i < this.optationsB.length; i++) {
-              nsumcost1 += parseFloat(this.optationsB[i].ncost1);
-              nsumcost2 += parseFloat(this.optationsB[i].ncost2);
-              nsumcost3 += parseFloat(this.optationsB[i].ncost3);
-              nsumcost4 += parseFloat(this.optationsB[i].ncost4);
-              nsumcost5 += parseFloat(this.optationsB[i].ncost5);
-              nsumcost6 += parseFloat(this.optationsB[i].ncost6);
-              nsumcost7 += parseFloat(this.optationsB[i].ncost7);
-              nsumcost8 += parseFloat(this.optationsB[i].ncost8);
-              nsumcost9 += parseFloat(this.optationsB[i].ncost9);
-              nsumcost10 += parseFloat(this.optationsB[i].ncost10);
-              nsumcost11 += parseFloat(this.optationsB[i].ncost11);
-              nsumcost12 += parseFloat(this.optationsB[i].ncost12);
+              nsumcost1 += parseFloat(this.optationsB[i].aprilgn);
+              nsumcost2 += parseFloat(this.optationsB[i].maygn);
+              nsumcost3 += parseFloat(this.optationsB[i].junegn);
+              nsumcost4 += parseFloat(this.optationsB[i].julygn);
+              nsumcost5 += parseFloat(this.optationsB[i].augustgn);
+              nsumcost6 += parseFloat(this.optationsB[i].septembergn);
+              nsumcost7 += parseFloat(this.optationsB[i].octobergn);
+              nsumcost8 += parseFloat(this.optationsB[i].novembergn);
+              nsumcost9 += parseFloat(this.optationsB[i].decembergn);
+              nsumcost10 += parseFloat(this.optationsB[i].januarygn);
+              nsumcost11 += parseFloat(this.optationsB[i].februarygn);
+              nsumcost12 += parseFloat(this.optationsB[i].marchgn);
               nsum += parseFloat(this.optationsB[i].nsum);
-              wsumcost1 += parseFloat(this.optationsB[i].wcost1);
-              wsumcost2 += parseFloat(this.optationsB[i].wcost2);
-              wsumcost3 += parseFloat(this.optationsB[i].wcost3);
-              wsumcost4 += parseFloat(this.optationsB[i].wcost4);
-              wsumcost5 += parseFloat(this.optationsB[i].wcost5);
-              wsumcost6 += parseFloat(this.optationsB[i].wcost6);
-              wsumcost7 += parseFloat(this.optationsB[i].wcost7);
-              wsumcost8 += parseFloat(this.optationsB[i].wcost8);
-              wsumcost9 += parseFloat(this.optationsB[i].wcost9);
-              wsumcost10 += parseFloat(this.optationsB[i].wcost10);
-              wsumcost11 += parseFloat(this.optationsB[i].wcost11);
-              wsumcost12 += parseFloat(this.optationsB[i].wcost12);
+              wsumcost1 += parseFloat(this.optationsB[i].aprilgw);
+              wsumcost2 += parseFloat(this.optationsB[i].maygw);
+              wsumcost3 += parseFloat(this.optationsB[i].junegw);
+              wsumcost4 += parseFloat(this.optationsB[i].julygw);
+              wsumcost5 += parseFloat(this.optationsB[i].augustgw);
+              wsumcost6 += parseFloat(this.optationsB[i].septembergw);
+              wsumcost7 += parseFloat(this.optationsB[i].octobergw);
+              wsumcost8 += parseFloat(this.optationsB[i].novembergw);
+              wsumcost9 += parseFloat(this.optationsB[i].decembergw);
+              wsumcost10 += parseFloat(this.optationsB[i].januarygw);
+              wsumcost11 += parseFloat(this.optationsB[i].februarygw);
+              wsumcost12 += parseFloat(this.optationsB[i].marchgw);
               wsum += parseFloat(this.optationsB[i].wsum);
             }
             datatableb.push({
               group_id: '0',
               suppliername: this.$t('label.PFANS1012VIEW_ACCOUNT'),
-              ncost1: nsumcost1.toFixed(2),
-              ncost2: nsumcost2.toFixed(2),
-              ncost3: nsumcost3.toFixed(2),
-              ncost4: nsumcost4.toFixed(2),
-              ncost5: nsumcost5.toFixed(2),
-              ncost6: nsumcost6.toFixed(2),
-              ncost7: nsumcost7.toFixed(2),
-              ncost8: nsumcost8.toFixed(2),
-              ncost9: nsumcost9.toFixed(2),
-              ncost10: nsumcost10.toFixed(2),
-              ncost11: nsumcost11.toFixed(2),
-              ncost12: nsumcost12.toFixed(2),
-              wcost1: wsumcost1.toFixed(2),
-              wcost2: wsumcost2.toFixed(2),
-              wcost3: wsumcost3.toFixed(2),
-              wcost4: wsumcost4.toFixed(2),
-              wcost5: wsumcost5.toFixed(2),
-              wcost6: wsumcost6.toFixed(2),
-              wcost7: wsumcost7.toFixed(2),
-              wcost8: wsumcost8.toFixed(2),
-              wcost9: wsumcost9.toFixed(2),
-              wcost10: wsumcost10.toFixed(2),
-              wcost11: wsumcost11.toFixed(2),
-              wcost12: wsumcost12.toFixed(2),
+              aprilgn: nsumcost1.toFixed(2),
+              maygn: nsumcost2.toFixed(2),
+              junegn: nsumcost3.toFixed(2),
+              julygn: nsumcost4.toFixed(2),
+              augustgn: nsumcost5.toFixed(2),
+              septembergn: nsumcost6.toFixed(2),
+              octobergn: nsumcost7.toFixed(2),
+              novembergn: nsumcost8.toFixed(2),
+              decembergn: nsumcost9.toFixed(2),
+              januarygn: nsumcost10.toFixed(2),
+              februarygn: nsumcost11.toFixed(2),
+              marchgn: nsumcost12.toFixed(2),
+              aprilgw: wsumcost1.toFixed(2),
+              maygw: wsumcost2.toFixed(2),
+              junegw: wsumcost3.toFixed(2),
+              julygw: wsumcost4.toFixed(2),
+              augustgw: wsumcost5.toFixed(2),
+              septembergw: wsumcost6.toFixed(2),
+              octobergw: wsumcost7.toFixed(2),
+              novembergw: wsumcost8.toFixed(2),
+              decembergw: wsumcost9.toFixed(2),
+              januarygw: wsumcost10.toFixed(2),
+              februarygw: wsumcost11.toFixed(2),
+              marchgw: wsumcost12.toFixed(2),
               nsum: nsum.toFixed(2),
               wsum: wsum.toFixed(2),
             });
