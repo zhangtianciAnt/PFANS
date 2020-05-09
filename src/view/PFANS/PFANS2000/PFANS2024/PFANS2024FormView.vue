@@ -214,7 +214,21 @@
                 <el-form :model="form" label-position="top" label-width="8vw" ref="form" >
                   <el-row>
                     <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS2024FORMVIEW_YEARSCHEDULE')">
+                      <el-form-item :label="$t('label.PFANS1002VIEW_PROMOTION')">
+                        <span style="margin-right: 1vw ">{{$t('label.PFANS1002VIEW_UNDETERMINED')}}</span>
+                        <el-switch
+                          :disabled="!disable"
+                          v-model="form.promotion"
+                          active-value="1"
+                          inactive-value="0"
+                          @change="getpromotion"
+                        >
+                        </el-switch>
+                        <span style="margin-left: 1vw ">{{$t('label.PFANS1002VIEW_DETERMINED')}}</span>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="8">
+                      <el-form-item :label="$t('label.PFANS2024FORMVIEW_YEARSCHEDULE')" v-if="show">
                         <el-date-picker :disabled="!disable" style="width: 20vw" type="date"
                                         v-model="form.yearschedule"></el-date-picker>
                       </el-form-item>
@@ -294,6 +308,7 @@
                 checked2: true,
                 checked3: true,
                 checked4: true,
+              show: false,
                 error: "",
                 selectType: "Single",
                 userlist: "",
@@ -342,6 +357,7 @@
                     nextskillranking1: '',
                     nextskillranking2: '',
                     future1: '',
+                  promotion: '',
                     future2: '',
                     yearschedule: '',
                     skillrankingfinished: "0",
@@ -386,6 +402,12 @@
                                 this.staff.push(letstaff[i]);
                             }
                         }
+                      if (this.form.promotion === '1') {
+                        this.show = true;
+                      } else {
+                        this.show = false;
+                        this.form.yearschedule = "";
+                      }
                         this.loading = false;
                     })
                     .catch(error => {
@@ -474,6 +496,15 @@
             getstaff(val1) {
                 this.staff = val1;
             },
+          getpromotion(val) {
+            this.form.promotion = val;
+            if (val === '1') {
+              this.show = true;
+            } else {
+              this.show = false;
+              this.form.yearschedule = "";
+            }
+          },
             workflowState(val) {
                 if (val.state === '1') {
                     this.form.status = '3';
