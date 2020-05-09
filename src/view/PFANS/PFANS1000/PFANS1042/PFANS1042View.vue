@@ -998,12 +998,9 @@
                 val.posttaxbenefit = (Number(val.pretaxprofit) - Number(val.taxallowance)).toFixed(2);
                 //--営業利益率 = 営業利益 / 売上合計
                 if (Number(val.intotal) > 0) {
-                    val.operatingmargin = ((Number(val.Operating) / Number(val.intotal)) * 100).toFixed(2);
-                    if (Number(val.operatingmargin) > 0) {
-                        val.operatingmargin = val.operatingmargin + '%';
-                    }
+                    val.operatingmargin = ((Number(val.Operating) / Number(val.intotal)) * 100).toFixed(2) + '%';
                 } else {
-                    val.operatingmargin = '0.00';
+                    val.operatingmargin = '0.00%';
                 }
 
             },
@@ -1026,12 +1023,9 @@
 
                 //--営業利益率 = 営業利益 / 売上合計
                 if (Number(val.intotal) > 0) {
-                    val.operatingmargin = ((Number(val.Operating) / Number(val.intotal)) * 100).toFixed(2);
-                    if (Number(val.operatingmargin) > 0) {
-                        val.operatingmargin = val.operatingmargin + '%';
-                    }
+                    val.operatingmargin = ((Number(val.Operating) / Number(val.intotal)) * 100).toFixed(2) + '%';
                 } else {
-                    val.operatingmargin = '0.00';
+                    val.operatingmargin = '0.00%';
                 }
             },
             // changeDepment(val) {
@@ -1488,12 +1482,9 @@
                                         response[j].posttaxbenefit = (Number(response[j].pretaxprofit) - Number(response[j].taxallowance)).toFixed(2);
                                         //営業利益率
                                         if (Number(response[j].intotal) > 0) {
-                                            response[j].operatingmargin = ((Number(response[j].Operating) / Number(response[j].intotal)) * 100).toFixed(2);
-                                            if (Number(response[j].operatingmargin) > 0) {
-                                                response[j].operatingmargin = response[j].operatingmargin + '%';
-                                            }
+                                            response[j].operatingmargin = ((Number(response[j].Operating) / Number(response[j].intotal)) * 100).toFixed(2) + '%';
                                         } else {
-                                            response[j].operatingmargin = '0.00'
+                                            response[j].operatingmargin = '0.00%'
                                         }
 
 // add_fjl
