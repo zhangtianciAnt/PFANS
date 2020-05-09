@@ -755,7 +755,7 @@
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
               {
-                code: 'cost4',
+                code: 'april',
                 label: 'label.PFANS6009VIEW_MANHOUR3',
                 width: 110,
                 fix: false,
@@ -769,7 +769,7 @@
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
               {
-                code: 'cost5',
+                code: 'may',
                 label: 'label.PFANS6009VIEW_MANHOUR3',
                 width: 110,
                 fix: false,
@@ -783,7 +783,7 @@
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
               {
-                code: 'cost6',
+                code: 'june',
                 label: 'label.PFANS6009VIEW_MANHOUR3',
                 width: 110,
                 fix: false,
@@ -797,7 +797,7 @@
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
               {
-                code: 'cost7',
+                code: 'july',
                 label: 'label.PFANS6009VIEW_MANHOUR3',
                 width: 110,
                 fix: false,
@@ -811,7 +811,7 @@
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
               {
-                code: 'cost8',
+                code: 'august',
                 label: 'label.PFANS6009VIEW_MANHOUR3',
                 width: 110,
                 fix: false,
@@ -825,7 +825,7 @@
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
               {
-                code: 'cost9',
+                code: 'september',
                 label: 'label.PFANS6009VIEW_MANHOUR3',
                 width: 110,
                 fix: false,
@@ -839,7 +839,7 @@
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
               {
-                code: 'cost10',
+                code: 'october',
                 label: 'label.PFANS6009VIEW_MANHOUR3',
                 width: 110,
                 fix: false,
@@ -853,7 +853,7 @@
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
               {
-                code: 'cost11',
+                code: 'november',
                 label: 'label.PFANS6009VIEW_MANHOUR3',
                 width: 110,
                 fix: false,
@@ -867,7 +867,7 @@
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
               {
-                code: 'cost12',
+                code: 'december',
                 label: 'label.PFANS6009VIEW_MANHOUR3',
                 width: 110,
                 fix: false,
@@ -881,7 +881,7 @@
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
               {
-                code: 'cost1',
+                code: 'january',
                 label: 'label.PFANS6009VIEW_MANHOUR3',
                 width: 110,
                 fix: false,
@@ -895,7 +895,7 @@
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
               {
-                code: 'cost2',
+                code: 'february',
                 label: 'label.PFANS6009VIEW_MANHOUR3',
                 width: 110,
                 fix: false,
@@ -909,7 +909,7 @@
               this.$t('label.PFANS2005FORMVIEW_MONTH'),
             child: [
               {
-                code: 'cost3',
+                code: 'march',
                 label: 'label.PFANS6009VIEW_MANHOUR3',
                 width: 110,
                 fix: false,
@@ -1397,19 +1397,22 @@
               this.optationsC.push({
                 group_id: response[i].group_id,
                 suppliername: response[i].suppliername,
-                cost1: moment(response[i].date).format('MM') === '01' ? response[i].counts : '0',
-                cost2: moment(response[i].date).format('MM') === '02' ? response[i].counts : '0',
-                cost3: moment(response[i].date).format('MM') === '03' ? response[i].counts : '0',
-                cost4: moment(response[i].date).format('MM') === '04' ? response[i].counts : '0',
-                cost5: moment(response[i].date).format('MM') === '05' ? response[i].counts : '0',
-                cost6: moment(response[i].date).format('MM') === '06' ? response[i].counts : '0',
-                cost7: moment(response[i].date).format('MM') === '07' ? response[i].counts : '0',
-                cost8: moment(response[i].date).format('MM') === '08' ? response[i].counts : '0',
-                cost9: moment(response[i].date).format('MM') === '09' ? response[i].counts : '0',
-                cost10: moment(response[i].date).format('MM') === '10' ? response[i].counts : '0',
-                cost11: moment(response[i].date).format('MM') === '11' ? response[i].counts : '0',
-                cost12: moment(response[i].date).format('MM') === '12' ? response[i].counts : '0',
-                sum: response[i].counts,
+                april:response[i].april,
+                may: response[i].may,
+                june: response[i].june,
+                july: response[i].july,
+                august: response[i].august,
+                september: response[i].september,
+                october: response[i].october,
+                november: response[i].november,
+                december: response[i].december,
+                january: response[i].january,
+                february: response[i].february,
+                march: response[i].march,
+                sum: Number(response[i].april)+Number(response[i].may)+Number(response[i].june)
+                  +Number(response[i].july)+Number(response[i].august)+Number(response[i].september)+
+                  Number(response[i].october)+Number(response[i].november)+Number(response[i].december)+
+                  Number(response[i].january)+Number(response[i].february)+Number(response[i].march),
               });
             }
             let sumcost1 = 0;
@@ -1426,35 +1429,35 @@
             let sumcost12 = 0;
             let sum = 0;
             for (let i = 0; i < this.optationsC.length; i++) {
-              sumcost1 += parseFloat(this.optationsC[i].cost1);
-              sumcost2 += parseFloat(this.optationsC[i].cost2);
-              sumcost3 += parseFloat(this.optationsC[i].cost3);
-              sumcost4 += parseFloat(this.optationsC[i].cost4);
-              sumcost5 += parseFloat(this.optationsC[i].cost5);
-              sumcost6 += parseFloat(this.optationsC[i].cost6);
-              sumcost7 += parseFloat(this.optationsC[i].cost7);
-              sumcost8 += parseFloat(this.optationsC[i].cost8);
-              sumcost9 += parseFloat(this.optationsC[i].cost9);
-              sumcost10 += parseFloat(this.optationsC[i].cost10);
-              sumcost11 += parseFloat(this.optationsC[i].cost11);
-              sumcost12 += parseFloat(this.optationsC[i].cost12);
+              sumcost1 += parseFloat(this.optationsC[i].april);
+              sumcost2 += parseFloat(this.optationsC[i].may);
+              sumcost3 += parseFloat(this.optationsC[i].june);
+              sumcost4 += parseFloat(this.optationsC[i].july);
+              sumcost5 += parseFloat(this.optationsC[i].august);
+              sumcost6 += parseFloat(this.optationsC[i].september);
+              sumcost7 += parseFloat(this.optationsC[i].october);
+              sumcost8 += parseFloat(this.optationsC[i].november);
+              sumcost9 += parseFloat(this.optationsC[i].december);
+              sumcost10 += parseFloat(this.optationsC[i].january);
+              sumcost11 += parseFloat(this.optationsC[i].february);
+              sumcost12 += parseFloat(this.optationsC[i].march);
               sum += parseFloat(this.optationsC[i].sum);
             }
             datatablec.push({
               group_id: '0',
               suppliername: this.$t('label.PFANS1012VIEW_ACCOUNT'),
-              cost1: sumcost1,
-              cost2: sumcost2,
-              cost3: sumcost3,
-              cost4: sumcost4,
-              cost5: sumcost5,
-              cost6: sumcost6,
-              cost7: sumcost7,
-              cost8: sumcost8,
-              cost9: sumcost9,
-              cost10: sumcost10,
-              cost11: sumcost11,
-              cost12: sumcost12,
+              april: sumcost1,
+              may: sumcost2,
+              june: sumcost3,
+              july: sumcost4,
+              august: sumcost5,
+              september: sumcost6,
+              october: sumcost7,
+              november: sumcost8,
+              december: sumcost9,
+              january: sumcost10,
+              february: sumcost11,
+              march: sumcost12,
               sum: sum,
             });
             this.tableC = this.optationsC.concat(datatablec);
