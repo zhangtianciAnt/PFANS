@@ -1,11 +1,8 @@
 <template>
-  <div style="min-height: 100%">`
+  <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick" ref="container"
                          @workflowState="workflowState" v-loading="loading"
                          :canStart="canStart" @start="start" @end="end" :enableSave="enableSave">
-      <!--//start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09-->
-      <!--:enableSave="enableSave"-->
-      <!--//end(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09-->
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
                  style="padding:3vw">

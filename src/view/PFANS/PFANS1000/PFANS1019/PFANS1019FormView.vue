@@ -1,5 +1,5 @@
 <template>
-  <div style="min-height: 100%">`
+  <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick" ref="container"
                          @workflowState="workflowState" v-loading="loading"
                          :canStart="canStart" @start="start" @end="end" :enableSave="enableSave">
