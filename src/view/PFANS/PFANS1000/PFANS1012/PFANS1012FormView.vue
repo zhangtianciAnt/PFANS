@@ -112,6 +112,12 @@
                       ></el-input-number>
                     </el-form-item>
                   </el-col>
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1012VIEW_EXPECTEDPAYDATE')" prop="expectedpaydate">
+                      <el-date-picker :disabled="!disable" style="width:20vw" v-model="form.expectedpaydate">
+                      </el-date-picker>
+                    </el-form-item>
+                  </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
@@ -137,6 +143,18 @@
                                  @change="getPayment"
                                  style="width:20vw">
                       </dicselect>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item :label="$t('是否导出CSV')">
+                      <el-switch
+                        @change="changeexternal(scope.row)"
+                        :disabled="!disable"
+                        v-model="form.exportcsv"
+                        active-value="1"
+                        inactive-value="0"
+                      >
+                      </el-switch>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -1442,6 +1460,8 @@
           user_id: '',
           telephone: '',
           moduleid: '',
+            expectedpaydate: '',
+            exportcsv: '1',
           moduleidApp: '',
           accountnumber: '',
           reimbursementdate: moment(new Date()).format('YYYY-MM-DD'),
@@ -1498,6 +1518,11 @@
             message: this.$t('normal.error_09') + this.$t('label.PFANS1012VIEW_ACCOUNT_NUMBER'),
             trigger: 'change',
           }],
+            expectedpaydate: [{
+                required: true,
+                message: this.$t('normal.error_09') + this.$t('label.PFANS1012VIEW_EXPECTEDPAYDATE'),
+                trigger: 'change',
+            }],
           payeename: [{
             required: true,
             validator: validatepayeename,
