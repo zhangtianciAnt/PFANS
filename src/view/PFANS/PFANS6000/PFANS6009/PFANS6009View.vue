@@ -12,14 +12,16 @@
       v-loading="loading"
       v-show="region === '1'"
     >
-      <div slot="search">
-        <el-form label-position="top" label-width="8vw" ref="reff" style="padding-top: 10px">
-          <el-form-item>
-            <el-row style="padding-top: 10px">
-              <el-col :span="6">
-                <el-form-item :label="$t('label.PFANS1039FORMVIEW_GROUP')">
-                  <el-select v-model="form.group_id" style="width: 20vw"
-                             @change="changeGroupA">
+                  <el-date-picker
+                    :placeholder="$t('normal.error_09')"
+                    @change="yearChangeA"
+                    format="yyyy"
+                    type="year"
+                    slot="customize"
+                    v-model="form.year" style="width:8vw ">
+                  </el-date-picker>
+                  <el-select v-model="form.group_id" style="width: 13vw"
+                             @change="changeGroupA" slot="customize">
                     <el-option
                       v-for="item in optionsdata"
                       :key="item.value"
@@ -27,17 +29,12 @@
                       :value="item.value">
                     </el-option>
                   </el-select>
-                </el-form-item>
-              </el-col>
-            </el-row>
-          </el-form-item>
-        </el-form>
-      </div>
-      <el-select slot="customize" v-model="region">
-        <el-option :label="$t('label.PFANS6009TAB1')" value="1"></el-option>
-        <el-option :label="$t('label.PFANS6009TAB2')" value="2"></el-option>
-        <el-option :label="$t('label.PFANS6009TAB3')" value="3"></el-option>
-      </el-select>
+                  <el-select v-model="region" slot="customize" style="width: 10vw">
+                    <el-option :label="$t('label.PFANS6009TAB1')" value="1"></el-option>
+                    <el-option :label="$t('label.PFANS6009TAB2')" value="2"></el-option>
+                    <el-option :label="$t('label.PFANS6009TAB3')" value="3"></el-option>
+                  </el-select>
+
       <!--<el-tabs v-model="activeName" type="border-card" @tab-click="handleTabClick">-->
       <!--<el-tab-pane :label="$t('label.PFANS6009TAB1')" name="first">-->
       <!--<el-table :data="this.tableA" stripe header-cell-class-name="sub_bg_color_blue" :span-method="arraySpanMethod" v-loading="tableALoading">-->
@@ -92,28 +89,24 @@
       v-loading="loading"
       v-show="region === '2'"
     >
-      <div slot="search">
-        <el-form label-position="top" label-width="8vw" ref="reff" style="padding-top: 10px" :rules="rules">
-          <el-form-item>
-            <el-row style="padding-top: 10px">
-              <el-col :span="6">
-                <el-form-item :label="$t('label.PFANS1039FORMVIEW_GROUP')">
-                  <el-select v-model="form.group_id" style="width: 20vw"
-                             @change="changeGroupB">
-                    <el-option
-                      v-for="item in optionsdata"
-                      :key="item.value"
-                      :label="item.lable"
-                      :value="item.value">
-                    </el-option>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-            </el-row>
-          </el-form-item>
-        </el-form>
-      </div>
-      <el-select slot="customize" v-model="region">
+      <el-date-picker
+        :placeholder="$t('normal.error_09')"
+        @change="yearChangeB"
+        format="yyyy"
+        type="year"
+        slot="customize"
+        v-model="form.year" style="width:8vw ">
+      </el-date-picker>
+      <el-select v-model="form.group_id" style="width: 13vw"
+                 @change="changeGroupB" slot="customize">
+        <el-option
+          v-for="item in optionsdata"
+          :key="item.value"
+          :label="item.lable"
+          :value="item.value">
+        </el-option>
+      </el-select>
+      <el-select v-model="region" slot="customize" style="width: 10vw">
         <el-option :label="$t('label.PFANS6009TAB1')" value="1"></el-option>
         <el-option :label="$t('label.PFANS6009TAB2')" value="2"></el-option>
         <el-option :label="$t('label.PFANS6009TAB3')" value="3"></el-option>
@@ -131,28 +124,24 @@
       v-loading="loading"
       v-show="region === '3'"
     >
-      <div slot="search">
-        <el-form label-position="top" label-width="8vw" ref="reff" style="padding-top: 10px" :rules="rules">
-          <el-form-item>
-            <el-row style="padding-top: 10px">
-              <el-col :span="6">
-                <el-form-item :label="$t('label.PFANS1039FORMVIEW_GROUP')">
-                  <el-select v-model="form.group_id" style="width: 20vw"
-                             @change="changeGroupC">
-                    <el-option
-                      v-for="item in optionsdata"
-                      :key="item.value"
-                      :label="item.lable"
-                      :value="item.value">
-                    </el-option>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-            </el-row>
-          </el-form-item>
-        </el-form>
-      </div>
-      <el-select slot="customize" v-model="region">
+      <el-date-picker
+        :placeholder="$t('normal.error_09')"
+        @change="yearChangeC"
+        format="yyyy"
+        type="year"
+        slot="customize"
+        v-model="form.year" style="width:8vw ">
+      </el-date-picker>
+      <el-select v-model="form.group_id" style="width: 13vw"
+                 @change="changeGroupC" slot="customize">
+        <el-option
+          v-for="item in optionsdata"
+          :key="item.value"
+          :label="item.lable"
+          :value="item.value">
+        </el-option>
+      </el-select>
+      <el-select v-model="region" slot="customize" style="width: 10vw">
         <el-option :label="$t('label.PFANS6009TAB1')" value="1"></el-option>
         <el-option :label="$t('label.PFANS6009TAB2')" value="2"></el-option>
         <el-option :label="$t('label.PFANS6009TAB3')" value="3"></el-option>
@@ -181,6 +170,8 @@
         activeName: 'first',
         form: {
           group_id: '',
+          year: moment(new Date()).format('MM') < 4 ? moment(new Date()).add(-1, 'y').format("YYYY") : moment(new Date()).format('YYYY'),
+
         },
         optionsdata: [],
         tableA: [],
@@ -543,7 +534,7 @@
       this.columnsC[13].child.splice(1, 1);
       this.columnsC[13].child[0].label = this.number;
 
-      this.loadTableA(this.form.group_id);
+      this.loadTableA(this.form.group_id,this.form.year);
       this.loadTableB(this.form.group_id);
       this.loadTableC(this.form.group_id);
 
@@ -649,20 +640,24 @@
           }
         }
       },
-      loadTableA(val) {
-        // if (this.tableALoading == false) {
-        //   return;
-        // }
+      loadTableA(group_id, yearss) {
          let groupid ='';
+         let year ='';
         debugger;
         this.loading = true;
-        this.form.group_id = val;
+        this.form.group_id = group_id;
+        this.form.year = yearss;
         if (this.form.group_id)
         {
           groupid = this.form.group_id;
         }
+        if (this.form.year)
+        {
+          year = this.form.year;
+        }
         let params = {
-          groupid: groupid
+          groupid: groupid,
+          years :year
         }
         this.$store
           .dispatch('PFANS6009Store/getCostList',params)
@@ -902,10 +897,22 @@
             this.tableCLoading = false;
           });
       },
+      yearChangeA(value) {
+        this.form.year = moment(value).format('YYYY');
+        this.loadTableA(this.form.group_id,this.form.year);
+      },
+      yearChangeB(value) {
+        this.form.year = moment(value).format('YYYY');
+        this.loadTableB(this.form.group_id,this.form.year);
+      },
+      yearChangeC(value) {
+        this.form.year = moment(value).format('YYYY');
+        this.loadTableC(this.form.group_id,this.form.year);
+      },
       handleTabClick(tab, event) {
         switch (tab.name) {
           case 'first':
-            this.loadTableA();
+            this.loadTableA(this.form.group_id,this.form.year);
             break;
           case 'second':
             this.loadTableB();
@@ -928,7 +935,8 @@
         console.log(listC);
 
         let params = {
-          groupid: this.form.group_id
+          groupid: this.form.group_id,
+          years : this.form.year
         }
         this.$store
           .dispatch("PFANS6009Store/downloadExcel",params)
@@ -1032,18 +1040,18 @@
           this.optionsdata = vote;
         }
         this.form.group_id = this.optionsdata[0].value;
-        if (this.form.group_id) {
-          this.loadTableA(this.form.group_id);
+        //if (this.form.group_id) {
+          this.loadTableA(this.form.group_id,this.form.year);
           this.loadTableB(this.form.group_id);
           this.loadTableC(this.form.group_id);
-        }
+        //}
         this.loading = false;
       },
       changeGroupA(val) {
         this.form.group_id = val;
-        if (this.form.group_id) {
-          this.loadTableA(this.form.group_id);
-        }
+        //if (this.form.group_id) {
+          this.loadTableA(this.form.group_id,this.form.year);
+        //}
       },
       changeGroupB(val) {
         this.form.group_id = val;
