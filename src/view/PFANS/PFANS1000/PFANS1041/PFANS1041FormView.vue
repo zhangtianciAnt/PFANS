@@ -880,7 +880,7 @@
         dataA: [],
         row_id: '',
         // show2: false,
-        title: 'title.PFANS1040VIEW',
+        title: 'title.PFANS1041VIEW',
         activeName: 'plan',
         workflowCode: 'W0052',
         status: '0',
