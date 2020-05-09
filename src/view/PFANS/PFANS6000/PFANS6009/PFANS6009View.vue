@@ -8,6 +8,7 @@
       :title="title"
       @buttonClick="buttonClick"
       :span-method="this.arraySpanMethod"
+      :rowClassName="rowClassNameA"
       ref="container1"
       v-loading="loading"
       v-show="region === '1'"
@@ -85,6 +86,7 @@
       :title="title"
       @buttonClick="buttonClick"
       :span-method="this.arraySpanMethod2"
+      :rowClassName="rowClassNameB"
       ref="container2"
       v-loading="loading"
       v-show="region === '2'"
@@ -120,6 +122,7 @@
       :title="title"
       @buttonClick="buttonClick"
       :span-method="this.arraySpanMethod3"
+      :rowClassName="rowClassNameC"
       ref="container3"
       v-loading="loading"
       v-show="region === '3'"
@@ -1026,12 +1029,27 @@
 
     },
     methods: {
-      changeregion(val){
-        if(val==='1'){
+      rowClassNameA({row, rowIndex}) {
+        if (row.bpcompany === this.$t('label.PFANS6009VIEW_TOTAL') || row.bpcompany === this.$t('label.PFANS6009VIEW_AVERAGEUNITPRICE') || row.bpcompany === this.$t('label.PFANS6009VIEW_TRAVELEXPENSES') || row.bpcompany === this.$t('label.PFANS6009VIEW_EQUIPMENTFUNDS') || row.bpcompany === this.$t('label.PFANS6009VIEW_TOTALEXPENDITURE')) {
+          return 'sub_bg_color_Darkgrey';
+        }
+      },
+      rowClassNameB({row, rowIndex}) {
+        if (row.group_id === '0') {
+          return 'sub_bg_color_Darkgrey';
+        }
+      },
+      rowClassNameC({row, rowIndex}) {
+        if (row.group_id === '0') {
+          return 'sub_bg_color_Darkgrey';
+        }
+      },
+      changeregion(val) {
+        if (val === '1') {
           this.loadTableA(this.form.group_id, this.form.year);
-        }else if(val==='2'){
+        } else if (val === '2') {
           this.loadTableB(this.form.group_id, this.form.year);
-        }else if(val==='3'){
+        } else if (val === '3') {
           this.loadTableC(this.form.group_id, this.form.year);
         }
       },
