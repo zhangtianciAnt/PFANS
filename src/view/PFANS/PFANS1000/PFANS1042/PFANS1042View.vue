@@ -140,7 +140,7 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_TAXYW')"
               align="center"
-              width="200">
+              width="110">
               <template slot-scope="scope">
                 <span>{{scope.row.outst2}}</span>
               </template>
@@ -149,7 +149,7 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_TAXSA')"
               align="center"
-              width="200">
+              width="110">
               <template slot-scope="scope">
                 <span>{{scope.row.outst3}}</span>
               </template>
@@ -225,7 +225,7 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_DEPRECIATIONSOFT')"
               align="center"
-              width="150"
+              width="180"
               prop="depreciationsoft">
               <template slot-scope="scope">
                 <el-input-number
@@ -246,7 +246,7 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_DEPRECIATIONEQUIPMENT')"
               align="center"
-              width="160"
+              width="180"
               prop="depreciationequipment">
               <template slot-scope="scope">
                 <el-input-number
@@ -294,7 +294,7 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_OTHER')"
               align="center"
-              width="110">
+              width="150">
               <template slot-scope="scope">
                 <span>{{scope.row.other}}</span>
               </template>
