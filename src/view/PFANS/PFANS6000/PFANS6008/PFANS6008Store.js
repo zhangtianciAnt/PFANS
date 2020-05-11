@@ -17,9 +17,9 @@ const PFANS6008Store = {
         })
       })
     },
-    insertCoststatistics() {
+    insertCoststatistics({commit}, data) {
       return new Promise((resolve, reject) => {
-        insertCoststatistics().then(response => {
+        insertCoststatistics(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {

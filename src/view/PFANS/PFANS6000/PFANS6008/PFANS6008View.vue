@@ -785,9 +785,17 @@
         }
         if (val === 'generate')
         {
+          let groupid ='';
           this.loading = true;
+          if (this.form.group_id)
+          {
+            groupid = this.form.group_id;
+          }
+          let params = {
+            groupid: groupid
+          }
           this.$store
-            .dispatch('PFANS6008Store/insertCoststatistics')
+            .dispatch('PFANS6008Store/insertCoststatistics',params)
             .then(response => {
               this.init();
               Message({
