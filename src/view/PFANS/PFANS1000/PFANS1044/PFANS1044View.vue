@@ -186,6 +186,7 @@
         this.$store
           .dispatch('PFANS1026Store/get', {})
           .then(response => {
+            //debugger;
             let letcontractnumber = [];
             let tabledata = response.contractapplication;
             for (let i = 0; i < tabledata.length; i++) {
@@ -194,6 +195,17 @@
               if (user) {
                 tabledata[i].username = getUserInfo(tabledata[i].user_id).userinfo.customername;
               }
+              // add ccm
+              if (tabledata[i].loadingjudge)
+              {
+                let user = getUserInfo(tabledata[i].loadingjudge);
+                if (user) {
+                  tabledata[i].loadingjudge = getUserInfo(tabledata[i].loadingjudge).userinfo.customername;
+                }
+              }
+              // add ccm
+
+
               if (tabledata[i].applicationdate !== null && tabledata[i].applicationdate !== '') {
                 tabledata[i].applicationdate = moment(tabledata[i].applicationdate).format('YYYY-MM-DD');
               }
@@ -236,6 +248,16 @@
               }
             }
             // this.alldata = this.data;
+            for (let i = 0; i < response.contractnumbercount.length; i++) {
+              if (response.contractnumbercount[i].loadingjudge)
+              {
+                let user = getUserInfo(response.contractnumbercount[i].loadingjudge);
+                if (user) {
+                  response.contractnumbercount[i].loadingjudge = getUserInfo(response.contractnumbercount[i].loadingjudge).userinfo.customername;
+                }
+              }
+            }
+
             this.alldata2 = response.contractnumbercount;
             this.contractnumbercount = (letcontractnumber.length + 1);
             this.changed();
