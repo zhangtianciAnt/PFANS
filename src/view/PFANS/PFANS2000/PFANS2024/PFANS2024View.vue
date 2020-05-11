@@ -1,7 +1,40 @@
 <template>
+  <div>
   <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row"
                    :title="title" @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
   </EasyNormalTable>
+    <el-dialog center
+    :visible.sync="dialogVisible"
+    width="60%">
+      <el-row>
+        <el-col :span="8">
+        <el-form :model="form" label-position="top" label-width="8vw" ref="form" style="padding: 2vw">
+          <el-form-item :label="$t('label.PFANS2007VIEW_YEAR')">
+            <el-date-picker
+              v-model="form.year"
+              type="year">
+            </el-date-picker>
+          </el-form-item>
+        </el-form>
+      </el-col>
+        <el-col :span="8">
+          <el-form :model="form" label-position="top" label-width="8vw" ref="form" style="padding: 2vw">
+            <el-form-item :label="$t('label.PFANS1008FORMVIEW_DEPARTMENT')">
+              <org
+                orgtype="4"
+                style="width:12vw"
+                selectType="Single"
+                @getOrgids="setOrg"
+              ></org>
+            </el-form-item>
+          </el-form>
+        </el-col>
+      </el-row>
+    <span slot="footer" class="dialog-footer">
+    <el-button type="primary" @click="submit">确 定</el-button>
+  </span>
+  </el-dialog>
+  </div>
 </template>
 
 <script>
@@ -9,14 +42,20 @@
     import {getDictionaryInfo, getStatus, getUserInfo,getOrgInfoByUserId} from '@/utils/customize';
     import {Message} from 'element-ui';
     import moment from "moment";
-
+    import org from '@/view/components/org';
     export default {
         name: 'PFANS2024View',
         components: {
             EasyNormalTable,
+          org
         },
         data() {
             return {
+              form:{
+                year:'',
+                org:''
+              },
+              dialogVisible:false,
                 loading: false,
                 title: "title.PFANS2024VIEW",
                 // 表格数据源
@@ -79,13 +118,13 @@
                         fix: false,
                         filter: true
                     },
-                    {
-                        code: 'status',
-                        label: 'label.PFANS2023VIEW_COMPLETIONSTATUS',
-                        width: 150,
-                        fix: false,
-                        filter: true
-                    }
+                    // {
+                    //     code: 'status',
+                    //     label: 'label.PFANS2023VIEW_COMPLETIONSTATUS',
+                    //     width: 150,
+                    //     fix: false,
+                    //     filter: true
+                    // }
                 ],
                 buttonList: [
                     {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
@@ -97,69 +136,109 @@
             };
         },
         mounted() {
+           this.init();
+        },
+        methods: {
+          setOrg(val){
+            this.form.org = val;
+          },
+          init(){
             this.loading = true;
 
             this.$store
-                .dispatch('PFANS2024Store/getFpans2024List', {})
-                .then(response => {
-                    for (let j = 0; j < response.length; j++) {
-                        if (response[j].user_id !== null && response[j].user_id !== "") {
-                            let user = getUserInfo(response[j].user_id);
-                            let nameflg = getOrgInfoByUserId(response[j].user_id);
-                            if (nameflg) {
-                                response[j].center_name = nameflg.centerNmae;
-                                response[j].group_name = nameflg.groupNmae;
-                                response[j].team_name = nameflg.teamNmae;
-                            }
-                            if (user) {
-                                response[j].user_name = user.userinfo.customername;
-                            }
-                        }
-                        if (response[j].status !== null && response[j].status !== "") {
-                            response[j].status = getStatus(response[j].status);
-                        }
-                        if (response[j].skilllevel !== null && response[j].skilllevel !== "") {
-                            let letStage = getDictionaryInfo(response[j].skilllevel);
-                            if (letStage != null) {
-                                response[j].skilllevel = letStage.value1;
-                            }
-                        }
-                        if (response[j].schoolspecies !== null && response[j].schoolspecies !== "") {
-                            let letStage = getDictionaryInfo(response[j].schoolspecies);
-                            if (letStage != null) {
-                                response[j].schoolspecies = letStage.value1;
-                            }
-                        }
-                        if (response[j].entryyear !== null && response[j].entryyear !== "") {
-                            response[j].entryyear = moment(response[j].entryyear).format("YYYY-MM-DD");
-                        }
-                        // if (response[j].graduationyear !== null && response[j].graduationyear !== "") {
-                        //     response[j].graduationyear = moment(response[j].graduationyear).format("YYYY");
-                        // }
-                        if (response[j].contract !== null && response[j].contract !== "") {
-                            response[j].contract = moment(response[j].contract).format("YYYY");
-                        }
-                      if (response[j].createon !== null && response[j].createon !== "") {
-                        response[j].createon = moment(response[j].createon).format("YYYY");
-                      }
+              .dispatch('PFANS2024Store/getFpans2024List', {})
+              .then(response => {
+                for (let j = 0; j < response.length; j++) {
+                  if (response[j].user_id !== null && response[j].user_id !== "") {
+                    let user = getUserInfo(response[j].user_id);
+                    let nameflg = getOrgInfoByUserId(response[j].user_id);
+                    if (nameflg) {
+                      response[j].center_name = nameflg.centerNmae;
+                      response[j].group_name = nameflg.groupNmae;
+                      response[j].team_name = nameflg.teamNmae;
                     }
-                    this.data = response;
-                    this.loading = false;
-                })
-                .catch(error => {
-                    Message({
-                        message: error,
-                        type: 'error',
-                        duration: 5 * 1000
-                    });
-                    this.loading = false;
-                })
-
-        },
-        methods: {
+                    if (user) {
+                      response[j].user_name = user.userinfo.customername;
+                    }
+                  }
+                  if (response[j].status !== null && response[j].status !== "") {
+                    response[j].status = getStatus(response[j].status);
+                  }
+                  if (response[j].skilllevel !== null && response[j].skilllevel !== "") {
+                    let letStage = getDictionaryInfo(response[j].skilllevel);
+                    if (letStage != null) {
+                      response[j].skilllevel = letStage.value1;
+                    }
+                  }
+                  if (response[j].schoolspecies !== null && response[j].schoolspecies !== "") {
+                    let letStage = getDictionaryInfo(response[j].schoolspecies);
+                    if (letStage != null) {
+                      response[j].schoolspecies = letStage.value1;
+                    }
+                  }
+                  if (response[j].entryyear !== null && response[j].entryyear !== "") {
+                    response[j].entryyear = moment(response[j].entryyear).format("YYYY-MM-DD");
+                  }
+                  // if (response[j].graduationyear !== null && response[j].graduationyear !== "") {
+                  //     response[j].graduationyear = moment(response[j].graduationyear).format("YYYY");
+                  // }
+                  if (response[j].contract !== null && response[j].contract !== "") {
+                    response[j].contract = moment(response[j].contract).format("YYYY");
+                  }
+                  if (response[j].createon !== null && response[j].createon !== "") {
+                    response[j].createon = moment(response[j].createon).format("YYYY");
+                  }
+                }
+                this.data = response;
+                this.loading = false;
+              })
+              .catch(error => {
+                Message({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000
+                });
+                this.loading = false;
+              })
+          },
             rowClick(row) {
                 this.rowid = row.talentplan_id;
             },
+          submit(){
+            this.loading = true;
+            this.$confirm(this.$t('normal.info_14'), this.$t('normal.info'), {
+              confirmButtonText: this.$t('button.confirm'),
+              cancelButtonText: this.$t('button.cancel'),
+              type: 'warning',
+              center: true
+            }).then(() => {
+              this.$store
+                .dispatch('PFANS2024Store/create',  this.form)
+                .then(response => {
+                  this.init();
+                  Message({
+                    message: this.$t('normal.success_01'),
+                    type: 'success',
+                    duration: 2 * 1000
+                  })
+                  this.loading = false;
+                })
+                .catch(error => {
+                  Message({
+                    message: error,
+                    type: 'error',
+                    duration: 5 * 1000
+                  })
+                  this.loading = false;
+                })
+            }).catch(() => {
+              this.$message({
+                type: 'info',
+                message: this.$t('normal.info_04')
+              });
+              this.loading = false;
+            });
+          },
             buttonClick(val) {
                 this.$store.commit('global/SET_HISTORYURL', this.$route.path);
                 if (val === 'view') {
@@ -180,13 +259,15 @@
                     })
                 }
                 if (val === 'insert') {
-                    this.$router.push({
-                        name: 'PFANS2024FormView',
-                        params: {
-                            _id: "",
-                            disabled: true
-                        }
-                    })
+                    // this.$router.push({
+                  //     name: 'PFANS2024FormView',
+                  //     params: {
+                  //         _id: "",
+                  //         disabled: true
+                  //     }
+                  // })
+                  this.dialogVisible = true;
+
                 }
                 if (val === 'edit') {
                     if (this.rowid === '') {
