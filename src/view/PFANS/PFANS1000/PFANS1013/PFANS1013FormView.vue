@@ -3387,7 +3387,6 @@
                       this.loading = false;
                     });
                 } else {
-                  this.loading = true;
                   this.form.user_id = this.userlist;
                   this.$store
                     .dispatch('PFANS1013Store/create', this.baseInfo)
