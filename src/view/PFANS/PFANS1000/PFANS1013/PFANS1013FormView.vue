@@ -2791,8 +2791,14 @@
         } else if (this.form.type === '1') {
           // this.form.totalpay = sums[10] + this.tableAValue[13] + this.tableRValue[9];
           this.form.totalpay = sums[9] + this.tableAValue[12] + this.tableAValue[14];
+          //add-ws-5/11-结余公式重新计算
+          let sumexchangermb = 0;
+          for (let i = 0; i < this.tableW.length; i++) {
+            sumexchangermb+=parseFloat(this.tableW[i].exchangermb)
+          }
+           this.form.balance = sumexchangermb + this.tableAValue[14];
+          //add-ws-5/11-结余公式重新计算
         }
-        this.form.balance = this.form.loanamount - this.form.totalpay;
       },
       workflowState(val) {
         if (val.state === '1') {

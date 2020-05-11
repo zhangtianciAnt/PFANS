@@ -401,6 +401,13 @@
                   </el-col>
                 </el-row>
                 <el-row>
+                  <el-form-item :label="$t('label.PFANS1017FORMVIEW_PREPAREFOR')" >
+                    <el-input :disabled="!disable" style="width: 70vw" type="textarea"
+                              v-model="form.preparefor">
+                    </el-input>
+                  </el-form-item>
+                </el-row>
+                <el-row>
                   <el-form-item :label="$t('label.PFANS1012VIEW_ABSTRACT')" prop="remark">
                     <el-input :disabled="!disable" style="width: 70vw" type="textarea"
                               v-model="form.remark">
@@ -1469,6 +1476,7 @@
           foreigncurrency: '',
           rmbexpenditure: '',
           tormb: '',
+          preparefor: '',
           remark: '',
           paymentmethod: '',
           payeename: '',
