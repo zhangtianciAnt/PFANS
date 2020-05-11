@@ -1195,9 +1195,9 @@
         ],
         tableF: [{
           evectionid: '',
-          invoicenumber: '1',
           invoicenumber: this.$t('label.PFANS1012FORMVIEW_NUMBERZP') + 1,
           invoiceamount: '',
+          invoicetype: 'PJ068001',
           taxrate: '',
           excludingtax: '',
           facetax: '',
@@ -2915,7 +2915,7 @@
               let travelsum4 = 0;
               let travelsum5 = 0;
               let travelsum6 = 0;
-              let sumtableA1= 0;
+              let sumtableA1 = 0;
               let sumtableA2 = 0;
               let sumtableA3 = 0;
               let sumtableA4 = 0;
@@ -3008,8 +3008,7 @@
                 //     break;
                 //   }
                 // }
-              }
-              else if (this.form.type === '1') {
+              } else if (this.form.type === '1') {
                 for (let i = 0; i < this.tableT.length; i++) {
                   if (this.tableT[i].trafficdate !== '' || this.tableT[i].invoicenumber !== '' || this.tableT[i].departmentname !== '' || this.tableT[i].budgetcoding !== ''
                     || this.tableT[i].rmb > 0 || this.tableT[i].plsummary !== ''
