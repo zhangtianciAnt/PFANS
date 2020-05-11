@@ -1154,6 +1154,7 @@
         disable: true,
         centerorglist: '',
         grouporglist: '',
+        claimamount: '',
         teamorglist: '',
         userlist: '',
         userlist1: '',
@@ -1777,24 +1778,19 @@
             this.gridData3 = [];
             this.compounddata = [];
             for (let i = 0; i < response.contractapplication.length; i++) {
-              if (
-                response.contractapplication[i].claimdatetime !== '' &&
-                response.contractapplication[i].claimdatetime !== null
-              ) {
+              if (response.contractapplication[i].claimdatetime !== '' && response.contractapplication[i].claimdatetime !== null) {
                 let claimdatetime = response.contractapplication[i].claimdatetime;
                 let claimdatetim = claimdatetime.slice(0, 10);
-                let claimdatetime1 = claimdatetime.slice(
-                  claimdatetime.length - 10,
-                );
-                response.contractapplication[i].claimdatetime = [
-                  claimdatetim,
-                  '~',
-                  claimdatetime1,
-                ];
+                let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
+                response.contractapplication[i].claimdatetime = [claimdatetim + '~' + claimdatetime1];
+
+                response.contractapplication[i].entrypayment = [claimdatetim, claimdatetime1];
+
               }
               var vote2 = {};
               vote2.contract = response.contractapplication[i].contractnumber;
               vote2.deployment = response.contractapplication[i].deployment;
+              vote2.entrypayment = response.contractapplication[i].entrypayment;
               vote2.contracttype = getDictionaryInfo(
                 response.contractapplication[i].contracttype,
               ).value1;
@@ -1803,6 +1799,9 @@
               ).format('YYYY-MM-DD');
               vote2.state = response.contractapplication[i].state;
               vote2.claimdatetime = response.contractapplication[i].claimdatetime;
+              //add-ws-5/11-合同请求金额数据赋值
+              vote2.claimamount = response.contractapplication[i].claimamount;
+              //add-ws-5/11-合同请求金额数据赋值
               this.gridData3.push(vote2);
             }
             this.compounddata = response.contractcompound;
@@ -1818,11 +1817,19 @@
           });
       },
       handleClickChange2(val) {
+        //add-ws-5/11-合同请求金额数据赋值
+        this.claimamount = val.claimamount;
+        //add-ws-5/11-合同请求金额数据赋值
         this.currentRow = val.contract;
         this.themeRow = val.theme;
-        this.workinghoursRow = val.claimdatetime;
+        //add-ws-5/11-合同请求期间数据赋值
+        this.workinghoursRow = val.entrypayment;
+        //add-ws-5/11-合同请求期间数据赋值
       },
       submit2(row) {
+        //add-ws-5/11-合同请求金额数据赋值
+        row.contractrequestamount = this.claimamount;
+        //add-ws-5/11-合同请求金额数据赋值
         row.contract = this.currentRow;
         row.theme = this.themeRow;
         row.workinghours = this.workinghoursRow;

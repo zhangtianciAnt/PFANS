@@ -82,6 +82,15 @@
             fix: false,
             filter: true,
           },
+          //add-ws-5/11-支出总额添加
+          {
+            code: 'totalpay',
+            label: 'label.PFANS1013VIEW_TOTALPAY',
+            width: 130,
+            fix: false,
+            filter: true,
+          },
+          //add-ws-5/11-支出总额添加
           {
             code: 'startdate',
             label: 'label.PFANS1013VIEW_STARTDATE',
