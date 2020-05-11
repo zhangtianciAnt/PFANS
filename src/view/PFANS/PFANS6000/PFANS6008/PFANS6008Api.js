@@ -16,10 +16,11 @@ export function getCostBygroupid(data) {
   })
 }
 
-export function insertCoststatistics() {
+export function insertCoststatistics(data) {
   return request({
     url: 'coststatistics/insertCoststatistics',
-    method: 'post'
+    method: 'get',
+    params: data
   })
 }
 

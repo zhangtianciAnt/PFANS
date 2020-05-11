@@ -1133,9 +1133,9 @@
         this.loading = true;
         this.form.group_id = group_id;
         this.form.year = yearss;
-        if (this.form.group_id) {
+        //if (this.form.group_id) {
           groupid = this.form.group_id;
-        }
+        //}
         if (this.form.year) {
           year = this.form.year;
         }
@@ -1222,9 +1222,9 @@
         this.loading = true;
         this.form.group_id = group_id;
         this.form.year = yearss;
-        if (this.form.group_id) {
+        //if (this.form.group_id) {
           groupid = this.form.group_id;
-        }
+        //}
         if (this.form.year) {
           year = this.form.year;
         }
@@ -1377,9 +1377,9 @@
         this.loading = true;
         this.form.group_id = group_id;
         this.form.year = yearss;
-        if (this.form.group_id) {
+        //if (this.form.group_id) {
           groupid = this.form.group_id;
-        }
+        //}
         if (this.form.year) {
           year = this.form.year;
         }
@@ -1590,6 +1590,12 @@
           let centerId = '5e7858a08f4316308435112c';
           let orgs = getDownOrgInfo(centerId);
           if (orgs) {
+            vote1.push(
+              {
+                value: '',
+                lable: this.$t('label.PFANS6009VIEW_QUANSHE'),
+              },
+            );
             for (let center of orgs) {
               let centers = getDownOrgInfo(center._id);
               if (centers) {
@@ -1604,6 +1610,8 @@
               }
             }
           }
+
+
           this.optionsdata = vote1;
         } else {
           this.optionsdata = vote;
