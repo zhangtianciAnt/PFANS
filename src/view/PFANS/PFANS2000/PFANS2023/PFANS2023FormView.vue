@@ -336,7 +336,6 @@
                         let rank = getUserInfo(response.user_id).userinfo.rank;
                         this.form.skill_rank = rank
                         this.userlist = this.form.user_id;
-                        debugger
                         this.useDisable();
                         if (!this.$route.params.disabled) {
                             this.disable = this.$route.params.disabled;
@@ -397,7 +396,6 @@
         },
         methods: {
             useDisable(){
-                debugger
                 if (this.form.stage === '0' && this.form.status === '0') {
                     this.aaaaaa = 'W0036';
                     this.canStart = true;
@@ -441,11 +439,24 @@
                     this.esep = true;
                     this.disabledec = false;
                     this.disablemar = false;
-
-                  this.form.specific_goals_sep1 =  this.form.specific_goals_year1
-                  this.form.specific_goals_sep2 =  this.form.specific_goals_year2
-                  this.form.specific_goals_sep3 =  this.form.specific_goals_year3
-                  this.form.your_own_goals_sep =  this.form.your_own_goals_year
+                    //upd_fjl  --为空赋前一个tab里面的值
+                    if (this.form.specific_goals_sep1 === null || this.form.specific_goals_sep1 === '') {
+                        this.form.specific_goals_sep1 = this.form.specific_goals_year1
+                    }
+                    if (this.form.specific_goals_sep2 === null || this.form.specific_goals_sep2 === '') {
+                        this.form.specific_goals_sep2 = this.form.specific_goals_year2
+                    }
+                    if (this.form.specific_goals_sep3 === null || this.form.specific_goals_sep3 === '') {
+                        this.form.specific_goals_sep3 = this.form.specific_goals_year3
+                    }
+                    if (this.form.your_own_goals_sep === null || this.form.your_own_goals_sep === '') {
+                        this.form.your_own_goals_sep = this.form.your_own_goals_year
+                    }
+                    // this.form.specific_goals_sep1 =  this.form.specific_goals_year1
+                    // this.form.specific_goals_sep2 =  this.form.specific_goals_year2
+                    // this.form.specific_goals_sep3 =  this.form.specific_goals_year3
+                    // this.form.your_own_goals_sep =  this.form.your_own_goals_year
+                    // upd_fjl  --为空赋前一个tab里面的值
                 } else if (this.form.stage === '1' && this.form.status === '2') {
                     this.aaaaaa = 'W0037';
                     this.canStart = false;
@@ -483,11 +494,24 @@
                     this.disabledec = true;
                     this.dec = true;
                     this.disablemar = false;
-
-                  this.form.specific_goals_dec1 =  this.form.specific_goals_sep1
-                  this.form.specific_goals_dec2 =  this.form.specific_goals_sep2
-                  this.form.specific_goals_dec3 =  this.form.specific_goals_sep3
-                  this.form.your_own_goals_dec =  this.form.your_own_goals_sep
+                    //upd_fjl  --为空赋前一个tab里面的值
+                    if (this.form.specific_goals_dec1 === null || this.form.specific_goals_dec1 === '') {
+                        this.form.specific_goals_dec1 = this.form.specific_goals_sep1
+                    }
+                    if (this.form.specific_goals_dec2 === null || this.form.specific_goals_dec2 === '') {
+                        this.form.specific_goals_dec2 = this.form.specific_goals_sep2
+                    }
+                    if (this.form.specific_goals_dec3 === null || this.form.specific_goals_dec3 === '') {
+                        this.form.specific_goals_dec3 = this.form.specific_goals_sep3
+                    }
+                    if (this.form.your_own_goals_dec === null || this.form.your_own_goals_dec === '') {
+                        this.form.your_own_goals_dec = this.form.your_own_goals_sep
+                    }
+                    // this.form.specific_goals_dec1 =  this.form.specific_goals_sep1
+                    // this.form.specific_goals_dec2 =  this.form.specific_goals_sep2
+                    // this.form.specific_goals_dec3 =  this.form.specific_goals_sep3
+                    // this.form.your_own_goals_dec =  this.form.your_own_goals_sep
+                    //upd_fjl  --为空赋前一个tab里面的值
 
                 } else if (this.form.stage === '2' && this.form.status === '2') {
                     this.aaaaaa = 'W0038';
@@ -529,11 +553,24 @@
                     this.dec = true;
                     this.disablemar = true;
                     this.mar = true;
-
-                  this.form.specific_goals_mar1 =  this.form.specific_goals_dec1
-                  this.form.specific_goals_mar2 =  this.form.specific_goals_dec2
-                  this.form.specific_goals_mar3 =  this.form.specific_goals_dec3
-                  this.form.your_own_goals_mar =  this.form.your_own_goals_dec
+                    //upd_fjl  --为空赋前一个tab里面的值
+                    if (this.form.specific_goals_mar1 === null || this.form.specific_goals_mar1 === '') {
+                        this.form.specific_goals_mar1 = this.form.specific_goals_dec1
+                    }
+                    if (this.form.specific_goals_mar2 === null || this.form.specific_goals_mar2 === '') {
+                        this.form.specific_goals_mar2 = this.form.specific_goals_dec2
+                    }
+                    if (this.form.specific_goals_mar3 === null || this.form.specific_goals_mar3 === '') {
+                        this.form.specific_goals_mar3 = this.form.specific_goals_dec3
+                    }
+                    if (this.form.your_own_goals_mar === null || this.form.your_own_goals_mar === '') {
+                        this.form.your_own_goals_mar = this.form.your_own_goals_dec
+                    }
+                    // this.form.specific_goals_mar1 =  this.form.specific_goals_dec1
+                    // this.form.specific_goals_mar2 =  this.form.specific_goals_dec2
+                    // this.form.specific_goals_mar3 =  this.form.specific_goals_dec3
+                    // this.form.your_own_goals_mar =  this.form.your_own_goals_dec
+                    //upd_fjl  --为空赋前一个tab里面的值
                 } else if (this.form.stage === '3' && this.form.status === '2') {
                     this.aaaaaa = 'W0039';
                     this.canStart = false;
