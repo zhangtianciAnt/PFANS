@@ -955,6 +955,7 @@ module.exports = {
     PFANS1013FORMVIEW_ERRORINFOA: '住宿费明细信息不完整，请填写完再进行提交',
     PFANS1013FORMVIEW_ERRORINFOR: '其他费用明细信息不完整，请填写完再进行提交',
     PFANS1013FORMVIEW_RMBLIMIT: '您输入的金额已经超出住宿标准上限',
+    PFANS1013FORMVIEW_RMBLIMITNEW: '您输入的金额已经超出住宿平均标准上限',
     PFANS1013FORMVIEW_CURRENCYLIMIT: '输入外币金额已经超过上限',
     PFANS1013VIEW_TYPE: '境内/境外',
     PFANS1013VIEW_TYPEON: '境内',
