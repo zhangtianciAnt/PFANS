@@ -144,7 +144,8 @@ module.exports = {
     error_15: '契約番号作成失败！请选择有效的group',
     error_pfans5001: '外协员工的入离场时间不能为空',
     error_pfans50011: '社内员工的进组或退出时间不能为空',
-    error_tipis:'之前作成的书类要被替换,是否继续？'
+    error_tipis:'之前作成的书类要被替换,是否继续？',
+    info_14:'生成当前事业年度所有员工的人才育成计划数据,是否继续？'
   },
   menu: {
     homePageManagement: '首页',
@@ -955,6 +956,7 @@ module.exports = {
     PFANS1013FORMVIEW_ERRORINFOA: '住宿费明细信息不完整，请填写完再进行提交',
     PFANS1013FORMVIEW_ERRORINFOR: '其他费用明细信息不完整，请填写完再进行提交',
     PFANS1013FORMVIEW_RMBLIMIT: '您输入的金额已经超出住宿标准上限',
+    PFANS1013FORMVIEW_RMBLIMITNEW: '您输入的金额已经超出住宿平均标准上限',
     PFANS1013FORMVIEW_CURRENCYLIMIT: '输入外币金额已经超过上限',
     PFANS1013VIEW_TYPE: '境内/境外',
     PFANS1013VIEW_TYPEON: '境内',
@@ -3138,6 +3140,7 @@ module.exports = {
     PFANS6009VIEW_TRAVELEXPENSES: '设备经费(元)',
     PFANS6009VIEW_AVERAGEUNITPRICE: '外注総合費用合計(元)',
     PFANS6009VIEW_NO: 'No',
+    PFANS6009VIEW_QUANSHE: '全社',
     PFANS6009VIEW_YEARLABEL: '年',
     PFANS6009VIEW_MONTHLABEL: '月',
     PFANS8001VIEW_PASSWORD: '旧密码',

@@ -33,3 +33,11 @@ export function getFpans2024List(data) {
     data: data
   })
 }
+
+export function create(data) {
+  return request({
+    url: 'talentplan/create',
+    method: 'post',
+    data: data
+  })
+}

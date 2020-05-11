@@ -86,6 +86,8 @@
             return true
           }
         }
+      }else{
+        return false
       }
     },
     watch: {
@@ -181,7 +183,7 @@
         this.currentRow = val
         if (this.selectType === 'Single') {
           if (
-            val.type !== this.orgtype
+            this.orgtype != "4" && val.type !== this.orgtype
           ) {
             this.conConfirm = true
           } else {
