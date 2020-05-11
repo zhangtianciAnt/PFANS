@@ -287,7 +287,7 @@ export default {
       loading: false,
       currentNodeData: {},
       //ADD-LXX
-      enterOrleave: "",
+        enterOrleave: "0", //默认在职的筛选
       optionsForel: [
         {
           value: "0",
@@ -309,7 +309,7 @@ export default {
       if (this.TABLEList.length > 0) {
         //进行在职离职筛选
         if (this.enterOrleave !== "") {
-          //在职筛选
+            //离职筛选
           if (this.enterOrleave === "1") {
             this.tableList = this.tableList.filter(item => {
               return item.enddate === null || item.enddate === "";
@@ -937,6 +937,9 @@ export default {
           }
           this.tableList = _tableList;
           this.TABLEList = _tableList;
+            // add_fjl --默认在职的筛选
+            this.filterInfo();
+            // add_fjl
           this.loading = false;
         })
         .catch(err => {
