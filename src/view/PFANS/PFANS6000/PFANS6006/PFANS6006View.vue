@@ -551,80 +551,8 @@
         this.$store
           .dispatch('PFANS6006Store/getYears', {'year': this.year,'group_id': this.group_id})
           .then(response => {
-              let tabledate = [];
+            let tabledate = [];
             for (let j = 0; j < response.length; j++) {
-              // if (response[j].managerid !== null && response[j].managerid !== '') {
-              //   let rst = getUserInfo(response[j].managerid)
-              //   if (rst) {
-              //     response[j].managerid = rst.userinfo.customername;
-              //   }
-              // }
-
-              //region 无用代码
-                // if (response[j].admissiontime !== null && response[j].admissiontime !== '') {
-                //   response[j].admissiontime = moment(response[j].admissiontime).format('YYYY-MM-DD');
-                // }
-                // if (response[j].exittime !== null && response[j].exittime !== '') {
-                //   response[j].exittime = moment(response[j].exittime).format('YYYY-MM-DD');
-                // }
-                // if (response[j].jobclassification !== null && response[j].jobclassification !== '') {
-                //   let letStage = getDictionaryInfo(response[j].jobclassification);
-                //   if (letStage != null) {
-                //     response[j].jobclassification = letStage.value1;
-                //   }
-                // }
-                // if (response[j].operationform !== null && response[j].operationform !== '') {
-                //   let letStage = getDictionaryInfo(response[j].operationform);
-                //   if (letStage != null) {
-                //     response[j].operationform = letStage.value1;
-                //   }
-                // }
-                // if (response[j].alltechnology !== null && response[j].alltechnology !== '') {
-                //   let letStage = getDictionaryInfo(response[j].alltechnology);
-                //   if (letStage != null) {
-                //     response[j].alltechnology = letStage.value1;
-                //   }
-                // }
-                // if (response[j].sitevaluation !== null && response[j].sitevaluation !== '') {
-                //   let letStage = getDictionaryInfo(response[j].sitevaluation);
-                //   if (letStage != null) {
-                //     response[j].sitevaluation = letStage.value1;
-                //   }
-                // }
-                // if (response[j].exitreason !== null && response[j].exitreason !== '') {
-                //   let letStage = getDictionaryInfo(response[j].exitreason);
-                //   if (letStage != null) {
-                //     response[j].exitreason = letStage.value1;
-                //   }
-                // }
-                // if (response[j].businessimpact !== null && response[j].businessimpact !== '') {
-                //   let letStage = getDictionaryInfo(response[j].businessimpact);
-                //   if (letStage != null) {
-                //     response[j].businessimpact = letStage.value1;
-                //   }
-                // }
-                // if (response[j].countermeasure !== null && response[j].countermeasure !== '') {
-                //   let letStage = getDictionaryInfo(response[j].countermeasure);
-                //   if (letStage != null) {
-                //     response[j].countermeasure = letStage.value1;
-                //   }
-                // }
-                // if (response[j].distriobjects !== null && response[j].distriobjects !== '') {
-                //   if (response[j].distriobjects = 0) {
-                //     response[j].distriobjects = "是";
-                //   } else if (response[j].distriobjects = 1) {
-                //     response[j].distriobjects = "否";
-                //   }
-                // }
-                // if (response[j].venuetarget !== null && response[j].venuetarget !== '') {
-                //   if (response[j].venuetarget = 0) {
-                //     response[j].venuetarget = "是";
-                //   } else if (response[j].venuetarget = 1) {
-                //     response[j].venuetarget = "否";
-                //   }
-                // }
-                //endregion
-
               let arr = [
                   response[j].april,
                   response[j].may,
@@ -686,6 +614,7 @@
                   year: response[j].year,
               })
             }
+            this.multipleSelection = [];
             this.tableData = tabledate;
             this.loading = false;
           })
