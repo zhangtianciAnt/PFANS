@@ -85,7 +85,7 @@
                   </el-row>
                   <el-row>
                     <el-form-item :label="$t('label.PFANS2023VIEW_YEARS')">
-                      {{form.createon  | moment('YYYY')}}
+                      {{form.year}}
                     </el-form-item>
                   </el-row>
                   <el-row>
@@ -389,14 +389,14 @@
                         }
                         this.userlist = this.form.user_id;
                         let lettechnology;
-                        if (this.form.technology.length > 0) {
+                        if (this.form.technology && this.form.technology.length > 0) {
                             lettechnology = this.form.technology.split(",");
                             for (var i = 0; i < lettechnology.length; i++) {
                                 this.technology.push(lettechnology[i]);
                             }
                         }
                         let letstaff;
-                        if (this.form.staff.length > 0) {
+                        if (this.form.staff && this.form.staff.length > 0) {
                             letstaff = this.form.staff.split(",");
                             for (var i = 0; i < letstaff.length; i++) {
                                 this.staff.push(letstaff[i]);

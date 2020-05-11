@@ -63,7 +63,7 @@
                 // 列属性
                 columns: [
                     {
-                        code: 'createon',
+                        code: 'year',
                         label: 'label.PFANS2023VIEW_YEARS',
                         width: 90,
                         fix: false,
@@ -185,9 +185,6 @@
                   if (response[j].contract !== null && response[j].contract !== "") {
                     response[j].contract = moment(response[j].contract).format("YYYY");
                   }
-                  if (response[j].createon !== null && response[j].createon !== "") {
-                    response[j].createon = moment(response[j].createon).format("YYYY");
-                  }
                 }
                 this.data = response;
                 this.loading = false;
@@ -206,38 +203,28 @@
             },
           submit(){
             this.loading = true;
-            this.$confirm(this.$t('normal.info_14'), this.$t('normal.info'), {
-              confirmButtonText: this.$t('button.confirm'),
-              cancelButtonText: this.$t('button.cancel'),
-              type: 'warning',
-              center: true
-            }).then(() => {
-              this.$store
-                .dispatch('PFANS2024Store/create',  this.form)
-                .then(response => {
-                  this.init();
-                  Message({
-                    message: this.$t('normal.success_01'),
-                    type: 'success',
-                    duration: 2 * 1000
-                  })
-                  this.loading = false;
+            this.form.year = moment(this.form.year).format("YYYY");
+            this.$store
+              .dispatch('PFANS2024Store/create',  this.form)
+              .then(response => {
+                this.init();
+                Message({
+                  message: this.$t('normal.success_01'),
+                  type: 'success',
+                  duration: 2 * 1000
                 })
-                .catch(error => {
-                  Message({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000
-                  })
-                  this.loading = false;
+                this.dialogVisible = false;
+                this.loading = false;
+              })
+              .catch(error => {
+                Message({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000
                 })
-            }).catch(() => {
-              this.$message({
-                type: 'info',
-                message: this.$t('normal.info_04')
-              });
-              this.loading = false;
-            });
+                this.loading = false;
+              })
+
           },
             buttonClick(val) {
                 this.$store.commit('global/SET_HISTORYURL', this.$route.path);
