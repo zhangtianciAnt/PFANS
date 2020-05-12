@@ -2968,9 +2968,9 @@
                   debugger
                   if (sumtaxes < 0) {
                     if (taxesm === 0) {
-                      this.tableA[taxesn].taxes = (Number(this.tableA[taxesn].taxes) + Number(sumtaxes)).toFixed(2);
+                      this.tableA[taxesn].taxes = (Number(this.tableA[taxesn].taxes) - Number(sumtaxes)).toFixed(2);
                     } else {
-                      this.tableT[taxesm].taxes = (Number(this.tableT[taxesm].taxes) + Number(sumtaxes)).toFixed(2);
+                      this.tableT[taxesm].taxes = (Number(this.tableT[taxesm].taxes) - Number(sumtaxes)).toFixed(2);
                     }
                   } else if (sumtaxes > 0) {
                     if (taxesm === 0) {
