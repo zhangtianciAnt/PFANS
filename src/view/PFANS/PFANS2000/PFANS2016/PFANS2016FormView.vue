@@ -783,7 +783,7 @@
                                 }
                             }
                         }
-                        if (this.form.status === '0') {
+                        if (this.form.status === '0' || this.form.status === '3') {
                             this.workflowCode = 'W0003';
                             this.canStart = true;
                             if (!this.disable) {
