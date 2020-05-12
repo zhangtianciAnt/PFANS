@@ -52,7 +52,13 @@
                     </el-col>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS2023VIEW_YEARS')">
-                        {{form.createon  | moment('YYYY')}}
+                        <!--                         ADD_FJL_05/21   &#45;&#45;年度可修改-->
+                        <!--                        {{form.createon  | moment('YYYY')}}-->
+                        <el-date-picker
+                          v-model="form.years"
+                          type="year">
+                        </el-date-picker>
+                        <!--                        ADD_FJL_05/21   &#45;&#45;年度可修改-->
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -304,6 +310,9 @@
                     your_own_goals_mar: '',
                     business_results_mar: '',
                     interview_results_mar: '',
+                    // ADD_FJL_05/21   --年度可修改
+                    years: moment(new Date()).format("YYYY"),
+                    // ADD_FJL_05/21   --年度可修改
                 },
                 // code: 'PR015',
                 code: 'PR021',
@@ -666,6 +675,9 @@
             this.buttonClick("update");
           },
             buttonClick(val) {
+                // ADD_FJL_05/21   --年度可修改
+                this.form.years = moment(this.form.years).format("YYYY");
+                // ADD_FJL_05/21   --年度可修改
                 if (val === 'update') {
                   this.checkRequire();
                     this.$refs["ruleForm"].validate(valid => {
