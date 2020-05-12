@@ -734,7 +734,7 @@
                     <el-table-column :label="$t('label.PFANS1012FORMVIEW_ACCOUNT')" align="center" width="250"
                     >
                       <template slot-scope="scope">
-                        <dicselect :code="code20"
+                        <dicselect :code="scope.row.code20"
                                    :data="scope.row.accountcode"
                                    :disabled="checktaxes"
                                    :multiple="multiple"
@@ -1311,7 +1311,6 @@
         code10: 'PJ035',
         code12: 'PJ068',
         code15: 'PJ083',
-        code20: '',
         code21: '',
         multiple: false,
         show2: false,
@@ -1406,6 +1405,7 @@
             if (response.accommodationdetails.length > 0) {
               this.tableA = response.accommodationdetails;
               for (let i = 0; i < this.tableA.length; i++) {
+                this.tableA[i].code20 = '';
                 //PL摘要内容
                 let plsuinfo = getDictionaryInfo(this.tableA[i].plsummary);
                 if (plsuinfo) {
@@ -1413,20 +1413,31 @@
                   this.plsummaryflg = plsuinfo.value1;
                   this.plsummaryflg1 = plsuinfo.code;
                 }
-                if (getOrgInfoByUserId(this.$store.getters.userinfo.userid)) {
-                  if (getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)) {
-                    this.Redirict = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).redirict;
+                //add-ws-5/11-科目代码时code值问提修改
+                let group = getOrgInfo(this.tableA[i].departmentname);
+                if (group) {
+                  this.Redirict = group.redirict;
+                }
+                // if (getOrgInfoByUserId(this.$store.getters.userinfo.userid)) {
+                //   if (getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)) {
+                //     this.Redirict = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).redirict;
+                //   }
+                // }
+
+                if (this.Redirict == '0') {
+                  this.tableA[i].code20 = 'PJ119';
+                  let letErrortype = getDictionaryInfo(this.tableA[i].accountcode);
+                  if (letErrortype != null) {
+                    this.tableA[i].accountcode = letErrortype.code;
+                  }
+                } else if (this.Redirict == '1' || this.Redirict == '') {
+                  this.tableA[i].code20 = 'PJ132';
+                  let letErrortype = getDictionaryInfo(this.tableA[i].accountcode);
+                  if (letErrortype != null) {
+                    this.tableA[i].accountcode = letErrortype.code;
                   }
                 }
-                let acinfo = getDictionaryInfo(this.tableA[i].accountcode);
-                if (acinfo) {
-                  if (this.Redirict == '0') {
-                    this.code20 = 'PJ119';
-                  } else if (this.Redirict == '1' || this.Redirict == '') {
-                    this.code20 = 'PJ132';
-                  }
-                  this.tableA[i].accountcode = acinfo.code;
-                }
+                //add-ws-5/11-科目代码时code值问提修改
                 if (this.tableA[i].departmentname !== '' && this.tableA[i].departmentname !== null && this.tableA[i].departmentname !== undefined) {
                   //ADD_FJL
                   this.tableA[i].optionsA = [];
@@ -1593,7 +1604,6 @@
           this.showAout = true;
         }
         if (this.Redirict == '0') {
-          this.code20 = 'PJ119';
           let accinfo = getDictionaryInfo('PJ119002');
           if (accinfo) {
             this.tableT[0].accountcode = accinfo.value1;
@@ -1603,7 +1613,6 @@
             this.subjectnumberflg = accinfo.value2;
           }
         } else if (this.Redirict == '1' || this.Redirict == '') {
-          this.code20 = 'PJ132';
           let accinfo = getDictionaryInfo('PJ132002');
           if (accinfo) {
             this.tableT[0].accountcode = accinfo.value1;
@@ -1925,9 +1934,9 @@
           this.Redirict = group.redirict;
           // row.budgetcoding = group.encoding;
           if (group.redirict === '0') {
-            this.code20 = 'PJ119';
+            row.code20 = 'PJ119';
           } else if (group.redirict === '1') {
-            this.code20 = 'PJ132';
+            row.code20 = 'PJ132';
           }
         }
         if (!orglist) {
@@ -1957,17 +1966,17 @@
           this.Redirict = group.redirict;
           // row.budgetcoding = group.encoding;
           if (group.redirict === '0') {
-            this.code20 = 'PJ119';
+            row.code20 = 'PJ119';
           } else if (group.redirict === '1') {
-            this.code20 = 'PJ132';
+            row.code20 = 'PJ132';
           }
         }
         if (this.Redirict == '0') {
-          this.code20 = 'PJ119';
+          row.code20 = 'PJ119';
           // this.tableA[0].accountcode = 'PJ119001';
           // this.tableA[1].accountcode = 'PJ119005';
         } else if (this.Redirict == '1' || this.Redirict == '') {
-          this.code20 = 'PJ132';
+          row.code20 = 'PJ132';
           // this.tableA[0].accountcode = 'PJ132001';
           // this.tableA[1].accountcode = 'PJ132005';
         }
@@ -2462,6 +2471,7 @@
         }
         for (let i = 0; i < this.Todaysum.length; i++) {
           this.tableA.push({
+            code20: this.Redirict === '0' ? 'PJ119' : 'PJ132',
             accountcode: this.accountcode,
             subsidies: moneys,
             evectionid: '',
@@ -2794,9 +2804,9 @@
           //add-ws-5/11-结余公式重新计算
           let sumexchangermb = 0;
           for (let i = 0; i < this.tableW.length; i++) {
-            sumexchangermb+=parseFloat(this.tableW[i].exchangermb)
+            sumexchangermb += parseFloat(this.tableW[i].exchangermb);
           }
-           this.form.balance = sumexchangermb + this.tableAValue[14];
+          this.form.balance = sumexchangermb + this.tableAValue[14];
           //add-ws-5/11-结余公式重新计算
         }
       },
