@@ -387,8 +387,7 @@
                     },
                   {
                     key: "export",
-                    name: "button.export",
-                    disabled:false
+                      name: "button.export"
                   }
                 ];
                 this.form.stage = '0';

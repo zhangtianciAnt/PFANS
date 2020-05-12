@@ -312,11 +312,11 @@ export default {
             //离职筛选
           if (this.enterOrleave === "1") {
             this.tableList = this.tableList.filter(item => {
-              return item.enddate === null || item.enddate === "";
+                return item.resignation_date !== null && item.resignation_date !== "";
             });
           } else {
             this.tableList = this.tableList.filter(item => {
-              return item.enddate !== null && item.enddate !== "";
+                return item.resignation_date === null || item.resignation_date === "";
             });
           }
         }
