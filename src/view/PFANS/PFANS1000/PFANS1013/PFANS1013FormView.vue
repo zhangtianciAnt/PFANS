@@ -2937,6 +2937,7 @@
               let sumtableA4 = 0;
               let sumtableA5 = 0;
               let sumtableA6 = 0;
+
               //add-ws-5/12-分录传票的发票税金需要与后面明细同种发票的税金和相同
               if (this.form.type === '0') {
                 for (let i = 0; i < this.tableF.length; i++) {
@@ -2972,7 +2973,8 @@
               //add-ws-5/12-分录传票的发票税金需要与后面明细同种发票的税金和相同
               //add-ws-5/12-汇税收益与汇税损失问题对应
               if (this.form.type === '1'){
-
+                let cons = this.tableT;
+                cons = cons.filter(item => moment(item.deliverydate).format('YYYY-MM') == moment(this.month).format('YYYY-MM'));
               }
               //add-ws-5/12-汇税收益与汇税损失问题对应
               if (this.form.type === '0') {
