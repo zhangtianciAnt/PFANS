@@ -2937,6 +2937,44 @@
               let sumtableA4 = 0;
               let sumtableA5 = 0;
               let sumtableA6 = 0;
+              //add-ws-5/12-分录传票的发票税金需要与后面明细同种发票的税金和相同
+              if (this.form.type === '0') {
+                for (let i = 0; i < this.tableF.length; i++) {
+                  let sumtaxesT = 0;
+                  let sumtaxesA = 0;
+                  let sumtaxesF = 0;
+                  let sumtaxes = 0;
+                  let taxes = 0;
+                  for (let m = 0; m < this.tableT.length; m++) {
+                    if (this.tableT[m].invoicenumber == this.tableF[i].invoicenumber) {
+                      if (this.tableT[m].taxes != '0') {
+                        taxes = m;
+                        sumtaxesT += this.tableT[m].taxes;
+                      }
+                    }
+                  }
+                  for (let n = 0; n < this.tableA.length; n++) {
+                    if (this.tableA[n].invoicenumber == this.tableF[i].invoicenumber) {
+                      if (this.tableA[n].taxes != '0') {
+                        sumtaxesA += this.tableA[n].taxes;
+                      }
+                    }
+                  }
+                  sumtaxesF = Number(sumtaxesT) + Number(sumtaxesA);
+                  sumtaxes = Number(sumtaxesF) - Number(this.tableF[i].facetax);
+                  if (sumtaxes < 0) {
+                    this.tableT[taxes].taxes = (Number(this.tableT[taxes].taxes) + Number(sumtaxes)).toFixed(2);
+                  } else if (sumtaxes > 0) {
+                    this.tableT[taxes].taxes = (Number(this.tableT[taxes].taxes) - Number(sumtaxes)).toFixed(2);
+                  }
+                }
+              }
+              //add-ws-5/12-分录传票的发票税金需要与后面明细同种发票的税金和相同
+              //add-ws-5/12-汇税收益与汇税损失问题对应
+              if (this.form.type === '1'){
+
+              }
+              //add-ws-5/12-汇税收益与汇税损失问题对应
               if (this.form.type === '0') {
                 for (let i = 0; i < this.tableT.length; i++) {
                   if (this.tableT[i].trafficdate !== '' || this.tableT[i].invoicenumber !== '' || this.tableT[i].departmentname !== '' || this.tableT[i].budgetcoding !== ''
