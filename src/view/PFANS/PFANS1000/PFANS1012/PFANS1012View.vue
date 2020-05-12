@@ -399,7 +399,7 @@
                       if (response[m].budgetcoding != '' && response[m].budgetcoding != null) {
                         let letbudge = getDictionaryInfo(response[m].budgetcoding);
                         if (letbudge) {
-                          response[m].budgetcoding = letbudge.value3;
+                          response[m].budgetcoding = letbudge.value2;
                         }
                       }
                       invoiceamountvalue += parseFloat(response[m].lineamount);
