@@ -932,6 +932,7 @@
         this.form.group_id = val;
         if (this.form.group_id) {
           //this.getList(this.form.group_id, this.form.year, this.form.region);
+          this.$refs.roletable.$refs.eltable.clearSelection();
           this.init();
         }
       },
