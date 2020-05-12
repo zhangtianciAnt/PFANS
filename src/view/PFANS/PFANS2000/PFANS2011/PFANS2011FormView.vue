@@ -533,7 +533,7 @@
                         //     this.disable = true;
                         //     this.disactualovertime = true;
                         // }
-                        if (this.form.status === '0') {
+                        if (this.form.status === '0' || this.form.status === '3') {
                             // this.workflowCode = 'W0001';
                           if(this.form.overtimetype >= 'PR001004'){
                             this.workflowCode = 'W0067';
