@@ -330,28 +330,29 @@
                                 lengthtime: this.form.lengthtime,
                             })
                             .then(response => {
+                              debugger
                                 if (response.error != '') {
-                                    if (response.error == 'PR013005') {
-                                        this.checkDate = response.dat;
-                                    } else if (response.error == 'PR013007') {
+                                    if (response.error == 'PR013005' || response.error == 'PR013006') {
                                         this.checkDate = response.dat;
                                     }
                                 }
                                 if (response.can === 'no') {
                                     callback(this.$t('normal.error_norestdays'));
                                 } else {
+                                  if(response.error == 'PR013005' || response.error == 'PR013006'){
                                     this.form.restdate = response.dat;
                                     let valflg;
                                     if (value === '0') {
-                                        valflg = 1;
+                                      valflg = 1;
                                     } else {
-                                        valflg = 0.5;
+                                      valflg = 0.5;
                                     }
                                     if (Number(valflg) > Number(response.checkdat)) {
-                                        callback(this.$t('normal.error_norestdays'));
+                                      callback(this.$t('normal.error_norestdays'));
                                     } else {
-                                        callback();
+                                      callback();
                                     }
+                                  }
                                 }
                             })
                             .catch(error => {
