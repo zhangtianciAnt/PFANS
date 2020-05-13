@@ -734,13 +734,18 @@
                     <el-table-column :label="$t('label.PFANS1012FORMVIEW_ACCOUNT')" align="center" width="250"
                     >
                       <template slot-scope="scope">
-                        <dicselect :code="scope.row.code20"
-                                   :data="scope.row.accountcode"
-                                   :disabled="checktaxes"
-                                   :multiple="multiple"
-                                   :no="scope.row"
-                                   @change="getcode" style="width: 100%">
-                        </dicselect>
+
+                        <el-input :disabled="true" style="width: 100%" v-model="scope.row.accountcode">
+                        </el-input>
+
+
+                        <!--                        <dicselect :code="scope.row.code20"-->
+                        <!--                                   :data="scope.row.accountcode"-->
+                        <!--                                   :disabled="checktaxes"-->
+                        <!--                                   :multiple="multiple"-->
+                        <!--                                   :no="scope.row"-->
+                        <!--                                   @change="getcode" style="width: 100%">-->
+                        <!--                        </dicselect>-->
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1012FORMVIEW_ACCOUNTB')" align="center" width="150"
@@ -1120,6 +1125,8 @@
         }
       };
       return {
+        CheckRedirict: '',
+        checkredirict: '',
         region: '',
         accountcode: '',
         optionsrate: [],
@@ -1325,6 +1332,8 @@
         accomflg: 0, //住宿费标准check    0?正常:error
         accountcodeflg: '',
         accountcodeflg1: '',
+        newaccountcodeflg: '',
+        newaccountcodeflg1: '',
         subjectnumberflg: '',
         plsummaryflg1: '',
         plsummaryflg: '',
@@ -1405,7 +1414,14 @@
             if (response.accommodationdetails.length > 0) {
               this.tableA = response.accommodationdetails;
               for (let i = 0; i < this.tableA.length; i++) {
-                this.tableA[i].code20 = '';
+
+                let acinfo = getDictionaryInfo(this.tableA[i].accountcode);
+                if (acinfo) {
+                  this.tableA[i].accountcode = acinfo.value1;
+                  this.newaccountcodeflg = acinfo.value1;
+                  this.newaccountcodeflg1 = acinfo.code;
+                }
+                // this.tableA[i].code20 = '';
                 //PL摘要内容
                 let plsuinfo = getDictionaryInfo(this.tableA[i].plsummary);
                 if (plsuinfo) {
@@ -1424,19 +1440,19 @@
                 //   }
                 // }
 
-                if (this.Redirict == '0') {
-                  this.tableA[i].code20 = 'PJ119';
-                  let letErrortype = getDictionaryInfo(this.tableA[i].accountcode);
-                  if (letErrortype != null) {
-                    this.tableA[i].accountcode = letErrortype.code;
-                  }
-                } else if (this.Redirict == '1' || this.Redirict == '') {
-                  this.tableA[i].code20 = 'PJ132';
-                  let letErrortype = getDictionaryInfo(this.tableA[i].accountcode);
-                  if (letErrortype != null) {
-                    this.tableA[i].accountcode = letErrortype.code;
-                  }
-                }
+                // if (this.Redirict == '0') {
+                //   this.tableA[i].code20 = 'PJ119';
+                //   let letErrortype = getDictionaryInfo(this.tableA[i].accountcode);
+                //   if (letErrortype != null) {
+                //     this.tableA[i].accountcode = letErrortype.code;
+                //   }
+                // } else if (this.Redirict == '1' || this.Redirict == '') {
+                //   this.tableA[i].code20 = 'PJ132';
+                //   let letErrortype = getDictionaryInfo(this.tableA[i].accountcode);
+                //   if (letErrortype != null) {
+                //     this.tableA[i].accountcode = letErrortype.code;
+                //   }
+                // }
                 //add-ws-5/11-科目代码时code值问提修改
                 if (this.tableA[i].departmentname !== '' && this.tableA[i].departmentname !== null && this.tableA[i].departmentname !== undefined) {
                   //ADD_FJL
@@ -1604,6 +1620,11 @@
           this.showAout = true;
         }
         if (this.Redirict == '0') {
+          let newaccinfo = getDictionaryInfo('PJ119001');
+          if (newaccinfo) {
+            this.newaccountcodeflg = newaccinfo.value1;
+            this.newaccountcodeflg1 = newaccinfo.code;
+          }
           let accinfo = getDictionaryInfo('PJ119002');
           if (accinfo) {
             this.tableT[0].accountcode = accinfo.value1;
@@ -1613,6 +1634,11 @@
             this.subjectnumberflg = accinfo.value2;
           }
         } else if (this.Redirict == '1' || this.Redirict == '') {
+          let newaccinfo = getDictionaryInfo('PJ132001');
+          if (newaccinfo) {
+            this.newaccountcodeflg = newaccinfo.value1;
+            this.newaccountcodeflg1 = newaccinfo.code;
+          }
           let accinfo = getDictionaryInfo('PJ132002');
           if (accinfo) {
             this.tableT[0].accountcode = accinfo.value1;
@@ -1622,13 +1648,8 @@
             this.subjectnumberflg = accinfo.value2;
           }
         }
-        if (this.Redirict == '0') {
-          this.accountcode = 'PJ119001';
-        } else if (this.Redirict == '1') {
-          this.accountcode = 'PJ132001';
-        }
         // add_fjl --获取住宿费的科目代码
-        let accountinf0 = getDictionaryInfo(this.accountcode);
+        let accountinf0 = getDictionaryInfo(this.newaccountcodeflg1);
         if (accountinf0) {
           this.accflg = accountinf0.value2;
         }
@@ -1683,35 +1704,35 @@
           }
         }
       },
-      getcode(val, row) {
-        row.accountcode = val;
-        // if(val === 'PJ132005' || val === 'PJ132006' || val === 'PJ119005' || val === 'PJ119006'){
-        //   row.currency = 'PG019003';
-        // } else {
-        //   row.currency = '';
-        // }
-        let dic = getDictionaryInfo(val);
-        if (dic) {
-          row.subjectnumber = dic.value2;
-        }
-        if (this.form.type === '0') {
-          if (row.accountcode === 'PJ119005' || row.accountcode === 'PJ132005') {
-            let moneys = getDictionaryInfo('PJ035001').value9;
-            row.subsidies = moneys;
-          } else if (row.accountcode === 'PJ119006' || row.accountcode === 'PJ132006') {
-            let moneys = getDictionaryInfo('PJ035001').value9;
-            row.subsidies = moneys;
-          }
-        } else if (this.form.type === '1') {
-          if (row.accountcode === 'PJ119005' || row.accountcode === 'PJ132005') {
-            let moneys = getDictionaryInfo('PJ035001').value8;
-            row.subsidies = moneys;
-          } else if (row.accountcode === 'PJ119006' || row.accountcode === 'PJ132006') {
-            let moneys = getDictionaryInfo('PJ035001').value9;
-            row.subsidies = moneys;
-          }
-        }
-      },
+      // getcode(val, row) {
+      //   row.accountcode = val;
+      //   // if(val === 'PJ132005' || val === 'PJ132006' || val === 'PJ119005' || val === 'PJ119006'){
+      //   //   row.currency = 'PG019003';
+      //   // } else {
+      //   //   row.currency = '';
+      //   // }
+      //   let dic = getDictionaryInfo(val);
+      //   if (dic) {
+      //     row.subjectnumber = dic.value2;
+      //   }
+      //   if (this.form.type === '0') {
+      //     if (row.accountcode === 'PJ119005' || row.accountcode === 'PJ132005') {
+      //       let moneys = getDictionaryInfo('PJ035001').value9;
+      //       row.subsidies = moneys;
+      //     } else if (row.accountcode === 'PJ119006' || row.accountcode === 'PJ132006') {
+      //       let moneys = getDictionaryInfo('PJ035001').value9;
+      //       row.subsidies = moneys;
+      //     }
+      //   } else if (this.form.type === '1') {
+      //     if (row.accountcode === 'PJ119005' || row.accountcode === 'PJ132005') {
+      //       let moneys = getDictionaryInfo('PJ035001').value8;
+      //       row.subsidies = moneys;
+      //     } else if (row.accountcode === 'PJ119006' || row.accountcode === 'PJ132006') {
+      //       let moneys = getDictionaryInfo('PJ035001').value9;
+      //       row.subsidies = moneys;
+      //     }
+      //   }
+      // },
       getLoanapp() {
         this.loading = true;
         this.$store
@@ -1933,11 +1954,11 @@
         if (group) {
           this.Redirict = group.redirict;
           // row.budgetcoding = group.encoding;
-          if (group.redirict === '0') {
-            row.code20 = 'PJ119';
-          } else if (group.redirict === '1') {
-            row.code20 = 'PJ132';
-          }
+          // if (group.redirict === '0') {
+          //   row.code20 = 'PJ119';
+          // } else if (group.redirict === '1') {
+          //   row.code20 = 'PJ132';
+          // }
         }
         if (!orglist) {
           row.budgetcoding = '';
@@ -1965,21 +1986,21 @@
         if (group) {
           this.Redirict = group.redirict;
           // row.budgetcoding = group.encoding;
-          if (group.redirict === '0') {
-            row.code20 = 'PJ119';
-          } else if (group.redirict === '1') {
-            row.code20 = 'PJ132';
-          }
+          // if (group.redirict === '0') {
+          //   row.code20 = 'PJ119';
+          // } else if (group.redirict === '1') {
+          //   row.code20 = 'PJ132';
+          // }
         }
-        if (this.Redirict == '0') {
-          row.code20 = 'PJ119';
-          // this.tableA[0].accountcode = 'PJ119001';
-          // this.tableA[1].accountcode = 'PJ119005';
-        } else if (this.Redirict == '1' || this.Redirict == '') {
-          row.code20 = 'PJ132';
-          // this.tableA[0].accountcode = 'PJ132001';
-          // this.tableA[1].accountcode = 'PJ132005';
-        }
+        // if (this.Redirict == '0') {
+        //   row.code20 = 'PJ119';
+        //   // this.tableA[0].accountcode = 'PJ119001';
+        //   // this.tableA[1].accountcode = 'PJ119005';
+        // } else if (this.Redirict == '1' || this.Redirict == '') {
+        //   row.code20 = 'PJ132';
+        //   // this.tableA[0].accountcode = 'PJ132001';
+        //   // this.tableA[1].accountcode = 'PJ132005';
+        // }
         if (!orglist) {
           row.budgetcoding = '';
         }
@@ -2246,6 +2267,12 @@
         });
       },
       addRow3() {
+        let moneys = 0;
+        if (this.form.type === '0') {
+          moneys = getDictionaryInfo('PJ035001').value7;
+        } else if (this.form.type === '1') {
+          moneys = getDictionaryInfo('PJ035002').value8;
+        }
         this.tableA.push({
           evectionid: '',
           accommodationdetails_id: '',
@@ -2253,12 +2280,12 @@
           // nextday: '',
           invoicenumber: '',
           departmentname: '',
-          subsidies: '',
+          subsidies: moneys,
           activitycontent: '',
           plsummary: this.plsummaryflg,
-          accountcode: '',
+          accountcode: this.newaccountcodeflg,
           budgetcoding: '',
-          subjectnumber: '',
+          subjectnumber: this.accflg,
           city: '',
           region: '',
           facilitytype: '',
@@ -2471,8 +2498,8 @@
         }
         for (let i = 0; i < this.Todaysum.length; i++) {
           this.tableA.push({
-            code20: this.Redirict === '0' ? 'PJ119' : 'PJ132',
-            accountcode: this.accountcode,
+            // code20: this.Redirict === '0' ? 'PJ119' : 'PJ132',
+            accountcode: this.newaccountcodeflg,
             subsidies: moneys,
             evectionid: '',
             accommodationdetails_id: '',
@@ -2773,21 +2800,16 @@
             firstBusiNum = 0;
           }
           //境外无规定外费用的场合，住宿标准check
-          if (this.Redirict === '0' ? (row.accountcode === 'PJ119001') : (row.accountcode === 'PJ132001') && this.form.external === '1') {
-            if (accfig !== '' && accfig !== undefined && row.travel !== '' && row.travel !== undefined) {
-              row.rmb = '';
-              row.rmb = (row.travel * Number(accfig)).toFixed(2);
-            }
-          } else if (this.Redirict === '0' ? (row.accountcode === 'PJ119005') : (row.accountcode === 'PJ132005')) {
+
+          if (accfig !== '' && accfig !== undefined && row.travel !== '' && row.travel !== undefined) {
+            row.rmb = '';
+            row.rmb = (row.travel * Number(accfig)).toFixed(2);
+          } else {
             if (this.rank === 'PJ016003') {
               jpvalueflg2 = Number(jpregion12) + 100 + firstBusiNum;
             } else {
               jpvalueflg2 = Number(jpregion12) + firstBusiNum;
             }
-            if (jpvalueflg2 !== '' && jpvalueflg2 !== undefined) {
-              row.rmb = '';
-            }
-          } else if (this.Redirict === '0' ? (row.accountcode === 'PJ119006') : (row.accountcode === 'PJ132006')) {
             if (jpvalueflg2 !== '' && jpvalueflg2 !== undefined) {
               row.rmb = '';
             }
@@ -2828,7 +2850,6 @@
       },
       changeTravel(val) {
         val.rmb = '';
-
         this.getTravel(val);
       },
       changelowance(newValue) {
@@ -2937,7 +2958,6 @@
               let sumtableA4 = 0;
               let sumtableA5 = 0;
               let sumtableA6 = 0;
-
               //add-ws-5/12-分录传票的发票税金需要与后面明细同种发票的税金和相同
               if (this.form.type === '0') {
                 for (let i = 0; i < this.tableF.length; i++) {
@@ -2965,12 +2985,11 @@
                   }
                   sumtaxesF = Number(sumtaxesT) + Number(sumtaxesA);
                   sumtaxes = Number(sumtaxesF) - Number(this.tableF[i].facetax);
-                  debugger
                   if (sumtaxes < 0) {
                     if (taxesm === 0) {
-                      this.tableA[taxesn].taxes = (Number(this.tableA[taxesn].taxes) + Number(sumtaxes)).toFixed(2);
+                      this.tableA[taxesn].taxes = (Number(this.tableA[taxesn].taxes) - Number(sumtaxes)).toFixed(2);
                     } else {
-                      this.tableT[taxesm].taxes = (Number(this.tableT[taxesm].taxes) + Number(sumtaxes)).toFixed(2);
+                      this.tableT[taxesm].taxes = (Number(this.tableT[taxesm].taxes) - Number(sumtaxes)).toFixed(2);
                     }
                   } else if (sumtaxes > 0) {
                     if (taxesm === 0) {
@@ -2982,14 +3001,16 @@
                 }
               }
               //add-ws-5/12-分录传票的发票税金需要与后面明细同种发票的税金和相同
-              // //add-ws-5/12-汇税收益与汇税损失问题对应
-              // if (this.form.type === '1'){
-              //   let tableT = this.tableT;
-              //   let tableA = this.tableA;
-              //   cons = cons.filter(item => moment(item.deliverydate).format('YYYY-MM') == moment(this.month).format('YYYY-MM'));
-              //
-              // }
-              // //add-ws-5/12-汇税收益与汇税损失问题对应
+              //add-ws-5/13-获取当前人是否直属部门后台导出csv使用
+              if (getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)) {
+                this.CheckRedirict = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).redirict;
+              }
+              if (this.CheckRedirict == '0') {
+                this.checkredirict = 0;
+              } else if (this.CheckRedirict == '1' || this.CheckRedirict == '') {
+                this.checkredirict = 1;
+              }
+              //add-ws-5/13-获取当前人是否直属部门后台导出csv使用
               if (this.form.type === '0') {
                 for (let i = 0; i < this.tableT.length; i++) {
                   if (this.tableT[i].trafficdate !== '' || this.tableT[i].invoicenumber !== '' || this.tableT[i].departmentname !== '' || this.tableT[i].budgetcoding !== ''
@@ -3033,7 +3054,7 @@
                         departmentname: this.tableA[i].departmentname,
                         budgetcoding: this.tableA[i].budgetcoding,
                         plsummary: this.plsummaryflg1,
-                        accountcode: this.tableA[i].accountcode,
+                        accountcode: this.newaccountcodeflg1,
                         subjectnumber: this.tableA[i].subjectnumber,
                         activitycontent: this.tableA[i].activitycontent,
                         city: this.tableA[i].city,
@@ -3042,6 +3063,9 @@
                         rmb: this.tableA[i].rmb,
                         taxes: this.tableA[i].taxes,
                         annexno: this.tableA[i].annexno,
+                        //add-ws-5/13-获取当前人是否直属部门后台导出csv使用
+                        redirict: this.checkredirict,
+                        //add-ws-5/13-获取当前人是否直属部门后台导出csv使用
                       },
                     );
                   }
@@ -3144,7 +3168,7 @@
                         departmentname: this.tableA[i].departmentname,
                         budgetcoding: this.tableA[i].budgetcoding,
                         plsummary: this.plsummaryflg1,
-                        accountcode: this.tableA[i].accountcode,
+                        accountcode: this.newaccountcodeflg1,
                         subjectnumber: this.tableA[i].subjectnumber,
                         activitycontent: this.tableA[i].activitycontent,
                         region: this.tableA[i].region,
@@ -3157,6 +3181,9 @@
                         rmb: this.tableA[i].rmb,
                         taxes: this.tableA[i].taxes,
                         annexno: this.tableA[i].annexno,
+                        //add-ws-5/13-获取当前人是否直属部门后台导出csv使用
+                        redirict: this.checkredirict,
+                        //add-ws-5/13-获取当前人是否直属部门后台导出csv使用
                       },
                     );
                   }

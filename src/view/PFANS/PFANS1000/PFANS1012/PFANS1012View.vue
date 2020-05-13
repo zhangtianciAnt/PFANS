@@ -399,7 +399,7 @@
                       if (response[m].budgetcoding != '' && response[m].budgetcoding != null) {
                         let letbudge = getDictionaryInfo(response[m].budgetcoding);
                         if (letbudge) {
-                          response[m].budgetcoding = letbudge.value3;
+                          response[m].budgetcoding = letbudge.value2;
                         }
                       }
                       invoiceamountvalue += parseFloat(response[m].lineamount);
@@ -414,7 +414,7 @@
                         paymentmethod: this.selectedlist[i].paymentmethod,
                         currency: response[m].currency,
                         invoiceamount: response[m].invoiceamount,
-                        lineamount: response[m].lineamount,
+                        lineamount: parseFloat(response[m].lineamount).toFixed(2),
                         currencyrate: response[m].exchangerate,
                         companysegment: '01',
                         budgetcoding: response[m].budgetcoding,

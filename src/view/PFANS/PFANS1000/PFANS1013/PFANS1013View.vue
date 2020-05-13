@@ -355,6 +355,9 @@
               this.selectedlist = this.$refs.roletable.selectedList;
               let sum = 0;
               let invoiceamountvalue = 0;
+              for (let z = 0; z < response.length; z++) {
+                invoiceamountvalue += parseFloat(response[z].lineamount);
+              }
               for (let m = 0; m < response.length; m++) {
                 sum = sum + 1;
                 for (let i = 0; i < this.selectedlist.length; i++) {
@@ -430,10 +433,9 @@
                     if (response[m].budgetcoding != '' && response[m].budgetcoding != null) {
                       let letbudge = getDictionaryInfo(response[m].budgetcoding);
                       if (letbudge) {
-                        response[m].budgetcoding = letbudge.value3;
+                        response[m].budgetcoding = letbudge.value2;
                       }
                     }
-                    invoiceamountvalue += parseFloat(response[m].lineamount);
                     this.travelcostvalue.push({
                       invoicenumber: response[m].invoicenumber,
                       number: response[m].number,
@@ -444,8 +446,8 @@
                       vendorcode: response[m].vendorcode,
                       paymentmethod: this.$t('label.PFANS1012VIEW_OFFICE'),
                       currency: response[m].currency,
-                      invoiceamount: response[m].invoiceamount,
-                      lineamount: response[m].lineamount,
+                      invoiceamount: invoiceamountvalue.toFixed(2),
+                      lineamount: parseFloat(response[m].lineamount).toFixed(2),
                       currencyrate: response[m].exchangerate,
                       companysegment: '01',
                       budgetcoding: response[m].budgetcoding,

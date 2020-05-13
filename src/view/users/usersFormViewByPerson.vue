@@ -169,12 +169,12 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_ADDRESS')" prop="address">
-                    <el-input class="width" v-model="form.address" maxlength="50" style="width:20vw"/>
+                    <el-input class="width" v-model="form.address" maxlength="50" style="width:20vw" disabled/>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_EMAIL')" prop="email">
-                    <el-input class="width" v-model="form.email" style="width:20vw"/>
+                    <el-input class="width" v-model="form.email" style="width:20vw" disabled/>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -184,18 +184,18 @@
                     :label="$t('label.PFANSUSERFORMVIEW_MOBILENUMBER')"
                     prop="mobilenumber"
                   >
-                    <el-input class="width" v-model="form.mobilenumber" style="width:20vw"/>
+                    <el-input class="width" v-model="form.mobilenumber" style="width:20vw" disabled/>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_PHONE')" prop="phone">
-                    <el-input class="width" v-model.number="form.phone" maxlength="20" style="width:20vw"/>
+                    <el-input class="width" v-model.number="form.phone" maxlength="20" style="width:20vw" disabled/>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_EXTENSION')" prop="extension">
                     <el-input class="width" v-model.number="form.extension" maxlength="20"
-                              style="width:20vw"></el-input>
+                              style="width:20vw" disabled></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -598,7 +598,7 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.budgetunit')" prop="budgetunit">
-                    <el-input class="width" :disabled="false" v-model="form.budgetunit" maxlength="10"
+                    <el-input class="width" disabled v-model="form.budgetunit" maxlength="10"
                               style="width:20vw"></el-input>
                   </el-form-item>
                 </el-col>

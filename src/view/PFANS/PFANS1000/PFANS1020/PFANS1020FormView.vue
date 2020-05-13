@@ -129,15 +129,6 @@
                 :error="errorusername"
               >
                 <template slot-scope="scope">
-                  <!--<user-->
-                  <!--:disabled="!disabled"-->
-                  <!--:error="errorusername"-->
-                  <!--:no="scope.row"-->
-                  <!--:selectType="selectType"-->
-                  <!--:userlist="scope.row.username"-->
-                  <!--@getUserids="getUserids1"-->
-                  <!--style="width: 90%"-->
-                  <!--&gt;</user>-->
                   <el-input
                     :error="errorusername"
                     :disabled="!disabled"
@@ -221,7 +212,7 @@ import EasyNormalContainer from "@/components/EasyNormalContainer";
 import dicselect from "../../../components/dicselect.vue";
 import user from "../../../components/user.vue";
 import { Message } from "element-ui";
-import {getCurrentRole4, getOrgInfoByUserId, getUserInfo} from "@/utils/customize";
+import {getDictionaryInfo, getCurrentRole4, getOrgInfoByUserId, getUserInfo} from "@/utils/customize";
 import org from "../../../components/org";
 import moment from "moment";
 
@@ -346,6 +337,14 @@ export default {
           }
           if (response.outsidedetail.length > 0) {
             this.tableD = response.outsidedetail;
+          }
+          for (let i = 0; i < this.tableD.length; i++) {
+            if (this.tableD[i].rank != null) {
+              let rankFlg = getDictionaryInfo(this.tableD[i].rank)
+              if (rankFlg) {
+                this.tableD[i].rank = rankFlg.value1;
+              }
+            }
           }
           this.userlist = this.form.user_id;
           if (this.form.status === "2") {

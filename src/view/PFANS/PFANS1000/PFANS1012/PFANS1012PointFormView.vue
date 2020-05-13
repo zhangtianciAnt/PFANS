@@ -54,6 +54,7 @@
   import user from '../../../components/user.vue';
   import moment from 'moment';
   import {Message} from 'element-ui';
+  import {getCurrentRole2} from '@/utils/customize';
 
   export default {
     name: 'PFANS1012PointFormView',
@@ -72,6 +73,7 @@
           , {value: '5', lable: this.$t('label.PFANS1012VIEW_PURCHASSES')}
           , {value: '6', lable: this.$t('label.PFANS1012VIEW_PURCHASSESWC')}],
         award: [],
+        role1: '',
         options: [],
         selectType: 'Single',
         loading: false,
@@ -94,6 +96,9 @@
       };
     },
     mounted() {
+      //add-ws-5/13-总务担当看到所有符合条件的数据，其他人看本身的而数据
+      this.role1 = getCurrentRole2();
+      //add-ws-5/13-总务担当看到所有符合条件的数据，其他人看本身的而数据
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
@@ -205,7 +210,7 @@
             .dispatch('PFANS1025Store/get', {'maketype': '7'})
             .then(response => {
               for (let i = 0; i < response.length; i++) {
-                if(response[i].status === '4'){
+                if (response[i].status === '4') {
                   var vote = {};
                   vote.value = response[i].award_id;
                   vote.label = this.$t('label.PFANS1012VIEW_CHECKLIST') + '_' + response[i].contractnumber;
@@ -221,31 +226,56 @@
             });
             this.loading = false;
           });
-        }else if (val == '5') {
+        } else if (val == '5') {
           this.form.judgement = '';
           this.options = [];
-          this.loading = true;
-          this.$store
-            .dispatch('PFANS3005Store/getPurchase')
-            .then(response => {
-              for (let i = 0; i < response.length; i++) {
-                if(response[i].status === '4'){
-                  var vote = {};
-                  vote.value = response[i].purchase_id;
-                  vote.label = this.$t('label.PFANS1012VIEW_PURCHASSES') + '_' + response[i].purnumbers;
-                  this.options.push(vote);
+          if (this.role1 === '0') {
+            this.loading = true;
+            this.$store
+              .dispatch('PFANS3005Store/getPurchaseList')
+              .then(response => {
+                for (let i = 0; i < response.length; i++) {
+                  if (response[i].status === '4') {
+                    var vote = {};
+                    vote.value = response[i].purchase_id;
+                    vote.label = this.$t('label.PFANS1012VIEW_PURCHASSES') + '_' + response[i].purnumbers;
+                    this.options.push(vote);
+                  }
                 }
-              }
+                this.loading = false;
+              }).catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
               this.loading = false;
-            }).catch(error => {
-            Message({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
             });
-            this.loading = false;
-          });
-        }else if (val == '6') {
+          }
+          else {
+            this.loading = true;
+            this.$store
+              .dispatch('PFANS3005Store/getPurchase')
+              .then(response => {
+                for (let i = 0; i < response.length; i++) {
+                  if (response[i].status === '4') {
+                    var vote = {};
+                    vote.value = response[i].purchase_id;
+                    vote.label = this.$t('label.PFANS1012VIEW_PURCHASSES') + '_' + response[i].purnumbers;
+                    this.options.push(vote);
+                  }
+                }
+                this.loading = false;
+              }).catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
+          }
+        } else if (val == '6') {
           this.form.judgement = '';
           this.options = [];
           this.$store

@@ -2255,6 +2255,7 @@
         });
     },
     created() {
+      this.$store.commit('global/SET_WORKFLOWURL', "/PFANS1012View");
       if (!this.$route.params.disabled) {
         this.buttonList = [];
       }
@@ -2313,6 +2314,7 @@
       //add-ws-4/30-公共费用决裁已关联得精算
       //add-ws-4/28-精算中，点击决裁，跳转画面
       viewdata(row) {
+        this.$store.commit('global/SET_WORKFLOWURL', "/FFFFF1012FormView");
         if (row.judgement_name.substring(0, 2) === this.$t('menu.PFANS1001')) {
           this.$router.push({
             name: 'PFANS1004FormView',

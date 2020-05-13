@@ -769,32 +769,36 @@
                 );
                 if (moment(letreserveovertimedate).format('MM-DD') === '05-04') {
                     this.change('PR001007');
-                    if (
-                        this.form.reserveovertimedate.getDay() === 0 ||
-                        this.form.reserveovertimedate.getDay() === 6
-                    ) {
-                        this.show = true;
-                        this.rules.reservesubstitutiondate[0].required = true;
-                    } else {
-                        this.show = false;
-                        this.form.reservesubstitutiondate = null;
-                        this.rules.reservesubstitutiondate[0].required = false;
-                        this.form.actualsubstitutiondate = null;
-                    }
+                    // DEL_FJL_05/13   --暂时注释掉无用代码
+                    // if (
+                    //     this.form.reserveovertimedate.getDay() === 0 ||
+                    //     this.form.reserveovertimedate.getDay() === 6
+                    // ) {
+                    //     this.show = true;
+                    //     this.rules.reservesubstitutiondate[0].required = true;
+                    // } else {
+                    //     this.show = false;
+                    //     this.form.reservesubstitutiondate = null;
+                    //     this.rules.reservesubstitutiondate[0].required = false;
+                    //     this.form.actualsubstitutiondate = null;
+                    // }
+                    // DEL_FJL_05/13   --暂时注释掉无用代码
                 } else if (moment(letreserveovertimedate).format('MM-DD') === '03-08') {
                     this.change('PR001008');
-                    if (
-                        this.form.reserveovertimedate.getDay() === 0 ||
-                        this.form.reserveovertimedate.getDay() === 6
-                    ) {
-                        this.show = true;
-                        this.rules.reservesubstitutiondate[0].required = true;
-                    } else {
-                        this.show = false;
-                        this.form.reservesubstitutiondate = null;
-                        this.rules.reservesubstitutiondate[0].required = false;
-                        this.form.actualsubstitutiondate = null;
-                    }
+                    // DEL_FJL_05/13   --暂时注释掉无用代码
+                    // if (
+                    //     this.form.reserveovertimedate.getDay() === 0 ||
+                    //     this.form.reserveovertimedate.getDay() === 6
+                    // ) {
+                    //     this.show = true;
+                    //     this.rules.reservesubstitutiondate[0].required = true;
+                    // } else {
+                    //     this.show = false;
+                    //     this.form.reservesubstitutiondate = null;
+                    //     this.rules.reservesubstitutiondate[0].required = false;
+                    //     this.form.actualsubstitutiondate = null;
+                    // }
+                    // DEL_FJL_05/13   --暂时注释掉无用代码
                 } else if (
                     this.form.overtimetype === 'PR001002' &&
                     this.form.reserveovertime >= 8
