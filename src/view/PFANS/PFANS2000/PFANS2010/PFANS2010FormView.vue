@@ -277,10 +277,12 @@
                 }
             },
             updStatus() {
-                let us = this.$route.params._id.split(",");
-                this.form.user_id = us[0];
-                this.form.years = us[1];
-                this.form.months = us[2];
+                if (this.$route.params._id !== null && this.$route.params._id !== '') {
+                    let us = this.$route.params._id.split(",");
+                    this.form.user_id = us[0];
+                    this.form.years = us[1];
+                    this.form.months = us[2];
+                }
                 this.loading = true;
                 this.$store
                     .dispatch('PFANS2010Store/updStatus', this.form)
