@@ -10,13 +10,25 @@
           <el-dialog :title="$t('button.application')" :visible.sync="dialogVisibleC">
             <el-form-item :label="$t('label.PFANS1024VIEW_NUMBER')" :label-width="formLabelWidth"
                           :error="errorclaimtype" prop="claimtype">
-              <dicselect
-                :code="code"
-                :data="form1.claimtype"
-                :multiple="multiple"
+<!--              <dicselect-->
+<!--                :code="code"-->
+<!--                :data="form1.claimtype"-->
+<!--                :multiple="multiple"-->
+<!--                @change="getnumber"-->
+<!--                style="width: 20vw">-->
+<!--              </dicselect>-->
+<!--              <el-input v-model="form1.claimtype" style="width: 20vw" @change="getnumber"></el-input>-->
+              <el-input-number
+                step-strictly
+                :max="1000000000"
+                :min="1"
+                :precision="0"
+                :step="1"
+                controls-position="right"
+                style="width:20vw"
+                v-model="form1.claimtype"
                 @change="getnumber"
-                style="width: 20vw">
-              </dicselect>
+              ></el-input-number>
             </el-form-item>
             <el-form-item :label="$t('label.PFANS1024VIEW_ORIGINALCONTRACT')" :label-width="formLabelWidth"
                           v-show="show3">
@@ -250,6 +262,15 @@
                       <!--{{item.value}}-->
                     <!--</el-option>-->
                   <!--</el-select>-->
+                </el-form-item>
+              </template>
+            </el-table-column>
+            <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMAMOUNT')" align="center" prop="claimamount"
+                             width="200">
+              <template slot-scope="scope">
+                <el-form-item :prop="'tabledata.' + scope.$index + '.claimamount'">
+                  <el-input :disabled="true" maxlength="20" v-model="scope.row.claimamount">
+                  </el-input>
                 </el-form-item>
               </template>
             </el-table-column>
@@ -502,6 +523,15 @@
             </el-table-column>-->
             <el-table-column :label="$t('label.PFANS1024VIEW_STATE')" align="center" prop="state" width="200">
             </el-table-column>
+            <el-table-column :label="$t('label.PFANS1017FORMVIEW_PREPAREFOR')" align="center" prop="remarks"
+                             width="245">
+              <template slot-scope="scope">
+                <el-form-item :prop="'tableclaimtype.' + scope.$index + '.remarks'" >
+                  <el-input :disabled="!disabled" v-model="scope.row.remarks" style="width:13vw">
+                  </el-input>
+                </el-form-item>
+              </template>
+            </el-table-column>
           </el-table>
           <el-table :data="form.tableclaimtype" stripe header-cell-class-name="sub_bg_color_grey height"
                     :header-cell-style="getRowClass1" style="padding-top: 2vw">
@@ -557,6 +587,15 @@
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.claimamount'" :rules='rules.claimamount'>
                   <el-input-number v-model="scope.row.claimamount" controls-position="right" style="width: 11rem"
                                    :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
+                </el-form-item>
+              </template>
+            </el-table-column>
+            <el-table-column :label="$t('label.PFANS1017FORMVIEW_PREPAREFOR')" align="center" prop="remarks"
+                             width="245">
+              <template slot-scope="scope">
+                <el-form-item :prop="'tableclaimtype.' + scope.$index + '.remarks'" >
+                  <el-input :disabled="!disabled" v-model="scope.row.remarks" style="width:13vw">
+                  </el-input>
                 </el-form-item>
               </template>
             </el-table-column>
@@ -1025,7 +1064,7 @@
           },
         ],
         form1: {
-          claimtype: '',
+          claimtype: '1',
           contractnumber: '',
           contracttype: '',
           applicationdate: '',
@@ -1039,7 +1078,7 @@
           tabledata: [],
           tabledata2: undefined,
           contractnumber: '',
-          claimtype: 'HT001001',
+          claimtype: '1',
           contracttype: '',
           applicationdate: '',
           entrycondition: '',
@@ -1070,6 +1109,7 @@
           claimdate: '',
           supportdate: '',
           claimamount: '',
+          remarks:'',
           tableclaimtype: [],
         },
         formcustomer: {
@@ -1119,6 +1159,7 @@
         projectResult: [],
         recordDataD: [],
         dialogVisibleD: false,
+
       };
     },
     mounted() {
@@ -1143,12 +1184,14 @@
       // this.options.push(option3);
       // this.options.push(option4);
       if (this.$route.params._id) {
+
         this.loading = true;
         this.$store
           .dispatch('PFANS1026Store/get2', {'contractnumber': this.$route.params._id})
           .then(response => {
             let contractapplication = response.contractapplication;
             let contractnumbercount = response.contractnumbercount;
+
             if (contractapplication.length > 0) {
               for (let i = 0; i < contractapplication.length; i++) {
                 /* //555 this.currencyposition
@@ -1159,7 +1202,11 @@
                 // }
                 this.maketype = contractapplication[i].maketype;
 
-                this.form1.claimtype = contractapplication[i].claimtype;
+                if (contractapplication[i].claimtype)
+                {
+                  this.form1.claimtype = contractapplication[i].claimtype.replace('第','').replace('回','');
+                }
+
                 //契約書番号
                 this.letcontractnumber = contractapplication[i].contractnumber;
                 this.show3 = true;
@@ -1336,6 +1383,7 @@
       },
       //
       handleClickE() {
+        //this.form.claimtype = this.$t('label.PFANS1026FORMVIEW_D') + this.form1.claimtype + this.$t('label.PFANS1026FORMVIEW_H');
         this.form.claimtype = this.form1.claimtype;
         this.dialogVisibleE = true;
       },
@@ -1761,7 +1809,7 @@
         this.form.tableclaimtype.push({
           contractnumbercount_id: '',
           contractnumber: this.letcontractnumber,
-          claimtype: '',
+          claimtype: '1',
           deliverydate: '',
           completiondate: '',
           claimdate: moment(new Date()).format('YYYY-MM-DD'),
@@ -1914,32 +1962,39 @@
         this.addRowdata(isClone);
         this.form.tableclaimtype = [];
 
-        if (this.form.claimtype === 'HT001001') {
-          this.addRowclaimtype();
-          this.form.tableclaimtype[0].claimtype = letclaimtypeone;
-        } else if (this.form.claimtype === 'HT001002') {
-          this.addRowclaimtype();
-          this.addRowclaimtype();
-          this.form.tableclaimtype[0].claimtype = letclaimtypeone;
-          this.form.tableclaimtype[1].claimtype = letclaimtypetwo;
-        } else if (this.form.claimtype === 'HT001003') {
-          this.addRowclaimtype();
-          this.addRowclaimtype();
-          this.addRowclaimtype();
-          this.form.tableclaimtype[0].claimtype = letclaimtypeone;
-          this.form.tableclaimtype[1].claimtype = letclaimtypetwo;
-          this.form.tableclaimtype[2].claimtype = letclaimtypethree;
+        // if (this.form.claimtype === 'HT001001') {
+        //   this.addRowclaimtype();
+        //   this.form.tableclaimtype[0].claimtype = letclaimtypeone;
+        // } else if (this.form.claimtype === 'HT001002') {
+        //   this.addRowclaimtype();
+        //   this.addRowclaimtype();
+        //   this.form.tableclaimtype[0].claimtype = letclaimtypeone;
+        //   this.form.tableclaimtype[1].claimtype = letclaimtypetwo;
+        // } else if (this.form.claimtype === 'HT001003') {
+        //   this.addRowclaimtype();
+        //   this.addRowclaimtype();
+        //   this.addRowclaimtype();
+        //   this.form.tableclaimtype[0].claimtype = letclaimtypeone;
+        //   this.form.tableclaimtype[1].claimtype = letclaimtypetwo;
+        //   this.form.tableclaimtype[2].claimtype = letclaimtypethree;
+        //
+        // } else if (this.form.claimtype === 'HT001004') {
+        //   this.addRowclaimtype();
+        //   this.addRowclaimtype();
+        //   this.addRowclaimtype();
+        //   this.addRowclaimtype();
+        //   this.form.tableclaimtype[0].claimtype = letclaimtypeone;
+        //   this.form.tableclaimtype[1].claimtype = letclaimtypetwo;
+        //   this.form.tableclaimtype[2].claimtype = letclaimtypethree;
+        //   this.form.tableclaimtype[3].claimtype = letclaimtypefour;
+        // }
 
-        } else if (this.form.claimtype === 'HT001004') {
+        for (let i = 0; i < this.form.claimtype; i++) {
+          let letclaimtypeone = this.$t('label.PFANS1026FORMVIEW_D') + (i+1)+ this.$t('label.PFANS1026FORMVIEW_H') ;
           this.addRowclaimtype();
-          this.addRowclaimtype();
-          this.addRowclaimtype();
-          this.addRowclaimtype();
-          this.form.tableclaimtype[0].claimtype = letclaimtypeone;
-          this.form.tableclaimtype[1].claimtype = letclaimtypetwo;
-          this.form.tableclaimtype[2].claimtype = letclaimtypethree;
-          this.form.tableclaimtype[3].claimtype = letclaimtypefour;
+          this.form.tableclaimtype[i].claimtype = letclaimtypeone;
         }
+
         if (this.form.contracttype === 'HT014001') {
           this.titleType = this.titleType1;
         } else if (this.form.contracttype === 'HT014002') {
@@ -2067,7 +2122,6 @@
         if (value === 'makeinto') {
           this.handleIndexDisabled();
         } else {
-
           this.handleSaveContract(value, baseInfo);
 
         }
