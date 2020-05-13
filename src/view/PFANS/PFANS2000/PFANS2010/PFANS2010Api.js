@@ -26,3 +26,15 @@ export function update(data) {
     data: data
   })
 }
+
+//add_fjl_05/13   --添加审批正常结束后，自动变成承认状态
+//更新状态
+export function updStatus(data) {
+  return request({
+    url: 'attendance/updStatus',
+    method: 'post',
+    data: data
+  })
+}
+
+//add_fjl_05/13   --添加审批正常结束后，自动变成承认状态

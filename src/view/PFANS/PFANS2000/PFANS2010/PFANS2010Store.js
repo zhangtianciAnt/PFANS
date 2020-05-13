@@ -1,7 +1,8 @@
 import {
   getlist,
   getAttendancelist,
-  update
+  update,
+  updStatus
 } from './PFANS2010Api'
 
 const PFANS2010Store = {
@@ -54,7 +55,23 @@ const PFANS2010Store = {
           reject(error);
         })
       })
+    },
+    //add_fjl_05/13   --添加审批正常结束后，自动变成承认状态
+    //更新状态
+    updStatus({commit}, data) {
+      return new Promise((resolve, reject) => {
+        updStatus(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
     }
+    //add_fjl_05/13   --添加审批正常结束后，自动变成承认状态
 
   }
 }
