@@ -40,7 +40,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.judgement')"  prop="judgement">
+              <el-form-item :label="$t('label.judgement')" prop="judgement">
                 <el-select @change="change" clearable v-model="form.judgements"
                            style="width: 20vw">
                   <el-option
@@ -56,8 +56,8 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1012FORMVIEW_BUDGET')">
-<!--                <el-input :disabled="true" style="width:20vw" v-model="form.budgetunit" maxlength='50'></el-input>-->
-                <el-select clearable style="width: 20vw"  v-model="form.budgetunit" :disabled="!disable"
+                <!--                <el-input :disabled="true" style="width:20vw" v-model="form.budgetunit" maxlength='50'></el-input>-->
+                <el-select clearable style="width: 20vw" v-model="form.budgetunit" :disabled="!disable"
                            :placeholder="$t('normal.error_09')">
                   <el-option
                     v-for="item in options1"
@@ -233,7 +233,7 @@
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1012VIEW_PAYEENAME')" v-if="show9" prop="payeename">
                     <el-input :disabled="true" style="width:20vw" v-model="form.payeename"
-                              ></el-input>
+                    ></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -255,7 +255,7 @@
                   <el-form-item :label="$t('label.PFANS1012VIEW_PAYEEBANKACCOUNT')" v-if="show1"
                                 prop="payeebankaccount">
                     <el-input :disabled="true" style="width:20vw" v-model="form.payeebankaccount"
-                              ></el-input>
+                    ></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -297,7 +297,7 @@
   import dicselect from '../../../components/dicselect.vue';
   import {Message} from 'element-ui';
   import user from '../../../components/user.vue';
-  import {getOrgInfoByUserId, getOrgInfo, getUserInfo} from '@/utils/customize';
+  import {getOrgInfoByUserId, getOrgInfo, getUserInfo, getCurrentRole2} from '@/utils/customize';
   import moment from 'moment';
   import png11 from '@/assets/png/11.png';
   import {validateNumber} from '@/utils/validate';
@@ -408,6 +408,7 @@
         options1: [],
         gridData: [],
         flag: false,
+        role1: '',
         centerid: '',
         groupid: '',
         teamid: '',
@@ -520,7 +521,7 @@
             trigger: 'change',
           }],
           payeecode: [
-              {
+            {
               required: true,
               message: this.$t('normal.error_08') + this.$t('label.PFANS1012VIEW_FOREIGNPAYEECODE'),
               trigger: 'change',
@@ -531,7 +532,7 @@
             message: this.$t('normal.error_08') + this.$t('label.PFANS1012VIEW_PAYEEBANKNUMBER'),
             trigger: 'change',
           },
-            ],
+          ],
           judgement: [{
             required: true,
             validator: validatejudgement,
@@ -575,6 +576,9 @@
       }
     },
     mounted() {
+      //add-ws-5/13-总务担当看到所有符合条件的数据，其他人看本身的而数据
+      this.role1 = getCurrentRole2();
+      //add-ws-5/13-总务担当看到所有符合条件的数据，其他人看本身的而数据
       this.getsupplierinfor();
       this.judgementlist();
       let userid = this.$store.getters.userinfo.userid;
@@ -612,7 +616,7 @@
               this.show3 = true;
               this.show7 = true;
             }
-              this.getBudt(this.userlist);
+            this.getBudt(this.userlist);
             this.loading = false;
           })
           .catch(error => {
@@ -625,7 +629,7 @@
           });
       } else {
         this.userlist = this.$store.getters.userinfo.userid;
-        if(getUserInfo(this.$store.getters.userinfo.userid)){
+        if (getUserInfo(this.$store.getters.userinfo.userid)) {
           this.form.name = this.$store.getters.userinfo.userinfo.caiwupersonalcode;
           this.Codecheck = this.$store.getters.userinfo.userinfo.caiwupersonalcode;
         }
@@ -647,32 +651,32 @@
             this.form.group_id = rst.groupId;
             this.form.team_id = rst.teamId;
           }
-            this.getBudt(this.form.user_id);
+          this.getBudt(this.form.user_id);
         }
       }
     },
     methods: {
-        getBudt(val){
-            //ADD_FJL  修改人员预算编码
-            if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
-                let butinfo = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
-                let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-                if(dic.length > 0){
-                    for (let i = 0; i < dic.length; i++) {
-                        if(butinfo === dic[i].value1){
-                            this.options1.push({
-                                lable: dic[i].value2 +'_'+ dic[i].value3,
-                                value: dic[i].code,
-                            })
-                        }
-                    }
-                }
+      getBudt(val) {
+        //ADD_FJL  修改人员预算编码
+        if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
+          let butinfo = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
+          let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+          if (dic.length > 0) {
+            for (let i = 0; i < dic.length; i++) {
+              if (butinfo === dic[i].value1) {
+                this.options1.push({
+                  lable: dic[i].value2 + '_' + dic[i].value3,
+                  value: dic[i].code,
+                });
+              }
             }
-            //ADD_FJL  修改人员预算编码
-        },
-        changeBut(val) {
-            this.form.budgetunit = val;
-        },
+          }
+        }
+        //ADD_FJL  修改人员预算编码
+      },
+      changeBut(val) {
+        this.form.budgetunit = val;
+      },
       submit() {
         let val = this.currentRow;
         let val1 = this.currentRow1;
@@ -731,12 +735,23 @@
           .dispatch('PFANS1012Store/selectJudgement', {})
           .then(response => {
             for (let i = 0; i < response.length; i++) {
-              if (user_id === response[i].user_id && response[i].equipment == '0') {
-                this.options.push({
-                  value: response[i].judgementid,
-                  label: response[i].judgnumbers + '_' + this.$t('menu.PFANS1004'),
-                });
+              //add-ws-5/13-总务担当看到所有符合条件的数据，其他人看本身的数据
+              if (this.role1 === '0') {
+                if (response[i].equipment == '0') {
+                  this.options.push({
+                    value: response[i].judgementid,
+                    label: response[i].judgnumbers + '_' + this.$t('menu.PFANS1004'),
+                  });
+                }
+              } else {
+                if (user_id === response[i].user_id && response[i].equipment == '0') {
+                  this.options.push({
+                    value: response[i].judgementid,
+                    label: response[i].judgnumbers + '_' + this.$t('menu.PFANS1004'),
+                  });
+                }
               }
+              //add-ws-5/13-总务担当看到所有符合条件的数据，其他人看本身的数据
               if (user_id === response[i].user_id && response[i].equipment == '1') {
                 this.options.push({
                   value: response[i].judgementid,
@@ -749,12 +764,21 @@
               .dispatch('PFANS1012Store/selectPurchaseApply', {})
               .then(response => {
                 for (let i = 0; i < response.length; i++) {
-                  if (user_id === response[i].user_id) {
+                  //add-ws-5/13-总务担当看到所有符合条件的数据，其他人看本身的数据
+                  if (this.role1 === '0') {
                     this.options.push({
                       value: response[i].purchaseapply_id,
                       label: response[i].purchasenumbers + '_' + this.$t('menu.PFANS1005'),
                     });
+                  } else {
+                    if (user_id === response[i].user_id) {
+                      this.options.push({
+                        value: response[i].purchaseapply_id,
+                        label: response[i].purchasenumbers + '_' + this.$t('menu.PFANS1005'),
+                      });
+                    }
                   }
+                  //add-ws-5/13-总务担当看到所有符合条件的数据，其他人看本身而数据
                 }
                 this.loading = false;
               }).catch(error => {
@@ -766,15 +790,60 @@
               this.loading = false;
             });
             //add-ws-4/24-暂借款申请单添加千元以下费用申请数据到下拉列表中
+            //add-ws-5/13-添加购买申请数据，总务担当看到所有符合条件的数据，其他人看本身而数据
+            if (this.role1 === '0') {
+              this.$store
+                .dispatch('PFANS3005Store/getPurchaseList')
+                .then(response => {
+                  for (let i = 0; i < response.length; i++) {
+                    if (response[i].status === '4') {
+                      var vote = {};
+                      vote.value = response[i].purchase_id;
+                      vote.label = this.$t('label.PFANS1012VIEW_PURCHASSES') + '_' + response[i].purnumbers;
+                      this.options.push(vote);
+                    }
+                  }
+                  this.loading = false;
+                }).catch(error => {
+                Message({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.loading = false;
+              });
+            } else {
+              this.$store
+                .dispatch('PFANS3005Store/getPurchase')
+                .then(response => {
+                  for (let i = 0; i < response.length; i++) {
+                    if (response[i].status === '4') {
+                      var vote = {};
+                      vote.value = response[i].purchase_id;
+                      vote.label = this.$t('label.PFANS1012VIEW_PURCHASSES') + '_' + response[i].purnumbers;
+                      this.options.push(vote);
+                    }
+                  }
+                  this.loading = false;
+                }).catch(error => {
+                Message({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.loading = false;
+              });
+            }
             this.loading = false;
+            //add-ws-5/13-添加购买申请数据，总务担当看到所有符合条件的数据，其他人看本身而数据
           });
       },
       getUserids(val) {
         this.form.user_id = val;
-        if(val === ''){
-          this.form.code =''
-          this.Codecheck =''
-        }else{
+        if (val === '') {
+          this.form.code = '';
+          this.Codecheck = '';
+        } else {
           this.form.code = getUserInfo(val).userinfo.caiwupersonalcode;
           this.Codecheck = getUserInfo(val).userinfo.caiwupersonalcode;
         }
@@ -818,7 +887,7 @@
           this.show1 = true;
           this.show2 = false;
           this.show3 = false;
-          this.form.payeename= '';
+          this.form.payeename = '';
           this.form.payeecode = '';
           this.form.payeebankaccountnumber = '';
           this.form.payeebankaccount = '';
@@ -831,7 +900,7 @@
           this.rules.payeebankaccountnumber[0].required = true;
           this.rules.payeebankaccount[0].required = true;
         } else if (val === 'PJ015002') {
-          this.form.name = this.Codecheck
+          this.form.name = this.Codecheck;
           this.show7 = false;
           this.show9 = false;
           this.show8 = false;
