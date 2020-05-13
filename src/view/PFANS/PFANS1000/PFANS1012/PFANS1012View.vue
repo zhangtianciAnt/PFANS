@@ -414,7 +414,7 @@
                         paymentmethod: this.selectedlist[i].paymentmethod,
                         currency: response[m].currency,
                         invoiceamount: response[m].invoiceamount,
-                        lineamount: response[m].lineamount,
+                        lineamount: parseFloat(response[m].lineamount).toFixed(2),
                         currencyrate: response[m].exchangerate,
                         companysegment: '01',
                         budgetcoding: response[m].budgetcoding,
