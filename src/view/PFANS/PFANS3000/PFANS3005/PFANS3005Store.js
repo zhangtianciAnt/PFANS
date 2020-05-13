@@ -1,4 +1,4 @@
-import {getPurchase,getPurchaseOne,updatePurchase,createPurchase} from './PFANS3005Api'
+import {getPurchase,getPurchaseOne,updatePurchase,createPurchase,getPurchaseList} from './PFANS3005Api'
 
 const PFANS3005Store = {
   namespaced: true,
@@ -8,6 +8,19 @@ const PFANS3005Store = {
     getPurchase() {
       return new Promise((resolve, reject) => {
         getPurchase().then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    getPurchaseList() {
+      return new Promise((resolve, reject) => {
+        getPurchaseList().then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {

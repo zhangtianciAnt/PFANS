@@ -7,6 +7,7 @@
       @disabled="setdisabled"
       ref="container"
       v-loading="loading"
+      @workflowState="workflowState"
     >
       <div slot="customize">
     <EasyNormalTable
@@ -266,6 +267,39 @@
                 this.rowid = row.attendanceid;
 
             },
+            //add_fjl_05/13   --添加审批正常结束后，自动变成承认状态
+            workflowState(val) {
+                if (val.state === '1') {
+                    this.form.status = '3';
+                } else if (val.state === '2') {
+                    this.form.status = '4';
+                    this.updStatus();
+                }
+            },
+            updStatus() {
+                if (this.$route.params._id !== null && this.$route.params._id !== '') {
+                    let us = this.$route.params._id.split(",");
+                    this.form.user_id = us[0];
+                    this.form.years = us[1];
+                    this.form.months = us[2];
+                }
+                this.loading = true;
+                this.$store
+                    .dispatch('PFANS2010Store/updStatus', this.form)
+                    .then(response => {
+                        this.loading = false;
+                        this.data = response;
+                    })
+                    .catch(error => {
+                        Message({
+                            message: error,
+                            type: 'error',
+                            duration: 5 * 1000
+                        });
+                        this.loading = false;
+                    })
+            },
+            //add_fjl_05/13   --添加审批正常结束后，自动变成承认状态
             buttonClick(val) {
                 this.$store.commit('global/SET_HISTORYURL', this.$route.path)
                 if (val === 'back') {

@@ -113,6 +113,11 @@
                       </el-form-item>
                     </el-col>
                   </el-row>
+                  <!--                  add_fjl_05/13  &#45;&#45;添加审批流程提示-->
+                  <row>
+                    <span class="sub_color_red">{{$t('label.PFANS2023FORMVIEW_WORKFLOWPROMPT')}}</span>
+                  </row>
+                  <!--                  add_fjl_05/13  &#45;&#45;添加审批流程提示-->
                 </el-form>
               </div>
             </el-tab-pane>
@@ -145,6 +150,11 @@
                       </el-form-item>
                     </el-col>
                   </el-row>
+                  <!--                  add_fjl_05/13  &#45;&#45;添加审批流程提示-->
+                  <row>
+                    <span class="sub_color_red">{{$t('label.PFANS2023FORMVIEW_WORKFLOWPROMPT')}}</span>
+                  </row>
+                  <!--                  add_fjl_05/13  &#45;&#45;添加审批流程提示-->
                 </el-form>
               </div>
             </el-tab-pane>
@@ -177,6 +187,11 @@
                       </el-form-item>
                     </el-col>
                   </el-row>
+                  <!--                  add_fjl_05/13  &#45;&#45;添加审批流程提示-->
+                  <row>
+                    <span class="sub_color_red">{{$t('label.PFANS2023FORMVIEW_WORKFLOWPROMPT')}}</span>
+                  </row>
+                  <!--                  add_fjl_05/13  &#45;&#45;添加审批流程提示-->
                 </el-form>
               </div>
             </el-tab-pane>
@@ -209,6 +224,11 @@
                       </el-form-item>
                     </el-col>
                   </el-row>
+                  <!--                  add_fjl_05/13  &#45;&#45;添加审批流程提示-->
+                  <row>
+                    <span class="sub_color_red">{{$t('label.PFANS2023FORMVIEW_WORKFLOWPROMPT')}}</span>
+                  </row>
+                  <!--                  add_fjl_05/13  &#45;&#45;添加审批流程提示-->
                 </el-form>
               </div>
             </el-tab-pane>

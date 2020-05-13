@@ -7,6 +7,13 @@ export function getPurchase() {
   })
 }
 
+export function getPurchaseList() {
+  return request({
+    url: 'purchase/getlist',
+    method: 'get'
+  })
+}
+
 export function getPurchaseOne(data) {
   return request({
     url: 'purchase/one',
