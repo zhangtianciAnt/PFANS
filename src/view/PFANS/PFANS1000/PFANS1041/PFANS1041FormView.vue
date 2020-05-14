@@ -803,9 +803,6 @@
                             } else if (this.tableDataA[0].status === '4') {
                                 this.workflowCode = 'W0054';
                                 this.canStart = true;
-                                // if(this.tableDataA[0].status === '4'){
-                                //     this.status = '4';
-                                // }
                             }
                         }
                         this.loading = false;
@@ -1180,7 +1177,6 @@
                 let orgInfo = getUpOrgInfo(val);
                 this.refform.group_id = val;
                 this.refform.center_id = orgInfo._id;
-                //this.tableA.group_id = val;//111
             },
             //el-tabsClick
             handleClick(tab, event) {
