@@ -8,6 +8,7 @@
       ref="container"
       v-loading="loading"
       @workflowState="workflowState"
+      :workflowCode="workflowCode"
     >
       <div slot="customize">
     <EasyNormalTable
@@ -42,6 +43,7 @@
               uplist:[],
                 dateInfo: [],
                 loading: false,
+                workflowCode: '',
                 title: 'title.PFANS2010FOMRVIEW',
                 data: [],
                 rowid: '',
@@ -486,6 +488,39 @@
             },
         },
         mounted() {
+            //ADD_FJL_05/14
+            if (this.$route.params._id !== null && this.$route.params._id !== '') {
+                let us = this.$route.params._id.split(",");
+                let userid = us[0];
+                this.$store
+                    .dispatch('personalCenterStore/getPersonalCenterinfo', {"userid": userid})
+                    .then(response => {
+                        let roles = "";
+                        let num = 0;
+                        if (response.useraccount && response.useraccount.roles && response.useraccount.roles.length > 0) {
+                            for (let role of response.useraccount.roles) {
+                                roles = roles + role.description;
+                            }
+                            if (roles.indexOf("总经理") != -1) {
+                                num++
+                            } else if (roles.toUpperCase().indexOf("CENTER") != -1) {
+                                num++
+                            } else if (roles.toUpperCase().indexOf("GM") != -1) {
+                                num++
+                            } else if (roles.toUpperCase().indexOf("TL") != -1) {
+                                num++
+                            }
+                        }
+                        if (num === 0) {
+                            //普通社員审批
+                            this.workflowCode = 'W0002'
+                        } else {
+                            //领导审批
+                            this.workflowCode = 'W0049'
+                        }
+                    });
+            }
+            //ADD_FJL_05/14
           //add-ws-考勤设置休日背景色
           this.getDay();
           //add-ws-考勤设置休日背景色

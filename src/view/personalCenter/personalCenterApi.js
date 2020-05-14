@@ -24,7 +24,7 @@ export function getPersonalCenter() {
 }
 
 //获取个人信息
-export function getPersonalCenterinfo() {
+export function getPersonalCenterinfo(data) {
   return request({
     url: 'PersonalCenter/getuserinfo',
     method: 'get',

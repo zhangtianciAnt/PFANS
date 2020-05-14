@@ -25,9 +25,9 @@ const personalCenterStore = {
       })
     },
     //获取个人信息
-    getPersonalCenter({ commit }, data) {
+    getPersonalCenter({commit},) {
       return new Promise((resolve, reject) => {
-        getPersonalCenter(data).then(response => {
+        getPersonalCenter().then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -39,9 +39,9 @@ const personalCenterStore = {
       })
     },
     //获取个人信息
-    getPersonalCenterinfo({ commit }) {
+    getPersonalCenterinfo({commit}, data) {
       return new Promise((resolve, reject) => {
-        getPersonalCenterinfo().then(response => {
+        getPersonalCenterinfo(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
