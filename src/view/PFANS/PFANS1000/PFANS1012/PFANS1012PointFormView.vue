@@ -125,29 +125,55 @@
         if (val == '1') {
           this.form.judgement = '';
           this.options = [];
-          this.$store
-            .dispatch('PFANS1012Store/selectJudgement', {})
-            .then(response => {
-              for (let i = 0; i < response.length; i++) {
-                if (user_id === response[i].user_id && response[i].equipment == '0') {
-                  if (response[i].createon !== null && response[i].createon !== '') {
-                    response[i].createon = moment(response[i].createon).format('YYYY-MM-DD');
+          if (this.role1 === '0') {
+            this.$store
+              .dispatch('PFANS1012Store/selectJudgement', {})
+              .then(response => {
+                for (let i = 0; i < response.length; i++) {
+                  if (response[i].equipment == '0') {
+                    if (response[i].createon !== null && response[i].createon !== '') {
+                      response[i].createon = moment(response[i].createon).format('YYYY-MM-DD');
+                    }
+                    var vote = {};
+                    vote.value = response[i].judgementid;
+                    vote.label = this.$t('menu.PFANS1004') + '_' + response[i].judgnumbers;
+                    this.options.push(vote);
                   }
-                  var vote = {};
-                  vote.value = response[i].judgementid;
-                  vote.label = this.$t('menu.PFANS1004') + '_' + response[i].judgnumbers;
-                  this.options.push(vote);
                 }
-              }
+                this.loading = false;
+              }).catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
               this.loading = false;
-            }).catch(error => {
-            Message({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
             });
-            this.loading = false;
-          });
+          } else {
+            this.$store
+              .dispatch('PFANS1012Store/selectJudgement', {})
+              .then(response => {
+                for (let i = 0; i < response.length; i++) {
+                  if (user_id === response[i].user_id && response[i].equipment == '0') {
+                    if (response[i].createon !== null && response[i].createon !== '') {
+                      response[i].createon = moment(response[i].createon).format('YYYY-MM-DD');
+                    }
+                    var vote = {};
+                    vote.value = response[i].judgementid;
+                    vote.label = this.$t('menu.PFANS1004') + '_' + response[i].judgnumbers;
+                    this.options.push(vote);
+                  }
+                }
+                this.loading = false;
+              }).catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
+          }
         } else if (val == '2') {
           this.form.judgement = '';
           this.options = [];
@@ -251,8 +277,7 @@
               });
               this.loading = false;
             });
-          }
-          else {
+          } else {
             this.loading = true;
             this.$store
               .dispatch('PFANS3005Store/getPurchase')
