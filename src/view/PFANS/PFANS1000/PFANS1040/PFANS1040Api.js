@@ -40,6 +40,13 @@ export function update(data) {
     data: data
   })
 }
+export function inserttheme(data) {
+  return request({
+    url: 'themeplan/inserttheme',
+    method: 'post',
+    data: data
+  })
+}
 
 
 
