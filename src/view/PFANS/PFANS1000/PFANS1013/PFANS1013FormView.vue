@@ -2948,6 +2948,7 @@
         if(this.tableRValue[8]>0){
           sum = this.tableRValue[8]
         }
+        
         if (this.form.type === '0') {
           // this.form.totalpay = sums[10] + this.tableAValue[11] + this.tableRValue[9];
           this.form.totalpay = sums[9] + this.tableAValue[10] + this.tableAValue[12] +sum;
