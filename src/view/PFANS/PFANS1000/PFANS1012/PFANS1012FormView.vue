@@ -1674,6 +1674,7 @@
       }
       this.tableP[0].code17 = this.Redirict == '0' ? 'PJ121' : 'PJ134';
       //ADD-WS-个人编码修改
+      debugger
       this.IDname = this.$route.params._id;
       if (this.IDname) {
         this.disablecheck = true;
@@ -2314,6 +2315,7 @@
       //add-ws-4/30-公共费用决裁已关联得精算
       //add-ws-4/28-精算中，点击决裁，跳转画面
       viewdata(row) {
+        this.$store.commit('global/SET_HISTORYURL', '');
         this.$store.commit('global/SET_WORKFLOWURL', "/FFFFF1012FormView");
         if (row.judgement_name.substring(0, 2) === this.$t('menu.PFANS1001')) {
           this.$router.push({

@@ -52,11 +52,11 @@
             filter: true,
           },
           {
-            code: 'status',
-            label: 'label.approval_status',
-            width: 120,
-            fix: false,
-            filter: true,
+              code: 'status',
+              label: 'label.approval_status',
+              width: 120,
+              fix: false,
+              filter: true,
           },
         ],
         buttonList: [
@@ -146,6 +146,7 @@
               group_id: this.row_info.group_id,
               center_id: this.row_info.center_id,
               status: this.row_info.status,
+              plancount: this.row_info.plancount,
               disabled: false,
             },
           });

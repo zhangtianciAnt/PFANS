@@ -4,6 +4,7 @@ import {
   getdetilList,
   insert,
   update,
+  inserttheme
 }
   from './PFANS1040Api'
 
@@ -67,6 +68,19 @@ const PFANS1040Store = {
     update({commit}, data) {
       return new Promise((resolve, reject) => {
         update(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    inserttheme({commit}, data) {
+      return new Promise((resolve, reject) => {
+        inserttheme(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
