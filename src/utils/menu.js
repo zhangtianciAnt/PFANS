@@ -76,62 +76,62 @@ export function menu() {
                     {"_id": "PFANS1036_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
                   ]
                 },
-                // {
-                //   '_id': 'PFANS1039',
-                //   'name': 'menu.PFANS1039',
-                //   'menuvisible': true,
-                //   'menuurl': '/PFANS1039View',
-                //   'menuicon': '',
-                //   'children': [],
-                //   'actions': [
-                //     {"_id": "PFANS1039_read", "actiontype": "0", "name": 'button.view', "auth": 4},
-                //     {"_id": "PFANS1039_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
-                //     {"_id": "PFANS1039_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
-                //     {"_id": "PFANS1039_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
-                //   ]
-                // },
-                // {
-                //   '_id': 'PFANS1040',
-                //   'name': 'menu.PFANS1040',
-                //   'menuvisible': false,
-                //   'menuurl': '/PFANS1040View',
-                //   'menuicon': '',
-                //   'children': [],
-                //   'actions': [
-                //     {"_id": "PFANS1040_read", "actiontype": "0", "name": 'button.view', "auth": 4},
-                //     {"_id": "PFANS1040_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
-                //     {"_id": "PFANS1040_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
-                //     {"_id": "PFANS1040_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
-                //   ]
-                // },
-                // {
-                //   '_id': 'PFANS1041',
-                //   'name': 'menu.PFANS1041',
-                //   'menuvisible': false,
-                //   'menuurl': '/PFANS1041View',
-                //   'menuicon': '',
-                //   'children': [],
-                //   'actions': [
-                //     {"_id": "PFANS1041_read", "actiontype": "0", "name": 'button.view', "auth": 4},
-                //     {"_id": "PFANS1041_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
-                //     {"_id": "PFANS1041_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
-                //     {"_id": "PFANS1041_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
-                //   ]
-                // },
                 {
-                  '_id': 'PFANS1042',
-                  'name': 'menu.PFANS1042',
+                  '_id': 'PFANS1039',
+                  'name': 'menu.PFANS1039',
                   'menuvisible': true,
-                  'menuurl': '/PFANS1042View',
+                  'menuurl': '/PFANS1039View',
                   'menuicon': '',
                   'children': [],
                   'actions': [
-                    {"_id": "PFANS1042_read", "actiontype": "0", "name": 'button.view', "auth": 4},
-                    {"_id": "PFANS1042_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
-                    {"_id": "PFANS1042_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
-                    {"_id": "PFANS1042_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+                    {"_id": "PFANS1039_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                    {"_id": "PFANS1039_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                    {"_id": "PFANS1039_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                    {"_id": "PFANS1039_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
                   ]
                 },
+                {
+                  '_id': 'PFANS1040',
+                  'name': 'menu.PFANS1040',
+                  'menuvisible': false,
+                  'menuurl': '/PFANS1040View',
+                  'menuicon': '',
+                  'children': [],
+                  'actions': [
+                    {"_id": "PFANS1040_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                    {"_id": "PFANS1040_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                    {"_id": "PFANS1040_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                    {"_id": "PFANS1040_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+                  ]
+                },
+                {
+                  '_id': 'PFANS1041',
+                  'name': 'menu.PFANS1041',
+                  'menuvisible': false,
+                  'menuurl': '/PFANS1041View',
+                  'menuicon': '',
+                  'children': [],
+                  'actions': [
+                    {"_id": "PFANS1041_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                    {"_id": "PFANS1041_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                    {"_id": "PFANS1041_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                    {"_id": "PFANS1041_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+                  ]
+                },
+                // {
+                //   '_id': 'PFANS1042',
+                //   'name': 'menu.PFANS1042',
+                //   'menuvisible': true,
+                //   'menuurl': '/PFANS1042View',
+                //   'menuicon': '',
+                //   'children': [],
+                //   'actions': [
+                //     {"_id": "PFANS1042_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                //     {"_id": "PFANS1042_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                //     {"_id": "PFANS1042_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                //     {"_id": "PFANS1042_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+                //   ]
+                // },
               ]
             },
             // {

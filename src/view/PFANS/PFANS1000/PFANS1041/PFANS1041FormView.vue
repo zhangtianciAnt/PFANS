@@ -1328,6 +1328,7 @@
                             type: 'error',
                             duration: 5 * 1000,
                         });
+                        this.loading = false;
                         return false;
                     }
                     this.baseInfo[i].themeplan_id = this.refform.themeplan_id === '' ? '' : this.refform.themeplan_id;

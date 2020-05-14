@@ -22,3 +22,12 @@ export function getPersonalCenter() {
     method: 'get'
   })
 }
+
+//获取个人信息
+export function getPersonalCenterinfo() {
+  return request({
+    url: 'PersonalCenter/getuserinfo',
+    method: 'get',
+    params: data
+  })
+}
