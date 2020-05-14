@@ -1507,6 +1507,9 @@
                                 let letchildren = this.tableDataA[i].children;
                                 if(letchildren.length > 0){
                                     for (var j = 0; j < letchildren.length; j++) {
+                                        if(letchildren[j].month != ''){
+                                            letchildren[j].month = this.refform.year + '-' + letchildren[j].month
+                                        }
                                         if(letchildren[j].contracttype != ''){
                                             if(letchildren[j].contracttype == 'PJ065001'){//外部委託
                                                 letchildren[j].show = true;
@@ -2269,6 +2272,9 @@
                   this.baseInfo[i].year = this.refform.year;
                   this.baseInfo[i].group_id = this.refform.group_id;
                   this.baseInfo[i].center_id = this.refform.center_id;
+                  if(this.baseInfo[i].month){
+                      this.baseInfo[i].month = moment(this.baseInfo[i].month).format('MM')
+                  }
                   if(this.workflowCode === 'W0053'){
                       this.baseInfo[i].status = this.status;
                   }
@@ -2285,8 +2291,6 @@
                         }
                     }
                 }
-                debugger;
-                return;
                 this.$refs['refform'].validate(valid => {
                     if (valid) {
                         let requestUrl;
@@ -2358,7 +2362,7 @@
             },
             //审批颜色提醒
             rowClass({row, rowIndex}) {
-                if(row.type === '2' || row.status === '5'){
+                if(row.type === '2' && row.status === '5'){
                     return 'row1';
                 }
             },
