@@ -1525,7 +1525,7 @@
             if (response.otherdetails.length > 0) {
               this.tableR = response.otherdetails;
               for (let i = 0; i < this.tableR.length; i++) {
-                let acinfo = getDictionaryInfo(this.tableA[i].accountcode);
+                let acinfo = getDictionaryInfo(this.tableR[i].accountcode);
                 if (acinfo) {
                   this.tableR[i].accountcode = acinfo.value1;
                   this.oldaccountcodeflg = acinfo.value1;
@@ -2944,12 +2944,16 @@
         }
       },
       getMoney(sums) {
+        let sum = 0;
+        if(this.tableRValue[8]>0){
+          sum = this.tableRValue[8]
+        }
         if (this.form.type === '0') {
           // this.form.totalpay = sums[10] + this.tableAValue[11] + this.tableRValue[9];
-          this.form.totalpay = sums[9] + this.tableAValue[10] + this.tableAValue[12] + this.tableRValue[8];
+          this.form.totalpay = sums[9] + this.tableAValue[10] + this.tableAValue[12] +sum;
         } else if (this.form.type === '1') {
           // this.form.totalpay = sums[10] + this.tableAValue[13] + this.tableRValue[9];
-          this.form.totalpay = sums[9] + this.tableAValue[12] + this.tableAValue[14] + this.tableRValue[8];
+          this.form.totalpay = sums[9] + this.tableAValue[12] + this.tableAValue[14] + sum;
           //add-ws-5/11-结余公式重新计算
           this.changebalance();
           //add-ws-5/11-结余公式重新计算
@@ -3262,7 +3266,7 @@
                         departmentname: this.tableR[i].departmentname,
                         budgetcoding: this.tableR[i].budgetcoding,
                         plsummary: this.tableR[i].plsummary,
-                        accountcode: this.tableR[i].accountcode,
+                        accountcode: this.oldaccountcodeflg1,
                         subjectnumber: this.tableR[i].subjectnumber,
                         region: this.tableR[i].region,
                         remarks: this.tableR[i].remarks,
@@ -3378,7 +3382,7 @@
                         departmentname: this.tableR[i].departmentname,
                         budgetcoding: this.tableR[i].budgetcoding,
                         plsummary: this.tableR[i].plsummary,
-                        accountcode: this.tableR[i].accountcode,
+                        accountcode: this.oldaccountcodeflg1,
                         subjectnumber: this.tableR[i].subjectnumber,
                         region: this.tableR[i].region,
                         remarks: this.tableR[i].remarks,
