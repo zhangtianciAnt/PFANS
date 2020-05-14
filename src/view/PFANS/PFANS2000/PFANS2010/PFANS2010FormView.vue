@@ -497,8 +497,8 @@
                     .then(response => {
                         let roles = "";
                         let num = 0;
-                        if (response.useraccount && response.useraccount.roles && response.useraccount.roles.length > 0) {
-                            for (let role of response.useraccount.roles) {
+                        if (response.userAccount && response.userAccount.roles && response.userAccount.roles.length > 0) {
+                            for (let role of response.userAccount.roles) {
                                 roles = roles + role.description;
                             }
                             if (roles.indexOf("总经理") != -1) {
@@ -516,7 +516,7 @@
                             this.workflowCode = 'W0002'
                         } else {
                             //领导审批
-                            this.workflowCode = 'W0049'
+                            this.workflowCode = 'W0069'
                         }
                     });
             }
