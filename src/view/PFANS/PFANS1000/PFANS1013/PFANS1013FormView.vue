@@ -929,7 +929,8 @@
             </el-tab-pane>
             <!--add-ws-5/14-其他费用明细添加-->
             <el-tab-pane :disabled="this.form.business_id === '' ? true : false"
-                         :label="$t('label.PFANS1012VIEW_OTHER')" name="fourth">
+                         :label="$t('label.PFANS1012VIEW_OTHER')" name="fourth"
+                         v-if="this.form.type === '0'? false : true">
               <el-row>
                 <el-col :span="24">
                   <el-table :data="tableR" :summary-method="getRsummaries" border
