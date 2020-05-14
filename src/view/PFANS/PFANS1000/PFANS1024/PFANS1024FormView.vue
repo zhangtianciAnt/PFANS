@@ -590,11 +590,11 @@
                 </el-form-item>
               </template>
             </el-table-column>
-            <el-table-column :label="$t('label.PFANS1017FORMVIEW_PREPAREFOR')" align="center" prop="remarks"
+            <el-table-column :label="$t('label.PFANS1017FORMVIEW_PREPAREFOR')" align="center" prop="remarksqh"
                              width="245">
               <template slot-scope="scope">
-                <el-form-item :prop="'tableclaimtype.' + scope.$index + '.remarks'" >
-                  <el-input :disabled="!disabled" v-model="scope.row.remarks" style="width:13vw">
+                <el-form-item :prop="'tableclaimtype.' + scope.$index + '.remarksqh'" >
+                  <el-input :disabled="!disabled" v-model="scope.row.remarksqh" style="width:13vw">
                   </el-input>
                 </el-form-item>
               </template>
@@ -1110,6 +1110,7 @@
           supportdate: '',
           claimamount: '',
           remarks:'',
+          remarksqh:'',
           tableclaimtype: [],
         },
         formcustomer: {
@@ -1286,7 +1287,7 @@
       }
       //333
       let userid = this.$store.getters.userinfo.userid;
-      this.buttonList[3].disabled = true
+      this.buttonList[3].disabled = true;
       if (userid !== null && userid !== '') {
         let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
         if (lst !== null && lst !== '') {
@@ -2153,6 +2154,7 @@
             if(error===0){
               this.loading = true;
               if (this.$route.params._id) {
+
                 this.$store.dispatch('PFANS1026Store/update', baseInfo)
                   .then(response => {
                     this.data = response;

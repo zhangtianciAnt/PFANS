@@ -162,6 +162,13 @@
                                   v-model="scope.row.claimamount"></el-input>
                       </template>
                     </el-table-column>
+                    <el-table-column :label="$t('label.PFANS1017FORMVIEW_PREPAREFOR')" align="center" width="300">
+                      <template slot-scope="scope">
+                        <el-input :disabled="true" v-model="scope.row.remarksqh" style="width:13vw">
+                        </el-input>
+                      </template>
+                    </el-table-column>
+
                   </el-table>
                 </el-col>
               </el-row>
@@ -585,6 +592,7 @@
           deliverydate: '',
           currencyposition: '',
           claimamount: '',
+          remarksqh:'',
           user_id: '',
           extrinsic: '',
           equipment: '',
