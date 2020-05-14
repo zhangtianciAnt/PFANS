@@ -1674,7 +1674,6 @@
       }
       this.tableP[0].code17 = this.Redirict == '0' ? 'PJ121' : 'PJ134';
       //ADD-WS-个人编码修改
-      debugger
       this.IDname = this.$route.params._id;
       if (this.IDname) {
         this.disablecheck = true;
@@ -2119,7 +2118,6 @@
             }
           }
         } else if (this.Redirict == '1' || this.Redirict == '') {
-
           let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ132');
           for (let i = 0; i < dicnew.length; i++) {
             if (dicnew[i].code === 'PJ132004') {
@@ -2321,6 +2319,7 @@
           this.$router.push({
             name: 'PFANS1004FormView',
             params: {
+              _checkdisable :this.disable,
               _checkid: this.IDname,
               _check: true,
               _id: row.judgement,
@@ -2331,6 +2330,7 @@
           this.$router.push({
             name: 'PFANS1005FormView',
             params: {
+              _checkdisable :this.disable,
               _checkid: this.IDname,
               _check: true,
               _id: row.judgement,
@@ -2341,6 +2341,7 @@
           this.$router.push({
             name: 'PFANS1010FormView',
             params: {
+              _checkdisable :this.disable,
               _checkid: this.IDname,
               _check: true,
               _id: row.judgement,
@@ -2351,6 +2352,7 @@
           this.$router.push({
             name: 'PFANS1025FormView',
             params: {
+              _checkdisable :this.disable,
               _checkid: this.IDname,
               _check: true,
               _id: row.judgement,
@@ -2361,6 +2363,7 @@
           this.$router.push({
             name: 'PFANS3005FormView',
             params: {
+              _checkdisable :this.disable,
               _checkid: this.IDname,
               _check: true,
               _id: row.judgement,
@@ -2371,6 +2374,7 @@
           this.$router.push({
             name: 'PFANS1003FormView',
             params: {
+              _checkdisable :this.disable,
               _checkid: this.IDname,
               _check: true,
               _id: row.judgement,
