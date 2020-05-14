@@ -2945,13 +2945,13 @@
       },
       getMoney(sums) {
         let sum = 0;
-        if(this.tableRValue[8]>0){
-          sum = this.tableRValue[8]
+        if (this.tableRValue[8] > 0) {
+          sum = this.tableRValue[8];
         }
-        
         if (this.form.type === '0') {
           // this.form.totalpay = sums[10] + this.tableAValue[11] + this.tableRValue[9];
-          this.form.totalpay = sums[9] + this.tableAValue[10] + this.tableAValue[12] +sum;
+          this.form.totalpay = sums[9] + this.tableAValue[10] + this.tableAValue[12] + sum;
+          this.form.balance =  this.tableAValue[12]
         } else if (this.form.type === '1') {
           // this.form.totalpay = sums[10] + this.tableAValue[13] + this.tableRValue[9];
           this.form.totalpay = sums[9] + this.tableAValue[12] + this.tableAValue[14] + sum;
@@ -3000,7 +3000,7 @@
           sumout = Number(summoney) * Number(exchangerate) + Number(sumMoney) * Number(exchangerate) + Number(summoneyT) * Number(exchangerate);
           sumoutold += parseFloat(sumout);
         }
-        this.form.balance = sumoutold + this.tableAValue[14];
+          this.form.balance = sumoutold + this.tableAValue[14];
       },
       //add-ws-5/11-结余公式重新计算
       workflowState(val) {
@@ -3253,33 +3253,30 @@
                   }
                 }
                 //add-ws-5/14-其他费用明细添加
-                for (let i = 0; i < this.tableR.length; i++) {
-                  if (this.tableR[i].otherdetailsdate !== '' || this.tableR[i].accountcode !== '' || this.tableR[i].region !== ''
-                    || this.tableR[i].rmb > 0 || this.tableR[i].annexno !== '' || this.tableR[i].plsummary !== ''
-                    || this.tableR[i].invoicenumber !== '' || this.tableR[i].departmentname !== '' || this.tableR[i].budgetcoding !== ''
-                    || this.tableR[i].subjectnumber !== '' || this.tableR[i].remarks !== '' || this.tableR[i].taxes >= 0) {
-                    this.baseInfo.otherdetails.push(
-                      {
-                        otherdetails_id: this.tableR[i].otherdetails_id,
-                        evectionid: this.tableR[i].evectionid,
-                        otherdetailsdate: this.tableR[i].otherdetailsdate,
-                        invoicenumber: this.tableR[i].invoicenumber,
-                        departmentname: this.tableR[i].departmentname,
-                        budgetcoding: this.tableR[i].budgetcoding,
-                        plsummary: this.tableR[i].plsummary,
-                        accountcode: this.oldaccountcodeflg1,
-                        subjectnumber: this.tableR[i].subjectnumber,
-                        region: this.tableR[i].region,
-                        remarks: this.tableR[i].remarks,
-                        rmb: this.tableR[i].rmb,
-                        taxes: this.tableR[i].taxes,
-                        // currency: this.tableR[i].currency,
-                        // foreigncurrency: this.tableR[i].foreigncurrency,
-                        annexno: this.tableR[i].annexno,
-                      },
-                    );
-                  }
-                }
+                // for (let i = 0; i < this.tableR.length; i++) {
+                //   if (this.tableR[i].rmb >= 0) {
+                //     this.baseInfo.otherdetails.push(
+                //       {
+                //         otherdetails_id: this.tableR[i].otherdetails_id,
+                //         evectionid: this.tableR[i].evectionid,
+                //         otherdetailsdate: this.tableR[i].otherdetailsdate,
+                //         invoicenumber: this.tableR[i].invoicenumber,
+                //         departmentname: this.tableR[i].departmentname,
+                //         budgetcoding: this.tableR[i].budgetcoding,
+                //         plsummary: this.tableR[i].plsummary,
+                //         accountcode: this.oldaccountcodeflg1,
+                //         subjectnumber: this.tableR[i].subjectnumber,
+                //         region: this.tableR[i].region,
+                //         remarks: this.tableR[i].remarks,
+                //         rmb: this.tableR[i].rmb,
+                //         taxes: this.tableR[i].taxes,
+                //         // currency: this.tableR[i].currency,
+                //         // foreigncurrency: this.tableR[i].foreigncurrency,
+                //         annexno: this.tableR[i].annexno,
+                //       },
+                //     );
+                //   }
+                // }
                 //add-ws-5/14-其他费用明细添加
               } else if (this.form.type === '1') {
                 for (let i = 0; i < this.tableT.length; i++) {
@@ -3370,10 +3367,7 @@
                 }
                 //add-ws-5/14-其他费用明细添加
                 for (let i = 0; i < this.tableR.length; i++) {
-                  if (this.tableR[i].otherdetailsdate !== '' || this.tableR[i].accountcode !== '' || this.tableR[i].region !== ''
-                    || this.tableR[i].rmb > 0 || this.tableR[i].foreigncurrency > 0 || this.tableR[i].annexno !== '' || this.tableR[i].plsummary !== ''
-                    || this.tableR[i].invoicenumber !== '' || this.tableR[i].departmentname !== '' || this.tableR[i].budgetcoding !== ''
-                    || this.tableR[i].subjectnumber !== '' || this.tableR[i].currency !== '' || this.tableR[i].remarks !== '' || this.tableR[i].taxes >= 0) {
+                  if (this.tableR[i].rmb >= 0) {
                     this.baseInfo.otherdetails.push(
                       {
                         otherdetails_id: this.tableR[i].otherdetails_id,
