@@ -1,7 +1,8 @@
 import {
   Password,
   savePersonal,
-  getPersonalCenter
+  getPersonalCenter,
+  getPersonalCenterinfo
 } from './personalCenterApi'
 const personalCenterStore = {
   namespaced: true,
@@ -24,9 +25,23 @@ const personalCenterStore = {
       })
     },
     //获取个人信息
-    getPersonalCenter({ commit }) {
+    getPersonalCenter({ commit }, data) {
       return new Promise((resolve, reject) => {
-        getPersonalCenter().then(response => {
+        getPersonalCenter(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    //获取个人信息
+    getPersonalCenterinfo({ commit }) {
+      return new Promise((resolve, reject) => {
+        getPersonalCenterinfo().then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
