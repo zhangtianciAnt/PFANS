@@ -330,9 +330,8 @@
                                 lengthtime: this.form.lengthtime,
                             })
                             .then(response => {
-                              debugger
                                 if (response.error != '') {
-                                    if (response.error == 'PR013005' || response.error == 'PR013006') {
+                                    if (response.error == 'PR013005' || response.error == 'PR013006' ) {
                                         this.checkDate = response.dat;
                                     }
                                 }
@@ -352,6 +351,9 @@
                                     } else {
                                       callback();
                                     }
+                                  }
+                                  else {
+                                    callback();
                                   }
                                 }
                             })
