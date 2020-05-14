@@ -1111,6 +1111,7 @@
                     row.show = false;
                     row.showG = true;
                 }
+                row.assignor = '';
             },
             getCurrencyType(val, row) {
                 row.currencytype = val;

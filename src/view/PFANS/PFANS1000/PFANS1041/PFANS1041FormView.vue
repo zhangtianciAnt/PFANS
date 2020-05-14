@@ -164,19 +164,34 @@
                   <el-dialog :visible.sync="dialogVisibleA"
                              top="8vh"
                              append-to-body>
-                    <el-table :data="dataA" :row-key="row_id" @row-click="rowClick" max-height="400"
-                              ref="roletableA">
-                      <el-table-column property="custchinese" :label="$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')"
-                                       width="120"></el-table-column>
-                      <el-table-column property="thecompany" :label="$t('label.PFANS6003FORMVIEW_THECOMPANY')"
-                                       width="120"></el-table-column>
-                      <el-table-column property="liableperson" :label="$t('label.ASSETS1002VIEW_USERID')"
-                                       width="120"></el-table-column>
-                      <el-table-column property="prochinese" :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')"
-                                       width="120"></el-table-column>
-                      <el-table-column property="protelephone"
-                                       :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')"
-                                       width="120"></el-table-column>
+                    <el-table
+                      :data="gridData"
+                      height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
+                      @row-click="rowClick">
+                      <el-table-column property="accountpayeename"
+                                       :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')"
+                                       width="150"></el-table-column>
+                      <el-table-column property="payeename"
+                                       :label="$t('label.PFANS1012VIEW_PAYEENAME')"
+                                       width="150"></el-table-column>
+                      <el-table-column property="vendornum"
+                                       :label="$t('label.PFANS1012VIEW_FOREIGNPAYEECODE')"
+                                       width="100"></el-table-column>
+                      <el-table-column property="payeebankaccountnumber"
+                                       :label="$t('label.PFANS1012VIEW_PAYEEBANKNUMBER')"
+                                       width="150"></el-table-column>
+                      <el-table-column property="payeebankaccount"
+                                       :label="$t('label.PFANS1012VIEW_PAYEEBANKACCOUNT')"
+                                       width="150"></el-table-column>
+                      <el-table-column
+                        align="right" width="230">
+                        <template slot="header" slot-scope="scope">
+                          <el-input
+                            v-model="search"
+                            size="mini"
+                            :placeholder="$t('label.PFANS1012FORMVIEW_USERNAME')"/>
+                        </template>
+                      </el-table-column>
                     </el-table>
                   </el-dialog>
                 </template>
@@ -612,6 +627,8 @@
                         showG: false,
                     },
                 ],
+                gridData: [],
+                search: '',
                 baseInfo: [],
                 code3: 'PJ063',
                 code4: 'PJ064',
@@ -828,7 +845,7 @@
             }
             //Set Group data
             this.getGroupOptions();
-            this.getcustomerinfor();
+            this.getsupplierinfor();
         },
         created() {
             this.loading = true;
@@ -912,62 +929,21 @@
                 this.grp_options = options;
                 this.loading = false;
             },
-            getcustomerinfor() {
+            getsupplierinfor() {
                 this.loading = true;
                 this.$store
-                    .dispatch('PFANS6002Store/getcustomerinfor2')
+                    .dispatch('PFANS6003Store/getsupplierinfor2')
                     .then(response => {
-                        for (let j = 0; j < response.length; j++) {
-                            if (response[j].custchinese !== null && response[j].custchinese !== '') {
-                                let custchinese = getUserInfo(response[j].custchinese);
-                                if (custchinese) {
-                                    response[j].custchinese = user.userinfo.customername;
-                                }
-                            }
-                            if (response[j].liableperson !== null && response[j].liableperson !== '') {
-                                let liableperson = getUserInfo(response[j].liableperson);
-                                if (liableperson) {
-                                    response[j].liableperson = user.userinfo.customername;
-                                }
-                            }
-                            if (response[j].prochinese !== null && response[j].prochinese !== '') {
-                                let prochinese = getUserInfo(response[j].prochinese);
-                                if (prochinese) {
-                                    response[j].prochinese = user.userinfo.customername;
-                                }
-                            }
-                            if (response[j].protelephone !== null && response[j].protelephone !== '') {
-                                let protelephone = getUserInfo(response[j].protelephone);
-                                if (protelephone) {
-                                    response[j].protelephone = user.userinfo.customername;
-                                }
-                            }
-                            if (response[j].commontperson !== null && response[j].commontperson !== '') {
-                                let commontperson = getUserInfo(response[j].commontperson);
-                                if (commontperson) {
-                                    response[j].commontperson = user.userinfo.customername;
-                                }
-                            }
-                            if (response[j].comtelephone !== null && response[j].comtelephone !== '') {
-                                let comtelephone = getUserInfo(response[j].comtelephone);
-                                if (comtelephone) {
-                                    response[j].comtelephone = user.userinfo.customername;
-                                }
-                            }
-                            if (response[j].addchinese !== null && response[j].addchinese !== '') {
-                                let addchinese = getUserInfo(response[j].addchinese);
-                                if (addchinese) {
-                                    response[j].addchinese = user.userinfo.customername;
-                                }
-                            }
-                            if (response[j].perscale !== null && response[j].perscale !== '') {
-                                let perscale = getDictionaryInfo(response[j].perscale);
-                                if (perscale != null) {
-                                    response[j].perscale = perscale.value1;
-                                }
-                            }
+                        this.gridData = [];
+                        for (let i = 0; i < response.length; i++) {
+                            var vote = {};
+                            vote.accountpayeename = response[i].supchinese;
+                            vote.payeename = response[i].payeename;
+                            vote.suppliercode = response[i].suppliercode;
+                            vote.payeebankaccountnumber = response[i].payeebankaccountnumber;
+                            vote.payeebankaccount = response[i].payeebankaccount;
+                            this.gridData.push(vote);
                         }
-                        this.dataA = response;
                         this.loading = false;
                     })
                     .catch(error => {
@@ -1067,8 +1043,7 @@
             },
             rowClick(row) {
                 this.loading = true;
-                this.recordData.assignor = row.custjapanese;
-                //this.recordData.assignor = row.customerinfor_id;
+                this.recordData.assignor = row.accountpayeename;
                 this.dialogVisibleA = false;
                 this.loading = false;
             },
@@ -1111,6 +1086,7 @@
                     row.show = false;
                     row.showG = true;
                 }
+                row.assignor = '';
             },
             getCurrencyType(val, row) {
                 row.currencytype = val;
