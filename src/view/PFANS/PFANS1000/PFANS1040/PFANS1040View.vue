@@ -177,7 +177,6 @@
             name: 'PFANS1040FormView',
             params: {
               _id: '',
-              // year: this.fiscal_year,
               group_id: this.$store.getters.userinfo.userinfo.groupid,
               center_id: this.$store.getters.userinfo.userinfo.centerid,
               disabled: false,

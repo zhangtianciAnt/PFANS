@@ -504,10 +504,12 @@
       },
       //add-ws-4/28-精算中，点击决裁，跳转画面
       checkparamsTitle() {
-        let id = this.$route.params._checkid
+        let id = this.$route.params._checkid;
+        let disable = this.$route.params._checkdisable;
         this.$router.push({
           name: 'PFANS1012FormView',
           params: {
+            disabled : disable,
             _id: id,
           },
         });

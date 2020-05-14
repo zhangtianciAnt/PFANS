@@ -927,170 +927,174 @@
                 </el-col>
               </el-row>
             </el-tab-pane>
-
-            <!--            第四页-->
-            <!--            <el-tab-pane :disabled="this.form.business_id === '' ? true : false"-->
-            <!--                         :label="$t('label.PFANS1012VIEW_OTHER')" name="fourth">-->
-            <!--              <el-row>-->
-            <!--                <el-col :span="24">-->
-            <!--                  <el-table :data="tableR" :summary-method="getRsummaries" border-->
-            <!--                            header-cell-class-name="sub_bg_color_blue" show-summary stripe>-->
-            <!--                    <el-table-column :label="$t('label.date')" align="center" width="200">-->
-            <!--                      <template slot-scope="scope">-->
-            <!--                        <el-date-picker :disabled="!disable" style="width: 100%" v-model="scope.row.otherdetailsdate">-->
-            <!--                        </el-date-picker>-->
-            <!--                      </template>-->
-            <!--                    </el-table-column>-->
-            <!--                    <el-table-column :label="$t('label.PFANS1012FORMVIEW_INVOICEN')" align="center" width="150">-->
-            <!--                      <template slot-scope="scope">-->
-            <!--                        <el-select style="width: 100%" v-model="scope.row.invoicenumber">-->
-            <!--                          <el-option-->
-            <!--                            :key="item.value"-->
-            <!--                            :label="item.lable"-->
-            <!--                            :value="item.value"-->
-            <!--                            v-for="item in optionsdata">-->
-            <!--                          </el-option>-->
-            <!--                        </el-select>-->
-            <!--                      </template>-->
-            <!--                    </el-table-column>-->
-            <!--                    <el-table-column :label="$t('label.PFANS1012FORMVIEW_DEPARTMENT')" align="center" width="200">-->
-            <!--                      <template slot-scope="scope">-->
-            <!--                        <org :error="errorgroup"-->
-            <!--                             :no="scope.row"-->
-            <!--                             :orglist="scope.row.departmentname"-->
-            <!--                             @getOrgids="getGroupId"-->
-            <!--                             orgtype="2"-->
-            <!--                             style="width: 100%"></org>-->
-            <!--                      </template>-->
-            <!--                    </el-table-column>-->
-            <!--                    <el-table-column :label="$t('label.PFANS1012FORMVIEW_BUDGET')" align="center" width="150">-->
-            <!--                      <template slot-scope="scope">-->
-            <!--                        <el-input :disabled="true" style="width: 100%" v-model="scope.row.budgetcoding">-->
-            <!--                        </el-input>-->
-            <!--                      </template>-->
-            <!--                    </el-table-column>-->
-            <!--                    <el-table-column :label="$t('label.PFANS1012FORMVIEW_PL')" align="center" width="150">-->
-            <!--                      <template slot-scope="scope">-->
-            <!--                        <el-input :disabled="true" style="width: 100%" v-model="scope.row.plsummary">-->
-            <!--                        </el-input>-->
-            <!--                      </template>-->
-            <!--                    </el-table-column>-->
-            <!--                    <el-table-column :label="$t('label.PFANS1012FORMVIEW_ACCOUNT')" align="center" width="250">-->
-            <!--                      <template slot-scope="scope">-->
-            <!--                        <dicselect :code="code20"-->
-            <!--                                   :data="scope.row.accountcode"-->
-            <!--                                   :disabled="!disable"-->
-            <!--                                   :multiple="multiple"-->
-            <!--                                   :no="scope.row"-->
-            <!--                                   @change="getcode" style="width: 100%">-->
-            <!--                        </dicselect>-->
-            <!--                      </template>-->
-            <!--                    </el-table-column>-->
-            <!--                    <el-table-column :label="$t('label.PFANS1012FORMVIEW_ACCOUNTB')" align="center" width="150">-->
-            <!--                      <template slot-scope="scope">-->
-            <!--                        <el-input :disabled="true" style="width: 100%" v-model="scope.row.subjectnumber">-->
-            <!--                        </el-input>-->
-            <!--                      </template>-->
-            <!--                    </el-table-column>-->
-            <!--                    <el-table-column :label="$t('label.PFANS1012VIEW_REGION')" align="center" width="150">-->
-            <!--                      <template slot-scope="scope">-->
-            <!--                        <el-input :disabled="!disable" maxlength="20" style="width: 100%"-->
-            <!--                                  v-model="scope.row.region">-->
-            <!--                        </el-input>-->
-            <!--                      </template>-->
-            <!--                    </el-table-column>-->
-            <!--                    <el-table-column :label="$t('label.PFANS1012VIEW_ABSTRACT')" align="center" width="200">-->
-            <!--                      <template slot-scope="scope">-->
-            <!--                        <el-input :disabled="!disable" maxlength="20" style="width: 100%" v-model="scope.row.remarks">-->
-            <!--                        </el-input>-->
-            <!--                      </template>-->
-            <!--                    </el-table-column>-->
-            <!--                    <el-table-column :label="$t('label.PFANS1012VIEW_RMB')" align="center" prop="rmb" width="200">-->
-            <!--                      <template slot-scope="scope">-->
-            <!--                        <el-input-number-->
-            <!--                          :disabled="scope.row.currency === 'PG019003' || scope.row.currency === '' ? false : true"-->
-            <!--                          :max="1000000000"-->
-            <!--                          :min="0"-->
-            <!--                          :precision="2"-->
-            <!--                          @change="changeRMB(scope.row)"-->
-            <!--                          controls-position="right"-->
-            <!--                          style="width: 100%"-->
-            <!--                          v-model="scope.row.rmb"-->
-            <!--                        ></el-input-number>-->
-            <!--                      </template>-->
-            <!--                    </el-table-column>-->
-            <!--                    <el-table-column :label="$t('label.PFANS1012FORMVIEW_TAXES')" align="center" prop="taxes"-->
-            <!--                                     width="200">-->
-            <!--                      <template slot-scope="scope">-->
-            <!--                        <el-input-number-->
-            <!--                          :disabled="true"-->
-            <!--                          :precision="2"-->
-            <!--                          controls-position="right"-->
-            <!--                          style="width: 100%"-->
-            <!--                          v-model="scope.row.taxes">-->
-            <!--                        </el-input-number>-->
-            <!--                      </template>-->
-            <!--                    </el-table-column>-->
-            <!--                    <el-table-column :label="$t('label.PFANS1012VIEW_CURRENCY')" align="center"-->
-            <!--                                     prop="currency"-->
-            <!--                                     v-if="this.form.type === '0'? false : true" width="200">-->
-            <!--                      <template slot-scope="scope">-->
-            <!--                        <dicselect :code="code3"-->
-            <!--                                   :data="scope.row.currency"-->
-            <!--                                   :disabled="!disable"-->
-            <!--                                   :multiple="multiple"-->
-            <!--                                   :no="scope.row"-->
-            <!--                                   @change="changeAcc">-->
-            <!--                        </dicselect>-->
-            <!--                      </template>-->
-            <!--                    </el-table-column>-->
-            <!--                    <el-table-column :label="$t('label.PFANS1012VIEW_FOREIGNCURRENCY')" align="center"-->
-            <!--                                     prop="foreigncurrency"-->
-            <!--                                     v-if="showforeigncurrency" width="200">-->
-            <!--                      <template slot-scope="scope">-->
-            <!--                        <el-input-number-->
-            <!--                          :disabled="!disable"-->
-            <!--                          :max="1000000000"-->
-            <!--                          :min="0"-->
-            <!--                          :no="scope.row"-->
-            <!--                          :precision="2"-->
-            <!--                          @change="changefore(scope.row)"-->
-            <!--                          controls-position="right"-->
-            <!--                          style="width: 100%"-->
-            <!--                          v-model="scope.row.foreigncurrency"-->
-            <!--                        ></el-input-number>-->
-            <!--                      </template>-->
-            <!--                    </el-table-column>-->
-            <!--                    <el-table-column :label="$t('label.PFANS1012VIEW_ANNEXNO')" align="center" width="200">-->
-            <!--                      <template slot-scope="scope">-->
-            <!--                        <el-input :disabled="!disable" maxlength="20" v-model="scope.row.annexno">-->
-            <!--                        </el-input>-->
-            <!--                      </template>-->
-            <!--                    </el-table-column>-->
-            <!--                    <el-table-column :label="$t('label.operation')" align="center" width="200">-->
-            <!--                      <template slot-scope="scope">-->
-            <!--                        <el-button-->
-            <!--                          :disabled="!disable"-->
-            <!--                          @click.native.prevent="deleteRow4(scope.$index, tableR)"-->
-            <!--                          plain-->
-            <!--                          size="small"-->
-            <!--                          type="danger"-->
-            <!--                        >{{$t('button.delete')}}-->
-            <!--                        </el-button>-->
-            <!--                        <el-button-->
-            <!--                          :disabled="!disable"-->
-            <!--                          @click="addRow4()"-->
-            <!--                          plain-->
-            <!--                          size="small"-->
-            <!--                          type="primary"-->
-            <!--                        >{{$t('button.insert')}}-->
-            <!--                        </el-button>-->
-            <!--                      </template>-->
-            <!--                    </el-table-column>-->
-            <!--                  </el-table>-->
-            <!--                </el-col>-->
-            <!--              </el-row>-->
-            <!--            </el-tab-pane>-->
+            <!--add-ws-5/14-其他费用明细添加-->
+            <el-tab-pane :disabled="this.form.business_id === '' ? true : false"
+                         :label="$t('label.PFANS1012VIEW_OTHER')" name="fourth">
+              <el-row>
+                <el-col :span="24">
+                  <el-table :data="tableR" :summary-method="getRsummaries" border
+                            header-cell-class-name="sub_bg_color_blue" show-summary stripe>
+                    <el-table-column :label="$t('label.date')" align="center" width="200">
+                      <template slot-scope="scope">
+                        <el-date-picker :disabled="!disable" style="width: 100%" v-model="scope.row.otherdetailsdate">
+                        </el-date-picker>
+                      </template>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.PFANS1012FORMVIEW_INVOICEN')" align="center" width="150">
+                      <template slot-scope="scope">
+                        <el-select :disabled="!disable" style="width: 100%" v-model="scope.row.invoicenumber"
+                                   @change="changeinvoicenumber(scope.row)">
+                          <el-option
+                            :key="item.value"
+                            :label="item.lable"
+                            :value="item.value"
+                            v-for="item in optionsdata">
+                          </el-option>
+                        </el-select>
+                      </template>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.PFANS1012FORMVIEW_DEPARTMENT')" align="center" width="200">
+                      <template slot-scope="scope">
+                        <org :error="errorgroup"
+                             :no="scope.row"
+                             :disabled="checktaxes"
+                             :orglist="scope.row.departmentname"
+                             @getOrgids="getGroupIdR"
+                             orgtype="2"
+                             style="width: 100%"></org>
+                      </template>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.PFANS1012FORMVIEW_BUDGET')" align="center" width="150">
+                      <template slot-scope="scope">
+                        <el-select clearable style="width: 100%" v-model="scope.row.budgetcoding" :disabled="checktaxes"
+                                   :placeholder="$t('normal.error_09')" :no="scope.row">
+                          <el-option
+                            v-for="item in scope.row.optionsR"
+                            :key="item.value"
+                            :label="item.lable"
+                            :value="item.value">
+                          </el-option>
+                        </el-select>
+                      </template>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.PFANS1012FORMVIEW_PL')" align="center" width="150">
+                      <template slot-scope="scope">
+                        <el-input :disabled="true" style="width: 100%" v-model="scope.row.plsummary">
+                        </el-input>
+                      </template>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.PFANS1012FORMVIEW_ACCOUNT')" align="center" width="250">
+                      <template slot-scope="scope">
+                        <el-input :disabled="true" style="width: 100%" v-model="scope.row.accountcode">
+                        </el-input>
+                      </template>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.PFANS1012FORMVIEW_ACCOUNTB')" align="center" width="150"
+                                     v-if="false">
+                      <template slot-scope="scope">
+                        <el-input :disabled="true" style="width: 100%" v-model="scope.row.subjectnumber">
+                        </el-input>
+                      </template>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.PFANS1012VIEW_REGION')" align="center" width="150">
+                      <template slot-scope="scope">
+                        <el-input :disabled="checktaxes" maxlength="20" style="width: 100%"
+                                  v-model="scope.row.region">
+                        </el-input>
+                      </template>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.PFANS1012VIEW_ABSTRACT')" align="center" width="200">
+                      <template slot-scope="scope">
+                        <el-input :disabled="checktaxes" maxlength="20" style="width: 100%" v-model="scope.row.remarks">
+                        </el-input>
+                      </template>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.PFANS1012VIEW_RMB')" align="center" prop="rmb" width="200">
+                      <template slot-scope="scope">
+                        <el-input-number
+                          :disabled="checktaxes"
+                          :max="1000000000"
+                          :min="0"
+                          :precision="2"
+                          @change="changeRMB(scope.row)"
+                          controls-position="right"
+                          style="width: 100%"
+                          v-model="scope.row.rmb"
+                        ></el-input-number>
+                      </template>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.PFANS1012FORMVIEW_TAXES')" align="center" prop="taxes"
+                                     width="200">
+                      <template slot-scope="scope">
+                        <el-input-number
+                          :disabled="true"
+                          :precision="2"
+                          controls-position="right"
+                          style="width: 100%"
+                          v-model="scope.row.taxes">
+                        </el-input-number>
+                      </template>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.PFANS1012VIEW_CURRENCY')" align="center"
+                                     v-if="this.form.type === '0'? false : true" width="200">
+                      <template slot-scope="scope">
+                        <dicselect :code="code3"
+                                   :data="scope.row.currency"
+                                   :disabled="checktaxes"
+                                   :multiple="multiple"
+                                   :no="scope.row"
+                                   @change="changeAcc">
+                        </dicselect>
+                      </template>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.PFANS1012VIEW_FOREIGNCURRENCY')" align="center"
+                                     prop="foreigncurrency"
+                                     v-if="showforeigncurrency" width="200">
+                      <template slot-scope="scope">
+                        <el-input-number
+                          :disabled="checktaxes"
+                          :max="1000000000"
+                          :min="0"
+                          :no="scope.row"
+                          :precision="2"
+                          @change="changefore(scope.row)"
+                          controls-position="right"
+                          style="width: 100%"
+                          v-model="scope.row.foreigncurrency"
+                        ></el-input-number>
+                      </template>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.PFANS1012VIEW_ANNEXNO')" align="center" width="200">
+                      <template slot-scope="scope">
+                        <el-input :disabled="checktaxes" maxlength="20" v-model="scope.row.annexno">
+                        </el-input>
+                      </template>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.operation')" align="center" width="200">
+                      <template slot-scope="scope">
+                        <el-button
+                          :disabled="checktaxes"
+                          @click.native.prevent="deleteRow4(scope.$index, tableR)"
+                          plain
+                          size="small"
+                          type="danger"
+                        >{{$t('button.delete')}}
+                        </el-button>
+                        <el-button
+                          :disabled="checktaxes"
+                          @click="addRow4()"
+                          plain
+                          size="small"
+                          type="primary"
+                        >{{$t('button.insert')}}
+                        </el-button>
+                      </template>
+                    </el-table-column>
+                  </el-table>
+                </el-col>
+              </el-row>
+            </el-tab-pane>
+            <!--add-ws-5/14-其他费用明细添加-->
           </el-tabs>
         </el-form>
       </div>
@@ -1154,7 +1158,7 @@
         disabled: false,
         tableTValue: '',
         tableAValue: '',
-        // tableRValue: '',
+        tableRValue: '',
         tableDValue: '',
         tableValue: '',
         baseInfo: {},
@@ -1268,26 +1272,28 @@
           //   // costitem: '',
           // },
         ],
-        // tableR: [{
-        //   evectionid: '',
-        //   otherdetails_id: '',
-        //   otherdetailsdate: '',
-        //   invoicenumber: '',
-        //   budgetcoding: this.encoding,
-        //   subjectnumber: '',
-        //   plsummary: this.$t('label.PFANS1013FORMVIEW_PLSUMMARY'),
-        //   accountcode: '',
-        //   departmentname: '',
-        //   // costitem: '',
-        //   remarks: '',
-        //   rmb: '',
-        //   // taxrate: '',
-        //   foreigncurrency: '',
-        //   annexno: '',
-        //   taxes: '',
-        //   currency: '',
-        //   rowindex: '',
-        // }],
+        //add-ws-5/14-其他费用明细添加
+        tableR: [{
+          evectionid: '',
+          otherdetails_id: '',
+          otherdetailsdate: '',
+          invoicenumber: '',
+          budgetcoding: '',
+          subjectnumber: '',
+          plsummary: this.plsummaryflg,
+          accountcode: '',
+          departmentname: '',
+          // costitem: '',
+          remarks: '',
+          rmb: '',
+          // taxrate: '',
+          foreigncurrency: '',
+          annexno: '',
+          taxes: '',
+          currency: '',
+          rowindex: '',
+        }],
+        //add-ws-5/14-其他费用明细添加
         rules: {
           userid: [{
             required: true,
@@ -1334,7 +1340,11 @@
         accountcodeflg1: '',
         newaccountcodeflg: '',
         newaccountcodeflg1: '',
+        oldaccountcodeflg: '',
+        oldaccountcodeflg1: '',
         subjectnumberflg: '',
+        newsubjectnumberflg: '',
+        oldsubjectnumberflg: '',
         plsummaryflg1: '',
         plsummaryflg: '',
         optionsdata: [{value: this.$t('label.PFANS1012FORMVIEW_NOMONEY'), label: ''}],
@@ -1347,6 +1357,9 @@
         // this.tableA[0].plsummary = plsummaryinfo.value1;
         // this.tableA[1].plsummary = plsummaryinfo.value1;
         this.tableT[0].plsummary = plsummaryinfo.value1;
+        //add-ws-5/14-其他费用明细添加
+        this.tableR[0].plsummary = plsummaryinfo.value1;
+        //add-ws-5/14-其他费用明细添加
         this.plsummaryflg = plsummaryinfo.value1;
         this.plsummaryflg1 = plsummaryinfo.code;
       }
@@ -1420,6 +1433,7 @@
                   this.tableA[i].accountcode = acinfo.value1;
                   this.newaccountcodeflg = acinfo.value1;
                   this.newaccountcodeflg1 = acinfo.code;
+                  this.newsubjectnumberflg = acinfo.value2;
                 }
                 // this.tableA[i].code20 = '';
                 //PL摘要内容
@@ -1506,9 +1520,41 @@
                 }
               }
             }
-            // if (response.otherdetails.length > 0) {
-            //   this.tableR = response.otherdetails;
-            // }
+            //add-ws-5/14-其他费用明细添加
+            if (response.otherdetails.length > 0) {
+              this.tableR = response.otherdetails;
+              for (let i = 0; i < this.tableR.length; i++) {
+                let acinfo = getDictionaryInfo(this.tableA[i].accountcode);
+                if (acinfo) {
+                  this.tableR[i].accountcode = acinfo.value1;
+                  this.oldaccountcodeflg = acinfo.value1;
+                  this.oldaccountcodeflg1 = acinfo.code;
+                  this.oldsubjectnumberflg = acinfo.value2;
+                }
+                let plsuinfo = getDictionaryInfo(this.tableA[i].plsummary);
+                if (plsuinfo) {
+                  this.tableR[i].plsummary = plsuinfo.value1;
+                  this.plsummaryflg = plsuinfo.value1;
+                  this.plsummaryflg1 = plsuinfo.code;
+                }
+                if (this.tableR[i].departmentname !== '' && this.tableR[i].departmentname !== null && this.tableR[i].departmentname !== undefined) {
+                  this.tableR[i].optionsR = [];
+                  let butinfoR = getOrgInfo(this.tableA[i].departmentname).encoding;
+                  let dicR = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+                  if (dicR.length > 0) {
+                    for (let j = 0; j < dicR.length; j++) {
+                      if (butinfoR === dicR[j].value1) {
+                        this.tableR[i].optionsR.push({
+                          lable: dicR[j].value2 + '_' + dicR[j].value3,
+                          value: dicR[j].code,
+                        });
+                      }
+                    }
+                  }
+                }
+              }
+            }
+            //add-ws-5/14-其他费用明细添加
             if (response.currencyexchanges.length > 0) {
               this.tableW = response.currencyexchanges;
             }
@@ -1543,7 +1589,9 @@
             this.baseInfo.evection = JSON.parse(JSON.stringify(this.form));
             this.baseInfo.trafficdetails = JSON.parse(JSON.stringify(this.tableT));
             this.baseInfo.accommodationdetails = JSON.parse(JSON.stringify(this.tableA));
-            // this.baseInfo.otherdetails = JSON.parse(JSON.stringify(this.tableR));
+            //add-ws-5/14-其他费用明细添加
+            this.baseInfo.otherdetails = JSON.parse(JSON.stringify(this.tableR));
+            //add-ws-5/14-其他费用明细添加
             this.baseInfo.currencyexchanges = JSON.parse(JSON.stringify(this.tableW));
             this.loading = false;
           })
@@ -1559,11 +1607,11 @@
         this.getBusInside();
         this.checkmoney = true;
         this.checktaxes = true;
-        let num = getUserInfo(this.$store.getters.userinfo.userid).userinfo.extension;
-        if (num) {
-          this.form.telephone = num;
-        }
         if (getUserInfo(this.$store.getters.userinfo.userid)) {
+          let num = getUserInfo(this.$store.getters.userinfo.userid).userinfo.extension;
+          if (num) {
+            this.form.telephone = num;
+          }
           this.form.personalcode = this.$store.getters.userinfo.userinfo.caiwupersonalcode;
           this.Codecheck = this.$store.getters.userinfo.userinfo.caiwupersonalcode;
         }
@@ -1591,15 +1639,34 @@
           // this.getGroupIdA(this.groupId,this.tableA);
           // this.tableA[0].departmentname = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
           // this.tableA[1].departmentname = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
-          // this.tableR[0].departmentname = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
+          //add-ws-5/14-其他费用明细添加
+          this.tableR[0].departmentname = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
+          this.tableR[0].optionsR = [];
+          if (this.tableR[0].departmentname) {
+            let butinfoR = getOrgInfo(this.tableR[0].departmentname).encoding;
+            if (butinfoR) {
+              let dicR = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+              if (dicR.length > 0) {
+                for (let j = 0; j < dicR.length; j++) {
+                  if (butinfoR === dicR[j].value1) {
+                    this.tableR[0].optionsR.push({
+                      lable: dicR[j].value2 + '_' + dicR[j].value3,
+                      value: dicR[j].code,
+                    });
+                  }
+                }
+              }
+            }
+          }
           if (getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)) {
             // this.encoding = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
             // this.tableT[0].budgetcoding = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
             // this.tableA[0].budgetcoding = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
             // this.tableA[1].budgetcoding = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
-            // this.tableR[0].budgetcoding = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
+            this.tableR[0].budgetcoding = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
             this.Redirict = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).redirict;
           }
+          //add-ws-5/14-其他费用明细添加
         }
         this.userlist = this.$store.getters.userinfo.userid;
         if (this.userlist !== null && this.userlist !== '') {
@@ -1620,10 +1687,21 @@
           this.showAout = true;
         }
         if (this.Redirict == '0') {
+          // --add-ws-5/14-其他费用明细添加--
+          let oldplsummaryinfo = getDictionaryInfo('PJ119007');
+          if (oldplsummaryinfo) {
+            this.tableR[0].accountcode = oldplsummaryinfo.value1;
+            this.tableR[0].subjectnumber = oldplsummaryinfo.value2;
+            this.oldaccountcodeflg = oldplsummaryinfo.value1;
+            this.oldaccountcodeflg1 = oldplsummaryinfo.code;
+            this.oldsubjectnumberflg = oldplsummaryinfo.value2;
+          }
+          // --add-ws-5/14-其他费用明细添加--
           let newaccinfo = getDictionaryInfo('PJ119001');
           if (newaccinfo) {
             this.newaccountcodeflg = newaccinfo.value1;
             this.newaccountcodeflg1 = newaccinfo.code;
+            this.newsubjectnumberflg = newaccinfo.value2;
           }
           let accinfo = getDictionaryInfo('PJ119002');
           if (accinfo) {
@@ -1634,10 +1712,21 @@
             this.subjectnumberflg = accinfo.value2;
           }
         } else if (this.Redirict == '1' || this.Redirict == '') {
+          // --add-ws-5/14-其他费用明细添加--
+          let oldplsummaryinfo = getDictionaryInfo('PJ132007');
+          if (oldplsummaryinfo) {
+            this.tableR[0].accountcode = oldplsummaryinfo.value1;
+            this.tableR[0].subjectnumber = oldplsummaryinfo.value2;
+            this.oldaccountcodeflg = oldplsummaryinfo.value1;
+            this.oldaccountcodeflg1 = oldplsummaryinfo.code;
+            this.oldsubjectnumberflg = oldplsummaryinfo.value2;
+          }
+          // --add-ws-5/14-其他费用明细添加--
           let newaccinfo = getDictionaryInfo('PJ132001');
           if (newaccinfo) {
             this.newaccountcodeflg = newaccinfo.value1;
             this.newaccountcodeflg1 = newaccinfo.code;
+            this.newsubjectnumberflg = newaccinfo.value2;
           }
           let accinfo = getDictionaryInfo('PJ132002');
           if (accinfo) {
@@ -1964,6 +2053,30 @@
           row.budgetcoding = '';
         }
       },
+      getGroupIdR(orglist, row) {
+        row.departmentname = orglist;
+        row.optionsR = [];
+        row.budgetcoding = '';
+        let butinfo = getOrgInfo(row.departmentname).encoding;
+        let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+        if (dic.length > 0) {
+          for (let i = 0; i < dic.length; i++) {
+            if (butinfo === dic[i].value1) {
+              row.optionsR.push({
+                lable: dic[i].value2 + '_' + dic[i].value3,
+                value: dic[i].code,
+              });
+            }
+          }
+        }
+        let group = getOrgInfo(orglist);
+        if (group) {
+          this.Redirict = group.redirict;
+        }
+        if (!orglist) {
+          row.budgetcoding = '';
+        }
+      },
       getGroupIdA(orglist, row) {
         row.departmentname = orglist;
         //ADD_FJL
@@ -2097,6 +2210,10 @@
           this.form.personalcode = getUserInfo(val).userinfo.caiwupersonalcode;
           this.Codecheck = getUserInfo(val).userinfo.caiwupersonalcode;
         }
+        let num = getUserInfo(val).userinfo.extension;
+        if (num) {
+          this.form.telephone = num;
+        }
         this.userlist = val;
         let lst = getOrgInfoByUserId(val);
         if (lst) {
@@ -2122,6 +2239,7 @@
         } else {
           row.exchangermb = 0.00;
         }
+        this.changebalance();
       },
       changesummoney(row) {
         row.facetax = row.invoiceamount - row.excludingtax;
@@ -2176,8 +2294,8 @@
             activitycontent: ' ',
             budgetcoding: '',
             plsummary: this.plsummaryflg,
-            accountcode: '',
-            subjectnumber: '',
+            accountcode: this.newaccountcodeflg,
+            subjectnumber: this.newsubjectnumberflg,
             subsidies: '',
             city: '',
             region: ' ',
@@ -2192,25 +2310,27 @@
           }];
         }
       },
-      // deleteRow4(index, rows) {
-      //   if (rows.length > 1) {
-      //     rows.splice(index, 1);
-      //   } else {
-      //     this.tableR = [{
-      //       otherdetailsdate: '',
-      //       // costitem: '',
-      //       plsummary: this.$t('label.PFANS1013FORMVIEW_PLSUMMARY'),
-      //       accountcode: '',
-      //       rmb: '',
-      //       subjectnumber: '',
-      //       remarks: '',
-      //       budgetcoding: '',
-      //       foreigncurrency: '',
-      //       annexno: '',
-      //       currency: '',
-      //     }];
-      //   }
-      // },
+      //add-ws-5/14-其他费用明细添加
+      deleteRow4(index, rows) {
+        if (rows.length > 1) {
+          rows.splice(index, 1);
+        } else {
+          this.tableR = [{
+            otherdetailsdate: '',
+            // costitem: '',
+            plsummary: this.plsummaryflg,
+            accountcode: this.oldaccountcodeflg,
+            rmb: '',
+            subjectnumber: this.oldsubjectnumberflg,
+            remarks: '',
+            budgetcoding: '',
+            foreigncurrency: '',
+            annexno: '',
+            currency: '',
+          }];
+        }
+      },
+      //add-ws-5/14-其他费用明细添加
       deleteRow5(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
@@ -2300,28 +2420,30 @@
           // costitem: '',
         });
       },
-      // addRow4() {
-      //   this.tableR.push({
-      //     evectionid: '',
-      //     otherdetails_id: '',
-      //     otherdetailsdate: '',
-      //     invoicenumber: '',
-      //     budgetcoding: this.encoding,
-      //     plsummary: this.$t('label.PFANS1013FORMVIEW_PLSUMMARY'),
-      //     accountcode: '',
-      //     subjectnumber: '',
-      //     departmentname: this.groupId,
-      //     // costitem: '',
-      //     remarks: '',
-      //     rmb: '',
-      //     // taxrate: '',
-      //     foreigncurrency: '',
-      //     annexno: '',
-      //     taxes: '',
-      //     currency: '',
-      //     rowindex: '',
-      //   });
-      // },
+      //add-ws-5/14-其他费用明细添加
+      addRow4() {
+        this.tableR.push({
+          evectionid: '',
+          otherdetails_id: '',
+          otherdetailsdate: '',
+          invoicenumber: '',
+          budgetcoding: this.encoding,
+          plsummary: this.plsummaryflg,
+          accountcode: this.oldaccountcodeflg,
+          subjectnumber: this.oldsubjectnumberflg,
+          departmentname: '',
+          // costitem: '',
+          remarks: '',
+          rmb: '',
+          // taxrate: '',
+          foreigncurrency: '',
+          annexno: '',
+          taxes: '',
+          currency: '',
+          rowindex: '',
+        });
+      },
+      //add-ws-5/14-其他费用明细添加
       addRow5() {
         let b;
         let c;
@@ -2400,6 +2522,91 @@
         this.getMoney(sums);
         return sums;
       },
+      getAsummaries(param) {
+        const {columns, data} = param;
+        const sums = [];
+        columns.forEach((column, index) => {
+          if (index === 0) {
+            sums[index] = this.$t('label.PFANS1012VIEW_ACCOUNT');
+            return;
+          }
+          const values = data.map(item => Number(item[column.property]));
+          if (!values.every(value => isNaN(value))) {
+            sums[index] = values.reduce((prev, curr) => {
+              const value = Number(curr);
+              if (!isNaN(value)) {
+                return prev + curr;
+              } else {
+                return prev;
+              }
+            }, 0);
+            // if (index === 10) {
+            //   sums[index] = Math.round((sums[index]) * 100) / 100;
+            // }
+            // if (index === 11) {
+            //   sums[index] = Math.round((sums[index]) * 100) / 100;
+            // }
+            // if (index === 12) {
+            //   sums[index] = Math.round((sums[index]) * 100) / 100;
+            // }
+            // if (index === 13) {
+            //   sums[index] = Math.round((sums[index]) * 100) / 100;
+            // }
+            // if (index === 14) {
+            //   sums[index] = Math.round((sums[index]) * 100) / 100;
+            // }
+          } else {
+            sums[index] = '--';
+          }
+        });
+        if (this.form.type === '0') {
+          sums[12] = Math.round(sums[12] * 100) / 100;
+          sums[11] = Math.round(sums[11] * 100) / 100;
+          sums[10] = Math.round(sums[10] * 100) / 100;
+        } else {
+          sums[13] = Math.round(sums[13] * 100) / 100;
+          sums[11] = Math.round(sums[11] * 100) / 100;
+          sums[12] = Math.round(sums[12] * 100) / 100;
+          sums[14] = Math.round(sums[14] * 100) / 100;
+        }
+        this.tableAValue = sums;
+        return sums;
+      },
+      //add-ws-5/14-其他费用明细添加
+      getRsummaries(param) {
+        const {columns, data} = param;
+        const sums = [];
+        columns.forEach((column, index) => {
+          if (index === 0) {
+            sums[index] = this.$t('label.PFANS1012VIEW_ACCOUNT');
+            return;
+          }
+          const values = data.map(item => Number(item[column.property]));
+          if (!values.every(value => isNaN(value))) {
+            sums[index] = values.reduce((prev, curr) => {
+              const value = Number(curr);
+              if (!isNaN(value)) {
+                return prev + curr;
+              } else {
+                return prev;
+              }
+            }, 0);
+          } else {
+            sums[index] = '--';
+          }
+        });
+        if (this.form.type === '0') {
+          sums[8] = Math.round(sums[8] * 100) / 100;
+          sums[9] = Math.round(sums[9] * 100) / 100;
+        } else {
+          sums[8] = Math.round(sums[8] * 100) / 100;
+          sums[9] = Math.round(sums[9] * 100) / 100;
+          sums[11] = Math.round(sums[11] * 100) / 100;
+        }
+        this.tableRValue = sums;
+        return sums;
+      },
+      //add-ws-5/14-其他费用明细添加
       business(val) {
         for (var i = 0; i < this.relations.length; i++) {
           if (this.relations[i].value === val) {
@@ -2550,87 +2757,6 @@
           }
         }
       },
-      getAsummaries(param) {
-        const {columns, data} = param;
-        const sums = [];
-        columns.forEach((column, index) => {
-          if (index === 0) {
-            sums[index] = this.$t('label.PFANS1012VIEW_ACCOUNT');
-            return;
-          }
-          const values = data.map(item => Number(item[column.property]));
-          if (!values.every(value => isNaN(value))) {
-            sums[index] = values.reduce((prev, curr) => {
-              const value = Number(curr);
-              if (!isNaN(value)) {
-                return prev + curr;
-              } else {
-                return prev;
-              }
-            }, 0);
-            if (index === 10) {
-              sums[index] = Math.round((sums[index]) * 100) / 100;
-            }
-            if (index === 11) {
-              sums[index] = Math.round((sums[index]) * 100) / 100;
-            }
-            if (index === 12) {
-              sums[index] = Math.round((sums[index]) * 100) / 100;
-            }
-            if (index === 13) {
-              sums[index] = Math.round((sums[index]) * 100) / 100;
-            }
-            if (index === 14) {
-              sums[index] = Math.round((sums[index]) * 100) / 100;
-            }
-          } else {
-            sums[index] = '--';
-          }
-        });
-        if (this.form.type === '0') {
-          sums[12] = Math.round(sums[12] * 100) / 100;
-          sums[11] = Math.round(sums[11] * 100) / 100;
-          sums[10] = Math.round(sums[10] * 100) / 100;
-        } else {
-          sums[13] = Math.round(sums[13] * 100) / 100;
-          sums[11] = Math.round(sums[11] * 100) / 100;
-          sums[12] = Math.round(sums[12] * 100) / 100;
-          sums[14] = Math.round(sums[14] * 100) / 100;
-        }
-        this.tableAValue = sums;
-        return sums;
-      },
-      // getRsummaries(param) {
-      //   const {columns, data} = param;
-      //   const sums = [];
-      //   columns.forEach((column, index) => {
-      //     if (index === 0) {
-      //       sums[index] = this.$t('label.PFANS1012VIEW_ACCOUNT');
-      //       return;
-      //     }
-      //     const values = data.map(item => Number(item[column.property]));
-      //     if (!values.every(value => isNaN(value))) {
-      //       sums[index] = values.reduce((prev, curr) => {
-      //         const value = Number(curr);
-      //         if (!isNaN(value)) {
-      //           return prev + curr;
-      //         } else {
-      //           return prev;
-      //         }
-      //       }, 0);
-      //       if (index === 3) {
-      //         sums[index] = Math.round((sums[index]) * 100) / 100;
-      //       }
-      //       if (index === 4) {
-      //         sums[index] = Math.round((sums[index]) * 100) / 100;
-      //       }
-      //     } else {
-      //       sums[index] = '--';
-      //     }
-      //   });
-      //   // this.tableRValue = sums;
-      //   return sums;
-      // },
       getsummaries(param) {
         const {columns, data} = param;
         const sums = [];
@@ -2819,19 +2945,58 @@
       getMoney(sums) {
         if (this.form.type === '0') {
           // this.form.totalpay = sums[10] + this.tableAValue[11] + this.tableRValue[9];
-          this.form.totalpay = sums[9] + this.tableAValue[10] + this.tableAValue[12];
+          this.form.totalpay = sums[9] + this.tableAValue[10] + this.tableAValue[12] + this.tableRValue[8];
         } else if (this.form.type === '1') {
           // this.form.totalpay = sums[10] + this.tableAValue[13] + this.tableRValue[9];
-          this.form.totalpay = sums[9] + this.tableAValue[12] + this.tableAValue[14];
+          this.form.totalpay = sums[9] + this.tableAValue[12] + this.tableAValue[14] + this.tableRValue[8];
           //add-ws-5/11-结余公式重新计算
-          let sumexchangermb = 0;
-          for (let i = 0; i < this.tableW.length; i++) {
-            sumexchangermb += parseFloat(this.tableW[i].exchangermb);
-          }
-          this.form.balance = sumexchangermb + this.tableAValue[14];
+          this.changebalance();
           //add-ws-5/11-结余公式重新计算
         }
       },
+      //add-ws-5/11-结余公式重新计算
+      changebalance() {
+        let sumoutold = 0;
+        for (let j = 0; j < this.tableW.length; j++) {
+          let summoney = 0;
+          let summoneyT = 0;
+          let sumMoney = 0;
+          let sumout = 0;
+          let exchangerate = 0;
+          for (let i = 0; i < this.tableT.length; i++) {
+            if (this.tableT[i].currency !== '') {
+              if (this.tableT[i].currency == this.tableW[j].currency) {
+                if (this.tableT[i].foreigncurrency != '0') {
+                  summoneyT += this.tableT[i].foreigncurrency;
+                }
+              }
+            }
+          }
+          for (let i = 0; i < this.tableA.length; i++) {
+            if (this.tableA[i].currency !== '') {
+              if (this.tableA[i].currency == this.tableW[j].currency) {
+                if (this.tableA[i].travel != '0') {
+                  summoney += this.tableA[i].travel;
+                }
+              }
+            }
+          }
+          for (let i = 0; i < this.tableR.length; i++) {
+            if (this.tableR[i].currency !== '') {
+              if (this.tableR[i].currency == this.tableW[j].currency) {
+                if (this.tableR[i].foreigncurrency != '0') {
+                  sumMoney += this.tableR[i].foreigncurrency;
+                }
+              }
+            }
+          }
+          exchangerate = this.tableW[j].exchangerate;
+          sumout = Number(summoney) * Number(exchangerate) + Number(sumMoney) * Number(exchangerate) + Number(summoneyT) * Number(exchangerate);
+          sumoutold += parseFloat(sumout);
+        }
+        this.form.balance = sumoutold + this.tableAValue[14];
+      },
+      //add-ws-5/11-结余公式重新计算
       workflowState(val) {
         if (val.state === '1') {
           this.form.status = '3';
@@ -2913,6 +3078,7 @@
         if (curinfo) {
           row.currencyexchangerate = curinfo.value2;
         }
+        this.changebalance();
       },
       changeAcc(val, row) {
         row.currency = val;
@@ -2963,6 +3129,7 @@
                 for (let i = 0; i < this.tableF.length; i++) {
                   let sumtaxesT = 0;
                   let sumtaxesA = 0;
+                  let sumtaxesR = 0;
                   let sumtaxesF = 0;
                   let sumtaxes = 0;
                   let taxesm = 0;
@@ -2983,7 +3150,16 @@
                       }
                     }
                   }
-                  sumtaxesF = Number(sumtaxesT) + Number(sumtaxesA);
+                  //add-ws-5/14-其他费用明细添加
+                  for (let n = 0; n < this.tableR.length; n++) {
+                    if (this.tableR[n].invoicenumber == this.tableF[i].invoicenumber) {
+                      if (this.tableR[n].taxes != '0') {
+                        sumtaxesR += this.tableR[n].taxes;
+                      }
+                    }
+                  }
+                  //add-ws-5/14-其他费用明细添加
+                  sumtaxesF = Number(sumtaxesT) + Number(sumtaxesA) + Number(sumtaxesR);
                   sumtaxes = Number(sumtaxesF) - Number(this.tableF[i].facetax);
                   if (sumtaxes < 0) {
                     if (taxesm === 0) {
@@ -3070,37 +3246,35 @@
                     );
                   }
                 }
-                // for (let i = 0; i < this.tableR.length; i++) {
-                //   if (this.tableR[i].otherdetailsdate !== '' && this.tableR[i].accountcode !== '' && this.tableR[i].region !== ''
-                //     && this.tableR[i].rmb > 0 && this.tableR[i].annexno !== '' && this.tableR[i].plsummary !== ''
-                //     && this.tableR[i].invoicenumber !== '' && this.tableR[i].departmentname !== '' && this.tableR[i].budgetcoding !== ''
-                //     && this.tableR[i].subjectnumber !== '' && this.tableR[i].remarks !== '' && this.tableR[i].taxes >=0) {
-                //     this.baseInfo.otherdetails.push(
-                //       {
-                //         otherdetails_id: this.tableR[i].otherdetails_id,
-                //         evectionid: this.tableR[i].evectionid,
-                //         otherdetailsdate: this.tableR[i].otherdetailsdate,
-                //         invoicenumber: this.tableR[i].invoicenumber,
-                //         departmentname: this.tableR[i].departmentname,
-                //         budgetcoding: this.tableR[i].budgetcoding,
-                //         plsummary: this.tableR[i].plsummary,
-                //         accountcode: this.tableR[i].accountcode,
-                //         subjectnumber: this.tableR[i].subjectnumber,
-                //         region: this.tableR[i].region,
-                //         remarks: this.tableR[i].remarks,
-                //         rmb: this.tableR[i].rmb,
-                //         taxes: this.tableR[i].taxes,
-                //         // currency: this.tableR[i].currency,
-                //         // foreigncurrency: this.tableR[i].foreigncurrency,
-                //         annexno: this.tableR[i].annexno,
-                //       },
-                //     );
-                //     errorInfoFLG3 += 1;
-                //   } else {
-                //     errorInfoFLG3 = 0;
-                //     break;
-                //   }
-                // }
+                //add-ws-5/14-其他费用明细添加
+                for (let i = 0; i < this.tableR.length; i++) {
+                  if (this.tableR[i].otherdetailsdate !== '' || this.tableR[i].accountcode !== '' || this.tableR[i].region !== ''
+                    || this.tableR[i].rmb > 0 || this.tableR[i].annexno !== '' || this.tableR[i].plsummary !== ''
+                    || this.tableR[i].invoicenumber !== '' || this.tableR[i].departmentname !== '' || this.tableR[i].budgetcoding !== ''
+                    || this.tableR[i].subjectnumber !== '' || this.tableR[i].remarks !== '' || this.tableR[i].taxes >= 0) {
+                    this.baseInfo.otherdetails.push(
+                      {
+                        otherdetails_id: this.tableR[i].otherdetails_id,
+                        evectionid: this.tableR[i].evectionid,
+                        otherdetailsdate: this.tableR[i].otherdetailsdate,
+                        invoicenumber: this.tableR[i].invoicenumber,
+                        departmentname: this.tableR[i].departmentname,
+                        budgetcoding: this.tableR[i].budgetcoding,
+                        plsummary: this.tableR[i].plsummary,
+                        accountcode: this.tableR[i].accountcode,
+                        subjectnumber: this.tableR[i].subjectnumber,
+                        region: this.tableR[i].region,
+                        remarks: this.tableR[i].remarks,
+                        rmb: this.tableR[i].rmb,
+                        taxes: this.tableR[i].taxes,
+                        // currency: this.tableR[i].currency,
+                        // foreigncurrency: this.tableR[i].foreigncurrency,
+                        annexno: this.tableR[i].annexno,
+                      },
+                    );
+                  }
+                }
+                //add-ws-5/14-其他费用明细添加
               } else if (this.form.type === '1') {
                 for (let i = 0; i < this.tableT.length; i++) {
                   if (this.tableT[i].trafficdate !== '' || this.tableT[i].invoicenumber !== '' || this.tableT[i].departmentname !== '' || this.tableT[i].budgetcoding !== ''
@@ -3188,37 +3362,35 @@
                     );
                   }
                 }
-                // for (let i = 0; i < this.tableR.length; i++) {
-                //   if (this.tableR[i].otherdetailsdate !== '' && this.tableR[i].accountcode !== '' && this.tableR[i].region !== ''
-                //     && this.tableR[i].rmb > 0 && this.tableR[i].foreigncurrency > 0 && this.tableR[i].annexno !== '' && this.tableR[i].plsummary !== ''
-                //     && this.tableR[i].invoicenumber !== '' && this.tableR[i].departmentname !== '' && this.tableR[i].budgetcoding !== ''
-                //     && this.tableR[i].subjectnumber !== '' && this.tableR[i].currency !== '' && this.tableR[i].remarks !== '' && this.tableR[i].taxes >=0) {
-                //     this.baseInfo.otherdetails.push(
-                //       {
-                //         otherdetails_id: this.tableR[i].otherdetails_id,
-                //         evectionid: this.tableR[i].evectionid,
-                //         otherdetailsdate: this.tableR[i].otherdetailsdate,
-                //         invoicenumber: this.tableR[i].invoicenumber,
-                //         departmentname: this.tableR[i].departmentname,
-                //         budgetcoding: this.tableR[i].budgetcoding,
-                //         plsummary: this.tableR[i].plsummary,
-                //         accountcode: this.tableR[i].accountcode,
-                //         subjectnumber: this.tableR[i].subjectnumber,
-                //         region: this.tableR[i].region,
-                //         remarks: this.tableR[i].remarks,
-                //         rmb: this.tableR[i].rmb,
-                //         taxes: this.tableR[i].taxes,
-                //         currency: this.tableR[i].currency,
-                //         foreigncurrency: this.tableR[i].foreigncurrency,
-                //         annexno: this.tableR[i].annexno,
-                //       },
-                //     );
-                //     errorInfoFLG3 += 1;
-                //   } else {
-                //     errorInfoFLG3 = 0;
-                //     break;
-                //   }
-                // }
+                //add-ws-5/14-其他费用明细添加
+                for (let i = 0; i < this.tableR.length; i++) {
+                  if (this.tableR[i].otherdetailsdate !== '' || this.tableR[i].accountcode !== '' || this.tableR[i].region !== ''
+                    || this.tableR[i].rmb > 0 || this.tableR[i].foreigncurrency > 0 || this.tableR[i].annexno !== '' || this.tableR[i].plsummary !== ''
+                    || this.tableR[i].invoicenumber !== '' || this.tableR[i].departmentname !== '' || this.tableR[i].budgetcoding !== ''
+                    || this.tableR[i].subjectnumber !== '' || this.tableR[i].currency !== '' || this.tableR[i].remarks !== '' || this.tableR[i].taxes >= 0) {
+                    this.baseInfo.otherdetails.push(
+                      {
+                        otherdetails_id: this.tableR[i].otherdetails_id,
+                        evectionid: this.tableR[i].evectionid,
+                        otherdetailsdate: this.tableR[i].otherdetailsdate,
+                        invoicenumber: this.tableR[i].invoicenumber,
+                        departmentname: this.tableR[i].departmentname,
+                        budgetcoding: this.tableR[i].budgetcoding,
+                        plsummary: this.tableR[i].plsummary,
+                        accountcode: this.tableR[i].accountcode,
+                        subjectnumber: this.tableR[i].subjectnumber,
+                        region: this.tableR[i].region,
+                        remarks: this.tableR[i].remarks,
+                        rmb: this.tableR[i].rmb,
+                        taxes: this.tableR[i].taxes,
+                        currency: this.tableR[i].currency,
+                        foreigncurrency: this.tableR[i].foreigncurrency,
+                        annexno: this.tableR[i].annexno,
+                      },
+                    );
+                  }
+                }
+                //add-ws-5/14-其他费用明细添加
               }
               for (let i = 0; i < this.tableW.length; i++) {
                 if (this.tableW[i].currency !== '' || this.tableW[i].amount > 0 || this.tableW[i].exchangerate > 0
@@ -3283,19 +3455,19 @@
                     }
                   }
                 }
-                // for (let i = 0; i < this.tableR.length; i++) {
-                //   if (this.tableR[i].otherdetailsdate !== '' || this.tableR[i].accountcode !== '' || this.tableR[i].region !== ''
-                //     || this.tableR[i].rmb > 0 || this.tableR[i].foreigncurrency > 0 || this.tableR[i].annexno !== '' || this.tableR[i].plsummary !== ''
-                //     || this.tableR[i].invoicenumber !== '' || this.tableR[i].departmentname !== '' || this.tableR[i].budgetcoding !== ''
-                //     || this.tableR[i].subjectnumber !== '' || this.tableR[i].currency !== '' || this.tableR[i].remarks !== '' || this.tableR[i].taxes >=0) {
-                //     if (this.tableR[i].invoicenumber == this.tableF[j].invoicenumber) {
-                //       if (this.tableR[i].rmb != '0') {
-                //         sumMoney += this.tableR[i].rmb;
-                //
-                //       }
-                //     }
-                //   }
-                // }
+                for (let i = 0; i < this.tableR.length; i++) {
+                  if (this.tableR[i].otherdetailsdate !== '' || this.tableR[i].accountcode !== '' || this.tableR[i].region !== ''
+                    || this.tableR[i].rmb > 0 || this.tableR[i].foreigncurrency > 0 || this.tableR[i].annexno !== '' || this.tableR[i].plsummary !== ''
+                    || this.tableR[i].invoicenumber !== '' || this.tableR[i].departmentname !== '' || this.tableR[i].budgetcoding !== ''
+                    || this.tableR[i].subjectnumber !== '' || this.tableR[i].currency !== '' || this.tableR[i].remarks !== '' || this.tableR[i].taxes >= 0) {
+                    if (this.tableR[i].invoicenumber == this.tableF[j].invoicenumber) {
+                      if (this.tableR[i].rmb != '0') {
+                        sumMoney += this.tableR[i].rmb;
+
+                      }
+                    }
+                  }
+                }
                 sumout = summoney + sumMoney + summoneyT;
                 if (sumout != this.tableF[j].invoiceamount) {
                   errorFLG = errorFLG + 1;
@@ -3339,7 +3511,39 @@
                   }
                 }
               }
-
+//add-ws-5/14-其他费用明细添加
+              for (let i = 0; i < this.tableR.length; i++) {
+                if (this.tableR[i].rmb > 0) {
+                  if (this.tableR[i].budgetcoding === '') {
+                    errorFLG = errorFLG + 1;
+                    Message({
+                      message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_BUDGET'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    break;
+                  }
+                  if (this.tableR[i].subjectnumber === '') {
+                    errorFLG = errorFLG + 1;
+                    Message({
+                      message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNTB'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    break;
+                  }
+                  if (this.tableR[i].plsummary === '') {
+                    errorFLG = errorFLG + 1;
+                    Message({
+                      message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_PL'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    break;
+                  }
+                }
+              }
+//add-ws-5/14-其他费用明细添加
               for (let i = 0; i < this.tableA.length; i++) {
                 if (this.tableA[i].rmb > 0 || this.tableA[i].subsidies > 0) {
                   if (this.tableA[i].budgetcoding === '') {
