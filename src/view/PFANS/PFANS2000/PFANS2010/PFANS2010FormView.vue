@@ -376,10 +376,10 @@
                               }
                           }
 
-                          if(response[j].absenteeism === null || response[j].absenteeism === "")
-                          {
-                              response[j].absenteeism = response[j].tabsenteeism;
-                          }
+                          // if(response[j].absenteeism === null || response[j].absenteeism === "")
+                          // {
+                          //     response[j].absenteeism = response[j].tabsenteeism;
+                          // }
                           if(response[j].shortsickleave === null || response[j].shortsickleave === "")
                           {
                               response[j].shortsickleave = response[j].tshortsickleave;
