@@ -32,6 +32,7 @@
         },
         data() {
             return {
+              workflow:[],
                 montvalue:moment(new Date()).format("YYYY-MM"),
                 region: '1',
                 loading: false,
@@ -98,14 +99,42 @@
                         fix: false,
                         filter: true
                     },
+
+                  {
+                    code: 'workflowstates',
+                    label: 'label.approval_status',
+                    width: 120,
+                    fix: false,
+                    filter: true
+                  },
                 ],
                 row_id: 'rowid',
             };
         },
-        mounted() {
-            this.getlist();
+      mounted() {
+          this.init();
         },
         methods: {
+          async init(){
+            await this.getWorkflow();
+            await this.getlist();
+          },
+          getWorkflow(){
+            this.$store
+              .dispatch('workflowStore/allWorkFlowIns', {menuUrl:'/PFANS2010View'})
+              .then(response => {
+                this.workflow = response;
+                this.loading = false;
+              })
+              .catch(error => {
+                Message({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000
+                });
+                this.loading = false;
+              })
+          },
             getlist(){
                 this.loading = true;
                 var parameter = {};
@@ -137,7 +166,14 @@
 
                           response[j].owner = response[j].user_id;
                           response[j].rowid = response[j].user_id + "," + response[j].years + "," + response[j].months;
-
+console.log(this.workflow)
+                          let jh = this.workflow.filter(item => item.dataid === response[j].rowid);
+                          debugger
+                          if(jh.length > 0){
+                            response[j].workflowstates = jh[0].status;
+                          }else{
+                            response[j].workflowstates = '未开始'
+                          }
                         }
                         this.data = response;
                         this.loading = false;

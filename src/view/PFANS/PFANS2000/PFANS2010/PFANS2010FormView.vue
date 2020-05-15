@@ -7,8 +7,10 @@
       @disabled="setdisabled"
       ref="container"
       v-loading="loading"
+      :defaultStart="defaultStart"
       @workflowState="workflowState"
       :workflowCode="workflowCode"
+      @StartWorkflow="checkWorkFlow"
     >
       <div slot="customize">
     <EasyNormalTable
@@ -39,6 +41,7 @@
         },
         data() {
             return {
+              defaultStart:false,
               showSelection:true,
               uplist:[],
                 dateInfo: [],
@@ -207,12 +210,30 @@
                 ],
               totalAbsenteeism:false,
                 buttonList: [
-                    // {'key': 'back', 'name': 'button.back', 'disabled': false, 'icon': 'el-icon-back'},
                     {'key': 'recognition', 'name': 'button.recognition', 'disabled': false, 'icon': 'el-icon-check'}
                 ],
             };
         },
-        methods: {
+      methods: {
+          checkWorkFlow(){
+            //考勤是否全部承认
+            let count = 0
+            for(let item of this.data){
+              if(item.recognitionstate === '承认'){
+                count = count +1
+              }
+            }
+
+            if(count != this.data.length - 1){
+              Message({
+                message: "承认考勤后，才可发起审批！",
+                type: 'error',
+                duration: 5 * 1000
+              });
+            }else{
+              this.$refs.container.$refs.workflow.startWorkflow();
+            }
+          },
           selectable(row, index){
             if(index != 0 && row.recognitionstate === this.$t('label.PFANS2010VIEW_RECOGNITION0')){
               return true;
