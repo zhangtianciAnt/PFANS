@@ -2549,13 +2549,13 @@ module.exports = {
     PFANS2024FORMVIEW_NEXTSKILLRANKING2: '今后强化/育成点',
     PFANS2024FORMVIEW_FUTURE: '年度目标管理达成（技能提高）给予的指导点 ',
     PFANS2024FORMVIEW_FUTURE1: '年度目标管理',
-    PFANS2024FORMVIEW_FUTURE1PLACE: '为达成目标针对提升技能的指导点',
-    PFANS2024FORMVIEW_FEATURES1: 'テクニカルスキル：知見・知識、経験・ノウハウ、知財化、応用力、技術課題解決のレベル・・・\t\t\t\n' +
-      'マネジメントスキル：戦略立案力（先見性・戦略性）、課題設定力、課題解決力、結果検証・課題展開力など事業貢献力とお客様の課題解決力のスキル\t\t\t\n' +
-      'ヒューマンスキル：顧客視点、コミュニケーション、チャレンジ意欲、統率力、人材育成など組織での顧客価値創出に向けた基本資質と対人能力のスキル\t\t\t\n',
+    PFANS2024FORMVIEW_FUTURE1PLACE: '(为达成目标针对提升技能的指导点)',
+    PFANS2024FORMVIEW_FEATURES1: 'テクニカルスキル：知見・知識、経験・ノウハウ、知財化、応用力、技術課題解決のレベル・・・ ',
+    PFANS2024FORMVIEW_FEATURES2: 'マネジメントスキル：戦略立案力（先見性・戦略性）、課題設定力、課題解決力、結果検証・課題展開力など事業貢献力とお客様の課題解決力のスキル',
+    PFANS2024FORMVIEW_FEATURES3: 'ヒューマンスキル：顧客視点、コミュニケーション、チャレンジ意欲、統率力、人材育成など組織での顧客価値創出に向けた基本資質と対人能力のスキル',
     PFANS2024FORMVIEW_FUTURE2: '成长所需必要的培训・育成措施',
     PFANS2024FORMVIEW_PANE4: '将来育成方向',
-    PFANS2024FORMVIEW_TECHNOLOGY: '将来的育成方向 技术系',
+    PFANS2024FORMVIEW_TECHNOLOGY: '将来的育成方向',
     PFANS2024FORMVIEW_STAFF: '将来的育成方向 事务系',
     PFANS2024FORMVIEW_YEARSCHEDULE: '升格･升号时期',
     PFANS1002VIEW_PROMOTION: '升格与否',
