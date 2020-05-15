@@ -252,7 +252,7 @@
                     <el-form-item :label="$t('label.PFANS1013VIEW_BALANCE')">
                       <el-input-number
                         :disabled="true"
-                        :max="9999999999" :min="0"
+                        :max="9999999999" :min="-9999999999"
                         :precision="2"
                         controls-position="right"
                         style="width:20vw"
@@ -2927,34 +2927,19 @@
             firstBusiNum = 0;
           }
           //境外无规定外费用的场合，住宿标准check
-
           if (accfig !== '' && accfig !== undefined && row.travel !== '' && row.travel !== undefined) {
-            row.rmb = '';
             row.rmb = (row.travel * Number(accfig)).toFixed(2);
-          } else {
-            if (this.rank === 'PJ016003') {
-              jpvalueflg2 = Number(jpregion12) + 100 + firstBusiNum;
-            } else {
-              jpvalueflg2 = Number(jpregion12) + firstBusiNum;
-            }
-            if (jpvalueflg2 !== '' && jpvalueflg2 !== undefined) {
-              row.rmb = '';
-            }
           }
         }
       },
       getMoney(sums) {
-        let sum = 0;
-        if (this.tableRValue[8] > 0) {
-          sum = this.tableRValue[8];
-        }
         if (this.form.type === '0') {
           // this.form.totalpay = sums[10] + this.tableAValue[11] + this.tableRValue[9];
-          this.form.totalpay = sums[9] + this.tableAValue[10] + this.tableAValue[12] + sum;
-          this.form.balance =  this.tableAValue[12]
+          this.form.totalpay = sums[9] + this.tableAValue[10] + this.tableAValue[12];
+          this.form.balance = this.form.loanamount - this.form.totalpay;
         } else if (this.form.type === '1') {
           // this.form.totalpay = sums[10] + this.tableAValue[13] + this.tableRValue[9];
-          this.form.totalpay = sums[9] + this.tableAValue[12] + this.tableAValue[14] + sum;
+          this.form.totalpay = sums[9] + this.tableAValue[12] + this.tableAValue[14] + this.tableRValue[8];
           //add-ws-5/11-结余公式重新计算
           this.changebalance();
           //add-ws-5/11-结余公式重新计算
@@ -2963,6 +2948,26 @@
       //add-ws-5/11-结余公式重新计算
       changebalance() {
         let sumoutold = 0;
+        let Newsumout = 0;
+        let summoneyt = 0;
+        let summoneya = 0;
+        let summoneyr = 0;
+        for (let i = 0; i < this.tableT.length; i++) {
+          if (this.tableT[i].currency === '') {
+            summoneyt += this.tableT[i].rmb;
+          }
+        }
+        for (let i = 0; i < this.tableA.length; i++) {
+          if (this.tableA[i].currency === '') {
+            summoneya += this.tableA[i].rmb;
+          }
+        }
+        for (let i = 0; i < this.tableR.length; i++) {
+          if (this.tableR[i].currency === '') {
+            summoneyr += this.tableR[i].rmb;
+          }
+        }
+
         for (let j = 0; j < this.tableW.length; j++) {
           let summoney = 0;
           let summoneyT = 0;
@@ -3000,7 +3005,8 @@
           sumout = Number(summoney) * Number(exchangerate) + Number(sumMoney) * Number(exchangerate) + Number(summoneyT) * Number(exchangerate);
           sumoutold += parseFloat(sumout);
         }
-          this.form.balance = sumoutold + this.tableAValue[14];
+        Newsumout = Number(summoneyt) + Number(summoneya) + Number(summoneyr);
+        this.form.balance = sumoutold + this.tableAValue[14] + Newsumout;
       },
       //add-ws-5/11-结余公式重新计算
       workflowState(val) {
@@ -3025,6 +3031,7 @@
       },
       changelowance(newValue) {
         newValue.travel = '';
+        newValue.currency = '';
         this.getTravel(newValue);
         for (let j = 0; j < this.tableF.length; j++) {
           let Taxratevalue = 0;
