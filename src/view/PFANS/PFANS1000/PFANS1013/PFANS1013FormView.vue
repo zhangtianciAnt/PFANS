@@ -2203,6 +2203,7 @@
         }
       },
       getUserids(val) {
+        this.form.telephone= '';
         this.form.userid = val;
         if (val === '') {
           this.form.personalcode = '';

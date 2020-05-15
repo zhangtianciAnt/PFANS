@@ -3271,6 +3271,7 @@
       },
 
       getUserids(val) {
+        this.form.telephone= '';
         this.userlist = val;
         this.form.user_id = val;
         let rst = getOrgInfoByUserId(val);
