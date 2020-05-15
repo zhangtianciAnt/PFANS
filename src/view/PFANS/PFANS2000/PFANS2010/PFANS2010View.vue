@@ -23,7 +23,7 @@
 <script>
     import EasyNormalTable from '@/components/EasyNormalTable';
     import {Message} from 'element-ui'
-    import {getUserInfo} from "@/utils/customize";
+    import {getUserInfo, getStatus} from "@/utils/customize";
     import moment from "moment";
     export default {
         name: 'PFANS2010View',
@@ -166,13 +166,11 @@
 
                           response[j].owner = response[j].user_id;
                           response[j].rowid = response[j].user_id + "," + response[j].years + "," + response[j].months;
-console.log(this.workflow)
                           let jh = this.workflow.filter(item => item.dataid === response[j].rowid);
-                          debugger
                           if(jh.length > 0){
                             response[j].workflowstates = jh[0].status;
                           }else{
-                            response[j].workflowstates = '未开始'
+                              response[j].workflowstates = getStatus('0');
                           }
                         }
                         this.data = response;
