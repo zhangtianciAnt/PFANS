@@ -3,7 +3,8 @@ import {
   delWorkflow,
   createWorkflow,
   getWorkflowOne,
-  updateWorkflow
+  updateWorkflow,
+  allWorkFlowIns
   } from './workflowApi'
 
   const workflowStore = {
@@ -73,6 +74,20 @@ import {
       delWorkflow({ commit }, data) {
         return new Promise((resolve, reject) => {
           delWorkflow(data).then(response => {
+            if (response.code === 0) {
+              resolve(response.data);
+            } else {
+              reject(response.message)
+            }
+          }).catch(error => {
+            reject(error);
+          })
+        })
+      },
+
+      allWorkFlowIns({ commit },data) {
+        return new Promise((resolve, reject) => {
+          allWorkFlowIns(data).then(response => {
             if (response.code === 0) {
               resolve(response.data);
             } else {

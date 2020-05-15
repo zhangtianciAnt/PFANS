@@ -7,8 +7,10 @@
       @disabled="setdisabled"
       ref="container"
       v-loading="loading"
+      :defaultStart="defaultStart"
       @workflowState="workflowState"
       :workflowCode="workflowCode"
+      @StartWorkflow="checkWorkFlow"
     >
       <div slot="customize">
     <EasyNormalTable
@@ -31,6 +33,7 @@
     import moment from "moment";
     import {getUserInfo} from "@/utils/customize";
     import EasyNormalContainer from '@/components/EasyNormalContainer';
+    import {getUserInfo, getDictionaryInfo} from "../../../../utils/customize";
 
     export default {
         name: 'PFANS2010FormView',
@@ -40,10 +43,13 @@
         },
         data() {
             return {
+              defaultStart:false,
               showSelection:true,
               uplist:[],
                 dateInfo: [],
+                disdateflg: '',
                 loading: false,
+                exitdate: '',
                 workflowCode: '',
                 title: 'title.PFANS2010FOMRVIEW',
                 data: [],
@@ -208,12 +214,30 @@
                 ],
               totalAbsenteeism:false,
                 buttonList: [
-                    // {'key': 'back', 'name': 'button.back', 'disabled': false, 'icon': 'el-icon-back'},
                     {'key': 'recognition', 'name': 'button.recognition', 'disabled': false, 'icon': 'el-icon-check'}
                 ],
             };
         },
-        methods: {
+      methods: {
+          checkWorkFlow(){
+            //考勤是否全部承认
+            let count = 0
+            for(let item of this.data){
+              if(item.recognitionstate === '承认'){
+                count = count +1
+              }
+            }
+
+            if(count != this.data.length - 1){
+              Message({
+                message: "承认考勤后，才可发起审批！",
+                type: 'error',
+                duration: 5 * 1000
+              });
+            }else{
+              this.$refs.container.$refs.workflow.startWorkflow();
+            }
+          },
           selectable(row, index){
             if(index != 0 && row.recognitionstate === this.$t('label.PFANS2010VIEW_RECOGNITION0')){
               return true;
@@ -331,6 +355,42 @@
                     });
                 }
                 else if (val === 'recognition') {
+                    let recognitionday = '';
+                    //离职人员可以承认离职这个月及前几个月的考勤
+                    this.exitdate = getUserInfo(this.$route.params._id.split(",")[0]).userinfo.resignation_date;
+                    if (this.exitdate !== '' && this.exitdate !== null) {
+                        if (moment(this.exitdate).format("YYYY-MM") > moment(new Date()).format('YYYY-MM')) {
+                            Message({
+                                message: this.$t('label.PFANS2010VIEW_RECOGNITIONDAYERR'),
+                                type: 'error',
+                                duration: 2 * 1000
+                            });
+                            return;
+                        }
+                    } else {
+                        let dic = getDictionaryInfo("PR064001");  //考勤承认开始日
+                        if (dic !== null) {
+                            recognitionday = dic.value1;
+                        }
+                        if (moment(this.disdateflg).format("MM") === moment(new Date()).format('MM')) {
+                            Message({
+                                message: this.$t('label.PFANS2010VIEW_RECOGNITIONDAYERR'),
+                                type: 'error',
+                                duration: 2 * 1000
+                            });
+                            return;
+                        }
+                        if (Number(moment(new Date()).format('DD')) <= Number(recognitionday)) {
+                            if (moment(this.disdateflg).format("MM") === moment(new Date()).format('MM')) {
+                                Message({
+                                    message: this.$t('label.PFANS2010VIEW_RECOGNITIONDAYERR'),
+                                    type: 'error',
+                                    duration: 2 * 1000
+                                });
+                                return;
+                            }
+                        }
+                    }
                     if (this.$refs.table.selectedList.length === 0) {
                         Message({
                             message: this.$t('normal.info_01'),
@@ -388,6 +448,7 @@
 
                       for (let j = 0; j < response.length; j++) {
                           // response[j].dates = moment(response[j].dates).format("YYYY-MM-DD");
+                          this.disdateflg = response[0].dates;
                           if(response[j].recognitionstate === "0"){
                               if (this.$i18n) {
                                   response[j].recognitionstate = this.$t('label.PFANS2010VIEW_RECOGNITION0');
@@ -470,7 +531,8 @@
                         total_nursingleave += parseFloat(res[i]["nursingleave"] ===undefined ? '0' :(res[i]["nursingleave"]===null || res[i]["nursingleave"]==='' ?  '0':res[i]["nursingleave"]));
                         total_absenteeism += parseFloat(res[i]["absenteeism"] ===undefined ? '0' :(res[i]["absenteeism"]===null || res[i]["absenteeism"]==='' ? '0':res[i]["absenteeism"]));
                       }
-                      res1.push( {dates: '合计',
+                        res1.push({
+                            dates: this.$t('label.PFANS1012VIEW_ACCOUNT'),
                                                                     normal: total_normal,
                                                                     ordinaryindustry: total_ordinaryindustry,
                                                                     weekendindustry: total_weekendindustry,
@@ -554,7 +616,7 @@
             if(this.totalAbsenteeism){
               let total = 0;
               for(let item of val){
-                if(item.dates === '合计'){
+                  if (item.dates === this.$t('label.PFANS1012VIEW_ACCOUNT')) {
                   continue;
                 }
 
