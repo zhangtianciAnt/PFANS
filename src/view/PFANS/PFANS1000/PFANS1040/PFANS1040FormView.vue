@@ -909,7 +909,40 @@
                         }
                     }
                 }
-                this.grp_options = options;
+                const vote1 = [];
+                if (this.$store.getters.userinfo.userid ==='5e78fefff1560b363cdd6db7'
+                    || this.$store.getters.userinfo.userid ==='5e78b2254e3b194874180f31'
+                    || this.$store.getters.userinfo.userid ==='5e78b2004e3b194874180e21'
+                    || this.$store.getters.userinfo.userid ==='5e78b2064e3b194874180e4d')
+                {
+                    let centerId = '5e7858a08f4316308435112c';
+                    let orgs = getDownOrgInfo(centerId);
+                    if (orgs){
+                        if(orgs.length > 0){
+                            if(getDownOrgInfo(orgs[0]._id).length > 0){
+                                this.group_id = getDownOrgInfo(orgs[0]._id)[0]._id;
+                            }
+                        }
+                        for (let center of orgs) {
+                            let centers = getDownOrgInfo(center._id);
+                            if (centers){
+                                for (let group of centers) {
+                                    vote1.push(
+                                        {
+                                            value: group._id,
+                                            lable: group.companyname,
+                                        },
+                                    );
+                                }
+                            }
+                        }
+                    }
+                    this.grp_options = vote1;
+                }
+                else
+                {
+                    this.grp_options = options;
+                }
                 this.loading = false;
             },
             getcustomerinfor() {

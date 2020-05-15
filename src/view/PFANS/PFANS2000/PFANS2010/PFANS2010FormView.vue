@@ -356,42 +356,6 @@
                     });
                 }
                 else if (val === 'recognition') {
-                    let recognitionday = '';
-                    //离职人员可以承认离职这个月及前几个月的考勤
-                    this.exitdate = getUserInfo(this.$route.params._id.split(",")[0]).userinfo.resignation_date;
-                    if (this.exitdate !== '' && this.exitdate !== null) {
-                        if (moment(this.exitdate).format("YYYY-MM") > moment(new Date()).format('YYYY-MM')) {
-                            Message({
-                                message: this.$t('label.PFANS2010VIEW_RECOGNITIONDAYERR'),
-                                type: 'error',
-                                duration: 2 * 1000
-                            });
-                            return;
-                        }
-                    } else {
-                        let dic = getDictionaryInfo("PR064001");  //考勤承认开始日
-                        if (dic !== null) {
-                            recognitionday = dic.value1;
-                        }
-                        if (moment(this.disdateflg).format("MM") === moment(new Date()).format('MM')) {
-                            Message({
-                                message: this.$t('label.PFANS2010VIEW_RECOGNITIONDAYERR'),
-                                type: 'error',
-                                duration: 2 * 1000
-                            });
-                            return;
-                        }
-                        if (Number(moment(new Date()).format('DD')) <= Number(recognitionday)) {
-                            if (moment(this.disdateflg).format("MM") === moment(new Date()).format('MM')) {
-                                Message({
-                                    message: this.$t('label.PFANS2010VIEW_RECOGNITIONDAYERR'),
-                                    type: 'error',
-                                    duration: 2 * 1000
-                                });
-                                return;
-                            }
-                        }
-                    }
                     if (this.$refs.table.selectedList.length === 0) {
                         Message({
                             message: this.$t('normal.info_01'),
@@ -399,6 +363,38 @@
                             duration: 2 * 1000
                         });
                         return;
+                    }
+                    let letexitdate = "0";
+                    this.exitdate = getUserInfo(this.$route.params._id.split(",")[0]).userinfo.resignation_date;
+                    if(this.exitdate != ""){
+                        if (moment(this.exitdate).format("YYYY-MM") === moment(new Date()).format('YYYY-MM')) {
+                            letexitdate = "1";
+                        }
+                    }
+                    let dic = getDictionaryInfo("PR064001");
+                    if (dic !== null) {
+                        if(moment(new Date()).format('DD') >= Number(dic.value1)){
+                            if (moment(new Date()).format('MM') === moment(this.disdateflg).format("MM")){
+                                if(letexitdate === "0"){
+                                    Message({
+                                        message: this.$t('label.PFANS2010VIEW_RECOGNITIONDAYERR'),
+                                        type: 'error',
+                                        duration: 2 * 1000
+                                    });
+                                    return;
+                                }
+                            }
+                        }
+                        else{
+                            if(letexitdate === "0"){
+                                Message({
+                                    message: this.$t('label.PFANS2010VIEW_PLEASE') + dic.value1 + this.$t('label.PFANS2010VIEW_ADMIT'),
+                                    type: 'error',
+                                    duration: 2 * 1000
+                                });
+                                return;
+                            }
+                        }
                     }
                     this.loading = true;
                     this.uplist = this.$refs.table.selectedList;

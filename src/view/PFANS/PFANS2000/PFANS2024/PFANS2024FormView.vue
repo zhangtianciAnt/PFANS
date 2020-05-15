@@ -101,9 +101,16 @@
                       <el-form-item :label="$t('label.PFANS2024FORMVIEW_FEATURES')" >
                         <el-input :autosize="{ minRows: 3, maxRows: 6}" :disabled="!disable"
                                   style="width: 70vw" type="textarea" v-model="form.features"
-                                  :placeholder="$t('label.PFANS2024FORMVIEW_FEATURES1')"
                         ></el-input>
                       </el-form-item>
+                    </el-col>
+                    <el-col>
+                      <div><span style="margin-left: 1vw ; color: red ; font-size: 10px">{{$t('label.PFANS2024FORMVIEW_FEATURES1')}}</span>
+                      </div>
+                      <div><span style="margin-left: 1vw ; color: red ; font-size: 10px">{{$t('label.PFANS2024FORMVIEW_FEATURES2')}}</span>
+                      </div>
+                      <div><span style="margin-left: 1vw ; color: red ; font-size: 10px">{{$t('label.PFANS2024FORMVIEW_FEATURES3')}}</span>
+                      </div>
                     </el-col>
                   </el-row>
                 </el-form>
@@ -178,10 +185,10 @@
                 <el-form :model="form" label-position="top" label-width="8vw" ref="form">
                   <el-row>
                     <el-col :span="8">
-                      <el-form-item :label=" thisyear + $t('label.PFANS2024FORMVIEW_FUTURE1')" >
+                      <el-form-item
+                        :label=" thisyear + $t('label.PFANS2024FORMVIEW_FUTURE1') + $t('label.PFANS2024FORMVIEW_FUTURE1PLACE')">
                         <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disable"
                                   style="width: 70vw" type="textarea"
-                                  :placeholder="$t('label.PFANS2024FORMVIEW_FUTURE1PLACE')"
                                   v-model="form.future1"></el-input>
                       </el-form-item>
                     </el-col>
@@ -248,20 +255,20 @@
                       </el-form-item>
                     </el-col>
                   </el-row>
-                  <el-row>
-                    <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS2024FORMVIEW_STAFF')" >
-                        <dicselect
-                          style="width: 70vw"
-                          :code="code3"
-                          :data="staff"
-                          :disabled="!disable"
-                          :multiple="multiple1"
-                          @change="getstaff">
-                        </dicselect>
-                      </el-form-item>
-                    </el-col>
-                  </el-row>
+                  <!--<el-row>-->
+                  <!--<el-col :span="8">-->
+                  <!--<el-form-item :label="$t('label.PFANS2024FORMVIEW_STAFF')" >-->
+                  <!--<dicselect-->
+                  <!--style="width: 70vw"-->
+                  <!--:code="code3"-->
+                  <!--:data="staff"-->
+                  <!--:disabled="!disable"-->
+                  <!--:multiple="multiple1"-->
+                  <!--@change="getstaff">-->
+                  <!--</dicselect>-->
+                  <!--</el-form-item>-->
+                  <!--</el-col>-->
+                  <!--</el-row>-->
                 </el-form>
               </div>
             </el-tab-pane>
@@ -301,7 +308,7 @@
                 groupid: '',
                 teamid: '',
                 disable: false,
-                staff: [],
+              // staff: [],
                 technology: [],
                 checked: true,
                 checked1: true,
@@ -351,7 +358,7 @@
                     business: '',
                     features: '',
                     technology: '',
-                    staff: '',
+                  // staff: '',
                     skillranking1: '',
                     skillranking2: '',
                     nextskillranking1: '',
@@ -395,13 +402,13 @@
                                 this.technology.push(lettechnology[i]);
                             }
                         }
-                        let letstaff;
-                        if (this.form.staff && this.form.staff.length > 0) {
-                            letstaff = this.form.staff.split(",");
-                            for (var i = 0; i < letstaff.length; i++) {
-                                this.staff.push(letstaff[i]);
-                            }
-                        }
+                      // let letstaff;
+                      // if (this.form.staff && this.form.staff.length > 0) {
+                      //     letstaff = this.form.staff.split(",");
+                      //     for (var i = 0; i < letstaff.length; i++) {
+                      //         this.staff.push(letstaff[i]);
+                      //     }
+                      // }
                       if (this.form.promotion === '1') {
                         this.show = true;
                       } else {
@@ -493,9 +500,9 @@
             gettechnology(val1) {
                 this.technology = val1;
             },
-            getstaff(val1) {
-                this.staff = val1;
-            },
+          // getstaff(val1) {
+          //     this.staff = val1;
+          // },
           getpromotion(val) {
             this.form.promotion = val;
             if (val === '1') {
@@ -531,15 +538,15 @@
             this.checkRequire();
                     this.$refs["ruleForm"].validate(valid => {
                         if (valid) {
-                            this.form.staff = "";
+                          // this.form.staff = "";
                             this.form.technology = "";
-                            if (this.staff.length > 0) {
-                                let letstaff = this.staff.splice(",");
-                                for (var i = 0; i < letstaff.length; i++) {
-                                    this.form.staff = this.form.staff + letstaff[i] + ","
-                                }
-                            }
-                            this.form.staff = this.form.staff.substring(0, this.form.staff.length - 1);
+                          // if (this.staff.length > 0) {
+                          //     let letstaff = this.staff.splice(",");
+                          //     for (var i = 0; i < letstaff.length; i++) {
+                          //         this.form.staff = this.form.staff + letstaff[i] + ","
+                          //     }
+                          // }
+                          // this.form.staff = this.form.staff.substring(0, this.form.staff.length - 1);
 
                             if (this.technology.length > 0) {
                                 let lettechnology = this.technology.splice(",");
