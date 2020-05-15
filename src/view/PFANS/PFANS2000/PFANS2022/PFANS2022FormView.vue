@@ -452,6 +452,7 @@
                             this.form.experience = this.$t('label.PFANS2022VIEW_UNFILLED');
                         }
                       this.getfirstclass(this.form.firstclass)
+                      this.gettwoclass(this.form.twoclass);
                         if (this.form.uploadfile != "") {
                             let uploadfile = this.form.uploadfile.split(";");
                             for (var i = 0; i < uploadfile.length; i++) {
@@ -564,7 +565,7 @@
                 this.form.firstclass = val;
                 if (val === "PR024001") {
                     this.code1 = 'PR025';
-                    this.gettwoclass("PR025001");
+                  // this.gettwoclass("PR025001");
                     this.disable = true;
                     this.show1 = false;
                     this.show2 = false;
@@ -582,7 +583,7 @@
                     this.rules.twoclass[0].required = true;
                 } else if (val === "PR024003") {
                     this.code1 = 'PR034';
-                    this.gettwoclass("PR034001");
+                  // this.gettwoclass("PR034001");
                     this.disable = true;
                     this.show1 = true;
                     this.show2 = false;
@@ -600,7 +601,7 @@
                     this.rules.twoclass[0].required = true;
                 } else if (val === "PR024004") {
                     this.code1 = 'PR035';
-                    this.gettwoclass("PR035001");
+                  // this.gettwoclass("PR035001");
                     this.disable = true;
                     this.show1 = false;
                     this.show2 = true;
@@ -618,7 +619,7 @@
                     this.rules.twoclass[0].required = true;
                 } else if (val === "PR024005") {
                     this.code1 = 'PR036';
-                    this.gettwoclass("PR036001");
+                  // this.gettwoclass("PR036001");
                     this.disable = true;
                     this.show1 = false;
                     this.show2 = false;
@@ -636,7 +637,7 @@
                     this.rules.twoclass[0].required = true;
                 } else if (val === "PR024006") {
                     this.code1 = 'PR037';
-                    this.gettwoclass("PR037001");
+                  // this.gettwoclass("PR037001");
                     this.disable = true;
                     this.show1 = false;
                     this.show2 = false;
@@ -673,7 +674,7 @@
                 }
             },
             gettwoclass(val) {
-                // this.form.twoclass = val;
+              this.form.twoclass = val;
                 let dictionaryInfo = getDictionaryInfo(val);
                 if (dictionaryInfo) {
                     this.twoclass = dictionaryInfo.value2;
