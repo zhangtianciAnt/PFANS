@@ -300,27 +300,6 @@
             //ccm 离职后考勤颜色   to
 
             //add-ws-考勤设置休日背景色
-            //ccm 离职后考勤颜色   from
-            let user_id = this.$route.params._id.split(",")[0];
-            let userinfo = getUserInfo(user_id);
-            let resignation_date ='';
-            if (userinfo) {
-              resignation_date = userinfo.userinfo.resignation_date;
-            }
-            if (moment(row.dates).format('YYYY-MM-DD') > moment(resignation_date).format('YYYY-MM-DD'))
-            {
-              if (row.dates ===this.$t('label.PFANS1012VIEW_ACCOUNT'))
-              {
-                return "white";
-              }
-              else
-              {
-                row.absenteeism = "";
-                this.totalAbsenteeism = true;
-                return "sub_bg_color_Ral";
-              }
-            }
-            //ccm 离职后考勤颜色   to
             if(moment(row.dates).format("E") == 6 || moment(row.dates).format("E") == 7 ){
               row.absenteeism = "";
               this.totalAbsenteeism = true;
