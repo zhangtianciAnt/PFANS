@@ -554,8 +554,7 @@
                         total_nursingleave += parseFloat(res[i]["nursingleave"] ===undefined ? '0' :(res[i]["nursingleave"]===null || res[i]["nursingleave"]==='' ?  '0':res[i]["nursingleave"]));
                         total_absenteeism += parseFloat(res[i]["absenteeism"] ===undefined ? '0' :(res[i]["absenteeism"]===null || res[i]["absenteeism"]==='' ? '0':res[i]["absenteeism"]));
                       }
-                        res1.push({
-                            dates: this.$t('label.PFANS1012VIEW_ACCOUNT'),
+                      res1.push( {dates: '合计',
                                                                     normal: total_normal,
                                                                     ordinaryindustry: total_ordinaryindustry,
                                                                     weekendindustry: total_weekendindustry,
@@ -639,7 +638,7 @@
             if(this.totalAbsenteeism){
               let total = 0;
               for(let item of val){
-                  if (item.dates === this.$t('label.PFANS1012VIEW_ACCOUNT')) {
+                if(item.dates === '合计'){
                   continue;
                 }
 
