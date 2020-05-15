@@ -7,8 +7,10 @@
       @disabled="setdisabled"
       ref="container"
       v-loading="loading"
+      :defaultStart="defaultStart"
       @workflowState="workflowState"
       :workflowCode="workflowCode"
+      @StartWorkflow="checkWorkFlow"
     >
       <div slot="customize">
     <EasyNormalTable
@@ -30,6 +32,7 @@
     import {Message} from 'element-ui';
     import moment from "moment";
     import EasyNormalContainer from '@/components/EasyNormalContainer';
+    import {getUserInfo, getDictionaryInfo} from "../../../../utils/customize";
 
     export default {
         name: 'PFANS2010FormView',
@@ -39,10 +42,13 @@
         },
         data() {
             return {
+              defaultStart:false,
               showSelection:true,
               uplist:[],
                 dateInfo: [],
+                disdateflg: '',
                 loading: false,
+                exitdate: '',
                 workflowCode: '',
                 title: 'title.PFANS2010FOMRVIEW',
                 data: [],
@@ -207,12 +213,30 @@
                 ],
               totalAbsenteeism:false,
                 buttonList: [
-                    // {'key': 'back', 'name': 'button.back', 'disabled': false, 'icon': 'el-icon-back'},
                     {'key': 'recognition', 'name': 'button.recognition', 'disabled': false, 'icon': 'el-icon-check'}
                 ],
             };
         },
-        methods: {
+      methods: {
+          checkWorkFlow(){
+            //考勤是否全部承认
+            let count = 0
+            for(let item of this.data){
+              if(item.recognitionstate === '承认'){
+                count = count +1
+              }
+            }
+
+            if(count != this.data.length - 1){
+              Message({
+                message: "承认考勤后，才可发起审批！",
+                type: 'error',
+                duration: 5 * 1000
+              });
+            }else{
+              this.$refs.container.$refs.workflow.startWorkflow();
+            }
+          },
           selectable(row, index){
             if(index != 0 && row.recognitionstate === this.$t('label.PFANS2010VIEW_RECOGNITION0')){
               return true;
@@ -252,13 +276,35 @@
                 }
               }
             }
+
+            //ccm 离职后考勤颜色   from
+            let userid = this.$route.params._id.split(",")[0];
+            let user = getUserInfo(userid);
+            let resignationdate ='';
+            if (user) {
+              resignationdate = user.userinfo.resignation_date;
+            }
+            if (moment(row.dates).format('YYYY-MM-DD') > moment(resignationdate).format('YYYY-MM-DD'))
+            {
+              if (row.dates ===this.$t('label.PFANS1012VIEW_ACCOUNT'))
+              {
+                return "white";
+              }
+              else
+              {
+                row.absenteeism = "";
+                this.totalAbsenteeism = true;
+                return "sub_bg_color_Ral";
+              }
+            }
+            //ccm 离职后考勤颜色   to
+
             //add-ws-考勤设置休日背景色
             if(moment(row.dates).format("E") == 6 || moment(row.dates).format("E") == 7 ){
               row.absenteeism = "";
               this.totalAbsenteeism = true;
               return "sub_bg_color_Darkgrey";
             }
-
           },
           setdisabled(val){
             if(this.$route.params.disabled){
@@ -318,6 +364,38 @@
                         });
                         return;
                     }
+                    let letexitdate = "0";
+                    this.exitdate = getUserInfo(this.$route.params._id.split(",")[0]).userinfo.resignation_date;
+                    if(this.exitdate != ""){
+                        if (moment(this.exitdate).format("YYYY-MM") === moment(new Date()).format('YYYY-MM')) {
+                            letexitdate = "1";
+                        }
+                    }
+                    let dic = getDictionaryInfo("PR064001");
+                    if (dic !== null) {
+                        if(moment(new Date()).format('DD') >= Number(dic.value1)){
+                            if (moment(new Date()).format('MM') === moment(this.disdateflg).format("MM")){
+                                if(letexitdate === "0"){
+                                    Message({
+                                        message: this.$t('label.PFANS2010VIEW_RECOGNITIONDAYERR'),
+                                        type: 'error',
+                                        duration: 2 * 1000
+                                    });
+                                    return;
+                                }
+                            }
+                        }
+                        else{
+                            if(letexitdate === "0"){
+                                Message({
+                                    message: this.$t('label.PFANS2010VIEW_PLEASE') + dic.value1 + this.$t('label.PFANS2010VIEW_ADMIT'),
+                                    type: 'error',
+                                    duration: 2 * 1000
+                                });
+                                return;
+                            }
+                        }
+                    }
                     this.loading = true;
                     this.uplist = this.$refs.table.selectedList;
                     this.update(0);
@@ -367,12 +445,13 @@
 
                       for (let j = 0; j < response.length; j++) {
                           // response[j].dates = moment(response[j].dates).format("YYYY-MM-DD");
+                          this.disdateflg = response[0].dates;
                           if(response[j].recognitionstate === "0"){
                               if (this.$i18n) {
                                   response[j].recognitionstate = this.$t('label.PFANS2010VIEW_RECOGNITION0');
                               }
                           }
-                          else{
+                          else if(response[j].recognitionstate === "1"){
                               if (this.$i18n) {
                                   response[j].recognitionstate = this.$t('label.PFANS2010VIEW_RECOGNITION1');
                               }

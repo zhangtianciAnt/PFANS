@@ -43,3 +43,11 @@ export function delWorkflow(data) {
     data: data
   })
 }
+
+export function allWorkFlowIns(data) {
+  return request({
+    url: 'workflow/allWorkFlowIns',
+    method: 'get',
+    params: data
+  })
+}
