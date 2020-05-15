@@ -1285,6 +1285,10 @@
             this.loading = false;
           });
       }
+      else
+      {
+        this.buttonList[1].disabled = true;
+      }
       //333
       let userid = this.$store.getters.userinfo.userid;
       this.buttonList[3].disabled = true;

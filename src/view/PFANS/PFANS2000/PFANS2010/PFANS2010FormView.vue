@@ -276,13 +276,35 @@
                 }
               }
             }
+
+            //ccm 离职后考勤颜色   from
+            let userid = this.$route.params._id.split(",")[0];
+            let user = getUserInfo(userid);
+            let resignationdate ='';
+            if (user) {
+              resignationdate = user.userinfo.resignation_date;
+            }
+            if (moment(row.dates).format('YYYY-MM-DD') > moment(resignationdate).format('YYYY-MM-DD'))
+            {
+              if (row.dates ===this.$t('label.PFANS1012VIEW_ACCOUNT'))
+              {
+                return "white";
+              }
+              else
+              {
+                row.absenteeism = "";
+                this.totalAbsenteeism = true;
+                return "sub_bg_color_Ral";
+              }
+            }
+            //ccm 离职后考勤颜色   to
+
             //add-ws-考勤设置休日背景色
             if(moment(row.dates).format("E") == 6 || moment(row.dates).format("E") == 7 ){
               row.absenteeism = "";
               this.totalAbsenteeism = true;
               return "sub_bg_color_Darkgrey";
             }
-
           },
           setdisabled(val){
             if(this.$route.params.disabled){
@@ -334,42 +356,6 @@
                     });
                 }
                 else if (val === 'recognition') {
-                    let recognitionday = '';
-                    //离职人员可以承认离职这个月及前几个月的考勤
-                    this.exitdate = getUserInfo(this.$route.params._id.split(",")[0]).userinfo.resignation_date;
-                    if (this.exitdate !== '' && this.exitdate !== null) {
-                        if (moment(this.exitdate).format("YYYY-MM") > moment(new Date()).format('YYYY-MM')) {
-                            Message({
-                                message: this.$t('label.PFANS2010VIEW_RECOGNITIONDAYERR'),
-                                type: 'error',
-                                duration: 2 * 1000
-                            });
-                            return;
-                        }
-                    } else {
-                        let dic = getDictionaryInfo("PR064001");  //考勤承认开始日
-                        if (dic !== null) {
-                            recognitionday = dic.value1;
-                        }
-                        if (moment(this.disdateflg).format("MM") === moment(new Date()).format('MM')) {
-                            Message({
-                                message: this.$t('label.PFANS2010VIEW_RECOGNITIONDAYERR'),
-                                type: 'error',
-                                duration: 2 * 1000
-                            });
-                            return;
-                        }
-                        if (Number(moment(new Date()).format('DD')) <= Number(recognitionday)) {
-                            if (moment(this.disdateflg).format("MM") === moment(new Date()).format('MM')) {
-                                Message({
-                                    message: this.$t('label.PFANS2010VIEW_RECOGNITIONDAYERR'),
-                                    type: 'error',
-                                    duration: 2 * 1000
-                                });
-                                return;
-                            }
-                        }
-                    }
                     if (this.$refs.table.selectedList.length === 0) {
                         Message({
                             message: this.$t('normal.info_01'),
@@ -377,6 +363,38 @@
                             duration: 2 * 1000
                         });
                         return;
+                    }
+                    let letexitdate = "0";
+                    this.exitdate = getUserInfo(this.$route.params._id.split(",")[0]).userinfo.resignation_date;
+                    if(this.exitdate != ""){
+                        if (moment(this.exitdate).format("YYYY-MM") === moment(new Date()).format('YYYY-MM')) {
+                            letexitdate = "1";
+                        }
+                    }
+                    let dic = getDictionaryInfo("PR064001");
+                    if (dic !== null) {
+                        if(moment(new Date()).format('DD') >= Number(dic.value1)){
+                            if (moment(new Date()).format('MM') === moment(this.disdateflg).format("MM")){
+                                if(letexitdate === "0"){
+                                    Message({
+                                        message: this.$t('label.PFANS2010VIEW_RECOGNITIONDAYERR'),
+                                        type: 'error',
+                                        duration: 2 * 1000
+                                    });
+                                    return;
+                                }
+                            }
+                        }
+                        else{
+                            if(letexitdate === "0"){
+                                Message({
+                                    message: this.$t('label.PFANS2010VIEW_PLEASE') + dic.value1 + this.$t('label.PFANS2010VIEW_ADMIT'),
+                                    type: 'error',
+                                    duration: 2 * 1000
+                                });
+                                return;
+                            }
+                        }
                     }
                     this.loading = true;
                     this.uplist = this.$refs.table.selectedList;
@@ -433,7 +451,7 @@
                                   response[j].recognitionstate = this.$t('label.PFANS2010VIEW_RECOGNITION0');
                               }
                           }
-                          else{
+                          else if(response[j].recognitionstate === "1"){
                               if (this.$i18n) {
                                   response[j].recognitionstate = this.$t('label.PFANS2010VIEW_RECOGNITION1');
                               }
@@ -510,8 +528,7 @@
                         total_nursingleave += parseFloat(res[i]["nursingleave"] ===undefined ? '0' :(res[i]["nursingleave"]===null || res[i]["nursingleave"]==='' ?  '0':res[i]["nursingleave"]));
                         total_absenteeism += parseFloat(res[i]["absenteeism"] ===undefined ? '0' :(res[i]["absenteeism"]===null || res[i]["absenteeism"]==='' ? '0':res[i]["absenteeism"]));
                       }
-                        res1.push({
-                            dates: this.$t('label.PFANS1012VIEW_ACCOUNT'),
+                      res1.push( {dates: '合计',
                                                                     normal: total_normal,
                                                                     ordinaryindustry: total_ordinaryindustry,
                                                                     weekendindustry: total_weekendindustry,
@@ -595,7 +612,7 @@
             if(this.totalAbsenteeism){
               let total = 0;
               for(let item of val){
-                  if (item.dates === this.$t('label.PFANS1012VIEW_ACCOUNT')) {
+                if(item.dates === '合计'){
                   continue;
                 }
 
