@@ -29,6 +29,7 @@
     import EasyNormalTable from '@/components/EasyNormalTable/index2.vue';
     import {Message} from 'element-ui';
     import moment from "moment";
+    import {getUserInfo} from "@/utils/customize";
     import EasyNormalContainer from '@/components/EasyNormalContainer';
 
     export default {
@@ -253,12 +254,32 @@
               }
             }
             //add-ws-考勤设置休日背景色
+            //ccm 离职后考勤颜色   from
+            let userid = this.$route.params._id.split(",")[0];
+            let user = getUserInfo(userid);
+            let resignationdate ='';
+            if (user) {
+              resignationdate = user.userinfo.resignation_date;
+            }
+            if (moment(row.dates).format('YYYY-MM-DD') > moment(resignationdate).format('YYYY-MM-DD'))
+            {
+              if (row.dates ==='合计')
+              {
+                return "white";
+              }
+              else
+              {
+                row.absenteeism = "";
+                this.totalAbsenteeism = true;
+                return "sub_bg_color_Ral";
+              }
+            }
+            //ccm 离职后考勤颜色   to
             if(moment(row.dates).format("E") == 6 || moment(row.dates).format("E") == 7 ){
               row.absenteeism = "";
               this.totalAbsenteeism = true;
               return "sub_bg_color_Darkgrey";
             }
-
           },
           setdisabled(val){
             if(this.$route.params.disabled){
@@ -372,7 +393,7 @@
                                   response[j].recognitionstate = this.$t('label.PFANS2010VIEW_RECOGNITION0');
                               }
                           }
-                          else{
+                          else if(response[j].recognitionstate === "1"){
                               if (this.$i18n) {
                                   response[j].recognitionstate = this.$t('label.PFANS2010VIEW_RECOGNITION1');
                               }
