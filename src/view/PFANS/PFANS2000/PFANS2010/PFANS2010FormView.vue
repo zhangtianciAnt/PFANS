@@ -31,7 +31,6 @@
     import EasyNormalTable from '@/components/EasyNormalTable/index2.vue';
     import {Message} from 'element-ui';
     import moment from "moment";
-    import {getUserInfo} from "@/utils/customize";
     import EasyNormalContainer from '@/components/EasyNormalContainer';
     import {getUserInfo, getDictionaryInfo} from "../../../../utils/customize";
 
@@ -302,15 +301,15 @@
 
             //add-ws-考勤设置休日背景色
             //ccm 离职后考勤颜色   from
-            let userid = this.$route.params._id.split(",")[0];
-            let user = getUserInfo(userid);
-            let resignationdate ='';
-            if (user) {
-              resignationdate = user.userinfo.resignation_date;
+            let user_id = this.$route.params._id.split(",")[0];
+            let userinfo = getUserInfo(user_id);
+            let resignation_date ='';
+            if (userinfo) {
+              resignation_date = userinfo.userinfo.resignation_date;
             }
-            if (moment(row.dates).format('YYYY-MM-DD') > moment(resignationdate).format('YYYY-MM-DD'))
+            if (moment(row.dates).format('YYYY-MM-DD') > moment(resignation_date).format('YYYY-MM-DD'))
             {
-              if (row.dates ==='合计')
+              if (row.dates ===this.$t('label.PFANS1012VIEW_ACCOUNT'))
               {
                 return "white";
               }
