@@ -1725,6 +1725,10 @@
                         this.loading = false;
                     });
             }
+            else
+            {
+                this.buttonList[1].disabled = true;
+            }
             if (this.buttonList.length > 2) {
                 this.buttonList[3].disabled = true;
             }

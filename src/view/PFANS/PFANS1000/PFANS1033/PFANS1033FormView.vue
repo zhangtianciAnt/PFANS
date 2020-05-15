@@ -841,6 +841,10 @@
                       this.loading = false
                   })
           }
+        else
+        {
+          this.buttonList[1].disabled = true;
+        }
         let userid = this.$store.getters.userinfo.userid;
         if (userid !== null && userid !== '') {
           let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
