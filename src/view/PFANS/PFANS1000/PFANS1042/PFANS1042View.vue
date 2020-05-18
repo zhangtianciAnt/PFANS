@@ -74,7 +74,7 @@
 
         <pl-table
           :datas="tableData" @selection-change="handleSelectionChange()"
-          border ref="plx"
+          border ref="plx" show-summary :summary-method="getSummaries"
           stripe use-virtual :pagination-show="paginationShow"
           style="width: 100%;height: calc(100vh - 200px - 2rem)"
           tooltip-effect="dark" cell-class-name="row_height_left" header-row-class-name="height"
@@ -119,7 +119,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_OUTST')"
               align="center"
-              width="180">
+              width="180"
+              prop="outst1">
               <template slot-scope="scope">
                 <span>{{scope.row.outst1}}</span>
               </template>
@@ -140,7 +141,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_TAXYW')"
               align="center"
-              width="110">
+              width="110"
+              prop="outst2">
               <template slot-scope="scope">
                 <span>{{scope.row.outst2}}</span>
               </template>
@@ -149,7 +151,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_TAXSA')"
               align="center"
-              width="110">
+              width="110"
+              prop="outst3">
               <template slot-scope="scope">
                 <span>{{scope.row.outst3}}</span>
               </template>
@@ -158,7 +161,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_INST')"
               align="center"
-              width="110">
+              width="110"
+              prop="inst">
               <template slot-scope="scope">
                 <span>{{scope.row.inst}}</span>
               </template>
@@ -168,7 +172,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_CENTERINTOTAL')"
               align="center"
-              width="110">
+              width="110"
+              prop="centerintotal">
               <template slot-scope="scope">
                 <span>{{scope.row.centerintotal}}</span>
               </template>
@@ -177,7 +182,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_INTOTAL')"
               align="center"
-              width="110">
+              width="110"
+              prop="intotal">
               <template slot-scope="scope">
                 <span>{{scope.row.intotal}}</span>
               </template>
@@ -192,34 +198,31 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_PEOCOST')"
               align="center"
-              width="110">
-
+              width="110"
+              prop="peocost">
               <template slot-scope="scope">
                 <span>{{scope.row.peocost}}</span>
               </template>
-
             </pl-table-column>
             <!--            厚生費-->
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_TWOCOST')"
               align="center"
-              width="110">
-
+              width="110"
+              prop="twocost">
               <template slot-scope="scope">
                 <span>{{scope.row.twocost}}</span>
               </template>
-
             </pl-table-column>
             <!--            人件費小計-->
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_PEOCOSTSUM')"
               align="center"
-              width="110">
-
+              width="110"
+              prop="peocostsum">
               <template slot-scope="scope">
                 <span>{{scope.row.peocostsum}}</span>
               </template>
-
             </pl-table-column>
             <!--            減価償却費（設備）-->
             <pl-table-column
@@ -267,7 +270,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_RENT')"
               align="center"
-              width="110">
+              width="110"
+              prop="rent">
               <template slot-scope="scope">
                 <span>{{scope.row.rent}}</span>
               </template>
@@ -276,7 +280,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_LEASECOST')"
               align="center"
-              width="110">
+              width="110"
+              prop="leasecost">
               <template slot-scope="scope">
                 <span>{{scope.row.leasecost}}</span>
               </template>
@@ -285,7 +290,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_TEMPORARYRENT')"
               align="center"
-              width="110">
+              width="110"
+              prop="temporaryrent">
               <template slot-scope="scope">
                 <span>{{scope.row.temporaryrent}}</span>
               </template>
@@ -294,7 +300,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_OTHER')"
               align="center"
-              width="150">
+              width="150"
+              prop="other">
               <template slot-scope="scope">
                 <span>{{scope.row.other}}</span>
               </template>
@@ -303,7 +310,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_COSTSUBTOTAL')"
               align="center"
-              width="150">
+              width="150"
+              prop="costsubtotal">
               <template slot-scope="scope">
                 <span>{{scope.row.costsubtotal}}</span>
               </template>
@@ -312,7 +320,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_RESEARCHCOST')"
               align="center"
-              width="110">
+              width="110"
+              prop="researchcost">
               <template slot-scope="scope">
                 <span>{{scope.row.researchcost}}</span>
               </template>
@@ -321,7 +330,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_SURVEYFEE')"
               align="center"
-              width="110">
+              width="110"
+              prop="surveyfee">
               <template slot-scope="scope">
                 <span>{{scope.row.surveyfee}}</span>
               </template>
@@ -330,7 +340,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_INWEITUO')"
               align="center"
-              width="110">
+              width="110"
+              prop="inwetuo">
               <template slot-scope="scope">
                 <span>{{scope.row.inwetuo}}</span>
               </template>
@@ -339,7 +350,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_OUTCOST')"
               align="center"
-              width="110">
+              width="110"
+              prop="outcost">
               <template slot-scope="scope">
                 <span>{{scope.row.outcost}}</span>
               </template>
@@ -349,7 +361,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_OTHERSOFTWAREFREE')"
               align="center"
-              width="150">
+              width="150"
+              prop="othersoftwarefree">
               <template slot-scope="scope">
                 <span>{{scope.row.othersoftwarefree}}</span>
               </template>
@@ -358,7 +371,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_EXPENSESSUBTOTAL')"
               align="center"
-              width="220">
+              width="220"
+              prop="departmenttotal">
               <template slot-scope="scope">
                 <span>{{scope.row.departmenttotal}}</span>
               </template>
@@ -367,7 +381,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_MANCOMMONDEPT')"
               align="center"
-              width="180">
+              width="180"
+              prop="expensessubtotal">
               <template slot-scope="scope">
                 <span>{{scope.row.expensessubtotal}}</span>
               </template>
@@ -376,7 +391,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_TRANSFERONE')"
               align="center"
-              width="110">
+              width="110"
+              prop="transferone">
               <template slot-scope="scope">
                 <span>{{scope.row.transferone}}</span>
               </template>
@@ -385,7 +401,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_TRANSFERTWO')"
               align="center"
-              width="110">
+              width="110"
+              prop="transfertwo">
               <template slot-scope="scope">
                 <span>{{scope.row.transfertwo}}</span>
               </template>
@@ -394,7 +411,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_ALLOCATIONSUM')"
               align="center"
-              width="150">
+              width="150"
+              prop="allocationsum">
               <template slot-scope="scope">
                 <span>{{scope.row.allocationsum}}</span>
               </template>
@@ -412,7 +430,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_YUANQINCOST')"
               align="center"
-              width="110">
+              width="110"
+              prop="yuanqincost">
               <template slot-scope="scope">
                 <span>{{scope.row.yuanqincost}}</span>
               </template>
@@ -421,40 +440,38 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_TRAVALCOST')"
               align="center"
-              width="110">
-
+              width="110"
+              prop="travalcost">
               <template slot-scope="scope">
                 <span>{{scope.row.travalcost}}</span>
               </template>
-
             </pl-table-column>
             <!--            消耗費-->
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_CALLCOST')"
               align="center"
-              width="110">
-
+              width="110"
+              prop="callcost">
               <template slot-scope="scope">
                 <span>{{scope.row.callcost}}</span>
               </template>
-
             </pl-table-column>
             <!--            通信費-->
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_CONCOST')"
               align="center"
-              width="110">
-
+              width="110"
+              prop="concost">
               <template slot-scope="scope">
                 <span>{{scope.row.concost}}</span>
               </template>
-
             </pl-table-column>
             <!--            会議費/交際費/研修費-->
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_THREEFREE')"
               align="center"
-              width="200">
+              width="200"
+              prop="threefree">
               <template slot-scope="scope">
                 <span>{{scope.row.threefree}}</span>
               </template>
@@ -463,7 +480,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_COMMONFEE')"
               align="center"
-              width="110">
+              width="110"
+              prop="commonfee">
               <template slot-scope="scope">
                 <span>{{scope.row.commonfee}}</span>
               </template>
@@ -473,8 +491,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_BRANDCOST')"
               align="center"
-              width="150">
-
+              width="150"
+              prop="brandcost">
               <template slot-scope="scope">
                 <span>{{scope.row.brandcost}}</span>
               </template>
@@ -484,7 +502,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_OTHEREXPENSES')"
               align="center"
-              width="110">
+              width="110"
+              prop="otherexpenses">
               <template slot-scope="scope">
                 <span>{{scope.row.otherexpenses}}</span>
               </template>
@@ -494,8 +513,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_PRO')"
               align="center"
-              width="110">
-
+              width="110"
+              prop="process">
               <template slot-scope="scope">
                 <span>{{scope.row.process}}</span>
               </template>
@@ -526,7 +545,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_OTHEREXPENTOTAL')"
               align="center"
-              width="200">
+              width="200"
+              prop="otherexpentotal">
               <template slot-scope="scope">
                 <span>{{scope.row.otherexpentotal}}</span>
               </template>
@@ -535,7 +555,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_DEPARTMENTCOST')"
               align="center"
-              width="110">
+              width="110"
+              prop="departmentcom">
               <template slot-scope="scope">
                 <span>{{scope.row.departmentcom}}</span>
               </template>
@@ -553,7 +574,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_COSTTOTAL')"
               align="center"
-              width="110">
+              width="110"
+              prop="costtotal">
               <template slot-scope="scope">
                 <span>{{scope.row.costtotal}}</span>
               </template>
@@ -563,7 +585,8 @@
           <pl-table-column
             :label="$t('label.PFANS1042FORMVIEW_OPERATION')"
             align="center"
-            width="110">
+            width="110"
+            prop="Operating">
             <template slot-scope="scope">
               <span>{{scope.row.Operating}}</span>
             </template>
@@ -616,7 +639,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_OPERATINGPROFIT')"
               align="center"
-              width="110">
+              width="110"
+              prop="operatingprofit">
               <template slot-scope="scope">
                 <span>{{scope.row.operatingprofit}}</span>
               </template>
@@ -626,7 +650,8 @@
           <pl-table-column
             :label="$t('label.PFANS1042FORMVIEW_PRETAXPROFIT')"
             align="center"
-            width="110">
+            width="110"
+            prop="pretaxprofit">
             <template slot-scope="scope">
               <span>{{scope.row.pretaxprofit}}</span>
             </template>
@@ -655,7 +680,8 @@
           <pl-table-column
             :label="$t('label.PFANS1042FORMVIEW_POSTTAXBENEFIT')"
             align="center"
-            width="110">
+            width="110"
+            prop="posttaxbenefit">
             <template slot-scope="scope">
               <span>{{scope.row.posttaxbenefit}}</span>
             </template>
@@ -664,9 +690,10 @@
           <pl-table-column
             :label="$t('label.PFANS1042FORMVIEW_OPERATINGMARGIN')"
             align="center"
-            width="110">
+            width="110"
+            prop="operatingmargin">
             <template slot-scope="scope">
-              <span>{{scope.row.operatingmargin}}</span>
+              <span>{{scope.row.operatingmargin}}%</span>
             </template>
           </pl-table-column>
           <!--          人員（名）-->
@@ -698,7 +725,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_OUTSOURCINGHOURS')"
               align="center"
-              width="110">
+              width="110"
+              prop="outsourcinghours">
               <template slot-scope="scope">
                 <span>{{scope.row.outsourcinghours}}</span>
               </template>
@@ -707,7 +735,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_OUTSOURCINGNAME')"
               align="center"
-              width="130">
+              width="130"
+              prop="outsourcingname">
               <template slot-scope="scope">
                 <span>{{scope.row.outsourcingname}}</span>
               </template>
@@ -716,7 +745,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_EMPLOYEENAME')"
               align="center"
-              width="110">
+              width="110"
+              prop="employeename">
               <template slot-scope="scope">
                 <span>{{scope.row.employeename}}</span>
               </template>
@@ -730,7 +760,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_OUTSOURCINGPJHOURS')"
               align="center"
-              width="180">
+              width="180"
+              prop="outsourcingpjhours">
               <template slot-scope="scope">
                 <span>{{scope.row.outsourcingpjhours}}</span>
               </template>
@@ -739,7 +770,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_OUTSOURCING')"
               align="center"
-              width="180">
+              width="180"
+              prop="outsourcing">
               <template slot-scope="scope">
                 <span>{{scope.row.outsourcing}}</span>
               </template>
@@ -748,7 +780,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_EMPLOYEEPJHOURS')"
               align="center"
-              width="130">
+              width="130"
+              prop="emhours">
               <template slot-scope="scope">
                 <!--                <span>{{scope.row.employeepjhours}}</span>-->
                 <span>{{scope.row.emhours}}</span>
@@ -758,7 +791,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_EMPLOYEEUPTIME')"
               align="center"
-              width="110">
+              width="110"
+              prop="employeeuptime">
               <template slot-scope="scope">
                 <span>{{scope.row.employeeuptime}}</span>
               </template>
@@ -772,54 +806,60 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_EXTERNALPJRATE')"
               align="center"
-              width="110">
+              width="110"
+              prop="externalpjrate">
               <template slot-scope="scope">
-                <span>{{scope.row.externalpjrate}}</span>
+                <span>{{scope.row.externalpjrate}}%</span>
               </template>
             </pl-table-column>
             <!--            外注稼働率-->
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_EXTERNALINJECTIONRATE')"
               align="center"
-              width="110">
+              width="110"
+              prop="externalinjectionrate">
               <template slot-scope="scope">
-                <span>{{scope.row.externalinjectionrate}}</span>
+                <span>{{scope.row.externalinjectionrate}}%</span>
               </template>
             </pl-table-column>
             <!--            社員PJ稼働率  -->
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_MEMBERPJRATE')"
               align="center"
-              width="110">
+              width="110"
+              prop="memberpjrate">
               <template slot-scope="scope">
-                <span>{{scope.row.memberpjrate}}</span>
+                <span>{{scope.row.memberpjrate}}%</span>
               </template>
             </pl-table-column>
             <!--            社員稼働率  -->
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_MEMBERSHIPRATE')"
               align="center"
-              width="110">
+              width="110"
+              prop="membershiprate">
               <template slot-scope="scope">
-                <span>{{scope.row.membershiprate}}</span>
+                <span>{{scope.row.membershiprate}}%</span>
               </template>
             </pl-table-column>
             <!--            全員PJ稼働率  -->
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_PJRATEEMPLOYEES')"
               align="center"
-              width="110">
+              width="110"
+              prop="pjrateemployees">
               <template slot-scope="scope">
-                <span>{{scope.row.pjrateemployees}}</span>
+                <span>{{scope.row.pjrateemployees}}%</span>
               </template>
             </pl-table-column>
             <!--            全員稼働率  -->
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_STAFFINGRATE')"
               align="center"
-              width="110">
+              width="110"
+              prop="staffingrate">
               <template slot-scope="scope">
-                <span>{{scope.row.staffingrate}}</span>
+                <span>{{scope.row.staffingrate}}%</span>
               </template>
             </pl-table-column>
           </pl-table-column>
@@ -841,7 +881,6 @@
           <!--          </pl-table-column>-->
 
         </pl-table>
-
       </div>
     </EasyNormalContainer>
   </div>
@@ -940,6 +979,7 @@
                 disabled: false,
                 disable: true,
                 buttonList: [],
+                proflg: 0,
             };
         },
         //add-ws-5/7-财务部长可用保存
@@ -973,7 +1013,8 @@
                 val.posttaxbenefit = (Number(val.pretaxprofit) - Number(val.taxallowance)).toFixed(2);
                 //--営業利益率 = 営業利益 / 売上合計
                 if (Number(val.intotal) > 0) {
-                    val.operatingmargin = ((Number(val.Operating) / Number(val.intotal)) * 100).toFixed(2) + '%';
+                    // val.operatingmargin = ((Number(val.Operating) / Number(val.intotal)) * 100).toFixed(2) + '%';
+                    val.operatingmargin = (Number(val.Operating) / Number(val.intotal)).toFixed(2);
                 } else {
                     val.operatingmargin = '0.00';
                 }
@@ -998,9 +1039,10 @@
                 val.posttaxbenefit = (Number(val.pretaxprofit) - Number(val.taxallowance)).toFixed(2);
                 //--営業利益率 = 営業利益 / 売上合計
                 if (Number(val.intotal) > 0) {
-                    val.operatingmargin = ((Number(val.Operating) / Number(val.intotal)) * 100).toFixed(2) + '%';
+                    // val.operatingmargin = ((Number(val.Operating) / Number(val.intotal)) * 100).toFixed(2) + '%';
+                    val.operatingmargin = ((Number(val.Operating) / Number(val.intotal))).toFixed(2);
                 } else {
-                    val.operatingmargin = '0.00%';
+                    val.operatingmargin = '0.00';
                 }
 
             },
@@ -1023,9 +1065,10 @@
 
                 //--営業利益率 = 営業利益 / 売上合計
                 if (Number(val.intotal) > 0) {
-                    val.operatingmargin = ((Number(val.Operating) / Number(val.intotal)) * 100).toFixed(2) + '%';
+                    // val.operatingmargin = ((Number(val.Operating) / Number(val.intotal)) * 100).toFixed(2) + '%';
+                    val.operatingmargin = (Number(val.Operating) / Number(val.intotal)).toFixed(2);
                 } else {
-                    val.operatingmargin = '0.00%';
+                    val.operatingmargin = '0.00';
                 }
             },
             // changeDepment(val) {
@@ -1412,7 +1455,23 @@
                                         // 部門共通費用合計
                                         // response[j].departmenttotal = (Number(response[j].yuanqincost) + Number(response[j].travalcost) + Number(response[j].concost) + Number(response[j].callcost) + Number(response[j].brandcost) + Number(response[j].rent) + Number(response[j].other)).toFixed(2);
                                         //仕掛品
-                                        response[j].process = (Number('-' + response[j].centerintotal) + Number(response[j].process)).toFixed(2);
+                                        // upd_fjl_05/18
+                                        //(待完善)
+                                        // response[j].process = (Number('-' + response[j].centerintotal) + Number(response[j].process)).toFixed(2);
+                                        if (Number(response[j].process) > 0) {
+                                            response[j].process = ('-' + Number(response[j].peocostsum) - Number(response[j].costsubtotal) - Number(response[j].departmenttotal) -
+                                                Number(response[j].yuanqincost) - Number(response[j].travalcost) - Number(response[j].callcost)
+                                                - Number(response[j].concost) - Number(response[j].threefree) - Number(response[j].commonfee) - Number(response[j].brandcost)
+                                                - Number(response[j].otherexpenses) - Number(response[j].otherincome)).toFixed(2);
+
+                                        } else {
+                                            response[j].process = ('-' + Number(response[j].peocostsum) - Number(response[j].costsubtotal) - Number(response[j].departmenttotal) -
+                                                Number(response[j].yuanqincost) - Number(response[j].travalcost) - Number(response[j].callcost)
+                                                - Number(response[j].concost) - Number(response[j].threefree) - Number(response[j].commonfee) - Number(response[j].brandcost)
+                                                - Number(response[j].otherexpenses) - Number(response[j].otherincome)).toFixed(2);
+                                            // this.proflg = response[j].process + Number(this.proflg);
+                                        }
+                                        // upd_fjl_05/18
                                         //その他諸経費小計
                                         response[j].otherexpentotal = (Number(response[j].yuanqincost) + Number(response[j].travalcost) + Number(response[j].callcost)
                                             + Number(response[j].concost) + Number(response[j].threefree) + Number(response[j].commonfee) + Number(response[j].brandcost)
@@ -1480,7 +1539,8 @@
                                         if (Number(response[j].outsourcinghours) + Number(response[j].outsourcingname) > 0) {
                                             response[j].externalpjrate = ((Number(response[j].outsourcingpjhours) / (Number(response[j].outsourcinghours) + Number(response[j].outsourcingname))) * 100).toFixed(2);
                                             if (Number(response[j].externalpjrate) > 0) {
-                                                response[j].externalpjrate = response[j].externalpjrate + bflg;
+                                                // response[j].externalpjrate = response[j].externalpjrate + bflg;
+                                                response[j].externalpjrate = response[j].externalpjrate;
                                             }
                                         } else {
                                             response[j].externalpjrate = '0.00';
@@ -1490,7 +1550,8 @@
                                         if (Number(response[j].outsourcinghours) + Number(response[j].outsourcingname) > 0) {
                                             response[j].externalinjectionrate = ((Number(response[j].outsourcing) / (Number(response[j].outsourcinghours) + Number(response[j].outsourcingname))) * 100).toFixed(2);
                                             if (Number(response[j].externalinjectionrate) > 0) {
-                                                response[j].externalinjectionrate = response[j].externalinjectionrate + bflg;
+                                                // response[j].externalinjectionrate = response[j].externalinjectionrate + bflg;
+                                                response[j].externalinjectionrate = response[j].externalinjectionrate;
                                             }
                                         } else {
                                             response[j].externalinjectionrate = '0.00';
@@ -1500,7 +1561,8 @@
                                         if (Number(response[j].employeename) > 0) {
                                             response[j].memberpjrate = ((Number(response[j].emhours) / Number(response[j].employeename)) * 100).toFixed(2);
                                             if (Number(response[j].memberpjrate) > 0) {
-                                                response[j].memberpjrate = response[j].memberpjrate + bflg;
+                                                // response[j].memberpjrate = response[j].memberpjrate + bflg;
+                                                response[j].memberpjrate = response[j].memberpjrate;
                                             }
                                         } else {
                                             response[j].memberpjrate = '0.00';
@@ -1510,7 +1572,8 @@
                                         if (Number(response[j].employeename) > 0) {
                                             response[j].membershiprate = ((Number(response[j].employeeuptime) / Number(response[j].employeename)) * 100).toFixed(2);
                                             if (Number(response[j].membershiprate) > 0) {
-                                                response[j].membershiprate = response[j].membershiprate + bflg;
+                                                // response[j].membershiprate = response[j].membershiprate + bflg;
+                                                response[j].membershiprate = response[j].membershiprate;
                                             }
                                         } else {
                                             response[j].membershiprate = '0.00';
@@ -1520,7 +1583,8 @@
                                         if (Number(response[j].outsourcinghours) + Number(response[j].outsourcingname) + Number(response[j].employeename) > 0) {
                                             response[j].pjrateemployees = (((Number(response[j].outsourcingpjhours) + Number(response[j].emhours)) / ((Number(response[j].outsourcinghours) + Number(response[j].outsourcingname) + Number(response[j].employeename)))) * 100).toFixed(2);
                                             if (Number(response[j].pjrateemployees) > 0) {
-                                                response[j].pjrateemployees = response[j].pjrateemployees + bflg;
+                                                // response[j].pjrateemployees = response[j].pjrateemployees + bflg;
+                                                response[j].pjrateemployees = response[j].pjrateemployees;
                                             }
                                         } else {
                                             response[j].pjrateemployees = '0.00';
@@ -1530,7 +1594,8 @@
                                         if (Number(response[j].outsourcinghours) + Number(response[j].outsourcingname) + Number(response[j].employeename) > 0) {
                                             response[j].staffingrate = (((Number(response[j].outsourcing) + Number(response[j].employeeuptime)) / ((Number(response[j].outsourcinghours) + Number(response[j].outsourcingname) + Number(response[j].employeename)))) * 100).toFixed(2);
                                             if (Number(response[j].staffingrate) > 0) {
-                                                response[j].staffingrate = response[j].staffingrate + bflg;
+                                                // response[j].staffingrate = response[j].staffingrate + bflg;
+                                                response[j].staffingrate = response[j].staffingrate;
                                             }
                                         } else {
                                             response[j].staffingrate = '0.00';
@@ -1547,9 +1612,10 @@
                                         response[j].posttaxbenefit = (Number(response[j].pretaxprofit) - Number(response[j].taxallowance)).toFixed(2);
                                         //営業利益率
                                         if (Number(response[j].intotal) > 0) {
-                                            response[j].operatingmargin = ((Number(response[j].Operating) / Number(response[j].intotal)) * 100).toFixed(2) + '%';
+                                            // response[j].operatingmargin = ((Number(response[j].Operating) / Number(response[j].intotal)) * 100).toFixed(2) + '%';
+                                            response[j].operatingmargin = (Number(response[j].Operating) / Number(response[j].intotal)).toFixed(2);
                                         } else {
-                                            response[j].operatingmargin = '0.00%'
+                                            response[j].operatingmargin = '0.00'
                                         }
 
 // add_fjl
@@ -1616,6 +1682,7 @@
                                             taxallowance: response[j].taxallowance,
                                             posttaxbenefit: response[j].posttaxbenefit,
                                             operatingmargin: response[j].operatingmargin,
+                                            // operatingmarg: response[j].operatingmarg,
                                             outsourcinghours: response[j].outsourcinghours,
                                             outsourcing: response[j].outsourcing,
                                             outsourcingname: response[j].outsourcingname,
@@ -1703,6 +1770,40 @@
             },
             handleSelectionChange(val) {
                 this.multipleSelection = val;
+            },
+            getSummaries(param) {
+                const {columns, data} = param;
+                const sums = [];
+                //行数
+                let a = param.data.length;
+                columns.forEach((column, index) => {
+                    if (index === 0) {
+                        sums[index] = this.$t('label.PFANS1012VIEW_ACCOUNT');
+                        return;
+                    }
+                    const values = data.map(item => Number(item[column.property]));
+                    if (!values.every(value => isNaN(value))) {
+                        sums[index] = values.reduce((prev, curr) => {
+                            const value = Number(curr);
+                            if (!isNaN(value)) {
+                                return prev + curr;
+                            } else {
+                                return prev;
+                            }
+                        }, 0);
+                        sums[index] = Math.round((sums[index]) * 100) / 100;
+                    } else {
+                        sums[index] = '--';
+                    }
+                });
+                sums[48] = (Math.round((sums[48]) * 100) / 100 / a).toFixed(2) + '%';
+                sums[56] = (Math.round((sums[56]) * 100) / 100 / a).toFixed(2) + '%';
+                sums[57] = (Math.round((sums[57]) * 100) / 100 / a).toFixed(2) + '%';
+                sums[58] = (Math.round((sums[58]) * 100) / 100 / a).toFixed(2) + '%';
+                sums[59] = (Math.round((sums[59]) * 100) / 100 / a).toFixed(2) + '%';
+                sums[60] = (Math.round((sums[60]) * 100) / 100 / a).toFixed(2) + '%';
+                sums[61] = (Math.round((sums[61]) * 100) / 100 / a).toFixed(2) + '%';
+                return sums;
             },
             //add-ws-5/7-保存PL数据，先根据group ，year，month删除再插入
             buttonClick(val) {
