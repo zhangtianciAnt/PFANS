@@ -2886,7 +2886,7 @@
                     duration: 5 * 1000,
                   });
                   return;
-                } 
+                }
               }
             }
           } else if (this.Redirict === '0' ? (row.accountcode === 'PJ119005') : (row.accountcode === 'PJ132005')) {
@@ -3122,660 +3122,660 @@
                 let sumtableA4 = 0;
                 let sumtableA5 = 0;
                 let sumtableA6 = 0;
-                if (this.form.type === '0') {
-                  for (let i = 0; i < this.tableA.length; i++) {
-                    var jpregion1;
-                    var jpregion2;
-                    var jpregion8;
-                    var jpregion9;
-                    let jpregioninfo = getDictionaryInfo('PJ035001');
-                    if (jpregioninfo) {
-                      jpregion1 = jpregioninfo.value2;
-                      jpregion2 = jpregioninfo.value3;
-                    }
-                    let jpregioninfo2 = getDictionaryInfo('PJ035002');
-                    if (jpregioninfo2) {
-                      jpregion8 = jpregioninfo2.value2;
-                      jpregion9 = jpregioninfo2.value3;
-                    }
-                    var diffDate = 0;
-                    for (let i = 0; i < this.Todaysum.length; i++) {
-                      diffDate = diffDate + 1;
-                    }
-                    if (this.form.type === '0') {
-                      //境内无规定外费用的场合，住宿标准check
-                      if (this.tableA[i].facilitytype === 'PJ035001') {
-                        if (this.tableA[i].city !== '') {
-                          if (this.tableA[i].city === 'PJ036001' || this.tableA[i].city === 'PJ036002' || this.tableA[i].city === 'PJ036003' || this.tableA[i].city === 'PJ036004') {
-                            if (this.tableA[i].rmb > jpregion1) {
-                              this.accomflg = 1;
-                              Message({
-                                message: this.$t('label.PFANS1013FORMVIEW_RMBLIMIT'),
-                                type: 'error',
-                                duration: 5 * 1000,
-                              });
-                              return;
-                            }
-                          } else {
-                            if (this.tableA[i].rmb > jpregion2) {
-                              this.accomflg = 1;
-                              Message({
-                                message: this.$t('label.PFANS1013FORMVIEW_RMBLIMIT'),
-                                type: 'error',
-                                duration: 5 * 1000,
-                              });
-                              return;
-                            }
-                          }
-                        }
-                      } else if (this.tableA[i].facilitytype === 'PJ035002') {
-                        if (this.tableA[i].city !== '') {
-                          if (this.tableA[i].city === 'PJ036001' || this.tableA[i].city === 'PJ036002' || this.tableA[i].city === 'PJ036003' || this.tableA[i].city === 'PJ036004') {
-                            if (this.tableA[i].rmb > jpregion8 / 30) {
-                              this.accomflg = 1;
-                              Message({
-                                message: this.$t('label.PFANS1013FORMVIEW_RMBLIMIT'),
-                                type: 'error',
-                                duration: 5 * 1000,
-                              });
-                              return;
-                            }
-                          } else {
-                            if (this.tableA[i].rmb > jpregion9 / 30) {
-                              this.accomflg = 1;
-                              Message({
-                                message: this.$t('label.PFANS1013FORMVIEW_RMBLIMIT'),
-                                type: 'error',
-                                duration: 5 * 1000,
-                              });
-                              return;
-                            }
-                          }
-                        }
-                      }
-                    }
+
+                for (let i = 0; i < this.tableA.length; i++) {
+                  var jpregion1;
+                  var jpregion2;
+                  var jpregion8;
+                  var jpregion9;
+                  let jpregioninfo = getDictionaryInfo('PJ035001');
+                  if (jpregioninfo) {
+                    jpregion1 = jpregioninfo.value2;
+                    jpregion2 = jpregioninfo.value3;
                   }
-                  //add-ws-5/12-分录传票的发票税金需要与后面明细同种发票的税金和相同
+                  let jpregioninfo2 = getDictionaryInfo('PJ035002');
+                  if (jpregioninfo2) {
+                    jpregion8 = jpregioninfo2.value2;
+                    jpregion9 = jpregioninfo2.value3;
+                  }
+                  var diffDate = 0;
+                  for (let i = 0; i < this.Todaysum.length; i++) {
+                    diffDate = diffDate + 1;
+                  }
                   if (this.form.type === '0') {
-                    for (let i = 0; i < this.tableF.length; i++) {
-                      let sumtaxesT = 0;
-                      let sumtaxesA = 0;
-                      let sumtaxesR = 0;
-                      let sumtaxesF = 0;
-                      let sumtaxes = 0;
-                      let taxesm = 0;
-                      let taxesn = 0;
-                      for (let m = 0; m < this.tableT.length; m++) {
-                        if (this.tableT[m].invoicenumber == this.tableF[i].invoicenumber) {
-                          if (this.tableT[m].taxes != '0') {
-                            taxesm = m;
-                            sumtaxesT += this.tableT[m].taxes;
-                          }
-                        }
-                      }
-                      for (let n = 0; n < this.tableA.length; n++) {
-                        if (this.tableA[n].invoicenumber == this.tableF[i].invoicenumber) {
-                          if (this.tableA[n].taxes != '0') {
-                            taxesn = n;
-                            sumtaxesA += this.tableA[n].taxes;
-                          }
-                        }
-                      }
-                      //add-ws-5/14-其他费用明细添加
-                      for (let n = 0; n < this.tableR.length; n++) {
-                        if (this.tableR[n].invoicenumber == this.tableF[i].invoicenumber) {
-                          if (this.tableR[n].taxes != '0') {
-                            sumtaxesR += this.tableR[n].taxes;
-                          }
-                        }
-                      }
-                      //add-ws-5/14-其他费用明细添加
-                      sumtaxesF = Number(sumtaxesT) + Number(sumtaxesA) + Number(sumtaxesR);
-                      sumtaxes = Number(sumtaxesF) - Number(this.tableF[i].facetax);
-                      if (sumtaxes < 0) {
-                        if (taxesm === 0) {
-                          this.tableA[taxesn].taxes = (Number(this.tableA[taxesn].taxes) - Number(sumtaxes)).toFixed(2);
-                        } else {
-                          this.tableT[taxesm].taxes = (Number(this.tableT[taxesm].taxes) - Number(sumtaxes)).toFixed(2);
-                        }
-                      } else if (sumtaxes > 0) {
-                        if (taxesm === 0) {
-                          this.tableA[taxesn].taxes = (Number(this.tableA[taxesn].taxes) - Number(sumtaxes)).toFixed(2);
-                        } else {
-                          this.tableT[taxesm].taxes = (Number(this.tableT[taxesm].taxes) - Number(sumtaxes)).toFixed(2);
-                        }
-                      }
-                    }
-                  }
-                  //add-ws-5/12-分录传票的发票税金需要与后面明细同种发票的税金和相同
-                  //add-ws-5/13-获取当前人是否直属部门后台导出csv使用
-                  if (getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)) {
-                    this.CheckRedirict = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).redirict;
-                  }
-                  if (this.CheckRedirict == '0') {
-                    this.checkredirict = 0;
-                  } else if (this.CheckRedirict == '1' || this.CheckRedirict == '') {
-                    this.checkredirict = 1;
-                  }
-                  //add-ws-5/13-获取当前人是否直属部门后台导出csv使用
-                  if (this.form.type === '0') {
-                    for (let i = 0; i < this.tableT.length; i++) {
-                      if (this.tableT[i].trafficdate !== '' || this.tableT[i].invoicenumber !== '' || this.tableT[i].departmentname !== '' || this.tableT[i].budgetcoding !== ''
-                        || this.tableT[i].rmb > 0 || this.tableT[i].plsummary !== ''
-                        || this.tableT[i].accountcode !== '' || this.tableT[i].subjectnumber !== '') {
-                        this.baseInfo.trafficdetails.push(
-                          {
-                            trafficdetails_id: this.tableT[i].trafficdetails_id,
-                            evectionid: this.tableT[i].evectionid,
-                            trafficdate: this.tableT[i].trafficdate,
-                            invoicenumber: this.tableT[i].invoicenumber,
-                            departmentname: this.tableT[i].departmentname,
-                            budgetcoding: this.tableT[i].budgetcoding,
-                            plsummary: this.plsummaryflg1,
-                            accountcode: this.accountcodeflg1,
-                            subjectnumber: this.tableT[i].subjectnumber,
-                            region: this.tableT[i].region,
-                            vehicle: this.tableT[i].vehicle,
-                            startingpoint: this.tableT[i].startingpoint,
-                            rmb: this.tableT[i].rmb,
-                            taxes: this.tableT[i].taxes,
-                            // currency: this.tableT[i].currency,
-                            // foreigncurrency: this.tableT[i].foreigncurrency,
-                            annexno: this.tableT[i].annexno,
-                          },
-                        );
-                      }
-                    }
-                    for (let i = 0; i < this.tableA.length; i++) {
-                      if (this.tableA[i].accommodationdate !== '' || this.tableA[i].invoicenumber !== '' || this.tableA[i].departmentname !== ''
-                        || this.tableA[i].budgetcoding !== '' || this.tableA[i].plsummary !== '' || this.tableA[i].accountcode !== '' || this.tableA[i].subjectnumber !== ''
-                        || this.tableA[i].activitycontent !== ''
-                        || this.tableA[i].city !== '' || this.tableA[i].facilitytype !== '') {
-                        this.baseInfo.accommodationdetails.push(
-                          {
-                            accommodationdetails_id: this.tableA[i].accommodationdetails_id,
-                            evectionid: this.tableA[i].evectionid,
-                            subsidies: this.tableA[i].subsidies,
-                            accommodationdate: this.tableA[i].accommodationdate,
-                            invoicenumber: this.tableA[i].invoicenumber,
-                            departmentname: this.tableA[i].departmentname,
-                            budgetcoding: this.tableA[i].budgetcoding,
-                            plsummary: this.plsummaryflg1,
-                            accountcode: this.newaccountcodeflg1,
-                            subjectnumber: this.tableA[i].subjectnumber,
-                            activitycontent: this.tableA[i].activitycontent,
-                            city: this.tableA[i].city,
-                            facilitytype: this.tableA[i].facilitytype,
-                            facilityname: this.tableA[i].facilityname,
-                            rmb: this.tableA[i].rmb,
-                            taxes: this.tableA[i].taxes,
-                            annexno: this.tableA[i].annexno,
-                            //add-ws-5/13-获取当前人是否直属部门后台导出csv使用
-                            redirict: this.checkredirict,
-                            //add-ws-5/13-获取当前人是否直属部门后台导出csv使用
-                          },
-                        );
-                      }
-                    }
-                    //add-ws-5/14-其他费用明细添加
-                    // for (let i = 0; i < this.tableR.length; i++) {
-                    //   if (this.tableR[i].rmb >= 0) {
-                    //     this.baseInfo.otherdetails.push(
-                    //       {
-                    //         otherdetails_id: this.tableR[i].otherdetails_id,
-                    //         evectionid: this.tableR[i].evectionid,
-                    //         otherdetailsdate: this.tableR[i].otherdetailsdate,
-                    //         invoicenumber: this.tableR[i].invoicenumber,
-                    //         departmentname: this.tableR[i].departmentname,
-                    //         budgetcoding: this.tableR[i].budgetcoding,
-                    //         plsummary: this.tableR[i].plsummary,
-                    //         accountcode: this.oldaccountcodeflg1,
-                    //         subjectnumber: this.tableR[i].subjectnumber,
-                    //         region: this.tableR[i].region,
-                    //         remarks: this.tableR[i].remarks,
-                    //         rmb: this.tableR[i].rmb,
-                    //         taxes: this.tableR[i].taxes,
-                    //         // currency: this.tableR[i].currency,
-                    //         // foreigncurrency: this.tableR[i].foreigncurrency,
-                    //         annexno: this.tableR[i].annexno,
-                    //       },
-                    //     );
-                    //   }
-                    // }
-                    //add-ws-5/14-其他费用明细添加
-                  } else if (this.form.type === '1') {
-                    for (let i = 0; i < this.tableT.length; i++) {
-                      if (this.tableT[i].trafficdate !== '' || this.tableT[i].invoicenumber !== '' || this.tableT[i].departmentname !== '' || this.tableT[i].budgetcoding !== ''
-                        || this.tableT[i].rmb > 0 || this.tableT[i].plsummary !== ''
-                        || this.tableT[i].accountcode !== '' || this.tableT[i].subjectnumber !== '' || this.tableT[i].region !== '' || this.tableT[i].vehicle !== ''
-                        || this.tableT[i].startingpoint !== '') {
-                        this.baseInfo.trafficdetails.push(
-                          {
-                            trafficdetails_id: this.tableT[i].trafficdetails_id,
-                            evectionid: this.tableT[i].evectionid,
-                            trafficdate: this.tableT[i].trafficdate,
-                            invoicenumber: this.tableT[i].invoicenumber,
-                            departmentname: this.tableT[i].departmentname,
-                            budgetcoding: this.tableT[i].budgetcoding,
-                            plsummary: this.plsummaryflg1,
-                            accountcode: this.accountcodeflg1,
-                            subjectnumber: this.tableT[i].subjectnumber,
-                            region: this.tableT[i].region,
-                            vehicle: this.tableT[i].vehicle,
-                            startingpoint: this.tableT[i].startingpoint,
-                            rmb: this.tableT[i].rmb,
-                            taxes: this.tableT[i].taxes,
-                            currency: this.tableT[i].currency,
-                            foreigncurrency: this.tableT[i].foreigncurrency,
-                            annexno: this.tableT[i].annexno,
-                          },
-                        );
-                      }
-                    }
-                    for (let i = 0; i < this.tableA.length; i++) {
-                      if (this.tableA[i].accommodationdate !== '' || this.tableA[i].invoicenumber !== '' || this.tableA[i].departmentname !== ''
-                        || this.tableA[i].budgetcoding !== '' || this.tableA[i].plsummary !== '' || this.tableA[i].accountcode !== '' || this.tableA[i].subjectnumber !== ''
-                        || this.tableA[i].activitycontent !== ''
-                        || this.tableA[i].region !== '' || this.tableA[i].facilitytype !== '' || this.tableA[i].facilityname !== '') {
-                        if (this.tableA[i].facilitytype === 'PJ035001') {
-                          if (this.tableA[i].region === 'PJ017001') {
-                            sumtableA1 = sumtableA1 + 1;
-                            travelsum1 += parseFloat(this.tableA[i].travel);
-                          } else if (this.tableA[i].region === 'PJ017002') {
-                            sumtableA2 = sumtableA2 + 1;
-                            travelsum2 += parseFloat(this.tableA[i].travel);
-                          } else if (this.tableA[i].region === 'PJ017003') {
-                            sumtableA3 = sumtableA3 + 1;
-                            travelsum3 += parseFloat(this.tableA[i].travel);
-                          } else if (this.tableA[i].region === 'PJ017004') {
-                            sumtableA4 = sumtableA4 + 1;
-                            travelsum4 += parseFloat(this.tableA[i].travel);
-                          }
-                        } else if (this.tableA[i].facilitytype === 'PJ035002') {
-                          if (this.tableA[i].region === 'PJ017001') {
-                            sumtableA5 = sumtableA5 + 1;
-                            travelsum5 += parseFloat(this.tableA[i].travel);
-                          } else if (this.tableA[i].region === 'PJ017002') {
-                            sumtableA6 = sumtableA6 + 1;
-                            travelsum6 += parseFloat(this.tableA[i].travel);
-                          }
-                        }
-                        this.baseInfo.accommodationdetails.push(
-                          {
-                            accommodationdetails_id: this.tableA[i].accommodationdetails_id,
-                            evectionid: this.tableA[i].evectionid,
-                            subsidies: this.tableA[i].subsidies,
-                            accommodationdate: this.tableA[i].accommodationdate,
-                            invoicenumber: this.tableA[i].invoicenumber,
-                            departmentname: this.tableA[i].departmentname,
-                            budgetcoding: this.tableA[i].budgetcoding,
-                            plsummary: this.plsummaryflg1,
-                            accountcode: this.newaccountcodeflg1,
-                            subjectnumber: this.tableA[i].subjectnumber,
-                            activitycontent: this.tableA[i].activitycontent,
-                            region: this.tableA[i].region,
-                            //境内
-                            // city: this.tableA[i].city,
-                            facilitytype: this.tableA[i].facilitytype,
-                            facilityname: this.tableA[i].facilityname,
-                            currency: this.tableA[i].currency,
-                            travel: this.tableA[i].travel,
-                            rmb: this.tableA[i].rmb,
-                            taxes: this.tableA[i].taxes,
-                            annexno: this.tableA[i].annexno,
-                            //add-ws-5/13-获取当前人是否直属部门后台导出csv使用
-                            redirict: this.checkredirict,
-                            //add-ws-5/13-获取当前人是否直属部门后台导出csv使用
-                          },
-                        );
-                      }
-                    }
-                    //add-ws-5/14-其他费用明细添加
-                    for (let i = 0; i < this.tableR.length; i++) {
-                      if (this.tableR[i].rmb >= 0) {
-                        this.baseInfo.otherdetails.push(
-                          {
-                            otherdetails_id: this.tableR[i].otherdetails_id,
-                            evectionid: this.tableR[i].evectionid,
-                            otherdetailsdate: this.tableR[i].otherdetailsdate,
-                            invoicenumber: this.tableR[i].invoicenumber,
-                            departmentname: this.tableR[i].departmentname,
-                            budgetcoding: this.tableR[i].budgetcoding,
-                            plsummary: this.tableR[i].plsummary,
-                            accountcode: this.oldaccountcodeflg1,
-                            subjectnumber: this.tableR[i].subjectnumber,
-                            region: this.tableR[i].region,
-                            remarks: this.tableR[i].remarks,
-                            rmb: this.tableR[i].rmb,
-                            taxes: this.tableR[i].taxes,
-                            currency: this.tableR[i].currency,
-                            foreigncurrency: this.tableR[i].foreigncurrency,
-                            annexno: this.tableR[i].annexno,
-                          },
-                        );
-                      }
-                    }
-                    //add-ws-5/14-其他费用明细添加
-                  }
-                  for (let i = 0; i < this.tableW.length; i++) {
-                    if (this.tableW[i].currency !== '' || this.tableW[i].amount > 0 || this.tableW[i].exchangerate > 0
-                      || this.tableW[i].exchangermb > 0 || this.tableW[i].currencyexchangerate !== '') {
-                      this.baseInfo.currencyexchanges.push(
-                        {
-                          evectionid: this.tableW[i].evectionid,
-                          currencyexchangeid: this.tableW[i].currencyexchangeid,
-                          currency: this.tableW[i].currency,
-                          amount: this.tableW[i].amount,
-                          exchangerate: this.tableW[i].exchangerate,
-                          exchangermb: this.tableW[i].exchangermb,
-                          currencyexchangerate: this.tableW[i].currencyexchangerate,
-                        },
-                      );
-                    }
-                  }
-                  for (let i = 0; i < this.tableF.length; i++) {
-                    if (this.tableF[i].invoicenumber !== '' || this.tableF[i].invoicetype !== '' || this.tableF[i].invoiceamount > 0 || this.tableF[i].taxrate !== ''
-                      || this.tableF[i].excludingtax > 0 || this.tableF[i].facetax > 0) {
-                      this.baseInfo.invoice.push(
-                        {
-                          invoice_id: this.tableF[i].invoice_id,
-                          evectionid: this.tableF[i].evectionid,
-                          invoicenumber: this.tableF[i].invoicenumber,
-                          invoicetype: this.tableF[i].invoicetype,
-                          invoiceamount: this.tableF[i].invoiceamount,
-                          taxrate: this.tableF[i].taxrate,
-                          excludingtax: this.tableF[i].excludingtax,
-                          facetax: this.tableF[i].facetax,
-                        },
-                      );
-                    }
-                  }
-                  for (let j = 0; j < this.tableF.length; j++) {
-                    let summoney = 0;
-                    let summoneyT = 0;
-                    let sumMoney = 0;
-                    let sumout = 0;
-                    for (let i = 0; i < this.tableT.length; i++) {
-                      if (this.tableT[i].trafficdate !== '' || this.tableT[i].invoicenumber !== '' || this.tableT[i].departmentname !== '' || this.tableT[i].budgetcoding !== ''
-                        || this.tableT[i].rmb > 0 || this.tableT[i].foreigncurrency > 0 || this.tableT[i].annexno !== '' || this.tableT[i].plsummary !== ''
-                        || this.tableT[i].accountcode !== '' || this.tableT[i].subjectnumber !== '' || this.tableT[i].region !== '' || this.tableT[i].vehicle !== ''
-                        || this.tableT[i].taxes >= 0 || this.tableT[i].startingpoint !== '' || this.tableT[i].currency !== '') {
-                        if (this.tableT[i].invoicenumber == this.tableF[j].invoicenumber) {
-                          if (this.tableT[i].rmb != '0') {
-                            summoneyT += this.tableT[i].rmb;
-                          }
-                        }
-                      }
-                    }
-                    for (let i = 0; i < this.tableA.length; i++) {
-                      if (this.tableA[i].accommodationdate !== '' || this.tableA[i].invoicenumber !== '' || this.tableA[i].departmentname !== ''
-                        || this.tableA[i].budgetcoding !== '' || this.tableA[i].plsummary !== '' || this.tableA[i].accountcode !== '' || this.tableA[i].subjectnumber !== ''
-                        || this.tableA[i].taxes >= 0 || this.tableA[i].rmb > 0 || this.tableA[i].travel > 0 || this.tableA[i].activitycontent !== '' || this.tableA[i].currency !== ''
-                        || this.tableA[i].region !== '' || this.tableA[i].facilitytype !== '' || this.tableA[i].facilityname !== '' || this.tableA[i].annexno !== '') {
-                        if (this.tableA[i].invoicenumber == this.tableF[j].invoicenumber) {
-                          if (this.tableA[i].rmb != '0') {
-                            summoney += this.tableA[i].rmb;
-
-                          }
-                        }
-                      }
-                    }
-                    for (let i = 0; i < this.tableR.length; i++) {
-                      if (this.tableR[i].otherdetailsdate !== '' || this.tableR[i].accountcode !== '' || this.tableR[i].region !== ''
-                        || this.tableR[i].rmb > 0 || this.tableR[i].foreigncurrency > 0 || this.tableR[i].annexno !== '' || this.tableR[i].plsummary !== ''
-                        || this.tableR[i].invoicenumber !== '' || this.tableR[i].departmentname !== '' || this.tableR[i].budgetcoding !== ''
-                        || this.tableR[i].subjectnumber !== '' || this.tableR[i].currency !== '' || this.tableR[i].remarks !== '' || this.tableR[i].taxes >= 0) {
-                        if (this.tableR[i].invoicenumber == this.tableF[j].invoicenumber) {
-                          if (this.tableR[i].rmb != '0') {
-                            sumMoney += this.tableR[i].rmb;
-
-                          }
-                        }
-                      }
-                    }
-                    sumout = summoney + sumMoney + summoneyT;
-                    if (sumout != this.tableF[j].invoiceamount) {
-                      errorFLG = errorFLG + 1;
-                      Message({
-                        message: this.$t('label.PFANS1012FORMVIEW_MESSAGE'),
-                        type: 'error',
-                        duration: 5 * 1000,
-                      });
-                      return;
-                    }
-                  }
-                  for (let i = 0; i < this.tableT.length; i++) {
-                    if (this.tableT[i].rmb > 0) {
-                      if (this.tableT[i].budgetcoding === '') {
-                        errorFLG = errorFLG + 1;
-                        Message({
-                          message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_BUDGET'),
-                          type: 'error',
-                          duration: 5 * 1000,
-                        });
-                        break;
-                      }
-                      if (this.tableT[i].subjectnumber === '') {
-                        errorFLG = errorFLG + 1;
-                        Message({
-                          message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNTB'),
-                          type: 'error',
-                          duration: 5 * 1000,
-                        });
-                        break;
-                      }
-                      if (this.tableT[i].plsummary === '') {
-                        errorFLG = errorFLG + 1;
-                        Message({
-                          message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_PL'),
-                          type: 'error',
-                          duration: 5 * 1000,
-                        });
-                        break;
-                      }
-                    }
-                  }
-//add-ws-5/14-其他费用明细添加
-                  for (let i = 0; i < this.tableR.length; i++) {
-                    if (this.tableR[i].rmb > 0) {
-                      if (this.tableR[i].budgetcoding === '') {
-                        errorFLG = errorFLG + 1;
-                        Message({
-                          message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_BUDGET'),
-                          type: 'error',
-                          duration: 5 * 1000,
-                        });
-                        break;
-                      }
-                      if (this.tableR[i].subjectnumber === '') {
-                        errorFLG = errorFLG + 1;
-                        Message({
-                          message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNTB'),
-                          type: 'error',
-                          duration: 5 * 1000,
-                        });
-                        break;
-                      }
-                      if (this.tableR[i].plsummary === '') {
-                        errorFLG = errorFLG + 1;
-                        Message({
-                          message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_PL'),
-                          type: 'error',
-                          duration: 5 * 1000,
-                        });
-                        break;
-                      }
-                    }
-                  }
-//add-ws-5/14-其他费用明细添加
-                  for (let i = 0; i < this.tableA.length; i++) {
-                    if (this.tableA[i].rmb > 0 || this.tableA[i].subsidies > 0) {
-                      if (this.tableA[i].budgetcoding === '') {
-                        errorFLG = errorFLG + 1;
-                        Message({
-                          message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_BUDGET'),
-                          type: 'error',
-                          duration: 5 * 1000,
-                        });
-                        break;
-                      }
-                      if (this.tableA[i].subjectnumber === '') {
-                        errorFLG = errorFLG + 1;
-                        Message({
-                          message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNTB'),
-                          type: 'error',
-                          duration: 5 * 1000,
-                        });
-                        break;
-                      }
-                      if (this.tableA[i].plsummary === '') {
-                        errorFLG = errorFLG + 1;
-                        Message({
-                          message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_PL'),
-                          type: 'error',
-                          duration: 5 * 1000,
-                        });
-                        break;
-                      }
-                      if (this.tableA[i].facilitytype === '') {
-                        errorFLG = errorFLG + 1;
-                        Message({
-                          message: this.$t('normal.error_08') + this.$t('label.PFANS1013FORMVIEW_FACILITYTYPE'),
-                          type: 'error',
-                          duration: 5 * 1000,
-                        });
-                        break;
-                      }
-                    }
-                  }
-                  // if(this.baseInfo.trafficdetails.length === 0 && this.baseInfo.accommodationdetails.length === 0 && this.baseInfo.otherdetails.length === 0){
-                  // if(errorInfoFLG3 === 0 && this.baseInfo.otherdetails.length !== 0){
-                  //   Message({
-                  //     message: this.$t('label.PFANS1013FORMVIEW_ERRORINFOR'),
-                  //     type: 'error',
-                  //     duration: 5 * 1000,
-                  //   });
-                  //   return;
-                  // }
-                  if (this.form.type === '1') {
-                    var value4money;
-                    var value5money;
-                    var value6money;
-                    var value7money;
-                    var jpregion4;
-                    var jpregion5;
-                    let jpregioninfo = getDictionaryInfo('PJ035001');
-                    if (jpregioninfo) {
-                      value4money = jpregioninfo.value4;
-                      value5money = jpregioninfo.value5;
-                      value6money = jpregioninfo.value6;
-                      value7money = jpregioninfo.value7;
-                    }
-                    let jpregioninfo2 = getDictionaryInfo('PJ035002');
-                    if (jpregioninfo2) {
-                      jpregion4 = jpregioninfo2.value4;
-                      jpregion5 = jpregioninfo2.value5;
-                    }
-                    if (travelsum1 / sumtableA1 > value4money) {
-                      errorFLG = errorFLG + 1;
-                      Message({
-                        message: this.$t('label.PFANS1013FORMVIEW_RMBLIMITNEW'),
-                        type: 'error',
-                        duration: 5 * 1000,
-                      });
-                    } else if (travelsum2 / sumtableA2 > value5money) {
-                      errorFLG = errorFLG + 1;
-                      Message({
-                        message: this.$t('label.PFANS1013FORMVIEW_RMBLIMITNEW'),
-                        type: 'error',
-                        duration: 5 * 1000,
-                      });
-                    } else if (travelsum3 / sumtableA3 > value6money) {
-                      errorFLG = errorFLG + 1;
-                      Message({
-                        message: this.$t('label.PFANS1013FORMVIEW_RMBLIMITNEW'),
-                        type: 'error',
-                        duration: 5 * 1000,
-                      });
-                    } else if (travelsum4 / sumtableA4 > value7money) {
-                      errorFLG = errorFLG + 1;
-                      Message({
-                        message: this.$t('label.PFANS1013FORMVIEW_RMBLIMITNEW'),
-                        type: 'error',
-                        duration: 5 * 1000,
-                      });
-                    } else if (travelsum5 / sumtableA5 > jpregion4) {
-                      errorFLG = errorFLG + 1;
-                      Message({
-                        message: this.$t('label.PFANS1013FORMVIEW_RMBLIMITNEW'),
-                        type: 'error',
-                        duration: 5 * 1000,
-                      });
-                    } else if (travelsum6 / sumtableA6 > jpregion5) {
-                      errorFLG = errorFLG + 1;
-                      Message({
-                        message: this.$t('label.PFANS1013FORMVIEW_RMBLIMITNEW'),
-                        type: 'error',
-                        duration: 5 * 1000,
-                      });
-                    }
-                  }
-
-                  if (errorFLG == '0' && this.accomflg === 0) {
-                    this.loading = true;
-                    if (this.$route.params._id) {
-                      this.baseInfo.evection.evectionid = this.$route.params._id;
-                      this.$store
-                        .dispatch('PFANS1013Store/update', this.baseInfo)
-                        .then(response => {
-                          this.data = response;
-                          this.loading = false;
-                          if (val !== 'update') {
+                    //境内无规定外费用的场合，住宿标准check
+                    if (this.tableA[i].facilitytype === 'PJ035001') {
+                      if (this.tableA[i].city !== '') {
+                        if (this.tableA[i].city === 'PJ036001' || this.tableA[i].city === 'PJ036002' || this.tableA[i].city === 'PJ036003' || this.tableA[i].city === 'PJ036004') {
+                          if (this.tableA[i].rmb > jpregion1) {
+                            this.accomflg = 1;
                             Message({
-                              message: this.$t('normal.success_02'),
-                              type: 'success',
+                              message: this.$t('label.PFANS1013FORMVIEW_RMBLIMIT'),
+                              type: 'error',
                               duration: 5 * 1000,
                             });
-                            if (this.$store.getters.historyUrl) {
-                              this.$router.push(this.$store.getters.historyUrl);
-                            }
+                            return;
                           }
-                        })
-                        .catch(error => {
+                        } else {
+                          if (this.tableA[i].rmb > jpregion2) {
+                            this.accomflg = 1;
+                            Message({
+                              message: this.$t('label.PFANS1013FORMVIEW_RMBLIMIT'),
+                              type: 'error',
+                              duration: 5 * 1000,
+                            });
+                            return;
+                          }
+                        }
+                      }
+                    } else if (this.tableA[i].facilitytype === 'PJ035002') {
+                      if (this.tableA[i].city !== '') {
+                        if (this.tableA[i].city === 'PJ036001' || this.tableA[i].city === 'PJ036002' || this.tableA[i].city === 'PJ036003' || this.tableA[i].city === 'PJ036004') {
+                          if (this.tableA[i].rmb > jpregion8 / 30) {
+                            this.accomflg = 1;
+                            Message({
+                              message: this.$t('label.PFANS1013FORMVIEW_RMBLIMIT'),
+                              type: 'error',
+                              duration: 5 * 1000,
+                            });
+                            return;
+                          }
+                        } else {
+                          if (this.tableA[i].rmb > jpregion9 / 30) {
+                            this.accomflg = 1;
+                            Message({
+                              message: this.$t('label.PFANS1013FORMVIEW_RMBLIMIT'),
+                              type: 'error',
+                              duration: 5 * 1000,
+                            });
+                            return;
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+                //add-ws-5/12-分录传票的发票税金需要与后面明细同种发票的税金和相同
+                if (this.form.type === '0') {
+                  for (let i = 0; i < this.tableF.length; i++) {
+                    let sumtaxesT = 0;
+                    let sumtaxesA = 0;
+                    let sumtaxesR = 0;
+                    let sumtaxesF = 0;
+                    let sumtaxes = 0;
+                    let taxesm = 0;
+                    let taxesn = 0;
+                    for (let m = 0; m < this.tableT.length; m++) {
+                      if (this.tableT[m].invoicenumber == this.tableF[i].invoicenumber) {
+                        if (this.tableT[m].taxes != '0') {
+                          taxesm = m;
+                          sumtaxesT += this.tableT[m].taxes;
+                        }
+                      }
+                    }
+                    for (let n = 0; n < this.tableA.length; n++) {
+                      if (this.tableA[n].invoicenumber == this.tableF[i].invoicenumber) {
+                        if (this.tableA[n].taxes != '0') {
+                          taxesn = n;
+                          sumtaxesA += this.tableA[n].taxes;
+                        }
+                      }
+                    }
+                    //add-ws-5/14-其他费用明细添加
+                    for (let n = 0; n < this.tableR.length; n++) {
+                      if (this.tableR[n].invoicenumber == this.tableF[i].invoicenumber) {
+                        if (this.tableR[n].taxes != '0') {
+                          sumtaxesR += this.tableR[n].taxes;
+                        }
+                      }
+                    }
+                    //add-ws-5/14-其他费用明细添加
+                    sumtaxesF = Number(sumtaxesT) + Number(sumtaxesA) + Number(sumtaxesR);
+                    sumtaxes = Number(sumtaxesF) - Number(this.tableF[i].facetax);
+                    if (sumtaxes < 0) {
+                      if (taxesm === 0) {
+                        this.tableA[taxesn].taxes = (Number(this.tableA[taxesn].taxes) - Number(sumtaxes)).toFixed(2);
+                      } else {
+                        this.tableT[taxesm].taxes = (Number(this.tableT[taxesm].taxes) - Number(sumtaxes)).toFixed(2);
+                      }
+                    } else if (sumtaxes > 0) {
+                      if (taxesm === 0) {
+                        this.tableA[taxesn].taxes = (Number(this.tableA[taxesn].taxes) - Number(sumtaxes)).toFixed(2);
+                      } else {
+                        this.tableT[taxesm].taxes = (Number(this.tableT[taxesm].taxes) - Number(sumtaxes)).toFixed(2);
+                      }
+                    }
+                  }
+                }
+                //add-ws-5/12-分录传票的发票税金需要与后面明细同种发票的税金和相同
+                //add-ws-5/13-获取当前人是否直属部门后台导出csv使用
+                if (getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)) {
+                  this.CheckRedirict = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).redirict;
+                }
+                if (this.CheckRedirict == '0') {
+                  this.checkredirict = 0;
+                } else if (this.CheckRedirict == '1' || this.CheckRedirict == '') {
+                  this.checkredirict = 1;
+                }
+                //add-ws-5/13-获取当前人是否直属部门后台导出csv使用
+                if (this.form.type === '0') {
+                  for (let i = 0; i < this.tableT.length; i++) {
+                    if (this.tableT[i].trafficdate !== '' || this.tableT[i].invoicenumber !== '' || this.tableT[i].departmentname !== '' || this.tableT[i].budgetcoding !== ''
+                      || this.tableT[i].rmb > 0 || this.tableT[i].plsummary !== ''
+                      || this.tableT[i].accountcode !== '' || this.tableT[i].subjectnumber !== '') {
+                      this.baseInfo.trafficdetails.push(
+                        {
+                          trafficdetails_id: this.tableT[i].trafficdetails_id,
+                          evectionid: this.tableT[i].evectionid,
+                          trafficdate: this.tableT[i].trafficdate,
+                          invoicenumber: this.tableT[i].invoicenumber,
+                          departmentname: this.tableT[i].departmentname,
+                          budgetcoding: this.tableT[i].budgetcoding,
+                          plsummary: this.plsummaryflg1,
+                          accountcode: this.accountcodeflg1,
+                          subjectnumber: this.tableT[i].subjectnumber,
+                          region: this.tableT[i].region,
+                          vehicle: this.tableT[i].vehicle,
+                          startingpoint: this.tableT[i].startingpoint,
+                          rmb: this.tableT[i].rmb,
+                          taxes: this.tableT[i].taxes,
+                          // currency: this.tableT[i].currency,
+                          // foreigncurrency: this.tableT[i].foreigncurrency,
+                          annexno: this.tableT[i].annexno,
+                        },
+                      );
+                    }
+                  }
+                  for (let i = 0; i < this.tableA.length; i++) {
+                    if (this.tableA[i].accommodationdate !== '' || this.tableA[i].invoicenumber !== '' || this.tableA[i].departmentname !== ''
+                      || this.tableA[i].budgetcoding !== '' || this.tableA[i].plsummary !== '' || this.tableA[i].accountcode !== '' || this.tableA[i].subjectnumber !== ''
+                      || this.tableA[i].activitycontent !== ''
+                      || this.tableA[i].city !== '' || this.tableA[i].facilitytype !== '') {
+                      this.baseInfo.accommodationdetails.push(
+                        {
+                          accommodationdetails_id: this.tableA[i].accommodationdetails_id,
+                          evectionid: this.tableA[i].evectionid,
+                          subsidies: this.tableA[i].subsidies,
+                          accommodationdate: this.tableA[i].accommodationdate,
+                          invoicenumber: this.tableA[i].invoicenumber,
+                          departmentname: this.tableA[i].departmentname,
+                          budgetcoding: this.tableA[i].budgetcoding,
+                          plsummary: this.plsummaryflg1,
+                          accountcode: this.newaccountcodeflg1,
+                          subjectnumber: this.tableA[i].subjectnumber,
+                          activitycontent: this.tableA[i].activitycontent,
+                          city: this.tableA[i].city,
+                          facilitytype: this.tableA[i].facilitytype,
+                          facilityname: this.tableA[i].facilityname,
+                          rmb: this.tableA[i].rmb,
+                          taxes: this.tableA[i].taxes,
+                          annexno: this.tableA[i].annexno,
+                          //add-ws-5/13-获取当前人是否直属部门后台导出csv使用
+                          redirict: this.checkredirict,
+                          //add-ws-5/13-获取当前人是否直属部门后台导出csv使用
+                        },
+                      );
+                    }
+                  }
+                  //add-ws-5/14-其他费用明细添加
+                  // for (let i = 0; i < this.tableR.length; i++) {
+                  //   if (this.tableR[i].rmb >= 0) {
+                  //     this.baseInfo.otherdetails.push(
+                  //       {
+                  //         otherdetails_id: this.tableR[i].otherdetails_id,
+                  //         evectionid: this.tableR[i].evectionid,
+                  //         otherdetailsdate: this.tableR[i].otherdetailsdate,
+                  //         invoicenumber: this.tableR[i].invoicenumber,
+                  //         departmentname: this.tableR[i].departmentname,
+                  //         budgetcoding: this.tableR[i].budgetcoding,
+                  //         plsummary: this.tableR[i].plsummary,
+                  //         accountcode: this.oldaccountcodeflg1,
+                  //         subjectnumber: this.tableR[i].subjectnumber,
+                  //         region: this.tableR[i].region,
+                  //         remarks: this.tableR[i].remarks,
+                  //         rmb: this.tableR[i].rmb,
+                  //         taxes: this.tableR[i].taxes,
+                  //         // currency: this.tableR[i].currency,
+                  //         // foreigncurrency: this.tableR[i].foreigncurrency,
+                  //         annexno: this.tableR[i].annexno,
+                  //       },
+                  //     );
+                  //   }
+                  // }
+                  //add-ws-5/14-其他费用明细添加
+                } else if (this.form.type === '1') {
+                  for (let i = 0; i < this.tableT.length; i++) {
+                    if (this.tableT[i].trafficdate !== '' || this.tableT[i].invoicenumber !== '' || this.tableT[i].departmentname !== '' || this.tableT[i].budgetcoding !== ''
+                      || this.tableT[i].rmb > 0 || this.tableT[i].plsummary !== ''
+                      || this.tableT[i].accountcode !== '' || this.tableT[i].subjectnumber !== '' || this.tableT[i].region !== '' || this.tableT[i].vehicle !== ''
+                      || this.tableT[i].startingpoint !== '') {
+                      this.baseInfo.trafficdetails.push(
+                        {
+                          trafficdetails_id: this.tableT[i].trafficdetails_id,
+                          evectionid: this.tableT[i].evectionid,
+                          trafficdate: this.tableT[i].trafficdate,
+                          invoicenumber: this.tableT[i].invoicenumber,
+                          departmentname: this.tableT[i].departmentname,
+                          budgetcoding: this.tableT[i].budgetcoding,
+                          plsummary: this.plsummaryflg1,
+                          accountcode: this.accountcodeflg1,
+                          subjectnumber: this.tableT[i].subjectnumber,
+                          region: this.tableT[i].region,
+                          vehicle: this.tableT[i].vehicle,
+                          startingpoint: this.tableT[i].startingpoint,
+                          rmb: this.tableT[i].rmb,
+                          taxes: this.tableT[i].taxes,
+                          currency: this.tableT[i].currency,
+                          foreigncurrency: this.tableT[i].foreigncurrency,
+                          annexno: this.tableT[i].annexno,
+                        },
+                      );
+                    }
+                  }
+                  for (let i = 0; i < this.tableA.length; i++) {
+                    if (this.tableA[i].accommodationdate !== '' || this.tableA[i].invoicenumber !== '' || this.tableA[i].departmentname !== ''
+                      || this.tableA[i].budgetcoding !== '' || this.tableA[i].plsummary !== '' || this.tableA[i].accountcode !== '' || this.tableA[i].subjectnumber !== ''
+                      || this.tableA[i].activitycontent !== ''
+                      || this.tableA[i].region !== '' || this.tableA[i].facilitytype !== '' || this.tableA[i].facilityname !== '') {
+                      if (this.tableA[i].facilitytype === 'PJ035001') {
+                        if (this.tableA[i].region === 'PJ017001') {
+                          sumtableA1 = sumtableA1 + 1;
+                          travelsum1 += parseFloat(this.tableA[i].travel);
+                        } else if (this.tableA[i].region === 'PJ017002') {
+                          sumtableA2 = sumtableA2 + 1;
+                          travelsum2 += parseFloat(this.tableA[i].travel);
+                        } else if (this.tableA[i].region === 'PJ017003') {
+                          sumtableA3 = sumtableA3 + 1;
+                          travelsum3 += parseFloat(this.tableA[i].travel);
+                        } else if (this.tableA[i].region === 'PJ017004') {
+                          sumtableA4 = sumtableA4 + 1;
+                          travelsum4 += parseFloat(this.tableA[i].travel);
+                        }
+                      } else if (this.tableA[i].facilitytype === 'PJ035002') {
+                        if (this.tableA[i].region === 'PJ017001') {
+                          sumtableA5 = sumtableA5 + 1;
+                          travelsum5 += parseFloat(this.tableA[i].travel);
+                        } else if (this.tableA[i].region === 'PJ017002') {
+                          sumtableA6 = sumtableA6 + 1;
+                          travelsum6 += parseFloat(this.tableA[i].travel);
+                        }
+                      }
+                      this.baseInfo.accommodationdetails.push(
+                        {
+                          accommodationdetails_id: this.tableA[i].accommodationdetails_id,
+                          evectionid: this.tableA[i].evectionid,
+                          subsidies: this.tableA[i].subsidies,
+                          accommodationdate: this.tableA[i].accommodationdate,
+                          invoicenumber: this.tableA[i].invoicenumber,
+                          departmentname: this.tableA[i].departmentname,
+                          budgetcoding: this.tableA[i].budgetcoding,
+                          plsummary: this.plsummaryflg1,
+                          accountcode: this.newaccountcodeflg1,
+                          subjectnumber: this.tableA[i].subjectnumber,
+                          activitycontent: this.tableA[i].activitycontent,
+                          region: this.tableA[i].region,
+                          //境内
+                          // city: this.tableA[i].city,
+                          facilitytype: this.tableA[i].facilitytype,
+                          facilityname: this.tableA[i].facilityname,
+                          currency: this.tableA[i].currency,
+                          travel: this.tableA[i].travel,
+                          rmb: this.tableA[i].rmb,
+                          taxes: this.tableA[i].taxes,
+                          annexno: this.tableA[i].annexno,
+                          //add-ws-5/13-获取当前人是否直属部门后台导出csv使用
+                          redirict: this.checkredirict,
+                          //add-ws-5/13-获取当前人是否直属部门后台导出csv使用
+                        },
+                      );
+                    }
+                  }
+                  //add-ws-5/14-其他费用明细添加
+                  for (let i = 0; i < this.tableR.length; i++) {
+                    if (this.tableR[i].rmb >= 0) {
+                      this.baseInfo.otherdetails.push(
+                        {
+                          otherdetails_id: this.tableR[i].otherdetails_id,
+                          evectionid: this.tableR[i].evectionid,
+                          otherdetailsdate: this.tableR[i].otherdetailsdate,
+                          invoicenumber: this.tableR[i].invoicenumber,
+                          departmentname: this.tableR[i].departmentname,
+                          budgetcoding: this.tableR[i].budgetcoding,
+                          plsummary: this.tableR[i].plsummary,
+                          accountcode: this.oldaccountcodeflg1,
+                          subjectnumber: this.tableR[i].subjectnumber,
+                          region: this.tableR[i].region,
+                          remarks: this.tableR[i].remarks,
+                          rmb: this.tableR[i].rmb,
+                          taxes: this.tableR[i].taxes,
+                          currency: this.tableR[i].currency,
+                          foreigncurrency: this.tableR[i].foreigncurrency,
+                          annexno: this.tableR[i].annexno,
+                        },
+                      );
+                    }
+                  }
+                  //add-ws-5/14-其他费用明细添加
+                }
+                for (let i = 0; i < this.tableW.length; i++) {
+                  if (this.tableW[i].currency !== '' || this.tableW[i].amount > 0 || this.tableW[i].exchangerate > 0
+                    || this.tableW[i].exchangermb > 0 || this.tableW[i].currencyexchangerate !== '') {
+                    this.baseInfo.currencyexchanges.push(
+                      {
+                        evectionid: this.tableW[i].evectionid,
+                        currencyexchangeid: this.tableW[i].currencyexchangeid,
+                        currency: this.tableW[i].currency,
+                        amount: this.tableW[i].amount,
+                        exchangerate: this.tableW[i].exchangerate,
+                        exchangermb: this.tableW[i].exchangermb,
+                        currencyexchangerate: this.tableW[i].currencyexchangerate,
+                      },
+                    );
+                  }
+                }
+                for (let i = 0; i < this.tableF.length; i++) {
+                  if (this.tableF[i].invoicenumber !== '' || this.tableF[i].invoicetype !== '' || this.tableF[i].invoiceamount > 0 || this.tableF[i].taxrate !== ''
+                    || this.tableF[i].excludingtax > 0 || this.tableF[i].facetax > 0) {
+                    this.baseInfo.invoice.push(
+                      {
+                        invoice_id: this.tableF[i].invoice_id,
+                        evectionid: this.tableF[i].evectionid,
+                        invoicenumber: this.tableF[i].invoicenumber,
+                        invoicetype: this.tableF[i].invoicetype,
+                        invoiceamount: this.tableF[i].invoiceamount,
+                        taxrate: this.tableF[i].taxrate,
+                        excludingtax: this.tableF[i].excludingtax,
+                        facetax: this.tableF[i].facetax,
+                      },
+                    );
+                  }
+                }
+                for (let j = 0; j < this.tableF.length; j++) {
+                  let summoney = 0;
+                  let summoneyT = 0;
+                  let sumMoney = 0;
+                  let sumout = 0;
+                  for (let i = 0; i < this.tableT.length; i++) {
+                    if (this.tableT[i].trafficdate !== '' || this.tableT[i].invoicenumber !== '' || this.tableT[i].departmentname !== '' || this.tableT[i].budgetcoding !== ''
+                      || this.tableT[i].rmb > 0 || this.tableT[i].foreigncurrency > 0 || this.tableT[i].annexno !== '' || this.tableT[i].plsummary !== ''
+                      || this.tableT[i].accountcode !== '' || this.tableT[i].subjectnumber !== '' || this.tableT[i].region !== '' || this.tableT[i].vehicle !== ''
+                      || this.tableT[i].taxes >= 0 || this.tableT[i].startingpoint !== '' || this.tableT[i].currency !== '') {
+                      if (this.tableT[i].invoicenumber == this.tableF[j].invoicenumber) {
+                        if (this.tableT[i].rmb != '0') {
+                          summoneyT += this.tableT[i].rmb;
+                        }
+                      }
+                    }
+                  }
+                  for (let i = 0; i < this.tableA.length; i++) {
+                    if (this.tableA[i].accommodationdate !== '' || this.tableA[i].invoicenumber !== '' || this.tableA[i].departmentname !== ''
+                      || this.tableA[i].budgetcoding !== '' || this.tableA[i].plsummary !== '' || this.tableA[i].accountcode !== '' || this.tableA[i].subjectnumber !== ''
+                      || this.tableA[i].taxes >= 0 || this.tableA[i].rmb > 0 || this.tableA[i].travel > 0 || this.tableA[i].activitycontent !== '' || this.tableA[i].currency !== ''
+                      || this.tableA[i].region !== '' || this.tableA[i].facilitytype !== '' || this.tableA[i].facilityname !== '' || this.tableA[i].annexno !== '') {
+                      if (this.tableA[i].invoicenumber == this.tableF[j].invoicenumber) {
+                        if (this.tableA[i].rmb != '0') {
+                          summoney += this.tableA[i].rmb;
+
+                        }
+                      }
+                    }
+                  }
+                  for (let i = 0; i < this.tableR.length; i++) {
+                    if (this.tableR[i].otherdetailsdate !== '' || this.tableR[i].accountcode !== '' || this.tableR[i].region !== ''
+                      || this.tableR[i].rmb > 0 || this.tableR[i].foreigncurrency > 0 || this.tableR[i].annexno !== '' || this.tableR[i].plsummary !== ''
+                      || this.tableR[i].invoicenumber !== '' || this.tableR[i].departmentname !== '' || this.tableR[i].budgetcoding !== ''
+                      || this.tableR[i].subjectnumber !== '' || this.tableR[i].currency !== '' || this.tableR[i].remarks !== '' || this.tableR[i].taxes >= 0) {
+                      if (this.tableR[i].invoicenumber == this.tableF[j].invoicenumber) {
+                        if (this.tableR[i].rmb != '0') {
+                          sumMoney += this.tableR[i].rmb;
+
+                        }
+                      }
+                    }
+                  }
+                  sumout = summoney + sumMoney + summoneyT;
+                  if (sumout != this.tableF[j].invoiceamount) {
+                    errorFLG = errorFLG + 1;
+                    Message({
+                      message: this.$t('label.PFANS1012FORMVIEW_MESSAGE'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    return;
+                  }
+                }
+                for (let i = 0; i < this.tableT.length; i++) {
+                  if (this.tableT[i].rmb > 0) {
+                    if (this.tableT[i].budgetcoding === '') {
+                      errorFLG = errorFLG + 1;
+                      Message({
+                        message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_BUDGET'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                      break;
+                    }
+                    if (this.tableT[i].subjectnumber === '') {
+                      errorFLG = errorFLG + 1;
+                      Message({
+                        message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNTB'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                      break;
+                    }
+                    if (this.tableT[i].plsummary === '') {
+                      errorFLG = errorFLG + 1;
+                      Message({
+                        message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_PL'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                      break;
+                    }
+                  }
+                }
+//add-ws-5/14-其他费用明细添加
+                for (let i = 0; i < this.tableR.length; i++) {
+                  if (this.tableR[i].rmb > 0) {
+                    if (this.tableR[i].budgetcoding === '') {
+                      errorFLG = errorFLG + 1;
+                      Message({
+                        message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_BUDGET'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                      break;
+                    }
+                    if (this.tableR[i].subjectnumber === '') {
+                      errorFLG = errorFLG + 1;
+                      Message({
+                        message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNTB'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                      break;
+                    }
+                    if (this.tableR[i].plsummary === '') {
+                      errorFLG = errorFLG + 1;
+                      Message({
+                        message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_PL'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                      break;
+                    }
+                  }
+                }
+//add-ws-5/14-其他费用明细添加
+                for (let i = 0; i < this.tableA.length; i++) {
+                  if (this.tableA[i].rmb > 0 || this.tableA[i].subsidies > 0) {
+                    if (this.tableA[i].budgetcoding === '') {
+                      errorFLG = errorFLG + 1;
+                      Message({
+                        message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_BUDGET'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                      break;
+                    }
+                    if (this.tableA[i].subjectnumber === '') {
+                      errorFLG = errorFLG + 1;
+                      Message({
+                        message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNTB'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                      break;
+                    }
+                    if (this.tableA[i].plsummary === '') {
+                      errorFLG = errorFLG + 1;
+                      Message({
+                        message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_PL'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                      break;
+                    }
+                    if (this.tableA[i].facilitytype === '') {
+                      errorFLG = errorFLG + 1;
+                      Message({
+                        message: this.$t('normal.error_08') + this.$t('label.PFANS1013FORMVIEW_FACILITYTYPE'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                      break;
+                    }
+                  }
+                }
+                // if(this.baseInfo.trafficdetails.length === 0 && this.baseInfo.accommodationdetails.length === 0 && this.baseInfo.otherdetails.length === 0){
+                // if(errorInfoFLG3 === 0 && this.baseInfo.otherdetails.length !== 0){
+                //   Message({
+                //     message: this.$t('label.PFANS1013FORMVIEW_ERRORINFOR'),
+                //     type: 'error',
+                //     duration: 5 * 1000,
+                //   });
+                //   return;
+                // }
+                if (this.form.type === '1') {
+                  var value4money;
+                  var value5money;
+                  var value6money;
+                  var value7money;
+                  var jpregion4;
+                  var jpregion5;
+                  let jpregioninfo = getDictionaryInfo('PJ035001');
+                  if (jpregioninfo) {
+                    value4money = jpregioninfo.value4;
+                    value5money = jpregioninfo.value5;
+                    value6money = jpregioninfo.value6;
+                    value7money = jpregioninfo.value7;
+                  }
+                  let jpregioninfo2 = getDictionaryInfo('PJ035002');
+                  if (jpregioninfo2) {
+                    jpregion4 = jpregioninfo2.value4;
+                    jpregion5 = jpregioninfo2.value5;
+                  }
+                  if (travelsum1 / sumtableA1 > value4money) {
+                    errorFLG = errorFLG + 1;
+                    Message({
+                      message: this.$t('label.PFANS1013FORMVIEW_RMBLIMITNEW'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                  } else if (travelsum2 / sumtableA2 > value5money) {
+                    errorFLG = errorFLG + 1;
+                    Message({
+                      message: this.$t('label.PFANS1013FORMVIEW_RMBLIMITNEW'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                  } else if (travelsum3 / sumtableA3 > value6money) {
+                    errorFLG = errorFLG + 1;
+                    Message({
+                      message: this.$t('label.PFANS1013FORMVIEW_RMBLIMITNEW'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                  } else if (travelsum4 / sumtableA4 > value7money) {
+                    errorFLG = errorFLG + 1;
+                    Message({
+                      message: this.$t('label.PFANS1013FORMVIEW_RMBLIMITNEW'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                  } else if (travelsum5 / sumtableA5 > jpregion4) {
+                    errorFLG = errorFLG + 1;
+                    Message({
+                      message: this.$t('label.PFANS1013FORMVIEW_RMBLIMITNEW'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                  } else if (travelsum6 / sumtableA6 > jpregion5) {
+                    errorFLG = errorFLG + 1;
+                    Message({
+                      message: this.$t('label.PFANS1013FORMVIEW_RMBLIMITNEW'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                  }
+                }
+
+                if (errorFLG == '0' && this.accomflg === 0) {
+                  this.loading = true;
+                  if (this.$route.params._id) {
+                    this.baseInfo.evection.evectionid = this.$route.params._id;
+                    this.$store
+                      .dispatch('PFANS1013Store/update', this.baseInfo)
+                      .then(response => {
+                        this.data = response;
+                        this.loading = false;
+                        if (val !== 'update') {
                           Message({
-                            message: error,
-                            type: 'error',
-                            duration: 5 * 1000,
-                          });
-                          this.loading = false;
-                        });
-                    } else {
-                      this.form.user_id = this.userlist;
-                      this.$store
-                        .dispatch('PFANS1013Store/create', this.baseInfo)
-                        .then(response => {
-                          this.data = response;
-                          this.loading = false;
-                          this.$message({
-                            message: this.$t('normal.success_01'),
+                            message: this.$t('normal.success_02'),
                             type: 'success',
                             duration: 5 * 1000,
                           });
                           if (this.$store.getters.historyUrl) {
                             this.$router.push(this.$store.getters.historyUrl);
                           }
-                        })
-                        .catch(error => {
-                          Message({
-                            message: error,
-                            type: 'error',
-                            duration: 5 * 1000,
-                          });
-                          this.loading = false;
+                        }
+                      })
+                      .catch(error => {
+                        Message({
+                          message: error,
+                          type: 'error',
+                          duration: 5 * 1000,
                         });
-                    }
+                        this.loading = false;
+                      });
+                  } else {
+                    this.form.user_id = this.userlist;
+                    this.$store
+                      .dispatch('PFANS1013Store/create', this.baseInfo)
+                      .then(response => {
+                        this.data = response;
+                        this.loading = false;
+                        this.$message({
+                          message: this.$t('normal.success_01'),
+                          type: 'success',
+                          duration: 5 * 1000,
+                        });
+                        if (this.$store.getters.historyUrl) {
+                          this.$router.push(this.$store.getters.historyUrl);
+                        }
+                      })
+                      .catch(error => {
+                        Message({
+                          message: error,
+                          type: 'error',
+                          duration: 5 * 1000,
+                        });
+                        this.loading = false;
+                      });
                   }
                 }
+
               } else {
                 Message({
                   message: this.$t('normal.error_12'),
