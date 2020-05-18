@@ -42,14 +42,19 @@
               </el-row>
               <el-row>
                 <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_IDNUMBER')" prop="idnumber">
+                    <el-input class="width" v-model="form.idnumber" maxlength="18" style="width:20vw"
+                              @change="getAge"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERVIEW_BIRTHDAY')" prop="birthday">
                     <el-date-picker
                       v-model="form.birthday"
                       type="date"
-                      @change="getAge"
                       :placeholder="$t('label.PFANSUSERFORMVIEW_SELECTIONDATE')"
                       style="width:20vw"
-                    ></el-date-picker>
+                      ></el-date-picker>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -76,11 +81,7 @@
                     <el-input class="width" v-model="form.register" maxlength="20" style="width:20vw"></el-input>
                   </el-form-item>
                 </el-col>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_IDNUMBER')" prop="idnumber">
-                    <el-input class="width" v-model="form.idnumber" maxlength="18" style="width:20vw"></el-input>
-                  </el-form-item>
-                </el-col>
+
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_PASSPORT')">
                     <el-input class="width" v-model="form.passport" maxlength="10" style="width:20vw"></el-input>
@@ -1785,15 +1786,15 @@
               trigger: 'blur',
             },
           ],
-          phone: [
-            {
-              required: true,
-              message:
-                this.$t('normal.error_08') +
-                this.$t('label.PFANSUSERFORMVIEW_PHONE'),
-              trigger: 'blur',
-            },
-          ],
+          // phone: [
+          //   {
+          //     required: true,
+          //     message:
+          //       this.$t('normal.error_08') +
+          //       this.$t('label.PFANSUSERFORMVIEW_PHONE'),
+          //     trigger: 'blur',
+          //   },
+          // ],
           extension: [
             {
               required: true,
@@ -2027,13 +2028,13 @@
               trigger: 'blur',
             },
           ],
-          mobilenumber: [
-            {
-              required: true,
-              message: this.$t('normal.error_08') + this.$t('label.user_mobile'),
-            },
-            {validator: validateTel, trigger: 'blur'},
-          ],
+          // mobilenumber: [
+          //   {
+          //     required: true,
+          //     message: this.$t('normal.error_08') + this.$t('label.user_mobile'),
+          //   },
+          //   {validator: validateTel, trigger: 'blur'},
+          // ],
           email: [
             {
               required: true,
@@ -2108,6 +2109,14 @@
     methods: {
       // ADD-WS-生年月日change事件
       getAge() {
+        let abrithdaysb = this.form.idnumber;
+        if (abrithdaysb)
+        {
+          if (abrithdaysb.length == 18)
+          {
+            this.form.birthday = moment(abrithdaysb.substring(6,14)).format('YYYY-MM-DD');
+          }
+        }
         let birthdays = new Date(this.form.birthday);
         let d = new Date();
         let age = 0;

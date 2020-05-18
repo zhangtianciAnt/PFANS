@@ -3259,7 +3259,6 @@
           this.Codecheck = '';
         } else {
           this.form.code = getUserInfo(val).userinfo.caiwupersonalcode;
-          this.Codecheck = getUserInfo(val).userinfo.caiwupersonalcode;
         }
         this.namelist = val;
         this.form.user_name = val;

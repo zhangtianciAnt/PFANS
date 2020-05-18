@@ -42,7 +42,7 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.judgement')" prop="judgement">
                 <el-select @change="change" clearable v-model="form.judgements"
-                           style="width: 20vw">
+                           style="width: 20vw" :disabled="!disable">
                   <el-option
                     :key="item.value"
                     :label="item.label"
@@ -53,6 +53,35 @@
               </el-form-item>
             </el-col>
           </el-row>
+          <!--          //add-ws-5/18-No70-增加决裁调跳转。-->
+          <el-row v-if="show11">
+            <el-table
+              :data="DataList"
+              style="width: 518px"
+              header-cell-class-name="sub_bg_color_blue" stripe border
+            >
+              <el-table-column
+                align="center"
+                prop="judgnumbers"
+                :label="$t('label.judgement')"
+                width="315px">
+              </el-table-column>
+              <el-table-column :label="$t('label.operation')" align="center" width="200">
+                <template slot-scope="scope">
+                  <el-button
+                    :disabled="show10"
+                    @click.native.prevent="viewdata(scope.row)"
+                    plain
+                    size="small"
+                    type="primary"
+                  >{{$t('button.view')}}
+                  </el-button>
+                </template>
+              </el-table-column>
+            </el-table>
+
+          </el-row>
+          <!--          //add-ws-5/18-No70-增加决裁调跳转。-->
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1012FORMVIEW_BUDGET')">
@@ -260,6 +289,14 @@
                 </el-col>
               </el-row>
               <el-row>
+                <!--                //add-ws-5/18-No70-增加收款人-->
+                <el-col :span="8">
+                  <el-form-item :error="errorname" :label="$t('label.PFANS1006FORMVIEW_USERNAME')" v-show="show2">
+                    <user :disabled="!disable" :error="errorname" :selectType="selectType" :userlist="namelist"
+                          @getUserids="getUsernames" style="width: 20vw" v-model="form.user_name"></user>
+                  </el-form-item>
+                </el-col>
+                <!--                //add-ws-5/18-No70-增加收款人-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1012VIEW_CAIWUPERSONALCODE')" v-show="show2" prop="name">
                     <el-input :disabled="true" style="width:20vw" v-model="form.name" maxlength="20"></el-input>
@@ -398,6 +435,18 @@
         }
       };
       return {
+        //add-ws-5/18-No70-增加决裁调跳转。
+        show10: true,
+        show11: false,
+        DataList: [{
+          judgementid: '',
+          judgnumbers: '',
+        }],
+        //add-ws-5/18-No70-增加决裁调跳转。
+        //add-ws-5/18-No70-增加收款人
+        namelist: '',
+        errorname: '',
+        //add-ws-5/18-No70-增加收款人
         dialogTableVisible: false,
         show9: false,
         show8: false,
@@ -433,6 +482,7 @@
         form: {
           accountpayeename: '',
           judgements: '',
+          judgements_name: '',
           user_id: '',
           center_id: '',
           group_id: '',
@@ -586,13 +636,27 @@
       if (groupid === '91B253A1C605E9CA814462FB4C4D2605F43F') {
         this.flag = true;
       }
-
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
           .dispatch('PFANS1006Store/getLoanapplicationOne', {'loanapplication_id': this.$route.params._id})
           .then(response => {
             this.form = response;
+            this.DataList = [];
+            if (this.form.judgements_name.substring(0, 2) === this.$t('menu.PFANS1001')) {
+              this.DataList.push({
+                judgementid: this.form.judgements,
+                judgnumbers: this.form.judgements_name,
+              });
+              if (this.disable) {
+                this.show10 = false;
+              } else {
+                this.show10 = true;
+              }
+              this.show11 = true;
+
+            }
+            this.namelist = this.form.user_name;
             let rst = getOrgInfoByUserId(response.user_id);
             if (rst) {
               this.centerid = rst.centerNmae;
@@ -628,6 +692,7 @@
             this.loading = false;
           });
       } else {
+        this.namelist = this.$store.getters.userinfo.userid;
         this.userlist = this.$store.getters.userinfo.userid;
         if (getUserInfo(this.$store.getters.userinfo.userid)) {
           this.form.name = this.$store.getters.userinfo.userinfo.caiwupersonalcode;
@@ -656,6 +721,41 @@
       }
     },
     methods: {
+      //add-ws-5/18-No70-增加决裁调跳转。
+      viewdata(row) {
+        this.$store.commit('global/SET_HISTORYURL', '');
+        this.$store.commit('global/SET_WORKFLOWURL', '/FFFFF1006FormView');
+        if (row.judgnumbers.substring(0, 2) === this.$t('menu.PFANS1001')) {
+          this.$router.push({
+            name: 'PFANS1004FormView',
+            params: {
+              _checkdisable: this.disable,
+              check_id: this.$route.params._id,
+              _checkname: true,
+              _id: row.judgementid,
+              disabled: false,
+            },
+          });
+        }
+      },
+      //add-ws-5/18-No70-增加决裁调跳转。
+      //add-ws-5/18-No70-增加收款人
+      getUsernames(val) {
+        if (val === '') {
+          this.form.name = '';
+          this.Codecheck = '';
+        } else {
+          this.form.name = getUserInfo(val).userinfo.caiwupersonalcode;
+        }
+        this.namelist = val;
+        this.form.user_name = val;
+        if (!this.form.user_name || this.form.user_name === '' || typeof val == 'undefined') {
+          this.errorname = this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_PERPOR');
+        } else {
+          this.errorname = '';
+        }
+      },
+//add-ws-5/18-No70-增加收款人
       getBudt(val) {
         //ADD_FJL  修改人员预算编码
         if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
@@ -724,7 +824,23 @@
           });
       },
       change(val) {
+        this.DataList = [];
+        //add-ws-5/18-No70-增加决裁调跳转。
+        for (let i = 0; i < this.options.length; i++) {
+          if (this.options[i].label.substring(0, 2) === this.$t('menu.PFANS1001')) {
+            if (this.options[i].value === val) {
+              this.DataList.push({
+                judgementid: this.options[i].value,
+                judgnumbers: this.options[i].label,
+              });
+              this.form.judgements_name = this.options[i].label,
+                this.show11 = true;
+            }
+          }
+        }
+        //add-ws-5/18-No70-增加决裁调跳转。
         this.form.judgements = val;
+
       },
 
       judgementlist() {
@@ -740,14 +856,14 @@
                 if (response[i].equipment == '0') {
                   this.options.push({
                     value: response[i].judgementid,
-                    label: response[i].judgnumbers + '_' + this.$t('menu.PFANS1004'),
+                    label: this.$t('menu.PFANS1004') + '_' + response[i].judgnumbers,
                   });
                 }
               } else {
                 if (user_id === response[i].user_id && response[i].equipment == '0') {
                   this.options.push({
                     value: response[i].judgementid,
-                    label: response[i].judgnumbers + '_' + this.$t('menu.PFANS1004'),
+                    label: this.$t('menu.PFANS1004') + '_' + response[i].judgnumbers,
                   });
                 }
               }
@@ -755,7 +871,7 @@
               if (user_id === response[i].user_id && response[i].equipment == '1') {
                 this.options.push({
                   value: response[i].judgementid,
-                  label: response[i].judgnumbers + '_' + this.$t('menu.PFANS1003'),
+                  label: this.$t('menu.PFANS1003') + '_' + response[i].judgnumbers,
                 });
               }
             }
@@ -768,13 +884,13 @@
                   if (this.role1 === '0') {
                     this.options.push({
                       value: response[i].purchaseapply_id,
-                      label: response[i].purchasenumbers + '_' + this.$t('menu.PFANS1005'),
+                      label: this.$t('menu.PFANS1005') + '_' + response[i].purchasenumbers,
                     });
                   } else {
                     if (user_id === response[i].user_id) {
                       this.options.push({
                         value: response[i].purchaseapply_id,
-                        label: response[i].purchasenumbers + '_' + this.$t('menu.PFANS1005'),
+                        label: this.$t('menu.PFANS1005') + '_' + response[i].purchasenumbers,
                       });
                     }
                   }
@@ -892,6 +1008,7 @@
           this.form.payeebankaccountnumber = '';
           this.form.payeebankaccount = '';
           this.form.name = '';
+          this.namelist = '';
           this.form.accountpayeename = '';
           this.rules.name[0].required = false;
           this.rules.accountpayeename[0].required = false;
@@ -912,6 +1029,7 @@
           this.form.payeecode = '';
           this.form.payeebankaccountnumber = '';
           this.form.payeebankaccount = '';
+          this.namelist = this.$store.getters.userinfo.userid;
           this.rules.name[0].required = true;
           this.rules.accountpayeename[0].required = false;
           this.rules.payeename[0].required = false;
@@ -928,6 +1046,7 @@
           this.form.name = '';
           this.form.payeename = '';
           this.form.payeecode = '';
+          this.namelist = '';
           this.form.accountpayeename = '';
           this.form.payeebankaccountnumber = '';
           this.form.payeebankaccount = '';
@@ -985,6 +1104,7 @@
               //   this.form.payeebankaccountnumber = '';
               //   this.form.payeebankaccount = '';
               // }
+              this.form.user_name = this.namelist;
               this.form.reimbursement = moment(this.form.reimbursement).format('YYYY-MM-DD');
               this.form.application_date = moment(this.form.application_date).format('YYYY-MM-DD');
               let error = 0;

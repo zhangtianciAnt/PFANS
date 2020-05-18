@@ -285,7 +285,7 @@
                       align="center"
                   ></plx-table-column>-->
 
-                  
+
                   <!-- <plx-table-column
                       prop="traffic"
                       :label="$t('label.PFANS2006VIEW_TRANSPORTATION')"
@@ -3212,9 +3212,11 @@ export default {
           let datalistzhsr = [];
           // 工资tab页数据处理
           response.wagesList.forEach(function(item, index) {
-            let userInfo = getUserInfo(item.user_id).userinfo;
-            item.user_name = userInfo.customername;
-            item.department_name = userInfo.centername;
+            let user = getUserInfo(item.user_id);
+            if (user) {
+                item.user_name = user.userinfo.customername;
+                item.department_name = user.userinfo.centername;
+            }
             item.no = index + 1;
             item.workdate = moment(item.workdate).format("YYYY-MM-DD");
             item.sex = item.sex === "PR019001" ? "男" : "女";
@@ -4006,7 +4008,6 @@ export default {
               this.getList();
             }
           }
-          debugger
           this.loading = false;
           //endregion
 
