@@ -49,7 +49,8 @@
           </el-row>
           <el-row>
             <el-col :span="8">
-              <el-form-item :error="errorgroup" :label="$t('label.PFANS1004VIEW_GROUPZW')" prop="group_name" v-if="checkgroup">
+              <el-form-item :error="errorgroup" :label="$t('label.PFANS1004VIEW_GROUPZW')" prop="group_name"
+                            v-if="checkgroup">
                 <org :disabled="!disabled" :error="errorgroup" :orglist="form.group_name" @getOrgids="getGroupId"
                      orgtype="2" style="width:20vw"></org>
               </el-form-item>
@@ -328,11 +329,11 @@
       };
       var groupId = (rule, value, callback) => {
         if (!this.form.group_name || this.form.group_name === '') {
-           callback(new Error( this.$t('normal.error_08') + this.$t('label.PFANS1004VIEW_GROUPZW')));
-          this.errorgroup =  this.$t('normal.error_08') + this.$t('label.PFANS1004VIEW_GROUPZW');
+          callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS1004VIEW_GROUPZW')));
+          this.errorgroup = this.$t('normal.error_08') + this.$t('label.PFANS1004VIEW_GROUPZW');
         } else {
           this.errorgroup = '';
-           callback();
+          callback();
         }
       };
       var validateStartdate = (rule, value, callback) => {
@@ -583,9 +584,9 @@
             if (response) {
               this.form = response.judgement;
               //add-ws-4/23-总务担当可用选择部门带出预算编码
-              if(this.form.group_name!='' && this.form.group_name!=null){
+              if (this.form.group_name != '' && this.form.group_name != null) {
                 this.orglist = this.form.group_name;
-                this.getchangeGroup(this.form.group_name)
+                this.getchangeGroup(this.form.group_name);
               }
               //add-ws-4/23-总务担当可用选择部门带出预算编码
               if (response.judgement.businessplanbalance > 20000) {
@@ -601,7 +602,7 @@
                 // this.form.thisproject = rst.personalcode;
               }
               this.userlist = this.form.user_id;
-              if(this.form.group_name=='' || this.form.group_name==null){
+              if (this.form.group_name == '' || this.form.group_name == null) {
                 this.getBudt(this.userlist);
               }
               this.getDecisive(this.form.decisive);
@@ -744,15 +745,15 @@
     methods: {
       //add-ws-4/23-总务蛋蛋高可用i选择部门带出预算编码
       getGroupId(orglist) {
-        this.getchangeGroup(orglist)
-        this.form.group_name =orglist
+        this.getchangeGroup(orglist);
+        this.form.group_name = orglist;
         if (!this.form.group_name || this.form.group_name === '') {
           this.errorgroup = this.$t('normal.error_08') + this.$t('label.PFANS1004VIEW_GROUPZW');
         } else {
           this.errorgroup = '';
         }
       },
-      getchangeGroup(val){
+      getchangeGroup(val) {
         this.options = [];
         if (val) {
           let butinfo = getOrgInfo(val).encoding;
@@ -1016,12 +1017,25 @@
         this.$router.push({
           name: 'PFANS1012FormView',
           params: {
-            disabled : disable,
+            disabled: disable,
             _id: id,
           },
         });
       },
       //add-ws-4/28-精算中，点击决裁，跳转画面
+      //add-ws-5/18-No70-增加决裁调跳转。
+      checkparams() {
+        let id = this.$route.params.check_id;
+        let disable = this.$route.params._checkdisable;
+        this.$router.push({
+          name: 'PFANS1006FormView',
+          params: {
+            disabled: disable,
+            _id: id,
+          },
+        });
+      },
+      //add-ws-5/18-No70-增加决裁调跳转。
       paramsTitle() {
         this.$router.push({
           name: 'PFANS1001FormView',
@@ -1038,11 +1052,15 @@
         JudgementVo.judgement = this.form;
         if (val === 'back') {
           //add-ws-4/28-精算中，点击决裁，跳转画面
-          if(this.$route.params._check!=null&&this.$route.params._check!=''&&this.$route.params._check!=undefined){
-            if(this.$route.params._check){
+          if (this.$route.params._check != null && this.$route.params._check != '' && this.$route.params._check != undefined) {
+            if (this.$route.params._check) {
               this.checkparamsTitle();
             }
-          }else{
+          } else if (this.$route.params._checkname != null && this.$route.params._checkname != '' && this.$route.params._checkname != undefined) {
+            if (this.$route.params._checkname) {
+              this.checkparams();
+            }
+          } else {
             this.paramsTitle();
           }
           //add-ws-4/28-精算中，点击决裁，跳转画面
