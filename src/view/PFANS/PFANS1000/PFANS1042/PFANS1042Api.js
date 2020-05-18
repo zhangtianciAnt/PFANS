@@ -17,6 +17,14 @@ export function getCostList(data) {
   });
 }
 
+export function getCostLast(data) {
+  return request({
+    url: 'Pltab/getCostLast',
+    method: 'get',
+    params: data,
+  });
+}
+
 export function insert(data) {
   return request({
     url: 'Pltab/insert',

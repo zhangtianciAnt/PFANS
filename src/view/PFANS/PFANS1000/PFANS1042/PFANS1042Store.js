@@ -1,7 +1,8 @@
 import {
   getPltab,
   insert,
-  getCostList
+  getCostList,
+  getCostLast
 } from './PFANS1042Api'
 
 
@@ -27,6 +28,19 @@ const PFANS1042Store = {
     getCostList({commit}, data) {
       return new Promise((resolve, reject) => {
         getCostList(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    getCostLast({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getCostLast(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
