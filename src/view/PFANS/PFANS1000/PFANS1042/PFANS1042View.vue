@@ -508,6 +508,18 @@
                 <span>{{scope.row.otherexpenses}}</span>
               </template>
             </pl-table-column>
+            <!--            累计仕掛品-->
+
+            <pl-table-column
+              :label="$t('label.PFANS1042FORMVIEW_TOTALPRO')"
+              align="center"
+              width="110"
+              prop="totalpro">
+              <template slot-scope="scope">
+                <span>{{scope.row.totalpro}}</span>
+              </template>
+
+            </pl-table-column>
             <!--            仕掛品-->
 
             <pl-table-column
@@ -979,7 +991,7 @@
                 disabled: false,
                 disable: true,
                 buttonList: [],
-                proflg: 0,
+                tabtotal: [],
             };
         },
         //add-ws-5/7-财务部长可用保存
@@ -1264,6 +1276,37 @@
                             this.$store
                                 .dispatch('PFANS1042Store/getPltab', {'groupid': groupid, 'year': year, 'month': month})
                                 .then(response => {
+                                    month = '0' + (month - 1);
+                                    if (month.length === 2) {
+                                        month = '0' + Number(month);
+                                    } else {
+                                        month = Number(month);
+                                    }
+                                    this.$store
+                                        .dispatch('PFANS1042Store/getCostLast', {
+                                            'groupid': groupid,
+                                            'year': year,
+                                            'month': month
+                                        })
+                                        .then(response => {
+                                            if (response.length > 0) {
+                                                for (let l = 0; l < response.length; l++) {
+                                                    this.tabtotal.push({
+                                                        va: response[l].pj1,
+                                                        vl: response[l].totalpro,
+                                                        vp: response[l].process
+                                                    })
+                                                }
+                                            }
+                                        })
+                                        .catch(error => {
+                                            Message({
+                                                message: error,
+                                                type: 'error',
+                                                duration: 5 * 1000,
+                                            });
+                                            this.loading = false;
+                                        });
                                     let tabledate = [];
                                     let date1 = getDictionaryInfo('PJ086002').value2; // --国内役務（6%税込み）
                                     let date2 = getDictionaryInfo('PJ086003').value2;  // --国内販売（13%税込み）
@@ -1363,6 +1406,7 @@
                                         response[j].membershiprate = this.numFormat(response[j].membershiprate);
                                         response[j].pjrateemployees = this.numFormat(response[j].pjrateemployees);
                                         response[j].staffingrate = this.numFormat(response[j].staffingrate);
+                                        // response[j].totalpro = this.numFormat(response[j].totalpro);
 
                                         // response[j].inst = this.numFormat(response[j].inst);
                                         // response[j].rent = this.numFormat(response[j].rent);
@@ -1454,22 +1498,48 @@
 
                                         // 部門共通費用合計
                                         // response[j].departmenttotal = (Number(response[j].yuanqincost) + Number(response[j].travalcost) + Number(response[j].concost) + Number(response[j].callcost) + Number(response[j].brandcost) + Number(response[j].rent) + Number(response[j].other)).toFixed(2);
+                                        // add_fjl_05/18
+                                        //累计仕掛品
+                                        if (this.tabtotal.length > 0) {
+                                            for (let r = 0; r < this.tabtotal.length; r++) {
+                                                if (this.tabtotal[r].va === response[j].pj1) {
+                                                    if (this.tabtotal[r].vl === null || this.tabtotal[r].vl === '') {
+                                                        response[j].totalpro = this.tabtotal[r].vp;
+                                                        break;
+                                                    } else {
+                                                        response[j].totalpro = this.tabtotal[r].vl;
+                                                        break;
+                                                    }
+                                                } else {
+                                                    response[j].totalpro = '0.00'
+                                                }
+                                            }
+                                        }
+                                        // add_fjl_05/18
                                         //仕掛品
                                         // upd_fjl_05/18
-                                        //(待完善)
                                         // response[j].process = (Number('-' + response[j].centerintotal) + Number(response[j].process)).toFixed(2);
+                                        //  > 0  --当月有纳品
                                         if (Number(response[j].process) > 0) {
                                             response[j].process = ('-' + Number(response[j].peocostsum) - Number(response[j].costsubtotal) - Number(response[j].departmenttotal) -
                                                 Number(response[j].yuanqincost) - Number(response[j].travalcost) - Number(response[j].callcost)
                                                 - Number(response[j].concost) - Number(response[j].threefree) - Number(response[j].commonfee) - Number(response[j].brandcost)
                                                 - Number(response[j].otherexpenses) - Number(response[j].otherincome)).toFixed(2);
+                                            response[j].process = '-' + (Number(response[j].process) + Number(response[j].totalpro)).toFixed(2);
+                                            response[j].totalpro = '0.00';
 
                                         } else {
                                             response[j].process = ('-' + Number(response[j].peocostsum) - Number(response[j].costsubtotal) - Number(response[j].departmenttotal) -
                                                 Number(response[j].yuanqincost) - Number(response[j].travalcost) - Number(response[j].callcost)
                                                 - Number(response[j].concost) - Number(response[j].threefree) - Number(response[j].commonfee) - Number(response[j].brandcost)
                                                 - Number(response[j].otherexpenses) - Number(response[j].otherincome)).toFixed(2);
-                                            // this.proflg = response[j].process + Number(this.proflg);
+                                            //累计仕掛品
+                                            if (Number(response[j].totalpro) < 0) {
+                                                response[j].totalpro = (Number(response[j].totalpro) + Number(response[j].process)).toFixed(2);
+                                            } else {
+                                                response[j].totalpro = '0.00';
+                                            }
+
                                         }
                                         // upd_fjl_05/18
                                         //その他諸経費小計
@@ -1655,6 +1725,7 @@
                                             allocation: response[j].allocation,
                                             costtotal: response[j].costtotal,
                                             process: response[j].process,
+                                            totalpro: response[j].totalpro,
                                             marginal: response[j].marginal,
                                             Operating: response[j].Operating,
                                             twocost: response[j].twocost,
@@ -1796,13 +1867,13 @@
                         sums[index] = '--';
                     }
                 });
-                sums[48] = (Math.round((sums[48]) * 100) / 100 / a).toFixed(2) + '%';
-                sums[56] = (Math.round((sums[56]) * 100) / 100 / a).toFixed(2) + '%';
+                sums[49] = (Math.round((sums[49]) * 100) / 100 / a).toFixed(2) + '%';
                 sums[57] = (Math.round((sums[57]) * 100) / 100 / a).toFixed(2) + '%';
                 sums[58] = (Math.round((sums[58]) * 100) / 100 / a).toFixed(2) + '%';
                 sums[59] = (Math.round((sums[59]) * 100) / 100 / a).toFixed(2) + '%';
                 sums[60] = (Math.round((sums[60]) * 100) / 100 / a).toFixed(2) + '%';
                 sums[61] = (Math.round((sums[61]) * 100) / 100 / a).toFixed(2) + '%';
+                sums[62] = (Math.round((sums[62]) * 100) / 100 / a).toFixed(2) + '%';
                 return sums;
             },
             //add-ws-5/7-保存PL数据，先根据group ，year，month删除再插入
