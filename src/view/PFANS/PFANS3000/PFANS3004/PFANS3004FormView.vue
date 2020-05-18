@@ -139,6 +139,14 @@
                     </el-input-number>
                   </template>
                 </el-table-column>
+
+                <el-table-column :label="$t('label.PFANS1012VIEW_TELEPHONE')" align="center"
+                                 width="200">
+                  <template slot-scope="scope">
+                      <el-input v-model="scope.row.investigator" :disabled="!disable" style="width:15vw" maxlength='20'></el-input>
+                  </template>
+                </el-table-column>
+
                 <el-table-column :label="$t('label.operation')" align="center" width="205">
                   <template slot-scope="scope">
                     <el-button
@@ -269,6 +277,7 @@
                         stationerytype: '',
                         footname: '',
                         numbers: '',
+                        investigator:'',
                     },
                 ],
                 form: {
@@ -287,6 +296,7 @@
                     acceptstatus: '',
                     findate: '',
                     refusereason: '',
+                    investigator:'',
                 },
                 rules: {
                     userid: [{
@@ -312,11 +322,6 @@
                     // size: [{
                     //     required: true,
                     //     message: this.$t('normal.error_08') + this.$t('label.PFANS3004VIEW_SIZE'),
-                    //     trigger: 'blur'
-                    // }],
-                    // numbers: [{
-                    //     required: true,
-                    //     message: this.$t('normal.error_08') + this.$t('label.numbers'),
                     //     trigger: 'blur'
                     // }],
                 },
@@ -345,6 +350,7 @@
                                 typeflg.stationerytype = stationerytype[i].stationerytype;
                                 typeflg.footname = stationerytype[i].footname;
                                 typeflg.numbers = stationerytype[i].numbers;
+                                typeflg.investigator = stationerytype[i].investigator;
                                 this.tableD.push(typeflg);
                             }
                         }
@@ -532,6 +538,7 @@
                         stationerytype: '',
                         footname: '',
                         numbers: '',
+                        investigator:'',
                     }];
                 }
             },
@@ -540,6 +547,7 @@
                     stationerytype: '',
                     footname: '',
                     numbers: '',
+                    investigator:'',
                 });
             },
             //add_fjl
@@ -592,64 +600,83 @@
             buttonClick(val) {
                 this.$refs["refform"].validate(valid => {
                     if (valid) {
+                      this.loading = true;
+                      let sumchek = 0;
+                      for (let i = 0; i < this.tableD.length; i++)
+                      {
+                        if (this.tableD[i].investigator === '' || !this.tableD[i].investigator || this.tableD[i].investigator === "undefined") {
+                           sumchek=sumchek+1;
+                          Message({
+                            message: this.$t('normal.error_08') + this.$t('label.PFANS1012VIEW_TELEPHONE'),
+                            type: 'error',
+                            duration: 5 * 1000
+                          });
+                          this.loading = false;
+                          break;
+                        }
+                      }
                         //add_fjl 类型的明细
                         this.form.stationerytype = JSON.stringify(this.tableD);
                         //add_fjl 类型的明细
-                        this.loading = true;
+
                         this.form.userid = this.userlist;
-                        if (this.$route.params._id) {
+                        if (sumchek===0){
+                          if (this.$route.params._id) {
                             this.form.applicationdate = moment(this.form.applicationdate).format('YYYY-MM-DD')
                             this.loading = true;
                             this.$store
-                                .dispatch('PFANS3004Store/updateStationery', this.form)
-                                .then(response => {
-                                    this.data = response;
-                                    this.loading = false;
-                                    if (val !== "update") {
-                                        Message({
-                                            message: this.$t("normal.success_02"),
-                                            type: 'success',
-                                            duration: 5 * 1000
-                                        });
-                                        if (this.$store.getters.historyUrl) {
-                                            this.$router.push(this.$store.getters.historyUrl);
-                                        }
-                                    }
+                              .dispatch('PFANS3004Store/updateStationery', this.form)
+                              .then(response => {
+                                this.data = response;
+                                this.loading = false;
+                                if (val !== "update") {
+                                  Message({
+                                    message: this.$t("normal.success_02"),
+                                    type: 'success',
+                                    duration: 5 * 1000
+                                  });
+                                  if (this.$store.getters.historyUrl) {
+                                    this.$router.push(this.$store.getters.historyUrl);
+                                  }
+                                }
+                              })
+                              .catch(error => {
+                                Message({
+                                  message: error,
+                                  type: 'error',
+                                  duration: 5 * 1000
                                 })
-                                .catch(error => {
-                                    Message({
-                                        message: error,
-                                        type: 'error',
-                                        duration: 5 * 1000
-                                    })
-                                    this.loading = false;
-                                })
-                        } else {
+                                this.loading = false;
+                              })
+                          }
+                          else {
                             this.form.applicationdate = moment(this.form.applicationdate).format('YYYY-MM-DD')
                             this.loading = true;
                             this.$store
-                                .dispatch('PFANS3004Store/createStationery', this.form)
-                                .then(response => {
-                                    this.data = response;
-                                    this.loading = false;
-                                    Message({
-                                        message: this.$t("normal.success_01"),
-                                        type: 'success',
-                                        duration: 5 * 1000
-                                    });
-                                    if (this.$store.getters.historyUrl) {
-                                        this.$router.push(this.$store.getters.historyUrl);
-                                    }
-                                })
-                                .catch(error => {
-                                    Message({
-                                        message: error,
-                                        type: 'error',
-                                        duration: 5 * 1000
-                                    });
-                                    this.loading = false;
-                                })
+                              .dispatch('PFANS3004Store/createStationery', this.form)
+                              .then(response => {
+                                this.data = response;
+                                this.loading = false;
+                                Message({
+                                  message: this.$t("normal.success_01"),
+                                  type: 'success',
+                                  duration: 5 * 1000
+                                });
+                                if (this.$store.getters.historyUrl) {
+                                  this.$router.push(this.$store.getters.historyUrl);
+                                }
+                              })
+                              .catch(error => {
+                                Message({
+                                  message: error,
+                                  type: 'error',
+                                  duration: 5 * 1000
+                                });
+                                this.loading = false;
+                              })
+                          }
                         }
+
                     } else {
                         Message({
                             message: this.$t("normal.error_12"),
