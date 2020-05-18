@@ -1214,30 +1214,16 @@
 
                 this.loading = true;
                 let role = getCurrentRole();
+                // upd_fjl_05/18   -- 修改不同角色进来时可以查看的group
+                let roleFin = getCurrentRole3();
                 const vote = [];
-                if (role === '3') {
-                    vote.push(
-                        {
-                            value: this.$store.getters.userinfo.userinfo.groupid,
-                            lable: this.$store.getters.userinfo.userinfo.groupname,
-                        },
-                    );
-                } else if (role === '2') {
-                    let centerId = this.$store.getters.userinfo.userinfo.centerid;
-                    let orgs = getDownOrgInfo(centerId);
-                    if (orgs) {
-                        for (let org of orgs) {
-                            vote.push(
-                                {
-                                    value: org._id,
-                                    lable: org.companyname,
-                                },
-                            );
-                        }
+                if (role === '1' || roleFin === '0') {
+                    let centerId = '';
+                    if (roleFin === '0') {
+                        centerId = '5e7858a08f4316308435112c';
+                    } else {
+                        centerId = this.$store.getters.userinfo.userinfo.centerid;
                     }
-
-                } else if (role === '1') {
-                    let centerId = this.$store.getters.userinfo.userinfo.centerid;
                     let orgs = getDownOrgInfo(centerId);
                     if (orgs) {
                         for (let center of orgs) {
@@ -1256,7 +1242,29 @@
                         }
                     }
 
+                } else if (role === '2') {
+                    let centerId = this.$store.getters.userinfo.userinfo.centerid;
+                    let orgs = getDownOrgInfo(centerId);
+                    if (orgs) {
+                        for (let org of orgs) {
+                            vote.push(
+                                {
+                                    value: org._id,
+                                    lable: org.companyname,
+                                },
+                            );
+                        }
+                    }
+
+                } else if (role === '3') {
+                    vote.push(
+                        {
+                            value: this.$store.getters.userinfo.userinfo.groupid,
+                            lable: this.$store.getters.userinfo.userinfo.groupname,
+                        },
+                    );
                 }
+                // upd_fjl_05/18   -- 修改不同角色进来时可以查看的group
                 this.optionsdata = vote;
                 //add_fjl 添加默认值
                 this.form.group_id = this.optionsdata[0].value;
