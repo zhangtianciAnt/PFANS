@@ -3122,7 +3122,6 @@
                 let sumtableA4 = 0;
                 let sumtableA5 = 0;
                 let sumtableA6 = 0;
-
                 for (let i = 0; i < this.tableA.length; i++) {
                   var jpregion1;
                   var jpregion2;
@@ -3149,6 +3148,7 @@
                         if (this.tableA[i].city === 'PJ036001' || this.tableA[i].city === 'PJ036002' || this.tableA[i].city === 'PJ036003' || this.tableA[i].city === 'PJ036004') {
                           if (this.tableA[i].rmb > jpregion1) {
                             this.accomflg = 1;
+                            this.activeName = 'third'
                             Message({
                               message: this.$t('label.PFANS1013FORMVIEW_RMBLIMIT'),
                               type: 'error',
@@ -3159,6 +3159,7 @@
                         } else {
                           if (this.tableA[i].rmb > jpregion2) {
                             this.accomflg = 1;
+                            this.activeName = 'third'
                             Message({
                               message: this.$t('label.PFANS1013FORMVIEW_RMBLIMIT'),
                               type: 'error',
@@ -3173,6 +3174,7 @@
                         if (this.tableA[i].city === 'PJ036001' || this.tableA[i].city === 'PJ036002' || this.tableA[i].city === 'PJ036003' || this.tableA[i].city === 'PJ036004') {
                           if (this.tableA[i].rmb > jpregion8 / 30) {
                             this.accomflg = 1;
+                            this.activeName = 'third'
                             Message({
                               message: this.$t('label.PFANS1013FORMVIEW_RMBLIMIT'),
                               type: 'error',
@@ -3183,6 +3185,7 @@
                         } else {
                           if (this.tableA[i].rmb > jpregion9 / 30) {
                             this.accomflg = 1;
+                            this.activeName = 'third'
                             Message({
                               message: this.$t('label.PFANS1013FORMVIEW_RMBLIMIT'),
                               type: 'error',
@@ -3536,6 +3539,7 @@
                   sumout = summoney + sumMoney + summoneyT;
                   if (sumout != this.tableF[j].invoiceamount) {
                     errorFLG = errorFLG + 1;
+                    this.activeName = 'first'
                     Message({
                       message: this.$t('label.PFANS1012FORMVIEW_MESSAGE'),
                       type: 'error',
@@ -3548,6 +3552,7 @@
                   if (this.tableT[i].rmb > 0) {
                     if (this.tableT[i].budgetcoding === '') {
                       errorFLG = errorFLG + 1;
+                      this.activeName = 'second'
                       Message({
                         message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_BUDGET'),
                         type: 'error',
@@ -3557,6 +3562,7 @@
                     }
                     if (this.tableT[i].subjectnumber === '') {
                       errorFLG = errorFLG + 1;
+                      this.activeName = 'second'
                       Message({
                         message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNTB'),
                         type: 'error',
@@ -3566,6 +3572,7 @@
                     }
                     if (this.tableT[i].plsummary === '') {
                       errorFLG = errorFLG + 1;
+                      this.activeName = 'second'
                       Message({
                         message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_PL'),
                         type: 'error',
@@ -3580,6 +3587,7 @@
                   if (this.tableR[i].rmb > 0) {
                     if (this.tableR[i].budgetcoding === '') {
                       errorFLG = errorFLG + 1;
+                      this.activeName = 'fourth'
                       Message({
                         message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_BUDGET'),
                         type: 'error',
@@ -3589,6 +3597,7 @@
                     }
                     if (this.tableR[i].subjectnumber === '') {
                       errorFLG = errorFLG + 1;
+                      this.activeName = 'fourth'
                       Message({
                         message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNTB'),
                         type: 'error',
@@ -3598,6 +3607,7 @@
                     }
                     if (this.tableR[i].plsummary === '') {
                       errorFLG = errorFLG + 1;
+                      this.activeName = 'fourth'
                       Message({
                         message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_PL'),
                         type: 'error',
@@ -3612,6 +3622,7 @@
                   if (this.tableA[i].rmb > 0 || this.tableA[i].subsidies > 0) {
                     if (this.tableA[i].budgetcoding === '') {
                       errorFLG = errorFLG + 1;
+                      this.activeName = 'third'
                       Message({
                         message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_BUDGET'),
                         type: 'error',
@@ -3621,6 +3632,7 @@
                     }
                     if (this.tableA[i].subjectnumber === '') {
                       errorFLG = errorFLG + 1;
+                      this.activeName = 'third'
                       Message({
                         message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNTB'),
                         type: 'error',
@@ -3630,6 +3642,7 @@
                     }
                     if (this.tableA[i].plsummary === '') {
                       errorFLG = errorFLG + 1;
+                      this.activeName = 'third'
                       Message({
                         message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_PL'),
                         type: 'error',
@@ -3639,6 +3652,7 @@
                     }
                     if (this.tableA[i].facilitytype === '') {
                       errorFLG = errorFLG + 1;
+                      this.activeName = 'third'
                       Message({
                         message: this.$t('normal.error_08') + this.$t('label.PFANS1013FORMVIEW_FACILITYTYPE'),
                         type: 'error',
@@ -3678,6 +3692,7 @@
                   }
                   if (travelsum1 / sumtableA1 > value4money) {
                     errorFLG = errorFLG + 1;
+                    this.activeName = 'third'
                     Message({
                       message: this.$t('label.PFANS1013FORMVIEW_RMBLIMITNEW'),
                       type: 'error',
@@ -3685,6 +3700,7 @@
                     });
                   } else if (travelsum2 / sumtableA2 > value5money) {
                     errorFLG = errorFLG + 1;
+                    this.activeName = 'third'
                     Message({
                       message: this.$t('label.PFANS1013FORMVIEW_RMBLIMITNEW'),
                       type: 'error',
@@ -3692,6 +3708,7 @@
                     });
                   } else if (travelsum3 / sumtableA3 > value6money) {
                     errorFLG = errorFLG + 1;
+                    this.activeName = 'third'
                     Message({
                       message: this.$t('label.PFANS1013FORMVIEW_RMBLIMITNEW'),
                       type: 'error',
@@ -3699,6 +3716,7 @@
                     });
                   } else if (travelsum4 / sumtableA4 > value7money) {
                     errorFLG = errorFLG + 1;
+                    this.activeName = 'third'
                     Message({
                       message: this.$t('label.PFANS1013FORMVIEW_RMBLIMITNEW'),
                       type: 'error',
@@ -3706,6 +3724,7 @@
                     });
                   } else if (travelsum5 / sumtableA5 > jpregion4) {
                     errorFLG = errorFLG + 1;
+                    this.activeName = 'third'
                     Message({
                       message: this.$t('label.PFANS1013FORMVIEW_RMBLIMITNEW'),
                       type: 'error',
@@ -3713,6 +3732,7 @@
                     });
                   } else if (travelsum6 / sumtableA6 > jpregion5) {
                     errorFLG = errorFLG + 1;
+                    this.activeName = 'third'
                     Message({
                       message: this.$t('label.PFANS1013FORMVIEW_RMBLIMITNEW'),
                       type: 'error',
