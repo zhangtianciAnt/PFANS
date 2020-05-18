@@ -916,6 +916,18 @@ export default {
                 _tableList[j].birthday = moment(_tableList[j].birthday).format(
                   "YYYY-MM-DD"
                 );
+              //ccm 课题票143 from
+              //毕业年月日
+              if (_tableList[j].graduationday)
+                _tableList[j].graduationday = moment(_tableList[j].graduationday).format(
+                  "YYYY-MM-DD"
+                );
+              //仕事年月日
+              if (_tableList[j].workday)
+                _tableList[j].workday = moment(_tableList[j].workday).format(
+                  "YYYY-MM-DD"
+                );
+              //ccm 课题票143 to
               if (this.$i18n) {
                 if (_tableList[j].sex === "PR019001") {
                   _tableList[j].sex = this.$t("label.PFANS2002FORMVIEW_BOY");
