@@ -45,6 +45,12 @@
               </el-row>
               <el-row>
                 <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_IDNUMBER')" prop="idnumber">
+                    <el-input class="width" v-model="form.idnumber" maxlength="18" style="width:20vw"
+                              disabled></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERVIEW_BIRTHDAY')" prop="birthday">
                     <el-date-picker
                       v-model="form.birthday"
@@ -81,12 +87,7 @@
                               disabled></el-input>
                   </el-form-item>
                 </el-col>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_IDNUMBER')" prop="idnumber">
-                    <el-input class="width" v-model="form.idnumber" maxlength="18" style="width:20vw"
-                              disabled></el-input>
-                  </el-form-item>
-                </el-col>
+
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_PASSPORT')">
                     <el-input class="width" v-model="form.passport" maxlength="10" style="width:20vw"
@@ -184,12 +185,12 @@
                     :label="$t('label.PFANSUSERFORMVIEW_MOBILENUMBER')"
                     prop="mobilenumber"
                   >
-                    <el-input class="width" v-model="form.mobilenumber" style="width:20vw" disabled/>
+                    <el-input class="width" v-model="form.mobilenumber" style="width:20vw"/>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_PHONE')" prop="phone">
-                    <el-input class="width" v-model.number="form.phone" maxlength="20" style="width:20vw" disabled/>
+                    <el-input class="width" v-model.number="form.phone" maxlength="20" style="width:20vw"/>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -1775,15 +1776,17 @@
               trigger: 'blur',
             },
           ],
-          phone: [
-            {
-              required: true,
-              message:
-                this.$t('normal.error_08') +
-                this.$t('label.PFANSUSERFORMVIEW_PHONE'),
-              trigger: 'blur',
-            },
-          ],
+          //ccm 课题票对应
+          // phone: [
+          //   {
+          //     required: true,
+          //     message:
+          //       this.$t('normal.error_08') +
+          //       this.$t('label.PFANSUSERFORMVIEW_PHONE'),
+          //     trigger: 'blur',
+          //   },
+          // ],
+          //ccm 课题票对应
           extension: [
             {
               required: true,
@@ -2017,13 +2020,15 @@
               trigger: 'blur',
             },
           ],
-          mobilenumber: [
-            {
-              required: true,
-              message: this.$t('normal.error_08') + this.$t('label.user_mobile'),
-            },
-            {validator: validateTel, trigger: 'blur'},
-          ],
+          //ccm 课题票对应
+          // mobilenumber: [
+          //   {
+          //     required: true,
+          //     message: this.$t('normal.error_08') + this.$t('label.user_mobile'),
+          //   },
+          //   {validator: validateTel, trigger: 'blur'},
+          // ],
+          //ccm 课题票对应
           email: [
             {
               required: true,
