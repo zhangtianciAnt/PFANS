@@ -613,6 +613,7 @@
       };
     },
     created() {
+      this.$store.commit('global/SET_WORKFLOWURL', "/PFANS1006View");
       this.disable = this.$route.params.disabled;
       if (this.disable) {
         this.buttonList = [
