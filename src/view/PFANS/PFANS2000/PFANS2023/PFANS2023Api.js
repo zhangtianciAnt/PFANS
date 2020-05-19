@@ -1,5 +1,6 @@
 import request from '../../../../utils/request'
 import requestDownload from '../../../../utils/requestDownload'
+import requestPdf from "../../../../utils/requestPdf";
 
 //创建流程
 export function createPfans2023(data) {
@@ -36,8 +37,17 @@ export function getFpans2023List(data) {
 }
 
 //获取流程列表
+export function yearsCheck(data) {
+  return request({
+    url: 'goalmanagement/yearsCheck',
+    method: 'post',
+    data: data
+  })
+}
+
+//获取流程列表
 export function download(data) {
-  return requestDownload({
+  return requestPdf({
     url: 'goalmanagement/downLoad1',
     method: 'post',
     data: data,

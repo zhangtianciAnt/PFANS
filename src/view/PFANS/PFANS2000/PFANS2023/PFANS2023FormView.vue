@@ -56,6 +56,7 @@
                         <!--                        {{form.createon  | moment('YYYY')}}-->
                         <el-date-picker
                           v-model="form.years"
+                          :disabled="!disable"
                           type="year">
                         </el-date-picker>
                         <!--                        ADD_FJL_05/21   &#45;&#45;年度可修改-->
@@ -276,6 +277,7 @@
                 buttonList: [],
                 data: [],
                 loading: false,
+                yearCh: '',
                 title: "title.PFANS2023VIEW",
                 rules: {
                     user_id: [{
@@ -350,6 +352,7 @@
             }
         },
         mounted() {
+            this.yearsChk();
             if (this.$route.params._id) {
                 this.loading = true;
                 this.$store
@@ -423,6 +426,33 @@
             }
         },
         methods: {
+            //add_fjl_08/19  --一个事业年度只可以提出一次check
+            yearsChk() {
+                this.loading = true;
+                this.form.user_id = this.$store.getters.userinfo.userid;
+                this.$store
+                    .dispatch('PFANS2023Store/yearsCheck', this.form)
+                    .then(response => {
+                        this.yearCh = response.length;
+                        if (Number(this.yearCh) > 1) {
+                            Message({
+                                message: this.$t('label.PFANS2023FORMVIEW_YEARSCHECK'),
+                                type: 'error',
+                                duration: 5 * 1000,
+                            });
+                        }
+                        this.loading = false;
+                    })
+                    .catch(error => {
+                        Message({
+                            message: error,
+                            type: 'error',
+                            duration: 5 * 1000,
+                        });
+                        this.loading = false;
+                    });
+            },
+            //add_fjl_08/19  --一个事业年度只可以提出一次check
             useDisable(){
                 if (this.form.stage === '0' && this.form.status === '0') {
                     this.aaaaaa = 'W0036';
@@ -627,7 +657,7 @@
                     this.disablesep = false;
                     this.disabledec = false;
                     this.disablemar = false;
-                    this.mar = true;
+                    this.mar = false;
                  this.enableSave = true;
                 }
             },
@@ -749,6 +779,16 @@
 
                             }
                             else {
+                                //add_fjl_08/19  --一个事业年度只可以提出一次check
+                                if (Number(this.yearCh) >= 1) {
+                                    Message({
+                                        message: this.$t('label.PFANS2023FORMVIEW_YEARSCHECK'),
+                                        type: 'error',
+                                        duration: 5 * 1000,
+                                    });
+                                    return;
+                                }
+                                //add_fjl_08/19  --一个事业年度只可以提出一次check
                                 this.loading = true;
                                 this.$store
                                     .dispatch('PFANS2023Store/createPfans2023', this.form)
@@ -833,6 +873,16 @@
 
                                 }
                                 else {
+                                    //add_fjl_08/19  --一个事业年度只可以提出一次check
+                                    if (Number(this.yearCh) >= 1) {
+                                        Message({
+                                            message: this.$t('label.PFANS2023FORMVIEW_YEARSCHECK'),
+                                            type: 'error',
+                                            duration: 5 * 1000,
+                                        });
+                                        return;
+                                    }
+                                    //add_fjl_08/19  --一个事业年度只可以提出一次check
                                     this.loading = true;
                                     this.$store
                                         .dispatch('PFANS2023Store/createPfans2023', this.form)
