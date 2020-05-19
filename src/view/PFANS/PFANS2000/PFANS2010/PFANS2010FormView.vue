@@ -222,7 +222,7 @@
             //考勤是否全部承认
             let count = 0
             for(let item of this.data){
-              if(item.recognitionstate === '承认'){
+              if (item.recognitionstate === '承认' || item.recognitionstate === '') {
                 count = count +1
               }
             }
