@@ -1414,7 +1414,7 @@
                                         response[j].membershiprate = this.numFormat(response[j].membershiprate);
                                         response[j].pjrateemployees = this.numFormat(response[j].pjrateemployees);
                                         response[j].staffingrate = this.numFormat(response[j].staffingrate);
-                                        // response[j].totalpro = this.numFormat(response[j].totalpro);
+                                        response[j].totalpro = this.numFormat(response[j].totalpro);
 
                                         // response[j].inst = this.numFormat(response[j].inst);
                                         // response[j].rent = this.numFormat(response[j].rent);
@@ -1542,7 +1542,7 @@
                                                 - Number(response[j].concost) - Number(response[j].threefree) - Number(response[j].commonfee) - Number(response[j].brandcost)
                                                 - Number(response[j].otherexpenses) - Number(response[j].otherincome)).toFixed(2);
                                             //累计仕掛品
-                                            if (Number(response[j].totalpro) < 0) {
+                                            if (Number(response[j].process) !== 0) {
                                                 response[j].totalpro = (Number(response[j].totalpro) + Number(response[j].process)).toFixed(2);
                                             } else {
                                                 response[j].totalpro = '0.00';
@@ -1804,7 +1804,7 @@
                 //upd-ws-5/7-根据groupid，year，month去本表查询数据有数据的话拿本表的数据，没有数据的时候根据sql查询
             },
             numFormat(value) {
-                if (value === '' || value === null || value === '0') {
+                if (value === '' || value === null || value === '0' || value === undefined) {
                     return '0.00'
                 } else {
                     return value;
