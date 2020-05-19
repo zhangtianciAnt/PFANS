@@ -232,6 +232,15 @@
             fix: false,
             filter: false,
           },
+          //add-ws-No.58-启用日期画面添加
+          {
+            code: 'activitiondate',
+            label: 'label.ASSETS1001VIEW_ACTIVITIONDATE',
+            width: 120,
+            fix: false,
+            filter: false,
+          },
+          //add-ws-No.58-启用日期画面添加
         ],
         buttonList: [
           {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
@@ -378,6 +387,11 @@
               if (response[j].purchasetime !== null && response[j].purchasetime !== '') {
                 response[j].purchasetime = moment(response[j].purchasetime).format('YYYY-MM-DD');
               }
+              //add-ws-No.58-启用日期画面添加
+              if (response[j].activitiondate !== null && response[j].activitiondate !== '') {
+                response[j].activitiondate = moment(response[j].activitiondate).format('YYYY-MM-DD');
+              }
+              //add-ws-No.58-启用日期画面添加
               if (response[j].typeassets !== null && response[j].typeassets !== '') {
                   response[j].typeassets1 = response[j].typeassets;
                 let letErrortype = getDictionaryInfo(response[j].typeassets);

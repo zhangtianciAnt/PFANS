@@ -1856,7 +1856,7 @@
           .then(response => {
             for (let i = 0; i < response.length; i++) {
               if (this.disable) {
-                if (response[i].user_id === this.$store.getters.userinfo.userid) {
+                if (response[i].user_id === this.$store.getters.userinfo.userid && response[i].status === '4') {
                   this.relations.push({
                     place: response[i].city,
                     value: response[i].business_id,
@@ -1872,21 +1872,22 @@
                   });
                 }
               } else {
-                this.relations.push({
-                  place: response[i].city,
-                  value: response[i].business_id,
-                  label: this.$t('menu.PFANS1035') + '_' + moment(response[i].createon).format('YYYY-MM-DD'),
-                  city: response[i].city,
-                  companyprojectsname: response[i].companyprojectsname,
-                  startdate: response[i].startdate,
-                  enddate: response[i].enddate,
-                  businesstype: response[i].businesstype,
-                  datenumber: response[i].datenumber,
-                  external: response[i].external,
-                  arrivenight: response[i].arrivenight,
-                });
+                if (response[i].status === '4') {
+                  this.relations.push({
+                    place: response[i].city,
+                    value: response[i].business_id,
+                    label: this.$t('menu.PFANS1035') + '_' + moment(response[i].createon).format('YYYY-MM-DD'),
+                    city: response[i].city,
+                    companyprojectsname: response[i].companyprojectsname,
+                    startdate: response[i].startdate,
+                    enddate: response[i].enddate,
+                    businesstype: response[i].businesstype,
+                    datenumber: response[i].datenumber,
+                    external: response[i].external,
+                    arrivenight: response[i].arrivenight,
+                  });
+                }
               }
-
             }
             this.business(this.form.business_id);
             this.loading = false;
@@ -1908,7 +1909,7 @@
           .then(response => {
             for (let i = 0; i < response.length; i++) {
               if (this.disable) {
-                if (response[i].user_id === this.$store.getters.userinfo.userid) {
+                if (response[i].user_id === this.$store.getters.userinfo.userid && response[i].status === '4') {
                   this.relations.push({
                     place: response[i].city,
                     value: response[i].business_id,
@@ -1927,23 +1928,24 @@
                 }
 
               } else {
-                this.relations.push({
-                  place: response[i].city,
-                  value: response[i].business_id,
-                  label: this.$t('menu.PFANS1002') + '_' + moment(response[i].createon).format('YYYY-MM-DD'),
-                  abroadbusiness: response[i].abroadbusiness,
-                  external: response[i].external,
-                  arrivenight: response[i].arrivenight,
-                  companyprojectsname: response[i].companyprojectsname,
-                  city: response[i].region,
-                  startdate: response[i].startdate,
-                  enddate: response[i].enddate,
-                  level: response[i].level,
-                  businesstype: response[i].businesstype,
-                  datenumber: response[i].datenumber,
-                });
+                if (response[i].status === '4') {
+                  this.relations.push({
+                    place: response[i].city,
+                    value: response[i].business_id,
+                    label: this.$t('menu.PFANS1002') + '_' + moment(response[i].createon).format('YYYY-MM-DD'),
+                    abroadbusiness: response[i].abroadbusiness,
+                    external: response[i].external,
+                    arrivenight: response[i].arrivenight,
+                    companyprojectsname: response[i].companyprojectsname,
+                    city: response[i].region,
+                    startdate: response[i].startdate,
+                    enddate: response[i].enddate,
+                    level: response[i].level,
+                    businesstype: response[i].businesstype,
+                    datenumber: response[i].datenumber,
+                  });
+                }
               }
-
             }
             this.business(this.form.business_id);
             this.loading = false;
@@ -3148,7 +3150,7 @@
                         if (this.tableA[i].city === 'PJ036001' || this.tableA[i].city === 'PJ036002' || this.tableA[i].city === 'PJ036003' || this.tableA[i].city === 'PJ036004') {
                           if (this.tableA[i].rmb > jpregion1) {
                             this.accomflg = 1;
-                            this.activeName = 'third'
+                            this.activeName = 'third';
                             Message({
                               message: this.$t('label.PFANS1013FORMVIEW_RMBLIMIT'),
                               type: 'error',
@@ -3159,7 +3161,7 @@
                         } else {
                           if (this.tableA[i].rmb > jpregion2) {
                             this.accomflg = 1;
-                            this.activeName = 'third'
+                            this.activeName = 'third';
                             Message({
                               message: this.$t('label.PFANS1013FORMVIEW_RMBLIMIT'),
                               type: 'error',
@@ -3174,7 +3176,7 @@
                         if (this.tableA[i].city === 'PJ036001' || this.tableA[i].city === 'PJ036002' || this.tableA[i].city === 'PJ036003' || this.tableA[i].city === 'PJ036004') {
                           if (this.tableA[i].rmb > jpregion8 / 30) {
                             this.accomflg = 1;
-                            this.activeName = 'third'
+                            this.activeName = 'third';
                             Message({
                               message: this.$t('label.PFANS1013FORMVIEW_RMBLIMIT'),
                               type: 'error',
@@ -3185,7 +3187,7 @@
                         } else {
                           if (this.tableA[i].rmb > jpregion9 / 30) {
                             this.accomflg = 1;
-                            this.activeName = 'third'
+                            this.activeName = 'third';
                             Message({
                               message: this.$t('label.PFANS1013FORMVIEW_RMBLIMIT'),
                               type: 'error',
@@ -3539,7 +3541,7 @@
                   sumout = summoney + sumMoney + summoneyT;
                   if (sumout != this.tableF[j].invoiceamount) {
                     errorFLG = errorFLG + 1;
-                    this.activeName = 'first'
+                    this.activeName = 'first';
                     Message({
                       message: this.$t('label.PFANS1012FORMVIEW_MESSAGE'),
                       type: 'error',
@@ -3552,7 +3554,7 @@
                   if (this.tableT[i].rmb > 0) {
                     if (this.tableT[i].budgetcoding === '') {
                       errorFLG = errorFLG + 1;
-                      this.activeName = 'second'
+                      this.activeName = 'second';
                       Message({
                         message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_BUDGET'),
                         type: 'error',
@@ -3562,7 +3564,7 @@
                     }
                     if (this.tableT[i].subjectnumber === '') {
                       errorFLG = errorFLG + 1;
-                      this.activeName = 'second'
+                      this.activeName = 'second';
                       Message({
                         message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNTB'),
                         type: 'error',
@@ -3572,7 +3574,7 @@
                     }
                     if (this.tableT[i].plsummary === '') {
                       errorFLG = errorFLG + 1;
-                      this.activeName = 'second'
+                      this.activeName = 'second';
                       Message({
                         message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_PL'),
                         type: 'error',
@@ -3587,7 +3589,7 @@
                   if (this.tableR[i].rmb > 0) {
                     if (this.tableR[i].budgetcoding === '') {
                       errorFLG = errorFLG + 1;
-                      this.activeName = 'fourth'
+                      this.activeName = 'fourth';
                       Message({
                         message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_BUDGET'),
                         type: 'error',
@@ -3597,7 +3599,7 @@
                     }
                     if (this.tableR[i].subjectnumber === '') {
                       errorFLG = errorFLG + 1;
-                      this.activeName = 'fourth'
+                      this.activeName = 'fourth';
                       Message({
                         message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNTB'),
                         type: 'error',
@@ -3607,7 +3609,7 @@
                     }
                     if (this.tableR[i].plsummary === '') {
                       errorFLG = errorFLG + 1;
-                      this.activeName = 'fourth'
+                      this.activeName = 'fourth';
                       Message({
                         message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_PL'),
                         type: 'error',
@@ -3622,7 +3624,7 @@
                   if (this.tableA[i].rmb > 0 || this.tableA[i].subsidies > 0) {
                     if (this.tableA[i].budgetcoding === '') {
                       errorFLG = errorFLG + 1;
-                      this.activeName = 'third'
+                      this.activeName = 'third';
                       Message({
                         message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_BUDGET'),
                         type: 'error',
@@ -3632,7 +3634,7 @@
                     }
                     if (this.tableA[i].subjectnumber === '') {
                       errorFLG = errorFLG + 1;
-                      this.activeName = 'third'
+                      this.activeName = 'third';
                       Message({
                         message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNTB'),
                         type: 'error',
@@ -3642,7 +3644,7 @@
                     }
                     if (this.tableA[i].plsummary === '') {
                       errorFLG = errorFLG + 1;
-                      this.activeName = 'third'
+                      this.activeName = 'third';
                       Message({
                         message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_PL'),
                         type: 'error',
@@ -3652,7 +3654,7 @@
                     }
                     if (this.tableA[i].facilitytype === '') {
                       errorFLG = errorFLG + 1;
-                      this.activeName = 'third'
+                      this.activeName = 'third';
                       Message({
                         message: this.$t('normal.error_08') + this.$t('label.PFANS1013FORMVIEW_FACILITYTYPE'),
                         type: 'error',
@@ -3692,7 +3694,7 @@
                   }
                   if (travelsum1 / sumtableA1 > value4money) {
                     errorFLG = errorFLG + 1;
-                    this.activeName = 'third'
+                    this.activeName = 'third';
                     Message({
                       message: this.$t('label.PFANS1013FORMVIEW_RMBLIMITNEW'),
                       type: 'error',
@@ -3700,7 +3702,7 @@
                     });
                   } else if (travelsum2 / sumtableA2 > value5money) {
                     errorFLG = errorFLG + 1;
-                    this.activeName = 'third'
+                    this.activeName = 'third';
                     Message({
                       message: this.$t('label.PFANS1013FORMVIEW_RMBLIMITNEW'),
                       type: 'error',
@@ -3708,7 +3710,7 @@
                     });
                   } else if (travelsum3 / sumtableA3 > value6money) {
                     errorFLG = errorFLG + 1;
-                    this.activeName = 'third'
+                    this.activeName = 'third';
                     Message({
                       message: this.$t('label.PFANS1013FORMVIEW_RMBLIMITNEW'),
                       type: 'error',
@@ -3716,7 +3718,7 @@
                     });
                   } else if (travelsum4 / sumtableA4 > value7money) {
                     errorFLG = errorFLG + 1;
-                    this.activeName = 'third'
+                    this.activeName = 'third';
                     Message({
                       message: this.$t('label.PFANS1013FORMVIEW_RMBLIMITNEW'),
                       type: 'error',
@@ -3724,7 +3726,7 @@
                     });
                   } else if (travelsum5 / sumtableA5 > jpregion4) {
                     errorFLG = errorFLG + 1;
-                    this.activeName = 'third'
+                    this.activeName = 'third';
                     Message({
                       message: this.$t('label.PFANS1013FORMVIEW_RMBLIMITNEW'),
                       type: 'error',
@@ -3732,7 +3734,7 @@
                     });
                   } else if (travelsum6 / sumtableA6 > jpregion5) {
                     errorFLG = errorFLG + 1;
-                    this.activeName = 'third'
+                    this.activeName = 'third';
                     Message({
                       message: this.$t('label.PFANS1013FORMVIEW_RMBLIMITNEW'),
                       type: 'error',
