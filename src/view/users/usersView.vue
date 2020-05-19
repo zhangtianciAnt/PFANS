@@ -311,24 +311,59 @@ export default {
         if (this.enterOrleave !== "") {
             //离职筛选
           if (this.enterOrleave === "1") {
-            this.tableList = this.tableList.filter(item => {
-                return item.resignation_date !== null && item.resignation_date !== "";
-            });
+              if (this.workinghours)
+              {
+                this.working = this.getworkinghours(this.workinghours);
+                this.starttime = this.working.substring(0, 10),
+                this.endTime = this.working.substring(13, 23);
+                if (this.starttime != "" || this.endTime != "") {
+                  this.tableList = this.tableList.filter(item => {
+                    return (this.starttime <= item.resignation_date && item.resignation_date <= this.endTime) && (item.resignation_date !== null && item.resignation_date !== "")
+                  });
+                }
+              }
+              else
+              {
+                this.tableList = this.tableList.filter(item => {
+                  return item.resignation_date !== null && item.resignation_date !== "";
+                });
+              }
           } else {
-            this.tableList = this.tableList.filter(item => {
+            if (this.workinghours)
+            {
+              this.working = this.getworkinghours(this.workinghours);
+              this.starttime = this.working.substring(0, 10),
+                this.endTime = this.working.substring(13, 23);
+              if (this.starttime != "" || this.endTime != "") {
+                this.tableList = this.tableList.filter(item => {
+                  return (this.starttime <= item.enterday && item.enterday <= this.endTime) && (item.resignation_date === null || item.resignation_date === "")
+                });
+              }
+            }
+            else
+            {
+              this.tableList = this.tableList.filter(item => {
                 return item.resignation_date === null || item.resignation_date === "";
-            });
+              });
+            }
           }
         }
         //进行时间筛选
-        this.working = this.getworkinghours(this.workinghours);
-        (this.starttime = this.working.substring(0, 10)),
-          (this.endTime = this.working.substring(13, 23));
-        if (this.starttime != "" || this.endTime != "") {
-          this.tableList = this.tableList.filter(item => {
-            return this.starttime <= item.enterday && item.enterday <= this.endTime
-          });
-        }
+        // this.working = this.getworkinghours(this.workinghours);
+        // (this.starttime = this.working.substring(0, 10)),
+        //   (this.endTime = this.working.substring(13, 23));
+        // if (this.starttime != "" || this.endTime != "") {
+        //   if (this.enterOrleave === "1")
+        //   {
+        //     return (this.starttime <= item.enterday && item.enterday <= this.endTime) && (item.resignation_date !== null && item.resignation_date !== "")
+        //   }
+        //   else
+        //   {
+        //     this.tableList = this.tableList.filter(item => {
+        //       return this.starttime <= item.enterday && item.enterday <= this.endTime
+        //     });
+        //   }
+        // }
       }
     },
     //ADD-LXX
