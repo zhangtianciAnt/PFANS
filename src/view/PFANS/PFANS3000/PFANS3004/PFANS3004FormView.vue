@@ -141,9 +141,9 @@
                 </el-table-column>
 
                 <el-table-column :label="$t('label.PFANS1012VIEW_TELEPHONE')" align="center"
-                                 width="200">
+                                 width="250">
                   <template slot-scope="scope">
-                      <el-input v-model="scope.row.investigator" :disabled="!disable" style="width:15vw" maxlength='20'></el-input>
+                      <el-input v-model="scope.row.investigator" :disabled="!disable" maxlength='20'></el-input>
                   </template>
                 </el-table-column>
 
