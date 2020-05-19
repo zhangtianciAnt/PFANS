@@ -3022,16 +3022,26 @@
                     this.form.salary.toString() !==
                     this.gridData[this.gridData.length - 1].after
                 ) {
-                    this.gridData.push({
-                        date: moment(this.feedingchangeday).format("YYYY-MM-DD"),
-                        before: this.gridData[this.gridData.length - 1].after,
-                        after: this.form.salary,
-                        duty: this.form.duty,
-                        basic: this.form.basic,
-                        remark: '',
-                    });
+                    // add_fjl_05/19  --添加一天一条履历的判断
+                    for (let a = 0; a < this.gridData.length; a++) {
+                        if (this.gridData[a].date === moment(this.feedingchangeday).format("YYYY-MM-DD")) {
+                            this.gridData[a].before = this.gridData[this.gridData.length - 1].after;
+                            this.gridData[a].after = this.form.after;
+                            this.gridData[a].duty = this.form.duty;
+                            this.gridData[a].basic = this.form.basic;
+                        } else {
+                            this.gridData.push({
+                                date: moment(this.feedingchangeday).format("YYYY-MM-DD"),
+                                before: this.gridData[this.gridData.length - 1].after,
+                                after: this.form.salary,
+                                duty: this.form.duty,
+                                basic: this.form.basic,
+                                remark: '',
+                            });
+                        }
+                        // add_fjl_05/19  --添加一天一条履历的判断
+                    }
                 }
-
                 if (this.medicalData === null) {
                     this.medicalData = [
                         {
