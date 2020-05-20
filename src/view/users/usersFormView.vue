@@ -2977,7 +2977,7 @@
                             for (let g = 0; g < letgridData.length; g++) {
                                 //最后一次的变更日期
                                 if (letgridData[g].date !== null && letgridData[g].date !== '') {
-                                    if (letgridData[g].basic !== "0" && letgridData[g].duty !== "0") {
+                                    // if (letgridData[g].basic !== "0" && letgridData[g].duty !== "0") {
                                         this.feedingchangeday = letgridData[g].date;
                                         let gridData = {};
                                         gridData.basic = letgridData[g].basic;
@@ -2988,7 +2988,7 @@
                                             gridData.date = letgridData[g].date;
                                         }
                                         this.gridData.push(gridData);
-                                    }
+                                    // }
                                 }
                             }
                         }
