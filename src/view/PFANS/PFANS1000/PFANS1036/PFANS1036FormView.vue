@@ -2367,10 +2367,16 @@
         }
         this.buttonClick('save');
       },
-      start() {
-        this.form.status = '2';
-        this.buttonClick('save');
+      //add-ws-5-20-流程恒展开
+      start(val) {
+        if (val.state === '0') {
+          this.form.status = '2';
+        }else if (val.state === '2') {
+          this.form.status = '4';
+        }
+        this.buttonClick("update");
       },
+      //add-ws-5-20-流程恒展开
       end() {
         this.form.status = '0';
         this.buttonClick('save');

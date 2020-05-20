@@ -89,16 +89,16 @@
                     </el-col>
                     <!-- 项目名称(和)-->
                     <el-col :span="8">
-                      <el-form-item
-                        :label="$t('label.PFANS5001FORMVIEW_PROJECT_NAMEJP')"
-                        prop="project_namejp"
+                      <el-form-item :label="$t('label.PFANS1002VIEW_ABROADBUSINESS')">
+                      <span style="margin-right: 1vw ">{{$t('label.no')}}</span>
+                      <el-switch
+                        :disabled="!disable"
+                        active-value="1"
+                        inactive-value="0"
+                        v-model="form.abroadbusiness"
                       >
-                        <el-input
-                          :disabled="!disable"
-                          maxlength="50"
-                          style="width: 20vw"
-                          v-model="form.project_namejp"
-                        ></el-input>
+                      </el-switch>
+                      <span style="margin-left: 1vw ">{{$t('label.yes')}}</span>
                       </el-form-item>
                     </el-col>
                     <el-col :span="8">
@@ -475,7 +475,7 @@
                                     <input class="content bg" v-model="scope.row.name" :error="errorexpname"
                                            :disabled="true" v-show="false"></input>
                                     <input class="content bg" v-model="scope.row.name_id"
-                                           :disabled="true" ></input>
+                                           :disabled="true"></input>
                                     <el-button :disabled="!disable" icon="el-icon-search"
                                                @click="dialogTableVisible1 = true"
                                                size="small"></el-button>
@@ -1211,7 +1211,7 @@
                   });
                 }
               }
-              if(!flag1){
+              if (!flag1) {
                 this.tableB = [
                   {
                     prosystem_id: '',
@@ -1224,13 +1224,13 @@
                     admissiontime: '',
                     exittime: '',
                     rowindex: '',
-                  }
-                ]
-              }else{
+                  },
+                ];
+              } else {
                 this.tableB = tableb;
               }
 
-              if(!flag2){
+              if (!flag2) {
                 this.tableC = [
                   {
                     prosystem_id: '',
@@ -1244,8 +1244,8 @@
                     exittime: '',
                     rowindex: '',
                   },
-                ]
-              }else{
+                ];
+              } else {
                 this.tableC = tablec;
               }
             }
@@ -1675,7 +1675,7 @@
       start(val) {
         if (val.state === '0') {
           this.form.status = '2';
-        }else if (val.state === '2') {
+        } else if (val.state === '2') {
           this.form.status = '4';
         }
         this.buttonClick('update');
@@ -1901,10 +1901,10 @@
           .then(response => {
             this.gridData1 = [];
             for (let i = 0; i < response.length; i++) {
-              if(response[i].account){
+              if (response[i].account) {
                 var vote1 = {};
                 vote1.number = response[i].number;
-                vote1.name_id= response[i].account;
+                vote1.name_id = response[i].account;
                 vote1.expname = response[i].expname;
                 vote1.suppliername = response[i].suppliername;
                 // vote1.post = response[i].post;
