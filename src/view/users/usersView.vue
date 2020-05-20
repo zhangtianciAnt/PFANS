@@ -695,8 +695,8 @@ export default {
                 //変更前基本工资,変更前职责工资,现基本工资,现职责工资,給料変更日
                 if(list[h].gridData !== '' && list[h].gridData !== null && list[h].gridData !== undefined && list[h].gridData.length > 0 ){
                     for (let d = 0; d < list[h].gridData.length; d++) {
-                        list[h].after = list[h].gridData[d].after;
-                        list[h].before = list[h].gridData[d].before;
+                        list[h].after = list[h].gridData[list[h].gridData.length - 2].basic;
+                        list[h].before = list[h].gridData[list[h].gridData.length - 2].duty;
                         list[h].basic = list[h].gridData[d].basic;
                         list[h].duty = list[h].gridData[d].duty;
                         list[h].date = list[h].gridData[d].date;

@@ -1137,21 +1137,22 @@
                             <!--:label="$t('label.PFANSUSERFORMVIEW_BEFORE')"-->
                             <!--width="130"-->
                             <!--&gt;</el-table-column>-->
-                            <el-table-column
-                              property="after"
-                              align="center"
-                              :label="$t('label.PFANSUSERFORMVIEW_AFTER')"
-                              width="130"
-                            >
-                              <template slot-scope="scope">
-                                <span style="color:#d16765">{{ scope.row.after }}</span>
-                              </template>
-                            </el-table-column>
+                            <!--                            del_fjl_05/20   &#45;&#45;注释掉调整前的工资-->
+                            <!--                            <el-table-column-->
+                            <!--                              property="after"-->
+                            <!--                              align="center"-->
+                            <!--                              :label="$t('label.PFANSUSERFORMVIEW_AFTER')"-->
+                            <!--                              width="130"-->
+                            <!--                            >-->
+                            <!--                              <template slot-scope="scope">-->
+                            <!--                                <span style="color:#d16765">{{ scope.row.after }}</span>-->
+                            <!--                              </template>-->
+                            <!--                            </el-table-column>-->
                             <el-table-column
                               property="basic"
                               align="center"
                               :label="$t('label.PFANSUSERFORMVIEW_BASIC')"
-                              width="130"
+                              width="200"
                             >
                               <template slot-scope="scope">
                                 <span style="color:#d16765">{{ scope.row.basic }}</span>
@@ -1161,21 +1162,22 @@
                               property="duty"
                               align="center"
                               :label="$t('label.PFANSUSERFORMVIEW_DUTY')"
-                              width="130"
+                              width="200"
                             >
                               <template slot-scope="scope">
                                 <span style="color:#d16765">{{ scope.row.duty }}</span>
                               </template>
                             </el-table-column>
-                            <el-table-column
-                              property="remark"
-                              align="center"
-                              :label="$t('label.PFANS1017FORMVIEW_PREPAREFOR')"
-                            >
-                              <template slot-scope="scope">
-                                <el-input style="width:5vw" v-model="scope.row.remark" size="mini" disabled></el-input>
-                              </template>
-                            </el-table-column>
+                            <!--                            <el-table-column-->
+                            <!--                              property="remark"-->
+                            <!--                              align="center"-->
+                            <!--                              :label="$t('label.PFANS1017FORMVIEW_PREPAREFOR')"-->
+                            <!--                            >-->
+                            <!--                              <template slot-scope="scope">-->
+                            <!--                                <el-input style="width:5vw" v-model="scope.row.remark" size="mini" disabled></el-input>-->
+                            <!--                              </template>-->
+                            <!--                            </el-table-column>-->
+                            <!--                            del_fjl_05/20   &#45;&#45;注释掉调整前的工资-->
                           </el-table>
                         </el-col>
                       </el-row>
@@ -2498,11 +2500,11 @@
           this.gridData = [
             {
               date: new moment().format('YYYY-MM-DD'),
-              before: '',
-              after: this.form.salary,
+                // before: '',
+                // after: this.form.salary,
               duty: this.form.duty,
               basic: this.form.basic,
-              remark: '',
+                // remark: '',
             },
           ];
         } else if (
@@ -2510,14 +2512,28 @@
           this.form.salary.toString() !==
           this.gridData[this.gridData.length - 1].after
         ) {
-          this.gridData.push({
-            date: new moment().format('YYYY-MM-DD'),
-            before: this.gridData[this.gridData.length - 1].after,
-            after: this.form.salary,
-            duty: this.form.duty,
-            basic: this.form.basic,
-            remark: '',
-          });
+            // add_fjl_05/19  --添加一天一条履历的判断
+            let addflg = 0;
+            for (let a = 0; a < this.gridData.length; a++) {
+                if (this.gridData[a].date === moment(this.feedingchangeday).format("YYYY-MM-DD")) {
+                    addflg = 1;
+                    // this.gridData[a].before = this.gridData[this.gridData.length - 1].after;
+                    // this.gridData[a].after = this.form.after;
+                    this.gridData[a].duty = this.form.duty;
+                    this.gridData[a].basic = this.form.basic;
+                }
+            }
+            if (addflg === 0) {
+                this.gridData.push({
+                    date: moment(this.feedingchangeday).format("YYYY-MM-DD"),
+                    // before: this.gridData[this.gridData.length - 1].after,
+                    // after: this.form.salary,
+                    duty: this.form.duty,
+                    basic: this.form.basic,
+                    // remark: '',
+                });
+            }
+            // add_fjl_05/19  --添加一天一条履历的判断
         }
 
         if (this.medicalData === null) {
