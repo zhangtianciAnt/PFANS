@@ -4079,6 +4079,14 @@
                         //   ].$el.children[0].children[0].children[2].scrollTop = location;
                         // });
                         // console.log("End setting");
+                    })
+                    .catch(error => {
+                        Message({
+                            message: error,
+                            type: 'error',
+                            duration: 5 * 1000
+                        });
+                        this.loading = false;
                     });
             },
             UploadUrlfjkc: function() {
