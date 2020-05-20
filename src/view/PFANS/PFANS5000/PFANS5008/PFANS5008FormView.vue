@@ -186,6 +186,7 @@
         checkLenth: '',
         checkList: [],
         checkdata: '',
+        checktime: '',
         loading: false,
         DataList: [{
           start_time: '',
@@ -245,6 +246,7 @@
       };
     },
     created() {
+      this.disable = this.$route.params.disabled;
       //add -ws - 工作记录table表格编辑时根据编辑人id获取数据，新建时根据登录人id获取数据
       if (this.$store.getters.userinfo.userid !== undefined) {
         this.checkuserid = 0;
@@ -258,18 +260,28 @@
       }
       //add -ws - 工作记录table表格编辑时根据编辑人id获取数据，新建时根据登录人id获取数据
       this.companyform.log_date = this.$route.params.date;
-      this.buttonList = [
-        {
-          key: 'btnSave',
-          name: 'button.confirm',
-          disabled: false,
-        },
-        {
-          key: 'mingtian',
-          name: 'button.mingtian',
-          disabled: false,
-        },
-      ];
+      if (this.disable) {
+        this.buttonList = [
+          {
+            key: 'btnSave',
+            name: 'button.confirm',
+            disabled: false,
+          },
+          {
+            key: 'mingtian',
+            name: 'button.mingtian',
+            disabled: false,
+          },
+        ];
+      } else {
+        this.buttonList = [
+          {
+            key: 'btnSave',
+            name: 'button.confirm',
+            disabled: false,
+          },
+        ];
+      }
       this.loading = true;
 
       this.$store
@@ -277,7 +289,6 @@
         .then(response => {
           let datalist = [];
           for (let k = 0; k < response.length; k++) {
-
             this.code3 = '';
             if (this.companyform.log_date === moment(response[k].log_date).format('YYYY-MM-DD')) {
               if (response[k].work_phase === 'PP008001') {
@@ -332,7 +343,6 @@
           }
         });
       this.loading = false;
-      this.disable = this.$route.params.disabled;
       let c = this.$route.params._id;
       if (c === '') {
         if (this.disable) {
@@ -356,7 +366,6 @@
               const data = [];
               let datalist = [];
               for (let k = 0; k < response.length; k++) {
-
                 this.code3 = '';
                 if (response[k].has_project === '01') {
                   if (moment(response[k].log_date).format('YYYY-MM-DD') === moment(new Date()).format('YYYY-MM-DD')) {
@@ -427,17 +436,17 @@
         this.$store
           .dispatch('PFANS5008Store/getDataOne', {'logmanagement_id': this.$route.params._id})
           .then(response => {
-            this.data = response;
             this.checktimelength = response.time_start;
-            if (response.confirmstatus == '1') {
-              this.buttonList[0].disabled = true;
-              this.buttonList[1].disabled = true;
-              this.disable = false;
-            } else {
-              this.buttonList[0].disabled = false;
-              this.buttonList[1].disabled = false;
-              this.disable = true;
-            }
+            this.data = response;
+            // if (response.confirmstatus == '1') {
+            //   this.buttonList[0].disabled = true;
+            //   this.buttonList[1].disabled = true;
+            //   this.disable = false;
+            // } else {
+            //   this.buttonList[0].disabled = false;
+            //   this.buttonList[1].disabled = false;
+            //   this.disable = true;
+            // }
             if (this.data.has_project === '01') {
               this.code3 = '';
               if (this.data.work_phase === 'PP008001') {
@@ -721,19 +730,31 @@
           });
       },
       getAttendancelist() {
-        let sumoutgoinghours = 0;
-        for (let j = 0; j < this.checkList.length; j++) {
-          if (moment(this.checkList[j].dates).format('YYYY-MM-DD') === moment(this.companyform.log_date).format('YYYY-MM-DD')) {
-            if (this.checkList[j].outgoinghours === null) {
-              sumoutgoinghours = 0;
-            } else if (this.checkList[j].outgoinghours === '') {
-              sumoutgoinghours = 0;
-            } else {
-              sumoutgoinghours = parseFloat(this.checkList[j].outgoinghours);
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS5008Store/getCheckList', {'createby': this.User_id})
+          .then(response => {
+            let sumtime = 0;
+            for (let j = 0; j < response.length; j++) {
+              if (moment(response[j].log_date).format('YYYY-MM-DD') === moment(this.companyform.log_date).format('YYYY-MM-DD')) {
+                sumtime += parseFloat(response[j].time_start);
+              }
             }
-          }
-        }
-        this.checkdata = sumoutgoinghours;
+            let sumoutgoinghours = 0;
+            for (let j = 0; j < this.checkList.length; j++) {
+              if (moment(this.checkList[j].dates).format('YYYY-MM-DD') === moment(this.companyform.log_date).format('YYYY-MM-DD')) {
+                if (this.checkList[j].outgoinghours === null) {
+                  sumoutgoinghours = 0;
+                } else if (this.checkList[j].outgoinghours === '') {
+                  sumoutgoinghours = 0;
+                } else {
+                  sumoutgoinghours = parseFloat(this.checkList[j].outgoinghours);
+                }
+              }
+            }
+            this.checkdata = (sumoutgoinghours - sumtime).toFixed(2);
+            this.checktime = sumoutgoinghours;
+          });
       },
       setdisabled(val) {
         if (this.$route.params.disabled) {
@@ -835,17 +856,16 @@
         this.$store
           .dispatch('PFANS5008Store/getDataOne', {'logmanagement_id': this.row})
           .then(response => {
-
             this.checktimelength = response.time_start;
-            if (response.confirmstatus == '1') {
-              this.buttonList[0].disabled = true;
-              this.buttonList[1].disabled = true;
-              this.disable = false;
-            } else {
-              this.buttonList[0].disabled = false;
-              this.buttonList[1].disabled = false;
-              this.disable = true;
-            }
+            // if (response.confirmstatus == '1') {
+            //   this.buttonList[0].disabled = true;
+            //   this.buttonList[1].disabled = true;
+            //   this.disable = false;
+            // } else {
+            //   this.buttonList[0].disabled = false;
+            //   this.buttonList[1].disabled = false;
+            //   this.disable = true;
+            // }
             this.code3 = '';
             if (response.work_phase === 'PP008001') {
               this.code3 = 'PP009';
@@ -1115,7 +1135,7 @@
               let check = 0;
               let log_date = moment(this.companyform.log_date).format('DD');
               let date = getDictionaryInfo('BP027001').value1;
-              let checkdate = date < 10?'0'+date:date;
+              let checkdate = date < 10 ? '0' + date : date;
               if (moment(this.companyform.log_date).format('YYYY') < moment(new Date()).format('YYYY')) {
                 if (moment(this.companyform.log_date).format('MM') > moment(new Date()).format('MM')) {
                   if (checkdate < moment(new Date()).format('DD')) {
@@ -1171,7 +1191,7 @@
                       }
                       if (this.companyform.logmanagement_id) {
                         this.checkLenth = checklenth;
-                        if (parseFloat(this.checkLenth) + parseFloat(this.companyform.time_start) - parseFloat(this.checktimelength) > this.checkdata) {
+                        if (parseFloat(this.checkLenth) + parseFloat(this.companyform.time_start) - parseFloat(this.checktimelength) > this.checktime) {
                           error = error + 1;
                           Message({
                             message: this.$t('label.PFANS5008VIEW_CHECKLENTHLOGDATA'),
@@ -1182,7 +1202,7 @@
                         }
                       } else {
                         this.checkLenth = checklenth;
-                        if (parseFloat(this.checkLenth) + parseFloat(this.companyform.time_start) > this.checkdata) {
+                        if (parseFloat(this.checkLenth) + parseFloat(this.companyform.time_start) > this.checktime) {
                           error = error + 1;
                           Message({
                             message: this.$t('label.PFANS5008VIEW_CHECKLENTHLOGDATA'),
@@ -1258,6 +1278,7 @@
                                     }
 
                                   }
+                                  this.checkgetAttendancelist();
                                   this.DataList = datalist;
                                   this.loading = false;
                                 });
@@ -1341,6 +1362,7 @@
                                     }
 
                                   }
+                                  this.checkgetAttendancelist();
                                   this.DataList = datalist;
                                   this.loading = false;
                                 });
@@ -1434,6 +1456,7 @@
                                 }
 
                               }
+                              this.checkgetAttendancelist();
                               this.DataList = datalist;
                               this.loading = false;
                             });
@@ -1518,6 +1541,7 @@
                                 }
 
                               }
+                              this.checkgetAttendancelist();
                               this.DataList = datalist;
                               this.loading = false;
                             });
@@ -1577,6 +1601,7 @@
         this.divfalse = false;
         this.xsTable = false;
         this.loading = true;
+
         let log_date = moment(this.companyform.log_date).format('YYYY-MM-DD');
         this.$store
           .dispatch('PFANS5008Store/getCheckList', {'createby': this.User_id})
@@ -1584,6 +1609,7 @@
             const data = [];
             let datalist = [];
             for (let k = 0; k < response.length; k++) {
+
               if (response[k].has_project === '01') {
                 let log_date3 = moment(response[k].log_date).format('YYYY-MM-DD');
                 if (log_date3 === log_date) {
