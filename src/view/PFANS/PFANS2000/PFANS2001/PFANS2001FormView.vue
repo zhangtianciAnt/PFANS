@@ -615,10 +615,20 @@
                 }
                 this.buttonClick("update");
             },
-            start() {
-                this.form.status = '2';
-                this.buttonClick("update");
-            },
+          //upd 审批流程 fr
+          // start(val) {
+          //   this.form.status = '2';
+          //   this.buttonClick("update");
+          // },
+          start(val) {
+            if (val.state === '0') {
+              this.form.status = '2';
+            }else if (val.state === '2') {
+              this.form.status = '4';
+            }
+            this.buttonClick('update');
+          },
+          //upd 审批流程 to
             end() {
                 this.form.status = '0';
                 this.buttonClick("update");
