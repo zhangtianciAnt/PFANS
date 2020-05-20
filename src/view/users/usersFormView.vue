@@ -939,81 +939,6 @@
                     ></el-date-picker>
                   </el-form-item>
                 </el-col>
-                <el-col :span="8"></el-col>
-              </el-row>
-
-              <el-row>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_ANNUALYEAR')" prop="annualyear">
-                    <el-input-number
-                      v-model="form.annualyear"
-                      :min="0"
-                      :max="365"
-                      :precision="0"
-                      :step="1"
-                      class="width"
-                      disabled
-                      style="width:20vw"
-                    ></el-input-number>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item
-                    :label="$t('label.PFANSUSERFORMVIEW_ANNUALLASTYEAR')"
-                    prop="annuallastyear"
-                  >
-                    <el-input-number
-                      v-model="form.annuallastyear"
-                      :min="0"
-                      :max="365"
-                      :precision="0"
-                      :step="1"
-                      class="width"
-                      disabled
-                      style="width:20vw"
-                    ></el-input-number>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-
-              <el-row>
-                <el-col :span="8">
-                  <el-form-item
-                    :label="$t('label.PFANSUSERFORMVIEW_WELFAREYEAR')"
-                    prop="welfareyear"
-                  >
-                    <el-input-number
-                      v-model="form.welfareyear"
-                      :min="0"
-                      :max="365"
-                      :precision="0"
-                      :step="1"
-                      class="width"
-                      disabled
-                      style="width:20vw"
-                    ></el-input-number>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item
-                    :label="$t('label.PFANSUSERFORMVIEW_WELFARELASTYEAR')"
-                    prop="welfarelastyear"
-                  >
-                    <el-input-number
-                      v-model="form.welfarelastyear"
-                      :min="0"
-                      :max="365"
-                      :precision="0"
-                      :step="1"
-                      class="width"
-                      disabled
-                      style="width:20vw"
-                    ></el-input-number>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-
-              <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_RESTYEAR')" prop="restyear">
                     <el-input-number
@@ -1028,6 +953,82 @@
                     ></el-input-number>
                   </el-form-item>
                 </el-col>
+                <el-col :span="8"></el-col>
+              </el-row>
+              <!--del_fjl_05/20   &#45;&#45;注释掉无用代码-->
+              <!--              <el-row>-->
+              <!--                <el-col :span="8">-->
+              <!--                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_ANNUALYEAR')" prop="annualyear">-->
+              <!--                    <el-input-number-->
+              <!--                      v-model="form.annualyear"-->
+              <!--                      :min="0"-->
+              <!--                      :max="365"-->
+              <!--                      :precision="0"-->
+              <!--                      :step="1"-->
+              <!--                      class="width"-->
+              <!--                      disabled-->
+              <!--                      style="width:20vw"-->
+              <!--                    ></el-input-number>-->
+              <!--                  </el-form-item>-->
+              <!--                </el-col>-->
+              <!--                <el-col :span="8">-->
+              <!--                  <el-form-item-->
+              <!--                    :label="$t('label.PFANSUSERFORMVIEW_ANNUALLASTYEAR')"-->
+              <!--                    prop="annuallastyear"-->
+              <!--                  >-->
+              <!--                    <el-input-number-->
+              <!--                      v-model="form.annuallastyear"-->
+              <!--                      :min="0"-->
+              <!--                      :max="365"-->
+              <!--                      :precision="0"-->
+              <!--                      :step="1"-->
+              <!--                      class="width"-->
+              <!--                      disabled-->
+              <!--                      style="width:20vw"-->
+              <!--                    ></el-input-number>-->
+              <!--                  </el-form-item>-->
+              <!--                </el-col>-->
+              <!--              </el-row>-->
+
+              <!--              <el-row>-->
+              <!--                <el-col :span="8">-->
+              <!--                  <el-form-item-->
+              <!--                    :label="$t('label.PFANSUSERFORMVIEW_WELFAREYEAR')"-->
+              <!--                    prop="welfareyear"-->
+              <!--                  >-->
+              <!--                    <el-input-number-->
+              <!--                      v-model="form.welfareyear"-->
+              <!--                      :min="0"-->
+              <!--                      :max="365"-->
+              <!--                      :precision="0"-->
+              <!--                      :step="1"-->
+              <!--                      class="width"-->
+              <!--                      disabled-->
+              <!--                      style="width:20vw"-->
+              <!--                    ></el-input-number>-->
+              <!--                  </el-form-item>-->
+              <!--                </el-col>-->
+              <!--                <el-col :span="8">-->
+              <!--                  <el-form-item-->
+              <!--                    :label="$t('label.PFANSUSERFORMVIEW_WELFARELASTYEAR')"-->
+              <!--                    prop="welfarelastyear"-->
+              <!--                  >-->
+              <!--                    <el-input-number-->
+              <!--                      v-model="form.welfarelastyear"-->
+              <!--                      :min="0"-->
+              <!--                      :max="365"-->
+              <!--                      :precision="0"-->
+              <!--                      :step="1"-->
+              <!--                      class="width"-->
+              <!--                      disabled-->
+              <!--                      style="width:20vw"-->
+              <!--                    ></el-input-number>-->
+              <!--                  </el-form-item>-->
+              <!--                </el-col>-->
+              <!--              </el-row>-->
+
+              <!--              <el-row>-->
+              <!--del_fjl_05/20   &#45;&#45;注释掉无用代码-->
                 <el-col :span="8">
                   <el-form-item
                     :label="$t('label.PFANSUSERFORMVIEW_RESTLASTYEAR')"
