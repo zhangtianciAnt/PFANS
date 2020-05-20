@@ -2971,12 +2971,24 @@
                                 },
                             ];
                         }
-                        this.gridData = this.userInfo.customerInfo.userinfo.gridData;
-                        if (this.gridData !== null && this.gridData !== '') {
-                            for (let g = 0; g < this.gridData.length; g++) {
+                        let letgridData = this.userInfo.customerInfo.userinfo.gridData;
+                        this.gridData = [];
+                        if (letgridData !== null && letgridData !== '') {
+                            for (let g = 0; g < letgridData.length; g++) {
                                 //最后一次的变更日期
-                                this.feedingchangeday = this.gridData[g].date;
-                                this.gridData[g].date = moment(this.gridData[g].date).format("YYYY-MM-DD");
+                                if (letgridData[g].date !== null && letgridData[g].date !== '') {
+                                    this.feedingchangeday = letgridData[g].date;
+                                    let gridData = {};
+
+                                    gridData.basic = letgridData[g].basic;
+                                    gridData.duty = letgridData[g].duty;
+                                    if (letgridData[g].date.length != 10) {
+                                        gridData.date = moment(letgridData[g].date).format("YYYY-MM-DD");
+                                    } else {
+                                        gridData.date = letgridData[g].date;
+                                    }
+                                    this.gridData.push(gridData);
+                                }
                             }
                         }
                         this.oldageData = this.userInfo.customerInfo.userinfo.oldageData;
