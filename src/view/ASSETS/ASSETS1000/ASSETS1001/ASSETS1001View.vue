@@ -588,7 +588,7 @@
       export(selectedList){
           let tHeader = "";
           let filterVal = "";
-          let arr1 = ["PA001001"];
+        let arr1 = ["PA001001", "PA001009"];
           let arr2 = ["PA001002","PA001003","PA001004"];
           let arr3 = ["PA001005","PA001006","PA001007","PA001008"];
           if(selectedList.every(list => {
