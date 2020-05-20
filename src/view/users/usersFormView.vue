@@ -1028,25 +1028,26 @@
               <!--              </el-row>-->
 
               <!--              <el-row>-->
+
+              <!--                <el-col :span="8">-->
+              <!--                  <el-form-item-->
+              <!--                    :label="$t('label.PFANSUSERFORMVIEW_RESTLASTYEAR')"-->
+              <!--                    prop="restlastyear"-->
+              <!--                  >-->
+              <!--                    <el-input-number-->
+              <!--                      v-model="form.restlastyear"-->
+              <!--                      :min="0"-->
+              <!--                      :max="365"-->
+              <!--                      :precision="0"-->
+              <!--                      :step="1"-->
+              <!--                      class="width"-->
+              <!--                      disabled-->
+              <!--                      style="width:20vw"-->
+              <!--                    ></el-input-number>-->
+              <!--                  </el-form-item>-->
+              <!--                </el-col>-->
+              <!--              </el-row>-->
               <!--del_fjl_05/20   &#45;&#45;注释掉无用代码-->
-                <el-col :span="8">
-                  <el-form-item
-                    :label="$t('label.PFANSUSERFORMVIEW_RESTLASTYEAR')"
-                    prop="restlastyear"
-                  >
-                    <el-input-number
-                      v-model="form.restlastyear"
-                      :min="0"
-                      :max="365"
-                      :precision="0"
-                      :step="1"
-                      class="width"
-                      disabled
-                      style="width:20vw"
-                    ></el-input-number>
-                  </el-form-item>
-                </el-col>
-              </el-row>
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_SEATNUMBER')" prop="seatnumber">
