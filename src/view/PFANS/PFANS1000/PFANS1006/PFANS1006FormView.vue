@@ -613,7 +613,7 @@
       };
     },
     created() {
-      this.$store.commit('global/SET_WORKFLOWURL', "/PFANS1006FormView");
+      this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1006FormView');
       this.disable = this.$route.params.disabled;
       if (this.disable) {
         this.buttonList = [
@@ -644,18 +644,20 @@
           .then(response => {
             this.form = response;
             this.DataList = [];
-            if (this.form.judgements_name.substring(0, 2) === this.$t('menu.PFANS1001')) {
-              this.DataList.push({
-                judgementid: this.form.judgements,
-                judgnumbers: this.form.judgements_name,
-              });
-              if (this.disable) {
-                this.show10 = false;
-              } else {
-                this.show10 = true;
-              }
-              this.show11 = true;
+            if (this.form.judgements_name != '' && this.form.judgements_name != null && this.form.judgements_name != undefined) {
+              if (this.form.judgements_name.substring(0, 2) === this.$t('menu.PFANS1001')) {
+                this.DataList.push({
+                  judgementid: this.form.judgements,
+                  judgnumbers: this.form.judgements_name,
+                });
+                if (this.disable) {
+                  this.show10 = false;
+                } else {
+                  this.show10 = true;
+                }
+                this.show11 = true;
 
+              }
             }
             this.namelist = this.form.user_name;
             let rst = getOrgInfoByUserId(response.user_id);
