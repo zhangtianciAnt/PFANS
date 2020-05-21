@@ -817,6 +817,45 @@
                       v-if="display"
                       @change="getRank"
                     ></dicselect>
+                    <!--                    add_fjl_05/21  &#45;&#45;添加履历-->
+                    <el-button
+                      type="text"
+                      @click="dialogTableVisible9 = true"
+                    >{{$t('label.PFANSUSERFORMVIEW_PERSONAL')}}
+                    </el-button>
+                    <el-dialog
+                      :title="$t('label.PFANSUSERFORMVIEW_RANK') + $t('label.PFANSUSERFORMVIEW_PERSONAL')"
+                      :visible.sync="dialogTableVisible9"
+                      style="padding-top:5px"
+                    >
+                      <el-row>
+                        <el-col :span="16">
+                          <el-table :data="rankData" stripe>
+                            <el-table-column
+                              property="date"
+                              align="center"
+                              :label="$t('label.PFANSUSERFORMVIEW_TIME')"
+                              width="200"
+                            >
+                              <template slot-scope="scope">
+                                <span style="color:#75a7ef">{{ scope.row.date }}</span>
+                              </template>
+                            </el-table-column>
+                            <el-table-column
+                              property="after"
+                              align="center"
+                              :label="$t('label.PFANSUSERFORMVIEW_RANK')"
+                              width="200"
+                            >
+                              <template slot-scope="scope">
+                                <span style="color:#d16765">{{ scope.row.basic }}</span>
+                              </template>
+                            </el-table-column>
+                          </el-table>
+                        </el-col>
+                      </el-row>
+                    </el-dialog>
+                    <!--                    add_fjl_05/21  &#45;&#45;添加履历-->
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -862,6 +901,45 @@
                       @change="changePost"
                       style="width:20vw"
                     ></dicselect>
+                    <!--                    add_fjl_05/21  &#45;&#45;添加履历-->
+                    <el-button
+                      type="text"
+                      @click="dialogTableVisible10 = true"
+                    >{{$t('label.PFANSUSERFORMVIEW_PERSONAL')}}
+                    </el-button>
+                    <el-dialog
+                      :title="$t('label.PFANSUSERVIEW_POST') + $t('label.PFANSUSERFORMVIEW_PERSONAL')"
+                      :visible.sync="dialogTableVisible10"
+                      style="padding-top:5px"
+                    >
+                      <el-row>
+                        <el-col :span="16">
+                          <el-table :data="postData" stripe>
+                            <el-table-column
+                              property="date"
+                              align="center"
+                              :label="$t('label.PFANSUSERFORMVIEW_TIME')"
+                              width="200"
+                            >
+                              <template slot-scope="scope">
+                                <span style="color:#75a7ef">{{ scope.row.date }}</span>
+                              </template>
+                            </el-table-column>
+                            <el-table-column
+                              property="after"
+                              align="center"
+                              :label="$t('label.PFANSUSERVIEW_POST')"
+                              width="200"
+                            >
+                              <template slot-scope="scope">
+                                <span style="color:#d16765">{{ scope.row.basic }}</span>
+                              </template>
+                            </el-table-column>
+                          </el-table>
+                        </el-col>
+                      </el-row>
+                    </el-dialog>
+                    <!--                    add_fjl_05/21  &#45;&#45;添加履历-->
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -955,7 +1033,7 @@
                 </el-col>
                 <el-col :span="8"></el-col>
               </el-row>
-              <!--del_fjl_05/20   &#45;&#45;注释掉无用代码-->
+              <!--del_fjl_05/20   &#45;&#45;式样变更，功能修改-->
               <!--              <el-row>-->
               <!--                <el-col :span="8">-->
               <!--                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_ANNUALYEAR')" prop="annualyear">-->
@@ -1047,7 +1125,7 @@
               <!--                  </el-form-item>-->
               <!--                </el-col>-->
               <!--              </el-row>-->
-              <!--del_fjl_05/20   &#45;&#45;注释掉无用代码-->
+              <!--del_fjl_05/20   &#45;&#45;式样变更，功能修改-->
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_SEATNUMBER')" prop="seatnumber">
@@ -1084,6 +1162,7 @@
                   </el-form-item>
                 </el-col>
               </el-row>
+              <!--              upd_fjl_05/21  &#45;&#45;添加基数履历-->
               <!-- ADD-LXX -->
               <el-row>
                 <el-col :span="8">
@@ -1099,8 +1178,44 @@
                       :step="100"
                       class="width"
                       style="width:20vw"
-                      @change="sumToOldAge"
                     ></el-input-number>
+                    <el-button
+                      type="text"
+                      @click="dialogTableVisible2 = true"
+                    >{{$t('label.PFANSUSERFORMVIEW_PERSONAL')}}
+                    </el-button>
+                    <el-dialog
+                      :title="$t('label.PFANSUSERFORMVIEW_OLDAGEINSURANCE') + $t('label.PFANSUSERFORMVIEW_PERSONAL')"
+                      :visible.sync="dialogTableVisible2"
+                      style="padding-top:5px"
+                    >
+                      <el-row>
+                        <el-col :span="16">
+                          <el-table :data="oldageData" stripe>
+                            <el-table-column
+                              property="date"
+                              align="center"
+                              :label="$t('label.PFANSUSERFORMVIEW_TIME')"
+                              width="200"
+                            >
+                              <template slot-scope="scope">
+                                <span style="color:#75a7ef">{{ scope.row.date }}</span>
+                              </template>
+                            </el-table-column>
+                            <el-table-column
+                              property="after"
+                              align="center"
+                              :label="$t('label.PFANSUSERFORMVIEW_YANGLAOINSURANCE')"
+                              width="200"
+                            >
+                              <template slot-scope="scope">
+                                <span style="color:#d16765">{{ scope.row.basic }}</span>
+                              </template>
+                            </el-table-column>
+                          </el-table>
+                        </el-col>
+                      </el-row>
+                    </el-dialog>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -1116,8 +1231,44 @@
                       :step="100"
                       class="width"
                       style="width:20vw"
-                      @change="sumToOldAge"
                     ></el-input-number>
+                    <el-button
+                      type="text"
+                      @click="dialogTableVisible6 = true"
+                    >{{$t('label.PFANSUSERFORMVIEW_PERSONAL')}}
+                    </el-button>
+                    <el-dialog
+                      :title="$t('label.PFANSUSERFORMVIEW_GONGSHANGINSURANCE') + $t('label.PFANSUSERFORMVIEW_PERSONAL')"
+                      :visible.sync="dialogTableVisible6"
+                      style="padding-top:5px"
+                    >
+                      <el-row>
+                        <el-col :span="16">
+                          <el-table :data="gsData" stripe>
+                            <el-table-column
+                              property="date"
+                              align="center"
+                              :label="$t('label.PFANSUSERFORMVIEW_TIME')"
+                              width="200"
+                            >
+                              <template slot-scope="scope">
+                                <span style="color:#75a7ef">{{ scope.row.date }}</span>
+                              </template>
+                            </el-table-column>
+                            <el-table-column
+                              property="after"
+                              align="center"
+                              :label="$t('label.PFANSUSERFORMVIEW_GONGSHANGINSURANCE')"
+                              width="200"
+                            >
+                              <template slot-scope="scope">
+                                <span style="color:#d16765">{{ scope.row.basic }}</span>
+                              </template>
+                            </el-table-column>
+                          </el-table>
+                        </el-col>
+                      </el-row>
+                    </el-dialog>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -1133,8 +1284,44 @@
                       :step="100"
                       class="width"
                       style="width:20vw"
-                      @change="sumToOldAge"
                     ></el-input-number>
+                    <el-button
+                      type="text"
+                      @click="dialogTableVisible7 = true"
+                    >{{$t('label.PFANSUSERFORMVIEW_PERSONAL')}}
+                    </el-button>
+                    <el-dialog
+                      :title="$t('label.PFANSUSERFORMVIEW_SHIYEINSURANCE') + $t('label.PFANSUSERFORMVIEW_PERSONAL')"
+                      :visible.sync="dialogTableVisible7"
+                      style="padding-top:5px"
+                    >
+                      <el-row>
+                        <el-col :span="16">
+                          <el-table :data="syeData" stripe>
+                            <el-table-column
+                              property="date"
+                              align="center"
+                              :label="$t('label.PFANSUSERFORMVIEW_TIME')"
+                              width="200"
+                            >
+                              <template slot-scope="scope">
+                                <span style="color:#75a7ef">{{ scope.row.date }}</span>
+                              </template>
+                            </el-table-column>
+                            <el-table-column
+                              property="after"
+                              align="center"
+                              :label="$t('label.PFANSUSERFORMVIEW_SHIYEINSURANCE')"
+                              width="200"
+                            >
+                              <template slot-scope="scope">
+                                <span style="color:#d16765">{{ scope.row.basic }}</span>
+                              </template>
+                            </el-table-column>
+                          </el-table>
+                        </el-col>
+                      </el-row>
+                    </el-dialog>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -1152,8 +1339,44 @@
                       :step="100"
                       class="width"
                       style="width:20vw"
-                      @change="sumToMedical"
                     ></el-input-number>
+                    <el-button
+                      type="text"
+                      @click="dialogTableVisible4 = true"
+                    >{{$t('label.PFANSUSERFORMVIEW_PERSONAL')}}
+                    </el-button>
+                    <el-dialog
+                      :title="$t('label.PFANSUSERFORMVIEW_YILIAOINSURANCE') + $t('label.PFANSUSERFORMVIEW_PERSONAL')"
+                      :visible.sync="dialogTableVisible4"
+                      style="padding-top:5px"
+                    >
+                      <el-row>
+                        <el-col :span="16">
+                          <el-table :data="medicalData" stripe>
+                            <el-table-column
+                              property="date"
+                              align="center"
+                              :label="$t('label.PFANSUSERFORMVIEW_TIME')"
+                              width="200"
+                            >
+                              <template slot-scope="scope">
+                                <span style="color:#75a7ef">{{ scope.row.date }}</span>
+                              </template>
+                            </el-table-column>
+                            <el-table-column
+                              property="after"
+                              align="center"
+                              :label="$t('label.PFANSUSERFORMVIEW_YILIAOINSURANCE')"
+                              width="200"
+                            >
+                              <template slot-scope="scope">
+                                <span style="color:#d16765">{{ scope.row.basic }}</span>
+                              </template>
+                            </el-table-column>
+                          </el-table>
+                        </el-col>
+                      </el-row>
+                    </el-dialog>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -1169,8 +1392,44 @@
                       :step="100"
                       class="width"
                       style="width:20vw"
-                      @change="sumToMedical"
                     ></el-input-number>
+                    <el-button
+                      type="text"
+                      @click="dialogTableVisible8 = true"
+                    >{{$t('label.PFANSUSERFORMVIEW_PERSONAL')}}
+                    </el-button>
+                    <el-dialog
+                      :title="$t('label.PFANSUSERFORMVIEW_SHENGYUINSURANCE') + $t('label.PFANSUSERFORMVIEW_PERSONAL')"
+                      :visible.sync="dialogTableVisible8"
+                      style="padding-top:5px"
+                    >
+                      <el-row>
+                        <el-col :span="16">
+                          <el-table :data="syuData" stripe>
+                            <el-table-column
+                              property="date"
+                              align="center"
+                              :label="$t('label.PFANSUSERFORMVIEW_TIME')"
+                              width="200"
+                            >
+                              <template slot-scope="scope">
+                                <span style="color:#75a7ef">{{ scope.row.date }}</span>
+                              </template>
+                            </el-table-column>
+                            <el-table-column
+                              property="after"
+                              align="center"
+                              :label="$t('label.PFANSUSERFORMVIEW_SHENGYUINSURANCE')"
+                              width="200"
+                            >
+                              <template slot-scope="scope">
+                                <span style="color:#d16765">{{ scope.row.basic }}</span>
+                              </template>
+                            </el-table-column>
+                          </el-table>
+                        </el-col>
+                      </el-row>
+                    </el-dialog>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -1198,7 +1457,7 @@
                       style="padding-top:5px"
                     >
                       <el-row>
-                        <el-col :span="24">
+                        <el-col :span="16">
                           <el-table :data="houseData" stripe>
                             <el-table-column
                               property="date"
@@ -1211,28 +1470,13 @@
                               </template>
                             </el-table-column>
                             <el-table-column
-                              property="before"
-                              align="center"
-                              :label="$t('label.PFANSUSERFORMVIEW_BEFORE')"
-                              width="130"
-                            ></el-table-column>
-                            <el-table-column
                               property="after"
                               align="center"
-                              :label="$t('label.PFANSUSERFORMVIEW_AFTER')"
-                              width="130"
+                              :label="$t('label.PFANSUSERFORMVIEW_HOUSEINSURANCE')"
+                              width="200"
                             >
                               <template slot-scope="scope">
-                                <span style="color:#d16765">{{ scope.row.after }}</span>
-                              </template>
-                            </el-table-column>
-                            <el-table-column
-                              property="remark"
-                              align="center"
-                              :label="$t('label.PFANS1017FORMVIEW_PREPAREFOR')"
-                            >
-                              <template slot-scope="scope">
-                                <el-input style="width:20vw" v-model="scope.row.remark" size="mini"></el-input>
+                                <span style="color:#d16765">{{ scope.row.basic }}</span>
                               </template>
                             </el-table-column>
                           </el-table>
@@ -1243,148 +1487,7 @@
                 </el-col>
               </el-row>
               <!-- ADD-LXX -->
-              <!-- 暂时注释掉-lxx -->
-              <!-- <el-row>
-                <el-col :span="8">
-                  <el-form-item
-                    :label="$t('label.PFANSUSERFORMVIEW_OLDAGEINSURANCE')"
-                    prop="oldageinsurance"
-                  >
-                    <el-input-number
-                      v-model="form.oldageinsurance"
-                      :min="0"
-                      :max="100000"
-                      :precision="2"
-                      :step="100"
-                      class="width"
-                      style="width:20vw"
-                    ></el-input-number>
-                    <el-button
-                      type="text"
-                      @click="dialogTableVisible2 = true"
-                    >{{$t('label.PFANSUSERFORMVIEW_PERSONAL')}}
-                    </el-button>
-                    <el-dialog
-                      :title="$t('label.PFANSUSERFORMVIEW_OLDAGEINSURANCE') + $t('label.PFANSUSERFORMVIEW_PERSONAL')"
-                      :visible.sync="dialogTableVisible2"
-                      style="padding-top:5px"
-                    >
-                      <el-row>
-                        <el-col :span="24">
-                          <el-table :data="oldageData" stripe>
-                            <el-table-column
-                              property="date"
-                              align="center"
-                              :label="$t('label.PFANSUSERFORMVIEW_TIME')"
-                              width="200"
-                            >
-                              <template slot-scope="scope">
-                                <span style="color:#75a7ef">{{ scope.row.date }}</span>
-                              </template>
-                            </el-table-column>
-                            <el-table-column
-                              property="before"
-                              align="center"
-                              :label="$t('label.PFANSUSERFORMVIEW_BEFORE')"
-                              width="130"
-                            ></el-table-column>
-                            <el-table-column
-                              property="after"
-                              align="center"
-                              :label="$t('label.PFANSUSERFORMVIEW_AFTER')"
-                              width="130"
-                            >
-                              <template slot-scope="scope">
-                                <span style="color:#d16765">{{ scope.row.after }}</span>
-                              </template>
-                            </el-table-column>
-                            <el-table-column
-                              property="remark"
-                              align="center"
-                              :label="$t('label.PFANS1017FORMVIEW_PREPAREFOR')"
-                            >
-                              <template slot-scope="scope">
-                                <el-input style="width:20vw" v-model="scope.row.remark" size="mini"></el-input>
-                              </template>
-                            </el-table-column>
-                          </el-table>
-                        </el-col>
-                      </el-row>
-                    </el-dialog>
-                  </el-form-item>
-                </el-col>
-              </el-row> -->
-              <!-- 暂时注释掉-lxx -->
-              <!-- 暂时注释掉-lxx -->
-              <!-- <el-col :span="8">
-                <el-form-item
-                  :label="$t('label.PFANSUSERFORMVIEW_MEDICALINSURANCE')"
-                  prop="medicalinsurance"
-                >
-                  <el-input-number
-                    v-model="form.medicalinsurance"
-                    :min="0"
-                    :max="100000"
-                    :precision="2"
-                    :step="0.1"
-                    class="width"
-                    style="width:20vw"
-                  ></el-input-number>
-                  <el-button
-                    type="text"
-                    @click="dialogTableVisible4 = true"
-                  >{{$t('label.PFANSUSERFORMVIEW_PERSONAL')}}
-                  </el-button>
-                  <el-dialog
-                    :title="$t('label.PFANSUSERFORMVIEW_MEDICALINSURANCE') + $t('label.PFANSUSERFORMVIEW_PERSONAL')"
-                    :visible.sync="dialogTableVisible4"
-                    style="padding-top:5px"
-                  >
-                    <el-row>
-                      <el-col :span="24">
-                        <el-table :data="medicalData" stripe>
-                          <el-table-column
-                            property="date"
-                            align="center"
-                            :label="$t('label.PFANSUSERFORMVIEW_TIME')"
-                            width="200"
-                          >
-                            <template slot-scope="scope">
-                              <span style="color:#75a7ef">{{ scope.row.date }}</span>
-                            </template>
-                          </el-table-column>
-                          <el-table-column
-                            property="before"
-                            align="center"
-                            :label="$t('label.PFANSUSERFORMVIEW_BEFORE')"
-                            width="130"
-                          ></el-table-column>
-                          <el-table-column
-                            property="after"
-                            align="center"
-                            :label="$t('label.PFANSUSERFORMVIEW_AFTER')"
-                            width="130"
-                          >
-                            <template slot-scope="scope">
-                              <span style="color:#d16765">{{ scope.row.after }}</span>
-                            </template>
-                          </el-table-column>
-                          <el-table-column
-                            property="remark"
-                            align="center"
-                            :label="$t('label.PFANS1017FORMVIEW_PREPAREFOR')"
-                          >
-                            <template slot-scope="scope">
-                              <el-input style="width:20vw" v-model="scope.row.remark" size="mini"></el-input>
-                            </template>
-                          </el-table-column>
-                        </el-table>
-                      </el-col>
-                    </el-row>
-                  </el-dialog>
-                </el-form-item>
-              </el-col> -->
-              <!-- 暂时注释掉-lxx -->
+              <!--              upd_fjl_05/21  &#45;&#45;添加基数履历-->
               <el-row>
                 <!--                add_fjl-->
                 <el-col :span="8">
@@ -1815,6 +1918,7 @@
     import org from '@/view/components/org';
     import dicselect from '../components/dicselect';
     import moment from 'moment';
+    import {getDictionaryInfo} from "../../utils/customize";
 
     export default {
         name: 'usersFormView',
@@ -1881,6 +1985,13 @@
                 oldageData: null,
                 otherOrgs: null,
                 houseData: null,
+                // add_fjl
+                syeData: null,
+                syuData: null,
+                rankData: null,
+                postData: null,
+                gsData: null,
+                // add_fjl
                 medicalData: null,
                 gridData: null,
                 dialogTableVisible: false,
@@ -1888,6 +1999,13 @@
                 dialogTableVisible3: false,
                 dialogTableVisible4: false,
                 dialogTableVisible5: false,
+                // add_fjl
+                dialogTableVisible6: false,
+                dialogTableVisible7: false,
+                dialogTableVisible8: false,
+                dialogTableVisible9: false,
+                dialogTableVisible10: false,
+                // add_fjl
                 loading: false,
                 error: '',
                 educationTable: [
@@ -2973,8 +3091,9 @@
                                 },
                             ];
                         }
+                        // add_fjl_05/21   --添加履历的处理
+                        //给料履历
                         let letgridData = this.userInfo.customerInfo.userinfo.gridData;
-                        this.gridData = [];
                         if (letgridData !== null && letgridData !== '') {
                             for (let g = 0; g < letgridData.length; g++) {
                                 //最后一次的变更日期
@@ -2989,14 +3108,157 @@
                                         } else {
                                             gridData.date = letgridData[g].date;
                                         }
+                                    this.gridData = [];
                                         this.gridData.push(gridData);
                                     // }
                                 }
                             }
                         }
-                        this.oldageData = this.userInfo.customerInfo.userinfo.oldageData;
-                        this.houseData = this.userInfo.customerInfo.userinfo.houseData;
-                        this.medicalData = this.userInfo.customerInfo.userinfo.medicalData;
+                        //养老保险基数履历
+                        let oldageData = this.userInfo.customerInfo.userinfo.oldageData;
+                        if (oldageData !== null && oldageData !== '') {
+                            for (let g = 0; g < oldageData.length; g++) {
+                                if (oldageData[g].date !== null && oldageData[g].date !== '' &&
+                                    oldageData[g].basic !== null && oldageData[g].basic !== '') {
+                                    let letoldageData = {};
+                                    letoldageData.basic = oldageData[g].basic;
+                                    if (oldageData[g].date.length != 10) {
+                                        letoldageData.date = moment(oldageData[g].date).format("YYYY-MM-DD");
+                                    } else {
+                                        letoldageData.date = oldageData[g].date;
+                                    }
+                                    this.oldageData = [];
+                                    this.oldageData.push(letoldageData);
+                                }
+                            }
+                        }
+                        //住房保险基数履历
+                        let houseData = this.userInfo.customerInfo.userinfo.houseData;
+                        if (houseData !== null && houseData !== '') {
+                            for (let g = 0; g < houseData.length; g++) {
+                                if (houseData[g].date !== null && houseData[g].date !== '' &&
+                                    houseData[g].basic !== null && houseData[g].basic !== '') {
+                                    let lethouseData = {};
+                                    lethouseData.basic = houseData[g].basic;
+                                    if (houseData[g].date.length != 10) {
+                                        lethouseData.date = moment(houseData[g].date).format("YYYY-MM-DD");
+                                    } else {
+                                        lethouseData.date = houseData[g].date;
+                                    }
+                                    this.houseData = [];
+                                    this.houseData.push(lethouseData);
+                                }
+                            }
+                        }
+                        //医疗保险基数履历
+                        let medicalData = this.userInfo.customerInfo.userinfo.medicalData;
+                        if (medicalData !== null && medicalData !== '') {
+                            for (let g = 0; g < medicalData.length; g++) {
+                                if (medicalData[g].date !== null && medicalData[g].date !== '' &&
+                                    medicalData[g].basic !== null && medicalData[g].basic !== '') {
+                                    let letmedicalData = {};
+                                    letmedicalData.basic = medicalData[g].basic;
+                                    if (medicalData[g].date.length != 10) {
+                                        letmedicalData.date = moment(medicalData[g].date).format("YYYY-MM-DD");
+                                    } else {
+                                        letmedicalData.date = medicalData[g].date;
+                                    }
+                                    this.medicalData = [];
+                                    this.medicalData.push(letmedicalData);
+                                }
+                            }
+                        }
+                        //失业保险基数履历
+                        let syeData = this.userInfo.customerInfo.userinfo.syeData;
+                        if (syeData !== null && syeData !== '') {
+                            for (let g = 0; g < syeData.length; g++) {
+                                if (syeData[g].date !== null && syeData[g].date !== '' &&
+                                    syeData[g].basic !== null && syeData[g].basic !== '') {
+                                    let letsyeData = {};
+                                    letsyeData.basic = syeData[g].basic;
+                                    if (syeData[g].date.length != 10) {
+                                        letsyeData.date = moment(syeData[g].date).format("YYYY-MM-DD");
+                                    } else {
+                                        letsyeData.date = syeData[g].date;
+                                    }
+                                    this.syeData = [];
+                                    this.syeData.push(letsyeData);
+                                }
+                            }
+                        }
+                        //生育保险基数履历
+                        let syuData = this.userInfo.customerInfo.userinfo.syuData;
+                        if (syuData !== null && syuData !== '') {
+                            for (let g = 0; g < syuData.length; g++) {
+                                if (syuData[g].date !== null && syuData[g].date !== '' &&
+                                    syuData[g].basic !== null && syuData[g].basic !== '') {
+                                    let letsyuData = {};
+                                    letsyuData.basic = syuData[g].basic;
+                                    if (syuData[g].date.length != 10) {
+                                        letsyuData.date = moment(syuData[g].date).format("YYYY-MM-DD");
+                                    } else {
+                                        letsyuData.date = syuData[g].date;
+                                    }
+                                    this.syuData = [];
+                                    this.syuData.push(letsyuData);
+                                }
+                            }
+                        }
+                        //工伤保险基数履历
+                        let gsData = this.userInfo.customerInfo.userinfo.gsData;
+                        if (gsData !== null && gsData !== '') {
+                            for (let g = 0; g < gsData.length; g++) {
+                                if (gsData[g].date !== null && gsData[g].date !== '' &&
+                                    gsData[g].basic !== null && gsData[g].basic !== '') {
+                                    let letgsData = {};
+                                    letgsData.basic = gsData[g].basic;
+                                    if (gsData[g].date.length != 10) {
+                                        letgsData.date = moment(gsData[g].date).format("YYYY-MM-DD");
+                                    } else {
+                                        letgsData.date = gsData[g].date;
+                                    }
+                                    this.gsData = [];
+                                    this.gsData.push(letgsData);
+                                }
+                            }
+                        }
+                        //rank
+                        let rankData = this.userInfo.customerInfo.userinfo.rankData;
+                        if (rankData !== null && rankData !== '') {
+                            for (let g = 0; g < rankData.length; g++) {
+                                if (rankData[g].date !== null && rankData[g].date !== '' &&
+                                    rankData[g].basic !== null && rankData[g].basic !== '') {
+                                    let letrankData = {};
+                                    letrankData.basic = getDictionaryInfo(rankData[g].basic).value1;
+                                    if (rankData[g].date.length != 10) {
+                                        letrankData.date = moment(rankData[g].date).format("YYYY-MM-DD");
+                                    } else {
+                                        letrankData.date = rankData[g].date;
+                                    }
+                                    this.rankData = [];
+                                    this.rankData.push(letrankData);
+                                }
+                            }
+                        }
+                        //职务
+                        let postData = this.userInfo.customerInfo.userinfo.postData;
+                        if (postData !== null && postData !== '') {
+                            for (let g = 0; g < postData.length; g++) {
+                                if (postData[g].date !== null && postData[g].date !== '' &&
+                                    postData[g].basic !== null && postData[g].basic !== '') {
+                                    let letpostData = {};
+                                    letpostData.basic = getDictionaryInfo(postData[g].basic).value1;
+                                    if (postData[g].date.length != 10) {
+                                        letpostData.date = moment(postData[g].date).format("YYYY-MM-DD");
+                                    } else {
+                                        letpostData.date = postData[g].date;
+                                    }
+                                    this.postData = [];
+                                    this.postData.push(letpostData);
+                                }
+                            }
+                        }
+                        // add_fjl_05/21   --添加履历的处理
                         this.changeRank();
                         this.loading = false;
                     })
@@ -3023,6 +3285,7 @@
                 }
             },
             Personal() {
+                //给料
                 if (this.gridData === null) {
                     this.gridData = [
                         {
@@ -3037,7 +3300,7 @@
                 } else if (
                     this.gridData.length > 0 &&
                     this.form.salary.toString() !==
-                    this.gridData[this.gridData.length - 1].after
+                    this.gridData[this.gridData.length - 1].basic
                 ) {
                     // add_fjl_05/19  --添加一天一条履历的判断
                     let addflg = 0;
@@ -3062,77 +3325,260 @@
                     }
                     // add_fjl_05/19  --添加一天一条履历的判断
                 }
+                //医疗
                 if (this.medicalData === null) {
                     this.medicalData = [
                         {
                             date: new moment().format('YYYY-MM-DD'),
-                            before: '',
-                            after: this.form.medicalinsurance,
-                            remark: '',
+                            basic: this.form.yiliaoinsurance,
                         },
                     ];
-                } else if (this.form.medicalinsurance != null) {
+                } else if (this.form.yiliaoinsurance != null) {
                     if (this.medicalData.length > 0 &&
-                        this.form.medicalinsurance.toString() !==
-                        this.medicalData[this.medicalData.length - 1].after) {
-                        this.medicalData.push({
-                            date: new moment().format('YYYY-MM-DD'),
-                            before: this.medicalData[this.medicalData.length - 1].after,
-                            after: this.form.medicalinsurance,
-                            remark: '',
-                        });
+                        this.form.yiliaoinsurance.toString() !==
+                        this.medicalData[this.medicalData.length - 1].basic) {
+                        // add_fjl_05/19  --添加一天一条履历的判断
+                        let addflg = 0;
+                        for (let a = 0; a < this.medicalData.length; a++) {
+                            if (this.medicalData[a].date === moment(new Date()).format("YYYY-MM-DD")) {
+                                addflg = 1;
+                                this.medicalData[a].basic = this.form.yiliaoinsurance;
+                            }
+                        }
+                        if (addflg === 0) {
+                            this.medicalData.push({
+                                date: new moment().format('YYYY-MM-DD'),
+                                basic: this.form.yiliaoinsurance
+                            });
+                        }
+                        // add_fjl_05/19  --添加一天一条履历的判断
                     }
                 }
-
+                //住房
                 if (this.houseData === null) {
                     this.houseData = [
                         {
                             date: new moment().format('YYYY-MM-DD'),
-                            before: '',
-                            after: this.form.houseinsurance,
-                            remark: '',
+                            basic: this.form.houseinsurance,
                         },
                     ];
                 } else if (this.form.houseinsurance != null) {
-                    if (this.houseData.length > 0 &&
-                        this.form.houseinsurance.toString() !==
-                        this.houseData[this.houseData.length - 1].after) {
-                        this.houseData.push({
-                            date: new moment().format('YYYY-MM-DD'),
-                            before: this.houseData[this.houseData.length - 1].after,
-                            after: this.form.houseinsurance,
-                            remark: '',
-                        });
+                    if (this.houseData.length > 0 && this.form.houseinsurance.toString() !==
+                        this.houseData[this.houseData.length - 1].basic) {
+                        // add_fjl_05/19  --添加一天一条履历的判断
+                        let addflg = 0;
+                        for (let a = 0; a < this.houseData.length; a++) {
+                            if (this.houseData[a].date === moment(new Date()).format("YYYY-MM-DD")) {
+                                addflg = 1;
+                                this.houseData[a].basic = this.form.houseinsurance;
+                            }
+                        }
+                        if (addflg === 0) {
+                            this.houseData.push({
+                                date: new moment().format('YYYY-MM-DD'),
+                                basic: this.form.houseinsurance,
+                            });
+                        }
+                        // add_fjl_05/19  --添加一天一条履历的判断
                     }
                 }
-
+                //养老
                 if (this.oldageData === null) {
                     this.oldageData = [
                         {
                             date: new moment().format('YYYY-MM-DD'),
-                            before: '',
-                            after: this.form.oldageinsurance,
-                            remark: '',
+                            basic: this.form.yanglaoinsurance,
                         },
                     ];
-                } else if (this.form.oldageinsurance != null
+                } else if (this.form.yanglaoinsurance != null
                 ) {
                     if (this.oldageData.length > 0 &&
-                        this.form.oldageinsurance.toString() !==
-                        this.oldageData[this.oldageData.length - 1].after) {
-                        this.oldageData.push({
+                        this.form.yanglaoinsurance.toString() !==
+                        this.oldageData[this.oldageData.length - 1].basic) {
+                        // add_fjl_05/19  --添加一天一条履历的判断
+                        let addflg = 0;
+                        for (let a = 0; a < this.oldageData.length; a++) {
+                            if (this.oldageData[a].date === moment(new Date()).format("YYYY-MM-DD")) {
+                                addflg = 1;
+                                this.oldageData[a].basic = this.form.yanglaoinsurance;
+                            }
+                        }
+                        if (addflg === 0) {
+                            this.oldageData.push({
+                                date: new moment().format('YYYY-MM-DD'),
+                                basic: this.form.yanglaoinsurance,
+                            });
+                        }
+                        // add_fjl_05/19  --添加一天一条履历的判断
+                    }
+                }
+                //工伤
+                if (this.gsData === null) {
+                    this.gsData = [
+                        {
                             date: new moment().format('YYYY-MM-DD'),
-                            before: this.oldageData[this.oldageData.length - 1].after,
-                            after: this.form.oldageinsurance,
-                            remark: '',
-                        });
+                            basic: this.form.gongshanginsurance,
+                        },
+                    ];
+                } else if (this.form.gongshanginsurance != null
+                ) {
+                    if (this.gsData.length > 0 &&
+                        this.form.gongshanginsurance.toString() !==
+                        this.gsData[this.gsData.length - 1].basic) {
+                        // add_fjl_05/19  --添加一天一条履历的判断
+                        let addflg = 0;
+                        for (let a = 0; a < this.gsData.length; a++) {
+                            if (this.gsData[a].date === moment(new Date()).format("YYYY-MM-DD")) {
+                                addflg = 1;
+                                this.gsData[a].basic = this.form.gongshanginsurance;
+                            }
+                        }
+                        if (addflg === 0) {
+                            this.gsData.push({
+                                date: new moment().format('YYYY-MM-DD'),
+                                basic: this.form.gongshanginsurance,
+                            });
+                        }
+                        // add_fjl_05/19  --添加一天一条履历的判断
+                    }
+                }
+                //失业
+                if (this.syeData === null) {
+                    this.syeData = [
+                        {
+                            date: new moment().format('YYYY-MM-DD'),
+                            basic: this.form.shiyeinsurance,
+                        },
+                    ];
+                } else if (this.form.shiyeinsurance != null
+                ) {
+                    if (this.syeData.length > 0 &&
+                        this.form.shiyeinsurance.toString() !==
+                        this.syeData[this.syeData.length - 1].basic) {
+                        // add_fjl_05/19  --添加一天一条履历的判断
+                        let addflg = 0;
+                        for (let a = 0; a < this.syeData.length; a++) {
+                            if (this.syeData[a].date === moment(new Date()).format("YYYY-MM-DD")) {
+                                addflg = 1;
+                                this.syeData[a].basic = this.form.shiyeinsurance;
+                            }
+                        }
+                        if (addflg === 0) {
+                            this.syeData.push({
+                                date: new moment().format('YYYY-MM-DD'),
+                                basic: this.form.shiyeinsurance,
+                            });
+                        }
+                        // add_fjl_05/19  --添加一天一条履历的判断
+                    }
+                }
+                //生育
+                if (this.syuData === null) {
+                    this.syuData = [
+                        {
+                            date: new moment().format('YYYY-MM-DD'),
+                            basic: this.form.shengyuinsurance,
+                        },
+                    ];
+                } else if (this.form.shengyuinsurance != null
+                ) {
+                    if (this.syuData.length > 0 &&
+                        this.form.shengyuinsurance.toString() !==
+                        this.syuData[this.syuData.length - 1].basic) {
+                        // add_fjl_05/19  --添加一天一条履历的判断
+                        let addflg = 0;
+                        for (let a = 0; a < this.syuData.length; a++) {
+                            if (this.syuData[a].date === moment(new Date()).format("YYYY-MM-DD")) {
+                                addflg = 1;
+                                this.syuData[a].basic = this.form.shengyuinsurance;
+                            }
+                        }
+                        if (addflg === 0) {
+                            this.syuData.push({
+                                date: new moment().format('YYYY-MM-DD'),
+                                basic: this.form.shengyuinsurance,
+                            });
+                        }
+                        // add_fjl_05/19  --添加一天一条履历的判断
+                    }
+                }
+                //rank
+                if (this.rankData === null) {
+                    this.rankData = [
+                        {
+                            date: new moment().format('YYYY-MM-DD'),
+                            basic: this.form.rank,
+                        },
+                    ];
+                } else if (this.form.rank != null
+                ) {
+                    if (this.rankData.length > 0 &&
+                        this.form.rank.toString() !==
+                        this.rankData[this.rankData.length - 1].basic) {
+                        // add_fjl_05/19  --添加一天一条履历的判断
+                        let addflg = 0;
+                        for (let a = 0; a < this.rankData.length; a++) {
+                            if (this.rankData[a].date === moment(new Date()).format("YYYY-MM-DD")) {
+                                addflg = 1;
+                                this.rankData[a].basic = this.form.rank;
+                            }
+                        }
+                        if (addflg === 0) {
+                            this.rankData.push({
+                                date: new moment().format('YYYY-MM-DD'),
+                                basic: this.form.rank,
+                            });
+                        }
+                        // add_fjl_05/19  --添加一天一条履历的判断
+                    }
+                }
+                //职务
+                if (this.postData === null) {
+                    this.postData = [
+                        {
+                            date: new moment().format('YYYY-MM-DD'),
+                            basic: this.form.post,
+                        },
+                    ];
+                } else if (this.form.post != null
+                ) {
+                    if (this.postData.length > 0 &&
+                        this.form.post.toString() !==
+                        this.postData[this.postData.length - 1].basic) {
+                        // add_fjl_05/19  --添加一天一条履历的判断
+                        let addflg = 0;
+                        for (let a = 0; a < this.postData.length; a++) {
+                            if (this.postData[a].date === moment(new Date()).format("YYYY-MM-DD")) {
+                                addflg = 1;
+                                this.postData[a].basic = this.form.post;
+                            }
+                        }
+                        if (addflg === 0) {
+                            this.postData.push({
+                                date: new moment().format('YYYY-MM-DD'),
+                                basic: this.form.post,
+                            });
+                        }
+                        // add_fjl_05/19  --添加一天一条履历的判断
                     }
                 }
                 this.userInfo.customerInfo.userinfo.gridData = this.gridData;
                 this.userInfo.customerInfo.userinfo.medicalData = this.medicalData;
                 this.userInfo.customerInfo.userinfo.houseData = this.houseData;
                 this.userInfo.customerInfo.userinfo.oldageData = this.oldageData;
+                this.userInfo.customerInfo.userinfo.syuData = this.syuData;
+                this.userInfo.customerInfo.userinfo.syeData = this.syeData;
+                this.userInfo.customerInfo.userinfo.gsData = this.gsData;
+                this.userInfo.customerInfo.userinfo.rankData = this.rankData;
+                this.userInfo.customerInfo.userinfo.postData = this.postData;
             },
+            // checkAfterDate(va,vv){
+            //     if(va !== vv[vv.length - 1].basic){
+            //         return true;
+            //     } else {
+            //         return false;
+            //     }
+            // },
             userSave(btnkey) {
                 this.checkRequire();
                 this.$refs['form'].validate(valid => {
