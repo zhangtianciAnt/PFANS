@@ -3049,7 +3049,7 @@
                 type: 'error',
                 duration: 5 * 1000,
               });
-            } else if (error3 != 0 && this.form.toolstype !== '0') {
+            } else if (error3 != 0 && this.form.toolstype !== '0' && this.form.projecttype !== 'PP001006') {
               this.activeName = 'fifth';
               this.loading = false;
               Message({
