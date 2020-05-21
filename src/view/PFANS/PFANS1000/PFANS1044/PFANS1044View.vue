@@ -4,6 +4,7 @@
                      :showSelection="showSelection"
                      :title="title" @buttonClick="buttonClick" @dbrowClick="dbrowClick" ref="roletable"
                      v-loading="loading" v-show="this.showTable===1">
+
       <el-form label-position="top" label-width="8vw" slot="search">
         <el-row>
           <el-col :span="8">
