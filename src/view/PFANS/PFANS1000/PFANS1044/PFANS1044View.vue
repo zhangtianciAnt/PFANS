@@ -1,56 +1,112 @@
 <template>
-  <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="rowid"
-                   :showSelection="showSelection"
-                   :title="title" @buttonClick="buttonClick" @dbrowClick="dbrowClick" ref="roletable"
-                   v-loading="loading">
-    <el-form label-position="top" label-width="8vw" slot="search">
-      <el-row>
-        <el-col :span="8">
-          <el-form-item :label="$t('label.PFANS1044VIEW_CONTRACT')">
-            <el-select @change="changed" v-model="contractType">
-              <el-option :label="$t('menu.COMMISSIONCONTRACT')" value="0"></el-option>
-              <el-option :label="$t('menu.BROKERAGECONTRACT')" value="1"></el-option>
-              <el-option :label="$t('menu.OTHERCONTRACT')" value="2"></el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
-        <el-col :span="8">
-          <el-form-item :label="$t('label.PFANS1024VIEW_DELIVERYDATE')">
-            <el-date-picker
-              @change="changed" type="month"
-              v-model="month">
-            </el-date-picker>
-          </el-form-item>
-        </el-col>
-        <el-col :span="8">
-          <el-form-item :label="$t('label.PFANS2016VIEW_OCCURRENCEDATE')">
-            <el-date-picker
-              @change="changed" type="month"
-              v-model="month3">
-            </el-date-picker>
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="8">
-          <el-form-item :label="$t('label.PFANS2016VIEW_FINISHEDDATE')">
-            <el-date-picker
-              @change="changed" type="month"
-              v-model="month4">
-            </el-date-picker>
-          </el-form-item>
-        </el-col>
-        <el-col :span="8">
-          <el-form-item :label="$t('label.PFANS1024VIEW_CLAIMDATE')">
-            <el-date-picker
-              @change="changed" type="month"
-              v-model="month2">
-            </el-date-picker>
-          </el-form-item>
-        </el-col>
-      </el-row>
-    </el-form>
-  </EasyNormalTable>
+  <div>
+    <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="rowid"
+                     :showSelection="showSelection"
+                     :title="title" @buttonClick="buttonClick" @dbrowClick="dbrowClick" ref="roletable"
+                     v-loading="loading" v-show="this.showTable===1">
+      <el-form label-position="top" label-width="8vw" slot="search">
+        <el-row>
+          <el-col :span="8">
+            <el-form-item :label="$t('label.PFANS1044VIEW_CONTRACT')">
+              <el-select @change="changed" v-model="contractType">
+                <el-option :label="$t('menu.COMMISSIONCONTRACT')" value="0"></el-option>
+                <el-option :label="$t('menu.BROKERAGECONTRACT')" value="1"></el-option>
+                <el-option :label="$t('menu.OTHERCONTRACT')" value="2"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item :label="$t('label.PFANS1024VIEW_DELIVERYDATE')">
+              <el-date-picker
+                @change="changed" type="month"
+                v-model="month">
+              </el-date-picker>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item :label="$t('label.PFANS2016VIEW_OCCURRENCEDATE')">
+              <el-date-picker
+                @change="changed" type="month"
+                v-model="month3">
+              </el-date-picker>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="8">
+            <el-form-item :label="$t('label.PFANS2016VIEW_FINISHEDDATE')">
+              <el-date-picker
+                @change="changed" type="month"
+                v-model="month4">
+              </el-date-picker>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item :label="$t('label.PFANS1024VIEW_CLAIMDATE')">
+              <el-date-picker
+                @change="changed" type="month"
+                v-model="month2">
+              </el-date-picker>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
+    </EasyNormalTable>
+<!--    add-ws-No.29-合同检索一览表中追加纳品日期-->
+    <EasyNormalTable :buttonList="buttonList" :columns="columns2" :data="data" :rowid="rowid"
+                     :showSelection="showSelection"
+                     :title="title" @buttonClick="buttonClick" @dbrowClick="dbrowClick" ref="roletable"
+                     v-loading="loading" v-show="this.showTable===2">
+      <el-form label-position="top" label-width="8vw" slot="search">
+        <el-row>
+          <el-col :span="8">
+            <el-form-item :label="$t('label.PFANS1044VIEW_CONTRACT')">
+              <el-select @change="changed" v-model="contractType">
+                <el-option :label="$t('menu.COMMISSIONCONTRACT')" value="0"></el-option>
+                <el-option :label="$t('menu.BROKERAGECONTRACT')" value="1"></el-option>
+                <el-option :label="$t('menu.OTHERCONTRACT')" value="2"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item :label="$t('label.PFANS1024VIEW_DELIVERYDATE')">
+              <el-date-picker
+                @change="changed" type="month"
+                v-model="month">
+              </el-date-picker>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item :label="$t('label.PFANS2016VIEW_OCCURRENCEDATE')">
+              <el-date-picker
+                @change="changed" type="month"
+                v-model="month3">
+              </el-date-picker>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="8">
+            <el-form-item :label="$t('label.PFANS2016VIEW_FINISHEDDATE')">
+              <el-date-picker
+                @change="changed" type="month"
+                v-model="month4">
+              </el-date-picker>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item :label="$t('label.PFANS1024VIEW_CLAIMDATE')">
+              <el-date-picker
+                @change="changed" type="month"
+                v-model="month2">
+              </el-date-picker>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
+    </EasyNormalTable>
+<!--    add-ws-No.29-合同检索一览表中追加纳品日期-->
+  </div>
 </template>
 
 <script>
@@ -67,6 +123,7 @@
     },
     data() {
       return {
+        showTable: '',
         selectedlist: [],
         showSelection: true,
         buttonList: [
@@ -87,6 +144,115 @@
         month3: '',
         alldata: [],
         alldata2: [],
+        // add-ws-No.29-合同检索一览表中追加纳品日期
+        columns2: [
+          {
+            code: 'username',
+            label: 'label.applicant',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'deployment',
+            label: 'label.group',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'contractnumber',
+            label: 'label.PFANS1024VIEW_CONTRACTNUMBER',
+            width: 130,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'contracttype',
+            label: 'label.PFANS1024VIEW_CONTRACTTYPE',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'applicationdate',
+            label: 'label.PFANS1024VIEW_APPLICATIONDATE',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'price',
+            label: 'label.PFANS1024VIEW_CLAIMAMOUNT',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'start',
+            label: 'label.PFANS2016VIEW_OCCURRENCEDATE',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'end',
+            label: 'label.PFANS2016VIEW_FINISHEDDATE',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'custochinese',
+            label: 'label.PFANS1010FORMVIEW_COMPANYNAME',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'decide',
+            label: 'label.PFANS1044VIEW_ONE',
+            width: 130,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'decisionnumber',
+            label: 'label.PFANS1044VIEW_TWO',
+            width: 130,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'delivery',
+            label: 'label.PFANS1044VIEW_THREE',
+            width: 130,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'deliverycondition',
+            label: 'label.PFANS1044VIEW_FORE',
+            width: 130,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'deliverydate',
+            label: 'label.PFANS1044VIEW_FIVE',
+            width: 130,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'deliveryfinshdate',
+            label: 'label.PFANS1044VIEW_SIX',
+            width: 130,
+            fix: false,
+            filter: true,
+          },
+        ],
+        //add-ws-No.29-合同检索一览表中追加纳品日期
         columns: [
           {
             code: 'username',
@@ -105,7 +271,7 @@
           {
             code: 'contractnumber',
             label: 'label.PFANS1024VIEW_CONTRACTNUMBER',
-            width: 120,
+            width: 130,
             fix: false,
             filter: true,
           },
@@ -186,7 +352,6 @@
         this.$store
           .dispatch('PFANS1026Store/get', {})
           .then(response => {
-            //debugger;
             let letcontractnumber = [];
             let tabledata = response.contractapplication;
             for (let i = 0; i < tabledata.length; i++) {
@@ -196,8 +361,7 @@
                 tabledata[i].username = getUserInfo(tabledata[i].user_id).userinfo.customername;
               }
               // add ccm
-              if (tabledata[i].loadingjudge)
-              {
+              if (tabledata[i].loadingjudge) {
                 let user = getUserInfo(tabledata[i].loadingjudge);
                 if (user) {
                   tabledata[i].loadingjudge = getUserInfo(tabledata[i].loadingjudge).userinfo.customername;
@@ -249,15 +413,13 @@
             }
             // this.alldata = this.data;
             for (let i = 0; i < response.contractnumbercount.length; i++) {
-              if (response.contractnumbercount[i].loadingjudge)
-              {
+              if (response.contractnumbercount[i].loadingjudge) {
                 let user = getUserInfo(response.contractnumbercount[i].loadingjudge);
                 if (user) {
                   response.contractnumbercount[i].loadingjudge = getUserInfo(response.contractnumbercount[i].loadingjudge).userinfo.customername;
                 }
               }
             }
-
             this.alldata2 = response.contractnumbercount;
             this.contractnumbercount = (letcontractnumber.length + 1);
             this.changed();
@@ -788,7 +950,7 @@
                                           outnumber: '',
                                         });
                                       }
-                                    }else{
+                                    } else {
                                       number = number + 1;
                                       numbers = number + '0';
                                       let invoicedat = moment(new Date()).format('YY');
@@ -1185,7 +1347,7 @@
                                     outnumber: '',
                                   });
                                 }
-                              }else{
+                              } else {
                                 let invoicedat = moment(new Date()).format('YY');
                                 let Invoicedat = moment(new Date()).format('YYYY');
                                 let invoiceDate = moment(new Date()).format('MM');
@@ -1437,7 +1599,6 @@
           }
           return item;
         }, []);
-
         let rst = [];
         for (let al2 of filtersrst) {
           let a = this.alldata.filter(item => item.type == this.contractType && al2.contractnumber == item.contractnumber);
@@ -1448,7 +1609,6 @@
           if (this.month4) {
             a = a.filter(item => moment(item.end).format('YYYY-MM') == moment(this.month4).format('YYYY-MM'));
           }
-
           let prices = cons.filter(item => al2.contractnumber == item.contractnumber);
           let price = 0;
           for (let pi of prices) {
@@ -1459,7 +1619,51 @@
             rst.push(a[0]);
           }
         }
-        this.data = rst;
+        //add-ws-No.29-合同检索一览表中追加纳品日期
+        if (rst[0].type === '0') {
+          let listnumber = [];
+          for (let list of rst) {
+            listnumber = this.alldata2.filter(item => item.contractnumber == list.contractnumber);
+            for (let d = 0; d < listnumber.length; d++) {
+              if (listnumber[d].claimtype === this.$t('label.PFANS1026FORMVIEW_D') + 1 + this.$t('label.PFANS1026FORMVIEW_H')) {
+                if (listnumber[d].deliverydate != null) {
+                  list.decide = moment(listnumber[d].deliverydate).format('YYYY-MM-DD');
+                }
+              }
+              if (listnumber[d].claimtype === this.$t('label.PFANS1026FORMVIEW_D') + 2 + this.$t('label.PFANS1026FORMVIEW_H')) {
+                if (listnumber[d].deliverydate != null) {
+                  list.decisionnumber = moment(listnumber[d].deliverydate).format('YYYY-MM-DD');
+                }
+              }
+              if (listnumber[d].claimtype === this.$t('label.PFANS1026FORMVIEW_D') + 3 + this.$t('label.PFANS1026FORMVIEW_H')) {
+                if (listnumber[d].deliverydate != null) {
+                  list.delivery = moment(listnumber[d].deliverydate).format('YYYY-MM-DD');
+                }
+              }
+              if (listnumber[d].claimtype === this.$t('label.PFANS1026FORMVIEW_D') + 4 + this.$t('label.PFANS1026FORMVIEW_H')) {
+                if (listnumber[d].deliverydate != null) {
+                  list.deliverycondition = moment(listnumber[d].deliverydate).format('YYYY-MM-DD');
+                }
+              }
+              if (listnumber[d].claimtype === this.$t('label.PFANS1026FORMVIEW_D') + 5 + this.$t('label.PFANS1026FORMVIEW_H')) {
+                if (listnumber[d].deliverydate != null) {
+                  list.deliverydate = moment(listnumber[d].deliverydate).format('YYYY-MM-DD');
+                }
+              }
+              if (listnumber[d].claimtype === this.$t('label.PFANS1026FORMVIEW_D') + 6 + this.$t('label.PFANS1026FORMVIEW_H')) {
+                if (listnumber[d].deliverydate != null) {
+                  list.deliveryfinshdate = moment(listnumber[d].deliverydate).format('YYYY-MM-DD');
+                }
+              }
+            }
+          }
+          this.data = rst;
+          this.showTable = 2;
+        } else {
+          this.data = rst;
+          this.showTable = 1;
+        }
+        //add-ws-No.29-合同检索一览表中追加纳品日期
       },
       abs(val) {
         var str = (val / 100).toFixed(2) + '';
