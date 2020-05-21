@@ -2,7 +2,7 @@
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" v-loading="loading" :title="title" @buttonClick="buttonClick"
                          @end="end" @start="start" @workflowState="workflowState" ref="container"
-                         @disabled="setdisabled">
+                         @disabled="setdisabled" :enableSave="enableSave">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="ruleForm"
                  style="padding: 3vw">
@@ -178,6 +178,7 @@
           userid: '',
 
         },
+        enableSave: false,
         code: 'PC002',
         multiple: false,
         code2: 'PC001',
@@ -242,14 +243,18 @@
     },
     mounted() {
       if (this.$route.params._id) {
+        debugger
         this.loading = true;
         this.$store
           .dispatch('PFANS4001Store/getPfans4001One', {'sealid': this.$route.params._id})
           .then(response => {
             this.form = response;
             // add-ws-印章管理下拉多选
-            let letstaff = this.form.sealtype.split(',');
-            this.form.sealtype = letstaff;
+            if (this.form.sealtype != '' && this.form.sealtype != null && this.form.sealtype != undefined) {
+              let letstaff = this.form.sealtype.split(',');
+              this.form.sealtype = letstaff;
+            }
+
             // add-ws-印章管理下拉多选
             let rst = getOrgInfoByUserId(response.userid);
             if (rst) {
@@ -347,9 +352,13 @@
         }
         this.buttonClick('update');
       },
-      start() {
-        this.form.status = '2';
-        this.buttonClick('update');
+      start(val) {
+        if (val.state === '0') {
+          this.form.status = '2';
+        } else if (val.state === '2') {
+          this.form.status = '4';
+        }
+        this.buttonClick("update");
       },
       end() {
         this.form.status = '0';
@@ -359,14 +368,14 @@
         this.$refs['ruleForm'].validate(valid => {
           if (valid) {
             // add-ws-印章管理下拉多选
-            let checktableD = '';
-            if (this.form.sealtype != '') {
+            if (this.form.sealtype != '' && this.form.sealtype != null && this.form.sealtype != undefined) {
               let checktlist = this.form.sealtype.splice(',');
+              let checktableD = '';
               for (var m = 0; m < checktlist.length; m++) {
                 checktableD = checktableD + checktlist[m] + ',';
               }
+              this.form.sealtype = checktableD.substring(0, checktableD.length - 1);
             }
-            this.form.sealtype = checktableD.substring(0, checktableD.length - 1);
             // add-ws-印章管理下拉多选
             if (this.$route.params._id) {
               this.loading = true;
@@ -383,9 +392,9 @@
                       type: 'success',
                       duration: 5 * 1000,
                     });
-                    if (this.$store.getters.historyUrl) {
-                      this.$router.push(this.$store.getters.historyUrl);
-                    }
+                  }
+                  if (this.$store.getters.historyUrl) {
+                    this.$router.push(this.$store.getters.historyUrl);
                   }
                 })
                 .catch(error => {
