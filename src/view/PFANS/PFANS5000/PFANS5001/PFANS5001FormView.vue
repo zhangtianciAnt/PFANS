@@ -2153,6 +2153,7 @@
         });
         // add-ws-No.50-内采时，增加委托元项目
       },
+
       getcontract() {
 
         this.contractapplication = {};
