@@ -80,6 +80,21 @@
                         ></el-input>
                       </el-form-item>
                     </el-col>
+<!--                    add-ws-No.50-内采时，增加委托元项目-->
+                    <el-col :span="8">
+                      <el-form-item :label="$t('label.PFANS5001FORMVIEW_NEICE')">
+                        <span style="margin-right: 1vw ">{{$t('label.no')}}</span>
+                        <el-switch
+                          :disabled="!disable"
+                          active-value="1"
+                          inactive-value="0"
+                          v-model="form.neice"
+                        >
+                        </el-switch>
+                        <span style="margin-left: 1vw ">{{$t('label.yes')}}</span>
+                      </el-form-item>
+                    </el-col>
+<!--                    add-ws-No.50-内采时，增加委托元项目-->
                   </el-row>
                   <el-row>
                     <el-col :span="8">
@@ -1602,6 +1617,7 @@
         },
         baseInfo: {},
         form: {
+          neice: '',
           centername: '',
           groupname: '',
           teamname: '',

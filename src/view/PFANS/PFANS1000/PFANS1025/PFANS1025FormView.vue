@@ -944,12 +944,22 @@
         this.buttonClick2();
         //add-ws-4/28-附件为空的情况下发起审批，提示填入必须项后程序没有终止修改
       },
-      start() {
-        this.form.status = '2';
+      //upd 审批流程 fr
+      // start(val) {
+      //   this.form.status = '2';
+      //   this.buttonClick("update");
+      // },
+      start(val) {
+        if (val.state === '0') {
+          this.form.status = '2';
+        }else if (val.state === '2') {
+          this.form.status = '4';
+        }
         //add-ws-4/28-附件为空的情况下发起审批，提示填入必须项后程序没有终止修改
         this.buttonClick2();
         //add-ws-4/28-附件为空的情况下发起审批，提示填入必须项后程序没有终止修改
       },
+      //upd 审批流程 to
       end() {
         this.form.status = '0';
         //add-ws-4/28-附件为空的情况下发起审批，提示填入必须项后程序没有终止修改

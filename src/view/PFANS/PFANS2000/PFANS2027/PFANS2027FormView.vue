@@ -1243,10 +1243,20 @@
           }
         }
       },
-      start() {
-        this.data.status = "2";
+      //upd 审批流程 fr
+      // start(val) {
+      //   this.data.status = '2';
+      //   this.buttonClick("update");
+      // },
+      start(val) {
+        if (val.state === '0') {
+          this.data.status = '2';
+        }else if (val.state === '2') {
+          this.data.status = '4';
+        }
         this.buttonClick();
       },
+      //upd 审批流程 to
       end() {
         this.data.status = "4";
         this.buttonClick();
