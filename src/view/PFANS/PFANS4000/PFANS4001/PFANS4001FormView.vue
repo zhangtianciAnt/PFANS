@@ -249,7 +249,6 @@
           .dispatch('PFANS4001Store/getPfans4001One', {'sealid': this.$route.params._id})
           .then(response => {
             this.form = response;
-            debugger
             // add-ws-印章管理下拉多选
             if (this.form.sealtype != '' && this.form.sealtype != null && this.form.sealtype != undefined) {
               let letstaff = this.form.sealtype.split(',');
