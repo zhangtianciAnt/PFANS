@@ -3108,7 +3108,7 @@
                       //最后一次的变更日期
                       if (letgridData[g].date !== null && letgridData[g].date !== '') {
                           // if (letgridData[g].basic !== "0" && letgridData[g].duty !== "0") {
-                          this.feedingchangeday = letgridData[g].date;
+                          this.feedingchangeday = letgridData[0].date;
                           let gridData = {};
                           gridData.basic = letgridData[g].basic;
                           gridData.duty = letgridData[g].duty;
