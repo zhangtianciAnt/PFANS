@@ -3040,7 +3040,7 @@
                 duration: 5 * 1000,
               });
               this.loading = false;
-            } else if (error != 0 && this.form.toolstype !== '1') {
+            } else if (error != 0 && this.form.toolstype !== '1' && this.form.projecttype !== 'PP001006') {
               this.activeName = 'fifth';
               this.loading = false;
               Message({
