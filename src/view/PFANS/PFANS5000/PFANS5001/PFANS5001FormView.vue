@@ -2046,7 +2046,7 @@
           .dispatch('PFANS5001Store/getFpans5001List2', {})
           .then(response => {
             for (let c = 0; c < response.length; c++) {
-              if (response[c].neice === "1") {
+              if (response[c].neice === '1') {
                 this.optionsdata.push({
                   value: response[c].companyprojects_id,
                   lable: response[c].numbers + '_' + response[c].project_name,
@@ -2118,6 +2118,40 @@
       },
       setToolsorgs(val) {
         this.form.toolsorgs = val;
+        // add-ws-No.50-内采时，增加委托元项目
+        this.optionsdata = [];
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS5001Store/getFpans5001List2', {})
+          .then(response => {
+            for (let c = 0; c < response.length; c++) {
+              if (this.form.toolsorgs) {
+                if (response[c].neice === '1' && response[c].group_id === this.form.toolsorgs) {
+                  this.optionsdata.push({
+                    value: response[c].companyprojects_id,
+                    lable: response[c].numbers + '_' + response[c].project_name,
+                  });
+                }
+              } else {
+                if (response[c].neice === '1') {
+                  this.optionsdata.push({
+                    value: response[c].companyprojects_id,
+                    lable: response[c].numbers + '_' + response[c].project_name,
+                  });
+                }
+              }
+
+            }
+            this.loading = false;
+          }).catch(error => {
+          Message({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000,
+          });
+          this.loading = false;
+        });
+        // add-ws-No.50-内采时，增加委托元项目
       },
       getcontract() {
 
@@ -2728,7 +2762,7 @@
           .then(response => {
             this.gridData1 = [];
             for (let i = 0; i < response.length; i++) {
-              if(response[i].account){
+              if (response[i].account) {
                 var vote1 = {};
                 vote1.number = response[i].number;
                 vote1.name_id = response[i].account;
