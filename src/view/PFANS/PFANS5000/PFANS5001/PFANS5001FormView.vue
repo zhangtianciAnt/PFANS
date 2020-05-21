@@ -80,7 +80,7 @@
                         ></el-input>
                       </el-form-item>
                     </el-col>
-<!--                    add-ws-No.50-内采时，增加委托元项目-->
+                    <!--                    add-ws-No.50-内采时，增加委托元项目-->
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS5001FORMVIEW_NEICE')">
                         <span style="margin-right: 1vw ">{{$t('label.no')}}</span>
@@ -94,7 +94,7 @@
                         <span style="margin-left: 1vw ">{{$t('label.yes')}}</span>
                       </el-form-item>
                     </el-col>
-<!--                    add-ws-No.50-内采时，增加委托元项目-->
+                    <!--                    add-ws-No.50-内采时，增加委托元项目-->
                   </el-row>
                   <el-row>
                     <el-col :span="8">
@@ -343,10 +343,27 @@
                 </el-col>
               </el-row>
               <el-row v-show="form.toolstype === '1'">
-                <el-form-item :label="$t('label.PFANS5001FORMVIEW_ENTRUST')" prop="toolsorgs">
-                  <org :disabled="!disable" :orglist="form.toolsorgs" orgtype="2" @getOrgids="setToolsorgs"
-                       style="width:20vw"></org>
-                </el-form-item>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS5001FORMVIEW_ENTRUST')" prop="toolsorgs">
+                    <org :disabled="!disable" :orglist="form.toolsorgs" orgtype="2" @getOrgids="setToolsorgs"
+                         style="width:20vw"></org>
+                  </el-form-item>
+                </el-col>
+                <!--                    add-ws-No.50-内采时，增加委托元项目-->
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS5001FORMVIEW_OPTIONSDATA')">
+                    <el-select v-model="form.projectids" :disabled="!disable" style="width: 16vw" clearable
+                    >
+                      <el-option
+                        v-for="item in optionsdata"
+                        :key="item.value"
+                        :label="item.lable"
+                        :value="item.value">
+                      </el-option>
+                    </el-select>
+                  </el-form-item>
+                </el-col>
+                <!--                    add-ws-No.50-内采时，增加委托元项目-->
               </el-row>
               <el-row v-show="form.toolstype === '0' || !form.toolstype">
                 <el-col :span="8">
@@ -1386,6 +1403,7 @@
         ],
         //合同分配金额
         tablecompound: [],
+        optionsdata: [],
         data: [],
         loading: false,
         dialogTableVisible1: false,
@@ -1617,6 +1635,7 @@
         },
         baseInfo: {},
         form: {
+          projectids: '',
           neice: '',
           centername: '',
           groupname: '',
@@ -1713,7 +1732,7 @@
       for (let i = 0; i < dic.length; i++) {
         this.checkboxs.push(dic[i]);
       }
-
+      this.Listprojectids();
       this.getexpatriatesinfor();
       this.getcustomerinfor();
       this.getcontract();
@@ -2019,6 +2038,32 @@
       }
     },
     methods: {
+      // add-ws-No.50-内采时，增加委托元项目
+      Listprojectids() {
+        this.optionsdata = [];
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS5001Store/getFpans5001List2', {})
+          .then(response => {
+            for (let c = 0; c < response.length; c++) {
+              if (response[c].neice === "1") {
+                this.optionsdata.push({
+                  value: response[c].companyprojects_id,
+                  lable: response[c].numbers + '_' + response[c].project_name,
+                });
+              }
+            }
+            this.loading = false;
+          }).catch(error => {
+          Message({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000,
+          });
+          this.loading = false;
+        });
+      },
+      // add-ws-No.50-内采时，增加委托元项目
       //ADD-WS-合同分配金额不能大于合同分配金额
       changeRMB(row) {
         this.checkmessage = 0;
@@ -3040,7 +3085,7 @@
                 duration: 5 * 1000,
               });
               this.loading = false;
-            } else if (error != 0 && this.form.toolstype !== '1' && this.form.projecttype !== 'PP001006') {
+            } else if (error != 0 && this.form.toolstype !== '1') {
               this.activeName = 'fifth';
               this.loading = false;
               Message({
@@ -3049,7 +3094,7 @@
                 type: 'error',
                 duration: 5 * 1000,
               });
-            } else if (error3 != 0 && this.form.toolstype !== '0' && this.form.projecttype !== 'PP001006') {
+            } else if (error3 != 0 && this.form.toolstype !== '0') {
               this.activeName = 'fifth';
               this.loading = false;
               Message({
