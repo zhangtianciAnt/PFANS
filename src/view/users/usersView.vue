@@ -211,13 +211,22 @@ export default {
           fix: false,
           filter: true
         },
+          // add_fjl_05/22 --添加退职日
         {
-          code: "post",
-          label: "label.PFANSUSERVIEW_POST",
-          width: 120,
-          fix: false,
-          filter: true
+            code: "resignation_date",
+            label: "label.PFANS2026VIEW_RESIGNATIONDATE",
+            width: 120,
+            fix: false,
+            filter: true
         },
+          // add_fjl_05/22 --添加退职日
+          {
+              code: "post",
+              label: "label.PFANSUSERVIEW_POST",
+              width: 120,
+              fix: false,
+              filter: true
+          },
         {
           code: "rank",
           label: "label.PFANSUSERVIEW_RANK",
@@ -825,6 +834,12 @@ export default {
                 _tableList[j].enterday = moment(_tableList[j].enterday).format(
                   "YYYY-MM-DD"
                 );
+                // add_fjl_05/22 --添加退职日
+                if (_tableList[j].resignation_date)
+                    _tableList[j].resignation_date = moment(_tableList[j].resignation_date).format(
+                        "YYYY-MM-DD"
+                    );
+                // add_fjl_05/22 --添加退职日
               if (_tableList[j].birthday)
                 _tableList[j].birthday = moment(_tableList[j].birthday).format(
                   "YYYY-MM-DD"
@@ -947,6 +962,12 @@ export default {
                 _tableList[j].enterday = moment(_tableList[j].enterday).format(
                   "YYYY-MM-DD"
                 );
+                // add_fjl_05/22 --添加退职日
+                if (_tableList[j].resignation_date)
+                    _tableList[j].resignation_date = moment(_tableList[j].resignation_date).format(
+                        "YYYY-MM-DD"
+                    );
+                // add_fjl_05/22 --添加退职日
               if (_tableList[j].birthday)
                 _tableList[j].birthday = moment(_tableList[j].birthday).format(
                   "YYYY-MM-DD"
