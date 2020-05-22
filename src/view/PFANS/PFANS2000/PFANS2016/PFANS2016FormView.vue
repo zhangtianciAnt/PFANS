@@ -319,6 +319,7 @@
       };
       //add_fjl
       var revalidateVacationtype = (rule, value, callback) => {
+        debugger
         if ((this.form.errortype == 'PR013005' || this.form.errortype == 'PR013007') && this.form.status != '4' && this.form.status != '5' && this.form.status != '6' && this.form.status != '7' && this.form.status != '8') {
           if (this.form.vacationtype === null || this.form.vacationtype === '') {
             callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS2016FORMVIEW_XJTYPE')));
@@ -367,6 +368,7 @@
         }
       };
       var revalidateRevacationtype = (rule, value, callback) => {
+        debugger
         if ((this.form.errortype == 'PR013005' || this.form.errortype == 'PR013007') && (this.form.status === '4' || this.form.status === '5' || this.form.status === '6' || this.form.status === '7')) {
           if (this.form.revacationtype === null || this.form.revacationtype === '') {
             callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS2016FORMVIEW_RELENGTHTIME')));
@@ -452,6 +454,7 @@
         }
       };
       var validateLength = (rule, value, callback) => {
+        debugger
         if (this.form.errortype == 'PR013006') {
           this.$store
             .dispatch('PFANS2016Store/cklength', {
@@ -476,13 +479,13 @@
                 callback(this.$t('normal.error_norestdays'));
               } else {
                 this.form.restdate = response.dat;
-                if (response.error == 'PR013006') {
-                  if (value / 8 > Number(response.checkdat)) {
-                    callback(this.$t('normal.error_norestdays'));
-                  } else {
-                    callback();
-                  }
-                }
+                // if (response.error == 'PR013006') {
+                //   if (value / 8 > Number(response.checkdat)) {
+                //     callback(this.$t('normal.error_norestdays'));
+                //   } else {
+                //     callback();
+                //   }
+                // }
                 callback();
               }
             })
@@ -494,6 +497,7 @@
         }
       };
       var revalidateLength = (rule, value, callback) => {
+        debugger
         if ((this.form.errortype == 'PR013005' || this.form.errortype == 'PR013006' || this.form.errortype == 'PR013007') && this.form.status === '4') {
           this.$store
             .dispatch('PFANS2016Store/cklength', {
@@ -518,13 +522,13 @@
                 callback(this.$t('normal.error_norestdays'));
               } else {
                 this.form.restdate = response.dat;
-                if (response.error == 'PR013006') {
-                  if (value / 8 > Number(response.checkdat)) {
-                    callback(this.$t('normal.error_norestdays'));
-                  } else {
-                    callback();
-                  }
-                }
+                // if (response.error == 'PR013006') {
+                //   if (value / 8 > Number(response.checkdat)) {
+                //     callback(this.$t('normal.error_norestdays'));
+                //   } else {
+                //     callback();
+                //   }
+                // }
                 callback();
               }
             })
