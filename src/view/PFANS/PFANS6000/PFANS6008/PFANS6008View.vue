@@ -8,7 +8,7 @@
       :showSelection="isShow"
       :showIndex="isShow"
       @buttonClick="buttonClick"
-      ref="roletable"
+      ref="roletable" :rowClassName="rowClassName"
       v-loading="loading">
                   <el-select v-model="form.group_id" style="width: 20vw"
                              @change="changeGroup" slot="customize">
@@ -699,6 +699,7 @@
               if (response[j].bpname !== null && response[j].bpname !== "") {
                 let user = getCooperinterviewList(response[j].bpname);
                 if (user) {
+                  response[j].exitime = user.exitime;
                   response[j].bpname = user.expname;
                 }
               }
@@ -936,6 +937,17 @@
           this.init();
         }
       },
+      //add-退场人员信息背景色
+      rowClassName({row, rowIndex}) {
+        if (row.exitime !==null && row.exitime !=='' && row.exitime !==undefined)
+        {
+          if (moment(new Date()).format('YYYY-MM') >= moment(row.exitime).add(2, 'months').format('YYYY-MM'))
+          {
+            return "sub_bg_color_Darkgrey";
+          }
+        }
+      },
+      //add-退场人员信息背景色
     }
   }
 </script>
