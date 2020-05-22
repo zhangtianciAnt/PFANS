@@ -705,7 +705,6 @@
         this.$store
           .dispatch('PFANS2010Store/getAttendancelist', parameter)
           .then(response => {
-            debugger
             //add-ws-当前人的登陆id在设内表中未查到的时候，去社外表查询用社外的数据否则就用社内的数据
             if (response.length === 0) {
               this.$store
@@ -804,9 +803,19 @@
                   }
                 });
               for (let k = 0; k < response.length; k++) {
-                if (val === response[k].companyprojects_ID) {
-                  if (response[k].estimatedendtime != null) {
-                    if (moment(this.companyform.log_date).format('YYYY-MM-DD') < moment(response[k].estimatedstarttime).format('YYYY-MM-DD') || moment(this.companyform.log_date).format('YYYY-MM-DD') > moment(response[k].estimatedendtime).format('YYYY-MM-DD')) {
+                if (response[k].estimatedendtime != null) {
+                  if (moment(this.companyform.log_date).format('YYYY-MM-DD') < moment(response[k].estimatedstarttime).format('YYYY-MM-DD') || moment(this.companyform.log_date).format('YYYY-MM-DD') > moment(response[k].estimatedendtime).format('YYYY-MM-DD')) {
+                    Message({
+                      message: this.$t('label.PFANS5008FORMVIEW_RIZHICHECKL'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    break;
+                  }
+                  break;
+                } else {
+                  if (response[k].extensiondate != null) {
+                    if (moment(this.companyform.log_date).format('YYYY-MM-DD') > moment(response[k].extensiondate).format('YYYY-MM-DD')) {
                       Message({
                         message: this.$t('label.PFANS5008FORMVIEW_RIZHICHECKL'),
                         type: 'error',
@@ -814,29 +823,18 @@
                       });
                       break;
                     }
-                    break;
                   } else {
-                    if (response[k].extensiondate != null) {
-                      if (moment(this.companyform.log_date).format('YYYY-MM-DD') > moment(response[k].extensiondate).format('YYYY-MM-DD')) {
-                        Message({
-                          message: this.$t('label.PFANS5008FORMVIEW_RIZHICHECKL'),
-                          type: 'error',
-                          duration: 5 * 1000,
-                        });
-                        break;
-                      }
-                    } else {
-                      if (moment(this.companyform.log_date).format('YYYY-MM-DD') > moment(response[k].claimdatetime).format('YYYY-MM-DD')) {
-                        Message({
-                          message: this.$t('label.PFANS5008FORMVIEW_RIZHICHECKL'),
-                          type: 'error',
-                          duration: 5 * 1000,
-                        });
-                        break;
-                      }
+                    if (moment(this.companyform.log_date).format('YYYY-MM-DD') > moment(response[k].claimdatetime).format('YYYY-MM-DD')) {
+                      Message({
+                        message: this.$t('label.PFANS5008FORMVIEW_RIZHICHECKL'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                      break;
                     }
                   }
                 }
+                break;
               }
               this.loading = false;
             })
