@@ -189,7 +189,7 @@
                     if (moment(this.form.checkout).format("YYYY-MM-DD") < moment(this.form.checkin).format("YYYY-MM-DD")) {
                         callback(new Error(this.$t("label.PFANS3002FORMVIEW_ERROR")))
                     } else {
-                        this.form.checkindays = moment(this.form.checkout).diff(moment(this.form.checkin), 'days') + 1;
+                        this.form.checkindays = moment(this.form.checkout).diff(moment(this.form.checkin), 'days') ;
                         callback()
                     }
                 } else {
@@ -202,7 +202,7 @@
                     if (moment(this.form.checkout).format("YYYY-MM-DD") < moment(this.form.checkin).format("YYYY-MM-DD")) {
                         callback(new Error(this.$t("label.PFANS3002FORMVIEW_ERROR")))
                     } else {
-                        this.form.checkindays = moment(this.form.checkout).diff(moment(this.form.checkin), 'days') + 1;
+                        this.form.checkindays = moment(this.form.checkout).diff(moment(this.form.checkin), 'days');
                         callback()
                     }
                 } else {
