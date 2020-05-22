@@ -1611,6 +1611,7 @@
         // this.changeTime();
       },
       workflowState(val) {
+        debugger
         if (val.state === '1') {
           if (val.workflowCode === 'W0003') {
             this.form.status = '3';
@@ -1623,6 +1624,20 @@
           } else if (val.workflowCode === 'W0059') {
             this.form.status = '7';
             this.canStart = false;
+
+            this.$store
+              .dispatch('PFANS2016Store/updateOvertime', this.form)
+              .then(response => {
+                this.loading = false;
+              })
+              .catch(error => {
+                Message({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.loading = false;
+              });
           }
         }
         this.buttonClick2();
@@ -2204,6 +2219,7 @@
       },
       buttonClick2(val) {
         //总经理审批自动通过
+        debugger
         if (getCurrentRole() === '1' && this.form.user_id === '5e78fefff1560b363cdd6db7') {
           this.form.status = '7';
         }

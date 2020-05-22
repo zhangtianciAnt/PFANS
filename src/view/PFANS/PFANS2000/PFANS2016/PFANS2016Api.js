@@ -77,3 +77,12 @@ export function selectAbNormalParent(data) {
     params: data
   })
 }
+
+export function updateOvertime(data) {
+  return request({
+    url: 'abNormal/updateOvertime',
+    method: 'post',
+    data: data
+  })
+}
+

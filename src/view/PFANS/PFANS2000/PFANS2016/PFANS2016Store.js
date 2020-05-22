@@ -1,6 +1,6 @@
 import {createPfans2016, getFpans2016List, updatePfans2016,getPfans2016One,
         getOvertimelist,getReplacerest,cklength,updateNewUser,getSickleave,
-  selectAbNormalParent} from './PFANS2016Api'
+  selectAbNormalParent,updateOvertime} from './PFANS2016Api'
 
 const PFANS2016Store = {
   namespaced: true,
@@ -8,6 +8,19 @@ const PFANS2016Store = {
   mutations: {},
   actions: {
 
+    updateOvertime({commit}, data) {
+      return new Promise((resolve, reject) => {
+        updateOvertime(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
     createPfans2016({commit}, data) {
       return new Promise((resolve, reject) => {
         createPfans2016(data).then(response => {
@@ -48,16 +61,16 @@ const PFANS2016Store = {
       })
     },
 
-    async updatePfans2016({commit}, data) {
-      if(data.errortype === 'PR013006'){
-        let userid = {user_id:data.user_id}
-        let slectToken = await getReplacerest(userid);
-        if(slectToken.data.length >= 0){
-          return new Promise((resolve, reject) => {
-            resolve('PR013006');
-          })
-        }
-      }
+      updatePfans2016({commit}, data) {
+      // if(data.errortype === 'PR013006'){
+      //   let userid = {user_id:data.user_id}
+      //   let slectToken = await getReplacerest(userid);
+      //   if(slectToken.data.length >= 0){
+      //     return new Promise((resolve, reject) => {
+      //       resolve('PR013006');
+      //     })
+      //   }
+      // }
       return new Promise((resolve, reject) => {
         updatePfans2016(data).then(response => {
           if (response.code === 0) {
