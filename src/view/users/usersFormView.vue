@@ -3095,11 +3095,12 @@
                         //给料履历
                         let letgridData = this.userInfo.customerInfo.userinfo.gridData;
                         if (letgridData !== null && letgridData !== '') {
+                            this.gridData = [];
                             for (let g = 0; g < letgridData.length; g++) {
                                 //最后一次的变更日期
                                 if (letgridData[g].date !== null && letgridData[g].date !== '') {
                                     // if (letgridData[g].basic !== "0" && letgridData[g].duty !== "0") {
-                                        this.feedingchangeday = letgridData[g].date;
+                                    this.feedingchangeday = letgridData[0].date;
                                         let gridData = {};
                                         gridData.basic = letgridData[g].basic;
                                         gridData.duty = letgridData[g].duty;
@@ -3108,7 +3109,6 @@
                                         } else {
                                             gridData.date = letgridData[g].date;
                                         }
-                                    this.gridData = [];
                                         this.gridData.push(gridData);
                                     // }
                                 }
@@ -3117,6 +3117,7 @@
                         //养老保险基数履历
                         let oldageData = this.userInfo.customerInfo.userinfo.oldageData;
                         if (oldageData !== null && oldageData !== '') {
+                            this.oldageData = [];
                             for (let g = 0; g < oldageData.length; g++) {
                                 if (oldageData[g].date !== null && oldageData[g].date !== '' &&
                                     oldageData[g].basic !== null && oldageData[g].basic !== '') {
@@ -3127,7 +3128,6 @@
                                     } else {
                                         letoldageData.date = oldageData[g].date;
                                     }
-                                    this.oldageData = [];
                                     this.oldageData.push(letoldageData);
                                 }
                             }
@@ -3135,6 +3135,7 @@
                         //住房保险基数履历
                         let houseData = this.userInfo.customerInfo.userinfo.houseData;
                         if (houseData !== null && houseData !== '') {
+                            this.houseData = [];
                             for (let g = 0; g < houseData.length; g++) {
                                 if (houseData[g].date !== null && houseData[g].date !== '' &&
                                     houseData[g].basic !== null && houseData[g].basic !== '') {
@@ -3145,7 +3146,6 @@
                                     } else {
                                         lethouseData.date = houseData[g].date;
                                     }
-                                    this.houseData = [];
                                     this.houseData.push(lethouseData);
                                 }
                             }
@@ -3153,6 +3153,7 @@
                         //医疗保险基数履历
                         let medicalData = this.userInfo.customerInfo.userinfo.medicalData;
                         if (medicalData !== null && medicalData !== '') {
+                            this.medicalData = [];
                             for (let g = 0; g < medicalData.length; g++) {
                                 if (medicalData[g].date !== null && medicalData[g].date !== '' &&
                                     medicalData[g].basic !== null && medicalData[g].basic !== '') {
@@ -3163,7 +3164,6 @@
                                     } else {
                                         letmedicalData.date = medicalData[g].date;
                                     }
-                                    this.medicalData = [];
                                     this.medicalData.push(letmedicalData);
                                 }
                             }
@@ -3171,6 +3171,7 @@
                         //失业保险基数履历
                         let syeData = this.userInfo.customerInfo.userinfo.syeData;
                         if (syeData !== null && syeData !== '') {
+                            this.syeData = [];
                             for (let g = 0; g < syeData.length; g++) {
                                 if (syeData[g].date !== null && syeData[g].date !== '' &&
                                     syeData[g].basic !== null && syeData[g].basic !== '') {
@@ -3181,7 +3182,6 @@
                                     } else {
                                         letsyeData.date = syeData[g].date;
                                     }
-                                    this.syeData = [];
                                     this.syeData.push(letsyeData);
                                 }
                             }
@@ -3189,6 +3189,7 @@
                         //生育保险基数履历
                         let syuData = this.userInfo.customerInfo.userinfo.syuData;
                         if (syuData !== null && syuData !== '') {
+                            this.syuData = [];
                             for (let g = 0; g < syuData.length; g++) {
                                 if (syuData[g].date !== null && syuData[g].date !== '' &&
                                     syuData[g].basic !== null && syuData[g].basic !== '') {
@@ -3199,7 +3200,6 @@
                                     } else {
                                         letsyuData.date = syuData[g].date;
                                     }
-                                    this.syuData = [];
                                     this.syuData.push(letsyuData);
                                 }
                             }
@@ -3207,6 +3207,7 @@
                         //工伤保险基数履历
                         let gsData = this.userInfo.customerInfo.userinfo.gsData;
                         if (gsData !== null && gsData !== '') {
+                            this.gsData = [];
                             for (let g = 0; g < gsData.length; g++) {
                                 if (gsData[g].date !== null && gsData[g].date !== '' &&
                                     gsData[g].basic !== null && gsData[g].basic !== '') {
@@ -3217,7 +3218,6 @@
                                     } else {
                                         letgsData.date = gsData[g].date;
                                     }
-                                    this.gsData = [];
                                     this.gsData.push(letgsData);
                                 }
                             }
@@ -3225,6 +3225,7 @@
                         //rank
                         let rankData = this.userInfo.customerInfo.userinfo.rankData;
                         if (rankData !== null && rankData !== '') {
+                            this.rankData = [];
                             for (let g = 0; g < rankData.length; g++) {
                                 if (rankData[g].date !== null && rankData[g].date !== '' &&
                                     rankData[g].basic !== null && rankData[g].basic !== '') {
@@ -3235,7 +3236,6 @@
                                     } else {
                                         letrankData.date = rankData[g].date;
                                     }
-                                    this.rankData = [];
                                     this.rankData.push(letrankData);
                                 }
                             }
@@ -3243,6 +3243,7 @@
                         //职务
                         let postData = this.userInfo.customerInfo.userinfo.postData;
                         if (postData !== null && postData !== '') {
+                            this.postData = [];
                             for (let g = 0; g < postData.length; g++) {
                                 if (postData[g].date !== null && postData[g].date !== '' &&
                                     postData[g].basic !== null && postData[g].basic !== '') {
@@ -3253,7 +3254,6 @@
                                     } else {
                                         letpostData.date = postData[g].date;
                                     }
-                                    this.postData = [];
                                     this.postData.push(letpostData);
                                 }
                             }
@@ -3586,6 +3586,13 @@
                         this.userInfo.userAccount.account = this.form.adfield;
                         // this.userInfo.userAccount.password = this.form.adfield;
                         this.userInfo.userAccount.usertype = '0';
+                        // add_fjl_05/22  --去除间接部门空的数据
+                        if (this.form.otherorgs.length > 0) {
+                            this.form.otherorgs = this.form.otherorgs.filter(item => {
+                                return (item.centerid !== '' && item.groupid !== '' && item.teamid !== '')
+                            })
+                        }
+                        // add_fjl_05/22  --去除间接部门空的数据
                         this.userInfo.customerInfo.userinfo = this.form;
                         this.Personal();
                         this.userInfo.customerInfo.userinfo.educationTable = this.educationTable;

@@ -211,13 +211,22 @@ export default {
           fix: false,
           filter: true
         },
+          // add_fjl_05/22 --添加退职日
         {
-          code: "post",
-          label: "label.PFANSUSERVIEW_POST",
-          width: 120,
-          fix: false,
-          filter: true
+            code: "resignation_date",
+            label: "label.PFANS2026VIEW_RESIGNATIONDATE",
+            width: 120,
+            fix: false,
+            filter: true
         },
+          // add_fjl_05/22 --添加退职日
+          {
+              code: "post",
+              label: "label.PFANSUSERVIEW_POST",
+              width: 120,
+              fix: false,
+              filter: true
+          },
         {
           code: "rank",
           label: "label.PFANSUSERVIEW_RANK",
@@ -564,6 +573,8 @@ export default {
                   this.$t("label.PFANSUSERFORMVIEW_JOBNUMBER"),//卡号
                   this.$t("label.PFANS1012VIEW_PERSONALCODE"),//员工ID
                   this.$t("label.PFANSUSERFORMVIEW_IDNUMBER"),//身份证号码
+                  this.$t("label.PFANSUSERFORMVIEW_SECURITY"),//社会保险号码
+                  this.$t("label.PFANSUSERFORMVIEW_HOUSEFUND"),//住房公积金号码
                   this.$t("label.sex"),//性别
                   this.$t("label.PFANSUSERFORMVIEW_AGE"),//年龄
                   this.$t("label.PFANSUSERVIEW_BIRTHDAY"),//生年月日
@@ -610,6 +621,8 @@ export default {
                   "jobnumber",//卡号
                   "personalcode",//员工ID
                   "idnumber",//身份证号码
+                  "security",//社会保险号码
+                  "housefund",//住房公积金号码
                   "sex",//性别
                   "age",//年龄
                   "birthday",//生年月日
@@ -695,11 +708,11 @@ export default {
                 //変更前基本工资,変更前职责工资,现基本工资,现职责工资,給料変更日
                 if(list[h].gridData !== '' && list[h].gridData !== null && list[h].gridData !== undefined && list[h].gridData.length > 0 ){
                     for (let d = 0; d < list[h].gridData.length; d++) {
-                        list[h].after = list[h].gridData[list[h].gridData.length - 2].basic;
-                        list[h].before = list[h].gridData[list[h].gridData.length - 2].duty;
-                        list[h].basic = list[h].gridData[d].basic;
-                        list[h].duty = list[h].gridData[d].duty;
-                        list[h].date = list[h].gridData[d].date;
+                        list[h].after = list[h].gridData[1].basic;
+                        list[h].before = list[h].gridData[1].duty;
+                        list[h].basic = list[h].gridData[0].basic;
+                        list[h].duty = list[h].gridData[0].duty;
+                        list[h].date = list[h].gridData[0].date;
                     }
                 }
                 //去年年休数(残)
@@ -825,6 +838,12 @@ export default {
                 _tableList[j].enterday = moment(_tableList[j].enterday).format(
                   "YYYY-MM-DD"
                 );
+                // add_fjl_05/22 --添加退职日
+                if (_tableList[j].resignation_date)
+                    _tableList[j].resignation_date = moment(_tableList[j].resignation_date).format(
+                        "YYYY-MM-DD"
+                    );
+                // add_fjl_05/22 --添加退职日
               if (_tableList[j].birthday)
                 _tableList[j].birthday = moment(_tableList[j].birthday).format(
                   "YYYY-MM-DD"
@@ -947,6 +966,12 @@ export default {
                 _tableList[j].enterday = moment(_tableList[j].enterday).format(
                   "YYYY-MM-DD"
                 );
+                // add_fjl_05/22 --添加退职日
+                if (_tableList[j].resignation_date)
+                    _tableList[j].resignation_date = moment(_tableList[j].resignation_date).format(
+                        "YYYY-MM-DD"
+                    );
+                // add_fjl_05/22 --添加退职日
               if (_tableList[j].birthday)
                 _tableList[j].birthday = moment(_tableList[j].birthday).format(
                   "YYYY-MM-DD"

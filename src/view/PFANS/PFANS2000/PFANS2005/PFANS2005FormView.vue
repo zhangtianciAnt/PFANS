@@ -94,7 +94,7 @@
                   <plx-table-column
                     prop="sociology"
                     :label="$t('label.PFANS2006VIEW_SOCIETY')"
-                    width="150"
+                    width="160"
                     align="center"
                   ></plx-table-column>
                   <plx-table-column
@@ -740,7 +740,7 @@
                   :label="$t('label.PFANS2006VIEW_SOCIETY')"
                   align="center"
                   prop="sociology"
-                  width="110%"
+                  width="120%"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_REGISTER')"
