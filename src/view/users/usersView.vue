@@ -573,6 +573,8 @@ export default {
                   this.$t("label.PFANSUSERFORMVIEW_JOBNUMBER"),//卡号
                   this.$t("label.PFANS1012VIEW_PERSONALCODE"),//员工ID
                   this.$t("label.PFANSUSERFORMVIEW_IDNUMBER"),//身份证号码
+                  this.$t("label.PFANSUSERFORMVIEW_SECURITY"),//社会保险号码
+                  this.$t("label.PFANSUSERFORMVIEW_HOUSEFUND"),//住房公积金号码
                   this.$t("label.sex"),//性别
                   this.$t("label.PFANSUSERFORMVIEW_AGE"),//年龄
                   this.$t("label.PFANSUSERVIEW_BIRTHDAY"),//生年月日
@@ -619,6 +621,8 @@ export default {
                   "jobnumber",//卡号
                   "personalcode",//员工ID
                   "idnumber",//身份证号码
+                  "security",//社会保险号码
+                  "housefund",//住房公积金号码
                   "sex",//性别
                   "age",//年龄
                   "birthday",//生年月日
