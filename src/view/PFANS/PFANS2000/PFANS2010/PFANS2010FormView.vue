@@ -472,6 +472,11 @@
 
                       }
 
+                      if (this.$route.params._id.split(",")[0] === '5e78fefff1560b363cdd6db7')
+                      {
+                        this.$store.commit('global/SET_WORKFLOWURL', '');
+                      }
+
                       let res = [];
                       let res1 = [];
                       let yearMonth = moment(Date.parse(this.$route.params._id.split(",")[1] + '-' + this.$route.params._id.split(",")[2] +'-01'));
@@ -590,6 +595,7 @@
                                 num++
                             }
                         }
+
                         if (num === 0) {
                             //普通社員审批
                             this.workflowCode = 'W0002'

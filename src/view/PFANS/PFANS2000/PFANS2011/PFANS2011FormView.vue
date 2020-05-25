@@ -540,6 +540,10 @@
               } else {
                 this.workflowCode = 'W0001';
               }
+              if (this.form.userid ==='5e78fefff1560b363cdd6db7')
+              {
+                this.workflowCode = 'W0072';
+              }
 
               this.canStart = true;
               this.disactualovertime = false;
@@ -555,6 +559,11 @@
               } else {
                 this.workflowCode = 'W0040';
               }
+              if (this.form.userid ==='5e78fefff1560b363cdd6db7')
+              {
+                this.workflowCode = 'W0073';
+              }
+
               this.canStart = true;
               if (!this.disable || this.form.overtimetype === 'PR001005') {
                 this.disactualovertime = false;
@@ -570,6 +579,10 @@
                 this.workflowCode = 'W0068';
               } else {
                 this.workflowCode = 'W0040';
+              }
+              if (this.form.userid ==='5e78fefff1560b363cdd6db7')
+              {
+                this.workflowCode = 'W0073';
               }
               this.canStart = false;
               this.disable = false;
@@ -610,9 +623,9 @@
         }
       }
       this.getWorkingday();
-      if (this.$store.getters.userinfo.userid === '5e78fefff1560b363cdd6db7') {
-        this.workflowCode = '';
-      }
+      // if (this.$store.getters.userinfo.userid === '5e78fefff1560b363cdd6db7') {
+      //   this.workflowCode = '';
+      // }
     },
     created() {
       this.disable = this.$route.params.disabled;
@@ -857,15 +870,15 @@
       },
       workflowState(val) {
         if (val.state === '1') {
-          if (val.workflowCode === 'W0001' || val.workflowCode === 'W0067') {
+          if (val.workflowCode === 'W0001' || val.workflowCode === 'W0067' || val.workflowCode === 'W0072') {
             this.form.status = '3';
-          } else if (val.workflowCode === 'W0040' || val.workflowCode === 'W0068') {
+          } else if (val.workflowCode === 'W0040' || val.workflowCode === 'W0068' || val.workflowCode === 'W0073') {
             this.form.status = '6';
           }
         } else if (val.state === '2') {
-          if (val.workflowCode === 'W0001' || val.workflowCode === 'W0067') {
+          if (val.workflowCode === 'W0001' || val.workflowCode === 'W0067' || val.workflowCode === 'W0072') {
             this.form.status = '4';
-          } else if (val.workflowCode === 'W0040' || val.workflowCode === 'W0068') {
+          } else if (val.workflowCode === 'W0040' || val.workflowCode === 'W0068' || val.workflowCode === 'W0073') {
             this.form.status = '7';
             this.canStart = false;
           }
@@ -876,13 +889,20 @@
       //add-ws-5/20-审批流程添加
       start(val) {
         this.form.applicationdate = moment(new Date()).format('YYYY-MM-DD');
-        if (val.state === '4' || val.state === '6') {
+        // if (val.state === '4' || val.state === '6') {
+        //   this.form.status = '5';
+        // } else if (val.state === '0') {
+        //   this.form.status = '2';
+        // } else if (val.state === '2') {
+        //   this.form.status = '4';
+        // }
+        // this.uopdateSta();
+        if (this.form.status === '4' || this.form.status === '6') {
           this.form.status = '5';
-        } else if (val.state === '0') {
+        } else {
           this.form.status = '2';
-        } else if (val.state === '2') {
-          this.form.status = '4';
         }
+        // this.buttonClick('update');
         this.uopdateSta();
       },
       //add-ws-5/20-审批流程添加
@@ -898,9 +918,9 @@
       },
       uopdateSta(val) {
         //总经理审批自动通过
-        if (getCurrentRole() === '1' && this.form.user_id === '5e78fefff1560b363cdd6db7') {
-          this.form.status = '7';
-        }
+        // if (getCurrentRole() === '1' && this.form.user_id === '5e78fefff1560b363cdd6db7') {
+        //   this.form.status = '7';
+        // }
         this.loading = true;
         this.$store
           .dispatch('PFANS2011Store/updateOvertime', this.form)
@@ -975,6 +995,11 @@
             this.workflowCode = 'W0001';
           }
         }
+        if (this.form.userid ==='5e78fefff1560b363cdd6db7')
+        {
+          this.workflowCode = 'W0072';
+        }
+
         this.showovertimetype = false;
         this.showovertimelength = false;
         let dateMonth = new Date();
@@ -1158,9 +1183,9 @@
             }
             if (this.$route.params._id) {
               //总经理审批自动通过
-              if (getCurrentRole() === '1' && this.form.status === '4' && this.form.user_id === '5e78fefff1560b363cdd6db7') {
-                this.form.status = '7';
-              }
+              // if (getCurrentRole() === '1' && this.form.status === '4' && this.form.user_id === '5e78fefff1560b363cdd6db7') {
+              //   this.form.status = '7';
+              // }
               this.loading = true;
               this.$store
                 .dispatch('PFANS2011Store/updateOvertime', this.form)
