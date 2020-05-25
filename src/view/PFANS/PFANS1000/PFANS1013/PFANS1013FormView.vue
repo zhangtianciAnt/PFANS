@@ -2845,53 +2845,58 @@
         for (let i = 0; i < this.Todaysum.length; i++) {
           diffDate = diffDate + 1;
         }
+        if (this.form.external === '0') {
+          if (this.form.type === '0') {
+            if (row.facilitytype === 'PJ035001') {
+              if (row.city !== '') {
+                if (row.city === 'PJ036001' || row.city === 'PJ036002' || row.city === 'PJ036003' || row.city === 'PJ036004') {
+                  if (row.rmb > jpregion1) {
+                    Message({
+                      message: this.$t('label.PFANS1013FORMVIEW_RMBLIMIT'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    return;
+                  }
+                } else {
+                  if (row.rmb > jpregion2) {
+                    Message({
+                      message: this.$t('label.PFANS1013FORMVIEW_RMBLIMIT'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    return;
+                  }
+                }
+              }
+            } else if (row.facilitytype === 'PJ035002') {
+              if (row.city !== '') {
+                if (row.city === 'PJ036001' || row.city === 'PJ036002' || row.city === 'PJ036003' || row.city === 'PJ036004') {
+                  if (row.rmb > jpregion8 / 30) {
+                    Message({
+                      message: this.$t('label.PFANS1013FORMVIEW_RMBLIMIT'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    return;
+                  }
+                } else {
+                  if (row.rmb > jpregion9 / 30) {
+                    Message({
+                      message: this.$t('label.PFANS1013FORMVIEW_RMBLIMIT'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    return;
+                  }
+                }
+              }
+            }
+          }
+        }
         if (this.form.type === '0') {
           //境内无规定外费用的场合，住宿标准check
-          if (row.facilitytype === 'PJ035001') {
-            if (row.city !== '') {
-              if (row.city === 'PJ036001' || row.city === 'PJ036002' || row.city === 'PJ036003' || row.city === 'PJ036004') {
-                if (row.rmb > jpregion1) {
-                  Message({
-                    message: this.$t('label.PFANS1013FORMVIEW_RMBLIMIT'),
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  return;
-                }
-              } else {
-                if (row.rmb > jpregion2) {
-                  Message({
-                    message: this.$t('label.PFANS1013FORMVIEW_RMBLIMIT'),
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  return;
-                }
-              }
-            }
-          } else if (row.facilitytype === 'PJ035002') {
-            if (row.city !== '') {
-              if (row.city === 'PJ036001' || row.city === 'PJ036002' || row.city === 'PJ036003' || row.city === 'PJ036004') {
-                if (row.rmb > jpregion8 / 30) {
-                  Message({
-                    message: this.$t('label.PFANS1013FORMVIEW_RMBLIMIT'),
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  return;
-                }
-              } else {
-                if (row.rmb > jpregion9 / 30) {
-                  Message({
-                    message: this.$t('label.PFANS1013FORMVIEW_RMBLIMIT'),
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  return;
-                }
-              }
-            }
-          } else if (this.Redirict === '0' ? (row.accountcode === 'PJ119005') : (row.accountcode === 'PJ132005')) {
+          if (this.Redirict === '0' ? (row.accountcode === 'PJ119005') : (row.accountcode === 'PJ132005')) {
             row.rmb = '';
           } else if (this.Redirict === '0' ? (row.accountcode === 'PJ119006') : (row.accountcode === 'PJ132006')) {
             row.rmb = '';
@@ -3012,7 +3017,7 @@
       start(val) {
         if (val.state === '0') {
           this.form.status = '2';
-        }else if (val.state === '2') {
+        } else if (val.state === '2') {
           this.form.status = '4';
         }
         this.buttonClick('save');
@@ -3153,62 +3158,65 @@
                   for (let i = 0; i < this.Todaysum.length; i++) {
                     diffDate = diffDate + 1;
                   }
-                  if (this.form.type === '0') {
-                    //境内无规定外费用的场合，住宿标准check
-                    if (this.tableA[i].facilitytype === 'PJ035001') {
-                      if (this.tableA[i].city !== '') {
-                        if (this.tableA[i].city === 'PJ036001' || this.tableA[i].city === 'PJ036002' || this.tableA[i].city === 'PJ036003' || this.tableA[i].city === 'PJ036004') {
-                          if (this.tableA[i].rmb > jpregion1) {
-                            this.accomflg = 1;
-                            this.activeName = 'third';
-                            Message({
-                              message: this.$t('label.PFANS1013FORMVIEW_RMBLIMIT'),
-                              type: 'error',
-                              duration: 5 * 1000,
-                            });
-                            return;
-                          }
-                        } else {
-                          if (this.tableA[i].rmb > jpregion2) {
-                            this.accomflg = 1;
-                            this.activeName = 'third';
-                            Message({
-                              message: this.$t('label.PFANS1013FORMVIEW_RMBLIMIT'),
-                              type: 'error',
-                              duration: 5 * 1000,
-                            });
-                            return;
+                  if (this.form.external === '0') {
+                    if (this.form.type === '0') {
+                      //境内无规定外费用的场合，住宿标准check
+                      if (this.tableA[i].facilitytype === 'PJ035001') {
+                        if (this.tableA[i].city !== '') {
+                          if (this.tableA[i].city === 'PJ036001' || this.tableA[i].city === 'PJ036002' || this.tableA[i].city === 'PJ036003' || this.tableA[i].city === 'PJ036004') {
+                            if (this.tableA[i].rmb > jpregion1) {
+                              this.accomflg = 1;
+                              this.activeName = 'third';
+                              Message({
+                                message: this.$t('label.PFANS1013FORMVIEW_RMBLIMIT'),
+                                type: 'error',
+                                duration: 5 * 1000,
+                              });
+                              return;
+                            }
+                          } else {
+                            if (this.tableA[i].rmb > jpregion2) {
+                              this.accomflg = 1;
+                              this.activeName = 'third';
+                              Message({
+                                message: this.$t('label.PFANS1013FORMVIEW_RMBLIMIT'),
+                                type: 'error',
+                                duration: 5 * 1000,
+                              });
+                              return;
+                            }
                           }
                         }
-                      }
-                    } else if (this.tableA[i].facilitytype === 'PJ035002') {
-                      if (this.tableA[i].city !== '') {
-                        if (this.tableA[i].city === 'PJ036001' || this.tableA[i].city === 'PJ036002' || this.tableA[i].city === 'PJ036003' || this.tableA[i].city === 'PJ036004') {
-                          if (this.tableA[i].rmb > jpregion8 / 30) {
-                            this.accomflg = 1;
-                            this.activeName = 'third';
-                            Message({
-                              message: this.$t('label.PFANS1013FORMVIEW_RMBLIMIT'),
-                              type: 'error',
-                              duration: 5 * 1000,
-                            });
-                            return;
-                          }
-                        } else {
-                          if (this.tableA[i].rmb > jpregion9 / 30) {
-                            this.accomflg = 1;
-                            this.activeName = 'third';
-                            Message({
-                              message: this.$t('label.PFANS1013FORMVIEW_RMBLIMIT'),
-                              type: 'error',
-                              duration: 5 * 1000,
-                            });
-                            return;
+                      } else if (this.tableA[i].facilitytype === 'PJ035002') {
+                        if (this.tableA[i].city !== '') {
+                          if (this.tableA[i].city === 'PJ036001' || this.tableA[i].city === 'PJ036002' || this.tableA[i].city === 'PJ036003' || this.tableA[i].city === 'PJ036004') {
+                            if (this.tableA[i].rmb > jpregion8 / 30) {
+                              this.accomflg = 1;
+                              this.activeName = 'third';
+                              Message({
+                                message: this.$t('label.PFANS1013FORMVIEW_RMBLIMIT'),
+                                type: 'error',
+                                duration: 5 * 1000,
+                              });
+                              return;
+                            }
+                          } else {
+                            if (this.tableA[i].rmb > jpregion9 / 30) {
+                              this.accomflg = 1;
+                              this.activeName = 'third';
+                              Message({
+                                message: this.$t('label.PFANS1013FORMVIEW_RMBLIMIT'),
+                                type: 'error',
+                                duration: 5 * 1000,
+                              });
+                              return;
+                            }
                           }
                         }
                       }
                     }
                   }
+
                 }
                 //add-ws-5/12-分录传票的发票税金需要与后面明细同种发票的税金和相同
                 if (this.form.type === '0') {
@@ -3683,76 +3691,77 @@
                 //   });
                 //   return;
                 // }
-                if (this.form.type === '1') {
-                  var value4money;
-                  var value5money;
-                  var value6money;
-                  var value7money;
-                  var jpregion4;
-                  var jpregion5;
-                  let jpregioninfo = getDictionaryInfo('PJ035001');
-                  if (jpregioninfo) {
-                    value4money = jpregioninfo.value4;
-                    value5money = jpregioninfo.value5;
-                    value6money = jpregioninfo.value6;
-                    value7money = jpregioninfo.value7;
-                  }
-                  let jpregioninfo2 = getDictionaryInfo('PJ035002');
-                  if (jpregioninfo2) {
-                    jpregion4 = jpregioninfo2.value4;
-                    jpregion5 = jpregioninfo2.value5;
-                  }
-                  if (travelsum1 / sumtableA1 > value4money) {
-                    errorFLG = errorFLG + 1;
-                    this.activeName = 'third';
-                    Message({
-                      message: this.$t('label.PFANS1013FORMVIEW_RMBLIMITNEW'),
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
-                  } else if (travelsum2 / sumtableA2 > value5money) {
-                    errorFLG = errorFLG + 1;
-                    this.activeName = 'third';
-                    Message({
-                      message: this.$t('label.PFANS1013FORMVIEW_RMBLIMITNEW'),
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
-                  } else if (travelsum3 / sumtableA3 > value6money) {
-                    errorFLG = errorFLG + 1;
-                    this.activeName = 'third';
-                    Message({
-                      message: this.$t('label.PFANS1013FORMVIEW_RMBLIMITNEW'),
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
-                  } else if (travelsum4 / sumtableA4 > value7money) {
-                    errorFLG = errorFLG + 1;
-                    this.activeName = 'third';
-                    Message({
-                      message: this.$t('label.PFANS1013FORMVIEW_RMBLIMITNEW'),
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
-                  } else if (travelsum5 / sumtableA5 > jpregion4) {
-                    errorFLG = errorFLG + 1;
-                    this.activeName = 'third';
-                    Message({
-                      message: this.$t('label.PFANS1013FORMVIEW_RMBLIMITNEW'),
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
-                  } else if (travelsum6 / sumtableA6 > jpregion5) {
-                    errorFLG = errorFLG + 1;
-                    this.activeName = 'third';
-                    Message({
-                      message: this.$t('label.PFANS1013FORMVIEW_RMBLIMITNEW'),
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
+                if (this.form.external === '0') {
+                  if (this.form.type === '1') {
+                    var value4money;
+                    var value5money;
+                    var value6money;
+                    var value7money;
+                    var jpregion4;
+                    var jpregion5;
+                    let jpregioninfo = getDictionaryInfo('PJ035001');
+                    if (jpregioninfo) {
+                      value4money = jpregioninfo.value4;
+                      value5money = jpregioninfo.value5;
+                      value6money = jpregioninfo.value6;
+                      value7money = jpregioninfo.value7;
+                    }
+                    let jpregioninfo2 = getDictionaryInfo('PJ035002');
+                    if (jpregioninfo2) {
+                      jpregion4 = jpregioninfo2.value4;
+                      jpregion5 = jpregioninfo2.value5;
+                    }
+                    if (travelsum1 / sumtableA1 > value4money) {
+                      errorFLG = errorFLG + 1;
+                      this.activeName = 'third';
+                      Message({
+                        message: this.$t('label.PFANS1013FORMVIEW_RMBLIMITNEW'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                    } else if (travelsum2 / sumtableA2 > value5money) {
+                      errorFLG = errorFLG + 1;
+                      this.activeName = 'third';
+                      Message({
+                        message: this.$t('label.PFANS1013FORMVIEW_RMBLIMITNEW'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                    } else if (travelsum3 / sumtableA3 > value6money) {
+                      errorFLG = errorFLG + 1;
+                      this.activeName = 'third';
+                      Message({
+                        message: this.$t('label.PFANS1013FORMVIEW_RMBLIMITNEW'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                    } else if (travelsum4 / sumtableA4 > value7money) {
+                      errorFLG = errorFLG + 1;
+                      this.activeName = 'third';
+                      Message({
+                        message: this.$t('label.PFANS1013FORMVIEW_RMBLIMITNEW'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                    } else if (travelsum5 / sumtableA5 > jpregion4) {
+                      errorFLG = errorFLG + 1;
+                      this.activeName = 'third';
+                      Message({
+                        message: this.$t('label.PFANS1013FORMVIEW_RMBLIMITNEW'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                    } else if (travelsum6 / sumtableA6 > jpregion5) {
+                      errorFLG = errorFLG + 1;
+                      this.activeName = 'third';
+                      Message({
+                        message: this.$t('label.PFANS1013FORMVIEW_RMBLIMITNEW'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                    }
                   }
                 }
-
                 if (errorFLG == '0' && this.accomflg === 0) {
                   this.loading = true;
                   if (this.$route.params._id) {
