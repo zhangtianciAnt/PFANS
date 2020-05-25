@@ -62,9 +62,7 @@
                 data: [],
                 buttonList: [
                     {key: "open", name: "button.open", disabled: false, icon: ""},
-                    //    ADD_FJL_05/25  -- 删除无用代办
-                    {key: "end", name: "button.end", disabled: false, icon: ""}],
-                //    ADD_FJL_05/25  -- 删除无用代办
+                    {key: "end", name: "button.delete", disabled: true, icon: ""}],
                 columns: [
                     {
                         code: 'title',
@@ -169,6 +167,11 @@
                 }
             },
             rowclick(row) {
+                // add_fjl_05/25   -- 添加审批驳回的数据就行删除按钮的显示
+                if (row.title === this.$t('label.PFANS8002VIEW_WORKFLOWWIN')) {
+                    this.buttonList[1].disabled = false;
+                }
+                // add_fjl_05/25   -- 添加审批驳回的数据就行删除按钮的显示
                 this.row = row;
             },
             buttonClick(val) {
@@ -199,7 +202,7 @@
                         }
                     })
                 } else if (val === 'end') {
-                    //    ADD_FJL_05/25  -- 删除无用代办
+                    //    ADD_FJL_05/25  -- 对审批驳回之后不想再次申请的数据进行删除的处理
                     if (!this.row || this.row.noticeid === '') {
                         Message({
                             message: this.$t('normal.info_01'),
@@ -208,27 +211,38 @@
                         });
                         return;
                     }
-                    this.loading = true;
-                    this.$store
-                        .dispatch("frameStore/delToDoNotice", {'todonoticeid': this.row.noticeid})
-                        .then(response => {
-                            Message({
-                                message: this.$t("normal.success_03"),
-                                type: 'success',
-                                duration: 5 * 1000
+                    this.$confirm(this.$t('normal.confirm_iscontinue'), this.$t('normal.info'), {
+                        confirmButtonText: this.$t('button.confirm'),
+                        cancelButtonText: this.$t('button.cancel'),
+                        type: 'warning',
+                    }).then(() => {
+                        this.loading = true;
+                        this.$store
+                            .dispatch("frameStore/delToDoNotice", {'todonoticeid': this.row.noticeid})
+                            .then(response => {
+                                Message({
+                                    message: this.$t("normal.success_03"),
+                                    type: 'success',
+                                    duration: 5 * 1000
+                                });
+                                this.loading = false;
+                            })
+                            .catch(err => {
+                                this.loading = false;
+                                Message({
+                                    message: err,
+                                    type: "error",
+                                    duration: 5 * 1000
+                                });
                             });
-                            this.loading = false;
-                        })
-                        .catch(err => {
-                            this.loading = false;
-                            Message({
-                                message: err,
-                                type: "error",
-                                duration: 5 * 1000
-                            });
+                    }).catch(() => {
+                        this.$message({
+                            type: 'info',
+                            message: this.$t('label.PFANS1026FORMVIEW_YQXSC'),
                         });
+                    });
                 }
-                //    ADD_FJL_05/25  -- 删除无用代办
+                //    ADD_FJL_05/25  -- 对审批驳回之后不想再次申请的数据进行删除的处理
             },
         }
     }
