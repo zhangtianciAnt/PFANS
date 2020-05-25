@@ -3119,18 +3119,19 @@
                   for (let g = 0; g < letgridData.length; g++) {
                       //最后一次的变更日期
                       if (letgridData[g].date !== null && letgridData[g].date !== '') {
-                          // if (letgridData[g].basic !== "0" && letgridData[g].duty !== "0") {
-                          this.feedingchangeday = letgridData[0].date;
-                          let gridData = {};
-                          gridData.basic = letgridData[g].basic;
-                          gridData.duty = letgridData[g].duty;
-                          if (letgridData[g].date.length != 10) {
-                              gridData.date = moment(letgridData[g].date).format("YYYY-MM-DD");
-                          } else {
-                              gridData.date = letgridData[g].date;
+                          if ((letgridData[g].basic !== null || letgridData[g].basic !== '')
+                              && (letgridData[g].duty !== null || letgridData[g].duty !== '')) {
+                              this.feedingchangeday = letgridData[0].date;
+                              let gridData = {};
+                              gridData.basic = letgridData[g].basic;
+                              gridData.duty = letgridData[g].duty;
+                              if (letgridData[g].date.length != 10) {
+                                  gridData.date = moment(letgridData[g].date).format("YYYY-MM-DD");
+                              } else {
+                                  gridData.date = letgridData[g].date;
+                              }
+                              this.gridData.push(gridData);
                           }
-                          this.gridData.push(gridData);
-                          // }
                       }
                   }
               }
