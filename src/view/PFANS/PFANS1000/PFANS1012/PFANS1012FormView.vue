@@ -138,7 +138,7 @@
                     <el-form-item :label="$t('label.PFANS1012VIEW_PAYMENTMETHOD')" prop="paymentmethod">
                       <dicselect :code="code3"
                                  :data="form.paymentmethod"
-                                 :disabled="!disable"
+                                 :disabled="this.form.type === 'PJ001001'?true:!disable"
                                  :multiple="multiple"
                                  @change="getPayment"
                                  style="width:20vw">
@@ -146,7 +146,7 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('是否导出CSV')">
+                    <el-form-item :label="$t('label.PFANS1012VIEW_EXPORTCSV')">
                       <el-switch
                         @change="changeexternal(scope.row)"
                         :disabled="!disable"
@@ -2231,12 +2231,18 @@
         this.form.judgement_name = this.form.judgement_name.substring(0, this.form.judgement_name.length - 1);
         this.form.type = this.$route.params._type;
         if (this.form.type === 'PJ001001') {
+          //add-ws-5/25-No.16-费明细：【付款方式】不用员工做选择，固定为“个人账户”
+          this.getPayment('PJ004002')
+          //add-ws-5/25-No.16-费明细：【付款方式】不用员工做选择，固定为“个人账户”
           this.show9 = true;
           this.show7 = false;
           this.show6 = false;
           this.form.moduleid = 'PJ002001';
           this.form.moduleidApp = getDictionaryInfo(this.form.moduleid).value1;
         } else if (this.form.type === 'PJ001002') {
+          //add-ws-5/25-No.16-费明细：【付款方式】不用员工做选择，固定为“个人账户”
+          this.getPayment()
+          //add-ws-5/25-No.16-费明细：【付款方式】不用员工做选择，固定为“个人账户”
           this.show9 = false;
           this.show7 = true;
           this.show6 = true;

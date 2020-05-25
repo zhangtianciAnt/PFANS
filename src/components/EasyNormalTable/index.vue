@@ -89,7 +89,6 @@
         changeIcon: 'el-icon-search',
         loading: false,
         filterlist: [],
-        systembutton: [false, false, false],
         selectedList: []
       }
     },
@@ -179,6 +178,12 @@
       },
       summaryMethod:{
         type: Function
+      },
+      systembutton:{
+        type:Array,
+        default: function () {
+          return [false, false, false];
+        }
       }
     },
     methods: {
