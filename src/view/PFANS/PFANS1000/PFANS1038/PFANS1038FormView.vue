@@ -519,6 +519,7 @@
                 }
 
                 if (error) {
+                  this.activeName = 'first';
                     Message({
                         message: this.$t('normal.error_08') +
                             this.$t('label.PFANS1038VIEW_REALISTIC') +
@@ -527,6 +528,7 @@
                         duration: 5 * 1000,
                     });
                 } else if (error1) {
+                  this.activeName = 'second';
                     Message({
                         message: this.$t('label.PFANS1038VIEW_INFORMATIONSUCCESS'),
                         type: 'error',

@@ -4074,6 +4074,7 @@
                 for (let i = 0; i < this.tableT.length; i++) {
                   if (this.tableT[i].rmb > 0) {
                     if (this.tableT[i].budgetcoding === '') {
+                      this.activeName = 'second';
                       error = error + 1;
                       Message({
                         message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_BUDGET'),
@@ -4083,6 +4084,7 @@
                       break;
                     }
                     if (this.tableT[i].subjectnumber === '') {
+                      this.activeName = 'second';
                       error = error + 1;
                       Message({
                         message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNTB'),
@@ -4097,6 +4099,7 @@
                 for (let i = 0; i < this.tableR.length; i++) {
                   if (this.tableR[i].rmb > 0) {
                     if (this.tableR[i].budgetcoding === '') {
+                      this.activeName = 'third';
                       error = error + 1;
                       Message({
                         message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_BUDGET'),
@@ -4106,6 +4109,7 @@
                       break;
                     }
                     if (this.tableR[i].subjectnumber === '') {
+                      this.activeName = 'third';
                       error = error + 1;
                       Message({
                         message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNTB'),
@@ -4115,6 +4119,7 @@
                       break;
                     }
                     if (this.tableR[i].plsummary === '') {
+                      this.activeName = 'third';
                       error = error + 1;
                       Message({
                         message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_PL'),
@@ -4128,6 +4133,7 @@
                 for (let i = 0; i < this.tableP.length; i++) {
                   if (this.tableP[i].rmb > 0) {
                     if (this.tableP[i].budgetcoding === '') {
+                      this.activeName = 'third';
                       error = error + 1;
                       Message({
                         message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_BUDGET'),
@@ -4137,6 +4143,7 @@
                       break;
                     }
                     if (this.tableP[i].subjectnumber === '') {
+                      this.activeName = 'third';
                       error = error + 1;
                       Message({
                         message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNTB'),
@@ -4146,6 +4153,7 @@
                       break;
                     }
                     if (this.tableP[i].plsummary === '') {
+                      this.activeName = 'third';
                       error = error + 1;
                       Message({
                         message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_PL'),
@@ -4213,6 +4221,7 @@
                   sumout = summoney + sumMoney;
                   if (sumout != this.tableF[j].invoiceamount) {
                     error = error + 1;
+                    this.activeName = 'first';
                     Message({
                       message: this.$t('label.PFANS1012FORMVIEW_MESSAGE'),
                       type: 'error',

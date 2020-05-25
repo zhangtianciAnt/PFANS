@@ -1764,6 +1764,7 @@
               //add-ws-4/22-金额不能大于事业计划余额check
               if (this.form.plan === '1') {
                 if (this.form.moneys > this.form.balance) {
+                  this.activeName = 'fourth';
                   error = error + 1;
                   Message({
                     message: this.$t('label.PFANS1002VIEW_CHECKERROR'),
