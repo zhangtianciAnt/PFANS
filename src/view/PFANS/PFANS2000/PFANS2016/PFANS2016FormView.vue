@@ -77,6 +77,18 @@
                   v-model="form.lengthtime"
                 ></el-input-number>
                 <el-input-number
+                  v-else-if="form.errortype === 'PR013006' && form.occurrencedate === form.finisheddate"
+                  :disabled="dislengthtime"
+                  step-strictly
+                  :max="7.75"
+                  :min="0"
+                  :precision="2"
+                  :step="0.25"
+                  controls-position="right"
+                  style="width:20vw"
+                  v-model="form.lengthtime"
+                ></el-input-number>
+                <el-input-number
                   v-else
                   :disabled="dislengthtime"
                   step-strictly
@@ -457,11 +469,7 @@
         debugger
         if (this.form.errortype == 'PR013006') {
           this.$store
-            .dispatch('PFANS2016Store/cklength', {
-              'user_id': this.form.user_id,
-              errortype: this.form.errortype,
-              lengthtime: this.form.lengthtime,
-            })
+              .dispatch('PFANS2016Store/cklength', this.form)
             .then(response => {
               if (response.error != '' && response.error == 'PR013006') {
                 this.checkDate = response.dat;
@@ -500,11 +508,7 @@
         debugger
         if ((this.form.errortype == 'PR013005' || this.form.errortype == 'PR013006' || this.form.errortype == 'PR013007') && this.form.status === '4') {
           this.$store
-            .dispatch('PFANS2016Store/cklength', {
-              'user_id': this.form.user_id,
-              errortype: this.form.errortype,
-              relengthtime: this.form.relengthtime,
-            })
+              .dispatch('PFANS2016Store/cklength', this.form)
             .then(response => {
               if (response.error != '' && response.error == 'PR013006') {
                 this.checkDate = response.dat;
@@ -1333,6 +1337,7 @@
         // }
       },
       change() {
+          this.form.lengthtime = '0';
         if (!this.form.finisheddate || !this.form.occurrencedate) {
           return;
         }
