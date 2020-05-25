@@ -138,7 +138,7 @@
                     <el-form-item :label="$t('label.PFANS1012VIEW_PAYMENTMETHOD')" prop="paymentmethod">
                       <dicselect :code="code3"
                                  :data="form.paymentmethod"
-                                 :disabled="!disable"
+                                 :disabled="this.form.type === 'PJ001001'?true:!disable"
                                  :multiple="multiple"
                                  @change="getPayment"
                                  style="width:20vw">
@@ -146,7 +146,7 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('是否导出CSV')">
+                    <el-form-item :label="$t('label.PFANS1012VIEW_EXPORTCSV')">
                       <el-switch
                         @change="changeexternal(scope.row)"
                         :disabled="!disable"
@@ -244,7 +244,7 @@
                 </el-row>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item :error="errorname" :label="$t('label.PFANS1012FORMVIEW_PERPOR')" v-show="show2">
+                    <el-form-item :error="errorname" :label="$t('label.PFANS1006FORMVIEW_USERNAME')" v-show="show2">
                       <user :disabled="!disable" :error="errorname" :selectType="selectType" :userlist="namelist"
                             @getUserids="getUsernames" style="width: 20vw" v-model="form.user_name"></user>
                     </el-form-item>
@@ -2231,12 +2231,18 @@
         this.form.judgement_name = this.form.judgement_name.substring(0, this.form.judgement_name.length - 1);
         this.form.type = this.$route.params._type;
         if (this.form.type === 'PJ001001') {
+          //add-ws-5/25-No.16-费明细：【付款方式】不用员工做选择，固定为“个人账户”
+          this.getPayment('PJ004002')
+          //add-ws-5/25-No.16-费明细：【付款方式】不用员工做选择，固定为“个人账户”
           this.show9 = true;
           this.show7 = false;
           this.show6 = false;
           this.form.moduleid = 'PJ002001';
           this.form.moduleidApp = getDictionaryInfo(this.form.moduleid).value1;
         } else if (this.form.type === 'PJ001002') {
+          //add-ws-5/25-No.16-费明细：【付款方式】不用员工做选择，固定为“个人账户”
+          this.getPayment()
+          //add-ws-5/25-No.16-费明细：【付款方式】不用员工做选择，固定为“个人账户”
           this.show9 = false;
           this.show7 = true;
           this.show6 = true;
@@ -3263,7 +3269,7 @@
         this.namelist = val;
         this.form.user_name = val;
         if (!this.form.user_name || this.form.user_name === '' || typeof val == 'undefined') {
-          this.errorname = this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_PERPOR');
+          this.errorname = this.$t('normal.error_08') + this.$t('label.PFANS1006FORMVIEW_USERNAME');
         } else {
           this.errorname = '';
         }
@@ -4068,6 +4074,7 @@
                 for (let i = 0; i < this.tableT.length; i++) {
                   if (this.tableT[i].rmb > 0) {
                     if (this.tableT[i].budgetcoding === '') {
+                      this.activeName = 'second';
                       error = error + 1;
                       Message({
                         message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_BUDGET'),
@@ -4077,6 +4084,7 @@
                       break;
                     }
                     if (this.tableT[i].subjectnumber === '') {
+                      this.activeName = 'second';
                       error = error + 1;
                       Message({
                         message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNTB'),
@@ -4091,6 +4099,7 @@
                 for (let i = 0; i < this.tableR.length; i++) {
                   if (this.tableR[i].rmb > 0) {
                     if (this.tableR[i].budgetcoding === '') {
+                      this.activeName = 'third';
                       error = error + 1;
                       Message({
                         message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_BUDGET'),
@@ -4100,6 +4109,7 @@
                       break;
                     }
                     if (this.tableR[i].subjectnumber === '') {
+                      this.activeName = 'third';
                       error = error + 1;
                       Message({
                         message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNTB'),
@@ -4109,6 +4119,7 @@
                       break;
                     }
                     if (this.tableR[i].plsummary === '') {
+                      this.activeName = 'third';
                       error = error + 1;
                       Message({
                         message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_PL'),
@@ -4122,6 +4133,7 @@
                 for (let i = 0; i < this.tableP.length; i++) {
                   if (this.tableP[i].rmb > 0) {
                     if (this.tableP[i].budgetcoding === '') {
+                      this.activeName = 'third';
                       error = error + 1;
                       Message({
                         message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_BUDGET'),
@@ -4131,6 +4143,7 @@
                       break;
                     }
                     if (this.tableP[i].subjectnumber === '') {
+                      this.activeName = 'third';
                       error = error + 1;
                       Message({
                         message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNTB'),
@@ -4140,6 +4153,7 @@
                       break;
                     }
                     if (this.tableP[i].plsummary === '') {
+                      this.activeName = 'third';
                       error = error + 1;
                       Message({
                         message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_PL'),
@@ -4207,6 +4221,7 @@
                   sumout = summoney + sumMoney;
                   if (sumout != this.tableF[j].invoiceamount) {
                     error = error + 1;
+                    this.activeName = 'first';
                     Message({
                       message: this.$t('label.PFANS1012FORMVIEW_MESSAGE'),
                       type: 'error',

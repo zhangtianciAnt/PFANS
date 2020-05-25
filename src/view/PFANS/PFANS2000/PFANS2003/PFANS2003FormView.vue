@@ -286,12 +286,12 @@
           </el-row>
           <el-row>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS2003VIEW_SCHOOL')">
+              <el-form-item :label="$t('label.PFANS2003VIEW_SCHOOL')" prop="school">
                 <el-input :disabled="!disabled" maxlength='20' style="width:20vw" v-model="form.school"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS2003FORMVIEW_SUPPLEMENT')">
+              <el-form-item :label="$t('label.PFANS2003FORMVIEW_SUPPLEMENT')" prop="supplement">
                 <dicselect
                   :code="code3"
                   :data="form.supplement"
@@ -529,6 +529,39 @@
         show2: false,
         show3: false,
         rules: {
+            // add_fjl_05/25  -- 添加必填项
+            name: [{
+                required: true,
+                message: this.$t('normal.error_08') + this.$t('label.user_name'),
+                trigger: 'blur',
+            }],
+            sex: [{
+                required: true,
+                message: this.$t('normal.error_09') + this.$t('label.sex'),
+                trigger: 'change',
+            }],
+            birthday: [{
+                required: true,
+                message: this.$t("normal.error_08") + this.$t('label.PFANS2002VIEW_BIRTHDAY'),
+                trigger: 'change'
+            }],
+            accept_date: [{
+                required: true,
+                message: this.$t('normal.error_09') + this.$t('label.PFANS2003VIEW_ACCEPTDATE'),
+                trigger: 'change',
+            },
+                {validator: validateaccept_date, trigger: 'change'}],
+            school: [{
+                required: true,
+                message: this.$t("normal.error_08") + this.$t('label.PFANS2003VIEW_SCHOOL'),
+                trigger: 'blur'
+            }],
+            supplement: [{
+                required: true,
+                message: this.$t("normal.error_09") + this.$t('label.PFANS2003FORMVIEW_SUPPLEMENT'),
+                trigger: 'change'
+            }],
+            // add_fjl_05/25  -- 添加必填项
         },
       };
     },

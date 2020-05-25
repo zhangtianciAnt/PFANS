@@ -96,11 +96,18 @@
                             v-model="form.extensionnumber"></el-input>
                 </el-form-item>
               </el-col>
-              <el-col :span="8">
+              <!--              add_fjl_05/25  &#45;&#45; 修改国内时的身份证/护照-->
+              <el-col :span="8" v-if="form.ticketstype === 'first'">
+                <el-form-item :label="$t('label.PFANS3001FORMVIEW_IDCARDORPA')" prop="idcardorpa">
+                  <el-input :disabled="!disable" maxlength="18" style="width:20vw" v-model="form.idcardorpa"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="8" v-if="form.ticketstype === 'second'">
                 <el-form-item :label="$t('label.PFANS3001FORMVIEW_IDCARD')" prop="idcard">
                   <el-input :disabled="!disable" maxlength="18" style="width:20vw" v-model="form.idcard"></el-input>
                 </el-form-item>
               </el-col>
+              <!--              add_fjl_05/25  &#45;&#45; 修改国内时的身份证/护照-->
               <el-col :span="8" v-show="showDomestic">
                 <el-form-item :label="$t('label.PFANS3001VIEW_MOBILEPHONE')" prop="mobilephone">
                   <el-input :disabled="!disable" maxlength="20" style="width:20vw"
@@ -484,6 +491,7 @@
           applicationdate: moment(new Date()).format("YYYY-MM-DD"),
           ticketstype: 'first',
           idcard: '',
+            dcardorpa: '',
           tripend: '',
           passport: '',
           effectivedate: '',
@@ -526,12 +534,17 @@
             message: this.$t('normal.error_08') + this.$t('label.PFANS3001VIEW_EXTENSIONNUMBER'),
             trigger: 'blur',
           },],
-          idcard: [{
+            idcardorpa: [{
             required: true,
-            message: this.$t('normal.error_08') + this.$t('label.PFANS3001FORMVIEW_IDCARD'),
+                message: this.$t('normal.error_08') + this.$t('label.PFANS3001FORMVIEW_IDCARDORPA'),
             trigger: 'blur',
-          },
-            {validator: validateIdCard, trigger: 'blur'}],
+            }],
+            idcard: [{
+                required: true,
+                message: this.$t('normal.error_08') + this.$t('label.PFANS3001FORMVIEW_IDCARD'),
+                trigger: 'blur',
+            },
+                {validator: validateIdCard, trigger: 'blur'}],
           mobilephone: [{
             required: true,
             message: this.$t('normal.error_08') + this.$t('label.PFANS3001VIEW_MOBILEPHONE'),
@@ -552,7 +565,7 @@
           trippoint: [{
             required: true,
             message: this.$t('normal.error_08') + this.$t('label.PFANS3001VIEW_TRIPPOINT'),
-            trigger: 'blur',
+              trigger: 'change',
           }],
           tripstart: [{
             required: true,
@@ -633,6 +646,9 @@
           .dispatch('PFANS3001Store/selectById', {'tickets_id': this.$route.params._id})
           .then(response => {
             this.form = response.tickets;
+              if (this.form.ticketstype === 'first') {
+                  this.form.idcardorpa = this.form.idcard;
+              }
             // <!--2020-05-06 ztc 机票改为明细 start-->
             if (response.ticketsdetails.length > 0) {
               this.tableA = response.ticketsdetails;
@@ -971,6 +987,7 @@
             if (this.form.ticketstype === 'first') {
               this.form.passport = '';
               this.form.effectivedate = '';
+                this.form.idcard = this.form.idcardorpa;
             }
             // else {
             //   this.form.idcard = '';
