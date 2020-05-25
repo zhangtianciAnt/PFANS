@@ -33,4 +33,15 @@ export function updatenoticesstatus (data) {
   })
 }
 
+//    ADD_FJL_05/25  -- 删除无用代办
+export function delToDoNotice(data) {
+  return request({
+    url: '/ToDoNotice/delToDoNotice',
+    method: 'get',
+    params: data
+  })
+}
+
+//    ADD_FJL_05/25  -- 删除无用代办
+
 
