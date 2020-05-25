@@ -359,7 +359,6 @@
               disabled: false,
             },
           ];
-          this.loading = true;
           this.$store
             .dispatch('PFANS5008Store/getCheckList', {'createby': this.User_id})
             .then(response => {
