@@ -244,7 +244,7 @@
                 </el-row>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item :error="errorname" :label="$t('label.PFANS1012FORMVIEW_PERPOR')" v-show="show2">
+                    <el-form-item :error="errorname" :label="$t('label.PFANS1006FORMVIEW_USERNAME')" v-show="show2">
                       <user :disabled="!disable" :error="errorname" :selectType="selectType" :userlist="namelist"
                             @getUserids="getUsernames" style="width: 20vw" v-model="form.user_name"></user>
                     </el-form-item>
@@ -3269,7 +3269,7 @@
         this.namelist = val;
         this.form.user_name = val;
         if (!this.form.user_name || this.form.user_name === '' || typeof val == 'undefined') {
-          this.errorname = this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_PERPOR');
+          this.errorname = this.$t('normal.error_08') + this.$t('label.PFANS1006FORMVIEW_USERNAME');
         } else {
           this.errorname = '';
         }
