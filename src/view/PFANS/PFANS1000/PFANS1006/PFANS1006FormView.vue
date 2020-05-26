@@ -856,27 +856,49 @@
             for (let i = 0; i < response.length; i++) {
               //add-ws-5/13-总务担当看到所有符合条件的数据，其他人看本身的数据
               if (this.role1 === '0') {
-                if (response[i].equipment == '0') {
+                if (response[i].equipment == '0' && response[i].status === '4') {
                   this.options.push({
                     value: response[i].judgementid,
                     label: this.$t('menu.PFANS1004') + '_' + response[i].judgnumbers,
                   });
                 }
               } else {
-                if (user_id === response[i].user_id && response[i].equipment == '0') {
+                //upd-ws-5/26-No.208
+                if (this.disable) {
+                  if (user_id === response[i].user_id && response[i].equipment == '0' && response[i].status === '4') {
+                    this.options.push({
+                      value: response[i].judgementid,
+                      label: this.$t('menu.PFANS1004') + '_' + response[i].judgnumbers,
+                    });
+                  }
+                } else {
+                  if (response[i].equipment == '0' && response[i].status === '4') {
+                    this.options.push({
+                      value: response[i].judgementid,
+                      label: this.$t('menu.PFANS1004') + '_' + response[i].judgnumbers,
+                    });
+                  }
+                }
+                //upd-ws-5/26-No.208
+              }
+              //add-ws-5/13-总务担当看到所有符合条件的数据，其他人看本身的数据
+              //upd-ws-5/26-No.208
+              if (this.disable) {
+                if (user_id === response[i].user_id && response[i].equipment == '1' && response[i].status === '4') {
                   this.options.push({
                     value: response[i].judgementid,
-                    label: this.$t('menu.PFANS1004') + '_' + response[i].judgnumbers,
+                    label: this.$t('menu.PFANS1003') + '_' + response[i].judgnumbers,
+                  });
+                }
+              } else {
+                if (response[i].equipment == '1' && response[i].status === '4') {
+                  this.options.push({
+                    value: response[i].judgementid,
+                    label: this.$t('menu.PFANS1003') + '_' + response[i].judgnumbers,
                   });
                 }
               }
-              //add-ws-5/13-总务担当看到所有符合条件的数据，其他人看本身的数据
-              if (user_id === response[i].user_id && response[i].equipment == '1') {
-                this.options.push({
-                  value: response[i].judgementid,
-                  label: this.$t('menu.PFANS1003') + '_' + response[i].judgnumbers,
-                });
-              }
+              //upd-ws-5/26-No.208
             }
             //add-ws-4/24-暂借款申请单添加千元以下费用申请数据到下拉列表中
             this.$store
@@ -885,21 +907,33 @@
                 for (let i = 0; i < response.length; i++) {
                   //add-ws-5/13-总务担当看到所有符合条件的数据，其他人看本身的数据
                   if (this.role1 === '0') {
-                    this.options.push({
-                      value: response[i].purchaseapply_id,
-                      label: this.$t('menu.PFANS1005') + '_' + response[i].purchasenumbers,
-                    });
-                  } else {
-                    if (user_id === response[i].user_id) {
+                    if (response[i].status === '4') {
                       this.options.push({
                         value: response[i].purchaseapply_id,
                         label: this.$t('menu.PFANS1005') + '_' + response[i].purchasenumbers,
                       });
                     }
+                  } else {
+                    //upd-ws-5/26-No.208
+                    if (this.disable) {
+                      if (user_id === response[i].user_id && response[i].status === '4') {
+                        this.options.push({
+                          value: response[i].purchaseapply_id,
+                          label: this.$t('menu.PFANS1005') + '_' + response[i].purchasenumbers,
+                        });
+                      }
+                    } else {
+                      if (response[i].status === '4') {
+                        this.options.push({
+                          value: response[i].purchaseapply_id,
+                          label: this.$t('menu.PFANS1005') + '_' + response[i].purchasenumbers,
+                        });
+                      }
+                    }
+                    //upd-ws-5/26-No.208
                   }
                   //add-ws-5/13-总务担当看到所有符合条件的数据，其他人看本身而数据
                 }
-                this.loading = false;
               }).catch(error => {
               Message({
                 message: error,
@@ -910,49 +944,46 @@
             });
             //add-ws-4/24-暂借款申请单添加千元以下费用申请数据到下拉列表中
             //add-ws-5/13-添加购买申请数据，总务担当看到所有符合条件的数据，其他人看本身而数据
-            if (this.role1 === '0') {
-              this.$store
-                .dispatch('PFANS3005Store/getPurchaseList')
-                .then(response => {
-                  for (let i = 0; i < response.length; i++) {
+            //upd-ws-5/26-No.208
+            //upd-ws-5/26-No.208
+
+            this.$store
+              .dispatch('PFANS3005Store/getPurchaseList')
+              .then(response => {
+                for (let i = 0; i < response.length; i++) {
+                  if (this.role1 === '0') {
                     if (response[i].status === '4') {
                       var vote = {};
                       vote.value = response[i].purchase_id;
                       vote.label = this.$t('label.PFANS1012VIEW_PURCHASSES') + '_' + response[i].purnumbers;
                       this.options.push(vote);
                     }
-                  }
-                  this.loading = false;
-                }).catch(error => {
-                Message({
-                  message: error,
-                  type: 'error',
-                  duration: 5 * 1000,
-                });
-                this.loading = false;
-              });
-            } else {
-              this.$store
-                .dispatch('PFANS3005Store/getPurchase')
-                .then(response => {
-                  for (let i = 0; i < response.length; i++) {
-                    if (response[i].status === '4') {
-                      var vote = {};
-                      vote.value = response[i].purchase_id;
-                      vote.label = this.$t('label.PFANS1012VIEW_PURCHASSES') + '_' + response[i].purnumbers;
-                      this.options.push(vote);
+                  } else {
+                    if (this.disable) {
+                      if (response[i].status === '4' && user_id === response[i].user_id) {
+                        var vote = {};
+                        vote.value = response[i].purchase_id;
+                        vote.label = this.$t('label.PFANS1012VIEW_PURCHASSES') + '_' + response[i].purnumbers;
+                        this.options.push(vote);
+                      }
+                    } else {
+                      if (response[i].status === '4') {
+                        var vote = {};
+                        vote.value = response[i].purchase_id;
+                        vote.label = this.$t('label.PFANS1012VIEW_PURCHASSES') + '_' + response[i].purnumbers;
+                        this.options.push(vote);
+                      }
                     }
                   }
-                  this.loading = false;
-                }).catch(error => {
-                Message({
-                  message: error,
-                  type: 'error',
-                  duration: 5 * 1000,
-                });
-                this.loading = false;
+                }
+              }).catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
               });
-            }
+              this.loading = false;
+            });
             this.loading = false;
             //add-ws-5/13-添加购买申请数据，总务担当看到所有符合条件的数据，其他人看本身而数据
           });
@@ -1076,10 +1107,10 @@
       start(val) {
         if (val.state === '0') {
           this.form.status = '2';
-        }else if (val.state === '2') {
+        } else if (val.state === '2') {
           this.form.status = '4';
         }
-        this.buttonClick("update");
+        this.buttonClick('update');
       },
       end() {
         this.form.status = '0';

@@ -35,6 +35,7 @@ module.exports = {
     cancel: '取消',
     save: '保存',
     open: '跳转',
+    complete: '完成',
     addNode: '增加流程节点',
     newDep: '新建部门',
     newCom: '新建公司',

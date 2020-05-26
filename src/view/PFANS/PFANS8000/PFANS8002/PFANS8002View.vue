@@ -62,7 +62,7 @@
                 data: [],
                 buttonList: [
                     {key: "open", name: "button.open", disabled: false, icon: ""},
-                    {key: "end", name: "button.delete", disabled: true, icon: ""}],
+                    {key: "end", name: "button.complete", disabled: true, icon: ""}],
                 columns: [
                     {
                         code: 'title',
