@@ -3,13 +3,12 @@
     <EasyNormalContainer ref="container" :title="title" @buttonClick="buttonClick" :buttonList="buttonList"
                          @disabled="setdisabled"
                          v-loading="loading">
-      <div slot="customize" style="margin-top: 4rem;">
+      <div slot="customize" style="margin-top: 0.5rem;">
         <el-form ref="form" label-width="8vw" label-position="top" style="padding: 2vw">
           <el-form :model="companyform" ref="companyform"
                    class="demo-ruleForm" :rules="rules">
             <el-container>
-              <el-aside style="width: 58%;height: 39.3rem">
-
+              <el-aside style="width: 58%;height: 32rem">
                 <el-row>
                   <el-col :span="12">
                     <el-form-item :label="$t('label.PFANS5008VIEW_RIQI')" prop="log_date">
@@ -118,7 +117,7 @@
                 </el-calendar>
               </el-main>
             </el-container>
-            <div align="center" v-show='divfalse' style="margin-top: 10vm">
+            <div align="center" v-show='divfalse' style="margin-top: 1vm">
               <span v-show="Riqickeck"> {{ this.companyform.log_date | moment('YYYY-MM-DD')}}</span>
               <span>{{$t('label.PFANS5008FORMVIEW_JL')}}</span>
             </div>
@@ -132,30 +131,30 @@
                 show-overflow-tooltip
                 prop="project_name"
                 :label="$t('label.PFANS5008FORMVIEW_GZPROGRAM')"
-                width="250px">
+                width="280px">
               </el-table-column>
               <el-table-column
                 prop="start_time"
                 :label="$t('label.PFANS5008FORMVIEW_SC')"
-                width="150px">
+                width="172px">
               </el-table-column>
               <el-table-column
                 show-overflow-tooltip
                 prop="work_phase"
                 :label="$t('label.PFANS5008VIEW_JDJOBS')"
-                width="150px">
+                width="175px">
               </el-table-column>
               <el-table-column
                 show-overflow-tooltip
                 prop="behavior_breakdown"
                 :label="$t('label.PFANS5008VIEW_XWXF')"
-                width="150px">
+                width="175px">
               </el-table-column>
               <el-table-column
                 show-overflow-tooltip
                 prop="wbs_id"
                 :label="$t('label.PFANS5008FORMVIEW_WBSID')"
-                width="150px">
+                width="175px">
               </el-table-column>
             </el-table>
           </el-form>
