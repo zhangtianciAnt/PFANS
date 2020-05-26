@@ -94,7 +94,7 @@
                       :code="code1"
                       :data="form.jobdemand"
                       :disabled="!disabled"
-                      :multiple="multiple"
+                      :multiple="multiple1"
                       @change="getJobdemand"
                       style="width:20vw">
                     </dicselect>
@@ -449,6 +449,14 @@
                         if (this.form.requirements === 'PR032005') {
                             this.show2 = true;
                         }
+
+                      // add-ccm-岗位需求下拉多选
+                      if (this.form.jobdemand != '' && this.form.jobdemand != null && this.form.jobdemand != undefined) {
+                        let letstaff = this.form.jobdemand.split(',');
+                        this.form.jobdemand = letstaff;
+                      }
+                      // add-ccm-岗位需求下拉多选
+
                         this.loading = false;
                     })
                     .catch(error => {
@@ -660,6 +668,16 @@
                 this.checkRequire();
                 this.$refs["refform"].validate(valid => {
                     if (valid) {
+                      // add-ccm-岗位需求下拉多选
+                      if (this.form.jobdemand != '' && this.form.jobdemand != null && this.form.jobdemand != undefined) {
+                        let checktlist = this.form.jobdemand.splice(',');
+                        let checktableD = '';
+                        for (var m = 0; m < checktlist.length; m++) {
+                          checktableD = checktableD + checktlist[m] + ',';
+                        }
+                        this.form.jobdemand = checktableD.substring(0, checktableD.length - 1);
+                      }
+                      // add-ccm-岗位需求下拉多选
                         this.form.recruitmentroute = this.recruitmentroute.join(",");
                         if (this.$route.params._id) {
                             this.form.recruitid = this.$route.params._id;
