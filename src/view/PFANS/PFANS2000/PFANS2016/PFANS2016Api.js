@@ -86,3 +86,13 @@ export function updateOvertime(data) {
   })
 }
 
+//add_fjl_05/26 --添加代休剩余
+export function getRestday(data) {
+  return request({
+    url: 'abNormal/getRestday',
+    method: 'get',
+    params: data
+  })
+}
+
+//add_fjl_05/26 --添加代休剩余

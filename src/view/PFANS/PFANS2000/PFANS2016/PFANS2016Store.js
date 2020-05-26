@@ -1,6 +1,7 @@
 import {createPfans2016, getFpans2016List, updatePfans2016,getPfans2016One,
         getOvertimelist,getReplacerest,cklength,updateNewUser,getSickleave,
-  selectAbNormalParent,updateOvertime} from './PFANS2016Api'
+  selectAbNormalParent, updateOvertime, getRestday
+} from './PFANS2016Api'
 
 const PFANS2016Store = {
   namespaced: true,
@@ -167,6 +168,21 @@ const PFANS2016Store = {
         })
       })
     },
+    //add_fjl_05/26 --添加代休剩余
+    getRestday({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getRestday(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    //add_fjl_05/26 --添加代休剩余
   }
 };
 

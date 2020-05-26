@@ -119,6 +119,18 @@
                   v-model="form.relengthtime"
                 ></el-input-number>
                 <el-input-number
+                  v-else-if="form.errortype === 'PR013006' && form.reoccurrencedate === form.refinisheddate"
+                  :disabled="checkrelengthtime"
+                  step-strictly
+                  :max="7.75"
+                  :min="0"
+                  :precision="2"
+                  :step="0.25"
+                  controls-position="right"
+                  style="width:20vw"
+                  v-model="form.relengthtime"
+                ></el-input-number>
+                <el-input-number
                   v-else
                   :disabled="checkrelengthtime"
                   step-strictly
@@ -163,6 +175,13 @@
                 </el-select>
               </el-form-item>
             </el-col>
+            <!--           add_fjl_05/26 &#45;&#45;添加代休剩余-->
+            <el-col :span="8" v-if="form.errortype == 'PR013006'|| form.errortype == 'PR013007'">
+              <el-form-item :label="$t('label.PFANS2016FORMVIEW_RESTDIFF')">
+                <el-input v-model="form.restdiff" style="width: 20vw" :disabled="true"></el-input>
+              </el-form-item>
+            </el-col>
+            <!--           add_fjl_05/26 &#45;&#45;添加代休剩余-->
           </el-row>
           <div class="sub_color_red" v-if="checkerrortishi">
             {{$t('label.PFANS2016FORMVIEW_TISHICHECKERROR')}}
@@ -559,6 +578,7 @@
         workflowCode: '',
         canStart: true,
         loading: false,
+          optionRest: [],
         errort: '',
         checkDate: '',
         errorendtime: '',
@@ -594,6 +614,7 @@
         title: 'title.exception_application',
         buttonList: [],
         form: {
+            restdiff: '',
           vacationtype: '',
           revacationtype: '',
           centerid: '',
@@ -725,6 +746,7 @@
       };
     },
     mounted() {
+        this.getRestday();
       this.getAbNormalParent();
       this.getSickleave();
       // this.getAttendance();
@@ -1134,6 +1156,31 @@
             this.loading = false;
           });
       },
+        //add_fjl_05/26 --添加代休剩余
+        getRestday() {
+            this.loading = true;
+            this.$store
+                .dispatch('PFANS2016Store/getRestday', {'userid': this.$store.getters.userinfo.userid})
+                .then(response => {
+                    this.optionRest = [];
+                    for (let i = 0; i < response.length; i++) {
+                        var ro = {};
+                        ro.typecode = response[i].codetype,
+                            ro.sumday = response[i].sumDay,
+                            this.optionRest.push(ro);
+                    }
+                    this.loading = false;
+                })
+                .catch(error => {
+                    Message({
+                        message: error,
+                        type: 'error',
+                        duration: 5 * 1000,
+                    });
+                    this.loading = false;
+                });
+        },
+        //add_fjl_05/26 --添加代休剩余
       getAbNormalParent() {
         this.loading = true;
         this.$store
@@ -1518,6 +1565,20 @@
         }
 
       },
+        //add_fjl_05/26 --添加代休剩余
+        getonRest(val) {
+            this.form.restdiff = '';
+            if (this.optionRest.length > 0) {
+                for (let i = 0; i < this.optionRest.length; i++) {
+                    if (this.optionRest[i].typecode === val) {
+                        if (this.optionRest[i].sumday !== null && this.optionRest[i].sumday !== '') {
+                            this.form.restdiff = (Number(this.optionRest[i].sumday) * 8).toFixed(2);
+                        }
+                    }
+                }
+            }
+        },
+        //add_fjl_05/26 --添加代休剩余
       getErrorType(val) {
         this.form.hospital = '';
         this.form.edate = '';
@@ -1550,12 +1611,14 @@
           this.checkrelengthtime = false;
           this.dislengthtime = false;
           this.showVacation = false;
+            this.getonRest(val)
         } else if (val === 'PR013007') {
           this.form.vacationtype = '';
           this.checkerrortishi = false;
           this.checkrelengthtime = false;
           this.dislengthtime = false;
           this.showVacation = false;
+            this.getonRest(val)
         } else if (val === 'PR013008') {
           this.checkerrortishi = false;
           this.checkrelengthtime = false;
