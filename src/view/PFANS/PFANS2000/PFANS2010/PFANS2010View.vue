@@ -172,6 +172,21 @@
                           }else{
                               response[j].workflowstates = getStatus('0');
                           }
+                          //总经理承认不需要审批
+                          if (response[j].recognitionstate === this.$t('label.PFANS2010VIEW_RECOGNITION0'))
+                          {
+                            if (response[j].user_id==='5e78fefff1560b363cdd6db7')
+                            {
+                              response[j].workflowstates = '进行中';
+                            }
+                          }
+                          else
+                          {
+                            if (response[j].user_id==='5e78fefff1560b363cdd6db7')
+                            {
+                              response[j].workflowstates = '通过';
+                            }
+                          }
                         }
                         this.data = response;
                         this.loading = false;

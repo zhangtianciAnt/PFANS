@@ -331,7 +331,7 @@
       };
       //add_fjl
       var revalidateVacationtype = (rule, value, callback) => {
-        debugger
+        //debugger
         if ((this.form.errortype == 'PR013005' || this.form.errortype == 'PR013007') && this.form.status != '4' && this.form.status != '5' && this.form.status != '6' && this.form.status != '7' && this.form.status != '8') {
           if (this.form.vacationtype === null || this.form.vacationtype === '') {
             callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS2016FORMVIEW_XJTYPE')));
@@ -380,7 +380,7 @@
         }
       };
       var revalidateRevacationtype = (rule, value, callback) => {
-        debugger
+        //debugger
         if ((this.form.errortype == 'PR013005' || this.form.errortype == 'PR013007') && (this.form.status === '4' || this.form.status === '5' || this.form.status === '6' || this.form.status === '7')) {
           if (this.form.revacationtype === null || this.form.revacationtype === '') {
             callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS2016FORMVIEW_RELENGTHTIME')));
@@ -466,7 +466,7 @@
         }
       };
       var validateLength = (rule, value, callback) => {
-        debugger
+        //debugger
         if (this.form.errortype == 'PR013006') {
           this.$store
               .dispatch('PFANS2016Store/cklength', this.form)
@@ -505,7 +505,7 @@
         }
       };
       var revalidateLength = (rule, value, callback) => {
-        debugger
+        //debugger
         if ((this.form.errortype == 'PR013005' || this.form.errortype == 'PR013006' || this.form.errortype == 'PR013007') && this.form.status === '4') {
           this.$store
               .dispatch('PFANS2016Store/cklength', this.form)
@@ -794,14 +794,29 @@
               }
             }
             if (this.form.status === '0' || this.form.status === '3') {
-              this.workflowCode = 'W0003';
+              if (this.form.user_id ==='5e78fefff1560b363cdd6db7')
+              {
+                this.workflowCode = 'W0070';
+              }
+              else
+              {
+                this.workflowCode = 'W0003';
+              }
+
               this.canStart = true;
               if (!this.disable) {
                 this.dislengthtime = true;
                 this.disableupload = true;
               }
             } else if (this.form.status === '4' || this.form.status === '6') {
-              this.workflowCode = 'W0059';
+              if (this.form.user_id ==='5e78fefff1560b363cdd6db7')
+              {
+                this.workflowCode = 'W0071';
+              }
+              else
+              {
+                this.workflowCode = 'W0059';
+              }
               this.canStart = true;
               //查看时，不可编辑
               if (!this.disable) {
@@ -822,7 +837,14 @@
               this.disableupload = true;
             } else if (this.form.status === '7') {
               this.disrevacationtype = true;
-              this.workflowCode = 'W0059';
+              if (this.form.user_id ==='5e78fefff1560b363cdd6db7')
+              {
+                this.workflowCode = 'W0071';
+              }
+              else
+              {
+                this.workflowCode = 'W0059';
+              }
               this.canStart = false;
               this.disable = false;
               this.dislengthtime = true;
@@ -864,7 +886,8 @@
         this.getOvertimelist();
         // this.getWorktime();
         if (this.$store.getters.userinfo.userid === '5e78fefff1560b363cdd6db7') {
-          this.workflowCode = '1';
+          //debugger;
+          this.workflowCode = 'W0070';
         } else {
           this.workflowCode = 'W0003';
         }
@@ -1616,17 +1639,17 @@
         // this.changeTime();
       },
       workflowState(val) {
-        debugger
+        //debugger
         if (val.state === '1') {
-          if (val.workflowCode === 'W0003') {
+          if (val.workflowCode === 'W0003' || val.workflowCode === 'W0070') {
             this.form.status = '3';
-          } else if (val.workflowCode === 'W0059') {
+          } else if (val.workflowCode === 'W0059' || val.workflowCode === 'W0071') {
             this.form.status = '6';
           }
         } else if (val.state === '2') {
-          if (val.workflowCode === 'W0003') {
+          if (val.workflowCode === 'W0003' || val.workflowCode === 'W0070') {
             this.form.status = '4';
-          } else if (val.workflowCode === 'W0059') {
+          } else if (val.workflowCode === 'W0059' || val.workflowCode === 'W0071') {
             this.form.status = '7';
             this.canStart = false;
 
@@ -1650,20 +1673,19 @@
       //add-ws-5/20-审批流程添加
       start(val) {
         this.form.applicationdate = moment(new Date()).format('YYYY-MM-DD');
-        if (val.state === '4' || val.state === '6') {
+
+        if (this.form.status === '4' || this.form.status === '6') {
           this.form.status = '5';
           this.disableupload = true;
-        } else if (val.state === '0') {
+        } else {
           this.form.status = '2';
-          this.disableupload = true;
-        } else if (val.state === '2') {
-          this.form.status = '4';
           this.disableupload = true;
         }
         this.buttonClick2();
       },
       //add-ws-5/20-审批流程添加
       end() {
+        //debugger;
         if (this.form.status === '5') {
           this.form.status = '4';
         } else {
@@ -2146,9 +2168,9 @@
               }
               if (this.$route.params._id) {
                 //总经理审批自动通过
-                if (getCurrentRole() === '1' && this.form.status === '4' && this.form.user_id === '5e78fefff1560b363cdd6db7') {
-                  this.form.status = '7';
-                }
+                // if (getCurrentRole() === '1' && this.form.status === '4' && this.form.user_id === '5e78fefff1560b363cdd6db7') {
+                //   this.form.status = '7';
+                // }
                 this.form.abnormalid = this.$route.params._id;
                 this.loading = true;
                 this.$store
@@ -2224,10 +2246,10 @@
       },
       buttonClick2(val) {
         //总经理审批自动通过
-        debugger
-        if (getCurrentRole() === '1' && this.form.user_id === '5e78fefff1560b363cdd6db7') {
-          this.form.status = '7';
-        }
+        //debugger
+        // if (getCurrentRole() === '1' && this.form.user_id === '5e78fefff1560b363cdd6db7') {
+        //   this.form.status = '7';
+        // }
         this.form.abnormalid = this.$route.params._id;
         this.loading = true;
         this.$store
