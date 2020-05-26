@@ -176,8 +176,8 @@
 
       async changeFilte(){
         this.loading = false;
-        this.getProjectList();
-        this.filter();
+        await this.getProjectList();
+        await this.filter();
         this.loading = true;
       },
       getcontract(){
