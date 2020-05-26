@@ -5,9 +5,9 @@
                    :title="title" ref="roletable"
                    v-loading="loading">
     <div slot="search">
-      <el-form label-position="top" label-width="8vw" ref="reff" style="padding-top: 5px">
+      <el-form label-position="top" label-width="8vw" ref="reff" style="padding-top: 2px">
         <el-form-item>
-          <el-row style="padding-top: 10px">
+          <el-row style="padding-top: 2px">
             <el-col :span="12">
               <el-form-item :label="$t('label.PFANS2016VIEW_OCCURRENCEDATE')">
                 <el-date-picker
@@ -50,8 +50,8 @@
     },
     data() {
       return {
-        start: '',
-        end: '',
+        start: moment(new Date()).format('YYYY-MM-DD'),
+        end: moment(new Date()).format('YYYY-MM-DD'),
         showSelection: true,
         buttonList: [
           //{'key': 'import', 'name': 'button.import', 'disabled': false, 'icon': 'el-icon-upload2'},
@@ -104,7 +104,7 @@
           {
             code: 'project_name',
             label: 'label.PFANS5008VIEW_PROGRAM',
-            width: 120,
+            width: 140,
             fix: false,
             filter: true,
           },
@@ -118,7 +118,7 @@
           {
             code: 'time',
             label: 'label.PFANS5015VIEW_FORMVIEW_SC',
-            width: 140,
+            width: 90,
             fix: false,
             filter: true,
           },
@@ -174,9 +174,11 @@
         this.loading = false;
       },
 
-      changeFilte(){
-        this.loading = true;
+      async changeFilte(){
+        this.loading = false;
+        this.getProjectList();
         this.filter();
+        this.loading = true;
       },
       getcontract(){
         this.$store
@@ -190,8 +192,16 @@
       },
       getProjectList() {
         this.loading = true;
+        if (this.start)
+        {
+          this.start = moment(this.start).format('YYYY-MM-DD')
+        }
+        if (this.end)
+        {
+          this.end = moment(this.end).format('YYYY-MM-DD')
+        }
         this.$store
-          .dispatch('PFANS5008Store/getDataList', {})
+          .dispatch('PFANS5008Store/getLogDataList', {'startDate':this.start,'endDate':this.end})
           .then(response => {
               for (let j = 0; j < response.length; j++) {
                 let user = getUserInfo(response[j].createby);
@@ -348,36 +358,36 @@
   };
 </script>
 
-<style lang="scss" rel="stylesheet/scss">
-  .dpSupIndex {
-    .content {
-      height: 34px;
-      min-width: 80%;
-      border: 0.1rem solid #ebeef5;
-      overflow-y: scroll;
-      overflow-x: hidden;
-      line-height: 34px;
-      padding: 0.1rem 0.5rem 0.2rem 0.5rem;
-    }
+<!--<style lang="scss" rel="stylesheet/scss">-->
+<!--  .dpSupIndex {-->
+<!--    .content {-->
+<!--      height: 34px;-->
+<!--      min-width: 80%;-->
+<!--      border: 0.1rem solid #ebeef5;-->
+<!--      overflow-y: scroll;-->
+<!--      overflow-x: hidden;-->
+<!--      line-height: 34px;-->
+<!--      padding: 0.1rem 0.5rem 0.2rem 0.5rem;-->
+<!--    }-->
 
-    .bg {
-      background: white;
-      border-width: 1px;
-    }
+<!--    .bg {-->
+<!--      background: white;-->
+<!--      border-width: 1px;-->
+<!--    }-->
 
-    .content {
-      height: 34px;
-      min-width: 80%;
-      border: 0.1rem solid #ebeef5;
-      overflow-y: scroll;
-      overflow-x: hidden;
-      line-height: 34px;
-      padding: 0.1rem 0.5rem 0.2rem 0.5rem;
-    }
+<!--    .content {-->
+<!--      height: 34px;-->
+<!--      min-width: 80%;-->
+<!--      border: 0.1rem solid #ebeef5;-->
+<!--      overflow-y: scroll;-->
+<!--      overflow-x: hidden;-->
+<!--      line-height: 34px;-->
+<!--      padding: 0.1rem 0.5rem 0.2rem 0.5rem;-->
+<!--    }-->
 
-    .bg {
-      background: white;
-      border-width: 1px;
-    }
-  }
-</style>
+<!--    .bg {-->
+<!--      background: white;-->
+<!--      border-width: 1px;-->
+<!--    }-->
+<!--  }-->
+<!--</style>-->

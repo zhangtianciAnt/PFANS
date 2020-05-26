@@ -43,6 +43,13 @@ export function downloadList(data) {
       data: data
     })
   }
+export function getLogDataList(data) {
+  return request({
+    url: 'logmanagement/getLogDataList',
+    method: 'get',
+    params: data,
+  })
+}
 
 export function getDataList1(data) {
   return request({
