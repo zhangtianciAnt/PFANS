@@ -401,7 +401,7 @@
                   </el-col>
                 </el-row>
                 <el-row>
-                  <el-form-item :label="$t('label.PFANS1017FORMVIEW_PREPAREFOR')" >
+                  <el-form-item :label="$t('label.PFANS1017FORMVIEW_PREPAREFOR')">
                     <el-input :disabled="!disable" style="width: 70vw" type="textarea"
                               v-model="form.preparefor">
                     </el-input>
@@ -1467,8 +1467,8 @@
           user_id: '',
           telephone: '',
           moduleid: '',
-            expectedpaydate: '',
-            exportcsv: '1',
+          expectedpaydate: '',
+          exportcsv: '1',
           moduleidApp: '',
           accountnumber: '',
           reimbursementdate: moment(new Date()).format('YYYY-MM-DD'),
@@ -1526,11 +1526,11 @@
             message: this.$t('normal.error_09') + this.$t('label.PFANS1012VIEW_ACCOUNT_NUMBER'),
             trigger: 'change',
           }],
-            expectedpaydate: [{
-                required: true,
-                message: this.$t('normal.error_09') + this.$t('label.PFANS1012VIEW_EXPECTEDPAYDATE'),
-                trigger: 'change',
-            }],
+          expectedpaydate: [{
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.PFANS1012VIEW_EXPECTEDPAYDATE'),
+            trigger: 'change',
+          }],
           payeename: [{
             required: true,
             validator: validatepayeename,
@@ -1613,6 +1613,7 @@
     mounted() {
       this.invoicetype = getDictionaryInfo('PJ068001').value1;
       this.plsummary = getDictionaryInfo('PJ111008').value1;
+      this.getLoanApplication();
       this.getsupplierinfor();
       this.getCompanyProjectList();
       this.checkoptionsdata();
@@ -1656,7 +1657,7 @@
       for (let i = 0; i < dic.length; i++) {
         if (dic[i].code === 'PJ111001' || dic[i].code === 'PJ111002' || dic[i].code === 'PJ111003' || dic[i].code === 'PJ111004' || dic[i].code === 'PJ111005'
           || dic[i].code === 'PJ111006' || dic[i].code === 'PJ111007' || dic[i].code === 'PJ111009' || dic[i].code === 'PJ111011'
-          || dic[i].code === 'PJ111012' || dic[i].code === 'PJ111013' || dic[i].code === 'PJ111014'|| dic[i].code === 'PJ111015') {
+          || dic[i].code === 'PJ111012' || dic[i].code === 'PJ111013' || dic[i].code === 'PJ111014' || dic[i].code === 'PJ111015') {
           this.ploptionsdate.push({
             value: dic[i].code,
             lable: dic[i].value1,
@@ -2232,7 +2233,7 @@
         this.form.type = this.$route.params._type;
         if (this.form.type === 'PJ001001') {
           //add-ws-5/25-No.16-费明细：【付款方式】不用员工做选择，固定为“个人账户”
-          this.getPayment('PJ004002')
+          this.getPayment('PJ004002');
           //add-ws-5/25-No.16-费明细：【付款方式】不用员工做选择，固定为“个人账户”
           this.show9 = true;
           this.show7 = false;
@@ -2241,26 +2242,16 @@
           this.form.moduleidApp = getDictionaryInfo(this.form.moduleid).value1;
         } else if (this.form.type === 'PJ001002') {
           //add-ws-5/25-No.16-费明细：【付款方式】不用员工做选择，固定为“个人账户”
-          this.getPayment()
+          this.getPayment();
           //add-ws-5/25-No.16-费明细：【付款方式】不用员工做选择，固定为“个人账户”
           this.show9 = false;
           this.show7 = true;
           this.show6 = true;
         }
       }
-      this.$store
-        .dispatch('PFANS1012Store/getLoanApplication', {user_id: this.$store.getters.userinfo.userid})
-        .then(response => {
-          for (let i = 0; i < response.length; i++) {
-            var vote = {};
-            vote.value = response[i].loanapplication_id;
-            vote.label = moment(response[i].application_date).format('YYYY-MM-DD');
-            this.options.push(vote);
-          }
-        });
     },
     created() {
-      this.$store.commit('global/SET_WORKFLOWURL', "/PFANS1012View");
+      this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1012View');
       if (!this.$route.params.disabled) {
         this.buttonList = [];
       }
@@ -2288,6 +2279,34 @@
       },
     },
     methods: {
+      //add-ws-5/26-No.208问题延申咱借款申请编号问题修改
+      getLoanApplication() {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS1012Store/getLoanApplication', {})
+          .then(response => {
+            for (let i = 0; i < response.length; i++) {
+              if (this.disable) {
+
+                if (response[i].status === '4' && this.$store.getters.userinfo.userid === response[i].user_id) {
+                  var vote = {};
+                  vote.value = response[i].loanapplication_id;
+                  vote.label = this.$t('menu.PFANS1006') + '_' + moment(response[i].application_date).format('YYYY-MM-DD');
+                  this.options.push(vote);
+                }
+              } else {
+                if (response[i].status === '4') {
+                  var vote = {};
+                  vote.value = response[i].loanapplication_id;
+                  vote.label = this.$t('menu.PFANS1006') + '_' + moment(response[i].application_date).format('YYYY-MM-DD');
+                  this.options.push(vote);
+                }
+              }
+            }
+            this.loading = false;
+          });
+      },
+      //add-ws-5/26-No.208问题延申咱借款申请编号问题修改
       //add-ws-4/30-公共费用决裁已关联得精算
       rowclick(row, event, column) {
         this.DataList2 = [];
@@ -2320,12 +2339,12 @@
       //add-ws-4/28-精算中，点击决裁，跳转画面
       viewdata(row) {
         this.$store.commit('global/SET_HISTORYURL', '');
-        this.$store.commit('global/SET_WORKFLOWURL', "/FFFFF1012FormView");
+        this.$store.commit('global/SET_WORKFLOWURL', '/FFFFF1012FormView');
         if (row.judgement_name.substring(0, 2) === this.$t('menu.PFANS1001')) {
           this.$router.push({
             name: 'PFANS1004FormView',
             params: {
-              _checkdisable :this.disable,
+              _checkdisable: this.disable,
               _checkid: this.IDname,
               _check: true,
               _id: row.judgement,
@@ -2336,7 +2355,7 @@
           this.$router.push({
             name: 'PFANS1005FormView',
             params: {
-              _checkdisable :this.disable,
+              _checkdisable: this.disable,
               _checkid: this.IDname,
               _check: true,
               _id: row.judgement,
@@ -2347,7 +2366,7 @@
           this.$router.push({
             name: 'PFANS1010FormView',
             params: {
-              _checkdisable :this.disable,
+              _checkdisable: this.disable,
               _checkid: this.IDname,
               _check: true,
               _id: row.judgement,
@@ -2358,7 +2377,7 @@
           this.$router.push({
             name: 'PFANS1025FormView',
             params: {
-              _checkdisable :this.disable,
+              _checkdisable: this.disable,
               _checkid: this.IDname,
               _check: true,
               _id: row.judgement,
@@ -2369,7 +2388,7 @@
           this.$router.push({
             name: 'PFANS3005FormView',
             params: {
-              _checkdisable :this.disable,
+              _checkdisable: this.disable,
               _checkid: this.IDname,
               _check: true,
               _id: row.judgement,
@@ -2380,7 +2399,7 @@
           this.$router.push({
             name: 'PFANS1003FormView',
             params: {
-              _checkdisable :this.disable,
+              _checkdisable: this.disable,
               _checkid: this.IDname,
               _check: true,
               _id: row.judgement,
@@ -3088,7 +3107,7 @@
             row.accountcode = '',
               row.code16 = 'PJ125';
             row.code17 = 'PJ125';
-          }else if (row.plsummary == 'PJ111015') {
+          } else if (row.plsummary == 'PJ111015') {
             row.accountcode = '',
               row.code16 = 'PJ138';
             row.code17 = 'PJ138';
@@ -3150,7 +3169,7 @@
             row.accountcode = '',
               row.code16 = 'PJ137';
             row.code17 = 'PJ137';
-          }else if (row.plsummary == 'PJ111015') {
+          } else if (row.plsummary == 'PJ111015') {
             row.accountcode = '',
               row.code16 = 'PJ139';
             row.code17 = 'PJ139';
@@ -3276,7 +3295,7 @@
       },
 
       getUserids(val) {
-        this.form.telephone= '';
+        this.form.telephone = '';
         this.userlist = val;
         this.form.user_id = val;
         let rst = getOrgInfoByUserId(val);
@@ -3319,7 +3338,7 @@
       start(val) {
         if (val.state === '0') {
           this.form.status = '2';
-        }else if (val.state === '2') {
+        } else if (val.state === '2') {
           this.form.status = '4';
         }
         this.updateSta();
