@@ -77,6 +77,7 @@ module.exports = {
     crAccount2: "创建外协员工账号",
     detailed: "详细记录",
     today: '今日考勤',
+    viewlogmement: '查看日志',
   },
   table: {
     detail: '一览',
@@ -2959,6 +2960,7 @@ module.exports = {
     PFANS5005VIEW_STATUS: '审批状态',
     PFANS5008VIEW_RIQI: '日志日期',
     PFANS5008VIEW_JOBS: '工作描述',
+    PFANS5008VIEW_VIEWLOGDATE: '已填写',
     PFANS5008VIEW_PROGRAM: '项目',
     PFANS5008VIEW_NOPROGRAM: '无项目',
     PFANS5008VIEW_XZPROGRAM: '选择工作项目',

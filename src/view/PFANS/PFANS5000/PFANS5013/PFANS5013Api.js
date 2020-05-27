@@ -102,7 +102,15 @@ export function updateTimestart(data) {
     data: data
   })
 }
-
+//add-ws-阚总日志问题修正
+export function getMyConProject2(data) {
+  return request({
+    url: 'comprojects/getMyConProject2',
+    method: 'get',
+    params: data
+  })
+}
+//add-ws-阚总日志问题修正
 export function getMyConProject(data) {
   return request({
     url: 'comprojects/getMyConProject',

@@ -2291,14 +2291,14 @@
                 if (response[i].status === '4' && this.$store.getters.userinfo.userid === response[i].user_id) {
                   var vote = {};
                   vote.value = response[i].loanapplication_id;
-                  vote.label = this.$t('menu.PFANS1006') + '_' + moment(response[i].application_date).format('YYYY-MM-DD');
+                  vote.label = this.$t('menu.PFANS1006') + '_' + response[i].loanapno;
                   this.options.push(vote);
                 }
               } else {
                 if (response[i].status === '4') {
                   var vote = {};
                   vote.value = response[i].loanapplication_id;
-                  vote.label = this.$t('menu.PFANS1006') + '_' + moment(response[i].application_date).format('YYYY-MM-DD');
+                  vote.label = this.$t('menu.PFANS1006') + '_' + response[i].loanapno;
                   this.options.push(vote);
                 }
               }

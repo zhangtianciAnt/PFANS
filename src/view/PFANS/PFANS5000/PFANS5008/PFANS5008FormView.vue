@@ -636,7 +636,7 @@
             }
 
             this.$store
-              .dispatch('PFANS5013Store/getMyConProject', {})
+              .dispatch('PFANS5013Store/getMyConProject2', {})
               .then(response => {
                 for (let i = 0; i < response.length; i++) {
                   this.optionsdata.push({
