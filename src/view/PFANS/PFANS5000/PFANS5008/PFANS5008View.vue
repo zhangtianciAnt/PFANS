@@ -73,23 +73,84 @@
         </el-table-column>
       </el-table>
     </el-dialog>
+    <!--    add-ws-5/26-No.68-->
+    <el-dialog :visible.sync="checkdata" width="50%">
+      <div>
+        <div>
+          <el-row>
+            <el-col :span="8">
+              <el-tag effect="dark" style="width: 7rem;background-color:magenta;border-color:magenta ">
+                {{$t('label.PFANS5008VIEW_VIEWLOGDATE')}}
+              </el-tag>
+            </el-col>
+          </el-row>
+          <el-row style="height: 400px;max-height: 400px">
+            <full-calendar
+              :showNonCurrentDates="showNonCurrentDates"
+              :defaultDate="defaultDate"
+              :dayRender="dayRender"
+              :first-day="firstDay"
+              :header="header"
+              :locale="locale"
+              :plugins="calendarPlugins"
+              defaultView="dayGridMonth"
+              height="parent"
+              ref="fullCalendar1"
+            />
+          </el-row>
+        </div>
+        <div style="margin-top: 1rem;margin-left: 14.5rem">
+          <el-button @click="checklist" type="primary">
+            {{$t('button.index')}}
+          </el-button>
+        </div>
+      </div>
+    </el-dialog>
+    <!--    add-ws-5/26-No.68-->
   </div>
 </template>
 <script>
+  import FullCalendar from '@fullcalendar/vue';
+  import dayGridPlugin from '@fullcalendar/daygrid';
+  import timeGridPlugin from '@fullcalendar/timegrid';
+  import interactionPlugin from '@fullcalendar/interaction';
   import {getToken} from '@/utils/auth';
   import EasyNormalTable from '@/components/EasyBigDataTable';
+  import EasyNumBar from '@/components/EasyNumBar';
   import {Message} from 'element-ui';
-  import {getOrgInfoByUserId, getUserInfo, getCooperinterviewListByAccount,getDictionaryInfo,getOrgInfo} from '../../../../utils/customize';
+  import {
+    getOrgInfoByUserId,
+    getUserInfo,
+    getCooperinterviewListByAccount,
+    getDictionaryInfo,
+    getOrgInfo,
+  } from '../../../../utils/customize';
+
   let moment = require('moment');
 
   export default {
     name: 'PFANS5008View',
     components: {
       EasyNormalTable,
+      FullCalendar,
+      EasyNumBar,
     },
     data() {
       return {
-        month:moment(new Date()).format("YYYY-MM-DD"),
+            // add-ws-5/26-No.68
+        defaultDate: moment(new Date()).format('YYYY-MM-DD'),
+        locale: 'cn',
+        calendarPlugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
+        header: {
+          right: 'prev,next today',
+          center: 'title',
+          left: 'month,agendaWeek,agendaDay',
+        },
+        firstDay: 1,
+        showNonCurrentDates: false,
+        checkdata: false,
+        // add-ws-5/26-No.68
+        month: moment(new Date()).format('YYYY-MM-DD'),
         pop_download: false,
         totaldata: [],
         listQuery: {
@@ -112,6 +173,8 @@
         addActionUrl: '',
         resultShow: false,
         file: null,
+        User_id: '',
+        datalistsum: [],
         successCount: 0,
         errorCount: 0,
         errorList: [],
@@ -196,6 +259,9 @@
           // },
         ],
         buttonList: [
+          // add-ws-5/26-No.68
+          {'key': 'data', 'name': 'button.viewlogmement', 'disabled': false, 'icon': 'el-icon-view'},
+          // add-ws-5/26-No.68
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
           {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
@@ -208,8 +274,21 @@
         rowid: 'logmanagement_id',
       };
     },
+    // add-ws-5/26-No.68
+    created() {
+      if (this.$store.getters.userinfo.userid !== undefined) {
+        this.User_id = this.$store.getters.userinfo.userid;
+      } else {
+
+        this.User_id = this.$store.getters.useraccount._id;
+      }
+    },
+    // add-ws-5/26-No.68
     mounted() {
-      this.getProjectList(moment(new Date()).format("YYYY-MM-DD"));
+      // add-ws-5/26-No.68
+      this.getlistdata();
+      // add-ws-5/26-No.68
+      this.getProjectList(moment(new Date()).format('YYYY-MM-DD'));
       this.$store.commit('global/SET_OPERATEID', '');
     },
     computed: {
@@ -220,8 +299,52 @@
       },
     },
     methods: {
-      showData(){
+      // add-ws-5/26-No.68
+      checklist() {
+        this.checkdata = false;
+      },
+      dayRender: function(info) {
+        if (this.datalistsum != null) {
+          this.loading = true;
+          let response = this.datalistsum;
+          for (let c = 0; c < response.length; c++) {
+            if (moment(response[c].log_date).format('YYYY-MM-DD') === moment(info.date).format('YYYY-MM-DD')) {
+              info.el.bgColor = 'magenta';
+            }
+          }
+          this.loading = false;
+        }
+      },
+      getlistdata() {
+        let parameter = {
+          createby: this.User_id,
+        };
+        this.datalistsum = [];
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS5008Store/getDataList2', parameter)
+          .then(response => {
+              this.datalistsum = response;
+              this.loading = false;
+            },
+          )
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
+      // add-ws-5/26-No.68
+      showData() {
         this.getProjectList(this.month);
+        // add-ws-5/26-No.68
+        this.defaultDate = this.month;
+        let calendarApi1 = this.$refs.fullCalendar1.getApi();
+        calendarApi1.gotoDate(this.defaultDate);
+        // add-ws-5/26-No.68
       },
       handleDownload(row) {
         this.loading = true;
@@ -310,13 +433,13 @@
         }
       },
       rowClick(row) {
-        this.createy= row.createby;
+        this.createy = row.createby;
         this.row = row.logmanagement_id;
       },
       getProjectList(val) {
         this.loading = true;
         this.$store
-          .dispatch('PFANS5008Store/getDataList1', {log_date:val})
+          .dispatch('PFANS5008Store/getDataList1', {log_date: val})
           .then(response => {
               for (let j = 0; j < response.length; j++) {
                 let user = getUserInfo(response[j].createby);
@@ -329,8 +452,7 @@
                     response[j].username = co.expname;
                   }
                 }
-                if (response[j].group_id)
-                {
+                if (response[j].group_id) {
                   let group = getOrgInfo(response[j].group_id);
                   if (group) {
                     response[j].groupname = group.companyname;
@@ -383,16 +505,16 @@
                 //   }
                 // }
 
-                if (response[j].work_phase != ''&&response[j].work_phase != null) {
+                if (response[j].work_phase != '' && response[j].work_phase != null) {
                   let letErrortype = getDictionaryInfo(response[j].work_phase);
                   if (letErrortype != null) {
                     response[j].work_phase = letErrortype.value1;
                   }
                 }
-                if (response[j].behavior_breakdown != ''&&response[j].behavior_breakdown != null) {
+                if (response[j].behavior_breakdown != '' && response[j].behavior_breakdown != null) {
                   let letErrortype = getDictionaryInfo(response[j].behavior_breakdown);
                   if (letErrortype != null) {
-                    response[j].behavior_breakdown = letErrortype.value1
+                    response[j].behavior_breakdown = letErrortype.value1;
                   }
                 }
                 response[j].log_date = moment(response[j].log_date).format('YYYY-MM-DD');
@@ -448,7 +570,7 @@
           this.$router.push({
             name: 'PFANS5008FormView',
             params: {
-              _createby:this.createy,
+              _createby: this.createy,
               _id: this.row,
               disabled: true,
             },
@@ -465,7 +587,7 @@
           this.$router.push({
             name: 'PFANS5008FormView',
             params: {
-              _createby:this.createy,
+              _createby: this.createy,
               _id: this.row,
               disabled: false,
             },
@@ -499,7 +621,7 @@
           });
         } else if (val === 'import') {
           this.daoru = true;
-        }else if(val === 'delete'){
+        } else if (val === 'delete') {
           if (this.row === '') {
             Message({
               message: this.$t('normal.info_01'),
@@ -508,9 +630,13 @@
             });
             return;
           }
-
           this.delete();
         }
+        // add-ws-5/26-No.68
+        else if (val === 'data') {
+          this.checkdata = true;
+        }
+        // add-ws-5/26-No.68
       },
       delete() {
         this.loading = true;
@@ -518,32 +644,33 @@
           confirmButtonText: this.$t('button.confirm'),
           cancelButtonText: this.$t('button.cancel'),
           type: 'warning',
-          center: true
+          center: true,
         }).then(() => {
           this.$store
             .dispatch('PFANS5008Store/deleteLog', {logmanagement_id: this.row})
             .then(response => {
               this.getProjectList(this.month);
+              this.getlistdata();
               this.$store.commit('global/SET_OPERATEID', '');
               Message({
                 message: this.$t('normal.info_03'),
                 type: 'success',
-                duration: 2 * 1000
-              })
+                duration: 2 * 1000,
+              });
               this.loading = false;
             })
             .catch(error => {
               Message({
                 message: error,
                 type: 'error',
-                duration: 5 * 1000
-              })
+                duration: 5 * 1000,
+              });
               this.loading = false;
-            })
+            });
         }).catch(() => {
           this.$message({
             type: 'info',
-            message: this.$t('normal.info_04')
+            message: this.$t('normal.info_04'),
           });
           this.loading = false;
         });
@@ -551,5 +678,69 @@
     },
   };
 </script>
-<style rel="stylesheet/scss" lang="scss">
+<style lang="scss">
+  .fc-row.fc-widget-header {
+    /*background-color: rgb(255, 204, 102);*/
+    background-color: #005baa;
+    font-size: 0.4em;
+    color: white;
+  }
+
+  .fc-toolbar.fc-header-toolbar {
+    /*margin-bottom: 1.5em;*/
+    /*background-color: rgb(153, 0, 0);*/
+    font-size: 0.4em;
+    background-color: #005baa;
+  }
+
+  .fc-scroller > .fc-day-grid,
+  .fc-scroller > .fc-time-grid {
+    position: relative;
+    width: 100%;
+    /*background-color: rgb(255, 255, 204);*/
+    background-color: white;
+  }
+
+  .fc-dayGrid-view .fc-body .fc-row {
+    min-height: 0.5em !important;
+  }
+
+  .fc-toolbar.fc-header-toolbar {
+    margin-bottom: 0em !important;
+    /*background-color: rgb(153, 0, 0);*/
+    background-color: #005baa;
+  }
+
+  body .fc {
+    font-size: 0.3em;
+  }
+
+  .fc-ltr .fc-dayGrid-view .fc-day-top .fc-day-number {
+    float: left !important;
+    width: 2.5rem;
+    font-size: 0.6em;
+  }
+
+  .fc-toolbar h2 {
+    font-size: 1.75em;
+    color: white;
+    margin: 0;
+  }
+
+  .el-divider--horizontal {
+    display: block;
+    height: 1px;
+    width: 100%;
+    margin-top: 12px !important;
+    margin-right: 0px !important;
+    margin-bottom: 12px !important;
+    margin-left: 0px !important;
+  }
+
+  //ADD-WS-修改工作日设置日历当天颜色
+  .fc-unthemed td.fc-today {
+    background: cornsilk;
+  }
+
+  //ADD-WS-修改工作日设置日历当天颜色
 </style>

@@ -58,6 +58,15 @@ export function getDataList1(data) {
     data: data
   })
 }
+// add-ws-5/26-No.68
+export function getDataList2(data) {
+  return request({
+    url: 'logmanagement/getDataList2',
+    method: 'post',
+    data: data
+  })
+}
+// add-ws-5/26-No.68
 
 export function getCheckList(data) {
   return request({
@@ -66,7 +75,7 @@ export function getCheckList(data) {
     data: data
   })
 }
-export function CheckList(data) {s
+export function CheckList(data) {
   return request({
     url: 'logmanagement/CheckList',
     method: 'post',
