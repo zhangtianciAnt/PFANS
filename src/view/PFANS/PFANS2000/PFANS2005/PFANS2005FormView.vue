@@ -2336,7 +2336,7 @@
                     prop="month4appreciation"
                   ></el-table-column>
                 </el-table-column>
-                <el-table-column :label="this.YEAR8" align="center" width="110%" prop="may">
+                <el-table-column :label="this.YEAR5" align="center" width="110%" prop="may">
                   <el-table-column
                     :label="$t('label.PFANSUSERFORMVIEW_YFGZ')"
                     align="center"
@@ -2707,7 +2707,7 @@
                   <el-table-column :label="this.YEAR2" align="center" width="110%" prop="february"></el-table-column>
                   <el-table-column :label="this.YEAR3" align="center" width="110%" prop="march"></el-table-column>
                   <el-table-column :label="this.YEAR4" align="center" width="110%" prop="april"></el-table-column>
-                  <el-table-column :label="this.YEAR8" align="center" width="110%" prop="may"></el-table-column>
+                  <el-table-column :label="this.YEAR5" align="center" width="110%" prop="may"></el-table-column>
                   <el-table-column :label="this.YEAR6" align="center" width="110%" prop="june"></el-table-column>
                   <el-table-column :label="this.YEAR7" align="center" width="110%" prop="july"></el-table-column>
                   <el-table-column :label="this.YEAR8" align="center" width="110%" prop="august"></el-table-column>
@@ -2768,7 +2768,7 @@
                   <el-table-column :label="this.YEAR2" align="center" prop="february" width="110%"></el-table-column>
                   <el-table-column :label="this.YEAR3" align="center" prop="march" width="110%"></el-table-column>
                   <el-table-column :label="this.YEAR4" align="center" prop="april" width="110%"></el-table-column>
-                  <el-table-column :label="this.YEAR8" align="center" prop="may" width="110%"></el-table-column>
+                  <el-table-column :label="this.YEAR5" align="center" prop="may" width="110%"></el-table-column>
                   <el-table-column :label="this.YEAR6" align="center" prop="june" width="110%"></el-table-column>
                   <el-table-column :label="this.YEAR7" align="center" prop="july" width="110%"></el-table-column>
                   <el-table-column :label="this.YEAR8" align="center" prop="august" width="110%"></el-table-column>
@@ -3077,7 +3077,7 @@
                 YEAR5:
                     moment().years() +
                     this.$t("label.PFANS2005FORMVIEW_YEAR") +
-                    "06" +
+                    "05" +
                     this.$t("label.PFANS2005FORMVIEW_MONTH"),
                 YEAR6:
                     moment().years() +
