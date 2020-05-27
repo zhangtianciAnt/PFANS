@@ -114,6 +114,12 @@
                   prop="interviewer"
                 >
                   <template slot-scope="scope">
+                    <el-input v-show="true" :disabled="!disabled" v-model="scope.row.interviewerN"
+                              @change="changeInt(scope.row)"
+                              :no="scope.row" style="width:14vw" size="small"></el-input>
+                    <el-input v-show="false" :disabled="!disabled" v-model="scope.row.interviewer"
+                              @change="changeInt(scope.row)"
+                              :no="scope.row" style="width:14vw" size="small"></el-input>
                     <user
                       :disabled="!disabled"
                       :no="scope.row"
@@ -364,6 +370,7 @@
   import org from '../../../components/org';
   import moment from 'moment';
   import {telephoneNumber, validateEmail} from '@/utils/validate';
+  import {getUserInfoName, getUserInfo} from '@/utils/customize';
 
   export default {
     name: 'PFANS2003FormView',
@@ -481,8 +488,10 @@
         title: 'title.PFANS2003VIEW',
         buttonList: [],
         multiple: false,
+          arrInt: [],
         tableData: [
             {
+                interviewerN: '',
                 interviewer: '',
                 score: 0,
             },
@@ -586,13 +595,22 @@
           .dispatch('PFANS2003Store/getinterviewrecordOne', {'interviewrecord_id': this.$route.params._id})
           .then(response => {
             this.form = response;
+              // upd_fjl_05/27  --添加面试官手动输入
 // wxl 4/8  start
               this.changeOption(this.form, 'view');
               if(this.form.interview){
-                  this.tableData = this.form.interview;
+                  this.tableData = [];
+                  for (let a = 0; a < this.form.interview.length; a++) {
+                      var vote = {};
+                      vote.interviewer = this.form.interview[a].interviewer;
+                      vote.interviewerN = getUserInfo(this.form.interview[a].interviewer).userinfo.customername;
+                      vote.score = this.form.interview[a].score;
+                      this.tableData.push(vote)
+                  }
+                  // this.tableData = this.form.interview;
               }
 // wxl 4/8  end
-            console.log("this.form.interview",this.form.interview)
+              // upd_fjl_05/27  --添加面试官手动输入
             this.getsource(this.form.source);
             this.userlist = this.form.member;
             if (this.form.source === 'PR020001') {
@@ -667,7 +685,7 @@
             }
         },
       getAverage(param) {
-            this.form.interview = JSON.stringify(this.tableData);
+          // this.form.interview = JSON.stringify(this.tableData);
             const {columns, data} = param;
             const sums = [];
             columns.forEach((column, index) => {
@@ -692,9 +710,25 @@
             sums[1] = Math.round(sums[1] / param.data.length * 100) / 100;
             return sums;
         },
-
+        // upd_fjl_05/27  --添加面试官手动输入
+        changeInt(row) {
+            if (getUserInfoName(row.interviewerN) !== "-1") {
+                row.interviewer = getUserInfoName(row.interviewerN).userid;
+            } else {
+                Message({
+                    message: this.$t('label.PFANS2003FORMVIEW_INTERVIEWERERROR'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                });
+                return;
+            }
+        },
+        // upd_fjl_05/27  --添加面试官手动输入
       getInterviewerids(userlist, row) {
             row.interviewer = userlist;
+          // upd_fjl_05/27  --添加面试官手动输入
+          row.interviewerN = getUserInfo(userlist).userinfo.customername;
+          // upd_fjl_05/27  --添加面试官手动输入
         },
 
       deleteRow(index, rows) {
@@ -773,7 +807,6 @@
       //   }
       // },
         getsource(val) {
-          console.log(val);
           this.form.source = val
           if (val === 'PR051004') {
               this.display = true;
@@ -812,6 +845,25 @@
       buttonClick(val) {
         this.$refs['refform'].validate(valid => {
           if (valid) {
+              // upd_fjl_05/27  --添加面试官手动输入
+              this.arrInt = [];
+              for (let i = 0; i < this.tableData.length; i++) {
+                  if (this.tableData[i].interviewer === '' || this.tableData[i].interviewer === null || this.tableData[i].interviewer === undefined) {
+                      Message({
+                          message: this.$t('label.PFANS2003FORMVIEW_INTERVIEWERERROR'),
+                          type: 'error',
+                          duration: 5 * 1000,
+                      });
+                      return;
+                  } else {
+                      this.arrInt.push({
+                          interviewer: this.tableData[i].interviewer,
+                          score: this.tableData[i].score,
+                      });
+                  }
+              }
+              this.form.interview = JSON.stringify(this.arrInt);
+              // upd_fjl_05/27  --添加面试官手动输入
             this.loading = true;
             this.form.member = this.userlist;
             this.form.whetherentry = this.whetherentry;
