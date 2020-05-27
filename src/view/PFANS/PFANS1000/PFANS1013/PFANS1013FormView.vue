@@ -1829,12 +1829,22 @@
           .dispatch('PFANS1013Store/getLoanApplication')
           .then(response => {
             for (let i = 0; i < response.length; i++) {
-              if (response[i].user_id === this.$store.getters.userinfo.userid) {
-                this.loans.push({
-                  value: response[i].loanapplication_id,
-                  label: this.$t('menu.PFANS1006') + '_' + moment(response[i].createon).format('YYYY-MM-DD'),
-                  moneys: response[i].moneys,
-                });
+              if (this.disable) {
+                if (response[i].status === '4' && this.$store.getters.userinfo.userid === response[i].user_id) {
+                  this.loans.push({
+                    value: response[i].loanapplication_id,
+                    label: this.$t('menu.PFANS1006') + '_' + response[i].loanapno,
+                    moneys: response[i].moneys,
+                  });
+                }
+              } else {
+                if (response[i].status === '4') {
+                  this.loans.push({
+                    value: response[i].loanapplication_id,
+                    label: this.$t('menu.PFANS1006') + '_' + response[i].loanapno,
+                    moneys: response[i].moneys,
+                  });
+                }
               }
             }
             this.loading = false;
