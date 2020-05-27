@@ -18,6 +18,11 @@
                      v-show="this.showTable===4" @buttonClick="buttonClick" @rowClick="rowClick" :rowid="row">
     </EasyNormalTable>
     <!--    add_fjl_05/27  &#45;&#45; 添加暂借款申请编号的列表-->
+    <!--    add-ws-5/27-No.170-->
+    <EasyNormalTable :buttonList="buttonList" :columns="columns5" :data="data" :title="title" v-loading="loading"
+                     v-show="this.showTable===5" @buttonClick="buttonClick" @rowClick="rowClick" :rowid="row">
+    </EasyNormalTable>
+    <!--  add-ws-5/27-No.170-->
   </div>
 </template>
 
@@ -185,72 +190,118 @@
           },
         ],
 //        add_fjl_05/27  --添加暂借款申请单列表
-          columns4: [
-              {
-                  code: 'loanapno',
-                  label: 'label.PFANS1006FORMVIEW_LOANAPNO',
-                  width: 120,
-                  fix: false,
-                  filter: true,
-              },
-              {
-                  code: 'user_id',
-                  label: 'label.applicant',
-                  width: 120,
-                  fix: false,
-                  filter: true,
-              },
-              {
-                  code: 'center_id',
-                  label: 'label.center',
-                  width: 120,
-                  fix: false,
-                  filter: true,
-              },
-              {
-                  code: 'group_id',
-                  label: 'label.group',
-                  width: 130,
-                  fix: false,
-                  filter: true,
-              },
-              {
-                  code: 'team_id',
-                  label: 'label.team',
-                  width: 120,
-                  fix: false,
-                  filter: true,
-              },
-              {
-                  code: 'remark',
-                  label: 'label.PFANS1012VIEW_ABSTRACT',
-                  width: 120,
-                  fix: false,
-                  filter: true,
-              },
-              {
-                  code: 'moneys',
-                  label: 'label.PFANS1004VIEW_AMOUNT',
-                  width: 120,
-                  fix: false,
-                  filter: true,
-              },
-              {
-                  code: 'status',
-                  label: 'label.approval_status',
-                  width: 120,
-                  fix: false,
-                  filter: true,
-              },
-              {
-                  code: 'modifyon',
-                  label: 'label.PFANS1030FORMVIEW_TIEEEND',
-                  width: 120,
-                  fix: false,
-                  filter: true,
-              },
-          ],
+        columns4: [
+          {
+            code: 'loanapno',
+            label: 'label.PFANS1006FORMVIEW_LOANAPNO',
+            width: 130,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'user_id',
+            label: 'label.applicant',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'center_id',
+            label: 'label.center',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'group_id',
+            label: 'label.group',
+            width: 130,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'team_id',
+            label: 'label.team',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'remark',
+            label: 'label.PFANS1012VIEW_ABSTRACT',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'moneys',
+            label: 'label.PFANS1004VIEW_AMOUNT',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'status',
+            label: 'label.approval_status',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'modifyon',
+            label: 'label.PFANS1030FORMVIEW_TIEEEND',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+        ],
 //        add_fjl_05/27  --添加暂借款申请单列表
+        //       add-ws-5/27-No.170
+        columns5: [
+          {
+            code: 'numbercation',
+            label: 'label.PFANS1006FORMVIEW_NUMBERCATION',
+            width: 130,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'user_id',
+            label: 'label.applicant',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'center_id',
+            label: 'label.center',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'group_id',
+            label: 'label.group',
+            width: 130,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'team_id',
+            label: 'label.team',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'status',
+            label: 'label.approval_status',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+        ],
+//       add-ws-5/27-No.170
         buttonList: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
           {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
@@ -308,14 +359,14 @@
           this.dispatch('PFANS1001Store/getpurchaseApply');
         } else if (val === 6) {
           //ADD-WS-决裁编号添加
-            this.showTable = 4;
+          this.showTable = 4;
           //ADD-WS-决裁编号添加
           this.row = 'loanapplication_id';
           this.title = 'title.PFANS1006VIEW';
           this.dispatch('PFANS1001Store/getLoanapplication');
         } else if (val === 10) {
           //ADD-WS-决裁编号添加
-          this.showTable = 1;
+          this.showTable = 5;
           //ADD-WS-决裁编号添加
           this.row = 'communication_id';
           this.title = 'title.PFANS1010VIEW';
@@ -364,15 +415,15 @@
           if (response[j].status !== null && response[j].status !== '') {
             response[j].status = getStatus(response[j].status);
           }
-            //        add_fjl_05/27  --添加审批时间
-            if (response[j].status != '0') {
-                if (response[j].modifyon !== null && response[j].modifyon !== '') {
-                    response[j].modifyon = moment(response[j].modifyon).format('YYYY-MM-DD');
-                }
-            } else {
-                response[j].modifyon = null;
+          //        add_fjl_05/27  --添加审批时间
+          if (response[j].status != '0') {
+            if (response[j].modifyon !== null && response[j].modifyon !== '') {
+              response[j].modifyon = moment(response[j].modifyon).format('YYYY-MM-DD');
             }
-            //        add_fjl_05/27  --添加审批时间
+          } else {
+            response[j].modifyon = null;
+          }
+          //        add_fjl_05/27  --添加审批时间
 
         }
         return response;
