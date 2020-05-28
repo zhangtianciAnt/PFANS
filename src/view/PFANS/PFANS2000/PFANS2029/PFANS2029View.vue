@@ -157,7 +157,7 @@
                         label: 'label.PFANS2017VIEW_ABSENTEEISMAM',
                         width: 140,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     // ADD-LXX
                     {
@@ -165,7 +165,7 @@
                         label: 'label.PFANS2017VIEW_AFTERNOON',
                         width: 140,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     // ADD-LXX
                 ],
