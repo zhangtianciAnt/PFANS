@@ -300,13 +300,50 @@
                     }
                   }
                 }
-                letdata.timestart1 = letinitial[0].timestart;
-                letdata.timestart2 = letinitial[1].timestart;
-                letdata.timestart3 = letinitial[2].timestart;
-                letdata.timestart4 = letinitial[3].timestart;
-                letdata.timestart5 = letinitial[4].timestart;
-                letdata.timestart6 = letinitial[5].timestart;
-                letdata.timestart7 = letinitial[6].timestart;
+                //add-ws-5/28-No.48
+                let timestart1 =  letinitial[0].timestart
+                let timestart2 =  letinitial[1].timestart
+                let timestart3 =  letinitial[2].timestart
+                let timestart4 =  letinitial[3].timestart
+                let timestart5 =  letinitial[4].timestart
+                let timestart6 =  letinitial[5].timestart
+                let timestart7 =  letinitial[6].timestart
+                if(timestart1){
+                  letdata.timestart1 = (timestart1).toFixed(2);
+                }else{
+                  letdata.timestart1 = '';
+                }
+                if(timestart2){
+                  letdata.timestart2 = (timestart2).toFixed(2);
+                }else{
+                  letdata.timestart2 = '';
+                }
+                if(timestart3){
+                  letdata.timestart3 = (timestart3).toFixed(2);
+                }else{
+                  letdata.timestart3 = '';
+                }
+                if(timestart4){
+                  letdata.timestart4 = (timestart4).toFixed(2);
+                }else{
+                  letdata.timestart4 = '';
+                }
+                if(timestart5){
+                  letdata.timestart5 = (timestart5).toFixed(2);
+                }else{
+                  letdata.timestart5 = '';
+                }
+                if(timestart6){
+                  letdata.timestart6 = (timestart6).toFixed(2);
+                }else{
+                  letdata.timestart6 = '';
+                }
+                if(timestart7){
+                  letdata.timestart7 = (timestart7).toFixed(2);
+                }else{
+                  letdata.timestart7 = '';
+                }
+                //add-ws-5/28-No.48
                 this.Datatable.push(letdata);
               }
               this.loading = false;
