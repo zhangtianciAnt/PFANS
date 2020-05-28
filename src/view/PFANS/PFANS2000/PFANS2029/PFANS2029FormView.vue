@@ -54,6 +54,7 @@
         methods: {
             getPunchcardrecorddetail() {
                 let parameter = {
+                    user_id:this.$route.params.user_id,
                     jobnumber:this.$route.params.jobnumber,
                     punchcardrecord_date:this.$route.params.punchcardrecord_date,
                 }

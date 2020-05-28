@@ -96,6 +96,7 @@
         downloadLoading: false,
         punchcardrecord_date: '',
         jobnumber: '',
+        user_id: '',
         loading: false,
         title: 'title.PFANS2017VIEW',
         data: [],
@@ -193,6 +194,7 @@
     methods: {
       rowClick(row) {
         this.jobnumber = row.jobnumber;
+        this.user_id = row.user_id;
         this.punchcardrecord_date = row.punchcardrecord_date;
       },
       getFpans2017List() {
@@ -367,6 +369,7 @@
             name: 'PFANS2017FormView',
             params: {
               jobnumber: this.jobnumber,
+              user_id: this.user_id,
               punchcardrecord_date: this.punchcardrecord_date,
             },
           });
