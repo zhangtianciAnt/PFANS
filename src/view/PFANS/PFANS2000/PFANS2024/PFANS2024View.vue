@@ -98,7 +98,7 @@
                         filter: true
                     },
                     {
-                        code: 'skilllevel',
+                        code: 'skilllevelafter',
                         label: 'label.PFANS2024VIEW_SKILLLEVEL',
                         width: 150,
                         fix: false,
@@ -164,10 +164,10 @@
                   if (response[j].status !== null && response[j].status !== "") {
                     response[j].status = getStatus(response[j].status);
                   }
-                  if (response[j].skilllevel !== null && response[j].skilllevel !== "") {
-                    let letStage = getDictionaryInfo(response[j].skilllevel);
+                  if (response[j].skilllevelafter!== null && response[j].skilllevelafter !== "") {
+                    let letStage = getDictionaryInfo(response[j].skilllevelafter);
                     if (letStage != null) {
-                      response[j].skilllevel = letStage.value1;
+                      response[j].skilllevelafter = letStage.value1;
                     }
                   }
                   if (response[j].schoolspecies !== null && response[j].schoolspecies !== "") {
