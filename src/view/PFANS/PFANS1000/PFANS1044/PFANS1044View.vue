@@ -53,10 +53,10 @@
         </el-row>
       </el-form>
     </EasyNormalTable>
-<!--    add-ws-No.29-合同检索一览表中追加纳品日期-->
+    <!--    add-ws-No.29-合同检索一览表中追加纳品日期-->
     <EasyNormalTable :buttonList="buttonList" :columns="columns2" :data="data" :rowid="rowid"
-                     :showSelection="showSelection"
-                     :title="title" @buttonClick="buttonClick" @dbrowClick="dbrowClick" ref="roletable"
+                     :showSelection="showSelection2"
+                     :title="title" @buttonClick="buttonClick" @dbrowClick="dbrowClick" ref="roletable2"
                      v-loading="loading" v-show="this.showTable===2">
       <el-form label-position="top" label-width="8vw" slot="search">
         <el-row>
@@ -106,7 +106,7 @@
         </el-row>
       </el-form>
     </EasyNormalTable>
-<!--    add-ws-No.29-合同检索一览表中追加纳品日期-->
+    <!--    add-ws-No.29-合同检索一览表中追加纳品日期-->
   </div>
 </template>
 
@@ -127,6 +127,7 @@
         showTable: '',
         selectedlist: [],
         showSelection: true,
+        showSelection2: true,
         buttonList: [
           {'key': 'export', 'name': 'button.export', 'disabled': false, 'icon': 'el-icon-upload2'},
           {'key': 'export1', 'name': 'label.PFANS1012VIEW_EXPORTCSV', 'disabled': false, icon: 'el-icon-upload2'},
@@ -456,15 +457,28 @@
       },
       buttonClick(val) {
         if (val === 'export') {
-          if (this.$refs.roletable.selectedList.length === 0) {
-            Message({
-              message: this.$t('normal.info_01'),
-              type: 'info',
-              duration: 2 * 1000,
-            });
-            return;
+          let selectedlist = [];
+          if (this.contractType === '0') {
+            if (this.$refs.roletable2.selectedList.length === 0) {
+              Message({
+                message: this.$t('normal.info_01'),
+                type: 'info',
+                duration: 2 * 1000,
+              });
+              return;
+            }
+            selectedlist = this.$refs.roletable2.selectedList;
+          } else {
+            if (this.$refs.roletable.selectedList.length === 0) {
+              Message({
+                message: this.$t('normal.info_01'),
+                type: 'info',
+                duration: 2 * 1000,
+              });
+              return;
+            }
+            selectedlist = this.$refs.roletable.selectedList;
           }
-          let selectedlist = this.$refs.roletable.selectedList;
           let output = [];
           import('@/vendor/Export2Excel').then(excel => {
             const tHeader = [
@@ -537,7 +551,6 @@
               'deliverydate',
               'loadingjudge',
             ];
-
             for (let selItem of selectedlist) {
               let cons = this.alldata2;
               if (this.month) {
@@ -548,8 +561,6 @@
               }
 
               cons = cons.filter(item => selItem.contractnumber == item.contractnumber);
-
-
               for (let citem of cons) {
 
                 let letContracttype = getDictionaryInfo(citem.entrycondition);
@@ -596,15 +607,27 @@
           });
 
         } else if (val === 'export1') {
-          if (this.$refs.roletable.selectedList.length === 0) {
-            Message({
-              message: this.$t('normal.info_01'),
-              type: 'info',
-              duration: 2 * 1000,
-            });
-            return;
+          if (this.contractType === '0') {
+            if (this.$refs.roletable2.selectedList.length === 0) {
+              Message({
+                message: this.$t('normal.info_01'),
+                type: 'info',
+                duration: 2 * 1000,
+              });
+              return;
+            }
+            this.selectedlist = this.$refs.roletable2.selectedList;
+          } else {
+            if (this.$refs.roletable.selectedList.length === 0) {
+              Message({
+                message: this.$t('normal.info_01'),
+                type: 'info',
+                duration: 2 * 1000,
+              });
+              return;
+            }
+            this.selectedlist = this.$refs.roletable.selectedList;
           }
-          this.selectedlist = this.$refs.roletable.selectedList;
           this.contractapplication = [];
           let checktableD = '';
           let error = '';

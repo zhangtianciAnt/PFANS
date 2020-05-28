@@ -23,6 +23,7 @@ module.exports = {
     name: '退出登录',
   },
   button: {
+    sumnumber: '添加',
     insert: '新建',
     search: '检索',
     insertLots: '批量新建',
