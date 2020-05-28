@@ -58,7 +58,7 @@
                           :data="form.skilllevelafter"
                           :disabled="!disable"
                           :multiple="multiple"
-                          style="width: 10vw"
+                          style="width: 20vw"
                           @change="getErrorType">
                         </dicselect>
                       </el-form-item>
