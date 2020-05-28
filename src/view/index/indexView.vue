@@ -157,7 +157,7 @@
       </el-col>
     </el-row>
     <!--    add-ws-5/21-No.46-首页颜色区分-->
-    <el-drawer :visible.sync="checkriqi" :with-header="false" direction="ltr" style="width: 42%">
+    <el-drawer :visible.sync="checkriqi" direction="ltr" style="width: 42%">
       <div style="margin-top: 1rem;margin-left: 2rem">
         <el-row>
           <el-col :span="4">
