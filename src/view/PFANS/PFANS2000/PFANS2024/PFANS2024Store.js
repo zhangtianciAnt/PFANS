@@ -1,4 +1,4 @@
-import {createPfans2024, getFpans2024List, updatePfans2024,getDataOne,create} from './PFANS2024Api'
+import {createPfans2024, getFpans2024List, updatePfans2024,getDataOne,create,download} from './PFANS2024Api';
 
 const PFANS2024Store = {
   namespaced: true,
@@ -68,6 +68,15 @@ const PFANS2024Store = {
           } else {
             reject(response.message)
           }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    download({commit}, data) {
+      return new Promise((resolve, reject) => {
+        download(data).then(response => {
+          resolve(response);
         }).catch(error => {
           reject(error);
         })

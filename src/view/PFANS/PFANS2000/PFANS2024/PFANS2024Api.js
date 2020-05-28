@@ -1,4 +1,5 @@
 import request from '../../../../utils/request'
+import requestDownload from "../../../../utils/requestDownload";
 
 //创建流程
 export function createPfans2024(data) {
@@ -39,5 +40,14 @@ export function create(data) {
     url: 'talentplan/create',
     method: 'post',
     data: data
+  })
+}
+
+export function download(data) {
+  return requestDownload({
+    url: 'talentplan/download',
+    method: 'get',
+    params: data,
+    responseType: 'blob'
   })
 }
