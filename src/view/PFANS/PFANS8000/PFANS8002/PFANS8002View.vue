@@ -170,6 +170,8 @@
                 // add_fjl_05/25   -- 添加审批驳回的数据就行删除按钮的显示
                 if (row.title === this.$t('label.PFANS8002VIEW_WORKFLOWWIN')) {
                     this.buttonList[1].disabled = false;
+                } else {
+                    this.buttonList[1].disabled = true;
                 }
                 // add_fjl_05/25   -- 添加审批驳回的数据就行删除按钮的显示
                 this.row = row;
@@ -220,6 +222,7 @@
                         this.$store
                             .dispatch("frameStore/delToDoNotice", {'todonoticeid': this.row.noticeid})
                             .then(response => {
+                                this.getStatus('0');
                                 Message({
                                     message: this.$t("normal.success_03"),
                                     type: 'success',

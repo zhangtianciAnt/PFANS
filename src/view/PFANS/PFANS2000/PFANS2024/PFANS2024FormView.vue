@@ -43,11 +43,41 @@
                         <dicselect
                           :code="code"
                           :data="form.skilllevel"
-                          :disabled="!disable"
+                          :disabled="true"
                           :multiple="multiple"
                           style="width: 20vw"
                           @change="getErrorType">
                         </dicselect>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="4">
+                      <el-form-item :label="$t('label.PFANS2023FORMVIEW_RANK')" prop="skilllevelafter"
+                      >
+                        <dicselect
+                          :code="code"
+                          :data="form.skilllevelafter"
+                          :disabled="!disable"
+                          :multiple="multiple"
+                          style="width: 10vw"
+                          @change="getErrorType">
+                        </dicselect>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="2" style="padding-top: 50px">
+                      <el-button size="mini" @click="handleDownload" style="background-color: #7ACAFF;width: 150px">{{$t('button.ExplanationDownload')}}</el-button>
+                    </el-col>
+                  </el-row>
+                  <el-row>
+                    <el-col :span="8">
+                      <el-form-item :label="$t('label.PFANS2024VIEW_ENTRYYEAR')">
+                        <el-date-picker :disabled="true" style="width: 20vw" type="date"
+                                        v-model="form.entryyear"></el-date-picker>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="8">
+                      <el-form-item :label="$t('label.PFANS2024VIEW_GRADUATIONYEAR')">
+                        <el-date-picker :disabled="true" style="width: 20vw" type="date"
+                                        v-model="form.graduationyear"></el-date-picker>
                       </el-form-item>
                     </el-col>
                     <el-col :span="8">
@@ -55,38 +85,28 @@
                         <dicselect
                           :code="code1"
                           :data="form.schoolspecies"
-                          :disabled="!disable"
+                          :disabled="true"
                           :multiple="multiple"
                           style="width: 20vw"
                           @change="getschoolspecie">
                         </dicselect>
                       </el-form-item>
+
                     </el-col>
                   </el-row>
                   <el-row>
                     <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS2024VIEW_ENTRYYEAR')">
-                        <el-date-picker :disabled="!disable" style="width: 20vw" type="date"
-                                        v-model="form.entryyear"></el-date-picker>
-                      </el-form-item>
-                    </el-col>
-                    <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS2024VIEW_GRADUATIONYEAR')">
-                        <el-date-picker :disabled="!disable" style="width: 20vw" type="date"
-                                        v-model="form.graduationyear"></el-date-picker>
-                      </el-form-item>
-                    </el-col>
-                    <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS2024FORMVIEW_CONTRACT')">
-                        <el-date-picker :disabled="!disable" style="width: 20vw" type="date"
+                        <el-date-picker :disabled="true" style="width: 20vw" type="date"
                                         v-model="form.contract"></el-date-picker>
                       </el-form-item>
                     </el-col>
-                  </el-row>
-                  <el-row>
-                    <el-form-item :label="$t('label.PFANS2023VIEW_YEARS')">
-                      {{form.year}}
-                    </el-form-item>
+                    <el-col :span="8">
+                      <el-form-item :label="$t('label.PFANS2023VIEW_YEARS')">
+                        {{form.year}}
+                      </el-form-item>
+                    </el-col>
+
                   </el-row>
                   <el-row>
                     <el-col :span="8">
@@ -337,10 +357,10 @@
                             trigger: 'blur'
                         }
                     ],
-                    skilllevel: [
+                    skilllevelafter: [
                         {
                             required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS2023FORMVIEW_SKILL_RANK'),
+                            message: this.$t('normal.error_08') + this.$t('label.PFANS2023FORMVIEW_RANK'),
                             trigger: 'change'
                         }
                     ],
@@ -351,6 +371,7 @@
                     team_id: '',
                     user_id: '',
                     skilllevel: '',
+                    skilllevelafter: '',
                     schoolspecies: '',
                     graduationyear: '',
                     contract: '',
@@ -456,6 +477,22 @@
             }
         },
         methods: {
+          handleDownload() {
+            this.loading = true;
+            this.$store
+              .dispatch("PFANS2024Store/download", {})
+              .then(response => {
+                this.loading = false;
+              })
+              .catch(error => {
+                Message({
+                  message: error,
+                  type: "error",
+                  duration: 5 * 1000
+                });
+                this.loading = false;
+              });
+          },
           checkRequire(){
             if(!this.form.user_id || !this.form.skilllevel || !this.form.business){
               this.activeName = 'first';
@@ -492,7 +529,7 @@
                 }
             },
             getErrorType(val1) {
-                this.form.skilllevel = val1;
+                this.form.skilllevelafter = val1;
             },
             getschoolspecie(val1) {
                 this.form.schoolspecies = val1;
