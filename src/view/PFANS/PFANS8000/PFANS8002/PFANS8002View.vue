@@ -222,6 +222,7 @@
                         this.$store
                             .dispatch("frameStore/delToDoNotice", {'todonoticeid': this.row.noticeid})
                             .then(response => {
+                                this.getStatus('0');
                                 Message({
                                     message: this.$t("normal.success_03"),
                                     type: 'success',
