@@ -2743,7 +2743,6 @@
             taxes: '',
           });
         }
-        debugger
         if (this.form.arrivenight === '1') {
           this.tableA[0].subsidies = parseFloat(moneys) + 100;
         }
