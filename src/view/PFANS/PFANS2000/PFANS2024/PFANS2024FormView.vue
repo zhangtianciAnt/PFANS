@@ -63,9 +63,10 @@
                         </dicselect>
                       </el-form-item>
                     </el-col>
-                    <el-col :span="2" style="padding-top: 50px">
-                      <el-button size="mini" @click="handleDownload" style="background-color: #7ACAFF;width: 150px">{{$t('button.ExplanationDownload')}}</el-button>
-                    </el-col>
+<!--                    <el-col :span="2" style="padding-top: 50px">-->
+<!--                      <el-button size="mini" @click="handleDownload" style="background-color: #7ACAFF;width: 150px">{{$t('button.ExplanationDownload')}}</el-button>-->
+<!--                    </el-col>-->
+
                   </el-row>
                   <el-row>
                     <el-col :span="8">
