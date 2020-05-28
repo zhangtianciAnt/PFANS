@@ -157,43 +157,48 @@
       </el-col>
     </el-row>
     <!--    add-ws-5/21-No.46-首页颜色区分-->
-    <el-dialog :visible.sync="checkriqi" width="50%">
-      <div style="margin-top: 1rem;margin-left: 4rem">
+    <el-drawer :visible.sync="checkriqi" :with-header="false" direction="ltr" style="width: 42%">
+      <div style="margin-top: 1rem;margin-left: 2rem">
         <el-row>
-          <el-col :span="8">
-            <el-tag effect="dark" type="danger" style="width: 7rem">{{$t('label.PFANS8007VIEW_FD')}}</el-tag>
-          </el-col>
-          <el-col :span="8">
-            <el-tag effect="dark" type="info" style="width: 7rem">{{$t('label.PFANS8007VIEW_GX')}}</el-tag>
-          </el-col>
-          <el-col :span="8">
-            <el-tag effect="dark" style="width: 7rem">{{$t('label.PFANS8007VIEW_ZT')}}</el-tag>
+          <el-col :span="4">
+            <el-tag effect="dark" type="danger" style="width: 7rem;margin-top: 3rem">{{$t('label.PFANS8007VIEW_FD')}}
+            </el-tag>
           </el-col>
         </el-row>
-      </div>
-      <div style="margin-top: 1rem;margin-left: 4rem">
         <el-row>
-          <el-col :span="8">
-            <el-tag effect="dark" type="warning" style="width: 7rem;">{{$t('label.PFANS8007VIEW_ZTC')}}</el-tag>
+          <el-col :span="4">
+            <el-tag effect="dark" type="info" style="width: 7rem;margin-top: 3rem">{{$t('label.PFANS8007VIEW_GX')}}
+            </el-tag>
           </el-col>
-          <el-col :span="8">
-            <el-tag effect="dark" style="width: 7rem;background-color:magenta;border-color:magenta ">
+        </el-row>
+        <el-row>
+          <el-col :span="4">
+            <el-tag effect="dark" style="width: 7rem;margin-top: 3rem">{{$t('label.PFANS8007VIEW_ZT')}}</el-tag>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="4">
+            <el-tag effect="dark" type="warning" style="width: 7rem;margin-top: 3rem">
+              {{$t('label.PFANS8007VIEW_ZTC')}}
+            </el-tag>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="4">
+            <el-tag effect="dark" style="width: 7rem;background-color:magenta;border-color:magenta;margin-top: 3rem ">
               {{$t('label.PFANS8007VIEW_HS')}}
             </el-tag>
           </el-col>
-          <el-col :span="8">
-            <el-tag effect="dark" style="width: 7rem;background-color: green;border-color:green">
+        </el-row>
+        <el-row>
+          <el-col :span="4">
+            <el-tag effect="dark" style="width: 7rem;background-color: green;border-color:green;margin-top: 3rem">
               {{$t('label.PFANS8007VIEW_YQ')}}
             </el-tag>
           </el-col>
         </el-row>
       </div>
-      <div style="margin-top: 1rem;margin-left: 14.5rem">
-        <el-button @click="checklist" type="primary">
-          {{$t('button.index')}}
-        </el-button>
-      </div>
-    </el-dialog>
+    </el-drawer>
     <!--    add-ws-5/21-No.46-首页颜色区分-->
   </div>
 </template>
