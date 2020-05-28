@@ -109,6 +109,11 @@
                     .dispatch('indexStore/getStatus', {status: val})
                     .then(response => {
                         if (response != undefined) {
+                            if (val === '0') {
+                                this.table = [];
+                            } else if (val === '1') {
+                                this.table2 = [];
+                            }
                             for (let j = 0; j < response.length; j++) {
                                 if (response[j].status === '0') {
                                     if (response[j].createon !== null && response[j].createon !== '') {
