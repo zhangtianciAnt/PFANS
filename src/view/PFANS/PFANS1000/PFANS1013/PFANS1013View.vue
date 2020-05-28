@@ -235,7 +235,9 @@
     methods: {
       //ADD_FJL
       selectInit(row, index) {
-        return row.status === this.$t('label.PFANS5004VIEW_OVERTIME');
+        if (this.$i18n) {
+          return row.status === this.$t('label.PFANS5004VIEW_OVERTIME');
+        }
       },
       //ADD_FJL
       rowClick(row) {
