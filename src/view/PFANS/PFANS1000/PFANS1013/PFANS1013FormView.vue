@@ -2743,6 +2743,10 @@
             taxes: '',
           });
         }
+        debugger
+        if (this.form.arrivenight === '1') {
+          this.tableA[0].subsidies = parseFloat(moneys) + 100;
+        }
         for (let i = 0; i < this.tableA.length; i++) {
           this.tableA[i].optionsA = [];
           let butinfoA = getOrgInfo(this.tableA[i].departmentname).encoding;
@@ -2758,10 +2762,6 @@
             }
           }
         }
-        if (this.form.arrivenight === '1') {
-          this.tableA[0].subsidies = parseFloat(moneys) + 100;
-        }
-
       },
       change2(val) {
         this.form.loanamount = '';
