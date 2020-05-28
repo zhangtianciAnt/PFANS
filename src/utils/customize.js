@@ -198,6 +198,24 @@ export function getUserInfo(userid) {
   return info
 }
 
+export function getUserInfoName(custmname) {
+
+  let info = null;
+  if (store.getters.userList && store.getters.userList.length > 0) {
+    for (let user of store.getters.userList) {
+      if (user.userinfo.customername === custmname) {
+        info = user;
+        break
+      }
+    }
+  }
+  if (info !== null) {
+    return info
+  } else {
+    return "-1"
+  }
+}
+
 export function getOrgInfo(orgid, data) {
   let list = store.getters.orgList;
   if (data) {

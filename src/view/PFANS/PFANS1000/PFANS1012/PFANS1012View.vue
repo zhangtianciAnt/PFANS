@@ -140,9 +140,13 @@
               //ADD-WS-4/27-精算类型添加
               if (response[j].type !== null && response[j].type !== '') {
                 if(response[j].type==='PJ001001'){
-                  response[j].type = this.$t('label.PFANS1012VIEW_TYPECHECKJT')
+                    if (this.$i18n) {
+                        response[j].type = this.$t('label.PFANS1012VIEW_TYPECHECKJT')
+                    }
                 }else if(response[j].type==='PJ001002'){
-                  response[j].type =this.$t('label.PFANS1012VIEW_TYPECHECKQQ')
+                    if (this.$i18n) {
+                        response[j].type = this.$t('label.PFANS1012VIEW_TYPECHECKQQ')
+                    }
                 }
               }
               //ADD-WS-4/27-精算类型添加
@@ -179,7 +183,9 @@
     methods: {
       //ADD_FJL
       selectInit(row, index) {
-        return row.status === this.$t('label.PFANS5004VIEW_OVERTIME');
+          if (this.$i18n) {
+              return row.status === this.$t('label.PFANS5004VIEW_OVERTIME');
+          }
       },
       //ADD_FJL
       rowClick(row) {

@@ -15,6 +15,7 @@ import {
   getCheckList,
   getAttendancepdlist,
   getDataList1,
+  getDataList2,
   getLogDataList
 } from './PFANS5008Api'
 const PFANS5008Store = {
@@ -153,6 +154,21 @@ const PFANS5008Store = {
         })
       })
     },
+    // add-ws-5/26-No.68
+    getDataList2({ commit }, data) {
+      return new Promise((resolve, reject) => {
+        getDataList2(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    // add-ws-5/26-No.68
     getCheckList({ commit }, data) {
       return new Promise((resolve, reject) => {
         getCheckList(data).then(response => {

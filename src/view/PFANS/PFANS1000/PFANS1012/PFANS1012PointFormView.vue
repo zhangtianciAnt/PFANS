@@ -215,7 +215,7 @@
                   }
                   var vote = {};
                   vote.value = response[i].communication_id;
-                  vote.label = this.$t('menu.PFANS1010') + '_' + response[i].createon;
+                  vote.label = this.$t('menu.PFANS1010') + '_' + response[i].numbercation;
                   this.options.push(vote);
                 }
               }
