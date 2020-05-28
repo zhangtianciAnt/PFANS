@@ -197,14 +197,14 @@
             let data = [];
             for (let citem of filtersrst) {
               let idata = {};
-              idata.unconfirm = 0;
+                idata.unconfirm = '0.00';
               let rst = response.filter(item => item.groupname = citem.groupname);
               if (rst.length > 0) {
                 idata.centername = rst[0].centername;
                 idata.groupname = rst[0].groupname;
               }
               for (let unconfirm of rst) {
-                idata.unconfirm = Number(idata.unconfirm) + Number(unconfirm.unconfirm)
+                  idata.unconfirm = (Number(idata.unconfirm) + Number(unconfirm.unconfirm)).toFixed(2);
               }
 
               if (idata.unconfirm != null) {
