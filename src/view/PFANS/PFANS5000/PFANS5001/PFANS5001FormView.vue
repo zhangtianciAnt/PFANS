@@ -631,6 +631,7 @@
                                 :no="scope.row"
                                 :userlist="scope.row.name"
                                 @getUserids="getCitationUserid"
+                                :selectType="selectType1"
                                 :multiple="multiple"
                                 style="width: 80%"
                               ></user>
@@ -1308,6 +1309,7 @@
         errorLeader: '',
         errorManager: '',
         selectType: 'Single',
+          selectType1: "mult",
         userlist: '',
         userlist1: '',
         activeName: 'first',
