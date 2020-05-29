@@ -516,7 +516,7 @@
                 <el-col :span="24">
                   <el-table :data="tableT" :summary-method="getTsummaries"
                             header-cell-class-name="sub_bg_color_blue"
-                            show-summary stripe border style="width: 70vw">
+                            show-summary stripe border >
                     <el-table-column :label="$t('label.date')" align="center" width="150">
                       <template slot-scope="scope">
                         <el-date-picker :disabled="!disable" style="width: 100%"
@@ -662,7 +662,7 @@
                     <el-col :span="24">
                       <el-table :data="tableP" :summary-method="getPsummaries"
                                 header-cell-class-name="sub_bg_color_blue"
-                                show-summary stripe border style="width: 70vw">
+                                show-summary stripe border >
                         <el-table-column :label="$t('label.date')" align="center" width="150">
                           <template slot-scope="scope">
                             <el-date-picker :disabled="!disable" style="width: 100%"
@@ -894,7 +894,7 @@
                     <el-col :span="24">
                       <el-table :data="tableR" :summary-method="getRsummaries" ref="tableR"
                                 header-cell-class-name="sub_bg_color_blue"
-                                show-summary stripe border style="width: 70vw">
+                                show-summary stripe border>
                         <el-table-column :label="$t('label.date')" align="center" width="150">
                           <template slot-scope="scope">
                             <el-date-picker :disabled="!disable" style="width: 100%"
@@ -2207,8 +2207,8 @@
         }
         this.jude = this.$route.params._name;
         for (var i = 0; i < this.jude.length; i++) {
-          this.form.judgement += this.jude[i][0].value + ',';
-          this.form.judgement_name += this.jude[i][0].label + ',';
+          this.form.judgement += this.jude[i].value + ',';
+          this.form.judgement_name += this.jude[i].label + ',';
         }
         //add-ws-4/28-精算中，点击决裁，跳转画面
         let judgementnew = this.form.judgement.substring(0, this.form.judgement.length - 1);
@@ -4467,23 +4467,7 @@
 </script>
 <style rel="stylesheet/scss" lang="scss">
 
-  .el-table {
-    overflow-x: auto;
-  }
 
-  .el-table__header-wrapper,
-  .el-table__body-wrapper,
-  .el-table__footer-wrapper {
-    overflow: visible;
-  }
-
-  .el-table::after {
-    position: relative;
-  }
-
-  .el-table--scrollable-x .el-table__body-wrapper {
-    overflow: visible;
-  }
 
   .dpSupIndex {
     .content {

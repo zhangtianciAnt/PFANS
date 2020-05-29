@@ -3846,23 +3846,6 @@
 
 <style lang="scss" rel="stylesheet/scss">
 
-  .el-table {
-    overflow-x: auto;
-  }
-
-  .el-table__header-wrapper,
-  .el-table__body-wrapper,
-  .el-table__footer-wrapper {
-    overflow: visible;
-  }
-
-  .el-table::after {
-    position: relative;
-  }
-
-  .el-table--scrollable-x .el-table__body-wrapper {
-    overflow: visible;
-  }
 
 </style>
 
