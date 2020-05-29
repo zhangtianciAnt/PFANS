@@ -1223,5 +1223,19 @@
 </script>
 
 <style lang="scss" rel="stylesheet/scss">
+  .dpSupIndex {
+    .content {
+      height: 34px;
+      min-width: 80%;
+      border: 0.1rem solid #ebeef5;
+      overflow-x: hidden;
+      line-height: 34px;
+      padding: 0.1rem 0.5rem 0.2rem 0.5rem;
+    }
 
+    .bg {
+      background: white;
+      border-width: 1px;
+    }
+  }
 </style>
