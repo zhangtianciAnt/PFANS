@@ -620,6 +620,12 @@
                             align="center"
                             width="290">
                             <template slot-scope="scope">
+                              <el-input v-show="true" :disabled="!disabled" v-model="scope.row.nameN"
+                                        @change="changeInt(scope.row)"
+                                        :no="scope.row" style="width:14vw" size="small"></el-input>
+                              <el-input v-show="false" :disabled="!disabled" v-model="scope.row.name"
+                                        @change="changeInt(scope.row)"
+                                        :no="scope.row" style="width:14vw" size="small"></el-input>
                               <user
                                 :disabled="!disable"
                                 :no="scope.row"
@@ -1182,7 +1188,7 @@
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import user from '../../../components/user.vue';
   import dicselect from '../../../components/dicselect.vue';
-  import {getOrgInfoByUserId, getUserInfo} from '@/utils/customize';
+  import {getOrgInfoByUserId, getUserInfo, getUserInfoName} from '@/utils/customize';
   import {Message} from 'element-ui';
   import moment from 'moment';
   import org from '../../../components/org';
@@ -1357,6 +1363,7 @@
             admissiontime: '',
             exittime: '',
             rowindex: '',
+              nameN: getUserInfo(this.$store.getters.userinfo.userid).userinfo.customername,
           }, {
             projectsystem_id: '',
             companyprojects_id: '',
@@ -1368,6 +1375,7 @@
             admissiontime: '',
             exittime: '',
             rowindex: '',
+                nameN: '',
           },
         ],
         //项目体制(外协)
@@ -1830,6 +1838,7 @@
                     number: response.projectsystem[i].number,
                     company: response.projectsystem[i].company,
                     name: response.projectsystem[i].name,
+                      nameN: getUserInfo(response.projectsystem[i].name).userinfo.customername,
                     position: response.projectsystem[i].position,
                     admissiontime: response.projectsystem[i].admissiontime,
                     exittime: response.projectsystem[i].exittime,
@@ -2297,8 +2306,47 @@
           } = org);
         }
       },
+        // add_fjl_05/29  --添加人员手动输入
+        changeInt(row) {
+            if (getUserInfoName(row.nameN) !== "-1") {
+                row.name = getUserInfoName(row.nameN).userid;
+            } else {
+                Message({
+                    message: this.$t('label.PFANS2003FORMVIEW_NAMEERERROR'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                });
+                return;
+            }
+        },
+        // add_fjl_05/29  --添加人员手动输入
       getCitationUserid(userlist, row) {
-        row.name = userlist;
+          // add_fjl_05/29  --添加人员多选
+          let usa = 0;
+          let us = userlist.split(',');
+          if (us.length > 1) {
+              for (let i = 0; i < us.length; i++) {
+                  usa++;
+                  if (us.length === usa) {
+                      this.tableB.push({
+                          name: us[i],
+                          position: '',
+                          admissiontime: '',
+                          exittime: '',
+                          number: '',
+                          type: '0',
+                          company: '',
+                          nameN: getUserInfo(us[i]).userinfo.customername,
+                      });
+                  }
+              }
+          } else {
+              row.name = userlist;
+              if (userlist) {
+                  row.nameN = getUserInfo(userlist).userinfo.customername;
+              }
+          }
+          // add_fjl_05/29  --添加人员多选
         if (row.name != null && row.name !== '') {
           let lst = getUserInfo(row.name);
           // row.position = lst.userinfo.post;
@@ -2607,6 +2655,7 @@
           number: '',
           company: '',
           name: '',
+            nameN: '',
           position: '',
           admissiontime: '',
           exittime: '',
@@ -2616,6 +2665,7 @@
       deleteRow1(index, rows) {
         if (index === 1) {
           rows[1].name = '';
+            rows[1].nameN = '';
           rows[1].position = '';
           rows[1].admissiontime = '';
           rows[1].exittime = '';
@@ -2944,6 +2994,14 @@
               }
             }
             for (let i = 0; i < this.tableB.length; i++) {
+                if (this.tableB[i].name === '' || this.tableB[i].name === null || this.tableB[i].name === undefined) {
+                    Message({
+                        message: this.$t('label.PFANS2003FORMVIEW_NAMEERERROR'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                    });
+                    return;
+                }
               // 社内员工进组时间&退出时间必须Check
               if ((!this.tableB[i].admissiontime || this.tableB[i].admissiontime === '' || !this.tableB[i].exittime || this.tableB[i].exittime === '') && this.tableB[i].name !== '') {
                 error10 = error10 + 1;

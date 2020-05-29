@@ -84,7 +84,7 @@
       selectType: {
         type: String,
         default: function() {
-          return "Single";
+            return "mult";
         }
       },
       error:{

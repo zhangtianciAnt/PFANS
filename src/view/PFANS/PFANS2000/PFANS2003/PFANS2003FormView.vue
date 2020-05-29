@@ -727,7 +727,9 @@
       getInterviewerids(userlist, row) {
             row.interviewer = userlist;
           // upd_fjl_05/27  --添加面试官手动输入
-          row.interviewerN = getUserInfo(userlist).userinfo.customername;
+          if (userlist) {
+              row.interviewerN = getUserInfo(userlist).userinfo.customername;
+          }
           // upd_fjl_05/27  --添加面试官手动输入
         },
 
