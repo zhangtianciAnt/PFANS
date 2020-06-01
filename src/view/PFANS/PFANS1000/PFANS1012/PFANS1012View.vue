@@ -497,39 +497,16 @@
                   , 'productsegment', 'vatnumber', 'taxCode', 'paymentterms', 'remark', 'source', 'paymentmethods', 'type'];
                 const parser = new Parser({header: false});
                 const result = parser.parse(csvData);
-                let aaa = result;
-                //   const parser = new Parser({excelStrings:true});
-                //   console.log("bbb",parser)
-                //   const result = parser.parse(csvData);
-                //   console.log("ccc",result)
-                //   let aaa = result.substring(220);
-                //
-                //   debugger
-                //
-                //   while(aaa.indexOf('"="')!='-1'){
-                //     aaa= aaa.replace('"="','')
-                //   }
-                //   let bbb = aaa;
-                // console.log("aaa",bbb)
-                // while(bbb.indexOf('""')!='-1'){
-                //   bbb= bbb.replace('""','"')
-                //
-                // }
-                // let ccc = bbb;
-                // console.log("ccc",ccc)
-                // while(ccc.indexOf('",",')!='-1'){
-                //   ccc= ccc.replace('",",','",')
-                //
-                // }
-                // let ddd = ccc;
-                // console.log("bbb",ddd)
-                let csvContent = 'data:text/csv;charset=utf-8,\uFEFF' + aaa;
+                let aaa = result.replace(new RegExp('"',"gm"), '');
+                let csvContent = 'data:text/csv;charset=utf-8,' + encodeURI(aaa);
                 const link = document.createElement('a');
                 link.href = csvContent;
                 link.download = this.$t('AP') + this.$t('title.PFANS1012VIEW') + '.csv';
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
+
+
               }
               this.loading = false;
             })

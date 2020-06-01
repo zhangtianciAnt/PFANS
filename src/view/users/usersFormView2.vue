@@ -2763,8 +2763,6 @@
           !this.form.marital ||
           !this.form.address ||
           !this.form.email ||
-          !this.form.mobilenumber ||
-          !this.form.phone ||
           !this.form.extension
         ) {
           this.activeName = 'first';

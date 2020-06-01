@@ -1570,8 +1570,8 @@
                   , 'claim', 'placechinese', 'periods', 'papercontract', 'pageSize', 'owners', 'owner', 'outputmanager', 'outnumber'];
                 const parser = new Parser({header: false});
                 const result = parser.parse(csvData);
-                let aaa = result;
-                let csvContent = 'data:text/csv;charset=utf-8,\uFEFF' + aaa;
+                let aaa = result.replace(new RegExp('"',"gm"), '');
+                let csvContent = 'data:text/csv;charset=utf-8,' + encodeURI(aaa);
                 const link = document.createElement('a');
                 link.href = csvContent;
                 link.download = this.$t('AR') + this.$t('label.PFANS5001FORMVIEW_CONTRACT') + '.csv';
