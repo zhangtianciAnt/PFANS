@@ -1111,13 +1111,12 @@
                 </el-collapse-item>
               </el-collapse>
             </el-tab-pane>
-
             <el-tab-pane :label="$t('label.PFANS1002FORMVIEW_NUBERSGLJC')" name="fouthd" v-if="show7">
               <el-row>
                 <el-table
                   :data="DataList"
                   @row-click="rowclick"
-                  style="width: 518px"
+                  style="width: 516px"
                   header-cell-class-name="sub_bg_color_blue" stripe border
                 >
                   <el-table-column
