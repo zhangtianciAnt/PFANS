@@ -3287,44 +3287,47 @@
             },
             Personal() {
                 //给料
-                if (this.gridData === null) {
-                    this.gridData = [
-                        {
-                            date: moment(this.feedingchangeday).format("YYYY-MM-DD"),
-                            // before: '',
-                            // after: this.form.salary,
-                            duty: this.form.duty,
-                            basic: this.form.basic,
-                            // remark: '',
-                        },
-                    ];
-                } else if (
-                    this.gridData.length > 0 &&
-                    this.form.salary.toString() !==
-                    this.gridData[this.gridData.length - 1].basic
-                ) {
-                    // add_fjl_05/19  --添加一天一条履历的判断
-                    let addflg = 0;
-                    for (let a = 0; a < this.gridData.length; a++) {
-                        if (this.gridData[a].date === moment(this.feedingchangeday).format("YYYY-MM-DD")) {
-                            addflg = 1;
-                            // this.gridData[a].before = this.gridData[this.gridData.length - 1].after;
-                            // this.gridData[a].after = this.form.after;
-                            this.gridData[a].duty = this.form.duty;
-                            this.gridData[a].basic = this.form.basic;
+                if (moment(this.feedingchangeday).format("YYYY-MM-DD") !== '' && moment(this.feedingchangeday).format("YYYY-MM-DD") !== null
+                    && Number(this.form.duty) + Number(this.form.basic) > 0) {
+                    if (this.gridData === null || this.gridData.length === 0) {
+                        this.gridData = [
+                            {
+                                date: moment(this.feedingchangeday).format("YYYY-MM-DD"),
+                                // before: '',
+                                // after: this.form.salary,
+                                duty: this.form.duty,
+                                basic: this.form.basic,
+                                // remark: '',
+                            },
+                        ];
+                    } else if (
+                        this.gridData.length > 0 &&
+                        this.form.salary.toString() !==
+                        this.gridData[this.gridData.length - 1].basic
+                    ) {
+                        // add_fjl_05/19  --添加一天一条履历的判断
+                        let addflg = 0;
+                        for (let a = 0; a < this.gridData.length; a++) {
+                            if (this.gridData[a].date === moment(this.feedingchangeday).format("YYYY-MM-DD")) {
+                                addflg = 1;
+                                // this.gridData[a].before = this.gridData[this.gridData.length - 1].after;
+                                // this.gridData[a].after = this.form.after;
+                                this.gridData[a].duty = this.form.duty;
+                                this.gridData[a].basic = this.form.basic;
+                            }
                         }
+                        if (addflg === 0) {
+                            this.gridData.push({
+                                date: moment(this.feedingchangeday).format("YYYY-MM-DD"),
+                                // before: this.gridData[this.gridData.length - 1].after,
+                                // after: this.form.salary,
+                                duty: this.form.duty,
+                                basic: this.form.basic,
+                                // remark: '',
+                            });
+                        }
+                        // add_fjl_05/19  --添加一天一条履历的判断
                     }
-                    if (addflg === 0) {
-                        this.gridData.push({
-                            date: moment(this.feedingchangeday).format("YYYY-MM-DD"),
-                            // before: this.gridData[this.gridData.length - 1].after,
-                            // after: this.form.salary,
-                            duty: this.form.duty,
-                            basic: this.form.basic,
-                            // remark: '',
-                        });
-                    }
-                    // add_fjl_05/19  --添加一天一条履历的判断
                 }
                 //医疗
                 if (this.medicalData === null) {
