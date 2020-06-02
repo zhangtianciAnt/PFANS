@@ -516,7 +516,7 @@
                 <el-col :span="24">
                   <el-table :data="tableT" :summary-method="getTsummaries"
                             header-cell-class-name="sub_bg_color_blue"
-                            show-summary stripe border >
+                            show-summary stripe border>
                     <el-table-column :label="$t('label.date')" align="center" width="150">
                       <template slot-scope="scope">
                         <el-date-picker :disabled="!disable" style="width: 100%"
@@ -540,7 +540,7 @@
                         <!--                            </el-input>-->
                         <el-select clearable style="width: 100%" v-model="scope.row.budgetcoding"
                                    :disabled="!disable"
-                                   :placeholder="$t('normal.error_09')" :no="scope.row" @change="getBudgetunit">
+                                   :placeholder="$t('normal.error_09')" :no="scope.row">
                           <el-option
                             v-for="item in scope.row.optionsT"
                             :key="item.value"
@@ -662,7 +662,7 @@
                     <el-col :span="24">
                       <el-table :data="tableP" :summary-method="getPsummaries"
                                 header-cell-class-name="sub_bg_color_blue"
-                                show-summary stripe border >
+                                show-summary stripe border>
                         <el-table-column :label="$t('label.date')" align="center" width="150">
                           <template slot-scope="scope">
                             <el-date-picker :disabled="!disable" style="width: 100%"
@@ -701,7 +701,7 @@
                             <!--                            </el-input>-->
                             <el-select clearable style="width: 100%" v-model="scope.row.budgetcoding"
                                        :disabled="checkexternal"
-                                       :placeholder="$t('normal.error_09')" :no="scope.row" @change="getBudgetunit">
+                                       :placeholder="$t('normal.error_09')" :no="scope.row">
                               <el-option
                                 v-for="item in scope.row.optionsP"
                                 :key="item.value"
@@ -932,7 +932,7 @@
                             <!--                            <el-input :disabled="true" style="width: 100%" v-model="scope.row.budgetcoding">-->
                             <!--                            </el-input>-->
                             <el-select clearable style="width: 100%" v-model="scope.row.budgetcoding" :no="scope.row"
-                                       @change="getBudgetunit" :disabled="checkdisable"
+                                        :disabled="checkdisable"
                                        :placeholder="$t('normal.error_09')">
                               <el-option
                                 v-for="item in scope.row.optionsR"
@@ -2449,9 +2449,6 @@
           }
         }
       },
-      getBudgetunit(val, row) {
-        row.budgetcoding = val;
-      },
       setdisabled(val) {
         if (this.$route.params.disabled) {
           this.disable = val;
@@ -3224,6 +3221,18 @@
         taxratevalue = 1 + Number(this.taxrateValue);
         row.facetax = parseFloat((row.invoiceamount / (taxratevalue) * this.taxrateValue)).toFixed(2);
         row.excludingtax = row.invoiceamount - row.facetax;
+        //add-ws-6/2-No.221-专票税率发生变化，自动将明细此专票下税金重新计算
+        for (let j = 0; j < this.tableP.length; j++) {
+          if (row.invoicenumber == this.tableP[j].invoicenumber) {
+            this.tableP[j].taxes = parseFloat((this.tableP[j].rmb / (taxratevalue) * this.taxrateValue)).toFixed(2);
+          }
+        }
+        for (let i = 0; i < this.tableR.length; i++) {
+          if (row.invoicenumber == this.tableR[i].invoicenumber) {
+            this.tableR[i].taxes = parseFloat((this.tableR[i].rmb / (taxratevalue) * this.taxrateValue)).toFixed(2);
+          }
+        }
+        //add-ws-6/2-No.221-专票税率发生变化，自动将明细此专票下税金重新计算
       },
       getPaymentinvoicetype(val, row) {
         row.excludingtax = '';
@@ -4465,7 +4474,6 @@
   };
 </script>
 <style rel="stylesheet/scss" lang="scss">
-
 
 
   .dpSupIndex {
