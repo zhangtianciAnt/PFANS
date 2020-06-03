@@ -440,7 +440,7 @@
                 }
                 this.loading = true;
                 this.$store
-                    .dispatch('PFANS2010Store/getAttendancelist', parameter)
+                    .dispatch('PFANS2010Store/getAttendancelist1', parameter)
                     .then(response => {
 
                       for (let j = 0; j < response.length; j++) {

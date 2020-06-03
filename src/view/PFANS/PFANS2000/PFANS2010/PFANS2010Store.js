@@ -1,6 +1,7 @@
 import {
   getlist,
   getAttendancelist,
+  getAttendancelist1,
   update,
   updStatus
 } from './PFANS2010Api'
@@ -27,10 +28,25 @@ const PFANS2010Store = {
       })
     },
 
-    //获取详细
+    //获取详细 --日志使用
     getAttendancelist({ commit }, data) {
       return new Promise((resolve, reject) => {
         getAttendancelist(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+
+    //获取详细 --考勤使用
+    getAttendancelist1({ commit }, data) {
+      return new Promise((resolve, reject) => {
+        getAttendancelist1(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
