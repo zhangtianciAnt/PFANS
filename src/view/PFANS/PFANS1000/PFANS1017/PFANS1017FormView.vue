@@ -260,30 +260,32 @@
                     ></el-date-picker>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS1017FORMVIEW_DOMAINACCOUNT')" align="center" width="150">
-                  <template slot-scope="scope">
-                    <dicselect
-                      :no="scope.row"
-                      :code="code5"
-                      :data="scope.row.domainaccount"
-                      :disabled="!disable"
-                      :multiple="multiple"
-                      @change="changedomainaccount"
-                      style="width: 100%"
-                    ></dicselect>
-                  </template>
-                </el-table-column>
-                <el-table-column :label="$t('label.PFANS1017FORMVIEW_WAITFORTIME')" align="center" width="160">
-                  <template slot-scope="scope">
-                    <el-date-picker
-                      :no="scope.row"
-                      :disabled="!disable"
-                      style="width: 100%"
-                      type="date"
-                      v-model="scope.row.forwardtime"
-                    ></el-date-picker>
-                  </template>
-                </el-table-column>
+                <!--                del_fjl_06/02  --与前两列重复 start 课题票NO.275-->
+                <!--                <el-table-column :label="$t('label.PFANS1017FORMVIEW_DOMAINACCOUNT')" align="center" width="150">-->
+                <!--                  <template slot-scope="scope">-->
+                <!--                    <dicselect-->
+                <!--                      :no="scope.row"-->
+                <!--                      :code="code5"-->
+                <!--                      :data="scope.row.domainaccount"-->
+                <!--                      :disabled="!disable"-->
+                <!--                      :multiple="multiple"-->
+                <!--                      @change="changedomainaccount"-->
+                <!--                      style="width: 100%"-->
+                <!--                    ></dicselect>-->
+                <!--                  </template>-->
+                <!--                </el-table-column>-->
+                <!--                <el-table-column :label="$t('label.PFANS1017FORMVIEW_WAITFORTIME')" align="center" width="160">-->
+                <!--                  <template slot-scope="scope">-->
+                <!--                    <el-date-picker-->
+                <!--                      :no="scope.row"-->
+                <!--                      :disabled="!disable"-->
+                <!--                      style="width: 100%"-->
+                <!--                      type="date"-->
+                <!--                      v-model="scope.row.forwardtime"-->
+                <!--                    ></el-date-picker>-->
+                <!--                  </template>-->
+                <!--                </el-table-column>-->
+                <!--                del_fjl_06/02  --与前两列重复 start-->
                 <el-table-column :label="$t('label.PFANS1017FORMVIEW_PREPAREFOR')" align="center" width="150">
                   <template slot-scope="scope">
                     <el-input :no="scope.row" :disabled="!disable" v-model="scope.row.preparefor" style="width: 100%">

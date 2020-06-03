@@ -1983,6 +1983,23 @@
         taxratevalue = 1 + Number(this.taxrateValue);
         row.facetax = parseFloat((row.invoiceamount / (taxratevalue) * this.taxrateValue)).toFixed(2);
         row.excludingtax = row.invoiceamount - row.facetax;
+        //add-ws-6/2-No.221-专票税率发生变化，自动将明细此专票下税金重新计算
+        for (let j = 0; j < this.tableT.length; j++) {
+          if (row.invoicenumber == this.tableT[j].invoicenumber) {
+            this.tableT[j].taxes = parseFloat((this.tableT[j].rmb / (taxratevalue) * this.taxrateValue)).toFixed(2);
+          }
+        }
+        for (let b = 0; b < this.tableR.length; b++) {
+          if (row.invoicenumber == this.tableR[b].invoicenumber) {
+            this.tableR[b].taxes = parseFloat((this.tableR[b].rmb / (taxratevalue) * this.taxrateValue)).toFixed(2);
+          }
+        }
+        for (let i = 0; i < this.tableA.length; i++) {
+          if (row.invoicenumber == this.tableA[i].invoicenumber) {
+            this.tableA[i].taxes = parseFloat((this.tableA[i].rmb / (taxratevalue) * this.taxrateValue)).toFixed(2);
+          }
+        }
+        //add-ws-6/2-No.221-专票税率发生变化，自动将明细此专票下税金重新计算
       },
       getCompanyProjectList() {
         this.loading = true;
