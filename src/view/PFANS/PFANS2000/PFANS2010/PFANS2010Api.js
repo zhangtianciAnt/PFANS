@@ -9,10 +9,19 @@ export function getlist(data) {
   })
 }
 
-//获取详细数据
+//获取详细数据 -- 日志使用
 export function getAttendancelist(data) {
   return request({
     url: 'attendance/getAttendancelist',
+    method: 'post',
+    data: data
+  })
+}
+
+//获取详细数据 -- 考勤使用
+export function getAttendancelist1(data) {
+  return request({
+    url: 'attendance/getAttendancelist1',
     method: 'post',
     data: data
   })
