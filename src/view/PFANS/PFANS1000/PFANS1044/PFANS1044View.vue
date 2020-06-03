@@ -1570,7 +1570,7 @@
                   , 'claim', 'placechinese', 'periods', 'papercontract', 'pageSize', 'owners', 'owner', 'outputmanager', 'outnumber'];
                 const parser = new Parser({header: false});
                 const result = parser.parse(csvData);
-                let aaa = result.replace(new RegExp('"',"gm"), '');
+                let aaa = result.replace(new RegExp('"', 'gm'), '');
                 let csvContent = 'data:text/csv;charset=utf-8,' + encodeURI(aaa);
                 const link = document.createElement('a');
                 link.href = csvContent;
@@ -1644,49 +1644,61 @@
           }
         }
         //add-ws-No.29-合同检索一览表中追加纳品日期
-        if (rst[0].type === '0') {
-          let listnumber = [];
-          for (let list of rst) {
-            listnumber = this.alldata2.filter(item => item.contractnumber == list.contractnumber);
-            for (let d = 0; d < listnumber.length; d++) {
-              if (listnumber[d].claimtype === this.$t('label.PFANS1026FORMVIEW_D') + 1 + this.$t('label.PFANS1026FORMVIEW_H')) {
-                if (listnumber[d].deliverydate != null) {
-                  list.decide = moment(listnumber[d].deliverydate).format('YYYY-MM-DD');
+        if (rst.length === 0) {
+          if(this.contractType === '0'){
+            this.data = rst;
+            this.showTable = 2;
+          }else{
+            this.data = rst;
+            this.showTable = 1;
+          }
+
+        } else {
+          if (rst[0].type === '0') {
+            let listnumber = [];
+            for (let list of rst) {
+              listnumber = this.alldata2.filter(item => item.contractnumber == list.contractnumber);
+              for (let d = 0; d < listnumber.length; d++) {
+                if (listnumber[d].claimtype === this.$t('label.PFANS1026FORMVIEW_D') + 1 + this.$t('label.PFANS1026FORMVIEW_H')) {
+                  if (listnumber[d].deliverydate != null) {
+                    list.decide = moment(listnumber[d].deliverydate).format('YYYY-MM-DD');
+                  }
                 }
-              }
-              if (listnumber[d].claimtype === this.$t('label.PFANS1026FORMVIEW_D') + 2 + this.$t('label.PFANS1026FORMVIEW_H')) {
-                if (listnumber[d].deliverydate != null) {
-                  list.decisionnumber = moment(listnumber[d].deliverydate).format('YYYY-MM-DD');
+                if (listnumber[d].claimtype === this.$t('label.PFANS1026FORMVIEW_D') + 2 + this.$t('label.PFANS1026FORMVIEW_H')) {
+                  if (listnumber[d].deliverydate != null) {
+                    list.decisionnumber = moment(listnumber[d].deliverydate).format('YYYY-MM-DD');
+                  }
                 }
-              }
-              if (listnumber[d].claimtype === this.$t('label.PFANS1026FORMVIEW_D') + 3 + this.$t('label.PFANS1026FORMVIEW_H')) {
-                if (listnumber[d].deliverydate != null) {
-                  list.delivery = moment(listnumber[d].deliverydate).format('YYYY-MM-DD');
+                if (listnumber[d].claimtype === this.$t('label.PFANS1026FORMVIEW_D') + 3 + this.$t('label.PFANS1026FORMVIEW_H')) {
+                  if (listnumber[d].deliverydate != null) {
+                    list.delivery = moment(listnumber[d].deliverydate).format('YYYY-MM-DD');
+                  }
                 }
-              }
-              if (listnumber[d].claimtype === this.$t('label.PFANS1026FORMVIEW_D') + 4 + this.$t('label.PFANS1026FORMVIEW_H')) {
-                if (listnumber[d].deliverydate != null) {
-                  list.deliverycondition = moment(listnumber[d].deliverydate).format('YYYY-MM-DD');
+                if (listnumber[d].claimtype === this.$t('label.PFANS1026FORMVIEW_D') + 4 + this.$t('label.PFANS1026FORMVIEW_H')) {
+                  if (listnumber[d].deliverydate != null) {
+                    list.deliverycondition = moment(listnumber[d].deliverydate).format('YYYY-MM-DD');
+                  }
                 }
-              }
-              if (listnumber[d].claimtype === this.$t('label.PFANS1026FORMVIEW_D') + 5 + this.$t('label.PFANS1026FORMVIEW_H')) {
-                if (listnumber[d].deliverydate != null) {
-                  list.deliverydate = moment(listnumber[d].deliverydate).format('YYYY-MM-DD');
+                if (listnumber[d].claimtype === this.$t('label.PFANS1026FORMVIEW_D') + 5 + this.$t('label.PFANS1026FORMVIEW_H')) {
+                  if (listnumber[d].deliverydate != null) {
+                    list.deliverydate = moment(listnumber[d].deliverydate).format('YYYY-MM-DD');
+                  }
                 }
-              }
-              if (listnumber[d].claimtype === this.$t('label.PFANS1026FORMVIEW_D') + 6 + this.$t('label.PFANS1026FORMVIEW_H')) {
-                if (listnumber[d].deliverydate != null) {
-                  list.deliveryfinshdate = moment(listnumber[d].deliverydate).format('YYYY-MM-DD');
+                if (listnumber[d].claimtype === this.$t('label.PFANS1026FORMVIEW_D') + 6 + this.$t('label.PFANS1026FORMVIEW_H')) {
+                  if (listnumber[d].deliverydate != null) {
+                    list.deliveryfinshdate = moment(listnumber[d].deliverydate).format('YYYY-MM-DD');
+                  }
                 }
               }
             }
+            this.data = rst;
+            this.showTable = 2;
+          } else {
+            this.data = rst;
+            this.showTable = 1;
           }
-          this.data = rst;
-          this.showTable = 2;
-        } else {
-          this.data = rst;
-          this.showTable = 1;
         }
+
         //add-ws-No.29-合同检索一览表中追加纳品日期
       },
       abs(val) {
