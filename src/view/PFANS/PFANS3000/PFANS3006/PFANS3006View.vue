@@ -387,7 +387,7 @@
                         }
                         if (response[j].fellowmembers !== null && response[j].fellowmembers !== "") {
                             if (this.$i18n) {
-                                response[j].fellowmembers = response[j].fellowmembers === "1" ? this.$t('label.yes') : this.$t('label.no');
+                                response[j].fellowmembers = response[j].fellowmembers === "0" ? this.$t('label.yes') : this.$t('label.no');
                             }
                         }
                         if (response[j].usedate !== null && response[j].usedate !== "") {
