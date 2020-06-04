@@ -122,7 +122,47 @@
               <el-form-item :error="errorgroup" :label="$t('label.group')" prop="group_id">
                 <org :disabled="!disabled" :error="errorgroup" :orglist="grouporglist" @getOrgids="getGroupId"
                      orgtype="2" style="width:20vw"></org>
+                <!--                    add_ccm_06/04  &#45;&#45;添加履历-->
+                <el-button
+                  type="text"
+                  @click="dialogTableVisible9 = true"
+                >{{$t('label.PFANSUSERFORMVIEW_PERSONAL')}}
+                </el-button>
+                <el-dialog
+                  :title="$t('label.group') + $t('label.PFANSUSERFORMVIEW_PERSONAL')"
+                  :visible.sync="dialogTableVisible9"
+                  style="padding-top:5px"
+                >
+                  <el-row>
+                    <el-col :span="16">
+                      <el-table :data="expData" stripe>
+                        <el-table-column
+                          property="date"
+                          align="center"
+                          :label="$t('label.PFANSUSERFORMVIEW_TIME')"
+                          width="300"
+                        >
+                          <template slot-scope="scope">
+                            <span style="color:#75a7ef">{{ scope.row.exdatestr }}</span>
+                          </template>
+                        </el-table-column>
+                        <el-table-column
+                          property="after"
+                          align="center"
+                          :label="$t('label.group')"
+                          width="400"
+                        >
+                          <template slot-scope="scope">
+                            <span style="color:#d16765">{{ scope.row.groupname }}</span>
+                          </template>
+                        </el-table-column>
+                      </el-table>
+                    </el-col>
+                  </el-row>
+                </el-dialog>
+                <!--                    add_fjl_05/21  &#45;&#45;添加履历-->
               </el-form-item>
+
             </el-col>
             <!--            作业场所-->
             <el-col :span="8">
@@ -471,6 +511,8 @@
         accountname: '',
         errorgroup: '',
         errorgraduateschool: '',
+        expData: null,
+        dialogTableVisible9: false,
         disabled: false,
         buttonList: [],
         multiple: false,
@@ -713,6 +755,39 @@
             //         this.form.account = "";
             //     }
             // }
+
+            //ccm add
+            debugger;
+            this.$store
+              .dispatch('PFANS6004Store/getGroupexpDetail', {'expatriatesinfor_id': this.$route.params._id})
+              .then(response => {
+                this.expData = [];
+
+                for (let g = 0; g < response.length; g++) {
+                  let letexpData = {};
+                  if (response[g].exdatestr !== null && response[g].exdatestr !== '')
+                  {
+                    letexpData.exdatestr = moment(response[g].exdatestr).format("YYYY-MM-DD");
+                  }
+                  letexpData.group_id = response[g].group_id;
+                  let group = getorgGroupList(response[g].group_id);
+                  if (group) {
+                    letexpData.groupname = group.groupname;
+                  }
+                  this.expData.push(letexpData);
+                }
+              })
+              .catch(error => {
+                Message({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.loading = false;
+              });
+
+            //ccm add
+
             if(this.form.birth!='') {
               let birthdays = new Date(this.form.birth);
               let d = new Date();
