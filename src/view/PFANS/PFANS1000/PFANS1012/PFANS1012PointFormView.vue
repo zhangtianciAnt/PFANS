@@ -482,7 +482,7 @@
               .dispatch('PFANS3005Store/getPurchase')
               .then(response => {
                 for (let i = 0; i < response.length; i++) {
-                  if (response[i].status === '4') {
+                  if (user_id === response[i].user_id && response[i].status === '4') {
                     let user = getUserInfo(response[i].user_id);
                     if (user) {
                       response[i].user_id = getUserInfo(response[i].user_id).userinfo.customername;
