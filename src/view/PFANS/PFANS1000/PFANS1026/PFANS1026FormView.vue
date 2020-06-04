@@ -655,7 +655,12 @@
             </el-table-column>
           </el-table>
           <el-table :data="form.tableclaimtype" stripe header-cell-class-name="sub_bg_color_grey height"
-                    :header-cell-style="getRowClass1" style="padding-top: 2vw">
+                    :header-cell-style="getRowClass1" style="padding-top: 2vw"
+                    @selection-change="handleSelectionChange">
+            <el-table-column
+              type="selection"
+              width="40">
+            </el-table-column>
             <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMTYPE')" align="center" prop="claimtype" width="130">
               <template slot-scope="scope">
                 <el-form-item>
@@ -1262,6 +1267,7 @@
         loading: false,
         selectType: 'Single',
         title: 'title.PFANS1026VIEW',
+          multipleSelection: [],
         contractapplication: {},
         activeName: '',
         activeClaimtype: '',
@@ -1789,7 +1795,39 @@
           cancelButtonText: this.$t('button.cancel'),
           type: 'warning',
         }).then(() => {
-          var tabledata = {'contractnumber': contractNumber, 'rowindex': index};
+            // add_fjl_0604 --添加请求书和纳品书的选择生成
+            if (index === 5 || index === 6) {
+                let countNumber = '';
+                if (this.multipleSelection.length === 0) {
+                    Message({
+                        message: this.$t('normal.info_01'),
+                        type: 'info',
+                        duration: 2 * 1000
+                    });
+                    return;
+                    this.loading = false;
+                }
+                if (this.multipleSelection.length > 0) {
+                    for (let i = 0; i < this.multipleSelection.length; i++) {
+                        if (this.multipleSelection[i].claimtype === '第一回') {
+                            countNumber = this.multipleSelection[i].contractnumber + '-1';
+                        }
+                        if (this.multipleSelection[i].claimtype === '第二回') {
+                            countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-2';
+                        }
+                        if (this.multipleSelection[i].claimtype === '第三回') {
+                            countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-3';
+                        }
+                        if (this.multipleSelection[i].claimtype === '第四回') {
+                            countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-4';
+                        }
+                    }
+                    var tabledata = {'contractnumber': contractNumber, 'rowindex': index, 'countNumber': countNumber};
+                }
+            } else {
+                var tabledata = {'contractnumber': contractNumber, 'rowindex': index};
+            }
+            // add_fjl_0604 --添加请求书和纳品书的选择生成
           this.handleSaveContract(index, this.makeintoBaseInfo, tabledata);
         }).catch(() => {
           this.$message({
@@ -2669,8 +2707,44 @@
               //   duration: 5 * 1000,
               // });
             } else {
-              var tabledata = {'contractnumber': contractNumber, 'rowindex': index};
               //first save contractapplication
+                // add_fjl_0604 --添加请求书和纳品书的选择生成
+                if (index === 5 || index === 6) {
+                    let countNumber = '';
+                    if (this.multipleSelection.length === 0) {
+                        Message({
+                            message: this.$t('normal.info_01'),
+                            type: 'info',
+                            duration: 2 * 1000
+                        });
+                        return;
+                        this.loading = false;
+                    }
+                    if (this.multipleSelection.length > 0) {
+                        for (let i = 0; i < this.multipleSelection.length; i++) {
+                            if (this.multipleSelection[i].claimtype === '第一回') {
+                                countNumber = this.multipleSelection[i].contractnumber + '-1';
+                            }
+                            if (this.multipleSelection[i].claimtype === '第二回') {
+                                countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-2';
+                            }
+                            if (this.multipleSelection[i].claimtype === '第三回') {
+                                countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-3';
+                            }
+                            if (this.multipleSelection[i].claimtype === '第四回') {
+                                countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-4';
+                            }
+                        }
+                        var tabledata = {
+                            'contractnumber': contractNumber,
+                            'rowindex': index,
+                            'countNumber': countNumber
+                        };
+                    }
+                } else {
+                    var tabledata = {'contractnumber': contractNumber, 'rowindex': index};
+                }
+                // add_fjl_0604 --添加请求书和纳品书的选择生成
               this.handleSaveContract(index, this.makeintoBaseInfo, tabledata);
 
 //                    this.$refs["refform"].validate(valid => {
@@ -2812,6 +2886,11 @@
 
         }
       },
+        // add_fjl_0604 --添加请求书和纳品书的选择生成
+        handleSelectionChange(val) {
+            this.multipleSelection = val;
+        },
+        // add_fjl_0604 --添加请求书和纳品书的选择生成
       //contractapplication save
       handleSaveContract(value, baseInfo, tabledata) {
         this.validateByType(value, valid => {
@@ -3009,8 +3088,18 @@
       handleSaveNumber(tabledata) {
 //            this.validateByType(index, valid => {
 //              if (valid) {
+          // add_fjl_0604 --添加请求书和纳品书的选择生成
+          let contractnumber = tabledata.contractnumber;
+          let rowindex = tabledata.rowindex;
+          let countNumber = tabledata.countNumber;
+          // add_fjl_0604 --添加请求书和纳品书的选择生成
+
         this.loading = true;
-        this.$store.dispatch('PFANS1026Store/insertBook', tabledata)
+          this.$store.dispatch('PFANS1026Store/insertBook', {
+              'contractnumber': contractnumber,
+              'rowindex': rowindex,
+              'countNumber': countNumber
+          })
           .then(response => {
             this.data = response;
             this.loading = false;
