@@ -622,7 +622,7 @@
                             <template slot-scope="scope">
                               <el-input v-show="true" :disabled="!disabled" v-model="scope.row.nameN"
                                         @change="changeInt(scope.row)"
-                                        :no="scope.row" style="width:14vw" size="small"></el-input>
+                                        :no="scope.row" style="width:15.7vw;margin-left: -4vw" size="small"></el-input>
                               <el-input v-show="false" :disabled="!disabled" v-model="scope.row.name"
                                         @change="changeInt(scope.row)"
                                         :no="scope.row" style="width:14vw" size="small"></el-input>
