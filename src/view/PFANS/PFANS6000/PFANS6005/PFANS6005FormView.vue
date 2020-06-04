@@ -742,7 +742,6 @@ export default {
           }
           let tablegroup = [];
           this.form.main.group_id = val;
-          debugger;
           tablegroup = response.detail.filter(item => item.groupid === this.form.main.group_id);
           this.tableData = tablegroup;
           this.loading = false;
