@@ -2884,17 +2884,23 @@
           this.display = false;
           this.$nextTick(
             () => {
+                this.form.rank = '';
               if (this.form.type === '0') {
                 this.code = 'PR021';
                 this.occupationtypecode = 'PR055';
                 this.rules.occupationtype[0].required = true;
               } else if (this.form.type === '1') {
-                this.code = 'PJ053';
-                this.rules.occupationtype[0].required = false;
+                  // add_fjl-0604 --修改出向者赋值 start
+                  // this.code = 'PJ053';
+                  this.code = '';
+                  if (this.$i18n) {
+                      this.form.rank = this.$t('label.PFANS1028VIEW_OTHER');
+                  }
+                  this.rules.occupationtype[0].required = false;
+                  // add_fjl-0604 --修改出向者赋值 end
               }
               this.form.occupationtype = '';
               this.occupationtypedisplay = true;
-              this.form.rank = '';
               this.display = true;
             },
           );
