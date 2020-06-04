@@ -131,10 +131,9 @@
                 <el-dialog
                   :title="$t('label.group') + $t('label.PFANSUSERFORMVIEW_PERSONAL')"
                   :visible.sync="dialogTableVisible9"
-                  style="padding-top:5px"
                 >
                   <el-row>
-                    <el-col :span="16">
+                    <el-col :span="24">
                       <el-table :data="expData" stripe>
                         <el-table-column
                           property="date"
@@ -150,10 +149,9 @@
                           property="after"
                           align="center"
                           :label="$t('label.group')"
-                          width="400"
                         >
                           <template slot-scope="scope">
-                            <span style="color:#d16765">{{ scope.row.groupname }}</span>
+                            <span style="color:#75a7ef">{{ scope.row.groupname }}</span>
                           </template>
                         </el-table-column>
                       </el-table>
