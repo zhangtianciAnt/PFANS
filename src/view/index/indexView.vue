@@ -67,6 +67,7 @@
         </el-row>
         <el-row style="height: 400px;max-height: 400px">
           <full-calendar
+            :key="calendarKey"
             :dayRender="dayRender"
             :first-day="firstDay"
             :header="header"
@@ -223,6 +224,7 @@
     name: 'indexView',
     data() {
       return {
+        calendarKey:'',
         checkriqi: false,
         userinfo: {},
         png1: png1,
@@ -274,6 +276,7 @@
           .dispatch('PFANS8007Store/getList', {})
           .then(response => {
             this.$store.commit('global/SET_DAYS', response);
+            this.calendarKey = JSON.stringify(response);
           });
       },
       dayRender: function(info) {

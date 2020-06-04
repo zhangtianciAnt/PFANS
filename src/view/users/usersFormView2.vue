@@ -3249,7 +3249,11 @@
                       if (rankData[g].date !== null && rankData[g].date !== '' &&
                           rankData[g].basic !== null && rankData[g].basic !== '') {
                           let letrankData = {};
-                          letrankData.basic = getDictionaryInfo(rankData[g].basic).value1;
+                          if (rankData[g].basic.length >= 8) {
+                              letrankData.basic = getDictionaryInfo(rankData[g].basic).value1;
+                          } else {
+                              letrankData.basic = rankData[g].basic;
+                          }
                           if (rankData[g].date.length != 10) {
                               letrankData.date = moment(rankData[g].date).format("YYYY-MM-DD");
                           } else {
@@ -3267,7 +3271,11 @@
                       if (postData[g].date !== null && postData[g].date !== '' &&
                           postData[g].basic !== null && postData[g].basic !== '') {
                           let letpostData = {};
-                          letpostData.basic = getDictionaryInfo(postData[g].basic).value1;
+                          if (postData[g].basic.length >= 8) {
+                              letpostData.basic = getDictionaryInfo(postData[g].basic).value1;
+                          } else {
+                              letpostData.basic = postData[g].basic;
+                          }
                           if (postData[g].date.length != 10) {
                               letpostData.date = moment(postData[g].date).format("YYYY-MM-DD");
                           } else {
@@ -3305,47 +3313,50 @@
       },
         Personal() {
             //给料
-            if (this.gridData === null) {
-                this.gridData = [
-                    {
-                        date: moment(this.feedingchangeday).format("YYYY-MM-DD"),
-                        // before: '',
-                        // after: this.form.salary,
-                        duty: this.form.duty,
-                        basic: this.form.basic,
-                        // remark: '',
-                    },
-                ];
-            } else if (
-                this.gridData.length > 0 &&
-                this.form.salary.toString() !==
-                this.gridData[this.gridData.length - 1].basic
-            ) {
-                // add_fjl_05/19  --添加一天一条履历的判断
-                let addflg = 0;
-                for (let a = 0; a < this.gridData.length; a++) {
-                    if (this.gridData[a].date === moment(this.feedingchangeday).format("YYYY-MM-DD")) {
-                        addflg = 1;
-                        // this.gridData[a].before = this.gridData[this.gridData.length - 1].after;
-                        // this.gridData[a].after = this.form.after;
-                        this.gridData[a].duty = this.form.duty;
-                        this.gridData[a].basic = this.form.basic;
+            if (moment(this.feedingchangeday).format("YYYY-MM-DD") !== '' && moment(this.feedingchangeday).format("YYYY-MM-DD") !== null
+                && Number(this.form.duty) + Number(this.form.basic) > 0) {
+                if (this.gridData === null || this.gridData.length === 0) {
+                    this.gridData = [
+                        {
+                            date: moment(this.feedingchangeday).format("YYYY-MM-DD"),
+                            // before: '',
+                            // after: this.form.salary,
+                            duty: this.form.duty,
+                            basic: this.form.basic,
+                            // remark: '',
+                        },
+                    ];
+                } else if (
+                    this.gridData.length > 0 &&
+                    this.form.salary.toString() !==
+                    this.gridData[this.gridData.length - 1].basic
+                ) {
+                    // add_fjl_05/19  --添加一天一条履历的判断
+                    let addflg = 0;
+                    for (let a = 0; a < this.gridData.length; a++) {
+                        if (this.gridData[a].date === moment(this.feedingchangeday).format("YYYY-MM-DD")) {
+                            addflg = 1;
+                            // this.gridData[a].before = this.gridData[this.gridData.length - 1].after;
+                            // this.gridData[a].after = this.form.after;
+                            this.gridData[a].duty = this.form.duty;
+                            this.gridData[a].basic = this.form.basic;
+                        }
                     }
+                    if (addflg === 0) {
+                        this.gridData.push({
+                            date: moment(this.feedingchangeday).format("YYYY-MM-DD"),
+                            // before: this.gridData[this.gridData.length - 1].after,
+                            // after: this.form.salary,
+                            duty: this.form.duty,
+                            basic: this.form.basic,
+                            // remark: '',
+                        });
+                    }
+                    // add_fjl_05/19  --添加一天一条履历的判断
                 }
-                if (addflg === 0) {
-                    this.gridData.push({
-                        date: moment(this.feedingchangeday).format("YYYY-MM-DD"),
-                        // before: this.gridData[this.gridData.length - 1].after,
-                        // after: this.form.salary,
-                        duty: this.form.duty,
-                        basic: this.form.basic,
-                        // remark: '',
-                    });
-                }
-                // add_fjl_05/19  --添加一天一条履历的判断
             }
             //医疗
-            if (this.medicalData === null) {
+            if (this.medicalData === null || this.medicalData.length === 0) {
                 this.medicalData = [
                     {
                         date: new moment().format('YYYY-MM-DD'),
@@ -3374,7 +3385,7 @@
                 }
             }
             //住房
-            if (this.houseData === null) {
+            if (this.houseData === null || this.houseData.length === 0) {
                 this.houseData = [
                     {
                         date: new moment().format('YYYY-MM-DD'),
@@ -3402,7 +3413,7 @@
                 }
             }
             //养老
-            if (this.oldageData === null) {
+            if (this.oldageData === null || this.oldageData.length === 0) {
                 this.oldageData = [
                     {
                         date: new moment().format('YYYY-MM-DD'),
@@ -3432,7 +3443,7 @@
                 }
             }
             //工伤
-            if (this.gsData === null) {
+            if (this.gsData === null || this.gsData.length === 0) {
                 this.gsData = [
                     {
                         date: new moment().format('YYYY-MM-DD'),
@@ -3462,7 +3473,7 @@
                 }
             }
             //失业
-            if (this.syeData === null) {
+            if (this.syeData === null || this.syeData.length === 0) {
                 this.syeData = [
                     {
                         date: new moment().format('YYYY-MM-DD'),
@@ -3492,7 +3503,7 @@
                 }
             }
             //生育
-            if (this.syuData === null) {
+            if (this.syuData === null || this.syuData.length === 0) {
                 this.syuData = [
                     {
                         date: new moment().format('YYYY-MM-DD'),
@@ -3522,7 +3533,7 @@
                 }
             }
             //rank
-            if (this.rankData === null) {
+            if (this.rankData === null || this.rankData.length === 0) {
                 this.rankData = [
                     {
                         date: new moment().format('YYYY-MM-DD'),
@@ -3552,7 +3563,7 @@
                 }
             }
             //职务
-            if (this.postData === null) {
+            if (this.postData === null || this.postData.length === 0) {
                 this.postData = [
                     {
                         date: new moment().format('YYYY-MM-DD'),
