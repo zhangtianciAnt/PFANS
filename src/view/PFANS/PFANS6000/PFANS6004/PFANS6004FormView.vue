@@ -755,7 +755,6 @@
             // }
 
             //ccm add
-            debugger;
             this.$store
               .dispatch('PFANS6004Store/getGroupexpDetail', {'expatriatesinfor_id': this.$route.params._id})
               .then(response => {
