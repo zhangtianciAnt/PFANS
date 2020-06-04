@@ -2884,8 +2884,14 @@
                         }
                     } else if (this.form.type === '1') {
                         this.form.occupationtype = '';
+                        // add_fjl-0604 --修改出向者赋值 start
+                        // this.code = 'PJ053';
+                        this.code = '';
+                        if (this.$i18n) {
+                            this.form.rank = this.$t('label.PFANS1028VIEW_OTHER');
+                        }
                         this.rules.occupationtype[0].required = false;
-                        this.code = 'PJ053';
+                        // add_fjl-0604 --修改出向者赋值 end
                     }
                 }
             },
@@ -2990,7 +2996,6 @@
                 this.$store
                     .dispatch('usersStore/getById', params)
                     .then(response => {
-                        debugger;
                         this.form = response.customerInfo.userinfo;
                         if (!this.form.otherorgs) {
                             this.form.otherorgs = [];
