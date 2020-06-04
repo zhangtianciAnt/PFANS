@@ -1123,15 +1123,6 @@
                 }
               }
               //add-ws-4/22-实施计划金额不能大于事业计划余额check
-              if (this.form.amounttobegiven === 0) {
-                error = error + 1;
-                Message({
-                  message: this.$t('label.PFANS1004VIEW_AMOUNTTOBEGIVEN') + this.$t('label.PFANS1004FORMVIEW_ERROR'),
-                  type: 'error',
-                  duration: 5 * 1000,
-                });
-                this.loading = false;
-              }
               if (error === 0) {
                 if (this.$route.params._id) {
                   this.form.judgementid = this.$route.params._id;
