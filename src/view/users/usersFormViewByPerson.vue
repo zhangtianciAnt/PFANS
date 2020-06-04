@@ -185,12 +185,12 @@
                     :label="$t('label.PFANSUSERFORMVIEW_MOBILENUMBER')"
                     prop="mobilenumber"
                   >
-                    <el-input class="width" v-model="form.mobilenumber" maxlength="20" disabled style="width:20vw"/>
+                    <el-input class="width" v-model="form.mobilenumber" maxlength="20" style="width:20vw"/>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_PHONE')" prop="phone">
-                    <el-input class="width" v-model.number="form.phone" maxlength="20" disabled style="width:20vw"/>
+                    <el-input class="width" v-model.number="form.phone" maxlength="20" style="width:20vw"/>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
