@@ -1,4 +1,4 @@
-import {createPfans2024, getFpans2024List, updatePfans2024,getDataOne,create,download} from './PFANS2024Api';
+import {createPfans2024, getFpans2024List, updatePfans2024,getDataOne,create,download,getDataList} from './PFANS2024Api';
 
 const PFANS2024Store = {
   namespaced: true,
@@ -47,6 +47,21 @@ const PFANS2024Store = {
         })
       })
     },
+    //add-ws-6/4-禅道031-人才育成修改
+    getDataList({commit},data) {
+      return new Promise((resolve, reject) => {
+        getDataList(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    //add-ws-6/4-禅道031-人才育成修改
     getDataOne({ commit },data) {
       return new Promise((resolve, reject) => {
         getDataOne(data).then(response => {

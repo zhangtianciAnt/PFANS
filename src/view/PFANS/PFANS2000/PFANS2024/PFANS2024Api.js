@@ -34,7 +34,15 @@ export function getFpans2024List(data) {
     data: data
   })
 }
-
+//add-ws-6/4-禅道031-人才育成修改
+export function getDataList(data) {
+  return request({
+    url: 'talentplan/getDataList',
+    method: 'post',
+    data: data
+  })
+}
+//add-ws-6/4-禅道031-人才育成修改
 export function create(data) {
   return request({
     url: 'talentplan/create',

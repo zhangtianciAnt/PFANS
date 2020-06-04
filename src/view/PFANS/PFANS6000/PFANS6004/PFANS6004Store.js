@@ -9,7 +9,8 @@ import {
   getCompanyProject,
   crAccount,
   crAccount2,
-  getWithoutAuth
+  getWithoutAuth,
+  getGroupexpDetail
 } from './PFANS6004Api'
 
 
@@ -58,6 +59,23 @@ const PFANS6004Store = {
         })
       })
     },
+
+    //ccm add
+    getGroupexpDetail({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getGroupexpDetail(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    //ccm add
+
     updateexpatriatesinforApply({commit}, data) {
       return new Promise((resolve, reject) => {
         updateexpatriatesinforApply(data).then(response => {

@@ -33,6 +33,14 @@ export function getexpatriatesinforApplyOne(data) {
   })
 }
 
+export function getGroupexpDetail(data) {
+  return request({
+    url: 'expatriatesinfor/getGroupexpDetail',
+    method: 'post',
+    data: data
+  })
+}
+
 export function getusinginformation(data) {
   return request({
     url: 'expatriatesinfor/getusinginformation',

@@ -723,26 +723,27 @@ export default {
                 response.detail[j].unitprice == null ? 0 : response.detail[j].unitprice
               );
 
-              if(response.detail[j].user_id)
-              {
-                let co = getCooperinterviewList(response.detail[j].user_id);
-                if (co)
-                {
-                  response.detail[j].group_id = co.group_id;
-                  // if (co.group_id)
-                  // {
-                  //   let group = getOrgInfo(co.group_id);
-                  //   if (group) {
-                  //     response.detail[j].groupname = group.companyname;
-                  //   }
-                  // }
-                }
-              }
+              // if(response.detail[j].user_id)
+              // {
+              //   let co = getCooperinterviewList(response.detail[j].user_id);
+              //   if (co)
+              //   {
+              //     response.detail[j].group_id = co.group_id;
+              //     // if (co.group_id)
+              //     // {
+              //     //   let group = getOrgInfo(co.group_id);
+              //     //   if (group) {
+              //     //     response.detail[j].groupname = group.companyname;
+              //     //   }
+              //     // }
+              //   }
+              // }
             }
           }
           let tablegroup = [];
           this.form.main.group_id = val;
-          tablegroup = response.detail.filter(item => item.group_id === this.form.main.group_id);
+          debugger;
+          tablegroup = response.detail.filter(item => item.groupid === this.form.main.group_id);
           this.tableData = tablegroup;
           this.loading = false;
         })

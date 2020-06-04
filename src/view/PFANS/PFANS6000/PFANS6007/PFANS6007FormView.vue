@@ -54,6 +54,8 @@
                                              width="100"></el-table-column>
                             <el-table-column property="account"
                                              width="0" v-if="false"></el-table-column>
+                            <el-table-column property="group_id1"
+                                             width="0" v-if="false"></el-table-column>
                             <el-table-column property="group_id"
                                              :label="$t('label.PFANS5001FORMVIEW_DEPARTMENTID')"
                                              width="150"></el-table-column>
@@ -268,6 +270,7 @@
           payment: '',
           remarks: '',
           year: '',
+          groupid:'',
         },
         code2: 'BP013',
         code3: 'BP014',
@@ -332,6 +335,7 @@
             vote.suppliername = response[i].suppliername;
             vote.expname = response[i].expname;
             vote.account = response[i].account;
+            vote.group_id1 = response[i].group_id;
             if (response[i].group_id !== null && response[i].group_id !== '') {
               let group = getOrgInfo(response[i].group_id);
               if (group) {
@@ -502,14 +506,17 @@
         this.currentRow = val.expname;
         this.currentRow1 = val.suppliername;
         this.currentRow2 = val.account;
+        this.currentRow3 = val.group_id1;
       },
       submit() {
         let lst = this.currentRow;
         let lst1 = this.currentRow1;
         let lst2 = this.currentRow2;
+        let lst3 = this.currentRow3;
         this.dialogTableVisible = false;
         this.form.bpplayer = lst;
         this.form.bpclubname = lst1;
+        this.form.groupid = lst3;
         this.$refs.refform.validateField('bpplayer');
         this.getPjnameList(lst2);
       },
