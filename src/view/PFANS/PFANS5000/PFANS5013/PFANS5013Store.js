@@ -1,4 +1,4 @@
-import {getFpans5013List,selectById,update,insert,getcustomer,getexpat,select,getPjList,
+import {Listproject2,Listproject,getFpans5013List,selectById,update,insert,getcustomer,getexpat,select,getPjList,
         getProjectList,getTimestart,getGroupTimestart,updateTimestart,getList2,getMyConProject,getMyConProject2} from './PFANS5013Api'
 
 
@@ -208,6 +208,34 @@ const PFANS5013Store = {
         })
       })
     },
+    //add-ws-6/5-禅道075任务，项目名称问题修正
+    Listproject({commit}, data) {
+      return new Promise((resolve, reject) => {
+        Listproject(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    Listproject2({commit}, data) {
+      return new Promise((resolve, reject) => {
+        Listproject2(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    //add-ws-6/5-禅道075任务，项目名称问题修正
   }
 };
 

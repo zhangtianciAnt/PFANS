@@ -859,48 +859,92 @@
     },
     methods: {
       //add-ws-4/24-项目名称所取数据源变更
+      //upd-ws-6/5-禅道075任务，项目名称问题修正
       getCompanyProjectList() {
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS5009Store/getSiteList3', {})
-          .then(response => {
-            for (let i = 0; i < response.length; i++) {
-              this.optionsdate.push({
-                value: response[i].companyprojects_id,
-                lable: response[i].numbers + '_' + response[i].project_name,
-              });
-            }
-            this.$store
-              .dispatch('PFANS5013Store/getMyConProject', {})
-              .then(response => {
-                for (let i = 0; i < response.length; i++) {
-                  this.optionsdate.push({
-                    value: response[i].comproject_id,
-                    lable: response[i].numbers + '_' + response[i].project_name,
-                  });
-                }
-                this.loading = false;
-              })
-              .catch(error => {
-                Message({
-                  message: error,
-                  type: 'error',
-                  duration: 5 * 1000,
+        if (this.disable) {
+          this.loading = true;
+          this.$store
+            .dispatch('PFANS5009Store/getSiteList5', {})
+            .then(response => {
+              for (let i = 0; i < response.length; i++) {
+                this.optionsdate.push({
+                  value: response[i].companyprojects_id,
+                  lable: response[i].numbers + '_' + response[i].project_name,
                 });
-                this.loading = false;
+              }
+              this.$store
+                .dispatch('PFANS5013Store/getMyConProject', {})
+                .then(response => {
+                  for (let i = 0; i < response.length; i++) {
+                    this.optionsdate.push({
+                      value: response[i].comproject_id,
+                      lable: response[i].numbers + '_' + response[i].project_name,
+                    });
+                  }
+                  this.loading = false;
+                })
+                .catch(error => {
+                  Message({
+                    message: error,
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  this.loading = false;
+                });
+              this.loading = false;
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
               });
-
-            this.loading = false;
-          })
-          .catch(error => {
-            Message({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
+              this.loading = false;
             });
-            this.loading = false;
-          });
+        } else {
+          this.loading = true;
+          this.$store
+            .dispatch('PFANS5013Store/Listproject2', {})
+            .then(response => {
+              for (let i = 0; i < response.length; i++) {
+                this.optionsdate.push({
+                  value: response[i].companyprojects_id,
+                  lable: response[i].numbers + '_' + response[i].project_name,
+                });
+              }
+              this.$store
+                .dispatch('PFANS5013Store/Listproject', {})
+                .then(response => {
+                  for (let i = 0; i < response.length; i++) {
+                    this.optionsdate.push({
+                      value: response[i].comproject_id,
+                      lable: response[i].numbers + '_' + response[i].project_name,
+                    });
+                  }
+                  this.loading = false;
+                })
+                .catch(error => {
+                  Message({
+                    message: error,
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  this.loading = false;
+                });
+
+              this.loading = false;
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
+        }
       },
+      //upd-ws-6/5-禅道075任务，项目名称问题修正
       //add-ws-4/24-项目名称所取数据源变更
         getBudt(val){
             //ADD_FJL  修改人员预算编码
