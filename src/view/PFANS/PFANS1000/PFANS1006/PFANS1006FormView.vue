@@ -650,13 +650,8 @@
                   judgementid: this.form.judgements,
                   judgnumbers: this.form.judgements_name,
                 });
-                if (this.disable) {
-                  this.show10 = false;
-                } else {
-                  this.show10 = true;
-                }
+                this.show10 = false;
                 this.show11 = true;
-
               }
             }
             this.namelist = this.form.user_name;
@@ -695,6 +690,7 @@
             this.loading = false;
           });
       } else {
+        this.show10 = true;
         this.namelist = this.$store.getters.userinfo.userid;
         this.userlist = this.$store.getters.userinfo.userid;
         if (getUserInfo(this.$store.getters.userinfo.userid)) {

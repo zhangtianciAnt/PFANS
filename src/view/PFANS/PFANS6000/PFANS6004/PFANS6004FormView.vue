@@ -31,9 +31,9 @@
             </el-col>
             <!--            账号-->
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANSUSERFORMVIEW_ADFIELD')" >
+              <el-form-item :label="$t('label.PFANSUSERFORMVIEW_ADFIELD')" prop="accountname">
                 <el-input
-                  :disabled="true"
+                  :disabled="!disabled"
                   style="width:20vw"
                   v-model="form.accountname" maxlength="20">
                 </el-input>
@@ -506,7 +506,6 @@
         erroradmissiontime: '',
         grouporglist: '',
         errorexitime: '',
-        accountname: '',
         errorgroup: '',
         errorgraduateschool: '',
         expData: null,
@@ -518,6 +517,7 @@
         gridData1: [],
         form: {
           expatriatesinfor_id: '',
+          accountname:'',
           expname: '',
           cooperuserid: '',
           sex: '',
@@ -580,6 +580,16 @@
         result1: "",
         disabled: true,
         rules: {
+          //AD域账号
+          accountname: [
+            {
+              required: true,
+              message:
+                this.$t('normal.error_08') +
+                this.$t('label.PFANSUSERFORMVIEW_ADFIELD'),
+              trigger: 'blur',
+            },
+          ],
           // 姓名
           expname: [
             {
