@@ -36,7 +36,14 @@ export function getFpans2016List() {
     method: 'post'
   })
 }
-
+//add-ws-6/8-禅道035
+export function getFpans2016List2() {
+  return request({
+    url: 'abNormal/list2',
+    method: 'post'
+  })
+}
+//add-ws-6/8-禅道035
 export function getPfans2016One(data) {
   return request({
     url: 'abNormal/oneInfo',

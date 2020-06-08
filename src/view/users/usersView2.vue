@@ -25,6 +25,23 @@
           @rowClick="rowClick"
           :showSelection="isShow"
         >
+          <!-- ADD-WS-6/8-禅道037 -->
+          <el-select
+            v-model="enterOrleave"
+            placeholder="请选择"
+            slot="customize"
+            style="margin-right:1vw"
+            @change="filterInfo"
+            clearable
+          >
+            <el-option
+              v-for="item in optionsForel"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            ></el-option>
+          </el-select>
+          <!-- ADD-WS-6/8-禅道037 -->
           <el-date-picker unlink-panels
                           class="bigWidth"
                           v-model="workinghours"
@@ -114,6 +131,19 @@ export default {
   },
   data() {
     return {
+      //ADD-WS-6/8-禅道037
+      enterOrleave: "0", //默认在职的筛选
+      optionsForel: [
+        {
+          value: "0",
+          label: this.$t("label.USERSVIEW_ENTER")
+        },
+        {
+          value: "1",
+          label: this.$t("label.USERSVIEW_LEAVE")
+        }
+      ],
+      //ADD-WS-6/8-禅道037
       TABLEList: [],
       totaldata: [],
       cuowu: '',
@@ -277,6 +307,71 @@ export default {
     };
   },
   methods: {
+    //ADD-WS-6/8-禅道037
+    filterInfo() {
+      this.tableList = this.TABLEList.slice(0);
+
+      if (this.TABLEList.length > 0) {
+        //进行在职离职筛选
+        if (this.enterOrleave !== "") {
+          //离职筛选
+          if (this.enterOrleave === "1") {
+            if (this.workinghours)
+            {
+              this.working = this.getworkinghours(this.workinghours);
+              this.starttime = this.working.substring(0, 10),
+                this.endTime = this.working.substring(13, 23);
+              if (this.starttime != "" || this.endTime != "") {
+                this.tableList = this.tableList.filter(item => {
+                  return (this.starttime <= item.resignation_date && item.resignation_date <= this.endTime && item.resignation_date<moment(new Date()).format('YYYY-MM-DD') ) && (item.resignation_date !== null && item.resignation_date !== "")
+                });
+              }
+            }
+            else
+            {
+              this.tableList = this.tableList.filter(item => {
+                return item.resignation_date !== null && item.resignation_date !== "" && item.resignation_date<moment(new Date()).format('YYYY-MM-DD')
+              });
+            }
+          } else {
+            if (this.workinghours)
+            {
+              this.working = this.getworkinghours(this.workinghours);
+              this.starttime = this.working.substring(0, 10),
+                this.endTime = this.working.substring(13, 23);
+              if (this.starttime != "" || this.endTime != "") {
+                this.tableList = this.tableList.filter(item => {
+                  return (this.starttime <= item.enterday && item.enterday <= this.endTime) && (item.resignation_date === null || item.resignation_date === "")
+                });
+              }
+            }
+            else
+            {
+              this.tableList = this.tableList.filter(item => {
+                return item.resignation_date === null || item.resignation_date === ""||item.resignation_date>=moment(new Date()).format('YYYY-MM-DD')
+              });
+            }
+          }
+        }
+        //进行时间筛选
+        // this.working = this.getworkinghours(this.workinghours);
+        // (this.starttime = this.working.substring(0, 10)),
+        //   (this.endTime = this.working.substring(13, 23));
+        // if (this.starttime != "" || this.endTime != "") {
+        //   if (this.enterOrleave === "1")
+        //   {
+        //     return (this.starttime <= item.enterday && item.enterday <= this.endTime) && (item.resignation_date !== null && item.resignation_date !== "")
+        //   }
+        //   else
+        //   {
+        //     this.tableList = this.tableList.filter(item => {
+        //       return this.starttime <= item.enterday && item.enterday <= this.endTime
+        //     });
+        //   }
+        // }
+      }
+    },
+    //ADD-WS-6/8-禅道037
     handleDownload(row) {
       this.loading = true;
       this.$store
