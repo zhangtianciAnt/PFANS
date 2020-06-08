@@ -1,5 +1,5 @@
 import {createPfans2016, getFpans2016List, updatePfans2016,getPfans2016One,
-        getOvertimelist,getReplacerest,cklength,updateNewUser,getSickleave,
+        getOvertimelist,getReplacerest,cklength,updateNewUser,getSickleave,getFpans2016List2,
   selectAbNormalParent, updateOvertime, getRestday
 } from './PFANS2016Api'
 
@@ -98,7 +98,21 @@ const PFANS2016Store = {
         })
       })
     },
-
+    //add-ws-6/8-禅道035
+    getFpans2016List2({commit}) {
+      return new Promise((resolve, reject) => {
+        getFpans2016List2().then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    //add-ws-6/8-禅道035
     getPfans2016One({ commit },data) {
       return new Promise((resolve, reject) => {
         getPfans2016One(data).then(response => {

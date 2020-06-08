@@ -176,9 +176,14 @@
               </el-form-item>
             </el-col>
             <!--           add_fjl_05/26 &#45;&#45;添加代休剩余-->
-            <el-col :span="8" v-if="form.errortype == 'PR013006'|| form.errortype == 'PR013007'">
-              <el-form-item :label="$t('label.PFANS2016FORMVIEW_RESTDIFF')">
-                <el-input v-model="form.restdiff" style="width: 20vw" :disabled="true"></el-input>
+            <el-col :span="4" v-if="form.errortype == 'PR013006'|| form.errortype == 'PR013007'">
+              <el-form-item :label="$t('label.PFANS2016FORMVIEW_RESTDIFF1')">
+                <el-input v-model="form.restdiff" style="width: 8vw" :disabled="true"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="4" v-if="form.errortype == 'PR013006'|| form.errortype == 'PR013007'">
+              <el-form-item :label="$t('label.PFANS2016FORMVIEW_RESTDIFF2')">
+                <el-input v-model="form.restdiff2" style="width: 8vw" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
             <!--           add_fjl_05/26 &#45;&#45;添加代休剩余-->
@@ -488,7 +493,7 @@
         //debugger
         if (this.form.errortype == 'PR013006') {
           this.$store
-              .dispatch('PFANS2016Store/cklength', this.form)
+            .dispatch('PFANS2016Store/cklength', this.form)
             .then(response => {
               if (response.error != '' && response.error == 'PR013006') {
                 this.checkDate = response.dat;
@@ -527,7 +532,7 @@
         //debugger
         if ((this.form.errortype == 'PR013005' || this.form.errortype == 'PR013006' || this.form.errortype == 'PR013007') && this.form.status === '4') {
           this.$store
-              .dispatch('PFANS2016Store/cklength', this.form)
+            .dispatch('PFANS2016Store/cklength', this.form)
             .then(response => {
               if (response.error != '' && response.error == 'PR013006') {
                 this.checkDate = response.dat;
@@ -578,7 +583,7 @@
         workflowCode: '',
         canStart: true,
         loading: false,
-          optionRest: [],
+        optionRest: [],
         errort: '',
         checkDate: '',
         errorendtime: '',
@@ -614,7 +619,8 @@
         title: 'title.exception_application',
         buttonList: [],
         form: {
-            restdiff: '',
+          restdiff: '',
+          restdiff2: '',
           vacationtype: '',
           revacationtype: '',
           centerid: '',
@@ -746,7 +752,7 @@
       };
     },
     mounted() {
-        this.getRestday();
+      this.getRestday();
       this.getAbNormalParent();
       this.getSickleave();
       // this.getAttendance();
@@ -816,12 +822,9 @@
               }
             }
             if (this.form.status === '0' || this.form.status === '3') {
-              if (this.form.user_id ==='5e78fefff1560b363cdd6db7')
-              {
+              if (this.form.user_id === '5e78fefff1560b363cdd6db7') {
                 this.workflowCode = 'W0070';
-              }
-              else
-              {
+              } else {
                 this.workflowCode = 'W0003';
               }
 
@@ -831,12 +834,9 @@
                 this.disableupload = true;
               }
             } else if (this.form.status === '4' || this.form.status === '6') {
-              if (this.form.user_id ==='5e78fefff1560b363cdd6db7')
-              {
+              if (this.form.user_id === '5e78fefff1560b363cdd6db7') {
                 this.workflowCode = 'W0071';
-              }
-              else
-              {
+              } else {
                 this.workflowCode = 'W0059';
               }
               this.canStart = true;
@@ -859,12 +859,9 @@
               this.disableupload = true;
             } else if (this.form.status === '7') {
               this.disrevacationtype = true;
-              if (this.form.user_id ==='5e78fefff1560b363cdd6db7')
-              {
+              if (this.form.user_id === '5e78fefff1560b363cdd6db7') {
                 this.workflowCode = 'W0071';
-              }
-              else
-              {
+              } else {
                 this.workflowCode = 'W0059';
               }
               this.canStart = false;
@@ -1156,31 +1153,31 @@
             this.loading = false;
           });
       },
-        //add_fjl_05/26 --添加代休剩余
-        getRestday() {
-            this.loading = true;
-            this.$store
-                .dispatch('PFANS2016Store/getRestday', {'userid': this.$store.getters.userinfo.userid})
-                .then(response => {
-                    this.optionRest = [];
-                    for (let i = 0; i < response.length; i++) {
-                        var ro = {};
-                        ro.typecode = response[i].codetype,
-                            ro.sumday = response[i].sumDay,
-                            this.optionRest.push(ro);
-                    }
-                    this.loading = false;
-                })
-                .catch(error => {
-                    Message({
-                        message: error,
-                        type: 'error',
-                        duration: 5 * 1000,
-                    });
-                    this.loading = false;
-                });
-        },
-        //add_fjl_05/26 --添加代休剩余
+      //add_fjl_05/26 --添加代休剩余
+      getRestday() {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS2016Store/getRestday', {'userid': this.$store.getters.userinfo.userid})
+          .then(response => {
+            this.optionRest = [];
+            for (let i = 0; i < response.length; i++) {
+              var ro = {};
+              ro.typecode = response[i].codetype,
+                ro.sumday = response[i].sumDay,
+                this.optionRest.push(ro);
+            }
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
+      //add_fjl_05/26 --添加代休剩余
       getAbNormalParent() {
         this.loading = true;
         this.$store
@@ -1407,7 +1404,7 @@
         // }
       },
       change() {
-          this.form.lengthtime = '0';
+        this.form.lengthtime = '0';
         if (!this.form.finisheddate || !this.form.occurrencedate) {
           return;
         }
@@ -1565,20 +1562,36 @@
         }
 
       },
-        //add_fjl_05/26 --添加代休剩余
-        getonRest(val) {
-            this.form.restdiff = '';
-            if (this.optionRest.length > 0) {
-                for (let i = 0; i < this.optionRest.length; i++) {
-                    if (this.optionRest[i].typecode === val) {
-                        if (this.optionRest[i].sumday !== null && this.optionRest[i].sumday !== '') {
-                            this.form.restdiff = (Number(this.optionRest[i].sumday) * 8).toFixed(2);
-                        }
-                    }
-                }
+      //add_fjl_05/26 --添加代休剩余
+      getonRest(val) {
+        this.form.restdiff = '';
+        this.form.restdiff2 = '';
+        if (this.optionRest.length > 0) {
+          for (let i = 0; i < this.optionRest.length; i++) {
+            if (this.optionRest[i].typecode === val) {
+              if (this.optionRest[i].sumday !== null && this.optionRest[i].sumday !== '') {
+                this.form.restdiff = (Number(this.optionRest[i].sumday) * 8).toFixed(2);
+              }
             }
-        },
-        //add_fjl_05/26 --添加代休剩余
+          }
+        }
+        //add-ws-6/8-禅道035
+        this.$store
+          .dispatch('PFANS2016Store/getFpans2016List2', {})
+          .then(response => {
+            let restdiff2 = 0;
+            for (let a = 0; a < response.length; a++) {
+              if (response[a].status != '7') {
+                if (response[a].errortype === this.form.errortype) {
+                  restdiff2 += Number(response[a].lengthtime);
+                }
+              }
+            }
+            this.form.restdiff2 = restdiff2.toFixed(2)
+          });
+        //add-ws-6/8-禅道035
+      },
+      //add_fjl_05/26 --添加代休剩余
       getErrorType(val) {
         this.form.hospital = '';
         this.form.edate = '';
@@ -1611,14 +1624,14 @@
           this.checkrelengthtime = false;
           this.dislengthtime = false;
           this.showVacation = false;
-            this.getonRest(val)
+          this.getonRest(val);
         } else if (val === 'PR013007') {
           this.form.vacationtype = '';
           this.checkerrortishi = false;
           this.checkrelengthtime = false;
           this.dislengthtime = false;
           this.showVacation = false;
-            this.getonRest(val)
+          this.getonRest(val);
         } else if (val === 'PR013008') {
           this.checkerrortishi = false;
           this.checkrelengthtime = false;
@@ -2229,6 +2242,23 @@
                 });
                 return;
               }
+              //add-ws-6/8-禅道035
+              if (this.form.restdiff === '') {
+                this.form.restdiff = 0;
+              }
+              if (this.form.restdiff2 === '') {
+                this.form.restdiff2 = 0;
+              }
+              if (this.form.restdiff - Number(this.form.restdiff2 + this.form.lengthtime) < 0) {
+                Message({
+                  message: this.$t('label.PFANS2016FORMVIEW_CHECKRESTDIFF2'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                return;
+              }
+
+              //add-ws-6/8-禅道035
               if (this.$route.params._id) {
                 //总经理审批自动通过
                 // if (getCurrentRole() === '1' && this.form.status === '4' && this.form.user_id === '5e78fefff1560b363cdd6db7') {
