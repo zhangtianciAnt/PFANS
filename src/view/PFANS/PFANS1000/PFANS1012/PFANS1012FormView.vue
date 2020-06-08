@@ -1125,11 +1125,12 @@
                     :label="$t('label.judgement')"
                     width="315px">
                   </el-table-column>
-                  <el-table-column :label="$t('label.operation')" align="center" width="200" v-if="show10">
+                  <el-table-column :label="$t('label.operation')" align="center" width="200" >
                     <template slot-scope="scope">
                       <el-button
                         @click.native.prevent="viewdata(scope.row)"
                         plain
+                        :disabled="show10"
                         size="small"
                         type="primary"
                       >{{$t('button.view')}}
@@ -1596,7 +1597,7 @@
         show5: false,
         show6: false,
         show7: false,
-        show10: false,
+        show10: true,
         show9: false,
         show: false,
         showrow: true,
@@ -2086,12 +2087,16 @@
                 this.show9 = true;
                 this.show6 = false;
                 this.show7 = false;
-                this.show10 = false;
+                this.show10 = true;
               } else if (this.form.type === 'PJ001002') {
                 this.show9 = false;
                 this.show6 = true;
                 this.show7 = true;
-                this.show10 = true;
+                if (this.disable) {
+                  this.show10 = true;
+                }else{
+                  this.show10 = false;
+                }
               }
               this.loading = false;
             },
@@ -2105,6 +2110,7 @@
             this.loading = false;
           });
       } else {
+        this.show10 = true;
         //ADD-WS-直接部门或间接部门赋值变更
         this.tableT[0].accoundoptionsdate = [];
         if (this.Redirict == '0') {

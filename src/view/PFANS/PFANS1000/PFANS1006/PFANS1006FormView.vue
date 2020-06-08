@@ -650,7 +650,11 @@
                   judgementid: this.form.judgements,
                   judgnumbers: this.form.judgements_name,
                 });
-                this.show10 = false;
+                if (this.disable) {
+                  this.show10 = true;
+                }else{
+                  this.show10 = false;
+                }
                 this.show11 = true;
               }
             }
