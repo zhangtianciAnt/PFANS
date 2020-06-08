@@ -50,19 +50,19 @@
                         </dicselect>
                       </el-form-item>
                     </el-col>
-                    <el-col :span="4">
-                      <el-form-item :label="$t('label.PFANS2023FORMVIEW_RANK')" prop="skilllevelafter"
-                      >
-                        <dicselect
-                          :code="code"
-                          :data="form.skilllevelafter"
-                          :disabled="!disable"
-                          :multiple="multiple"
-                          style="width: 20vw"
-                          @change="getErrorType">
-                        </dicselect>
-                      </el-form-item>
-                    </el-col>
+                    <!--<el-col :span="4">-->
+                    <!--<el-form-item :label="$t('label.PFANS2023FORMVIEW_RANK')" prop="skilllevelafter"-->
+                    <!--&gt;-->
+                    <!--<dicselect-->
+                    <!--:code="code"-->
+                    <!--:data="form.skilllevelafter"-->
+                    <!--:disabled="!disable"-->
+                    <!--:multiple="multiple"-->
+                    <!--style="width: 20vw"-->
+                    <!--@change="getErrorType">-->
+                    <!--</dicselect>-->
+                    <!--</el-form-item>-->
+                    <!--</el-col>-->
 <!--                    <el-col :span="2" style="padding-top: 50px">-->
 <!--                      <el-button size="mini" @click="handleDownload" style="background-color: #7ACAFF;width: 150px">{{$t('button.ExplanationDownload')}}</el-button>-->
 <!--                    </el-col>-->
@@ -96,12 +96,12 @@
                     </el-col>
                   </el-row>
                   <el-row>
-                    <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS2024FORMVIEW_CONTRACT')">
-                        <el-date-picker :disabled="true" style="width: 20vw" type="date"
-                                        v-model="form.contract"></el-date-picker>
-                      </el-form-item>
-                    </el-col>
+                    <!--<el-col :span="8">-->
+                    <!--<el-form-item :label="$t('label.PFANS2024FORMVIEW_CONTRACT')">-->
+                    <!--<el-date-picker :disabled="true" style="width: 20vw" type="date"-->
+                    <!--v-model="form.contract"></el-date-picker>-->
+                    <!--</el-form-item>-->
+                    <!--</el-col>-->
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS2023VIEW_YEARS')">
                         {{form.year}}
@@ -358,13 +358,13 @@
                             trigger: 'blur'
                         }
                     ],
-                    skilllevelafter: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS2023FORMVIEW_RANK'),
-                            trigger: 'change'
-                        }
-                    ],
+                  // skilllevelafter: [
+                  //     {
+                  //         required: true,
+                  //         message: this.$t('normal.error_08') + this.$t('label.PFANS2023FORMVIEW_RANK'),
+                  //         trigger: 'change'
+                  //     }
+                  // ],
                 },
                 form: {
                     center_id: '',
@@ -372,10 +372,10 @@
                     team_id: '',
                     user_id: '',
                     skilllevel: '',
-                    skilllevelafter: '',
+                  // skilllevelafter: '',
                     schoolspecies: '',
                     graduationyear: '',
-                    contract: '',
+                  // contract: '',
                     entryyear: '',
                     business: '',
                     features: '',
@@ -529,9 +529,9 @@
                     this.error = "";
                 }
             },
-            getErrorType(val1) {
-                this.form.skilllevelafter = val1;
-            },
+          // getErrorType(val1) {
+          //     this.form.skilllevelafter = val1;
+          // },
             getschoolspecie(val1) {
                 this.form.schoolspecies = val1;
             },
