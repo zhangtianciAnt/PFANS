@@ -572,7 +572,7 @@
                     ></org>
                   </el-form-item>
                 </el-col>
-                <el-col :span="8">
+                <el-col :span="6">
                   <el-form-item :label="$t('label.center')" prop="centerid" :error="error">
                     <org
                       :orglist="form.centerid"
@@ -589,6 +589,79 @@
                   </el-form-item>
 
                 </el-col>
+                <!--                add_fjl_06/08   --添加兼职部门选择时的联动  start-->
+                <el-col :span="2">
+                  <el-button
+                    type="text"
+                    @click="dialogTableVisible5 = true"
+                  >{{$t('label.INDEX_GD')}}
+                  </el-button>
+
+                  <el-dialog
+                    :title="$t('label.PFANSUSERFORMVIEW_OTHERORGS')"
+                    :visible.sync="dialogTableVisible5"
+                    style="padding-top:5px"
+                  >
+                    <el-row>
+                      <el-col :span="24">
+                        <el-table :data="form.otherorgs" stripe>
+                          <el-table-column
+                            property="teamid"
+                            align="center"
+                            :label="$t('label.team')"
+                          >
+                            <template slot-scope="scope">
+                              <org
+                                disabled
+                                :orglist="scope.row.teamid"
+                                orgtype="3"
+                                :no="scope.row"
+                                style="width:10vw"
+                                selectType="Single"
+                                @getOrgids="setOrgt"
+                              ></org>
+                            </template>
+                          </el-table-column>
+                          <el-table-column
+                            property="groupid"
+                            align="center"
+                            :label="$t('label.group')"
+                          >
+                            <template slot-scope="scope">
+                              <org
+                                disabled
+                                :orglist="scope.row.groupid"
+                                orgtype="2"
+                                :no="scope.row"
+                                style="width:10vw"
+                                selectType="Single"
+                                @getOrgids="setOrgg"
+                              ></org>
+                            </template>
+                          </el-table-column>
+                          <el-table-column
+                            property="centerid"
+                            align="center"
+                            :label="$t('label.center')"
+                          >
+                            <template slot-scope="scope">
+                              <org
+                                disabled
+                                :orglist="scope.row.centerid"
+                                orgtype="1"
+                                :no="scope.row"
+                                style="width:10vw"
+                                selectType="Single"
+                                @getOrgids="setOrgc"
+                              ></org>
+                            </template>
+                          </el-table-column>
+                        </el-table>
+                      </el-col>
+                    </el-row>
+                  </el-dialog>
+                </el-col>
+                <!--                add_fjl_06/08   --添加兼职部门选择时的联动  end-->
               </el-row>
               <el-row>
                 <el-col :span="8">
@@ -2064,6 +2137,7 @@
         dialogTableVisible3: false,
         dialogTableVisible4: false,
           // add_fjl
+          dialogTableVisible5: false,
           dialogTableVisible6: false,
           dialogTableVisible7: false,
           dialogTableVisible8: false,
@@ -2233,6 +2307,16 @@
             gongshanginsurance: '',
             shengyuinsurance: '',
             // ADD-LXX
+            otherorgs: [
+                {
+                    centername: '',
+                    groupname: '',
+                    teamname: '',
+                    centerid: '',
+                    groupid: '',
+                    teamid: '',
+                },
+            ],
         },
           //add_fjl
           feedingchangeday: '',
@@ -2948,6 +3032,52 @@
       getOccupationtype(val) {
         this.form.occupationtype = val;
       },
+        //add_fjl_06/08   --添加兼职部门选择时的联动  start
+        setOrgc(val, no) {
+            no.centerid = val;
+            this.getOrgInformationDetail(val, no);
+        },
+        setOrgg(val, no) {
+            no.groupid = val;
+            this.getOrgInformationDetail(val, no);
+        },
+        setOrgt(val, no) {
+            no.teamid = val;
+            this.getOrgInformationDetail(val, no);
+        },
+        getOrgInformationDetail(id, no) {
+            let org = {};
+            let treeCom = this.$store.getters.orgs;
+
+            if (id && treeCom.getNode(id)) {
+                let node = id;
+                let type = treeCom.getNode(id).data.type || 0;
+                for (let index = parseInt(type); index >= 1; index--) {
+                    if (parseInt(type) === index && ![1, 2].includes(parseInt(type))) {
+                        org.teamname = treeCom.getNode(node).data.departmentname;
+                        org.teamid = treeCom.getNode(node).data._id;
+                    }
+                    if (index === 2) {
+                        org.groupname = treeCom.getNode(node).data.departmentname;
+                        org.groupid = treeCom.getNode(node).data._id;
+                    }
+                    if (index === 1) {
+                        org.centername = treeCom.getNode(node).data.companyname;
+                        org.centerid = treeCom.getNode(node).data._id;
+                    }
+                    node = treeCom.getNode(node).parent.data._id;
+                }
+                ({
+                    centername: no.centername,
+                    groupname: no.groupname,
+                    teamname: no.teamname,
+                    centerid: no.centerid,
+                    groupid: no.groupid,
+                    teamid: no.teamid,
+                } = org);
+            }
+        },
+        //add_fjl_06/08   --添加兼职部门选择时的联动  end
       getCenterid(val) {
         this.getOrgInformation(val);
         if (!val || this.form.centerid === '') {
