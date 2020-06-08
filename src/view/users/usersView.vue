@@ -327,14 +327,14 @@ export default {
                 this.endTime = this.working.substring(13, 23);
                 if (this.starttime != "" || this.endTime != "") {
                   this.tableList = this.tableList.filter(item => {
-                    return (this.starttime <= item.resignation_date && item.resignation_date <= this.endTime) && (item.resignation_date !== null && item.resignation_date !== "")
+                    return (this.starttime <= item.resignation_date && item.resignation_date <= this.endTime && item.resignation_date<moment(new Date()).format('YYYY-MM-DD') ) && (item.resignation_date !== null && item.resignation_date !== "")
                   });
                 }
               }
               else
               {
                 this.tableList = this.tableList.filter(item => {
-                  return item.resignation_date !== null && item.resignation_date !== "";
+                  return item.resignation_date !== null && item.resignation_date !== "" && item.resignation_date<moment(new Date()).format('YYYY-MM-DD')
                 });
               }
           } else {
@@ -352,7 +352,7 @@ export default {
             else
             {
               this.tableList = this.tableList.filter(item => {
-                return item.resignation_date === null || item.resignation_date === "";
+                return item.resignation_date === null || item.resignation_date === ""||item.resignation_date>=moment(new Date()).format('YYYY-MM-DD')
               });
             }
           }
