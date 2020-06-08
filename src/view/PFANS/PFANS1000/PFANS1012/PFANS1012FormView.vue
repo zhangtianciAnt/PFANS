@@ -2091,7 +2091,11 @@
                 this.show9 = false;
                 this.show6 = true;
                 this.show7 = true;
-                this.show10 = true;
+                if (this.disable) {
+                  this.show10 = false;
+                }else{
+                  this.show10 = true;
+                }
               }
               this.loading = false;
             },
