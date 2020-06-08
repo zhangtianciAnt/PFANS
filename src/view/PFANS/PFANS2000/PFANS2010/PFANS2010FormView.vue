@@ -277,13 +277,30 @@
               }
             }
 
-            //ccm 离职后考勤颜色   from
+            //ccm 入职离职后考勤颜色   from
             let userid = this.$route.params._id.split(",")[0];
             let user = getUserInfo(userid);
             let resignationdate ='';
+            let enterdate ='';
             if (user) {
               resignationdate = user.userinfo.resignation_date;
+              enterdate = user.userinfo.enterday;
             }
+            //入职
+            if (moment(row.dates).format('YYYY-MM-DD') < moment(enterdate).format('YYYY-MM-DD'))
+            {
+              if (row.dates ===this.$t('label.PFANS1012VIEW_ACCOUNT'))
+              {
+                return "white";
+              }
+              else
+              {
+                row.absenteeism = "";
+                this.totalAbsenteeism = true;
+                return "sub_bg_color_Ral";
+              }
+            }
+            //离职
             if (moment(row.dates).format('YYYY-MM-DD') > moment(resignationdate).format('YYYY-MM-DD'))
             {
               if (row.dates ===this.$t('label.PFANS1012VIEW_ACCOUNT'))
@@ -297,7 +314,7 @@
                 return "sub_bg_color_Ral";
               }
             }
-            //ccm 离职后考勤颜色   to
+            //ccm 入职离职后考勤颜色   to
 
             //add-ws-考勤设置休日背景色
             if(moment(row.dates).format("E") == 6 || moment(row.dates).format("E") == 7 ){
