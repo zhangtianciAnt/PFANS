@@ -2106,6 +2106,9 @@
                     birthday: '',
                     otherorgs: [
                         {
+                            centername: '',
+                            groupname: '',
+                            teamname: '',
                             centerid: '',
                             groupid: '',
                             teamid: '',
@@ -2945,15 +2948,52 @@
                     this.error = '';
                 }
             },
+            //upd_fjl_06/08   --添加兼职部门选择时的联动  start
             setOrgc(val, no) {
                 no.centerid = val;
+                this.getOrgInformationDetail(val, no);
             },
             setOrgg(val, no) {
                 no.groupid = val;
+                this.getOrgInformationDetail(val, no);
             },
             setOrgt(val, no) {
                 no.teamid = val;
+                this.getOrgInformationDetail(val, no);
             },
+            getOrgInformationDetail(id, no) {
+                let org = {};
+                let treeCom = this.$store.getters.orgs;
+
+                if (id && treeCom.getNode(id)) {
+                    let node = id;
+                    let type = treeCom.getNode(id).data.type || 0;
+                    for (let index = parseInt(type); index >= 1; index--) {
+                        if (parseInt(type) === index && ![1, 2].includes(parseInt(type))) {
+                            org.teamname = treeCom.getNode(node).data.departmentname;
+                            org.teamid = treeCom.getNode(node).data._id;
+                        }
+                        if (index === 2) {
+                            org.groupname = treeCom.getNode(node).data.departmentname;
+                            org.groupid = treeCom.getNode(node).data._id;
+                        }
+                        if (index === 1) {
+                            org.centername = treeCom.getNode(node).data.companyname;
+                            org.centerid = treeCom.getNode(node).data._id;
+                        }
+                        node = treeCom.getNode(node).parent.data._id;
+                    }
+                    ({
+                        centername: no.centername,
+                        groupname: no.groupname,
+                        teamname: no.teamname,
+                        centerid: no.centerid,
+                        groupid: no.groupid,
+                        teamid: no.teamid,
+                    } = org);
+                }
+            },
+            //upd_fjl_06/08   --添加兼职部门选择时的联动  end
             getOrgInformation(id) {
                 let org = {};
                 let treeCom = this.$store.getters.orgs;
