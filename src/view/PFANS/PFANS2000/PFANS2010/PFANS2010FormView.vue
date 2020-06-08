@@ -456,11 +456,12 @@
                                   response[j].recognitionstate = this.$t('label.PFANS2010VIEW_RECOGNITION1');
                               }
                           }
-
-                          // if(response[j].absenteeism === null || response[j].absenteeism === "")
-                          // {
-                          //     response[j].absenteeism = response[j].tabsenteeism;
-                          // }
+                          //add ccm
+                          if(response[j].absenteeism === null || response[j].absenteeism === "")
+                          {
+                              response[j].absenteeism = response[j].tabsenteeism;
+                          }
+                          //add ccm
                           if(response[j].shortsickleave === null || response[j].shortsickleave === "")
                           {
                               response[j].shortsickleave = response[j].tshortsickleave;
@@ -488,12 +489,15 @@
                         if(daydata.length > 0){
                           daydata[0].dates = moment(daydata[0].dates).format("YYYY-MM-DD")
                           res.push(daydata[0]);
-                        }else{
-                          res.push({
-                            dates:moment(day).format("YYYY-MM-DD"),
-                            absenteeism:8
-                          });
                         }
+                      //del ccm
+                      // else{
+                      //     res.push({
+                      //       dates:moment(day).format("YYYY-MM-DD"),
+                      //       absenteeism:8
+                      //     });
+                      //   }
+                      //del ccm
                       }
 
                       //add CCM 合计行--from
