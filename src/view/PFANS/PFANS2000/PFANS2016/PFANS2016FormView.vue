@@ -1580,14 +1580,20 @@
           .dispatch('PFANS2016Store/getFpans2016List2', {})
           .then(response => {
             let restdiff2 = 0;
+            let restdiff = 0;
             for (let a = 0; a < response.length; a++) {
-              if (response[a].status != '7') {
+              if (response[a].status === '0' || response[a].status === '2' || response[a].status === '3') {
                 if (response[a].errortype === this.form.errortype) {
                   restdiff2 += Number(response[a].lengthtime);
                 }
               }
+              if (response[a].status === '4' || response[a].status === '5' || response[a].status === '6') {
+                if (response[a].errortype === this.form.errortype) {
+                  restdiff += Number(response[a].relengthtime);
+                }
+              }
             }
-            this.form.restdiff2 = restdiff2.toFixed(2)
+            this.form.restdiff2 = Number(restdiff + restdiff2).toFixed(2);
           });
         //add-ws-6/8-禅道035
       },
