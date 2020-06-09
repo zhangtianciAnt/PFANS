@@ -427,15 +427,15 @@
             <!--              </template>-->
             <!--            </pl-table-column>-->
             <!--            原動費-->
-            <pl-table-column
-              :label="$t('label.PFANS1042FORMVIEW_YUANQINCOST')"
-              align="center"
-              width="110"
-              prop="yuanqincost">
-              <template slot-scope="scope">
-                <span>{{scope.row.yuanqincost}}</span>
-              </template>
-            </pl-table-column>
+            <!--            <pl-table-column-->
+            <!--              :label="$t('label.PFANS1042FORMVIEW_YUANQINCOST')"-->
+            <!--              align="center"-->
+            <!--              width="110"-->
+            <!--              prop="yuanqincost">-->
+            <!--              <template slot-scope="scope">-->
+            <!--                <span>{{scope.row.yuanqincost}}</span>-->
+            <!--              </template>-->
+            <!--            </pl-table-column>-->
             <!--            旅費-->
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_TRAVALCOST')"
@@ -447,67 +447,67 @@
               </template>
             </pl-table-column>
             <!--            消耗費-->
-            <pl-table-column
-              :label="$t('label.PFANS1042FORMVIEW_CALLCOST')"
-              align="center"
-              width="110"
-              prop="callcost">
-              <template slot-scope="scope">
-                <span>{{scope.row.callcost}}</span>
-              </template>
-            </pl-table-column>
-            <!--            通信費-->
-            <pl-table-column
-              :label="$t('label.PFANS1042FORMVIEW_CONCOST')"
-              align="center"
-              width="110"
-              prop="concost">
-              <template slot-scope="scope">
-                <span>{{scope.row.concost}}</span>
-              </template>
-            </pl-table-column>
-            <!--            会議費/交際費/研修費-->
-            <pl-table-column
-              :label="$t('label.PFANS1042FORMVIEW_THREEFREE')"
-              align="center"
-              width="200"
-              prop="threefree">
-              <template slot-scope="scope">
-                <span>{{scope.row.threefree}}</span>
-              </template>
-            </pl-table-column>
-            <!--            共同事務費-->
-            <pl-table-column
-              :label="$t('label.PFANS1042FORMVIEW_COMMONFEE')"
-              align="center"
-              width="110"
-              prop="commonfee">
-              <template slot-scope="scope">
-                <span>{{scope.row.commonfee}}</span>
-              </template>
-            </pl-table-column>
+            <!--            <pl-table-column-->
+            <!--              :label="$t('label.PFANS1042FORMVIEW_CALLCOST')"-->
+            <!--              align="center"-->
+            <!--              width="110"-->
+            <!--              prop="callcost">-->
+            <!--              <template slot-scope="scope">-->
+            <!--                <span>{{scope.row.callcost}}</span>-->
+            <!--              </template>-->
+            <!--            </pl-table-column>-->
+            <!--            &lt;!&ndash;            通信費&ndash;&gt;-->
+            <!--            <pl-table-column-->
+            <!--              :label="$t('label.PFANS1042FORMVIEW_CONCOST')"-->
+            <!--              align="center"-->
+            <!--              width="110"-->
+            <!--              prop="concost">-->
+            <!--              <template slot-scope="scope">-->
+            <!--                <span>{{scope.row.concost}}</span>-->
+            <!--              </template>-->
+            <!--            </pl-table-column>-->
+            <!--            &lt;!&ndash;            会議費/交際費/研修費&ndash;&gt;-->
+            <!--            <pl-table-column-->
+            <!--              :label="$t('label.PFANS1042FORMVIEW_THREEFREE')"-->
+            <!--              align="center"-->
+            <!--              width="200"-->
+            <!--              prop="threefree">-->
+            <!--              <template slot-scope="scope">-->
+            <!--                <span>{{scope.row.threefree}}</span>-->
+            <!--              </template>-->
+            <!--            </pl-table-column>-->
+            <!--            &lt;!&ndash;            共同事務費&ndash;&gt;-->
+            <!--            <pl-table-column-->
+            <!--              :label="$t('label.PFANS1042FORMVIEW_COMMONFEE')"-->
+            <!--              align="center"-->
+            <!--              width="110"-->
+            <!--              prop="commonfee">-->
+            <!--              <template slot-scope="scope">-->
+            <!--                <span>{{scope.row.commonfee}}</span>-->
+            <!--              </template>-->
+            <!--            </pl-table-column>-->
 
-            <!--            ブランド使用料-->
-            <pl-table-column
-              :label="$t('label.PFANS1042FORMVIEW_BRANDCOST')"
-              align="center"
-              width="150"
-              prop="brandcost">
-              <template slot-scope="scope">
-                <span>{{scope.row.brandcost}}</span>
-              </template>
+            <!--            &lt;!&ndash;            ブランド使用料&ndash;&gt;-->
+            <!--            <pl-table-column-->
+            <!--              :label="$t('label.PFANS1042FORMVIEW_BRANDCOST')"-->
+            <!--              align="center"-->
+            <!--              width="150"-->
+            <!--              prop="brandcost">-->
+            <!--              <template slot-scope="scope">-->
+            <!--                <span>{{scope.row.brandcost}}</span>-->
+            <!--              </template>-->
 
-            </pl-table-column>
-            <!--            その他経費-->
-            <pl-table-column
-              :label="$t('label.PFANS1042FORMVIEW_OTHEREXPENSES')"
-              align="center"
-              width="110"
-              prop="otherexpenses">
-              <template slot-scope="scope">
-                <span>{{scope.row.otherexpenses}}</span>
-              </template>
-            </pl-table-column>
+            <!--            </pl-table-column>-->
+            <!--            &lt;!&ndash;            その他経費&ndash;&gt;-->
+            <!--            <pl-table-column-->
+            <!--              :label="$t('label.PFANS1042FORMVIEW_OTHEREXPENSES')"-->
+            <!--              align="center"-->
+            <!--              width="110"-->
+            <!--              prop="otherexpenses">-->
+            <!--              <template slot-scope="scope">-->
+            <!--                <span>{{scope.row.otherexpenses}}</span>-->
+            <!--              </template>-->
+            <!--            </pl-table-column>-->
             <!--            累计仕掛品-->
 
             <pl-table-column
@@ -592,6 +592,16 @@
                 <span>{{scope.row.costtotal}}</span>
               </template>
             </pl-table-column>
+          </pl-table-column>
+          <!--          界限利益率-->
+          <pl-table-column
+            :label="$t('label.PFANS1042FORMVIEW_BENEFITRATE')"
+            align="center"
+            width="110"
+            prop="benefitrate">
+            <template slot-scope="scope">
+              <span>{{scope.row.benefitrate}}%</span>
+            </template>
           </pl-table-column>
           <!--          営業利益-->
           <pl-table-column
@@ -1037,9 +1047,12 @@
             },
             changeOtherincome(val) {
                 //--その他諸経費小計
-                val.otherexpentotal = (Number(val.yuanqincost) + Number(val.travalcost) + Number(val.callcost)
-                    + Number(val.concost) + Number(val.threefree) + Number(val.commonfee) + Number(val.brandcost)
-                    + Number(val.otherexpenses) + Number(val.otherincome) + Number(val.process)).toFixed(2);
+                //upd_fjl 06/09  start
+                // val.otherexpentotal = (Number(val.yuanqincost) + Number(val.travalcost) + Number(val.callcost)
+                //     + Number(val.concost) + Number(val.threefree) + Number(val.commonfee) + Number(val.brandcost)
+                //     + Number(val.otherexpenses) + Number(val.otherincome) + Number(val.process)).toFixed(2);
+                val.otherexpentotal = (Number(val.travalcost) + Number(val.otherincome) + Number(val.process)).toFixed(2);
+                //upd_fjl 06/09  start
                 //合計
                 val.costtotal = (Number(val.peocostsum) + Number(val.costsubtotal) + Number(val.departmenttotal) + Number(val.allocationsum) + Number(val.otherexpentotal)).toFixed(2);
                 //--営業利益
@@ -1326,6 +1339,7 @@
                                     let sumouthours = 0;
                                     let suminhours = 0;
                                     let sumoutsourcingpjhours = 0;
+                                    let sumNum = 0;
                                     //计算工数
                                     let numFlg = 160;
                                     //add-ws-5/6-报销金额统计为sumpublic，外注的费用统计的金额累计为sumcoststa
@@ -1335,6 +1349,19 @@
                                     //add-ws-5/6-报销金额统计为sumpublic，外注的费用统计的金额累计为sumcoststa
 
                                     for (let i = 0; i < response.length; i++) {
+                                        response[i].emhours = this.numFormat(response[i].emhours);
+                                        response[i].outhours = this.numFormat(response[i].outhours);
+                                        response[i].inhours = this.numFormat(response[i].inhours);
+                                        response[0].unworktimeei = this.numFormat(response[0].unworktimeei);
+                                        response[0].unworktimeex = this.numFormat(response[0].unworktimeex);
+                                        response[i].outsourcingpjhours = this.numFormat(response[i].outsourcingpjhours);
+                                        response[i].callcost = this.numFormat(response[i].callcost);
+                                        response[i].yuanqincost = this.numFormat(response[i].yuanqincost);
+                                        response[i].concost = this.numFormat(response[i].concost);
+                                        response[i].threefree = this.numFormat(response[i].threefree);
+                                        response[i].commonfee = this.numFormat(response[i].commonfee);
+                                        response[i].brandcost = this.numFormat(response[i].brandcost);
+                                        response[i].otherexpenses = this.numFormat(response[i].otherexpenses);
                                         //add-ws-5/6-本社工数累加
                                         sum += Number(response[i].emhours);
                                         //add-ws-5/6-本社工数累加
@@ -1346,6 +1373,10 @@
                                         response[i].outsourcingpjhours = ((Number(response[i].inhours) + Number(response[i].outhours) + Number(response[0].unworktimeei) + Number(response[0].unworktimeex)) / Number(numFlg)).toFixed(2);
                                         sumoutsourcingpjhours += Number(response[i].outsourcingpjhours);
                                         //add-ws-5/6-外注工数累加
+                                        //add-fjl-06/09  start -- 添加（原動費，通信費，消耗品費，会議費/交際費/研修費，共同事務費，ブランド使用料，その他経費）的累计，按分使用
+                                        sumNum += Number(response[i].yuanqincost) + Number(response[i].callcost) + Number(response[i].concost) + Number(response[i].threefree) +
+                                            Number(response[i].commonfee) + Number(response[i].brandcost) + Number(response[i].otherexpenses);
+                                        //add-fjl-06/09  start
                                     }
                                     for (let j = 0; j < response.length; j++) {
                                         // add_fjl  --start
@@ -1415,23 +1446,6 @@
                                         response[j].pjrateemployees = this.numFormat(response[j].pjrateemployees);
                                         response[j].staffingrate = this.numFormat(response[j].staffingrate);
                                         response[j].totalpro = this.numFormat(response[j].totalpro);
-
-                                        // response[j].inst = this.numFormat(response[j].inst);
-                                        // response[j].rent = this.numFormat(response[j].rent);
-                                        // response[j].leasecost = this.numFormat(response[j].leasecost);
-                                        // response[j].temporaryrent = this.numFormat(response[j].temporaryrent);
-                                        // response[j].other = this.numFormat(response[j].other);
-                                        // response[j].researchcost = this.numFormat(response[j].researchcost);
-                                        // response[j].inwetuo = this.numFormat(response[j].inwetuo);
-                                        // response[j].othersoftwarefree = this.numFormat(response[j].othersoftwarefree);
-                                        // response[j].yuanqincost = this.numFormat(response[j].yuanqincost);
-                                        // response[j].travalcost = this.numFormat(response[j].travalcost);
-                                        // response[j].callcost = this.numFormat(response[j].callcost);
-                                        // response[j].concost = this.numFormat(response[j].concost);
-                                        // response[j].threefree = this.numFormat(response[j].threefree);
-                                        // response[j].commonfee = this.numFormat(response[j].commonfee);
-                                        // response[j].brandcost = this.numFormat(response[j].brandcost);
-                                        // response[j].otherexpenses = this.numFormat(response[j].otherexpenses);
                                         // add_fjl  --end
                                         //共通PJ（研修会议等）
                                         //add_fjl
@@ -1474,7 +1488,7 @@
 //add -ws-5/7-厚生费修改
 //upd -ws-5/5-部門共通按分修改
                                             //部門共通按分
-                                            response[j].departmentcom = (Number(response[j].emhours) / Number(sum) * Number(sumcoststa)).toFixed(2);
+                                            response[j].departmentcom = (Number(response[j].emhours) / Number(sum) * (Number(sumcoststa)) + Number(sumNum)).toFixed(2);
 //upd -ws-5/5-部門共通按分修改
                                             //配賦費用
                                             response[j].allocation = ((Number(response[j].emhours) / Number(sum)) * ((Number(response[j].emhours) * Number(she) * 1000 + Number(response[j].outhours) * Number(nei) * 1000 + Number(response[j].outhours) * Number(wai) * 1000))).toFixed(2);
@@ -1530,17 +1544,13 @@
                                         //  > 0  --当月有纳品
                                         if (Number(response[j].process) > 0) {
                                             response[j].process = ('-' + Number(response[j].peocostsum) - Number(response[j].costsubtotal) - Number(response[j].departmenttotal) -
-                                                Number(response[j].yuanqincost) - Number(response[j].travalcost) - Number(response[j].callcost)
-                                                - Number(response[j].concost) - Number(response[j].threefree) - Number(response[j].commonfee) - Number(response[j].brandcost)
-                                                - Number(response[j].otherexpenses) - Number(response[j].otherincome)).toFixed(2);
-                                            response[j].process = '-' + (Number(response[j].process) + Number(response[j].totalpro)).toFixed(2);
+                                                Number(response[j].travalcost) - Number(response[j].otherincome)).toFixed(2);
+                                            response[j].process = (Number(response[j].process) + Number(response[j].totalpro)).toFixed(2);
                                             response[j].totalpro = '0.00';
 
                                         } else {
                                             response[j].process = ('-' + Number(response[j].peocostsum) - Number(response[j].costsubtotal) - Number(response[j].departmenttotal) -
-                                                Number(response[j].yuanqincost) - Number(response[j].travalcost) - Number(response[j].callcost)
-                                                - Number(response[j].concost) - Number(response[j].threefree) - Number(response[j].commonfee) - Number(response[j].brandcost)
-                                                - Number(response[j].otherexpenses) - Number(response[j].otherincome)).toFixed(2);
+                                                Number(response[j].travalcost) - Number(response[j].otherincome)).toFixed(2);
                                             //累计仕掛品
                                             if (Number(response[j].process) !== 0) {
                                                 response[j].totalpro = (Number(response[j].totalpro) + Number(response[j].process)).toFixed(2);
@@ -1551,16 +1561,16 @@
                                         }
                                         // upd_fjl_05/18
                                         //その他諸経費小計
-                                        response[j].otherexpentotal = (Number(response[j].yuanqincost) + Number(response[j].travalcost) + Number(response[j].callcost)
-                                            + Number(response[j].concost) + Number(response[j].threefree) + Number(response[j].commonfee) + Number(response[j].brandcost)
-                                            + Number(response[j].otherexpenses) + Number(response[j].otherincome) + Number(response[j].process)).toFixed(2);
+                                        response[j].otherexpentotal = (Number(response[j].travalcost) + Number(response[j].otherincome) + Number(response[j].process)).toFixed(2);
 
+                                        //add_fjl_06/09 start --添加[界限利益率]
+                                        if (Number(response[j].intotal) > 0) {
+                                            response[j].benefitrate = ((Number(response[j].intotal) - Number(response[j].peocost) - Number(response[j].outcost) - Number(response[j].travalcost)
+                                                - Number(response[j].researchcost)) / Number(response[j].intotal)).toFixed(2);
+                                        } else {
+                                            response[j].benefitrate = '0.00'
+                                        }
 
-                                        //限界利益
-                                        // response[j].marginal = (Number(response[j].inst) + Number(response[j].outst1) - Number(response[j].peocost) - Number(response[j].outcost) - Number(response[j].researchcost)).toFixed(2);
-
-                                        //営業利益 = 限界利益 - 所有和项目有关的费用
-                                        // response[j].Operating = (Number(response[j].marginal) - Number(response[j].costtotal)).toFixed(2);
                                         //add-ws-5/6-配赋费计算添加W
                                         //構外外注配赋费
                                         let outsour = getDictionaryInfo('CW001003').value2;
@@ -1722,11 +1732,11 @@
                                             inwetuo: response[j].inwetuo,
                                             researchcost: response[j].researchcost,
                                             departmentcom: response[j].departmentcom,
-                                            yuanqincost: response[j].yuanqincost,
+                                            // yuanqincost: response[j].yuanqincost,
                                             travalcost: response[j].travalcost,
-                                            concost: response[j].concost,
-                                            callcost: response[j].callcost,
-                                            brandcost: response[j].brandcost,
+                                            // concost: response[j].concost,
+                                            // callcost: response[j].callcost,
+                                            // brandcost: response[j].brandcost,
                                             rent: response[j].rent,
                                             other: response[j].other,
                                             departmenttotal: response[j].departmenttotal,
@@ -1749,9 +1759,9 @@
                                             transferone: response[j].transferone,
                                             transfertwo: response[j].transfertwo,
                                             allocationsum: response[j].allocationsum,
-                                            threefree: response[j].threefree,
-                                            commonfee: response[j].commonfee,
-                                            otherexpenses: response[j].otherexpenses,
+                                            // threefree: response[j].threefree,
+                                            // commonfee: response[j].commonfee,
+                                            // otherexpenses: response[j].otherexpenses,
                                             otherincome: response[j].otherincome,
                                             otherexpentotal: response[j].otherexpentotal,
                                             interestrate: response[j].interestrate,
@@ -1775,6 +1785,7 @@
                                             membershiprate: response[j].membershiprate,
                                             pjrateemployees: response[j].pjrateemployees,
                                             staffingrate: response[j].staffingrate,
+                                            benefitrate: response[j].benefitrate,
                                         });
                                     }
 
@@ -1826,7 +1837,7 @@
                 //     };
                 // }
                 if (column.level === 2 && (columnIndex === 5 || columnIndex === 6 || columnIndex === 9
-                    || columnIndex === 16 || columnIndex === 22 || columnIndex === 26 || columnIndex === 37 || columnIndex === 39)) {
+                    || columnIndex === 16 || columnIndex === 22 || columnIndex === 26 || columnIndex === 31 || columnIndex === 33)) {
                     return {
                         color: 'white',
                         background: '#778899',
@@ -1875,13 +1886,14 @@
                         sums[index] = '--';
                     }
                 });
-                sums[49] = (Math.round((sums[49]) * 100) / 100 / a).toFixed(2) + '%';
-                sums[57] = (Math.round((sums[57]) * 100) / 100 / a).toFixed(2) + '%';
-                sums[58] = (Math.round((sums[58]) * 100) / 100 / a).toFixed(2) + '%';
-                sums[59] = (Math.round((sums[59]) * 100) / 100 / a).toFixed(2) + '%';
-                sums[60] = (Math.round((sums[60]) * 100) / 100 / a).toFixed(2) + '%';
-                sums[61] = (Math.round((sums[61]) * 100) / 100 / a).toFixed(2) + '%';
-                sums[62] = (Math.round((sums[62]) * 100) / 100 / a).toFixed(2) + '%';
+                sums[35] = (Math.round((sums[35]) * 100) / 100 / a).toFixed(2) + '%';
+                sums[43] = (Math.round((sums[43]) * 100) / 100 / a).toFixed(2) + '%';
+                sums[51] = (Math.round((sums[51]) * 100) / 100 / a).toFixed(2) + '%';
+                sums[52] = (Math.round((sums[52]) * 100) / 100 / a).toFixed(2) + '%';
+                sums[53] = (Math.round((sums[53]) * 100) / 100 / a).toFixed(2) + '%';
+                sums[54] = (Math.round((sums[54]) * 100) / 100 / a).toFixed(2) + '%';
+                sums[55] = (Math.round((sums[55]) * 100) / 100 / a).toFixed(2) + '%';
+                sums[56] = (Math.round((sums[56]) * 100) / 100 / a).toFixed(2) + '%';
                 return sums;
             },
             //add-ws-5/7-保存PL数据，先根据group ，year，month删除再插入
@@ -1921,14 +1933,14 @@
                         transferone: this.tableData[i].transferone,
                         transfertwo: this.tableData[i].transfertwo,
                         allocationsum: this.tableData[i].allocationsum,
-                        yuanqincost: this.tableData[i].yuanqincost,
+                        // yuanqincost: this.tableData[i].yuanqincost,
                         travalcost: this.tableData[i].travalcost,
-                        callcost: this.tableData[i].callcost,
-                        concost: this.tableData[i].concost,
-                        threefree: this.tableData[i].threefree,
-                        commonfee: this.tableData[i].commonfee,
-                        brandcost: this.tableData[i].brandcost,
-                        otherexpenses: this.tableData[i].otherexpenses,
+                        // callcost: this.tableData[i].callcost,
+                        // concost: this.tableData[i].concost,
+                        // threefree: this.tableData[i].threefree,
+                        // commonfee: this.tableData[i].commonfee,
+                        // brandcost: this.tableData[i].brandcost,
+                        // otherexpenses: this.tableData[i].otherexpenses,
                         process: this.tableData[i].process,
                         otherincome: this.tableData[i].otherincome,
                         otherexpentotal: this.tableData[i].otherexpentotal,
@@ -1955,6 +1967,7 @@
                         membershiprate: this.tableData[i].membershiprate,
                         pjrateemployees: this.tableData[i].pjrateemployees,
                         staffingrate: this.tableData[i].staffingrate,
+                        benefitrate: this.tableData[i].benefitrate,
                     });
                 }
                 this.$store
