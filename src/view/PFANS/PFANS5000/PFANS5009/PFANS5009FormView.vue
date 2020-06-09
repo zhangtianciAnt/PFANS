@@ -816,7 +816,7 @@
                             <el-button
                               :disabled="scope.row.type === '0' ? true : false"
                               icon="el-icon-search"
-                              @click="dialogTableVisible3 = true"
+                              @click="changecontract(scope.row)"
                               size="small"
                             ></el-button>
                             <el-dialog
