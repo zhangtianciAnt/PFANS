@@ -743,7 +743,7 @@ export default {
           }
           let tablegroup = [];
           this.form.main.group_id = val;
-          tablegroup = response.detail.filter(item => item.groupid === this.form.main.group_id);
+          tablegroup = response.detail.filter(item => item.group_id === this.form.main.group_id);
           this.tableData = tablegroup;
           this.loading = false;
         })

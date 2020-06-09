@@ -365,6 +365,8 @@
                 'user_id': this.form.user_id,
                 errortype: this.form.errortype,
                 lengthtime: this.form.lengthtime,
+                abnormalid: this.$route.params._id,
+                status: this.form.status,
               })
               .then(response => {
                 if (response.error != '') {
@@ -414,6 +416,8 @@
                 'user_id': this.form.user_id,
                 errortype: this.form.errortype,
                 relengthtime: this.form.relengthtime,
+                abnormalid: this.$route.params._id,
+                status: this.form.status,
               })
               .then(response => {
                 if (response.error != '') {
@@ -531,6 +535,8 @@
       var revalidateLength = (rule, value, callback) => {
         //debugger
         if ((this.form.errortype == 'PR013005' || this.form.errortype == 'PR013006' || this.form.errortype == 'PR013007') && this.form.status === '4') {
+          this.form.abnormalid = this.$route.params._id;
+          this.form.status = this.form.status;
           this.$store
             .dispatch('PFANS2016Store/cklength', this.form)
             .then(response => {
@@ -2248,21 +2254,26 @@
                 });
                 return;
               }
+
               //add-ws-6/8-禅道035
-              if (this.form.restdiff === '') {
-                this.form.restdiff = 0;
+              if(this.form.errortype === 'PR013006' || this.form.errortype === 'PR013007')
+              {
+                if (this.form.restdiff === '') {
+                  this.form.restdiff = 0;
+                }
+                if (this.form.restdiff2 === '') {
+                  this.form.restdiff2 = 0;
+                }
+                if (this.form.restdiff - Number(this.form.restdiff2 + this.form.lengthtime) < 0) {
+                  Message({
+                    message: this.$t('label.PFANS2016FORMVIEW_CHECKRESTDIFF2'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  return;
+                }
               }
-              if (this.form.restdiff2 === '') {
-                this.form.restdiff2 = 0;
-              }
-              if (this.form.restdiff - Number(this.form.restdiff2 + this.form.lengthtime) < 0) {
-                Message({
-                  message: this.$t('label.PFANS2016FORMVIEW_CHECKRESTDIFF2'),
-                  type: 'error',
-                  duration: 5 * 1000,
-                });
-                return;
-              }
+
 
               //add-ws-6/8-禅道035
               if (this.$route.params._id) {

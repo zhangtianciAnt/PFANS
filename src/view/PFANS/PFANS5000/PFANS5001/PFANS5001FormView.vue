@@ -888,6 +888,16 @@
               <el-form-item>
                 <el-table :data="tableD" stripe border header-cell-class-name="sub_bg_color_blue"
                           style="width: 90vw" v-show="form.toolstype === '0' || !form.toolstype">
+                  <!--                   add-ws-6/9-禅道任务080-->
+                  <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMTYPE')" align="center" width="130">
+                    <template slot-scope="scope">
+                      <el-form-item>
+                        <el-input :disabled="true" :no="scope.row" v-model="scope.row.claimtype">
+                        </el-input>
+                      </el-form-item>
+                    </template>
+                  </el-table-column>
+                  <!--                   add-ws-6/9-禅道任务080-->
                   <el-table-column
                     :label="$t('label.PFANS5009FORMVIEW_CONTRACT')"
                     align="center"
@@ -898,7 +908,7 @@
                           <el-container>
                             <input class="content bg" v-model="scope.row.contract"
                                    :disabled="!disable" style="min-width: 50%;width: 50%"></input>
-                            <el-button :disabled="!disable" icon="el-icon-search" @click="dialogTableVisible3 = true"
+                            <el-button :disabled="!disable" icon="el-icon-search" @click="changecontract(scope.row)"
                                        size="small"></el-button>
                             <el-dialog :title="$t('menu.BROKERAGECONTRACT')" :visible.sync="dialogTableVisible3" center
                                        size="50%"
@@ -958,7 +968,16 @@
                       </el-input>
                     </template>
                   </el-table-column>
-                  <el-table-column :label="$t('label.PFANS1026VIEW_CONTRACTPERIOD')" align="center" prop="claimdatetime"
+                  <!--                   add-ws-6/9-禅道任务080-->
+                  <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYFINSHDATE')" align="center"
+                                   width="200">
+                    <template slot-scope="scope">
+                      <el-date-picker :disabled="true" type="date" v-model="scope.row.deliveryfinshdate"
+                                      style="width: 11rem"></el-date-picker>
+                    </template>
+                  </el-table-column>
+                  <!--                   add-ws-6/9-禅道任务080-->
+                  <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMDATETIME')" align="center" prop="claimdatetime"
                                    width="370">
                     <template slot-scope="scope">
                       <el-date-picker unlink-panels
@@ -1309,7 +1328,7 @@
         errorLeader: '',
         errorManager: '',
         selectType: 'Single',
-          selectType1: "mult",
+        selectType1: 'mult',
         userlist: '',
         userlist1: '',
         activeName: 'first',
@@ -1365,7 +1384,7 @@
             admissiontime: '',
             exittime: '',
             rowindex: '',
-              nameN: getUserInfo(this.$store.getters.userinfo.userid).userinfo.customername,
+            nameN: getUserInfo(this.$store.getters.userinfo.userid).userinfo.customername,
           }, {
             projectsystem_id: '',
             companyprojects_id: '',
@@ -1377,7 +1396,7 @@
             admissiontime: '',
             exittime: '',
             rowindex: '',
-                nameN: '',
+            nameN: '',
           },
         ],
         //项目体制(外协)
@@ -1399,6 +1418,10 @@
         //合同
         tableD: [
           {
+            //add-ws-6/9-禅道任务080
+            deliveryfinshdate: '',
+            claimtype: '',
+            //add-ws-6/9-禅道任务080
             projectcontract_id: '',
             companyprojects_id: '',
             contract: '',
@@ -1840,7 +1863,7 @@
                     number: response.projectsystem[i].number,
                     company: response.projectsystem[i].company,
                     name: response.projectsystem[i].name,
-                      nameN: getUserInfo(response.projectsystem[i].name).userinfo.customername,
+                    nameN: getUserInfo(response.projectsystem[i].name).userinfo.customername,
                     position: response.projectsystem[i].position,
                     admissiontime: response.projectsystem[i].admissiontime,
                     exittime: response.projectsystem[i].exittime,
@@ -1929,29 +1952,33 @@
                   response.projectcontract[i].workinghours = [claimdatetim, claimdatetime1];
                 }
                 //region复合合同金额分配
-                if (this.compounddata.length > 0) {
-                  let dic = this.compounddata.filter(item => item.contractnumber === response.projectcontract[i].contract
-                    && item.group_id === this.form.group_id);
-
-                  let claimamount = 0;
-                  for (let dtem of dic) {
-                    //add-ws-合同关联项目，分配金额
-                    claimamount = claimamount + Number(dtem.contractrequestamount);
-                    compound.push({
-                      contractnumber: dtem.contractnumber,
-                      claimtype: dtem.claimtype,
-                      claimamount: dtem.claimamount,
-                      contractrequestamount: dtem.contractrequestamount,
-                    });
-                  }
-                  if (compound.length > 0) {
-                    response.projectcontract[i].contractrequestamount = claimamount;
-                    this.displaycompound = true;
-                  }
-                }
+                // if (this.compounddata.length > 0) {
+                //   let dic = this.compounddata.filter(item => item.contractnumber === response.projectcontract[i].contract
+                //     && item.group_id === this.form.group_id);
+                //
+                //   let claimamount = 0;
+                //   for (let dtem of dic) {
+                //     //add-ws-合同关联项目，分配金额
+                //     claimamount = claimamount + Number(dtem.contractrequestamount);
+                //     compound.push({
+                //       contractnumber: dtem.contractnumber,
+                //       claimtype: dtem.claimtype,
+                //       claimamount: dtem.claimamount,
+                //       contractrequestamount: dtem.contractrequestamount,
+                //     });
+                //   }
+                //   if (compound.length > 0) {
+                //     response.projectcontract[i].contractrequestamount = claimamount;
+                //     this.displaycompound = true;
+                //   }
+                // }
                 //endregion
 
                 tabled.push({
+                  //add-ws-6/9-禅道任务080
+                  deliveryfinshdate: response.projectcontract[i].deliveryfinshdate,
+                  claimtype: response.projectcontract[i].claimtype,
+                  //add-ws-6/9-禅道任务080
                   //add-ws-合同关联项目，分配金额
                   contractrequestamount: response.projectcontract[i].contractrequestamount,
                   contractamount: response.projectcontract[i].contractamount,
@@ -2166,7 +2193,6 @@
       },
 
       getcontract() {
-
         this.contractapplication = {};
         this.loading = true;
         this.$store
@@ -2308,47 +2334,47 @@
           } = org);
         }
       },
-        // add_fjl_05/29  --添加人员手动输入
-        changeInt(row) {
-            if (getUserInfoName(row.nameN) !== "-1") {
-                row.name = getUserInfoName(row.nameN).userid;
-            } else {
-                Message({
-                    message: this.$t('label.PFANS2003FORMVIEW_NAMEERERROR'),
-                    type: 'error',
-                    duration: 5 * 1000,
-                });
-                return;
-            }
-        },
-        // add_fjl_05/29  --添加人员手动输入
+      // add_fjl_05/29  --添加人员手动输入
+      changeInt(row) {
+        if (getUserInfoName(row.nameN) !== '-1') {
+          row.name = getUserInfoName(row.nameN).userid;
+        } else {
+          Message({
+            message: this.$t('label.PFANS2003FORMVIEW_NAMEERERROR'),
+            type: 'error',
+            duration: 5 * 1000,
+          });
+          return;
+        }
+      },
+      // add_fjl_05/29  --添加人员手动输入
       getCitationUserid(userlist, row) {
-          // add_fjl_05/29  --添加人员多选
-          let usa = 0;
-          let us = userlist.split(',');
-          if (us.length > 1) {
-              for (let i = 0; i < us.length; i++) {
-                  usa++;
-                  if (us.length === usa) {
-                      this.tableB.push({
-                          name: us[i],
-                          position: '',
-                          admissiontime: '',
-                          exittime: '',
-                          number: '',
-                          type: '0',
-                          company: '',
-                          nameN: getUserInfo(us[i]).userinfo.customername,
-                      });
-                  }
-              }
-          } else {
-              row.name = userlist;
-              if (userlist) {
-                  row.nameN = getUserInfo(userlist).userinfo.customername;
-              }
+        // add_fjl_05/29  --添加人员多选
+        let usa = 0;
+        let us = userlist.split(',');
+        if (us.length > 1) {
+          for (let i = 0; i < us.length; i++) {
+            usa++;
+            if (us.length === usa) {
+              this.tableB.push({
+                name: us[i],
+                position: '',
+                admissiontime: '',
+                exittime: '',
+                number: '',
+                type: '0',
+                company: '',
+                nameN: getUserInfo(us[i]).userinfo.customername,
+              });
+            }
           }
-          // add_fjl_05/29  --添加人员多选
+        } else {
+          row.name = userlist;
+          if (userlist) {
+            row.nameN = getUserInfo(userlist).userinfo.customername;
+          }
+        }
+        // add_fjl_05/29  --添加人员多选
         if (row.name != null && row.name !== '') {
           let lst = getUserInfo(row.name);
           // row.position = lst.userinfo.post;
@@ -2435,37 +2461,112 @@
         this.themeRow = val.theme;
         this.workinghoursRow = val.entrypayment;
       },
-      submit2(row) {
-        row.contractrequestamount = this.claimamount;
-        row.contract = this.currentRow;
-        row.theme = this.themeRow;
-        row.workinghours = this.workinghoursRow;
-        this.dialogTableVisible3 = false;
-        //region复合合同金额分配
-        if (this.compounddata.length > 0) {
-          let dic = this.compounddata.filter(item => item.contractnumber === row.contract
-            && item.group_id === this.form.group_id);
-          let claimamount = 0;
-          for (let dtem of dic) {
-            //add-ws-合同关联项目，分配金额
-            claimamount = claimamount + Number(dtem.contractrequestamount);
-            this.tablecompound.push({
-              contractnumber: dtem.contractnumber,
-              claimtype: dtem.claimtype,
-              claimamount: dtem.claimamount,
-              contractrequestamount: dtem.contractrequestamount,
-            });
-          }
-          if (this.tablecompound.length > 0) {
-            row.contractrequestamount = claimamount;
-            this.displaycompound = true;
+      //add-ws-6/9-禅道任务080
+      changecontract(row) {
+        let table = this.tableD;
+        let check = [];
+        let checktable = 0;
+        let checktable1 = 0;
+        this.dialogTableVisible3 = true;
+        for (let a = 0; a < table.length; a++) {
+          if (row.contract != '') {
+            if (table[a].contract != row.contract) {
+              checktable1 = checktable1+1
+              check.push({
+                deliveryfinshdate: table[a].deliveryfinshdate,
+                claimtype: table[a].claimtype,
+                contract: table[a].contract,
+                theme: table[a].theme,
+                workinghours: table[a].workinghours,
+                contractrequestamount: table[a].contractrequestamount,
+                contractamount: table[a].contractamount,
+              });
+            } else {
+              checktable = checktable + 1;
+            }
           }
         }
+        if (checktable === this.tableD.length) {
+          this.tableD = [{
+            deliveryfinshdate: '',
+            claimtype: '',
+            projectcontract_id: '',
+            companyprojects_id: '',
+            contract: '',
+            theme: '',
+            workinghours: '',
+            contractrequestamount: '',
+            contractamount: '',
+            rowindex: '',
+          }];
+        }else{
+          if(checktable1!=0){
+            this.tableD = check
+          }
+        }
+      },
+      //add-ws-6/9-禅道任务080
+      submit2(row) {
+        //add-ws-6/9-禅道任务080
+        let table = [];
+        let tabled = [];
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS1026Store/get2', {'contractnumber': this.currentRow})
+          .then(response => {
+            let contractnumbercount = response.contractnumbercount;
+            if (contractnumbercount.length > 0) {
+              for (let i = 0; i < contractnumbercount.length; i++) {
+                if (contractnumbercount[i].claimdatetimeqh !== '' && contractnumbercount[i].claimdatetimeqh !== null) {
+                  let claimdatetime = contractnumbercount[i].claimdatetimeqh;
+                  let claimdatetim = claimdatetime.slice(0, 10);
+                  let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
+                  contractnumbercount[i].claimdatetimeqh = [claimdatetim, claimdatetime1];
+                }
+                table.push({
+                  deliveryfinshdate: contractnumbercount[i].deliveryfinshdate,
+                  claimtype: contractnumbercount[i].claimtype,
+                  contract: this.currentRow,
+                  theme: this.themeRow,
+                  workinghours: contractnumbercount[i].claimdatetimeqh,
+                  contractrequestamount: contractnumbercount[i].claimamount,
+                  contractamount: '',
+                });
+              }
+              tabled = this.tableD;
+              this.tableD = tabled.concat(table);
+            }
+            this.loading = false;
+          });
+        for (let a = 0; a < this.tableD.length; a++) {
+          if (this.tableD[a].contract === '') {
+            this.tableD.splice(a, 1);
+          }
+        }
+        //add-ws-6/9-禅道任务080
+        this.dialogTableVisible3 = false;
+        //region复合合同金额分配
+        // if (this.compounddata.length > 0) {
+        //   let dic = this.compounddata.filter(item => item.contractnumber === row.contract
+        //     && item.group_id === this.form.group_id);
+        //   let claimamount = 0;
+        //   for (let dtem of dic) {
+        //     //add-ws-合同关联项目，分配金额
+        //     claimamount = claimamount + Number(dtem.contractrequestamount);
+        //     this.tablecompound.push({
+        //       contractnumber: dtem.contractnumber,
+        //       claimtype: dtem.claimtype,
+        //       claimamount: dtem.claimamount,
+        //       contractrequestamount: dtem.contractrequestamount,
+        //     });
+        //   }
+        //   if (this.tablecompound.length > 0) {
+        //     row.contractrequestamount = claimamount;
+        //     this.displaycompound = true;
+        //   }
+        // }
         //endregion
       },
-      // getdepartmentid(val1) {
-      //   this.form.departmentid = val1;
-      // },
       getprojecttype(val1) {
         this.form.projecttype = val1;
         if (this.form.projecttype === 'PP001002') {
@@ -2657,7 +2758,7 @@
           number: '',
           company: '',
           name: '',
-            nameN: '',
+          nameN: '',
           position: '',
           admissiontime: '',
           exittime: '',
@@ -2667,7 +2768,7 @@
       deleteRow1(index, rows) {
         if (index === 1) {
           rows[1].name = '';
-            rows[1].nameN = '';
+          rows[1].nameN = '';
           rows[1].position = '';
           rows[1].admissiontime = '';
           rows[1].exittime = '';
@@ -2714,6 +2815,10 @@
       //合同
       addRow3() {
         this.tableD.push({
+          //add-ws-6/9-禅道任务080
+          deliveryfinshdate: '',
+          claimtype: '',
+          //add-ws-6/9-禅道任务080
           projectcontract_id: '',
           companyprojects_id: '',
           contract: '',
@@ -2739,6 +2844,10 @@
           this.tablecompound = [];
           this.displaycompound = false;
           this.tableD = [{
+            //add-ws-6/9-禅道任务080
+            deliveryfinshdate: '',
+            claimtype: '',
+            //add-ws-6/9-禅道任务080
             projectcontract_id: '',
             companyprojects_id: '',
             contract: '',
@@ -2941,6 +3050,10 @@
               this.form.behalf = ' ';
               this.form.intelligence = ' ';
               this.tableD = [{
+                //add-ws-6/9-禅道任务080
+                deliveryfinshdate: '',
+                claimtype: '',
+                //add-ws-6/9-禅道任务080
                 contract: '',
                 theme: '',
                 workinghours: '',
@@ -2996,14 +3109,7 @@
               }
             }
             for (let i = 0; i < this.tableB.length; i++) {
-                if (this.tableB[i].name === '' || this.tableB[i].name === null || this.tableB[i].name === undefined) {
-                    Message({
-                        message: this.$t('label.PFANS2003FORMVIEW_NAMEERERROR'),
-                        type: 'error',
-                        duration: 5 * 1000,
-                    });
-                    return;
-                }
+              // this.changeInt(this.tableB[i]);
               // 社内员工进组时间&退出时间必须Check
               if ((!this.tableB[i].admissiontime || this.tableB[i].admissiontime === '' || !this.tableB[i].exittime || this.tableB[i].exittime === '') && this.tableB[i].name !== '') {
                 error10 = error10 + 1;
@@ -3083,6 +3189,10 @@
                 ) {
 
                   this.baseInfo.projectcontract.push({
+                    //add-ws-6/9-禅道任务080
+                    deliveryfinshdate: this.tableD[i].deliveryfinshdate,
+                    claimtype: this.tableD[i].claimtype,
+                    //add-ws-6/9-禅道任务080
                     //add-ws-合同关联项目，分配金额
                     contractrequestamount: this.tableD[i].contractrequestamount,
                     contractamount: this.tableD[i].contractamount,
