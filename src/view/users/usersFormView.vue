@@ -200,7 +200,7 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_EMAIL')" prop="email">
-                    <el-input class="width" v-model="form.email" style="width:20vw" maxlength="50"/>
+                    <el-input class="width" v-model="form.email" style="width:20vw" maxlength="100"/>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -711,7 +711,7 @@
                                 :orglist="scope.row.teamid"
                                 orgtype="3"
                                 :no="scope.row"
-                                style="width:10vw"
+                                style="width:13vw"
                                 selectType="Single"
                                 @getOrgids="setOrgt"
                               ></org>
@@ -727,7 +727,7 @@
                                 :orglist="scope.row.groupid"
                                 orgtype="2"
                                 :no="scope.row"
-                                style="width:10vw"
+                                style="width:13vw"
                                 selectType="Single"
                                 @getOrgids="setOrgg"
                               ></org>
@@ -743,7 +743,7 @@
                                 :orglist="scope.row.centerid"
                                 orgtype="1"
                                 :no="scope.row"
-                                style="width:10vw"
+                                style="width:13vw"
                                 selectType="Single"
                                 @getOrgids="setOrgc"
                               ></org>
@@ -3651,7 +3651,9 @@
                         // add_fjl_05/22  --去除间接部门空的数据
                         if (this.form.otherorgs.length > 0) {
                             this.form.otherorgs = this.form.otherorgs.filter(item => {
-                                return (item.centerid !== '' || item.groupid !== '' || item.teamid !== '')
+                                return ((item.centerid !== '' && item.centerid !== null)
+                                    || (item.groupid !== '' && item.groupid !== null)
+                                    || (item.teamid !== '' && item.teamid !== null))
                             })
                         }
                         // add_fjl_05/22  --去除间接部门空的数据

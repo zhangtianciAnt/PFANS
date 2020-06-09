@@ -170,7 +170,7 @@
                         :step="0.01"
                         controls-position="right"
                         style="width:90%"
-                        v-model.trim="scope.row.april === '' ? '0.00' : scope.row.april">
+                        v-model.trim="scope.row.april">
                       </el-input-number>
                     </template>
                   </plx-table-column>
@@ -189,7 +189,7 @@
                         :step="0.01"
                         controls-position="right"
                         style="width:90%"
-                        v-model.trim="scope.row.may === '' ? '0.00' : scope.row.may">
+                        v-model.trim="scope.row.may">
                       </el-input-number>
                     </template>
                   </plx-table-column>
@@ -208,7 +208,7 @@
                         :step="0.01"
                         controls-position="right"
                         style="width:90%"
-                        v-model.trim="scope.row.june === '' ? '0.00' : scope.row.june">
+                        v-model.trim="scope.row.june">
                       </el-input-number>
                     </template>
                   </plx-table-column>
@@ -227,7 +227,7 @@
                         :step="0.01"
                         controls-position="right"
                         style="width:90%"
-                        v-model.trim="scope.row.july === '' ? '0.00' : scope.row.july">
+                        v-model.trim="scope.row.july">
                       </el-input-number>
                     </template>
                   </plx-table-column>
@@ -246,7 +246,7 @@
                         :step="0.01"
                         controls-position="right"
                         style="width:90%"
-                        v-model.trim="scope.row.august === '' ? '0.00' : scope.row.august">
+                        v-model.trim="scope.row.august">
                       </el-input-number>
                     </template>
                   </plx-table-column>
@@ -265,7 +265,7 @@
                         :step="0.01"
                         controls-position="right"
                         style="width:90%"
-                        v-model.trim="scope.row.september === '' ? '0.00' : scope.row.september">
+                        v-model.trim="scope.row.september">
                       </el-input-number>
                     </template>
                   </plx-table-column>
@@ -284,7 +284,7 @@
                         :step="0.01"
                         controls-position="right"
                         style="width:90%"
-                        v-model.trim="scope.row.october === '' ? '0.00' : scope.row.october">
+                        v-model.trim="scope.row.october">
                       </el-input-number>
                     </template>
                   </plx-table-column>
@@ -303,7 +303,7 @@
                         :step="0.01"
                         controls-position="right"
                         style="width:90%"
-                        v-model.trim="scope.row.november === '' ? '0.00' : scope.row.november">
+                        v-model.trim="scope.row.november">
                       </el-input-number>
                     </template>
                   </plx-table-column>
@@ -322,7 +322,7 @@
                         :step="0.01"
                         controls-position="right"
                         style="width:90%"
-                        v-model.trim="scope.row.december === '' ? '0.00' : scope.row.december">
+                        v-model.trim="scope.row.december">
                       </el-input-number>
                     </template>
                   </plx-table-column>
@@ -341,7 +341,7 @@
                         :step="0.01"
                         controls-position="right"
                         style="width:90%"
-                        v-model.trim="scope.row.january === '' ? '0.00' : scope.row.january">
+                        v-model.trim="scope.row.january">
                       </el-input-number>
                     </template>
                   </plx-table-column>
@@ -360,7 +360,7 @@
                         :step="0.01"
                         controls-position="right"
                         style="width:90%"
-                        v-model.trim="scope.row.february === '' ? '0.00' : scope.row.february">
+                        v-model.trim="scope.row.february">
                       </el-input-number>
                     </template>
                   </plx-table-column>
@@ -379,7 +379,7 @@
                         :step="0.01"
                         controls-position="right"
                         style="width:90%"
-                        v-model.trim="scope.row.march === '' ? '0.00' : scope.row.march">
+                        v-model.trim="scope.row.march">
                       </el-input-number>
                     </template>
                   </plx-table-column>
@@ -762,7 +762,8 @@
             .dispatch('PFANS6006Store/updateDeleginformation', this.multipleSelection)
             .then(response => {
               this.data = response;
-              this.getList();
+              this.multipleSelection = [];
+              this.loading = false;
               Message({
                 message: this.$t("normal.success_02"),
                 type: "success",

@@ -275,7 +275,7 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.email')" prop="email">
-                    <el-input :disabled="!disable" style="width:20vw" v-model="form.email" maxlength="50"></el-input>
+                    <el-input :disabled="!disable" style="width:20vw" v-model="form.email" maxlength="100"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -301,7 +301,7 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.email')" prop="mail">
-                    <el-input :disabled="!disable" style="width:20vw" v-model="form.mail" maxlength="50"></el-input>
+                    <el-input :disabled="!disable" style="width:20vw" v-model="form.mail" maxlength="100"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
