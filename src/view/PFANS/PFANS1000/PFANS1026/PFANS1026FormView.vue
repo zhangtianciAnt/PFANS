@@ -569,7 +569,7 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_EMAIL')" align="center" prop="responemail" width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.responemail'">
-                    <el-input :disabled="!disabled" v-model="scope.row.responemail">
+                    <el-input :disabled="!disabled" v-model="scope.row.responemail" maxlength="100">
                     </el-input>
                   </el-form-item>
                 </template>

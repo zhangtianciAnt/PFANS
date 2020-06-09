@@ -165,7 +165,7 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_EMAIL')" prop="email">
-                    <el-input class="width" v-model="form.email" style="width:20vw"/>
+                    <el-input class="width" v-model="form.email" maxlegnth="100" style="width:20vw"/>
                   </el-form-item>
                 </el-col>
               </el-row>

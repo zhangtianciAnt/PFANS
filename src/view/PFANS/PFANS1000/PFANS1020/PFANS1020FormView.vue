@@ -164,6 +164,7 @@
                     :disabled="!disabled"
                     :no="scope.row"
                     v-model="scope.row.mailaddress"
+                    maxlength="100"
                   ></el-input>
                 </template>
               </el-table-column>

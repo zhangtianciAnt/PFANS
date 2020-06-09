@@ -416,7 +416,7 @@
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1024VIEW_EMAIL')" align="center"  prop="responemail" width="200">
                     <template slot-scope="scope">
-                      <el-input :disabled="!disabled" v-model="scope.row.responemail">
+                      <el-input :disabled="!disabled" v-model="scope.row.responemail" maxlength="100">
                       </el-input>
                     </template>
                   </el-table-column>
