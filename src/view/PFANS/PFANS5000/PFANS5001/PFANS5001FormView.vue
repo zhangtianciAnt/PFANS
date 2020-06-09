@@ -977,7 +977,7 @@
                     </template>
                   </el-table-column>
                   <!--                   add-ws-6/9-禅道任务080-->
-                  <el-table-column :label="$t('label.PFANS1026VIEW_CONTRACTPERIOD')" align="center" prop="claimdatetime"
+                  <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMDATETIME')" align="center" prop="claimdatetime"
                                    width="370">
                     <template slot-scope="scope">
                       <el-date-picker unlink-panels
@@ -1952,26 +1952,26 @@
                   response.projectcontract[i].workinghours = [claimdatetim, claimdatetime1];
                 }
                 //region复合合同金额分配
-                if (this.compounddata.length > 0) {
-                  let dic = this.compounddata.filter(item => item.contractnumber === response.projectcontract[i].contract
-                    && item.group_id === this.form.group_id);
-
-                  let claimamount = 0;
-                  for (let dtem of dic) {
-                    //add-ws-合同关联项目，分配金额
-                    claimamount = claimamount + Number(dtem.contractrequestamount);
-                    compound.push({
-                      contractnumber: dtem.contractnumber,
-                      claimtype: dtem.claimtype,
-                      claimamount: dtem.claimamount,
-                      contractrequestamount: dtem.contractrequestamount,
-                    });
-                  }
-                  if (compound.length > 0) {
-                    response.projectcontract[i].contractrequestamount = claimamount;
-                    this.displaycompound = true;
-                  }
-                }
+                // if (this.compounddata.length > 0) {
+                //   let dic = this.compounddata.filter(item => item.contractnumber === response.projectcontract[i].contract
+                //     && item.group_id === this.form.group_id);
+                //
+                //   let claimamount = 0;
+                //   for (let dtem of dic) {
+                //     //add-ws-合同关联项目，分配金额
+                //     claimamount = claimamount + Number(dtem.contractrequestamount);
+                //     compound.push({
+                //       contractnumber: dtem.contractnumber,
+                //       claimtype: dtem.claimtype,
+                //       claimamount: dtem.claimamount,
+                //       contractrequestamount: dtem.contractrequestamount,
+                //     });
+                //   }
+                //   if (compound.length > 0) {
+                //     response.projectcontract[i].contractrequestamount = claimamount;
+                //     this.displaycompound = true;
+                //   }
+                // }
                 //endregion
 
                 tabled.push({
