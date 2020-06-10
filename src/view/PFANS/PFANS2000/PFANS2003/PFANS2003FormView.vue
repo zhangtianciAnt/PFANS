@@ -712,6 +712,7 @@
         },
         // upd_fjl_05/27  --添加面试官手动输入
         changeInt(row) {
+            row.interviewer = row.interviewerN;
             if (getUserInfoName(row.interviewerN) !== "-1") {
                 row.interviewer = getUserInfoName(row.interviewerN).userid;
             } else {
@@ -729,6 +730,8 @@
           // upd_fjl_05/27  --添加面试官手动输入
           if (userlist) {
               row.interviewerN = getUserInfo(userlist).userinfo.customername;
+          } else {
+              row.interviewerN = '';
           }
           // upd_fjl_05/27  --添加面试官手动输入
         },
