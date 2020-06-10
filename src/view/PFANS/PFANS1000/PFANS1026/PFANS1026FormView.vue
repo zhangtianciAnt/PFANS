@@ -1804,8 +1804,9 @@
                         type: 'info',
                         duration: 2 * 1000
                     });
-                    return;
+                    this.dialogBook = false;
                     this.loading = false;
+                    return;
                 }
                 if (this.multipleSelection.length > 0) {
                     for (let i = 0; i < this.multipleSelection.length; i++) {
@@ -2717,8 +2718,9 @@
                             type: 'info',
                             duration: 2 * 1000
                         });
-                        return;
+                        this.dialogBook = false;
                         this.loading = false;
+                        return;
                     }
                     if (this.multipleSelection.length > 0) {
                         for (let i = 0; i < this.multipleSelection.length; i++) {

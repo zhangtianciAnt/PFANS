@@ -106,6 +106,15 @@
             fix: false,
             filter: true
           },
+            //add_fjl_06/10 start --添加評価実施日
+            {
+                code: 'modifyon',
+                label: 'label.PFANS2027VIEW_MODIFYON',
+                width: 120,
+                fix: false,
+                filter: true
+            },
+            //add_fjl_06/10 start --添加評価実施日
           {
             code: 'status',
             label: 'label.PFANS5005VIEW_STATUS',
@@ -246,7 +255,6 @@
             this.form.examinationobject_id = this.examinationobjects[i].examinationobject_id;
           }
         }
-        console.log(this.form.examinationobject_id);
       },
       get() {
         this.loading = true;
@@ -283,10 +291,11 @@
                     response[j].evaluatenum = letUsetype.value1;
                   }
                 }
-
-                if (response[j].evaluationday !== null && response[j].evaluationday !== "") {
-                  response[j].evaluationday = moment(response[j].evaluationday).format("YYYY-MM-DD");
+                //add_fjl_06/10 start --添加評価実施日
+                if (response[j].modifyon !== null && response[j].modifyon !== "") {
+                    response[j].modifyon = moment(response[j].modifyon).format("YYYY-MM-DD");
                 }
+                //add_fjl_06/10 end --添加評価実施日
                 if (response[j].status !== null && response[j].status !== "") {
                   response[j].status = getStatus(response[j].status);
                 }
