@@ -865,52 +865,55 @@
                 this.loading = true;
                 let role = getCurrentRole();
                 const options = [];
-                if (role === '3') {//GM
+                if(this.$store.getters.useraccount._id != '5e78b17ef3c8d71e98a2aa30'){
+                  if (role === '3') {//GM
                     options.push(
-                        {
-                            value: this.$store.getters.userinfo.userinfo.groupid,
-                            lable: this.$store.getters.userinfo.userinfo.groupname,
-                        },
+                      {
+                        value: this.$store.getters.userinfo.userinfo.groupid,
+                        lable: this.$store.getters.userinfo.userinfo.groupname,
+                      },
                     );
-                } else if (role === '2') {//Center长
+                  } else if (role === '2') {//Center长
                     if (this.$store.getters.userinfo.userid) {
-                        let centerId = this.$store.getters.userinfo.userinfo.centerid;
-                        let orgs = getDownOrgInfo(centerId);
-                        if (orgs) {
-                            for (let org of orgs) {
-                                // console.log(org);
-                                options.push(
-                                    {
-                                        value: org._id,
-                                        lable: org.companyname,
-                                    },
-                                );
-                            }
+                      let centerId = this.$store.getters.userinfo.userinfo.centerid;
+                      let orgs = getDownOrgInfo(centerId);
+                      if (orgs) {
+                        for (let org of orgs) {
+                          // console.log(org);
+                          options.push(
+                            {
+                              value: org._id,
+                              lable: org.companyname,
+                            },
+                          );
                         }
+                      }
                     }
-                } else if (role === '1') {//总经理
+                  } else if (role === '1') {//总经理
                     if (this.$store.getters.userinfo.userid) {
-                        let centerId = this.$store.getters.userinfo.userinfo.centerid;
-                        let orgs = getDownOrgInfo(centerId);
-                        if (orgs) {
-                            for (let center of orgs) {
-                                let centers = getDownOrgInfo(center._id);
-                                if (centers) {
-                                    for (let group of centers) {
-                                        options.push(
-                                            {
-                                                value: group._id,
-                                                lable: group.companyname,
-                                            },
-                                        );
-                                    }
-                                }
+                      let centerId = this.$store.getters.userinfo.userinfo.centerid;
+                      let orgs = getDownOrgInfo(centerId);
+                      if (orgs) {
+                        for (let center of orgs) {
+                          let centers = getDownOrgInfo(center._id);
+                          if (centers) {
+                            for (let group of centers) {
+                              options.push(
+                                {
+                                  value: group._id,
+                                  lable: group.companyname,
+                                },
+                              );
                             }
+                          }
                         }
+                      }
                     }
+                  }
                 }
                 const vote1 = [];
                 if (this.$store.getters.userinfo.userid ==='5e78fefff1560b363cdd6db7'
+                  || this.$store.getters.useraccount._id === '5e78b17ef3c8d71e98a2aa30'
                     || this.$store.getters.userinfo.userid ==='5e78b2254e3b194874180f31'
                     || this.$store.getters.userinfo.userid ==='5e78b2004e3b194874180e21'
                     || this.$store.getters.userinfo.userid ==='5e78b2064e3b194874180e4d')
