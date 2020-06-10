@@ -903,7 +903,7 @@
                   </el-table-column>
                   <!--                   add-ws-6/9-禅道任务080-->
                   <!--                   add-ws-6/9-禅道任务080-->
-                  <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYFINSHDATE')" align="center"
+                  <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYDATE')" align="center"
                                    width="200">
                     <template slot-scope="scope">
                       <el-date-picker :disabled="true" type="date" v-model="scope.row.deliveryfinshdate"
@@ -1923,7 +1923,7 @@
                   contractnumbercount[i].claimdatetimeqh = [claimdatetim, claimdatetime1];
                 }
                 table.push({
-                  deliveryfinshdate: contractnumbercount[i].deliveryfinshdate,
+                  deliveryfinshdate: contractnumbercount[i].deliverydate,
                   claimtype: contractnumbercount[i].claimtype,
                   contract: this.currentRow,
                   theme: this.themeRow,
