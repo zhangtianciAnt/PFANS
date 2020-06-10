@@ -796,16 +796,6 @@
                   header-cell-class-name="sub_bg_color_blue"
                   style="width: 90vw"
                 >
-                  <!--                   add-ws-6/9-禅道任务080-->
-                  <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMTYPE')" align="center" width="130">
-                    <template slot-scope="scope">
-                      <el-form-item>
-                        <el-input :disabled="true" :no="scope.row" v-model="scope.row.claimtype">
-                        </el-input>
-                      </el-form-item>
-                    </template>
-                  </el-table-column>
-                  <!--                   add-ws-6/9-禅道任务080-->
                   <el-table-column :label="$t('label.PFANS5009FORMVIEW_CONTRACT')" align="center"  width="200%">
                     <template slot-scope="scope">
                       <el-col :span="8">
@@ -902,6 +892,16 @@
                       ></el-input>
                     </template>
                   </el-table-column>
+                  <!--                   add-ws-6/9-禅道任务080-->
+                  <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMTYPE')" align="center" width="130">
+                    <template slot-scope="scope">
+                      <el-form-item>
+                        <el-input :disabled="true" :no="scope.row" v-model="scope.row.claimtype">
+                        </el-input>
+                      </el-form-item>
+                    </template>
+                  </el-table-column>
+                  <!--                   add-ws-6/9-禅道任务080-->
                   <!--                   add-ws-6/9-禅道任务080-->
                   <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYFINSHDATE')" align="center"
                                    width="200">
@@ -2314,6 +2314,23 @@
             }
             //ADD-WS-体制时间范围check
             let error1 = 0;
+            //add-ws-6/9-禅道任务080
+            let listsum = [];
+            let Listcheck = this.tableD;
+            for (let list of Listcheck) {
+              listsum = this.tableD.filter(item => item.contract == list.contract && item.claimtype == list.claimtype);
+            }
+            if(listsum.length>1){
+              error1 = error1 + 1;
+              this.activeName = 'fifth';
+              this.loading = false;
+              Message({
+                message: this.$t('label.PFANS5009FORMVIEW_CHECKLANGUAGE'),
+                type: 'error',
+                duration: 5 * 1000,
+              });
+            }
+            //add-ws-6/9-禅道任务080
             for (let i = 0; i < this.tableB.length; i++) {
               if (moment(this.tableB[i].admissiontime).format('YYYY-MM-DD') > moment(this.tableB[i].exittime).format('YYYY-MM-DD')) {
                 this.activeName = 'third';

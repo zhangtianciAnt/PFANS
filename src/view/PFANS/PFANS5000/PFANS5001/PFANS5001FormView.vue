@@ -888,16 +888,6 @@
               <el-form-item>
                 <el-table :data="tableD" stripe border header-cell-class-name="sub_bg_color_blue"
                           style="width: 90vw" v-show="form.toolstype === '0' || !form.toolstype">
-                  <!--                   add-ws-6/9-禅道任务080-->
-                  <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMTYPE')" align="center" width="130">
-                    <template slot-scope="scope">
-                      <el-form-item>
-                        <el-input :disabled="true" :no="scope.row" v-model="scope.row.claimtype">
-                        </el-input>
-                      </el-form-item>
-                    </template>
-                  </el-table-column>
-                  <!--                   add-ws-6/9-禅道任务080-->
                   <el-table-column
                     :label="$t('label.PFANS5009FORMVIEW_CONTRACT')"
                     align="center"
@@ -968,6 +958,16 @@
                       </el-input>
                     </template>
                   </el-table-column>
+                  <!--                   add-ws-6/9-禅道任务080-->
+                  <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMTYPE')" align="center" width="130">
+                    <template slot-scope="scope">
+                      <el-form-item>
+                        <el-input :disabled="true" :no="scope.row" v-model="scope.row.claimtype">
+                        </el-input>
+                      </el-form-item>
+                    </template>
+                  </el-table-column>
+                  <!--                   add-ws-6/9-禅道任务080-->
                   <!--                   add-ws-6/9-禅道任务080-->
                   <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYFINSHDATE')" align="center"
                                    width="200">
@@ -3076,6 +3076,7 @@
             let error11 = 0;
             let error12 = 0;
             let error13 = 0;
+            let error14 = 0;
             this.baseInfo.companyprojects = JSON.parse(JSON.stringify(this.form));
             this.baseInfo.stageinformation = [];
             this.baseInfo.projectsystem = [];
@@ -3166,10 +3167,21 @@
                 });
               }
             }
+
             //add-ws-存在check关闭loading
             if (this.checkmessage === 1) {
               error12 = error12 + 1;
             }
+            //add-ws-6/9-禅道任务080
+            let listsum = [];
+            let Listcheck = this.tableD;
+            for (let list of Listcheck) {
+              listsum = this.tableD.filter(item => item.contract == list.contract && item.claimtype == list.claimtype);
+              if(listsum.length>1){
+                error14 = error14 + 1;
+              }
+            }
+            //add-ws-6/9-禅道任务080
             //add-ws-存在check关闭loading
             for (let i = 0; i < this.tableD.length; i++) {
               this.tableD[i].contractamount = this.tableD[i].contractamount === undefined ? 0 : this.tableD[i].contractamount;
@@ -3309,7 +3321,16 @@
                 type: 'error',
                 duration: 5 * 1000,
               });
+            } else if (error14 != 0) {
+              this.activeName = 'fifth';
+              this.loading = false;
+              Message({
+                message: this.$t('label.PFANS5009FORMVIEW_CHECKLANGUAGE'),
+                type: 'error',
+                duration: 5 * 1000,
+              });
             }
+            //add-ws-6/9-禅道任务080
             //add-ws-存在check关闭loading
             else if (error12 != 0) {
               this.activeName = 'fifth';
