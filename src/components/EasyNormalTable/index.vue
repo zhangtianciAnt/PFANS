@@ -6,7 +6,15 @@
         <easy-work-flow ref="workflow"></easy-work-flow>
       </div>
       <div align="right" class="filter-container" v-if="titleShow">
-        <span class="Title_front main_color" style="float:left">{{$t(title)}}{{$t('table.detail')}}</span>
+        <span class="Title_front main_color" style="float:left">{{$t(title)}}{{$t('table.detail')}}
+          <el-popover
+            placement="right-start"
+            title="温馨提示！"
+            width="800"
+            trigger="click"
+            :content="helpContent">
+          <i class="el-icon-question" v-if="showHelp" slot="reference"/>
+          </el-popover></span>
         <slot name="customize"></slot>
         <el-input :placeholder="defaultSerchTooltip" @input="inputChange" class="filter-item"
                   style="width: 25%;vertical-align:top" v-bind:prefix-icon="changeIcon" v-model="searchValue">
@@ -184,6 +192,12 @@
         default: function () {
           return [false, false, false];
         }
+      },showHelp:{
+        type:Boolean,
+        default:false
+      },helpContent:{
+        type:String,
+        default:"正在升级中...."
       }
     },
     methods: {

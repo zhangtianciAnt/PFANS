@@ -14,7 +14,15 @@
         </el-row>
       </div>
       <div align="right" class="filter-container">
-        <span class="Title_front main_color" style="float:left">{{$t(title)}}</span>
+        <span class="Title_front main_color" style="float:left">{{$t(title)}}
+        <el-popover
+          placement="right-start"
+          title="温馨提示！"
+          width="800"
+          trigger="click"
+          :content="helpContent">
+          <i class="el-icon-question" v-if="showHelp" slot="reference"/>
+          </el-popover></span>
       </div>
       <slot name="customize" ref="customize"></slot>
     </el-card>
@@ -77,6 +85,12 @@
       defaultStart:{
         type:Boolean,
         default:true
+      },showHelp:{
+        type:Boolean,
+        default:false
+      },helpContent:{
+        type:String,
+        default:"正在升级中...."
       }
     },
     methods: {
