@@ -582,6 +582,7 @@ export default {
                   this.$t("label.PFANSUSERFORMVIEW_NATION"),//民族
                   this.$t("label.PFANSUSERFORMVIEW_REGISTER"),//户籍
                   this.$t("label.PFANSUSERFORMVIEW_CHILDREN"),//是否独生子女
+                  this.$t("label.PFANSUSERFORMVIEW_CHILDDALIAN"),//是否大连户籍
                   this.$t("label.PFANSUSERVIEW_ENTERDAY"),//入社时间
                   this.$t("label.center"),//center
                   this.$t("label.group"),//group
@@ -630,6 +631,7 @@ export default {
                   "nation",//民族
                   "register",//户籍
                   "children",//是否独生子女
+                  "dlnation",//是否大连户籍
                   "enterday",//入社时间
                   "centername",//center
                   "groupname",//group
@@ -686,6 +688,14 @@ export default {
                         list[h].children = this.$t('label.yes');
                     } else if (list[h].children === '0') {
                         list[h].children = this.$t('label.no');
+                    }
+                }
+                //是否大连户籍
+                if (list[h].dlnation !== '' && list[h].dlnation !== null) {
+                    if (list[h].dlnation === '1') {
+                        list[h].dlnation = this.$t('label.yes');
+                    } else if (list[h].dlnation === '0') {
+                        list[h].dlnation = this.$t('label.no');
                     }
                 }
                 //是否有工作经验
