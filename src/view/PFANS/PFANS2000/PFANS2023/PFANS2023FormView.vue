@@ -454,7 +454,6 @@
             },
             //add_fjl_08/19  --一个事业年度只可以提出一次check
             useDisable(){
-              debugger
                 if (this.form.stage === '0' && this.form.status === '0') {
                     this.aaaaaa = 'W0036';
                     this.canStart = true;
