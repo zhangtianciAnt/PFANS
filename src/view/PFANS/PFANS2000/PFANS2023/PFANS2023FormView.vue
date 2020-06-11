@@ -467,6 +467,9 @@
                     this.aaaaaa = 'W0036';
                     this.canStart = false;
                     this.disable = false;
+                    //add-ws-6/11-禅道任务082
+                    this.sysyear = true;
+                    //add-ws-6/11-禅道任务082
                     this.disableyear = false;
                     this.disablesep = false;
                     this.disabledec = false;
@@ -475,6 +478,9 @@
                     this.aaaaaa = 'W0036';
                     this.canStart = true;
                     this.disable = true;
+                    //add-ws-6/11-禅道任务082
+                    this.sysyear = true;
+                    //add-ws-6/11-禅道任务082
                     this.disableyear = true;
                     this.disablesep = false;
                     this.disabledec = false;
@@ -492,7 +498,9 @@
                     this.canStart = true;
                     this.disable = false;
                     this.disableyear = false;
-                    this.sysyear = true;
+                    //add-ws-6/11-禅道任务082
+                    this.sysyear = false;
+                    //add-ws-6/11-禅道任务082
                     this.disablesep = true;
                     this.esep = true;
                     this.disabledec = false;
@@ -529,6 +537,9 @@
                     this.aaaaaa = 'W0037';
                     this.canStart = true;
                     this.disable = false;
+                    //add-ws-6/11-禅道任务082
+                    this.esep = true;
+                    //add-ws-6/11-禅道任务082
                     this.disableyear = false;
                     this.disablesep = true;
                     this.disabledec = false;
@@ -548,7 +559,9 @@
                     this.disableyear = false;
                     this.disablesep = false;
                     this.sysyear = false;
-                    this.esep = true;
+                    //add-ws-6/11-禅道任务082
+                    this.esep = false;
+                    //add-ws-6/11-禅道任务082
                     this.disabledec = true;
                     this.dec = true;
                     this.disablemar = false;
@@ -587,6 +600,9 @@
                     this.aaaaaa = 'W0038';
                     this.canStart = true;
                     this.disable = false;
+                    //add-ws-6/11-禅道任务082
+                    this.dec = true;
+                    //add-ws-6/11-禅道任务082
                     this.disableyear = false;
                     this.disablesep = false;
                     this.disabledec = true;
@@ -608,7 +624,9 @@
                     this.disablesep = false;
                     this.esep = false;
                     this.disabledec = false;
-                    this.dec = true;
+                    //add-ws-6/11-禅道任务082
+                    this.dec = false;
+                    //add-ws-6/11-禅道任务082
                     this.disablemar = true;
                     this.mar = true;
                     //upd_fjl  --为空赋前一个tab里面的值
@@ -645,6 +663,9 @@
                     this.aaaaaa = 'W0039';
                     this.canStart = true;
                     this.disable = false;
+                    //add-ws-6/11-禅道任务082
+                    this.mar = true;
+                    //add-ws-6/11-禅道任务082
                     this.disableyear = false;
                     this.disablesep = false;
                     this.disabledec = false;
