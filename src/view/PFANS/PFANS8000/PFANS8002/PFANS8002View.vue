@@ -62,7 +62,7 @@
                 data: [],
                 buttonList: [
                     {key: "open", name: "button.open", disabled: false, icon: ""},
-                    {key: "end", name: "button.complete", disabled: true, icon: ""}],
+                    {key: "read", name: "button.read", disabled: false, icon: ""}],
                 columns: [
                     {
                         code: 'title',
@@ -173,11 +173,11 @@
             },
             rowclick(row) {
                 // add_fjl_05/25   -- 添加审批驳回的数据就行删除按钮的显示
-                if (row.title === this.$t('label.PFANS8002VIEW_WORKFLOWWIN')) {
-                    this.buttonList[1].disabled = false;
-                } else {
-                    this.buttonList[1].disabled = true;
-                }
+                // if (row.title === this.$t('label.PFANS8002VIEW_WORKFLOWWIN')) {
+                //     this.buttonList[1].disabled = false;
+                // } else {
+                //     this.buttonList[1].disabled = true;
+                // }
                 // add_fjl_05/25   -- 添加审批驳回的数据就行删除按钮的显示
                 this.row = row;
             },
@@ -208,7 +208,7 @@
                             disabled: false
                         }
                     })
-                } else if (val === 'end') {
+                } else if (val === 'read') {
                     //    ADD_FJL_05/25  -- 对审批驳回之后不想再次申请的数据进行删除的处理
                     if (!this.row || this.row.noticeid === '') {
                         Message({

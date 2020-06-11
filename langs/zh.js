@@ -37,6 +37,7 @@ module.exports = {
     save: '保存',
     open: '跳转',
     complete: '完成',
+    read: '已读',
     addNode: '增加流程节点',
     newDep: '新建部门',
     newCom: '新建公司',
