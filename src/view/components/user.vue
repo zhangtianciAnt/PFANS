@@ -1,6 +1,7 @@
 <template>
   <div class="dpUserIndex" >
     <el-container>
+      <el-tooltip class="item" effect="dark" content="点击进入输入模式" placement="bottom">
       <div class="content bg" :style="error !== ''? 'border-color:red' : 'border-color:#EBEEF5'" @click="showInput">
         <el-tag type="info" v-for="item in multipleSelection" :key="item.customername" :closable="!disabled" @close="handleClose(item)" size="small">
           <el-tooltip class="item" effect="dark" :content=item.customername placement="top-start">
@@ -21,7 +22,9 @@
         </el-input>
         <div style="width: 1px; height: 1px; display: none;"><el-input v-model="userids"></el-input></div>
       </div>
+      </el-tooltip>
       <el-button icon="el-icon-search" @click="show = true" :disabled="disabled" size="small"></el-button>
+
 
       <el-dialog :visible.sync="show" center width="60%" append-to-body lock-scroll top="2vh" destroy-on-close>
         <el-container class="container" style="height:60%"   v-loading="loading" element-loading-spinner="el-icon-loading">
@@ -206,6 +209,12 @@
             this.multipleSelection.push(
               user.userinfo
             );
+          }else{
+            Message({
+              message: "无此用户！",
+              type: 'error',
+              duration: 5 * 1000
+            })
           }
         }
 
