@@ -114,12 +114,12 @@
                   prop="interviewer"
                 >
                   <template slot-scope="scope">
-                    <el-input v-show="true" :disabled="!disabled" v-model="scope.row.interviewerN"
-                              @change="changeInt(scope.row)"
-                              :no="scope.row" style="width:14vw" size="small"></el-input>
-                    <el-input v-show="false" :disabled="!disabled" v-model="scope.row.interviewer"
-                              @change="changeInt(scope.row)"
-                              :no="scope.row" style="width:14vw" size="small"></el-input>
+                    <!--<el-input v-show="true" :disabled="!disabled" v-model="scope.row.interviewerN"-->
+                              <!--@change="changeInt(scope.row)"-->
+                              <!--:no="scope.row" style="width:14vw" size="small"></el-input>-->
+                    <!--<el-input v-show="false" :disabled="!disabled" v-model="scope.row.interviewer"-->
+                              <!--@change="changeInt(scope.row)"-->
+                              <!--:no="scope.row" style="width:14vw" size="small"></el-input>-->
                     <user
                       :disabled="!disabled"
                       :no="scope.row"
