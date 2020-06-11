@@ -92,7 +92,9 @@
                             trigger: 'blur',
                             message: this.$t('normal.error_08') + this.$t('label.PFANS8001VIEW_PASSWORD')
                         },
-                        {validator: validatePassword, trigger: 'blur'}
+                        // del_fjl_06/11 start --去掉对旧密码的check
+                        // {validator: validatePassword, trigger: 'blur'}
+                        // del_fjl_06/11 end --去掉对旧密码的check
                     ],
                     newpsw: [
                         {
