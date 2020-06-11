@@ -12,13 +12,14 @@
               <el-select v-model="form.nodetype" :disabled="disabled"  style="width:20vw">
                 <el-option :label="$t('label.node_type_0')" value="2"></el-option>
                 <el-option :label="$t('label.node_type_1')" value="1"></el-option>
+                <el-option :label="$t('label.node_type_2')" value="3"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="24">
-            <el-form-item :label="$t('label.node_remarks')" prop="remarks">
+            <el-form-item :label="form.nodetype != 3?$t('label.node_remarks'):$t('label.node_notice')" prop="remarks">
               <el-input v-model="form.remarks" style="width:72vw" :disabled="disabled"
                         type="textarea"
                         :rows="2"></el-input>
