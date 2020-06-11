@@ -89,6 +89,13 @@
                     <el-input class="width" v-model="form.nation" maxlength="20" style="width:20vw"></el-input>
                   </el-form-item>
                 </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_CHILDDALIAN')">
+                    <span style="margin-right: 1vw ">{{$t('label.no')}}</span>
+                    <el-switch v-model="form.dlnation" active-value="1" inactive-value="0"></el-switch>
+                    <span style="margin-left: 1vw ">{{$t('label.yes')}}</span>
+                  </el-form-item>
+                </el-col>
               </el-row>
               <el-row>
                 <el-col :span="8">
@@ -2117,6 +2124,7 @@
                     // age: "",
                     nationality: '',
                     nation: '',
+                    dlnation: '',
                     register: '',
                     idnumber: '',
                     passport: '',
