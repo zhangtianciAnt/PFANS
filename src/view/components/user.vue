@@ -1,7 +1,7 @@
 <template>
   <div class="dpUserIndex" >
     <el-container>
-      <div class="content bg" :style="error !== ''? 'border-color:red' : 'border-color:#EBEEF5'">
+      <div class="content bg" :style="error !== ''? 'border-color:red' : 'border-color:#EBEEF5'" @click="showInput">
         <el-tag type="info" v-for="item in multipleSelection" :key="item.customername" :closable="!disabled" @close="handleClose(item)" size="small">
           <el-tooltip class="item" effect="dark" :content=item.customername placement="top-start">
             <span>
@@ -9,6 +9,16 @@
             </span>
           </el-tooltip>
         </el-tag>
+        <el-input
+          class="input-new-tag"
+          v-show="inputVisible"
+          v-model="inputValue"
+          ref="saveTagInput"
+          size="small"
+          @keyup.enter.native="handleInputConfirm"
+          @blur="handleInputConfirm"
+        >
+        </el-input>
         <div style="width: 1px; height: 1px; display: none;"><el-input v-model="userids"></el-input></div>
       </div>
       <el-button icon="el-icon-search" @click="show = true" :disabled="disabled" size="small"></el-button>
@@ -61,7 +71,7 @@
 <script>
 
   import EasyTree from '@/components/EasyTree'
-  import { getUserInfo } from "../../utils/customize";
+  import { getUserInfo,getUserInfoName } from "../../utils/customize";
   import { Message } from 'element-ui'
 
 
@@ -112,6 +122,7 @@
           if (this.userlist.split(",")[i] !== "") {
             let user = getUserInfo(this.userlist.split(",")[i]);
             if(user){
+              user.userinfo.userid = user.userid;
               this.multipleSelection.push(
                 user.userinfo
               );
@@ -137,6 +148,7 @@
             if (val.split(",")[i] !== "") {
               let user = getUserInfo(val.split(",")[i]);
               if(user){
+                user.userinfo.userid = user.userid;
                 this.multipleSelection.push(
                   user.userinfo
                 );
@@ -177,6 +189,42 @@
       }
     },
     methods: {
+      showInput() {
+        this.inputVisible = true;
+        this.$nextTick(_ => {
+          this.$refs.saveTagInput.$refs.input.focus();
+        });
+      },
+
+      handleInputConfirm() {
+        let inputValue = this.inputValue;
+        if (inputValue) {
+          let user = getUserInfoName(inputValue);
+          debugger
+          if(user != -1){
+            user.userinfo.userid = user.userid;
+            this.multipleSelection.push(
+              user.userinfo
+            );
+          }
+        }
+
+        this.userids = "";
+        if(this.multipleSelection){
+          for (let i = 0; i < this.multipleSelection.length; i++) {
+            this.userids += this.multipleSelection[i].userid + ",";
+          }
+        }
+
+        if (this.userids && this.userids.length > 0) {
+          this.userids = this.userids.substr(0, this.userids.length - 1);
+        }
+
+        this.$emit("getUserids", this.userids,this.no);
+
+        this.inputVisible = false;
+        this.inputValue = '';
+      },
       handleClose(item){
         this.multipleSelection.splice(this.multipleSelection.indexOf(item), 1);
 
@@ -356,6 +404,8 @@
     },
     data() {
       return {
+        inputVisible: false,
+        inputValue: '',
         data: [],// 组织树结构data
         multipleSelection: [],
         userids: "",
