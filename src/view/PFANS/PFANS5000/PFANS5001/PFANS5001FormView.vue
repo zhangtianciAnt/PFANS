@@ -631,7 +631,6 @@
                                 :no="scope.row"
                                 :userlist="scope.row.name"
                                 @getUserids="getCitationUserid"
-                                :selectType="selectType1"
                                 :multiple="multiple"
                                 style="width: 80%"
                               ></user>
@@ -1328,7 +1327,7 @@
         errorLeader: '',
         errorManager: '',
         selectType: 'Single',
-        selectType1: 'mult',
+          // selectType1: 'mult',
         userlist: '',
         userlist1: '',
         activeName: 'first',
@@ -1384,7 +1383,7 @@
             admissiontime: '',
             exittime: '',
             rowindex: '',
-            nameN: getUserInfo(this.$store.getters.userinfo.userid).userinfo.customername,
+              // nameN: getUserInfo(this.$store.getters.userinfo.userid).userinfo.customername,
           }, {
             projectsystem_id: '',
             companyprojects_id: '',
@@ -1396,7 +1395,7 @@
             admissiontime: '',
             exittime: '',
             rowindex: '',
-            nameN: '',
+                // nameN: '',
           },
         ],
         //项目体制(外协)
@@ -1863,7 +1862,7 @@
                     number: response.projectsystem[i].number,
                     company: response.projectsystem[i].company,
                     name: response.projectsystem[i].name,
-                    nameN: getUserInfo(response.projectsystem[i].name).userinfo.customername,
+                      // nameN: getUserInfo(response.projectsystem[i].name).userinfo.customername,
                     position: response.projectsystem[i].position,
                     admissiontime: response.projectsystem[i].admissiontime,
                     exittime: response.projectsystem[i].exittime,
@@ -2334,47 +2333,34 @@
           } = org);
         }
       },
-      // add_fjl_05/29  --添加人员手动输入
-      changeInt(row) {
-        if (getUserInfoName(row.nameN) !== '-1') {
-          row.name = getUserInfoName(row.nameN).userid;
-        } else {
-          Message({
-            message: this.$t('label.PFANS2003FORMVIEW_NAMEERERROR'),
-            type: 'error',
-            duration: 5 * 1000,
-          });
-          return;
-        }
-      },
-      // add_fjl_05/29  --添加人员手动输入
       getCitationUserid(userlist, row) {
-        // add_fjl_05/29  --添加人员多选
-        let usa = 0;
-        let us = userlist.split(',');
-        if (us.length > 1) {
-          for (let i = 0; i < us.length; i++) {
-            usa++;
-            if (us.length === usa) {
-              this.tableB.push({
-                name: us[i],
-                position: '',
-                admissiontime: '',
-                exittime: '',
-                number: '',
-                type: '0',
-                company: '',
-                nameN: getUserInfo(us[i]).userinfo.customername,
-              });
-            }
-          }
-        } else {
+          // // add_fjl_05/29  --添加人员多选
+          // let usa = 0;
+          // let us = userlist.split(',');
+          // if (us.length > 1) {
+          //   for (let i = 0; i < us.length; i++) {
+          //     usa++;
+          //     if (us.length === usa) {
+          //       this.tableB.push({
+          //         name: us[i],
+          //         position: '',
+          //         admissiontime: '',
+          //         exittime: '',
+          //         number: '',
+          //         type: '0',
+          //         company: '',
+          //         nameN: getUserInfo(us[i]).userinfo.customername,
+          //       });
+          //     }
+          //   }
+          // } else {
+          //   row.name = userlist;
+          //   if (userlist) {
+          //     row.nameN = getUserInfo(userlist).userinfo.customername;
+          //   }
+          // }
+          // // add_fjl_05/29  --添加人员多选
           row.name = userlist;
-          if (userlist) {
-            row.nameN = getUserInfo(userlist).userinfo.customername;
-          }
-        }
-        // add_fjl_05/29  --添加人员多选
         if (row.name != null && row.name !== '') {
           let lst = getUserInfo(row.name);
           // row.position = lst.userinfo.post;
@@ -2758,7 +2744,7 @@
           number: '',
           company: '',
           name: '',
-          nameN: '',
+            // nameN: '',
           position: '',
           admissiontime: '',
           exittime: '',
@@ -2768,7 +2754,7 @@
       deleteRow1(index, rows) {
         if (index === 1) {
           rows[1].name = '';
-          rows[1].nameN = '';
+            // rows[1].nameN = '';
           rows[1].position = '';
           rows[1].admissiontime = '';
           rows[1].exittime = '';
