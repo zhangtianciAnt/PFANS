@@ -11,7 +11,7 @@
         <el-form label-position="top" label-width="8vw" ref="form">
           <el-row type="flex" justify="end" style="margin-bottom:1vh">
             <el-col :span="6">
-              <el-input placeholder="请输入员工名字" prefix-icon="el-icon-search" v-model="filterName"></el-input>
+              <el-input :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')" prefix-icon="el-icon-search" v-model="filterName"></el-input>
             </el-col>
           </el-row>
           <el-tabs @tab-click="handleClick" v-model="activeName" type="border-card">

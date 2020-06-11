@@ -583,6 +583,7 @@ export default {
                   this.$t("label.PFANSUSERFORMVIEW_REGISTER"),//户籍
                   this.$t("label.PFANSUSERFORMVIEW_CHILDREN"),//是否独生子女
                   this.$t("label.PFANSUSERFORMVIEW_CHILDDALIAN"),//是否大连户籍
+                  this.$t("label.PFANSUSERFORMVIEW_DIFFERENCE"),//奖金记上区分
                   this.$t("label.PFANSUSERVIEW_ENTERDAY"),//入社时间
                   this.$t("label.center"),//center
                   this.$t("label.group"),//group
@@ -632,6 +633,7 @@ export default {
                   "register",//户籍
                   "children",//是否独生子女
                   "dlnation",//是否大连户籍
+                  "difference",//奖金记上区分
                   "enterday",//入社时间
                   "centername",//center
                   "groupname",//group
@@ -698,11 +700,19 @@ export default {
                         list[h].dlnation = this.$t('label.no');
                     }
                 }
+                //奖金记上区分
+                if (list[h].difference !== '' && list[h].difference !== null) {
+                  if (list[h].difference === '1') {
+                    list[h].difference = this.$t('label.PFANSUSERFORMVIEW_NEWSTAFF');
+                  } else if (list[h].difference === '2') {
+                    list[h].difference = this.$t('label.PFANSUSERFORMVIEW_OLDSTAFF');
+                  }
+                }
                 //是否有工作经验
                 if(list[h].experience !== '' && list[h].experience !== null) {
                     if (list[h].experience === '1') {
                         list[h].experience = this.$t('label.PFANSUSERFORMVIEW_NO');
-                    } else if (list[h].experience === '0') {
+                    } else if (list[h].experience === '') {
                         list[h].experience = this.$t('label.PFANSUSERFORMVIEW_YES');
                     }
                 }
