@@ -753,7 +753,8 @@
       },
       setdisabled(val) {
         if (this.$route.params.disabled) {
-          this.disable = val;
+            //fjl --与总务下其他几本同步
+            this.disabled = val;
         }
       },
       changeSum() {
