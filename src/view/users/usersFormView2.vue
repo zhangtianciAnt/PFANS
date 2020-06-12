@@ -3148,7 +3148,7 @@
           .dispatch('usersStore/getById', params)
           .then(response => {
             this.form = response.customerInfo.userinfo;
-            if (response.customerInfo.userinfo.birthday != '') {
+              if (response.customerInfo.userinfo.birthday != '' && response.customerInfo.userinfo.birthday != null) {
               let birthdays = new Date(
                 response.customerInfo.userinfo.birthday.replace(/-/g, '/'),
               );
