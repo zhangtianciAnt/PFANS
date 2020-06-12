@@ -138,7 +138,8 @@
           {value: '3', lable: this.$t('menu.PFANS1010')},
           {value: '4', lable: this.$t('label.PFANS1012VIEW_CHECKLIST')},
           {value: '5', lable: this.$t('label.PFANS1012VIEW_PURCHASSES')},
-          {value: '6', lable: this.$t('label.PFANS1012VIEW_PURCHASSESWC')}],
+          {value: '6', lable: this.$t('label.PFANS1012VIEW_PURCHASSESWC')},
+          {value: '7', lable: this.$t('label.PFANS1012VIEW_JSYRFY')}],
         award: [],
         role1: '',
         search: '',
@@ -541,7 +542,43 @@
             });
             this.loading = false;
           });
+          //add-ws-6/9-禅道033
+        }else if (val == '7') {
+          this.form.judgement = '';
+          this.options = [];
+          this.totaldata = [];
+          this.loading = true;
+          this.$store
+            .dispatch('PFANS1012Store/get', {})
+            .then(response => {
+              for (let i = 0; i < response.length; i++) {
+                if (user_id === response[i].user_id && response[i].status === '4') {
+                  let user = getUserInfo(response[i].user_id);
+                  if (user) {
+                    response[i].user_id = getUserInfo(response[i].user_id).userinfo.customername;
+                  }
+                  var vote = {};
+                  vote.user_id = response[i].user_id;
+                  vote.remarks = response[i].remark;
+                  vote.numbers = response[i].invoiceno;
+                  vote.value = response[i].publicexpenseid;
+                  vote.label = this.$t('menu.PFANS1012') + '_' + response[i].invoiceno;
+                  this.options.push(vote);
+                  this.totaldata.push(vote);
+                  this.getList();
+                }
+              }
+              this.loading = false;
+            }).catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
         }
+        //add-ws-6/9-禅道033
         this.show7 = true;
       },
 

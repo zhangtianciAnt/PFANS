@@ -183,9 +183,9 @@
     methods: {
       //ADD_FJL
       selectInit(row, index) {
-          if (this.$i18n) {
-              return row.status === this.$t('label.PFANS5004VIEW_OVERTIME');
-          }
+        if(row.moduleid != 'PJ002002' && row.status === this.$t('label.PFANS5004VIEW_OVERTIME')){
+          return row
+        }
       },
       //ADD_FJL
       rowClick(row) {

@@ -113,7 +113,7 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012VIEW_EXPECTEDPAYDATE')" prop="expectedpaydate">
+                    <el-form-item :label="$t('label.PFANS1012VIEW_EXPECTEDPAYDATE')">
                       <el-date-picker :disabled="!disable" style="width:20vw" v-model="form.expectedpaydate">
                       </el-date-picker>
                     </el-form-item>
@@ -145,18 +145,18 @@
                       </dicselect>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012VIEW_EXPORTCSV')">
-                      <el-switch
-                        @change="changeexternal(scope.row)"
-                        :disabled="!disable"
-                        v-model="form.exportcsv"
-                        active-value="1"
-                        inactive-value="0"
-                      >
-                      </el-switch>
-                    </el-form-item>
-                  </el-col>
+                  <!--                  <el-col :span="8">-->
+                  <!--                    <el-form-item :label="$t('label.PFANS1012VIEW_EXPORTCSV')">-->
+                  <!--                      <el-switch-->
+                  <!--                        @change="changeexternal(scope.row)"-->
+                  <!--                        :disabled="!disable"-->
+                  <!--                        v-model="form.exportcsv"-->
+                  <!--                        active-value="1"-->
+                  <!--                        inactive-value="0"-->
+                  <!--                      >-->
+                  <!--                      </el-switch>-->
+                  <!--                    </el-form-item>-->
+                  <!--                  </el-col>-->
                 </el-row>
                 <el-row>
                   <el-col :span="8">
@@ -711,18 +711,18 @@
                             </el-select>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1002FROMVIEW_SFGDZC')" align="center" width="150">
-                          <template slot-scope="scope">
-                            <el-switch
-                              @change="changeexternal(scope.row)"
-                              :disabled="checktaxes"
-                              v-model="scope.row.external"
-                              active-value="1"
-                              inactive-value="0"
-                            >
-                            </el-switch>
-                          </template>
-                        </el-table-column>
+                        <!--                        <el-table-column :label="$t('label.PFANS1002FROMVIEW_SFGDZC')" align="center" width="150">-->
+                        <!--                          <template slot-scope="scope">-->
+                        <!--                            <el-switch-->
+                        <!--                              @change="changeexternal(scope.row)"-->
+                        <!--                              :disabled="checktaxes"-->
+                        <!--                              v-model="scope.row.external"-->
+                        <!--                              active-value="1"-->
+                        <!--                              inactive-value="0"-->
+                        <!--                            >-->
+                        <!--                            </el-switch>-->
+                        <!--                          </template>-->
+                        <!--                        </el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1012FORMVIEW_PL')" align="center" width="150">
 
                           <template slot-scope="scope">
@@ -965,7 +965,7 @@
                                        :data="scope.row.accountcode"
                                        :multiple="multiple"
                                        :no="scope.row"
-                                       @change="getcode" style="width: 100%">
+                                       @change="getcodenew" style="width: 100%">
                             </dicselect>
                           </template>
                         </el-table-column>
@@ -976,12 +976,21 @@
                             </el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1012FORMVIEW_FWTIME')" align="center" width="160"
+                        <el-table-column :label="$t('label.PFANS1012FORMVIEW_FWTIME')" align="center" width="300"
                                          v-if="checktime">
                           <template slot-scope="scope">
-                            <el-date-picker :disabled="checktaxes" style="width: 100%"
-                                            v-model="scope.row.servicehours"
-                                            @change="clickdata(scope.row)"></el-date-picker>
+                            <el-date-picker
+                              unlink-panels
+                              class="bigWidth"
+                              v-model="scope.row.servicehours"
+                              style="width: 100%"
+                              slot="customize"
+                              type="daterange"
+                              :end-placeholder="$t('label.enddate')"
+                              :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
+                              :start-placeholder="$t('label.startdate')"
+                              @change="clickdata(scope.row)"
+                            ></el-date-picker>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012VIEW_ABSTRACT')" align="center" width="150">
@@ -1125,7 +1134,7 @@
                     :label="$t('label.judgement')"
                     width="315px">
                   </el-table-column>
-                  <el-table-column :label="$t('label.operation')" align="center" width="200" >
+                  <el-table-column :label="$t('label.operation')" align="center" width="200">
                     <template slot-scope="scope">
                       <el-button
                         @click.native.prevent="viewdata(scope.row)"
@@ -1377,6 +1386,7 @@
           },
         ],
         checkCode2: '',
+        budgetcodingchecknew: '',
         budgetcodingcheck: '',
         tableT: [{
           publicexpenseid: '',
@@ -1413,7 +1423,6 @@
           taxes: '',
           departmentname: '',
           budgetcoding: '',
-          external: '',
           purchasedetailsdate: '',
           plsummary: '',
           procurementdetails: '',
@@ -1468,7 +1477,6 @@
           telephone: '',
           moduleid: '',
           expectedpaydate: '',
-          exportcsv: '1',
           moduleidApp: '',
           accountnumber: '',
           reimbursementdate: moment(new Date()).format('YYYY-MM-DD'),
@@ -1524,11 +1532,6 @@
           accountnumber: [{
             required: true,
             message: this.$t('normal.error_09') + this.$t('label.PFANS1012VIEW_ACCOUNT_NUMBER'),
-            trigger: 'change',
-          }],
-          expectedpaydate: [{
-            required: true,
-            message: this.$t('normal.error_09') + this.$t('label.PFANS1012VIEW_EXPECTEDPAYDATE'),
             trigger: 'change',
           }],
           payeename: [{
@@ -1842,6 +1845,14 @@
               if (response.otherdetails.length > 0) {
                 this.tableR = response.otherdetails;
                 for (let i = 0; i < this.tableR.length; i++) {
+                  //add-ws-6/11-禅道090
+                  if (this.tableR[i].servicehours !== '' && this.tableR[i].servicehours !== null) {
+                    let claimdatetime = this.tableR[i].servicehours;
+                    let claimdatetim = claimdatetime.slice(0, 10);
+                    let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
+                    this.tableR[i].servicehours = [claimdatetim, claimdatetime1];
+                  }
+                  //add-ws-6/11-禅道090
                   this.tableR[i].code16 = '';
                   this.orglist = this.tableR[i].departmentname;
                   let group = getOrgInfo(this.orglist);
@@ -2094,7 +2105,7 @@
                 this.show7 = true;
                 if (this.disable) {
                   this.show10 = true;
-                }else{
+                } else {
                   this.show10 = false;
                 }
               }
@@ -2460,18 +2471,18 @@
           this.disable = val;
         }
       },
-      changeexternal(row) {
-        if (row.external == '1') {
-          this.checkexternal = true;
-          this.budgetcodingcheck = row.budgetcoding;
-          row.subjectnumber = getDictionaryInfo('PG023001').value2;
-          row.budgetcoding = '000000';
-        } else if (row.external == '0') {
-          this.checkexternal = false;
-          row.budgetcoding = this.budgetcodingcheck;
-          row.subjectnumber = this.checkCode2;
-        }
-      },
+      // changeexternal(row) {
+      //   if (row.external == '1') {
+      //     this.checkexternal = true;
+      //     this.budgetcodingcheck = row.budgetcoding;
+      //     row.subjectnumber = getDictionaryInfo('PG023001').value2;
+      //     row.budgetcoding = '000000';
+      //   } else if (row.external == '0') {
+      //     this.checkexternal = false;
+      //     row.budgetcoding = this.budgetcodingcheck;
+      //     row.subjectnumber = this.checkCode2;
+      //   }
+      // },
       checkoptionsdata() {
         this.optionsdata = [{value: this.$t('label.PFANS1012FORMVIEW_NOMONEY'), lable: ''}];
         for (var i = 0; i < this.tableF.length; i++) {
@@ -2919,7 +2930,7 @@
             }
           }
         }
-        this.budgetcodingcheck = row.budgetcoding;
+        this.budgetcodingchecknew = row.budgetcoding;
       },
       getGroupIdP(orglist, row) {
         if (orglist == '') {
@@ -3225,11 +3236,11 @@
       },
       clickdata(row) {
         if (row.servicehours == null) {
-          row.budgetcoding = this.budgetcodingcheck;
+          row.budgetcoding = this.budgetcodingchecknew;
           row.subjectnumber = this.checkCode2;
           this.checkdisable = false;
         } else {
-          this.budgetcodingcheck = row.budgetcoding;
+          this.budgetcodingchecknew = row.budgetcoding;
           row.subjectnumber = this.checkcode;
           row.budgetcoding = '000000';
           this.checkdisable = true;
@@ -3241,17 +3252,58 @@
           row.subjectnumber = dic.value2;
         }
       },
-      getcode(val, row) {
+      //add-ws-6/11-禅道090
+      getworkinghours(workinghours) {
+        if (workinghours != null) {
+          if (workinghours.length > 0) {
+            return moment(workinghours[0]).format('YYYY-MM-DD') + ' ~ ' + moment(workinghours[1]).format('YYYY-MM-DD');
+          } else {
+            return '';
+          }
+        } else {
+          return '';
+        }
+      },
+      //add-ws-6/11-禅道090
+      getcodenew(val, row) {
         row.accountcode = val;
         let dic = getDictionaryInfo(val);
+        if (row.accountcode == 'PJ116008' || row.accountcode == 'PJ130010' ) {
+          this.budgetcodingchecknew = row.budgetcoding;
+          this.checktime = true;
+          this.checkdisable = true;
+          this.checkcode = dic.value2;
+          row.budgetcoding = dic.value4;
+        } else {
+          this.checktime = false;
+          this.checkdisable = false;
+          row.servicehours = '';
+          row.budgetcoding = this.budgetcodingchecknew;
+        }
         if (dic) {
           row.subjectnumber = dic.value2;
           this.checkCode2 = dic.value2;
           this.checkCode1 = dic.value3;
-          if (dic.value3 == 1) {
-            this.checktime = true;
-            this.checkcode = dic.value4;
-          }
+        }
+      },
+      //add-ws-6/11-禅道090
+      getcode(val, row) {
+        row.accountcode = val;
+        let dic = getDictionaryInfo(val);
+//add-ws-6/11-禅道090
+        if (row.accountcode == 'PJ121012' || row.accountcode == 'PJ134013') {
+          this.checkexternal = true;
+          this.budgetcodingcheck = row.budgetcoding;
+          row.budgetcoding =  dic.value4;
+        } else {
+          this.checkexternal = false;
+          row.budgetcoding = this.budgetcodingcheck;
+        }
+//add-ws-6/11-禅道090
+        if (dic) {
+          row.subjectnumber = dic.value2;
+          this.checkCode2 = dic.value2;
+          this.checkCode1 = dic.value3;
         }
       },
       changesummoney(row) {
@@ -3626,7 +3678,6 @@
             plsummary: '',
             purchasedetailsdate: '',
             currency: '',
-            external: '',
             currencyrate: '',
             tormb: '',
             procurementdetails: '',
@@ -3727,7 +3778,6 @@
           procurementdetails: '',
           accountcode: '',
           plsummary: '',
-          external: '',
           currency: '',
           currencyrate: '',
           tormb: '',
@@ -3827,11 +3877,10 @@
             sums[index] = '--';
           }
         });
+        sums[7] = Math.round(sums[8] * 100) / 100;
         sums[8] = Math.round(sums[8] * 100) / 100;
-        sums[9] = Math.round(sums[9] * 100) / 100;
         sums[11] = Math.round(sums[11] * 100) / 100;
         sums[12] = Math.round(sums[12] * 100) / 100;
-        sums[13] = Math.round(sums[13] * 100) / 100;
         this.tablePValue = sums;
         return sums;
       },
@@ -3883,18 +3932,18 @@
         if (this.form.type === 'PJ001001') {
           this.form.rmbexpenditure = sums[8];
         } else if (this.checktime) {
-          this.form.rmbexpenditure = this.tablePValue[8] + sums[8];
+          this.form.rmbexpenditure = this.tablePValue[7] + sums[8];
         } else {
-          this.form.rmbexpenditure = this.tablePValue[8] + sums[7];
+          this.form.rmbexpenditure = this.tablePValue[7] + sums[7];
         }
       },
       getforeigncurrency(sums) {
         if (this.form.type === 'PJ001001') {
           this.form.foreigncurrency = '0';
         } else if (this.checktime) {
-          this.form.foreigncurrency = this.tablePValue[9] + sums[9];
+          this.form.foreigncurrency = this.tablePValue[8] + sums[9];
         } else {
-          this.form.foreigncurrency = this.tablePValue[9] + sums[8];
+          this.form.foreigncurrency = this.tablePValue[8] + sums[8];
         }
       },
       changeRMB(newValue) {
@@ -4100,7 +4149,6 @@
                         departmentname: this.tableP[i].departmentname,
                         budgetcoding: this.tableP[i].budgetcoding,
                         plsummary: this.tableP[i].plsummary,
-                        external: this.tableP[i].external,
                         accountcode: this.tableP[i].accountcode,
                         currency: this.tableP[i].currency,
                         currencyrate: this.tableP[i].currencyrate,
@@ -4146,6 +4194,20 @@
                 }
               }
               let error = 0;
+              //add-ws-6/9-禅道033
+              if (this.form.bsexternal === '1') {
+                if (this.form.expectedpaydate === '') {
+                  error = error + 1;
+                  this.activeName = 'first';
+                  Message({
+                    message: this.$t('label.PFANS1012VIEW_CHECKEXPECTEDPAYDATE'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  return;
+                }
+              }
+              //add-ws-6/9-禅道033
               //ADD-WS-增加公共费用精算书check
               if (this.form.type === 'PJ001001') {
                 for (let i = 0; i < this.tableT.length; i++) {
@@ -4309,6 +4371,11 @@
                 }
               }
               if (error == '0') {
+                //add-ws-6/11-禅道任务090
+                for (let i = 0; i < this.baseInfo.otherdetails.length; i++) {
+                  this.baseInfo.otherdetails[i].servicehours = this.getworkinghours(this.baseInfo.otherdetails[i].servicehours);
+                }
+                //add-ws-6/11-禅道任务090
                 if (this.$route.params._id) {
                   this.loading = true;
                   this.baseInfo.publicexpense.publicexpenseid = this.$route.params._id;
@@ -4447,7 +4514,6 @@
                   departmentname: this.tableP[i].departmentname,
                   budgetcoding: this.tableP[i].budgetcoding,
                   plsummary: this.tableP[i].plsummary,
-                  external: this.tableP[i].external,
                   accountcode: this.tableP[i].accountcode,
                   currency: this.tableP[i].currency,
                   currencyrate: this.tableP[i].currencyrate,
@@ -4492,6 +4558,11 @@
             }
           }
         }
+        //add-ws-6/11-禅道任务090
+        for (let i = 0; i < this.baseInfo.otherdetails.length; i++) {
+          this.baseInfo.otherdetails[i].servicehours = this.getworkinghours(this.baseInfo.otherdetails[i].servicehours);
+        }
+        //add-ws-6/11-禅道任务090
         this.loading = true;
         this.baseInfo.publicexpense.publicexpenseid = this.$route.params._id;
         this.$store
