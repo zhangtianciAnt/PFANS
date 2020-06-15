@@ -2425,24 +2425,26 @@
               trigger: 'blur',
             },
           ],
-          marital: [
-            {
-              required: true,
-              message:
-                this.$t('normal.error_08') +
-                this.$t('label.PFANSUSERFORMVIEW_MARITAL'),
-              trigger: 'change',
-            },
-          ],
-          address: [
-            {
-              required: true,
-              message:
-                this.$t('normal.error_08') +
-                this.$t('label.PFANSUSERFORMVIEW_ADDRESS'),
-              trigger: 'blur',
-            },
-          ],
+            // del_fjl_06/16 start
+            // marital: [
+            //   {
+            //     required: true,
+            //     message:
+            //       this.$t('normal.error_08') +
+            //       this.$t('label.PFANSUSERFORMVIEW_MARITAL'),
+            //     trigger: 'change',
+            //   },
+            // ],
+            // address: [
+            //   {
+            //     required: true,
+            //     message:
+            //       this.$t('normal.error_08') +
+            //       this.$t('label.PFANSUSERFORMVIEW_ADDRESS'),
+            //     trigger: 'blur',
+            //   },
+            // ],
+            // del_fjl_06/16 end
           // phone: [
           //   {
           //     required: true,
@@ -2452,15 +2454,15 @@
           //     trigger: 'blur',
           //   },
           // ],
-          extension: [
-            {
-              required: true,
-              message:
-                this.$t('normal.error_08') +
-                this.$t('label.PFANSUSERFORMVIEW_EXTENSION'),
-              trigger: 'blur',
-            },
-          ],
+            // extension: [
+            //   {
+            //     required: true,
+            //     message:
+            //       this.$t('normal.error_08') +
+            //       this.$t('label.PFANSUSERFORMVIEW_EXTENSION'),
+            //     trigger: 'blur',
+            //   },
+            // ],
           graduation: [
             {
               required: true,
@@ -2744,13 +2746,13 @@
           //   {validator: validateTel, trigger: 'blur'},
           // ],
           email: [
-            {
-              required: true,
-              message:
-                this.$t('normal.error_08') +
-                this.$t('label.PFANSUSERFORMVIEW_EMAILADDRESS'),
-              trigger: 'blur',
-            },
+              // {
+              //   required: true,
+              //   message:
+              //     this.$t('normal.error_08') +
+              //     this.$t('label.PFANSUSERFORMVIEW_EMAILADDRESS'),
+              //   trigger: 'blur',
+              // },
             {
               type: 'email',
               message: this.$t('label.PFANSUSERFORMVIEW_TRUEEMAILADDRESS'),

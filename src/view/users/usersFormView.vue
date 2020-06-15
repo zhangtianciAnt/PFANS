@@ -2294,24 +2294,26 @@
                             trigger: 'blur',
                         },
                     ],
-                    marital: [
-                        {
-                            required: true,
-                            message:
-                                this.$t('normal.error_08') +
-                                this.$t('label.PFANSUSERFORMVIEW_MARITAL'),
-                            trigger: 'change',
-                        },
-                    ],
-                    address: [
-                        {
-                            required: true,
-                            message:
-                                this.$t('normal.error_08') +
-                                this.$t('label.PFANSUSERFORMVIEW_ADDRESS'),
-                            trigger: 'blur',
-                        },
-                    ],
+                    // del_fjl_06/16 start
+                    // marital: [
+                    //     {
+                    //         required: true,
+                    //         message:
+                    //             this.$t('normal.error_08') +
+                    //             this.$t('label.PFANSUSERFORMVIEW_MARITAL'),
+                    //         trigger: 'change',
+                    //     },
+                    // ],
+                    // address: [
+                    //     {
+                    //         required: true,
+                    //         message:
+                    //             this.$t('normal.error_08') +
+                    //             this.$t('label.PFANSUSERFORMVIEW_ADDRESS'),
+                    //         trigger: 'blur',
+                    //     },
+                    // ],
+                    // del_fjl_06/16 end
                   //ccm 课题票对应
                   //   phone: [
                   //       {
@@ -2323,15 +2325,15 @@
                   //       },
                   //   ],
                   //ccm 课题票对应
-                    extension: [
-                        {
-                            required: true,
-                            message:
-                                this.$t('normal.error_08') +
-                                this.$t('label.PFANSUSERFORMVIEW_EXTENSION'),
-                            trigger: 'blur',
-                        },
-                    ],
+                    //   extension: [
+                    //       {
+                    //           required: true,
+                    //           message:
+                    //               this.$t('normal.error_08') +
+                    //               this.$t('label.PFANSUSERFORMVIEW_EXTENSION'),
+                    //           trigger: 'blur',
+                    //       },
+                    //   ],
                     graduation: [
                         {
                             required: true,
@@ -2615,13 +2617,13 @@
                   //   ],
                   // ccm 课题票对应
                     email: [
-                        {
-                            required: true,
-                            message:
-                                this.$t('normal.error_08') +
-                                this.$t('label.PFANSUSERFORMVIEW_EMAILADDRESS'),
-                            trigger: 'blur',
-                        },
+                        // {
+                        //     required: true,
+                        //     message:
+                        //         this.$t('normal.error_08') +
+                        //         this.$t('label.PFANSUSERFORMVIEW_EMAILADDRESS'),
+                        //     trigger: 'blur',
+                        // },
                         {
                             type: 'email',
                             message: this.$t('label.PFANSUSERFORMVIEW_TRUEEMAILADDRESS'),
