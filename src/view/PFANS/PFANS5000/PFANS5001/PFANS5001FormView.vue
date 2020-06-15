@@ -632,6 +632,7 @@
                                 :userlist="scope.row.name"
                                 @getUserids="getCitationUserid"
                                 :multiple="multiple"
+                                :selectType="selectType1"
                                 style="width: 80%"
                               ></user>
                             </template>
@@ -1327,7 +1328,7 @@
         errorLeader: '',
         errorManager: '',
         selectType: 'Single',
-          // selectType1: 'mult',
+          selectType1: 'mult',
         userlist: '',
         userlist1: '',
         activeName: 'first',
@@ -2334,33 +2335,32 @@
         }
       },
       getCitationUserid(userlist, row) {
-          // // add_fjl_05/29  --添加人员多选
-          // let usa = 0;
-          // let us = userlist.split(',');
-          // if (us.length > 1) {
-          //   for (let i = 0; i < us.length; i++) {
-          //     usa++;
-          //     if (us.length === usa) {
-          //       this.tableB.push({
-          //         name: us[i],
-          //         position: '',
-          //         admissiontime: '',
-          //         exittime: '',
-          //         number: '',
-          //         type: '0',
-          //         company: '',
-          //         nameN: getUserInfo(us[i]).userinfo.customername,
-          //       });
-          //     }
-          //   }
-          // } else {
-          //   row.name = userlist;
-          //   if (userlist) {
-          //     row.nameN = getUserInfo(userlist).userinfo.customername;
-          //   }
-          // }
-          // // add_fjl_05/29  --添加人员多选
-          row.name = userlist;
+          // add_fjl_05/29  --添加人员多选
+          let us = userlist.split(',');
+          if (us.length > 1) {
+              for (let i = 0; i < us.length; i++) {
+                  //去除单次选择时，重复的数据
+                  if (this.tableB.indexOf(us[i]) == -1) {
+                      this.tableB.push({
+                          name: us[i],
+                          position: '',
+                          admissiontime: '',
+                          exittime: '',
+                          number: '',
+                          type: '0',
+                          company: '',
+                      });
+                  }
+              }
+              //保留人名不为空的数据
+              this.tableB = this.tableB.filter(itam => {
+                  return (itam.name !== null && itam.name !== '')
+              })
+          } else {
+              row.name = userlist;
+          }
+          // add_fjl_05/29  --添加人员多选
+          // row.name = userlist;
         if (row.name != null && row.name !== '') {
           let lst = getUserInfo(row.name);
           // row.position = lst.userinfo.post;
@@ -3096,6 +3096,25 @@
               }
             }
             for (let i = 0; i < this.tableB.length; i++) {
+                //add_fjl 体制人员重复check start
+                let num = 0;
+                for (let j = 0; j < this.tableB.length; j++) {
+                    if (this.tableB[i].name === this.tableB[j].name) {
+                        num++;
+                        if (num > 1) {
+                            Message({
+                                message: this.$t(getUserInfo(this.tableB[i].name).userinfo.customername)
+                                    + this.$t("label.PFANS5001FORMVIEW_CHECKDOUBLE"),
+                                type: 'error',
+                                duration: 5 * 1000,
+                            });
+                            this.activeName = 'fourth';
+                            this.loading = false;
+                            return;
+                        }
+                    }
+                }
+                //add_fjl 体制人员重复check end
               // this.changeInt(this.tableB[i]);
               // 社内员工进组时间&退出时间必须Check
               if ((!this.tableB[i].admissiontime || this.tableB[i].admissiontime === '' || !this.tableB[i].exittime || this.tableB[i].exittime === '') && this.tableB[i].name !== '') {

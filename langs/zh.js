@@ -81,6 +81,8 @@ module.exports = {
     detailed: "详细记录",
     today: '今日考勤',
     viewlogmement: '查看日志',
+    conapp: '合同号申请',
+    actuarial: '精算',
   },
   table: {
     detail: '一览',
@@ -2913,6 +2915,7 @@ module.exports = {
     PFANS5001FORMVIEW_CHECKDATAERROR: '开发计划的预计开始时间不能大于预计结束时间',
     PFANS5001FORMVIEW_CHECKDATAERRORN: '社内的进组时间不能早于退出时间',
     PFANS5001FORMVIEW_CHECKDATAERRORW: '社外的入场时间不能早于退场时间',
+    PFANS5001FORMVIEW_CHECKDOUBLE: '在体制中重复了',
     PFANS5001FORMVIEW_SYSTEM: '体制',
     PFANS5001FORMVIEW_CONTRACT: '合同',
     PFANS5008FORMVIEW_CKECKTIME: '请填写时长',
