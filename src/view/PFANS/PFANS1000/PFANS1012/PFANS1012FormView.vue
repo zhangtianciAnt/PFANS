@@ -701,7 +701,7 @@
                             <!--                            <el-input :disabled="true" style="width: 100%" v-model="scope.row.budgetcoding">-->
                             <!--                            </el-input>-->
                             <el-select clearable style="width: 100%" v-model="scope.row.budgetcoding"
-                                       :disabled="checkexternal"
+                                       :disabled="checkexternal"    @change="getoptionsP(scope.row)"
                                        :placeholder="$t('normal.error_09')" :no="scope.row">
                               <el-option
                                 v-for="item in scope.row.optionsP"
@@ -933,7 +933,7 @@
                             <!--                            <el-input :disabled="true" style="width: 100%" v-model="scope.row.budgetcoding">-->
                             <!--                            </el-input>-->
                             <el-select clearable style="width: 100%" v-model="scope.row.budgetcoding" :no="scope.row"
-                                       :disabled="checkdisable"
+                                       :disabled="checkdisable" @change="getoptionsR(scope.row)"
                                        :placeholder="$t('normal.error_09')">
                               <el-option
                                 v-for="item in scope.row.optionsR"
@@ -1691,7 +1691,7 @@
           .then(response => {
               this.form = response.publicexpense;
 //add-ws-6/12-禅道105
-              if (this.form.moneys > '20000') {
+              if (this.form.moneys >= 20000) {
                 this.workflowCode = 'W0077';
               } else {
                 this.workflowCode = 'W0016';
@@ -2306,6 +2306,12 @@
       },
     },
     methods: {
+       getoptionsP(row) {
+        this.budgetcodingcheck = row.budgetcoding;
+      },
+      getoptionsR(row) {
+        this.budgetcodingchecknew = row.budgetcoding;
+      },
       //add-ws-5/26-No.208问题延申咱借款申请编号问题修改
       getLoanApplication() {
         this.loading = true;
@@ -2618,126 +2624,6 @@
         if (group) {
           this.companyen = group.companyen;
           this.Redirict = group.redirict;
-          // row.budgetcoding = group.encoding;
-          // this.code17 = this.Redirict == '0' ? 'PJ121' : 'PJ134';
-          // if (this.Redirict == '0') {
-          //     if (row.plsummary == 'PJ111001') {
-          //         row.accountcode = '',
-          //             this.code16 = 'PJ112';
-          //
-          //     } else if (row.plsummary == 'PJ111002') {
-          //         row.accountcode = '',
-          //             this.code16 = 'PJ113';
-          //
-          //     } else if (row.plsummary == 'PJ111003') {
-          //         row.accountcode = '',
-          //             this.code16 = 'PJ114';
-          //
-          //     } else if (row.plsummary == 'PJ111004') {
-          //         row.accountcode = '',
-          //             this.code16 = '';
-          //
-          //     } else if (row.plsummary == 'PJ111005') {
-          //         row.accountcode = '',
-          //             this.code16 = 'PJ116';
-          //
-          //     } else if (row.plsummary == 'PJ111006') {
-          //         row.accountcode = '',
-          //             this.code16 = 'PJ117';
-          //
-          //     } else if (row.plsummary == 'PJ111007') {
-          //         row.accountcode = '',
-          //             this.code16 = 'PJ118';
-          //
-          //     } else if (row.plsummary == 'PJ111008') {
-          //         row.accountcode = '',
-          //             this.code16 = 'PJ119';
-          //
-          //     } else if (row.plsummary == 'PJ111009') {
-          //         row.accountcode = '',
-          //             this.code16 = 'PJ120';
-          //
-          //     } else if (row.plsummary == 'PJ111010') {
-          //         row.accountcode = '',
-          //             this.code16 = 'PJ121';
-          //
-          //     } else if (row.plsummary == 'PJ111011') {
-          //         row.accountcode = '',
-          //             this.code16 = 'PJ122';
-          //
-          //     } else if (row.plsummary == 'PJ111012') {
-          //         row.accountcode = '',
-          //             this.code16 = 'PJ123';
-          //
-          //     } else if (row.plsummary == 'PJ111013') {
-          //         row.accountcode = '',
-          //             this.code16 = '';
-          //
-          //     } else if (row.plsummary == 'PJ111014') {
-          //         row.accountcode = '',
-          //             this.code16 = 'PJ125';
-          //
-          //     }
-          // }
-          // else if (this.Redirict == '1' || this.Redirict == '') {
-          //     if (row.plsummary == 'PJ111001') {
-          //         row.accountcode = '',
-          //             this.code16 = 'PJ127';
-          //
-          //     } else if (row.plsummary == 'PJ111002') {
-          //         row.accountcode = '',
-          //             this.code16 = 'PJ128';
-          //
-          //     } else if (row.plsummary == 'PJ111003') {
-          //         row.accountcode = '',
-          //             this.code16 = 'PJ129';
-          //
-          //     } else if (row.plsummary == 'PJ111004') {
-          //         row.accountcode = '',
-          //             this.code16 = 'PJ115';
-          //
-          //     } else if (row.plsummary == 'PJ111005') {
-          //         row.accountcode = '',
-          //             this.code16 = 'PJ130';
-          //
-          //     } else if (row.plsummary == 'PJ111006') {
-          //         row.accountcode = '',
-          //             this.code16 = '';
-          //
-          //     } else if (row.plsummary == 'PJ111007') {
-          //         row.accountcode = '',
-          //             this.code16 = 'PJ131';
-          //
-          //     } else if (row.plsummary == 'PJ111008') {
-          //         row.accountcode = '',
-          //             this.code16 = 'PJ132';
-          //
-          //     } else if (row.plsummary == 'PJ111009') {
-          //         row.accountcode = '',
-          //             this.code16 = 'PJ133';
-          //
-          //     } else if (row.plsummary == 'PJ111010') {
-          //         row.accountcode = '',
-          //             this.code16 = 'PJ134';
-          //
-          //     } else if (row.plsummary == 'PJ111011') {
-          //         row.accountcode = '',
-          //             this.code16 = 'PJ135';
-          //
-          //     } else if (row.plsummary == 'PJ111012') {
-          //         row.accountcode = '',
-          //             this.code16 = 'PJ136';
-          //
-          //     } else if (row.plsummary == 'PJ111013') {
-          //         row.accountcode = '',
-          //             this.code16 = 'PJ124';
-          //
-          //     } else if (row.plsummary == 'PJ111014') {
-          //         row.accountcode = '',
-          //             this.code16 = 'PJ137';
-          //
-          //     }
-          // }
           if (this.Redirict == '0') {
             row.accoundoptionsdate = [];
             let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ119');
@@ -2762,7 +2648,6 @@
             }
           }
         }
-        this.budgetcodingcheck = row.budgetcoding;
       },
       getGroupIdR(orglist, row) {
         if (orglist == '') {
@@ -2941,7 +2826,6 @@
             }
           }
         }
-        this.budgetcodingchecknew = row.budgetcoding;
       },
       getGroupIdP(orglist, row) {
         if (orglist == '') {
@@ -3113,7 +2997,6 @@
             }
           }
         }
-        this.budgetcodingcheck = row.budgetcoding;
       },
       getplsummary(row) {
         row.accountcode = '',
@@ -3282,12 +3165,11 @@
         if (row.accountcode == 'PJ116008' || row.accountcode == 'PJ130010') {
           this.budgetcodingchecknew = row.budgetcoding;
           this.checktime = true;
-          this.checkdisable = true;
+
           this.checkcode = dic.value2;
-          row.budgetcoding = dic.value4;
         } else {
           this.checktime = false;
-          this.checkdisable = false;
+
           row.servicehours = '';
           row.budgetcoding = this.budgetcodingchecknew;
         }
