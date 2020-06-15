@@ -3,7 +3,7 @@
     <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick" ref="container"
                          @workflowState="workflowState" v-loading="loading" @disabled="setdisabled"
                          :enableSave="enableSave"
-                         :canStart="canStart" @start="start" @end="end">
+                         :canStart="canStart" @start="start" @end="end" :workflowCode="workflowCode">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
                  style="padding:3vw">
@@ -407,13 +407,14 @@
         recipientslist: '',
         title: 'title.PFANS3005VIEW',
         enableSave: false,
+          workflowCode: '',
         buttonList: [],
         editableTabsValue: '0',
         editableTabs: [],
         tabIndex: 0,
         refuseShow: false,
         form: {
-          careerplan: true,
+            careerplan: '0',
           businessplantype: '',
           classificationtype: '',
           businessplanbalance: '',
@@ -589,11 +590,12 @@
           .dispatch('PFANS3005Store/getPurchaseOne', {'purchase_id': this.$route.params._id})
           .then(response => {
             this.form = response;
-            if (this.form.acceptstatus === '1') {
-              this.refuseShow = true;
-            } else {
-              this.refuseShow = false;
-            }
+              if (this.form.acceptstatus === '1') {
+                  this.refuseShow = true;
+              } else {
+                  this.refuseShow = false;
+              }
+
             //start(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
             let role = getCurrentRole2();
             if (role === '0') {
@@ -932,6 +934,20 @@
         } else {
           this.$refs['refform'].validate(valid => {
             if (valid) {
+                // add_fjl_06/15 --添加审批流程 start
+                if (this.form.careerplan === '1') {
+                    if (Number(this.form.businessplanamount) < 20000) {
+                        //最后节点到center长  事业计划内
+                        this.workflowCode = 'W0022'
+                    } else if (Number(this.form.businessplanamount) >= 20000) {
+                        //最后节点到总经理   事业计划外
+                        this.workflowCode = 'W0075'
+                    }
+                } else if (this.form.careerplan === '0') {
+                    //最后节点到总经理   事业计划外
+                    this.workflowCode = 'W0075'
+                }
+                // add_fjl_06/15 --添加审批流程 end
               this.loading = true;
               if (this.form.careerplan === '0') {
                 this.form.businessplantype = '';
