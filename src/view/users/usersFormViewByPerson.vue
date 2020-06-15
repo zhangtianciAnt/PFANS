@@ -82,7 +82,7 @@
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_CHILDDALIAN')">
                     <span style="margin-right: 1vw ">{{$t('label.no')}}</span>
-                    <el-switch v-model="form.dlnation" active-value="1" inactive-value="0"></el-switch>
+                    <el-switch v-model="form.dlnation" active-value="1" inactive-value="0" disabled></el-switch>
                     <span style="margin-left: 1vw ">{{$t('label.yes')}}</span>
                   </el-form-item>
                 </el-col>
