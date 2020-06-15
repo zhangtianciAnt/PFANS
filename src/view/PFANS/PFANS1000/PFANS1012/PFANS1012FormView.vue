@@ -2,7 +2,8 @@
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :canStart="canStart" :title="title"
                          @buttonClick="buttonClick" @disabled="setdisabled"
-                         @end="end" @start="start" @workflowState="workflowState" ref="container" v-loading="loading">
+                         @end="end" @start="start" @workflowState="workflowState" ref="container" v-loading="loading"
+                         :workflowCode="workflowCode">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
           <el-tabs v-model="activeName" type="border-card">
@@ -1350,6 +1351,9 @@
         optionstype: [],
         optionsdate: [{value: 'PP024001', lable: this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')}],
         tormbT: '',
+        //add-ws-6/12-禅道105
+        workflowCode: '',
+        //add-ws-6/12-禅道105
         Redirict: '',
         search: '',
         companyen: '',
@@ -1686,6 +1690,13 @@
           .dispatch('PFANS1012Store/selectById', {'publicexpenseid': this.$route.params._id})
           .then(response => {
               this.form = response.publicexpense;
+//add-ws-6/12-禅道105
+              if (this.form.moneys > '20000') {
+                this.workflowCode = 'W0077';
+              } else {
+                this.workflowCode = 'W0016';
+              }
+//add-ws-6/12-禅道105
               //add-ws-4/28-精算中，点击决裁，跳转画面
               let judgement = this.form.judgement.split(',');
               let judgementname = this.form.judgement_name.split(',');
@@ -3268,7 +3279,7 @@
       getcodenew(val, row) {
         row.accountcode = val;
         let dic = getDictionaryInfo(val);
-        if (row.accountcode == 'PJ116008' || row.accountcode == 'PJ130010' ) {
+        if (row.accountcode == 'PJ116008' || row.accountcode == 'PJ130010') {
           this.budgetcodingchecknew = row.budgetcoding;
           this.checktime = true;
           this.checkdisable = true;
@@ -3294,7 +3305,7 @@
         if (row.accountcode == 'PJ121012' || row.accountcode == 'PJ134013') {
           this.checkexternal = true;
           this.budgetcodingcheck = row.budgetcoding;
-          row.budgetcoding =  dic.value4;
+          row.budgetcoding = dic.value4;
         } else {
           this.checkexternal = false;
           row.budgetcoding = this.budgetcodingcheck;
@@ -3877,7 +3888,7 @@
             sums[index] = '--';
           }
         });
-        sums[7] = Math.round(sums[8] * 100) / 100;
+        sums[7] = Math.round(sums[7] * 100) / 100;
         sums[8] = Math.round(sums[8] * 100) / 100;
         sums[11] = Math.round(sums[11] * 100) / 100;
         sums[12] = Math.round(sums[12] * 100) / 100;
