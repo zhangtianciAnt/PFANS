@@ -3650,16 +3650,16 @@
                   });
                   this.ListOtherOneSex = 2;
                 }
-                if (this.ListOtherOneSex === 1) {
-                  this.totaldataOtherOneWoman = lettableQT1Woman;
-                } else if (this.ListOtherOneSex === 2) {
-                  this.totaldataOtherOneMan = lettableQT1Man;
-                }
-                this.tableQT1Woman = lettableQT1Woman;
-                this.tableQT1Man = lettableQT1Man;
-                this.ListOtherOne = 2;
-                this.getList();
               }
+              if (this.ListOtherOneSex === 1) {
+                  this.totaldataOtherOneWoman = lettableQT1Woman;
+              } else if (this.ListOtherOneSex === 2) {
+                  this.totaldataOtherOneMan = lettableQT1Man;
+              }
+              this.tableQT1Woman = lettableQT1Woman;
+              this.tableQT1Man = lettableQT1Man;
+              this.ListOtherOne = 2;
+              this.getList();
             }
             for (let a = 0; a < response.otherTwo.length; a++) {
               if (
