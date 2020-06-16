@@ -112,3 +112,22 @@ export function insertWages(data) {
   })
 }
 //zqu end
+
+//gbb start insert update wagesdepartment
+export function getWagesdepartment(data) {
+  return request({
+    url: 'wages/getWagesdepartment',
+    method: 'get',
+    params: data
+  });
+}
+//gbb end
+
+//gbb start insert update wagescompany
+export function getWagecompany() {
+  return request({
+    url: 'wages/getWagecompany',
+    method: 'get',
+  });
+}
+//gbb end
