@@ -50,6 +50,15 @@
                         fix: false,
                         filter: true,
                     },
+ //add-ws-6/16-禅道任务135和057
+                  {
+                    code: 'entrycondition',
+                    label: 'label.PFANS1024VIEW_ENTRYCONDITION',
+                    width: 120,
+                    fix: false,
+                    filter: true,
+                  },
+//add-ws-6/16-禅道任务135和057
                     {
                         code: 'applicationdate',
                         label: 'label.PFANS1024VIEW_APPLICATIONDATE',
@@ -85,6 +94,14 @@
                     let tabledata = response.contractapplication;
 
                     for (let i = 0; i < tabledata.length; i++) {
+                      //add-ws-6/16-禅道任务135和057
+                      if (tabledata[i].entrycondition !== null && tabledata[i].entrycondition !== '') {
+                        let letbudge = getDictionaryInfo(tabledata[i].entrycondition);
+                        if (letbudge) {
+                          tabledata[i].entrycondition = letbudge.value1;
+                        }
+                      }
+                      //add-ws-6/16-禅道任务135和057
                         tabledata[i].status = getStatus(tabledata[i].status);
                         let user = getUserInfo(tabledata[i].user_id);
                         if (user) {
