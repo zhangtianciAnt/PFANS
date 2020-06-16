@@ -1411,10 +1411,16 @@
         // }
       },
       change() {
-        this.form.lengthtime = '0';
         if (!this.form.finisheddate || !this.form.occurrencedate) {
           return;
         }
+          //加餐，哺乳（女）时，不清空，时间长度为1  add_fjl_06/16  start
+          if (this.form.errortype === "PR013022") {
+              this.form.lengthtime = '1';
+          } else {
+              this.form.lengthtime = '0';
+          }
+          //加餐，哺乳（女）时，不清空，时间长度为1  add_fjl_06/16  end
         this.diffNoDays();
         let diffDate = moment(this.form.finisheddate).diff(moment(this.form.occurrencedate), 'days') + 1;
         //当天时间    （外出，家长会，妊娠检查，劳灾，其他福利）
