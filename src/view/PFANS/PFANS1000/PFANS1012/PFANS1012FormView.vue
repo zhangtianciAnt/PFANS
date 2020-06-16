@@ -1178,6 +1178,32 @@
                 </el-table>
               </el-row>
             </el-tab-pane>
+
+            <!--            文件上传-->
+            <el-tab-pane :label="$t('label.PFANS1004VIEW_ADDBOOK')" name="seventh">
+              <el-form-item>
+                <el-row>
+                  <el-col :span="8">
+                    <el-upload
+                      :disabled="!disable"
+                      :action="upload"
+                      :file-list="fileList"
+                      :on-remove="fileRemove"
+                      :on-preview="fileDownload"
+                      :on-success="fileSuccess"
+                      :on-error="fileError"
+                      class="upload-demo"
+                      drag
+                      ref="upload">
+                      <i class="el-icon-upload"></i>
+                      <div class="el-upload__text">{{$t('label.enclosurecontent')}}<em>{{$t('normal.info_09')}}</em>
+                      </div>
+                    </el-upload>
+                  </el-col>
+                </el-row>
+              </el-form-item>
+            </el-tab-pane>
+
           </el-tabs>
         </el-form>
       </div>
@@ -1190,7 +1216,14 @@
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import user from '../../../components/user.vue';
   import dicselect from '../../../components/dicselect';
-  import {getDictionaryInfo, getOrgInfo, getOrgInfoByUserId, getUserInfo, getStatus} from '@/utils/customize';
+  import {
+    getDictionaryInfo,
+    getOrgInfo,
+    getOrgInfoByUserId,
+    getUserInfo,
+    getStatus,
+    uploadUrl
+  } from '@/utils/customize';
   import {Message} from 'element-ui';
   import moment from 'moment';
   import org from '../../../components/org';
@@ -1372,6 +1405,8 @@
         ploptionsdata: [],
         options: [],
         jude: [],
+        fileList: [],
+        upload: uploadUrl(),
         selectType: 'Single',
         title: 'title.PFANS1012VIEW',
         userlist: '',
@@ -1512,6 +1547,7 @@
           othersubjectname: '',
           otherremarks: '',
           suppliername: '',
+          uploadfile: '',
         },
         rules: {
           user_id: [{
@@ -1690,6 +1726,19 @@
           .dispatch('PFANS1012Store/selectById', {'publicexpenseid': this.$route.params._id})
           .then(response => {
               this.form = response.publicexpense;
+              if (this.form.uploadfile != null) {
+                if (this.form.uploadfile != '') {
+                  let uploadfile = this.form.uploadfile.split(';');
+                  for (var i = 0; i < uploadfile.length; i++) {
+                    if (uploadfile[i].split(',')[0] != '') {
+                      let o = {};
+                      o.name = uploadfile[i].split(',')[0];
+                      o.url = uploadfile[i].split(',')[1];
+                      this.fileList.push(o);
+                    }
+                  }
+                }
+              }
 //add-ws-6/12-禅道105
               if (this.form.moneys >= 20000) {
                 this.workflowCode = 'W0077';
@@ -2311,6 +2360,45 @@
       },
       getoptionsR(row) {
         this.budgetcodingchecknew = row.budgetcoding;
+      },
+      fileError(err, file, fileList) {
+        Message({
+          message: this.$t('normal.error_04'),
+          type: 'error',
+          duration: 5 * 1000,
+        });
+      },
+      fileRemove(file, fileList) {
+        this.fileList = [];
+        this.form.uploadfile = '';
+        for (var item of fileList) {
+          let o = {};
+          o.name = item.name;
+          o.url = item.url;
+          this.fileList.push(o);
+          this.form.uploadfile += item.name + ',' + item.url + ';';
+        }
+      },
+      fileDownload(file) {
+        if (file.url) {
+          var url = downLoadUrl(file.url);
+          window.open(url);
+        }
+      },
+      fileSuccess(response, file, fileList) {
+        this.fileList = [];
+        this.form.uploadfile = '';
+        for (var item of fileList) {
+          let o = {};
+          o.name = item.name;
+          if (!item.url) {
+            o.url = item.response.info;
+          } else {
+            o.url = item.url;
+          }
+          this.fileList.push(o);
+          this.form.uploadfile += o.name + ',' + o.url + ';';
+        }
       },
       //add-ws-5/26-No.208问题延申咱借款申请编号问题修改
       getLoanApplication() {
