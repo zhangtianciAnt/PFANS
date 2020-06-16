@@ -6,6 +6,7 @@
 <script>
     import EasyNormalTable from '@/components/EasyNormalTable';
     let moment = require('moment');
+    import {Message} from 'element-ui';
     export default {
         name: 'PFANS2009View',
         components: {
@@ -158,9 +159,45 @@
                 this.$store
                     .dispatch('PFANS2005Store/getWagecompany')
                     .then(response => {
-                        for (let i = 0; i < response.length; i++) {
-                            response[i].createon = moment(response[i].createon).format('YYYY-MM');
-                            response[i].createon = response[i].createon.replace('-',this.$t("label.year")) + this.$t("label.day")
+                        let letlength = response.length;
+                        //去年同期工资
+                        let letyear = moment(new Date(response[letlength - 1].createon).setFullYear(new Date(response[letlength - 1].createon).getFullYear() - 1)).format("YYYY-MM");
+                        //上个月工资
+                        let letmonth = moment(new Date(response[letlength - 1].createon).setMonth(new Date(response[letlength - 1].createon).getMonth() - 1)).format("YYYY-MM");
+                        for (let i = 0; i < letlength; i++) {
+                            if(moment(response[i].createon).format('YYYY-MM') === letmonth
+                            || moment(response[i].createon).format('YYYY-MM') === letyear){
+                                let letcreateon;
+                                if(moment(response[i].createon).format('YYYY-MM') === letmonth){
+                                    letcreateon = '前月との差額';
+                                }
+                                else{
+                                    letcreateon = '前年との差額';
+                                }
+                                response[i].createon = moment(response[i].createon).format('YYYY-MM').replace('-',this.$t("label.year")) + this.$t("label.day")
+                                response.push({
+                                    createon:letcreateon,
+                                    totalwages: Math.round((response[response.length - 1].totalwages - response[i].totalwages) * 100) / 100,
+                                    taxestotal: Math.round((response[response.length - 1].taxestotal - response[i].taxestotal) * 100) / 100,
+                                    total3: Math.round((response[response.length - 1].total3 - response[i].total3) * 100) / 100,
+                                    socialinsurance: Math.round((response[response.length - 1].socialinsurance - response[i].socialinsurance) * 100) / 100,
+                                    comaccumulationfund: Math.round((response[response.length - 1].comaccumulationfund - response[i].comaccumulationfund) * 100) / 100,
+                                    bonusmoney: Math.round((response[response.length - 1].bonusmoney - response[i].bonusmoney) * 100) / 100,
+                                    appreciation: Math.round((response[response.length - 1].appreciation - response[i].appreciation) * 100) / 100,
+                                    labourunionfunds: Math.round((response[response.length - 1].labourunionfunds - response[i].labourunionfunds) * 100) / 100,
+                                    other4: Math.round((response[response.length - 1].other4 - response[i].other4) * 100) / 100,
+                                    other5: Math.round((response[response.length - 1].other5 - response[i].other5) * 100) / 100,
+                                    total: Math.round((response[response.length - 1].total - response[i].total) * 100) / 100,
+                                    overtimesubsidy: Math.round((response[response.length - 1].overtimesubsidy - response[i].overtimesubsidy) * 100) / 100,
+                                    thismonthadjustment: Math.round((response[response.length - 1].thismonthadjustment - response[i].thismonthadjustment) * 100) / 100,
+                                    realwages: Math.round((response[response.length - 1].realwages - response[i].realwages) * 100) / 100,
+                                    shouldcumulative: Math.round((response[response.length - 1].shouldcumulative - response[i].shouldcumulative) * 100) / 100,
+                                    other6: Math.round((response[response.length - 1].other6 - response[i].other6) * 100) / 100,
+                                });
+                            }
+                            else{
+                                response[i].createon = moment(response[i].createon).format('YYYY-MM').replace('-',this.$t("label.year")) + this.$t("label.day")
+                            }
                         }
                         this.data = response;
                         this.loading = false;
