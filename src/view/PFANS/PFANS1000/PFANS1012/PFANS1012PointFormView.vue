@@ -294,7 +294,7 @@
                     vote.remarks = response[i].filename;
                     vote.numbers = response[i].judgnumbers;
                     vote.value = response[i].judgementid;
-                    vote.label = this.$t('menu.PFANS1004') + '_' + response[i].judgnumbers;
+                    vote.label = response[i].judgnumbers;
                     this.options.push(vote);
                     this.totaldata.push(vote);
                     this.getList();
@@ -324,7 +324,7 @@
                     vote.remarks = response[i].filename;
                     vote.numbers = response[i].judgnumbers;
                     vote.value = response[i].judgementid;
-                    vote.label = this.$t('menu.PFANS1004') + '_' + response[i].judgnumbers;
+                    vote.label = response[i].judgnumbers;
                     this.options.push(vote);
                     this.totaldata.push(vote);
                     this.getList();
@@ -359,7 +359,7 @@
                   vote.remarks = response[i].remarks;
                   vote.numbers = response[i].purchasenumbers;
                   vote.value = response[i].purchaseapply_id;
-                  vote.label = this.$t('menu.PFANS1005') + '_' + response[i].purchasenumbers;
+                  vote.label = response[i].purchasenumbers;
                   this.options.push(vote);
                   this.totaldata.push(vote);
                   this.getList();
@@ -393,7 +393,7 @@
                   vote.remarks = response[i].remarks;
                   vote.numbers = response[i].numbercation;
                   vote.value = response[i].communication_id;
-                  vote.label = this.$t('menu.PFANS1010') + '_' + response[i].numbercation;
+                  vote.label = response[i].numbercation;
                   this.options.push(vote);
                   this.totaldata.push(vote);
                   this.getList();
@@ -427,7 +427,7 @@
                   vote.remarks = response[i].remarks;
                   vote.numbers = response[i].contractnumber;
                   vote.value = response[i].award_id;
-                  vote.label = this.$t('label.PFANS1012VIEW_CHECKLIST') + '_' + response[i].contractnumber;
+                  vote.label = response[i].contractnumber;
                   this.options.push(vote);
                   this.totaldata.push(vote);
                   this.getList();
@@ -462,7 +462,7 @@
                     vote.remarks = response[i].purchasepurpose;
                     vote.numbers = response[i].purnumbers;
                     vote.value = response[i].purchase_id;
-                    vote.label = this.$t('label.PFANS1012VIEW_PURCHASSES') + '_' + response[i].purnumbers;
+                    vote.label = response[i].purnumbers;
                     this.options.push(vote);
                     this.totaldata.push(vote);
                     this.getList();
@@ -493,7 +493,7 @@
                     vote.remarks = response[i].purchasepurpose;
                     vote.numbers = response[i].purnumbers;
                     vote.value = response[i].purchase_id;
-                    vote.label = this.$t('label.PFANS1012VIEW_PURCHASSES') + '_' + response[i].purnumbers;
+                    vote.label = response[i].purnumbers;
                     this.options.push(vote);
                     this.totaldata.push(vote);
                     this.getList();
@@ -527,7 +527,7 @@
                   vote.remarks = response[i].filename;
                   vote.numbers = response[i].judgnumbers;
                   vote.value = response[i].judgementid;
-                  vote.label = this.$t('menu.PFANS1003') + '_' + response[i].judgnumbers;
+                  vote.label = response[i].judgnumbers;
                   this.options.push(vote);
                   this.totaldata.push(vote);
                   this.getList();
@@ -562,7 +562,7 @@
                   vote.remarks = response[i].remark;
                   vote.numbers = response[i].invoiceno;
                   vote.value = response[i].publicexpenseid;
-                  vote.label = this.$t('menu.PFANS1012') + '_' + response[i].invoiceno;
+                  vote.label = response[i].invoiceno;
                   this.options.push(vote);
                   this.totaldata.push(vote);
                   this.getList();

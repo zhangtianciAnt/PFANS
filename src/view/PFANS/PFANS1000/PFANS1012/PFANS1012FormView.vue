@@ -115,7 +115,8 @@
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_EXPECTEDPAYDATE')">
-                      <el-date-picker :disabled="!disable" style="width:20vw" v-model="form.expectedpaydate">
+                      <el-date-picker :disabled="checkexpectedpaydate" style="width:20vw"
+                                      v-model="form.expectedpaydate">
                       </el-date-picker>
                     </el-form-item>
                   </el-col>
@@ -701,7 +702,7 @@
                             <!--                            <el-input :disabled="true" style="width: 100%" v-model="scope.row.budgetcoding">-->
                             <!--                            </el-input>-->
                             <el-select clearable style="width: 100%" v-model="scope.row.budgetcoding"
-                                       :disabled="checkexternal"    @change="getoptionsP(scope.row)"
+                                       :disabled="checkexternal" @change="getoptionsP(scope.row)"
                                        :placeholder="$t('normal.error_09')" :no="scope.row">
                               <el-option
                                 v-for="item in scope.row.optionsP"
@@ -1360,6 +1361,7 @@
         }
       };
       return {
+        checkexpectedpaydate: true,
         DataList2: [],
         show12: false,
         DataList: [{
@@ -1746,6 +1748,19 @@
                 this.workflowCode = 'W0016';
               }
 //add-ws-6/12-禅道105
+//add-ws-6/16-禅道103
+              if (this.form.paymentmethod === 'PJ004001') {
+                this.checkexpectedpaydate = false;
+              } else if (this.form.paymentmethod === 'PJ004002') {
+                this.checkexpectedpaydate = false;
+              } else if (this.form.paymentmethod === 'PJ004003') {
+                this.checkexpectedpaydate = true;
+              } else if (this.form.paymentmethod === 'PJ004004') {
+                this.checkexpectedpaydate = true;
+              } else {
+                this.checkexpectedpaydate = true;
+              }
+//add-ws-6/16-禅道103
               //add-ws-4/28-精算中，点击决裁，跳转画面
               let judgement = this.form.judgement.split(',');
               let judgementname = this.form.judgement_name.split(',');
@@ -2355,7 +2370,7 @@
       },
     },
     methods: {
-       getoptionsP(row) {
+      getoptionsP(row) {
         this.budgetcodingcheck = row.budgetcoding;
       },
       getoptionsR(row) {
@@ -2461,7 +2476,7 @@
       viewdata(row) {
         this.$store.commit('global/SET_HISTORYURL', '');
         this.$store.commit('global/SET_WORKFLOWURL', '/FFFFF1012FormView');
-        if (row.judgement_name.substring(0, 2) === this.$t('menu.PFANS1001')) {
+        if (row.judgement_name.substring(0, 2) === 'JC') {
           this.$router.push({
             name: 'PFANS1004FormView',
             params: {
@@ -2472,7 +2487,7 @@
               disabled: false,
             },
           });
-        } else if (row.judgement_name.substring(0, 2) === this.$t('label.PFANS1012VIEW_QIANYUAN')) {
+        } else if (row.judgement_name.substring(0, 2) === 'QY') {
           this.$router.push({
             name: 'PFANS1005FormView',
             params: {
@@ -2483,7 +2498,7 @@
               disabled: false,
             },
           });
-        } else if (row.judgement_name.substring(0, 2) === this.$t('label.PFANS1012VIEW_JIAOJI')) {
+        } else if (row.judgement_name.substring(0, 2) === 'JJ') {
           this.$router.push({
             name: 'PFANS1010FormView',
             params: {
@@ -2494,7 +2509,7 @@
               disabled: false,
             },
           });
-        } else if (row.judgement_name.substring(0, 2) === this.$t('label.PFANS1012VIEW_WEITUO')) {
+        } else if (row.judgement_name.substring(0, 1) === 'N') {
           this.$router.push({
             name: 'PFANS1025FormView',
             params: {
@@ -2505,7 +2520,7 @@
               disabled: false,
             },
           });
-        } else if (row.judgement_name.substring(0, 2) === this.$t('label.PFANS1012VIEW_CAIGOU')) {
+        } else if (row.judgement_name.substring(0, 2) === 'CG') {
           this.$router.push({
             name: 'PFANS3005FormView',
             params: {
@@ -2516,7 +2531,7 @@
               disabled: false,
             },
           });
-        } else if (row.judgement_name.substring(0, 2) === this.$t('label.PFANS1012VIEW_WUCHANG')) {
+        } else if (row.judgement_name.substring(0, 2) === 'WC') {
           this.$router.push({
             name: 'PFANS1003FormView',
             params: {
@@ -3455,6 +3470,7 @@
           this.form.receivables = '';
           this.form.loan = '';
           this.form.fullname = '';
+          this.checkexpectedpaydate = false;
         } else if (val === 'PJ004002') {
           this.show1 = false;
           this.show2 = true;
@@ -3471,6 +3487,7 @@
           this.form.loan = '';
           this.form.fullname = '';
           this.form.suppliername = ' ';
+          this.checkexpectedpaydate = false;
         } else if (val === 'PJ004003') {
           this.show1 = false;
           this.show2 = false;
@@ -3486,6 +3503,7 @@
           this.namelist = '';
           this.form.loan = '';
           this.form.fullname = '';
+          this.checkexpectedpaydate = true;
         } else if (val === 'PJ004004') {
           this.show1 = false;
           this.show2 = false;
@@ -3502,6 +3520,7 @@
           this.form.receivables = '';
           this.form.fullname = '';
           this.form.suppliername = ' ';
+          this.checkexpectedpaydate = true;
         } else {
           this.show1 = false;
           this.show2 = false;
@@ -3516,6 +3535,7 @@
           this.form.user_name = '';
           this.form.receivables = '';
           this.form.loan = '';
+          this.checkexpectedpaydate = true;
         }
       },
       getmodule(val) {
@@ -4175,9 +4195,9 @@
                 }
               }
               let error = 0;
-              //add-ws-6/9-禅道033
-              if (this.form.bsexternal === '1') {
-                if (this.form.expectedpaydate === '') {
+              //add-ws-6/16-禅道103
+              if (!this.checkexpectedpaydate) {
+                if (this.form.expectedpaydate === null) {
                   error = error + 1;
                   this.activeName = 'first';
                   Message({
@@ -4188,7 +4208,7 @@
                   return;
                 }
               }
-              //add-ws-6/9-禅道033
+              //add-ws-6/16-禅道103
               //ADD-WS-增加公共费用精算书check
               if (this.form.type === 'PJ001001') {
                 for (let i = 0; i < this.tableT.length; i++) {
