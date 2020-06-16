@@ -196,17 +196,11 @@
 <style lang='scss'>
   .el-input.is-disabled .el-input__inner {
     background-color: white;
-    border-color: #E4E7ED;
-    color: #C0C4CC;
+    border:none;
+    color: #606266;
     cursor: not-allowed;
   }
   .el-textarea.is-disabled .el-textarea__inner{
-    background-color: white;
-    border-color: #E4E7ED;
-    color: #C0C4CC;
-    cursor: not-allowed;
-  }
-  .el-input.is-disabled .el-input__inner{
     background-color: white;
     border:none;
     color: #606266;
