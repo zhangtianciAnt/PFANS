@@ -158,10 +158,10 @@
                 this.$store
                     .dispatch('PFANS2005Store/getWagecompany')
                     .then(response => {
-                        // for (let i = 0; i < response.length; i++) {
-                        //     debugger;
-                        //     response[i].createon = moment(response[i].createon).format('YYYY-MM');
-                        // }
+                        for (let i = 0; i < response.length; i++) {
+                            response[i].createon = moment(response[i].createon).format('YYYY-MM');
+                            response[i].createon = response[i].createon.replace('-',this.$t("label.year")) + this.$t("label.day")
+                        }
                         this.data = response;
                         this.loading = false;
                     })
