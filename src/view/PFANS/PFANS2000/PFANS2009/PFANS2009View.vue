@@ -5,7 +5,7 @@
 
 <script>
     import EasyNormalTable from '@/components/EasyNormalTable';
-
+    let moment = require('moment');
     export default {
         name: 'PFANS2009View',
         components: {
@@ -88,7 +88,7 @@
                         filter: true,
                     },
                     {
-                        code: 'other4 ',
+                        code: 'other4',
                         label: 'label.PFANS2009VIEW_DEPARTMENT',
                         width: 200,
                         fix: false,
@@ -130,7 +130,7 @@
                         filter: true,
                     },
                     {
-                        code: 'totalsocialsecurity',
+                        code: 'shouldcumulative',
                         label: 'label.PFANS2009VIEW_SHAKONORIHIRO',
                         width: 200,
                         fix: false,
@@ -158,6 +158,10 @@
                 this.$store
                     .dispatch('PFANS2005Store/getWagecompany')
                     .then(response => {
+                        // for (let i = 0; i < response.length; i++) {
+                        //     debugger;
+                        //     response[i].createon = moment(response[i].createon).format('YYYY-MM');
+                        // }
                         this.data = response;
                         this.loading = false;
                     })
