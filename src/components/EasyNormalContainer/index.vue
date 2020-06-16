@@ -206,12 +206,19 @@
     color: #C0C4CC;
     cursor: not-allowed;
   }
+  .el-input.is-disabled .el-input__inner{
+    background-color: white;
+    border:none;
+    color: #606266;
+    cursor: not-allowed;
+  }
   .el-form--label-top .el-form-item__label {
     float: none;
     display: inline-block;
     text-align: left;
-    padding: 0 0 10px;
+    padding: 10px 0 10px 0;
     font-size: 0.8rem;
+    line-height: 10px;
     color: #005BAA;
     font-weight: bold;
   }
