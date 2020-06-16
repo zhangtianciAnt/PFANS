@@ -589,6 +589,7 @@
         workflowCode: '',
         canStart: true,
         loading: false,
+          leaveNum: 0,
         optionRest: [],
         errort: '',
         checkDate: '',
@@ -1410,10 +1411,16 @@
         // }
       },
       change() {
-        this.form.lengthtime = '0';
         if (!this.form.finisheddate || !this.form.occurrencedate) {
           return;
         }
+          //加餐，哺乳（女）时，不清空，时间长度为1  add_fjl_06/16  start
+          if (this.form.errortype === "PR013022") {
+              this.form.lengthtime = '1';
+          } else {
+              this.form.lengthtime = '0';
+          }
+          //加餐，哺乳（女）时，不清空，时间长度为1  add_fjl_06/16  end
         this.diffNoDays();
         let diffDate = moment(this.form.finisheddate).diff(moment(this.form.occurrencedate), 'days') + 1;
         //当天时间    （外出，家长会，妊娠检查，劳灾，其他福利）
@@ -2273,77 +2280,46 @@
                   return;
                 }
               }
-
-
-              //add-ws-6/8-禅道035
-              if (this.$route.params._id) {
-                //总经理审批自动通过
-                // if (getCurrentRole() === '1' && this.form.status === '4' && this.form.user_id === '5e78fefff1560b363cdd6db7') {
-                //   this.form.status = '7';
-                // }
-                this.form.abnormalid = this.$route.params._id;
+//    add_fjl_06/16  -- 添加异常申请每天累计不超过8小时check  start
                 this.loading = true;
                 this.$store
-                  .dispatch('PFANS2016Store/updatePfans2016', this.form)
-                  .then(response => {
-                    this.loading = false;
-                    this.data = response;
-                    Message({
-                      message: this.$t('normal.success_02'),
-                      type: 'success',
-                      duration: 5 * 1000,
+                    .dispatch('PFANS2016Store/getLeaveNumber', this.form)
+                    .then(response => {
+                        this.leaveNum = response;
+                        this.loading = false;
+                        if (parseInt(this.form.status) >= 4) {
+                            if (rediffDate * 8 - Number(this.leaveNum) - Number(this.form.relengthtime) < 0) {
+                                Message({
+                                    message: this.$t('异常申请每天累计不超过8小时'),
+                                    type: 'error',
+                                    duration: 5 * 1000,
+                                });
+                                return;
+                            } else {
+                                this.updint();
+                            }
+                        } else {
+                            if (diffDate * 8 - Number(this.leaveNum) - Number(this.form.lengthtime) < 0) {
+                                Message({
+                                    message: this.$t('异常申请每天累计不超过8小时'),
+                                    type: 'error',
+                                    duration: 5 * 1000,
+                                });
+                                return;
+                            } else {
+                                this.updint();
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        Message({
+                            message: error,
+                            type: 'error',
+                            duration: 5 * 1000,
+                        });
+                        this.loading = false;
                     });
-                    if (val !== 'save' && val !== 'StartWorkflow') {
-                      if (this.$store.getters.historyUrl) {
-                        this.$router.push(this.$store.getters.historyUrl);
-                      }
-                    }
-
-                    if (val === 'StartWorkflow') {
-                      this.disable = false;
-                      this.dislengthtime = true;
-                      this.checkrelengthtime = true;
-                      this.disrevacationtype = true;
-                      this.$refs.container.$refs.workflow.startWorkflow();
-                    }
-                  })
-                  .catch(error => {
-                    Message({
-                      message: error,
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
-                    this.loading = false;
-                  });
-              } else {
-                //总经理审批自动通过
-                if (getCurrentRole() === '1') {
-                  this.form.status = '4';
-                }
-                this.loading = true;
-                this.$store
-                  .dispatch('PFANS2016Store/createPfans2016', this.form)
-                  .then(response => {
-                    this.data = response;
-                    this.loading = false;
-                    Message({
-                      message: this.$t('normal.success_01'),
-                      type: 'success',
-                      duration: 5 * 1000,
-                    });
-                    if (this.$store.getters.historyUrl) {
-                      this.$router.push(this.$store.getters.historyUrl);
-                    }
-                  })
-                  .catch(error => {
-                    Message({
-                      message: error,
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
-                    this.loading = false;
-                  });
-              }
+//    add_fjl_06/16  -- 添加异常申请每天累计不超过8小时check  end
             } else {
               Message({
                 message: this.$t('normal.error_12'),
@@ -2354,6 +2330,77 @@
           },
         );
       },
+        updint() {
+            //add-ws-6/8-禅道035
+            if (this.$route.params._id) {
+                //总经理审批自动通过
+                // if (getCurrentRole() === '1' && this.form.status === '4' && this.form.user_id === '5e78fefff1560b363cdd6db7') {
+                //   this.form.status = '7';
+                // }
+                this.form.abnormalid = this.$route.params._id;
+                this.loading = true;
+                this.$store
+                    .dispatch('PFANS2016Store/updatePfans2016', this.form)
+                    .then(response => {
+                        this.loading = false;
+                        this.data = response;
+                        Message({
+                            message: this.$t('normal.success_02'),
+                            type: 'success',
+                            duration: 5 * 1000,
+                        });
+                        if (val !== 'save' && val !== 'StartWorkflow') {
+                            if (this.$store.getters.historyUrl) {
+                                this.$router.push(this.$store.getters.historyUrl);
+                            }
+                        }
+
+                        if (val === 'StartWorkflow') {
+                            this.disable = false;
+                            this.dislengthtime = true;
+                            this.checkrelengthtime = true;
+                            this.disrevacationtype = true;
+                            this.$refs.container.$refs.workflow.startWorkflow();
+                        }
+                    })
+                    .catch(error => {
+                        Message({
+                            message: error,
+                            type: 'error',
+                            duration: 5 * 1000,
+                        });
+                        this.loading = false;
+                    });
+            } else {
+                //总经理审批自动通过
+                if (getCurrentRole() === '1') {
+                    this.form.status = '4';
+                }
+                this.loading = true;
+                this.$store
+                    .dispatch('PFANS2016Store/createPfans2016', this.form)
+                    .then(response => {
+                        this.data = response;
+                        this.loading = false;
+                        Message({
+                            message: this.$t('normal.success_01'),
+                            type: 'success',
+                            duration: 5 * 1000,
+                        });
+                        if (this.$store.getters.historyUrl) {
+                            this.$router.push(this.$store.getters.historyUrl);
+                        }
+                    })
+                    .catch(error => {
+                        Message({
+                            message: error,
+                            type: 'error',
+                            duration: 5 * 1000,
+                        });
+                        this.loading = false;
+                    });
+            }
+        },
       buttonClick2(val) {
         //总经理审批自动通过
         //debugger
