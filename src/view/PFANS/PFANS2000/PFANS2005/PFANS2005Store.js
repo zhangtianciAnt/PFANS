@@ -1,6 +1,7 @@
 import {
   creategiving, deleteFive, givinglist, deleteteappreciation, getDataList, getCasgiftApply, deleteothertwo,
-  deleteotherfour, save, deleteadditional, thisMonthLacktimeChange, thisMonthOvertimeChange,insertWages
+  deleteotherfour, save, deleteadditional, thisMonthLacktimeChange, thisMonthOvertimeChange,insertWages,
+  getWagesdepartment,getWagecompany
 } from './PFANS2005Api'
 import { updateNewUser } from "../../PFANS5000/PFANS5008/PFANS5008Api";
 const PFANS2005Store = {
@@ -184,8 +185,39 @@ const PFANS2005Store = {
           reject(error);
         })
       })
-    }
+    },
     // zqu end
+    //gbb start insert update wagesdepartment
+    getWagesdepartment({ commit }, data) {
+      return new Promise((resolve, reject) => {
+        getWagesdepartment(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    // gbb end
+
+    //gbb start insert update wagescompany
+    getWagecompany({ commit }) {
+      return new Promise((resolve, reject) => {
+        getWagecompany().then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    // gbb end
   }
 };
 

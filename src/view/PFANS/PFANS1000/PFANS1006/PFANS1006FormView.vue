@@ -323,6 +323,29 @@
                 </el-col>
               </el-row>
             </el-collapse-item>
+            <el-collapse-item>
+              <template slot="title">
+                <span class="collapse_Title" style="margin-left:0.5%;color:#005BAA">{{$t('label.enclosure')}}</span>
+              </template>
+              <div style="margin-left:5%;margin-top:1%">
+                <el-row>
+                  <el-upload
+                    :action="upload"
+                    :file-list="fileList"
+                    :on-remove="fileRemove"
+                    :on-preview="fileDownload"
+                    :on-success="fileSuccess"
+                    :on-error="fileError"
+                    class="upload-demo"
+                    drag
+                    ref="upload">
+                    <i class="el-icon-upload"></i>
+                    <div class="el-upload__text">{{$t('label.enclosurecontent')}}<em>{{$t('normal.info_09')}}</em>
+                    </div>
+                  </el-upload>
+                </el-row>
+              </div>
+            </el-collapse-item>
           </el-collapse>
         </el-form>
       </div>
@@ -338,6 +361,7 @@
   import moment from 'moment';
   import png11 from '@/assets/png/11.png';
   import {validateNumber} from '@/utils/validate';
+  import {downLoadUrl, uploadUrl} from '../../../../utils/customize';
 
   export default {
     name: 'PFANS1006FormView',
@@ -504,6 +528,7 @@
           name: '',
           accountpayeename: '',
           reasonfordelay: '',
+          uploadfile: '',
           application_date: moment(new Date()).format('YYYY-MM-DD'),
         },
         currentRow: '',
@@ -519,6 +544,8 @@
         show2: false,
         show3: false,
         menuList: [],
+        upload: uploadUrl(),
+        fileList: [],
         disabled: false,
         rules: {
           user_id: [{
@@ -683,6 +710,19 @@
               this.show7 = true;
             }
             this.getBudt(this.userlist);
+            if (this.form.uploadfile != null) {
+              if (this.form.uploadfile != '') {
+                let uploadfile = this.form.uploadfile.split(';');
+                for (var i = 0; i < uploadfile.length; i++) {
+                  if (uploadfile[i].split(',')[0] != '') {
+                    let o = {};
+                    o.name = uploadfile[i].split(',')[0];
+                    o.url = uploadfile[i].split(',')[1];
+                    this.fileList.push(o);
+                  }
+                }
+              }
+            }
             this.loading = false;
           })
           .catch(error => {
@@ -792,6 +832,45 @@
         this.form.payeecode = val2;
         this.form.payeebankaccountnumber = val3;
         this.form.payeebankaccount = val4;
+      },
+      fileError(err, file, fileList) {
+        Message({
+          message: this.$t('normal.error_04'),
+          type: 'error',
+          duration: 5 * 1000,
+        });
+      },
+      fileRemove(file, fileList) {
+        this.fileList = [];
+        this.form.uploadfile = '';
+        for (var item of fileList) {
+          let o = {};
+          o.name = item.name;
+          o.url = item.url;
+          this.fileList.push(o);
+          this.form.uploadfile += item.name + ',' + item.url + ';';
+        }
+      },
+      fileDownload(file) {
+        if (file.url) {
+          var url = downLoadUrl(file.url);
+          window.open(url);
+        }
+      },
+      fileSuccess(response, file, fileList) {
+        this.fileList = [];
+        this.form.uploadfile = '';
+        for (var item of fileList) {
+          let o = {};
+          o.name = item.name;
+          if (!item.url) {
+            o.url = item.response.info;
+          } else {
+            o.url = item.url;
+          }
+          this.fileList.push(o);
+          this.form.uploadfile += o.name + ',' + o.url + ';';
+        }
       },
       handleClickChange(val) {
         this.currentRow = val.accountpayeename;

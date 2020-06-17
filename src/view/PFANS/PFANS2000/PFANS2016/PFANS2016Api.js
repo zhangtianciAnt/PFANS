@@ -93,6 +93,14 @@ export function updateOvertime(data) {
   })
 }
 
+export function getLeaveNumber(data) {
+  return request({
+    url: 'abNormal/getLeaveNumber',
+    method: 'post',
+    data: data
+  })
+}
+
 //add_fjl_05/26 --添加代休剩余
 export function getRestday(data) {
   return request({

@@ -3,7 +3,7 @@
     <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick" ref="container"
                          @workflowState="workflowState" v-loading="loading" @disabled="setdisabled"
                          :enableSave="enableSave"
-                         :canStart="canStart" @start="start" @end="end">
+                         :canStart="canStart" @start="start" @end="end" :workflowCode="workflowCode">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
                  style="padding:3vw">
@@ -73,6 +73,20 @@
                 </el-date-picker>
               </el-form-item>
             </el-col>
+            <!--add-ws-6/16-禅道136-->
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS5004VIEW_PROJECTNAMW')">
+                <el-select v-model="form.project_id" :disabled="!disable" style="width: 20vw" clearable>
+                  <el-option
+                    v-for="item in optionsdate"
+                    :key="item.value"
+                    :label="item.lable"
+                    :value="item.value">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+            <!--            add-ws-6/16-禅道136-->
           </el-row>
           <el-row>
             <el-col :span="8">
@@ -389,6 +403,7 @@
         }
       };
       return {
+        optionsdate: [{value: 'PP024001', lable: this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')}],
         options1: [],
         centerid: '',
         groupid: '',
@@ -407,13 +422,15 @@
         recipientslist: '',
         title: 'title.PFANS3005VIEW',
         enableSave: false,
+        workflowCode: '',
         buttonList: [],
         editableTabsValue: '0',
         editableTabs: [],
         tabIndex: 0,
         refuseShow: false,
         form: {
-          careerplan: true,
+          project_id: '',
+          careerplan: '0',
           businessplantype: '',
           classificationtype: '',
           businessplanbalance: '',
@@ -577,6 +594,7 @@
       };
     },
     mounted() {
+      this.getCompanyProjectList()
       let role = getCurrentRole2();
       if (role === '0') {
         this.acceptShow1 = false;
@@ -594,6 +612,7 @@
             } else {
               this.refuseShow = false;
             }
+
             //start(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
             let role = getCurrentRole2();
             if (role === '0') {
@@ -721,6 +740,92 @@
       }
     },
     methods: {
+      //add-ws-6/16-禅道137
+      getCompanyProjectList() {
+        if (this.disable) {
+          this.loading = true;
+          this.$store
+            .dispatch('PFANS5009Store/getSiteList5', {})
+            .then(response => {
+              for (let i = 0; i < response.length; i++) {
+                this.optionsdate.push({
+                  value: response[i].companyprojects_id,
+                  lable: response[i].numbers + '_' + response[i].project_name,
+                });
+              }
+              this.$store
+                .dispatch('PFANS5013Store/getMyConProject', {})
+                .then(response => {
+                  for (let i = 0; i < response.length; i++) {
+                    this.optionsdate.push({
+                      value: response[i].comproject_id,
+                      lable: response[i].numbers + '_' + response[i].project_name,
+                    });
+                  }
+                  this.loading = false;
+                })
+                .catch(error => {
+                  Message({
+                    message: error,
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  this.loading = false;
+                });
+              this.loading = false;
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
+        } else {
+          this.loading = true;
+          this.$store
+            .dispatch('PFANS5013Store/Listproject2', {})
+            .then(response => {
+              for (let i = 0; i < response.length; i++) {
+                this.optionsdate.push({
+                  value: response[i].companyprojects_id,
+                  lable: response[i].numbers + '_' + response[i].project_name,
+                });
+              }
+              this.$store
+                .dispatch('PFANS5013Store/Listproject', {})
+                .then(response => {
+                  for (let i = 0; i < response.length; i++) {
+                    this.optionsdate.push({
+                      value: response[i].comproject_id,
+                      lable: response[i].numbers + '_' + response[i].project_name,
+                    });
+                  }
+                  this.loading = false;
+                })
+                .catch(error => {
+                  Message({
+                    message: error,
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  this.loading = false;
+                });
+
+              this.loading = false;
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
+        }
+      },
+      //add-ws-6/16-禅道137
       //change受理状态  add_fjl
       changeAcc(val) {
         this.form.acceptstatus = val;
@@ -753,8 +858,8 @@
       },
       setdisabled(val) {
         if (this.$route.params.disabled) {
-            //fjl --与总务下其他几本同步
-            this.disabled = val;
+          //fjl --与总务下其他几本同步
+          this.disabled = val;
         }
       },
       changeSum() {
@@ -907,7 +1012,7 @@
           name: 'PFANS1012FormView',
           params: {
             _id: id,
-            disabled : disable,
+            disabled: disable,
           },
         });
       },
@@ -932,6 +1037,20 @@
         } else {
           this.$refs['refform'].validate(valid => {
             if (valid) {
+              // add_fjl_06/15 --添加审批流程 start
+              if (this.form.careerplan === '1') {
+                if (Number(this.form.businessplanamount) < 20000) {
+                  //最后节点到center长  事业计划内
+                  this.workflowCode = 'W0022';
+                } else if (Number(this.form.businessplanamount) >= 20000) {
+                  //最后节点到总经理   事业计划外
+                  this.workflowCode = 'W0075';
+                }
+              } else if (this.form.careerplan === '0') {
+                //最后节点到总经理   事业计划外
+                this.workflowCode = 'W0075';
+              }
+              // add_fjl_06/15 --添加审批流程 end
               this.loading = true;
               if (this.form.careerplan === '0') {
                 this.form.businessplantype = '';

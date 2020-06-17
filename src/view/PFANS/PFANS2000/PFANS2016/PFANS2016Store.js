@@ -1,6 +1,6 @@
 import {createPfans2016, getFpans2016List, updatePfans2016,getPfans2016One,
         getOvertimelist,getReplacerest,cklength,updateNewUser,getSickleave,getFpans2016List2,
-  selectAbNormalParent, updateOvertime, getRestday
+  selectAbNormalParent, updateOvertime, getRestday, getLeaveNumber
 } from './PFANS2016Api'
 
 const PFANS2016Store = {
@@ -8,6 +8,20 @@ const PFANS2016Store = {
   state: {},
   mutations: {},
   actions: {
+
+    getLeaveNumber({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getLeaveNumber(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
 
     updateOvertime({commit}, data) {
       return new Promise((resolve, reject) => {

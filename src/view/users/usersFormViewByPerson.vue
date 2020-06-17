@@ -8,7 +8,7 @@
       v-loading="loading"
     >
       <div style="margin-top:30px" slot="customize">
-        <el-form ref="form" :model="form" :rules="rules" label-position="top" label-width="8vw">
+        <el-form ref="form" :model="form" label-position="top" label-width="8vw">
           <el-tabs v-model="activeName" type="border-card">
             <el-tab-pane
               :label="$t('label.PFANSUSERFORMVIEW_BASICPERSONALINFORMATION')"
@@ -77,6 +77,13 @@
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_NATION')" prop="nation">
                     <el-input class="width" v-model="form.nation" maxlength="20" style="width:20vw" disabled></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_CHILDDALIAN')">
+                    <span style="margin-right: 1vw ">{{$t('label.no')}}</span>
+                    <el-switch v-model="form.dlnation" active-value="1" inactive-value="0" disabled></el-switch>
+                    <span style="margin-left: 1vw ">{{$t('label.yes')}}</span>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -170,7 +177,7 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_ADDRESS')" prop="address">
-                    <el-input class="width" v-model="form.address" maxlength="50" style="width:20vw" disabled/>
+                    <el-input class="width" v-model="form.address" maxlength="50" style="width:20vw"/>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -196,7 +203,7 @@
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_EXTENSION')" prop="extension">
                     <el-input class="width" v-model.number="form.extension" maxlength="20"
-                              style="width:20vw" disabled></el-input>
+                              style="width:20vw"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -2244,6 +2251,7 @@
           birthday: '',
           nationality: '',
           nation: '',
+            dlnation: '',
           register: '',
           idnumber: '',
           passport: '',

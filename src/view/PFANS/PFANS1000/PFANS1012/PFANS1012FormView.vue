@@ -2,7 +2,8 @@
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :canStart="canStart" :title="title"
                          @buttonClick="buttonClick" @disabled="setdisabled"
-                         @end="end" @start="start" @workflowState="workflowState" ref="container" v-loading="loading">
+                         @end="end" @start="start" @workflowState="workflowState" ref="container" v-loading="loading"
+                         :workflowCode="workflowCode">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
           <el-tabs v-model="activeName" type="border-card">
@@ -114,7 +115,8 @@
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_EXPECTEDPAYDATE')">
-                      <el-date-picker :disabled="!disable" style="width:20vw" v-model="form.expectedpaydate">
+                      <el-date-picker :disabled="checkexpectedpaydate" style="width:20vw"
+                                      v-model="form.expectedpaydate">
                       </el-date-picker>
                     </el-form-item>
                   </el-col>
@@ -700,7 +702,7 @@
                             <!--                            <el-input :disabled="true" style="width: 100%" v-model="scope.row.budgetcoding">-->
                             <!--                            </el-input>-->
                             <el-select clearable style="width: 100%" v-model="scope.row.budgetcoding"
-                                       :disabled="checkexternal"
+                                       :disabled="checkexternal" @change="getoptionsP(scope.row)"
                                        :placeholder="$t('normal.error_09')" :no="scope.row">
                               <el-option
                                 v-for="item in scope.row.optionsP"
@@ -932,7 +934,7 @@
                             <!--                            <el-input :disabled="true" style="width: 100%" v-model="scope.row.budgetcoding">-->
                             <!--                            </el-input>-->
                             <el-select clearable style="width: 100%" v-model="scope.row.budgetcoding" :no="scope.row"
-                                       :disabled="checkdisable"
+                                       :disabled="checkdisable" @change="getoptionsR(scope.row)"
                                        :placeholder="$t('normal.error_09')">
                               <el-option
                                 v-for="item in scope.row.optionsR"
@@ -1177,6 +1179,32 @@
                 </el-table>
               </el-row>
             </el-tab-pane>
+
+            <!--            文件上传-->
+            <el-tab-pane :label="$t('label.PFANS1004VIEW_ADDBOOK')" name="seventh">
+              <el-form-item>
+                <el-row>
+                  <el-col :span="8">
+                    <el-upload
+                      :disabled="!disable"
+                      :action="upload"
+                      :file-list="fileList"
+                      :on-remove="fileRemove"
+                      :on-preview="fileDownload"
+                      :on-success="fileSuccess"
+                      :on-error="fileError"
+                      class="upload-demo"
+                      drag
+                      ref="upload">
+                      <i class="el-icon-upload"></i>
+                      <div class="el-upload__text">{{$t('label.enclosurecontent')}}<em>{{$t('normal.info_09')}}</em>
+                      </div>
+                    </el-upload>
+                  </el-col>
+                </el-row>
+              </el-form-item>
+            </el-tab-pane>
+
           </el-tabs>
         </el-form>
       </div>
@@ -1189,7 +1217,14 @@
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import user from '../../../components/user.vue';
   import dicselect from '../../../components/dicselect';
-  import {getDictionaryInfo, getOrgInfo, getOrgInfoByUserId, getUserInfo, getStatus} from '@/utils/customize';
+  import {
+    getDictionaryInfo,
+    getOrgInfo,
+    getOrgInfoByUserId,
+    getUserInfo,
+    getStatus,
+    uploadUrl,
+  } from '@/utils/customize';
   import {Message} from 'element-ui';
   import moment from 'moment';
   import org from '../../../components/org';
@@ -1326,6 +1361,7 @@
         }
       };
       return {
+        checkexpectedpaydate: true,
         DataList2: [],
         show12: false,
         DataList: [{
@@ -1350,6 +1386,9 @@
         optionstype: [],
         optionsdate: [{value: 'PP024001', lable: this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')}],
         tormbT: '',
+        //add-ws-6/12-禅道105
+        workflowCode: '',
+        //add-ws-6/12-禅道105
         Redirict: '',
         search: '',
         companyen: '',
@@ -1368,6 +1407,8 @@
         ploptionsdata: [],
         options: [],
         jude: [],
+        fileList: [],
+        upload: uploadUrl(),
         selectType: 'Single',
         title: 'title.PFANS1012VIEW',
         userlist: '',
@@ -1508,6 +1549,7 @@
           othersubjectname: '',
           otherremarks: '',
           suppliername: '',
+          uploadfile: '',
         },
         rules: {
           user_id: [{
@@ -1686,6 +1728,39 @@
           .dispatch('PFANS1012Store/selectById', {'publicexpenseid': this.$route.params._id})
           .then(response => {
               this.form = response.publicexpense;
+              if (this.form.uploadfile != null) {
+                if (this.form.uploadfile != '') {
+                  let uploadfile = this.form.uploadfile.split(';');
+                  for (var i = 0; i < uploadfile.length; i++) {
+                    if (uploadfile[i].split(',')[0] != '') {
+                      let o = {};
+                      o.name = uploadfile[i].split(',')[0];
+                      o.url = uploadfile[i].split(',')[1];
+                      this.fileList.push(o);
+                    }
+                  }
+                }
+              }
+//add-ws-6/12-禅道105
+              if (this.form.moneys >= 20000) {
+                this.workflowCode = 'W0077';
+              } else {
+                this.workflowCode = 'W0016';
+              }
+//add-ws-6/12-禅道105
+//add-ws-6/16-禅道103
+              if (this.form.paymentmethod === 'PJ004001') {
+                this.checkexpectedpaydate = false;
+              } else if (this.form.paymentmethod === 'PJ004002') {
+                this.checkexpectedpaydate = false;
+              } else if (this.form.paymentmethod === 'PJ004003') {
+                this.checkexpectedpaydate = true;
+              } else if (this.form.paymentmethod === 'PJ004004') {
+                this.checkexpectedpaydate = true;
+              } else {
+                this.checkexpectedpaydate = true;
+              }
+//add-ws-6/16-禅道103
               //add-ws-4/28-精算中，点击决裁，跳转画面
               let judgement = this.form.judgement.split(',');
               let judgementname = this.form.judgement_name.split(',');
@@ -2295,6 +2370,51 @@
       },
     },
     methods: {
+      getoptionsP(row) {
+        this.budgetcodingcheck = row.budgetcoding;
+      },
+      getoptionsR(row) {
+        this.budgetcodingchecknew = row.budgetcoding;
+      },
+      fileError(err, file, fileList) {
+        Message({
+          message: this.$t('normal.error_04'),
+          type: 'error',
+          duration: 5 * 1000,
+        });
+      },
+      fileRemove(file, fileList) {
+        this.fileList = [];
+        this.form.uploadfile = '';
+        for (var item of fileList) {
+          let o = {};
+          o.name = item.name;
+          o.url = item.url;
+          this.fileList.push(o);
+          this.form.uploadfile += item.name + ',' + item.url + ';';
+        }
+      },
+      fileDownload(file) {
+        if (file.url) {
+          var url = downLoadUrl(file.url);
+          window.open(url);
+        }
+      },
+      fileSuccess(response, file, fileList) {
+        this.fileList = [];
+        this.form.uploadfile = '';
+        for (var item of fileList) {
+          let o = {};
+          o.name = item.name;
+          if (!item.url) {
+            o.url = item.response.info;
+          } else {
+            o.url = item.url;
+          }
+          this.fileList.push(o);
+          this.form.uploadfile += o.name + ',' + o.url + ';';
+        }
+      },
       //add-ws-5/26-No.208问题延申咱借款申请编号问题修改
       getLoanApplication() {
         this.loading = true;
@@ -2356,7 +2476,7 @@
       viewdata(row) {
         this.$store.commit('global/SET_HISTORYURL', '');
         this.$store.commit('global/SET_WORKFLOWURL', '/FFFFF1012FormView');
-        if (row.judgement_name.substring(0, 2) === this.$t('menu.PFANS1001')) {
+        if (row.judgement_name.substring(0, 2) === 'JC') {
           this.$router.push({
             name: 'PFANS1004FormView',
             params: {
@@ -2367,7 +2487,7 @@
               disabled: false,
             },
           });
-        } else if (row.judgement_name.substring(0, 2) === this.$t('label.PFANS1012VIEW_QIANYUAN')) {
+        } else if (row.judgement_name.substring(0, 2) === 'QY') {
           this.$router.push({
             name: 'PFANS1005FormView',
             params: {
@@ -2378,7 +2498,7 @@
               disabled: false,
             },
           });
-        } else if (row.judgement_name.substring(0, 2) === this.$t('label.PFANS1012VIEW_JIAOJI')) {
+        } else if (row.judgement_name.substring(0, 2) === 'JJ') {
           this.$router.push({
             name: 'PFANS1010FormView',
             params: {
@@ -2389,7 +2509,7 @@
               disabled: false,
             },
           });
-        } else if (row.judgement_name.substring(0, 2) === this.$t('label.PFANS1012VIEW_WEITUO')) {
+        } else if (row.judgement_name.substring(0, 1) === 'N') {
           this.$router.push({
             name: 'PFANS1025FormView',
             params: {
@@ -2400,7 +2520,7 @@
               disabled: false,
             },
           });
-        } else if (row.judgement_name.substring(0, 2) === this.$t('label.PFANS1012VIEW_CAIGOU')) {
+        } else if (row.judgement_name.substring(0, 2) === 'CG') {
           this.$router.push({
             name: 'PFANS3005FormView',
             params: {
@@ -2411,7 +2531,7 @@
               disabled: false,
             },
           });
-        } else if (row.judgement_name.substring(0, 2) === this.$t('label.PFANS1012VIEW_WUCHANG')) {
+        } else if (row.judgement_name.substring(0, 2) === 'WC') {
           this.$router.push({
             name: 'PFANS1003FormView',
             params: {
@@ -2439,14 +2559,11 @@
             } else {
               let taxratevalue = 0;
               if (row.rmb != '') {
-                if (this.tableF[j].taxrate == 'PJ071001') {
-                  this.taxrateValue = getDictionaryInfo('PJ071001').value1;
-                } else if (this.tableF[j].taxrate == 'PJ071002') {
-                  this.taxrateValue = getDictionaryInfo('PJ071002').value1;
-                } else if (this.tableF[j].taxrate == 'PJ071003') {
-                  this.taxrateValue = getDictionaryInfo('PJ071003').value1;
-                } else if (this.tableF[j].taxrate == 'PJ071004') {
-                  this.taxrateValue = getDictionaryInfo('PJ071004').value1;
+                if (this.tableF[j].taxrate != '' && this.tableF[j].taxrate != null) {
+                  let letbudge = getDictionaryInfo(this.tableF[j].taxrate);
+                  if (letbudge) {
+                    this.taxrateValue = letbudge.value1;
+                  }
                 }
                 taxratevalue = 1 + Number(this.taxrateValue);
                 row.taxes = parseFloat((row.rmb / (taxratevalue) * this.taxrateValue)).toFixed(2);
@@ -2607,126 +2724,6 @@
         if (group) {
           this.companyen = group.companyen;
           this.Redirict = group.redirict;
-          // row.budgetcoding = group.encoding;
-          // this.code17 = this.Redirict == '0' ? 'PJ121' : 'PJ134';
-          // if (this.Redirict == '0') {
-          //     if (row.plsummary == 'PJ111001') {
-          //         row.accountcode = '',
-          //             this.code16 = 'PJ112';
-          //
-          //     } else if (row.plsummary == 'PJ111002') {
-          //         row.accountcode = '',
-          //             this.code16 = 'PJ113';
-          //
-          //     } else if (row.plsummary == 'PJ111003') {
-          //         row.accountcode = '',
-          //             this.code16 = 'PJ114';
-          //
-          //     } else if (row.plsummary == 'PJ111004') {
-          //         row.accountcode = '',
-          //             this.code16 = '';
-          //
-          //     } else if (row.plsummary == 'PJ111005') {
-          //         row.accountcode = '',
-          //             this.code16 = 'PJ116';
-          //
-          //     } else if (row.plsummary == 'PJ111006') {
-          //         row.accountcode = '',
-          //             this.code16 = 'PJ117';
-          //
-          //     } else if (row.plsummary == 'PJ111007') {
-          //         row.accountcode = '',
-          //             this.code16 = 'PJ118';
-          //
-          //     } else if (row.plsummary == 'PJ111008') {
-          //         row.accountcode = '',
-          //             this.code16 = 'PJ119';
-          //
-          //     } else if (row.plsummary == 'PJ111009') {
-          //         row.accountcode = '',
-          //             this.code16 = 'PJ120';
-          //
-          //     } else if (row.plsummary == 'PJ111010') {
-          //         row.accountcode = '',
-          //             this.code16 = 'PJ121';
-          //
-          //     } else if (row.plsummary == 'PJ111011') {
-          //         row.accountcode = '',
-          //             this.code16 = 'PJ122';
-          //
-          //     } else if (row.plsummary == 'PJ111012') {
-          //         row.accountcode = '',
-          //             this.code16 = 'PJ123';
-          //
-          //     } else if (row.plsummary == 'PJ111013') {
-          //         row.accountcode = '',
-          //             this.code16 = '';
-          //
-          //     } else if (row.plsummary == 'PJ111014') {
-          //         row.accountcode = '',
-          //             this.code16 = 'PJ125';
-          //
-          //     }
-          // }
-          // else if (this.Redirict == '1' || this.Redirict == '') {
-          //     if (row.plsummary == 'PJ111001') {
-          //         row.accountcode = '',
-          //             this.code16 = 'PJ127';
-          //
-          //     } else if (row.plsummary == 'PJ111002') {
-          //         row.accountcode = '',
-          //             this.code16 = 'PJ128';
-          //
-          //     } else if (row.plsummary == 'PJ111003') {
-          //         row.accountcode = '',
-          //             this.code16 = 'PJ129';
-          //
-          //     } else if (row.plsummary == 'PJ111004') {
-          //         row.accountcode = '',
-          //             this.code16 = 'PJ115';
-          //
-          //     } else if (row.plsummary == 'PJ111005') {
-          //         row.accountcode = '',
-          //             this.code16 = 'PJ130';
-          //
-          //     } else if (row.plsummary == 'PJ111006') {
-          //         row.accountcode = '',
-          //             this.code16 = '';
-          //
-          //     } else if (row.plsummary == 'PJ111007') {
-          //         row.accountcode = '',
-          //             this.code16 = 'PJ131';
-          //
-          //     } else if (row.plsummary == 'PJ111008') {
-          //         row.accountcode = '',
-          //             this.code16 = 'PJ132';
-          //
-          //     } else if (row.plsummary == 'PJ111009') {
-          //         row.accountcode = '',
-          //             this.code16 = 'PJ133';
-          //
-          //     } else if (row.plsummary == 'PJ111010') {
-          //         row.accountcode = '',
-          //             this.code16 = 'PJ134';
-          //
-          //     } else if (row.plsummary == 'PJ111011') {
-          //         row.accountcode = '',
-          //             this.code16 = 'PJ135';
-          //
-          //     } else if (row.plsummary == 'PJ111012') {
-          //         row.accountcode = '',
-          //             this.code16 = 'PJ136';
-          //
-          //     } else if (row.plsummary == 'PJ111013') {
-          //         row.accountcode = '',
-          //             this.code16 = 'PJ124';
-          //
-          //     } else if (row.plsummary == 'PJ111014') {
-          //         row.accountcode = '',
-          //             this.code16 = 'PJ137';
-          //
-          //     }
-          // }
           if (this.Redirict == '0') {
             row.accoundoptionsdate = [];
             let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ119');
@@ -2751,7 +2748,6 @@
             }
           }
         }
-        this.budgetcodingcheck = row.budgetcoding;
       },
       getGroupIdR(orglist, row) {
         if (orglist == '') {
@@ -2930,7 +2926,6 @@
             }
           }
         }
-        this.budgetcodingchecknew = row.budgetcoding;
       },
       getGroupIdP(orglist, row) {
         if (orglist == '') {
@@ -3102,7 +3097,6 @@
             }
           }
         }
-        this.budgetcodingcheck = row.budgetcoding;
       },
       getplsummary(row) {
         row.accountcode = '',
@@ -3268,15 +3262,14 @@
       getcodenew(val, row) {
         row.accountcode = val;
         let dic = getDictionaryInfo(val);
-        if (row.accountcode == 'PJ116008' || row.accountcode == 'PJ130010' ) {
+        if (row.accountcode == 'PJ116008' || row.accountcode == 'PJ130010') {
           this.budgetcodingchecknew = row.budgetcoding;
           this.checktime = true;
-          this.checkdisable = true;
+
           this.checkcode = dic.value2;
-          row.budgetcoding = dic.value4;
         } else {
           this.checktime = false;
-          this.checkdisable = false;
+
           row.servicehours = '';
           row.budgetcoding = this.budgetcodingchecknew;
         }
@@ -3294,7 +3287,7 @@
         if (row.accountcode == 'PJ121012' || row.accountcode == 'PJ134013') {
           this.checkexternal = true;
           this.budgetcodingcheck = row.budgetcoding;
-          row.budgetcoding =  dic.value4;
+          row.budgetcoding = dic.value4;
         } else {
           this.checkexternal = false;
           row.budgetcoding = this.budgetcodingcheck;
@@ -3311,14 +3304,11 @@
       },
       getrate(row) {
         let taxratevalue = 0;
-        if (row.taxrate == 'PJ071001') {
-          this.taxrateValue = getDictionaryInfo('PJ071001').value1;
-        } else if (row.taxrate == 'PJ071002') {
-          this.taxrateValue = getDictionaryInfo('PJ071002').value1;
-        } else if (row.taxrate == 'PJ071003') {
-          this.taxrateValue = getDictionaryInfo('PJ071003').value1;
-        } else if (row.taxrate == 'PJ071004') {
-          this.taxrateValue = getDictionaryInfo('PJ071004').value1;
+        if (row.taxrate != '' && row.taxrate != null) {
+          let letbudge = getDictionaryInfo(row.taxrate);
+          if (letbudge) {
+            this.taxrateValue = letbudge.value1;
+          }
         }
         taxratevalue = 1 + Number(this.taxrateValue);
         row.facetax = parseFloat((row.invoiceamount / (taxratevalue) * this.taxrateValue)).toFixed(2);
@@ -3344,14 +3334,11 @@
       },
       changeSum(row) {
         let taxratevalue = 0;
-        if (row.taxrate == 'PJ071001') {
-          this.taxrateValue = getDictionaryInfo('PJ071001').value1;
-        } else if (row.taxrate == 'PJ071002') {
-          this.taxrateValue = getDictionaryInfo('PJ071002').value1;
-        } else if (row.taxrate == 'PJ071003') {
-          this.taxrateValue = getDictionaryInfo('PJ071003').value1;
-        } else if (row.taxrate == 'PJ071004') {
-          this.taxrateValue = getDictionaryInfo('PJ071004').value1;
+        if (row.taxrate != '' && row.taxrate != null) {
+          let letbudge = getDictionaryInfo(row.taxrate);
+          if (letbudge) {
+            this.taxrateValue = letbudge.value1;
+          }
         }
         taxratevalue = 1 + Number(this.taxrateValue);
         row.facetax = parseFloat((row.invoiceamount / (taxratevalue) * this.taxrateValue)).toFixed(2);
@@ -3474,6 +3461,7 @@
           this.form.receivables = '';
           this.form.loan = '';
           this.form.fullname = '';
+          this.checkexpectedpaydate = false;
         } else if (val === 'PJ004002') {
           this.show1 = false;
           this.show2 = true;
@@ -3490,6 +3478,7 @@
           this.form.loan = '';
           this.form.fullname = '';
           this.form.suppliername = ' ';
+          this.checkexpectedpaydate = false;
         } else if (val === 'PJ004003') {
           this.show1 = false;
           this.show2 = false;
@@ -3505,6 +3494,7 @@
           this.namelist = '';
           this.form.loan = '';
           this.form.fullname = '';
+          this.checkexpectedpaydate = true;
         } else if (val === 'PJ004004') {
           this.show1 = false;
           this.show2 = false;
@@ -3521,6 +3511,7 @@
           this.form.receivables = '';
           this.form.fullname = '';
           this.form.suppliername = ' ';
+          this.checkexpectedpaydate = true;
         } else {
           this.show1 = false;
           this.show2 = false;
@@ -3535,6 +3526,7 @@
           this.form.user_name = '';
           this.form.receivables = '';
           this.form.loan = '';
+          this.checkexpectedpaydate = true;
         }
       },
       getmodule(val) {
@@ -3877,7 +3869,7 @@
             sums[index] = '--';
           }
         });
-        sums[7] = Math.round(sums[8] * 100) / 100;
+        sums[7] = Math.round(sums[7] * 100) / 100;
         sums[8] = Math.round(sums[8] * 100) / 100;
         sums[11] = Math.round(sums[11] * 100) / 100;
         sums[12] = Math.round(sums[12] * 100) / 100;
@@ -3952,14 +3944,11 @@
           if (newValue.invoicenumber == this.tableF[j].invoicenumber) {
             if (newValue.rmb != '') {
               if (this.tableF[j].taxrate != '') {
-                if (this.tableF[j].taxrate == 'PJ071001') {
-                  this.taxrateValue = getDictionaryInfo('PJ071001').value1;
-                } else if (this.tableF[j].taxrate == 'PJ071002') {
-                  this.taxrateValue = getDictionaryInfo('PJ071002').value1;
-                } else if (this.tableF[j].taxrate == 'PJ071003') {
-                  this.taxrateValue = getDictionaryInfo('PJ071003').value1;
-                } else if (this.tableF[j].taxrate == 'PJ071004') {
-                  this.taxrateValue = getDictionaryInfo('PJ071004').value1;
+                if (this.tableF[j].taxrate != '' && this.tableF[j].taxrate != null) {
+                  let letbudge = getDictionaryInfo(this.tableF[j].taxrate);
+                  if (letbudge) {
+                    this.taxrateValue = letbudge.value1;
+                  }
                 }
                 taxratevalue = 1 + Number(this.taxrateValue);
                 newValue.taxes = parseFloat((newValue.rmb / (taxratevalue) * this.taxrateValue)).toFixed(2);
@@ -4194,9 +4183,9 @@
                 }
               }
               let error = 0;
-              //add-ws-6/9-禅道033
-              if (this.form.bsexternal === '1') {
-                if (this.form.expectedpaydate === '') {
+              //add-ws-6/16-禅道103
+              if (!this.checkexpectedpaydate) {
+                if (this.form.expectedpaydate === null) {
                   error = error + 1;
                   this.activeName = 'first';
                   Message({
@@ -4207,7 +4196,7 @@
                   return;
                 }
               }
-              //add-ws-6/9-禅道033
+              //add-ws-6/16-禅道103
               //ADD-WS-增加公共费用精算书check
               if (this.form.type === 'PJ001001') {
                 for (let i = 0; i < this.tableT.length; i++) {

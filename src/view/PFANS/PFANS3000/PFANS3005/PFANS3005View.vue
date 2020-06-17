@@ -248,7 +248,9 @@
                 buttonList: [
                     {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
                     {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
-                    {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'}
+                    {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
+                    {'key': 'conapp', 'name': 'button.conapp', 'disabled': false, 'icon': 'el-icon-plus'},
+                    {'key': 'actuarial', 'name': 'button.actuarial', 'disabled': false, 'icon': 'el-icon-edit-outline'}
                 ],
                 rowid: '',
                 row: 'purchase_id',

@@ -74,6 +74,13 @@
                     <el-input class="width" v-model="form.nation" maxlength="20" style="width:20vw"></el-input>
                   </el-form-item>
                 </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_CHILDDALIAN')">
+                    <span style="margin-right: 1vw ">{{$t('label.no')}}</span>
+                    <el-switch v-model="form.dlnation" active-value="1" inactive-value="0"></el-switch>
+                    <span style="margin-left: 1vw ">{{$t('label.yes')}}</span>
+                  </el-form-item>
+                </el-col>
               </el-row>
               <el-row>
                 <el-col :span="8">
@@ -2238,6 +2245,7 @@
           birthday: '',
           nationality: '',
           nation: '',
+            dlnation: '',
           register: '',
           idnumber: '',
           passport: '',
@@ -2417,24 +2425,26 @@
               trigger: 'blur',
             },
           ],
-          marital: [
-            {
-              required: true,
-              message:
-                this.$t('normal.error_08') +
-                this.$t('label.PFANSUSERFORMVIEW_MARITAL'),
-              trigger: 'change',
-            },
-          ],
-          address: [
-            {
-              required: true,
-              message:
-                this.$t('normal.error_08') +
-                this.$t('label.PFANSUSERFORMVIEW_ADDRESS'),
-              trigger: 'blur',
-            },
-          ],
+            // del_fjl_06/16 start
+            // marital: [
+            //   {
+            //     required: true,
+            //     message:
+            //       this.$t('normal.error_08') +
+            //       this.$t('label.PFANSUSERFORMVIEW_MARITAL'),
+            //     trigger: 'change',
+            //   },
+            // ],
+            // address: [
+            //   {
+            //     required: true,
+            //     message:
+            //       this.$t('normal.error_08') +
+            //       this.$t('label.PFANSUSERFORMVIEW_ADDRESS'),
+            //     trigger: 'blur',
+            //   },
+            // ],
+            // del_fjl_06/16 end
           // phone: [
           //   {
           //     required: true,
@@ -2444,15 +2454,15 @@
           //     trigger: 'blur',
           //   },
           // ],
-          extension: [
-            {
-              required: true,
-              message:
-                this.$t('normal.error_08') +
-                this.$t('label.PFANSUSERFORMVIEW_EXTENSION'),
-              trigger: 'blur',
-            },
-          ],
+            // extension: [
+            //   {
+            //     required: true,
+            //     message:
+            //       this.$t('normal.error_08') +
+            //       this.$t('label.PFANSUSERFORMVIEW_EXTENSION'),
+            //     trigger: 'blur',
+            //   },
+            // ],
           graduation: [
             {
               required: true,
@@ -2736,13 +2746,13 @@
           //   {validator: validateTel, trigger: 'blur'},
           // ],
           email: [
-            {
-              required: true,
-              message:
-                this.$t('normal.error_08') +
-                this.$t('label.PFANSUSERFORMVIEW_EMAILADDRESS'),
-              trigger: 'blur',
-            },
+              // {
+              //   required: true,
+              //   message:
+              //     this.$t('normal.error_08') +
+              //     this.$t('label.PFANSUSERFORMVIEW_EMAILADDRESS'),
+              //   trigger: 'blur',
+              // },
             {
               type: 'email',
               message: this.$t('label.PFANSUSERFORMVIEW_TRUEEMAILADDRESS'),
