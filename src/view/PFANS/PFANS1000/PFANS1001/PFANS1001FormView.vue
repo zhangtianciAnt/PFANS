@@ -29,7 +29,7 @@
 <script>
   import EasyNormalTable from '@/components/EasyNormalTable';
   import {Message} from 'element-ui';
-  import {getOrgInfoByUserId, getStatus, getUserInfo} from '@/utils/customize';
+  import {getOrgInfoByUserId, getStatus, getUserInfo, getDictionaryInfo} from '@/utils/customize';
   import moment from 'moment';
 
   export default {
@@ -153,6 +153,15 @@
         //ADD-WS-决裁编号添加
         // 列属性
         columns: [
+          // ztc 禅道No.61-增加编号（日期加序列号）start
+          {
+            code: 'business_number',
+            label: 'label.PFANS1001FORMVIEW_BUSINESS_NUMBER',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          // ztc 禅道No.61-增加编号（日期加序列号 end
           {
             code: 'user_id',
             label: 'label.applicant',
@@ -181,6 +190,22 @@
             fix: false,
             filter: true,
           },
+// ztc 禅道No.61-增加出差地、出差日期 start
+          {
+            code: 'regioncity',
+            label: 'label.PFANS3001VIEW_TRIPPOINT',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'date',
+            label: 'label.PFANS1013VIEW_DATE',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+// ztc 禅道No.61-增加出差地、出差日期 end
           {
             code: 'status',
             label: 'label.approval_status',
@@ -189,6 +214,7 @@
             filter: true,
           },
         ],
+
 //        add_fjl_05/27  --添加暂借款申请单列表
         columns4: [
           {
@@ -254,6 +280,13 @@
             fix: false,
             filter: true,
           },
+          {
+            code: 'hexiao',
+            label: 'label.PFANS1030FORMVIEW_HEXIAO',
+            width: 130,
+            fix: false,
+            filter: true,
+          },
         ],
 //        add_fjl_05/27  --添加暂借款申请单列表
         //       add-ws-5/27-No.170
@@ -262,6 +295,13 @@
             code: 'numbercation',
             label: 'label.PFANS1006FORMVIEW_NUMBERCATION',
             width: 130,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'company',
+            label: 'label.PFANS1010FORMVIEW_OPPOSITEUNIT',
+            width: 120,
             fix: false,
             filter: true,
           },
@@ -334,7 +374,6 @@
           let businesstype = {'businesstype': '1'};
           this.dispatchparameter('PFANS1001Store/getBusiness', businesstype);
         } else if (val === 3) {
-
           //ADD-WS-决裁编号添加
           this.showTable = 2;
           //ADD-WS-决裁编号添加
@@ -424,7 +463,24 @@
             response[j].modifyon = null;
           }
           //        add_fjl_05/27  --添加审批时间
-
+          // ztc 禅道No.61-增加编号（日期加序列号）start
+          if (response[j].businesstype == "1" && response[j].city != null && response[j].city != "") {
+            let letcity = getDictionaryInfo(response[j].city);
+            if (letcity != null) {
+              response[j].regioncity = letcity.value1;
+            }
+          } else if (response[j].businesstype == "0" && response[j].city != null && response[j].city != "") {
+            let letregion = getDictionaryInfo(response[j].region);
+            {
+              if (letregion != null) {
+                response[j].regioncity = letregion.value1 + response[j].city;
+              }
+            }
+          }
+          if (response[j].startdate != null && response[j].startdate != "") {
+            response[j].date = moment(response[j].startdate).format('YYYY-MM-DD') + "~" + moment(response[j].enddate).format('YYYY-MM-DD')
+          }
+          // ztc 禅道No.61-增加编号（日期加序列号）end
         }
         return response;
         this.loading = false;
