@@ -1256,6 +1256,34 @@ export function menu() {
                   ]
                 },
                 {
+                  '_id': 'PFANS2030',
+                  'name': 'menu.PFANS2030',
+                  'menuvisible': true,
+                  'menuurl': '/PFANS2030View',
+                  'menuicon': '',
+                  'children': [],
+                  'actions': [
+                    {"_id": "PFANS2030_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                    {"_id": "PFANS2030_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                    {"_id": "PFANS2030_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                    {"_id": "PFANS2030_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+                  ]
+                },
+                {
+                  '_id': 'PFANS2009',
+                  'name': 'menu.PFANS2009',
+                  'menuvisible': true,
+                  'menuurl': '/PFANS2009View',
+                  'menuicon': '',
+                  'children': [],
+                  'actions': [
+                    {"_id": "PFANS2009_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                    {"_id": "PFANS2009_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                    {"_id": "PFANS2009_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                    {"_id": "PFANS2009_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+                  ]
+                },
+                {
                   '_id': 'PFANS2007',
                   'name': 'menu.PFANS2007',
                   'menuvisible': true,
@@ -1269,20 +1297,6 @@ export function menu() {
                     {"_id": "PFANS2007_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
                   ]
                 },
-                // {
-                //   '_id': 'PFANS2009',
-                //   'name': 'menu.PFANS2009',
-                //   'menuvisible': true,
-                //   'menuurl': '/PFANS2009View',
-                //   'menuicon': '',
-                //   'children': [],
-                //   'actions': [
-                //     {"_id": "PFANS2009_read", "actiontype": "0", "name": 'button.view', "auth": 4},
-                //     {"_id": "PFANS2009_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
-                //     {"_id": "PFANS2009_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
-                //     {"_id": "PFANS2009_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
-                //   ]
-                // },
                 //3.28 gbb
               ]
             },

@@ -49,7 +49,7 @@
                     </template>
                   </plx-table-column>
                   <plx-table-column
-                    prop="department_name"
+                    prop="department_id"
                     :label="$t('label.PFANS2006VIEW_CLUB')"
                     width="300"
                     align="center"
@@ -3275,7 +3275,8 @@
               let user = getUserInfo(item.user_id);
               if (user) {
                 item.user_name = user.userinfo.customername;
-                item.department_name = user.userinfo.centername;
+                //item.department_name = user.userinfo.centername;
+                item.department_id = user.userinfo.budgetunit;
               }
               item.no = index + 1;
               item.workdate = moment(item.workdate).format("YYYY-MM-DD");
@@ -3517,7 +3518,9 @@
                 let user = getUserInfo(response.otherOne[j].user_id);
                 if (user) {
                   response.otherOne[j].user_name = user.userinfo.customername;
-                  response.otherOne[j].department_id = user.userinfo.centername;
+                  //response.otherOne[j].department_id = user.userinfo.centername;
+                  response.otherOne[j].department_id = user.userinfo.budgetunit;
+
                 }
                 if (
                   response.otherOne[j].sex !== null &&
@@ -3594,7 +3597,8 @@
                 let user = getUserInfo(response.otherOne[j].user_id);
                 if (user) {
                   response.otherOne[j].user_name = user.userinfo.customername;
-                  response.otherOne[j].department_id = user.userinfo.centername;
+                  //response.otherOne[j].department_id = user.userinfo.centername;
+                  response.otherOne[j].department_id = user.userinfo.budgetunit;
                 }
                 if (
                   response.base[j].sex !== null &&
@@ -3825,7 +3829,8 @@
               let user = getUserInfo(response.base[j].user_id);
               if (user) {
                 response.base[j].user_name = user.userinfo.customername;
-                response.base[j].department_id = user.userinfo.centername;
+                //response.base[j].department_id = user.userinfo.centername;
+                response.base[j].department_id = user.userinfo.budgetunit;
               }
               if (response.base[j].rn !== null && response.base[j].rn !== "") {
                 let letErrortype = getDictionaryInfo(response.base[j].rn);
@@ -3913,7 +3918,8 @@
               let user = getUserInfo(response.contrast[j].user_id);
               if (user) {
                 response.contrast[j].user_name = user.userinfo.customername;
-                response.contrast[j].department_id = user.userinfo.centername;
+                //response.contrast[j].department_id = user.userinfo.centername;
+                response.contrast[j].department_id = user.userinfo.budgetunit;
               }
               let obj = {};
               obj.contrast_id = response.contrast[j].contrast_id;
