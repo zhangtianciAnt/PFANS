@@ -195,14 +195,16 @@
 </script>
 <style lang='scss'>
   .el-input.is-disabled .el-input__inner {
-    background-color: white;
-    border:none;
+    background-color: #E4E7ED;
+    /*background-image: linear-gradient(to right, white,#E4E7ED);*/
+    border-color: #E4E7ED;
     color: #606266;
     cursor: not-allowed;
   }
   .el-textarea.is-disabled .el-textarea__inner{
-    background-color: white;
-    border:none;
+    /*background-image: linear-gradient(to right, white,#E4E7ED );*/
+    background-color: #E4E7ED;
+    border-color: #E4E7ED;
     color: #606266;
     cursor: not-allowed;
   }
