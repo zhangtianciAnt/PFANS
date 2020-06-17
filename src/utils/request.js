@@ -64,14 +64,10 @@ service.interceptors.response.use(
     if (response.status >= 200 && response.status < 300) {
       if (response.data.code === 20101) {
         removeToken();
-        if (router.currentRoute.path !== '/') {
-          router.push({
-            name: '/'
-          })
-          return Promise.reject(i18n.t('normal.error_05'))
-        } else {
-          return false;
-        }
+        router.push({
+          name: '/'
+        })
+        return Promise.reject(i18n.t('normal.error_05'))
       } else if (response.data.code === 20102) {
         router.push({
           name: 'error403'

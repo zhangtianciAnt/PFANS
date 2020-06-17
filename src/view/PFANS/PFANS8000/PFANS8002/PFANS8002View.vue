@@ -218,7 +218,7 @@
                         });
                         return;
                     }
-                    this.$confirm(this.$t('normal.confirm_iscontinue'), this.$t('normal.info'), {
+                    this.$confirm(this.$t('normal.confirm_iscontinue1'), this.$t('normal.info'), {
                         confirmButtonText: this.$t('button.confirm'),
                         cancelButtonText: this.$t('button.cancel'),
                         type: 'warning',
@@ -246,7 +246,7 @@
                     }).catch(() => {
                         this.$message({
                             type: 'info',
-                            message: this.$t('label.PFANS1026FORMVIEW_YQXSC'),
+                            message: this.$t('label.PFANS1026FORMVIEW_tipis'),
                         });
                     });
                 }
