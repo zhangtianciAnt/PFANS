@@ -1421,7 +1421,7 @@
             }
             this.form = response.evection;
             //add-ws-6/17-禅道101
-            if (this.form.user_id === '5e78b2264e3b194874180f35' || this.form.user_id === '5e78b2574e3b194874181099') {
+            if (this.form.userid === '5e78b2264e3b194874180f35' || this.form.userid === '5e78b2574e3b194874181099') {
               this.workflowCode = 'W0079';
             } else {
               this.workflowCode = 'W0014';
