@@ -10,6 +10,7 @@
       @workflowState="workflowState"
       ref="container"
       v-loading="loading"
+      :workflowCode="workflowCode"
     >
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
@@ -1156,6 +1157,9 @@
         }
       };
       return {
+        //add-ws-6/17-禅道101
+        workflowCode: '',
+        //add-ws-6/17-禅道101
         CheckRedirict: '',
         checkredirict: '',
         region: '',
@@ -1416,6 +1420,13 @@
               this.teamname = lst.teamNmae;
             }
             this.form = response.evection;
+            //add-ws-6/17-禅道101
+            if (this.form.user_id === '5e78b2264e3b194874180f35' || this.form.user_id === '5e78b2574e3b194874181099') {
+              this.workflowCode = 'W0079';
+            } else {
+              this.workflowCode = 'W0014';
+            }
+//add-ws-6/17-禅道101
             if (this.form.uploadfile != null) {
               if (this.form.uploadfile != '') {
                 let uploadfile = this.form.uploadfile.split(';');
