@@ -3355,7 +3355,7 @@
             },
             Personal() {
                 //给料
-                if (moment(this.feedingchangeday).format("YYYY-MM-DD") !== '' && moment(this.feedingchangeday).format("YYYY-MM-DD") !== null
+                if (this.feedingchangeday !== '' && this.feedingchangeday !== null
                     && Number(this.form.duty) + Number(this.form.basic) > 0) {
                     if (this.gridData === null || this.gridData.length === 0) {
                         this.gridData = [

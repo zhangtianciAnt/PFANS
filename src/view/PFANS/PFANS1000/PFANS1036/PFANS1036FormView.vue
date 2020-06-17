@@ -2918,7 +2918,7 @@
       },
       getGroupB1(id) {
         this.$store
-          .dispatch('PFANS1036Store/getPlan', {'years': 2019, 'groupid': id})
+          .dispatch('PFANS1036Store/getPlan', {'years': this.form.year, 'groupid': id})
           .then(response => {
             if (response.length > 0) {
               let arr = [4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2, 3];

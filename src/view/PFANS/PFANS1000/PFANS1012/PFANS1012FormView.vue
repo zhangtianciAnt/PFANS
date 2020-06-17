@@ -702,7 +702,7 @@
                             <!--                            <el-input :disabled="true" style="width: 100%" v-model="scope.row.budgetcoding">-->
                             <!--                            </el-input>-->
                             <el-select clearable style="width: 100%" v-model="scope.row.budgetcoding"
-                                       :disabled="checkexternal" @change="getoptionsP(scope.row)"
+                                       :disabled="checkexternal"
                                        :placeholder="$t('normal.error_09')" :no="scope.row">
                               <el-option
                                 v-for="item in scope.row.optionsP"
@@ -934,7 +934,7 @@
                             <!--                            <el-input :disabled="true" style="width: 100%" v-model="scope.row.budgetcoding">-->
                             <!--                            </el-input>-->
                             <el-select clearable style="width: 100%" v-model="scope.row.budgetcoding" :no="scope.row"
-                                       :disabled="checkdisable" @change="getoptionsR(scope.row)"
+                                       :disabled="checkdisable"
                                        :placeholder="$t('normal.error_09')">
                               <el-option
                                 v-for="item in scope.row.optionsR"
@@ -1223,7 +1223,7 @@
     getOrgInfoByUserId,
     getUserInfo,
     getStatus,
-    uploadUrl
+    uploadUrl,
   } from '@/utils/customize';
   import {Message} from 'element-ui';
   import moment from 'moment';
@@ -1427,8 +1427,6 @@
           },
         ],
         checkCode2: '',
-        budgetcodingchecknew: '',
-        budgetcodingcheck: '',
         tableT: [{
           publicexpenseid: '',
           trafficdetails_id: '',
@@ -2370,12 +2368,6 @@
       },
     },
     methods: {
-      getoptionsP(row) {
-        this.budgetcodingcheck = row.budgetcoding;
-      },
-      getoptionsR(row) {
-        this.budgetcodingchecknew = row.budgetcoding;
-      },
       fileError(err, file, fileList) {
         Message({
           message: this.$t('normal.error_04'),
@@ -2559,14 +2551,11 @@
             } else {
               let taxratevalue = 0;
               if (row.rmb != '') {
-                if (this.tableF[j].taxrate == 'PJ071001') {
-                  this.taxrateValue = getDictionaryInfo('PJ071001').value1;
-                } else if (this.tableF[j].taxrate == 'PJ071002') {
-                  this.taxrateValue = getDictionaryInfo('PJ071002').value1;
-                } else if (this.tableF[j].taxrate == 'PJ071003') {
-                  this.taxrateValue = getDictionaryInfo('PJ071003').value1;
-                } else if (this.tableF[j].taxrate == 'PJ071004') {
-                  this.taxrateValue = getDictionaryInfo('PJ071004').value1;
+                if (this.tableF[j].taxrate != '' && this.tableF[j].taxrate != null) {
+                  let letbudge = getDictionaryInfo(this.tableF[j].taxrate);
+                  if (letbudge) {
+                    this.taxrateValue = letbudge.value1;
+                  }
                 }
                 taxratevalue = 1 + Number(this.taxrateValue);
                 row.taxes = parseFloat((row.rmb / (taxratevalue) * this.taxrateValue)).toFixed(2);
@@ -3233,14 +3222,9 @@
       },
       clickdata(row) {
         if (row.servicehours == null) {
-          row.budgetcoding = this.budgetcodingchecknew;
           row.subjectnumber = this.checkCode2;
-          this.checkdisable = false;
         } else {
-          this.budgetcodingchecknew = row.budgetcoding;
           row.subjectnumber = this.checkcode;
-          row.budgetcoding = '000000';
-          this.checkdisable = true;
         }
       },
       getaccoundcode(row) {
@@ -3266,15 +3250,11 @@
         row.accountcode = val;
         let dic = getDictionaryInfo(val);
         if (row.accountcode == 'PJ116008' || row.accountcode == 'PJ130010') {
-          this.budgetcodingchecknew = row.budgetcoding;
           this.checktime = true;
-
           this.checkcode = dic.value2;
         } else {
           this.checktime = false;
-
           row.servicehours = '';
-          row.budgetcoding = this.budgetcodingchecknew;
         }
         if (dic) {
           row.subjectnumber = dic.value2;
@@ -3286,16 +3266,6 @@
       getcode(val, row) {
         row.accountcode = val;
         let dic = getDictionaryInfo(val);
-//add-ws-6/11-禅道090
-        if (row.accountcode == 'PJ121012' || row.accountcode == 'PJ134013') {
-          this.checkexternal = true;
-          this.budgetcodingcheck = row.budgetcoding;
-          row.budgetcoding = dic.value4;
-        } else {
-          this.checkexternal = false;
-          row.budgetcoding = this.budgetcodingcheck;
-        }
-//add-ws-6/11-禅道090
         if (dic) {
           row.subjectnumber = dic.value2;
           this.checkCode2 = dic.value2;
@@ -3307,14 +3277,11 @@
       },
       getrate(row) {
         let taxratevalue = 0;
-        if (row.taxrate == 'PJ071001') {
-          this.taxrateValue = getDictionaryInfo('PJ071001').value1;
-        } else if (row.taxrate == 'PJ071002') {
-          this.taxrateValue = getDictionaryInfo('PJ071002').value1;
-        } else if (row.taxrate == 'PJ071003') {
-          this.taxrateValue = getDictionaryInfo('PJ071003').value1;
-        } else if (row.taxrate == 'PJ071004') {
-          this.taxrateValue = getDictionaryInfo('PJ071004').value1;
+        if (row.taxrate != '' && row.taxrate != null) {
+          let letbudge = getDictionaryInfo(row.taxrate);
+          if (letbudge) {
+            this.taxrateValue = letbudge.value1;
+          }
         }
         taxratevalue = 1 + Number(this.taxrateValue);
         row.facetax = parseFloat((row.invoiceamount / (taxratevalue) * this.taxrateValue)).toFixed(2);
@@ -3340,14 +3307,11 @@
       },
       changeSum(row) {
         let taxratevalue = 0;
-        if (row.taxrate == 'PJ071001') {
-          this.taxrateValue = getDictionaryInfo('PJ071001').value1;
-        } else if (row.taxrate == 'PJ071002') {
-          this.taxrateValue = getDictionaryInfo('PJ071002').value1;
-        } else if (row.taxrate == 'PJ071003') {
-          this.taxrateValue = getDictionaryInfo('PJ071003').value1;
-        } else if (row.taxrate == 'PJ071004') {
-          this.taxrateValue = getDictionaryInfo('PJ071004').value1;
+        if (row.taxrate != '' && row.taxrate != null) {
+          let letbudge = getDictionaryInfo(row.taxrate);
+          if (letbudge) {
+            this.taxrateValue = letbudge.value1;
+          }
         }
         taxratevalue = 1 + Number(this.taxrateValue);
         row.facetax = parseFloat((row.invoiceamount / (taxratevalue) * this.taxrateValue)).toFixed(2);
@@ -3953,14 +3917,11 @@
           if (newValue.invoicenumber == this.tableF[j].invoicenumber) {
             if (newValue.rmb != '') {
               if (this.tableF[j].taxrate != '') {
-                if (this.tableF[j].taxrate == 'PJ071001') {
-                  this.taxrateValue = getDictionaryInfo('PJ071001').value1;
-                } else if (this.tableF[j].taxrate == 'PJ071002') {
-                  this.taxrateValue = getDictionaryInfo('PJ071002').value1;
-                } else if (this.tableF[j].taxrate == 'PJ071003') {
-                  this.taxrateValue = getDictionaryInfo('PJ071003').value1;
-                } else if (this.tableF[j].taxrate == 'PJ071004') {
-                  this.taxrateValue = getDictionaryInfo('PJ071004').value1;
+                if (this.tableF[j].taxrate != '' && this.tableF[j].taxrate != null) {
+                  let letbudge = getDictionaryInfo(this.tableF[j].taxrate);
+                  if (letbudge) {
+                    this.taxrateValue = letbudge.value1;
+                  }
                 }
                 taxratevalue = 1 + Number(this.taxrateValue);
                 newValue.taxes = parseFloat((newValue.rmb / (taxratevalue) * this.taxrateValue)).toFixed(2);
@@ -4142,6 +4103,12 @@
                     if (this.tableP[i].procurementdetails === ' ') {
                       this.tableP[i].procurementdetails = '';
                     }
+                    if (this.tableP[i].accountcode == 'PJ121012' || this.tableP[i].accountcode == 'PJ134013') {
+                      let letbudge = getDictionaryInfo(this.tableP[i].accountcode);
+                      if (letbudge) {
+                        this.tableP[i].budgetcoding = letbudge.value4;
+                      }
+                    }
                     this.baseInfo.purchasedetails.push(
                       {
                         purchasedetails_id: this.tableP[i].purchasedetails_id,
@@ -4168,6 +4135,12 @@
                 for (let i = 0; i < this.tableR.length; i++) {
                   if (this.tableR[i].otherdetailsdate !== '' || this.tableR[i].invoicenumber !== '' || this.tableR[i].costitem !== '' || this.tableR[i].departmentname !== '' || this.tableR[i].accountcode !== '' || this.tableR[i].subjectnumber !== '' || this.tableR[i].budgetcoding !== '' || this.tableR[i].remarks !== ''
                     || this.tableR[i].rmb > 0 || this.tableR[i].foreigncurrency > 0 || this.tableR[i].taxes !== '' || this.tableR[i].annexno !== '') {
+                    if (this.tableR[i].accountcode == 'PJ116008' || this.tableR[i].accountcode == 'PJ130010') {
+                      let letbudge = getDictionaryInfo(this.tableR[i].accountcode);
+                      if (letbudge) {
+                        this.tableR[i].budgetcoding = letbudge.value4;
+                      }
+                    }
                     this.baseInfo.otherdetails.push(
                       {
                         otherdetails_id: this.tableR[i].otherdetails_id,

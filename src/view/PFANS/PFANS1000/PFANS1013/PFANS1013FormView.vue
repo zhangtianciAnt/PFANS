@@ -10,6 +10,7 @@
       @workflowState="workflowState"
       ref="container"
       v-loading="loading"
+      :workflowCode="workflowCode"
     >
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
@@ -1156,6 +1157,9 @@
         }
       };
       return {
+        //add-ws-6/17-禅道101
+        workflowCode: '',
+        //add-ws-6/17-禅道101
         CheckRedirict: '',
         checkredirict: '',
         region: '',
@@ -1416,6 +1420,13 @@
               this.teamname = lst.teamNmae;
             }
             this.form = response.evection;
+            //add-ws-6/17-禅道101
+            if (this.form.userid === '5e78b2264e3b194874180f35' || this.form.userid === '5e78b2574e3b194874181099') {
+              this.workflowCode = 'W0079';
+            } else {
+              this.workflowCode = 'W0014';
+            }
+//add-ws-6/17-禅道101
             if (this.form.uploadfile != null) {
               if (this.form.uploadfile != '') {
                 let uploadfile = this.form.uploadfile.split(';');
@@ -1812,14 +1823,11 @@
             } else {
               let taxratevalue = 0;
               if (row.rmb != '') {
-                if (this.tableF[j].taxrate == 'PJ071001') {
-                  this.taxrateValue = getDictionaryInfo('PJ071001').value1;
-                } else if (this.tableF[j].taxrate == 'PJ071002') {
-                  this.taxrateValue = getDictionaryInfo('PJ071002').value1;
-                } else if (this.tableF[j].taxrate == 'PJ071003') {
-                  this.taxrateValue = getDictionaryInfo('PJ071003').value1;
-                } else if (this.tableF[j].taxrate == 'PJ071004') {
-                  this.taxrateValue = getDictionaryInfo('PJ071004').value1;
+                if (this.tableF[j].taxrate != '' && this.tableF[j].taxrate != null) {
+                  let letbudge = getDictionaryInfo(this.tableF[j].taxrate);
+                  if (letbudge) {
+                    this.taxrateValue = letbudge.value1;
+                  }
                 }
                 taxratevalue = 1 + Number(this.taxrateValue);
                 row.taxes = parseFloat((row.rmb / (taxratevalue) * this.taxrateValue)).toFixed(2);
@@ -2012,14 +2020,11 @@
       },
       getrate(row) {
         let taxratevalue = 0;
-        if (row.taxrate == 'PJ071001') {
-          this.taxrateValue = getDictionaryInfo('PJ071001').value1;
-        } else if (row.taxrate == 'PJ071002') {
-          this.taxrateValue = getDictionaryInfo('PJ071002').value1;
-        } else if (row.taxrate == 'PJ071003') {
-          this.taxrateValue = getDictionaryInfo('PJ071003').value1;
-        } else if (row.taxrate == 'PJ071004') {
-          this.taxrateValue = getDictionaryInfo('PJ071004').value1;
+        if (row.taxrate != '' && row.taxrate != null) {
+          let letbudge = getDictionaryInfo(row.taxrate);
+          if (letbudge) {
+            this.taxrateValue = letbudge.value1;
+          }
         }
         taxratevalue = 1 + Number(this.taxrateValue);
         row.facetax = parseFloat((row.invoiceamount / (taxratevalue) * this.taxrateValue)).toFixed(2);
@@ -2362,14 +2367,11 @@
       },
       changeSum(row) {
         let taxratevalue = 0;
-        if (row.taxrate == 'PJ071001') {
-          this.taxrateValue = getDictionaryInfo('PJ071001').value1;
-        } else if (row.taxrate == 'PJ071002') {
-          this.taxrateValue = getDictionaryInfo('PJ071002').value1;
-        } else if (row.taxrate == 'PJ071003') {
-          this.taxrateValue = getDictionaryInfo('PJ071003').value1;
-        } else if (row.taxrate == 'PJ071004') {
-          this.taxrateValue = getDictionaryInfo('PJ071004').value1;
+        if (row.taxrate != '' && row.taxrate != null) {
+          let letbudge = getDictionaryInfo(row.taxrate);
+          if (letbudge) {
+            this.taxrateValue = letbudge.value1;
+          }
         }
         taxratevalue = 1 + Number(this.taxrateValue);
         row.facetax = parseFloat((row.invoiceamount / (taxratevalue) * this.taxrateValue)).toFixed(2);
@@ -3190,14 +3192,11 @@
           if (newValue.invoicenumber === this.tableF[j].invoicenumber) {
             if (newValue.rmb !== '') {
               if (this.tableF[j].taxrate !== '') {
-                if (this.tableF[j].taxrate == 'PJ071001') {
-                  this.taxrateValue = getDictionaryInfo('PJ071001').value1;
-                } else if (this.tableF[j].taxrate == 'PJ071002') {
-                  this.taxrateValue = getDictionaryInfo('PJ071002').value1;
-                } else if (this.tableF[j].taxrate == 'PJ071003') {
-                  this.taxrateValue = getDictionaryInfo('PJ071003').value1;
-                } else if (this.tableF[j].taxrate == 'PJ071004') {
-                  this.taxrateValue = getDictionaryInfo('PJ071004').value1;
+                if (this.tableF[j].taxrate != '' && this.tableF[j].taxrate != null) {
+                  let letbudge = getDictionaryInfo(this.tableF[j].taxrate);
+                  if (letbudge) {
+                    this.taxrateValue = letbudge.value1;
+                  }
                 }
                 Taxratevalue = 1 + Number(this.taxrateValue);
                 newValue.taxes = ((newValue.rmb / (Taxratevalue) * this.taxrateValue)).toFixed(2);
@@ -3212,14 +3211,11 @@
           if (newValue.invoicenumber === this.tableF[j].invoicenumber) {
             if (newValue.rmb !== '') {
               if (this.tableF[j].taxrate !== '') {
-                if (this.tableF[j].taxrate === 'PJ071001') {
-                  this.taxrateValue = '0.03';
-                } else if (this.tableF[j].taxrate === 'PJ071002') {
-                  this.taxrateValue = '0.06';
-                } else if (this.tableF[j].taxrate === 'PJ071003') {
-                  this.taxrateValue = '0.09';
-                } else if (this.tableF[j].taxrate === 'PJ071004') {
-                  this.taxrateValue = '0.13';
+                if (this.tableF[j].taxrate != '' && this.tableF[j].taxrate != null) {
+                  let letbudge = getDictionaryInfo(this.tableF[j].taxrate);
+                  if (letbudge) {
+                    this.taxrateValue = letbudge.value1;
+                  }
                 }
                 taxratevalue = 1 + Number(this.taxrateValue);
                 newValue.taxes = ((newValue.rmb / (taxratevalue) * Number(this.taxrateValue))).toFixed(2);
