@@ -11,8 +11,8 @@ export function getTaxestotalList(data) {
 export function getwagesList(data) {
   return request({
     url: 'Getwages/getwagesList',
-    method: 'post',
-    data: data
+    method: 'get',
+    params: data
   })
 }
 
