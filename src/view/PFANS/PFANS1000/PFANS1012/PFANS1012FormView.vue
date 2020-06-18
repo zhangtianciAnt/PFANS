@@ -1201,7 +1201,8 @@
                       :on-error="fileError"
                       class="upload-demo"
                       drag
-                      ref="upload">
+                      ref="upload"
+                      v-model="form.uploadfile">
                       <i class="el-icon-upload"></i>
                       <div class="el-upload__text">{{$t('label.enclosurecontent')}}<em>{{$t('normal.info_09')}}</em>
                       </div>
@@ -1231,6 +1232,7 @@
     getUserInfo,
     getStatus,
     uploadUrl,
+    downLoadUrl
   } from '@/utils/customize';
   import {Message} from 'element-ui';
   import moment from 'moment';
@@ -1734,8 +1736,7 @@
           .dispatch('PFANS1012Store/selectById', {'publicexpenseid': this.$route.params._id})
           .then(response => {
               this.form = response.publicexpense;
-              if (this.form.uploadfile != null) {
-                if (this.form.uploadfile != '') {
+            if (this.form.uploadfile != '' && this.form.uploadfile != null) {
                   let uploadfile = this.form.uploadfile.split(';');
                   for (var i = 0; i < uploadfile.length; i++) {
                     if (uploadfile[i].split(',')[0] != '') {
@@ -1744,7 +1745,6 @@
                       o.url = uploadfile[i].split(',')[1];
                       this.fileList.push(o);
                     }
-                  }
                 }
               }
 //add-ws-6/12-禅道105
