@@ -655,8 +655,8 @@
             </el-tab-pane>
 
             <el-tab-pane :label="$t('label.PFANS1012FORMVIEW_CHARGED')" name="third" v-if="show6">
-              <el-collapse>
-                <el-collapse-item v-if="show6">
+              <el-collapse v-model="active">
+                <el-collapse-item v-if="show6" name="1">
                   <template slot="title">
                     <span class="collapse_Title">{{$t('label.PFANS1012VIEW_PURCHASE')}}</span>
                   </template>
@@ -1220,6 +1220,7 @@
 
 
 <script>
+
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import user from '../../../components/user.vue';
   import dicselect from '../../../components/dicselect';
@@ -1367,7 +1368,7 @@
         }
       };
       return {
-        checkexpectedpaydate: true,
+        checkexpectedpaydate: false,
         DataList2: [],
         show12: false,
         DataList: [{
@@ -1419,6 +1420,7 @@
         title: 'title.PFANS1012VIEW',
         userlist: '',
         namelist: '',
+        active: '1',
         activeName: 'first',
         disablde: true,
         loading: false,
@@ -4185,240 +4187,251 @@
                     duration: 5 * 1000,
                   });
                   return;
-                }
-              }
-              //add-ws-6/16-禅道103
-              //ADD-WS-增加公共费用精算书check
-              if (this.form.type === 'PJ001001') {
-                for (let i = 0; i < this.tableT.length; i++) {
-                  if (this.tableT[i].rmb > 0) {
-                    if (this.tableT[i].budgetcoding === '') {
-                      this.activeName = 'second';
-                      error = error + 1;
-                      Message({
-                        message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_BUDGET'),
-                        type: 'error',
-                        duration: 5 * 1000,
-                      });
-                      break;
-                    }
-                    if (this.tableT[i].subjectnumber === '') {
-                      this.activeName = 'second';
-                      error = error + 1;
-                      Message({
-                        message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNTB'),
-                        type: 'error',
-                        duration: 5 * 1000,
-                      });
-                      break;
-                    }
-                  }
-                }
-              } else if (this.form.type === 'PJ001002') {
-                for (let i = 0; i < this.tableR.length; i++) {
-                  if (this.tableR[i].rmb > 0) {
-                    if (this.tableR[i].budgetcoding === '') {
-                      this.activeName = 'third';
-                      error = error + 1;
-                      Message({
-                        message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_BUDGET'),
-                        type: 'error',
-                        duration: 5 * 1000,
-                      });
-                      break;
-                    }
-                    if (this.tableR[i].subjectnumber === '') {
-                      this.activeName = 'third';
-                      error = error + 1;
-                      Message({
-                        message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNTB'),
-                        type: 'error',
-                        duration: 5 * 1000,
-                      });
-                      break;
-                    }
-                    if (this.tableR[i].plsummary === '') {
-                      this.activeName = 'third';
-                      error = error + 1;
-                      Message({
-                        message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_PL'),
-                        type: 'error',
-                        duration: 5 * 1000,
-                      });
-                      break;
-                    }
-                  }
-                }
-                for (let i = 0; i < this.tableP.length; i++) {
-                  if (this.tableP[i].rmb > 0) {
-                    if (this.tableP[i].budgetcoding === '') {
-                      this.activeName = 'third';
-                      error = error + 1;
-                      Message({
-                        message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_BUDGET'),
-                        type: 'error',
-                        duration: 5 * 1000,
-                      });
-                      break;
-                    }
-                    if (this.tableP[i].subjectnumber === '') {
-                      this.activeName = 'third';
-                      error = error + 1;
-                      Message({
-                        message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNTB'),
-                        type: 'error',
-                        duration: 5 * 1000,
-                      });
-                      break;
-                    }
-                    if (this.tableP[i].plsummary === '') {
-                      this.activeName = 'third';
-                      error = error + 1;
-                      Message({
-                        message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_PL'),
-                        type: 'error',
-                        duration: 5 * 1000,
-                      });
-                      break;
-                    }
-                  }
-                }
-              }
-
-              //ADD-WS-增加公共费用精算书check
-              if (this.form.type === 'PJ001001') {
-                for (let j = 0; j < this.tableF.length; j++) {
-                  let summoney = 0;
-                  for (let i = 0; i < this.tableT.length; i++) {
-                    if (this.tableT[i].trafficdate !== '' || this.tableT[i].subjectnumber !== '' || this.tableT[i].invoicenumber !== '' || this.tableT[i].departmentname !== '' || this.tableT[i].budgetcoding !== '' || this.tableT[i].region !== '' || this.tableT[i].vehicle !== '' || this.tableT[i].startingpoint !== ''
-                      || this.tableT[i].rmb > 0 || this.tableT[i].foreigncurrency > 0 || this.tableT[i].annexno !== '') {
-                      if (this.tableT[i].invoicenumber == this.tableF[j].invoicenumber) {
-                        if (this.tableT[i].rmb != '0') {
-                          summoney += this.tableT[i].rmb;
-                          continue;
-                        }
-                      }
-                    }
-                  }
-                  if (summoney != this.tableF[j].invoiceamount) {
-                    error = error + 1;
-                    Message({
-                      message: this.$t('label.PFANS1012FORMVIEW_MESSAGE'),
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
-                    break;
-                  }
-                }
-              } else if (this.form.type === 'PJ001002') {
-                for (let j = 0; j < this.tableF.length; j++) {
-                  let summoney = 0;
-                  let sumMoney = 0;
-                  let sumout = 0;
-                  for (let i = 0; i < this.tableP.length; i++) {
-                    if (this.tableP[i].purchasedetailsdate !== '' || this.tableP[i].procurementdetails !== '' || this.tableP[i].invoicenumber !== '' || this.tableP[i].departmentname !== '' || this.tableP[i].budgetcoding !== ''
-                      || this.tableP[i].subjectnumber !== '' || this.tableP[i].rmb > 0 || this.tableP[i].foreigncurrency > 0 || this.tableP[i].taxes !== '' || this.tableP[i].annexno !== '') {
-                      if (this.tableP[i].invoicenumber == this.tableF[j].invoicenumber) {
-                        if (this.tableP[i].rmb != '0') {
-                          summoney += this.tableP[i].rmb;
-                          continue;
-                        }
-                      }
-                    }
-                  }
-                  for (let i = 0; i < this.tableR.length; i++) {
-                    if (this.tableR[i].otherdetailsdate !== '' || this.tableR[i].invoicenumber !== '' || this.tableR[i].costitem !== '' || this.tableR[i].departmentname !== '' || this.tableR[i].accountcode !== '' || this.tableR[i].subjectnumber !== '' || this.tableR[i].budgetcoding !== '' || this.tableR[i].remarks !== ''
-                      || this.tableR[i].rmb > 0 || this.tableR[i].foreigncurrency > 0 || this.tableR[i].taxes !== '' || this.tableR[i].annexno !== '') {
-                      if (this.tableR[i].invoicenumber == this.tableF[j].invoicenumber) {
-                        if (this.tableR[i].rmb != '0') {
-                          sumMoney += this.tableR[i].rmb;
-                          continue;
-                        }
-                      }
-                    }
-                  }
-                  sumout = summoney + sumMoney;
-                  if (sumout != this.tableF[j].invoiceamount) {
-                    error = error + 1;
+                } else {
+                  if (moment(this.form.expectedpaydate).format('DD') != 15 && moment(this.form.expectedpaydate).format('DD') != 25) {
                     this.activeName = 'first';
                     Message({
-                      message: this.$t('label.PFANS1012FORMVIEW_MESSAGE'),
+                      message: this.$t('label.PFANS1012VIEW_CHECKEXPECTEDPAYDATE1'),
                       type: 'error',
                       duration: 5 * 1000,
                     });
-                    break;
+                    return;
                   }
                 }
               }
-              if (error == '0') {
-                //add-ws-6/11-禅道任务090
-                for (let i = 0; i < this.baseInfo.otherdetails.length; i++) {
-                  this.baseInfo.otherdetails[i].servicehours = this.getworkinghours(this.baseInfo.otherdetails[i].servicehours);
-                }
-                //add-ws-6/11-禅道任务090
-                if (this.$route.params._id) {
-                  this.loading = true;
-                  this.baseInfo.publicexpense.publicexpenseid = this.$route.params._id;
-                  this.$store
-                    .dispatch('PFANS1012Store/update', this.baseInfo)
-                    .then(response => {
-                      this.data = response;
-                      this.loading = false;
-                      if (val !== 'update') {
+                //add-ws-6/16-禅道103
+                //ADD-WS-增加公共费用精算书check
+                if (this.form.type === 'PJ001001') {
+                  for (let i = 0; i < this.tableT.length; i++) {
+                    if (this.tableT[i].rmb > 0) {
+                      if (this.tableT[i].budgetcoding === '') {
+                        this.activeName = 'second';
+                        error = error + 1;
                         Message({
-                          message: this.$t('normal.success_02'),
+                          message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_BUDGET'),
+                          type: 'error',
+                          duration: 5 * 1000,
+                        });
+                        break;
+                      }
+                      if (this.tableT[i].subjectnumber === '') {
+                        this.activeName = 'second';
+                        error = error + 1;
+                        Message({
+                          message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNTB'),
+                          type: 'error',
+                          duration: 5 * 1000,
+                        });
+                        break;
+                      }
+                    }
+                  }
+                } else if (this.form.type === 'PJ001002') {
+                  for (let i = 0; i < this.tableR.length; i++) {
+                    if (this.tableR[i].rmb > 0) {
+                      if (this.tableR[i].budgetcoding === '') {
+                        this.activeName = 'third';
+                        error = error + 1;
+                        Message({
+                          message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_BUDGET'),
+                          type: 'error',
+                          duration: 5 * 1000,
+                        });
+                        break;
+                      }
+                      if (this.tableR[i].subjectnumber === '') {
+                        this.activeName = 'third';
+                        error = error + 1;
+                        Message({
+                          message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNTB'),
+                          type: 'error',
+                          duration: 5 * 1000,
+                        });
+                        break;
+                      }
+                      if (this.tableR[i].plsummary === '') {
+                        this.activeName = 'third';
+                        error = error + 1;
+                        Message({
+                          message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_PL'),
+                          type: 'error',
+                          duration: 5 * 1000,
+                        });
+                        break;
+                      }
+                    }
+                  }
+                  for (let i = 0; i < this.tableP.length; i++) {
+                    if (this.tableP[i].rmb > 0) {
+                      if (this.tableP[i].budgetcoding === '') {
+                        this.activeName = 'third';
+                        error = error + 1;
+                        Message({
+                          message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_BUDGET'),
+                          type: 'error',
+                          duration: 5 * 1000,
+                        });
+                        break;
+                      }
+                      if (this.tableP[i].subjectnumber === '') {
+                        this.activeName = 'third';
+                        error = error + 1;
+                        Message({
+                          message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNTB'),
+                          type: 'error',
+                          duration: 5 * 1000,
+                        });
+                        break;
+                      }
+                      if (this.tableP[i].plsummary === '') {
+                        this.activeName = 'third';
+                        error = error + 1;
+                        Message({
+                          message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_PL'),
+                          type: 'error',
+                          duration: 5 * 1000,
+                        });
+                        break;
+                      }
+                    }
+                  }
+                }
+
+                //ADD-WS-增加公共费用精算书check
+                if (this.form.type === 'PJ001001') {
+                  for (let j = 0; j < this.tableF.length; j++) {
+                    let summoney = 0;
+                    for (let i = 0; i < this.tableT.length; i++) {
+                      if (this.tableT[i].trafficdate !== '' || this.tableT[i].subjectnumber !== '' || this.tableT[i].invoicenumber !== '' || this.tableT[i].departmentname !== '' || this.tableT[i].budgetcoding !== '' || this.tableT[i].region !== '' || this.tableT[i].vehicle !== '' || this.tableT[i].startingpoint !== ''
+                        || this.tableT[i].rmb > 0 || this.tableT[i].foreigncurrency > 0 || this.tableT[i].annexno !== '') {
+                        if (this.tableT[i].invoicenumber == this.tableF[j].invoicenumber) {
+                          if (this.tableT[i].rmb != '0') {
+                            summoney += this.tableT[i].rmb;
+                            continue;
+                          }
+                        }
+                      }
+                    }
+                    if (summoney != this.tableF[j].invoiceamount) {
+                      error = error + 1;
+                      Message({
+                        message: this.$t('label.PFANS1012FORMVIEW_MESSAGE'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                      break;
+                    }
+                  }
+                } else if (this.form.type === 'PJ001002') {
+                  for (let j = 0; j < this.tableF.length; j++) {
+                    let summoney = 0;
+                    let sumMoney = 0;
+                    let sumout = 0;
+                    for (let i = 0; i < this.tableP.length; i++) {
+                      if (this.tableP[i].purchasedetailsdate !== '' || this.tableP[i].procurementdetails !== '' || this.tableP[i].invoicenumber !== '' || this.tableP[i].departmentname !== '' || this.tableP[i].budgetcoding !== ''
+                        || this.tableP[i].subjectnumber !== '' || this.tableP[i].rmb > 0 || this.tableP[i].foreigncurrency > 0 || this.tableP[i].taxes !== '' || this.tableP[i].annexno !== '') {
+                        if (this.tableP[i].invoicenumber == this.tableF[j].invoicenumber) {
+                          if (this.tableP[i].rmb != '0') {
+                            summoney += this.tableP[i].rmb;
+                            continue;
+                          }
+                        }
+                      }
+                    }
+                    for (let i = 0; i < this.tableR.length; i++) {
+                      if (this.tableR[i].otherdetailsdate !== '' || this.tableR[i].invoicenumber !== '' || this.tableR[i].costitem !== '' || this.tableR[i].departmentname !== '' || this.tableR[i].accountcode !== '' || this.tableR[i].subjectnumber !== '' || this.tableR[i].budgetcoding !== '' || this.tableR[i].remarks !== ''
+                        || this.tableR[i].rmb > 0 || this.tableR[i].foreigncurrency > 0 || this.tableR[i].taxes !== '' || this.tableR[i].annexno !== '') {
+                        if (this.tableR[i].invoicenumber == this.tableF[j].invoicenumber) {
+                          if (this.tableR[i].rmb != '0') {
+                            sumMoney += this.tableR[i].rmb;
+                            continue;
+                          }
+                        }
+                      }
+                    }
+                    sumout = summoney + sumMoney;
+                    if (sumout != this.tableF[j].invoiceamount) {
+                      error = error + 1;
+                      this.activeName = 'first';
+                      Message({
+                        message: this.$t('label.PFANS1012FORMVIEW_MESSAGE'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                      break;
+                    }
+                  }
+                }
+                if (error == '0') {
+                  //add-ws-6/11-禅道任务090
+                  for (let i = 0; i < this.baseInfo.otherdetails.length; i++) {
+                    this.baseInfo.otherdetails[i].servicehours = this.getworkinghours(this.baseInfo.otherdetails[i].servicehours);
+                  }
+                  //add-ws-6/11-禅道任务090
+                  if (this.$route.params._id) {
+                    this.loading = true;
+                    this.baseInfo.publicexpense.publicexpenseid = this.$route.params._id;
+                    this.$store
+                      .dispatch('PFANS1012Store/update', this.baseInfo)
+                      .then(response => {
+                        this.data = response;
+                        this.loading = false;
+                        if (val !== 'update') {
+                          Message({
+                            message: this.$t('normal.success_02'),
+                            type: 'success',
+                            duration: 5 * 1000,
+                          });
+                          this.$router.push({
+                            name: 'PFANS1012View',
+                          });
+                        }
+                      })
+                      .catch(error => {
+                        Message({
+                          message: error,
+                          type: 'error',
+                          duration: 5 * 1000,
+                        });
+                        this.loading = false;
+                      });
+                  } else {
+                    this.loading = true;
+                    this.$store
+                      .dispatch('PFANS1012Store/insert', this.baseInfo)
+                      .then(response => {
+                        this.data = response;
+                        this.loading = false;
+                        Message({
+                          message: this.$t('normal.success_01'),
                           type: 'success',
                           duration: 5 * 1000,
                         });
                         this.$router.push({
                           name: 'PFANS1012View',
                         });
-                      }
-                    })
-                    .catch(error => {
-                      Message({
-                        message: error,
-                        type: 'error',
-                        duration: 5 * 1000,
+                      })
+                      .catch(error => {
+                        Message({
+                          message: error,
+                          type: 'error',
+                          duration: 5 * 1000,
+                        });
+                        this.loading = false;
                       });
-                      this.loading = false;
-                    });
-                } else {
-                  this.loading = true;
-                  this.$store
-                    .dispatch('PFANS1012Store/insert', this.baseInfo)
-                    .then(response => {
-                      this.data = response;
-                      this.loading = false;
-                      Message({
-                        message: this.$t('normal.success_01'),
-                        type: 'success',
-                        duration: 5 * 1000,
-                      });
-                      this.$router.push({
-                        name: 'PFANS1012View',
-                      });
-                    })
-                    .catch(error => {
-                      Message({
-                        message: error,
-                        type: 'error',
-                        duration: 5 * 1000,
-                      });
-                      this.loading = false;
-                    });
+                  }
                 }
+
+              } else {
+                Message({
+                  message: this.$t('normal.error_12'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
               }
 
-            } else {
-              Message({
-                message: this.$t('normal.error_12'),
-                type: 'error',
-                duration: 5 * 1000,
-              });
             }
-
-          });
+          );
         }
       },
       updateSta() {

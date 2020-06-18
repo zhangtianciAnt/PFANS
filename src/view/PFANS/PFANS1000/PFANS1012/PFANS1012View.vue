@@ -61,6 +61,13 @@
             filter: true,
           },
           {
+            code: 'expectedpaydate',
+            label: 'label.PFANS1012VIEW_EXPECTEDPAYDATE',
+            width: 150,
+            fix: false,
+            filter: true,
+          },
+          {
             code: 'invoiceno',
             label: 'label.PFANS1013VIEW_REIMNUMBER',
             width: 130,
@@ -148,6 +155,9 @@
                         response[j].type = this.$t('label.PFANS1012VIEW_TYPECHECKQQ')
                     }
                 }
+              }
+              if (response[j].expectedpaydate !== null && response[j].expectedpaydate !== '') {
+                response[j].expectedpaydate = moment(response[j].expectedpaydate).format('YYYY-MM-DD');
               }
               //ADD-WS-4/27-精算类型添加
               if (response[j].status != '0') {
