@@ -2340,7 +2340,11 @@
           if (us.length > 1) {
               for (let i = 0; i < us.length; i++) {
                   //去除单次选择时，重复的数据
-                  if (this.tableB.indexOf(us[i]) == -1) {
+                  let na = "";
+                  for (let nameid of this.tableB) {
+                      na = na + nameid.name;
+                  }
+                  if (na.indexOf(us[i]) == -1) {
                       this.tableB.push({
                           name: us[i],
                           position: '',
