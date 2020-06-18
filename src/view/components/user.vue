@@ -11,6 +11,7 @@
           </el-tooltip>
         </el-tag>
         <el-input
+          :disabled="disabled"
           class="input-new-tag"
           v-show="inputVisible"
           v-model="inputValue"
