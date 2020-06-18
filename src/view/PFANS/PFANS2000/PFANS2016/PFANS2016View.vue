@@ -42,35 +42,35 @@
                         label: "label.user_name",
                         width: 90,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: "centername",
                         label: "label.center",
                         width: 160,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: "groupname",
                         label: "label.group",
                         width: 160,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: "teamname",
                         label: "label.team",
                         width: 160,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: "applicationdate",
                         label: "label.application_date",
                         width: 130,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: "errortype",
@@ -84,7 +84,7 @@
                         label: "label.PFANS2016VIEW_PERIODLENGTH",
                         width: 140,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     // add-ws-考勤异常实际值添加
                     {
@@ -92,7 +92,7 @@
                         label: "label.PFANS2016VIEW_REPERIODLENGTH",
                         width: 140,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     // add-ws-考勤异常实际值添加
                     {
@@ -100,21 +100,21 @@
                         label: "label.PFANS2016VIEW_OCCURRENCEDATE",
                         width: 100,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: "finisheddate",
                         label: "label.PFANS2016VIEW_FINISHEDDATE",
                         width: 100,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: "status",
                         label: "label.approval_status",
                         width: 130,
                         fix: false,
-                        filter: true
+                        filter: false
                     }
                 ],
                 buttonList: [
