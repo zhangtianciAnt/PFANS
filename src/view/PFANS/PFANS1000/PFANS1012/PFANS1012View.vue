@@ -411,6 +411,7 @@
                       if (response[m].subjectnumber != '' && response[m].subjectnumber != null) {
                         response[m].subjectnumber = response[m].subjectnumber.replace('-0', '0');
                         response[m].subjectnumber = response[m].subjectnumber.replace('0-', '0');
+                        response[m].subjectnumber = response[m].subjectnumber.replace('-A', 'A');
                       }
                       if (response[m].budgetcoding != '' && response[m].budgetcoding != null) {
                         let letbudge = getDictionaryInfo(response[m].budgetcoding);
