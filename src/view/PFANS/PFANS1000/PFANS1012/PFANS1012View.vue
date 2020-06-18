@@ -193,8 +193,10 @@
     methods: {
       //ADD_FJL
       selectInit(row, index) {
-        if(row.moduleid != 'PJ002002' && row.status === this.$t('label.PFANS5004VIEW_OVERTIME')){
-          return row
+        if(row.status === this.$t('label.PFANS5004VIEW_OVERTIME')){
+          if(row.moduleid != 'PJ002002'&&row.moduleid != 'GL'){
+            return row
+          }
         }
       },
       //ADD_FJL
