@@ -397,7 +397,7 @@
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_COMPANYNAME')" v-show="show5" prop="fullname">
-                      <el-input :disabled="!disable" maxlength="20"
+                      <el-input :disabled="true" maxlength="20"
                                 style="width:20vw" v-model="form.fullname"></el-input>
                     </el-form-item>
                   </el-col>
@@ -4000,6 +4000,7 @@
         this.dialogTableVisible = false;
         this.form.suppliername = val;
         this.form.payeename = val1;
+        this.form.fullname = val1;
         this.form.payeecode = val2;
         this.form.payeebankaccountnumber = val3;
         this.form.payeebankaccount = val4;
