@@ -201,7 +201,7 @@
           {
             code: 'date',
             label: 'label.PFANS1013VIEW_DATE',
-            width: 120,
+            width: 170,
             fix: false,
             filter: true,
           },
