@@ -1766,7 +1766,7 @@
         this.buttonClick2();
       },
       //add-ws-5/20-审批流程添加
-      start(val) {
+        start() {
         this.form.applicationdate = moment(new Date()).format('YYYY-MM-DD');
 
         if (this.form.status === '4' || this.form.status === '6') {
@@ -2296,7 +2296,7 @@
                                 });
                                 return;
                             } else {
-                                this.updint();
+                                this.updint(val);
                             }
                         } else {
                             if (diffDate * 8 - Number(this.leaveNum) - Number(this.form.lengthtime) < 0) {
@@ -2307,7 +2307,7 @@
                                 });
                                 return;
                             } else {
-                                this.updint();
+                                this.updint(val);
                             }
                         }
                     })
@@ -2330,7 +2330,7 @@
           },
         );
       },
-        updint() {
+        updint(val) {
             //add-ws-6/8-禅道035
             if (this.$route.params._id) {
                 //总经理审批自动通过
