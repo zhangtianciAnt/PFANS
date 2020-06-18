@@ -221,7 +221,7 @@
                           <div style="text-align: center">
                             <el-row style="text-align: center;height: 90%;overflow: hidden">
                               <el-table
-                                :data="gridData.filter(data => !search || data.suppliername.toLowerCase().includes(search.toLowerCase()))"
+                                :data="gridData.filter(data => !search || data.accountpayeename.toLowerCase().includes(search.toLowerCase()))"
                                 height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
                                 @row-click="handleClickChange">
                                 <el-table-column property="accountpayeename"
