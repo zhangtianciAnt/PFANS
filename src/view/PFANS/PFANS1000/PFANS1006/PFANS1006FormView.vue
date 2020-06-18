@@ -74,7 +74,7 @@
                     plain
                     size="small"
                     type="primary"
-                  >{{$t('button.view')}}
+                  >{{$t('button.open')}}
                   </el-button>
                 </template>
               </el-table-column>
