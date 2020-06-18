@@ -1471,7 +1471,7 @@
             tabledata = this.tablefourth;
 
             for (let i = 0; i < tabledata.length; i++) {
-              tabledata[i].state = this.$t('label.PFANS8008FORMVIEW_EFFECTIVE');
+              //tabledata[i].state = this.$t('label.PFANS8008FORMVIEW_EFFECTIVE');
               tabledata[i].contractdate = this.getcontractdate(tabledata[i].contractdate);
               tabledata[i].contracttype = this.form.contracttype;
                 if ( tabledata[i].entrycondition === 'HT004001')
