@@ -174,7 +174,8 @@
                     <el-form-item :label="$t('label.PFANS1013VIEW_YESYJDA')">
                       <span style="margin-left: 1vw ">{{$t('label.no')}}</span>
                       <el-switch
-                        :disabled="true"
+                        @change="changearrivenight"
+                        :disabled="!disable"
                         v-model="form.arrivenight"
                         active-value="1"
                         inactive-value="0"
@@ -1812,6 +1813,21 @@
       }
     },
     methods: {
+      //add-ws-6/18-禅道任务15
+      changearrivenight(val) {
+        let moneys = 0;
+        if (this.form.type === '0') {
+          moneys = getDictionaryInfo('PJ035001').value7;
+        } else if (this.form.type === '1') {
+          moneys = getDictionaryInfo('PJ035002').value8;
+        }
+        if (val === '1') {
+          this.tableA[0].subsidies = parseFloat(moneys) + 100;
+        } else {
+          this.tableA[0].subsidies = parseFloat(moneys);
+        }
+      },
+      //add-ws-6/18-禅道任务15
       changeinvoicenumber(row, val) {
         for (let j = 0; j < this.tableF.length; j++) {
           if (row.invoicenumber == this.tableF[j].invoicenumber) {
