@@ -1755,15 +1755,19 @@
               }
 //add-ws-6/12-禅道105
 //add-ws-6/16-禅道103
-              if (this.form.paymentmethod === 'PJ004001') {
-                this.checkexpectedpaydate = false;
-              } else if (this.form.paymentmethod === 'PJ004002') {
-                this.checkexpectedpaydate = false;
-              } else if (this.form.paymentmethod === 'PJ004003') {
-                this.checkexpectedpaydate = true;
-              } else if (this.form.paymentmethod === 'PJ004004') {
-                this.checkexpectedpaydate = true;
-              } else {
+              if (this.disable) {
+                if (this.form.paymentmethod === 'PJ004001') {
+                  this.checkexpectedpaydate = false;
+                } else if (this.form.paymentmethod === 'PJ004002') {
+                  this.checkexpectedpaydate = false;
+                } else if (this.form.paymentmethod === 'PJ004003') {
+                  this.checkexpectedpaydate = true;
+                } else if (this.form.paymentmethod === 'PJ004004') {
+                  this.checkexpectedpaydate = true;
+                } else {
+                  this.checkexpectedpaydate = true;
+                }
+              }else{
                 this.checkexpectedpaydate = true;
               }
 //add-ws-6/16-禅道103
