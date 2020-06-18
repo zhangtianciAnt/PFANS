@@ -1126,7 +1126,6 @@
               <el-row>
                 <el-table
                   :data="DataList"
-                  @row-click="rowclick"
                   style="width: 516px"
                   header-cell-class-name="sub_bg_color_blue" stripe border
                 >
@@ -1142,6 +1141,13 @@
                         @click.native.prevent="viewdata(scope.row)"
                         plain
                         :disabled="show10"
+                        size="small"
+                        type="primary"
+                      >{{$t('button.open')}}
+                      </el-button>
+                      <el-button
+                        @click.native.prevent="rowclick(scope.row)"
+                        plain
                         size="small"
                         type="primary"
                       >{{$t('button.view')}}
