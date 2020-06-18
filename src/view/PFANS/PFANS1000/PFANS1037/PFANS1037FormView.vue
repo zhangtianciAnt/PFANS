@@ -1,23 +1,55 @@
 <template>
-  <EasyNormalTable
-    ref="dataTable"
-    :buttonList="buttonList"
-    :columns="columns"
-    :data="data"
-    :title="title"
-    :rowid="row"
-    @buttonClick="buttonClick"
-    @rowClick="rowClick"
-    v-loading="loading"
-    :showSelection="true"
-    :selectable="selectInit"
-  ></EasyNormalTable>
+  <div>
+    <EasyNormalTable
+      ref="dataTable"
+      :buttonList="buttonList"
+      :columns="columns"
+      v-show="this.showTable===1"
+      :data="data"
+      :title="title"
+      :rowid="row"
+      @buttonClick="buttonClick"
+      @rowClick="rowClick"
+      v-loading="loading"
+      :showSelection="true"
+      :selectable="selectInit"
+    ></EasyNormalTable>
+    <EasyNormalTable
+      ref="dataTable"
+      :buttonList="buttonList"
+      :columns="columns1"
+      v-show="this.showTable===2"
+      :data="data"
+      :title="title"
+      :rowid="row"
+      @buttonClick="buttonClick"
+      @rowClick="rowClick"
+      v-loading="loading"
+      :showSelection="true"
+      :selectable="selectInit"
+    ></EasyNormalTable>
+    <EasyNormalTable
+      ref="dataTable"
+      :buttonList="buttonList"
+      :columns="columns2"
+      v-show="this.showTable===3"
+      :data="data"
+      :title="title"
+      :rowid="row"
+      @buttonClick="buttonClick"
+      @rowClick="rowClick"
+      v-loading="loading"
+      :showSelection="true"
+      :selectable="selectInit"
+    ></EasyNormalTable>
+  </div>
 </template>
 
 <script>
   import EasyNormalTable from '@/components/EasyNormalTable';
   import {Message} from 'element-ui';
-  import {getDictionaryInfo, getOrgInfoByUserId, getStatus, getUserInfo} from '@/utils/customize';
+  import {getDictionaryInfo, getOrgInfoByUserId, getStatus, getUserInfo, getOrgInfo} from '@/utils/customize';
+  import moment from 'moment';
 
   export default {
     name: 'PFANS1037FormView',
@@ -27,12 +59,14 @@
     data() {
       return {
         loading: false,
+        showTable: '',
         selectedlist: [],
         comIdList: [],
         title: '',
         // 表格数据源
         data: [],
         // 列属性
+        //软件处理决裁
         columns: [
           {
             code: 'user_id',
@@ -58,6 +92,145 @@
           {
             code: 'team_id',
             label: 'label.team',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'processingmethod',
+            label: 'label.PFANS1039FORMVIEW_KIND',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'createon',
+            label: 'label.information_start',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'status',
+            label: 'label.approval_status',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+        ],
+        //软件移转申请
+        columns1: [
+          {
+            code: 'user_id',
+            label: 'label.applicant',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'center_id',
+            label: 'label.center',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'group_id',
+            label: 'label.group',
+            width: 130,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'team_id',
+            label: 'label.team',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'ferrygroup_id',
+            label: 'label.PFANS1008FORMVIEW_CROSSINGDEPARTMENT',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'tubegroup_id',
+            label: 'label.PFANS1008FORMVIEW_TRANSFERDEPARTMENT',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'management',
+            label: 'label.PFASN1023FORMVIEW_MANAGEMENT',
+            width: 140,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'assetname',
+            label: 'label.PFANS1036FORMVIEW_ASSETNAME',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'createon',
+            label: 'label.information_start',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'status',
+            label: 'label.approval_status',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+        ],
+        //固定资产借出修理持出决裁
+        columns2: [
+          {
+            code: 'user_id',
+            label: 'label.applicant',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'center_id',
+            label: 'label.center',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'group_id',
+            label: 'label.group',
+            width: 130,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'team_id',
+            label: 'label.team',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'processingmethod',
+            label: 'label.PFANS1039FORMVIEW_KIND',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'createon',
+            label: 'label.information_start',
             width: 120,
             fix: false,
             filter: true,
@@ -107,12 +280,15 @@
     },
     created(){
       if (this.$route.params.title === 7) {
+        this.showTable = 1;
         this.row = 'assetinformationid';
         this.title = 'title.PFANS1007VIEW';
       } else if (this.$route.params.title === 8) {
+        this.showTable = 2;
         this.row = 'softwaretransferid';
         this.title = 'title.PFANS1008VIEW';
       } else if (this.$route.params.title === 9) {
+        this.showTable = 3;
         this.row = 'fixedassets_id';
         this.title = 'title.PFANS1009VIEW';
       }
@@ -167,6 +343,29 @@
           }
           if (response[j].status !== null && response[j].status !== '') {
             response[j].status = getStatus(response[j].status);
+          }
+          //1
+          if (response[j].processingmethod !== null && response[j].processingmethod !== '') {
+            let letprocessingmethod = getDictionaryInfo(response[j].processingmethod);
+            if (letprocessingmethod != null) {
+              response[j].processingmethod = letprocessingmethod.value1;
+            }
+          }
+          if (response[j].createon != null && response[j].createon != "") {
+            response[j].createon = moment(response[j].createon).format('YYYY-MM-DD')
+          }
+          //2
+          if (response[j].ferrygroup_id !== null && response[j].ferrygroup_id !== '') {
+            let group = getOrgInfo(response[j].ferrygroup_id);
+            if (group) {
+              response[j].ferrygroup_id = group.companyname;
+            }
+          }
+          if (response[j].tubegroup_id !== null && response[j].tubegroup_id !== '') {
+            let group = getOrgInfo(response[j].tubegroup_id);
+            if (group) {
+              response[j].tubegroup_id = group.companyname;
+            }
           }
         }
         return response;
