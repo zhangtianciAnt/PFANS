@@ -3442,6 +3442,7 @@
           this.namelist = '';
           this.form.user_name = '';
           this.form.code = '';
+          this.form.expectedpaydate = '';
           this.form.accountnumber = '';
           this.form.receivables = '';
           this.form.loan = '';
@@ -3453,6 +3454,7 @@
           this.show3 = false;
           this.show4 = false;
           this.show5 = false;
+          this.form.expectedpaydate = '';
           this.namelist = this.$store.getters.userinfo.userid;
           this.form.code = this.Codecheck;
           this.form.payeename = '';
@@ -3472,6 +3474,7 @@
           this.show5 = false;
           this.form.payeename = '';
           this.form.payeecode = '';
+          this.form.expectedpaydate = '';
           this.form.payeebankaccountnumber = '';
           this.form.payeebankaccount = '';
           this.form.code = '';
@@ -3488,6 +3491,7 @@
           this.show5 = false;
           this.form.payeename = '';
           this.form.payeecode = '';
+          this.form.expectedpaydate = '';
           this.form.payeebankaccountnumber = '';
           this.form.payeebankaccount = '';
           this.form.code = '';
@@ -3505,6 +3509,7 @@
           this.show5 = true;
           this.form.payeename = '';
           this.form.payeecode = '';
+          this.form.expectedpaydate = '';
           this.form.payeebankaccountnumber = '';
           this.form.payeebankaccount = '';
           this.form.code = '';
@@ -4183,7 +4188,7 @@
               let error = 0;
               //add-ws-6/16-禅道103
               if (!this.checkexpectedpaydate) {
-                if (this.form.expectedpaydate === null) {
+                if (this.form.expectedpaydate === null||this.form.expectedpaydate === '') {
                   error = error + 1;
                   this.activeName = 'first';
                   Message({
