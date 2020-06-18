@@ -291,14 +291,14 @@
               <el-row>
                 <!--                //add-ws-5/18-No70-增加收款人-->
                 <el-col :span="8">
-                  <el-form-item :error="errorname" :label="$t('label.PFANS1006FORMVIEW_USERNAME')" v-show="show2">
+                  <el-form-item :error="errorname" :label="$t('label.PFANS1006FORMVIEW_USERNAME')" v-if="show2">
                     <user :disabled="!disable" :error="errorname" :selectType="selectType" :userlist="namelist"
                           @getUserids="getUsernames" style="width: 20vw" v-model="form.user_name"></user>
                   </el-form-item>
                 </el-col>
                 <!--                //add-ws-5/18-No70-增加收款人-->
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1012VIEW_CAIWUPERSONALCODE')" v-show="show2" prop="name">
+                  <el-form-item :label="$t('label.PFANS1012VIEW_CAIWUPERSONALCODE')" v-if="show2" prop="name">
                     <el-input :disabled="true" style="width:20vw" v-model="form.name" maxlength="20"></el-input>
                   </el-form-item>
                 </el-col>
@@ -1288,13 +1288,13 @@
                 }
               }
             }
-            // else {
-            //   Message({
-            //     message: this.$t('normal.error_12'),
-            //     type: 'error',
-            //     duration: 5 * 1000,
-            //   });
-            // }
+            else {
+              Message({
+                message: this.$t('normal.error_12'),
+                type: 'error',
+                duration: 5 * 1000,
+              });
+            }
           });
         }
       },
