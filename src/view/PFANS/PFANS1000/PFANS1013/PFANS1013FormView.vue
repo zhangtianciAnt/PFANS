@@ -174,7 +174,8 @@
                     <el-form-item :label="$t('label.PFANS1013VIEW_YESYJDA')">
                       <span style="margin-left: 1vw ">{{$t('label.no')}}</span>
                       <el-switch
-                        :disabled="true"
+                        @change="changearrivenight"
+                        :disabled="!disable"
                         v-model="form.arrivenight"
                         active-value="1"
                         inactive-value="0"
@@ -1113,7 +1114,8 @@
                       :on-error="fileError"
                       class="upload-demo"
                       drag
-                      ref="upload">
+                      ref="upload"
+                      v-model="form.uploadfile">
                       <i class="el-icon-upload"></i>
                       <div class="el-upload__text">{{$t('label.enclosurecontent')}}<em>{{$t('normal.info_09')}}</em>
                       </div>
@@ -1133,7 +1135,7 @@
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import user from '../../../components/user.vue';
   import {Message} from 'element-ui';
-  import {getDictionaryInfo, getOrgInfo, getOrgInfoByUserId, getUserInfo, uploadUrl} from '@/utils/customize';
+  import {getDictionaryInfo, getOrgInfo, getOrgInfoByUserId, getUserInfo, uploadUrl,downLoadUrl} from '@/utils/customize';
   import dicselect from '../../../components/dicselect';
   import org from '../../../components/org';
   import moment from 'moment';
@@ -1427,8 +1429,7 @@
               this.workflowCode = 'W0014';
             }
 //add-ws-6/17-禅道101
-            if (this.form.uploadfile != null) {
-              if (this.form.uploadfile != '') {
+            if (this.form.uploadfile != '' && this.form.uploadfile != null) {
                 let uploadfile = this.form.uploadfile.split(';');
                 for (var i = 0; i < uploadfile.length; i++) {
                   if (uploadfile[i].split(',')[0] != '') {
@@ -1437,7 +1438,6 @@
                     o.url = uploadfile[i].split(',')[1];
                     this.fileList.push(o);
                   }
-                }
               }
             }
             if (response.trafficdetails.length > 0) {
@@ -1812,6 +1812,21 @@
       }
     },
     methods: {
+      //add-ws-6/18-禅道任务15
+      changearrivenight(val) {
+        let moneys = 0;
+        if (this.form.type === '0') {
+          moneys = getDictionaryInfo('PJ035001').value7;
+        } else if (this.form.type === '1') {
+          moneys = getDictionaryInfo('PJ035002').value8;
+        }
+        if (val === '1') {
+          this.tableA[0].subsidies = parseFloat(moneys) + 100;
+        } else {
+          this.tableA[0].subsidies = parseFloat(moneys);
+        }
+      },
+      //add-ws-6/18-禅道任务15
       changeinvoicenumber(row, val) {
         for (let j = 0; j < this.tableF.length; j++) {
           if (row.invoicenumber == this.tableF[j].invoicenumber) {
@@ -1927,7 +1942,6 @@
                     businesstype: response[i].businesstype,
                     datenumber: response[i].datenumber,
                     external: response[i].external,
-                    arrivenight: response[i].arrivenight,
                   });
                 }
               } else {
@@ -1943,7 +1957,6 @@
                     businesstype: response[i].businesstype,
                     datenumber: response[i].datenumber,
                     external: response[i].external,
-                    arrivenight: response[i].arrivenight,
                   });
                 }
               }
@@ -1975,7 +1988,6 @@
                     label: this.$t('menu.PFANS1002') + '_' + moment(response[i].createon).format('YYYY-MM-DD'),
                     abroadbusiness: response[i].abroadbusiness,
                     external: response[i].external,
-                    arrivenight: response[i].arrivenight,
                     companyprojectsname: response[i].companyprojectsname,
                     city: response[i].region,
                     startdate: response[i].startdate,
@@ -1994,7 +2006,6 @@
                     label: this.$t('menu.PFANS1002') + '_' + moment(response[i].createon).format('YYYY-MM-DD'),
                     abroadbusiness: response[i].abroadbusiness,
                     external: response[i].external,
-                    arrivenight: response[i].arrivenight,
                     companyprojectsname: response[i].companyprojectsname,
                     city: response[i].region,
                     startdate: response[i].startdate,
@@ -2768,7 +2779,6 @@
         for (var i = 0; i < this.relations.length; i++) {
           if (this.relations[i].value === val) {
             this.form.external = this.relations[i].external;
-            this.form.arrivenight = this.relations[i].arrivenight;
             this.form.abroadbusiness = this.relations[i].abroadbusiness;
           }
         }
@@ -2803,7 +2813,6 @@
             this.form.project_id = this.relations[i].companyprojectsname;
             this.form.abroadbusiness = this.relations[i].abroadbusiness;
             this.form.external = this.relations[i].external;
-            this.form.arrivenight = this.relations[i].arrivenight;
             this.form.startdate = this.relations[i].startdate;
             this.form.enddate = this.relations[i].enddate;
             this.form.datenumber = this.relations[i].datenumber;
@@ -2885,9 +2894,6 @@
             rowindex: '',
             taxes: '',
           });
-        }
-        if (this.form.arrivenight === '1') {
-          this.tableA[0].subsidies = parseFloat(moneys) + 100;
         }
         for (let i = 0; i < this.tableA.length; i++) {
           this.tableA[i].optionsA = [];

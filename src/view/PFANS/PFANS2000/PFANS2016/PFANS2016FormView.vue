@@ -355,7 +355,6 @@
       };
       //add_fjl
       var revalidateVacationtype = (rule, value, callback) => {
-        //debugger
         if ((this.form.errortype == 'PR013005' || this.form.errortype == 'PR013007') && this.form.status != '4' && this.form.status != '5' && this.form.status != '6' && this.form.status != '7' && this.form.status != '8') {
           if (this.form.vacationtype === null || this.form.vacationtype === '') {
             callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS2016FORMVIEW_XJTYPE')));
@@ -406,7 +405,6 @@
         }
       };
       var revalidateRevacationtype = (rule, value, callback) => {
-        //debugger
         if ((this.form.errortype == 'PR013005' || this.form.errortype == 'PR013007') && (this.form.status === '4' || this.form.status === '5' || this.form.status === '6' || this.form.status === '7')) {
           if (this.form.revacationtype === null || this.form.revacationtype === '') {
             callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS2016FORMVIEW_RELENGTHTIME')));
@@ -494,7 +492,6 @@
         }
       };
       var validateLength = (rule, value, callback) => {
-        //debugger
         if (this.form.errortype == 'PR013006') {
           this.$store
             .dispatch('PFANS2016Store/cklength', this.form)
@@ -533,7 +530,6 @@
         }
       };
       var revalidateLength = (rule, value, callback) => {
-        //debugger
         if ((this.form.errortype == 'PR013005' || this.form.errortype == 'PR013006' || this.form.errortype == 'PR013007') && this.form.status === '4') {
           this.form.abnormalid = this.$route.params._id;
           this.form.status = this.form.status;
@@ -912,7 +908,6 @@
         this.getOvertimelist();
         // this.getWorktime();
         if (this.$store.getters.userinfo.userid === '5e78fefff1560b363cdd6db7') {
-          //debugger;
           this.workflowCode = 'W0070';
         } else {
           this.workflowCode = 'W0003';
@@ -1734,7 +1729,6 @@
         // this.changeTime();
       },
       workflowState(val) {
-        //debugger
         if (val.state === '1') {
           if (val.workflowCode === 'W0003' || val.workflowCode === 'W0070') {
             this.form.status = '3';
@@ -1766,7 +1760,7 @@
         this.buttonClick2();
       },
       //add-ws-5/20-审批流程添加
-      start(val) {
+        start() {
         this.form.applicationdate = moment(new Date()).format('YYYY-MM-DD');
 
         if (this.form.status === '4' || this.form.status === '6') {
@@ -1780,7 +1774,6 @@
       },
       //add-ws-5/20-审批流程添加
       end() {
-        //debugger;
         if (this.form.status === '5') {
           this.form.status = '4';
         } else {
@@ -2288,6 +2281,27 @@
                         this.leaveNum = response;
                         this.loading = false;
                         if (parseInt(this.form.status) >= 4) {
+                            let reletime = 0;
+                            let retimess = 0;
+                            if (this.form.errortype === 'PR013001' || this.form.errortype === 'PR013005' || this.form.errortype === 'PR013006'
+                                || this.form.errortype === 'PR013007' || this.form.errortype === 'PR013016' || this.form.errortype === 'PR013018'
+                                || this.form.errortype === 'PR013019' || this.form.errortype === 'PR013014') {
+                                for (let i = 0; i < this.relistTwo.length; i++) {
+                                    retimess = retimess + 1;
+                                }
+                                if (retimess === 0) {
+                                    Message({
+                                        message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
+                                        type: 'error',
+                                        duration: 5 * 1000,
+                                    });
+                                    return;
+                                } else {
+                                    reletime = retimess;
+                                }
+                            } else {
+                                reletime = rediffDate;
+                            }
                             if (rediffDate * 8 - Number(this.leaveNum) - Number(this.form.relengthtime) < 0) {
                                 Message({
                                     message: this.$t('异常申请每天累计不超过8小时'),
@@ -2296,10 +2310,31 @@
                                 });
                                 return;
                             } else {
-                                this.updint();
+                                this.updint(val);
                             }
                         } else {
-                            if (diffDate * 8 - Number(this.leaveNum) - Number(this.form.lengthtime) < 0) {
+                            let letime = 0;
+                            let timess = 0;
+                            if (this.form.errortype === 'PR013001' || this.form.errortype === 'PR013005' || this.form.errortype === 'PR013006'
+                                || this.form.errortype === 'PR013007' || this.form.errortype === 'PR013016' || this.form.errortype === 'PR013018'
+                                || this.form.errortype === 'PR013019' || this.form.errortype === 'PR013014') {
+                                for (let i = 0; i < this.relist.length; i++) {
+                                    timess = timess + 1;
+                                }
+                                if (timess === 0) {
+                                    Message({
+                                        message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
+                                        type: 'error',
+                                        duration: 5 * 1000,
+                                    });
+                                    return;
+                                } else {
+                                    letime = timess;
+                                }
+                            } else {
+                                letime = diffDate;
+                            }
+                            if (letime * 8 - Number(this.leaveNum) - Number(this.form.lengthtime) < 0) {
                                 Message({
                                     message: this.$t('异常申请每天累计不超过8小时'),
                                     type: 'error',
@@ -2307,7 +2342,7 @@
                                 });
                                 return;
                             } else {
-                                this.updint();
+                                this.updint(val);
                             }
                         }
                     })
@@ -2330,7 +2365,7 @@
           },
         );
       },
-        updint() {
+        updint(val) {
             //add-ws-6/8-禅道035
             if (this.$route.params._id) {
                 //总经理审批自动通过

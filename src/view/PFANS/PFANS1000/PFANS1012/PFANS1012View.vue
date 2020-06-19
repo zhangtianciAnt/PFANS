@@ -61,6 +61,20 @@
             filter: true,
           },
           {
+            code: 'moduleid',
+            label: 'label.PFANS1012VIEW_MODULE',
+            width: 150,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'expectedpaydate',
+            label: 'label.PFANS1012VIEW_EXPECTEDPAYDATE',
+            width: 150,
+            fix: false,
+            filter: true,
+          },
+          {
             code: 'invoiceno',
             label: 'label.PFANS1013VIEW_REIMNUMBER',
             width: 130,
@@ -139,15 +153,18 @@
               }
               //ADD-WS-4/27-精算类型添加
               if (response[j].type !== null && response[j].type !== '') {
-                if(response[j].type==='PJ001001'){
-                    if (this.$i18n) {
-                        response[j].type = this.$t('label.PFANS1012VIEW_TYPECHECKJT')
-                    }
-                }else if(response[j].type==='PJ001002'){
-                    if (this.$i18n) {
-                        response[j].type = this.$t('label.PFANS1012VIEW_TYPECHECKQQ')
-                    }
+                if (response[j].type === 'PJ001001') {
+                  if (this.$i18n) {
+                    response[j].type = this.$t('label.PFANS1012VIEW_TYPECHECKJT');
+                  }
+                } else if (response[j].type === 'PJ001002') {
+                  if (this.$i18n) {
+                    response[j].type = this.$t('label.PFANS1012VIEW_TYPECHECKQQ');
+                  }
                 }
+              }
+              if (response[j].expectedpaydate !== null && response[j].expectedpaydate !== '') {
+                response[j].expectedpaydate = moment(response[j].expectedpaydate).format('YYYY-MM-DD');
               }
               //ADD-WS-4/27-精算类型添加
               if (response[j].status != '0') {
@@ -164,6 +181,12 @@
                 let letbudge = getDictionaryInfo(response[j].budgetunit);
                 if (letbudge) {
                   response[j].budgetunit = letbudge.value1;
+                }
+              }
+              if (response[j].moduleid !== null && response[j].moduleid !== '') {
+                let letbudge = getDictionaryInfo(response[j].moduleid);
+                if (letbudge) {
+                  response[j].moduleid = letbudge.value1;
                 }
               }
             }
@@ -183,8 +206,8 @@
     methods: {
       //ADD_FJL
       selectInit(row, index) {
-        if(row.moduleid != 'PJ002002' && row.status === this.$t('label.PFANS5004VIEW_OVERTIME')){
-          return row
+        if (row.status === this.$t('label.PFANS5004VIEW_OVERTIME')) {
+          return row;
         }
       },
       //ADD_FJL
@@ -291,6 +314,16 @@
           // }
           //DEL_FJL
           this.selectedlist = this.$refs.roletable.selectedList;
+          for (let m = 0; m < this.selectedlist.length; m++) {
+            if (this.selectedlist[m].moduleid === 'GL') {
+              Message({
+                message: this.$t('label.PFANS1012VIEW_GL'),
+                type: 'info',
+                duration: 2 * 1000,
+              });
+              return;
+            }
+          }
           for (let i = 0; i < this.selectedlist.length; i++) {
             this.selectedList.totalcost.push({
               publicexpenseid: this.selectedlist[i].publicexpenseid,
@@ -348,13 +381,13 @@
                         } else if (invoiceDate == '05') {
                           date = 'MAY';
                         } else if (invoiceDate == '06') {
-                          date = 'JUNE';
+                          date = 'JUN';
                         } else if (invoiceDate == '07') {
-                          date = 'JULY';
+                          date = 'JUL';
                         } else if (invoiceDate == '08') {
                           date = 'AUG';
                         } else if (invoiceDate == '09') {
-                          date = 'SEPT';
+                          date = 'SEP';
                         } else if (invoiceDate == '10') {
                           date = 'OCT';
                         } else if (invoiceDate == '11') {
@@ -380,13 +413,13 @@
                         } else if (conditionDate == '05') {
                           Date = 'MAY';
                         } else if (conditionDate == '06') {
-                          Date = 'JUNE';
+                          Date = 'JUN';
                         } else if (conditionDate == '07') {
-                          Date = 'JULY';
+                          Date = 'JUL';
                         } else if (conditionDate == '08') {
                           Date = 'AUG';
                         } else if (conditionDate == '09') {
-                          Date = 'SEPT';
+                          Date = 'SEP';
                         } else if (conditionDate == '10') {
                           Date = 'OCT';
                         } else if (conditionDate == '11') {
@@ -401,6 +434,7 @@
                       if (response[m].subjectnumber != '' && response[m].subjectnumber != null) {
                         response[m].subjectnumber = response[m].subjectnumber.replace('-0', '0');
                         response[m].subjectnumber = response[m].subjectnumber.replace('0-', '0');
+                        response[m].subjectnumber = response[m].subjectnumber.replace('-A', 'A');
                       }
                       if (response[m].budgetcoding != '' && response[m].budgetcoding != null) {
                         let letbudge = getDictionaryInfo(response[m].budgetcoding);
@@ -497,10 +531,10 @@
                   , 'productsegment', 'vatnumber', 'taxCode', 'paymentterms', 'remark', 'source', 'paymentmethods', 'type'];
                 const parser = new Parser({header: false});
                 const result = parser.parse(csvData);
-                let aaa = result.replace(new RegExp('"',"gm"), '');
-                let ccc = encodeURI(aaa)
-                let ddd = ccc.replace(new RegExp('%0A',"gm"), '%0D%0A');
-                let eee = ddd + '%0D%0A'
+                let aaa = result.replace(new RegExp('"', 'gm'), '');
+                let ccc = encodeURI(aaa);
+                let ddd = ccc.replace(new RegExp('%0A', 'gm'), '%0D%0A');
+                let eee = ddd + '%0D%0A';
                 let csvContent = 'data:text/csv;charset=utf-8,\ufeff' + eee;
                 const link = document.createElement('a');
                 link.href = csvContent;

@@ -167,8 +167,10 @@
             handleClick() {
                 if (this.activeName === 'second') {
                     this.showTable1 = false;
+                    this.getStatus('1');
                 } else if (this.activeName === 'first') {
                     this.showTable1 = true;
+                    this.getStatus('0');
                 }
             },
             rowclick(row) {

@@ -87,18 +87,32 @@
                         ></el-input>
                       </el-form-item>
                     </el-col>
+<!--                    &lt;!&ndash; 项目名称(和)&ndash;&gt;-->
+<!--                    <el-col :span="8">-->
+<!--                      <el-form-item :label="$t('label.PFANS1002VIEW_ABROADBUSINESS')">-->
+<!--                      <span style="margin-right: 1vw ">{{$t('label.no')}}</span>-->
+<!--                      <el-switch-->
+<!--                        :disabled="!disable"-->
+<!--                        active-value="1"-->
+<!--                        inactive-value="0"-->
+<!--                        v-model="form.abroadbusiness"-->
+<!--                      >-->
+<!--                      </el-switch>-->
+<!--                      <span style="margin-left: 1vw ">{{$t('label.yes')}}</span>-->
+<!--                      </el-form-item>-->
+<!--                    </el-col>-->
                     <!-- 项目名称(和)-->
                     <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS1002VIEW_ABROADBUSINESS')">
-                      <span style="margin-right: 1vw ">{{$t('label.no')}}</span>
-                      <el-switch
-                        :disabled="!disable"
-                        active-value="1"
-                        inactive-value="0"
-                        v-model="form.abroadbusiness"
+                      <el-form-item
+                        :label="$t('label.PFANS5001FORMVIEW_PROJECT_NAMEJP')"
+                        prop="project_namejp"
                       >
-                      </el-switch>
-                      <span style="margin-left: 1vw ">{{$t('label.yes')}}</span>
+                        <el-input
+                          :disabled="!disable"
+                          maxlength="50"
+                          style="width: 20vw"
+                          v-model="form.project_namejp"
+                        ></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="8">

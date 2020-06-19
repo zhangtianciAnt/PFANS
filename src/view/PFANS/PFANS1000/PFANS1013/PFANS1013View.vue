@@ -378,13 +378,13 @@
                       } else if (invoiceDate == '05') {
                         date = 'MAY';
                       } else if (invoiceDate == '06') {
-                        date = 'JUNE';
+                        date = 'JUN';
                       } else if (invoiceDate == '07') {
-                        date = 'JULY';
+                        date = 'JUL';
                       } else if (invoiceDate == '08') {
                         date = 'AUG';
                       } else if (invoiceDate == '09') {
-                        date = 'SEPT';
+                        date = 'SEP';
                       } else if (invoiceDate == '10') {
                         date = 'OCT';
                       } else if (invoiceDate == '11') {
@@ -410,13 +410,13 @@
                       } else if (conditionDate == '05') {
                         Date = 'MAY';
                       } else if (conditionDate == '06') {
-                        Date = 'JUNE';
+                        Date = 'JUN';
                       } else if (conditionDate == '07') {
-                        Date = 'JULY';
+                        Date = 'JUL';
                       } else if (conditionDate == '08') {
                         Date = 'AUG';
                       } else if (conditionDate == '09') {
-                        Date = 'SEPT';
+                        Date = 'SEP';
                       } else if (conditionDate == '10') {
                         Date = 'OCT';
                       } else if (conditionDate == '11') {

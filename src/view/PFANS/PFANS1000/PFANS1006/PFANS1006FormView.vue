@@ -74,7 +74,7 @@
                     plain
                     size="small"
                     type="primary"
-                  >{{$t('button.view')}}
+                  >{{$t('button.open')}}
                   </el-button>
                 </template>
               </el-table-column>
@@ -221,7 +221,7 @@
                           <div style="text-align: center">
                             <el-row style="text-align: center;height: 90%;overflow: hidden">
                               <el-table
-                                :data="gridData.filter(data => !search || data.suppliername.toLowerCase().includes(search.toLowerCase()))"
+                                :data="gridData.filter(data => !search || data.accountpayeename.toLowerCase().includes(search.toLowerCase()))"
                                 height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
                                 @row-click="handleClickChange">
                                 <el-table-column property="accountpayeename"
@@ -291,14 +291,14 @@
               <el-row>
                 <!--                //add-ws-5/18-No70-增加收款人-->
                 <el-col :span="8">
-                  <el-form-item :error="errorname" :label="$t('label.PFANS1006FORMVIEW_USERNAME')" v-show="show2">
+                  <el-form-item :error="errorname" :label="$t('label.PFANS1006FORMVIEW_USERNAME')" v-if="show2">
                     <user :disabled="!disable" :error="errorname" :selectType="selectType" :userlist="namelist"
                           @getUserids="getUsernames" style="width: 20vw" v-model="form.user_name"></user>
                   </el-form-item>
                 </el-col>
                 <!--                //add-ws-5/18-No70-增加收款人-->
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1012VIEW_CAIWUPERSONALCODE')" v-show="show2" prop="name">
+                  <el-form-item :label="$t('label.PFANS1012VIEW_CAIWUPERSONALCODE')" v-if="show2" prop="name">
                     <el-input :disabled="true" style="width:20vw" v-model="form.name" maxlength="20"></el-input>
                   </el-form-item>
                 </el-col>
@@ -338,7 +338,8 @@
                     :on-error="fileError"
                     class="upload-demo"
                     drag
-                    ref="upload">
+                    ref="upload"
+                    v-model="form.uploadfile">
                     <i class="el-icon-upload"></i>
                     <div class="el-upload__text">{{$t('label.enclosurecontent')}}<em>{{$t('normal.info_09')}}</em>
                     </div>
@@ -679,7 +680,7 @@
                 });
                 if (this.disable) {
                   this.show10 = true;
-                }else{
+                } else {
                   this.show10 = false;
                 }
                 this.show11 = true;
@@ -710,16 +711,14 @@
               this.show7 = true;
             }
             this.getBudt(this.userlist);
-            if (this.form.uploadfile != null) {
-              if (this.form.uploadfile != '') {
-                let uploadfile = this.form.uploadfile.split(';');
-                for (var i = 0; i < uploadfile.length; i++) {
-                  if (uploadfile[i].split(',')[0] != '') {
-                    let o = {};
-                    o.name = uploadfile[i].split(',')[0];
-                    o.url = uploadfile[i].split(',')[1];
-                    this.fileList.push(o);
-                  }
+            if (this.form.uploadfile != '' && this.form.uploadfile != null) {
+              let uploadfile = this.form.uploadfile.split(';');
+              for (var i = 0; i < uploadfile.length; i++) {
+                if (uploadfile[i].split(',')[0] != '') {
+                  let o = {};
+                  o.name = uploadfile[i].split(',')[0];
+                  o.url = uploadfile[i].split(',')[1];
+                  this.fileList.push(o);
                 }
               }
             }
@@ -1287,14 +1286,13 @@
                     });
                 }
               }
+            } else {
+              Message({
+                message: this.$t('normal.error_12'),
+                type: 'error',
+                duration: 5 * 1000,
+              });
             }
-            // else {
-            //   Message({
-            //     message: this.$t('normal.error_12'),
-            //     type: 'error',
-            //     duration: 5 * 1000,
-            //   });
-            // }
           });
         }
       },

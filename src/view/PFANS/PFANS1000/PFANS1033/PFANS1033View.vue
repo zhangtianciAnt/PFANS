@@ -39,7 +39,7 @@
                     {
                         code: 'contractnumber',
                         label: 'label.PFANS1024VIEW_CONTRACTNUMBER',
-                        width: 120,
+                      width: 140,
                         fix: false,
                         filter: true,
                     },
@@ -54,7 +54,7 @@
                   {
                     code: 'entrycondition',
                     label: 'label.PFANS1024VIEW_ENTRYCONDITION',
-                    width: 120,
+                    width: 180,
                     fix: false,
                     filter: true,
                   },
@@ -66,6 +66,22 @@
                         fix: false,
                         filter: true,
                     },
+                  // 禅道70 start
+                  {
+                    code: 'conchinese',
+                    label: 'label.PFANS6007VIEW_PJNAME',
+                    width: 280,
+                    fix: false,
+                    filter: true,
+                  },
+                  {
+                    code: 'custochinese',
+                    label: 'label.PFANS1010FORMVIEW_COMPANYNAME',
+                    width: 240,
+                    fix: false,
+                    filter: true,
+                  },
+                  // 禅道70 end
                     {
                         code: 'state',
                         label: 'label.PFANS1024VIEW_STATE',
