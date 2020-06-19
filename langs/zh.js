@@ -86,6 +86,9 @@ module.exports = {
     viewlogmement: '查看日志',
     conapp: '合同号申请',
     actuarial: '精算',
+    submmon: '资金回收确认',
+    submyin: '确认并用印',
+    sealapp: '印章申请',
   },
   table: {
     detail: '一览',
