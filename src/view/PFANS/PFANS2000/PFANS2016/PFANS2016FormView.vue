@@ -2282,43 +2282,43 @@
               }
 //    add_fjl_06/16  -- 添加异常申请每天累计不超过8小时check  start
                 this.loading = true;
-                this.$store
-                    .dispatch('PFANS2016Store/getLeaveNumber', this.form)
-                    .then(response => {
-                        this.leaveNum = response;
-                        this.loading = false;
-                        if (parseInt(this.form.status) >= 4) {
-                            if (rediffDate * 8 - Number(this.leaveNum) - Number(this.form.relengthtime) < 0) {
-                                Message({
-                                    message: this.$t('异常申请每天累计不超过8小时'),
-                                    type: 'error',
-                                    duration: 5 * 1000,
-                                });
-                                return;
-                            } else {
+                // this.$store
+                //     .dispatch('PFANS2016Store/getLeaveNumber', this.form)
+                //     .then(response => {
+                //         this.leaveNum = response;
+                //         this.loading = false;
+                //         if (parseInt(this.form.status) >= 4) {
+                //             if (rediffDate * 8 - Number(this.leaveNum) - Number(this.form.relengthtime) < 0) {
+                //                 Message({
+                //                     message: this.$t('异常申请每天累计不超过8小时'),
+                //                     type: 'error',
+                //                     duration: 5 * 1000,
+                //                 });
+                //                 return;
+                //             } else {
+                //                 this.updint(val);
+                //             }
+                //         } else {
+                //             if (diffDate * 8 - Number(this.leaveNum) - Number(this.form.lengthtime) < 0) {
+                //                 Message({
+                //                     message: this.$t('异常申请每天累计不超过8小时'),
+                //                     type: 'error',
+                //                     duration: 5 * 1000,
+                //                 });
+                //                 return;
+                //             } else {
                                 this.updint(val);
-                            }
-                        } else {
-                            if (diffDate * 8 - Number(this.leaveNum) - Number(this.form.lengthtime) < 0) {
-                                Message({
-                                    message: this.$t('异常申请每天累计不超过8小时'),
-                                    type: 'error',
-                                    duration: 5 * 1000,
-                                });
-                                return;
-                            } else {
-                                this.updint(val);
-                            }
-                        }
-                    })
-                    .catch(error => {
-                        Message({
-                            message: error,
-                            type: 'error',
-                            duration: 5 * 1000,
-                        });
-                        this.loading = false;
-                    });
+                    //         }
+                    //     }
+                    // })
+                    // .catch(error => {
+                    //     Message({
+                    //         message: error,
+                    //         type: 'error',
+                    //         duration: 5 * 1000,
+                    //     });
+                    //     this.loading = false;
+                    // });
 //    add_fjl_06/16  -- 添加异常申请每天累计不超过8小时check  end
             } else {
               Message({
