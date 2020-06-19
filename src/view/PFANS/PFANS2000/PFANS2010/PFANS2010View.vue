@@ -112,18 +112,19 @@
             };
         },
       mounted() {
-          this.init();
+        this.getWorkflow();
+        //await this.getlist();
         },
         methods: {
-          async init(){
-            await this.getWorkflow();
-            await this.getlist();
-          },
+          // async init(){
+          //   await this.getlist();
+          // },
           getWorkflow(){
             this.$store
               .dispatch('workflowStore/allWorkFlowIns', {menuUrl:'/PFANS2010View'})
               .then(response => {
                 this.workflow = response;
+                this.getlist();
                 this.loading = false;
               })
               .catch(error => {
@@ -149,6 +150,7 @@
                     .dispatch('PFANS2010Store/getlist', parameter)
                     .then(response => {
                         for (let j = 0; j < response.length; j++) {
+
                             let user = getUserInfo(response[j].user_id);
                             if (user) {
                                 response[j].user_name = getUserInfo(response[j].user_id).userinfo.customername;
@@ -166,6 +168,7 @@
 
                           response[j].owner = response[j].user_id;
                           response[j].rowid = response[j].user_id + "," + response[j].years + "," + response[j].months;
+
                           let jh = this.workflow.filter(item => item.dataid === response[j].rowid);
                           if(jh.length > 0){
                             response[j].workflowstates = jh[0].status;
