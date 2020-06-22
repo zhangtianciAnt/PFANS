@@ -147,7 +147,8 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS2001VIEW_SKILLLEVEL')">
-                    <el-input :disabled="!disabled" maxlength='20' style="width:20vw" v-model="form.skilllevel"></el-input>
+                    <el-input :disabled="!disabled" maxlength='20' style="width:20vw"
+                              v-model="form.skilllevel"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -238,516 +239,540 @@
 </template>
 
 <script>
-    import EasyNormalContainer from "@/components/EasyNormalContainer";
-    import PFANS2001View from "../PFANS2001/PFANS2001View.vue";
-    import dicselect from "../../../components/dicselect.vue";
-    import user from "../../../components/user.vue";
-    import {Message} from 'element-ui'
-    import {getOrgInfoByUserId} from '@/utils/customize';
-    import moment from "moment";
-    import org from "../../../components/org";
+  import EasyNormalContainer from '@/components/EasyNormalContainer';
+  import PFANS2001View from '../PFANS2001/PFANS2001View.vue';
+  import dicselect from '../../../components/dicselect.vue';
+  import user from '../../../components/user.vue';
+  import {Message} from 'element-ui';
+  import {getOrgInfoByUserId} from '@/utils/customize';
+  import moment from 'moment';
+  import org from '../../../components/org';
 
-    export default {
-        name: 'PFANS2001FormView',
-        components: {
-            EasyNormalContainer,
-            PFANS2001View,
-            getOrgInfoByUserId,
-            dicselect,
-            user,
-            org
+  export default {
+    name: 'PFANS2001FormView',
+    components: {
+      EasyNormalContainer,
+      PFANS2001View,
+      getOrgInfoByUserId,
+      dicselect,
+      user,
+      org,
+    },
+    data() {
+      var centerId = (rule, value, callback) => {
+        if (!this.form.center_id || this.form.center_id === '') {
+          callback(new Error(this.$t('normal.error_08') + 'center'));
+          this.error = this.$t('normal.error_08') + 'center';
+        } else {
+          callback();
+        }
+      };
+      return {
+        // centerorglist: '',
+        // grouporglist: '',
+        // teamorglist: '',
+        //upd-ws-6/22禅道任务163
+        optionsdata: [{value: 'PP024001', lable: this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')}],
+        //upd-ws-6/22禅道任务163
+        loading: false,
+        errorcenter: '',
+        errorgroup: '',
+        activeName: 'first',
+        checked: true,
+        selectType1: 'double',
+        title: 'title.PFANS2001VIEW',
+        buttonList: [],
+        recruitmentroute: [],
+        tabIndex: 0,
+        multiple: false,
+        multiple1: true,
+        form: {
+          recruitid: '',
+          postname: '',
+          centername: '',
+          groupname: '',
+          teamname: '',
+          center_id: '',
+          group_id: '',
+          team_id: '',
+          experience: '',
+          project_name: '',
+          peoplerequired: '',
+          workplace: '',
+          applicationtime: moment(new Date()).format('YYYY-MM-DD'),
+          viewproject: '',
+          recruitmentroute: '',
+          other: '',
+          jobdemand: '',
+          needtotravel: '',
+          demandlevel: '',
+          suggestedsalary: '',
+          turningday: '',
+          afterturningpositiv: '',
+          expectedarrivaltime: moment(new Date()).format('YYYY-MM-DD'),
+          skilllevel: '',
+          genderrequirements: '',
+          postother: '',
+          agerequirement: '',
+          requirements: '',
+          professional: '',
+          otherrequirements: '',
+          responsibilities: '',
         },
-        data() {
-            var centerId = (rule, value, callback) => {
-                if (!this.form.center_id || this.form.center_id === "") {
-                    callback(new Error(this.$t("normal.error_08") + "center"));
-                    this.error = this.$t("normal.error_08") + "center";
-                } else {
-                    callback();
-                }
-            };
-            return {
-                // centerorglist: '',
-                // grouporglist: '',
-                // teamorglist: '',
-                optionsdata: [],
-                loading: false,
-                errorcenter: '',
-                errorgroup: '',
-                activeName: 'first',
-                checked: true,
-                selectType1: "double",
-                title: "title.PFANS2001VIEW",
-                buttonList: [],
-                recruitmentroute: [],
-                tabIndex: 0,
-                multiple: false,
-                multiple1: true,
-                form: {
-                    recruitid: '',
-                    postname: '',
-                    centername: "",
-                    groupname: "",
-                    teamname: "",
-                    center_id: '',
-                    group_id: '',
-                    team_id: '',
-                    experience: '',
-                    project_name: '',
-                    peoplerequired: '',
-                    workplace: '',
-                    applicationtime: moment(new Date()).format("YYYY-MM-DD"),
-                    viewproject: '',
-                    recruitmentroute: '',
-                    other: '',
-                    jobdemand: '',
-                    needtotravel: '',
-                    demandlevel: '',
-                    suggestedsalary: '',
-                    turningday: '',
-                    afterturningpositiv: '',
-                    expectedarrivaltime: moment(new Date()).format("YYYY-MM-DD"),
-                    skilllevel: '',
-                    genderrequirements: '',
-                    postother: '',
-                    agerequirement: '',
-                    requirements: '',
-                    professional: '',
-                    otherrequirements: '',
-                    responsibilities: '',
-                },
-                code: 'PR027',
-                code1: 'PR028',
-                code2: 'PR029',
-                code3: 'PR030',
-                code4: 'PR031',
-                code5: 'PR032',
-                disabled: true,
-                menuList: [],
-                rules: {
-                    viewproject: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_09') + this.$t('label.PFANS2001VIEW_VIEWPROJECT'),
-                            trigger: 'change'
-                        },
-                    ],
-                    postname: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS2001VIEW_POSITIONTITLE'),
-                            trigger: 'change'
-                        },
-                    ],
-                    peoplerequired: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS2001VIEW_PEOPLEREQUIRED'),
-                            trigger: 'change'
-                        },
-                    ],
-                    workplace: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS2001VIEW_WORKPLACE'),
-                            trigger: 'change'
-                        },
-                    ],
-                    applicationtime: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_09') + this.$t('label.application_date'),
-                            trigger: 'change'
-                        },
-                    ],
-                    genderrequirements: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_09') + this.$t('label.PFANS2001VIEW_GENDERREQUIREMENTS'),
-                            trigger: 'change'
-                        },
-                    ],
-                    agerequirement: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS2001VIEW_AGEREQUIREMENT'),
-                            trigger: 'change'
-                        },
-                    ],
-                    requirements: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_09') + this.$t('label.PFANS2001VIEW_REQUIREMENTS'),
-                            trigger: 'change'
-                        },
-                    ],
-                    professional: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS2001VIEW_PROFESSIONAL'),
-                            trigger: 'change'
-                        },
-                    ],
-                    experience: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS2001VIEW_EXPERIENCE'),
-                            trigger: 'change'
-                        },
-                    ],
-                    otherrequirements: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS2001VIEW_OTHERREQUIREMENTS'),
-                            trigger: 'change'
-                        },
-                    ],
-                    center_id: [
-                        {
-                            required: true,
-                            validator: centerId,
-                            trigger: "blur"
-                        }
-                    ],
-                },
-                show1: false,
-                show2: false,
-                canStart: false,
-            };
+        code: 'PR027',
+        code1: 'PR028',
+        code2: 'PR029',
+        code3: 'PR030',
+        code4: 'PR031',
+        code5: 'PR032',
+        disabled: true,
+        menuList: [],
+        rules: {
+          viewproject: [
+            {
+              required: true,
+              message: this.$t('normal.error_09') + this.$t('label.PFANS2001VIEW_VIEWPROJECT'),
+              trigger: 'change',
+            },
+          ],
+          postname: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS2001VIEW_POSITIONTITLE'),
+              trigger: 'change',
+            },
+          ],
+          peoplerequired: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS2001VIEW_PEOPLEREQUIRED'),
+              trigger: 'change',
+            },
+          ],
+          workplace: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS2001VIEW_WORKPLACE'),
+              trigger: 'change',
+            },
+          ],
+          applicationtime: [
+            {
+              required: true,
+              message: this.$t('normal.error_09') + this.$t('label.application_date'),
+              trigger: 'change',
+            },
+          ],
+          genderrequirements: [
+            {
+              required: true,
+              message: this.$t('normal.error_09') + this.$t('label.PFANS2001VIEW_GENDERREQUIREMENTS'),
+              trigger: 'change',
+            },
+          ],
+          agerequirement: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS2001VIEW_AGEREQUIREMENT'),
+              trigger: 'change',
+            },
+          ],
+          requirements: [
+            {
+              required: true,
+              message: this.$t('normal.error_09') + this.$t('label.PFANS2001VIEW_REQUIREMENTS'),
+              trigger: 'change',
+            },
+          ],
+          professional: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS2001VIEW_PROFESSIONAL'),
+              trigger: 'change',
+            },
+          ],
+          experience: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS2001VIEW_EXPERIENCE'),
+              trigger: 'change',
+            },
+          ],
+          otherrequirements: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS2001VIEW_OTHERREQUIREMENTS'),
+              trigger: 'change',
+            },
+          ],
+          center_id: [
+            {
+              required: true,
+              validator: centerId,
+              trigger: 'blur',
+            },
+          ],
         },
-        mounted() {
+        show1: false,
+        show2: false,
+        canStart: false,
+      };
+    },
+    mounted() {
 
-            if (this.$route.params._org) {
-                ({
-                    centername: this.form.centername,
-                    groupname: this.form.groupname,
-                    teamname: this.form.teamname,
-                    center_id: this.form.center_id,
-                    group_id: this.form.group_id,
-                    team_id: this.form.team_id
-                } = this.$route.params._org);
+      if (this.$route.params._org) {
+        ({
+          centername: this.form.centername,
+          groupname: this.form.groupname,
+          teamname: this.form.teamname,
+          center_id: this.form.center_id,
+          group_id: this.form.group_id,
+          team_id: this.form.team_id,
+        } = this.$route.params._org);
+      }
+      this.getCompanyProjectList();
+      this.loading = true;
+      if (this.$route.params._id) {
+        this.$store
+          .dispatch('PFANS2001Store/getRecruitOne', {'recruitid': this.$route.params._id})
+          .then(response => {
+            this.form = response;
+            this.centerorglist = this.form.center_id;
+            this.grouporglist = this.form.group_id;
+            this.teamorglist = this.form.team_id;
+            if (response.recruitmentroute !== '') {
+              this.recruitmentroute = response.recruitmentroute.split(',');
+            } else {
+              this.recruitmentroute = [];
             }
-            this.getCompanyProjectList();
-            this.loading = true;
+
+            if (this.recruitmentroute.includes('PR027004')) {
+              this.show1 = true;
+            }
+            if (this.form.requirements === 'PR032005') {
+              this.show2 = true;
+            }
+
+            // add-ccm-岗位需求下拉多选
+            if (this.form.jobdemand != '' && this.form.jobdemand != null && this.form.jobdemand != undefined) {
+              let letstaff = this.form.jobdemand.split(',');
+              this.form.jobdemand = letstaff;
+            }
+            // add-ccm-岗位需求下拉多选
+
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      }
+    },
+    created() {
+      this.disabled = this.$route.params.disabled;
+      if (this.disabled) {
+        this.buttonList = [
+          {
+            key: 'save',
+            name: 'button.save',
+            disabled: false,
+            icon: 'el-icon-check',
+          },
+        ];
+      }
+    },
+    methods: {
+      setdisabled(val) {
+        if (this.$route.params.disabled) {
+          this.disabled = val;
+        }
+      },
+      checkRequire() {
+        if (
+          !this.form.center_id ||
+          /* !this.form.group_id ||*/
+          !this.form.postname ||
+          !this.form.peoplerequired ||
+          !this.form.workplace ||
+          !this.form.applicationtime ||
+          !this.form.viewproject
+        ) {
+          this.activeName = 'first';
+        } else if (
+          !this.form.genderrequirements ||
+          !this.form.agerequirement ||
+          !this.form.requirements ||
+          !this.form.professional ||
+          !this.form.experience
+        ) {
+          this.activeName = 'second';
+        }
+      },
+      getCenterId(val) {
+        this.getOrgInformation(val);
+        if (!val || this.form.center_id === '') {
+          this.errorcenter = this.$t('normal.error_08') + 'center';
+        } else {
+          this.errorcenter = '';
+        }
+      },
+      getGroupId(val) {
+        this.getOrgInformation(val);
+        if (this.form.center_id === '') {
+          this.errorgroup = this.$t('normal.error_08') + 'center';
+        } else {
+          this.errorgroup = '';
+        }
+      },
+      getTeamId(val) {
+        this.getOrgInformation(val);
+        if (this.form.center_id === '') {
+          this.errorgroup = this.$t('normal.error_08') + 'center';
+        } else {
+          this.errorgroup = '';
+        }
+      },
+      getOrgInformation(id) {
+        let org = {};
+        let treeCom = this.$store.getters.orgs;
+
+        if (id && treeCom.getNode(id)) {
+          let node = id;
+          let type = treeCom.getNode(id).data.type || 0;
+          for (let index = parseInt(type); index >= 1; index--) {
+            if (parseInt(type) === index && ![1, 2].includes(parseInt(type))) {
+              org.teamname = treeCom.getNode(node).data.departmentname;
+
+
+              org.team_id = treeCom.getNode(node).data._id;
+            }
+            if (index === 2) {
+              org.groupname = treeCom.getNode(node).data.departmentname;
+              org.group_id = treeCom.getNode(node).data._id;
+            }
+            if (index === 1) {
+              org.centername = treeCom.getNode(node).data.companyname;
+              org.center_id = treeCom.getNode(node).data._id;
+            }
+            node = treeCom.getNode(node).parent.data._id;
+          }
+          ({
+            centername: this.form.centername,
+            groupname: this.form.groupname,
+            teamname: this.form.teamname,
+            center_id: this.form.center_id,
+            group_id: this.form.group_id,
+            team_id: this.form.team_id,
+          } = org);
+        }
+      },
+
+      getRecruitmentroute(val) {
+        this.recruitmentroute = val;
+        this.show1 = false;
+        /*for (let i = 0; i <  this.recruitmentroute.length; i++) {
+            if ( this.recruitmentroute[i] === 'PR027004') {
+                this.show1 = true;
+            }
+        }*/
+        if (this.recruitmentroute.includes('PR027004')) {
+          this.show1 = true;
+        } else {
+          this.form.other = '';
+        }
+      },
+      getJobdemand(val) {
+        this.form.jobdemand = val;
+      },
+      getNeedtotravel(val) {
+        this.form.needtotravel = val;
+      },
+      getDemandlevel(val) {
+        this.form.demandlevel = val;
+      },
+      getGenderrequirements(val) {
+        this.form.genderrequirements = val;
+      },
+      getSkilllevel(val) {
+        this.form.skilllevel = val;
+      },
+      getAftert(val) {
+        this.form.afterturningpositiv = val;
+      },
+      getRequirements(val) {
+        this.form.requirements = val;
+        if (val === 'PR032005') {
+          this.show2 = true;
+        }
+        if (val === 'PR032001') {
+          this.show2 = false;
+        } else if (val === 'PR032002') {
+          this.show2 = false;
+        } else if (val === 'PR032003') {
+          this.show2 = false;
+        } else if (val === 'PR032004') {
+          this.show2 = false;
+        }
+      },
+      workflowState(val) {
+        if (val.state === '1') {
+          this.form.status = '3';
+        } else if (val.state === '2') {
+          this.form.status = '4';
+        }
+        this.buttonClick('update');
+      },
+      //upd 审批流程 fr
+      // start(val) {
+      //   this.form.status = '2';
+      //   this.buttonClick("update");
+      // },
+      start(val) {
+        if (val.state === '0') {
+          this.form.status = '2';
+        } else if (val.state === '2') {
+          this.form.status = '4';
+        }
+        this.buttonClick('update');
+      },
+      //upd 审批流程 to
+      end() {
+        this.form.status = '0';
+        this.buttonClick('update');
+      },
+      //upd-ws-6/22禅道任务163
+      getCompanyProjectList() {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS5009Store/getSiteList5', {})
+          .then(response => {
+            for (let i = 0; i < response.length; i++) {
+              this.optionsdata.push({
+                value: response[i].companyprojects_id,
+                lable: response[i].numbers + '_' + response[i].project_name,
+              });
+            }
+
+            this.$store
+              .dispatch('PFANS5013Store/getMyConProject2', {})
+              .then(response => {
+                for (let i = 0; i < response.length; i++) {
+                  this.optionsdata.push({
+                    value: response[i].comproject_id,
+                    lable: response[i].numbers + '_' + response[i].project_name,
+                  });
+                }
+                this.loading = false;
+              })
+              .catch(error => {
+                Message({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.loading = false;
+              });
+
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
+      //upd-ws-6/22禅道任务163
+      buttonClick(val) {
+        this.checkRequire();
+        this.$refs['refform'].validate(valid => {
+          if (valid) {
+            // add-ccm-岗位需求下拉多选
+            if (this.form.jobdemand != '' && this.form.jobdemand != null && this.form.jobdemand != undefined) {
+              let checktlist = this.form.jobdemand.splice(',');
+              let checktableD = '';
+              for (var m = 0; m < checktlist.length; m++) {
+                checktableD = checktableD + checktlist[m] + ',';
+              }
+              this.form.jobdemand = checktableD.substring(0, checktableD.length - 1);
+            }
+            // add-ccm-岗位需求下拉多选
+            this.form.recruitmentroute = this.recruitmentroute.join(',');
             if (this.$route.params._id) {
-                this.$store
-                    .dispatch('PFANS2001Store/getRecruitOne', {"recruitid": this.$route.params._id})
-                    .then(response => {
-                        this.form = response;
-                        this.centerorglist = this.form.center_id;
-                        this.grouporglist = this.form.group_id;
-                        this.teamorglist = this.form.team_id;
-                        if (response.recruitmentroute !== '') {
-                            this.recruitmentroute = response.recruitmentroute.split(",");
-                        } else {
-                            this.recruitmentroute = [];
-                        }
-
-                        if (this.recruitmentroute.includes('PR027004')) {
-                            this.show1 = true;
-                        }
-                        if (this.form.requirements === 'PR032005') {
-                            this.show2 = true;
-                        }
-
-                      // add-ccm-岗位需求下拉多选
-                      if (this.form.jobdemand != '' && this.form.jobdemand != null && this.form.jobdemand != undefined) {
-                        let letstaff = this.form.jobdemand.split(',');
-                        this.form.jobdemand = letstaff;
-                      }
-                      // add-ccm-岗位需求下拉多选
-
-                        this.loading = false;
-                    })
-                    .catch(error => {
-                        Message({
-                            message: error,
-                            type: 'error',
-                            duration: 5 * 1000
-                        });
-                        this.loading = false;
-                    })
-            }
-        },
-        created() {
-            this.disabled = this.$route.params.disabled;
-            if (this.disabled) {
-                this.buttonList = [
-                    {
-                        key: "save",
-                        name: "button.save",
-                        disabled: false,
-                        icon: "el-icon-check"
+              this.form.recruitid = this.$route.params._id;
+              this.form.center_id = this.centerorglist;
+              this.form.group_id = this.grouporglist;
+              this.form.team_id = this.teamorglist;
+              this.form.applicationtime = moment(this.form.applicationtime).format('YYYY-MM-DD');
+              this.form.expectedarrivaltime = moment(this.form.expectedarrivaltime).format('YYYY-MM-DD');
+              this.loading = true;
+              this.$store
+                .dispatch('PFANS2001Store/updateRecruit', this.form)
+                .then(response => {
+                  this.data = response;
+                  this.loading = false;
+                  if (val !== 'update') {
+                    Message({
+                      message: this.$t('normal.success_02'),
+                      type: 'success',
+                      duration: 5 * 1000,
+                    });
+                    if (this.$store.getters.historyUrl) {
+                      this.$router.push(this.$store.getters.historyUrl);
                     }
-                ];
-            }
-        },
-        methods: {
-          setdisabled(val){
-            if(this.$route.params.disabled){
-              this.disabled = val;
-            }
-          },
-            checkRequire() {
-                if (
-                    !this.form.center_id ||
-                   /* !this.form.group_id ||*/
-                    !this.form.postname ||
-                    !this.form.peoplerequired ||
-                    !this.form.workplace ||
-                    !this.form.applicationtime ||
-                    !this.form.viewproject
-                ) {
-                    this.activeName = 'first';
-                } else if (
-                    !this.form.genderrequirements ||
-                    !this.form.agerequirement ||
-                    !this.form.requirements ||
-                    !this.form.professional ||
-                    !this.form.experience
-                ) {
-                    this.activeName = 'second';
-                }
-            },
-            getCenterId(val) {
-                this.getOrgInformation(val);
-                if (!val || this.form.center_id === "") {
-                    this.errorcenter = this.$t("normal.error_08") + "center";
-                } else {
-                    this.errorcenter = "";
-                }
-            },
-            getGroupId(val) {
-                this.getOrgInformation(val);
-                if (this.form.center_id === "") {
-                    this.errorgroup = this.$t("normal.error_08") + "center";
-                } else {
-                    this.errorgroup = "";
-                }
-            },
-            getTeamId(val) {
-                this.getOrgInformation(val);
-                if (this.form.center_id === "") {
-                    this.errorgroup = this.$t("normal.error_08") + "center";
-                } else {
-                    this.errorgroup = "";
-                }
-            },
-            getOrgInformation(id) {
-                let org = {};
-                let treeCom = this.$store.getters.orgs;
-
-                if (id && treeCom.getNode(id)) {
-                    let node = id;
-                    let type = treeCom.getNode(id).data.type || 0;
-                    for (let index = parseInt(type); index >= 1; index--) {
-                        if (parseInt(type) === index && ![1, 2].includes(parseInt(type))) {
-                            org.teamname = treeCom.getNode(node).data.departmentname;
-
-
-                            org.team_id = treeCom.getNode(node).data._id;
-                        }
-                        if (index === 2) {
-                            org.groupname = treeCom.getNode(node).data.departmentname;
-                            org.group_id = treeCom.getNode(node).data._id;
-                        }
-                        if (index === 1) {
-                            org.centername = treeCom.getNode(node).data.companyname;
-                            org.center_id = treeCom.getNode(node).data._id;
-                        }
-                        node = treeCom.getNode(node).parent.data._id;
-                    }
-                    ({
-                        centername: this.form.centername,
-                        groupname: this.form.groupname,
-                        teamname: this.form.teamname,
-                        center_id: this.form.center_id,
-                        group_id: this.form.group_id,
-                        team_id: this.form.team_id,
-                    } = org);
-                }
-            },
-
-            getRecruitmentroute(val) {
-                this.recruitmentroute = val;
-                this.show1 = false;
-                /*for (let i = 0; i <  this.recruitmentroute.length; i++) {
-                    if ( this.recruitmentroute[i] === 'PR027004') {
-                        this.show1 = true;
-                    }
-                }*/
-                if(this.recruitmentroute.includes('PR027004')){
-                    this.show1 = true;
-                }else{
-                    this.form.other = '';
-                }
-            },
-            getJobdemand(val) {
-                this.form.jobdemand = val;
-            },
-            getNeedtotravel(val) {
-                this.form.needtotravel = val;
-            },
-            getDemandlevel(val) {
-                this.form.demandlevel = val;
-            },
-            getGenderrequirements(val) {
-                this.form.genderrequirements = val;
-            },
-            getSkilllevel(val) {
-                this.form.skilllevel = val;
-            },
-            getAftert(val) {
-                this.form.afterturningpositiv = val;
-            },
-            getRequirements(val) {
-                this.form.requirements = val;
-                if (val === "PR032005") {
-                    this.show2 = true;
-                }
-                if (val === "PR032001") {
-                    this.show2 = false;
-                } else if (val === "PR032002") {
-                    this.show2 = false;
-                } else if (val === "PR032003") {
-                    this.show2 = false;
-                } else if (val === "PR032004") {
-                    this.show2 = false;
-                }
-            },
-            workflowState(val) {
-                if (val.state === '1') {
-                    this.form.status = '3';
-                } else if (val.state === '2') {
-                    this.form.status = '4';
-                }
-                this.buttonClick("update");
-            },
-          //upd 审批流程 fr
-          // start(val) {
-          //   this.form.status = '2';
-          //   this.buttonClick("update");
-          // },
-          start(val) {
-            if (val.state === '0') {
-              this.form.status = '2';
-            }else if (val.state === '2') {
-              this.form.status = '4';
-            }
-            this.buttonClick('update');
-          },
-          //upd 审批流程 to
-            end() {
-                this.form.status = '0';
-                this.buttonClick("update");
-            },
-            getCompanyProjectList() {
-                this.loading = true;
-                this.$store
-                    .dispatch('PFANS5008Store/getCompanyProjectList', {})
-                    .then(response => {
-                        this.optionsdata = [];
-                        for (let i = 0; i < response.length; i++) {
-                            var vote = {};
-                            vote.value = response[i].companyprojects_id;
-                            vote.lable = response[i].project_name;
-                            this.optionsdata.push(vote)
-                        }
-                        this.loading = false;
-                    })
-                    .catch(error => {
-                        Message({
-                            message: error,
-                            type: 'error',
-                            duration: 5 * 1000
-                        });
-                        this.loading = false;
-                    })
-            },
-            buttonClick(val) {
-                this.checkRequire();
-                this.$refs["refform"].validate(valid => {
-                    if (valid) {
-                      // add-ccm-岗位需求下拉多选
-                      if (this.form.jobdemand != '' && this.form.jobdemand != null && this.form.jobdemand != undefined) {
-                        let checktlist = this.form.jobdemand.splice(',');
-                        let checktableD = '';
-                        for (var m = 0; m < checktlist.length; m++) {
-                          checktableD = checktableD + checktlist[m] + ',';
-                        }
-                        this.form.jobdemand = checktableD.substring(0, checktableD.length - 1);
-                      }
-                      // add-ccm-岗位需求下拉多选
-                        this.form.recruitmentroute = this.recruitmentroute.join(",");
-                        if (this.$route.params._id) {
-                            this.form.recruitid = this.$route.params._id;
-                            this.form.center_id = this.centerorglist;
-                            this.form.group_id = this.grouporglist;
-                            this.form.team_id = this.teamorglist;
-                            this.form.applicationtime = moment(this.form.applicationtime).format('YYYY-MM-DD');
-                            this.form.expectedarrivaltime = moment(this.form.expectedarrivaltime).format('YYYY-MM-DD');
-                            this.loading = true;
-                            this.$store
-                                .dispatch('PFANS2001Store/updateRecruit', this.form)
-                                .then(response => {
-                                    this.data = response;
-                                    this.loading = false;
-                                    if (val !== "update") {
-                                        Message({
-                                            message: this.$t("normal.success_02"),
-                                            type: 'success',
-                                            duration: 5 * 1000
-                                        });
-                                        if (this.$store.getters.historyUrl) {
-                                            this.$router.push(this.$store.getters.historyUrl);
-                                        }
-                                    }
-                                })
-                                .catch(error => {
-                                    Message({
-                                        message: error,
-                                        type: 'error',
-                                        duration: 5 * 1000
-                                    });
-                                    this.loading = false;
-                                })
-                        } else {
-                            this.form.application_date = moment(this.form.application_date).format('YYYY-MM-DD');
-                            this.form.expectedarrivaltime = moment(this.form.expectedarrivaltime).format('YYYY-MM-DD');
-                            this.$store
-                                .dispatch('PFANS2001Store/createRecruit', this.form)
-                                .then(response => {
-                                    this.data = response;
-                                    this.loading = false;
-                                    Message({
-                                        message: this.$t("normal.success_01"),
-                                        type: 'success',
-                                        duration: 5 * 1000
-                                    });
-                                    if (this.$store.getters.historyUrl) {
-                                        this.$router.push(this.$store.getters.historyUrl);
-                                    }
-                                })
-                                .catch(error => {
-                                    Message({
-                                        message: error,
-                                        type: 'error',
-                                        duration: 5 * 1000
-                                    });
-                                    this.loading = false;
-                                })
-                        }
-                    }else{
-                      Message({
-                        message: this.$t("normal.error_12"),
-                        type: 'error',
-                        duration: 5 * 1000
-                      });
-                    }
+                  }
+                })
+                .catch(error => {
+                  Message({
+                    message: error,
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  this.loading = false;
+                });
+            } else {
+              this.form.application_date = moment(this.form.application_date).format('YYYY-MM-DD');
+              this.form.expectedarrivaltime = moment(this.form.expectedarrivaltime).format('YYYY-MM-DD');
+              this.$store
+                .dispatch('PFANS2001Store/createRecruit', this.form)
+                .then(response => {
+                  this.data = response;
+                  this.loading = false;
+                  Message({
+                    message: this.$t('normal.success_01'),
+                    type: 'success',
+                    duration: 5 * 1000,
+                  });
+                  if (this.$store.getters.historyUrl) {
+                    this.$router.push(this.$store.getters.historyUrl);
+                  }
+                })
+                .catch(error => {
+                  Message({
+                    message: error,
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  this.loading = false;
                 });
             }
-        }
-    }
+          } else {
+            Message({
+              message: this.$t('normal.error_12'),
+              type: 'error',
+              duration: 5 * 1000,
+            });
+          }
+        });
+      },
+    },
+  };
 </script>
 
 <style rel="stylesheet/scss" lang="scss">
