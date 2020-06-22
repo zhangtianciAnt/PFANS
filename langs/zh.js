@@ -455,6 +455,7 @@ module.exports = {
     node: '节点',
     node_name: '节点名称',
     node_type: '节点类型',
+    node_output: '出口条件',
     node_type_0: '审批节点',
     node_type_1: '确认节点',
     node_type_2: '通知节点',
