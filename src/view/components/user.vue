@@ -194,10 +194,19 @@
     },
     methods: {
       showInput() {
-        this.inputVisible = true;
-        this.$nextTick(_ => {
-          this.$refs.saveTagInput.$refs.input.focus();
-        });
+        if(this.selectType === 'mult') {
+          this.inputVisible = true;
+          this.$nextTick(_ => {
+            this.$refs.saveTagInput.$refs.input.focus();
+          });
+        }else{
+          if(this.multipleSelection.length <= 0){
+            this.inputVisible = true;
+            this.$nextTick(_ => {
+              this.$refs.saveTagInput.$refs.input.focus();
+            });
+          }
+        }
       },
 
       handleInputConfirm() {
