@@ -73,7 +73,7 @@
 
 <script>
   import EasyButtonBar from '@/components/EasyButtonBar'
-  import {orderBy} from '@/utils/customize'
+  import {orderBy,getDictionaryInfo} from '@/utils/customize'
   import EasyWorkFlow from '@/components/EasyWorkFlow'
   import {helpContent} from "@/utils/helpContent";
 
@@ -384,7 +384,16 @@
     created(){
       let Content = helpContent().filter(item=> item.id == this.$router.currentRoute.name);
       if(Content.length > 0){
-        this.helpContent = Content[0].List;
+        debugger
+        let text = Content[0].help;
+        if(text.indexOf('^') != -1){
+          let code = text.substr(text.indexOf('^') + 1,8);
+          let dic = getDictionaryInfo(code);
+          if(dic){
+            text = text.replace("^" + code,dic.value1)
+          }
+        }
+        this.helpContent = text;
         if(this.helpContent.length > 0){
           this.showHelp = true;
         }
