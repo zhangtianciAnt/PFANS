@@ -11,8 +11,8 @@
             placement="right-start"
             title="温馨提示！"
             width="800"
-            trigger="click"
-            :content="helpContent">
+            trigger="click">
+            <div v-html="helpContent" class="el-popover__Content_customize"></div>
           <i class="el-icon-question" v-if="showHelp" slot="reference"/>
           </el-popover></span>
         <slot name="customize"></slot>
@@ -73,8 +73,9 @@
 
 <script>
   import EasyButtonBar from '@/components/EasyButtonBar'
-  import {orderBy} from '@/utils/customize'
+  import {orderBy,getDictionaryInfo} from '@/utils/customize'
   import EasyWorkFlow from '@/components/EasyWorkFlow'
+  import {helpContent} from "@/utils/helpContent";
 
   let moment = require('moment');
   export default {
@@ -85,6 +86,8 @@
     },
     data() {
       return {
+        showHelp:false,
+        helpContent:'',
         total: 0,
         listQuery: {
           page: 1,
@@ -192,12 +195,6 @@
         default: function () {
           return [false, false, false];
         }
-      },showHelp:{
-        type:Boolean,
-        default:false
-      },helpContent:{
-        type:String,
-        default:"正在升级中...."
       }
     },
     methods: {
@@ -384,6 +381,24 @@
       //     })
       // }
     },
+    created(){
+      let Content = helpContent().filter(item=> item.id == this.$router.currentRoute.name);
+      if(Content.length > 0){
+        debugger
+        let text = Content[0].help;
+        if(text.indexOf('^') != -1){
+          let code = text.substr(text.indexOf('^') + 1,8);
+          let dic = getDictionaryInfo(code);
+          if(dic){
+            text = text.replace("^" + code,dic.value1)
+          }
+        }
+        this.helpContent = text;
+        if(this.helpContent.length > 0){
+          this.showHelp = true;
+        }
+      }
+    },
     mounted() {
       this.totaldata = this.data;
       this.getList();
@@ -458,5 +473,18 @@
     font-size: 0.8rem;
     color: #005BAA;
     font-weight: bold;
+  }
+  .el-popover__title{
+    color: #005BAA;
+    font-size: 16px;
+    font-weight:bold;
+    line-height: 1;
+    margin-bottom: 5px;
+  }
+  .el-popover__Content_customize{
+    color: #005BAA;
+    font-size: 13px;
+    line-height: 1;
+    padding: 2px;
   }
 </style>

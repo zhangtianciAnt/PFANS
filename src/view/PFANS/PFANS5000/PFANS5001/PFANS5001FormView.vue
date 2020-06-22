@@ -627,6 +627,16 @@
                                         <!--@change="changeInt(scope.row)"-->
                                         <!--:no="scope.row" style="width:14vw" size="small"></el-input>-->
                               <user
+                                v-if="scope.$index == 0"
+                                :disabled="!disable"
+                                :no="scope.row"
+                                :userlist="scope.row.name"
+                                @close="getCitationUserid"
+                                :multiple="multiple"
+                                style="width: 80%"
+                              ></user>
+                              <user
+                                v-else
                                 :disabled="!disable"
                                 :no="scope.row"
                                 :userlist="scope.row.name"
@@ -2335,15 +2345,17 @@
         }
       },
       getCitationUserid(userlist, row) {
-        debugger
           // add_fjl_05/29  --添加人员多选
           let us = userlist.split(',');
-        let na = "";
-        for (let nameid of this.tableB) {
-          na = na + nameid.name;
-        }
-
           if (us.length > 1) {
+              let na = "";
+              for (let nameid of this.tableB) {
+                  if (us[0] === nameid.name) {
+                      nameid.name = '';
+                  } else {
+                      na = na + nameid.name;
+                  }
+              }
               for (let i = 0; i < us.length; i++) {
                   //去除单次选择时，重复的数据
                   if (na.indexOf(us[i]) == -1) {
@@ -2358,12 +2370,11 @@
                       });
                   }
               }
+              //保留人名不为空的数据
+              this.tableB = this.tableB.filter(itam => itam.name !== null && itam.name !== '')
           } else {
               row.name = userlist;
           }
-
-        //保留人名不为空的数据
-        this.tableB = this.tableB.filter(itam => itam.name !== null && itam.name !== '')
 
           // add_fjl_05/29  --添加人员多选
           // row.name = userlist;

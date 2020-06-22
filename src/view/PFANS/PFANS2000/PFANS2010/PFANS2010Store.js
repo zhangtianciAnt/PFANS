@@ -3,7 +3,8 @@ import {
   getAttendancelist,
   getAttendancelist1,
   update,
-  updStatus
+  updStatus,
+  updStatus1
 } from './PFANS2010Api'
 
 const PFANS2010Store = {
@@ -86,9 +87,25 @@ const PFANS2010Store = {
           reject(error);
         })
       })
-    }
+    },
     //add_fjl_05/13   --添加审批正常结束后，自动变成承认状态
 
+    // add 0622 ccm --审批被驳回后，当月考勤数据全部变为未承认状态
+    //更新明细承认状态为未承认
+    updStatus1({commit}, data) {
+      return new Promise((resolve, reject) => {
+        updStatus1(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    }
+    // add 0622 ccm --审批被驳回后，当月考勤数据全部变为未承认状态
   }
 }
 

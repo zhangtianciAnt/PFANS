@@ -1540,7 +1540,7 @@
       start(val) {
         if (val.state === '0') {
           this.form.status = '2';
-        }else if (val.state === '2') {
+        } else if (val.state === '2') {
           this.form.status = '4';
         }
         //add-ws-4/17-实施结果为空的情况下发起审批，提示填入必须项后程序没有终止修改
@@ -1685,6 +1685,25 @@
           this.form.sarmb = sums[8];
         }
       },
+      //add-ws-6/22-禅道152任务
+      checkparamsTitle() {
+        let id = this.$route.params._checkid;
+        let disable = this.$route.params._checkdisable;
+        this.$router.push({
+          name: 'PFANS1026FormView',
+          params: {
+            _id: id,
+            disabled: disable,
+          },
+        });
+      },
+
+      paramsTitle() {
+        this.$router.push({
+          name: 'PFANS1030View',
+        });
+      },
+      //add-ws-6/22-禅道152任务
       buttonClick(val) {
         this.form.maketype = '4',
           this.baseInfo = {};
@@ -1704,7 +1723,17 @@
           });
         }
         this.baseInfo.groupN = this.$store.getters.orgGroupList;
-        if (val === 'save' || val === 'StartWorkflow') {
+        //add-ws-6/22-禅道152任务
+        if (val === 'back') {
+          if (this.$route.params._check != null && this.$route.params._check != '' && this.$route.params._check != undefined) {
+            if (this.$route.params._check) {
+              this.checkparamsTitle();
+            }
+          } else {
+            this.paramsTitle();
+          }
+          //add-ws-6/22-禅道152任务
+        } else if (val === 'save' || val === 'StartWorkflow') {
           this.$refs['reff'].validate(valid => {
             if (valid) {
               this.loading = true;

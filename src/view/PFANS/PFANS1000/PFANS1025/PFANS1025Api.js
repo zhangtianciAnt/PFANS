@@ -23,6 +23,22 @@ export function selectById(data) {
     params: data
   })
 }
+// 禅道任务152
+export function getDataOne(data) {
+  return request({
+    url: 'award/selectById2',
+    method: 'post',
+    data: data
+  })
+}
+export function getDataOne2(data) {
+  return request({
+    url: 'award/selectList',
+    method: 'post',
+    data: data
+  })
+}
+// 禅道任务152
 export function generateJxls(data) {
   return requestDownload({
     url: 'award/generateJxls',

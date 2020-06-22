@@ -217,7 +217,7 @@
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_PAYEENAME')" v-show="show1" prop="payeename">
-                      <el-input :disabled="true" maxlength="20" style="width:20vw"
+                      <el-input :disabled="true" maxlength="50" style="width:20vw"
                                 v-model="form.payeename"></el-input>
                     </el-form-item>
                   </el-col>
@@ -239,7 +239,7 @@
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_PAYEEBANKACCOUNT')" v-show="show1"
                                   prop="payeebankaccount">
-                      <el-input :disabled="true" maxlength="20" style="width:20vw"
+                      <el-input :disabled="true" maxlength="50" style="width:20vw"
                                 v-model="form.payeebankaccount"></el-input>
                     </el-form-item>
                   </el-col>
@@ -314,7 +314,7 @@
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_PAYEENAME')" v-show="show3" prop="payeecode">
-                      <el-input :disabled="true" maxlength="20" style="width:20vw"
+                      <el-input :disabled="true" maxlength="50" style="width:20vw"
                                 v-model="form.payeename"></el-input>
                     </el-form-item>
                   </el-col>

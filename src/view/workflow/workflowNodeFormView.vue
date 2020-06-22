@@ -16,6 +16,11 @@
               </el-select>
             </el-form-item>
           </el-col>
+          <el-col :span="8">
+            <el-form-item :label="$t('label.node_output')" prop="outcondition">
+              <el-input-number v-model="form.outcondition" controls-position="right" :min="1" :max="10"></el-input-number>
+            </el-form-item>
+          </el-col>
         </el-row>
         <el-row>
           <el-col :span="24">
@@ -88,7 +93,8 @@
           nodeord:'',
           nodeusertype:'',
           remarks:'',
-          itemid: ''
+          itemid: '',
+          outcondition:1
         },
         error:"",
         selectType:"mult",

@@ -1,6 +1,6 @@
 <template>
   <div style="min-height: 100%">`
-    <EasyNormalContainer :buttonList="buttonList"  :title="title" @buttonClick="buttonClick" ref="container"
+    <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick" ref="container"
                          v-loading="loading" :canStart="canStart">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
@@ -159,10 +159,10 @@
           </el-row>
           <el-row>
             <el-col :span="8">
-                <el-form-item :label="$t('label.PFANS1024VIEW_LOADINGJUDGE')" prop="loadingjudge">
-                  <user :disabled="disable" :selectType="selectType" :userlist="userlist"
-                        style="width:20vw"></user>
-                </el-form-item>
+              <el-form-item :label="$t('label.PFANS1024VIEW_LOADINGJUDGE')" prop="loadingjudge">
+                <user :disabled="disable" :selectType="selectType" :userlist="userlist"
+                      style="width:20vw"></user>
+              </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1024VIEW_CLAIMDATE')">
@@ -185,7 +185,7 @@
   import PFANS1031View from '../PFANS1031/PFANS1031View.vue';
   import {Message} from 'element-ui';
   import user from '../../../components/user.vue';
-  import {getUserInfo,getDictionaryInfo} from '@/utils/customize';
+  import {getUserInfo, getDictionaryInfo} from '@/utils/customize';
   import dicselect from '../../../components/dicselect.vue';
   import moment from 'moment';
 
@@ -204,35 +204,34 @@
         selectType: 'Single',
         userlist: '',
         title: 'title.PFANS1031VIEW',
-        buttonList: [
-        ],
+        buttonList: [],
         form: {
-          contractnumber:'',
-          contracttype:'',
-          depositjapanese:'',
-          depositenglish:'',
-          entrustment:'',
-          deployment:'',
-          pjnamejapanese:'',
-          pjnamechinese:'',
-          openingdate:'',
-          enddate:'',
-          claimnumber:'',
-          claimtype:'',
-          deliveryfinshdate:'',
-          deliverydate:'',
-          completiondate:'',
-          currencyformat:'',
-          claimamount:'',
-          toto:'',
-          loadingjudge:'',
-          judgmentnumber:'',
-          fulusi:'',
-          takecharge:'',
-          judgment:'',
-          determination:'',
-          conjapanese:'',
-          claimdate:'',
+          contractnumber: '',
+          contracttype: '',
+          depositjapanese: '',
+          depositenglish: '',
+          entrustment: '',
+          deployment: '',
+          pjnamejapanese: '',
+          pjnamechinese: '',
+          openingdate: '',
+          enddate: '',
+          claimnumber: '',
+          claimtype: '',
+          deliveryfinshdate: '',
+          deliverydate: '',
+          completiondate: '',
+          currencyformat: '',
+          claimamount: '',
+          toto: '',
+          loadingjudge: '',
+          judgmentnumber: '',
+          fulusi: '',
+          takecharge: '',
+          judgment: '',
+          determination: '',
+          conjapanese: '',
+          claimdate: '',
         },
         code1: 'HT008',
         code2: 'PJ081',
@@ -246,13 +245,13 @@
     },
     created() {
       this.disable = this.$route.params.disabled;
-      if(!this.$route.params.disabled){
-        this.buttonList=[
+      if (!this.$route.params.disabled) {
+        this.buttonList = [
           {
             key: 'export1',
             name: 'button.generate',
             disabled: false,
-          }
+          },
         ];
         this.disable = true;
       }
@@ -265,17 +264,18 @@
           .then(response => {
             this.form = response;
             this.userlist = this.form.loadingjudge;
-            if (this.form.claimdatetime !== null && this.form.claimdatetime !== "") {
+            if (this.form.claimdatetime !== null && this.form.claimdatetime !== '') {
               this.form.openingdate = this.form.claimdatetime.slice(0, 10);
               this.form.enddate = this.form.claimdatetime.slice(this.form.claimdatetime.length - 10);
             }
-            if (this.form.claimtype !== null && this.form.claimtype !== "") {
+            if (this.form.claimtype !== null && this.form.claimtype !== '') {
               let checkclaimtype = getDictionaryInfo(this.form.claimtype);
-              if(checkclaimtype!=null || checkclaimtype!='')
+              if (checkclaimtype != null || checkclaimtype != '') {
                 this.form.claimtype = checkclaimtype.value1;
+              }
             }
 
-            if (response.depositjapanese !== null && response.depositjapanese !== "") {
+            if (response.depositjapanese !== null && response.depositjapanese !== '') {
               let letUser = getUserInfo(response.depositjapanese);
               if (letUser != null) {
                 response.depositjapanese = letUser.userinfo.customername;
@@ -295,9 +295,28 @@
       }
     },
     methods: {
+      //add-ws-6/22-禅道152任务
+      checkparamsTitle() {
+        let id = this.$route.params._checkid;
+        let disable = this.$route.params._checkdisable;
+        this.$router.push({
+          name: 'PFANS1026FormView',
+          params: {
+            _id: id,
+            disabled: disable,
+          },
+        });
+      },
+
+      paramsTitle() {
+        this.$router.push({
+          name: 'PFANS1031View',
+        });
+      },
+      //add-ws-6/22-禅道152任务
       buttonClick(val) {
-        if(this.form.openingdate!=="" && this.form.enddate!==""){
-          this.form.claimdatetime=moment(this.form.openingdate).format('YYYY-MM-DD')+" ~ "+moment(this.form.enddate).format('YYYY-MM-DD');
+        if (this.form.openingdate !== '' && this.form.enddate !== '') {
+          this.form.claimdatetime = moment(this.form.openingdate).format('YYYY-MM-DD') + ' ~ ' + moment(this.form.enddate).format('YYYY-MM-DD');
         }
         // this.$refs['refform'].validate(valid => {
         //   if (valid) {
@@ -323,15 +342,25 @@
         //     }
         //   }
         // });
-        if (val === 'export1') {
+        //add-ws-6/22-禅道152任务
+        if (val === 'back') {
+          if (this.$route.params._check != null && this.$route.params._check != '' && this.$route.params._check != undefined) {
+            if (this.$route.params._check) {
+              this.checkparamsTitle();
+            }
+          } else {
+            this.paramsTitle();
+          }
+          //add-ws-6/22-禅道152任务
+        } else if (val === 'export1') {
           this.loading = true;
           let deposit = getUserInfo(this.form.depositjapanese);
           if (deposit) {
-            this.form.depositjapanese= deposit.userinfo.customername;
+            this.form.depositjapanese = deposit.userinfo.customername;
           }
           let judge = getUserInfo(this.form.loadingjudge);
           if (judge) {
-            this.form.loadingjudge= judge.userinfo.customername;
+            this.form.loadingjudge = judge.userinfo.customername;
           }
           this.$store
             .dispatch('PFANS1031Store/downLoad', this.form)
@@ -345,7 +374,7 @@
                 duration: 5 * 1000,
               });
               this.loading = false;
-            })
+            });
         }
       },
     },

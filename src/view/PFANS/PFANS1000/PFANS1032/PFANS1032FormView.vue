@@ -127,11 +127,12 @@
                 </dicselect>
               </el-form-item>
             </el-col>
-            </el-row>
-            <el-row>
+          </el-row>
+          <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1024VIEW_REMARKS')">
-                <el-input :disabled="true" type="textarea" :rows="3" style="width:71vw" v-model="form.remarks"></el-input>
+                <el-input :disabled="true" type="textarea" :rows="3" style="width:71vw"
+                          v-model="form.remarks"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -143,19 +144,19 @@
 
 
 <script>
-  import EasyNormalContainer from "@/components/EasyNormalContainer";
-  import {Message} from 'element-ui'
-  import moment from "moment";
+  import EasyNormalContainer from '@/components/EasyNormalContainer';
+  import {Message} from 'element-ui';
+  import moment from 'moment';
   import dicselect from '../../../components/dicselect';
 
   export default {
-    name: "PFANS1032FormView",
+    name: 'PFANS1032FormView',
     components: {
       EasyNormalContainer, dicselect,
     },
     data() {
       return {
-        title: "title.PFANS1032VIEW",
+        title: 'title.PFANS1032VIEW',
         buttonList: [],
         loading: false,
         disabled: true,
@@ -185,16 +186,16 @@
           remarks: '',
         },
         rules: {},
-      }
+      };
     },
     mounted() {
       this.loading = true;
       if (this.$route.params._id) {
         this.$store
-          .dispatch('PFANS1032Store/one', {"petition_id" : this.$route.params._id})
+          .dispatch('PFANS1032Store/one', {'petition_id': this.$route.params._id})
           .then(response => {
             this.form = response;
-            if (this.form.claimdatetime !== null && this.form.claimdatetime !== "") {
+            if (this.form.claimdatetime !== null && this.form.claimdatetime !== '') {
               this.form.openingdate = this.form.claimdatetime.slice(0, 10);
               this.form.enddate = this.form.claimdatetime.slice(this.form.claimdatetime.length - 10);
             }
@@ -207,7 +208,7 @@
               duration: 5 * 1000,
             });
             this.loading = false;
-          })
+          });
       }
     },
     created() {
@@ -224,9 +225,28 @@
       this.disable = this.$route.params.disabled;
     },
     methods: {
+      //add-ws-6/22-禅道152任务
+      checkparamsTitle() {
+        let id = this.$route.params._checkid;
+        let disable = this.$route.params._checkdisable;
+        this.$router.push({
+          name: 'PFANS1026FormView',
+          params: {
+            _id: id,
+            disabled: disable,
+          },
+        });
+      },
+
+      paramsTitle() {
+        this.$router.push({
+          name: 'PFANS1032View',
+        });
+      },
+      //add-ws-6/22-禅道152任务
       buttonClick(val) {
-        if(this.form.openingdate!=="" && this.form.enddate!==""){
-          this.form.claimdatetime=moment(this.form.openingdate).format('YYYY-MM-DD')+" ~ "+moment(this.form.enddate).format('YYYY-MM-DD');
+        if (this.form.openingdate !== '' && this.form.enddate !== '') {
+          this.form.claimdatetime = moment(this.form.openingdate).format('YYYY-MM-DD') + ' ~ ' + moment(this.form.enddate).format('YYYY-MM-DD');
         }
         // this.$refs["reff"].validate(valid =>{
         //   if(valid){
@@ -259,7 +279,17 @@
         //     }
         //   }
         // })
-        if (val === 'export1') {
+        //add-ws-6/22-禅道152任务
+        if (val === 'back') {
+          if (this.$route.params._check != null && this.$route.params._check != '' && this.$route.params._check != undefined) {
+            if (this.$route.params._check) {
+              this.checkparamsTitle();
+            }
+          } else {
+            this.paramsTitle();
+          }
+          //add-ws-6/22-禅道152任务
+        } else if (val === 'export1') {
           this.loading = true;
           this.$store
             .dispatch('PFANS1032Store/downLoad', this.form)
@@ -273,11 +303,11 @@
                 duration: 5 * 1000,
               });
               this.loading = false;
-            })
+            });
         }
-      }
-    }
-  }
+      },
+    },
+  };
 </script>
 
 <style scoped>

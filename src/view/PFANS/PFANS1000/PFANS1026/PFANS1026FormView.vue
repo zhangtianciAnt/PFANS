@@ -431,18 +431,23 @@
                              top="8vh"
                              append-to-body>
                     <el-table
-                              :data="dataA.filter(data => !search || data.custchinese.toLowerCase().includes(search.toLowerCase()))"
-                              :row-key="rowid" @row-click="rowClick" max-height="400" ref="roletableA"
-                              v-loading='loading'>
-                      <el-table-column show-overflow-tooltip property="custchinese" :label="$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')"
+                      :data="dataA.filter(data => !search || data.custchinese.toLowerCase().includes(search.toLowerCase()))"
+                      :row-key="rowid" @row-click="rowClick" max-height="400" ref="roletableA"
+                      v-loading='loading'>
+                      <el-table-column show-overflow-tooltip property="custchinese"
+                                       :label="$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')"
                                        width="120"></el-table-column>
-                      <el-table-column show-overflow-tooltip property="thecompany" :label="$t('label.PFANS6003FORMVIEW_THECOMPANY')"
+                      <el-table-column show-overflow-tooltip property="thecompany"
+                                       :label="$t('label.PFANS6003FORMVIEW_THECOMPANY')"
                                        width="120"></el-table-column>
-                      <el-table-column show-overflow-tooltip property="liableperson" :label="$t('label.ASSETS1002VIEW_USERID')"
+                      <el-table-column show-overflow-tooltip property="liableperson"
+                                       :label="$t('label.ASSETS1002VIEW_USERID')"
                                        width="120"></el-table-column>
-                      <el-table-column show-overflow-tooltip property="prochinese" :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')"
+                      <el-table-column show-overflow-tooltip property="prochinese"
+                                       :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')"
                                        width="120"></el-table-column>
-                      <el-table-column show-overflow-tooltip property="protelephone" :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')"
+                      <el-table-column show-overflow-tooltip property="protelephone"
+                                       :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')"
                                        width="120"></el-table-column>
                       <el-table-column
                         align="right" width="205">
@@ -943,6 +948,46 @@
               </template>
             </el-table-column>
           </el-table>
+          <!--add-ws-6/22-禅道152任务-->
+          <el-table
+            :data="DataList"
+            style="padding-top: 2vw"
+            header-cell-class-name="sub_bg_color_grey height" stripe
+            :header-cell-style="getRowClass1"
+            v-if='checkdata'
+          >
+            <el-table-column
+              align="center"
+              prop="award"
+              :label="$t('label.PFANS1022FORMVIEW_KIND')"
+              width="320px">
+            </el-table-column>
+            <el-table-column
+              align="center"
+              prop="awardtype"
+              :label="$t('label.PFANS1024VIEW_CLAIMTYPE')"
+              width="320px">
+            </el-table-column>
+            <el-table-column
+              align="center"
+              prop="createon"
+              :label="$t('label.PFANS1024VIEW_CREATEON')"
+              width="320px">
+            </el-table-column>
+            <el-table-column :label="$t('label.operation')" align="center" width="220">
+              <template slot-scope="scope">
+                <el-button
+                  @click.native.prevent="viewdata(scope.row)"
+                  plain
+                  :disabled="show10"
+                  size="small"
+                  type="primary"
+                >{{$t('button.open')}}
+                </el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+          <!-- add-ws-6/22-禅道152任务-->
         </el-form>
       </div>
     </EasyNormalContainer>
@@ -1211,6 +1256,12 @@
         }
       };
       return {
+        //add-ws-6/22-禅道152任务
+        show10: true,
+        IDname: '',
+        checkdata: false,
+        DataList: [{}],
+        //add-ws-6/22-禅道152任务
         search: '',
         checkGroupId: false,
         makeintoBaseInfo: {},
@@ -1267,7 +1318,7 @@
         loading: false,
         selectType: 'Single',
         title: 'title.PFANS1026VIEW',
-          multipleSelection: [],
+        multipleSelection: [],
         contractapplication: {},
         activeName: '',
         activeClaimtype: '',
@@ -1306,13 +1357,13 @@
           // 决裁书作成
           '4': ['custojapanese', 'custochinese', 'conchinese', 'conjapanese', 'placejapanese', 'placechinese', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount'],
           // 纳品书作成
-          '5': ['claimdatetimeqh','custojapanese', 'custoenglish', 'custoabbreviation', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount', 'deliveryfinshdate', 'deliverydate', 'completiondate'
+          '5': ['claimdatetimeqh', 'custojapanese', 'custoenglish', 'custoabbreviation', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount', 'deliveryfinshdate', 'deliverydate', 'completiondate'
             , 'claimdate', 'supportdate', 'varto', 'conchinese', 'conjapanese', 'loadingjudge', 'deliveryfinshdate'],
-          '6': ['claimdatetimeqh','conchinese', 'conjapanese', 'custochinese', 'businesscode', 'claimdatetime', 'currencyposition', 'claimamount', 'deliveryfinshdate'],
-          '7': ['claimdatetimeqh','custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount', 'deliverydate'],
-          '61': ['claimdatetimeqh','custojapanese', 'custoenglish', 'custochinese', 'businesscode', 'currencyposition', 'conchinese', 'conjapanese', 'claimamount', 'claimdate', 'deliverydate', 'completiondate', 'deliveryfinshdate', 'loadingjudge', 'supportdate'],
+          '6': ['claimdatetimeqh', 'conchinese', 'conjapanese', 'custochinese', 'businesscode', 'claimdatetime', 'currencyposition', 'claimamount', 'deliveryfinshdate'],
+          '7': ['claimdatetimeqh', 'custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount', 'deliverydate'],
+          '61': ['claimdatetimeqh', 'custojapanese', 'custoenglish', 'custochinese', 'businesscode', 'currencyposition', 'conchinese', 'conjapanese', 'claimamount', 'claimdate', 'deliverydate', 'completiondate', 'deliveryfinshdate', 'loadingjudge', 'supportdate'],
           // 请求书作成
-          '62': ['claimdatetimeqh','claimdatetime', 'custoenglish', 'conchinese', 'currencyposition', 'businesscode', 'conjapanese', 'claimamount', 'placejapanese', 'claimdate', 'placechinese', 'deliveryfinshdate', 'loadingjudge', 'supportdate'],
+          '62': ['claimdatetimeqh', 'claimdatetime', 'custoenglish', 'conchinese', 'currencyposition', 'businesscode', 'conjapanese', 'claimamount', 'placejapanese', 'claimdate', 'placechinese', 'deliveryfinshdate', 'loadingjudge', 'supportdate'],
         },
         rules1: {
           claimtype: [
@@ -1567,6 +1618,10 @@
       };
     },
     mounted() {
+      //add-ws-6/22-禅道152任务
+      this.getaward();
+      this.IDname = this.$route.params._id;
+      //add-ws-6/22-禅道152任务
       this.contractnumbercount = this.$route.params.contractnumbercount;
       // let option1 = {};
       // option1.name = getDictionaryInfo('PG019001').value1;
@@ -1780,6 +1835,13 @@
     },
     created() {
       this.disabled = this.$route.params.disabled;
+      //add-ws-6/22-禅道152任务
+      if (this.disabled) {
+        this.show10 = true;
+      } else {
+        this.show10 = false;
+      }
+      //add-ws-6/22-禅道152任务
       if (!this.disabled || this.$route.params.state === this.$t('label.PFANS8008FORMVIEW_INVALID')) {
         this.buttonList = [];
       }
@@ -1788,47 +1850,222 @@
 //            }
     },
     methods: {
+      //add-ws-6/22-禅道152任务
+      getaward() {
+        this.DataList = [];
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS1025Store/getDataOne2', {'contractnumber': this.$route.params._id})
+          .then(response => {
+            if (response.quolist.length > 0) {
+              for (let i = 0; i < response.quolist.length; i++) {
+                if (response.quolist[i].createon !== null && response.quolist[i].createon !== '') {
+                  response.quolist[i].createon = moment(response.quolist[i].createon).format('YYYY-MM-DD');
+                }
+                this.DataList.push({
+                  award_id: response.quolist[i].quotationid,
+                  award: this.$t('label.PFANS1004VIEW_SALEQUOTATION'),
+                  awardtype: this.$t('label.PFANS1026FORMVIEW_D') + Number(i + 1) + this.$t('label.PFANS1026FORMVIEW_H'),
+                  createon: response.quolist[i].createon,
+                });
+                this.checkdata = true;
+              }
+            }
+            if (response.nonlist.length > 0) {
+              for (let i = 0; i < response.nonlist.length; i++) {
+                if (response.nonlist[i].createon !== null && response.nonlist[i].createon !== '') {
+                  response.nonlist[i].createon = moment(response.nonlist[i].createon).format('YYYY-MM-DD');
+                }
+                this.DataList.push({
+                  award_id: response.nonlist[i].nonjudgment_id,
+                  award: this.$t('label.PFANS1002VIEW_JUDGMENT'),
+                  awardtype: this.$t('label.PFANS1026FORMVIEW_D') + Number(i + 1) + this.$t('label.PFANS1026FORMVIEW_H'),
+                  createon: response.nonlist[i].createon,
+                });
+                this.checkdata = true;
+              }
+            }
+            if (response.conlist.length > 0) {
+              for (let i = 0; i < response.conlist.length; i++) {
+                if (response.conlist[i].createon !== null && response.conlist[i].createon !== '') {
+                  response.conlist[i].createon = moment(response.conlist[i].createon).format('YYYY-MM-DD');
+                }
+                this.DataList.push({
+                  award_id: response.conlist[i].contract_id,
+                  award: this.$t('title.PFANS1029VIEW'),
+                  awardtype: this.$t('label.PFANS1026FORMVIEW_D') + Number(i + 1) + this.$t('label.PFANS1026FORMVIEW_H'),
+                  createon: response.conlist[i].createon,
+                });
+                this.checkdata = true;
+              }
+            }
+            if (response.awardlist.length > 0) {
+              for (let i = 0; i < response.awardlist.length; i++) {
+                if (response.awardlist[i].createon !== null && response.awardlist[i].createon !== '') {
+                  response.awardlist[i].createon = moment(response.awardlist[i].createon).format('YYYY-MM-DD');
+                }
+                this.DataList.push({
+                  award_id: response.awardlist[i].award_id,
+                  award: this.$t('title.PFANS1025VIEW'),
+                  awardtype: this.$t('label.PFANS1026FORMVIEW_D') + Number(i + 1) + this.$t('label.PFANS1026FORMVIEW_H'),
+                  createon: response.awardlist[i].createon,
+                });
+                this.checkdata = true;
+              }
+            }
+            if (response.naplist.length > 0) {
+              for (let i = 0; i < response.naplist.length; i++) {
+                if (response.naplist[i].createon !== null && response.naplist[i].createon !== '') {
+                  response.naplist[i].createon = moment(response.naplist[i].createon).format('YYYY-MM-DD');
+                }
+                this.DataList.push({
+                  award_id: response.naplist[i].napalm_id,
+                  award: this.$t('title.PFANS1031VIEW'),
+                  awardtype: this.$t('label.PFANS1026FORMVIEW_D') + Number(i + 1) + this.$t('label.PFANS1026FORMVIEW_H'),
+                  createon: response.naplist[i].createon,
+                });
+                this.checkdata = true;
+              }
+            }
+            if (response.petilist.length > 0) {
+              for (let i = 0; i < response.petilist.length; i++) {
+                if (response.petilist[i].createon !== null && response.petilist[i].createon !== '') {
+                  response.petilist[i].createon = moment(response.petilist[i].createon).format('YYYY-MM-DD');
+                }
+                this.DataList.push({
+                  award_id: response.petilist[i].petition_id,
+                  award: this.$t('title.PFANS1032VIEW'),
+                  awardtype: this.$t('label.PFANS1026FORMVIEW_D') + Number(i + 1) + this.$t('label.PFANS1026FORMVIEW_H'),
+                  createon: response.petilist[i].createon,
+                });
+                this.checkdata = true;
+              }
+            }
 
+
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
+      viewdata(row) {
+        this.$store.commit('global/SET_HISTORYURL', '');
+        this.$store.commit('global/SET_WORKFLOWURL', '/FFFFF1024FormView');
+        if (row.award.substring(0, 3) === this.$t('label.PFANS1004VIEW_SALEQUOTATION')) {
+          this.$router.push({
+            name: 'PFANS1027FormView',
+            params: {
+              _checkdisable: this.disable,
+              _checkid: this.IDname,
+              _check: true,
+              _id: row.award_id,
+              disabled: false,
+            },
+          });
+        } else if (row.award.substring(0, 3) === this.$t('label.PFANS1002VIEW_JUDGMENT2')) {
+          this.$router.push({
+            name: 'PFANS1028FormView',
+            params: {
+              _checkdisable: this.disable,
+              _checkid: this.IDname,
+              _check: true,
+              _id: row.award_id,
+              disabled: false,
+            },
+          });
+        } else if (row.award.substring(0, 3) === this.$t('title.PFANS1029VIEW')) {
+          this.$router.push({
+            name: 'PFANS1029FormView',
+            params: {
+              _checkdisable: this.disable,
+              _checkid: this.IDname,
+              _check: true,
+              _id: row.award_id,
+              disabled: false,
+            },
+          });
+        } else if (row.award.substring(0, 3) === this.$t('title.PFANS1025VIEW')) {
+          this.$router.push({
+            name: 'PFANS1030FormView',
+            params: {
+              _checkdisable: this.disable,
+              _checkid: this.IDname,
+              _check: true,
+              _id: row.award_id,
+              disabled: false,
+            },
+          });
+        } else if (row.award.substring(0, 3) === this.$t('title.PFANS1031VIEW')) {
+          this.$router.push({
+            name: 'PFANS1031FormView',
+            params: {
+              _checkdisable: this.disable,
+              _checkid: this.IDname,
+              _check: true,
+              _id: row.award_id,
+              disabled: false,
+            },
+          });
+        } else if (row.award.substring(0, 3) === this.$t('title.PFANS1032VIEW')) {
+          this.$router.push({
+            name: 'PFANS1032FormView',
+            params: {
+              _checkdisable: this.disable,
+              _checkid: this.IDname,
+              _check: true,
+              _id: row.award_id,
+              disabled: false,
+            },
+          });
+        }
+      },
+      //add-ws-6/22-禅道152任务
       tipMes(contractNumber, index) {
         this.$confirm(this.$t('normal.error_tipis'), this.$t('normal.info'), {
           confirmButtonText: this.$t('button.confirm'),
           cancelButtonText: this.$t('button.cancel'),
           type: 'warning',
         }).then(() => {
-            // add_fjl_0604 --添加请求书和纳品书的选择生成
-            if (index === 5 || index === 6) {
-                let countNumber = '';
-                if (this.multipleSelection.length === 0) {
-                    Message({
-                        message: this.$t('normal.info_01'),
-                        type: 'info',
-                        duration: 2 * 1000
-                    });
-                    this.dialogBook = false;
-                    this.loading = false;
-                    return;
-                }
-                if (this.multipleSelection.length > 0) {
-                    for (let i = 0; i < this.multipleSelection.length; i++) {
-                        if (this.multipleSelection[i].claimtype === '第一回') {
-                            countNumber = this.multipleSelection[i].contractnumber + '-1';
-                        }
-                        if (this.multipleSelection[i].claimtype === '第二回') {
-                            countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-2';
-                        }
-                        if (this.multipleSelection[i].claimtype === '第三回') {
-                            countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-3';
-                        }
-                        if (this.multipleSelection[i].claimtype === '第四回') {
-                            countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-4';
-                        }
-                    }
-                    var tabledata = {'contractnumber': contractNumber, 'rowindex': index, 'countNumber': countNumber};
-                }
-            } else {
-                var tabledata = {'contractnumber': contractNumber, 'rowindex': index};
+          // add_fjl_0604 --添加请求书和纳品书的选择生成
+          if (index === 5 || index === 6) {
+            let countNumber = '';
+            if (this.multipleSelection.length === 0) {
+              Message({
+                message: this.$t('normal.info_01'),
+                type: 'info',
+                duration: 2 * 1000,
+              });
+              this.dialogBook = false;
+              this.loading = false;
+              return;
             }
-            // add_fjl_0604 --添加请求书和纳品书的选择生成
+            if (this.multipleSelection.length > 0) {
+              for (let i = 0; i < this.multipleSelection.length; i++) {
+                if (this.multipleSelection[i].claimtype === '第一回') {
+                  countNumber = this.multipleSelection[i].contractnumber + '-1';
+                }
+                if (this.multipleSelection[i].claimtype === '第二回') {
+                  countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-2';
+                }
+                if (this.multipleSelection[i].claimtype === '第三回') {
+                  countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-3';
+                }
+                if (this.multipleSelection[i].claimtype === '第四回') {
+                  countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-4';
+                }
+              }
+              var tabledata = {'contractnumber': contractNumber, 'rowindex': index, 'countNumber': countNumber};
+            }
+          } else {
+            var tabledata = {'contractnumber': contractNumber, 'rowindex': index};
+          }
+          // add_fjl_0604 --添加请求书和纳品书的选择生成
           this.handleSaveContract(index, this.makeintoBaseInfo, tabledata);
         }).catch(() => {
           this.$message({
@@ -2709,44 +2946,44 @@
               // });
             } else {
               //first save contractapplication
-                // add_fjl_0604 --添加请求书和纳品书的选择生成
-                if (index === 5 || index === 6) {
-                    let countNumber = '';
-                    if (this.multipleSelection.length === 0) {
-                        Message({
-                            message: this.$t('normal.info_01'),
-                            type: 'info',
-                            duration: 2 * 1000
-                        });
-                        this.dialogBook = false;
-                        this.loading = false;
-                        return;
-                    }
-                    if (this.multipleSelection.length > 0) {
-                        for (let i = 0; i < this.multipleSelection.length; i++) {
-                            if (this.multipleSelection[i].claimtype === '第一回') {
-                                countNumber = this.multipleSelection[i].contractnumber + '-1';
-                            }
-                            if (this.multipleSelection[i].claimtype === '第二回') {
-                                countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-2';
-                            }
-                            if (this.multipleSelection[i].claimtype === '第三回') {
-                                countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-3';
-                            }
-                            if (this.multipleSelection[i].claimtype === '第四回') {
-                                countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-4';
-                            }
-                        }
-                        var tabledata = {
-                            'contractnumber': contractNumber,
-                            'rowindex': index,
-                            'countNumber': countNumber
-                        };
-                    }
-                } else {
-                    var tabledata = {'contractnumber': contractNumber, 'rowindex': index};
+              // add_fjl_0604 --添加请求书和纳品书的选择生成
+              if (index === 5 || index === 6) {
+                let countNumber = '';
+                if (this.multipleSelection.length === 0) {
+                  Message({
+                    message: this.$t('normal.info_01'),
+                    type: 'info',
+                    duration: 2 * 1000,
+                  });
+                  this.dialogBook = false;
+                  this.loading = false;
+                  return;
                 }
-                // add_fjl_0604 --添加请求书和纳品书的选择生成
+                if (this.multipleSelection.length > 0) {
+                  for (let i = 0; i < this.multipleSelection.length; i++) {
+                    if (this.multipleSelection[i].claimtype === '第一回') {
+                      countNumber = this.multipleSelection[i].contractnumber + '-1';
+                    }
+                    if (this.multipleSelection[i].claimtype === '第二回') {
+                      countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-2';
+                    }
+                    if (this.multipleSelection[i].claimtype === '第三回') {
+                      countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-3';
+                    }
+                    if (this.multipleSelection[i].claimtype === '第四回') {
+                      countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-4';
+                    }
+                  }
+                  var tabledata = {
+                    'contractnumber': contractNumber,
+                    'rowindex': index,
+                    'countNumber': countNumber,
+                  };
+                }
+              } else {
+                var tabledata = {'contractnumber': contractNumber, 'rowindex': index};
+              }
+              // add_fjl_0604 --添加请求书和纳品书的选择生成
               this.handleSaveContract(index, this.makeintoBaseInfo, tabledata);
 
 //                    this.$refs["refform"].validate(valid => {
@@ -2888,11 +3125,11 @@
 
         }
       },
-        // add_fjl_0604 --添加请求书和纳品书的选择生成
-        handleSelectionChange(val) {
-            this.multipleSelection = val;
-        },
-        // add_fjl_0604 --添加请求书和纳品书的选择生成
+      // add_fjl_0604 --添加请求书和纳品书的选择生成
+      handleSelectionChange(val) {
+        this.multipleSelection = val;
+      },
+      // add_fjl_0604 --添加请求书和纳品书的选择生成
       //contractapplication save
       handleSaveContract(value, baseInfo, tabledata) {
         this.validateByType(value, valid => {
@@ -3090,18 +3327,18 @@
       handleSaveNumber(tabledata) {
 //            this.validateByType(index, valid => {
 //              if (valid) {
-          // add_fjl_0604 --添加请求书和纳品书的选择生成
-          let contractnumber = tabledata.contractnumber;
-          let rowindex = tabledata.rowindex;
-          let countNumber = tabledata.countNumber;
-          // add_fjl_0604 --添加请求书和纳品书的选择生成
+        // add_fjl_0604 --添加请求书和纳品书的选择生成
+        let contractnumber = tabledata.contractnumber;
+        let rowindex = tabledata.rowindex;
+        let countNumber = tabledata.countNumber;
+        // add_fjl_0604 --添加请求书和纳品书的选择生成
 
         this.loading = true;
-          this.$store.dispatch('PFANS1026Store/insertBook', {
-              'contractnumber': contractnumber,
-              'rowindex': rowindex,
-              'countNumber': countNumber
-          })
+        this.$store.dispatch('PFANS1026Store/insertBook', {
+          'contractnumber': contractnumber,
+          'rowindex': rowindex,
+          'countNumber': countNumber,
+        })
           .then(response => {
             this.data = response;
             this.loading = false;
@@ -3253,7 +3490,7 @@
         myRule.forEach(function(item, index, array) {
           let dataName = 'tabledata';
           let maxCount = rowCount;
-          if (['claimdatetimeqh','deliverydate', 'completiondate', 'claimdate', 'supportdate', 'deliveryfinshdate', 'loadingjudge', 'claimamount'].indexOf(item) >= 0) {
+          if (['claimdatetimeqh', 'deliverydate', 'completiondate', 'claimdate', 'supportdate', 'deliveryfinshdate', 'loadingjudge', 'claimamount'].indexOf(item) >= 0) {
             dataName = 'tableclaimtype';
             maxCount = rowCount2;
             for (var k = 0; k < maxCount; k++) {
