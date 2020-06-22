@@ -2468,6 +2468,7 @@
             });
         }
       },
+
       buttonClick2(val) {
         //总经理审批自动通过
         //debugger
