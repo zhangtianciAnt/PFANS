@@ -71,7 +71,7 @@
                 <!--                  收款方全称-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1012VIEW_PAYEENAME')" prop="payeename">
-                    <el-input :disabled="!disabled" maxlength="20" style="width:20vw"
+                    <el-input :disabled="!disabled" maxlength="50" style="width:20vw"
                               v-model="form.payeename"></el-input>
                   </el-form-item>
                 </el-col>
@@ -94,7 +94,7 @@
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1012VIEW_PAYEEBANKACCOUNT')"
                                 prop="payeebankaccount">
-                    <el-input :disabled="!disabled" maxlength="20" style="width:20vw"
+                    <el-input :disabled="!disabled" maxlength="50" style="width:20vw"
                               v-model="form.payeebankaccount"></el-input>
                   </el-form-item>
                 </el-col>
