@@ -530,6 +530,7 @@
           accountpayeename: '',
           reasonfordelay: '',
           uploadfile: '',
+          canafver: '0',
           application_date: moment(new Date()).format('YYYY-MM-DD'),
         },
         currentRow: '',

@@ -281,8 +281,8 @@
             filter: true,
           },
           {
-            code: 'hexiao',
-            label: 'label.PFANS1030FORMVIEW_HEXIAO',
+            code: 'canafver',
+            label: 'label.PFANS1030FORMVIEW_CANAFVER',
             width: 130,
             fix: false,
             filter: true,
@@ -479,6 +479,13 @@
           }
           if (response[j].startdate != null && response[j].startdate != "") {
             response[j].date = moment(response[j].startdate).format('YYYY-MM-DD') + "~" + moment(response[j].enddate).format('YYYY-MM-DD')
+          }
+          if (response[j].canafver != null && response[j].canafver != "") {
+            if (response[j].canafver == 1) {
+              response[j].canafver = this.$t('label.PFANS1030FORMVIEW_YCANAFVER');
+            } else {
+              response[j].canafver = this.$t('label.PFANS1030FORMVIEW_NCANAFVER');
+            }
           }
           // ztc 禅道No.61-增加编号（日期加序列号）end
         }
