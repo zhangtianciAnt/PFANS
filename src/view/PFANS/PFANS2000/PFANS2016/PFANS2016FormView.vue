@@ -355,7 +355,6 @@
       };
       //add_fjl
       var revalidateVacationtype = (rule, value, callback) => {
-        //debugger
         if ((this.form.errortype == 'PR013005' || this.form.errortype == 'PR013007') && this.form.status != '4' && this.form.status != '5' && this.form.status != '6' && this.form.status != '7' && this.form.status != '8') {
           if (this.form.vacationtype === null || this.form.vacationtype === '') {
             callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS2016FORMVIEW_XJTYPE')));
@@ -406,7 +405,6 @@
         }
       };
       var revalidateRevacationtype = (rule, value, callback) => {
-        //debugger
         if ((this.form.errortype == 'PR013005' || this.form.errortype == 'PR013007') && (this.form.status === '4' || this.form.status === '5' || this.form.status === '6' || this.form.status === '7')) {
           if (this.form.revacationtype === null || this.form.revacationtype === '') {
             callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS2016FORMVIEW_RELENGTHTIME')));
@@ -494,7 +492,6 @@
         }
       };
       var validateLength = (rule, value, callback) => {
-        //debugger
         if (this.form.errortype == 'PR013006') {
           this.$store
             .dispatch('PFANS2016Store/cklength', this.form)
@@ -533,7 +530,6 @@
         }
       };
       var revalidateLength = (rule, value, callback) => {
-        //debugger
         if ((this.form.errortype == 'PR013005' || this.form.errortype == 'PR013006' || this.form.errortype == 'PR013007') && this.form.status === '4') {
           this.form.abnormalid = this.$route.params._id;
           this.form.status = this.form.status;
@@ -912,7 +908,6 @@
         this.getOvertimelist();
         // this.getWorktime();
         if (this.$store.getters.userinfo.userid === '5e78fefff1560b363cdd6db7') {
-          //debugger;
           this.workflowCode = 'W0070';
         } else {
           this.workflowCode = 'W0003';
@@ -1734,7 +1729,6 @@
         // this.changeTime();
       },
       workflowState(val) {
-        //debugger
         if (val.state === '1') {
           if (val.workflowCode === 'W0003' || val.workflowCode === 'W0070') {
             this.form.status = '3';
@@ -1780,7 +1774,6 @@
       },
       //add-ws-5/20-审批流程添加
       end() {
-        //debugger;
         if (this.form.status === '5') {
           this.form.status = '4';
         } else {
@@ -2282,43 +2275,85 @@
               }
 //    add_fjl_06/16  -- 添加异常申请每天累计不超过8小时check  start
                 this.loading = true;
-                // this.$store
-                //     .dispatch('PFANS2016Store/getLeaveNumber', this.form)
-                //     .then(response => {
-                //         this.leaveNum = response;
-                //         this.loading = false;
-                //         if (parseInt(this.form.status) >= 4) {
-                //             if (rediffDate * 8 - Number(this.leaveNum) - Number(this.form.relengthtime) < 0) {
-                //                 Message({
-                //                     message: this.$t('异常申请每天累计不超过8小时'),
-                //                     type: 'error',
-                //                     duration: 5 * 1000,
-                //                 });
-                //                 return;
-                //             } else {
-                //                 this.updint(val);
-                //             }
-                //         } else {
-                //             if (diffDate * 8 - Number(this.leaveNum) - Number(this.form.lengthtime) < 0) {
-                //                 Message({
-                //                     message: this.$t('异常申请每天累计不超过8小时'),
-                //                     type: 'error',
-                //                     duration: 5 * 1000,
-                //                 });
-                //                 return;
-                //             } else {
+                this.$store
+                    .dispatch('PFANS2016Store/getLeaveNumber', this.form)
+                    .then(response => {
+                        this.leaveNum = response;
+                        this.loading = false;
+                        if (parseInt(this.form.status) >= 4) {
+                            let reletime = 0;
+                            let retimess = 0;
+                            if (this.form.errortype === 'PR013001' || this.form.errortype === 'PR013005' || this.form.errortype === 'PR013006'
+                                || this.form.errortype === 'PR013007' || this.form.errortype === 'PR013016' || this.form.errortype === 'PR013018'
+                                || this.form.errortype === 'PR013019' || this.form.errortype === 'PR013014') {
+                                for (let i = 0; i < this.relistTwo.length; i++) {
+                                    retimess = retimess + 1;
+                                }
+                                if (retimess === 0) {
+                                    Message({
+                                        message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
+                                        type: 'error',
+                                        duration: 5 * 1000,
+                                    });
+                                    return;
+                                } else {
+                                    reletime = retimess;
+                                }
+                            } else {
+                                reletime = rediffDate;
+                            }
+                            if (rediffDate * 8 - Number(this.leaveNum) - Number(this.form.relengthtime) < 0) {
+                                Message({
+                                    message: this.$t('异常申请每天累计不超过8小时'),
+                                    type: 'error',
+                                    duration: 5 * 1000,
+                                });
+                                return;
+                            } else {
                                 this.updint(val);
-                    //         }
-                    //     }
-                    // })
-                    // .catch(error => {
-                    //     Message({
-                    //         message: error,
-                    //         type: 'error',
-                    //         duration: 5 * 1000,
-                    //     });
-                    //     this.loading = false;
-                    // });
+                            }
+                        } else {
+                            let letime = 0;
+                            let timess = 0;
+                            if (this.form.errortype === 'PR013001' || this.form.errortype === 'PR013005' || this.form.errortype === 'PR013006'
+                                || this.form.errortype === 'PR013007' || this.form.errortype === 'PR013016' || this.form.errortype === 'PR013018'
+                                || this.form.errortype === 'PR013019' || this.form.errortype === 'PR013014') {
+                                for (let i = 0; i < this.relist.length; i++) {
+                                    timess = timess + 1;
+                                }
+                                if (timess === 0) {
+                                    Message({
+                                        message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
+                                        type: 'error',
+                                        duration: 5 * 1000,
+                                    });
+                                    return;
+                                } else {
+                                    letime = timess;
+                                }
+                            } else {
+                                letime = diffDate;
+                            }
+                            if (letime * 8 - Number(this.leaveNum) - Number(this.form.lengthtime) < 0) {
+                                Message({
+                                    message: this.$t('异常申请每天累计不超过8小时'),
+                                    type: 'error',
+                                    duration: 5 * 1000,
+                                });
+                                return;
+                            } else {
+                                this.updint(val);
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        Message({
+                            message: error,
+                            type: 'error',
+                            duration: 5 * 1000,
+                        });
+                        this.loading = false;
+                    });
 //    add_fjl_06/16  -- 添加异常申请每天累计不超过8小时check  end
             } else {
               Message({

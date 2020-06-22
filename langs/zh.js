@@ -86,6 +86,9 @@ module.exports = {
     viewlogmement: '查看日志',
     conapp: '合同号申请',
     actuarial: '精算',
+    submmon: '资金回收确认',
+    submyin: '确认并用印',
+    sealapp: '印章申请',
   },
   table: {
     detail: '一览',
@@ -758,6 +761,7 @@ module.exports = {
     PFANS1009FORMVIEW_OBJECTIVE: '目的',
     PFANS1009FORMVIEW_BORROWING: '借出／修理地     （住所、電話、    社名など）',
     PFANS1009FORMVIEW_REPAIR: '借出／修理／持出期间',
+    PFANS1009FORMVIEW_REPAIR1: '持出期间',
     PFANS1009FORMVIEW_RELEASEDATE: '监管解除日',
     PFANS1009FORMVIEW_REPAIRKITS: '借出／修理契约书',
     PFANS1009FORMVIEW_ASSETNUMBER: '固定资产番号',

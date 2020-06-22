@@ -221,13 +221,7 @@
             fix: false,
             filter: true,
           },
-          {
-            code: 'processingmethod',
-            label: 'label.PFANS1039FORMVIEW_KIND',
-            width: 120,
-            fix: false,
-            filter: true,
-          },
+          // 禅道67 start
           {
             code: 'createon',
             label: 'label.information_start',
@@ -235,6 +229,28 @@
             fix: false,
             filter: true,
           },
+          {
+            code: 'rfid',
+            label: 'label.PFANS1008FORMVIEW_ASSETMANAGEMENTNUMBER',
+            width: 140,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'assetname',
+            label: 'label.PFANS1008FORMVIEW_ASSETNAME',
+            width: 140,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'repair',
+            label: 'label.PFANS1009FORMVIEW_REPAIR1',
+            width: 200,
+            fix: false,
+            filter: true,
+          },
+          // 禅道67 end
           {
             code: 'status',
             label: 'label.approval_status',
