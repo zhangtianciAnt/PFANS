@@ -27,7 +27,7 @@
       <el-button icon="el-icon-search" @click="show = true" :disabled="disabled" size="small"></el-button>
 
 
-      <el-dialog :visible.sync="show" center width="60%" append-to-body lock-scroll top="2vh" destroy-on-close>
+      <el-dialog :visible.sync="show" center width="60%" append-to-body lock-scroll top="2vh" destroy-on-close @close="close">
         <el-container class="container" style="height:60%"   v-loading="loading" element-loading-spinner="el-icon-loading">
           <el-aside width="30%" style="overflow: hidden">
             <EasyTree :defaultlist="data" :defaultProps="defaultProps" :showFilter="true" :showCheckbox="false"
@@ -193,6 +193,9 @@
       }
     },
     methods: {
+      close(){
+        this.$emit("close", this.userids,this.no);
+      },
       showInput() {
         if(this.selectType === 'mult') {
           this.inputVisible = true;

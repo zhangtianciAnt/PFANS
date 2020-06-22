@@ -630,7 +630,7 @@
                                 :disabled="!disable"
                                 :no="scope.row"
                                 :userlist="scope.row.name"
-                                @getUserids="getCitationUserid"
+                                @close="getCitationUserid"
                                 :multiple="multiple"
                                 :selectType="selectType1"
                                 style="width: 80%"
@@ -2335,15 +2335,17 @@
         }
       },
       getCitationUserid(userlist, row) {
+        debugger
           // add_fjl_05/29  --添加人员多选
           let us = userlist.split(',');
+        let na = "";
+        for (let nameid of this.tableB) {
+          na = na + nameid.name;
+        }
+
           if (us.length > 1) {
               for (let i = 0; i < us.length; i++) {
                   //去除单次选择时，重复的数据
-                  let na = "";
-                  for (let nameid of this.tableB) {
-                      na = na + nameid.name;
-                  }
                   if (na.indexOf(us[i]) == -1) {
                       this.tableB.push({
                           name: us[i],
@@ -2356,13 +2358,13 @@
                       });
                   }
               }
-              //保留人名不为空的数据
-              this.tableB = this.tableB.filter(itam => {
-                  return (itam.name !== null && itam.name !== '')
-              })
           } else {
               row.name = userlist;
           }
+
+        //保留人名不为空的数据
+        this.tableB = this.tableB.filter(itam => itam.name !== null && itam.name !== '')
+
           // add_fjl_05/29  --添加人员多选
           // row.name = userlist;
         if (row.name != null && row.name !== '') {
