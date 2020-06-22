@@ -146,81 +146,92 @@
                   <el-col :span="24">
                     <el-form-item
                       :label="$t('label.PFANS1028VIEW_POSSIBLE')" prop="possible">
-                        <el-row>
-                          <el-col :span="6">
-                            <el-form-item>
-                              <el-checkbox :disabled="!disable" v-model="form.other1" ><p>{{$t('label.PFANS1028VIEW_BOOKS')}}</p></el-checkbox>
-                            </el-form-item>
-                          </el-col>
-                          <el-col :span="6">
-                            <el-form-item>
-                              <el-checkbox :disabled="!disable" v-model="form.other2"><p>{{$t('label.PFANS1028VIEW_SOFTWARE')}}</p></el-checkbox>
-                            </el-form-item>
-                          </el-col>
-                          <el-col :span="6">
-                            <el-form-item>
-                              <el-checkbox :disabled="!disable" v-model="form.other3"><p>{{$t('label.PFANS1028VIEW_MAIL')}}</p></el-checkbox>
-                            </el-form-item>
-                          </el-col>
-                          <el-col :span="6">
-                            <el-form-item>
-                              <el-checkbox :disabled="!disable" v-model="form.other4"><p>{{$t('label.PFANS1028VIEW_SERVER')}}</p></el-checkbox>
-                            </el-form-item>
-                          </el-col>
-                        </el-row>
-                        <el-row>
-                          <el-col :span="6">
-                            <el-form-item>
-                          <el-checkbox :disabled="!disable" @change="getChecked8" v-model="form.other5"><p>{{$t('label.PFANS1028VIEW_MEETING')}}</p></el-checkbox>
-                            </el-form-item>
-                          </el-col>
-                          <el-col :span="6" v-show="show1">
-                            <el-form-item>
-                              <el-checkbox :disabled="!disable" @change="getChecked9" v-model="form.other6"><p>{{$t('label.PFANS1028VIEW_COUNTRY2')}}</p></el-checkbox>
-                            </el-form-item>
-                          </el-col>
-                          <el-col :span="6" v-show="show1">
-                            <el-form-item>
-                              <el-checkbox :disabled="!disable" @change="getChecked10" v-model="form.other7"><p>{{$t('label.PFANS1028VIEW_OTHERC2')}}</p></el-checkbox>
-                            </el-form-item>
-                          </el-col>
-                          <el-col :span="6" v-show="show3">
-                              <el-input :disabled="!disable" style="width: 10vw" maxlength='100'
-                                        v-model="form.oreason" ></el-input>
-                          </el-col>
-                        </el-row>
-                        <el-row>
-                          <el-col :span="6">
-                            <el-form-item>
-                              <el-checkbox :disabled="!disable" @change="getChecked11" v-model="form.other8"><p>{{$t('label.PFANS1028VIEW_OVERSEA')}}</p></el-checkbox>
-                            </el-form-item>
-                          </el-col>
-                          <el-col :span="6" v-show="show2">
-                            <el-form-item>
-                              <el-checkbox :disabled="!disable" @change="getChecked12" v-model="form.other9"><p>{{$t('label.PFANS1028VIEW_COUNTRY3')}}</p></el-checkbox>
-                            </el-form-item>
-                          </el-col>
-                          <el-col :span="6" v-show="show2">
-                            <el-form-item>
-                              <el-checkbox :disabled="!disable" @change="getChecked13" v-model="form.other10"><p>{{$t('label.PFANS1028VIEW_OTHERC2')}}</p></el-checkbox>
-                            </el-form-item>
-                          </el-col>
-                          <el-col :span="6" v-show="show4">
-                              <el-input :disabled="!disable" style="width: 10vw"  maxlength='100'
-                                        v-model="form.othreason"></el-input>
-                          </el-col>
-                        </el-row>
-                        <el-row>
-                          <el-col :span="6">
-                            <el-form-item>
-                          <el-checkbox :disabled="!disable" @change="getChecked14" v-model="form.other11"><p>{{$t('label.PFANS1028VIEW_OTHER')}}</p></el-checkbox>
-                            </el-form-item>
-                          </el-col>
-                          <el-col :span="6" v-show="show5">
-                              <el-input :disabled="!disable" style="width: 30vw"  maxlength='100'
-                                        v-model="form.otherreason"></el-input>
-                          </el-col>
-                        </el-row>
+                      <el-row>
+                        <el-col :span="6">
+                          <el-form-item>
+                            <el-checkbox :disabled="!disable" v-model="form.other1"><p>
+                              {{$t('label.PFANS1028VIEW_BOOKS')}}</p></el-checkbox>
+                          </el-form-item>
+                        </el-col>
+                        <el-col :span="6">
+                          <el-form-item>
+                            <el-checkbox :disabled="!disable" v-model="form.other2"><p>
+                              {{$t('label.PFANS1028VIEW_SOFTWARE')}}</p></el-checkbox>
+                          </el-form-item>
+                        </el-col>
+                        <el-col :span="6">
+                          <el-form-item>
+                            <el-checkbox :disabled="!disable" v-model="form.other3"><p>
+                              {{$t('label.PFANS1028VIEW_MAIL')}}</p></el-checkbox>
+                          </el-form-item>
+                        </el-col>
+                        <el-col :span="6">
+                          <el-form-item>
+                            <el-checkbox :disabled="!disable" v-model="form.other4"><p>
+                              {{$t('label.PFANS1028VIEW_SERVER')}}</p></el-checkbox>
+                          </el-form-item>
+                        </el-col>
+                      </el-row>
+                      <el-row>
+                        <el-col :span="6">
+                          <el-form-item>
+                            <el-checkbox :disabled="!disable" @change="getChecked8" v-model="form.other5"><p>
+                              {{$t('label.PFANS1028VIEW_MEETING')}}</p></el-checkbox>
+                          </el-form-item>
+                        </el-col>
+                        <el-col :span="6" v-show="show1">
+                          <el-form-item>
+                            <el-checkbox :disabled="!disable" @change="getChecked9" v-model="form.other6"><p>
+                              {{$t('label.PFANS1028VIEW_COUNTRY2')}}</p></el-checkbox>
+                          </el-form-item>
+                        </el-col>
+                        <el-col :span="6" v-show="show1">
+                          <el-form-item>
+                            <el-checkbox :disabled="!disable" @change="getChecked10" v-model="form.other7"><p>
+                              {{$t('label.PFANS1028VIEW_OTHERC2')}}</p></el-checkbox>
+                          </el-form-item>
+                        </el-col>
+                        <el-col :span="6" v-show="show3">
+                          <el-input :disabled="!disable" style="width: 10vw" maxlength='100'
+                                    v-model="form.oreason"></el-input>
+                        </el-col>
+                      </el-row>
+                      <el-row>
+                        <el-col :span="6">
+                          <el-form-item>
+                            <el-checkbox :disabled="!disable" @change="getChecked11" v-model="form.other8"><p>
+                              {{$t('label.PFANS1028VIEW_OVERSEA')}}</p></el-checkbox>
+                          </el-form-item>
+                        </el-col>
+                        <el-col :span="6" v-show="show2">
+                          <el-form-item>
+                            <el-checkbox :disabled="!disable" @change="getChecked12" v-model="form.other9"><p>
+                              {{$t('label.PFANS1028VIEW_COUNTRY3')}}</p></el-checkbox>
+                          </el-form-item>
+                        </el-col>
+                        <el-col :span="6" v-show="show2">
+                          <el-form-item>
+                            <el-checkbox :disabled="!disable" @change="getChecked13" v-model="form.other10"><p>
+                              {{$t('label.PFANS1028VIEW_OTHERC2')}}</p></el-checkbox>
+                          </el-form-item>
+                        </el-col>
+                        <el-col :span="6" v-show="show4">
+                          <el-input :disabled="!disable" style="width: 10vw" maxlength='100'
+                                    v-model="form.othreason"></el-input>
+                        </el-col>
+                      </el-row>
+                      <el-row>
+                        <el-col :span="6">
+                          <el-form-item>
+                            <el-checkbox :disabled="!disable" @change="getChecked14" v-model="form.other11"><p>
+                              {{$t('label.PFANS1028VIEW_OTHER')}}</p></el-checkbox>
+                          </el-form-item>
+                        </el-col>
+                        <el-col :span="6" v-show="show5">
+                          <el-input :disabled="!disable" style="width: 30vw" maxlength='100'
+                                    v-model="form.otherreason"></el-input>
+                        </el-col>
+                      </el-row>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -236,7 +247,8 @@
                       </el-col>
                       <el-col :span="24">
                         <el-form-item :label="$t('label.PFANS1028VIEW_JUDGENO')" style="margin-left: 50px">
-                          <el-input :disabled="true" style="width: 20vw ; margin-left: 1px" v-model="form.jxjudgeno"></el-input>
+                          <el-input :disabled="true" style="width: 20vw ; margin-left: 1px"
+                                    v-model="form.jxjudgeno"></el-input>
                         </el-form-item>
                       </el-col>
                       <el-col :span="12">
@@ -263,15 +275,16 @@
                     <el-row>
                       <el-col :span="12">
                         <el-form-item :label="$t('label.PFANS1028VIEW_REASON')" style="margin-left: 50px">
-                          <el-input :disabled="!disable" style="width:20vw ; margin-left: 1px" v-model="form.reason"></el-input>
+                          <el-input :disabled="!disable" style="width:20vw ; margin-left: 1px"
+                                    v-model="form.reason"></el-input>
                         </el-form-item>
                       </el-col>
                     </el-row>
                     <el-row>
-<!--                      <el-col :span="24" v-show="show8">-->
-<!--                        <el-form-item :label="$t('label.PFANS1028VIEW_RESTRICTED')" style="margin-left: 80px">-->
-<!--                        </el-form-item>-->
-<!--                      </el-col>-->
+                      <!--                      <el-col :span="24" v-show="show8">-->
+                      <!--                        <el-form-item :label="$t('label.PFANS1028VIEW_RESTRICTED')" style="margin-left: 80px">-->
+                      <!--                        </el-form-item>-->
+                      <!--                      </el-col>-->
                       <el-col :span="12" v-show="show8">
                         <el-form-item :label="$t('label.PFANS1028VIEW_WEAPON')" style="margin-left: 80px">
                           <el-radio
@@ -391,7 +404,8 @@
                       </el-col>
                       <el-col :span="24">
                         <el-form-item :label="$t('label.PFANS1028VIEW_JUDGENO')" style="margin-left: 50px">
-                          <el-input :disabled="true" style="width: 20vw ; margin-left: 1px" v-model="form.lyjudgeno"></el-input>
+                          <el-input :disabled="true" style="width: 20vw ; margin-left: 1px"
+                                    v-model="form.lyjudgeno"></el-input>
                         </el-form-item>
                       </el-col>
                       <el-col :span="12" style="margin-left: 50px">
@@ -420,7 +434,8 @@
                     <el-row>
                       <el-col :span="12">
                         <el-form-item :label="$t('label.PFANS1028VIEW_REASON')" style="margin-left: 50px">
-                          <el-input :disabled="!disable" style="width:20vw ; margin-left: 1px" v-model="form.mareason"></el-input>
+                          <el-input :disabled="!disable" style="width:20vw ; margin-left: 1px"
+                                    v-model="form.mareason"></el-input>
                         </el-form-item>
                       </el-col>
                     </el-row>
@@ -558,7 +573,8 @@
                       </el-col>
                       <el-col :span="8" v-show="show7">
                         <el-form-item :label="$t('label.PFANS1028VIEW_POINTS107')" style="margin-left: 200px">
-                          <el-input :disabled="!disable" style="width: 20vw ; margin-left: 1px" v-model="form.eccnjudgeno"></el-input>
+                          <el-input :disabled="!disable" style="width: 20vw ; margin-left: 1px"
+                                    v-model="form.eccnjudgeno"></el-input>
                         </el-form-item>
                       </el-col>
                     </el-row>
@@ -639,7 +655,7 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item  :label="$t('label.PFANS1028VIEW_ORGANIZATION')">
+                    <el-form-item :label="$t('label.PFANS1028VIEW_ORGANIZATION')">
                       <el-input style="width:20vw" v-model="form.deployment" :disabled="true"></el-input>
                     </el-form-item>
                   </el-col>
@@ -1370,7 +1386,7 @@
     name: 'PFANS1028FormView',
     components: {
       EasyNormalContainer,
-      dicselect
+      dicselect,
     },
     data() {
       return {
@@ -1385,7 +1401,7 @@
           tableDelivery: '0',
           tableComputers: '0',
           tableJasoftware: '0',
-          tableGatetechnology: '0'
+          tableGatetechnology: '0',
         },
         checked1: false,
         checked2: false,
@@ -1476,10 +1492,10 @@
           suppliesof: '',
           sujudegresult: '2',
           lijudegresult: [''],
-          jxjudgeno:'',
-          gfjudgeno:'',
-          lyjudgeno:'',
-          americantechno:'',
+          jxjudgeno: '',
+          gfjudgeno: '',
+          lyjudgeno: '',
+          americantechno: '',
           other1: false,
           other2: false,
           other3: false,
@@ -2660,30 +2676,30 @@
           .dispatch('PFANS1028Store/one', {'nonjudgment_id': this.$route.params._id})
           .then(response => {
             this.form = response;
-            this.form.gfjudgeno='GF-'+response.contractnumber;
-            this.form.jxjudgeno='JX-'+response.contractnumber;
-            this.form.lyjudgeno='LY-'+response.contractnumber;
-             this.form.today=moment(new Date()).format('YYYY-MM-DD');
-            if(this.form.outputlimit2 === '1'){
+            this.form.gfjudgeno = 'GF-' + response.contractnumber;
+            this.form.jxjudgeno = 'JX-' + response.contractnumber;
+            this.form.lyjudgeno = 'LY-' + response.contractnumber;
+            this.form.today = moment(new Date()).format('YYYY-MM-DD');
+            if (this.form.outputlimit2 === '1') {
               this.show8 = true;
-            }else{
+            } else {
               this.show8 = false;
             }
-            if(this.form.americantechno === '1'){
+            if (this.form.americantechno === '1') {
               this.show7 = true;
-            }else{
+            } else {
               this.show7 = false;
             }
-            if(this.form.americantechnology === '0'){
+            if (this.form.americantechnology === '0') {
               this.disabled4 = true;
-            }else{
-              this.disabled4 = false
+            } else {
+              this.disabled4 = false;
             }
-             if(this.form.weapon === '1' && this.form.word === '1' && this.form.specifi === '1'){
-               this.form.restricted = '0';
-             } else {
-               this.form.restricted = '1';
-             }
+            if (this.form.weapon === '1' && this.form.word === '1' && this.form.specifi === '1') {
+              this.form.restricted = '0';
+            } else {
+              this.form.restricted = '1';
+            }
             if (this.form.review !== '' && this.form.review !== null) {
               if (this.form.review === '2') {
                 this.checked3 = true;
@@ -2696,44 +2712,44 @@
                 this.checked2 = true;
               }
             }
-            if(this.form.management4 === '0'){
+            if (this.form.management4 === '0') {
               this.show6 = true;
-            }else{
+            } else {
               this.show6 = false;
             }
             // if (this.form.possible !== '') {
             //   this.checkList = JSON.parse(this.form.possible);
             // }
-            if(this.form.other1 !== '' && this.form.other1 !== null){
-              if(this.form.other1 === 'true'){
+            if (this.form.other1 !== '' && this.form.other1 !== null) {
+              if (this.form.other1 === 'true') {
                 this.form.other1 = true;
               } else {
                 this.form.other1 = false;
               }
             }
-            if(this.form.other2 !== '' && this.form.other2 !== null){
-              if(this.form.other2 === 'true'){
+            if (this.form.other2 !== '' && this.form.other2 !== null) {
+              if (this.form.other2 === 'true') {
                 this.form.other2 = true;
               } else {
                 this.form.other2 = false;
               }
             }
-            if(this.form.other3 !== '' && this.form.other3 !== null){
-              if(this.form.other3 === 'true'){
+            if (this.form.other3 !== '' && this.form.other3 !== null) {
+              if (this.form.other3 === 'true') {
                 this.form.other3 = true;
               } else {
                 this.form.other3 = false;
               }
             }
-            if(this.form.other4 !== '' && this.form.other4 !== null){
-              if(this.form.other4 === 'true'){
+            if (this.form.other4 !== '' && this.form.other4 !== null) {
+              if (this.form.other4 === 'true') {
                 this.form.other4 = true;
               } else {
                 this.form.other4 = false;
               }
             }
-            if(this.form.other5 !== '' && this.form.other5 !== null){
-              if(this.form.other5 === 'true'){
+            if (this.form.other5 !== '' && this.form.other5 !== null) {
+              if (this.form.other5 === 'true') {
                 this.form.other5 = true;
                 this.show1 = true;
               } else {
@@ -2741,16 +2757,16 @@
                 this.show1 = false;
               }
             }
-            if(this.form.other6 !== '' && this.form.other6 !== null){
-              if(this.form.other6 === 'true'){
+            if (this.form.other6 !== '' && this.form.other6 !== null) {
+              if (this.form.other6 === 'true') {
                 this.form.other6 = true;
                 this.show3 = false;
               } else {
                 this.form.other6 = false;
               }
             }
-            if(this.form.other7 !== '' && this.form.other7 !== null){
-              if(this.form.other7 === 'true'){
+            if (this.form.other7 !== '' && this.form.other7 !== null) {
+              if (this.form.other7 === 'true') {
                 this.form.other7 = true;
                 this.show3 = true;
               } else {
@@ -2758,8 +2774,8 @@
                 this.show3 = false;
               }
             }
-            if(this.form.other8 !== '' && this.form.other8 !== null){
-              if(this.form.other8 === 'true'){
+            if (this.form.other8 !== '' && this.form.other8 !== null) {
+              if (this.form.other8 === 'true') {
                 this.form.other8 = true;
                 this.show2 = true;
               } else {
@@ -2767,16 +2783,16 @@
                 this.show2 = false;
               }
             }
-            if(this.form.other9 !== '' && this.form.other9 !== null){
-              if(this.form.other9 === 'true'){
+            if (this.form.other9 !== '' && this.form.other9 !== null) {
+              if (this.form.other9 === 'true') {
                 this.form.other9 = true;
                 this.show4 = false;
               } else {
                 this.form.other9 = false;
               }
             }
-            if(this.form.other10 !== '' && this.form.other10 !== null){
-              if(this.form.other10 === 'true'){
+            if (this.form.other10 !== '' && this.form.other10 !== null) {
+              if (this.form.other10 === 'true') {
                 this.form.other10 = true;
                 this.show4 = true;
               } else {
@@ -2784,8 +2800,8 @@
                 this.show4 = false;
               }
             }
-            if(this.form.other11 !== '' && this.form.other11 !== null){
-              if(this.form.other11 === 'true'){
+            if (this.form.other11 !== '' && this.form.other11 !== null) {
+              if (this.form.other11 === 'true') {
                 this.form.other11 = true;
                 this.show5 = true;
               } else {
@@ -2901,35 +2917,35 @@
       this.disable = this.$route.params.disabled;
     },
     methods: {
-      getradio(val){
+      getradio(val) {
         this.form.americantechnology = val;
-        if(this.form.americantechnology === '0'){
+        if (this.form.americantechnology === '0') {
           this.disabled4 = true;
-        }else{
+        } else {
           this.form.americantechno = '';
           this.disabled4 = false;
           this.show7 = false;
         }
       },
-      getvalue(val){
+      getvalue(val) {
         this.form.weapon = val;
-        if(this.form.weapon === '1' && this.form.word === '1' && this.form.specifi === '1'){
+        if (this.form.weapon === '1' && this.form.word === '1' && this.form.specifi === '1') {
           this.form.restricted = '0';
         } else {
           this.form.restricted = '1';
         }
       },
-      getvalue1(val){
+      getvalue1(val) {
         this.form.word = val;
-        if(this.form.weapon === '1' && this.form.word === '1' && this.form.specifi === '1'){
+        if (this.form.weapon === '1' && this.form.word === '1' && this.form.specifi === '1') {
           this.form.restricted = '0';
         } else {
           this.form.restricted = '1';
         }
       },
-      getvalue2(val){
+      getvalue2(val) {
         this.form.specifi = val;
-        if(this.form.weapon === '1' && this.form.word === '1' && this.form.specifi === '1'){
+        if (this.form.weapon === '1' && this.form.word === '1' && this.form.specifi === '1') {
           this.form.restricted = '0';
         } else {
           this.form.restricted = '1';
@@ -2940,22 +2956,22 @@
           if (rowIndex === 0) {
             return {
               rowspan: 3,
-              colspan: 1
+              colspan: 1,
             };
           } else if (rowIndex === 3) {
             return {
               rowspan: 1,
-              colspan: 1
+              colspan: 1,
             };
           } else if (rowIndex === 4) {
             return {
               rowspan: 2,
-              colspan: 1
+              colspan: 1,
             };
           } else {
             return {
               rowspan: 0,
-              colspan: 0
+              colspan: 0,
             };
           }
         }
@@ -2965,17 +2981,17 @@
           if (rowIndex === 0) {
             return {
               rowspan: 2,
-              colspan: 1
+              colspan: 1,
             };
           } else if (rowIndex === 2) {
             return {
               rowspan: 1,
-              colspan: 1
+              colspan: 1,
             };
           } else {
             return {
               rowspan: 0,
-              colspan: 0
+              colspan: 0,
             };
           }
         }
@@ -2985,17 +3001,17 @@
           if (rowIndex === 0) {
             return {
               rowspan: 16,
-              colspan: 1
+              colspan: 1,
             };
           } else if (rowIndex === 16) {
             return {
               rowspan: 2,
-              colspan: 1
+              colspan: 1,
             };
           } else {
             return {
               rowspan: 0,
-              colspan: 0
+              colspan: 0,
             };
           }
         }
@@ -3005,32 +3021,32 @@
           if (rowIndex === 0) {
             return {
               rowspan: 1,
-              colspan: 1
+              colspan: 1,
             };
           } else if (rowIndex === 1) {
             return {
               rowspan: 2,
-              colspan: 1
+              colspan: 1,
             };
           } else if (rowIndex === 3) {
             return {
               rowspan: 1,
-              colspan: 1
+              colspan: 1,
             };
           } else if (rowIndex === 4) {
             return {
               rowspan: 6,
-              colspan: 1
+              colspan: 1,
             };
           } else if (rowIndex === 10) {
             return {
               rowspan: 4,
-              colspan: 1
+              colspan: 1,
             };
           } else {
             return {
               rowspan: 0,
-              colspan: 0
+              colspan: 0,
             };
           }
         }
@@ -3040,65 +3056,65 @@
           if (rowIndex === 0) {
             return {
               rowspan: 2,
-              colspan: 1
+              colspan: 1,
             };
           } else if (rowIndex === 2) {
             return {
               rowspan: 1,
-              colspan: 1
+              colspan: 1,
             };
           } else if (rowIndex === 3) {
             return {
               rowspan: 21,
-              colspan: 1
+              colspan: 1,
             };
           } else if (rowIndex === 24) {
             return {
               rowspan: 4,
-              colspan: 1
+              colspan: 1,
             };
           } else if (rowIndex === 28) {
             return {
               rowspan: 2,
-              colspan: 1
+              colspan: 1,
             };
           } else if (rowIndex === 30) {
             return {
               rowspan: 2,
-              colspan: 1
+              colspan: 1,
             };
           } else if (rowIndex === 32) {
             return {
               rowspan: 6,
-              colspan: 1
+              colspan: 1,
             };
           } else if (rowIndex === 38) {
             return {
               rowspan: 5,
-              colspan: 1
+              colspan: 1,
             };
           } else if (rowIndex === 43) {
             return {
               rowspan: 5,
-              colspan: 1
+              colspan: 1,
             };
           } else if (rowIndex === 48) {
             return {
               rowspan: 1,
-              colspan: 1
+              colspan: 1,
             };
           } else {
             return {
               rowspan: 0,
-              colspan: 0
+              colspan: 0,
             };
           }
         }
       },
       getChecked1(val) {
         this.checked1 = val;
-        if(val === true && this.checked2 === true){
-          if(this.checked2 === true){
+        if (val === true && this.checked2 === true) {
+          if (this.checked2 === true) {
             this.form.review = '3';
             this.form.requirements = '1';
           }
@@ -3106,13 +3122,13 @@
           this.disabled2 = false;
           this.checked3 = false;
           this.form.review = '1';
-          this.form.requirements='0'
-        } else if(val === false){
+          this.form.requirements = '0';
+        } else if (val === false) {
           this.checked1 = false;
           this.checked3 = false;
           this.form.review = '';
-          this.form.requirements='1';
-          this.form.requirements='';
+          this.form.requirements = '1';
+          this.form.requirements = '';
         }
       },
       getChecked3(val) {
@@ -3122,12 +3138,12 @@
           this.checked1 = false;
           this.checked2 = false;
           this.form.review = '2';
-          this.form.requirements='1'
+          this.form.requirements = '1';
         } else {
           this.disabled2 = false;
           this.form.review = '';
-          this.form.requirements='0';
-          this.form.requirements='';
+          this.form.requirements = '0';
+          this.form.requirements = '';
         }
       },
       getChecked2(val) {
@@ -3135,20 +3151,20 @@
         if (val === true) {
           if (this.form.review === '1') {
             this.form.review = '3';
-            this.form.requirements='1'
+            this.form.requirements = '1';
           }
-        } else if(val===false || this.checked1===true){
-          this.form.review='1';
-          this.form.requirements='0';
-        }else if(val===true || this.checked1===false){
+        } else if (val === false || this.checked1 === true) {
+          this.form.review = '1';
+          this.form.requirements = '0';
+        } else if (val === true || this.checked1 === false) {
           this.form.review = '3';
-          this.form.requirements='0';
-        }else if(val===false || this.checked1===false){
+          this.form.requirements = '0';
+        } else if (val === false || this.checked1 === false) {
           this.form.review = '';
-          this.form.requirements='0';
+          this.form.requirements = '0';
         }
       },
-      getChecked4(val){
+      getChecked4(val) {
         this.form.judgment1 = val;
         // if(val === true){
         //   this.form.judgment1 = '1';
@@ -3156,85 +3172,85 @@
         //   this.form.judgment1 = '0';
         // }
       },
-      getChecked8(val){
+      getChecked8(val) {
         this.form.other5 = val;
-        if(val === true){
+        if (val === true) {
           this.show1 = true;
         } else {
           this.show1 = false;
-          this.show3 = false
+          this.show3 = false;
         }
       },
-      getChecked9(val){
+      getChecked9(val) {
         this.form.other6 = val;
-        if(val === true){
+        if (val === true) {
           this.form.other7 = false;
           this.show3 = false;
         }
       },
-      getChecked10(val){
+      getChecked10(val) {
         this.form.other7 = val;
-        if(val === true){
+        if (val === true) {
           this.form.other6 = false;
           this.show3 = true;
-        }else{
+        } else {
           this.show3 = false;
         }
       },
-      getChecked11(val){
+      getChecked11(val) {
         this.form.other8 = val;
-        if(val === true){
+        if (val === true) {
           this.show2 = true;
         } else {
           this.show2 = false;
           this.show4 = false;
         }
       },
-      getChecked12(val){
+      getChecked12(val) {
         this.form.other9 = val;
-        if(val === true){
+        if (val === true) {
           this.form.other10 = false;
           this.show4 = false;
         }
       },
-      getChecked13(val){
+      getChecked13(val) {
         this.form.other10 = val;
-        if(val === true){
+        if (val === true) {
           this.form.other9 = false;
           this.show4 = true;
-        }else{
+        } else {
           this.show4 = false;
         }
       },
-      getChecked14(val){
+      getChecked14(val) {
         this.form.other11 = val;
-        if(val === true){
+        if (val === true) {
           this.show5 = true;
-        }else{
+        } else {
           this.show5 = false;
         }
       },
-      getRadio(val){//americantechno
+      getRadio(val) {//americantechno
         this.form.management4 = val;
-        if(this.form.management4 === '0'){
+        if (this.form.management4 === '0') {
           this.show6 = true;
-        }else{
+        } else {
           this.show6 = false;
         }
       },
-      getRadio1(val){
+      getRadio1(val) {
         this.form.americantechno = val;
-        if(this.form.americantechno === '1'){
+        if (this.form.americantechno === '1') {
           this.show7 = true;
-        }else{
+        } else {
           this.show7 = false;
         }
       },
-      getRadio2(val){
+      getRadio2(val) {
         this.form.outputlimit2 = val;
-        if(this.form.outputlimit2 === '1'){
+        if (this.form.outputlimit2 === '1') {
           this.show8 = true;
-        }else{
+        } else {
           this.show8 = false;
         }
       },
@@ -3254,9 +3270,36 @@
         this.form.status = '0';
         this.buttonClick('save');
       },
+//add-ws-6/22-禅道152任务
+      checkparamsTitle() {
+        let id = this.$route.params._checkid;
+        let disable = this.$route.params._checkdisable;
+        this.$router.push({
+          name: 'PFANS1026FormView',
+          params: {
+            _id: id,
+            disabled: disable,
+          },
+        });
+      },
 
+      paramsTitle() {
+        this.$router.push({
+          name: 'PFANS1028View',
+        });
+      },
+      //add-ws-6/22-禅道152任务
       buttonClick(val) {
-        if (val === 'save') {
+        if (val === 'back') {
+          if (this.$route.params._check != null && this.$route.params._check != '' && this.$route.params._check != undefined) {
+            if (this.$route.params._check) {
+              this.checkparamsTitle();
+            }
+          } else {
+            this.paramsTitle();
+          }
+          //add-ws-6/22-禅道152任务
+        } else if (val === 'save') {
           this.$refs['reff'].validate(valid => {
             if (valid) {
               this.loading = true;
@@ -3265,11 +3308,11 @@
               // } else {
               //   this.form.possible = '';
               // }
-              if(this.form.americantechnology === '1'){
+              if (this.form.americantechnology === '1') {
                 this.form.americantechno = '';
                 this.form.eccnjudgeno = '';
               }
-              if(this.form.outputlimit2 === '0'){
+              if (this.form.outputlimit2 === '0') {
                 this.form.weapon = '';
                 this.form.weaponreson = '';
                 this.form.word = '';
@@ -3278,26 +3321,26 @@
                 this.form.specifireson = '';
                 this.form.specifi = '';
               }
-              if(this.form.management4 === '1' || this.form.management4 === '3'){
+              if (this.form.management4 === '1' || this.form.management4 === '3') {
                 this.form.judged = '';
               }
-              if(this.form.other5 === false){
+              if (this.form.other5 === false) {
                 this.form.other6 = '';
                 this.form.other7 = '';
                 this.form.oreason = '';
               }
-              if(this.form.other7 === false){
+              if (this.form.other7 === false) {
                 this.form.oreason = '';
               }
-              if(this.form.other8 === false){
+              if (this.form.other8 === false) {
                 this.form.other9 = '';
                 this.form.other10 = '';
                 this.form.othreason = '';
               }
-              if(this.form.other10 === false){
+              if (this.form.other10 === false) {
                 this.form.othreason = '';
               }
-              if(this.form.other11 === false){
+              if (this.form.other11 === false) {
                 this.form.otherreason = '';
               }
               //通信デバイス、コンピューター及び電子デバイス製造
@@ -3360,11 +3403,11 @@
                 });
               }
               let lijudegresult = '';
-              if(this.form.lijudegresult!==null){
-              for (let item of this.form.lijudegresult) {
-                lijudegresult += item + ",";
+              if (this.form.lijudegresult !== null) {
+                for (let item of this.form.lijudegresult) {
+                  lijudegresult += item + ',';
                 }
-              lijudegresult = lijudegresult.substr(0, lijudegresult.length - 1);
+                lijudegresult = lijudegresult.substr(0, lijudegresult.length - 1);
               }
               this.form.lijudegresult = lijudegresult;
               this.form.limitcommunt = JSON.stringify(this.arrJud);
@@ -3403,13 +3446,12 @@
                     this.loading = false;
                   });
               }
-            }
-            else{
-                Message({
-                    message: this.$t("normal.error_12"),
-                    type: 'error',
-                    duration: 5 * 1000
-                });
+            } else {
+              Message({
+                message: this.$t('normal.error_12'),
+                type: 'error',
+                duration: 5 * 1000,
+              });
             }
           });
         }
@@ -3424,13 +3466,13 @@
               return;
             } else if (item.judgment1 && item.judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
               this.radioSujud.tableIndustrial = '1';
-              return
+              return;
             }
           }
           this.radioSujud.tableIndustrial = '0';
         },
         immediate: true,  //刷新加载 立马触发一次handler
-        deep: true  // 可以深度检测到 person 对象的属性值的变化
+        deep: true,  // 可以深度检测到 person 对象的属性值的变化
       },
       tableElectronic: {
         handler(val) {
@@ -3440,13 +3482,13 @@
               return;
             } else if (item.judgment1 && item.judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
               this.radioSujud.tableElectronic = '1';
-              return
+              return;
             }
           }
           this.radioSujud.tableElectronic = '0';
         },
         immediate: true,  //刷新加载 立马触发一次handler
-        deep: true  // 可以深度检测到 person 对象的属性值的变化
+        deep: true,  // 可以深度检测到 person 对象的属性值的变化
       },
       tableCon: {
         handler(val) {
@@ -3456,13 +3498,13 @@
               return;
             } else if (item.judgment1 && item.judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
               this.radioSujud.tableCon = '1';
-              return
+              return;
             }
           }
           this.radioSujud.tableCon = '0';
         },
         immediate: true,  //刷新加载 立马触发一次handler
-        deep: true  // 可以深度检测到 person 对象的属性值的变化
+        deep: true,  // 可以深度检测到 person 对象的属性值的变化
       },
       tableSof: {
         handler(val) {
@@ -3472,52 +3514,52 @@
               return;
             } else if (item.judgment1 && item.judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
               this.radioSujud.tableSof = '1';
-              return
+              return;
             }
           }
           this.radioSujud.tableSof = '0';
         },
         immediate: true,  //刷新加载 立马触发一次handler
-        deep: true  // 可以深度检测到 person 对象的属性值的变化
+        deep: true,  // 可以深度检测到 person 对象的属性值的变化
       },
       radioSujud: {
         handler(val) {
           if (val.tableIndustrial === '2' || val.tableElectronic === '2' || val.tableCon === '2' || val.tableSof === '2') {
-            this.form.sujudegresult = '2'
+            this.form.sujudegresult = '2';
           } else if (val.tableIndustrial === '1' || val.tableElectronic === '1' || val.tableCon === '1' || val.tableSof === '1') {
-            this.form.sujudegresult = '1'
+            this.form.sujudegresult = '1';
           } else {
-            this.form.sujudegresult = '0'
+            this.form.sujudegresult = '0';
           }
         },
         immediate: true,  //刷新加载 立马触发一次handler
-        deep: true  // 可以深度检测到 person 对象的属性值的变化
+        deep: true,  // 可以深度检测到 person 对象的属性值的变化
       },
       tableCommun: {
         handler(val) {
           let row = 0;
           for (let item of val) {
-            let judgment1 = "";
+            let judgment1 = '';
             if (row <= 1) {
-              judgment1 = val[0].judgment1
+              judgment1 = val[0].judgment1;
             } else if (row === 2) {
-              judgment1 = val[2].judgment1
+              judgment1 = val[2].judgment1;
             } else if (row <= 24) {
-              judgment1 = val[3].judgment1
+              judgment1 = val[3].judgment1;
             } else if (row <= 28) {
-              judgment1 = val[25].judgment1
+              judgment1 = val[25].judgment1;
             } else if (row <= 30) {
-              judgment1 = val[29].judgment1
+              judgment1 = val[29].judgment1;
             } else if (row <= 32) {
-              judgment1 = val[31].judgment1
+              judgment1 = val[31].judgment1;
             } else if (row <= 38) {
-              judgment1 = val[33].judgment1
+              judgment1 = val[33].judgment1;
             } else if (row <= 43) {
-              judgment1 = val[39].judgment1
+              judgment1 = val[39].judgment1;
             } else if (row <= 48) {
-              judgment1 = val[44].judgment1
+              judgment1 = val[44].judgment1;
             } else if (row === 49) {
-              judgment1 = val[49].judgment1
+              judgment1 = val[49].judgment1;
             }
             if (item.grade === 'J') {
               if (judgment1 && judgment1 === '2') {
@@ -3525,7 +3567,7 @@
                 return;
               } else if (judgment1 && judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
                 this.radiolijudegresult.tableCommun = '2';
-                return
+                return;
               }
               this.radiolijudegresult.tableCommun = '0';
             } else if (item.grade === 'X') {
@@ -3534,7 +3576,7 @@
                 return;
               } else if (judgment1 && judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
                 this.radiolijudegresult.tableCommun = '3';
-                return
+                return;
               }
               this.radiolijudegresult.tableCommun = '1';
             }
@@ -3542,23 +3584,23 @@
           }
         },
         immediate: true,  //刷新加载 立马触发一次handler
-        deep: true  // 可以深度检测到 person 对象的属性值的变化
+        deep: true,  // 可以深度检测到 person 对象的属性值的变化
       },
       tableDelivery: {
         handler(val) {
           let row = 0;
           for (let item of val) {
-            let judgment1 = "";
+            let judgment1 = '';
             if (row <= 0) {
-              judgment1 = val[0].judgment1
+              judgment1 = val[0].judgment1;
             } else if (row <= 2) {
-              judgment1 = val[1].judgment1
+              judgment1 = val[1].judgment1;
             } else if (row <= 3) {
-              judgment1 = val[3].judgment1
+              judgment1 = val[3].judgment1;
             } else if (row <= 9) {
-              judgment1 = val[4].judgment1
+              judgment1 = val[4].judgment1;
             } else if (row <= 13) {
-              judgment1 = val[10].judgment1
+              judgment1 = val[10].judgment1;
             }
             if (item.grade === 'J') {
               if (judgment1 && judgment1 === '2') {
@@ -3566,7 +3608,7 @@
                 return;
               } else if (judgment1 && judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
                 this.radiolijudegresult.tableDelivery = '2';
-                return
+                return;
               }
               this.radiolijudegresult.tableDelivery = '0';
             } else if (item.grade === 'X') {
@@ -3575,7 +3617,7 @@
                 return;
               } else if (judgment1 && judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
                 this.radiolijudegresult.tableDelivery = '3';
-                return
+                return;
               }
               this.radiolijudegresult.tableDelivery = '1';
             }
@@ -3583,17 +3625,17 @@
           }
         },
         immediate: true,  //刷新加载 立马触发一次handler
-        deep: true  // 可以深度检测到 person 对象的属性值的变化
+        deep: true,  // 可以深度检测到 person 对象的属性值的变化
       },
       tableComputers: {
         handler(val) {
           let row = 0;
           for (let item of val) {
-            let judgment1 = "";
+            let judgment1 = '';
             if (row <= 15) {
-              judgment1 = val[0].judgment1
+              judgment1 = val[0].judgment1;
             } else {
-              judgment1 = val[16].judgment1
+              judgment1 = val[16].judgment1;
             }
             if (item.grade === 'J') {
               if (judgment1 && judgment1 === '2') {
@@ -3601,7 +3643,7 @@
                 return;
               } else if (judgment1 && judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
                 this.radiolijudegresult.tableComputers = '2';
-                return
+                return;
               }
               this.radiolijudegresult.tableComputers = '0';
             } else if (item.grade === 'X') {
@@ -3610,7 +3652,7 @@
                 return;
               } else if (judgment1 && judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
                 this.radiolijudegresult.tableComputers = '3';
-                return
+                return;
               }
               this.radiolijudegresult.tableComputers = '1';
             }
@@ -3618,17 +3660,17 @@
           }
         },
         immediate: true,  //刷新加载 立马触发一次handler
-        deep: true  // 可以深度检测到 person 对象的属性值的变化
+        deep: true,  // 可以深度检测到 person 对象的属性值的变化
       },
       tableJasoftware: {
         handler(val) {
           let row = 0;
           for (let item of val) {
-            let judgment1 = "";
+            let judgment1 = '';
             if (row <= 1) {
-              judgment1 = val[0].judgment1
+              judgment1 = val[0].judgment1;
             } else {
-              judgment1 = val[2].judgment1
+              judgment1 = val[2].judgment1;
             }
             if (item.grade === 'J') {
               if (judgment1 && judgment1 === '2') {
@@ -3636,7 +3678,7 @@
                 return;
               } else if (judgment1 && judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
                 this.radiolijudegresult.tableJasoftware = '2';
-                return
+                return;
               }
               this.radiolijudegresult.tableJasoftware = '0';
             } else if (item.grade === 'X') {
@@ -3645,7 +3687,7 @@
                 return;
               } else if (judgment1 && judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
                 this.radiolijudegresult.tableJasoftware = '3';
-                return
+                return;
               }
               this.radiolijudegresult.tableJasoftware = '1';
             }
@@ -3653,19 +3695,19 @@
           }
         },
         immediate: true,  //刷新加载 立马触发一次handler
-        deep: true  // 可以深度检测到 person 对象的属性值的变化
+        deep: true,  // 可以深度检测到 person 对象的属性值的变化
       },
       tableGatetechnology: {
         handler(val) {
           let row = 0;
           for (let item of val) {
-            let judgment1 = "";
+            let judgment1 = '';
             if (row <= 2) {
-              judgment1 = val[0].judgment1
+              judgment1 = val[0].judgment1;
             } else if (row <= 3) {
-              judgment1 = val[3].judgment1
+              judgment1 = val[3].judgment1;
             } else {
-              judgment1 = val[4].judgment1
+              judgment1 = val[4].judgment1;
             }
             if (item.grade === 'J') {
               if (judgment1 && judgment1 === '2') {
@@ -3673,7 +3715,7 @@
                 return;
               } else if (judgment1 && judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
                 this.radiolijudegresult.tableGatetechnology = '2';
-                return
+                return;
               }
               this.radiolijudegresult.tableGatetechnology = '0';
             } else if (item.grade === 'X') {
@@ -3682,7 +3724,7 @@
                 return;
               } else if (judgment1 && judgment1 === '1' && item.judgment2 && item.judgment2 === '2') {
                 this.radiolijudegresult.tableGatetechnology = '3';
-                return
+                return;
               }
               this.radiolijudegresult.tableGatetechnology = '1';
             }
@@ -3690,31 +3732,31 @@
           }
         },
         immediate: true,  //刷新加载 立马触发一次handler
-        deep: true  // 可以深度检测到 person 对象的属性值的变化
+        deep: true,  // 可以深度检测到 person 对象的属性值的变化
       },
       radiolijudegresult: {
         handler(val) {
           this.form.lijudegresult = [];
           if (val.tableCommun === '4' || val.tableDelivery === '4' || val.tableComputers === '4' || val.tableJasoftware === '4' || val.tableGatetechnology === '4') {
-            this.form.lijudegresult.push('4')
+            this.form.lijudegresult.push('4');
             return;
           }
           if (val.tableCommun === '3' || val.tableDelivery === '3' || val.tableComputers === '3' || val.tableJasoftware === '3' || val.tableGatetechnology === '3') {
-            this.form.lijudegresult.push('3')
+            this.form.lijudegresult.push('3');
           } else {
-            this.form.lijudegresult.push('1')
+            this.form.lijudegresult.push('1');
           }
 
           if (val.tableCommun === '2' || val.tableDelivery === '2' || val.tableComputers === '2' || val.tableJasoftware === '2' || val.tableGatetechnology === '2') {
-            this.form.lijudegresult.push('2')
+            this.form.lijudegresult.push('2');
           } else {
-            this.form.lijudegresult.push('0')
+            this.form.lijudegresult.push('0');
           }
         },
         immediate: true,  //刷新加载 立马触发一次handler
-        deep: true  // 可以深度检测到 person 对象的属性值的变化
-      }
-    }
+        deep: true,  // 可以深度检测到 person 对象的属性值的变化
+      },
+    },
   };
 </script>
 

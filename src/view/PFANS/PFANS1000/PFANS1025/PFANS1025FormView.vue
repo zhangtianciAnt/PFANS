@@ -1110,7 +1110,19 @@
           },
         });
       },
-
+      //add-ws-6/22-禅道152任务
+      checkparams() {
+        let id = this.$route.params.check_id;
+        let disable = this.$route.params._checkdisable;
+        this.$router.push({
+          name: 'PFANS1024FormView',
+          params: {
+            disabled: disable,
+            _id: id,
+          },
+        });
+      },
+      //add-ws-6/22-禅道152任务
       paramsTitle() {
         this.$router.push({
           name: 'PFANS1025View',
@@ -1130,6 +1142,10 @@
           if (this.$route.params._check != null && this.$route.params._check != '' && this.$route.params._check != undefined) {
             if (this.$route.params._check) {
               this.checkparamsTitle();
+            }
+          } else if (this.$route.params._checkname != null && this.$route.params._checkname != '' && this.$route.params._checkname != undefined) {
+            if (this.$route.params._checkname) {
+              this.checkparams();
             }
           } else {
             this.paramsTitle();
