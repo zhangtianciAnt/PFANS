@@ -45,5 +45,15 @@ export function updStatus(data) {
     data: data
   })
 }
-
 //add_fjl_05/13   --添加审批正常结束后，自动变成承认状态
+
+// add 0622 ccm --审批被驳回后，当月考勤数据全部变为未承认状态
+//更新承认状态为未承认
+export function updStatus1(data) {
+  return request({
+    url: 'attendance/updStatus1',
+    method: 'post',
+    data: data
+  })
+}
+// add 0622 ccm --审批被驳回后，当月考勤数据全部变为未承认状态
