@@ -239,7 +239,7 @@
         }
         if (this.form.judgement !== null && this.form.judgement !== '') {
           this.buttonList[0].disabled = false;
-        }else{
+        } else {
           this.buttonList[0].disabled = true;
         }
       },
@@ -543,7 +543,7 @@
             this.loading = false;
           });
           //add-ws-6/9-禅道033
-        }else if (val == '7') {
+        } else if (val == '7') {
           this.form.judgement = '';
           this.options = [];
           this.totaldata = [];
@@ -552,7 +552,7 @@
             .dispatch('PFANS1012Store/get', {})
             .then(response => {
               for (let i = 0; i < response.length; i++) {
-                if (user_id === response[i].user_id && response[i].status === '4') {
+                if (user_id === response[i].user_id && response[i].status === '4' && response[i].paymentmethod === 'PJ004005') {
                   let user = getUserInfo(response[i].user_id);
                   if (user) {
                     response[i].user_id = getUserInfo(response[i].user_id).userinfo.customername;
