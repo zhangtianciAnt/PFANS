@@ -86,7 +86,7 @@
             <el-button type="primary" icon="el-icon-search" circle v-show="flow.Status === 'normal.done'" size="mini"
                        @click="openPop(flow)"></el-button>
           </el-card>
-          <EasyPop :url="flow.url" :id="flow.id" :ref="flow.No"></EasyPop>
+          <EasyPop :url="flow.url" :params="flow.params" :ref="flow.No"></EasyPop>
         </el-timeline-item>
       </el-timeline>
     </el-drawer>
@@ -137,20 +137,20 @@
     data() {
       return {
         flowData: [
-          // {
-          //   'No': '1',
-          //   'Name': '采购申请',
-          //   'Status': 'normal.done',
-          //   'url': 'PFANS6002FormView',
-          //   'id': 'a081f533-8872-4d90-8719-8942ce2f568c'
-          // },
-          // {
-          //   'No': '2',
-          //   'Name': '合同作成',
-          //   'Status': 'normal.doing',
-          //   'url': '',
-          //   'id': ''
-          // }
+          {
+            'No': '1',
+            'Name': '采购申请',
+            'Status': 'normal.done',
+            'url': 'PFANS6002FormView',
+            'params': {'_id':'a081f533-8872-4d90-8719-8942ce2f568c'}
+          },
+          {
+            'No': '2',
+            'Name': '合同作成',
+            'Status': 'normal.doing',
+            'url': '',
+            'params': {}
+          }
         ],
         left: 0,
         top: 0,
@@ -158,7 +158,7 @@
         itemHeight:40,
         clientW: document.documentElement.clientWidth,//视口宽
         clientH: document.documentElement.clientHeight,//视口高
-        showFlowButton:false,
+        showFlowButton:true,
         innerDrawer:false,
         flowContent: false,
         userinfo:{},
