@@ -60,6 +60,22 @@
                 fix: false,
                 filter: true
               },
+              // 计划期间
+              {
+                code: 'planning',
+                label: 'label.PFANS5009VIEW_PLANNING',
+                width: 200,
+                fix: false,
+                filter: true
+              },
+              // 实际期间
+              {
+                code: 'actual',
+                label: 'label.PFANS5009VIEW_ACTUAL',
+                width: 200,
+                fix: false,
+                filter: true
+              },
               /*阶段信息*/
               {
                 code: 'phase',
@@ -120,6 +136,22 @@
                 fix: false,
                 filter: true
               },
+              // 计划期间
+              {
+                code: 'planning',
+                label: 'label.PFANS5009VIEW_PLANNING',
+                width: 200,
+                fix: false,
+                filter: true
+              },
+              // 实际期间
+              {
+                code: 'actual',
+                label: 'label.PFANS5009VIEW_ACTUAL',
+                width: 200,
+                fix: false,
+                filter: true
+              },
               /*阶段信息*/
               {
                 code: 'phase',
@@ -131,14 +163,14 @@
               {
                 code: 'productstatus',
                 label: 'label.PFANS5009VIEW_PRODUCTSTATUS',
-                width: 130,
+                width: 170,
                 fix: false,
                 filter: true
               },
               {
                 code: 'estimatedwork',
                 label: 'label.PFANS5009VIEW_ESTIMATEDWORK',
-                width: 120,
+                width: 170,
                 fix: false,
                 filter: true
               },
@@ -176,6 +208,7 @@
         this.$store
           .dispatch('PFANS5001Store/getList2', {flag: "0"})
           .then(response => {
+            console.log(response)
             if(response.length > 0) {
                 for (let j = 0; j < response.length; j++) {
                   if(response[j].status==='4'){
@@ -198,6 +231,18 @@
                             response[j].phasestatus = this.phasestatus1
                         }
                     }
+                  //预计期间
+                  if (response[j].startdate !== null && response[j].startdate !== "" || response[j].enddate !== null && response[j].enddate !== "") {
+                    response[j].planning = moment(response[j].startdate).format("YYYY-MM-DD") + '~' + moment(response[j].enddate).format("YYYY-MM-DD");
+                  }
+                  //实际期间
+                  if (response[j].startdate !== null && response[j].startdate !== "") {
+                    if (response[j].endtime !== null && response[j].endtime !== "") {
+                      response[j].actual = moment(response[j].startdate).format("YYYY-MM-DD") + '~' + moment(response[j].endtime).format("YYYY-MM-DD");
+                    } else {
+                      response[j].actual = moment(response[j].startdate).format("YYYY-MM-DD") + '~' + this.$t("label.PFANS2022VIEW_UNFILLED")
+                    }
+                  }
                     if (response[j].contractstatus !== null && response[j].contractstatus !== "") {
                         if (response[j].contractstatus === "0") {
                             response[j].contractstatus = this.contractstatus0
@@ -251,10 +296,21 @@
                             response[j].contractstatus = this.contractstatus2
                         }
                     }
+                  //预计期间
+                  if (response[j].startdate !== null && response[j].startdate !== "" || response[j].enddate !== null && response[j].enddate !== "") {
+                    response[j].planning = moment(response[j].startdate).format("YYYY-MM-DD") + '~' + moment(response[j].enddate).format("YYYY-MM-DD");
+                  }
+                  //实际期间
+                  if (response[j].startdate !== null && response[j].startdate !== "") {
+                    if (response[j].endtime !== null && response[j].endtime !== "") {
+                      response[j].actual = moment(response[j].startdate).format("YYYY-MM-DD") + '~' + moment(response[j].endtime).format("YYYY-MM-DD");
+                    } else {
+                      response[j].actual = moment(response[j].startdate).format("YYYY-MM-DD") + '~' + this.$t("label.PFANS2022VIEW_UNFILLED")
+                    }
+                  }
                     response[j] .status = getStatus(response[j] .status);
                 }
             }
-
             this.data2 = response;
             this.loading = false;
           })
