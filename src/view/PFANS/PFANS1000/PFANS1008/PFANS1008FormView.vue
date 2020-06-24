@@ -642,6 +642,7 @@
             //ADD_FJL   修改人员预算编码  --转让部門
             getFebud(val) {
                 if (val !== '' && val !== null) {
+                    this.options = [];
                     // if (getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)) {
                     let butinfo = getOrgInfo(val).encoding;
                     let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
@@ -722,6 +723,7 @@
             getbud(val) {
                 //ADD_FJL   修改人员预算编码
                 if (val !== '' && val !== null) {
+                    this.options1 = [];
                     let butinfo = getOrgInfo(val).encoding;
                     let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
                     if (dic.length > 0) {
