@@ -53,7 +53,7 @@
             </router-view>
             <!--</transition>-->
             <div :style="{left: left + 'px',top: top + 'px',width: itemWidth + 'px',height: itemHeight + 'px'}"
-            class="bootom_right" @click="flowContent = true" v-show="showFlowButton"><i class="el-icon-edit"></i></div>
+            class="bootom_right" @click="flowContent = true" v-show="showFlowButton"><img :src="flow" style="height: 100%"></div>
           </el-main>
         </el-col>
       </el-container>
@@ -115,6 +115,7 @@
   import EasyLocale from "@/components/EasyLocale";
   import {getToken, removeToken} from '@/utils/auth'
   import Stomp from "stompjs";
+  import flow from "@/assets/svg/流程管理.svg";
 
   export default {
     name: "frameView",
@@ -153,8 +154,8 @@
         ],
         left: 0,
         top: 0,
-        itemWidth:50,
-        itemHeight:50,
+        itemWidth:40,
+        itemHeight:40,
         clientW: document.documentElement.clientWidth,//视口宽
         clientH: document.documentElement.clientHeight,//视口高
         showFlowButton:false,
@@ -202,6 +203,7 @@
         activeIndex: "1",
         activeIndex2: "1",
         basselogo: basselogo,
+        flow:flow,
         pfans: pfans,
         appdata: [],
         menudata: [],
