@@ -8,6 +8,14 @@
         <el-col :span="20">
           <EasyHeader maxheight="4rem">
             <div slot="customize" style="display: table-cell;vertical-align: middle;">
+              <!--<el-col :span="20" style="text-align: right;height: 20px;">-->
+                <!--<el-tooltip class="item" content="切换至个人空间" effect="dark" placement="bottom">-->
+                  <!--<img :src="userIcon" @click="changeType('user')" v-if="dataType === 'company'" height="100%">-->
+                <!--</el-tooltip>-->
+                <!--<el-tooltip class="item" content="切换至工作空间" effect="dark" placement="bottom">-->
+                  <!--<img :src="companyIcon" @click="changeType('company')" v-if="dataType === 'user'" height="100%">-->
+                <!--</el-tooltip>-->
+              <!--</el-col>-->
               <el-col :span="24" style="text-align: right;padding-right: 20px">
                 <EasyAvatar>
                   <el-dropdown-menu slot="dropdown">
@@ -117,6 +125,8 @@
   import {getToken, removeToken} from '@/utils/auth'
   import Stomp from "stompjs";
   import flow from "@/assets/svg/流程管理.svg";
+  import userIcon from "@/assets/svg/员工管理.svg";
+  import companyIcon from "@/assets/svg/公司.svg";
 
   export default {
     name: "frameView",
@@ -137,6 +147,8 @@
     },
     data() {
       return {
+        userIcon:userIcon,
+        companyIcon:companyIcon,
         flowData: [
           {
             'No': '1',
@@ -153,6 +165,7 @@
             'params': {}
           }
         ],
+        dataType: 'company',
         left: 0,
         top: 0,
         itemWidth:40,
@@ -215,6 +228,22 @@
       };
     },
     methods: {
+      changeType(val) {
+        let message = "将切换至个人空间, 是否继续?";
+        if (val === 'company') {
+          message = "将切换至工作空间, 是否继续?"
+        }
+
+        this.$confirm(message, "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning",
+          center: true
+        })
+          .then(() => {
+            this.dataType = val;
+          })
+      },
       openPop(val){
         this.$refs[val.No][0].open = true;
       },
