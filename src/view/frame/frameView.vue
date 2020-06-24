@@ -43,15 +43,17 @@
             <!--<transition name="el-fade-in">-->
             <!--<router-view @changeMenu="changeMenu" @showPersonCenter="showPersonCenter"/>-->
             <keep-alive>
-              <router-view v-if="$route.meta.keepAlive" @changeMenu="changeMenu" @showPersonCenter="showPersonCenter">
+              <router-view v-if="$route.meta.keepAlive" @changeMenu="changeMenu" @showPersonCenter="showPersonCenter" @showPop="showPop">
                 <!-- 这里是会被缓存的视图组件，比如列表A页面 -->
               </router-view>
             </keep-alive>
 
-            <router-view v-if="!$route.meta.keepAlive" @changeMenu="changeMenu" @showPersonCenter="showPersonCenter">
+            <router-view v-if="!$route.meta.keepAlive" @changeMenu="changeMenu" @showPersonCenter="showPersonCenter" @showPop="showPop">
               <!-- 这里是不被缓存的视图组件，比如详情B页面-->
             </router-view>
             <!--</transition>-->
+            <div :style="{left: left + 'px',top: top + 'px',width: itemWidth + 'px',height: itemHeight + 'px'}"
+            class="bootom_right" @click="flowContent = true" v-show="showFlowButton"><i class="el-icon-edit"></i></div>
           </el-main>
         </el-col>
       </el-container>
@@ -67,12 +69,33 @@
         ></EasyTree>
       </el-aside>
     </el-container>
+
+    <el-drawer
+      :visible.sync="flowContent"
+      direction="rtl" destroy-on-close
+      size="50%">
+      <el-timeline>
+        <el-timeline-item
+          v-for="(flow, index) in flowData"
+          :key="index">
+          <el-card>
+            <div slot="header">
+              <b>{{flow.Name}}</b>
+              <el-tag :type="flow.Status === 'normal.done'?'success':flow.Status === 'normal.doing'?'warning':'info'">{{$t(flow.Status)}}</el-tag>
+            </div>
+            <el-button type="primary" icon="el-icon-search" circle v-show="flow.Status === 'normal.done'" size="mini"
+                       @click="openPop(flow)"></el-button>
+          </el-card>
+          <EasyPop :url="flow.url" :id="flow.id" :ref="flow.No"></EasyPop>
+        </el-timeline-item>
+      </el-timeline>
+    </el-drawer>
   </div>
 </template>
 
 <script>
   /* eslint-disable no-lone-blocks */
-
+  import EasyPop from '@/components/EasyPop'
   import EasyTree from "@/components/EasyTree";
   import EasyHeader from "@/components/EasyHeader";
   import EasySider from "@/components/EasySider/index";
@@ -107,11 +130,36 @@
       EasyHelp,
       EasyLogout,
       easynormaltable,
-      EasyLocale
-
+      EasyLocale,
+      EasyPop
     },
     data() {
       return {
+        flowData: [
+          // {
+          //   'No': '1',
+          //   'Name': '采购申请',
+          //   'Status': 'normal.done',
+          //   'url': 'PFANS6002FormView',
+          //   'id': 'a081f533-8872-4d90-8719-8942ce2f568c'
+          // },
+          // {
+          //   'No': '2',
+          //   'Name': '合同作成',
+          //   'Status': 'normal.doing',
+          //   'url': '',
+          //   'id': ''
+          // }
+        ],
+        left: 0,
+        top: 0,
+        itemWidth:50,
+        itemHeight:50,
+        clientW: document.documentElement.clientWidth,//视口宽
+        clientH: document.documentElement.clientHeight,//视口高
+        showFlowButton:false,
+        innerDrawer:false,
+        flowContent: false,
         userinfo:{},
         menuLoading: false,
         userPage: "/personalCenter",
@@ -164,6 +212,9 @@
       };
     },
     methods: {
+      openPop(val){
+        this.$refs[val.No][0].open = true;
+      },
       //消息列表按钮事件
       buttonClick(val) {
         if (val === "update") {
@@ -356,6 +407,12 @@
       showPersonCenter(){
         this.userinfo = this.$store.getters.userinfo;
       },
+      showPop(val){
+        this.flowData = val;
+        if(val.length > 0){
+          this.showFlowButton = true;
+        }
+      },
       changeMenu(){
         this.vactiveIndex = this.$router.currentRoute.path;
       },
@@ -545,6 +602,8 @@
       this.getSupplierinfor();
     },
     created() {
+      this.left = (this.clientW - this.itemWidth - 10)
+      this.top = (this.clientH/2 - this.itemHeight/2)
       this.messageconnect();
       this.loginconnect();
     },
@@ -561,6 +620,17 @@
 </script>
 
 <style>
+
+  .bootom_right {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+    padding: 3px 3px 0 3px;
+    border-radius: 3px;
+    /*border: 1px solid #ddd;*/
+    background: #005BAA;
+  }
   /*.appView {*/
     /*position: relative;*/
     /*width:100%;*/

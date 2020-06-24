@@ -30,6 +30,7 @@ module.exports = {
     insertLots: '批量新建',
     update: '编辑',
     delete: '删除',
+    seeFlow: '业务流程',
     view: '查看',
     back: '返回',
     confirm: '确定',
@@ -98,6 +99,9 @@ module.exports = {
   normal: {
     zh_CN: 'CN',
     ja: 'JP',
+    todo: '未开始',
+    doing: '进行中',
+    done: '已完成',
     waiting: '请给我一点时间',
     search: '输入关键字进行过滤',
     error_01: '获取信息失败！',
