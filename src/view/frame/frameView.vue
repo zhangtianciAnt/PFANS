@@ -158,7 +158,7 @@
         itemHeight:40,
         clientW: document.documentElement.clientWidth,//视口宽
         clientH: document.documentElement.clientHeight,//视口高
-        showFlowButton:true,
+        showFlowButton:false,
         innerDrawer:false,
         flowContent: false,
         userinfo:{},
