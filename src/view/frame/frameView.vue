@@ -72,19 +72,20 @@
 
     <el-drawer
       :visible.sync="flowContent"
-      direction="rtl" destroy-on-close
+      direction="ltr" destroy-on-close
       size="50%">
       <el-timeline>
         <el-timeline-item
           v-for="(flow, index) in flowData"
-          :key="index">
-          <el-card>
-            <div slot="header">
+          :key="index"
+          :color="flow.Status === 'normal.done'?'#005BAA':''">
+          <el-card style="margin-right: 10px">
+            <!--<div slot="header">-->
               <b>{{flow.Name}}</b>
-              <el-tag :type="flow.Status === 'normal.done'?'success':flow.Status === 'normal.doing'?'warning':'info'">{{$t(flow.Status)}}</el-tag>
-            </div>
-            <el-button type="primary" icon="el-icon-search" circle v-show="flow.Status === 'normal.done'" size="mini"
-                       @click="openPop(flow)"></el-button>
+              <el-tag  style="margin-left: 10px" :type="flow.Status === 'normal.done'?'success':flow.Status === 'normal.doing'?'warning':'info'">{{$t(flow.Status)}}</el-tag>
+            <!--</div>-->
+            <el-button icon="el-icon-search" v-show="flow.Status === 'normal.done'" size="mini"
+                       @click="openPop(flow)" style="float: right" type="primary" plain>查看</el-button>
           </el-card>
           <EasyPop :url="flow.url" :params="flow.params" :ref="flow.No"></EasyPop>
         </el-timeline-item>
