@@ -2,7 +2,7 @@
   <el-drawer append-to-body destroy-on-close custom-class="custimize_drawer" @close="close"
     :visible.sync="open" :show-close="false" :withHeader="false"
              size="70%">
-  <PFANS6002FormView v-if="url === 'PFANS6002FormView'"></PFANS6002FormView>
+  <PFANS6002FormView v-show="url === 'PFANS6002FormView'" ref="child"></PFANS6002FormView>
 
   </el-drawer>
 </template>
@@ -26,9 +26,9 @@
         type: String,
         default: ""
       },
-      id: {
+      params: {
         type: String,
-        default: ""
+        default: {}
       }
     },
     methods: {
@@ -39,16 +39,24 @@
         for(let key in this.bkParams){
           this.$route.params[key] = this.bkParams[key];
         }
-
+        this.$refs.child.$refs.container.Pop = false;
         this.bkParams = {};
       }
     },
     watch:{
       open(val){
         if(val){
-          this.bkParams = [...this.$route.params];
-          this.$route.params._id = this.id;
 
+
+          this.bkParams = [...this.$route.params];
+          for(let key in this.params){
+            this.$route.params[key] = this.params[key];
+          }
+
+          this.$nextTick(function () {
+            debugger
+            this.$refs.child.$refs.container.Pop = true;
+          })
         }
       }
     }

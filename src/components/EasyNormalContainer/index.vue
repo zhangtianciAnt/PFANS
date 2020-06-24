@@ -3,7 +3,7 @@
   <div element-loading-spinner="el-icon-loading" style="height: calc(100vh - 60px - 2rem)">
     <el-card class="box-card">
       <!--<el-card class="box-card">-->
-      <div element-loading-spinner="el-icon-loading" slot="header" class="clearfix" style="height: 20px" v-loading="vloading">
+      <div element-loading-spinner="el-icon-loading" slot="header" class="clearfix" style="height: 20px" v-loading="vloading" v-if="!Pop">
         <el-row>
           <easy-button-bar :data="buttons" @buttonClick="buttonClick"></easy-button-bar>
           <easy-work-flow :canStart="canStart" :workflowCode="workflowCode"
@@ -40,6 +40,7 @@
     name: 'index',
     data() {
       return {
+        Pop:false,
         buttons: [],
         defaultbuttons: [{'key': 'back', 'name': 'button.back', 'disabled': false, 'icon': 'el-icon-back'}],
         enabled: [],
@@ -246,5 +247,16 @@
     font-size: 13px;
     line-height: 1;
     padding: 2px;
+  }
+  .collapse_Title{
+    font-size: 0.85rem !important;
+    color: #005BAA;
+    font-weight: bold;
+  }
+  .Title_front{
+    font-size: 1rem !important;
+  }
+  .main_color{
+    color: #005BAA;
   }
 </style>
