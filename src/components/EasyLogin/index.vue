@@ -110,7 +110,7 @@ export default {
       //       Message({
       //         message: error, //error.message,
       //         type: "error",
-      
+
       //         duration: 5 * 1000
       //       });
       //     });
@@ -176,7 +176,9 @@ export default {
       });
     }
   },
-  mounted() {},
+  mounted() {
+    sessionStorage.setItem("datatype", "company");
+  },
   watch: {}
 };
 </script>

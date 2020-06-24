@@ -16,7 +16,7 @@ service.interceptors.request.use(config => {
     config.headers['x-auth-token'] = getToken()
   }
   config.headers['locale'] = i18n.locale;
-
+    config.headers['datatype'] = sessionStorage.getItem("datatype");
   // if (store.getters.currentUrl) {
   let url = router.currentRoute.fullPath;
   console.log(router.currentRoute)

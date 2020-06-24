@@ -8,15 +8,30 @@
         <el-col :span="20">
           <EasyHeader maxheight="4rem">
             <div slot="customize" style="display: table-cell;vertical-align: middle;">
-              <!--<el-col :span="20" style="text-align: right;height: 20px;">-->
-                <!--<el-tooltip class="item" content="切换至个人空间" effect="dark" placement="bottom">-->
-                  <!--<img :src="userIcon" @click="changeType('user')" v-if="dataType === 'company'" height="100%">-->
-                <!--</el-tooltip>-->
-                <!--<el-tooltip class="item" content="切换至工作空间" effect="dark" placement="bottom">-->
-                  <!--<img :src="companyIcon" @click="changeType('company')" v-if="dataType === 'user'" height="100%">-->
-                <!--</el-tooltip>-->
-              <!--</el-col>-->
-              <el-col :span="24" style="text-align: right;padding-right: 20px">
+
+              <el-col :span="20" style="text-align: right;margin-top: 7px">
+                <el-tooltip class="item" content="切换至工作空间" effect="dark" placement="bottom">
+                <el-popconfirm
+                  confirmButtonText='确定'
+                  cancelButtonText='取消'
+                  :title="changeTypeMessage"
+                  @onConfirm="onConfirm('company')"
+                >
+                  <img :src="userIcon" @click="changeType('company')" v-show="dataType === 'user'" height="20px" slot="reference">
+                </el-popconfirm>
+              </el-tooltip>
+                <el-tooltip class="item" content="切换至个人空间" effect="dark" placement="bottom">
+                  <el-popconfirm
+                    confirmButtonText='确定'
+                    cancelButtonText='取消'
+                    :title="changeTypeMessage"
+                    @onConfirm="onConfirm('user')"
+                  >
+                  <img :src="companyIcon" @click="changeType('user')" v-show="dataType === 'company'" height="20px" slot="reference">
+                  </el-popconfirm>
+                </el-tooltip>
+              </el-col>
+              <el-col :span="4" style="text-align: right;padding-right: 20px">
                 <EasyAvatar>
                   <el-dropdown-menu slot="dropdown">
                     <router-link to="/PFANS8001View"><el-dropdown-item icon="el-icon-edit">{{$t('title.PFANS8001VIEW')}}</el-dropdown-item></router-link>
@@ -224,25 +239,22 @@
         avatarDep: "",
         hactiveIndex: "",
         vactiveIndex: "",
-        row: ""
+        row: "",
+        changeTypeMessage:""
       };
     },
     methods: {
       changeType(val) {
-        let message = "将切换至个人空间, 是否继续?";
         if (val === 'company') {
-          message = "将切换至工作空间, 是否继续?"
+          this.changeTypeMessage = "将切换至工作空间, 是否继续?"
+        }else{
+          this.changeTypeMessage = "将切换至个人空间, 是否继续?"
         }
-
-        this.$confirm(message, "提示", {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "warning",
-          center: true
-        })
-          .then(() => {
-            this.dataType = val;
-          })
+      },
+      onConfirm(val){
+        this.dataType = val;
+        sessionStorage.setItem("datatype", this.dataType);
+        this.$router.push("/index");
       },
       openPop(val){
         this.$refs[val.No][0].open = true;
