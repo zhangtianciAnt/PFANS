@@ -738,6 +738,7 @@
         upload: uploadUrl(),
         workshift: '',
         typecheck: '',
+        checklength3: '',
         retypecheck: '',
         timeSum: '',
         closingtime: '',
@@ -767,8 +768,14 @@
           .dispatch('PFANS2016Store/getPfans2016One', {'abnormalid': this.$route.params._id})
           .then(response => {
             this.form = response;
+            if (parseInt(this.form.status) <= 4) {
+              this.checklength3 = response.lengthtime;
+            } else {
+              this.checklength3 = response.relengthtime;
+            }
             this.typecheck = this.form.vacationtype;
             this.retypecheck = this.form.revacationtype;
+            this.getonRest(this.form.errortype);
             if (this.form.refinisheddate == null || this.form.reoccurrencedate == null) {
               if (this.form.status === '4') {
                 this.form.revacationtype = this.form.vacationtype;
@@ -1576,19 +1583,19 @@
         this.form.restdiff = '';
         this.form.restdiff2 = '';
         this.restdiff3 = '';
-        if (this.optionRest.length > 0) {
-          for (let i = 0; i < this.optionRest.length; i++) {
-            if (this.optionRest[i].typecode === val) {
-              if (this.optionRest[i].sumday !== null && this.optionRest[i].sumday !== '') {
-                this.form.restdiff = (Number(this.optionRest[i].sumday) * 8).toFixed(2);
-              }
-            }
-          }
-        }
         //add-ws-6/8-禅道035
         this.$store
           .dispatch('PFANS2016Store/getFpans2016List2', {})
           .then(response => {
+            if (this.optionRest.length > 0) {
+              for (let i = 0; i < this.optionRest.length; i++) {
+                if (this.optionRest[i].typecode === val) {
+                  if (this.optionRest[i].sumday !== null && this.optionRest[i].sumday !== '') {
+                    this.form.restdiff = (Number(this.optionRest[i].sumday) * 8).toFixed(2);
+                  }
+                }
+              }
+            }
             let restdiff2 = 0;
             let restdiff = 0;
             for (let a = 0; a < response.length; a++) {
@@ -2299,13 +2306,35 @@
                 if (this.restdiff3 === '') {
                   this.restdiff3 = 0;
                 }
-                if (this.form.restdiff - Number(this.restdiff3 + this.form.lengthtime).toFixed(2) < 0) {
-                  Message({
-                    message: this.$t('label.PFANS2016FORMVIEW_CHECKRESTDIFF2'),
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  return;
+                if (this.form.status) {
+                  if (parseInt(this.form.status) <= 4) {
+                    if (this.form.restdiff - Number(this.restdiff3 + this.form.lengthtime - this.checklength3).toFixed(2) < 0) {
+                      Message({
+                        message: this.$t('label.PFANS2016FORMVIEW_CHECKRESTDIFF2'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                      return;
+                    }
+                  } else {
+                    if (this.form.restdiff - Number(this.restdiff3 + this.form.relengthtime - this.checklength3).toFixed(2) < 0) {
+                      Message({
+                        message: this.$t('label.PFANS2016FORMVIEW_CHECKRESTDIFF2'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                      return;
+                    }
+                  }
+                } else {
+                  if (this.form.restdiff - Number(this.restdiff3 + this.form.lengthtime - this.checklength3).toFixed(2) < 0) {
+                    Message({
+                      message: this.$t('label.PFANS2016FORMVIEW_CHECKRESTDIFF2'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    return;
+                  }
                 }
               } else if (this.form.errortype === 'PR013006') {
                 if (this.form.restdiff === '') {
@@ -2314,13 +2343,35 @@
                 if (this.form.restdiff2 === '') {
                   this.form.restdiff2 = 0;
                 }
-                if (this.form.restdiff - Number(this.form.restdiff2 + this.form.lengthtime) < 0) {
-                  Message({
-                    message: this.$t('label.PFANS2016FORMVIEW_CHECKRESTDIFF2'),
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  return;
+                if (this.form.status) {
+                  if (parseInt(this.form.status) <= 4) {
+                    if (this.form.restdiff - Number(this.form.restdiff2 + this.form.lengthtime - this.checklength3) < 0) {
+                      Message({
+                        message: this.$t('label.PFANS2016FORMVIEW_CHECKRESTDIFF2'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                      return;
+                    }
+                  } else {
+                    if (this.form.restdiff - Number(this.form.restdiff2 + this.form.relengthtime - this.checklength3) < 0) {
+                      Message({
+                        message: this.$t('label.PFANS2016FORMVIEW_CHECKRESTDIFF2'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                      return;
+                    }
+                  }
+                } else {
+                  if (this.form.restdiff - Number(this.form.restdiff2 + this.form.lengthtime - this.checklength3) < 0) {
+                    Message({
+                      message: this.$t('label.PFANS2016FORMVIEW_CHECKRESTDIFF2'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    return;
+                  }
                 }
               }
 //    add_fjl_06/16  -- 添加异常申请每天累计不超过8小时check  start
@@ -2392,18 +2443,18 @@
 //                       });
 //                       return;
 //                     } else {
-                      this.updint(val);
-                //     }
-                //   }
-                // })
-                // .catch(error => {
-                //   Message({
-                //     message: error,
-                //     type: 'error',
-                //     duration: 5 * 1000,
-                //   });
-                //   this.loading = false;
-                // });
+              this.updint(val);
+              //     }
+              //   }
+              // })
+              // .catch(error => {
+              //   Message({
+              //     message: error,
+              //     type: 'error',
+              //     duration: 5 * 1000,
+              //   });
+              //   this.loading = false;
+              // });
 //    add_fjl_06/16  -- 添加异常申请每天累计不超过8小时check  end
             } else {
               Message({
@@ -2412,7 +2463,8 @@
                 duration: 5 * 1000,
               });
             }
-          },
+          }
+          ,
         );
       },
       updint(val) {
