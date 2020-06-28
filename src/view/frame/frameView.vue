@@ -255,6 +255,7 @@
         this.dataType = val;
         sessionStorage.setItem("datatype", this.dataType);
         this.$router.push("/index");
+        this.changeMenu();
       },
       openPop(val){
         this.$refs[val.No][0].open = true;

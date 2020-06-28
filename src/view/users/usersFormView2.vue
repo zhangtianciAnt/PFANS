@@ -2044,6 +2044,50 @@
                   </el-form-item>
                 </el-col>
               </el-row>
+              <!--              ws-6/28-禅道141任务-->
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.USERSVIEW_WHERETOLEAVE')">
+                    <dicselect
+                      code="RS003"
+                      :data="form.wheretoleave"
+                      @change="changewheretoleave"
+                      style="width:20vw"
+                    ></dicselect>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.USERSVIEW_WHERETOLEAVE')">
+                    <el-input style="width:20vw" v-model="form.wheretoleave2" type="textarea">
+                    </el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.USERSVIEW_CLASSIFICATION')">
+                    <dicselect
+                      code="RS002"
+                      :data="form.classification"
+                      @change="changeclassification"
+                      style="width:20vw"
+                    ></dicselect>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.USERSVIEW_TRANSFERCOMPANY')">
+                    <el-input style="width:20vw" v-model="form.transfercompany" type="textarea">
+                    </el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.USERSVIEW_OTHER')">
+                    <el-input style="width:20vw" v-model="form.other" type="textarea">
+                    </el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <!--              ws-6/28-禅道141任务-->
             </el-tab-pane>
           </el-tabs>
         </el-form>
@@ -2235,6 +2279,13 @@
           },
         ],
         form: {
+          //        ws-6/28-禅道141任务
+          wheretoleave: '',
+          wheretoleave2: '',
+          classification: '',
+          transfercompany: '',
+          other: '',
+          //        ws-6/28-禅道141任务
           type: '',
           centername: '',
           groupname: '',
@@ -2817,6 +2868,14 @@
       }
     },
     methods: {
+      //        ws-6/28-禅道141任务
+      changeclassification (val) {
+        this.form.classification = val;
+      },
+      changewheretoleave(val) {
+        this.form.wheretoleave = val;
+      },
+      //        ws-6/28-禅道141任务
       // ADD-WS-生年月日change事件
       getAge() {
         let abrithdaysb = this.form.idnumber;

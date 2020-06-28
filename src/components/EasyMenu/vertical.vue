@@ -26,12 +26,18 @@
               <span style="color: black">{{$t(cobi.name)}}</span>
             </template>
             <el-menu-item v-for="cobii in cobi.children" v-if="cobii.menuvisible" :key="cobii._id" :index="cobii.menuurl" v-show="cobii.menuvisible" class="title3">
-              <span>{{$t(cobii.name)}}</span>
+              <el-tooltip class="item" effect="dark" :content="$t(cobii.name)" placement="right-end" v-if="$t(cobii.name).length > 6">
+              <span>{{$t(cobii.name).substr(0,6)+".."}}</span>
+              </el-tooltip>
+              <span v-else>{{$t(cobii.name)}}</span>
               <!--<i class="el-icon-right"></i>-->
             </el-menu-item>
           </el-submenu>
           <el-menu-item v-else :key="cobi._id" :index="cobi.menuurl" v-show="cobi.menuvisible" class="title3">
-            <span>{{$t(cobi.name)}}</span>
+            <el-tooltip class="item" effect="dark" :content="$t(cobi.name)" placement="right-end" v-if="$t(cobi.name).length > 7">
+            <span>{{$t(cobi.name).substr(0,7)+".."}}</span>
+            </el-tooltip>
+            <span v-else>{{$t(cobi.name)}}</span>
             <!--<i class="el-icon-right"></i>-->
           </el-menu-item>
         </el-submenu>
