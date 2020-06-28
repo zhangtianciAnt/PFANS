@@ -1,7 +1,7 @@
   <template>
   <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row" :title="title"
                    @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" :rowClassName="rowClassName"
-                   :showSelection="isShow" ref="roletable">
+                   :showSelection="isShow" ref="roletable" :selectable="selectInit">
   </EasyNormalTable>
 </template>
 <script>
@@ -367,6 +367,9 @@
                 })
         },
         methods: {
+          selectInit(row, index) {
+            return row.status === this.$t("label.PFANS5004VIEW_OVERTIME");
+          },
             //add_fjl_05/19  --设置受理状态和审批状态改变行的背景色
             rowClassName({row, rowIndex}) {
                 if (row.acceptstatus === this.$t('label.PFANS3006VIEW_REFUSE') || row.status === this.$t('label.node_step2')) {
