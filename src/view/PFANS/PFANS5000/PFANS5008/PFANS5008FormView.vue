@@ -221,6 +221,7 @@
         code2: 'PP008',
         multiple2: false,
         data2: '',
+        resignation_date: '',
         data: '',
         code3: '',
         checkuserid: '',
@@ -245,6 +246,9 @@
       };
     },
     created() {
+      if (this.$store.getters.userinfo) {
+        this.resignation_date = this.$store.getters.userinfo.userinfo.resignation_date;
+      }
       this.disable = this.$route.params.disabled;
       //add -ws - 工作记录table表格编辑时根据编辑人id获取数据，新建时根据登录人id获取数据
       if (this.$store.getters.userinfo.userid !== undefined) {
@@ -1152,14 +1156,26 @@
               //add-ws-日志截止日期check添加
               if (check === 0) {
                 if (this.checkuserid === 0) {
-                  if (moment(this.companyform.log_date).format('YYYY-MM-DD') >= moment(new Date()).format('YYYY-MM-DD')) {
-                    error = error + 1;
-                    Message({
-                      message: this.$t('label.PFANS5008FORMVIEW_CKECKLOGDATA'),
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
-                    this.loading = false;
+                  if (this.resignation_date !== null && this.resignation_date !== '') {
+                    if (moment(this.companyform.log_date).format('YYYY-MM-DD') > moment(this.resignation_date).format('YYYY-MM-DD')) {
+                      error = error + 1;
+                      Message({
+                        message: this.$t('label.PFANS5008FORMVIEW_CKECKLOGDATA'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                      this.loading = false;
+                    }
+                  } else if (this.companyform.log_date) {
+                    if (moment(this.companyform.log_date).format('YYYY-MM-DD') >= moment(new Date()).format('YYYY-MM-DD')) {
+                      error = error + 1;
+                      Message({
+                        message: this.$t('label.PFANS5008FORMVIEW_CKECKLOGDATA'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                      this.loading = false;
+                    }
                   } else if (this.companyform.time_start == '0') {
                     error = error + 1;
                     Message({

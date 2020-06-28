@@ -44,7 +44,7 @@
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_REIMBURSEMENTDATE')" prop="application_date">
-                      <el-date-picker :disabled="!disable" style="width:20vw" v-model="form.reimbursementdate">
+                      <el-date-picker :disabled="true" style="width:20vw" v-model="form.reimbursementdate">
                       </el-date-picker>
                     </el-form-item>
                   </el-col>

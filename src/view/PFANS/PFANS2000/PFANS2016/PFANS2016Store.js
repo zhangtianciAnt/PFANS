@@ -99,9 +99,9 @@ const PFANS2016Store = {
       })
     },
 
-    getFpans2016List({commit}) {
+    getFpans2016List({commit},data) {
       return new Promise((resolve, reject) => {
-        getFpans2016List().then(response => {
+        getFpans2016List(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {

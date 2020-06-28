@@ -621,6 +621,7 @@
         userlist: '',
         title: 'title.exception_application',
         buttonList: [],
+        restdiff3: '',
         form: {
           restdiff: '',
           restdiff2: '',
@@ -1574,6 +1575,7 @@
       getonRest(val) {
         this.form.restdiff = '';
         this.form.restdiff2 = '';
+        this.restdiff3 = '';
         if (this.optionRest.length > 0) {
           for (let i = 0; i < this.optionRest.length; i++) {
             if (this.optionRest[i].typecode === val) {
@@ -1602,6 +1604,7 @@
               }
             }
             this.form.restdiff2 = Number(restdiff + restdiff2).toFixed(2);
+            this.restdiff3 = Number(restdiff + restdiff2);
           });
         //add-ws-6/8-禅道035
       },
@@ -1835,7 +1838,7 @@
                 this.diffNoDays();
               }
               if (this.form.errortype === 'PR013007') {
-                if(this.form.status){
+                if (this.form.status) {
                   if (parseInt(this.form.status) <= 4) {
                     if (this.form.restdiff < this.form.lengthtime) {
                       Message({
@@ -1845,7 +1848,7 @@
                       });
                       return;
                     }
-                  }else{
+                  } else {
                     if (this.form.restdiff < this.form.relengthtime) {
                       Message({
                         message: this.$t('normal.error_norestdays'),
@@ -1855,7 +1858,7 @@
                       return;
                     }
                   }
-                }else{
+                } else {
                   if (this.form.restdiff < this.form.lengthtime) {
                     Message({
                       message: this.$t('normal.error_norestdays'),
@@ -2289,7 +2292,22 @@
               }
 
               //add-ws-6/8-禅道035
-              if (this.form.errortype === 'PR013006' || this.form.errortype === 'PR013007') {
+              if (this.form.errortype === 'PR013007') {
+                if (this.form.restdiff === '') {
+                  this.form.restdiff = 0;
+                }
+                if (this.restdiff3 === '') {
+                  this.restdiff3 = 0;
+                }
+                if (this.form.restdiff - Number(this.restdiff3 + this.form.lengthtime).toFixed(2) < 0) {
+                  Message({
+                    message: this.$t('label.PFANS2016FORMVIEW_CHECKRESTDIFF2'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  return;
+                }
+              } else if (this.form.errortype === 'PR013006') {
                 if (this.form.restdiff === '') {
                   this.form.restdiff = 0;
                 }
