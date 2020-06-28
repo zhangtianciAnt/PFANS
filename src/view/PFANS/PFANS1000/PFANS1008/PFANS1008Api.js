@@ -1,13 +1,13 @@
 import request from '../../../../utils/request'
 import requestPdf from "../../../../utils/requestPdf";
 
+
 export function getSoftwaretransfer() {
   return request({
-    url: 'softwaretransfer/get',
+    url: 'softwaretransfer/getSoftwaretransfer',
     method: 'get',
     // params: data
   })
-
 }
 
 export function selectById(data) {
