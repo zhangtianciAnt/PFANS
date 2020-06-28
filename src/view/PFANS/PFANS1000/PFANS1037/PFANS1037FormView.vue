@@ -165,14 +165,14 @@
           {
             code: 'management',
             label: 'label.PFASN1023FORMVIEW_MANAGEMENT',
-            width: 140,
+            width: 240,
             fix: false,
             filter: true,
           },
           {
             code: 'assetname',
             label: 'label.PFANS1036FORMVIEW_ASSETNAME',
-            width: 120,
+            width: 200,
             fix: false,
             filter: true,
           },
