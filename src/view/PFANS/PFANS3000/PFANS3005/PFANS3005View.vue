@@ -1,6 +1,7 @@
   <template>
   <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row" :title="title"
-                   @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" :rowClassName="rowClassName">
+                   @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" :rowClassName="rowClassName"
+                   :showSelection="isShow" ref="roletable">
   </EasyNormalTable>
 </template>
 <script>
@@ -19,6 +20,8 @@
                 loading: false,
                 title: 'title.PFANS3005VIEW',
                 data: [],
+                selectedlist: [],
+                isShow: true,
                 columns: [
                   {
                     code: 'purnumbers',
@@ -127,7 +130,7 @@
                     },
                     {
                         code: 'procurementdetails',
-                        label: 'label.PFANS3005VIEW_PROCUREMENTDETAILS',
+                        label: 'label.PFANS3005VIEW_PROCUREMENTDETAILS_NAME',
                         width: 150,
                         fix: false,
                         filter: true
@@ -249,6 +252,7 @@
                     {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
                     {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
                     {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
+                    {'key': 'export', 'name': 'button.export', 'disabled': false, icon: 'el-icon-download'},
                     // {'key': 'conapp', 'name': 'button.conapp', 'disabled': false, 'icon': 'el-icon-plus'},
                     // {'key': 'actuarial', 'name': 'button.actuarial', 'disabled': false, 'icon': 'el-icon-edit-outline'}
                 ],
@@ -421,7 +425,68 @@
                         }
                     })
                 }
+              if (val === 'export') {
+                if(this.$refs.roletable.selectedList.length === 0){
+                  Message({
+                    message: this.$t('normal.info_01'),
+                    type: 'info',
+                    duration: 2 * 1000
+                  });
+                  return;
+                }
+                this.selectedlist = this.$refs.roletable.selectedList;
+                import('@/vendor/Export2Excel').then(excel => {
+                  const tHeader = [
+                    this.$t('label.applicant'),
+                    this.$t('label.PFANS2006VIEW_CLUB'),
+                    this.$t('label.PFANS3005VIEW_LINENUMBER'),
+                    this.$t('label.application_date'),
+                    this.$t('label.budgetunit'),
+                    this.$t('label.PFANS3005VIEW_CONTROLLER'),
+                    this.$t('label.PFANS3005VIEW_PROCUREMENTPROJECT'),
+                    this.$t('label.PFANS3005VIEW_PROCUREMENTDETAILS'),
+                    this.$t('label.PFANS3005VIEW_BRANDNAME'),
+                    this.$t('label.PFANS3005VIEW_MODEL'),
+                    this.$t('label.PFANS3005VIEW_QUANTITY'),
+                    this.$t('label.PFANS3005VIEW_UNITPRICE'),
+                    this.$t('label.PFANS3005VIEW_TOTALAMOUNT'),
+                    this.$t('label.PFANS3005VIEW_PURCHASEPURPOSE'),
+                    this.$t('label.PFANS3005VIEW_ACTUARIALAMOUNT'),
+                    this.$t('label.PFANS3005VIEW_ACTUARIALDATE'),
+                  ];
+                  const filterVal = [
+                    'user_id',
+                    'group_id',
+                    'linenumber',
+                    'application_date',
+                    'budgetnumber',
+                    'controller',
+                    'procurementproject',
+                    'procurementdetails',
+                    'brandname',
+                    'model',
+                    'quantity',
+                    'unitprice',
+                    'totalamount',
+                    'purchasepurpose',
+                    'actuarialamount',
+                    'actuarialdate'
+                  ];
+                  const list = this.selectedlist;
+                  const data = this.formatJson(filterVal, list);
+                  excel.export_json_to_excel(tHeader, data, this.$t('menu.PFANS3005'));
+                })
+              }
             },
+            formatJson(filterVal, jsonData) {
+              return jsonData.map(v => filterVal.map(j => {
+              if (j === 'timestamp') {
+                return parseTime(v[j])
+              } else {
+                return v[j]
+              }
+            }))
+          },
         }
     }
 </script>
