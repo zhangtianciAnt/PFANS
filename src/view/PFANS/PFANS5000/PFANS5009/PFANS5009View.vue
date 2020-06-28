@@ -80,6 +80,13 @@
             filter: true,
           },
           {
+            code: 'contractno',
+            label: 'label.PFANS1007FORMVIEW_CONTRACTNO',
+            width: 260,
+            fix: false,
+            filter: true,
+          },
+          {
             code: 'actualwork',
             label: 'label.PFANS5009VIEW_ACTUALWORK',
             width: 150,
@@ -122,14 +129,6 @@
       this.$store
         .dispatch('PFANS5009Store/getSiteList4')
         .then(response => {
-          // for (let m = 0; m < response.length; m++) {
-          //   for (let i = 1; i < response.length; i++) {
-          //     if (response[m].numbers === response[i].numbers) {
-          //       response.splice(m, 1);
-          //     }
-          //   }
-          // }
-
           for (let j = 0; j < response.length; j++) {
             if (response[j].phase !== null && response[j].phase !== '') {
               let letPhase = getDictionaryInfo(response[j].phase);
@@ -176,6 +175,7 @@
           this.loading = false;
         });
     },
+
     methods: {
       rowClick(row) {
         this.rowid = row.companyprojects_id;
