@@ -211,15 +211,6 @@ export default {
           fix: false,
           filter: true
         },
-          // add_fjl_05/22 --添加退职日
-        {
-            code: "resignation_date",
-            label: "label.PFANS2026VIEW_RESIGNATIONDATE",
-            width: 120,
-            fix: false,
-            filter: true
-        },
-          // add_fjl_05/22 --添加退职日
           {
               code: "post",
               label: "label.PFANSUSERVIEW_POST",
@@ -254,7 +245,25 @@ export default {
           width: 110,
           fix: false,
           filter: true
+        },
+        // add_fjl_05/22 --添加退职日
+        {
+          code: "resignation_date",
+          label: "label.PFANS2026VIEW_RESIGNATIONDATE",
+          width: 120,
+          fix: false,
+          filter: true
+        },
+        // add_fjl_05/22 --添加退职日
+        // add_ws_06/23 --禅道141
+        {
+          code: "reason2",
+          label: "label.PFANS2026VIEW_CAUSE",
+          width: 110,
+          fix: false,
+          filter: true
         }
+        // add_ws_06/23 --禅道141
       ],
       defaultProps: {
         label: "title",
@@ -615,9 +624,16 @@ export default {
                   this.$t("label.PFANSUSERFORMVIEW_HOUSEINSURANCE"),//住房公积金缴纳基数
                   this.$t("label.PFANSUSERFORMVIEW_SEATNUMBER"),//银行账号
                   this.$t("label.PFANSUSERFORMVIEW_ADDRESS"),//住所
+//        ws-6/28-禅道141任务
+                this.$t("label.USERSVIEW_CLASSIFICATION"),//离职理由分类（可多选）
+                this.$t("label.USERSVIEW_WHERETOLEAVE"),//离职去向(选项)
+                this.$t("label.USERSVIEW_WHERETOLEAVE2"),//离职去向(手动输入)
+                this.$t("label.USERSVIEW_TRANSFERCOMPANY"),//转职公司
+                this.$t("label.PFANS2026VIEW_REASON2"),//离职理由详细
+                this.$t("label.USERSVIEW_OTHER"),//其他
+//        ws-6/28-禅道141任务
               ];
               const filterVal = [
-
                   "customername",//姓名
                   "adfield",//AD域账号
                   "jobnumber",//卡号
@@ -665,9 +681,31 @@ export default {
                   "houseinsurance",//住房公积金缴纳基数
                   "seatnumber",//银行账号
                   "address",//住所
+                //        ws-6/28-禅道141任务
+                "classification",//离职理由分类（可多选）
+                "wheretoleave",//离职去向(选项)
+                "wheretoleave2",//离职去向(手动输入)
+                "transfercompany",//转职公司
+                "reason2",//离职理由详细
+                "other",//其他
+                //        ws-6/28-禅道141任务
           ];
           const list = this.selectedlist;
             for (let h = 0; h < list.length; h++) {
+              //        ws-6/28-禅道141任务
+              if(list[h].wheretoleave !== '' && list[h].wheretoleave !== null) {
+                let wheretoleaveinfo = getDictionaryInfo(list[h].wheretoleave);
+                if (wheretoleaveinfo) {
+                  list[h].wheretoleave = wheretoleaveinfo.value1;
+                }
+              }
+              if(list[h].classification !== '' && list[h].classification !== null) {
+                let classificationinfo = getDictionaryInfo(list[h].classification);
+                if (classificationinfo) {
+                  list[h].classification = classificationinfo.value1;
+                }
+              }
+              //        ws-6/28-禅道141任务
                 //劳动合同类型
                 if(list[h].laborcontracttype !== '' && list[h].laborcontracttype !== null){
                     if(list[h].laborcontracttype === '0'){

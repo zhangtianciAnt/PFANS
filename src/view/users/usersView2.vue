@@ -251,7 +251,25 @@ export default {
           width: 110,
           fix: false,
           filter: true
+        },
+        // add_fjl_05/22 --添加退职日
+        {
+          code: "resignation_date",
+          label: "label.PFANS2026VIEW_RESIGNATIONDATE",
+          width: 120,
+          fix: false,
+          filter: true
+        },
+        // add_fjl_05/22 --添加退职日
+        // add_ws_06/23 --禅道141
+        {
+          code: "reason2",
+          label: "label.PFANS2026VIEW_CAUSE",
+          width: 110,
+          fix: false,
+          filter: true
         }
+        // add_ws_06/23 --禅道141
       ],
       defaultProps: {
         label: "title",
