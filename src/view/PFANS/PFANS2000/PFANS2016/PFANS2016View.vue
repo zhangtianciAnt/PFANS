@@ -11,7 +11,16 @@
     v-loading="loading"
     :showSelection="true"
     :selectable="selectInit"
-  ></EasyNormalTable>
+  >
+    <el-date-picker
+      :placeholder="$t('normal.error_09')"
+      @change="changed"
+      slot="customize"
+      style="width:11vw"
+      type="month"
+      v-model="months">
+    </el-date-picker>
+  </EasyNormalTable>
 </template>
 
 <script>
@@ -34,6 +43,7 @@
             return {
                 loading: false,
                 title: "title.PFANS2016VIEW",
+                months: moment(new Date()).format("YYYY-MM"),
                 data: [],
                 selectedlist: [],
                 columns: [
@@ -148,119 +158,13 @@
             };
         },
         mounted() {
-            this.loading = true;
-            this.$store
-                .dispatch("PFANS2016Store/getFpans2016List", {})
-                .then(response => {
-                    for (let j = 0; j < response.length; j++) {
-
-                        if (
-                            response[j].errortype != "PR013005" &&
-                            response[j].errortype != "PR013007"
-                        ) {
-                            if (this.$i18n) {
-                                //UPD_FJL   添加是否有实际时长的判断
-                                response[j].lengthtime = response[j].lengthtime + this.$t("label.hours");
-                                if (parseInt(response[j].status) > 4) {
-                                    response[j].relengthtime = response[j].relengthtime + this.$t("label.hours");
-                                } else {
-                                    response[j].relengthtime = '';
-                                }
-                                //UPD_FJL
-                            }
-                        } else {
-                            if (this.$i18n) {
-                                //UPD_FJL   添加是否有实际时长的判断
-                                response[j].lengthtime = response[j].lengthtime === "4" ? this.$t("label.PFANS2011FROMVIEW_HALFDATE") : this.$t("label.PFANS2016FORMVIEW_QUANTIAN");
-                                if (parseInt(response[j].status) > 4) {
-                                    if (parseInt(response[j].relengthtime) >= 8) {
-                                        response[j].relengthtime = this.$t("label.PFANS2016FORMVIEW_QUANTIAN")
-                                    } else if (parseInt(response[j].relengthtime) === 4) {
-                                        response[j].relengthtime = this.$t("label.PFANS2011FROMVIEW_HALFDATE")
-                                    } else if (parseInt(response[j].relengthtime) === 0) {
-                                        response[j].relengthtime = this.$t("label.PFANS2016FORMVIEW_UNREST")
-                                    } else {
-                                        response[j].relengthtime = '';
-                                    }
-                                    // response[j].relengthtime = response[j].relengthtime === "4" ? this.$t("label.PFANS2011FROMVIEW_HALFDATE") : this.$t("label.PFANS2016FORMVIEW_QUANTIAN");
-                                } else {
-                                    response[j].relengthtime = '';
-                                }
-                                //UPD_FJL
-                            }
-                        }
-
-                        let user = getUserInfo(response[j].user_id);
-                        let nameflg = getOrgInfoByUserId(response[j].user_id);
-                        if (nameflg) {
-                            response[j].centername = nameflg.centerNmae;
-                            response[j].groupname = nameflg.groupNmae;
-                            response[j].teamname = nameflg.teamNmae;
-                        }
-                        if (user) {
-                            response[j].username = user.userinfo.customername;
-                        }
-                        // del_fjl
-                        // add-ws-考勤异常实际值添加
-                        // if (response[j].status == 7) {
-                        //   if (this.$i18n) {
-                        //     response[j].relengthtime =
-                        //       response[j].relengthtime + this.$t("label.hours");
-                        //   }
-                        // }else{
-                        //   response[j].relengthtime ='';
-                        // }
-                        // add-ws-考勤异常实际值添加
-                        // del_fjl
-                        if (
-                            response[j].applicationdate !== null &&
-                            response[j].applicationdate !== ""
-                        ) {
-                            response[j].applicationdate = moment(
-                                response[j].applicationdate
-                            ).format("YYYY-MM-DD");
-                        }
-                        //add_fjl    如果状态大于4，显示实际日期
-                        if (parseInt(response[j].status) > 4) {
-                            //实际日期
-                            if (response[j].reoccurrencedate !== null && response[j].reoccurrencedate !== "") {
-                                response[j].occurrencedate = moment(response[j].reoccurrencedate).format("YYYY-MM-DD");
-                            }
-                            if (response[j].refinisheddate !== null && response[j].refinisheddate !== "") {
-                                response[j].finisheddate = moment(response[j].refinisheddate).format("YYYY-MM-DD");
-                            }
-                        } else {
-                            //预计日期
-                            if (response[j].occurrencedate !== null && response[j].occurrencedate !== "") {
-                                response[j].occurrencedate = moment(response[j].occurrencedate).format("YYYY-MM-DD");
-                            }
-                            if (response[j].finisheddate !== null && response[j].finisheddate !== "") {
-                                response[j].finisheddate = moment(response[j].finisheddate).format("YYYY-MM-DD");
-                            }
-                        }
-                        if (response[j].status !== null && response[j].status !== "") {
-                            response[j].status = getStatus(response[j].status);
-                        }
-                        if (response[j].errortype !== null && response[j].errortype !== "") {
-                            let letErrortype = getDictionaryInfo(response[j].errortype);
-                            if (letErrortype != null) {
-                                response[j].errortype = letErrortype.value1;
-                            }
-                        }
-                    }
-                    this.data = response;
-                    this.loading = false;
-                })
-                .catch(error => {
-                    Message({
-                        message: error,
-                        type: "error",
-                        duration: 5 * 1000
-                    });
-                    this.loading = false;
-                });
+            this.getAbnormalList();
         },
         methods: {
+            changed(val) {
+                this.months = moment(val).format('YYYY-MM');
+                this.getAbnormalList();
+            },
             selectInit(row, index) {
                 return row.status === this.$t("label.PFANS5004VIEW_OVERTIME");
             },
@@ -277,6 +181,119 @@
             },
             rowClick(row) {
                 this.rowid = row.abnormalid;
+            },
+            getAbnormalList(){
+                this.loading = true;
+                this.$store
+                    .dispatch("PFANS2016Store/getFpans2016List", {dates: this.months})
+                    .then(response => {
+                        for (let j = 0; j < response.length; j++) {
+
+                            if (
+                                response[j].errortype != "PR013005" &&
+                                response[j].errortype != "PR013007"
+                            ) {
+                                if (this.$i18n) {
+                                    //UPD_FJL   添加是否有实际时长的判断
+                                    response[j].lengthtime = response[j].lengthtime + this.$t("label.hours");
+                                    if (parseInt(response[j].status) > 4) {
+                                        response[j].relengthtime = response[j].relengthtime + this.$t("label.hours");
+                                    } else {
+                                        response[j].relengthtime = '';
+                                    }
+                                    //UPD_FJL
+                                }
+                            } else {
+                                if (this.$i18n) {
+                                    //UPD_FJL   添加是否有实际时长的判断
+                                    response[j].lengthtime = response[j].lengthtime === "4" ? this.$t("label.PFANS2011FROMVIEW_HALFDATE") : this.$t("label.PFANS2016FORMVIEW_QUANTIAN");
+                                    if (parseInt(response[j].status) > 4) {
+                                        if (parseInt(response[j].relengthtime) >= 8) {
+                                            response[j].relengthtime = this.$t("label.PFANS2016FORMVIEW_QUANTIAN")
+                                        } else if (parseInt(response[j].relengthtime) === 4) {
+                                            response[j].relengthtime = this.$t("label.PFANS2011FROMVIEW_HALFDATE")
+                                        } else if (parseInt(response[j].relengthtime) === 0) {
+                                            response[j].relengthtime = this.$t("label.PFANS2016FORMVIEW_UNREST")
+                                        } else {
+                                            response[j].relengthtime = '';
+                                        }
+                                        // response[j].relengthtime = response[j].relengthtime === "4" ? this.$t("label.PFANS2011FROMVIEW_HALFDATE") : this.$t("label.PFANS2016FORMVIEW_QUANTIAN");
+                                    } else {
+                                        response[j].relengthtime = '';
+                                    }
+                                    //UPD_FJL
+                                }
+                            }
+
+                            let user = getUserInfo(response[j].user_id);
+                            let nameflg = getOrgInfoByUserId(response[j].user_id);
+                            if (nameflg) {
+                                response[j].centername = nameflg.centerNmae;
+                                response[j].groupname = nameflg.groupNmae;
+                                response[j].teamname = nameflg.teamNmae;
+                            }
+                            if (user) {
+                                response[j].username = user.userinfo.customername;
+                            }
+                            // del_fjl
+                            // add-ws-考勤异常实际值添加
+                            // if (response[j].status == 7) {
+                            //   if (this.$i18n) {
+                            //     response[j].relengthtime =
+                            //       response[j].relengthtime + this.$t("label.hours");
+                            //   }
+                            // }else{
+                            //   response[j].relengthtime ='';
+                            // }
+                            // add-ws-考勤异常实际值添加
+                            // del_fjl
+                            if (
+                                response[j].applicationdate !== null &&
+                                response[j].applicationdate !== ""
+                            ) {
+                                response[j].applicationdate = moment(
+                                    response[j].applicationdate
+                                ).format("YYYY-MM-DD");
+                            }
+                            //add_fjl    如果状态大于4，显示实际日期
+                            if (parseInt(response[j].status) > 4) {
+                                //实际日期
+                                if (response[j].reoccurrencedate !== null && response[j].reoccurrencedate !== "") {
+                                    response[j].occurrencedate = moment(response[j].reoccurrencedate).format("YYYY-MM-DD");
+                                }
+                                if (response[j].refinisheddate !== null && response[j].refinisheddate !== "") {
+                                    response[j].finisheddate = moment(response[j].refinisheddate).format("YYYY-MM-DD");
+                                }
+                            } else {
+                                //预计日期
+                                if (response[j].occurrencedate !== null && response[j].occurrencedate !== "") {
+                                    response[j].occurrencedate = moment(response[j].occurrencedate).format("YYYY-MM-DD");
+                                }
+                                if (response[j].finisheddate !== null && response[j].finisheddate !== "") {
+                                    response[j].finisheddate = moment(response[j].finisheddate).format("YYYY-MM-DD");
+                                }
+                            }
+                            if (response[j].status !== null && response[j].status !== "") {
+                                response[j].status = getStatus(response[j].status);
+                            }
+                            if (response[j].errortype !== null && response[j].errortype !== "") {
+                                let letErrortype = getDictionaryInfo(response[j].errortype);
+                                if (letErrortype != null) {
+                                    response[j].errortype = letErrortype.value1;
+                                }
+                            }
+                        }
+                        this.data = response;
+                        this.loading = false;
+                    })
+                    .catch(error => {
+                        Message({
+                            message: error,
+                            type: "error",
+                            duration: 5 * 1000
+                        });
+                        this.loading = false;
+                    });
             },
             buttonClick(val) {
                 this.$store.commit("global/SET_HISTORYURL", this.$route.path);
