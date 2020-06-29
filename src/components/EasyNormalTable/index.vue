@@ -58,6 +58,17 @@
                          :prop="item.code"
                          align="left" show-overflow-tooltip sortable="custom"
                          v-else/>
+        <el-table-column :label="$t('label.operation')" align="center" v-if="handleShow" width="110vw">
+          <template slot-scope="scope">
+            <el-button
+              @click="handleEdit(scope.$index, scope.row)"
+              plain
+              size="mini"
+              type="primary"
+            >{{$t('button.view')}}
+            </el-button>
+          </template>
+        </el-table-column>
       </el-table>
       <div class="pagination-container" style="padding-top: 20px">
         <el-pagination :current-page.sync="listQuery.page" :page-size="listQuery.limit"
@@ -139,6 +150,11 @@
         type: Boolean,
         default: false
       },
+        // 操作按钮
+        handleShow: {
+            type: Boolean,
+            default: false
+        },
       hasEditBtn: {
         type: Boolean,
         default: true
@@ -198,6 +214,9 @@
       }
     },
     methods: {
+        handleEdit(index, row) {
+            this.$emit('handleEdit', row);
+        },
       rowheight({row, column, rowIndex, columnIndex}) {
         let val = row[column.columnKey];
         return 'row_height_left';

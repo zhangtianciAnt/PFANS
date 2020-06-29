@@ -8,6 +8,8 @@
     :selectable="selectInit"
     @buttonClick="buttonClick"
     @rowClick="rowClick"
+    :handleShow="handleShow"
+    @handleEdit="handleEdit"
     :showSelection="isShow"
     ref="roletable"
     v-loading="loading">
@@ -299,12 +301,31 @@
         });
     },
     methods: {
+        //add_fjl_添加合同回款相关  start
         selectInit(row, index) {
             if (this.$i18n) {
                 return (moment(row.deliverydate).format("YYYY-MM") === new moment().format("YYYY-MM") && row.sealstatus === this.$t('label.PFANS1032FORMVIEW_NOSEAL'));
                 d
             }
         },
+        handleEdit(row) {
+            if (row.sealid === '' || row.sealid === null) {
+                Message({
+                    message: this.$t('label.PFANS1032FORMVIEW_SEALVIEW'),
+                    type: 'info',
+                    duration: 2 * 1000,
+                });
+                return;
+            }
+            this.$router.push({
+                name: 'PFANS4001FormView',
+                params: {
+                    _id: row.sealid,
+                    disabled: false,
+                },
+            });
+        },
+        //add_fjl_添加合同回款相关  end
       rowClick(row) {
         this.rowid = row.napalm_id;
       },

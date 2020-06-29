@@ -8,6 +8,8 @@
     :selectable="selectInit"
     @buttonClick="buttonClick"
     @rowClick="rowClick"
+    :handleShow="handleShow"
+    @handleEdit="handleEdit"
     :showSelection="isShow"
     ref="roletable"
     v-loading="loading">
@@ -27,6 +29,7 @@
     },
     data() {
       return {
+          handleShow: true,
         checkdata: [],
         loading: false,
           isShow: true,
@@ -163,6 +166,7 @@
                         claimdate: response[j].claimdate,
                       contractnumber: response[j].contractnumber,
                         sealstatus: response[j].sealstatus,
+                        sealid: response[j].sealid,
                       petition_id: response[j].petition_id,
                     });
                   }
@@ -199,54 +203,30 @@
         });
     },
     methods: {
-        insPe() {
-            this.$store
-                .dispatch('PFANS1032Store/get', {})
-                .then(response => {
-                    const datated = [];
-                    for (let d = 0; d < this.checkdata.length; d++) {
-                        for (let j = 0; j < response.length; j++) {
-                            if (this.checkdata[d].contractnumber === response[j].contractnumber) {
-                                if (response[j].contracttype !== null && response[j].contracttype !== '') {
-                                    let letContracttype = getDictionaryInfo(response[j].contracttype);
-                                    if (letContracttype != null) {
-                                        response[j].contracttype = letContracttype.value1;
-                                    }
-                                }
-                                if (response[j].claimdate !== null && response[j].claimdate !== '') {
-                                    response[j].claimdate = moment(response[j].claimdate).format('YYYY-MM-DD');
-                                }
-                                datated.push({
-                                    contracttype: response[j].contracttype,
-                                    custochinese: response[j].custochinese,
-                                    businesscode: response[j].businesscode,
-                                    pjnamejapanese: response[j].pjnamejapanese,
-                                    claimnumber: response[j].claimnumber,
-                                    claimdate: response[j].claimdate,
-                                    contractnumber: response[j].contractnumber,
-                                    sealid: response[j].sealid,
-                                    petition_id: response[j].petition_id,
-                                });
-                            }
-                        }
-                    }
-                    this.data = datated;
-                    this.loading = false;
-                })
-                .catch(error => {
-                    Message({
-                        message: error,
-                        type: 'error',
-                        duration: 5 * 1000,
-                    });
-                    this.loading = false;
-                });
-        },
+        //add_fjl_添加合同回款相关  start
         selectInit(row, index) {
             if (this.$i18n) {
                 return (moment(row.claimdate).format("YYYY-MM") === new moment().format("YYYY-MM") && row.sealstatus === this.$t('label.PFANS1032FORMVIEW_NOSEAL'));
             }
         },
+        handleEdit(row) {
+            if (row.sealid === '' || row.sealid === null) {
+                Message({
+                    message: this.$t('label.PFANS1032FORMVIEW_SEALVIEW'),
+                    type: 'info',
+                    duration: 2 * 1000,
+                });
+                return;
+            }
+            this.$router.push({
+                name: 'PFANS4001FormView',
+                params: {
+                    _id: row.sealid,
+                    disabled: false,
+                },
+            });
+        },
+        //add_fjl_添加合同回款相关  end
       rowClick(row) {
         this.rowid = row.petition_id;
       },
