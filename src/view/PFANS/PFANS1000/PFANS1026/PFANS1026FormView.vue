@@ -663,6 +663,7 @@
                     :header-cell-style="getRowClass1" style="padding-top: 2vw"
                     @selection-change="handleSelectionChange">
             <el-table-column
+              :selectable="selectInit"
               type="selection"
               width="40">
             </el-table-column>
@@ -706,7 +707,7 @@
                       :multiple="multiple"
                       @change="getDeliveryconditionqh"
                       style="width: 11rem"
-                      :disabled="!disabled">
+                      :disabled="true">
                     </dicselect>
                   </el-form-item>
                 </template>
@@ -740,7 +741,7 @@
                       :multiple="multiple"
                       @change="getClaimconditionqh"
                       style="width: 11rem"
-                      :disabled="!disabled">
+                      :disabled="true">
                     </dicselect>
                   </el-form-item>
                 </template>
@@ -843,8 +844,10 @@
                              width="200">
               <template slot-scope="scope">
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.recoverystatus'">
-                  <el-select clearable v-model="scope.row.recoverystatus"
-                             :placeholder="$t('normal.error_09')">
+                  <el-select
+                    :disabled="(scope.row.claimconditionqh === 'HT011003' && scope.row.deliveryconditionqh === 'HT009003' && scope.row.letrecoverystatus === '0') ? false : true"
+                    :placeholder="$t('normal.error_09')" @change="onRecoverystatus(scope.row)"
+                    clearable v-model="scope.row.recoverystatus">
                     <el-option
                       clearable
                       v-for="item in optionsrestatus"
@@ -860,8 +863,9 @@
                              width="200">
               <template slot-scope="scope">
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.recoverydate'">
-                  <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.recoverydate"
-                                  style="width: 9.5rem"></el-date-picker>
+                  <el-date-picker
+                    :disabled="(scope.row.claimconditionqh === 'HT011003' && scope.row.deliveryconditionqh === 'HT009003' && scope.row.letrecoverystatus === '0') ? false : true"
+                    style="width: 9.5rem" type="date" v-model="scope.row.recoverydate"></el-date-picker>
                 </el-form-item>
               </template>
             </el-table-column>
@@ -874,6 +878,26 @@
                 </el-form-item>
               </template>
             </el-table-column>
+            <!--            <el-table-column :label="$t('label.operation')" align="center" width="200">-->
+            <!--              <template slot-scope="scope">-->
+            <!--                <el-button-->
+            <!--                  :disabled="!disabled"-->
+            <!--                  @click.native.prevent="viewBook(scope.$index, form.tableclaimtype)"-->
+            <!--                  plain-->
+            <!--                  size="small"-->
+            <!--                  type="primary"-->
+            <!--                >{{$t('button.view')}}-->
+            <!--                </el-button>-->
+            <!--                <el-button-->
+            <!--                  :disabled="!disabled"-->
+            <!--                  @click="submMon()"-->
+            <!--                  plain-->
+            <!--                  size="small"-->
+            <!--                  type="primary"-->
+            <!--                >{{$t('button.submmon')}}-->
+            <!--                </el-button>-->
+            <!--              </template>-->
+            <!--            </el-table-column>-->
           </el-table>
           <el-table :data="form.tablecompound" stripe border header-cell-class-name="sub_bg_color_blue"
                     style="padding-top: 2vw" v-if="displaycompound">
@@ -1335,6 +1359,7 @@
         disabled2: true,
         disabled3: false,
         disabled4: false,
+        recoverys: true,
         optionscompound: [],
         optionsrestatus: [{
           value: '0',
@@ -1615,6 +1640,7 @@
         claimamount2: '',
         claimamount3: '',
         claimamount4: '',
+        peid: '',
       };
     },
     mounted() {
@@ -1734,6 +1760,7 @@
                   let claimdatetim = claimdatetime.slice(0, 10);
                   let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
                   contractnumbercount[i].claimdatetimeqh = [claimdatetim, claimdatetime1];
+                  contractnumbercount[i].letrecoverystatus = contractnumbercount[i].recoverystatus;
                 }
               }
               this.form.tableclaimtype = contractnumbercount;
@@ -1850,6 +1877,82 @@
 //            }
     },
     methods: {
+      //add_fjl_添加合同回款相关  start
+      // //查看请求书
+      // viewBook(index, rows) {
+      //     let countNumber = '';
+      //     if (rows[index].claimtype === '第一回') {
+      //         countNumber = rows[index].contractnumber + '-1';
+      //     } else if (rows[index].claimtype === '第二回') {
+      //         countNumber = rows[index].contractnumber + '-2';
+      //     } else if (rows[index].claimtype === '第三回') {
+      //         countNumber = rows[index].contractnumber + '-3';
+      //     } else if (rows[index].claimtype === '第四回') {
+      //         countNumber = rows[index].contractnumber + '-4';
+      //     }
+      //     this.getPe(countNumber);
+      // },
+      // submMon(val, rows) {
+      //     debugger;
+      //     if(val === true){
+      //         let roid = this.$store.getters.userinfo.userid;
+      //         let rowid = rows.contractNumber;
+      //         this.loading = true;
+      //         this.$store
+      //             .dispatch('PFANS1026Store/getPe', {'roid':roid,'rowid':rowid})
+      //             .then(response => {
+      //                 this.peid = response[0].petition_id;
+      //                 this.$router.push({
+      //                     name: "PFANS1032FormView",
+      //                     params: {
+      //                         _id: this.peid,
+      //                         disabled: false
+      //                     }
+      //                 });
+      //                 this.loading = false;
+      //             }).catch(error => {
+      //             Message({
+      //                 message: error,
+      //                 type: 'error',
+      //                 duration: 5 * 1000,
+      //             });
+      //             this.loading = false;
+      //         });
+      //     }
+      // },
+      onRecoverystatus(val) {
+        if (val.recoverystatus === '1') {
+          val.recoverydate = moment(new Date()).format("YYYY-MM-DD");
+        }
+      },
+      selectInit(row, index) {
+        return (moment(row.deliverydate).format("YYYY-MM") === new moment().format("YYYY-MM")
+          || moment(row.claimdate).format("YYYY-MM") === new moment().format("YYYY-MM"));
+      },
+      // getPe(countNumber){
+      //     this.loading = true;
+      //     this.$store
+      //         .dispatch('PFANS1026Store/getPe', {'claimnumber':countNumber})
+      //         .then(response => {
+      //             this.peid = response[0].petition_id;
+      //             this.$router.push({
+      //                 name: "PFANS1032FormView",
+      //                 params: {
+      //                     _id: this.peid,
+      //                     disabled: false
+      //                 }
+      //             });
+      //             this.loading = false;
+      //         }).catch(error => {
+      //         Message({
+      //             message: error,
+      //             type: 'error',
+      //             duration: 5 * 1000,
+      //         });
+      //         this.loading = false;
+      //     });
+      // },
+      //add_fjl_添加合同回款相关  end
       //add-ws-6/22-禅道152任务
       getaward() {
         this.DataList = [];
@@ -2534,9 +2637,9 @@
           maketype: '',
           rowindex: '',
           claimdatetimeqh: '',
-          deliveryconditionqh: '',
+          deliveryconditionqh: 'HT009001',
           deliveryqh: '',
-          claimconditionqh: '',
+          claimconditionqh: 'HT011001',
           claimqh: '',
           qingremarksqh: '',
           remarksqh: '',
@@ -2953,7 +3056,7 @@
                   Message({
                     message: this.$t('normal.info_01'),
                     type: 'info',
-                    duration: 2 * 1000,
+                    duration: 2 * 1000
                   });
                   this.dialogBook = false;
                   this.loading = false;
@@ -2977,7 +3080,7 @@
                   var tabledata = {
                     'contractnumber': contractNumber,
                     'rowindex': index,
-                    'countNumber': countNumber,
+                    'countNumber': countNumber
                   };
                 }
               } else {
@@ -3136,6 +3239,8 @@
           if (valid) {
             //add-ws-请求金额不可为0check添加
             let checksum = 0;
+            let checkdate = 0;
+            let checkdate1 = 0;
             let error = 0;
             for (let j = 0; j < this.form.tableclaimtype.length; j++) {
               if (parseFloat(this.form.tableclaimtype[j].claimamount) === 0
@@ -3143,6 +3248,17 @@
                 || this.form.tableclaimtype[j].claimamount === undefined) {
                 checksum = checksum + 1;
               }
+              // add_fjl 纳品预定日必填check  start
+              if (this.form.tableclaimtype[j].deliverydate === '' ||
+                this.form.tableclaimtype[j].deliverydate === null) {
+                checkdate = 1;
+              }
+              //请求日
+              if (this.form.tableclaimtype[j].claimdate === '' ||
+                this.form.tableclaimtype[j].claimdate === null) {
+                checkdate1 = 1;
+              }
+              // add_fjl 纳品预定日必填check  end
             }
             if (checksum != 0) {
               error = error + 1;
@@ -3154,6 +3270,27 @@
               return;
             }
             //add-ws-请求金额不可为0check添加
+            // add_fjl 纳品预定日必填check  start
+            if (checkdate != 0) {
+              error = error + 1;
+              Message({
+                message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_DELIVERYDATE'),
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              return;
+            }
+            //请求日
+            if (checkdate1 != 0) {
+              error = error + 1;
+              Message({
+                message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_CLAIMDATE'),
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              return;
+            }
+            // add_fjl 纳品预定日必填check  end
 
             //region复合合同金额分配check
 

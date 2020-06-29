@@ -621,6 +621,7 @@
         userlist: '',
         title: 'title.exception_application',
         buttonList: [],
+        restdiff3: '0',
         form: {
           restdiff: '',
           restdiff2: '',
@@ -737,6 +738,7 @@
         upload: uploadUrl(),
         workshift: '',
         typecheck: '',
+        checklength3: '',
         retypecheck: '',
         timeSum: '',
         closingtime: '',
@@ -766,6 +768,11 @@
           .dispatch('PFANS2016Store/getPfans2016One', {'abnormalid': this.$route.params._id})
           .then(response => {
             this.form = response;
+            if (parseInt(this.form.status) <= 4) {
+              this.checklength3 = response.lengthtime;
+            } else {
+              this.checklength3 = response.relengthtime;
+            }
             this.typecheck = this.form.vacationtype;
             this.retypecheck = this.form.revacationtype;
             if (this.form.refinisheddate == null || this.form.reoccurrencedate == null) {
@@ -779,6 +786,7 @@
                 }
               }
             }
+            this.getonRest(this.form.errortype);
             if (this.form.errortype === 'PR013011' || this.form.errortype === 'PR013012' || this.form.errortype === 'PR013013'
               || this.form.errortype === 'PR013015' || this.form.errortype === 'PR013017' || this.form.errortype === 'PR013020'
               || this.form.errortype === 'PR013021' || this.form.errortype === 'PR013022') {
@@ -1574,19 +1582,20 @@
       getonRest(val) {
         this.form.restdiff = '';
         this.form.restdiff2 = '';
-        if (this.optionRest.length > 0) {
-          for (let i = 0; i < this.optionRest.length; i++) {
-            if (this.optionRest[i].typecode === val) {
-              if (this.optionRest[i].sumday !== null && this.optionRest[i].sumday !== '') {
-                this.form.restdiff = (Number(this.optionRest[i].sumday) * 8).toFixed(2);
-              }
-            }
-          }
-        }
+        this.restdiff3 = '';
         //add-ws-6/8-禅道035
         this.$store
           .dispatch('PFANS2016Store/getFpans2016List2', {})
           .then(response => {
+            if (this.optionRest.length > 0) {
+              for (let i = 0; i < this.optionRest.length; i++) {
+                if (this.optionRest[i].typecode === val) {
+                  if (this.optionRest[i].sumday !== null && this.optionRest[i].sumday !== '') {
+                    this.form.restdiff = (Number(this.optionRest[i].sumday) * 8).toFixed(2);
+                  }
+                }
+              }
+            }
             let restdiff2 = 0;
             let restdiff = 0;
             for (let a = 0; a < response.length; a++) {
@@ -1596,12 +1605,16 @@
                 }
               }
               if (response[a].status === '4' || response[a].status === '5' || response[a].status === '6') {
+                if (response[a].status === '4') {
+                  response[a].relengthtime = response[a].lengthtime;
+                }
                 if (response[a].errortype === this.form.errortype) {
                   restdiff += Number(response[a].relengthtime);
                 }
               }
             }
             this.form.restdiff2 = Number(restdiff + restdiff2).toFixed(2);
+            this.restdiff3 = Number(restdiff + restdiff2);
           });
         //add-ws-6/8-禅道035
       },
@@ -1835,7 +1848,7 @@
                 this.diffNoDays();
               }
               if (this.form.errortype === 'PR013007') {
-                if(this.form.status){
+                if (this.form.status) {
                   if (parseInt(this.form.status) <= 4) {
                     if (this.form.restdiff < this.form.lengthtime) {
                       Message({
@@ -1845,7 +1858,7 @@
                       });
                       return;
                     }
-                  }else{
+                  } else {
                     if (this.form.restdiff < this.form.relengthtime) {
                       Message({
                         message: this.$t('normal.error_norestdays'),
@@ -1855,7 +1868,7 @@
                       return;
                     }
                   }
-                }else{
+                } else {
                   if (this.form.restdiff < this.form.lengthtime) {
                     Message({
                       message: this.$t('normal.error_norestdays'),
@@ -2289,103 +2302,162 @@
               }
 
               //add-ws-6/8-禅道035
-              if (this.form.errortype === 'PR013006' || this.form.errortype === 'PR013007') {
+              if (this.form.errortype === 'PR013007') {
+                if (this.form.restdiff === '') {
+                  this.form.restdiff = 0;
+                }
+                if (this.restdiff3 === '') {
+                  this.restdiff3 = 0;
+                }
+                if (this.form.status) {
+                  if (parseInt(this.form.status) < 4) {
+                    if (this.form.restdiff - Number(this.restdiff3 + this.form.lengthtime - this.checklength3).toFixed(2) < 0) {
+                      Message({
+                        message: this.$t('label.PFANS2016FORMVIEW_CHECKRESTDIFF2'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                      return;
+                    }
+                  } else {
+                    if (this.form.restdiff - Number(this.restdiff3 + this.form.relengthtime - this.checklength3).toFixed(2) < 0) {
+                      Message({
+                        message: this.$t('label.PFANS2016FORMVIEW_CHECKRESTDIFF2'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                      return;
+                    }
+                  }
+                } else {
+                  if (this.form.restdiff - Number(this.restdiff3 + this.form.lengthtime - this.checklength3).toFixed(2) < 0) {
+                    Message({
+                      message: this.$t('label.PFANS2016FORMVIEW_CHECKRESTDIFF2'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    return;
+                  }
+                }
+              } else if (this.form.errortype === 'PR013006') {
                 if (this.form.restdiff === '') {
                   this.form.restdiff = 0;
                 }
                 if (this.form.restdiff2 === '') {
                   this.form.restdiff2 = 0;
                 }
-                if (this.form.restdiff - Number(this.form.restdiff2 + this.form.lengthtime) < 0) {
-                  Message({
-                    message: this.$t('label.PFANS2016FORMVIEW_CHECKRESTDIFF2'),
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  return;
+                if (this.form.status) {
+                  if (parseInt(this.form.status) < 4) {
+                    if (this.form.restdiff - Number(this.form.restdiff2 + this.form.lengthtime - this.checklength3) < 0) {
+                      Message({
+                        message: this.$t('label.PFANS2016FORMVIEW_CHECKRESTDIFF2'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                      return;
+                    }
+                  } else {
+                    if (this.form.restdiff - Number(this.form.restdiff2 + this.form.relengthtime - this.checklength3) < 0) {
+                      Message({
+                        message: this.$t('label.PFANS2016FORMVIEW_CHECKRESTDIFF2'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                      return;
+                    }
+                  }
+                } else {
+                  if (this.form.restdiff - Number(this.form.restdiff2 + this.form.lengthtime - this.checklength3) < 0) {
+                    Message({
+                      message: this.$t('label.PFANS2016FORMVIEW_CHECKRESTDIFF2'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    return;
+                  }
                 }
               }
 //    add_fjl_06/16  -- 添加异常申请每天累计不超过8小时check  start
-              this.loading = true;
-              this.$store
-                .dispatch('PFANS2016Store/getLeaveNumber', this.form)
-                .then(response => {
-                  this.leaveNum = response;
-                  this.loading = false;
-                  if (parseInt(this.form.status) >= 4) {
-                    let reletime = 0;
-                    let retimess = 0;
-                    if (this.form.errortype === 'PR013001' || this.form.errortype === 'PR013005' || this.form.errortype === 'PR013006'
-                      || this.form.errortype === 'PR013007' || this.form.errortype === 'PR013016' || this.form.errortype === 'PR013018'
-                      || this.form.errortype === 'PR013019' || this.form.errortype === 'PR013014') {
-                      for (let i = 0; i < this.relistTwo.length; i++) {
-                        retimess = retimess + 1;
-                      }
-                      if (retimess === 0) {
-                        Message({
-                          message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
-                          type: 'error',
-                          duration: 5 * 1000,
-                        });
-                        return;
-                      } else {
-                        reletime = retimess;
-                      }
-                    } else {
-                      reletime = rediffDate;
-                    }
-                    if (rediffDate * 8 - Number(this.leaveNum) + Number(this.form.relengthtime) < 0) {
-                      Message({
-                        message: this.$t('异常申请每天累计不超过8小时'),
-                        type: 'error',
-                        duration: 5 * 1000,
-                      });
-                      return;
-                    } else {
-                      this.updint(val);
-                    }
-                  } else {
-                    let letime = 0;
-                    let timess = 0;
-                    if (this.form.errortype === 'PR013001' || this.form.errortype === 'PR013005' || this.form.errortype === 'PR013006'
-                      || this.form.errortype === 'PR013007' || this.form.errortype === 'PR013016' || this.form.errortype === 'PR013018'
-                      || this.form.errortype === 'PR013019' || this.form.errortype === 'PR013014') {
-                      for (let i = 0; i < this.relist.length; i++) {
-                        timess = timess + 1;
-                      }
-                      if (timess === 0) {
-                        Message({
-                          message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
-                          type: 'error',
-                          duration: 5 * 1000,
-                        });
-                        return;
-                      } else {
-                        letime = timess;
-                      }
-                    } else {
-                      letime = diffDate;
-                    }
-                    if (letime * 8 - Number(this.leaveNum) + Number(this.form.lengthtime) < 0) {
-                      Message({
-                        message: this.$t('异常申请每天累计不超过8小时'),
-                        type: 'error',
-                        duration: 5 * 1000,
-                      });
-                      return;
-                    } else {
-                      this.updint(val);
-                    }
-                  }
-                })
-                .catch(error => {
-                  Message({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  this.loading = false;
-                });
+//               this.loading = true;
+//               this.$store
+//                 .dispatch('PFANS2016Store/getLeaveNumber', this.form)
+//                 .then(response => {
+//                   this.leaveNum = response;
+//                   this.loading = false;
+//                   if (parseInt(this.form.status) >= 4) {
+//                     let reletime = 0;
+//                     let retimess = 0;
+//                     if (this.form.errortype === 'PR013001' || this.form.errortype === 'PR013005' || this.form.errortype === 'PR013006'
+//                       || this.form.errortype === 'PR013007' || this.form.errortype === 'PR013016' || this.form.errortype === 'PR013018'
+//                       || this.form.errortype === 'PR013019' || this.form.errortype === 'PR013014') {
+//                       for (let i = 0; i < this.relistTwo.length; i++) {
+//                         retimess = retimess + 1;
+//                       }
+//                       if (retimess === 0) {
+//                         Message({
+//                           message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
+//                           type: 'error',
+//                           duration: 5 * 1000,
+//                         });
+//                         return;
+//                       } else {
+//                         reletime = retimess;
+//                       }
+//                     } else {
+//                       reletime = rediffDate;
+//                     }
+//                     if (rediffDate * 8 - Number(this.leaveNum) + Number(this.form.relengthtime) < 0) {
+//                       Message({
+//                         message: this.$t('异常申请每天累计不超过8小时'),
+//                         type: 'error',
+//                         duration: 5 * 1000,
+//                       });
+//                       return;
+//                     } else {
+//                       this.updint(val);
+//                     }
+//                   } else {
+//                     let letime = 0;
+//                     let timess = 0;
+//                     if (this.form.errortype === 'PR013001' || this.form.errortype === 'PR013005' || this.form.errortype === 'PR013006'
+//                       || this.form.errortype === 'PR013007' || this.form.errortype === 'PR013016' || this.form.errortype === 'PR013018'
+//                       || this.form.errortype === 'PR013019' || this.form.errortype === 'PR013014') {
+//                       for (let i = 0; i < this.relist.length; i++) {
+//                         timess = timess + 1;
+//                       }
+//                       if (timess === 0) {
+//                         Message({
+//                           message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
+//                           type: 'error',
+//                           duration: 5 * 1000,
+//                         });
+//                         return;
+//                       } else {
+//                         letime = timess;
+//                       }
+//                     } else {
+//                       letime = diffDate;
+//                     }
+//                     if (letime * 8 - Number(this.leaveNum) + Number(this.form.lengthtime) < 0) {
+//                       Message({
+//                         message: this.$t('异常申请每天累计不超过8小时'),
+//                         type: 'error',
+//                         duration: 5 * 1000,
+//                       });
+//                       return;
+//                     } else {
+              this.updint(val);
+              //     }
+              //   }
+              // })
+              // .catch(error => {
+              //   Message({
+              //     message: error,
+              //     type: 'error',
+              //     duration: 5 * 1000,
+              //   });
+              //   this.loading = false;
+              // });
 //    add_fjl_06/16  -- 添加异常申请每天累计不超过8小时check  end
             } else {
               Message({
@@ -2394,7 +2466,8 @@
                 duration: 5 * 1000,
               });
             }
-          },
+          }
+          ,
         );
       },
       updint(val) {

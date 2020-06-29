@@ -11,14 +11,14 @@
   import {getStatus, getUserInfo, getDictionaryInfo, getOrgInfoByUserId} from '@/utils/customize';
 
   export default {
-    name: 'PFANS2026View',
+    name: 'PFANS2032View',
     components: {
       EasyNormalTable,
     },
     data() {
       return {
         loading: false,
-        title: 'title.PFANS2026VIEW',
+        title: 'title.PFANS2032VIEW',
         data: [],
         columns: [
           {
@@ -94,15 +94,9 @@
         ],
         buttonList: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
-          {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
-          {'key': 'update', 'name': 'button.update', 'disabled': true, 'icon': 'el-icon-edit'},
-          //add-ws-6/16-禅道106
-          {'key': 'delete', 'name': 'button.delete', 'disabled': true, 'icon': 'el-icon-delete'},
-          {'key': 'changedata', 'name': 'button.changedata', 'disabled': true, 'icon': 'el-icon-view'},
-          //add-ws-6/16-禅道106
+          {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
         ],
         rowid: '',
-        status: '',
         row_id: 'staffexitprocedure_id',
       };
     },
@@ -113,7 +107,7 @@
       getList() {
         this.loading = true;
         this.$store
-          .dispatch('PFANS2026Store/get', {'type': 0})
+          .dispatch('PFANS2026Store/get2', {})
           .then(response => {
             for (let j = 0; j < response.length; j++) {
               if (response[j].user_id !== null && response[j].user_id !== '') {
@@ -140,9 +134,7 @@
                 if (response[j].status !== null && response[j].status !== '') {
                   response[j].status = getStatus(response[j].status);
                 }
-                if (response[j].hope_exit_date !== null && response[j].hope_exit_date !== '') {
-                  response[j].hope_exit_date = moment(response[j].hope_exit_date).format('YYYY-MM-DD');
-                }
+
                 if (response[j].entry_time !== null && response[j].entry_time !== '') {
                   response[j].entry_time = moment(response[j].entry_time).format('YYYY-MM-DD');
                 }
@@ -167,26 +159,11 @@
           });
       },
       rowClick(row) {
-        this.status = 0;
-        //add-ws-6/16-禅道106
-        this.buttonList[2].disabled = true;
-        this.buttonList[3].disabled = true;
-        this.buttonList[4].disabled = true;
-        if (row.status === this.$t('label.PFANS1026VIEW_WSTATUS') || row.status === this.$t('label.node_step2')) {
-          this.buttonList[2].disabled = false;
-        }
-        if (row.status === this.$t('label.PFANS5004VIEW_OVERTIME')) {
-          this.buttonList[4].disabled = false;
-          this.status = 4;
-        }
-        if (row.status === this.$t('label.PFANS1026VIEW_WSTATUS')) {
-          this.buttonList[3].disabled = false;
-        }
-        //add-ws-6/16-禅道106
-        this.rowid = row.staffexitprocedure_id;
+        this.rowid = row.staffexitproce_id;
       },
       buttonClick(val) {
         this.$store.commit('global/SET_HISTORYURL', this.$route.path);
+        this.$store.commit('global/SET_OPERATEID', this.rowid);
         if (val === 'view') {
           if (this.rowid === '') {
             Message({
@@ -197,26 +174,15 @@
             return;
           }
           this.$router.push({
-            name: 'PFANS2026FormView',
+            name: 'PFANS2032FormView',
             params: {
-              _ckeck : false,
-              _status: this.status,
+              _checkdisabled: false,
               _type: 0,
               _id: this.rowid,
               disabled: false,
             },
           });
-        } else if (val === 'insert') {
-          this.$router.push({
-            name: 'PFANS2026FormView',
-            params: {
-              _ckeck : true,
-              _type: 0,
-              _id: '',
-              disabled: true,
-            },
-          });
-        } else if (val === 'update') {
+        }  else if (val === 'update') {
           if (this.rowid === '') {
             Message({
               message: this.$t('normal.info_01'),
@@ -226,83 +192,16 @@
             return;
           }
           this.$router.push({
-            name: 'PFANS2026FormView',
+            name: 'PFANS2032FormView',
             params: {
-              _ckeck : false,
-              _status: this.status,
+              _checkdisabled: false,
               _type: 0,
-              _id: this.rowid,
-              disabled: true,
-            },
-          });
-        } else if (val === 'delete') {
-          if (this.row === '') {
-            Message({
-              message: this.$t('normal.info_01'),
-              type: 'info',
-              duration: 2 * 1000,
-            });
-            return;
-          }
-          this.delete();
-        } else if (val === 'changedata') {
-          if (this.row === '') {
-            Message({
-              message: this.$t('normal.info_01'),
-              type: 'info',
-              duration: 2 * 1000,
-            });
-            return;
-          }
-          this.$router.push({
-            name: 'PFANS2026FormView',
-            params: {
-              _ckeck : false,
-              _type: 1,
               _id: this.rowid,
               disabled: true,
             },
           });
         }
       },
-      //add-ws-6/16-禅道106
-      delete() {
-        this.loading = true;
-        this.$confirm(this.$t('normal.info_02'), this.$t('normal.info'), {
-          confirmButtonText: this.$t('button.confirm'),
-          cancelButtonText: this.$t('button.cancel'),
-          type: 'warning',
-          center: true,
-        }).then(() => {
-          this.$store
-            .dispatch('PFANS2026Store/deletesta', {staffexitprocedure_id: this.rowid})
-            .then(response => {
-              this.getList();
-              this.$store.commit('global/SET_OPERATEID', '');
-              Message({
-                message: this.$t('normal.info_03'),
-                type: 'success',
-                duration: 2 * 1000,
-              });
-              this.loading = false;
-            })
-            .catch(error => {
-              Message({
-                message: error,
-                type: 'error',
-                duration: 5 * 1000,
-              });
-              this.loading = false;
-            });
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: this.$t('normal.info_04'),
-          });
-          this.loading = false;
-        });
-      },
-      //add-ws-6/16-禅道106
     },
   };
 </script>

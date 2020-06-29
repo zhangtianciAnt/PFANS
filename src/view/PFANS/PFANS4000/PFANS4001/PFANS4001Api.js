@@ -9,6 +9,14 @@ export function createPfans4001(data) {
   })
 }
 
+export function createbook(data) {
+  return request({
+    url: 'seal/createbook',
+    method: 'post',
+    data: data
+  })
+}
+
 
 
 

@@ -40,6 +40,14 @@ export function insert(data) {
   })
 }
 
+export function getPe(data) {
+  return request({
+    url: 'contractapplication/getPe',
+    method: 'get',
+    params: data
+  })
+}
+
 export function insertBook(data) {
   return request({
     url: 'contractapplication/insertBook',

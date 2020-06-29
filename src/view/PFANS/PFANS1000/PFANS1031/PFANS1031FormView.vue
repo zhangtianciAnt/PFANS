@@ -185,7 +185,7 @@
   import PFANS1031View from '../PFANS1031/PFANS1031View.vue';
   import {Message} from 'element-ui';
   import user from '../../../components/user.vue';
-  import {getUserInfo, getDictionaryInfo} from '@/utils/customize';
+  import {getUserInfo, getDictionaryInfo, getOrgInfoByUserId} from '@/utils/customize';
   import dicselect from '../../../components/dicselect.vue';
   import moment from 'moment';
 
@@ -252,6 +252,11 @@
             name: 'button.generate',
             disabled: false,
           },
+            {
+                key: 'submyin',
+                name: 'button.submyin',
+                disabled: false,
+            },
         ];
         this.disable = true;
       }
@@ -262,26 +267,28 @@
         this.$store
           .dispatch('PFANS1031Store/one', {'napalm_id': this.$route.params._id})
           .then(response => {
-            this.form = response;
-            this.userlist = this.form.loadingjudge;
-            if (this.form.claimdatetime !== null && this.form.claimdatetime !== '') {
-              this.form.openingdate = this.form.claimdatetime.slice(0, 10);
-              this.form.enddate = this.form.claimdatetime.slice(this.form.claimdatetime.length - 10);
-            }
-            if (this.form.claimtype !== null && this.form.claimtype !== '') {
-              let checkclaimtype = getDictionaryInfo(this.form.claimtype);
-              if (checkclaimtype != null || checkclaimtype != '') {
-                this.form.claimtype = checkclaimtype.value1;
-              }
-            }
+              if (response !== undefined) {
+                  this.form = response;
+                  this.userlist = this.form.loadingjudge;
+                  if (this.form.claimdatetime !== null && this.form.claimdatetime !== '') {
+                      this.form.openingdate = this.form.claimdatetime.slice(0, 10);
+                      this.form.enddate = this.form.claimdatetime.slice(this.form.claimdatetime.length - 10);
+                  }
+                  if (this.form.claimtype !== null && this.form.claimtype !== '') {
+                      let checkclaimtype = getDictionaryInfo(this.form.claimtype);
+                      if (checkclaimtype != null || checkclaimtype != '') {
+                          this.form.claimtype = checkclaimtype.value1;
+                      }
+                  }
 
-            if (response.depositjapanese !== null && response.depositjapanese !== '') {
-              let letUser = getUserInfo(response.depositjapanese);
-              if (letUser != null) {
-                response.depositjapanese = letUser.userinfo.customername;
+                  if (response.depositjapanese !== null && response.depositjapanese !== '') {
+                      let letUser = getUserInfo(response.depositjapanese);
+                      if (letUser != null) {
+                          response.depositjapanese = letUser.userinfo.customername;
+                      }
+                  }
+                  this.userlist = this.form.loadingjudge;
               }
-            }
-            this.userlist = this.form.loadingjudge;
             this.loading = false;
           })
           .catch(error => {
@@ -375,6 +382,75 @@
               });
               this.loading = false;
             });
+        } else if (val === 'submyin') {
+            //add_fjl_添加合同回款相关  start
+            if (moment(this.form.deliverydate).format("YYYY-MM") !== new moment().format("YYYY-MM")) {
+                Message({
+                    message: this.$t('label.PFANS1032FORMVIEW_ERRORDATE'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                });
+                return;
+            }
+            if (this.form.sealstatus !== null && this.form.sealstatus !== '') {
+                Message({
+                    message: this.$t('label.PFANS1032FORMVIEW_ERRORDIFF'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                });
+                return;
+            }
+            let bookid = "";
+            if (this.$route.params._id) {
+                bookid = '5,' + this.$route.params._id;
+            }
+            let crePe = {};
+            let centerid = "";
+            let groupid = "";
+            let teamid = "";
+            let userid = "";
+            let filetype = 'PC002005';//纳品书
+            if (this.$store.getters.userinfo.userid !== null && this.$store.getters.userinfo.userid !== '') {
+                let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+                if (rst) {
+                    centerid = rst.centerId;
+                    groupid = rst.groupId;
+                    teamid = rst.teamId;
+                }
+                userid = this.$store.getters.userinfo.userid;
+            }
+            crePe.userid = userid;
+            crePe.centerid = centerid;
+            crePe.groupid = groupid;
+            crePe.teamid = teamid;
+            crePe.filetype = filetype;
+            crePe.bookid = bookid;
+            crePe.application_date = moment(new Date()).format("YYYY-MM-DD");
+            this.loading = true;
+            this.$store
+                .dispatch('PFANS4001Store/createbook', crePe)
+                .then(response => {
+                    let peid = response.sealid;
+                    this.$store.commit('global/SET_OPERATEID', peid);
+                    this.$router.push({
+                        name: 'PFANS4001FormView',
+                        params: {
+                            _id: peid,
+                            disabled: true,
+                            // petdata: this.selectedlist,
+                        },
+                    });
+                    this.loading = false;
+                })
+                .catch(error => {
+                    Message({
+                        message: error,
+                        type: 'error',
+                        duration: 5 * 1000,
+                    });
+                    this.loading = false;
+                });
+            //add_fjl_添加合同回款相关  end
         }
       },
     },

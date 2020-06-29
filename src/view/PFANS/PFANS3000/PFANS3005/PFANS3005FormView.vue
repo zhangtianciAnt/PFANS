@@ -118,7 +118,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1012FORMVIEW_BUDGET')">
+              <el-form-item :label="$t('label.PFANS1012FORMVIEW_BUDGET')" prop="budgetnumber">
                 <!--                <el-input :disabled="true" maxlength="20" style="width:20vw"-->
                 <!--                          v-model="form.budgetnumber"></el-input>-->
                 <el-select clearable style="width: 20vw" v-model="form.budgetnumber" :disabled="!disable"
@@ -236,7 +236,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS3005VIEW_PROCUREMENTDETAILS')">
+              <el-form-item :label="$t('label.PFANS3005VIEW_PROCUREMENTDETAILS_NAME')" prop="procurementdetails">
                 <el-input :disabled="!disable" style="width:20vw" v-model="form.procurementdetails"></el-input>
               </el-form-item>
             </el-col>
@@ -385,7 +385,7 @@
     },
     data() {
       var checkuser = (rule, value, callback) => {
-        if (!value || value === '' || value === 'undefined') {
+        if (!value || value === '' || value === undefined) {
           this.erroruser = this.$t('normal.error_09') + this.$t('label.applicant');
           return callback(new Error(this.$t('normal.error_09') + this.$t('label.applicant')));
         } else {
@@ -394,11 +394,20 @@
         }
       };
       var checkcontroller = (rule, value, callback) => {
-        if (!value || value === '' || value === 'undefined') {
+        if (!value || value === '' || value === undefined) {
           this.errorcontroller = this.$t('normal.error_09') + this.$t('label.PFANS3005VIEW_CONTROLLER');
           return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS3005VIEW_CONTROLLER')));
         } else {
           this.errorcontroller = '';
+          return callback();
+        }
+      };
+      var checkusername = (rule, value, callback) => {
+        if (!value || value === '' || value === undefined) {
+          this.errorusername = this.$t('normal.error_09') + this.$t('label.PFANS3005VIEW_USER');
+          return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS3005VIEW_USER')));
+        } else {
+          this.errorusername = '';
           return callback();
         }
       };
@@ -442,6 +451,7 @@
           setplace: '',
           linenumber: '',
           controller: '',
+          username: '',
           user: '',
           budgetnumber: '',
           businessplanamount: '',
@@ -526,6 +536,21 @@
               trigger: 'change',
             },
           ],
+          username: [
+            {
+              required: true,
+              validator: checkusername,
+              trigger: 'change',
+            },
+          ],
+          budgetnumber: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_BUDGET'),
+              trigger: 'change',
+            },
+          ],
+
           businessplantype: [
             {
               required: true,
@@ -565,6 +590,13 @@
             {
               required: true,
               message: this.$t('normal.error_08') + this.$t('label.PFANS3005VIEW_PROCUREMENTPROJECT'),
+              trigger: 'change',
+            },
+          ],
+          procurementdetails: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS3005VIEW_PROCUREMENTDETAILS_NAME'),
               trigger: 'change',
             },
           ],
@@ -913,7 +945,7 @@
           this.form.group_id = '';
           this.form.team_id = '';
         }
-        if (!this.form.user_id || this.form.user_id === '' || val === 'undefined') {
+        if (!this.form.user_id || this.form.user_id === '' || val === undefined) {
           this.erroruser = this.$t('normal.error_09') + this.$t('label.applicant');
         } else {
           this.erroruser = '';
@@ -922,7 +954,7 @@
       getController(val) {
         this.form.controller = val;
         this.controllerlist = val;
-        if (!this.form.controller || this.form.controller === '' || val === 'undefined') {
+        if (!this.form.controller || this.form.controller === '' || val === undefined) {
           this.errorcontroller = this.$t('normal.error_09') + this.$t('label.PFANS3005VIEW_CONTROLLER');
         } else {
           this.errorcontroller = '';
@@ -995,7 +1027,8 @@
       getUsername(val) {
         this.form.username = val;
         this.usernamelist = val;
-        if (!this.form.username || this.form.username === '' || val === 'undefined') {
+        if (!this.form.username || this.form.username === '' || val === undefined) {
+          this.errorusername = this.$t('normal.error_09') + this.$t('label.PFANS3005VIEW_USER');
         } else {
           this.errorusername = '';
         }
@@ -1003,7 +1036,7 @@
       getRecipientslist(val) {
         this.form.recipients = val;
         this.recipientslist = val;
-        if (!this.form.recipients || this.form.recipients === '' || val === 'undefined') {
+        if (!this.form.recipients || this.form.recipients === '' || val === undefined) {
           this.errorrecipients = this.$t('normal.error_08') + this.$t('label.PFANS3005VIEW_RECIPIENTS');
         } else {
           this.errorrecipients = '';

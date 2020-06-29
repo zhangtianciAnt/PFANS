@@ -5,7 +5,8 @@ import {
   insert,
   insertBook,
   existCheck,
-  getList
+  getList,
+  getPe
   } from './PFANS1026Api'
 
   const PFANS1026Store = {
@@ -94,6 +95,19 @@ import {
       existCheck({ commit },data) {
         return new Promise((resolve, reject) => {
           existCheck(data).then(response => {
+            if (response.code === 0) {
+              resolve(response.data);
+            } else {
+              reject(response.message)
+            }
+          }).catch(error => {
+            reject(error);
+          })
+        })
+      },
+      getPe({commit}, data) {
+        return new Promise((resolve, reject) => {
+          getPe(data).then(response => {
             if (response.code === 0) {
               resolve(response.data);
             } else {
