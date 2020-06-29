@@ -3569,7 +3569,9 @@
       },
 
       buttonClick(val) {
-        if (val === 'application') {
+        if (val === 'back') {
+          this.paramsTitle();
+        }else if (val === 'application') {
           this.display = true;
           this.checkeddisplay = true;
           this.dialogFormVisible = true;

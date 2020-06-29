@@ -1395,7 +1395,7 @@
                 this.DataList.push({
                   award_id: response[i].award_id,
                   award: this.$t('title.PFANS1025VIEW'),
-                  awardtype: this.$t('label.PFANS1026FORMVIEW_D') + i + this.$t('label.PFANS1026FORMVIEW_H'),
+                  awardtype: this.$t('label.PFANS1026FORMVIEW_D') + Number(i + 1) + this.$t('label.PFANS1026FORMVIEW_H'),
                   createon: response[i].createon,
                 });
                 this.checkdata = true;
