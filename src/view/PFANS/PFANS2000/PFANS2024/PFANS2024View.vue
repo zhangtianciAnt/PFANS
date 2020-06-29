@@ -205,6 +205,7 @@
       submit() {
         this.loading = true;
         this.form.year = moment(this.form.year).format('YYYY');
+        this.dialogVisible = false;
         this.$store
           .dispatch('PFANS2024Store/create', this.form)
           .then(response => {
@@ -214,7 +215,8 @@
               type: 'success',
               duration: 2 * 1000,
             });
-            this.dialogVisible = false;
+
+
             this.loading = false;
           })
           .catch(error => {
