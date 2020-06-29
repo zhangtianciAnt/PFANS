@@ -497,19 +497,21 @@
         this.$store
           .dispatch('PFANS6002Store/getcustomerinforApplyOne', {'customerinfor_id': this.$route.params._id})
           .then(response => {
-            this.form = response;
-            this.loading = false;
-            if (this.form.uploadfile != ''&& this.form.uploadfile != null) {
-              let uploadfile = this.form.uploadfile.split(';');
-              for (var i = 0; i < uploadfile.length; i++) {
-                if (uploadfile[i].split(',')[0] != '') {
-                  let o = {};
-                  o.name = uploadfile[i].split(',')[0];
-                  o.url = uploadfile[i].split(',')[1];
-                  this.fileList.push(o);
-                }
+              if (response !== undefined) {
+                  this.form = response;
+                  if (this.form.uploadfile != '' && this.form.uploadfile != null) {
+                      let uploadfile = this.form.uploadfile.split(';');
+                      for (var i = 0; i < uploadfile.length; i++) {
+                          if (uploadfile[i].split(',')[0] != '') {
+                              let o = {};
+                              o.name = uploadfile[i].split(',')[0];
+                              o.url = uploadfile[i].split(',')[1];
+                              this.fileList.push(o);
+                          }
+                      }
+                  }
               }
-            }
+              this.loading = false;
           })
           .catch(error => {
             Message({

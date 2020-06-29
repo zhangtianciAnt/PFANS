@@ -92,12 +92,12 @@
           </el-row>
           <el-row>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1024VIEW_DELIVERYFINSHDATE')">
+              <el-form-item :label="$t('label.PFANS1024VIEW_CLAIMDATE')">
                 <el-date-picker
                   :disabled="true"
                   style="width:20vw"
                   type="date"
-                  v-model="form.deliveryfinshdate">
+                  v-model="form.claimdate">
                 </el-date-picker>
               </el-form-item>
             </el-col>
@@ -131,7 +131,7 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1024VIEW_REMARKS')">
-                <el-input :disabled="true" type="textarea" :rows="3" style="width:71vw"
+                <el-input :disabled="true" :rows="3" style="width:71vw" type="textarea"
                           v-model="form.remarks"></el-input>
               </el-form-item>
             </el-col>
@@ -144,19 +144,20 @@
 
 
 <script>
-  import EasyNormalContainer from '@/components/EasyNormalContainer';
-  import {Message} from 'element-ui';
-  import moment from 'moment';
+    import EasyNormalContainer from "@/components/EasyNormalContainer";
+    import {Message} from 'element-ui'
+    import moment from "moment";
   import dicselect from '../../../components/dicselect';
+    import {getOrgInfoByUserId} from '@/utils/customize';
 
   export default {
-    name: 'PFANS1032FormView',
+      name: "PFANS1032FormView",
     components: {
       EasyNormalContainer, dicselect,
     },
     data() {
       return {
-        title: 'title.PFANS1032VIEW',
+          title: "title.PFANS1032VIEW",
         buttonList: [],
         loading: false,
         disabled: true,
@@ -176,7 +177,7 @@
           openingdate: '',
           enddate: '',
           businesscode: '',
-          deliveryfinshdate: '',
+            claimdate: '',
           claimamount: '',
           responphone: '',
           claimnumber: '',
@@ -189,16 +190,18 @@
       };
     },
     mounted() {
-      this.loading = true;
       if (this.$route.params._id) {
+          this.loading = true;
         this.$store
           .dispatch('PFANS1032Store/one', {'petition_id': this.$route.params._id})
           .then(response => {
-            this.form = response;
-            if (this.form.claimdatetime !== null && this.form.claimdatetime !== '') {
-              this.form.openingdate = this.form.claimdatetime.slice(0, 10);
-              this.form.enddate = this.form.claimdatetime.slice(this.form.claimdatetime.length - 10);
-            }
+              if (response !== undefined) {
+                  this.form = response;
+                  if (this.form.claimdatetime !== null && this.form.claimdatetime !== '') {
+                      this.form.openingdate = this.form.claimdatetime.slice(0, 10);
+                      this.form.enddate = this.form.claimdatetime.slice(this.form.claimdatetime.length - 10);
+                  }
+              }
             this.loading = false;
           })
           .catch(error => {
@@ -208,7 +211,7 @@
               duration: 5 * 1000,
             });
             this.loading = false;
-          });
+          })
       }
     },
     created() {
@@ -219,6 +222,11 @@
             name: 'button.generate',
             disabled: false,
           },
+            {
+                key: 'submyin',
+                name: 'button.submyin',
+                disabled: false,
+            },
         ];
         this.disabled = true;
       }
@@ -303,7 +311,76 @@
                 duration: 5 * 1000,
               });
               this.loading = false;
-            });
+            })
+        } else if (val === 'submyin') {
+            //add_fjl_添加合同回款相关  start
+            if (moment(this.form.claimdate).format("YYYY-MM") !== new moment().format("YYYY-MM")) {
+                Message({
+                    message: this.$t('label.PFANS1032FORMVIEW_ERRORDATE'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                });
+                return;
+            }
+            if (this.form.sealstatus !== null && this.form.sealstatus !== '') {
+                Message({
+                    message: this.$t('label.PFANS1032FORMVIEW_ERRORDIFF'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                });
+                return;
+            }
+            let bookid = "";
+            if (this.$route.params._id) {
+                bookid = '6,' + this.$route.params._id;
+            }
+            let crePe = {};
+            let centerid = "";
+            let groupid = "";
+            let teamid = "";
+            let userid = "";
+            let filetype = 'PC002004';//请求书
+            if (this.$store.getters.userinfo.userid !== null && this.$store.getters.userinfo.userid !== '') {
+                let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+                if (rst) {
+                    centerid = rst.centerId;
+                    groupid = rst.groupId;
+                    teamid = rst.teamId;
+                }
+                userid = this.$store.getters.userinfo.userid;
+            }
+            crePe.userid = userid;
+            crePe.centerid = centerid;
+            crePe.groupid = groupid;
+            crePe.teamid = teamid;
+            crePe.filetype = filetype;
+            crePe.bookid = bookid;
+            crePe.application_date = moment(new Date()).format("YYYY-MM-DD");
+            this.loading = true;
+            this.$store
+                .dispatch('PFANS4001Store/createbook', crePe)
+                .then(response => {
+                    let peid = response.sealid;
+                    this.$store.commit('global/SET_OPERATEID', peid);
+                    this.$router.push({
+                        name: 'PFANS4001FormView',
+                        params: {
+                            _id: peid,
+                            disabled: true,
+                            // petdata: this.selectedlist,
+                        },
+                    });
+                    this.loading = false;
+                })
+                .catch(error => {
+                    Message({
+                        message: error,
+                        type: 'error',
+                        duration: 5 * 1000,
+                    });
+                    this.loading = false;
+                });
+            //add_fjl_添加合同回款相关  end
         }
       },
     },

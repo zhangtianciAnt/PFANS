@@ -3,17 +3,23 @@
     :visible.sync="open" :show-close="false" :withHeader="false"
              size="70%">
   <PFANS6002FormView v-show="url === 'PFANS6002FormView'" ref="child"></PFANS6002FormView>
+    <PFANS1032FormView ref="child" v-show="url === 'PFANS1032FormView'"></PFANS1032FormView>
+    <PFANS1031FormView ref="child" v-show="url === 'PFANS1031FormView'"></PFANS1031FormView>
 
   </el-drawer>
 </template>
 
 <script>
   import PFANS6002FormView from '@/view/PFANS/PFANS6000/PFANS6002/PFANS6002FormView.vue'
+  import PFANS1032FormView from '@/view/PFANS/PFANS1000/PFANS1032/PFANS1032FormView.vue'
+  import PFANS1031FormView from '@/view/PFANS/PFANS1000/PFANS1031/PFANS1031FormView.vue'
 
   export default {
     name: "index",
     components: {
-      PFANS6002FormView
+        PFANS6002FormView,
+        PFANS1032FormView,
+        PFANS1031FormView
     },
     data() {
       return {
@@ -46,7 +52,6 @@
     watch:{
       open(val){
         if(val){
-
 
           this.bkParams = [...this.$route.params];
           for(let key in this.params){

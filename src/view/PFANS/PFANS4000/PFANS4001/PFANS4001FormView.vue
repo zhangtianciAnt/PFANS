@@ -2,7 +2,8 @@
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" v-loading="loading" :title="title" @buttonClick="buttonClick"
                          @end="end" @start="start" @workflowState="workflowState" ref="container"
-                         @disabled="setdisabled" :enableSave="enableSave">
+                         :defaultStart="defaultStart" :enableSave="enableSave" @StartWorkflow="buttonClick"
+                         @disabled="setdisabled">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="ruleForm"
                  style="padding: 3vw">
@@ -60,7 +61,7 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS4001FORMVIRW_WJLX')" prop="filetype">
                 <dicselect
-                  :disabled="!disable"
+                  :disabled="true"
                   :code="code"
                   :multiple="multiple"
                   :data="form.filetype"
@@ -115,28 +116,80 @@
               <el-input
                 :disabled="!disable"
                 type="textarea"
-                :rows="7"
+                :rows="3"
                 v-model="form.remarks"
                 style="width: 72vw">
               </el-input>
             </el-form-item>
           </el-row>
+          <el-row>
+            <el-table :data="tableD" @row-click="rowClick" @selection-change="handleSelectionChange" border
+                      header-cell-class-name="sub_bg_color_blue"
+                      stripe>
+              <el-table-column :label="$t('label.PFANS1032FORMVIEW_CONTRACTNUMBER')" align="center"
+                               prop="contractnumber" width="220">
+                <template slot-scope="scope">
+                  <span>{{scope.row.contractnumber}}</span>
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')" align="center" prop="contracttype"
+                               width="200">
+                <template slot-scope="scope">
+                  <span>{{scope.row.contracttype}}</span>
+                </template>
+              </el-table-column>
+              <!--              <el-table-column :label="$t('label.PFANS1032FORMVIEW_DEPOSITARY')" align="center" prop="custochinese"-->
+              <!--                               width="200">-->
+              <!--                <template slot-scope="scope">-->
+              <!--                  <span>{{scope.row.custochinese}}</span>-->
+              <!--                </template>-->
+              <!--              </el-table-column>-->
+              <el-table-column :label="$t('label.PFANS1032FORMVIEW_PJNAME')" align="center" prop="pjnamejapanese"
+                               width="200">
+                <template slot-scope="scope">
+                  <span>{{scope.row.pjnamejapanese}}</span>
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('label.PFANS1032FORMVIEW_CLAIMNUMBER')" align="center" prop="claimnumber"
+                               width="200">
+                <template slot-scope="scope">
+                  <span>{{scope.row.claimnumber}}</span>
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMDATE')" align="center" prop="claimdate"
+                               v-if="this.form.filetype === 'PC002004'" width="200">
+                <template slot-scope="scope">
+                  <span>{{scope.row.claimdate}}</span>
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYDATE')" align="center" prop="deliverydate"
+                               v-if="this.form.filetype === 'PC002005'" width="200">
+                <template slot-scope="scope">
+                  <span>{{scope.row.deliverydate}}</span>
+                </template>
+              </el-table-column>
+            </el-table>
+          </el-row>
         </el-form>
       </div>
     </EasyNormalContainer>
+    <EasyPop :params="urlparams" :ref="1" :url="url"></EasyPop>
   </div>
 </template>
 <script>
+    import EasyPop from '@/components/EasyPop'
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import PFANS4001View from '../PFANS4001/PFANS4001View.vue';
   import {Message} from 'element-ui';
   import dicselect from '../../../components/dicselect.vue';
   import user from '../../../components/user.vue';
-  import {getOrgInfoByUserId} from '@/utils/customize';
+    import moment from 'moment';
+    import {getOrgInfoByUserId, getDictionaryInfo} from '@/utils/customize';
 
   export default {
     name: 'PFANS4001FormView',
     components: {
+        EasyPop,
       EasyNormalContainer,
       PFANS4001View,
       dicselect,
@@ -153,12 +206,35 @@
         }
       };
       return {
+          // flowContent: true,
+          // flowData: [
+          //     {
+          //         'No': '1',
+          //         'Name': '采购申请',
+          //         'Status': 'normal.done',
+          //         'url': 'PFANS4001FormView',
+          //         'params': {'_id':'a081f533-8872-4d90-8719-8942ce2f568c'}
+          //     },
+          //     {
+          //         'No': '2',
+          //         'Name': '合同作成',
+          //         'Status': 'normal.doing',
+          //         'url': '',
+          //         'params': {}
+          //     }
+          // ],
+          url: '',
+          urlparams: '',
         centerid: '',
         groupid: '',
         teamid: '',
         error: '',
+          tableD: [],
+          chgesal: [],
+          multipleSelection: [],
         loading: false,
         disable: false,
+          dialogTableVisible2: false,
         selectType: 'Single',
         userlist: '',
         title: 'title.PFANS4001FORMVIEW',
@@ -176,15 +252,18 @@
           groupid: '',
           teamid: '',
           userid: '',
+            bookid: '',
 
         },
         enableSave: false,
+          defaultStart: false,
         code: 'PC002',
         multiple: false,
         code2: 'PC001',
         multiple2: true,
         code3: 'PG017',
         multiple3: false,
+          checkdata: [],
         rules: {
           userid: [
             {
@@ -243,29 +322,41 @@
     },
     mounted() {
       if (this.$route.params._id) {
-        debugger
         this.loading = true;
         this.$store
           .dispatch('PFANS4001Store/getPfans4001One', {'sealid': this.$route.params._id})
           .then(response => {
-            this.form = response;
-            // add-ws-印章管理下拉多选
-            if (this.form.sealtype != '' && this.form.sealtype != null && this.form.sealtype != undefined) {
-              let letstaff = this.form.sealtype.split(',');
-              this.form.sealtype = letstaff;
-            }
+              if (response !== undefined) {
+                  this.form = response;
+                  // add-ws-印章管理下拉多选
+                  if (this.form.sealtype != '' && this.form.sealtype != null && this.form.sealtype != undefined) {
+                      let letstaff = this.form.sealtype.split(',');
+                      this.form.sealtype = letstaff;
+                  }
 
-            // add-ws-印章管理下拉多选
-            let rst = getOrgInfoByUserId(response.userid);
-            if (rst) {
-              this.centerid = rst.centerNmae;
-              this.groupid = rst.groupNmae;
-              this.teamid = rst.teamNmae;
-            }
-            this.userlist = this.form.userid;
-            if (this.form.status === '2') {
-              this.disable = false;
-            }
+                  // add-ws-印章管理下拉多选
+                  let rst = getOrgInfoByUserId(response.userid);
+                  if (rst) {
+                      this.centerid = rst.centerNmae;
+                      this.groupid = rst.groupNmae;
+                      this.teamid = rst.teamNmae;
+                  }
+                  this.userlist = this.form.userid;
+                  if (this.form.status === '2') {
+                      this.disable = false;
+                  }
+                  //编辑进来去pop中的数据
+                  if (this.form.bookid !== null && this.form.bookid !== '') {
+                      let bokid = this.form.bookid.split(",");
+                      for (let i = 1; i < bokid.length; i++) {
+                          if (bokid[0] === '6') {
+                              this.pedata(bokid[i]);
+                          } else if (bokid[0] === '5') {
+                              this.npdata(bokid[i]);
+                          }
+                      }
+                  }
+              }
             this.loading = false;
           })
           .catch(error => {
@@ -293,6 +384,7 @@
       }
     },
     created() {
+        this.$store.commit('global/SET_WORKFLOWURL', '/PFANS4001View');
       this.disable = this.$route.params.disabled;
       if (this.disable) {
         this.buttonList = [
@@ -305,6 +397,85 @@
       }
     },
     methods: {
+        //add_fjl_添加合同回款相关  start
+        rowClick(row) {
+            this.url = '';
+            this.urlparams = '';
+            if (this.form.filetype === 'PC002004') {
+                this.url = 'PFANS1032FormView';
+                this.urlparams = {'_id': row.petition_id}
+            } else if (this.form.filetype === 'PC002005') {
+                this.url = 'PFANS1031FormView';
+                this.urlparams = {'_id': row.napalm_id}
+            }
+            this.$refs[1].open = true;
+        },
+        selectInit(row, index) {
+            return moment(row.claimdate).format("YYYY-MM") === new moment().format("YYYY-MM");
+        },
+        handleSelectionChange(val) {
+            this.multipleSelection = val;
+        },
+        pedata(val) {
+            this.loading = true;
+            this.$store
+                .dispatch('PFANS1032Store/one', {'petition_id': val})
+                .then(response => {
+                    let resp_ = response;
+                    if (resp_ !== null && resp_ !== '' && resp_ !== undefined) {
+                        this.tableD.push({
+                            contracttype: getDictionaryInfo(resp_.contracttype).value1,
+                            // custochinese : resp_.custochinese,
+                            businesscode: resp_.businesscode,
+                            pjnamejapanese: resp_.pjnamejapanese,
+                            claimnumber: resp_.claimnumber,
+                            claimdate: moment(resp_.claimdate).format("YYYY-MM-DD"),
+                            contractnumber: resp_.contractnumber,
+                            petition_id: resp_.petition_id,
+                        });
+                    }
+                    this.loading = false;
+                })
+                .catch(error => {
+                    Message({
+                        message: error,
+                        type: 'error',
+                        duration: 5 * 1000,
+                    });
+                    this.loading = false;
+                })
+
+        },
+        npdata(val) {
+            this.loading = true;
+            this.$store
+                .dispatch('PFANS1031Store/one', {'napalm_id': val})
+                .then(response => {
+                    let resp_ = response;
+                    if (resp_ !== null && resp_ !== '' && resp_ !== undefined) {
+                        this.tableD.push({
+                            contracttype: getDictionaryInfo(resp_.contracttype).value1,
+                            businesscode: resp_.businesscode,
+                            pjnamejapanese: resp_.pjnamejapanese,
+                            claimnumber: resp_.claimnumber,
+                            deliverydate: moment(resp_.deliverydate).format("YYYY-MM-DD"),
+                            contractnumber: resp_.contractnumber,
+                            napalm_id: resp_.napalm_id,
+                        });
+                    }
+                    this.loading = false;
+                })
+                .catch(error => {
+                    Message({
+                        message: error,
+                        type: 'error',
+                        duration: 5 * 1000,
+                    });
+                    this.loading = false;
+                })
+
+        },
+        //add_fjl_添加合同回款相关  end
       setdisabled(val) {
         if (this.$route.params.disabled) {
           this.disabled = val;
@@ -353,11 +524,11 @@
         this.buttonClick('update');
       },
       start(val) {
-        if (val.state === '0') {
+          // if (val.state === '0') {
           this.form.status = '2';
-        } else if (val.state === '2') {
-          this.form.status = '4';
-        }
+          // } else if (val.state === '2') {
+          //   this.form.status = '4';
+          // }
         this.buttonClick("update");
       },
       end() {
@@ -393,9 +564,14 @@
                       duration: 5 * 1000,
                     });
                   }
-                  if (this.$store.getters.historyUrl) {
-                    this.$router.push(this.$store.getters.historyUrl);
-                  }
+                    if (val !== 'save' && val !== 'StartWorkflow') {
+                        if (this.$store.getters.historyUrl) {
+                            this.$router.push(this.$store.getters.historyUrl);
+                        }
+                    }
+                    if (val === 'StartWorkflow') {
+                        this.$refs.container.$refs.workflow.startWorkflow();
+                    }
                 })
                 .catch(error => {
                   Message({

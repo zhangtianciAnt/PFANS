@@ -1,4 +1,4 @@
-import {createPfans4001, getFpans4001List, updatePfans4001,getPfans4001One} from './PFANS4001Api'
+import {createPfans4001, getFpans4001List, updatePfans4001, getPfans4001One, createbook} from './PFANS4001Api'
 
 const PFANS4001store = {
   namespaced: true,
@@ -9,6 +9,19 @@ const PFANS4001store = {
     createPfans4001({commit}, data) {
       return new Promise((resolve, reject) => {
         createPfans4001(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    createbook({commit}, data) {
+      return new Promise((resolve, reject) => {
+        createbook(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
