@@ -814,14 +814,14 @@
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012VIEW_CURRENCYRATE')" align="center"
-                                         width="150" prop="currencyrate">
+                                         width="150" >
                           <template slot-scope="scope">
                             <el-input-number
                               :disabled="!disablecurr"
                               :max="999999"
                               :min="0"
-                              :precision="3"
-                              :step="0.01"
+                              :precision="7"
+                              :step="0.0000001"
                               @change="getCurrencyrate(scope.row)"
                               controls-position="right"
                               style="width: 100%"
@@ -1047,14 +1047,14 @@
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012VIEW_CURRENCYRATE')" align="center"
-                                         width="150" prop="currencyrate">
+                                         width="150" >
                           <template slot-scope="scope">
                             <el-input-number
                               :disabled="!disablecurr"
                               :max="999999"
                               :min="0"
-                              :precision="3"
-                              :step="0.01"
+                              :precision="7"
+                              :step="0.0000001"
                               @change="getCurrencyrate(scope.row)"
                               controls-position="right"
                               style="width: 100%"
@@ -3890,12 +3890,12 @@
             if (index == 8) {
               sums[index] = Math.round((sums[index]) * 100) / 100;
             }
-            if (index == 9) {
-              sums[index] = Math.round((sums[index]) * 100) / 100;
-            }
-            if (index == 10) {
-              sums[index] = Math.round((sums[index]) * 100) / 100;
-            }
+            // if (index == 9) {
+            //   sums[index] = Math.round((sums[index]) * 100) / 100;
+            // }
+            // if (index == 10) {
+            //   sums[index] = Math.round((sums[index]) * 100) / 100;
+            // }
             if (index == 11) {
               sums[index] = Math.round((sums[index]) * 100) / 100;
             }
