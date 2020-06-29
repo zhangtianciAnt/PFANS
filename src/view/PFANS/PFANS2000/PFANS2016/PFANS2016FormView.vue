@@ -621,7 +621,7 @@
         userlist: '',
         title: 'title.exception_application',
         buttonList: [],
-        restdiff3: '',
+        restdiff3: '0',
         form: {
           restdiff: '',
           restdiff2: '',
@@ -775,7 +775,6 @@
             }
             this.typecheck = this.form.vacationtype;
             this.retypecheck = this.form.revacationtype;
-            this.getonRest(this.form.errortype);
             if (this.form.refinisheddate == null || this.form.reoccurrencedate == null) {
               if (this.form.status === '4') {
                 this.form.revacationtype = this.form.vacationtype;
@@ -787,6 +786,7 @@
                 }
               }
             }
+            this.getonRest(this.form.errortype);
             if (this.form.errortype === 'PR013011' || this.form.errortype === 'PR013012' || this.form.errortype === 'PR013013'
               || this.form.errortype === 'PR013015' || this.form.errortype === 'PR013017' || this.form.errortype === 'PR013020'
               || this.form.errortype === 'PR013021' || this.form.errortype === 'PR013022') {
@@ -1605,6 +1605,9 @@
                 }
               }
               if (response[a].status === '4' || response[a].status === '5' || response[a].status === '6') {
+                if (response[a].status === '4') {
+                  response[a].relengthtime = response[a].lengthtime;
+                }
                 if (response[a].errortype === this.form.errortype) {
                   restdiff += Number(response[a].relengthtime);
                 }
@@ -2307,7 +2310,7 @@
                   this.restdiff3 = 0;
                 }
                 if (this.form.status) {
-                  if (parseInt(this.form.status) <= 4) {
+                  if (parseInt(this.form.status) < 4) {
                     if (this.form.restdiff - Number(this.restdiff3 + this.form.lengthtime - this.checklength3).toFixed(2) < 0) {
                       Message({
                         message: this.$t('label.PFANS2016FORMVIEW_CHECKRESTDIFF2'),
@@ -2344,7 +2347,7 @@
                   this.form.restdiff2 = 0;
                 }
                 if (this.form.status) {
-                  if (parseInt(this.form.status) <= 4) {
+                  if (parseInt(this.form.status) < 4) {
                     if (this.form.restdiff - Number(this.form.restdiff2 + this.form.lengthtime - this.checklength3) < 0) {
                       Message({
                         message: this.$t('label.PFANS2016FORMVIEW_CHECKRESTDIFF2'),
