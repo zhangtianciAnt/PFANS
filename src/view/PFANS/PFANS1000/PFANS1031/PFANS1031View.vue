@@ -31,6 +31,7 @@
         checkdata: [],
         loading: false,
           isShow: true,
+          handleShow: true,
         title: 'title.PFANS1031VIEW',
         data: [],
         columns: [
@@ -135,7 +136,7 @@
             {
                 code: 'sealstatus',
                 label: 'label.PFANS1024VIEW_SEALSTATUS',
-                width: 150,
+                width: 120,
                 fix: false,
                 filter: true,
             },
