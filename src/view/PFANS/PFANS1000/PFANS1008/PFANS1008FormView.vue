@@ -6,8 +6,8 @@
       <div slot="customize">
         <el-form :model="form" label-width="8vw" label-position="top" style="padding: 2vw" :rules="rules"
                  ref="refform">
-          <el-collapse>
-            <el-collapse-item>
+          <el-collapse v-model="activeNames">
+            <el-collapse-item name="1">
               <template slot="title">
                 <span class="collapse_Title">{{$t('title.PFANS1008VIEW')}}</span>
               </template>
@@ -321,6 +321,7 @@
                 }
             };
             return {
+                activeNames: ['1'],
                 options: [],
                 options1: [],
                 centerid: '',
