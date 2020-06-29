@@ -256,6 +256,7 @@
                       claimtype: response[j].claimtype,
                       toto: response[j].toto,
                         sealstatus: response[j].sealstatus,
+                        sealid: response[j].sealid,
                       napalm_id: response[j].napalm_id,
                     });
                   }

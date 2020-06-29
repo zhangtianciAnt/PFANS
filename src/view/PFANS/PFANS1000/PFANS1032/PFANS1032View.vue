@@ -224,6 +224,7 @@
                                     claimnumber: response[j].claimnumber,
                                     claimdate: response[j].claimdate,
                                     contractnumber: response[j].contractnumber,
+                                    sealid: response[j].sealid,
                                     petition_id: response[j].petition_id,
                                 });
                             }
