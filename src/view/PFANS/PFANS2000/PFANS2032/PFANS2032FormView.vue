@@ -264,7 +264,7 @@
                 </el-form-item>
               </el-row>
               <el-row>
-                <el-form-item :label="$t('label.PFANS2026FORMVIEW_DATA1')">
+                <el-form-item :label="$t('label.PFANS2026FORMVIEW_DATA1')" prop="jpwork_delivery">
                   <el-input :disabled="!disable1" :rows="2" style="width: 70vw;" type="textarea"
                             v-model="form.jpwork_delivery">
                   </el-input>
@@ -509,27 +509,6 @@
         teamid: '',
         tableData: [{
           ordernumber: '1',
-          confirmperson: this.$t('label.team'),
-          confirmdata: this.$t('label.PFANS2026FORMVIEW_DATA1'),
-          checked: '',
-          condate: '',
-          person: '',
-        }, {
-          ordernumber: '2',
-          confirmperson: this.$t('label.group'),
-          confirmdata: this.$t('label.PFANS2026FORMVIEW_DATA2'),
-          checked: '',
-          condate: '',
-          person: '',
-        }, {
-          ordernumber: '3',
-          confirmperson: this.$t('label.center'),
-          confirmdata: this.$t('label.PFANS2026FORMVIEW_DATA2'),
-          checked: '',
-          condate: '',
-          person: '',
-        }, {
-          ordernumber: '4',
           confirmperson: this.$t('label.PFANS2026FORMVIEW_UNIONMEMBER'),
           confirmdata: this.$t('label.PFANS2026FORMVIEW_DATA4'),
           checked: '',
@@ -537,28 +516,28 @@
           person: '',
         },
           {
-            ordernumber: '5',
+            ordernumber: '2',
             confirmperson: this.$t('label.PFANS2026FORMVIEW_FINANCE'),
             confirmdata: this.$t('label.PFANS2026FORMVIEW_DATA5'),
             checked: '',
             condate: '',
             person: '',
           }, {
-            ordernumber: '6',
+            ordernumber: '3',
             confirmperson: this.$t('label.PFANS2026FORMVIEW_LEGALAFFAIRS'),
             confirmdata: this.$t('label.PFANS2026FORMVIEW_DATA6'),
             checked: '',
             condate: '',
             person: '',
           }, {
-            ordernumber: '7',
+            ordernumber: '4',
             confirmperson: this.$t('label.PFANS2026FORMVIEW_AFFAIRSPERSONNEL1'),
             confirmdata: this.$t('label.PFANS2026FORMVIEW_DATA7'),
             checked: '',
             condate: '',
             person: '',
           }, {
-            ordernumber: '8',
+            ordernumber: '5',
             confirmperson: this.$t('label.PFANS2026FORMVIEW_AFFAIRSPERSONNEL2'),
             confirmdata: this.$t('label.PFANS2026FORMVIEW_DATA8'),
             checked: '',
@@ -566,28 +545,28 @@
             person: '',
           },
           {
-            ordernumber: '9',
+            ordernumber: '6',
             confirmperson: this.$t('label.PFANS2026FORMVIEW_AFFAIRSPERSONNEL4'),
             confirmdata: this.$t('label.PFANS2026FORMVIEW_DATA9'),
             checked: '',
             condate: '',
             person: '',
           }, {
-            ordernumber: '10',
+            ordernumber: '7',
             confirmperson: this.$t('label.PFANS2026FORMVIEW_AFFAIRSPERSONNEL5'),
             confirmdata: this.$t('label.PFANS2026FORMVIEW_DATA11'),
             checked: '',
             condate: '',
             person: '',
           }, {
-            ordernumber: '11',
+            ordernumber: '8',
             confirmperson: this.$t('label.PFANS2026FORMVIEW_INFORMATIONSYSTEM'),
             confirmdata: this.$t('label.PFANS2026FORMVIEW_DATA12'),
             checked: '',
             condate: '',
             person: '',
           }, {
-            ordernumber: '12',
+            ordernumber: '9',
             confirmperson: this.$t('label.PFANS2026FORMVIEW_AFFAIRSPERSONNEL3'),
             confirmdata: this.$t('label.PFANS2026FORMVIEW_DATA10'),
             checked: '',
@@ -664,6 +643,11 @@
           sex: [{
             required: true,
             message: this.$t('normal.error_09') + this.$t('label.sex'),
+            trigger: 'change',
+          }],
+          jpwork_delivery: [{
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.PFANS2026FORMVIEW_DATA1'),
             trigger: 'change',
           }],
           reporterlist: [{
@@ -800,7 +784,7 @@
         });
       },
       checkRequire() {
-        if (!this.form.user_id) {
+        if (!this.form.jpwork_delivery) {
           this.activeName = 'second';
         } else if (!this.sex) {
           this.activeName = 'fourth';
@@ -874,23 +858,23 @@
             roles = roles + role.description;
           }
           if (roles.toUpperCase().indexOf('财务部长') != -1) {
-            return '4';
+            return '1';
           } else if (roles.toUpperCase().indexOf('企划部长') != -1) {
-            return '5';
+            return '2';
           } else if (roles.toUpperCase().indexOf('总务担当') != -1) {
-            return '6';
-          } else if (roles.toUpperCase().indexOf('工资计算担当') != -1) {
-            return '7';
-          } else if (roles.toUpperCase().indexOf('研修担当') != -1) {
-            return '8';
-          } else if (roles.toUpperCase().indexOf('人事总务部长') != -1) {
-            return '9';
-          } else if (roles.toUpperCase().indexOf('IT担当') != -1) {
-            return '10';
-          } else if (roles.toUpperCase().indexOf('离职担当') != -1) {
-            return '11';
-          } else if (roles.toUpperCase().indexOf('工会担当') != -1) {
             return '3';
+          } else if (roles.toUpperCase().indexOf('工资计算担当') != -1) {
+            return '4';
+          } else if (roles.toUpperCase().indexOf('研修担当') != -1) {
+            return '5';
+          } else if (roles.toUpperCase().indexOf('人事总务部长') != -1) {
+            return '6';
+          } else if (roles.toUpperCase().indexOf('IT担当') != -1) {
+            return '7';
+          } else if (roles.toUpperCase().indexOf('离职担当') != -1) {
+            return '8';
+          } else if (roles.toUpperCase().indexOf('工会担当') != -1) {
+            return '0';
           }
         }
       },
@@ -912,46 +896,47 @@
         }
       },
       workflowState(val) {
-        if (this.tableData[2].checked == true) {
+        // if (this.tableData[2].checked == true) {
           let a = this.getCurrentRole2();
           if (a == 8) {
             this.tableData[8].checked = true;
             this.tableData[8].condate = moment(new Date()).format('YYYY-MM-DD');
             this.tableData[8].person = getUserInfo(this.$store.getters.userinfo.userid).userinfo.customername;
-            this.tableData[11].checked = true;
-            this.tableData[11].condate = moment(new Date()).format('YYYY-MM-DD');
-            this.tableData[11].person = getUserInfo(this.$store.getters.userinfo.userid).userinfo.customername;
+            this.tableData[5].checked = true;
+            this.tableData[5].condate = moment(new Date()).format('YYYY-MM-DD');
+            this.tableData[5].person = getUserInfo(this.$store.getters.userinfo.userid).userinfo.customername;
           } else {
             this.tableData[a].checked = true;
             this.tableData[a].condate = moment(new Date()).format('YYYY-MM-DD');
             this.tableData[a].person = getUserInfo(this.$store.getters.userinfo.userid).userinfo.customername;
           }
-        } else {
-          let b = this.getCurrentRole3();
-          if (b == 1) {
-            if (this.tableData[0].checked == true) {
-              this.tableData[1].checked = true;
-              this.tableData[1].condate = moment(new Date()).format('YYYY-MM-DD');
-            } else {
-              this.tableData[0].checked = true;
-              this.tableData[0].condate = moment(new Date()).format('YYYY-MM-DD');
-              this.tableData[1].checked = true;
-              this.tableData[1].condate = moment(new Date()).format('YYYY-MM-DD');
-            }
-          } else if (b == 2) {
-            if (this.tableData[1].checked == true) {
-              this.tableData[2].checked = true;
-              this.tableData[2].condate = moment(new Date()).format('YYYY-MM-DD');
-            }else{
-              this.tableData[0].checked = true;
-              this.tableData[0].condate = moment(new Date()).format('YYYY-MM-DD');
-              this.tableData[1].checked = true;
-              this.tableData[1].condate = moment(new Date()).format('YYYY-MM-DD');
-              this.tableData[2].checked = true;
-              this.tableData[2].condate = moment(new Date()).format('YYYY-MM-DD');
-            }
-          }
-        }
+
+        // else {
+        //   let b = this.getCurrentRole3();
+        //   if (b == 1) {
+        //     if (this.tableData[0].checked == true) {
+        //       this.tableData[1].checked = true;
+        //       this.tableData[1].condate = moment(new Date()).format('YYYY-MM-DD');
+        //     } else {
+        //       this.tableData[0].checked = true;
+        //       this.tableData[0].condate = moment(new Date()).format('YYYY-MM-DD');
+        //       this.tableData[1].checked = true;
+        //       this.tableData[1].condate = moment(new Date()).format('YYYY-MM-DD');
+        //     }
+        //   } else if (b == 2) {
+        //     if (this.tableData[1].checked == true) {
+        //       this.tableData[2].checked = true;
+        //       this.tableData[2].condate = moment(new Date()).format('YYYY-MM-DD');
+        //     }else{
+        //       this.tableData[0].checked = true;
+        //       this.tableData[0].condate = moment(new Date()).format('YYYY-MM-DD');
+        //       this.tableData[1].checked = true;
+        //       this.tableData[1].condate = moment(new Date()).format('YYYY-MM-DD');
+        //       this.tableData[2].checked = true;
+        //       this.tableData[2].condate = moment(new Date()).format('YYYY-MM-DD');
+        //     }
+        //   }
+        // }
         if (val.state === '1') {
           this.form.status = '3';
         } else if (val.state === '2') {
@@ -961,20 +946,20 @@
       },
       //upd 审批流程 fr
       start(val) {
-        let b = this.getCurrentRole3();
-        if (b == 1) {
-          this.tableData[0].checked = true;
-          this.tableData[0].condate = moment(new Date()).format('YYYY-MM-DD');
-          this.tableData[1].checked = true;
-          this.tableData[1].condate = moment(new Date()).format('YYYY-MM-DD');
-        } else if (b == 2) {
-          this.tableData[0].checked = true;
-          this.tableData[0].condate = moment(new Date()).format('YYYY-MM-DD');
-          this.tableData[1].checked = true;
-          this.tableData[1].condate = moment(new Date()).format('YYYY-MM-DD');
-          this.tableData[2].checked = true;
-          this.tableData[2].condate = moment(new Date()).format('YYYY-MM-DD');
-        }
+        // let b = this.getCurrentRole3();
+        // if (b == 1) {
+        //   this.tableData[0].checked = true;
+        //   this.tableData[0].condate = moment(new Date()).format('YYYY-MM-DD');
+        //   this.tableData[1].checked = true;
+        //   this.tableData[1].condate = moment(new Date()).format('YYYY-MM-DD');
+        // } else if (b == 2) {
+        //   this.tableData[0].checked = true;
+        //   this.tableData[0].condate = moment(new Date()).format('YYYY-MM-DD');
+        //   this.tableData[1].checked = true;
+        //   this.tableData[1].condate = moment(new Date()).format('YYYY-MM-DD');
+        //   this.tableData[2].checked = true;
+        //   this.tableData[2].condate = moment(new Date()).format('YYYY-MM-DD');
+        // }
         if (val.state === '0') {
           this.form.status = '2';
         } else if (val.state === '2') {

@@ -1,9 +1,9 @@
 <template>
   <div class="easy_sider" :style="{width:siderWidth,height:`calc(100vh - ${siderHeight})`}">
-    <div class="sider-avatar" :style="{height:avatarHeight}">
+    <div class="sider-avatar">
       <slot name="avatar"></slot>
     </div>
-    <div class="sider-content" :style="{height:`calc(100% - ${avatarHeight})`}">
+    <div class="sider-content">
       <slot name="content"></slot>
     </div>
   </div>
@@ -15,7 +15,6 @@
     components: {},
     data() {
       return {
-        avatarHeight: "0%"
       };
     },
     props: {
@@ -28,10 +27,6 @@
         default: "200px"
       }
     },
-    mounted() {
-      this.avatarHeight =
-        document.querySelector(".easy_avatar") !== null ? "20%" : "0%";
-    }
   };
 </script>
 
