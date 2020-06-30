@@ -450,7 +450,7 @@
                             this.form.classification = null;
                             this.form.balance = null;
                         }
-                        if (this.form.type === "PR002005") {
+                        if (this.form.type === "PR002006") {
                             this.show2 = true;
                         } else {
                             this.show2 = false;
@@ -574,7 +574,7 @@
             },
             change2(val) {
                 this.form.type = val;
-                if (val === "PR002005") {
+                if (val === "PR002006") {
                     this.show2 = true;
                 } else {
                     this.show2 = false;
