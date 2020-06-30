@@ -147,6 +147,13 @@
                       </dicselect>
                     </el-form-item>
                   </el-col>
+
+                  <el-col :span="8" >
+                    <el-form-item :label="$t('label.PFANS1012VIEW_CURRENCY')" v-if="this.form.type === 'PJ001001'?false:true">
+                      <el-input :disabled="true" style="width:20vw" v-model="form.currency"></el-input>
+                    </el-form-item>
+                  </el-col>
+
                   <!--                  <el-col :span="8">-->
                   <!--                    <el-form-item :label="$t('label.PFANS1012VIEW_EXPORTCSV')">-->
                   <!--                      <el-switch-->
@@ -1516,6 +1523,7 @@
         }],
         baseInfo: {},
         form: {
+          currency: '',
           user_name: '',
           bsexternal: '',
           project_id: '',
@@ -3621,6 +3629,7 @@
           row.tormb = Math.round((row.foreigncurrency * row.currencyrate) * 100) / 100;
           this.tormbT = Number(this.tormbT) + row.tormb;
           this.form.tormb = this.tormbT;
+          this.form.currency = getDictionaryInfo(val).value1;
         }
       },
       getCurrencyrate(row) {
