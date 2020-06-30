@@ -25,6 +25,7 @@ export default {
     redirect(){
       this.$store.commit('global/SET_HISTORYURL', "/index");
       this.$router.push(this.mainPage);
+      this.$emit('changeMenu')
     }
   },
   props: {
@@ -61,30 +62,36 @@ $bg: #fff;
   margin: 0 auto;
   display: grid;
   grid-template-rows: repeat(2, 1fr);
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   // border-bottom: solid 2px #e6e6e6;
   .avatar_image {
-    grid-column: 1;
+    grid-column-start: 1;
+    grid-column-end: 2;
     grid-row: 1 / 3;
     padding-left: 8px;
     justify-self: center;
     align-self: center;
   }
   .avatar_name {
-    grid-column: 2;
+    grid-column-start: 2;
+    grid-column-end: 4;
     grid-row: 1;
-    font-size: 16px;
+    font-size: 13px;
+    font-weight: bold;
     text-align: left;
     justify-self: center;
     align-self: end;
+    color: white;
   }
   .avatar_dep {
-    grid-column: 2;
+    grid-column-start: 2;
+    grid-column-end: 4;
     grid-row: 2;
     font-size: 12px;
     text-align: left;
     justify-self: center;
     align-self: start;
+    color: white;
   }
 }
 </style>

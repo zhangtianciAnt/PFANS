@@ -8,7 +8,6 @@
         <el-col :span="20">
           <EasyHeader maxheight="4rem">
             <div slot="customize" style="display: table-cell;vertical-align: middle;">
-
               <el-col :span="20" style="text-align: right;margin-top: 7px">
                 <el-tooltip class="item" content="切换至工作空间" effect="dark" placement="bottom">
                 <el-popconfirm
@@ -36,7 +35,7 @@
                   <el-dropdown-menu slot="dropdown">
                     <router-link to="/PFANS8001View"><el-dropdown-item icon="el-icon-edit">{{$t('title.PFANS8001VIEW')}}</el-dropdown-item></router-link>
                     <router-link to="/PFANS8002View"><el-dropdown-item icon="el-icon-bell">{{$t('notice.name')}}</el-dropdown-item></router-link>
-                    <router-link to="/usersFormViewByPerson" v-show="Object.keys(userinfo).length > 0"><el-dropdown-item icon="el-icon-user">{{$t('help.name')}}</el-dropdown-item></router-link>
+                    <!--<router-link to="/usersFormViewByPerson" v-show="Object.keys(userinfo).length > 0"><el-dropdown-item icon="el-icon-user">{{$t('help.name')}}</el-dropdown-item></router-link>-->
                     <router-link to="/"><el-dropdown-item icon="el-icon-switch-button">{{$t('logout.name')}}</el-dropdown-item></router-link>
                   </el-dropdown-menu>
                 </EasyAvatar>
@@ -51,7 +50,8 @@
           <el-aside style="width:auto;height: 100%" class="main_bg_color">
             <EasySider element-loading-spinner="el-icon-loading" siderHeight="6rem"
                        siderWidth="100%" v-loading="menuLoading" class="main_bg_color">
-              <!--<EasyAvatar slot="avatar" :mainPage="userPage" :avatarDep="avatarDep"></EasyAvatar>-->
+              <person slot="avatar" :mainPage="userPage" v-if="Object.keys(userinfo).length > 0" :avatarName="userinfo.userinfo != null?userinfo.userinfo.customername:''" @changeMenu="changeMenu"
+              :avatarDep="avatarDep"></person>
               <vertical
                 :activeIndex="vactiveIndex"
                 :data="menudata"
@@ -142,6 +142,8 @@
   import flow from "@/assets/svg/流程管理.svg";
   import userIcon from "@/assets/svg/员工管理.svg";
   import companyIcon from "@/assets/svg/公司.svg";
+  import person from "@/components/EasyAvatar/index.vue";
+  import {getCurrentRole} from '@/utils/customize'
 
   export default {
     name: "frameView",
@@ -158,7 +160,8 @@
       EasyLogout,
       easynormaltable,
       EasyLocale,
-      EasyPop
+      EasyPop,
+      person
     },
     data() {
       return {
@@ -192,7 +195,7 @@
         flowContent: false,
         userinfo:{},
         menuLoading: false,
-        userPage: "/personalCenter",
+        userPage: "/usersFormViewByPerson",
         defaultcount: 0, //消息条数
         messageData: null, //消息列表
         responseData: null, //接最原始数据
@@ -451,6 +454,25 @@
       },
       showPersonCenter(){
         this.userinfo = this.$store.getters.userinfo;
+        let role = getCurrentRole();
+        switch (role) {
+          case "1":
+            this.avatarDep = "总经理";
+            break;
+          case "2":
+            this.avatarDep = "CENTER长";
+            break;
+          case "3":
+            this.avatarDep = "GM";
+            break;
+          case "4":
+            this.avatarDep = "TL";
+            break;
+          case "5":
+            this.avatarDep = "社员";
+            break;
+        }
+
       },
       showPop(val){
         this.flowData = val;
