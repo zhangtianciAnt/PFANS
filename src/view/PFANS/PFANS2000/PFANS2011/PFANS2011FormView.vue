@@ -262,6 +262,15 @@
           } else {
             callback(this.$t('label.PFANS2011FORMVIEW_ERROR3'));
           }
+            //ADD_FJL_06/30 -- 添加周末加班的check start
+        } else if (value === 'PR001002' && this.form.reserveovertimedate !== '' && this.form.reserveovertimedate !== null) {
+            var timedate = moment(this.form.reserveovertimedate).format("YYYY-MM-DD");
+            if (this.getDatey(timedate).getDay() === 6 || this.getDatey(timedate).getDay() === 0) {
+                callback();
+            } else {
+                callback(this.$t('label.PFANS2011FORMVIEW_ERROR3'));
+            }
+            //ADD_FJL_06/30 -- 添加周末加班的check end
         } else {
           callback();
         }
@@ -641,6 +650,16 @@
       }
     },
     methods: {
+        //ADD_FJL_06/30 -- 添加周末加班的check start
+        getDatey(str) {
+            var tempDate = new Date();
+            var list = str.split('-');
+            tempDate.setFullYear(list[0]);
+            tempDate.setMonth(list[1] - 1);
+            tempDate.setDate(list[2]);
+            return tempDate;
+        },
+        //ADD_FJL_06/30 -- 添加周末加班的check end
       //加班合计时长
       getWorktime() {
         this.loading = true;
@@ -782,6 +801,11 @@
         let letreserveovertimedate = moment(this.form.reserveovertimedate).format(
           'YYYY-MM-DD',
         );
+          //ADD_FJL_06/30 -- 添加周末加班的check start
+          if (this.getDatey(letreserveovertimedate).getDay() === 6 || this.getDatey(letreserveovertimedate).getDay() === 0) {
+              this.change('PR001002');
+          }
+          //ADD_FJL_06/30 -- 添加周末加班的check end
         if (moment(letreserveovertimedate).format('MM-DD') === '05-04') {
           this.change('PR001007');
           // DEL_FJL_05/13   --暂时注释掉无用代码
