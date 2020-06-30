@@ -3,11 +3,11 @@
     <div class="avatar_image">
       <img :src="avatarImage" alt="avatar" style="width:90%">
         </div>
+    <div class="avatar_dep">
+      {{avatarDep}}
+    </div>
       <div class="avatar_name">
         {{avatarName ===""?$store.getters.name:avatarName}}
-      </div>
-      <div class="avatar_dep">
-        {{avatarDep}}
       </div>
     </div>
 </template>
@@ -75,23 +75,23 @@ $bg: #fff;
   .avatar_name {
     grid-column-start: 2;
     grid-column-end: 4;
-    grid-row: 1;
-    font-size: 13px;
-    font-weight: bold;
+    grid-row: 2;
+    font-size: 12px;
     text-align: left;
     justify-self: center;
-    align-self: end;
+    align-self:  start;
     color: white;
   }
   .avatar_dep {
     grid-column-start: 2;
     grid-column-end: 4;
-    grid-row: 2;
-    font-size: 12px;
+    grid-row: 1;
+    font-size: 14px;
     text-align: left;
     justify-self: center;
-    align-self: start;
+    align-self: end;
     color: white;
+    font-weight: bold;
   }
 }
 </style>
