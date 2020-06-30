@@ -3,7 +3,7 @@
     <div class="sider-avatar">
       <slot name="avatar"></slot>
     </div>
-    <div class="sider-content" :style="{height:`calc(100%)`}">
+    <div class="sider-content">
       <slot name="content"></slot>
     </div>
   </div>
