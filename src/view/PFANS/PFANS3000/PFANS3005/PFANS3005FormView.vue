@@ -982,19 +982,24 @@
       },
       getBusinessplantype(val) {
         this.form.businessplantype = val;
-        if (val === 'PR002005') {
+        if (val === 'PR002006') {
           this.show2 = true;
           this.rules.classificationtype[0].required = true;
-        } else if (val === 'PR002001') {
-          this.show2 = false;
-          this.rules.classificationtype[0].required = false;
-        } else if (val === 'PR002002') {
-          this.show2 = false;
-          this.rules.classificationtype[0].required = false;
-        } else if (val === 'PR002003') {
-          this.show2 = false;
-          this.rules.classificationtype[0].required = false;
-        } else if (val === 'PR002004') {
+        }
+        // else if (val === 'PR002001') {
+        //   this.show2 = false;
+        //   this.rules.classificationtype[0].required = false;
+        // } else if (val === 'PR002002') {
+        //   this.show2 = false;
+        //   this.rules.classificationtype[0].required = false;
+        // } else if (val === 'PR002003') {
+        //   this.show2 = false;
+        //   this.rules.classificationtype[0].required = false;
+        // } else if (val === 'PR002004') {
+        //   this.show2 = false;
+        //   this.rules.classificationtype[0].required = false;
+        // }
+        else {
           this.show2 = false;
           this.rules.classificationtype[0].required = false;
         }
