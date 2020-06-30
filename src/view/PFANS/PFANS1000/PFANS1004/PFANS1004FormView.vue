@@ -618,7 +618,7 @@
                 this.rules.businessplanbalance[0].required = false;
                 this.rules.classificationtype[0].required = false;
               }
-              if (this.form.businessplantype === 'PR002005') {
+              if (this.form.businessplantype === 'PR002006') {
                 this.show1 = true;
               } else if (this.form.salequotation === 'PJ013001') {
                 this.show2 = true;
@@ -838,19 +838,24 @@
         if (val === 'PR002006') {
           this.show1 = true;
           this.rules.classificationtype[0].required = true;
-        } else if (val === 'PR002001') {
-          this.show1 = false;
-          this.rules.classificationtype[0].required = false;
-        } else if (val === 'PR002002') {
-          this.show1 = false;
-          this.rules.classificationtype[0].required = false;
-        } else if (val === 'PR002003') {
-          this.show1 = false;
-          this.rules.classificationtype[0].required = false;
-        } else if (val === 'PR002004') {
-          this.show1 = false;
-          this.rules.classificationtype[0].required = false;
-        } else if (val === 'PR002005') {
+        }
+        // else if (val === 'PR002001') {
+        //   this.show1 = false;
+        //   this.rules.classificationtype[0].required = false;
+        // } else if (val === 'PR002002') {
+        //   this.show1 = false;
+        //   this.rules.classificationtype[0].required = false;
+        // } else if (val === 'PR002003') {
+        //   this.show1 = false;
+        //   this.rules.classificationtype[0].required = false;
+        // } else if (val === 'PR002004') {
+        //   this.show1 = false;
+        //   this.rules.classificationtype[0].required = false;
+        // } else if (val === 'PR002005') {
+        //   this.show1 = false;
+        //   this.rules.classificationtype[0].required = false;
+        // }
+        else {
           this.show1 = false;
           this.rules.classificationtype[0].required = false;
         }
@@ -935,7 +940,7 @@
         if (val === '1') {
           this.show = true;
           this.show1 = false;
-          if (this.form.businessplantype === 'PR002005') {
+          if (this.form.businessplantype === 'PR002006') {
             this.show1 = true;
             this.rules.classificationtype[0].required = true;
           }
