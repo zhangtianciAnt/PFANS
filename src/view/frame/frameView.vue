@@ -143,7 +143,7 @@
   import userIcon from "@/assets/svg/员工管理.svg";
   import companyIcon from "@/assets/svg/公司.svg";
   import person from "@/components/EasyAvatar/index.vue";
-  import {getCurrentRole} from '@/utils/customize'
+  import {getDictionaryInfo} from '@/utils/customize'
 
   export default {
     name: "frameView",
@@ -454,23 +454,10 @@
       },
       showPersonCenter(){
         this.userinfo = this.$store.getters.userinfo;
-        let role = getCurrentRole();
-        switch (role) {
-          case "1":
-            this.avatarDep = "总经理";
-            break;
-          case "2":
-            this.avatarDep = "CENTER长";
-            break;
-          case "3":
-            this.avatarDep = "GM";
-            break;
-          case "4":
-            this.avatarDep = "TL";
-            break;
-          case "5":
-            this.avatarDep = "社员";
-            break;
+        console.log(this.userinfo.userinfo.post)
+        let role = getDictionaryInfo(this.userinfo.userinfo.post);
+        if(role){
+          this.avatarDep = role.value1
         }
 
       },
