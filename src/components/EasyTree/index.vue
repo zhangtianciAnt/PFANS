@@ -146,7 +146,7 @@ export default {
       // if (this.$store.getters.operateId === node[this.nodeid]) {
       //   return;
       // }
-      this.$store.commit("global/SET_OPERATEID", node[this.nodeid]);
+        // this.$store.commit("global/SET_OPERATEID", node[this.nodeid]);
       this.$emit("nodeClick", node);
     },
     getData() {
