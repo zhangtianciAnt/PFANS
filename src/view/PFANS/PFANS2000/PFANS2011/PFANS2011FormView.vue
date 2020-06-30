@@ -797,6 +797,7 @@
           });
       },
       changeReserveovertimedate() {
+          this.form.overtimetype = '';
         this.getWorktime();
         let letreserveovertimedate = moment(this.form.reserveovertimedate).format(
           'YYYY-MM-DD',
