@@ -681,7 +681,7 @@
               this.rules.businessplanbalance[0].required = false;
               this.rules.classificationtype[0].required = false;
             }
-            if (this.form.businessplantype === 'PR002005') {
+            if (this.form.businessplantype === 'PR002006') {
               this.show2 = true;
             } else if (this.form.businessplantype === 'PR002001') {
               this.show2 = false;
@@ -965,7 +965,7 @@
         if (val === '1') {
           this.show1 = true;
           this.show3 = true;
-          if (this.form.businessplantype === 'PR002005') {
+          if (this.form.businessplantype === 'PR002006') {
             this.show2 = true;
             this.rules.classificationtype[0].required = true;
           }
