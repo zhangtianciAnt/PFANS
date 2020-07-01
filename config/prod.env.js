@@ -4,6 +4,9 @@ const merge = require('webpack-merge')
 const prodEnv = require('./prod.env')
 
 module.exports = merge(prodEnv, {
+//172.16.2.123  测试（内）
+//59.46.185.130  测试
+//10.194.144.208  正式
   NODE_ENV: '"production"',
   //正式环境
   BASE_API: '"http://10.194.144.208:5556/"',
