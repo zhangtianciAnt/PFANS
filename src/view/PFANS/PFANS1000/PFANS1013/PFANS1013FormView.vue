@@ -832,7 +832,7 @@
                         </dicselect>
                       </template>
                     </el-table-column>
-                    <el-table-column :label="$t('label.PFANS1002VIEW_FOREIGNCURRENCY')" align="center" prop="travel"
+                    <el-table-column :label="$t('label.PFANS1013FORMVIEW_TRAVELALLOWANCE1')" align="center" prop="travel"
                                      v-if="this.form.type === '0'? false : true" width="200">
                       <template slot-scope="scope">
                         <el-input-number
