@@ -1,4 +1,4 @@
-import {getFpans2017List, download,getPunDetail,getFpans2017Listowner} from './PFANS2017Api'
+import {getFpans2017List, download,getPunDetail,getFpans2017Listowner,getTodayPunDetaillist} from './PFANS2017Api'
 
 const PFANS2017Store = {
   namespaced: true,
@@ -47,6 +47,20 @@ const PFANS2017Store = {
     getPunDetail({commit}, data) {
       return new Promise((resolve, reject) => {
         getPunDetail(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    //获取当日考勤
+    getTodayPunDetaillist({commit}) {
+      return new Promise((resolve, reject) => {
+        getnowPunDetail().then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {

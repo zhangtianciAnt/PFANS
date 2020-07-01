@@ -83,7 +83,7 @@ module.exports = {
     crAccount: "创建外协STAFF账号",
     crAccount2: "创建外协员工账号",
     detailed: "详细记录",
-    today: '今日考勤',
+    today: '当日考勤',
     viewlogmement: '查看日志',
     conapp: '合同号申请',
     actuarial: '精算',

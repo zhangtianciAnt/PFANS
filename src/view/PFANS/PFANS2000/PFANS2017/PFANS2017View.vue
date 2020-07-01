@@ -183,6 +183,7 @@
           {'key': 'export', 'name': 'button.export', 'disabled': false, icon: 'el-icon-download'},
           // {'key': 'export2', 'name': 'button.download2', 'disabled': false, icon: 'el-icon-download'},
           {'key': 'detail', 'name': 'button.detailed', 'disabled': false, icon: 'el-icon-s-grid'},
+          {'key': 'today', 'name': 'button.today', 'disabled': false, icon: 'el-icon-s-grid'},
         ],
         isShow: true,
         rowid: 'punchcardrecord_id',
@@ -374,7 +375,16 @@
             },
           });
         }
-
+        if (val === 'today') {
+            this.$router.push({
+                name: 'PFANS2017FormView',
+                params: {
+                    jobnumber: '',
+                    user_id: this.user_id,
+                    punchcardrecord_date: this.punchcardrecord_date,
+                },
+            });
+        }
         //   else if('export2' === val){
         //   this.loading = true;
         //   this.$store
