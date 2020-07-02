@@ -63,7 +63,7 @@
           {
             code: 'custochinese',
             label: 'label.PFANS1010FORMVIEW_COMPANYNAME',
-            width: 120,
+            width: 300,
             fix: false,
             filter: true,
           },
@@ -101,13 +101,6 @@
             code: 'conchinese',
             label: 'label.PFANS6007VIEW_PJNAME',
             width: 280,
-            fix: false,
-            filter: true,
-          },
-          {
-            code: 'custochinese',
-            label: 'label.PFANS1010FORMVIEW_COMPANYNAME',
-            width: 240,
             fix: false,
             filter: true,
           },

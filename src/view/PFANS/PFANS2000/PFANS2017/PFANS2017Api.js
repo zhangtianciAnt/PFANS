@@ -32,6 +32,13 @@ export function getPunDetail(data) {
     data: data
   })
 }
+//获取当日考勤
+export function getTodayPunDetaillist() {
+  return request({
+    url: 'punchcardrecord/getTodayPunDetaillist',
+    method: 'post',
+  })
+}
 
 
 

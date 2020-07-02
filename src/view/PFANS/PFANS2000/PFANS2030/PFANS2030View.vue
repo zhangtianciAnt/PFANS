@@ -268,7 +268,6 @@
         }
       },
       summaryMethod(param) {
-        alert(1);
       const { columns, data } = param;
       const sums = [];
       columns.forEach((column, index) => {

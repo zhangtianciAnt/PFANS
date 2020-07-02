@@ -113,11 +113,9 @@
                       ></el-input-number>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012VIEW_EXPECTEDPAYDATE')">
-                      <el-date-picker :disabled="checkexpectedpaydate" style="width:20vw"
-                                      v-model="form.expectedpaydate">
-                      </el-date-picker>
+                  <el-col :span="8" >
+                    <el-form-item :label="$t('label.PFANS1012VIEW_CURRENCY')" v-if="this.form.type === 'PJ001001'?false:true">
+                      <el-input :disabled="true" style="width:20vw" v-model="form.currency"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -147,13 +145,13 @@
                       </dicselect>
                     </el-form-item>
                   </el-col>
-
-                  <el-col :span="8" >
-                    <el-form-item :label="$t('label.PFANS1012VIEW_CURRENCY')" v-if="this.form.type === 'PJ001001'?false:true">
-                      <el-input :disabled="true" style="width:20vw" v-model="form.currency"></el-input>
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1012VIEW_EXPECTEDPAYDATE')">
+                      <el-date-picker :disabled="checkexpectedpaydate" style="width:20vw"
+                                      v-model="form.expectedpaydate">
+                      </el-date-picker>
                     </el-form-item>
                   </el-col>
-
                   <!--                  <el-col :span="8">-->
                   <!--                    <el-form-item :label="$t('label.PFANS1012VIEW_EXPORTCSV')">-->
                   <!--                      <el-switch-->
@@ -894,8 +892,8 @@
                   </el-row>
                 </el-collapse-item>
               </el-collapse>
-              <el-collapse>
-                <el-collapse-item v-if="show6">
+              <el-collapse v-model="active2">
+                <el-collapse-item v-if="show6" name="2">
                   <template slot="title">
                     <span class="collapse_Title">{{$t('label.PFANS1012VIEW_OTHER')}}</span>
                   </template>
@@ -1430,6 +1428,7 @@
         userlist: '',
         namelist: '',
         active: '1',
+        active2: '2',
         activeName: 'first',
         disablde: true,
         loading: false,

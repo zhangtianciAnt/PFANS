@@ -271,8 +271,8 @@
                 </el-row>
                 <!--外币兑换-->
                 <el-row v-show="show2">
-                  <el-collapse>
-                    <el-collapse-item>
+                  <el-collapse v-model="active2">
+                    <el-collapse-item name="2">
                       <template slot="title">
                         <span class="collapse_Title">{{$t('label.PFANS1013FORMVIEW_CURRENCYEXCHANGE')}}</span>
                       </template>
@@ -357,8 +357,8 @@
                   </el-collapse>
                 </el-row>
                 <el-row>
-                  <el-collapse>
-                    <el-collapse-item>
+                  <el-collapse v-model="active">
+                    <el-collapse-item name="1">
                       <template slot="title">
                         <span class="collapse_Title">{{$t('label.PFANS1012FORMVIEW_INVOICETTYPE')}}</span>
                         <span style="color: red;font-size: 0.85rem">{{$t('label.PFANS1012FORMVIEW_INVOICEI')}}</span>
@@ -832,7 +832,7 @@
                         </dicselect>
                       </template>
                     </el-table-column>
-                    <el-table-column :label="$t('label.PFANS1002VIEW_FOREIGNCURRENCY')" align="center" prop="travel"
+                    <el-table-column :label="$t('label.PFANS1013FORMVIEW_TRAVELALLOWANCE1')" align="center" prop="travel"
                                      v-if="this.form.type === '0'? false : true" width="200">
                       <template slot-scope="scope">
                         <el-input-number
@@ -1159,6 +1159,8 @@
         }
       };
       return {
+        active: '1',
+        active2: '2',
         //add-ws-6/17-禅道101
         workflowCode: '',
         //add-ws-6/17-禅道101

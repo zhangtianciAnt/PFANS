@@ -99,6 +99,54 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
+              <el-form-item :error="errorapplicationdate" :label="$t('label.application_date')"
+                            prop="application_date">
+                <el-date-picker
+                  :disabled="!disable"
+                  :error="errorapplicationdate"
+                  style="width:20vw"
+                  type="date"
+                  v-model="form.application_date">
+                </el-date-picker>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item :error="errorreimbursement" :label="$t('label.PFANS1006FORMVIEW_REIMBURSEMENT')"
+                            prop="reimbursement">
+                <el-date-picker :disabled="!disable" :error="errorreimbursement" style="width:20vw"
+                                v-model="form.reimbursement">
+                </el-date-picker>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS1006FORMVIEW_CURRENCYCHOICE')" prop="currencychoice">
+                <dicselect :code="code3"
+                           :data="form.currencychoice"
+                           :disabled="!disable"
+                           :multiple="multiple"
+                           @change="changecurrencychoice"
+                           style="width:20vw">
+                </dicselect>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS1004VIEW_AMOUNT')" prop="moneys">
+                <el-input-number v-model="form.moneys"
+                                 controls-position="right"
+                                 :disabled="!disable"
+                                 :min="0"
+                                 :max="1000000000"
+                                 :precision="2"
+                                 style="width:20vw"
+                ></el-input-number>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <el-row>
+            <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1012VIEW_MODULE')" v-show=flag>
                 <dicselect :code="code2"
                            :data="form.moduleid"
@@ -116,77 +164,26 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-collapse>
-            <el-collapse-item>
-              <template slot="title">
-                <span class="collapse_Title">{{$t('label.PFANS1006FORMVIEW_BORROWINGCONTENT')}}</span>
-              </template>
 
-              <el-row>
-                <el-col :span="8">
-                  <el-form-item :error="errorapplicationdate" :label="$t('label.application_date')"
-                                prop="application_date">
-                    <el-date-picker
-                      :disabled="!disable"
-                      :error="errorapplicationdate"
-                      style="width:20vw"
-                      type="date"
-                      v-model="form.application_date">
-                    </el-date-picker>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item :error="errorreimbursement" :label="$t('label.PFANS1006FORMVIEW_REIMBURSEMENT')"
-                                prop="reimbursement">
-                    <el-date-picker :disabled="!disable" :error="errorreimbursement" style="width:20vw"
-                                    v-model="form.reimbursement">
-                    </el-date-picker>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-              <el-row>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1006FORMVIEW_CURRENCYCHOICE')" prop="currencychoice">
-                    <dicselect :code="code3"
-                               :data="form.currencychoice"
-                               :disabled="!disable"
-                               :multiple="multiple"
-                               @change="changecurrencychoice"
-                               style="width:20vw">
-                    </dicselect>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1004VIEW_AMOUNT')" prop="moneys">
-                    <el-input-number v-model="form.moneys"
-                                     controls-position="right"
-                                     :disabled="!disable"
-                                     :min="0"
-                                     :max="1000000000"
-                                     :precision="2"
-                                     style="width:20vw"
-                    ></el-input-number>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-              <el-row>
-                <el-form-item :label="$t('label.PFANS1012VIEW_ABSTRACT')" prop="remark">
-                  <el-input :disabled="!disable" :rows="6" style="width:72vw" type="textarea" v-model="form.remark">
-                  </el-input>
-                </el-form-item>
-              </el-row>
-              <el-row>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.remarks')">
-                    <el-input :disabled="!disable" :rows="4" type="textarea" style="width:72vw" v-model="form.remarks">
-                    </el-input>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-            </el-collapse-item>
-          </el-collapse>
-          <el-collapse>
-            <el-collapse-item>
+          <el-row>
+            <el-form-item :label="$t('label.PFANS1012VIEW_ABSTRACT')" prop="remark">
+              <el-input :disabled="!disable" :rows="6" style="width:72vw" type="textarea" v-model="form.remark">
+              </el-input>
+            </el-form-item>
+          </el-row>
+
+
+          <el-row>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.remarks')">
+                <el-input :disabled="!disable" :rows="4" type="textarea" style="width:72vw" v-model="form.remarks">
+                </el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <el-collapse v-model="active">
+            <el-collapse-item name="1">
               <template slot="title">
                 <span class="collapse_Title">{{$t('label.PFANS1006FORMVIEW_PAYMENTMETHOD')}}</span>
               </template>
@@ -460,6 +457,7 @@
         }
       };
       return {
+        active: '1',
         //add-ws-5/18-No70-增加决裁调跳转。
         show10: true,
         show11: false,
