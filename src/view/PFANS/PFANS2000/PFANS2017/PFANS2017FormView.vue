@@ -2,6 +2,7 @@
   <div>
     <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" ref="roletable"
                      :title="title" @buttonClick="buttonClick" v-loading="loading">
+      <el-tag slot="customize" type="success" style="float: left;margin-left: 3vw;font-size:15px;margin-top:-4px">{{$t('label.PFANS2017VIEW_WORKHOURS')}}&nbsp;&nbsp;&nbsp;&nbsp;{{this.workHours}}</el-tag>
     </EasyNormalTable>
   </div>
 </template>
@@ -27,6 +28,7 @@
                 loading: false,
                 title: "title.PFANS2017FROMVIEW",
                 data: [],
+                workHours: '',
                 columns: [
                     {
                         code: 'punchcardrecord_date',
@@ -99,6 +101,9 @@
                     .dispatch('PFANS2017Store/getTodayPunDetaillist')
                     .then(response => {
                         for (let i = 0; i < response.length; i++) {
+                            if(i == 0){
+                                this.workHours = response[i].tenantid;
+                            }
                             if (this.$i18n) {
                                 if (response[i].eventno === '1') {
                                     //进门
@@ -108,6 +113,9 @@
                                     //出门
                                     response[i].eventno = this.$t('label.PFANS2017VIEW_OUT');
                                 }
+                            }
+                            if(i === response.length - 1){
+                                response[i].eventno = '';
                             }
                             response[i].punchcardrecord_date = moment(response[i].punchcardrecord_date).format('YYYY-MM-DD HH:mm:ss')
                         }
