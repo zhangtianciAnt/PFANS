@@ -2031,7 +2031,7 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS2026VIEW_REASON2')" prop="reason2">
-                    <el-input style="width:20vw" v-model="form.reason2" disabled type="textarea">
+                    <el-input style="width:20vw" v-model="form.reason2"  type="textarea">
                     </el-input>
                   </el-form-item>
                 </el-col>
