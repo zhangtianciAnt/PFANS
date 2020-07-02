@@ -58,17 +58,20 @@
                          :prop="item.code"
                          align="left" show-overflow-tooltip sortable="custom"
                          v-else/>
+        <!--        add_fjl_书类使用，不可更改disabled-->
         <el-table-column :label="$t('label.operation')" align="center" v-if="handleShow" width="110vw">
           <template slot-scope="scope">
             <el-button
               @click="handleEdit(scope.$index, scope.row)"
               plain
+              :disabled="scope.row.sealstatus === ''"
               size="mini"
               type="primary"
             >{{$t('button.view')}}
             </el-button>
           </template>
         </el-table-column>
+        <!--        add_fjl_书类使用，不可更改disabled-->
       </el-table>
       <div class="pagination-container" style="padding-top: 20px">
         <el-pagination :current-page.sync="listQuery.page" :page-size="listQuery.limit"

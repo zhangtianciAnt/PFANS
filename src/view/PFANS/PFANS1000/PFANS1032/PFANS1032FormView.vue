@@ -222,11 +222,11 @@
             name: 'button.generate',
             disabled: false,
           },
-            {
-                key: 'submyin',
-                name: 'button.submyin',
-                disabled: false,
-            },
+            // {
+            //     key: 'submyin',
+            //     name: 'button.submyin',
+            //     disabled: false,
+            // },
         ];
         this.disabled = true;
       }

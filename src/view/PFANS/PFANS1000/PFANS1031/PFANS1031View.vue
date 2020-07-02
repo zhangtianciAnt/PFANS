@@ -234,7 +234,7 @@
                     }
                       if (this.$i18n) {
                           if (response[j].sealstatus === null || response[j].sealstatus === '') {
-                              response[j].sealstatus = this.$t('label.PFANS1032FORMVIEW_NOSEAL');
+                              response[j].sealstatus = '';
                           } else if (response[j].sealstatus === '1') {
                               response[j].sealstatus = this.$t('label.PFANS1032FORMVIEW_NOTSTARTSEAL');
                           } else if (response[j].sealstatus === '2') {
@@ -305,24 +305,23 @@
         //add_fjl_添加合同回款相关  start
         selectInit(row, index) {
             if (this.$i18n) {
-                return (moment(row.deliverydate).format("YYYY-MM") === new moment().format("YYYY-MM") && row.sealstatus === this.$t('label.PFANS1032FORMVIEW_NOSEAL'));
-                d
+                return (moment(row.deliverydate).format("YYYY-MM") <= new moment().format("YYYY-MM") && row.sealstatus === '');
             }
         },
         handleEdit(row) {
-            if (row.sealid === '' || row.sealid === null) {
-                Message({
-                    message: this.$t('label.PFANS1032FORMVIEW_SEALVIEW'),
-                    type: 'info',
-                    duration: 2 * 1000,
-                });
-                return;
-            }
+            // if (row.sealid === '' || row.sealid === null) {
+            //     Message({
+            //         message: this.$t('label.PFANS1032FORMVIEW_SEALVIEW'),
+            //         type: 'info',
+            //         duration: 2 * 1000,
+            //     });
+            //     return;
+            // }
             this.$router.push({
                 name: 'PFANS4001FormView',
                 params: {
                     _id: row.sealid,
-                    disabled: false,
+                    disabled: true,
                 },
             });
         },
