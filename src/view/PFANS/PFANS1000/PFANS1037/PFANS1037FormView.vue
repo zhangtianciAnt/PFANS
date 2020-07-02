@@ -391,10 +391,11 @@
         return row.status === "正常结束";
       },
       rowClick(row) {
+        debugger
         if (this.$route.params.title === 7) {
           this.rowid = row.assetinformationid;
         } else if (this.$route.params.title === 8) {
-          this.rowid = row.softwaretransferid;
+          this.rowid = row.softwaretransfer_id;
         } else if (this.$route.params.title === 9) {
           this.rowid = row.fixedassets_id;
         }
