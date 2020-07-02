@@ -84,6 +84,21 @@
           <!--          //add-ws-5/18-No70-增加决裁调跳转。-->
           <el-row>
             <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS1012FORMVIEW_BUDGET')">
+                <!--                <el-input :disabled="true" style="width:20vw" v-model="form.budgetunit" maxlength='50'></el-input>-->
+                <el-select clearable style="width: 20vw" v-model="form.budgetunit" :disabled="!disable"
+                           :placeholder="$t('normal.error_09')">
+                  <el-option
+                    v-for="item in options1"
+                    :key="item.value"
+                    :label="item.lable"
+                    :value="item.value"
+                    @change="changeBut">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
               <el-form-item :error="errorapplicationdate" :label="$t('label.application_date')"
                             prop="application_date">
                 <el-date-picker
@@ -129,22 +144,8 @@
               </el-form-item>
             </el-col>
           </el-row>
+
           <el-row>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1012FORMVIEW_BUDGET')">
-                <!--                <el-input :disabled="true" style="width:20vw" v-model="form.budgetunit" maxlength='50'></el-input>-->
-                <el-select clearable style="width: 20vw" v-model="form.budgetunit" :disabled="!disable"
-                           :placeholder="$t('normal.error_09')">
-                  <el-option
-                    v-for="item in options1"
-                    :key="item.value"
-                    :label="item.lable"
-                    :value="item.value"
-                    @change="changeBut">
-                  </el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1012VIEW_MODULE')" v-show=flag>
                 <dicselect :code="code2"
@@ -163,12 +164,15 @@
               </el-form-item>
             </el-col>
           </el-row>
+
           <el-row>
             <el-form-item :label="$t('label.PFANS1012VIEW_ABSTRACT')" prop="remark">
               <el-input :disabled="!disable" :rows="6" style="width:72vw" type="textarea" v-model="form.remark">
               </el-input>
             </el-form-item>
           </el-row>
+
+
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.remarks')">
