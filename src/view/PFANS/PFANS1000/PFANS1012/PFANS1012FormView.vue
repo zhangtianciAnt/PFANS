@@ -892,8 +892,8 @@
                   </el-row>
                 </el-collapse-item>
               </el-collapse>
-              <el-collapse>
-                <el-collapse-item v-if="show6">
+              <el-collapse v-model="active2">
+                <el-collapse-item v-if="show6" name="2">
                   <template slot="title">
                     <span class="collapse_Title">{{$t('label.PFANS1012VIEW_OTHER')}}</span>
                   </template>
@@ -1428,6 +1428,7 @@
         userlist: '',
         namelist: '',
         active: '1',
+        active2: '2',
         activeName: 'first',
         disablde: true,
         loading: false,
