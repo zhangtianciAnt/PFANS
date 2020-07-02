@@ -2,7 +2,7 @@
   <div>
     <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" ref="roletable"
                      :title="title" @buttonClick="buttonClick" v-loading="loading">
-      <el-tag slot="customize" type="success" style="float: left;margin-left: 3vw;font-size:15px;margin-top:-4px">{{$t('label.PFANS2017VIEW_WORKHOURS')}}&nbsp;&nbsp;&nbsp;&nbsp;{{this.workHours}}</el-tag>
+      <el-tag v-if="this.resultShow" slot="customize" type="success" style="float: left;margin-left: 3vw;font-size:15px;margin-top:-4px">{{$t('label.PFANS2017VIEW_WORKHOURS')}}&nbsp;&nbsp;&nbsp;&nbsp;{{this.workHours}}</el-tag>
     </EasyNormalTable>
   </div>
 </template>
@@ -29,6 +29,7 @@
                 title: "title.PFANS2017FROMVIEW",
                 data: [],
                 workHours: '',
+                resultShow: false,
                 columns: [
                     {
                         code: 'punchcardrecord_date',
@@ -102,6 +103,7 @@
                     .then(response => {
                         for (let i = 0; i < response.length; i++) {
                             if(i == 0){
+                                this.resultShow = true;
                                 this.workHours = response[i].tenantid;
                             }
                             if (this.$i18n) {
