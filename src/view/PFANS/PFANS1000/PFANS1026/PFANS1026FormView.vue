@@ -1869,8 +1869,10 @@
         this.show10 = false;
       }
       //add-ws-6/22-禅道152任务
-      if (!this.disabled || this.$route.params.state === this.$t('label.PFANS8008FORMVIEW_INVALID')) {
-        this.buttonList = [];
+        if (!this.disabled) {
+            if (this.$route.params.state === this.$t('label.PFANS8008FORMVIEW_INVALID')) {
+                this.buttonList = [];
+            }
       }
 //            if(this.$route.params._id === ''){
 //              this.buttonList.splice(3, 1);
