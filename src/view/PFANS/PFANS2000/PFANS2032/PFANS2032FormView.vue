@@ -74,6 +74,21 @@
                   </el-form-item>
                 </el-col>
               </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_RANK')">
+                    <dicselect
+                      :code="code"
+                      class="width"
+                      style="width:20vw"
+                      :data="form.starank"
+                      :disabled="true"
+                    ></dicselect>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+
+
               <el-drawer :visible.sync="diaoshu" size="60%" :show-close="false" :withHeader="false" append-to-body destroy-on-close custom-class="custimize_drawer">
                 <el-form label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
                   <el-row>
@@ -606,6 +621,7 @@
         ],
         baseInfo: {},
         form: {
+          starank: '',
           staffexitprocedure_id: '',
           center_id: '',
           group_id: '',

@@ -133,24 +133,6 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row v-if="this.checktype===1">
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS2026VIEW_DEPARTUREDATE1')" prop="newhope_exit_date">
-                <el-date-picker :disabled="!disable" style="width:20vw" v-model="form.newhope_exit_date"
-                >
-                </el-date-picker>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS2026VIEW_DEPARTUREDATE2')" prop="newreason">
-                <el-input :disabled="!disable"
-                          :placeholder="$t('label.PFANS2026VIEW_REMARK2')"
-                          style="width: 46vw" type="textarea"
-                          v-model="form.newreason">
-                </el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
           <el-drawer :visible.sync="diaoshu" size="60%" :show-close="false" :withHeader="false" append-to-body
                      destroy-on-close custom-class="custimize_drawer">
             <el-form label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
@@ -286,6 +268,25 @@
                         v-model="form.reason">
               </el-input>
             </el-form-item>
+          </el-row>
+          <el-row v-if="this.checktype===1">
+            <el-divider></el-divider>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS2026VIEW_DEPARTUREDATE1')" prop="newhope_exit_date">
+                <el-date-picker :disabled="!disable" style="width:20vw" v-model="form.newhope_exit_date"
+                >
+                </el-date-picker>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS2026VIEW_DEPARTUREDATE2')" prop="newreason">
+                <el-input :disabled="!disable"
+                          :placeholder="$t('label.PFANS2026VIEW_REMARK2')"
+                          style="width: 46vw" type="textarea"
+                          v-model="form.newreason">
+                </el-input>
+              </el-form-item>
+            </el-col>
           </el-row>
           <el-row>
             <div class="sub_color_blue">
