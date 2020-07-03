@@ -1,7 +1,7 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :canStart="canStart" :title="title" :workflowCode="right"
-                         @buttonClick="buttonClick"   :enableSave="enableSave"
+                         @buttonClick="buttonClick" :enableSave="enableSave"
                          @end="end" @start="start" @workflowState="workflowState" ref="container" v-loading="loading">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
@@ -424,7 +424,7 @@
           reporter: moment().format('YYYY-MM-DD'),
           report_date: moment().format('YYYY-MM-DD'),
           delivery_sheet_date: moment().format('YYYY-MM-DD'),
-          stage: '0',
+          stage: '1',
         },
         code2: 'PR022',
         code3: 'PR019',
@@ -480,6 +480,7 @@
     },
     created() {
       this.checktype = this.$route.params._type;
+      // if(this.checktype = 1){
       if (!this.$route.params.disabled) {
         if (this.$route.params._status === 4) {
           this.buttonList = [
@@ -509,21 +510,26 @@
           ];
         }
       } else {
-        this.buttonList = [
-          {
-            key: 'save',
-            name: 'button.save',
-            disabled: false,
-            icon: 'el-icon-check',
-          },
-        ];
+        if (this.$route.params._type2 === 1) {
+          this.buttonList = [];
+        } else {
+          this.buttonList = [
+            {
+              key: 'save',
+              name: 'button.save',
+              disabled: false,
+              icon: 'el-icon-check',
+            },
+          ];
+        }
+
       }
-      if (this.checktype === 1) {
+      if (this.$route.params._type2 === 1) {
         this.right = 'W0080';
-        this.canStart=true
+        this.canStart = true;
       } else {
         this.right = 'W0033';
-         this.canStart=false
+        this.canStart = false;
       }
       this.disable = this.$route.params.disabled;
     },
@@ -541,10 +547,16 @@
             } else {
               this.enableSave = false;
             }
+            // if(this.checktype = 1){
             if (this.form.newhope_exit_date != '' && this.form.newhope_exit_date != null) {
               if (this.form.status === '4') {
                 this.form.hope_exit_date = this.form.newhope_exit_date;
+                this.form.stage = '0';
               }
+            }
+            // }
+            if (this.form.stage == '1') {
+              this.checktype = 1;
             }
             if (response.staffexitprocedure.user_id !== null && response.staffexitprocedure.user_id !== '') {
               let rst = getOrgInfoByUserId(response.staffexitprocedure.user_id);
@@ -643,7 +655,7 @@
             if (response.length > 0) {
               if (this.$route.params._id) {
                 this.listsum = 0;
-              }else{
+              } else {
                 this.listsum = 1;
               }
             } else {
@@ -734,16 +746,20 @@
       workflowState(val) {
         if (val.state === '1') {
           this.form.status = '3';
+          this.form.stage = '1';
         } else if (val.state === '2') {
           this.form.status = '4';
+          this.form.stage = '0';
         }
         this.buttonClick('save');
       },
       start(val) {
         if (val.state === '0') {
           this.form.status = '2';
+          this.form.stage = '1';
         } else if (val.state === '2') {
           this.form.status = '4';
+          this.form.stage = '0';
         }
         this.buttonClick('save');
       },
