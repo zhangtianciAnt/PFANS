@@ -530,6 +530,10 @@
                         this.tubecenterorglist = this.form.tubecenter_id;
                         this.tubegrouporglist = this.form.tubegroup_id;
                         this.tubeteamorglist = this.form.tubeteam_id;
+                        //add-ws-7/2-禅道任务192
+                        this.getFebud(this.form.ferrygroup_id);
+                        this.getbud(this.form.tubegroup_id);
+                      //add-ws-7/2-禅道任务192
                         if (response.notification.length > 0) {
                             this.tableD = response.notification;
                         }
@@ -863,20 +867,33 @@
                             this.baseInfo.softwaretransfer = JSON.parse(JSON.stringify(this.form));
                             this.baseInfo.notification = [];
                             for (let i = 0; i < this.tableD.length; i++) {
+                              //add-ws-7/2-禅道任务192
+                              if(this.tableD[i].management == '' && this.tableD[i].assetname == ''){
+                                this.loading = false;
+                                Message({
+                                  message: this.$t("label.PFANS1008FORMVIEW_CHECKERROR"),
+                                  type: 'error',
+                                  duration: 5 * 1000
+                                });
+                                return
+                              }else{
+                                //add-ws-7/2-禅道任务192
                                 if (this.tableD[i].management !== '' || this.tableD[i].assetname !== '' || this.tableD[i].person !== '' ||
-                                    this.tableD[i].eafter !== '' || this.tableD[i].reason !== '') {
-                                    this.baseInfo.notification.push(
-                                        {
-                                            notificationid: this.tableD[i].notificationid,
-                                            softwaretransferid: this.tableD[i].softwaretransferid,
-                                            management: this.tableD[i].management,
-                                            assetname: this.tableD[i].assetname,
-                                            person: this.tableD[i].person,
-                                            eafter: this.tableD[i].eafter,
-                                            reason: this.tableD[i].reason,
-                                        },
-                                    );
+                                  this.tableD[i].eafter !== '' || this.tableD[i].reason !== '') {
+                                  this.baseInfo.notification.push(
+                                    {
+                                      notificationid: this.tableD[i].notificationid,
+                                      softwaretransferid: this.tableD[i].softwaretransferid,
+                                      management: this.tableD[i].management,
+                                      assetname: this.tableD[i].assetname,
+                                      person: this.tableD[i].person,
+                                      eafter: this.tableD[i].eafter,
+                                      reason: this.tableD[i].reason,
+                                    },
+                                  );
                                 }
+                              }
+
                             }
                             if (this.$route.params._id) {
                                 this.baseInfo.softwaretransferid = this.$route.params._id;

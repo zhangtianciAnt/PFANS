@@ -60,7 +60,7 @@ const PFANS2017Store = {
     //获取当日考勤
     getTodayPunDetaillist({commit}) {
       return new Promise((resolve, reject) => {
-        getnowPunDetail().then(response => {
+        getTodayPunDetaillist().then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
