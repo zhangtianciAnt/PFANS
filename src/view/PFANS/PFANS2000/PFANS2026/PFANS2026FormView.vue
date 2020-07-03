@@ -556,8 +556,10 @@
               }
             }
             // }
-            if (this.form.stage == '1') {
-              this.checktype = 1;
+            if (this.form.status != '0') {
+              if (this.form.stage == '1') {
+                this.checktype = 1;
+              }
             }
             if (response.staffexitprocedure.user_id !== null && response.staffexitprocedure.user_id !== '') {
               let rst = getOrgInfoByUserId(response.staffexitprocedure.user_id);
