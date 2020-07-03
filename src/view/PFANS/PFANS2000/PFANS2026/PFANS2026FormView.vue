@@ -510,14 +510,19 @@
           ];
         }
       } else {
-        this.buttonList = [
-          {
-            key: 'save',
-            name: 'button.save',
-            disabled: false,
-            icon: 'el-icon-check',
-          },
-        ];
+        if (this.$route.params._type2 === 1) {
+          this.buttonList = [];
+        } else {
+          this.buttonList = [
+            {
+              key: 'save',
+              name: 'button.save',
+              disabled: false,
+              icon: 'el-icon-check',
+            },
+          ];
+        }
+
       }
       if (this.$route.params._type2 === 1) {
         this.right = 'W0080';
