@@ -1,7 +1,7 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :canStart="canStart" :title="title" :workflowCode="right"
-                         @buttonClick="buttonClick"
+                         @buttonClick="buttonClick"   :enableSave="enableSave"
                          @end="end" @start="start" @workflowState="workflowState" ref="container" v-loading="loading">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
@@ -381,6 +381,7 @@
         title: 'title.PFANS2026FROMVIEW',
         userlist: '',
         loading: false,
+        enableSave: false,
         buttonList: [],
         baseInfo: {},
         sex: '',
@@ -522,7 +523,7 @@
         this.canStart=true
       } else {
         this.right = 'W0033';
-         this.canStart=true
+         this.canStart=false
       }
       this.disable = this.$route.params.disabled;
     },
@@ -535,6 +536,11 @@
           .dispatch('PFANS2026Store/selectById', {'staffexitprocedureid': this.$route.params._id})
           .then(response => {
             this.form = response.staffexitprocedure;
+            if (this.form.status === '4') {
+              this.enableSave = true;
+            } else {
+              this.enableSave = false;
+            }
             if (this.form.newhope_exit_date != '' && this.form.newhope_exit_date != null) {
               if (this.form.status === '4') {
                 this.form.hope_exit_date = this.form.newhope_exit_date;
