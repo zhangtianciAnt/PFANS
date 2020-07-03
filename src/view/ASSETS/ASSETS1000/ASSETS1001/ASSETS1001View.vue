@@ -545,6 +545,8 @@
         }
         if (val === 'export') {
           this.selectedlist = this.$refs.roletable.selectedList;
+          debugger
+          console.log("this.selectedlist1111",this.selectedlist)
             if(this.selectedlist.length === 0){
                 Message({
                     message: this.$t("normal.info_01"),
@@ -586,6 +588,8 @@
         }
       },
       export(selectedList){
+          console.log("selectedList",selectedList)
+          debugger
           let tHeader = "";
           let filterVal = "";
         let arr1 = ["PA001001", "PA001009"];
@@ -602,7 +606,7 @@
                       });
                tHeader = [this.$t('label.ASSETS1001VIEW_FILENAME'),
                   this.$t('label.ASSETS1001VIEW_TYPEASSETS'),
-                  this.$t('label.PFANS2020VIEW_JOBNUMBER'),
+                  this.$t('label.user_name'),
                   this.$t('label.ASSETS1001VIEW_BARCODE'),
                   this.$t('label.ASSETS1001VIEW_BARTYPE'),
                   this.$t('label.ASSETS1001VIEW_ASSETSTATUS'),
@@ -616,7 +620,7 @@
                  this.$t('label.ASSETS1001VIEW_MODEL'),
                  this.$t('label.ASSETS1001VIEW_REMARKS')
               ];
-               filterVal = ['filename', 'typeassets', 'jobnumber', 'barcode', 'bartypeName', 'assetstatus','stockstatus','pcno','usedepartment','departmentcode','purchasetime','price','realprice','model','remarks'];
+               filterVal = ['filename', 'typeassets', 'principal', 'barcode', 'bartypeName', 'assetstatus','stockstatus','pcno','usedepartment','departmentcode','purchasetime','price','realprice','model','remarks'];
           }else if(selectedList.every(list => {
               return arr2.includes(list.typeassets1)
           })){
@@ -632,7 +636,7 @@
                   });
                tHeader = [this.$t('label.ASSETS1001VIEW_FILENAME'),
                   this.$t('label.ASSETS1001VIEW_TYPEASSETS'),
-                  this.$t('label.PFANS2020VIEW_JOBNUMBER'),
+                  this.$t('label.user_name'),
                   this.$t('label.ASSETS1001VIEW_BARCODE'),
                   this.$t('label.ASSETS1001VIEW_BARTYPE'),
                   this.$t('label.ASSETS1001VIEW_ASSETSTATUS'),
@@ -655,7 +659,7 @@
                   this.$t('label.ASSETS1001VIEW_PSDCDRESPONSIBLE'),
                   this.$t('label.ASSETS1001VIEW_PSDCDRETURNCONFIRMATION')
               ];
-               filterVal = ['filename', 'typeassets', 'jobnumber', 'barcode', 'bartypeName', 'assetstatus','stockstatus',
+               filterVal = ['filename', 'typeassets', 'principal', 'barcode', 'bartypeName', 'assetstatus','stockstatus',
                   'remarks','no','activitiondate','price','assetnumber','model','address','usedepartment','departmentcode','psdcddebitsituation','psdcdbringoutreason'
                   ,'psdcdperiod','psdcdreturndate','psdcdisoverdue','psdcdcounterparty','psdcdresponsible','psdcdreturnconfirmation'];
 
@@ -670,8 +674,8 @@
                           list.outparams11 = getUserInfo(list.outparams11).userinfo.customername;
                       }if(list.inparams3 && getUserInfo(list.inparams3)){
                           list.inparams3 = getUserInfo(list.inparams3).userinfo.customername;
-                      }if(list.inparams6 && getUserInfo(list.outparams6)){
-                          list.inparams6 = getUserInfo(list.inparams6).userinfo.customername;
+                      }if(list.owner && getUserInfo(list.owner)){
+                          list.owner = getUserInfo(list.owner).userinfo.customername;
                       }if(list.outparams2 && getUserInfo(list.outparams2)){
                           list.outparams2 = getUserInfo(list.outparams2).userinfo.customername;
                       }if(list.outparams7 && getUserInfo(list.outparams7)){
@@ -705,7 +709,7 @@
               )
                tHeader = [this.$t('label.ASSETS1001VIEW_FILENAME'),
                   this.$t('label.ASSETS1001VIEW_TYPEASSETS'),
-                  this.$t('label.PFANS2020VIEW_JOBNUMBER'),
+                  this.$t('label.user_name'),
                   this.$t('label.ASSETS1001VIEW_BARCODE'),
                   this.$t('label.ASSETS1001VIEW_BARTYPE'),
                   this.$t('label.ASSETS1001VIEW_ASSETSTATUS'),
@@ -745,10 +749,10 @@
                  this.$t('label.department')
 
               ];
-               filterVal = ['filename', 'typeassets', 'jobnumber', 'barcode', 'bartypeName', 'assetstatus','stockstatus',
+               filterVal = ['filename', 'typeassets', 'principal', 'barcode', 'bartypeName', 'assetstatus','stockstatus',
                   'pcno','model','price','no','purchasetime','activitiondate','remarks','customer','controlno','machinename',
                   'inparams1','inparams2',
-                   'inparams3','inparams4','inparams5','inparams6',
+                   'inparams3','inparams4','inparams5','owner',
                    'inparams7','inparams8','outparams1',
                   'outparams2', 'outparams3','outparams4','outparams5','outparams6','outparams7','outparams8','outparams9',
                   'outparams10','outparams11','outparams12','outparams13','outparams14',"usedepartment"];
