@@ -17,6 +17,7 @@
     },
     data() {
       return {
+        checktype: 0,
         loading: false,
         title: 'title.PFANS2026VIEW',
         data: [],
@@ -167,6 +168,11 @@
           });
       },
       rowClick(row) {
+        if (row.stage == "1") {
+          this.checktype = 1;
+        } else {
+          this.checktype = 0;
+        }
         this.status = 0;
         //add-ws-6/16-禅道106
         this.buttonList[2].disabled = true;
@@ -199,9 +205,10 @@
           this.$router.push({
             name: 'PFANS2026FormView',
             params: {
-              _ckeck : false,
+              _ckeck: false,
               _status: this.status,
-              _type: 0,
+              _type: this.checktype,
+              _type2: 0,
               _id: this.rowid,
               disabled: false,
             },
@@ -210,8 +217,9 @@
           this.$router.push({
             name: 'PFANS2026FormView',
             params: {
-              _ckeck : true,
+              _ckeck: true,
               _type: 0,
+              _type2: 0,
               _id: '',
               disabled: true,
             },
@@ -228,9 +236,10 @@
           this.$router.push({
             name: 'PFANS2026FormView',
             params: {
-              _ckeck : false,
+              _ckeck: false,
               _status: this.status,
               _type: 0,
+              _type2: 0,
               _id: this.rowid,
               disabled: true,
             },
@@ -257,8 +266,9 @@
           this.$router.push({
             name: 'PFANS2026FormView',
             params: {
-              _ckeck : false,
+              _ckeck: false,
               _type: 1,
+              _type2: 1,
               _id: this.rowid,
               disabled: true,
             },
