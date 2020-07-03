@@ -746,11 +746,12 @@ export default {
                     list[h].difference = this.$t('label.PFANSUSERFORMVIEW_OLDSTAFF');
                   }
                 }
+                //        zy-7/3-禅道205任务
                 //是否有工作经验
                 if(list[h].experience !== '' && list[h].experience !== null) {
                     if (list[h].experience === '1') {
                         list[h].experience = this.$t('label.PFANSUSERFORMVIEW_NO');
-                    } else if (list[h].experience === '') {
+                    } else if (list[h].experience === '0') {
                         list[h].experience = this.$t('label.PFANSUSERFORMVIEW_YES');
                     }
                 }
