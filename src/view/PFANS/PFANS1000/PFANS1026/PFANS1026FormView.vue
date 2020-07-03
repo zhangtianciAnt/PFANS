@@ -3538,7 +3538,7 @@
                   _checkid: this.IDname,
                   _check: true,
                   _id: response.naplist,
-                  disabled: true,
+                  disabled: false,
                 },
               });
             }
@@ -3550,7 +3550,7 @@
                   _checkid: this.IDname,
                   _check: true,
                   _id: response.petilist,
-                  disabled: true,
+                  disabled: false,
                 },
               });
             }
