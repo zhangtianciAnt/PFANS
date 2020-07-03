@@ -474,18 +474,11 @@
           }],
         },
         checktype: '',
-        canStart: false,
+        canStart: true,
       };
     },
     created() {
       this.checktype = this.$route.params._type;
-      if (this.checktype === 1) {
-        this.right = 'W0080';
-        this.canStart=true
-      } else {
-        this.right = 'W0033';
-         this.canStart=false
-      }
       if (!this.$route.params.disabled) {
         if (this.$route.params._status === 4) {
           this.buttonList = [
@@ -523,6 +516,13 @@
             icon: 'el-icon-check',
           },
         ];
+      }
+      if (this.checktype === 1) {
+        this.right = 'W0080';
+        this.canStart=true
+      } else {
+        this.right = 'W0033';
+         this.canStart=true
       }
       this.disable = this.$route.params.disabled;
     },
