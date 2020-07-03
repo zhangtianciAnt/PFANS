@@ -61,7 +61,7 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS4001FORMVIRW_WJLX')" prop="filetype">
                 <dicselect
-                  :disabled="true"
+                  :disabled="!disable"
                   :code="code"
                   :multiple="multiple"
                   :data="form.filetype"
