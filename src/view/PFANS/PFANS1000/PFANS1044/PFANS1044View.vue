@@ -401,6 +401,13 @@
           },
           {
             code: 'qingremarks',
+            label: 'label.PFANS1024VIEW_PAPERCONTRACT',
+            width: 300,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'remarks',
             label: 'label.PFANS2026FORMVIEW_REMARKS',
             width: 120,
             fix: false,
