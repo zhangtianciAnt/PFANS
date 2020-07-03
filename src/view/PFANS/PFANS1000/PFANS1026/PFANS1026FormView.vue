@@ -1869,10 +1869,10 @@
         this.show10 = false;
       }
       //add-ws-6/22-禅道152任务
-        if (!this.disabled) {
-            if (this.$route.params.state === this.$t('label.PFANS8008FORMVIEW_INVALID')) {
-                this.buttonList = [];
-            }
+      if (!this.disabled) {
+        if (this.$route.params.state === this.$t('label.PFANS8008FORMVIEW_INVALID')) {
+          this.buttonList = [];
+        }
       }
 //            if(this.$route.params._id === ''){
 //              this.buttonList.splice(3, 1);
@@ -3479,14 +3479,82 @@
           'countNumber': countNumber,
         })
           .then(response => {
-            this.data = response;
-            this.loading = false;
-            Message({
-              message: this.$t('normal.success_02'),
-              type: 'success',
-              duration: 5 * 1000,
-            });
-            this.paramsTitle();
+            //add-ws-7/1-禅道152任务
+            this.$store.commit('global/SET_HISTORYURL', '');
+            this.$store.commit('global/SET_WORKFLOWURL', '/FFFFF1024FormView');
+            if (response.quolist != '') {
+              this.$router.push({
+                name: 'PFANS1027FormView',
+                params: {
+                  _checkdisable: this.disable,
+                  _checkid: this.IDname,
+                  _check: true,
+                  _id: response.quolist,
+                  disabled: true,
+                },
+              });
+            }
+            if (response.nonlist != '') {
+              this.$router.push({
+                name: 'PFANS1028FormView',
+                params: {
+                  _checkdisable: this.disable,
+                  _checkid: this.IDname,
+                  _check: true,
+                  _id: response.nonlist,
+                  disabled: true,
+                },
+              });
+            }
+            if (response.conlist != '') {
+              this.$router.push({
+                name: 'PFANS1029FormView',
+                params: {
+                  _checkdisable: this.disable,
+                  _checkid: this.IDname,
+                  _check: true,
+                  _id: response.conlist,
+                  disabled: true,
+                },
+              });
+            }
+            if (response.awardlist1 != '') {
+              this.$router.push({
+                name: 'PFANS1030FormView',
+                params: {
+                  _checkdisable: this.disable,
+                  _checkid: this.IDname,
+                  _check: true,
+                  _id: response.awardlist1,
+                  disabled: true,
+                },
+              });
+            }
+            if (response.naplist != '') {
+              this.$router.push({
+                name: 'PFANS1031FormView',
+                params: {
+                  _checkdisable: this.disable,
+                  _checkid: this.IDname,
+                  _check: true,
+                  _id: response.naplist,
+                  disabled: true,
+                },
+              });
+            }
+            if (response.petilist != '') {
+              this.$router.push({
+                name: 'PFANS1032FormView',
+                params: {
+                  _checkdisable: this.disable,
+                  _checkid: this.IDname,
+                  _check: true,
+                  _id: response.petilist,
+                  disabled: true,
+                },
+              });
+            }
+            //add-ws-7/1-禅道152任务
           })
           .catch(error => {
             Message({

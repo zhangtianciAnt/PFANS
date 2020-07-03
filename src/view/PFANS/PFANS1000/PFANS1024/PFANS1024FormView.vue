@@ -2323,14 +2323,22 @@
         this.loading = true;
         this.$store.dispatch('PFANS1026Store/insertBook', tabledata)
           .then(response => {
-            this.data = response;
-            this.loading = false;
-            Message({
-              message: this.$t('normal.success_02'),
-              type: 'success',
-              duration: 5 * 1000,
-            });
-            this.paramsTitle();
+            //add-ws-7/1-禅道152任务
+            this.$store.commit('global/SET_HISTORYURL', '');
+            this.$store.commit('global/SET_WORKFLOWURL', '/FFFFF1024FormView');
+            if (response.awardlist2 != '') {
+              this.$router.push({
+                name: 'PFANS1025FormView',
+                params: {
+                  _checkdisable: this.disable,
+                  check_id: this.IDname,
+                  _checkname: true,
+                  _id: response.awardlist2,
+                  disabled: true,
+                },
+              });
+            }
+            //add-ws-7/1-禅道152任务
           })
           .catch(error => {
             Message({
