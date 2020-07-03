@@ -212,11 +212,7 @@
           });
       },
       rowClick(row) {
-        if (row.stage == '1') {
-          this.checktype = 1;
-        } else {
-          this.checktype = 0;
-        }
+        this.checktype = 0;
         this.status = 0;
         //add-ws-6/16-禅道106
         this.buttonList[2].disabled = true;
@@ -226,6 +222,11 @@
           this.buttonList[2].disabled = false;
         }
         if (row.status === this.$t('label.PFANS5004VIEW_OVERTIME')) {
+          if (row.stage == '1') {
+            this.checktype = 1;
+          } else {
+            this.checktype = 0;
+          }
           this.buttonList[4].disabled = false;
           this.status = 4;
         }
