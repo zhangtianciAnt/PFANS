@@ -199,7 +199,7 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS2026VIEW_REPORTER')">
-                    <user :disabled="true" :selectType="selectType"
+                    <user :disabled="true" :selectType="selectType" :userlist="reporterlist"
                           style="width:12vw"></user>
                   </el-form-item>
                 </el-col>
@@ -380,6 +380,7 @@
         selectType: 'Single',
         title: 'title.PFANS2026FROMVIEW',
         userlist: '',
+        reporterlist: '',
         loading: false,
         enableSave: false,
         buttonList: [],
@@ -636,6 +637,7 @@
         this.educational_background = this.listbutton[0].educational_background;
         this.resignation_date = this.listbutton[0].resignation_date;
         this.reporter = this.listbutton[0].reporter;
+        this.reporterlist = this.listbutton[0].user_id;
         this.report_date = this.listbutton[0].report_date;
         this.external_evaluation = this.listbutton[0].external_evaluation;
         this.influence_information_security = this.listbutton[0].influence_information_security;
