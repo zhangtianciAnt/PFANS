@@ -167,7 +167,7 @@
                     code: 'annual_leave_shenqingzhong',
                     label: 'label.PFANS2013VIEW_SHENQINGZHONG',
                     labelClass: 'pfans2013view_column_11',
-                    width: 60,
+                    width: 70,
                     fix: false,
                     filter: true,
                   },
