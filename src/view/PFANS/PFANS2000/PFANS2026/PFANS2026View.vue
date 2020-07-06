@@ -116,6 +116,7 @@
           {'key': 'changedata', 'name': 'button.changedata', 'disabled': true, 'icon': 'el-icon-view'},
           //add-ws-6/16-禅道106
         ],
+        userid: '',
         rowid: '',
         status: '',
         row_id: 'staffexitprocedure_id',
@@ -212,6 +213,12 @@
           });
       },
       rowClick(row) {
+        if(this.$store.getters.userinfo){
+          let rst = getUserInfo(this.$store.getters.userinfo.userid);
+          if (rst) {
+            this.userid = getUserInfo(this.$store.getters.userinfo.userid).userinfo.customername;
+          }
+        }
         this.checktype = 0;
         this.status = 0;
         //add-ws-6/16-禅道106
@@ -227,7 +234,9 @@
           } else {
             this.checktype = 0;
           }
-          this.buttonList[4].disabled = false;
+          if(this.userid === row.user_id){
+            this.buttonList[4].disabled = false;
+          }
           this.status = 4;
         }
         if (row.status === this.$t('label.PFANS1026VIEW_WSTATUS')) {
