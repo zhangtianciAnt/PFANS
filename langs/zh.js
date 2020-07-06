@@ -2696,7 +2696,7 @@ module.exports = {
     PFANS2026FORMVIEW_PLACEHOLDER2: '信息安全、信息系统相关，财务，契约等',
     PFANS2026FORMVIEW_PLACEHOLDER3: '业务上、合规管理等',
     PFANS2026FORMVIEW_ORDERNUMBER: '序号',
-    PFANS2026FORMVIEW_CONFIRMPERSON: '确认部门以及负责人',
+    PFANS2026FORMVIEW_CONFIRMPERSON: '确认部门',
     PFANS2026FORMVIEW_CONFIRMEDATA: '确认内容',
     PFANS2026FORMVIEW_CONFIRMMARK: '是否确认',
     PFANS2026FORMVIEW_CONDATE: '确认日期',
@@ -2718,10 +2718,10 @@ module.exports = {
     PFANS2026FORMVIEW_DATA4: '工会相关物品返还（例:书籍等）',
     PFANS2026FORMVIEW_DATA5: '清偿债务、固定资产、软件转出、薄外资产',
     PFANS2026FORMVIEW_DATA6: '担当起案业务合同交接确认',
-    PFANS2026FORMVIEW_DATA7: '徽章、入门卡贴片（两张）、工作服等',
+    PFANS2026FORMVIEW_DATA7: '徽章、入门卡贴片（两张）、工作服、更衣箱钥匙等',
     PFANS2026FORMVIEW_DATA8: '清算工资 /  提交勤怠管理表',
     PFANS2026FORMVIEW_DATA9: 'SE研修教材资料',
-    PFANS2026FORMVIEW_DATA10: '转移档案及组织关系(解除劳动合同证明书）',
+    PFANS2026FORMVIEW_DATA10: '转移档案及组织关系(解除劳动合同证明书）/入门卡退还',
     PFANS2026FORMVIEW_DATA11: '离职面谈',
     PFANS2026FORMVIEW_DATA12: '相关账户注销（E-mail、域账户、Cybozu账户、Global ID、\n' + 'Warp-cn、JP1、Safeboot）\n' +
       'PC硬件退还\n' +
