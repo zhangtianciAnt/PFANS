@@ -380,6 +380,17 @@
                 </el-form-item>
               </template>
             </el-table-column>
+            <!-- zy-7/6-禅道216任务-->
+            <el-table-column :label="$t('label.PFANS1026FORMVIEW_CLAIMAMOUNT')" align="center" prop="claimamount"
+                             width="200">
+              <template slot-scope="scope">
+                <el-form-item :prop="'tabledata.' + scope.$index + '.claimamount'">
+                  <el-input :disabled="true" maxlength="20" v-model="scope.row.claimamount">
+                  </el-input>
+                </el-form-item>
+              </template>
+            </el-table-column>
+            <!-- zy-7/6-禅道216任务-->
             <el-table-column :label="$t('label.PFANS1024VIEW_CONTRACT2')" align="center">
               <el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center" prop="conchinese" width="200">
                 <template slot-scope="scope">
