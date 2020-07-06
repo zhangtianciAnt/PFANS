@@ -256,6 +256,7 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.enclosure')" prop="enclosurecontent">
                 <el-upload
+
                   :action="upload"
                   :disabled="disableupload"
                   :file-list="fileList"
@@ -1795,6 +1796,7 @@
         this.buttonClick2('end');
       },
       fileError(err, file, fileList) {
+        debugger
         Message({
           message: this.$t('normal.error_04'),
           type: 'error',
@@ -1820,18 +1822,28 @@
 
       },
       fileSuccess(response, file, fileList) {
-        this.fileList = [];
-        this.form.uploadfile = '';
-        for (var item of fileList) {
-          let o = {};
-          o.name = item.name;
-          if (!item.url) {
-            o.url = item.response.info;
-          } else {
-            o.url = item.url;
+        if (response.data == "upload_success") {
+          this.fileList = [];
+          this.form.uploadfile = '';
+          for (var item of fileList) {
+            let o = {};
+            o.name = item.name;
+            if (!item.url) {
+              o.url = item.response.info;
+            } else {
+              o.url = item.url;
+            }
+            this.fileList.push(o);
+            this.form.uploadfile += o.name + ',' + o.url + ';';
           }
-          this.fileList.push(o);
-          this.form.uploadfile += o.name + ',' + o.url + ';';
+        } else {
+          Message({
+            message: this.$t('label.PFANS2016FORMVIEW_FILEERROR'),
+            type: 'error',
+            duration: 5 * 1000,
+          });
+          this.form.uploadfile =''
+          this.$refs.upload.clearFiles();
         }
       },
       buttonClick(val) {
