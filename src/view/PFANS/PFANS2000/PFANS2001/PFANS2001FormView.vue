@@ -57,7 +57,7 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS2001VIEW_VIEWPROJECT')" prop="viewproject">
+                  <el-form-item :label="$t('label.PFANS2001VIEW_VIEWPROJECT')" >
                     <el-select :disabled="!disabled" style="width:20vw" v-model="form.viewproject">
                       <el-option
                         :key="item.value"
