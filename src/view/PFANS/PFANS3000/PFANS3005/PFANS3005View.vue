@@ -93,6 +93,15 @@
                         fix: false,
                         filter: true
                     },
+                  // ccm 使用期限
+                  {
+                    code: 'usertime',
+                    label: 'label.PFANS3005VIEW_TIME',
+                    width: 150,
+                    fix: false,
+                    filter: true
+                  },
+                  // ccm 使用期限
                     {
                         code: 'budgetnumber',
                         label: 'label.budgetunit',
@@ -368,7 +377,10 @@
         },
         methods: {
           selectInit(row, index) {
-            return row.status === this.$t("label.PFANS5004VIEW_OVERTIME");
+            if(row.acceptstatus ==='完成' && row.actuarialamount!= '0')
+            {
+              return row.status === this.$t("label.PFANS5004VIEW_OVERTIME");
+            }
           },
             //add_fjl_05/19  --设置受理状态和审批状态改变行的背景色
             rowClassName({row, rowIndex}) {
@@ -440,40 +452,50 @@
                 this.selectedlist = this.$refs.roletable.selectedList;
                 import('@/vendor/Export2Excel').then(excel => {
                   const tHeader = [
-                    this.$t('label.applicant'),
-                    this.$t('label.PFANS2006VIEW_CLUB'),
-                    this.$t('label.PFANS3005VIEW_LINENUMBER'),
+                    this.$t('label.PFANS3005VIEW_NUMBERS'),
                     this.$t('label.application_date'),
-                    this.$t('label.budgetunit'),
+                    this.$t('label.PFANS2006VIEW_CLUB'),
+                    this.$t('label.applicant'),
+                    this.$t('label.PFANS3005VIEW_SETPLACE'),
                     this.$t('label.PFANS3005VIEW_CONTROLLER'),
+                    this.$t('label.PFANS3005VIEW_USER'),
                     this.$t('label.PFANS3005VIEW_PROCUREMENTPROJECT'),
                     this.$t('label.PFANS3005VIEW_PROCUREMENTDETAILS'),
-                    this.$t('label.PFANS3005VIEW_BRANDNAME'),
-                    this.$t('label.PFANS3005VIEW_MODEL'),
+                    this.$t('label.remarks'),
                     this.$t('label.PFANS3005VIEW_QUANTITY'),
                     this.$t('label.PFANS3005VIEW_UNITPRICE'),
                     this.$t('label.PFANS3005VIEW_TOTALAMOUNT'),
-                    this.$t('label.PFANS3005VIEW_PURCHASEPURPOSE'),
+                    this.$t('label.PFANS3005VIEW_STORAGEDATE'),
+                    this.$t('label.PFANS3005VIEW_COLLECTIONDAY'),
+                    this.$t('label.PFANS3005VIEW_STORAGENAME'),
+                    this.$t('label.PFANS3005VIEW_RECIPIENTSNAME'),
                     this.$t('label.PFANS3005VIEW_ACTUARIALAMOUNT'),
-                    this.$t('label.PFANS3005VIEW_ACTUARIALDATE'),
+                    this.$t('label.PFANS1008FORMVIEW_ASSETMANAGEMENTNUMBER'),
+                    this.$t('label.PFANS3005VIEW_ACCEPTANCEDATE'),
+                    this.$t('label.PFANS3005VIEW_ACCEPTANCENAME')
                   ];
                   const filterVal = [
-                    'user_id',
-                    'group_id',
-                    'linenumber',
+                    'purnumbers',
                     'application_date',
-                    'budgetnumber',
+                    'group_id',
+                    'user_id',
+                    'setplace',
                     'controller',
+                    'username',
                     'procurementproject',
                     'procurementdetails',
-                    'brandname',
-                    'model',
+                    'remarks',
                     'quantity',
                     'unitprice',
                     'totalamount',
-                    'purchasepurpose',
+                    'storagedate',
+                    'collectionday',
+                    '',
+                    '',
                     'actuarialamount',
-                    'actuarialdate'
+                    '',
+                    '',
+                    ''
                   ];
                   const list = this.selectedlist;
                   const data = this.formatJson(filterVal, list);
