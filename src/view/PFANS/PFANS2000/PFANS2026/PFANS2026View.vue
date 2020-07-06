@@ -222,7 +222,7 @@
           this.buttonList[2].disabled = false;
         }
         if (row.status === this.$t('label.PFANS5004VIEW_OVERTIME')) {
-          if (row.stage == '1') {
+          if (row.stage == '0') {
             this.checktype = 1;
           } else {
             this.checktype = 0;

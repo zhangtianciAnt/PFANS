@@ -524,7 +524,6 @@
             },
           ];
         }
-
       }
       if (this.$route.params._type2 === 1) {
         this.right = 'W0080';
@@ -558,7 +557,7 @@
             }
             // }
             if (this.form.status != '0') {
-              if (this.form.stage == '1') {
+              if (this.form.stage == '0') {
                 this.checktype = 1;
               }
             }
@@ -754,7 +753,6 @@
           this.form.stage = '1';
         } else if (val.state === '2') {
           this.form.status = '4';
-          this.form.stage = '0';
         }
         this.buttonClick('save');
       },
@@ -764,7 +762,6 @@
           this.form.stage = '1';
         } else if (val.state === '2') {
           this.form.status = '4';
-          this.form.stage = '0';
         }
         this.buttonClick('save');
       },
