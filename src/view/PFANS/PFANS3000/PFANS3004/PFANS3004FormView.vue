@@ -42,6 +42,12 @@
                           v-model="form.refusereason"></el-input>
               </el-form-item>
             </el-col>
+            <el-col :span="8" v-show="refuseShow1">
+              <el-form-item :label="$t('label.PFANS5004VIEW_FINSHTIME')">
+                <el-date-picker :disabled="acceptShow" style="width:20vw" type="date"
+                                v-model="form.finshtime"></el-date-picker>
+              </el-form-item>
+            </el-col>
           </el-row>
           <!--            end  fjl 2020/04/08  添加总务担当的受理功能-->
           <el-row>
@@ -271,6 +277,7 @@
                 ],
                 acceptShow: true,
                 refuseShow: false,
+              refuseShow1: false,
                 enableSave: false,
                 tableD: [
                     {
@@ -295,6 +302,7 @@
                     accept: '0',
                     acceptstatus: '',
                     findate: '',
+                  finshtime: '',
                     refusereason: '',
                     investigator:'',
                 },
@@ -370,8 +378,12 @@
                         //add_fjl 类型的明细
                         if (this.form.acceptstatus === '1') {
                             this.refuseShow = true;
+                        } else if (this.form.acceptstatus === '2') {
+                          this.refuseShow = false;
+                          this.refuseShow1 = true;
                         } else {
-                            this.refuseShow = false;
+                          this.refuseShow = false;
+                          this.refuseShow1 = false;
                         }
                         let rst = getOrgInfoByUserId(response.userid);
                         if (rst) {
@@ -448,11 +460,26 @@
             //change受理状态  add_fjl
             changeAcc(val) {
                 this.form.acceptstatus = val;
-                if (val === '1') {
-                    this.refuseShow = true;
-                } else {
-                    this.refuseShow = false;
-                }
+              // if (val === '1') {
+              //     this.refuseShow = true;
+              // } else {
+              //     this.refuseShow = false;
+              // }
+              if (val === '1') {
+                this.refuseShow = true;
+                this.refuseShow1 = false;
+                this.form.finshtime = null;
+              } else if (val === '2') {
+                this.refuseShow = false;
+                this.refuseShow1 = true;
+                this.form.finshtime = moment(new Date()).format("YYYY-MM-DD")
+                this.form.refusereason = null;
+              } else {
+                this.refuseShow = false;
+                this.refuseShow1 = false;
+                this.form.refusereason = null;
+                this.form.finshtime = null;
+              }
             },
             getBudt(val) {
                 //ADD_FJL  修改人员预算编码
