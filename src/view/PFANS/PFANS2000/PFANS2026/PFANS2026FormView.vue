@@ -94,13 +94,14 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2026VIEW_ADDRESS')">
-                <el-input :disabled="!disable" maxlength="50" style="width:20vw"
+                <el-input :disabled="this.checktype===1?true:!disable" maxlength="50" style="width:20vw"
                           v-model="form.address"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2026VIEW_DEPARTUREDATE')" prop="hope_exit_date">
-                <el-date-picker :disabled="!disable" style="width:20vw" v-model="form.hope_exit_date"
+                <el-date-picker :disabled="this.checktype===1?true:!disable" style="width:20vw"
+                                v-model="form.hope_exit_date"
                 >
                 </el-date-picker>
               </el-form-item>
@@ -109,13 +110,13 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2026VIEW_FIXEDTELEPHONE')" prop="fixed_phone">
-                <el-input :disabled="!disable" maxlength="20" style="width:20vw"
+                <el-input :disabled="this.checktype===1?true:!disable" maxlength="20" style="width:20vw"
                           v-model="form.fixed_phone"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.user_mobile')">
-                <el-input :disabled="!disable" maxlength="20" style="width:20vw"
+                <el-input :disabled="this.checktype===1?true:!disable" maxlength="20" style="width:20vw"
                           v-model="form.cellphone"></el-input>
               </el-form-item>
             </el-col>
@@ -128,7 +129,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.email')" prop="email">
-                <el-input :disabled="!disable" maxlength="100" style="width:20vw"
+                <el-input :disabled="this.checktype===1?true:!disable" maxlength="100" style="width:20vw"
                           v-model="form.email"></el-input>
               </el-form-item>
             </el-col>
@@ -262,7 +263,7 @@
           </el-drawer>
           <el-row>
             <el-form-item :label="$t('label.PFANS2026VIEW_CAUSE')" prop="reason">
-              <el-input :disabled="!disable"
+              <el-input :disabled="this.checktype===1?true:!disable"
                         :placeholder="$t('label.PFANS2026VIEW_REMARK2')"
                         style="width: 70vw" type="textarea"
                         v-model="form.reason">
@@ -281,7 +282,6 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2026VIEW_DEPARTUREDATE2')" prop="newreason">
                 <el-input :disabled="!disable"
-                          :placeholder="$t('label.PFANS2026VIEW_REMARK2')"
                           style="width: 46vw" type="textarea"
                           v-model="form.newreason">
                 </el-input>
@@ -524,7 +524,6 @@
             },
           ];
         }
-
       }
       if (this.$route.params._type2 === 1) {
         this.right = 'W0080';
@@ -550,15 +549,16 @@
               this.enableSave = false;
             }
             // if(this.checktype = 1){
-            if (this.form.newhope_exit_date != '' && this.form.newhope_exit_date != null) {
-              if (this.form.status === '4') {
-                this.form.hope_exit_date = this.form.newhope_exit_date;
+            if (this.form.status === '4') {
+              if (this.$route.params._type2 === 1) {
                 this.form.stage = '0';
+              } else {
+                this.form.stage = '1';
               }
             }
             // }
             if (this.form.status != '0') {
-              if (this.form.stage == '1') {
+              if (this.form.stage == '0') {
                 this.checktype = 1;
               }
             }
@@ -751,20 +751,44 @@
       workflowState(val) {
         if (val.state === '1') {
           this.form.status = '3';
-          this.form.stage = '1';
+          if (this.$route.params._type2 === 1) {
+            this.form.stage = '0';
+          } else {
+            this.form.stage = '1';
+          }
         } else if (val.state === '2') {
           this.form.status = '4';
-          this.form.stage = '0';
+          if (this.form.newhope_exit_date != '' && this.form.newhope_exit_date != null) {
+            this.form.hope_exit_date = this.form.newhope_exit_date;
+          }
+          if (this.$route.params._type2 === 1) {
+            this.form.stage = '0';
+          } else {
+            this.form.stage = '1';
+          }
         }
         this.buttonClick('save');
       },
+
+
       start(val) {
         if (val.state === '0') {
           this.form.status = '2';
-          this.form.stage = '1';
+          if (this.$route.params._type2 === 1) {
+            this.form.stage = '0';
+          } else {
+            this.form.stage = '1';
+          }
         } else if (val.state === '2') {
           this.form.status = '4';
-          this.form.stage = '0';
+          if (this.form.newhope_exit_date != '' && this.form.newhope_exit_date != null) {
+            this.form.hope_exit_date = this.form.newhope_exit_date;
+          }
+          if (this.$route.params._type2 === 1) {
+            this.form.stage = '0';
+          } else {
+            this.form.stage = '1';
+          }
         }
         this.buttonClick('save');
       },
