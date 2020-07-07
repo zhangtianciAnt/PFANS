@@ -2785,66 +2785,6 @@
                     parseFloat(this.form.yiliaoinsurance) +
                     parseFloat(this.form.shengyuinsurance);
             },
-            // ADD-LXX
-            checkRequire() {
-                if (
-                    !this.form.customername ||
-                    !this.form.sex ||
-                    !this.form.adfield ||
-                    !this.form.birthday ||
-                    !this.form.nationality ||
-                    !this.form.nation ||
-                    !this.form.register ||
-                    !this.form.idnumber ||
-                    !this.form.marital ||
-                    !this.form.address ||
-                    !this.form.email ||
-                    !this.form.extension
-                ) {
-                    this.activeName = 'first';
-                } else if (
-                    !this.form.graduation ||
-                    !this.form.degree ||
-                    !this.form.educational ||
-                    !this.form.specialty ||
-                    !this.form.nation ||
-                    !this.form.graduationday
-                ) {
-                    this.activeName = 'second';
-                } else if (!this.form.workday) {
-                    this.activeName = 'fouth';
-                } else if (
-                    !this.form.jobnumber ||
-                    !this.form.type ||
-                    !this.form.rank ||
-                    !this.form.occupationtype ||
-                    !this.form.centerid ||
-                    !this.form.post ||
-                    !this.form.laborcontractday ||
-                    !this.form.enterday ||
-                    this.form.annualyear === undefined ||
-                    this.form.annuallastyear === undefined ||
-                    this.form.welfareyear === undefined ||
-                    this.form.welfarelastyear === undefined ||
-                    this.form.restyear === undefined ||
-                    this.form.restlastyear === undefined ||
-                    !this.form.seatnumber ||
-                    !this.form.duty ||
-                    !this.form.basic ||
-                    // this.form.oldageinsurance === undefined ||
-                    this.form.houseinsurance === undefined ||
-                    // this.form.medicalinsurance === undefined ||
-                    // ADD-LXX
-                    this.form.yanglaoinsurance === undefined ||
-                    this.form.yiliaoinsurance === undefined ||
-                    this.form.shiyeinsurance === undefined ||
-                    this.form.gongshanginsurance === undefined ||
-                    this.form.shengyuinsurance === undefined
-                // ADD-LXX
-                ) {
-                    this.activeName = 'five';
-                }
-            },
             changePost(val) {
                 this.form.post = val;
             },
@@ -3711,8 +3651,18 @@
             //     }
             // },
             userSave(btnkey) {
-                this.checkRequire();
-                this.$refs['form'].validate(valid => {
+                //  ADD      zy-7/6-禅道202任务 start
+                // this.checkRequire();
+                const firstTab = ["customername","sex","adfield","birthday","nationality","nation","register","idnumber"];
+                const secondTab = ["graduation", "degree","educational","specialty","graduationday"];
+                const fourthTab = ["workday"];
+                const fiveTab = ["jobnumber","type","rank","occupationtype","centerid","post","enterday"
+                    ,"seatnumber","duty","basic","houseinsurance","yanglaoinsurance","yiliaoinsurance","shiyeinsurance"
+                    ,"gongshanginsurance","shengyuinsurance"];
+                //  ADD      zy-7/6-禅道202任务 end
+                // ADD      zy-7/6-禅道202任务 ,validate验证追加一个参数
+                this.$refs['form'].validate((valid,obj) => {
+                    debugger;
                     if (valid) {
                         this.userInfo.userAccount.account = this.form.adfield;
                         // this.userInfo.userAccount.password = this.form.adfield;
@@ -3772,6 +3722,23 @@
                                 this.loading = false;
                             });
                     } else {
+                        //  ADD      zy-7/6-禅道202任务 start
+                        for(let keys in obj){
+                            if(firstTab.indexOf(keys) !== -1){
+                                this.activeName = "first";
+                                break;
+                            }else if(secondTab.indexOf(keys) !== -1){
+                                this.activeName = "second";
+                                break;
+                            }else if(fourthTab.indexOf(keys) !== -1){
+                                this.activeName = "fouth";
+                                break;
+                            }else if(fiveTab.indexOf(keys) !== -1){
+                                this.activeName = "five";
+                                break;
+                            }
+                        }
+                        // ADD       zy-7/6-禅道202任务 end
                         Message({
                             message: this.$t('normal.error_12'),
                             type: 'error',

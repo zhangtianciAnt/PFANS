@@ -48,7 +48,7 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS2026VIEW_RESIGNATIONDATE')" prop="resignation_date">
-                    <el-date-picker :disabled="!disable" style="width:20vw" v-model="form.resignation_date">
+                    <el-date-picker :disabled="true" style="width:20vw" v-model="form.resignation_date">
                     </el-date-picker>
                   </el-form-item>
                 </el-col>
@@ -67,8 +67,21 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_RANK')">
+                    <dicselect
+                      :code="code"
+                      class="width"
+                      style="width:20vw"
+                      :data="form.starank"
+                      :disabled="true"
+                    ></dicselect>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8" v-if="!checkdisable">
                   <el-form-item :label="$t('label.PFANS2030FROMVIEW_BUTTON2')">
-                    <el-button @click="submitForm('ruleFormNew')" icon="el-icon-view" :disabled="checkdisable">
+                    <el-button @click="submitForm('ruleFormNew')" icon="el-icon-view" :disabled="false">
                       {{$t('label.PFANS2030FROMVIEW_BUTTON')}}
                     </el-button>
                   </el-form-item>
@@ -391,11 +404,11 @@
                       :label="$t('label.PFANS2026FORMVIEW_CONFIRMEDATA')"
                       align="center"
                       prop="confirmdata"
-                      width="450">
+                      width="605">
                     </el-table-column>
                     <el-table-column
                       :label="$t('label.PFANS2026FORMVIEW_CONFIRMMARK')"
-                      align="center">
+                      align="center"  width="100">
                       <template slot-scope="scope">
                         <el-checkbox :disabled="true" v-model="scope.row.checked" :on="scope.row"
                                      @change="checkCon(scope.row)"></el-checkbox>
@@ -606,6 +619,7 @@
         ],
         baseInfo: {},
         form: {
+          starank: '',
           staffexitprocedure_id: '',
           center_id: '',
           group_id: '',
@@ -706,42 +720,30 @@
             this.loading = false;
           });
       } else {
-        this.userlist = this.$store.getters.userinfo.userid;
-        if (this.userlist !== null && this.userlist !== '') {
-          let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-          if (rst) {
-            this.centerid = rst.centerNmae;
-            this.groupid = rst.groupNmae;
-            this.teamid = rst.teamNmae;
-            this.form.center_id = rst.centerId;
-            this.form.group_id = rst.groupId;
-            this.form.team_id = rst.teamId;
-          }
-          let lst = getUserInfo(this.$store.getters.userinfo.userid);
-          if (lst) {
-            this.form.sex = lst.userinfo.sex;
-            this.form.starank = lst.userinfo.rank;
-            if (this.form.starank != '' && this.form.starank != null) {
-              let letbudge = getDictionaryInfo(this.form.starank);
-              if (letbudge) {
-                this.form.starank = letbudge.value1;
+        this.$store
+          .dispatch('PFANS2026Store/selectById', {'staffexitprocedureid': this.$route.params._staid})
+          .then(response => {
+            this.form = response.staffexitprocedure;
+            this.form.resignation_date = response.staffexitprocedure.hope_exit_date
+            this.userlist = this.form.user_id;
+            if(this.$store.getters.userinfo){
+              this.reporterlist = this.$store.getters.userinfo.userid;
+            }
+            if (response.staffexitprocedure.user_id !== null && response.staffexitprocedure.user_id !== '') {
+              let rst = getOrgInfoByUserId(response.staffexitprocedure.user_id);
+              if (rst) {
+                this.centerid = rst.centerNmae;
+                this.groupid = rst.groupNmae;
+                this.form.group_id = rst.groupId;
+                this.form.team_id = rst.teamId;
+                this.form.center_id = rst.centerId;
+                this.teamid = rst.teamNmae;
               }
             }
-            this.form.educational_background = lst.userinfo.educational;
-            // let postinfo = getDictionaryInfo(lst.userinfo.post);
-            // if (postinfo) {
-            //   this.form.position = postinfo.value1;
-            // }
-            this.form.position = lst.userinfo.post;
-            this.form.entry_time = lst.userinfo.enterday;
-          }
-          this.form.user_id = this.$store.getters.userinfo.userid;
-          // this.disable = true;
-          // this.disable1 = false;
-          this.loading = false;
-        }
+            this.loading = false
+          })
+        this.loading = false;
       }
-
     },
     created() {
       if(this.$route.params._checkdisabled){

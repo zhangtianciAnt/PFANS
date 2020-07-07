@@ -709,7 +709,8 @@
             });
             this.loading = false;
           });
-      } else {
+      }
+      else {
         this.showDomestic = true;
         this.userlist = this.$store.getters.userinfo.userid;
         if (this.userlist !== null && this.userlist !== '' && this.userlist !== undefined) {

@@ -118,6 +118,21 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS3005VIEW_TIME')" prop="usertime">
+                <el-date-picker
+                  v-model="form.usertime"
+                  class="bigWidth"
+                  :disabled="!disabled"
+                  type="daterange"
+                  unlink-panels
+                  :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
+                  :start-placeholder="$t('label.startdate')"
+                  :end-placeholder="$t('label.enddate')"
+                  style="width: 20rem">
+                </el-date-picker>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1012FORMVIEW_BUDGET')" prop="budgetnumber">
                 <!--                <el-input :disabled="true" maxlength="20" style="width:20vw"-->
                 <!--                          v-model="form.budgetnumber"></el-input>-->
@@ -452,6 +467,7 @@
           linenumber: '',
           controller: '',
           username: '',
+          usertime:'',
           user: '',
           budgetnumber: '',
           businessplanamount: '',
@@ -540,6 +556,13 @@
             {
               required: true,
               validator: checkusername,
+              trigger: 'change',
+            },
+          ],
+          usertime: [
+            {
+              required: true,
+              message: this.$t('normal.error_09') + this.$t('label.PFANS3005VIEW_TIME'),
               trigger: 'change',
             },
           ],
@@ -715,6 +738,10 @@
             this.controllerlist = this.form.controller;
             this.usernamelist = this.form.username;
             this.recipientslist = this.form.recipients;
+            let timea = this.form.usertime;
+            let serdate = timea.slice(0, 10);
+            let serdate1 = timea.slice(timea.length - 10);
+            this.form.usertime = [serdate, serdate1];
             this.getBudt(this.userlist);
             this.loading = false;
           })
@@ -784,6 +811,7 @@
           },
         ];
       }
+
       if (this.form.careerplan === '1') {
         this.show3 = true;
         this.show1 = true;
@@ -1098,7 +1126,8 @@
             this.paramsTitle();
           }
           //add-ws-4/28-精算中，点击决裁，跳转画面
-        } else {
+        }
+        else {
           this.$refs['refform'].validate(valid => {
             if (valid) {
               this.loading = true;
@@ -1116,6 +1145,7 @@
               } else if (this.form.businessplantype === 'PR002004') {
                 this.form.classificationtype = '';
               }
+              this.form.usertime = moment(this.form.usertime[0]).format('YYYY-MM-DD') + ' ~ ' + moment(this.form.usertime[1]).format('YYYY-MM-DD');
               if (this.$route.params._id) {
                 this.form.purchase_id = this.$route.params._id;
                 this.$store

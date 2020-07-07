@@ -3,6 +3,7 @@ import {
   getFpans3001List,
   getPfans3001One,
   updatePfans3001,
+  geticketsdetail,
 
   selectById,
   insert,
@@ -73,6 +74,21 @@ const PFANS3001Store = {
     getFpans3001List({commit}) {
       return new Promise((resolve, reject) => {
         getFpans3001List().then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message);
+          }
+        }).catch(error => {
+          reject(error);
+        });
+      });
+    },
+
+    //获取导出明细数据
+    geticketsdetail({commit}) {
+      return new Promise((resolve, reject) => {
+        geticketsdetail().then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {

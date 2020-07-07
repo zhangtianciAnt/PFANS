@@ -629,6 +629,9 @@ export default {
                 this.$t("label.USERSVIEW_WHERETOLEAVE"),//离职去向(选项)
                 this.$t("label.USERSVIEW_WHERETOLEAVE2"),//离职去向(手动输入)
                 this.$t("label.USERSVIEW_TRANSFERCOMPANY"),//转职公司
+                  //        zy-7/6-禅道207任务 start
+                this.$t("label.PFANS2026VIEW_RESIGNATIONDATE"),//离职时间
+                  //        zy-7/6-禅道207任务 end
                 this.$t("label.PFANS2026VIEW_REASON2"),//离职理由详细
                 this.$t("label.USERSVIEW_OTHER"),//其他
 //        ws-6/28-禅道141任务
@@ -686,6 +689,9 @@ export default {
                 "wheretoleave",//离职去向(选项)
                 "wheretoleave2",//离职去向(手动输入)
                 "transfercompany",//转职公司
+                  //        zy-7/6-禅道207任务 start
+                "resignation_date",//离职时间
+                  //        zy-7/6-禅道207任务 end
                 "reason2",//离职理由详细
                 "other",//其他
                 //        ws-6/28-禅道141任务
@@ -746,11 +752,12 @@ export default {
                     list[h].difference = this.$t('label.PFANSUSERFORMVIEW_OLDSTAFF');
                   }
                 }
+                //        zy-7/3-禅道205任务
                 //是否有工作经验
                 if(list[h].experience !== '' && list[h].experience !== null) {
                     if (list[h].experience === '1') {
                         list[h].experience = this.$t('label.PFANSUSERFORMVIEW_NO');
-                    } else if (list[h].experience === '') {
+                    } else if (list[h].experience === '0') {
                         list[h].experience = this.$t('label.PFANSUSERFORMVIEW_YES');
                     }
                 }

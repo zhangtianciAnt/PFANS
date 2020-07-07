@@ -1490,6 +1490,12 @@
                   this.newaccountcodeflg1 = acinfo.code;
                   this.newsubjectnumberflg = acinfo.value2;
                 }
+                // add_fjl --获取住宿费的科目代码
+                let accountinf0 = getDictionaryInfo(this.newaccountcodeflg1);
+                if (accountinf0) {
+                  this.accflg = accountinf0.value2;
+                }
+                // add_fjl --获取住宿费的科目代码
                 // this.tableA[i].code20 = '';
                 //PL摘要内容
                 let plsuinfo = getDictionaryInfo(this.tableA[i].plsummary);
@@ -2252,56 +2258,41 @@
         }
       },
       gettype(val) {
-        // [{
-        //   evectionid: '',
-        //   accommodationdetails_id: '',
-        //   accommodationdate: [],
+        // this.tableT = [{
+        //   budgetcoding: '',
+        //   trafficdate: '',
         //   invoicenumber: '',
+        //   departmentname: '',
         //   plsummary: this.plsummaryflg,
-        //   accountcode: this.Redirict === '0' ? 'PJ119001' : 'PJ132001',
-        //   budgetcoding: this.encoding,
-        //   subjectnumber: '',
-        //   departmentname: this.groupId,
-        //   activitycontent: '',
-        //   city: '',
-        //   region: '',
-        //   facilitytype: '',
-        //   facilityname: '',
-        //   currency: '',
-        //   // accommodation: '',
-        //   rmb: '',
-        //   travel: '',
-        //   annexno: '',
-        //   rowindex: '',
+        //   accountcode: this.accountcodeflg,
+        //   subjectnumber: this.subjectnumberflg,
         //   taxes: '',
         //   // costitem: '',
-        // },
-        //   {
-        //     evectionid: '',
-        //     accommodationdetails_id: '',
-        //     accommodationdate: [],
-        //     invoicenumber: '',
-        //     plsummary: this.plsummaryflg,
-        //     accountcode: this.Redirict === '0' ? 'PJ119005' : 'PJ132005',
-        //     budgetcoding: this.encoding,
-        //     subjectnumber: '',
-        //     departmentname: this.groupId,
-        //     activitycontent: '',
-        //     city: '',
-        //     region: '',
-        //     facilitytype: '',
-        //     facilityname: '',
-        //     currency: '',
-        //     // accommodation: '',
-        //     rmb: '',
-        //     travel: '',
-        //     annexno: '',
-        //     rowindex: '',
-        //     taxes: '',
-        //     // costitem: '',
-        //   }],
+        //   region: '',
+        //   vehicle: '',
+        //   startingpoint: '',
+        //   rmb: '',
+        //   // taxrate: '',
+        //   currency: '',
+        //   foreigncurrency: '',
+        //   annexno: '',
+        //   rowindex: '',
+        // }];
+        // this.tableR = [{
+        //   otherdetailsdate: '',
+        //   // costitem: '',
+        //   plsummary: this.plsummaryflg,
+        //   accountcode: this.oldaccountcodeflg,
+        //   rmb: '',
+        //   subjectnumber: this.oldsubjectnumberflg,
+        //   remarks: '',
+        //   budgetcoding: '',
+        //   foreigncurrency: '',
+        //   annexno: '',
+        //   currency: '',
+        // }];
         this.activeName = 'first',
-          this.form.type = val;
+        this.form.type = val;
         this.code21 = this.form.type == '0' ? 'PJ036' : 'PJ017';
         this.relations = [];
         if (val === '0') {
@@ -2639,18 +2630,28 @@
         }
       },
       fileSuccess(response, file, fileList) {
-        this.fileList = [];
-        this.form.uploadfile = '';
-        for (var item of fileList) {
-          let o = {};
-          o.name = item.name;
-          if (!item.url) {
-            o.url = item.response.info;
-          } else {
-            o.url = item.url;
+        if (response.data == "upload_success") {
+          this.fileList = [];
+          this.form.uploadfile = '';
+          for (var item of fileList) {
+            let o = {};
+            o.name = item.name;
+            if (!item.url) {
+              o.url = item.response.info;
+            } else {
+              o.url = item.url;
+            }
+            this.fileList.push(o);
+            this.form.uploadfile += o.name + ',' + o.url + ';';
           }
-          this.fileList.push(o);
-          this.form.uploadfile += o.name + ',' + o.url + ';';
+        } else {
+          Message({
+            message: this.$t('label.PFANS2016FORMVIEW_FILEERROR'),
+            type: 'error',
+            duration: 5 * 1000,
+          });
+          this.form.uploadfile =''
+          this.$refs.upload.clearFiles();
         }
       },
       getTsummaries(param) {

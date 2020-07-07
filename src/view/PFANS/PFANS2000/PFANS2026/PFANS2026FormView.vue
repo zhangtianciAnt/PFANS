@@ -1,7 +1,7 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :canStart="canStart" :title="title" :workflowCode="right"
-                         @buttonClick="buttonClick"
+                         @buttonClick="buttonClick" :enableSave="enableSave"
                          @end="end" @start="start" @workflowState="workflowState" ref="container" v-loading="loading">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
@@ -94,13 +94,14 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2026VIEW_ADDRESS')">
-                <el-input :disabled="!disable" maxlength="50" style="width:20vw"
+                <el-input :disabled="this.checktype===1?true:!disable" maxlength="50" style="width:20vw"
                           v-model="form.address"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2026VIEW_DEPARTUREDATE')" prop="hope_exit_date">
-                <el-date-picker :disabled="!disable" style="width:20vw" v-model="form.hope_exit_date"
+                <el-date-picker :disabled="this.checktype===1?true:!disable" style="width:20vw"
+                                v-model="form.hope_exit_date"
                 >
                 </el-date-picker>
               </el-form-item>
@@ -109,13 +110,13 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2026VIEW_FIXEDTELEPHONE')" prop="fixed_phone">
-                <el-input :disabled="!disable" maxlength="20" style="width:20vw"
+                <el-input :disabled="this.checktype===1?true:!disable" maxlength="20" style="width:20vw"
                           v-model="form.fixed_phone"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.user_mobile')">
-                <el-input :disabled="!disable" maxlength="20" style="width:20vw"
+                <el-input :disabled="this.checktype===1?true:!disable" maxlength="20" style="width:20vw"
                           v-model="form.cellphone"></el-input>
               </el-form-item>
             </el-col>
@@ -128,26 +129,8 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.email')" prop="email">
-                <el-input :disabled="!disable" maxlength="100" style="width:20vw"
+                <el-input :disabled="this.checktype===1?true:!disable" maxlength="100" style="width:20vw"
                           v-model="form.email"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row v-if="this.checktype===1">
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS2026VIEW_DEPARTUREDATE1')" prop="newhope_exit_date">
-                <el-date-picker :disabled="!disable" style="width:20vw" v-model="form.newhope_exit_date"
-                >
-                </el-date-picker>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS2026VIEW_DEPARTUREDATE2')" prop="newreason">
-                <el-input :disabled="!disable"
-                          :placeholder="$t('label.PFANS2026VIEW_REMARK2')"
-                          style="width: 46vw" type="textarea"
-                          v-model="form.newreason">
-                </el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -199,7 +182,7 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS2026VIEW_REPORTER')">
-                    <user :disabled="true" :selectType="selectType"
+                    <user :disabled="true" :selectType="selectType" :userlist="reporterlist"
                           style="width:12vw"></user>
                   </el-form-item>
                 </el-col>
@@ -280,12 +263,30 @@
           </el-drawer>
           <el-row>
             <el-form-item :label="$t('label.PFANS2026VIEW_CAUSE')" prop="reason">
-              <el-input :disabled="!disable"
+              <el-input :disabled="this.checktype===1?true:!disable"
                         :placeholder="$t('label.PFANS2026VIEW_REMARK2')"
                         style="width: 70vw" type="textarea"
                         v-model="form.reason">
               </el-input>
             </el-form-item>
+          </el-row>
+          <el-row v-if="this.checktype===1">
+            <el-divider></el-divider>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS2026VIEW_DEPARTUREDATE1')" prop="newhope_exit_date">
+                <el-date-picker :disabled="!disable" style="width:20vw" v-model="form.newhope_exit_date"
+                >
+                </el-date-picker>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS2026VIEW_DEPARTUREDATE2')" prop="newreason">
+                <el-input :disabled="!disable"
+                          style="width: 46vw" type="textarea"
+                          v-model="form.newreason">
+                </el-input>
+              </el-form-item>
+            </el-col>
           </el-row>
           <el-row>
             <div class="sub_color_blue">
@@ -380,7 +381,9 @@
         selectType: 'Single',
         title: 'title.PFANS2026FROMVIEW',
         userlist: '',
+        reporterlist: '',
         loading: false,
+        enableSave: false,
         buttonList: [],
         baseInfo: {},
         sex: '',
@@ -423,7 +426,7 @@
           reporter: moment().format('YYYY-MM-DD'),
           report_date: moment().format('YYYY-MM-DD'),
           delivery_sheet_date: moment().format('YYYY-MM-DD'),
-          stage: '0',
+          stage: '1',
         },
         code2: 'PR022',
         code3: 'PR019',
@@ -474,18 +477,12 @@
           }],
         },
         checktype: '',
-        canStart: false,
+        canStart: true,
       };
     },
     created() {
       this.checktype = this.$route.params._type;
-      if (this.checktype === 1) {
-        this.right = 'W0080';
-        this.canStart=true
-      } else {
-        this.right = 'W0033';
-         this.canStart=false
-      }
+      // if(this.checktype = 1){
       if (!this.$route.params.disabled) {
         if (this.$route.params._status === 4) {
           this.buttonList = [
@@ -515,14 +512,25 @@
           ];
         }
       } else {
-        this.buttonList = [
-          {
-            key: 'save',
-            name: 'button.save',
-            disabled: false,
-            icon: 'el-icon-check',
-          },
-        ];
+        if (this.$route.params._type2 === 1) {
+          this.buttonList = [];
+        } else {
+          this.buttonList = [
+            {
+              key: 'save',
+              name: 'button.save',
+              disabled: false,
+              icon: 'el-icon-check',
+            },
+          ];
+        }
+      }
+      if (this.$route.params._type2 === 1) {
+        this.right = 'W0080';
+        this.canStart = true;
+      } else {
+        this.right = 'W0033';
+        this.canStart = false;
       }
       this.disable = this.$route.params.disabled;
     },
@@ -535,9 +543,23 @@
           .dispatch('PFANS2026Store/selectById', {'staffexitprocedureid': this.$route.params._id})
           .then(response => {
             this.form = response.staffexitprocedure;
-            if (this.form.newhope_exit_date != '' && this.form.newhope_exit_date != null) {
-              if (this.form.status === '4') {
-                this.form.hope_exit_date = this.form.newhope_exit_date;
+            if (this.form.status === '4') {
+              this.enableSave = true;
+            } else {
+              this.enableSave = false;
+            }
+            // if(this.checktype = 1){
+            if (this.form.status === '4') {
+              if (this.$route.params._type2 === 1) {
+                this.form.stage = '0';
+              } else {
+                this.form.stage = '1';
+              }
+            }
+            // }
+            if (this.form.status != '0') {
+              if (this.form.stage == '0') {
+                this.checktype = 1;
               }
             }
             if (response.staffexitprocedure.user_id !== null && response.staffexitprocedure.user_id !== '') {
@@ -618,6 +640,7 @@
         this.educational_background = this.listbutton[0].educational_background;
         this.resignation_date = this.listbutton[0].resignation_date;
         this.reporter = this.listbutton[0].reporter;
+        this.reporterlist = this.listbutton[0].user_id;
         this.report_date = this.listbutton[0].report_date;
         this.external_evaluation = this.listbutton[0].external_evaluation;
         this.influence_information_security = this.listbutton[0].influence_information_security;
@@ -637,7 +660,7 @@
             if (response.length > 0) {
               if (this.$route.params._id) {
                 this.listsum = 0;
-              }else{
+              } else {
                 this.listsum = 1;
               }
             } else {
@@ -728,16 +751,44 @@
       workflowState(val) {
         if (val.state === '1') {
           this.form.status = '3';
+          if (this.$route.params._type2 === 1) {
+            this.form.stage = '0';
+          } else {
+            this.form.stage = '1';
+          }
         } else if (val.state === '2') {
           this.form.status = '4';
+          if (this.form.newhope_exit_date != '' && this.form.newhope_exit_date != null) {
+            this.form.hope_exit_date = this.form.newhope_exit_date;
+          }
+          if (this.$route.params._type2 === 1) {
+            this.form.stage = '0';
+          } else {
+            this.form.stage = '1';
+          }
         }
         this.buttonClick('save');
       },
+
+
       start(val) {
         if (val.state === '0') {
           this.form.status = '2';
+          if (this.$route.params._type2 === 1) {
+            this.form.stage = '0';
+          } else {
+            this.form.stage = '1';
+          }
         } else if (val.state === '2') {
           this.form.status = '4';
+          if (this.form.newhope_exit_date != '' && this.form.newhope_exit_date != null) {
+            this.form.hope_exit_date = this.form.newhope_exit_date;
+          }
+          if (this.$route.params._type2 === 1) {
+            this.form.stage = '0';
+          } else {
+            this.form.stage = '1';
+          }
         }
         this.buttonClick('save');
       },

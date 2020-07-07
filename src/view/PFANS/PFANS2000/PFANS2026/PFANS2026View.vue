@@ -1,6 +1,18 @@
 <template>
   <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id" :title="title"
                    @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
+    <el-date-picker
+      unlink-panels
+      class="bigWidth"
+      v-model="workinghours"
+      style="margin-right:1vw"
+      slot="customize"
+      type="daterange"
+      :end-placeholder="$t('label.enddate')"
+      :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
+      :start-placeholder="$t('label.startdate')"
+      @change="filterInfo"
+    ></el-date-picker>
   </EasyNormalTable>
 </template>
 
@@ -17,9 +29,12 @@
     },
     data() {
       return {
+        workinghours: '',
+        checktype: 0,
         loading: false,
         title: 'title.PFANS2026VIEW',
         data: [],
+        tableList: [],
         columns: [
           {
             code: 'user_id',
@@ -101,6 +116,7 @@
           {'key': 'changedata', 'name': 'button.changedata', 'disabled': true, 'icon': 'el-icon-view'},
           //add-ws-6/16-禅道106
         ],
+        userid: '',
         rowid: '',
         status: '',
         row_id: 'staffexitprocedure_id',
@@ -110,6 +126,35 @@
       this.getList();
     },
     methods: {
+      getworkinghours(workinghours) {
+        if (workinghours != null) {
+          if (workinghours.length > 0) {
+            return (
+              moment(workinghours[0]).format("YYYY-MM-DD") +
+              " ~ " +
+              moment(workinghours[1]).format("YYYY-MM-DD")
+            );
+          } else {
+            return "";
+          }
+        } else {
+          return "";
+        }
+      },
+      filterInfo() {
+        this.data = this.tableList.slice(0);
+        if (this.tableList.length > 0) {
+          //进行时间筛选
+          this.working = this.getworkinghours(this.workinghours);
+          this.starttime = this.working.substring(0, 10);
+          this.endTime = this.working.substring(13, 23);
+          if (this.starttime != '' || this.endTime != '') {
+            this.data = this.data.filter(item => {
+              return this.starttime <= item.hope_exit_date && item.hope_exit_date <= this.endTime;
+            });
+          }
+        }
+      },
       getList() {
         this.loading = true;
         this.$store
@@ -155,6 +200,7 @@
               }
             }
             this.data = response;
+            this.tableList = response;
             this.loading = false;
           })
           .catch(error => {
@@ -167,6 +213,13 @@
           });
       },
       rowClick(row) {
+        if(this.$store.getters.userinfo){
+          let rst = getUserInfo(this.$store.getters.userinfo.userid);
+          if (rst) {
+            this.userid = getUserInfo(this.$store.getters.userinfo.userid).userinfo.customername;
+          }
+        }
+        this.checktype = 0;
         this.status = 0;
         //add-ws-6/16-禅道106
         this.buttonList[2].disabled = true;
@@ -176,7 +229,14 @@
           this.buttonList[2].disabled = false;
         }
         if (row.status === this.$t('label.PFANS5004VIEW_OVERTIME')) {
-          this.buttonList[4].disabled = false;
+          if (row.stage == '0') {
+            this.checktype = 1;
+          } else {
+            this.checktype = 0;
+          }
+          if(this.userid === row.user_id){
+            this.buttonList[4].disabled = false;
+          }
           this.status = 4;
         }
         if (row.status === this.$t('label.PFANS1026VIEW_WSTATUS')) {
@@ -199,9 +259,10 @@
           this.$router.push({
             name: 'PFANS2026FormView',
             params: {
-              _ckeck : false,
+              _ckeck: false,
               _status: this.status,
-              _type: 0,
+              _type: this.checktype,
+              _type2: 0,
               _id: this.rowid,
               disabled: false,
             },
@@ -210,8 +271,9 @@
           this.$router.push({
             name: 'PFANS2026FormView',
             params: {
-              _ckeck : true,
+              _ckeck: true,
               _type: 0,
+              _type2: 0,
               _id: '',
               disabled: true,
             },
@@ -228,9 +290,10 @@
           this.$router.push({
             name: 'PFANS2026FormView',
             params: {
-              _ckeck : false,
+              _ckeck: false,
               _status: this.status,
               _type: 0,
+              _type2: 0,
               _id: this.rowid,
               disabled: true,
             },
@@ -257,8 +320,9 @@
           this.$router.push({
             name: 'PFANS2026FormView',
             params: {
-              _ckeck : false,
+              _ckeck: false,
               _type: 1,
+              _type2: 1,
               _id: this.rowid,
               disabled: true,
             },
