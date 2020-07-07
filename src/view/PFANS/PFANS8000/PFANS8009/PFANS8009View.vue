@@ -26,14 +26,14 @@
                         label: 'label.PFANS8009VIEW_CODE',
                         width: 120,
                         fix: false,
-                        filter: true,
+                        filter: false,
                     },
                     {
                         code: 'value1',
                         label: 'label.PFANS8009VIEW_VALUE',
                         width: 120,
                         fix: false,
-                        filter: true,
+                        filter: false,
                     },
                 ],
                 buttonList: [

@@ -27,28 +27,28 @@
             label: 'label.user_name',
             width: 120,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'graduateschool',
             label: 'label.PFANS6001VIEW_GRADUATESCHOOL',
             width: 120,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'suppliername',
             label: 'label.PFANS6001VIEW_SUPPLIERNAME',
             width: 140,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'interviewdep',
             label: 'label.PFANS2003FORMVIEW_INTERVIEWDEP',
             width: 120,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             //面试结果
@@ -56,7 +56,7 @@
             label: 'label.PFANS6001VIEW_RESULT',
             width: 120,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             //入职与否
@@ -64,7 +64,7 @@
             label: 'label.PFANS2003FORMVIEW_WHETHERENTRY',
             width: 120,
             fix: false,
-            filter: true,
+            filter: false,
           },
           // {
           //   //技术分类
@@ -80,7 +80,7 @@
             label: 'label.PFANS2003FORMVIEW_INTERVIEWDATE',
             width: 120,
             fix: false,
-            filter: true,
+            filter: false,
           },
         ],
         buttonList: [

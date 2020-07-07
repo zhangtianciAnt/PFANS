@@ -70,7 +70,7 @@
                                 labelClass: 'pfans3002view_column_5',
                                 width: 140,
                                 fix: false,
-                                filter: true,
+                                filter: false,
                             },
                             {
                                 code: 'namerome',
@@ -78,7 +78,7 @@
                                 labelClass: 'pfans3002view_column_5',
                                 width: 140,
                                 fix: false,
-                                filter: true
+                                filter: false
                             },
                         ],
                         width: 280,
@@ -90,42 +90,42 @@
                         label: 'label.PFANS3002VIEW_HOTEL',
                         width: 140,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: 'checkin',
                         label: 'label.PFANS3002VIEW_CHECKIN',
                         width: 140,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: 'checkout',
                         label: 'label.PFANS3002VIEW_CHECKOUT',
                         width: 140,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: 'checkindays',
                         label: 'label.PFANS3002VIEW_CHECKINDAYS',
                         width: 140,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: 'smoke',
                         label: 'label.PFANS3002VIEW_SMOKE',
                         width: 140,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: 'remarks',
                         label: 'label.remarks',
                         width: 140,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: 'acceptstatus',

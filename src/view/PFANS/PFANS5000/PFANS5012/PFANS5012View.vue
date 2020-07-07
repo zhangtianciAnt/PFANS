@@ -65,7 +65,7 @@
             label: 'label.PFANS1036FORMVIEW_JOBNUMBER',
             width: 140,
             fix: false,
-            filter: true
+            filter: false
           },
           // {
           //   code: 'status',

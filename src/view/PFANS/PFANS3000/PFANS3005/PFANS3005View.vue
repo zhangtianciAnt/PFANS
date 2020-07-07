@@ -28,7 +28,7 @@
                     label: 'label.PFANS3005VIEW_NUMBERS',
                     width: 150,
                     fix: false,
-                    filter: true
+                    filter: false
                   },
                     {
                         code: 'center_id',
@@ -56,7 +56,7 @@
                         label: 'label.application_date',
                         width: 150,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: 'user_id',
@@ -70,28 +70,28 @@
                         label: 'label.PFANS3005VIEW_LINENUMBER',
                         width: 150,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: 'setplace',
                         label: 'label.PFANS3005VIEW_SETPLACE',
                         width: 150,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: 'controller',
                         label: 'label.PFANS3005VIEW_CONTROLLER',
                         width: 150,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: 'username',
                         label: 'label.PFANS3005VIEW_USER',
                         width: 150,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                   // ccm 使用期限
                   {
@@ -99,7 +99,7 @@
                     label: 'label.PFANS3005VIEW_TIME',
                     width: 150,
                     fix: false,
-                    filter: true
+                    filter: false
                   },
                   // ccm 使用期限
                     {
@@ -121,112 +121,112 @@
                         label: 'label.PFANS3005VIEW_BUSINESSPLANAMOUNT',
                         width: 150,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: 'purchasepurpose',
                         label: 'label.PFANS3005VIEW_PURCHASEPURPOSE',
                         width: 150,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: 'procurementproject',
                         label: 'label.PFANS3005VIEW_PROCUREMENTPROJECT',
                         width: 150,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: 'procurementdetails',
                         label: 'label.PFANS3005VIEW_PROCUREMENTDETAILS_NAME',
                         width: 150,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: 'remarks',
                         label: 'label.remarks',
                         width: 150,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: 'brandname',
                         label: 'label.PFANS3005VIEW_BRANDNAME',
                         width: 150,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: 'model',
                         label: 'label.PFANS3005VIEW_MODEL',
                         width: 150,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: 'equipmenturl',
                         label: 'label.PFANS3005VIEW_EQUIPMENTURL',
                         width: 150,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: 'quantity',
                         label: 'label.PFANS3005VIEW_QUANTITY',
                         width: 150,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: 'unitprice',
                         label: 'label.PFANS3005VIEW_UNITPRICE',
                         width: 150,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: 'totalamount',
                         label: 'label.PFANS3005VIEW_TOTALAMOUNT',
                         width: 150,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: 'storagedate',
                         label: 'label.PFANS3005VIEW_STORAGEDATE',
                         width: 150,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: 'collectionday',
                         label: 'label.PFANS3005VIEW_COLLECTIONDAY',
                         width: 150,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: 'recipients',
                         label: 'label.PFANS3005VIEW_RECIPIENTS',
                         width: 150,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: 'actuarialdate',
                         label: 'label.PFANS3005VIEW_ACTUARIALDATE',
                         width: 150,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: 'actuarialamount',
                         label: 'label.PFANS3005VIEW_ACTUARIALAMOUNT',
                         width: 150,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: 'status',
@@ -254,7 +254,7 @@
                         label: 'label.PFANS3007FORMVIEW_REFUSEREASON',
                         width: 150,
                         fix: false,
-                        filter: true,
+                        filter: false,
                     },
                 ],
                 buttonList: [

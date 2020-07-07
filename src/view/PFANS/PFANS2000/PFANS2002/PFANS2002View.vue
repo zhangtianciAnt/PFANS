@@ -56,7 +56,7 @@
             label: "label.PFANS2002VIEW_NAME",
             width: 150,
             fix: false,
-            filter: true
+            filter: false
           },
           {
             code: "education1",
@@ -91,7 +91,7 @@
             label: "label.PFANS2002VIEW_BIRTHDAY",
             width: 150,
             fix: false,
-            filter: true
+            filter: false
           },
           {
             code: "_interview",
@@ -105,7 +105,7 @@
             label: "label.PFANS2002VIEW_CREATEON",
             width: 150,
             fix: false,
-            filter: true
+            filter: false
           },
           {
             code: "status",
