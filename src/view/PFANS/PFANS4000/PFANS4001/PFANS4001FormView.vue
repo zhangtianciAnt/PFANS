@@ -536,6 +536,18 @@
                 this.buttonClick2();
             },
             buttonClick2() {
+                // add-ws-印章管理下拉多选
+                if (this.form.sealtype != '' && this.form.sealtype != null && this.form.sealtype != undefined) {
+                    let checktlist = this.form.sealtype.splice(',');
+                    let checktableD = '';
+                    for (var m = 0; m < checktlist.length; m++) {
+                        checktableD = checktableD + checktlist[m] + ',';
+                    }
+                    this.form.sealtype = checktableD.substring(0, checktableD.length - 1);
+                }
+                // add-ws-印章管理下拉多选
+                this.form.userid = this.userlist;
+                this.form.sealid = this.$route.params._id;
                 this.loading = true;
                 this.$store
                     .dispatch('PFANS4001Store/updatePfans4001', this.form)
