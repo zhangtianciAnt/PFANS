@@ -261,7 +261,7 @@
                     {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
                     {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
                     {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
-                    {'key': 'export', 'name': 'button.export', 'disabled': false, icon: 'el-icon-download'},
+                    {'key': 'export', 'name': 'button.generatearticle', 'disabled': false, icon: 'el-icon-download'},
                     // {'key': 'conapp', 'name': 'button.conapp', 'disabled': false, 'icon': 'el-icon-plus'},
                     // {'key': 'actuarial', 'name': 'button.actuarial', 'disabled': false, 'icon': 'el-icon-edit-outline'}
                 ],
@@ -450,59 +450,94 @@
                   return;
                 }
                 this.selectedlist = this.$refs.roletable.selectedList;
-                import('@/vendor/Export2Excel').then(excel => {
-                  const tHeader = [
-                    this.$t('label.PFANS3005VIEW_NUMBERS'),
-                    this.$t('label.application_date'),
-                    this.$t('label.PFANS2006VIEW_CLUB'),
-                    this.$t('label.applicant'),
-                    this.$t('label.PFANS3005VIEW_SETPLACE'),
-                    this.$t('label.PFANS3005VIEW_CONTROLLER'),
-                    this.$t('label.PFANS3005VIEW_USER'),
-                    this.$t('label.PFANS3005VIEW_PROCUREMENTPROJECT'),
-                    this.$t('label.PFANS3005VIEW_PROCUREMENTDETAILS'),
-                    this.$t('label.remarks'),
-                    this.$t('label.PFANS3005VIEW_QUANTITY'),
-                    this.$t('label.PFANS3005VIEW_UNITPRICE'),
-                    this.$t('label.PFANS3005VIEW_TOTALAMOUNT'),
-                    this.$t('label.PFANS3005VIEW_STORAGEDATE'),
-                    this.$t('label.PFANS3005VIEW_COLLECTIONDAY'),
-                    this.$t('label.PFANS3005VIEW_STORAGENAME'),
-                    this.$t('label.PFANS3005VIEW_RECIPIENTSNAME'),
-                    this.$t('label.PFANS3005VIEW_ACTUARIALAMOUNT'),
-                    this.$t('label.PFANS1008FORMVIEW_ASSETMANAGEMENTNUMBER'),
-                    this.$t('label.PFANS3005VIEW_ACCEPTANCEDATE'),
-                    this.$t('label.PFANS3005VIEW_ACCEPTANCENAME')
-                  ];
-                  const filterVal = [
-                    'purnumbers',
-                    'application_date',
-                    'group_id',
-                    'user_id',
-                    'setplace',
-                    'controller',
-                    'username',
-                    'procurementproject',
-                    'procurementdetails',
-                    'remarks',
-                    'quantity',
-                    'unitprice',
-                    'totalamount',
-                    'storagedate',
-                    'collectionday',
-                    '',
-                    '',
-                    'actuarialamount',
-                    '',
-                    '',
-                    ''
-                  ];
-                  const list = this.selectedlist;
-                  const data = this.formatJson(filterVal, list);
-                  excel.export_json_to_excel(tHeader, data, this.$t('menu.PFANS3005'));
-                })
+                this.export(this.selectedlist);
+                // import('@/vendor/Export2Excel').then(excel => {
+                //   const tHeader = [
+                //     this.$t('label.PFANS3005VIEW_NUMBERS'),
+                //     this.$t('label.application_date'),
+                //     this.$t('label.PFANS2006VIEW_CLUB'),
+                //     this.$t('label.applicant'),
+                //     this.$t('label.PFANS3005VIEW_SETPLACE'),
+                //     this.$t('label.PFANS3005VIEW_CONTROLLER'),
+                //     this.$t('label.PFANS3005VIEW_USER'),
+                //     this.$t('label.PFANS3005VIEW_PROCUREMENTPROJECT'),
+                //     this.$t('label.PFANS3005VIEW_PROCUREMENTDETAILS'),
+                //     this.$t('label.remarks'),
+                //     this.$t('label.PFANS3005VIEW_QUANTITY'),
+                //     this.$t('label.PFANS3005VIEW_UNITPRICE'),
+                //     this.$t('label.PFANS3005VIEW_TOTALAMOUNT'),
+                //     this.$t('label.PFANS3005VIEW_STORAGEDATE'),
+                //     this.$t('label.PFANS3005VIEW_COLLECTIONDAY'),
+                //     this.$t('label.PFANS3005VIEW_STORAGENAME'),
+                //     this.$t('label.PFANS3005VIEW_RECIPIENTSNAME'),
+                //     this.$t('label.PFANS3005VIEW_ACTUARIALAMOUNT'),
+                //     this.$t('label.PFANS1008FORMVIEW_ASSETMANAGEMENTNUMBER'),
+                //     this.$t('label.PFANS3005VIEW_ACCEPTANCEDATE'),
+                //     this.$t('label.PFANS3005VIEW_ACCEPTANCENAME')
+                //   ];
+                //   const filterVal = [
+                //     'purnumbers',
+                //     'application_date',
+                //     'group_id',
+                //     'user_id',
+                //     'setplace',
+                //     'controller',
+                //     'username',
+                //     'procurementproject',
+                //     'procurementdetails',
+                //     'remarks',
+                //     'quantity',
+                //     'unitprice',
+                //     'totalamount',
+                //     'storagedate',
+                //     'collectionday',
+                //     '',
+                //     '',
+                //     'actuarialamount',
+                //     '',
+                //     '',
+                //     ''
+                //   ];
+                //   const list = this.selectedlist;
+                //   const data = this.formatJson(filterVal, list);
+                //   excel.export_json_to_excel(tHeader, data, this.$t('menu.PFANS3005'));
+                // })
+
               }
             },
+          export(){
+            this.$store
+              .dispatch("PFANS3005Store/downLoad", {purchase: this.selectedlist })
+              .then(response => {
+                this.loading = false;
+              })
+              .catch(error => {
+                Message({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.loading = false;
+              })
+          },
+          // download(data, filename) {
+          //   if("msSaveOrOpenBlob" in navigator){
+          //     window.navigator.msSaveOrOpenBlob(
+          //       new Blob([data],{type: 'application/vnd.ms-excel;charset=utf-8'}),
+          //       decodeURI(filename) + ".xlsx"
+          //     );
+          //   }else {
+          //     var blob = new Blob([data], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8'}); //application/vnd.openxmlformats-officedocument.spreadsheetml.sheet这里表示xlsx类型
+          //     var downloadElement = document.createElement('a');
+          //     var href = window.URL.createObjectURL(blob); //创建下载的链接
+          //     downloadElement.href = href;
+          //     downloadElement.download = decodeURI(filename) + '.xlsx'; //下载后文件名
+          //     document.body.appendChild(downloadElement);
+          //     downloadElement.click(); //点击下载
+          //     document.body.removeChild(downloadElement); //下载完成移除元素
+          //     window.URL.revokeObjectURL(href); //释放掉blob对象
+          //   }
+          // },
             formatJson(filterVal, jsonData) {
               return jsonData.map(v => filterVal.map(j => {
               if (j === 'timestamp') {
