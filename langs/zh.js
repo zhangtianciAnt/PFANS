@@ -72,6 +72,7 @@ module.exports = {
     savePrt: '保存并打印',
     prtQrcode: '打印二维码',
     recognition: '承认',
+    recognitionno: '设定成未承认',
     application: '契约番号申請',
     cancellation: '契约番号废弃',
     makeinto: '书类作成',
