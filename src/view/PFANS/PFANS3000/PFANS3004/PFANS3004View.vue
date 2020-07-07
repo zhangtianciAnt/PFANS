@@ -78,7 +78,7 @@
             label: 'label.PFANS3004VIEW_NAME',
             width: 200,
             fix: false,
-            filter: true
+            filter: false
             // }, {
             //     code: 'numbers',
             //     label: 'label.numbers',
@@ -90,7 +90,7 @@
             label: 'label.remarks',
             width: 140,
             fix: false,
-            filter: true
+            filter: false
           }, {
             code: 'status',
             label: 'label.approval_status',

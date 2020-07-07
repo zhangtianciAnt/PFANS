@@ -92,7 +92,7 @@
                         label: 'label.PFANS6001VIEW_SUPPLIERNAME',
                         width: 140,
                         fix: false,
-                        filter: true,
+                        filter: false,
                     },
                     {
                         //负责人
@@ -100,7 +100,7 @@
                         label: 'label.ASSETS1002VIEW_USERID',
                         width: 120,
                         fix: false,
-                        filter: true,
+                        filter: false,
                     },
                     {
                         //项目联络人
@@ -108,7 +108,7 @@
                         label: 'label.PFANS6002FORMVIEW_PROJECTPERSON',
                         width: 140,
                         fix: false,
-                        filter: true,
+                        filter: false,
                     },
                     {
                         //联系电话
@@ -116,7 +116,7 @@
                         label: 'label.PFANS2003FORMVIEW_CONTACTINFORMATION',
                         width: 120,
                         fix: false,
-                        filter: true,
+                        filter: false,
                     },
                     {
                         //共同事务联络人
@@ -124,7 +124,7 @@
                         label: 'label.PFANS6002VIEW_COMMONTPERSON',
                         width: 160,
                         fix: false,
-                        filter: true,
+                        filter: false,
                     },
                     {
                         //联系电话
@@ -132,7 +132,7 @@
                         label: 'label.PFANS2003FORMVIEW_CONTACTINFORMATION',
                         width: 120,
                         fix: false,
-                        filter: true,
+                        filter: false,
                     },
                     {
                         //地址
@@ -140,7 +140,7 @@
                         label: 'label.PFANS6002VIEW_ADDRESS',
                         width: 120,
                         fix: false,
-                        filter: true,
+                        filter: false,
                     },
                     {
                         //人员规模
@@ -148,7 +148,7 @@
                         label: 'label.PFANS6002VIEW_PERSCALE',
                         width: 120,
                         fix: false,
-                        filter: true,
+                        filter: false,
                     }
                 ],
                 buttonList: [

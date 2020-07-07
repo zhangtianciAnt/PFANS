@@ -101,7 +101,7 @@
             label: 'label.PFANS6001VIEW_SUPPLIERNAME',
             width: 150,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             //姓名
@@ -109,7 +109,7 @@
             label: 'label.user_name',
             width: 120,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             //所属部门
@@ -117,7 +117,7 @@
             label: 'label.PFANS5001FORMVIEW_DEPARTMENTID',
             width: 120,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             //卡号
@@ -125,7 +125,7 @@
             label: 'label.PFANSUSERFORMVIEW_JOBNUMBER',
             width: 120,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             //性别
@@ -133,7 +133,7 @@
             label: 'label.sex',
             width: 120,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             //年龄
@@ -141,7 +141,7 @@
             label: 'label.PFANSUSERFORMVIEW_AGE',
             width: 120,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             //学历
@@ -149,7 +149,7 @@
             label: 'label.PFANS2026VIEW_EDUCATIONALBACKGROUND',
             width: 120,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             //毕业院校
@@ -157,7 +157,7 @@
             label: 'label.PFANS6001VIEW_GRADUATESCHOOL',
             width: 120,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             //登录账号
@@ -165,7 +165,7 @@
             label: 'label.PFANS6004FORMVIEW_ACCOUNT',
             width: 120,
             fix: false,
-            filter: true,
+            filter: false,
           },
           // {
           //   //技术分类
@@ -181,7 +181,7 @@
             label: 'label.PFANS2003FORMVIEW_RN',
             width: 80,
             fix: false,
-            filter: true,
+            filter: false,
           },
         ],
         buttonList: [

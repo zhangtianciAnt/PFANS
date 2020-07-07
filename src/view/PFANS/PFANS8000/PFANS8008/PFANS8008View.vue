@@ -56,28 +56,28 @@
             label: "label.PFANS8008VIEW_MESSAGE_HEADER",
             width: 200,
             fix: false,
-            filter: true
+            filter: false
           },
           {
             code: "availablestatename",
             label: "label.PFANS8008VIEW_AVAILABLESTATE",
             width: 200,
             fix: false,
-            filter: true
+            filter: false
           },
           {
             code: "createbyname",
             label: "label.PFANS8008VIEW_CREATEBY",
             width: 200,
             fix: false,
-            filter: true
+            filter: false
           },
           {
             code: "createon",
             label: "label.PFANS8008VIEW_RELEASETIME",
             width: 200,
             fix: false,
-            filter: true
+            filter: false
           }
         ],
         _id: "",

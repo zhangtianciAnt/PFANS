@@ -26,7 +26,7 @@
             label: 'label.workflow_name',
             width: 200,
             fix: false,
-            filter: true
+            filter: false
           },
           {
             code: 'formname',
