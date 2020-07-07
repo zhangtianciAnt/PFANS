@@ -180,14 +180,14 @@ export default {
           label: "label.user_name",
           width: 120,
           fix: false,
-          filter: true
+          filter: false
         },
         {
           code: "jobnumber",
           label: "label.PFANSUSERFORMVIEW_JOBNUMBER",
           width: 110,
           fix: false,
-          filter: true
+          filter: false
         },
         {
           code: "centername",
@@ -215,7 +215,7 @@ export default {
           label: "label.PFANSUSERVIEW_ENTERDAY",
           width: 120,
           fix: false,
-          filter: true
+          filter: false
         },
         {
           code: "post",
@@ -250,7 +250,7 @@ export default {
           label: "label.PFANSUSERVIEW_BIRTHDAY",
           width: 110,
           fix: false,
-          filter: true
+          filter: false
         },
         // add_fjl_05/22 --添加退职日
         {
@@ -258,7 +258,7 @@ export default {
           label: "label.PFANS2026VIEW_RESIGNATIONDATE",
           width: 120,
           fix: false,
-          filter: true
+          filter: false
         },
         // add_fjl_05/22 --添加退职日
         // add_ws_06/23 --禅道141
@@ -267,7 +267,7 @@ export default {
           label: "label.PFANS2026VIEW_CAUSE",
           width: 110,
           fix: false,
-          filter: true
+          filter: false
         }
         // add_ws_06/23 --禅道141
       ],

@@ -47,21 +47,21 @@
             label: 'label.PFANS2001VIEW_POSITIONTITLE',
             width: 150,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'peoplerequired',
             label: 'label.PFANS2001VIEW_PEOPLEREQUIRED',
             width: 150,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'workplace',
             label: 'label.PFANS2001VIEW_WORKPLACE',
             width: 150,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'requirements',
@@ -75,7 +75,7 @@
             label: 'label.application_date',
             width: 150,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'status',

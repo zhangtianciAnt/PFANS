@@ -51,14 +51,14 @@
                     label: 'label.PFANS5009VIEW_PROJECTNO',
                     width: 110,
                     fix: false,
-                    filter: true,
+                    filter: false,
                 },
               {
                 code: 'project_name',
                 label: 'label.PFANS5004VIEW_PROJECTNAMW',
                 width: 120,
                 fix: false,
-                filter: true
+                filter: false
               },
               // 计划期间
               {
@@ -66,7 +66,7 @@
                 label: 'label.PFANS5009VIEW_PLANNING',
                 width: 200,
                 fix: false,
-                filter: true
+                filter: false
               },
               // 实际期间
               {
@@ -74,7 +74,7 @@
                 label: 'label.PFANS5009VIEW_ACTUAL',
                 width: 200,
                 fix: false,
-                filter: true
+                filter: false
               },
               /*阶段信息*/
               {
@@ -96,14 +96,14 @@
                 label: 'label.PFANS5009VIEW_ESTIMATEDWORK',
                 width: 150,
                 fix: false,
-                filter: true
+                filter: false
               },
               {
                 code: 'actualwork',
                 label: 'label.PFANS5009VIEW_ACTUALWORK',
                 width: 120,
                 fix: false,
-                filter: true
+                filter: false
               },
               /*合同状态*/
               {
@@ -127,14 +127,14 @@
                     label: 'label.PFANS5009VIEW_PROJECTNO',
                     width: 110,
                     fix: false,
-                    filter: true,
+                    filter: false,
                 },
               {
                 code: 'project_name',
                 label: 'label.PFANS5004VIEW_PROJECTNAMW',
                 width: 120,
                 fix: false,
-                filter: true
+                filter: false
               },
               // 计划期间
               {
@@ -142,7 +142,7 @@
                 label: 'label.PFANS5009VIEW_PLANNING',
                 width: 200,
                 fix: false,
-                filter: true
+                filter: false
               },
               // 实际期间
               {
@@ -150,7 +150,7 @@
                 label: 'label.PFANS5009VIEW_ACTUAL',
                 width: 200,
                 fix: false,
-                filter: true
+                filter: false
               },
               /*阶段信息*/
               {
@@ -172,14 +172,14 @@
                 label: 'label.PFANS5009VIEW_ESTIMATEDWORK',
                 width: 170,
                 fix: false,
-                filter: true
+                filter: false
               },
               {
                 code: 'actualwork',
                 label: 'label.PFANS5009VIEW_ACTUALWORK',
                 width: 120,
                 fix: false,
-                filter: true
+                filter: false
               },
               /*合同状态*/
               {

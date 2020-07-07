@@ -103,7 +103,7 @@
                                 labelClass: 'pfans3006view_column_1',
                                 width: 140,
                                 fix: false,
-                                filter: true
+                                filter: false
                             },
                             {
                                 code: 'mobilephone',
@@ -111,7 +111,7 @@
                                 labelClass: 'pfans3006view_column_1',
                                 width: 150,
                                 fix: false,
-                                filter: true
+                                filter: false
                             },
                         ],
                         width: 990,
@@ -186,7 +186,7 @@
                                 labelClass: 'pfans3006view_column_13',
                                 width: 140,
                                 fix: false,
-                                filter: true
+                                filter: false
                             },
                             {
                                 code: 'distinguish',
@@ -194,7 +194,7 @@
                                 labelClass: 'pfans3006view_column_13',
                                 width: 140,
                                 fix: false,
-                                filter: true
+                                filter: false
                             },
                             {
                                 code: 'departurecity',
@@ -202,7 +202,7 @@
                                 labelClass: 'pfans3006view_column_13',
                                 width: 150,
                                 fix: false,
-                                filter: true
+                                filter: false
                             },
                             {
                                 code: 'welcomeboard',
@@ -210,7 +210,7 @@
                                 labelClass: 'pfans3006view_column_13',
                                 width: 140,
                                 fix: false,
-                                filter: true
+                                filter: false
                             },
                             {
                                 code: 'fellowmembers',
@@ -218,7 +218,7 @@
                                 labelClass: 'pfans3006view_column_13',
                                 width: 140,
                                 fix: false,
-                                filter: true
+                                filter: false
                             },
                             {
                                 code: 'fellowmembersname',
@@ -226,7 +226,7 @@
                                 labelClass: 'pfans3006view_column_13',
                                 width: 140,
                                 fix: false,
-                                filter: true
+                                filter: false
                             },
                         ],
                         width: 850,
@@ -242,7 +242,7 @@
                                 labelClass: 'pfans3006view_column_19',
                                 width: 140,
                                 fix: false,
-                                filter: true
+                                filter: false
                             },
                         ],
                         width: 140,
@@ -259,7 +259,7 @@
                                 labelClass: 'pfans3006view_column_20',
                                 width: 140,
                                 fix: false,
-                                filter: true
+                                filter: false
                             },
                             {
                                 code: 'remarks',
@@ -267,7 +267,7 @@
                                 labelClass: 'pfans3006view_column_20',
                                 width: 140,
                                 fix: false,
-                                filter: true
+                                filter: false
                             },
                         ],
                         width: 280,

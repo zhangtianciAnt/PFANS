@@ -73,9 +73,7 @@
                 </el-form-item>
               </el-col>
               <el-col :span="8">
-                <el-form-item :label="$t('label.PFANS1012FORMVIEW_BUDGET')">
-                  <!--                  <el-input :disabled="true" maxlength="20" style="width:20vw"-->
-                  <!--                            v-model="form.budgetnumber"></el-input>-->
+                <el-form-item :label="$t('label.PFANS1012FORMVIEW_BUDGET')" prop="budgetnumber">
                   <el-select clearable style="width: 20vw" v-model="form.budgetnumber" :disabled="!disable"
                              :placeholder="$t('normal.error_09')">
                     <el-option
@@ -529,6 +527,11 @@
             message: this.$t('normal.error_08') + this.$t('label.PFANS3001FORMVIEW_ROMANID'),
             trigger: 'blur',
           }],
+          budgetnumber: [{
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_BUDGET'),
+            trigger: 'blur',
+          }],
           extensionnumber: [{
             required: true,
             message: this.$t('normal.error_08') + this.$t('label.PFANS3001VIEW_EXTENSIONNUMBER'),
@@ -709,7 +712,8 @@
             });
             this.loading = false;
           });
-      } else {
+      }
+      else {
         this.showDomestic = true;
         this.userlist = this.$store.getters.userinfo.userid;
         if (this.userlist !== null && this.userlist !== '' && this.userlist !== undefined) {

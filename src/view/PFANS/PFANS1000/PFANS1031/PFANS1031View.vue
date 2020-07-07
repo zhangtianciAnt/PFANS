@@ -40,7 +40,7 @@
             label: 'label.PFANS1032FORMVIEW_CONTRACTNUMBER',
             width: 120,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'contracttype',
@@ -75,7 +75,7 @@
             label: 'label.PFANS1025VIEW_PJNAME',
             width: 140,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'openingdate',
@@ -110,21 +110,21 @@
             label: 'label.PFANS1024VIEW_CLAIMAMOUNT',
             width: 140,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'claimnumber',
             label: 'label.PFANS1032FORMVIEW_CLAIMNUMBER',
             width: 140,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'claimtype',
             label: 'label.PFANS1032FORMVIEW_CLAIMTYPE',
             width: 140,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'toto',

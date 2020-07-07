@@ -79,13 +79,13 @@
                         label: 'label.PFANS2011VIEW_RESERVEOVER',
                         width: 140,
                         fix: false,
-                        filter: true
+                        filter: false
                     }, {
                         code: 'actualovertime',
                         label: 'label.PFANS2011VIEW_ACTUALOVER',
                         width: 140,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     // {
                     //     code: 'reservesubstitutiondate',

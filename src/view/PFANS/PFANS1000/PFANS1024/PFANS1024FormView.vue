@@ -100,12 +100,25 @@
             <el-dialog :visible.sync="dialogVisibleE"
                        top="8vh" width="100vh"
                        append-to-body>
+              <!--            zy-7/6-禅道213任务 start-->
               <el-table
-                :data="dataA.filter(data => !search || data.supchinese.toLowerCase().includes(search.toLowerCase()))"
+                :data="dataA.filter(data => !search || data.supchinese.toLowerCase().includes(search.toLowerCase())
+                || data.supjapanese.toLowerCase().includes(search.toLowerCase())
+                || data.supenglish.toLowerCase().includes(search.toLowerCase())
+                || data.abbreviation.toLowerCase().includes(search.toLowerCase()))"
                 :row-key="rowid" @row-click="rowClickE" max-height="400" ref="roletableA"
                 v-loading='loading'>
+                <!--            zy-7/6-禅道213任务 end-->
                 <el-table-column property="supchinese" :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')"
-                                 width="240"></el-table-column>
+                                 width="120"></el-table-column>
+<!--            zy-7/6-禅道213任务 start-->
+                <el-table-column property="supjapanese" :label="$t('label.PFANS6001VIEW_SUPJAPANESE')"
+                                 width="120"></el-table-column>
+                <el-table-column property="supenglish" :label="$t('label.PFANS6001VIEW_SUPPLIERNAME2')"
+                                 width="120"></el-table-column>
+                <el-table-column property="abbreviation" :label="$t('label.PFANS6001VIEW_ABBREVIATION')"
+                                 width="120"></el-table-column>
+<!--            zy-7/6-禅道213任务 end-->
                 <!--<el-table-column property="suppliercode" :label="$t('label.PFANS6003FORMVIEW_VENDORNUM')"-->
                 <!--width="120"></el-table-column>-->
                 <el-table-column property="liableperson" :label="$t('label.ASSETS1002VIEW_USERID')"
@@ -1584,6 +1597,11 @@
                 let supplierInfo = getSupplierinfor(response[j].supplierinfor_id);
                 if (supplierInfo) {
                   response[j].supchinese = supplierInfo.supchinese;
+                    //        zy-7/6-禅道213任务 start
+                  response[j].supjapanese = supplierInfo.supjapanese;
+                  response[j].supenglish = supplierInfo.supenglish;
+                  response[j].abbreviation = supplierInfo.abbreviation;
+                    //        zy-7/6-禅道213任务 end
                 }
               }
               if (response[j].liableperson !== null && response[j].liableperson !== '') {

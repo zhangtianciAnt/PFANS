@@ -79,7 +79,7 @@
             label: 'label.PFANS1013VIEW_REIMNUMBER',
             width: 130,
             fix: false,
-            filter: true,
+            filter: false,
           },
           //ADD-WS-4/27-精算类型添加
           {
@@ -95,7 +95,7 @@
             label: 'label.PFANS1012VIEW_MONEY',
             width: 110,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'status',

@@ -35,7 +35,7 @@
             label: 'label.PFANS1024VIEW_CONTRACTNUMBER',
             width: 150,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'contracttype',
@@ -63,14 +63,14 @@
             label: 'label.PFANS1025VIEW_PJNAME',
             width: 120,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'claimdatetime',
             label: 'label.PFANS1025VIEW_DEVELOPDATE',
             width: 200,
             fix: false,
-            filter: true,
+            filter: false,
           },
 
           /* {
@@ -85,14 +85,14 @@
             label: 'label.PFANS1025VIEW_CURRENCYFORMAT',
             width: 120,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'claimamount',
             label: 'label.PFANS1024VIEW_CLAIMAMOUNT',
             width: 120,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'status',
@@ -107,7 +107,7 @@
             label: 'label.PFANS1030FORMVIEW_TIEEEND',
             width: 150,
             fix: false,
-            filter: true,
+            filter: false,
           },
           //add-ws-4/17-添加审批时间
         ],

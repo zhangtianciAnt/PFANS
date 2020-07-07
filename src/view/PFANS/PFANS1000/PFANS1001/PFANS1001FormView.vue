@@ -52,14 +52,14 @@
             label: 'label.PFANS1005VIEW_NUMBERS',
             width: 120,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'remarks',
             label: 'label.PFANS1012VIEW_ABSTRACT',
             width: 120,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'user_id',
@@ -105,14 +105,14 @@
             label: 'label.PFANS1001FORMVIEW_NUMBERS',
             width: 120,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'filename',
             label: 'label.PFANS1012VIEW_ABSTRACT',
             width: 120,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'user_id',
@@ -159,7 +159,7 @@
             label: 'label.PFANS1001FORMVIEW_BUSINESS_NUMBER',
             width: 120,
             fix: false,
-            filter: true,
+            filter: false,
           },
           // ztc 禅道No.61-增加编号（日期加序列号 end
           {
@@ -222,7 +222,7 @@
             label: 'label.PFANS1006FORMVIEW_LOANAPNO',
             width: 130,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'user_id',
@@ -257,14 +257,14 @@
             label: 'label.PFANS1012VIEW_ABSTRACT',
             width: 120,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'moneys',
             label: 'label.PFANS1004VIEW_AMOUNT',
             width: 120,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'status',
@@ -296,7 +296,7 @@
             label: 'label.PFANS1006FORMVIEW_NUMBERCATION',
             width: 130,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'company',

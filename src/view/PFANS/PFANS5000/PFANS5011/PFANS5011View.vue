@@ -34,7 +34,7 @@
             width: 140,
             fix: false,
             filter: true,
-            december:true
+            december:false
           },
           //项目名称
           {
@@ -42,7 +42,7 @@
             label: 'label.PFANS5009VIEW_PROJECTNAME',
             width: 140,
             fix: false,
-            filter: true
+            filter: false
           },
 
           //工数
@@ -51,7 +51,7 @@
             label: 'label.PFANS1036FORMVIEW_JOBNUMBER',
             width: 140,
             fix: false,
-            filter: true
+            filter: false
           },
 
           //状态

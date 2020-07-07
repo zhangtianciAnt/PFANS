@@ -64,13 +64,13 @@
                 label: 'label.PFANS5009VIEW_PROJECTNO',
                 width: 110,
                 fix: false,
-                filter: true,
+                filter: false,
               },{
                 code: 'project_name',
                 label: 'label.PFANS5004VIEW_PROJECTNAMW',
                 width: 120,
                 fix: false,
-                filter: true
+                filter: false
               },
               /*项目负责人*/
               {
@@ -78,21 +78,21 @@
                 label: 'label.PFANS5001FORMVIEW_LEADERID',
                 width: 120,
                 fix: false,
-                filter: true
+                filter: false
               },
               {
                 code: 'startdate',
                 label: 'label.PFANS5001FORMVIEW_STARTDATE',
                 width: 130,
                 fix: false,
-                filter: true
+                filter: false
               },
               {
                 code: 'nowdate',
                 label: 'label.PFANS5009FORMVIEW_ACTUALENDTIME',
                 width: 120,
                 fix: false,
-                filter: true
+                filter: false
               },
               // {
               //   code: 'actualwork',

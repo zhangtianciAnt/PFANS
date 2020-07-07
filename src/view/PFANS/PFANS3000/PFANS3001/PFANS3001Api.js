@@ -39,6 +39,13 @@ export function getFpans3001List() {
   });
 }
 
+export function geticketsdetail() {
+  return request({
+    url: 'tickets/geticketsdetail',
+    method: 'post',
+  });
+}
+
 export function getPfans3001One(data) {
   return request({
     url: 'tickets/oneInfo',

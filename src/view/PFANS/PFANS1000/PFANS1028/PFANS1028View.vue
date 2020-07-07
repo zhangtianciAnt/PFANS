@@ -35,7 +35,7 @@
             label: 'label.PFANS1028VIEW_NO',
             width: 150,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'career',
@@ -56,7 +56,7 @@
             label: 'label.PFANS1028VIEW_NAME',
             width: 150,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'custoenglish',
@@ -77,7 +77,7 @@
             label: 'label.PFANS1028VIEW_REVIEW',
             width: 200,
             fix: false,
-            filter: true,
+            filter: false,
           },
 
           {
@@ -85,21 +85,21 @@
             label: 'label.PFANS1028VIEW_REQUIREMENTS',
             width: 120,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'claimdatetime',
             label: 'label.PFANS1028VIEW_PERIOD',
             width: 170,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'technical',
             label: 'label.PFANS1028VIEW_TECHNICAL',
             width: 150,
             fix: false,
-            filter: true,
+            filter: false,
           },
         ],
         buttonList: [

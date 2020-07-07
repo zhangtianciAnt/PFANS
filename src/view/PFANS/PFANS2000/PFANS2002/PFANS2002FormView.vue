@@ -1232,21 +1232,31 @@
                 }
 
             },
-            fileSuccess(response, file, fileList) {
-                this.fileList = [];
-                this.form.entry_enclosure = '';
-                for (var item of fileList) {
-                    let o = {};
-                    o.name = item.name;
-                    if (!item.url) {
-                        o.url = item.response.info;
-                    } else {
-                        o.url = item.url;
-                    }
-                    this.fileList.push(o);
-                    this.form.entry_enclosure += o.name + ',' + o.url + ';';
+          fileSuccess(response, file, fileList) {
+            if (response.data == "upload_success") {
+              this.fileList = [];
+              this.form.uploadfile = '';
+              for (var item of fileList) {
+                let o = {};
+                o.name = item.name;
+                if (!item.url) {
+                  o.url = item.response.info;
+                } else {
+                  o.url = item.url;
                 }
-            },
+                this.fileList.push(o);
+                this.form.uploadfile += o.name + ',' + o.url + ';';
+              }
+            } else {
+              Message({
+                message: this.$t('label.PFANS2016FORMVIEW_FILEERROR'),
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.form.uploadfile =''
+              this.$refs.upload.clearFiles();
+            }
+          },
 
             buttonClick(val) {
                 this.checkRequire();

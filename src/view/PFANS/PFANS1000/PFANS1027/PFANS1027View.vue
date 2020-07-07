@@ -28,7 +28,7 @@
             label: 'label.PFANS1032FORMVIEW_CONTRACTNUMBER',
             width: 120,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'contracttype',
@@ -63,7 +63,7 @@
             label: 'label.PFANS1025VIEW_PJNAME',
             width: 120,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'startdate',

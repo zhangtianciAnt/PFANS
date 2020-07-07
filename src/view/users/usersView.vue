@@ -174,14 +174,14 @@ export default {
           label: "label.user_name",
           width: 120,
           fix: false,
-          filter: true
+          filter: false
         },
         {
           code: "jobnumber",
           label: "label.PFANSUSERFORMVIEW_JOBNUMBER",
           width: 110,
           fix: false,
-          filter: true
+          filter: false
         },
         {
           code: "centername",
@@ -209,7 +209,7 @@ export default {
           label: "label.PFANSUSERVIEW_ENTERDAY",
           width: 120,
           fix: false,
-          filter: true
+          filter: false
         },
           {
               code: "post",
@@ -244,7 +244,7 @@ export default {
           label: "label.PFANSUSERVIEW_BIRTHDAY",
           width: 110,
           fix: false,
-          filter: true
+          filter: false
         },
         // add_fjl_05/22 --添加退职日
         {
@@ -252,7 +252,7 @@ export default {
           label: "label.PFANS2026VIEW_RESIGNATIONDATE",
           width: 120,
           fix: false,
-          filter: true
+          filter: false
         },
         // add_fjl_05/22 --添加退职日
         // add_ws_06/23 --禅道141
@@ -261,7 +261,7 @@ export default {
           label: "label.PFANS2026VIEW_CAUSE",
           width: 110,
           fix: false,
-          filter: true
+          filter: false
         }
         // add_ws_06/23 --禅道141
       ],
@@ -629,6 +629,9 @@ export default {
                 this.$t("label.USERSVIEW_WHERETOLEAVE"),//离职去向(选项)
                 this.$t("label.USERSVIEW_WHERETOLEAVE2"),//离职去向(手动输入)
                 this.$t("label.USERSVIEW_TRANSFERCOMPANY"),//转职公司
+                  //        zy-7/6-禅道207任务 start
+                this.$t("label.PFANS2026VIEW_RESIGNATIONDATE"),//离职时间
+                  //        zy-7/6-禅道207任务 end
                 this.$t("label.PFANS2026VIEW_REASON2"),//离职理由详细
                 this.$t("label.USERSVIEW_OTHER"),//其他
 //        ws-6/28-禅道141任务
@@ -686,6 +689,9 @@ export default {
                 "wheretoleave",//离职去向(选项)
                 "wheretoleave2",//离职去向(手动输入)
                 "transfercompany",//转职公司
+                  //        zy-7/6-禅道207任务 start
+                "resignation_date",//离职时间
+                  //        zy-7/6-禅道207任务 end
                 "reason2",//离职理由详细
                 "other",//其他
                 //        ws-6/28-禅道141任务

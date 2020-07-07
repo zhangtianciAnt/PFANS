@@ -41,14 +41,14 @@
             label: 'label.PFANS5009VIEW_PROJECTNO',
             width: 110,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'project_name',
             label: 'label.PFANS5009VIEW_PROJECTNAME',
             width: 110,
             fix: false,
-            filter: true,
+            filter: false,
           },
 
           {
@@ -77,21 +77,21 @@
             label: 'label.PFANS5009VIEW_ESTIMATEDWORK',
             width: 150,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'contractno',
             label: 'label.PFANS1007FORMVIEW_CONTRACTNO',
             width: 260,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'actualwork',
             label: 'label.PFANS5009VIEW_ACTUALWORK',
             width: 150,
             fix: false,
-            filter: true,
+            filter: false,
           },
           // {
           //   code: 'zpqk',
