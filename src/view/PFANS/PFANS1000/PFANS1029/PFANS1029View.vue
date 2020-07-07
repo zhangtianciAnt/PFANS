@@ -36,7 +36,7 @@
             label: 'label.PFANS1024VIEW_CONTRACTNUMBER',
             width: 150,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'contracttype',
@@ -71,7 +71,7 @@
             label: 'label.PFANS1029VIEW_PJNAMEJAPANESE',
             width: 120,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'openingdate',
@@ -93,14 +93,14 @@
             label: 'label.PFANS1029VIEW_CURRENCYFORMAT',
             width: 120,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'claimamount',
             label: 'label.PFANS1029VIEW_CLAIMAMOUNT',
             width: 120,
             fix: false,
-            filter: true,
+            filter: false,
           },
         ],
         buttonList: [

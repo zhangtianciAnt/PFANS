@@ -41,7 +41,7 @@
             label: 'label.PFANS1032FORMVIEW_CONTRACTNUMBER',
             width: 120,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'contracttype',
@@ -69,7 +69,7 @@
             label: 'label.PFANS1032FORMVIEW_PJNAME',
             width: 100,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'claimnumber',

@@ -167,14 +167,14 @@
             label: 'label.PFASN1023FORMVIEW_MANAGEMENT',
             width: 240,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'assetname',
             label: 'label.PFANS1036FORMVIEW_ASSETNAME',
             width: 200,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'createon',
@@ -234,14 +234,14 @@
             label: 'label.PFANS1008FORMVIEW_ASSETMANAGEMENTNUMBER',
             width: 140,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'assetname',
             label: 'label.PFANS1008FORMVIEW_ASSETNAME',
             width: 140,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'repair',

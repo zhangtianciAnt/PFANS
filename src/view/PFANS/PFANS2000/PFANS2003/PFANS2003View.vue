@@ -26,14 +26,14 @@
                         label: 'label.user_name',
                         width: 120,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: 'accept_date',
                         label: 'label.PFANS2003VIEW_ACCEPTDATE',
                         width: 150,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: 'interviewdep',
@@ -75,7 +75,7 @@
                         label: 'label.information_start',
                         width: 150,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                 ],
                 buttonList: [

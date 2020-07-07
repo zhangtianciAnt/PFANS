@@ -224,7 +224,7 @@
             label: 'label.PFANS1024VIEW_CONTRACTNUMBER',
             width: 130,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'contracttype',
@@ -245,7 +245,7 @@
             label: 'label.PFANS1024VIEW_CLAIMAMOUNT',
             width: 120,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'start',
@@ -273,42 +273,42 @@
             label: 'label.PFANS1044VIEW_ONE',
             width: 130,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'decisionnumber',
             label: 'label.PFANS1044VIEW_TWO',
             width: 130,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'delivery',
             label: 'label.PFANS1044VIEW_THREE',
             width: 130,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'deliverycondition',
             label: 'label.PFANS1044VIEW_FORE',
             width: 130,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'deliverydate',
             label: 'label.PFANS1044VIEW_FIVE',
             width: 130,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'deliveryfinshdate',
             label: 'label.PFANS1044VIEW_SIX',
             width: 130,
             fix: false,
-            filter: true,
+            filter: false,
           },
         ],
         //add-ws-No.29-合同检索一览表中追加纳品日期 受托
@@ -339,7 +339,7 @@
             label: 'label.PFANS1024VIEW_CONTRACTNUMBER',
             width: 130,
             fix: false,
-            filter: true,
+            filter: false,
           },
           // 禅道69 start
           {
@@ -368,7 +368,7 @@
             label: 'label.PFANS1024VIEW_CURRENCYPOSITION',
             width: 150,
             fix: false,
-            filter: true,
+            filter: false,
           },
           // 禅道69 end
           {
@@ -383,7 +383,7 @@
             label: 'label.PFANS1024VIEW_CLAIMAMOUNT',
             width: 120,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'start',
@@ -404,14 +404,14 @@
             label: 'label.PFANS1024VIEW_PAPERCONTRACT',
             width: 300,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'remarks',
             label: 'label.PFANS2026FORMVIEW_REMARKS',
             width: 120,
             fix: false,
-            filter: true,
+            filter: false,
           },
         ],
         //add-ws-No.29-合同检索一览表中追加纳品日期 其他
@@ -435,7 +435,7 @@
             label: 'label.PFANS1024VIEW_CONTRACTNUMBER',
             width: 130,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'contracttype',
@@ -456,7 +456,7 @@
             label: 'label.PFANS1024VIEW_CLAIMAMOUNT',
             width: 120,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'start',

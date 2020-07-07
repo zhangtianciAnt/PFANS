@@ -41,7 +41,7 @@
             label: 'label.PFANS1024VIEW_CONTRACTNUMBER',
             width: 140,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'contracttype',
@@ -72,7 +72,7 @@
             label: 'label.PFANS6007VIEW_PJNAME',
             width: 280,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'custochinese',

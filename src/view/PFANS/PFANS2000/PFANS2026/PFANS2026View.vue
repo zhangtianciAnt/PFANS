@@ -41,7 +41,7 @@
             label: 'label.user_name',
             width: 100,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'center_name',
@@ -90,14 +90,14 @@
             label: 'label.PFANS2026VIEW_ENTRYTIME',
             width: 150,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'hope_exit_date',
             label: 'label.PFANS2026VIEW_DEPARTUREDATE',
             width: 150,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'status',

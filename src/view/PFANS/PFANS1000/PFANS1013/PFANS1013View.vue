@@ -80,7 +80,7 @@
             label: 'label.PFANS1013VIEW_REIMNUMBER',
             width: 130,
             fix: false,
-            filter: true,
+            filter: false,
           },
           //add-ws-5/11-支出总额添加
           {
@@ -88,7 +88,7 @@
             label: 'label.PFANS1013VIEW_TOTALPAY',
             width: 130,
             fix: false,
-            filter: true,
+            filter: false,
           },
           //add-ws-5/11-支出总额添加
           {

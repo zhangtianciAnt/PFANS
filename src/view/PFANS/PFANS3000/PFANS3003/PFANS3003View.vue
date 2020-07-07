@@ -67,28 +67,28 @@
             label: 'label.PFANS3003VIEW_OCCUPATIONAL',
             width: 140,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'insideline',
             label: 'label.PFANS3003VIEW_INSIDELINE',
             width: 140,
             fix: false,
-            filter: true
+            filter: false
           },
           {
             code: 'email',
             label: 'label.email',
             width: 140,
             fix: false,
-            filter: true
+            filter: false
           },
           {
             code: 'remarks',
             label: 'label.remarks',
             width: 140,
             fix: false,
-            filter: true
+            filter: false
           },
           {
             code: 'status',

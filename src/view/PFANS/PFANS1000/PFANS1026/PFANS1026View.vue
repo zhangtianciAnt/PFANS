@@ -41,7 +41,7 @@
             label: 'label.PFANS1024VIEW_CONTRACTNUMBER',
             width: 140,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'contracttype',
@@ -79,14 +79,14 @@
             label: 'label.PFANS1024VIEW_CURRENCYPOSITION',
             width: 140,
             fix: false,
-            filter: true,
+            filter: false,
           },
           {
             code: 'claimamount',
             label: 'label.PFANS1024VIEW_CLAIMAMOUNT',
             width: 140,
             fix: false,
-            filter: true,
+            filter: false,
           },
           //
           {
@@ -102,7 +102,7 @@
             label: 'label.PFANS6007VIEW_PJNAME',
             width: 280,
             fix: false,
-            filter: true,
+            filter: false,
           },
           // 禅道70 end
           {
