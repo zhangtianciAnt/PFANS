@@ -35,14 +35,14 @@
                     label: 'label.PFANS5009VIEW_PROJECTNO',
                     width: 110,
                     fix: false,
-                    filter: true,
+                    filter: false,
                   },
                     {
                         code: 'project_name',
                         label: 'label.PFANS5001FORMVIEW_PROJECT_NAME',
                         width: 150,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     // {
                     //     code: 'createby',
@@ -70,14 +70,14 @@
                         label: 'label.PFANS5001FORMVIEW_STARTDATE',
                         width: 150,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: 'enddate',
                         label: 'label.PFANS5001FORMVIEW_ENDDATE',
                         width: 150,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     // {
                     //     code: 'createon',

@@ -2713,6 +2713,7 @@ module.exports = {
     PFANS2026FORMVIEW_AFFAIRSPERSONNEL5: '人事部长',
     PFANS2026FORMVIEW_AFFAIRSPERSONNEL: '人事总务部长',
     PFANS2026FORMVIEW_INFORMATIONSYSTEM: '信息系统',
+    PFANS2026FORMVIEW_DATA0: '请填写此项内容',
     PFANS2026FORMVIEW_DATA1: '交接工作及工具、资产相关\n' +
       '（书籍、钥匙、设备（开发板/USB/SD/Debuger等）、固定资产、软件转出、薄外资产等）',
     PFANS2026FORMVIEW_DATA2: '确认同意',
@@ -2726,8 +2727,7 @@ module.exports = {
     PFANS2026FORMVIEW_DATA10: '转移档案及组织关系(解除劳动合同证明书）/入门卡退还',
     PFANS2026FORMVIEW_DATA11: '离职面谈',
     PFANS2026FORMVIEW_DATA12: '相关账户注销（E-mail、域账户、Cybozu账户、Global ID、\n' + 'Warp-cn、JP1、Safeboot）\n' +
-      'PC硬件退还\n' +
-      '入门卡退还',
+      'PC硬件退还',
     PFANS2026FORMVIEW_FIELDSKILLS: '分野Skill',
     PFANS2026FORMVIEW_LANGUAGEVALUE: '語学价值',
     PFANS2026FORMVIEW_MESSAGE1:'离职确认：',
@@ -2738,7 +2738,9 @@ module.exports = {
     PFANS2026FORMVIEW_MESSAGE6: '5.本人承认在松下电器软件开发（大连）有限公司工作期间，在工作场所内没有使用过非法软件产品。',
     PFANS2026FORMVIEW_MESSAGE7: '6.本人保证在自宅内无松下电器软件开发（大连）有限公司的任何物品、资料、各种媒体的电子信息及任何软件（包括已安装在计算机内的软件）。',
     PFANS2026FORMVIEW_MESSAGE8: '7.本人保证从松下电器软件开发（大连）有限公司离职后立即将本人档案及组织关系调离松下电器软件开发（大连）有限公司。',
-    PFANS2027VIEW_GROUP: 'Group',
+    PFANS2026FORMVIEW_MESSAGE9: 'GM审批通过',
+    PFANS2026FORMVIEW_MESSAGE10: 'CENTER审批通过',
+    PFANS2027VIEW_GROUP: 'Group' ,
     PFANS2027VIEW_COMMENTARYDATE: '評価実施日',
     PFANS2027VIEW_COMMENTARYMONTHS: '評価対象月',
     PFANS2027VIEW_COMMENTARY: '評価対象',

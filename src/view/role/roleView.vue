@@ -38,7 +38,7 @@
             label: '角色名称',
             width: 200,
             fix: false,
-            filter: true
+            filter: false
           },
           {
             code: 'description',

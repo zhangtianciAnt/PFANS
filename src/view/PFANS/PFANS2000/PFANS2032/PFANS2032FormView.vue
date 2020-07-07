@@ -7,6 +7,18 @@
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
           <el-tabs v-model="activeName" type="border-card">
             <el-tab-pane :label="$t('label.PFANS2026VIEW_OUT')" name="second">
+              <el-row v-if = 'checkbox'>
+
+                <el-col :span="8">
+                  <el-checkbox v-model="form.checkedgm" disabled> {{$t('label.PFANS2026FORMVIEW_MESSAGE9')}}
+                  </el-checkbox>
+                </el-col>
+                <el-col :span="8">
+                  <el-checkbox v-model="form.checkedcenter" disabled>
+                    {{$t('label.PFANS2026FORMVIEW_MESSAGE10')}}
+                  </el-checkbox>
+                </el-col>
+              </el-row>
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.center')">
@@ -87,7 +99,8 @@
                   </el-form-item>
                 </el-col>
               </el-row>
-              <el-drawer :visible.sync="diaoshu" size="60%" :show-close="false" :withHeader="false" append-to-body destroy-on-close custom-class="custimize_drawer">
+              <el-drawer :visible.sync="diaoshu" size="60%" :show-close="false" :withHeader="false" append-to-body
+                         destroy-on-close custom-class="custimize_drawer">
                 <el-form label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
                   <el-row>
                     <el-col :span="8">
@@ -408,7 +421,7 @@
                     </el-table-column>
                     <el-table-column
                       :label="$t('label.PFANS2026FORMVIEW_CONFIRMMARK')"
-                      align="center"  width="100">
+                      align="center" width="100">
                       <template slot-scope="scope">
                         <el-checkbox :disabled="true" v-model="scope.row.checked" :on="scope.row"
                                      @change="checkCon(scope.row)"></el-checkbox>
@@ -618,7 +631,10 @@
           },
         ],
         baseInfo: {},
+        checkbox: false,
         form: {
+          checkedgm: false,
+          checkedcenter: false,
           starank: '',
           staffexitprocedure_id: '',
           center_id: '',
@@ -661,7 +677,7 @@
           }],
           jpwork_delivery: [{
             required: true,
-            message: this.$t('normal.error_09') + this.$t('label.PFANS2026FORMVIEW_DATA1'),
+            message: this.$t('label.PFANS2026FORMVIEW_DATA0'),
             trigger: 'change',
           }],
           reporterlist: [{
@@ -681,6 +697,17 @@
           .dispatch('PFANS2026Store/selectById2', {'staffexitproceid': this.$route.params._id})
           .then(response => {
             this.form = response.staffexitproce;
+            if(response.staffexitproce.checkedgm === "true"){
+              this.form.checkedgm = true
+              this.checkbox = true;
+            }else{
+              this.form.checkedgm = false
+            }
+            if(response.staffexitproce.checkedcenter === "true"){
+              this.form.checkedcenter = true
+            }else{
+              this.form.checkedcenter = false
+            }
             if (this.form.condate !== '' && this.form.condate !== null) {
               for (let i = 0; i < JSON.parse(this.form.condate).length; i++) {
                 let aa = JSON.parse(this.form.condate)[i];
@@ -724,9 +751,9 @@
           .dispatch('PFANS2026Store/selectById', {'staffexitprocedureid': this.$route.params._staid})
           .then(response => {
             this.form = response.staffexitprocedure;
-            this.form.resignation_date = response.staffexitprocedure.hope_exit_date
+            this.form.resignation_date = response.staffexitprocedure.hope_exit_date;
             this.userlist = this.form.user_id;
-            if(this.$store.getters.userinfo){
+            if (this.$store.getters.userinfo) {
               this.reporterlist = this.$store.getters.userinfo.userid;
             }
             if (response.staffexitprocedure.user_id !== null && response.staffexitprocedure.user_id !== '') {
@@ -740,16 +767,17 @@
                 this.teamid = rst.teamNmae;
               }
             }
-            this.loading = false
-          })
+            this.loading = false;
+          });
         this.loading = false;
       }
     },
     created() {
-      if(this.$route.params._checkdisabled){
-        this.checkdisable = true
-      }else{
-        this.checkdisable = false
+      this.$store.commit('global/SET_WORKFLOWURL', '/PFANS2032View');
+      if (this.$route.params._checkdisabled) {
+        this.checkdisable = true;
+      } else {
+        this.checkdisable = false;
       }
       if (!this.$route.params.disabled) {
         this.buttonList = [];
@@ -881,14 +909,13 @@
         }
       },
       getCurrentRole3() {
+        debugger
         let roles = '';
         if (this.$store.getters.useraccount && this.$store.getters.useraccount.roles && this.$store.getters.useraccount.roles.length > 0) {
           for (let role of this.$store.getters.useraccount.roles) {
             roles = roles + role.description;
           }
-          if (roles.indexOf('总经理') != -1) {
-            return '2';
-          } else if (roles.toUpperCase().indexOf('CENTER') != -1) {
+          if (roles.toUpperCase().indexOf('CENTER') != -1) {
             return '2';
           } else if (roles.toUpperCase().indexOf('GM') != -1) {
             return '1';
@@ -898,9 +925,16 @@
         }
       },
       workflowState(val) {
-        // if (this.tableData[2].checked == true) {
+        if (this.form.checkedcenter == true) {
           let a = this.getCurrentRole2();
           if (a == 8) {
+            this.tableData[8].checked = true;
+            this.tableData[8].condate = moment(new Date()).format('YYYY-MM-DD');
+            this.tableData[8].person = getUserInfo(this.$store.getters.userinfo.userid).userinfo.customername;
+            this.tableData[5].checked = true;
+            this.tableData[5].condate = moment(new Date()).format('YYYY-MM-DD');
+            this.tableData[5].person = getUserInfo(this.$store.getters.userinfo.userid).userinfo.customername;
+          } else if (a == 5) {
             this.tableData[8].checked = true;
             this.tableData[8].condate = moment(new Date()).format('YYYY-MM-DD');
             this.tableData[8].person = getUserInfo(this.$store.getters.userinfo.userid).userinfo.customername;
@@ -912,33 +946,15 @@
             this.tableData[a].condate = moment(new Date()).format('YYYY-MM-DD');
             this.tableData[a].person = getUserInfo(this.$store.getters.userinfo.userid).userinfo.customername;
           }
-
-        // else {
-        //   let b = this.getCurrentRole3();
-        //   if (b == 1) {
-        //     if (this.tableData[0].checked == true) {
-        //       this.tableData[1].checked = true;
-        //       this.tableData[1].condate = moment(new Date()).format('YYYY-MM-DD');
-        //     } else {
-        //       this.tableData[0].checked = true;
-        //       this.tableData[0].condate = moment(new Date()).format('YYYY-MM-DD');
-        //       this.tableData[1].checked = true;
-        //       this.tableData[1].condate = moment(new Date()).format('YYYY-MM-DD');
-        //     }
-        //   } else if (b == 2) {
-        //     if (this.tableData[1].checked == true) {
-        //       this.tableData[2].checked = true;
-        //       this.tableData[2].condate = moment(new Date()).format('YYYY-MM-DD');
-        //     }else{
-        //       this.tableData[0].checked = true;
-        //       this.tableData[0].condate = moment(new Date()).format('YYYY-MM-DD');
-        //       this.tableData[1].checked = true;
-        //       this.tableData[1].condate = moment(new Date()).format('YYYY-MM-DD');
-        //       this.tableData[2].checked = true;
-        //       this.tableData[2].condate = moment(new Date()).format('YYYY-MM-DD');
-        //     }
-        //   }
-        // }
+        } else {
+          let b = this.getCurrentRole3();
+          if (b == 1) {
+            this.form.checkedgm = true
+          } else if (b == 2) {
+            this.form.checkedgm = true
+            this.form.checkedcenter = true
+          }
+        }
         if (val.state === '1') {
           this.form.status = '3';
         } else if (val.state === '2') {
@@ -948,20 +964,14 @@
       },
       //upd 审批流程 fr
       start(val) {
-        // let b = this.getCurrentRole3();
-        // if (b == 1) {
-        //   this.tableData[0].checked = true;
-        //   this.tableData[0].condate = moment(new Date()).format('YYYY-MM-DD');
-        //   this.tableData[1].checked = true;
-        //   this.tableData[1].condate = moment(new Date()).format('YYYY-MM-DD');
-        // } else if (b == 2) {
-        //   this.tableData[0].checked = true;
-        //   this.tableData[0].condate = moment(new Date()).format('YYYY-MM-DD');
-        //   this.tableData[1].checked = true;
-        //   this.tableData[1].condate = moment(new Date()).format('YYYY-MM-DD');
-        //   this.tableData[2].checked = true;
-        //   this.tableData[2].condate = moment(new Date()).format('YYYY-MM-DD');
-        // }
+        this.checkbox = true;
+        let b = this.getCurrentRole3();
+        if (b == 1) {
+          this.form.checkedgm = true
+        } else if (b == 2) {
+          this.form.checkedgm = true
+          this.form.checkedcenter = true
+        }
         if (val.state === '0') {
           this.form.status = '2';
         } else if (val.state === '2') {
@@ -1039,6 +1049,10 @@
                 .dispatch('PFANS2026Store/update2', this.baseInfo)
                 .then(response => {
                   this.data = response;
+                  this.$store.commit('global/SET_WORKFLOWURL', '/PFANS2032View');
+                  this.$router.push({
+                    name: 'PFANS2032View',
+                  });
                   this.loading = false;
                   if (val !== 'update') {
                     Message({
@@ -1046,9 +1060,6 @@
                       type: 'success',
                       duration: 5 * 1000,
                     });
-                    if (this.$store.getters.historyUrl) {
-                      this.$router.push(this.$store.getters.historyUrl);
-                    }
                   }
                 })
                 .catch(error => {
@@ -1066,14 +1077,16 @@
                 .then(response => {
                   this.data = response;
                   this.loading = false;
+                  this.$store.commit('global/SET_WORKFLOWURL', '/PFANS2032View');
+                  this.$router.push({
+                    name: 'PFANS2032View',
+                  });
                   Message({
                     message: this.$t('normal.success_01'),
                     type: 'success',
                     duration: 5 * 1000,
                   });
-                  if (this.$store.getters.historyUrl) {
-                    this.$router.push(this.$store.getters.historyUrl);
-                  }
+
                 })
                 .catch(error => {
                   Message({
