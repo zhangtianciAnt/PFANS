@@ -97,7 +97,7 @@
           {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
         ],
         rowid: '',
-        row_id: 'staffexitprocedure_id',
+        row_id: 'staffexitproce_id',
       };
     },
     mounted() {
@@ -163,7 +163,7 @@
       },
       buttonClick(val) {
         this.$store.commit('global/SET_HISTORYURL', this.$route.path);
-        this.$store.commit('global/SET_OPERATEID', this.rowid);
+        // this.$store.commit('global/SET_OPERATEID', this.rowid);
         if (val === 'view') {
           if (this.rowid === '') {
             Message({
