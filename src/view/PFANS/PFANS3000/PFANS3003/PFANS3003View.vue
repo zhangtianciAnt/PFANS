@@ -162,6 +162,9 @@
             if (response[j].applicationdate !== null && response[j].applicationdate !== "") {
               response[j].applicationdate = moment(response[j].applicationdate).format("YYYY-MM-DD");
             }
+            if (response[j].finshtime !== null && response[j].finshtime !== "") {
+              response[j].finshtime = moment(response[j].finshtime).format("YYYY-MM-DD");
+            }
             response[j].status = getStatus(response[j].status);
             let user = getUserInfo(response[j].userid)
             let nameflg = getOrgInfoByUserId(response[j].userid);
@@ -292,7 +295,7 @@
             const filterVal = [
               'applicationdate',//申请日期
               'finshtime',//完成日期
-              'groupname',//部门中文
+              'dcenter',//部门中文
               'ecenter',//部门英文
               'occupational',//职称中文
               'eoccupational',//职称英文

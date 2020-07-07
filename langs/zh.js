@@ -458,6 +458,7 @@ module.exports = {
     workflow_remarks: '流程说明',
     new_node: '新节点',
     node: '节点',
+    hou: '后再选择',
     node_name: '节点名称',
     node_type: '节点类型',
     node_output: '出口条件',
