@@ -99,14 +99,14 @@
                         label: "label.PFANS8008VIEW_CREATEBY",
                         width: 200,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: "createon",
                         label: "label.information_start",
                         width: 200,
                         fix: false,
-                        filter: true
+                        filter: false
                     }
                 ]
             }
