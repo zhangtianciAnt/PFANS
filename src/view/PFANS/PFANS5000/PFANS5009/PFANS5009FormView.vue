@@ -501,7 +501,7 @@
                             <template slot-scope="scope">
                               <el-input
                                 :no="scope.row"
-                                :disabled="!disable"
+                                :disabled="scope.row.updOrinsflg ==='1' ? true : !disable"
                                 maxlength="20"
                                 v-model="scope.row.position"
                                 style="width: 100%">
@@ -1451,7 +1451,7 @@
       this.getcontract();
       this.getexpatriatesinfor();
       if (this.$route.params._id) {
-        this.disable = this.$route.params.disabled;
+          // this.disable = this.$route.params.disabled;
         this.loading = true;
         this.$store
           .dispatch('PFANS5009Store/selectById', {
@@ -1639,7 +1639,11 @@
       //   });
     },
     created() {
-      this.disabled = this.$route.params.disabled;
+        if (this.$route.params._disto === "1") {
+            this.disabled = true;
+        } else {
+            this.disabled = this.$route.params.disabled;
+        }
       this.adddisabled = this.$route.params.adddisabled;
       if (this.disabled) {
         this.buttonList = [
