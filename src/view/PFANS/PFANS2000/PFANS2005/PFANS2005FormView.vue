@@ -43,6 +43,7 @@
                     :label="$t('label.PFANS2006VIEW_NO')"
                     width="50"
                     align="center"
+                    fixed="left"
                   >
                     <template slot-scope="scope">
                       <span style="color:blue">{{ scope.row.no }}</span>
@@ -51,14 +52,16 @@
                   <plx-table-column
                     prop="department_id"
                     :label="$t('label.PFANS2006VIEW_CLUB')"
-                    width="300"
+                    width="150"
                     align="center"
+                    fixed="left"
                   ></plx-table-column>
                   <plx-table-column
                     prop="user_name"
                     :label="$t('label.PFANS2006VIEW_LASTNAME')"
                     width="150"
                     align="center"
+                    fixed="left"
                   ></plx-table-column>
                   <plx-table-column
                     prop="workdate"
@@ -693,18 +696,21 @@
                   align="center"
                   prop="rowindex"
                   width="50%"
+                  fixed="left"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_CLUB')"
                   align="center"
                   prop="department_id"
                   width="200%"
+                  fixed="left"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_LASTNAME')"
                   align="center"
                   prop="user_name"
                   width="160%"
+                  fixed="left"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2003FORMVIEW_RN')"
@@ -876,17 +882,20 @@
                         :label="$t('label.PFANS2006VIEW_NO')"
                         align="center"
                         prop="rowindex"
+                        fixed="left"
                       ></el-table-column>
                       <el-table-column
                         :label="$t('label.PFANS2006VIEW_CLUB')"
                         align="center"
                         prop="department_id"
+                        fixed="left"
                       ></el-table-column>
                       <el-table-column
                         :label="$t('label.PFANS2006VIEW_LASTNAME')"
                         align="center"
                         prop="user_name"
                         width="160%"
+                        fixed="left"
                       ></el-table-column>
                       <el-table-column
                         :label="$t('label.PFANS2006VIEW_SEX')"
@@ -1053,12 +1062,14 @@
                       :label="$t('label.PFANS2006VIEW_NO')"
                       align="center"
                       prop="rowindex"
+                      fixed="left"
                     ></el-table-column>
                     <el-table-column
                       :label="$t('label.PFANS2006VIEW_LASTNAME')"
                       align="center"
                       prop="user_name"
                       width="160%"
+                      fixed="left"
                     ></el-table-column>
                     <el-table-column
                       :label="$t('label.PFANS1004VIEW_AMOUNT')"
@@ -1187,6 +1198,7 @@
                       :label="$t('label.PFANS2006VIEW_NO')"
                       align="center"
                       prop="rowindex"
+                      fixed="left"
                     ></el-table-column>
                     <el-table-column
                       :label="$t('label.department')"
@@ -1203,6 +1215,7 @@
                       align="center"
                       prop="user_name"
                       width="160%"
+                      fixed="left"
                     ></el-table-column>
                     <el-table-column
                       :label="$t('label.PFANS2009VIEW_DEPARTMENT')"
@@ -1315,6 +1328,7 @@
                       :label="$t('label.PFANS2006VIEW_NO')"
                       align="center"
                       prop="rowindex"
+                      fixed="left"
                     ></el-table-column>
                     <el-table-column
                       :label="$t('label.department')"
@@ -1462,12 +1476,14 @@
                   align="center"
                   prop="rowindex"
                   width="150%"
+                  fixed="left"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_LASTNAME')"
                   align="center"
                   prop="user_name"
                   width="160%"
+                  fixed="left"
                 ></el-table-column>
                 <el-table-column
                   :label="this.yearOfThisMonth + $t('label.PFANS2005FORMVIEW_YEAR') + this.monthOfThisMonth + $t('label.PFANS2005FORMVIEW_MONTH')"
@@ -1559,12 +1575,14 @@
                   align="center"
                   prop="rowindex"
                   width="150%"
+                  fixed="left"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_LASTNAME')"
                   align="center"
                   prop="user_name"
                   width="250%"
+                  fixed="left"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2005FORMVIEW_RETIREMENTDATE')"
@@ -1631,12 +1649,14 @@
                   :label="$t('label.PFANS2006VIEW_NO')"
                   align="center"
                   prop="rowindex"
+                  fixed="left"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_LASTNAME')"
                   align="center"
                   prop="user_name"
                   width="160%"
+                  fixed="left"
                 ></el-table-column>
                 <!--                region 先月欠勤-->
                 <el-table-column :label="$t('label.PFANS2005FORMVIEW_XYQQ')" align="center">
@@ -1926,12 +1946,14 @@
                   :label="$t('label.PFANS2006VIEW_NO')"
                   align="center"
                   prop="rowindex"
+                  fixed="left"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_LASTNAME')"
                   align="center"
                   prop="user_name"
                   width="160%"
+                  fixed="left"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2003FORMVIEW_RN')"
@@ -2128,6 +2150,7 @@
                       :label="$t('label.PFANS2006VIEW_NO')"
                       align="center"
                       prop="rowindex"
+                      fixed="left"
                     ></el-table-column>
                     <el-table-column
                       :label="$t('label.PFANSUSERFORMVIEW_CUSTOMERNAME')"
@@ -2267,12 +2290,14 @@
                   :label="$t('label.PFANS2006VIEW_NO')"
                   align="center"
                   prop="rowindex"
+                  fixed="left"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_LASTNAME')"
                   align="center"
                   width="160%"
                   prop="user_name"
+                  fixed="left"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANSUSERFORMVIEW_NDSY')"
@@ -2496,12 +2521,14 @@
                     :label="$t('label.PFANS2006VIEW_NO')"
                     align="center"
                     prop="number"
+                    fixed="left"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2006VIEW_LASTNAME')"
                     align="center"
                     prop="user_name"
                     width="160%"
+                    fixed="left"
                   ></el-table-column>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS2005FORMVIEW_LYZXKC')" align="center">
@@ -2558,13 +2585,22 @@
                       :label="$t('label.PFANS2006VIEW_NO')"
                       align="center"
                       prop="rowindex"
+                      fixed="left"
                     ></el-table-column>
                     <el-table-column
                       :label="$t('label.PFANS2006VIEW_LASTNAME')"
                       align="center"
                       prop="user_name"
                       width="160%"
+                      fixed="left"
                     ></el-table-column>
+                    <plx-table-column
+                      prop="user_name"
+                      :label="$t('label.PFANS2006VIEW_LASTNAME')"
+                      width="150"
+                      align="center"
+                      fixed="left"
+                    ></plx-table-column>
                     <el-table-column
                       :label="$t('label.PFANS2005FORMVIEW_LJZNJY')"
                       align="center"
@@ -2694,12 +2730,14 @@
                     :label="$t('label.PFANS2006VIEW_NO')"
                     align="center"
                     prop="rowindex"
+                    fixed="left"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2006VIEW_LASTNAME')"
                     align="center"
                     width="160%"
                     prop="user_name"
+                    fixed="left"
                   ></el-table-column>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS2005FORMVIEW_LYMSRE')" align="center">
@@ -2755,12 +2793,14 @@
                     align="center"
                     prop="rowindex"
                     width="50%"
+                    fixed="left"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2006VIEW_LASTNAME')"
                     align="center"
                     prop="user_name"
                     width="160%"
+                    fixed="left"
                   ></el-table-column>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS2005FORMVIEW_LJNF')" align="center">
@@ -2834,6 +2874,7 @@
                     :label="$t('label.PFANS2006VIEW_NO')"
                     align="center"
                     prop="rowindex"
+                    fixed="left"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.department')"
