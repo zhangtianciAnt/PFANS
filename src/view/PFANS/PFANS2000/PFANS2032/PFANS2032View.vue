@@ -100,6 +100,7 @@
         row_id: 'staffexitproce_id',
       };
     },
+
     mounted() {
       this.getList();
     },

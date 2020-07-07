@@ -2739,7 +2739,7 @@ module.exports = {
     PFANS2026FORMVIEW_MESSAGE8: '7.本人保证从松下电器软件开发（大连）有限公司离职后立即将本人档案及组织关系调离松下电器软件开发（大连）有限公司。',
     PFANS2026FORMVIEW_MESSAGE9: 'GM审批通过',
     PFANS2026FORMVIEW_MESSAGE10: 'CENTER审批通过',
-    PFANS2027VIEW_GROUP: 'Group',
+    PFANS2027VIEW_GROUP: 'Group' ,
     PFANS2027VIEW_COMMENTARYDATE: '評価実施日',
     PFANS2027VIEW_COMMENTARYMONTHS: '評価対象月',
     PFANS2027VIEW_COMMENTARY: '評価対象',

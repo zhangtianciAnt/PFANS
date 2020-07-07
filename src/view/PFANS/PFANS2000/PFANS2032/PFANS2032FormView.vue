@@ -8,6 +8,7 @@
           <el-tabs v-model="activeName" type="border-card">
             <el-tab-pane :label="$t('label.PFANS2026VIEW_OUT')" name="second">
               <el-row v-if = 'checkbox'>
+
                 <el-col :span="8">
                   <el-checkbox v-model="form.checkedgm" disabled> {{$t('label.PFANS2026FORMVIEW_MESSAGE9')}}
                   </el-checkbox>
