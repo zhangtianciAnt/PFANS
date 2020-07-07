@@ -23,6 +23,9 @@ module.exports = {
     name: '退出登录',
   },
   button: {
+    plantic: '机票',
+    interview: '面谈',
+    apartment: '公寓预约',
     changedata: '离职日变更',
     sumnumber: '添加',
     insert: '新建',
