@@ -80,6 +80,24 @@
                     </el-date-picker>
                   </el-form-item>
                 </el-col>
+
+
+                <!-- //add-ws-7/7-禅道153-->
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1013VIEW_RELATION')" prop="business_id">
+                    <el-select :disabled="!disable" clearable style="width:20vw"
+                               v-model="form.business_id">
+                      <el-option
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value"
+                        v-for="item in relations">
+                      </el-option>
+                    </el-select>
+                  </el-form-item>
+                </el-col>
+                <!--//add-ws-7/7-禅道153-->
+
               </el-row>
               <!--              出張事前面談事項（面談者で手書き記入)-->
               <el-row>
@@ -161,7 +179,7 @@
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1011VIEW_INTERVIEWCONTENT')" name="second">
               <!--   境外出張にあたって-->
-<!--              <span class="collapse_Title">{{$t('label.PFANS1011VIEW_OVERSEASBUSINESSNI')}}</span>-->
+              <!--              <span class="collapse_Title">{{$t('label.PFANS1011VIEW_OVERSEASBUSINESSNI')}}</span>-->
               <el-row style="padding-top:1.5vw">
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1009FORMVIEW_OBJECTIVE')">
@@ -418,7 +436,13 @@
         title: 'title.PFANS1011VIEW',
         buttonList: [],
         regExp: [],
+        //add-ws-7/7-禅道153
+        relations: [],
+        //add-ws-7/7-禅道153
         form: {
+          //add-ws-7/7-禅道153
+          business_id: '',
+          //add-ws-7/7-禅道153
           user_id: '',
           center_id: '',
           group_id: '',
@@ -574,20 +598,84 @@
       }
     },
     mounted() {
-      if (this.$route.params._id) {
+      if (this.$route.params._type === 0) {
+        this.getBusOuter();
         this.loading = true;
         this.$store
-          .dispatch('PFANS1011Store/getOffshoreOne', {'offshore_id': this.$route.params._id})
+          .dispatch('PFANS1035Store/selectById3', {'business_id': this.$route.params._checkid})
           .then(response => {
-            this.form = response;
-            let rst = getOrgInfoByUserId(response.user_id);
-            if (rst) {
-              this.centerid = rst.centerNmae;
-              this.groupid = rst.groupNmae;
-              this.teamid = rst.teamNmae;
+            this.$store
+              .dispatch('PFANS1011Store/getOffshoreOne', {'offshore_id': response[0].offshore_id})
+              .then(response => {
+                this.form = response;
+                let rst = getOrgInfoByUserId(response.user_id);
+                if (rst) {
+                  this.centerid = rst.centerNmae;
+                  this.groupid = rst.groupNmae;
+                  this.teamid = rst.teamNmae;
+                }
+                this.userlist = this.form.user_id;
+                this.userelist = this.form.user;
+                this.loading = false;
+              })
+              .catch(error => {
+                Message({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.loading = false;
+              });
+          });
+      } else if (this.$route.params._type === 1) {
+        this.relations = [];
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS1013Store/getdate')
+          .then(response => {
+            for (let i = 0; i < response.length; i++) {
+              if (this.disable) {
+                if (response[i].user_id === this.$store.getters.userinfo.userid && response[i].businesstype === '0') {
+                  this.relations.push({
+                    value: response[i].business_id,
+                    label: response[i].business_number,
+                  });
+                }
+              } else {
+                if (response[i].businesstype === '0') {
+                  this.relations.push({
+                    value: response[i].business_id,
+                    label: response[i].business_number,
+                  });
+                }
+              }
             }
-            this.userlist = this.form.user_id;
-            this.userelist = this.form.user;
+            this.userlist = this.$store.getters.userinfo.userid;
+            if (this.userlist !== null && this.userlist !== '') {
+              this.form.user_id = this.$store.getters.userinfo.userid;
+              let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+              if (rst) {
+                this.centerid = rst.centerNmae;
+                this.groupid = rst.groupNmae;
+                this.teamid = rst.teamNmae;
+                this.form.center_id = rst.centerId;
+                this.form.group_id = rst.groupId;
+                this.form.team_id = rst.teamId;
+              }
+              let lst = getUserInfo(this.$store.getters.userinfo.userid);
+              if (lst) {
+                this.form.serviceposition = getDictionaryInfo(lst.userinfo.post).value1;
+              }
+            }
+            this.userelist = this.$store.getters.userinfo.userid;
+            if (this.userelist !== null && this.userelist !== '') {
+              this.form.user = this.$store.getters.userinfo.userid;
+              let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+              this.form.centere_id = lst.centerNmae;
+              this.form.groupe_id = lst.groupNmae;
+              this.form.teame_id = lst.teamNmae;
+            }
+            this.form.business_id = this.$route.params._checkid;
             this.loading = false;
           })
           .catch(error => {
@@ -598,35 +686,106 @@
             });
             this.loading = false;
           });
-      } else {
-        this.userlist = this.$store.getters.userinfo.userid;
-        if (this.userlist !== null && this.userlist !== '') {
-          this.form.user_id = this.$store.getters.userinfo.userid;
-          let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-          if (rst) {
-            this.centerid = rst.centerNmae;
-            this.groupid = rst.groupNmae;
-            this.teamid = rst.teamNmae;
-            this.form.center_id = rst.centerId;
-            this.form.group_id = rst.groupId;
-            this.form.team_id = rst.teamId;
+      } else if (this.$route.params._type === 2) {
+        this.getBusOuter();
+        if (this.$route.params._id) {
+          this.loading = true;
+          this.$store
+            .dispatch('PFANS1011Store/getOffshoreOne', {'offshore_id': this.$route.params._id})
+            .then(response => {
+              this.form = response;
+              let rst = getOrgInfoByUserId(response.user_id);
+              if (rst) {
+                this.centerid = rst.centerNmae;
+                this.groupid = rst.groupNmae;
+                this.teamid = rst.teamNmae;
+              }
+              this.userlist = this.form.user_id;
+              this.userelist = this.form.user;
+              this.loading = false;
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
+        } else {
+          this.userlist = this.$store.getters.userinfo.userid;
+          if (this.userlist !== null && this.userlist !== '') {
+            this.form.user_id = this.$store.getters.userinfo.userid;
+            let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+            if (rst) {
+              this.centerid = rst.centerNmae;
+              this.groupid = rst.groupNmae;
+              this.teamid = rst.teamNmae;
+              this.form.center_id = rst.centerId;
+              this.form.group_id = rst.groupId;
+              this.form.team_id = rst.teamId;
+            }
+            let lst = getUserInfo(this.$store.getters.userinfo.userid);
+            if (lst) {
+              this.form.serviceposition = getDictionaryInfo(lst.userinfo.post).value1;
+            }
           }
-          let lst = getUserInfo(this.$store.getters.userinfo.userid);
-          if (lst) {
-            this.form.serviceposition = getDictionaryInfo(lst.userinfo.post).value1;
+          this.userelist = this.$store.getters.userinfo.userid;
+          if (this.userelist !== null && this.userelist !== '') {
+            this.form.user = this.$store.getters.userinfo.userid;
+            let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+            this.form.centere_id = lst.centerNmae;
+            this.form.groupe_id = lst.groupNmae;
+            this.form.teame_id = lst.teamNmae;
           }
-        }
-        this.userelist = this.$store.getters.userinfo.userid;
-        if (this.userelist !== null && this.userelist !== '') {
-          this.form.user = this.$store.getters.userinfo.userid;
-          let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-          this.form.centere_id = lst.centerNmae;
-          this.form.groupe_id = lst.groupNmae;
-          this.form.teame_id = lst.teamNmae;
         }
       }
     },
     methods: {
+      //add-ws-7/7-禅道153
+      getBusOuter() {
+        this.relations = [];
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS1013Store/getdate')
+          .then(response => {
+            for (let i = 0; i < response.length; i++) {
+              if (this.disable) {
+                if (response[i].user_id === this.$store.getters.userinfo.userid && response[i].businesstype === '0') {
+                  this.relations.push({
+                    value: response[i].business_id,
+                    label: response[i].business_number,
+                    // datenumber: response[i].datenumber,
+                    // startdate: response[i].startdate,
+                    // enddate: response[i].enddate,
+                    // city: response[i].city,
+                  });
+                }
+              } else {
+                if (response[i].businesstype === '0') {
+                  this.relations.push({
+                    value: response[i].business_id,
+                    label: response[i].business_number,
+                    // city: response[i].city,
+                    // datenumber: response[i].datenumber,
+                    // startdate: response[i].startdate,
+                    // enddate: response[i].enddate,
+                  });
+                }
+              }
+            }
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
+      //add-ws-7/7-禅道153
       checkRequire() {
         if (!this.form.user_id || !this.form.user || !this.form.interviewday) {
           this.activeName = 'first';
@@ -703,10 +862,10 @@
       start(val) {
         if (val.state === '0') {
           this.form.status = '2';
-        }else if (val.state === '2') {
+        } else if (val.state === '2') {
           this.form.status = '4';
         }
-        this.buttonClick("update");
+        this.buttonClick('update');
       },
       //add-ws-5-20-流程恒展开
       end() {

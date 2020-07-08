@@ -489,7 +489,7 @@
           applicationdate: moment(new Date()).format("YYYY-MM-DD"),
           ticketstype: 'first',
           idcard: '',
-            dcardorpa: '',
+          dcardorpa: '',
           tripend: '',
           passport: '',
           effectivedate: '',
@@ -537,17 +537,17 @@
             message: this.$t('normal.error_08') + this.$t('label.PFANS3001VIEW_EXTENSIONNUMBER'),
             trigger: 'blur',
           },],
-            idcardorpa: [{
+          idcardorpa: [{
             required: true,
-                message: this.$t('normal.error_08') + this.$t('label.PFANS3001FORMVIEW_IDCARDORPA'),
+            message: this.$t('normal.error_08') + this.$t('label.PFANS3001FORMVIEW_IDCARDORPA'),
             trigger: 'blur',
-            }],
-            idcard: [{
-                required: true,
-                message: this.$t('normal.error_08') + this.$t('label.PFANS3001FORMVIEW_IDCARD'),
-                trigger: 'blur',
-            },
-                {validator: validateIdCard, trigger: 'blur'}],
+          }],
+          idcard: [{
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.PFANS3001FORMVIEW_IDCARD'),
+            trigger: 'blur',
+          },
+            {validator: validateIdCard, trigger: 'blur'}],
           mobilephone: [{
             required: true,
             message: this.$t('normal.error_08') + this.$t('label.PFANS3001VIEW_MOBILEPHONE'),
@@ -568,7 +568,7 @@
           trippoint: [{
             required: true,
             message: this.$t('normal.error_08') + this.$t('label.PFANS3001VIEW_TRIPPOINT'),
-              trigger: 'change',
+            trigger: 'change',
           }],
           tripstart: [{
             required: true,
@@ -643,65 +643,159 @@
       }
     },
     mounted() {
-      if (this.$route.params._id) {
+      //add-ws-7/7-禅道153
+      if (this.$route.params._type === 0) {
+        this.getBusOuter();
         this.loading = true;
         this.$store
-          .dispatch('PFANS3001Store/selectById', {'tickets_id': this.$route.params._id})
+          .dispatch('PFANS1035Store/selectById2', {'business_id': this.$route.params._checkid})
           .then(response => {
-            this.form = response.tickets;
-              if (this.form.ticketstype === 'first') {
+            this.$store
+              .dispatch('PFANS3001Store/selectById', {'tickets_id': response[0].tickets_id})
+              .then(response => {
+                this.form = response.tickets;
+                if (this.form.ticketstype === 'first') {
                   this.form.idcardorpa = this.form.idcard;
-              }
-            // <!--2020-05-06 ztc 机票改为明细 start-->
-            if (response.ticketsdetails.length > 0) {
-              this.tableA = response.ticketsdetails;
-            }
-            // <!--2020-05-06 ztc 机票改为明细 end-->
-            if (this.form.acceptstatus === '1') {
-              this.refuseShow = true;
-            } else {
-              this.refuseShow = false;
-            }
-            //start(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
-            let role = getCurrentRole2();
-            if (role === '0') {
+                }
+                // <!--2020-05-06 ztc 机票改为明细 start-->
+                if (response.ticketsdetails.length > 0) {
+                  this.tableA = response.ticketsdetails;
+                }
+                // <!--2020-05-06 ztc 机票改为明细 end-->
+                if (this.form.acceptstatus === '1') {
+                  this.refuseShow = true;
+                } else {
+                  this.refuseShow = false;
+                }
+                //start(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
+                let role = getCurrentRole2();
+                if (role === '0') {
+                  if (this.disable) {
+                    this.form.findate = moment(new Date()).format('YYYY-MM-DD');
+                    this.acceptShow = false;
+                  } else {
+                    this.acceptShow = true;
+                  }
+                } else {
+                  this.acceptShow = true;
+                }
+                //end(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
+                let rst = getOrgInfoByUserId(response.tickets.user_id);
+                if (rst) {
+                  this.centerid = rst.centerNmae;
+                  this.groupid = rst.groupNmae;
+                  this.teamid = rst.teamNmae;
+                }
+                if (this.form.ticketstype === 'first') {
+                  this.showDomestic = true;
+                  this.showForeign = false;
+                  // this.rules.idcard[0].required = true;
+                  this.rules.passport[0].required = false;
+                  this.rules.effectivedate[0].required = false;
+                } else {
+                  this.showDomestic = false;
+                  this.showForeign = true;
+                  // this.rules.idcard[0].required = false;
+                  this.rules.passport[0].required = true;
+                  this.rules.effectivedate[0].required = true;
+                }
+                this.userlist = this.form.user_id;
+                if (this.form.status === '2') {
+                  this.disable = false;
+                }
+                if (this.form.status === '4') {
+                  this.disabled = true;
+                }
+                this.getBudt(this.userlist);
+                this.loading = false;
+              })
+              .catch(error => {
+                Message({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.loading = false;
+              });
+            this.loading = false;
+          });
+
+      } else if (this.$route.params._type === 1) {
+        if (this.$route.params._checktype === 1) {
+          this.form.ticketstype = 'first';
+          this.showDomestic = true;
+          this.showForeign = false;
+          this.rules.passport[0].required = false;
+          this.rules.effectivedate[0].required = false;
+        } else {
+          this.form.ticketstype = 'second';
+          this.showDomestic = false;
+          this.showForeign = true;
+          this.rules.passport[0].required = true;
+          this.rules.effectivedate[0].required = true;
+        }
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS1013Store/getdate')
+          .then(response => {
+            for (let i = 0; i < response.length; i++) {
               if (this.disable) {
-                this.form.findate = moment(new Date()).format("YYYY-MM-DD")
-                this.acceptShow = false;
+                if (response[i].user_id === this.$store.getters.userinfo.userid) {
+                  if (response[i].businesstype === '0') {
+                    this.relations1.push({
+                      value: response[i].business_id,
+                      label: this.$t('menu.PFANS1002') + '_' + moment(response[i].createon).format('YYYY-MM-DD'),
+                      region: response[i].region,
+                      startdate: response[i].startdate,
+                      enddate: response[i].enddate,
+                    });
+                  } else if (response[i].businesstype === '1') {
+                    this.relations.push({
+                      city: response[i].city,
+                      value: response[i].business_id,
+                      label: this.$t('menu.PFANS1035') + '_' + moment(response[i].createon).format('YYYY-MM-DD'),
+                      // region: response[i].region,
+                      startdate: response[i].startdate,
+                      enddate: response[i].enddate,
+                    });
+                  }
+                }
               } else {
-                this.acceptShow = true;
+                if (response[i].businesstype === '0') {
+                  this.relations1.push({
+                    value: response[i].business_id,
+                    label: this.$t('menu.PFANS1002') + '_' + moment(response[i].createon).format('YYYY-MM-DD'),
+                    region: response[i].region,
+                    startdate: response[i].startdate,
+                    enddate: response[i].enddate,
+                  });
+                } else if (response[i].businesstype === '1') {
+                  this.relations.push({
+                    city: response[i].city,
+                    value: response[i].business_id,
+                    label: this.$t('menu.PFANS1035') + '_' + moment(response[i].createon).format('YYYY-MM-DD'),
+                    // region: response[i].region,
+                    startdate: response[i].startdate,
+                    enddate: response[i].enddate,
+                  });
+                }
               }
-            } else {
-              this.acceptShow = true;
             }
-            //end(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
-            let rst = getOrgInfoByUserId(response.tickets.user_id);
-            if (rst) {
-              this.centerid = rst.centerNmae;
-              this.groupid = rst.groupNmae;
-              this.teamid = rst.teamNmae;
+            this.userlist = this.$store.getters.userinfo.userid;
+            if (this.userlist !== null && this.userlist !== '' && this.userlist !== undefined) {
+              let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+              if (rst) {
+                this.centerid = rst.centerNmae;
+                this.groupid = rst.groupNmae;
+                this.teamid = rst.teamNmae;
+                this.form.center_id = rst.centerId;
+                this.form.group_id = rst.groupId;
+                this.form.team_id = rst.teamId;
+              }
+              this.form.user_id = this.$store.getters.userinfo.userid;
+              this.getBudt(this.form.user_id);
             }
-            if (this.form.ticketstype === 'first') {
-              this.showDomestic = true;
-              this.showForeign = false;
-              // this.rules.idcard[0].required = true;
-              this.rules.passport[0].required = false;
-              this.rules.effectivedate[0].required = false;
-            } else {
-              this.showDomestic = false;
-              this.showForeign = true;
-              // this.rules.idcard[0].required = false;
-              this.rules.passport[0].required = true;
-              this.rules.effectivedate[0].required = true;
-            }
-            this.userlist = this.form.user_id;
-            if (this.form.status === '2') {
-              this.disable = false;
-            }
-            if (this.form.status === '4') {
-              this.disabled = true;
-            }
-            this.getBudt(this.userlist);
+            this.changebusiness(this.$route.params._checkid);
             this.loading = false;
           })
           .catch(error => {
@@ -712,32 +806,103 @@
             });
             this.loading = false;
           });
-      }
-      else {
-        this.showDomestic = true;
-        this.userlist = this.$store.getters.userinfo.userid;
-        if (this.userlist !== null && this.userlist !== '' && this.userlist !== undefined) {
-          let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-          if (rst) {
-            this.centerid = rst.centerNmae;
-            this.groupid = rst.groupNmae;
-            this.teamid = rst.teamNmae;
-            this.form.center_id = rst.centerId;
-            this.form.group_id = rst.groupId;
-            this.form.team_id = rst.teamId;
-            // if(rst.groupId){
-            //     this.form.budgetnumber = getOrgInfo(rst.groupId).encoding;
-            // }
-            // let budgetunit = getUserInfo(this.$store.getters.userinfo.userid).userinfo.budgetunit
-            // if (budgetunit) {
-            //     this.form.budgetnumber = budgetunit
-            // }
+      } else if (this.$route.params._type === 2) {
+        this.getBusOuter();
+        if (this.$route.params._id) {
+          this.loading = true;
+          this.$store
+            .dispatch('PFANS3001Store/selectById', {'tickets_id': this.$route.params._id})
+            .then(response => {
+              this.form = response.tickets;
+              if (this.form.ticketstype === 'first') {
+                this.form.idcardorpa = this.form.idcard;
+              }
+              // <!--2020-05-06 ztc 机票改为明细 start-->
+              if (response.ticketsdetails.length > 0) {
+                this.tableA = response.ticketsdetails;
+              }
+              // <!--2020-05-06 ztc 机票改为明细 end-->
+              if (this.form.acceptstatus === '1') {
+                this.refuseShow = true;
+              } else {
+                this.refuseShow = false;
+              }
+              //start(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
+              let role = getCurrentRole2();
+              if (role === '0') {
+                if (this.disable) {
+                  this.form.findate = moment(new Date()).format('YYYY-MM-DD');
+                  this.acceptShow = false;
+                } else {
+                  this.acceptShow = true;
+                }
+              } else {
+                this.acceptShow = true;
+              }
+              //end(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
+              let rst = getOrgInfoByUserId(response.tickets.user_id);
+              if (rst) {
+                this.centerid = rst.centerNmae;
+                this.groupid = rst.groupNmae;
+                this.teamid = rst.teamNmae;
+              }
+              if (this.form.ticketstype === 'first') {
+                this.showDomestic = true;
+                this.showForeign = false;
+                // this.rules.idcard[0].required = true;
+                this.rules.passport[0].required = false;
+                this.rules.effectivedate[0].required = false;
+              } else {
+                this.showDomestic = false;
+                this.showForeign = true;
+                // this.rules.idcard[0].required = false;
+                this.rules.passport[0].required = true;
+                this.rules.effectivedate[0].required = true;
+              }
+              this.userlist = this.form.user_id;
+              if (this.form.status === '2') {
+                this.disable = false;
+              }
+              if (this.form.status === '4') {
+                this.disabled = true;
+              }
+              this.getBudt(this.userlist);
+              this.loading = false;
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
+        } else {
+          this.showDomestic = true;
+          this.userlist = this.$store.getters.userinfo.userid;
+          if (this.userlist !== null && this.userlist !== '' && this.userlist !== undefined) {
+            let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+            if (rst) {
+              this.centerid = rst.centerNmae;
+              this.groupid = rst.groupNmae;
+              this.teamid = rst.teamNmae;
+              this.form.center_id = rst.centerId;
+              this.form.group_id = rst.groupId;
+              this.form.team_id = rst.teamId;
+              // if(rst.groupId){
+              //     this.form.budgetnumber = getOrgInfo(rst.groupId).encoding;
+              // }
+              // let budgetunit = getUserInfo(this.$store.getters.userinfo.userid).userinfo.budgetunit
+              // if (budgetunit) {
+              //     this.form.budgetnumber = budgetunit
+              // }
+            }
+            this.form.user_id = this.$store.getters.userinfo.userid;
+            this.getBudt(this.form.user_id);
           }
-          this.form.user_id = this.$store.getters.userinfo.userid;
-          this.getBudt(this.form.user_id);
         }
       }
-      this.getBusOuter();
+      //add-ws-7/7-禅道153
     },
     methods: {
       //change受理状态  add_fjl
@@ -840,7 +1005,29 @@
           .dispatch('PFANS1013Store/getdate')
           .then(response => {
             for (let i = 0; i < response.length; i++) {
-              if (response[i].user_id === this.$store.getters.userinfo.userid) {
+              //add-ws-7/7-禅道153
+              if (this.disable) {
+                if (response[i].user_id === this.$store.getters.userinfo.userid) {
+                  if (response[i].businesstype === '0') {
+                    this.relations1.push({
+                      value: response[i].business_id,
+                      label: this.$t('menu.PFANS1002') + '_' + moment(response[i].createon).format('YYYY-MM-DD'),
+                      region: response[i].region,
+                      startdate: response[i].startdate,
+                      enddate: response[i].enddate,
+                    });
+                  } else if (response[i].businesstype === '1') {
+                    this.relations.push({
+                      city: response[i].city,
+                      value: response[i].business_id,
+                      label: this.$t('menu.PFANS1035') + '_' + moment(response[i].createon).format('YYYY-MM-DD'),
+                      // region: response[i].region,
+                      startdate: response[i].startdate,
+                      enddate: response[i].enddate,
+                    });
+                  }
+                }
+              } else {
                 if (response[i].businesstype === '0') {
                   this.relations1.push({
                     value: response[i].business_id,
@@ -860,6 +1047,7 @@
                   });
                 }
               }
+              //add-ws-7/7-禅道153
             }
             this.loading = false;
           })
@@ -985,104 +1173,123 @@
         this.form.status = '0';
         this.buttonClick("update");
       },
+      //add-ws-7/7-禅道153
+      paramsTitle() {
+        this.$router.push({
+          name: 'PFANS3001View',
+        });
+      },
+      //add-ws-7/7-禅道153
       buttonClick(val) {
-        this.$refs['ruleForm'].validate(valid => {
-          if (valid) {
-            if (this.form.ticketstype === 'first') {
-              this.form.passport = '';
-              this.form.effectivedate = '';
+        //add-ws-7/7-禅道153
+        if (val === 'back') {
+          this.paramsTitle();
+        } else {
+          //add-ws-7/7-禅道153
+          this.$refs['ruleForm'].validate(valid => {
+            if (valid) {
+              if (this.form.ticketstype === 'first') {
+                this.form.passport = '';
+                this.form.effectivedate = '';
                 this.form.idcard = this.form.idcardorpa;
-            }
-            // else {
-            //   this.form.idcard = '';
-            // }
-            this.baseInfo = {};
-            this.baseInfo.tickets = JSON.parse(JSON.stringify(this.form));
-            this.baseInfo.ticketsdetails = [];
-            for (let i = 0; i < this.tableA.length; i++) {
-              if (this.tableA[i].going !== '' || this.tableA[i].goairlinenumber !== '' || this.tableA[i].tripend !== '' ||
-                this.tableA[i].godeparturedate !== '' || this.tableA[i].goarrivaldate !== 0 || this.tableA[i].back !== 0
-                || this.tableA[i].reairlinenumber !== '' || this.tableA[i].ticketingdate !== '' || this.tableA[i].redeparturedate !== ''
-                || this.tableA[i].rearrivaldate !== '') {
-                this.baseInfo.ticketsdetails.push(
-                  {
-                    tickets_id: this.tableA[i].tickets_id,
-                    ticketsdetailid: this.tableA[i].ticketsdetailid,
-                    going: this.tableA[i].going,
-                    goairlinenumber: this.tableA[i].goairlinenumber,
-                    tripend: this.tableA[i].tripend,
-                    godeparturedate: this.tableA[i].godeparturedate,
-                    goarrivaldate: this.tableA[i].goarrivaldate,
-                    back: this.tableA[i].back,
-                    reairlinenumber: this.tableA[i].reairlinenumber,
-                    ticketingdate: this.tableA[i].ticketingdate,
-                    redeparturedate: this.tableA[i].redeparturedate,
-                    rearrivaldate: this.tableA[i].rearrivaldate,
-                  },
-                );
               }
-            }
-            if (this.$route.params._id) {
-              this.baseInfo.tickets.tickets_id = this.$route.params._id;
-              this.loading = true;
-              this.$store
-                .dispatch('PFANS3001Store/update', this.baseInfo)
-                .then(response => {
-                  this.data = response;
-                  this.loading = false;
-                  if (val !== "update") {
+              // else {
+              //   this.form.idcard = '';
+              // }
+              this.baseInfo = {};
+              this.baseInfo.tickets = JSON.parse(JSON.stringify(this.form));
+              this.baseInfo.ticketsdetails = [];
+              for (let i = 0; i < this.tableA.length; i++) {
+                if (this.tableA[i].going !== '' || this.tableA[i].goairlinenumber !== '' || this.tableA[i].tripend !== '' ||
+                  this.tableA[i].godeparturedate !== '' || this.tableA[i].goarrivaldate !== 0 || this.tableA[i].back !== 0
+                  || this.tableA[i].reairlinenumber !== '' || this.tableA[i].ticketingdate !== '' || this.tableA[i].redeparturedate !== ''
+                  || this.tableA[i].rearrivaldate !== '') {
+                  this.baseInfo.ticketsdetails.push(
+                    {
+                      tickets_id: this.tableA[i].tickets_id,
+                      ticketsdetailid: this.tableA[i].ticketsdetailid,
+                      going: this.tableA[i].going,
+                      goairlinenumber: this.tableA[i].goairlinenumber,
+                      tripend: this.tableA[i].tripend,
+                      godeparturedate: this.tableA[i].godeparturedate,
+                      goarrivaldate: this.tableA[i].goarrivaldate,
+                      back: this.tableA[i].back,
+                      reairlinenumber: this.tableA[i].reairlinenumber,
+                      ticketingdate: this.tableA[i].ticketingdate,
+                      redeparturedate: this.tableA[i].redeparturedate,
+                      rearrivaldate: this.tableA[i].rearrivaldate,
+                    },
+                  );
+                }
+              }
+              if (this.$route.params._id) {
+                this.baseInfo.tickets.tickets_id = this.$route.params._id;
+                this.loading = true;
+                this.$store
+                  .dispatch('PFANS3001Store/update', this.baseInfo)
+                  .then(response => {
+                    this.data = response;
+                    this.loading = false;
+                    if (val !== "update") {
+                      Message({
+                        message: this.$t('normal.success_02'),
+                        type: 'success',
+                        duration: 5 * 1000,
+                      });
+                      if (this.$store.getters.historyUrl) {
+                        this.$router.push(this.$store.getters.historyUrl);
+                      } else {
+                        this.paramsTitle();
+                      }
+                    }
+                  })
+                  .catch(error => {
                     Message({
-                      message: this.$t('normal.success_02'),
+                      message: error,
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    this.loading = false;
+                  });
+
+              } else {
+                this.loading = true;
+                this.$store
+                  .dispatch('PFANS3001Store/insert', this.baseInfo)
+                  .then(response => {
+                    this.data = response;
+                    this.loading = false;
+                    Message({
+                      message: this.$t('normal.success_01'),
                       type: 'success',
                       duration: 5 * 1000,
                     });
                     if (this.$store.getters.historyUrl) {
                       this.$router.push(this.$store.getters.historyUrl);
+                    } else {
+                      this.paramsTitle();
                     }
-                  }
-                })
-                .catch(error => {
-                  Message({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000,
+                  })
+                  .catch(error => {
+                    Message({
+                      message: error,
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    this.loading = false;
                   });
-                  this.loading = false;
-                });
-
+              }
             } else {
-              this.loading = true;
-              this.$store
-                .dispatch('PFANS3001Store/insert', this.baseInfo)
-                .then(response => {
-                  this.data = response;
-                  this.loading = false;
-                  Message({
-                    message: this.$t('normal.success_01'),
-                    type: 'success',
-                    duration: 5 * 1000,
-                  });
-                  if (this.$store.getters.historyUrl) {
-                    this.$router.push(this.$store.getters.historyUrl);
-                  }
-                })
-                .catch(error => {
-                  Message({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  this.loading = false;
-                });
+              Message({
+                message: this.$t("normal.error_12"),
+                type: 'error',
+                duration: 5 * 1000
+              });
             }
-          } else {
-            Message({
-              message: this.$t("normal.error_12"),
-              type: 'error',
-              duration: 5 * 1000
-            });
-          }
-        });
+          });
+          //add-ws-7/7-禅道153
+        }
+        //add-ws-7/7-禅道153
       },
     },
   };
