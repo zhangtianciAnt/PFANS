@@ -246,7 +246,7 @@
                 <el-table-column :label="$t('label.PFANS3001VIEW_GODEPARTUREDATE')" prop="ticketingdate" align="center"
                                  width="240">
                   <template slot-scope="scope">
-                    <el-date-picker :disabled="!disable" style="width: 90%" type="date"
+                    <el-date-picker :disabled="!disable" style="width: 90%" type="datetime"
                                     v-model="scope.row.ticketingdate"></el-date-picker>
                   </template>
                 </el-table-column>

@@ -372,16 +372,17 @@
 
                 for(let b= 0;b< ticketsdetailc.length;b++){
                         let tk = [];
+                    //table 行き
                         tk.going = ticketsdetailc[b].going;
                         tk.goairlinenumber = ticketsdetailc[b].goairlinenumber;
                         tk.godeparturedate = ticketsdetailc[b].godeparturedate;
                         tk.goarrivaldate = ticketsdetailc[b].goarrivaldate;
-
+                    //table 帰り
                         tk.back = ticketsdetailc[b].back;
                         tk.reairlinenumber = ticketsdetailc[b].reairlinenumber;
                         tk.redeparturedate = ticketsdetailc[b].redeparturedate;
-                        tk.rearrivaldate = ticketsdetailc[b].rearrivaldate;
-
+                    tk.ticketingdate = ticketsdetailc[b].ticketingdate;
+                    //详情
                         tk.user_id = this.selectedlist[a].user_id;
                         tk.extensionnumber = this.selectedlist[a].extensionnumber;
                         tk.group_id = this.selectedlist[a].group_id;
@@ -435,8 +436,8 @@
 
                     "back",//帰り
                     "reairlinenumber",//航空番号
-                    "redeparturedate",//出発時間
-                    "rearrivaldate",//到着時間
+                    "ticketingdate",//出発時間
+                    "redeparturedate",//到着時間
 
 
                 ];
@@ -451,8 +452,8 @@
                     if(list[h].redeparturedate !== '' && list[h].redeparturedate !== null) {
                         list[h].redeparturedate = moment(list[h].redeparturedate).format('YYYY-MM-DD HH:mm:ss')
                     }
-                    if(list[h].rearrivaldate !== '' && list[h].rearrivaldate !== null) {
-                        list[h].rearrivaldate = moment(list[h].rearrivaldate).format('YYYY-MM-DD HH:mm:ss')
+                    if (list[h].ticketingdate !== '' && list[h].ticketingdate !== null) {
+                        list[h].ticketingdate = moment(list[h].ticketingdate).format('YYYY-MM-DD HH:mm:ss')
                     }
                 }
                 const data = this.formatJson(filterVal, list);
