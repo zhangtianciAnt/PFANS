@@ -10,16 +10,21 @@
               <el-row v-if = 'checkbox'>
 
                 <el-col :span="8">
-                  <el-checkbox v-model="form.checkedgm" disabled> {{$t('label.PFANS2026FORMVIEW_MESSAGE9')}}
+                  <el-checkbox v-model="form.checkedgm" disabled >
+                    <div class="sub_color_blue">
+                      {{$t('label.PFANS2026FORMVIEW_MESSAGE9')}}
+                    </div>
                   </el-checkbox>
                 </el-col>
                 <el-col :span="8">
                   <el-checkbox v-model="form.checkedcenter" disabled>
-                    {{$t('label.PFANS2026FORMVIEW_MESSAGE10')}}
+                    <div class="sub_color_blue">
+                       {{$t('label.PFANS2026FORMVIEW_MESSAGE10')}}
+                    </div>
                   </el-checkbox>
                 </el-col>
               </el-row>
-              <el-row>
+              <el-row style="margin-top: 1rem">
                 <el-col :span="8">
                   <el-form-item :label="$t('label.center')">
                     <el-input :disabled="true" style="width:20vw" v-model="centerid"></el-input>
@@ -889,7 +894,7 @@
           }
           if (roles.toUpperCase().indexOf('财务部长') != -1) {
             return '1';
-          } else if (roles.toUpperCase().indexOf('企划部长') != -1) {
+          } else if (roles.toUpperCase().indexOf('法务部长') != -1) {
             return '2';
           } else if (roles.toUpperCase().indexOf('总务担当') != -1) {
             return '3';
@@ -909,7 +914,6 @@
         }
       },
       getCurrentRole3() {
-        debugger
         let roles = '';
         if (this.$store.getters.useraccount && this.$store.getters.useraccount.roles && this.$store.getters.useraccount.roles.length > 0) {
           for (let role of this.$store.getters.useraccount.roles) {
@@ -927,21 +931,17 @@
       workflowState(val) {
         if (this.form.checkedcenter == true) {
           let a = this.getCurrentRole2();
-          if (a == 8) {
-            this.tableData[8].checked = true;
-            this.tableData[8].condate = moment(new Date()).format('YYYY-MM-DD');
-            this.tableData[8].person = getUserInfo(this.$store.getters.userinfo.userid).userinfo.customername;
-            this.tableData[5].checked = true;
-            this.tableData[5].condate = moment(new Date()).format('YYYY-MM-DD');
-            this.tableData[5].person = getUserInfo(this.$store.getters.userinfo.userid).userinfo.customername;
-          } else if (a == 5) {
-            this.tableData[8].checked = true;
-            this.tableData[8].condate = moment(new Date()).format('YYYY-MM-DD');
-            this.tableData[8].person = getUserInfo(this.$store.getters.userinfo.userid).userinfo.customername;
-            this.tableData[5].checked = true;
-            this.tableData[5].condate = moment(new Date()).format('YYYY-MM-DD');
-            this.tableData[5].person = getUserInfo(this.$store.getters.userinfo.userid).userinfo.customername;
-          } else {
+          if (a == 5) {
+            if (this.tableData[5].checked == true) {
+              this.tableData[8].checked = true;
+              this.tableData[8].condate = moment(new Date()).format('YYYY-MM-DD');
+              this.tableData[8].person = getUserInfo(this.$store.getters.userinfo.userid).userinfo.customername;
+            }else{
+              this.tableData[5].checked = true;
+              this.tableData[5].condate = moment(new Date()).format('YYYY-MM-DD');
+              this.tableData[5].person = getUserInfo(this.$store.getters.userinfo.userid).userinfo.customername;
+            }
+          }else {
             this.tableData[a].checked = true;
             this.tableData[a].condate = moment(new Date()).format('YYYY-MM-DD');
             this.tableData[a].person = getUserInfo(this.$store.getters.userinfo.userid).userinfo.customername;
