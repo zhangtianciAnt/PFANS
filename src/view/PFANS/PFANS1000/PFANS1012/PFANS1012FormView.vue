@@ -1583,7 +1583,7 @@
           }],
           remark: [{
             required: true,
-            message: this.$t('normal.error_09') + this.$t('label.PFANS1012VIEW_ABSTRACT'),
+            message: this.$t('normal.error_08') + this.$t('label.PFANS1012VIEW_ABSTRACT'),
             trigger: 'change',
           }],
           accountnumber: [{
