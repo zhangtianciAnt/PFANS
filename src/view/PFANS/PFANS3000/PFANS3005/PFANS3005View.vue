@@ -450,7 +450,7 @@
                   return;
                 }
                 this.selectedlist = this.$refs.roletable.selectedList;
-                this.export(this.selectedlist);
+                this.export1(this.selectedlist);
                 // import('@/vendor/Export2Excel').then(excel => {
                 //   const tHeader = [
                 //     this.$t('label.PFANS3005VIEW_NUMBERS'),
@@ -505,9 +505,10 @@
 
               }
             },
-          export(){
+          export1(){
+            this.loading = true;
             this.$store
-              .dispatch("PFANS3005Store/downLoad", {purchase: this.selectedlist })
+              .dispatch("PFANS3005Store/downLoad", {purchase: this.selectedlist})
               .then(response => {
                 this.loading = false;
               })
