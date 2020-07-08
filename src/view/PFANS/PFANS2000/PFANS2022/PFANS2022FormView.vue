@@ -260,6 +260,7 @@
                     payment: '0',
                     aexperience:'',
                     experience:'',
+                    moneystatus: '0',//奖金发放状态（默认0，1：已发放）
                 },
                 code: 'PR024',
                 code1: ' ',

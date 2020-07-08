@@ -71,12 +71,19 @@
             filter: true,
           },
           {
-            code: 'status',
-            label: 'label.approval_status',
-            width: 120,
-            fix: false,
-            filter: true,
-          }
+              code: 'moneystatus',
+              label: 'label.PFANS2022VIEW_MONEYSTATUS',
+              width: 150,
+              fix: false,
+              filter: true,
+          },
+            {
+                code: 'status',
+                label: 'label.approval_status',
+                width: 120,
+                fix: false,
+                filter: true,
+            }
         ],
         buttonList: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
@@ -113,6 +120,17 @@
                   response[j].twoclass = letTwoclass.value1;
                 }
               }
+                //add_fjl_0708  添加奖金发放状态  start
+                if (response[j].moneystatus !== null && response[j].moneystatus !== "") {
+                    if (response[j].moneystatus === "1") {
+                        if (this.$i18n) {
+                            response[j].moneystatus = this.$t('label.PFANS2022VIEW_MONEYSTATUSED');
+                        }
+                    } else {
+                        response[j].moneystatus = '';
+                    }
+                }
+                //add_fjl_0708  添加奖金发放状态  end
             }
             this.data = response;
             this.loading = false;
