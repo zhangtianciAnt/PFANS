@@ -198,6 +198,15 @@
             </el-tag>
           </el-col>
         </el-row>
+<!--        add-ws-7/7-禅道任务253-->
+        <el-row>
+          <el-col :span="4">
+            <el-tag  style="width: 7rem;background-color: cornsilk;border-color:cornsilk;margin-top: 3rem">
+              {{$t('label.INDEX_DAYDQ')}}
+            </el-tag>
+          </el-col>
+        </el-row>
+        <!--        add-ws-7/7-禅道任务253-->
       </div>
     </el-drawer>
     <!--    add-ws-5/21-No.46-首页颜色区分-->

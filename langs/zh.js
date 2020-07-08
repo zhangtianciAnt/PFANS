@@ -542,6 +542,7 @@ module.exports = {
     judgement: '决裁号',
     enclosurecontent: '将文件拖到此处，或',
     INDEX_NY: '您有',
+    INDEX_DAYDQ: '当前日期',
     INDEX_DSPSX: '条待办事项',
     INDEX_YSPSX: '已审批事项',
     INDEX_YBHSX: '已驳回事项',
