@@ -61,13 +61,6 @@
             filter: true,
           },
           {
-            code: 'moduleid',
-            label: 'label.PFANS1012VIEW_MODULE',
-            width: 150,
-            fix: false,
-            filter: true,
-          },
-          {
             code: 'expectedpaydate',
             label: 'label.PFANS1012VIEW_EXPECTEDPAYDATE',
             width: 150,
@@ -96,6 +89,13 @@
             width: 110,
             fix: false,
             filter: false,
+          },
+          {
+            code: 'remark',
+            label: 'label.PFANS1012VIEW_ABSTRACT',
+            width: 330,
+            fix: false,
+            filter: true,
           },
           {
             code: 'status',
