@@ -207,7 +207,8 @@
                         params: {
                             _id: this._id,
                             _url: this.workflowurl,
-                            disabled: false
+                            disabled: false,
+                            _disto: '1' //判断是否可用save按钮
                         }
                     })
                 } else if (val === 'read') {

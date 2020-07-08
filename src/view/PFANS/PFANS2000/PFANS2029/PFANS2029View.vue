@@ -216,6 +216,11 @@
                             if (response[j].time_end !== null && response[j].time_end !== "") {
                                 response[j].time_end = moment(response[j].time_end).format("HH:mm");
                             }
+                          // ADD-ws-No.221-有效时长添加
+                          if (response[j].outgoinghours === '0.00') {
+                            response[j].outgoinghours = '';
+                          }
+                          // ADD-ws-No.221-有效时长添加
                             //系统服务下午四点取得考勤数据时不显示结束时间
                             if(response[j].punchcardrecord_date === moment(new Date()).format('YYYY-MM-DD')){
                                 response[j].time_end = "";
@@ -342,8 +347,8 @@
                     }
                     this.selectedlist = this.$refs.roletable.selectedList;
                     import('@/vendor/Export2Excel').then(excel => {
-                        const tHeader = [this.$t('label.user_name'), this.$t('label.center'), this.$t('label.group'), this.$t('label.team'), this.$t('label.date'), this.$t('label.PFANS2017VIEW_START'), this.$t('label.PFANS2017VIEW_END')];
-                        const filterVal = ['user_id', 'center_id', 'group_id', 'team_id', 'punchcardrecord_date', 'time_start', 'time_end'];
+                        const tHeader = [this.$t('label.user_name'), this.$t('label.center'), this.$t('label.group'), this.$t('label.team'), this.$t('label.date'), this.$t('label.PFANS2017VIEW_START'), this.$t('label.PFANS2017VIEW_END'), this.$t('label.PFANS2017VIEW_EFFECTIVEDURATION')];
+                        const filterVal = ['user_id', 'center_id', 'group_id', 'team_id', 'punchcardrecord_date', 'time_start', 'time_end','outgoinghours'];
                         const list = this.selectedlist;
                         const data = this.formatJson(filterVal, list);
                         excel.export_json_to_excel(tHeader, data, this.$t('menu.PFANS2029'));

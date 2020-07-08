@@ -6,6 +6,7 @@
       @buttonClick="buttonClick"
       @disabled="setdisabled"
       ref="container"
+      @end="end"
       v-loading="loading"
       :defaultStart="defaultStart"
       @workflowState="workflowState"
@@ -213,16 +214,18 @@
                 ],
               totalAbsenteeism:false,
                 buttonList: [
-                    {'key': 'recognition', 'name': 'button.recognition', 'disabled': false, 'icon': 'el-icon-check'}
+                    {'key': 'recognition', 'name': 'button.recognition', 'disabled': false, 'icon': 'el-icon-check'},
+                  {'key': 'recognitionno', 'name': 'button.recognitionno', 'disabled': false, 'icon': 'el-icon-check'}
                 ],
             };
         },
       methods: {
+
           checkWorkFlow(){
             //考勤是否全部承认
             let count = 0
             for(let item of this.data){
-              if (item.recognitionstate === '承认' || item.recognitionstate === '') {
+              if (item.recognitionstate === this.$t('label.PFANS2010VIEW_RECOGNITION1') || item.recognitionstate === '') {
                 count = count +1
               }
             }
@@ -238,7 +241,7 @@
             }
           },
           selectable(row, index){
-            if(index != 0 && row.recognitionstate === this.$t('label.PFANS2010VIEW_RECOGNITION0')){
+            if((index != 0 && row.recognitionstate === this.$t('label.PFANS2010VIEW_RECOGNITION0'))){
               return true;
             }else{
               return false;
@@ -336,12 +339,15 @@
             workflowState(val) {
                 if (val.state === '1') {
                     this.form.status = '3';
-                    this.updStatus1();
+                    this.updStatus1(0);
                 } else if (val.state === '2') {
                     this.form.status = '4';
                     this.updStatus();
                 }
             },
+          end(val) {
+              this.updStatus1(0);
+          },
             updStatus() {
                 if (this.$route.params._id !== null && this.$route.params._id !== '') {
                     let us = this.$route.params._id.split(",");
@@ -354,7 +360,7 @@
                     .dispatch('PFANS2010Store/updStatus', this.form)
                     .then(response => {
                         this.loading = false;
-                        this.data = response;
+                        //this.data = response;
                     })
                     .catch(error => {
                         Message({
@@ -368,7 +374,7 @@
             //add_fjl_05/13   --添加审批正常结束后，自动变成承认状态
 
             // add 0622 ccm --审批被驳回后，当月考勤数据全部变为未承认状态
-            updStatus1() {
+            updStatus1(val) {
               if (this.$route.params._id !== null && this.$route.params._id !== '') {
                 let us = this.$route.params._id.split(",");
                 this.form.user_id = us[0];
@@ -380,7 +386,16 @@
                 .dispatch('PFANS2010Store/updStatus1', this.form)
                 .then(response => {
                   this.loading = false;
-                  this.data = response;
+                  this.getAttendancelist();
+                  if (val === 1)
+                  {
+                    Message({
+                      message: this.$t('normal.success_02'),
+                      type: 'success',
+                      duration: 5 * 1000,
+                    });
+                  }
+                  this.$refs.table.$refs.eltable.clearSelection();
                 })
                 .catch(error => {
                   Message({
@@ -442,20 +457,24 @@
                     }
                     this.loading = true;
                     this.uplist = this.$refs.table.selectedList;
-                    this.update(0);
+                    this.update();
 
                 }
+                else if (val === 'recognitionno')
+                {
+                  this.updStatus1(1);
+                }
             },
-          update(val){
-            this.form.attendanceid = this.uplist[val].attendanceid;
-            val = val + 1;
+          update(){
+            //this.form.attendanceid = this.uplist[val].attendanceid;
+            //val = val + 1;
             this.$store
-              .dispatch('PFANS2010Store/update', this.form)
+              .dispatch('PFANS2010Store/update', {attendance:this.uplist})
               .then(response => {
-                if(val < this.uplist.length){
-                  this.update(val);
-                }else{
-                  this.data = response;
+                // if(val < this.uplist.length){
+                //   this.update(val);
+                // }else{
+                //   this.data = response;
                   this.getAttendancelist();
                   this.loading = false;
                   Message({
@@ -465,7 +484,8 @@
                   });
 
                   this.$refs.table.$refs.eltable.clearSelection();
-                }
+                // }
+
               })
               .catch(error => {
                 Message({
@@ -476,7 +496,7 @@
                 this.loading = false;
               })
           },
-            getAttendancelist() {
+          getAttendancelist() {
                 let parameter = {
                     user_id:this.$route.params._id.split(",")[0],
                     years:this.$route.params._id.split(",")[1],
@@ -517,10 +537,10 @@
 
                       }
 
-                      if (this.$route.params._id.split(",")[0] === '5e78fefff1560b363cdd6db7')
-                      {
-                        this.$store.commit('global/SET_WORKFLOWURL', '');
-                      }
+                      // if (this.$route.params._id.split(",")[0] === '5e78fefff1560b363cdd6db7')
+                      // {
+                      //   this.$store.commit('global/SET_WORKFLOWURL', '');
+                      // }
 
                       let res = [];
                       let res1 = [];
@@ -581,7 +601,7 @@
                         total_nursingleave += parseFloat(res[i]["nursingleave"] ===undefined ? '0' :(res[i]["nursingleave"]===null || res[i]["nursingleave"]==='' ?  '0':res[i]["nursingleave"]));
                         total_absenteeism += parseFloat(res[i]["absenteeism"] ===undefined ? '0' :(res[i]["absenteeism"]===null || res[i]["absenteeism"]==='' ? '0':res[i]["absenteeism"]));
                       }
-                      res1.push( {dates: '合计',
+                      res1.push( {dates: this.$t('label.PFANS1012VIEW_ACCOUNT'),
                                                                     normal: total_normal,
                                                                     ordinaryindustry: total_ordinaryindustry,
                                                                     weekendindustry: total_weekendindustry,
@@ -629,28 +649,37 @@
                     .then(response => {
                         let roles = "";
                         let num = 0;
+                        let numz = 0;
                         if (response.userAccount && response.userAccount.roles && response.userAccount.roles.length > 0) {
                             for (let role of response.userAccount.roles) {
                                 roles = roles + role.description;
                             }
+                          if (this.$i18n) {
                             if (roles.indexOf("总经理") != -1) {
-                                num++
+                              numz++;
+                              num++;
                             } else if (roles.toUpperCase().indexOf("CENTER") != -1) {
-                                num++
+                              num++
                             } else if (roles.toUpperCase().indexOf("GM") != -1) {
-                                num++
+                              num++
                             } else if (roles.toUpperCase().indexOf("TL") != -1) {
-                                num++
+                              num++
                             }
+                          }
                         }
-
                         if (num === 0) {
                             //普通社員审批
                             this.workflowCode = 'W0002'
-                        } else {
+                        } else if (numz === 0){
                             //领导审批
                             this.workflowCode = 'W0069'
                         }
+                        else
+                        {
+                          //总经理考勤管理人事部长审批
+                          this.workflowCode = 'W0083'
+                        }
+
                     });
             }
             //ADD_FJL_05/14
