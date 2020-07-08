@@ -41,7 +41,7 @@
         <div @click="submitForm(4)" class="m-content">
           <el-col :span="18">
           <div style="width: 150px; margin-left: 8px; text-overflow: ellipsis; overflow: hidden;
-                          float: left; padding: 10px 0px; height: 50px; line-height: 18px;">{{$t('menu.PFANS1004')}}
+                          float: left; padding: 10px 0px; height: 50px; line-height: 18px;">{{$t('title.PFANS1004VIEW')}}
           </div>
           </el-col>
           <el-col :span="6" class="m-div">

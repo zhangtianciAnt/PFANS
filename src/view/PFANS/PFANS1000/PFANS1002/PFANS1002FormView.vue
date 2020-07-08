@@ -4,6 +4,7 @@
       :buttonList="buttonList"
       :canStart="canStart"
       :title="title"
+      :enableSave="enableSave"
       @buttonClick="buttonClick"
       @end="end"
       @start="start"
@@ -254,7 +255,7 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1013VIEW_YESYJDA')" >
+                    <el-form-item :label="$t('label.PFANS1013VIEW_YESYJDA')">
                       <span style="margin-right: 1rem ">{{$t('label.no')}}</span>
                       <el-switch
                         :disabled="!disable"
@@ -434,7 +435,7 @@
                     </template>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1002VIEW_LOANMONEY1')" >
+                    <el-form-item :label="$t('label.PFANS1002VIEW_LOANMONEY1')">
                       <el-input-number
                         :disabled="!disable"
                         :max="999999999"
@@ -814,6 +815,7 @@
         error: '',
         selectType: 'Single',
         title: 'title.PFANS1002VIEW',
+        enableSave: false,
         userlist: '',
         activeName: 'first',
         loading: false,
@@ -891,6 +893,8 @@
           regulations: '',
           reason: '',
           otherexplanation: '',
+
+          status: '',
         },
         buttonList: [
           {
@@ -1352,6 +1356,76 @@
         this.buttonList = [];
       }
       this.disable = this.$route.params.disabled;
+      //add-ws-7/7-禅道153
+      if (this.$route.params.statuss ===  this.$t('label.PFANS5004VIEW_OVERTIME')) {
+        if (this.$route.params._check) {
+          this.buttonList = [
+            {
+              key: 'save',
+              name: 'button.save',
+              disabled: true,
+              icon: 'el-icon-check',
+            },
+            {
+              key: 'plantic',
+              name: 'button.plantic',
+              disabled: false,
+            },
+            {
+              key: 'interview',
+              name: 'button.interview',
+              disabled: false,
+            },
+            {
+              key: 'apartment',
+              name: 'button.apartment',
+              disabled: false,
+            },
+          ];
+          this.enableSave = true;
+        } else {
+          this.buttonList = [
+            {
+              key: 'save',
+              name: 'button.save',
+              disabled: false,
+              icon: 'el-icon-check',
+            },
+            {
+              key: 'plantic',
+              name: 'button.plantic',
+              disabled: false,
+            },
+            {
+              key: 'interview',
+              name: 'button.interview',
+              disabled: false,
+            },
+          ];
+          this.enableSave = true;
+        }
+      } else if (this.$route.params.statuss === this.$t('label.node_step2')) {
+        this.buttonList = [
+          {
+            key: 'save',
+            name: 'button.save',
+            disabled: false,
+            icon: 'el-icon-check',
+          },
+        ];
+        this.enableSave = true;
+      } else {
+        this.buttonList = [
+          {
+            key: 'save',
+            name: 'button.save',
+            disabled: false,
+            icon: 'el-icon-check',
+          },
+        ];
+      }
+
+
     },
     methods: {
       //add-ws-4/24-项目名称所取数据源变更
@@ -1779,104 +1853,293 @@
           }
         }
       },
+
+      selecticketsid() {
+        if (this.$route.params._id) {
+          this.loading = true;
+          this.$store
+            .dispatch('PFANS1002Store/selectById', {'businessid': this.$route.params._id})
+            .then(response => {
+              if (!response.business) {
+                this.loading = false;
+                return;
+              }
+              this.form = response.business;
+              let rst = getOrgInfoByUserId(response.business.user_id);
+              if (rst) {
+                this.centerid = rst.centerNmae;
+                this.groupid = rst.groupNmae;
+                this.teamid = rst.teamNmae;
+              }
+              if (response.travelcontent.length > 0) {
+                this.tablePD = [];
+                for (let i = 0; i < response.travelcontent.length; i++) {
+                  let date = [];
+                  let letdate = response.travelcontent[i].duringdate.split(' ~ ');
+                  if (letdate.length > 0) {
+                    date.push(letdate[0]);
+                    date.push(letdate[1]);
+                  }
+                  this.tablePD.push({
+                    travelcontent_id: response.travelcontent[i].travelcontent_id,
+                    businessid: response.travelcontent[i].businessid,
+                    duringdate: date,
+                    place: response.travelcontent[i].place,
+                    content: response.travelcontent[i].content,
+                  });
+                }
+              }
+              this.userlist = this.form.user_id;
+              this.getBudt(this.userlist);
+              this.baseInfo.business = JSON.parse(JSON.stringify(this.form));
+              if (this.form.objectivetype === 'PJ018005') {
+                this.show = true;
+              } else {
+                this.show = false;
+              }
+              if (this.form.plan === '1') {
+                this.show2 = true;
+              } else {
+                this.show2 = false;
+                this.show3 = false;
+              }
+              if (this.form.plantype === 'PR002006') {
+                this.show3 = true;
+              } else {
+                this.show3 = false;
+              }
+              if (this.form.currency === 'PG019001') {
+                this.show4 = true;
+                this.form.otherfxrate = getDictionaryInfo(this.form.currency).value2;
+              }
+              if (this.form.currency === 'PG019002') {
+                this.show4 = true;
+                this.form.otherfxrate = getDictionaryInfo(this.form.currency).value2;
+              }
+              if (this.form.currency === 'PG019003') {
+                this.show4 = true;
+                this.form.otherfxrate = getDictionaryInfo(this.form.currency).value2;
+              }
+              if (this.form.currency === 'PG019004') {
+                this.show4 = true;
+                this.form.otherfxrate = getDictionaryInfo(this.form.currency).value2;
+              }
+              if (this.form.provision === '1') {
+                this.show7 = true;
+              } else {
+                this.show7 = false;
+              }
+              if (this.form.judgment === 'PJ023001') {
+                this.show8 = true;
+              } else {
+                this.show8 = false;
+              }
+              if (this.form.passengers === '1') {
+                this.show9 = true;
+              } else {
+                this.show9 = false;
+              }
+              if (this.form.external === '1') {
+                this.show10 = true;
+              } else {
+                this.show10 = false;
+              }
+              this.loading = false;
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
+        }
+      },
+
       buttonClick(val) {
         if (val === 'back') {
           this.paramsTitle();
-        } else {
-          this.checkRequire();
-          this.$refs['refform'].validate(valid => {
-            if (valid) {
-              this.loading = true;
-              this.form.businesstype = '0',
-                this.form.user_id = this.userlist;
-              this.baseInfo.business = JSON.parse(JSON.stringify(this.form));
-              this.baseInfo.travelcontent = [];
-              for (let i = 0; i < this.tablePD.length; i++) {
-                this.baseInfo.travelcontent.push(
-                  {
-                    travelcontent_id: this.tablePD[i].travelcontent_id,
-                    businessid: this.tablePD[i].businessid,
-                    //开始结束日期
-                    duringdate: moment(this.tablePD[i].duringdate[0]).format('YYYY-MM-DD') + ' ~ ' + moment(this.tablePD[i].duringdate[1]).format('YYYY-MM-DD'),
-                    place: this.tablePD[i].place,
-                    content: this.tablePD[i].content,
-                  },
-                );
-              }
-              this.loading = true;
-              let error = 0;
-              //add-ws-4/22-金额不能大于事业计划余额check
-              if (this.form.plan === '1') {
-                if (this.form.moneys > this.form.balance) {
-                  this.activeName = 'fourth';
-                  error = error + 1;
-                  Message({
-                    message: this.$t('label.PFANS1002VIEW_CHECKERROR'),
-                    type: 'error',
-                    duration: 5 * 1000,
+          //add-ws-7/7-禅道153
+        }
+        else {
+          if (val === 'plantic') {
+            this.$store.commit('global/SET_WORKFLOWURL', '/FFFFF1012FormView');
+            this.$store
+              .dispatch('PFANS1035Store/selectById2', {'business_id': this.$route.params._id})
+              .then(response => {
+                if (response.length > 0) {
+                  this.$router.push({
+                    name: 'PFANS3001FormView',
+                    params: {
+                      _checkid: this.$route.params._id,
+                      disabled: false,
+                      _type: 0,
+                      _checktype: 0,
+                    },
                   });
-                  this.loading = false;
+                } else {
+                  this.$router.push({
+                    name: 'PFANS3001FormView',
+                    params: {
+                      _checkid: this.$route.params._id,
+                      disabled: true,
+                      _type: 1,
+                      _checktype: 0,
+                    },
+                  });
                 }
-              }
-              //add-ws-4/22-金额不能大于事业计划余额check
-              if (error === 0) {
-                if (this.$route.params._id) {
-                  this.baseInfo.business.businessid = this.$route.params._id;
-                  this.$store
-                    .dispatch('PFANS1002Store/updateBusiness', this.baseInfo)
-                    .then(response => {
-                      this.data = response;
-                      this.loading = false;
-                      if (val !== 'update') {
+              });
+          } else if (val === 'interview') {
+            this.$store.commit('global/SET_WORKFLOWURL', '/FFFFF1012FormView');
+            this.$store
+              .dispatch('PFANS1035Store/selectById3', {'business_id': this.$route.params._id})
+              .then(response => {
+                if (response.length > 0) {
+                  this.$router.push({
+                    name: 'PFANS1011FormView',
+                    params: {
+                      _checkid: this.$route.params._id,
+                      disabled: false,
+                      _type: 0,
+                    },
+                  });
+                } else {
+                  this.$router.push({
+                    name: 'PFANS1011FormView',
+                    params: {
+                      _checkid: this.$route.params._id,
+                      disabled: true,
+                      _type: 1,
+                    },
+                  });
+                }
+              });
+          } else if (val === 'apartment') {
+            this.$store.commit('global/SET_WORKFLOWURL', '/FFFFF1012FormView');
+            this.$store
+              .dispatch('PFANS1035Store/selectById4', {'business_id': this.$route.params._id})
+              .then(response => {
+                if (response.length > 0) {
+                  this.$router.push({
+                    name: 'PFANS3007FormView',
+                    params: {
+                      _checkid: this.$route.params._id,
+                      disabled: false,
+                      _type: 0,
+                      _checktype: 0,
+                    },
+                  });
+                } else {
+                  this.$router.push({
+                    name: 'PFANS3007FormView',
+                    params: {
+                      _checkid: this.$route.params._id,
+                      disabled: true,
+                      _type: 1,
+                      _checktype: 0,
+                    },
+                  });
+                }
+              });
+          } else {
+            this.checkRequire();
+            this.$refs['refform'].validate(valid => {
+              if (valid) {
+                this.loading = true;
+                this.form.businesstype = '0',
+                  this.form.user_id = this.userlist;
+                this.baseInfo.business = JSON.parse(JSON.stringify(this.form));
+                this.baseInfo.travelcontent = [];
+                for (let i = 0; i < this.tablePD.length; i++) {
+                  this.baseInfo.travelcontent.push(
+                    {
+                      travelcontent_id: this.tablePD[i].travelcontent_id,
+                      businessid: this.tablePD[i].businessid,
+                      //开始结束日期
+                      duringdate: moment(this.tablePD[i].duringdate[0]).format('YYYY-MM-DD') + ' ~ ' + moment(this.tablePD[i].duringdate[1]).format('YYYY-MM-DD'),
+                      place: this.tablePD[i].place,
+                      content: this.tablePD[i].content,
+                    },
+                  );
+                }
+                this.loading = true;
+                let error = 0;
+                //add-ws-4/22-金额不能大于事业计划余额check
+                if (this.form.plan === '1') {
+                  if (this.form.moneys > this.form.balance) {
+                    this.activeName = 'fourth';
+                    error = error + 1;
+                    Message({
+                      message: this.$t('label.PFANS1002VIEW_CHECKERROR'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    this.loading = false;
+                  }
+                }
+                //add-ws-4/22-金额不能大于事业计划余额check
+                if (error === 0) {
+                  if (this.$route.params._id) {
+                    this.baseInfo.business.businessid = this.$route.params._id;
+                    this.$store
+                      .dispatch('PFANS1002Store/updateBusiness', this.baseInfo)
+                      .then(response => {
+                        this.data = response;
+                        this.loading = false;
+                        if (val !== 'update') {
+                          Message({
+                            message: this.$t('normal.success_02'),
+                            type: 'success',
+                            duration: 5 * 1000,
+                          });
+                          this.paramsTitle();
+                        }
+                      })
+                      .catch(error => {
                         Message({
-                          message: this.$t('normal.success_02'),
+                          message: error,
+                          type: 'error',
+                          duration: 5 * 1000,
+                        });
+                        this.loading = false;
+                      });
+
+                  } else {
+                    this.$store
+                      .dispatch('PFANS1002Store/createBusiness', this.baseInfo)
+                      .then(response => {
+                        this.data = response;
+                        this.loading = false;
+                        Message({
+                          message: this.$t('normal.success_01'),
                           type: 'success',
                           duration: 5 * 1000,
                         });
                         this.paramsTitle();
-                      }
-                    })
-                    .catch(error => {
-                      Message({
-                        message: error,
-                        type: 'error',
-                        duration: 5 * 1000,
+                      })
+                      .catch(error => {
+                        Message({
+                          message: error,
+                          type: 'error',
+                          duration: 5 * 1000,
+                        });
+                        this.loading = false;
                       });
-                      this.loading = false;
-                    });
-
-                } else {
-                  this.$store
-                    .dispatch('PFANS1002Store/createBusiness', this.baseInfo)
-                    .then(response => {
-                      this.data = response;
-                      this.loading = false;
-                      Message({
-                        message: this.$t('normal.success_01'),
-                        type: 'success',
-                        duration: 5 * 1000,
-                      });
-                      this.paramsTitle();
-                    })
-                    .catch(error => {
-                      Message({
-                        message: error,
-                        type: 'error',
-                        duration: 5 * 1000,
-                      });
-                      this.loading = false;
-                    });
+                  }
                 }
+              } else {
+                Message({
+                  message: this.$t('normal.error_12'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
               }
-            } else {
-              Message({
-                message: this.$t('normal.error_12'),
-                type: 'error',
-                duration: 5 * 1000,
-              });
-            }
-          });
+            });
+          }
+
         }
+        //add-ws-7/7-禅道153
       },
     },
   };
