@@ -3189,7 +3189,7 @@
             if (index === 2) {
               org.groupname = treeCom.getNode(node).data.departmentname;
               org.groupid = treeCom.getNode(node).data._id;
-              org.budgetunit = treeCom.getNode(node).data.encoding;
+                org.budgetunit = treeCom.getNode(node).data.companyen;
             }
             if (index === 1) {
               org.centername = treeCom.getNode(node).data.companyname;
