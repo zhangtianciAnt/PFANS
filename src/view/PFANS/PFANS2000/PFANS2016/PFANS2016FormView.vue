@@ -1523,6 +1523,17 @@
             this.form.relengthtime = 8 * diffDate;
           }
         }
+        if (this.form.errortype === 'PR013006' || this.form.errortype === 'PR013008') {
+          if (moment(this.form.finisheddate).format('YYYY-MM-DD') === moment(this.form.occurrencedate).format('YYYY-MM-DD')) {
+            //当天取小时
+            this.dislengthtime = false;
+            this.form.relengthtime = this.form.occurrencedate;
+          } else {
+            //跨天取整天，8小时   不包含公休日
+            this.dislengthtime = true;
+            this.form.relengthtime = this.reList.length * 8;
+          }
+        }
         // if (this.form.errortype === 'PR013009') {
         //   if (rediffDate > 30 - this.sickleave) {
         //     this.errorcheck = 2;
@@ -1822,7 +1833,7 @@
 
       },
       fileSuccess(response, file, fileList) {
-        if (response.data == "upload_success") {
+        // if (response.data == "upload_success") {
           this.fileList = [];
           this.form.uploadfile = '';
           for (var item of fileList) {
@@ -1836,15 +1847,15 @@
             this.fileList.push(o);
             this.form.uploadfile += o.name + ',' + o.url + ';';
           }
-        } else {
-          Message({
-            message: this.$t('label.PFANS2016FORMVIEW_FILEERROR'),
-            type: 'error',
-            duration: 5 * 1000,
-          });
-          this.form.uploadfile =''
-          this.$refs.upload.clearFiles();
-        }
+        // } else {
+        //   Message({
+        //     message: this.$t('label.PFANS2016FORMVIEW_FILEERROR'),
+        //     type: 'error',
+        //     duration: 5 * 1000,
+        //   });
+        //   this.form.uploadfile =''
+        //   this.$refs.upload.clearFiles();
+        // }
       },
       buttonClick(val) {
         this.$refs['ruleForm'].validate(valid => {
