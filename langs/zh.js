@@ -24,7 +24,7 @@ module.exports = {
   },
   button: {
     plantic: '机票',
-    interview: '面谈',
+    interview: '境外出差',
     apartment: '公寓预约',
     changedata: '离职日变更',
     sumnumber: '添加',

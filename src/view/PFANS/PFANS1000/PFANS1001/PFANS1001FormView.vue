@@ -561,6 +561,7 @@
           this.rowid = row.communication_id;
         } else if (this.$route.params.title === 11) {
           this.rowid = row.offshore_id;
+          this.statuss = row;
         }
       },
       buttonClick(val) {
