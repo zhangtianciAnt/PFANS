@@ -4326,31 +4326,7 @@
                 }
 
                 //ADD-WS-增加公共费用精算书check
-                if (this.form.type === 'PJ001001') {
-                  for (let j = 0; j < this.tableF.length; j++) {
-                    let summoney = 0;
-                    for (let i = 0; i < this.tableT.length; i++) {
-                      if (this.tableT[i].trafficdate !== '' || this.tableT[i].subjectnumber !== '' || this.tableT[i].invoicenumber !== '' || this.tableT[i].departmentname !== '' || this.tableT[i].budgetcoding !== '' || this.tableT[i].region !== '' || this.tableT[i].vehicle !== '' || this.tableT[i].startingpoint !== ''
-                        || this.tableT[i].rmb > 0 || this.tableT[i].foreigncurrency > 0 || this.tableT[i].annexno !== '') {
-                        if (this.tableT[i].invoicenumber == this.tableF[j].invoicenumber) {
-                          if (this.tableT[i].rmb != '0') {
-                            summoney += this.tableT[i].rmb;
-                            continue;
-                          }
-                        }
-                      }
-                    }
-                    if (summoney != this.tableF[j].invoiceamount) {
-                      error = error + 1;
-                      Message({
-                        message: this.$t('label.PFANS1012FORMVIEW_MESSAGE'),
-                        type: 'error',
-                        duration: 5 * 1000,
-                      });
-                      break;
-                    }
-                  }
-                } else if (this.form.type === 'PJ001002') {
+                if (this.form.type === 'PJ001002') {
                   for (let j = 0; j < this.tableF.length; j++) {
                     let summoney = 0;
                     let sumMoney = 0;
