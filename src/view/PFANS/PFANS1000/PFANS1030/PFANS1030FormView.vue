@@ -1139,11 +1139,11 @@
           .dispatch('PFANS1025Store/selectById', {'award_id': this.$route.params._id})
           .then(response => {
             this.form = response.award;
-            if (this.form.status === '4') {
-              this.enableSave = true;
-            } else {
-              this.enableSave = false;
-            }
+              if (this.form.status === '4' || this.form.status === '2') {
+                  this.enableSave = false;
+              } else {
+                  this.enableSave = true;
+              }
             if (response.award.custojapanese !== null && response.award.custojapanese !== '') {
               let letUser = getUserInfo(response.award.custojapanese);
               if (letUser != null) {
