@@ -1,16 +1,16 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :canStart="canStart" :title="title" :workflowCode="right"
-                         @buttonClick="buttonClick"
+                         @buttonClick="buttonClick" @StartWorkflow="checkbuttonClick" :defaultStart="defaultStart"
                          @end="end" @start="start" @workflowState="workflowState" ref="container" v-loading="loading">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
           <el-tabs v-model="activeName" type="border-card">
             <el-tab-pane :label="$t('label.PFANS2026VIEW_OUT')" name="second">
-              <el-row v-if = 'checkbox'>
+              <el-row v-if='checkbox'>
 
                 <el-col :span="8">
-                  <el-checkbox v-model="form.checkedgm" disabled >
+                  <el-checkbox v-model="form.checkedgm" disabled>
                     <div class="sub_color_blue">
                       {{$t('label.PFANS2026FORMVIEW_MESSAGE9')}}
                     </div>
@@ -19,7 +19,7 @@
                 <el-col :span="8">
                   <el-checkbox v-model="form.checkedcenter" disabled>
                     <div class="sub_color_blue">
-                       {{$t('label.PFANS2026FORMVIEW_MESSAGE10')}}
+                      {{$t('label.PFANS2026FORMVIEW_MESSAGE10')}}
                     </div>
                   </el-checkbox>
                 </el-col>
@@ -518,6 +518,7 @@
         }
       };
       return {
+        defaultStart: false,
         checkdisable: true,
         hope_exit_date: '',
         sex: '',
@@ -702,16 +703,16 @@
           .dispatch('PFANS2026Store/selectById2', {'staffexitproceid': this.$route.params._id})
           .then(response => {
             this.form = response.staffexitproce;
-            if(response.staffexitproce.checkedgm === "true"){
-              this.form.checkedgm = true
+            if (response.staffexitproce.checkedgm === 'true') {
+              this.form.checkedgm = true;
               this.checkbox = true;
-            }else{
-              this.form.checkedgm = false
+            } else {
+              this.form.checkedgm = false;
             }
-            if(response.staffexitproce.checkedcenter === "true"){
-              this.form.checkedcenter = true
-            }else{
-              this.form.checkedcenter = false
+            if (response.staffexitproce.checkedcenter === 'true') {
+              this.form.checkedcenter = true;
+            } else {
+              this.form.checkedcenter = false;
             }
             if (this.form.condate !== '' && this.form.condate !== null) {
               for (let i = 0; i < JSON.parse(this.form.condate).length; i++) {
@@ -936,12 +937,12 @@
               this.tableData[8].checked = true;
               this.tableData[8].condate = moment(new Date()).format('YYYY-MM-DD');
               this.tableData[8].person = getUserInfo(this.$store.getters.userinfo.userid).userinfo.customername;
-            }else{
+            } else {
               this.tableData[5].checked = true;
               this.tableData[5].condate = moment(new Date()).format('YYYY-MM-DD');
               this.tableData[5].person = getUserInfo(this.$store.getters.userinfo.userid).userinfo.customername;
             }
-          }else {
+          } else {
             this.tableData[a].checked = true;
             this.tableData[a].condate = moment(new Date()).format('YYYY-MM-DD');
             this.tableData[a].person = getUserInfo(this.$store.getters.userinfo.userid).userinfo.customername;
@@ -949,10 +950,10 @@
         } else {
           let b = this.getCurrentRole3();
           if (b == 1) {
-            this.form.checkedgm = true
+            this.form.checkedgm = true;
           } else if (b == 2) {
-            this.form.checkedgm = true
-            this.form.checkedcenter = true
+            this.form.checkedgm = true;
+            this.form.checkedcenter = true;
           }
         }
         if (val.state === '1') {
@@ -967,10 +968,10 @@
         this.checkbox = true;
         let b = this.getCurrentRole3();
         if (b == 1) {
-          this.form.checkedgm = true
+          this.form.checkedgm = true;
         } else if (b == 2) {
-          this.form.checkedgm = true
-          this.form.checkedcenter = true
+          this.form.checkedgm = true;
+          this.form.checkedcenter = true;
         }
         if (val.state === '0') {
           this.form.status = '2';
@@ -1005,6 +1006,34 @@
           user_id: '',
           remarks: '',
         });
+      },
+      checkbuttonClick(val) {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS2026Store/get3', {'userid': this.userlist})
+          .then(response => {
+            if (response.length > 0) {
+              Message({
+                message: this.$t('label.PFANS2032FROMVIEW_CHECKERROR'),
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            }else{
+              if (val === 'StartWorkflow') {
+                this.$refs.container.$refs.workflow.startWorkflow();
+              }
+              this.loading = false;
+            }
+          }).catch(error => {
+          Message({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000,
+          });
+          this.loading = false;
+        });
+
       },
       buttonClick(val) {
         this.checkRequire();

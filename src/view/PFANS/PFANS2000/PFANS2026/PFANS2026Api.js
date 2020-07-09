@@ -76,6 +76,14 @@ export function selectById2(data) {
   })
 }
 
+export function get3(data) {
+  return request({
+    url: 'staffexitprocedure/get3',
+    method: 'get',
+    params: data
+  })
+}
+
 export function get2(data) {
   return request({
     url: 'staffexitprocedure/get2',
