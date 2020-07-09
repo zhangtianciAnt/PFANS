@@ -23,6 +23,9 @@
                      v-show="this.showTable===5" @buttonClick="buttonClick" @rowClick="rowClick" :rowid="row">
     </EasyNormalTable>
     <!--  add-ws-5/27-No.170-->
+    <EasyNormalTable :buttonList="buttonList" :columns="columns6" :data="data" :title="title" v-loading="loading"
+                     v-show="this.showTable===6" @buttonClick="buttonClick" @rowClick="rowClick" :rowid="row">
+    </EasyNormalTable>
   </div>
 </template>
 
@@ -52,14 +55,14 @@
             label: 'label.PFANS1005VIEW_NUMBERS',
             width: 120,
             fix: false,
-            filter: false,
+            filter: true,
           },
           {
             code: 'remarks',
             label: 'label.PFANS1012VIEW_ABSTRACT',
             width: 120,
             fix: false,
-            filter: false,
+            filter: true,
           },
           {
             code: 'user_id',
@@ -105,14 +108,14 @@
             label: 'label.PFANS1001FORMVIEW_NUMBERS',
             width: 120,
             fix: false,
-            filter: false,
+            filter: true,
           },
           {
             code: 'filename',
             label: 'label.PFANS1012VIEW_ABSTRACT',
             width: 120,
             fix: false,
-            filter: false,
+            filter: true,
           },
           {
             code: 'user_id',
@@ -159,7 +162,7 @@
             label: 'label.PFANS1001FORMVIEW_BUSINESS_NUMBER',
             width: 120,
             fix: false,
-            filter: false,
+            filter: true,
           },
           // ztc 禅道No.61-增加编号（日期加序列号 end
           {
@@ -222,7 +225,7 @@
             label: 'label.PFANS1006FORMVIEW_LOANAPNO',
             width: 130,
             fix: false,
-            filter: false,
+            filter: true,
           },
           {
             code: 'user_id',
@@ -257,14 +260,14 @@
             label: 'label.PFANS1012VIEW_ABSTRACT',
             width: 120,
             fix: false,
-            filter: false,
+            filter: true,
           },
           {
             code: 'moneys',
             label: 'label.PFANS1004VIEW_AMOUNT',
             width: 120,
             fix: false,
-            filter: false,
+            filter: true,
           },
           {
             code: 'status',
@@ -296,7 +299,7 @@
             label: 'label.PFANS1006FORMVIEW_NUMBERCATION',
             width: 130,
             fix: false,
-            filter: false,
+            filter: true,
           },
           {
             code: 'company',
@@ -342,12 +345,52 @@
           },
         ],
 //       add-ws-5/27-No.170
+
+        columns6: [
+          {
+            code: 'user_id',
+            label: 'label.applicant',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'center_id',
+            label: 'label.center',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'group_id',
+            label: 'label.group',
+            width: 130,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'team_id',
+            label: 'label.team',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'status',
+            label: 'label.approval_status',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+        ],
         buttonList: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
           {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
         ],
         rowid: '',
+        statuss: '',
+        check: false,
         row: '',
         url: '',
       };
@@ -412,7 +455,7 @@
           this.dispatch('PFANS1001Store/getCommunication');
         } else if (val === 11) {
           //ADD-WS-决裁编号添加
-          this.showTable = 1;
+          this.showTable = 6;
           //ADD-WS-决裁编号添加
           this.row = 'offshore_id';
           this.title = 'title.PFANS1011VIEW';
@@ -464,12 +507,12 @@
           }
           //        add_fjl_05/27  --添加审批时间
           // ztc 禅道No.61-增加编号（日期加序列号）start
-          if (response[j].businesstype == "1" && response[j].city != null && response[j].city != "") {
+          if (response[j].businesstype == '1' && response[j].city != null && response[j].city != '') {
             let letcity = getDictionaryInfo(response[j].city);
             if (letcity != null) {
               response[j].regioncity = letcity.value1;
             }
-          } else if (response[j].businesstype == "0" && response[j].city != null && response[j].city != "") {
+          } else if (response[j].businesstype == '0' && response[j].city != null && response[j].city != '') {
             let letregion = getDictionaryInfo(response[j].region);
             {
               if (letregion != null) {
@@ -477,10 +520,10 @@
               }
             }
           }
-          if (response[j].startdate != null && response[j].startdate != "") {
-            response[j].date = moment(response[j].startdate).format('YYYY-MM-DD') + "~" + moment(response[j].enddate).format('YYYY-MM-DD')
+          if (response[j].startdate != null && response[j].startdate != '') {
+            response[j].date = moment(response[j].startdate).format('YYYY-MM-DD') + '~' + moment(response[j].enddate).format('YYYY-MM-DD');
           }
-          if (response[j].canafver != null && response[j].canafver != "") {
+          if (response[j].canafver != null && response[j].canafver != '') {
             if (response[j].canafver == 1) {
               response[j].canafver = this.$t('label.PFANS1030FORMVIEW_YCANAFVER');
             } else {
@@ -495,8 +538,17 @@
       rowClick(row) {
         if (this.$route.params.title === 1) {
           this.rowid = row.business_id;
+          this.statuss = row;
+          if (row.status === this.$t('label.PFANS5004VIEW_OVERTIME')) {
+            if (row.region == 'PJ017001' || row.region == 'PJ017002') {
+              if (row.accommodation == 'PJ035002') {
+                this.check = true;
+              }
+            }
+          }
         } else if (this.$route.params.title === 2) {
           this.rowid = row.business_id;
+          this.statuss = row;
         } else if (this.$route.params.title === 3) {
           this.rowid = row.judgementid;
         } else if (this.$route.params.title === 4) {
@@ -544,6 +596,9 @@
             name: letname,
             params: {
               _id: this.rowid,
+              _type: 2,
+              _check: this.check,
+              statuss: this.statuss.status,
               disabled: true,
             },
           });
@@ -558,6 +613,7 @@
           this.$router.push({
             name: letname,
             params: {
+              _type: 2,
               _id: this.rowid,
               disabled: false,
             },
@@ -567,6 +623,7 @@
           this.$router.push({
             name: letname,
             params: {
+              _type: 2,
               _id: '',
               disabled: true,
             },

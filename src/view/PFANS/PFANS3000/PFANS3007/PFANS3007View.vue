@@ -332,6 +332,7 @@
           this.$router.push({
             name: 'PFANS3007FormView',
             params: {
+              _type: 2,
               _id: this.rowid,
               disabled: true,
             },
@@ -341,6 +342,7 @@
           this.$router.push({
             name: 'PFANS3007FormView',
             params: {
+              _type: 2,
               _id: '',
               disabled: true,
             },
@@ -358,6 +360,7 @@
           this.$router.push({
             name: 'PFANS3007FormView',
             params: {
+              _type: 2,
               _id: this.rowid,
               disabled: false,
             },

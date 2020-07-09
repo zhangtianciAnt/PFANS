@@ -3,6 +3,7 @@
     <EasyNormalContainer
       :buttonList="buttonList"
       :canStart="canStart"
+      :enableSave="enableSave"
       v-loading="loading"
       :title="title"
       @buttonClick="buttonClick"
@@ -205,9 +206,9 @@
               <div>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012FORMVIEW_BUDGET')" >
-<!--                      <el-input :disabled="true" style="width:20vw" v-model="form.budgetunit" maxlength='50'></el-input>-->
-                      <el-select clearable style="width: 20vw"  v-model="form.budgetunit" :disabled="!disable"
+                    <el-form-item :label="$t('label.PFANS1012FORMVIEW_BUDGET')">
+                      <!--                      <el-input :disabled="true" style="width:20vw" v-model="form.budgetunit" maxlength='50'></el-input>-->
+                      <el-select clearable style="width: 20vw" v-model="form.budgetunit" :disabled="!disable"
                                  :placeholder="$t('normal.error_09')">
                         <el-option
                           v-for="item in options"
@@ -220,7 +221,7 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1013VIEW_YESYJDA')" >
+                    <el-form-item :label="$t('label.PFANS1013VIEW_YESYJDA')">
                       <span style="margin-right: 1rem ">{{$t('label.no')}}</span>
                       <el-switch
                         :disabled="!disable"
@@ -324,7 +325,7 @@
                     </template>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1002VIEW_LOANMONEY2')" >
+                    <el-form-item :label="$t('label.PFANS1002VIEW_LOANMONEY2')">
                       <el-input-number
                         :disabled="!disable"
                         :max="999999999"
@@ -450,17 +451,18 @@
   import user from '../../../components/user.vue';
   import {Message} from 'element-ui';
   import moment from 'moment';
-  import {getOrgInfoByUserId,getOrgInfo,getDictionaryInfo} from '@/utils/customize';
+  import {getOrgInfoByUserId, getOrgInfo, getDictionaryInfo} from '@/utils/customize';
   import dicselect from '../../../components/dicselect';
 
   import project from '../../../components/project.vue';
+
   export default {
     name: 'PFANS1035FormView',
     components: {
       dicselect,
       EasyNormalContainer,
       user,
-      project
+      project,
     },
     data() {
       var validateUserid = (rule, value, callback) => {
@@ -499,6 +501,7 @@
         }
       };
       return {
+        enableSave: false,
         optionsdate: [{value: 'PP024001', lable: this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')}],
         options: [],
         centerid: '',
@@ -690,7 +693,7 @@
               trigger: 'blur',
             },
           ],
-            // DEL   FJL
+          // DEL   FJL
           // loanday: [
           //   {
           //     required: true,
@@ -775,7 +778,7 @@
               this.tablePD = [];
               for (let i = 0; i < response.travelcontent.length; i++) {
                 let date = [];
-                let letdate = response.travelcontent[i].duringdate.split(" ~ ");
+                let letdate = response.travelcontent[i].duringdate.split(' ~ ');
                 if (letdate.length > 0) {
                   date.push(letdate[0]);
                   date.push(letdate[1]);
@@ -785,12 +788,12 @@
                   businessid: response.travelcontent[i].businessid,
                   duringdate: date,
                   place: response.travelcontent[i].place,
-                  content: response.travelcontent[i].content
+                  content: response.travelcontent[i].content,
                 });
               }
             }
             this.userlist = this.form.user_id;
-              this.getBudt(this.userlist);
+            this.getBudt(this.userlist);
             this.baseInfo.business = JSON.parse(JSON.stringify(this.form));
             if (this.form.objectivetype === 'PJ018005') {
               this.show = true;
@@ -835,9 +838,9 @@
         this.userlist = this.$store.getters.userinfo.userid;
         if (this.userlist !== null && this.userlist !== '') {
           let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-            // if(getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)){
-            //     this.form.budgetunit = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
-            // }
+          // if(getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)){
+          //     this.form.budgetunit = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
+          // }
           if (rst) {
             this.centerid = rst.centerNmae;
             this.groupid = rst.groupNmae;
@@ -847,7 +850,7 @@
             this.form.team_id = rst.teamId;
           }
           this.form.user_id = this.$store.getters.userinfo.userid;
-            this.getBudt(this.form.user_id);
+          this.getBudt(this.form.user_id);
         }
       }
     },
@@ -855,6 +858,43 @@
       if (!this.$route.params.disabled) {
         this.buttonList = [];
       }
+      //add-ws-7/7-禅道153
+      if (this.$route.params.statuss ===  this.$t('label.PFANS5004VIEW_OVERTIME') ) {
+        this.buttonList = [
+          {
+            key: 'save',
+            name: 'button.save',
+            disabled: true,
+            icon: 'el-icon-check',
+          },
+          {
+            key: 'plantic',
+            name: 'button.plantic',
+            disabled: false,
+          },
+        ];
+        this.enableSave = true;
+      } else if (this.$route.params.statuss ===  this.$t('label.node_step2')) {
+        this.buttonList = [
+          {
+            key: 'save',
+            name: 'button.save',
+            disabled: false,
+            icon: 'el-icon-check',
+          },
+        ];
+        this.enableSave = true;
+      } else {
+        this.buttonList = [
+          {
+            key: 'save',
+            name: 'button.save',
+            disabled: false,
+            icon: 'el-icon-check',
+          },
+        ];
+      }
+      //add-ws-7/7-禅道153
       this.disable = this.$route.params.disabled;
     },
     methods: {
@@ -946,24 +986,24 @@
       },
       //upd-ws-6/5-禅道075任务，项目名称问题修正
       //add-ws-4/24-项目名称所取数据源变更
-        getBudt(val){
-            //ADD_FJL  修改人员预算编码
-            if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
-                let butinfo = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
-                let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-                if(dic.length > 0){
-                    for (let i = 0; i < dic.length; i++) {
-                        if(butinfo === dic[i].value1){
-                            this.options.push({
-                                lable: dic[i].value2 +'_'+ dic[i].value3,
-                                value: dic[i].code,
-                            })
-                        }
-                    }
-                }
+      getBudt(val) {
+        //ADD_FJL  修改人员预算编码
+        if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
+          let butinfo = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
+          let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+          if (dic.length > 0) {
+            for (let i = 0; i < dic.length; i++) {
+              if (butinfo === dic[i].value1) {
+                this.options.push({
+                  lable: dic[i].value2 + '_' + dic[i].value3,
+                  value: dic[i].code,
+                });
+              }
             }
-            //ADD_FJL  修改人员预算编码
-        },
+          }
+        }
+        //ADD_FJL  修改人员预算编码
+      },
       change(val) {
         this.form.companyprojectsname = val;
       },
@@ -1008,9 +1048,9 @@
         this.form.user_id = val;
         this.userlist = val;
         let rst = getOrgInfoByUserId(val);
-          // if(getOrgInfo(getOrgInfoByUserId(val).groupId)){
-          //     this.form.budgetunit = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
-          // }
+        // if(getOrgInfo(getOrgInfoByUserId(val).groupId)){
+        //     this.form.budgetunit = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
+        // }
         if (rst) {
           this.centerid = rst.centerNmae;
           this.groupid = rst.groupNmae;
@@ -1058,9 +1098,9 @@
           this.form.balance = null;
         }
       },
-        changeBut(val) {
-            this.form.budgetunit = val;
-        },
+      changeBut(val) {
+        this.form.budgetunit = val;
+      },
       getplantype(val) {
         this.form.plantype = val;
         if (val === 'PR002006') {
@@ -1111,10 +1151,10 @@
       start(val) {
         if (val.state === '0') {
           this.form.status = '2';
-        }else if (val.state === '2') {
+        } else if (val.state === '2') {
           this.form.status = '4';
         }
-        this.buttonClick("update");
+        this.buttonClick('update');
       },
       //add-ws-5-20-流程恒展开
       end(val) {
@@ -1190,7 +1230,7 @@
             date.push(this.form.startdate);
             this.tablePD[0].duringdate = date;
             this.tablePD[0].place = this.$t('label.PFANS1035FORMVIEW_MOBILE');
-            this.tablePD[1].place =  getDictionaryInfo(this.form.city).value1;
+            this.tablePD[1].place = getDictionaryInfo(this.form.city).value1;
             this.tablePD[2].place = this.$t('label.PFANS1035FORMVIEW_MOBILE');
 
             let date1 = [];
@@ -1208,7 +1248,37 @@
       buttonClick(val) {
         if (val === 'back') {
           this.paramsTitle();
-        } else {
+          //add-ws-7/7-禅道153
+        } else if (val === 'plantic') {
+          this.$store.commit('global/SET_WORKFLOWURL', '/FFFFF1012FormView');
+          this.$store
+            .dispatch('PFANS1035Store/selectById2', {'business_id': this.$route.params._id})
+            .then(response => {
+              if (response.length > 0) {
+                this.$router.push({
+                  name: 'PFANS3001FormView',
+                  params: {
+                    _checkid: this.$route.params._id,
+                    disabled: false,
+                    _type: 0,
+                    _checktype: 1,
+                  },
+                });
+              }else{
+                this.$router.push({
+                  name: 'PFANS3001FormView',
+                  params: {
+                    _checkid: this.$route.params._id,
+                    disabled: true,
+                    _type: 1,
+                    _checktype: 1,
+                  },
+                });
+              }
+            });
+        }
+        //add-ws-7/7-禅道153
+        else {
           this.checkRequire();
           this.$refs['refform'].validate(valid => {
             if (valid) {
@@ -1278,13 +1348,12 @@
                     this.loading = false;
                   });
               }
-            }
-            else{
-                Message({
-                    message: this.$t("normal.error_12"),
-                    type: 'error',
-                    duration: 5 * 1000
-                });
+            } else {
+              Message({
+                message: this.$t('normal.error_12'),
+                type: 'error',
+                duration: 5 * 1000,
+              });
             }
           });
         }
