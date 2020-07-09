@@ -219,7 +219,30 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3006VIEW_FELLOWMEMBERSNAME')" v-show="show" prop="fellowmembersname">
                 <el-input :disabled="!disable" maxlength='36' style="width:20vw"
-                          v-model="form.fellowmembersname" ></el-input>
+                          v-model="form.fellowmembersname"></el-input>
+              </el-form-item>
+            </el-col>
+            <!--取消行程-->
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS3006VIEW_TRIP')" prop="trip">
+                <span style="margin-right: 1vw ">{{$t('label.no')}}</span>
+                <el-switch
+                  :disabled="!disable"
+                  v-model="form.trip"
+                  @change="toshowtrip"
+                  active-value="0"
+                  inactive-value="1"
+                >
+                </el-switch>
+                <span style="margin-left: 1vw ">{{$t('label.yes')}}</span>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS3006VIEW_TRIPREASON')" v-show="showtrip" prop="tripreason">
+                <el-input :disabled="!disable" type="textarea" style="width:72vw" :autosize="{ minRows: 3, maxRows: 4}"
+                          v-model="form.tripreason"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -388,15 +411,23 @@
           remarks: '',
           welcomeboard: true,
           fellowmembers: false,
+          trip: false,
           accept: '0',
           acceptstatus: '',
-            findate: '',
+          findate: '',
           refusereason: '',
+          trip: '',
+          tripreason: '',
         },
         rules: {
           fellowmembersname:[{
             required: false,
             message: this.$t('normal.error_08') + this.$t('label.PFANS3006VIEW_FELLOWMEMBERS'),
+            trigger: 'blur'
+          }],
+          tripreason: [{
+            required: false,
+            message: this.$t('normal.error_08') + this.$t('label.PFANS3006VIEW_TRIPREASON'),
             trigger: 'blur'
           }],
           userid: [{
@@ -484,17 +515,19 @@
                   this.refuseShow = false;
               }
               //start(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
+            if (this.form.trip === '1') {
               let role = getCurrentRoleCar();
               if (role === '0') {
-                  if (this.disable) {
-                      this.form.findate = moment(new Date()).format("YYYY-MM-DD")
-                      this.acceptShow = false;
-                  } else {
-                      this.acceptShow = true;
-                  }
-              } else {
+                if (this.disable) {
+                  this.form.findate = moment(new Date()).format("YYYY-MM-DD")
+                  this.acceptShow = false;
+                } else {
                   this.acceptShow = true;
+                }
+              } else {
+                this.acceptShow = true;
               }
+            }
               //end(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
               let rst = getOrgInfoByUserId(response.userid);
               if(rst){
@@ -513,6 +546,11 @@
                 this.show=false;
             }else{
                 this.show=true;
+            }
+            if (this.form.trip == 1) {
+              this.showtrip = false;
+            } else {
+              this.showtrip = true;
             }
 
             if(this.form.usetype === 'PR005002' || this.form.usetype === 'PR005003'){
@@ -616,6 +654,16 @@
         }else{
           this.show = true;
           this.rules.fellowmembersname[0].required = true;
+        }
+      },
+      toshowtrip(val) {
+        if (val === '1') {
+          this.showtrip = false;
+          this.form.tripreason = null;
+          this.rules.tripreason[0].required = false;
+        } else {
+          this.showtrip = true;
+          this.rules.tripreason[0].required = true;
         }
       },
       workflowState(val) {

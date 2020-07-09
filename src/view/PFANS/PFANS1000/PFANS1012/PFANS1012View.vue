@@ -315,7 +315,7 @@
           //DEL_FJL
           this.selectedlist = this.$refs.roletable.selectedList;
           for (let m = 0; m < this.selectedlist.length; m++) {
-            if (this.selectedlist[m].moduleid === 'GL') {
+            if (this.selectedlist[m].moduleid === 'GL'|| this.selectedlist[m].moduleid === 'PJ002002'  ) {
               Message({
                 message: this.$t('label.PFANS1012VIEW_GL'),
                 type: 'info',

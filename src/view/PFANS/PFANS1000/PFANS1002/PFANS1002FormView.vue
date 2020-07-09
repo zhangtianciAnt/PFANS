@@ -838,6 +838,7 @@
         gridData: [],
         dialogTableVisible: false,
         form: {
+          offshore_id: '',
           center_id: '',
           group_id: '',
           team_id: '',
@@ -1234,106 +1235,112 @@
     mounted() {
       this.getCompanyProjectList();
       this.getProjectNames();
-      if (this.$route.params._id) {
+      if (this.$route.params._type === 0) {
         this.loading = true;
         this.$store
-          .dispatch('PFANS1002Store/selectById', {'businessid': this.$route.params._id})
+          .dispatch('PFANS1035Store/selectById3', {'offshore_id': this.$route.params._checkid})
           .then(response => {
-            if (!response.business) {
-              this.loading = false;
-              return;
-            }
-            this.form = response.business;
-            let rst = getOrgInfoByUserId(response.business.user_id);
-            if (rst) {
-              this.centerid = rst.centerNmae;
-              this.groupid = rst.groupNmae;
-              this.teamid = rst.teamNmae;
-            }
-            if (response.travelcontent.length > 0) {
-              this.tablePD = [];
-              for (let i = 0; i < response.travelcontent.length; i++) {
-                let date = [];
-                let letdate = response.travelcontent[i].duringdate.split(' ~ ');
-                if (letdate.length > 0) {
-                  date.push(letdate[0]);
-                  date.push(letdate[1]);
+            this.loading = true;
+            this.$store
+              .dispatch('PFANS1002Store/selectById', {'businessid': response[0].business_id})
+              .then(response => {
+                if (!response.business) {
+                  this.loading = false;
+                  return;
                 }
-                this.tablePD.push({
-                  travelcontent_id: response.travelcontent[i].travelcontent_id,
-                  businessid: response.travelcontent[i].businessid,
-                  duringdate: date,
-                  place: response.travelcontent[i].place,
-                  content: response.travelcontent[i].content,
+                this.form = response.business;
+                let rst = getOrgInfoByUserId(response.business.user_id);
+                if (rst) {
+                  this.centerid = rst.centerNmae;
+                  this.groupid = rst.groupNmae;
+                  this.teamid = rst.teamNmae;
+                }
+                if (response.travelcontent.length > 0) {
+                  this.tablePD = [];
+                  for (let i = 0; i < response.travelcontent.length; i++) {
+                    let date = [];
+                    let letdate = response.travelcontent[i].duringdate.split(' ~ ');
+                    if (letdate.length > 0) {
+                      date.push(letdate[0]);
+                      date.push(letdate[1]);
+                    }
+                    this.tablePD.push({
+                      travelcontent_id: response.travelcontent[i].travelcontent_id,
+                      businessid: response.travelcontent[i].businessid,
+                      duringdate: date,
+                      place: response.travelcontent[i].place,
+                      content: response.travelcontent[i].content,
+                    });
+                  }
+                }
+                this.userlist = this.form.user_id;
+                this.getBudt(this.userlist);
+                this.baseInfo.business = JSON.parse(JSON.stringify(this.form));
+                if (this.form.objectivetype === 'PJ018005') {
+                  this.show = true;
+                } else {
+                  this.show = false;
+                }
+                if (this.form.plan === '1') {
+                  this.show2 = true;
+                } else {
+                  this.show2 = false;
+                  this.show3 = false;
+                }
+                if (this.form.plantype === 'PR002006') {
+                  this.show3 = true;
+                } else {
+                  this.show3 = false;
+                }
+                if (this.form.currency === 'PG019001') {
+                  this.show4 = true;
+                  this.form.otherfxrate = getDictionaryInfo(this.form.currency).value2;
+                }
+                if (this.form.currency === 'PG019002') {
+                  this.show4 = true;
+                  this.form.otherfxrate = getDictionaryInfo(this.form.currency).value2;
+                }
+                if (this.form.currency === 'PG019003') {
+                  this.show4 = true;
+                  this.form.otherfxrate = getDictionaryInfo(this.form.currency).value2;
+                }
+                if (this.form.currency === 'PG019004') {
+                  this.show4 = true;
+                  this.form.otherfxrate = getDictionaryInfo(this.form.currency).value2;
+                }
+                if (this.form.provision === '1') {
+                  this.show7 = true;
+                } else {
+                  this.show7 = false;
+                }
+                if (this.form.judgment === 'PJ023001') {
+                  this.show8 = true;
+                } else {
+                  this.show8 = false;
+                }
+                if (this.form.passengers === '1') {
+                  this.show9 = true;
+                } else {
+                  this.show9 = false;
+                }
+                if (this.form.external === '1') {
+                  this.show10 = true;
+                } else {
+                  this.show10 = false;
+                }
+                this.loading = false;
+              })
+              .catch(error => {
+                Message({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000,
                 });
-              }
-            }
-            this.userlist = this.form.user_id;
-            this.getBudt(this.userlist);
-            this.baseInfo.business = JSON.parse(JSON.stringify(this.form));
-            if (this.form.objectivetype === 'PJ018005') {
-              this.show = true;
-            } else {
-              this.show = false;
-            }
-            if (this.form.plan === '1') {
-              this.show2 = true;
-            } else {
-              this.show2 = false;
-              this.show3 = false;
-            }
-            if (this.form.plantype === 'PR002006') {
-              this.show3 = true;
-            } else {
-              this.show3 = false;
-            }
-            if (this.form.currency === 'PG019001') {
-              this.show4 = true;
-              this.form.otherfxrate = getDictionaryInfo(this.form.currency).value2;
-            }
-            if (this.form.currency === 'PG019002') {
-              this.show4 = true;
-              this.form.otherfxrate = getDictionaryInfo(this.form.currency).value2;
-            }
-            if (this.form.currency === 'PG019003') {
-              this.show4 = true;
-              this.form.otherfxrate = getDictionaryInfo(this.form.currency).value2;
-            }
-            if (this.form.currency === 'PG019004') {
-              this.show4 = true;
-              this.form.otherfxrate = getDictionaryInfo(this.form.currency).value2;
-            }
-            if (this.form.provision === '1') {
-              this.show7 = true;
-            } else {
-              this.show7 = false;
-            }
-            if (this.form.judgment === 'PJ023001') {
-              this.show8 = true;
-            } else {
-              this.show8 = false;
-            }
-            if (this.form.passengers === '1') {
-              this.show9 = true;
-            } else {
-              this.show9 = false;
-            }
-            if (this.form.external === '1') {
-              this.show10 = true;
-            } else {
-              this.show10 = false;
-            }
-            this.loading = false;
-          })
-          .catch(error => {
-            Message({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            this.loading = false;
+                this.loading = false;
+              });
           });
-      } else {
+      } else if (this.$route.params._type === 1) {
+        this.form.offshore_id =  this.$route.params._checkid
         this.userlist = this.$store.getters.userinfo.userid;
         if (this.userlist !== null && this.userlist !== '') {
           let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
@@ -1349,7 +1356,126 @@
           this.form.user_id = this.$store.getters.userinfo.userid;
           this.getBudt(this.form.user_id);
         }
+      } else if (this.$route.params._type === 2) {
+        if (this.$route.params._id) {
+          this.loading = true;
+          this.$store
+            .dispatch('PFANS1002Store/selectById', {'businessid': this.$route.params._id})
+            .then(response => {
+              if (!response.business) {
+                this.loading = false;
+                return;
+              }
+              this.form = response.business;
+              let rst = getOrgInfoByUserId(response.business.user_id);
+              if (rst) {
+                this.centerid = rst.centerNmae;
+                this.groupid = rst.groupNmae;
+                this.teamid = rst.teamNmae;
+              }
+              if (response.travelcontent.length > 0) {
+                this.tablePD = [];
+                for (let i = 0; i < response.travelcontent.length; i++) {
+                  let date = [];
+                  let letdate = response.travelcontent[i].duringdate.split(' ~ ');
+                  if (letdate.length > 0) {
+                    date.push(letdate[0]);
+                    date.push(letdate[1]);
+                  }
+                  this.tablePD.push({
+                    travelcontent_id: response.travelcontent[i].travelcontent_id,
+                    businessid: response.travelcontent[i].businessid,
+                    duringdate: date,
+                    place: response.travelcontent[i].place,
+                    content: response.travelcontent[i].content,
+                  });
+                }
+              }
+              this.userlist = this.form.user_id;
+              this.getBudt(this.userlist);
+              this.baseInfo.business = JSON.parse(JSON.stringify(this.form));
+              if (this.form.objectivetype === 'PJ018005') {
+                this.show = true;
+              } else {
+                this.show = false;
+              }
+              if (this.form.plan === '1') {
+                this.show2 = true;
+              } else {
+                this.show2 = false;
+                this.show3 = false;
+              }
+              if (this.form.plantype === 'PR002006') {
+                this.show3 = true;
+              } else {
+                this.show3 = false;
+              }
+              if (this.form.currency === 'PG019001') {
+                this.show4 = true;
+                this.form.otherfxrate = getDictionaryInfo(this.form.currency).value2;
+              }
+              if (this.form.currency === 'PG019002') {
+                this.show4 = true;
+                this.form.otherfxrate = getDictionaryInfo(this.form.currency).value2;
+              }
+              if (this.form.currency === 'PG019003') {
+                this.show4 = true;
+                this.form.otherfxrate = getDictionaryInfo(this.form.currency).value2;
+              }
+              if (this.form.currency === 'PG019004') {
+                this.show4 = true;
+                this.form.otherfxrate = getDictionaryInfo(this.form.currency).value2;
+              }
+              if (this.form.provision === '1') {
+                this.show7 = true;
+              } else {
+                this.show7 = false;
+              }
+              if (this.form.judgment === 'PJ023001') {
+                this.show8 = true;
+              } else {
+                this.show8 = false;
+              }
+              if (this.form.passengers === '1') {
+                this.show9 = true;
+              } else {
+                this.show9 = false;
+              }
+              if (this.form.external === '1') {
+                this.show10 = true;
+              } else {
+                this.show10 = false;
+              }
+              this.loading = false;
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
+        } else {
+          this.userlist = this.$store.getters.userinfo.userid;
+          if (this.userlist !== null && this.userlist !== '') {
+            let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+
+            if (rst) {
+              this.centerid = rst.centerNmae;
+              this.groupid = rst.groupNmae;
+              this.teamid = rst.teamNmae;
+              this.form.center_id = rst.centerId;
+              this.form.group_id = rst.groupId;
+              this.form.team_id = rst.teamId;
+            }
+            this.form.user_id = this.$store.getters.userinfo.userid;
+            this.getBudt(this.form.user_id);
+          }
+        }
       }
+
+
     },
     created() {
       if (!this.$route.params.disabled) {
@@ -1357,7 +1483,7 @@
       }
       this.disable = this.$route.params.disabled;
       //add-ws-7/7-禅道153
-      if (this.$route.params.statuss ===  this.$t('label.PFANS5004VIEW_OVERTIME')) {
+      if (this.$route.params.statuss === this.$t('label.PFANS5004VIEW_OVERTIME')) {
         if (this.$route.params._check) {
           this.buttonList = [
             {
@@ -1369,11 +1495,6 @@
             {
               key: 'plantic',
               name: 'button.plantic',
-              disabled: false,
-            },
-            {
-              key: 'interview',
-              name: 'button.interview',
               disabled: false,
             },
             {
@@ -1394,11 +1515,6 @@
             {
               key: 'plantic',
               name: 'button.plantic',
-              disabled: false,
-            },
-            {
-              key: 'interview',
-              name: 'button.interview',
               disabled: false,
             },
           ];
@@ -1961,8 +2077,7 @@
         if (val === 'back') {
           this.paramsTitle();
           //add-ws-7/7-禅道153
-        }
-        else {
+        } else {
           if (val === 'plantic') {
             this.$store.commit('global/SET_WORKFLOWURL', '/FFFFF1012FormView');
             this.$store
@@ -1986,31 +2101,6 @@
                       disabled: true,
                       _type: 1,
                       _checktype: 0,
-                    },
-                  });
-                }
-              });
-          } else if (val === 'interview') {
-            this.$store.commit('global/SET_WORKFLOWURL', '/FFFFF1012FormView');
-            this.$store
-              .dispatch('PFANS1035Store/selectById3', {'business_id': this.$route.params._id})
-              .then(response => {
-                if (response.length > 0) {
-                  this.$router.push({
-                    name: 'PFANS1011FormView',
-                    params: {
-                      _checkid: this.$route.params._id,
-                      disabled: false,
-                      _type: 0,
-                    },
-                  });
-                } else {
-                  this.$router.push({
-                    name: 'PFANS1011FormView',
-                    params: {
-                      _checkid: this.$route.params._id,
-                      disabled: true,
-                      _type: 1,
                     },
                   });
                 }
