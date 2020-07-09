@@ -8,6 +8,7 @@
     @buttonClick="buttonClick"
     @rowClick="rowClick"
     v-loading="loading"
+    :rowClassName="rowClassName"
   >
     <!--ADD-ZTC-增加列表日历筛选 start-->
     <el-date-picker
@@ -320,6 +321,20 @@
                         fix: false,
                         filter: true,
                     },
+                  {
+                    code: 'trip',
+                    label: 'label.PFANS3006VIEW_TRIP',
+                    width: 150,
+                    fix: false,
+                    filter: true,
+                  },
+                  {
+                    code: 'tripreason',
+                    label: 'label.PFANS3006VIEW_TRIPREASON',
+                    width: 200,
+                    fix: false,
+                    filter: true,
+                  },
                 ],
                 buttonList: [
                     {
@@ -399,6 +414,13 @@
                         if (response[j].endtime !== null && response[j].endtime !== "") {
                             response[j].endtime = moment(response[j].endtime).format("HH:mm");
                         }
+                      if (response[j].trip !== null && response[j].trip !== "") {
+                        if (response[j].trip === 0) {
+                          response[j].trip = '';
+                        } else {
+                          response[j].trip = '取消';
+                        }
+                      }
                         // ADD_FJL   (受理状态)
                         if (response[j].acceptstatus !== null && response[j].acceptstatus !== "") {
                             if (this.$i18n) {
@@ -536,7 +558,14 @@
             }
           },
           // ADD-ZTC-增加列表日历筛选 end
-
+          rowClassName({row, rowIndex}) {
+            if (row.trip === '是') {
+              return 'sub_bg_color_lightgray';
+            }
+            if (row.acceptstatus === this.$t('label.PFANS3006VIEW_CARRYOUT')) {
+              return 'sub_bg_color_lightblue';
+            }
+          },
             rowClick(row) {
                 this.rowid = row.appointmentcarid;
             },
