@@ -102,19 +102,19 @@
               {
                 code: 'rowindex',
                 label: 'label.PFANS2006VIEW_NO',
-                width: 150,
+                width: 80,
                 fix: false,
                 filter: true,
               }, {
                 code: 'department_id',
                 label: 'label.PFANS2006VIEW_CLUB',
-                width: 150,
+                width: 120,
                 fix: false,
                 filter: true,
               }, {
                 code: 'user_id',
                 label: 'label.PFANS2006VIEW_LASTNAME',
-                width: 150,
+                width: 120,
                 fix: false,
                 filter: true,
               }, {

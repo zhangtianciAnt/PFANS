@@ -36,7 +36,7 @@
             code: 'department_id',
             label: 'label.department',
             width: 100,
-            fix: false,
+            fix: true,
             filter: true
           },
           {
