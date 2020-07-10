@@ -3046,6 +3046,11 @@
                     .dispatch('usersStore/getById', params)
                     .then(response => {
                         this.form = response.customerInfo.userinfo;
+                      //add-ws-7/10-禅道141问提修改
+                        if(response.customerInfo.userinfo.resignation_date!=null&&response.customerInfo.userinfo.resignation_date!=""){
+                          this.form.resignation_date =  moment(response.customerInfo.userinfo.resignation_date).format("YYYY-MM-DD");
+                        }
+                      //add-ws-7/10-禅道141问提修改
                         if (!this.form.otherorgs) {
                             this.form.otherorgs = [];
                         }
