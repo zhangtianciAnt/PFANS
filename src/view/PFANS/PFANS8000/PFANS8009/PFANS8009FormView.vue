@@ -242,7 +242,7 @@
             buttonClick(val) {
                 if (val === 'back') {
                     this.$router.push({
-                      name: 'PFANS8009PointView',
+                      name: 'PFANS8009View',
                         params: {
                             codetype: this.$route.params.codetype,
                         },
