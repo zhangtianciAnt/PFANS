@@ -1833,7 +1833,7 @@
 
       },
       fileSuccess(response, file, fileList) {
-        // if (response.data == "upload_success") {
+        if (response.data == "upload_success") {
           this.fileList = [];
           this.form.uploadfile = '';
           for (var item of fileList) {
@@ -1847,15 +1847,15 @@
             this.fileList.push(o);
             this.form.uploadfile += o.name + ',' + o.url + ';';
           }
-        // } else {
-        //   Message({
-        //     message: this.$t('label.PFANS2016FORMVIEW_FILEERROR'),
-        //     type: 'error',
-        //     duration: 5 * 1000,
-        //   });
-        //   this.form.uploadfile =''
-        //   this.$refs.upload.clearFiles();
-        // }
+        } else {
+          Message({
+            message: this.$t('label.PFANS2016FORMVIEW_FILEERROR'),
+            type: 'error',
+            duration: 5 * 1000,
+          });
+          this.form.uploadfile =''
+          this.$refs.upload.clearFiles();
+        }
       },
       buttonClick(val) {
         this.$refs['ruleForm'].validate(valid => {
