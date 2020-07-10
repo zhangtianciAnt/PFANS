@@ -415,10 +415,10 @@
                             response[j].endtime = moment(response[j].endtime).format("HH:mm");
                         }
                       if (response[j].trip !== null && response[j].trip !== "") {
-                        if (response[j].trip === 0) {
-                          response[j].trip = '';
-                        } else {
+                        if (response[j].trip == '0') {
                           response[j].trip = '取消';
+                        } else {
+                          response[j].trip = '';
                         }
                       }
                         // ADD_FJL   (受理状态)
@@ -559,7 +559,7 @@
           },
           // ADD-ZTC-增加列表日历筛选 end
           rowClassName({row, rowIndex}) {
-            if (row.trip === '是') {
+            if (row.trip === '取消') {
               return 'sub_bg_color_lightgray';
             }
             if (row.acceptstatus === this.$t('label.PFANS3006VIEW_CARRYOUT')) {
