@@ -3209,6 +3209,11 @@
           .dispatch('usersStore/getme')
           .then(response => {
             this.form = response.customerInfo.userinfo;
+            //add-ws-7/10-禅道141问提修改
+            if(response.customerInfo.userinfo.resignation_date!=null&&response.customerInfo.userinfo.resignation_date!=""){
+              this.form.resignation_date =  moment(response.customerInfo.userinfo.resignation_date).format("YYYY-MM-DD");
+            }
+            //add-ws-7/10-禅道141问提修改
             if (response.customerInfo.userinfo.birthday != '') {
               let birthdays = new Date(
                 response.customerInfo.userinfo.birthday.replace(/-/g, '/'),
