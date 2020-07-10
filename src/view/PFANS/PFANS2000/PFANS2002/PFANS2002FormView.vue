@@ -789,7 +789,7 @@
 
         created() {
             this.disabled = this.$route.params.disabled;
-            if (!this.disabled) {
+            if (this.disabled) {
                 this.buttonList = [
                     {
                         key: 'save',
@@ -798,6 +798,8 @@
                         icon: 'el-icon-check',
                     },
                 ];
+            } else {
+                this.disEntrytime = true;
             }
         },
         mounted() {

@@ -182,7 +182,7 @@
             name: "PFANS2002FormView",
             params: {
               _id: this.id,
-              disabled: false
+                disabled: true
             }
           });
         } else if ("view" === val) {
@@ -198,7 +198,7 @@
             name: "PFANS2002FormView",
             params: {
               _id: this.id,
-              disabled: true
+                disabled: false
             }
           });
         } else if ("new" === val) {
@@ -206,7 +206,7 @@
             name: "PFANS2002FormView",
             params: {
               _id: "",
-              disabled: false
+                disabled: true
             }
           });
         }
