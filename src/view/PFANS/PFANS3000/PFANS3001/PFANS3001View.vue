@@ -108,7 +108,7 @@
             fix: false,
             filter: false,
           },
-          {
+          /*{
             code: 'go',
             label: 'label.PFANS3001VIEW_GO',
             child: [
@@ -184,7 +184,7 @@
               },
             ],
             width: 700,
-          },
+          },*/
           {
             code: 'acceptstatus',
             label: 'label.PFANS3001FORMVIEW_ACCEPTSTATUS',

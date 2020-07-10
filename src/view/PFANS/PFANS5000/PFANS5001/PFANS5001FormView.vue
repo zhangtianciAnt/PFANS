@@ -3000,21 +3000,6 @@
         }
 
       },
-      fileSuccess(response, file, fileList) {
-        this.fileList = [];
-        this.form.uploadfile = '';
-        for (var item of fileList) {
-          let o = {};
-          o.name = item.name;
-          if (!item.url) {
-            o.url = item.response.info;
-          } else {
-            o.url = item.url;
-          }
-          this.fileList.push(o);
-          this.form.uploadfile += o.name + ',' + o.url + ';';
-        }
-      },
       getworkinghours(workinghours) {
         if (workinghours != null) {
           if (workinghours.length > 0) {

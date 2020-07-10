@@ -1139,11 +1139,11 @@
           .dispatch('PFANS1025Store/selectById', {'award_id': this.$route.params._id})
           .then(response => {
             this.form = response.award;
-              if (this.form.status === '4' || this.form.status === '2') {
-                  this.enableSave = false;
-              } else {
-                  this.enableSave = true;
-              }
+            if (this.form.status === '4' || this.form.status === '2') {
+              this.enableSave = false;
+            } else {
+              this.enableSave = true;
+            }
             if (response.award.custojapanese !== null && response.award.custojapanese !== '') {
               let letUser = getUserInfo(response.award.custojapanese);
               if (letUser != null) {
@@ -1383,18 +1383,28 @@
         this.$refs.reff.validateField('enclosurecontent');
       },
       fileSuccess(response, file, fileList) {
-        this.fileList = [];
-        this.form.uploadfile = '';
-        for (var item of fileList) {
-          let o = {};
-          o.name = item.name;
-          if (!item.url) {
-            o.url = item.response.info;
-          } else {
-            o.url = item.url;
+        if (response.data == 'upload_success') {
+          this.fileList = [];
+          this.form.uploadfile = '';
+          for (var item of fileList) {
+            let o = {};
+            o.name = item.name;
+            if (!item.url) {
+              o.url = item.response.info;
+            } else {
+              o.url = item.url;
+            }
+            this.fileList.push(o);
+            this.form.uploadfile += o.name + ',' + o.url + ';';
           }
-          this.fileList.push(o);
-          this.form.uploadfile += o.name + ',' + o.url + ';';
+        } else {
+          Message({
+            message: this.$t('label.PFANS2016FORMVIEW_FILEERROR'),
+            type: 'error',
+            duration: 5 * 1000,
+          });
+          this.form.uploadfile = '';
+          this.$refs.upload.clearFiles();
         }
       },
       //add-ws-添加上传附件功能-

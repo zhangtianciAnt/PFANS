@@ -139,7 +139,7 @@
             submitForm(codetype) {
                 this.$store.commit("global/SET_WORKFLOWURL", "/PFANS8009View");
                 this.$router.push({
-                    name: 'PFANS8009PointView',
+                  name: 'PFANS8009View',
                     params: {
                         codetype: codetype,
                     },

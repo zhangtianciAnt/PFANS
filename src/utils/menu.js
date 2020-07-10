@@ -1916,7 +1916,7 @@ export function menu() {
               '_id': 'PFANSDICTIONARY',
               'name': 'menu.PFANSDICTIONARY',
               'menuvisible': true,
-              'menuurl': '/PFANS8009View',
+              'menuurl': '/PFANS8009PointView',
               'menuicon': '',
               'children': [],
               'actions': [
