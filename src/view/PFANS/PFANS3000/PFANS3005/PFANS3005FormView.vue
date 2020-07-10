@@ -176,6 +176,7 @@
                   :disabled="!disable"
                   v-model="form.careerplan"
                   active-value="1"
+                  inactive-color="#005BAA"
                   inactive-value="0"
                   @change="radiochange">
                 </el-switch>
@@ -845,15 +846,16 @@
       watch: {
           form: {
               handler: function () {
+                  //totalamount --总金额
                   // add_fjl_06/15 --添加审批流程 start
                   if (this.form.careerplan === '1') {
-                      if (Number(this.form.businessplanamount) < 1000) {
+                      if (Number(this.form.totalamount) <= 1000) {
                           //最后节点到GM  事业计划内 1000以下
                           this.workflowCode = 'W0082';
-                      } else if (Number(this.form.businessplanamount) >= 1000 && Number(this.form.businessplanamount) < 20000) {
+                      } else if (Number(this.form.totalamount) > 1000 && Number(this.form.totalamount) <= 20000) {
                           //最后节点到center长  事业计划内  1000到20000之间
                           this.workflowCode = 'W0022';
-                      } else if (Number(this.form.businessplanamount) >= 20000) {
+                      } else if (Number(this.form.totalamount) > 20000) {
                           //最后节点到总经理   事业计划外
                           this.workflowCode = 'W0075';
                       }
