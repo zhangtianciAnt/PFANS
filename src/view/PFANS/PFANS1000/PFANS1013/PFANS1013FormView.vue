@@ -358,7 +358,7 @@
                 </el-row>
 <!--                add-ws-7/9-禅道任务259-->
                 <el-row>
-                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_EXPLAIN')">
+                  <el-form-item :label="$t('label.PFANS1013FORMVIEW_FYCBSM')">
                     <el-input :disabled="!disable" style="width: 70vw" type="textarea"
                               v-model="form.remark">
                     </el-input>
@@ -1144,7 +1144,7 @@
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import user from '../../../components/user.vue';
   import {Message} from 'element-ui';
-  import {getDictionaryInfo, getOrgInfo, getOrgInfoByUserId, getUserInfo, uploadUrl,downLoadUrl} from '@/utils/customize';
+  import {getDictionaryInfo, getOrgInfo, getOrgInfoByUserId, getUserInfo, uploadUrl,downLoadUrl,getCurrentRole} from '@/utils/customize';
   import dicselect from '../../../components/dicselect';
   import org from '../../../components/org';
   import moment from 'moment';
@@ -1168,6 +1168,9 @@
         }
       };
       return {
+        //add-ws-7/10-禅道249
+        role1: '',
+        //add-ws-7/10-禅道249
         active: '1',
         active2: '2',
         //add-ws-6/17-禅道101
@@ -1399,6 +1402,9 @@
       };
     },
     mounted() {
+      //add-ws-7/10-禅道249    if (this.role1 === '0') {
+      this.role1 = getCurrentRole();
+      //add-ws-7/10-禅道249
       this.code21 = this.form.type == '0' ? 'PJ036' : 'PJ017';
       let plsummaryinfo = getDictionaryInfo('PJ111008');
       if (plsummaryinfo) {
@@ -1437,9 +1443,13 @@
             //add-ws-6/17-禅道101
             if (this.form.userid === '5e78b2264e3b194874180f35' || this.form.userid === '5e78b2574e3b194874181099') {
               this.workflowCode = 'W0079';
-            } else {
+             // add-ws-7/10-禅道249
+            } else if (this.role1 === '1') {
+              this.workflowCode = 'W0084';
+            }else{
               this.workflowCode = 'W0014';
             }
+              // add-ws-7/10-禅道249
 //add-ws-6/17-禅道101
             if (this.form.uploadfile != '' && this.form.uploadfile != null) {
                 let uploadfile = this.form.uploadfile.split(';');
@@ -3332,7 +3342,7 @@
                             if (this.tableA[i].city === 'PJ036001' || this.tableA[i].city === 'PJ036002' || this.tableA[i].city === 'PJ036003' || this.tableA[i].city === 'PJ036004') {
                               if (this.tableA[i].rmb > jpregion1) {
                                 this.accomflg = 1;
-                                this.activeName = 'third';
+                                this.activeName = 'first';
                                 Message({
                                   message: this.$t('label.PFANS1013FORMVIEW_RMBLIMIT'),
                                   type: 'error',
@@ -3343,7 +3353,7 @@
                             } else {
                               if (this.tableA[i].rmb > jpregion2) {
                                 this.accomflg = 1;
-                                this.activeName = 'third';
+                                this.activeName = 'first';
                                 Message({
                                   message: this.$t('label.PFANS1013FORMVIEW_RMBLIMIT'),
                                   type: 'error',
@@ -3358,7 +3368,7 @@
                             if (this.tableA[i].city === 'PJ036001' || this.tableA[i].city === 'PJ036002' || this.tableA[i].city === 'PJ036003' || this.tableA[i].city === 'PJ036004') {
                               if (this.tableA[i].rmb > jpregion8 / 30) {
                                 this.accomflg = 1;
-                                this.activeName = 'third';
+                                this.activeName = 'first';
                                 Message({
                                   message: this.$t('label.PFANS1013FORMVIEW_RMBLIMIT'),
                                   type: 'error',
@@ -3369,7 +3379,7 @@
                             } else {
                               if (this.tableA[i].rmb > jpregion9 / 30) {
                                 this.accomflg = 1;
-                                this.activeName = 'third';
+                                this.activeName = 'first';
                                 Message({
                                   message: this.$t('label.PFANS1013FORMVIEW_RMBLIMIT'),
                                   type: 'error',
@@ -3883,7 +3893,7 @@
                       }
                       if (travelsum1 / sumtableA1 > value4money) {
                         errorFLG = errorFLG + 1;
-                        this.activeName = 'third';
+                        this.activeName = 'first';
                         Message({
                           message: this.$t('label.PFANS1013FORMVIEW_RMBLIMITNEW'),
                           type: 'error',
@@ -3891,7 +3901,7 @@
                         });
                       } else if (travelsum2 / sumtableA2 > value5money) {
                         errorFLG = errorFLG + 1;
-                        this.activeName = 'third';
+                        this.activeName = 'first';
                         Message({
                           message: this.$t('label.PFANS1013FORMVIEW_RMBLIMITNEW'),
                           type: 'error',
@@ -3899,7 +3909,7 @@
                         });
                       } else if (travelsum3 / sumtableA3 > value6money) {
                         errorFLG = errorFLG + 1;
-                        this.activeName = 'third';
+                        this.activeName = 'first';
                         Message({
                           message: this.$t('label.PFANS1013FORMVIEW_RMBLIMITNEW'),
                           type: 'error',
@@ -3907,7 +3917,7 @@
                         });
                       } else if (travelsum4 / sumtableA4 > value7money) {
                         errorFLG = errorFLG + 1;
-                        this.activeName = 'third';
+                        this.activeName = 'first';
                         Message({
                           message: this.$t('label.PFANS1013FORMVIEW_RMBLIMITNEW'),
                           type: 'error',
@@ -3915,7 +3925,7 @@
                         });
                       } else if (travelsum5 / sumtableA5 > jpregion4) {
                         errorFLG = errorFLG + 1;
-                        this.activeName = 'third';
+                        this.activeName = 'first';
                         Message({
                           message: this.$t('label.PFANS1013FORMVIEW_RMBLIMITNEW'),
                           type: 'error',
@@ -3923,7 +3933,7 @@
                         });
                       } else if (travelsum6 / sumtableA6 > jpregion5) {
                         errorFLG = errorFLG + 1;
-                        this.activeName = 'third';
+                        this.activeName = 'first';
                         Message({
                           message: this.$t('label.PFANS1013FORMVIEW_RMBLIMITNEW'),
                           type: 'error',
