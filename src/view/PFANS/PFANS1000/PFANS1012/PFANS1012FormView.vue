@@ -1143,19 +1143,19 @@
                   <el-table-column :label="$t('label.operation')" align="center" width="200">
                     <template slot-scope="scope">
                       <el-button
+                        @click.native.prevent="rowclick(scope.row)"
+                        plain
+                        size="small"
+                        type="primary"
+                      >{{$t('button.viewdetails')}}
+                      </el-button>
+                      <el-button
                         @click.native.prevent="viewdata(scope.row)"
                         plain
                         :disabled="show10"
                         size="small"
                         type="primary"
-                      >{{$t('button.open')}}
-                      </el-button>
-                      <el-button
-                        @click.native.prevent="rowclick(scope.row)"
-                        plain
-                        size="small"
-                        type="primary"
-                      >{{$t('button.view')}}
+                      >{{$t('button.usedetails')}}
                       </el-button>
                     </template>
                   </el-table-column>
