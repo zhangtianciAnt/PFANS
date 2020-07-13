@@ -3,7 +3,6 @@ let dateMonth = new Date();
 dateMonth.setMonth(dateMonth.getMonth() - 1);
 module.exports = {
   login: {
-
     name: '用户名',
     password: '密码',
     confirmbutton: '登录',
@@ -23,6 +22,8 @@ module.exports = {
     name: '退出登录',
   },
   button: {
+    qxch: '取消出差',
+    ycss: '一次上司',
     plantic: '机票',
     interview: '境外出差',
     apartment: '公寓预约',
@@ -281,7 +282,7 @@ module.exports = {
     PFANS3002: '来客酒店预订',
     PFANS3003: '名片申请',
     PFANS3004: '文具领取申请',
-    PFANS3005: '采购申请',
+    PFANS3005: '采购申请表',
     PFANS3006: '社用车预约表',
     PFANS3007: '日本出差公寓预约',
     PFANS4001: '印章管理',
@@ -411,7 +412,7 @@ module.exports = {
     PFANS3002VIEW: '来客酒店预订',
     PFANS3003VIEW: '名片申请',
     PFANS3004VIEW: '文具领取申请',
-    PFANS3005VIEW: '采购申请',
+    PFANS3005VIEW: '购买申请表',
     PFANS3006VIEW: '社用车预约表',
     PFANS3007VIEW: '日本出差公寓预约',
     PFANS4001VIEW: '印章申请',
@@ -591,6 +592,7 @@ module.exports = {
     PFANS1002VIEW_PLAN1: '事业计划',
     PFANS1002VIEW_PLAN2: '事业计划',
     PFANS1002VIEW_PLANTYPE: '事业计划类型',
+    PFANS1002VIEW_ERRORCHECK7: '代办发送成功',
     PFANS1002VIEW_CHECKERROR: '金额不能大于事业计划余额',
     PFANS1002VIEW_CLASSIFICATIONTYPE: '分类类型',
     PFANS1002VIEW_BALANCE: '事业计划余额',
@@ -627,6 +629,7 @@ module.exports = {
     PFANS1002VIEW_JUDGMENTNO: '该非判定No.',
     PFANS1002VIEW_PASSENGERS1: '手持物品',
     PFANS1002VIEW_PASSENGERS2: 'PC持出',
+    PFANS1002VIEW_QXCCLY: '取消出差理由',
     PFANS1002VIEW_FIXEDASSETSNO1: '固定资产编码',
     PFANS1002VIEW_FIXEDASSETSNO2: '固定资产编号',
     PFANS1002VIEW_EXTERNAL: '规定外费用',
