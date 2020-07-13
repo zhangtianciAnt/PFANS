@@ -1,6 +1,6 @@
 <template>
   <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id" ref="roletable"
-                   :title="title" @buttonClick="buttonClick" @rowClick="rowClick" :showSelection="isShow" v-loading="loading">
+                   :title="title" @buttonClick="buttonClick" @rowClick="rowClick" :showSelection="isShow" v-loading="loading" :psearchValue = "search">
   </EasyNormalTable>
 </template>
 
@@ -23,7 +23,19 @@
         data: [],
           ticketsdetail: [],
           selectedlist:[],
+        //add-ws-7/7-禅道247
+        search: "",
+        //add-ws-7/7-禅道247
         columns: [
+          //add-ws-7/7-禅道247
+          {
+            code: 'businessname',
+            label: 'label.PFANS1001FORMVIEW_BUSINESS_NUMBER',
+            width: 150,
+            fix: false,
+            filter: true,
+          },
+          //add-ws-7/7-禅道247
           {
             code: 'center_id',
             label: 'label.center',
@@ -291,6 +303,9 @@
             }
           }
           this.data = response;
+          //add-ws-7/7-禅道247
+          this.check();
+          //add-ws-7/7-禅道247
           this.loading = false;
         })
         .catch(error => {
@@ -304,6 +319,13 @@
         this.geticketsdetail();
     },
     methods: {
+      //add-ws-7/7-禅道247
+      check(){
+        if (this.$route.params._id) {
+          this.search = this.$route.params._id
+        }
+      },
+      //add-ws-7/7-禅道247
       rowClick(row) {
         this.rowid = row.tickets_id;
       },
