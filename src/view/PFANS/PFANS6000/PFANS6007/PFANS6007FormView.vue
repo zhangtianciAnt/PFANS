@@ -151,7 +151,7 @@
                   controls-position="right"
                   style="width:20vw"
                   :disabled="!disabled"
-                  :min="0" :max="1000000000"
+                  :min="-100000000" :max="100000000"
                   :precision="2"></el-input-number>
               </el-form-item>
             </el-col>
