@@ -356,7 +356,7 @@
                     </el-collapse-item>
                   </el-collapse>
                 </el-row>
-<!--                add-ws-7/9-禅道任务259-->
+                <!--                add-ws-7/9-禅道任务259-->
                 <el-row>
                   <el-form-item :label="$t('label.PFANS1013FORMVIEW_FYCBSM')">
                     <el-input :disabled="!disable" style="width: 70vw" type="textarea"
@@ -1443,23 +1443,23 @@
             //add-ws-6/17-禅道101
             if (this.form.userid === '5e78b2264e3b194874180f35' || this.form.userid === '5e78b2574e3b194874181099') {
               this.workflowCode = 'W0079';
-             // add-ws-7/10-禅道249
+              // add-ws-7/10-禅道249
             } else if (this.role1 === '1') {
               this.workflowCode = 'W0084';
             }else{
               this.workflowCode = 'W0014';
             }
-              // add-ws-7/10-禅道249
+            // add-ws-7/10-禅道249
 //add-ws-6/17-禅道101
             if (this.form.uploadfile != '' && this.form.uploadfile != null) {
-                let uploadfile = this.form.uploadfile.split(';');
-                for (var i = 0; i < uploadfile.length; i++) {
-                  if (uploadfile[i].split(',')[0] != '') {
-                    let o = {};
-                    o.name = uploadfile[i].split(',')[0];
-                    o.url = uploadfile[i].split(',')[1];
-                    this.fileList.push(o);
-                  }
+              let uploadfile = this.form.uploadfile.split(';');
+              for (var i = 0; i < uploadfile.length; i++) {
+                if (uploadfile[i].split(',')[0] != '') {
+                  let o = {};
+                  o.name = uploadfile[i].split(',')[0];
+                  o.url = uploadfile[i].split(',')[1];
+                  this.fileList.push(o);
+                }
               }
             }
             if (response.trafficdetails.length > 0) {
@@ -2312,7 +2312,7 @@
         //   currency: '',
         // }];
         this.activeName = 'first',
-        this.form.type = val;
+          this.form.type = val;
         this.code21 = this.form.type == '0' ? 'PJ036' : 'PJ017';
         this.relations = [];
         if (val === '0') {
@@ -2504,18 +2504,18 @@
         }
       },
       addRow() {
-          //add_fjl_0710 禅道任务264 start
-          let budgetcodinglet = '';
-          if (this.tableT[0].budgetcoding !== '' && this.tableT[0].budgetcoding !== null) {
-              let bucoding = getDictionaryInfo(this.tableT[0].budgetcoding);
-              if (bucoding) {
-                  budgetcodinglet = bucoding.value2 + '_' + bucoding.value3;
-              }
+        //add_fjl_0710 禅道任务264 start
+        let budgetcodinglet = '';
+        if (this.tableT[0].budgetcoding !== '' && this.tableT[0].budgetcoding !== null) {
+          let bucoding = getDictionaryInfo(this.tableT[0].budgetcoding);
+          if (bucoding) {
+            budgetcodinglet = bucoding.value2 + '_' + bucoding.value3;
           }
-          //add_fjl_0710 禅道任务264 end
+        }
+        //add_fjl_0710 禅道任务264 end
         this.tableT.push({
-            optionsT: this.tableT[0].optionsT,
-            budgetcoding: budgetcodinglet,
+          optionsT: this.tableT[0].optionsT,
+          budgetcoding: budgetcodinglet,
           evectionid: '',
           trafficdetails_id: '',
           publicexpenseid: '',
@@ -2524,7 +2524,7 @@
           plsummary: this.plsummaryflg,
           accountcode: this.accountcodeflg,
           subjectnumber: this.subjectnumberflg,
-            departmentname: this.tableT[0].departmentname,
+          departmentname: this.tableT[0].departmentname,
           taxes: '',
           // costitem: '',
           region: '',
@@ -2545,28 +2545,28 @@
         } else if (this.form.type === '1') {
           moneys = getDictionaryInfo('PJ035002').value8;
         }
-          //add_fjl_0710 禅道任务264 start
-          let budgetcodinglet = '';
-          if (this.tableA[0].budgetcoding !== '' && this.tableA[0].budgetcoding !== null) {
-              let bucoding = getDictionaryInfo(this.tableA[0].budgetcoding);
-              if (bucoding) {
-                  budgetcodinglet = bucoding.value2 + '_' + bucoding.value3;
-              }
+        //add_fjl_0710 禅道任务264 start
+        let budgetcodinglet = '';
+        if (this.tableA[0].budgetcoding !== '' && this.tableA[0].budgetcoding !== null) {
+          let bucoding = getDictionaryInfo(this.tableA[0].budgetcoding);
+          if (bucoding) {
+            budgetcodinglet = bucoding.value2 + '_' + bucoding.value3;
           }
-          //add_fjl_0710 禅道任务264 end
+        }
+        //add_fjl_0710 禅道任务264 end
         this.tableA.push({
           evectionid: '',
           accommodationdetails_id: '',
           accommodationdate: '',
           // nextday: '',
           invoicenumber: '',
-            departmentname: this.tableA[0].departmentname,
+          departmentname: this.tableA[0].departmentname,
           subsidies: moneys,
           activitycontent: '',
           plsummary: this.plsummaryflg,
           accountcode: this.newaccountcodeflg,
-            optionsA: this.tableA[0].optionsA,
-            budgetcoding: budgetcodinglet,
+          optionsA: this.tableA[0].optionsA,
+          budgetcoding: budgetcodinglet,
           subjectnumber: this.accflg,
           city: '',
           region: '',
@@ -3353,7 +3353,7 @@
                   for (let i = 0; i < this.Todaysum.length; i++) {
                     diffDate = diffDate + 1;
                   }
-                  if (this.form.external === '0') {
+                  if (this.form.external != '1') {
                     if (this.form.type === '0') {
                       if (this.form.remark == '') {
                         //境内无规定外费用的场合，住宿标准check
@@ -3890,7 +3890,7 @@
                 //   });
                 //   return;
                 // }
-                if (this.form.external === '0') {
+                if (this.form.external != '1' ) {
                   if (this.form.type === '1') {
                     if (this.form.remark == '') {
                       var value4money;
