@@ -214,6 +214,10 @@
         default: function () {
           return [false, false, false];
         }
+      },
+      psearchValue:{
+        type: String,
+        default:""
       }
     },
     methods: {
@@ -437,6 +441,12 @@
       }
     },
     watch: {
+      psearchValue(val){
+        this.searchValue = val;
+        if (this.searchValue !== '') {
+          this.inputChange()
+        }
+      },
       data(value) {
         this.totaldata = value;
         this.getList();
