@@ -805,7 +805,7 @@
               </template>
             </el-table-column>
             <el-table-column :label="$t('label.PFANS1024VIEW_LOADINGJUDGE')" align="center"
-                             width="200">
+                             width="200" prop="loadingjudge">
               <template slot-scope="scope">
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.loadingjudge'" :rules='rules.loadingjudge'>
                   <user :disabled="!disabled" :no="scope.row" :selectType="selectType"
@@ -1383,7 +1383,8 @@
         multiple: false,
         rowindex: '',
         ruleSet: {
-          'save': ['contractnumber'],
+          // 111
+          'save': ['contractnumber', 'varto', 'deliverydate', 'completiondate', 'deliveryfinshdate', 'completiondate', 'loadingjudge'],
           'makeinto': ['contractnumber'],
           '1': ['supportdate', 'deliverydate', 'completiondate', 'deliveryfinshdate', 'custojapanese', 'conchinese', 'conjapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount', 'loadingjudge'],
           // 该非判定书
@@ -1421,7 +1422,6 @@
               trigger: 'change',
             },
           ],
-
           applicationdate: [
             {
               required: true,
@@ -1527,8 +1527,6 @@
           // recoverydate: [
           //         {validator: validateRecoverydate},
           //     ],
-
-
         },
         buttonList: [
           {
