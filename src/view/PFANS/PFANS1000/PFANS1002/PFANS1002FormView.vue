@@ -847,12 +847,12 @@
         gridData: [],
         dialogTableVisible: false,
         //add-ws-7/7-禅道247
-        checktype:"",
+        checktype: '',
         checkdisabled: false,
         //add-ws-7/7-禅道247
         form: {
           //add-ws-7/7-禅道247
-          remark:'',
+          remark: '',
           checkch: '',
           //add-ws-7/7-禅道247
           offshore_id: '',
@@ -1363,7 +1363,7 @@
               });
           });
       } else if (this.$route.params._type === 1) {
-        this.form.offshore_id =  this.$route.params._checkid
+        this.form.offshore_id = this.$route.params._checkid;
         this.userlist = this.$store.getters.userinfo.userid;
         if (this.userlist !== null && this.userlist !== '') {
           let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
@@ -1390,11 +1390,11 @@
                 return;
               }
               this.form = response.business;
-              if( this.form.checkch != '1'){
+              if (this.form.checkch != '1') {
                 if (this.$route.params._type === 3) {
-                  this.form.checkch = '1'
-                }else{
-                  this.form.checkch = '0'
+                  this.form.checkch = '1';
+                } else {
+                  this.form.checkch = '0';
                 }
               }
               let rst = getOrgInfoByUserId(response.business.user_id);
@@ -1509,7 +1509,7 @@
     },
     created() {
       //add-ws-7/7-禅道247
-      this.checktype = this.$route.params._type
+      this.checktype = this.$route.params._type;
       //add-ws-7/7-禅道247
       if (!this.$route.params.disabled) {
         this.buttonList = [];
@@ -1517,41 +1517,55 @@
       this.disable = this.$route.params.disabled;
       //add-ws-7/7-禅道153
       if (this.$route.params.statuss === this.$t('label.PFANS5004VIEW_OVERTIME')) {
-        if (this.$route.params._check) {
+        if (this.$route.params._type === 3) {
+          this.form.checkch = '1';
           this.buttonList = [
             {
-              key: 'save',
-              name: 'button.save',
-              disabled: true,
+              key: 'ycss',
+              name: 'button.ycss',
+              disabled: false,
               icon: 'el-icon-check',
-            },
-            {
-              key: 'plantic',
-              name: 'button.plantic',
-              disabled: false,
-            },
-            {
-              key: 'apartment',
-              name: 'button.apartment',
-              disabled: false,
             },
           ];
           this.enableSave = true;
         } else {
-          this.buttonList = [
-            {
-              key: 'save',
-              name: 'button.save',
-              disabled: false,
-              icon: 'el-icon-check',
-            },
-            {
-              key: 'plantic',
-              name: 'button.plantic',
-              disabled: false,
-            },
-          ];
-          this.enableSave = true;
+          this.form.checkch = '0';
+          if (this.$route.params._check) {
+            this.buttonList = [
+              {
+                key: 'save',
+                name: 'button.save',
+                disabled: true,
+                icon: 'el-icon-check',
+              },
+              {
+                key: 'plantic',
+                name: 'button.plantic',
+                disabled: false,
+              },
+              {
+                key: 'apartment',
+                name: 'button.apartment',
+                disabled: false,
+              },
+            ];
+            this.enableSave = true;
+          } else {
+            this.buttonList = [
+              {
+                key: 'save',
+                name: 'button.save',
+                disabled: true,
+                icon: 'el-icon-check',
+              },
+              {
+                key: 'plantic',
+                name: 'button.plantic',
+                disabled: false,
+              },
+            ];
+            this.enableSave = true;
+          }
         }
       } else if (this.$route.params.statuss === this.$t('label.node_step2')) {
         this.buttonList = [
@@ -1574,31 +1588,30 @@
         ];
       }
       //add-ws-7/7-禅道247
-      if (this.$route.params._type === 3) {
-        this.form.checkch = '1'
-        this.buttonList = [
-          {
-            key: 'ycss',
-            name: 'button.ycss',
-            disabled: false,
-            icon: 'el-icon-check',
-          },
-        ];
-        this.enableSave = true;
-      } else {
-        this.form.checkch = '0'
-        this.buttonList = [
-          {
-            key: 'save',
-            name: 'button.save',
-            disabled: false,
-            icon: 'el-icon-check',
-          },
-        ];
-        this.enableSave = false;
-      }
+      // if (this.$route.params._type === 3) {
+      //   this.form.checkch = '1'
+      //   this.buttonList = [
+      //     {
+      //       key: 'ycss',
+      //       name: 'button.ycss',
+      //       disabled: false,
+      //       icon: 'el-icon-check',
+      //     },
+      //   ];
+      //   this.enableSave = true;
+      // } else {
+      //   this.form.checkch = '0'
+      //   this.buttonList = [
+      //     {
+      //       key: 'save',
+      //       name: 'button.save',
+      //       disabled: false,
+      //       icon: 'el-icon-check',
+      //     },
+      //   ];
+      //   this.enableSave = false;
+      // }
       //add-ws-7/7-禅道247
-
     },
     methods: {
       //add-ws-4/24-项目名称所取数据源变更
@@ -2190,7 +2203,7 @@
                 }
               });
             //add-ws-7/10-禅道247
-          } else if (val === 'ycss'){
+          } else if (val === 'ycss') {
             this.loading = true;
             this.form.businesstype = '0',
               this.form.user_id = this.userlist;
@@ -2219,7 +2232,7 @@
                 });
                 this.paramsTitle();
                 this.loading = false;
-              }) .catch(error => {
+              }).catch(error => {
               Message({
                 message: error,
                 type: 'error',
