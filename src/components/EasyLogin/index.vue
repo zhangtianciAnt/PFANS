@@ -149,7 +149,7 @@ export default {
     handleLogin() {
       let form = {};
       form.account = this.loginForm.account
-      form.password = Base64.encode(this.loginForm.password)
+      form.password = this.loginForm.password
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true;
