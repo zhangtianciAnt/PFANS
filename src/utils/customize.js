@@ -444,7 +444,7 @@ export function getCurrentRole2() {
     for(let role of store.getters.useraccount.roles){
       roles = roles + role.description;
     }
-    if(roles.toUpperCase().indexOf("总务担当")!= -1){
+    if (roles.toUpperCase().indexOf("总务担当") != -1 || roles.toUpperCase().indexOf("前台总务") != -1) {
       return "0";
     }
   }

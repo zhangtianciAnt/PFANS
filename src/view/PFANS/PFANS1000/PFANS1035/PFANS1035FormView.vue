@@ -893,20 +893,34 @@
       }
       //add-ws-7/7-禅道153
       if (this.$route.params.statuss ===  this.$t('label.PFANS5004VIEW_OVERTIME') ) {
-        this.buttonList = [
-          {
-            key: 'save',
-            name: 'button.save',
-            disabled: true,
-            icon: 'el-icon-check',
-          },
-          {
-            key: 'plantic',
-            name: 'button.plantic',
-            disabled: false,
-          },
-        ];
-        this.enableSave = true;
+        if (this.$route.params._type === 3) {
+          this.form.checkch = '1'
+          this.buttonList = [
+            {
+              key: 'ycss',
+              name: 'button.ycss',
+              disabled: false,
+              icon: 'el-icon-check',
+            },
+          ];
+          this.enableSave = true;
+        } else {
+          this.form.checkch = '0'
+          this.buttonList = [
+            {
+              key: 'save',
+              name: 'button.save',
+              disabled: true,
+              icon: 'el-icon-check',
+            },
+            {
+              key: 'plantic',
+              name: 'button.plantic',
+              disabled: false,
+            },
+          ];
+          this.enableSave = true;
+        }
       } else if (this.$route.params.statuss ===  this.$t('label.node_step2')) {
         this.buttonList = [
           {
@@ -928,31 +942,6 @@
         ];
       }
       //add-ws-7/7-禅道153
-      //add-ws-7/7-禅道247
-      if (this.$route.params._type === 3) {
-        this.form.checkch = '1'
-        this.buttonList = [
-          {
-            key: 'ycss',
-            name: 'button.ycss',
-            disabled: false,
-            icon: 'el-icon-check',
-          },
-        ];
-        this.enableSave = true;
-      } else {
-        this.form.checkch = '0'
-        this.buttonList = [
-          {
-            key: 'save',
-            name: 'button.save',
-            disabled: false,
-            icon: 'el-icon-check',
-          },
-        ];
-        this.enableSave = false;
-      }
-      //add-ws-7/7-禅道247
       this.disable = this.$route.params.disabled;
     },
     methods: {

@@ -4,7 +4,7 @@ import {
   getPfans3001One,
   updatePfans3001,
   geticketsdetail,
-
+  selectByIdchange,
   selectById,
   insert,
   update,
@@ -126,6 +126,21 @@ const PFANS3001Store = {
         });
       });
     },
+    //add-ws-7/14-禅道247
+    selectByIdchange({commit}, data) {
+      return new Promise((resolve, reject) => {
+        selectByIdchange(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message);
+          }
+        }).catch(error => {
+          reject(error);
+        });
+      });
+    },
+    //add-ws-7/14-禅道247
   },
 };
 
