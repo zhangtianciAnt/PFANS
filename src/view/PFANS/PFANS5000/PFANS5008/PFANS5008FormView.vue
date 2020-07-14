@@ -1700,7 +1700,7 @@
 <style lang="scss">
   .appManage {
     .el-calendar-day {
-      height: 2.8rem;
+      height: 2.2rem;
       width: 2.8rem;
     }
   }
