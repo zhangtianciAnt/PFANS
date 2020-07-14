@@ -362,6 +362,7 @@
         error: "",
         loading: false,
         canStart: false,
+        showtrip: false,
         selectType: "Single",
         userlist: "",
         title: "title.PFANS3006VIEW",
