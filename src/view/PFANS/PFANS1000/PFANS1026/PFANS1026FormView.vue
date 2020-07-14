@@ -3234,7 +3234,6 @@
         if (value === 'makeinto') {
           this.handleIndexDisabled();
         } else {
-
           this.handleSaveContract(value, baseInfo);
 
         }
