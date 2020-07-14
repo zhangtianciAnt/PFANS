@@ -119,13 +119,13 @@
             fix: false,
             filter: true,
           },
-          // {
-          //     code: 'status',
-          //     label: 'label.PFANS2023VIEW_COMPLETIONSTATUS',
-          //     width: 150,
-          //     fix: false,
-          //     filter: true
-          // }
+          {
+            code: 'finishstatus',
+            label: 'label.PFANS2010VIEW_FINISHSTATUS',
+            width: 150,
+            fix: false,
+            filter: true
+          }
         ],
         buttonList: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
@@ -185,6 +185,13 @@
               // }
               if (response[j].contract !== null && response[j].contract !== '') {
                 response[j].contract = moment(response[j].contract).format('YYYY');
+              }
+              if (response[j].finishstatus == '0') {
+                response[j].finishstatus = '进行中';
+              } else if (response[j].finishstatus == '1') {
+                response[j].finishstatus = '已完成';
+              } else {
+                response[j].finishstatus = '未开始';
               }
             }
             this.data = response;
