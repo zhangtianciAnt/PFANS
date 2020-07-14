@@ -477,10 +477,17 @@
             value: '2',
             label: this.$t('label.PFANS3006VIEW_CARRYOUT'),
           },
+          //add-ws-7/7-禅道247
+          {
+            value: '3',
+            label: this.$t('label.PFANS3006VIEW_CARRYOUT2'),
+          },
+          //add-ws-7/7-禅道247
         ],
         acceptShow: true,
         refuseShow: false,
         form: {
+          businessname: '',
           user_id: '',
           center_id: '',
           group_id: '',
@@ -744,7 +751,7 @@
                   if (response[i].businesstype === '0') {
                     this.relations1.push({
                       value: response[i].business_id,
-                      label: this.$t('menu.PFANS1002') + '_' + moment(response[i].createon).format('YYYY-MM-DD'),
+                      label: response[i].business_number,
                       region: response[i].region,
                       startdate: response[i].startdate,
                       enddate: response[i].enddate,
@@ -753,7 +760,7 @@
                     this.relations.push({
                       city: response[i].city,
                       value: response[i].business_id,
-                      label: this.$t('menu.PFANS1035') + '_' + moment(response[i].createon).format('YYYY-MM-DD'),
+                      label: response[i].business_number,
                       // region: response[i].region,
                       startdate: response[i].startdate,
                       enddate: response[i].enddate,
@@ -764,7 +771,7 @@
                 if (response[i].businesstype === '0') {
                   this.relations1.push({
                     value: response[i].business_id,
-                    label: this.$t('menu.PFANS1002') + '_' + moment(response[i].createon).format('YYYY-MM-DD'),
+                    label: response[i].business_number,
                     region: response[i].region,
                     startdate: response[i].startdate,
                     enddate: response[i].enddate,
@@ -773,7 +780,7 @@
                   this.relations.push({
                     city: response[i].city,
                     value: response[i].business_id,
-                    label: this.$t('menu.PFANS1035') + '_' + moment(response[i].createon).format('YYYY-MM-DD'),
+                    label: response[i].business_number,
                     // region: response[i].region,
                     startdate: response[i].startdate,
                     enddate: response[i].enddate,
@@ -806,7 +813,7 @@
             });
             this.loading = false;
           });
-      } else if (this.$route.params._type === 2) {
+      } else {
         this.getBusOuter();
         if (this.$route.params._id) {
           this.loading = true;
@@ -983,6 +990,7 @@
               }
               this.form.tripstart = this.relations[i].startdate;
               this.form.tripend = this.relations[i].enddate;
+              this.form.businessname = this.relations[i].label;
             }
           }
 
@@ -995,6 +1003,7 @@
               }
               this.form.tripstart = this.relations1[i].startdate;
               this.form.tripend = this.relations1[i].enddate;
+              this.form.businessname = this.relations1[i].label;
             }
           }
         }
@@ -1011,7 +1020,7 @@
                   if (response[i].businesstype === '0') {
                     this.relations1.push({
                       value: response[i].business_id,
-                      label: this.$t('menu.PFANS1002') + '_' + moment(response[i].createon).format('YYYY-MM-DD'),
+                      label: response[i].business_number,
                       region: response[i].region,
                       startdate: response[i].startdate,
                       enddate: response[i].enddate,
@@ -1020,7 +1029,7 @@
                     this.relations.push({
                       city: response[i].city,
                       value: response[i].business_id,
-                      label: this.$t('menu.PFANS1035') + '_' + moment(response[i].createon).format('YYYY-MM-DD'),
+                      label: response[i].business_number,
                       // region: response[i].region,
                       startdate: response[i].startdate,
                       enddate: response[i].enddate,
@@ -1031,7 +1040,7 @@
                 if (response[i].businesstype === '0') {
                   this.relations1.push({
                     value: response[i].business_id,
-                    label: this.$t('menu.PFANS1002') + '_' + moment(response[i].createon).format('YYYY-MM-DD'),
+                    label: response[i].business_number,
                     region: response[i].region,
                     startdate: response[i].startdate,
                     enddate: response[i].enddate,
@@ -1040,7 +1049,7 @@
                   this.relations.push({
                     city: response[i].city,
                     value: response[i].business_id,
-                    label: this.$t('menu.PFANS1035') + '_' + moment(response[i].createon).format('YYYY-MM-DD'),
+                    label: response[i].business_number,
                     // region: response[i].region,
                     startdate: response[i].startdate,
                     enddate: response[i].enddate,

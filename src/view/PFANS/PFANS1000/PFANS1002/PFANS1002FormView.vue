@@ -161,6 +161,15 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
+                <!--                add-ws-7/10-禅道任务247-->
+                <el-row v-if="this.form.checkch === '1'">
+                  <el-form-item :label="$t('label.PFANS1002VIEW_QXCCLY')" prop="remark">
+                    <el-input :disabled="!disable" style="width: 70vw" type="textarea"
+                              v-model="form.remark">
+                    </el-input>
+                  </el-form-item>
+                </el-row>
+                <!--                add-ws-7/10-禅道任务247-->
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1002FORMVIEW_PURPOSE')" name="second">
@@ -837,7 +846,15 @@
         search: '',
         gridData: [],
         dialogTableVisible: false,
+        //add-ws-7/7-禅道247
+        checktype: '',
+        checkdisabled: false,
+        //add-ws-7/7-禅道247
         form: {
+          //add-ws-7/7-禅道247
+          remark: '',
+          checkch: '',
+          //add-ws-7/7-禅道247
           offshore_id: '',
           center_id: '',
           group_id: '',
@@ -930,6 +947,13 @@
         ],
         baseInfo: {},
         rules: {
+          //add-ws-7/7-禅道247
+          remark: [{
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.PFANS1002VIEW_QXCCLY'),
+            trigger: 'change',
+          }],
+          //add-ws-7/7-禅道247
           user_id: [
             {
               required: true,
@@ -1248,7 +1272,6 @@
                   this.loading = false;
                   return;
                 }
-                this.form = response.business;
                 let rst = getOrgInfoByUserId(response.business.user_id);
                 if (rst) {
                   this.centerid = rst.centerNmae;
@@ -1340,7 +1363,7 @@
               });
           });
       } else if (this.$route.params._type === 1) {
-        this.form.offshore_id =  this.$route.params._checkid
+        this.form.offshore_id = this.$route.params._checkid;
         this.userlist = this.$store.getters.userinfo.userid;
         if (this.userlist !== null && this.userlist !== '') {
           let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
@@ -1356,7 +1379,7 @@
           this.form.user_id = this.$store.getters.userinfo.userid;
           this.getBudt(this.form.user_id);
         }
-      } else if (this.$route.params._type === 2) {
+      } else {
         if (this.$route.params._id) {
           this.loading = true;
           this.$store
@@ -1367,6 +1390,13 @@
                 return;
               }
               this.form = response.business;
+              if (this.form.checkch != '1') {
+                if (this.$route.params._type === 3) {
+                  this.form.checkch = '1';
+                } else {
+                  this.form.checkch = '0';
+                }
+              }
               let rst = getOrgInfoByUserId(response.business.user_id);
               if (rst) {
                 this.centerid = rst.centerNmae;
@@ -1478,47 +1508,64 @@
 
     },
     created() {
+      //add-ws-7/7-禅道247
+      this.checktype = this.$route.params._type;
+      //add-ws-7/7-禅道247
       if (!this.$route.params.disabled) {
         this.buttonList = [];
       }
       this.disable = this.$route.params.disabled;
       //add-ws-7/7-禅道153
       if (this.$route.params.statuss === this.$t('label.PFANS5004VIEW_OVERTIME')) {
-        if (this.$route.params._check) {
+        if (this.$route.params._type === 3) {
+          this.form.checkch = '1';
           this.buttonList = [
             {
-              key: 'save',
-              name: 'button.save',
-              disabled: true,
+              key: 'ycss',
+              name: 'button.ycss',
+              disabled: false,
               icon: 'el-icon-check',
-            },
-            {
-              key: 'plantic',
-              name: 'button.plantic',
-              disabled: false,
-            },
-            {
-              key: 'apartment',
-              name: 'button.apartment',
-              disabled: false,
             },
           ];
           this.enableSave = true;
         } else {
-          this.buttonList = [
-            {
-              key: 'save',
-              name: 'button.save',
-              disabled: false,
-              icon: 'el-icon-check',
-            },
-            {
-              key: 'plantic',
-              name: 'button.plantic',
-              disabled: false,
-            },
-          ];
-          this.enableSave = true;
+          this.form.checkch = '0';
+          if (this.$route.params._check) {
+            this.buttonList = [
+              {
+                key: 'save',
+                name: 'button.save',
+                disabled: true,
+                icon: 'el-icon-check',
+              },
+              {
+                key: 'plantic',
+                name: 'button.plantic',
+                disabled: false,
+              },
+              {
+                key: 'apartment',
+                name: 'button.apartment',
+                disabled: false,
+              },
+            ];
+            this.enableSave = true;
+          } else {
+            this.buttonList = [
+              {
+                key: 'save',
+                name: 'button.save',
+                disabled: true,
+                icon: 'el-icon-check',
+              },
+              {
+                key: 'plantic',
+                name: 'button.plantic',
+                disabled: false,
+              },
+            ];
+            this.enableSave = true;
+          }
         }
       } else if (this.$route.params.statuss === this.$t('label.node_step2')) {
         this.buttonList = [
@@ -1540,8 +1587,31 @@
           },
         ];
       }
-
-
+      //add-ws-7/7-禅道247
+      // if (this.$route.params._type === 3) {
+      //   this.form.checkch = '1'
+      //   this.buttonList = [
+      //     {
+      //       key: 'ycss',
+      //       name: 'button.ycss',
+      //       disabled: false,
+      //       icon: 'el-icon-check',
+      //     },
+      //   ];
+      //   this.enableSave = true;
+      // } else {
+      //   this.form.checkch = '0'
+      //   this.buttonList = [
+      //     {
+      //       key: 'save',
+      //       name: 'button.save',
+      //       disabled: false,
+      //       icon: 'el-icon-check',
+      //     },
+      //   ];
+      //   this.enableSave = false;
+      // }
+      //add-ws-7/7-禅道247
     },
     methods: {
       //add-ws-4/24-项目名称所取数据源变更
@@ -2132,7 +2202,48 @@
                   });
                 }
               });
-          } else {
+            //add-ws-7/10-禅道247
+          } else if (val === 'ycss') {
+            this.loading = true;
+            this.form.businesstype = '0',
+              this.form.user_id = this.userlist;
+            this.baseInfo.business = JSON.parse(JSON.stringify(this.form));
+            this.baseInfo.travelcontent = [];
+            for (let i = 0; i < this.tablePD.length; i++) {
+              this.baseInfo.travelcontent.push(
+                {
+                  travelcontent_id: this.tablePD[i].travelcontent_id,
+                  businessid: this.tablePD[i].businessid,
+                  //开始结束日期
+                  duringdate: moment(this.tablePD[i].duringdate[0]).format('YYYY-MM-DD') + ' ~ ' + moment(this.tablePD[i].duringdate[1]).format('YYYY-MM-DD'),
+                  place: this.tablePD[i].place,
+                  content: this.tablePD[i].content,
+                },
+              );
+            }
+            this.loading = true;
+            this.$store
+              .dispatch('PFANS1002Store/list', this.baseInfo)
+              .then(response => {
+                Message({
+                  message: this.$t('label.PFANS1002VIEW_ERRORCHECK7'),
+                  type: 'success',
+                  duration: 5 * 1000,
+                });
+                this.paramsTitle();
+                this.loading = false;
+              }).catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
+
+          }
+          //add-ws-7/10-禅道247
+          else {
             this.checkRequire();
             this.$refs['refform'].validate(valid => {
               if (valid) {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <EasyNormalTable :title="title" :columns="columns" :data="data" :rowid="row" :buttonList="buttonList"
+    <EasyNormalTable :title="title" :columns="columns" :data="data" :rowid="row" :buttonList="buttonList2"
                      @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" v-show="this.showTable===1">
     </EasyNormalTable>
     <!--    ADD-WS-决裁编号添加-->
@@ -388,6 +388,14 @@
           {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
         ],
+        //add-ws-7/7-禅道247
+        buttonList2: [
+          {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
+          {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
+          {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
+          {'key': 'qxch', 'name': 'button.qxch', 'disabled': true, 'icon': 'el-icon-edit'},
+        ],
+        //add-ws-7/7-禅道247
         rowid: '',
         statuss: '',
         check: false,
@@ -537,6 +545,8 @@
       },
       rowClick(row) {
         if (this.$route.params.title === 1) {
+          //add-ws-7/7-禅道247
+          this.buttonList2[3].disabled = true;
           this.rowid = row.business_id;
           this.statuss = row;
           if (row.status === this.$t('label.PFANS5004VIEW_OVERTIME')) {
@@ -546,9 +556,19 @@
               }
             }
           }
+           if(moment(row.startdate).format('YYYY-MM-DD')>moment(new Date()).format('YYYY-MM-DD')&&row.checkch == '0'&&row.status === this.$t('label.PFANS5004VIEW_OVERTIME')){
+             this.buttonList2[3].disabled = false;
+           }
+          //add-ws-7/7-禅道247
         } else if (this.$route.params.title === 2) {
+          //add-ws-7/7-禅道247
+          this.buttonList2[3].disabled = true;
           this.rowid = row.business_id;
           this.statuss = row;
+          if(moment(row.startdate).format('YYYY-MM-DD')>moment(new Date()).format('YYYY-MM-DD')&&row.checkch == '0'&&row.status === this.$t('label.PFANS5004VIEW_OVERTIME')){
+            this.buttonList2[3].disabled = false;
+          }
+          //add-ws-7/7-禅道247
         } else if (this.$route.params.title === 3) {
           this.rowid = row.judgementid;
         } else if (this.$route.params.title === 4) {
@@ -630,6 +650,28 @@
             },
           });
         }
+        //add-ws-7/7-禅道247
+        if (val === 'qxch') {
+          if (this.rowid === '') {
+            Message({
+              message: this.$t('normal.info_01'),
+              type: 'info',
+              duration: 2 * 1000,
+            });
+            return;
+          }
+          this.$router.push({
+            name: letname,
+            params: {
+              _id: this.rowid,
+              _type: 3,
+              _check: this.check,
+              statuss: this.statuss.status,
+              disabled: true,
+            },
+          });
+        }
+        //add-ws-7/7-禅道247
       },
     },
   };

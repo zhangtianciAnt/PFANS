@@ -1011,7 +1011,7 @@
             });
             this.loading = false;
           });
-      } else if (this.$route.params._type === 2) {
+      } else {
         this.getBusOuter();
         if (this.$route.params._id) {
           this.loading = true;

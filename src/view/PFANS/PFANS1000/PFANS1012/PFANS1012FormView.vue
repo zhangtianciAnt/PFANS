@@ -1147,7 +1147,7 @@
                         plain
                         size="small"
                         type="primary"
-                      >{{$t('button.viewdetails')}}
+                      >{{$t('button.usedetails')}}
                       </el-button>
                       <el-button
                         @click.native.prevent="viewdata(scope.row)"
@@ -1155,7 +1155,7 @@
                         :disabled="show10"
                         size="small"
                         type="primary"
-                      >{{$t('button.usedetails')}}
+                      >{{$t('button.viewdetails')}}
                       </el-button>
                     </template>
                   </el-table-column>

@@ -895,7 +895,7 @@
           }
           if (roles.toUpperCase().indexOf('财务部长') != -1) {
             return '1';
-          } else if (roles.toUpperCase().indexOf('法务担当') != -1) {
+          } else if (roles.toUpperCase().indexOf('法务') != -1) {
             return '2';
           } else if (roles.toUpperCase().indexOf('总务担当') != -1) {
             return '3';

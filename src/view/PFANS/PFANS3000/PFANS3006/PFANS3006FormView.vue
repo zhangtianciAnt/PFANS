@@ -12,13 +12,30 @@
       ref="container"
     >
       <div slot="customize">
-        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw"
-                 ref="refform" style="padding: 3vw">
+        <el-form :model="form1" :rules="rules1" label-position="top" label-width="8vw" ref="refform1">
+          <el-dialog :title="$t('label.PFANS3006VIEW_TRIPREASON')" :visible.sync="dialogFormVisible">
+            <el-form-item :label="$t('label.PFANS3006VIEW_TRIPREASON')" :error="errortripreason" prop="tripreason">
+              <el-input :disabled="!disable" type="textarea" style="width:46vw" :autosize="{ minRows: 3, maxRows: 4}"
+                        v-model="form1.tripreason"></el-input>
+            </el-form-item>
+            <div class="dialog-footer" align="center">
+              <el-button @click="saves">
+                  <span style="margin-right: 86%;">{{$t('button.save')}}
+                  </span>
+              </el-button>
+              <el-button slot="reference" @click="cancels">
+                  <span style="margin-right: 86%;">{{$t('button.cancel')}}
+                  </span>
+              </el-button>
+            </div>
+          </el-dialog>
+        </el-form>
+        <el-form :model="form" :rules="rules" label-width="8vw" label-position="top" ref="refform" style="padding: 3vw">
           <!--            start  fjl 2020/04/08  添加总务担当的受理功能-->
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3001FORMVIEW_ACCEPTSTATUS')">
-                <el-select clearable style="width: 20vw"  v-model="form.acceptstatus" :disabled="acceptShow"
+                <el-select clearable style="width: 20vw" v-model="form.acceptstatus" :disabled="acceptShow"
                            :placeholder="$t('normal.error_09')" @change="changeAcc">
                   <el-option
                     v-for="item in options"
@@ -37,33 +54,34 @@
             </el-col>
             <el-col :span="8" v-show="refuseShow">
               <el-form-item :label="$t('label.PFANS3007FORMVIEW_REFUSEREASON')">
-                <el-input :disabled="acceptShow" maxlength="100" style="width:20vw" v-model="form.refusereason"></el-input>
+                <el-input :disabled="acceptShow" maxlength="100" style="width:20vw"
+                          v-model="form.refusereason"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <!--            end  fjl 2020/04/08  添加总务担当的受理功能-->
-          <el-row >
+          <el-row>
             <!--1-->
             <el-col :span="8">
               <el-form-item :label="$t('label.center')">
                 <el-input :disabled="true" style="width:20vw" v-model="centerid"></el-input>
-                <el-input   v-show='false' :disabled="false" style="width:20vw" v-model="form.centerid"></el-input>
+                <el-input v-show='false' :disabled="false" style="width:20vw" v-model="form.centerid"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.group')">
                 <el-input :disabled="true" style="width:20vw" v-model="groupid"></el-input>
-                <el-input   v-show='false' :disabled="false" style="width:20vw" v-model="form.groupid"></el-input>
+                <el-input v-show='false' :disabled="false" style="width:20vw" v-model="form.groupid"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.team')">
                 <el-input :disabled="true" style="width:20vw" v-model="teamid"></el-input>
-                <el-input v-show='false'  :disabled="false" style="width:20vw" v-model="form.teamid"></el-input>
+                <el-input v-show='false' :disabled="false" style="width:20vw" v-model="form.teamid"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row >
+          <el-row>
             <!--2-->
             <el-col :span="8">
               <el-form-item :error="error" :label="$t('label.applicant')" prop="userid">
@@ -102,8 +120,8 @@
               </template>
             </el-col>
           </el-row>
-          <el-row >
-           <!--3-->
+          <el-row>
+            <!--3-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3006VIEW_STARTTIME')" prop="starttime">
                 <el-date-picker
@@ -129,12 +147,12 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3006VIEW_DIFFDATE')" prop="diffdata">
                 <el-input :disabled="false"
-                style="width:20vw"
-                v-model="form.diffdata"></el-input>
+                          style="width:20vw"
+                          v-model="form.diffdata"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row >
+          <el-row>
             <!--4-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3006VIEW_ORIGIN')" prop="origin">
@@ -155,7 +173,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row >
+          <el-row>
             <el-col :span="8">
               <template>
                 <el-form-item :label="$t('label.PFANS3006VIEW_FLIGHTNUMBER')" prop="flightnumber" v-show="show2">
@@ -185,7 +203,7 @@
             </el-col>
           </el-row>
           <!--6-->
-          <el-row >
+          <el-row>
             <el-col :span="8">
               <template>
                 <el-form-item :label="$t('label.PFANS3006VIEW_WELCOMEBOARD')" prop="welcomeboard" v-show="show2">
@@ -222,31 +240,8 @@
                           v-model="form.fellowmembersname"></el-input>
               </el-form-item>
             </el-col>
-            <!--取消行程-->
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS3006VIEW_TRIP')" prop="trip">
-                <span style="margin-right: 1vw ">{{$t('label.no')}}</span>
-                <el-switch
-                  :disabled="!disable"
-                  v-model="form.trip"
-                  @change="toshowtrip"
-                  active-value="0"
-                  inactive-value="1"
-                >
-                </el-switch>
-                <span style="margin-left: 1vw ">{{$t('label.yes')}}</span>
-              </el-form-item>
-            </el-col>
           </el-row>
           <el-row>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS3006VIEW_TRIPREASON')" v-show="showtrip" prop="tripreason">
-                <el-input :disabled="!disable" type="textarea" style="width:72vw" :autosize="{ minRows: 3, maxRows: 4}"
-                          v-model="form.tripreason"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row >
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3006VIEW_MOBILEPHONE')" prop="mobilephone">
                 <el-input :disabled="!disable" maxlength="20" style="width:20vw"
@@ -269,7 +264,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row >
+          <el-row>
             <el-col :span="24">
               <el-form-item :label="$t('label.remarks')" prop="remarks">
                 <el-input :disabled="!disable" style="width:72vw" type="textarea" v-model="form.remarks"></el-input>
@@ -288,7 +283,7 @@
   import moment from "moment";
   import {Message} from 'element-ui';
   import user from "../../../components/user.vue";
-  import {getOrgInfoByUserId,getCurrentRoleCar} from '@/utils/customize'
+  import {getCurrentRoleCar, getOrgInfoByUserId} from '@/utils/customize'
   import {telephoneNumber, validateNumber} from '@/utils/validate';
 
   export default {
@@ -335,30 +330,31 @@
         if (this.form.starttime !== '' && this.form.starttime !== null && this.form.endtime !== '' && this.form.endtime !== null) {
           if (moment(this.form.endtime).format("YYYY-MM-DD HH:mm:ss") <= moment(this.form.starttime).format("YYYY-MM-DD HH:mm:ss")) {
             callback(new Error(this.$t("label.PFANS5008FORMVIEW_ERROR")))
-          }else{
-              this.form.diffdata = moment(this.form.endtime).diff(moment(this.form.starttime), 'hour');
-              this.form.usedate = moment(this.form.starttime).format("YYYY-MM-DD");
-              callback()
-          }
-        }else{
-            this.form.diffdata = 0
+          } else {
+            this.form.diffdata = moment(this.form.endtime).diff(moment(this.form.starttime), 'hour');
+            this.form.usedate = moment(this.form.starttime).format("YYYY-MM-DD");
             callback()
+          }
+        } else {
+          this.form.diffdata = 0
+          callback()
         }
       };
       var validateendtime = (rule, value, callback) => {
         if (this.form.starttime !== '' && this.form.starttime !== null && this.form.endtime !== '' && this.form.endtime !== null) {
           if (moment(this.form.endtime).format("YYYY-MM-DD HH:mm:ss") <= moment(this.form.starttime).format("YYYY-MM-DD HH:mm:ss")) {
             callback(new Error(this.$t("label.PFANS5008FORMVIEW_ERROR")))
-          }else{
-              this.form.diffdata = moment(this.form.endtime).diff(moment(this.form.starttime), 'hour');
-              callback()
-          }
-        }else{
-            this.form.diffdata = 0
+          } else {
+            this.form.diffdata = moment(this.form.endtime).diff(moment(this.form.starttime), 'hour');
             callback()
+          }
+        } else {
+          this.form.diffdata = 0
+          callback()
         }
       };
       return {
+        dialogFormVisible: false,
         error: "",
         loading: false,
         canStart: false,
@@ -370,6 +366,7 @@
         centerid: '',
         groupid: '',
         teamid: '',
+        errortripreason: '',
         show2: false,
         options: [
           {
@@ -386,7 +383,10 @@
           },
         ],
         acceptShow: true,
-          refuseShow: false,
+        refuseShow: false,
+        form1: {
+          tripreason: '',
+        },
         form: {
           centerid: '',
           groupid: '',
@@ -411,23 +411,26 @@
           remarks: '',
           welcomeboard: true,
           fellowmembers: false,
-          trip: false,
           accept: '0',
           acceptstatus: '',
           findate: '',
           refusereason: '',
-          trip: '',
-          tripreason: '',
+        },
+        rules1: {
+          tripreason: [
+            {
+              required: true,
+              message:
+                this.$t('normal.error_08') +
+                this.$t('label.PFANS3006VIEW_TRIPREASON'),
+              trigger: 'change',
+            },
+          ]
         },
         rules: {
-          fellowmembersname:[{
+          fellowmembersname: [{
             required: false,
             message: this.$t('normal.error_08') + this.$t('label.PFANS3006VIEW_FELLOWMEMBERS'),
-            trigger: 'blur'
-          }],
-          tripreason: [{
-            required: false,
-            message: this.$t('normal.error_08') + this.$t('label.PFANS3006VIEW_TRIPREASON'),
             trigger: 'blur'
           }],
           userid: [{
@@ -451,7 +454,7 @@
             trigger: 'blur',
           },
             // {validator: validateTel, trigger: 'blur'}
-            ],
+          ],
           usetype: [{
             required: true,
             message: this.$t("normal.error_09") + this.$t("label.PFANS3006VIEW_USETYPE"),
@@ -475,11 +478,11 @@
             {validator: validatestarttime, trigger: 'change'}
           ],
           endtime: [{
-              required: true,
-              message: this.$t('normal.error_09') + this.$t('label.PFANS3006VIEW_ENDTIME'),
-              trigger: 'change'
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.PFANS3006VIEW_ENDTIME'),
+            trigger: 'change'
           },
-              {validator: validateendtime, trigger: 'change'}
+            {validator: validateendtime, trigger: 'change'}
           ],
           // guestname: [{
           //   required: true,
@@ -509,54 +512,50 @@
           .dispatch('PFANS3006Store/getAppointmentCarOne', {"appointmentcarid": this.$route.params._id})
           .then(response => {
             this.form = response;
-              if(this.form.acceptstatus === '1'){
-                  this.refuseShow = true;
-              } else {
-                  this.refuseShow = false;
-              }
-              //start(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
-            if (this.form.trip === '1') {
-              let role = getCurrentRoleCar();
-              if (role === '0') {
-                if (this.disable) {
-                  this.form.findate = moment(new Date()).format("YYYY-MM-DD")
-                  this.acceptShow = false;
-                } else {
-                  this.acceptShow = true;
-                }
+            if (this.form.tripreason != null && this.form.tripreason !== '') {
+              this.form1.tripreason = this.form.tripreason;
+            }
+            if (this.form.acceptstatus === '1') {
+              this.refuseShow = true;
+            } else {
+              this.refuseShow = false;
+            }
+            //start(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
+            let role = getCurrentRoleCar();
+            if (role === '0') {
+              if (this.disable) {
+                this.form.findate = moment(new Date()).format("YYYY-MM-DD")
+                this.acceptShow = false;
               } else {
                 this.acceptShow = true;
               }
+            } else {
+              this.acceptShow = true;
             }
-              //end(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
-              let rst = getOrgInfoByUserId(response.userid);
-              if(rst){
-                  this.centerid = rst.centerNmae;
-                  this.groupid= rst.groupNmae;
-                  this.teamid= rst.teamNmae;
-              }
+            //end(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
+            let rst = getOrgInfoByUserId(response.userid);
+            if (rst) {
+              this.centerid = rst.centerNmae;
+              this.groupid = rst.groupNmae;
+              this.teamid = rst.teamNmae;
+            }
             this.loading = false;
             this.userlist = this.form.userid;
             if (this.form.status === '2') {
               this.disable2 = false;
-            }else if(this.form.status === '4'){
+            } else if (this.form.status === '4') {
               this.disable2 = true;
             }
-            if(this.form.fellowmembers == 1){
-                this.show=false;
-            }else{
-                this.show=true;
-            }
-            if (this.form.trip == 1) {
-              this.showtrip = false;
+            if (this.form.fellowmembers == 1) {
+              this.show = false;
             } else {
-              this.showtrip = true;
+              this.show = true;
             }
 
-            if(this.form.usetype === 'PR005002' || this.form.usetype === 'PR005003'){
-                this.show2 = true;
-            }else{
-                this.show2 = false;
+            if (this.form.usetype === 'PR005002' || this.form.usetype === 'PR005003') {
+              this.show2 = true;
+            } else {
+              this.show2 = false;
             }
             this.loading = false;
           })
@@ -574,14 +573,14 @@
         this.userlist = this.$store.getters.userinfo.userid;
         if (this.userlist !== null && this.userlist !== '') {
           let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-            if(lst) {
-                this.centerid = lst.centerNmae;
-                this.groupid = lst.groupNmae;
-                this.teamid = lst.teamNmae;
-                this.form.centerid = lst.centerId;
-                this.form.groupid = lst.groupId;
-                this.form.teamid = lst.teamId;
-            }
+          if (lst) {
+            this.centerid = lst.centerNmae;
+            this.groupid = lst.groupNmae;
+            this.teamid = lst.teamNmae;
+            this.form.centerid = lst.centerId;
+            this.form.groupid = lst.groupId;
+            this.form.teamid = lst.teamId;
+          }
           this.form.userid = this.$store.getters.userinfo.userid;
         }
       }
@@ -595,75 +594,71 @@
             name: "button.save",
             icon: "el-icon-check",
             disabled: this.disable2
+          },
+          {
+            key: "cancel",
+            name: "button.cancel",
+            icon: "el-icon-check",
+            disabled: this.disable2
           }
         ];
       }
     },
     methods: {
-        //change受理状态  add_fjl
-        changeAcc(val){
-            this.form.acceptstatus = val;
-            if(val === '1'){
-                this.refuseShow = true;
-            } else {
-                this.refuseShow = false;
-            }
-        },
-      setdisabled(val){
-        if(this.$route.params.disabled){
+      //change受理状态  add_fjl
+      changeAcc(val) {
+        this.form.acceptstatus = val;
+        if (val === '1') {
+          this.refuseShow = true;
+        } else {
+          this.refuseShow = false;
+        }
+      },
+      setdisabled(val) {
+        if (this.$route.params.disabled) {
           this.disabled = val;
         }
       },
-      downLoad(val){
-        if(val === '1'){
-            this.$confirm('是否立即下载接机提示牌?', '提示', {
-                confirmButtonText: '确定',
-                cancelButtonText: '取消',
-                type: 'warning'
-            }).then(() => {
-                this.$store
-                    .dispatch('PFANS3006Store/download', {})
-                    .then(response => {
-                        this.loading = false;
-                    })
-                    .catch(error => {
-                        Message({
-                            message: error,
-                            type: 'error',
-                            duration: 5 * 1000
-                        });
-                        this.loading = false;
-                    });
-                this.$message({
-                    type: 'success',
-                    message: '下载成功!'
+      downLoad(val) {
+        if (val === '1') {
+          this.$confirm('是否立即下载接机提示牌?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+            this.$store
+              .dispatch('PFANS3006Store/download', {})
+              .then(response => {
+                this.loading = false;
+              })
+              .catch(error => {
+                Message({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000
                 });
-
-            }).catch(() => {
-                this.$message({
-                    type: 'info',
-                    message: '已取消'
-                });
+                this.loading = false;
+              });
+            this.$message({
+              type: 'success',
+              message: '下载成功!'
             });
+
+          }).catch(() => {
+            this.$message({
+              type: 'info',
+              message: '已取消'
+            });
+          });
         }
       },
-      toshow(val){
-        if(val === '1'){
+      toshow(val) {
+        if (val === '1') {
           this.show = false;
           this.rules.fellowmembersname[0].required = false;
-        }else{
+        } else {
           this.show = true;
           this.rules.fellowmembersname[0].required = true;
-        }
-      },
-      toshowtrip(val) {
-        if (val === '1') {
-          this.showtrip = false;
-          this.form.tripreason = null;
-          this.rules.tripreason[0].required = false;
-        } else {
-          this.showtrip = true;
-          this.rules.tripreason[0].required = true;
         }
       },
       workflowState(val) {
@@ -680,9 +675,10 @@
       //   this.buttonClick("update");
       // },
       start(val) {
+        this.form.status = '2';
         if (val.state === '0') {
           this.form.status = '2';
-        }else if (val.state === '2') {
+        } else if (val.state === '2') {
           this.form.status = '4';
         }
         this.buttonClick("update");
@@ -692,26 +688,40 @@
         this.form.status = '0';
         this.buttonClick("update");
       },
+      saves() {
+        if (this.form1.tripreason != '' && this.form.tripreason != null) {
+          this.form.trip = '0';
+          this.dialogFormVisible = false;
+          this.$refs['refform1'].validate(valid => {
+            if (valid) {
+              this.form.tripreason = this.form1.tripreason;
+              this.buttonClick();
+            }
+          });
+        }
+      },
+      cancels() {
+        this.dialogFormVisible = false;
+      },
       getUserids(val) {
         this.form.userid = val;
         this.userlist = val;
         let lst = getOrgInfoByUserId(val);
-          if(lst) {
-              this.centerid = lst.centerNmae;
-              this.groupid = lst.groupNmae;
-              this.teamid = lst.teamNmae;
-              this.form.centerid = lst.centerId;
-              this.form.groupid = lst.groupId;
-              this.form.teamid = lst.teamId;
-          }
-          else{
-              this.centerid =  '';
-              this.groupid =  '';
-              this.teamid =  '';
-              this.form.centerid = '';
-              this.form.teamid =  '';
-              this.form.groupid =  '';
-          }
+        if (lst) {
+          this.centerid = lst.centerNmae;
+          this.groupid = lst.groupNmae;
+          this.teamid = lst.teamNmae;
+          this.form.centerid = lst.centerId;
+          this.form.groupid = lst.groupId;
+          this.form.teamid = lst.teamId;
+        } else {
+          this.centerid = '';
+          this.groupid = '';
+          this.teamid = '';
+          this.form.centerid = '';
+          this.form.teamid = '';
+          this.form.groupid = '';
+        }
         if (!this.form.userid || this.form.userid === '' || val === "undefined") {
           this.error = this.$t('normal.error_09') + this.$t('label.applicant');
         } else {
@@ -720,80 +730,83 @@
       },
       change(val) {
         this.form.usetype = val;
-        if(val === 'PR005002' || val === 'PR005003'){
-            this.show2 = true;
-            this.rules.guestname[0].required = true;
-        }else{
-            this.show2 = false;
-            this.rules.guestname[0].required = false;
+        if (val === 'PR005002' || val === 'PR005003') {
+          this.show2 = true;
+          this.rules.guestname[0].required = true;
+        } else {
+          this.show2 = false;
+          this.rules.guestname[0].required = false;
         }
       },
       change2(val) {
         this.form.distinguish = val;
       },
       buttonClick(val) {
-        this.$refs["refform"].validate(valid => {
-          if (valid) {
-            this.loading = true;
-            this.form.userid = this.userlist;
-            if (this.$route.params._id) {
-              this.$store
-                .dispatch('PFANS3006Store/updateAppointmentCar', this.form)
-                .then(response => {
-                  this.data = response;
-                  this.loading = false;
-                  if (val !== "update") {
+        if (val === 'cancel') {
+          this.dialogFormVisible = true;
+        } else {
+          this.$refs["refform"].validate(valid => {
+            if (valid) {
+              this.loading = true;
+              this.form.userid = this.userlist;
+              if (this.$route.params._id) {
+                this.$store
+                  .dispatch('PFANS3006Store/updateAppointmentCar', this.form)
+                  .then(response => {
+                    this.data = response;
+                    this.loading = false;
+                    if (val !== "update") {
+                      Message({
+                        message: this.$t("normal.success_02"),
+                        type: 'success',
+                        duration: 5 * 1000
+                      });
+                      if (this.$store.getters.historyUrl) {
+                        this.$router.push(this.$store.getters.historyUrl);
+                      }
+                    }
+                  })
+                  .catch(error => {
                     Message({
-                      message: this.$t("normal.success_02"),
+                      message: error,
+                      type: 'error',
+                      duration: 5 * 1000
+                    })
+                    this.loading = false;
+                  })
+              } else {
+                this.$store
+                  .dispatch('PFANS3006Store/createAppointmentCar', this.form)
+                  .then(response => {
+                    this.data = response;
+                    this.loading = false;
+                    Message({
+                      message: this.$t("normal.success_01"),
                       type: 'success',
                       duration: 5 * 1000
                     });
                     if (this.$store.getters.historyUrl) {
                       this.$router.push(this.$store.getters.historyUrl);
                     }
-                  }
-                })
-                .catch(error => {
-                  Message({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000
                   })
-                  this.loading = false;
-                })
+                  .catch(error => {
+                    Message({
+                      message: error,
+                      type: 'error',
+                      duration: 5 * 1000
+                    });
+                    this.loading = false;
+                  })
+              }
             } else {
-              this.$store
-                .dispatch('PFANS3006Store/createAppointmentCar', this.form)
-                .then(response => {
-                  this.data = response;
-                  this.loading = false;
-                  Message({
-                    message: this.$t("normal.success_01"),
-                    type: 'success',
-                    duration: 5 * 1000
-                  });
-                  if (this.$store.getters.historyUrl) {
-                    this.$router.push(this.$store.getters.historyUrl);
-                  }
-                })
-                .catch(error => {
-                  Message({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000
-                  });
-                  this.loading = false;
-                })
-            }
-          }
-          else{
               Message({
-                  message: this.$t("normal.error_12"),
-                  type: 'error',
-                  duration: 5 * 1000
+                message: this.$t("normal.error_12"),
+                type: 'error',
+                duration: 5 * 1000
               });
-          }
-        });
+            }
+          });
+        }
       }
     }
   }
@@ -804,3 +817,4 @@
 <style scoped>
 
 </style>
+
