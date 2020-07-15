@@ -2339,6 +2339,9 @@
         this.form.judgement = this.form.judgement.substring(0, this.form.judgement.length - 1);
         this.form.judgement_name = this.form.judgement_name.substring(0, this.form.judgement_name.length - 1);
         this.form.type = this.$route.params._type;
+          //ADD_FJL_0715 模块默认值AP START
+          this.form.moduleid = 'PJ002001';
+          //ADD_FJL_0715 模块默认值AP END
         if (this.form.type === 'PJ001001') {
           //add-ws-5/25-No.16-费明细：【付款方式】不用员工做选择，固定为“个人账户”
           this.getPayment('PJ004002');
@@ -2346,7 +2349,6 @@
           this.show9 = true;
           this.show7 = false;
           this.show6 = false;
-          this.form.moduleid = 'PJ002001';
           this.form.moduleidApp = getDictionaryInfo(this.form.moduleid).value1;
         } else if (this.form.type === 'PJ001002') {
           //add-ws-5/25-No.16-费明细：【付款方式】不用员工做选择，固定为“个人账户”
