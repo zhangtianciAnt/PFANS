@@ -59,7 +59,7 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.team')">
-                <org :disabled="true" :orglist="form.team_id" @getOrgids="getTeamId" orgtype="3"
+                <org :disabled="!disabled" :orglist="form.team_id" @getOrgids="getTeamId" orgtype="3"
                      style="width:20vw"></org>
               </el-form-item>
             </el-col>
