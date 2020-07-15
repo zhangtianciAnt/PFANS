@@ -449,7 +449,7 @@
         }
       };
       var centerIds = (rule, value, callback) => {
-        if (!value || value === '' || value === undefined) {
+        if (!value || value === '' || value === 'undefined') {
           this.errorcenter = this.$t('normal.error_09') + this.$t('label.center');
           return callback(new Error(this.$t('normal.error_09') + this.$t('label.center')));
         } else {
@@ -458,7 +458,7 @@
         }
       };
       var groupIds = (rule, value, callback) => {
-        if (!value || value === '' || value === undefined) {
+        if (!value || value === '' || value === 'undefined') {
           this.errorgroup = this.$t('normal.error_09') + this.$t('label.group');
           return callback(new Error(this.$t('normal.error_09') + this.$t('label.group')));
         } else {
@@ -1120,16 +1120,20 @@
       },
       getTeamId(val) {
         this.getOrgInformation(val);
-        if (this.form.center_id === '') {
-          this.errorgroup = this.$t('normal.error_08') + 'center';
+        if (this.form.group_id === '') {
+          this.errorgroup = this.$t('normal.error_08') + 'group';
         } else {
           this.errorgroup = '';
+        }
+        if (this.form.center_id === '') {
+          this.errorcenter = this.$t('normal.error_08') + 'center';
+        } else {
+          this.errorcenter = '';
         }
       },
       getOrgInformation(id) {
         let org = {};
         let treeCom = this.$store.getters.orgs;
-
         if (id && treeCom.getNode(id)) {
           let node = id;
           let type = treeCom.getNode(id).data.type || 0;
@@ -1156,6 +1160,7 @@
             group_id: this.form.group_id,
             team_id: this.form.team_id,
           } = org);
+          this.getchangeGroup(this.form.group_id)
         }
       },
       getClassificationtype(val) {

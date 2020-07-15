@@ -38,25 +38,52 @@
                             v-model="form.refusereason"></el-input>
                 </el-form-item>
               </el-col>
+              <el-col :span="8" v-show="refuseShow1">
+                <el-form-item :label="$t('label.PFANS5004VIEW_FINSHTIME')">
+                  <el-date-picker :disabled="acceptShow" style="width:20vw" type="date"
+                                  v-model="form.finshtime"></el-date-picker>
+                </el-form-item>
+              </el-col>
             </el-row>
             <!--            end  fjl 2020/04/08  添加总务担当的受理功能-->
+            <!--<el-row>-->
+            <!--<el-col :span="8">-->
+            <!--<el-form-item :label="$t('label.center')">-->
+            <!--<el-input :disabled="true" style="width:20vw" v-model="centerid"></el-input>-->
+            <!--<el-input v-show='false' :disabled="false" style="width:20vw" v-model="form.center_id"></el-input>-->
+            <!--</el-form-item>-->
+            <!--</el-col>-->
+            <!--<el-col :span="8">-->
+            <!--<el-form-item :label="$t('label.group')">-->
+            <!--<el-input :disabled="true" style="width:20vw" v-model="groupid"></el-input>-->
+            <!--<el-input v-show='false' :disabled="false" style="width:20vw" v-model="form.group_id"></el-input>-->
+            <!--</el-form-item>-->
+            <!--</el-col>-->
+            <!--<el-col :span="8">-->
+            <!--<el-form-item :label="$t('label.team')">-->
+            <!--<el-input :disabled="true" style="width:20vw" v-model="teamid"></el-input>-->
+            <!--<el-input v-show='false' :disabled="false" style="width:20vw" v-model="form.team_id"></el-input>-->
+            <!--</el-form-item>-->
+            <!--</el-col>-->
+            <!--</el-row>-->
             <el-row>
               <el-col :span="8">
-                <el-form-item :label="$t('label.center')">
-                  <el-input :disabled="true" style="width:20vw" v-model="centerid"></el-input>
-                  <el-input v-show='false' :disabled="false" style="width:20vw" v-model="form.center_id"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="8">
-                <el-form-item :label="$t('label.group')">
-                  <el-input :disabled="true" style="width:20vw" v-model="groupid"></el-input>
-                  <el-input v-show='false' :disabled="false" style="width:20vw" v-model="form.group_id"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="8">
                 <el-form-item :label="$t('label.team')">
-                  <el-input :disabled="true" style="width:20vw" v-model="teamid"></el-input>
-                  <el-input v-show='false' :disabled="false" style="width:20vw" v-model="form.team_id"></el-input>
+                  <org :disabled="!disable" :orglist="form.team_id" @getOrgids="getTeamId" orgtype="3"
+                       style="width:20vw"></org>
+                </el-form-item>
+              </el-col>
+              <el-col :span="8">
+                <el-form-item :error="errorgroup" :label="$t('label.group')" prop="group_id">
+                  <org :disabled="!disable" :error="errorgroup" :orglist="form.group_id" @getOrgids="getGroupId"
+                       orgtype="2" style="width:20vw"></org>
+                </el-form-item>
+              </el-col>
+              <el-col :span="8">
+                <el-form-item :error="errorcenter" :label="$t('label.center')" prop="center_id">
+                  <org :disabled="!disable" :error="errorcenter" :orglist="form.center_id"
+                       @getOrgids="getCenterId"
+                       orgtype="1" style="width:20vw"></org>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -73,7 +100,7 @@
                 </el-form-item>
               </el-col>
               <el-col :span="8">
-                <el-form-item :label="$t('label.PFANS1012FORMVIEW_BUDGET')" prop="budgetnumber">
+                <el-form-item :label="$t('label.PFANS1012FORMVIEW_BUDGET')">
                   <el-select clearable style="width: 20vw" v-model="form.budgetnumber" :disabled="!disable"
                              :placeholder="$t('normal.error_09')">
                     <el-option
@@ -169,6 +196,20 @@
                 </el-form-item>
               </el-col>
               <!--            end(添加申请日期)  fjl 2020/04/08-->
+              <el-col :span="8">
+                <el-form-item :label="$t('label.PFANS3005VIEW_ACTUARIALAMOUNT')" prop="actuarialamount">
+                  <div class="block">
+                    <el-input-number
+                      :disabled="!disable"
+                      style="width:20vw"
+                      :precision="2"
+                      :step="0.1"
+                      controls-position="right"
+                      v-model="form.actuarialamount">
+                    </el-input-number>
+                  </div>
+                </el-form-item>
+              </el-col>
             </el-row>
             <el-row>
               <el-col :span="8">
@@ -306,6 +347,7 @@
   import {idcardNumber, isvalidPhone, telephoneNumber} from '@/utils/validate';
   import moment from 'moment';
   import {getOrgInfo} from "../../../../utils/customize";
+  import org from '../../../components/org';
 
   export default {
     name: 'PFANS3001FormView',
@@ -314,6 +356,7 @@
       PFANS3001View,
       user,
       dicselect,
+      org,
     },
     data() {
       var validateIdCard = (rule, value, callback) => {
@@ -334,6 +377,24 @@
         } else {
           callback();
           this.error = '';
+        }
+      };
+      var centerIds = (rule, value, callback) => {
+        if (!value || value === '' || value === 'undefined') {
+          this.errorcenter = this.$t('normal.error_09') + this.$t('label.center');
+          return callback(new Error(this.$t('normal.error_09') + this.$t('label.center')));
+        } else {
+          this.errorcenter = '';
+          return callback();
+        }
+      };
+      var groupIds = (rule, value, callback) => {
+        if (!value || value === '' || value === 'undefined') {
+          this.errorgroup = this.$t('normal.error_09') + this.$t('label.group');
+          return callback(new Error(this.$t('normal.error_09') + this.$t('label.group')));
+        } else {
+          this.errorgroup = '';
+          return callback();
         }
       };
       var validateTel = (rule, value, callback) => {
@@ -437,6 +498,8 @@
         errorrearrivaldate: '',
         errorgodeparturedate: '',
         errorgoarrivaldate: '',
+        errorcenter: '',
+        errorgroup: '',
         showForeign: '',
         showDomestic: '',
         loading: false,
@@ -477,6 +540,7 @@
             value: '2',
             label: this.$t('label.PFANS3006VIEW_CARRYOUT'),
           },
+
           //add-ws-7/7-禅道247
           {
             value: '3',
@@ -486,6 +550,7 @@
         ],
         acceptShow: true,
         refuseShow: false,
+        refuseShow1: false,
         form: {
           businessname: '',
           user_id: '',
@@ -510,6 +575,8 @@
           acceptstatus: '',
           findate: '',
           refusereason: '',
+          actuarialamount: '',
+          finshtime: '',
         },
         rules: {
           user_id: [{
@@ -517,6 +584,20 @@
             validator: validateUserid,
             trigger: 'change',
           }],
+          center_id: [
+            {
+              required: true,
+              validator: centerIds,
+              trigger: 'change',
+            },
+          ],
+          group_id: [
+            {
+              required: true,
+              validator: groupIds,
+              trigger: 'change',
+            },
+          ],
           // add  fjl   start
           business_id: [{
             required: true,
@@ -536,7 +617,7 @@
           }],
           budgetnumber: [{
             required: true,
-            message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_BUDGET'),
+            message: this.$t('normal.error_09') + this.$t('label.group') + this.$t('label.hou') + this.$t('label.PFANS1012FORMVIEW_BUDGET'),
             trigger: 'blur',
           }],
           extensionnumber: [{
@@ -664,16 +745,21 @@
                 if (this.form.ticketstype === 'first') {
                   this.form.idcardorpa = this.form.idcard;
                 }
+                if (this.form.budgetnumber !== null && this.form.budgetnumber !== "") {
+                  let procurement = getDictionaryInfo(this.form.budgetnumber);
+                  if (procurement != null) {
+                    this.form.budgetnumber = procurement.value2 + '_' + procurement.value3;
+                  }
+                }
+                if (this.form.group_name != '' && this.form.group_name != null) {
+                  this.orglist = this.form.group_name;
+                  this.getchangeGroup(this.form.group_name)
+                }
                 // <!--2020-05-06 ztc 机票改为明细 start-->
                 if (response.ticketsdetails.length > 0) {
                   this.tableA = response.ticketsdetails;
                 }
                 // <!--2020-05-06 ztc 机票改为明细 end-->
-                if (this.form.acceptstatus === '1') {
-                  this.refuseShow = true;
-                } else {
-                  this.refuseShow = false;
-                }
                 //start(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
                 let role = getCurrentRole2();
                 if (role === '0') {
@@ -713,7 +799,7 @@
                 if (this.form.status === '4') {
                   this.disabled = true;
                 }
-                this.getBudt(this.userlist);
+                // this.getBudt(this.userlist);
                 this.loading = false;
               })
               .catch(error => {
@@ -799,8 +885,11 @@
                 this.form.group_id = rst.groupId;
                 this.form.team_id = rst.teamId;
               }
+              if (this.form.group_id) {
+                this.getchangeGroup(this.form.group_id)
+              }
               this.form.user_id = this.$store.getters.userinfo.userid;
-              this.getBudt(this.form.user_id);
+              // this.getBudt(this.form.user_id);
             }
             this.changebusiness(this.$route.params._checkid);
             this.loading = false;
@@ -831,8 +920,13 @@
               // <!--2020-05-06 ztc 机票改为明细 end-->
               if (this.form.acceptstatus === '1') {
                 this.refuseShow = true;
+                this.refuseShow1 = false;
+              } else if (this.form.acceptstatus === '2') {
+                this.refuseShow = false;
+                this.refuseShow1 = true;
               } else {
                 this.refuseShow = false;
+                this.refuseShow1 = false;
               }
               //start(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
               let role = getCurrentRole2();
@@ -873,7 +967,7 @@
               if (this.form.status === '4') {
                 this.disabled = true;
               }
-              this.getBudt(this.userlist);
+              // this.getBudt(this.userlist);
               this.loading = false;
             })
             .catch(error => {
@@ -917,14 +1011,24 @@
         this.form.acceptstatus = val;
         if (val === '1') {
           this.refuseShow = true;
+          this.refuseShow1 = false;
+          this.form.finshtime = null;
+        } else if (val === '2') {
+          this.refuseShow = false;
+          this.refuseShow1 = true;
+          this.form.finshtime = moment(new Date()).format("YYYY-MM-DD")
+          this.form.refusereason = null;
         } else {
           this.refuseShow = false;
+          this.refuseShow1 = false;
+          this.form.refusereason = null;
+          this.form.finshtime = null;
         }
       },
-      getBudt(val) {
-        //ADD_FJL  修改人员预算编码
-        if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
-          let butinfo = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
+      getchangeGroup(val) {
+        this.options1 = [];
+        if (val) {
+          let butinfo = getOrgInfo(val).encoding;
           let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
           if (dic.length > 0) {
             for (let i = 0; i < dic.length; i++) {
@@ -954,6 +1058,68 @@
           redeparturedate: '',
           rearrivaldate: '',
         });
+      },
+      getCenterId(val) {
+        this.getOrgInformation(val);
+        if (!val || this.form.center_id === '') {
+          this.errorcenter = this.$t('normal.error_09') + 'center';
+        } else {
+          this.errorcenter = '';
+        }
+      },
+      getGroupId(orglist) {
+        this.getchangeGroup(orglist)
+        this.form.group_name = orglist
+        if (!this.form.group_name || this.form.group_name === '') {
+          this.errorgroup = this.$t('normal.error_09') + 'group';
+        } else {
+          this.errorgroup = '';
+        }
+      },
+      getTeamId(val) {
+        this.getOrgInformation(val);
+        if (this.form.group_id === '') {
+          this.errorgroup = this.$t('normal.error_08') + 'group';
+        } else {
+          this.errorgroup = '';
+        }
+        if (this.form.center_id === '') {
+          this.errorcenter = this.$t('normal.error_08') + 'center';
+        } else {
+          this.errorcenter = '';
+        }
+      },
+      getOrgInformation(id) {
+        let org = {};
+        let treeCom = this.$store.getters.orgs;
+        if (id && treeCom.getNode(id)) {
+          let node = id;
+          let type = treeCom.getNode(id).data.type || 0;
+          for (let index = parseInt(type); index >= 1; index--) {
+            if (parseInt(type) === index && ![1, 2].includes(parseInt(type))) {
+              org.teamname = treeCom.getNode(node).data.departmentname;
+              org.team_id = treeCom.getNode(node).data._id;
+            }
+            if (index === 2) {
+              org.groupname = treeCom.getNode(node).data.departmentname;
+              org.group_id = treeCom.getNode(node).data._id;
+            }
+            if (index === 1) {
+              org.centername = treeCom.getNode(node).data.companyname;
+              org.center_id = treeCom.getNode(node).data._id;
+            }
+            node = treeCom.getNode(node).parent.data._id;
+          }
+          ({
+            centername: this.form.centername,
+            groupname: this.form.groupname,
+            teamname: this.form.teamname,
+            center_id: this.form.center_id,
+            group_id: this.form.group_id,
+            team_id: this.form.team_id,
+          } = org);
+          this.getchangeGroup(this.form.group_id)
+        }
       },
       deleteRow1(index, rows) {
         if (rows.length > 1) {
@@ -1149,6 +1315,9 @@
           this.form.center_id = '';
           this.form.group_id = '';
           this.form.team_id = '';
+        }
+        if (this.form.group_id) {
+          this.getchangeGroup(this.form.group_id)
         }
         if (!this.form.user_id || this.form.user_id === '' || val === "undefined") {
           this.error = this.$t('normal.error_08') + this.$t('label.applicant');

@@ -2736,7 +2736,6 @@
       },
       //契約番号做成
       click() {
-
         this.$refs['refform1'].validate(valid => {
           if (valid) {
             this.form.claimtype = this.form1.claimtype;
