@@ -841,7 +841,8 @@
                         </dicselect>
                       </template>
                     </el-table-column>
-                    <el-table-column :label="$t('label.PFANS1013FORMVIEW_TRAVELALLOWANCE1')" align="center" prop="travel"
+                    <el-table-column :label="$t('label.PFANS1013FORMVIEW_TRAVELALLOWANCE1')" align="center"
+                                     prop="travel"
                                      v-if="this.form.type === '0'? false : true" width="200">
                       <template slot-scope="scope">
                         <el-input-number
@@ -1144,7 +1145,15 @@
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import user from '../../../components/user.vue';
   import {Message} from 'element-ui';
-  import {getDictionaryInfo, getOrgInfo, getOrgInfoByUserId, getUserInfo, uploadUrl,downLoadUrl,getCurrentRole} from '@/utils/customize';
+  import {
+    downLoadUrl,
+    getCurrentRole,
+    getDictionaryInfo,
+    getOrgInfo,
+    getOrgInfoByUserId,
+    getUserInfo,
+    uploadUrl
+  } from '@/utils/customize';
   import dicselect from '../../../components/dicselect';
   import org from '../../../components/org';
   import moment from 'moment';
@@ -1446,7 +1455,7 @@
               // add-ws-7/10-禅道249
             } else if (this.role1 === '1') {
               this.workflowCode = 'W0084';
-            }else{
+            } else {
               this.workflowCode = 'W0014';
             }
             // add-ws-7/10-禅道249
@@ -1483,15 +1492,17 @@
                 if (this.tableT[i].departmentname !== '' && this.tableT[i].departmentname !== null && this.tableT[i].departmentname !== undefined) {
                   //ADD_FJL
                   this.tableT[i].optionsT = [];
-                  let butinfo = getOrgInfo(this.tableT[i].departmentname).encoding;
-                  let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-                  if (dic.length > 0) {
-                    for (let j = 0; j < dic.length; j++) {
-                      if (butinfo === dic[j].value1) {
-                        this.tableT[i].optionsT.push({
-                          lable: dic[j].value2 + '_' + dic[j].value3,
-                          value: dic[j].code,
-                        });
+                  if (this.tableT[i].departmentname) {
+                    let butinfo = getOrgInfo(this.tableT[i].departmentname).encoding;
+                    let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+                    if (dic.length > 0) {
+                      for (let j = 0; j < dic.length; j++) {
+                        if (butinfo === dic[j].value1) {
+                          this.tableT[i].optionsT.push({
+                            lable: dic[j].value2 + '_' + dic[j].value3,
+                            value: dic[j].code,
+                          });
+                        }
                       }
                     }
                   }
@@ -1552,15 +1563,17 @@
                 if (this.tableA[i].departmentname !== '' && this.tableA[i].departmentname !== null && this.tableA[i].departmentname !== undefined) {
                   //ADD_FJL
                   this.tableA[i].optionsA = [];
-                  let butinfoA = getOrgInfo(this.tableA[i].departmentname).encoding;
-                  let dicA = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-                  if (dicA.length > 0) {
-                    for (let j = 0; j < dicA.length; j++) {
-                      if (butinfoA === dicA[j].value1) {
-                        this.tableA[i].optionsA.push({
-                          lable: dicA[j].value2 + '_' + dicA[j].value3,
-                          value: dicA[j].code,
-                        });
+                  if (this.tableA[i].departmentname) {
+                    let butinfoA = getOrgInfo(this.tableA[i].departmentname).encoding;
+                    let dicA = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+                    if (dicA.length > 0) {
+                      for (let j = 0; j < dicA.length; j++) {
+                        if (butinfoA === dicA[j].value1) {
+                          this.tableA[i].optionsA.push({
+                            lable: dicA[j].value2 + '_' + dicA[j].value3,
+                            value: dicA[j].code,
+                          });
+                        }
                       }
                     }
                   }
@@ -1620,15 +1633,17 @@
                 }
                 if (this.tableR[i].departmentname !== '' && this.tableR[i].departmentname !== null && this.tableR[i].departmentname !== undefined) {
                   this.tableR[i].optionsR = [];
-                  let butinfoR = getOrgInfo(this.tableA[i].departmentname).encoding;
-                  let dicR = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-                  if (dicR.length > 0) {
-                    for (let j = 0; j < dicR.length; j++) {
-                      if (butinfoR === dicR[j].value1) {
-                        this.tableR[i].optionsR.push({
-                          lable: dicR[j].value2 + '_' + dicR[j].value3,
-                          value: dicR[j].code,
-                        });
+                  if (this.tableA[i].departmentname) {
+                    let butinfoR = getOrgInfo(this.tableA[i].departmentname).encoding;
+                    let dicR = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+                    if (dicR.length > 0) {
+                      for (let j = 0; j < dicR.length; j++) {
+                        if (butinfoR === dicR[j].value1) {
+                          this.tableR[i].optionsR.push({
+                            lable: dicR[j].value2 + '_' + dicR[j].value3,
+                            value: dicR[j].code,
+                          });
+                        }
                       }
                     }
                   }
@@ -2694,7 +2709,7 @@
             type: 'error',
             duration: 5 * 1000,
           });
-          this.form.uploadfile =''
+          this.form.uploadfile = ''
           this.$refs.upload.clearFiles();
         }
       },
@@ -2875,7 +2890,7 @@
           }
         }
         if (this.form.startdate != '' && this.form.enddate != '' && moment(this.form.startdate).format('YYYY-MM-DD') != moment(this.form.enddate).format('YYYY-MM-DD')) {
-          var getDate = function(str) {
+          var getDate = function (str) {
             var tempDate = new Date();
             var list = str.split('-');
             tempDate.setFullYear(list[0]);
@@ -2948,23 +2963,25 @@
         }
         for (let i = 0; i < this.tableA.length; i++) {
           this.tableA[i].optionsA = [];
-          let butinfoA = getOrgInfo(this.tableA[i].departmentname).encoding;
-          let dicA = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-          if (dicA.length > 0) {
-            for (let j = 0; j < dicA.length; j++) {
-              if (butinfoA === dicA[j].value1) {
-                this.tableA[i].optionsA.push({
-                  lable: dicA[j].value2 + '_' + dicA[j].value3,
-                  value: dicA[j].code,
-                });
+          if (this.tableA[i].departmentname) {
+            let butinfoA = getOrgInfo(this.tableA[i].departmentname).encoding;
+            let dicA = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+            if (dicA.length > 0) {
+              for (let j = 0; j < dicA.length; j++) {
+                if (butinfoA === dicA[j].value1) {
+                  this.tableA[i].optionsA.push({
+                    lable: dicA[j].value2 + '_' + dicA[j].value3,
+                    value: dicA[j].code,
+                  });
+                }
               }
             }
+          }
             if (this.form.arrivenight === '1') {
               this.tableA[0].subsidies = parseFloat(moneys) + 100;
             } else {
               this.tableA[0].subsidies = parseFloat(moneys);
             }
-          }
         }
       },
 
@@ -3424,7 +3441,7 @@
                             }
                           }
                         }
-                      }else{
+                      } else {
                         this.accomflg = 0;
                       }
                     }
@@ -3904,7 +3921,7 @@
                 //   });
                 //   return;
                 // }
-                if (this.form.external != '1' ) {
+                if (this.form.external != '1') {
                   if (this.form.type === '1') {
                     if (this.form.remark == '') {
                       var value4money;
