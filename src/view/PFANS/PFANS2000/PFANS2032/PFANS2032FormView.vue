@@ -96,6 +96,36 @@
                 </el-col>
               </el-row>
               <el-row>
+                <el-col :span="8">
+                  <el-form-item :error="errordata" :label="$t('label.PFANS2032FROMVIEW_USERDATA')" prop="userdata">
+                    <user :disabled="!disable" :error="errordata" :selectType="selectType" :userlist="userdatalist"
+                          @getUserids="getUserdata" style="width:20vw" v-model="form.userdata"></user>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="16">
+                  <el-form-item :label="$t('label.PFANS2032FROMVIEW_REMARKDATA')">
+                    <el-input :disabled="!disable" style="width: 46vw;" type="textarea"
+                              v-model="form.remarkdata">
+                    </el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :error="errorwork" :label="$t('label.PFANS2032FROMVIEW_USERWORKFOLW')" prop="userwork">
+                    <user :disabled="!disable" :error="errorwork" :selectType="selectType" :userlist="userworkfolwlist"
+                          @getUserids="getUserwork" style="width:20vw" v-model="form.userworkfolw"></user>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="16">
+                  <el-form-item :label="$t('label.PFANS2032FROMVIEW_REMARKWORKFOLW')">
+                    <el-input :disabled="!disable" style="width: 46vw;" type="textarea"
+                              v-model="form.remarkworkfolw">
+                    </el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
                 <el-col :span="8" v-if="!checkdisable">
                   <el-form-item :label="$t('label.PFANS2030FROMVIEW_BUTTON2')">
                     <el-button @click="submitForm('ruleFormNew')" icon="el-icon-view" :disabled="false">
@@ -504,6 +534,27 @@
           return callback();
         }
       };
+      var userdata = (rule, value, callback) => {
+        if (!this.form.userdata || this.form.userdata === '' || this.form.userdata === 'undefined') {
+          this.errordata = this.$t('normal.error_09') + this.$t('label.PFANS2032FROMVIEW_USERDATA');
+          return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS2032FROMVIEW_USERDATA')));
+        } else {
+          this.errordata = '';
+          return callback();
+        }
+      };
+
+      var userwork = (rule, value, callback) => {
+        if (!this.form.userworkfolw || this.form.userworkfolw === '' || this.form.userworkfolw === 'undefined') {
+          this.errorwork = this.$t('normal.error_09') + this.$t('label.PFANS2032FROMVIEW_USERWORKFOLW');
+          return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS2032FROMVIEW_USERWORKFOLW')));
+        } else {
+          this.errorwork = '';
+          return callback();
+        }
+      };
+
+
       var checkrep = (rule, value, callback) => {
         if (this.disable1) {
           if (!this.form.reporter || this.form.reporter === '' || this.form.reporter === 'undefined') {
@@ -611,11 +662,15 @@
         d2: true,
         d3: true,
         d4: true,
+        errordata: '',
+        errorwork: '',
         error: '',
         errorreporter: '',
         selectType: 'Single',
         title: 'title.PFANS2032FROMVIEW',
         userlist: '',
+        userworkfolwlist: '',
+        userdatalist: '',
         reporterlist: '',
         activeName: 'second',
         loading: false,
@@ -639,6 +694,10 @@
         baseInfo: {},
         checkbox: false,
         form: {
+          userdata: '',
+          userworkfolw: '',
+          remarkdata: '',
+          remarkworkfolw: '',
           checkedgm: false,
           checkedcenter: false,
           starank: '',
@@ -674,6 +733,17 @@
           user_id: [{
             required: true,
             validator: checkuser,
+            trigger: 'change',
+          }],
+
+          userdata: [{
+            required: true,
+            validator: userdata,
+            trigger: 'change',
+          }],
+          userwork: [{
+            required: true,
+            validator: userwork,
             trigger: 'change',
           }],
           sex: [{
@@ -735,6 +805,8 @@
               this.tableD = response.citation;
             }
             this.userlist = this.form.user_id;
+            this.userworkfolwlist = this.form.userworkfolw;
+            this.userdatalist = this.form.userdata;
             this.reporterlist = this.form.reporter;
             this.baseInfo.staffexitproce = JSON.parse(JSON.stringify(this.form));
             this.baseInfo.citation = JSON.parse(JSON.stringify(this.tableD));
@@ -759,6 +831,8 @@
             this.form = response.staffexitprocedure;
             this.form.resignation_date = response.staffexitprocedure.hope_exit_date;
             this.userlist = this.form.user_id;
+            this.userworkfolwlist = this.form.userworkfolw;
+            this.userdatalist = this.form.userdata;
             if (this.$store.getters.userinfo) {
               this.reporterlist = this.$store.getters.userinfo.userid;
             }
@@ -820,10 +894,24 @@
         });
       },
       checkRequire() {
-        if (!this.form.jpwork_delivery) {
-          this.activeName = 'second';
-        } else if (!this.sex) {
-          this.activeName = 'fourth';
+        this.activeName = 'second';
+      },
+      getUserwork(val) {
+        this.userworkfolwlist = val;
+        this.form.userworkfolw = val;
+        if (!this.form.userworkfolw || this.form.userworkfolw === '' || typeof val == 'undefined') {
+          this.errorwork = this.$t('normal.error_08') + this.$t('label.PFANS2032FROMVIEW_USERWORKFOLW');
+        } else {
+          this.errorwork = '';
+        }
+      },
+      getUserdata(val) {
+        this.userdatalist = val;
+        this.form.userdata = val;
+        if (!this.form.userdata || this.form.userdata === '' || typeof val == 'undefined') {
+          this.errordata = this.$t('normal.error_08') + this.$t('label.PFANS2032FROMVIEW_USERDATA');
+        } else {
+          this.errordata = '';
         }
       },
       getUserids(val) {
@@ -1019,7 +1107,7 @@
                 duration: 5 * 1000,
               });
               this.loading = false;
-            }else{
+            } else {
               if (val === 'StartWorkflow') {
                 this.$refs.container.$refs.workflow.startWorkflow();
               }
@@ -1051,6 +1139,8 @@
             this.loading = true;
             this.baseInfo = {};
             this.form.user_id = this.userlist;
+            this.form.userworkfolw = this.userworkfolwlist;
+            this.form.userdata = this.userdatalist;
             this.form.reporter = this.reporterlist;
             this.form.application_date = moment(this.form.application_date).format('YYYY-MM-DD');
             if (this.form.entry_time) {
