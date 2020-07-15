@@ -1878,11 +1878,9 @@
         this.show10 = false;
       }
       //add-ws-6/22-禅道152任务
-      if (!this.disabled) {
         if (this.$route.params.state === this.$t('label.PFANS8008FORMVIEW_INVALID')) {
           this.buttonList = [];
         }
-      }
 //            if(this.$route.params._id === ''){
 //              this.buttonList.splice(3, 1);
 //            }
@@ -2161,17 +2159,17 @@
             }
             if (this.multipleSelection.length > 0) {
               for (let i = 0; i < this.multipleSelection.length; i++) {
-                if (this.multipleSelection[i].claimtype === '第一回') {
-                  countNumber = this.multipleSelection[i].contractnumber + '-1';
+                  if (this.multipleSelection[i].claimtype.indexOf("第一回") >= 0) {
+                      countNumber = this.multipleSelection[i].contractnumber + '-1';
                 }
-                if (this.multipleSelection[i].claimtype === '第二回') {
-                  countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-2';
+                  if (this.multipleSelection[i].claimtype.indexOf("第二回") >= 0) {
+                      countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-2';
                 }
-                if (this.multipleSelection[i].claimtype === '第三回') {
-                  countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-3';
+                  if (this.multipleSelection[i].claimtype.indexOf("第三回") >= 0) {
+                      countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-3';
                 }
-                if (this.multipleSelection[i].claimtype === '第四回') {
-                  countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-4';
+                  if (this.multipleSelection[i].claimtype.indexOf("第四回") >= 0) {
+                      countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-4';
                 }
               }
               var tabledata = {'contractnumber': contractNumber, 'rowindex': index, 'countNumber': countNumber};
@@ -3074,16 +3072,16 @@
                 }
                 if (this.multipleSelection.length > 0) {
                   for (let i = 0; i < this.multipleSelection.length; i++) {
-                    if (this.multipleSelection[i].claimtype === '第一回') {
+                      if (this.multipleSelection[i].claimtype.indexOf("第一回") >= 0) {
                       countNumber = this.multipleSelection[i].contractnumber + '-1';
                     }
-                    if (this.multipleSelection[i].claimtype === '第二回') {
+                      if (this.multipleSelection[i].claimtype.indexOf("第二回") >= 0) {
                       countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-2';
                     }
-                    if (this.multipleSelection[i].claimtype === '第三回') {
+                      if (this.multipleSelection[i].claimtype.indexOf("第三回") >= 0) {
                       countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-3';
                     }
-                    if (this.multipleSelection[i].claimtype === '第四回') {
+                      if (this.multipleSelection[i].claimtype.indexOf("第四回") >= 0) {
                       countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-4';
                     }
                   }
@@ -3561,6 +3559,7 @@
                 },
               });
             }
+              this.loading = false;
             //add-ws-7/1-禅道152任务
           })
           .catch(error => {
