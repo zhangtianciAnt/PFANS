@@ -20,11 +20,11 @@
             </el-form-item>
             <div class="dialog-footer" align="center">
               <el-button @click="saves">
-                  <span style="margin-right: 86%;">{{$t('button.save')}}
+                  <span style="margin-right: 66%;">{{$t('button.save')}}
                   </span>
               </el-button>
               <el-button slot="reference" @click="cancels">
-                  <span style="margin-right: 86%;">{{$t('button.cancel')}}
+                  <span style="margin-right: 66%;">{{$t('button.cancel')}}
                   </span>
               </el-button>
             </div>
@@ -689,16 +689,20 @@
         this.buttonClick("update");
       },
       saves() {
-        if (this.form1.tripreason != '' && this.form.tripreason != null) {
-          this.form.trip = '0';
-          this.dialogFormVisible = false;
           this.$refs['refform1'].validate(valid => {
             if (valid) {
+              this.form.trip = '0';
+              this.dialogFormVisible = false;
               this.form.tripreason = this.form1.tripreason;
               this.buttonClick();
+            } else {
+              Message({
+                message: this.$t('normal.error_12'),
+                type: 'error',
+                duration: 5 * 1000,
+              });
             }
           });
-        }
       },
       cancels() {
         this.dialogFormVisible = false;
