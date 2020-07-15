@@ -1970,6 +1970,7 @@
                     businesstype: response[i].businesstype,
                     datenumber: response[i].datenumber,
                     external: response[i].external,
+                    arrivenight: response[i].arrivenight,
                   });
                 }
               } else {
@@ -1985,6 +1986,7 @@
                     businesstype: response[i].businesstype,
                     datenumber: response[i].datenumber,
                     external: response[i].external,
+                    arrivenight: response[i].arrivenight,
                   });
                 }
               }
@@ -2016,6 +2018,7 @@
                     label: this.$t('menu.PFANS1002') + '_' + moment(response[i].createon).format('YYYY-MM-DD'),
                     abroadbusiness: response[i].abroadbusiness,
                     external: response[i].external,
+                    arrivenight: response[i].arrivenight,
                     companyprojectsname: response[i].companyprojectsname,
                     city: response[i].region,
                     startdate: response[i].startdate,
@@ -2034,6 +2037,7 @@
                     label: this.$t('menu.PFANS1002') + '_' + moment(response[i].createon).format('YYYY-MM-DD'),
                     abroadbusiness: response[i].abroadbusiness,
                     external: response[i].external,
+                    arrivenight: response[i].arrivenight,
                     companyprojectsname: response[i].companyprojectsname,
                     city: response[i].region,
                     startdate: response[i].startdate,
@@ -2822,6 +2826,7 @@
         for (var i = 0; i < this.relations.length; i++) {
           if (this.relations[i].value === val) {
             this.form.external = this.relations[i].external;
+            this.form.arrivenight = this.relations[i].arrivenight;
             this.form.abroadbusiness = this.relations[i].abroadbusiness;
           }
         }
@@ -2829,6 +2834,7 @@
       changebusiness(val) {
         this.form.startdate = '';
         this.form.enddate = '';
+        this.form.arrivenight = '';
         this.Todaysum = [];
         this.tableA = [];
         this.form.business_id = val;
@@ -2856,6 +2862,7 @@
             this.form.project_id = this.relations[i].companyprojectsname;
             this.form.abroadbusiness = this.relations[i].abroadbusiness;
             this.form.external = this.relations[i].external;
+            this.form.arrivenight = this.relations[i].arrivenight;
             this.form.startdate = this.relations[i].startdate;
             this.form.enddate = this.relations[i].enddate;
             this.form.datenumber = this.relations[i].datenumber;
@@ -2912,6 +2919,7 @@
         } else if (this.form.type === '1') {
           moneys = getDictionaryInfo('PJ035002').value8;
         }
+
         for (let i = 0; i < this.Todaysum.length; i++) {
           this.tableA.push({
             // code20: this.Redirict === '0' ? 'PJ119' : 'PJ132',
@@ -2951,9 +2959,15 @@
                 });
               }
             }
+            if (this.form.arrivenight === '1') {
+              this.tableA[0].subsidies = parseFloat(moneys) + 100;
+            } else {
+              this.tableA[0].subsidies = parseFloat(moneys);
+            }
           }
         }
       },
+
       change2(val) {
         this.form.loanamount = '';
         for (var i = 0; i < this.loans.length; i++) {
@@ -4040,6 +4054,7 @@
 
 
 </style>
+
 
 
 
