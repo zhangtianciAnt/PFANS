@@ -100,7 +100,7 @@
                 </el-form-item>
               </el-col>
               <el-col :span="8">
-                <el-form-item :label="$t('label.PFANS1012FORMVIEW_BUDGET')">
+                <el-form-item :label="$t('label.PFANS1012FORMVIEW_BUDGET')" prop="budgetnumber">
                   <el-select clearable style="width: 20vw" v-model="form.budgetnumber" :disabled="!disable"
                              :placeholder="$t('normal.error_09')">
                     <el-option
