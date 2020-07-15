@@ -231,6 +231,7 @@
             name: 'PFANS1026FormView',
             params: {
               _id: this.contractnumber,
+                state: this.state,
               disabled: false
             }
           })

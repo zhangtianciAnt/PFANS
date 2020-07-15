@@ -705,8 +705,7 @@
       };
     },
     mounted() {
-      this.getCompanyProjectList()
-
+      this.getCompanyProjectList();
       let role = getCurrentRole2();
       if (role === '0') {
         this.acceptShow1 = false;
@@ -730,10 +729,13 @@
                 this.form.budgetnumber = procurement.value2 + '_' + procurement.value3;
               }
             }
-            if (this.form.group_name != '' && this.form.group_name != null) {
-              this.orglist = this.form.group_name;
-              this.getchangeGroup(this.form.group_name)
+            if (this.form.group_id) {
+              this.getchangeGroup(this.form.group_id)
             }
+            // if (this.form.group_name != '' && this.form.group_name != null) {
+            //   this.orglist = this.form.group_name;
+            //   this.getchangeGroup(this.form.group_name)
+            // }
             //start(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
             let role = getCurrentRole2();
             if (role === '0') {

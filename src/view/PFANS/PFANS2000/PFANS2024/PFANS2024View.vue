@@ -187,7 +187,7 @@
                 response[j].contract = moment(response[j].contract).format('YYYY');
               }
               if (response[j].finishstatus == '0') {
-                response[j].finishstatus = '进行中';
+                response[j].finishstatus = '已保存';
               } else if (response[j].finishstatus == '1') {
                 response[j].finishstatus = '已完成';
               } else {
