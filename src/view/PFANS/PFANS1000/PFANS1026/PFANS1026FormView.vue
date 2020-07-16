@@ -775,21 +775,21 @@
             </el-table-column>
             <!--             ADD_FJL-->
             <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYDATE')" align="center" prop="deliverydate"
-                             width="170">
+                             width="200">
               <template slot-scope="scope">
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.deliverydate'" :rules='rules.deliverydate'>
                   <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.deliverydate"
-                                  style="width: 9.5rem"></el-date-picker>
+                                  style="width: 11rem"></el-date-picker>
                 </el-form-item>
               </template>
             </el-table-column>
             <el-table-column :label="$t('label.PFANS1024VIEW_COMPLETIONDATE')" align="center" prop="completiondate"
-                             width="170">
+                             width="200">
               <template slot-scope="scope">
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.completiondate'"
                               :rules='rules.completiondate'>
                   <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.completiondate"
-                                  style="width: 9.5rem"></el-date-picker>
+                                  style="width: 11rem"></el-date-picker>
                 </el-form-item>
               </template>
             </el-table-column>
