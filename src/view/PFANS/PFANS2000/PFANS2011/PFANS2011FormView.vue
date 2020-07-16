@@ -1095,9 +1095,9 @@
       //新建接口
       insertForm() {
         //总经理审批自动通过
-        if (getCurrentRole() === '1') {
-          this.form.status = '4';
-        }
+        // if (getCurrentRole() === '1') {
+        //   this.form.status = '4';
+        // }
         this.loading = true;
         this.$store
           .dispatch('PFANS2011Store/createOvertime', this.form)
