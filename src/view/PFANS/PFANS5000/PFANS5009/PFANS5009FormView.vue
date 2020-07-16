@@ -795,6 +795,7 @@
                   border
                   header-cell-class-name="sub_bg_color_blue"
                   style="width: 90vw"
+                  v-show="form.toolstype === '0' || !form.toolstype"
                 >
                   <el-table-column :label="$t('label.PFANS5009FORMVIEW_CONTRACT')" align="center"  width="200%">
                     <template slot-scope="scope">
@@ -981,6 +982,75 @@
                     </template>
                   </el-table-column>
                 </el-table>
+                <!--//ADD gbb 07-16 ,内采项目在现场管理中不显示合同-->
+                <el-table :data="tableclaimtype" stripe border header-cell-class-name="sub_bg_color_blue"
+                          style="width: 90vw" v-show="form.toolstype === '1'">
+                  <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMTYPE')" align="center" prop="claimtype"
+                                   width="130">
+                    <template slot-scope="scope">
+                      <el-input :disabled="!disable" v-model="scope.row.claimtype">
+                      </el-input>
+                    </template>
+                  </el-table-column>
+                  <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYDATE')" align="center" prop="deliverydate"
+                                   width="170">
+                    <template slot-scope="scope">
+                      <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.deliverydate"
+                                      style="width: 9.5rem"></el-date-picker>
+                    </template>
+                  </el-table-column>
+                  <el-table-column :label="$t('label.PFANS1024VIEW_COMPLETIONDATE')" align="center"
+                                   prop="completiondate"
+                                   width="170">
+                    <template slot-scope="scope">
+                      <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.completiondate"
+                                      style="width: 9.5rem"></el-date-picker>
+                    </template>
+                  </el-table-column>
+                  <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMDATE')" align="center" prop="claimdate"
+                                   width="170">
+                    <template slot-scope="scope">
+                      <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.claimdate"
+                                      style="width: 9.5rem"></el-date-picker>
+                    </template>
+                  </el-table-column>
+                  <el-table-column :label="$t('label.PFANS1024VIEW_SUPPORTDATE')" align="center" prop="supportdate"
+                                   width="170">
+                    <template slot-scope="scope">
+                      <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.supportdate"
+                                      style="width: 9.5rem"></el-date-picker>
+                    </template>
+                  </el-table-column>
+                  <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMAMOUNT')" align="center" prop="claimamount"
+                                   width="190">
+                    <template slot-scope="scope">
+                      <el-input-number v-model="scope.row.claimamount" controls-position="right" style="width: 11rem"
+                                       :disabled="!disabled" :min="0" :max="1000000000"
+                                       :precision="2"></el-input-number>
+                    </template>
+                  </el-table-column>
+                  <el-table-column :label="$t('label.operation')" align="center" width="200">
+                    <template slot-scope="scope">
+                      <el-button
+                        :disabled="!disable"
+                        @click.native.prevent="deleteRowClaim(scope.$index, tableclaimtype)"
+                        plain
+                        size="small"
+                        type="danger"
+                      >{{$t('button.delete')}}
+                      </el-button>
+                      <el-button
+                        :disabled="!disable"
+                        @click="addRowClaim()"
+                        plain
+                        size="small"
+                        type="primary"
+                      >{{$t('button.insert')}}
+                      </el-button>
+                    </template>
+                  </el-table-column>
+                </el-table>
+                <!--//ADD gbb 07-16 ,内采项目在现场管理中不显示合同 END-->
                 <el-table :data="tablecompound" stripe border header-cell-class-name="sub_bg_color_blue"
                           style="padding-top: 2vw" v-if="displaycompound">
                   <el-table-column
@@ -1168,6 +1238,14 @@
         }
       };
       return {
+        tableclaimtype: [{
+          claimtype: '',
+          deliverydate: '',
+          completiondate: '',
+          claimdate: '',
+          supportdate: '',
+          claimamount: 0,
+        }],
         currentRow5: '',
         adddisabled: false,
         disable: true,
@@ -1215,6 +1293,7 @@
           field: '',
           languages: '',
           startdate: moment(new Date()).format('YYYY-MM-DD'),
+          toolstype: '',
           enddate: '',
           work: '',
           deadline: moment(new Date()).format('YYYY-MM-DD'),
@@ -1546,6 +1625,11 @@
               //合同分配金额
               this.tablecompound = compound;
             }
+            //ADD gbb 07-16 ,内采项目在现场管理中不显示合同
+            if (response.contractnumbercount.length > 0) {
+              this.tableclaimtype = response.contractnumbercount;
+            }
+            //ADD gbb 07-16 ,内采项目在现场管理中不显示合同 END
             if (response.projectsystem.length > 0) {
               //项目体制
               this.tableB = [];
@@ -1805,6 +1889,33 @@
           ];
         }
       },
+      //ADD gbb 07-16 ,内采项目在现场管理中不显示合同
+      addRowClaim() {
+        this.tableclaimtype.push({
+          claimtype: '',
+          deliverydate: '',
+          completiondate: '',
+          claimdate: '',
+          supportdate: '',
+          claimamount: '',
+        });
+      },
+      //合同
+      deleteRowClaim(index, rows) {
+        if (rows.length > 1) {
+          rows.splice(index, 1);
+        } else {
+          this.tableclaimtype = [{
+            claimtype: '',
+            deliverydate: '',
+            completiondate: '',
+            claimdate: '',
+            supportdate: '',
+            claimamount: '',
+          }];
+        }
+      },
+      //ADD gbb 07-16 ,内采项目在现场管理中不显示合同 END
       getcontract() {
         this.contractapplication = {};
         // this.contractapplication.entrycondition = [];
@@ -2319,6 +2430,7 @@
             //ADD-WS-体制时间范围check
             let error1 = 0;
             //add-ws-6/9-禅道任务080
+            let error3 = 0;
             let listsum = [];
             let Listcheck = this.tableD;
             for (let list of Listcheck) {
@@ -2392,7 +2504,37 @@
                 });
               }
             }
-
+            //add-gbb-7/16-内采项目在现场管理中不显示合同
+            if (this.form.toolstype === '0') {
+              //this.form.toolsorgs = ' ';
+              this.tableclaimtype = [{
+                claimtype: '',
+                deliverydate: '',
+                completiondate: '',
+                claimdate: '',
+                supportdate: '',
+                claimamount: '',
+              }];
+            }
+            debugger;
+            this.baseInfo.contractnumbercount = this.tableclaimtype;
+            for (let i = 0; i < this.tableclaimtype.length; i++) {
+              if (this.tableclaimtype[i].claimtype == '' || this.tableclaimtype[i].deliverydate == '' || this.tableclaimtype[i].completiondate == '' || this.tableclaimtype[i].claimdate == '' || this.tableclaimtype[i].supportdate == '' || this.tableclaimtype[i].claimamount == '') {
+                error3 = error3 + 1;
+              }
+            }
+            if (error3 != 0 && this.form.toolstype !== '0') {
+              this.activeName = 'fifth';
+              this.loading = false;
+              Message({
+                message: this.$t('normal.error_08') +
+                  this.$t('label.PFANS5001FORMVIEW_CONTRACT') +
+                  this.$t('label.PFANS1024VIEW_CONTR'),
+                type: 'error',
+                duration: 5 * 1000,
+              });
+            }
+            //ADD gbb 07-16 ,内采项目在现场管理中不显示合同
             if (error1 === 0 && this.checkmessage != 1) {
               if (this.$route.params._id) {
                 this.baseInfo.companyprojects.companyprojects_id = this.$route.params._id;
