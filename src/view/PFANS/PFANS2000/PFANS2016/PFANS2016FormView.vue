@@ -835,8 +835,30 @@
             }
             if (this.form.status === '0' || this.form.status === '3') {
               if (this.form.user_id === '5e78fefff1560b363cdd6db7') {
-                this.workflowCode = 'W0070';
-              } else {
+                if (this.form.errortype === 'PR013009' || this.form.errortype === 'PR013010'
+                  || this.form.errortype === 'PR013011' || this.form.errortype === 'PR013012'
+                  || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015'
+                  || this.form.errortype === 'PR013016' || this.form.errortype === 'PR013017'
+                  || this.form.errortype === 'PR013020' || this.form.errortype === 'PR013021'
+                  || this.form.errortype === 'PR013022')
+                {
+                  this.workflowCode = 'W0087';
+                }
+                else
+                {
+                  this.workflowCode = 'W0070';
+                }
+              } else if(this.form.errortype === 'PR013009' || this.form.errortype === 'PR013010'
+                     || this.form.errortype === 'PR013011' || this.form.errortype === 'PR013012'
+                     || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015'
+                     || this.form.errortype === 'PR013016' || this.form.errortype === 'PR013017'
+                     || this.form.errortype === 'PR013020' || this.form.errortype === 'PR013021'
+                     || this.form.errortype === 'PR013022')
+              {
+                this.workflowCode = 'W0085';
+              }
+              else
+              {
                 this.workflowCode = 'W0003';
               }
 
@@ -847,8 +869,30 @@
               }
             } else if (this.form.status === '4' || this.form.status === '6') {
               if (this.form.user_id === '5e78fefff1560b363cdd6db7') {
-                this.workflowCode = 'W0071';
-              } else {
+                if (this.form.errortype === 'PR013009' || this.form.errortype === 'PR013010'
+                  || this.form.errortype === 'PR013011' || this.form.errortype === 'PR013012'
+                  || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015'
+                  || this.form.errortype === 'PR013016' || this.form.errortype === 'PR013017'
+                  || this.form.errortype === 'PR013020' || this.form.errortype === 'PR013021'
+                  || this.form.errortype === 'PR013022')
+                {
+                  this.workflowCode = 'W0088';
+                }
+                else
+                {
+                  this.workflowCode = 'W0071';
+                }
+
+              } else if(this.form.errortype === 'PR013009' || this.form.errortype === 'PR013010'
+                || this.form.errortype === 'PR013011' || this.form.errortype === 'PR013012'
+                || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015'
+                || this.form.errortype === 'PR013016' || this.form.errortype === 'PR013017'
+                || this.form.errortype === 'PR013020' || this.form.errortype === 'PR013021'
+                || this.form.errortype === 'PR013022')
+              {
+                this.workflowCode = 'W0086';
+              }
+              else {
                 this.workflowCode = 'W0059';
               }
               this.canStart = true;
@@ -872,8 +916,30 @@
             } else if (this.form.status === '7') {
               this.disrevacationtype = true;
               if (this.form.user_id === '5e78fefff1560b363cdd6db7') {
-                this.workflowCode = 'W0071';
-              } else {
+                if (this.form.errortype === 'PR013009' || this.form.errortype === 'PR013010'
+                  || this.form.errortype === 'PR013011' || this.form.errortype === 'PR013012'
+                  || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015'
+                  || this.form.errortype === 'PR013016' || this.form.errortype === 'PR013017'
+                  || this.form.errortype === 'PR013020' || this.form.errortype === 'PR013021'
+                  || this.form.errortype === 'PR013022')
+                {
+                  this.workflowCode = 'W0088';
+                }
+                else
+                {
+                  this.workflowCode = 'W0071';
+                }
+
+              } else if(this.form.errortype === 'PR013009' || this.form.errortype === 'PR013010'
+                || this.form.errortype === 'PR013011' || this.form.errortype === 'PR013012'
+                || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015'
+                || this.form.errortype === 'PR013016' || this.form.errortype === 'PR013017'
+                || this.form.errortype === 'PR013020' || this.form.errortype === 'PR013021'
+                || this.form.errortype === 'PR013022')
+              {
+                this.workflowCode = 'W0086';
+              }
+              else {
                 this.workflowCode = 'W0059';
               }
               this.canStart = false;
@@ -917,8 +983,30 @@
         this.getOvertimelist();
         // this.getWorktime();
         if (this.$store.getters.userinfo.userid === '5e78fefff1560b363cdd6db7') {
-          this.workflowCode = 'W0070';
-        } else {
+          if (this.form.errortype === 'PR013009' || this.form.errortype === 'PR013010'
+            || this.form.errortype === 'PR013011' || this.form.errortype === 'PR013012'
+            || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015'
+            || this.form.errortype === 'PR013016' || this.form.errortype === 'PR013017'
+            || this.form.errortype === 'PR013020' || this.form.errortype === 'PR013021'
+            || this.form.errortype === 'PR013022')
+          {
+            this.workflowCode = 'W0087';
+          }
+          else {
+            this.workflowCode = 'W0070';
+          }
+
+        }
+        else if(this.form.errortype === 'PR013009' || this.form.errortype === 'PR013010'
+          || this.form.errortype === 'PR013011' || this.form.errortype === 'PR013012'
+          || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015'
+          || this.form.errortype === 'PR013016' || this.form.errortype === 'PR013017'
+          || this.form.errortype === 'PR013020' || this.form.errortype === 'PR013021'
+          || this.form.errortype === 'PR013022')
+        {
+          this.workflowCode = 'W0085';
+        }
+        else {
           this.workflowCode = 'W0003';
         }
       }
@@ -1755,15 +1843,15 @@
       },
       workflowState(val) {
         if (val.state === '1') {
-          if (val.workflowCode === 'W0003' || val.workflowCode === 'W0070') {
+          if (val.workflowCode === 'W0003' || val.workflowCode === 'W0070' || val.workflowCode === 'W0085' || val.workflowCode === 'W0087') {
             this.form.status = '3';
-          } else if (val.workflowCode === 'W0059' || val.workflowCode === 'W0071') {
+          } else if (val.workflowCode === 'W0059' || val.workflowCode === 'W0071' || val.workflowCode === 'W0086' || val.workflowCode === 'W0088') {
             this.form.status = '6';
           }
         } else if (val.state === '2') {
-          if (val.workflowCode === 'W0003' || val.workflowCode === 'W0070') {
+          if (val.workflowCode === 'W0003' || val.workflowCode === 'W0070' || val.workflowCode === 'W0085'|| val.workflowCode === 'W0087') {
             this.form.status = '4';
-          } else if (val.workflowCode === 'W0059' || val.workflowCode === 'W0071') {
+          } else if (val.workflowCode === 'W0059' || val.workflowCode === 'W0071' || val.workflowCode === 'W0086' || val.workflowCode === 'W0088') {
             this.form.status = '7';
             this.canStart = false;
 
@@ -2536,9 +2624,9 @@
             });
         } else {
           //总经理审批自动通过
-          if (getCurrentRole() === '1') {
-            this.form.status = '4';
-          }
+          // if (getCurrentRole() === '1') {
+          //   this.form.status = '4';
+          // }
           this.loading = true;
           this.$store
             .dispatch('PFANS2016Store/createPfans2016', this.form)
