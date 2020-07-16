@@ -775,21 +775,21 @@
             </el-table-column>
             <!--             ADD_FJL-->
             <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYDATE')" align="center" prop="deliverydate"
-                             width="170">
+                             width="200">
               <template slot-scope="scope">
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.deliverydate'" :rules='rules.deliverydate'>
                   <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.deliverydate"
-                                  style="width: 9.5rem"></el-date-picker>
+                                  style="width: 11rem"></el-date-picker>
                 </el-form-item>
               </template>
             </el-table-column>
             <el-table-column :label="$t('label.PFANS1024VIEW_COMPLETIONDATE')" align="center" prop="completiondate"
-                             width="170">
+                             width="200">
               <template slot-scope="scope">
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.completiondate'"
                               :rules='rules.completiondate'>
                   <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.completiondate"
-                                  style="width: 9.5rem"></el-date-picker>
+                                  style="width: 11rem"></el-date-picker>
                 </el-form-item>
               </template>
             </el-table-column>
@@ -1383,7 +1383,6 @@
         multiple: false,
         rowindex: '',
         ruleSet: {
-          // 111
           'save': ['contractnumber', 'varto', 'deliverydate', 'completiondate', 'deliveryfinshdate', 'completiondate', 'loadingjudge'],
           'makeinto': ['contractnumber'],
           '1': ['supportdate', 'deliverydate', 'completiondate', 'deliveryfinshdate', 'custojapanese', 'conchinese', 'conjapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount', 'loadingjudge'],
@@ -1878,11 +1877,9 @@
         this.show10 = false;
       }
       //add-ws-6/22-禅道152任务
-      if (!this.disabled) {
         if (this.$route.params.state === this.$t('label.PFANS8008FORMVIEW_INVALID')) {
           this.buttonList = [];
         }
-      }
 //            if(this.$route.params._id === ''){
 //              this.buttonList.splice(3, 1);
 //            }
@@ -2161,17 +2158,17 @@
             }
             if (this.multipleSelection.length > 0) {
               for (let i = 0; i < this.multipleSelection.length; i++) {
-                if (this.multipleSelection[i].claimtype === '第一回') {
-                  countNumber = this.multipleSelection[i].contractnumber + '-1';
+                  if (this.multipleSelection[i].claimtype.indexOf("第一回") >= 0) {
+                      countNumber = this.multipleSelection[i].contractnumber + '-1';
                 }
-                if (this.multipleSelection[i].claimtype === '第二回') {
-                  countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-2';
+                  if (this.multipleSelection[i].claimtype.indexOf("第二回") >= 0) {
+                      countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-2';
                 }
-                if (this.multipleSelection[i].claimtype === '第三回') {
-                  countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-3';
+                  if (this.multipleSelection[i].claimtype.indexOf("第三回") >= 0) {
+                      countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-3';
                 }
-                if (this.multipleSelection[i].claimtype === '第四回') {
-                  countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-4';
+                  if (this.multipleSelection[i].claimtype.indexOf("第四回") >= 0) {
+                      countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-4';
                 }
               }
               var tabledata = {'contractnumber': contractNumber, 'rowindex': index, 'countNumber': countNumber};
@@ -3074,16 +3071,16 @@
                 }
                 if (this.multipleSelection.length > 0) {
                   for (let i = 0; i < this.multipleSelection.length; i++) {
-                    if (this.multipleSelection[i].claimtype === '第一回') {
+                      if (this.multipleSelection[i].claimtype.indexOf("第一回") >= 0) {
                       countNumber = this.multipleSelection[i].contractnumber + '-1';
                     }
-                    if (this.multipleSelection[i].claimtype === '第二回') {
+                      if (this.multipleSelection[i].claimtype.indexOf("第二回") >= 0) {
                       countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-2';
                     }
-                    if (this.multipleSelection[i].claimtype === '第三回') {
+                      if (this.multipleSelection[i].claimtype.indexOf("第三回") >= 0) {
                       countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-3';
                     }
-                    if (this.multipleSelection[i].claimtype === '第四回') {
+                      if (this.multipleSelection[i].claimtype.indexOf("第四回") >= 0) {
                       countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-4';
                     }
                   }
@@ -3467,6 +3464,12 @@
                   });
               }
             }
+          } else {
+            Message({
+              message: this.$t('normal.error_12'),
+              type: 'error',
+              duration: 5 * 1000,
+            });
           }
         });
       },
@@ -3561,6 +3564,7 @@
                 },
               });
             }
+              this.loading = false;
             //add-ws-7/1-禅道152任务
           })
           .catch(error => {

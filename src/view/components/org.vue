@@ -54,9 +54,10 @@
       //   })
       this.data = this.$store.getters.orgList;
       this.orglistids = this.orglist
-
-      if (!Array.isArray(this.orglistids)) {
-        this.orglistids = this.orglistids.split(',')
+      if (this.orglistids != null) {
+        if (!Array.isArray(this.orglistids)) {
+          this.orglistids = this.orglistids.split(',')
+        }
       }
       this.checkedList = this.orglistids;
 

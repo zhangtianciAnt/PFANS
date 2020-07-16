@@ -22,11 +22,18 @@
         // 列属性
         columns: [
           {
-            code: 'workflowname',
-            label: 'label.workflow_name',
-            width: 200,
+            code: 'code',
+            label: 'CODE',
+            width: 100,
             fix: false,
             filter: false
+          },
+          {
+            code: 'workflowname',
+            label: 'label.workflow_name',
+            width: 300,
+            fix: false,
+            filter: false,
           },
           {
             code: 'formname',
@@ -38,7 +45,7 @@
           {
             code: 'workflowtext',
             label: 'label.workflow_remarks',
-            width: 600,
+            width: 500,
             fix: false,
             filter: false
           }
@@ -92,6 +99,7 @@
         this.$store
           .dispatch('workflowStore/getWorkflowList', {})
           .then(response => {
+            debugger;
             this.data = response;
             this.loading = false;
           })
@@ -182,6 +190,13 @@
       },
       // table格式化
       formatter(row, column) {
+        //add by lin start 2020-07-15
+        if (column.property === 'code') {
+          if (row.code) {
+            return row.code;
+          }
+        }
+        //add by lin end 2020-07-15
         if (column.property === "workflowname") {
           if (row.workflowname) {
             return row.workflowname;
