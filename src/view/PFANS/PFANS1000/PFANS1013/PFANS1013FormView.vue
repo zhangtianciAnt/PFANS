@@ -2524,17 +2524,17 @@
       },
       addRow() {
         //add_fjl_0710 禅道任务264 start
-        let budgetcodinglet = '';
-        if (this.tableT[0].budgetcoding !== '' && this.tableT[0].budgetcoding !== null) {
-          let bucoding = getDictionaryInfo(this.tableT[0].budgetcoding);
-          if (bucoding) {
-            budgetcodinglet = bucoding.value2 + '_' + bucoding.value3;
-          }
-        }
+          // let budgetcodinglet = '';
+          // if (this.tableT[0].budgetcoding !== '' && this.tableT[0].budgetcoding !== null) {
+          //   let bucoding = getDictionaryInfo(this.tableT[0].budgetcoding);
+          //   if (bucoding) {
+          //     budgetcodinglet = bucoding.value2 + '_' + bucoding.value3;
+          //   }
+          // }
         //add_fjl_0710 禅道任务264 end
         this.tableT.push({
           optionsT: this.tableT[0].optionsT,
-          budgetcoding: budgetcodinglet,
+            budgetcoding: this.tableT[0].budgetcoding,
           evectionid: '',
           trafficdetails_id: '',
           publicexpenseid: '',
@@ -2565,13 +2565,13 @@
           moneys = getDictionaryInfo('PJ035002').value8;
         }
         //add_fjl_0710 禅道任务264 start
-        let budgetcodinglet = '';
-        if (this.tableA[0].budgetcoding !== '' && this.tableA[0].budgetcoding !== null) {
-          let bucoding = getDictionaryInfo(this.tableA[0].budgetcoding);
-          if (bucoding) {
-            budgetcodinglet = bucoding.value2 + '_' + bucoding.value3;
-          }
-        }
+          // let budgetcodinglet = '';
+          // if (this.tableA[0].budgetcoding !== '' && this.tableA[0].budgetcoding !== null) {
+          //   let bucoding = getDictionaryInfo(this.tableA[0].budgetcoding);
+          //   if (bucoding) {
+          //     budgetcodinglet = bucoding.value2 + '_' + bucoding.value3;
+          //   }
+          // }
         //add_fjl_0710 禅道任务264 end
         this.tableA.push({
           evectionid: '',
@@ -2585,7 +2585,7 @@
           plsummary: this.plsummaryflg,
           accountcode: this.newaccountcodeflg,
           optionsA: this.tableA[0].optionsA,
-          budgetcoding: budgetcodinglet,
+            budgetcoding: this.tableA[0].budgetcoding,
           subjectnumber: this.accflg,
           city: '',
           region: '',
