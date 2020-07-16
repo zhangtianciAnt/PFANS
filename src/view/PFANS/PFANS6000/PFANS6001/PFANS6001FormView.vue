@@ -231,6 +231,26 @@
           </el-row>
 
           <el-row>
+            <el-col :span="8">
+              <el-form-item :error="errorgroup" :label="$t('label.group')" prop="group_id">
+                <org :disabled="!disabled" :error="errorgroup" :orglist="grouporglist" @getOrgids="getGroupId"
+                     orgtype="2" style="width:20vw"></org>
+              </el-form-item>
+            </el-col>
+
+            <el-col :span="8">
+              <el-form-item :error="erroradmissiontime" :label="$t('label.PFANS6004FORMVIEW_ADMISSIONTIME')"
+                            prop="admissiontime">
+                <el-date-picker
+                  :disabled="!disabled"
+                  style="width:20vw"
+                  type="date"
+                  v-model="form.admissiontime">
+                </el-date-picker>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
 
             <el-col :span="24">
               <el-form-item :label="$t('label.remarks')">
@@ -290,6 +310,40 @@
           return callback();
         }
       };
+      //group
+      var checkgroup = (rule, value, callback) => {
+        if (!value || value === '') {
+          if(this.form.whetherentry === "BP006001"){
+            this.errorgroup = this.$t('normal.error_09') + this.$t('label.group');
+            return callback(new Error(this.$t('normal.error_09') + this.$t('label.group')));
+          }
+          else{
+            this.errorgroup = '';
+            return callback();
+          }
+        } else {
+          this.errorgroup = '';
+          return callback();
+        }
+      };
+      //入场时间
+      var valadmissiontime = (rule, value, callback) => {
+        if (this.form.exits == '0') {
+          if (this.form.exitime !== null && this.form.exitime !== '') {
+            if (moment(value).format('YYYY-MM-DD') > moment(this.form.exitime).format('YYYY-MM-DD')) {
+              callback(new Error(this.$t('label.PFANS6004FORMVIEW_ADMISSIONTIME') + this.$t('normal.error_checkTime2') + this.$t('label.PFANS2002FORMVIEW_EXITTIME')));
+              this.erroradmissiontime = this.$t('label.PFANS6004FORMVIEW_ADMISSIONTIME') + this.$t('normal.error_checkTime2') + this.$t('label.PFANS2002FORMVIEW_EXITTIME');
+            } else {
+              callback();
+              this.erroradmissiontime = '';
+              this.errorexitime = '';
+            }
+          }
+        } else {
+          callback();
+          this.erroradmissiontime = '';
+        }
+      };
       return {
         age: '',
         loading: false,
@@ -323,6 +377,8 @@
           rn: '',
           whetherentry: '',
           remarks: '',
+          group_id: '',
+          admissiontime: '',
         },
 
         code1: 'PR019',
@@ -338,7 +394,9 @@
         code6: 'BP006',
         disabled: true,
         dialogTableVisible: false,
-
+        erroradmissiontime: '',
+        grouporglist: '',
+        errorgroup: '',
         rules: {
 
           expname: [
@@ -452,6 +510,23 @@
               trigger: 'change',
             },
           ],
+          //所属部门
+          group_id: [
+            {
+              required: true,
+              validator: checkgroup,
+              trigger: 'change',
+            },
+          ],
+          // 入场时间
+          admissiontime: [
+            {
+              required: true,
+              message: this.$t('normal.error_09') + this.$t('label.PFANS6004FORMVIEW_ADMISSIONTIME'),
+              trigger: 'change',
+            },
+            {validator: valadmissiontime, trigger: 'change'},
+          ],
         },
       };
     },
@@ -466,6 +541,7 @@
           .then(response => {
             this.form = response;
             this.tempupdexpname = this.form.expname;
+            this.grouporglist = this.form.group_id;
             if(this.form.birth!=''){
               let birthdays = new Date(this.form.birth);
               let d = new Date();
@@ -481,6 +557,19 @@
               this.age = agenew;
             }else{
               this.age = 0 ;
+            }
+            //入场与否
+            if(this.form.whetherentry === "BP006002"){
+              //所属部门
+              this.rules.group_id[0].required = false;
+              //入场时间
+              this.rules.admissiontime[0].required = false;
+            }
+            else{
+              //所属部门
+              this.rules.group_id[0].required = true;
+              //入场时间
+              this.rules.admissiontime[0].required = true;
             }
             //this.form.interview_date = moment(response.interview_date).format('YYYY-MM-DD');
             this.loading = false;
@@ -544,6 +633,20 @@
       },
       changewhetherentry(val) {
         this.form.whetherentry = val;
+        if(val === "BP006002"){
+          //所属部门
+          this.rules.group_id[0].required = false;
+          this.errorgroup = '';
+          //入场时间
+          this.rules.admissiontime[0].required = false;
+          this.erroradmissiontime = '';
+        }
+        else{
+          //所属部门
+          this.rules.group_id[0].required = true;
+          //入场时间
+          this.rules.admissiontime[0].required = true;
+        }
       },
       handleCurrentChange(val) {
         this.currentRow = val;
@@ -716,7 +819,18 @@
             });
             this.loading = false;
           });
-      }
+      },
+      getGroupId(val) {
+        this.form.group_id = val;
+        this.grouporglist = val;
+        if (!this.form.group_id || this.form.group_id === '' || val === 'undefined') {
+          if(this.form.whetherentry === "BP006001"){
+            this.errorgroup = this.$t('normal.error_09') + this.$t('label.group');
+          }
+        } else {
+          this.errorgroup = '';
+        }
+      },
     },
   };
 </script>
