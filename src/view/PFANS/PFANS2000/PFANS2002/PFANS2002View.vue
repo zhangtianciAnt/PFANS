@@ -139,7 +139,9 @@
                         if (this.data[j].interview !== null && this.data[j].interview !== "" && this.data[j].interview !== undefined) {
                             for (var val of JSON.parse(this.data[j].interview)) {
                                 if (val.interviewer) {
-                                    interview += getUserInfo(val.interviewer).userinfo.customername + ",";
+                                    if (getUserInfo(val.interviewer)) {
+                                        interview += getUserInfo(val.interviewer).userinfo.customername + ",";
+                                    }
                                 }
                             }
                         }
