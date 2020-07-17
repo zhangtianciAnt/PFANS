@@ -717,6 +717,11 @@
                   });
                 }
               } else {
+                Message({
+                  message: this.$t('label.PFANS1045VIEW_CHECK5'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
                 this.loading = false;
               }
             } else {
