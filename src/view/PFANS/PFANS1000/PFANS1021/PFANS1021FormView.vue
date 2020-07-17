@@ -158,19 +158,19 @@
                        @getOrgids="getGroupId2"></org>
                 </template>
               </el-table-column>
-<!--              <el-table-column :label="$t('label.PFANS1021FORMVIEW_PHONENUMBER')" align="center" prop="phonenumber"-->
-<!--                               width="200">-->
-<!--                <template slot-scope="scope">-->
-<!--                  <el-input :disabled="!disabled" :no="scope.row" maxlength="20" v-model="scope.row.phonenumber">-->
-<!--                  </el-input>-->
-<!--                </template>-->
-<!--              </el-table-column>-->
-<!--              <el-table-column :label="$t('label.email')" align="center" prop="emaildetail" width="200">-->
-<!--                <template slot-scope="scope">-->
-<!--                  <el-input :disabled="!disabled" :no="scope.row" maxlength="20" v-model="scope.row.emaildetail">-->
-<!--                  </el-input>-->
-<!--                </template>-->
-<!--              </el-table-column>-->
+              <!--              <el-table-column :label="$t('label.PFANS1021FORMVIEW_PHONENUMBER')" align="center" prop="phonenumber"-->
+              <!--                               width="200">-->
+              <!--                <template slot-scope="scope">-->
+              <!--                  <el-input :disabled="!disabled" :no="scope.row" maxlength="20" v-model="scope.row.phonenumber">-->
+              <!--                  </el-input>-->
+              <!--                </template>-->
+              <!--              </el-table-column>-->
+              <!--              <el-table-column :label="$t('label.email')" align="center" prop="emaildetail" width="200">-->
+              <!--                <template slot-scope="scope">-->
+              <!--                  <el-input :disabled="!disabled" :no="scope.row" maxlength="20" v-model="scope.row.emaildetail">-->
+              <!--                  </el-input>-->
+              <!--                </template>-->
+              <!--              </el-table-column>-->
               <el-table-column :label="$t('label.PFANS1021FORMVIEW_STARTDATE')" align="center" prop="startdate"
                                width="200">
                 <template slot-scope="scope">
@@ -262,7 +262,7 @@
   import dicselect from '../../../components/dicselect.vue';
   import user from '../../../components/user.vue';
   import {Message} from 'element-ui';
-  import {getCurrentRole4, getOrgInfoByUserId, getUserInfo} from '@/utils/customize';
+  import {getCurrentRole4, getOrgInfoByUserId, getUserInfo, getUserInfoName} from '@/utils/customize';
   import org from '../../../components/org';
   import {validateEmail} from '@/utils/validate';
   import moment from 'moment';
@@ -338,6 +338,12 @@
 
       };
       return {
+        //add-ws-7/27-禅道298任务
+        jude: [],
+        detailcenterid: '',
+        detailgroupid: '',
+        detailteamid: '',
+        //add-ws-7/27-禅道298任务
         baseInfo: {},
         userlist: '',
         loading: false,
@@ -550,6 +556,50 @@
             this.loading = false;
           });
       } else {
+        //add-ws-7/27-禅道298任务  5e78b1f74e3b194874180de1
+        if (this.$route.params._name) {
+          this.form.subtype = 'PJ029001';
+          this.jude = this.$route.params._name;
+          for (var i = 0; i < this.jude.length; i++) {
+            if (i >= 1) {
+              if (getUserInfoName(this.jude[i].customername) !== '-1') {
+                let userid = getUserInfoName(this.jude[i].customername).userid;
+                let lst = getOrgInfoByUserId(userid);
+                this.detailcenterid = lst.centerId;
+                this.detailgroupid = lst.groupId;
+                this.detailteamid = lst.teamId;
+              }
+              this.form.tableD.push({
+                securitydetailid: '',
+                securityid: '',
+                title: this.jude[i].customername,
+                detailcenter_id: this.detailcenterid,
+                detailgroup_id: this.detailgroupid,
+                detailteam_id:  this.detailteamid,
+                phonenumber: '',
+                emaildetail: '',
+                startdate: '',
+                company: '',
+                timea: '',
+                fabuilding: '',
+              });
+            } else {
+              this.form.tableD[0].title = this.jude[i].customername;
+              if (getUserInfoName(this.jude[i].customername) !== '-1') {
+                let userid = getUserInfoName(this.jude[i].customername).userid;
+                let lst = getOrgInfoByUserId(userid);
+                this.form.tableD[0].detailcenter_id = lst.centerId;
+                this.form.tableD[0].detailgroup_id = lst.groupId;
+                this.form.tableD[0].detailteam_id = lst.teamId;
+              }
+            }
+          }
+
+          // this.form.tableD[i].detailcenter_id = this.jude[i].centername;
+          // this.form.tableD[i].detailgroup_id = this.jude[i].groupname;
+          // this.form.tableD[i].detailteam_id = this.jude[i].teamname;
+        }
+        //add-ws-7/27-禅道298任务
         this.userlist = this.$store.getters.userinfo.userid;
         if (this.userlist !== null && this.userlist !== '') {
           let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);

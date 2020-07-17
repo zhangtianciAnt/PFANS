@@ -185,7 +185,8 @@ module.exports = {
     error_pfans5001: '外协员工的入离场时间不能为空',
     error_pfans50011: '社内员工的进组或退出时间不能为空',
     error_tipis:'之前作成的书类要被替换,是否继续？',
-    info_14:'生成当前事业年度所有员工的人才育成计划数据,是否继续？'
+    info_14: '生成当前事业年度所有员工的人才育成计划数据,是否继续？',
+    error_16: '您选择的资产中有已报废的资产！'
   },
   menu: {
     homePageManagement: '首页',
@@ -2124,6 +2125,9 @@ module.exports = {
     PFANS1044VIEW_CMSHS: 'CMS回收方法',
     PFANS1045VIEW_CHECKCYCLE: '本周期已创建方针合同，请勿重复创建',
     PFANS1045VIEW_CHECK: '此外协公司已关联方针合同，请勿重复关联',
+    PFANS1045VIEW_CHECK2: '外协公司每周期只可创建一条数据',
+    PFANS1045VIEW_CHECK3: '请先填写外协公司，再输入周期',
+    PFANS1045VIEW_CHECK4: '起案金额不可为0',
     PFANS1045VIEW_OUTSOURCINGCOMPANY: '外协公司',
     PFANS1045VIEW_AMOUNTCASE: '起案金额',
     PFANS1045VIEW_MODIFIEDAMOUNT: '修改后金额',

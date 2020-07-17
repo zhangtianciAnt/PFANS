@@ -853,16 +853,30 @@
             duration: 2 * 1000
           });
         } else {
+          let error_BF = 0;
+          for (let i = 0; i < this.selectedlist.length; i++) {
+            if (this.selectedlist[i].assetstatus == '报废') {
+              error_BF += 1;
+            }
+          }
           if (val == '0') {
             // 报废
-            this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1007FormView');
-            this.$router.push({
-              name: 'PFANS1007FormView',
-              params: {
-                _selectedList: JSON.stringify(this.selectedlist),
-                disabled: true,
-              },
-            });
+            if (error_BF != 0) {
+              Message({
+                message: this.$t("normal.error_16"),
+                type: 'info',
+                duration: 2 * 1000
+              });
+            } else {
+              this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1007FormView');
+              this.$router.push({
+                name: 'PFANS1007FormView',
+                params: {
+                  _selectedList: JSON.stringify(this.selectedlist),
+                  disabled: true,
+                },
+              });
+            }
           } else if (val == '1') {
             // 转移
             this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1008FormView');

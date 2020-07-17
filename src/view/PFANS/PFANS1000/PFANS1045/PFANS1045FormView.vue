@@ -236,7 +236,7 @@
               </el-row>
             </el-tab-pane>
 
-            <el-tab-pane :label="$t('label.PFANS1002FORMVIEW_NUBERSGLJC')" name="second">
+            <el-tab-pane :label="$t('label.PFANS1002FORMVIEW_NUBERSGLJC')" name="second" v-if="this.$route.params._id">
               <el-row>
                 <el-table
                   :data="DataList"
@@ -447,20 +447,23 @@
         this.form.modifiedamount = val;
       },
       getaward() {
+        this.DataList = [];
         this.loading = true;
         this.$store
           .dispatch('PFANS1006Store/getaward')
           .then(response => {
               for (let i = 0; i < response.length; i++) {
-                if (response[i].status !== null && response[i].status !== '') {
-                  response[i].status = getStatus(response[i].status);
+                if (response[i].policycontract_id === this.$route.params._id) {
+                  if (response[i].status !== null && response[i].status !== '') {
+                    response[i].status = getStatus(response[i].status);
+                  }
+                  this.DataList.push({
+                    award_id: response[i].award_id,
+                    claimamount: response[i].claimamount,
+                    contractnumber: response[i].contractnumber,
+                    status: response[i].status,
+                  });
                 }
-                this.DataList.push({
-                  award_id: response[i].award_id,
-                  claimamount: response[i].claimamount,
-                  contractnumber: response[i].contractnumber,
-                  status: response[i].status,
-                });
               }
               this.loading = false;
             },
@@ -577,16 +580,25 @@
         this.buttonClick('save');
       },
       changeAcc(val) {
+        if (this.form.outsourcingcompany === '') {
+          this.form.cycle = '';
+          Message({
+            message: this.$t('label.PFANS1045VIEW_CHECK3'),
+            type: 'error',
+            duration: 5 * 1000,
+          });
+          return;
+        }
         this.checkcycle = 0;
         this.form.cycle = val;
         this.loading = true;
         this.$store
-          .dispatch('PFANS1006Store/chackcycle', {'cycle': this.form.cycle})
+          .dispatch('PFANS1006Store/chackcycle', this.form)
           .then(response => {
-            if (response.errorcheck != '0') {
+            if (response.length == 1) {
               this.checkcycle = 1;
               Message({
-                message: this.$t('label.PFANS1045VIEW_CHECKCYCLE'),
+                message: this.$t('label.PFANS1045VIEW_CHECK2'),
                 type: 'error',
                 duration: 5 * 1000,
               });
@@ -605,10 +617,7 @@
       },
       paramsTitle() {
         this.$router.push({
-          name: 'PFANS1001FormView',
-          params: {
-            title: 12,
-          },
+          name: 'PFANS1045View',
         });
       },
 
@@ -618,6 +627,14 @@
         } else {
           this.$refs['reff'].validate(valid => {
             if (valid) {
+              if (this.form.amountcase === 0) {
+                Message({
+                  message: this.$t('label.PFANS1045VIEW_CHECK4'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                return;
+              }
               this.form.user_id = this.userlist;
               this.baseInfo = {};
               this.baseInfo.policycontract = [];
