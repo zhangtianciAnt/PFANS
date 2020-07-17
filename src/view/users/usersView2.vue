@@ -651,6 +651,12 @@ export default {
                   _tableList[j].rank
                 ).value1;
                 }
+              //add-ws-7/17-禅道bug35
+              if (_tableList[j].resignation_date)
+                _tableList[j].resignation_date = moment(_tableList[j].resignation_date).format(
+                  "YYYY-MM-DD"
+                );
+              //add-ws-7/17-禅道bug35
               if (_tableList[j].enterday)
                 _tableList[j].enterday = moment(_tableList[j].enterday).format(
                   "YYYY-MM-DD"
@@ -775,6 +781,12 @@ export default {
                 _tableList[j].enterday = moment(_tableList[j].enterday).format(
                   "YYYY-MM-DD"
                 );
+              //add-ws-7/17-禅道bug35
+              if (_tableList[j].resignation_date)
+                _tableList[j].resignation_date = moment(_tableList[j].resignation_date).format(
+                  "YYYY-MM-DD"
+                );
+              //add-ws-7/17-禅道bug35
               if (_tableList[j].birthday)
                 _tableList[j].birthday = moment(_tableList[j].birthday).format(
                   "YYYY-MM-DD"
@@ -798,6 +810,9 @@ export default {
           this.tableList = _tableList;
           this.TABLEList = _tableList;
           this.loading = false;
+          //add-ws-7/17-禅道bug35
+          this.filterInfo();
+          //add-ws-7/17-禅道bug35
         })
         .catch(err => {
           Message({
