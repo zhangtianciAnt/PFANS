@@ -290,6 +290,13 @@
             fix: false,
             filter: true,
           },
+          {
+            code: 'canafvermoney',
+            label: 'label.PFANS1030FORMVIEW_CANAFVERMONEY',
+            width: 130,
+            fix: false,
+            filter: true,
+          },
         ],
 //        add_fjl_05/27  --添加暂借款申请单列表
         //       add-ws-5/27-No.170
