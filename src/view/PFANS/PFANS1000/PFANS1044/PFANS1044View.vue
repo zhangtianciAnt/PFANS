@@ -514,6 +514,7 @@
           .dispatch('PFANS1026Store/get', {})
           .then(response => {
             let letcontractnumber = [];
+            this.alldata = [];
             let tabledata = response.contractapplication;
             for (let i = 0; i < tabledata.length; i++) {
               tabledata[i].status = getStatus(tabledata[i].status);
