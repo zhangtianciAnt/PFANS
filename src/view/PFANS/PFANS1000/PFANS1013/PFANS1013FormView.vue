@@ -2841,7 +2841,6 @@
         for (var i = 0; i < this.relations.length; i++) {
           if (this.relations[i].value === val) {
             this.form.external = this.relations[i].external;
-            this.form.arrivenight = this.relations[i].arrivenight;
             this.form.abroadbusiness = this.relations[i].abroadbusiness;
           }
         }
@@ -2859,15 +2858,6 @@
             if (cityinfo) {
               this.form.place = cityinfo.value1;
               this.region = cityinfo.code;
-
-              // this.tableA[1].region = cityinfo.code;
-              // if (cityinfo.code === 'PJ017001' || cityinfo.code === 'PJ017002') {
-              //   // this.tableA[0].currency = 'PG019002';
-              //   // this.tableA[1].currency = 'PG019002';
-              // } else if (cityinfo.code === 'PJ017003' || cityinfo.code === 'PJ017004') {
-              //   // this.tableA[0].currency = 'PG019001';
-              //   // this.tableA[1].currency = 'PG019001';
-              // }
             }
             this.rank = this.relations[i].level;
             let dict = getDictionaryInfo(this.relations[i].level);
@@ -2881,12 +2871,6 @@
             this.form.startdate = this.relations[i].startdate;
             this.form.enddate = this.relations[i].enddate;
             this.form.datenumber = this.relations[i].datenumber;
-            // this.tableT[0].trafficdate = this.form.startdate;
-            // this.tableR[0].otherdetailsdate = this.form.startdate;
-            // this.tableA[0].accommodationdate = [this.relations[i].startdate, this.relations[i].enddate];
-            // this.tableA[0].subjectnumber = getDictionaryInfo(this.tableA[0].accountcode).value2;
-            // this.tableA[1].accommodationdate = [this.relations[i].startdate, this.relations[i].enddate];
-            // this.tableA[1].subjectnumber = getDictionaryInfo(this.tableA[1].accountcode).value2;
           }
         }
         if (this.form.startdate != '' && this.form.enddate != '' && moment(this.form.startdate).format('YYYY-MM-DD') != moment(this.form.enddate).format('YYYY-MM-DD')) {
