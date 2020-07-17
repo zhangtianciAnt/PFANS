@@ -3561,7 +3561,7 @@
             },
             // zqu start 工资tab 录入项change事件
             wagesChange(row, noId, val, prop) {
-                //其他3
+                //其他3ok
                 if (prop === 'other3') {
                     //纳税工资总额(小计1+2)
                     row.total2 = Math.round((Number(row.total2) + Number(val)) * 100) / 100;
@@ -3576,20 +3576,11 @@
                     //@YEARSTOTAL12 := round(base.COMPREHENSIVE_YEARSTOTAL12 + @DYYKGZ,2) AS SHOULDCUMULATIVE,#累計応発工資（当月含）
                     row.shouldcumulative = Math.round((Number(row.comprehensive_yearstotal12)+ Number(row.shouldwages)) * 100) / 100;
                     //累計应纳税所得额
-                    let thismonthterm = Number(row.thismonthterm) + Number(row.thismonthadditional) + Number(row.thismonthdutyfree)
-                    let newdate = new Date();
-                    //入社日
-                    let workdate = new Date(row.workdate);
-                    if(newdate.getFullYear() === workdate.getFullYear()){
-                        row.shouldpaytaxes = Math.round((Number(row.shouldcumulative) - Number(row.dic_ljynssdecs) * ( newdate.getMonth() - 1- workdate.getMonth() + 1 ) - thismonthterm) * 100) / 100;
-                    }
-                    else{
-                        row.shouldpaytaxes = Math.round((Number(row.shouldcumulative) - Number(row.dic_ljynssdecs) * ( newdate.getMonth() - 1 ) - thismonthterm) * 100) / 100;
-                    }
                     //本月应扣缴所得税
-                    row.shouldpaytaxes = "0";//xx
+                    //当月实发工资
+                    this.wagesChange1(row);
                 }
-                //小计2
+                //小计2ok
                 if (prop === 'total2') {
                     //纳税工资总额(小计1+2)
                     row.taxestotal = Math.round((Number(row.total1) + Number(val)) * 100) / 100;
@@ -3602,20 +3593,13 @@
                     //@YEARSTOTAL12 := round(base.COMPREHENSIVE_YEARSTOTAL12 + @DYYKGZ,2) AS SHOULDCUMULATIVE,#累計応発工資（当月含）
                     row.shouldcumulative = Math.round((Number(row.comprehensive_yearstotal12)+ Number(row.shouldwages)) * 100) / 100;
                     //累計应纳税所得额
-                    let thismonthterm = Number(row.thismonthterm) + Number(row.thismonthadditional) + Number(row.thismonthdutyfree)
-                    let newdate = new Date();
-                    //入社日
-                    let workdate = new Date(row.workdate);
-                    if(newdate.getFullYear() === workdate.getFullYear()){
-                        row.shouldpaytaxes = Math.round((Number(row.shouldcumulative) - Number(row.dic_ljynssdecs) * ( newdate.getMonth() - 1- workdate.getMonth() + 1 ) - thismonthterm) * 100) / 100;
-                    }
-                    else{
-                        row.shouldpaytaxes = Math.round((Number(row.shouldcumulative) - Number(row.dic_ljynssdecs) * ( newdate.getMonth() - 1 ) - thismonthterm) * 100) / 100;
-                    }
                     //本月应扣缴所得税
-                    row.shouldpaytaxes = "0";//xx
+                    //当月实发工资
+                    this.wagesChange1(row);
+
                 }
-                //养老保险
+                //社保各个分项（个人）
+                //养老保险ok
                 if (prop === 'endowmentinsurance') {
                     //个人社会保险(専項控除)
                     row.socialinsurance = Math.round((Number(val) + Number(row.medicalinsurance) + Number(row.unemploymentinsurance)) * 100) / 100;
@@ -3623,15 +3607,12 @@
                     row.disciplinarycontrol = Math.round((Number(row.socialinsurance) + Number(row.accumulationfund)) * 100) / 100;
                     //専項控除累計（当月まで）
                     row.thismonthterm = Math.round((Number(row.disciplinary_total) + Number(row.disciplinarycontrol)) * 100) / 100;
-                    //累計应纳税所得额xx
-                    row.shouldpaytaxes = "0";
+                    //累計应纳税所得额
                     //本月应扣缴所得税
-                    row.thismonthadjustment = "0";
                     //当月实发工资
-                    row.realwages = Math.round((Number(row.totalwages) - Number(row.disciplinarycontrol) - Number(row.thismonthadjustment)) * 100) / 100;
+                    this.wagesChange1(row);
                 }
-                //社保各个分项（个人）
-                //医疗保险
+                //医疗保险ok
                 if (prop === 'medicalinsurance') {
                     //个人社会保险(専項控除)
                     row.socialinsurance = Math.round((Number(row.endowmentinsurance) + Number(val) + Number(row.unemploymentinsurance)) * 100) / 100;
@@ -3639,14 +3620,12 @@
                     row.disciplinarycontrol = Math.round((Number(row.socialinsurance) + Number(row.accumulationfund)) * 100) / 100;
                     //専項控除累計（当月まで）
                     row.thismonthterm = Math.round((Number(row.disciplinary_total) + Number(row.disciplinarycontrol)) * 100) / 100;
-                    //累計应纳税所得额xx
-                    row.shouldpaytaxes = "0";
+                    //累計应纳税所得额
                     //本月应扣缴所得税
-                    row.thismonthadjustment = "0";
                     //当月实发工资
-                    row.realwages = Math.round((Number(row.totalwages) - Number(row.disciplinarycontrol) - Number(row.thismonthadjustment)) * 100) / 100;
+                    this.wagesChange1(row);
                 }
-                //失业保险
+                //失业保险ok
                 if (prop === 'unemploymentinsurance') {
                     //个人社会保险(専項控除)
                     row.socialinsurance = Math.round((Number(row.endowmentinsurance) + Number(row.medicalinsurance) + Number(val)) * 100) / 100;
@@ -3654,38 +3633,32 @@
                     row.disciplinarycontrol = Math.round((Number(row.socialinsurance) + Number(row.accumulationfund)) * 100) / 100;
                     //専項控除累計（当月まで）
                     row.thismonthterm = Math.round((Number(row.disciplinary_total) + Number(row.disciplinarycontrol)) * 100) / 100;
-                    //累計应纳税所得额xx
-                    row.shouldpaytaxes = "0";
+                    //累計应纳税所得额
                     //本月应扣缴所得税
-                    row.thismonthadjustment = "0";
                     //当月实发工资
-                    row.realwages = Math.round((Number(row.totalwages) - Number(row.disciplinarycontrol) - Number(row.thismonthadjustment)) * 100) / 100;
+                    this.wagesChange1(row);
                 }
-                //个人社会保险（专项控除）
+                //个人社会保险（专项控除）ok
                 if (prop === 'socialinsurance') {
                     //个人社会保险费+公积金(専項控除)合计
                     row.disciplinarycontrol = Math.round((Number(val) + Number(row.accumulationfund)) * 100) / 100;
                     //専項控除累計（当月まで）
                     row.thismonthterm = Math.round((Number(row.disciplinary_total) + Number(row.disciplinarycontrol)) * 100) / 100;
-                    //累計应纳税所得额xx
-                    row.shouldpaytaxes = "0";
+                    //累計应纳税所得额
                     //本月应扣缴所得税
-                    row.thismonthadjustment = "0";
                     //当月实发工资
-                    row.realwages = Math.round((Number(row.totalwages) - Number(row.disciplinarycontrol) - Number(row.thismonthadjustment)) * 100) / 100;
+                    this.wagesChange1(row);
                 }
-                //个人社会保险（专项控除）
+                //个人社会保险（专项控除）ok
                 if (prop === 'accumulationfund') {
                     //个人社会保险费+公积金(専項控除)合计
                     row.disciplinarycontrol = Math.round((Number(row.socialinsurance) + Number(val)) * 100) / 100;
                     //専項控除累計（当月まで）
                     row.thismonthterm = Math.round((Number(row.disciplinary_total) + Number(row.disciplinarycontrol)) * 100) / 100;
-                    //累計应纳税所得额xx
-                    row.shouldpaytaxes = "0";
+                    //累計应纳税所得额
                     //本月应扣缴所得税
-                    row.thismonthadjustment = "0";
                     //当月实发工资
-                    row.realwages = Math.round((Number(row.totalwages) - Number(row.disciplinarycontrol) - Number(row.thismonthadjustment)) * 100) / 100;
+                    this.wagesChange1(row);
                 }
                 //本月应扣缴所得税ok
                 if (prop === 'thismonthadjustment') {
@@ -3789,17 +3762,29 @@
                         row.totalbonus = Math.round((Number(row.comtotalwages) + Number(row.bonusmoney)) * 100) / 100;
                     }
                 }
-                ///OTHER4
+                ///OTHER4ok
                 if (prop === 'other4') {
                     //当月応発工資（工资总额(纳税+免税)+只納税）
                     //@DYYKGZ := round( ( @工资总额(纳税+免税) + @住房公积金应纳税金额 + @其他4 + @其他5 ), 2 ) AS SHOULDWAGES,
                     row.shouldwages = Math.round((Number(row.totalwages) + Number(row.housingmoneys) + Number(val) + Number(row.other5)) * 100) / 100;
+                    //累計応発工資（当月含）
+                    row.shouldcumulative = Math.round((Number(row.comprehensive_yearstotal12)+ Number(row.shouldwages)) * 100) / 100;
+                    //累計应纳税所得额
+                    //本月应扣缴所得税
+                    //当月实发工资
+                    this.wagesChange1(row);
 
                 }
-                //OTHER5
+                //OTHER5ok
                 if (prop === 'other5') {
                     //当月応発工資（工资总额(纳税+免税)+只納税）
                     row.shouldwages = Math.round((Number(row.totalwages) + Number(row.housingmoneys) + Number(row.other4) + Number(val)) * 100) / 100;
+                    //累計応発工資（当月含）
+                    row.shouldcumulative = Math.round((Number(row.comprehensive_yearstotal12)+ Number(row.shouldwages)) * 100) / 100;
+                    //累計应纳税所得额
+                    //本月应扣缴所得税
+                    //当月实发工资
+                    this.wagesChange1(row);
 
                 }
                 //总计+记上奖金ok
@@ -3811,6 +3796,46 @@
                 //     this.wagesChangeSwitch(item, prop, val);
                 //   }
                 // });
+            },
+            //累計应纳税所得额/本月应扣缴所得税/当月实发工资
+            wagesChange1(row){
+                let newdate = new Date();
+                //入社日
+                let workdate = new Date(row.workdate);
+                let thismonthterm = Number(row.thismonthterm) + Number(row.thismonthadditional) + Number(row.thismonthdutyfree)
+                if(newdate.getFullYear() === workdate.getFullYear()){
+                    //累計应纳税所得额
+                    row.shouldpaytaxes = Math.round((Number(row.shouldcumulative) - Number(row.dic_ljynssdecs) * ( newdate.getMonth() - 1- workdate.getMonth() + 1 ) - thismonthterm) * 100) / 100;
+                }
+                else{
+                    //累計应纳税所得额
+                    row.shouldpaytaxes = Math.round((Number(row.shouldcumulative) - Number(row.dic_ljynssdecs) * ( newdate.getMonth() - 1 ) - thismonthterm) * 100) / 100;
+                }
+                //本月应扣缴所得税
+                if(Number(row.shouldpaytaxes) >= Number(row.dic_0je) && Number(row.shouldpaytaxes) <= Number(row.dic_1je)){
+                    row.thismonthadjustment = Math.round((Number(row.shouldpaytaxes) * Number(row.dic_0sl) - Number(row.dic_0sskc) - Number(row.lastdutyfree)) * 100) / 100;
+                }
+                else if(Number(row.shouldpaytaxes) > 36000 && Number(row.shouldpaytaxes) <= Number(row.dic_2je)){
+                    row.thismonthadjustment = Math.round((Number(row.shouldpaytaxes) * Number(row.dic_1sl) - Number(row.dic_1sskc) - Number(row.lastdutyfree)) * 100) / 100;
+                }
+                else if(Number(row.shouldpaytaxes) > 144000 && Number(row.shouldpaytaxes) <= Number(row.dic_3je)){
+                    row.thismonthadjustment = Math.round((Number(row.shouldpaytaxes) * Number(row.dic_2sl) - Number(row.dic_2sskc) - Number(row.lastdutyfree)) * 100) / 100;
+                }
+                else if(Number(row.shouldpaytaxes) > 300000 && Number(row.shouldpaytaxes) <= Number(row.dic_4je)){
+                    row.thismonthadjustment = Math.round((Number(row.shouldpaytaxes) * Number(row.dic_3sl) - Number(row.dic_3sskc) - Number(row.lastdutyfree)) * 100) / 100;
+                }
+                else if(Number(row.shouldpaytaxes) > 420000 && Number(row.shouldpaytaxes) <= Number(row.dic_5je)){
+                    row.thismonthadjustment = Math.round((Number(row.shouldpaytaxes) * Number(row.dic_4sl) - Number(row.dic_4sskc) - Number(row.lastdutyfree)) * 100) / 100;
+                }
+                else if(Number(row.shouldpaytaxes) > 660000 && Number(row.shouldpaytaxes) <= Number(row.dic_6je)){
+                    row.thismonthadjustment = Math.round((Number(row.shouldpaytaxes) * Number(row.dic_5sl) - Number(row.dic_6sskc) - Number(row.lastdutyfree)) * 100) / 100;
+                }
+                else{
+                    row.thismonthadjustment = Math.round((Number(row.shouldpaytaxes) * Number(row.dic_6sl) - Number(row.dic_6sskc) - Number(row.lastdutyfree)) * 100) / 100;
+                }
+                row.thismonthadjustment = row.thismonthadjustment < 0 ? 0 : row.thismonthadjustment;
+                //当月实发工资
+                row.realwages = Math.round((Number(row.totalwages) - Number(row.disciplinarycontrol) - Number(row.thismonthadjustment)) * 100) / 100;
             },
             // 工资tab 录入项change事件 逻辑
             wagesChangeSwitch(item, prop, val) {
