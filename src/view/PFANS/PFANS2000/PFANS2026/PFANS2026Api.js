@@ -1,5 +1,6 @@
 import request from '../../../../utils/request'
 import requestDownload from '../../../../utils/requestDownload';
+import requestPdf from '../../../../utils/requestPdf';
 
 //获取流程列表
 export function get(data) {
@@ -60,7 +61,7 @@ export function deletesta(data) {
 //add-ws-6/16-禅道106
 
 export function generatesta(data) {
-  return requestDownload({
+  return requestPdf({
     url: 'staffexitprocedure/generatesta',
     method: 'post',
     data: data,
