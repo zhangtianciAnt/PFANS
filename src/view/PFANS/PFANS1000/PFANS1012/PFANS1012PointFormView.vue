@@ -40,7 +40,7 @@
           </el-row>
           <div v-if="show7">
             <el-table
-              :data="options.filter(data => !search || data.numbers.toLowerCase().includes(search.toLowerCase()))"
+              :data="totaldata.filter(data => !search || data.numbers.toLowerCase().includes(search.toLowerCase()))"
               style="width: 1205px"
               height="250"
               header-cell-class-name="sub_bg_color_blue" stripe border

@@ -1387,7 +1387,7 @@
         checkdisable: false,
         plsummary: '',
         Codecheck: '',
-        checkCode1: '0',
+          // checkCode1: '0',
         checkcode: '',
         checktime: false,
         centerid: '',
@@ -1459,6 +1459,7 @@
           annexno: '',
           rowindex: '',
           display: true,
+            RedirictT: '',
         }],
         tableF: [{
           invoice_id: '',
@@ -1495,6 +1496,7 @@
           showrow2: false,
           showrow3: false,
           display: true,
+            RedirictP: '',
         }],
         tableR: [{
           code16: '',
@@ -1518,6 +1520,9 @@
           taxes: '',
           annexno: '',
           rowindex: '',
+            checkCode2: '',
+            checkCode: '',
+            RedirictR: '',
           display: true,
         }],
         baseInfo: {},
@@ -1677,9 +1682,6 @@
       this.getsupplierinfor();
       this.getCompanyProjectList();
       this.checkoptionsdata();
-      if (getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)) {
-        this.Redirict = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).redirict;
-      }
       if (getOrgInfoByUserId(this.$store.getters.userinfo.userid)) {
         this.groupId = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
         // if (getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)) {
@@ -1733,7 +1735,6 @@
           this.form.telephone = num;
         }
       }
-      this.tableP[0].code17 = this.Redirict == '0' ? 'PJ121' : 'PJ134';
       //ADD-WS-个人编码修改
       this.IDname = this.$route.params._id;
       if (this.IDname) {
@@ -1840,7 +1841,7 @@
                   this.orglist = this.tableT[i].departmentname;
                   let group = getOrgInfo(this.orglist);
                   if (group) {
-                    this.Redirict = group.redirict;
+                      this.tableT[i].RedirictT = group.redirict;
                   }
                   if (this.tableT[i].departmentname !== '' && this.tableT[i].departmentname !== null && this.tableT[i].departmentname !== undefined) {
                     //ADD_FJL
@@ -1859,7 +1860,8 @@
                     }
                     //ADD_FJL  修改人员预算编码
                   }
-                  if (this.Redirict == '0') {
+                    alert(this.tableT[i].RedirictT)
+                    if (this.tableT[i].RedirictT == '0') {
                     this.tableT[i].accoundoptionsdate = [];
                     let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ119');
                     for (let a = 0; a < dicnew.length; a++) {
@@ -1870,7 +1872,7 @@
                         });
                       }
                     }
-                  } else if (this.Redirict == '1' || this.Redirict == '') {
+                    } else if (this.tableT[i].RedirictT == '1' || this.tableT[i].RedirictT == '') {
                     this.tableT[i].accoundoptionsdate = [];
                     let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ132');
                     for (let a = 0; a < dicnew.length; a++) {
@@ -1892,7 +1894,7 @@
                   this.orglist = this.tableP[i].departmentname;
                   let group = getOrgInfo(this.orglist);
                   if (group) {
-                    this.Redirict = group.redirict;
+                      this.tableP[i].RedirictP = group.redirict;
                   }
                   if (this.tableP[i].departmentname !== '' && this.tableP[i].departmentname !== null && this.tableP[i].departmentname !== undefined) {
                     //ADD_FJL
@@ -1915,7 +1917,7 @@
                     this.disa = false;
                     this.disablecheck = false;
                   }
-                  if (this.Redirict == '0') {
+                    if (this.tableP[i].RedirictP == '0') {
                     if (this.tableP[i].plsummary === 'PJ111010') {
                       this.tableP[i].code17 = 'PJ121';
                       let letErrortype = getDictionaryInfo(this.tableP[i].accountcode);
@@ -1923,7 +1925,7 @@
                         this.tableP[i].accountcode = letErrortype.code;
                       }
                     }
-                  } else if (this.Redirict == '1' || this.Redirict == '') {
+                    } else if (this.tableP[i].RedirictP == '1' || this.tableP[i].RedirictP == '') {
                     if (this.tableP[i].plsummary === 'PJ111010') {
                       this.tableP[i].code17 = 'PJ134';
                       let letErrortype = getDictionaryInfo(this.tableP[i].accountcode);
@@ -1949,7 +1951,7 @@
                   this.orglist = this.tableR[i].departmentname;
                   let group = getOrgInfo(this.orglist);
                   if (group) {
-                    this.Redirict = group.redirict;
+                      this.tableR[i].RedirictR = group.redirict;
                   }
                   if (this.tableR[i].departmentname !== '' && this.tableR[i].departmentname !== null && this.tableR[i].departmentname !== undefined) {
                     //ADD_FJL
@@ -1972,7 +1974,7 @@
                     this.disa = false;
                     this.disablecheck = false;
                   }
-                  if (this.Redirict == '0') {
+                    if (this.tableR[i].RedirictR == '0') {
                     if (this.tableR[i].plsummary == 'PJ111001') {
                       this.tableR[i].code16 = 'PJ112';
                       let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
@@ -2064,7 +2066,7 @@
                         this.tableR[i].accountcode = letErrortype.code;
                       }
                     }
-                  } else if (this.Redirict == '1' || this.Redirict == '') {
+                    } else if (this.tableR[i].RedirictR == '1' || this.tableR[i].RedirictR == '') {
                     if (this.tableR[i].plsummary == 'PJ111001') {
                       this.tableR[i].code16 = 'PJ127';
                       let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
@@ -2213,10 +2215,17 @@
             this.loading = false;
           });
       } else {
+          if (getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)) {
+              this.tableT[0].RedirictT = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).redirict;
+              this.tableP[0].RedirictP = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).redirict;
+          }
+          alert(this.tableT[0].RedirictT)
+          alert(this.tableP[0].RedirictP)
+          this.tableP[0].code17 = this.tableP[0].RedirictP == '0' ? 'PJ121' : 'PJ134';
         this.show10 = true;
         //ADD-WS-直接部门或间接部门赋值变更
         this.tableT[0].accoundoptionsdate = [];
-        if (this.Redirict == '0') {
+          if (this.tableT[0].RedirictT == '0') {
           let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ119');
           for (let i = 0; i < dicnew.length; i++) {
             if (dicnew[i].code === 'PJ119004') {
@@ -2226,7 +2235,7 @@
               });
             }
           }
-        } else if (this.Redirict == '1' || this.Redirict == '') {
+          } else if (this.tableT[0].RedirictT == '1' || this.tableT[0].RedirictT == '') {
           let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ132');
           for (let i = 0; i < dicnew.length; i++) {
             if (dicnew[i].code === 'PJ132004') {
@@ -2725,11 +2734,14 @@
         if (orglist == '') {
           row.budgetcoding = '';
         }
-        this.Redirict = '',
+          row.RedirictT = '',
           row.departmentname = orglist;
         //ADD_FJL
         row.optionsT = [];
         row.budgetcoding = '';
+          row.accountcode = '';
+          row.accoundoptionsdate = [];
+          row.subjectnumber = '';
         let butinfo = getOrgInfo(row.departmentname).encoding;
         let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
         if (dic.length > 0) {
@@ -2746,8 +2758,9 @@
         let group = getOrgInfo(orglist);
         if (group) {
           this.companyen = group.companyen;
-          this.Redirict = group.redirict;
-          if (this.Redirict == '0') {
+            row.RedirictT = group.redirict;
+            alert(row.RedirictT)
+            if (row.RedirictT == '0') {
             row.accoundoptionsdate = [];
             let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ119');
             for (let i = 0; i < dicnew.length; i++) {
@@ -2758,7 +2771,7 @@
                 });
               }
             }
-          } else if (this.Redirict == '1' || this.Redirict == '') {
+            } else if (row.RedirictT == '1' || row.RedirictT == '') {
             row.accoundoptionsdate = [];
             let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ132');
             for (let i = 0; i < dicnew.length; i++) {
@@ -2776,11 +2789,18 @@
         if (orglist == '') {
           row.budgetcoding = '';
         }
-        this.Redirict = '',
+          row.RedirictR = '',
           row.departmentname = orglist;
         //ADD_FJL
         row.optionsR = [];
         row.budgetcoding = '';
+          row.ploptionsdate = [];
+          row.plsummary = '';
+          row.code16 = [];
+          row.accountcode = '';
+          row.subjectnumber = '';
+          row.checkCode2 = '';
+          row.checkCode = '';
         let butinfo = getOrgInfo(row.departmentname).encoding;
         let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
         if (dic.length > 0) {
@@ -2797,10 +2817,10 @@
         let group = getOrgInfo(orglist);
         if (group) {
           this.companyen = group.companyen;
-          this.Redirict = group.redirict;
+            row.RedirictR = group.redirict;
           // row.budgetcoding = group.encoding;
-          row.code17 = this.Redirict == '0' ? 'PJ121' : 'PJ134';
-          if (this.Redirict == '0') {
+            row.code17 = row.RedirictR == '0' ? 'PJ121' : 'PJ134';
+            if (row.RedirictR == '0') {
             if (row.plsummary == 'PJ111001') {
               row.accountcode = '',
                 row.code16 = 'PJ112';
@@ -2862,7 +2882,7 @@
                 row.code16 = 'PJ138';
 
             }
-          } else if (this.Redirict == '1' || this.Redirict == '') {
+            } else if (row.RedirictR == '1' || row.RedirictR == '') {
             if (row.plsummary == 'PJ111001') {
               row.accountcode = '',
                 row.code16 = 'PJ127';
@@ -2925,40 +2945,45 @@
 
             }
           }
-          if (this.Redirict == '0') {
-            row.accoundoptionsdate = [];
-            let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ119');
-            for (let i = 0; i < dicnew.length; i++) {
-              if (dicnew[i].code === 'PJ119004') {
-                row.accoundoptionsdate.push({
-                  value: dicnew[i].code,
-                  lable: dicnew[i].value1,
-                });
-              }
-            }
-          } else if (this.Redirict == '1' || this.Redirict == '') {
-            row.accoundoptionsdate = [];
-            let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ132');
-            for (let i = 0; i < dicnew.length; i++) {
-              if (dicnew[i].code === 'PJ132004') {
-                row.accoundoptionsdate.push({
-                  value: dicnew[i].code,
-                  lable: dicnew[i].value1,
-                });
-              }
-            }
-          }
+            // if (this.Redirict == '0') {
+            //   row.accoundoptionsdate = [];
+            //   let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ119');
+            //   for (let i = 0; i < dicnew.length; i++) {
+            //     if (dicnew[i].code === 'PJ119004') {
+            //       row.accoundoptionsdate.push({
+            //         value: dicnew[i].code,
+            //         lable: dicnew[i].value1,
+            //       });
+            //     }
+            //   }
+            // } else if (this.Redirict == '1' || this.Redirict == '') {
+            //   row.accoundoptionsdate = [];
+            //   let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ132');
+            //   for (let i = 0; i < dicnew.length; i++) {
+            //     if (dicnew[i].code === 'PJ132004') {
+            //       row.accoundoptionsdate.push({
+            //         value: dicnew[i].code,
+            //         lable: dicnew[i].value1,
+            //       });
+            //     }
+            //   }
+            // }
         }
       },
       getGroupIdP(orglist, row) {
         if (orglist == '') {
           row.budgetcoding = '';
         }
-        this.Redirict = '',
+          row.RedirictP = '',
           row.departmentname = orglist;
         //ADD_FJL
         row.optionsP = [];
         row.budgetcoding = '';
+          row.ploptionsdata = [];
+          row.plsummary = '';
+          row.code17 = [];
+          row.accountcode = '';
+          row.subjectnumber = '';
         let butinfo = getOrgInfo(row.departmentname).encoding;
         let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
         if (dic.length > 0) {
@@ -2975,9 +3000,9 @@
         let group = getOrgInfo(orglist);
         if (group) {
           this.companyen = group.companyen;
-          this.Redirict = group.redirict;
+            row.RedirictP = group.redirict;
           // row.budgetcoding = group.encoding;
-          row.code17 = this.Redirict == '0' ? 'PJ121' : 'PJ134';
+            row.code17 = row.RedirictP == '0' ? 'PJ121' : 'PJ134';
           // if (this.Redirict == '0') {
           //     if (row.plsummary == 'PJ111001') {
           //         row.accountcode = '',
@@ -3096,35 +3121,35 @@
           //
           //     }
           // }
-          if (this.Redirict == '0') {
-            row.accoundoptionsdate = [];
-            let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ119');
-            for (let i = 0; i < dicnew.length; i++) {
-              if (dicnew[i].code === 'PJ119004') {
-                row.accoundoptionsdate.push({
-                  value: dicnew[i].code,
-                  lable: dicnew[i].value1,
-                });
-              }
-            }
-          } else if (this.Redirict == '1' || this.Redirict == '') {
-            row.accoundoptionsdate = [];
-            let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ132');
-            for (let i = 0; i < dicnew.length; i++) {
-              if (dicnew[i].code === 'PJ132004') {
-                row.accoundoptionsdate.push({
-                  value: dicnew[i].code,
-                  lable: dicnew[i].value1,
-                });
-              }
-            }
-          }
+            // if (this.Redirict == '0') {
+            //   row.accoundoptionsdate = [];
+            //   let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ119');
+            //   for (let i = 0; i < dicnew.length; i++) {
+            //     if (dicnew[i].code === 'PJ119004') {
+            //       row.accoundoptionsdate.push({
+            //         value: dicnew[i].code,
+            //         lable: dicnew[i].value1,
+            //       });
+            //     }
+            //   }
+            // } else if (this.Redirict == '1' || this.Redirict == '') {
+            //   row.accoundoptionsdate = [];
+            //   let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ132');
+            //   for (let i = 0; i < dicnew.length; i++) {
+            //     if (dicnew[i].code === 'PJ132004') {
+            //       row.accoundoptionsdate.push({
+            //         value: dicnew[i].code,
+            //         lable: dicnew[i].value1,
+            //       });
+            //     }
+            //   }
+            // }
         }
       },
       getplsummary(row) {
         row.accountcode = '',
           row.plsummary = row.plsummary;
-        if (this.Redirict == '0') {
+          if (row.RedirictR == '0' || row.RedirictP == '0') {
           if (row.plsummary == 'PJ111001') {
             row.accountcode = '',
               row.code16 = 'PJ112';
@@ -3186,7 +3211,7 @@
               row.code16 = 'PJ138';
             row.code17 = 'PJ138';
           }
-        } else if (this.Redirict == '1' || this.Redirict == '') {
+          } else if (row.RedirictR == '1' || row.RedirictR == '' || row.RedirictP == '1' || row.RedirictP == '') {
           if (row.plsummary == 'PJ111001') {
             row.accountcode = '',
               row.code16 = 'PJ127';
@@ -3253,9 +3278,9 @@
       },
       clickdata(row) {
         if (row.servicehours == null) {
-          row.subjectnumber = this.checkCode2;
+            row.subjectnumber = row.checkCode2;
         } else {
-          row.subjectnumber = this.checkcode;
+            row.subjectnumber = row.checkcode;
         }
       },
       getaccoundcode(row) {
@@ -3282,15 +3307,15 @@
         let dic = getDictionaryInfo(val);
         if (row.accountcode == 'PJ116008' || row.accountcode == 'PJ130010') {
           this.checktime = true;
-          this.checkcode = dic.value2;
+            row.checkcode = dic.value2;
         } else {
           this.checktime = false;
           row.servicehours = '';
         }
         if (dic) {
           row.subjectnumber = dic.value2;
-          this.checkCode2 = dic.value2;
-          this.checkCode1 = dic.value3;
+            row.checkCode2 = dic.value2;
+            // this.checkCode1 = dic.value3;
         }
       },
       //add-ws-6/11-禅道090
@@ -3299,8 +3324,8 @@
         let dic = getDictionaryInfo(val);
         if (dic) {
           row.subjectnumber = dic.value2;
-          this.checkCode2 = dic.value2;
-          this.checkCode1 = dic.value3;
+            //   this.checkCode2 = dic.value2;
+            //   this.checkCode1 = dic.value3;
         }
       },
       changesummoney(row) {
@@ -3713,6 +3738,8 @@
             rmb: '',
             foreigncurrency: '',
             annexno: '',
+              checkCode2: '',
+              checkCode: '',
           }];
         }
       },
@@ -3818,6 +3845,8 @@
           taxes: '',
           annexno: '',
           rowindex: '',
+            checkCode2: '',
+            checkCode: '',
           display: true,
         });
       },
