@@ -1,4 +1,4 @@
-import {get, selectById, update,generateJxls,getDataOne,getDataOne2} from './PFANS1025Api'
+import {get, selectById, update,generateJxls,getDataOne,getDataOne2,checkby} from './PFANS1025Api'
 
 
 const PFANS1025Store = {
@@ -73,6 +73,21 @@ const PFANS1025Store = {
       })
     },
     // 禅道任务152
+    //ADD-WS-7/14-禅道144任务
+    checkby({ commit },data) {
+      return new Promise((resolve, reject) => {
+        checkby(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    //ADD-WS-7/14-禅道144任务
     generateJxls({commit}, data) {
       return new Promise((resolve, reject) => {
         generateJxls(data).then(response => {

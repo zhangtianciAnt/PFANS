@@ -76,11 +76,12 @@
 <!--                  </plx-table-column>-->
                   <!--                BP会社名-->
                   <plx-table-column
+                    sortable
                     :label="$t('label.PFANS6007VIEW_BPCLUBNAME')"
                     align="left"
                     prop="suppliername"
                     fixed="left"
-                    width="120">
+                    width="170">
                   </plx-table-column>
                   <!--                BP名前-->
                   <plx-table-column
@@ -384,20 +385,20 @@
                     </template>
                   </plx-table-column>
                   <!--勤続月数-->
-                  <plx-table-column
-                    :label="$t('label.PFANS6005VIEW_KQYS')"
-                    align="center"
-                    width="80">
-                    <template slot-scope="scope">
-                      <el-input
-                        size="mini"
-                        :disabled="!disabled"
-                        :no="scope.row"
-                        style="width: 100%"
-                        v-model="scope.row.monthlength">
-                      </el-input>
-                    </template>
-                  </plx-table-column>
+<!--                  <plx-table-column-->
+<!--                    :label="$t('label.PFANS6005VIEW_KQYS')"-->
+<!--                    align="center"-->
+<!--                    width="80">-->
+<!--                    <template slot-scope="scope">-->
+<!--                      <el-input-->
+<!--                        size="mini"-->
+<!--                        :disabled="!disabled"-->
+<!--                        :no="scope.row"-->
+<!--                        style="width: 100%"-->
+<!--                        v-model="scope.row.monthlength">-->
+<!--                      </el-input>-->
+<!--                    </template>-->
+<!--                  </plx-table-column>-->
                   <!--備考-->
                   <plx-table-column
                     :label="$t('label.PFANS6007VIEW_REMARKS')"
@@ -791,7 +792,7 @@
         //     border: '1px solid white',
         //   };
         // }
-        if (column.level === 2 && columnIndex >= 6 && columnIndex < 20) {
+        if (column.level === 2 && columnIndex >= 6 && columnIndex < 19) {
           return {
             color: 'white',
             background: '#99CC99 !important',
