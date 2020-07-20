@@ -618,7 +618,7 @@
           budgetnumber: [{
             required: true,
             message: this.$t('normal.error_09') + this.$t('label.group') + this.$t('label.hou') + this.$t('label.PFANS1012FORMVIEW_BUDGET'),
-            trigger: 'blur',
+            trigger: 'change',
           }],
           extensionnumber: [{
             required: true,
@@ -1127,8 +1127,8 @@
             group_id: this.form.group_id,
             team_id: this.form.team_id,
           } = org);
-          this.getchangeGroup(this.form.group_id)
         }
+        this.getchangeGroup(this.form.group_id)
       },
       deleteRow1(index, rows) {
         if (rows.length > 1) {
