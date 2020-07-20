@@ -102,6 +102,7 @@
                 ></el-input-number>
               </el-form-item>
             </el-col>
+            <!--不为  年休 代休-特别休日-->
             <el-col :span="8"
                     v-show="(form.errortype != 'PR013005' && form.errortype != 'PR013007') && (form.status === '4' || form.status === '5' || form.status === '6' || form.status === '7')">
               <el-form-item :label="$t('label.PFANS2016FORMVIEW_RELENGTHTIMETO')" label-width="9rem"
@@ -782,7 +783,8 @@
                 this.form.reoccurrencedate = response.occurrencedate;
                 this.form.refinisheddate = response.finisheddate;
                 this.form.relengthtime = response.lengthtime;
-                if (this.form.errortype === 'PR013001' || this.form.errortype === 'PR013014') {
+                // 因公外出或打卡异常 家长会假
+                if (this.form.errortype === 'PR013001') {
                   this.checkrelengthtime = true;
                 }
               }
@@ -1838,6 +1840,17 @@
           this.form.lengthtime = '1';
           this.showVacation = true;
         }
+        if (this.form.errortype === 'PR013014') {
+          if (2 - this.parent <= 0) {
+            Message({
+              message: this.$t('label.PFANS2016FORMVIEW_BJDJZHCHECK'),
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.form.errortype = null;
+            return;
+          }
+        }
         this.$refs.ruleForm.validateField('lengthtime');
         // this.changeTime();
       },
@@ -1990,7 +2003,6 @@
                   }
                 }
               }
-
               //产休假，流产假
               if (this.form.errortype === 'PR013011' || this.form.errortype === 'PR013012' || this.form.errortype === 'PR013013'
                 || this.form.errortype === 'PR013015' || this.form.errortype === 'PR013017' || this.form.errortype === 'PR013020'
@@ -2021,20 +2033,19 @@
                   return;
                 }
               }
-
               //外出，家长会，劳灾，其他福利，妊娠检查
               if (this.form.errortype === 'PR013001' || this.form.errortype === 'PR013014' || this.form.errortype === 'PR013016'
                 || this.form.errortype === 'PR013018' || this.form.errortype === 'PR013019') {
                 //家长会一个事业年度只能申请两次
                 if (this.form.errortype === 'PR013014') {
-                  if (2 - this.parent <= 0) {
-                    Message({
-                      message: this.$t('label.PFANS2016FORMVIEW_BJDJZHCHECK'),
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
-                    return;
-                  }
+                  // if (2 - this.parent < 0) {
+                  //   Message({
+                  //     message: this.$t('label.PFANS2016FORMVIEW_BJDJZHCHECK'),
+                  //     type: 'error',
+                  //     duration: 5 * 1000,
+                  //   });
+                  //   return;
+                  // }
                   //每次家长会假不能超过四小时
                   if (this.form.lengthtime > 4) {
                     Message({
