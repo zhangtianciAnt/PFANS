@@ -1610,7 +1610,7 @@
           } else {
             //跨天取整天，8小时  包含公休日
             this.checkrelengthtime = true;
-            this.form.relengthtime = 8 * diffDate;
+            this.form.relengthtime = 8 * rediffDate;
           }
         }
         if (this.form.errortype === 'PR013006' || this.form.errortype === 'PR013008') {
@@ -1733,6 +1733,7 @@
           this.form.enclosureexplain = dictionaryInfo.value2;
         }
         this.form.errortype = val;
+        // 因公外出或打卡异常
         if (val === 'PR013001') {
           this.checkerrortishi = false;
           this.checkrelengthtime = false;
@@ -1741,12 +1742,14 @@
           this.showVacation = false;
           this.form.lengthtime = '0';
           this.getWorktime();
+          // 年休
         } else if (val === 'PR013005') {
           this.form.vacationtype = '';
           this.checkerrortishi = false;
           this.checkrelengthtime = false;
           this.dislengthtime = false;
           this.showVacation = false;
+          // 代休-周末
         } else if (val === 'PR013006') {
           this.form.lengthtime = '0';
           this.checkerrortishi = false;
@@ -1754,6 +1757,7 @@
           this.dislengthtime = false;
           this.showVacation = false;
           this.getonRest(val);
+          // 代休-特别休日
         } else if (val === 'PR013007') {
           this.form.vacationtype = '';
           this.checkerrortishi = false;
@@ -1761,36 +1765,42 @@
           this.dislengthtime = false;
           this.showVacation = false;
           this.getonRest(val);
+          // 事休
         } else if (val === 'PR013008') {
           this.checkerrortishi = false;
           this.checkrelengthtime = false;
           this.dislengthtime = false;
           this.showVacation = false;
           this.form.lengthtime = '0';
+          // 病休
         } else if (val === 'PR013009') {
           this.checkerrortishi = false;
           this.checkrelengthtime = false;
           this.dislengthtime = false;
           this.form.lengthtime = '0';
           this.showVacation = true;
+          // 结婚休假
         } else if (val === 'PR013011') {
           this.checkerrortishi = false;
           this.checkrelengthtime = true;
           this.dislengthtime = true;
           this.form.lengthtime = 8;
           this.showVacation = true;
+          // 産休（女）
         } else if (val === 'PR013012') {
           this.checkerrortishi = true;
           this.checkrelengthtime = true;
           this.dislengthtime = true;
           this.form.lengthtime = 8;
           this.showVacation = true;
+          // 产假护理（男）
         } else if (val === 'PR013013') {
           this.checkerrortishi = false;
           this.checkrelengthtime = true;
           this.dislengthtime = true;
           this.form.lengthtime = 8;
           this.showVacation = true;
+          // 家长会假
         } else if (val === 'PR013014') {
           this.checkerrortishi = false;
           this.checkrelengthtime = true;
