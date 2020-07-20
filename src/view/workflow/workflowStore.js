@@ -4,7 +4,8 @@ import {
   createWorkflow,
   getWorkflowOne,
   updateWorkflow,
-  allWorkFlowIns
+  allWorkFlowIns,
+  oneWorkFlowIns
   } from './workflowApi'
 
   const workflowStore = {
@@ -98,6 +99,21 @@ import {
           })
         })
       },
+      //ccm 20200713 离职 获取离职人员离职月的考勤审批情况
+      oneWorkFlowIns({ commit },data) {
+        return new Promise((resolve, reject) => {
+          oneWorkFlowIns(data).then(response => {
+            if (response.code === 0) {
+              resolve(response.data);
+            } else {
+              reject(response.message)
+            }
+          }).catch(error => {
+            reject(error);
+          })
+        })
+      },
+      //ccm 20200713 离职 获取离职人员离职月的考勤审批情况
     }
   }
 

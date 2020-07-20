@@ -27,6 +27,15 @@ export function getAttendancelist1(data) {
   })
 }
 
+//获取离职考勤对比
+export function getAttendancelistCompared(data) {
+  return request({
+    url: 'attendance/getAttendancelistCompared',
+    method: 'post',
+    data: data
+  })
+}
+
 //更新数据
 export function update(data) {
   return request({
@@ -57,3 +66,12 @@ export function updStatus1(data) {
   })
 }
 // add 0622 ccm --审批被驳回后，当月考勤数据全部变为未承认状态
+//add ccm 0716 离职一键驳回
+export function disclickUpdateStates(data) {
+  return request({
+    url: 'attendance/disclickUpdateStates',
+    method: 'post',
+    data: data
+  })
+}
+//add ccm 0716 离职一键驳回

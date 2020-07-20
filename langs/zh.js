@@ -79,6 +79,8 @@ module.exports = {
     vResult: '查看结果',
     savePrt: '保存并打印',
     prtQrcode: '打印二维码',
+    disclick: '一键驳回',
+    resignationAttendCompare: '考勤对比',
     recognition: '承认',
     recognitionno: '取消承认',
     application: '契约番号申請',
@@ -280,6 +282,7 @@ module.exports = {
     PFANS2028: '工资详细（个人）',
     PFANS2030: '工资汇总表(部门)',
     PFANS2032: '退职者调书&离职手续',
+    PFANS2033: '离职考勤管理对比',
     PFANS3001: '机票',
     PFANS3002: '来客酒店预订',
     PFANS3003: '名片申请',
@@ -459,6 +462,8 @@ module.exports = {
     PFANS8008VIEWYILAN: '信息一览'
   },
   label: {
+    expectedattend: '预计',
+    actualattend: '实际',
     pfanstype: '申请种类',
     subtype: '子分类',
     application: '申请日期',

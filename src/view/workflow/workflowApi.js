@@ -51,3 +51,12 @@ export function allWorkFlowIns(data) {
     params: data
   })
 }
+//ccm 20200713 离职 获取离职人员离职月的考勤审批情况
+export function oneWorkFlowIns(data) {
+  return request({
+    url: 'workflow/oneWorkFlowIns',
+    method: 'get',
+    params: data
+  })
+}
+//ccm 20200713 离职 获取离职人员离职月的考勤审批情况
