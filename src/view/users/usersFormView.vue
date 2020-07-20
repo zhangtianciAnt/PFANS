@@ -1890,7 +1890,7 @@
                     :label="$t('label.PFANS2026VIEW_RESIGNATIONDATE')"
                     prop="resignation_date"
                   >
-                    <el-date-picker style="width:20vw" v-model="form.resignation_date" disabled></el-date-picker>
+                    <el-date-picker style="width:20vw" v-model="form.resignation_date" ></el-date-picker>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
