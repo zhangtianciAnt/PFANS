@@ -47,3 +47,13 @@ export function generateJxls(data) {
     responseType: 'blob'
   })
 }
+
+//ADD-WS-7/14-禅道144任务
+export function checkby(data) {
+  return request({
+    url: 'award/checkby',
+    method: 'post',
+    data: data
+  })
+}
+//ADD-WS-7/14-禅道144任务
