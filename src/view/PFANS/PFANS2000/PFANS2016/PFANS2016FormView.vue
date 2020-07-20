@@ -257,7 +257,6 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.enclosure')" prop="enclosurecontent">
                 <el-upload
-
                   :action="upload"
                   :disabled="disableupload"
                   :file-list="fileList"
@@ -265,6 +264,7 @@
                   :on-preview="fileDownload"
                   :on-remove="fileRemove"
                   :on-success="fileSuccess"
+                  :on-change="filechange"
                   class="upload-demo"
                   drag
                   ref="upload">
@@ -571,6 +571,37 @@
           callback();
         }
       };
+      //add ccm 0720
+      var checkenclosurecontent = (rule, value, callback) => {
+        if (this.form.errortype !=null && this.form.errortype !='')
+        {
+          if(this.form.errortype == 'PR013009' || this.form.errortype == 'PR013010' || this.form.errortype == 'PR013011'
+            || this.form.errortype == 'PR013012' || this.form.errortype == 'PR013013' || this.form.errortype == 'PR013015'
+            || this.form.errortype == 'PR013016' || this.form.errortype == 'PR013017' || this.form.errortype == 'PR013020'
+            || this.form.errortype == 'PR013021' || this.form.errortype == 'PR013022')
+          {
+            if (!this.form.uploadfile || this.form.uploadfile === '' || this.form.uploadfile === undefined)
+            {
+              return callback(new Error(this.$t('normal.error_16') + this.$t('label.enclosure')));
+            }
+            else
+            {
+              callback();
+              this.clearValidate(['enclosurecontent']);
+            }
+          }
+          else
+          {
+            callback();
+            this.clearValidate(['enclosurecontent']);
+          }
+        }
+        else {
+          callback();
+          this.clearValidate(['enclosurecontent']);
+        }
+      };
+      //add ccm 0720
       return {
         defaultStart: false,
         checkerrortishi: false,
@@ -711,6 +742,13 @@
             // message: this.$t('normal.error_09') + this.$t('label.PFANS2016FORMVIEW_RELENGTHTIME'),
             trigger: 'change',
           }],
+          //add ccm 0720
+          enclosurecontent: [{
+            required: true,
+            validator: checkenclosurecontent,
+            trigger: 'change',
+          }],
+          //add ccm 0720
           cause: [
             {
               required: true,
@@ -756,6 +794,7 @@
         checkTimeLenght: '',
         // enterday: '',
         marryday: '',
+        enclosurecontent:'',
       };
     },
     mounted() {
@@ -1057,6 +1096,9 @@
         if (this.$route.params.disabled) {
           this.disabled = val;
         }
+      },
+      filechange(file, fileList) {
+        this.$refs.ruleForm.validateField('enclosurecontent');
       },
       handleClick(val) {
         this.form.vacationtype = val;
@@ -1741,12 +1783,18 @@
           this.showVacation = false;
           this.form.lengthtime = '0';
           this.getWorktime();
+          //add ccm 0720
+          this.rules.enclosurecontent[0].required = false;
+          //add ccm 0720
         } else if (val === 'PR013005') {
           this.form.vacationtype = '';
           this.checkerrortishi = false;
           this.checkrelengthtime = false;
           this.dislengthtime = false;
           this.showVacation = false;
+          //add ccm 0720
+          this.rules.enclosurecontent[0].required = false;
+          //add ccm 0720
         } else if (val === 'PR013006') {
           this.form.lengthtime = '0';
           this.checkerrortishi = false;
@@ -1754,6 +1802,9 @@
           this.dislengthtime = false;
           this.showVacation = false;
           this.getonRest(val);
+          //add ccm 0720
+          this.rules.enclosurecontent[0].required = false;
+          //add ccm 0720
         } else if (val === 'PR013007') {
           this.form.vacationtype = '';
           this.checkerrortishi = false;
@@ -1761,84 +1812,126 @@
           this.dislengthtime = false;
           this.showVacation = false;
           this.getonRest(val);
+          //add ccm 0720
+          this.rules.enclosurecontent[0].required = false;
+          //add ccm 0720
         } else if (val === 'PR013008') {
           this.checkerrortishi = false;
           this.checkrelengthtime = false;
           this.dislengthtime = false;
           this.showVacation = false;
           this.form.lengthtime = '0';
+          //add ccm 0720
+          this.rules.enclosurecontent[0].required = false;
+          //add ccm 0720
         } else if (val === 'PR013009') {
           this.checkerrortishi = false;
           this.checkrelengthtime = false;
           this.dislengthtime = false;
           this.form.lengthtime = '0';
           this.showVacation = true;
+          //add ccm 0720
+          this.rules.enclosurecontent[0].required = true;
+          //add ccm 0720
         } else if (val === 'PR013011') {
           this.checkerrortishi = false;
           this.checkrelengthtime = true;
           this.dislengthtime = true;
           this.form.lengthtime = 8;
           this.showVacation = true;
+          //add ccm 0720
+          this.rules.enclosurecontent[0].required = true;
+          //add ccm 0720
         } else if (val === 'PR013012') {
           this.checkerrortishi = true;
           this.checkrelengthtime = true;
           this.dislengthtime = true;
           this.form.lengthtime = 8;
           this.showVacation = true;
+          //add ccm 0720
+          this.rules.enclosurecontent[0].required = true;
+          //add ccm 0720
         } else if (val === 'PR013013') {
           this.checkerrortishi = false;
           this.checkrelengthtime = true;
           this.dislengthtime = true;
           this.form.lengthtime = 8;
           this.showVacation = true;
+          //add ccm 0720
+          this.rules.enclosurecontent[0].required = true;
+          //add ccm 0720
         } else if (val === 'PR013014') {
           this.checkerrortishi = false;
           this.checkrelengthtime = true;
           this.dislengthtime = false;
           this.showVacation = false;
           this.form.lengthtime = '0';
+          //add ccm 0720
+          this.rules.enclosurecontent[0].required = false;
+          //add ccm 0720
         } else if (val === 'PR013015') {
           this.checkerrortishi = false;
           this.checkrelengthtime = true;
           this.dislengthtime = true;
           this.form.lengthtime = 8;
           this.showVacation = true;
+          //add ccm 0720
+          this.rules.enclosurecontent[0].required = true;
+          //add ccm 0720
         } else if (val === 'PR013016') {
           this.checkerrortishi = false;
           this.checkrelengthtime = false;
           this.dislengthtime = false;
           this.form.lengthtime = '0';
           this.showVacation = true;
+          //add ccm 0720
+          this.rules.enclosurecontent[0].required = true;
+          //add ccm 0720
         } else if (val === 'PR013017') {
           this.checkerrortishi = false;
           this.checkrelengthtime = true;
           this.dislengthtime = true;
           this.form.lengthtime = 8;
           this.showVacation = true;
+          //add ccm 0720
+          this.rules.enclosurecontent[0].required = true;
+          //add ccm 0720
         } else if (val === 'PR013018' || val === 'PR013019') {
           this.checkerrortishi = false;
           this.checkrelengthtime = true;
           this.dislengthtime = false;
           this.form.lengthtime = '0';
           this.showVacation = false;
+          //add ccm 0720
+          this.rules.enclosurecontent[0].required = false;
+          //add ccm 0720
         } else if (val === 'PR013020') {
           this.checkerrortishi = false;
           this.checkrelengthtime = true;
           this.dislengthtime = true;
           this.form.lengthtime = 8;
           this.showVacation = false;
+          //add ccm 0720
+          this.rules.enclosurecontent[0].required = true;
+          //add ccm 0720
         } else if (val === 'PR013021') {
           this.checkerrortishi = false;
           this.checkrelengthtime = true;
           this.dislengthtime = true;
           this.form.lengthtime = 8;
           this.showVacation = true;
+          //add ccm 0720
+          this.rules.enclosurecontent[0].required = true;
+          //add ccm 0720
         } else if (val === 'PR013022') {
           this.checkerrortishi = false;
           this.checkrelengthtime = true;
           this.dislengthtime = true;
           this.form.lengthtime = '1';
           this.showVacation = true;
+          //add ccm 0720
+          this.rules.enclosurecontent[0].required = true;
+          //add ccm 0720
         }
         if (this.form.errortype === 'PR013014') {
           if (2 - this.parent <= 0) {
@@ -1908,7 +2001,6 @@
         this.buttonClick2('end');
       },
       fileError(err, file, fileList) {
-        debugger
         Message({
           message: this.$t('normal.error_04'),
           type: 'error',
@@ -2666,7 +2758,6 @@
 
       buttonClick2(val) {
         //总经理审批自动通过
-        //debugger
         // if (getCurrentRole() === '1' && this.form.user_id === '5e78fefff1560b363cdd6db7') {
         //   this.form.status = '7';
         // }
