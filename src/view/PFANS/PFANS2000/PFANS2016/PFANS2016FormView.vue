@@ -822,10 +822,10 @@
                 this.form.reoccurrencedate = response.occurrencedate;
                 this.form.refinisheddate = response.finisheddate;
                 this.form.relengthtime = response.lengthtime;
-                // 因公外出或打卡异常 家长会假
-                if (this.form.errortype === 'PR013001') {
-                  this.checkrelengthtime = true;
-                }
+                // // 因公外出或打卡异常 家长会假
+                // if (this.form.errortype === 'PR013001') {
+                //   this.checkrelengthtime = true;
+                // }
               }
             }
             this.getonRest(this.form.errortype);
