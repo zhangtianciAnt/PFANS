@@ -4,7 +4,9 @@ import {
   getAttendancelist1,
   update,
   updStatus,
-  updStatus1
+  updStatus1,
+  getAttendancelistCompared,
+  disclickUpdateStates
 } from './PFANS2010Api'
 
 const PFANS2010Store = {
@@ -48,6 +50,21 @@ const PFANS2010Store = {
     getAttendancelist1({ commit }, data) {
       return new Promise((resolve, reject) => {
         getAttendancelist1(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+
+    //获取离职考勤对比
+    getAttendancelistCompared({ commit }, data) {
+      return new Promise((resolve, reject) => {
+        getAttendancelistCompared(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -104,8 +121,23 @@ const PFANS2010Store = {
           reject(error);
         })
       })
-    }
+    },
     // add 0622 ccm --审批被驳回后，当月考勤数据全部变为未承认状态
+    //add ccm 0716 离职一键驳回
+    disclickUpdateStates({commit}, data) {
+      return new Promise((resolve, reject) => {
+        disclickUpdateStates(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    }
+    //add ccm 0716 离职一键驳回
   }
 }
 

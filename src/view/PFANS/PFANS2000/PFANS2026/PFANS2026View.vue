@@ -115,11 +115,23 @@
           {'key': 'delete', 'name': 'button.delete', 'disabled': true, 'icon': 'el-icon-delete'},
           {'key': 'changedata', 'name': 'button.changedata', 'disabled': true, 'icon': 'el-icon-view'},
           //add-ws-6/16-禅道106
+          // add-ccm 7/9 离职考勤对比 fr
+          {'key': 'resignationAttendCompare', 'name': 'button.resignationAttendCompare', 'disabled': true, 'icon': 'el-icon-view'},
+          // add-ccm 7/9 离职考勤对比 to
         ],
         userid: '',
         rowid: '',
         status: '',
         row_id: 'staffexitprocedure_id',
+        // add-ccm 7/9 离职考勤对比 fr
+        url: '',
+        urlparams: '',
+        row_userid:'',
+        // row_resignation_year:moment(new Date()).format("YYYY"),
+        // row_resignation_months:moment(new Date()).format("MM")
+        row_resignation_year:'',
+        row_resignation_months:''
+        // add-ccm 7/9 离职考勤对比 to
       };
     },
     mounted() {
@@ -179,9 +191,14 @@
                 if (postinfo) {
                   response[j].position = postinfo.value1;
                 }
+                // add-ccm 7/9 离职考勤对比 fr
+                //保存离职者的用户id
+                response[j].userid1 = response[j].user_id;
+                // add-ccm 7/9 离职考勤对比 to
                 if (rst) {
                   response[j].user_id = getUserInfo(response[j].user_id).userinfo.customername;
                 }
+
                 if (response[j].status !== null && response[j].status !== '') {
                   response[j].status = getStatus(response[j].status);
                 }
@@ -221,6 +238,37 @@
         }
         this.checktype = 0;
         this.status = 0;
+        // add-ccm 7/9 离职考勤对比 fr
+        this.row_userid = row.userid1;
+        let ru = getUserInfo(this.row_userid);
+        if (ru) {
+          if (ru.userinfo.resignation_date !=null && ru.userinfo.resignation_date!='' && ru.userinfo.resignation_date!=undefined)
+          {
+            this.row_resignation_year = moment(ru.userinfo.resignation_date).format("YYYY");
+            this.row_resignation_months = moment(ru.userinfo.resignation_date).format("MM");
+          }
+          let dataid = this.row_userid + ',' + this.row_resignation_year + ',' + this.row_resignation_months;
+          this.$store
+            .dispatch('workflowStore/oneWorkFlowIns', {menuUrl:'/PFANS2010View',dataid:dataid})
+            .then(response => {
+              if (response)
+              {
+                if (response.length> 0 && response[0].status === '通过' && row.status === this.$t('label.PFANS5004VIEW_OVERTIME'))
+                {
+                  this.buttonList[5].disabled = false;
+                }
+              }
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000
+              });
+            })
+        }
+        // add-ccm 7/9 离职考勤对比 to
+
         //add-ws-6/16-禅道106
         this.buttonList[2].disabled = true;
         this.buttonList[3].disabled = true;
@@ -325,6 +373,24 @@
               _type2: 1,
               _id: this.rowid,
               disabled: true,
+            },
+          });
+        }else if (val === 'resignationAttendCompare') {
+          if (this.rowid === '') {
+            Message({
+              message: this.$t('normal.info_01'),
+              type: 'info',
+              duration: 2 * 1000,
+            });
+            return;
+          }
+          this.$router.push({
+            name: 'PFANS2033View',
+            params: {
+              userid: this.row_userid,
+              years: this.row_resignation_year,
+              months: this.row_resignation_months,
+              disabled: false,
             },
           });
         }
