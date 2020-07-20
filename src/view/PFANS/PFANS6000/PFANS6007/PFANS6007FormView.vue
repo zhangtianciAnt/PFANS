@@ -314,7 +314,7 @@
           payment: [
             {
               required: true,
-              validator: checkpayment,
+              message: this.$t("normal.error_08") + this.$t("label.PFANS6007VIEW_PAYMENT"),
               trigger: 'change'
             },
           ]
