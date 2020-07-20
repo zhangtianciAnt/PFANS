@@ -1652,7 +1652,7 @@
           } else {
             //跨天取整天，8小时  包含公休日
             this.checkrelengthtime = true;
-            this.form.relengthtime = 8 * diffDate;
+            this.form.relengthtime = 8 * rediffDate;
           }
         }
         if (this.form.errortype === 'PR013006' || this.form.errortype === 'PR013008') {
