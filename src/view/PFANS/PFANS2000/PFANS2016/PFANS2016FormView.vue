@@ -2139,7 +2139,7 @@
                   //   return;
                   // }
                   //每次家长会假不能超过四小时
-                  if (this.form.lengthtime > 4) {
+                  if (this.form.lengthtime > 4 || this.form.relengthtime > 4) {
                     Message({
                       message: this.$t('label.PFANS2016FORMVIEW_BJDJZCHECK'),
                       type: 'error',
