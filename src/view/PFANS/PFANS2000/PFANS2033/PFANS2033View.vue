@@ -1,14 +1,14 @@
 <template>
-  <div style="max-height: 100%">
+  <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :title="title"
                          @buttonClick="buttonClick" ref="container" v-loading="loading" >
       <div slot="customize">
         <el-form label-position="top" label-width="8vw" style="padding-top: 25px">
           <el-form-item>
             <el-row>
-              <plx-table-grid :datas="tableData" :header-cell-style="getRowClass" border
-                              height="600":pagination-show="paginationShow" :rowClassName="rowClassName"
-                              style="width: 100%;height: 510px" cell-class-name = "row_height_left">
+              <plx-table-grid :datas="tableData" :header-cell-style="getRowClass" border highlight-current-row
+                              height="600" :pagination-show="paginationShow" :rowClassName="rowClassName"
+                              style="width: 100%;height: calc(100vh - 200px - 2rem)" cell-class-name = "row_height_left">
                 <!-- 日期对比-->
                 <plx-table-column
                   :label="'-'"
@@ -32,56 +32,56 @@
                     :label="$t('label.PFANS2010VIEW_NORMAL')"
                     align="center"
                     prop="normal"
-                    width="72">
+                    width="72" >
                   </plx-table-column>
                   <!--                平日-->
                   <plx-table-column
                     :label="$t('label.PFANS2010VIEW_OVERTIME')"
                     align="center"
                     prop="ordinaryindustry"
-                    width="72">
+                    width="72" >
                   </plx-table-column>
                   <!--                休日-->
                   <plx-table-column
                     :label="$t('label.PFANS2010VIEW_RETIREMENT')"
                     align="center"
                     prop="weekendindustry"
-                    width="72">
+                    width="72" >
                   </plx-table-column>
                   <!--                祝日-->
                   <plx-table-column
                     :label="$t('label.PFANS2010VIEW_HOLIDAYS')"
                     align="center"
                     prop="statutoryresidue"
-                    width="72">
+                    width="72" >
                   </plx-table-column>
                   <!--                一齐年休-->
                   <plx-table-column
                     :label="$t('label.PFANS2010VIEW_EVERYYEAR')"
                     align="left"
                     prop="annualrestday"
-                    width="78">
+                    width="78" >
                   </plx-table-column>
                   <!--                特别休日-->
                   <plx-table-column
                     :label="$t('label.PFANS2010VIEW_OCCASIONS')"
                     align="center"
                     prop="specialday"
-                    width="78">
+                    width="78" >
                   </plx-table-column>
                   <!--                青年节-->
                   <plx-table-column
                     :label="$t('label.PFANS2010VIEW_YOUTHDAY')"
                     align="center"
                     prop="youthday"
-                    width="72">
+                    width="72" >
                   </plx-table-column>
                   <!--                妇女节-->
                   <plx-table-column
                     :label="$t('label.PFANS2010VIEW_WOMENSDAY')"
                     align="center"
                     prop="womensday"
-                    width="72">
+                    width="72" >
                   </plx-table-column>
                 </plx-table-column>
                 <!--              年休-->
@@ -89,21 +89,21 @@
                   :label="$t('label.PFANS2010VIEW_INHUGH')"
                   align="center"
                   prop="annualrest"
-                  width="70">
+                  width="70" >
                 </plx-table-column>
                 <!--              代休-->
                 <plx-table-column
                   :label="$t('label.PFANS2010VIEW_DAYOFF')"
                   align="center"
                   prop="daixiu"
-                  width="70">
+                  width="70" >
                 </plx-table-column>
                 <!--              其他福利休假-->
                 <plx-table-column
                   :label="$t('label.PFANS2010VIEW_WELFARE')"
                   align="left"
                   prop="welfare"
-                  width="108">
+                  width="108" >
                 </plx-table-column>
                 <!--              病假-->
                 <plx-table-column
@@ -114,14 +114,14 @@
                     :label="$t('label.PFANS2010VIEW_SHORT')"
                     align="center"
                     prop="shortsickleave"
-                    width="75">
+                    width="75" >
                   </plx-table-column>
                   <!--                长病假-->
                   <plx-table-column
                     :label="$t('label.PFANS2010VIEW_LONG')"
                     align="center"
                     prop="longsickleave"
-                    width="75">
+                    width="75" >
                   </plx-table-column>
                 </plx-table-column>
                 <!--              事休-->
@@ -129,14 +129,14 @@
                   :label="$t('label.PFANS2010VIEW_LEAVE')"
                   align="center"
                   prop="compassionateleave"
-                  width="70">
+                  width="70" >
                 </plx-table-column>
                 <!--              产休/护理假-->
                 <plx-table-column
                   :label="$t('label.PFANS2010VIEW_MATERNITY')"
                   align="center"
                   prop="nursingleave"
-                  width="97">
+                  width="97" >
                 </plx-table-column>
                 <!--              欠勤-->
                 <plx-table-column
@@ -158,7 +158,7 @@
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import {Message} from 'element-ui';
   import moment from 'moment';
-  import {getUserInfo} from '@/utils/customize';
+  import {getUserInfo,getCurrentRolegongzijisuan} from '@/utils/customize';
 
   export default {
     name: 'PFANS2033View',
@@ -210,7 +210,7 @@
           months:'',
         },
         buttonList: [
-          {'key': 'disclick', 'name': 'button.disclick', 'disabled': false, 'icon': 'el-icon-check'}
+          {'key': 'disclick', 'name': 'button.disclick', 'disabled': true, 'icon': 'el-icon-check'}
         ],
       };
     },
@@ -309,24 +309,30 @@
         for(let i =0;i<this.dateInfo.length;i++){
           if(this.dateInfo[i].type === '4'){
             if(this.dateInfo[i].dateflg === row.dates){
-              if (row.tenantid === this.$t('label.expectedattend'))
+              if (this.$i18n)
               {
-                return "white";
-              }
-              else
-              {
-                return "sub_bg_color_bai";
+                if (row.tenantid === this.$t('label.expectedattend'))
+                {
+                  return "white";
+                }
+                else
+                {
+                  return "sub_bg_color_bai";
+                }
               }
             }
           }else{
             if(this.dateInfo[i].dateflg === row.dates){
-              if (row.tenantid === this.$t('label.expectedattend'))
+              if (this.$i18n)
               {
-                return "sub_bg_color_Darkgrey";
-              }
-              else
-              {
-                return "sub_bg_color_Darkgreyy";
+                if (row.tenantid === this.$t('label.expectedattend'))
+                {
+                  return "sub_bg_color_Darkgrey";
+                }
+                else
+                {
+                  return "sub_bg_color_Darkgreyy";
+                }
               }
             }
           }
@@ -343,36 +349,45 @@
         //入职
         if (moment(row.dates).format('YYYY-MM-DD') < moment(enterdate).format('YYYY-MM-DD'))
         {
-          if (row.tenantid === this.$t('label.expectedattend'))
+          if (this.$i18n)
           {
-            return "sub_bg_color_Ral";
-          }
-          else
-          {
-            return "sub_bg_color_Rall";
+            if (row.tenantid === this.$t('label.expectedattend'))
+            {
+              return "sub_bg_color_Ral";
+            }
+            else
+            {
+              return "sub_bg_color_Rall";
+            }
           }
         }
         //离职
         if (moment(row.dates).format('YYYY-MM-DD') > moment(resignationdate).format('YYYY-MM-DD'))
         {
-          if (row.tenantid === this.$t('label.expectedattend'))
+          if (this.$i18n)
           {
-            return "sub_bg_color_Ral";
-          }
-          else
-          {
-            return "sub_bg_color_Rall";
+            if (row.tenantid === this.$t('label.expectedattend'))
+            {
+              return "sub_bg_color_Ral";
+            }
+            else
+            {
+              return "sub_bg_color_Rall";
+            }
           }
         }
 
         if(moment(row.dates).format("E") == 6 || moment(row.dates).format("E") == 7 ){
-          if (row.tenantid === this.$t('label.expectedattend'))
+          if (this.$i18n)
           {
-            return "sub_bg_color_Darkgrey";
-          }
-          else
-          {
-            return "sub_bg_color_Darkgreyy";
+            if (row.tenantid === this.$t('label.expectedattend'))
+            {
+              return "sub_bg_color_Darkgrey";
+            }
+            else
+            {
+              return "sub_bg_color_Darkgreyy";
+            }
           }
         }
         let jh = this.dateInfo.filter(item => item.dateflg === row.dates);
@@ -382,9 +397,12 @@
             && moment(row.dates).format('YYYY-MM-DD') <= moment(resignationdate).format('YYYY-MM-DD')
             && (moment(row.dates).format("E") != 6 || moment(row.dates).format("E") != 7))
           {
-            if (row.tenantid === this.$t('label.actualattend'))
+            if (this.$i18n)
             {
-              return "sub_bg_color_bai";
+              if (row.tenantid === this.$t('label.actualattend'))
+              {
+                return "sub_bg_color_bai";
+              }
             }
           }
         }
@@ -394,9 +412,12 @@
             && moment(row.dates).format('YYYY-MM-DD') <= moment(resignationdate).format('YYYY-MM-DD')
             && (moment(row.dates).format("E") != 6 || moment(row.dates).format("E") != 7))
           {
-            if (row.tenantid === this.$t('label.actualattend'))
+            if (this.$i18n)
             {
-              return "sub_bg_color_bai";
+              if (row.tenantid === this.$t('label.actualattend'))
+              {
+                return "sub_bg_color_bai";
+              }
             }
           }
         }
@@ -416,7 +437,6 @@
         this.$store
           .dispatch('PFANS2010Store/disclickUpdateStates', this.form)
           .then(response => {
-            debugger;
             this.loading = false;
             if (val === 1)
             {
@@ -425,10 +445,10 @@
                 type: 'success',
                 duration: 5 * 1000,
               });
+              this.$router.push({
+                name: 'PFANS2026View',
+              });
             }
-            this.$router.push({
-              name: 'PFANS2026View',
-            });
           })
           .catch(error => {
             Message({
@@ -437,15 +457,14 @@
               duration: 5 * 1000
             });
             this.loading = false;
-          })
+          });
+
+
       },
       buttonClick(val) {
         if (val === 'disclick')
         {
           this.updStatus1(1);
-          this.$router.push({
-            name: 'PFANS2026View',
-          });
         }
         else if (val === 'back') {
           this.$router.push({
@@ -479,11 +498,17 @@
               }
               if(response[j].tenantid === '0')
               {
-                response[j].tenantid = this.$t('label.expectedattend');
+                if (this.$i18n)
+                {
+                  response[j].tenantid = this.$t('label.expectedattend');
+                }
               }
               if(response[j].tenantid === '1')
               {
-                response[j].tenantid = this.$t('label.actualattend');
+                if (this.$i18n)
+                {
+                  response[j].tenantid = this.$t('label.actualattend');
+                }
               }
 
               response[j].dates = moment(response[j].dates).format("YYYY-MM-DD");
@@ -531,6 +556,11 @@
     mounted() {
       this.getDay();
       this.getAttendancelist();
+      let role = getCurrentRolegongzijisuan();
+      if (role === '0')
+      {
+        this.buttonList[0].disabled = false;
+      }
     },
   };
 </script>
