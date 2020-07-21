@@ -94,7 +94,6 @@
               if(j === 0){
                   if(moment(response[j].generationdate).format('YYYY-MM') === moment(new Date()).format('YYYY-MM')){
                       this.Givingid = response[j].giving_id;
-                      alert(this.Givingid);
                   }
               }
               if (this.$i18n) {
@@ -194,7 +193,6 @@
             });
         }
         if (val === 'grantthismonth') {
-            alert(this.Givingid);
               this.loading = true;
               this.$store
                   .dispatch('PFANS2005Store/updatestate',{givingid: this.Givingid})

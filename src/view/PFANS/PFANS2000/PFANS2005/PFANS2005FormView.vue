@@ -71,37 +71,37 @@
                     align="center"
                   ></plx-table-column>
                   <plx-table-column
-                    prop="sex"
+                    prop="sexshow"
                     :label="$t('label.PFANS2006VIEW_SEX')"
                     width="70"
                     align="center"
                   ></plx-table-column>
                   <plx-table-column
-                    prop="onlychild"
+                    prop="onlychildshow"
                     :label="$t('label.PFANS2006VIEW_SINGLECHILD')"
                     width="120"
                     align="center"
                   ></plx-table-column>
                   <plx-table-column
-                    prop="type"
+                    prop="typeshow"
                     :label="$t('label.PFANS2006VIEW_ENTRYTYPE')"
                     width="130"
                     align="center"
                   ></plx-table-column>
                   <plx-table-column
-                    prop="bonus"
+                    prop="bonusshow"
                     :label="$t('label.PFANS2006VIEW_SCHOLARSHIP')"
                     width="150"
                     align="center"
                   ></plx-table-column>
                   <plx-table-column
-                    prop="sociology"
+                    prop="sociologyshow"
                     :label="$t('label.PFANS2006VIEW_SOCIETY')"
                     width="160"
                     align="center"
                   ></plx-table-column>
                   <plx-table-column
-                    prop="registered"
+                    prop="registeredshow"
                     :label="$t('label.PFANS2006VIEW_REGISTER')"
                     width="100"
                     align="center"
@@ -3835,20 +3835,19 @@
                             }
                             item.no = index + 1;
                             item.workdate = moment(item.workdate).format("YYYY-MM-DD");
-                            //item.sex = item.sex === "PR019001" ? "男" : "女";
-                            //item.onlychild = item.onlychild === "1" ? "是" : "-";
-                            //item.onlychild = item.onlychild === "-" ? "否" : "是";
-                            // item.type =
-                            //   item.type === "1"
-                            //     ? "入職"
-                            //     : item.type === "2"
-                            //     ? "女産休"
-                            //     : item.type === "4"
-                            //       ? "退職"
-                            //       : "-";
-                            //item.bonus = item.bonus === "2" ? "老员工" : "新员工";
-                            // item.sociology = item.sociology === "1" ? "是" : "-";
-                            // item.registered = item.registered === "1" ? "是" : "-";
+                            item.sexshow = item.sex === "PR019001" ? "男" : "女";
+                            item.onlychildshow = item.onlychild === "1" ? "是" : "-";
+                            item.typeshow =
+                              item.type === "1"
+                                ? "入職"
+                                : item.type === "2"
+                                ? "女産休"
+                                : item.type === "4"
+                                  ? "退職"
+                                  : "-";
+                            item.bonusshow = item.bonus === "2" ? "老员工" : "新员工";
+                            item.sociologyshow = item.sociology === "1" ? "是" : "-";
+                            item.registeredshow = item.registered === "1" ? "是" : "-";
                         });
                         this.responseDataInit = response.wagesList;
                         this.totaldata = response.wagesList;

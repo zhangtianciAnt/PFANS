@@ -44,30 +44,31 @@
           {
             code: 'basicinfor1',
             label: 'label.PFANS2006VIEW_BASICINFOR1',
+            fix: true,
             child: [
               {
                 code: 'rowindex',
                 label: 'label.PFANS2006VIEW_NO',
                 width: 80,
-                fix: false,
+                fix: true,
                 filter: true,
               }, {
                 code: 'giving_id',
                 label: 'label.PFANS2006VIEW_DATE',
                 width: 120,
-                fix: false,
+                fix: true,
                 filter: true,
               }, {
                 code: 'department_id',
                 label: 'label.PFANS2006VIEW_CLUB',
                 width: 120,
-                fix: false,
+                fix: true,
                 filter: true,
               }, {
                 code: 'user_id',
                 label: 'label.PFANS2006VIEW_LASTNAME',
                 width: 150,
-                fix: false,
+                fix: true,
                 filter: true,
               }, {
                 code: 'workdate',
@@ -518,11 +519,7 @@
           .then(response => {
             for (let j = 0; j < response.length; j++) {
               response[j].rowindex = j + 1;
-
-              if (response[j].giving_id !== null && response[j].giving_id !== "") {
-                response[j].giving_id = response[j].giving_id.substring(0, 4) + '-' + response[j].giving_id.substring(4, 6)
-                // response[j].giving_id = moment(response[j].giving_id).format('YYYY-MM');
-              }
+              response[j].giving_id = moment(response[j].createon).format('YYYY-MM');
 
               if (response[j].department_id !== null && response[j].department_id !== "") {
                 let user = getDepartmentById(response[j].department_id);
@@ -541,6 +538,21 @@
 
               if (response[j].workdate !== null && response[j].workdate !== '') {
                 response[j].workdate = moment(response[j].workdate).format('YYYY-MM-DD');
+              }
+              if (this.$i18n) {
+                  response[j].sex = response[j].sex === "PR019001" ? this.$t("label.PFANS2002FORMVIEW_BOY") : this.$t("label.PFANS2002FORMVIEW_GRIL");
+                  response[j].onlychild = response[j].onlychild === "1" ? this.$t("label.yes") : "-";
+                  response[j].type =
+                      response[j].type === "1"
+                          ? "入職"
+                          : response[j].type === "2"
+                          ? "女産休"
+                          : response[j].type === "4"
+                              ? "退職"
+                              : "-";
+                  response[j].bonus = response[j].bonus === "2" ? this.$t("label.PFANSUSERFORMVIEW_OLDSTAFF") : this.$t("label.PFANSUSERFORMVIEW_NEWSTAFF");
+                  response[j].sociology = response[j].sociology === "1" ? this.$t("label.yes") : "-";
+                  response[j].registered = response[j].registered === "1" ? this.$t("label.yes") : "-";
               }
             }
             this.data = response;
