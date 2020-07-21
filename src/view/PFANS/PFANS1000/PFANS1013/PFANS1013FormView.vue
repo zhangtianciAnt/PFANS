@@ -100,6 +100,15 @@
                       </dicselect>
                     </el-form-item>
                   </el-col>
+                  <!--                  add_fjl_0721 添加地域名称显示 start-->
+                  <el-col :span="8" v-if="form.place === '其他' || form.place === 'PJ036005'">
+                    <el-form-item :label="$t('label.PFANS1013VIEW_REGIONNAME')">
+                      <el-input :disabled="true" style="width:20vw" v-model="form.regionname"></el-input>
+                    </el-form-item>
+                  </el-col>
+                  <!--                  add_fjl_0721 添加地域名称显示 end-->
+                </el-row>
+                <el-row>
                   <el-col :span="8">
                     <template>
                       <el-form-item :label="$t('label.PFANS1013VIEW_STARTDATE')">
@@ -112,8 +121,6 @@
                       </el-form-item>
                     </template>
                   </el-col>
-                </el-row>
-                <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1013VIEW_ENDDATE')">
                       <el-date-picker
@@ -129,18 +136,7 @@
                       <el-input :disabled="true" style="width:20vw" v-model="form.datenumber"></el-input>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS5004VIEW_PROJECTNAMW')">
-                      <el-select :disabled="!disable" clearable style="width: 20vw" v-model="form.project_id">
-                        <el-option
-                          :key="item.value"
-                          :label="item.lable"
-                          :value="item.value"
-                          v-for="item in optionsdate">
-                        </el-option>
-                      </el-select>
-                    </el-form-item>
-                  </el-col>
+
                   <!--                  <el-col :span="8">-->
                   <!--                    <el-form-item :label="$t('label.budgetunit')" prop="budgetunit">-->
                   <!--                      <dicselect-->
@@ -169,7 +165,6 @@
                       <span style="margin-left: 1vw ">{{$t('label.PFANSUSERFORMVIEW_YES')}}</span>
                     </el-form-item>
                   </el-col>
-
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1013VIEW_YESYJDA')">
                       <span style="margin-left: 1vw ">{{$t('label.no')}}</span>
@@ -182,6 +177,18 @@
                       >
                       </el-switch>
                       <span style="margin-right: 1vw ">{{$t('label.yes')}}</span>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS5004VIEW_PROJECTNAMW')">
+                      <el-select :disabled="!disable" clearable style="width: 20vw" v-model="form.project_id">
+                        <el-option
+                          :key="item.value"
+                          :label="item.lable"
+                          :value="item.value"
+                          v-for="item in optionsdate">
+                        </el-option>
+                      </el-select>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -1253,6 +1260,7 @@
           reimbursementdate: moment(new Date()).format('YYYY-MM-DD'),
           personalcode: '',
           uploadfile: '',
+            regionname: '',
         },
         buttonList: [
           {
@@ -1790,6 +1798,7 @@
           if (oldplsummaryinfo) {
             this.tableR[0].accountcode = oldplsummaryinfo.value1;
             this.tableR[0].subjectnumber = oldplsummaryinfo.value2;
+              this.tableR[0].Redirict = this.Redirict;
             this.oldaccountcodeflg = oldplsummaryinfo.value1;
             this.oldaccountcodeflg1 = oldplsummaryinfo.code;
             this.oldsubjectnumberflg = oldplsummaryinfo.value2;
@@ -1805,6 +1814,7 @@
           if (accinfo) {
             this.tableT[0].accountcode = accinfo.value1;
             this.tableT[0].subjectnumber = accinfo.value2;
+              this.tableT[0].Redirict = this.Redirict;
             this.accountcodeflg = accinfo.value1;
             this.accountcodeflg1 = accinfo.code;
             this.subjectnumberflg = accinfo.value2;
@@ -1815,6 +1825,7 @@
           if (oldplsummaryinfo) {
             this.tableR[0].accountcode = oldplsummaryinfo.value1;
             this.tableR[0].subjectnumber = oldplsummaryinfo.value2;
+              this.tableR[0].Redirict = this.Redirict;
             this.oldaccountcodeflg = oldplsummaryinfo.value1;
             this.oldaccountcodeflg1 = oldplsummaryinfo.code;
             this.oldsubjectnumberflg = oldplsummaryinfo.value2;
@@ -1830,6 +1841,7 @@
           if (accinfo) {
             this.tableT[0].accountcode = accinfo.value1;
             this.tableT[0].subjectnumber = accinfo.value2;
+              this.tableT[0].Redirict = this.Redirict;
             this.accountcodeflg = accinfo.value1;
             this.accountcodeflg1 = accinfo.code;
             this.subjectnumberflg = accinfo.value2;
@@ -1988,6 +2000,7 @@
                     datenumber: response[i].datenumber,
                     external: response[i].external,
                     arrivenight: response[i].arrivenight,
+                      regionname: response[i].regionname,
                   });
                 }
               } else {
@@ -2004,6 +2017,7 @@
                     datenumber: response[i].datenumber,
                     external: response[i].external,
                     arrivenight: response[i].arrivenight,
+                      regionname: response[i].regionname,
                   });
                 }
               }
@@ -2910,6 +2924,7 @@
               this.region = cityinfo.code;
             }
             this.rank = this.relations[i].level;
+              this.form.regionname = this.relations[i].regionname;
             let dict = getDictionaryInfo(this.relations[i].level);
             if (dict) {
               this.form.level = dict.value1;
@@ -2993,6 +3008,7 @@
             annexno: '',
             rowindex: '',
             taxes: '',
+              Redirict: this.Redirict
           });
         }
         for (let i = 0; i < this.tableA.length; i++) {
