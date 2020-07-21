@@ -133,7 +133,7 @@
         },
         show7: false,
         vote: [],
-        optionsdata: [{value: '1', lable: this.$t('menu.PFANS1004')},
+        optionsdata: [{value: '1', lable: this.$t('title.PFANS1004VIEW')},
           {value: '2', lable: this.$t('menu.PFANS1005')},
           {value: '3', lable: this.$t('menu.PFANS1010')},
           {value: '4', lable: this.$t('label.PFANS1012VIEW_CHECKLIST')},

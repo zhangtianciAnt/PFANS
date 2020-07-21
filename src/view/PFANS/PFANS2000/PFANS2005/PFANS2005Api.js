@@ -131,3 +131,13 @@ export function getWagecompany() {
   });
 }
 //gbb end
+
+//gbb 0721 工资发放按钮 start
+export function updatestate(data) {
+  return request({
+    url: 'giving/updatestate',
+    method: 'get',
+    params: data,
+  });
+}
+//gbb 0721 工资发放按钮 end

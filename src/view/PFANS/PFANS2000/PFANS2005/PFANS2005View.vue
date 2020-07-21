@@ -23,6 +23,7 @@
         loading: false,
         title: 'title.PFANS2005VIEW',
         data: [],
+        Givingid:'',
         form: {
           generationdate: '',
           generation: '',
@@ -41,6 +42,13 @@
             width: 120,
             fix: false,
             filter: true,
+          },
+          {
+              code: 'grantstatus',
+              label: 'label.PFANS2005VIEW_GRANTSTATUS',
+              width: 120,
+              fix: false,
+              filter: true,
           },
           {
             code: 'user_id',
@@ -66,7 +74,8 @@
         ],
         buttonList: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
-          {'key': 'generate', 'name': 'button.generate', 'disabled': false},
+          {'key': 'generatethismonth', 'name': 'button.generatethismonth', 'disabled': false},
+          {'key': 'grantthismonth', 'name': 'button.grantthismonth', 'disabled': false},
         ],
         rowid: '',
         row_id: 'giving_id',
@@ -82,6 +91,20 @@
           .dispatch('PFANS2005Store/getDataList', {})
           .then(response => {
             for (let j = 0; j < response.length; j++) {
+              if(j === 0){
+                  if(moment(response[j].generationdate).format('YYYY-MM') === moment(new Date()).format('YYYY-MM')){
+                      this.Givingid = response[j].giving_id;
+                      alert(this.Givingid);
+                  }
+              }
+              if (this.$i18n) {
+                if (response[j].grantstatus === '1') {
+                    response[j].grantstatus = this.$t('label.PFANS2005VIEW_GRANTSTATUSOK');
+                }
+                else{
+                    response[j].grantstatus = this.$t('label.PFANS2005VIEW_GRANTSTATUSNO');
+                }
+              }
               if (response[j].generation === '0') {
                 if (this.$i18n) {
 
@@ -98,6 +121,11 @@
                 if (rst) {
                   response[j].user_id = rst.userinfo.customername;
                 }
+              }
+              else{
+                  if (this.$i18n) {
+                      response[j].user_id = this.$t('label.PFANS2005VIEW_XTFW');
+                  }
               }
               if (response[j].generationdate !== null && response[j].generationdate !== '') {
                 response[j].generationdate = moment(response[j].generationdate).format('YYYY-MM');
@@ -144,12 +172,17 @@
             },
           });
         }
-        if (val === 'generate') {
+        if (val === 'generatethismonth') {
           this.loading = true;
           this.$store
             .dispatch('PFANS2005Store/creategiving', {"generation": "0"})
             .then(response => {
               this.getGivingList();
+              Message({
+                  message: this.$t("normal.success_05"),
+                  type: 'success',
+                  duration: 5 * 1000
+              });
             })
             .catch(error => {
               Message({
@@ -160,6 +193,28 @@
               this.loading = false;
             });
         }
+        if (val === 'grantthismonth') {
+            alert(this.Givingid);
+              this.loading = true;
+              this.$store
+                  .dispatch('PFANS2005Store/updatestate',{givingid: this.Givingid})
+                  .then(response => {
+                      this.getGivingList();
+                      Message({
+                          message: this.$t("normal.success_06"),
+                          type: 'success',
+                          duration: 5 * 1000
+                      });
+                  })
+                  .catch(error => {
+                      Message({
+                          message: error,
+                          type: 'error',
+                          duration: 5 * 1000,
+                      });
+                      this.loading = false;
+                  });
+          }
       },
     },
   };

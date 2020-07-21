@@ -1,7 +1,7 @@
 import {
   creategiving, deleteFive, givinglist, deleteteappreciation, getDataList, getCasgiftApply, deleteothertwo,
   deleteotherfour, save, deleteadditional, thisMonthLacktimeChange, thisMonthOvertimeChange,insertWages,
-  getWagesdepartment,getWagecompany
+  getWagesdepartment,getWagecompany,updatestate
 } from './PFANS2005Api'
 import { updateNewUser } from "../../PFANS5000/PFANS5008/PFANS5008Api";
 const PFANS2005Store = {
@@ -218,6 +218,22 @@ const PFANS2005Store = {
       })
     },
     // gbb end
+    //gbb 0721 工资发放按钮 start
+    updatestate({ commit }, data) {
+      return new Promise((resolve, reject) => {
+        updatestate(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+
+    //gbb 0721 工资发放按钮 end
   }
 };
 
