@@ -822,10 +822,10 @@
                 this.form.reoccurrencedate = response.occurrencedate;
                 this.form.refinisheddate = response.finisheddate;
                 this.form.relengthtime = response.lengthtime;
-                // 因公外出或打卡异常 家长会假
-                if (this.form.errortype === 'PR013001') {
-                  this.checkrelengthtime = true;
-                }
+                // // 因公外出或打卡异常 家长会假
+                // if (this.form.errortype === 'PR013001') {
+                //   this.checkrelengthtime = true;
+                // }
               }
             }
             this.getonRest(this.form.errortype);
@@ -1652,7 +1652,7 @@
           } else {
             //跨天取整天，8小时  包含公休日
             this.checkrelengthtime = true;
-            this.form.relengthtime = 8 * diffDate;
+            this.form.relengthtime = 8 * rediffDate;
           }
         }
         if (this.form.errortype === 'PR013006' || this.form.errortype === 'PR013008') {
@@ -2139,7 +2139,7 @@
                   //   return;
                   // }
                   //每次家长会假不能超过四小时
-                  if (this.form.lengthtime > 4) {
+                  if (this.form.lengthtime > 4 || this.form.relengthtime > 4) {
                     Message({
                       message: this.$t('label.PFANS2016FORMVIEW_BJDJZCHECK'),
                       type: 'error',

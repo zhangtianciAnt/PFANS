@@ -561,6 +561,7 @@
               this.showovertimetype = true;
               this.showovertimelength = true;
               this.disactualovertime = false;
+                this.disovertimelength = true;
             } else if (this.form.status === '4' || this.form.status === '6') {
               // this.workflowCode = 'W0040';
               if (this.form.overtimetype >= 'PR001004') {
