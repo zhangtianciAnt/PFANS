@@ -101,7 +101,7 @@
                     </el-form-item>
                   </el-col>
                   <!--                  add_fjl_0721 添加地域名称显示 start-->
-                  <el-col :span="8" v-if="region === 'PJ036005'">
+                  <el-col :span="8" v-if="form.place === '其他' || form.place === 'PJ036005'">
                     <el-form-item :label="$t('label.PFANS1013VIEW_REGIONNAME')">
                       <el-input :disabled="true" style="width:20vw" v-model="form.regionname"></el-input>
                     </el-form-item>
@@ -1798,6 +1798,7 @@
           if (oldplsummaryinfo) {
             this.tableR[0].accountcode = oldplsummaryinfo.value1;
             this.tableR[0].subjectnumber = oldplsummaryinfo.value2;
+              this.tableR[0].Redirict = this.Redirict;
             this.oldaccountcodeflg = oldplsummaryinfo.value1;
             this.oldaccountcodeflg1 = oldplsummaryinfo.code;
             this.oldsubjectnumberflg = oldplsummaryinfo.value2;
@@ -1813,6 +1814,7 @@
           if (accinfo) {
             this.tableT[0].accountcode = accinfo.value1;
             this.tableT[0].subjectnumber = accinfo.value2;
+              this.tableT[0].Redirict = this.Redirict;
             this.accountcodeflg = accinfo.value1;
             this.accountcodeflg1 = accinfo.code;
             this.subjectnumberflg = accinfo.value2;
@@ -1823,6 +1825,7 @@
           if (oldplsummaryinfo) {
             this.tableR[0].accountcode = oldplsummaryinfo.value1;
             this.tableR[0].subjectnumber = oldplsummaryinfo.value2;
+              this.tableR[0].Redirict = this.Redirict;
             this.oldaccountcodeflg = oldplsummaryinfo.value1;
             this.oldaccountcodeflg1 = oldplsummaryinfo.code;
             this.oldsubjectnumberflg = oldplsummaryinfo.value2;
@@ -1838,6 +1841,7 @@
           if (accinfo) {
             this.tableT[0].accountcode = accinfo.value1;
             this.tableT[0].subjectnumber = accinfo.value2;
+              this.tableT[0].Redirict = this.Redirict;
             this.accountcodeflg = accinfo.value1;
             this.accountcodeflg1 = accinfo.code;
             this.subjectnumberflg = accinfo.value2;
@@ -2322,6 +2326,7 @@
         if (group) {
             //add_fjl_0721   对应科目代码  start
             row.Redirict = group.redirict;
+            alert(row.Redirict)
             let codeinfo = '';
             if (row.Redirict === '0') {
                 codeinfo = 'PJ119001';
@@ -3004,6 +3009,7 @@
             annexno: '',
             rowindex: '',
             taxes: '',
+              Redirict: this.Redirict
           });
         }
         for (let i = 0; i < this.tableA.length; i++) {
@@ -3700,6 +3706,7 @@
                           travelsum6 += parseFloat(this.tableA[i].travel);
                         }
                       }
+                        alert(this.tableA[i].Redirict)
                       this.baseInfo.accommodationdetails.push(
                         {
                           accommodationdetails_id: this.tableA[i].accommodationdetails_id,
