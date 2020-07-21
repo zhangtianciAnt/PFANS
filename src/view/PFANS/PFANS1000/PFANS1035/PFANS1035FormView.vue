@@ -79,7 +79,7 @@
                   </el-col>
                   <el-col :span="8">
                     <!--                    111-->
-                    <el-form-item :label="$t('label.PFANS1002VIEW_CITY2')" prop="city">
+                    <el-form-item :label="$t('label.PFANS1002VIEW_REGION')" prop="city">
                       <dicselect
                         :code="code7"
                         :data="form.city"
@@ -91,6 +91,14 @@
                       </dicselect>
                     </el-form-item>
                   </el-col>
+                  <!--                  add_fjl_0721 添加地域名称显示 start-->
+                  <el-col :span="8" v-if="form.city === 'PJ036005'">
+                    <el-form-item :label="$t('label.PFANS1013VIEW_REGIONNAME')">
+                      <el-input :disabled="!disable" maxlength="50" style="width:20vw"
+                                v-model="form.regionname"></el-input>
+                    </el-form-item>
+                  </el-col>
+                  <!--                  add_fjl_0721 添加地域名称显示 end-->
                 </el-row>
                 <el-row>
                   <el-col :span="8">
