@@ -641,6 +641,7 @@
                                 :no="scope.row"
                                 :userlist="scope.row.name"
                                 @close="getCitationUserid"
+                                @getUserids="getUseridsInput"
                                 :multiple="multiple"
                                 :selectType="selectType1"
                                 style="width: 80%"
@@ -2386,6 +2387,9 @@
           row.company = lst1.groupNmae;
         }
       },
+        getUseridsInput(val, row) {
+            row.name = val;
+        },
       getUserids(val) {
         this.tableB[0].name = val;
         this.userlist = val;
