@@ -118,6 +118,9 @@
           // add-ccm 7/9 离职考勤对比 fr
           {'key': 'resignationAttendCompare', 'name': 'button.resignationAttendCompare', 'disabled': true, 'icon': 'el-icon-view'},
           // add-ccm 7/9 离职考勤对比 to
+          // add-ccm 7/20 离职工资对比 fr
+          {'key': 'wagescontrast', 'name': 'button.wagescontrast', 'disabled': true, 'icon': 'el-icon-view'},
+          // add-ccm 7/20 离职工资对比 to
         ],
         userid: '',
         rowid: '',
@@ -256,6 +259,7 @@
                 if (response.length> 0 && response[0].status === '通过' && row.status === this.$t('label.PFANS5004VIEW_OVERTIME'))
                 {
                   this.buttonList[5].disabled = false;
+                  this.buttonList[6].disabled = false;
                 }
               }
             })
@@ -393,6 +397,25 @@
               disabled: false,
             },
           });
+        }
+        else if (val === 'wagescontrast') {
+            if (this.rowid === '') {
+                Message({
+                    message: this.$t('normal.info_01'),
+                    type: 'info',
+                    duration: 2 * 1000,
+                });
+                return;
+            }
+            this.$router.push({
+                name: 'PFANS2034View',
+                params: {
+                    userid: this.row_userid,
+                    years: this.row_resignation_year,
+                    months: this.row_resignation_months,
+                    disabled: false,
+                },
+            });
         }
       },
       //add-ws-6/16-禅道106

@@ -141,3 +141,13 @@ export function updatestate(data) {
   });
 }
 //gbb 0721 工资发放按钮 end
+
+//gbb 0720 离职工资对比 start
+export function getWagesByResign(data) {
+  return request({
+    url: 'wages/getWagesByResign',
+    method: 'get',
+    params: data,
+  });
+}
+//gbb 0720 离职工资对比 end
