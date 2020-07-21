@@ -1860,7 +1860,6 @@
                     }
                     //ADD_FJL  修改人员预算编码
                   }
-                    alert(this.tableT[i].RedirictT)
                     if (this.tableT[i].RedirictT == '0') {
                     this.tableT[i].accoundoptionsdate = [];
                     let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ119');
@@ -2219,8 +2218,6 @@
               this.tableT[0].RedirictT = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).redirict;
               this.tableP[0].RedirictP = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).redirict;
           }
-          alert(this.tableT[0].RedirictT)
-          alert(this.tableP[0].RedirictP)
           this.tableP[0].code17 = this.tableP[0].RedirictP == '0' ? 'PJ121' : 'PJ134';
         this.show10 = true;
         //ADD-WS-直接部门或间接部门赋值变更
@@ -2759,7 +2756,6 @@
         if (group) {
           this.companyen = group.companyen;
             row.RedirictT = group.redirict;
-            alert(row.RedirictT)
             if (row.RedirictT == '0') {
             row.accoundoptionsdate = [];
             let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ119');

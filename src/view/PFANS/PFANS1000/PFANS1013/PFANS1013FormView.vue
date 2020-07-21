@@ -2326,7 +2326,6 @@
         if (group) {
             //add_fjl_0721   对应科目代码  start
             row.Redirict = group.redirict;
-            alert(row.Redirict)
             let codeinfo = '';
             if (row.Redirict === '0') {
                 codeinfo = 'PJ119001';
@@ -3706,7 +3705,6 @@
                           travelsum6 += parseFloat(this.tableA[i].travel);
                         }
                       }
-                        alert(this.tableA[i].Redirict)
                       this.baseInfo.accommodationdetails.push(
                         {
                           accommodationdetails_id: this.tableA[i].accommodationdetails_id,
