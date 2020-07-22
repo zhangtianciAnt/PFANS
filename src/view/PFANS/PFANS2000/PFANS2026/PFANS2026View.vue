@@ -288,7 +288,7 @@
           } else {
             this.checktype = 0;
           }
-          if (this.userid === row.user_id && row.newhope_exit_date != '') {
+          if (this.userid === row.user_id && row.newhope_exit_date != null) {
             this.buttonList[4].disabled = false;
           }
           this.status = 4;
