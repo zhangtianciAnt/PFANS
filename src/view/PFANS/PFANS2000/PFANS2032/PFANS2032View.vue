@@ -78,8 +78,8 @@
             filter: false,
           },
           {
-            code: 'hope_exit_date',
-            label: 'label.PFANS2026VIEW_DEPARTUREDATE',
+            code: 'resignation_date',
+            label: 'label.PFANS2026VIEW_RESIGNATIONDATE',
             width: 150,
             fix: false,
             filter: false,
@@ -139,6 +139,10 @@
                 if (response[j].entry_time !== null && response[j].entry_time !== '') {
                   response[j].entry_time = moment(response[j].entry_time).format('YYYY-MM-DD');
                 }
+                if (response[j].resignation_date !== null && response[j].resignation_date !== '') {
+                  response[j].resignation_date = moment(response[j].resignation_date).format('YYYY-MM-DD');
+                }
+
                 if (response[j].sex !== null && response[j].sex !== '') {
                   let letsex = getDictionaryInfo(response[j].sex);
                   if (letsex) {

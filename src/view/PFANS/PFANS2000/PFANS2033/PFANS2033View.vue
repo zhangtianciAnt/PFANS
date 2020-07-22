@@ -8,20 +8,20 @@
             <el-row>
               <plx-table-grid :datas="tableData" :header-cell-style="getRowClass" border highlight-current-row
                               height="600" :pagination-show="paginationShow" :rowClassName="rowClassName"
-                              style="width: 100%;height: calc(100vh - 200px - 2rem)" cell-class-name = "row_height_left">
+                              style="width: 100%;height:510px" cell-class-name = "row_height_left">
                 <!-- 日期对比-->
                 <plx-table-column
                   :label="'-'"
                   align="center"
                   prop="tenantid"
-                  width="46">
+                  width="90">
                 </plx-table-column>
                 <!-- 日期-->
                 <plx-table-column
                   :label="$t('label.PFANS2010VIEW_APPLICATION')"
                   align="center"
                   prop="dates"
-                  width="84">
+                  width="100">
                 </plx-table-column>
                 <!--              勤务-->
                 <plx-table-column
@@ -32,56 +32,56 @@
                     :label="$t('label.PFANS2010VIEW_NORMAL')"
                     align="center"
                     prop="normal"
-                    width="72" >
+                    width="90" >
                   </plx-table-column>
                   <!--                平日-->
                   <plx-table-column
                     :label="$t('label.PFANS2010VIEW_OVERTIME')"
                     align="center"
                     prop="ordinaryindustry"
-                    width="72" >
+                    width="90" >
                   </plx-table-column>
                   <!--                休日-->
                   <plx-table-column
                     :label="$t('label.PFANS2010VIEW_RETIREMENT')"
                     align="center"
                     prop="weekendindustry"
-                    width="72" >
+                    width="90" >
                   </plx-table-column>
                   <!--                祝日-->
                   <plx-table-column
                     :label="$t('label.PFANS2010VIEW_HOLIDAYS')"
                     align="center"
                     prop="statutoryresidue"
-                    width="72" >
+                    width="90" >
                   </plx-table-column>
                   <!--                一齐年休-->
                   <plx-table-column
                     :label="$t('label.PFANS2010VIEW_EVERYYEAR')"
-                    align="left"
+                    align="center"
                     prop="annualrestday"
-                    width="78" >
+                    width="110" >
                   </plx-table-column>
                   <!--                特别休日-->
                   <plx-table-column
                     :label="$t('label.PFANS2010VIEW_OCCASIONS')"
                     align="center"
                     prop="specialday"
-                    width="78" >
+                    width="110" >
                   </plx-table-column>
                   <!--                青年节-->
                   <plx-table-column
                     :label="$t('label.PFANS2010VIEW_YOUTHDAY')"
                     align="center"
                     prop="youthday"
-                    width="72" >
+                    width="110" >
                   </plx-table-column>
                   <!--                妇女节-->
                   <plx-table-column
                     :label="$t('label.PFANS2010VIEW_WOMENSDAY')"
                     align="center"
                     prop="womensday"
-                    width="72" >
+                    width="110" >
                   </plx-table-column>
                 </plx-table-column>
                 <!--              年休-->
@@ -89,21 +89,21 @@
                   :label="$t('label.PFANS2010VIEW_INHUGH')"
                   align="center"
                   prop="annualrest"
-                  width="70" >
+                  width="90" >
                 </plx-table-column>
                 <!--              代休-->
                 <plx-table-column
                   :label="$t('label.PFANS2010VIEW_DAYOFF')"
                   align="center"
                   prop="daixiu"
-                  width="70" >
+                  width="90" >
                 </plx-table-column>
                 <!--              其他福利休假-->
                 <plx-table-column
                   :label="$t('label.PFANS2010VIEW_WELFARE')"
-                  align="left"
+                  align="center"
                   prop="welfare"
-                  width="108" >
+                  width="120" >
                 </plx-table-column>
                 <!--              病假-->
                 <plx-table-column
@@ -114,14 +114,14 @@
                     :label="$t('label.PFANS2010VIEW_SHORT')"
                     align="center"
                     prop="shortsickleave"
-                    width="75" >
+                    width="100" >
                   </plx-table-column>
                   <!--                长病假-->
                   <plx-table-column
                     :label="$t('label.PFANS2010VIEW_LONG')"
                     align="center"
                     prop="longsickleave"
-                    width="75" >
+                    width="100" >
                   </plx-table-column>
                 </plx-table-column>
                 <!--              事休-->
@@ -129,21 +129,21 @@
                   :label="$t('label.PFANS2010VIEW_LEAVE')"
                   align="center"
                   prop="compassionateleave"
-                  width="70" >
+                  width="90" >
                 </plx-table-column>
                 <!--              产休/护理假-->
                 <plx-table-column
                   :label="$t('label.PFANS2010VIEW_MATERNITY')"
                   align="center"
                   prop="nursingleave"
-                  width="97" >
+                  width="110" >
                 </plx-table-column>
                 <!--              欠勤-->
                 <plx-table-column
                   :label="$t('label.PFANS2010VIEW_ABSENCE')"
                   align="center"
                   prop="absenteeism"
-                  width="70">
+                  width="90">
                 </plx-table-column>
               </plx-table-grid>
             </el-row>

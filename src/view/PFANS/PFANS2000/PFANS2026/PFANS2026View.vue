@@ -116,7 +116,12 @@
           {'key': 'changedata', 'name': 'button.changedata', 'disabled': true, 'icon': 'el-icon-view'},
           //add-ws-6/16-禅道106
           // add-ccm 7/9 离职考勤对比 fr
-          {'key': 'resignationAttendCompare', 'name': 'button.resignationAttendCompare', 'disabled': true, 'icon': 'el-icon-view'},
+          {
+            'key': 'resignationAttendCompare',
+            'name': 'button.resignationAttendCompare',
+            'disabled': true,
+            'icon': 'el-icon-view',
+          },
           // add-ccm 7/9 离职考勤对比 to
           // add-ccm 7/20 离职工资对比 fr
           {'key': 'wagescontrast', 'name': 'button.wagescontrast', 'disabled': true, 'icon': 'el-icon-view'},
@@ -129,11 +134,11 @@
         // add-ccm 7/9 离职考勤对比 fr
         url: '',
         urlparams: '',
-        row_userid:'',
+        row_userid: '',
         // row_resignation_year:moment(new Date()).format("YYYY"),
         // row_resignation_months:moment(new Date()).format("MM")
-        row_resignation_year:'',
-        row_resignation_months:''
+        row_resignation_year: '',
+        row_resignation_months: '',
         // add-ccm 7/9 离职考勤对比 to
       };
     },
@@ -145,15 +150,15 @@
         if (workinghours != null) {
           if (workinghours.length > 0) {
             return (
-              moment(workinghours[0]).format("YYYY-MM-DD") +
-              " ~ " +
-              moment(workinghours[1]).format("YYYY-MM-DD")
+              moment(workinghours[0]).format('YYYY-MM-DD') +
+              ' ~ ' +
+              moment(workinghours[1]).format('YYYY-MM-DD')
             );
           } else {
-            return "";
+            return '';
           }
         } else {
-          return "";
+          return '';
         }
       },
       filterInfo() {
@@ -233,7 +238,7 @@
           });
       },
       rowClick(row) {
-        if(this.$store.getters.userinfo){
+        if (this.$store.getters.userinfo) {
           let rst = getUserInfo(this.$store.getters.userinfo.userid);
           if (rst) {
             this.userid = getUserInfo(this.$store.getters.userinfo.userid).userinfo.customername;
@@ -245,19 +250,16 @@
         this.row_userid = row.userid1;
         let ru = getUserInfo(this.row_userid);
         if (ru) {
-          if (ru.userinfo.resignation_date !=null && ru.userinfo.resignation_date!='' && ru.userinfo.resignation_date!=undefined)
-          {
-            this.row_resignation_year = moment(ru.userinfo.resignation_date).format("YYYY");
-            this.row_resignation_months = moment(ru.userinfo.resignation_date).format("MM");
+          if (ru.userinfo.resignation_date != null && ru.userinfo.resignation_date != '' && ru.userinfo.resignation_date != undefined) {
+            this.row_resignation_year = moment(ru.userinfo.resignation_date).format('YYYY');
+            this.row_resignation_months = moment(ru.userinfo.resignation_date).format('MM');
           }
           let dataid = this.row_userid + ',' + this.row_resignation_year + ',' + this.row_resignation_months;
           this.$store
-            .dispatch('workflowStore/oneWorkFlowIns', {menuUrl:'/PFANS2010View',dataid:dataid})
+            .dispatch('workflowStore/oneWorkFlowIns', {menuUrl: '/PFANS2010View', dataid: dataid})
             .then(response => {
-              if (response)
-              {
-                if (response.length> 0 && response[0].status === '通过' && row.status === this.$t('label.PFANS5004VIEW_OVERTIME'))
-                {
+              if (response) {
+                if (response.length > 0 && response[0].status === '通过' && row.status === this.$t('label.PFANS5004VIEW_OVERTIME')) {
                   this.buttonList[5].disabled = false;
                   this.buttonList[6].disabled = false;
                 }
@@ -267,9 +269,9 @@
               Message({
                 message: error,
                 type: 'error',
-                duration: 5 * 1000
+                duration: 5 * 1000,
               });
-            })
+            });
         }
         // add-ccm 7/9 离职考勤对比 to
 
@@ -280,13 +282,13 @@
         if (row.status === this.$t('label.PFANS1026VIEW_WSTATUS') || row.status === this.$t('label.node_step2')) {
           this.buttonList[2].disabled = false;
         }
-        if (row.status === this.$t('label.PFANS5004VIEW_OVERTIME')) {
+        if (row.status === this.$t('label.PFANS5004VIEW_OVERTIME') || row.status === this.$t('label.node_step2')) {
           if (row.stage == '0') {
             this.checktype = 1;
           } else {
             this.checktype = 0;
           }
-          if(this.userid === row.user_id){
+          if (this.userid === row.user_id && row.newhope_exit_date != null) {
             this.buttonList[4].disabled = false;
           }
           this.status = 4;
@@ -379,7 +381,7 @@
               disabled: true,
             },
           });
-        }else if (val === 'resignationAttendCompare') {
+        } else if (val === 'resignationAttendCompare') {
           if (this.rowid === '') {
             Message({
               message: this.$t('normal.info_01'),
@@ -397,25 +399,24 @@
               disabled: false,
             },
           });
-        }
-        else if (val === 'wagescontrast') {
-            if (this.rowid === '') {
-                Message({
-                    message: this.$t('normal.info_01'),
-                    type: 'info',
-                    duration: 2 * 1000,
-                });
-                return;
-            }
-            this.$router.push({
-                name: 'PFANS2034View',
-                params: {
-                    userid: this.row_userid,
-                    years: this.row_resignation_year,
-                    months: this.row_resignation_months,
-                    disabled: false,
-                },
+        } else if (val === 'wagescontrast') {
+          if (this.rowid === '') {
+            Message({
+              message: this.$t('normal.info_01'),
+              type: 'info',
+              duration: 2 * 1000,
             });
+            return;
+          }
+          this.$router.push({
+            name: 'PFANS2034View',
+            params: {
+              userid: this.row_userid,
+              years: this.row_resignation_year,
+              months: this.row_resignation_months,
+              disabled: false,
+            },
+          });
         }
       },
       //add-ws-6/16-禅道106
