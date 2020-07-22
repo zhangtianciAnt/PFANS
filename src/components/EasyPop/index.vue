@@ -1,71 +1,72 @@
 <template>
   <el-drawer append-to-body destroy-on-close custom-class="custimize_drawer" @close="close"
-    :visible.sync="open" :show-close="false" :withHeader="false"
+             :visible.sync="open" :show-close="false" :withHeader="false"
              size="70%">
-  <PFANS6002FormView v-show="url === 'PFANS6002FormView'" ref="child"></PFANS6002FormView>
+    <PFANS6002FormView v-show="url === 'PFANS6002FormView'" ref="child"></PFANS6002FormView>
     <PFANS1032FormView ref="child" v-show="url === 'PFANS1032FormView'"></PFANS1032FormView>
     <PFANS1031FormView ref="child" v-show="url === 'PFANS1031FormView'"></PFANS1031FormView>
-
+    <PFANS1025FormView ref="child" v-show="url === 'PFANS1025FormView'"></PFANS1025FormView>
   </el-drawer>
 </template>
 
 <script>
-  import PFANS6002FormView from '@/view/PFANS/PFANS6000/PFANS6002/PFANS6002FormView.vue'
-  import PFANS1032FormView from '@/view/PFANS/PFANS1000/PFANS1032/PFANS1032FormView.vue'
-  import PFANS1031FormView from '@/view/PFANS/PFANS1000/PFANS1031/PFANS1031FormView.vue'
-
+  import PFANS6002FormView from '@/view/PFANS/PFANS6000/PFANS6002/PFANS6002FormView.vue';
+  import PFANS1032FormView from '@/view/PFANS/PFANS1000/PFANS1032/PFANS1032FormView.vue';
+  import PFANS1031FormView from '@/view/PFANS/PFANS1000/PFANS1031/PFANS1031FormView.vue';
+  import PFANS1025FormView from '@/view/PFANS/PFANS1000/PFANS1025/PFANS1025FormView.vue';
   export default {
-    name: "index",
+    name: 'index',
     components: {
-        PFANS6002FormView,
-        PFANS1032FormView,
-        PFANS1031FormView
+      PFANS6002FormView,
+      PFANS1032FormView,
+      PFANS1031FormView,
+      PFANS1025FormView
     },
     data() {
       return {
         open: false,
-        bkParams:{}
+        bkParams: {},
       };
     },
     props: {
       url: {
         type: String,
-        default: ""
+        default: '',
       },
       params: {
         type: String,
-        default: {}
-      }
+        default: {},
+      },
     },
     methods: {
-      close(){
-        for(let key in this.$route.params){
-          this.$route.params[key] = "";
+      close() {
+        for (let key in this.$route.params) {
+          this.$route.params[key] = '';
         }
-        for(let key in this.bkParams){
+        for (let key in this.bkParams) {
           this.$route.params[key] = this.bkParams[key];
         }
         this.$refs.child.$refs.container.Pop = false;
         this.bkParams = {};
-      }
+      },
     },
-    watch:{
-      open(val){
-        if(val){
+    watch: {
+      open(val) {
+        if (val) {
 
           this.bkParams = [...this.$route.params];
-          for(let key in this.params){
+          for (let key in this.params) {
             this.$route.params[key] = this.params[key];
           }
 
-          this.$nextTick(function () {
+          this.$nextTick(function() {
             debugger
             this.$refs.child.$refs.container.Pop = true;
-          })
+          });
         }
-      }
-    }
-  }
+      },
+    },
+  };
 </script>
 
 <style lang='scss'>

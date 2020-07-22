@@ -82,48 +82,11 @@
           </el-row>
           <el-row>
             <el-col :span="8">
-              <el-form-item :error="errorassetname" :label="$t('label.PFANS1009FORMVIEW_ASSETNAME')"  prop="assetname">
+              <el-form-item :error="errorassetname" :label="$t('label.PFANS1009FORMVIEW_ASSETNAME')" prop="assetname">
                 <template slot-scope="scope">
                   <el-input :disabled="!disable" style="width:20vw" v-model="form.assetname">
                   </el-input>
                 </template>
-                <!--ztc 0420 修改-->
-                <!--<div class="dpSupIndex" style="width: 20vw" prop="assetname">-->
-                <!--<el-container>-->
-                <!--<input class="content bg" v-model="form.assetname" :error="errorassetname" :disabled="true"></input>-->
-                <!--<el-button :disabled="!disable" icon="el-icon-search" @click="dialogTableVisible = true"-->
-                <!--size="small"></el-button>-->
-                <!--<el-dialog :title="$t('title.ASSETS1001FORMVIEW')" :visible.sync="dialogTableVisible" center size="50%"-->
-                <!--top="8vh" lock-scroll-->
-                <!--append-to-body>-->
-                <!--<div style="text-align: center">-->
-                <!--<el-row style="text-align: center;height: 90%;overflow: hidden">-->
-                <!--<el-table-->
-                <!--:data="gridData.filter(data => !search || data.assetname.toLowerCase().includes(search.toLowerCase()))"-->
-                <!--height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"-->
-                <!--:span-method="arraySpanMethod" @row-click="handleClickChange">-->
-                <!--<el-table-column property="assetname" :label="$t('label.ASSETS1001VIEW_FILENAME')"-->
-                <!--width="200"></el-table-column>-->
-                <!--<el-table-column property="usedepart" :label="$t('label.ASSETS1001VIEW_USEDEPARTMENT')"-->
-                <!--width="250"></el-table-column>-->
-                <!--<el-table-column-->
-                <!--align="right" width="200">-->
-                <!--<template slot="header" slot-scope="scope">-->
-                <!--<el-input-->
-                <!--v-model="search"-->
-                <!--size="mini"-->
-                <!--:placeholder="$t('label.PFANS1016FORMVIEW_IMPORT')" />-->
-                <!--</template>-->
-                <!--</el-table-column>-->
-                <!--</el-table>-->
-                <!--</el-row>-->
-                <!--<span slot="footer" class="dialog-footer">-->
-                <!--<el-button type="primary" @click="submit">{{$t("button.confirm")}}</el-button>-->
-                <!--</span>-->
-                <!--</div>-->
-                <!--</el-dialog>-->
-                <!--</el-container>-->
-                <!--</div>-->
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -192,7 +155,7 @@
           </el-row>
           <el-row>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1009FORMVIEW_REPAIR')">
+              <el-form-item :label="$t('label.PFANS1009FORMVIEW_REPAIR')" prop="repair">
                 <el-date-picker
                   v-model="form.repair"
                   class="bigWidth"
@@ -256,9 +219,12 @@
         }
       };
       return {
-          centerid: '',
-          groupid: '',
-          teamid: '',
+        centerid: '',
+        groupid: '',
+        teamid: '',
+        centerid: '',
+        groupid: '',
+        teamid: '',
         dialogTableVisible: false,
         errorassetname: '',
         gridData: [],
@@ -301,9 +267,12 @@
           repairkits: '',
           nodeList: [],
         },
+        code1: 'PA001',
         code1: 'PJ009',
         code2: 'PJ010',
         menuList: [],
+        selectedList: [],
+        assetsList: [],
         disabled: false,
         show: false,
         rules: {
@@ -322,6 +291,11 @@
             message: this.$t('normal.error_08') + this.$t('label.PFANS1007FORMVIEW_CONTRACTNO'),
             trigger: 'change',
           },],
+          repair: [{
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.PFANS1009FORMVIEW_REPAIR'),
+            trigger: 'blur',
+          }],
           inputdate: [{
             required: true,
             message: this.$t('normal.error_09') + this.$t('label.PFANS1009FORMVIEW_INPUTDATE'),
@@ -343,6 +317,9 @@
     },
     created() {
       this.disable = this.$route.params.disabled;
+      if (this.$route.params._selectedList != null) {
+        this.selectedList = this.$route.params._selectedList;
+      }
       if (this.disable) {
         this.buttonList = [
           {
@@ -370,12 +347,12 @@
           .dispatch('PFANS1009Store/getFixedassetsOne', {'fixedassets_id': this.$route.params._id})
           .then(response => {
             this.form = response;
-              let rst = getOrgInfoByUserId(response.user_id);
-              if(rst){
-                  this.centerid = rst.centerNmae;
-                  this.groupid= rst.groupNmae;
-                  this.teamid= rst.teamNmae;
-              }
+            let rst = getOrgInfoByUserId(response.user_id);
+            if (rst) {
+              this.centerid = rst.centerNmae;
+              this.groupid = rst.groupNmae;
+              this.teamid = rst.teamNmae;
+            }
             this.changerepairkits(this.form.repairkits);
             this.userlist = this.form.user_id;
             this.installsoftware = this.form.installsoftware;
@@ -391,9 +368,9 @@
               this.show1 = false;
               this.rules.inputdate[0].required = false;
             }
-            let repair = response.repair;
-            let serdate = repair.slice(0, 10);
-            let serdate1 = repair.slice(repair.length - 10);
+            let repairAnt = response.repair;
+            let serdate = repairAnt.slice(0, 10);
+            let serdate1 = repairAnt.slice(repairAnt.length - 10);
             this.form.repair = [serdate, serdate1];
             if (this.form.assettype === 'PJ009002') {
               this.show = true;
@@ -415,15 +392,36 @@
         if (this.userlist !== null && this.userlist !== '') {
           this.form.user_id = this.$store.getters.userinfo.userid;
           let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-            if(rst) {
-                this.centerid = rst.centerNmae;
-                this.groupid = rst.groupNmae;
-                this.teamid = rst.teamNmae;
-                this.form.center_id = rst.centerId;
-                this.form.group_id = rst.groupId;
-                this.form.team_id = rst.teamId;
-            }
+          if (rst) {
+            this.centerid = rst.centerNmae;
+            this.groupid = rst.groupNmae;
+            this.teamid = rst.teamNmae;
+            this.form.center_id = rst.centerId;
+            this.form.group_id = rst.groupId;
+            this.form.team_id = rst.teamId;
+          }
+          if (rst) {
+            this.centerid = rst.centerNmae;
+            this.groupid = rst.groupNmae;
+            this.teamid = rst.teamNmae;
+            this.form.center_id = rst.centerId;
+            this.form.group_id = rst.groupId;
+            this.form.team_id = rst.teamId;
+          }
         }
+        if (this.selectedList != '') {
+          this.assetsList = JSON.parse(this.selectedList);
+          if (this.assetsList[0].typeassets1 != null && this.assetsList[0].typeassets1 != '') {
+            this.form.assettype = this.assetsList[0].typeassets1;
+          }
+          if (this.assetsList[0].filename != null && this.assetsList[0].filename != '') {
+            this.form.assetname = this.assetsList[0].filename;
+          }
+          if (this.assetsList[0].barcode != null && this.assetsList[0].barcode != '') {
+            this.form.rfid = this.assetsList[0].barcode;
+          }
+        }
+        this.loading = false;
       }
     },
     methods: {
@@ -477,21 +475,36 @@
       getUserids(val) {
         this.form.user_id = val;
         let rst = getOrgInfoByUserId(val);
-          if(rst) {
-              this.centerid = rst.centerNmae;
-              this.groupid = rst.groupNmae;
-              this.teamid = rst.teamNmae;
-              this.form.center_id = rst.centerId;
-              this.form.group_id = rst.groupId;
-              this.form.team_id = rst.teamId;
-          }else{
-              this.centerid =  '';
-              this.groupid =  '';
-              this.teamid =  '';
-              this.form.center_id = '';
-              this.form.group_id =  '';
-              this.form.team_id =  '';
-          }
+        if (rst) {
+          this.centerid = rst.centerNmae;
+          this.groupid = rst.groupNmae;
+          this.teamid = rst.teamNmae;
+          this.form.center_id = rst.centerId;
+          this.form.group_id = rst.groupId;
+          this.form.team_id = rst.teamId;
+        } else {
+          this.centerid = '';
+          this.groupid = '';
+          this.teamid = '';
+          this.form.center_id = '';
+          this.form.group_id = '';
+          this.form.team_id = '';
+        }
+        if (rst) {
+          this.centerid = rst.centerNmae;
+          this.groupid = rst.groupNmae;
+          this.teamid = rst.teamNmae;
+          this.form.center_id = rst.centerId;
+          this.form.group_id = rst.groupId;
+          this.form.team_id = rst.teamId;
+        } else {
+          this.centerid = '';
+          this.groupid = '';
+          this.teamid = '';
+          this.form.center_id = '';
+          this.form.group_id = '';
+          this.form.team_id = '';
+        }
         if (!this.form.user_id || this.form.user_id === '' || val === 'undefined') {
           this.error = this.$t('normal.error_08') + this.$t('label.applicant');
         } else {
@@ -541,6 +554,7 @@
       start(val) {
         if (val.state === '0') {
           this.form.status = '2';
+        } else if (val.state === '2') {
         }else if (val.state === '2') {
           this.form.status = '4';
         }
@@ -627,6 +641,12 @@
                     this.loading = false;
                   });
               }
+            } else {
+              Message({
+                message: this.$t("normal.error_12"),
+                type: 'error',
+                duration: 5 * 1000
+              });
             }
           });
         }
@@ -654,3 +674,4 @@
   }
 
 </style>
+

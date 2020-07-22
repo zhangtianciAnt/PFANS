@@ -4,17 +4,21 @@
                      :columns="columns"
                      :data="data"
                      :title="title"
+                     :selectable="selectInit"
+                     ref="roletable"
+                     :showSelection="isShow"
                      :rowid="row_id"
                      @buttonClick="buttonClick"
                      @rowClick="rowClick"
-                     v-loading="loading">
+                     v-loading="loading"
+                     :psearchValue="search">
     </EasyNormalTable>
   </div>
 </template>
 
 <script>
   import EasyNormalTable from '@/components/EasyNormalTable';
-  import {getDictionaryInfo, getStatus} from '@/utils/customize';
+  import {getDictionaryInfo, getStatus, getOrgInfoByUserId} from '@/utils/customize';
   import {Message} from 'element-ui';
   import moment from 'moment';
 
@@ -25,6 +29,13 @@
     },
     data() {
       return {
+        //add-ws-7/20-禅道任务342
+        selectedlist: [],
+        listjudgement: [],
+        search: '',
+        rowsealid: '',
+        isShow: true,
+        //add-ws-7/20-禅道任务342
         loading: false,
         title: 'title.PFANS1025VIEW',
         data: [],
@@ -110,10 +121,30 @@
             filter: false,
           },
           //add-ws-4/17-添加审批时间
+          //add-ws-7/20-禅道任务342
+          {
+            code: 'sealstatus',
+            label: 'label.PFANS1024VIEW_SEALSTATUS',
+            width: 170,
+            fix: false,
+            filter: false,
+          },
+          {
+            code: 'statuspublic',
+            label: 'label.PFANS1030FORMVIEW_STATUSPUBLIC',
+            width: 150,
+            fix: false,
+            filter: false,
+          },
+
+          //add-ws-7/20-禅道任务342
         ],
         buttonList: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
           {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
+          {'key': 'sealapp', 'name': 'button.sealapp', 'disabled': false, 'icon': 'el-icon-view'},
+          {'key': 'viewseal', 'name': 'button.viewseal', 'disabled': true, 'icon': 'el-icon-view'},
+          {'key': 'pubilc', 'name': 'label.PFANS1025FORMVIEW_CHECKERROR', 'disabled': false, 'icon': 'el-icon-view'},
         ],
         rowid: '',
         row_id: 'award_id',
@@ -121,9 +152,22 @@
       };
     },
     mounted() {
+      //add-ws-7/20-禅道任务342
+      this.check();
+      //add-ws-7/20-禅道任务342
       this.getPjanme();
     },
     methods: {
+      //add-ws-7/20-禅道任务342
+      check() {
+        if (this.$route.params._id) {
+          this.search = this.$route.params._id;
+        }
+      },
+      selectInit(row, index) {
+        return row;
+      },
+      //add-ws-7/20-禅道任务342
       getPjanme() {
         this.loading = true;
         this.$store
@@ -172,17 +216,41 @@
                               }
                             }
                             //add-ws-4/17-添加审批时间
-                            if(response[j].status!='0'){
+                            if (response[j].status != '0') {
                               if (response[j].modifyon !== null && response[j].modifyon !== '') {
                                 response[j].modifyon = moment(response[j].modifyon).format('YYYY-MM-DD');
                               }
-                            }else{
+                            } else {
                               response[j].modifyon = null;
                             }
                             //add-ws-4/17-添加审批时间
                             if (response[j].status !== null && response[j].status !== '') {
                               response[j].status = getStatus(response[j].status);
                             }
+                            //add-ws-7/20-禅道任务342
+                            if (this.$i18n) {
+                              if (response[j].sealstatus === null || response[j].sealstatus === '') {
+                                response[j].sealstatus = '';
+                              } else if (response[j].sealstatus === '1') {
+                                response[j].sealstatus = this.$t('label.PFANS1032FORMVIEW_NOTSTARTSEAL');
+                              } else if (response[j].sealstatus === '2') {
+                                response[j].sealstatus = this.$t('label.PFANS1032FORMVIEW_LOADINGSEAL');
+                              } else if (response[j].sealstatus === '3') {
+                                response[j].sealstatus = this.$t('label.PFANS1032FORMVIEW_ENDSEAL');
+                              }
+                            }
+                            if (response[j].statuspublic !== null && response[j].statuspublic !== '') {
+                              if (response[j].statuspublic === '0') {
+                                response[j].statuspublic = this.$t('label.PFANS1026VIEW_WSTATUS');
+                              } else if (response[j].statuspublic === '2') {
+                                response[j].statuspublic = this.$t('label.PFANS1032FORMVIEW_LOADINGSEAL');
+                              } else if (response[j].statuspublic === '3') {
+                                response[j].statuspublic = this.$t('label.node_step2');
+                              } else if (response[j].statuspublic === '4') {
+                                response[j].statuspublic = this.$t('label.PFANS5004VIEW_OVERTIME');
+                              }
+                            }
+                            //add-ws-7/20-禅道任务342
                             if (response[j].pjnamechinese !== null && response[j].pjnamechinese !== '') {
                               if (response[j].pjnamechinese.split(',').length > 1) {
                                 let aa = [];
@@ -220,6 +288,11 @@
                               status: response[j].status,
                               award_id: response[j].award_id,
                               owner: response[j].owner,
+                              //add-ws-7/20-禅道任务342
+                              sealid: response[j].sealid,
+                              sealstatus: response[j].sealstatus,
+                              statuspublic: response[j].statuspublic,
+                              //add-ws-7/20-禅道任务342
                             });
                           }
                         }
@@ -243,6 +316,11 @@
                             status: response[m].status,
                             award_id: response[m].award_id,
                             owner: response[m].owner,
+                            //add-ws-7/20-禅道任务342
+                            sealid: response[m].sealid,
+                            sealstatus: response[m].sealstatus,
+                            statuspublic: response[m].statuspublic,
+                            //add-ws-7/20-禅道任务342
                           });
                         }
                       }
@@ -271,6 +349,13 @@
       },
       rowClick(row) {
         this.rowid = row.award_id;
+        //add-ws-7/20-禅道任务342
+        this.rowsealid = row.sealid;
+        this.buttonList[3].disabled = true;
+        if (row.sealid) {
+          this.buttonList[3].disabled = false;
+        }
+        //add-ws-7/20-禅道任务342
       }
       ,
       buttonClick(val) {
@@ -309,7 +394,169 @@
             },
           });
         }
-
+        //add-ws-7/20-禅道任务342
+        if (val === 'sealapp') {
+          let checktableD = '';
+          let error = 0;
+          this.selectedlist = this.$refs.roletable.selectedList;
+          if (this.$refs.roletable.selectedList.length === 0) {
+            Message({
+              message: this.$t('normal.info_01'),
+              type: 'info',
+              duration: 2 * 1000,
+            });
+            return;
+          } else {
+            for (let i = 0; i < this.selectedlist.length; i++) {
+              if (moment(this.selectedlist[i].deliverydate).format('YYYY-MM') > new moment().format('YYYY-MM') || this.selectedlist[i].sealstatus != '') {
+                error = error + 1;
+                let sealtypeList = this.selectedlist[i].contractnumber;
+                checktableD = checktableD + sealtypeList + ',';
+              }
+            }
+            if (error != 0) {
+              let img = checktableD.substring(0, checktableD.length - 1);
+              Message({
+                message: this.$t('label.PFANS1025VIEW_SEALCHECK') + img + this.$t('label.PFANS1025VIEW_SEALCHECK2'),
+                type: 'info',
+                duration: 3 * 1000,
+              });
+              return;
+            }
+          }
+          let ppid = '';
+          let bookid = '';
+          if (this.selectedlist.length > 0) {
+            for (let i = 0; i < this.selectedlist.length; i++) {
+              ppid += this.selectedlist[i].award_id + ',';
+            }
+            if (ppid && ppid.length > 0) {
+              bookid = '7,' + ppid.substr(0, ppid.length - 1);
+            }
+          }
+          let crePe = {};
+          let centerid = '';
+          let groupid = '';
+          let teamid = '';
+          let userid = '';
+          let filetype = 'PC002006';//委托决裁
+          if (this.$store.getters.userinfo.userid !== null && this.$store.getters.userinfo.userid !== '') {
+            let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+            if (rst) {
+              centerid = rst.centerId;
+              groupid = rst.groupId;
+              teamid = rst.teamId;
+            }
+            userid = this.$store.getters.userinfo.userid;
+          }
+          crePe.userid = userid;
+          crePe.centerid = centerid;
+          crePe.groupid = groupid;
+          crePe.teamid = teamid;
+          crePe.filetype = filetype;
+          crePe.bookid = bookid;
+          crePe.application_date = moment(new Date()).format('YYYY-MM-DD');
+          this.loading = true;
+          this.$store
+            .dispatch('PFANS4001Store/createbook', crePe)
+            .then(response => {
+              let peid = response.sealid;
+              this.$store.commit('global/SET_OPERATEID', peid);
+              this.$router.push({
+                name: 'PFANS4001FormView',
+                params: {
+                  _id: peid,
+                  disabled: true,
+                },
+              });
+              this.loading = false;
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
+        }
+        if (val === 'pubilc') {
+          this.selectedlist = this.$refs.roletable.selectedList;
+          if (this.$refs.roletable.selectedList.length === 0) {
+            Message({
+              message: this.$t('normal.info_01'),
+              type: 'info',
+              duration: 2 * 1000,
+            });
+            return;
+          } else {
+            for (let i = 0; i < this.selectedlist.length; i++) {
+              if (this.selectedlist[i].statuspublic === this.$t('label.PFANS5004VIEW_OVERTIME')) {
+                Message({
+                  message: this.$t('label.PFANS1025VIEW_CHECKPUBLICERROR'),
+                  type: 'info',
+                  duration: 2 * 1000,
+                });
+                return;
+              }
+            }
+            let chek = this.selectedlist;
+            for (let citem of this.selectedlist) {
+              chek = chek.filter(item => citem.custochinese == item.custochinese);
+            }
+            if (chek.length != this.selectedlist.length) {
+              Message({
+                message: this.$t('label.PFANS1025VIEW_PUBLIC2'),
+                type: 'info',
+                duration: 2 * 1000,
+              });
+              return;
+            } else {
+              for (let i = 0; i < this.selectedlist.length; i++) {
+                if (this.selectedlist[i].status != this.$t('label.PFANS5004VIEW_OVERTIME') || this.selectedlist[i].sealstatus != this.$t('label.PFANS1032FORMVIEW_ENDSEAL')) {
+                  Message({
+                    message: this.$t('label.PFANS1025VIEW_PUBLIC'),
+                    type: 'info',
+                    duration: 2 * 1000,
+                  });
+                  return;
+                }
+              }
+            }
+          }
+          for (let i = 0; i < this.selectedlist.length; i++) {
+            var vote = {};
+            vote.value = this.selectedlist[i].award_id;
+            vote.label = this.selectedlist[i].contractnumber;
+            this.listjudgement.push(vote);
+          }
+          this.$router.push({
+            name: 'PFANS1012FormView',
+            params: {
+              _name: this.listjudgement,
+              _type: 'PJ001002',
+              disabled: true,
+            },
+          });
+        }
+        if (val === 'viewseal') {
+          if (this.rowid === '') {
+            Message({
+              message: this.$t('normal.info_01'),
+              type: 'info',
+              duration: 2 * 1000,
+            });
+            return;
+          }
+          this.$router.push({
+            name: 'PFANS4001FormView',
+            params: {
+              _id: this.rowsealid,
+              disabled: true,
+            },
+          });
+        }
+        //add-ws-7/20-禅道任务342
       },
     },
   };

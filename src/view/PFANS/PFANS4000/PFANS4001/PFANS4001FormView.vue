@@ -177,476 +177,511 @@
   </div>
 </template>
 <script>
-    import EasyPop from '@/components/EasyPop'
-    import EasyNormalContainer from '@/components/EasyNormalContainer';
-    import PFANS4001View from '../PFANS4001/PFANS4001View.vue';
-    import {Message} from 'element-ui';
-    import dicselect from '../../../components/dicselect.vue';
-    import user from '../../../components/user.vue';
-    import moment from 'moment';
-    import {getOrgInfoByUserId, getDictionaryInfo} from '@/utils/customize';
+  import EasyPop from '@/components/EasyPop';
+  import EasyNormalContainer from '@/components/EasyNormalContainer';
+  import PFANS4001View from '../PFANS4001/PFANS4001View.vue';
+  import {Message} from 'element-ui';
+  import dicselect from '../../../components/dicselect.vue';
+  import user from '../../../components/user.vue';
+  import moment from 'moment';
+  import {getOrgInfoByUserId, getDictionaryInfo} from '@/utils/customize';
 
-    export default {
-        name: 'PFANS4001FormView',
-        components: {
-            EasyPop,
-            EasyNormalContainer,
-            PFANS4001View,
-            dicselect,
-            user,
+  export default {
+    name: 'PFANS4001FormView',
+    components: {
+      EasyPop,
+      EasyNormalContainer,
+      PFANS4001View,
+      dicselect,
+      user,
+    },
+    data() {
+      var checkuser = (rule, value, callback) => {
+        if (!value || value === '' || value === 'undefined') {
+          this.error = this.$t('normal.error_09') + this.$t('label.applicant');
+          return callback(new Error(this.$t('normal.error_09') + this.$t('label.applicant')));
+        } else {
+          this.error = '';
+          return callback();
+        }
+      };
+      return {
+        // flowContent: true,
+        // flowData: [
+        //     {
+        //         'No': '1',
+        //         'Name': '采购申请',
+        //         'Status': 'normal.done',
+        //         'url': 'PFANS4001FormView',
+        //         'params': {'_id':'a081f533-8872-4d90-8719-8942ce2f568c'}
+        //     },
+        //     {
+        //         'No': '2',
+        //         'Name': '合同作成',
+        //         'Status': 'normal.doing',
+        //         'url': '',
+        //         'params': {}
+        //     }
+        // ],
+        url: '',
+        urlparams: '',
+        centerid: '',
+        groupid: '',
+        teamid: '',
+        error: '',
+        tableD: [],
+        chgesal: [],
+        multipleSelection: [],
+        loading: false,
+        disable: false,
+        dialogTableVisible2: false,
+        selectType: 'Single',
+        userlist: '',
+        title: 'title.PFANS4001FORMVIEW',
+        buttonList: [],
+        form: {
+          usedate: '',
+          application_date: new Date(),
+          remarks: '',
+          client: '',
+          sealtype: '',
+          filetype: '',
+          printscore: '',
+          filename: '',
+          centerid: '',
+          groupid: '',
+          teamid: '',
+          userid: '',
+          bookid: '',
+
         },
-        data() {
-            var checkuser = (rule, value, callback) => {
-                if (!value || value === '' || value === 'undefined') {
-                    this.error = this.$t('normal.error_09') + this.$t('label.applicant');
-                    return callback(new Error(this.$t('normal.error_09') + this.$t('label.applicant')));
-                } else {
-                    this.error = '';
-                    return callback();
+        enableSave: false,
+        defaultStart: false,
+        code: 'PC002',
+        multiple: false,
+        code2: 'PC001',
+        multiple2: true,
+        code3: 'PG017',
+        multiple3: false,
+        checkdata: [],
+        rules: {
+          userid: [
+            {
+              required: true,
+              validator: checkuser,
+              trigger: 'change',
+            },
+          ],
+          application_date: [{
+            required: true,
+          },
+          ],
+          usedate: [{
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.PFANS4001FORMVIEW_YYRQ'),
+            trigger: 'change',
+          },
+          ],
+          filename: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS1034VIEW_FILENAME'),
+              trigger: 'blur',
+            },
+          ],
+          printscore: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS4001FORMVIRW_YYFS'),
+              trigger: 'blur',
+            },
+          ],
+          filetype: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS4001FORMVIRW_WJLX'),
+              trigger: 'change',
+            },
+          ],
+          sealtype: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS4001FORMVIRW_YYLX'),
+              trigger: 'blur',
+            },
+          ],
+          client: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS4001FORMVIRW_KH'),
+              trigger: 'change',
+            },
+          ],
+        },
+      };
+    },
+    mounted() {
+      if (this.$route.params._id) {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS4001Store/getPfans4001One', {'sealid': this.$route.params._id})
+          .then(response => {
+            if (response !== undefined) {
+              this.form = response;
+              // add-ws-印章管理下拉多选
+              if (this.form.sealtype != '' && this.form.sealtype != null && this.form.sealtype != undefined) {
+                let letstaff = this.form.sealtype.split(',');
+                this.form.sealtype = letstaff;
+              }
+
+              // add-ws-印章管理下拉多选
+              let rst = getOrgInfoByUserId(response.userid);
+              if (rst) {
+                this.centerid = rst.centerNmae;
+                this.groupid = rst.groupNmae;
+                this.teamid = rst.teamNmae;
+              }
+              this.userlist = this.form.userid;
+              if (this.form.status === '2') {
+                this.disable = false;
+              }
+              //编辑进来去pop中的数据
+              if (this.form.bookid !== null && this.form.bookid !== '') {
+                let bokid = this.form.bookid.split(',');
+                for (let i = 1; i < bokid.length; i++) {
+                  if (bokid[0] === '6') {
+                    this.pedata(bokid[i]);
+                  } else if (bokid[0] === '5') {
+                    this.npdata(bokid[i]);
+                  } else if (bokid[0] === '7') {
+                    this.award(bokid[i]);
+                  }
                 }
-            };
-            return {
-                // flowContent: true,
-                // flowData: [
-                //     {
-                //         'No': '1',
-                //         'Name': '采购申请',
-                //         'Status': 'normal.done',
-                //         'url': 'PFANS4001FormView',
-                //         'params': {'_id':'a081f533-8872-4d90-8719-8942ce2f568c'}
-                //     },
-                //     {
-                //         'No': '2',
-                //         'Name': '合同作成',
-                //         'Status': 'normal.doing',
-                //         'url': '',
-                //         'params': {}
-                //     }
-                // ],
-                url: '',
-                urlparams: '',
-                centerid: '',
-                groupid: '',
-                teamid: '',
-                error: '',
-                tableD: [],
-                chgesal: [],
-                multipleSelection: [],
-                loading: false,
-                disable: false,
-                dialogTableVisible2: false,
-                selectType: 'Single',
-                userlist: '',
-                title: 'title.PFANS4001FORMVIEW',
-                buttonList: [],
-                form: {
-                    usedate: '',
-                    application_date: new Date(),
-                    remarks: '',
-                    client: '',
-                    sealtype: '',
-                    filetype: '',
-                    printscore: '',
-                    filename: '',
-                    centerid: '',
-                    groupid: '',
-                    teamid: '',
-                    userid: '',
-                    bookid: '',
+              }
+            }
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      } else {
+        this.userlist = this.$store.getters.userinfo.userid;
+        if (this.userlist !== null && this.userlist !== '') {
+          let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+          if (rst) {
+            this.centerid = rst.centerNmae;
+            this.groupid = rst.groupNmae;
+            this.teamid = rst.teamNmae;
+            this.form.centerid = rst.centerId;
+            this.form.groupid = rst.groupId;
+            this.form.teamid = rst.teamId;
+          }
+          this.form.userid = this.$store.getters.userinfo.userid;
+        }
+      }
+    },
+    created() {
+      this.$store.commit('global/SET_WORKFLOWURL', '/PFANS4001View');
+      this.disable = this.$route.params.disabled;
+      if (this.disable) {
+        this.buttonList = [
+          {
+            key: 'save',
+            name: 'button.save',
+            icon: 'el-icon-check',
+          },
+        ];
+      }
+    },
+    methods: {
+      //add_fjl_添加合同回款相关  start
+      rowClick(row) {
+        this.url = '';
+        this.urlparams = '';
+        if (this.form.filetype === 'PC002004') {
+          this.url = 'PFANS1032FormView';
+          this.urlparams = {'_id': row.petition_id};
+        } else if (this.form.filetype === 'PC002005') {
+          this.url = 'PFANS1031FormView';
+          this.urlparams = {'_id': row.napalm_id};
+        } else if (this.form.filetype === 'PC002006') {
+          this.url = 'PFANS1025FormView';
+          this.urlparams = {'_id': row.award_id};
+        }
+        this.$refs[1].open = true;
+      },
+      selectInit(row, index) {
+        return moment(row.claimdate).format('YYYY-MM') === new moment().format('YYYY-MM');
+      },
+      handleSelectionChange(val) {
+        this.multipleSelection = val;
+      },
+      //add-ws-7/20-禅道任务342
+      award(val) {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS1025Store/selectById', {'award_id': val})
+          .then(response => {
+            let resp_ = response.award;
+            if (resp_ !== null && resp_ !== '' && resp_ !== undefined) {
+              this.tableD.push({
+                contracttype: getDictionaryInfo(resp_.contracttype).value1,
+                businesscode: resp_.businesscode,
+                pjnamejapanese: resp_.pjnamejapanese,
+                claimnumber: resp_.claimnumber,
+                claimdate: moment(resp_.claimdate).format('YYYY-MM-DD'),
+                contractnumber: resp_.contractnumber,
+                award_id: resp_.award_id,
+              });
+            }
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
+      //add-ws-7/20-禅道任务342
+      pedata(val) {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS1032Store/one', {'petition_id': val})
+          .then(response => {
+            let resp_ = response;
+            if (resp_ !== null && resp_ !== '' && resp_ !== undefined) {
+              this.tableD.push({
+                contracttype: getDictionaryInfo(resp_.contracttype).value1,
+                // custochinese : resp_.custochinese,
+                businesscode: resp_.businesscode,
+                pjnamejapanese: resp_.pjnamejapanese,
+                claimnumber: resp_.claimnumber,
+                claimdate: moment(resp_.claimdate).format('YYYY-MM-DD'),
+                contractnumber: resp_.contractnumber,
+                petition_id: resp_.petition_id,
+              });
+            }
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
 
-                },
-                enableSave: false,
-                defaultStart: false,
-                code: 'PC002',
-                multiple: false,
-                code2: 'PC001',
-                multiple2: true,
-                code3: 'PG017',
-                multiple3: false,
-                checkdata: [],
-                rules: {
-                    userid: [
-                        {
-                            required: true,
-                            validator: checkuser,
-                            trigger: 'change',
-                        },
-                    ],
-                    application_date: [{
-                        required: true,
-                    },
-                    ],
-                    usedate: [{
-                        required: true,
-                        message: this.$t('normal.error_09') + this.$t('label.PFANS4001FORMVIEW_YYRQ'),
-                        trigger: 'change',
-                    },
-                    ],
-                    filename: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS1034VIEW_FILENAME'),
-                            trigger: 'blur',
-                        },
-                    ],
-                    printscore: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS4001FORMVIRW_YYFS'),
-                            trigger: 'blur',
-                        },
-                    ],
-                    filetype: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS4001FORMVIRW_WJLX'),
-                            trigger: 'change',
-                        },
-                    ],
-                    sealtype: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS4001FORMVIRW_YYLX'),
-                            trigger: 'blur',
-                        },
-                    ],
-                    client: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS4001FORMVIRW_KH'),
-                            trigger: 'change',
-                        },
-                    ],
-                },
-            };
-        },
-        mounted() {
+      },
+      npdata(val) {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS1031Store/one', {'napalm_id': val})
+          .then(response => {
+            let resp_ = response;
+            if (resp_ !== null && resp_ !== '' && resp_ !== undefined) {
+              this.tableD.push({
+                contracttype: getDictionaryInfo(resp_.contracttype).value1,
+                businesscode: resp_.businesscode,
+                pjnamejapanese: resp_.pjnamejapanese,
+                claimnumber: resp_.claimnumber,
+                deliverydate: moment(resp_.deliverydate).format('YYYY-MM-DD'),
+                contractnumber: resp_.contractnumber,
+                napalm_id: resp_.napalm_id,
+              });
+            }
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+
+      },
+      //add_fjl_添加合同回款相关  end
+      setdisabled(val) {
+        if (this.$route.params.disabled) {
+          this.disabled = val;
+        }
+      },
+      wjlx(value1) {
+        this.form.filetype = value1;
+      },
+      yilx(value2) {
+        this.form.sealtype = value2;
+      },
+      kh(value3) {
+        this.form.client = value3;
+      },
+      getUserids(val) {
+        this.form.userid = val;
+        this.userlist = val;
+        let rst = getOrgInfoByUserId(val);
+        if (rst) {
+          this.centerid = rst.centerNmae;
+          this.groupid = rst.groupNmae;
+          this.teamid = rst.teamNmae;
+          this.form.centerid = rst.centerId;
+          this.form.groupid = rst.groupId;
+          this.form.teamid = rst.teamId;
+        } else {
+          this.centerid = '';
+          this.groupid = '';
+          this.teamid = '';
+          this.form.centerid = '';
+          this.form.groupid = '';
+          this.form.teamid = '';
+        }
+        if (!this.form.userid || this.form.userid === '' || val === 'undefined') {
+          this.error = this.$t('normal.error_08') + this.$t('label.applicant');
+        } else {
+          this.error = '';
+        }
+      },
+      workflowState(val) {
+        if (val.state === '1') {
+          this.form.status = '3';
+        } else if (val.state === '2') {
+          this.form.status = '4';
+        }
+        this.buttonClick2();
+      },
+      start(val) {
+        if (val.state === '0') {
+          this.form.status = '2';
+        } else if (val.state === '2') {
+          this.form.status = '4';
+        }
+        this.buttonClick2();
+      },
+      end() {
+        this.form.status = '0';
+        this.buttonClick2();
+      },
+      buttonClick2() {
+        if (this.form.sealtype.length > 0) {
+          if (this.form.sealtype != '' && this.form.sealtype != null && this.form.sealtype != undefined) {
+            let checktlist = this.form.sealtype.splice(',');
+            let checktableD = '';
+            for (var m = 0; m < checktlist.length; m++) {
+              checktableD = checktableD + checktlist[m] + ',';
+            }
+            this.form.sealtype = checktableD.substring(0, checktableD.length - 1);
+          }
+        }
+        this.form.userid = this.userlist;
+        this.form.sealid = this.$route.params._id;
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS4001Store/updatePfans4001', this.form)
+          .then(response => {
+            this.data = response;
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
+      buttonClick(val) {
+        this.$refs['ruleForm'].validate(valid => {
+          if (valid) {
+            // add-ws-印章管理下拉多选
+            if (this.form.sealtype != '' && this.form.sealtype != null && this.form.sealtype != undefined) {
+              let checktlist = this.form.sealtype.splice(',');
+              let checktableD = '';
+              for (var m = 0; m < checktlist.length; m++) {
+                checktableD = checktableD + checktlist[m] + ',';
+              }
+              this.form.sealtype = checktableD.substring(0, checktableD.length - 1);
+            }
+            // add-ws-印章管理下拉多选
             if (this.$route.params._id) {
-                this.loading = true;
-                this.$store
-                    .dispatch('PFANS4001Store/getPfans4001One', {'sealid': this.$route.params._id})
-                    .then(response => {
-                        if (response !== undefined) {
-                            this.form = response;
-                            // add-ws-印章管理下拉多选
-                            if (this.form.sealtype != '' && this.form.sealtype != null && this.form.sealtype != undefined) {
-                                let letstaff = this.form.sealtype.split(',');
-                                this.form.sealtype = letstaff;
-                            }
-
-                            // add-ws-印章管理下拉多选
-                            let rst = getOrgInfoByUserId(response.userid);
-                            if (rst) {
-                                this.centerid = rst.centerNmae;
-                                this.groupid = rst.groupNmae;
-                                this.teamid = rst.teamNmae;
-                            }
-                            this.userlist = this.form.userid;
-                            if (this.form.status === '2') {
-                                this.disable = false;
-                            }
-                            //编辑进来去pop中的数据
-                            if (this.form.bookid !== null && this.form.bookid !== '') {
-                                let bokid = this.form.bookid.split(",");
-                                for (let i = 1; i < bokid.length; i++) {
-                                    if (bokid[0] === '6') {
-                                        this.pedata(bokid[i]);
-                                    } else if (bokid[0] === '5') {
-                                        this.npdata(bokid[i]);
-                                    }
-                                }
-                            }
-                        }
-                        this.loading = false;
-                    })
-                    .catch(error => {
-                        Message({
-                            message: error,
-                            type: 'error',
-                            duration: 5 * 1000,
-                        });
-                        this.loading = false;
+              this.loading = true;
+              this.form.userid = this.userlist;
+              this.form.sealid = this.$route.params._id;
+              this.$store
+                .dispatch('PFANS4001Store/updatePfans4001', this.form)
+                .then(response => {
+                  this.data = response;
+                  this.loading = false;
+                  if (val !== 'update') {
+                    Message({
+                      message: this.$t('normal.success_02'),
+                      type: 'success',
+                      duration: 5 * 1000,
                     });
-            } else {
-                this.userlist = this.$store.getters.userinfo.userid;
-                if (this.userlist !== null && this.userlist !== '') {
-                    let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-                    if (rst) {
-                        this.centerid = rst.centerNmae;
-                        this.groupid = rst.groupNmae;
-                        this.teamid = rst.teamNmae;
-                        this.form.centerid = rst.centerId;
-                        this.form.groupid = rst.groupId;
-                        this.form.teamid = rst.teamId;
+                  }
+                  if (val !== 'save' && val !== 'StartWorkflow') {
+                    if (this.$store.getters.historyUrl) {
+                      this.$router.push(this.$store.getters.historyUrl);
                     }
-                    this.form.userid = this.$store.getters.userinfo.userid;
-                }
-            }
-        },
-        created() {
-            this.$store.commit('global/SET_WORKFLOWURL', '/PFANS4001View');
-            this.disable = this.$route.params.disabled;
-            if (this.disable) {
-                this.buttonList = [
-                    {
-                        key: 'save',
-                        name: 'button.save',
-                        icon: 'el-icon-check',
-                    },
-                ];
-            }
-        },
-        methods: {
-            //add_fjl_添加合同回款相关  start
-            rowClick(row) {
-                this.url = '';
-                this.urlparams = '';
-                if (this.form.filetype === 'PC002004') {
-                    this.url = 'PFANS1032FormView';
-                    this.urlparams = {'_id': row.petition_id}
-                } else if (this.form.filetype === 'PC002005') {
-                    this.url = 'PFANS1031FormView';
-                    this.urlparams = {'_id': row.napalm_id}
-                }
-                this.$refs[1].open = true;
-            },
-            selectInit(row, index) {
-                return moment(row.claimdate).format("YYYY-MM") === new moment().format("YYYY-MM");
-            },
-            handleSelectionChange(val) {
-                this.multipleSelection = val;
-            },
-            pedata(val) {
-                this.loading = true;
-                this.$store
-                    .dispatch('PFANS1032Store/one', {'petition_id': val})
-                    .then(response => {
-                        let resp_ = response;
-                        if (resp_ !== null && resp_ !== '' && resp_ !== undefined) {
-                            this.tableD.push({
-                                contracttype: getDictionaryInfo(resp_.contracttype).value1,
-                                // custochinese : resp_.custochinese,
-                                businesscode: resp_.businesscode,
-                                pjnamejapanese: resp_.pjnamejapanese,
-                                claimnumber: resp_.claimnumber,
-                                claimdate: moment(resp_.claimdate).format("YYYY-MM-DD"),
-                                contractnumber: resp_.contractnumber,
-                                petition_id: resp_.petition_id,
-                            });
-                        }
-                        this.loading = false;
-                    })
-                    .catch(error => {
-                        Message({
-                            message: error,
-                            type: 'error',
-                            duration: 5 * 1000,
-                        });
-                        this.loading = false;
-                    })
-
-            },
-            npdata(val) {
-                this.loading = true;
-                this.$store
-                    .dispatch('PFANS1031Store/one', {'napalm_id': val})
-                    .then(response => {
-                        let resp_ = response;
-                        if (resp_ !== null && resp_ !== '' && resp_ !== undefined) {
-                            this.tableD.push({
-                                contracttype: getDictionaryInfo(resp_.contracttype).value1,
-                                businesscode: resp_.businesscode,
-                                pjnamejapanese: resp_.pjnamejapanese,
-                                claimnumber: resp_.claimnumber,
-                                deliverydate: moment(resp_.deliverydate).format("YYYY-MM-DD"),
-                                contractnumber: resp_.contractnumber,
-                                napalm_id: resp_.napalm_id,
-                            });
-                        }
-                        this.loading = false;
-                    })
-                    .catch(error => {
-                        Message({
-                            message: error,
-                            type: 'error',
-                            duration: 5 * 1000,
-                        });
-                        this.loading = false;
-                    })
-
-            },
-            //add_fjl_添加合同回款相关  end
-            setdisabled(val) {
-                if (this.$route.params.disabled) {
-                    this.disabled = val;
-                }
-            },
-            wjlx(value1) {
-                this.form.filetype = value1;
-            },
-            yilx(value2) {
-                this.form.sealtype = value2;
-            },
-            kh(value3) {
-                this.form.client = value3;
-            },
-            getUserids(val) {
-                this.form.userid = val;
-                this.userlist = val;
-                let rst = getOrgInfoByUserId(val);
-                if (rst) {
-                    this.centerid = rst.centerNmae;
-                    this.groupid = rst.groupNmae;
-                    this.teamid = rst.teamNmae;
-                    this.form.centerid = rst.centerId;
-                    this.form.groupid = rst.groupId;
-                    this.form.teamid = rst.teamId;
-                } else {
-                    this.centerid = '';
-                    this.groupid = '';
-                    this.teamid = '';
-                    this.form.centerid = '';
-                    this.form.groupid = '';
-                    this.form.teamid = '';
-                }
-                if (!this.form.userid || this.form.userid === '' || val === 'undefined') {
-                    this.error = this.$t('normal.error_08') + this.$t('label.applicant');
-                } else {
-                    this.error = '';
-                }
-            },
-            workflowState(val) {
-                if (val.state === '1') {
-                    this.form.status = '3';
-                } else if (val.state === '2') {
-                    this.form.status = '4';
-                }
-                this.buttonClick2();
-            },
-            start(val) {
-                if (val.state === '0') {
-                    this.form.status = '2';
-                } else if (val.state === '2') {
-                    this.form.status = '4';
-                }
-                this.buttonClick2();
-            },
-            end() {
-                this.form.status = '0';
-                this.buttonClick2();
-            },
-            buttonClick2() {
-                // add-ws-印章管理下拉多选
-                if (this.form.sealtype != '' && this.form.sealtype != null && this.form.sealtype != undefined) {
-                    let checktlist = this.form.sealtype.splice(',');
-                    let checktableD = '';
-                    for (var m = 0; m < checktlist.length; m++) {
-                        checktableD = checktableD + checktlist[m] + ',';
-                    }
-                    this.form.sealtype = checktableD.substring(0, checktableD.length - 1);
-                }
-                // add-ws-印章管理下拉多选
-                this.form.userid = this.userlist;
-                this.form.sealid = this.$route.params._id;
-                this.loading = true;
-                this.$store
-                    .dispatch('PFANS4001Store/updatePfans4001', this.form)
-                    .then(response => {
-                        this.data = response;
-                        this.loading = false;
-                    })
-                    .catch(error => {
-                        Message({
-                            message: error,
-                            type: 'error',
-                            duration: 5 * 1000,
-                        });
-                        this.loading = false;
-                    });
-            },
-            buttonClick(val) {
-                this.$refs['ruleForm'].validate(valid => {
-                    if (valid) {
-                        // add-ws-印章管理下拉多选
-                        if (this.form.sealtype != '' && this.form.sealtype != null && this.form.sealtype != undefined) {
-                            let checktlist = this.form.sealtype.splice(',');
-                            let checktableD = '';
-                            for (var m = 0; m < checktlist.length; m++) {
-                                checktableD = checktableD + checktlist[m] + ',';
-                            }
-                            this.form.sealtype = checktableD.substring(0, checktableD.length - 1);
-                        }
-                        // add-ws-印章管理下拉多选
-                        if (this.$route.params._id) {
-                            this.loading = true;
-                            this.form.userid = this.userlist;
-                            this.form.sealid = this.$route.params._id;
-                            this.$store
-                                .dispatch('PFANS4001Store/updatePfans4001', this.form)
-                                .then(response => {
-                                    this.data = response;
-                                    this.loading = false;
-                                    if (val !== 'update') {
-                                        Message({
-                                            message: this.$t('normal.success_02'),
-                                            type: 'success',
-                                            duration: 5 * 1000,
-                                        });
-                                    }
-                                    if (val !== 'save' && val !== 'StartWorkflow') {
-                                        if (this.$store.getters.historyUrl) {
-                                            this.$router.push(this.$store.getters.historyUrl);
-                                        }
-                                    }
-                                    if (val === 'StartWorkflow') {
-                                        this.$refs.container.$refs.workflow.startWorkflow();
-                                    }
-                                })
-                                .catch(error => {
-                                    Message({
-                                        message: error,
-                                        type: 'error',
-                                        duration: 5 * 1000,
-                                    });
-                                    this.loading = false;
-                                });
-                        } else {
-                            this.loading = true;
-                            this.form.userid = this.userlist;
-                            this.$store
-                                .dispatch('PFANS4001Store/createPfans4001', this.form)
-                                .then(response => {
-                                    this.data = response;
-                                    this.loading = false;
-                                    Message({
-                                        message: this.$t('normal.success_01'),
-                                        type: 'success',
-                                        duration: 5 * 1000,
-                                    });
-                                    if (this.$store.getters.historyUrl) {
-                                        this.$router.push(this.$store.getters.historyUrl);
-                                    }
-                                })
-                                .catch(error => {
-                                    Message({
-                                        message: error,
-                                        type: 'error',
-                                        duration: 5 * 1000,
-                                    });
-                                    this.loading = false;
-                                });
-                        }
-                    } else {
-                        Message({
-                            message: this.$t('normal.error_12'),
-                            type: 'error',
-                            duration: 5 * 1000,
-                        });
-                    }
+                  }
+                  if (val === 'StartWorkflow') {
+                    this.$refs.container.$refs.workflow.startWorkflow();
+                  }
+                })
+                .catch(error => {
+                  Message({
+                    message: error,
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  this.loading = false;
                 });
-            },
-        },
-    };
+            } else {
+              this.loading = true;
+              this.form.userid = this.userlist;
+              this.$store
+                .dispatch('PFANS4001Store/createPfans4001', this.form)
+                .then(response => {
+                  this.data = response;
+                  this.loading = false;
+                  Message({
+                    message: this.$t('normal.success_01'),
+                    type: 'success',
+                    duration: 5 * 1000,
+                  });
+                  if (this.$store.getters.historyUrl) {
+                    this.$router.push(this.$store.getters.historyUrl);
+                  }
+                })
+                .catch(error => {
+                  Message({
+                    message: error,
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  this.loading = false;
+                });
+            }
+          } else {
+            Message({
+              message: this.$t('normal.error_12'),
+              type: 'error',
+              duration: 5 * 1000,
+            });
+          }
+        });
+      },
+    },
+  };
 </script>
 <style lang="scss">
   .el-form-item__error {
