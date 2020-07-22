@@ -333,7 +333,8 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_TEMPORARYLOAN')" v-show="show4" prop="loan">
-                      <el-select :disabled="!disable" style="width:20vw" v-model="form.loan">
+                      <el-select :disabled="!disable" @change="changeLoan" clearable style="width:20vw"
+                                 v-model="form.loan">
                         <el-option
                           :key="item.value"
                           :label="item.label"
@@ -343,6 +344,13 @@
                       </el-select>
                     </el-form-item>
                   </el-col>
+                  <!--                  add_fjl_0722 添加【供应商/社员名称】显示  start-->
+                  <el-col :span="8" v-if="form.loan !== ''">
+                    <el-form-item :label="$t('label.PFANS1012VIEW_ACCENAME')">
+                      <el-input :disabled="true" style="width:20vw" v-model="form.accename"></el-input>
+                    </el-form-item>
+                  </el-col>
+                  <!--                  add_fjl_0722 添加【供应商/社员名称】显示  end-->
                 </el-row>
                 <el-row>
                   <el-col :span="8">
@@ -1570,6 +1578,7 @@
           otherremarks: '',
           suppliername: '',
           uploadfile: '',
+            accename: '',
         },
         rules: {
           user_id: [{
@@ -2457,6 +2466,11 @@
                   var vote = {};
                   vote.value = response[i].loanapplication_id;
                   vote.label = this.$t('menu.PFANS1006') + '_' + response[i].loanapno;
+                    //add_fjl_0722 添加【供应商/社员名称】显示  start
+                    vote.paymentmethod = response[i].paymentmethod;
+                    vote.accountpayeename = response[i].accountpayeename;
+                    vote.user_name = response[i].user_name;
+                    //add_fjl_0722 添加【供应商/社员名称】显示  end
                   this.options.push(vote);
                 }
               } else {
@@ -2464,6 +2478,11 @@
                   var vote = {};
                   vote.value = response[i].loanapplication_id;
                   vote.label = this.$t('menu.PFANS1006') + '_' + response[i].loanapno;
+                    //add_fjl_0722 添加【供应商/社员名称】显示  start
+                    vote.paymentmethod = response[i].paymentmethod;
+                    vote.accountpayeename = response[i].accountpayeename;
+                    vote.user_name = response[i].user_name;
+                    //add_fjl_0722 添加【供应商/社员名称】显示  end
                   this.options.push(vote);
                 }
               }
@@ -4040,7 +4059,20 @@
         this.currentRow3 = val.payeebankaccountnumber;
         this.currentRow4 = val.payeebankaccount;
       },
-
+        //add_fjl_0722 添加【供应商/社员名称】显示  start
+        changeLoan(val) {
+            let opt = this.options.filter(item => item.value === val);
+            if (opt.length > 0) {
+                if (opt[0].paymentmethod === 'PJ015001' || opt[0].paymentmethod === 'PJ015003') {
+                    this.form.accename = opt[0].accountpayeename;
+                } else if (this.options[0].paymentmethod === 'PJ015002') {
+                    if (opt[0].user_name !== '' && opt[0].user_name !== null) {
+                        this.form.accename = getUserInfo(opt[0].user_name).userinfo.customername;
+                    }
+                }
+            }
+        },
+        //add_fjl_0722 添加【供应商/社员名称】显示  end
       submit() {
         let val = this.currentRow;
         let val1 = this.currentRow1;
