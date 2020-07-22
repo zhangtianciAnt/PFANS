@@ -64,16 +64,16 @@ service.interceptors.response.use(
     if (response.status >= 200 && response.status < 300) {
       if (response.data.code === 20101) {
         removeToken();
-        if (router.currentRoute.path !== '/') {
+        // if (router.currentRoute.path !== '/') {
           router.replace({
             path: '/',
             query: { redirect: router.currentRoute.fullPath }
           })
 
           return Promise.reject(i18n.t('normal.error_05'))
-        }else {
-          return false;
-        }
+        // }else {
+        //   return false;
+        // }
 
       } else if (response.data.code === 20102) {
         router.push({
