@@ -1201,26 +1201,30 @@
                         }
                       }
                       if (this.companyform.logmanagement_id) {
-                        this.checkLenth = checklenth;
-                        if (parseFloat(this.checkLenth) + parseFloat(this.companyform.time_start) - parseFloat(this.checktimelength) > this.checktime) {
-                          error = error + 1;
-                          Message({
-                            message: this.$t('label.PFANS5008VIEW_CHECKLENTHLOGDATA'),
-                            type: 'error',
-                            duration: 5 * 1000,
-                          });
-                          this.loading = false;
+                        if (this.resignation_date == null || this.resignation_date == '') {
+                          this.checkLenth = checklenth;
+                          if (parseFloat(this.checkLenth) + parseFloat(this.companyform.time_start) - parseFloat(this.checktimelength) > this.checktime) {
+                            error = error + 1;
+                            Message({
+                              message: this.$t('label.PFANS5008VIEW_CHECKLENTHLOGDATA'),
+                              type: 'error',
+                              duration: 5 * 1000,
+                            });
+                            this.loading = false;
+                          }
                         }
                       } else {
-                        this.checkLenth = checklenth;
-                        if (parseFloat(this.checkLenth) + parseFloat(this.companyform.time_start) > this.checktime) {
-                          error = error + 1;
-                          Message({
-                            message: this.$t('label.PFANS5008VIEW_CHECKLENTHLOGDATA'),
-                            type: 'error',
-                            duration: 5 * 1000,
-                          });
-                          this.loading = false;
+                        if (this.resignation_date == null || this.resignation_date == '') {
+                          this.checkLenth = checklenth;
+                          if (parseFloat(this.checkLenth) + parseFloat(this.companyform.time_start) > this.checktime) {
+                            error = error + 1;
+                            Message({
+                              message: this.$t('label.PFANS5008VIEW_CHECKLENTHLOGDATA'),
+                              type: 'error',
+                              duration: 5 * 1000,
+                            });
+                            this.loading = false;
+                          }
                         }
                       }
                       if (error == 0) {
