@@ -603,6 +603,8 @@
         }
         if (this.selectedList != '') {
           this.form.processingmethod = 'PJ012001';
+          this.rules.salecontract[0].required = false;
+          this.rules.contractno[0].required = false;
           this.assetsList = JSON.parse(this.selectedList);
           this.form.numbers = this.assetsList.length;
           for (let i = 0; i < this.assetsList.length; i++) {
