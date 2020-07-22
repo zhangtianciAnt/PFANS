@@ -288,7 +288,7 @@
           } else {
             this.checktype = 0;
           }
-          if (this.userid === row.user_id) {
+          if (this.userid === row.user_id && row.stage == '0') {
             this.buttonList[4].disabled = false;
           }
           this.status = 4;
