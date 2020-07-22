@@ -937,9 +937,9 @@
     },
     methods: {
       getWagesByResign() {
-        //this.$route.params.userid
+        this.loading = true;
         this.$store
-          .dispatch('PFANS2005Store/getWagesByResign', {user_id: '5e78b1ff4e3b194874180e1f'})
+          .dispatch('PFANS2005Store/getWagesByResign', {user_id: this.$route.params.userid})
           .then(response => {
             for (let i = 0; i < response.length; i++) {
               let user = getUserInfo(response[i].user_id);
@@ -970,6 +970,7 @@
               }
             }
             this.data = response;
+            this.loading = false;
           });
       },
       wagesChange(row, noId, val, prop) {
