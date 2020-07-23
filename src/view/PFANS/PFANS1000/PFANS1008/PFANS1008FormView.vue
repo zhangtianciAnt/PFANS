@@ -578,8 +578,8 @@
             if (this.assetsList[i].filename !== null && this.assetsList[i].filename !== '') {
               vote.assetname = this.assetsList[i].filename;
             }
-            if (this.assetsList[i].principal1 !== null && this.assetsList[i].principal1 !== '') {
-              vote.person = this.assetsList[i].principal1;
+            if (this.assetsList[i].psdcdreturnconfirmation1 !== null && this.assetsList[i].psdcdreturnconfirmation1 !== '') {
+              vote.person = this.assetsList[i].psdcdreturnconfirmation1;
             }
             this.tableD.push(vote);
           }
@@ -975,16 +975,6 @@
         }
       }
     },
-    // watch: {
-    //   'form.ferrygroupname': {
-    //     handler: function () {
-    //       debugger
-    //       if(this.form.ferrygroup_id){
-    //        this.form.tubebudgetunit =  getOrgInfo(getOrgInfoByUserId(this.form.ferrygroup_id)).encoding;
-    //       }
-    //     },
-    //   }
-    // }
   }
 </script>
 

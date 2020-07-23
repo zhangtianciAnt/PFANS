@@ -6,7 +6,6 @@ export function getSoftwaretransfer() {
   return request({
     url: 'softwaretransfer/getSoftwaretransfer',
     method: 'get',
-    // params: data
   })
 }
 
