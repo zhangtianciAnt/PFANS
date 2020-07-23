@@ -74,8 +74,8 @@
         ],
         buttonList: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
-          {'key': 'generatethismonth', 'name': 'button.generatethismonth', 'disabled': false},
-          {'key': 'grantthismonth', 'name': 'button.grantthismonth', 'disabled': false},
+          {'key': 'generatethismonth', 'name': 'button.generatethismonth', 'disabled': true},
+          {'key': 'grantthismonth', 'name': 'button.grantthismonth', 'disabled': true},
         ],
         rowid: '',
         row_id: 'giving_id',
@@ -94,6 +94,13 @@
               if(j === 0){
                   if(moment(response[j].generationdate).format('YYYY-MM') === moment(new Date()).format('YYYY-MM')){
                       this.Givingid = response[j].giving_id;
+                  }
+                  //审批结束
+                  if(response[j].status === "4" && response[j].grantstatus != '1'){
+                      this.buttonList[2].disabled = false;
+                  }
+                  if(response[j].status === "0"){
+                      this.buttonList[1].disabled = false;
                   }
               }
               if (this.$i18n) {
@@ -197,6 +204,7 @@
               this.$store
                   .dispatch('PFANS2005Store/updatestate',{givingid: this.Givingid})
                   .then(response => {
+                      this.buttonList[2].disabled = true;
                       this.getGivingList();
                       Message({
                           message: this.$t("normal.success_06"),
