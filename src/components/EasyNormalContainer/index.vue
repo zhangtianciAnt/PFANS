@@ -7,7 +7,7 @@
         <el-row>
           <easy-button-bar :data="buttons" @buttonClick="buttonClick"></easy-button-bar>
           <easy-work-flow :canStart="canStart" :workflowCode="workflowCode"
-                          @canStartWorkflow="canStartWorkflow"
+                          @canStartWorkflow="canStartWorkflow" :userlist="userlist"
                           @canViewWorkflow="canViewWorkflow" @StartWorkflow="StartWorkflow" :defaultStart="defaultStart"
                           @changeLoading="changeLoading" @end="end" @start="start" @workflowState="workflowState"
                           ref="workflow"></easy-work-flow>
@@ -90,7 +90,13 @@
       defaultStart:{
         type:Boolean,
         default:true
-      }
+      },
+      userlist: {
+        type: Array,
+        default: function () {
+          return []
+        }
+      },
     },
     methods: {
       start(val) {
