@@ -3552,7 +3552,7 @@
                 this.buttonClick("save");
             },
             end() {
-                this.form.status = '0';
+                this.status = 'X';//不好区分所以先用X代替
                 this.buttonClick("save");
             },
             // zqu start 工资tab 录入项change事件
@@ -5392,11 +5392,13 @@
                         .then(response => {
                             // 重新获取工资数据
                             this.getListdata();
-                            Message({
-                                message: this.$t("normal.success_01"),
-                                type: "success",
-                                duration: 5 * 1000
-                            });
+                            if(this.status === "0"){
+                                Message({
+                                    message: this.$t("normal.success_01"),
+                                    type: "success",
+                                    duration: 5 * 1000
+                                });
+                            }
                             this.loading = false;
                         })
                         .catch(err => {
