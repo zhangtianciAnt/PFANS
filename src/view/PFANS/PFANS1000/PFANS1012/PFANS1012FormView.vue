@@ -4150,22 +4150,61 @@
               this.baseInfo.publicexpense = JSON.parse(JSON.stringify(this.form));
               let sum = 0;
               for (let i = 0; i < this.tableF.length; i++) {
-                sum += this.tableF[i].invoiceamount;
-                if (this.tableF[i].invoicenumber !== '' || this.tableF[i].invoicetype !== '' || this.tableF[i].invoiceamount > 0 || this.tableF[i].taxrate !== ''
-                  || this.tableF[i].excludingtax > 0 || this.tableF[i].facetax > 0) {
-                  this.baseInfo.invoice.push(
-                    {
-                      invoice_id: this.tableF[i].invoice_id,
-                      publicexpenseid: this.tableF[i].publicexpenseid,
-                      invoicenumber: this.tableF[i].invoicenumber,
-                      invoicetype: this.tableF[i].invoicetype,
-                      invoiceamount: this.tableF[i].invoiceamount,
-                      taxrate: this.tableF[i].taxrate,
-                      excludingtax: this.tableF[i].excludingtax,
-                      facetax: this.tableF[i].facetax,
-                    },
-                  );
-                }
+                  //add_fjl_0723_分录传票的发票税金需要与后面明细同种发票的税金和相同  start
+                  let sumtaxesT = 0;
+                  let sumtaxesA = 0;
+                  let sumtaxesF = 0;
+                  let sumtaxes = 0;
+                  let taxesm = 0;
+                  let taxesn = 0;
+                  for (let m = 0; m < this.tableP.length; m++) {
+                      if (this.tableP[m].invoicenumber == this.tableF[i].invoicenumber) {
+                          if (this.tableP[m].taxes != '0') {
+                              taxesm = m;
+                              sumtaxesT += this.tableP[m].taxes;
+                          }
+                      }
+                  }
+                  for (let n = 0; n < this.tableR.length; n++) {
+                      if (this.tableR[n].invoicenumber == this.tableF[i].invoicenumber) {
+                          if (this.tableR[n].taxes != '0') {
+                              taxesn = n;
+                              sumtaxesA += this.tableR[n].taxes;
+                          }
+                      }
+                  }
+                  sumtaxesF = Number(sumtaxesT) + Number(sumtaxesA);
+                  sumtaxes = Number(sumtaxesF) - Number(this.tableF[i].facetax);
+                  if (sumtaxes < 0) {
+                      if (taxesm === 0) {
+                          this.tableR[taxesn].taxes = (Number(this.tableR[taxesn].taxes) - Number(sumtaxes)).toFixed(2);
+                      } else {
+                          this.tableP[taxesm].taxes = (Number(this.tableP[taxesm].taxes) - Number(sumtaxes)).toFixed(2);
+                      }
+                  } else if (sumtaxes > 0) {
+                      if (taxesm === 0) {
+                          this.tableR[taxesn].taxes = (Number(this.tableR[taxesn].taxes) - Number(sumtaxes)).toFixed(2);
+                      } else {
+                          this.tableP[taxesm].taxes = (Number(this.tableP[taxesm].taxes) - Number(sumtaxes)).toFixed(2);
+                      }
+                  }
+                  //add_fjl_0723_分录传票的发票税金需要与后面明细同种发票的税金和相同  end
+                  sum += this.tableF[i].invoiceamount;
+                  if (this.tableF[i].invoicenumber !== '' || this.tableF[i].invoicetype !== '' || this.tableF[i].invoiceamount > 0 || this.tableF[i].taxrate !== ''
+                      || this.tableF[i].excludingtax > 0 || this.tableF[i].facetax > 0) {
+                      this.baseInfo.invoice.push(
+                          {
+                              invoice_id: this.tableF[i].invoice_id,
+                              publicexpenseid: this.tableF[i].publicexpenseid,
+                              invoicenumber: this.tableF[i].invoicenumber,
+                              invoicetype: this.tableF[i].invoicetype,
+                              invoiceamount: this.tableF[i].invoiceamount,
+                              taxrate: this.tableF[i].taxrate,
+                              excludingtax: this.tableF[i].excludingtax,
+                              facetax: this.tableF[i].facetax,
+                          },
+                      );
+                  }
               }
               this.invoiceamountsum = sum;
               if (this.form.type === 'PJ001001') {
