@@ -263,6 +263,11 @@
                   this.buttonList[5].disabled = false;
                   this.buttonList[6].disabled = false;
                 }
+                else{
+                  this.buttonList[5].disabled = true;
+                  this.buttonList[6].disabled = true;
+                }
+
               }
             })
             .catch(error => {
