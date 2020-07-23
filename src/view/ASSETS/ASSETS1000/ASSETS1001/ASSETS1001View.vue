@@ -55,7 +55,7 @@
       </div>
     </el-dialog>
     <el-dialog :visible.sync="piliang" @close="closed" width="50%" destroy-on-close>
-        <el-form :model="form" :rules="rules" label-width="80px" ref="form">
+      <el-form :model="form" :rules="rules" label-width="80px" ref="form">
         <el-form-item :label="$t('label.ASSETS1001VIEW_BARTYPE')" prop="bartype">
           <dicselect
             :code="code4"
@@ -73,7 +73,8 @@
           </dicselect>
         </el-form-item>
         <el-form-item :label="$t('label.ASSETS1001VIEW_SUM')" prop="sum">
-          <el-input-number :max="999" :min="1" controls-position="right" v-model="form.sum" style="width:20vw"></el-input-number>
+          <el-input-number :max="999" :min="1" controls-position="right" v-model="form.sum"
+                           style="width:20vw"></el-input-number>
         </el-form-item>
       </el-form>
       <span class="dialog-footer" slot="footer">
@@ -90,16 +91,48 @@
           :label="$t('label.ASSETS1001VIEW_FILENAME')"
         >
         </el-table-column>
-
         <el-table-column :label="$t('label.operation')">
           <template slot-scope="scope">
             <el-button
               size="mini"
               @click="handleDownload(scope.row)"
-            >{{$t('button.download2')}}</el-button>
+            >{{$t('button.download2')}}
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
+    </el-dialog>
+
+    <el-dialog :visible.sync="pop_assettransfer" width="50%" destroy-on-close>
+      <el-row>
+        <!--资产报废-->
+        <el-col :span="8" style="margin-left: 3vw">
+          <el-button
+            prop="name"
+            size="mini"
+            @click="assetoperation(0)"
+          >{{$t('label.PFANS1002VIEW_ASSETRETIREMENT')}}
+          </el-button>
+        </el-col>
+        <!--资产转移-->
+        <el-col :span="8">
+          <el-button
+            prop="name"
+            size="mini"
+            @click="assetoperation(1)"
+          >{{$t('label.PFANS1002VIEW_ASSETTRANSFER')}}
+          </el-button>
+        </el-col>
+        <!--资产借出/带出-->
+        <el-col :span="6">
+          <el-button
+            prop="name"
+            size="mini"
+            @click="assetoperation(2)"
+          >{{$t('label.PFANS1002VIEW_ASSETLENDINGC')}}
+          </el-button>
+        </el-col>
+      </el-row>
     </el-dialog>
   </div>
 </template>
@@ -109,9 +142,8 @@
   import {getToken} from '@/utils/auth';
   import {Message} from 'element-ui';
   import moment from 'moment';
-  import {getDictionaryInfo, getUserInfo} from '@/utils/customize';
+  import {getDictionaryInfo, getUserInfo, getOrgInfo} from '@/utils/customize';
   import dicselect from '../../../components/dicselect.vue';
-  import Stomp from "stompjs";
 
   export default {
     name: 'ASSETS1001View',
@@ -131,7 +163,7 @@
         piliang: false,
         form: {
           bartype: '',
-          typeassets:'',
+          typeassets: '',
           sum: 1
         },
         code4: 'PA004',
@@ -148,12 +180,14 @@
         successCount: 0,
         errorCount: 0,
         selectedlist: [],
+        tableData: [{}],
         Message: false,
         cuowu: '',
         downloadLoading: false,
         showSelection: true,
         loading: false,
         pop_download: false,
+        pop_assettransfer: false,
         title: 'title.ASSETS1001VIEW',
         data: [],
         rules: {
@@ -162,7 +196,7 @@
             message: this.$t('normal.error_09') + this.$t('label.ASSETS1001VIEW_BARTYPE'),
             trigger: 'change',
           }],
-          typeassets:[{
+          typeassets: [{
             required: true,
             message: this.$t('normal.error_09') + this.$t('label.ASSETS1001VIEW_TYPEASSETS'),
             trigger: 'change',
@@ -250,6 +284,7 @@
           {'key': 'import', 'name': 'button.import', 'disabled': false, 'icon': 'el-icon-upload2'},
           {'key': 'export', 'name': 'button.export', 'disabled': false, 'icon': 'el-icon-download'},
           {'key': 'export2', 'name': 'button.download2', 'disabled': false, 'icon': 'el-icon-download'},
+          {'key': 'assettransfer', 'name': 'button.assettransfer', 'disabled': false, 'icon': 'el-icon-plus'},
         ],
         rowid: '',
         row_id: 'assets_id',
@@ -257,13 +292,13 @@
       };
     },
     computed: {
-      downtypes(){
+      downtypes() {
         return [
           {name: this.$t('label.ASSETS1001VIEW_TEMPLAET_GUDING'), type: 2},
           {name: this.$t('label.ASSETS1001VIEW_TEMPLAET_BUWAI'), type: 1},
           {name: this.$t('label.ASSETS1001VIEW_TEMPLAET_QITA'), type: 0}
         ]
-      }
+      },
     },
     mounted() {
       // this.getListData();
@@ -276,7 +311,7 @@
       this.websock.close() //离开路由之后断开websocket连接
     },
     methods: {
-      initWebSocket(){ //初始化weosocket
+      initWebSocket() { //初始化weosocket
         const wsuri = "ws://127.0.0.1:6690/add";
         this.websock = new WebSocket(wsuri);
         this.websock.onmessage = this.websocketonmessage;
@@ -284,22 +319,22 @@
         this.websock.onerror = this.websocketonerror;
         this.websock.onclose = this.websocketclose;
       },
-      websocketonopen(e){ //连接建立之后执行send方法发送数据
-        console.log('连接',e);
+      websocketonopen(e) { //连接建立之后执行send方法发送数据
+        console.log('连接', e);
       },
-      websocketonerror(){//连接建立失败重连
+      websocketonerror() {//连接建立失败重连
         this.initWebSocket();
       },
-      websocketonmessage(e){ //数据接收
+      websocketonmessage(e) { //数据接收
         this.loading = false;
         const redata = JSON.parse(e.data);
-        if(redata.code === 200){
+        if (redata.code === 200) {
           Message({
             message: this.$t('normal.success_03'),
             type: 'success',
             duration: 5 * 1000,
           });
-        }else{
+        } else {
           Message({
             message: error,
             type: 'error',
@@ -309,11 +344,11 @@
 
         this.$refs.roletable.$refs.eltable.clearSelection();
       },
-      websocketsend(Data){//数据发送
+      websocketsend(Data) {//数据发送
         this.websock.send(Data);
       },
-      websocketclose(e){  //关闭
-        console.log('断开连接',e);
+      websocketclose(e) {  //关闭
+        console.log('断开连接', e);
       },
       onSubmit() {
         this.$store
@@ -378,7 +413,15 @@
           .dispatch('ASSETS1001Store/getList', {usedepartment: this.department})
           .then(response => {
             for (let j = 0; j < response.length; j++) {
+              // response[j].principal1 = response[j].principal;
+              response[j].psdcdreturnconfirmation1 = response[j].psdcdreturnconfirmation;
               let user = getUserInfo(response[j].principal);
+              if (response[j].usedepartment !== null && response[j].usedepartment !== '') {
+                let group = getOrgInfo(response[j].usedepartment);
+                if (group) {
+                  response[j].usedepartment = group.companyname;
+                }
+              }
               if (user) {
                 response[j].principal = user.userinfo.customername;
                 response[j].jobnumber = user.userinfo.jobnumber;
@@ -393,7 +436,7 @@
               }
               //add-ws-No.58-启用日期画面添加
               if (response[j].typeassets !== null && response[j].typeassets !== '') {
-                  response[j].typeassets1 = response[j].typeassets;
+                response[j].typeassets1 = response[j].typeassets;
                 let letErrortype = getDictionaryInfo(response[j].typeassets);
                 if (letErrortype != null) {
                   response[j].typeassets = letErrortype.value1;
@@ -480,7 +523,7 @@
               var bPos = str.indexOf(this.$t('label.PFANS2017VIEW_DE'));
               var r = str.substr(aPos + 1, bPos - aPos - 1);
               obj.hang = r;
-              obj.error = response.data[c].substring(6 + r.length -3);
+              obj.error = response.data[c].substring(6 + r.length - 3);
               datalist[c] = obj;
             }
             this.message = datalist;
@@ -545,18 +588,16 @@
         }
         if (val === 'export') {
           this.selectedlist = this.$refs.roletable.selectedList;
-          debugger
-          console.log("this.selectedlist1111",this.selectedlist)
-            if(this.selectedlist.length === 0){
-                Message({
-                    message: this.$t("normal.info_01"),
-                    type: 'info',
-                    duration: 2 * 1000
-                });
-            }else{
-                let selectedList = this.selectedlist;
-                this.export(selectedList);
-            }
+          if (this.selectedlist.length === 0) {
+            Message({
+              message: this.$t("normal.info_01"),
+              type: 'info',
+              duration: 2 * 1000
+            });
+          } else {
+            let selectedList = this.selectedlist;
+            this.export(selectedList);
+          }
         }
         if (val === 'export2') {
           this.pop_download = true;
@@ -564,7 +605,7 @@
         if (val === 'insertLots') {
           this.piliang = true;
         }
-        if(val === 'prtQrcode'){
+        if (val === 'prtQrcode') {
           this.selectedlist = this.$refs.roletable.selectedList;
           if (this.selectedlist.length === 0) {
             Message({
@@ -576,7 +617,7 @@
           }
           this.loading = true;
           let list = [];
-          for(let i of this.selectedlist){
+          for (let i of this.selectedlist) {
             var item = {};
             item.type = i.bartype;
             item.rfid = i.rfidcd;
@@ -586,206 +627,272 @@
 
           this.websocketsend(JSON.stringify(list));
         }
+        if (val === 'assettransfer') {
+          this.pop_assettransfer = true;
+        }
       },
-      export(selectedList){
-          console.log("selectedList",selectedList)
-          debugger
-          let tHeader = "";
-          let filterVal = "";
+      export(selectedList) {
+        let tHeader = "";
+        let filterVal = "";
         let arr1 = ["PA001001", "PA001009"];
-          let arr2 = ["PA001002","PA001003","PA001004"];
-          let arr3 = ["PA001005","PA001006","PA001007","PA001008"];
-          if(selectedList.every(list => {
-              return arr1.includes(list.typeassets1)
-          })){
-              selectedList.forEach(
-                  list => {
-                      if(list.purchasetime){
-                          list.purchasetime = moment(list.purchasetime).format("YYYY/MM/DD");
-                      }
-                      });
-               tHeader = [this.$t('label.ASSETS1001VIEW_FILENAME'),
-                  this.$t('label.ASSETS1001VIEW_TYPEASSETS'),
-                  this.$t('label.user_name'),
-                  this.$t('label.ASSETS1001VIEW_BARCODE'),
-                  this.$t('label.ASSETS1001VIEW_BARTYPE'),
-                  this.$t('label.ASSETS1001VIEW_ASSETSTATUS'),
-                  this.$t('label.ASSETS1001VIEW_STOCKSTATUS'),
-                 this.$t('label.ASSETS1001VIEW_PCNO'),
-                 this.$t('label.ASSETS1001VIEW_USEDEPARTMENT'),
-                 this.$t('label.ASSETS1001VIEW_DEPARTMENTCODE'),
-                 this.$t('label.ASSETS1001VIEW_PURCHASETIME'),
-                 this.$t('label.ASSETS1001VIEW_PRICE'),
-                 this.$t('label.ASSETS1001VIEW_REALPRICE'),
-                 this.$t('label.ASSETS1001VIEW_MODEL'),
-                 this.$t('label.ASSETS1001VIEW_REMARKS')
-              ];
-               filterVal = ['filename', 'typeassets', 'principal', 'barcode', 'bartypeName', 'assetstatus','stockstatus','pcno','usedepartment','departmentcode','purchasetime','price','realprice','model','remarks'];
-          }else if(selectedList.every(list => {
-              return arr2.includes(list.typeassets1)
-          })){
-              selectedList.forEach(
-                  list => {
-                      if(list.activitiondate){
-                          list.activitiondate = moment(list.activitiondate).format("YYYY/MM/DD");
-                      }if(list.psdcdperiod){
-                          list.psdcdperiod = moment(list.psdcdperiod).format("YYYY/MM/DD");
-                      }if(list.psdcdreturndate){
-                          list.psdcdreturndate = moment(list.psdcdreturndate).format("YYYY/MM/DD");
-                      }
-                  });
-               tHeader = [this.$t('label.ASSETS1001VIEW_FILENAME'),
-                  this.$t('label.ASSETS1001VIEW_TYPEASSETS'),
-                  this.$t('label.user_name'),
-                  this.$t('label.ASSETS1001VIEW_BARCODE'),
-                  this.$t('label.ASSETS1001VIEW_BARTYPE'),
-                  this.$t('label.ASSETS1001VIEW_ASSETSTATUS'),
-                  this.$t('label.ASSETS1001VIEW_STOCKSTATUS'),
-                  this.$t('label.ASSETS1001VIEW_REMARKS1'),
-                  this.$t('label.ASSETS1001VIEW_NO'),
-                  this.$t('label.ASSETS1001VIEW_ACTIVITIONDATE'),
-                  this.$t('label.ASSETS1001VIEW_ORIPRICE'),
-                  this.$t('label.ASSETS1001VIEW_LABELNUMBER'),
-                  this.$t('label.ASSETS1001VIEW_MODEL'),
-                  this.$t('label.ASSETS1001VIEW_ADDRESS'),
-                  this.$t('label.ASSETS1001VIEW_USEDEPARTMENT'),
-                  this.$t('label.ASSETS1001VIEW_DEPARTMENTCODE'),
-                  this.$t('label.ASSETS1001VIEW_PSDCDDEBITSITUATION'),
-                  this.$t('label.ASSETS1001VIEW_PSDCDBRINGOUTREASON'),
-                  this.$t('label.ASSETS1001VIEW_PSDCDPERIOD'),
-                  this.$t('label.ASSETS1001VIEW_PSDCDRETURNDATE'),
-                  this.$t('label.ASSETS1001VIEW_PSDCDISOVERDUE'),
-                  this.$t('label.ASSETS1001VIEW_PSDCDCOUNTERPARTY'),
-                  this.$t('label.ASSETS1001VIEW_PSDCDRESPONSIBLE'),
-                  this.$t('label.ASSETS1001VIEW_PSDCDRETURNCONFIRMATION')
-              ];
-               filterVal = ['filename', 'typeassets', 'principal', 'barcode', 'bartypeName', 'assetstatus','stockstatus',
-                  'remarks','no','activitiondate','price','assetnumber','model','address','usedepartment','departmentcode','psdcddebitsituation','psdcdbringoutreason'
-                  ,'psdcdperiod','psdcdreturndate','psdcdisoverdue','psdcdcounterparty','psdcdresponsible','psdcdreturnconfirmation'];
+        let arr2 = ["PA001002", "PA001003", "PA001004"];
+        let arr3 = ["PA001005", "PA001006", "PA001007", "PA001008"];
+        if (selectedList.every(list => {
+          return arr1.includes(list.typeassets1)
+        })) {
+          selectedList.forEach(
+            list => {
+              if (list.purchasetime) {
+                list.purchasetime = moment(list.purchasetime).format("YYYY/MM/DD");
+              }
+            });
+          tHeader = [this.$t('label.ASSETS1001VIEW_FILENAME'),
+            this.$t('label.ASSETS1001VIEW_TYPEASSETS'),
+            this.$t('label.user_name'),
+            this.$t('label.ASSETS1001VIEW_BARCODE'),
+            this.$t('label.ASSETS1001VIEW_BARTYPE'),
+            this.$t('label.ASSETS1001VIEW_ASSETSTATUS'),
+            this.$t('label.ASSETS1001VIEW_STOCKSTATUS'),
+            this.$t('label.ASSETS1001VIEW_PCNO'),
+            this.$t('label.ASSETS1001VIEW_USEDEPARTMENT'),
+            this.$t('label.ASSETS1001VIEW_DEPARTMENTCODE'),
+            this.$t('label.ASSETS1001VIEW_PURCHASETIME'),
+            this.$t('label.ASSETS1001VIEW_PRICE'),
+            this.$t('label.ASSETS1001VIEW_REALPRICE'),
+            this.$t('label.ASSETS1001VIEW_MODEL'),
+            this.$t('label.ASSETS1001VIEW_REMARKS')
+          ];
+          filterVal = ['filename', 'typeassets', 'principal', 'barcode', 'bartypeName', 'assetstatus', 'stockstatus', 'pcno', 'usedepartment', 'departmentcode', 'purchasetime', 'price', 'realprice', 'model', 'remarks'];
+        } else if (selectedList.every(list => {
+          return arr2.includes(list.typeassets1)
+        })) {
+          selectedList.forEach(
+            list => {
+              if (list.activitiondate) {
+                list.activitiondate = moment(list.activitiondate).format("YYYY/MM/DD");
+              }
+              if (list.psdcdperiod) {
+                list.psdcdperiod = moment(list.psdcdperiod).format("YYYY/MM/DD");
+              }
+              if (list.psdcdreturndate) {
+                list.psdcdreturndate = moment(list.psdcdreturndate).format("YYYY/MM/DD");
+              }
+            });
+          tHeader = [this.$t('label.ASSETS1001VIEW_FILENAME'),
+            this.$t('label.ASSETS1001VIEW_TYPEASSETS'),
+            this.$t('label.user_name'),
+            this.$t('label.ASSETS1001VIEW_BARCODE'),
+            this.$t('label.ASSETS1001VIEW_BARTYPE'),
+            this.$t('label.ASSETS1001VIEW_ASSETSTATUS'),
+            this.$t('label.ASSETS1001VIEW_STOCKSTATUS'),
+            this.$t('label.ASSETS1001VIEW_REMARKS1'),
+            this.$t('label.ASSETS1001VIEW_NO'),
+            this.$t('label.ASSETS1001VIEW_ACTIVITIONDATE'),
+            this.$t('label.ASSETS1001VIEW_ORIPRICE'),
+            this.$t('label.ASSETS1001VIEW_LABELNUMBER'),
+            this.$t('label.ASSETS1001VIEW_MODEL'),
+            this.$t('label.ASSETS1001VIEW_ADDRESS'),
+            this.$t('label.ASSETS1001VIEW_USEDEPARTMENT'),
+            this.$t('label.ASSETS1001VIEW_DEPARTMENTCODE'),
+            this.$t('label.ASSETS1001VIEW_PSDCDDEBITSITUATION'),
+            this.$t('label.ASSETS1001VIEW_PSDCDBRINGOUTREASON'),
+            this.$t('label.ASSETS1001VIEW_PSDCDPERIOD'),
+            this.$t('label.ASSETS1001VIEW_PSDCDRETURNDATE'),
+            this.$t('label.ASSETS1001VIEW_PSDCDISOVERDUE'),
+            this.$t('label.ASSETS1001VIEW_PSDCDCOUNTERPARTY'),
+            this.$t('label.ASSETS1001VIEW_PSDCDRESPONSIBLE'),
+            this.$t('label.ASSETS1001VIEW_PSDCDRETURNCONFIRMATION')
+          ];
+          filterVal = ['filename', 'typeassets', 'principal', 'barcode', 'bartypeName', 'assetstatus', 'stockstatus',
+            'remarks', 'no', 'activitiondate', 'price', 'assetnumber', 'model', 'address', 'usedepartment', 'departmentcode', 'psdcddebitsituation', 'psdcdbringoutreason'
+            , 'psdcdperiod', 'psdcdreturndate', 'psdcdisoverdue', 'psdcdcounterparty', 'psdcdresponsible', 'psdcdreturnconfirmation'];
 
-          }else if(selectedList.every(list => {
-              return arr3.includes(list.typeassets1)
-          })){
-              selectedList.forEach(
-                  list => {
-                      if(list.outparams12 && getUserInfo(list.outparams12)){
-                          list.outparams12 = getUserInfo(list.outparams12).userinfo.customername;
-                      }if(list.outparams11 && getUserInfo(list.outparams11)){
-                          list.outparams11 = getUserInfo(list.outparams11).userinfo.customername;
-                      }if(list.inparams3 && getUserInfo(list.inparams3)){
-                          list.inparams3 = getUserInfo(list.inparams3).userinfo.customername;
-                      }if(list.owner && getUserInfo(list.owner)){
-                          list.owner = getUserInfo(list.owner).userinfo.customername;
-                      }if(list.outparams2 && getUserInfo(list.outparams2)){
-                          list.outparams2 = getUserInfo(list.outparams2).userinfo.customername;
-                      }if(list.outparams7 && getUserInfo(list.outparams7)){
-                          list.outparams7 = getUserInfo(list.outparams7).userinfo.customername;
-                      }if(list.outparams8 && getUserInfo(list.outparams8)){
-                          list.outparams8 = getUserInfo(list.outparams8).userinfo.customername;
-                      }if(list.purchasetime){
-                          list.purchasetime = moment(list.purchasetime).format("YYYY/MM/DD");
-                      }if(list.activitiondate){
-                          list.activitiondate = moment(list.activitiondate).format("YYYY/MM/DD");
-                      }if(list.inparams4){
-                          list.inparams4 = moment(list.inparams4).format("YYYY/MM/DD");
-                      }if(list.inparams7){
-                          list.inparams7 = moment(list.inparams7).format("YYYY/MM/DD");
-                      }if(list.outparams3){
-                          list.outparams3 = moment(list.outparams3).format("YYYY/MM/DD");
-                      }if(list.outparams13){
-                          list.outparams13 = moment(list.outparams13).format("YYYY/MM/DD");
-                      }if(list.outparams9){
-                          list.outparams9 = moment(list.outparams9).format("YYYY/MM/DD");
-                      }
+        } else if (selectedList.every(list => {
+          return arr3.includes(list.typeassets1)
+        })) {
+          selectedList.forEach(
+            list => {
+              if (list.outparams12 && getUserInfo(list.outparams12)) {
+                list.outparams12 = getUserInfo(list.outparams12).userinfo.customername;
+              }
+              if (list.outparams11 && getUserInfo(list.outparams11)) {
+                list.outparams11 = getUserInfo(list.outparams11).userinfo.customername;
+              }
+              if (list.inparams3 && getUserInfo(list.inparams3)) {
+                list.inparams3 = getUserInfo(list.inparams3).userinfo.customername;
+              }
+              if (list.owner && getUserInfo(list.owner)) {
+                list.owner = getUserInfo(list.owner).userinfo.customername;
+              }
+              if (list.outparams2 && getUserInfo(list.outparams2)) {
+                list.outparams2 = getUserInfo(list.outparams2).userinfo.customername;
+              }
+              if (list.outparams7 && getUserInfo(list.outparams7)) {
+                list.outparams7 = getUserInfo(list.outparams7).userinfo.customername;
+              }
+              if (list.outparams8 && getUserInfo(list.outparams8)) {
+                list.outparams8 = getUserInfo(list.outparams8).userinfo.customername;
+              }
+              if (list.purchasetime) {
+                list.purchasetime = moment(list.purchasetime).format("YYYY/MM/DD");
+              }
+              if (list.activitiondate) {
+                list.activitiondate = moment(list.activitiondate).format("YYYY/MM/DD");
+              }
+              if (list.inparams4) {
+                list.inparams4 = moment(list.inparams4).format("YYYY/MM/DD");
+              }
+              if (list.inparams7) {
+                list.inparams7 = moment(list.inparams7).format("YYYY/MM/DD");
+              }
+              if (list.outparams3) {
+                list.outparams3 = moment(list.outparams3).format("YYYY/MM/DD");
+              }
+              if (list.outparams13) {
+                list.outparams13 = moment(list.outparams13).format("YYYY/MM/DD");
+              }
+              if (list.outparams9) {
+                list.outparams9 = moment(list.outparams9).format("YYYY/MM/DD");
+              }
 
-                      list.inparams1 = list.inparams1 === "1" ? this.$t("label.yes") : this.$t("label.no");
-                      list.inparams2 = list.inparams2 === "1" ? this.$t("label.yes") : this.$t("label.no");
-                      list.inparams5 = list.inparams5 === "1" ? this.$t("label.yes") : this.$t("label.no");
-                      list.outparams4 = list.outparams4 === "1" ? this.$t("label.yes") : this.$t("label.no");
-                      list.outparams5 = list.outparams5 === "1" ? this.$t("label.yes") : this.$t("label.no");
-                      list.outparams6 = list.outparams6 === "1" ? this.$t("label.yes") : this.$t("label.no");
-                      list.outparams10 = list.outparams10 === "1" ? this.$t("label.yes") : this.$t("label.no");
-                  }
-              )
-               tHeader = [this.$t('label.ASSETS1001VIEW_FILENAME'),
-                  this.$t('label.ASSETS1001VIEW_TYPEASSETS'),
-                  this.$t('label.user_name'),
-                  this.$t('label.ASSETS1001VIEW_BARCODE'),
-                  this.$t('label.ASSETS1001VIEW_BARTYPE'),
-                  this.$t('label.ASSETS1001VIEW_ASSETSTATUS'),
-                  this.$t('label.ASSETS1001VIEW_STOCKSTATUS'),
-                  this.$t('label.ASSETS1001VIEW_TONGGUANNO'),
-                  this.$t('label.ASSETS1001VIEW_MODEL'),
-                  this.$t('label.ASSETS1001VIEW_PRICE'),
-                  this.$t('label.ASSETS1001VIEW_HSCODE'),
-                  this.$t('label.ASSETS1001VIEW_INTIME'),
-                  this.$t('label.ASSETS1001VIEW_YANQIDATE'),
-                  this.$t('label.ASSETS1001VIEW_REMARKS'),
-                  this.$t('label.ASSETS1001VIEW_CUSTOMER'),
-                  this.$t('label.ASSETS1001VIEW_CONTROLNO'),
-                  this.$t('label.ASSETS1001VIEW_MACHINENAME'),
-                  this.$t('label.ASSETS1001VIEW_PARAM1'),
-                  this.$t('label.ASSETS1001VIEW_PARAM2'),
-                  this.$t('label.ASSETS1001VIEW_PARAM3'),
-                  this.$t('label.ASSETS1001VIEW_PARAM4'),
-                  this.$t('label.ASSETS1001VIEW_PARAM5'),
-                  this.$t('label.ASSETS1001VIEW_PARAM6'),
-                  this.$t('label.ASSETS1001VIEW_PARAM4'),
-                  this.$t('label.ASSETS1001VIEW_PARAM7'),
-                  this.$t('label.ASSETS1001VIEW_PARAM5'),
-                  this.$t('label.ASSETS1001VIEW_PARAM8'),
-                  this.$t('label.ASSETS1001VIEW_PARAM4'),
-                  this.$t('label.ASSETS1001VIEW_PARAM9'),
-                  this.$t('label.ASSETS1001VIEW_PARAM10'),
-                  this.$t('label.ASSETS1001VIEW_PARAM11'),
-                  this.$t('label.ASSETS1001VIEW_PARAM6'),
-                  this.$t('label.ASSETS1001VIEW_PARAM3'),
-                  this.$t('label.ASSETS1001VIEW_PARAM4'),
-                  this.$t('label.ASSETS1001VIEW_PARAM12'),
-                  this.$t('label.ASSETS1001VIEW_PARAM13'),
-                  this.$t('label.ASSETS1001VIEW_PARAM14'),
-                  this.$t('label.ASSETS1001VIEW_PARAM4'),
-                  this.$t('label.ASSETS1001VIEW_PARAM7'),
-                 this.$t('label.department')
+              list.inparams1 = list.inparams1 === "1" ? this.$t("label.yes") : this.$t("label.no");
+              list.inparams2 = list.inparams2 === "1" ? this.$t("label.yes") : this.$t("label.no");
+              list.inparams5 = list.inparams5 === "1" ? this.$t("label.yes") : this.$t("label.no");
+              list.outparams4 = list.outparams4 === "1" ? this.$t("label.yes") : this.$t("label.no");
+              list.outparams5 = list.outparams5 === "1" ? this.$t("label.yes") : this.$t("label.no");
+              list.outparams6 = list.outparams6 === "1" ? this.$t("label.yes") : this.$t("label.no");
+              list.outparams10 = list.outparams10 === "1" ? this.$t("label.yes") : this.$t("label.no");
+            }
+          )
+          tHeader = [this.$t('label.ASSETS1001VIEW_FILENAME'),
+            this.$t('label.ASSETS1001VIEW_TYPEASSETS'),
+            this.$t('label.user_name'),
+            this.$t('label.ASSETS1001VIEW_BARCODE'),
+            this.$t('label.ASSETS1001VIEW_BARTYPE'),
+            this.$t('label.ASSETS1001VIEW_ASSETSTATUS'),
+            this.$t('label.ASSETS1001VIEW_STOCKSTATUS'),
+            this.$t('label.ASSETS1001VIEW_TONGGUANNO'),
+            this.$t('label.ASSETS1001VIEW_MODEL'),
+            this.$t('label.ASSETS1001VIEW_PRICE'),
+            this.$t('label.ASSETS1001VIEW_HSCODE'),
+            this.$t('label.ASSETS1001VIEW_INTIME'),
+            this.$t('label.ASSETS1001VIEW_YANQIDATE'),
+            this.$t('label.ASSETS1001VIEW_REMARKS'),
+            this.$t('label.ASSETS1001VIEW_CUSTOMER'),
+            this.$t('label.ASSETS1001VIEW_CONTROLNO'),
+            this.$t('label.ASSETS1001VIEW_MACHINENAME'),
+            this.$t('label.ASSETS1001VIEW_PARAM1'),
+            this.$t('label.ASSETS1001VIEW_PARAM2'),
+            this.$t('label.ASSETS1001VIEW_PARAM3'),
+            this.$t('label.ASSETS1001VIEW_PARAM4'),
+            this.$t('label.ASSETS1001VIEW_PARAM5'),
+            this.$t('label.ASSETS1001VIEW_PARAM6'),
+            this.$t('label.ASSETS1001VIEW_PARAM4'),
+            this.$t('label.ASSETS1001VIEW_PARAM7'),
+            this.$t('label.ASSETS1001VIEW_PARAM5'),
+            this.$t('label.ASSETS1001VIEW_PARAM8'),
+            this.$t('label.ASSETS1001VIEW_PARAM4'),
+            this.$t('label.ASSETS1001VIEW_PARAM9'),
+            this.$t('label.ASSETS1001VIEW_PARAM10'),
+            this.$t('label.ASSETS1001VIEW_PARAM11'),
+            this.$t('label.ASSETS1001VIEW_PARAM6'),
+            this.$t('label.ASSETS1001VIEW_PARAM3'),
+            this.$t('label.ASSETS1001VIEW_PARAM4'),
+            this.$t('label.ASSETS1001VIEW_PARAM12'),
+            this.$t('label.ASSETS1001VIEW_PARAM13'),
+            this.$t('label.ASSETS1001VIEW_PARAM14'),
+            this.$t('label.ASSETS1001VIEW_PARAM4'),
+            this.$t('label.ASSETS1001VIEW_PARAM7'),
+            this.$t('label.department')
 
-              ];
-               filterVal = ['filename', 'typeassets', 'principal', 'barcode', 'bartypeName', 'assetstatus','stockstatus',
-                  'pcno','model','price','no','purchasetime','activitiondate','remarks','customer','controlno','machinename',
-                  'inparams1','inparams2',
-                   'inparams3','inparams4','inparams5','owner',
-                   'inparams7','inparams8','outparams1',
-                  'outparams2', 'outparams3','outparams4','outparams5','outparams6','outparams7','outparams8','outparams9',
-                  'outparams10','outparams11','outparams12','outparams13','outparams14',"usedepartment"];
-          }else{
-              Message({
-                  message: this.$t("label.ASSETS1001VIEW_ERROR"),
-                  type: 'error',
-                  duration: 2 * 1000
-              });
-          }
-          if(tHeader&&filterVal){
-              import('@/vendor/Export2Excel').then(excel => {
-                  const list = selectedList;
-                  const data = this.formatJson(filterVal, list);
-                  excel.export_json_to_excel(tHeader, data, this.$t('menu.ASSETS1001'));
-              });
-          }
+          ];
+          filterVal = ['filename', 'typeassets', 'principal', 'barcode', 'bartypeName', 'assetstatus', 'stockstatus',
+            'pcno', 'model', 'price', 'no', 'purchasetime', 'activitiondate', 'remarks', 'customer', 'controlno', 'machinename',
+            'inparams1', 'inparams2',
+            'inparams3', 'inparams4', 'inparams5', 'owner',
+            'inparams7', 'inparams8', 'outparams1',
+            'outparams2', 'outparams3', 'outparams4', 'outparams5', 'outparams6', 'outparams7', 'outparams8', 'outparams9',
+            'outparams10', 'outparams11', 'outparams12', 'outparams13', 'outparams14', "usedepartment"];
+        } else {
+          Message({
+            message: this.$t("label.ASSETS1001VIEW_ERROR"),
+            type: 'error',
+            duration: 2 * 1000
+          });
+        }
+        if (tHeader && filterVal) {
+          import('@/vendor/Export2Excel').then(excel => {
+            const list = selectedList;
+            const data = this.formatJson(filterVal, list);
+            excel.export_json_to_excel(tHeader, data, this.$t('menu.ASSETS1001'));
+          });
+        }
       },
       handleDownload(row) {
         this.loading = true;
         this.$store
-            .dispatch('ASSETS1001Store/download', {'type': row.type})
-            .then(response => {
-              this.loading = false;
-            })
-            .catch(error => {
-              Message({
-                message: error,
-                type: 'error',
-                duration: 5 * 1000
+          .dispatch('ASSETS1001Store/download', {'type': row.type})
+          .then(response => {
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000
+            });
+            this.loading = false;
+          })
+      },
+      assetoperation(val) {
+        this.selectedlist = this.$refs.roletable.selectedList;
+        if (this.selectedlist.length === 0) {
+          Message({
+            message: this.$t("normal.info_01"),
+            type: 'info',
+            duration: 2 * 1000
+          });
+        } else {
+          if (val == '0') {
+            // 报废
+            this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1007FormView');
+            this.$router.push({
+              name: 'PFANS1007FormView',
+              params: {
+                _selectedList: JSON.stringify(this.selectedlist),
+                disabled: true,
+              },
+            });
+          } else if (val == '1') {
+            // 转移
+            this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1008FormView');
+            this.$router.push({
+              name: 'PFANS1008FormView',
+              params: {
+                _selectedList: JSON.stringify(this.selectedlist),
+                disabled: true,
+              },
+            });
+          } else {
+            if (this.selectedlist.length == 1) {
+              // 借出/带出
+              this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1009FormView');
+              this.$router.push({
+                name: 'PFANS1009FormView',
+                params: {
+                  _selectedList: JSON.stringify(this.selectedlist),
+                  disabled: true,
+                },
               });
-              this.loading = false;
-            })
+            } else {
+              Message({
+                message: this.$t("label.ASSETS1001VIEW_SELECTEDONLY"),
+                type: 'info',
+                duration: 2 * 1000
+              });
+            }
+          }
+        }
       }
     },
   };

@@ -3450,6 +3450,8 @@
                                   duration: 5 * 1000,
                                 });
                                 return;
+                              }else{
+                                this.accomflg = 0;
                               }
                             } else {
                               if (this.tableA[i].rmb > jpregion2) {
@@ -3461,6 +3463,8 @@
                                   duration: 5 * 1000,
                                 });
                                 return;
+                              }else{
+                                this.accomflg = 0;
                               }
                             }
                           }
@@ -3476,6 +3480,8 @@
                                   duration: 5 * 1000,
                                 });
                                 return;
+                              }else{
+                                this.accomflg = 0;
                               }
                             } else {
                               if (this.tableA[i].rmb > jpregion9 / 30) {
@@ -3487,6 +3493,8 @@
                                   duration: 5 * 1000,
                                 });
                                 return;
+                              }else{
+                                this.accomflg = 0;
                               }
                             }
                           }

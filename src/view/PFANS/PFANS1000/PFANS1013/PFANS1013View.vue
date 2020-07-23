@@ -515,7 +515,7 @@
                   vatnumber: obj.vatnumber,
                   taxCode: obj.taxCode,
                   paymentterms: obj.paymentterms,
-                  remark: obj.remark,
+                    remarks: obj.remarks,
                   source: obj.source,
                   paymentmethods: obj.paymentmethods,
                   type: obj.type,

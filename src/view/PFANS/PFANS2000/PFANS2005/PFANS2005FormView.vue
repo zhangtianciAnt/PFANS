@@ -6,6 +6,10 @@
       ref="container"
       v-loading="loading"
       @disabled="setdisabled"
+      :canStart="canStart"
+      @end="end"
+      @start="start"
+      @workflowState="workflowState"
     >
       <div slot="customize">
         <el-form label-position="top" label-width="8vw" ref="form">
@@ -3221,6 +3225,8 @@
         },
         data() {
             return {
+                canStart: false,
+                status:'0',
                 responseDataInit: [], // responseDataInit 初始化值
                 filterName: "", //  过滤用户姓名
                 tableData: [], // 工资画面显示总数据
@@ -3529,6 +3535,26 @@
         },
         // zqu end
         methods: {
+            workflowState(val) {
+                if (val.state === '1') {
+                    this.status = '3';
+                } else if (val.state === '2') {
+                    this.status = '4';
+                }
+                this.buttonClick("save");
+            },
+            start(val) {
+                if (val.state === '0') {
+                    this.status = '2';
+                }else if (val.state === '2') {
+                    this.status = '4';
+                }
+                this.buttonClick("save");
+            },
+            end() {
+                this.status = 'X';//不好区分所以先用X代替
+                this.buttonClick("save");
+            },
             // zqu start 工资tab 录入项change事件
             wagesChange(row, noId, val, prop) {
                 //其他3
@@ -5358,19 +5384,22 @@
                             });
                     }
                 } else if (val === "save") {
+                    this.totaldata[0].status = this.status;
                     this.loading = true;
                     // 插入工资数据
                     this.$store
                         .dispatch("PFANS2005Store/insertWages", this.totaldata)
                         .then(response => {
-                            this.loading = false;
                             // 重新获取工资数据
                             this.getListdata();
-                            Message({
-                                message: this.$t("normal.success_01"),
-                                type: "success",
-                                duration: 5 * 1000
-                            });
+                            if(this.status === "0"){
+                                Message({
+                                    message: this.$t("normal.success_01"),
+                                    type: "success",
+                                    duration: 5 * 1000
+                                });
+                            }
+                            this.loading = false;
                         })
                         .catch(err => {
                             this.loading = false;

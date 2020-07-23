@@ -201,769 +201,781 @@
 </template>
 
 <script>
-    import EasyNormalContainer from "@/components/EasyNormalContainer";
-    import dicselect from "../../../components/dicselect.vue";
-    import user from "../../../components/user.vue";
-    import {Message} from 'element-ui'
-    import {getOrgInfoByUserId, getOrgInfo} from '@/utils/customize';
-    import org from "../../../components/org";
-    import moment from "moment";
+  import EasyNormalContainer from "@/components/EasyNormalContainer";
+  import dicselect from "../../../components/dicselect.vue";
+  import user from "../../../components/user.vue";
+  import {Message} from 'element-ui'
+  import {getOrgInfo, getOrgInfoByUserId} from '@/utils/customize';
+  import org from "../../../components/org";
+  import moment from "moment";
 
-    export default {
-        name: 'PFANS1008FormView',
-        components: {
-            EasyNormalContainer,
-            dicselect,
-            user,
-            org
+  export default {
+    name: 'PFANS1008FormView',
+    components: {
+      EasyNormalContainer,
+      dicselect,
+      user,
+      org
+    },
+    data() {
+      var checkuser = (rule, value, callback) => {
+        if (!value || value === '') {
+          this.erroruser = this.$t('normal.error_09') + this.$t('label.applicant');
+          return callback(new Error(this.$t('normal.error_09') + this.$t('label.applicant')));
+        } else {
+          this.erroruser = "";
+          return callback();
+        }
+
+      };
+      // var checkferrycenter = (rule, value, callback) => {
+      //     if(!value || value === ''){
+      //         this.errorferrycenter = this.$t('normal.error_09') + this.$t('label.center');
+      //         return callback(new Error(this.$t('normal.error_09') + this.$t('label.center')));
+      //     }else{
+      //         this.errorferrycenter = "";
+      //         return callback();
+      //     }
+      //
+      // };
+      // var checkferrygroup = (rule, value, callback) => {
+      //     if(!value || value === ''){
+      //         this.errorferrygroup = this.$t('normal.error_09') + this.$t('label.group');
+      //         return callback(new Error(this.$t('normal.error_09') + this.$t('label.group')));
+      //     }else{
+      //         this.errorferrygroup = "";
+      //         return callback();
+      //     }
+      //
+      // };
+      // var checktubecenter = (rule, value, callback) => {
+      //     if(!value || value === ''){
+      //         this.errortubecenter = this.$t('normal.error_09') + this.$t('label.center');
+      //         return callback(new Error(this.$t('normal.error_09') + this.$t('label.center')));
+      //     }else{
+      //         this.errortubecenter = "";
+      //         return callback();
+      //     }
+      //
+      // };
+      // var checktubegroup = (rule, value, callback) => {
+      //     if(!value || value === ''){
+      //         this.errortubegroup = this.$t('normal.error_09') + this.$t('label.group');
+      //         return callback(new Error(this.$t('normal.error_09') + this.$t('label.group')));
+      //     }else{
+      //         this.errortubegroup = "";
+      //         return callback();
+      //     }
+      //
+      // };
+      var checkperson = (rule, value, callback) => {
+        if (!value || value === '') {
+          this.errorperson = this.$t('normal.error_09') + this.$t('label.person');
+          return callback(new Error(this.$t('normal.error_09') + this.$t('label.person')));
+        } else {
+          this.errorperson = "";
+          return callback();
+        }
+
+      };
+      var checkeafter = (rule, value, callback) => {
+        if (!value || value === '') {
+          this.erroreafter = this.$t('normal.error_09') + this.$t('label.eafter');
+          return callback(new Error(this.$t('normal.error_09') + this.$t('label.eafter')));
+        } else {
+          this.erroreafter = "";
+          return callback();
+        }
+
+      };
+      var ferrycenterId = (rule, value, callback) => {
+        if (!this.form.ferrycenter_id || this.form.ferrycenter_id === "") {
+          callback(new Error(this.$t("normal.error_08") + "center"));
+          this.errorferrycenter = this.$t("normal.error_08") + "center";
+        } else {
+          callback();
+        }
+      };
+      var ferrygroupId = (rule, value, callback) => {
+        if (!this.form.ferrygroup_id || this.form.ferrygroup_id === "") {
+          callback(new Error(this.$t("normal.error_08") + "group"));
+          this.errorferrygroup = this.$t("normal.error_08") + "group";
+        } else {
+          callback();
+        }
+      };
+      var tubecenterId = (rule, value, callback) => {
+        if (!this.form.tubecenter_id || this.form.tubecenter_id === "") {
+          callback(new Error(this.$t("normal.error_08") + "center"));
+          this.errortubecenter = this.$t("normal.error_08") + "center";
+        } else {
+          callback();
+        }
+      };
+      var tubegroupId = (rule, value, callback) => {
+        if (!this.form.tubegroup_id || this.form.tubegroup_id === "") {
+          callback(new Error(this.$t("normal.error_08") + "group"));
+          this.errortubegroup = this.$t("normal.error_08") + "group";
+        } else {
+          callback();
+        }
+      };
+      return {
+        activeNames: ['1'],
+        options: [],
+        options1: [],
+        selectedList: [],
+        assetsList: [],
+        centerid: '',
+        groupid: '',
+        teamid: '',
+        baseInfo: {},
+        // ferrycenterorglist: '',
+        // ferrygrouporglist: '',
+        // ferryteamorglist: '',
+        // tubecenterorglist: '',
+        // tubegrouporglist: '',
+        // tubeteamorglist: '',
+        userlist: '',
+        loading: false,
+        erroruser: '',
+        errorferrycenter: '',
+        errorferrygroup: '',
+        errortubecenter: '',
+        errortubegroup: '',
+        errorperson: '',
+        erroreafter: '',
+        checked: true,
+        selectType: "Single",
+        title: "title.PFANS1008VIEW",
+        buttonList: [],
+        tabIndex: 0,
+        multiple: false,
+        form: {
+          department: '',
+          center_id: '',
+          group_id: '',
+          team_id: '',
+          user_id: '',
+          insidenumber: '',
+          filename: '',
+          mobiledate: moment(new Date()).format("YYYY-MM-DD"),
+          ferrycentername: "",
+          ferrygroupname: "",
+          ferryteamname: "",
+          ferrycenter_id: '',
+          ferrygroup_id: '',
+          ferryteam_id: '',
+          tubecentername: "",
+          tubegroupname: "",
+          tubeteamname: "",
+          tubecenter_id: '',
+          tubegroup_id: '',
+          tubeteam_id: '',
+          ferrybudgetunit: '',
+          tubebudgetunit: '',
         },
-        data() {
-            var checkuser = (rule, value, callback) => {
-                if (!value || value === '') {
-                    this.erroruser = this.$t('normal.error_09') + this.$t('label.applicant');
-                    return callback(new Error(this.$t('normal.error_09') + this.$t('label.applicant')));
-                } else {
-                    this.erroruser = "";
-                    return callback();
-                }
-
-            };
-            // var checkferrycenter = (rule, value, callback) => {
-            //     if(!value || value === ''){
-            //         this.errorferrycenter = this.$t('normal.error_09') + this.$t('label.center');
-            //         return callback(new Error(this.$t('normal.error_09') + this.$t('label.center')));
-            //     }else{
-            //         this.errorferrycenter = "";
-            //         return callback();
-            //     }
-            //
-            // };
-            // var checkferrygroup = (rule, value, callback) => {
-            //     if(!value || value === ''){
-            //         this.errorferrygroup = this.$t('normal.error_09') + this.$t('label.group');
-            //         return callback(new Error(this.$t('normal.error_09') + this.$t('label.group')));
-            //     }else{
-            //         this.errorferrygroup = "";
-            //         return callback();
-            //     }
-            //
-            // };
-            // var checktubecenter = (rule, value, callback) => {
-            //     if(!value || value === ''){
-            //         this.errortubecenter = this.$t('normal.error_09') + this.$t('label.center');
-            //         return callback(new Error(this.$t('normal.error_09') + this.$t('label.center')));
-            //     }else{
-            //         this.errortubecenter = "";
-            //         return callback();
-            //     }
-            //
-            // };
-            // var checktubegroup = (rule, value, callback) => {
-            //     if(!value || value === ''){
-            //         this.errortubegroup = this.$t('normal.error_09') + this.$t('label.group');
-            //         return callback(new Error(this.$t('normal.error_09') + this.$t('label.group')));
-            //     }else{
-            //         this.errortubegroup = "";
-            //         return callback();
-            //     }
-            //
-            // };
-            var checkperson = (rule, value, callback) => {
-                if (!value || value === '') {
-                    this.errorperson = this.$t('normal.error_09') + this.$t('label.person');
-                    return callback(new Error(this.$t('normal.error_09') + this.$t('label.person')));
-                } else {
-                    this.errorperson = "";
-                    return callback();
-                }
-
-            };
-            var checkeafter = (rule, value, callback) => {
-                if (!value || value === '') {
-                    this.erroreafter = this.$t('normal.error_09') + this.$t('label.eafter');
-                    return callback(new Error(this.$t('normal.error_09') + this.$t('label.eafter')));
-                } else {
-                    this.erroreafter = "";
-                    return callback();
-                }
-
-            };
-            var ferrycenterId = (rule, value, callback) => {
-                if (!this.form.ferrycenter_id || this.form.ferrycenter_id === "") {
-                    callback(new Error(this.$t("normal.error_08") + "center"));
-                    this.errorferrycenter = this.$t("normal.error_08") + "center";
-                } else {
-                    callback();
-                }
-            };
-            var ferrygroupId = (rule, value, callback) => {
-                if (!this.form.ferrygroup_id || this.form.ferrygroup_id === "") {
-                    callback(new Error(this.$t("normal.error_08") + "group"));
-                    this.errorferrygroup = this.$t("normal.error_08") + "group";
-                } else {
-                    callback();
-                }
-            };
-            var tubecenterId = (rule, value, callback) => {
-                if (!this.form.tubecenter_id || this.form.tubecenter_id === "") {
-                    callback(new Error(this.$t("normal.error_08") + "center"));
-                    this.errortubecenter = this.$t("normal.error_08") + "center";
-                } else {
-                    callback();
-                }
-            };
-            var tubegroupId = (rule, value, callback) => {
-                if (!this.form.tubegroup_id || this.form.tubegroup_id === "") {
-                    callback(new Error(this.$t("normal.error_08") + "group"));
-                    this.errortubegroup = this.$t("normal.error_08") + "group";
-                } else {
-                    callback();
-                }
-            };
-            return {
-                activeNames: ['1'],
-                options: [],
-                options1: [],
-                centerid: '',
-                groupid: '',
-                teamid: '',
-                baseInfo: {},
-                // ferrycenterorglist: '',
-                // ferrygrouporglist: '',
-                // ferryteamorglist: '',
-                // tubecenterorglist: '',
-                // tubegrouporglist: '',
-                // tubeteamorglist: '',
-                userlist: '',
-                loading: false,
-                erroruser: '',
-                errorferrycenter: '',
-                errorferrygroup: '',
-                errortubecenter: '',
-                errortubegroup: '',
-                errorperson: '',
-                erroreafter: '',
-                checked: true,
-                selectType: "Single",
-                title: "title.PFANS1008VIEW",
-                buttonList: [],
-                tabIndex: 0,
-                multiple: false,
-                form: {
-                    department: '',
-                    center_id: '',
-                    group_id: '',
-                    team_id: '',
-                    user_id: '',
-                    insidenumber: '',
-                    filename: '',
-                    mobiledate: moment(new Date()).format("YYYY-MM-DD"),
-                    ferrycentername: "",
-                    ferrygroupname: "",
-                    ferryteamname: "",
-                    ferrycenter_id: '',
-                    ferrygroup_id: '',
-                    ferryteam_id: '',
-                    tubecentername: "",
-                    tubegroupname: "",
-                    tubeteamname: "",
-                    tubecenter_id: '',
-                    tubegroup_id: '',
-                    tubeteam_id: '',
-                    ferrybudgetunit: '',
-                    tubebudgetunit: '',
-                },
-                tableD: [
-                    {
-                        notificationid: '',
-                        softwaretransferid: '',
-                        management: '',
-                        assetname: '',
-                        person: '',
-                        eafter: '',
-                        reason: '',
-                    },
-                ],
-                code: 'PG002',
-                code1: 'PG001',
-                disabled: true,
-                menuList: [],
-                rules: {
-                    user_id: [
-                        {
-                            required: true,
-                            validator: checkuser,
-                            trigger: 'change'
-                        },
-                    ],
-                    ferrycenter_id: [
-                        {
-                            required: true,
-                            validator: ferrycenterId,
-                            trigger: 'change'
-                        },
-                    ],
-                    ferrygroup_id: [
-                        {
-                            required: true,
-                            validator: ferrygroupId,
-                            trigger: 'change'
-                        },
-                    ],
-                    tubecenter_id: [
-                        {
-                            required: true,
-                            validator: tubecenterId,
-                            trigger: 'change'
-                        },
-                    ],
-                    tubegroup_id: [
-                        {
-                            required: true,
-                            validator: tubegroupId,
-                            trigger: 'change'
-                        },
-                    ],
-                    person: [
-                        {
-                            required: true,
-                            validator: checkperson,
-                            trigger: 'change'
-                        },
-                    ],
-                    eafter: [
-                        {
-                            required: true,
-                            validator: checkeafter,
-                            trigger: 'change'
-                        },
-                    ],
-                    insidenumber: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS3001VIEW_EXTENSIONNUMBER'),
-                            trigger: 'change'
-                        },
-                    ],
-                    mobiledate: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_09') + this.$t('label.PFANS1008FORMVIEW_MOBILEDAY'),
-                            trigger: 'change'
-                        },
-                    ],
-                    ferrybudgetunit: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_09') + this.$t('label.budgetunit'),
-                            trigger: 'change'
-                        },
-                    ],
-                    tubebudgetunit: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_09') + this.$t('label.budgetunit'),
-                            trigger: 'change'
-                        },
-                    ],
-                    management: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS1008FORMVIEW_ASSETMANAGEMENTNUMBER'),
-                            trigger: 'blue'
-                        },
-                    ],
-                    assetname: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS1008FORMVIEW_ASSETNAME'),
-                            trigger: 'blue'
-                        },
-                    ],
-                    reason: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_09') + this.$t('label.PFANS1008FORMVIEW_REASONFORMOVEMENT'),
-                            trigger: 'blue'
-                        },
-                    ],
-                },
-                canStart: false,
-            };
-        },
-        mounted() {
-            if (this.$route.params._org) {
-                ({
-                    ferrycentername: this.form.ferrycentername,
-                    ferrygroupname: this.form.ferrygroupname,
-                    ferryteamname: this.form.ferryteamname,
-                    ferrycenter_id: this.form.ferrycenter_id,
-                    ferrygroup_id: this.form.ferrygroup_id,
-                    ferryteam_id: this.form.ferryteam_id
-                } = this.$route.params._org);
-            }
-            if (this.$route.params._org) {
-                ({
-                    tubecentername: this.form.tubecentername,
-                    tubegroupname: this.form.tubegroupname,
-                    tubeteamname: this.form.tubeteamname,
-                    tubecenter_id: this.form.tubecenter_id,
-                    tubegroup_id: this.form.tubegroup_id,
-                    tubeteam_id: this.form.tubeteam_id
-                } = this.$route.params._org);
-            }
-            this.loading = true;
-            if (this.$route.params._id) {
-                this.$store
-                    .dispatch('PFANS1008Store/selectById', {"softwaretransferid": this.$route.params._id})
-                    .then(response => {
-                        this.form = response.softwaretransfer;
-                        let rst = getOrgInfoByUserId(response.softwaretransfer.user_id);
-                        if (rst) {
-                            this.centerid = rst.centerNmae;
-                            this.groupid = rst.groupNmae;
-                            this.teamid = rst.teamNmae;
-                        }
-                        this.ferrycenterorglist = this.form.ferrycenter_id;
-                        this.ferrygrouporglist = this.form.ferrygroup_id;
-                        this.ferryteamorglist = this.form.ferryteam_id;
-                        this.tubecenterorglist = this.form.tubecenter_id;
-                        this.tubegrouporglist = this.form.tubegroup_id;
-                        this.tubeteamorglist = this.form.tubeteam_id;
-                        //add-ws-7/2-禅道任务192
-                        this.getFebud(this.form.ferrygroup_id);
-                        this.getbud(this.form.tubegroup_id);
-                      //add-ws-7/2-禅道任务192
-                        if (response.notification.length > 0) {
-                            this.tableD = response.notification;
-                        }
-                        this.userlist = this.form.user_id;
-                        this.loading = false;
-                    })
-                    .catch(error => {
-                        Message({
-                            message: error,
-                            type: 'error',
-                            duration: 5 * 1000
-                        });
-                        this.loading = false;
-                    })
-            } else {
-                this.userlist = this.$store.getters.userinfo.userid;
-                if (this.userlist !== null && this.userlist !== '') {
-                    // if(getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)){
-                    //     this.form.ferrybudgetunit = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
-                    // }
-                    let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-                    if (rst) {
-                        this.centerid = rst.centerNmae;
-                        this.groupid = rst.groupNmae;
-                        this.teamid = rst.teamNmae;
-                        this.form.center_id = rst.centerId;
-                        this.form.group_id = rst.groupId;
-                        this.form.team_id = rst.teamId;
-                    }
-                    this.form.user_id = this.$store.getters.userinfo.userid;
-                }
-                this.loading = false;
-            }
-        },
-        created() {
-            this.disabled = this.$route.params.disabled;
-            if (this.disabled) {
-                this.buttonList = [
-                    {
-                        key: "save",
-                        name: "button.save",
-                        disabled: false,
-                        icon: "el-icon-check"
-                    }
-                ];
-            }
-        },
-        methods: {
-            getUserids(val) {
-                this.form.user_id = val;
-                let rst = getOrgInfoByUserId(val);
-                // if(getOrgInfo(getOrgInfoByUserId(val).groupId)){
-                //     this.form.ferrybudgetunit = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
-                // }
-                if (rst) {
-                    this.centerid = rst.centerNmae;
-                    this.groupid = rst.groupNmae;
-                    this.teamid = rst.teamNmae;
-                    this.form.center_id = rst.centerId;
-                    this.form.group_id = rst.groupId;
-                    this.form.team_id = rst.teamId;
-                } else {
-                    this.centerid = '';
-                    this.groupid = '';
-                    this.teamid = '';
-                    this.form.center_id = '';
-                    this.form.group_id = '';
-                    this.form.team_id = '';
-                }
-                if (!this.form.user_id || this.form.user_id === '' || val === "undefined") {
-                    this.erroruser = this.$t('normal.error_09') + this.$t('label.applicant');
-                } else {
-                    this.erroruser = "";
-                }
-            },
-            getUseridsperson(val, row) {
-                row.person = val;
-            },
-            getUseridseafter(val, row) {
-                row.eafter = val;
-            },
-            getCenterId1(val) {
-                this.getOrgInformation(val);
-                if (!val || this.form.ferrycenter_id === "") {
-                    this.errorferrycenter = this.$t("normal.error_08") + "center";
-                } else {
-                    this.errorferrycenter = "";
-                }
-            },
-            //转让部門
-            getGroupId1(val) {
-                if (val === "" || val === null) {
-                    this.form.ferrybudgetunit = '';
-                    this.options = [];
-                }
-                this.getOrgInformation(val);
-                if (this.form.ferrycenter_id === "") {
-                    this.errorferrygroup = this.$t("normal.error_08") + "center";
-                } else {
-                    this.errorferrygroup = "";
-                }
-            },
-            getTeamId1(val) {
-                this.getOrgInformation(val);
-                if (this.form.center_id === "") {
-                    this.errorgroup = this.$t("normal.error_08") + "center";
-                } else {
-                    this.errorgroup = "";
-                }
-            },
-            //ADD_FJL   修改人员预算编码  --转让部門
-            getFebud(val) {
-                if (val !== '' && val !== null) {
-                    this.options = [];
-                    // if (getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)) {
-                    let butinfo = getOrgInfo(val).encoding;
-                    let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-                    if (dic.length > 0) {
-                        for (let i = 0; i < dic.length; i++) {
-                            if (butinfo === dic[i].value1) {
-                                this.options.push({
-                                    lable: dic[i].value3,
-                                    value: dic[i].code,
-                                })
-                            }
-                        }
-                    }
-                    // }
-                } else {
-                    this.form.ferrybudgetunit = '';
-                    this.options = [];
-                }
-            },
-            //ADD_FJL  修改人员预算编码
-            getOrgInformation(id) {
-                let org = {};
-                let treeCom = this.$store.getters.orgs;
-
-                if (id && treeCom.getNode(id)) {
-                    let node = id;
-                    let type = treeCom.getNode(id).data.type || 0;
-                    for (let index = parseInt(type); index >= 1; index--) {
-                        if (parseInt(type) === index && ![1, 2].includes(parseInt(type))) {
-                            org.ferrycentername = treeCom.getNode(node).data.departmentname;
-
-
-                            org.ferryteam_id = treeCom.getNode(node).data._id;
-                        }
-                        if (index === 2) {
-                            org.ferrygroupname = treeCom.getNode(node).data.departmentname;
-                            org.ferrygroup_id = treeCom.getNode(node).data._id;
-                            this.getFebud(org.ferrygroup_id);
-                        }
-                        if (index === 1) {
-                            org.ferrycentername = treeCom.getNode(node).data.companyname;
-                            org.ferrycenter_id = treeCom.getNode(node).data._id;
-                        }
-                        node = treeCom.getNode(node).parent.data._id;
-                    }
-                    ({
-                        ferrycentername: this.form.ferrycentername,
-                        ferrygroupname: this.form.ferrygroupname,
-                        ferryteamname: this.form.ferryteamname,
-                        ferrycenter_id: this.form.ferrycenter_id,
-                        ferrygroup_id: this.form.ferrygroup_id,
-                        ferryteam_id: this.form.ferryteam_id,
-                    } = org);
-                }
-            },
-            getCenterId2(val) {
-                this.getOrgInformation1(val);
-                if (!val || this.form.tubecenter_id === "") {
-                    this.errortubecenter = this.$t("normal.error_08") + "center";
-                } else {
-                    this.errortubecenter = "";
-                }
-            },
-            //移管部門
-            getGroupId2(val) {
-                if (val === "" || val === null) {
-                    this.form.tubebudgetunit = '';
-                    this.options1 = [];
-                }
-                this.getOrgInformation1(val);
-                if (this.form.tubecenter_id === "") {
-                    this.errortubegroup = this.$t("normal.error_08") + "center";
-                } else {
-                    this.errortubegroup = "";
-                }
-            },
-            //获取移管部門的预算编码
-            getbud(val) {
-                //ADD_FJL   修改人员预算编码
-                if (val !== '' && val !== null) {
-                    this.options1 = [];
-                    let butinfo = getOrgInfo(val).encoding;
-                    let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-                    if (dic.length > 0) {
-                        for (let i = 0; i < dic.length; i++) {
-                            if (butinfo === dic[i].value1) {
-                                this.options1.push({
-                                    lable: dic[i].value3,
-                                    value: dic[i].code,
-                                })
-                            }
-                        }
-                    }
-                } else {
-                    this.form.tubebudgetunit = '';
-                    this.options1 = [];
-                }
-                //ADD_FJL  修改人员预算编码
-            },
-            changeBut(val) {
-                this.form.ferrybudgetunit = val;
-            },
-            getTeamId2(val) {
-                this.getOrgInformation1(val);
-                if (this.form.tubecenter_id === "") {
-                    this.errortubegroup = this.$t("normal.error_08") + "center";
-                } else {
-                    this.errortubegroup = "";
-                }
-            },
-            getOrgInformation1(id) {
-                let org = {};
-                let treeCom = this.$store.getters.orgs;
-
-                if (id && treeCom.getNode(id)) {
-                    let node = id;
-                    let type = treeCom.getNode(id).data.type || 0;
-                    for (let index = parseInt(type); index >= 1; index--) {
-                        if (parseInt(type) === index && ![1, 2].includes(parseInt(type))) {
-                            org.tubecentername = treeCom.getNode(node).data.departmentname;
-
-
-                            org.tubeteam_id = treeCom.getNode(node).data._id;
-                        }
-                        if (index === 2) {
-                            org.tubegroupname = treeCom.getNode(node).data.departmentname;
-                            org.tubegroup_id = treeCom.getNode(node).data._id;
-                            this.getbud(org.tubegroup_id);
-                        }
-                        if (index === 1) {
-                            org.tubecentername = treeCom.getNode(node).data.companyname;
-                            org.tubecenter_id = treeCom.getNode(node).data._id;
-                        }
-                        node = treeCom.getNode(node).parent.data._id;
-                    }
-                    ({
-                        tubecentername: this.form.tubecentername,
-                        tubegroupname: this.form.tubegroupname,
-                        tubeteamname: this.form.tubeteamname,
-                        tubecenter_id: this.form.tubecenter_id,
-                        tubegroup_id: this.form.tubegroup_id,
-                        tubeteam_id: this.form.tubeteam_id,
-                    } = org);
-                }
-            },
-
-            getTubebudgetunit(val) {
-                this.form.tubebudgetunit = val;
-            },
-            workflowState(val) {
-                if (val.state === '1') {
-                    this.form.status = '3';
-                } else if (val.state === '2') {
-                    this.form.status = '4';
-                }
-                this.buttonClick("update");
-            },
-          //add-ws-5-20-流程恒展开
-          start(val) {
-            if (val.state === '0') {
-              this.form.status = '2';
-            }else if (val.state === '2') {
-              this.form.status = '4';
-            }
-            this.buttonClick("update");
+        tableD: [
+          {
+            notificationid: '',
+            softwaretransferid: '',
+            management: '',
+            assetname: '',
+            person: '',
+            eafter: '',
+            reason: '',
           },
-          //add-ws-5-20-流程恒展开
-            end() {
-                this.form.status = '0';
-                this.buttonClick("update");
+        ],
+        code: 'PG002',
+        code1: 'PG001',
+        disabled: true,
+        menuList: [],
+        rules: {
+          user_id: [
+            {
+              required: true,
+              validator: checkuser,
+              trigger: 'change'
             },
-            deleteRow(index, rows) {
-                if (rows.length > 1) {
-                    rows.splice(index, 1);
-                } else {
-                    this.tableD = [
-                        {
-                            notificationid: '',
-                            softwaretransferid: '',
-                            management: '',
-                            assetname: '',
-                            person: null,
-                            eafter: null,
-                            reason: '',
-                        },
-                    ]
-                }
+          ],
+          ferrycenter_id: [
+            {
+              required: true,
+              validator: ferrycenterId,
+              trigger: 'change'
             },
-            addRow() {
-                this.tableD.push({
-                    notificationid: '',
-                    softwaretransferid: '',
-                    management: '',
-                    assetname: '',
-                    person: '',
-                    eafter: '',
-                    reason: '',
-                });
+          ],
+          ferrygroup_id: [
+            {
+              required: true,
+              validator: ferrygroupId,
+              trigger: 'change'
             },
-            paramsTitle() {
-                this.$router.push({
-                    name: 'PFANS1037FormView',
-                    params: {
-                        title: 8,
-                    },
-                });
+          ],
+          tubecenter_id: [
+            {
+              required: true,
+              validator: tubecenterId,
+              trigger: 'change'
             },
-            buttonClick(val) {
-                if (val === 'back') {
-                    this.paramsTitle();
-                } else {
-                    this.$refs["refform"].validate(valid => {
-                        if (valid) {
-                            this.loading = true;
-                            this.baseInfo = {};
-                            this.form.mobiledate = moment(this.form.mobiledate).format('YYYY-MM-DD');
-                            this.baseInfo.softwaretransfer = JSON.parse(JSON.stringify(this.form));
-                            this.baseInfo.notification = [];
-                            for (let i = 0; i < this.tableD.length; i++) {
-                              //add-ws-7/2-禅道任务192
-                              if(this.tableD[i].management == '' && this.tableD[i].assetname == ''){
-                                this.loading = false;
-                                Message({
-                                  message: this.$t("label.PFANS1008FORMVIEW_CHECKERROR"),
-                                  type: 'error',
-                                  duration: 5 * 1000
-                                });
-                                return
-                              }else{
-                                //add-ws-7/2-禅道任务192
-                                if (this.tableD[i].management !== '' || this.tableD[i].assetname !== '' || this.tableD[i].person !== '' ||
-                                  this.tableD[i].eafter !== '' || this.tableD[i].reason !== '') {
-                                  this.baseInfo.notification.push(
-                                    {
-                                      notificationid: this.tableD[i].notificationid,
-                                      softwaretransferid: this.tableD[i].softwaretransferid,
-                                      management: this.tableD[i].management,
-                                      assetname: this.tableD[i].assetname,
-                                      person: this.tableD[i].person,
-                                      eafter: this.tableD[i].eafter,
-                                      reason: this.tableD[i].reason,
-                                    },
-                                  );
-                                }
-                              }
-
-                            }
-                            if (this.$route.params._id) {
-                                this.baseInfo.softwaretransferid = this.$route.params._id;
-                                this.form.ferrycenter_id = this.ferrycenterorglist;
-                                this.form.ferrygroup_id = this.ferrygrouporglist;
-                                this.form.ferryteam_id = this.ferryteamorglist;
-                                this.form.tubecenter_id = this.tubecenterorglist;
-                                this.form.tubegroup_id = this.tubegrouporglist;
-                                this.form.tubeteam_id = this.tubeteamorglist;
-                                this.$store
-                                    .dispatch('PFANS1008Store/updateSoftwaretransfer', this.baseInfo)
-                                    .then(response => {
-                                        this.data = response;
-                                        this.loading = false;
-                                        if (val !== "update") {
-                                            Message({
-                                                message: this.$t("normal.success_02"),
-                                                type: 'success',
-                                                duration: 5 * 1000
-                                            });
-                                            this.paramsTitle();
-                                        }
-                                    })
-                                    .catch(error => {
-                                        Message({
-                                            message: error,
-                                            type: 'error',
-                                            duration: 5 * 1000
-                                        });
-                                        this.loading = false;
-                                    })
-
-                            } else {
-                                this.$store
-                                    .dispatch('PFANS1008Store/insert', this.baseInfo)
-                                    .then(response => {
-                                        this.data = response;
-                                        this.loading = false;
-                                        Message({
-                                            message: this.$t("normal.success_01"),
-                                            type: 'success',
-                                            duration: 5 * 1000
-                                        });
-                                        this.paramsTitle();
-                                    })
-                                    .catch(error => {
-                                        Message({
-                                            message: error,
-                                            type: 'error',
-                                            duration: 5 * 1000
-                                        });
-                                        this.loading = false;
-                                    })
-                            }
-                        }
-                    });
-                }
-            }
+          ],
+          tubegroup_id: [
+            {
+              required: true,
+              validator: tubegroupId,
+              trigger: 'change'
+            },
+          ],
+          person: [
+            {
+              required: true,
+              validator: checkperson,
+              trigger: 'change'
+            },
+          ],
+          eafter: [
+            {
+              required: true,
+              validator: checkeafter,
+              trigger: 'change'
+            },
+          ],
+          insidenumber: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS3001VIEW_EXTENSIONNUMBER'),
+              trigger: 'change'
+            },
+          ],
+          mobiledate: [
+            {
+              required: true,
+              message: this.$t('normal.error_09') + this.$t('label.PFANS1008FORMVIEW_MOBILEDAY'),
+              trigger: 'change'
+            },
+          ],
+          ferrybudgetunit: [
+            {
+              required: true,
+              message: this.$t('normal.error_09') + this.$t('label.budgetunit'),
+              trigger: 'change'
+            },
+          ],
+          tubebudgetunit: [
+            {
+              required: true,
+              message: this.$t('normal.error_09') + this.$t('label.budgetunit'),
+              trigger: 'change'
+            },
+          ],
+          management: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS1008FORMVIEW_ASSETMANAGEMENTNUMBER'),
+              trigger: 'blue'
+            },
+          ],
+          assetname: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS1008FORMVIEW_ASSETNAME'),
+              trigger: 'blue'
+            },
+          ],
+          reason: [
+            {
+              required: true,
+              message: this.$t('normal.error_09') + this.$t('label.PFANS1008FORMVIEW_REASONFORMOVEMENT'),
+              trigger: 'blue'
+            },
+          ],
         },
-        // watch: {
-        //   'form.ferrygroupname': {
-        //     handler: function () {
-        //       debugger
-        //       if(this.form.ferrygroup_id){
-        //        this.form.tubebudgetunit =  getOrgInfo(getOrgInfoByUserId(this.form.ferrygroup_id)).encoding;
-        //       }
-        //     },
-        //   }
+        canStart: false,
+      };
+    },
+    mounted() {
+      if (this.$route.params._org) {
+        ({
+          ferrycentername: this.form.ferrycentername,
+          ferrygroupname: this.form.ferrygroupname,
+          ferryteamname: this.form.ferryteamname,
+          ferrycenter_id: this.form.ferrycenter_id,
+          ferrygroup_id: this.form.ferrygroup_id,
+          ferryteam_id: this.form.ferryteam_id
+        } = this.$route.params._org);
+      }
+      if (this.$route.params._org) {
+        ({
+          tubecentername: this.form.tubecentername,
+          tubegroupname: this.form.tubegroupname,
+          tubeteamname: this.form.tubeteamname,
+          tubecenter_id: this.form.tubecenter_id,
+          tubegroup_id: this.form.tubegroup_id,
+          tubeteam_id: this.form.tubeteam_id
+        } = this.$route.params._org);
+      }
+      this.loading = true;
+      if (this.$route.params._id) {
+        this.$store
+          .dispatch('PFANS1008Store/selectById', {"softwaretransferid": this.$route.params._id})
+          .then(response => {
+            this.form = response.softwaretransfer;
+            let rst = getOrgInfoByUserId(response.softwaretransfer.user_id);
+            if (rst) {
+              this.centerid = rst.centerNmae;
+              this.groupid = rst.groupNmae;
+              this.teamid = rst.teamNmae;
+            }
+            this.ferrycenterorglist = this.form.ferrycenter_id;
+            this.ferrygrouporglist = this.form.ferrygroup_id;
+            this.ferryteamorglist = this.form.ferryteam_id;
+            this.tubecenterorglist = this.form.tubecenter_id;
+            this.tubegrouporglist = this.form.tubegroup_id;
+            this.tubeteamorglist = this.form.tubeteam_id;
+            //add-ws-7/2-禅道任务192
+            this.getFebud(this.form.ferrygroup_id);
+            this.getbud(this.form.tubegroup_id);
+            //add-ws-7/2-禅道任务192
+            if (response.notification.length > 0) {
+              this.tableD = response.notification;
+            }
+            this.userlist = this.form.user_id;
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000
+            });
+            this.loading = false;
+          })
+      } else {
+        this.tableD = [];
+        this.userlist = this.$store.getters.userinfo.userid;
+        if (this.userlist !== null && this.userlist !== '') {
+          // if(getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)){
+          //     this.form.ferrybudgetunit = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
+          // }
+          let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+          if (rst) {
+            this.centerid = rst.centerNmae;
+            this.groupid = rst.groupNmae;
+            this.teamid = rst.teamNmae;
+            this.form.center_id = rst.centerId;
+            this.form.group_id = rst.groupId;
+            this.form.team_id = rst.teamId;
+          }
+          this.form.user_id = this.$store.getters.userinfo.userid;
+        }
+        if (this.selectedList != '') {
+          this.assetsList = JSON.parse(this.selectedList);
+          for (let i = 0; i < this.assetsList.length; i++) {
+            var vote = {};
+            if (this.assetsList[i].barcode !== null && this.assetsList[i].barcode !== '') {
+              vote.management = this.assetsList[i].barcode;
+            }
+            if (this.assetsList[i].filename !== null && this.assetsList[i].filename !== '') {
+              vote.assetname = this.assetsList[i].filename;
+            }
+            if (this.assetsList[i].psdcdreturnconfirmation1 !== null && this.assetsList[i].psdcdreturnconfirmation1 !== '') {
+              vote.person = this.assetsList[i].psdcdreturnconfirmation1;
+            }
+            this.tableD.push(vote);
+          }
+        }
+        this.loading = false;
+      }
+    },
+    created() {
+      this.disabled = this.$route.params.disabled;
+      if (this.$route.params._selectedList != null) {
+        this.selectedList = this.$route.params._selectedList;
+      }
+      if (this.disabled) {
+        this.buttonList = [
+          {
+            key: "save",
+            name: "button.save",
+            disabled: false,
+            icon: "el-icon-check"
+          }
+        ];
+      }
+    },
+    methods: {
+      getUserids(val) {
+        this.form.user_id = val;
+        let rst = getOrgInfoByUserId(val);
+        // if(getOrgInfo(getOrgInfoByUserId(val).groupId)){
+        //     this.form.ferrybudgetunit = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
         // }
-    }
+        if (rst) {
+          this.centerid = rst.centerNmae;
+          this.groupid = rst.groupNmae;
+          this.teamid = rst.teamNmae;
+          this.form.center_id = rst.centerId;
+          this.form.group_id = rst.groupId;
+          this.form.team_id = rst.teamId;
+        } else {
+          this.centerid = '';
+          this.groupid = '';
+          this.teamid = '';
+          this.form.center_id = '';
+          this.form.group_id = '';
+          this.form.team_id = '';
+        }
+        if (!this.form.user_id || this.form.user_id === '' || val === "undefined") {
+          this.erroruser = this.$t('normal.error_09') + this.$t('label.applicant');
+        } else {
+          this.erroruser = "";
+        }
+      },
+      getUseridsperson(val, row) {
+        row.person = val;
+      },
+      getUseridseafter(val, row) {
+        row.eafter = val;
+      },
+      getCenterId1(val) {
+        this.getOrgInformation(val);
+        if (!val || this.form.ferrycenter_id === "") {
+          this.errorferrycenter = this.$t("normal.error_08") + "center";
+        } else {
+          this.errorferrycenter = "";
+        }
+      },
+      //转让部門
+      getGroupId1(val) {
+        if (val === "" || val === null) {
+          this.form.ferrybudgetunit = '';
+          this.options = [];
+        }
+        this.getOrgInformation(val);
+        if (this.form.ferrycenter_id === "") {
+          this.errorferrygroup = this.$t("normal.error_08") + "center";
+        } else {
+          this.errorferrygroup = "";
+        }
+      },
+      getTeamId1(val) {
+        this.getOrgInformation(val);
+        if (this.form.center_id === "") {
+          this.errorgroup = this.$t("normal.error_08") + "center";
+        } else {
+          this.errorgroup = "";
+        }
+      },
+      //ADD_FJL   修改人员预算编码  --转让部門
+      getFebud(val) {
+        if (val !== '' && val !== null) {
+          this.options = [];
+          // if (getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)) {
+          let butinfo = getOrgInfo(val).encoding;
+          let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+          if (dic.length > 0) {
+            for (let i = 0; i < dic.length; i++) {
+              if (butinfo === dic[i].value1) {
+                this.options.push({
+                  lable: dic[i].value3,
+                  value: dic[i].code,
+                })
+              }
+            }
+          }
+          // }
+        } else {
+          this.form.ferrybudgetunit = '';
+          this.options = [];
+        }
+      },
+      //ADD_FJL  修改人员预算编码
+      getOrgInformation(id) {
+        let org = {};
+        let treeCom = this.$store.getters.orgs;
+
+        if (id && treeCom.getNode(id)) {
+          let node = id;
+          let type = treeCom.getNode(id).data.type || 0;
+          for (let index = parseInt(type); index >= 1; index--) {
+            if (parseInt(type) === index && ![1, 2].includes(parseInt(type))) {
+              org.ferrycentername = treeCom.getNode(node).data.departmentname;
+
+
+              org.ferryteam_id = treeCom.getNode(node).data._id;
+            }
+            if (index === 2) {
+              org.ferrygroupname = treeCom.getNode(node).data.departmentname;
+              org.ferrygroup_id = treeCom.getNode(node).data._id;
+              this.getFebud(org.ferrygroup_id);
+            }
+            if (index === 1) {
+              org.ferrycentername = treeCom.getNode(node).data.companyname;
+              org.ferrycenter_id = treeCom.getNode(node).data._id;
+            }
+            node = treeCom.getNode(node).parent.data._id;
+          }
+          ({
+            ferrycentername: this.form.ferrycentername,
+            ferrygroupname: this.form.ferrygroupname,
+            ferryteamname: this.form.ferryteamname,
+            ferrycenter_id: this.form.ferrycenter_id,
+            ferrygroup_id: this.form.ferrygroup_id,
+            ferryteam_id: this.form.ferryteam_id,
+          } = org);
+        }
+      },
+      getCenterId2(val) {
+        this.getOrgInformation1(val);
+        if (!val || this.form.tubecenter_id === "") {
+          this.errortubecenter = this.$t("normal.error_08") + "center";
+        } else {
+          this.errortubecenter = "";
+        }
+      },
+      //移管部門
+      getGroupId2(val) {
+        if (val === "" || val === null) {
+          this.form.tubebudgetunit = '';
+          this.options1 = [];
+        }
+        this.getOrgInformation1(val);
+        if (this.form.tubecenter_id === "") {
+          this.errortubegroup = this.$t("normal.error_08") + "center";
+        } else {
+          this.errortubegroup = "";
+        }
+      },
+      //获取移管部門的预算编码
+      getbud(val) {
+        //ADD_FJL   修改人员预算编码
+        if (val !== '' && val !== null) {
+          this.options1 = [];
+          let butinfo = getOrgInfo(val).encoding;
+          let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+          if (dic.length > 0) {
+            for (let i = 0; i < dic.length; i++) {
+              if (butinfo === dic[i].value1) {
+                this.options1.push({
+                  lable: dic[i].value3,
+                  value: dic[i].code,
+                })
+              }
+            }
+          }
+        } else {
+          this.form.tubebudgetunit = '';
+          this.options1 = [];
+        }
+        //ADD_FJL  修改人员预算编码
+      },
+      changeBut(val) {
+        this.form.ferrybudgetunit = val;
+      },
+      getTeamId2(val) {
+        this.getOrgInformation1(val);
+        if (this.form.tubecenter_id === "") {
+          this.errortubegroup = this.$t("normal.error_08") + "center";
+        } else {
+          this.errortubegroup = "";
+        }
+      },
+      getOrgInformation1(id) {
+        let org = {};
+        let treeCom = this.$store.getters.orgs;
+
+        if (id && treeCom.getNode(id)) {
+          let node = id;
+          let type = treeCom.getNode(id).data.type || 0;
+          for (let index = parseInt(type); index >= 1; index--) {
+            if (parseInt(type) === index && ![1, 2].includes(parseInt(type))) {
+              org.tubecentername = treeCom.getNode(node).data.departmentname;
+
+
+              org.tubeteam_id = treeCom.getNode(node).data._id;
+            }
+            if (index === 2) {
+              org.tubegroupname = treeCom.getNode(node).data.departmentname;
+              org.tubegroup_id = treeCom.getNode(node).data._id;
+              this.getbud(org.tubegroup_id);
+            }
+            if (index === 1) {
+              org.tubecentername = treeCom.getNode(node).data.companyname;
+              org.tubecenter_id = treeCom.getNode(node).data._id;
+            }
+            node = treeCom.getNode(node).parent.data._id;
+          }
+          ({
+            tubecentername: this.form.tubecentername,
+            tubegroupname: this.form.tubegroupname,
+            tubeteamname: this.form.tubeteamname,
+            tubecenter_id: this.form.tubecenter_id,
+            tubegroup_id: this.form.tubegroup_id,
+            tubeteam_id: this.form.tubeteam_id,
+          } = org);
+        }
+      },
+
+      getTubebudgetunit(val) {
+        this.form.tubebudgetunit = val;
+      },
+      workflowState(val) {
+        if (val.state === '1') {
+          this.form.status = '3';
+        } else if (val.state === '2') {
+          this.form.status = '4';
+        }
+        this.buttonClick("update");
+      },
+      //add-ws-5-20-流程恒展开
+      start(val) {
+        if (val.state === '0') {
+          this.form.status = '2';
+        } else if (val.state === '2') {
+          this.form.status = '4';
+        }
+        this.buttonClick("update");
+      },
+      //add-ws-5-20-流程恒展开
+      end() {
+        this.form.status = '0';
+        this.buttonClick("update");
+      },
+      deleteRow(index, rows) {
+        if (rows.length > 1) {
+          rows.splice(index, 1);
+        } else {
+          this.tableD = [
+            {
+              notificationid: '',
+              softwaretransferid: '',
+              management: '',
+              assetname: '',
+              person: null,
+              eafter: null,
+              reason: '',
+            },
+          ]
+        }
+      },
+      addRow() {
+        this.tableD.push({
+          notificationid: '',
+          softwaretransferid: '',
+          management: '',
+          assetname: '',
+          person: '',
+          eafter: '',
+          reason: '',
+        });
+      },
+      paramsTitle() {
+        this.$router.push({
+          name: 'PFANS1037FormView',
+          params: {
+            title: 8,
+          },
+        });
+      },
+      buttonClick(val) {
+        if (val === 'back') {
+          this.paramsTitle();
+        } else {
+          this.$refs["refform"].validate(valid => {
+            if (valid) {
+              this.loading = true;
+              this.baseInfo = {};
+              this.form.mobiledate = moment(this.form.mobiledate).format('YYYY-MM-DD');
+              this.baseInfo.softwaretransfer = JSON.parse(JSON.stringify(this.form));
+              this.baseInfo.notification = [];
+              for (let i = 0; i < this.tableD.length; i++) {
+                //add-ws-7/2-禅道任务192
+                if (this.tableD[i].management == '' && this.tableD[i].assetname == '') {
+                  this.loading = false;
+                  Message({
+                    message: this.$t("label.PFANS1008FORMVIEW_CHECKERROR"),
+                    type: 'error',
+                    duration: 5 * 1000
+                  });
+                  return
+                } else {
+                  //add-ws-7/2-禅道任务192
+                  if (this.tableD[i].management !== '' || this.tableD[i].assetname !== '' || this.tableD[i].person !== '' ||
+                    this.tableD[i].eafter !== '' || this.tableD[i].reason !== '') {
+                    this.baseInfo.notification.push(
+                      {
+                        notificationid: this.tableD[i].notificationid,
+                        softwaretransferid: this.tableD[i].softwaretransferid,
+                        management: this.tableD[i].management,
+                        assetname: this.tableD[i].assetname,
+                        person: this.tableD[i].person,
+                        eafter: this.tableD[i].eafter,
+                        reason: this.tableD[i].reason,
+                      },
+                    );
+                  }
+                }
+
+              }
+              if (this.$route.params._id) {
+                this.baseInfo.softwaretransferid = this.$route.params._id;
+                this.form.ferrycenter_id = this.ferrycenterorglist;
+                this.form.ferrygroup_id = this.ferrygrouporglist;
+                this.form.ferryteam_id = this.ferryteamorglist;
+                this.form.tubecenter_id = this.tubecenterorglist;
+                this.form.tubegroup_id = this.tubegrouporglist;
+                this.form.tubeteam_id = this.tubeteamorglist;
+                this.$store
+                  .dispatch('PFANS1008Store/updateSoftwaretransfer', this.baseInfo)
+                  .then(response => {
+                    this.data = response;
+                    this.loading = false;
+                    if (val !== "update") {
+                      Message({
+                        message: this.$t("normal.success_02"),
+                        type: 'success',
+                        duration: 5 * 1000
+                      });
+                      this.paramsTitle();
+                    }
+                  })
+                  .catch(error => {
+                    Message({
+                      message: error,
+                      type: 'error',
+                      duration: 5 * 1000
+                    });
+                    this.loading = false;
+                  })
+
+              } else {
+                this.$store
+                  .dispatch('PFANS1008Store/insert', this.baseInfo)
+                  .then(response => {
+                    this.data = response;
+                    this.loading = false;
+                    Message({
+                      message: this.$t("normal.success_01"),
+                      type: 'success',
+                      duration: 5 * 1000
+                    });
+                    this.paramsTitle();
+                  })
+                  .catch(error => {
+                    Message({
+                      message: error,
+                      type: 'error',
+                      duration: 5 * 1000
+                    });
+                    this.loading = false;
+                  })
+              }
+            }
+          });
+        }
+      }
+    },
+  }
 </script>
 
 <style rel="stylesheet/scss" lang="scss">
