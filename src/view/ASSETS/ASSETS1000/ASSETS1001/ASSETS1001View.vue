@@ -142,7 +142,7 @@
   import {getToken} from '@/utils/auth';
   import {Message} from 'element-ui';
   import moment from 'moment';
-  import {getDictionaryInfo, getUserInfo} from '@/utils/customize';
+  import {getDictionaryInfo, getUserInfo, getOrgInfo} from '@/utils/customize';
   import dicselect from '../../../components/dicselect.vue';
 
   export default {
@@ -413,8 +413,15 @@
           .dispatch('ASSETS1001Store/getList', {usedepartment: this.department})
           .then(response => {
             for (let j = 0; j < response.length; j++) {
-              response[j].principal1 = response[j].principal;
+              // response[j].principal1 = response[j].principal;
+              response[j].psdcdreturnconfirmation1 = response[j].psdcdreturnconfirmation;
               let user = getUserInfo(response[j].principal);
+              if (response[j].usedepartment !== null && response[j].usedepartment !== '') {
+                let group = getOrgInfo(response[j].usedepartment);
+                if (group) {
+                  response[j].usedepartment = group.companyname;
+                }
+              }
               if (user) {
                 response[j].principal = user.userinfo.customername;
                 response[j].jobnumber = user.userinfo.jobnumber;
@@ -858,7 +865,7 @@
             });
           } else if (val == '1') {
             // 转移
-            this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1008FormView  ');
+            this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1008FormView');
             this.$router.push({
               name: 'PFANS1008FormView',
               params: {

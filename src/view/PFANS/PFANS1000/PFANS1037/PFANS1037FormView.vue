@@ -266,12 +266,12 @@
             disabled: false,
             icon: 'el-icon-view'
           },
-          {
-            key: 'insert',
-            name: 'button.insert',
-            disabled: false,
-            icon: 'el-icon-plus'
-          },
+          // {
+          //   key: 'insert',
+          //   name: 'button.insert',
+          //   disabled: false,
+          //   icon: 'el-icon-plus'
+          // },
           {
             key: 'update',
             name: 'button.update',
@@ -301,7 +301,7 @@
         this.title = 'title.PFANS1007VIEW';
       } else if (this.$route.params.title === 8) {
         this.showTable = 2;
-        this.row = 'softwaretransferid';
+        this.row = 'softwaretransfer_id';
         this.title = 'title.PFANS1008VIEW';
       } else if (this.$route.params.title === 9) {
         this.showTable = 3;
@@ -316,7 +316,7 @@
           this.title = 'title.PFANS1007VIEW';
           this.dispatch('PFANS1037Store/getAssetinformation');
         } else if (val === 8) {
-          this.row = 'softwaretransferid';
+          this.row = 'softwaretransfer_id';
           this.title = 'title.PFANS1008VIEW';
           this.dispatch('PFANS1037Store/getSoftwaretransfer');
         } else if (val === 9) {
@@ -391,7 +391,6 @@
         return row.status === "正常结束";
       },
       rowClick(row) {
-        debugger
         if (this.$route.params.title === 7) {
           this.rowid = row.assetinformationid;
         } else if (this.$route.params.title === 8) {
@@ -496,7 +495,7 @@
       export2(val) {
         this.loading = true;
         this.$store
-          .dispatch('PFANS1008Store/downLoad', {softwaretransferId: this.$refs.dataTable.selectedList[val].softwaretransferid})
+          .dispatch('PFANS1008Store/downLoad', {softwaretransfer_id: this.$refs.dataTable.selectedList[val].softwaretransfer_id})
           .then(response => {
             this.loading = false;
             if (val < this.$refs.dataTable.selectedList.length - 1) {

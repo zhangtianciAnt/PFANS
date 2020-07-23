@@ -859,7 +859,6 @@
         });
       },
       buttonClick(val) {
-        debugger
         if (val === 'back') {
           this.paramsTitle();
         } else {
