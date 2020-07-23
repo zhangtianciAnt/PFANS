@@ -180,7 +180,7 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS5004VIEW_PROJECTNAMW')">
+                    <el-form-item :label="$t('label.PFANS5004VIEW_PROJECTNAMW')" prop="project_id">
                       <el-select :disabled="!disable" clearable style="width: 20vw" v-model="form.project_id">
                         <el-option
                           :key="item.value"
@@ -1378,6 +1378,12 @@
             message: this.$t('normal.error_09') + this.$t('label.PFANS1013VIEW_RELATION'),
             trigger: 'change',
           }],
+            //add_fjl_0723  添加项目名称必填项
+            project_id: [{
+                required: true,
+                message: this.$t('normal.error_09') + this.$t('label.PFANS5004VIEW_PROJECTNAMW'),
+                trigger: 'change',
+            }],
           // budgetunit: [{
           //   required: true,
           //   message: this.$t('normal.error_09') + this.$t('label.budgetunit'),
