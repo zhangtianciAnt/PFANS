@@ -1460,7 +1460,7 @@
             }
             this.form = response.evection;
             //add-ws-6/17-禅道101
-            if (this.form.userid === '5e78b2264e3b194874180f35' || this.form.userid === '5e78b2574e3b194874181099') {
+              if (this.form.userid === '5e78b2264e3b194874180f35') {
               this.workflowCode = 'W0079';
               // add-ws-7/10-禅道249
             } else if (this.role1 === '1') {
