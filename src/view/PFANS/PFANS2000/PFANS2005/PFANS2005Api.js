@@ -1,4 +1,5 @@
 import request from '../../../../utils/request';
+import requestDownload from '../../../../utils/requestDownload';
 
 //创建申请insertBase
 export function creategiving(data) {
@@ -151,3 +152,14 @@ export function getWagesByResign(data) {
   });
 }
 //gbb 0720 离职工资对比 end
+
+//gbb 0724 模板下载 start
+export function download(data) {
+  return requestDownload({
+    url: 'wages/download',
+    method: 'get',
+    params: data,
+    responseType: 'blob'
+  })
+}
+//gbb 0724 模板下载 end
