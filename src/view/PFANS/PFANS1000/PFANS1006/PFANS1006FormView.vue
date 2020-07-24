@@ -669,58 +669,60 @@
         this.$store
           .dispatch('PFANS1006Store/getLoanapplicationOne', {'loanapplication_id': this.$route.params._id})
           .then(response => {
-            this.form = response;
-            this.DataList = [];
-            if (this.form.judgements_name != '' && this.form.judgements_name != null && this.form.judgements_name != undefined) {
-              if (this.form.judgements_name.substring(0, 2) === this.$t('menu.PFANS1001')) {
-                this.DataList.push({
-                  judgementid: this.form.judgements,
-                  judgnumbers: this.form.judgements_name,
-                });
-                if (this.disable) {
-                  this.show10 = true;
-                } else {
-                  this.show10 = false;
-                }
-                this.show11 = true;
+              if (response !== undefined) {
+                  this.form = response;
+                  this.DataList = [];
+                  if (this.form.judgements_name != '' && this.form.judgements_name != null && this.form.judgements_name != undefined) {
+                      if (this.form.judgements_name.substring(0, 2) === this.$t('menu.PFANS1001')) {
+                          this.DataList.push({
+                              judgementid: this.form.judgements,
+                              judgnumbers: this.form.judgements_name,
+                          });
+                          if (this.disable) {
+                              this.show10 = true;
+                          } else {
+                              this.show10 = false;
+                          }
+                          this.show11 = true;
+                      }
+                  }
+                  this.namelist = this.form.user_name;
+                  let rst = getOrgInfoByUserId(response.user_id);
+                  if (rst) {
+                      this.centerid = rst.centerNmae;
+                      this.groupid = rst.groupNmae;
+                      this.teamid = rst.teamNmae;
+                  }
+                  this.userlist = this.form.user_id;
+                  if (this.form.paymentmethod === 'PJ015001') {
+                      this.show9 = true;
+                      this.show8 = true;
+                      this.show1 = true;
+                      this.show7 = true;
+                  } else if (this.form.paymentmethod === 'PJ015002') {
+                      this.show9 = false;
+                      this.show8 = false;
+                      this.show2 = true;
+                      this.show7 = false;
+                  } else if (this.form.paymentmethod === 'PJ015003') {
+                      this.show9 = true;
+                      this.show8 = true;
+                      this.show3 = true;
+                      this.show7 = true;
+                  }
+                  this.getBudt(this.userlist);
+                  if (this.form.uploadfile != '' && this.form.uploadfile != null) {
+                      let uploadfile = this.form.uploadfile.split(';');
+                      for (var i = 0; i < uploadfile.length; i++) {
+                          if (uploadfile[i].split(',')[0] != '') {
+                              let o = {};
+                              o.name = uploadfile[i].split(',')[0];
+                              o.url = uploadfile[i].split(',')[1];
+                              this.fileList.push(o);
+                          }
+                      }
+                  }
               }
-            }
-            this.namelist = this.form.user_name;
-            let rst = getOrgInfoByUserId(response.user_id);
-            if (rst) {
-              this.centerid = rst.centerNmae;
-              this.groupid = rst.groupNmae;
-              this.teamid = rst.teamNmae;
-            }
-            this.userlist = this.form.user_id;
-            if (this.form.paymentmethod === 'PJ015001') {
-              this.show9 = true;
-              this.show8 = true;
-              this.show1 = true;
-              this.show7 = true;
-            } else if (this.form.paymentmethod === 'PJ015002') {
-              this.show9 = false;
-              this.show8 = false;
-              this.show2 = true;
-              this.show7 = false;
-            } else if (this.form.paymentmethod === 'PJ015003') {
-              this.show9 = true;
-              this.show8 = true;
-              this.show3 = true;
-              this.show7 = true;
-            }
-            this.getBudt(this.userlist);
-            if (this.form.uploadfile != '' && this.form.uploadfile != null) {
-              let uploadfile = this.form.uploadfile.split(';');
-              for (var i = 0; i < uploadfile.length; i++) {
-                if (uploadfile[i].split(',')[0] != '') {
-                  let o = {};
-                  o.name = uploadfile[i].split(',')[0];
-                  o.url = uploadfile[i].split(',')[1];
-                  this.fileList.push(o);
-                }
-              }
-            }
             this.loading = false;
           })
           .catch(error => {

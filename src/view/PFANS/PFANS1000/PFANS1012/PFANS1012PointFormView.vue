@@ -262,6 +262,7 @@
               var vote = {};
               vote.value = this.options[b].value;
               vote.label = this.options[b].label;
+                vote.remarks = this.options[b].remarks;
               this.listjudgement.push(vote);
               break;
             }

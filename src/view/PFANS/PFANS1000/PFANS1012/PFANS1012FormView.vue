@@ -333,7 +333,7 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_TEMPORARYLOAN')" v-show="show4" prop="loan">
-                      <el-select :disabled="!disable" @change="changeLoan" clearable style="width:20vw"
+                      <el-select :disabled="!disable" @change="changeLoan" clearable filterable style="width:20vw"
                                  v-model="form.loan">
                         <el-option
                           :key="item.value"
@@ -342,6 +342,7 @@
                           v-for="item in options">
                         </el-option>
                       </el-select>
+                      <el-button @click="clickBun" size="small" type="primary">查看</el-button>
                     </el-form-item>
                   </el-col>
                   <!--                  add_fjl_0722 添加【供应商/社员名称】显示  start-->
@@ -1139,13 +1140,19 @@
               <el-row>
                 <el-table
                   :data="DataList"
-                  style="width: 516px"
+                  style="width: 665px"
                   header-cell-class-name="sub_bg_color_blue" stripe border
                 >
                   <el-table-column
                     align="center"
                     prop="judgement_name"
                     :label="$t('label.judgement')"
+                    width="150px">
+                  </el-table-column>
+                  <el-table-column
+                    :label="$t('label.PFANS1012VIEW_ABSTRACT')"
+                    align="center"
+                    prop="remarks"
                     width="315px">
                   </el-table-column>
                   <el-table-column :label="$t('label.operation')" align="center" width="200">
@@ -1229,12 +1236,14 @@
         </el-form>
       </div>
     </EasyNormalContainer>
+    <EasyPop :params="urlparams" :ref="1" :url="url"></EasyPop>
   </div>
 </template>
 
 
 <script>
 
+    import EasyPop from '@/components/EasyPop';
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import user from '../../../components/user.vue';
   import dicselect from '../../../components/dicselect';
@@ -1254,6 +1263,7 @@
   export default {
     name: 'PFANS1012FormView',
     components: {
+        EasyPop,
       dicselect,
       EasyNormalContainer,
       getOrgInfoByUserId,
@@ -1383,11 +1393,14 @@
         }
       };
       return {
+          url: 'PFANS1006FormView',
+          urlparams: '',
         checkexpectedpaydate: false,
         DataList2: [],
         show12: false,
         DataList: [{
           judgement_name: '',
+            remarks: '',
         }],
         invoicetype: '',
         checkexternal: false,
@@ -1564,6 +1577,7 @@
           type: '',
           judgement: '',
           judgement_name: '',
+            remarksdetail: '',
           receivables: '',
           loan: '',
           fullname: '',
@@ -1791,6 +1805,10 @@
               //add-ws-4/28-精算中，点击决裁，跳转画面
               let judgement = this.form.judgement.split(',');
               let judgementname = this.form.judgement_name.split(',');
+                  let remarks = [];
+                  if (this.form.remarksdetail !== '' && this.form.remarksdetail !== null && this.form.remarksdetail !== undefined) {
+                      remarks = this.form.remarksdetail.split('^');
+                  }
               let datalist = [];
               for (var i = 0; i < judgement.length; i++) {
                 for (var d = 0; d < judgementname.length; d++) {
@@ -1798,6 +1816,7 @@
                     let obj = {};
                     obj.judgement = judgement[i];
                     obj.judgement_name = judgementname[d];
+                      obj.remarks = remarks[i];
                     datalist[i] = obj;
                   }
                 }
@@ -2332,12 +2351,15 @@
         for (var i = 0; i < this.jude.length; i++) {
           this.form.judgement += this.jude[i].value + ',';
           this.form.judgement_name += this.jude[i].label + ',';
+            this.form.remarksdetail += this.jude[i].remarks + '^';
         }
         //add-ws-4/28-精算中，点击决裁，跳转画面
         let judgementnew = this.form.judgement.substring(0, this.form.judgement.length - 1);
         let judgementnamenew = this.form.judgement_name.substring(0, this.form.judgement_name.length - 1);
+          let remarksnew = this.form.remarksdetail.substring(0, this.form.remarksdetail.length - 1);
         let judgement = judgementnew.split(',');
         let judgementname = judgementnamenew.split(',');
+          let remarks = remarksnew.split('^');
         let datalist = [];
         for (var i = 0; i < judgement.length; i++) {
           for (var d = 0; d < judgementname.length; d++) {
@@ -2345,6 +2367,7 @@
               let obj = {};
               obj.judgement = judgement[i];
               obj.judgement_name = judgementname[d];
+                obj.remarks = remarks[i];
               datalist[i] = obj;
             }
           }
@@ -2353,6 +2376,7 @@
         //add-ws-4/28-精算中，点击决裁，跳转画面
         this.form.judgement = this.form.judgement.substring(0, this.form.judgement.length - 1);
         this.form.judgement_name = this.form.judgement_name.substring(0, this.form.judgement_name.length - 1);
+          this.form.remarksdetail = this.form.remarksdetail.substring(0, this.form.remarksdetail.length - 1);
         this.form.type = this.$route.params._type;
           //ADD_FJL_0715 模块默认值AP START
           this.form.moduleid = 'PJ002001';
@@ -4059,6 +4083,14 @@
         this.currentRow3 = val.payeebankaccountnumber;
         this.currentRow4 = val.payeebankaccount;
       },
+        //add_fjl_0724  添加暂借款的pop跳转  start
+        clickBun() {
+            if (this.form.loan !== '' && this.form.loan !== null && this.form.loan !== undefined) {
+                this.urlparams = {'_id': this.form.loan};
+                this.$refs[1].open = true;
+            }
+        },
+        //add_fjl_0724  添加暂借款的pop跳转  end
         //add_fjl_0722 添加【供应商/社员名称】显示  start
         changeLoan(val) {
             let opt = this.options.filter(item => item.value === val);
