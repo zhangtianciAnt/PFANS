@@ -264,6 +264,7 @@ module.exports = {
     PFANS1042: 'PL成本结转表',
     PFANS1045: '方针合同',
     PFANS1046: '个别合同',
+    PFANS1047: '决裁书',
     PFANS2001: '招聘申请',
     PFANS2002: '招聘决裁',
     PFANS2003: '应聘者信息管理',
@@ -388,6 +389,7 @@ module.exports = {
     PFANS1044VIEW: '契約检索',
     PFANS1045VIEW: '方针合同',
     PFANS1046VIEW: '个别合同',
+    PFANS1047VIEW: '决裁书',
     PFANS2001VIEW: '招聘申请',
     PFANS2002VIEW: '招聘决裁',
     PFANS2003VIEW: '应聘者信息管理',
@@ -695,6 +697,7 @@ module.exports = {
     PFANS1004VIEW_SETTINGPLACE: ' 放置场所',
     PFANS1004VIEW_SALEQUOTATION: '报价单',
     PFANS1004VIEW_REASONSFORQUOTATION: '不足两份报价单理由',
+    PFANS3005VIEW_YUSUANBUZUFORQUOTATION: '预算不足原因',
     PFANS1004VIEW_AMOUNT: '金额',
     PFANS1004VIEW_FREEBORROWINGGIST: '目的・效果・时间・试用责任者等概要\n' +
       '１、　*******開発のため、下記设备が必要です\n' +
@@ -733,6 +736,7 @@ module.exports = {
     PFANS1004FORMVIEW_FREEOFCHARGE: '无偿提供',
     PFANS1004VIEW_PREDETERMINEDDATE: '预定返回日期:',
     PFANS1004FORMVIEW_DECISIVE: '决裁类型:',
+    PFANS1006FORMVIEW_DECISIVE: '决裁类型',
     PFANS1004FORMVIEW_PERIOD: '折旧期限:',
     PFANS1004FORMVIEW_ERROR: '不正确！',
     PFANS1004FORMVIEW_CHECKERROR: '实施计划金额不能大于事业计划余额',
