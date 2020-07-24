@@ -106,6 +106,7 @@ module.exports = {
     submmon: '资金回收确认',
     submyin: '确认并用印',
     sealapp: '印章申请',
+    temLoanApp: '暂借款申请',
   },
   table: {
     detail: '一览',
