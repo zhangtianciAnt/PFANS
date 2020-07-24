@@ -782,6 +782,15 @@
           callback();
         }
       };
+        //add_fjl_0724 添加项目名称必填项  start
+        var validateprojectname = (rule, value, callback) => {
+            if (!value || value === '' || value === 'undefined') {
+                callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS5009VIEW_PROJECTNAME')));
+            } else {
+                callback();
+            }
+        };
+        //add_fjl_0724 添加项目名称必填项  end
       var validatedurationstart = (rule, value, callback) => {
         if (this.form.durationstart !== '' && this.form.durationstart !== null && this.form.durationend !== '' && this.form.durationend !== null) {
           if (moment(this.form.durationend).format('YYYY-MM-DD') <= moment(this.form.durationstart).format('YYYY-MM-DD')) {
@@ -1244,6 +1253,14 @@
               trigger: 'blur',
             },
           ],
+            //add_fjl_项目名称
+            companyprojectsname: [
+                {
+                    required: true,
+                    validator: validateprojectname,
+                    trigger: 'change',
+                },
+            ],
         },
         show: false,
         show2: false,
