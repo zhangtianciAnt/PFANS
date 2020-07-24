@@ -1086,6 +1086,7 @@
           !this.form.condominiumcompany ||
           !this.form.city ||
           !this.form.startdate ||
+            !this.form.companyprojectsname ||
           !this.form.enddate
         ) {
           this.activeName = 'first';

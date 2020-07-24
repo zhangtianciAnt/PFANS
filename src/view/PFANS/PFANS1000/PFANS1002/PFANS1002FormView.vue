@@ -1746,7 +1746,8 @@
           !this.form.region ||
           !this.form.city ||
           !this.form.startdate ||
-          !this.form.enddate
+            !this.form.enddate ||
+            !this.form.companyprojectsname
         ) {
           this.activeName = 'first';
         } else if (

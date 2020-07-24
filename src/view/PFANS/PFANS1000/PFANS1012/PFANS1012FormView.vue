@@ -342,7 +342,7 @@
                           v-for="item in options">
                         </el-option>
                       </el-select>
-                      <el-button @click="clickBun" size="small" type="primary">查看</el-button>
+                      <el-button @click="clickBun" size="small" type="primary">{{$t('button.view')}}</el-button>
                     </el-form-item>
                   </el-col>
                   <!--                  add_fjl_0722 添加【供应商/社员名称】显示  start-->
