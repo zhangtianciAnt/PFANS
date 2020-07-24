@@ -593,9 +593,49 @@
           this.buttonList[0].disabled = false;
         } else if (val === 'PJ001002') {
           this.buttonList[0].disabled = true;
-          this.show = true;
+            // this.show = true;
+            this.showdata = true;
+            this.show7 = true;
+            this.buttonList[0].disabled = true;
+            this.getFree();
         }
       },
+        getFree() {
+            this.form.judgement = '';
+            this.options = [];
+            this.totaldata = [];
+            let user_id = this.$store.getters.userinfo.userid;
+            this.loading = true;
+            this.$store
+                .dispatch('PFANS1012Store/get', {})
+                .then(response => {
+                    for (let i = 0; i < response.length; i++) {
+                        if (user_id === response[i].user_id && response[i].status === '4' && response[i].paymentmethod === 'PJ004005') {
+                            let user = getUserInfo(response[i].user_id);
+                            if (user) {
+                                response[i].user_id = getUserInfo(response[i].user_id).userinfo.customername;
+                            }
+                            var vote = {};
+                            vote.user_id = response[i].user_id;
+                            vote.remarks = response[i].remark;
+                            vote.numbers = response[i].invoiceno;
+                            vote.value = response[i].publicexpenseid;
+                            vote.label = response[i].invoiceno;
+                            this.options.push(vote);
+                            this.totaldata.push(vote);
+                            this.getList();
+                        }
+                    }
+                    this.loading = false;
+                }).catch(error => {
+                Message({
+                    message: error,
+                    type: 'error',
+                    duration: 5 * 1000,
+                });
+                this.loading = false;
+            });
+        },
       buttonClick(val) {
         this.$store.commit('global/SET_HISTORYURL', '');
         if (val === 'next') {

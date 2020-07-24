@@ -1150,6 +1150,18 @@
                     width="150px">
                   </el-table-column>
                   <el-table-column
+                    :label="$t('label.PFANS1006FORMVIEW_DECISIVE')"
+                    align="center"
+                    prop="judgements_type"
+                    width="315px">
+                  </el-table-column>
+                  <el-table-column
+                    :label="$t('label.PFANS1045VIEW_MONEYS')"
+                    align="center"
+                    prop="judgements_moneys"
+                    width="315px">
+                  </el-table-column>
+                  <el-table-column
                     :label="$t('label.PFANS1012VIEW_ABSTRACT')"
                     align="center"
                     prop="remarks"
@@ -1578,6 +1590,8 @@
           judgement: '',
           judgement_name: '',
             remarksdetail: '',
+            judgements_moneys: '',
+            judgements_type: '',
           receivables: '',
           loan: '',
           fullname: '',
@@ -1806,8 +1820,16 @@
               let judgement = this.form.judgement.split(',');
               let judgementname = this.form.judgement_name.split(',');
                   let remarks = [];
+                  let judgements_moneys = [];
+                  let judgements_type = [];
                   if (this.form.remarksdetail !== '' && this.form.remarksdetail !== null && this.form.remarksdetail !== undefined) {
                       remarks = this.form.remarksdetail.split('^');
+                  }
+                  if (this.form.judgements_moneys !== '' && this.form.judgements_moneys !== null && this.form.judgements_moneys !== undefined) {
+                      judgements_moneys = this.form.judgements_moneys.split('^');
+                  }
+                  if (this.form.judgements_type !== '' && this.form.judgements_type !== null && this.form.judgements_type !== undefined) {
+                      judgements_type = this.form.judgements_type.split('^');
                   }
               let datalist = [];
               for (var i = 0; i < judgement.length; i++) {
@@ -1817,6 +1839,8 @@
                     obj.judgement = judgement[i];
                     obj.judgement_name = judgementname[d];
                       obj.remarks = remarks[i];
+                      obj.judgements_moneys = judgements_moneys[i];
+                      obj.judgements_type = judgements_type[i];
                     datalist[i] = obj;
                   }
                 }
@@ -2352,14 +2376,20 @@
           this.form.judgement += this.jude[i].value + ',';
           this.form.judgement_name += this.jude[i].label + ',';
             this.form.remarksdetail += this.jude[i].remarks + '^';
+            this.form.judgements_moneys += this.jude[i].judgements_moneys + '^';
+            this.form.judgements_type += this.jude[i].judgements_type + '^';
         }
         //add-ws-4/28-精算中，点击决裁，跳转画面
         let judgementnew = this.form.judgement.substring(0, this.form.judgement.length - 1);
         let judgementnamenew = this.form.judgement_name.substring(0, this.form.judgement_name.length - 1);
           let remarksnew = this.form.remarksdetail.substring(0, this.form.remarksdetail.length - 1);
+          let judgements_moneysnew = this.form.judgements_moneys.substring(0, this.form.judgements_moneys.length - 1);
+          let judgements_typenew = this.form.judgements_type.substring(0, this.form.judgements_type.length - 1);
         let judgement = judgementnew.split(',');
         let judgementname = judgementnamenew.split(',');
           let remarks = remarksnew.split('^');
+          let judgements_moneys = judgements_moneysnew.split('^');
+          let judgements_type = judgements_typenew.split('^');
         let datalist = [];
         for (var i = 0; i < judgement.length; i++) {
           for (var d = 0; d < judgementname.length; d++) {
@@ -2368,6 +2398,8 @@
               obj.judgement = judgement[i];
               obj.judgement_name = judgementname[d];
                 obj.remarks = remarks[i];
+                obj.judgements_moneys = judgements_moneys[i];
+                obj.judgements_type = judgements_type[i];
               datalist[i] = obj;
             }
           }
@@ -2377,6 +2409,8 @@
         this.form.judgement = this.form.judgement.substring(0, this.form.judgement.length - 1);
         this.form.judgement_name = this.form.judgement_name.substring(0, this.form.judgement_name.length - 1);
           this.form.remarksdetail = this.form.remarksdetail.substring(0, this.form.remarksdetail.length - 1);
+          this.form.judgements_moneys = this.form.judgements_moneys.substring(0, this.form.judgements_moneys.length - 1);
+          this.form.judgements_type = this.form.judgements_type.substring(0, this.form.judgements_type.length - 1);
         this.form.type = this.$route.params._type;
           //ADD_FJL_0715 模块默认值AP START
           this.form.moduleid = 'PJ002001';

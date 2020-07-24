@@ -4,13 +4,15 @@
                      @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" v-show="this.showTable===1">
     </EasyNormalTable>
     <!--    ADD-WS-决裁编号添加-->
-    <EasyNormalTable :buttonList="buttonList" :columns="columns2" :data="data" :title="title" v-loading="loading"
-                     v-show="this.showTable===2" @buttonClick="buttonClick" @rowClick="rowClick" :rowid="row">
+    <EasyNormalTable :buttonList="buttonList3" :columns="columns2" :data="data" :rowid="row" :selectable="selectInit"
+                     :showSelection="isShow" :title="title" @buttonClick="buttonClick" @rowClick="rowClick"
+                     ref="roletable3" v-loading="loading" v-show="this.showTable===2">
     </EasyNormalTable>
     <!--    ADD-WS-决裁编号添加-->
     <!--    ADD-WS-费用编号添加-->
-    <EasyNormalTable :buttonList="buttonList" :columns="columns3" :data="data" :title="title" v-loading="loading"
-                     v-show="this.showTable===3" @buttonClick="buttonClick" @rowClick="rowClick" :rowid="row">
+    <EasyNormalTable :buttonList="buttonList3" :columns="columns3" :data="data" :rowid="row" :selectable="selectInit"
+                     :showSelection="isShow" :title="title" @buttonClick="buttonClick" @rowClick="rowClick"
+                     ref="roletable2" v-loading="loading" v-show="this.showTable===3">
     </EasyNormalTable>
     <!--    ADD-WS-费用编号添加-->
     <!--    add_fjl_05/27  &#45;&#45; 添加暂借款申请编号的列表-->
@@ -19,8 +21,9 @@
     </EasyNormalTable>
     <!--    add_fjl_05/27  &#45;&#45; 添加暂借款申请编号的列表-->
     <!--    add-ws-5/27-No.170-->
-    <EasyNormalTable :buttonList="buttonList" :columns="columns5" :data="data" :title="title" v-loading="loading"
-                     v-show="this.showTable===5" @buttonClick="buttonClick" @rowClick="rowClick" :rowid="row">
+    <EasyNormalTable :buttonList="buttonList3" :columns="columns5" :data="data" :rowid="row" :selectable="selectInit"
+                     :showSelection="isShow" :title="title" @buttonClick="buttonClick" @rowClick="rowClick"
+                     ref="roletable1" v-loading="loading" v-show="this.showTable===5">
     </EasyNormalTable>
     <!--  add-ws-5/27-No.170-->
     <EasyNormalTable :buttonList="buttonList" :columns="columns6" :data="data" :title="title" v-loading="loading"
@@ -48,10 +51,12 @@
     },
     data() {
       return {
+          selectedlist: [],
         search: '',
         options: [],
         showTable: '',
         loading: false,
+          isShow: true,
         title: '',
         // 表格数据源
         data: [],
@@ -467,6 +472,18 @@
           {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
         ],
+          buttonList3: [
+              {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
+              {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
+              {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
+              {'key': 'actuarial', 'name': 'button.actuarial', 'disabled': false, 'icon': 'el-icon-edit-outline'},
+              {
+                  'key': 'temLoanApp',
+                  'name': 'button.temLoanApp',
+                  'disabled': true,
+                  'icon': 'el-icon-plus',
+              },
+          ],
         //add-ws-7/7-禅道247
         buttonList2: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
@@ -498,6 +515,9 @@
       //   }
       // },
       // // add-ws-7/14-禅道144任务
+        selectInit(row, index) {
+            return row.status === this.$t("label.PFANS5004VIEW_OVERTIME");
+        },
       getCompanyProjectList(val) {
         if (val === 1) {
           //ADD-WS-决裁编号添加
@@ -782,6 +802,197 @@
             },
           });
         }
+          //add_fjl_0724   添加跳转申请精算与暂借款  start
+          if (val === 'actuarial' || val === 'temLoanApp') {
+              let _judgement = '';
+              let _judgement_name = '';
+              let _judgements_moneys = '';
+              let _remarks = '';
+              this.selectedlist = [];
+              if (this.$route.params.title === 10) {
+                  if (this.$refs.roletable1.selectedList.length === 0) {
+                      Message({
+                          message: this.$t('normal.info_01'),
+                          type: 'info',
+                          duration: 2 * 1000
+                      });
+                      return;
+                  }
+                  this.selectedlist = this.$refs.roletable1.selectedList;
+                  let optionsSEL = [];
+                  for (let i = 0; i < this.selectedlist.length; i++) {
+                      let user = getUserInfo(this.selectedlist[i].user_id);
+                      if (user) {
+                          this.selectedlist[i].user_id = getUserInfo(this.selectedlist[i].user_id).userinfo.customername;
+                      }
+                      var vote = {};
+                      vote.user_id = this.selectedlist[i].user_id;
+                      vote.remarks = this.selectedlist[i].remarks;
+                      vote.numbers = this.selectedlist[i].numbercation;
+                      vote.value = this.selectedlist[i].communication_id;
+                      vote.label = this.selectedlist[i].numbercation;
+                      vote.judgements_moneys = this.selectedlist[i].moneys;
+                      if (this.$i18n) {
+                          vote.judgements_type = this.$t('menu.PFANS1010');
+                      }
+                      optionsSEL.push(vote);
+                      _judgement += this.selectedlist[i].communication_id + ',';
+                      _judgement_name += this.selectedlist[i].numbercation + ',';
+                      _judgements_moneys += this.selectedlist[i].moneys + ',';
+                      _remarks += this.selectedlist[i].remarks + '^';
+                  }
+                  if (val === 'actuarial') {
+                      this.$router.push({
+                          name: 'PFANS1012FormView',
+                          params: {
+                              _name: optionsSEL,
+                              _type: 'PJ001002',
+                              disabled: true,
+                          },
+                      });
+                  } else {
+                      this.$router.push({
+                          name: 'PFANS1006FormView',
+                          params: {
+                              _id: '',
+                              _judgement: _judgement,
+                              _judgement_name: _judgement_name,
+                              _judgements_moneys: _judgements_moneys,
+                              _remarks: _remarks,
+                              _judgements_type: this.$t('menu.PFANS1010'),
+                              disabled: true,
+                          },
+                      });
+                  }
+              } else if (this.$route.params.title === 3 || this.$route.params.title === 4) {
+                  if (this.$refs.roletable3.selectedList.length === 0) {
+                      Message({
+                          message: this.$t('normal.info_01'),
+                          type: 'info',
+                          duration: 2 * 1000
+                      });
+                      return;
+                  }
+                  this.selectedlist = this.$refs.roletable3.selectedList;
+                  let optionsSEL = [];
+                  let judname = ''
+                  for (let i = 0; i < this.selectedlist.length; i++) {
+                      let user = getUserInfo(this.selectedlist[i].user_id);
+                      if (user) {
+                          this.selectedlist[i].user_id = getUserInfo(this.selectedlist[i].user_id).userinfo.customername;
+                      }
+                      var vote = {};
+                      vote.user_id = this.selectedlist[i].user_id;
+                      vote.remarks = this.selectedlist[i].filename;
+                      vote.numbers = this.selectedlist[i].judgnumbers;
+                      vote.value = this.selectedlist[i].judgementid;
+                      vote.label = this.selectedlist[i].judgnumbers;
+                      vote.judgements_moneys = this.selectedlist[i].money;
+                      if (this.$route.params.title === 4) {
+                          if (this.$i18n) {
+                              vote.judgements_type = this.$t('title.PFANS1004VIEW');
+                          }
+                      } else {
+                          if (this.$i18n) {
+                              vote.judgements_type = this.$t('title.PFANS1012VIEW_PURCHASSESWC');
+                          }
+                      }
+                      optionsSEL.push(vote);
+                      _judgement += this.selectedlist[i].judgementid + ',';
+                      _judgement_name += this.selectedlist[i].judgnumbers + ',';
+                      _judgements_moneys += this.selectedlist[i].money + ',';
+                      _remarks += this.selectedlist[i].filename + '^';
+                  }
+                  if (val === 'actuarial') {
+                      this.$router.push({
+                          name: 'PFANS1012FormView',
+                          params: {
+                              _name: optionsSEL,
+                              _type: 'PJ001002',
+                              disabled: true,
+                          },
+                      });
+                  } else {
+                      if (this.$route.params.title === 4) {
+                          if (this.$i18n) {
+                              judname = this.$t('title.PFANS1004VIEW');
+                          }
+                      } else {
+                          if (this.$i18n) {
+                              judname = this.$t('title.PFANS1012VIEW_PURCHASSESWC');
+                          }
+                      }
+                      this.$router.push({
+                          name: 'PFANS1006FormView',
+                          params: {
+                              _id: '',
+                              _judgement: _judgement,
+                              _judgement_name: _judgement_name,
+                              _judgements_moneys: _judgements_moneys,
+                              _remarks: _remarks,
+                              _judgements_type: judname,
+                              disabled: true,
+                          },
+                      });
+                  }
+              } else if (this.$route.params.title === 5) {
+                  if (this.$refs.roletable2.selectedList.length === 0) {
+                      Message({
+                          message: this.$t('normal.info_01'),
+                          type: 'info',
+                          duration: 2 * 1000
+                      });
+                      return;
+                  }
+                  this.selectedlist = this.$refs.roletable2.selectedList;
+                  let optionsSEL = [];
+                  for (let i = 0; i < this.selectedlist.length; i++) {
+                      let user = getUserInfo(this.selectedlist[i].user_id);
+                      if (user) {
+                          this.selectedlist[i].user_id = getUserInfo(this.selectedlist[i].user_id).userinfo.customername;
+                      }
+                      var vote = {};
+                      vote.user_id = this.selectedlist[i].user_id;
+                      vote.remarks = this.selectedlist[i].remarks;
+                      vote.numbers = this.selectedlist[i].purchasenumbers;
+                      vote.value = this.selectedlist[i].purchaseapply_id;
+                      vote.label = this.selectedlist[i].purchasenumbers;
+                      vote.judgements_moneys = this.selectedlist[i].summoney;
+                      if (this.$i18n) {
+                          vote.judgements_type = this.$t('menu.PFANS1005');
+                      }
+                      optionsSEL.push(vote);
+                      _judgement += this.selectedlist[i].purchaseapply_id + ',';
+                      _judgement_name += this.selectedlist[i].purchasenumbers + ',';
+                      _judgements_moneys += this.selectedlist[i].summoney + ',';
+                      _remarks += this.selectedlist[i].remarks + '^';
+                  }
+                  if (val === 'actuarial') {
+                      this.$router.push({
+                          name: 'PFANS1012FormView',
+                          params: {
+                              _name: optionsSEL,
+                              _type: 'PJ001002',
+                              disabled: true,
+                          },
+                      });
+                  } else {
+                      this.$router.push({
+                          name: 'PFANS1006FormView',
+                          params: {
+                              _id: '',
+                              _judgement: _judgement,
+                              _judgement_name: _judgement_name,
+                              _judgements_moneys: _judgements_moneys,
+                              _remarks: _remarks,
+                              _judgements_type: this.$t('menu.PFANS1010'),
+                              disabled: true,
+                          },
+                      });
+                  }
+              }
+          }
+          //add_fjl_0724   添加跳转申请精算与暂借款  end
         //add-ws-7/7-禅道247
       },
     },

@@ -201,6 +201,7 @@
         loading: false,
         baseInfo: {},
         form: {
+            summoney: '',
           remarks: '',
           center_id: '',
           group_id: '',
@@ -558,6 +559,7 @@
               }
               this.optionsdata.remarks = checktableD.substring(0, checktableD.length - 1);
               this.form.remarks = this.optionsdata.remarks;
+                this.form.summoney = amountsum;
               //add-ws-4/17-摘要字段处理
               this.baseInfo.purchaseApply = JSON.parse(JSON.stringify(this.form));
               let error = 0;

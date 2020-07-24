@@ -261,9 +261,15 @@
                     {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
                     {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
                     {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
-                    {'key': 'export', 'name': 'button.generatearticle', 'disabled': false, icon: 'el-icon-download'},
+                    {'key': 'export', 'name': 'button.generatearticle', 'disabled': false, 'icon': 'el-icon-download'},
                     // {'key': 'conapp', 'name': 'button.conapp', 'disabled': false, 'icon': 'el-icon-plus'},
-                    // {'key': 'actuarial', 'name': 'button.actuarial', 'disabled': false, 'icon': 'el-icon-edit-outline'}
+                    {'key': 'actuarial', 'name': 'button.actuarial', 'disabled': false, 'icon': 'el-icon-edit-outline'},
+                    {
+                        'key': 'temLoanApp',
+                        'name': 'button.temLoanApp',
+                        'disabled': true,
+                        'icon': 'el-icon-plus',
+                    },
                 ],
                 rowid: '',
                 row: 'purchase_id',
@@ -504,6 +510,69 @@
                 // })
 
               }
+                //add_fjl_0724   添加跳转申请精算与暂借款  end
+                if (val === 'actuarial' || val === 'temLoanApp') {
+                    if (this.$refs.roletable.selectedList.length === 0) {
+                        Message({
+                            message: this.$t('normal.info_01'),
+                            type: 'info',
+                            duration: 2 * 1000
+                        });
+                        return;
+                    }
+                    this.selectedlist = this.$refs.roletable.selectedList;
+                    let optionsSEL = [];
+                    let _judgement = '';
+                    let _judgement_name = '';
+                    let _judgements_moneys = '';
+                    let _remarks = '';
+                    for (let i = 0; i < this.selectedlist.length; i++) {
+                        let user = getUserInfo(this.selectedlist[i].user_id);
+                        if (user) {
+                            this.selectedlist[i].user_id = getUserInfo(this.selectedlist[i].user_id).userinfo.customername;
+                        }
+                        var vote = {};
+                        vote.user_id = this.selectedlist[i].user_id;
+                        vote.remarks = this.selectedlist[i].purchasepurpose;
+                        vote.numbers = this.selectedlist[i].purnumbers;
+                        vote.value = this.selectedlist[i].purchase_id;
+                        vote.label = this.selectedlist[i].purnumbers;
+                        vote.judgements_moneys = this.selectedlist[i].totalamount;
+                        if (this.$i18n) {
+                            vote.judgements_type = this.$t('label.PFANS1012VIEW_PURCHASSES');
+                        }
+                        optionsSEL.push(vote);
+                        _judgement += this.selectedlist[i].purchase_id + ',';
+                        _judgement_name += this.selectedlist[i].purnumbers + ',';
+                        _judgements_moneys += this.selectedlist[i].totalamount + ',';
+                        _remarks += this.selectedlist[i].purchasepurpose + '^';
+                    }
+                    if (val === 'actuarial') {
+                        this.$router.push({
+                            name: 'PFANS1012FormView',
+                            params: {
+                                _name: optionsSEL,
+                                _type: 'PJ001002',
+                                disabled: true,
+                            },
+                        });
+                    } else {
+                        this.$router.push({
+                            name: 'PFANS1006FormView',
+                            params: {
+                                _id: '',
+                                _judgement: _judgement,
+                                _judgement_name: _judgement_name,
+                                _judgements_moneys: _judgements_moneys,
+                                _remarks: _remarks,
+                                _judgements_type: this.$t('label.PFANS1012VIEW_PURCHASSES'),
+                                disabled: true,
+                            },
+                        });
+                    }
+
+                }
+                //add_fjl_0724   添加跳转申请精算与暂借款  end
             },
           export1(){
             this.loading = true;
