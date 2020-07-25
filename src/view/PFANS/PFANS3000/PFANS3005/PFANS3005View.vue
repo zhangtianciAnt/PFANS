@@ -30,27 +30,13 @@
                     fix: false,
                     filter: false
                   },
-                    {
-                        code: 'center_id',
-                        label: 'label.center',
-                        width: 150,
-                        fix: false,
-                        filter: true
-                    },
-                    {
-                        code: 'group_id',
-                        label: 'label.group',
-                        width: 150,
-                        fix: false,
-                        filter: true
-                    },
-                    {
-                        code: 'team_id',
-                        label: 'label.team',
-                        width: 150,
-                        fix: false,
-                        filter: true
-                    },
+                  {
+                    code: 'status',
+                    label: 'label.approval_status',
+                    width: 150,
+                    fix: false,
+                    filter: true
+                  },
                     {
                         code: 'application_date',
                         label: 'label.application_date',
@@ -228,27 +214,42 @@
                         fix: false,
                         filter: false
                     },
-                    {
-                        code: 'status',
-                        label: 'label.approval_status',
-                        width: 150,
-                        fix: false,
-                        filter: true
-                    },
-                    {
-                        code: 'acceptstatus',
-                        label: 'label.PFANS3001FORMVIEW_ACCEPTSTATUS',
-                        width: 150,
-                        fix: false,
-                        filter: true,
-                    },
-                    {
-                        code: 'findate',
-                        label: 'label.PFANS3006VIEW_ACCEPTTIME',
-                        width: 150,
-                        fix: false,
-                        filter: true,
-                    },
+                  {
+                    code: 'center_id',
+                    label: 'label.center',
+                    width: 150,
+                    fix: false,
+                    filter: true
+                  },
+                  {
+                    code: 'group_id',
+                    label: 'label.group',
+                    width: 150,
+                    fix: false,
+                    filter: true
+                  },
+                  {
+                    code: 'team_id',
+                    label: 'label.team',
+                    width: 150,
+                    fix: false,
+                    filter: true
+                  },
+
+                    // {
+                    //     code: 'acceptstatus',
+                    //     label: 'label.PFANS3001FORMVIEW_ACCEPTSTATUS',
+                    //     width: 150,
+                    //     fix: false,
+                    //     filter: true,
+                    // },
+                    // {
+                    //     code: 'findate',
+                    //     label: 'label.PFANS3006VIEW_ACCEPTTIME',
+                    //     width: 150,
+                    //     fix: false,
+                    //     filter: true,
+                    // },
                     {
                         code: 'refusereason',
                         label: 'label.PFANS3007FORMVIEW_REFUSEREASON',
@@ -264,12 +265,7 @@
                     {'key': 'export', 'name': 'button.generatearticle', 'disabled': false, 'icon': 'el-icon-download'},
                     // {'key': 'conapp', 'name': 'button.conapp', 'disabled': false, 'icon': 'el-icon-plus'},
                     {'key': 'actuarial', 'name': 'button.actuarial', 'disabled': false, 'icon': 'el-icon-edit-outline'},
-                    {
-                        'key': 'temLoanApp',
-                        'name': 'button.temLoanApp',
-                        'disabled': true,
-                        'icon': 'el-icon-plus',
-                    },
+                    {'key': 'temLoanApp','name': 'button.temLoanApp','disabled': false,'icon': 'el-icon-plus'},
                 ],
                 rowid: '',
                 row: 'purchase_id',
@@ -353,21 +349,21 @@
                             }
                         }
                         // ADD_FJL   (受理状态)
-                        if (response[j].acceptstatus !== null && response[j].acceptstatus !== "") {
-                            if (this.$i18n) {
-                                if (response[j].acceptstatus === '0') {
-                                    response[j].acceptstatus = this.$t('label.PFANS3006VIEW_ACCEPT');
-                                } else if (response[j].acceptstatus === '1') {
-                                    response[j].acceptstatus = this.$t('label.PFANS3006VIEW_REFUSE');
-                                } else if (response[j].acceptstatus === '2') {
-                                    response[j].acceptstatus = this.$t('label.PFANS3006VIEW_CARRYOUT');
-                                }
-                            }
-                        }
+                        // if (response[j].acceptstatus !== null && response[j].acceptstatus !== "") {
+                        //     if (this.$i18n) {
+                        //         if (response[j].acceptstatus === '0') {
+                        //             response[j].acceptstatus = this.$t('label.PFANS3006VIEW_ACCEPT');
+                        //         } else if (response[j].acceptstatus === '1') {
+                        //             response[j].acceptstatus = this.$t('label.PFANS3006VIEW_REFUSE');
+                        //         } else if (response[j].acceptstatus === '2') {
+                        //             response[j].acceptstatus = this.$t('label.PFANS3006VIEW_CARRYOUT');
+                        //         }
+                        //     }
+                        // }
                         // ADD_FJL   (受理时间)
-                        if (response[j].findate !== null && response[j].findate !== "") {
-                            response[j].findate = moment(response[j].findate).format('YYYY-MM-DD');
-                        }
+                        // if (response[j].findate !== null && response[j].findate !== "") {
+                        //     response[j].findate = moment(response[j].findate).format('YYYY-MM-DD');
+                        // }
                     }
                     this.data = response;
                     this.loading = false
@@ -383,7 +379,7 @@
         },
         methods: {
           selectInit(row, index) {
-            if(row.acceptstatus ==='完成' && row.actuarialamount!= '0')
+            if(row.storagedate === null)
             {
               return row.status === this.$t("label.PFANS5004VIEW_OVERTIME");
             }
@@ -457,58 +453,6 @@
                 }
                 this.selectedlist = this.$refs.roletable.selectedList;
                 this.export1(this.selectedlist);
-                // import('@/vendor/Export2Excel').then(excel => {
-                //   const tHeader = [
-                //     this.$t('label.PFANS3005VIEW_NUMBERS'),
-                //     this.$t('label.application_date'),
-                //     this.$t('label.PFANS2006VIEW_CLUB'),
-                //     this.$t('label.applicant'),
-                //     this.$t('label.PFANS3005VIEW_SETPLACE'),
-                //     this.$t('label.PFANS3005VIEW_CONTROLLER'),
-                //     this.$t('label.PFANS3005VIEW_USER'),
-                //     this.$t('label.PFANS3005VIEW_PROCUREMENTPROJECT'),
-                //     this.$t('label.PFANS3005VIEW_PROCUREMENTDETAILS'),
-                //     this.$t('label.remarks'),
-                //     this.$t('label.PFANS3005VIEW_QUANTITY'),
-                //     this.$t('label.PFANS3005VIEW_UNITPRICE'),
-                //     this.$t('label.PFANS3005VIEW_TOTALAMOUNT'),
-                //     this.$t('label.PFANS3005VIEW_STORAGEDATE'),
-                //     this.$t('label.PFANS3005VIEW_COLLECTIONDAY'),
-                //     this.$t('label.PFANS3005VIEW_STORAGENAME'),
-                //     this.$t('label.PFANS3005VIEW_RECIPIENTSNAME'),
-                //     this.$t('label.PFANS3005VIEW_ACTUARIALAMOUNT'),
-                //     this.$t('label.PFANS1008FORMVIEW_ASSETMANAGEMENTNUMBER'),
-                //     this.$t('label.PFANS3005VIEW_ACCEPTANCEDATE'),
-                //     this.$t('label.PFANS3005VIEW_ACCEPTANCENAME')
-                //   ];
-                //   const filterVal = [
-                //     'purnumbers',
-                //     'application_date',
-                //     'group_id',
-                //     'user_id',
-                //     'setplace',
-                //     'controller',
-                //     'username',
-                //     'procurementproject',
-                //     'procurementdetails',
-                //     'remarks',
-                //     'quantity',
-                //     'unitprice',
-                //     'totalamount',
-                //     'storagedate',
-                //     'collectionday',
-                //     '',
-                //     '',
-                //     'actuarialamount',
-                //     '',
-                //     '',
-                //     ''
-                //   ];
-                //   const list = this.selectedlist;
-                //   const data = this.formatJson(filterVal, list);
-                //   excel.export_json_to_excel(tHeader, data, this.$t('menu.PFANS3005'));
-                // })
-
               }
                 //add_fjl_0724   添加跳转申请精算与暂借款  end
                 if (val === 'actuarial' || val === 'temLoanApp') {
@@ -547,6 +491,7 @@
                         _judgements_moneys += this.selectedlist[i].totalamount + ',';
                         _remarks += this.selectedlist[i].purchasepurpose + '^';
                     }
+
                     if (val === 'actuarial') {
                         this.$router.push({
                             name: 'PFANS1012FormView',
@@ -589,33 +534,6 @@
                 });
                 this.loading = false;
               })
-          },
-          // download(data, filename) {
-          //   if("msSaveOrOpenBlob" in navigator){
-          //     window.navigator.msSaveOrOpenBlob(
-          //       new Blob([data],{type: 'application/vnd.ms-excel;charset=utf-8'}),
-          //       decodeURI(filename) + ".xlsx"
-          //     );
-          //   }else {
-          //     var blob = new Blob([data], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8'}); //application/vnd.openxmlformats-officedocument.spreadsheetml.sheet这里表示xlsx类型
-          //     var downloadElement = document.createElement('a');
-          //     var href = window.URL.createObjectURL(blob); //创建下载的链接
-          //     downloadElement.href = href;
-          //     downloadElement.download = decodeURI(filename) + '.xlsx'; //下载后文件名
-          //     document.body.appendChild(downloadElement);
-          //     downloadElement.click(); //点击下载
-          //     document.body.removeChild(downloadElement); //下载完成移除元素
-          //     window.URL.revokeObjectURL(href); //释放掉blob对象
-          //   }
-          // },
-            formatJson(filterVal, jsonData) {
-              return jsonData.map(v => filterVal.map(j => {
-              if (j === 'timestamp') {
-                return parseTime(v[j])
-              } else {
-                return v[j]
-              }
-            }))
           },
         }
     }
