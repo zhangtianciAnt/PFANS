@@ -28,7 +28,7 @@
                 loading: false,
                 title: "title.PFANS2017FROMVIEW",
                 data: [],
-                workHours: '',
+                workHours: 0,
                 resultShow: false,
                 columns: [
                     {
@@ -104,7 +104,9 @@
                         for (let i = 0; i < response.length; i++) {
                             if(i == 0){
                                 this.resultShow = true;
-                                this.workHours = response[i].tenantid;
+                                if(Number(response[i].tenantid) > 0){
+                                    this.workHours = Math.round(response[i].tenantid * 100) / 100;
+                                }
                             }
                             if (this.$i18n) {
                                 if (response[i].eventno === '1') {
