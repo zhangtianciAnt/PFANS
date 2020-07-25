@@ -11,6 +11,7 @@ import {
   check,
   updatepolicycontract,
   createpolicycontract,
+  exportjs,
 } from './PFANS1006Api';
 
 const PFANS1006Store = {
@@ -18,6 +19,17 @@ const PFANS1006Store = {
   state: {},
   mutations: {},
   actions: {
+    //add_fjl_0725  打印PDF   START
+    exportjs({commit}, data) {
+      return new Promise((resolve, reject) => {
+        exportjs(data).then(response => {
+          resolve(response);
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    //add_fjl_0725  打印PDF   end
     //ADD-WS-7/14-禅道144任务
     chackcycle({commit}, data) {
       return new Promise((resolve, reject) => {

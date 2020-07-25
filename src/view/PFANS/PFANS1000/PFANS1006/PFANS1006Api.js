@@ -1,4 +1,5 @@
 import request from '../../../../utils/request'
+import requestPdf from "../../../../utils/requestPdf";
 
 export function getLoanapplication() {
   return request({
@@ -91,3 +92,14 @@ export function check(data) {
   })
 }
 //ADD-WS-7/14-禅道144任务
+//add_fjl_0725  打印PDF   START
+export function exportjs(data) {
+  return requestPdf({
+    url: 'loanapplication/exportjs',
+    method: 'get',
+    params: data,
+    responseType: 'blob'
+  })
+}
+
+//add_fjl_0725  打印PDF  end

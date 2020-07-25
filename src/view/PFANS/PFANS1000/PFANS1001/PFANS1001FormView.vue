@@ -16,8 +16,9 @@
     </EasyNormalTable>
     <!--    ADD-WS-费用编号添加-->
     <!--    add_fjl_05/27  &#45;&#45; 添加暂借款申请编号的列表-->
-    <EasyNormalTable :buttonList="buttonList" :columns="columns4" :data="data" :title="title" v-loading="loading"
-                     v-show="this.showTable===4" @buttonClick="buttonClick" @rowClick="rowClick" :rowid="row">
+    <EasyNormalTable :buttonList="buttonList4" :columns="columns4" :data="data" :rowid="row" :selectable="selectInit"
+                     :showSelection="isShow" :title="title" @buttonClick="buttonClick" @rowClick="rowClick"
+                     ref="roletable4" v-loading="loading" v-show="this.showTable===4">
     </EasyNormalTable>
     <!--    add_fjl_05/27  &#45;&#45; 添加暂借款申请编号的列表-->
     <!--    add-ws-5/27-No.170-->
@@ -472,18 +473,21 @@
           {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
         ],
+          //add_fjl  start
+          buttonList4: [
+              {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
+              {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
+              {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
+              {'key': 'export1', 'name': 'button.printing', 'disabled': false, 'icon': 'el-icon-upload2'},
+          ],
           buttonList3: [
               {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
               {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
               {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
               {'key': 'actuarial', 'name': 'button.actuarial', 'disabled': false, 'icon': 'el-icon-edit-outline'},
-              {
-                  'key': 'temLoanApp',
-                  'name': 'button.temLoanApp',
-                  'disabled': true,
-                  'icon': 'el-icon-plus',
-              },
+              {'key': 'temLoanApp', 'name': 'button.temLoanApp', 'disabled': true, 'icon': 'el-icon-plus'},
           ],
+          //add_fjl  end
         //add-ws-7/7-禅道247
         buttonList2: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
@@ -710,6 +714,28 @@
         }
         // add-ws-7/14-禅道144任务
       },
+        //add_fjl_0725  添加暂借款打印功能  start
+        export1(val) {
+            this.loading = true;
+            this.$store
+                .dispatch('PFANS1006Store/exportjs', {loanapplicationid: this.$refs.roletable4.selectedList[val].loanapplication_id})
+                .then(response => {
+                    this.loading = false;
+                    if (val < this.$refs.roletable4.selectedList.length - 1) {
+                        val = val + 1;
+                        this.export1(val);
+                    }
+                })
+                .catch(error => {
+                    Message({
+                        message: error,
+                        type: 'error',
+                        duration: 5 * 1000,
+                    });
+                    this.loading = false;
+                });
+        },
+        //add_fjl_0725  添加暂借款打印功能  end
       buttonClick(val) {
         let letname;
         if (this.$route.params.title === 1) {
@@ -802,6 +828,7 @@
             },
           });
         }
+          //add-ws-7/7-禅道247
           //add_fjl_0724   添加跳转申请精算与暂借款  start
           if (val === 'actuarial' || val === 'temLoanApp') {
               let _judgement = '';
@@ -993,7 +1020,20 @@
               }
           }
           //add_fjl_0724   添加跳转申请精算与暂借款  end
-        //add-ws-7/7-禅道247
+          //add_fjl_0725  添加暂借款打印功能  start
+          if (val === 'export1') {
+              if (this.$refs.roletable4.selectedList.length === 0) {
+                  Message({
+                      message: this.$t('normal.info_01'),
+                      type: 'info',
+                      duration: 2 * 1000,
+                  });
+                  return;
+              }
+              this.selectedlist = this.$refs.roletable4.selectedList;
+              this.export1(0);
+          }
+          //add_fjl_0725  添加暂借款打印功能  end
       },
     },
   };
