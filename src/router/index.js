@@ -209,6 +209,9 @@ import ASSETS1003View from '@/view/ASSETS/ASSETS1000/ASSETS1003/ASSETS1003View.v
 import usersFormViewByPerson from '@/view/users/usersFormViewByPerson.vue'
 import PFANS1044View from '@/view/PFANS/PFANS1000/PFANS1044/PFANS1044View.vue'
 
+import PFANS1047View from '@/view/PFANS/PFANS1000/PFANS1047/PFANS1047View.vue'
+import PFANS1047FormView from '@/view/PFANS/PFANS1000/PFANS1047/PFANS1047FormView.vue'
+
 import error401 from '@/components/EasyErrorPage/401.vue'
 import error404 from '@/components/EasyErrorPage/404.vue'
 Vue.use(Router);
@@ -674,6 +677,16 @@ const routes = [
         path: '/PFANS1045FormView',
         name: 'PFANS1045FormView',
         component: PFANS1045FormView,
+      },
+      {
+        path: '/PFANS1047View',
+        name: 'PFANS1047View',
+        component: PFANS1047View,
+      },
+      {
+        path: '/PFANS1047FormView',
+        name: 'PFANS1047FormView',
+        component: PFANS1047FormView,
       },
       {
         path: '/PFANS2000View',

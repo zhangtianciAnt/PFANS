@@ -533,6 +533,29 @@ export function menu() {
                 },
               ]
             },
+            {
+              '_id': 'OTHERCONTRACT',
+              'name': 'menu.OTHERCONTRACT',
+              'menuvisible': true,
+              'menuurl': '',
+              'menuicon': '',
+              'children': [
+                {
+                  '_id': 'PFANS1047',
+                  'name': 'menu.PFANS1047',
+                  'menuvisible': true,
+                  'menuurl': '/PFANS1047View',
+                  'menuicon': '',
+                  'children': [],
+                  'actions': [
+                    {"_id": "PFANS1047_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                    {"_id": "PFANS1047_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                    {"_id": "PFANS1047_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                    {"_id": "PFANS1047_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+                  ]
+                },
+              ]
+            },
           ]
         },
         {
