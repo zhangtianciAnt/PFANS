@@ -1,4 +1,4 @@
-import {get, selectById, update,generateJxls,getDataOne,getDataOne2,checkby} from './PFANS1025Api'
+import {get, selectById, update,generateJxls,getDataOne,getDataOne2,checkby,getList} from './PFANS1025Api'
 
 
 const PFANS1025Store = {
@@ -97,6 +97,21 @@ const PFANS1025Store = {
         })
       })
     },
+    //add ccm 0723
+    getList({ commit },data) {
+      return new Promise((resolve, reject) => {
+        getList(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    //add ccm 0723
   }
 };
 

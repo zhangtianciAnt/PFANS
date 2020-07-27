@@ -2989,6 +2989,8 @@ module.exports = {
     PFANS3005VIEW_ACCEPTANCENAME: '验收人签字',
     PFANS3005VIEW_PLANAMOUNT: '计划金额',
     PFANS3005VIEW_MSG1: '已经申请合同，请勿重复申请！',
+    PFANS3005VIEW_MSG2: '请选择相同部门的采购进行合同申请！',
+    PFANS3005VIEW_MSG3: '请选择都没有申请暂借款的采购或是有相同暂借款的采购进行精算！',
     PFANS3005FORMVIEW_BUSINESSPLANTYPE: '事业计划类型',
     PFANS3005FORMVIEW_LOANAPP_ACTU: '(暂借款/精算)关联',
     PFANS3005FORMVIEW_BUSINESSPLANBALANCE: '事业计划余额',

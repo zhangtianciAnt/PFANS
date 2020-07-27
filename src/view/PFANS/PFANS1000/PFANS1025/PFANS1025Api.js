@@ -57,3 +57,13 @@ export function checkby(data) {
   })
 }
 //ADD-WS-7/14-禅道144任务
+
+//add ccm 0723  其他契约决裁书
+export function getList(data) {
+  return request({
+    url: 'award/getList',
+    method: 'post',
+    data: data
+  })
+}
+//add ccm 0723

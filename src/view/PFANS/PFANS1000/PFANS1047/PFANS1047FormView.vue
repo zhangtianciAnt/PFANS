@@ -256,7 +256,7 @@
         this.buttonClick2();
       },
       buttonClick2() {
-        this.form.maketype = '8',
+        this.form.maketype = '9',
           this.baseInfo = {};
         this.form.user_id = this.userlist;
         this.baseInfo.groupN = this.$store.getters.orgGroupList;
@@ -294,7 +294,7 @@
         });
       },
       buttonClick(val) {
-        this.form.maketype = '8',
+        this.form.maketype = '9',
           this.baseInfo = {};
         this.form.user_id = this.userlist;
         this.baseInfo.groupN = this.$store.getters.orgGroupList;

@@ -719,7 +719,6 @@
       this.role1 = getCurrentRole2();
       //add-ws-5/13-总务担当看到所有符合条件的数据，其他人看本身的而数据
       this.getsupplierinfor();
-      this.judgementlist();
       let userid = this.$store.getters.userinfo.userid;
       let groupid = getUserInfo(userid).userinfo.groupid;
       if (groupid === '91B253A1C605E9CA814462FB4C4D2605F43F') {
@@ -783,7 +782,7 @@
                       this.show7 = true;
                   }
                   this.getBudt(this.userlist);
-                  if (this.form.uploadfile != '' && this.form.uploadfile != null) {
+                  if (this.form.uploadfile != '' && this.form.uploadfile != null && this.form.uploadfile!=undefined) {
                       let uploadfile = this.form.uploadfile.split(';');
                       for (var i = 0; i < uploadfile.length; i++) {
                           if (uploadfile[i].split(',')[0] != '') {
@@ -871,7 +870,7 @@
                   obj.judgement = judgement[i];
                   obj.judgement_name = judgementname[d];
                   obj.judgements_type = this.$route.params._judgements_type;
-                  obj.remarks = remarks[i];
+                  obj.remarks = remarks[i] === null || remarks[i] === undefined ? '':remarks[i];
                   obj.judgements_moneys = judgements_moneys[i];
                   datalist[i] = obj;
                 }
@@ -1015,168 +1014,6 @@
             this.loading = false;
           });
       },
-      change(val) {
-        this.DataList = [];
-        //add-ws-5/18-No70-增加决裁调跳转。
-        for (let i = 0; i < this.options.length; i++) {
-          if (this.options[i].label.substring(0, 2) === this.$t('menu.PFANS1001')) {
-            if (this.options[i].value === val) {
-              this.DataList.push({
-                judgementid: this.options[i].value,
-                judgnumbers: this.options[i].label,
-              });
-              this.form.judgements_name = this.options[i].label,
-                this.show11 = true;
-            }
-          }
-        }
-        //add-ws-5/18-No70-增加决裁调跳转。
-        this.form.judgements = val;
-
-      },
-
-      judgementlist() {
-        let user_id = this.$store.getters.userinfo.userid;
-        this.options = [];
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS1012Store/selectJudgement', {})
-          .then(response => {
-            for (let i = 0; i < response.length; i++) {
-              //add-ws-5/13-总务担当看到所有符合条件的数据，其他人看本身的数据
-              if (this.role1 === '0') {
-                if (response[i].equipment == '0' && response[i].status === '4') {
-                  this.options.push({
-                    value: response[i].judgementid,
-                    label: this.$t('menu.PFANS1004') + '_' + response[i].judgnumbers,
-                  });
-                }
-              } else {
-                //upd-ws-5/26-No.208
-                if (this.disable) {
-                  if (user_id === response[i].user_id && response[i].equipment == '0' && response[i].status === '4') {
-                    this.options.push({
-                      value: response[i].judgementid,
-                      label: this.$t('menu.PFANS1004') + '_' + response[i].judgnumbers,
-                    });
-                  }
-                } else {
-                  if (response[i].equipment == '0' && response[i].status === '4') {
-                    this.options.push({
-                      value: response[i].judgementid,
-                      label: this.$t('menu.PFANS1004') + '_' + response[i].judgnumbers,
-                    });
-                  }
-                }
-                //upd-ws-5/26-No.208
-              }
-              //add-ws-5/13-总务担当看到所有符合条件的数据，其他人看本身的数据
-              //upd-ws-5/26-No.208
-              if (this.disable) {
-                if (user_id === response[i].user_id && response[i].equipment == '1' && response[i].status === '4') {
-                  this.options.push({
-                    value: response[i].judgementid,
-                    label: this.$t('menu.PFANS1003') + '_' + response[i].judgnumbers,
-                  });
-                }
-              } else {
-                if (response[i].equipment == '1' && response[i].status === '4') {
-                  this.options.push({
-                    value: response[i].judgementid,
-                    label: this.$t('menu.PFANS1003') + '_' + response[i].judgnumbers,
-                  });
-                }
-              }
-              //upd-ws-5/26-No.208
-            }
-            //add-ws-4/24-暂借款申请单添加千元以下费用申请数据到下拉列表中
-            this.$store
-              .dispatch('PFANS1012Store/selectPurchaseApply', {})
-              .then(response => {
-                for (let i = 0; i < response.length; i++) {
-                  //add-ws-5/13-总务担当看到所有符合条件的数据，其他人看本身的数据
-                  if (this.role1 === '0') {
-                    if (response[i].status === '4') {
-                      this.options.push({
-                        value: response[i].purchaseapply_id,
-                        label: this.$t('menu.PFANS1005') + '_' + response[i].purchasenumbers,
-                      });
-                    }
-                  } else {
-                    //upd-ws-5/26-No.208
-                    if (this.disable) {
-                      if (user_id === response[i].user_id && response[i].status === '4') {
-                        this.options.push({
-                          value: response[i].purchaseapply_id,
-                          label: this.$t('menu.PFANS1005') + '_' + response[i].purchasenumbers,
-                        });
-                      }
-                    } else {
-                      if (response[i].status === '4') {
-                        this.options.push({
-                          value: response[i].purchaseapply_id,
-                          label: this.$t('menu.PFANS1005') + '_' + response[i].purchasenumbers,
-                        });
-                      }
-                    }
-                    //upd-ws-5/26-No.208
-                  }
-                  //add-ws-5/13-总务担当看到所有符合条件的数据，其他人看本身而数据
-                }
-              }).catch(error => {
-              Message({
-                message: error,
-                type: 'error',
-                duration: 5 * 1000,
-              });
-              this.loading = false;
-            });
-            //add-ws-4/24-暂借款申请单添加千元以下费用申请数据到下拉列表中
-            //add-ws-5/13-添加购买申请数据，总务担当看到所有符合条件的数据，其他人看本身而数据
-            //upd-ws-5/26-No.208
-            //upd-ws-5/26-No.208
-
-            this.$store
-              .dispatch('PFANS3005Store/getPurchaseList')
-              .then(response => {
-                for (let i = 0; i < response.length; i++) {
-                  if (this.role1 === '0') {
-                    if (response[i].status === '4') {
-                      var vote = {};
-                      vote.value = response[i].purchase_id;
-                      vote.label = this.$t('label.PFANS1012VIEW_PURCHASSES') + '_' + response[i].purnumbers;
-                      this.options.push(vote);
-                    }
-                  } else {
-                    if (this.disable) {
-                      if (response[i].status === '4' && user_id === response[i].user_id) {
-                        var vote = {};
-                        vote.value = response[i].purchase_id;
-                        vote.label = this.$t('label.PFANS1012VIEW_PURCHASSES') + '_' + response[i].purnumbers;
-                        this.options.push(vote);
-                      }
-                    } else {
-                      if (response[i].status === '4') {
-                        var vote = {};
-                        vote.value = response[i].purchase_id;
-                        vote.label = this.$t('label.PFANS1012VIEW_PURCHASSES') + '_' + response[i].purnumbers;
-                        this.options.push(vote);
-                      }
-                    }
-                  }
-                }
-              }).catch(error => {
-              Message({
-                message: error,
-                type: 'error',
-                duration: 5 * 1000,
-              });
-              this.loading = false;
-            });
-            this.loading = false;
-            //add-ws-5/13-添加购买申请数据，总务担当看到所有符合条件的数据，其他人看本身而数据
-          });
-      },
       getUserids(val) {
         this.form.user_id = val;
         if (val === '') {
@@ -1314,6 +1151,7 @@
         });
       },
       buttonClick(val) {
+
         if (val === 'back') {
           this.paramsTitle();
         } else {
@@ -1413,7 +1251,6 @@
         this.$store
           .dispatch('PFANS1012Store/getpublicelist', {'publicexpenseid': row.judgement})
           .then(response => {
-            debugger;
             for (let i = 0; i < response.length; i++) {
               if (response[i].status !== null && response[i].status !== '') {
                 response[i].status = getStatus(response[i].status);
@@ -1488,7 +1325,7 @@
             params: {
               _checkdisable: this.disable,
               _checkid: this.IDname,
-              _check: true,
+              _check: false,
               _id: row.judgement,
               disabled: false,
             },

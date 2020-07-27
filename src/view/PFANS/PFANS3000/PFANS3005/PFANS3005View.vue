@@ -37,6 +37,34 @@
                     fix: false,
                     filter: true
                   },
+                  {
+                      code: 'loanapno',
+                      label: 'label.PFANS1012VIEW_TEMPORARYLOAN',
+                      width: 150,
+                      fix: false,
+                      filter: false
+                  },
+                  {
+                    code: 'center_id',
+                    label: 'label.center',
+                    width: 150,
+                    fix: false,
+                    filter: true
+                  },
+                  {
+                    code: 'group_id',
+                    label: 'label.group',
+                    width: 150,
+                    fix: false,
+                    filter: true
+                  },
+                  {
+                    code: 'team_id',
+                    label: 'label.team',
+                    width: 150,
+                    fix: false,
+                    filter: true
+                  },
                     {
                         code: 'application_date',
                         label: 'label.application_date',
@@ -200,41 +228,21 @@
                         fix: false,
                         filter: false
                     },
-                    {
-                        code: 'actuarialdate',
-                        label: 'label.PFANS3005VIEW_ACTUARIALDATE',
-                        width: 150,
-                        fix: false,
-                        filter: false
-                    },
-                    {
-                        code: 'actuarialamount',
-                        label: 'label.PFANS3005VIEW_ACTUARIALAMOUNT',
-                        width: 150,
-                        fix: false,
-                        filter: false
-                    },
-                  {
-                    code: 'center_id',
-                    label: 'label.center',
-                    width: 150,
-                    fix: false,
-                    filter: true
-                  },
-                  {
-                    code: 'group_id',
-                    label: 'label.group',
-                    width: 150,
-                    fix: false,
-                    filter: true
-                  },
-                  {
-                    code: 'team_id',
-                    label: 'label.team',
-                    width: 150,
-                    fix: false,
-                    filter: true
-                  },
+                    // {
+                    //     code: 'actuarialdate',
+                    //     label: 'label.PFANS3005VIEW_ACTUARIALDATE',
+                    //     width: 150,
+                    //     fix: false,
+                    //     filter: false
+                    // },
+                    // {
+                    //     code: 'actuarialamount',
+                    //     label: 'label.PFANS3005VIEW_ACTUARIALAMOUNT',
+                    //     width: 150,
+                    //     fix: false,
+                    //     filter: false
+                    // },
+
 
                     // {
                     //     code: 'acceptstatus',
@@ -263,12 +271,14 @@
                     {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
                     {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
                     {'key': 'export', 'name': 'button.generatearticle', 'disabled': false, 'icon': 'el-icon-download'},
-                    // {'key': 'conapp', 'name': 'button.conapp', 'disabled': false, 'icon': 'el-icon-plus'},
+                    {'key': 'conapp', 'name': 'button.conapp', 'disabled': false, 'icon': 'el-icon-plus'},
+                  {'key': 'temLoanApp','name': 'button.temLoanApp','disabled': false,'icon': 'el-icon-plus'},
                     {'key': 'actuarial', 'name': 'button.actuarial', 'disabled': false, 'icon': 'el-icon-edit-outline'},
-                    {'key': 'temLoanApp','name': 'button.temLoanApp','disabled': false,'icon': 'el-icon-plus'},
+
                 ],
                 rowid: '',
                 row: 'purchase_id',
+                caigouhetongTable: [],
             }
         },
         mounted() {
@@ -286,6 +296,7 @@
                     }
                     for (let j = 0; j < response.length; j++) {
                         let lst = getOrgInfoByUserId(response[j].user_id);
+                        response[j].group_id1 = response[j].group_id;
                         response[j].center_id = lst.centerNmae;
                         response[j].group_id = lst.groupNmae;
                         response[j].team_id = lst.teamNmae;
@@ -379,10 +390,7 @@
         },
         methods: {
           selectInit(row, index) {
-            if(row.storagedate === null)
-            {
-              return row.status === this.$t("label.PFANS5004VIEW_OVERTIME");
-            }
+            return row.status === this.$t("label.PFANS5004VIEW_OVERTIME");
           },
             //add_fjl_05/19  --设置受理状态和审批状态改变行的背景色
             rowClassName({row, rowIndex}) {
@@ -402,11 +410,11 @@
                 if (val === 'view') {
                     if (this.rowid === '') {
                         Message({
-                            message: this.$t('normal.info_01'),
-                            type: 'info',
-                            duration: 2 * 1000
+                          message: this.$t('normal.info_01'),
+                          type: 'info',
+                          duration: 2 * 1000
                         });
-                        return
+                      return
                     }
                     this.$router.push({
                         name: 'PFANS3005FormView',
@@ -455,7 +463,7 @@
                 this.export1(this.selectedlist);
               }
                 //add_fjl_0724   添加跳转申请精算与暂借款  end
-                if (val === 'actuarial' || val === 'temLoanApp') {
+              if (val === 'actuarial' || val === 'temLoanApp') {
                     if (this.$refs.roletable.selectedList.length === 0) {
                         Message({
                             message: this.$t('normal.info_01'),
@@ -464,6 +472,7 @@
                         });
                         return;
                     }
+                    this.selectedlist = [];
                     this.selectedlist = this.$refs.roletable.selectedList;
                     let optionsSEL = [];
                     let _judgement = '';
@@ -493,31 +502,205 @@
                     }
 
                     if (val === 'actuarial') {
-                        this.$router.push({
-                            name: 'PFANS1012FormView',
-                            params: {
+                      //是否已经精算
+                      let str = '';
+                      for (let i = 0; i < this.selectedlist.length; i++)
+                      {
+                        if (this.selectedlist[i].invoiceno !=null && this.selectedlist[i].invoiceno !='' && this.selectedlist[i].invoiceno !=undefined)
+                        {
+                          str +=this.selectedlist[i].purnumbers + ' , ';
+                        }
+                      }
+                      //如果有暂借款，是否是相同的暂借款
+                      let gid ='';
+                      let k = 0;
+                      for (let i=0;i<this.selectedlist.length;i++)
+                      {
+                        if (k != 0)
+                        {
+                          if (this.selectedlist[i].loanapno === gid)
+                          {
+                            continue;
+                          }
+                          else
+                          {
+                            Message({
+                              message: this.$t('label.PFANS3005VIEW_MSG3'),
+                              type: 'info',
+                              duration: 3 * 1000,
+                            });
+                            return
+                          }
+                        }
+                        k++;
+                        gid = this.selectedlist[i].loanapno;
+                      }
+                      if (str === '')
+                      {
+                        if (gid !=null && gid !='' && gid !=undefined)
+                        {
+
+                            this.$router.push({
+                              name: 'PFANS1012FormView',
+                              params: {
                                 _name: optionsSEL,
                                 _type: 'PJ001002',
+                                _haveLoanapp:gid,
                                 disabled: true,
-                            },
-                        });
-                    } else {
-                        this.$router.push({
-                            name: 'PFANS1006FormView',
+                              },
+                            });
+                        }
+                        else
+                        {
+                          this.$router.push({
+                            name: 'PFANS1012FormView',
                             params: {
-                                _id: '',
-                                _judgement: _judgement,
-                                _judgement_name: _judgement_name,
-                                _judgements_moneys: _judgements_moneys,
-                                _remarks: _remarks,
-                                _judgements_type: this.$t('label.PFANS1012VIEW_PURCHASSES'),
-                                disabled: true,
+                              _name: optionsSEL,
+                              _type: 'PJ001002',
+                              disabled: true,
                             },
+                          });
+                        }
+                      }
+                      else
+                      {
+                        Message({
+                          message: this.$t('label.PFANS3005VIEW_NUMBERS') +' : '+ str +' ' + this.$t('label.PFANS3005VIEW_INVOICENO'),
+                          type: 'info',
+                          duration: 3 * 1000,
                         });
+                        return
+                      }
                     }
-
+                    else {
+                      //暂借款申请
+                      //check是否存在暂借款
+                      let str = '';
+                      for (let i = 0; i < this.selectedlist.length; i++)
+                      {
+                        if (this.selectedlist[i].loanapno !=null && this.selectedlist[i].loanapno !='' && this.selectedlist[i].loanapno !=undefined)
+                        {
+                          str += this.selectedlist[i].purnumbers + ' , ';
+                        }
+                      }
+                      if (str === '')
+                      {
+                        this.$router.push({
+                          name: 'PFANS1006FormView',
+                          params: {
+                            _id: '',
+                            _judgement: _judgement,
+                            _judgement_name: _judgement_name,
+                            _judgements_moneys: _judgements_moneys,
+                            _remarks: _remarks,
+                            _judgements_type: this.$t('label.PFANS1012VIEW_PURCHASSES'),
+                            disabled: true,
+                          },
+                        });
+                      }
+                      else
+                      {
+                        Message({
+                          message: this.$t('label.PFANS3005VIEW_NUMBERS') +' : '+ str +' ' + this.$t('label.PFANS3005VIEW_LOANAPP'),
+                          type: 'info',
+                          duration: 3 * 1000,
+                        });
+                        return
+                      }
+                    }
                 }
                 //add_fjl_0724   添加跳转申请精算与暂借款  end
+              if (val === 'conapp')
+              {
+                if (this.$refs.roletable.selectedList.length === 0) {
+                  Message({
+                    message: this.$t('normal.info_01'),
+                    type: 'info',
+                    duration: 2 * 1000
+                  });
+                  return;
+                }
+                this.selectedlist = [];
+                this.selectedlist = this.$refs.roletable.selectedList;
+                let purnumberss = '';
+
+                this.caigouhetongTable = [];
+                for (let i=0;i<this.selectedlist.length;i++)
+                {
+                  let o = [];
+                  purnumberss += this.selectedlist[i].purnumbers +',';
+                  o.purnumbers = this.selectedlist[i].purnumbers;
+                  o.totalamount = this.selectedlist[i].totalamount;
+                  this.caigouhetongTable.push(o);
+                }
+                let gid ='';
+                let k = 0;
+                for (let i=0;i<this.selectedlist.length;i++)
+                {
+                  if (gid!='')
+                  {
+                    if (this.selectedlist[i].group_id === gid)
+                    {
+                      continue;
+                    }
+                    else
+                    {
+                      Message({
+                        message: this.$t('label.PFANS3005VIEW_MSG2'),
+                        type: 'info',
+                        duration: 3 * 1000,
+                      });
+                      return
+                    }
+                  }
+                  k++;
+                  gid = this.selectedlist[i].group_id;
+                }
+                //采购合同重复check
+                this.$store
+                  .dispatch('PFANS1026Store/purchaseExistCheck', {"purnumbers": purnumberss})
+                  .then(response => {
+                    if (response.length === 0)
+                    {
+                      //合同号申请
+                      this.$router.push({
+                        name: 'PFANS1033FormView',
+                        params: {
+                          _id: '',
+                          _applicantdeptcode:this.selectedlist[0].group_id1,
+                          _caigouhetongTable:this.caigouhetongTable,
+                          disabled: true
+                        }
+                      });
+                    }
+                    else
+                    {
+                      let jmsg = '';
+                      for (let j=0;j<response.length;j++)
+                      {
+                        jmsg += response[j] + ' , ';
+                      }
+                      Message({
+                        message: this.$t('label.PFANS3005VIEW_NUMBERS') +' : '+ jmsg +' ' + this.$t('label.PFANS3005VIEW_MSG1'),
+                        type: 'info',
+                        duration: 3 * 1000,
+                      });
+                      return
+                    }
+                    // if (this.$store.getters.historyUrl) {
+                    //   this.$router.push(this.$store.getters.historyUrl);
+                    // }
+                    this.loading = false;
+                  })
+                  .catch(error => {
+                    Message({
+                      message: error,
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    this.loading = false;
+                  });
+                }
             },
           export1(){
             this.loading = true;

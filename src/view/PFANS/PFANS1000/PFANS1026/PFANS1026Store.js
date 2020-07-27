@@ -7,9 +7,11 @@ import {
   existCheck,
   getList,
   getPe,
+  purchaseExistCheck,
   getindividual,
   generatesta
-} from './PFANS1026Api';
+  } from './PFANS1026Api';
+
 
 const PFANS1026Store = {
   namespaced: true,
@@ -144,7 +146,22 @@ const PFANS1026Store = {
         });
       });
     },
+    //add ccm 0725  采购合同chongfucheck
+    purchaseExistCheck({ commit },data) {
+      return new Promise((resolve, reject) => {
+        purchaseExistCheck(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    //add ccm 0725  采购合同chongfucheck
   },
 };
 
-export default PFANS1026Store;
+  export default PFANS1026Store;

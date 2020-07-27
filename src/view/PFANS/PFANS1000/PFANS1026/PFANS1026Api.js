@@ -80,3 +80,13 @@ export function generatesta(data) {
   })
 }
 //add-ws-7/22-禅道341任务
+
+//add ccm 0725  采购合同chongfucheck
+export function purchaseExistCheck(data) {
+  return request({
+    url: 'contractapplication/purchaseExistCheck',
+    method: 'get',
+    params: data
+  })
+}
+//add ccm 0725  采购合同chongfucheck
