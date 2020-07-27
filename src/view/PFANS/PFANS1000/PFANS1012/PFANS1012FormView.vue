@@ -1780,6 +1780,10 @@
         this.$store
           .dispatch('PFANS1012Store/selectById', {'publicexpenseid': this.$route.params._id})
           .then(response => {
+            if (response.publicexpense!=null)
+            {
+
+
               this.form = response.publicexpense;
             if (this.form.uploadfile != '' && this.form.uploadfile != null) {
                   let uploadfile = this.form.uploadfile.split(';');
@@ -2254,6 +2258,7 @@
                   this.show10 = false;
                 }
               }
+            }
               this.loading = false;
             },
           )
@@ -2431,6 +2436,13 @@
           this.show7 = true;
           this.show6 = true;
         }
+        //add ccm 存在暂借款，选中暂借款
+        if (this.$route.params._haveLoanapp)
+        {
+          this.getPayment('PJ004004');
+          this.form.loan = this.$route.params._haveLoanapp;
+        }
+        //add ccm 存在暂借款，选中暂借款
       }
     },
     created() {
