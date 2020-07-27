@@ -9,13 +9,24 @@
         <el-form :model="form1" :rules="rules1" label-position="top" label-width="6vw" ref="refform1" style="padding: 2vw">
           <el-dialog :title="$t('button.application')" :visible.sync="dialogVisibleC">
             <el-form-item :label="$t('label.PFANS1024VIEW_NUMBER')" :label-width="formLabelWidth" :error="errorclaimtype" prop="claimtype">
-              <dicselect
-                :code="code"
-                :data="form1.claimtype"
-                :multiple="multiple"
+<!--              <dicselect-->
+<!--                :code="code"-->
+<!--                :data="form1.claimtype"-->
+<!--                :multiple="multiple"-->
+<!--                @change="getnumber"-->
+<!--                style="width: 20vw">-->
+<!--              </dicselect>-->
+              <el-input-number
+                step-strictly
+                :max="1000000000"
+                :min="1"
+                :precision="0"
+                :step="1"
+                controls-position="right"
+                style="width:20vw"
+                v-model="form1.claimtype"
                 @change="getnumber"
-                style="width: 20vw">
-              </dicselect>
+              ></el-input-number>
             </el-form-item>
             <el-form-item :label="$t('label.PFANS1024VIEW_ORIGINALCONTRACT')" :label-width="formLabelWidth" v-show="show3">
               <el-input v-model="form1.contractnumber" style="width: 20vw" :disabled="!disabled1"></el-input>
@@ -115,6 +126,20 @@
           </el-dialog>
         </el-form>
         <el-form :model="form" :rules="rules" label-position="top" label-width="6vw" ref="refform" style="padding: 2vw">
+          <!--add ccm 0720-->
+          <!--书类作成弹出框-->
+          <el-dialog :visible.sync="dialogBook" width="30%">
+            <div class="dialog-footer" align="center">
+              <el-row style=" margin-bottom: 20px;">
+                <el-col :span="24">
+                  <el-button @click="clickData(9)">
+                  <span style="margin-right: 86%;">{{$t('label.PFANS1026FORMVIEW_AWARD')}}
+                  </span>
+                  </el-button>
+                </el-col>
+              </el-row>
+            </div>
+          </el-dialog>
           <!--<el-dialog :title="$t('button.application')"  :visible.sync="dialogFormVisible">
             <el-form-item  :label="$t('label.PFANS1024VIEW_NUMBER')" :label-width="formLabelWidth">
               <dicselect
@@ -481,8 +506,10 @@
                     :header-cell-style="getRowClass4" style="padding-top: 2vw">
             <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMTYPE')" align="center"  prop="claimtype" width="130">
               <template slot-scope="scope">
-                <el-input :disabled="!disabled3" v-model="scope.row.claimtype">
-                </el-input>
+<!--                <el-form-item :prop="'tableclaimtype.' + scope.$index + '.claimtype'" :rules='rules.claimtype'>-->
+                  <el-input :disabled="!disabled3" v-model="scope.row.claimtype">
+                  </el-input>
+<!--                </el-form-item>-->
               </template>
             </el-table-column>
             <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYDATE')" align="center" prop="deliverydate"  width="170">
@@ -508,6 +535,12 @@
             <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMAMOUNT')" align="center"  prop="claimamount" width="190">
               <template slot-scope="scope">
                 <el-input-number v-model="scope.row.claimamount" controls-position="right" style="width: 11rem" :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
+              </template>
+            </el-table-column>
+            <el-table-column :label="$t('label.PFANS3005VIEW_NUMBERS')" align="center"  prop="purnumbers" width="190" v-if="showCG">
+              <template slot-scope="scope">
+                <el-input :disabled="true" v-model="scope.row.purnumbers" controls-position="right" style="width: 11rem">
+                </el-input>
               </template>
             </el-table-column>
           </el-table>
@@ -654,7 +687,7 @@
                 validator: groupId,
                 trigger: "change"
               }
-            ],
+            ]
           },
           buttonList:[
             {
@@ -672,14 +705,14 @@
               name: 'button.save',
               disabled: false,
             },
-//            {
-//              key: 'makeinto',
-//              name: 'button.makeinto',
-//              disabled: false,
-//            },
+            {
+              key: 'makeinto',
+              name: 'button.makeinto',
+              disabled: true,
+            },
           ],
             form1: {
-                claimtype: '',
+                claimtype: '1',
                 contractnumber: '',
                 contracttype: '',
                 applicationdate: '',
@@ -690,7 +723,7 @@
             },
           form: {
               contractnumber: '',
-              claimtype: '',
+              claimtype: '1',
               contracttype: '',
               applicationdate: '',
               entrycondition: '',
@@ -746,10 +779,18 @@
           projectResult:[],
           recordDataD: [],
           dialogVisibleD: false,
+          //add ccm 0722
+          caigouhetongTable: [],
+          showCG:false,
+          enableButton:true,
+          //add ccm 0722
         }
       },
       mounted(){
-        this.contractnumbercount = this.$route.params.contractnumbercount;
+        if (this.$route.params.contractnumbercount)
+        {
+          this.contractnumbercount = this.$route.params.contractnumbercount;
+        }
         // let option1 = {};
         // option1.name = getDictionaryInfo('PG019001').value1;
         // option1.code = 'PG019001';
@@ -770,6 +811,15 @@
         // this.options.push(option2);
         // this.options.push(option3);
         // this.options.push(option4);
+        //add ccm 0722
+        if (this.$route.params._caigouhetongTable)
+        {
+          //this.caigouhetongTable = this.$route.params._caigouhetongTable;
+
+          this.buttonClick('application');
+          this.showCG = true;
+        }
+        //add ccm 0722
         if (this.$route.params._id) {
           this.loading = true;
           this.$store
@@ -780,7 +830,14 @@
               if (contractapplication.length > 0) {
                 for (let i = 0; i < contractapplication.length; i++) {
                   this.show3 = true;
-                            this.form1.claimtype = contractapplication[i].claimtype;
+                  if (contractapplication[i].claimtype)
+                  {
+                    this.form1.claimtype = contractapplication[i].claimtype.replace('第', '').replace('回', '');
+                  }
+                  if (contractapplication[i].checkindivdual === '1' && this.buttonList.length>3)
+                  {
+                    this.enableButton = false;
+                  }
                             this.form1.contractnumber = contractapplication[i].contractnumber;
                             this.form1.contracttype = contractapplication[i].contracttype;
                             this.form1.applicationdate = contractapplication[i].careeryear;
@@ -825,9 +882,18 @@
                                 this.titleType = this.titleType4;
                               }
                               this.tablefourth.push(o);
+
                           }
                       }
                       if (contractnumbercount.length > 0) {
+                        if (contractnumbercount[0].purnumbers!=null && contractnumbercount[0].purnumbers !='' && contractnumbercount[0].purnumbers != undefined)
+                        {
+                          this.showCG = true;
+                        }
+                        else
+                        {
+                          this.showCG = false;
+                        }
                         this.tableclaimtype = contractnumbercount;
                       }
                       this.loading = false;
@@ -840,11 +906,12 @@
                       });
                       this.loading = false
                   })
-          }
+        }
         else
         {
           this.buttonList[1].disabled = true;
         }
+
         let userid = this.$store.getters.userinfo.userid;
         if (userid !== null && userid !== '') {
           let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
@@ -855,6 +922,12 @@
           }else{
             this.checkGroupId = false;
           }
+        }
+        if (this.$route.params._applicantdeptcode)
+        {
+          this.form1.grouporglist = this.$route.params._applicantdeptcode;
+          this.getGroupId(this.form1.grouporglist);
+          this.checkGroupId = true;
         }
         //get customer
         this.getsupplierinfor();
@@ -867,14 +940,15 @@
         this.getContract();
     },
       created() {
+          this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1033View');
           this.disabled = this.$route.params.disabled;
           if (!this.disabled || this.$route.params.state === this.$t("label.PFANS8008FORMVIEW_INVALID")) {
               this.buttonList = [];
           }
-          //画面没有 makeinto按钮，删除
-//          if(this.$route.params._id === ''){
-//              this.buttonList.splice(3, 1);
-//          }
+         //  //画面没有 makeinto按钮，删除
+         // if(this.$route.params._id === ''){
+         //     this.buttonList[3].disabled = true;
+         // }
         },
       methods: {
         getProjectList() {
@@ -977,6 +1051,10 @@
                 }
               }
               this.dialogVisibleB = false;
+              if (this.enableButton === false && this.buttonList.length>3)
+              {
+                this.buttonList[3].disabled  = false;
+              }
               this.loading = false;
             })
             .catch(error => {
@@ -1045,6 +1123,10 @@
                 }
               }
               this.dataA = response;
+              if (this.enableButton === false && this.buttonList.length>3)
+              {
+                this.buttonList[3].disabled  = false;
+              }
               this.loading = false;
             })
             .catch(error => {
@@ -1100,6 +1182,10 @@
                 }
               }
 //            this.contractnumbercount = (letcontractnumber.length + 1);
+              if (this.enableButton === false && this.buttonList.length>3)
+              {
+                this.buttonList[3].disabled  = false;
+              }
               this.loading = false;
             })
             .catch(error => {
@@ -1288,14 +1374,15 @@
                   type: '2',
                   maketype: '',
                 theme: '',//追加
-                temaid: ''
+                temaid: '',
+                checkindivdual:''
               });
           },
           addRowclaimtype() {
             this.tableclaimtype.push({
               contractnumbercount_id: '',
               contractnumber: this.letcontractnumber,
-              claimtype:'',
+              claimtype:'1',
               deliverydate:'',
               completiondate:'',
               claimdate: moment(new Date()).format("YYYY-MM-DD"),
@@ -1304,6 +1391,7 @@
               type: '1',
               maketype: '',
               rowindex:'',
+              purnumbers:'',
             });
           },
           // handleClickE() {
@@ -1396,42 +1484,58 @@
                       }
 
                       this.tableclaimtype = [];
-                      if(this.form.claimtype === "HT001001"){
-                          this.addRowclaimtype();
-                          this.tableclaimtype[0].claimtype = letclaimtypeone;
-                      }
-                      else if(this.form.claimtype === "HT001002"){
-                          this.addRowclaimtype();
-                          this.addRowclaimtype();
-                          this.tableclaimtype[0].claimtype = letclaimtypeone;
-                          this.tableclaimtype[1].claimtype = letclaimtypetwo;
-
-                      }
-                      else if(this.form.claimtype === "HT001003"){
-                          this.addRowclaimtype();
-                          this.addRowclaimtype();
-                          this.addRowclaimtype();
-                          this.tableclaimtype[0].claimtype = letclaimtypeone;
-                          this.tableclaimtype[1].claimtype = letclaimtypetwo;
-                          this.tableclaimtype[2].claimtype = letclaimtypethree;
-
-                      }
-                      else if(this.form.claimtype === "HT001004"){
-                          this.addRowclaimtype();
-                          this.addRowclaimtype();
-                          this.addRowclaimtype();
-                          this.addRowclaimtype();
-                          this.tableclaimtype[0].claimtype = letclaimtypeone;
-                          this.tableclaimtype[1].claimtype = letclaimtypetwo;
-                          this.tableclaimtype[2].claimtype = letclaimtypethree;
-                          this.tableclaimtype[3].claimtype = letclaimtypefour;
-                      }
-
+                      // if(this.form.claimtype === "HT001001"){
+                      //     this.addRowclaimtype();
+                      //     this.tableclaimtype[0].claimtype = letclaimtypeone;
+                      // }
+                      // else if(this.form.claimtype === "HT001002"){
+                      //     this.addRowclaimtype();
+                      //     this.addRowclaimtype();
+                      //     this.tableclaimtype[0].claimtype = letclaimtypeone;
+                      //     this.tableclaimtype[1].claimtype = letclaimtypetwo;
+                      //
+                      // }
+                      // else if(this.form.claimtype === "HT001003"){
+                      //     this.addRowclaimtype();
+                      //     this.addRowclaimtype();
+                      //     this.addRowclaimtype();
+                      //     this.tableclaimtype[0].claimtype = letclaimtypeone;
+                      //     this.tableclaimtype[1].claimtype = letclaimtypetwo;
+                      //     this.tableclaimtype[2].claimtype = letclaimtypethree;
+                      //
+                      // }
+                      // else if(this.form.claimtype === "HT001004"){
+                      //     this.addRowclaimtype();
+                      //     this.addRowclaimtype();
+                      //     this.addRowclaimtype();
+                      //     this.addRowclaimtype();
+                      //     this.tableclaimtype[0].claimtype = letclaimtypeone;
+                      //     this.tableclaimtype[1].claimtype = letclaimtypetwo;
+                      //     this.tableclaimtype[2].claimtype = letclaimtypethree;
+                      //     this.tableclaimtype[3].claimtype = letclaimtypefour;
+                      // }
+                    for (let i = 0; i < this.form.claimtype; i++) {
+                      let letclaimtypeone = this.$t('label.PFANS1026FORMVIEW_D') + (i + 1) + this.$t('label.PFANS1026FORMVIEW_H');
+                      this.addRowclaimtype();
+                      this.tableclaimtype[i].claimtype = letclaimtypeone;
+                    }
                       if(this.checked){
                           for (let i = 0; i < this.tablefourth.length; i++) {
                               this.tablefourth[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID")
                           }
                       }
+
+                    //add ccm 0722
+                    if (this.$route.params._caigouhetongTable)
+                    {
+                      for (let c = 0; c < this.form.claimtype; c++)
+                      {
+                        this.tableclaimtype[c].claimamount = this.$route.params._caigouhetongTable[c].totalamount;
+                        this.tableclaimtype[c].purnumbers = this.$route.params._caigouhetongTable[c].purnumbers;
+                      }
+                    }
+                    //add ccm 0722
+
                       this.addRowfourth();
                       this.getChecked(false);
                       this.dialogVisibleC = false;
@@ -1463,7 +1567,8 @@
               });
           },
           //保存
-          handleSave(){
+          handleSave(tabledatabook){
+
             let baseInfo = {};
             baseInfo.contractapplication = [];
             baseInfo.contractnumbercount = [];
@@ -1471,6 +1576,10 @@
             tabledata = this.tablefourth;
 
             for (let i = 0; i < tabledata.length; i++) {
+              if (this.$route.params._applicantdeptcode)
+              {
+                tabledata[i].checkindivdual = '1';
+              }
               //tabledata[i].state = this.$t('label.PFANS8008FORMVIEW_EFFECTIVE');
               tabledata[i].contractdate = this.getcontractdate(tabledata[i].contractdate);
               tabledata[i].contracttype = this.form.contracttype;
@@ -1500,13 +1609,17 @@
                   this.$store.dispatch('PFANS1026Store/update', baseInfo)
                     .then(response => {
                       this.data = response;
-                      this.loading = false;
-                      Message({
-                        message: this.$t("normal.success_02"),
-                        type: 'success',
-                        duration: 5 * 1000
-                      });
-                      this.paramsTitle();
+                      if (tabledatabook) {
+                        this.handleSaveNumber(tabledatabook);
+                      } else {
+                        Message({
+                          message: this.$t('normal.success_02'),
+                          type: 'success',
+                          duration: 5 * 1000,
+                        });
+                        this.loading = false;
+                        this.paramsTitle();
+                      }
                     })
                     .catch(error => {
                       Message({
@@ -1521,13 +1634,17 @@
                   this.$store.dispatch('PFANS1026Store/insert', baseInfo)
                     .then(response => {
                       this.data = response;
-                      this.loading = false;
-                      Message({
-                        message: this.$t("normal.success_01"),
-                        type: 'success',
-                        duration: 5 * 1000
-                      });
-                      this.paramsTitle();
+                      if (tabledatabook) {
+                        this.handleSaveNumber(tabledatabook);
+                      } else {
+                        Message({
+                          message: this.$t('normal.success_01'),
+                          type: 'success',
+                          duration: 5 * 1000,
+                        });
+                        this.loading = false;
+                        this.paramsTitle();
+                      }
                     })
                     .catch(error => {
                       Message({
@@ -1542,6 +1659,7 @@
             });
           },
           buttonClick(val) {
+            this.$store.commit('global/SET_HISTORYURL', this.$route.path);
             if (val === "application") {
                 this.display = true;
                 this.checkeddisplay = true;
@@ -1550,12 +1668,22 @@
                 this.show2 = false;
                 this.dialogVisibleC = true;
                 if(!this.$route.params._id){
-                    this.form.claimtype = 'HT001001';
-                    this.form.contracttype = 'HT015001';
-                    this.form.applicationdate = 'HT007001';
-                    this.form.entrycondition = 'HT003001';
+                    // this.form.claimtype = 'HT001001';
+                    // this.form.contracttype = 'HT015001';
+                    // this.form.applicationdate = 'HT007001';
+                    // this.form.entrycondition = 'HT003001';
                 }else {
                   this.getChecked(true);
+                }
+                if (this.$route.params._caigouhetongTable)
+                {
+                  // this.caigouhetongTable.length = 5;
+                  this.form1.claimtype = this.$route.params._caigouhetongTable.length;
+                  this.form1.contracttype = 'HT015004';
+                  this.form1.applicationdate = 'HT007003';
+                  this.form1.entrycondition = 'HT003001';
+                  this.form1.grouporglist = this.$route.params._applicantdeptcode;
+
                 }
             }
             if (val === "cancellation") {
@@ -1563,12 +1691,135 @@
                   this.tablefourth[i].state =this.$t('label.PFANS8008FORMVIEW_INVALID');
                   this.tablefourth[i].entrycondition = 'HT004001';
                 }
-                this.handleSave();
+                this.handleSaveLin('cancellation');
             }
             if (val === "save") {
-                this.handleSave();
+                this.handleSaveLin('save');
             }
-        }
+            if (val === 'makeinto') {
+              this.handleSaveLin('makeinto');
+            }
+        },
+        //add ccm 0722
+        handleSaveNumber(tabledata) {
+          this.loading = true;
+          this.$store.dispatch('PFANS1026Store/insertBook', tabledata)
+            .then(response => {
+              this.$store.commit('global/SET_HISTORYURL', '');
+              this.$store.commit('global/SET_WORKFLOWURL', '/FFFFF1024FormView');
+              if (response.awardlist3 != '') {
+                this.$store.commit('global/SET_OPERATEID', response.awardlist3);
+                this.$router.push({
+                  name: 'PFANS1047FormView',
+                  params: {
+                    _checkdisable: this.disable,
+                    check_id: this.IDname,
+                    _checkname: true,
+                    _id: response.awardlist3,
+                    disabled: true,
+                  },
+                });
+              }
+              this.loading = false;
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
+        },
+        //書類作成
+        clickData(val) {
+          this.existCheck(this.letcontractnumber, val);
+        },
+        //存在check222
+        existCheck(contractNumber, index) {
+          // this.checkRequired()
+          this.loading = true;
+          if (contractNumber == null || contractNumber == undefined || contractNumber == '') {
+            Message({
+              message: this.$t('label.PFANS1026FORMVIEW_QXSQFH'),
+              type: 'success',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+            this.dialogBook = false;
+            return;
+          }
+          /*判断是否已经生产决裁书*/
+          this.$store.dispatch('PFANS1026Store/existCheck', {contractNumber: contractNumber})
+            .then(response => {
+              let s = 'count' + index;
+              if (response[s] > 0) {
+                this.tipMes(contractNumber, index);
+
+              } else {
+                var tabledata = {'contractnumber': contractNumber, 'rowindex': index};
+                this.handleSave(tabledata);
+              }
+              this.loading = false;
+              this.dialogBook = false;
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+              this.dialogBook = false;
+            });
+        },
+        tipMes(contractNumber, index) {
+          this.$confirm(this.$t('normal.error_tipis'), this.$t('normal.info'), {
+            confirmButtonText: this.$t('button.confirm'),
+            cancelButtonText: this.$t('button.cancel'),
+            type: 'warning',
+          }).then(() => {
+            var tabledata = {'contractnumber': contractNumber, 'rowindex': index};
+            this.handleSave(tabledata);
+          }).catch(() => {
+            this.$message({
+              type: 'info',
+              message: this.$t('label.PFANS1026FORMVIEW_tipis'),
+            });
+          });
+        },
+        handleSaveLin(val)
+        {
+          if (val === 'makeinto') {
+            this.handleIndexDisabled();
+          } else {
+            this.handleSave();
+          }
+        },
+        handleIndexDisabled() {
+          if (this.letcontractnumber == null || this.letcontractnumber == undefined || this.letcontractnumber == '') {
+            Message({
+              message: this.$t('label.PFANS1026FORMVIEW_QXSQFH'),
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            return;
+          }
+          this.loading = true;
+          this.$store.dispatch('PFANS1026Store/existCheck', {contractNumber: this.letcontractnumber})
+            .then(response => {
+              this.dialogBook = true;
+              this.loading = false;
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+            });
+        },
+        //add ccm 0722
       }
     }
 </script>
