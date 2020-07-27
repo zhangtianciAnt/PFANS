@@ -36,6 +36,7 @@
         data: [],
         pop_download: false,
         Givingid:'',
+        generationdate:'',
         form: {
           generationdate: '',
           generation: '',
@@ -107,6 +108,7 @@
               if(j === 0){
                   if(moment(response[j].generationdate).format('YYYY-MM') === moment(new Date()).format('YYYY-MM')){
                       this.Givingid = response[j].giving_id;
+                      this.generationdate = response[j].generationdate;
                   }
                   //审批结束
                   if(response[j].status === "4" && response[j].grantstatus != '1'){
@@ -215,7 +217,7 @@
         if (val === 'grantthismonth') {
               this.loading = true;
               this.$store
-                  .dispatch('PFANS2005Store/updatestate',{givingid: this.Givingid})
+                  .dispatch('PFANS2005Store/updatestate',{givingid: this.Givingid,generationdate:this.generationdate})
                   .then(response => {
                       this.buttonList[2].disabled = true;
                       this.getGivingList();
