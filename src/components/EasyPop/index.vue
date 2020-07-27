@@ -3,13 +3,13 @@
              :visible.sync="open" :show-close="false" :withHeader="false"
              size="70%">
     <PFANS6002FormView v-show="url === 'PFANS6002FormView'" ref="child"></PFANS6002FormView>
-    <PFANS1032FormView ref="child" v-show="url === 'PFANS1032FormView'"></PFANS1032FormView>
-    <PFANS1031FormView ref="child" v-show="url === 'PFANS1031FormView'"></PFANS1031FormView>
-    <PFANS1025FormView ref="child" v-show="url === 'PFANS1025FormView'"></PFANS1025FormView>
-    <PFANS1006FormView ref="child" v-show="url === 'PFANS1006FormView'"></PFANS1006FormView>
-    <PFANS1047FormView ref="child" v-show="url === 'PFANS1047FormView'"></PFANS1047FormView>
-    <PFANS1035FormView ref="child" v-show="url === 'PFANS1035FormView'"></PFANS1035FormView>
-    <PFANS1002FormView ref="child" v-show="url === 'PFANS1002FormView'"></PFANS1002FormView>
+    <PFANS1032FormView ref="child1" v-show="url === 'PFANS1032FormView'"></PFANS1032FormView>
+    <PFANS1031FormView ref="child2" v-show="url === 'PFANS1031FormView'"></PFANS1031FormView>
+    <PFANS1025FormView ref="child3" v-show="url === 'PFANS1025FormView'"></PFANS1025FormView>
+    <PFANS1006FormView ref="child4" v-show="url === 'PFANS1006FormView'"></PFANS1006FormView>
+    <PFANS1047FormView ref="child5" v-show="url === 'PFANS1047FormView'"></PFANS1047FormView>
+    <PFANS1035FormView ref="child6" v-show="url === 'PFANS1035FormView'"></PFANS1035FormView>
+    <PFANS1002FormView ref="child7" v-show="url === 'PFANS1002FormView'"></PFANS1002FormView>
   </el-drawer>
 </template>
 
@@ -72,7 +72,13 @@
           }
 
           this.$nextTick(function() {
-            this.$refs.child.$refs.container.Pop = true;
+            this.$refs.child1.$refs.container.Pop = true;
+            this.$refs.child2.$refs.container.Pop = true;
+            this.$refs.child3.$refs.container.Pop = true;
+            this.$refs.child4.$refs.container.Pop = true;
+            this.$refs.child5.$refs.container.Pop = true;
+            this.$refs.child6.$refs.container.Pop = true;
+            this.$refs.child7.$refs.container.Pop = true;
           });
         }
       },
