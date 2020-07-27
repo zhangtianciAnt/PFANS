@@ -72,7 +72,7 @@
             filter: true,
           },
           {
-              code: 'moneystatusshow',
+              code: 'paymentshow',
               label: 'label.PFANS2022VIEW_MONEYSTATUS',
               width: 150,
               fix: false,
@@ -135,13 +135,13 @@
                           }
                       }
                       //add_fjl_0708  添加奖金发放状态  start
-                      if (response[j].moneystatus !== null && response[j].moneystatus !== "") {
-                          if (response[j].moneystatus === "1") {
+                      if (response[j].payment !== null && response[j].payment !== "") {
+                          if (response[j].payment === "1") {
                               if (this.$i18n) {
-                                  response[j].moneystatusshow = this.$t('label.PFANS2022VIEW_MONEYSTATUSED');
+                                  response[j].paymentshow = this.$t('label.PFANS2022VIEW_MONEYSTATUSED');
                               }
                           } else {
-                              response[j].moneystatusshow = '';
+                              response[j].paymentshow = '';
                           }
                       }
                       //add_fjl_0708  添加奖金发放状态  end
