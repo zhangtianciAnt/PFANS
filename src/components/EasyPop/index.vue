@@ -72,6 +72,7 @@
           }
 
           this.$nextTick(function() {
+              this.$refs.child.$refs.container.Pop = true;
             this.$refs.child1.$refs.container.Pop = true;
             this.$refs.child2.$refs.container.Pop = true;
             this.$refs.child3.$refs.container.Pop = true;
