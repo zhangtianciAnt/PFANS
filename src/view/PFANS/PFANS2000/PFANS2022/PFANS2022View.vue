@@ -1,7 +1,7 @@
 <template>
   <EasyNormalTable :title="title" :columns="columns" :data="data" :rowid="row" :buttonList="buttonList"
                    @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading"
-                   :showSelection="true" @handleSelectionChange="handleSelectionChange">
+                   :showSelection="true" :selectable="selectInit" ref="dataTable">
   </EasyNormalTable>
 </template>
 
@@ -159,7 +159,6 @@
               })
       },
       rowClick(row) {
-          debugger;
         this.rowid = row.casgiftapplyid;
       },
       buttonClick(val) {
@@ -209,55 +208,47 @@
           })
         }
         if (val === 'release' || val === 'cancelrelease') {
-          if(val === 'release'){
-              this.multipleSelection[0].tenantid = "0";
-          }
-          else{
-              this.multipleSelection[0].tenantid = "1";
-          }
-          if (this.multipleSelection.length <= 0) {
-              Message({
-                  message: this.$t('normal.info_01'),
-                  type: 'info',
-                  duration: 2 * 1000
-              });
+            this.multipleSelection = this.$refs.dataTable.selectedList;
+            if (this.multipleSelection.length <= 0) {
+                Message({
+                    message: this.$t('normal.info_01'),
+                    type: 'info',
+                    duration: 2 * 1000
+                });
 
-              return;
-          }
-          this.loading = true;
-          this.$store
-              .dispatch('PFANS2022Store/updateCasgiftApplyList', this.multipleSelection)
-              .then(response => {
-                  this.data = response;
-                  this.getCasgiftApply();
-                  this.loading = false;
-                  Message({
-                      message: this.$t("normal.success_02"),
-                      type: 'success',
-                      duration: 5 * 1000
-                  });
-              })
-              .catch(error => {
-                  Message({
-                      message: error,
-                      type: 'error',
-                      duration: 5 * 1000
-                  });
-                  this.loading = false;
-              })
+                return;
+            }
+            if(val === 'release'){
+                this.multipleSelection[0].tenantid = "0";
+            }
+            else{
+                this.multipleSelection[0].tenantid = "1";
+            }
+            this.loading = true;
+            this.$store
+                .dispatch('PFANS2022Store/updateCasgiftApplyList', this.multipleSelection)
+                .then(response => {
+                    this.data = response;
+                    this.getCasgiftApply();
+                    this.loading = false;
+                    Message({
+                        message: this.$t("normal.success_02"),
+                        type: 'success',
+                        duration: 5 * 1000
+                    });
+                })
+                .catch(error => {
+                    Message({
+                        message: error,
+                        type: 'error',
+                        duration: 5 * 1000
+                    });
+                    this.loading = false;
+                })
         }
       },
-      handleSelectionChange(val) {
-          this.multipleSelection = val;
-      },
-      toggleSelection(rows) {
-          if (rows) {
-              rows.forEach(row => {
-                  this.$refs.multipleTable.toggleRowSelection(row);
-              });
-          } else {
-              this.$refs.multipleTable.clearSelection();
-          }
+      selectInit(row, index) {
+          return (row.status === '4' &&  row.payment === '0');
       },
     }
   }

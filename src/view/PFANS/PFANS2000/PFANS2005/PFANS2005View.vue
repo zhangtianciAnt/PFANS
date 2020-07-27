@@ -78,7 +78,7 @@
             filter: true,
           },
           {
-            code: 'status',
+            code: 'statuswhow',
             label: 'label.approval_status',
             width: 120,
             fix: false,
@@ -152,7 +152,7 @@
                 response[j].generationdate = moment(response[j].generationdate).format('YYYY-MM');
               }
               if (response[j].status !== null && response[j].status !== '') {
-                response[j].status = getStatus(response[j].status);
+                response[j].statuswhow = getStatus(response[j].status);
               }
               if (response[j].createon !== null && response[j].createon !== '') {
 
@@ -173,6 +173,7 @@
       },
       rowClick(row) {
         this.rowid = row.giving_id;
+        this.status = row.status;
       },
       buttonClick(val) {
         this.$store.commit('global/SET_HISTORYURL', this.$route.path);
@@ -185,9 +186,16 @@
             });
             return;
           }
+          if(this.status === '2' || this.status === '4'){
+              this.status = '2'
+          }
+          else{
+              this.status = '0'
+          }
           this.$router.push({
             name: 'PFANS2005FormView',
             params: {
+              status:this.status,
               _id: this.rowid,
               disabled: false,
             },

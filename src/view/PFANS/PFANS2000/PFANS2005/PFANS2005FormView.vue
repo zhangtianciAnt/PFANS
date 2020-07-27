@@ -3520,6 +3520,10 @@
             // element.$el.addEventListener("scroll", this.handleScroll, true);
             // const dom = this.$refs["eltable"].$el;
             // dom.addEventListener("scroll", this.handleScroll, true);
+            if(this.$route.params.status === '2'){
+                this.buttonList[0].disabled = true;
+                this.buttonList[1].disabled = true;
+            }
         },
         // zqu start 监听过滤名称
         watch: {
@@ -5128,6 +5132,9 @@
                 }
             },
             handleClick(tab, event) {
+                if(this.$route.params.status === '2'){
+                    return;
+                }
                 //调用保存-lxx
                 this.tabInfoSave();
                 //调用保存-lxx
