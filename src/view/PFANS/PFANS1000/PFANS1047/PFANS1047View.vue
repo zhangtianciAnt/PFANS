@@ -119,7 +119,7 @@
       getPjanme() {
         this.loading = true;
         this.$store
-          .dispatch('PFANS1025Store/getList', {'maketype': '8'})
+          .dispatch('PFANS1025Store/getList', {'maketype': '9'})
           .then(response => {
             for (let i = 0; i < response.length; i++)
             {
@@ -206,7 +206,6 @@
           });
         }
         if (val === "sealapp") {
-          debugger;
           this.selectedlist = this.$refs.roletable.selectedList;
           if (this.$refs.roletable.selectedList.length === 0) {
             Message({
@@ -223,7 +222,7 @@
               ppid += this.selectedlist[i].award_id + ",";
             }
             if (ppid && ppid.length > 0) {
-              bookid = "8," + ppid.substr(0, ppid.length - 1);
+              bookid = "9," + ppid.substr(0, ppid.length - 1);
             }
           }
           let crePe = {};
