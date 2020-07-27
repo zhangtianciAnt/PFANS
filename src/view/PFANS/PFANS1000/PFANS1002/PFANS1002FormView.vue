@@ -4,6 +4,7 @@
       :buttonList="buttonList"
       :canStart="canStart"
       :title="title"
+      :noback="noback"
       :enableSave="enableSave"
       @buttonClick="buttonClick"
       @end="end"
@@ -824,6 +825,7 @@
         callback();
       };
       return {
+        noback: false,
         optionsdate: [{value: 'PP024001', lable: this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')}],
         options: [],
         centerid: '',
@@ -1603,6 +1605,10 @@
             icon: 'el-icon-check',
           },
         ];
+      }
+      if (this.$route.params.disabled === "") {
+        this.noback = true
+        this.buttonList = []
       }
       //add-ws-7/7-禅道247
       // if (this.$route.params._type === 3) {

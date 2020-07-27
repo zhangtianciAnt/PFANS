@@ -5194,6 +5194,7 @@
                 this.clear(true);
             },
             handleSuccess(response, file, fileList) {
+                this.loading = true;
                 if (response.code !== 0) {
                     this.cuowu = response.message;
                     if (this.tab === "3") {
@@ -5300,7 +5301,9 @@
                             }
                         }
                     }
+                    this.tabInfoSave();
                 }
+                this.loading = false;
             },
             clear(safe) {
                 this.file = null;
@@ -5339,7 +5342,7 @@
                 if (val === "import") {
                     if (this.tab === "3") {
                         this.OTherTwo.giving_id = this.Giving;
-                        this.OTherTwo.type = "0";
+                        this.OTherTwo.type = "1";
                         this.$store
                             .dispatch("PFANS2005Store/deleteothertwo", {
                                 type: "1",

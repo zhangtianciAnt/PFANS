@@ -1140,26 +1140,26 @@
               <el-row>
                 <el-table
                   :data="DataList"
-                  style="width: 665px"
+                  style="width: 978px"
                   header-cell-class-name="sub_bg_color_blue" stripe border
                 >
                   <el-table-column
                     align="center"
                     prop="judgement_name"
                     :label="$t('label.judgement')"
-                    width="150px">
+                    width="180px">
                   </el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS1006FORMVIEW_DECISIVE')"
                     align="center"
                     prop="judgements_type"
-                    width="315px">
+                    width="180px">
                   </el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS1045VIEW_MONEYS')"
                     align="center"
                     prop="judgements_moneys"
-                    width="315px">
+                    width="100px">
                   </el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS1012VIEW_ABSTRACT')"
