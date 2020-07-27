@@ -921,7 +921,7 @@
                           }
                       } else {
                           if (this.$i18n) {
-                              vote.judgements_type = this.$t('title.PFANS1012VIEW_PURCHASSESWC');
+                              vote.judgements_type = this.$t('label.PFANS1012VIEW_PURCHASSESWC');
                           }
                       }
                       optionsSEL.push(vote);
@@ -946,7 +946,8 @@
                           }
                       } else {
                           if (this.$i18n) {
-                              judname = this.$t('title.PFANS1012VIEW_PURCHASSESWC');
+                              judname = this.$t('label.PFANS1012VIEW_PURCHASSESWC');
+                              alert(judname)
                           }
                       }
                       this.$router.push({
