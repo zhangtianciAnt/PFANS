@@ -20,7 +20,7 @@
   import EasyNormalTable from '@/components/EasyNormalTable';
   import {Message} from 'element-ui';
   import moment from 'moment';
-  import {getStatus, getUserInfo, getDictionaryInfo, getOrgInfoByUserId} from '@/utils/customize';
+  import {getStatus, getUserInfo, getDictionaryInfo, getOrgInfoByUserId,getCurrentRolegongzijisuan} from '@/utils/customize';
 
   export default {
     name: 'PFANS2026View',
@@ -261,7 +261,10 @@
               if (response) {
                 if (response.length > 0 && response[0].status === '通过' && row.status === this.$t('label.PFANS5004VIEW_OVERTIME')) {
                   this.buttonList[5].disabled = false;
-                  this.buttonList[6].disabled = false;
+                  if (getCurrentRolegongzijisuan() === '0')
+                  {
+                      this.buttonList[6].disabled = false;
+                  }
                 }
                 else{
                   this.buttonList[5].disabled = true;

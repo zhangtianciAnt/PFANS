@@ -687,130 +687,133 @@
         this.$store
           .dispatch('PFANS1025Store/selectById', {'award_id': this.$route.params._id})
           .then(response => {
-            this.form = response.award;
-            if (this.form.status === '4' || this.form.status === '2') {
-              this.enableSave = false;
-            } else {
-              this.enableSave = true;
-            }
-            //add-ws-契约种类value1值处理
-            // if (this.form.contracttype !== null && this.form.contracttype !== '') {
-            //   let letContracttype = getDictionaryInfo(this.form.contracttype);
-            //   if (letContracttype != null) {
-            //     this.form.contracttype = letContracttype.value1;
-            //   }
-            // }
-            //add-ws-契约种类value1值处理
-            if (getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)) {
-              this.budgetcodingcheck = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
-            }
-            if (this.$store.getters.userinfo.userid) {
-              this.form.telephone = getUserInfo(this.$store.getters.userinfo.userid).userinfo.extension;
-            }
-            this.form.draftingdate = moment(new Date()).format('YYYY-MM-DD');
-            var myDate = new Date();
-            myDate.setDate(myDate.getDate() + 2);
-            this.form.scheduleddate = moment(myDate).format('YYYY-MM-DD');
-            if (this.form.claimdatetime !== '' && this.form.claimdatetime !== null) {
-              this.form.claimdatetimeStart = this.form.claimdatetime.slice(0, 10);
-              this.form.claimdatetimeEnd = this.form.claimdatetime.slice(this.form.claimdatetime.length - 10);
-            }
-            //add-ws-添加上传附件功能
-            if (this.form.uploadfile != '' && this.form.uploadfile != null) {
-              let uploadfile = this.form.uploadfile.split(';');
-              for (var i = 0; i < uploadfile.length; i++) {
-                if (uploadfile[i].split(',')[0] != '') {
-                  let o = {};
-                  o.name = uploadfile[i].split(',')[0];
-                  o.url = uploadfile[i].split(',')[1];
-                  this.fileList.push(o);
-                }
-              }
-            }
-            //add-ws-添加上传附件功能
-            if (response.awardDetail.length > 0) {
-              let check = 0;
-              let data = [];
-              for (let i = 0; i < response.awardDetail.length; i++) {
-                if (response.awardDetail[i].budgetcode === this.$t('label.PFANS1025FORMVIEW_CHECKERROR')) {
-                  check = check + 1;
-                  break;
-                }
-              }
-              if (check === 0) {
-                this.tableT.push({
-                  budgetcode: this.$t('label.PFANS1025FORMVIEW_CHECKERROR'),
-                  depart: '',
-                  member: '',
-                  community: '',
-                  outsource: '',
-                  outcommunity: '',
-                  worknumber: '',
-                  awardmoney: '',
-                  rowindex: '',
-                });
-                this.tableT = data.concat(response.awardDetail);
-              } else {
-                this.tableT = response.awardDetail;
-              }
-              for (var i = 0; i < this.tableT.length; i++) {
-                this.orglist = this.tableT[i].depart;
-                if (this.tableT[i].depart !== '' && this.tableT[i].depart !== null && this.tableT[i].depart !== undefined) {
-                  //ADD_FJL
-                  this.tableT[i].options1 = [];
-                  let butinfo = getOrgInfo(this.tableT[i].depart).encoding;
-                  let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-                  if (dic.length > 0) {
-                    for (let j = 0; j < dic.length; j++) {
-                      if (butinfo === dic[j].value1) {
-                        this.tableT[i].options1.push({
-                          lable: dic[j].value2 + '_' + dic[j].value3,
-                          value: dic[j].code,
-                        });
-                      }
-                    }
+            debugger
+              if (response.award != null) {
+                  this.form = response.award;
+                  if (this.form.status === '4' || this.form.status === '2') {
+                      this.enableSave = false;
+                  } else {
+                      this.enableSave = true;
                   }
-                  //ADD_FJL  修改人员预算编码
-                }
+                  //add-ws-契约种类value1值处理
+                  // if (this.form.contracttype !== null && this.form.contracttype !== '') {
+                  //   let letContracttype = getDictionaryInfo(this.form.contracttype);
+                  //   if (letContracttype != null) {
+                  //     this.form.contracttype = letContracttype.value1;
+                  //   }
+                  // }
+                  //add-ws-契约种类value1值处理
+                  if (getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)) {
+                      this.budgetcodingcheck = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
+                  }
+                  if (this.$store.getters.userinfo.userid) {
+                      this.form.telephone = getUserInfo(this.$store.getters.userinfo.userid).userinfo.extension;
+                  }
+                  this.form.draftingdate = moment(new Date()).format('YYYY-MM-DD');
+                  var myDate = new Date();
+                  myDate.setDate(myDate.getDate() + 2);
+                  this.form.scheduleddate = moment(myDate).format('YYYY-MM-DD');
+                  if (this.form.claimdatetime !== '' && this.form.claimdatetime !== null) {
+                      this.form.claimdatetimeStart = this.form.claimdatetime.slice(0, 10);
+                      this.form.claimdatetimeEnd = this.form.claimdatetime.slice(this.form.claimdatetime.length - 10);
+                  }
+                  //add-ws-添加上传附件功能
+                  if (this.form.uploadfile != '' && this.form.uploadfile != null) {
+                      let uploadfile = this.form.uploadfile.split(';');
+                      for (var i = 0; i < uploadfile.length; i++) {
+                          if (uploadfile[i].split(',')[0] != '') {
+                              let o = {};
+                              o.name = uploadfile[i].split(',')[0];
+                              o.url = uploadfile[i].split(',')[1];
+                              this.fileList.push(o);
+                          }
+                      }
+                  }
+                  //add-ws-添加上传附件功能
+                  if (response.awardDetail.length > 0) {
+                      let check = 0;
+                      let data = [];
+                      for (let i = 0; i < response.awardDetail.length; i++) {
+                          if (response.awardDetail[i].budgetcode === this.$t('label.PFANS1025FORMVIEW_CHECKERROR')) {
+                              check = check + 1;
+                              break;
+                          }
+                      }
+                      if (check === 0) {
+                          this.tableT.push({
+                              budgetcode: this.$t('label.PFANS1025FORMVIEW_CHECKERROR'),
+                              depart: '',
+                              member: '',
+                              community: '',
+                              outsource: '',
+                              outcommunity: '',
+                              worknumber: '',
+                              awardmoney: '',
+                              rowindex: '',
+                          });
+                          this.tableT = data.concat(response.awardDetail);
+                      } else {
+                          this.tableT = response.awardDetail;
+                      }
+                      for (var i = 0; i < this.tableT.length; i++) {
+                          this.orglist = this.tableT[i].depart;
+                          if (this.tableT[i].depart !== '' && this.tableT[i].depart !== null && this.tableT[i].depart !== undefined) {
+                              //ADD_FJL
+                              this.tableT[i].options1 = [];
+                              let butinfo = getOrgInfo(this.tableT[i].depart).encoding;
+                              let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+                              if (dic.length > 0) {
+                                  for (let j = 0; j < dic.length; j++) {
+                                      if (butinfo === dic[j].value1) {
+                                          this.tableT[i].options1.push({
+                                              lable: dic[j].value2 + '_' + dic[j].value3,
+                                              value: dic[j].code,
+                                          });
+                                      }
+                                  }
+                              }
+                              //ADD_FJL  修改人员预算编码
+                          }
+                      }
+                  }
+                  let mamount = 0;
+                  if (response.numbercounts.length > 0) {
+
+                      for (let i = 0; i < response.numbercounts.length; i++) {
+                          let letCurrencyposition = getDictionaryInfo(response.numbercounts[i].currencyposition);
+                          if (letCurrencyposition != null) {
+                              response.numbercounts[i].currencyposition = letCurrencyposition.value1;
+                          }
+                          let deliverydate = response.numbercounts[i].deliverydate;
+                          let completiondate = response.numbercounts[i].completiondate;
+                          let claimdate = response.numbercounts[i].claimdate;
+                          let supportdate = response.numbercounts[i].supportdate;
+
+                          if (deliverydate !== '' && deliverydate != null) {
+                              response.numbercounts[i].deliverydate = moment(deliverydate).format('YYYY-MM-DD');
+                          }
+                          if (completiondate !== '' && completiondate != null) {
+                              response.numbercounts[i].completiondate = moment(completiondate).format('YYYY-MM-DD');
+                          }
+                          if (claimdate !== '' && claimdate != null) {
+                              response.numbercounts[i].claimdate = moment(claimdate).format('YYYY-MM-DD');
+                          }
+                          if (supportdate !== '' && supportdate != null) {
+                              response.numbercounts[i].supportdate = moment(supportdate).format('YYYY-MM-DD');
+                          }
+                          mamount += parseFloat(response.numbercounts[i].claimamount);
+                      }
+                  }
+
+                  this.tableS = response.numbercounts;
+                  this.form.claimamount = mamount;
+                  this.userlist = this.form.user_id;
+                  // add-ws-7/17-禅道116任务
+                  this.getpolicycontract(this.form.policycontract_id);
+                  // add-ws-7/17-禅道116任务
+                  this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
+                  this.baseInfo.awardDetail = JSON.parse(JSON.stringify(this.tableT));
               }
-            }
-            let mamount = 0;
-            if (response.numbercounts.length > 0) {
-
-              for (let i = 0; i < response.numbercounts.length; i++) {
-                let letCurrencyposition = getDictionaryInfo(response.numbercounts[i].currencyposition);
-                if (letCurrencyposition != null) {
-                  response.numbercounts[i].currencyposition = letCurrencyposition.value1;
-                }
-                let deliverydate = response.numbercounts[i].deliverydate;
-                let completiondate = response.numbercounts[i].completiondate;
-                let claimdate = response.numbercounts[i].claimdate;
-                let supportdate = response.numbercounts[i].supportdate;
-
-                if (deliverydate !== '' && deliverydate != null) {
-                  response.numbercounts[i].deliverydate = moment(deliverydate).format('YYYY-MM-DD');
-                }
-                if (completiondate !== '' && completiondate != null) {
-                  response.numbercounts[i].completiondate = moment(completiondate).format('YYYY-MM-DD');
-                }
-                if (claimdate !== '' && claimdate != null) {
-                  response.numbercounts[i].claimdate = moment(claimdate).format('YYYY-MM-DD');
-                }
-                if (supportdate !== '' && supportdate != null) {
-                  response.numbercounts[i].supportdate = moment(supportdate).format('YYYY-MM-DD');
-                }
-                mamount += parseFloat(response.numbercounts[i].claimamount);
-              }
-            }
-
-            this.tableS = response.numbercounts;
-            this.form.claimamount = mamount;
-            this.userlist = this.form.user_id;
-            // add-ws-7/17-禅道116任务
-            this.getpolicycontract(this.form.policycontract_id);
-            // add-ws-7/17-禅道116任务
-            this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
-            this.baseInfo.awardDetail = JSON.parse(JSON.stringify(this.tableT));
             this.loading = false;
           })
           .catch(error => {

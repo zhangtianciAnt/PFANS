@@ -249,39 +249,13 @@
                   :label="$t('label.PFANS2006VIEW_OTHER3')"
                   width="150"
                   align="center"
-                >
-                  <!-- zqu start -->
-                  <template slot-scope="scope">
-                    <el-input-number
-                      v-model="scope.row.other3"
-                      @change="wagesChange(scope.row,scope.row.no,scope.row.other3,'other3')"
-                      controls-position="right"
-                      :min="-10000000"
-                      size="mini"
-                      style="width:7rem"
-                    ></el-input-number>
-                  </template>
-                  <!-- zqu end -->
-                </plx-table-column>
+                ></plx-table-column>
                 <plx-table-column
                   prop="total2"
                   :label="$t('label.PFANS2006VIEW_SUBTOTAL2')"
                   width="150"
                   align="center"
-                >
-                  <!-- gbb 0720 工资计算画面调整项目添加 start -->
-                  <template slot-scope="scope">
-                    <el-input-number
-                      v-model="scope.row.total2"
-                      @change="wagesChange(scope.row,scope.row.no,scope.row.total2,'total2')"
-                      controls-position="right"
-                      :min="-10000000"
-                      size="mini"
-                      style="width:7rem"
-                    ></el-input-number>
-                  </template>
-                  <!-- gbb 0720 工资计算画面调整项目添加 end -->
-                </plx-table-column>
+                ></plx-table-column>
                 <!-- </plx-table-column> -->
 
                 <plx-table-column
@@ -325,58 +299,19 @@
                   :label="$t('label.PFANS2006VIEW_OLD')"
                   width="150"
                   align="center"
-                >
-                  <!-- gbb 0720 工资计算画面调整项目添加 start -->
-                  <template slot-scope="scope">
-                    <el-input-number
-                      v-model="scope.row.endowmentinsurance"
-                      @change="wagesChange(scope.row,scope.row.no,scope.row.endowmentinsurance,'endowmentinsurance')"
-                      controls-position="right"
-                      :min="-10000000"
-                      size="mini"
-                      style="width:7rem"
-                    ></el-input-number>
-                  </template>
-                  <!-- gbb 0720 工资计算画面调整项目添加 end -->
-                </plx-table-column>
+                ></plx-table-column>
                 <plx-table-column
                   prop="medicalinsurance"
                   :label="$t('label.PFANS2006VIEW_MEDICAL')"
                   width="150"
                   align="center"
-                >
-                  <!-- gbb 0720 工资计算画面调整项目添加 start -->
-                  <template slot-scope="scope">
-                    <el-input-number
-                      v-model="scope.row.medicalinsurance"
-                      @change="wagesChange(scope.row,scope.row.no,scope.row.medicalinsurance,'medicalinsurance')"
-                      controls-position="right"
-                      :min="-10000000"
-                      size="mini"
-                      style="width:7rem"
-                    ></el-input-number>
-                  </template>
-                  <!-- gbb 0720 工资计算画面调整项目添加 end -->
-                </plx-table-column>
+                ></plx-table-column>
                 <plx-table-column
                   prop="unemploymentinsurance"
                   :label="$t('label.PFANS2006VIEW_UNEMPLOYMENT')"
                   width="150"
                   align="center"
-                >
-                  <!-- gbb 0720 工资计算画面调整项目添加 start -->
-                  <template slot-scope="scope">
-                    <el-input-number
-                      v-model="scope.row.unemploymentinsurance"
-                      @change="wagesChange(scope.row,scope.row.no,scope.row.unemploymentinsurance,'unemploymentinsurance')"
-                      controls-position="right"
-                      :min="-10000000"
-                      size="mini"
-                      style="width:7rem"
-                    ></el-input-number>
-                  </template>
-                  <!-- gbb 0720 工资计算画面调整项目添加 end -->
-                </plx-table-column>
+                ></plx-table-column>
                 <!-- </plx-table-column> -->
 
                 <plx-table-column
@@ -384,56 +319,13 @@
                   :label="$t('label.PFANS2006VIEW_SOCIALSECURITY')"
                   width="150"
                   align="center"
-                >
-                  <!-- gbb 0720 工资计算画面调整项目添加 start -->
-                  <template slot-scope="scope">
-                    <el-input-number
-                      v-model="scope.row.socialinsurance"
-                      @change="wagesChange(scope.row,scope.row.no,scope.row.socialinsurance,'socialinsurance')"
-                      controls-position="right"
-                      :min="-10000000"
-                      size="mini"
-                      style="width:7rem"
-                    ></el-input-number>
-                  </template>
-                  <!-- gbb 0720 工资计算画面调整项目添加 end -->
-                </plx-table-column>
-                <!--                  <plx-table-column-->
-                <!--                    prop="adjustment"-->
-                <!--                    :label="$t('label.PFANS2005FORMVIEW_ADJUSTMENTNUMBER')"-->
-                <!--                    width="150"-->
-                <!--                    align="center"-->
-                <!--                  >-->
-                <!--                    <template slot-scope="scope">-->
-                <!--                      <el-input-number-->
-                <!--                        v-model="scope.row.adjustment"-->
-                <!--                        @change="wagesChange(scope.row,scope.row.no,scope.row.adjustment,'socialinsurance')"-->
-                <!--                        controls-position="right"-->
-                <!--                        :min="-10000000"-->
-                <!--                        size="mini"-->
-                <!--                        style="width:7rem"-->
-                <!--                      ></el-input-number>-->
-                <!--                    </template>-->
-                <!--                  </plx-table-column>-->
+                ></plx-table-column>
                 <plx-table-column
                   prop="accumulationfund"
                   :label="$t('label.PFANS2006VIEW_PUBLICMONEY')"
                   width="150"
                   align="center"
-                >
-                  <!-- gbb 0720 工资计算画面调整项目添加 start -->
-                  <template slot-scope="scope">
-                    <el-input-number
-                      v-model="scope.row.accumulationfund"
-                      @change="wagesChange(scope.row,scope.row.no,scope.row.accumulationfund,'accumulationfund')"
-                      controls-position="right"
-                      :min="-10000000"
-                      size="mini"
-                      style="width:7rem"
-                    ></el-input-number>
-                  </template>
-                  <!-- gbb 0720 工资计算画面调整项目添加 end -->
-                </plx-table-column>
+                ></plx-table-column>
                 <plx-table-column
                   prop="disciplinarycontrol"
                   :label="$t('label.PFANS2006VIEW_SECURITYMON')"
@@ -610,39 +502,13 @@
                   :label="$t('label.PFANS2006VIEW_COMPANYBOSS')"
                   width="230"
                   align="center"
-                >
-                  <!-- gbb 0720 工资计算画面调整项目添加 start -->
-                  <template slot-scope="scope">
-                    <el-input-number
-                      v-model="scope.row.other4"
-                      @change="wagesChange(scope.row,scope.row.no,scope.row.other4,'other4')"
-                      controls-position="right"
-                      :min="-10000000"
-                      size="mini"
-                      style="width:7rem"
-                    ></el-input-number>
-                  </template>
-                  <!-- gbb 0720 工资计算画面调整项目添加 end -->
-                </plx-table-column>
+                ></plx-table-column>
                 <plx-table-column
                   prop="other5"
                   :label="$t('label.PFANS2006VIEW_OTHER5')"
                   width="150"
                   align="center"
-                >
-                  <!-- gbb 0720 工资计算画面调整项目添加 start -->
-                  <template slot-scope="scope">
-                    <el-input-number
-                      v-model="scope.row.other5"
-                      @change="wagesChange(scope.row,scope.row.no,scope.row.other5,'other5')"
-                      controls-position="right"
-                      :min="-10000000"
-                      size="mini"
-                      style="width:7rem"
-                    ></el-input-number>
-                  </template>
-                  <!-- gbb 0720 工资计算画面调整项目添加 end -->
-                </plx-table-column>
+                ></plx-table-column>
                 <!-- </plx-table-column> -->
 
                 <plx-table-column
@@ -668,20 +534,7 @@
                   :label="$t('label.PFANS2006VIEW_THISMONTH')"
                   width="150"
                   align="center"
-                >
-                  <!-- gbb 0720 工资计算画面调整项目添加 start -->
-                  <template slot-scope="scope">
-                    <el-input-number
-                      v-model="scope.row.thismonthadjustment"
-                      @change="wagesChange(scope.row,scope.row.no,scope.row.thismonthadjustment,'thismonthadjustment')"
-                      controls-position="right"
-                      :min="-10000000"
-                      size="mini"
-                      style="width:7rem"
-                    ></el-input-number>
-                  </template>
-                  <!-- gbb 0720 工资计算画面调整项目添加 end -->
-                </plx-table-column>
+                ></plx-table-column>
                 <plx-table-column
                   prop="realwages"
                   :label="$t('label.PFANS2006VIEW_ACTUAL')"
@@ -698,96 +551,31 @@
                   :label="$t('label.PFANS2006VIEW_OLD')"
                   width="150"
                   align="center"
-                >
-                  <!-- gbb 0720 工资计算画面调整项目添加 start -->
-                  <template slot-scope="scope">
-                    <el-input-number
-                      v-model="scope.row.comendowmentinsurance"
-                      @change="wagesChange(scope.row,scope.row.no,scope.row.comendowmentinsurance,'comendowmentinsurance')"
-                      controls-position="right"
-                      :min="-10000000"
-                      size="mini"
-                      style="width:7rem"
-                    ></el-input-number>
-                  </template>
-                  <!-- gbb 0720 工资计算画面调整项目添加 end -->
-                </plx-table-column>
+                ></plx-table-column>
                 <plx-table-column
                   prop="commedicalinsurance"
                   :label="$t('label.PFANS2006VIEW_MEDICAL')"
                   width="150"
                   align="center"
-                >
-                  <!-- gbb 0720 工资计算画面调整项目添加 start -->
-                  <template slot-scope="scope">
-                    <el-input-number
-                      v-model="scope.row.commedicalinsurance"
-                      @change="wagesChange(scope.row,scope.row.no,scope.row.commedicalinsurance,'commedicalinsurance')"
-                      controls-position="right"
-                      :min="-10000000"
-                      size="mini"
-                      style="width:7rem"
-                    ></el-input-number>
-                  </template>
-                  <!-- gbb 0720 工资计算画面调整项目添加 end -->
-                </plx-table-column>
+                ></plx-table-column>
                 <plx-table-column
                   prop="comunemploymentinsurance"
                   :label="$t('label.PFANS2006VIEW_UNEMPLOYMENT')"
                   width="150"
                   align="center"
-                >
-                  <!-- gbb 0720 工资计算画面调整项目添加 start -->
-                  <template slot-scope="scope">
-                    <el-input-number
-                      v-model="scope.row.comunemploymentinsurance"
-                      @change="wagesChange(scope.row,scope.row.no,scope.row.comunemploymentinsurance,'comunemploymentinsurance')"
-                      controls-position="right"
-                      :min="-10000000"
-                      size="mini"
-                      style="width:7rem"
-                    ></el-input-number>
-                  </template>
-                  <!-- gbb 0720 工资计算画面调整项目添加 end -->
-                </plx-table-column>
+                ></plx-table-column>
                 <plx-table-column
                   prop="cominjuryinsurance"
                   :label="$t('label.PFANS2005FORMVIEW_EMPLOYMENTINJURYINSURANCE')"
                   width="150"
                   align="center"
-                >
-                  <!-- gbb 0720 工资计算画面调整项目添加 start -->
-                  <template slot-scope="scope">
-                    <el-input-number
-                      v-model="scope.row.cominjuryinsurance"
-                      @change="wagesChange(scope.row,scope.row.no,scope.row.cominjuryinsurance,'cominjuryinsurance')"
-                      controls-position="right"
-                      :min="-10000000"
-                      size="mini"
-                      style="width:7rem"
-                    ></el-input-number>
-                  </template>
-                  <!-- gbb 0720 工资计算画面调整项目添加 end -->
-                </plx-table-column>
+                ></plx-table-column>
                 <plx-table-column
                   prop="combirthinsurance"
                   :label="$t('label.PFANS2005FORMVIEW_COMBIRTHINSURANCE')"
                   width="150"
                   align="center"
-                >
-                  <!-- gbb 0720 工资计算画面调整项目添加 start -->
-                  <template slot-scope="scope">
-                    <el-input-number
-                      v-model="scope.row.combirthinsurance"
-                      @change="wagesChange(scope.row,scope.row.no,scope.row.combirthinsurance,'combirthinsurance')"
-                      controls-position="right"
-                      :min="-10000000"
-                      size="mini"
-                      style="width:7rem"
-                    ></el-input-number>
-                  </template>
-                  <!-- gbb 0720 工资计算画面调整项目添加 end -->
-                </plx-table-column>
+                ></plx-table-column>
                 <plx-table-column
                   prop="comheating"
                   :label="$t('label.PFANS2005FORMVIEW_HEATINGCOST')"
@@ -799,58 +587,13 @@
                   :label="$t('label.PFANS2005FORMVIEW_HOUSINGPROVIDENTFUND')"
                   width="150"
                   align="center"
-                >
-                  <!-- gbb 0720 工资计算画面调整项目添加 start -->
-                  <template slot-scope="scope">
-                    <el-input-number
-                      v-model="scope.row.comaccumulationfund"
-                      @change="wagesChange(scope.row,scope.row.no,scope.row.comaccumulationfund,'comaccumulationfund')"
-                      controls-position="right"
-                      :min="-10000000"
-                      size="mini"
-                      style="width:7rem"
-                    ></el-input-number>
-                  </template>
-                  <!-- gbb 0720 工资计算画面调整项目添加 end -->
-                </plx-table-column>
+                ></plx-table-column>
                 <plx-table-column
                   prop="total"
                   :label="$t('label.PFANS2005FORMVIEW_TOTAL')"
                   width="150"
                   align="center"
-                >
-                  <!-- gbb 0720 工资计算画面调整项目添加 start -->
-                  <template slot-scope="scope">
-                    <el-input-number
-                      v-model="scope.row.total"
-                      @change="wagesChange(scope.row,scope.row.no,scope.row.total,'total')"
-                      controls-position="right"
-                      :min="-10000000"
-                      size="mini"
-                      style="width:7rem"
-                    ></el-input-number>
-                  </template>
-                  <!-- gbb 0720 工资计算画面调整项目添加 end -->
-                </plx-table-column>
-                <!-- </plx-table-column> -->
-
-                <!--                  <plx-table-column-->
-                <!--                    prop="totaladjustment"-->
-                <!--                    :label="$t('label.PFANS2005FORMVIEW_ADJUSTMENTNUMBER')"-->
-                <!--                    width="150"-->
-                <!--                    align="center"-->
-                <!--                  >-->
-                <!--                    <template slot-scope="scope">-->
-                <!--                      <el-input-number-->
-                <!--                        v-model="scope.row.totaladjustment"-->
-                <!--                        @change="wagesChange(scope.row,scope.row.no,scope.row.totaladjustment,'total')"-->
-                <!--                        controls-position="right"-->
-                <!--                        :min="-10000000"-->
-                <!--                        size="mini"-->
-                <!--                        style="width:7rem"-->
-                <!--                      ></el-input-number>-->
-                <!--                    </template>-->
-                <!--                  </plx-table-column>-->
+                ></plx-table-column>
                 <plx-table-column
                   prop="labourunionbase"
                   :label="$t('label.PFANS2005FORMVIEW_LABORUNIONFUNDBASE')"
@@ -892,20 +635,7 @@
                   :label="$t('label.PFANS2005FORMVIEW_OTHER6')"
                   width="150"
                   align="center"
-                >
-                  <!-- gbb 0720 工资计算画面调整项目添加 start -->
-                  <template slot-scope="scope">
-                    <el-input-number
-                      v-model="scope.row.other6"
-                      @change="wagesChange(scope.row,scope.row.no,scope.row.other6,'totalbonus')"
-                      controls-position="right"
-                      :min="-10000000"
-                      size="mini"
-                      style="width:7rem"
-                    ></el-input-number>
-                  </template>
-                  <!-- gbb 0720 工资计算画面调整项目添加 end -->
-                </plx-table-column>
+                ></plx-table-column>
               </plx-table-grid>
               </div>
             </el-row>
@@ -947,6 +677,8 @@
                   response[i].user_name = user.userinfo.customername;
                   response[i].department_id = user.userinfo.budgetunit;
               }
+              //入社时间
+              response[i].workdate = moment(response[i].workdate).format('YYYY-MM-DD')
               if(i === 0){
                   response[i].no = this.$t("label.PFANS2034VIEW_ESTIMATE")
               }
@@ -973,260 +705,49 @@
             this.loading = false;
           });
       },
-      wagesChange(row, noId, val, prop) {
-            //其他3
-            if (prop === 'other3') {
-                //纳税工资总额(小计1+2)
-                row.total2 = Math.round((Number(row.total2) + Number(val)) * 100) / 100;
-                //纳税工资总额(小计1+2)
-                row.taxestotal = Math.round((Number(row.total1) + Number(val)) * 100) / 100;
-                //工资总额(纳税+免税)
-                row.totalwages = Math.round((Number(row.taxestotal) + Number(row.total3)) * 100) / 100;
-                //当月応発工資（工资总额(纳税+免税)+只納税）
-                //@DYYKGZ := round( ( @工资总额(纳税+免税) + @住房公积金应纳税金额 + @其他4 + @其他5 ), 2 ) AS SHOULDWAGES,#当月応発工資（工资总额(纳税+免税)+只納税）
-                row.shouldwages = Math.round((Number(row.totalwages) + Number(row.housingmoneys) + Number(row.other4) + Number(row.other5)) * 100) / 100;
-                //累計応発工資（当月含）
-                //@YEARSTOTAL12 := round(base.COMPREHENSIVE_YEARSTOTAL12 + @DYYKGZ,2) AS SHOULDCUMULATIVE,#累計応発工資（当月含）
-                row.shouldcumulative = Math.round((Number(row.comprehensive_yearstotal12)+ Number(row.shouldwages)) * 100) / 100;
-                //累計应纳税所得额
-                let thismonthterm = Number(row.thismonthterm) + Number(row.thismonthadditional) + Number(row.thismonthdutyfree)
-                let newdate = new Date();
-                //入社日
-                let workdate = new Date(row.workdate);
-                if(newdate.getFullYear() === workdate.getFullYear()){
-                    row.shouldpaytaxes = Math.round((Number(row.shouldcumulative) - Number(row.dic_ljynssdecs) * ( newdate.getMonth() - 1- workdate.getMonth() + 1 ) - thismonthterm) * 100) / 100;
-                }
-                else{
-                    row.shouldpaytaxes = Math.round((Number(row.shouldcumulative) - Number(row.dic_ljynssdecs) * ( newdate.getMonth() - 1 ) - thismonthterm) * 100) / 100;
-                }
-                //本月应扣缴所得税
-                row.shouldpaytaxes = "0";//xx
-            }
-            //小计2
-            if (prop === 'total2') {
-                //纳税工资总额(小计1+2)
-                row.taxestotal = Math.round((Number(row.total1) + Number(val)) * 100) / 100;
-                //工资总额(纳税+免税)
-                row.totalwages = Math.round((Number(row.taxestotal) + Number(row.total3)) * 100) / 100;
-                //当月応発工資（工资总额(纳税+免税)+只納税）
-                //@DYYKGZ := round( ( @工资总额(纳税+免税) + @住房公积金应纳税金额 + @其他4 + @其他5 ), 2 ) AS SHOULDWAGES,#当月応発工資（工资总额(纳税+免税)+只納税）
-                row.shouldwages = Math.round((Number(row.totalwages) + Number(row.housingmoneys) + Number(row.other4) + Number(row.other5)) * 100) / 100;
-                //累計応発工資（当月含）
-                //@YEARSTOTAL12 := round(base.COMPREHENSIVE_YEARSTOTAL12 + @DYYKGZ,2) AS SHOULDCUMULATIVE,#累計応発工資（当月含）
-                row.shouldcumulative = Math.round((Number(row.comprehensive_yearstotal12)+ Number(row.shouldwages)) * 100) / 100;
-                //累計应纳税所得额
-                let thismonthterm = Number(row.thismonthterm) + Number(row.thismonthadditional) + Number(row.thismonthdutyfree)
-                let newdate = new Date();
-                //入社日
-                let workdate = new Date(row.workdate);
-                if(newdate.getFullYear() === workdate.getFullYear()){
-                    row.shouldpaytaxes = Math.round((Number(row.shouldcumulative) - Number(row.dic_ljynssdecs) * ( newdate.getMonth() - 1- workdate.getMonth() + 1 ) - thismonthterm) * 100) / 100;
-                }
-                else{
-                    row.shouldpaytaxes = Math.round((Number(row.shouldcumulative) - Number(row.dic_ljynssdecs) * ( newdate.getMonth() - 1 ) - thismonthterm) * 100) / 100;
-                }
-                //本月应扣缴所得税
-                row.shouldpaytaxes = "0";//xx
-            }
-            //养老保险
-            if (prop === 'endowmentinsurance') {
-                //个人社会保险(専項控除)
-                row.socialinsurance = Math.round((Number(val) + Number(row.medicalinsurance) + Number(row.unemploymentinsurance)) * 100) / 100;
-                //个人社会保险费+公积金(専項控除)合计
-                row.disciplinarycontrol = Math.round((Number(row.socialinsurance) + Number(row.accumulationfund)) * 100) / 100;
-                //専項控除累計（当月まで）
-                row.thismonthterm = Math.round((Number(row.disciplinary_total) + Number(row.disciplinarycontrol)) * 100) / 100;
-                //累計应纳税所得额xx
-                row.shouldpaytaxes = "0";
-                //本月应扣缴所得税
-                row.thismonthadjustment = "0";
-                //当月实发工资
-                row.realwages = Math.round((Number(row.totalwages) - Number(row.disciplinarycontrol) - Number(row.thismonthadjustment)) * 100) / 100;
-            }
-            //社保各个分项（个人）
-            //医疗保险
-            if (prop === 'medicalinsurance') {
-                //个人社会保险(専項控除)
-                row.socialinsurance = Math.round((Number(row.endowmentinsurance) + Number(val) + Number(row.unemploymentinsurance)) * 100) / 100;
-                //个人社会保险费+公积金(専項控除)合计
-                row.disciplinarycontrol = Math.round((Number(row.socialinsurance) + Number(row.accumulationfund)) * 100) / 100;
-                //専項控除累計（当月まで）
-                row.thismonthterm = Math.round((Number(row.disciplinary_total) + Number(row.disciplinarycontrol)) * 100) / 100;
-                //累計应纳税所得额xx
-                row.shouldpaytaxes = "0";
-                //本月应扣缴所得税
-                row.thismonthadjustment = "0";
-                //当月实发工资
-                row.realwages = Math.round((Number(row.totalwages) - Number(row.disciplinarycontrol) - Number(row.thismonthadjustment)) * 100) / 100;
-            }
-            //失业保险
-            if (prop === 'unemploymentinsurance') {
-                //个人社会保险(専項控除)
-                row.socialinsurance = Math.round((Number(row.endowmentinsurance) + Number(row.medicalinsurance) + Number(val)) * 100) / 100;
-                //个人社会保险费+公积金(専項控除)合计
-                row.disciplinarycontrol = Math.round((Number(row.socialinsurance) + Number(row.accumulationfund)) * 100) / 100;
-                //専項控除累計（当月まで）
-                row.thismonthterm = Math.round((Number(row.disciplinary_total) + Number(row.disciplinarycontrol)) * 100) / 100;
-                //累計应纳税所得额xx
-                row.shouldpaytaxes = "0";
-                //本月应扣缴所得税
-                row.thismonthadjustment = "0";
-                //当月实发工资
-                row.realwages = Math.round((Number(row.totalwages) - Number(row.disciplinarycontrol) - Number(row.thismonthadjustment)) * 100) / 100;
-            }
-            //个人社会保险（专项控除）
-            if (prop === 'socialinsurance') {
-                //个人社会保险费+公积金(専項控除)合计
-                row.disciplinarycontrol = Math.round((Number(val) + Number(row.accumulationfund)) * 100) / 100;
-                //専項控除累計（当月まで）
-                row.thismonthterm = Math.round((Number(row.disciplinary_total) + Number(row.disciplinarycontrol)) * 100) / 100;
-                //累計应纳税所得额xx
-                row.shouldpaytaxes = "0";
-                //本月应扣缴所得税
-                row.thismonthadjustment = "0";
-                //当月实发工资
-                row.realwages = Math.round((Number(row.totalwages) - Number(row.disciplinarycontrol) - Number(row.thismonthadjustment)) * 100) / 100;
-            }
-            //个人社会保险（专项控除）
-            if (prop === 'accumulationfund') {
-                //个人社会保险费+公积金(専項控除)合计
-                row.disciplinarycontrol = Math.round((Number(row.socialinsurance) + Number(val)) * 100) / 100;
-                //専項控除累計（当月まで）
-                row.thismonthterm = Math.round((Number(row.disciplinary_total) + Number(row.disciplinarycontrol)) * 100) / 100;
-                //累計应纳税所得额xx
-                row.shouldpaytaxes = "0";
-                //本月应扣缴所得税
-                row.thismonthadjustment = "0";
-                //当月实发工资
-                row.realwages = Math.round((Number(row.totalwages) - Number(row.disciplinarycontrol) - Number(row.thismonthadjustment)) * 100) / 100;
-            }
-            //本月应扣缴所得税ok
-            if (prop === 'thismonthadjustment') {
-                //当月实发工资
-                row.realwages = Math.round((Number(row.totalwages) - Number(row.disciplinarycontrol) - Number(val)) * 100) / 100;
-            }
-            //社保各个分项（企业）
-            //养老保险ok
-            if (prop === 'comendowmentinsurance') {
-                //公司担负保险总计
-                row.total = Math.round((Number(val) + Number(row.commedicalinsurance) + Number(row.comunemploymentinsurance)
-                    + Number(row.cominjuryinsurance) + Number(row.combirthinsurance) + Number(row.comheating) + Number(row.comaccumulationfund)) * 100) / 100;
-                //工资总额(纳税+免税)+福祉+公司負担+工会経費总计
-                row.comtotalwages = Math.round((Number(row.totalwages) + Number(row.other4) + Number(row.other5) + Number(row.total) + Number(row.labourunionfunds)) * 100) / 100;
-                //总计+計上奨金
-                if (new Date().getMonth() + 1 === 4) {
-                    row.totalbonus = Math.round((Number(row.comtotalwages) + Number(row.njjy) + Number(row.bonusmoney)) * 100) / 100;
-                } else {
-                    row.totalbonus = Math.round((Number(row.comtotalwages) + Number(row.bonusmoney)) * 100) / 100;
-                }
-            }
-            //医疗保险ok
-            if (prop === 'commedicalinsurance') {
-                //公司担负保险总计
-                row.total = Math.round((Number(row.comendowmentinsurance) + Number(val) + Number(row.comunemploymentinsurance)
-                    + Number(row.cominjuryinsurance) + Number(row.combirthinsurance) + Number(row.comheating) + Number(row.comaccumulationfund)) * 100) / 100;
-                //工资总额(纳税+免税)+福祉+公司負担+工会経費总计
-                row.comtotalwages = Math.round((Number(row.totalwages) + Number(row.other4) + Number(row.other5) + Number(row.total) + Number(row.labourunionfunds)) * 100) / 100;
-                //总计+計上奨金
-                if (new Date().getMonth() + 1 === 4) {
-                    row.totalbonus = Math.round((Number(row.comtotalwages) + Number(row.njjy) + Number(row.bonusmoney)) * 100) / 100;
-                } else {
-                    row.totalbonus = Math.round((Number(row.comtotalwages) + Number(row.bonusmoney)) * 100) / 100;
-                }
-            }
-            //失业保险ok
-            if (prop === 'comunemploymentinsurance') {
-                //公司担负保险总计
-                row.total = Math.round((Number(row.comendowmentinsurance) + Number(row.commedicalinsurance) + Number(val)
-                    + Number(row.cominjuryinsurance) + Number(row.combirthinsurance) + Number(row.comheating) + Number(row.comaccumulationfund)) * 100) / 100;
-                //工资总额(纳税+免税)+福祉+公司負担+工会経費总计
-                row.comtotalwages = Math.round((Number(row.totalwages) + Number(row.other4) + Number(row.other5) + Number(row.total) + Number(row.labourunionfunds)) * 100) / 100;
-                //总计+計上奨金
-                if (new Date().getMonth() + 1 === 4) {
-                    row.totalbonus = Math.round((Number(row.comtotalwages) + Number(row.njjy) + Number(row.bonusmoney)) * 100) / 100;
-                } else {
-                    row.totalbonus = Math.round((Number(row.comtotalwages) + Number(row.bonusmoney)) * 100) / 100;
-                }
-            }
-            //工伤保险ok
-            if (prop === 'cominjuryinsurance') {
-                //公司担负保险总计
-                row.total = Math.round((Number(row.comendowmentinsurance) + Number(row.commedicalinsurance) + Number(row.comunemploymentinsurance)
-                    + Number(val) + Number(row.combirthinsurance) + Number(row.comheating) + Number(row.comaccumulationfund)) * 100) / 100;
-                //工资总额(纳税+免税)+福祉+公司負担+工会経費总计
-                row.comtotalwages = Math.round((Number(row.totalwages) + Number(row.other4) + Number(row.other5) + Number(row.total) + Number(row.labourunionfunds)) * 100) / 100;
-                //总计+計上奨金
-                if (new Date().getMonth() + 1 === 4) {
-                    row.totalbonus = Math.round((Number(row.comtotalwages) + Number(row.njjy) + Number(row.bonusmoney)) * 100) / 100;
-                } else {
-                    row.totalbonus = Math.round((Number(row.comtotalwages) + Number(row.bonusmoney)) * 100) / 100;
-                }
-            }
-            //生育保险ok
-            if (prop === 'combirthinsurance') {
-                //公司担负保险总计
-                row.total = Math.round((Number(row.comendowmentinsurance) + Number(row.commedicalinsurance) + Number(row.comunemploymentinsurance)
-                    + Number(row.cominjuryinsurance) + Number(val) + Number(row.comheating) + Number(row.comaccumulationfund)) * 100) / 100;
-                //工资总额(纳税+免税)+福祉+公司負担+工会経費总计
-                row.comtotalwages = Math.round((Number(row.totalwages) + Number(row.other4) + Number(row.other5) + Number(row.total) + Number(row.labourunionfunds)) * 100) / 100;
-                //总计+計上奨金
-                if (new Date().getMonth() + 1 === 4) {
-                    row.totalbonus = Math.round((Number(row.comtotalwages) + Number(row.njjy) + Number(row.bonusmoney)) * 100) / 100;
-                } else {
-                    row.totalbonus = Math.round((Number(row.comtotalwages) + Number(row.bonusmoney)) * 100) / 100;
-                }
-            }
-            //公积金ok
-            if (prop === 'comaccumulationfund') {
-                //公司担负保险总计
-                row.total = Math.round((Number(row.comendowmentinsurance) + Number(row.commedicalinsurance) + Number(row.comunemploymentinsurance)
-                    + Number(row.cominjuryinsurance) + Number(row.combirthinsurance) + Number(row.comheating) + Number(val)) * 100) / 100;
-                //工资总额(纳税+免税)+福祉+公司負担+工会経費总计
-                row.comtotalwages = Math.round((Number(row.totalwages) + Number(row.other4) + Number(row.other5) + Number(row.total) + Number(row.labourunionfunds)) * 100) / 100;
-                //总计+計上奨金
-                if (new Date().getMonth() + 1 === 4) {
-                    row.totalbonus = Math.round((Number(row.comtotalwages) + Number(row.njjy) + Number(row.bonusmoney)) * 100) / 100;
-                } else {
-                    row.totalbonus = Math.round((Number(row.comtotalwages) + Number(row.bonusmoney)) * 100) / 100;
-                }
-            }
-            //公司担负保险总计ok
-            if (prop === 'total') {
-                //@GZFZFDZJ := ROUND( ( 工资总额(纳税+免税) + @其他4 + @其他5 + @公司担负保险总计 + @工会经费 ), 2 ) AS COMTOTALWAGES,#工资总额(纳税+免税)+福祉+公司負担+工会経費总计
-                //工资总额(纳税+免税)+福祉+公司負担+工会経費总计
-                row.comtotalwages = Math.round((Number(row.totalwages) + Number(row.other4) + Number(row.other5) + Number(val) + Number(row.labourunionfunds)) * 100) / 100;
-                //总计+計上奨金
-                if (new Date().getMonth() + 1 === 4) {
-                    row.totalbonus = Math.round((Number(row.comtotalwages) + Number(row.njjy) + Number(row.bonusmoney)) * 100) / 100;
-                } else {
-                    row.totalbonus = Math.round((Number(row.comtotalwages) + Number(row.bonusmoney)) * 100) / 100;
-                }
-            }
-            ///OTHER4
-            if (prop === 'other4') {
-                //当月応発工資（工资总额(纳税+免税)+只納税）
-                //@DYYKGZ := round( ( @工资总额(纳税+免税) + @住房公积金应纳税金额 + @其他4 + @其他5 ), 2 ) AS SHOULDWAGES,
-                row.shouldwages = Math.round((Number(row.totalwages) + Number(row.housingmoneys) + Number(val) + Number(row.other5)) * 100) / 100;
-
-            }
-            //OTHER5
-            if (prop === 'other5') {
-                //当月応発工資（工资总额(纳税+免税)+只納税）
-                row.shouldwages = Math.round((Number(row.totalwages) + Number(row.housingmoneys) + Number(row.other4) + Number(val)) * 100) / 100;
-
-            }
-            //总计+记上奖金ok
-            if (prop === 'totalbonus') {
-
-            }
-            // this.data.forEach((item, index) => {
-            //   if (item.no === noId) {
-            //     this.wagesChangeSwitch(item, prop, val);
-            //   }
-            // });
-        },
       buttonClick(val) {
 
+      },
+      getSummaries(param) {
+          debugger;
+          const { columns, data } = param;
+          const sums = [];
+          columns.forEach((column, index) => {
+              if (index === 0) {
+                  sums[index] = '差额';
+                  return;
+              }
+              const values = data.map(item => Number(item[column.property]));
+              if (!values.every(value => isNaN(value))) {
+                  //debugger;
+                  sums[index] = values.reduce((prev, curr) => {
+                      debugger;
+                      console.log(prev + "--" + curr)
+                      const value = Number(curr);
+                      debugger;
+                      if (!isNaN(value)) {
+                          console.log(prev + "--" + curr)
+                          return this.setScale2(parseFloat(prev) - parseFloat(curr));
+                      } else {
+                          console.log(prev + "--" + curr)
+                          return this.setScale2(parseFloat(prev));
+                      }
+                  }, 0);
+                  sums[index] += '';
+              } else {
+                  sums[index] = '';
+              }
+          });
+
+          return sums;
+      },
+      //数值小数位数控制
+      setScale2(val) {
+          if (val) {
+              return Math.round(val * 100) / 100;
+          } else {
+              return 0;
+          }
       }
     },
     mounted() {

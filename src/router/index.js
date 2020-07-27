@@ -91,6 +91,7 @@ import PFANS1041FormView from '@/view/PFANS/PFANS1000/PFANS1041/PFANS1041FormVie
 import PFANS1042View from '@/view/PFANS/PFANS1000/PFANS1042/PFANS1042View.vue'
 import PFANS1043View from '@/view/PFANS/PFANS1000/PFANS1043/PFANS1043View.vue'
 import PFANS1045FormView from '@/view/PFANS/PFANS1000/PFANS1045/PFANS1045FormView.vue'
+import PFANS1046View from '@/view/PFANS/PFANS1000/PFANS1046/PFANS1046View.vue'
 import PFANS2000View from '@/view/PFANS/PFANS2000/PFANS2000/PFANS2000View.vue'
 import PFANS2001View from '@/view/PFANS/PFANS2000/PFANS2001/PFANS2001View.vue'
 import PFANS2001FormView from '@/view/PFANS/PFANS2000/PFANS2001/PFANS2001FormView.vue'
@@ -208,6 +209,9 @@ import ASSETS1002ExportFormView from '@/view/ASSETS/ASSETS1000/ASSETS1002/ASSETS
 import ASSETS1003View from '@/view/ASSETS/ASSETS1000/ASSETS1003/ASSETS1003View.vue'
 import usersFormViewByPerson from '@/view/users/usersFormViewByPerson.vue'
 import PFANS1044View from '@/view/PFANS/PFANS1000/PFANS1044/PFANS1044View.vue'
+
+import PFANS1047View from '@/view/PFANS/PFANS1000/PFANS1047/PFANS1047View.vue'
+import PFANS1047FormView from '@/view/PFANS/PFANS1000/PFANS1047/PFANS1047FormView.vue'
 
 import error401 from '@/components/EasyErrorPage/401.vue'
 import error404 from '@/components/EasyErrorPage/404.vue'
@@ -674,6 +678,16 @@ const routes = [
         path: '/PFANS1045FormView',
         name: 'PFANS1045FormView',
         component: PFANS1045FormView,
+      },
+      {
+        path: '/PFANS1047View',
+        name: 'PFANS1047View',
+        component: PFANS1047View,
+      },
+      {
+        path: '/PFANS1047FormView',
+        name: 'PFANS1047FormView',
+        component: PFANS1047FormView,
       },
       {
         path: '/PFANS2000View',

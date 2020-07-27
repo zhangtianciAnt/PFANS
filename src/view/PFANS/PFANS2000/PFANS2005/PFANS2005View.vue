@@ -2,6 +2,17 @@
   <div>
     <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id" :title="title"
                      @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
+      <el-dialog :visible.sync="pop_download" width="50%" destroy-on-close>
+        <el-table :data="downtypes" style="width: 100%">
+          <el-table-column prop="name" :label="$t('label.ASSETS1001VIEW_FILENAME')"></el-table-column>
+
+          <el-table-column :label="$t('label.operation')">
+            <template slot-scope="scope">
+              <el-button size="mini" @click="handleDownload(scope.row)">{{$t('button.download2')}}</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+      </el-dialog>
     </EasyNormalTable>
   </div>
 </template>
@@ -23,6 +34,7 @@
         loading: false,
         title: 'title.PFANS2005VIEW',
         data: [],
+        pop_download: false,
         Givingid:'',
         form: {
           generationdate: '',
@@ -76,6 +88,7 @@
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
           {'key': 'generatethismonth', 'name': 'button.generatethismonth', 'disabled': true},
           {'key': 'grantthismonth', 'name': 'button.grantthismonth', 'disabled': true},
+          {'key': 'export2', 'name': 'button.download2', 'disabled': false,icon: "el-icon-download"},
         ],
         rowid: '',
         row_id: 'giving_id',
@@ -221,7 +234,38 @@
                       this.loading = false;
                   });
           }
+          if (val === 'export2') {
+              this.pop_download = true;
+          }
       },
+      //add gbb 0723 下载模板
+      handleDownload(row) {
+            this.loading = true;
+            this.$store
+                .dispatch("PFANS2005Store/download", { type: row.type })
+                .then(response => {
+                    this.loading = false;
+                })
+                .catch(error => {
+                    Message({
+                        message: error,
+                        type: "error",
+                        duration: 5 * 1000
+                    });
+                    this.loading = false;
+                });
+        },
+    },
+    computed: {
+        downtypes() {
+            return [
+                { name: this.$t("label.PFANS2005FORMVIEW_QT2"), type: 0 },
+                { name: this.$t("label.PFANS2005FORMVIEW_QT4"), type: 1 },
+                { name: this.$t("label.PFANS2005FORMVIEW_QT5"), type: 2 },
+                { name: this.$t("label.PFANS2005FORMVIEW_YDSY"), type: 3 },
+                { name: this.$t("label.PFANS2005FORMVIEW_FJKC"), type: 4 }
+            ];
+        }
     },
   };
 </script>

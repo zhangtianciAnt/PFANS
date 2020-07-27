@@ -333,7 +333,7 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_TEMPORARYLOAN')" v-show="show4" prop="loan">
-                      <el-select :disabled="!disable" @change="changeLoan" clearable style="width:20vw"
+                      <el-select :disabled="!disable" @change="changeLoan" clearable filterable style="width:20vw"
                                  v-model="form.loan">
                         <el-option
                           :key="item.value"
@@ -342,6 +342,7 @@
                           v-for="item in options">
                         </el-option>
                       </el-select>
+                      <el-button @click="clickBun" size="small" type="primary">{{$t('button.view')}}</el-button>
                     </el-form-item>
                   </el-col>
                   <!--                  add_fjl_0722 添加【供应商/社员名称】显示  start-->
@@ -1139,13 +1140,31 @@
               <el-row>
                 <el-table
                   :data="DataList"
-                  style="width: 516px"
+                  style="width: 665px"
                   header-cell-class-name="sub_bg_color_blue" stripe border
                 >
                   <el-table-column
                     align="center"
                     prop="judgement_name"
                     :label="$t('label.judgement')"
+                    width="150px">
+                  </el-table-column>
+                  <el-table-column
+                    :label="$t('label.PFANS1006FORMVIEW_DECISIVE')"
+                    align="center"
+                    prop="judgements_type"
+                    width="315px">
+                  </el-table-column>
+                  <el-table-column
+                    :label="$t('label.PFANS1045VIEW_MONEYS')"
+                    align="center"
+                    prop="judgements_moneys"
+                    width="315px">
+                  </el-table-column>
+                  <el-table-column
+                    :label="$t('label.PFANS1012VIEW_ABSTRACT')"
+                    align="center"
+                    prop="remarks"
                     width="315px">
                   </el-table-column>
                   <el-table-column :label="$t('label.operation')" align="center" width="200">
@@ -1229,12 +1248,14 @@
         </el-form>
       </div>
     </EasyNormalContainer>
+    <EasyPop :params="urlparams" :ref="1" :url="url"></EasyPop>
   </div>
 </template>
 
 
 <script>
 
+    import EasyPop from '@/components/EasyPop';
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import user from '../../../components/user.vue';
   import dicselect from '../../../components/dicselect';
@@ -1254,6 +1275,7 @@
   export default {
     name: 'PFANS1012FormView',
     components: {
+        EasyPop,
       dicselect,
       EasyNormalContainer,
       getOrgInfoByUserId,
@@ -1383,11 +1405,14 @@
         }
       };
       return {
+          url: 'PFANS1006FormView',
+          urlparams: '',
         checkexpectedpaydate: false,
         DataList2: [],
         show12: false,
         DataList: [{
           judgement_name: '',
+            remarks: '',
         }],
         invoicetype: '',
         checkexternal: false,
@@ -1564,6 +1589,9 @@
           type: '',
           judgement: '',
           judgement_name: '',
+            remarksdetail: '',
+            judgements_moneys: '',
+            judgements_type: '',
           receivables: '',
           loan: '',
           fullname: '',
@@ -1791,6 +1819,18 @@
               //add-ws-4/28-精算中，点击决裁，跳转画面
               let judgement = this.form.judgement.split(',');
               let judgementname = this.form.judgement_name.split(',');
+                  let remarks = [];
+                  let judgements_moneys = [];
+                  let judgements_type = [];
+                  if (this.form.remarksdetail !== '' && this.form.remarksdetail !== null && this.form.remarksdetail !== undefined) {
+                      remarks = this.form.remarksdetail.split('^');
+                  }
+                  if (this.form.judgements_moneys !== '' && this.form.judgements_moneys !== null && this.form.judgements_moneys !== undefined) {
+                      judgements_moneys = this.form.judgements_moneys.split('^');
+                  }
+                  if (this.form.judgements_type !== '' && this.form.judgements_type !== null && this.form.judgements_type !== undefined) {
+                      judgements_type = this.form.judgements_type.split('^');
+                  }
               let datalist = [];
               for (var i = 0; i < judgement.length; i++) {
                 for (var d = 0; d < judgementname.length; d++) {
@@ -1798,6 +1838,9 @@
                     let obj = {};
                     obj.judgement = judgement[i];
                     obj.judgement_name = judgementname[d];
+                      obj.remarks = remarks[i];
+                      obj.judgements_moneys = judgements_moneys[i];
+                      obj.judgements_type = judgements_type[i];
                     datalist[i] = obj;
                   }
                 }
@@ -2332,12 +2375,21 @@
         for (var i = 0; i < this.jude.length; i++) {
           this.form.judgement += this.jude[i].value + ',';
           this.form.judgement_name += this.jude[i].label + ',';
+            this.form.remarksdetail += this.jude[i].remarks + '^';
+            this.form.judgements_moneys += this.jude[i].judgements_moneys + '^';
+            this.form.judgements_type += this.jude[i].judgements_type + '^';
         }
         //add-ws-4/28-精算中，点击决裁，跳转画面
         let judgementnew = this.form.judgement.substring(0, this.form.judgement.length - 1);
         let judgementnamenew = this.form.judgement_name.substring(0, this.form.judgement_name.length - 1);
+          let remarksnew = this.form.remarksdetail.substring(0, this.form.remarksdetail.length - 1);
+          let judgements_moneysnew = this.form.judgements_moneys.substring(0, this.form.judgements_moneys.length - 1);
+          let judgements_typenew = this.form.judgements_type.substring(0, this.form.judgements_type.length - 1);
         let judgement = judgementnew.split(',');
         let judgementname = judgementnamenew.split(',');
+          let remarks = remarksnew.split('^');
+          let judgements_moneys = judgements_moneysnew.split('^');
+          let judgements_type = judgements_typenew.split('^');
         let datalist = [];
         for (var i = 0; i < judgement.length; i++) {
           for (var d = 0; d < judgementname.length; d++) {
@@ -2345,6 +2397,9 @@
               let obj = {};
               obj.judgement = judgement[i];
               obj.judgement_name = judgementname[d];
+                obj.remarks = remarks[i];
+                obj.judgements_moneys = judgements_moneys[i];
+                obj.judgements_type = judgements_type[i];
               datalist[i] = obj;
             }
           }
@@ -2353,6 +2408,9 @@
         //add-ws-4/28-精算中，点击决裁，跳转画面
         this.form.judgement = this.form.judgement.substring(0, this.form.judgement.length - 1);
         this.form.judgement_name = this.form.judgement_name.substring(0, this.form.judgement_name.length - 1);
+          this.form.remarksdetail = this.form.remarksdetail.substring(0, this.form.remarksdetail.length - 1);
+          this.form.judgements_moneys = this.form.judgements_moneys.substring(0, this.form.judgements_moneys.length - 1);
+          this.form.judgements_type = this.form.judgements_type.substring(0, this.form.judgements_type.length - 1);
         this.form.type = this.$route.params._type;
           //ADD_FJL_0715 模块默认值AP START
           this.form.moduleid = 'PJ002001';
@@ -4059,6 +4117,14 @@
         this.currentRow3 = val.payeebankaccountnumber;
         this.currentRow4 = val.payeebankaccount;
       },
+        //add_fjl_0724  添加暂借款的pop跳转  start
+        clickBun() {
+            if (this.form.loan !== '' && this.form.loan !== null && this.form.loan !== undefined) {
+                this.urlparams = {'_id': this.form.loan};
+                this.$refs[1].open = true;
+            }
+        },
+        //add_fjl_0724  添加暂借款的pop跳转  end
         //add_fjl_0722 添加【供应商/社员名称】显示  start
         changeLoan(val) {
             let opt = this.options.filter(item => item.value === val);
@@ -4150,22 +4216,61 @@
               this.baseInfo.publicexpense = JSON.parse(JSON.stringify(this.form));
               let sum = 0;
               for (let i = 0; i < this.tableF.length; i++) {
-                sum += this.tableF[i].invoiceamount;
-                if (this.tableF[i].invoicenumber !== '' || this.tableF[i].invoicetype !== '' || this.tableF[i].invoiceamount > 0 || this.tableF[i].taxrate !== ''
-                  || this.tableF[i].excludingtax > 0 || this.tableF[i].facetax > 0) {
-                  this.baseInfo.invoice.push(
-                    {
-                      invoice_id: this.tableF[i].invoice_id,
-                      publicexpenseid: this.tableF[i].publicexpenseid,
-                      invoicenumber: this.tableF[i].invoicenumber,
-                      invoicetype: this.tableF[i].invoicetype,
-                      invoiceamount: this.tableF[i].invoiceamount,
-                      taxrate: this.tableF[i].taxrate,
-                      excludingtax: this.tableF[i].excludingtax,
-                      facetax: this.tableF[i].facetax,
-                    },
-                  );
-                }
+                  //add_fjl_0723_分录传票的发票税金需要与后面明细同种发票的税金和相同  start
+                  let sumtaxesT = 0;
+                  let sumtaxesA = 0;
+                  let sumtaxesF = 0;
+                  let sumtaxes = 0;
+                  let taxesm = 0;
+                  let taxesn = 0;
+                  for (let m = 0; m < this.tableP.length; m++) {
+                      if (this.tableP[m].invoicenumber == this.tableF[i].invoicenumber) {
+                          if (this.tableP[m].taxes != '0') {
+                              taxesm = m;
+                              sumtaxesT += this.tableP[m].taxes;
+                          }
+                      }
+                  }
+                  for (let n = 0; n < this.tableR.length; n++) {
+                      if (this.tableR[n].invoicenumber == this.tableF[i].invoicenumber) {
+                          if (this.tableR[n].taxes != '0') {
+                              taxesn = n;
+                              sumtaxesA += this.tableR[n].taxes;
+                          }
+                      }
+                  }
+                  sumtaxesF = Number(sumtaxesT) + Number(sumtaxesA);
+                  sumtaxes = Number(sumtaxesF) - Number(this.tableF[i].facetax);
+                  if (sumtaxes < 0) {
+                      if (taxesm === 0) {
+                          this.tableR[taxesn].taxes = (Number(this.tableR[taxesn].taxes) - Number(sumtaxes)).toFixed(2);
+                      } else {
+                          this.tableP[taxesm].taxes = (Number(this.tableP[taxesm].taxes) - Number(sumtaxes)).toFixed(2);
+                      }
+                  } else if (sumtaxes > 0) {
+                      if (taxesm === 0) {
+                          this.tableR[taxesn].taxes = (Number(this.tableR[taxesn].taxes) - Number(sumtaxes)).toFixed(2);
+                      } else {
+                          this.tableP[taxesm].taxes = (Number(this.tableP[taxesm].taxes) - Number(sumtaxes)).toFixed(2);
+                      }
+                  }
+                  //add_fjl_0723_分录传票的发票税金需要与后面明细同种发票的税金和相同  end
+                  sum += this.tableF[i].invoiceamount;
+                  if (this.tableF[i].invoicenumber !== '' || this.tableF[i].invoicetype !== '' || this.tableF[i].invoiceamount > 0 || this.tableF[i].taxrate !== ''
+                      || this.tableF[i].excludingtax > 0 || this.tableF[i].facetax > 0) {
+                      this.baseInfo.invoice.push(
+                          {
+                              invoice_id: this.tableF[i].invoice_id,
+                              publicexpenseid: this.tableF[i].publicexpenseid,
+                              invoicenumber: this.tableF[i].invoicenumber,
+                              invoicetype: this.tableF[i].invoicetype,
+                              invoiceamount: this.tableF[i].invoiceamount,
+                              taxrate: this.tableF[i].taxrate,
+                              excludingtax: this.tableF[i].excludingtax,
+                              facetax: this.tableF[i].facetax,
+                          },
+                      );
+                  }
               }
               this.invoiceamountsum = sum;
               if (this.form.type === 'PJ001001') {

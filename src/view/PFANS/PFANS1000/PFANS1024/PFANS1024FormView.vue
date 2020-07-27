@@ -111,14 +111,14 @@
                 <!--            zy-7/6-禅道213任务 end-->
                 <el-table-column property="supchinese" :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')"
                                  width="120"></el-table-column>
-<!--            zy-7/6-禅道213任务 start-->
+                <!--            zy-7/6-禅道213任务 start-->
                 <el-table-column property="supjapanese" :label="$t('label.PFANS6001VIEW_SUPJAPANESE')"
                                  width="120"></el-table-column>
                 <el-table-column property="supenglish" :label="$t('label.PFANS6001VIEW_SUPPLIERNAME2')"
                                  width="120"></el-table-column>
                 <el-table-column property="abbreviation" :label="$t('label.PFANS6001VIEW_ABBREVIATION')"
                                  width="120"></el-table-column>
-<!--            zy-7/6-禅道213任务 end-->
+                <!--            zy-7/6-禅道213任务 end-->
                 <!--<el-table-column property="suppliercode" :label="$t('label.PFANS6003FORMVIEW_VENDORNUM')"-->
                 <!--width="120"></el-table-column>-->
                 <el-table-column property="liableperson" :label="$t('label.ASSETS1002VIEW_USERID')"
@@ -168,6 +168,16 @@
                   </el-button>
                 </el-col>
               </el-row>
+              <!--              add-ws-7/22-禅道341任务-->
+              <el-row style=" margin-bottom: 20px;" v-if="this.checkindivdual === 1">
+                <el-col :span="24">
+                  <el-button @click="clickData(8)">
+                  <span style="margin-right: 86%;">{{$t('label.PFANS1026FORMVIEW_INDIVIDUAL')}}
+                  </span>
+                  </el-button>
+                </el-col>
+              </el-row>
+              <!--              add-ws-7/22-禅道341任务-->
             </div>
           </el-dialog>
           <span>{{this.titleType}}</span>
@@ -963,6 +973,9 @@
         loading: false,
         title: 'title.PFANS1024VIEW',
         activeName: '',
+        //add-ws-7/22-禅道341任务
+        checkindivdual: '',
+        //add-ws-7/22-禅道341任务
         disabled: true,
         disabled1: false,
         disabled2: true,
@@ -972,6 +985,9 @@
           'save': ['contractnumber'],
           'makeinto': ['contractnumber'],
           '7': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'contractdate', 'currencyposition', 'claimamount', 'deliverydate', 'claimtype', 'completiondate', 'claimdate', 'supportdate', 'conchinese', 'conjapanese'],
+          //add-ws-7/22-禅道341 个别合同
+          '8': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'contractdate', 'currencyposition', 'claimamount', 'deliverydate', 'claimtype', 'completiondate', 'claimdate', 'supportdate', 'conchinese', 'conjapanese'],
+          //add-ws-7/22-禅道341 个别合同
         },
         rules1: {
           claimtype: [
@@ -1377,6 +1393,13 @@
       this.getContract();
     },
     created() {
+      //add-ws-7/22-禅道341任务
+      if (this.$route.params._checkindivdual) {
+        if (this.$route.params._checkindivdual === '1') {
+          this.checkindivdual = 1;
+        }
+      }
+      //add-ws-7/22-禅道341任务
       this.disabled = this.$route.params.disabled;
       //add-ws-6/22-禅道152任务
       if (this.disabled) {
@@ -1398,22 +1421,38 @@
         this.DataList = [];
         this.loading = true;
         this.$store
-          .dispatch('PFANS1025Store/getDataOne', {'contractnumber': this.$route.params._id})
+          .dispatch('PFANS1025Store/getDataOne2', {'contractnumber': this.$route.params._id})
           .then(response => {
-            if (response != undefined) {
-              for (let i = 0; i < response.length; i++) {
-                if (response[i].createon !== null && response[i].createon !== '') {
-                  response[i].createon = moment(response[i].createon).format('YYYY-MM-DD');
+            if (response.awardlist.length > 0) {
+              for (let i = 0; i < response.awardlist.length; i++) {
+                if (response.awardlist[i].createon !== null && response.awardlist[i].createon !== '') {
+                  response.awardlist[i].createon = moment(response.awardlist[i].createon).format('YYYY-MM-DD');
                 }
                 this.DataList.push({
-                  award_id: response[i].award_id,
+                  award_id: response.awardlist[i].award_id,
                   award: this.$t('title.PFANS1025VIEW'),
                   awardtype: this.$t('label.PFANS1026FORMVIEW_D') + Number(i + 1) + this.$t('label.PFANS1026FORMVIEW_H'),
-                  createon: response[i].createon,
+                  createon: response.awardlist[i].createon,
                 });
                 this.checkdata = true;
               }
             }
+            //add-ws-7/22-禅道341任务
+            if (response.individual.length > 0) {
+              for (let i = 0; i < response.individual.length; i++) {
+                if (response.individual[i].createon !== null && response.individual[i].createon !== '') {
+                  response.individual[i].createon = moment(response.individual[i].createon).format('YYYY-MM-DD');
+                }
+                this.DataList.push({
+                  award_id: response.individual[i].contractnumber,
+                  award: this.$t('title.PFANS1046VIEW'),
+                  awardtype: this.$t('label.PFANS1026FORMVIEW_D') + Number(i + 1) + this.$t('label.PFANS1026FORMVIEW_H'),
+                  createon: response.individual[i].createon,
+                });
+                this.checkdata = true;
+              }
+            }
+            //add-ws-7/22-禅道341任务
             this.loading = false;
           })
           .catch(error => {
@@ -1428,16 +1467,27 @@
       viewdata(row) {
         this.$store.commit('global/SET_HISTORYURL', '');
         this.$store.commit('global/SET_WORKFLOWURL', '/FFFFF1024FormView');
-        this.$router.push({
-          name: 'PFANS1025FormView',
-          params: {
-            _checkdisable: this.disable,
-            check_id: this.IDname,
-            _checkname: true,
-            _id: row.award_id,
-            disabled: false,
-          },
-        });
+        if (row.award.substring(0, 3) === this.$t('title.PFANS1025VIEW')) {
+          this.$router.push({
+            name: 'PFANS1025FormView',
+            params: {
+              _checkdisable: this.disable,
+              check_id: this.IDname,
+              _checkname: true,
+              _id: row.award_id,
+              disabled: false,
+            },
+          });
+          //add-ws-7/22-禅道341任务
+        } else {
+          this.$router.push({
+            name: 'PFANS1046View',
+            params: {
+              _id: row.award_id,
+            },
+          });
+        }
+        //add-ws-7/22-禅道341任务
       },
       //add-ws-6/22-禅道152任务
       getProjectList() {
@@ -1597,11 +1647,11 @@
                 let supplierInfo = getSupplierinfor(response[j].supplierinfor_id);
                 if (supplierInfo) {
                   response[j].supchinese = supplierInfo.supchinese;
-                    //        zy-7/6-禅道213任务 start
+                  //        zy-7/6-禅道213任务 start
                   response[j].supjapanese = supplierInfo.supjapanese;
                   response[j].supenglish = supplierInfo.supenglish;
                   response[j].abbreviation = supplierInfo.abbreviation;
-                    //        zy-7/6-禅道213任务 end
+                  //        zy-7/6-禅道213任务 end
                 }
               }
               if (response[j].liableperson !== null && response[j].liableperson !== '') {
@@ -2234,6 +2284,9 @@
             }
             o.state = this.$t('label.PFANS8008FORMVIEW_EFFECTIVE');
             o.claimamount = letclaimamount;
+            //add-ws-7/22-禅道341任务
+            o.checkindivdual = this.checkindivdual;
+            //add-ws-7/22-禅道341任务
           }
           // DEL_FJL  start
           // if (Array.isArray(this.form.tabledata[i].conchinese)) {
@@ -2357,6 +2410,16 @@
               });
             }
             //add-ws-7/1-禅道152任务
+            //add-ws-7/22-禅道341任务
+            if (response.individuallist != '') {
+              this.$router.push({
+                name: 'PFANS1046View',
+                params: {
+                  _id: response.individuallist,
+                },
+              });
+            }
+            //add-ws-7/22-禅道341任务
           })
           .catch(error => {
             Message({

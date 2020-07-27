@@ -1,9 +1,8 @@
 import {
   creategiving, deleteFive, givinglist, deleteteappreciation, getDataList, getCasgiftApply, deleteothertwo,
   deleteotherfour, save, deleteadditional, thisMonthLacktimeChange, thisMonthOvertimeChange,insertWages,
-  getWagesdepartment,getWagecompany,updatestate,getWagesByResign
+  getWagesdepartment,getWagecompany,updatestate,getWagesByResign,download
 } from './PFANS2005Api'
-import { updateNewUser } from "../../PFANS5000/PFANS5008/PFANS5008Api";
 const PFANS2005Store = {
   namespaced: true,
   state: {},
@@ -250,6 +249,17 @@ const PFANS2005Store = {
       })
     },
     //gbb 0720 离职工资对比 end
+    //gbb 0724 模板下载 start
+    download({commit}, data) {
+      return new Promise((resolve, reject) => {
+        download(data).then(response => {
+          resolve(response);
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    //gbb 0724 模板下载 end
   }
 };
 

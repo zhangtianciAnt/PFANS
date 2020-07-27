@@ -58,7 +58,7 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS5009VIEW_PROJECTNAME')" prop="projectname">
+                    <el-form-item :label="$t('label.PFANS5009VIEW_PROJECTNAME')" prop="companyprojectsname">
                       <el-select :disabled="!disable" clearable style="width: 20vw" v-model="form.companyprojectsname">
                         <el-option
                           :key="item.value"
@@ -517,6 +517,15 @@
           callback();
         }
       };
+        //add_fjl_0724 添加项目名称必填项  start
+        var validateprojectname = (rule, value, callback) => {
+            if (!value || value === '' || value === 'undefined') {
+                callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS5009VIEW_PROJECTNAME')));
+            } else {
+                callback();
+            }
+        };
+        //add_fjl_0724 添加项目名称必填项  end
       return {
         enableSave: false,
         optionsdate: [{value: 'PP024001', lable: this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')}],
@@ -777,6 +786,14 @@
               trigger: 'blur',
             },
           ],
+            //add_fjl_项目名称
+            companyprojectsname: [
+                {
+                    required: true,
+                    validator: validateprojectname,
+                    trigger: 'change',
+                },
+            ],
         },
         show: false,
         show2: false,
@@ -1069,6 +1086,7 @@
           !this.form.condominiumcompany ||
           !this.form.city ||
           !this.form.startdate ||
+            !this.form.companyprojectsname ||
           !this.form.enddate
         ) {
           this.activeName = 'first';

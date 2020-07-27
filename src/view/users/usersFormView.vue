@@ -2910,6 +2910,11 @@
             getRank(val) {
                 if (val) {
                     this.form.rank = val;
+                    //职责给
+                    let letdic = getDictionaryInfo(val);
+                    if (letdic != null) {
+                        this.form.duty = letdic.value3;
+                    }
                     this.$nextTick(() => {
                         if (this.code === 'PR021') {
                             this.rules.occupationtype[0].required = true;
