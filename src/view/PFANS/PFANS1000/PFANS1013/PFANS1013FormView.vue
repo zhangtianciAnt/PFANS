@@ -88,6 +88,9 @@
                           v-for="item in relations">
                         </el-option>
                       </el-select>
+                      <!--                      add-ws-7/27-禅道154任务-->
+                      <el-button @click="clickBun" size="small" type="primary">{{this.$t('button.view')}}</el-button>
+                      <!--                      add-ws-7/27-禅道154任务-->
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -1146,9 +1149,13 @@
         </el-form>
       </div>
     </EasyNormalContainer>
+    <!--    add_ws_0724  禅道154任务-->
+    <EasyPop :params="urlparams" :ref="1" :url="url"></EasyPop>
+    <!--    add_ws_0724  禅道154任务-->
   </div>
 </template>
 <script>
+  import EasyPop from '@/components/EasyPop';
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import user from '../../../components/user.vue';
   import {Message} from 'element-ui';
@@ -1159,7 +1166,7 @@
     getOrgInfo,
     getOrgInfoByUserId,
     getUserInfo,
-    uploadUrl
+    uploadUrl,
   } from '@/utils/customize';
   import dicselect from '../../../components/dicselect';
   import org from '../../../components/org';
@@ -1168,6 +1175,7 @@
   export default {
     name: 'PFANS1013FormView',
     components: {
+      EasyPop,
       dicselect,
       EasyNormalContainer,
       user,
@@ -1184,6 +1192,10 @@
         }
       };
       return {
+        //add_ws_0724  禅道154任务
+        url: '',
+        urlparams: '',
+        //add_ws_0724  禅道154任务
         //add-ws-7/10-禅道249
         role1: '',
         //add-ws-7/10-禅道249
@@ -1260,7 +1272,7 @@
           reimbursementdate: moment(new Date()).format('YYYY-MM-DD'),
           personalcode: '',
           uploadfile: '',
-            regionname: '',
+          regionname: '',
         },
         buttonList: [
           {
@@ -1310,7 +1322,7 @@
           currency: '',
           annexno: '',
           rowindex: '',
-            Redirict: '',
+          Redirict: '',
         }],
         tableA: [
           //   {
@@ -1359,7 +1371,7 @@
           taxes: '',
           currency: '',
           rowindex: '',
-            Redirict: '',
+          Redirict: '',
         }],
         //add-ws-5/14-其他费用明细添加
         rules: {
@@ -1460,7 +1472,7 @@
             }
             this.form = response.evection;
             //add-ws-6/17-禅道101
-              if (this.form.userid === '5e78b2264e3b194874180f35') {
+            if (this.form.userid === '5e78b2264e3b194874180f35') {
               this.workflowCode = 'W0079';
               // add-ws-7/10-禅道249
             } else if (this.role1 === '1') {
@@ -1548,7 +1560,7 @@
                 //add-ws-5/11-科目代码时code值问提修改
                 let group = getOrgInfo(this.tableA[i].departmentname);
                 if (group) {
-                    this.tableA[i].Redirict = group.redirict;
+                  this.tableA[i].Redirict = group.redirict;
                 }
                 // if (getOrgInfoByUserId(this.$store.getters.userinfo.userid)) {
                 //   if (getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)) {
@@ -1798,7 +1810,7 @@
           if (oldplsummaryinfo) {
             this.tableR[0].accountcode = oldplsummaryinfo.value1;
             this.tableR[0].subjectnumber = oldplsummaryinfo.value2;
-              this.tableR[0].Redirict = this.Redirict;
+            this.tableR[0].Redirict = this.Redirict;
             this.oldaccountcodeflg = oldplsummaryinfo.value1;
             this.oldaccountcodeflg1 = oldplsummaryinfo.code;
             this.oldsubjectnumberflg = oldplsummaryinfo.value2;
@@ -1814,7 +1826,7 @@
           if (accinfo) {
             this.tableT[0].accountcode = accinfo.value1;
             this.tableT[0].subjectnumber = accinfo.value2;
-              this.tableT[0].Redirict = this.Redirict;
+            this.tableT[0].Redirict = this.Redirict;
             this.accountcodeflg = accinfo.value1;
             this.accountcodeflg1 = accinfo.code;
             this.subjectnumberflg = accinfo.value2;
@@ -1825,7 +1837,7 @@
           if (oldplsummaryinfo) {
             this.tableR[0].accountcode = oldplsummaryinfo.value1;
             this.tableR[0].subjectnumber = oldplsummaryinfo.value2;
-              this.tableR[0].Redirict = this.Redirict;
+            this.tableR[0].Redirict = this.Redirict;
             this.oldaccountcodeflg = oldplsummaryinfo.value1;
             this.oldaccountcodeflg1 = oldplsummaryinfo.code;
             this.oldsubjectnumberflg = oldplsummaryinfo.value2;
@@ -1841,7 +1853,7 @@
           if (accinfo) {
             this.tableT[0].accountcode = accinfo.value1;
             this.tableT[0].subjectnumber = accinfo.value2;
-              this.tableT[0].Redirict = this.Redirict;
+            this.tableT[0].Redirict = this.Redirict;
             this.accountcodeflg = accinfo.value1;
             this.accountcodeflg1 = accinfo.code;
             this.subjectnumberflg = accinfo.value2;
@@ -1869,6 +1881,21 @@
       }
     },
     methods: {
+      //add_ws_0724  禅道154任务
+      clickBun() {
+        this.url = '';
+        this.urlparams = '';
+        if (this.form.business_id !== '' && this.form.business_id !== null && this.form.business_id !== undefined) {
+          this.urlparams = {'_id': this.form.business_id};
+          if (this.form.type == '0') {
+            this.url = 'PFANS1035FormView';
+          } else {
+            this.url = 'PFANS1002FormView';
+          }
+          this.$refs[1].open = true;
+        }
+      },
+      //add_ws_0724  禅道154任务
       //add-ws-6/18-禅道任务15
       changearrivenight(val) {
         let moneys = 0;
@@ -2000,7 +2027,7 @@
                     datenumber: response[i].datenumber,
                     external: response[i].external,
                     arrivenight: response[i].arrivenight,
-                      regionname: response[i].regionname,
+                    regionname: response[i].regionname,
                   });
                 }
               } else {
@@ -2017,7 +2044,7 @@
                     datenumber: response[i].datenumber,
                     external: response[i].external,
                     arrivenight: response[i].arrivenight,
-                      regionname: response[i].regionname,
+                    regionname: response[i].regionname,
                   });
                 }
               }
@@ -2220,7 +2247,7 @@
         //ADD_FJL
         row.optionsT = [];
         row.budgetcoding = '';
-          row.subjectnumber = '';
+        row.subjectnumber = '';
         let butinfo = getOrgInfo(row.departmentname).encoding;
         let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
         if (dic.length > 0) {
@@ -2236,22 +2263,22 @@
         //ADD_FJL  修改人员预算编码
         let group = getOrgInfo(orglist);
         if (group) {
-            //add_fjl_0721   对应科目代码  start
-            row.Redirict = group.redirict;
-            let codeinfo = '';
-            if (row.Redirict === '0') {
-                codeinfo = 'PJ119002';
-            } else if (row.Redirict == '1' || row.Redirict == '') {
-                codeinfo = 'PJ132002';
+          //add_fjl_0721   对应科目代码  start
+          row.Redirict = group.redirict;
+          let codeinfo = '';
+          if (row.Redirict === '0') {
+            codeinfo = 'PJ119002';
+          } else if (row.Redirict == '1' || row.Redirict == '') {
+            codeinfo = 'PJ132002';
+          }
+          if (codeinfo !== '') {
+            let accinfo = getDictionaryInfo(codeinfo);
+            if (accinfo) {
+              row.accountcode = accinfo.value1;
+              row.subjectnumber = accinfo.value2;
             }
-            if (codeinfo !== '') {
-                let accinfo = getDictionaryInfo(codeinfo);
-                if (accinfo) {
-                    row.accountcode = accinfo.value1;
-                    row.subjectnumber = accinfo.value2;
-                }
-            }
-            //add_fjl_0721   对应科目代码  end
+          }
+          //add_fjl_0721   对应科目代码  end
           // row.budgetcoding = group.encoding;
           // if (group.redirict === '0') {
           //   row.code20 = 'PJ119';
@@ -2267,7 +2294,7 @@
         row.departmentname = orglist;
         row.optionsR = [];
         row.budgetcoding = '';
-          row.subjectnumber = '';
+        row.subjectnumber = '';
         let butinfo = getOrgInfo(row.departmentname).encoding;
         let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
         if (dic.length > 0) {
@@ -2282,22 +2309,22 @@
         }
         let group = getOrgInfo(orglist);
         if (group) {
-            //add_fjl_0721   对应科目代码  start
-            row.Redirict = group.redirict;
-            let codeinfo = '';
-            if (row.Redirict === '0') {
-                codeinfo = 'PJ119007';
-            } else if (row.Redirict == '1' || row.Redirict == '') {
-                codeinfo = 'PJ132007';
+          //add_fjl_0721   对应科目代码  start
+          row.Redirict = group.redirict;
+          let codeinfo = '';
+          if (row.Redirict === '0') {
+            codeinfo = 'PJ119007';
+          } else if (row.Redirict == '1' || row.Redirict == '') {
+            codeinfo = 'PJ132007';
+          }
+          if (codeinfo !== '') {
+            let accinfo = getDictionaryInfo(codeinfo);
+            if (accinfo) {
+              row.accountcode = accinfo.value1;
+              row.subjectnumber = accinfo.value2;
             }
-            if (codeinfo !== '') {
-                let accinfo = getDictionaryInfo(codeinfo);
-                if (accinfo) {
-                    row.accountcode = accinfo.value1;
-                    row.subjectnumber = accinfo.value2;
-                }
-            }
-            //add_fjl_0721   对应科目代码  end
+          }
+          //add_fjl_0721   对应科目代码  end
         }
         if (!orglist) {
           row.budgetcoding = '';
@@ -2308,7 +2335,7 @@
         //ADD_FJL
         row.optionsA = [];
         row.budgetcoding = '';
-          row.subjectnumber = '';
+        row.subjectnumber = '';
         let butinfo = getOrgInfo(row.departmentname).encoding;
         let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
         if (dic.length > 0) {
@@ -2324,22 +2351,22 @@
         //ADD_FJL  修改人员预算编码
         let group = getOrgInfo(orglist);
         if (group) {
-            //add_fjl_0721   对应科目代码  start
-            row.Redirict = group.redirict;
-            let codeinfo = '';
-            if (row.Redirict === '0') {
-                codeinfo = 'PJ119001';
-            } else if (row.Redirict == '1' || row.Redirict == '') {
-                codeinfo = 'PJ132001';
+          //add_fjl_0721   对应科目代码  start
+          row.Redirict = group.redirict;
+          let codeinfo = '';
+          if (row.Redirict === '0') {
+            codeinfo = 'PJ119001';
+          } else if (row.Redirict == '1' || row.Redirict == '') {
+            codeinfo = 'PJ132001';
+          }
+          if (codeinfo !== '') {
+            let accinfo = getDictionaryInfo(codeinfo);
+            if (accinfo) {
+              row.accountcode = accinfo.value1;
+              row.subjectnumber = accinfo.value2;
             }
-            if (codeinfo !== '') {
-                let accinfo = getDictionaryInfo(codeinfo);
-                if (accinfo) {
-                    row.accountcode = accinfo.value1;
-                    row.subjectnumber = accinfo.value2;
-                }
-            }
-            //add_fjl_0721   对应科目代码  end
+          }
+          //add_fjl_0721   对应科目代码  end
           // row.budgetcoding = group.encoding;
           // if (group.redirict === '0') {
           //   row.code20 = 'PJ119';
@@ -2493,9 +2520,9 @@
             trafficdate: '',
             invoicenumber: '',
             departmentname: '',
-              plsummary: '',
-              accountcode: '',
-              subjectnumber: '',
+            plsummary: '',
+            accountcode: '',
+            subjectnumber: '',
             taxes: '',
             // costitem: '',
             region: '',
@@ -2518,9 +2545,9 @@
             accommodationdate: '',
             activitycontent: ' ',
             budgetcoding: '',
-              plsummary: '',
-              accountcode: '',
-              subjectnumber: '',
+            plsummary: '',
+            accountcode: '',
+            subjectnumber: '',
             subsidies: '',
             city: '',
             region: ' ',
@@ -2543,10 +2570,10 @@
           this.tableR = [{
             otherdetailsdate: '',
             // costitem: '',
-              plsummary: '',
-              accountcode: '',
+            plsummary: '',
+            accountcode: '',
             rmb: '',
-              subjectnumber: '',
+            subjectnumber: '',
             remarks: '',
             budgetcoding: '',
             foreigncurrency: '',
@@ -2588,17 +2615,17 @@
       },
       addRow() {
         //add_fjl_0710 禅道任务264 start
-          // let budgetcodinglet = '';
-          // if (this.tableT[0].budgetcoding !== '' && this.tableT[0].budgetcoding !== null) {
-          //   let bucoding = getDictionaryInfo(this.tableT[0].budgetcoding);
-          //   if (bucoding) {
-          //     budgetcodinglet = bucoding.value2 + '_' + bucoding.value3;
-          //   }
-          // }
+        // let budgetcodinglet = '';
+        // if (this.tableT[0].budgetcoding !== '' && this.tableT[0].budgetcoding !== null) {
+        //   let bucoding = getDictionaryInfo(this.tableT[0].budgetcoding);
+        //   if (bucoding) {
+        //     budgetcodinglet = bucoding.value2 + '_' + bucoding.value3;
+        //   }
+        // }
         //add_fjl_0710 禅道任务264 end
         this.tableT.push({
           optionsT: this.tableT[0].optionsT,
-            budgetcoding: this.tableT[0].budgetcoding,
+          budgetcoding: this.tableT[0].budgetcoding,
           evectionid: '',
           trafficdetails_id: '',
           publicexpenseid: '',
@@ -2629,13 +2656,13 @@
           moneys = getDictionaryInfo('PJ035002').value8;
         }
         //add_fjl_0710 禅道任务264 start
-          // let budgetcodinglet = '';
-          // if (this.tableA[0].budgetcoding !== '' && this.tableA[0].budgetcoding !== null) {
-          //   let bucoding = getDictionaryInfo(this.tableA[0].budgetcoding);
-          //   if (bucoding) {
-          //     budgetcodinglet = bucoding.value2 + '_' + bucoding.value3;
-          //   }
-          // }
+        // let budgetcodinglet = '';
+        // if (this.tableA[0].budgetcoding !== '' && this.tableA[0].budgetcoding !== null) {
+        //   let bucoding = getDictionaryInfo(this.tableA[0].budgetcoding);
+        //   if (bucoding) {
+        //     budgetcodinglet = bucoding.value2 + '_' + bucoding.value3;
+        //   }
+        // }
         //add_fjl_0710 禅道任务264 end
         this.tableA.push({
           evectionid: '',
@@ -2649,7 +2676,7 @@
           plsummary: this.plsummaryflg,
           accountcode: this.newaccountcodeflg,
           optionsA: this.tableA[0].optionsA,
-            budgetcoding: this.tableA[0].budgetcoding,
+          budgetcoding: this.tableA[0].budgetcoding,
           subjectnumber: this.accflg,
           city: '',
           region: '',
@@ -2753,7 +2780,7 @@
         }
       },
       fileSuccess(response, file, fileList) {
-        if (response.data == "upload_success") {
+        if (response.data == 'upload_success') {
           this.fileList = [];
           this.form.uploadfile = '';
           for (var item of fileList) {
@@ -2773,7 +2800,7 @@
             type: 'error',
             duration: 5 * 1000,
           });
-          this.form.uploadfile = ''
+          this.form.uploadfile = '';
           this.$refs.upload.clearFiles();
         }
       },
@@ -2924,7 +2951,7 @@
               this.region = cityinfo.code;
             }
             this.rank = this.relations[i].level;
-              this.form.regionname = this.relations[i].regionname;
+            this.form.regionname = this.relations[i].regionname;
             let dict = getDictionaryInfo(this.relations[i].level);
             if (dict) {
               this.form.level = dict.value1;
@@ -2939,7 +2966,7 @@
           }
         }
         if (this.form.startdate != '' && this.form.enddate != '' && moment(this.form.startdate).format('YYYY-MM-DD') != moment(this.form.enddate).format('YYYY-MM-DD')) {
-          var getDate = function (str) {
+          var getDate = function(str) {
             var tempDate = new Date();
             var list = str.split('-');
             tempDate.setFullYear(list[0]);
@@ -3008,7 +3035,7 @@
             annexno: '',
             rowindex: '',
             taxes: '',
-              Redirict: this.Redirict
+            Redirict: this.Redirict,
           });
         }
         for (let i = 0; i < this.tableA.length; i++) {
@@ -3027,11 +3054,11 @@
               }
             }
           }
-            if (this.form.arrivenight === '1') {
-              this.tableA[0].subsidies = parseFloat(moneys) + 100;
-            } else {
-              this.tableA[0].subsidies = parseFloat(moneys);
-            }
+          if (this.form.arrivenight === '1') {
+            this.tableA[0].subsidies = parseFloat(moneys) + 100;
+          } else {
+            this.tableA[0].subsidies = parseFloat(moneys);
+          }
         }
       },
 
@@ -3178,9 +3205,9 @@
         // }
         if (this.form.type === '0') {
           //境内无规定外费用的场合，住宿标准check
-            if (row.Redirict === '0' ? (row.accountcode === 'PJ119005') : (row.accountcode === 'PJ132005')) {
+          if (row.Redirict === '0' ? (row.accountcode === 'PJ119005') : (row.accountcode === 'PJ132005')) {
             row.rmb = '';
-            } else if (row.Redirict === '0' ? (row.accountcode === 'PJ119006') : (row.accountcode === 'PJ132006')) {
+          } else if (row.Redirict === '0' ? (row.accountcode === 'PJ119006') : (row.accountcode === 'PJ132006')) {
             row.rmb = '';
           }
         } else if (this.form.type === '1') {
@@ -3450,7 +3477,7 @@
                                   duration: 5 * 1000,
                                 });
                                 return;
-                              }else{
+                              } else {
                                 this.accomflg = 0;
                               }
                             } else {
@@ -3463,7 +3490,7 @@
                                   duration: 5 * 1000,
                                 });
                                 return;
-                              }else{
+                              } else {
                                 this.accomflg = 0;
                               }
                             }
@@ -3480,7 +3507,7 @@
                                   duration: 5 * 1000,
                                 });
                                 return;
-                              }else{
+                              } else {
                                 this.accomflg = 0;
                               }
                             } else {
@@ -3493,7 +3520,7 @@
                                   duration: 5 * 1000,
                                 });
                                 return;
-                              }else{
+                              } else {
                                 this.accomflg = 0;
                               }
                             }
@@ -3559,18 +3586,18 @@
                   }
                 }
                 //add-ws-5/12-分录传票的发票税金需要与后面明细同种发票的税金和相同
-                  //del_fjl_0721   对应科目代码  start
+                //del_fjl_0721   对应科目代码  start
                 //add-ws-5/13-获取当前人是否直属部门后台导出csv使用
-                  // if (getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)) {
-                  //   this.CheckRedirict = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).redirict;
-                  // }
-                  // if (this.CheckRedirict == '0') {
-                  //   this.checkredirict = 0;
-                  // } else if (this.CheckRedirict == '1' || this.CheckRedirict == '') {
-                  //   this.checkredirict = 1;
-                  // }
+                // if (getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)) {
+                //   this.CheckRedirict = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).redirict;
+                // }
+                // if (this.CheckRedirict == '0') {
+                //   this.checkredirict = 0;
+                // } else if (this.CheckRedirict == '1' || this.CheckRedirict == '') {
+                //   this.checkredirict = 1;
+                // }
                 //add-ws-5/13-获取当前人是否直属部门后台导出csv使用
-                  //del_fjl_0721   对应科目代码  end
+                //del_fjl_0721   对应科目代码  end
                 if (this.form.type === '0') {
                   for (let i = 0; i < this.tableT.length; i++) {
                     if (this.tableT[i].trafficdate !== '' || this.tableT[i].invoicenumber !== '' || this.tableT[i].departmentname !== '' || this.tableT[i].budgetcoding !== ''
@@ -3624,7 +3651,7 @@
                           taxes: this.tableA[i].taxes,
                           annexno: this.tableA[i].annexno,
                           //add-ws-5/13-获取当前人是否直属部门后台导出csv使用
-                            redirict: this.tableA[i].Redirict,
+                          redirict: this.tableA[i].Redirict,
                           //add-ws-5/13-获取当前人是否直属部门后台导出csv使用
                         },
                       );
@@ -3737,7 +3764,7 @@
                           taxes: this.tableA[i].taxes,
                           annexno: this.tableA[i].annexno,
                           //add-ws-5/13-获取当前人是否直属部门后台导出csv使用
-                            redirict: this.tableA[i].Redirict,
+                          redirict: this.tableA[i].Redirict,
                           //add-ws-5/13-获取当前人是否直属部门后台导出csv使用
                         },
                       );
