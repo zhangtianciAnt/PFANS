@@ -107,6 +107,8 @@ module.exports = {
     submyin: '确认并用印',
     sealapp: '印章申请',
     temLoanApp: '暂借款申请',
+    release: '关联发放',
+    cancelrelease: '取消发放',
   },
   table: {
     detail: '一览',
@@ -2682,6 +2684,7 @@ module.exports = {
     PFANS2022VIEW_UNFILLED: '未填',
     PFANS2022VIEW_MONEYSTATUS: '奖金发放状态',
     PFANS2022VIEW_MONEYSTATUSED: '已发放',
+    PFANS2022VIEW_RELEASEDATE: '发放时间',
     PFANS2023VIEW_YEARS: '年度',
     PFANS2023VIEW_STAGE: '阶段',
     PFANS2023VIEW_COMPLETIONSTATUS: '完成状态',
