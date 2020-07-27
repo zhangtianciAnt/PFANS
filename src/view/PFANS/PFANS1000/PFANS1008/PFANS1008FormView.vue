@@ -142,19 +142,19 @@
                   <el-table-column :label="$t('label.PFANS1008FORMVIEW_ASSETMANAGEMENTNUMBER')" align="center"
                                    width="200">
                     <template slot-scope="scope">
-                      <el-input :no="scope.row" :disabled="!disabled" maxlength="20" v-model="scope.row.management">
+                      <el-input :no="scope.row" :disabled="true" maxlength="20" v-model="scope.row.management">
                       </el-input>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1008FORMVIEW_ASSETNAME')" align="center" width="200">
                     <template slot-scope="scope">
-                      <el-input :no="scope.row" :disabled="!disabled" maxlength="20" v-model="scope.row.assetname">
+                      <el-input :no="scope.row" :disabled="true" maxlength="20" v-model="scope.row.assetname">
                       </el-input>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1008FORMVIEW_RESPONSIBLEPERSON')" align="center" width="200">
                     <template slot-scope="scope">
-                      <user :no="scope.row" :disabled="!disabled" :selectType="selectType" :userlist="scope.row.person"
+                      <user :no="scope.row" :disabled="true" :selectType="selectType" :userlist="scope.row.person"
                             @getUserids="getUseridsperson"></user>
                     </template>
                   </el-table-column>
@@ -180,14 +180,14 @@
                         type="danger"
                       >{{$t('button.delete')}}
                       </el-button>
-                      <el-button
-                        :disabled="!disabled"
-                        @click="addRow()"
-                        plain
-                        size="small"
-                        type="primary"
-                      >{{$t('button.insert')}}
-                      </el-button>
+                      <!--<el-button-->
+                      <!--:disabled="!disabled"-->
+                      <!--@click="addRow()"-->
+                      <!--plain-->
+                      <!--size="small"-->
+                      <!--type="primary"-->
+                      <!--&gt;{{$t('button.insert')}}-->
+                      <!--</el-button>-->
                     </template>
                   </el-table-column>
                 </el-table>
@@ -858,17 +858,17 @@
           ]
         }
       },
-      addRow() {
-        this.tableD.push({
-          notificationid: '',
-          softwaretransferid: '',
-          management: '',
-          assetname: '',
-          person: '',
-          eafter: '',
-          reason: '',
-        });
-      },
+      // addRow() {
+      //   this.tableD.push({
+      //     notificationid: '',
+      //     softwaretransferid: '',
+      //     management: '',
+      //     assetname: '',
+      //     person: '',
+      //     eafter: '',
+      //     reason: '',
+      //   });
+      // },
       paramsTitle() {
         this.$router.push({
           name: 'PFANS1037FormView',
