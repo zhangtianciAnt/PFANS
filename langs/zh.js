@@ -3445,6 +3445,7 @@ module.exports = {
     PFANS8009VIEW_VALUE7: '项目7',
     PFANS8009VIEW_VALUE8: '项目8',
     PFANS8009VIEW_VALUE9: '项目9',
+    PFANSUSERVIEW_MENUCHECK: '以下人员门禁卡号不符合要求请重新选择',
     PFANSUSERVIEW_ENTERDAY: '入社时间',
     PFANSUSERVIEW_POST: '职务',
     PFANSUSERVIEW_RANK: 'Rank',
