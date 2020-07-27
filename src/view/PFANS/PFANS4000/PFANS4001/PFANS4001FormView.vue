@@ -127,7 +127,7 @@
                       header-cell-class-name="sub_bg_color_blue"
                       stripe>
               <el-table-column :label="$t('label.PFANS1032FORMVIEW_CONTRACTNUMBER')" align="center"
-                               prop="contractnumber" width="220">
+                                prop="contractnumber" width="220">
                 <template slot-scope="scope">
                   <span>{{scope.row.contractnumber}}</span>
                 </template>
@@ -145,13 +145,13 @@
               <!--                </template>-->
               <!--              </el-table-column>-->
               <el-table-column :label="$t('label.PFANS1032FORMVIEW_PJNAME')" align="center" prop="pjnamejapanese"
-                               width="200">
+                               v-if="awardable" width="200">
                 <template slot-scope="scope">
                   <span>{{scope.row.pjnamejapanese}}</span>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1032FORMVIEW_CLAIMNUMBER')" align="center" prop="claimnumber"
-                               width="200">
+                               v-if="awardable" width="200">
                 <template slot-scope="scope">
                   <span>{{scope.row.claimnumber}}</span>
                 </template>
@@ -228,6 +228,7 @@
         centerid: '',
         groupid: '',
         teamid: '',
+        awardable:true,
         error: '',
         tableD: [],
         chgesal: [],
@@ -355,6 +356,9 @@
                     this.npdata(bokid[i]);
                   } else if (bokid[0] === '7') {
                     this.award(bokid[i]);
+                  }else if (bokid[0] === '9') {
+                    this.awardable = false;
+                    this.award3(bokid[i]);
                   }
                 }
               }
@@ -412,6 +416,13 @@
         } else if (this.form.filetype === 'PC002006') {
           this.url = 'PFANS1025FormView';
           this.urlparams = {'_id': row.award_id};
+        }else if (this.form.filetype === 'PC002001') {
+          let bokid = this.form.bookid.split(',');
+          if (bokid[0] === '9')
+          {
+            this.url = 'PFANS1047FormView';
+            this.urlparams = {'_id': row.award_id};
+          }
         }
         this.$refs[1].open = true;
       },
@@ -451,6 +462,38 @@
           });
       },
       //add-ws-7/20-禅道任务342
+
+      //add ccm 0724
+      award3(val) {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS1025Store/selectById', {'award_id': val})
+          .then(response => {
+            let resp_ = response.award;
+            if (resp_ !== null && resp_ !== '' && resp_ !== undefined) {
+              this.tableD.push({
+                contracttype: getDictionaryInfo(resp_.contracttype).value1,
+                businesscode: resp_.businesscode,
+                pjnamejapanese: resp_.pjnamejapanese,
+                claimnumber: resp_.claimnumber,
+                claimdate: moment(resp_.claimdate).format('YYYY-MM-DD'),
+                contractnumber: resp_.contractnumber,
+                award_id: resp_.award_id,
+              });
+            }
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
+      //add ccm 0724
+
       pedata(val) {
         this.loading = true;
         this.$store
