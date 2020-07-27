@@ -10,6 +10,7 @@
     <PFANS1047FormView ref="child5" v-show="url === 'PFANS1047FormView'"></PFANS1047FormView>
     <PFANS1035FormView ref="child6" v-show="url === 'PFANS1035FormView'"></PFANS1035FormView>
     <PFANS1002FormView ref="child7" v-show="url === 'PFANS1002FormView'"></PFANS1002FormView>
+    <PFANS1012FormView ref="child8" v-show="url === 'PFANS1012FormView'"></PFANS1012FormView>
   </el-drawer>
 </template>
 
@@ -22,6 +23,7 @@
   import PFANS1047FormView from '@/view/PFANS/PFANS1000/PFANS1047/PFANS1047FormView.vue';
   import PFANS1035FormView from '@/view/PFANS/PFANS1000/PFANS1035/PFANS1035FormView.vue';
   import PFANS1002FormView from '@/view/PFANS/PFANS1000/PFANS1002/PFANS1002FormView.vue';
+  import PFANS1012FormView from '@/view/PFANS/PFANS1000/PFANS1012/PFANS1012FormView.vue';
 
   export default {
     name: 'index',
@@ -34,6 +36,7 @@
       PFANS1047FormView,
       PFANS1035FormView,
       PFANS1002FormView,
+      PFANS1012FormView,
     },
     data() {
       return {
@@ -80,6 +83,7 @@
             this.$refs.child5.$refs.container.Pop = true;
             this.$refs.child6.$refs.container.Pop = true;
             this.$refs.child7.$refs.container.Pop = true;
+            this.$refs.child8.$refs.container.Pop = true;
           });
         }
       },
