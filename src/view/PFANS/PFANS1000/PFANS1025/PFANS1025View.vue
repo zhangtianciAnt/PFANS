@@ -528,6 +528,11 @@
             var vote = {};
             vote.value = this.selectedlist[i].award_id;
             vote.label = this.selectedlist[i].contractnumber;
+              vote.remarks = this.selectedlist[i].remarks;
+              vote.judgements_moneys = this.selectedlist[i].claimamount;
+              if (this.$i18n) {
+                  vote.judgements_type = this.$t('label.PFANS1012VIEW_CHECKLIST');
+              }
             this.listjudgement.push(vote);
           }
           this.$router.push({
