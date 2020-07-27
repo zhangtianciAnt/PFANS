@@ -1,4 +1,5 @@
 import request from '../../../../utils/request'
+import requestPdf from '../../../../utils/requestPdf';
 
 export function get(data) {
   return request({
@@ -63,3 +64,19 @@ export function existCheck(data) {
     params: data
   })
 }
+//add-ws-7/22-禅道341任务
+export function getindividual() {
+  return request({
+    url: 'contractapplication/getindividual',
+    method: 'post'
+  })
+}
+export function generatesta(data) {
+  return requestPdf({
+    url: 'contractapplication/generatesta',
+    method: 'get',
+    params: data,
+    responseType: 'blob'
+  })
+}
+//add-ws-7/22-禅道341任务
