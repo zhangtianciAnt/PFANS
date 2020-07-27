@@ -1,6 +1,7 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer
+      :noback="noback"
       :buttonList="buttonList"
       :canStart="canStart"
       :enableSave="enableSave"
@@ -527,6 +528,7 @@
         };
         //add_fjl_0724 添加项目名称必填项  end
       return {
+        noback: false,
         enableSave: false,
         optionsdate: [{value: 'PP024001', lable: this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')}],
         options: [],
@@ -913,6 +915,7 @@
       //add-ws-7/7-禅道247
       this.checktype = this.$route.params._type
       //add-ws-7/7-禅道247
+      this.disable = this.$route.params.disabled;
       if (!this.$route.params.disabled) {
         this.buttonList = [];
       }
@@ -946,7 +949,8 @@
           ];
           this.enableSave = true;
         }
-      } else if (this.$route.params.statuss ===  this.$t('label.node_step2')) {
+      }
+      else if (this.$route.params.statuss ===  this.$t('label.node_step2')) {
         this.buttonList = [
           {
             key: 'save',
@@ -956,7 +960,8 @@
           },
         ];
         this.enableSave = true;
-      } else {
+      }
+      else {
         this.buttonList = [
           {
             key: 'save',
@@ -967,7 +972,10 @@
         ];
       }
       //add-ws-7/7-禅道153
-      this.disable = this.$route.params.disabled;
+      if (this.$route.params.disabled === "") {
+        this.noback = true
+        this.buttonList = []
+      }
     },
     methods: {
       //add-ws-4/24-项目名称所取数据源变更
