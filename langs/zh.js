@@ -2125,6 +2125,8 @@ module.exports = {
     PFANS1044VIEW_CMSHS: 'CMS回收方法',
     PFANS1045VIEW_CHECKCYCLE: '本周期已创建方针合同，请勿重复创建',
     PFANS1045VIEW_CHECK: '此外协公司已关联方针合同，请勿重复关联',
+    PFANS1045VIEW_CHECK2: '外协公司每周期只可创建一条数据',
+    PFANS1045VIEW_CHECK3: '请先填写外协公司，再输入周期',
     PFANS1045VIEW_OUTSOURCINGCOMPANY: '外协公司',
     PFANS1045VIEW_AMOUNTCASE: '起案金额',
     PFANS1045VIEW_MODIFIEDAMOUNT: '修改后金额',

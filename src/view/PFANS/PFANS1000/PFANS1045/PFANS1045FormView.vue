@@ -580,16 +580,25 @@
         this.buttonClick('save');
       },
       changeAcc(val) {
+        if (this.form.outsourcingcompany === '') {
+          this.form.cycle = '';
+          Message({
+            message: this.$t('label.PFANS1045VIEW_CHECK3'),
+            type: 'error',
+            duration: 5 * 1000,
+          });
+          return;
+        }
         this.checkcycle = 0;
         this.form.cycle = val;
         this.loading = true;
         this.$store
-          .dispatch('PFANS1006Store/chackcycle', {'cycle': this.form.cycle})
+          .dispatch('PFANS1006Store/chackcycle', this.form)
           .then(response => {
-            if (response.errorcheck != '0') {
+            if (response.length == 1) {
               this.checkcycle = 1;
               Message({
-                message: this.$t('label.PFANS1045VIEW_CHECKCYCLE'),
+                message: this.$t('label.PFANS1045VIEW_CHECK2'),
                 type: 'error',
                 duration: 5 * 1000,
               });
