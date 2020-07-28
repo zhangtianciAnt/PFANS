@@ -109,6 +109,7 @@ module.exports = {
     temLoanApp: '暂借款申请',
     release: '关联发放',
     cancelrelease: '取消发放',
+    createfree: '生成费用统计',
   },
   table: {
     detail: '一览',
