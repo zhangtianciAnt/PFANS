@@ -138,6 +138,23 @@
           if (user) {
             response[j].user_id = getUserInfo(response[j].user_id).userinfo.customername;
           }
+          if (response[j].cycle !== null && response[j].cycle !== '') {
+            if (response[j].cycle == '0') {
+              response[j].cycle = this.$t('label.PFANS2007VIEW_YEAR')
+            } else if (response[j].cycle == '1') {
+              response[j].cycle = this.$t('label.PFANS1045VIEW_CYCLE1')
+            } else if (response[j].cycle == '2') {
+              response[j].cycle = this.$t('label.PFANS1045VIEW_CYCLE2')
+            } else if (response[j].cycle == '3') {
+              response[j].cycle = this.$t('label.PFANS1045VIEW_CYCLE3')
+            } else if (response[j].cycle == '4') {
+              response[j].cycle = this.$t('label.PFANS1045VIEW_CYCLE4')
+            } else if (response[j].cycle == '5') {
+              response[j].cycle = this.$t('label.PFANS1045VIEW_CYCLE5')
+            } else if (response[j].cycle == '6') {
+              response[j].cycle = this.$t('label.PFANS1045VIEW_CYCLE6')
+            }
+          }
           if (response[j].status !== null && response[j].status !== '') {
             response[j].status = getStatus(response[j].status);
           }
@@ -234,7 +251,7 @@
           });
         }
       },
-    }
+    },
   };
 </script>
 
