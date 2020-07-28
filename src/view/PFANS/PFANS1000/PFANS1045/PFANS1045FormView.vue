@@ -630,6 +630,14 @@
         } else {
           this.$refs['reff'].validate(valid => {
             if (valid) {
+              if (this.form.amountcase === 0) {
+                Message({
+                  message: this.$t('label.PFANS1045VIEW_CHECK4'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                return;
+              }
               this.form.user_id = this.userlist;
               this.baseInfo = {};
               this.baseInfo.policycontract = [];
