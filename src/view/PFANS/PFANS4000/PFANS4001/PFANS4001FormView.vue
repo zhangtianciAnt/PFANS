@@ -127,7 +127,7 @@
                       header-cell-class-name="sub_bg_color_blue"
                       stripe>
               <el-table-column :label="$t('label.PFANS1032FORMVIEW_CONTRACTNUMBER')" align="center"
-                                prop="contractnumber" width="220">
+                               prop="contractnumber" width="220">
                 <template slot-scope="scope">
                   <span>{{scope.row.contractnumber}}</span>
                 </template>
@@ -228,7 +228,7 @@
         centerid: '',
         groupid: '',
         teamid: '',
-        awardable:true,
+        awardable: true,
         error: '',
         tableD: [],
         chgesal: [],
@@ -356,7 +356,7 @@
                     this.npdata(bokid[i]);
                   } else if (bokid[0] === '7') {
                     this.award(bokid[i]);
-                  }else if (bokid[0] === '9') {
+                  } else if (bokid[0] === '9') {
                     this.awardable = false;
                     this.award3(bokid[i]);
                   }
@@ -416,10 +416,9 @@
         } else if (this.form.filetype === 'PC002006') {
           this.url = 'PFANS1025FormView';
           this.urlparams = {'_id': row.award_id};
-        }else if (this.form.filetype === 'PC002001') {
+        } else if (this.form.filetype === 'PC002001') {
           let bokid = this.form.bookid.split(',');
-          if (bokid[0] === '9')
-          {
+          if (bokid[0] === '9') {
             this.url = 'PFANS1047FormView';
             this.urlparams = {'_id': row.award_id};
           }
@@ -614,7 +613,7 @@
         this.buttonClick2();
       },
       buttonClick2() {
-        if (this.form.sealtype.length > 0) {
+        if (this.form.status === '4' || this.form.status === '3') {
           if (this.form.sealtype != '' && this.form.sealtype != null && this.form.sealtype != undefined) {
             let checktlist = this.form.sealtype.splice(',');
             let checktableD = '';
