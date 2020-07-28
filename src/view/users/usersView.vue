@@ -299,8 +299,19 @@ export default {
           name: "button.download2",
           disabled: false,
           icon: "el-icon-download"
+        },
+        //add-ws-7/27-禅道298任务
+        {
+          key: "menu",
+          name: "menu.PFANS1021",
+          disabled: false,
+          icon: "el-icon-plus"
         }
+        //add-ws-7/27-禅道298任务
       ],
+      //add-ws-7/27-禅道298任务
+      listjudgement: [],
+      //add-ws-7/27-禅道298任务
       departmentname: "",
       loading: false,
       currentNodeData: {},
@@ -805,6 +816,55 @@ export default {
       if (val === "export2") {
         this.pop_download = true;
       }
+      //add-ws-7/27-禅道298任务
+      if (val === "menu") {
+        let checktableD = '';
+        let error = 0;
+        this.selectedlist = this.$refs.roletable.selectedList;
+        if (this.$refs.roletable.selectedList.length === 0) {
+          Message({
+            message: this.$t("normal.info_01"),
+            type: "info",
+            duration: 2 * 1000
+          });
+          return;
+        }else{
+          for (let i = 0; i < this.selectedlist.length; i++) {
+           if(this.selectedlist[i].jobnumber==='00000' || this.selectedlist[i].jobnumber===''){
+             error = error + 1;
+             let sealtypeList = this.selectedlist[i].customername;
+             checktableD = checktableD + sealtypeList + ',';
+           }
+          }
+          if (error != 0) {
+            let img = checktableD.substring(0, checktableD.length - 1);
+            Message({
+              message: this.$t('label.PFANSUSERVIEW_MENUCHECK') + img,
+              type: 'info',
+              duration: 3 * 1000,
+            });
+            return;
+          }
+        }
+        for (let i = 0; i < this.selectedlist.length; i++) {
+          var vote = {};
+          vote.customername = this.selectedlist[i].customername;
+          vote.centername = this.selectedlist[i].centername;
+          vote.groupname = this.selectedlist[i].groupname;
+          vote.teamname = this.selectedlist[i].teamname;
+          this.listjudgement.push(vote);
+        }
+        this.$router.push({
+          name: 'PFANS1021FormView',
+          params: {
+            _id: '',
+            disabled: true,
+            _name: this.listjudgement,
+          },
+        });
+
+      }
+      //add-ws-7/27-禅道298任务
       this.$store.commit("global/SET_HISTORYURL", this.$route.path);
       if (val === "new") {
         this.$router.push({

@@ -245,6 +245,7 @@
                         active-value="1"
                         inactive-value="0"
                         v-model="form.arrivenight"
+                        inactive-color="#005BAA"
                       >
                       </el-switch>
                       <span style="margin-left: 1rem ">{{$t('label.yes')}}</span>
@@ -261,6 +262,7 @@
                         active-value="1"
                         inactive-value="0"
                         @change="getplan1"
+                        inactive-color="#005BAA"
                       >
                       </el-switch>
                       <span style="margin-left: 1vw ">{{$t('label.PFANS1004VIEW_INSIDE')}}</span>
@@ -394,6 +396,7 @@
                         active-value="1"
                         inactive-value="0"
                         @change="getpassengers1"
+                        inactive-color="#005BAA"
                       >
                       </el-switch>
                       <span style="margin-left: 1vw ">{{$t('label.PFANSUSERFORMVIEW_YES')}}</span>
@@ -417,6 +420,7 @@
                         active-value="1"
                         inactive-value="0"
                         @change="getexternal"
+                        inactive-color="#005BAA"
                       >
                       </el-switch>
                       <span style="margin-left: 1vw ">{{$t('label.PFANSUSERFORMVIEW_YES')}}</span>
