@@ -676,82 +676,27 @@
                     });
                 } else {
                   this.$store
-                    .dispatch('PFANS1006Store/check', this.form)
+                    .dispatch('PFANS1006Store/createpolicycontract', this.baseInfo)
                     .then(response => {
-                      if (response.length > 0) {
-                        Message({
-                          message: this.$t('label.PFANS1045VIEW_CHECK'),
-                          type: 'error',
-                          duration: 5 * 1000,
-                        });
-                        this.loading = false;
-                      } else {
-                        this.$store
-                          .dispatch('PFANS1006Store/createpolicycontract', this.baseInfo)
-                          .then(response => {
-                            this.data = response;
-                            this.loading = false;
-                            Message({
-                              message: this.$t('normal.success_01'),
-                              type: 'success',
-                              duration: 5 * 1000,
-                            });
-                            this.paramsTitle();
-                          })
-                          .catch(error => {
-                            Message({
-                              message: error,
-                              type: 'error',
-                              duration: 5 * 1000,
-                            });
-                            this.loading = false;
-                          });
-                      }
-                    }).catch(error => {
-                    Message({
-                      message: error,
-                      type: 'error',
-                      duration: 5 * 1000,
+                      this.data = response;
+                      this.loading = false;
+                      Message({
+                        message: this.$t('normal.success_01'),
+                        type: 'success',
+                        duration: 5 * 1000,
+                      });
+                      this.paramsTitle();
+                    })
+                    .catch(error => {
+                      Message({
+                        message: error,
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                      this.loading = false;
                     });
-                    this.loading = false;
-                  });
                 }
-              } else {
-                Message({
-                  message: this.$t('label.PFANS1045VIEW_CHECK5'),
-                  type: 'error',
-                  duration: 5 * 1000,
-                });
-                this.loading = false;
-              }
-            } else {
-              Message({
-                message: this.$t('normal.error_12'),
-                type: 'error',
-                duration: 5 * 1000,
-              });
-            }
-          });
-        }
-      },
-      getsupplierinfor() {
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS6003Store/getsupplierinfor2')
-          .then(response => {
-            this.gridData = [];
-            for (let i = 0; i < response.length; i++) {
-              var vote = {};
-              vote.suppliername = response[i].supchinese;
-              vote.payeename = response[i].payeename;
-              vote.suppliercode = response[i].suppliercode;
-              vote.payeebankaccountnumber = response[i].payeebankaccountnumber;
-              vote.payeebankaccount = response[i].payeebankaccount;
-              this.gridData.push(vote);
-            }
-            this.loading = false;
-          })
-          .catch(error => {
+              ).catch(error => {
             Message({
               message: error,
               type: 'error',
@@ -759,27 +704,84 @@
             });
             this.loading = false;
           });
-      },
-
-      handleClickChange(val) {
-        this.currentRow = val.suppliername;
-      },
-      submit() {
-        let val = this.currentRow;
-        this.dialogTableVisible = false;
-        this.form.outsourcingcompany = val;
-      },
-      getUserids(val) {
-        this.userlist = val;
-        this.form.user_id = val;
-        if (!this.form.user_id || this.form.user_id === '' || typeof val == 'undefined') {
-          this.error = this.$t('normal.error_08') + this.$t('label.applicant');
-        } else {
-          this.error = '';
         }
-      },
-    },
-  };
+      } else {
+        Message({
+          message: this.$t('label.PFANS1045VIEW_CHECK5'),
+      type: 'error',
+      duration: 5 * 1000,
+    }
+  )
+  ;
+  this.loading = false;
+  }
+  } else
+  {
+    Message({
+      message: this.$t('normal.error_12'),
+      type: 'error',
+      duration: 5 * 1000,
+    });
+  }
+  })
+  ;
+  }
+  },
+  getsupplierinfor();
+  {
+    this.loading = true;
+    this.$store
+      .dispatch('PFANS6003Store/getsupplierinfor2')
+      .then(response => {
+        this.gridData = [];
+        for (let i = 0; i < response.length; i++) {
+          var vote = {};
+          vote.suppliername = response[i].supchinese;
+          vote.payeename = response[i].payeename;
+          vote.suppliercode = response[i].suppliercode;
+          vote.payeebankaccountnumber = response[i].payeebankaccountnumber;
+          vote.payeebankaccount = response[i].payeebankaccount;
+          this.gridData.push(vote);
+        }
+        this.loading = false;
+      })
+      .catch(error => {
+        Message({
+          message: error,
+          type: 'error',
+          duration: 5 * 1000,
+        });
+        this.loading = false;
+      });
+  }
+  ,
+
+  handleClickChange(val);
+  {
+    this.currentRow = val.suppliername;
+  }
+  ,
+  submit();
+  {
+    let val = this.currentRow;
+    this.dialogTableVisible = false;
+    this.form.outsourcingcompany = val;
+  }
+  ,
+  getUserids(val);
+  {
+    this.userlist = val;
+    this.form.user_id = val;
+    if (!this.form.user_id || this.form.user_id === '' || typeof val == 'undefined') {
+      this.error = this.$t('normal.error_08') + this.$t('label.applicant');
+    } else {
+      this.error = '';
+    }
+  }
+  ,
+  },
+  }
+  ;
 </script>
 
 <style rel="stylesheet/scss" lang="scss">
