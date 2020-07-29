@@ -75,3 +75,13 @@ export function disclickUpdateStates(data) {
   })
 }
 //add ccm 0716 离职一键驳回
+
+//add ccm 2020729 考勤异常加班审批中的日期，考勤不允许承认
+export function selectAbnomalandOvertime(data) {
+  return request({
+    url: 'attendance/selectAbnomalandOvertime',
+    method: 'post',
+    data: data
+  })
+}
+//add ccm 2020729 考勤异常加班审批中的日期，考勤不允许承认
