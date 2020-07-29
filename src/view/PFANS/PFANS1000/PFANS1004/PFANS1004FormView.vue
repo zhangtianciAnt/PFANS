@@ -547,7 +547,6 @@
           uploadfile: '',
           number: '',
           musectosion: '',
-          userlistM: [],
         },
         tableA: [
           {
