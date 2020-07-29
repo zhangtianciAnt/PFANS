@@ -468,16 +468,16 @@
 </template>
 
 <script>
-  import EasyNormalContainer from '@/components/EasyNormalContainer';
-  import user from '../../../components/user.vue';
-  import {Message} from 'element-ui';
-  import moment from 'moment';
-  import {getOrgInfoByUserId, getOrgInfo, getDictionaryInfo} from '@/utils/customize';
-  import dicselect from '../../../components/dicselect';
+    import EasyNormalContainer from '@/components/EasyNormalContainer';
+    import user from '../../../components/user.vue';
+    import {Message} from 'element-ui';
+    import moment from 'moment';
+    import {getDictionaryInfo, getOrgInfo, getOrgInfoByUserId} from '@/utils/customize';
+    import dicselect from '../../../components/dicselect';
 
-  import project from '../../../components/project.vue';
+    import project from '../../../components/project.vue';
 
-  export default {
+    export default {
     name: 'PFANS1035FormView',
     components: {
       dicselect,
@@ -880,8 +880,9 @@
             } else {
               this.show5 = false;
             }
-            if (this.form.status === '2') {
+              if (this.form.status === '2' || this.form.status === '4') {
               this.disable = false;
+                  this.listAll();
             }
             this.loading = false;
           })
@@ -983,90 +984,98 @@
       //add-ws-4/24-项目名称所取数据源变更
       //upd-ws-6/5-禅道075任务，项目名称问题修正
       getCompanyProjectList() {
-        if (this.disable) {
-          this.loading = true;
-          this.$store
-            .dispatch('PFANS5009Store/getSiteList5', {})
-            .then(response => {
-              for (let i = 0; i < response.length; i++) {
-                this.optionsdate.push({
-                  value: response[i].companyprojects_id,
-                  lable: response[i].numbers + '_' + response[i].project_name,
-                });
-              }
-              this.$store
-                .dispatch('PFANS5013Store/getMyConProject', {})
-                .then(response => {
-                  for (let i = 0; i < response.length; i++) {
-                    this.optionsdate.push({
-                      value: response[i].comproject_id,
-                      lable: response[i].numbers + '_' + response[i].project_name,
-                    });
-                  }
-                  this.loading = false;
-                })
-                .catch(error => {
-                  Message({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  this.loading = false;
-                });
-              this.loading = false;
-            })
-            .catch(error => {
-              Message({
-                message: error,
-                type: 'error',
-                duration: 5 * 1000,
-              });
-              this.loading = false;
-            });
-        } else {
-          this.loading = true;
-          this.$store
-            .dispatch('PFANS5013Store/Listproject2', {})
-            .then(response => {
-              for (let i = 0; i < response.length; i++) {
-                this.optionsdate.push({
-                  value: response[i].companyprojects_id,
-                  lable: response[i].numbers + '_' + response[i].project_name,
-                });
-              }
-              this.$store
-                .dispatch('PFANS5013Store/Listproject', {})
-                .then(response => {
-                  for (let i = 0; i < response.length; i++) {
-                    this.optionsdate.push({
-                      value: response[i].comproject_id,
-                      lable: response[i].numbers + '_' + response[i].project_name,
-                    });
-                  }
-                  this.loading = false;
-                })
-                .catch(error => {
-                  Message({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  this.loading = false;
-                });
-
-              this.loading = false;
-            })
-            .catch(error => {
-              Message({
-                message: error,
-                type: 'error',
-                duration: 5 * 1000,
-              });
-              this.loading = false;
-            });
-        }
+          if (this.disable) {
+              this.ceralist();
+          } else {
+              this.listAll();
+          }
       },
       //upd-ws-6/5-禅道075任务，项目名称问题修正
+        //add_fjl_07/29_修改项目查看  start
+        ceralist() {
+            this.loading = true;
+            this.$store
+                .dispatch('PFANS5009Store/getSiteList5', {})
+                .then(response => {
+                    for (let i = 0; i < response.length; i++) {
+                        this.optionsdate.push({
+                            value: response[i].companyprojects_id,
+                            lable: response[i].numbers + '_' + response[i].project_name,
+                        });
+                    }
+                    this.$store
+                        .dispatch('PFANS5013Store/getMyConProject', {})
+                        .then(response => {
+                            for (let i = 0; i < response.length; i++) {
+                                this.optionsdate.push({
+                                    value: response[i].comproject_id,
+                                    lable: response[i].numbers + '_' + response[i].project_name,
+                                });
+                            }
+                            this.loading = false;
+                        })
+                        .catch(error => {
+                            Message({
+                                message: error,
+                                type: 'error',
+                                duration: 5 * 1000,
+                            });
+                            this.loading = false;
+                        });
+                    this.loading = false;
+                })
+                .catch(error => {
+                    Message({
+                        message: error,
+                        type: 'error',
+                        duration: 5 * 1000,
+                    });
+                    this.loading = false;
+                });
+        },
+        listAll() {
+            this.loading = true;
+            this.$store
+                .dispatch('PFANS5013Store/Listproject2', {})
+                .then(response => {
+                    for (let i = 0; i < response.length; i++) {
+                        this.optionsdate.push({
+                            value: response[i].companyprojects_id,
+                            lable: response[i].numbers + '_' + response[i].project_name,
+                        });
+                    }
+                    this.$store
+                        .dispatch('PFANS5013Store/Listproject', {})
+                        .then(response => {
+                            for (let i = 0; i < response.length; i++) {
+                                this.optionsdate.push({
+                                    value: response[i].comproject_id,
+                                    lable: response[i].numbers + '_' + response[i].project_name,
+                                });
+                            }
+                            this.loading = false;
+                        })
+                        .catch(error => {
+                            Message({
+                                message: error,
+                                type: 'error',
+                                duration: 5 * 1000,
+                            });
+                            this.loading = false;
+                        });
+
+                    this.loading = false;
+                })
+                .catch(error => {
+                    Message({
+                        message: error,
+                        type: 'error',
+                        duration: 5 * 1000,
+                    });
+                    this.loading = false;
+                });
+        },
+        //add_fjl_07/29_修改项目查看  end
       //add-ws-4/24-项目名称所取数据源变更
       getBudt(val) {
         //ADD_FJL  修改人员预算编码
