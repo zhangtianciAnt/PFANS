@@ -1935,7 +1935,7 @@
                 params: {
                   _name: optionsSEL,
                   _type: 'PJ001002',
-                  _haveLoanapp:this.form.loanapno,
+                  _haveLoanapp:this.form.loanapplication_id,
                   disabled: true,
                 },
               });
