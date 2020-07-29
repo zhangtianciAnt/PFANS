@@ -18,6 +18,7 @@
 <!--              </dicselect>-->
               <el-input-number
                 step-strictly
+                :disabled="disableCG"
                 :max="1000000000"
                 :min="1"
                 :precision="0"
@@ -783,6 +784,7 @@
           caigouhetongTable: [],
           showCG:false,
           enableButton:true,
+          disableCG:false,
           //add ccm 0722
         }
       },
@@ -817,6 +819,7 @@
           //this.caigouhetongTable = this.$route.params._caigouhetongTable;
 
           this.buttonClick('application');
+          this.disableCG = true;
           this.showCG = true;
         }
         //add ccm 0722
