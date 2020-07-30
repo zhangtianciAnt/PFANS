@@ -321,7 +321,7 @@
           </el-collapse>
               </div>
             </el-tab-pane>
-            <el-tab-pane :label="$t('label.PFANS1002FORMVIEW_NUBERSGLJC')" name="second">
+            <el-tab-pane :label="$t('label.PFANS1002FORMVIEW_NUBERSGLJC')" name="second" v-if="showtab">
               <el-row>
                 <el-table
                   :data="DataList"
@@ -517,6 +517,7 @@
       return {
         active: '1',
         activeName: 'first',
+        showtab:true,
         show10: true,
         show11: false,
         DataList: [{
@@ -732,6 +733,8 @@
               if (response !== undefined) {
                   this.form = response;
                   //决裁关联
+                if (this.form.judgements!=null && this.form.judgements!='' && this.form.judgements !=undefined)
+                {
                   let judgement = this.form.judgements.split(',');
                   let judgementname = this.form.judgements_name.split(',');
                   let remarks = [];
@@ -743,20 +746,26 @@
                     judgements_moneys = this.form.judgements_moneys.split(',');
                   }
                   let datalist = [];
-                    for (var i = 0; i < judgement.length; i++) {
-                      for (var d = 0; d < judgementname.length; d++) {
-                        if (i === d) {
-                          let obj = {};
-                          obj.judgement = judgement[i];
-                          obj.judgement_name = judgementname[d];
-                          obj.judgements_type = this.form.judgements_type;
-                          obj.remarks = remarks[i];
-                          obj.judgements_moneys = judgements_moneys[i];
-                          datalist[i] = obj;
-                        }
+                  for (var i = 0; i < judgement.length; i++) {
+                    for (var d = 0; d < judgementname.length; d++) {
+                      if (i === d) {
+                        let obj = {};
+                        obj.judgement = judgement[i];
+                        obj.judgement_name = judgementname[d];
+                        obj.judgements_type = this.form.judgements_type;
+                        obj.remarks = remarks[i];
+                        obj.judgements_moneys = judgements_moneys[i];
+                        datalist[i] = obj;
                       }
                     }
+                  }
                   this.DataList = datalist;
+                }
+                else
+                {
+                  this.showtab = false;
+                }
+
                   this.namelist = this.form.user_name;
                   let rst = getOrgInfoByUserId(response.user_id);
                   if (rst) {
@@ -839,11 +848,12 @@
           }
           this.getBudt(this.form.user_id);
 
+          if (this.$route.params._judgement !=null && this.$route.params._judgement!='' && this.$route.params._judgement!=undefined)
+          {
+            let _judgement = this.$route.params._judgement.substring(0, this.$route.params._judgement.length - 1);
+            let _judgement_name = this.$route.params._judgement_name.substring(0, this.$route.params._judgement_name.length - 1);
 
-          let _judgement = this.$route.params._judgement.substring(0, this.$route.params._judgement.length - 1);
-          let _judgement_name = this.$route.params._judgement_name.substring(0, this.$route.params._judgement_name.length - 1);
-
-          //决裁关联
+            //决裁关联
             let judgement = _judgement.split(',');
             let judgementname = _judgement_name.split(',');
             let remarks = [];
@@ -859,9 +869,9 @@
               this.form.judgements_moneys = _judgements_moneys;
             }
 
-          this.form.judgements = _judgement;
-          this.form.judgements_name = _judgement_name;
-          this.form.judgements_type = this.$route.params._judgements_type;
+            this.form.judgements = _judgement;
+            this.form.judgements_name = _judgement_name;
+            this.form.judgements_type = this.$route.params._judgements_type;
             let datalist = [];
             for (var i = 0; i < judgement.length; i++) {
               for (var d = 0; d < judgementname.length; d++) {
@@ -877,6 +887,11 @@
               }
             }
             this.DataList = datalist;
+          }
+          else
+          {
+            this.showtab = false;
+          }
         }
       }
     },
