@@ -188,11 +188,11 @@
             //endregion 预计发生额
 
             //region 实际发生额
-            //this.dataactual = this.getresponse(response.wagesListactual);
+            this.dataactual = this.getresponse(response.wagesListactual);
             //endregion 实际发生额
 
             //region 差异额
-            //this.datadiff = this.getresponse(response.wagesListdiff);
+            this.datadiff = this.getresponse(response.wagesListdiff);
             //endregion 差异额
             this.loading = false;
           })
@@ -206,7 +206,6 @@
           });
       },
       getresponse(response) {
-          debugger;
           let letlength = response.length;
           //去年同期工资
           let letyear = moment(new Date(response[letlength - 1].createonym).setFullYear(new Date(response[letlength - 1].createonym).getFullYear() - 1)).format("YYYY-MM");
@@ -227,22 +226,22 @@
                   response[i].createonym = moment(response[i].createonym).format('YYYY-MM').replace('-',this.$t("label.year")) + this.$t("label.day")
                   response.push({
                       createonym:letcreateon,
-                      totalwages: Math.round((response[letlength - 1].totalwages - response[i].totalwages) * 100) / 100,
-                      taxestotal: Math.round((response[letlength - 1].taxestotal - response[i].taxestotal) * 100) / 100,
-                      total3: Math.round((response[letlength - 1].total3 - response[i].total3) * 100) / 100,
-                      socialinsurance: Math.round((response[letlength - 1].socialinsurance - response[i].socialinsurance) * 100) / 100,
-                      comaccumulationfund: Math.round((response[letlength - 1].comaccumulationfund - response[i].comaccumulationfund) * 100) / 100,
-                      bonusmoney: Math.round((response[letlength - 1].bonusmoney - response[i].bonusmoney) * 100) / 100,
-                      appreciation: Math.round((response[letlength - 1].appreciation - response[i].appreciation) * 100) / 100,
-                      labourunionfunds: Math.round((response[letlength - 1].labourunionfunds - response[i].labourunionfunds) * 100) / 100,
-                      other4: Math.round((response[letlength - 1].other4 - response[i].other4) * 100) / 100,
-                      other5: Math.round((response[letlength - 1].other5 - response[i].other5) * 100) / 100,
-                      total: Math.round((response[letlength - 1].total - response[i].total) * 100) / 100,
-                      overtimesubsidy: Math.round((response[letlength - 1].overtimesubsidy - response[i].overtimesubsidy) * 100) / 100,
-                      thismonthadjustment: Math.round((response[letlength - 1].thismonthadjustment - response[i].thismonthadjustment) * 100) / 100,
-                      realwages: Math.round((response[letlength - 1].realwages - response[i].realwages) * 100) / 100,
-                      shouldcumulative: Math.round((response[letlength - 1].shouldcumulative - response[i].shouldcumulative) * 100) / 100,
-                      other6: Math.round((response[letlength - 1].other6 - response[i].other6) * 100) / 100,
+                      totalwages: response[letlength - 1].totalwages === '-' ? '-' : Math.round((response[letlength - 1].totalwages - response[i].totalwages) * 100) / 100,
+                      taxestotal: response[letlength - 1].taxestotal === '-' ? '-' : Math.round((response[letlength - 1].taxestotal - response[i].taxestotal) * 100) / 100,
+                      total3: response[letlength - 1].total3 === '-' ? '-' : Math.round((response[letlength - 1].total3 - response[i].total3) * 100) / 100,
+                      socialinsurance: response[letlength - 1].socialinsurance === '-' ? '-' : Math.round((response[letlength - 1].socialinsurance - response[i].socialinsurance) * 100) / 100,
+                      comaccumulationfund: response[letlength - 1].comaccumulationfund === '-' ? '-' : Math.round((response[letlength - 1].comaccumulationfund - response[i].comaccumulationfund) * 100) / 100,
+                      bonusmoney: response[letlength - 1].bonusmoney === '-' ? '-' : Math.round((response[letlength - 1].bonusmoney - response[i].bonusmoney) * 100) / 100,
+                      appreciation: response[letlength - 1].appreciation === '-' ? '-' : Math.round((response[letlength - 1].appreciation - response[i].appreciation) * 100) / 100,
+                      labourunionfunds: response[letlength - 1].labourunionfunds === '-' ? '-' : Math.round((response[letlength - 1].labourunionfunds - response[i].labourunionfunds) * 100) / 100,
+                      other4: response[letlength - 1].other4 === '-' ? '-' : Math.round((response[letlength - 1].other4 - response[i].other4) * 100) / 100,
+                      other5: response[letlength - 1].other5 === '-' ? '-' : Math.round((response[letlength - 1].other5 - response[i].other5) * 100) / 100,
+                      total: response[letlength - 1].total === '-' ? '-' : Math.round((response[letlength - 1].total - response[i].total) * 100) / 100,
+                      overtimesubsidy: response[letlength - 1].overtimesubsidy === '-' ? '-' : Math.round((response[letlength - 1].overtimesubsidy - response[i].overtimesubsidy) * 100) / 100,
+                      thismonthadjustment: response[letlength - 1].thismonthadjustment === '-' ? '-' : Math.round((response[letlength - 1].thismonthadjustment - response[i].thismonthadjustment) * 100) / 100,
+                      realwages: response[letlength - 1].realwages === '-' ? '-' : Math.round((response[letlength - 1].realwages - response[i].realwages) * 100) / 100,
+                      shouldcumulative: response[letlength - 1].shouldcumulative === '-' ? '-' : Math.round((response[letlength - 1].shouldcumulative - response[i].shouldcumulative) * 100) / 100,
+                      other6: response[letlength - 1].other6 === '-' ? '-' : Math.round((response[letlength - 1].other6 - response[i].other6) * 100) / 100,
                   });
               }
               else{
@@ -278,10 +277,18 @@
             });
             return sums;
         },
+      rowheight({row, column, rowIndex, columnIndex}) {
+          // if(Number(val) != 'NaN' || Number(val) != '0'){
+          //
+          // }
+          return 'stylered';
+      },
     }
   };
 </script>
 
 <style scoped>
-
+  .stylered {
+    color: red;
+  }
 </style>

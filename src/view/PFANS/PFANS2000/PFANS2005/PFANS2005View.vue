@@ -111,10 +111,10 @@
                     if(response[0].status === "2" || response[0].status === "4"){
                         this.buttonList[1].disabled = true;
                     }
-                }
-                //审批结束
-                if(response[0].status === "4" && response[0].grantstatus != '1'){
-                    this.buttonList[2].disabled = false;
+                    //审批结束
+                    if(response[0].status === "4" && response[0].grantstatus != '1'){
+                        this.buttonList[2].disabled = false;
+                    }
                 }
               if (this.$i18n) {
                 if (response[j].grantstatus === '1') {
