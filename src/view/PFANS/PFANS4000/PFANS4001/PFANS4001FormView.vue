@@ -416,7 +416,7 @@
     },
     methods: {
       //add_fjl_添加合同回款相关  start
-        viewBook(row) {
+      viewBook(row) {
         this.url = '';
         this.urlparams = '';
         if (this.form.filetype === 'PC002004') {
@@ -643,6 +643,7 @@
           .then(response => {
             this.data = response;
             this.loading = false;
+            this.paramsTitle();
           })
           .catch(error => {
             Message({
@@ -653,86 +654,91 @@
             this.loading = false;
           });
       },
+      paramsTitle() {
+        this.$router.push({
+          name: 'PFANS4001View',
+        });
+      },
       buttonClick(val) {
-        this.$refs['ruleForm'].validate(valid => {
-          if (valid) {
-            // add-ws-印章管理下拉多选
-            if (this.form.sealtype != '' && this.form.sealtype != null && this.form.sealtype != undefined) {
-              let checktlist = this.form.sealtype.splice(',');
-              let checktableD = '';
-              for (var m = 0; m < checktlist.length; m++) {
-                checktableD = checktableD + checktlist[m] + ',';
+        if (val === 'back') {
+          this.paramsTitle();
+        } else {
+          this.$refs['ruleForm'].validate(valid => {
+            if (valid) {
+              // add-ws-印章管理下拉多选
+              if (this.form.sealtype != '' && this.form.sealtype != null && this.form.sealtype != undefined) {
+                let checktlist = this.form.sealtype.splice(',');
+                let checktableD = '';
+                for (var m = 0; m < checktlist.length; m++) {
+                  checktableD = checktableD + checktlist[m] + ',';
+                }
+                this.form.sealtype = checktableD.substring(0, checktableD.length - 1);
               }
-              this.form.sealtype = checktableD.substring(0, checktableD.length - 1);
-            }
-            // add-ws-印章管理下拉多选
-            if (this.$route.params._id) {
-              this.loading = true;
-              this.form.userid = this.userlist;
-              this.form.sealid = this.$route.params._id;
-              this.$store
-                .dispatch('PFANS4001Store/updatePfans4001', this.form)
-                .then(response => {
-                  this.data = response;
-                  this.loading = false;
-                  if (val !== 'update') {
+              // add-ws-印章管理下拉多选
+              if (this.$route.params._id) {
+                this.loading = true;
+                this.form.userid = this.userlist;
+                this.form.sealid = this.$route.params._id;
+                this.$store
+                  .dispatch('PFANS4001Store/updatePfans4001', this.form)
+                  .then(response => {
+                    this.data = response;
+                    this.loading = false;
+                    if (val !== 'update') {
+                      Message({
+                        message: this.$t('normal.success_02'),
+                        type: 'success',
+                        duration: 5 * 1000,
+                      });
+                    }
+                    if (val === 'StartWorkflow') {
+                      this.$refs.container.$refs.workflow.startWorkflow();
+                    } else {
+                      this.paramsTitle();
+                    }
+                  })
+                  .catch(error => {
                     Message({
-                      message: this.$t('normal.success_02'),
+                      message: error,
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    this.loading = false;
+                  });
+              } else {
+                this.loading = true;
+                this.form.userid = this.userlist;
+                this.$store
+                  .dispatch('PFANS4001Store/createPfans4001', this.form)
+                  .then(response => {
+                    this.data = response;
+                    this.loading = false;
+                    Message({
+                      message: this.$t('normal.success_01'),
                       type: 'success',
                       duration: 5 * 1000,
                     });
-                  }
-                  if (val !== 'save' && val !== 'StartWorkflow') {
-                    if (this.$store.getters.historyUrl) {
-                      this.$router.push(this.$store.getters.historyUrl);
-                    }
-                  }
-                  if (val === 'StartWorkflow') {
-                    this.$refs.container.$refs.workflow.startWorkflow();
-                  }
-                })
-                .catch(error => {
-                  Message({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000,
+                    this.paramsTitle();
+                  })
+                  .catch(error => {
+                    Message({
+                      message: error,
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    this.loading = false;
                   });
-                  this.loading = false;
-                });
+              }
             } else {
-              this.loading = true;
-              this.form.userid = this.userlist;
-              this.$store
-                .dispatch('PFANS4001Store/createPfans4001', this.form)
-                .then(response => {
-                  this.data = response;
-                  this.loading = false;
-                  Message({
-                    message: this.$t('normal.success_01'),
-                    type: 'success',
-                    duration: 5 * 1000,
-                  });
-                  if (this.$store.getters.historyUrl) {
-                    this.$router.push(this.$store.getters.historyUrl);
-                  }
-                })
-                .catch(error => {
-                  Message({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  this.loading = false;
-                });
+              Message({
+                message: this.$t('normal.error_12'),
+                type: 'error',
+                duration: 5 * 1000,
+              });
             }
-          } else {
-            Message({
-              message: this.$t('normal.error_12'),
-              type: 'error',
-              duration: 5 * 1000,
-            });
-          }
-        });
+          });
+        }
+
       },
     },
   };
