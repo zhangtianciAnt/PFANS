@@ -352,9 +352,9 @@
 <!--                    </el-form-item>-->
 <!--                  </el-col>-->
 <!--                  &lt;!&ndash;                  add_fjl_0722 添加【供应商/社员名称】显示  end&ndash;&gt;-->
-                  <el-table :data="tableLoa" @row-click="rowClickLoa" @selection-change="handleSelectionChange" border
+                  <el-table :data="tableLoa" border
                             v-show="show4" header-cell-class-name="sub_bg_color_blue"
-                            stripe style="width: 502px">
+                            stripe style="width: 902px">
                     <el-table-column :label="$t('label.PFANS1012VIEW_TEMPORARYLOAN')" align="center"
                                      prop="loanapno" width="200px">
                       <template slot-scope="scope">
@@ -368,9 +368,20 @@
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1012VIEW_ACCENAME')" align="center" prop="accename"
-                                     width="150px">
+                                     width="400px">
                       <template slot-scope="scope">
                         <span>{{scope.row.accename}}</span>
+                      </template>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.operation')" align="center" width="150">
+                      <template slot-scope="scope">
+                        <el-button
+                          @click.native.prevent="rowClickLoa(scope.row)"
+                          plain
+                          size="small"
+                          type="primary"
+                        >{{$t('button.viewdetails')}}
+                        </el-button>
                       </template>
                     </el-table-column>
                   </el-table>
@@ -4823,9 +4834,6 @@
       rowClickLoa(row) {
         this.urlparams = {'_id': row.loanapplication_id,'disabled':true};
         this.$refs[1].open = true;
-      },
-      handleSelectionChange(val) {
-        this.multipleSelection = val;
       },
       //add 0728
 
