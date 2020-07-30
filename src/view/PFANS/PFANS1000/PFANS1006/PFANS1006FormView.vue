@@ -753,7 +753,7 @@
                         obj.judgement = judgement[i];
                         obj.judgement_name = judgementname[d];
                         obj.judgements_type = this.form.judgements_type;
-                        obj.remarks = remarks[i];
+                        obj.remarks = remarks===null || remarks==='' ||remarks === undefined ?'':remarks[i];
                         obj.judgements_moneys = judgements_moneys[i];
                         datalist[i] = obj;
                       }
@@ -887,6 +887,13 @@
               }
             }
             this.DataList = datalist;
+            let muchmoneys=0;
+            for (var m = 0; m < judgements_moneys.length; m++)
+            {
+              muchmoneys = (muchmoneys - 0) + (judgements_moneys[m]-0);
+            }
+            this.form.moneys = muchmoneys;
+            this.form.remark = remarks===null || remarks==='' ||remarks === undefined ?'':remarks[0]
           }
           else
           {
