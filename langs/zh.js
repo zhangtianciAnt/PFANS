@@ -22,6 +22,7 @@ module.exports = {
     name: '退出登录',
   },
   button: {
+    insertypz: '创建应聘者',
     viewseal: '查看印章',
     qxch: '取消出差',
     qxjp: '取消机票',
@@ -299,6 +300,7 @@ module.exports = {
     PFANS2032: '退职者调书&离职手续',
     PFANS2033: '离职考勤管理对比',
     PFANS2034: '离职工资对比',
+    PFANS2035: '批量创建应聘者',
     PFANS3001: '机票',
     PFANS3002: '来客酒店预订',
     PFANS3003: '名片申请',
@@ -434,6 +436,7 @@ module.exports = {
     PFANS2032VIEW: '退职者调书&离职手续',
     PFANS2032FROMVIEW: '离职手续确认',
     PFANS2034VIEW: '离职工资对比',
+    PFANS2035VIEW: '批量创建应聘者',
     PFANS3001VIEW: '国内/国际机票预约表',
     PFANS3002VIEW: '来客酒店预订',
     PFANS3003VIEW: '名片申请',

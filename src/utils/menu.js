@@ -983,6 +983,20 @@ export function menu() {
                   ]
                 },
                 {
+                  '_id': 'PFANS2035',
+                  'name': 'menu.PFANS2035',
+                  'menuvisible': false,
+                  'menuurl': '/PFANS2035View',
+                  'menuicon': '',
+                  'children': [],
+                  'actions': [
+                    {"_id": "PFANS2035_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                    {"_id": "PFANS2035_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                    {"_id": "PFANS2035_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                    {"_id": "PFANS2035_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+                  ]
+                },
+                {
                   '_id': 'PFANS2032',
                   'name': 'menu.PFANS2032',
                   'menuvisible': true,
