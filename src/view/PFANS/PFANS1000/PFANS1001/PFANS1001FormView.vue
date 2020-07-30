@@ -739,6 +739,8 @@
               let _judgements_moneys = '';
               let _remarks = '';
               this.selectedlist = [];
+              let loan = '';
+              let str = '';
               if (this.$route.params.title === 10) {
                   if (this.$refs.roletable1.selectedList.length === 0) {
                       Message({
@@ -770,8 +772,23 @@
                       _judgement_name += this.selectedlist[i].numbercation + ',';
                       _judgements_moneys += this.selectedlist[i].moneys + ',';
                       _remarks += this.selectedlist[i].remarks + '^';
+                      if (this.selectedlist[i].loanapno != null && this.selectedlist[i].loanapno != '' && this.selectedlist[i].loanapno != undefined) {
+                          loan += this.selectedlist[i].numbercation + ' , ';
+                      }
+                      if (this.selectedlist[i].invoiceno != null && this.selectedlist[i].invoiceno != '' && this.selectedlist[i].invoiceno != undefined) {
+                          str += this.selectedlist[i].numbercation + ' , ';
+                      }
+
                   }
                   if (val === 'actuarial') {
+                      if (str !== '') {
+                          Message({
+                              message: str + ' ' + this.$t('label.PFANS3005VIEW_INVOICENO'),
+                              type: 'info',
+                              duration: 3 * 1000,
+                          });
+                          return;
+                      }
                       this.$router.push({
                           name: 'PFANS1012FormView',
                           params: {
@@ -781,6 +798,14 @@
                           },
                       });
                   } else {
+                      if (loan !== '') {
+                          Message({
+                              message: loan + ' ' + this.$t('label.PFANS3005VIEW_LOANAPP'),
+                              type: 'info',
+                              duration: 3 * 1000,
+                          });
+                          return;
+                      }
                       this.$router.push({
                           name: 'PFANS1006FormView',
                           params: {
@@ -832,8 +857,22 @@
                       _judgement_name += this.selectedlist[i].judgnumbers + ',';
                       _judgements_moneys += this.selectedlist[i].money + ',';
                       _remarks += this.selectedlist[i].filename + '^';
+                      if (this.selectedlist[i].loanapno != null && this.selectedlist[i].loanapno != '' && this.selectedlist[i].loanapno != undefined) {
+                          loan += this.selectedlist[i].judgnumbers + ' , ';
+                      }
+                      if (this.selectedlist[i].invoiceno != null && this.selectedlist[i].invoiceno != '' && this.selectedlist[i].invoiceno != undefined) {
+                          str += this.selectedlist[i].judgnumbers + ' , ';
+                      }
                   }
                   if (val === 'actuarial') {
+                      if (str !== '') {
+                          Message({
+                              message: str + ' ' + this.$t('label.PFANS3005VIEW_INVOICENO'),
+                              type: 'info',
+                              duration: 3 * 1000,
+                          });
+                          return;
+                      }
                       this.$router.push({
                           name: 'PFANS1012FormView',
                           params: {
@@ -843,6 +882,14 @@
                           },
                       });
                   } else {
+                      if (loan !== '') {
+                          Message({
+                              message: loan + ' ' + this.$t('label.PFANS3005VIEW_LOANAPP'),
+                              type: 'info',
+                              duration: 3 * 1000,
+                          });
+                          return;
+                      }
                       if (this.$route.params.title === 4) {
                           if (this.$i18n) {
                               judname = this.$t('title.PFANS1004VIEW');
@@ -897,8 +944,22 @@
                       _judgement_name += this.selectedlist[i].purchasenumbers + ',';
                       _judgements_moneys += this.selectedlist[i].summoney + ',';
                       _remarks += this.selectedlist[i].remarks + '^';
+                      if (this.selectedlist[i].loanapno != null && this.selectedlist[i].loanapno != '' && this.selectedlist[i].loanapno != undefined) {
+                          loan += this.selectedlist[i].purchasenumbers + ' , ';
+                      }
+                      if (this.selectedlist[i].invoiceno != null && this.selectedlist[i].invoiceno != '' && this.selectedlist[i].invoiceno != undefined) {
+                          str += this.selectedlist[i].purchasenumbers + ' , ';
+                      }
                   }
                   if (val === 'actuarial') {
+                      if (str !== '') {
+                          Message({
+                              message: str + ' ' + this.$t('label.PFANS3005VIEW_INVOICENO'),
+                              type: 'info',
+                              duration: 3 * 1000,
+                          });
+                          return;
+                      }
                       this.$router.push({
                           name: 'PFANS1012FormView',
                           params: {
@@ -908,6 +969,14 @@
                           },
                       });
                   } else {
+                      if (loan !== '') {
+                          Message({
+                              message: loan + ' ' + this.$t('label.PFANS3005VIEW_LOANAPP'),
+                              type: 'info',
+                              duration: 3 * 1000,
+                          });
+                          return;
+                      }
                       this.$router.push({
                           name: 'PFANS1006FormView',
                           params: {
