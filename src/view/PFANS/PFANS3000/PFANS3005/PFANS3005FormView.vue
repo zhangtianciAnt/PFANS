@@ -1313,14 +1313,14 @@
         this.url = '';
         this.urlparams = '';
         this.url = 'PFANS1006FormView';
-        this.urlparams = {'_id': row.loanapplication_id,'disabled':true};
+        this.urlparams = {'_id': row.loanapplication_id,'disabled':false};
         this.$refs[1].open = true;
       },
       rowClick1(row) {
         this.url = '';
         this.urlparams = '';
         this.url = 'PFANS1012FormView';
-        this.urlparams = {'_id': row.publicexpense_id,'disabled':true};
+        this.urlparams = {'_id': row.publicexpense_id,'disabled':false};
         this.$refs[1].open = true;
       },
       //add ccm 0720
