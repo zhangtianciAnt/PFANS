@@ -512,43 +512,62 @@
                         }
                       }
                       //如果有暂借款，是否是相同的暂借款
-                      let gid ='';
+                      let loan ='';
+                      let loanmoney ='';
                       let k = 0;
                       for (let i=0;i<this.selectedlist.length;i++)
                       {
-                        if (k != 0)
+                        // if (k != 0)
+                        // {
+                        //   if (this.selectedlist[i].loanapno === gid)
+                        //   {
+                        //     continue;
+                        //   }
+                        //   else
+                        //   {
+                        //     Message({
+                        //       message: this.$t('label.PFANS3005VIEW_MSG3'),
+                        //       type: 'info',
+                        //       duration: 3 * 1000,
+                        //     });
+                        //     return
+                        //   }
+                        // }
+                        // k++;
+                        // gid = this.selectedlist[i].loanapno;
+                        if (this.selectedlist[i].loanapno !=null && this.selectedlist[i].loanapno !='' && this.selectedlist[i].loanapno !=undefined)
                         {
-                          if (this.selectedlist[i].loanapno === gid)
-                          {
-                            continue;
-                          }
-                          else
-                          {
-                            Message({
-                              message: this.$t('label.PFANS3005VIEW_MSG3'),
-                              type: 'info',
-                              duration: 3 * 1000,
-                            });
-                            return
-                          }
+                          loan += this.selectedlist[i].loanapplication_id+',';
                         }
-                        k++;
-                        gid = this.selectedlist[i].loanapno;
                       }
                       if (str === '')
                       {
-                        if (gid !=null && gid !='' && gid !=undefined)
+                        if (loan !=null && loan !='' && loan !=undefined)
                         {
-
+                          loan = loan.substring(0,loan.length-1);
+                          if (loan !=null && loan !='' && loan !=undefined)
+                          {
                             this.$router.push({
                               name: 'PFANS1012FormView',
                               params: {
                                 _name: optionsSEL,
                                 _type: 'PJ001002',
-                                _haveLoanapp:gid,
+                                _haveLoanapp:loan,
                                 disabled: true,
                               },
                             });
+                          }
+                          else
+                          {
+                            this.$router.push({
+                              name: 'PFANS1012FormView',
+                              params: {
+                                _name: optionsSEL,
+                                _type: 'PJ001002',
+                                disabled: true,
+                              },
+                            });
+                          }
                         }
                         else
                         {

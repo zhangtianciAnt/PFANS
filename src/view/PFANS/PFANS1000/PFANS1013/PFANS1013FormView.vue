@@ -184,7 +184,7 @@
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS5004VIEW_PROJECTNAMW')">
-                      <el-select :disabled="!disable" clearable style="width: 20vw" v-model="form.project_id">
+                      <el-select :disabled="true" clearable style="width: 20vw" v-model="form.project_id">
                         <el-option
                           :key="item.value"
                           :label="item.lable"
@@ -2150,47 +2150,47 @@
       },
       //upd-ws-6/5-禅道075任务，项目名称问题修正
       getCompanyProjectList() {
-        if (this.disable) {
-          this.loading = true;
-          this.$store
-            .dispatch('PFANS5009Store/getSiteList5', {})
-            .then(response => {
-              for (let i = 0; i < response.length; i++) {
-                this.optionsdate.push({
-                  value: response[i].companyprojects_id,
-                  lable: response[i].numbers + '_' + response[i].project_name,
-                });
-              }
-              this.$store
-                .dispatch('PFANS5013Store/getMyConProject', {})
-                .then(response => {
-                  for (let i = 0; i < response.length; i++) {
-                    this.optionsdate.push({
-                      value: response[i].comproject_id,
-                      lable: response[i].numbers + '_' + response[i].project_name,
-                    });
-                  }
-                  this.loading = false;
-                })
-                .catch(error => {
-                  Message({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  this.loading = false;
-                });
-              this.loading = false;
-            })
-            .catch(error => {
-              Message({
-                message: error,
-                type: 'error',
-                duration: 5 * 1000,
-              });
-              this.loading = false;
-            });
-        } else {
+          // if (this.disable) {
+          //   this.loading = true;
+          //   this.$store
+          //     .dispatch('PFANS5009Store/getSiteList5', {})
+          //     .then(response => {
+          //       for (let i = 0; i < response.length; i++) {
+          //         this.optionsdate.push({
+          //           value: response[i].companyprojects_id,
+          //           lable: response[i].numbers + '_' + response[i].project_name,
+          //         });
+          //       }
+          //       this.$store
+          //         .dispatch('PFANS5013Store/getMyConProject', {})
+          //         .then(response => {
+          //           for (let i = 0; i < response.length; i++) {
+          //             this.optionsdate.push({
+          //               value: response[i].comproject_id,
+          //               lable: response[i].numbers + '_' + response[i].project_name,
+          //             });
+          //           }
+          //           this.loading = false;
+          //         })
+          //         .catch(error => {
+          //           Message({
+          //             message: error,
+          //             type: 'error',
+          //             duration: 5 * 1000,
+          //           });
+          //           this.loading = false;
+          //         });
+          //       this.loading = false;
+          //     })
+          //     .catch(error => {
+          //       Message({
+          //         message: error,
+          //         type: 'error',
+          //         duration: 5 * 1000,
+          //       });
+          //       this.loading = false;
+          //     });
+          // } else {
           this.loading = true;
           this.$store
             .dispatch('PFANS5013Store/Listproject2', {})
@@ -2231,7 +2231,7 @@
               });
               this.loading = false;
             });
-        }
+          // }
       },
       //upd-ws-6/5-禅道075任务，项目名称问题修正
       // changeInvoice(val, row){

@@ -408,7 +408,7 @@
             return;
           } else {
             for (let i = 0; i < this.selectedlist.length; i++) {
-              if (moment(this.selectedlist[i].deliverydate).format('YYYY-MM') > new moment().format('YYYY-MM') || this.selectedlist[i].sealstatus != '') {
+              if (this.selectedlist[i].sealstatus != '') {
                 error = error + 1;
                 let sealtypeList = this.selectedlist[i].contractnumber;
                 checktableD = checktableD + sealtypeList + ',';

@@ -30,12 +30,6 @@
     <EasyNormalTable :buttonList="buttonList" :columns="columns6" :data="data" :title="title" v-loading="loading"
                      v-show="this.showTable===6" @buttonClick="buttonClick" @rowClick="rowClick" :rowid="row">
     </EasyNormalTable>
-    <!--   add-ws-7/14-禅道144任务-->
-    <EasyNormalTable :buttonList="buttonList" :columns="columns7" :data="data" :title="title" v-loading="loading"
-                     v-show="this.showTable===7" @buttonClick="buttonClick" @rowClick="rowClick" :rowid="row"
-                     :psearchValue="search">
-    </EasyNormalTable>
-    <!--     add-ws-7/14-禅道144任务-->
   </div>
 </template>
 
@@ -53,7 +47,6 @@
     data() {
       return {
           selectedlist: [],
-        search: '',
         options: [],
         showTable: '',
         loading: false,
@@ -403,71 +396,6 @@
             filter: true,
           },
         ],
-        columns7: [
-          {
-            code: 'policynumbers',
-            label: 'label.PFANS1045VIEW_POLICYNUMBERS',
-            width: 120,
-            fix: false,
-            filter: true,
-          },
-          {
-            code: 'user_id',
-            label: 'label.PFANS1008FORMVIEW_INITIATOR',
-            width: 120,
-            fix: false,
-            filter: true,
-          },
-          {
-            code: 'outsourcingcompany',
-            label: 'label.PFANS1045VIEW_OUTSOURCINGCOMPANY',
-            width: 120,
-            fix: false,
-            filter: true,
-          },
-          {
-            code: 'amountcase',
-            label: 'label.PFANS1045VIEW_AMOUNTCASE',
-            width: 120,
-            fix: false,
-            filter: true,
-          },
-          {
-            code: 'modifiedamount',
-            label: 'label.PFANS1045VIEW_MODIFIEDAMOUNT',
-            width: 120,
-            fix: false,
-            filter: true,
-          },
-          {
-            code: 'newamountcase',
-            label: 'label.PFANS1045VIEW_NEWAMOUNTCASE',
-            width: 120,
-            fix: false,
-            filter: true,
-          },
-          {
-            code: 'cycle',
-            label: 'label.PFANS1045VIEW_CYCLE',
-            width: 120,
-            fix: false,
-            filter: true,
-          },
-          {
-            code: 'remark',
-            label: 'label.PFANS1017FORMVIEW_PREPAREFOR',
-            width: 120,
-            fix: false,
-            filter: true,
-          },
-          {
-            code: 'status',
-            label: 'label.approval_status',
-            width: 120,
-            fix: false,
-            filter: true,
-          },
-        ],
         buttonList: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
           {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
@@ -485,7 +413,7 @@
               {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
               {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
               {'key': 'actuarial', 'name': 'button.actuarial', 'disabled': false, 'icon': 'el-icon-edit-outline'},
-              {'key': 'temLoanApp', 'name': 'button.temLoanApp', 'disabled': true, 'icon': 'el-icon-plus'},
+              {'key': 'temLoanApp', 'name': 'button.temLoanApp', 'disabled': false, 'icon': 'el-icon-plus'},
           ],
           //add_fjl  end
         //add-ws-7/7-禅道247
@@ -504,11 +432,6 @@
       };
     },
     mounted() {
-      // add-ws-7/14-禅道144任务
-      if (this.$route.params.check) {
-        this.search = this.$route.params.check;
-      }
-      // add-ws-7/14-禅道144任务
       this.getCompanyProjectList(this.$route.params.title);
     },
     methods: {
@@ -584,15 +507,6 @@
           this.title = 'title.PFANS1011VIEW';
           this.dispatch('PFANS1001Store/getOffshore');
         }
-        // add-ws-7/14-禅道144任务
-        else if (val === 12) {
-          this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1011FormView');
-          this.showTable = 7;
-          this.row = 'policycontract_id';
-          this.title = 'title.PFANS1045VIEW';
-          this.dispatch('PFANS1006Store/getpolicycontract');
-        }
-        // add-ws-7/14-禅道144任务
       },
       dispatch(val) {
         this.data = [];
@@ -707,12 +621,6 @@
           this.rowid = row.offshore_id;
           this.statuss = row;
         }
-        // add-ws-7/14-禅道144任务
-        else if (this.$route.params.title === 12) {
-          this.rowid = row.policycontract_id;
-          this.statuss = row;
-        }
-        // add-ws-7/14-禅道144任务
       },
         //add_fjl_0725  添加暂借款打印功能  start
         export1(val) {
@@ -755,11 +663,6 @@
         } else if (this.$route.params.title === 11) {
           letname = 'PFANS1011FormView';
         }
-        // add-ws-7/14-禅道144任务
-        else if (this.$route.params.title === 12) {
-          letname = 'PFANS1045FormView';
-        }
-        // add-ws-7/14-禅道144任务
         this.$store.commit('global/SET_HISTORYURL', '');
         if (val === 'update') {
           if (this.rowid === '') {

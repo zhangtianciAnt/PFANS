@@ -383,9 +383,9 @@
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS3005FORMVIEW_LOANAPP_ACTU')" name="second">
               <el-row>
-                <el-table :data="tableA" @row-click="rowClick" @selection-change="handleSelectionChange" border
+                <el-table :data="tableA" border
                         header-cell-class-name="sub_bg_color_blue"
-                        stripe style="width: 802px">
+                        stripe style="width: 952px">
                 <el-table-column :label="$t('label.PFANS1013FORMVIEW_LOAN')" align="center"
                                  prop="loanapno" width="200px">
                   <template slot-scope="scope">
@@ -404,19 +404,30 @@
                     <span>{{scope.row.remarks}}</span>
                   </template>
                 </el-table-column>
-                  <el-table-column :label="$t('label.PFANS5005VIEW_STATUS')" align="center" prop="status"
-                                   width="150px">
+                <el-table-column :label="$t('label.PFANS5005VIEW_STATUS')" align="center" prop="status"
+                                 width="150px">
+                  <template slot-scope="scope">
+                    <span>{{scope.row.status}}</span>
+                  </template>
+                </el-table-column>
+                  <el-table-column :label="$t('label.operation')" align="center" width="150">
                     <template slot-scope="scope">
-                      <span>{{scope.row.status}}</span>
+                      <el-button
+                        @click.native.prevent="rowClick(scope.row)"
+                        plain
+                        size="small"
+                        type="primary"
+                      >{{$t('button.viewdetails')}}
+                      </el-button>
                     </template>
                   </el-table-column>
               </el-table>
               </el-row>
               <div>    </div>
                 <el-row>
-                  <el-table :data="tableB" @row-click="rowClick1" @selection-change="handleSelectionChange1" border
+                  <el-table :data="tableB" border
                             header-cell-class-name="sub_bg_color_blue"
-                            stripe style="width: 802px;margin-top: 40px">
+                            stripe style="width: 952px;margin-top: 40px">
                     <el-table-column :label="$t('label.PFANS1013VIEW_REIMNUMBER')" align="center"
                                      prop="invoiceno" width="200px">
                       <template slot-scope="scope">
@@ -439,6 +450,17 @@
                                      width="150px">
                       <template slot-scope="scope">
                         <span>{{scope.row.status}}</span>
+                      </template>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.operation')" align="center" width="150">
+                      <template slot-scope="scope">
+                        <el-button
+                          @click.native.prevent="rowClick1(scope.row)"
+                          plain
+                          size="small"
+                          type="primary"
+                        >{{$t('button.viewdetails')}}
+                        </el-button>
                       </template>
                     </el-table-column>
                   </el-table>
@@ -1291,21 +1313,15 @@
         this.url = '';
         this.urlparams = '';
         this.url = 'PFANS1006FormView';
-        this.urlparams = {'_id': row.loanapplication_id,'disabled':true};
+        this.urlparams = {'_id': row.loanapplication_id,'disabled':false};
         this.$refs[1].open = true;
-      },
-      handleSelectionChange(val) {
-        this.multipleSelection = val;
       },
       rowClick1(row) {
         this.url = '';
         this.urlparams = '';
         this.url = 'PFANS1012FormView';
-        this.urlparams = {'_id': row.publicexpense_id,'disabled':true};
+        this.urlparams = {'_id': row.publicexpense_id,'disabled':false};
         this.$refs[1].open = true;
-      },
-      handleSelectionChange1(val) {
-        this.multipleSelection1 = val;
       },
       //add ccm 0720
 
@@ -1935,7 +1951,7 @@
                 params: {
                   _name: optionsSEL,
                   _type: 'PJ001002',
-                  _haveLoanapp:this.form.loanapno,
+                  _haveLoanapp:this.form.loanapplication_id,
                   disabled: true,
                 },
               });

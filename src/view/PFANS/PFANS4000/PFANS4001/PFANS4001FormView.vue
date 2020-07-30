@@ -123,7 +123,7 @@
             </el-form-item>
           </el-row>
           <el-row>
-            <el-table :data="tableD" @row-click="rowClick" @selection-change="handleSelectionChange" border
+            <el-table :data="tableD" @selection-change="handleSelectionChange" border
                       header-cell-class-name="sub_bg_color_blue"
                       stripe>
               <el-table-column :label="$t('label.PFANS1032FORMVIEW_CONTRACTNUMBER')" align="center"
@@ -166,6 +166,18 @@
                                v-if="this.form.filetype === 'PC002005'" width="200">
                 <template slot-scope="scope">
                   <span>{{scope.row.deliverydate}}</span>
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('label.operation')" align="center" width="200">
+                <template slot-scope="scope">
+                  <el-button
+                    :disabled="!disable"
+                    @click.native.prevent="viewBook(scope.row)"
+                    plain
+                    size="small"
+                    type="primary"
+                  >{{$t('button.view')}}
+                  </el-button>
                 </template>
               </el-table-column>
             </el-table>
@@ -404,7 +416,7 @@
     },
     methods: {
       //add_fjl_添加合同回款相关  start
-      rowClick(row) {
+        viewBook(row) {
         this.url = '';
         this.urlparams = '';
         if (this.form.filetype === 'PC002004') {
