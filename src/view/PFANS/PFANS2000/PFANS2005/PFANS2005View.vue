@@ -87,7 +87,7 @@
         ],
         buttonList: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
-          {'key': 'generatethismonth', 'name': 'button.generatethismonth', 'disabled': true},
+          {'key': 'generatethismonth', 'name': 'button.generatethismonth', 'disabled': false},
           {'key': 'grantthismonth', 'name': 'button.grantthismonth', 'disabled': true},
           {'key': 'export2', 'name': 'button.download2', 'disabled': false,icon: "el-icon-download"},
         ],
@@ -105,19 +105,17 @@
           .dispatch('PFANS2005Store/getDataList', {})
           .then(response => {
             for (let j = 0; j < response.length; j++) {
-              if(j === 0){
-                  if(moment(response[j].generationdate).format('YYYY-MM') === moment(new Date()).format('YYYY-MM')){
-                      this.Givingid = response[j].giving_id;
-                      this.generationdate = response[j].generationdate;
-                  }
-                  //审批结束
-                  if(response[j].status === "4" && response[j].grantstatus != '1'){
-                      this.buttonList[2].disabled = false;
-                  }
-                  if(response[j].status === "0"){
-                      this.buttonList[1].disabled = false;
-                  }
-              }
+                if(moment(response[0].generationdate).format('YYYY-MM') === moment(new Date()).format('YYYY-MM')){
+                    this.Givingid = response[0].giving_id;
+                    this.generationdate = response[0].generationdate;
+                    if(response[0].status === "2" || response[0].status === "4"){
+                        this.buttonList[1].disabled = true;
+                    }
+                }
+                //审批结束
+                if(response[0].status === "4" && response[0].grantstatus != '1'){
+                    this.buttonList[2].disabled = false;
+                }
               if (this.$i18n) {
                 if (response[j].grantstatus === '1') {
                     response[j].grantstatus = this.$t('label.PFANS2005VIEW_GRANTSTATUSOK');
@@ -201,7 +199,7 @@
             },
           });
         }
-        if (val === 'generatethismonth') {
+        if (val === 'generatethismonth') {//生成当月
           this.loading = true;
           this.$store
             .dispatch('PFANS2005Store/creategiving', {"generation": "0"})
@@ -222,7 +220,7 @@
               this.loading = false;
             });
         }
-        if (val === 'grantthismonth') {
+        if (val === 'grantthismonth') {//发放当月
               this.loading = true;
               this.$store
                   .dispatch('PFANS2005Store/updatestate',{givingid: this.Givingid,generationdate:this.generationdate})

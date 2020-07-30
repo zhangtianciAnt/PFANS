@@ -3520,7 +3520,7 @@
             // element.$el.addEventListener("scroll", this.handleScroll, true);
             // const dom = this.$refs["eltable"].$el;
             // dom.addEventListener("scroll", this.handleScroll, true);
-            if(this.$route.params.status === '2'){
+            if(this.$route.params.status === '2' || this.$route.params.status === '4'){
                 this.buttonList[0].disabled = true;
                 this.buttonList[1].disabled = true;
             }
@@ -5103,6 +5103,9 @@
                 this.loading = false;
             },
             tabInfoSave() {
+                if(this.$route.params.status === '2' || this.$route.params.status === '4'){
+                    return;
+                }
                 this.baseInfo = {};
                 this.baseInfo.strFlg = this.tab;
                 this.baseInfo.otherOne = [];
@@ -5157,7 +5160,7 @@
                 }
             },
             handleClick(tab, event) {
-                if(this.$route.params.status === '2'){
+                if(this.$route.params.status === '2' || this.$route.params.status === '4'){
                     return;
                 }
                 //调用保存-lxx
@@ -5420,6 +5423,7 @@
                     }
                 } else if (val === "save") {
                     this.totaldata[0].status = this.status;
+                    this.totaldata[0].actual = "0";//预计工资
                     this.loading = true;
                     // 插入工资数据
                     this.$store
