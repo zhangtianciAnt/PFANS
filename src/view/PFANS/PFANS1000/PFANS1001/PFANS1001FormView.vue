@@ -413,7 +413,7 @@
               {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
               {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
               {'key': 'actuarial', 'name': 'button.actuarial', 'disabled': false, 'icon': 'el-icon-edit-outline'},
-              {'key': 'temLoanApp', 'name': 'button.temLoanApp', 'disabled': true, 'icon': 'el-icon-plus'},
+              {'key': 'temLoanApp', 'name': 'button.temLoanApp', 'disabled': false, 'icon': 'el-icon-plus'},
           ],
           //add_fjl  end
         //add-ws-7/7-禅道247
