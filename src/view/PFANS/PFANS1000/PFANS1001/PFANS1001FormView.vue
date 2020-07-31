@@ -611,6 +611,7 @@
           this.rowid = row.judgementid;
         } else if (this.$route.params.title === 4) {
           this.rowid = row.judgementid;
+          this.statuss = row;
         } else if (this.$route.params.title === 5) {
           this.rowid = row.purchaseapply_id;
         } else if (this.$route.params.title === 6) {
@@ -680,6 +681,7 @@
               _type: 2,
               _check: this.check,
               statuss: this.statuss.status,
+              _supplementary: this.statuss.supplementary,
               disabled: true,
             },
           });
