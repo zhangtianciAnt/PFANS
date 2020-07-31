@@ -1,12 +1,12 @@
 <template>
   <div>
     <EasyNormalContainer
-      :buttonList="buttonList"
       ref="container"
+      :noback="true"
       v-loading="loading"
     >
       <div slot="customize">
-        <EasyNormalTable :columns="columns" :data="dataestimate" :title="titlewagesestimate"
+        <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="dataestimate" :title="titlewagesestimate"
                          v-loading="loading" :summary-method="summaryMethod">
           <el-date-picker
             :placeholder="$t('normal.error_09')"
@@ -19,7 +19,7 @@
         </EasyNormalTable>
       </div>
       <div slot="customize">
-        <EasyNormalTable :columns="columns" :data="dataactual" :title="titlewagesactual"
+        <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="dataactual" :title="titlewagesactual"
                          v-loading="loading" :summary-method="summaryMethod">
           <el-date-picker
             :placeholder="$t('normal.error_09')"
@@ -32,7 +32,7 @@
         </EasyNormalTable>
       </div>
       <div slot="customize">
-        <EasyNormalTable :columns="columns" :data="datadiff" :title="titlewagesdiff"
+        <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="datadiff" :title="titlewagesdiff"
                          v-loading="loading" :summary-method="summaryMethod">
           <el-date-picker
             :placeholder="$t('normal.error_09')"

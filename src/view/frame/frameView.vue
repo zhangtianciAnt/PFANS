@@ -635,7 +635,6 @@
         }
       },
       ToIndex(val){
-        debugger
         this.vactiveIndex = val;
         this.$store.commit("global/SET_CURRENTURL", val);
       }

@@ -948,7 +948,6 @@
           lunarbonus_id: this.$route.params._id
         })
         .then(response => {
-          debugger;
           this.data = response.lunarbonus;
 
           if (response.lunarbonus.status === 4) {

@@ -216,7 +216,6 @@
         let inputValue = this.inputValue;
         if (inputValue) {
           let user = getUserInfoName(inputValue);
-          debugger
           if(user != -1){
             user.userinfo.userid = user.userid;
             this.multipleSelection.push(

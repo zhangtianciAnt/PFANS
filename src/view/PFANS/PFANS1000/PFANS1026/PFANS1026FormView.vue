@@ -1259,7 +1259,6 @@
       };
       //ADD_FJL 资金回收状况
       // var validateRecoverystatus = (rule, value, callback) => {
-      //     debugger
       //     if (value === '' && value != null && value != undefined) {
       //         callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1026FORMVIEW_RECOVERYSTATUS')));
       //     } else {
@@ -1267,7 +1266,6 @@
       //     }
       // };
       // var validateRecoverydate = (rule, value, callback) => {
-      //     debugger;
       //     if (value === '' && value != null && value != undefined) {
       //         callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1026FORMVIEW_RECOVERYDATE')));
       //     } else {
@@ -1901,7 +1899,6 @@
       //     this.getPe(countNumber);
       // },
       // submMon(val, rows) {
-      //     debugger;
       //     if(val === true){
       //         let roid = this.$store.getters.userinfo.userid;
       //         let rowid = rows.contractNumber;
