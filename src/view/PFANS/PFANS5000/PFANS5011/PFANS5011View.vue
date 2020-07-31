@@ -82,7 +82,6 @@
           this.$store
             .dispatch('PFANS5001Store/getProjectList', {StrFlg:"1"})
             .then(response => {
-              debugger
               for (let i = 0;i < response.length; i ++){
                 //response[i].confirm = response[i].confirm === null ? 0 : Number(response[i].confirm);
                   response[i].confirm = response[i].unconfirm === null ? 0.00 : response[i].unconfirm;

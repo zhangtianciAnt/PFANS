@@ -327,7 +327,6 @@
     methods: {
       //add-ws-4/23-总务蛋蛋高可用i选择部门带出预算编码
       getGroupId(orglist) {
-        debugger
         this.getchangeGroup(orglist)
         this.form.group_name =orglist
         if (!this.form.group_name || this.form.group_name === '') {

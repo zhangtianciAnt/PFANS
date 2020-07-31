@@ -2516,7 +2516,6 @@
                 claimamount: '',
               }];
             }
-            debugger;
             this.baseInfo.contractnumbercount = this.tableclaimtype;
             for (let i = 0; i < this.tableclaimtype.length; i++) {
               if (this.tableclaimtype[i].claimtype == '' || this.tableclaimtype[i].deliverydate == '' || this.tableclaimtype[i].completiondate == '' || this.tableclaimtype[i].claimdate == '' || this.tableclaimtype[i].supportdate == '' || this.tableclaimtype[i].claimamount == '') {

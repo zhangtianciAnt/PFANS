@@ -822,7 +822,6 @@
         this.getTableTotal();
       },
       // getLastYearSummaries(table) {
-      //   debugger
       //   let totalExpect = {};
       //   let totalActual = {};
       //   table.forEach(
