@@ -674,7 +674,6 @@
                     :header-cell-style="getRowClass1" style="padding-top: 2vw"
                     @selection-change="handleSelectionChange">
             <el-table-column
-              :selectable="selectInit"
               type="selection"
               width="40">
             </el-table-column>
