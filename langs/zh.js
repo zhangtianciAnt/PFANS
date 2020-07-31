@@ -111,6 +111,7 @@ module.exports = {
     release: '关联发放',
     cancelrelease: '取消发放',
     createfree: '生成费用统计',
+    createdecision: '创建招聘决裁',
     supplementary: '补充决裁',
   },
   table: {

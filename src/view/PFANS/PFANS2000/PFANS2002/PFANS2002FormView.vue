@@ -752,6 +752,7 @@
                     adoption: '',
                     others: '',
                     status: '0',
+                    interviewrecord_id: '',
                 },
                 enableSave: false,
                 disable: false,
@@ -815,6 +816,15 @@
             if (this.$route.params._id) {
                 this.getOne(this.$route.params._id);
             }
+            //add_fjl_0731  添加应聘者信息管理画面跳转  start
+            if (this.$route.params._user && this.$route.params._user.length > 0) {
+                this.form.name = this.$route.params._user[0].name;
+                this.form.sex = this.$route.params._user[0].sex;
+                this.form.birthday = this.$route.params._user[0].birthday;
+                this.form.interviewrecord_id = this.$route.params._user[0].interviewrecord_id;
+                this.tableData = JSON.parse(this.$route.params._user[0].interview);
+            }
+            //add_fjl_0731  添加应聘者信息管理画面跳转  end
         },
 
         methods: {
@@ -870,6 +880,7 @@
                             vote.birthday = moment(response[i].birthday).format('YYYY-MM-DD');
 // wxl 4/8 面试官通过选人带出来 start
                             vote.interview = response[i].interview
+                            vote.interviewrecord_id = response[i].interviewrecord_id
                             vote.source = response[i].source
                             vote.other = response[i].other
                             vote.member = response[i].member
@@ -946,6 +957,7 @@
                 this.form.name = val;
                 this.form.sex = lst;
                 this.form.birthday = lst2;
+                this.form.interviewrecord_id = this.currentRow8;
                 this.errorname = '';
 // wxl 4/8 面试官通过选人带出来 start
                 this.tableData = this.currentRow4
@@ -969,6 +981,7 @@
                 this.currentRow = val.name;
                 this.currentRow2 = val.sexid;
                 this.currentRow3 = val.birthday;
+                this.currentRow8 = val.interviewrecord_id;
 // wxl 4/8 面试官通过选人带出来 start
                 this.changeOption(val, 'view');
                 this.currentRow4 = val.interview;

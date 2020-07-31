@@ -585,6 +585,12 @@
             disabled: false,
             icon: 'el-icon-check',
           },
+            {
+                key: 'createdecision',
+                name: 'button.createdecision',
+                disabled: true,
+                icon: 'el-icon-plus',
+            },
         ];
       }
     },
@@ -652,6 +658,17 @@
           });
       }
     },
+      watch: {
+          form: {
+              handler: function () {
+                  if (this.form.result === '0') {
+                      this.buttonList[1].disabled = false;
+                  }
+                  ;
+              },
+              deep: true,
+          },
+      },
     methods: {
 // wxl 4/8 面试官放到面试记录 start
       changeOption(form, method) {
@@ -869,66 +886,88 @@
               }
               this.form.interview = JSON.stringify(this.arrInt);
               // upd_fjl_05/27  --添加面试官手动输入
-            this.loading = true;
-            this.form.member = this.userlist;
-            this.form.whetherentry = this.whetherentry;
-            this.form.result = this.result;
-            if (this.form.source === 'PR020001') {
-              this.form.network = '';
-            } else if (this.form.source === 'PR020002') {
-              this.form.member = '';
-            }
-            this.form.whetherentry = this.modelwhetherentry;
-            this.form.result = this.modelresult;
-              this.changeOption(this.form, 'save');
-            if (this.$route.params._id) {
-              this.form.interviewrecord_id = this.$route.params._id;
-              this.$store
-                .dispatch('PFANS2003Store/updateinterviewrecord', this.form)
-                .then(response => {
-                  this.data = response;
-                  this.loading = false;
-                  Message({
-                    message: this.$t('normal.success_02'),
-                    type: 'success',
-                    duration: 5 * 1000,
-                  });
-                  if (this.$store.getters.historyUrl) {
-                    this.$router.push(this.$store.getters.historyUrl);
+              if (val === 'save') {
+                  this.loading = true;
+                  this.form.member = this.userlist;
+                  this.form.whetherentry = this.whetherentry;
+                  this.form.result = this.result;
+                  if (this.form.source === 'PR020001') {
+                      this.form.network = '';
+                  } else if (this.form.source === 'PR020002') {
+                      this.form.member = '';
                   }
-                })
-                .catch(error => {
-                  Message({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  this.loading = false;
-                });
-            } else {
-              this.$store
-                .dispatch('PFANS2003Store/createinterviewrecord', this.form)
-                .then(response => {
-                  this.data = response;
-                  this.loading = false;
-                  Message({
-                    message: this.$t('normal.success_01'),
-                    type: 'success',
-                    duration: 5 * 1000,
-                  });
-                  if (this.$store.getters.historyUrl) {
-                    this.$router.push(this.$store.getters.historyUrl);
+                  this.form.whetherentry = this.modelwhetherentry;
+                  this.form.result = this.modelresult;
+                  this.changeOption(this.form, 'save');
+                  if (this.$route.params._id) {
+                      this.form.interviewrecord_id = this.$route.params._id;
+                      this.$store
+                          .dispatch('PFANS2003Store/updateinterviewrecord', this.form)
+                          .then(response => {
+                              this.data = response;
+                              this.loading = false;
+                              Message({
+                                  message: this.$t('normal.success_02'),
+                                  type: 'success',
+                                  duration: 5 * 1000,
+                              });
+                              if (this.$store.getters.historyUrl) {
+                                  this.$router.push(this.$store.getters.historyUrl);
+                              }
+                          })
+                          .catch(error => {
+                              Message({
+                                  message: error,
+                                  type: 'error',
+                                  duration: 5 * 1000,
+                              });
+                              this.loading = false;
+                          });
+                  } else {
+                      this.$store
+                          .dispatch('PFANS2003Store/createinterviewrecord', this.form)
+                          .then(response => {
+                              this.data = response;
+                              this.loading = false;
+                              Message({
+                                  message: this.$t('normal.success_01'),
+                                  type: 'success',
+                                  duration: 5 * 1000,
+                              });
+                              if (this.$store.getters.historyUrl) {
+                                  this.$router.push(this.$store.getters.historyUrl);
+                              }
+                          })
+                          .catch(error => {
+                              Message({
+                                  message: error,
+                                  type: 'error',
+                                  duration: 5 * 1000,
+                              });
+                              this.loading = false;
+                          });
                   }
-                })
-                .catch(error => {
-                  Message({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000,
+              }
+              //add_fjl_0731  添加应聘者信息管理画面跳转  start
+              else if (val === 'createdecision') {
+                  let _user = [];
+                  _user.push({
+                      name: this.form.name,
+                      sex: this.form.sex,
+                      birthday: this.form.birthday,
+                      interview: this.form.interview,
+                      interviewrecord_id: this.form.interviewrecord_id,
                   });
-                  this.loading = false;
-                });
-            }
+                  this.$router.push({
+                      name: 'PFANS2002FormView',
+                      params: {
+                          _id: '',
+                          _user: _user,
+                          disabled: false
+                      }
+                  })
+              }
+              //add_fjl_0731  添加应聘者信息管理画面跳转  end
           }
           else{
               Message({
