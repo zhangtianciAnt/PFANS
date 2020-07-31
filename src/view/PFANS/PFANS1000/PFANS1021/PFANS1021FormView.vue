@@ -100,8 +100,16 @@
                                type="index"></el-table-column>
               <el-table-column :label="$t('label.PFANS3005VIEW_USER')" align="center" prop="title" width="200">
                 <template slot-scope="scope">
-                  <el-input v-model="scope.row.title" :no="scope.row" :disabled="!disabled"
-                            style="width: 10rem"></el-input>
+                  <user
+                    :disabled="!disabled"
+                    :no="scope.row"
+                    :userlist="scope.row.title"
+                    @getUserids="getInterviewerids"
+                    selectType="Single"
+                    style="width:90%"
+                  ></user>
+                  <!--                  <el-input v-model="scope.row.title" :no="scope.row" :disabled="!disabled"-->
+                  <!--                            style="width: 10rem"></el-input>-->
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS3005VIEW_COMPANY')" align="center" prop="title" width="200"
@@ -631,6 +639,9 @@
       }
     },
     methods: {
+        getInterviewerids(userlist, row) {
+            row.title = userlist;
+        },
       // <!--//start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09-->
       getcorresponding(val) {
         this.form.corresponding = val;
