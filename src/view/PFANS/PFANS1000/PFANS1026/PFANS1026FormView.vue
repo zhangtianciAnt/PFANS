@@ -60,7 +60,7 @@
                    style="width: 20vw"
                    :error="errorgroup"
                    @getOrgids="getGroupId"
-                   :disabled="checkGroupId"
+                   :disabled="!disabled2"
               ></org>
             </el-form-item>
             <div class="dialog-footer" align="center">
