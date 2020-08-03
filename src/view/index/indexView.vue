@@ -264,6 +264,22 @@
         firstDay: 1,
         showNonCurrentDates: false,
         activeName: 'first',
+        flowData: [
+          {
+            'No': '1',
+            'Name': '采购申请',
+            'Status': 'normal.done',
+            'url': 'PFANS6002FormView',
+            'params': {'_id':'a081f533-8872-4d90-8719-8942ce2f568c'}
+          },
+          {
+            'No': '2',
+            'Name': '合同作成',
+            'Status': 'normal.doing',
+            'url': '',
+            'params': {}
+          }
+        ],
       };
     },
     components: {
@@ -506,6 +522,7 @@
       this.$store.commit('global/SET_HISTORYURL', this.$route.path);
       this.getMessageData();
       this.getGSDT();
+      // this.$emit('showPop',this.flowData)
     },
   };
 </script>

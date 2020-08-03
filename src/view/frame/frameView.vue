@@ -167,22 +167,7 @@
       return {
         userIcon:userIcon,
         companyIcon:companyIcon,
-        flowData: [
-          {
-            'No': '1',
-            'Name': '采购申请',
-            'Status': 'normal.done',
-            'url': 'PFANS6002FormView',
-            'params': {'_id':'a081f533-8872-4d90-8719-8942ce2f568c'}
-          },
-          {
-            'No': '2',
-            'Name': '合同作成',
-            'Status': 'normal.doing',
-            'url': '',
-            'params': {}
-          }
-        ],
+        flowData: [],
         dataType: 'company',
         left: 0,
         top: 0,
@@ -451,6 +436,7 @@
         this.vactiveIndex = appid;
         this.$store.commit("global/SET_CURRENTURL", appid);
         this.$store.commit("global/SET_WORKFLOWURL", appid);
+        this.showPop([]);
       },
       showPersonCenter(){
         this.userinfo = this.$store.getters.userinfo;
@@ -465,6 +451,8 @@
         this.flowData = val;
         if(val.length > 0){
           this.showFlowButton = true;
+        }else{
+          this.showFlowButton = false;
         }
       },
       changeMenu(){
