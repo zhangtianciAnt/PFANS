@@ -739,8 +739,14 @@
                 this.tableA = response.judgementdetail;
                 this.showH = true;
                 this.showM = false;
-                for (var i = 0; i < this.tableA.length; i++) {
+                for (let i = 0; i < this.tableA.length; i++) {
                   let letThisprojectM = getDictionaryInfo(this.tableA[i].thisprojectM);
+                  if (this.tableA[i].group_nameM != null && this.tableA[i].group_nameM != '') {
+                    let groupInfo = getOrgInfo(this.tableA[i].group_nameM);
+                    if (groupInfo) {
+                      this.userlist.push(groupInfo.user);
+                    }
+                  }
                   if (letThisprojectM != null) {
                     this.tableA[i].thisprojectM = letThisprojectM.value2 + '_' + letThisprojectM.value3;
                   }
@@ -1580,12 +1586,6 @@
                   });
                 } else {
                   for (let i = 0; i < this.tableA.length; i++) {
-                    if (this.tableA[i].group_nameM != null && this.tableA[i].group_nameM != '') {
-                      let groupInfo = getOrgInfo(this.tableA[i].group_nameM);
-                      if (groupInfo) {
-                        this.userlist.push(groupInfo.user);
-                      }
-                    }
                     this.baseInfo.judgementdetail.push({
                       group_nameM: this.tableA[i].group_nameM,
                       thisprojectM: this.tableA[i].thisprojectM,
@@ -1862,12 +1862,6 @@
                   });
                 } else {
                   for (let i = 0; i < this.tableA.length; i++) {
-                    if (this.tableA[i].group_nameM != null && this.tableA[i].group_nameM != '') {
-                      let groupInfo = getOrgInfo(this.tableA[i].group_nameM);
-                      if (groupInfo) {
-                        this.userlist.push(groupInfo.user);
-                      }
-                    }
                     this.baseInfo.judgementdetail.push({
                       group_nameM: this.tableA[i].group_nameM,
                       thisprojectM: this.tableA[i].thisprojectM,
