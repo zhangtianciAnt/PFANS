@@ -613,7 +613,7 @@
           this.rowid = row.judgementid;
           this.statuss = row;
           if (row.judgnumbers.indexOf('_')) {
-            this.check = true;
+            this.judgnumberscheck = true;
           }
         } else if (this.$route.params.title === 5) {
           this.rowid = row.purchaseapply_id;
