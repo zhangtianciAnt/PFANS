@@ -1,8 +1,8 @@
 <template>
   <div style="min-height: 100%">
-
     <EasyNormalContainer :buttonList="buttonList" :canStart="canStart" :title="title" :workflowCode="workcode"
                          @buttonClick="buttonClick" @disabled="setdisabled" :enableSave="enableSave"
+                         :userlist="userlist"
                          @end="end" @start="start" @workflowState="workflowState" ref="container"
                          v-loading="loading">
       <div slot="customize">
@@ -509,6 +509,7 @@
         errorgroupM: '',
         teamid: '',
         userlistA: '',
+        userlist: [],
         loading: false,
         error: '',
         selectType: 'Single',
@@ -770,6 +771,8 @@
               //add-ws-4/23-总务担当可用选择部门带出预算编码
               if (response.judgement.businessplanbalance > 20000) {
                 this.workcode = 'W0063';
+              } else if (response.judgement.musectosion = '1') {
+                this.workcode = 'W0091';
               } else {
                 this.workcode = 'W0011';
               }
@@ -1263,7 +1266,6 @@
         this.buttonClick('update');
       },
       start(val) {
-        debugger
         if (val.state === '0') {
           this.form.status = '2';
         } else if (val.state === '2') {
@@ -1578,6 +1580,12 @@
                   });
                 } else {
                   for (let i = 0; i < this.tableA.length; i++) {
+                    if (this.tableA[i].group_nameM != null && this.tableA[i].group_nameM != '') {
+                      let groupInfo = getOrgInfo(this.tableA[i].group_nameM);
+                      if (groupInfo) {
+                        this.userlist.push(groupInfo.user);
+                      }
+                    }
                     this.baseInfo.judgementdetail.push({
                       group_nameM: this.tableA[i].group_nameM,
                       thisprojectM: this.tableA[i].thisprojectM,
@@ -1854,6 +1862,12 @@
                   });
                 } else {
                   for (let i = 0; i < this.tableA.length; i++) {
+                    if (this.tableA[i].group_nameM != null && this.tableA[i].group_nameM != '') {
+                      let groupInfo = getOrgInfo(this.tableA[i].group_nameM);
+                      if (groupInfo) {
+                        this.userlist.push(groupInfo.user);
+                      }
+                    }
                     this.baseInfo.judgementdetail.push({
                       group_nameM: this.tableA[i].group_nameM,
                       thisprojectM: this.tableA[i].thisprojectM,
