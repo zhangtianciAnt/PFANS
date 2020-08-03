@@ -68,7 +68,7 @@
                           :multiple="multiple"
                           @change="getProcessingmethod"
                           style="width:20vw"
-                          :disabled="!disabled">
+                          :disabled="true">
                         </dicselect>
                       </el-form-item>
                     </el-col>
@@ -93,20 +93,20 @@
                     <el-col :span="8">
                       <el-form-item :label="$t('label.numbers')" prop="numbers">
                         <el-input-number v-model="form.numbers" controls-position="right" style="width:20vw"
-                                         :disabled="!disabled" :min="0" :max="1000000000"></el-input-number>
+                                         :disabled="true" :min="0" :max="1000000000"></el-input-number>
                       </el-form-item>
                     </el-col>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS1007FORMVIEW_TOTALVALUE')" prop="totalvalue">
                         <el-input-number v-model="form.totalvalue" controls-position="right" style="width:20vw"
-                                         :disabled="!disabled" :min="0" :max="1000000000"
+                                         :disabled="true" :min="0" :max="1000000000"
                                          :precision="2"></el-input-number>
                       </el-form-item>
                     </el-col>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS1007FORMVIEW_TOTALNETWORTH')" prop="totalnetworth">
                         <el-input-number v-model="form.totalnetworth" controls-position="right" style="width:20vw"
-                                         :disabled="!disabled" :min="0" :max="1000000000"
+                                         :disabled="true" :min="0" :max="1000000000"
                                          :precision="2"></el-input-number>
                       </el-form-item>
                     </el-col>
@@ -164,7 +164,7 @@
                     <el-table-column :label="$t('label.PFANS1007FORMVIEW_FIXEDASSETNAME')" align="center"
                                      prop="fixedassetnam" width="200">
                       <template slot-scope="scope">
-                        <el-input :no="scope.row" maxlength="20" :disabled="!disabled"
+                        <el-input :no="scope.row" maxlength="20" :disabled="true"
                                   v-model="scope.row.fixedassetnam">
                         </el-input>
                       </template>
@@ -173,28 +173,28 @@
                                      prop="megasnumber"
                                      width="200">
                       <template slot-scope="scope">
-                        <el-input :no="scope.row" maxlength="20" :disabled="!disabled" v-model="scope.row.megasnumber">
+                        <el-input :no="scope.row" maxlength="20" :disabled="true" v-model="scope.row.megasnumber">
                         </el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1007FORMVIEW_FIXEDASSETTAGNUMBER')" align="center"
                                      prop="settagnumber" width="200">
                       <template slot-scope="scope">
-                        <el-input :no="scope.row" maxlength="20" :disabled="!disabled" v-model="scope.row.settagnumber">
+                        <el-input :no="scope.row" maxlength="20" :disabled="true" v-model="scope.row.settagnumber">
                         </el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1007FORMVIEW_PURCHASETIME')" align="center"
                                      prop="purchasedate" width="200">
                       <template slot-scope="scope">
-                        <el-date-picker :no="scope.row" style="width:100%" :disabled="!disabled" type="date"
+                        <el-date-picker :no="scope.row" style="width:100%" :disabled="true" type="date"
                                         v-model="scope.row.purchasedate"></el-date-picker>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1007FORMVIEW_ORIGINALVALUE')" align="center"
                                      prop="originalvalue" width="200">
                       <template slot-scope="scope">
-                        <el-input-number @change="change" :no="scope.row" :disabled="!disabled" :min="0" :precision="2"
+                        <el-input-number @change="change" :no="scope.row" :disabled="true" :min="0" :precision="2"
                                          style="width:100%" :max="9999999" controls-position="right"
                                          v-model="scope.row.originalvalue">
                         </el-input-number>
@@ -213,7 +213,7 @@
                     <el-table-column :label="$t('label.PFANS1007FORMVIEW_NETWORTH')" align="center" prop="networth"
                                      width="200">
                       <template slot-scope="scope">
-                        <el-input-number @change="change" :no="scope.row" :disabled="!disabled" :min="0" :precision="2"
+                        <el-input-number @change="change" :no="scope.row" :disabled="true" :min="0" :precision="2"
                                          style="width:100%" :max="9999999" controls-position="right"
                                          v-model="scope.row.networth">
                         </el-input-number>
@@ -242,14 +242,14 @@
                           type="danger"
                         >{{$t('button.delete')}}
                         </el-button>
-                        <el-button
-                          :disabled="!disabled"
-                          @click="addRow()"
-                          plain
-                          size="small"
-                          type="primary"
-                        >{{$t('button.insert')}}
-                        </el-button>
+                        <!--<el-button-->
+                        <!--:disabled="!disabled"-->
+                        <!--@click="addRow()"-->
+                        <!--plain-->
+                        <!--size="small"-->
+                        <!--type="primary"-->
+                        <!--&gt;{{$t('button.insert')}}-->
+                        <!--</el-button>-->
                       </template>
                     </el-table-column>
                   </el-table>
@@ -747,6 +747,16 @@
             },
           ];
         }
+        this.checkrows();
+      },
+      checkrows() {
+        this.form.numbers = this.table1.length;
+        this.totalvalueAnt = 0.00;
+        this.form.totalvalue = '';
+        for (let j = 0; j < this.table1.length; j++) {
+          this.totalvalueAnt += parseFloat(this.table1[j].originalvalue);
+          this.form.totalvalue = this.totalvalueAnt;
+        }
       },
       deleteRow1(index, rows) {
         if (rows.length > 1) {
@@ -770,21 +780,21 @@
           ];
         }
       },
-      addRow() {
-        this.table1.push({
-          scrapdetailsid: '',
-          assetinformationid: '',
-          fixedassetnam: '',
-          megasnumber: '',
-          settagnumber: '',
-          purchasedate: '',
-          originalvalue: 0,
-          // yearsofuse: 0,
-          networth: 0,
-          scrapping: '',
-          remarks: '',
-        });
-      },
+      // addRow() {
+      //   this.table1.push({
+      //     scrapdetailsid: '',
+      //     assetinformationid: '',
+      //     fixedassetnam: '',
+      //     megasnumber: '',
+      //     settagnumber: '',
+      //     purchasedate: '',
+      //     originalvalue: 0,
+      //     // yearsofuse: 0,
+      //     networth: 0,
+      //     scrapping: '',
+      //     remarks: '',
+      //   });
+      // },
       addRow1() {
         this.table2.push({
           salesdetailsid: '',
@@ -864,6 +874,7 @@
         } else {
           this.$refs['refform'].validate(valid => {
             if (valid) {
+              this.loading = true;
               if (this.form.salequotation === 'PJ013002') {
                 this.form.reasonsforquotation = ' ';
               }
@@ -877,6 +888,15 @@
               this.baseInfo.assetinformation = JSON.parse(JSON.stringify(this.form));
               this.baseInfo.scrapdetails = [];
               for (let i = 0; i < this.table1.length; i++) {
+                if (this.table1[i].fixedassetnam == '' && this.table1[i].settagnumber == '') {
+                  this.loading = false;
+                  Message({
+                    message: this.$t("label.PFANS1008FORMVIEW_CHECKERROR"),
+                    type: 'error',
+                    duration: 5 * 1000
+                  });
+                  return
+                }
                 if (this.table1[i].fixedassetnam !== '' || this.table1[i].megasnumber !== '' || this.table1[i].settagnumber !== '' ||
                   this.table1[i].purchasedate !== '' || this.table1[i].originalvalue !== 0 || this.table1[i].networth !== 0
                   || this.table1[i].scrapping !== '' || this.table1[i].remarks !== '') {

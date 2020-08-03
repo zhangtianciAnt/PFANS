@@ -155,6 +155,7 @@
                         active-value="1"
                         inactive-value="0"
                         v-model="form.abroadbusiness"
+                        inactive-color="#005BAA"
                       >
                       </el-switch>
                       <span style="margin-left: 1vw ">{{$t('label.yes')}}</span>
@@ -271,6 +272,7 @@
                         active-value="1"
                         inactive-value="0"
                         v-model="form.arrivenight"
+                        inactive-color="#005BAA"
                       >
                       </el-switch>
                       <span style="margin-left: 1rem ">{{$t('label.yes')}}</span>
@@ -287,6 +289,7 @@
                         active-value="1"
                         inactive-value="0"
                         v-model="form.plan"
+                        inactive-color="#005BAA"
                       >
                       </el-switch>
                       <span style="margin-left: 1rem ">{{$t('label.PFANS1004VIEW_INSIDE')}}</span>
@@ -422,6 +425,7 @@
                         active-value="1"
                         inactive-value="0"
                         v-model="form.recruitment"
+                        inactive-color="#005BAA"
                       >
                       </el-switch>
                       <span style="margin-left: 1vw ">{{$t('label.PFANSUSERFORMVIEW_YES')}}</span>
@@ -489,6 +493,7 @@
                         active-value="1"
                         inactive-value="0"
                         v-model="form.accommodationexpenses"
+                        inactive-color="#005BAA"
                       >
                       </el-switch>
                       <span style="margin-left: 1vw ">{{$t('label.yes')}}</span>
@@ -610,6 +615,7 @@
                         active-value="1"
                         inactive-value="0"
                         v-model="form.provision"
+                        inactive-color="#005BAA"
                       >
                       </el-switch>
                       <span style="margin-left: 1vw ">{{$t('label.PFANSUSERFORMVIEW_YES')}}</span>
@@ -655,6 +661,7 @@
                         active-value="1"
                         inactive-value="0"
                         v-model="form.passengers"
+                        inactive-color="#005BAA"
                       >
                       </el-switch>
                       <span style="margin-left: 1vw ">{{$t('label.PFANSUSERFORMVIEW_YES')}}</span>
@@ -682,6 +689,7 @@
                         active-value="1"
                         inactive-value="0"
                         v-model="form.external"
+                        inactive-color="#005BAA"
                       >
                       </el-switch>
                       <span style="margin-left: 1vw ">{{$t('label.PFANSUSERFORMVIEW_YES')}}</span>
@@ -782,6 +790,15 @@
           callback();
         }
       };
+        //add_fjl_0724 添加项目名称必填项  start
+        var validateprojectname = (rule, value, callback) => {
+            if (!value || value === '' || value === 'undefined') {
+                callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS5009VIEW_PROJECTNAME')));
+            } else {
+                callback();
+            }
+        };
+        //add_fjl_0724 添加项目名称必填项  end
       var validatedurationstart = (rule, value, callback) => {
         if (this.form.durationstart !== '' && this.form.durationstart !== null && this.form.durationend !== '' && this.form.durationend !== null) {
           if (moment(this.form.durationend).format('YYYY-MM-DD') <= moment(this.form.durationstart).format('YYYY-MM-DD')) {
@@ -1244,6 +1261,14 @@
               trigger: 'blur',
             },
           ],
+            //add_fjl_项目名称
+            companyprojectsname: [
+                {
+                    required: true,
+                    validator: validateprojectname,
+                    trigger: 'change',
+                },
+            ],
         },
         show: false,
         show2: false,
@@ -1476,6 +1501,10 @@
               } else {
                 this.show10 = false;
               }
+                if (this.form.status === '2' || this.form.status === '4') {
+                    this.disable = false;
+                    this.listAll();
+                }
               this.loading = false;
             })
             .catch(error => {
@@ -1587,6 +1616,10 @@
           },
         ];
       }
+      // if (this.$route.params.disabled === "") {
+      //   this.noback = true
+      //   this.buttonList = []
+      // }
       //add-ws-7/7-禅道247
       // if (this.$route.params._type === 3) {
       //   this.form.checkch = '1'
@@ -1617,90 +1650,98 @@
       //add-ws-4/24-项目名称所取数据源变更
       //upd-ws-6/5-禅道075任务，项目名称问题修正
       getCompanyProjectList() {
-        if (this.disable) {
-          this.loading = true;
-          this.$store
-            .dispatch('PFANS5009Store/getSiteList5', {})
-            .then(response => {
-              for (let i = 0; i < response.length; i++) {
-                this.optionsdate.push({
-                  value: response[i].companyprojects_id,
-                  lable: response[i].numbers + '_' + response[i].project_name,
-                });
-              }
-              this.$store
-                .dispatch('PFANS5013Store/getMyConProject', {})
-                .then(response => {
-                  for (let i = 0; i < response.length; i++) {
-                    this.optionsdate.push({
-                      value: response[i].comproject_id,
-                      lable: response[i].numbers + '_' + response[i].project_name,
-                    });
-                  }
-                  this.loading = false;
-                })
-                .catch(error => {
-                  Message({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  this.loading = false;
-                });
-              this.loading = false;
-            })
-            .catch(error => {
-              Message({
-                message: error,
-                type: 'error',
-                duration: 5 * 1000,
-              });
-              this.loading = false;
-            });
-        } else {
-          this.loading = true;
-          this.$store
-            .dispatch('PFANS5013Store/Listproject2', {})
-            .then(response => {
-              for (let i = 0; i < response.length; i++) {
-                this.optionsdate.push({
-                  value: response[i].companyprojects_id,
-                  lable: response[i].numbers + '_' + response[i].project_name,
-                });
-              }
-              this.$store
-                .dispatch('PFANS5013Store/Listproject', {})
-                .then(response => {
-                  for (let i = 0; i < response.length; i++) {
-                    this.optionsdate.push({
-                      value: response[i].comproject_id,
-                      lable: response[i].numbers + '_' + response[i].project_name,
-                    });
-                  }
-                  this.loading = false;
-                })
-                .catch(error => {
-                  Message({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  this.loading = false;
-                });
-
-              this.loading = false;
-            })
-            .catch(error => {
-              Message({
-                message: error,
-                type: 'error',
-                duration: 5 * 1000,
-              });
-              this.loading = false;
-            });
-        }
+          if (this.disable) {
+              this.ceralist();
+          } else {
+              this.listAll();
+          }
       },
       //upd-ws-6/5-禅道075任务，项目名称问题修正
+        //add_fjl_07/29_修改项目查看  start
+        ceralist() {
+            this.loading = true;
+            this.$store
+                .dispatch('PFANS5009Store/getSiteList5', {})
+                .then(response => {
+                    for (let i = 0; i < response.length; i++) {
+                        this.optionsdate.push({
+                            value: response[i].companyprojects_id,
+                            lable: response[i].numbers + '_' + response[i].project_name,
+                        });
+                    }
+                    this.$store
+                        .dispatch('PFANS5013Store/getMyConProject', {})
+                        .then(response => {
+                            for (let i = 0; i < response.length; i++) {
+                                this.optionsdate.push({
+                                    value: response[i].comproject_id,
+                                    lable: response[i].numbers + '_' + response[i].project_name,
+                                });
+                            }
+                            this.loading = false;
+                        })
+                        .catch(error => {
+                            Message({
+                                message: error,
+                                type: 'error',
+                                duration: 5 * 1000,
+                            });
+                            this.loading = false;
+                        });
+                    this.loading = false;
+                })
+                .catch(error => {
+                    Message({
+                        message: error,
+                        type: 'error',
+                        duration: 5 * 1000,
+                    });
+                    this.loading = false;
+                });
+        },
+        listAll() {
+            this.loading = true;
+            this.$store
+                .dispatch('PFANS5013Store/Listproject2', {})
+                .then(response => {
+                    for (let i = 0; i < response.length; i++) {
+                        this.optionsdate.push({
+                            value: response[i].companyprojects_id,
+                            lable: response[i].numbers + '_' + response[i].project_name,
+                        });
+                    }
+                    this.$store
+                        .dispatch('PFANS5013Store/Listproject', {})
+                        .then(response => {
+                            for (let i = 0; i < response.length; i++) {
+                                this.optionsdate.push({
+                                    value: response[i].comproject_id,
+                                    lable: response[i].numbers + '_' + response[i].project_name,
+                                });
+                            }
+                            this.loading = false;
+                        })
+                        .catch(error => {
+                            Message({
+                                message: error,
+                                type: 'error',
+                                duration: 5 * 1000,
+                            });
+                            this.loading = false;
+                        });
+
+                    this.loading = false;
+                })
+                .catch(error => {
+                    Message({
+                        message: error,
+                        type: 'error',
+                        duration: 5 * 1000,
+                    });
+                    this.loading = false;
+                });
+        },
+        //add_fjl_07/29_修改项目查看  end
       //add-ws-4/24-项目名称所取数据源变更
       getBudt(val) {
         //ADD_FJL  修改人员预算编码
@@ -1729,7 +1770,8 @@
           !this.form.region ||
           !this.form.city ||
           !this.form.startdate ||
-          !this.form.enddate
+            !this.form.enddate ||
+            !this.form.companyprojectsname
         ) {
           this.activeName = 'first';
         } else if (

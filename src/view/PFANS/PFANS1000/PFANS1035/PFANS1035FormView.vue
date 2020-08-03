@@ -58,7 +58,7 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS5009VIEW_PROJECTNAME')" prop="projectname">
+                    <el-form-item :label="$t('label.PFANS5009VIEW_PROJECTNAME')" prop="companyprojectsname">
                       <el-select :disabled="!disable" clearable style="width: 20vw" v-model="form.companyprojectsname">
                         <el-option
                           :key="item.value"
@@ -245,6 +245,7 @@
                         active-value="1"
                         inactive-value="0"
                         v-model="form.arrivenight"
+                        inactive-color="#005BAA"
                       >
                       </el-switch>
                       <span style="margin-left: 1rem ">{{$t('label.yes')}}</span>
@@ -261,6 +262,7 @@
                         active-value="1"
                         inactive-value="0"
                         @change="getplan1"
+                        inactive-color="#005BAA"
                       >
                       </el-switch>
                       <span style="margin-left: 1vw ">{{$t('label.PFANS1004VIEW_INSIDE')}}</span>
@@ -394,6 +396,7 @@
                         active-value="1"
                         inactive-value="0"
                         @change="getpassengers1"
+                        inactive-color="#005BAA"
                       >
                       </el-switch>
                       <span style="margin-left: 1vw ">{{$t('label.PFANSUSERFORMVIEW_YES')}}</span>
@@ -417,6 +420,7 @@
                         active-value="1"
                         inactive-value="0"
                         @change="getexternal"
+                        inactive-color="#005BAA"
                       >
                       </el-switch>
                       <span style="margin-left: 1vw ">{{$t('label.PFANSUSERFORMVIEW_YES')}}</span>
@@ -464,16 +468,16 @@
 </template>
 
 <script>
-  import EasyNormalContainer from '@/components/EasyNormalContainer';
-  import user from '../../../components/user.vue';
-  import {Message} from 'element-ui';
-  import moment from 'moment';
-  import {getOrgInfoByUserId, getOrgInfo, getDictionaryInfo} from '@/utils/customize';
-  import dicselect from '../../../components/dicselect';
+    import EasyNormalContainer from '@/components/EasyNormalContainer';
+    import user from '../../../components/user.vue';
+    import {Message} from 'element-ui';
+    import moment from 'moment';
+    import {getDictionaryInfo, getOrgInfo, getOrgInfoByUserId} from '@/utils/customize';
+    import dicselect from '../../../components/dicselect';
 
-  import project from '../../../components/project.vue';
+    import project from '../../../components/project.vue';
 
-  export default {
+    export default {
     name: 'PFANS1035FormView',
     components: {
       dicselect,
@@ -517,6 +521,15 @@
           callback();
         }
       };
+        //add_fjl_0724 添加项目名称必填项  start
+        var validateprojectname = (rule, value, callback) => {
+            if (!value || value === '' || value === 'undefined') {
+                callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS5009VIEW_PROJECTNAME')));
+            } else {
+                callback();
+            }
+        };
+        //add_fjl_0724 添加项目名称必填项  end
       return {
         enableSave: false,
         optionsdate: [{value: 'PP024001', lable: this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')}],
@@ -777,6 +790,14 @@
               trigger: 'blur',
             },
           ],
+            //add_fjl_项目名称
+            companyprojectsname: [
+                {
+                    required: true,
+                    validator: validateprojectname,
+                    trigger: 'change',
+                },
+            ],
         },
         show: false,
         show2: false,
@@ -859,8 +880,9 @@
             } else {
               this.show5 = false;
             }
-            if (this.form.status === '2') {
+              if (this.form.status === '2' || this.form.status === '4') {
               this.disable = false;
+                  this.listAll();
             }
             this.loading = false;
           })
@@ -896,6 +918,7 @@
       //add-ws-7/7-禅道247
       this.checktype = this.$route.params._type
       //add-ws-7/7-禅道247
+      this.disable = this.$route.params.disabled;
       if (!this.$route.params.disabled) {
         this.buttonList = [];
       }
@@ -929,7 +952,8 @@
           ];
           this.enableSave = true;
         }
-      } else if (this.$route.params.statuss ===  this.$t('label.node_step2')) {
+      }
+      else if (this.$route.params.statuss ===  this.$t('label.node_step2')) {
         this.buttonList = [
           {
             key: 'save',
@@ -939,7 +963,8 @@
           },
         ];
         this.enableSave = true;
-      } else {
+      }
+      else {
         this.buttonList = [
           {
             key: 'save',
@@ -950,96 +975,107 @@
         ];
       }
       //add-ws-7/7-禅道153
-      this.disable = this.$route.params.disabled;
+      // if (this.$route.params.disabled === "") {
+      //   this.noback = true
+      //   this.buttonList = []
+      // }
     },
     methods: {
       //add-ws-4/24-项目名称所取数据源变更
       //upd-ws-6/5-禅道075任务，项目名称问题修正
       getCompanyProjectList() {
-        if (this.disable) {
-          this.loading = true;
-          this.$store
-            .dispatch('PFANS5009Store/getSiteList5', {})
-            .then(response => {
-              for (let i = 0; i < response.length; i++) {
-                this.optionsdate.push({
-                  value: response[i].companyprojects_id,
-                  lable: response[i].numbers + '_' + response[i].project_name,
-                });
-              }
-              this.$store
-                .dispatch('PFANS5013Store/getMyConProject', {})
-                .then(response => {
-                  for (let i = 0; i < response.length; i++) {
-                    this.optionsdate.push({
-                      value: response[i].comproject_id,
-                      lable: response[i].numbers + '_' + response[i].project_name,
-                    });
-                  }
-                  this.loading = false;
-                })
-                .catch(error => {
-                  Message({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  this.loading = false;
-                });
-              this.loading = false;
-            })
-            .catch(error => {
-              Message({
-                message: error,
-                type: 'error',
-                duration: 5 * 1000,
-              });
-              this.loading = false;
-            });
-        } else {
-          this.loading = true;
-          this.$store
-            .dispatch('PFANS5013Store/Listproject2', {})
-            .then(response => {
-              for (let i = 0; i < response.length; i++) {
-                this.optionsdate.push({
-                  value: response[i].companyprojects_id,
-                  lable: response[i].numbers + '_' + response[i].project_name,
-                });
-              }
-              this.$store
-                .dispatch('PFANS5013Store/Listproject', {})
-                .then(response => {
-                  for (let i = 0; i < response.length; i++) {
-                    this.optionsdate.push({
-                      value: response[i].comproject_id,
-                      lable: response[i].numbers + '_' + response[i].project_name,
-                    });
-                  }
-                  this.loading = false;
-                })
-                .catch(error => {
-                  Message({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  this.loading = false;
-                });
-
-              this.loading = false;
-            })
-            .catch(error => {
-              Message({
-                message: error,
-                type: 'error',
-                duration: 5 * 1000,
-              });
-              this.loading = false;
-            });
-        }
+          if (this.disable) {
+              this.ceralist();
+          } else {
+              this.listAll();
+          }
       },
       //upd-ws-6/5-禅道075任务，项目名称问题修正
+        //add_fjl_07/29_修改项目查看  start
+        ceralist() {
+            this.loading = true;
+            this.$store
+                .dispatch('PFANS5009Store/getSiteList5', {})
+                .then(response => {
+                    for (let i = 0; i < response.length; i++) {
+                        this.optionsdate.push({
+                            value: response[i].companyprojects_id,
+                            lable: response[i].numbers + '_' + response[i].project_name,
+                        });
+                    }
+                    this.$store
+                        .dispatch('PFANS5013Store/getMyConProject', {})
+                        .then(response => {
+                            for (let i = 0; i < response.length; i++) {
+                                this.optionsdate.push({
+                                    value: response[i].comproject_id,
+                                    lable: response[i].numbers + '_' + response[i].project_name,
+                                });
+                            }
+                            this.loading = false;
+                        })
+                        .catch(error => {
+                            Message({
+                                message: error,
+                                type: 'error',
+                                duration: 5 * 1000,
+                            });
+                            this.loading = false;
+                        });
+                    this.loading = false;
+                })
+                .catch(error => {
+                    Message({
+                        message: error,
+                        type: 'error',
+                        duration: 5 * 1000,
+                    });
+                    this.loading = false;
+                });
+        },
+        listAll() {
+            this.loading = true;
+            this.$store
+                .dispatch('PFANS5013Store/Listproject2', {})
+                .then(response => {
+                    for (let i = 0; i < response.length; i++) {
+                        this.optionsdate.push({
+                            value: response[i].companyprojects_id,
+                            lable: response[i].numbers + '_' + response[i].project_name,
+                        });
+                    }
+                    this.$store
+                        .dispatch('PFANS5013Store/Listproject', {})
+                        .then(response => {
+                            for (let i = 0; i < response.length; i++) {
+                                this.optionsdate.push({
+                                    value: response[i].comproject_id,
+                                    lable: response[i].numbers + '_' + response[i].project_name,
+                                });
+                            }
+                            this.loading = false;
+                        })
+                        .catch(error => {
+                            Message({
+                                message: error,
+                                type: 'error',
+                                duration: 5 * 1000,
+                            });
+                            this.loading = false;
+                        });
+
+                    this.loading = false;
+                })
+                .catch(error => {
+                    Message({
+                        message: error,
+                        type: 'error',
+                        duration: 5 * 1000,
+                    });
+                    this.loading = false;
+                });
+        },
+        //add_fjl_07/29_修改项目查看  end
       //add-ws-4/24-项目名称所取数据源变更
       getBudt(val) {
         //ADD_FJL  修改人员预算编码
@@ -1069,6 +1105,7 @@
           !this.form.condominiumcompany ||
           !this.form.city ||
           !this.form.startdate ||
+            !this.form.companyprojectsname ||
           !this.form.enddate
         ) {
           this.activeName = 'first';

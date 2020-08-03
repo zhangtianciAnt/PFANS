@@ -446,7 +446,40 @@
           }
           this.loading = true;
           this.uplist = this.$refs.table.selectedList;
-          this.update();
+          //add ccm 2020729 考勤异常加班审批中的日期，考勤不允许承认
+          this.$store
+            .dispatch('PFANS2010Store/selectAbnomalandOvertime', {attendance: this.uplist})
+            .then(response => {
+              if (response!=null && response !='' && response!=undefined)
+              {
+                let date ='';
+                for(let i =0;i<response.length;i++)
+                {
+                  date += moment(response[i]).format('YYYY-MM-DD')+',';
+                }
+                Message({
+                  message: this.$t('label.date') +' : ' + date + this.$t('normal.info_15'),
+                  type: 'info',
+                  duration: 5 * 1000,
+                });
+              }
+              else
+              {
+                this.update();
+              }
+              this.getAttendancelist();
+              this.loading = false;
+              this.$refs.table.$refs.eltable.clearSelection();
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
+          //add ccm 2020729 考勤异常加班审批中的日期，考勤不允许承认
 
         } else if (val === 'recognitionno') {
           this.updStatus1(1);

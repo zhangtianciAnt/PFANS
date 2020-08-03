@@ -3,9 +3,14 @@
              :visible.sync="open" :show-close="false" :withHeader="false"
              size="70%">
     <PFANS6002FormView v-show="url === 'PFANS6002FormView'" ref="child"></PFANS6002FormView>
-    <PFANS1032FormView ref="child" v-show="url === 'PFANS1032FormView'"></PFANS1032FormView>
-    <PFANS1031FormView ref="child" v-show="url === 'PFANS1031FormView'"></PFANS1031FormView>
-    <PFANS1025FormView ref="child" v-show="url === 'PFANS1025FormView'"></PFANS1025FormView>
+    <PFANS1032FormView ref="child1" v-show="url === 'PFANS1032FormView'"></PFANS1032FormView>
+    <PFANS1031FormView ref="child2" v-show="url === 'PFANS1031FormView'"></PFANS1031FormView>
+    <PFANS1025FormView ref="child3" v-show="url === 'PFANS1025FormView'"></PFANS1025FormView>
+    <PFANS1006FormView ref="child4" v-show="url === 'PFANS1006FormView'"></PFANS1006FormView>
+    <PFANS1047FormView ref="child5" v-show="url === 'PFANS1047FormView'"></PFANS1047FormView>
+    <PFANS1035FormView ref="child6" v-show="url === 'PFANS1035FormView'"></PFANS1035FormView>
+    <PFANS1002FormView ref="child7" v-show="url === 'PFANS1002FormView'"></PFANS1002FormView>
+    <PFANS1012FormView ref="child8" v-show="url === 'PFANS1012FormView'"></PFANS1012FormView>
   </el-drawer>
 </template>
 
@@ -14,13 +19,24 @@
   import PFANS1032FormView from '@/view/PFANS/PFANS1000/PFANS1032/PFANS1032FormView.vue';
   import PFANS1031FormView from '@/view/PFANS/PFANS1000/PFANS1031/PFANS1031FormView.vue';
   import PFANS1025FormView from '@/view/PFANS/PFANS1000/PFANS1025/PFANS1025FormView.vue';
+  import PFANS1006FormView from '@/view/PFANS/PFANS1000/PFANS1006/PFANS1006FormView.vue';
+  import PFANS1047FormView from '@/view/PFANS/PFANS1000/PFANS1047/PFANS1047FormView.vue';
+  import PFANS1035FormView from '@/view/PFANS/PFANS1000/PFANS1035/PFANS1035FormView.vue';
+  import PFANS1002FormView from '@/view/PFANS/PFANS1000/PFANS1002/PFANS1002FormView.vue';
+  import PFANS1012FormView from '@/view/PFANS/PFANS1000/PFANS1012/PFANS1012FormView.vue';
+
   export default {
     name: 'index',
     components: {
       PFANS6002FormView,
       PFANS1032FormView,
       PFANS1031FormView,
-      PFANS1025FormView
+      PFANS1025FormView,
+      PFANS1006FormView,
+      PFANS1047FormView,
+      PFANS1035FormView,
+      PFANS1002FormView,
+      PFANS1012FormView,
     },
     data() {
       return {
@@ -53,15 +69,21 @@
     watch: {
       open(val) {
         if (val) {
-
           this.bkParams = [...this.$route.params];
           for (let key in this.params) {
             this.$route.params[key] = this.params[key];
           }
 
           this.$nextTick(function() {
-            debugger
-            this.$refs.child.$refs.container.Pop = true;
+              this.$refs.child.$refs.container.Pop = true;
+            this.$refs.child1.$refs.container.Pop = true;
+            this.$refs.child2.$refs.container.Pop = true;
+            this.$refs.child3.$refs.container.Pop = true;
+            this.$refs.child4.$refs.container.Pop = true;
+            this.$refs.child5.$refs.container.Pop = true;
+            this.$refs.child6.$refs.container.Pop = true;
+            this.$refs.child7.$refs.container.Pop = true;
+            this.$refs.child8.$refs.container.Pop = true;
           });
         }
       },

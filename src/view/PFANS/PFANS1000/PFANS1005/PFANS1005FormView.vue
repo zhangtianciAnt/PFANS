@@ -201,6 +201,7 @@
         loading: false,
         baseInfo: {},
         form: {
+            summoney: '',
           remarks: '',
           center_id: '',
           group_id: '',
@@ -326,7 +327,6 @@
     methods: {
       //add-ws-4/23-总务蛋蛋高可用i选择部门带出预算编码
       getGroupId(orglist) {
-        debugger
         this.getchangeGroup(orglist)
         this.form.group_name =orglist
         if (!this.form.group_name || this.form.group_name === '') {
@@ -558,6 +558,7 @@
               }
               this.optionsdata.remarks = checktableD.substring(0, checktableD.length - 1);
               this.form.remarks = this.optionsdata.remarks;
+                this.form.summoney = amountsum;
               //add-ws-4/17-摘要字段处理
               this.baseInfo.purchaseApply = JSON.parse(JSON.stringify(this.form));
               let error = 0;

@@ -91,6 +91,8 @@ import PFANS1041FormView from '@/view/PFANS/PFANS1000/PFANS1041/PFANS1041FormVie
 import PFANS1042View from '@/view/PFANS/PFANS1000/PFANS1042/PFANS1042View.vue'
 import PFANS1043View from '@/view/PFANS/PFANS1000/PFANS1043/PFANS1043View.vue'
 import PFANS1045FormView from '@/view/PFANS/PFANS1000/PFANS1045/PFANS1045FormView.vue'
+import PFANS1045View from '@/view/PFANS/PFANS1000/PFANS1045/PFANS1045View.vue'
+import PFANS1046View from '@/view/PFANS/PFANS1000/PFANS1046/PFANS1046View.vue'
 import PFANS2000View from '@/view/PFANS/PFANS2000/PFANS2000/PFANS2000View.vue'
 import PFANS2001View from '@/view/PFANS/PFANS2000/PFANS2001/PFANS2001View.vue'
 import PFANS2001FormView from '@/view/PFANS/PFANS2000/PFANS2001/PFANS2001FormView.vue'
@@ -138,6 +140,7 @@ import PFANS2032View from '@/view/PFANS/PFANS2000/PFANS2032/PFANS2032View.vue'
 import PFANS2032FormView from '@/view/PFANS/PFANS2000/PFANS2032/PFANS2032FormView'
 import PFANS2033View from '@/view/PFANS/PFANS2000/PFANS2033/PFANS2033View.vue'
 import PFANS2034View from '@/view/PFANS/PFANS2000/PFANS2034/PFANS2034View.vue'
+import PFANS2035View from '@/view/PFANS/PFANS2000/PFANS2035/PFANS2035View.vue'
 import PFANS3001View from '@/view/PFANS/PFANS3000/PFANS3001/PFANS3001View'
 import PFANS3001FormView from '@/view/PFANS/PFANS3000/PFANS3001/PFANS3001FormView'
 import PFANS3002View from '@/view/PFANS/PFANS3000/PFANS3002/PFANS3002View.vue'
@@ -190,6 +193,8 @@ import PFANS6007View from '@/view/PFANS/PFANS6000/PFANS6007/PFANS6007View.vue'
 import PFANS6007FormView from '@/view/PFANS/PFANS6000/PFANS6007/PFANS6007FormView.vue'
 import PFANS6008View from '@/view/PFANS/PFANS6000/PFANS6008/PFANS6008View.vue'
 import PFANS6009View from '@/view/PFANS/PFANS6000/PFANS6009/PFANS6009View.vue'
+import PFANS6010View from '@/view/PFANS/PFANS6000/PFANS6010/PFANS6010View.vue'
+import PFANS6010FormView from '@/view/PFANS/PFANS6000/PFANS6010/PFANS6010FormView.vue'
 import PFANS8001View from '@/view/PFANS/PFANS8000/PFANS8001/PFANS8001View.vue'
 import PFANS8002View from '@/view/PFANS/PFANS8000/PFANS8002/PFANS8002View.vue'
 import PFANS8003View from '@/view/PFANS/PFANS8000/PFANS8003/PFANS8003View.vue'
@@ -208,6 +213,9 @@ import ASSETS1002ExportFormView from '@/view/ASSETS/ASSETS1000/ASSETS1002/ASSETS
 import ASSETS1003View from '@/view/ASSETS/ASSETS1000/ASSETS1003/ASSETS1003View.vue'
 import usersFormViewByPerson from '@/view/users/usersFormViewByPerson.vue'
 import PFANS1044View from '@/view/PFANS/PFANS1000/PFANS1044/PFANS1044View.vue'
+
+import PFANS1047View from '@/view/PFANS/PFANS1000/PFANS1047/PFANS1047View.vue'
+import PFANS1047FormView from '@/view/PFANS/PFANS1000/PFANS1047/PFANS1047FormView.vue'
 
 import error401 from '@/components/EasyErrorPage/401.vue'
 import error404 from '@/components/EasyErrorPage/404.vue'
@@ -671,9 +679,24 @@ const routes = [
         component: PFANS1043View,
       },
       {
+        path: '/PFANS1045View',
+        name: 'PFANS1045View',
+        component: PFANS1045View,
+      },
+      {
         path: '/PFANS1045FormView',
         name: 'PFANS1045FormView',
         component: PFANS1045FormView,
+      },
+      {
+        path: '/PFANS1047View',
+        name: 'PFANS1047View',
+        component: PFANS1047View,
+      },
+      {
+        path: '/PFANS1047FormView',
+        name: 'PFANS1047FormView',
+        component: PFANS1047FormView,
       },
       {
         path: '/PFANS2000View',
@@ -899,6 +922,11 @@ const routes = [
         path: '/PFANS2034View',
         name: 'PFANS2034View',
         component: PFANS2034View,
+      },
+      {
+        path: '/PFANS2035View',
+        name: 'PFANS2035View',
+        component: PFANS2035View,
       },
       {
         path: '/PFANS2032View',
@@ -1168,6 +1196,16 @@ const routes = [
         path: '/PFANS6009View',
         name: 'PFANS6009View',
         component: PFANS6009View
+      },
+      {
+        path: '/PFANS6010View',
+        name: 'PFANS6010View',
+        component: PFANS6010View
+      },
+      {
+        path: '/PFANS6010FormView',
+        name: 'PFANS6010FormView',
+        component: PFANS6010FormView
       },
       {
         path: '/PFANS8001View',

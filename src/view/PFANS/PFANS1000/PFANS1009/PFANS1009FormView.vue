@@ -50,7 +50,7 @@
                 <dicselect
                   :code="code1"
                   :data="form.assettype"
-                  :disabled="!disable"
+                  :disabled="true"
                   :multiple="multiple"
                   style="width:20vw"
                   @change="getassettype">
@@ -84,20 +84,20 @@
             <el-col :span="8">
               <el-form-item :error="errorassetname" :label="$t('label.PFANS1009FORMVIEW_ASSETNAME')" prop="assetname">
                 <template slot-scope="scope">
-                  <el-input :disabled="!disable" style="width:20vw" v-model="form.assetname">
+                  <el-input :disabled="true" style="width:20vw" v-model="form.assetname">
                   </el-input>
                 </template>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1009FORMVIEW_ANCILLARYEQUIPMENT')" prop="">
-                <el-input :disabled="!disable" style="width:20vw" v-model="form.ancillaryequipment"
+                <el-input :disabled="true" style="width:20vw" v-model="form.ancillaryequipment"
                           maxlength=""></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1009FORMVIEW_RFID')" prop="">
-                <el-input :disabled="!disable" style="width:20vw" v-model="form.rfid"
+                <el-input :disabled="true" style="width:20vw" v-model="form.rfid"
                           maxlength=""></el-input>
               </el-form-item>
             </el-col>

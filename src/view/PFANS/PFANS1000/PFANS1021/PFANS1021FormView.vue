@@ -1,8 +1,9 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer ref="container" :title="title" @buttonClick="buttonClick" v-loading="loading"
-                         :buttonList="buttonList"
+                         :buttonList="buttonList" :defaultStart="defaultStart"
                          @workflowState="workflowState" :canStart="canStart" @start="start" @end="end"
+                         @StartWorkflow="buttonClick"
                          :enableSave="enableSave">
       <div slot="customize">
         <el-form :model="form" label-width="8vw" label-position="top" style="padding: 3vw" :rules="rules"
@@ -100,8 +101,16 @@
                                type="index"></el-table-column>
               <el-table-column :label="$t('label.PFANS3005VIEW_USER')" align="center" prop="title" width="200">
                 <template slot-scope="scope">
-                  <el-input v-model="scope.row.title" :no="scope.row" :disabled="!disabled"
-                            style="width: 10rem"></el-input>
+                  <user
+                    :disabled="!disabled"
+                    :no="scope.row"
+                    :userlist="scope.row.title"
+                    @getUserids="getInterviewerids"
+                    selectType="Single"
+                    style="width:90%"
+                  ></user>
+                  <!--                  <el-input v-model="scope.row.title" :no="scope.row" :disabled="!disabled"-->
+                  <!--                            style="width: 10rem"></el-input>-->
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS3005VIEW_COMPANY')" align="center" prop="title" width="200"
@@ -158,19 +167,19 @@
                        @getOrgids="getGroupId2"></org>
                 </template>
               </el-table-column>
-<!--              <el-table-column :label="$t('label.PFANS1021FORMVIEW_PHONENUMBER')" align="center" prop="phonenumber"-->
-<!--                               width="200">-->
-<!--                <template slot-scope="scope">-->
-<!--                  <el-input :disabled="!disabled" :no="scope.row" maxlength="20" v-model="scope.row.phonenumber">-->
-<!--                  </el-input>-->
-<!--                </template>-->
-<!--              </el-table-column>-->
-<!--              <el-table-column :label="$t('label.email')" align="center" prop="emaildetail" width="200">-->
-<!--                <template slot-scope="scope">-->
-<!--                  <el-input :disabled="!disabled" :no="scope.row" maxlength="20" v-model="scope.row.emaildetail">-->
-<!--                  </el-input>-->
-<!--                </template>-->
-<!--              </el-table-column>-->
+              <!--              <el-table-column :label="$t('label.PFANS1021FORMVIEW_PHONENUMBER')" align="center" prop="phonenumber"-->
+              <!--                               width="200">-->
+              <!--                <template slot-scope="scope">-->
+              <!--                  <el-input :disabled="!disabled" :no="scope.row" maxlength="20" v-model="scope.row.phonenumber">-->
+              <!--                  </el-input>-->
+              <!--                </template>-->
+              <!--              </el-table-column>-->
+              <!--              <el-table-column :label="$t('label.email')" align="center" prop="emaildetail" width="200">-->
+              <!--                <template slot-scope="scope">-->
+              <!--                  <el-input :disabled="!disabled" :no="scope.row" maxlength="20" v-model="scope.row.emaildetail">-->
+              <!--                  </el-input>-->
+              <!--                </template>-->
+              <!--              </el-table-column>-->
               <el-table-column :label="$t('label.PFANS1021FORMVIEW_STARTDATE')" align="center" prop="startdate"
                                width="200">
                 <template slot-scope="scope">
@@ -262,7 +271,7 @@
   import dicselect from '../../../components/dicselect.vue';
   import user from '../../../components/user.vue';
   import {Message} from 'element-ui';
-  import {getCurrentRole4, getOrgInfoByUserId, getUserInfo} from '@/utils/customize';
+  import {getCurrentRole4, getOrgInfoByUserId, getUserInfo, getUserInfoName} from '@/utils/customize';
   import org from '../../../components/org';
   import {validateEmail} from '@/utils/validate';
   import moment from 'moment';
@@ -338,6 +347,14 @@
 
       };
       return {
+        //add-ws-7/27-禅道298任务
+        defaultStart: false,
+        userid: '',
+        jude: [],
+        detailcenterid: '',
+        detailgroupid: '',
+        detailteamid: '',
+        //add-ws-7/27-禅道298任务
         baseInfo: {},
         userlist: '',
         loading: false,
@@ -550,6 +567,50 @@
             this.loading = false;
           });
       } else {
+        //add-ws-7/27-禅道298任务  5e78b1f74e3b194874180de1
+        if (this.$route.params._name) {
+          this.form.subtype = 'PJ029001';
+          this.jude = this.$route.params._name;
+          for (var i = 0; i < this.jude.length; i++) {
+            if (i >= 1) {
+              if (getUserInfoName(this.jude[i].customername) !== '-1') {
+                this.userid = getUserInfoName(this.jude[i].customername).userid;
+                let lst = getOrgInfoByUserId(this.userid);
+                this.detailcenterid = lst.centerId;
+                this.detailgroupid = lst.groupId;
+                this.detailteamid = lst.teamId;
+              }
+              this.form.tableD.push({
+                securitydetailid: '',
+                securityid: '',
+                title: this.userid,
+                detailcenter_id: this.detailcenterid,
+                detailgroup_id: this.detailgroupid,
+                detailteam_id: this.detailteamid,
+                phonenumber: '',
+                emaildetail: '',
+                startdate: '',
+                company: '',
+                timea: '',
+                fabuilding: '',
+              });
+            } else {
+              if (getUserInfoName(this.jude[i].customername) !== '-1') {
+                this.userid = getUserInfoName(this.jude[i].customername).userid;
+                this.form.tableD[0].title = this.userid;
+                let lst = getOrgInfoByUserId(this.userid);
+                this.form.tableD[0].detailcenter_id = lst.centerId;
+                this.form.tableD[0].detailgroup_id = lst.groupId;
+                this.form.tableD[0].detailteam_id = lst.teamId;
+              }
+            }
+          }
+
+          // this.form.tableD[i].detailcenter_id = this.jude[i].centername;
+          // this.form.tableD[i].detailgroup_id = this.jude[i].groupname;
+          // this.form.tableD[i].detailteam_id = this.jude[i].teamname;
+        }
+        //add-ws-7/27-禅道298任务
         this.userlist = this.$store.getters.userinfo.userid;
         if (this.userlist !== null && this.userlist !== '') {
           let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
@@ -581,6 +642,9 @@
       }
     },
     methods: {
+      getInterviewerids(userlist, row) {
+        row.title = userlist;
+      },
       // <!--//start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09-->
       getcorresponding(val) {
         this.form.corresponding = val;
@@ -643,15 +707,15 @@
         } else if (val.state === '2') {
           this.form.status = '4';
         }
-        this.buttonClick('update');
+        this.buttonClick2();
       },
       start() {
         this.form.status = '2';
-        this.buttonClick('update');
+        this.buttonClick2();
       },
       end() {
         this.form.status = '0';
-        this.buttonClick('update');
+        this.buttonClick2();
       },
       deleteRow(index, rows) {
         if (rows.length > 1) {
@@ -706,6 +770,76 @@
           // entrymanager:'',
         });
       },
+      paramsTitle() {
+        this.$router.push({
+          name: 'PFANS1021View',
+        });
+      },
+      buttonClick2() {
+        this.baseInfo = {};
+        this.form.application = moment(this.form.application).format('YYYY-MM-DD');
+        this.baseInfo.security = JSON.parse(JSON.stringify(this.form));
+        this.baseInfo.securitydetail = [];
+        for (let i = 0; i < this.form.tableD.length; i++) {
+          debugger
+          if (this.form.tableD[i].title.trim() === '' || this.form.tableD[i].detailcenter_id !== '' || this.form.tableD[i].detailgroup_id !== '' ||
+            this.form.tableD[i].detailteam_id !== '' || this.form.tableD[i].phonenumber !== '' || this.form.tableD[i].emaildetail !== ''
+            || this.form.tableD[i].startdate !== '' || this.form.tableD[i].fabuilding !== '') {
+            this.form.tableD[i].timea = moment(this.form.tableD[i].timea[0]).format('YYYY-MM-DD') + ' ~ ' + moment(this.form.tableD[i].timea[1]).format('YYYY-MM-DD');
+            let checktableD = '';
+            let checktable = '';
+            if (this.form.status === '4' || this.form.status === '3') {
+              if (this.form.tableD[i].fabuilding != '') {
+                let checktlist = this.form.tableD[i].fabuilding.splice(',');
+                for (var m = 0; m < checktlist.length; m++) {
+                  checktableD = checktableD + checktlist[m] + ',';
+                }
+              }
+              checktable = checktableD.substring(0, checktableD.length - 1);
+            } else {
+              checktable = this.form.tableD[i].fabuilding;
+            }
+            this.baseInfo.securitydetail.push(
+              {
+                securitydetailid: this.form.tableD[i].securitydetailid,
+                securityid: this.form.tableD[i].securityid,
+                title: this.form.tableD[i].title,
+                detailcenter_id: this.form.tableD[i].detailcenter_id,
+                detailgroup_id: this.form.tableD[i].detailgroup_id,
+                detailteam_id: this.form.tableD[i].detailteam_id,
+                phonenumber: this.form.tableD[i].phonenumber,
+                emaildetail: this.form.tableD[i].emaildetail,
+                startdate: this.form.tableD[i].startdate,
+                company: this.form.tableD[i].company,
+                timea: this.form.tableD[i].timea,
+                fabuilding: checktable,
+              },
+            );
+          }
+        }
+        console.log("aaa",this.baseInfo.securitydetail)
+        this.baseInfo.securityid = this.$route.params._id;
+        this.$store
+          .dispatch('PFANS1021Store/update', this.baseInfo)
+          .then(response => {
+            this.data = response;
+            this.loading = false;
+            Message({
+              message: this.$t('normal.success_02'),
+              type: 'success',
+              duration: 5 * 1000,
+            });
+            this.paramsTitle();
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
       buttonClick(val) {
         this.$refs['refform'].validate(valid => {
           if (valid) {
@@ -720,6 +854,7 @@
                 || this.form.tableD[i].startdate !== '' || this.form.tableD[i].fabuilding !== '') {
                 this.form.tableD[i].timea = moment(this.form.tableD[i].timea[0]).format('YYYY-MM-DD') + ' ~ ' + moment(this.form.tableD[i].timea[1]).format('YYYY-MM-DD');
                 let checktableD = '';
+
                 if (this.form.tableD[i].fabuilding != '') {
                   let checktlist = this.form.tableD[i].fabuilding.splice(',');
                   for (var m = 0; m < checktlist.length; m++) {
@@ -748,6 +883,25 @@
                   },
                 );
               }
+            }
+            this.form.tableD = [];
+            for (let i = 0; i < this.baseInfo.securitydetail.length; i++) {
+              this.form.tableD.push(
+                {
+                  securitydetailid: this.baseInfo.securitydetail[i].securitydetailid,
+                  securityid: this.baseInfo.securitydetail[i].securityid,
+                  title: this.baseInfo.securitydetail[i].title,
+                  detailcenter_id: this.baseInfo.securitydetail[i].detailcenter_id,
+                  detailgroup_id: this.baseInfo.securitydetail[i].detailgroup_id,
+                  detailteam_id: this.baseInfo.securitydetail[i].detailteam_id,
+                  phonenumber: this.baseInfo.securitydetail[i].phonenumber,
+                  emaildetail: this.baseInfo.securitydetail[i].emaildetail,
+                  startdate: this.baseInfo.securitydetail[i].startdate,
+                  company: this.baseInfo.securitydetail[i].company,
+                  timea: this.baseInfo.securitydetail[i].timea,
+                  fabuilding: this.baseInfo.securitydetail[i].fabuilding,
+                },
+              );
             }
             let error = 0;
             let error2 = 0;
@@ -809,9 +963,7 @@
                     type: 'success',
                     duration: 5 * 1000,
                   });
-                  if (this.$store.getters.historyUrl) {
-                    this.$router.push(this.$store.getters.historyUrl);
-                  }
+                  this.paramsTitle();
                 })
                 .catch(error => {
                   Message({
@@ -834,10 +986,13 @@
                       type: 'success',
                       duration: 5 * 1000,
                     });
-                    if (this.$store.getters.historyUrl) {
-                      this.$router.push(this.$store.getters.historyUrl);
-                    }
                   }
+                  if (val === 'StartWorkflow') {
+                    this.$refs.container.$refs.workflow.startWorkflow();
+                  } else {
+                    this.paramsTitle();
+                  }
+
                 })
                 .catch(error => {
                   Message({

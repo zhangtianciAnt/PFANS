@@ -408,7 +408,7 @@
             return;
           } else {
             for (let i = 0; i < this.selectedlist.length; i++) {
-              if (moment(this.selectedlist[i].deliverydate).format('YYYY-MM') > new moment().format('YYYY-MM') || this.selectedlist[i].sealstatus != '') {
+              if (this.selectedlist[i].sealstatus != '') {
                 error = error + 1;
                 let sealtypeList = this.selectedlist[i].contractnumber;
                 checktableD = checktableD + sealtypeList + ',';
@@ -528,6 +528,11 @@
             var vote = {};
             vote.value = this.selectedlist[i].award_id;
             vote.label = this.selectedlist[i].contractnumber;
+              vote.remarks = this.selectedlist[i].remarks;
+              vote.judgements_moneys = this.selectedlist[i].claimamount;
+              if (this.$i18n) {
+                  vote.judgements_type = this.$t('label.PFANS1012VIEW_CHECKLIST');
+              }
             this.listjudgement.push(vote);
           }
           this.$router.push({

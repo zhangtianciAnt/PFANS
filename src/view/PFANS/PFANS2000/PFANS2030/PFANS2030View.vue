@@ -1,36 +1,75 @@
 <template>
   <div>
-    <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :title="title"
-                     v-loading="loading" :summary-method="summaryMethod">
-      <el-date-picker
-        :placeholder="$t('normal.error_09')"
-        @change="changed"
-        slot="customize"
-        style="width:11vw"
-        type="month"
-        v-model="months">
-      </el-date-picker>
-    </EasyNormalTable>
+    <EasyNormalContainer
+      ref="container"
+      :noback="true"
+      v-loading="loading"
+    >
+      <div slot="customize">
+        <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="dataestimate" :title="titlewagesestimate"
+                         v-loading="loading" :summary-method="summaryMethod">
+          <el-date-picker
+            :placeholder="$t('normal.error_09')"
+            @change="changed"
+            slot="customize"
+            style="width:11vw"
+            type="month"
+            v-model="months">
+          </el-date-picker>
+        </EasyNormalTable>
+      </div>
+      <div slot="customize">
+        <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="dataactual" :title="titlewagesactual"
+                         v-loading="loading" :summary-method="summaryMethod">
+          <el-date-picker
+            :placeholder="$t('normal.error_09')"
+            @change="changed"
+            slot="customize"
+            style="width:11vw"
+            type="month"
+            v-model="months">
+          </el-date-picker>
+        </EasyNormalTable>
+      </div>
+      <div slot="customize">
+        <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="datadiff" :title="titlewagesdiff"
+                         v-loading="loading" :summary-method="summaryMethod">
+          <el-date-picker
+            :placeholder="$t('normal.error_09')"
+            @change="changed"
+            slot="customize"
+            style="width:11vw"
+            type="month"
+            v-model="months">
+          </el-date-picker>
+        </EasyNormalTable>
+      </div>
+    </EasyNormalContainer>
   </div>
 </template>
 <script>
   import EasyNormalTable from "@/components/EasyNormalTable";
+  import EasyNormalContainer from '@/components/EasyNormalContainer';
   import {Message} from 'element-ui';
-  import {getUserInfo,getCooperinterviewListByAccount,getOrgInfo} from "../../../../utils/customize";
   import moment from 'moment';
 
   export default {
     name: 'PFANS2030View',
     components: {
-      EasyNormalTable
+      EasyNormalTable,
+      EasyNormalContainer
     },
     data() {
       return {
         totaldata: [],
         months: moment(new Date()).format("YYYY-MM"),
         loading: false,
-        title: "title.PFANS2030VIEW",
-        data: [],
+        titlewagesestimate: "label.PFANS2030FROMVIEW_WAGESESTIMATE",
+        titlewagesactual: "label.PFANS2030FROMVIEW_WAGESACTUAL",
+        titlewagesdiff: "label.PFANS2030FROMVIEW_WAGESDIFF",
+        dataestimate: [],
+        dataactual: [],
+        datadiff: [],
         columns: [
           {
             code: 'department_id',
@@ -233,7 +272,7 @@
       this.getWages();
     },
     methods: {
-      changed(val) {
+        changed(val) {
         this.months = moment(val).format('YYYY-MM');
         this.getWages();
       },
@@ -242,7 +281,9 @@
         this.$store
           .dispatch('PFANS2005Store/getWagesdepartment', {dates: this.months})
           .then(response => {
-            this.data = response;
+            this.dataestimate = response.wagesListestimate;
+            this.dataactual = response.wagesListactual;
+            this.datadiff = response.wagesListdiff;
             this.loading = false;
           })
           .catch(error => {

@@ -98,20 +98,6 @@
           </el-col>
         </div>
       </div>
-      <!--   add-ws-7/14-禅道144任务-->
-      <div>
-        <div @click="submitForm(12)" class="m-content">
-          <el-col :span="18">
-            <div style="width: 150px; margin-left: 8px; text-overflow: ellipsis; overflow: hidden;
-                          float: left; padding: 10px 0px; height: 50px; line-height: 18px;">{{$t('menu.PFANS1045')}}
-            </div>
-          </el-col>
-          <el-col :span="6" class="m-div">
-            <img :src="png2" class="m-img">
-          </el-col>
-        </div>
-      </div>
-      <!--      add-ws-7/14-禅道144任务-->
     </el-card>
   </div>
 </template>
@@ -181,12 +167,6 @@
           this.$store.commit('global/SET_CURRENTURL', '/PFANS1011FormView');
           this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1011FormView');
         }
-        // add-ws-7/14-禅道144任务
-        else if (val === 12) {
-          this.$store.commit('global/SET_CURRENTURL', '/PFANS1011FormView');
-          this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1011FormView');
-        }
-        // add-ws-7/14-禅道144任务
         this.$router.push({
           name: 'PFANS1001FormView',
           params: {

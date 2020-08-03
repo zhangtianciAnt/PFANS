@@ -152,7 +152,6 @@
       }
       ,
       submit () {
-        debugger
         let val
         if (this.selectType === 'Single') {
           val = this.currentRow

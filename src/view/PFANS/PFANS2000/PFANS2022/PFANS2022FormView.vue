@@ -257,10 +257,9 @@
                     remarks: '',
                     nominees: '',
                     uploadfile: '',
-                    payment: '0',
+                    payment: '0',//奖金发放状态（默认0，1：已发放）
                     aexperience:'',
                     experience:'',
-                    moneystatus: '0',//奖金发放状态（默认0，1：已发放）
                 },
                 code: 'PR024',
                 code1: ' ',

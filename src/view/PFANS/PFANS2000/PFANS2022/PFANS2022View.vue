@@ -1,6 +1,7 @@
 <template>
   <EasyNormalTable :title="title" :columns="columns" :data="data" :rowid="row" :buttonList="buttonList"
-                   @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" >
+                   @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading"
+                   :showSelection="true" :selectable="selectInit" ref="dataTable">
   </EasyNormalTable>
 </template>
 
@@ -22,28 +23,28 @@
         data: [],
         columns: [
           {
-            code: 'user_id',
+            code: 'user_idshow',
             label: 'label.applicant',
             width: 100,
             fix: false,
             filter: true,
           },
           {
-            code: 'center_name',
+            code: 'center_nameshow',
             label: 'label.center',
             width: 120,
             fix: false,
             filter: true,
           },
           {
-            code: 'group_name',
+            code: 'group_nameshow',
             label: 'label.group',
             width: 120,
             fix: false,
             filter: true,
           },
           {
-            code: 'team_name',
+            code: 'team_nameshow',
             label: 'label.team',
             width: 100,
             fix: false,
@@ -64,21 +65,28 @@
             filter: true,
           },
           {
-            code: 'application_date',
+            code: 'application_dateshow',
             label: 'label.application_date',
             width: 130,
             fix: false,
             filter: true,
           },
           {
-              code: 'moneystatus',
+              code: 'paymentshow',
               label: 'label.PFANS2022VIEW_MONEYSTATUS',
               width: 150,
               fix: false,
               filter: true,
           },
+          {
+              code: 'releasedate',
+              label: 'label.PFANS2022VIEW_RELEASEDATE',
+              width: 150,
+              fix: false,
+              filter: true,
+          },
             {
-                code: 'status',
+                code: 'statusshow',
                 label: 'label.approval_status',
                 width: 120,
                 fix: false,
@@ -88,63 +96,68 @@
         buttonList: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
           {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
-          {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'}
+          {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
+          {'key': 'release', 'name': 'button.release', 'disabled': false, 'icon': 'el-icon-success'},
+          {'key': 'cancelrelease', 'name': 'button.cancelrelease', 'disabled': false, 'icon': 'el-icon-error'}
         ],
         rowid: '',
         row : 'casgiftapplyid'
       };
     },
     mounted() {
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS2022Store/getCasgiftApply')
-          .then(response => {
-            for (let j = 0; j < response.length; j++) {
-              response[j].status = getStatus(response[j].status);
-              let user = getUserInfo(response[j].user_id);
-                let nameflg = getOrgInfoByUserId(response[j].user_id);
-                if (nameflg) {
-                    response[j].center_name = nameflg.centerNmae;
-                    response[j].group_name = nameflg.groupNmae;
-                    response[j].team_name = nameflg.teamNmae;
-                }
-              if (user) {
-                response[j].user_id = getUserInfo(response[j].user_id).userinfo.customername;
-              }
-              if (response[j].application_date !== null && response[j].application_date !== "") {
-                response[j].application_date = moment(response[j].application_date).format("YYYY-MM-DD");
-              }
-              if (response[j].twoclass !== null && response[j].twoclass !== "") {
-                let letTwoclass = getDictionaryInfo(response[j].twoclass);
-                if (letTwoclass != null) {
-                  response[j].twoclass = letTwoclass.value1;
-                }
-              }
-                //add_fjl_0708  添加奖金发放状态  start
-                if (response[j].moneystatus !== null && response[j].moneystatus !== "") {
-                    if (response[j].moneystatus === "1") {
-                        if (this.$i18n) {
-                            response[j].moneystatus = this.$t('label.PFANS2022VIEW_MONEYSTATUSED');
-                        }
-                    } else {
-                        response[j].moneystatus = '';
-                    }
-                }
-                //add_fjl_0708  添加奖金发放状态  end
-            }
-            this.data = response;
-            this.loading = false;
-          })
-          .catch(error => {
-            Message({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000
-            });
-            this.loading = false
-          })
+        this.getCasgiftApply();
     },
     methods: {
+      getCasgiftApply(){
+          this.loading = true;
+          this.$store
+              .dispatch('PFANS2022Store/getCasgiftApply')
+              .then(response => {
+                  for (let j = 0; j < response.length; j++) {
+                      response[j].statusshow = getStatus(response[j].status);
+                      let user = getUserInfo(response[j].user_id);
+                      let nameflg = getOrgInfoByUserId(response[j].user_id);
+                      if (nameflg) {
+                          response[j].center_nameshow = nameflg.centerNmae;
+                          response[j].group_nameshow = nameflg.groupNmae;
+                          response[j].team_nameshow = nameflg.teamNmae;
+                      }
+                      if (user) {
+                          response[j].user_idshow = getUserInfo(response[j].user_id).userinfo.customername;
+                      }
+                      if (response[j].application_date !== null && response[j].application_date !== "") {
+                          response[j].application_dateshow = moment(response[j].application_date).format("YYYY-MM-DD");
+                      }
+                      if (response[j].twoclass !== null && response[j].twoclass !== "") {
+                          let letTwoclass = getDictionaryInfo(response[j].twoclass);
+                          if (letTwoclass != null) {
+                              response[j].twoclass = letTwoclass.value1;
+                          }
+                      }
+                      //add_fjl_0708  添加奖金发放状态  start
+                      if (response[j].payment !== null && response[j].payment !== "") {
+                          if (response[j].payment === "1") {
+                              if (this.$i18n) {
+                                  response[j].paymentshow = this.$t('label.PFANS2022VIEW_MONEYSTATUSED');
+                              }
+                          } else {
+                              response[j].paymentshow = '';
+                          }
+                      }
+                      //add_fjl_0708  添加奖金发放状态  end
+                  }
+                  this.data = response;
+                  this.loading = false;
+              })
+              .catch(error => {
+                  Message({
+                      message: error,
+                      type: 'error',
+                      duration: 5 * 1000
+                  });
+                  this.loading = false
+              })
+      },
       rowClick(row) {
         this.rowid = row.casgiftapplyid;
       },
@@ -194,6 +207,48 @@
             }
           })
         }
+        if (val === 'release' || val === 'cancelrelease') {
+            this.multipleSelection = this.$refs.dataTable.selectedList;
+            if (this.multipleSelection.length <= 0) {
+                Message({
+                    message: this.$t('normal.info_01'),
+                    type: 'info',
+                    duration: 2 * 1000
+                });
+
+                return;
+            }
+            if(val === 'release'){
+                this.multipleSelection[0].tenantid = "0";
+            }
+            else{
+                this.multipleSelection[0].tenantid = "1";
+            }
+            this.loading = true;
+            this.$store
+                .dispatch('PFANS2022Store/updateCasgiftApplyList', this.multipleSelection)
+                .then(response => {
+                    this.data = response;
+                    this.getCasgiftApply();
+                    this.loading = false;
+                    Message({
+                        message: this.$t("normal.success_02"),
+                        type: 'success',
+                        duration: 5 * 1000
+                    });
+                })
+                .catch(error => {
+                    Message({
+                        message: error,
+                        type: 'error',
+                        duration: 5 * 1000
+                    });
+                    this.loading = false;
+                })
+        }
+      },
+      selectInit(row, index) {
+          return (row.status === '4' &&  row.payment === '0');
       },
     }
   }

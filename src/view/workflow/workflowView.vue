@@ -99,7 +99,6 @@
         this.$store
           .dispatch('workflowStore/getWorkflowList', {})
           .then(response => {
-            debugger;
             this.data = response;
             this.loading = false;
           })

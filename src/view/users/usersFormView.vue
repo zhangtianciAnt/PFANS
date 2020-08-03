@@ -2910,6 +2910,11 @@
             getRank(val) {
                 if (val) {
                     this.form.rank = val;
+                    //职责给
+                    let letdic = getDictionaryInfo(val);
+                    if (letdic != null) {
+                        this.form.duty = letdic.value3;
+                    }
                     this.$nextTick(() => {
                         if (this.code === 'PR021') {
                             this.rules.occupationtype[0].required = true;
@@ -3667,7 +3672,6 @@
                 //  ADD      zy-7/6-禅道202任务 end
                 // ADD      zy-7/6-禅道202任务 ,validate验证追加一个参数
                 this.$refs['form'].validate((valid,obj) => {
-                    debugger;
                     if (valid) {
                         this.userInfo.userAccount.account = this.form.adfield;
                         // this.userInfo.userAccount.password = this.form.adfield;

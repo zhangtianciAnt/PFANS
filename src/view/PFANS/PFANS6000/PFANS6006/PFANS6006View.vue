@@ -542,6 +542,11 @@
             'name': 'button.save',
             'disabled': false,
           },
+            {
+                'key': 'createfree',
+                'name': 'button.createfree',
+                'disabled': false,
+            },
         ],
         optionsdata: [],
       };
@@ -752,15 +757,15 @@
           }
       },
       buttonClick(val) {
-        if(this.multipleSelection.length === 0){
-            Message({
-                message: this.$t('normal.info_01'),
-                type: 'info',
-                duration: 2 * 1000
-            });
-            return;
-        }
-        if (val === 'save') {
+          if (val === 'save') {
+              if (this.multipleSelection.length === 0) {
+                  Message({
+                      message: this.$t('normal.info_01'),
+                      type: 'info',
+                      duration: 2 * 1000
+                  });
+                  return;
+              }
           this.loading = true;
           this.$store
             .dispatch('PFANS6006Store/updateDeleginformation', this.multipleSelection)
@@ -783,6 +788,40 @@
               this.loading = false;
             });
         }
+          //add_fjl_0727  添加生成费用统计功能  start
+          if (val === 'createfree') {
+              let groupid = '';
+              this.loading = true;
+              if (this.group_id) {
+                  groupid = this.group_id;
+              }
+              let params = {
+                  groupid: groupid
+              }
+              this.$store
+                  .dispatch('PFANS6008Store/insertCoststatistics', params)
+                  .then(response => {
+                      this.getList();
+                      Message({
+                          message: this.$t("normal.success_04"),
+                          type: "success",
+                          duration: 5 * 1000
+                      });
+                      this.loading = false;
+                  })
+                  .catch(error => {
+                      this.loading = false;
+                  })
+                  .catch(error => {
+                      Message({
+                          message: error,
+                          type: 'error',
+                          duration: 5 * 1000
+                      });
+                      this.loading = false;
+                  })
+          }
+          //add_fjl_0727  添加生成费用统计功能  end
       },
       getRowClass({row, column, rowIndex, columnIndex}) {
         // if (column.level === 2 && columnIndex >= 0 && columnIndex < 6) {
