@@ -89,7 +89,7 @@
           menuUrl: '',
           dataId: ''
         },
-        userList: [],
+        // userList: [],
         logDetail: [],
         toAnotherUserDisabled: true,
         nextStepUserDisabled: true,
