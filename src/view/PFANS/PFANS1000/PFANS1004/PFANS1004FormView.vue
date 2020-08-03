@@ -516,6 +516,7 @@
         title: 'title.PFANS1004VIEW',
         buttonList: [],
         baseInfo: {},
+        tableB: [],
         multiple: false,
         form: {
           group_name: '',
@@ -714,6 +715,7 @@
         // 表格分类类型
         showM3: false,
         canStart: false,
+        find: false,
         fileList: [],
         upload: uploadUrl(),
       };
@@ -890,7 +892,6 @@
             icon: 'el-icon-plus',
           },
         ];
-        console.log(this.$route.params)
         if (this.$route.params.statuss === this.$t('label.PFANS5004VIEW_OVERTIME') && this.$route.params._supplementary != '1') {
           this.buttonList = [
             {
@@ -978,7 +979,17 @@
         if (rows.length > 1) {
           rows.splice(index, 1);
         } else {
-
+          this.tableA = [
+            {
+              group_nameM: '',
+              thisprojectM: '',
+              businessplantypeM: '',
+              careerplanM: '0',
+              classificationtypeM: '',
+              businessplanbalanceM: '',
+              amounttobegivenM: '',
+            }
+          ]
         }
       },
       addRow() {
@@ -1056,6 +1067,7 @@
         }
       },
       getGroupIdM(orglistM, row) {
+        this.tableB = [];
         if (orglistM == '') {
           row.thisprojectM = '';
         }
@@ -1071,6 +1083,19 @@
                 value: dic[i].code,
               });
             }
+          }
+        }
+        for (let y = 0; y < this.tableA.length - 1; y++) {
+          this.tableB.push(this.tableA[y].group_nameM);
+        }
+        alert(this.tableB)
+        for (let k = 0; k < this.tableB.length; k++) {
+          if (this.tableB[k] === row.group_nameM) {
+            Message({
+              message: this.$t('normal.error_17'),
+              type: 'error',
+              duration: 5 * 1000,
+            });
           }
         }
         if (!row.group_nameM || row.group_nameM === '') {
@@ -1365,6 +1390,7 @@
         let JudgementVo = {};
         JudgementVo.judgement = this.form;
         if (val === 'back') {
+          debugger
           //add-ws-4/28-精算中，点击决裁，跳转画面
           if (this.$route.params._check != null && this.$route.params._check != '' && this.$route.params._check != undefined) {
             if (this.$route.params._check) {
@@ -1513,7 +1539,6 @@
                 let error_YS = 0;
                 let error_JH = 0;
                 let error_FL = 0;
-                let error_JE = 0;
                 this.baseInfo.judgement = JSON.parse(JSON.stringify(this.form));
                 this.baseInfo.judgementdetail = [];
                 for (let i = 0; i < this.tableA.length; i++) {
@@ -1538,10 +1563,6 @@
                         break;
                       }
                     }
-                  }
-                  if (this.tableA[i].amounttobegivenM == '' || this.tableA[i].amounttobegivenM == null) {
-                    error_JE = error_JE + 1;
-                    break;
                   }
                 }
                 if (error_BM != 0) {
@@ -1573,14 +1594,6 @@
                   Message({
                     message: this.$t('normal.error_09') +
                       this.$t('label.PFANS1004VIEW_CLASSIFICATIONTYPE'),
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                } else if (error_JE != 0) {
-                  this.loading = false;
-                  Message({
-                    message: this.$t('normal.error_09') +
-                      this.$t('label.PFANS1004VIEW_AMOUNTTOBEGIVEN'),
                     type: 'error',
                     duration: 5 * 1000,
                   });
@@ -1789,7 +1802,6 @@
                 let error_YS = 0;
                 let error_JH = 0;
                 let error_FL = 0;
-                let error_JE = 0;
                 this.baseInfo.judgement = JSON.parse(JSON.stringify(this.form));
                 this.baseInfo.judgementdetail = [];
                 for (let i = 0; i < this.tableA.length; i++) {
@@ -1814,10 +1826,6 @@
                         break;
                       }
                     }
-                  }
-                  if (this.tableA[i].amounttobegivenM == '' || this.tableA[i].amounttobegivenM == null) {
-                    error_JE = error_JE + 1;
-                    break;
                   }
                 }
                 if (error_BM != 0) {
@@ -1849,14 +1857,6 @@
                   Message({
                     message: this.$t('normal.error_09') +
                       this.$t('label.PFANS1004VIEW_CLASSIFICATIONTYPE'),
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                } else if (error_JE != 0) {
-                  this.loading = false;
-                  Message({
-                    message: this.$t('normal.error_09') +
-                      this.$t('label.PFANS1004VIEW_AMOUNTTOBEGIVEN'),
                     type: 'error',
                     duration: 5 * 1000,
                   });
