@@ -129,7 +129,7 @@
           this.workflowform.menuUrl = this.$store.getters.workflowUrl
           this.workflowform.dataUrl = this.$route.path
           this.workflowform.workFlowId = this.selectId
-          this.workflowform.userlist = this.userlist;
+          this.workflowform.userList = this.userlist;
 
           this.$store
             .dispatch(
