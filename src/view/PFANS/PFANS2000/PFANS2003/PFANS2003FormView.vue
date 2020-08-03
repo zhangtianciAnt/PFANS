@@ -658,17 +658,17 @@
           });
       }
     },
+      //add_fjl_0803
       watch: {
-          form: {
-              handler: function () {
-                  if (this.form.result === '0') {
-                      this.buttonList[1].disabled = false;
-                  }
-                  ;
-              },
-              deep: true,
-          },
+          modelresult(newName, oldName) {
+              if (newName === '0') {
+                  this.buttonList[1].disabled = false;
+              } else {
+                  this.buttonList[1].disabled = true;
+              }
+          }
       },
+      //add_fjl_0803
     methods: {
 // wxl 4/8 面试官放到面试记录 start
       changeOption(form, method) {

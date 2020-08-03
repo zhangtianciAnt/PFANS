@@ -697,6 +697,10 @@
               this.$t('label.PFANS1024VIEW_DELIVERYDATE'),
               this.$t('label.PFANS1044VIEW_KANRYO'),
               this.$t('label.PFANS1024VIEW_LOADINGJUDGE'),
+                this.$t('label.PFANS1024VIEW_CLAIMDATE'),
+                this.$t('label.PFANS1024VIEW_BUSINESSCODE'),
+                this.$t('label.PFANS1024VIEW_PAPERCONTRACT'),
+                this.$t('label.PFANS2026FORMVIEW_REMARKS'),
             ];
             const filterVal = [
               'department',
@@ -732,6 +736,12 @@
               'deliverydate',
               'deliverydate',
               'loadingjudge',
+                //add_fjl_0803
+                'claimdate',//请求日
+                'businesscode',//事业场编码
+                'qingremarks',//请求书特殊备注
+                'remarks',//备注
+                //add_fjl_0803
             ];
             for (let selItem of selectedlist) {
               let cons = this.alldata2;
@@ -762,6 +772,14 @@
                 if (citem.deliverydate != null) {
                   citem.deliverydate = moment(citem.deliverydate).format('YYYY-MM-DD');
                 }
+                  //add_fjl_0803
+                  if (citem.deliveryfinshdate != null) {
+                      citem.deliveryfinshdate = moment(citem.deliveryfinshdate).format('YYYY-MM-DD');
+                  }
+                  if (citem.claimdate != null) {
+                      citem.claimdate = moment(citem.claimdate).format('YYYY-MM-DD');
+                  }
+                  //add_fjl_0803
                 if (selItem.entrypayment != null) {
                   selItem.entrypayment = moment(selItem.entrypayment).format('YYYY-MM-DD');
                 }
