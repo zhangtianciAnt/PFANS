@@ -45,8 +45,12 @@
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.group')">
-                      <el-input :disabled="true" style="width:20vw" v-model="groupname"></el-input>
-                      <el-input v-show="false" style="width:20vw" v-model="form.groupid">222</el-input>
+                      <org :disabled="checkGroupId"
+                           :orglist="form.groupid"
+                           @getOrgids="getGroupId"
+                           orgtype="2"
+                           style="width: 20vw"
+                      ></org>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -1230,6 +1234,7 @@
         userlist: '',
         activeName: 'first',
         loading: false,
+          checkGroupId: false,
         disabled: false,
         tableTValue: '',
         tableAValue: '',
@@ -1794,7 +1799,7 @@
             this.groupname = lst.groupNmae;
             this.teamname = lst.teamNmae;
             this.form.centerid = lst.centerId;
-            this.form.groupid = lst.groupId;
+              // this.form.groupid = lst.groupId;
             this.form.teamid = lst.teamId;
           }
           this.form.userid = this.$store.getters.userinfo.userid;
@@ -1865,6 +1870,18 @@
           this.accflg = accountinf0.value2;
         }
         // add_fjl --获取住宿费的科目代码
+          //add_fjl_0803  无group的人可以选择group  start
+          let userid = this.$store.getters.userinfo.userid;
+          if (userid !== null && userid !== '') {
+              let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+              if (lst.groupId !== null && lst.groupId !== '') {
+                  this.form.groupid = lst.groupId;
+                  this.checkGroupId = true;
+              } else {
+                  this.checkGroupId = false;
+              }
+          }
+          //add_fjl_0803  无group的人可以选择group  end
       }
     },
     created() {
@@ -1881,6 +1898,9 @@
       }
     },
     methods: {
+        getGroupId(val) {
+            this.form.groupid = val;
+        },
       //add_ws_0724  禅道154任务
       clickBun() {
         this.url = '';

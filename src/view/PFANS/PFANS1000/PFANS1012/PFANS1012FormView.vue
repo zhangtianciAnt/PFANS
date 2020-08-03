@@ -18,8 +18,12 @@
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.group')">
-                      <el-input :disabled="true" style="width:20vw" v-model="groupid"></el-input>
-                      <el-input v-show='false' :disabled="true" style="width:20vw" v-model="form.groupid"></el-input>
+                      <org :disabled="checkGroupId"
+                           :orglist="form.groupid"
+                           @getOrgids="getGroupId"
+                           orgtype="2"
+                           style="width: 20vw"
+                      ></org>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -1560,6 +1564,7 @@
           annexno: '',
           rowindex: '',
           showrow: true,
+            checkGroupId: false,
           showrow1: false,
           showrow2: false,
           showrow3: false,
@@ -2410,7 +2415,7 @@
             this.groupid = rst.groupNmae;
             this.teamid = rst.teamNmae;
             this.form.centerid = rst.centerId;
-            this.form.groupid = rst.groupId;
+              // this.form.groupid = rst.groupId;
             this.form.teamid = rst.teamId;
           }
           this.form.user_id = this.$store.getters.userinfo.userid;
@@ -2484,6 +2489,18 @@
           this.getLoanApplication();
         }
         //add ccm 存在暂借款，选中暂借款
+          //add_fjl_0803  无group的人可以选择group  start
+          let userid = this.$store.getters.userinfo.userid;
+          if (userid !== null && userid !== '') {
+              let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+              if (lst.groupId !== null && lst.groupId !== '') {
+                  this.form.groupid = lst.groupId;
+                  this.checkGroupId = true;
+              } else {
+                  this.checkGroupId = false;
+              }
+          }
+          //add_fjl_0803  无group的人可以选择group  end
       }
     },
     created() {
@@ -2515,6 +2532,9 @@
       },
     },
     methods: {
+        getGroupId(val) {
+            this.form.groupid = val;
+        },
       fileError(err, file, fileList) {
         Message({
           message: this.$t('normal.error_04'),
