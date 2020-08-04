@@ -103,6 +103,7 @@
         data: [],
         table: [
           {
+
             name: '',
             school: '',
             birthday: '',
@@ -218,6 +219,7 @@
         for (let i = 0; i < this.table.length; i++) {
           this.baseInfo.interviewrecord.push(
             {
+              recruit_id: this.$route.params._id,
               name: this.table[i].name,
               school: this.table[i].school,
               birthday: this.table[i].birthday,

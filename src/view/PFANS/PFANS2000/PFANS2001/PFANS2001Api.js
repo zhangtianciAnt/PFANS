@@ -30,4 +30,11 @@ export function createRecruit(data) {
     data: data
   })
 }
-
+//add-ws-8/4-禅道任务296
+export function getRecruit2() {
+  return request({
+    url: 'recruit/get2',
+    method: 'get'
+  })
+}
+//add-ws-8/4-禅道任务296
