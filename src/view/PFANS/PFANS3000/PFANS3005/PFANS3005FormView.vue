@@ -260,14 +260,14 @@
                   </el-form-item>
                 </el-col>
               </el-row>
-              <el-row>
-                <el-col :span="24">
-                  <el-form-item :label="$t('label.PFANS3005VIEW_YUSUANBUZUFORQUOTATION')" label-width="6rem">
-                    <el-input :disabled="acceptShow1" style="width: 70vw;" type="textarea"
-                              v-model="form.yusuanbuzu"></el-input>
-                  </el-form-item>
-                </el-col>
-              </el-row>
+<!--              <el-row>-->
+<!--                <el-col :span="24">-->
+<!--                  <el-form-item :label="$t('label.PFANS3005VIEW_YUSUANBUZUFORQUOTATION')" label-width="6rem">-->
+<!--                    <el-input :disabled="acceptShow1" style="width: 70vw;" type="textarea"-->
+<!--                              v-model="form.yusuanbuzu"></el-input>-->
+<!--                  </el-form-item>-->
+<!--                </el-col>-->
+<!--              </el-row>-->
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS3005VIEW_BRANDNAME')">
@@ -322,39 +322,39 @@
                   </el-form-item>
                 </el-col>
               </el-row>
-              <el-row>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS3005VIEW_STORAGEDATE')">
-                    <el-date-picker
-                      startDate
-                      :disabled="acceptShow1"
-                      style="width:20vw"
-                      type="date"
-                      v-model="form.storagedate">
-                    </el-date-picker>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS3005VIEW_COLLECTIONDAY')">
-                    <el-date-picker
-                      startDate
-                      :disabled="acceptShow1"
-                      style="width:20vw"
-                      type="date"
-                      v-model="form.collectionday">
-                    </el-date-picker>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item :errorrecipients="errorrecipients" :label="$t('label.PFANS3005VIEW_RECIPIENTS')"
-                                prop="recipients">
-                    <user :disabled="acceptShow1" :errorrecipients="errorrecipients" :selectType="selectType"
-                          :userlist="recipientslist"
-                          style="width:20vw" v-model="form.recipients"
-                          @getUserids="getRecipientslist"></user>
-                  </el-form-item>
-                </el-col>
-              </el-row>
+<!--              <el-row>-->
+<!--                <el-col :span="8">-->
+<!--                  <el-form-item :label="$t('label.PFANS3005VIEW_STORAGEDATE')">-->
+<!--                    <el-date-picker-->
+<!--                      startDate-->
+<!--                      :disabled="acceptShow1"-->
+<!--                      style="width:20vw"-->
+<!--                      type="date"-->
+<!--                      v-model="form.storagedate">-->
+<!--                    </el-date-picker>-->
+<!--                  </el-form-item>-->
+<!--                </el-col>-->
+<!--                <el-col :span="8">-->
+<!--                  <el-form-item :label="$t('label.PFANS3005VIEW_COLLECTIONDAY')">-->
+<!--                    <el-date-picker-->
+<!--                      startDate-->
+<!--                      :disabled="acceptShow1"-->
+<!--                      style="width:20vw"-->
+<!--                      type="date"-->
+<!--                      v-model="form.collectionday">-->
+<!--                    </el-date-picker>-->
+<!--                  </el-form-item>-->
+<!--                </el-col>-->
+<!--                <el-col :span="8">-->
+<!--                  <el-form-item :errorrecipients="errorrecipients" :label="$t('label.PFANS3005VIEW_RECIPIENTS')"-->
+<!--                                prop="recipients">-->
+<!--                    <user :disabled="acceptShow1" :errorrecipients="errorrecipients" :selectType="selectType"-->
+<!--                          :userlist="recipientslist"-->
+<!--                          style="width:20vw" v-model="form.recipients"-->
+<!--                          @getUserids="getRecipientslist"></user>-->
+<!--                  </el-form-item>-->
+<!--                </el-col>-->
+<!--              </el-row>-->
 <!--              <el-row>-->
 <!--                <el-col :span="8">-->
 <!--                  <el-form-item :label="$t('label.PFANS3005VIEW_ACTUARIALDATE')">-->
@@ -489,14 +489,85 @@
                 </el-col>
               </el-row>
             </el-tab-pane>
+            <el-tab-pane :label="$t('label.PFANS3005FORMVIEW_ORGIN')" name="four">
+              <el-row>
+                <el-col :span="24">
+                  <el-form-item :label="$t('label.PFANS3005VIEW_YUSUANBUZUFORQUOTATION')" label-width="6rem">
+                    <el-input :disabled="acceptShow1" style="width: 70vw;" type="textarea"
+                              v-model="form.yusuanbuzu"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS3005VIEW_STORAGEDATE')">
+                    <el-date-picker
+                      startDate
+                      :disabled="acceptShow1"
+                      style="width:20vw"
+                      type="date"
+                      v-model="form.storagedate">
+                    </el-date-picker>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS3005VIEW_COLLECTIONDAY')">
+                    <el-date-picker
+                      startDate
+                      :disabled="acceptShow1"
+                      style="width:20vw"
+                      type="date"
+                      v-model="form.collectionday">
+                    </el-date-picker>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :errorrecipients="errorrecipients" :label="$t('label.PFANS3005VIEW_RECIPIENTS')"
+                                prop="recipients">
+                    <user :disabled="acceptShow1" :errorrecipients="errorrecipients" :selectType="selectType"
+                          :userlist="recipientslist"
+                          style="width:20vw" v-model="form.recipients"
+                          @getUserids="getRecipientslist"></user>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS3005VIEW_ACTUARIALDATE')">
+                    <el-date-picker
+                      startDate
+                      :disabled="true"
+                      style="width:20vw"
+                      type="date"
+                      v-model="form.actuarialdate">
+                    </el-date-picker>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS3005VIEW_ACTUARIALAMOUNT')">
+                    <el-input-number v-model="form.actuarialamount"
+                                     controls-position="right"
+                                     :disabled="true"
+                                     :min="0"
+                                     :max="1000000000"
+                                     :precision="2"
+                                     style="width:20vw"
+                    ></el-input-number>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </el-tab-pane>
           </el-tabs>
         </el-form>
       </div>
     </EasyNormalContainer>
+
     <EasyPop :params="urlparams" :ref="1" :url="url"></EasyPop>
   </div>
 </template>
 <script>
+
+  import EasyPop from '@/components/EasyPop';
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import PFANS3005View from '../PFANS3005/PFANS3005View.vue';
   import {Message} from 'element-ui';
@@ -506,18 +577,17 @@
   import dicselect from '../../../components/dicselect.vue';
   import org from '../../../components/org';
   import {getStatus} from "../../../../utils/customize";
-  import EasyPop from '@/components/EasyPop';
 
   export default {
     name: 'PFANS3005FormView',
     components: {
+      EasyPop,
       EasyNormalContainer,
+      PFANS3005View,
       dicselect,
       getOrgInfoByUserId,
-      PFANS3005View,
       user,
       org,
-      EasyPop,
     },
     data() {
       var checkuser = (rule, value, callback) => {
@@ -1112,6 +1182,7 @@
       },
       //add_fjl end
     created() {
+      // this.$store.commit('global/SET_WORKFLOWURL', '/PFANS3005View');
       this.disable = this.$route.params.disabled;
       // if (this.disable) {
       //   this.buttonList = [

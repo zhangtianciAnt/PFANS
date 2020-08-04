@@ -1364,6 +1364,30 @@
             },
           });
         }
+        else if (row.judgement_name.substring(0, 1) === 'C' && row.judgements_type === this.$t('title.PFANS1002VIEW')) {
+           this.$router.push({
+            name: 'PFANS1002FormView',
+            params: {
+              _checkdisable: this.disable,
+              _checkid: this.IDname,
+              _check: true,
+              _id: row.judgement,
+              disabled: false,
+            },
+          });
+        }
+        else if (row.judgement_name.substring(0, 1) === 'C' && row.judgements_type === this.$t('title.PFANS1035VIEW')) {
+          this.$router.push({
+            name: 'PFANS1035FormView',
+            params: {
+              _checkdisable: this.disable,
+              _checkid: this.IDname,
+              _check: true,
+              _id: row.judgement,
+              disabled: false,
+            },
+          });
+        }
       },
     },
   };

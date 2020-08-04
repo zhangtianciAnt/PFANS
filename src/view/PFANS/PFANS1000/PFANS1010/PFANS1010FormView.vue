@@ -341,38 +341,41 @@
         this.$store
           .dispatch('PFANS1010Store/getCommunicationOne', {'communication_id': this.$route.params._id})
           .then(response => {
-            this.form = response;
-            let rst = getOrgInfoByUserId(response.user_id);
-            if (rst) {
-              this.centerid = rst.centerNmae;
-              this.groupid = rst.groupNmae;
-              this.teamid = rst.teamNmae;
-            }
-            this.userlist = this.form.user_id;
-            this.getBudt(this.userlist);
-            let lettableT = [];
-            let letreason = response.reason.split(';');
-            if (letreason.length > 0) {
-              for (var i = 0; i <= letreason.length - 1; i++) {
-                let letuser = letreason[i].split(',');
-                lettableT.push({
-                  user: letuser[0],
-                  reason: letuser[1],
-                });
+            if (response!=undefined)
+            {
+              this.form = response;
+              let rst = getOrgInfoByUserId(response.user_id);
+              if (rst) {
+                this.centerid = rst.centerNmae;
+                this.groupid = rst.groupNmae;
+                this.teamid = rst.teamNmae;
               }
-            }
-            let lettableP = [];
-            let letresponse = response.participants.split(';');
-            if (letresponse.length > 0) {
-              for (var i = 0; i <= letresponse.length - 1; i++) {
-                lettableP.push({
-                  participants: letresponse[i],
-                });
+              this.userlist = this.form.user_id;
+              this.getBudt(this.userlist);
+              let lettableT = [];
+              let letreason = response.reason.split(';');
+              if (letreason.length > 0) {
+                for (var i = 0; i <= letreason.length - 1; i++) {
+                  let letuser = letreason[i].split(',');
+                  lettableT.push({
+                    user: letuser[0],
+                    reason: letuser[1],
+                  });
+                }
               }
+              let lettableP = [];
+              let letresponse = response.participants.split(';');
+              if (letresponse.length > 0) {
+                for (var i = 0; i <= letresponse.length - 1; i++) {
+                  lettableP.push({
+                    participants: letresponse[i],
+                  });
+                }
+              }
+              this.tableT = lettableT;
+              this.tableP = lettableP;
+              this.form = response;
             }
-            this.tableT = lettableT;
-            this.tableP = lettableP;
-            this.form = response;
             this.loading = false;
           })
           .catch(error => {
