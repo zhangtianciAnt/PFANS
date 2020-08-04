@@ -76,8 +76,10 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item :error="errorcontroller" :label="$t('label.PFANS3005VIEW_CONTROLLER')" prop="controller">
-                    <user :disabled="!disable" :error="errorcontroller" :selectType="selectType" :userlist="controllerlist"
+                  <el-form-item :error="errorcontroller" :label="$t('label.PFANS3005VIEW_CONTROLLER')"
+                                prop="controller">
+                    <user :disabled="!disable" :error="errorcontroller" :selectType="selectType"
+                          :userlist="controllerlist"
                           style="width:20vw" v-model="form.controller"
                           @getUserids="getController"></user>
                   </el-form-item>
@@ -138,7 +140,8 @@
               </el-row>
               <el-row>
                 <el-col :span="24">
-                  <el-form-item :label="$t('label.PFANS1004VIEW_REASONSFORQUOTATION')" label-width="6rem" v-show="show6">
+                  <el-form-item :label="$t('label.PFANS1004VIEW_REASONSFORQUOTATION')" label-width="6rem"
+                                v-show="show6">
                     <el-input :disabled="!disabled" style="width: 70vw;" type="textarea"
                               v-model="form.reasonsforquotation"></el-input>
                   </el-form-item>
@@ -236,7 +239,8 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS3005FORMVIEW_FIXEDASSETSNO')" v-show="show5" prop="fixedassetsno">
+                  <el-form-item :label="$t('label.PFANS3005FORMVIEW_FIXEDASSETSNO')" v-show="show5"
+                                prop="fixedassetsno">
                     <el-input :disabled="!disable" style="width:20vw" maxlength='20'
                               v-model="form.fixedassetsno"></el-input>
                   </el-form-item>
@@ -260,18 +264,19 @@
                   </el-form-item>
                 </el-col>
               </el-row>
-<!--              <el-row>-->
-<!--                <el-col :span="24">-->
-<!--                  <el-form-item :label="$t('label.PFANS3005VIEW_YUSUANBUZUFORQUOTATION')" label-width="6rem">-->
-<!--                    <el-input :disabled="acceptShow1" style="width: 70vw;" type="textarea"-->
-<!--                              v-model="form.yusuanbuzu"></el-input>-->
-<!--                  </el-form-item>-->
-<!--                </el-col>-->
-<!--              </el-row>-->
+              <!--              <el-row>-->
+              <!--                <el-col :span="24">-->
+              <!--                  <el-form-item :label="$t('label.PFANS3005VIEW_YUSUANBUZUFORQUOTATION')" label-width="6rem">-->
+              <!--                    <el-input :disabled="acceptShow1" style="width: 70vw;" type="textarea"-->
+              <!--                              v-model="form.yusuanbuzu"></el-input>-->
+              <!--                  </el-form-item>-->
+              <!--                </el-col>-->
+              <!--              </el-row>-->
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS3005VIEW_BRANDNAME')">
-                    <el-input :disabled="!disable" style="width:20vw" maxlength='20' v-model="form.brandname"></el-input>
+                    <el-input :disabled="!disable" style="width:20vw" maxlength='20'
+                              v-model="form.brandname"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -322,94 +327,94 @@
                   </el-form-item>
                 </el-col>
               </el-row>
-<!--              <el-row>-->
-<!--                <el-col :span="8">-->
-<!--                  <el-form-item :label="$t('label.PFANS3005VIEW_STORAGEDATE')">-->
-<!--                    <el-date-picker-->
-<!--                      startDate-->
-<!--                      :disabled="acceptShow1"-->
-<!--                      style="width:20vw"-->
-<!--                      type="date"-->
-<!--                      v-model="form.storagedate">-->
-<!--                    </el-date-picker>-->
-<!--                  </el-form-item>-->
-<!--                </el-col>-->
-<!--                <el-col :span="8">-->
-<!--                  <el-form-item :label="$t('label.PFANS3005VIEW_COLLECTIONDAY')">-->
-<!--                    <el-date-picker-->
-<!--                      startDate-->
-<!--                      :disabled="acceptShow1"-->
-<!--                      style="width:20vw"-->
-<!--                      type="date"-->
-<!--                      v-model="form.collectionday">-->
-<!--                    </el-date-picker>-->
-<!--                  </el-form-item>-->
-<!--                </el-col>-->
-<!--                <el-col :span="8">-->
-<!--                  <el-form-item :errorrecipients="errorrecipients" :label="$t('label.PFANS3005VIEW_RECIPIENTS')"-->
-<!--                                prop="recipients">-->
-<!--                    <user :disabled="acceptShow1" :errorrecipients="errorrecipients" :selectType="selectType"-->
-<!--                          :userlist="recipientslist"-->
-<!--                          style="width:20vw" v-model="form.recipients"-->
-<!--                          @getUserids="getRecipientslist"></user>-->
-<!--                  </el-form-item>-->
-<!--                </el-col>-->
-<!--              </el-row>-->
-<!--              <el-row>-->
-<!--                <el-col :span="8">-->
-<!--                  <el-form-item :label="$t('label.PFANS3005VIEW_ACTUARIALDATE')">-->
-<!--                    <el-date-picker-->
-<!--                      startDate-->
-<!--                      :disabled="acceptShow1"-->
-<!--                      style="width:20vw"-->
-<!--                      type="date"-->
-<!--                      v-model="form.actuarialdate">-->
-<!--                    </el-date-picker>-->
-<!--                  </el-form-item>-->
-<!--                </el-col>-->
-<!--                <el-col :span="8">-->
-<!--                  <el-form-item :label="$t('label.PFANS3005VIEW_ACTUARIALAMOUNT')">-->
-<!--                    <el-input-number v-model="form.actuarialamount"-->
-<!--                                     controls-position="right"-->
-<!--                                     :disabled="acceptShow1"-->
-<!--                                     :min="0"-->
-<!--                                     :max="1000000000"-->
-<!--                                     :precision="2"-->
-<!--                                     style="width:20vw"-->
-<!--                    ></el-input-number>-->
-<!--                  </el-form-item>-->
-<!--                </el-col>-->
-<!--              </el-row>-->
+              <!--              <el-row>-->
+              <!--                <el-col :span="8">-->
+              <!--                  <el-form-item :label="$t('label.PFANS3005VIEW_STORAGEDATE')">-->
+              <!--                    <el-date-picker-->
+              <!--                      startDate-->
+              <!--                      :disabled="acceptShow1"-->
+              <!--                      style="width:20vw"-->
+              <!--                      type="date"-->
+              <!--                      v-model="form.storagedate">-->
+              <!--                    </el-date-picker>-->
+              <!--                  </el-form-item>-->
+              <!--                </el-col>-->
+              <!--                <el-col :span="8">-->
+              <!--                  <el-form-item :label="$t('label.PFANS3005VIEW_COLLECTIONDAY')">-->
+              <!--                    <el-date-picker-->
+              <!--                      startDate-->
+              <!--                      :disabled="acceptShow1"-->
+              <!--                      style="width:20vw"-->
+              <!--                      type="date"-->
+              <!--                      v-model="form.collectionday">-->
+              <!--                    </el-date-picker>-->
+              <!--                  </el-form-item>-->
+              <!--                </el-col>-->
+              <!--                <el-col :span="8">-->
+              <!--                  <el-form-item :errorrecipients="errorrecipients" :label="$t('label.PFANS3005VIEW_RECIPIENTS')"-->
+              <!--                                prop="recipients">-->
+              <!--                    <user :disabled="acceptShow1" :errorrecipients="errorrecipients" :selectType="selectType"-->
+              <!--                          :userlist="recipientslist"-->
+              <!--                          style="width:20vw" v-model="form.recipients"-->
+              <!--                          @getUserids="getRecipientslist"></user>-->
+              <!--                  </el-form-item>-->
+              <!--                </el-col>-->
+              <!--              </el-row>-->
+              <!--              <el-row>-->
+              <!--                <el-col :span="8">-->
+              <!--                  <el-form-item :label="$t('label.PFANS3005VIEW_ACTUARIALDATE')">-->
+              <!--                    <el-date-picker-->
+              <!--                      startDate-->
+              <!--                      :disabled="acceptShow1"-->
+              <!--                      style="width:20vw"-->
+              <!--                      type="date"-->
+              <!--                      v-model="form.actuarialdate">-->
+              <!--                    </el-date-picker>-->
+              <!--                  </el-form-item>-->
+              <!--                </el-col>-->
+              <!--                <el-col :span="8">-->
+              <!--                  <el-form-item :label="$t('label.PFANS3005VIEW_ACTUARIALAMOUNT')">-->
+              <!--                    <el-input-number v-model="form.actuarialamount"-->
+              <!--                                     controls-position="right"-->
+              <!--                                     :disabled="acceptShow1"-->
+              <!--                                     :min="0"-->
+              <!--                                     :max="1000000000"-->
+              <!--                                     :precision="2"-->
+              <!--                                     style="width:20vw"-->
+              <!--                    ></el-input-number>-->
+              <!--                  </el-form-item>-->
+              <!--                </el-col>-->
+              <!--              </el-row>-->
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS3005FORMVIEW_LOANAPP_ACTU')" name="second">
               <el-row>
                 <el-table :data="tableA" border
-                        header-cell-class-name="sub_bg_color_blue"
-                        stripe style="width: 952px">
-                <el-table-column :label="$t('label.PFANS1013FORMVIEW_LOAN')" align="center"
-                                 prop="loanapno" width="200px">
-                  <template slot-scope="scope">
-                    <span>{{scope.row.loanapno}}</span>
-                  </template>
-                </el-table-column>
-                <el-table-column :label="$t('label.PFANS1013VIEW_LOANAMOUNT')" align="center" prop="moneys"
-                                 width="150px">
-                  <template slot-scope="scope">
-                    <span>{{scope.row.moneys}}</span>
-                  </template>
-                </el-table-column>
-                <el-table-column :label="$t('label.remarks')" align="center" prop="remarks"
-                                 width="300px">
-                  <template slot-scope="scope">
-                    <span>{{scope.row.remarks}}</span>
-                  </template>
-                </el-table-column>
-                <el-table-column :label="$t('label.PFANS5005VIEW_STATUS')" align="center" prop="status"
-                                 width="150px">
-                  <template slot-scope="scope">
-                    <span>{{scope.row.status}}</span>
-                  </template>
-                </el-table-column>
+                          header-cell-class-name="sub_bg_color_blue"
+                          stripe style="width: 952px">
+                  <el-table-column :label="$t('label.PFANS1013FORMVIEW_LOAN')" align="center"
+                                   prop="loanapno" width="200px">
+                    <template slot-scope="scope">
+                      <span>{{scope.row.loanapno}}</span>
+                    </template>
+                  </el-table-column>
+                  <el-table-column :label="$t('label.PFANS1013VIEW_LOANAMOUNT')" align="center" prop="moneys"
+                                   width="150px">
+                    <template slot-scope="scope">
+                      <span>{{scope.row.moneys}}</span>
+                    </template>
+                  </el-table-column>
+                  <el-table-column :label="$t('label.remarks')" align="center" prop="remarks"
+                                   width="300px">
+                    <template slot-scope="scope">
+                      <span>{{scope.row.remarks}}</span>
+                    </template>
+                  </el-table-column>
+                  <el-table-column :label="$t('label.PFANS5005VIEW_STATUS')" align="center" prop="status"
+                                   width="150px">
+                    <template slot-scope="scope">
+                      <span>{{scope.row.status}}</span>
+                    </template>
+                  </el-table-column>
                   <el-table-column :label="$t('label.operation')" align="center" width="150">
                     <template slot-scope="scope">
                       <el-button
@@ -421,50 +426,50 @@
                       </el-button>
                     </template>
                   </el-table-column>
-              </el-table>
+                </el-table>
               </el-row>
-              <div>    </div>
-                <el-row>
-                  <el-table :data="tableB" border
-                            header-cell-class-name="sub_bg_color_blue"
-                            stripe style="width: 952px;margin-top: 40px">
-                    <el-table-column :label="$t('label.PFANS1013VIEW_REIMNUMBER')" align="center"
-                                     prop="invoiceno" width="200px">
-                      <template slot-scope="scope">
-                        <span>{{scope.row.invoiceno}}</span>
-                      </template>
-                    </el-table-column>
-                    <el-table-column :label="$t('label.PFANS3005VIEW_ACTUARIALAMOUNT')" align="center" prop="moneys"
-                                     width="150px">
-                      <template slot-scope="scope">
-                        <span>{{scope.row.moneys}}</span>
-                      </template>
-                    </el-table-column>
-                    <el-table-column :label="$t('label.remarks')" align="center" prop="remarks"
-                                     width="300px">
-                      <template slot-scope="scope">
-                        <span>{{scope.row.remarks}}</span>
-                      </template>
-                    </el-table-column>
-                    <el-table-column :label="$t('label.PFANS5005VIEW_STATUS')" align="center" prop="status"
-                                     width="150px">
-                      <template slot-scope="scope">
-                        <span>{{scope.row.status}}</span>
-                      </template>
-                    </el-table-column>
-                    <el-table-column :label="$t('label.operation')" align="center" width="150">
-                      <template slot-scope="scope">
-                        <el-button
-                          @click.native.prevent="rowClick1(scope.row)"
-                          plain
-                          size="small"
-                          type="primary"
-                        >{{$t('button.viewdetails')}}
-                        </el-button>
-                      </template>
-                    </el-table-column>
-                  </el-table>
-                </el-row>
+              <div></div>
+              <el-row>
+                <el-table :data="tableB" border
+                          header-cell-class-name="sub_bg_color_blue"
+                          stripe style="width: 952px;margin-top: 40px">
+                  <el-table-column :label="$t('label.PFANS1013VIEW_REIMNUMBER')" align="center"
+                                   prop="invoiceno" width="200px">
+                    <template slot-scope="scope">
+                      <span>{{scope.row.invoiceno}}</span>
+                    </template>
+                  </el-table-column>
+                  <el-table-column :label="$t('label.PFANS3005VIEW_ACTUARIALAMOUNT')" align="center" prop="moneys"
+                                   width="150px">
+                    <template slot-scope="scope">
+                      <span>{{scope.row.moneys}}</span>
+                    </template>
+                  </el-table-column>
+                  <el-table-column :label="$t('label.remarks')" align="center" prop="remarks"
+                                   width="300px">
+                    <template slot-scope="scope">
+                      <span>{{scope.row.remarks}}</span>
+                    </template>
+                  </el-table-column>
+                  <el-table-column :label="$t('label.PFANS5005VIEW_STATUS')" align="center" prop="status"
+                                   width="150px">
+                    <template slot-scope="scope">
+                      <span>{{scope.row.status}}</span>
+                    </template>
+                  </el-table-column>
+                  <el-table-column :label="$t('label.operation')" align="center" width="150">
+                    <template slot-scope="scope">
+                      <el-button
+                        @click.native.prevent="rowClick1(scope.row)"
+                        plain
+                        size="small"
+                        type="primary"
+                      >{{$t('button.viewdetails')}}
+                      </el-button>
+                    </template>
+                  </el-table-column>
+                </el-table>
+              </el-row>
 
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2022VIEW_UPDATINGFILES')" name="thrid">
@@ -483,7 +488,8 @@
                       ref="upload"
                       v-model="form.uploadfile">
                       <i class="el-icon-upload"></i>
-                      <div class="el-upload__text">{{$t('label.enclosurecontent')}}<em>{{$t('normal.info_09')}}</em></div>
+                      <div class="el-upload__text">{{$t('label.enclosurecontent')}}<em>{{$t('normal.info_09')}}</em>
+                      </div>
                     </el-upload>
                   </el-form-item>
                 </el-col>
@@ -572,11 +578,19 @@
   import PFANS3005View from '../PFANS3005/PFANS3005View.vue';
   import {Message} from 'element-ui';
   import user from '../../../components/user.vue';
-  import {getOrgInfoByUserId, getOrgInfo, getCurrentRole2, getDictionaryInfo,uploadUrl,downLoadUrl,getUserInfo} from '@/utils/customize';
+  import {
+    getOrgInfoByUserId,
+    getOrgInfo,
+    getCurrentRole2,
+    getDictionaryInfo,
+    uploadUrl,
+    downLoadUrl,
+    getUserInfo,
+  } from '@/utils/customize';
   import moment from 'moment';
   import dicselect from '../../../components/dicselect.vue';
   import org from '../../../components/org';
-  import {getStatus} from "../../../../utils/customize";
+  import {getStatus} from '../../../../utils/customize';
 
   export default {
     name: 'PFANS3005FormView',
@@ -639,9 +653,9 @@
         optionsdate: [{value: 'PP024001', lable: this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')}],
         options1: [],
         tableA: [],
-        tableB:[],
-        multipleSelection:[],
-        multipleSelection1:[],
+        tableB: [],
+        multipleSelection: [],
+        multipleSelection1: [],
         url: '',
         urlparams: '',
         centerid: '',
@@ -684,7 +698,7 @@
           linenumber: '',
           controller: '',
           username: '',
-          usertime:'',
+          usertime: '',
           user: '',
           budgetnumber: '',
           businessplanamount: '',
@@ -713,11 +727,11 @@
           salequotation: '',
           reasonsforquotation: '',
           uploadfile: '',
-          yusuanbuzu:'',
-          loanapplication_id:'',
-          loanapno:'',
-          invoiceno:'',
-          publicexpense_id:'',
+          yusuanbuzu: '',
+          loanapplication_id: '',
+          loanapno: '',
+          invoiceno: '',
+          publicexpense_id: '',
           //add ccm 0720
 
         },
@@ -916,121 +930,115 @@
           .dispatch('PFANS3005Store/getPurchaseOne', {'purchase_id': this.$route.params._id})
           .then(response => {
             if (response !== undefined) {
-            this.form = response;
-            if (this.form.acceptstatus === '1') {
-              this.refuseShow = true;
-            } else {
-              this.refuseShow = false;
-            }
-            if (this.form.budgetnumber !== null && this.form.budgetnumber !== "") {
-              let procurement = getDictionaryInfo(this.form.budgetnumber);
-              if (procurement != null) {
-                this.form.budgetnumber = procurement.value2 + '_' + procurement.value3;
+              this.form = response;
+              if (this.form.acceptstatus === '1') {
+                this.refuseShow = true;
+              } else {
+                this.refuseShow = false;
               }
-            }
-            if (this.form.group_id) {
-              this.getchangeGroup(this.form.group_id)
-            }
-            // if (this.form.group_name != '' && this.form.group_name != null) {
-            //   this.orglist = this.form.group_name;
-            //   this.getchangeGroup(this.form.group_name)
-            // }
-            //start(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
-            let role = getCurrentRole2();
-            if (role === '0') {
-              if (this.form.status === '4') {
-                this.enableSave = true;
-                if (this.disable) {
-                  this.form.findate = moment(new Date()).format('YYYY-MM-DD');
-                  this.acceptShow = false;
+              if (this.form.budgetnumber !== null && this.form.budgetnumber !== '') {
+                let procurement = getDictionaryInfo(this.form.budgetnumber);
+                if (procurement != null) {
+                  this.form.budgetnumber = procurement.value2 + '_' + procurement.value3;
+                }
+              }
+              if (this.form.group_id) {
+                this.getchangeGroup(this.form.group_id);
+              }
+              // if (this.form.group_name != '' && this.form.group_name != null) {
+              //   this.orglist = this.form.group_name;
+              //   this.getchangeGroup(this.form.group_name)
+              // }
+              //start(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
+              let role = getCurrentRole2();
+              if (role === '0') {
+                if (this.form.status === '4') {
+                  this.enableSave = true;
+                  if (this.disable) {
+                    this.form.findate = moment(new Date()).format('YYYY-MM-DD');
+                    this.acceptShow = false;
+                  } else {
+                    this.acceptShow = true;
+                  }
+                  this.acceptShow1 = false;
+                  if (this.buttonList.length > 5) {
+                    this.buttonList[2].disabled = false;
+                    this.buttonList[3].disabled = false;
+                    this.buttonList[4].disabled = false;
+                  }
                 } else {
                   this.acceptShow = true;
-                }
-                this.acceptShow1 = false;
-                if (this.buttonList.length >5)
-                {
-                  this.buttonList[2].disabled= false;
-                  this.buttonList[3].disabled= false;
-                  this.buttonList[4].disabled= false;
+                  this.enableSave = false;
+                  this.acceptShow1 = true;
+                  if (this.buttonList.length > 5) {
+                    this.buttonList[2].disabled = true;
+                    this.buttonList[3].disabled = true;
+                    this.buttonList[4].disabled = true;
+                  }
                 }
               } else {
-                this.acceptShow = true;
-                this.enableSave = false;
-                this.acceptShow1 = true;
-                if (this.buttonList.length >5)
-                {
-                  this.buttonList[2].disabled= true;
-                  this.buttonList[3].disabled= true;
-                  this.buttonList[4].disabled= true;
+                if (this.buttonList.length > 5) {
+                  this.buttonList[2].disabled = true;
+                  this.buttonList[3].disabled = true;
+                  this.buttonList[4].disabled = true;
                 }
+                this.acceptShow1 = true;
               }
-            }
-            else
-            {
-              if (this.buttonList.length >5)
-              {
-                this.buttonList[2].disabled= true;
-                this.buttonList[3].disabled= true;
-                this.buttonList[4].disabled= true;
+              //end(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
+              let rst = getOrgInfoByUserId(response.user_id);
+              if (rst) {
+                this.centerid = rst.centerNmae;
+                this.groupid = rst.groupNmae;
+                this.teamid = rst.teamNmae;
               }
-              this.acceptShow1 = true;
-            }
-            //end(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
-            let rst = getOrgInfoByUserId(response.user_id);
-            if (rst) {
-              this.centerid = rst.centerNmae;
-              this.groupid = rst.groupNmae;
-              this.teamid = rst.teamNmae;
-            }
-            if (this.form.careerplan === '1') {
-              this.show3 = true;
-              this.show1 = true;
-              this.rules.businessplantype[0].required = true;
-              this.rules.businessplanbalance[0].required = true;
-            } else {
-              this.show3 = false;
-              this.show2 = false;
-              this.show1 = false;
-              this.rules.businessplantype[0].required = false;
-              this.rules.businessplanbalance[0].required = false;
-              this.rules.classificationtype[0].required = false;
-            }
-            if (this.form.businessplantype === 'PR002006') {
-              this.show2 = true;
-            } else if (this.form.businessplantype === 'PR002001') {
-              this.show2 = false;
-            } else if (this.form.businessplantype === 'PR002002') {
-              this.show2 = false;
-            } else if (this.form.businessplantype === 'PR002003') {
-              this.show2 = false;
-            } else if (this.form.businessplantype === 'PR002004') {
-              this.show2 = false;
-            }
-            if (this.form.procurementproject === 'PJ005001') {
-              this.show5 = true;
-              this.show4 = false;
-            } else if (this.form.procurementproject === 'PJ005002') {
-              this.show4 = true;
-              this.show5 = false;
-            } else if (this.form.procurementproject === 'PJ005003') {
-              this.show4 = true;
-              this.show5 = false;
-            } else if (this.form.procurementproject === 'PJ005004') {
-              this.show4 = true;
-              this.show5 = false;
-            } else if (this.form.procurementproject === 'PJ005005') {
-              this.show4 = true;
-              this.show5 = false;
-            } else if (this.form.procurementproject === 'PJ005006') {
-              this.show4 = true;
-              this.show5 = false;
-            }
-            //add ccm 0720
-            if (this.form.salequotation === 'PJ013001' || this.form.salequotation === 'PJ013003')
-            {
-              this.show6 = true;
-            }
-            if (this.form.uploadfile != null && this.form.uploadfile != '' && this.form.uploadfile != undefined) {
+              if (this.form.careerplan === '1') {
+                this.show3 = true;
+                this.show1 = true;
+                this.rules.businessplantype[0].required = true;
+                this.rules.businessplanbalance[0].required = true;
+              } else {
+                this.show3 = false;
+                this.show2 = false;
+                this.show1 = false;
+                this.rules.businessplantype[0].required = false;
+                this.rules.businessplanbalance[0].required = false;
+                this.rules.classificationtype[0].required = false;
+              }
+              if (this.form.businessplantype === 'PR002006') {
+                this.show2 = true;
+              } else if (this.form.businessplantype === 'PR002001') {
+                this.show2 = false;
+              } else if (this.form.businessplantype === 'PR002002') {
+                this.show2 = false;
+              } else if (this.form.businessplantype === 'PR002003') {
+                this.show2 = false;
+              } else if (this.form.businessplantype === 'PR002004') {
+                this.show2 = false;
+              }
+              if (this.form.procurementproject === 'PJ005001') {
+                this.show5 = true;
+                this.show4 = false;
+              } else if (this.form.procurementproject === 'PJ005002') {
+                this.show4 = true;
+                this.show5 = false;
+              } else if (this.form.procurementproject === 'PJ005003') {
+                this.show4 = true;
+                this.show5 = false;
+              } else if (this.form.procurementproject === 'PJ005004') {
+                this.show4 = true;
+                this.show5 = false;
+              } else if (this.form.procurementproject === 'PJ005005') {
+                this.show4 = true;
+                this.show5 = false;
+              } else if (this.form.procurementproject === 'PJ005006') {
+                this.show4 = true;
+                this.show5 = false;
+              }
+              //add ccm 0720
+              if (this.form.salequotation === 'PJ013001' || this.form.salequotation === 'PJ013003') {
+                this.show6 = true;
+              }
+              if (this.form.uploadfile != null && this.form.uploadfile != '' && this.form.uploadfile != undefined) {
                 let uploadfile = this.form.uploadfile.split(';');
                 for (var i = 0; i < uploadfile.length; i++) {
                   if (uploadfile[i].split(',')[0] != '') {
@@ -1040,22 +1048,21 @@
                     this.fileList.push(o);
                   }
                 }
-            }
-            //add ccm 0720
+              }
+              //add ccm 0720
 
-            this.userlist = this.form.user_id;
-            this.controllerlist = this.form.controller;
-            this.usernamelist = this.form.username;
-            this.recipientslist = this.form.recipients;
-            let timea = this.form.usertime;
-            let serdate = timea.slice(0, 10);
-            let serdate1 = timea.slice(timea.length - 10);
-            this.form.usertime = [serdate, serdate1];
-            // this.getBudt(this.userlist);
+              this.userlist = this.form.user_id;
+              this.controllerlist = this.form.controller;
+              this.usernamelist = this.form.username;
+              this.recipientslist = this.form.recipients;
+              let timea = this.form.usertime;
+              let serdate = timea.slice(0, 10);
+              let serdate1 = timea.slice(timea.length - 10);
+              this.form.usertime = [serdate, serdate1];
+              // this.getBudt(this.userlist);
             }
             //有暂借款编号绑定暂借款信息
-            if (this.form.loanapplication_id)
-            {
+            if (this.form.loanapplication_id) {
               this.$store
                 .dispatch('PFANS1006Store/getLoanapplicationOne', {'loanapplication_id': this.form.loanapplication_id})
                 .then(response => {
@@ -1064,8 +1071,8 @@
                     this.tableA.push({
                       loanapno: response.loanapno,
                       moneys: response.moneys,
-                      remarks:response.remarks,
-                      status:status,
+                      remarks: response.remarks,
+                      status: status,
                       loanapplication_id: response.loanapplication_id,
                     });
                   }
@@ -1082,8 +1089,7 @@
             }
 
             //有精算报销编号绑定精算信息
-            if (this.form.publicexpense_id)
-            {
+            if (this.form.publicexpense_id) {
               this.$store
                 .dispatch('PFANS1012Store/selectById', {'publicexpenseid': this.form.publicexpense_id})
                 .then(response => {
@@ -1093,8 +1099,8 @@
                     this.tableB.push({
                       invoiceno: pub.invoiceno,
                       moneys: pub.moneys,
-                      remarks:pub.preparefor,
-                      status:status,
+                      remarks: pub.preparefor,
+                      status: status,
                       publicexpense_id: pub.publicexpenseid,
                     });
                   }
@@ -1137,7 +1143,7 @@
             this.form.team_id = rst.teamId;
           }
           if (this.form.group_id) {
-            this.getchangeGroup(this.form.group_id)
+            this.getchangeGroup(this.form.group_id);
           }
           this.form.user_id = this.$store.getters.userinfo.userid;
           // this.buttonList = [];
@@ -1154,33 +1160,33 @@
         }
       }
     },
-      //add_fjl start
-      watch: {
-          form: {
-              handler: function () {
-                  //totalamount --总金额
-                  // add_fjl_06/15 --添加审批流程 start
-                  if (this.form.careerplan === '1') {
-                      if (Number(this.form.totalamount) <= 1000) {
-                          //最后节点到GM  事业计划内 1000以下
-                          this.workflowCode = 'W0082';
-                      } else if (Number(this.form.totalamount) > 1000 && Number(this.form.totalamount) <= 20000) {
-                          //最后节点到center长  事业计划内  1000到20000之间
-                          this.workflowCode = 'W0022';
-                      } else if (Number(this.form.totalamount) > 20000) {
-                          //最后节点到总经理   事业计划外
-                          this.workflowCode = 'W0075';
-                      }
-                  } else if (this.form.careerplan === '0') {
-                      //最后节点到总经理   事业计划外
-                      this.workflowCode = 'W0075';
-                  }
-                  // add_fjl_06/15 --添加审批流程 end
-              },
-              deep: true,
-          },
+    //add_fjl start
+    watch: {
+      form: {
+        handler: function() {
+          //totalamount --总金额
+          // add_fjl_06/15 --添加审批流程 start
+          if (this.form.careerplan === '1') {
+            if (Number(this.form.totalamount) <= 1000) {
+              //最后节点到GM  事业计划内 1000以下
+              this.workflowCode = 'W0082';
+            } else if (Number(this.form.totalamount) > 1000 && Number(this.form.totalamount) <= 20000) {
+              //最后节点到center长  事业计划内  1000到20000之间
+              this.workflowCode = 'W0022';
+            } else if (Number(this.form.totalamount) > 20000) {
+              //最后节点到总经理   事业计划外
+              this.workflowCode = 'W0075';
+            }
+          } else if (this.form.careerplan === '0') {
+            //最后节点到总经理   事业计划外
+            this.workflowCode = 'W0075';
+          }
+          // add_fjl_06/15 --添加审批流程 end
+        },
+        deep: true,
       },
-      //add_fjl end
+    },
+    //add_fjl end
     created() {
       // this.$store.commit('global/SET_WORKFLOWURL', '/PFANS3005View');
       this.disable = this.$route.params.disabled;
@@ -1201,8 +1207,7 @@
       //   ];
       // }
       //新建
-      if (!this.$route.params._id)
-      {
+      if (!this.$route.params._id) {
         this.buttonList = [];
         this.buttonList = [
           {
@@ -1218,9 +1223,7 @@
             icon: 'el-icon-close',
           },
         ];
-      }
-      else
-      {
+      } else {
         //查看
         if (!this.disable) {
           let role = getCurrentRole2();
@@ -1257,9 +1260,7 @@
                 icon: 'el-icon-edit-outline',
               },
             ];
-          }
-          else
-          {
+          } else {
             this.buttonList = [
               // {
               //   key: 'save',
@@ -1275,9 +1276,7 @@
               // },
             ];
           }
-        }
-        else
-        {
+        } else {
           //修改
           this.buttonList = [
             {
@@ -1384,14 +1383,14 @@
         this.url = '';
         this.urlparams = '';
         this.url = 'PFANS1006FormView';
-        this.urlparams = {'_id': row.loanapplication_id,'disabled':false};
+        this.urlparams = {'_id': row.loanapplication_id, 'disabled': false};
         this.$refs[1].open = true;
       },
       rowClick1(row) {
         this.url = '';
         this.urlparams = '';
         this.url = 'PFANS1012FormView';
-        this.urlparams = {'_id': row.publicexpense_id,'disabled':false};
+        this.urlparams = {'_id': row.publicexpense_id, 'disabled': false};
         this.$refs[1].open = true;
       },
       //add ccm 0720
@@ -1610,8 +1609,8 @@
         }
       },
       getGroupId(orglist) {
-        this.getchangeGroup(orglist)
-        this.form.group_name = orglist
+        this.getchangeGroup(orglist);
+        this.form.group_name = orglist;
         if (!this.form.group_name || this.form.group_name === '') {
           this.errorgroup = this.$t('normal.error_09') + 'group';
         } else {
@@ -1660,7 +1659,7 @@
             group_id: this.form.group_id,
             team_id: this.form.team_id,
           } = org);
-          this.getchangeGroup(this.form.group_id)
+          this.getchangeGroup(this.form.group_id);
         }
       },
       getClassificationtype(val) {
@@ -1745,31 +1744,34 @@
           name: 'PFANS3005View',
         });
       },
+      checkparams() {
+        let id = this.$route.params._checkid;
+        let disable = this.$route.params._checkdisable;
+        this.$router.push({
+          name: 'PFANS1006FormView',
+          params: {
+            disabled: disable,
+            _id: id,
+          },
+        });
+      },
       //add-ws-4/28-精算中，点击决裁，跳转画面
       buttonClick(val) {
         if (val === 'back') {
-          this.$store.commit('global/SET_HISTORYURL', this.$route.path);
           //add-ws-4/28-精算中，点击决裁，跳转画面
           if (this.$route.params._check != null && this.$route.params._check != undefined) {
             if (this.$route.params._check) {
               this.checkparamsTitle();
             }
-            else
-            {
-              this.$router.push({
-                name: 'PFANS1006FormView',
-                params: {
-                  _id: this.form.loanapplication_id,
-                  disabled: true,
-                },
-              });
+          } else if (this.$route.params._check5 != null && this.$route.params._check5 != undefined) {
+            if (this.$route.params._check5) {
+              this.checkparams();
             }
           } else {
             this.paramsTitle();
           }
           //add-ws-4/28-精算中，点击决裁，跳转画面
-        }
-        else if (val === 'trash'){
+        } else if (val === 'trash') {
           //this.$store.commit('global/SET_HISTORYURL', this.$route.path);
           this.loading = true;
           this.form.status = '1';
@@ -1798,8 +1800,7 @@
               });
               this.loading = false;
             });
-        }
-        else if (val === 'save'){
+        } else if (val === 'save') {
           this.$refs['refform'].validate(valid => {
             if (valid) {
               this.loading = true;
@@ -1877,9 +1878,7 @@
               });
             }
           });
-        }
-        else if (val === 'conapp')
-        {
+        } else if (val === 'conapp') {
           this.$store.commit('global/SET_HISTORYURL', this.$route.path);
           //合同号申请
           let o = {};
@@ -1889,29 +1888,26 @@
 
           //采购合同重复check
           this.$store
-            .dispatch('PFANS1026Store/purchaseExistCheck', {"purnumbers": this.form.purnumbers})
+            .dispatch('PFANS1026Store/purchaseExistCheck', {'purnumbers': this.form.purnumbers})
             .then(response => {
-              if (response.length === 0)
-              {
+              if (response.length === 0) {
                 //合同号申请
                 this.$router.push({
                   name: 'PFANS1033FormView',
                   params: {
                     _id: '',
-                    _applicantdeptcode:this.form.group_id,
-                    _caigouhetongTable:this.caigouhetongTable,
-                    disabled: true
-                  }
+                    _applicantdeptcode: this.form.group_id,
+                    _caigouhetongTable: this.caigouhetongTable,
+                    disabled: true,
+                  },
                 });
-              }
-              else
-              {
+              } else {
                 Message({
-                  message: this.$t('label.PFANS3005VIEW_NUMBERS') +' : '+ response[0] +' ' + this.$t('label.PFANS3005VIEW_MSG1'),
+                  message: this.$t('label.PFANS3005VIEW_NUMBERS') + ' : ' + response[0] + ' ' + this.$t('label.PFANS3005VIEW_MSG1'),
                   type: 'info',
                   duration: 3 * 1000,
                 });
-                return
+                return;
               }
               // if (this.$store.getters.historyUrl) {
               //   this.$router.push(this.$store.getters.historyUrl);
@@ -1928,23 +1924,18 @@
             });
           //采购合同重复check
 
-        }
-        else if (val === 'temLoanApp')
-        {
+        } else if (val === 'temLoanApp') {
           this.$store.commit('global/SET_HISTORYURL', this.$route.path);
           //暂借款申请
           //check是否存在暂借款
-          if (this.form.loanapno !=null && this.form.loanapno!='' && this.form.loanapno !=undefined)
-          {
+          if (this.form.loanapno != null && this.form.loanapno != '' && this.form.loanapno != undefined) {
             Message({
-              message: this.$t('label.PFANS3005VIEW_NUMBERS') +' : '+ this.form.purnumbers +' ' + this.$t('label.PFANS3005VIEW_LOANAPP'),
+              message: this.$t('label.PFANS3005VIEW_NUMBERS') + ' : ' + this.form.purnumbers + ' ' + this.$t('label.PFANS3005VIEW_LOANAPP'),
               type: 'info',
               duration: 3 * 1000,
             });
-            return
-          }
-          else
-          {
+            return;
+          } else {
             //采购ID
             let purchase_id = [];
             //采购编号
@@ -1953,39 +1944,34 @@
             let moneys = [];
             //采购摘要
             let remarks = [];
-            purnumbers = this.form.purnumbers+',';
-            purchase_id = this.form.purchase_id+',';
-            moneys = this.form.totalamount+',';
-            remarks = (this.form.remarks === null ?'': this.form.remarks) +',';
+            purnumbers = this.form.purnumbers + ',';
+            purchase_id = this.form.purchase_id + ',';
+            moneys = this.form.totalamount + ',';
+            remarks = (this.form.remarks === null ? '' : this.form.remarks) + ',';
             //暂借款申请
             this.$router.push({
               name: 'PFANS1006FormView',
               params: {
                 _id: '',
-                _judgement:purchase_id,
-                _judgement_name:purnumbers,
-                _judgements_moneys:moneys,
-                _remarks:remarks,
-                _judgements_type:this.$t('label.PFANS1012VIEW_PURCHASSES'),
-                disabled: true
-              }
-            })
+                _judgement: purchase_id,
+                _judgement_name: purnumbers,
+                _judgements_moneys: moneys,
+                _remarks: remarks,
+                _judgements_type: this.$t('label.PFANS1012VIEW_PURCHASSES'),
+                disabled: true,
+              },
+            });
           }
-        }
-        else if (val === 'actuarial')
-        {
+        } else if (val === 'actuarial') {
           this.$store.commit('global/SET_HISTORYURL', this.$route.path);
-          if (this.form.invoiceno!=null && this.form.invoiceno!='' && this.form.invoiceno !=undefined)
-          {
+          if (this.form.invoiceno != null && this.form.invoiceno != '' && this.form.invoiceno != undefined) {
             Message({
-              message: this.$t('label.PFANS3005VIEW_NUMBERS') +' : '+ this.form.purnumbers +' ' + this.$t('label.PFANS3005VIEW_INVOICENO'),
+              message: this.$t('label.PFANS3005VIEW_NUMBERS') + ' : ' + this.form.purnumbers + ' ' + this.$t('label.PFANS3005VIEW_INVOICENO'),
               type: 'info',
               duration: 3 * 1000,
             });
-            return
-          }
-          else
-          {
+            return;
+          } else {
             let optionsSEL = [];
             let user = getUserInfo(this.form.user_id);
             if (user) {
@@ -2002,8 +1988,7 @@
               vote.judgements_type = this.$t('label.PFANS1012VIEW_PURCHASSES');
             }
             optionsSEL.push(vote);
-            if (this.form.loanapno === null || this.form.loanapno === '' || this.form.loanapno === undefined)
-            {
+            if (this.form.loanapno === null || this.form.loanapno === '' || this.form.loanapno === undefined) {
               //精算 没有暂借款
               this.$router.push({
                 name: 'PFANS1012FormView',
@@ -2013,16 +1998,14 @@
                   disabled: true,
                 },
               });
-            }
-            else
-            {
+            } else {
               //精算  带暂借款
               this.$router.push({
                 name: 'PFANS1012FormView',
                 params: {
                   _name: optionsSEL,
                   _type: 'PJ001002',
-                  _haveLoanapp:this.form.loanapplication_id,
+                  _haveLoanapp: this.form.loanapplication_id,
                   disabled: true,
                 },
               });

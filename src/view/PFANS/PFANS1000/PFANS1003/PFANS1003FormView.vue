@@ -945,12 +945,27 @@
           },
         });
       },
+      checkparams() {
+        let id = this.$route.params._checkid;
+        let disable = this.$route.params._checkdisable;
+        this.$router.push({
+          name: 'PFANS1006FormView',
+          params: {
+            disabled: disable,
+            _id: id,
+          },
+        });
+      },
       buttonClick(val) {
         if (val === 'back') {
           //add-ws-4/28-精算中，点击决裁，跳转画面
           if (this.$route.params._check != null && this.$route.params._check != '' && this.$route.params._check != undefined) {
             if (this.$route.params._check) {
               this.checkparamsTitle();
+            }
+          } else if (this.$route.params._check6 != null && this.$route.params._check6 != '' && this.$route.params._check6 != undefined) {
+            if (this.$route.params._check6) {
+              this.checkparams();
             }
           } else {
             this.paramsTitle();

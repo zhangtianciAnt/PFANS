@@ -693,8 +693,8 @@
               this.$t('label.PFANS1024VIEW_CONTRACT2') + this.$t('label.PFANS1024VIEW_ENGLISH'),
               this.$t('label.PFANS1024VIEW_CONTRACT2') + this.$t('label.PFANS1024VIEW_CHINESE'),
               this.$t('label.PFANS1024VIEW_ENTRUSTEDNUMBER'),
-              this.$t('label.PFANS1024VIEW_DELIVERYFINSHDATE'),
-              this.$t('label.PFANS1024VIEW_DELIVERYDATE'),
+                // this.$t('label.PFANS1024VIEW_DELIVERYFINSHDATE'),
+                // this.$t('label.PFANS1024VIEW_DELIVERYDATE'),
               this.$t('label.PFANS1044VIEW_KANRYO'),
               this.$t('label.PFANS1024VIEW_LOADINGJUDGE'),
                 this.$t('label.PFANS1024VIEW_CLAIMDATE'),
@@ -732,8 +732,8 @@
               'conenglish',
               'conchinese',
               'entrustednumber',
-              'deliveryfinshdate',
-              'deliverydate',
+                // 'deliveryfinshdate',
+                // 'deliverydate',
               'deliverydate',
               'loadingjudge',
                 //add_fjl_0803
@@ -769,13 +769,13 @@
                 if (letContracttype != null) {
                   citem.currencyposition = letContracttype.value1;
                 }
-                if (citem.deliverydate != null) {
-                  citem.deliverydate = moment(citem.deliverydate).format('YYYY-MM-DD');
-                }
+                  // if (citem.deliverydate != null) {
+                  //   citem.deliverydate = moment(citem.deliverydate).format('YYYY-MM-DD');
+                  // }
                   //add_fjl_0803
-                  if (citem.deliveryfinshdate != null) {
-                      citem.deliveryfinshdate = moment(citem.deliveryfinshdate).format('YYYY-MM-DD');
-                  }
+                  // if (citem.deliveryfinshdate != null) {
+                  //     citem.deliveryfinshdate = moment(citem.deliveryfinshdate).format('YYYY-MM-DD');
+                  // }
                   if (citem.claimdate != null) {
                       citem.claimdate = moment(citem.claimdate).format('YYYY-MM-DD');
                   }
