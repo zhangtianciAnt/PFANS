@@ -1,4 +1,4 @@
-import {getCostList, insertCoststatistics, downloadExcel,getCostBygroupid} from './PFANS6008Api'
+import {getCostList, insertCoststatistics, downloadExcel,getCostBygroupid,getcostMonthList,getcostMonth} from './PFANS6008Api'
 const PFANS6008Store = {
   namespaced: true,
   state: {},
@@ -61,6 +61,37 @@ const PFANS6008Store = {
         })
       })
     },
+    //add gbb 0803 月度费用统计列表 start
+    getcostMonthList({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getcostMonthList(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    //add gbb 0803 月度费用统计列表 end
+
+    //add gbb 0803 月度费用统计详情 start
+    getcostMonth({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getcostMonth(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    //add gbb 0803 月度费用统计详情 end
   }
 };
 

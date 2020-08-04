@@ -11,42 +11,44 @@
               stripe style="width: 85vw">
               <el-table-column :label="$t('NO')"
                                type="index"
-                               width="150"></el-table-column>
-              <el-table-column :label="$t('label.PFANS6007VIEW_BPCLUBNAME')"
-                               width="150"></el-table-column>
-              <el-table-column :label="$t('label.PFANS6010VIEW_COMPANYEN')">
+                               width="50" fixed="left"></el-table-column>
+              <el-table-column property="suppliername" :label="$t('label.PFANS6007VIEW_BPCLUBNAME')"
+                               width="250" fixed="left"></el-table-column>
+              <el-table-column :label="$t(item)"
+                               v-for="(item, index) in this.groupnamelist">
                 <el-table-column :label="$t('label.PFANS1027FORMVIEW_APPOINT')"
                                  width="150">
                   <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')"
-                                   property="jobnumber"
-                                   width="150"></el-table-column>
+                                   :property="`ex1manhour${index}`"
+                                   width="100"></el-table-column>
                   <el-table-column :label="$t('label.PFANS6008VIEW_COST')"
-                                   property="cost"
-                                   width="150"></el-table-column>
+                                   :property="`ex1cost${index}`"
+                                   width="100"></el-table-column>
                   <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')"
-                                   property="number"
-                                   width="150"></el-table-column>
+                                   :property="`ex1usercount${index}`"
+                                   width="100"></el-table-column>
+                  <el-table-column :property="`costcount${index}`" v-if="false"></el-table-column>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1027FORMVIEW_CONTRACT')"
                                  width="150">
                   <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')"
-                                   property="jobnumber"
-                                   width="150"></el-table-column>
+                                   :property="`ex2manhour${index}`"
+                                   width="100"></el-table-column>
                   <el-table-column :label="$t('label.PFANS6008VIEW_COST')"
-                                   property="cost"
-                                   width="150"></el-table-column>
+                                   :property="`ex2cost${index}`"
+                                   width="100"></el-table-column>
                   <el-table-column :label="$t('label.PFANS6010VIEW_PERNUMBER')"
-                                   property="pernumber"
-                                   width="150"></el-table-column>
+                                   :property="`ex2usercount${index}`"
+                                   width="100"></el-table-column>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1039FORMVIEW_PROSPECTS')"
                                  width="150">
                   <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')"
                                    property="jobnumber1"
-                                   width="150"></el-table-column>
+                                   width="100"></el-table-column>
                   <el-table-column :label="$t('label.PFANS6008VIEW_COST')"
                                    property="cost1"
-                                   width="150"></el-table-column>
+                                   width="100"></el-table-column>
                 </el-table-column>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS6010VIEW_FREESUM')"
@@ -55,13 +57,13 @@
                                  property="prospects"
                                  width="150"></el-table-column>
                 <el-table-column :label="$t('label.PFANS2006VIEW_ACTUAL')"
-                                 property="actual"
+                                 property="bpcostcount"
                                  width="150"></el-table-column>
               </el-table-column>
               <el-table-column :label="$t('label.operation')" align="center" width="200">
                 <template slot-scope="scope">
                   <el-button
-                    :disabled="!disable"
+                    :disabled="disable"
                     @click="createprobook()"
                     plain
                     size="small"
@@ -81,7 +83,7 @@
 <script>
     import EasyNormalContainer from '@/components/EasyNormalContainer';
     import {Message} from 'element-ui';
-
+    import {getSupplierinfor,getorgGroupList} from '@/utils/customize';
     export default {
         name: 'PFANS6010FormView',
         components: {
@@ -91,24 +93,53 @@
             return {
                 title: 'title.PFANS6010FORMVIEW',
                 loading: false,
-                disabled: false,
+                disable: true,
                 buttonList: [],
                 tableData: [],
+                letparams:{},
+                groupnamelist:[],
             };
         },
         mounted() {
+            this.loading = true;
+            this.$store
+                .dispatch('PFANS6008Store/getcostMonth', this.letparams)
+                .then(response => {
+                    for (let i = 0; i < response.length; i++) {
+                        let supplierInfor = getSupplierinfor(response[i].bpcompany);
+                        if (supplierInfor) {
+                            response[i].suppliername = supplierInfor.supchinese;
+                        }
+                    }
+                    let groupidlist = response[0].strgroupid.substring(0,response[0].strgroupid.length - 1)
+                    debugger;
+                    let groupnamelist = [];
+                    groupnamelist = groupidlist.split(",");
+                    for (let j = 0; j < groupnamelist.length; j++) {
+                        let group = getorgGroupList(groupnamelist[j]);
+                        if (group) {
+                            this.groupnamelist.push(group.groupname);
+                        }
+                    }
+                    debugger;
+                    let a = this.groupnamelist;
+                    this.tableData = response;
+                    this.loading = false;
+                })
+                .catch(error => {
+                    Message({
+                        message: error,
+                        type: 'error',
+                        duration: 5 * 1000
+                    });
+                    this.loading = false;
+                })
         },
         created() {
-            this.disabled = this.$route.params.disabled;
-            if (this.disabled) {
-                this.buttonList = [
-                    {
-                        key: 'save',
-                        name: 'button.save',
-                        disabled: false,
-                        icon: 'el-icon-check',
-                    },
-                ];
+            this.letparams = this.$route.params.letparams;
+            //外驻管理担当
+            if(this.letparams.role === '4'){
+                this.disable = false;
             }
         },
         methods: {
