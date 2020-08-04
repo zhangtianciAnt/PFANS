@@ -518,6 +518,11 @@
         baseInfo: {},
         tableB: [],
         multiple: false,
+        workflowAnt: {
+          menuUrl: '',
+          dataId: ''
+        },
+        workflowAntDate: [],
         form: {
           group_name: '',
           center_id: '',
@@ -736,17 +741,41 @@
           .dispatch('PFANS1004Store/getJudgementOne', {'judgementid': this.$route.params._id})
           .then(response => {
             if (response) {
+              this.userlist = [];
               this.form = response.judgement;
+              let flag = 0;
+              if (this.form.status == '3') {
+                flag = flag + 1;
+              }
+              this.workflowAnt.dataId = response.judgement.judgementid;
+              this.workflowAnt.menuUrl = '/PFANS1004FormView';
+              if (flag != 0) {
+                //除流程通过的部门
+                this.$store
+                  .dispatch('EasyWorkflowStore/ViewWorkflow2', this.workflowAnt).then(response => {
+                  this.workflowAntDate = response.data;
+                  if (this.workflowAntDate.length > 0) {
+                    for (let f = 0; f < this.workflowAntDate.length; f++) {
+                      if (this.workflowAntDate[f].result != '通过' && this.workflowAntDate[f].result != '流程开始') {
+                        this.userlist.push(this.workflowAntDate[f].userId)
+                      }
+                    }
+                  }
+                })
+              }
               if (response.judgementdetail.length > 0) {
                 this.tableA = response.judgementdetail;
                 this.showH = true;
                 this.showM = false;
                 for (let i = 0; i < this.tableA.length; i++) {
                   let letThisprojectM = getDictionaryInfo(this.tableA[i].thisprojectM);
-                  if (this.tableA[i].group_nameM != null && this.tableA[i].group_nameM != '') {
-                    let groupInfo = getOrgInfo(this.tableA[i].group_nameM);
-                    if (groupInfo) {
-                      this.userlist.push(groupInfo.user);
+                  if (flag === 0) {
+                    //全部门
+                    if (this.tableA[i].group_nameM != null && this.tableA[i].group_nameM != '') {
+                      let groupInfo = getOrgInfo(this.tableA[i].group_nameM);
+                      if (groupInfo) {
+                        this.userlist.push(groupInfo.user);
+                      }
                     }
                   }
                   if (letThisprojectM != null) {
@@ -1023,6 +1052,7 @@
           // 事业计划
           this.form.careerplan = null;
         } else {
+          thi.tableB = [];
           this.showM = true;
           this.showH = false;
           // 事业计划
@@ -1067,7 +1097,6 @@
         }
       },
       getGroupIdM(orglistM, row) {
-        this.tableB = [];
         if (orglistM == '') {
           row.thisprojectM = '';
         }
@@ -1085,19 +1114,16 @@
             }
           }
         }
-        for (let y = 0; y < this.tableA.length - 1; y++) {
-          this.tableB.push(this.tableA[y].group_nameM);
-        }
-        alert(this.tableB)
         for (let k = 0; k < this.tableB.length; k++) {
           if (this.tableB[k] === row.group_nameM) {
             Message({
               message: this.$t('normal.error_17'),
-              type: 'error',
+              type: 'info',
               duration: 5 * 1000,
             });
           }
         }
+        this.tableB.push(row.group_nameM);
         if (!row.group_nameM || row.group_nameM === '') {
           row.errorgroupM = this.$t('normal.error_08') + this.$t('label.PFANS1004VIEW_GROUP');
         } else {
@@ -1135,12 +1161,16 @@
           val.classificationtypeM = null;
           val.businessplanbalanceM = null;
           return true;
+        } else if (!this.disabled) {
+          return true;
         } else {
           return false;
         }
       },
       setClassifica(val, row) {
         if (val.careerplanM == '0' || val.businessplantypeM != 'PR002006') {
+          return true;
+        } else if (!this.disabled) {
           return true;
         } else {
           return false;
@@ -1390,7 +1420,6 @@
         let JudgementVo = {};
         JudgementVo.judgement = this.form;
         if (val === 'back') {
-          debugger
           //add-ws-4/28-精算中，点击决裁，跳转画面
           if (this.$route.params._check != null && this.$route.params._check != '' && this.$route.params._check != undefined) {
             if (this.$route.params._check) {

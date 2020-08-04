@@ -830,7 +830,7 @@ export default {
           return;
         }else{
           for (let i = 0; i < this.selectedlist.length; i++) {
-           if(this.selectedlist[i].jobnumber==='00000' || this.selectedlist[i].jobnumber===''){
+           if(this.selectedlist[i].jobnumber!=null && this.selectedlist[i].jobnumber!=''){
              error = error + 1;
              let sealtypeList = this.selectedlist[i].customername;
              checktableD = checktableD + sealtypeList + ',';

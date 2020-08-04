@@ -4,6 +4,7 @@ import {
   updateRecruit,
   createRecruit,
   getForSelect,
+  getRecruit2
   } from './PFANS2001Api'
 
   const PFANS2001Store = {
@@ -14,6 +15,19 @@ import {
       getRecruit() {
         return new Promise((resolve, reject) => {
           getRecruit().then(response => {
+            if (response.code === 0) {
+              resolve(response.data);
+            } else {
+              reject(response.message)
+            }
+          }).catch(error => {
+            reject(error);
+          })
+        })
+      },
+      getRecruit2() {
+        return new Promise((resolve, reject) => {
+          getRecruit2().then(response => {
             if (response.code === 0) {
               resolve(response.data);
             } else {

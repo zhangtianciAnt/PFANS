@@ -96,6 +96,20 @@
                 <span style="margin-left: 1vw ">{{$t('label.yes')}}</span>
               </el-form-item>
             </el-col>
+            <!--            add-ws-8/4-禅道任务296-->
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS2001VIEW_RECRUITID')">
+                <el-select v-model="form.recruit_id" :disabled="!disabled" style="width: 20vw" clearable @change="getrecruitid">
+                  <el-option
+                    v-for="item in options"
+                    :key="item.value"
+                    :label="item.lable"
+                    :value="item.value">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+            <!--            add-ws-8/4-禅道任务296-->
           </el-row>
           <!--  wxl 4/9  start-->
           <el-row>
@@ -115,11 +129,11 @@
                 >
                   <template slot-scope="scope">
                     <!--<el-input v-show="true" :disabled="!disabled" v-model="scope.row.interviewerN"-->
-                              <!--@change="changeInt(scope.row)"-->
-                              <!--:no="scope.row" style="width:14vw" size="small"></el-input>-->
+                    <!--@change="changeInt(scope.row)"-->
+                    <!--:no="scope.row" style="width:14vw" size="small"></el-input>-->
                     <!--<el-input v-show="false" :disabled="!disabled" v-model="scope.row.interviewer"-->
-                              <!--@change="changeInt(scope.row)"-->
-                              <!--:no="scope.row" style="width:14vw" size="small"></el-input>-->
+                    <!--@change="changeInt(scope.row)"-->
+                    <!--:no="scope.row" style="width:14vw" size="small"></el-input>-->
                     <user
                       :disabled="!disabled"
                       :no="scope.row"
@@ -211,7 +225,7 @@
             </el-col>
 
 
-<!--wxl 0409 start-->
+            <!--wxl 0409 start-->
             <el-col :span="8">
               <el-form-item
                 :label="$t('label.PFANS2002FORMVIEW_OTHER3')"
@@ -234,35 +248,35 @@
               </el-form-item>
             </el-col>
           </el-row>
-<!--wxl 0409 end-->
+          <!--wxl 0409 end-->
 
 
-<!--            <el-col :span="8">-->
-<!--              <el-form-item :error="error" :label="$t('label.PFANS2003FORMVIEW_MEMBER')" prop="member" v-show="show1">-->
-<!--                <user :disabled="!disabled" :error="error" :selectType="selectType"-->
-<!--                      :userlist="userlist"-->
-<!--                      @getUserids="getUserids"-->
-<!--                      style="width:20vw"></user>-->
-<!--              </el-form-item>-->
-<!--            </el-col>-->
-<!--            <el-col :span="8">-->
-<!--              <el-form-item :error="errornetwork" :label="$t('label.PFANS2003FORMVIEW_NETWORK')" prop="network"-->
-<!--                            v-show="show2">-->
-<!--                <el-input :disabled="!disabled" :error="errornetwork"-->
-<!--                          maxlength='50'-->
-<!--                          style="width:20vw" v-model="form.network"></el-input>-->
-<!--              </el-form-item>-->
-<!--            </el-col>-->
-<!--          </el-row>-->
-<!--            <el-row>-->
-<!--              <el-col :span="8">-->
-<!--                <el-form-item  :label="$t('label.PFANS2002FORMVIEW_OTHER3')"-->
-<!--                               v-show="show3">-->
-<!--                  <el-input :disabled="!disabled"-->
-<!--                            style="width:72vw" v-model="form.other" type="textarea"></el-input>-->
-<!--                </el-form-item>-->
-<!--              </el-col>-->
-<!--            </el-row>-->
+          <!--            <el-col :span="8">-->
+          <!--              <el-form-item :error="error" :label="$t('label.PFANS2003FORMVIEW_MEMBER')" prop="member" v-show="show1">-->
+          <!--                <user :disabled="!disabled" :error="error" :selectType="selectType"-->
+          <!--                      :userlist="userlist"-->
+          <!--                      @getUserids="getUserids"-->
+          <!--                      style="width:20vw"></user>-->
+          <!--              </el-form-item>-->
+          <!--            </el-col>-->
+          <!--            <el-col :span="8">-->
+          <!--              <el-form-item :error="errornetwork" :label="$t('label.PFANS2003FORMVIEW_NETWORK')" prop="network"-->
+          <!--                            v-show="show2">-->
+          <!--                <el-input :disabled="!disabled" :error="errornetwork"-->
+          <!--                          maxlength='50'-->
+          <!--                          style="width:20vw" v-model="form.network"></el-input>-->
+          <!--              </el-form-item>-->
+          <!--            </el-col>-->
+          <!--          </el-row>-->
+          <!--            <el-row>-->
+          <!--              <el-col :span="8">-->
+          <!--                <el-form-item  :label="$t('label.PFANS2002FORMVIEW_OTHER3')"-->
+          <!--                               v-show="show3">-->
+          <!--                  <el-input :disabled="!disabled"-->
+          <!--                            style="width:72vw" v-model="form.other" type="textarea"></el-input>-->
+          <!--                </el-form-item>-->
+          <!--              </el-col>-->
+          <!--            </el-row>-->
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')" prop="contactinformation">
@@ -345,7 +359,7 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2003FORMVIEW_RESULTSHOWS')">
-                <el-input :disabled="!disabled"  style="width:72vw"type="textarea"
+                <el-input :disabled="!disabled" style="width:72vw" type="textarea"
                           v-model="form.resultshows"></el-input>
               </el-form-item>
             </el-col>
@@ -488,19 +502,22 @@
         title: 'title.PFANS2003VIEW',
         buttonList: [],
         multiple: false,
-          arrInt: [],
+        arrInt: [],
         tableData: [
-            {
-                interviewerN: '',
-                interviewer: '',
-                score: 0,
-            },
+          {
+            interviewerN: '',
+            interviewer: '',
+            score: 0,
+          },
         ],
         form: {
+          // add-ws-8/4-禅道任务296
+          recruit_id: '',
+          // add-ws-8/4-禅道任务296
           interviewrecord_id: '',
           name: '',
           sex: '',
-          birthday: "",
+          birthday: '',
           accept_date: '',
           interviewdep: '',
           interview_date: '',
@@ -538,39 +555,39 @@
         show2: false,
         show3: false,
         rules: {
-            // add_fjl_05/25  -- 添加必填项
-            name: [{
-                required: true,
-                message: this.$t('normal.error_08') + this.$t('label.user_name'),
-                trigger: 'blur',
-            }],
-            sex: [{
-                required: true,
-                message: this.$t('normal.error_09') + this.$t('label.sex'),
-                trigger: 'change',
-            }],
-            birthday: [{
-                required: true,
-                message: this.$t("normal.error_08") + this.$t('label.PFANS2002VIEW_BIRTHDAY'),
-                trigger: 'change'
-            }],
-            accept_date: [{
-                required: true,
-                message: this.$t('normal.error_09') + this.$t('label.PFANS2003VIEW_ACCEPTDATE'),
-                trigger: 'change',
-            },
-                {validator: validateaccept_date, trigger: 'change'}],
-            school: [{
-                required: true,
-                message: this.$t("normal.error_08") + this.$t('label.PFANS2003VIEW_SCHOOL'),
-                trigger: 'blur'
-            }],
-            supplement: [{
-                required: true,
-                message: this.$t("normal.error_09") + this.$t('label.PFANS2003FORMVIEW_SUPPLEMENT'),
-                trigger: 'change'
-            }],
-            // add_fjl_05/25  -- 添加必填项
+          // add_fjl_05/25  -- 添加必填项
+          name: [{
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.user_name'),
+            trigger: 'blur',
+          }],
+          sex: [{
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.sex'),
+            trigger: 'change',
+          }],
+          birthday: [{
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.PFANS2002VIEW_BIRTHDAY'),
+            trigger: 'change',
+          }],
+          accept_date: [{
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.PFANS2003VIEW_ACCEPTDATE'),
+            trigger: 'change',
+          },
+            {validator: validateaccept_date, trigger: 'change'}],
+          school: [{
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.PFANS2003VIEW_SCHOOL'),
+            trigger: 'blur',
+          }],
+          supplement: [{
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.PFANS2003FORMVIEW_SUPPLEMENT'),
+            trigger: 'change',
+          }],
+          // add_fjl_05/25  -- 添加必填项
         },
       };
     },
@@ -605,28 +622,31 @@
       }
     },
     mounted() {
+      // add-ws-8/4-禅道任务296
+      this.getrecruit();
+      // add-ws-8/4-禅道任务296
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
           .dispatch('PFANS2003Store/getinterviewrecordOne', {'interviewrecord_id': this.$route.params._id})
           .then(response => {
             this.form = response;
-              // upd_fjl_05/27  --添加面试官手动输入
+            // upd_fjl_05/27  --添加面试官手动输入
 // wxl 4/8  start
-              this.changeOption(this.form, 'view');
-              if(this.form.interview){
-                  this.tableData = [];
-                  for (let a = 0; a < this.form.interview.length; a++) {
-                      var vote = {};
-                      vote.interviewer = this.form.interview[a].interviewer;
-                      vote.interviewerN = getUserInfo(this.form.interview[a].interviewer).userinfo.customername;
-                      vote.score = this.form.interview[a].score;
-                      this.tableData.push(vote)
-                  }
-                  // this.tableData = this.form.interview;
+            this.changeOption(this.form, 'view');
+            if (this.form.interview) {
+              this.tableData = [];
+              for (let a = 0; a < this.form.interview.length; a++) {
+                var vote = {};
+                vote.interviewer = this.form.interview[a].interviewer;
+                vote.interviewerN = getUserInfo(this.form.interview[a].interviewer).userinfo.customername;
+                vote.score = this.form.interview[a].score;
+                this.tableData.push(vote);
               }
+              // this.tableData = this.form.interview;
+            }
 // wxl 4/8  end
-              // upd_fjl_05/27  --添加面试官手动输入
+            // upd_fjl_05/27  --添加面试官手动输入
             this.getsource(this.form.source);
             this.userlist = this.form.member;
             if (this.form.source === 'PR020001') {
@@ -668,119 +688,173 @@
           });
       }
     },
-      //add_fjl_0803
-      watch: {
-          modelresult(newName, oldName) {
-              if (newName === '0') {
-                  this.buttonList[1].disabled = false;
-              } else {
-                  this.buttonList[1].disabled = true;
-              }
-          }
+    //add_fjl_0803
+    watch: {
+      modelresult(newName, oldName) {
+        if (newName === '0') {
+          this.buttonList[1].disabled = false;
+        } else {
+          this.buttonList[1].disabled = true;
+        }
       },
-      //add_fjl_0803
+    },
+    //add_fjl_0803
     methods: {
+      // add-ws-8/4-禅道任务296
+      getrecruitid(val) {
+        this.form.recruit_id = val;
+      },
+      getrecruit() {
+        if (this.disabled) {
+          this.loading = true;
+          this.$store
+            .dispatch('PFANS2001Store/getRecruit')
+            .then(response => {
+              for (let i = 0; i < response.length; i++) {
+                if (response[i].status === '4') {
+                  this.options.push({
+                    value: response[i].recruitid,
+                    lable: response[i].numbers,
+                  });
+                }
+              }
+              this.loading = false;
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
+        } else {
+          this.loading = true;
+          this.$store
+            .dispatch('PFANS2001Store/getRecruit2')
+            .then(response => {
+              for (let i = 0; i < response.length; i++) {
+                this.options.push({
+                  value: response[i].recruitid,
+                  lable: response[i].numbers,
+                });
+              }
+              this.loading = false;
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
+        }
+
+
+      },
+      // add-ws-8/4-禅道任务296
 // wxl 4/8 面试官放到面试记录 start
       changeOption(form, method) {
-            let arr = [
-                'other1',
-                'other2',
-                'resume',
-                'identity',
-                'diploma',
-                'experience',
-                'entry',
-                'report',
-                'ticket',
-                'health',
-            ];
-            if (method === 'save') {
-                for (var i in form) {
-                    if (arr.includes(i)) {
-                        form[i] = form[i] === true ? '0' : '1';
-                    }
-                }
-            } else if (method === 'view') {
-                for (var i in form) {
-                    if (i === 'interview') {
-                        form[i] = JSON.parse(form[i]);
-                    }
-                    if (arr.includes(i)) {
-                        form[i] = form[i] === '0' ? true : false;
-                    }
-                }
+        let arr = [
+          'other1',
+          'other2',
+          'resume',
+          'identity',
+          'diploma',
+          'experience',
+          'entry',
+          'report',
+          'ticket',
+          'health',
+        ];
+        if (method === 'save') {
+          for (var i in form) {
+            if (arr.includes(i)) {
+              form[i] = form[i] === true ? '0' : '1';
             }
-        },
-      getAverage(param) {
-          // this.form.interview = JSON.stringify(this.tableData);
-            const {columns, data} = param;
-            const sums = [];
-            columns.forEach((column, index) => {
-                if (index === 0) {
-                    sums[index] = this.$t('label.PFANS2002FORMVIEW_AVESCORE');
-                    return;
-                }
-                const values = data.map(item => Number(item[column.property]));
-                if (!values.every(value => isNaN(value))) {
-                    sums[index] = values.reduce((prev, curr) => {
-                        const value = Number(curr);
-                        if (!isNaN(value)) {
-                            return prev + curr;
-                        } else {
-                            return prev;
-                        }
-                    }, 0);
-                } else {
-                    sums[index] = '';
-                }
-            });
-            sums[1] = Math.round(sums[1] / param.data.length * 100) / 100;
-            return sums;
-        },
-        // upd_fjl_05/27  --添加面试官手动输入
-        changeInt(row) {
-            row.interviewer = row.interviewerN;
-            if (getUserInfoName(row.interviewerN) !== "-1") {
-                row.interviewer = getUserInfoName(row.interviewerN).userid;
-            } else {
-                Message({
-                    message: this.$t('label.PFANS2003FORMVIEW_INTERVIEWERERROR'),
-                    type: 'error',
-                    duration: 5 * 1000,
-                });
-                return;
-            }
-        },
-        // upd_fjl_05/27  --添加面试官手动输入
-      getInterviewerids(userlist, row) {
-            row.interviewer = userlist;
-          // upd_fjl_05/27  --添加面试官手动输入
-          if (userlist) {
-              row.interviewerN = getUserInfo(userlist).userinfo.customername;
-          } else {
-              row.interviewerN = '';
           }
-          // upd_fjl_05/27  --添加面试官手动输入
-        },
+        } else if (method === 'view') {
+          for (var i in form) {
+            if (i === 'interview') {
+              form[i] = JSON.parse(form[i]);
+            }
+            if (arr.includes(i)) {
+              form[i] = form[i] === '0' ? true : false;
+            }
+          }
+        }
+      },
+      getAverage(param) {
+        // this.form.interview = JSON.stringify(this.tableData);
+        const {columns, data} = param;
+        const sums = [];
+        columns.forEach((column, index) => {
+          if (index === 0) {
+            sums[index] = this.$t('label.PFANS2002FORMVIEW_AVESCORE');
+            return;
+          }
+          const values = data.map(item => Number(item[column.property]));
+          if (!values.every(value => isNaN(value))) {
+            sums[index] = values.reduce((prev, curr) => {
+              const value = Number(curr);
+              if (!isNaN(value)) {
+                return prev + curr;
+              } else {
+                return prev;
+              }
+            }, 0);
+          } else {
+            sums[index] = '';
+          }
+        });
+        sums[1] = Math.round(sums[1] / param.data.length * 100) / 100;
+        return sums;
+      },
+      // upd_fjl_05/27  --添加面试官手动输入
+      changeInt(row) {
+        row.interviewer = row.interviewerN;
+        if (getUserInfoName(row.interviewerN) !== '-1') {
+          row.interviewer = getUserInfoName(row.interviewerN).userid;
+        } else {
+          Message({
+            message: this.$t('label.PFANS2003FORMVIEW_INTERVIEWERERROR'),
+            type: 'error',
+            duration: 5 * 1000,
+          });
+          return;
+        }
+      },
+      // upd_fjl_05/27  --添加面试官手动输入
+      getInterviewerids(userlist, row) {
+        row.interviewer = userlist;
+        // upd_fjl_05/27  --添加面试官手动输入
+        if (userlist) {
+          row.interviewerN = getUserInfo(userlist).userinfo.customername;
+        } else {
+          row.interviewerN = '';
+        }
+        // upd_fjl_05/27  --添加面试官手动输入
+      },
 
       deleteRow(index, rows) {
-            if (rows.length > 1) {
-                rows.splice(index, 1);
-            } else {
-                this.tableData[0].interviewer = '';
-                this.tableData[0].score = 0;
-            }
-        },
+        if (rows.length > 1) {
+          rows.splice(index, 1);
+        } else {
+          this.tableData[0].interviewer = '';
+          this.tableData[0].score = 0;
+        }
+      },
 
       addRow() {
-            this.tableData.push({
-                interviewer: '',
-                score: 0,
-            });
-        },
+        this.tableData.push({
+          interviewer: '',
+          score: 0,
+        });
+      },
 // wxl 4/8 面试官放到面试记录 end
-      setdisabled(val){
-        if(this.$route.params.disabled){
+      setdisabled(val) {
+        if (this.$route.params.disabled) {
           this.disabled = val;
         }
       },
@@ -838,24 +912,24 @@
       //     this.rules.member[0].required = false;
       //   }
       // },
-        getsource(val) {
-          this.form.source = val
-          if (val === 'PR051004') {
-              this.display = true;
-          } else {
-              this.display = false;
-              this.userlist = '',
-              this.form.others = '';
-          }
-          this.form.adoption = val;
-          if (val === 'PR051005') {
-              this.other3_show = true;
-          } else {
-              this.other3_show = false;
-              // this.form.others = '';
-              this.form.other = '';
+      getsource(val) {
+        this.form.source = val;
+        if (val === 'PR051004') {
+          this.display = true;
+        } else {
+          this.display = false;
+          this.userlist = '',
+            this.form.others = '';
+        }
+        this.form.adoption = val;
+        if (val === 'PR051005') {
+          this.other3_show = true;
+        } else {
+          this.other3_show = false;
+          // this.form.others = '';
+          this.form.other = '';
 
-          }
+        }
       },
       changesex(val) {
         this.form.sex = val;
