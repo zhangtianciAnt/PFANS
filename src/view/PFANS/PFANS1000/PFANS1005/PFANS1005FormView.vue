@@ -42,7 +42,8 @@
           </el-row>
           <el-row>
             <el-col :span="8">
-              <el-form-item :error="errorgroup" :label="$t('label.PFANS1004VIEW_GROUPZW')" prop="group_name" v-if="checkgroup">
+              <el-form-item :error="errorgroup" :label="$t('label.PFANS1004VIEW_GROUPZW')" prop="group_name"
+                            v-if="checkgroup">
                 <org :disabled="!disable" :error="errorgroup" :orglist="form.group_name" @getOrgids="getGroupId"
                      orgtype="2" style="width:20vw"></org>
               </el-form-item>
@@ -152,9 +153,10 @@
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import user from '../../../components/user';
   import {Message} from 'element-ui';
-  import {getOrgInfoByUserId, getOrgInfo,getCurrentRole2} from '@/utils/customize';
+  import {getOrgInfoByUserId, getOrgInfo, getCurrentRole2} from '@/utils/customize';
   import moment from 'moment';
   import org from '../../../components/org';
+
   export default {
     name: 'PFANS1005FormView',
     components: {
@@ -165,8 +167,8 @@
     data() {
       var groupId = (rule, value, callback) => {
         if (!this.form.group_name || this.form.group_name === '') {
-          callback(new Error( this.$t('normal.error_08') + this.$t('label.PFANS1004VIEW_GROUPZW')));
-          this.errorgroup =  this.$t('normal.error_08') + this.$t('label.PFANS1004VIEW_GROUPZW');
+          callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS1004VIEW_GROUPZW')));
+          this.errorgroup = this.$t('normal.error_08') + this.$t('label.PFANS1004VIEW_GROUPZW');
         } else {
           this.errorgroup = '';
           callback();
@@ -201,7 +203,7 @@
         loading: false,
         baseInfo: {},
         form: {
-            summoney: '',
+          summoney: '',
           remarks: '',
           center_id: '',
           group_id: '',
@@ -273,9 +275,9 @@
           .then(response => {
             this.form = response.purchaseApply;
             //add-ws-4/23-总务担当可用选择部门带出预算编码
-            if(this.form.group_name!='' && this.form.group_name!=null){
+            if (this.form.group_name != '' && this.form.group_name != null) {
               this.orglist = this.form.group_name;
-              this.getchangeGroup(this.form.group_name)
+              this.getchangeGroup(this.form.group_name);
             }
             //add-ws-4/23-总务担当可用选择部门带出预算编码
             let rst = getOrgInfoByUserId(response.purchaseApply.user_id);
@@ -288,7 +290,7 @@
               this.tableD = response.shoppingDetailed;
             }
             this.userlist = this.form.user_id;
-            if(this.form.group_name=='' || this.form.group_name==null){
+            if (this.form.group_name == '' || this.form.group_name == null) {
               this.getBudt(this.userlist);
             }
 
@@ -327,15 +329,15 @@
     methods: {
       //add-ws-4/23-总务蛋蛋高可用i选择部门带出预算编码
       getGroupId(orglist) {
-        this.getchangeGroup(orglist)
-        this.form.group_name =orglist
+        this.getchangeGroup(orglist);
+        this.form.group_name = orglist;
         if (!this.form.group_name || this.form.group_name === '') {
           this.errorgroup = this.$t('normal.error_08') + this.$t('label.PFANS1004VIEW_GROUPZW');
         } else {
           this.errorgroup = '';
         }
       },
-      getchangeGroup(val){
+      getchangeGroup(val) {
         this.options1 = [];
         if (val) {
           let butinfo = getOrgInfo(val).encoding;
@@ -482,14 +484,25 @@
           employ: '',
         });
       },
+      checkparams() {
+        let id = this.$route.params._checkid;
+        let disable = this.$route.params._checkdisable;
+        this.$router.push({
+          name: 'PFANS1006FormView',
+          params: {
+            disabled: disable,
+            _id: id,
+          },
+        });
+      },
       //add-ws-4/28-精算中，点击决裁，跳转画面
       checkparamsTitle() {
-        let id = this.$route.params._checkid
+        let id = this.$route.params._checkid;
         let disable = this.$route.params._checkdisable;
         this.$router.push({
           name: 'PFANS1012FormView',
           params: {
-            disabled : disable,
+            disabled: disable,
             _id: id,
           },
         });
@@ -506,11 +519,15 @@
       buttonClick(val) {
         if (val === 'back') {
           //add-ws-4/28-精算中，点击决裁，跳转画面
-          if(this.$route.params._check!=null&&this.$route.params._check!=''&&this.$route.params._check!=undefined){
-            if(this.$route.params._check){
+          if (this.$route.params._check != null && this.$route.params._check != '' && this.$route.params._check != undefined) {
+            if (this.$route.params._check) {
               this.checkparamsTitle();
             }
-          }else{
+          } else if (this.$route.params._check2 != null && this.$route.params._check2 != '' && this.$route.params._check2 != undefined) {
+            if (this.$route.params._check2) {
+              this.checkparams();
+            }
+          } else {
             this.paramsTitle();
           }
           //add-ws-4/28-精算中，点击决裁，跳转画面
@@ -558,7 +575,7 @@
               }
               this.optionsdata.remarks = checktableD.substring(0, checktableD.length - 1);
               this.form.remarks = this.optionsdata.remarks;
-                this.form.summoney = amountsum;
+              this.form.summoney = amountsum;
               //add-ws-4/17-摘要字段处理
               this.baseInfo.purchaseApply = JSON.parse(JSON.stringify(this.form));
               let error = 0;
