@@ -518,6 +518,11 @@
         baseInfo: {},
         tableB: [],
         multiple: false,
+        workflowAnt: {
+          menuUrl: '',
+          dataId: ''
+        },
+        workflowAntDate: [],
         form: {
           group_name: '',
           center_id: '',
@@ -736,17 +741,41 @@
           .dispatch('PFANS1004Store/getJudgementOne', {'judgementid': this.$route.params._id})
           .then(response => {
             if (response) {
+              this.userlist = [];
               this.form = response.judgement;
+              let flag = 0;
+              if (this.form.status == '3') {
+                flag = flag + 1;
+              }
+              this.workflowAnt.dataId = response.judgement.judgementid;
+              this.workflowAnt.menuUrl = '/PFANS1004FormView';
+              if (flag != 0) {
+                //除流程通过的部门
+                this.$store
+                  .dispatch('EasyWorkflowStore/ViewWorkflow2', this.workflowAnt).then(response => {
+                  this.workflowAntDate = response.data;
+                  if (this.workflowAntDate.length > 0) {
+                    for (let f = 0; f < this.workflowAntDate.length; f++) {
+                      if (this.workflowAntDate[f].result != '通过' && this.workflowAntDate[f].result != '流程开始') {
+                        this.userlist.push(this.workflowAntDate[f].userId)
+                      }
+                    }
+                  }
+                })
+              }
               if (response.judgementdetail.length > 0) {
                 this.tableA = response.judgementdetail;
                 this.showH = true;
                 this.showM = false;
                 for (let i = 0; i < this.tableA.length; i++) {
                   let letThisprojectM = getDictionaryInfo(this.tableA[i].thisprojectM);
-                  if (this.tableA[i].group_nameM != null && this.tableA[i].group_nameM != '') {
-                    let groupInfo = getOrgInfo(this.tableA[i].group_nameM);
-                    if (groupInfo) {
-                      this.userlist.push(groupInfo.user);
+                  if (flag === 0) {
+                    //全部门
+                    if (this.tableA[i].group_nameM != null && this.tableA[i].group_nameM != '') {
+                      let groupInfo = getOrgInfo(this.tableA[i].group_nameM);
+                      if (groupInfo) {
+                        this.userlist.push(groupInfo.user);
+                      }
                     }
                   }
                   if (letThisprojectM != null) {
