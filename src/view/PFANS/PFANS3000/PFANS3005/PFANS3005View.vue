@@ -228,20 +228,20 @@
                         fix: false,
                         filter: false
                     },
-                    // {
-                    //     code: 'actuarialdate',
-                    //     label: 'label.PFANS3005VIEW_ACTUARIALDATE',
-                    //     width: 150,
-                    //     fix: false,
-                    //     filter: false
-                    // },
-                    // {
-                    //     code: 'actuarialamount',
-                    //     label: 'label.PFANS3005VIEW_ACTUARIALAMOUNT',
-                    //     width: 150,
-                    //     fix: false,
-                    //     filter: false
-                    // },
+                    {
+                        code: 'actuarialdate',
+                        label: 'label.PFANS3005VIEW_ACTUARIALDATE',
+                        width: 150,
+                        fix: false,
+                        filter: false
+                    },
+                    {
+                        code: 'actuarialamount',
+                        label: 'label.PFANS3005VIEW_ACTUARIALAMOUNT',
+                        width: 150,
+                        fix: false,
+                        filter: false
+                    },
 
 
                     // {
