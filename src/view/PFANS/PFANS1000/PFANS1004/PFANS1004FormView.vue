@@ -1052,7 +1052,7 @@
           // 事业计划
           this.form.careerplan = null;
         } else {
-          thi.tableB = [];
+          this.tableB = [];
           this.showM = true;
           this.showH = false;
           // 事业计划
