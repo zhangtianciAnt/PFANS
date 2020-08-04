@@ -873,6 +873,7 @@
                         if (contractapplication[n].contracttype === 'HT008002' || contractapplication[n].contracttype === 'HT008004'
                           || contractapplication[n].contracttype === 'HT008006' || contractapplication[n].contracttype === 'HT008008') {
                           if (contractcompound.length > 0) {
+
                             if (contractnumbercount.length > 0) {
                               for (let j = 0; j < contractnumbercount.length; j++) {
                                 for (let d = 0; d < contractcompound.length; d++) {
