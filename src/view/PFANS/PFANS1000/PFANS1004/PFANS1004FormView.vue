@@ -1161,12 +1161,16 @@
           val.classificationtypeM = null;
           val.businessplanbalanceM = null;
           return true;
+        } else if (!this.disabled) {
+          return true;
         } else {
           return false;
         }
       },
       setClassifica(val, row) {
         if (val.careerplanM == '0' || val.businessplantypeM != 'PR002006') {
+          return true;
+        } else if (!this.disabled) {
           return true;
         } else {
           return false;
