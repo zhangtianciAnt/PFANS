@@ -1,6 +1,7 @@
 <template>
   <div>
     <EasyNormalTable :title="title" :columns="columns" :data="data" :rowid="row" :buttonList="buttonList2"
+                     :showSelection="isShow" ref="roletable5" :selectable="selectInit"
                      @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" v-show="this.showTable===1">
     </EasyNormalTable>
     <!--    ADD-WS-决裁编号添加-->
@@ -422,6 +423,7 @@
           {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
           {'key': 'qxch', 'name': 'button.qxch', 'disabled': true, 'icon': 'el-icon-edit'},
+          {'key': 'temLoanApp', 'name': 'button.temLoanApp', 'disabled': false, 'icon': 'el-icon-plus'},
         ],
         //add-ws-7/7-禅道247
         rowid: '',
@@ -577,6 +579,21 @@
             }
           }
           // ztc 禅道No.61-增加编号（日期加序列号）end
+          // add ccm 0731 fr  境内外出差
+          if (response[j].businesstype == '1' && response[j].objectivetype != null && response[j].objectivetype != '') {
+            let letcity = getDictionaryInfo(response[j].objectivetype);
+            if (letcity != null) {
+              response[j].objectivetype1 = letcity.value1;
+            }
+          } else if (response[j].businesstype == '0' && response[j].objectivetype != null && response[j].objectivetype != '') {
+            let letregion = getDictionaryInfo(response[j].objectivetype);
+            {
+              if (letregion != null) {
+                response[j].objectivetype1 = letregion.value1;
+              }
+            }
+          }
+          // add ccm 0731 to 境内外出差
         }
         return response;
         this.loading = false;
@@ -995,6 +1012,59 @@
                 },
               });
             }
+          }
+          else if (this.$route.params.title === 1 || this.$route.params.title === 2)
+          {
+            if (this.$refs.roletable5.selectedList.length === 0) {
+              Message({
+                message: this.$t('normal.info_01'),
+                type: 'info',
+                duration: 2 * 1000
+              });
+              return;
+            }
+            this.selectedlist = this.$refs.roletable5.selectedList;
+            let optionsSEL = [];
+            let judname = ''
+            for (let i = 0; i < this.selectedlist.length; i++) {
+
+              _judgement += this.selectedlist[i].business_id + ',';
+              _judgement_name += this.selectedlist[i].business_number + ',';
+              _judgements_moneys += this.selectedlist[i].loanmoney + ',';
+              _remarks += this.selectedlist[i].regioncity +' '+ this.selectedlist[i].objectivetype1+ '^';
+              if (this.selectedlist[i].loanapno != null && this.selectedlist[i].loanapno != '' && this.selectedlist[i].loanapno != undefined) {
+                loan += this.selectedlist[i].business_number + ' , ';
+              }
+            }
+            if (loan !== '') {
+              Message({
+                message: loan + ' ' + this.$t('label.PFANS3005VIEW_LOANAPP'),
+                type: 'info',
+                duration: 3 * 1000,
+              });
+              return;
+            }
+            if (this.$route.params.title === 1) {
+              if (this.$i18n) {
+                judname = this.$t('title.PFANS1002VIEW');
+              }
+            } else {
+              if (this.$i18n) {
+                judname = this.$t('title.PFANS1035VIEW');
+              }
+            }
+            this.$router.push({
+              name: 'PFANS1006FormView',
+              params: {
+                _id: '',
+                _judgement: _judgement,
+                _judgement_name: _judgement_name,
+                _judgements_moneys: _judgements_moneys,
+                _remarks: _remarks,
+                _judgements_type: judname,
+                disabled: true,
+              },
+            });
           }
         }
         //add_fjl_0724   添加跳转申请精算与暂借款  end
