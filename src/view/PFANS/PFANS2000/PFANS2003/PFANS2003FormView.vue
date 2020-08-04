@@ -585,13 +585,23 @@
             disabled: false,
             icon: 'el-icon-check',
           },
-            {
-                key: 'createdecision',
-                name: 'button.createdecision',
-                disabled: true,
-                icon: 'el-icon-plus',
-            },
         ];
+          if (this.$route.params._id) {
+              this.buttonList = [
+                  {
+                      key: 'save',
+                      name: 'button.save',
+                      disabled: false,
+                      icon: 'el-icon-check',
+                  },
+                  {
+                      key: 'createdecision',
+                      name: 'button.createdecision',
+                      disabled: true,
+                      icon: 'el-icon-plus',
+                  },
+              ];
+          }
       }
     },
     mounted() {
