@@ -445,7 +445,7 @@ module.exports = {
     PFANS3002VIEW: '来客酒店预订',
     PFANS3003VIEW: '名片申请',
     PFANS3004VIEW: '文具领取申请',
-    PFANS3005VIEW: '购买申请表',
+    PFANS3005VIEW: '采购决裁',
     PFANS3006VIEW: '社用车预约表',
     PFANS3007VIEW: '日本出差公寓预约',
     PFANS4001VIEW: '印章申请',
