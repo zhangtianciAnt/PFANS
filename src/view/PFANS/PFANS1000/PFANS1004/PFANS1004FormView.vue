@@ -1394,7 +1394,7 @@
       //add-ws-4/28-精算中，点击决裁，跳转画面
       //add-ws-5/18-No70-增加决裁调跳转。
       checkparams() {
-        let id = this.$route.params.check_id;
+        let id = this.$route.params._checkid;
         let disable = this.$route.params._checkdisable;
         this.$router.push({
           name: 'PFANS1006FormView',
@@ -1427,6 +1427,10 @@
             }
           } else if (this.$route.params._checkname != null && this.$route.params._checkname != '' && this.$route.params._checkname != undefined) {
             if (this.$route.params._checkname) {
+              this.checkparams();
+            }
+          } else if (this.$route.params._check1 != null && this.$route.params._check1 != '' && this.$route.params._check1 != undefined) {
+            if (this.$route.params._check1) {
               this.checkparams();
             }
           } else {
