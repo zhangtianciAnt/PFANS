@@ -21,6 +21,15 @@
         title: 'title.PFANS2001VIEW',
         data: [],
         columns: [
+          // add-ws-8/4-禅道任务296--
+          {
+            code: 'numbers',
+            label: 'label.PFANS2001VIEW_NUMBERS',
+            width: 110,
+            fix: false,
+            filter: true,
+          },
+          // add-ws-8/4-禅道任务296--
           {
             code: 'center_id',
             label: 'label.center',
@@ -206,7 +215,7 @@
           this.$router.push({
             name: 'PFANS2035View',
             params: {
-              _id: '',
+              _id: this.rowid,
               disabled: true,
             },
           });
