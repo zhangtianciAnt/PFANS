@@ -22,7 +22,7 @@
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.group')">
-                      <org :disabled="checkGroupId"
+                      <org :disabled="checkGro"
                            :orglist="form.groupid"
                            @getOrgids="getGroupId"
                            orgtype="2"
@@ -1511,6 +1511,7 @@
         active2: '2',
         activeName: 'first',
         disablde: true,
+          checkGro: false,
         loading: false,
         disabled: false,
         disablecurr: false,
@@ -1572,7 +1573,6 @@
           annexno: '',
           rowindex: '',
           showrow: true,
-            checkGroupId: false,
           showrow1: false,
           showrow2: false,
           showrow3: false,
@@ -1924,9 +1924,9 @@
               // }
               if (rst) {
                   if (rst.groupId !== null && rst.groupId !== '') {
-                      this.checkGroupId = true;
+                      this.checkGro = true;
                   } else {
-                      this.checkGroupId = false;
+                      this.checkGro = false;
                   }
                   // this.centerid = rst.centerNmae;
                   // this.groupid = rst.groupNmae;
@@ -2430,9 +2430,9 @@
             this.form.teamid = rst.teamId;
               if (rst.groupId !== null && rst.groupId !== '') {
                   this.form.groupid = rst.groupId;
-                  this.checkGroupId = true;
+                  this.checkGro = true;
               } else {
-                  this.checkGroupId = false;
+                  this.checkGro = false;
               }
           }
           this.form.user_id = this.$store.getters.userinfo.userid;
@@ -2505,19 +2505,6 @@
           this.getPayment('PJ004004');
           this.getLoanApplication();
         }
-        //add ccm 存在暂借款，选中暂借款
-          //add_fjl_0803  无group的人可以选择group  start
-          // let userid = this.$store.getters.userinfo.userid;
-          // if (userid !== null && userid !== '') {
-          //     let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-          //     if (lst.groupId !== null && lst.groupId !== '') {
-          //         this.form.groupid = lst.groupId;
-          //         this.checkGroupId = true;
-          //     } else {
-          //         this.checkGroupId = false;
-          //     }
-          // }
-          //add_fjl_0803  无group的人可以选择group  end
       }
     },
     created() {
