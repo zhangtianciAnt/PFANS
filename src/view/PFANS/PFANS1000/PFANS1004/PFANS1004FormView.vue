@@ -1023,6 +1023,7 @@
           // 事业计划
           this.form.careerplan = null;
         } else {
+          thi.tableB = [];
           this.showM = true;
           this.showH = false;
           // 事业计划
@@ -1067,7 +1068,6 @@
         }
       },
       getGroupIdM(orglistM, row) {
-        this.tableB = [];
         if (orglistM == '') {
           row.thisprojectM = '';
         }
@@ -1085,19 +1085,16 @@
             }
           }
         }
-        for (let y = 0; y < this.tableA.length - 1; y++) {
-          this.tableB.push(this.tableA[y].group_nameM);
-        }
-        alert(this.tableB)
         for (let k = 0; k < this.tableB.length; k++) {
           if (this.tableB[k] === row.group_nameM) {
             Message({
               message: this.$t('normal.error_17'),
-              type: 'error',
+              type: 'info',
               duration: 5 * 1000,
             });
           }
         }
+        this.tableB.push(row.group_nameM);
         if (!row.group_nameM || row.group_nameM === '') {
           row.errorgroupM = this.$t('normal.error_08') + this.$t('label.PFANS1004VIEW_GROUP');
         } else {
@@ -1390,7 +1387,6 @@
         let JudgementVo = {};
         JudgementVo.judgement = this.form;
         if (val === 'back') {
-          debugger
           //add-ws-4/28-精算中，点击决裁，跳转画面
           if (this.$route.params._check != null && this.$route.params._check != '' && this.$route.params._check != undefined) {
             if (this.$route.params._check) {
