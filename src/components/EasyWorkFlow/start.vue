@@ -125,12 +125,11 @@
         }).then(() => {
           this.loading = true
           this.$emit('changeLoading', true);
-          debugger
           this.workflowform.dataId = this.$store.getters.operateId
           this.workflowform.menuUrl = this.$store.getters.workflowUrl
           this.workflowform.dataUrl = this.$route.path
           this.workflowform.workFlowId = this.selectId
-          this.workflowform.userlist = this.userlist;
+          this.workflowform.userList = this.userlist;
 
           this.$store
             .dispatch(
@@ -138,7 +137,6 @@
               this.workflowform
             )
             .then(response => {
-              debugger
               if (response && response.code === 0) {
                 this.$message({
                   message: this.$t('normal.success_03'),

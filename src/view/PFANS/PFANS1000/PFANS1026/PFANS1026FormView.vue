@@ -60,7 +60,7 @@
                    style="width: 20vw"
                    :error="errorgroup"
                    @getOrgids="getGroupId"
-                   :disabled="checkGroupId"
+                   :disabled="!disabled2"
               ></org>
             </el-form-item>
             <div class="dialog-footer" align="center">
@@ -674,7 +674,6 @@
                     :header-cell-style="getRowClass1" style="padding-top: 2vw"
                     @selection-change="handleSelectionChange">
             <el-table-column
-              :selectable="selectInit"
               type="selection"
               width="40">
             </el-table-column>
@@ -1259,7 +1258,6 @@
       };
       //ADD_FJL 资金回收状况
       // var validateRecoverystatus = (rule, value, callback) => {
-      //     debugger
       //     if (value === '' && value != null && value != undefined) {
       //         callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1026FORMVIEW_RECOVERYSTATUS')));
       //     } else {
@@ -1267,7 +1265,6 @@
       //     }
       // };
       // var validateRecoverydate = (rule, value, callback) => {
-      //     debugger;
       //     if (value === '' && value != null && value != undefined) {
       //         callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1026FORMVIEW_RECOVERYDATE')));
       //     } else {
@@ -1901,7 +1898,6 @@
       //     this.getPe(countNumber);
       // },
       // submMon(val, rows) {
-      //     debugger;
       //     if(val === true){
       //         let roid = this.$store.getters.userinfo.userid;
       //         let rowid = rows.contractNumber;

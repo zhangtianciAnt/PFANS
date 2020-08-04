@@ -321,7 +321,7 @@
                 name: 'PFANS4001FormView',
                 params: {
                     _id: row.sealid,
-                    disabled: true,
+                    disabled: false,
                 },
             });
         },

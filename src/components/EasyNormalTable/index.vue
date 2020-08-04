@@ -239,7 +239,6 @@
         this.getList()
       },
         getRowKey(row) {
-            debugger;
             return row.id;
         },
         // 表格筛选
@@ -414,7 +413,6 @@
     created(){
       let Content = helpContent().filter(item=> item.id == this.$router.currentRoute.name);
       if(Content.length > 0){
-        debugger
         let text = Content[0].help;
         if(text.indexOf('^') != -1){
           let code = text.substr(text.indexOf('^') + 1,8);

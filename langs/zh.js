@@ -112,6 +112,8 @@ module.exports = {
     release: '关联发放',
     cancelrelease: '取消发放',
     createfree: '生成费用统计',
+    createdecision: '创建招聘决裁',
+    supplementary: '补充决裁',
   },
   table: {
     detail: '一览',
@@ -190,7 +192,8 @@ module.exports = {
     error_pfans50011: '社内员工的进组或退出时间不能为空',
     error_tipis:'之前作成的书类要被替换,是否继续？',
     info_14: '生成当前事业年度所有员工的人才育成计划数据,是否继续？',
-    error_16: '您选择的资产中有已报废的资产！'
+    error_16: '您选择的资产中有已报废的资产！',
+    error_17: '您选择的部门重复！',
   },
   menu: {
     homePageManagement: '首页',

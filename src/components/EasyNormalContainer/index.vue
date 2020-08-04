@@ -160,7 +160,15 @@
             this.$emit('disabled', true);
           }
         }
-      }
+      },
+      getFileToken() {
+        this.$store
+          .dispatch('dictionaryStore/getFileToken', {})
+          .then(response => {
+            this.$store.commit("global/SET_FILETOKEN", response.data);
+            console.log(response.data)
+          })
+      },
     },
     mounted() {
       if (this.noback) {
@@ -183,11 +191,11 @@
         // }
 
       }
+      this.getFileToken();
     },
     created() {
       let Content = helpContent().filter(item => item.id == this.$router.currentRoute.name);
       if (Content.length > 0) {
-        debugger;
         let text = Content[0].help;
         if (text.indexOf('^') != -1) {
           let code = text.substr(text.indexOf('^') + 1, 8);

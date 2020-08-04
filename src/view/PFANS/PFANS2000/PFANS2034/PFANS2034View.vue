@@ -709,7 +709,6 @@
 
       },
       getSummaries(param) {
-          debugger;
           const { columns, data } = param;
           const sums = [];
           columns.forEach((column, index) => {
@@ -719,12 +718,9 @@
               }
               const values = data.map(item => Number(item[column.property]));
               if (!values.every(value => isNaN(value))) {
-                  //debugger;
                   sums[index] = values.reduce((prev, curr) => {
-                      debugger;
                       console.log(prev + "--" + curr)
                       const value = Number(curr);
-                      debugger;
                       if (!isNaN(value)) {
                           console.log(prev + "--" + curr)
                           return this.setScale2(parseFloat(prev) - parseFloat(curr));

@@ -687,7 +687,6 @@
         this.$store
           .dispatch('PFANS1025Store/selectById', {'award_id': this.$route.params._id})
           .then(response => {
-            debugger
               if (response.award != null) {
                   this.form = response.award;
                   if (this.form.status === '4' || this.form.status === '2') {

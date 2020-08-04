@@ -130,7 +130,6 @@
                   workflows = response.data.list;
                 }
                 this.workflowlist = workflows;
-                debugger
                 console.log(this.$store.getters.operateOwner)
                 console.log(this.$store.getters.userinfo.userid)
                 if (response.data.can === "0") {
@@ -302,7 +301,6 @@
       },
       // 发起审批
       addworkflow() {
-        debugger
         if(this.defaultStart){
           this.startWorkflow()
         }else{

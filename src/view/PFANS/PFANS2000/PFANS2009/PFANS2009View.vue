@@ -1,20 +1,20 @@
 <template>
   <EasyNormalContainer
-    :buttonList="buttonList"
     ref="container"
+    :noback="true"
     v-loading="loading">
     <div slot="customize">
-      <EasyNormalTable :columns="columns" :data="dataestimate" :title="titlewagesestimate"
+      <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="dataestimate" :title="titlewagesestimate"
                        v-loading="loading">
       </EasyNormalTable>
     </div>
     <div slot="customize">
-      <EasyNormalTable :columns="columns" :data="dataactual" :title="titlewagesactual"
+      <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="dataactual" :title="titlewagesactual"
                        v-loading="loading">
       </EasyNormalTable>
     </div>
     <div slot="customize">
-      <EasyNormalTable :columns="columns" :data="datadiff" :title="titlewagesdiff"
+      <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="datadiff" :title="titlewagesdiff"
                        v-loading="loading">
       </EasyNormalTable>
     </div>
@@ -169,9 +169,7 @@
             filter: true,
           },
         ],
-        buttonList: [
-          // {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
-        ],
+        buttonList: [],
       };
     },
     mounted() {
@@ -207,45 +205,47 @@
       },
       getresponse(response) {
           let letlength = response.length;
-          //去年同期工资
-          let letyear = moment(new Date(response[letlength - 1].createonym).setFullYear(new Date(response[letlength - 1].createonym).getFullYear() - 1)).format("YYYY-MM");
-          //上个月工资
-          let letmonth = moment(new Date(response[letlength - 1].createonym).setMonth(new Date(response[letlength - 1].createonym).getMonth() - 1)).format("YYYY-MM");
-          for (let i = 0; i < letlength; i++) {
-              if(moment(response[i].createonym).format('YYYY-MM') === letmonth
-                  || moment(response[i].createonym).format('YYYY-MM') === letyear){
-                  let letcreateon;
-                  if (this.$i18n) {
-                      if(moment(response[i].createonym).format('YYYY-MM') === letmonth){
-                          letcreateon = this.$t("label.PFANS2009VIEW_DIFFMONTH");
+          if(letlength > 0){
+              //去年同期工资
+              let letyear = moment(new Date(response[letlength - 1].createonym).setFullYear(new Date(response[letlength - 1].createonym).getFullYear() - 1)).format("YYYY-MM");
+              //上个月工资
+              let letmonth = moment(new Date(response[letlength - 1].createonym).setMonth(new Date(response[letlength - 1].createonym).getMonth() - 1)).format("YYYY-MM");
+              for (let i = 0; i < letlength; i++) {
+                  if(moment(response[i].createonym).format('YYYY-MM') === letmonth
+                      || moment(response[i].createonym).format('YYYY-MM') === letyear){
+                      let letcreateon;
+                      if (this.$i18n) {
+                          if(moment(response[i].createonym).format('YYYY-MM') === letmonth){
+                              letcreateon = this.$t("label.PFANS2009VIEW_DIFFMONTH");
+                          }
+                          else{
+                              letcreateon = this.$t("label.PFANS2009VIEW_DIFFYEAR");
+                          }
                       }
-                      else{
-                          letcreateon = this.$t("label.PFANS2009VIEW_DIFFYEAR");
-                      }
+                      response[i].createonym = moment(response[i].createonym).format('YYYY-MM').replace('-',this.$t("label.year")) + this.$t("label.day")
+                      response.push({
+                          createonym:letcreateon,
+                          totalwages: response[letlength - 1].totalwages === '-' ? '-' : Math.round((response[letlength - 1].totalwages - response[i].totalwages) * 100) / 100,
+                          taxestotal: response[letlength - 1].taxestotal === '-' ? '-' : Math.round((response[letlength - 1].taxestotal - response[i].taxestotal) * 100) / 100,
+                          total3: response[letlength - 1].total3 === '-' ? '-' : Math.round((response[letlength - 1].total3 - response[i].total3) * 100) / 100,
+                          socialinsurance: response[letlength - 1].socialinsurance === '-' ? '-' : Math.round((response[letlength - 1].socialinsurance - response[i].socialinsurance) * 100) / 100,
+                          comaccumulationfund: response[letlength - 1].comaccumulationfund === '-' ? '-' : Math.round((response[letlength - 1].comaccumulationfund - response[i].comaccumulationfund) * 100) / 100,
+                          bonusmoney: response[letlength - 1].bonusmoney === '-' ? '-' : Math.round((response[letlength - 1].bonusmoney - response[i].bonusmoney) * 100) / 100,
+                          appreciation: response[letlength - 1].appreciation === '-' ? '-' : Math.round((response[letlength - 1].appreciation - response[i].appreciation) * 100) / 100,
+                          labourunionfunds: response[letlength - 1].labourunionfunds === '-' ? '-' : Math.round((response[letlength - 1].labourunionfunds - response[i].labourunionfunds) * 100) / 100,
+                          other4: response[letlength - 1].other4 === '-' ? '-' : Math.round((response[letlength - 1].other4 - response[i].other4) * 100) / 100,
+                          other5: response[letlength - 1].other5 === '-' ? '-' : Math.round((response[letlength - 1].other5 - response[i].other5) * 100) / 100,
+                          total: response[letlength - 1].total === '-' ? '-' : Math.round((response[letlength - 1].total - response[i].total) * 100) / 100,
+                          overtimesubsidy: response[letlength - 1].overtimesubsidy === '-' ? '-' : Math.round((response[letlength - 1].overtimesubsidy - response[i].overtimesubsidy) * 100) / 100,
+                          thismonthadjustment: response[letlength - 1].thismonthadjustment === '-' ? '-' : Math.round((response[letlength - 1].thismonthadjustment - response[i].thismonthadjustment) * 100) / 100,
+                          realwages: response[letlength - 1].realwages === '-' ? '-' : Math.round((response[letlength - 1].realwages - response[i].realwages) * 100) / 100,
+                          shouldcumulative: response[letlength - 1].shouldcumulative === '-' ? '-' : Math.round((response[letlength - 1].shouldcumulative - response[i].shouldcumulative) * 100) / 100,
+                          other6: response[letlength - 1].other6 === '-' ? '-' : Math.round((response[letlength - 1].other6 - response[i].other6) * 100) / 100,
+                      });
                   }
-                  response[i].createonym = moment(response[i].createonym).format('YYYY-MM').replace('-',this.$t("label.year")) + this.$t("label.day")
-                  response.push({
-                      createonym:letcreateon,
-                      totalwages: response[letlength - 1].totalwages === '-' ? '-' : Math.round((response[letlength - 1].totalwages - response[i].totalwages) * 100) / 100,
-                      taxestotal: response[letlength - 1].taxestotal === '-' ? '-' : Math.round((response[letlength - 1].taxestotal - response[i].taxestotal) * 100) / 100,
-                      total3: response[letlength - 1].total3 === '-' ? '-' : Math.round((response[letlength - 1].total3 - response[i].total3) * 100) / 100,
-                      socialinsurance: response[letlength - 1].socialinsurance === '-' ? '-' : Math.round((response[letlength - 1].socialinsurance - response[i].socialinsurance) * 100) / 100,
-                      comaccumulationfund: response[letlength - 1].comaccumulationfund === '-' ? '-' : Math.round((response[letlength - 1].comaccumulationfund - response[i].comaccumulationfund) * 100) / 100,
-                      bonusmoney: response[letlength - 1].bonusmoney === '-' ? '-' : Math.round((response[letlength - 1].bonusmoney - response[i].bonusmoney) * 100) / 100,
-                      appreciation: response[letlength - 1].appreciation === '-' ? '-' : Math.round((response[letlength - 1].appreciation - response[i].appreciation) * 100) / 100,
-                      labourunionfunds: response[letlength - 1].labourunionfunds === '-' ? '-' : Math.round((response[letlength - 1].labourunionfunds - response[i].labourunionfunds) * 100) / 100,
-                      other4: response[letlength - 1].other4 === '-' ? '-' : Math.round((response[letlength - 1].other4 - response[i].other4) * 100) / 100,
-                      other5: response[letlength - 1].other5 === '-' ? '-' : Math.round((response[letlength - 1].other5 - response[i].other5) * 100) / 100,
-                      total: response[letlength - 1].total === '-' ? '-' : Math.round((response[letlength - 1].total - response[i].total) * 100) / 100,
-                      overtimesubsidy: response[letlength - 1].overtimesubsidy === '-' ? '-' : Math.round((response[letlength - 1].overtimesubsidy - response[i].overtimesubsidy) * 100) / 100,
-                      thismonthadjustment: response[letlength - 1].thismonthadjustment === '-' ? '-' : Math.round((response[letlength - 1].thismonthadjustment - response[i].thismonthadjustment) * 100) / 100,
-                      realwages: response[letlength - 1].realwages === '-' ? '-' : Math.round((response[letlength - 1].realwages - response[i].realwages) * 100) / 100,
-                      shouldcumulative: response[letlength - 1].shouldcumulative === '-' ? '-' : Math.round((response[letlength - 1].shouldcumulative - response[i].shouldcumulative) * 100) / 100,
-                      other6: response[letlength - 1].other6 === '-' ? '-' : Math.round((response[letlength - 1].other6 - response[i].other6) * 100) / 100,
-                  });
-              }
-              else{
-                  response[i].createonym = moment(response[i].createonym).format('YYYY-MM').replace('-',this.$t("label.year")) + this.$t("label.day")
+                  else{
+                      response[i].createonym = moment(response[i].createonym).format('YYYY-MM').replace('-',this.$t("label.year")) + this.$t("label.day")
+                  }
               }
           }
           return response;
