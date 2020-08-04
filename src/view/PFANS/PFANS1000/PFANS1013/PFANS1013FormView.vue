@@ -39,8 +39,12 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.center')">
-                      <el-input :disabled="true" style="width:20vw" v-model="centername"></el-input>
-                      <el-input v-show="false" style="width:20vw" v-model="form.centerid">222</el-input>
+                      <org :disabled="true"
+                           :orglist="form.centerid"
+                           @getOrgids="getCenterid"
+                           orgtype="1"
+                           style="width: 20vw"
+                      ></org>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -55,8 +59,12 @@
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.team')">
-                      <el-input :disabled="true" style="width:20vw" v-model="teamname"></el-input>
-                      <el-input v-show="false" style="width:20vw" v-model="form.teamid">222</el-input>
+                      <org :disabled="true"
+                           :orglist="form.teamid"
+                           @getOrgids="getTeamid"
+                           orgtype="3"
+                           style="width: 20vw"
+                      ></org>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -1471,9 +1479,14 @@
           .then(response => {
             let lst = getOrgInfoByUserId(response.evection.userid);
             if (lst) {
-              this.centername = lst.centerNmae;
-              this.groupname = lst.groupNmae;
-              this.teamname = lst.teamNmae;
+                if (lst.groupId !== null && lst.groupId !== '') {
+                    this.checkGroupId = true;
+                } else {
+                    this.checkGroupId = false;
+                }
+                // this.centername = lst.centerNmae;
+                // this.groupname = lst.groupNmae;
+                // this.teamname = lst.teamNmae;
             }
             this.form = response.evection;
             //add-ws-6/17-禅道101
@@ -1801,6 +1814,12 @@
             this.form.centerid = lst.centerId;
               // this.form.groupid = lst.groupId;
             this.form.teamid = lst.teamId;
+              if (lst.groupId !== null && lst.groupId !== '') {
+                  this.form.groupid = lst.groupId;
+                  this.checkGroupId = true;
+              } else {
+                  this.checkGroupId = false;
+              }
           }
           this.form.userid = this.$store.getters.userinfo.userid;
         }
@@ -1870,18 +1889,6 @@
           this.accflg = accountinf0.value2;
         }
         // add_fjl --获取住宿费的科目代码
-          //add_fjl_0803  无group的人可以选择group  start
-          let userid = this.$store.getters.userinfo.userid;
-          if (userid !== null && userid !== '') {
-              let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-              if (lst.groupId !== null && lst.groupId !== '') {
-                  this.form.groupid = lst.groupId;
-                  this.checkGroupId = true;
-              } else {
-                  this.checkGroupId = false;
-              }
-          }
-          //add_fjl_0803  无group的人可以选择group  end
       }
     },
     created() {
@@ -1898,8 +1905,14 @@
       }
     },
     methods: {
+        getCenterid(val) {
+            this.form.centerid = val;
+        },
         getGroupId(val) {
             this.form.groupid = val;
+        },
+        getTeamid(val) {
+            this.form.teamid = val;
         },
       //add_ws_0724  禅道154任务
       clickBun() {

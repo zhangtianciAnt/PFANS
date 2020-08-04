@@ -12,8 +12,12 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.center')">
-                      <el-input :disabled="true" style="width:20vw" v-model="centerid"></el-input>
-                      <el-input v-show='false' :disabled="true" style="width:20vw" v-model="form.centerid"></el-input>
+                      <org :disabled="true"
+                           :orglist="form.centerid"
+                           @getOrgids="getCenterid"
+                           orgtype="1"
+                           style="width: 20vw"
+                      ></org>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -28,8 +32,12 @@
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.team')">
-                      <el-input :disabled="true" style="width:20vw" v-model="teamid"></el-input>
-                      <el-input v-show='false' :disabled="true" style="width:20vw" v-model="form.teamid"></el-input>
+                      <org :disabled="true"
+                           :orglist="form.teamid"
+                           @getOrgids="getTeamid"
+                           orgtype="3"
+                           style="width: 20vw"
+                      ></org>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -1822,8 +1830,6 @@
           .then(response => {
             if (response.publicexpense!=null)
             {
-
-
               this.form = response.publicexpense;
             if (this.form.uploadfile != '' && this.form.uploadfile != null) {
                   let uploadfile = this.form.uploadfile.split(';');
@@ -1917,9 +1923,14 @@
               //   // moduleid
               // }
               if (rst) {
-                this.centerid = rst.centerNmae;
-                this.groupid = rst.groupNmae;
-                this.teamid = rst.teamNmae;
+                  if (rst.groupId !== null && rst.groupId !== '') {
+                      this.checkGroupId = true;
+                  } else {
+                      this.checkGroupId = false;
+                  }
+                  // this.centerid = rst.centerNmae;
+                  // this.groupid = rst.groupNmae;
+                  // this.teamid = rst.teamNmae;
               }
               if (response.invoice.length > 0) {
                 this.tableF = response.invoice;
@@ -2417,6 +2428,12 @@
             this.form.centerid = rst.centerId;
               // this.form.groupid = rst.groupId;
             this.form.teamid = rst.teamId;
+              if (rst.groupId !== null && rst.groupId !== '') {
+                  this.form.groupid = rst.groupId;
+                  this.checkGroupId = true;
+              } else {
+                  this.checkGroupId = false;
+              }
           }
           this.form.user_id = this.$store.getters.userinfo.userid;
           this.form.user_name = this.$store.getters.userinfo.userid;
@@ -2490,16 +2507,16 @@
         }
         //add ccm 存在暂借款，选中暂借款
           //add_fjl_0803  无group的人可以选择group  start
-          let userid = this.$store.getters.userinfo.userid;
-          if (userid !== null && userid !== '') {
-              let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-              if (lst.groupId !== null && lst.groupId !== '') {
-                  this.form.groupid = lst.groupId;
-                  this.checkGroupId = true;
-              } else {
-                  this.checkGroupId = false;
-              }
-          }
+          // let userid = this.$store.getters.userinfo.userid;
+          // if (userid !== null && userid !== '') {
+          //     let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+          //     if (lst.groupId !== null && lst.groupId !== '') {
+          //         this.form.groupid = lst.groupId;
+          //         this.checkGroupId = true;
+          //     } else {
+          //         this.checkGroupId = false;
+          //     }
+          // }
           //add_fjl_0803  无group的人可以选择group  end
       }
     },
@@ -2532,8 +2549,14 @@
       },
     },
     methods: {
+        getCenterid(val) {
+            this.form.centerid = val;
+        },
         getGroupId(val) {
             this.form.groupid = val;
+        },
+        getTeamid(val) {
+            this.form.teamid = val;
         },
       fileError(err, file, fileList) {
         Message({

@@ -182,7 +182,7 @@
               response[j].teamname = nameflg.teamNmae;
             }
               if (response[j].groupid !== null && response[j].groupid !== '' && response[j].groupid !== undefined) {
-                  response[j].group_name = getDepartmentById(response[j].groupid);
+                  response[j].groupname = getDepartmentById(response[j].groupid);
               }
             // response[j].centername = response[j].centerid;
             // response[j].groupname = response[j].groupid;
