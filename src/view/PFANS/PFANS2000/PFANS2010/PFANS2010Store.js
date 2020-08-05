@@ -7,7 +7,8 @@ import {
   updStatus1,
   getAttendancelistCompared,
   disclickUpdateStates,
-  selectAbnomalandOvertime
+  selectAbnomalandOvertime,
+  selectAbnomaling
 } from './PFANS2010Api'
 
 const PFANS2010Store = {
@@ -153,8 +154,24 @@ const PFANS2010Store = {
           reject(error);
         })
       })
-    }
+    },
     //add ccm 2020729 考勤异常加班审批中的日期，考勤不允许承认
+
+    //add ccm 0804 查询欠勤是否已经全部申请
+    selectAbnomaling({ commit }, data) {
+      return new Promise((resolve, reject) => {
+        selectAbnomaling(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    }
+    //add ccm 0804 查询欠勤是否已经全部申请
   }
 }
 

@@ -37,6 +37,31 @@
                        :prop="item.code"
                        align="left" show-overflow-tooltip sortable="custom"
                        v-else/>
+
+      <!--        add ccm 考勤管理详细画面专用-->
+      <el-table-column :label="$t('label.operation')" text-align="left" v-if="handleShow" width="173vw">
+        <template slot-scope="scope">
+          <el-button
+            @click="handleEdit(scope.$index, scope.row)"
+            plain
+            :disabled="!(scope.row.absenteeism != '' && scope.row.absenteeism !=null && scope.row.EnoughTime == false)"
+            v-if="scope.row.xiuributtonshow"
+            size="mini"
+            type="primary"
+          >{{$t('button.abnormaling')}}
+          </el-button>
+          <el-button
+            @click="handleView(scope.$index, scope.row)"
+            plain
+            :disabled="true"
+            v-if="scope.row.xiuributtonshow"
+            size="mini"
+            type="primary"
+          >{{$t('button.view')}}
+          </el-button>
+        </template>
+      </el-table-column>
+      <!--        add_fjl_考勤管理详细画面专用-->
     </el-table>
     <div class="pagination-container" style="padding-top: 20px">
       <el-pagination :current-page.sync="listQuery.page" :page-size="listQuery.limit"
@@ -91,6 +116,11 @@
         default: function () {
           return []
         }
+      },
+      // 操作按钮
+      handleShow: {
+        type: Boolean,
+        default: false
       },
       // 列属性
       columns: {
@@ -168,6 +198,12 @@
       }
     },
     methods: {
+      handleEdit(index, row) {
+        this.$emit('handleEdit', row);
+      },
+      handleView(index, row) {
+        this.$emit('handleView', row);
+      },
       rowheight({row, column, rowIndex, columnIndex}) {
         let val = row[column.columnKey];
         return 'row_height_left';
