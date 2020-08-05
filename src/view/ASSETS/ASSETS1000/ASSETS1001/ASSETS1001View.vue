@@ -863,7 +863,7 @@
             // 报废
             if (error_BF != 0) {
               Message({
-                message: this.$t("normal.error_16"),
+                message: this.$t("normal.error_18"),
                 type: 'info',
                 duration: 2 * 1000
               });
