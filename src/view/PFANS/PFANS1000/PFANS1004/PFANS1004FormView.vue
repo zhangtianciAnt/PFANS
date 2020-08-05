@@ -49,13 +49,13 @@
             </el-col>
           </el-row>
           <el-row>
-            <el-col :span="8">
-              <el-form-item :error="errorgroup" :label="$t('label.PFANS1004VIEW_GROUPZW')" prop="group_name"
-                            v-if="checkgroup">
-                <org :disabled="!disabled" :error="errorgroup" :orglist="form.group_name" @getOrgids="getGroupId"
-                     orgtype="2" style="width:20vw"></org>
-              </el-form-item>
-            </el-col>
+            <!--<el-col :span="8">-->
+            <!--<el-form-item :error="errorgroup" :label="$t('label.PFANS1004VIEW_GROUPZW')" prop="group_name"-->
+            <!--v-if="checkgroup">-->
+            <!--<org :disabled="!disabled" :error="errorgroup" :orglist="form.group_name" @getOrgids="getGroupId"-->
+            <!--orgtype="2" style="width:20vw"></org>-->
+            <!--</el-form-item>-->
+            <!--</el-col>-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1012FORMVIEW_BUDGET')" label-width="7rem" prop="thisproject"
                             v-if="showM">
@@ -510,6 +510,7 @@
         teamid: '',
         userlistA: '',
         userlist: [],
+        userlistAnt: [],
         loading: false,
         error: '',
         selectType: 'Single',
@@ -741,41 +742,19 @@
           .dispatch('PFANS1004Store/getJudgementOne', {'judgementid': this.$route.params._id})
           .then(response => {
             if (response) {
-              this.userlist = [];
               this.form = response.judgement;
-              let flag = 0;
-              if (this.form.status == '3') {
-                flag = flag + 1;
-              }
-              this.workflowAnt.dataId = response.judgement.judgementid;
-              this.workflowAnt.menuUrl = '/PFANS1004FormView';
-              if (flag != 0) {
-                //除流程通过的部门
-                this.$store
-                  .dispatch('EasyWorkflowStore/ViewWorkflow2', this.workflowAnt).then(response => {
-                  this.workflowAntDate = response.data;
-                  if (this.workflowAntDate.length > 0) {
-                    for (let f = 0; f < this.workflowAntDate.length; f++) {
-                      if (this.workflowAntDate[f].result != '通过' && this.workflowAntDate[f].result != '流程开始') {
-                        this.userlist.push(this.workflowAntDate[f].userId)
-                      }
-                    }
-                  }
-                })
-              }
               if (response.judgementdetail.length > 0) {
                 this.tableA = response.judgementdetail;
                 this.showH = true;
                 this.showM = false;
+
                 for (let i = 0; i < this.tableA.length; i++) {
                   let letThisprojectM = getDictionaryInfo(this.tableA[i].thisprojectM);
-                  if (flag === 0) {
-                    //全部门
-                    if (this.tableA[i].group_nameM != null && this.tableA[i].group_nameM != '') {
-                      let groupInfo = getOrgInfo(this.tableA[i].group_nameM);
-                      if (groupInfo) {
-                        this.userlist.push(groupInfo.user);
-                      }
+                  //全部门
+                  if (this.tableA[i].group_nameM != null && this.tableA[i].group_nameM != '') {
+                    let groupInfo = getOrgInfo(this.tableA[i].group_nameM);
+                    if (groupInfo) {
+                      this.userlist.push(groupInfo.user);
                     }
                   }
                   if (letThisprojectM != null) {
@@ -799,6 +778,28 @@
                     //ADD_FJL  修改人员预算编码
                   }
                 }
+                this.workflowAnt.dataId = response.judgement.judgementid;
+                this.workflowAnt.menuUrl = '/PFANS1004FormView';
+                this.$store
+                  .dispatch('EasyWorkflowStore/ViewWorkflow2', this.workflowAnt).then(response => {
+                  this.workflowAntDate = response.data;
+                  if (this.workflowAntDate.length > 0) {
+                    for (let f = 0; f < this.workflowAntDate.length; f++) {
+                      if (this.workflowAntDate[f].result == '通过' && !this.userlistAnt.includes(this.workflowAntDate[f].userId)) {
+                        this.userlistAnt.push(this.workflowAntDate[f].userId)
+                      }
+                    }
+                    if (this.userlistAnt.length > 0) {
+                      for (let h = 0; h < this.userlistAnt.length; h++) {
+                        for (let v = 0; v < this.userlist.length; v++) {
+                          if (this.userlist[v] === this.userlistAnt[h]) {
+                            this.userlist.splice(v, 1);
+                          }
+                        }
+                      }
+                    }
+                  }
+                })
               }
               //add-ws-4/23-总务担当可用选择部门带出预算编码
               if (this.form.group_name != '' && this.form.group_name != null) {
@@ -1117,7 +1118,7 @@
         for (let k = 0; k < this.tableB.length; k++) {
           if (this.tableB[k] === row.group_nameM) {
             Message({
-              message: this.$t('normal.error_17'),
+              message: this.$t('normal.error_19'),
               type: 'info',
               duration: 5 * 1000,
             });

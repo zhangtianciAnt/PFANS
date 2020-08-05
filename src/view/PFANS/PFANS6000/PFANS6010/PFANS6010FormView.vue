@@ -65,7 +65,7 @@
                 <template slot-scope="scope">
                   <el-button
                     :disabled="disable"
-                    @click="createprobook()"
+                    @click="createprobook(scope.row)"
                     plain
                     size="small"
                     type="primary"
@@ -172,8 +172,20 @@
             }
         },
         methods: {
-            createprobook() {
-
+            //生成个别合同
+            createprobook(row) {
+                this.$store.commit('global/SET_HISTORYURL', this.$route.path);
+                if (val === 'view') {
+                    this.$router.push({
+                        name: 'PFANS1024FormView',
+                        params: {
+                            _checkindivdual: "1",
+                            supplierinfor_id:row.bpcompany,
+                            dates:this.letparams.dates,
+                            projectname:"测试项目",
+                        }
+                    })
+                }
             },
             getSummaries(param) {
                 const {columns, data} = param;
