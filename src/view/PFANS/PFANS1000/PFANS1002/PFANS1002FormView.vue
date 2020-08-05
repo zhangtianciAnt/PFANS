@@ -461,6 +461,14 @@
                       </el-input-number>
                     </el-form-item>
                   </el-col>
+                  <el-col :span="8">
+                    <template>
+                      <el-form-item :label="$t('label.PFANS1012VIEW_TEMPORARYLOAN')" prop="loanapno">
+                        <el-input :disabled="true" maxlength="20" style="width: 20vw"
+                                  v-model="form.loanapno"></el-input>
+                      </el-form-item>
+                    </template>
+                  </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
@@ -930,6 +938,7 @@
           otherexplanation: '',
 
           status: '',
+          loanapno:'',
         },
         buttonList: [
           {
