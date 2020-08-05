@@ -8,6 +8,8 @@
       @end="end" @start="start" @workflowState="workflowState"
       ref="container"
       v-loading="loading"
+      @disabled="setdisabled"
+      :workflowCode="workflowCode"
     >
       <div slot="customize">
         <el-form :model="form" label-position="top" label-width="8vw" ref="reff" :rules="rules"
@@ -303,6 +305,7 @@
     },
     data() {
       return {
+        workflowCode: 'W0095',
         checkcycle: 0,
         show10: true,
         canStart: true,
@@ -397,6 +400,7 @@
           .dispatch('PFANS1006Store/getpolicycontractOne', {'policycontract_id': this.$route.params._id})
           .then(response => {
             this.form = response.policycontract;
+
             if (response.policycontractdetails.length > 0) {
               this.tableF = response.policycontractdetails;
             }
@@ -423,7 +427,6 @@
       }
     },
     created() {
-      this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1011FormView');
       this.IDname = this.$route.params._id;
       this.disable = this.$route.params.disabled;
     },
@@ -445,6 +448,11 @@
       },
       getamountcase(val) {
         this.form.modifiedamount = val;
+      },
+      setdisabled(val) {
+        if (this.$route.params.disabled) {
+          this.disable = val;
+        }
       },
       getaward() {
         this.DataList = [];
