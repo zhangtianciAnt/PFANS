@@ -112,24 +112,26 @@
             this.$store
                 .dispatch('PFANS6008Store/getcostMonth', this.letparams)
                 .then(response => {
-                    this.coststatistics = response;
-                    for (let i = 0; i < response.length; i++) {
-                        let supplierInfor = getSupplierinfor(response[i].bpcompany);
-                        if (supplierInfor) {
-                            response[i].suppliername = supplierInfor.supchinese;
+                    if(response.length > 0){
+                        this.coststatistics = response;
+                        for (let i = 0; i < response.length; i++) {
+                            let supplierInfor = getSupplierinfor(response[i].bpcompany);
+                            if (supplierInfor) {
+                                response[i].suppliername = supplierInfor.supchinese;
+                            }
                         }
-                    }
-                    let groupidlist = response[0].strgroupid.substring(0,response[0].strgroupid.length - 1)
-                    let groupnamelist = [];
-                    groupnamelist = groupidlist.split(",");
-                    for (let j = 0; j < groupnamelist.length; j++) {
-                        let group = getorgGroupList(groupnamelist[j]);
-                        if (group) {
-                            this.groupnamelist.push(group.groupname);
+                        let groupidlist = response[0].strgroupid.substring(0,response[0].strgroupid.length - 1)
+                        let groupnamelist = [];
+                        groupnamelist = groupidlist.split(",");
+                        for (let j = 0; j < groupnamelist.length; j++) {
+                            let group = getorgGroupList(groupnamelist[j]);
+                            if (group) {
+                                this.groupnamelist.push(group.groupname);
+                            }
                         }
+                        let a = this.groupnamelist;
+                        this.tableData = response;
                     }
-                    let a = this.groupnamelist;
-                    this.tableData = response;
                     this.loading = false;
                 })
                 .catch(error => {
@@ -163,12 +165,6 @@
             }
             if(this.$route.params.letparams != undefined){
                 this.letstatus = this.$route.params.letstatus;
-                if(this.letstatus === '0'){
-                    //自己部门才可以发起审批
-                    if(this.$store.getters.userinfo.userinfo.groupid === this.$route.params._id.split(",")[0]){
-                        this.$store.commit('global/SET_OPERATEOWNER', this.$store.getters.userinfo.userid);
-                    }
-                }
             }
         },
         methods: {
@@ -183,6 +179,8 @@
                             supplierinfor_id:row.bpcompany,
                             dates:this.letparams.dates,
                             projectname:"测试项目",
+                            disabled: true,
+                            _id: '',
                         }
                     })
                 }
@@ -213,32 +211,39 @@
                 return sums;
             },
             buttonClick(val) {
-                this.$refs['refform'].validate(valid => {
-                    if (valid) {
 
-                    } else {
-                        Message({
-                            message: this.$t("normal.error_12"),
-                            type: 'error',
-                            duration: 5 * 1000
-                        });
-                    }
-                });
             },
             workflowState(val) {
                 if (val.state === '2') {
                     this.updateSta();
                 }
             },
+            //发起审批按钮
             checkWorkFlow() {
                 this.$refs.container.$refs.workflow.startWorkflow();
             },
             updateSta() {
+                var tempDate = new Date();
+                var list = moment(new Date()).format("YYYY-MM").split('-');
+                tempDate.setFullYear(this.$route.params._id.split(",")[1]);
+                tempDate.setMonth(Number(this.$route.params._id.split(",")[2]) - 1);
+                tempDate.setDate(1);
+                let strData = [];
+                for (let i = 0; i < this.coststatistics.length; i++) {
+                    strData.push(
+                        {
+                            bpcompany: this.coststatistics[i].bpcompany,
+                            bpcostcount: this.coststatistics[i].bpcostcount,
+                            groupid: this.$route.params._id.split(",")[0],
+                            dates:moment(tempDate).format('YYYY-MM')
+                        },
+                    );
+                }
+                let baseInfo = [strData];
                 this.loading = true;
                 this.$store
-                    .dispatch('PFANS6008Store/insertcoststatisticsdetail', this.letparams)
+                    .dispatch('PFANS6008Store/insertcoststatisticsdetail', baseInfo)
                     .then(response => {
-                        debugger;
                         Message({
                             message: this.$t('normal.success_01'),
                             type: 'success',
