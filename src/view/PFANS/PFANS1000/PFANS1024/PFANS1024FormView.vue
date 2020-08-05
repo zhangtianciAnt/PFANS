@@ -1288,7 +1288,8 @@
                 //   contractapplication[i].currencyposition = getDictionaryInfo(contractapplication[i].currencyposition).value4;
                 // }
                 this.maketype = contractapplication[i].maketype;
-
+                this.dates = contractapplication[i].dates;
+                  this.projectname = contractapplication[i].projectname;
                 if (contractapplication[i].claimtype) {
                   this.form1.claimtype = contractapplication[i].claimtype.replace('第', '').replace('回', '');
                 }
