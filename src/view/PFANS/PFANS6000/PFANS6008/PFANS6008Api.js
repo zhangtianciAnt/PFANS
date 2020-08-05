@@ -33,3 +33,33 @@ export function downloadExcel(data) {
   })
 }
 
+//add gbb 0803 月度费用统计列表 start
+export function getcostMonthList(data) {
+  return request({
+    url: 'coststatistics/getcostMonthList',
+    method: 'get',
+    params: data
+  })
+}
+//add gbb 0803 月度费用统计列表 end
+
+//add gbb 0803 月度费用统计详情 start
+export function getcostMonth(data) {
+  return request({
+    url: 'coststatistics/getcostMonth',
+    method: 'get',
+    params: data
+  })
+}
+//add gbb 0803 月度费用统计详情 end
+
+//add gbb 0803 添加費用統計 start
+export function insertcoststatisticsdetail(data) {
+  return request({
+    url: 'coststatistics/insertcoststatisticsdetail',
+    method: 'post',
+    data: data
+  })
+}
+//add gbb 0803 添加費用統計 end
+

@@ -486,9 +486,6 @@
         }
       };
       return {
-        // add-ws-8/4-禅道任务296
-        options: [],
-        // add-ws-8/4-禅道任务296
         other3_show: false,
         display: false,
         modelwhetherentry: '1',
@@ -605,13 +602,23 @@
             disabled: false,
             icon: 'el-icon-check',
           },
-          {
-            key: 'createdecision',
-            name: 'button.createdecision',
-            disabled: true,
-            icon: 'el-icon-plus',
-          },
         ];
+          if (this.$route.params._id) {
+              this.buttonList = [
+                  {
+                      key: 'save',
+                      name: 'button.save',
+                      disabled: false,
+                      icon: 'el-icon-check',
+                  },
+                  {
+                      key: 'createdecision',
+                      name: 'button.createdecision',
+                      disabled: true,
+                      icon: 'el-icon-plus',
+                  },
+              ];
+          }
       }
     },
     mounted() {
@@ -944,113 +951,114 @@
       buttonClick(val) {
         this.$refs['refform'].validate(valid => {
           if (valid) {
-            // upd_fjl_05/27  --添加面试官手动输入
-            this.arrInt = [];
-            for (let i = 0; i < this.tableData.length; i++) {
-              if (this.tableData[i].interviewer === '' || this.tableData[i].interviewer === null || this.tableData[i].interviewer === undefined) {
-                Message({
-                  message: this.$t('label.PFANS2003FORMVIEW_INTERVIEWERERROR'),
+              // upd_fjl_05/27  --添加面试官手动输入
+              this.arrInt = [];
+              for (let i = 0; i < this.tableData.length; i++) {
+                  if (this.tableData[i].interviewer === '' || this.tableData[i].interviewer === null || this.tableData[i].interviewer === undefined) {
+                      Message({
+                          message: this.$t('label.PFANS2003FORMVIEW_INTERVIEWERERROR'),
+                          type: 'error',
+                          duration: 5 * 1000,
+                      });
+                      return;
+                  } else {
+                      this.arrInt.push({
+                          interviewer: this.tableData[i].interviewer,
+                          score: this.tableData[i].score,
+                      });
+                  }
+              }
+              this.form.interview = JSON.stringify(this.arrInt);
+              // upd_fjl_05/27  --添加面试官手动输入
+              if (val === 'save') {
+                  this.loading = true;
+                  this.form.member = this.userlist;
+                  this.form.whetherentry = this.whetherentry;
+                  this.form.result = this.result;
+                  if (this.form.source === 'PR020001') {
+                      this.form.network = '';
+                  } else if (this.form.source === 'PR020002') {
+                      this.form.member = '';
+                  }
+                  this.form.whetherentry = this.modelwhetherentry;
+                  this.form.result = this.modelresult;
+                  this.changeOption(this.form, 'save');
+                  if (this.$route.params._id) {
+                      this.form.interviewrecord_id = this.$route.params._id;
+                      this.$store
+                          .dispatch('PFANS2003Store/updateinterviewrecord', this.form)
+                          .then(response => {
+                              this.data = response;
+                              this.loading = false;
+                              Message({
+                                  message: this.$t('normal.success_02'),
+                                  type: 'success',
+                                  duration: 5 * 1000,
+                              });
+                              if (this.$store.getters.historyUrl) {
+                                  this.$router.push(this.$store.getters.historyUrl);
+                              }
+                          })
+                          .catch(error => {
+                              Message({
+                                  message: error,
+                                  type: 'error',
+                                  duration: 5 * 1000,
+                              });
+                              this.loading = false;
+                          });
+                  } else {
+                      this.$store
+                          .dispatch('PFANS2003Store/createinterviewrecord', this.form)
+                          .then(response => {
+                              this.data = response;
+                              this.loading = false;
+                              Message({
+                                  message: this.$t('normal.success_01'),
+                                  type: 'success',
+                                  duration: 5 * 1000,
+                              });
+                              if (this.$store.getters.historyUrl) {
+                                  this.$router.push(this.$store.getters.historyUrl);
+                              }
+                          })
+                          .catch(error => {
+                              Message({
+                                  message: error,
+                                  type: 'error',
+                                  duration: 5 * 1000,
+                              });
+                              this.loading = false;
+                          });
+                  }
+              }
+              //add_fjl_0731  添加应聘者信息管理画面跳转  start
+              else if (val === 'createdecision') {
+                  let _user = [];
+                  _user.push({
+                      name: this.form.name,
+                      sex: this.form.sex,
+                      birthday: this.form.birthday,
+                      interview: this.form.interview,
+                      interviewrecord_id: this.form.interviewrecord_id,
+                  });
+                  this.$router.push({
+                      name: 'PFANS2002FormView',
+                      params: {
+                          _id: '',
+                          _user: _user,
+                          disabled: false
+                      }
+                  })
+              }
+              //add_fjl_0731  添加应聘者信息管理画面跳转  end
+          }
+          else{
+              Message({
+                  message: this.$t("normal.error_12"),
                   type: 'error',
-                  duration: 5 * 1000,
-                });
-                return;
-              } else {
-                this.arrInt.push({
-                  interviewer: this.tableData[i].interviewer,
-                  score: this.tableData[i].score,
-                });
-              }
-            }
-            this.form.interview = JSON.stringify(this.arrInt);
-            // upd_fjl_05/27  --添加面试官手动输入
-            if (val === 'save') {
-              this.loading = true;
-              this.form.member = this.userlist;
-              this.form.whetherentry = this.whetherentry;
-              this.form.result = this.result;
-              if (this.form.source === 'PR020001') {
-                this.form.network = '';
-              } else if (this.form.source === 'PR020002') {
-                this.form.member = '';
-              }
-              this.form.whetherentry = this.modelwhetherentry;
-              this.form.result = this.modelresult;
-              this.changeOption(this.form, 'save');
-              if (this.$route.params._id) {
-                this.form.interviewrecord_id = this.$route.params._id;
-                this.$store
-                  .dispatch('PFANS2003Store/updateinterviewrecord', this.form)
-                  .then(response => {
-                    this.data = response;
-                    this.loading = false;
-                    Message({
-                      message: this.$t('normal.success_02'),
-                      type: 'success',
-                      duration: 5 * 1000,
-                    });
-                    if (this.$store.getters.historyUrl) {
-                      this.$router.push(this.$store.getters.historyUrl);
-                    }
-                  })
-                  .catch(error => {
-                    Message({
-                      message: error,
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
-                    this.loading = false;
-                  });
-              } else {
-                this.$store
-                  .dispatch('PFANS2003Store/createinterviewrecord', this.form)
-                  .then(response => {
-                    this.data = response;
-                    this.loading = false;
-                    Message({
-                      message: this.$t('normal.success_01'),
-                      type: 'success',
-                      duration: 5 * 1000,
-                    });
-                    if (this.$store.getters.historyUrl) {
-                      this.$router.push(this.$store.getters.historyUrl);
-                    }
-                  })
-                  .catch(error => {
-                    Message({
-                      message: error,
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
-                    this.loading = false;
-                  });
-              }
-            }
-            //add_fjl_0731  添加应聘者信息管理画面跳转  start
-            else if (val === 'createdecision') {
-              let _user = [];
-              _user.push({
-                name: this.form.name,
-                sex: this.form.sex,
-                birthday: this.form.birthday,
-                interview: this.form.interview,
-                interviewrecord_id: this.form.interviewrecord_id,
+                  duration: 5 * 1000
               });
-              this.$router.push({
-                name: 'PFANS2002FormView',
-                params: {
-                  _id: '',
-                  _user: _user,
-                  disabled: false,
-                },
-              });
-            }
-            //add_fjl_0731  添加应聘者信息管理画面跳转  end
-          } else {
-            Message({
-              message: this.$t('normal.error_12'),
-              type: 'error',
-              duration: 5 * 1000,
-            });
           }
         });
       },

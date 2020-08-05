@@ -80,6 +80,48 @@
             filter: true
           },
           {
+            code: 'storagedate',
+            label: 'label.PFANS3005VIEW_STORAGEDATE',
+            width: 150,
+            fix: false,
+            filter: false
+          },
+          {
+            code: 'collectionday',
+            label: 'label.PFANS3005VIEW_COLLECTIONDAY',
+            width: 150,
+            fix: false,
+            filter: false
+          },
+          {
+            code: 'recipients',
+            label: 'label.PFANS3005VIEW_RECIPIENTS',
+            width: 150,
+            fix: false,
+            filter: false
+          },
+          {
+            code: 'actuarialdate',
+            label: 'label.PFANS3005VIEW_ACTUARIALDATE',
+            width: 150,
+            fix: false,
+            filter: false
+          },
+          {
+            code: 'actuarialamount',
+            label: 'label.PFANS3005VIEW_ACTUARIALAMOUNT',
+            width: 150,
+            fix: false,
+            filter: false
+          },
+          {
+            code: 'yusuanbuzu',
+            label: 'label.PFANS3007FORMVIEW_REFUSEREASON',
+            width: 150,
+            fix: false,
+            filter: false,
+          },
+          {
             code: 'linenumber',
             label: 'label.PFANS3005VIEW_LINENUMBER',
             width: 150,
@@ -207,64 +249,7 @@
             fix: false,
             filter: false
           },
-          {
-            code: 'storagedate',
-            label: 'label.PFANS3005VIEW_STORAGEDATE',
-            width: 150,
-            fix: false,
-            filter: false
-          },
-          {
-            code: 'collectionday',
-            label: 'label.PFANS3005VIEW_COLLECTIONDAY',
-            width: 150,
-            fix: false,
-            filter: false
-          },
-          {
-            code: 'recipients',
-            label: 'label.PFANS3005VIEW_RECIPIENTS',
-            width: 150,
-            fix: false,
-            filter: false
-          },
-          {
-              code: 'actuarialdate',
-              label: 'label.PFANS3005VIEW_ACTUARIALDATE',
-              width: 150,
-              fix: false,
-              filter: false
-          },
-          {
-              code: 'actuarialamount',
-              label: 'label.PFANS3005VIEW_ACTUARIALAMOUNT',
-              width: 150,
-              fix: false,
-              filter: false
-          },
 
-
-          // {
-          //     code: 'acceptstatus',
-          //     label: 'label.PFANS3001FORMVIEW_ACCEPTSTATUS',
-          //     width: 150,
-          //     fix: false,
-          //     filter: true,
-          // },
-          // {
-          //     code: 'findate',
-          //     label: 'label.PFANS3006VIEW_ACCEPTTIME',
-          //     width: 150,
-          //     fix: false,
-          //     filter: true,
-          // },
-          {
-            code: 'refusereason',
-            label: 'label.PFANS3007FORMVIEW_REFUSEREASON',
-            width: 150,
-            fix: false,
-            filter: false,
-          },
         ],
         buttonList: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},

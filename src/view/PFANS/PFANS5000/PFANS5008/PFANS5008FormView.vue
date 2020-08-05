@@ -627,56 +627,112 @@
     },
     methods: {
       getCompanyProjectList() {
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS5009Store/getSiteList5', {})
-          .then(response => {
-            for (let i = 0; i < response.length; i++) {
-              this.optionsdata.push({
-                value: response[i].companyprojects_id,
-                lable: response[i].numbers + '_' + response[i].project_name,
-              });
-              this.optionsdategroup.push({
-                value: response[i].companyprojects_id,
-                lable: response[i].group_id,
-              });
-            }
+          //upd_fjl_0805  查看时显示项目name  start
+          if (this.disable) {
+              this.loading = true;
+              this.$store
+                  .dispatch('PFANS5009Store/getSiteList5', {})
+                  .then(response => {
+                      for (let i = 0; i < response.length; i++) {
+                          this.optionsdata.push({
+                              value: response[i].companyprojects_id,
+                              lable: response[i].numbers + '_' + response[i].project_name,
+                          });
+                          this.optionsdategroup.push({
+                              value: response[i].companyprojects_id,
+                              lable: response[i].group_id,
+                          });
+                      }
 
-            this.$store
-              .dispatch('PFANS5013Store/getMyConProject2', {})
-              .then(response => {
-                for (let i = 0; i < response.length; i++) {
-                  this.optionsdata.push({
-                    value: response[i].comproject_id,
-                    lable: response[i].numbers + '_' + response[i].project_name,
-                  });
-                  this.optionsdategroup.push({
-                    value: response[i].comproject_id,
-                    lable: response[i].group_id,
-                  });
-                }
-                this.loading = false;
-              })
-              .catch(error => {
-                Message({
-                  message: error,
-                  type: 'error',
-                  duration: 5 * 1000,
-                });
-                this.loading = false;
-              });
+                      this.$store
+                          .dispatch('PFANS5013Store/getMyConProject2', {})
+                          .then(response => {
+                              for (let i = 0; i < response.length; i++) {
+                                  this.optionsdata.push({
+                                      value: response[i].comproject_id,
+                                      lable: response[i].numbers + '_' + response[i].project_name,
+                                  });
+                                  this.optionsdategroup.push({
+                                      value: response[i].comproject_id,
+                                      lable: response[i].group_id,
+                                  });
+                              }
+                              this.loading = false;
+                          })
+                          .catch(error => {
+                              Message({
+                                  message: error,
+                                  type: 'error',
+                                  duration: 5 * 1000,
+                              });
+                              this.loading = false;
+                          });
 
-            this.loading = false;
-          })
-          .catch(error => {
-            Message({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            this.loading = false;
-          });
+                      this.loading = false;
+                  })
+                  .catch(error => {
+                      Message({
+                          message: error,
+                          type: 'error',
+                          duration: 5 * 1000,
+                      });
+                      this.loading = false;
+                  });
+          } else {
+              this.listAll();
+          }
       },
+        listAll() {
+            this.loading = true;
+            this.$store
+                .dispatch('PFANS5013Store/Listproject2', {})
+                .then(response => {
+                    for (let i = 0; i < response.length; i++) {
+                        this.optionsdata.push({
+                            value: response[i].companyprojects_id,
+                            lable: response[i].numbers + '_' + response[i].project_name,
+                        });
+                        this.optionsdategroup.push({
+                            value: response[i].companyprojects_id,
+                            lable: response[i].group_id,
+                        });
+                    }
+                    this.$store
+                        .dispatch('PFANS5013Store/Listproject', {})
+                        .then(response => {
+                            for (let i = 0; i < response.length; i++) {
+                                this.optionsdata.push({
+                                    value: response[i].comproject_id,
+                                    lable: response[i].numbers + '_' + response[i].project_name,
+                                });
+                                this.optionsdategroup.push({
+                                    value: response[i].comproject_id,
+                                    lable: response[i].group_id,
+                                });
+                            }
+                            this.loading = false;
+                        })
+                        .catch(error => {
+                            Message({
+                                message: error,
+                                type: 'error',
+                                duration: 5 * 1000,
+                            });
+                            this.loading = false;
+                        });
+
+                    this.loading = false;
+                })
+                .catch(error => {
+                    Message({
+                        message: error,
+                        type: 'error',
+                        duration: 5 * 1000,
+                    });
+                    this.loading = false;
+                });
+        },
+        //upd_fjl_0805  查看时显示项目name  end
       checklistgettable() {
         this.$store
           .dispatch('PFANS5008Store/getCheckList', {'createby': this.User_id})

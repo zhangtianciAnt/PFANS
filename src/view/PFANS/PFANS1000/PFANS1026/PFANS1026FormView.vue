@@ -2619,6 +2619,7 @@
             theme: '',
             temaid: '',
             qingremarks: '',
+              claimamount: '',
           };
           this.form.tabledata.push(o);
 //                this.tabledata.push(o);
@@ -2696,6 +2697,13 @@
         if (val.claimtype.indexOf(this.$t('label.PFANS1026FORMVIEW_FOUR')) != -1) {
           this.claimamount4 = val.claimamount;
         }
+          //add_fjl_0804  合同金额 = 明细【请求金额】合计值  start
+          for (let i = 0; i < this.form.tabledata.length; i++) {
+              if (this.form.tabledata[i].state === this.$t('label.PFANS8008FORMVIEW_EFFECTIVE')) {
+                  this.form.tabledata[i].claimamount = Number(this.claimamount1) + Number(this.claimamount2) + Number(this.claimamount3) + Number(this.claimamount4);
+              }
+          }
+          //add_fjl_0804  合同金额 = 明细【请求金额】合计值  end
         for (let i = 0; i < this.form.tablecompound.length; i++) {
           if (this.form.tablecompound[i].claimtype.indexOf(this.$t('label.PFANS1026FORMVIEW_ONE')) != -1) {
             this.form.tablecompound[i].claimamount = this.claimamount1;
@@ -3175,7 +3183,7 @@
           else if (this.form.contracttype === 'HT008009') {
             o.maketype = '9';
           }
-          // if (this.form.tabledata[i].state === this.$t('label.PFANS8008FORMVIEW_EFFECTIVE')) {
+            // if (this.form.tabledata[i].state === this.$t('label.PFANS8008FORMVIEW_EFFECTIVdeE')) {
           //add-ws-4/17-契约番号废弃状态有效变无效修改
           if (this.form.tabledata[i].state === this.$t('label.PFANS8008FORMVIEW_EFFECTIVE')) {
             let letclaimamount = 0;
