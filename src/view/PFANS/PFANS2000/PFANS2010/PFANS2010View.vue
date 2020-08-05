@@ -120,6 +120,7 @@
           //   await this.getlist();
           // },
           getWorkflow(){
+            this.loading = true;
             this.$store
               .dispatch('workflowStore/allWorkFlowIns', {menuUrl:'/PFANS2010View'})
               .then(response => {

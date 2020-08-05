@@ -266,7 +266,7 @@
                 });
               }
             }
-            this.getAttendancelist();
+            // this.getAttendancelist();
           });
       },
       //add-ws-考勤设置休日背景色
@@ -743,6 +743,7 @@
       if (this.$route.params._id !== null && this.$route.params._id !== '') {
         let us = this.$route.params._id.split(',');
         let userid = us[0];
+        this.loading = true;
         this.$store
           .dispatch('personalCenterStore/getPersonalCenterinfo', {'userid': userid})
           .then(response => {
@@ -779,14 +780,14 @@
               //总经理的考勤管理人事部长审批
               this.workflowCode = 'W0083';
             }
-
+            this.loading = false;
           });
       }
       //ADD_FJL_05/14
       //add-ws-考勤设置休日背景色
       this.getDay();
       //add-ws-考勤设置休日背景色
-
+      this.getAttendancelist();
       // this.$store.commit('global/SET_OPERATEID', '');
     },
     watch: {
