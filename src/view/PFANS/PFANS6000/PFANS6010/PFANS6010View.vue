@@ -210,6 +210,13 @@
             rowClick(row) {
                 this.rowid = row.coststatistics_id;
                 this.letstatus = row.status;
+                if(this.$store.getters.userinfo.userinfo.groupid === this.rowid.split(",")[0]
+                    && row.status === '0' && Number(row.cost) != 0){
+                    this.$store.commit('global/SET_OPERATEOWNER', this.$store.getters.userinfo.userid);
+                }
+                else{
+                    this.$store.commit('global/SET_OPERATEOWNER', "");
+                }
             },
             buttonClick(val) {
                 this.$store.commit('global/SET_HISTORYURL', this.$route.path);

@@ -20,6 +20,9 @@
           :rowid="row_id"
           @rowClick="rowClick"
           :showSelection="showSelection"
+          :handleShow="handleShow"
+          @handleEdit="handleEdit"
+          @handleView="handleView"
           :selectable="selectable" :rowClassName="rowClassName"
           ref="table">
         </EasyNormalTable>
@@ -213,6 +216,8 @@
           },
         ],
         totalAbsenteeism: false,
+        handleShow:true,
+        xiuributtonshow:true,
         buttonList: [
           {'key': 'recognition', 'name': 'button.recognition', 'disabled': false, 'icon': 'el-icon-check'},
           {'key': 'recognitionno', 'name': 'button.recognitionno', 'disabled': false, 'icon': 'el-icon-check'},
@@ -249,6 +254,7 @@
       },
       //add-ws-考勤设置休日背景色
       getDay() {
+        this.loading = true;
         this.$store
           .dispatch('PFANS8007Store/getList', {})
           .then(response => {
@@ -260,6 +266,7 @@
                 });
               }
             }
+            // this.getAttendancelist();
           });
       },
       //add-ws-考勤设置休日背景色
@@ -275,6 +282,7 @@
             if (this.dateInfo[i].dateflg === row.dates) {
               row.absenteeism = '';
               this.totalAbsenteeism = true;
+              this.xiuributtonshow = false;
               return 'sub_bg_color_Darkgrey';
             }
           }
@@ -296,6 +304,7 @@
           } else {
             row.absenteeism = '';
             this.totalAbsenteeism = true;
+            this.xiuributtonshow = false;
             return 'sub_bg_color_Ral';
           }
         }
@@ -306,6 +315,7 @@
           } else {
             row.absenteeism = '';
             this.totalAbsenteeism = true;
+            this.xiuributtonshow = false;
             return 'sub_bg_color_Ral';
           }
         }
@@ -315,6 +325,7 @@
         if (moment(row.dates).format('E') == 6 || moment(row.dates).format('E') == 7) {
           row.absenteeism = '';
           this.totalAbsenteeism = true;
+          this.xiuributtonshow = false;
           return 'sub_bg_color_Darkgrey';
         }
       },
@@ -527,6 +538,8 @@
           .dispatch('PFANS2010Store/getAttendancelist1', parameter)
           .then(response => {
 
+            let tableabsenteeism = [];
+
             for (let j = 0; j < response.length; j++) {
               // response[j].dates = moment(response[j].dates).format("YYYY-MM-DD");
               this.disdateflg = response[0].dates;
@@ -543,6 +556,21 @@
               if (response[j].absenteeism === null || response[j].absenteeism === '') {
                 response[j].absenteeism = response[j].tabsenteeism;
               }
+
+              //add ccm 0804
+              if (response[j].absenteeism !=null && response[j].absenteeism!='')
+              {
+                  if (Number(response[j].tenantid).toFixed(2) >= Number(response[j].absenteeism).toFixed(2))
+                  {
+                    response[j].EnoughTime = true;
+                  }
+                  else
+                  {
+                    response[j].EnoughTime = false;
+                  }
+              }
+              //add ccm 0804
+
               //add ccm
               if (response[j].shortsickleave === null || response[j].shortsickleave === '') {
                 response[j].shortsickleave = response[j].tshortsickleave;
@@ -550,14 +578,54 @@
               if (response[j].longsickleave === null || response[j].longsickleave === '') {
                 response[j].longsickleave = response[j].tlongsickleave;
               }
+              //add ccm 0803  按钮分情况显示
+              response[j].xiuributtonshow = true;
+              let k = 0;
+              for (let i = 0; i < this.dateInfo.length; i++) {
+                    if (this.dateInfo[i].type != '4') {
+                      if (this.dateInfo[i].dateflg === moment(response[j].dates).format('YYYY-MM-DD')) {
+                        response[j].xiuributtonshow = false;
+                      }
+                    }
+                    else
+                    {
+                      if (this.dateInfo[i].dateflg === moment(response[j].dates).format('YYYY-MM-DD')) {
+                        response[j].xiuributtonshow = true;
+                        k = 1;
+                      }
+                    }
+              }
+              if (k ===1)
+              {
+                continue;
+              }
+               let userid = this.$route.params._id.split(',')[0];
+               let user = getUserInfo(userid);
+               let resignationdate = '';
+               let enterdate = '';
+               if (user) {
+                 resignationdate = user.userinfo.resignation_date;
+                 enterdate = user.userinfo.enterday;
+               }
+               //入职
+               if (moment(response[j].dates).format('YYYY-MM-DD') < moment(enterdate).format('YYYY-MM-DD')) {
+                 if (response[j].dates != this.$t('label.PFANS1012VIEW_ACCOUNT')) {
+                   response[j].xiuributtonshow = false;
+                 }
+               }
+               //离职
+               if (moment(response[j].dates).format('YYYY-MM-DD') > moment(resignationdate).format('YYYY-MM-DD')) {
+                 if (response[j].dates != this.$t('label.PFANS1012VIEW_ACCOUNT')) {
+                   response[j].xiuributtonshow = false;
+                 }
+               }
+               //add-ws-考勤设置休日背景色
+               if (moment(response[j].dates).format('E') == 6 || moment(response[j].dates).format('E') == 7) {
+                 response[j].xiuributtonshow = false;
+               }
+              //add ccm 0803 按钮分情况显示
 
             }
-
-            // if (this.$route.params._id.split(",")[0] === '5e78fefff1560b363cdd6db7')
-            // {
-            //   this.$store.commit('global/SET_WORKFLOWURL', '');
-            // }
-
             let res = [];
             let res1 = [];
             let yearMonth = moment(Date.parse(this.$route.params._id.split(',')[1] + '-' + this.$route.params._id.split(',')[2] + '-01'));
@@ -570,14 +638,6 @@
                 daydata[0].dates = moment(daydata[0].dates).format('YYYY-MM-DD');
                 res.push(daydata[0]);
               }
-              //del ccm
-              // else{
-              //     res.push({
-              //       dates:moment(day).format("YYYY-MM-DD"),
-              //       absenteeism:8
-              //     });
-              //   }
-              //del ccm
             }
 
             //add CCM 合计行--from
@@ -639,8 +699,8 @@
             for (var k = 0; k < res.length; k++) {
               res1.push(res[k]);
             }
-
             //add CCM 合计行--end
+
             this.data = res1;
             this.loading = false;
           })
@@ -653,12 +713,37 @@
             this.loading = false;
           });
       },
+
+      //add ccm 0804
+      handleEdit(row)
+      {
+        let lengthtime = Number(row.absenteeism).toFixed(2);
+        if (row.teamid!=null && row.teamid!='')
+        {
+          lengthtime = Number(row.teamid).toFixed(2) - Number(row.absenteeism).toFixed(2);
+        }
+        this.$router.push({
+          name: 'PFANS2016FormView',
+          params: {
+            _id: "",
+            _lengthtime:lengthtime,
+            _day:row.dates,
+            disabled: true,
+          },
+        });
+      },
+      handleView(row)
+      {
+
+      }
+      //add ccm 0804
     },
     mounted() {
       //ADD_FJL_05/14
       if (this.$route.params._id !== null && this.$route.params._id !== '') {
         let us = this.$route.params._id.split(',');
         let userid = us[0];
+        this.loading = true;
         this.$store
           .dispatch('personalCenterStore/getPersonalCenterinfo', {'userid': userid})
           .then(response => {
@@ -695,7 +780,7 @@
               //总经理的考勤管理人事部长审批
               this.workflowCode = 'W0083';
             }
-
+            this.loading = false;
           });
       }
       //ADD_FJL_05/14

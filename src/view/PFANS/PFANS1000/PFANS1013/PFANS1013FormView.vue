@@ -2710,6 +2710,7 @@
           accountcode: this.newaccountcodeflg,
           optionsA: this.tableA[0].optionsA,
           budgetcoding: this.tableA[0].budgetcoding,
+            Redirict: this.tableA[0].Redirict,
           subjectnumber: this.accflg,
           city: '',
           region: '',

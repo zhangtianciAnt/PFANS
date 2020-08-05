@@ -1050,6 +1050,15 @@
         else {
           this.workflowCode = 'W0003';
         }
+
+        //add ccm 0804
+        if (this.$route.params._lengthtime && this.$route.params._day)
+        {
+          this.form.lengthtime = this.$route.params._lengthtime;
+          this.form.occurrencedate = this.$route.params._day;
+          this.form.finisheddate = this.$route.params._day;
+        }
+        //add ccm 0804
       }
     },
     created() {
