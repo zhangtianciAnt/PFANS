@@ -20,6 +20,7 @@
               <!--              <el-input v-model="form1.claimtype" style="width: 20vw" @change="getnumber"></el-input>-->
               <el-input-number
                 step-strictly
+                :disabled="checknumber"
                 :max="1000000000"
                 :min="1"
                 :precision="0"
@@ -84,7 +85,6 @@
                          :disabled="!disabled2">
               </dicselect>
             </el-form-item>-->
-
             <!--<user :disabled="!disabled" :no="scope.row" :error="errorcusto" :selectType="selectType" :userlist="scope.row.custojapanese"-->
             <!--@getUserids="getCusto" style="width: 10.15rem"></user>-->
             <el-form-item :label="$t('label.PFANS1024VIEW_CUSTOMERNAME')+'('+$t('label.PFANS1024VIEW_JAPANESE')+')'"
@@ -927,6 +927,7 @@
       };
       return {
         //add-ws-6/22-禅道152任务
+        checknumber: false,
         show10: true,
         IDname: '',
         checkdata: false,
@@ -975,6 +976,8 @@
         activeName: '',
         //add-ws-7/22-禅道341任务
         checkindivdual: '',
+        dates: '',
+        projectname: '',
         //add-ws-7/22-禅道341任务
         disabled: true,
         disabled1: false,
@@ -1397,6 +1400,75 @@
       if (this.$route.params._checkindivdual) {
         if (this.$route.params._checkindivdual === '1') {
           this.checkindivdual = 1;
+          if (this.$route.params.supplierinfor_id) {
+            this.dates = this.$route.params.dates,
+              this.projectname = this.$route.params.projectname,
+              this.dialogVisibleC = true;
+            this.checknumber = true;
+            this.loading = true;
+            this.$store
+              .dispatch('PFANS6003Store/getsupplierinfor2')
+              .then(response => {
+                for (let j = 0; j < response.length; j++) {
+                  if (response[j].supplierinfor_id === this.$route.params.supplierinfor_id) {
+                    let supplierInfo = getSupplierinfor(response[j].supplierinfor_id);
+                    if (supplierInfo) {
+                      response[j].supchinese = supplierInfo.supchinese;
+                      //        zy-7/6-禅道213任务 start
+                      response[j].supjapanese = supplierInfo.supjapanese;
+                      response[j].supenglish = supplierInfo.supenglish;
+                      response[j].abbreviation = supplierInfo.abbreviation;
+                      //        zy-7/6-禅道213任务 end
+                    }
+                  }
+                  if (response[j].liableperson !== null && response[j].liableperson !== '') {
+                    let liableperson = getUserInfo(response[j].liableperson);
+                    if (liableperson) {
+                      response[j].liableperson = user.userinfo.customername;
+                    }
+                  }
+                  if (response[j].prochinese !== null && response[j].prochinese !== '') {
+                    let prochinese = getUserInfo(response[j].prochinese);
+                    if (prochinese) {
+                      response[j].prochinese = user.userinfo.customername;
+                    }
+                  }
+                  if (response[j].protelephone !== null && response[j].protelephone !== '') {
+                    let protelephone = getUserInfo(response[j].protelephone);
+                    if (protelephone) {
+                      response[j].protelephone = user.userinfo.customername;
+                    }
+                  }
+                  this.form1.custojapanese = response[j].supjapanese;
+                  this.formcustomer.custojapanese = response[j].supjapanese;
+                  this.formcustomer.custoenglish = response[j].supenglish;
+                  this.formcustomer.custoabbreviation = response[j].abbreviation;
+                  this.formcustomer.custochinese = response[j].supchinese;
+                  this.formcustomer.suppliercode = response[j].suppliercode;
+                  this.formcustomer.vendornum = response[j].vendornum;
+                  if (!response[j].addjapanese) {
+                    this.formcustomer.placejapanese = response[j].addchinese;
+                  } else {
+                    this.formcustomer.placejapanese = response[j].addjapanese;
+                  }
+                  this.formcustomer.placeenglish = response[j].addenglish;
+                  this.formcustomer.placechinese = response[j].addchinese;
+                  this.formcustomer.responjapanese = response[j].projapanese;
+                  this.formcustomer.responerglish = response[j].proenglish;
+                  this.formcustomer.responphone = response[j].protelephone;
+                  this.formcustomer.responemail = response[j].protemail;
+                }
+                this.loading = false;
+              })
+              .catch(error => {
+                Message({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.loading = false;
+              });
+          }
         }
       }
       //add-ws-7/22-禅道341任务
@@ -2286,6 +2358,8 @@
             o.claimamount = letclaimamount;
             //add-ws-7/22-禅道341任务
             o.checkindivdual = this.checkindivdual;
+            o.dates = this.dates;
+            o.projectname = this.projectname;
             //add-ws-7/22-禅道341任务
           }
           // DEL_FJL  start
