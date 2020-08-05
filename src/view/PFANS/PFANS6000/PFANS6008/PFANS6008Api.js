@@ -53,3 +53,13 @@ export function getcostMonth(data) {
 }
 //add gbb 0803 月度费用统计详情 end
 
+//add gbb 0803 添加費用統計 start
+export function insertcoststatisticsdetail(data) {
+  return request({
+    url: 'coststatistics/insertcoststatisticsdetail',
+    method: 'post',
+    data: data
+  })
+}
+//add gbb 0803 添加費用統計 end
+

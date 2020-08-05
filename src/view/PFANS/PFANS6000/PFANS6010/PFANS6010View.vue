@@ -31,6 +31,7 @@
                 // 表格数据源
                 data: [],
                 letparams:{},
+                status:'',
                 // 列属性
                 columns: [
                     {
@@ -55,7 +56,7 @@
                         filter: true
                     },
                     {
-                        code: "status",
+                        code: "letstatus",
                         label: "label.approval_status",
                         width: 130,
                         fix: false,
@@ -121,11 +122,26 @@
                                     response[j].groupname = group.groupname;
                                 }
                             }
-                            if(response[j].status === null || response[j].status === ''){
-                                response[j].status = '0';
+                            if(response[j].status === null || response[j].status === '' || response[j].status === '3'){
+                                response[j].letstatus = "0";//未开始
                             }
-                            //状态
-                            response[j].status = getStatus(response[j].status);
+                            else{
+                                if(response[j].status === '0'){//进行中
+                                    response[j].letstatus = "2";
+                                }
+                                else if(response[j].status === '2'){//驳回
+                                    response[j].letstatus = "3";
+                                }
+                                else if(response[j].status === '3'){//撤回
+                                    response[j].letstatus = "0";
+                                }
+                                else if(response[j].status === '4'){//撤回
+                                    response[j].letstatus = "4";
+                                }
+                            }
+                            response[j].status = response[j].letstatus;
+                            //数据状态
+                            response[j].letstatus = getStatus(response[j].status);
                             let letmanhour;
                             let letcost;
                             if(dates === '4'){
@@ -193,6 +209,7 @@
             },
             rowClick(row) {
                 this.rowid = row.coststatistics_id;
+                this.letstatus = row.status;
             },
             buttonClick(val) {
                 this.$store.commit('global/SET_HISTORYURL', this.$route.path);
@@ -210,6 +227,7 @@
                         params: {
                             _id: this.rowid,
                             letparams:this.letparams,
+                            letstatus:this.letstatus,
                             disabled: false
                         }
                     })

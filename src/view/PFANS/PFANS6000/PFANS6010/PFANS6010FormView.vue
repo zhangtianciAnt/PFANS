@@ -1,7 +1,8 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick" ref="container"
-                         v-loading="loading">
+                         v-loading="loading" :defaultStart="defaultStart"
+                         @workflowState="workflowState" @StartWorkflow="checkWorkFlow" :workflowCode="workflowCode">
       <div slot="customize">
         <el-row>
           <el-col :span="24">
@@ -15,15 +16,15 @@
               <el-table-column property="suppliername" :label="$t('label.PFANS6007VIEW_BPCLUBNAME')"
                                width="250" fixed="left"></el-table-column>
               <el-table-column :label="$t(item)"
-                               v-for="(item, index) in this.groupnamelist">
+                               v-for="(item, index) in this.groupnamelist" :key="index">
                 <el-table-column :label="$t('label.PFANS1027FORMVIEW_APPOINT')"
                                  width="150">
                   <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')"
                                    :property="`ex1manhour${index}`"
-                                   width="100"></el-table-column>
+                                   width="120"></el-table-column>
                   <el-table-column :label="$t('label.PFANS6008VIEW_COST')"
                                    :property="`ex1cost${index}`"
-                                   width="100"></el-table-column>
+                                   width="120"></el-table-column>
                   <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')"
                                    :property="`ex1usercount${index}`"
                                    width="100"></el-table-column>
@@ -33,10 +34,10 @@
                                  width="150">
                   <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')"
                                    :property="`ex2manhour${index}`"
-                                   width="100"></el-table-column>
+                                   width="120"></el-table-column>
                   <el-table-column :label="$t('label.PFANS6008VIEW_COST')"
                                    :property="`ex2cost${index}`"
-                                   width="100"></el-table-column>
+                                   width="120"></el-table-column>
                   <el-table-column :label="$t('label.PFANS6010VIEW_PERNUMBER')"
                                    :property="`ex2usercount${index}`"
                                    width="100"></el-table-column>
@@ -84,6 +85,7 @@
     import EasyNormalContainer from '@/components/EasyNormalContainer';
     import {Message} from 'element-ui';
     import {getSupplierinfor,getorgGroupList} from '@/utils/customize';
+    import moment from "moment";
     export default {
         name: 'PFANS6010FormView',
         components: {
@@ -92,12 +94,17 @@
         data() {
             return {
                 title: 'title.PFANS6010FORMVIEW',
+                defaultStart:false,
                 loading: false,
                 disable: true,
                 buttonList: [],
                 tableData: [],
                 letparams:{},
                 groupnamelist:[],
+                coststatistics:[],
+                canStart: false,
+                workflowCode: 'W0094',
+                letstatus:''
             };
         },
         mounted() {
@@ -105,6 +112,7 @@
             this.$store
                 .dispatch('PFANS6008Store/getcostMonth', this.letparams)
                 .then(response => {
+                    this.coststatistics = response;
                     for (let i = 0; i < response.length; i++) {
                         let supplierInfor = getSupplierinfor(response[i].bpcompany);
                         if (supplierInfor) {
@@ -112,7 +120,6 @@
                         }
                     }
                     let groupidlist = response[0].strgroupid.substring(0,response[0].strgroupid.length - 1)
-                    debugger;
                     let groupnamelist = [];
                     groupnamelist = groupidlist.split(",");
                     for (let j = 0; j < groupnamelist.length; j++) {
@@ -121,7 +128,6 @@
                             this.groupnamelist.push(group.groupname);
                         }
                     }
-                    debugger;
                     let a = this.groupnamelist;
                     this.tableData = response;
                     this.loading = false;
@@ -136,10 +142,33 @@
                 })
         },
         created() {
-            this.letparams = this.$route.params.letparams;
-            //外驻管理担当
-            if(this.letparams.role === '4'){
-                this.disable = false;
+            if(this.$route.params.letparams != undefined){
+                this.letparams = this.$route.params.letparams;
+                //外驻管理担当
+                if(this.letparams.role === '4'){
+                    this.disable = false;
+                }
+            }
+            else{
+                var tempDate = new Date();
+                var list = moment(new Date()).format("YYYY-MM").split('-');
+                tempDate.setFullYear(this.$route.params._id.split(",")[1]);
+                tempDate.setMonth(Number(this.$route.params._id.split(",")[2]) - 1);
+                tempDate.setDate(1);
+                this.letparams = {
+                    dates: moment(tempDate).format('YYYY-MM'),
+                    role: '1',
+                    groupid: this.$route.params._id.split(",")[0]
+                }
+            }
+            if(this.$route.params.letparams != undefined){
+                this.letstatus = this.$route.params.letstatus;
+                if(this.letstatus === '0'){
+                    //自己部门才可以发起审批
+                    if(this.$store.getters.userinfo.userinfo.groupid === this.$route.params._id.split(",")[0]){
+                        this.$store.commit('global/SET_OPERATEOWNER', this.$store.getters.userinfo.userid);
+                    }
+                }
             }
         },
         methods: {
@@ -164,6 +193,7 @@
                                 return prev;
                             }
                         }, 0);
+                        sums[index] = Math.round((sums[index]) * 100) / 100;
                     } else {
                         sums[index] = '--';
                     }
@@ -183,6 +213,35 @@
                     }
                 });
             },
+            workflowState(val) {
+                if (val.state === '2') {
+                    this.updateSta();
+                }
+            },
+            checkWorkFlow() {
+                this.$refs.container.$refs.workflow.startWorkflow();
+            },
+            updateSta() {
+                this.loading = true;
+                this.$store
+                    .dispatch('PFANS6008Store/insertcoststatisticsdetail', this.letparams)
+                    .then(response => {
+                        debugger;
+                        Message({
+                            message: this.$t('normal.success_01'),
+                            type: 'success',
+                            duration: 5 * 1000,
+                        });
+                        this.loading = false;
+                    })
+                    .catch(err => {
+                        this.loading = false;
+                        this.$message({
+                            message: this.$t("normal.error_04"),
+                            type: "error"
+                        });
+                    });
+            }
         }
     };
 </script>
