@@ -466,6 +466,7 @@
                       <el-form-item :label="$t('label.PFANS1012VIEW_TEMPORARYLOAN')" prop="loanapno">
                         <el-input :disabled="true" maxlength="20" style="width: 20vw"
                                   v-model="form.loanapno"></el-input>
+                        <el-button @click="clickBun" size="small" :disabled="clickBunable" type="primary">{{$t('button.view')}}</el-button>
                       </el-form-item>
                     </template>
                   </el-col>
@@ -875,6 +876,11 @@
         checktype: '',
         checkdisabled: false,
         //add-ws-7/7-禅道247
+
+        //add ccm 0805
+        clickBunable:true,
+        //add ccm 0805
+
         form: {
           //add-ws-7/7-禅道247
           remark: '',
@@ -939,6 +945,7 @@
 
           status: '',
           loanapno:'',
+          loanapplication_id:'',
         },
         buttonList: [
           {
@@ -1385,6 +1392,17 @@
                 } else {
                   this.show10 = false;
                 }
+
+                //add ccm 0805 2
+                if (this.form.loanapno !=null && this.form.loanapno !='' && this.form.loanapno!=undefined)
+                {
+                  if (!this.$route.params.disabled && this.form.business_id!='' && this.form.business_id!=null)
+                  {
+                    this.clickBunable = false;
+                  }
+                }
+                //add ccm 0805
+
                 this.loading = false;
               })
               .catch(error => {
@@ -1396,7 +1414,9 @@
                 this.loading = false;
               });
           });
-      } else if (this.$route.params._type === 1) {
+
+      }
+      else if (this.$route.params._type === 1) {
         this.form.offshore_id = this.$route.params._checkid;
         this.userlist = this.$store.getters.userinfo.userid;
         if (this.userlist !== null && this.userlist !== '') {
@@ -1413,7 +1433,8 @@
           this.form.user_id = this.$store.getters.userinfo.userid;
           this.getBudt(this.form.user_id);
         }
-      } else {
+      }
+      else {
         if (this.$route.params._id) {
           this.loading = true;
           this.$store
@@ -1514,6 +1535,15 @@
                 this.disable = false;
                 this.listAll();
               }
+              //add ccm 0805 1
+              if (this.form.loanapno !=null && this.form.loanapno !='' && this.form.loanapno!=undefined)
+              {
+                if (!this.$route.params.disabled && this.$route.params._id!='' && this.$route.params._id!=null)
+                {
+                  this.clickBunable = false;
+                }
+              }
+              //add ccm 0805
               this.loading = false;
             })
             .catch(error => {
@@ -1542,8 +1572,6 @@
           }
         }
       }
-
-
     },
     created() {
       //add-ws-7/7-禅道247
@@ -1656,6 +1684,26 @@
       //add-ws-7/7-禅道247
     },
     methods: {
+
+      //add ccm 0805
+      clickBun()
+      {
+        this.$store.commit('global/SET_HISTORYURL', '');
+        this.$store.commit('global/SET_WORKFLOWURL', '/FFFFF1002FormView');
+        this.$router.push({
+          name: 'PFANS1006FormView',
+          params: {
+            _checkdisable: this.disable,
+            _checkid: this.$route.params._id,
+            _check: true,
+            _id: this.form.loanapplication_id,
+            _sta:'0',
+            disabled: false,
+          },
+        });
+      },
+      //add ccm 0805
+
       //add-ws-4/24-项目名称所取数据源变更
       //upd-ws-6/5-禅道075任务，项目名称问题修正
       getCompanyProjectList() {

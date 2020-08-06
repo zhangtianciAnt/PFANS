@@ -1170,7 +1170,49 @@
       },
       buttonClick(val) {
         if (val === 'back') {
-          this.paramsTitle();
+          if (this.$route.params._check != null && this.$route.params._check != undefined) {
+            if (this.$route.params._check) {
+              let id = this.$route.params._checkid;
+              let disable = this.$route.params._checkdisable;
+              if (this.$route.params._sta)
+              {
+                if (this.$route.params._sta === '0')
+                {
+                  this.$router.push({
+                    name: 'PFANS1002FormView',
+                    params: {
+                      _id: id,
+                      disabled: disable,
+                    },
+                  });
+                }
+                if (this.$route.params._sta === '1')
+                {
+                  this.$router.push({
+                    name: 'PFANS1035FormView',
+                    params: {
+                      _id: id,
+                      disabled: disable,
+                    },
+                  });
+                }
+              }
+              else
+              {
+                this.$router.push({
+                  name: 'PFANS1012FormView',
+                  params: {
+                    _id: id,
+                    disabled: disable,
+                  },
+                });
+              }
+
+
+            }
+          } else {
+            this.paramsTitle();
+          }
         } else {
           this.$refs['refform'].validate(valid => {
             if (valid) {
