@@ -2244,8 +2244,10 @@
           let letclaimtypeone = this.$t('label.PFANS1026FORMVIEW_D') + (i + 1) + this.$t('label.PFANS1026FORMVIEW_H');
           this.addRowclaimtype();
           this.form.tableclaimtype[i].claimtype = letclaimtypeone;
+          if(this.$route.params.bpcostcount){
+            this.form.tableclaimtype[0].claimamount =this.$route.params.bpcostcount
+          }
         }
-
         if (this.form.contracttype === 'HT014001') {
           this.titleType = this.titleType1;
         } else if (this.form.contracttype === 'HT014002') {
