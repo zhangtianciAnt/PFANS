@@ -1331,6 +1331,7 @@
       if (this.$route.params._type === 0) {
         this.loading = true;
         this.$store
+          
           .dispatch('PFANS1035Store/selectById3', {'offshore_id': this.$route.params._checkid})
           .then(response => {
             this.loading = true;
