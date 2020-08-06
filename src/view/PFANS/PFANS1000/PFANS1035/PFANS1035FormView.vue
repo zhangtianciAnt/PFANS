@@ -1199,7 +1199,7 @@
       //add_fjl_07/29_修改项目查看  end
       //add-ws-4/24-项目名称所取数据源变更
       getBudt(val) {
-          if (val !== '' || val !== null) {
+          if (val === '' || val === null) {
               return;
           }
           this.options = [];
