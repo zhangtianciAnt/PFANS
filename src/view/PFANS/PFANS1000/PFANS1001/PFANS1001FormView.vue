@@ -445,10 +445,10 @@
       // },
       // // add-ws-7/14-禅道144任务
       selectInit(row, index) {
-        if(row.judgnumbers) {
-          if (row.status === this.$t('label.PFANS5004VIEW_OVERTIME') && row.judgnumbers.indexOf('_') == -1) {
+        // if(row.judgnumbers) {
+        if (row.status === this.$t('label.PFANS5004VIEW_OVERTIME')) {
             return row;
-          }
+          // }
         }
       },
       getCompanyProjectList(val) {
