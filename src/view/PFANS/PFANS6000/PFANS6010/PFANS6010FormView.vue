@@ -97,7 +97,9 @@
                 defaultStart:false,
                 loading: false,
                 disable: true,
-                buttonList: [],
+                // buttonList: [
+                //     {'key': 'save', 'name': 'button.save', 'disabled': false, 'icon': 'el-icon-view'},
+                // ],
                 tableData: [],
                 letparams:{},
                 groupnamelist:[],
@@ -170,20 +172,19 @@
         methods: {
             //生成个别合同
             createprobook(row) {
-                this.$store.commit('global/SET_HISTORYURL', this.$route.path);
-                if (val === 'view') {
-                    this.$router.push({
-                        name: 'PFANS1024FormView',
-                        params: {
-                            _checkindivdual: "1",
-                            supplierinfor_id:row.bpcompany,
-                            dates:this.letparams.dates,
-                            projectname:"测试项目",
-                            disabled: true,
-                            _id: '',
-                        }
-                    })
-                }
+                this.$store.commit('global/SET_HISTORYURL', '/PFANS6010View');
+                this.$router.push({
+                    name: 'PFANS1024FormView',
+                    params: {
+                        _checkindivdual: "1",
+                        supplierinfor_id:row.bpcompany,
+                        bpcostcount:row.bpcostcount,
+                        dates:this.letparams.dates,
+                        projectname:"测试项目",
+                        disabled: true,
+                        _id: '',
+                    }
+                })
             },
             getSummaries(param) {
                 const {columns, data} = param;
@@ -211,7 +212,9 @@
                 return sums;
             },
             buttonClick(val) {
-
+                if (val === 'save') {
+                    this.updateSta();
+                }
             },
             workflowState(val) {
                 if (val.state === '2') {

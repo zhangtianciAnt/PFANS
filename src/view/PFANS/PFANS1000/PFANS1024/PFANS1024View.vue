@@ -168,6 +168,7 @@
     },
     methods: {
       rowClick(row) {
+        this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1012FFFView');
         //add-ws-7/22-禅道341任务
         if (row.checkindivdual != '' && row.checkindivdual != null) {
           this.checkindivdual = row.checkindivdual;
