@@ -114,6 +114,7 @@ module.exports = {
     createfree: '生成费用统计',
     createdecision: '创建招聘决裁',
     supplementary: '补充决裁',
+    contract: '生成合同',
   },
   table: {
     detail: '一览',
@@ -3137,6 +3138,7 @@ module.exports = {
     PFANS5001FORMVIEW_CHECKDOUBLE: '在体制中重复了',
     PFANS5001FORMVIEW_SYSTEM: '体制',
     PFANS5001FORMVIEW_CONTRACT: '合同',
+    PFANS5001FORMVIEW_CONTRACT2: '契约一览',
     PFANS5008FORMVIEW_CKECKTIME: '请填写时长',
     PFANS5001FORMVIEW_FILEUPLOAD: '文件上传',
     PFANS5001VIEW1: '起案書',
