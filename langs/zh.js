@@ -114,7 +114,7 @@ module.exports = {
     createfree: '生成费用统计',
     createdecision: '创建招聘决裁',
     supplementary: '补充决裁',
-    contract: '补充决裁',
+    contract: '生成合同',
   },
   table: {
     detail: '一览',
