@@ -828,13 +828,13 @@
             },
           ],
             //add_fjl_0806 预算编码
-            budgetunit: [
-                {
-                    required: true,
-                    message: this.$t('normal.error_09') + this.$t('label.PFANS1012FORMVIEW_BUDGET'),
-                    trigger: 'change',
-                },
-            ],
+            // budgetunit: [
+            //     {
+            //         required: true,
+            //         message: this.$t('normal.error_09') + this.$t('label.PFANS1012FORMVIEW_BUDGET'),
+            //         trigger: 'change',
+            //     },
+            // ],
             //add_fjl_0806 预算编码
         },
         show: false,
