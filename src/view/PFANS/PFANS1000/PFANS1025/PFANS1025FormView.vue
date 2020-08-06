@@ -861,7 +861,7 @@
       policycontractlist() {
         let parameter = {
           outsourcingcompany: this.form.custochinese,
-          applicationdate: this.form.draftingdate,
+          applicationdate: this.form.dates,
         };
         this.loading = true;
         this.$store
