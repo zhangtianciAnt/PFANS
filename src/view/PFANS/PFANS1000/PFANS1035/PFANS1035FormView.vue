@@ -10,6 +10,7 @@
       @end="end"
       @start="start"
       @workflowState="workflowState"
+      :workflowCode="workflowCode"
       ref="container"
     >
       <div slot="customize">
@@ -493,7 +494,7 @@
   import user from '../../../components/user.vue';
   import {Message} from 'element-ui';
   import moment from 'moment';
-  import {getDictionaryInfo, getOrgInfo, getOrgInfoByUserId,getUserInfoName} from '@/utils/customize';
+  import {getDictionaryInfo, getOrgInfo, getOrgInfoByUserId, getUserInfoName, getCurrentRole} from '@/utils/customize';
   import dicselect from '../../../components/dicselect';
   import org from '../../../components/org';
   import project from '../../../components/project.vue';
@@ -566,6 +567,7 @@
         userlist: '',
         activeName: 'first',
         loading: false,
+          workflowCode: '',
         disabled: false,
         code1: 'PJ018',
         code2: 'PG002',
@@ -856,6 +858,13 @@
               this.loading = false;
               return;
             }
+              //add_fjl_0806  添加总经理审批流程
+              if (getCurrentRole() === '1') {
+                  this.workflowCode = 'W0096';//总经理流程
+              } else {
+                  this.workflowCode = 'W0049';//其他
+              }
+              //add_fjl_0806  添加总经理审批流程
             this.form = response.business;
             if (this.form.checkch != '1') {
               if (this.$route.params._type === 3) {
@@ -1190,6 +1199,9 @@
       //add_fjl_07/29_修改项目查看  end
       //add-ws-4/24-项目名称所取数据源变更
       getBudt(val) {
+          if (val !== '' || val !== null) {
+              return;
+          }
           this.options = [];
         //ADD_FJL  修改人员预算编码
           // if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {

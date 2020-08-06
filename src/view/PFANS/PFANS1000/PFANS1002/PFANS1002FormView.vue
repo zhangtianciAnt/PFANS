@@ -11,6 +11,7 @@
       @workflowState="workflowState"
       ref="container"
       v-loading="loading"
+      :workflowCode="workflowCode"
     >
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
@@ -765,7 +766,7 @@
   import project from '../../../components/project.vue';
   import {Message} from 'element-ui';
   import moment from 'moment';
-  import {getOrgInfo, getOrgInfoByUserId, getUserInfoName} from '@/utils/customize';
+  import {getOrgInfo, getOrgInfoByUserId, getUserInfoName, getCurrentRole} from '@/utils/customize';
   import dicselect from '../../../components/dicselect';
   import {getDictionaryInfo} from '../../../../utils/customize';
   import org from '../../../components/org';
@@ -870,6 +871,7 @@
         userlist: '',
         activeName: 'first',
         loading: false,
+          workflowCode: '',
         disabled: false,
         code1: 'PJ016',
         code2: 'PJ017',
@@ -1339,11 +1341,25 @@
                   this.loading = false;
                   return;
                 }
+                  //add_fjl_0806  添加总经理审批流程
+                  if (getCurrentRole() === '1') {
+                      this.workflowCode = 'W0097';//总经理流程
+                  } else {
+                      this.workflowCode = 'W0048';//其他
+                  }
+                  //add_fjl_0806  添加总经理审批流程
                 let rst = getOrgInfoByUserId(response.business.user_id);
                 if (rst) {
-                  this.centerid = rst.centerNmae;
-                  this.groupid = rst.groupNmae;
-                  this.teamid = rst.teamNmae;
+                    //upd_fjl_0806
+                    if (rst.groupId !== null && rst.groupId !== '') {
+                        this.checkGro = true;
+                    } else {
+                        this.checkGro = false;
+                    }
+                    // this.centerid = rst.centerNmae;
+                    // this.groupid = rst.groupNmae;
+                    // this.teamid = rst.teamNmae;
+                    //upd_fjl_0806
                 }
                 if (response.travelcontent.length > 0) {
                   this.tablePD = [];
@@ -1364,7 +1380,7 @@
                   }
                 }
                 this.userlist = this.form.user_id;
-                this.getBudt(this.userlist);
+                  this.getBudt(this.form.group_id);
                 this.baseInfo.business = JSON.parse(JSON.stringify(this.form));
                 if (this.form.objectivetype === 'PJ018005') {
                   this.show = true;
@@ -1446,15 +1462,22 @@
           let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
 
           if (rst) {
-            this.centerid = rst.centerNmae;
-            this.groupid = rst.groupNmae;
-            this.teamid = rst.teamNmae;
-            this.form.center_id = rst.centerId;
-            this.form.group_id = rst.groupId;
-            this.form.team_id = rst.teamId;
+              //upd_fjl_0806
+              if (rst.groupId !== null && rst.groupId !== '') {
+                  this.checkGro = true;
+              } else {
+                  this.checkGro = false;
+              }
+              // this.centerid = rst.centerNmae;
+              // this.groupid = rst.groupNmae;
+              // this.teamid = rst.teamNmae;
+              // this.form.center_id = rst.centerId;
+              // this.form.group_id = rst.groupId;
+              // this.form.team_id = rst.teamId;
+              //upd_fjl_0806
           }
           this.form.user_id = this.$store.getters.userinfo.userid;
-          this.getBudt(this.form.user_id);
+            this.getBudt(this.form.group_id);
         }
       } else {
         if (this.$route.params._id) {
@@ -1466,6 +1489,13 @@
                 this.loading = false;
                 return;
               }
+                //add_fjl_0806  添加总经理审批流程
+                if (getCurrentRole() === '1') {
+                    this.workflowCode = 'W0097';//总经理流程
+                } else {
+                    this.workflowCode = 'W0048';//其他
+                }
+                //add_fjl_0806  添加总经理审批流程
               this.form = response.business;
               if (this.form.checkch != '1') {
                 if (this.$route.params._type === 3) {
@@ -1594,6 +1624,7 @@
                 // this.form.group_id = rst.groupId;
               this.form.team_id = rst.teamId;
                 //add_fjl_0806
+                alert(rst.groupId)
                 if (rst.groupId !== null && rst.groupId !== '') {
                     this.form.group_id = rst.groupId;
                     this.getBudt(this.form.group_id);
@@ -1893,6 +1924,9 @@
       //add_fjl_07/29_修改项目查看  end
       //add-ws-4/24-项目名称所取数据源变更
       getBudt(val) {
+          if (val !== '' || val !== null) {
+              return;
+          }
           this.options = [];
         //ADD_FJL  修改人员预算编码
           // if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
