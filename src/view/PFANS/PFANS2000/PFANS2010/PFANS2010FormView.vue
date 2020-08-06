@@ -728,6 +728,9 @@
             _id: "",
             _lengthtime:lengthtime,
             _day:row.dates,
+            _user:row.user_id,
+            _month:row.months,
+            _year:row.years,
             disabled: true,
           },
         });
