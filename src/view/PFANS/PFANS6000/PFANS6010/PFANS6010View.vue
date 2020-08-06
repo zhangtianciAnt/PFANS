@@ -209,7 +209,7 @@
                             //endregion 部门费用合计
                         }
                         //外驻管理人员可操作【生成合同】
-                        if(letRole2 == '4' && showButton === '1'){
+                        if(letRole2 == '4' && showButton === '0'){
                             this.buttonList = this.buttonListinitial;
                         }
                         else{
