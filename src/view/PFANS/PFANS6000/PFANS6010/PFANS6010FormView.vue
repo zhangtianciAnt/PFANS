@@ -97,7 +97,9 @@
                 defaultStart:false,
                 loading: false,
                 disable: true,
-                buttonList: [],
+                buttonList: [
+
+                ],
                 tableData: [],
                 letparams:{},
                 groupnamelist:[],
@@ -171,19 +173,17 @@
             //生成个别合同
             createprobook(row) {
                 this.$store.commit('global/SET_HISTORYURL', this.$route.path);
-                if (val === 'view') {
-                    this.$router.push({
-                        name: 'PFANS1024FormView',
-                        params: {
-                            _checkindivdual: "1",
-                            supplierinfor_id:row.bpcompany,
-                            dates:this.letparams.dates,
-                            projectname:"测试项目",
-                            disabled: true,
-                            _id: '',
-                        }
-                    })
-                }
+                this.$router.push({
+                    name: 'PFANS1024FormView',
+                    params: {
+                        _checkindivdual: "1",
+                        supplierinfor_id:row.bpcompany,
+                        dates:this.letparams.dates,
+                        projectname:"测试项目",
+                        disabled: true,
+                        _id: '',
+                    }
+                })
             },
             getSummaries(param) {
                 const {columns, data} = param;
@@ -211,7 +211,9 @@
                 return sums;
             },
             buttonClick(val) {
-
+                if (val === 'view') {
+                    this.updateSta();
+                }
             },
             workflowState(val) {
                 if (val.state === '2') {
@@ -239,7 +241,7 @@
                         },
                     );
                 }
-                let baseInfo = [strData];
+                let baseInfo = [strData,this.$route.params._id];
                 this.loading = true;
                 this.$store
                     .dispatch('PFANS6008Store/insertcoststatisticsdetail', baseInfo)
