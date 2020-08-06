@@ -113,7 +113,7 @@
       getCompanyProjectList() {
         this.row = 'policycontract_id';
         this.title = 'title.PFANS1045VIEW';
-        this.dispatch('PFANS1006Store/getpolicycontract');
+        this.dispatch('PFANS1006Store/getpolicycontract3');
       },
       dispatch(val) {
         this.data = [];

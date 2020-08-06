@@ -5,6 +5,7 @@ import {
   createLoanapplication,
   getpolicycontract,
   getpolicycontract2,
+  getpolicycontract3,
   chackcycle,
   getaward,
   getpolicycontractOne,
@@ -125,6 +126,19 @@ const PFANS1006Store = {
     getpolicycontract2() {
       return new Promise((resolve, reject) => {
         getpolicycontract2().then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message);
+          }
+        }).catch(error => {
+          reject(error);
+        });
+      });
+    },
+    getpolicycontract3() {
+      return new Promise((resolve, reject) => {
+        getpolicycontract3().then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
