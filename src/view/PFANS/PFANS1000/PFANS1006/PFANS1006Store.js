@@ -96,9 +96,9 @@ const PFANS1006Store = {
         });
       });
     },
-    getpolicycontract() {
+    getpolicycontract({commit}, data) {
       return new Promise((resolve, reject) => {
-        getpolicycontract().then(response => {
+        getpolicycontract(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {

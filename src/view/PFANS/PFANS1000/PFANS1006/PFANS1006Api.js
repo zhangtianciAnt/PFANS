@@ -33,13 +33,13 @@ export function createLoanapplication(data) {
 }
 
 //ADD-WS-7/14-禅道144任务
-export function getpolicycontract() {
+export function getpolicycontract(data) {
   return request({
     url: 'policycontract/get',
-    method: 'get'
+    method: 'post',
+    data: data
   })
 }
-
 export function getpolicycontract2() {
   return request({
     url: 'policycontract/get2',
