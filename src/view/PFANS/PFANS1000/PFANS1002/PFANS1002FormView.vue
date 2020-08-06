@@ -1341,25 +1341,33 @@
                   this.loading = false;
                   return;
                 }
-                  //add_fjl_0806  添加总经理审批流程
-                  if (getCurrentRole() === '1') {
-                      this.workflowCode = 'W0097';//总经理流程
+                //add_fjl_0806  添加总经理审批流程
+                if (getCurrentRole() === '1') {
+                  this.workflowCode = 'W0097';//总经理流程
+                } else {
+                  this.workflowCode = 'W0048';//其他
+                }
+                //add_fjl_0806  添加总经理审批流程
+                this.form = response.business;
+                if (this.form.checkch != '1') {
+                  if (this.$route.params._type === 3) {
+                    this.form.checkch = '1';
                   } else {
-                      this.workflowCode = 'W0048';//其他
+                    this.form.checkch = '0';
                   }
-                  //add_fjl_0806  添加总经理审批流程
+                }
                 let rst = getOrgInfoByUserId(response.business.user_id);
                 if (rst) {
-                    //upd_fjl_0806
-                    if (rst.groupId !== null && rst.groupId !== '') {
-                        this.checkGro = true;
-                    } else {
-                        this.checkGro = false;
-                    }
-                    // this.centerid = rst.centerNmae;
-                    // this.groupid = rst.groupNmae;
-                    // this.teamid = rst.teamNmae;
-                    //upd_fjl_0806
+                  //upd_fjl_0806
+                  if (rst.groupId !== null && rst.groupId !== '') {
+                    this.checkGro = true;
+                  } else {
+                    this.checkGro = false;
+                  }
+                  // this.centerid = rst.centerNmae;
+                  // this.groupid = rst.groupNmae;
+                  // this.teamid = rst.teamNmae;
+                  //upd_fjl_0806
                 }
                 if (response.travelcontent.length > 0) {
                   this.tablePD = [];
@@ -1380,7 +1388,7 @@
                   }
                 }
                 this.userlist = this.form.user_id;
-                  this.getBudt(this.form.group_id);
+                this.getBudt(this.form.group_id);
                 this.baseInfo.business = JSON.parse(JSON.stringify(this.form));
                 if (this.form.objectivetype === 'PJ018005') {
                   this.show = true;
@@ -1434,15 +1442,17 @@
                 } else {
                   this.show10 = false;
                 }
-
-                //add ccm 0805 2
+                if (this.form.status === '2' || this.form.status === '4') {
+                  this.disable = false;
+                  this.listAll();
+                }
+                //add ccm 0805 1
                 if (this.form.loanapno != null && this.form.loanapno != '' && this.form.loanapno != undefined) {
-                  if (!this.$route.params.disabled && this.form.business_id != '' && this.form.business_id != null) {
+                  if (!this.$route.params.disabled && this.$route.params._id != '' && this.$route.params._id != null) {
                     this.clickBunable = false;
                   }
                 }
                 //add ccm 0805
-
                 this.loading = false;
               })
               .catch(error => {
