@@ -145,6 +145,7 @@
           {'key': 'sealapp', 'name': 'button.sealapp', 'disabled': false, 'icon': 'el-icon-view'},
           {'key': 'viewseal', 'name': 'button.viewseal', 'disabled': true, 'icon': 'el-icon-view'},
           {'key': 'pubilc', 'name': 'label.PFANS1025FORMVIEW_CHECKERROR', 'disabled': false, 'icon': 'el-icon-view'},
+            {'key': 'temLoanApp', 'name': 'button.temLoanApp', 'disabled': false, 'icon': 'el-icon-plus'},
         ],
         rowid: '',
         row_id: 'award_id',
@@ -293,6 +294,7 @@
                               sealstatus: response[j].sealstatus,
                               statuspublic: response[j].statuspublic,
                               //add-ws-7/20-禅道任务342
+                                remarks: response[j].remarks
                             });
                           }
                         }
@@ -321,6 +323,7 @@
                             sealstatus: response[m].sealstatus,
                             statuspublic: response[m].statuspublic,
                             //add-ws-7/20-禅道任务342
+                              remarks: response[m].remarks
                           });
                         }
                       }
@@ -563,6 +566,54 @@
           });
         }
         //add-ws-7/20-禅道任务342
+          if (val === 'temLoanApp') {
+              if (this.$refs.roletable.selectedList.length === 0) {
+                  Message({
+                      message: this.$t('normal.info_01'),
+                      type: 'info',
+                      duration: 2 * 1000
+                  });
+                  return;
+              }
+              this.selectedlist = [];
+              this.selectedlist = this.$refs.roletable.selectedList;
+              let _judgement = '';
+              let _judgement_name = '';
+              let _judgements_moneys = '';
+              let _remarks = '';
+              let str = '';
+              for (let i = 0; i < this.selectedlist.length; i++) {
+                  _judgement += this.selectedlist[i].award_id + ',';
+                  _judgement_name += this.selectedlist[i].contractnumber + ',';
+                  _judgements_moneys += this.selectedlist[i].claimamount + ',';
+                  _remarks += this.selectedlist[i].remarks + '^';
+                  //check是否存在暂借款
+                  if (this.selectedlist[i].loanapno != null && this.selectedlist[i].loanapno != '' && this.selectedlist[i].loanapno != undefined) {
+                      str += this.selectedlist[i].purnumbers + ' , ';
+                  }
+              }
+              if (str === '') {
+                  this.$router.push({
+                      name: 'PFANS1006FormView',
+                      params: {
+                          _id: '',
+                          _judgement: _judgement,
+                          _judgement_name: _judgement_name,
+                          _judgements_moneys: _judgements_moneys,
+                          _remarks: _remarks,
+                          _judgements_type: this.$t('label.PFANS1012VIEW_CHECKLIST'),
+                          disabled: true,
+                      },
+                  });
+              } else {
+                  Message({
+                      message: this.$t('label.PFANS3005VIEW_NUMBERS') + ' : ' + str + ' ' + this.$t('label.PFANS3005VIEW_LOANAPP'),
+                      type: 'info',
+                      duration: 3 * 1000,
+                  });
+                  return;
+              }
+          }
       },
     },
   };
