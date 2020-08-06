@@ -5422,12 +5422,12 @@
                             });
                     }
                 } else if (val === "save") {
-                    this.totaldata[0].status = this.status;
-                    this.totaldata[0].actual = "0";//预计工资
+                    this.responseDataInit[0].status = this.status;
+                    this.responseDataInit[0].actual = "0";//预计工资
                     this.loading = true;
                     // 插入工资数据
                     this.$store
-                        .dispatch("PFANS2005Store/insertWages", this.totaldata)
+                        .dispatch("PFANS2005Store/insertWages", this.responseDataInit)
                         .then(response => {
                             // 重新获取工资数据
                             this.getListdata();
