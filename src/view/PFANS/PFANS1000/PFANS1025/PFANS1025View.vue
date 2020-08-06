@@ -467,6 +467,7 @@
                 params: {
                   _id: peid,
                   disabled: true,
+                  check2: true,
                 },
               });
               this.loading = false;

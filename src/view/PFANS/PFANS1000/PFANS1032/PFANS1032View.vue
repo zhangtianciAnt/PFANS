@@ -222,6 +222,7 @@
                 name: 'PFANS4001FormView',
                 params: {
                     _id: row.sealid,
+                    check4: true,
                     disabled: false,
                 },
             });

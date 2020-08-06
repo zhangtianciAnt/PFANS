@@ -659,9 +659,51 @@
           name: 'PFANS4001View',
         });
       },
+      //add=ws=8/6-禅道任务388
+      checkparamsTitle1() {
+        this.$router.push({
+          name: 'PFANS1047View',
+        });
+      },
+      checkparamsTitle2() {
+        this.$router.push({
+          name: 'PFANS1025View',
+        });
+      },
+      checkparamsTitle3() {
+        this.$router.push({
+          name: 'PFANS1031View',
+        });
+      },
+      checkparamsTitle4() {
+        this.$router.push({
+          name: 'PFANS1032View',
+        });
+      },
+      //add=ws=8/6-禅道任务388
       buttonClick(val) {
         if (val === 'back') {
-          this.paramsTitle();
+          //add=ws=8/6-禅道任务388
+          if (this.$route.params.check1 != null && this.$route.params.check1 != '' && this.$route.params.check1 != undefined) {
+            if (this.$route.params.check1) {
+              this.checkparamsTitle1();
+            }
+          } else if (this.$route.params.check2 != null && this.$route.params.check2 != '' && this.$route.params.check2 != undefined) {
+            if (this.$route.params.check2) {
+              this.checkparamsTitle2();
+            }
+          } else if (this.$route.params.check3 != null && this.$route.params.check3 != '' && this.$route.params.check3 != undefined) {
+            if (this.$route.params.check3) {
+              this.checkparamsTitle3();
+            }
+          } else if (this.$route.params.check4 != null && this.$route.params.check4 != '' && this.$route.params.check4 != undefined) {
+            if (this.$route.params.check4) {
+              this.checkparamsTitle4();
+            }
+          }else{
+            this.paramsTitle();
+          }
+          //add=ws=8/6-禅道任务388
         } else {
           this.$refs['ruleForm'].validate(valid => {
             if (valid) {
