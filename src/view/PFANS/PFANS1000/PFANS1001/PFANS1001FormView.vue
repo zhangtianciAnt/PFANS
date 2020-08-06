@@ -707,6 +707,7 @@
               _type: 2,
               _check: this.check,
               statuss: this.statuss.status,
+              userid: this.statuss.user_id,
               _supplementary: this.statuss.supplementary,
               _judgnumberscheck: this.judgnumberscheck,
               disabled: true,

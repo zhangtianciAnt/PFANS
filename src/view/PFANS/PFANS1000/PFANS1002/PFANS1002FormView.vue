@@ -478,7 +478,9 @@
                       <el-form-item :label="$t('label.PFANS1012VIEW_TEMPORARYLOAN')" prop="loanapno">
                         <el-input :disabled="true" maxlength="20" style="width: 20vw"
                                   v-model="form.loanapno"></el-input>
-                        <el-button @click="clickBun" size="small" :disabled="clickBunable" type="primary">{{$t('button.view')}}</el-button>
+                        <el-button @click="clickBun" size="small" :disabled="clickBunable" type="primary">
+                          {{$t('button.view')}}
+                        </el-button>
                       </el-form-item>
                     </template>
                   </el-col>
@@ -763,7 +765,7 @@
   import project from '../../../components/project.vue';
   import {Message} from 'element-ui';
   import moment from 'moment';
-  import {getOrgInfo, getOrgInfoByUserId} from '@/utils/customize';
+  import {getOrgInfo, getOrgInfoByUserId, getUserInfoName} from '@/utils/customize';
   import dicselect from '../../../components/dicselect';
   import {getDictionaryInfo} from '../../../../utils/customize';
   import org from '../../../components/org';
@@ -892,7 +894,7 @@
         //add-ws-7/7-禅道247
 
         //add ccm 0805
-        clickBunable:true,
+        clickBunable: true,
         //add ccm 0805
 
         form: {
@@ -958,8 +960,8 @@
           otherexplanation: '',
 
           status: '',
-          loanapno:'',
-          loanapplication_id:'',
+          loanapno: '',
+          loanapplication_id: '',
         },
         buttonList: [
           {
@@ -1418,10 +1420,8 @@
                 }
 
                 //add ccm 0805 2
-                if (this.form.loanapno !=null && this.form.loanapno !='' && this.form.loanapno!=undefined)
-                {
-                  if (!this.$route.params.disabled && this.form.business_id!='' && this.form.business_id!=null)
-                  {
+                if (this.form.loanapno != null && this.form.loanapno != '' && this.form.loanapno != undefined) {
+                  if (!this.$route.params.disabled && this.form.business_id != '' && this.form.business_id != null) {
                     this.clickBunable = false;
                   }
                 }
@@ -1439,8 +1439,7 @@
               });
           });
 
-      }
-      else if (this.$route.params._type === 1) {
+      } else if (this.$route.params._type === 1) {
         this.form.offshore_id = this.$route.params._checkid;
         this.userlist = this.$store.getters.userinfo.userid;
         if (this.userlist !== null && this.userlist !== '') {
@@ -1457,8 +1456,7 @@
           this.form.user_id = this.$store.getters.userinfo.userid;
           this.getBudt(this.form.user_id);
         }
-      }
-      else {
+      } else {
         if (this.$route.params._id) {
           this.loading = true;
           this.$store
@@ -1567,10 +1565,8 @@
                 this.listAll();
               }
               //add ccm 0805 1
-              if (this.form.loanapno !=null && this.form.loanapno !='' && this.form.loanapno!=undefined)
-              {
-                if (!this.$route.params.disabled && this.$route.params._id!='' && this.$route.params._id!=null)
-                {
+              if (this.form.loanapno != null && this.form.loanapno != '' && this.form.loanapno != undefined) {
+                if (!this.$route.params.disabled && this.$route.params._id != '' && this.$route.params._id != null) {
                   this.clickBunable = false;
                 }
               }
@@ -1613,6 +1609,12 @@
       }
     },
     created() {
+      let userid = '';
+      if (this.$route.params.userid) {
+        if (getUserInfoName(this.$route.params.userid) !== '-1') {
+          userid = getUserInfoName(this.$route.params.userid).userid;
+        }
+      }
       //add-ws-7/7-禅道247
       this.checktype = this.$route.params._type;
       //add-ws-7/7-禅道247
@@ -1636,39 +1638,79 @@
         } else {
           this.form.checkch = '0';
           if (this.$route.params._check) {
-            this.buttonList = [
-              {
-                key: 'save',
-                name: 'button.save',
-                disabled: true,
-                icon: 'el-icon-check',
-              },
-              {
-                key: 'plantic',
-                name: 'button.plantic',
-                disabled: false,
-              },
-              {
-                key: 'apartment',
-                name: 'button.apartment',
-                disabled: false,
-              },
-            ];
+            if (userid === this.$store.getters.userinfo.userid) {
+              this.buttonList = [
+                {
+                  key: 'save',
+                  name: 'button.save',
+                  disabled: true,
+                  icon: 'el-icon-check',
+                },
+                {
+                  key: 'plantic',
+                  name: 'button.plantic',
+                  disabled: false,
+                },
+                {
+                  key: 'apartment',
+                  name: 'button.apartment',
+                  disabled: false,
+                },
+              ];
+            } else {
+              this.buttonList = [
+                {
+                  key: 'save',
+                  name: 'button.save',
+                  disabled: true,
+                  icon: 'el-icon-check',
+                },
+                {
+                  key: 'plantic',
+                  name: 'button.plantic',
+                  disabled: true,
+                },
+                {
+                  key: 'apartment',
+                  name: 'button.apartment',
+                  disabled: true,
+                },
+              ];
+            }
+
+
             this.enableSave = true;
           } else {
-            this.buttonList = [
-              {
-                key: 'save',
-                name: 'button.save',
-                disabled: true,
-                icon: 'el-icon-check',
-              },
-              {
-                key: 'plantic',
-                name: 'button.plantic',
-                disabled: false,
-              },
-            ];
+            if (userid === this.$store.getters.userinfo.userid) {
+              this.buttonList = [
+                {
+                  key: 'save',
+                  name: 'button.save',
+                  disabled: true,
+                  icon: 'el-icon-check',
+                },
+                {
+                  key: 'plantic',
+                  name: 'button.plantic',
+                  disabled: false,
+                },
+              ];
+            } else {
+              this.buttonList = [
+                {
+                  key: 'save',
+                  name: 'button.save',
+                  disabled: true,
+                  icon: 'el-icon-check',
+                },
+                {
+                  key: 'plantic',
+                  name: 'button.plantic',
+                  disabled: true,
+                },
+              ];
+            }
+
             this.enableSave = true;
           }
         }
@@ -1737,8 +1779,7 @@
         },
         //add_fjl_0806
       //add ccm 0805
-      clickBun()
-      {
+      clickBun() {
         this.$store.commit('global/SET_HISTORYURL', '');
         this.$store.commit('global/SET_WORKFLOWURL', '/FFFFF1002FormView');
         this.$router.push({
@@ -1748,7 +1789,7 @@
             _checkid: this.$route.params._id,
             _check: true,
             _id: this.form.loanapplication_id,
-            _sta:'0',
+            _sta: '0',
             disabled: false,
           },
         });
