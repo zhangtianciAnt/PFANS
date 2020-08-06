@@ -593,6 +593,7 @@
         form: {
           // add-ws-7/17-禅道116任务
           policycontract_id: '',
+          dates: '',
           // add-ws-7/17-禅道116任务
           uploadfile: '',
           investorspeopor: '',
@@ -861,9 +862,8 @@
       policycontractlist() {
         let parameter = {
           outsourcingcompany: this.form.custochinese,
-          applicationdate: this.form.dates,
+          information: this.form.dates,
         };
-
         this.loading = true;
         this.$store
           .dispatch('PFANS1006Store/getpolicycontract', parameter)
@@ -875,7 +875,9 @@
                   moneys: response[i].modifiedamount,
                 });
               }
-              this.getpolicycontract(this.optionsdata[0].value)
+              if (this.optionsdata.length > 0) {
+                this.getpolicycontract(this.optionsdata[0].value);
+              }
               this.loading = false;
             },
           ).catch(error => {
