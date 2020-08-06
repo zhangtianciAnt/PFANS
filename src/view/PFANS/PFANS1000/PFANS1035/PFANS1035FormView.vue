@@ -481,7 +481,7 @@
   import user from '../../../components/user.vue';
   import {Message} from 'element-ui';
   import moment from 'moment';
-  import {getDictionaryInfo, getOrgInfo, getOrgInfoByUserId} from '@/utils/customize';
+  import {getDictionaryInfo, getOrgInfo, getOrgInfoByUserId,getUserInfoName} from '@/utils/customize';
   import dicselect from '../../../components/dicselect';
 
   import project from '../../../components/project.vue';
@@ -938,6 +938,12 @@
       }
     },
     created() {
+      let userid = '';
+      if (this.$route.params.userid) {
+        if (getUserInfoName(this.$route.params.userid) !== '-1') {
+          userid = getUserInfoName(this.$route.params.userid).userid;
+        }
+      }
       //add-ws-7/7-禅道247
       this.checktype = this.$route.params._type;
       //add-ws-7/7-禅道247
@@ -960,19 +966,35 @@
           this.enableSave = true;
         } else {
           this.form.checkch = '0';
-          this.buttonList = [
-            {
-              key: 'save',
-              name: 'button.save',
-              disabled: true,
-              icon: 'el-icon-check',
-            },
-            {
-              key: 'plantic',
-              name: 'button.plantic',
-              disabled: false,
-            },
-          ];
+          if (userid === this.$store.getters.userinfo.userid) {
+            this.buttonList = [
+              {
+                key: 'save',
+                name: 'button.save',
+                disabled: true,
+                icon: 'el-icon-check',
+              },
+              {
+                key: 'plantic',
+                name: 'button.plantic',
+                disabled: false,
+              },
+            ];
+          }else{
+            this.buttonList = [
+              {
+                key: 'save',
+                name: 'button.save',
+                disabled: true,
+                icon: 'el-icon-check',
+              },
+              {
+                key: 'plantic',
+                name: 'button.plantic',
+                disabled: true,
+              },
+            ];
+          }
           this.enableSave = true;
         }
       } else if (this.$route.params.statuss === this.$t('label.node_step2')) {
