@@ -1289,7 +1289,7 @@
                 // }
                 this.maketype = contractapplication[i].maketype;
                 this.dates = contractapplication[i].dates;
-                  this.projectname = contractapplication[i].projectname;
+                this.projectname = contractapplication[i].projectname;
                 if (contractapplication[i].claimtype) {
                   this.form1.claimtype = contractapplication[i].claimtype.replace('第', '').replace('回', '');
                 }
@@ -1421,43 +1421,44 @@
                       response[j].abbreviation = supplierInfo.abbreviation;
                       //        zy-7/6-禅道213任务 end
                     }
-                  }
-                  if (response[j].liableperson !== null && response[j].liableperson !== '') {
-                    let liableperson = getUserInfo(response[j].liableperson);
-                    if (liableperson) {
-                      response[j].liableperson = user.userinfo.customername;
+
+                    if (response[j].liableperson !== null && response[j].liableperson !== '') {
+                      let liableperson = getUserInfo(response[j].liableperson);
+                      if (liableperson) {
+                        response[j].liableperson = user.userinfo.customername;
+                      }
                     }
-                  }
-                  if (response[j].prochinese !== null && response[j].prochinese !== '') {
-                    let prochinese = getUserInfo(response[j].prochinese);
-                    if (prochinese) {
-                      response[j].prochinese = user.userinfo.customername;
+                    if (response[j].prochinese !== null && response[j].prochinese !== '') {
+                      let prochinese = getUserInfo(response[j].prochinese);
+                      if (prochinese) {
+                        response[j].prochinese = user.userinfo.customername;
+                      }
                     }
-                  }
-                  if (response[j].protelephone !== null && response[j].protelephone !== '') {
-                    let protelephone = getUserInfo(response[j].protelephone);
-                    if (protelephone) {
-                      response[j].protelephone = user.userinfo.customername;
+                    if (response[j].protelephone !== null && response[j].protelephone !== '') {
+                      let protelephone = getUserInfo(response[j].protelephone);
+                      if (protelephone) {
+                        response[j].protelephone = user.userinfo.customername;
+                      }
                     }
+                    this.form1.custojapanese = response[j].supjapanese;
+                    this.formcustomer.custojapanese = response[j].supjapanese;
+                    this.formcustomer.custoenglish = response[j].supenglish;
+                    this.formcustomer.custoabbreviation = response[j].abbreviation;
+                    this.formcustomer.custochinese = response[j].supchinese;
+                    this.formcustomer.suppliercode = response[j].suppliercode;
+                    this.formcustomer.vendornum = response[j].vendornum;
+                    if (!response[j].addjapanese) {
+                      this.formcustomer.placejapanese = response[j].addchinese;
+                    } else {
+                      this.formcustomer.placejapanese = response[j].addjapanese;
+                    }
+                    this.formcustomer.placeenglish = response[j].addenglish;
+                    this.formcustomer.placechinese = response[j].addchinese;
+                    this.formcustomer.responjapanese = response[j].projapanese;
+                    this.formcustomer.responerglish = response[j].proenglish;
+                    this.formcustomer.responphone = response[j].protelephone;
+                    this.formcustomer.responemail = response[j].protemail;
                   }
-                  this.form1.custojapanese = response[j].supjapanese;
-                  this.formcustomer.custojapanese = response[j].supjapanese;
-                  this.formcustomer.custoenglish = response[j].supenglish;
-                  this.formcustomer.custoabbreviation = response[j].abbreviation;
-                  this.formcustomer.custochinese = response[j].supchinese;
-                  this.formcustomer.suppliercode = response[j].suppliercode;
-                  this.formcustomer.vendornum = response[j].vendornum;
-                  if (!response[j].addjapanese) {
-                    this.formcustomer.placejapanese = response[j].addchinese;
-                  } else {
-                    this.formcustomer.placejapanese = response[j].addjapanese;
-                  }
-                  this.formcustomer.placeenglish = response[j].addenglish;
-                  this.formcustomer.placechinese = response[j].addchinese;
-                  this.formcustomer.responjapanese = response[j].projapanese;
-                  this.formcustomer.responerglish = response[j].proenglish;
-                  this.formcustomer.responphone = response[j].protelephone;
-                  this.formcustomer.responemail = response[j].protemail;
                 }
                 this.loading = false;
               })
