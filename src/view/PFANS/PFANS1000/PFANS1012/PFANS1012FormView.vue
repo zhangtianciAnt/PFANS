@@ -390,6 +390,7 @@
                         <el-button
                           @click.native.prevent="rowClickLoa(scope.row)"
                           plain
+                          :disabled="show10"
                           size="small"
                           type="primary"
                         >{{$t('button.viewdetails')}}
@@ -4862,8 +4863,18 @@
       },
       //add 0728
       rowClickLoa(row) {
-        this.urlparams = {'_id': row.loanapplication_id,'disabled':true};
-        this.$refs[1].open = true;
+        this.$store.commit('global/SET_HISTORYURL', '');
+        this.$store.commit('global/SET_WORKFLOWURL', '/FFFFF1012FormView');
+        this.$router.push({
+            name: 'PFANS1006FormView',
+            params: {
+              _checkdisable: this.disable,
+              _checkid: this.IDname,
+              _check: true,
+              _id: row.loanapplication_id,
+              disabled: false,
+            },
+          });
       },
       //add 0728
 

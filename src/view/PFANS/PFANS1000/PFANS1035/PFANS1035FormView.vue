@@ -357,6 +357,15 @@
                       </el-input-number>
                     </el-form-item>
                   </el-col>
+                  <el-col :span="8">
+                    <template>
+                      <el-form-item :label="$t('label.PFANS1012VIEW_TEMPORARYLOAN')" prop="loanapno">
+                        <el-input :disabled="true" maxlength="20" style="width: 20vw"
+                                  v-model="form.loanapno"></el-input>
+                        <el-button @click="clickBun" size="small" :disabled="clickBunable" type="primary">{{$t('button.view')}}</el-button>
+                      </el-form-item>
+                    </template>
+                  </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
@@ -472,7 +481,7 @@
   import user from '../../../components/user.vue';
   import {Message} from 'element-ui';
   import moment from 'moment';
-  import {getDictionaryInfo, getOrgInfo, getOrgInfoByUserId} from '@/utils/customize';
+  import {getDictionaryInfo, getOrgInfo, getOrgInfoByUserId,getUserInfoName} from '@/utils/customize';
   import dicselect from '../../../components/dicselect';
 
   import project from '../../../components/project.vue';
@@ -559,6 +568,9 @@
         checktype: '',
         checkdisabled: false,
         //add-ws-7/7-禅道247
+
+        clickBunable:true,
+
         form: {
           //add-ws-7/7-禅道247
           remark: '',
@@ -597,6 +609,8 @@
           regulations: '',
           reason: '',
           otherexplanation: '',
+          loanapno:'',
+          loanapplication_id:'',
         },
         buttonList: [
           {
@@ -884,6 +898,15 @@
               this.disable = false;
               this.listAll();
             }
+            //add ccm 0805
+            if (this.form.loanapno !=null && this.form.loanapno !='' && this.form.loanapno!=undefined)
+            {
+              if (!this.$route.params.disabled && this.$route.params._id!='' && this.$route.params._id!=null)
+              {
+                this.clickBunable = false;
+              }
+            }
+            //add ccm 0805
             this.loading = false;
           })
           .catch(error => {
@@ -915,6 +938,12 @@
       }
     },
     created() {
+      let userid = '';
+      if (this.$route.params.userid) {
+        if (getUserInfoName(this.$route.params.userid) !== '-1') {
+          userid = getUserInfoName(this.$route.params.userid).userid;
+        }
+      }
       //add-ws-7/7-禅道247
       this.checktype = this.$route.params._type;
       //add-ws-7/7-禅道247
@@ -937,19 +966,35 @@
           this.enableSave = true;
         } else {
           this.form.checkch = '0';
-          this.buttonList = [
-            {
-              key: 'save',
-              name: 'button.save',
-              disabled: true,
-              icon: 'el-icon-check',
-            },
-            {
-              key: 'plantic',
-              name: 'button.plantic',
-              disabled: false,
-            },
-          ];
+          if (userid === this.$store.getters.userinfo.userid) {
+            this.buttonList = [
+              {
+                key: 'save',
+                name: 'button.save',
+                disabled: true,
+                icon: 'el-icon-check',
+              },
+              {
+                key: 'plantic',
+                name: 'button.plantic',
+                disabled: false,
+              },
+            ];
+          }else{
+            this.buttonList = [
+              {
+                key: 'save',
+                name: 'button.save',
+                disabled: true,
+                icon: 'el-icon-check',
+              },
+              {
+                key: 'plantic',
+                name: 'button.plantic',
+                disabled: true,
+              },
+            ];
+          }
           this.enableSave = true;
         }
       } else if (this.$route.params.statuss === this.$t('label.node_step2')) {
@@ -979,6 +1024,26 @@
       // }
     },
     methods: {
+
+      //add ccm 0805
+      clickBun()
+      {
+        this.$store.commit('global/SET_HISTORYURL', '');
+        this.$store.commit('global/SET_WORKFLOWURL', '/FFFFF1035FormView');
+        this.$router.push({
+          name: 'PFANS1006FormView',
+          params: {
+            _checkdisable: this.disable,
+            _checkid: this.$route.params._id,
+            _check: true,
+            _id: this.form.loanapplication_id,
+            _sta:'1',
+            disabled: false,
+          },
+        });
+      },
+      //add ccm 0805
+
       //add-ws-4/24-项目名称所取数据源变更
       //upd-ws-6/5-禅道075任务，项目名称问题修正
       getCompanyProjectList() {
