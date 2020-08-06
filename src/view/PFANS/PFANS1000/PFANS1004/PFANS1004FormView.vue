@@ -549,7 +549,7 @@
 </template>
 
 <script>
-  import EasyPop from '@/components/EasyPop';
+
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import dicselect from '../../../components/dicselect.vue';
   import user from '../../../components/user.vue';
@@ -563,6 +563,7 @@
     getUserInfo,
     uploadUrl,
   } from '@/utils/customize';
+  import EasyPop from '@/components/EasyPop';
   import moment from 'moment';
   import {quillEditor} from 'vue-quill-editor';
   import 'quill/dist/quill.core.css';
