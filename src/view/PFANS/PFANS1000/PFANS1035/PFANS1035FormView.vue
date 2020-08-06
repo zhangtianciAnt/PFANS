@@ -21,20 +21,32 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.center')">
-                      <el-input :disabled="true" style="width:20vw" v-model="centerid"></el-input>
-                      <el-input v-show='false' :disabled="true" style="width:20vw" v-model="form.center_id"></el-input>
+                      <org :disabled="true"
+                           :orglist="form.center_id"
+                           @getOrgids="getCenterid"
+                           orgtype="1"
+                           style="width: 20vw"
+                      ></org>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.group')">
-                      <el-input :disabled="true" style="width:20vw" v-model="groupid"></el-input>
-                      <el-input v-show='false' :disabled="true" style="width:20vw" v-model="form.group_id"></el-input>
+                      <org :disabled="checkGro"
+                           :orglist="form.group_id"
+                           @getOrgids="getGroupId"
+                           orgtype="2"
+                           style="width: 20vw"
+                      ></org>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.team')">
-                      <el-input :disabled="true" style="width:20vw" v-model="teamid"></el-input>
-                      <el-input v-show='false' :disabled="true" style="width:20vw" v-model="form.team_id"></el-input>
+                      <org :disabled="true"
+                           :orglist="form.team_id"
+                           @getOrgids="getTeamid"
+                           orgtype="3"
+                           style="width: 20vw"
+                      ></org>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -223,7 +235,7 @@
               <div>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012FORMVIEW_BUDGET')">
+                    <el-form-item :label="$t('label.PFANS1012FORMVIEW_BUDGET')" prop="budgetunit">
                       <!--                      <el-input :disabled="true" style="width:20vw" v-model="form.budgetunit" maxlength='50'></el-input>-->
                       <el-select clearable style="width: 20vw" v-model="form.budgetunit" :disabled="!disable"
                                  :placeholder="$t('normal.error_09')">
@@ -483,7 +495,7 @@
   import moment from 'moment';
   import {getDictionaryInfo, getOrgInfo, getOrgInfoByUserId} from '@/utils/customize';
   import dicselect from '../../../components/dicselect';
-
+  import org from '../../../components/org';
   import project from '../../../components/project.vue';
 
   export default {
@@ -493,6 +505,7 @@
       EasyNormalContainer,
       user,
       project,
+        org,
     },
     data() {
       var validateUserid = (rule, value, callback) => {
@@ -812,6 +825,15 @@
               trigger: 'change',
             },
           ],
+            //add_fjl_0806 预算编码
+            budgetunit: [
+                {
+                    required: true,
+                    message: this.$t('normal.error_09') + this.$t('label.PFANS1012FORMVIEW_BUDGET'),
+                    trigger: 'change',
+                },
+            ],
+            //add_fjl_0806 预算编码
         },
         show: false,
         show2: false,
@@ -819,6 +841,7 @@
         show4: false,
         show5: false,
         canStart: false,
+          checkGro: false,
       };
     },
     mounted() {
@@ -843,9 +866,16 @@
             }
             let rst = getOrgInfoByUserId(response.business.user_id);
             if (rst) {
-              this.centerid = rst.centerNmae;
-              this.groupid = rst.groupNmae;
-              this.teamid = rst.teamNmae;
+                //upd_fjl_0806
+                if (rst.groupId !== null && rst.groupId !== '') {
+                    this.checkGro = true;
+                } else {
+                    this.checkGro = false;
+                }
+                // this.centerid = rst.centerNmae;
+                // this.groupid = rst.groupNmae;
+                // this.teamid = rst.teamNmae;
+                //upd_fjl_0806
             }
             if (response.travelcontent.length > 0) {
               this.tablePD = [];
@@ -866,7 +896,7 @@
               }
             }
             this.userlist = this.form.user_id;
-            this.getBudt(this.userlist);
+              this.getBudt(this.form.group_id);
             this.baseInfo.business = JSON.parse(JSON.stringify(this.form));
             if (this.form.objectivetype === 'PJ018005') {
               this.show = true;
@@ -929,11 +959,18 @@
             this.groupid = rst.groupNmae;
             this.teamid = rst.teamNmae;
             this.form.center_id = rst.centerId;
-            this.form.group_id = rst.groupId;
+              // this.form.group_id = rst.groupId;
             this.form.team_id = rst.teamId;
+              if (rst.groupId !== null && rst.groupId !== '') {
+                  this.form.group_id = rst.groupId;
+                  this.getBudt(this.form.group_id);
+                  this.checkGro = true;
+              } else {
+                  this.checkGro = false;
+              }
+              //add_fjl_0806
           }
           this.form.user_id = this.$store.getters.userinfo.userid;
-          this.getBudt(this.form.user_id);
         }
       }
     },
@@ -1002,7 +1039,19 @@
       // }
     },
     methods: {
-
+        //add_fjl_0806
+        getCenterid(val) {
+            this.form.center_id = val;
+        },
+        getGroupId(val) {
+            this.form.group_id = val;
+            this.form.budgetunit = '';
+            this.getBudt(val);
+        },
+        getTeamid(val) {
+            this.form.team_id = val;
+        },
+        //add_fjl_0806
       //add ccm 0805
       clickBun()
       {
@@ -1119,9 +1168,10 @@
       //add_fjl_07/29_修改项目查看  end
       //add-ws-4/24-项目名称所取数据源变更
       getBudt(val) {
+          this.options = [];
         //ADD_FJL  修改人员预算编码
-        if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
-          let butinfo = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
+          // if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
+          let butinfo = getOrgInfo(val).encoding;
           let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
           if (dic.length > 0) {
             for (let i = 0; i < dic.length; i++) {
@@ -1133,7 +1183,7 @@
               }
             }
           }
-        }
+          // }
         //ADD_FJL  修改人员预算编码
       },
       change(val) {
