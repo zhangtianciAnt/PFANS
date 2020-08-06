@@ -1078,8 +1078,8 @@
       },
       getGroupId(orglist) {
         this.getchangeGroup(orglist)
-        this.form.group_name = orglist
-        if (!this.form.group_name || this.form.group_name === '') {
+        this.form.group_id = orglist
+        if (!this.form.group_id || this.form.group_id === '') {
           this.errorgroup = this.$t('normal.error_09') + 'group';
         } else {
           this.errorgroup = '';

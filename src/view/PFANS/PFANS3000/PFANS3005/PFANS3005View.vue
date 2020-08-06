@@ -21,6 +21,7 @@
         title: 'title.PFANS3005VIEW',
         data: [],
         selectedlist: [],
+        purchasedetail: [],
         isShow: true,
         columns: [
           {
@@ -259,6 +260,7 @@
           {'key': 'conapp', 'name': 'button.conapp', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'temLoanApp', 'name': 'button.temLoanApp', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'actuarial', 'name': 'button.actuarial', 'disabled': false, 'icon': 'el-icon-edit-outline'},
+          {'key': 'export2', 'name': 'button.export', 'disabled': false, 'icon': 'el-icon-edit-outline'},
 
         ],
         rowid: '',
@@ -442,6 +444,80 @@
           this.selectedlist = this.$refs.roletable.selectedList;
           this.export1(this.selectedlist);
         }
+
+        if (val === 'export2') {
+          if (this.$refs.roletable.selectedList.length === 0) {
+            Message({
+              message: this.$t('normal.info_01'),
+              type: 'info',
+              duration: 2 * 1000
+            });
+            return;
+          }
+          this.selectedlist = this.$refs.roletable.selectedList;
+          import('@/vendor/Export2Excel').then(excel => {
+            const tHeader = [
+              this.$t('label.application'),//申请日
+              this.$t('label.department'),//部门
+              this.$t('label.applicant'),//申请者
+              this.$t('label.PFANS3005VIEW_LINENUMBER'),//内线号
+              this.$t('label.PFANS3005VIEW_SETPLACE'),//放置场所
+              this.$t('label.PFANS3005VIEW_CONTROLLER'),//管理者
+              this.$t('label.PFANS3005VIEW_USER'),//使用者
+              this.$t('label.PFANS1025VIEW_BUDGETCODE'),//预算编码
+              this.$t('label.PFANS3005FORMVIEW_CAREERPLAN'),//事业计划内外
+              this.$t('label.PFANS3005FORMVIEW_BUSINESSPLANBALANCE'),//事业计划余额
+              this.$t('label.PFANS3005VIEW_PURCHASEPURPOSE'),//购入目的
+              this.$t('label.PFANS3005VIEW_PROCUREMENTPROJECT'),//采购目的
+              this.$t('label.PFANS3005VIEW_PROCUREMENTDETAILS'),//采购明细
+              this.$t('label.remarks'),//备注
+              this.$t('label.PFANS3005VIEW_ITEMNAME'),//物品名称
+              this.$t('label.PFANS3005VIEW_BRANDNAME'),//品牌名
+              this.$t('label.PFANS3005VIEW_MODEL'),//型号
+              this.$t('label.PFANS3005VIEW_EQUIPMENTURL'),//设备url
+              this.$t('label.PFANS3005VIEW_QUANTITY'),//数量
+              this.$t('label.PFANS3005VIEW_UNITPRICE'),//单价
+              this.$t('label.PFANS3005VIEW_TOTALAMOUNT'),//总金额
+              this.$t('label.PFANS3005VIEW_STORAGEDATE'),//入库日
+              this.$t('label.PFANS3005VIEW_COLLECTIONDAY'),//领取日
+              this.$t('label.PFANS3005VIEW_RECIPIENTS'),//领取者
+              this.$t('label.PFANS3005VIEW_ACTUARIALDATE'),//精算日
+              this.$t('label.PFANS3005VIEW_ACTUARIALAMOUNT'),//精算金额
+            ];
+            const filterVal = [
+              'application_date',
+              'group_id',
+              'user_id',
+              'linenumber',
+              'setplace',
+              'controller',
+              'username',
+              'budgetnumber',
+              'careerplan',
+              'businessplanamount',
+              'purchasepurpose',
+              'procurementproject',
+              'procurementdetails',
+              'remarks',
+              'procurementdetails',
+              'brandname',
+              'model',
+              'equipmenturl',
+              'quantity',
+              'unitprice',
+              'totalamount',
+              'storagedate',
+              'collectionday',
+              'recipients',
+              'actuarialdate',
+              'actuarialamount',
+            ];
+            const list = this.selectedlist;
+            const data = this.formatJson(filterVal, list);
+            excel.export_json_to_excel(tHeader, data, this.$t('menu.PFANS3005') + '_' + this.$t(moment(new Date()).format('YYYY-MM-DD')));
+          });
+        }
+
         //add_fjl_0724   添加跳转申请精算与暂借款  end
         if (val === 'actuarial' || val === 'temLoanApp') {
           if (this.$refs.roletable.selectedList.length === 0) {
@@ -686,6 +762,17 @@
             });
             this.loading = false;
           })
+      },
+      formatJson(filterVal, jsonData) {
+        return jsonData.map(v =>
+          filterVal.map(j => {
+            if (j === 'timestamp') {
+              return parseTime(v[j]);
+            } else {
+              return v[j];
+            }
+          }),
+        );
       },
     }
   }

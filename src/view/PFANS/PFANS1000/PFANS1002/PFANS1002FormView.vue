@@ -11,6 +11,7 @@
       @workflowState="workflowState"
       ref="container"
       v-loading="loading"
+      :workflowCode="workflowCode"
     >
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
@@ -21,20 +22,32 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.center')">
-                      <el-input :disabled="true" style="width:20vw" v-model="centerid"></el-input>
-                      <el-input :disabled="true" style="width: 20vw" v-model="form.center_id" v-show='false'></el-input>
+                      <org :disabled="true"
+                           :orglist="form.center_id"
+                           @getOrgids="getCenterid"
+                           orgtype="1"
+                           style="width: 20vw"
+                      ></org>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.group')">
-                      <el-input :disabled="true" style="width:20vw" v-model="groupid"></el-input>
-                      <el-input :disabled="true" style="width: 20vw" v-model="form.group_id" v-show='false'></el-input>
+                      <org :disabled="checkGro"
+                           :orglist="form.group_id"
+                           @getOrgids="getGroupId"
+                           orgtype="2"
+                           style="width: 20vw"
+                      ></org>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.team')">
-                      <el-input :disabled="true" style="width:20vw" v-model="teamid"></el-input>
-                      <el-input :disabled="true" style="width: 20vw" v-model="form.team_id" v-show='false'></el-input>
+                      <org :disabled="true"
+                           :orglist="form.team_id"
+                           @getOrgids="getTeamid"
+                           orgtype="3"
+                           style="width: 20vw"
+                      ></org>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -250,7 +263,7 @@
               <div>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012FORMVIEW_BUDGET')">
+                    <el-form-item :label="$t('label.PFANS1012FORMVIEW_BUDGET')" prop="budgetunit">
                       <!--                      <el-input :disabled="true" maxlength='50' style="width:20vw" v-model="form.budgetunit"></el-input>-->
                       <el-select clearable style="width: 20vw" v-model="form.budgetunit" :disabled="!disable"
                                  :placeholder="$t('normal.error_09')">
@@ -466,7 +479,9 @@
                       <el-form-item :label="$t('label.PFANS1012VIEW_TEMPORARYLOAN')" prop="loanapno">
                         <el-input :disabled="true" maxlength="20" style="width: 20vw"
                                   v-model="form.loanapno"></el-input>
-                        <el-button @click="clickBun" size="small" :disabled="clickBunable" type="primary">{{$t('button.view')}}</el-button>
+                        <el-button @click="clickBun" size="small" :disabled="clickBunable" type="primary">
+                          {{$t('button.view')}}
+                        </el-button>
                       </el-form-item>
                     </template>
                   </el-col>
@@ -751,9 +766,10 @@
   import project from '../../../components/project.vue';
   import {Message} from 'element-ui';
   import moment from 'moment';
-  import {getOrgInfo, getOrgInfoByUserId} from '@/utils/customize';
+  import {getOrgInfo, getOrgInfoByUserId, getUserInfoName, getCurrentRole} from '@/utils/customize';
   import dicselect from '../../../components/dicselect';
   import {getDictionaryInfo} from '../../../../utils/customize';
+  import org from '../../../components/org';
 
   export default {
     name: 'PFANS1002FormView',
@@ -762,6 +778,7 @@
       EasyNormalContainer,
       user,
       project,
+        org,
     },
     data() {
       var validateUserid = (rule, value, callback) => {
@@ -854,6 +871,7 @@
         userlist: '',
         activeName: 'first',
         loading: false,
+          workflowCode: '',
         disabled: false,
         code1: 'PJ016',
         code2: 'PJ017',
@@ -878,7 +896,7 @@
         //add-ws-7/7-禅道247
 
         //add ccm 0805
-        clickBunable:true,
+        clickBunable: true,
         //add ccm 0805
 
         form: {
@@ -944,8 +962,8 @@
           otherexplanation: '',
 
           status: '',
-          loanapno:'',
-          loanapplication_id:'',
+          loanapno: '',
+          loanapplication_id: '',
         },
         buttonList: [
           {
@@ -1285,6 +1303,15 @@
               trigger: 'change',
             },
           ],
+            //add_fjl_0806 预算编码
+            budgetunit: [
+                {
+                    required: true,
+                    message: this.$t('normal.error_09') + this.$t('label.PFANS1012FORMVIEW_BUDGET'),
+                    trigger: 'change',
+                },
+            ],
+            //add_fjl_0806 预算编码
         },
         show: false,
         show2: false,
@@ -1295,6 +1322,7 @@
         show9: false,
         show10: false,
         canStart: false,
+          checkGro: false,
       };
     },
     mounted() {
@@ -1313,11 +1341,25 @@
                   this.loading = false;
                   return;
                 }
+                  //add_fjl_0806  添加总经理审批流程
+                  if (getCurrentRole() === '1') {
+                      this.workflowCode = 'W0097';//总经理流程
+                  } else {
+                      this.workflowCode = 'W0048';//其他
+                  }
+                  //add_fjl_0806  添加总经理审批流程
                 let rst = getOrgInfoByUserId(response.business.user_id);
                 if (rst) {
-                  this.centerid = rst.centerNmae;
-                  this.groupid = rst.groupNmae;
-                  this.teamid = rst.teamNmae;
+                    //upd_fjl_0806
+                    if (rst.groupId !== null && rst.groupId !== '') {
+                        this.checkGro = true;
+                    } else {
+                        this.checkGro = false;
+                    }
+                    // this.centerid = rst.centerNmae;
+                    // this.groupid = rst.groupNmae;
+                    // this.teamid = rst.teamNmae;
+                    //upd_fjl_0806
                 }
                 if (response.travelcontent.length > 0) {
                   this.tablePD = [];
@@ -1338,7 +1380,7 @@
                   }
                 }
                 this.userlist = this.form.user_id;
-                this.getBudt(this.userlist);
+                  this.getBudt(this.form.group_id);
                 this.baseInfo.business = JSON.parse(JSON.stringify(this.form));
                 if (this.form.objectivetype === 'PJ018005') {
                   this.show = true;
@@ -1394,10 +1436,8 @@
                 }
 
                 //add ccm 0805 2
-                if (this.form.loanapno !=null && this.form.loanapno !='' && this.form.loanapno!=undefined)
-                {
-                  if (!this.$route.params.disabled && this.form.business_id!='' && this.form.business_id!=null)
-                  {
+                if (this.form.loanapno != null && this.form.loanapno != '' && this.form.loanapno != undefined) {
+                  if (!this.$route.params.disabled && this.form.business_id != '' && this.form.business_id != null) {
                     this.clickBunable = false;
                   }
                 }
@@ -1415,26 +1455,31 @@
               });
           });
 
-      }
-      else if (this.$route.params._type === 1) {
+      } else if (this.$route.params._type === 1) {
         this.form.offshore_id = this.$route.params._checkid;
         this.userlist = this.$store.getters.userinfo.userid;
         if (this.userlist !== null && this.userlist !== '') {
           let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
 
           if (rst) {
-            this.centerid = rst.centerNmae;
-            this.groupid = rst.groupNmae;
-            this.teamid = rst.teamNmae;
-            this.form.center_id = rst.centerId;
-            this.form.group_id = rst.groupId;
-            this.form.team_id = rst.teamId;
+              //upd_fjl_0806
+              if (rst.groupId !== null && rst.groupId !== '') {
+                  this.checkGro = true;
+              } else {
+                  this.checkGro = false;
+              }
+              // this.centerid = rst.centerNmae;
+              // this.groupid = rst.groupNmae;
+              // this.teamid = rst.teamNmae;
+              // this.form.center_id = rst.centerId;
+              // this.form.group_id = rst.groupId;
+              // this.form.team_id = rst.teamId;
+              //upd_fjl_0806
           }
           this.form.user_id = this.$store.getters.userinfo.userid;
-          this.getBudt(this.form.user_id);
+            this.getBudt(this.form.group_id);
         }
-      }
-      else {
+      } else {
         if (this.$route.params._id) {
           this.loading = true;
           this.$store
@@ -1444,6 +1489,13 @@
                 this.loading = false;
                 return;
               }
+                //add_fjl_0806  添加总经理审批流程
+                if (getCurrentRole() === '1') {
+                    this.workflowCode = 'W0097';//总经理流程
+                } else {
+                    this.workflowCode = 'W0048';//其他
+                }
+                //add_fjl_0806  添加总经理审批流程
               this.form = response.business;
               if (this.form.checkch != '1') {
                 if (this.$route.params._type === 3) {
@@ -1454,9 +1506,16 @@
               }
               let rst = getOrgInfoByUserId(response.business.user_id);
               if (rst) {
-                this.centerid = rst.centerNmae;
-                this.groupid = rst.groupNmae;
-                this.teamid = rst.teamNmae;
+                  //upd_fjl_0806
+                  if (rst.groupId !== null && rst.groupId !== '') {
+                      this.checkGro = true;
+                  } else {
+                      this.checkGro = false;
+                  }
+                  // this.centerid = rst.centerNmae;
+                  // this.groupid = rst.groupNmae;
+                  // this.teamid = rst.teamNmae;
+                  //upd_fjl_0806
               }
               if (response.travelcontent.length > 0) {
                 this.tablePD = [];
@@ -1477,7 +1536,7 @@
                 }
               }
               this.userlist = this.form.user_id;
-              this.getBudt(this.userlist);
+                this.getBudt(this.form.group_id);
               this.baseInfo.business = JSON.parse(JSON.stringify(this.form));
               if (this.form.objectivetype === 'PJ018005') {
                 this.show = true;
@@ -1536,10 +1595,8 @@
                 this.listAll();
               }
               //add ccm 0805 1
-              if (this.form.loanapno !=null && this.form.loanapno !='' && this.form.loanapno!=undefined)
-              {
-                if (!this.$route.params.disabled && this.$route.params._id!='' && this.$route.params._id!=null)
-                {
+              if (this.form.loanapno != null && this.form.loanapno != '' && this.form.loanapno != undefined) {
+                if (!this.$route.params.disabled && this.$route.params._id != '' && this.$route.params._id != null) {
                   this.clickBunable = false;
                 }
               }
@@ -1564,16 +1621,31 @@
               this.groupid = rst.groupNmae;
               this.teamid = rst.teamNmae;
               this.form.center_id = rst.centerId;
-              this.form.group_id = rst.groupId;
+                // this.form.group_id = rst.groupId;
               this.form.team_id = rst.teamId;
+                //add_fjl_0806
+                alert(rst.groupId)
+                if (rst.groupId !== null && rst.groupId !== '') {
+                    this.form.group_id = rst.groupId;
+                    this.getBudt(this.form.group_id);
+                    this.checkGro = true;
+                } else {
+                    this.checkGro = false;
+                }
+                //add_fjl_0806
             }
             this.form.user_id = this.$store.getters.userinfo.userid;
-            this.getBudt(this.form.user_id);
           }
         }
       }
     },
     created() {
+      let userid = '';
+      if (this.$route.params.userid) {
+        if (getUserInfoName(this.$route.params.userid) !== '-1') {
+          userid = getUserInfoName(this.$route.params.userid).userid;
+        }
+      }
       //add-ws-7/7-禅道247
       this.checktype = this.$route.params._type;
       //add-ws-7/7-禅道247
@@ -1597,39 +1669,79 @@
         } else {
           this.form.checkch = '0';
           if (this.$route.params._check) {
-            this.buttonList = [
-              {
-                key: 'save',
-                name: 'button.save',
-                disabled: true,
-                icon: 'el-icon-check',
-              },
-              {
-                key: 'plantic',
-                name: 'button.plantic',
-                disabled: false,
-              },
-              {
-                key: 'apartment',
-                name: 'button.apartment',
-                disabled: false,
-              },
-            ];
+            if (userid === this.$store.getters.userinfo.userid) {
+              this.buttonList = [
+                {
+                  key: 'save',
+                  name: 'button.save',
+                  disabled: true,
+                  icon: 'el-icon-check',
+                },
+                {
+                  key: 'plantic',
+                  name: 'button.plantic',
+                  disabled: false,
+                },
+                {
+                  key: 'apartment',
+                  name: 'button.apartment',
+                  disabled: false,
+                },
+              ];
+            } else {
+              this.buttonList = [
+                {
+                  key: 'save',
+                  name: 'button.save',
+                  disabled: true,
+                  icon: 'el-icon-check',
+                },
+                {
+                  key: 'plantic',
+                  name: 'button.plantic',
+                  disabled: true,
+                },
+                {
+                  key: 'apartment',
+                  name: 'button.apartment',
+                  disabled: true,
+                },
+              ];
+            }
+
+
             this.enableSave = true;
           } else {
-            this.buttonList = [
-              {
-                key: 'save',
-                name: 'button.save',
-                disabled: true,
-                icon: 'el-icon-check',
-              },
-              {
-                key: 'plantic',
-                name: 'button.plantic',
-                disabled: false,
-              },
-            ];
+            if (userid === this.$store.getters.userinfo.userid) {
+              this.buttonList = [
+                {
+                  key: 'save',
+                  name: 'button.save',
+                  disabled: true,
+                  icon: 'el-icon-check',
+                },
+                {
+                  key: 'plantic',
+                  name: 'button.plantic',
+                  disabled: false,
+                },
+              ];
+            } else {
+              this.buttonList = [
+                {
+                  key: 'save',
+                  name: 'button.save',
+                  disabled: true,
+                  icon: 'el-icon-check',
+                },
+                {
+                  key: 'plantic',
+                  name: 'button.plantic',
+                  disabled: true,
+                },
+              ];
+            }
+
             this.enableSave = true;
           }
         }
@@ -1684,10 +1796,21 @@
       //add-ws-7/7-禅道247
     },
     methods: {
-
+        //add_fjl_0806
+        getCenterid(val) {
+            this.form.center_id = val;
+        },
+        getGroupId(val) {
+            this.form.group_id = val;
+            this.form.budgetunit = '';
+            this.getBudt(val);
+        },
+        getTeamid(val) {
+            this.form.team_id = val;
+        },
+        //add_fjl_0806
       //add ccm 0805
-      clickBun()
-      {
+      clickBun() {
         this.$store.commit('global/SET_HISTORYURL', '');
         this.$store.commit('global/SET_WORKFLOWURL', '/FFFFF1002FormView');
         this.$router.push({
@@ -1697,7 +1820,7 @@
             _checkid: this.$route.params._id,
             _check: true,
             _id: this.form.loanapplication_id,
-            _sta:'0',
+            _sta: '0',
             disabled: false,
           },
         });
@@ -1801,9 +1924,13 @@
       //add_fjl_07/29_修改项目查看  end
       //add-ws-4/24-项目名称所取数据源变更
       getBudt(val) {
+          if (val !== '' || val !== null) {
+              return;
+          }
+          this.options = [];
         //ADD_FJL  修改人员预算编码
-        if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
-          let butinfo = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
+          // if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
+          let butinfo = getOrgInfo(val).encoding;
           let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
           if (dic.length > 0) {
             for (let i = 0; i < dic.length; i++) {
@@ -1815,7 +1942,7 @@
               }
             }
           }
-        }
+          // }
         //ADD_FJL  修改人员预算编码
       },
       checkRequire() {

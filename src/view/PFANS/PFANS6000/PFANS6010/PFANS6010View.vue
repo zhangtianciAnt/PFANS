@@ -32,6 +32,11 @@
                 data: [],
                 letparams:{},
                 status:'',
+                groupid:'',
+                buttonListinitial:[
+                    {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
+                    {'key': 'contract', 'name': 'button.contract', 'disabled': false, 'icon': 'el-icon-tickets'}
+                ],
                 // 列属性
                 columns: [
                     {
@@ -115,6 +120,7 @@
                             tempDate.setDate(1);
                             dates = moment(tempDate).format('M');
                         }
+                        let showButton = '0';
                         for (let j = 0; j < response.length; j++) {
                             if(response[j].groupid){
                                 let group = getorgGroupList(response[j].groupid);
@@ -140,8 +146,14 @@
                                 }
                             }
                             response[j].status = response[j].letstatus;
+                            //判断是否有审批未通过的数据
+                            if(response[j].letstatus != '4'){
+                                showButton = '1';
+                            }
                             //数据状态
                             response[j].letstatus = getStatus(response[j].status);
+
+                            //region 部门费用合计
                             let letmanhour;
                             let letcost;
                             if(dates === '4'){
@@ -194,6 +206,16 @@
                             }
                             response[j].manhour = letmanhour;
                             response[j].cost = letcost;
+                            //endregion 部门费用合计
+                        }
+                        //外驻管理人员可操作【生成合同】
+                        if(letRole2 == '4' && showButton === '1'){
+                            this.buttonList = this.buttonListinitial;
+                        }
+                        else{
+                            this.buttonList = [
+                                {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
+                            ]
                         }
                         this.data = response;
                         this.loading = false;
@@ -210,7 +232,8 @@
             rowClick(row) {
                 this.rowid = row.coststatistics_id;
                 this.letstatus = row.status;
-                if(this.$store.getters.userinfo.userinfo.groupid === this.rowid.split(",")[0]
+                this.groupid = row.groupid;
+                if(this.$store.getters.userinfo.userinfo.groupid === this.groupid
                     && row.status === '0' && Number(row.cost) != 0){
                     this.$store.commit('global/SET_OPERATEOWNER', this.$store.getters.userinfo.userid);
                 }
@@ -229,6 +252,21 @@
                         });
                         return;
                     }
+                    this.letparams.role = '1'
+                    this.letparams.groupid = this.groupid;
+                    this.$router.push({
+                        name: 'PFANS6010FormView',
+                        params: {
+                            _id: this.rowid,
+                            letparams:this.letparams,
+                            letstatus:this.letstatus,
+                            disabled: false
+                        }
+                    })
+                }
+                if (val === 'contract') {
+                    //外驻管理担当
+                    this.letparams.role = '4';
                     this.$router.push({
                         name: 'PFANS6010FormView',
                         params: {

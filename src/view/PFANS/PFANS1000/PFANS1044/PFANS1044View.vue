@@ -693,14 +693,14 @@
               this.$t('label.PFANS1024VIEW_CONTRACT2') + this.$t('label.PFANS1024VIEW_ENGLISH'),
               this.$t('label.PFANS1024VIEW_CONTRACT2') + this.$t('label.PFANS1024VIEW_CHINESE'),
               this.$t('label.PFANS1024VIEW_ENTRUSTEDNUMBER'),
-                // this.$t('label.PFANS1024VIEW_DELIVERYFINSHDATE'),
-                // this.$t('label.PFANS1024VIEW_DELIVERYDATE'),
+              // this.$t('label.PFANS1024VIEW_DELIVERYFINSHDATE'),
+              // this.$t('label.PFANS1024VIEW_DELIVERYDATE'),
               this.$t('label.PFANS1044VIEW_KANRYO'),
               this.$t('label.PFANS1024VIEW_LOADINGJUDGE'),
-                this.$t('label.PFANS1024VIEW_CLAIMDATE'),
-                this.$t('label.PFANS1024VIEW_BUSINESSCODE'),
-                this.$t('label.PFANS1024VIEW_PAPERCONTRACT'),
-                this.$t('label.PFANS2026FORMVIEW_REMARKS'),
+              this.$t('label.PFANS1024VIEW_CLAIMDATE'),
+              this.$t('label.PFANS1024VIEW_BUSINESSCODE'),
+              this.$t('label.PFANS1024VIEW_PAPERCONTRACT'),
+              this.$t('label.PFANS2026FORMVIEW_REMARKS'),
             ];
             const filterVal = [
               'department',
@@ -732,16 +732,16 @@
               'conenglish',
               'conchinese',
               'entrustednumber',
-                // 'deliveryfinshdate',
-                // 'deliverydate',
+              // 'deliveryfinshdate',
+              // 'deliverydate',
               'deliverydate',
               'loadingjudge',
-                //add_fjl_0803
-                'claimdate',//请求日
-                'businesscode',//事业场编码
-                'qingremarks',//请求书特殊备注
-                'remarks',//备注
-                //add_fjl_0803
+              //add_fjl_0803
+              'claimdate',//请求日
+              'businesscode',//事业场编码
+              'qingremarks',//请求书特殊备注
+              'remarks',//备注
+              //add_fjl_0803
             ];
             for (let selItem of selectedlist) {
               let cons = this.alldata2;
@@ -769,17 +769,17 @@
                 if (letContracttype != null) {
                   citem.currencyposition = letContracttype.value1;
                 }
-                  // if (citem.deliverydate != null) {
-                  //   citem.deliverydate = moment(citem.deliverydate).format('YYYY-MM-DD');
-                  // }
-                  //add_fjl_0803
-                  // if (citem.deliveryfinshdate != null) {
-                  //     citem.deliveryfinshdate = moment(citem.deliveryfinshdate).format('YYYY-MM-DD');
-                  // }
-                  if (citem.claimdate != null) {
-                      citem.claimdate = moment(citem.claimdate).format('YYYY-MM-DD');
-                  }
-                  //add_fjl_0803
+                // if (citem.deliverydate != null) {
+                //   citem.deliverydate = moment(citem.deliverydate).format('YYYY-MM-DD');
+                // }
+                //add_fjl_0803
+                // if (citem.deliveryfinshdate != null) {
+                //     citem.deliveryfinshdate = moment(citem.deliveryfinshdate).format('YYYY-MM-DD');
+                // }
+                if (citem.claimdate != null) {
+                  citem.claimdate = moment(citem.claimdate).format('YYYY-MM-DD');
+                }
+                //add_fjl_0803
                 if (selItem.entrypayment != null) {
                   selItem.entrypayment = moment(selItem.entrypayment).format('YYYY-MM-DD');
                 }
@@ -1001,7 +1001,7 @@
                                           date = 'JUN';
                                         } else if (invoiceDate == '07') {
                                           date = 'JUL';
-                                        }else if (invoiceDate == '08') {
+                                        } else if (invoiceDate == '08') {
                                           date = 'AUG';
                                         } else if (invoiceDate == '09') {
                                           date = 'SEPT';
@@ -1772,13 +1772,14 @@
                 const parser = new Parser({header: false});
                 const result = parser.parse(csvData);
                 let aaa = result.replace(new RegExp('"', 'gm'), '');
-                let ccc = encodeURI(aaa)
-                let ddd = ccc.replace(new RegExp('%0A',"gm"), '%0D%0A');
-                let eee = ddd + '%0D%0A'
+                let ccc = encodeURI(aaa);
+                let ddd = ccc.replace(new RegExp('%0A', 'gm'), '%0D%0A');
+                let eee = ddd + '%0D%0A';
+                let fff = moment(new Date()).format('YYYY-MM-DD');
                 let csvContent = 'data:text/csv;charset=utf-8,\ufeff' + eee;
                 const link = document.createElement('a');
                 link.href = csvContent;
-                link.download = this.$t('AR') + this.$t('label.PFANS5001FORMVIEW_CONTRACT') + '.csv';
+                link.download = this.$t('label.PFANS5001FORMVIEW_CONTRACT2') + fff + '.csv';
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
@@ -1850,7 +1851,7 @@
         //add-ws-No.29-合同检索一览表中追加纳品日期
         if (rst.length === 0) {
           // 委托
-          if(this.contractType === '0'){
+          if (this.contractType === '0') {
             this.data = rst;
             this.showTable = 2;
             // 受托
@@ -1905,7 +1906,7 @@
             this.showTable = 2;
           } else {
             this.data = rst;
-            if (this.contractType === "1") {
+            if (this.contractType === '1') {
               this.showTable = 1;
             } else {
               this.showTable = 3;
