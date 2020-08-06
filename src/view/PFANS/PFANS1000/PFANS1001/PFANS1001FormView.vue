@@ -1020,7 +1020,7 @@
                   _judgement_name: _judgement_name,
                   _judgements_moneys: _judgements_moneys,
                   _remarks: _remarks,
-                  _judgements_type: this.$t('menu.PFANS1010'),
+                    _judgements_type: this.$t('menu.PFANS1005'),
                   disabled: true,
                 },
               });

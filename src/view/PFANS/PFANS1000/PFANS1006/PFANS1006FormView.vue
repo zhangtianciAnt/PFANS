@@ -744,6 +744,13 @@
                 if (this.form.remarksdetail !== '' && this.form.remarksdetail !== null && this.form.remarksdetail !== undefined) {
                   remarks = this.form.remarksdetail.split('^');
                 }
+                  //add_fjl_0806  添加摘要的判断
+                  for (let a = 0; a < remarks.length; a++) {
+                      if (remarks[a] === 'null' || remarks[a] === 'undefined') {
+                          remarks[a] = '';
+                      }
+                  }
+                  //add_fjl_0806  添加摘要的判断
                 let judgements_moneys = [];
                 if (this.form.judgements_moneys !== '' && this.form.judgements_moneys !== null && this.form.judgements_moneys !== undefined) {
                   judgements_moneys = this.form.judgements_moneys.split(',');
@@ -756,7 +763,7 @@
                       obj.judgement = judgement[i];
                       obj.judgement_name = judgementname[d];
                       obj.judgements_type = this.form.judgements_type;
-                      obj.remarks = remarks === null || remarks === '' || remarks === undefined ? '' : remarks[i];
+                        obj.remarks = remarks[i];
                       obj.judgements_moneys = judgements_moneys[i];
                       datalist[i] = obj;
                     }
@@ -859,6 +866,13 @@
             if (this.$route.params._remarks !== '' && this.$route.params._remarks !== null && this.$route.params._remarks !== undefined) {
               let _remarks = this.$route.params._remarks.substring(0, this.$route.params._remarks.length - 1);
               remarks = _remarks.split('^');
+                //add_fjl_0806  添加摘要的判断
+                for (let a = 0; a < remarks.length; a++) {
+                    if (remarks[a] === 'null' || remarks[a] === 'undefined') {
+                        remarks[a] = '';
+                    }
+                }
+                //add_fjl_0806  添加摘要的判断
               this.form.remarksdetail = _remarks;
             }
             let judgements_moneys = [];
@@ -879,7 +893,7 @@
                   obj.judgement = judgement[i];
                   obj.judgement_name = judgementname[d];
                   obj.judgements_type = this.$route.params._judgements_type;
-                  obj.remarks = remarks[i] === null || remarks[i] === undefined ? '' : remarks[i];
+                    obj.remarks = remarks[i];
                   obj.judgements_moneys = judgements_moneys[i];
                   datalist[i] = obj;
                 }
@@ -891,7 +905,7 @@
               muchmoneys = (muchmoneys - 0) + (judgements_moneys[m] - 0);
             }
             this.form.moneys = muchmoneys;
-            this.form.remark = remarks === null || remarks === '' || remarks === undefined ? '' : remarks[0];
+              this.form.remarks = remarks[0];
           } else {
             this.showtab = false;
           }
