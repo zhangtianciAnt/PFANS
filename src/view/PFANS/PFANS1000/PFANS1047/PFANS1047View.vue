@@ -108,6 +108,7 @@
           params: {
             _id: row.sealid,
             disabled: true,
+            check1: true,
           },
         });
       },
