@@ -273,6 +273,8 @@
                   response[j].acceptstatus = this.$t('label.PFANS3006VIEW_REFUSE');
                 } else if (response[j].acceptstatus === '2') {
                   response[j].acceptstatus = this.$t('label.PFANS3006VIEW_CARRYOUT');
+                } else if (response[j].acceptstatus === '3') {
+                  response[j].acceptstatus = this.$t('label.PFANS3006VIEW_CARRYOUT2');
                 }
               }
             }
