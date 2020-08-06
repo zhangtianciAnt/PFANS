@@ -111,7 +111,6 @@
         return row.status === this.$t('label.PFANS5004VIEW_OVERTIME');
       },
       getCompanyProjectList() {
-        this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1011FormView');
         this.row = 'policycontract_id';
         this.title = 'title.PFANS1045VIEW';
         this.dispatch('PFANS1006Store/getpolicycontract');
@@ -203,6 +202,7 @@
       buttonClick(val) {
         let letname;
         letname = 'PFANS1045FormView';
+        this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1045View');
         this.$store.commit('global/SET_HISTORYURL', '');
         if (val === 'update') {
           if (this.rowid === '') {
