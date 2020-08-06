@@ -11,6 +11,7 @@
       @workflowState="workflowState"
       ref="container"
       v-loading="loading"
+      :workflowCode="workflowCode"
     >
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
@@ -21,20 +22,32 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.center')">
-                      <el-input :disabled="true" style="width:20vw" v-model="centerid"></el-input>
-                      <el-input :disabled="true" style="width: 20vw" v-model="form.center_id" v-show='false'></el-input>
+                      <org :disabled="true"
+                           :orglist="form.center_id"
+                           @getOrgids="getCenterid"
+                           orgtype="1"
+                           style="width: 20vw"
+                      ></org>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.group')">
-                      <el-input :disabled="true" style="width:20vw" v-model="groupid"></el-input>
-                      <el-input :disabled="true" style="width: 20vw" v-model="form.group_id" v-show='false'></el-input>
+                      <org :disabled="checkGro"
+                           :orglist="form.group_id"
+                           @getOrgids="getGroupId"
+                           orgtype="2"
+                           style="width: 20vw"
+                      ></org>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.team')">
-                      <el-input :disabled="true" style="width:20vw" v-model="teamid"></el-input>
-                      <el-input :disabled="true" style="width: 20vw" v-model="form.team_id" v-show='false'></el-input>
+                      <org :disabled="true"
+                           :orglist="form.team_id"
+                           @getOrgids="getTeamid"
+                           orgtype="3"
+                           style="width: 20vw"
+                      ></org>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -250,7 +263,7 @@
               <div>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012FORMVIEW_BUDGET')">
+                    <el-form-item :label="$t('label.PFANS1012FORMVIEW_BUDGET')" prop="budgetunit">
                       <!--                      <el-input :disabled="true" maxlength='50' style="width:20vw" v-model="form.budgetunit"></el-input>-->
                       <el-select clearable style="width: 20vw" v-model="form.budgetunit" :disabled="!disable"
                                  :placeholder="$t('normal.error_09')">
@@ -753,9 +766,10 @@
   import project from '../../../components/project.vue';
   import {Message} from 'element-ui';
   import moment from 'moment';
-  import {getOrgInfo, getOrgInfoByUserId, getUserInfoName} from '@/utils/customize';
+  import {getOrgInfo, getOrgInfoByUserId, getUserInfoName, getCurrentRole} from '@/utils/customize';
   import dicselect from '../../../components/dicselect';
   import {getDictionaryInfo} from '../../../../utils/customize';
+  import org from '../../../components/org';
 
   export default {
     name: 'PFANS1002FormView',
@@ -764,6 +778,7 @@
       EasyNormalContainer,
       user,
       project,
+        org,
     },
     data() {
       var validateUserid = (rule, value, callback) => {
@@ -856,6 +871,7 @@
         userlist: '',
         activeName: 'first',
         loading: false,
+          workflowCode: '',
         disabled: false,
         code1: 'PJ016',
         code2: 'PJ017',
@@ -1287,6 +1303,15 @@
               trigger: 'change',
             },
           ],
+            //add_fjl_0806 预算编码
+            budgetunit: [
+                {
+                    required: true,
+                    message: this.$t('normal.error_09') + this.$t('label.PFANS1012FORMVIEW_BUDGET'),
+                    trigger: 'change',
+                },
+            ],
+            //add_fjl_0806 预算编码
         },
         show: false,
         show2: false,
@@ -1297,6 +1322,7 @@
         show9: false,
         show10: false,
         canStart: false,
+          checkGro: false,
       };
     },
     mounted() {
@@ -1315,11 +1341,25 @@
                   this.loading = false;
                   return;
                 }
+                  //add_fjl_0806  添加总经理审批流程
+                  if (getCurrentRole() === '1') {
+                      this.workflowCode = 'W0097';//总经理流程
+                  } else {
+                      this.workflowCode = 'W0048';//其他
+                  }
+                  //add_fjl_0806  添加总经理审批流程
                 let rst = getOrgInfoByUserId(response.business.user_id);
                 if (rst) {
-                  this.centerid = rst.centerNmae;
-                  this.groupid = rst.groupNmae;
-                  this.teamid = rst.teamNmae;
+                    //upd_fjl_0806
+                    if (rst.groupId !== null && rst.groupId !== '') {
+                        this.checkGro = true;
+                    } else {
+                        this.checkGro = false;
+                    }
+                    // this.centerid = rst.centerNmae;
+                    // this.groupid = rst.groupNmae;
+                    // this.teamid = rst.teamNmae;
+                    //upd_fjl_0806
                 }
                 if (response.travelcontent.length > 0) {
                   this.tablePD = [];
@@ -1340,7 +1380,7 @@
                   }
                 }
                 this.userlist = this.form.user_id;
-                this.getBudt(this.userlist);
+                  this.getBudt(this.form.group_id);
                 this.baseInfo.business = JSON.parse(JSON.stringify(this.form));
                 if (this.form.objectivetype === 'PJ018005') {
                   this.show = true;
@@ -1422,15 +1462,22 @@
           let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
 
           if (rst) {
-            this.centerid = rst.centerNmae;
-            this.groupid = rst.groupNmae;
-            this.teamid = rst.teamNmae;
-            this.form.center_id = rst.centerId;
-            this.form.group_id = rst.groupId;
-            this.form.team_id = rst.teamId;
+              //upd_fjl_0806
+              if (rst.groupId !== null && rst.groupId !== '') {
+                  this.checkGro = true;
+              } else {
+                  this.checkGro = false;
+              }
+              // this.centerid = rst.centerNmae;
+              // this.groupid = rst.groupNmae;
+              // this.teamid = rst.teamNmae;
+              // this.form.center_id = rst.centerId;
+              // this.form.group_id = rst.groupId;
+              // this.form.team_id = rst.teamId;
+              //upd_fjl_0806
           }
           this.form.user_id = this.$store.getters.userinfo.userid;
-          this.getBudt(this.form.user_id);
+            this.getBudt(this.form.group_id);
         }
       } else {
         if (this.$route.params._id) {
@@ -1442,6 +1489,13 @@
                 this.loading = false;
                 return;
               }
+                //add_fjl_0806  添加总经理审批流程
+                if (getCurrentRole() === '1') {
+                    this.workflowCode = 'W0097';//总经理流程
+                } else {
+                    this.workflowCode = 'W0048';//其他
+                }
+                //add_fjl_0806  添加总经理审批流程
               this.form = response.business;
               if (this.form.checkch != '1') {
                 if (this.$route.params._type === 3) {
@@ -1452,9 +1506,16 @@
               }
               let rst = getOrgInfoByUserId(response.business.user_id);
               if (rst) {
-                this.centerid = rst.centerNmae;
-                this.groupid = rst.groupNmae;
-                this.teamid = rst.teamNmae;
+                  //upd_fjl_0806
+                  if (rst.groupId !== null && rst.groupId !== '') {
+                      this.checkGro = true;
+                  } else {
+                      this.checkGro = false;
+                  }
+                  // this.centerid = rst.centerNmae;
+                  // this.groupid = rst.groupNmae;
+                  // this.teamid = rst.teamNmae;
+                  //upd_fjl_0806
               }
               if (response.travelcontent.length > 0) {
                 this.tablePD = [];
@@ -1475,7 +1536,7 @@
                 }
               }
               this.userlist = this.form.user_id;
-              this.getBudt(this.userlist);
+                this.getBudt(this.form.group_id);
               this.baseInfo.business = JSON.parse(JSON.stringify(this.form));
               if (this.form.objectivetype === 'PJ018005') {
                 this.show = true;
@@ -1560,11 +1621,20 @@
               this.groupid = rst.groupNmae;
               this.teamid = rst.teamNmae;
               this.form.center_id = rst.centerId;
-              this.form.group_id = rst.groupId;
+                // this.form.group_id = rst.groupId;
               this.form.team_id = rst.teamId;
+                //add_fjl_0806
+                alert(rst.groupId)
+                if (rst.groupId !== null && rst.groupId !== '') {
+                    this.form.group_id = rst.groupId;
+                    this.getBudt(this.form.group_id);
+                    this.checkGro = true;
+                } else {
+                    this.checkGro = false;
+                }
+                //add_fjl_0806
             }
             this.form.user_id = this.$store.getters.userinfo.userid;
-            this.getBudt(this.form.user_id);
           }
         }
       }
@@ -1726,7 +1796,19 @@
       //add-ws-7/7-禅道247
     },
     methods: {
-
+        //add_fjl_0806
+        getCenterid(val) {
+            this.form.center_id = val;
+        },
+        getGroupId(val) {
+            this.form.group_id = val;
+            this.form.budgetunit = '';
+            this.getBudt(val);
+        },
+        getTeamid(val) {
+            this.form.team_id = val;
+        },
+        //add_fjl_0806
       //add ccm 0805
       clickBun() {
         this.$store.commit('global/SET_HISTORYURL', '');
@@ -1842,9 +1924,13 @@
       //add_fjl_07/29_修改项目查看  end
       //add-ws-4/24-项目名称所取数据源变更
       getBudt(val) {
+          if (val !== '' || val !== null) {
+              return;
+          }
+          this.options = [];
         //ADD_FJL  修改人员预算编码
-        if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
-          let butinfo = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
+          // if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
+          let butinfo = getOrgInfo(val).encoding;
           let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
           if (dic.length > 0) {
             for (let i = 0; i < dic.length; i++) {
@@ -1856,7 +1942,7 @@
               }
             }
           }
-        }
+          // }
         //ADD_FJL  修改人员预算编码
       },
       checkRequire() {

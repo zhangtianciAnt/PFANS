@@ -37,7 +37,7 @@
 <script>
   import EasyNormalTable from '@/components/EasyNormalTable';
   import {Message} from 'element-ui';
-  import {getDictionaryInfo, getOrgInfoByUserId, getStatus, getUserInfo} from '@/utils/customize';
+  import {getDictionaryInfo, getOrgInfoByUserId, getStatus, getUserInfo, getDepartmentById} from '@/utils/customize';
   import moment from 'moment';
 
   export default {
@@ -539,9 +539,14 @@
           let nameflg = getOrgInfoByUserId(response[j].user_id);
           if (nameflg) {
             response[j].center_id = nameflg.centerNmae;
-            response[j].group_id = nameflg.groupNmae;
+              // response[j].group_id = nameflg.groupNmae;
             response[j].team_id = nameflg.teamNmae;
           }
+            //add_fjl_0806
+            if (response[j].group_id !== null && response[j].group_id !== '' && response[j].group_id !== undefined) {
+                response[j].group_id = getDepartmentById(response[j].group_id);
+            }
+            //add_fjl_0806
           let user = getUserInfo(response[j].user_id);
           if (user) {
             response[j].user_id = getUserInfo(response[j].user_id).userinfo.customername;
